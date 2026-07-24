@@ -1,0 +1,9 @@
+{
+  "title": "SteelWheels",
+  "description": "Explore the SteelWheels metadata domain in Pentaho Metadata Editor: physical layer, business models, relationships, and business views.",
+  "order": 3,
+  "stepCount": 6,
+  "estimatedMinutes": 45,
+  "hasVideo": false,
+  "kind": "workshop"
+}

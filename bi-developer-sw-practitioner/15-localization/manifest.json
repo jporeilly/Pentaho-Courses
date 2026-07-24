@@ -1,0 +1,9 @@
+{
+  "title": "Overview of Localization",
+  "description": "Internationalising Mondrian schemas with dynamic schema processing — tokenization, locale property files, and mondrian.properties configuration.",
+  "order": 15,
+  "kind": "page",
+  "stepCount": 4,
+  "hasVideo": false,
+  "estimatedMinutes": 20
+}

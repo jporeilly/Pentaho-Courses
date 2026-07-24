@@ -1,0 +1,9 @@
+{
+  "title": "Review SCDs",
+  "description": "Slowly Changing Dimensions — how to model historical change in warehouse dimension tables, and which SCD type fits which business question.",
+  "order": 0,
+  "kind": "page",
+  "stepCount": 6,
+  "hasVideo": false,
+  "estimatedMinutes": 20
+}

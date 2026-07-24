@@ -1,0 +1,9 @@
+{
+  "title": "Carrier Dashboard",
+  "description": "Build the Wireless Carrier analytics dashboard in CDE end to end: layout, CSS, CDA MDX data sources, interactive CCC charts, selectors, click actions, exports, and expandable rows.",
+  "order": 12,
+  "stepCount": 3,
+  "estimatedMinutes": 90,
+  "hasVideo": false,
+  "kind": "workshop"
+}

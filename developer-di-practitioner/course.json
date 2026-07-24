@@ -1,0 +1,55 @@
+{
+  "id": "developer-di-practitioner",
+  "title": "Pentaho Developer - DI Practitioner",
+  "description": "Self-paced, hands-on workshop for the Pentaho Data Integration Practitioner.",
+  "version": "0.1.0",
+  "kind": "workshop",
+  "mode": "sequential",
+  "theme": {
+    "accent": "#b91c1c"
+  },
+  "assistant": {
+    "ollamaURL": "http://localhost:11434",
+    "mcpURL": "https://docs.pentaho.com/~gitbook/mcp",
+    "defaultProfile": "cpu",
+    "models": {
+      "cpu": "llama3.2:3b",
+      "gpu": "qwen2.5:7b"
+    }
+  },
+  "moduleSummaries": [
+    {
+      "title": "Getting Started",
+      "summary": "Get familiar with Spoon — PDI's design tool. Configure your workspace, set Look & Feel options, switch perspectives, and learn how Kettle variables drive every transformation you'll build."
+    },
+    {
+      "title": "Concepts & Terminology",
+      "summary": "Build your first transformation: a 'Hello World' that introduces steps, hops, rows, and the run/preview cycle. Vocabulary you'll lean on for every lab that follows."
+    },
+    {
+      "title": "Data Sources",
+      "summary": "Read and write the formats and systems you'll meet daily — text, JSON, XML, Excel; relational databases (CRUID + slowly changing dimensions); and the big-data layer: Hadoop, Jupyter, SMB, Snowflake, MinIO."
+    },
+    {
+      "title": "Enriching the Dataset",
+      "summary": "Shape data inside the pipeline: joins (database, merge, XML, row), lookups, merge-streams patterns, and scripting (Formula, Modified JavaScript Value) when SQL alone isn't enough."
+    },
+    {
+      "title": "Enterprise Solution",
+      "summary": "Move from individual transformations to production: jobs, parameters and variables, and scalability (master/slave, partitioning). Get your pipelines ready for scheduling, monitoring, and shipping."
+    },
+    {
+      "title": "Capstone Project",
+      "summary": "Bring it all together: build a parameterised job that ingests CSV, JSON, and master data, validates and enriches the rows, tracks historical changes with an SCD, and loads a dimensional model — a complete, interview-ready pipeline."
+    }
+  ],
+  "launchers": {
+    "spoon": {
+      "label": "Pentaho Data Integration",
+      "windows": "C:\\Pentaho\\design-tools\\data-integration\\spoon.bat",
+      "linux": "~/Pentaho/design-tools/data-integration/spoon.sh",
+      "macos": "~/Pentaho/design-tools/data-integration/spoon.sh",
+      "fileArg": "-file="
+    }
+  }
+}

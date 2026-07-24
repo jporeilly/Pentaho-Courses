@@ -1,0 +1,9 @@
+{
+  "title": "Overview",
+  "description": "MQTT (Message Queuing Telemetry Transport) — the lightweight publish/subscribe protocol for IoT. The broker/topic model and how PDI consumes it with the MQTT Consumer step.",
+  "order": 2,
+  "kind": "page",
+  "stepCount": 7,
+  "hasVideo": false,
+  "estimatedMinutes": 25
+}

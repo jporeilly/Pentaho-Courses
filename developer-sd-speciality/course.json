@@ -1,0 +1,47 @@
+{
+  "id": "developer-sd-speciality",
+  "title": "Pentaho Developer - SD Speciality",
+  "description": "Real-time streaming data integration with Pentaho Data Integration. Consume and process unbounded event streams over MQTT, AMQP, and Apache Kafka — IoT sensor telemetry, message-queue pipelines, and real-time user-activity streams using PDI's parent/child streaming pattern.",
+  "version": "0.1.0",
+  "kind": "workshop",
+  "mode": "sequential",
+  "theme": {
+    "accent": "#b91c1c"
+  },
+  "assistant": {
+    "ollamaURL": "http://localhost:11434",
+    "mcpURL": "https://docs.pentaho.com/~gitbook/mcp",
+    "defaultProfile": "cpu",
+    "models": {
+      "cpu": "llama3.2:3b",
+      "gpu": "qwen2.5:7b"
+    }
+  },
+  "moduleSummaries": [
+    {
+      "title": "Streaming Data",
+      "summary": "Process unbounded, real-time event streams with PDI's streaming steps. Batch vs. streaming, the parent/child transformation pattern, and the 'Get records from stream' step that underpins every streaming source."
+    },
+    {
+      "title": "MQTT",
+      "summary": "Message Queuing Telemetry Transport — the lightweight publish/subscribe protocol for IoT. Two workshops: industrial robot-sensor telemetry via a HiveMQ broker, and a delivery-truck predictive-maintenance use case via an EMQX broker."
+    },
+    {
+      "title": "AMQP",
+      "summary": "Advanced Message Queuing Protocol — reliable, decoupled messaging via exchanges, bindings, and queues. Workshop: consume room-sensor data from a RabbitMQ broker with the AMQP Consumer step and append it to output files."
+    },
+    {
+      "title": "Kafka",
+      "summary": "Apache Kafka — a distributed event-streaming platform running in KRaft mode. Workshop: consume a real-time user-activity stream with the Kafka Consumer EE step and load it into a MySQL warehouse."
+    }
+  ],
+  "launchers": {
+    "spoon": {
+      "label": "Pentaho Data Integration",
+      "windows": "C:Pentahodesign-toolsdata-integrationspoon.bat",
+      "linux": "~/Pentaho/design-tools/data-integration/spoon.sh",
+      "macos": "~/Pentaho/design-tools/data-integration/spoon.sh",
+      "fileArg": "-file="
+    }
+  }
+}

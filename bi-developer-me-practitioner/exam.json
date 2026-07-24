@@ -1,0 +1,727 @@
+{
+  "title": "Practitioner Exam",
+  "description": "A fixed 40-question exam drawn at random from a 50-question bank covering all six modules. Pass mark is 80%. This is an open-book exam — take your time, browse any module to refresh your memory, or ask the AI assistant for help. Your answers are saved as you go, so leaving the page to look something up is fine. Explanations show after submission so you can learn from any answers you missed.",
+  "passMark": 80,
+  "questionsPerAttempt": 40,
+  "shuffle": true,
+  "webhookUrl": "https://script.google.com/macros/s/AKfycbzt7thr4mfy3-kduDbiQ_UfBPwGC7JxpZA9p1XOeGJG4Q0rh9-OoKJNG965c8SVNQ7i/exec",
+  "webhookSecret": "pcm_Y61JKvDGnbuqvn3BIVCkjoSu98Jn3bE4",
+  "questions": [
+    {
+      "id": "gs-q1",
+      "module": "Getting Started",
+      "scenario": "Business users keep asking IT to write SQL for every new report because the database table and column names are cryptic.",
+      "prompt": "What does Pentaho Metadata Editor (PME) provide to solve this?",
+      "options": [
+        "A faster SQL editor for IT",
+        "A business-friendly semantic layer that maps tables/columns to business terms so users build reports without SQL",
+        "A replacement relational database",
+        "An OLAP cube engine"
+      ],
+      "correct": 1,
+      "explanation": "PME builds a semantic (metadata) layer that translates technical structures into business language, letting non-technical users create reports without writing SQL.",
+      "source": "Pentaho BI Developer - ME Practitioner: Getting Started — Components"
+    },
+    {
+      "id": "gs-q2",
+      "module": "Getting Started",
+      "prompt": "A PME metadata domain consists of which two key components?",
+      "options": [
+        "A cube and a schema",
+        "The physical layer (technical structure) and the business model layer (business-oriented view)",
+        "A fact table and a dimension table",
+        "A JDBC driver and a report template"
+      ],
+      "correct": 1,
+      "explanation": "A domain has a physical layer (connections, physical tables/columns) and a business model layer that abstracts it into business terms, plus the business view.",
+      "source": "Pentaho BI Developer - ME Practitioner: Getting Started — Components"
+    },
+    {
+      "id": "gs-q3",
+      "module": "Getting Started",
+      "scenario": "A DBA renames some technical columns in the source database.",
+      "prompt": "How does the metadata layer reduce disruption to existing reports?",
+      "options": [
+        "It rewrites every report automatically",
+        "It acts as a buffer — as long as the business layer stays consistent, reports keep working despite physical changes",
+        "It locks the database against changes",
+        "It deletes the affected reports"
+      ],
+      "correct": 1,
+      "explanation": "The metadata layer buffers business users from technical changes, minimising disruption and maintenance as long as the business model remains consistent.",
+      "source": "Pentaho BI Developer - ME Practitioner: Getting Started — Components"
+    },
+    {
+      "id": "gs-q4",
+      "module": "Getting Started",
+      "prompt": "What happens to metadata defined on a physical column when a business column references it?",
+      "options": [
+        "Nothing — they are independent",
+        "The business column inherits the physical column's metadata, property by property, until it overrides a property",
+        "The physical column is deleted",
+        "The business column must redefine every property manually"
+      ],
+      "correct": 1,
+      "explanation": "PME uses metadata inheritance: business objects inherit physical metadata per-property unless and until the business object overrides that property.",
+      "source": "Pentaho BI Developer - ME Practitioner: Domains & Models — Overview"
+    },
+    {
+      "id": "gs-q5",
+      "module": "Getting Started",
+      "prompt": "Who consumes the metadata domains that PME publishes?",
+      "options": [
+        "Only database administrators",
+        "Pentaho reporting tools, so business users build ad-hoc reports in business terms",
+        "The operating system",
+        "Schema Workbench only"
+      ],
+      "correct": 1,
+      "explanation": "Published domains become data sources for Pentaho reporting tools (e.g. Interactive Reporting), enabling business-term ad-hoc reporting.",
+      "source": "Pentaho BI Developer - ME Practitioner: Getting Started — Components"
+    },
+    {
+      "id": "gs-q6",
+      "module": "Getting Started",
+      "prompt": "Which capabilities does PME add on top of raw database access? (Select all that apply.)",
+      "options": [
+        "Business-friendly names and consistent formatting rules",
+        "Security controls over which data users can see",
+        "Localization that adapts presentation to users' regional settings",
+        "Automatic indexing of the source database"
+      ],
+      "correctIndices": [0, 1, 2],
+      "explanation": "PME provides friendly naming/formatting, security, and localization. It does not index the underlying database.",
+      "source": "Pentaho BI Developer - ME Practitioner: Getting Started — Components"
+    },
+    {
+      "id": "gs-q7",
+      "module": "Getting Started",
+      "prompt": "What is the primary purpose of a PME metadata domain?",
+      "options": [
+        "To store report output",
+        "To create a semantic layer that makes complex database structures accessible while maintaining consistency and security",
+        "To run ETL transformations",
+        "To host the Pentaho Server"
+      ],
+      "correct": 1,
+      "explanation": "The domain's purpose is a semantic layer that makes data accessible to business users while keeping consistency and security across the organisation.",
+      "source": "Pentaho BI Developer - ME Practitioner: Getting Started — Components"
+    },
+    {
+      "id": "dm-q1",
+      "module": "Domains & Models",
+      "prompt": "The physical layer of a domain encompasses which objects?",
+      "options": [
+        "Categories and business views",
+        "Connections, physical tables, and physical columns",
+        "Cubes, dimensions, and measures",
+        "Reports and dashboards"
+      ],
+      "correct": 1,
+      "explanation": "The physical layer holds the database connections, physical tables, and physical columns that mirror the source database.",
+      "source": "Pentaho BI Developer - ME Practitioner: Domains & Models — Overview (Physical Layer)"
+    },
+    {
+      "id": "dm-q2",
+      "module": "Domains & Models",
+      "prompt": "What is the rule about connections within a single business model?",
+      "options": [
+        "A model can mix tables from any number of connections",
+        "A business model must reference one and only one connection",
+        "A model needs at least two connections",
+        "Connections are not used by business models"
+      ],
+      "correct": 1,
+      "explanation": "Each business model references exactly one connection — you cannot mix physical tables from two different connections in the same model.",
+      "source": "Pentaho BI Developer - ME Practitioner: Domains & Models — Overview (Physical Layer)"
+    },
+    {
+      "id": "dm-q3",
+      "module": "Domains & Models",
+      "prompt": "What do relationships (joins) defined between business tables enable?",
+      "options": [
+        "They format currency values",
+        "They let PME automatically generate the correct SQL joins when users build reports",
+        "They publish the domain",
+        "They hide columns from users"
+      ],
+      "correct": 1,
+      "explanation": "Relationships describe how business tables join, so PME can construct accurate cross-table SQL automatically during report generation.",
+      "source": "Pentaho BI Developer - ME Practitioner: Domains & Models — Overview (Relationships)"
+    },
+    {
+      "id": "dm-q4",
+      "module": "Domains & Models",
+      "prompt": "What is the role of the Business View and its categories?",
+      "options": [
+        "To store the physical database connection",
+        "To expose a curated, business-friendly set of columns organised into logical categories for report builders",
+        "To run the JDBC driver",
+        "To define the star schema joins"
+      ],
+      "correct": 1,
+      "explanation": "The business view is the user-facing layer; categories group related business columns into intuitive collections that match business thinking.",
+      "source": "Pentaho BI Developer - ME Practitioner: Domains & Models — Overview (Business View)"
+    },
+    {
+      "id": "dm-q5",
+      "module": "Domains & Models",
+      "scenario": "You import the Steel Wheels SampleData connection into a new domain.",
+      "prompt": "Roughly how many physical tables does the SteelWheels physical layer contain?",
+      "options": [
+        "3",
+        "13",
+        "50",
+        "Just 1"
+      ],
+      "correct": 1,
+      "explanation": "The SteelWheels sample data imports 13 interconnected tables spanning customers, products, orders, employees, and financial data.",
+      "source": "Pentaho BI Developer - ME Practitioner: Domains & Models — SteelWheels"
+    },
+    {
+      "id": "dm-q6",
+      "module": "Domains & Models",
+      "scenario": "You need a Total measure that doesn't exist as a column in the physical tables.",
+      "prompt": "How can you create it in PME?",
+      "options": [
+        "You cannot — only existing columns are allowed",
+        "Create a calculated column based on an expression such as [QUANTITYORDERED]*[PRICEEACH]",
+        "Edit the database directly",
+        "Add it as a relationship"
+      ],
+      "correct": 1,
+      "explanation": "PME supports calculated columns derived from an expression over other columns (referenced as [COLUMN]), e.g. Total = [QUANTITYORDERED]*[PRICEEACH].",
+      "source": "Pentaho BI Developer - ME Practitioner: Domains & Models — SteelWheels"
+    },
+    {
+      "id": "dm-q7",
+      "module": "Domains & Models",
+      "prompt": "Which aggregation options can be set on a numeric column?",
+      "options": [
+        "Only Sum",
+        "Sum, Average, Minimum, and Maximum",
+        "Count distinct only",
+        "None — aggregation is automatic"
+      ],
+      "correct": 1,
+      "explanation": "A measure column can be aggregated as Sum, Average, Minimum, or Maximum, set on the column's metadata.",
+      "source": "Pentaho BI Developer - ME Practitioner: Domains & Models — SteelWheels"
+    },
+    {
+      "id": "dm-q8",
+      "module": "Domains & Models",
+      "scenario": "You open the Properties Editor for an object and see prefixes like PT, PC, BT, BC, and CT.",
+      "prompt": "What do these prefixes indicate?",
+      "options": [
+        "Random internal codes",
+        "Object types: Physical Table, Physical Column, Business Table, Business Column, and Category",
+        "Permission levels",
+        "Data types"
+      ],
+      "correct": 1,
+      "explanation": "PME prefixes identify the object: PT (Physical Table), PC (Physical Column), BT (Business Table), BC (Business Column), CT (Category).",
+      "source": "Pentaho BI Developer - ME Practitioner: Domains & Models — SteelWheels"
+    },
+    {
+      "id": "dm-q9",
+      "module": "Domains & Models",
+      "scenario": "You're building the OrdersME domain from scratch against SampleData.",
+      "prompt": "What is the first thing you must establish before importing tables?",
+      "options": [
+        "A business view",
+        "A database connection (with the JDBC driver in place) in the physical layer",
+        "A published XMI file",
+        "A row-level security constraint"
+      ],
+      "correct": 1,
+      "explanation": "You install the JDBC driver and create a database connection first, then import physical tables and columns from it.",
+      "source": "Pentaho BI Developer - ME Practitioner: Domains & Models — OrdersME"
+    },
+    {
+      "id": "dm-q10",
+      "module": "Domains & Models",
+      "prompt": "After designing the OrdersME business model and view, how do you make it available to report builders?",
+      "options": [
+        "Email the .ktr file",
+        "Publish the domain to the Pentaho Server as an XMI file",
+        "Copy it to the database",
+        "Restart Metadata Editor"
+      ],
+      "correct": 1,
+      "explanation": "The domain is published to the Pentaho Server as an XMI file, where it becomes a data source for Interactive Reporting.",
+      "source": "Pentaho BI Developer - ME Practitioner: Domains & Models — OrdersME (Publish)"
+    },
+    {
+      "id": "dm-q11",
+      "module": "Domains & Models",
+      "prompt": "How do you validate that a published metadata domain works for end users?",
+      "options": [
+        "Read the XMI file by hand",
+        "Create an Interactive Report against the domain in the User Console",
+        "Run a database backup",
+        "Re-import the physical tables"
+      ],
+      "correct": 1,
+      "explanation": "You test the domain by building an Interactive Report that leverages the semantic layer — proving the metadata bridges database to end-user reporting.",
+      "source": "Pentaho BI Developer - ME Practitioner: Domains & Models — OrdersME (Test)"
+    },
+    {
+      "id": "dm-q12",
+      "module": "Domains & Models",
+      "scenario": "In a star schema, your ORDERFACT table joins out to the Customers, Products, and Time dimensions.",
+      "prompt": "Which relationship cardinality models these fact-to-dimension joins?",
+      "options": [
+        "One-to-one",
+        "Many-to-one (N:1) from the fact table to each dimension",
+        "Many-to-many",
+        "No relationship is needed"
+      ],
+      "correct": 1,
+      "explanation": "Many fact rows reference one dimension row, so the relationships from ORDERFACT to each dimension are N:1 (many-to-one), typically inner joins.",
+      "source": "Pentaho BI Developer - ME Practitioner: Domains & Models — OrdersME (Relationships)"
+    },
+    {
+      "id": "dm-q13",
+      "module": "Domains & Models",
+      "prompt": "What is the Query Builder used for?",
+      "options": [
+        "Designing dashboards",
+        "Assembling and previewing a query against a business model to validate it before publishing",
+        "Installing JDBC drivers",
+        "Editing the physical database"
+      ],
+      "correct": 1,
+      "explanation": "Query Builder lets you select business columns, apply constraints, and preview results — validating the model's relationships and columns.",
+      "source": "Pentaho BI Developer - ME Practitioner: Domains & Models — Query Builder"
+    },
+    {
+      "id": "dm-q14",
+      "module": "Domains & Models",
+      "prompt": "Why might you create more than one business table that references the same physical table?",
+      "options": [
+        "It is not allowed",
+        "For scenarios like applying different security or filtering to the same underlying data",
+        "To duplicate the database",
+        "To improve JDBC performance"
+      ],
+      "correct": 1,
+      "explanation": "PME lets multiple business tables (and columns) reference one physical table — useful for filtering, security, or alternate views of the same data.",
+      "source": "Pentaho BI Developer - ME Practitioner: Domains & Models — Overview (Business Tables)"
+    },
+    {
+      "id": "pr-q1",
+      "module": "Properties",
+      "scenario": "You create the OrderStarCustomer business model and notice a system-generated ID at the top of its properties.",
+      "prompt": "What should you do with the BV_MODEL_1 id?",
+      "options": [
+        "Rename it to something friendly",
+        "Leave it unchanged — PME uses it internally to reference the model when generating SQL",
+        "Delete it",
+        "Copy it into the report"
+      ],
+      "correct": 1,
+      "explanation": "BV_MODEL_1 is the model's internal unique ID used for SQL generation; you should not change it.",
+      "source": "Pentaho BI Developer - ME Practitioner: Properties — OrderStarCustomer"
+    },
+    {
+      "id": "pr-q2",
+      "module": "Properties",
+      "prompt": "When adding business tables to a model, how are they added?",
+      "options": [
+        "All at once as a group",
+        "Individually — by dragging each physical table from the connection into Business Tables",
+        "By typing SQL",
+        "Automatically when the model is created"
+      ],
+      "correct": 1,
+      "explanation": "Tables must be dragged in individually (not as a group); each prompts a Business Model Properties dialog showing its IDs.",
+      "source": "Pentaho BI Developer - ME Practitioner: Properties — OrderStarCustomer (Business Tables)"
+    },
+    {
+      "id": "pr-q3",
+      "module": "Properties",
+      "prompt": "A business table dragged from PT_PRODUCTS gets which kind of ID?",
+      "options": [
+        "PC_PRODUCTS",
+        "BT_PRODUCTS_PRODUCTS, keeping a reference to the physical table PT_PRODUCTS",
+        "CT_PRODUCTS",
+        "A random UUID with no link to the physical table"
+      ],
+      "correct": 1,
+      "explanation": "The business table gets an ID like BT_PRODUCTS_PRODUCTS and keeps a reference to its physical table (PT_PRODUCTS) for inheritance.",
+      "source": "Pentaho BI Developer - ME Practitioner: Properties — OrderStarCustomer (Business Tables)"
+    },
+    {
+      "id": "pr-q4",
+      "module": "Properties",
+      "scenario": "You're wiring up the OrderStarCustomer star schema.",
+      "prompt": "Which relationships connect ORDERFACT to the dimensions?",
+      "options": [
+        "One-to-one joins to each dimension",
+        "N:1 (many-to-one) inner joins — ORDERFACT→CUSTOMER_W_TER via CUSTOMERNUMBER, →PRODUCTS via PRODUCTCODE, →DIM_TIME via TIME_ID",
+        "Many-to-many joins",
+        "No joins — the tables are independent"
+      ],
+      "correct": 1,
+      "explanation": "Three N:1 inner-join relationships form the star: ORDERFACT to CUSTOMER_W_TER (CUSTOMERNUMBER), PRODUCTS (PRODUCTCODE), and DIM_TIME (TIME_ID).",
+      "source": "Pentaho BI Developer - ME Practitioner: Properties — OrderStarCustomer (Relationships)"
+    },
+    {
+      "id": "pr-q5",
+      "module": "Properties",
+      "prompt": "In what order does metadata flow through the layers?",
+      "options": [
+        "Business view → business model → physical",
+        "Physical → business model → business view (each inheriting from the previous)",
+        "Reports → physical → business",
+        "There is no inheritance between layers"
+      ],
+      "correct": 1,
+      "explanation": "Metadata enriched on physical objects is inherited by business objects, which is then exposed through the business view — overridable at each level.",
+      "source": "Pentaho BI Developer - ME Practitioner: Properties — Overview"
+    },
+    {
+      "id": "pr-q6",
+      "module": "Properties",
+      "prompt": "How does overriding inherited metadata work in PME?",
+      "options": [
+        "Overriding one property replaces all inherited metadata",
+        "Each property can be overridden individually; un-overridden properties keep inheriting",
+        "You cannot override inherited metadata",
+        "Overrides only apply to physical columns"
+      ],
+      "correct": 1,
+      "explanation": "Inheritance operates property-by-property: a business object overrides specific properties while still inheriting the rest.",
+      "source": "Pentaho BI Developer - ME Practitioner: Properties — Overview"
+    },
+    {
+      "id": "pr-q7",
+      "module": "Properties",
+      "scenario": "You want a single 'Contact Name' field that combines first and last name.",
+      "prompt": "How do you create it?",
+      "options": [
+        "Add it as a relationship",
+        "Create a calculated business column with an expression that concatenates the name columns",
+        "Edit the database",
+        "Use a category"
+      ],
+      "correct": 1,
+      "explanation": "A calculated business column defined by an expression (concatenating the name columns) produces a derived Contact Name field.",
+      "source": "Pentaho BI Developer - ME Practitioner: Properties — OrderStarCustomer (Properties)"
+    },
+    {
+      "id": "pr-q8",
+      "module": "Properties",
+      "prompt": "In the OrderStarCustomer business view, columns are grouped into categories such as…",
+      "options": [
+        "Tables and Views",
+        "Orders, Customers, Products, and Time",
+        "Rows and Columns",
+        "Inputs and Outputs"
+      ],
+      "correct": 1,
+      "explanation": "The business view organises business columns into logical categories (Orders, Customers, Products, Time) that mirror business thinking.",
+      "source": "Pentaho BI Developer - ME Practitioner: Properties — OrderStarCustomer (Business Views)"
+    },
+    {
+      "id": "pr-q9",
+      "module": "Properties",
+      "prompt": "Which connection does the OrderStarCustomer model reference?",
+      "options": [
+        "mysql_prod",
+        "hsqldb:sampledata",
+        "oracle_xe",
+        "postgres_dw"
+      ],
+      "correct": 1,
+      "explanation": "The model is linked to the hsqldb:sampledata connection (the Steel Wheels sample database).",
+      "source": "Pentaho BI Developer - ME Practitioner: Properties — OrderStarCustomer"
+    },
+    {
+      "id": "pr-q10",
+      "module": "Properties",
+      "prompt": "Which statements about business tables/columns are correct? (Select all that apply.)",
+      "options": [
+        "A business table references a physical table and inherits its metadata",
+        "Metadata can be enriched (friendly names, formats, aggregation) at the business level",
+        "Multiple business tables can reference the same physical table",
+        "Business tables must be created before any physical tables exist"
+      ],
+      "correctIndices": [0, 1, 2],
+      "explanation": "Business tables reference and inherit from physical tables, expose enrichable metadata, and several can reference one physical table. Physical tables must exist first.",
+      "source": "Pentaho BI Developer - ME Practitioner: Properties — Overview"
+    },
+    {
+      "id": "co-q1",
+      "module": "Concepts",
+      "prompt": "What is a metadata Concept in PME?",
+      "options": [
+        "A type of report",
+        "A reusable bundle of metadata properties (formatting, alignment, aggregation, hidden) applied to many columns via inheritance",
+        "A database connection",
+        "A relationship between tables"
+      ],
+      "correct": 1,
+      "explanation": "A concept packages metadata properties once so they can be applied consistently across many columns through inheritance.",
+      "source": "Pentaho BI Developer - ME Practitioner: Concepts — Overview"
+    },
+    {
+      "id": "co-q2",
+      "module": "Concepts",
+      "scenario": "You want all financial columns to display the same currency formatting without configuring each one.",
+      "prompt": "What's the efficient approach?",
+      "options": [
+        "Format each column individually",
+        "Define a USCurrency concept once and apply it to the columns with Set Parent Concept",
+        "Write SQL formatting in each report",
+        "Change the database column types"
+      ],
+      "correct": 1,
+      "explanation": "Concepts let you define formatting once and apply it via Set Parent Concept, instantly inheriting the properties — consistent and maintainable.",
+      "source": "Pentaho BI Developer - ME Practitioner: Concepts — Concept Editor"
+    },
+    {
+      "id": "co-q3",
+      "module": "Concepts",
+      "prompt": "Which mask does the Number concept use?",
+      "options": [
+        "$#,##0.00",
+        "#,##0",
+        "MM-dd-yyyy",
+        "#"
+      ],
+      "correct": 1,
+      "explanation": "The Number concept uses the mask #,##0 (thousand separators, right-aligned), the base for numeric formatting.",
+      "source": "Pentaho BI Developer - ME Practitioner: Concepts — Concept Editor (Numeric)"
+    },
+    {
+      "id": "co-q4",
+      "module": "Concepts",
+      "prompt": "The USCurrency concept is built how?",
+      "options": [
+        "From scratch with no parent",
+        "Inheriting from Number, overriding the mask to $#,##0.00;($#,##0.00)",
+        "Inheriting from Date",
+        "As a child of Hidden"
+      ],
+      "correct": 1,
+      "explanation": "USCurrency is a child of Number that overrides the mask to $#,##0.00;($#,##0.00), formatting currency with negative-value handling.",
+      "source": "Pentaho BI Developer - ME Practitioner: Concepts — Concept Editor (Currency)"
+    },
+    {
+      "id": "co-q5",
+      "module": "Concepts",
+      "scenario": "An internal Employee Number should never appear in report interfaces but must still be a whole number when accessed.",
+      "prompt": "Which concept handles this?",
+      "options": [
+        "USCurrency",
+        "Hidden — a child of ID that sets 'Hidden For the User?'",
+        "Date",
+        "Number"
+      ],
+      "correct": 1,
+      "explanation": "The Hidden concept (child of ID) marks the field 'Hidden For the User?', excluding it from report interfaces while keeping whole-number formatting.",
+      "source": "Pentaho BI Developer - ME Practitioner: Concepts — Concept Editor (ID)"
+    },
+    {
+      "id": "co-q6",
+      "module": "Concepts",
+      "prompt": "Which mask does the Date concept apply?",
+      "options": [
+        "#,##0",
+        "MM-dd-yyyy",
+        "$#,##0.00",
+        "yyyy"
+      ],
+      "correct": 1,
+      "explanation": "The Date concept standardises date display with the mask MM-dd-yyyy.",
+      "source": "Pentaho BI Developer - ME Practitioner: Concepts — Concept Editor (Date)"
+    },
+    {
+      "id": "co-q7",
+      "module": "Concepts",
+      "prompt": "How do you apply a concept to a business column?",
+      "options": [
+        "Drag the column onto the concept",
+        "Right-click the column and choose Set Parent Concept, then pick the concept",
+        "Edit the XMI by hand",
+        "Re-import the physical table"
+      ],
+      "correct": 1,
+      "explanation": "Right-clicking a business column and choosing Set Parent Concept assigns the parent concept, and the column inherits its properties.",
+      "source": "Pentaho BI Developer - ME Practitioner: Concepts — Concept Editor (Apply)"
+    },
+    {
+      "id": "co-q8",
+      "module": "Concepts",
+      "scenario": "You applied the Date concept to Required Date, but in the report it still isn't formatted as a date.",
+      "prompt": "What's the most likely reason?",
+      "options": [
+        "Concepts don't work on dates",
+        "The column's data type was left as String, and the Mask for Number or Date only applies to numeric/date types",
+        "The server was down",
+        "The concept hierarchy is broken"
+      ],
+      "correct": 1,
+      "explanation": "The Mask for Number or Date property only takes effect on numeric or date data types; a column still typed as String won't be formatted.",
+      "source": "Pentaho BI Developer - ME Practitioner: Concepts — Concept Editor (Interactive Report)"
+    },
+    {
+      "id": "co-q9",
+      "module": "Concepts",
+      "prompt": "Which concepts are defined in the workshop's concept hierarchy? (Select all that apply.)",
+      "options": [
+        "Number and USCurrency",
+        "ID and Hidden",
+        "Date",
+        "Cube and Dimension"
+      ],
+      "correctIndices": [0, 1, 2],
+      "explanation": "The workshop builds Number, USCurrency (child of Number), ID, Hidden (child of ID), and Date. Cube/Dimension are OLAP terms, not PME concepts.",
+      "source": "Pentaho BI Developer - ME Practitioner: Concepts — Concept Editor"
+    },
+    {
+      "id": "se-q1",
+      "module": "Security & Data Access",
+      "prompt": "What does metadata security on a model control?",
+      "options": [
+        "The colour theme of reports",
+        "Which roles can access the domain and its tables/columns, enforced at the model layer",
+        "The JDBC driver version",
+        "The aggregation type"
+      ],
+      "correct": 1,
+      "explanation": "Metadata security restricts table/column/row access by role on the model, enforced once at the model layer so every report inherits it.",
+      "source": "Pentaho BI Developer - ME Practitioner: Security & Data Access — Overview"
+    },
+    {
+      "id": "se-q2",
+      "module": "Security & Data Access",
+      "scenario": "EMEA managers must only see EMEA customers from the same shared model.",
+      "prompt": "Which feature delivers this?",
+      "options": [
+        "A separate database per region",
+        "Row-level security via a role-based data constraint (e.g. Territory = 'EMEA')",
+        "Hiding the Customers category",
+        "A calculated column"
+      ],
+      "correct": 1,
+      "explanation": "Row-level security uses a role-based data constraint to filter rows (Territory = 'EMEA'), so different roles see different rows from the same model.",
+      "source": "Pentaho BI Developer - ME Practitioner: Security & Data Access — Row-Level Security"
+    },
+    {
+      "id": "se-q3",
+      "module": "Security & Data Access",
+      "prompt": "Why is enforcing security in the metadata model preferable to coding it in each report?",
+      "options": [
+        "It makes reports load slower",
+        "It is enforced once at the model layer, so every report inherits it consistently",
+        "It disables the database",
+        "It only works for administrators"
+      ],
+      "correct": 1,
+      "explanation": "Model-layer security is defined once and inherited by every report, avoiding inconsistent per-report re-implementation.",
+      "source": "Pentaho BI Developer - ME Practitioner: Security & Data Access — Overview"
+    },
+    {
+      "id": "se-q4",
+      "module": "Security & Data Access",
+      "scenario": "In the workshop, the user SUZY should be restricted while Admin sees everything.",
+      "prompt": "How is SUZY's restriction defined?",
+      "options": [
+        "By deleting rows from the database",
+        "By a role-based data constraint on the business model (her role only returns Territory = 'EMEA' rows)",
+        "By giving her the Administrator role",
+        "By hiding the whole domain from her"
+      ],
+      "correct": 1,
+      "explanation": "A role-based data constraint filters rows for SUZY's role to Territory = 'EMEA', while Admin (unconstrained) sees all rows.",
+      "source": "Pentaho BI Developer - ME Practitioner: Security & Data Access — Row-Level Security"
+    },
+    {
+      "id": "se-q5",
+      "module": "Security & Data Access",
+      "prompt": "What must you do after publishing a changed secured model for the change to take effect in reports?",
+      "options": [
+        "Reinstall Metadata Editor",
+        "Refresh the metadata cache on the Pentaho Server",
+        "Rebuild the database",
+        "Nothing — changes are instant"
+      ],
+      "correct": 1,
+      "explanation": "As with any published domain change, you refresh the server's metadata cache so the User Console picks up the new model.",
+      "source": "Pentaho BI Developer - ME Practitioner: Security & Data Access — Row-Level Security"
+    },
+    {
+      "id": "se-q6",
+      "module": "Security & Data Access",
+      "prompt": "Metadata security in PME can authorize at which levels?",
+      "options": [
+        "Only the whole domain",
+        "Table, column, and row level",
+        "Only individual reports",
+        "Only the database server"
+      ],
+      "correct": 1,
+      "explanation": "The Pentaho metadata model offers table-, column-, and row-level authorization control.",
+      "source": "Pentaho BI Developer - ME Practitioner: Security & Data Access — Overview"
+    },
+    {
+      "id": "uc-q1",
+      "module": "Use Cases",
+      "scenario": "Your source data lives in MongoDB and the business wants ad-hoc reports on it.",
+      "prompt": "What is the overall approach in the MongoDB Reports use case?",
+      "options": [
+        "Export MongoDB to Excel and email it",
+        "Bring the data in (e.g. via PDI), model it, and build Interactive/Analyzer reports on the resulting data source",
+        "Query MongoDB with MDX directly",
+        "Rewrite MongoDB as a relational database manually"
+      ],
+      "correct": 1,
+      "explanation": "The use case takes a MongoDB source through Pentaho's tooling and exposes it for Interactive/Analyzer reporting.",
+      "source": "Pentaho BI Developer - ME Practitioner: Use Cases — MongoDB Reports"
+    },
+    {
+      "id": "uc-q2",
+      "module": "Use Cases",
+      "prompt": "Which Pentaho tool is typically used to read and aggregate MongoDB data in this use case?",
+      "options": [
+        "Schema Workbench",
+        "Pentaho Data Integration (PDI) — including a MongoDB aggregation step",
+        "The operating system shell",
+        "A spreadsheet macro"
+      ],
+      "correct": 1,
+      "explanation": "PDI connects to MongoDB (with a MongoDB aggregation/input step) to read and shape the data for downstream reporting.",
+      "source": "Pentaho BI Developer - ME Practitioner: Use Cases — MongoDB Reports (Data Integration)"
+    },
+    {
+      "id": "uc-q3",
+      "module": "Use Cases",
+      "prompt": "What lets business users build the final reports without touching MongoDB query syntax?",
+      "options": [
+        "A raw MongoDB shell",
+        "A semantic/metadata data source they report against in the User Console",
+        "Editing the MongoDB config files",
+        "A command-line export"
+      ],
+      "correct": 1,
+      "explanation": "Once exposed as a Pentaho data source/model, users build reports in business terms in the User Console — no MongoDB query language needed.",
+      "source": "Pentaho BI Developer - ME Practitioner: Use Cases — MongoDB Reports"
+    },
+    {
+      "id": "uc-q4",
+      "module": "Use Cases",
+      "prompt": "Across the whole course, what is the end-to-end metadata workflow?",
+      "options": [
+        "Write SQL → email it → done",
+        "Connect & import → build business model + relationships → enrich with properties/concepts → secure → publish → report",
+        "Install the database → write reports in code",
+        "Build a cube → query with MDX"
+      ],
+      "correct": 1,
+      "explanation": "The PME lifecycle: connect/import physical tables, build the business model and relationships, enrich with properties and concepts, apply security, publish the XMI domain, and report against it.",
+      "source": "Pentaho BI Developer - ME Practitioner: Use Cases — MongoDB Reports"
+    }
+  ]
+}

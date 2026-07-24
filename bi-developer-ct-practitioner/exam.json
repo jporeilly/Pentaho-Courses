@@ -1,0 +1,724 @@
+{
+  "title": "Practitioner Exam",
+  "description": "A fixed 40-question exam drawn at random from a 50-question bank covering all six modules. Pass mark is 80%. This is an open-book exam — take your time, browse any module to refresh your memory, or ask the AI assistant for help. Your answers are saved as you go, so leaving the page to look something up is fine. Explanations show after submission so you can learn from any answers you missed.",
+  "passMark": 80,
+  "questionsPerAttempt": 40,
+  "shuffle": true,
+  "webhookUrl": "https://script.google.com/macros/s/AKfycbzt7thr4mfy3-kduDbiQ_UfBPwGC7JxpZA9p1XOeGJG4Q0rh9-OoKJNG965c8SVNQ7i/exec",
+  "webhookSecret": "pcm_Y61JKvDGnbuqvn3BIVCkjoSu98Jn3bE4",
+  "questions": [
+    {
+      "id": "gs-q1",
+      "module": "Getting Started",
+      "prompt": "What is CTools?",
+      "options": [
+        "A single dashboard product sold separately",
+        "A stack of open-source tools installed on top of the Pentaho Server for building dashboards",
+        "A relational database",
+        "A replacement for the Pentaho Server"
+      ],
+      "correct": 1,
+      "explanation": "Pentaho Community Tools (CTools) are a stack of open-source plugins — CDA, CDF, CDE, CCC, CGG — installed on top of the Pentaho Server.",
+      "source": "Pentaho BI Developer - CT Practitioner: Getting Started"
+    },
+    {
+      "id": "gs-q2",
+      "module": "Getting Started",
+      "prompt": "Which CTool is the data-access layer for dashboards?",
+      "options": [
+        "CDE",
+        "CDA (Community Data Access)",
+        "CGG",
+        "CCC"
+      ],
+      "correct": 1,
+      "explanation": "CDA (Community Data Access) is the abstraction layer between a dashboard and the physical data connections.",
+      "source": "Pentaho BI Developer - CT Practitioner: Getting Started"
+    },
+    {
+      "id": "gs-q3",
+      "module": "Getting Started",
+      "scenario": "Your team has JavaScript/HTML skills and wants full programmatic control of a dashboard's lifecycle.",
+      "prompt": "Which tool fits, versus the graphical alternative?",
+      "options": [
+        "CDE for code; CDF for the graphical UI",
+        "CDF is the code-first framework; CDE is the graphical editor built on top of it",
+        "CCC for code; CGG for the UI",
+        "They are the same tool"
+      ],
+      "correct": 1,
+      "explanation": "CDF is the code-first dashboard framework (HTML/CSS/JS); CDE is the graphical editor over CDF for users who prefer not to hand-code.",
+      "source": "Pentaho BI Developer - CT Practitioner: Getting Started"
+    },
+    {
+      "id": "gs-q4",
+      "module": "Getting Started",
+      "prompt": "What does CCC provide?",
+      "options": [
+        "Server-side image rendering",
+        "The charting library (built on Protovis/SVG) for dashboard charts",
+        "Database connections",
+        "The dashboard descriptor file"
+      ],
+      "correct": 1,
+      "explanation": "Community Chart Components (CCC) is the charting library, built on the Protovis SVG toolkit, used to add charts to dashboards.",
+      "source": "Pentaho BI Developer - CT Practitioner: Getting Started"
+    },
+    {
+      "id": "gs-q5",
+      "module": "Getting Started",
+      "prompt": "What is the main job of CGG?",
+      "options": [
+        "Editing dashboards graphically",
+        "Rendering CCC charts server-side as images (for reports, limited-SVG browsers, and URLs)",
+        "Combining data sources",
+        "Defining parameters"
+      ],
+      "correct": 1,
+      "explanation": "Community Graphics Generator (CGG) draws CCC charts on the server and converts them to images.",
+      "source": "Pentaho BI Developer - CT Practitioner: Getting Started"
+    },
+    {
+      "id": "gs-q6",
+      "module": "Getting Started",
+      "scenario": "The 'New CDE Dashboard' option is missing from the Create New menu in PUC.",
+      "prompt": "What enables it?",
+      "options": [
+        "Reinstalling the browser",
+        "Uncommenting the relevant blocks in pentaho-cdf-dd's plugin.xml and settings.xml, then restarting the server",
+        "Buying a licence",
+        "Running a Kettle job"
+      ],
+      "correct": 1,
+      "explanation": "Enabling CDE/CDA means uncommenting the plugin.xml and settings.xml blocks under pentaho-cdf-dd and restarting the Pentaho Server.",
+      "source": "Pentaho BI Developer - CT Practitioner: Getting Started (Enable CDE & CDA)"
+    },
+    {
+      "id": "gs-q7",
+      "module": "Getting Started",
+      "prompt": "Which tools make up the CTools stack? (Select all that apply.)",
+      "options": [
+        "CDA and CDF",
+        "CDE and CCC",
+        "CGG",
+        "Schema Workbench"
+      ],
+      "correctIndices": [0, 1, 2],
+      "explanation": "The CTools stack is CDA, CDF, CDE, CCC, and CGG. Schema Workbench is a separate OLAP-schema tool, not a CTool.",
+      "source": "Pentaho BI Developer - CT Practitioner: Getting Started"
+    },
+    {
+      "id": "cda-q1",
+      "module": "Community Data Access",
+      "prompt": "What problem does CDA primarily solve?",
+      "options": [
+        "Rendering charts",
+        "Unifying access to many data sources behind one abstraction so dashboards consume ready-made datasets",
+        "Editing the dashboard layout",
+        "Exporting the server logs"
+      ],
+      "correct": 1,
+      "explanation": "CDA creates an abstraction layer over different connections, letting a dashboard gather and combine data from several sources into a single structure.",
+      "source": "Pentaho BI Developer - CT Practitioner: Community Data Access — Overview"
+    },
+    {
+      "id": "cda-q2",
+      "module": "Community Data Access",
+      "prompt": "Which are stated objectives of CDA? (Select all that apply.)",
+      "options": [
+        "Combine data from several sources",
+        "Ensure security while accessing data (e.g. avoid SQL injection)",
+        "Ease data exports",
+        "Replace the dashboard layout engine"
+      ],
+      "correctIndices": [0, 1, 2],
+      "explanation": "CDA's three main objectives are combining data from several sources, securing data access, and easing exports.",
+      "source": "Pentaho BI Developer - CT Practitioner: Getting Started (CDA)"
+    },
+    {
+      "id": "cda-q3",
+      "module": "Community Data Access",
+      "scenario": "You need to filter a dashboard query by a month chosen in a drop-down.",
+      "prompt": "What CDA feature supports this?",
+      "options": [
+        "Compound queries only",
+        "Parameter-driven queries — the query takes a parameter bound to the selector",
+        "The cache manager",
+        "Server restart"
+      ],
+      "correct": 1,
+      "explanation": "CDA queries accept parameters, so a selector's value (e.g. the chosen month) drives a targeted, parameterised result.",
+      "source": "Pentaho BI Developer - CT Practitioner: Community Data Access — Creating a CDA (Parameters)"
+    },
+    {
+      "id": "cda-q4",
+      "module": "Community Data Access",
+      "prompt": "Which CDA endpoint runs a query and returns its result set?",
+      "options": [
+        "getCdaList",
+        "doQuery",
+        "editFile",
+        "manageCache"
+      ],
+      "correct": 1,
+      "explanation": "doQuery executes a CDA query and returns the result set (e.g. JSON); listParameters and getCdaList serve other purposes.",
+      "source": "Pentaho BI Developer - CT Practitioner: Community Data Access — Creating a CDA (CDA API)"
+    },
+    {
+      "id": "cda-q5",
+      "module": "Community Data Access",
+      "scenario": "You must merge the results of two separate queries into one dataset for a component.",
+      "prompt": "What kind of CDA query do you use?",
+      "options": [
+        "A scripting query",
+        "A compound query (JOIN or UNION)",
+        "An MDX query",
+        "A cache query"
+      ],
+      "correct": 1,
+      "explanation": "A compound query combines two queries with a JOIN or UNION into a single result for a component.",
+      "source": "Pentaho BI Developer - CT Practitioner: Community Data Access — Creating a CDA"
+    },
+    {
+      "id": "cda-q6",
+      "module": "Community Data Access",
+      "prompt": "Which data-source types can CDA use?",
+      "options": [
+        "Only SQL",
+        "SQL, MDX, OLAP4J, Kettle, Scripting, Compound, MQL, XPath, and more",
+        "Only MongoDB",
+        "Only static CSV files"
+      ],
+      "correct": 1,
+      "explanation": "CDA supports many data-source types — SQL, MDX, OLAP4J, Kettle, Scripting, Compound, MQL, XPath, etc.",
+      "source": "Pentaho BI Developer - CT Practitioner: Community Data Access — CDA Data Sources"
+    },
+    {
+      "id": "cda-q7",
+      "module": "Community Data Access",
+      "scenario": "A dashboard's data changes hourly but reports still show stale numbers.",
+      "prompt": "What's the likely cause and tool?",
+      "options": [
+        "The layout is broken; use CDE",
+        "CDA query results are cached; clear them via the Cache Manager",
+        "The server is off; reinstall it",
+        "A parameter is missing; add CCC"
+      ],
+      "correct": 1,
+      "explanation": "CDA can cache query results for speed; when underlying data changes you clear cached queries via the Cache Manager.",
+      "source": "Pentaho BI Developer - CT Practitioner: Community Data Access — CDA Data Sources (Cache)"
+    },
+    {
+      "id": "cda-q8",
+      "module": "Community Data Access",
+      "prompt": "A CDA file is, at its core…",
+      "options": [
+        "A compiled binary",
+        "An XML definition of connections and queries",
+        "A spreadsheet",
+        "A Java class"
+      ],
+      "correct": 1,
+      "explanation": "A .cda file is XML describing the data connections and the queries (DataAccess elements) the dashboard uses.",
+      "source": "Pentaho BI Developer - CT Practitioner: Community Data Access — Creating a CDA"
+    },
+    {
+      "id": "cda-q9",
+      "module": "Community Data Access",
+      "prompt": "For quick prototyping of a result set without a database, which CDA data source helps?",
+      "options": [
+        "SQL query",
+        "Scripting (Beanshell) query",
+        "Compound query",
+        "MDX query"
+      ],
+      "correct": 1,
+      "explanation": "A scripting (Beanshell) data source builds ad-hoc result sets for prototyping without a real database.",
+      "source": "Pentaho BI Developer - CT Practitioner: Community Data Access — CDA Data Sources"
+    },
+    {
+      "id": "cda-q10",
+      "module": "Community Data Access",
+      "prompt": "How does CDA relate to dashboard components?",
+      "options": [
+        "Components render CDA's UI",
+        "CDA produces datasets that components consume to display and filter data",
+        "CDA replaces components",
+        "They are unrelated"
+      ],
+      "correct": 1,
+      "explanation": "CDA returns dashboard-ready datasets; chart/table/selector components bind to those queries to show and filter data.",
+      "source": "Pentaho BI Developer - CT Practitioner: Community Data Access — Overview"
+    },
+    {
+      "id": "cdf-q1",
+      "module": "Community Dashboard Framework",
+      "prompt": "How are CDF dashboards built?",
+      "options": [
+        "By dragging components on a canvas",
+        "Code-first, leveraging web technologies (JavaScript, CSS, HTML)",
+        "By writing Java",
+        "By exporting from Excel"
+      ],
+      "correct": 1,
+      "explanation": "CDF creates dashboards using web technologies (JS/CSS/HTML), letting the designer control the whole lifecycle without Java.",
+      "source": "Pentaho BI Developer - CT Practitioner: Community Dashboard Framework — Overview"
+    },
+    {
+      "id": "cdf-q2",
+      "module": "Community Dashboard Framework",
+      "prompt": "A CDF dashboard needs which two mandatory files?",
+      "options": [
+        "A .ktr and a .kjb",
+        "An .xcdf file and an HTML template it points to",
+        "An .xmi and a .properties",
+        "A .cda and a .sql"
+      ],
+      "correct": 1,
+      "explanation": "A CDF dashboard is defined by an .xcdf descriptor (title/author/template/style) that references an HTML template file.",
+      "source": "Pentaho BI Developer - CT Practitioner: Community Dashboard Framework — CDF Dashboard"
+    },
+    {
+      "id": "cdf-q3",
+      "module": "Community Dashboard Framework",
+      "prompt": "What does the CDF framework manage for you?",
+      "options": [
+        "Database backups",
+        "The components' lifecycles and the interactions between them",
+        "Operating-system updates",
+        "User authentication only"
+      ],
+      "correct": 1,
+      "explanation": "CDF manages component lifecycles and the interactions between components, separating HTML design from component definition.",
+      "source": "Pentaho BI Developer - CT Practitioner: Community Dashboard Framework — Overview"
+    },
+    {
+      "id": "cdf-q4",
+      "module": "Community Dashboard Framework",
+      "prompt": "Which are stated advantages of CDF? (Select all that apply.)",
+      "options": [
+        "Based on open-source technology",
+        "Uses popular web technologies (Ajax, HTML, CSS3)",
+        "Manages component lifecycles and interactions",
+        "Eliminates the need for any data source"
+      ],
+      "correctIndices": [0, 1, 2],
+      "explanation": "CDF is open-source, uses web technologies, manages lifecycles/interactions, separates design from definition, and is extensible — but dashboards still need data sources.",
+      "source": "Pentaho BI Developer - CT Practitioner: Getting Started (CDF)"
+    },
+    {
+      "id": "cdf-q5",
+      "module": "Community Dashboard Framework",
+      "prompt": "In the .xcdf descriptor, what does the <template> element specify?",
+      "options": [
+        "The database connection",
+        "The HTML template file that renders the dashboard",
+        "The chart colours",
+        "The server port"
+      ],
+      "correct": 1,
+      "explanation": "The <template> element names the HTML file (e.g. myFirstDashboard.html) the .xcdf dashboard renders.",
+      "source": "Pentaho BI Developer - CT Practitioner: Community Dashboard Framework — CDF Dashboard"
+    },
+    {
+      "id": "cdf-q6",
+      "module": "Community Dashboard Framework",
+      "prompt": "Where in the HTML template is a component rendered?",
+      "options": [
+        "Anywhere automatically",
+        "Into the HTML element whose id matches the component's HtmlObject",
+        "In a separate file",
+        "Only in the footer"
+      ],
+      "correct": 1,
+      "explanation": "A component renders into the HTML element (div) whose id matches its HtmlObject property.",
+      "source": "Pentaho BI Developer - CT Practitioner: Community Dashboard Framework — CDF Dashboards"
+    },
+    {
+      "id": "cdf-q7",
+      "module": "Community Dashboard Framework",
+      "prompt": "What is the relationship between CDF and CDE?",
+      "options": [
+        "They are competitors with no relationship",
+        "CDE is the graphical editor built on the CDF framework — understanding CDF helps you get more from CDE",
+        "CDF replaced CDE",
+        "CDE generates CDF's database"
+      ],
+      "correct": 1,
+      "explanation": "CDE builds on CDF; you don't write CDF code in CDE, but CDF's lifecycle concepts still apply.",
+      "source": "Pentaho BI Developer - CT Practitioner: Community Dashboard Editor — Overview"
+    },
+    {
+      "id": "cdf-q8",
+      "module": "Community Dashboard Framework",
+      "prompt": "What does enabling RequireJS support change in a CDF dashboard?",
+      "options": [
+        "It changes the chart colours",
+        "It uses AMD module loading to declare and load the dashboard's dependencies",
+        "It disables data sources",
+        "It converts the dashboard to a report"
+      ],
+      "correct": 1,
+      "explanation": "RequireJS is the AMD module loader; enabling it changes how dashboard code and library dependencies are declared and loaded.",
+      "source": "Pentaho BI Developer - CT Practitioner: Community Dashboard Framework — CDF Dashboards"
+    },
+    {
+      "id": "cde-q1",
+      "module": "Community Dashboard Editor",
+      "prompt": "What is CDE?",
+      "options": [
+        "A command-line tool",
+        "A web-based graphical dashboard editor (a Pentaho Server plugin) over the CDF framework",
+        "A database engine",
+        "A report scheduler"
+      ],
+      "correct": 1,
+      "explanation": "CDE is a graphical dashboard editor running in the Pentaho Server, providing access to CDF's components without hand-coding.",
+      "source": "Pentaho BI Developer - CT Practitioner: Community Dashboard Editor — Overview"
+    },
+    {
+      "id": "cde-q2",
+      "module": "Community Dashboard Editor",
+      "prompt": "Which three build perspectives does CDE provide (plus Preview)?",
+      "options": [
+        "Tables, Rows, Columns",
+        "Layout, Components, and Data Sources",
+        "Connect, Model, Publish",
+        "Extract, Transform, Load"
+      ],
+      "correct": 1,
+      "explanation": "CDE's perspectives are Layout, Components, and Data Sources, plus Preview to test the dashboard.",
+      "source": "Pentaho BI Developer - CT Practitioner: Community Dashboard Editor — UI Overview"
+    },
+    {
+      "id": "cde-q3",
+      "module": "Community Dashboard Editor",
+      "scenario": "You're laying out a row with Bootstrap and want a sidebar plus a main area.",
+      "prompt": "What rule governs the column spans?",
+      "options": [
+        "Columns can be any size",
+        "The columns in a row must add up to 12 spans (e.g. 4 + 8)",
+        "Each row must have exactly 2 columns",
+        "Spans must total 24"
+      ],
+      "correct": 1,
+      "explanation": "With Bootstrap, a row's columns must sum to 12 spans (e.g. 4+8, 3x4). (Blueprint uses 24, but CDE defaults to Bootstrap.)",
+      "source": "Pentaho BI Developer - CT Practitioner: Community Dashboard Editor — UI Overview (Layout)"
+    },
+    {
+      "id": "cde-q4",
+      "module": "Community Dashboard Editor",
+      "prompt": "What does a component do in a CDE dashboard?",
+      "options": [
+        "Stores the database password",
+        "Links a layout element to a data source — charts, tables, selectors, parameters, scripts",
+        "Compiles the server",
+        "Defines user roles"
+      ],
+      "correct": 1,
+      "explanation": "Components are the central elements that connect layout elements to data sources (charts, tables, selectors, parameters, scripts).",
+      "source": "Pentaho BI Developer - CT Practitioner: Community Dashboard Editor — UI Overview (Components)"
+    },
+    {
+      "id": "cde-q5",
+      "module": "Community Dashboard Editor",
+      "prompt": "What is a parameter in a dashboard?",
+      "options": [
+        "A chart colour",
+        "A value shared by components — set by inputs and read via Listeners — enabling interaction",
+        "A database table",
+        "A CSS class"
+      ],
+      "correct": 1,
+      "explanation": "Parameters are shared values; input components set them and other components listen to them, driving interactivity.",
+      "source": "Pentaho BI Developer - CT Practitioner: Community Dashboard Editor — UI Overview (Components)"
+    },
+    {
+      "id": "cde-q6",
+      "module": "Community Dashboard Editor",
+      "scenario": "You want a chart to refresh whenever the user changes a month selector.",
+      "prompt": "Which component property wires this up?",
+      "options": [
+        "Priority",
+        "Listeners — set the chart to listen to the month parameter",
+        "HtmlObject",
+        "Execute at Start"
+      ],
+      "correct": 1,
+      "explanation": "Listeners name the parameters that trigger a component to re-run; listening to the month parameter refreshes the chart on change.",
+      "source": "Pentaho BI Developer - CT Practitioner: Community Dashboard Editor — UI Overview (Components)"
+    },
+    {
+      "id": "cde-q7",
+      "module": "Community Dashboard Editor",
+      "prompt": "The HtmlObject property of a component holds…",
+      "options": [
+        "The SQL query",
+        "The id of the HTML layout element (column) the component renders into",
+        "The chart type",
+        "The dashboard title"
+      ],
+      "correct": 1,
+      "explanation": "HtmlObject is the id of the layout column where the component is appended/rendered.",
+      "source": "Pentaho BI Developer - CT Practitioner: Community Dashboard Editor — UI Overview (Components)"
+    },
+    {
+      "id": "cde-q8",
+      "module": "Community Dashboard Editor",
+      "scenario": "Two components must run in a specific order at load time.",
+      "prompt": "Which property controls execution order?",
+      "options": [
+        "Priority — lower numbers run first (default 5)",
+        "HtmlObject",
+        "Listeners",
+        "Name"
+      ],
+      "correct": 0,
+      "explanation": "Priority controls load-order; lower numbers have higher priority (default 5).",
+      "source": "Pentaho BI Developer - CT Practitioner: Community Dashboard Editor — UI Overview (Components)"
+    },
+    {
+      "id": "cde-q9",
+      "module": "Community Dashboard Editor",
+      "prompt": "What does 'Execute at Start = False' do?",
+      "options": [
+        "Hides the component",
+        "Stops the component running on load — it runs only when a listened parameter changes",
+        "Deletes the component",
+        "Disables the dashboard"
+      ],
+      "correct": 1,
+      "explanation": "With Execute at Start False, the component doesn't run on load and only executes when a parameter it listens to changes.",
+      "source": "Pentaho BI Developer - CT Practitioner: Community Dashboard Editor — UI Overview (Components)"
+    },
+    {
+      "id": "cde-q10",
+      "module": "Community Dashboard Editor",
+      "prompt": "If a component's preExecution function returns false, what happens?",
+      "options": [
+        "The dashboard crashes",
+        "The component is not updated",
+        "The server restarts",
+        "All components stop"
+      ],
+      "correct": 1,
+      "explanation": "preExecution runs before update/render; returning false skips updating that component.",
+      "source": "Pentaho BI Developer - CT Practitioner: Community Dashboard Editor — UI Overview (Components)"
+    },
+    {
+      "id": "cde-q11",
+      "module": "Community Dashboard Editor",
+      "prompt": "Which charts are supported/recommended in CDE today?",
+      "options": [
+        "Legacy charts only",
+        "CCC2 charts (component names begin with CCC); legacy charts are not supported",
+        "Only Excel charts",
+        "Only static images"
+      ],
+      "correct": 1,
+      "explanation": "CCC2 charts (prefixed CCC) are added via the Components perspective; other (legacy) charts are not supported.",
+      "source": "Pentaho BI Developer - CT Practitioner: Community Dashboard Editor — UI Overview (Charts)"
+    },
+    {
+      "id": "cde-q12",
+      "module": "Community Dashboard Editor",
+      "scenario": "A CCC2 chart property you need isn't exposed in the CDE interface.",
+      "prompt": "How do you set it?",
+      "options": [
+        "Edit the database",
+        "Use a CCC extension point, named like <element>_<property> (e.g. xAxisLabel_textAngle)",
+        "Switch to CGG",
+        "It cannot be set"
+      ],
+      "correct": 1,
+      "explanation": "Extension points implement Protovis properties not exposed in CCC2, using the format <element>_<property>.",
+      "source": "Pentaho BI Developer - CT Practitioner: Community Dashboard Editor — UI Overview (Charts)"
+    },
+    {
+      "id": "cde-q13",
+      "module": "Community Dashboard Editor",
+      "prompt": "Which data source type is the recommended way to feed CDE components?",
+      "options": [
+        "Hard-coded arrays only",
+        "CDA (Community Data Access) queries",
+        "Screenshots",
+        "Email attachments"
+      ],
+      "correct": 1,
+      "explanation": "CDE's Data Sources perspective offers CDA among others; CDA is the standard way to retrieve and combine data for components.",
+      "source": "Pentaho BI Developer - CT Practitioner: Community Dashboard Editor — UI Overview (Data Sources)"
+    },
+    {
+      "id": "cde-q14",
+      "module": "Community Dashboard Editor",
+      "prompt": "How do you start a new CDE dashboard?",
+      "options": [
+        "Edit a .ktr in Spoon",
+        "In the Pentaho User Console, choose Create New > New CDE Dashboard (or File > New > CDE Dashboard)",
+        "Run a SQL script",
+        "Restart the server"
+      ],
+      "correct": 1,
+      "explanation": "A new CDE dashboard is created in PUC via Create New > New CDE Dashboard (File > New > CDE Dashboard).",
+      "source": "Pentaho BI Developer - CT Practitioner: Community Dashboard Editor — UI Overview"
+    },
+    {
+      "id": "cgg-q1",
+      "module": "Community Graphics Generator",
+      "prompt": "What does CGG do with a CCC chart?",
+      "options": [
+        "Deletes it",
+        "Renders it on the server and converts the SVG into an image",
+        "Converts it to a database table",
+        "Turns it into a parameter"
+      ],
+      "correct": 1,
+      "explanation": "CGG draws the same CCC chart on the server as the browser would and converts the SVG into an image.",
+      "source": "Pentaho BI Developer - CT Practitioner: Community Graphics Generator — Overview"
+    },
+    {
+      "id": "cgg-q2",
+      "module": "Community Graphics Generator",
+      "prompt": "Which are reasons to use CGG? (Select all that apply.)",
+      "options": [
+        "Including chart images in Pentaho reports",
+        "Rendering charts for browsers with limited SVG capability",
+        "Generating a chart via a URL",
+        "Replacing the CDA data layer"
+      ],
+      "correctIndices": [0, 1, 2],
+      "explanation": "CGG is used for report-embeddable chart images, for limited-SVG browsers, and to render charts via a URL — it does not replace CDA.",
+      "source": "Pentaho BI Developer - CT Practitioner: Community Graphics Generator — Overview"
+    },
+    {
+      "id": "cgg-q3",
+      "module": "Community Graphics Generator",
+      "prompt": "How well is CGG integrated with CDE?",
+      "options": [
+        "Not at all",
+        "Fully integrated — it renders the CCC charts you build in CDE",
+        "Only via manual export to Excel",
+        "Only through a third-party plugin"
+      ],
+      "correct": 1,
+      "explanation": "CGG is fully integrated with CDE and renders the same CCC charts created in dashboards.",
+      "source": "Pentaho BI Developer - CT Practitioner: Community Graphics Generator — Overview"
+    },
+    {
+      "id": "cgg-q4",
+      "module": "Community Graphics Generator",
+      "scenario": "A scheduled PDF report needs to embed a chart that normally renders only in the browser.",
+      "prompt": "How does CGG help?",
+      "options": [
+        "It can't — charts are browser-only",
+        "CGG renders the chart server-side as an image the report can embed",
+        "It rewrites the report in HTML",
+        "It emails the dashboard"
+      ],
+      "correct": 1,
+      "explanation": "Because CGG produces a server-side image of the chart, that image can be embedded in Pentaho reports.",
+      "source": "Pentaho BI Developer - CT Practitioner: Community Graphics Generator — Overview"
+    },
+    {
+      "id": "cgg-q5",
+      "module": "Community Graphics Generator",
+      "prompt": "CGG renders charts based on which technology?",
+      "options": [
+        "Flash",
+        "SVG (the same SVG-based CCC charts shown in the dashboard)",
+        "PDF only",
+        "Java applets"
+      ],
+      "correct": 1,
+      "explanation": "CGG runs SVG-based charts on the server and converts them into images — the same SVG CCC charts shown in the browser.",
+      "source": "Pentaho BI Developer - CT Practitioner: Community Graphics Generator — Overview"
+    },
+    {
+      "id": "cgg-q6",
+      "module": "Community Graphics Generator",
+      "scenario": "You want to fetch a specific dashboard chart as a PNG by hitting a link.",
+      "prompt": "Which CGG capability is this?",
+      "options": [
+        "Caching",
+        "Rendering charts via a URL",
+        "A compound query",
+        "A selector"
+      ],
+      "correct": 1,
+      "explanation": "One of CGG's main features is rendering charts via a URL, returning the chart as an image.",
+      "source": "Pentaho BI Developer - CT Practitioner: Community Graphics Generator — Carrier Dashboard Charts"
+    },
+    {
+      "id": "uc-q1",
+      "module": "Use Cases",
+      "prompt": "The Sales Analysis (Retail Sales) dashboard combines which CTools?",
+      "options": [
+        "Only CDE",
+        "CDA data sources, CDE layout/components, and CCC charts",
+        "Only Schema Workbench",
+        "Only CGG"
+      ],
+      "correct": 1,
+      "explanation": "The use case ties it together: CDA queries feed CDE components and CCC charts in a complete dashboard.",
+      "source": "Pentaho BI Developer - CT Practitioner: Use Cases — Sales Analysis Dashboard"
+    },
+    {
+      "id": "uc-q2",
+      "module": "Use Cases",
+      "prompt": "What is the typical end-to-end CTools dashboard workflow?",
+      "options": [
+        "Publish first, design later",
+        "Design/mock-up → define CDA data sources → build the CDE layout → add components → preview",
+        "Write Java → compile → deploy",
+        "Export to Excel → email"
+      ],
+      "correct": 1,
+      "explanation": "You design the dashboard, define its CDA data, lay it out in CDE, wire up components, and preview/iterate.",
+      "source": "Pentaho BI Developer - CT Practitioner: Use Cases — Sales Analysis Dashboard"
+    },
+    {
+      "id": "uc-q3",
+      "module": "Use Cases",
+      "scenario": "Stakeholders want to agree the look and content before any building starts.",
+      "prompt": "What's the first deliverable?",
+      "options": [
+        "A production database",
+        "A mock-up / design of the dashboard (layout, components, interactions)",
+        "A published .wcdf",
+        "A server upgrade"
+      ],
+      "correct": 1,
+      "explanation": "Dashboard work starts with a mock-up and a functional breakdown of requirements before building in CDE.",
+      "source": "Pentaho BI Developer - CT Practitioner: Getting Started — First Steps"
+    },
+    {
+      "id": "uc-q4",
+      "module": "Use Cases",
+      "scenario": "On the finished dashboard, choosing a territory updates every chart and table.",
+      "prompt": "What makes this work?",
+      "options": [
+        "Separate dashboards per territory",
+        "A selector sets a parameter; the charts/tables listen to that parameter and refresh",
+        "Manual page reloads",
+        "A CGG image"
+      ],
+      "correct": 1,
+      "explanation": "A selector stores the territory in a parameter; components listening to it re-run when it changes — driving the interactive update.",
+      "source": "Pentaho BI Developer - CT Practitioner: Use Cases — Sales Analysis Dashboard"
+    },
+    {
+      "id": "uc-q5",
+      "module": "Use Cases",
+      "prompt": "Where is a CTools dashboard built and viewed by users?",
+      "options": [
+        "In Spoon",
+        "In the Pentaho User Console (the browser)",
+        "In Schema Workbench",
+        "In a text editor only"
+      ],
+      "correct": 1,
+      "explanation": "CTools dashboards are created in CDE and run in the Pentaho User Console — entirely in the browser.",
+      "source": "Pentaho BI Developer - CT Practitioner: Community Dashboard Editor — UI Overview"
+    }
+  ]
+}

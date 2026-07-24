@@ -1,0 +1,9 @@
+{
+  "title": "Overview of Community Dashboard Editor",
+  "description": "CDE is a graphical dashboard editor over CDF: build dashboards with a Layout/Components/Data Sources workflow, no hand-coding.",
+  "order": 10,
+  "kind": "page",
+  "hasVideo": false,
+  "stepCount": 1,
+  "estimatedMinutes": 10
+}

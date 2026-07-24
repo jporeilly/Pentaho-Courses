@@ -1,0 +1,9 @@
+{
+  "title": "Key Concepts",
+  "description": "Core PDI concepts and terminology — transformations, jobs, steps, hops, rows, and the run/preview cycle. The vocabulary every lab assumes.",
+  "order": 0,
+  "kind": "page",
+  "stepCount": 5,
+  "hasVideo": false,
+  "estimatedMinutes": 20
+}

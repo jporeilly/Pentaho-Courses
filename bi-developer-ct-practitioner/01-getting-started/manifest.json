@@ -1,0 +1,9 @@
+{
+  "title": "Getting Started",
+  "description": "Introduction to the Pentaho CTools stack (CDA, CDF, CDE, CCC, CGG) and how to enable CDE & CDA on the Pentaho Server.",
+  "order": 1,
+  "kind": "page",
+  "hasVideo": false,
+  "stepCount": 7,
+  "estimatedMinutes": 25
+}

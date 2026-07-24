@@ -1,0 +1,9 @@
+{
+  "title": "Overview",
+  "description": "Tour of the data sources PDI can read and write — text, JSON, XML, Excel, RSS, relational databases, and the big-data layer (Hadoop, Snowflake, MinIO, etc.).",
+  "order": 0,
+  "kind": "page",
+  "stepCount": 10,
+  "hasVideo": false,
+  "estimatedMinutes": 30
+}

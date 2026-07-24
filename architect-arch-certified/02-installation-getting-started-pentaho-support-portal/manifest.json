@@ -1,0 +1,8 @@
+{
+  "title": "Pentaho Support Portal",
+  "description": "Log into the Pentaho Customer Portal and download the Pentaho 11 Enterprise packages used in this lab.",
+  "order": 2,
+  "stepCount": 0,
+  "estimatedMinutes": 5,
+  "hasVideo": false
+}

@@ -1,0 +1,9 @@
+{
+  "title": "Review Storage",
+  "description": "Object and network storage in PDI — S3, Azure Blob, GCS, MinIO, SMB — accessed through Pentaho's VFS layer.",
+  "order": 0,
+  "kind": "page",
+  "stepCount": 0,
+  "hasVideo": false,
+  "estimatedMinutes": 10
+}

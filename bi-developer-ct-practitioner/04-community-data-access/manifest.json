@@ -1,0 +1,9 @@
+{
+  "title": "Overview of Community Data Access",
+  "description": "CDA is the data abstraction layer for CTools dashboards — combine sources, run parameter-driven queries, preview, secure, and export.",
+  "order": 4,
+  "kind": "page",
+  "hasVideo": false,
+  "stepCount": 2,
+  "estimatedMinutes": 15
+}

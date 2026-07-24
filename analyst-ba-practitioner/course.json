@@ -1,0 +1,49 @@
+{
+  "id": "analyst-ba-practitioner",
+  "title": "Pentaho Analyst - BA Practitioner",
+  "description": "Hands-on workshop for the Pentaho Business Analytics Practitioner. Pentaho User Console, Interactive Reports, Analyzer Reports, Dashboard Designer, plus a MongoDB reporting use case.",
+  "version": "0.1.0",
+  "kind": "workshop",
+  "mode": "sequential",
+  "theme": {
+    "accent": "#16a34a"
+  },
+  "assistant": {
+    "ollamaURL": "http://localhost:11434",
+    "mcpURL": "https://docs.pentaho.com/~gitbook/mcp",
+    "defaultProfile": "cpu",
+    "models": {
+      "cpu": "llama3.2:3b",
+      "gpu": "qwen2.5:7b"
+    }
+  },
+  "moduleSummaries": [
+    {
+      "title": "Getting Started",
+      "summary": "Set up your environment and orient yourself with the Pentaho Business Analytics tooling before diving into the hands-on labs."
+    },
+    {
+      "title": "User Console",
+      "summary": "Tour the Pentaho User Console (PUC) — the browser-based home for browsing data sources, opening reports, and managing schedules."
+    },
+    {
+      "title": "Interactive Reports",
+      "summary": "Build ad-hoc reports for business users with Interactive Reports. Three guided exercises: Sales Territory, Orders for NA and EMEA, and Ships and Trains."
+    },
+    {
+      "title": "Analyzer Reports",
+      "summary": "Slice, dice, and pivot OLAP data with Analyzer. Two exercises: Sales Analysis and EMEA Quantity."
+    },
+    {
+      "title": "Dashboard Designer",
+      "summary": "Assemble interactive dashboards combining reports, charts, and filters. Three exercises: Vendor Sales, Inventory, and Product Performance."
+    }
+  ],
+  "launchers": {
+    "puc": {
+      "label": "Pentaho User Console",
+      "action": "Log into",
+      "url": "http://localhost:8080"
+    }
+  }
+}

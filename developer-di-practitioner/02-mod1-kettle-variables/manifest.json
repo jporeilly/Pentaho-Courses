@@ -1,0 +1,16 @@
+{
+  "title": "KETTLE Variables",
+  "description": "",
+  "order": 2,
+  "stepCount": 7,
+  "estimatedMinutes": 25,
+  "checks": [
+    {
+      "id": "kettle-properties",
+      "kind": "file-exists",
+      "label": "kettle.properties exists in your .kettle directory",
+      "path": "~/.kettle/kettle.properties"
+    }
+  ],
+  "hasVideo": true
+}

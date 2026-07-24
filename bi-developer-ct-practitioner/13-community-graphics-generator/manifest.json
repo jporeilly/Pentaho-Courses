@@ -1,0 +1,9 @@
+{
+  "title": "Overview of Community Graphics Generator",
+  "description": "CGG renders CCC charts server-side as static images (PNG/JPG/SVG) for reports, PDF exports, and URL-driven generation — fully integrated with CDE and CDA.",
+  "order": 13,
+  "kind": "page",
+  "hasVideo": false,
+  "stepCount": 0,
+  "estimatedMinutes": 10
+}

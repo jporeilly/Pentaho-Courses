@@ -1,0 +1,9 @@
+{
+  "title": "Basic Model",
+  "description": "Build the ClassicModelsOrders Mondrian schema from scratch in Schema Workbench—connection, cube, fact, dimensions, levels, measure—then publish to the BA Server and test in Analyzer.",
+  "order": 5,
+  "stepCount": 8,
+  "estimatedMinutes": 90,
+  "hasVideo": true,
+  "kind": "workshop"
+}

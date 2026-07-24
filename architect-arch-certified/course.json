@@ -1,0 +1,67 @@
+{
+  "id": "architect-arch-certified",
+  "title": "Pentaho Solution Architect - Certified",
+  "description": "Pentaho 11 installation, configuration, upgrade, and post-install tasks. Archive deployment on Linux, server + client tools, plugins.",
+  "version": "0.1.0",
+  "kind": "workshop",
+  "mode": "sequential",
+  "theme": {
+    "accent": "#0d9488"
+  },
+  "assistant": {
+    "ollamaURL": "http://localhost:11434",
+    "mcpURL": "https://academy.pentaho.com/~gitbook/mcp",
+    "defaultProfile": "cpu",
+    "models": {
+      "cpu": "llama3.2:3b",
+      "gpu": "qwen2.5:7b"
+    }
+  },
+  "moduleSummaries": [
+    {
+      "title": "Overview",
+      "summary": "What's new in Pentaho 11 — the modern UI, security improvements, and deployment changes that frame why the install procedure looks the way it does. Read this first."
+    },
+    {
+      "title": "Getting Started",
+      "summary": "Download the Pentaho Enterprise packages, activate your license key, and choose your installation path — Windows evaluation or Linux archive deployment."
+    },
+    {
+      "title": "Archive Installation",
+      "summary": "Archive-based deployment on Linux end-to-end: prepare the environment, install the Pentaho Server on Tomcat 10 with PostgreSQL, add server and client-tool plugins, run post-install tasks, and apply upgrades and patches."
+    },
+    {
+      "title": "Install Client Tools",
+      "summary": "Install the Pentaho design tools and their enterprise add-ons — the client plugins for the desktop tools and the EE Kettle (PDI) plugins — so practitioners can connect to and work against the server you deployed."
+    }
+  ],
+  "tier": "certified",
+  "certification": {
+    "badge": "Certified Solution Architect",
+    "path": {
+      "title": "Certified Solution Architect Learning Path",
+      "steps": [
+        {
+          "title": "Architecture & Installation",
+          "courseId": "architect-arch-certified",
+          "current": true
+        },
+        {
+          "title": "Pentaho Developer",
+          "courseId": "developer-di-practitioner"
+        },
+        {
+          "title": "Speciality Courses"
+        },
+        {
+          "title": "BI Developer — CTools Dashboards",
+          "courseId": "bi-developer-ct-practitioner"
+        },
+        {
+          "title": "Certified Solution Architect",
+          "certified": true
+        }
+      ]
+    }
+  }
+}

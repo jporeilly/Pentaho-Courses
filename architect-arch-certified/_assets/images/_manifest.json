@@ -1,0 +1,716 @@
+﻿[
+  {
+    "filename": "1a7nmb.png",
+    "occurrences": [
+      {
+        "page": "07-installation-archive-server-plugins > 1. Plugin Manager > Data Connections",
+        "caption": "SampleData connection"
+      }
+    ],
+    "proposedName": "data_connection_sampledata"
+  },
+  {
+    "filename": "1j1wp9.png",
+    "occurrences": [
+      {
+        "page": "07-installation-archive-server-plugins > 1. Plugin Manager > NEW Plugins > 1. Pipeline Designer",
+        "caption": "Transformation - Hello World"
+      }
+    ],
+    "proposedName": "pipeline_designer_hello_world"
+  },
+  {
+    "filename": "2n81vv.png",
+    "occurrences": [
+      {
+        "page": "06-installation-archive-pentaho-server > 2. Pentaho Repository",
+        "caption": "Pentaho databases"
+      }
+    ],
+    "proposedName": "pentaho_databases"
+  },
+  {
+    "filename": "3l76y1.png",
+    "occurrences": [
+      {
+        "page": "10-installation-client-tools > 4. Aggregation Designer",
+        "caption": "Aggregation Designer"
+      }
+    ],
+    "proposedName": "aggregation_designer"
+  },
+  {
+    "filename": "3tyln4.png",
+    "occurrences": [
+      {
+        "page": "07-installation-archive-server-plugins > 1. Plugin Manager > NEW Plugins > 4. Carte",
+        "caption": "Carte details"
+      }
+    ],
+    "proposedName": "carte_details"
+  },
+  {
+    "filename": "3uz49x.png",
+    "occurrences": [
+      {
+        "page": "05-installation-archive-prepare-environment > Install PostgreSQL 17",
+        "caption": "PostgreSQL 17.7"
+      }
+    ],
+    "proposedName": "postgresql_17_7"
+  },
+  {
+    "filename": "44t386.png",
+    "occurrences": [
+      {
+        "page": "02-installation-getting-started > Pentaho Support Portal",
+        "caption": ""
+      }
+    ],
+    "proposedName": "support_portal_version"
+  },
+  {
+    "filename": "47ke9j.png",
+    "occurrences": [
+      {
+        "page": "03-installation-getting-started-components",
+        "caption": "Pentaho Architecture"
+      }
+    ],
+    "proposedName": "pentaho_architecture"
+  },
+  {
+    "filename": "4w2eur.png",
+    "occurrences": [
+      {
+        "page": "05-installation-archive-prepare-environment",
+        "caption": "SED: pg_hba.conf"
+      }
+    ],
+    "proposedName": "pg_hba_sed"
+  },
+  {
+    "filename": "50mke1.png",
+    "occurrences": [
+      {
+        "page": "05-installation-archive-prepare-environment",
+        "caption": ""
+      }
+    ],
+    "proposedName": "prepare_env_step"
+  },
+  {
+    "filename": "5uetia.png",
+    "occurrences": [
+      {
+        "page": "07-installation-archive-server-plugins > 1. Plugin Manager > Analytic Plugins > 3. Dashboard Designer",
+        "caption": "Dashboard Designer Plugin"
+      }
+    ],
+    "proposedName": "dashboard_designer_plugin"
+  },
+  {
+    "filename": "6aqbyo.png",
+    "occurrences": [
+      {
+        "page": "07-installation-archive-server-plugins",
+        "caption": "Plugin Manager"
+      }
+    ],
+    "proposedName": "plugin_manager"
+  },
+  {
+    "filename": "6bu1bd.png",
+    "occurrences": [
+      {
+        "page": "05-installation-archive-prepare-environment",
+        "caption": "Java 21"
+      }
+    ],
+    "proposedName": "java_21"
+  },
+  {
+    "filename": "6vk7fy.png",
+    "occurrences": [
+      {
+        "page": "06-installation-archive-pentaho-server > 5. License Manager > License Manager",
+        "caption": "License Manager"
+      }
+    ],
+    "proposedName": "license_manager"
+  },
+  {
+    "filename": "7497pw.png",
+    "occurrences": [
+      {
+        "page": "07-installation-archive-server-plugins > 1. Plugin Manager > Data Connections",
+        "caption": "Create new database connection"
+      }
+    ],
+    "proposedName": "data_connection_create"
+  },
+  {
+    "filename": "7sjin1.png",
+    "occurrences": [
+      {
+        "page": "02-installation-getting-started > Pentaho Support Portal",
+        "caption": "Packages"
+      }
+    ],
+    "proposedName": "support_portal_packages"
+  },
+  {
+    "filename": "81sy6g.png",
+    "occurrences": [
+      {
+        "page": "10-installation-client-tools > 2. Metadata Editor",
+        "caption": "Pentaho Metadata Editor"
+      }
+    ],
+    "proposedName": "metadata_editor"
+  },
+  {
+    "filename": "825xwu.png",
+    "occurrences": [
+      {
+        "page": "05-installation-archive-prepare-environment",
+        "caption": "OpenJDK versions"
+      }
+    ],
+    "proposedName": "openjdk_versions"
+  },
+  {
+    "filename": "8g3z9r.png",
+    "occurrences": [
+      {
+        "page": "03-installation-getting-started-components > Pentaho Server > Interactive Reports",
+        "caption": "Interactive Report"
+      }
+    ],
+    "proposedName": "interactive_report"
+  },
+  {
+    "filename": "8iwsgx.png",
+    "occurrences": [
+      {
+        "page": "07-installation-archive-server-plugins > 1. Plugin Manager > NEW Plugins > 3. Scheduler",
+        "caption": "Scheduler"
+      }
+    ],
+    "proposedName": "scheduler_plugin"
+  },
+  {
+    "filename": "8p82n8.png",
+    "occurrences": [
+      {
+        "page": "05-installation-archive-prepare-environment",
+        "caption": "pgAdmin 4 UI"
+      }
+    ],
+    "proposedName": "pgadmin_ui"
+  },
+  {
+    "filename": "8qwgeh.png",
+    "occurrences": [
+      {
+        "page": "07-installation-archive-server-plugins > 1. Plugin Manager",
+        "caption": "NEW - Pentaho User Console"
+      }
+    ],
+    "proposedName": "pentaho_user_console_new"
+  },
+  {
+    "filename": "9ujjf0.png",
+    "occurrences": [
+      {
+        "page": "05-installation-archive-prepare-environment",
+        "caption": "Create server group"
+      }
+    ],
+    "proposedName": "pgadmin_login"
+  },
+  {
+    "filename": "a83eb2.png",
+    "occurrences": [
+      {
+        "page": "07-installation-archive-server-plugins > 1. Plugin Manager > Analytic Plugins > 2. Interactive Reporting",
+        "caption": "Interactive Reporting Plugin"
+      }
+    ],
+    "proposedName": "interactive_reporting_plugin"
+  },
+  {
+    "filename": "cdo6yu.png",
+    "occurrences": [
+      {
+        "page": "05-installation-archive-prepare-environment",
+        "caption": "Set listener"
+      }
+    ],
+    "proposedName": "postgres_set_listener"
+  },
+  {
+    "filename": "ckx0pm.png",
+    "occurrences": [
+      {
+        "page": "05-installation-archive-prepare-environment",
+        "caption": "Pentaho paths"
+      }
+    ],
+    "proposedName": "pentaho_paths"
+  },
+  {
+    "filename": "cpt671.png",
+    "occurrences": [
+      {
+        "page": "02-installation-getting-started > Pentaho Support Portal",
+        "caption": "Pentaho Support Portal"
+      }
+    ],
+    "proposedName": "support_portal"
+  },
+  {
+    "filename": "d5a2ct.png",
+    "occurrences": [
+      {
+        "page": "07-installation-archive-server-plugins > 1. Plugin Manager > Analytic Plugins > 1. Analyzer",
+        "caption": "Analyzer Plugin"
+      }
+    ],
+    "proposedName": "analyzer_plugin"
+  },
+  {
+    "filename": "d82d2w.png",
+    "occurrences": [
+      {
+        "page": "06-installation-archive-pentaho-server > 4. Start Server",
+        "caption": "Pentaho User Console"
+      }
+    ],
+    "proposedName": "pentaho_user_console"
+  },
+  {
+    "filename": "dhpnah.png",
+    "occurrences": [
+      {
+        "page": "06-installation-archive-pentaho-server > 5. License Manager > License Manager",
+        "caption": "Add license"
+      }
+    ],
+    "proposedName": "license_manager_add"
+  },
+  {
+    "filename": "dixsmd.png",
+    "occurrences": [
+      {
+        "page": "05-installation-archive-prepare-environment",
+        "caption": ""
+      }
+    ],
+    "proposedName": "prepare_env_postgres_config"
+  },
+  {
+    "filename": "e0sa5e.png",
+    "occurrences": [
+      {
+        "page": "02-installation-getting-started > Enterprise Edition",
+        "caption": "Download - Pentaho EE onPrem"
+      }
+    ],
+    "proposedName": "download_pentaho_ee"
+  },
+  {
+    "filename": "edwz4z.png",
+    "occurrences": [
+      {
+        "page": "02-installation-getting-started > Enterprise Edition",
+        "caption": "Pentaho Enterprise OS versions"
+      }
+    ],
+    "proposedName": "pentaho_os_versions"
+  },
+  {
+    "filename": "envyuh.png",
+    "occurrences": [
+      {
+        "page": "03-installation-getting-started-components > Pentaho Client Tools > Metadata Editor",
+        "caption": "Metadata Editor"
+      }
+    ],
+    "proposedName": "metadata_editor_component"
+  },
+  {
+    "filename": "ep25ik.png",
+    "occurrences": [
+      {
+        "page": "05-installation-archive-prepare-environment",
+        "caption": "Server group"
+      }
+    ],
+    "proposedName": "postgres_server_group"
+  },
+  {
+    "filename": "eym913.png",
+    "occurrences": [
+      {
+        "page": "10-installation-client-tools > 3. Schema Workbench",
+        "caption": "Schema Workbench"
+      }
+    ],
+    "proposedName": "schema_workbench"
+  },
+  {
+    "filename": "f062wv.png",
+    "occurrences": [
+      {
+        "page": "07-installation-archive-server-plugins > 1. Plugin Manager > NEW Plugins > 2. Semantic Model Editor",
+        "caption": "Semantic Model Editor"
+      }
+    ],
+    "proposedName": "semantic_model_editor_plugin"
+  },
+  {
+    "filename": "fyk2t0.png",
+    "occurrences": [
+      {
+        "page": "07-installation-archive-server-plugins > 1. Plugin Manager > NEW Plugins > 2. Semantic Model Editor",
+        "caption": ""
+      }
+    ],
+    "proposedName": "semantic_model_editor_step"
+  },
+  {
+    "filename": "gvugia.png",
+    "occurrences": [
+      {
+        "page": "07-installation-archive-server-plugins > 1. Plugin Manager > NEW Plugins > 2. Semantic Model Editor",
+        "caption": "SteelWheels Model"
+      }
+    ],
+    "proposedName": "semantic_model_steelwheels"
+  },
+  {
+    "filename": "ha0abm.png",
+    "occurrences": [
+      {
+        "page": "03-installation-getting-started-components > Carte Server",
+        "caption": "Carte Cluster"
+      }
+    ],
+    "proposedName": "carte_cluster"
+  },
+  {
+    "filename": "ix9q9f.png",
+    "occurrences": [
+      {
+        "page": "05-installation-archive-prepare-environment",
+        "caption": "Connection details"
+      }
+    ],
+    "proposedName": "postgres_connection_details"
+  },
+  {
+    "filename": "k3k7ky.png",
+    "occurrences": [
+      {
+        "page": "07-installation-archive-server-plugins > 1. Plugin Manager > Data Connections",
+        "caption": "Add Connection"
+      }
+    ],
+    "proposedName": "data_connection_add"
+  },
+  {
+    "filename": "kg6c8i.png",
+    "occurrences": [
+      {
+        "page": "05-installation-archive-prepare-environment",
+        "caption": "Set PENTAHO_JAVA_HOME"
+      }
+    ],
+    "proposedName": "set_pentaho_java_home"
+  },
+  {
+    "filename": "l6fx7r.png",
+    "occurrences": [
+      {
+        "page": "06-installation-archive-pentaho-server > 1. Pentaho Server",
+        "caption": "Unzip Pentaho Server"
+      }
+    ],
+    "proposedName": "unzip_pentaho_server"
+  },
+  {
+    "filename": "m5y38k.png",
+    "occurrences": [
+      {
+        "page": "11-installation-client-tools-ee-plugins > NEW - PDI Plugin Manager",
+        "caption": ""
+      }
+    ],
+    "proposedName": "pdi_plugin_manager_step"
+  },
+  {
+    "filename": "mfnd98.png",
+    "occurrences": [
+      {
+        "page": "07-installation-archive-server-plugins",
+        "caption": "Switch to Modern Design"
+      }
+    ],
+    "proposedName": "switch_modern_design"
+  },
+  {
+    "filename": "mjugim.png",
+    "occurrences": [
+      {
+        "page": "05-installation-archive-prepare-environment",
+        "caption": "Validate PostgreSQL 17 service .."
+      }
+    ],
+    "proposedName": "postgresql_service_validate"
+  },
+  {
+    "filename": "moam4h.png",
+    "occurrences": [
+      {
+        "page": "07-installation-archive-server-plugins > 1. Plugin Manager > NEW Plugins > 4. Carte",
+        "caption": "Carte Status"
+      }
+    ],
+    "proposedName": "carte_status"
+  },
+  {
+    "filename": "n128mk.png",
+    "occurrences": [
+      {
+        "page": "07-installation-archive-server-plugins > 1. Plugin Manager > Analytic Plugins > 3. Dashboard Designer",
+        "caption": "Dashboard Designer"
+      }
+    ],
+    "proposedName": "dashboard_designer"
+  },
+  {
+    "filename": "n40ae7.png",
+    "occurrences": [
+      {
+        "page": "07-installation-archive-server-plugins > 1. Plugin Manager > Analytic Plugins > 2. Interactive Reporting",
+        "caption": "Interactive Reporting"
+      }
+    ],
+    "proposedName": "interactive_reporting"
+  },
+  {
+    "filename": "nki7gg.png",
+    "occurrences": [
+      {
+        "page": "06-installation-archive-pentaho-server > 5. License Manager",
+        "caption": "Licenses"
+      }
+    ],
+    "proposedName": "licenses"
+  },
+  {
+    "filename": "o1i4pl.png",
+    "occurrences": [
+      {
+        "page": "06-installation-archive-pentaho-server",
+        "caption": "Pentaho Pro Suite"
+      },
+      {
+        "page": "10-installation-client-tools",
+        "caption": "Pentaho Pro Suite"
+      }
+    ],
+    "proposedName": "pentaho_pro_suite"
+  },
+  {
+    "filename": "o1iw63.png",
+    "occurrences": [
+      {
+        "page": "07-installation-archive-server-plugins > 1. Plugin Manager > Data Connections",
+        "caption": "SampleData connection details"
+      }
+    ],
+    "proposedName": "data_connection_sampledata_details"
+  },
+  {
+    "filename": "pfczc2.png",
+    "occurrences": [
+      {
+        "page": "03-installation-getting-started-components > Pentaho Server > Pipeline Designer",
+        "caption": "Pipeline Designer"
+      }
+    ],
+    "proposedName": "pipeline_designer_component"
+  },
+  {
+    "filename": "qzvtp9.png",
+    "occurrences": [
+      {
+        "page": "02-installation-getting-started > Pentaho Support Portal",
+        "caption": "Pentaho Customer Support Portal - Log In"
+      }
+    ],
+    "proposedName": "support_portal_login"
+  },
+  {
+    "filename": "rqtzmi.png",
+    "occurrences": [
+      {
+        "page": "07-installation-archive-server-plugins > 1. Plugin Manager > Analytic Plugins > 1. Analyzer",
+        "caption": "Analyzer"
+      }
+    ],
+    "proposedName": "analyzer"
+  },
+  {
+    "filename": "rx6qt5.png",
+    "occurrences": [
+      {
+        "page": "10-installation-client-tools > 1. Data Integration",
+        "caption": "Spoon UI"
+      }
+    ],
+    "proposedName": "spoon_ui"
+  },
+  {
+    "filename": "sxvohz.png",
+    "occurrences": [
+      {
+        "page": "07-installation-archive-server-plugins > 1. Plugin Manager > NEW Plugins > 1. Pipeline Designer",
+        "caption": "Pipeline Designer Plugin"
+      }
+    ],
+    "proposedName": "pipeline_designer_plugin"
+  },
+  {
+    "filename": "trde0h.png",
+    "occurrences": [
+      {
+        "page": "03-installation-getting-started-components > Pentaho Server > Analyzer",
+        "caption": "Analyzer Report"
+      }
+    ],
+    "proposedName": "analyzer_report"
+  },
+  {
+    "filename": "u0w286.png",
+    "occurrences": [
+      {
+        "page": "07-installation-archive-server-plugins > 1. Plugin Manager > NEW Plugins > 1. Pipeline Designer",
+        "caption": "Pipeline Designer"
+      }
+    ],
+    "proposedName": "pipeline_designer"
+  },
+  {
+    "filename": "ulls48.png",
+    "occurrences": [
+      {
+        "page": "03-installation-getting-started-components > Pentaho Server > Dashboard Designer",
+        "caption": "Dashboard"
+      }
+    ],
+    "proposedName": "dashboard_report"
+  },
+  {
+    "filename": "v1urrf.png",
+    "occurrences": [
+      {
+        "page": "07-installation-archive-server-plugins > 1. Plugin Manager > Data Connections",
+        "caption": "Configure connection"
+      }
+    ],
+    "proposedName": "data_connection_configure"
+  },
+  {
+    "filename": "v45i8d.png",
+    "occurrences": [
+      {
+        "page": "07-installation-archive-server-plugins > 1. Plugin Manager > NEW Plugins > 2. Semantic Model Editor",
+        "caption": "Semantic Model Editor"
+      }
+    ],
+    "proposedName": "semantic_model_editor"
+  },
+  {
+    "filename": "vehvg4.png",
+    "occurrences": [
+      {
+        "page": "03-installation-getting-started-components > Pentaho Client Tools > Schema Workbench",
+        "caption": "Schema Workbench"
+      }
+    ],
+    "proposedName": "schema_workbench_component"
+  },
+  {
+    "filename": "x5k1zl.png",
+    "occurrences": [
+      {
+        "page": "07-installation-archive-server-plugins > 1. Plugin Manager > Analytic Plugins > 2. Interactive Reporting",
+        "caption": "Interactive Reporting"
+      }
+    ],
+    "proposedName": "interactive_reporting_step"
+  },
+  {
+    "filename": "x883qe.png",
+    "occurrences": [
+      {
+        "page": "03-installation-getting-started-components > Pentaho Client Tools > Aggregation Designer",
+        "caption": "Aggregation Designer"
+      }
+    ],
+    "proposedName": "aggregation_designer_component"
+  },
+  {
+    "filename": "xmli9g.png",
+    "occurrences": [
+      {
+        "page": "11-installation-client-tools-ee-plugins > NEW - PDI Plugin Manager",
+        "caption": "PDI Plugin Manager"
+      }
+    ],
+    "proposedName": "pdi_plugin_manager"
+  },
+  {
+    "filename": "yh3f7n.png",
+    "occurrences": [
+      {
+        "page": "02-installation-getting-started > Enterprise Edition",
+        "caption": "Fill out form"
+      }
+    ],
+    "proposedName": "download_form"
+  },
+  {
+    "filename": "yk1hs9.png",
+    "occurrences": [
+      {
+        "page": "06-installation-archive-pentaho-server > 4. Start Server",
+        "caption": "NEW - Pentaho User Console"
+      }
+    ],
+    "proposedName": "pentaho_user_console_start"
+  },
+  {
+    "filename": "ypggka.png",
+    "occurrences": [
+      {
+        "page": "07-installation-archive-server-plugins > 1. Plugin Manager > NEW Plugins > 1. Pipeline Designer",
+        "caption": "Piopeline Designer"
+      }
+    ],
+    "proposedName": "pipeline_designer_step"
+  },
+  {
+    "filename": "z50mie.png",
+    "occurrences": [
+      {
+        "page": "03-installation-getting-started-components > Pentaho Client Tools > Data Integration",
+        "caption": "Pentaho Client / Server Architecture"
+      }
+    ],
+    "proposedName": "pentaho_client_server"
+  }
+]

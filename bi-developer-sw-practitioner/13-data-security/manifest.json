@@ -1,0 +1,9 @@
+{
+  "title": "Overview of Data Security",
+  "description": "Mondrian's role-based security model — roles, role mappers, and the grant hierarchy (Schema, Cube, Dimension, Hierarchy, Member) plus rollup policies.",
+  "order": 13,
+  "kind": "page",
+  "stepCount": 10,
+  "hasVideo": false,
+  "estimatedMinutes": 30
+}

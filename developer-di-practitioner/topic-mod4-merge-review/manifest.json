@@ -1,0 +1,9 @@
+{
+  "title": "Review Merge",
+  "description": "Merging two streams in PDI — Merge Streams for combining sorted inputs row-by-row and Merge Streams (diff) for change detection.",
+  "order": 0,
+  "kind": "page",
+  "stepCount": 2,
+  "hasVideo": false,
+  "estimatedMinutes": 15
+}

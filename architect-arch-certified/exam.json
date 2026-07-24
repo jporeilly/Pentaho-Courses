@@ -1,0 +1,185 @@
+{
+  "title": "Practitioner Exam",
+  "description": "12 questions covering Pentaho 11 installation, components, ports, prerequisites, and post-install tasks. Pass mark is 80%. Open-book — browse any module to refresh your memory or ask the AI assistant for help. Your answers are saved as you go, so leaving the page to look something up is fine. Explanations show after submission so you can learn from any answers you missed.",
+  "passMark": 80,
+  "questionsPerAttempt": 12,
+  "shuffle": true,
+  "webhookUrl": "https://script.google.com/macros/s/AKfycbzt7thr4mfy3-kduDbiQ_UfBPwGC7JxpZA9p1XOeGJG4Q0rh9-OoKJNG965c8SVNQ7i/exec",
+  "webhookSecret": "pcm_Y61JKvDGnbuqvn3BIVCkjoSu98Jn3bE4",
+  "questions": [
+    {
+      "id": "m1-q1",
+      "module": "Overview",
+      "prompt": "Pentaho 11 ships as a coordinated release of which two products?",
+      "options": [
+        "PDI 11.0 and PBA 11.0",
+        "PDI 11.0 and Hitachi Vantara CDP 11.0",
+        "Pentaho Server 11.0 and Carte 11.0",
+        "Spoon 11.0 and Designer 11.0"
+      ],
+      "correct": 0,
+      "explanation": "Pentaho 11 bundles PDI 11.0 (Pentaho Data Integration) and PBA 11.0 (Pentaho Business Analytics) on the same release cadence.",
+      "source": "Pentaho Installation - Practitioner: Overview — What's New"
+    },
+    {
+      "id": "m1-q2",
+      "module": "Overview",
+      "scenario": "You are about to provision a fresh Linux host for an archive install and need to pick an OS that the install labs and apt commands assume.",
+      "prompt": "Which Linux baseline does Pentaho 11.x officially support for archive installation?",
+      "options": [
+        "Ubuntu 24.04 LTS",
+        "Red Hat Enterprise Linux 9",
+        "CentOS Stream 9",
+        "Debian 12"
+      ],
+      "correct": 0,
+      "explanation": "The supported baseline is Ubuntu 24.04 LTS — the Prepare Environment lab and its apt / /etc/environment commands assume it.",
+      "source": "Pentaho Installation - Practitioner: Overview — Components Reference"
+    },
+    {
+      "id": "m1-q3",
+      "module": "Getting Started",
+      "scenario": "A prospect downloads the public Pentaho EE build to evaluate it before purchasing.",
+      "prompt": "How long is the Enterprise Edition evaluation license that ships with the public download?",
+      "options": [
+        "30 days",
+        "14 days",
+        "60 days",
+        "90 days"
+      ],
+      "correct": 0,
+      "explanation": "The free EE download includes a 30-day trial license. GA binaries from the Customer Portal instead need an Activation ID or licensing URL.",
+      "source": "Pentaho Installation - Practitioner: Getting Started — Support Portal & Licensing"
+    },
+    {
+      "id": "m2-q1",
+      "module": "Archive Installation",
+      "prompt": "Which Java version does Pentaho 11 require?",
+      "options": [
+        "Java 21 (OpenJDK)",
+        "Java 8 (Oracle)",
+        "Java 11 (OpenJDK)",
+        "Java 17 (Oracle)"
+      ],
+      "correct": 0,
+      "explanation": "Prepare Environment installs OpenJDK 21 and sets PENTAHO_JAVA_HOME to it. Pentaho 11 is certified on Java 21.",
+      "source": "Pentaho Installation - Practitioner: Archive Installation — Prepare Environment"
+    },
+    {
+      "id": "m2-q2",
+      "module": "Archive Installation",
+      "scenario": "Ubuntu 24.04's default repository ships PostgreSQL 16, but you need a version certified for the Pentaho 11 repository.",
+      "prompt": "Which PostgreSQL versions are supported as Pentaho's repository database in Pentaho 11?",
+      "options": [
+        "PostgreSQL 15 or 17",
+        "PostgreSQL 12 only",
+        "PostgreSQL 14 or 15",
+        "PostgreSQL 16 only"
+      ],
+      "correct": 0,
+      "explanation": "Pentaho 11 supports PostgreSQL 15 and 17. The lab adds the PGDG repository to install PostgreSQL 17 plus pgAdmin 4.",
+      "source": "Pentaho Installation - Practitioner: Archive Installation — Prepare Environment"
+    },
+    {
+      "id": "m2-q3",
+      "module": "Getting Started",
+      "prompt": "Which port does the Pentaho Server's Tomcat use as its HTTP startup port by default?",
+      "options": [
+        "8080",
+        "8012",
+        "9001",
+        "8443"
+      ],
+      "correct": 0,
+      "explanation": "Tomcat's HTTP listener is 8080. The shutdown port is 8012, HSQL is 9001, the embedded H2 database is 9092, and PostgreSQL is 5432.",
+      "source": "Pentaho Installation - Practitioner: Getting Started — Components"
+    },
+    {
+      "id": "m2-q4",
+      "module": "Archive Installation",
+      "scenario": "Following the install procedure, you provision a dedicated account so the Pentaho files and running server are isolated from your personal login.",
+      "prompt": "What is the dedicated Linux user the install procedure creates to own the Pentaho directories?",
+      "options": [
+        "pentaho",
+        "tomcat",
+        "kettle",
+        "biserver"
+      ],
+      "correct": 0,
+      "explanation": "Prepare Environment creates a pentaho user with sudo. Files under $PENTAHO_BASE are owned by it and the server runs as it.",
+      "source": "Pentaho Installation - Practitioner: Archive Installation — Prepare Environment"
+    },
+    {
+      "id": "m2-q5",
+      "module": "Archive Installation",
+      "prompt": "Which environment variable identifies the root of the Pentaho install on Linux?",
+      "options": [
+        "$PENTAHO_BASE",
+        "$PENTAHO_HOME",
+        "$KETTLE_HOME",
+        "$BISERVER_DIR"
+      ],
+      "correct": 0,
+      "explanation": "$PENTAHO_BASE (set in /etc/environment to /opt/pentaho) is used throughout the install commands so paths stay consistent.",
+      "source": "Pentaho Installation - Practitioner: Archive Installation — Prepare Environment"
+    },
+    {
+      "id": "m2-q6",
+      "module": "Getting Started",
+      "scenario": "You want to run PDI artifacts from the shell in a scheduled batch job rather than from the Spoon GUI.",
+      "prompt": "Which TWO command-line tools execute PDI transformations and jobs from the shell?",
+      "options": [
+        "Pan (transformations)",
+        "Kitchen (jobs)",
+        "Carte",
+        "Spoon"
+      ],
+      "correctIndices": [0, 1],
+      "explanation": "Pan runs transformations (.ktr) and Kitchen runs jobs (.kjb). Carte is the lightweight remote-execution server; Spoon is the GUI.",
+      "source": "Pentaho Installation - Practitioner: Getting Started — Components (Pan / Kitchen)"
+    },
+    {
+      "id": "m2-q7",
+      "module": "Getting Started",
+      "prompt": "Which Pentaho component is a lightweight Jetty-based web server for remote execution and clustering of jobs and transformations?",
+      "options": [
+        "Carte",
+        "Kitchen",
+        "BI Server",
+        "Repository Browser"
+      ],
+      "correct": 0,
+      "explanation": "Carte is a Jetty-based server exposing a REST API for remote execution and clustering, letting you scale ETL across machines.",
+      "source": "Pentaho Installation - Practitioner: Getting Started — Components (Carte)"
+    },
+    {
+      "id": "m2-q8",
+      "module": "Archive Installation",
+      "scenario": "During an archive install you extend the Pentaho Server with the standard EE analytics plugins from the Plugin Manager.",
+      "prompt": "Which TWO of these are genuine Pentaho Server EE plugins?",
+      "options": [
+        "Pentaho Analyzer (paz-plugin)",
+        "Pentaho Dashboard Designer (pdd-plugin)",
+        "Tomcat Manager (tcm-plugin)",
+        "Repository Browser (rb-plugin)"
+      ],
+      "correctIndices": [0, 1],
+      "explanation": "paz (Analyzer) and pdd (Dashboard Designer) are real EE plugins, alongside pir, webttle, semantic-model-editor and pas-scheduler. Tomcat's manager and the Repository Browser are not Pentaho plugins.",
+      "source": "Pentaho Installation - Practitioner: Archive Installation — Server Plugins"
+    },
+    {
+      "id": "m2-q9",
+      "module": "Archive Installation",
+      "prompt": "Which content repository does the Pentaho Server use to store reports, dashboards, and ETL assets?",
+      "options": [
+        "Apache Jackrabbit, backed by a relational database",
+        "A file-system folder under $PENTAHO_BASE/repo",
+        "A Git repository on the server",
+        "S3 / MinIO object storage"
+      ],
+      "correct": 0,
+      "explanation": "Content lives in an Apache Jackrabbit JCR repository backed by a supported relational database (PostgreSQL, MSSQL, Oracle, MySQL, or MariaDB). The Repository Browser in Spoon connects to the same store.",
+      "source": "Pentaho Installation - Practitioner: Archive Installation — Install Pentaho Server (Repository)"
+    }
+  ]
+}

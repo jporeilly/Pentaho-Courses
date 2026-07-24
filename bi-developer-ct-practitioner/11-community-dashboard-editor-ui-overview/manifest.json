@@ -1,0 +1,9 @@
+{
+  "title": "UI Overview",
+  "description": "Tour of the Community Dashboard Editor: creating a dashboard, the menu, the Layout/Components/Data Sources/Preview perspectives, Bootstrap layout rules, component properties, and data-source types.",
+  "order": 11,
+  "kind": "page",
+  "hasVideo": false,
+  "stepCount": 8,
+  "estimatedMinutes": 25
+}

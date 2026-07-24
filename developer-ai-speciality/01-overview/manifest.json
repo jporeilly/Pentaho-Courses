@@ -1,0 +1,9 @@
+{
+  "title": "Overview of a Prompt",
+  "description": "Key concepts behind LLM-powered pipelines — prompts, tokenization, embedding, semantic search, and transformer architecture.",
+  "order": 1,
+  "kind": "page",
+  "stepCount": 18,
+  "hasVideo": false,
+  "estimatedMinutes": 45
+}

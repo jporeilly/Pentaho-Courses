@@ -1,0 +1,9 @@
+{
+  "title": "Deploy & Run the Agent",
+  "description": "Hands-on: start the Python agent service, set its boundary argument, wire it into a PDI transformation, run it, and review performance — orchestrating a reasoning agent from PDI.",
+  "order": 17,
+  "kind": "workshop",
+  "stepCount": 6,
+  "hasVideo": false,
+  "estimatedMinutes": 20
+}

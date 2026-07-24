@@ -1,0 +1,9 @@
+{
+  "title": "Overview",
+  "description": "AMQP (Advanced Message Queuing Protocol) — a standardized broker protocol for reliable, decoupled messaging. Exchanges, bindings, routing keys, and queues, and how PDI consumes them with the AMQP Consumer step.",
+  "order": 5,
+  "kind": "page",
+  "stepCount": 3,
+  "hasVideo": false,
+  "estimatedMinutes": 15
+}

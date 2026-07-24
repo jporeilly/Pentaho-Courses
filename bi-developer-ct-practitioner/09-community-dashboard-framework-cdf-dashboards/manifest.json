@@ -1,0 +1,9 @@
+{
+  "title": "CDF Dashboards",
+  "description": "Build a CDF dashboard by hand from the two mandatory files — an XCDF descriptor and an HTML template — then wire up RequireJS and preview it in the Pentaho User Console.",
+  "order": 9,
+  "stepCount": 4,
+  "estimatedMinutes": 30,
+  "hasVideo": false,
+  "kind": "workshop"
+}

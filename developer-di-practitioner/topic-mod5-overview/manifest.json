@@ -1,0 +1,9 @@
+{
+  "title": "Overview",
+  "description": "Moving from single transformations to a production solution — orchestration with jobs, metadata injection, parameter-driven runs, and scaling out execution.",
+  "order": 0,
+  "kind": "page",
+  "stepCount": 0,
+  "hasVideo": false,
+  "estimatedMinutes": 10
+}

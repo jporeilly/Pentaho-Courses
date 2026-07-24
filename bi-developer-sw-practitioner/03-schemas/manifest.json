@@ -1,0 +1,9 @@
+{
+  "title": "Overview of Schemas",
+  "description": "Reference for the Mondrian schema building blocks — Schema, Cube, Dimension, Hierarchy, Level, Properties, Measures, and Annotations.",
+  "order": 3,
+  "kind": "page",
+  "stepCount": 9,
+  "hasVideo": false,
+  "estimatedMinutes": 30
+}

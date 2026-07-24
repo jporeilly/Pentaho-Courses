@@ -1,0 +1,9 @@
+{
+  "title": "RabbitMQ",
+  "description": "Hands-on: consume room-sensor data (temperature/pressure/humidity) from a RabbitMQ broker. Deploy RabbitMQ in Docker, publish with a Python script, and process the queue in PDI with the AMQP Consumer parent/child pattern.",
+  "order": 6,
+  "kind": "workshop",
+  "stepCount": 3,
+  "hasVideo": false,
+  "estimatedMinutes": 15
+}

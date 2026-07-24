@@ -1,0 +1,9 @@
+{
+  "title": "Extended Model",
+  "description": "Extend the Miniature Models schema with a four-level MARKETS dimension, geo annotations, member properties, a shared TIME dimension, a degenerate ORDERSTATUS dimension, and a Quantity measure, then publish to Pentaho Analyzer.",
+  "order": 8,
+  "stepCount": 9,
+  "estimatedMinutes": 90,
+  "hasVideo": true,
+  "kind": "workshop"
+}

@@ -1,0 +1,9 @@
+{
+  "title": "Overview of Community Dashboard Framework",
+  "description": "CDF is the code-first dashboard framework (HTML/CSS/JS) with managed component and dashboard lifecycles — the foundation CDE builds on.",
+  "order": 7,
+  "kind": "page",
+  "hasVideo": false,
+  "stepCount": 4,
+  "estimatedMinutes": 20
+}

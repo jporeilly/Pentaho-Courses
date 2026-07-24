@@ -1,0 +1,59 @@
+{
+  "id": "bi-developer-me-practitioner",
+  "title": "Pentaho BI Developer - ME Practitioner",
+  "description": "Hands-on workshop for the BI Developer. Build business-friendly semantic models with Pentaho Metadata Editor — physical layer, business models, relationships, business views, properties, reusable concepts, and security — then publish XMI domains for ad-hoc Interactive Reporting.",
+  "version": "0.1.0",
+  "kind": "workshop",
+  "mode": "sequential",
+  "theme": {
+    "accent": "#db2777"
+  },
+  "assistant": {
+    "ollamaURL": "http://localhost:11434",
+    "mcpURL": "https://docs.pentaho.com/~gitbook/mcp",
+    "defaultProfile": "cpu",
+    "models": {
+      "cpu": "llama3.2:3b",
+      "gpu": "qwen2.5:7b"
+    }
+  },
+  "moduleSummaries": [
+    {
+      "title": "Getting Started",
+      "summary": "Meet Pentaho Metadata Editor (PME) and the metadata domain — the physical layer and business model layer that turn raw database tables into a business-friendly semantic layer for ad-hoc reporting."
+    },
+    {
+      "title": "Domains & Models",
+      "summary": "The anatomy of a metadata domain, then three guided builds against the SteelWheels SampleData: explore the prebuilt SteelWheels domain, build the OrdersME star-schema domain from scratch, and assemble queries with the Query Builder."
+    },
+    {
+      "title": "Properties",
+      "summary": "Enrich the business model: business tables, columns, and relationships, plus the metadata properties (friendly names, formats, aggregation) that inherit from physical → business → view. Built on the OrderStarCustomer domain."
+    },
+    {
+      "title": "Concepts",
+      "summary": "Define reusable metadata Concepts (Number, Currency, ID, Hidden, Date) once in the Concept Editor and apply them across columns so formatting and behaviour stay consistent — then validate in an Interactive Report."
+    },
+    {
+      "title": "Security & Data Access",
+      "summary": "Lock the model down with metadata security and row-level data constraints, so different roles see different rows and columns from the same published domain."
+    },
+    {
+      "title": "Use Cases",
+      "summary": "Put it together end-to-end: model a MongoDB data source and build Interactive Reports on the resulting metadata domain."
+    }
+  ],
+  "launchers": {
+    "metadata-editor": {
+      "label": "Metadata Editor",
+      "windows": "C:\\Pentaho\\design-tools\\metadata-editor\\metadata-editor.bat",
+      "linux": "~/Pentaho/design-tools/metadata-editor/metadata-editor.sh",
+      "macos": "~/Pentaho/design-tools/metadata-editor/metadata-editor.sh"
+    },
+    "puc": {
+      "label": "Pentaho User Console",
+      "url": "http://localhost:8080"
+    }
+  },
+  "role": "bi-developer"
+}

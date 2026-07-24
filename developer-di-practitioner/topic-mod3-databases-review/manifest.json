@@ -1,0 +1,9 @@
+{
+  "title": "Review Databases",
+  "description": "Overview of the relational database integration patterns — connecting to a database, reading / writing rows, and modelling slowly changing dimensions.",
+  "order": 0,
+  "kind": "page",
+  "stepCount": 0,
+  "hasVideo": false,
+  "estimatedMinutes": 10
+}

@@ -1,0 +1,726 @@
+{
+  "title": "Practitioner Exam",
+  "description": "A fixed 40-question exam drawn at random from a 50-question bank covering all six modules. Pass mark is 80%. This is an open-book exam — take your time, browse any module to refresh your memory, or ask the AI assistant for help. Your answers are saved as you go, so leaving the page to look something up is fine. Explanations show after submission so you can learn from any answers you missed.",
+  "passMark": 80,
+  "questionsPerAttempt": 40,
+  "shuffle": true,
+  "webhookUrl": "https://script.google.com/macros/s/AKfycbzt7thr4mfy3-kduDbiQ_UfBPwGC7JxpZA9p1XOeGJG4Q0rh9-OoKJNG965c8SVNQ7i/exec",
+  "webhookSecret": "pcm_Y61JKvDGnbuqvn3BIVCkjoSu98Jn3bE4",
+  "questions": [
+    {
+      "id": "kc-q1",
+      "module": "Key Concepts",
+      "scenario": "Your team runs a transactional order-entry system and wants fast multidimensional analysis without slowing down order processing.",
+      "prompt": "What fundamentally distinguishes an OLAP system from the OLTP system that feeds it?",
+      "options": [
+        "OLAP handles high-volume individual writes while OLTP is read-only",
+        "OLAP is read-optimised with pre-aggregated, multidimensional structures; OLTP handles day-to-day transactional writes",
+        "OLAP and OLTP are two names for the same relational engine",
+        "OLAP can only store data in CSV files"
+      ],
+      "correct": 1,
+      "explanation": "OLAP focuses on reading and analysing pre-aggregated, multidimensional data for consistently fast queries; OLTP is optimised for many small transactional writes.",
+      "source": "Pentaho BI Developer - SW Practitioner: Key Concepts — OLAP"
+    },
+    {
+      "id": "kc-q2",
+      "module": "Key Concepts",
+      "prompt": "As a ROLAP engine, how does Mondrian answer a user's MDX query?",
+      "options": [
+        "It stores a physical cube on disk and reads cells directly",
+        "It translates the MDX into SQL that runs against the relational star-schema tables",
+        "It compiles the MDX into Java bytecode",
+        "It loads the whole warehouse into memory as a spreadsheet"
+      ],
+      "correct": 1,
+      "explanation": "ROLAP means the cube is computed on demand: Mondrian translates MDX into SQL executed against the underlying relational tables.",
+      "source": "Pentaho BI Developer - SW Practitioner: Key Concepts — ROLAP Mondrian"
+    },
+    {
+      "id": "kc-q3",
+      "module": "Key Concepts",
+      "scenario": "A normalized OLTP model needs 11 joins to answer 'sales by product category and region'.",
+      "prompt": "Why does a star schema make the same question faster and simpler?",
+      "options": [
+        "It removes all dimension tables",
+        "It denormalises dimensions around a central fact table, cutting the joins to roughly 3–4",
+        "It stores the answer only as a materialised view",
+        "It forces the query onto a NoSQL store"
+      ],
+      "correct": 1,
+      "explanation": "A star schema centres a fact table surrounded by denormalised dimension tables, so the same query needs only 3–4 joins instead of 10+.",
+      "source": "Pentaho BI Developer - SW Practitioner: Key Concepts — Normalized vs Star"
+    },
+    {
+      "id": "kc-q4",
+      "module": "Key Concepts",
+      "prompt": "What is the Mondrian schema file, and in what format is it written?",
+      "options": [
+        "A binary cube cache",
+        "An XML file that maps relational tables to cubes, dimensions, hierarchies, and measures",
+        "A SQL script that creates the data warehouse",
+        "A Java class compiled at runtime"
+      ],
+      "correct": 1,
+      "explanation": "The schema is an XML file defining the logical model (cubes, dimensions, hierarchies, levels, measures) and mapping it onto the physical tables.",
+      "source": "Pentaho BI Developer - SW Practitioner: Key Concepts — ROLAP Mondrian"
+    },
+    {
+      "id": "sc-q1",
+      "module": "Schemas",
+      "prompt": "What does the ORDERFACT fact table provide in the Classic Models cube?",
+      "options": [
+        "The descriptive attributes for customers",
+        "Numeric measures plus the foreign keys that join to the dimension tables",
+        "The MDX query text",
+        "The role-based security grants"
+      ],
+      "correct": 1,
+      "explanation": "The fact table holds the measurable values (e.g. TOTALPRICE) and foreign keys (CUSTOMERNUMBER, PRODUCTCODE) linking out to dimensions.",
+      "source": "Pentaho BI Developer - SW Practitioner: Schemas — Basic Model (FACT)"
+    },
+    {
+      "id": "sc-q2",
+      "module": "Schemas",
+      "prompt": "A dimension joins to the fact table using which pair of keys?",
+      "options": [
+        "The dimension's foreignKey (on the fact table) and the hierarchy's primaryKey (on the dimension table)",
+        "Two foreign keys on the fact table",
+        "The cube's cache attribute and its name",
+        "The measure's column and its formatString"
+      ],
+      "correct": 0,
+      "explanation": "The dimension declares a foreignKey into the fact table; the hierarchy declares the primaryKey of its dimension table. Mondrian joins those columns.",
+      "source": "Pentaho BI Developer - SW Practitioner: Schemas — Overview (Dimension/Hierarchy)"
+    },
+    {
+      "id": "sc-q3",
+      "module": "Schemas",
+      "scenario": "You add a Sales measure on the TOTALPRICE column that must total across every dimension.",
+      "prompt": "Which aggregator do you choose?",
+      "options": [
+        "distinct-count",
+        "sum",
+        "min",
+        "avg"
+      ],
+      "correct": 1,
+      "explanation": "sum adds the numeric values as they roll up across any dimension — the most common aggregator and the right one for revenue.",
+      "source": "Pentaho BI Developer - SW Practitioner: Schemas — Overview (Measures)"
+    },
+    {
+      "id": "sc-q4",
+      "module": "Schemas",
+      "prompt": "Which of the following are valid Mondrian measure aggregators? (Select all that apply.)",
+      "options": [
+        "sum",
+        "distinct-count",
+        "median",
+        "avg"
+      ],
+      "correctIndices": [0, 1, 3],
+      "explanation": "Mondrian supports sum, count, distinct-count, max, min, and avg. 'median' is not a built-in aggregator.",
+      "source": "Pentaho BI Developer - SW Practitioner: Schemas — Overview (Measures)"
+    },
+    {
+      "id": "sc-q5",
+      "module": "Schemas",
+      "scenario": "Order Status has only a handful of values, and they already live as a column in the fact table.",
+      "prompt": "What kind of dimension models it most efficiently?",
+      "options": [
+        "A snowflake dimension",
+        "A degenerate dimension (no separate dimension table)",
+        "A shared TIME dimension",
+        "A calculated member"
+      ],
+      "correct": 1,
+      "explanation": "A degenerate dimension has no table of its own — its columns live in the fact table, avoiding a needless join for a few values.",
+      "source": "Pentaho BI Developer - SW Practitioner: Schemas — SteelWheels (Order Status)"
+    },
+    {
+      "id": "sc-q6",
+      "module": "Schemas",
+      "prompt": "What does hasAll=\"true\" give a hierarchy?",
+      "options": [
+        "A degenerate dimension",
+        "An '(All)' member that represents the grand total and is the default member",
+        "A calculated measure",
+        "Row-level security"
+      ],
+      "correct": 1,
+      "explanation": "hasAll adds a top '(All)' member (e.g. 'All Markets') that is the parent of every member and the hierarchy's default member.",
+      "source": "Pentaho BI Developer - SW Practitioner: Schemas — Overview (Hierarchy)"
+    },
+    {
+      "id": "sc-q7",
+      "module": "Schemas",
+      "prompt": "Setting uniqueMembers=\"true\" on the Territory level tells Mondrian that…",
+      "options": [
+        "members are unique across all parents",
+        "the level is hidden in the UI",
+        "the measure is distinct-counted",
+        "the dimension is shared between cubes"
+      ],
+      "correct": 0,
+      "explanation": "uniqueMembers asserts that a level's members are unique across all parents, which lets Mondrian generate more efficient SQL. The first level is always unique.",
+      "source": "Pentaho BI Developer - SW Practitioner: Schemas — Overview (Level)"
+    },
+    {
+      "id": "sc-q8",
+      "module": "Schemas",
+      "scenario": "You edit and re-publish a schema, but Pentaho Analyzer still shows the old structure.",
+      "prompt": "What must you do for the change to take effect?",
+      "options": [
+        "Restart your workstation",
+        "Refresh the Mondrian Schema Cache in the User Console",
+        "Delete and recreate the fact table",
+        "Re-run the JDBC Explorer"
+      ],
+      "correct": 1,
+      "explanation": "Mondrian caches schemas; after publishing you refresh the Mondrian Schema Cache (and reporting cache) so Analyzer picks up the new definition.",
+      "source": "Pentaho BI Developer - SW Practitioner: Schemas — Basic Model (Publish)"
+    },
+    {
+      "id": "sc-q9",
+      "module": "Schemas",
+      "prompt": "Before building a schema in Schema Workbench you create a JDBC connection to the sample database. In this course it is named…",
+      "options": [
+        "hsqldb_sampledata (Hypersonic, localhost, port 9001)",
+        "mysql_prod (MySQL, port 3306)",
+        "oracle_xe (Oracle, port 1521)",
+        "postgres_dw (PostgreSQL, port 5432)"
+      ],
+      "correct": 0,
+      "explanation": "The labs connect to the bundled SampleData via a Hypersonic JDBC connection named hsqldb_sampledata on port 9001. The Server must define the same-named connection for publishing.",
+      "source": "Pentaho BI Developer - SW Practitioner: Schemas — Basic Model (JDBC Connection)"
+    },
+    {
+      "id": "ex-q1",
+      "module": "Extend Model",
+      "scenario": "A TIME dimension is declared once at schema level so several cubes can reuse it.",
+      "prompt": "How does a cube reference that shared dimension?",
+      "options": [
+        "With a DimensionUsage that supplies the cube's own foreignKey",
+        "By copying the dimension's XML into the cube",
+        "With a MemberGrant",
+        "By publishing the schema twice"
+      ],
+      "correct": 0,
+      "explanation": "A shared dimension lives at schema level; each cube references it with a DimensionUsage that binds it via the cube-specific foreignKey.",
+      "source": "Pentaho BI Developer - SW Practitioner: Extend Model — Extended Model (TIME)"
+    },
+    {
+      "id": "ex-q2",
+      "module": "Extend Model",
+      "prompt": "Which annotations let Pentaho Analyzer plot a dimension level on a geo map?",
+      "options": [
+        "AnalyzerHideInUI and AnalyzerDisableDrillLinks",
+        "Data.Role, Geo.Role, and Geo.RequiredParents",
+        "rollupPolicy and topLevel",
+        "DynamicSchemaProcessor and UseContentChecksum"
+      ],
+      "correct": 1,
+      "explanation": "Geo annotations (Data.Role=Geography, Geo.Role=Country/State/City, Geo.RequiredParents) tell Analyzer how to overlay results on an OpenStreetMap geo map.",
+      "source": "Pentaho BI Developer - SW Practitioner: Extend Model — Extended Model (Annotations)"
+    },
+    {
+      "id": "ex-q3",
+      "module": "Extend Model",
+      "prompt": "To enable MDX time functions and relative-date filters on a Years level, you configure…",
+      "options": [
+        "levelType=Regular on the level",
+        "type=TimeDimension on the dimension, levelType=TimeYears on the level, plus an AnalyzerDateFormat annotation",
+        "aggregator=sum on the level",
+        "hasAll=false on the hierarchy"
+      ],
+      "correct": 1,
+      "explanation": "A time dimension uses type=TimeDimension with time level types (TimeYears/TimeQuarters/TimeMonths); AnalyzerDateFormat annotations enable relative-date filters.",
+      "source": "Pentaho BI Developer - SW Practitioner: Extend Model — Extended Model (TIME)"
+    },
+    {
+      "id": "ex-q4",
+      "module": "Extend Model",
+      "prompt": "You want Phone, Address, and Credit Limit available on the Customer level without adding more drill levels. You add…",
+      "options": [
+        "member properties on the Customer level",
+        "a new cube per attribute",
+        "a degenerate dimension",
+        "a CubeGrant"
+      ],
+      "correct": 0,
+      "explanation": "Member properties attach extra attributes to a level for context and filtering without adding hierarchy levels.",
+      "source": "Pentaho BI Developer - SW Practitioner: Extend Model — Extended Model (Customers)"
+    },
+    {
+      "id": "ex-q5",
+      "module": "Extend Model",
+      "prompt": "Which MDX formula defines the UnitPrice calculated member?",
+      "options": [
+        "[Measures].[Sales] * [Measures].[Quantity]",
+        "[Measures].[Sales] / [Measures].[Quantity]",
+        "TopCount([Customers].Members, 10, [Measures].[Sales])",
+        "Aggregate([Measures].[Sales])"
+      ],
+      "correct": 1,
+      "explanation": "UnitPrice is average selling price = Sales divided by Quantity, defined once in the schema as a calculated member.",
+      "source": "Pentaho BI Developer - SW Practitioner: Extend Model — Calculations (Unit Price)"
+    },
+    {
+      "id": "ex-q6",
+      "module": "Extend Model",
+      "prompt": "Which MDX functions build a 'Top 10 Customers' calculated member?",
+      "options": [
+        "Sum and Filter",
+        "Aggregate and TopCount",
+        "Order and Tail",
+        "Crossjoin and Count"
+      ],
+      "correct": 1,
+      "explanation": "TopCount ranks and selects the top 10 customers by Sales; Aggregate rolls that set up into a single measure value.",
+      "source": "Pentaho BI Developer - SW Practitioner: Extend Model — Calculations (Top 10 Customers)"
+    },
+    {
+      "id": "mdx-q1",
+      "module": "MDX Query",
+      "prompt": "In an MDX query, what does the WHERE clause do?",
+      "options": [
+        "Places members on the ROWS axis",
+        "Acts as the slicer, restricting the dimensional context without a visible axis",
+        "Defines a calculated member",
+        "Sets a measure's aggregator"
+      ],
+      "correct": 1,
+      "explanation": "The WHERE clause is the slicer: it pins dimensional context (e.g. a market or year) without placing that dimension on COLUMNS or ROWS.",
+      "source": "Pentaho BI Developer - SW Practitioner: MDX Query — Overview"
+    },
+    {
+      "id": "mdx-q2",
+      "module": "MDX Query",
+      "prompt": "Measures.AllMembers on COLUMNS returns…",
+      "options": [
+        "only the default measure",
+        "every member of the Measures dimension, including calculated ones",
+        "the WHERE slicer value",
+        "the raw fact-table rows"
+      ],
+      "correct": 1,
+      "explanation": "AllMembers returns every member of a level or dimension, including calculated members — useful for validating a schema's measures.",
+      "source": "Pentaho BI Developer - SW Practitioner: MDX Query — MDX Query"
+    },
+    {
+      "id": "mdx-q3",
+      "module": "MDX Query",
+      "prompt": "[Years].&[2004] references a member by its…",
+      "options": [
+        "caption",
+        "key",
+        "ordinal position",
+        "parent member"
+      ],
+      "correct": 1,
+      "explanation": "The ampersand (&) references a member by its key, e.g. [Years].&[2004], rather than by display name.",
+      "source": "Pentaho BI Developer - SW Practitioner: MDX Query — Overview"
+    },
+    {
+      "id": "mdx-q4",
+      "module": "MDX Query",
+      "prompt": "What is the key difference between a Named Set and a Calculated Member?",
+      "options": [
+        "A Named Set returns a set of members; a Calculated Member returns a single value",
+        "They are identical",
+        "A Named Set can only be used in security roles",
+        "A Calculated Member returns a set of members"
+      ],
+      "correct": 0,
+      "explanation": "A Named Set (WITH SET) is a reusable collection of members; a Calculated Member (WITH MEMBER) computes a single new value.",
+      "source": "Pentaho BI Developer - SW Practitioner: MDX Query — Named Sets"
+    },
+    {
+      "id": "mdx-q5",
+      "module": "MDX Query",
+      "prompt": "Which clause creates a temporary named set inside an MDX query for testing before embedding it in the schema?",
+      "options": [
+        "WITH MEMBER",
+        "WITH SET",
+        "CREATE ROLE",
+        "DEFINE CUBE"
+      ],
+      "correct": 1,
+      "explanation": "WITH SET [Top 3 Territories] AS TopCount(...) defines a query-scoped named set you can validate before adding it to the cube.",
+      "source": "Pentaho BI Developer - SW Practitioner: MDX Query — Named Sets"
+    },
+    {
+      "id": "mdx-q6",
+      "module": "MDX Query",
+      "prompt": "Which statements about MDX are correct? (Select all that apply.)",
+      "options": [
+        "COLUMNS and ROWS are visible axes you project sets onto",
+        "The WHERE clause is the slicer and is not a visible axis",
+        "TopCount returns the bottom N members of a set",
+        "FROM names the cube being queried"
+      ],
+      "correctIndices": [0, 1, 3],
+      "explanation": "TopCount returns the TOP N (highest-ranked) members, not the bottom N. The other three statements are correct.",
+      "source": "Pentaho BI Developer - SW Practitioner: MDX Query — Overview"
+    },
+    {
+      "id": "sec-q1",
+      "module": "Data Security",
+      "scenario": "You defined roles in the schema, but every Pentaho user still sees all the data.",
+      "prompt": "What is the most likely cause?",
+      "options": [
+        "No role mapper is configured, so Mondrian defaults to unrestricted access",
+        "The Mondrian cache is enabled",
+        "You used sum instead of count on a measure",
+        "The fact table is missing a primary key"
+      ],
+      "correct": 0,
+      "explanation": "Without a configured role mapper (bean Mondrian-UserRoleMapper), Mondrian grants everyone full access regardless of their Pentaho roles.",
+      "source": "Pentaho BI Developer - SW Practitioner: Data Security — Overview (Role mapper)"
+    },
+    {
+      "id": "sec-q2",
+      "module": "Data Security",
+      "prompt": "A role has a SchemaGrant with access=none and a nested CubeGrant with access=all for the Sales cube. That role can…",
+      "options": [
+        "see every cube except Sales",
+        "see only the Sales cube (and, implicitly, its parent schema)",
+        "see nothing at all",
+        "manage data sources"
+      ],
+      "correct": 1,
+      "explanation": "access=none denies all cubes by default; the CubeGrant=all selectively re-grants Sales, which implicitly grants the parent schema too.",
+      "source": "Pentaho BI Developer - SW Practitioner: Data Security — Mondrian Security (SchemaGrant)"
+    },
+    {
+      "id": "sec-q3",
+      "module": "Data Security",
+      "scenario": "An Analyst role should see data from Country down to City, but not individual customers or the (All) total.",
+      "prompt": "Which grant achieves this?",
+      "options": [
+        "A MemberGrant for every customer",
+        "A HierarchyGrant with access=custom, topLevel=Country, and bottomLevel=City",
+        "A SchemaGrant with access=all",
+        "A degenerate dimension"
+      ],
+      "correct": 1,
+      "explanation": "topLevel hides levels above Country (including All); bottomLevel hides levels below City (Customer Name). Both require access=custom.",
+      "source": "Pentaho BI Developer - SW Practitioner: Data Security — Mondrian Security (HierarchyGrant)"
+    },
+    {
+      "id": "sec-q4",
+      "module": "Data Security",
+      "prompt": "Within a custom HierarchyGrant, granting access to [USA].[WA]…",
+      "options": [
+        "denies all other states by default and implicitly grants the USA parent",
+        "hides WA from the role",
+        "grants every US state",
+        "has no effect without a SchemaGrant of all"
+      ],
+      "correct": 0,
+      "explanation": "With access=custom, everything is denied unless explicitly granted; granting a child (WA) implicitly grants its parents (USA), while other states stay denied.",
+      "source": "Pentaho BI Developer - SW Practitioner: Data Security — Mondrian Security (MemberGrant)"
+    },
+    {
+      "id": "sec-q5",
+      "module": "Data Security",
+      "scenario": "A manager can see CA and OR but not WA, yet you must stop them deducing WA's sales from the USA total.",
+      "prompt": "Which rollup policy do you apply to that hierarchy?",
+      "options": [
+        "full — the total includes hidden WA",
+        "partial — the total includes only the visible children",
+        "ragged — the total is computed twice",
+        "none — totals are always hidden"
+      ],
+      "correct": 1,
+      "explanation": "partial makes the parent total reflect only the children the role can see (CA + OR), so the hidden WA value cannot be inferred by subtraction.",
+      "source": "Pentaho BI Developer - SW Practitioner: Data Security — Overview (Rollup policy)"
+    },
+    {
+      "id": "sec-q6",
+      "module": "Data Security",
+      "prompt": "Why should you keep failOnEmptyRoleList at its default in the one-to-one role mapper?",
+      "options": [
+        "It makes queries run faster",
+        "The default throws an exception for a user with no matching role, preventing accidental full-access",
+        "It enables geo maps",
+        "It localises the schema"
+      ],
+      "correct": 1,
+      "explanation": "By default the mapper fails (denies) when a user has no matching Mondrian role; setting it to false would grant such users access to everything.",
+      "source": "Pentaho BI Developer - SW Practitioner: Data Security — Overview (One-to-One mapper)"
+    },
+    {
+      "id": "loc-q1",
+      "module": "Localization",
+      "prompt": "To localise a schema you replace its user-facing captions and descriptions with tokens shaped like…",
+      "options": [
+        "${caption}",
+        "%{component.element.property}",
+        "#{caption}",
+        "@caption@"
+      ],
+      "correct": 1,
+      "explanation": "Localization tokens use the %{...} form, e.g. %{dimension.customers.caption}, which Mondrian substitutes at runtime.",
+      "source": "Pentaho BI Developer - SW Practitioner: Localization — FR Localization (Tokenized Schema)"
+    },
+    {
+      "id": "loc-q2",
+      "module": "Localization",
+      "prompt": "Where do the translations for those tokens live?",
+      "options": [
+        "Inline in the cube XML",
+        "In Java property files such as MondrianMessages_en.properties and MondrianMessages_fr.properties",
+        "In a CSV stored in the fact table",
+        "In the role mapper bean"
+      ],
+      "correct": 1,
+      "explanation": "Each locale has a Java property file (MondrianMessages_<locale>.properties) mapping tokens to translated text, deployed under WEB-INF/classes/com/pentaho/messages/.",
+      "source": "Pentaho BI Developer - SW Practitioner: Localization — FR Localization (Properties)"
+    },
+    {
+      "id": "loc-q3",
+      "module": "Localization",
+      "prompt": "Which mondrian.properties setting points Mondrian at the message bundle (without a language suffix)?",
+      "options": [
+        "mondrian.rolap.localePropFile=com.pentaho.messages.MondrianMessages",
+        "mondrian.rolap.cache=true",
+        "mondrian.role.mapper=lookup",
+        "mondrian.schema.dynamic=true"
+      ],
+      "correct": 0,
+      "explanation": "mondrian.rolap.localePropFile names the base bundle (com.pentaho.messages.MondrianMessages); Java appends the locale suffix at runtime.",
+      "source": "Pentaho BI Developer - SW Practitioner: Localization — FR Localization (mondrian.properties)"
+    },
+    {
+      "id": "loc-q4",
+      "module": "Localization",
+      "prompt": "Which two data-source properties activate runtime token substitution and let Analyzer detect schema changes?",
+      "options": [
+        "sum and count",
+        "DynamicSchemaProcessor and UseContentChecksum",
+        "topLevel and bottomLevel",
+        "hasAll and allMemberName"
+      ],
+      "correct": 1,
+      "explanation": "DynamicSchemaProcessor performs the token replacement; UseContentChecksum exposes a schema checksum so Pentaho Analyzer refreshes its caches on change.",
+      "source": "Pentaho BI Developer - SW Practitioner: Localization — FR Localization (Manage Data Source)"
+    },
+    {
+      "id": "kc-q5",
+      "module": "Key Concepts",
+      "scenario": "An ETL pipeline extracts operational data before transforming it into dimensional structures.",
+      "prompt": "Where does raw extracted data typically land before transformation, enabling delta loads of only changed records?",
+      "options": [
+        "A staging area",
+        "The Mondrian schema cache",
+        "Directly in the fact table",
+        "A locale property file"
+      ],
+      "correct": 0,
+      "explanation": "Staging areas hold raw extracted data before transformation, so incremental (delta) loads can compare against existing records and apply only the changes.",
+      "source": "Pentaho BI Developer - SW Practitioner: Key Concepts — Data Pipeline"
+    },
+    {
+      "id": "kc-q6",
+      "module": "Key Concepts",
+      "prompt": "In Mondrian terms, a cube is best described as…",
+      "options": [
+        "A physical file of pre-computed cells on disk",
+        "The analytical context for one business process — a set of dimensions and measures over a fact table",
+        "A JDBC connection to the warehouse",
+        "A security role"
+      ],
+      "correct": 1,
+      "explanation": "A cube collects the dimensions, hierarchies, levels, and measures for analysing one business process; each combination of levels and measures is effectively a ready-made report.",
+      "source": "Pentaho BI Developer - SW Practitioner: Schemas — Overview (Cube)"
+    },
+    {
+      "id": "kc-q7",
+      "module": "Key Concepts",
+      "scenario": "Business users keep waiting days for IT to hand-write SQL for every new question.",
+      "prompt": "How does an OLAP cube change this dynamic?",
+      "options": [
+        "It removes the database entirely",
+        "It lets users slice, drill, and pivot themselves in business terms while Mondrian generates the SQL",
+        "It emails IT the query automatically",
+        "It converts every report to CSV"
+      ],
+      "correct": 1,
+      "explanation": "OLAP aligns data with business language so users explore independently; Mondrian translates their interactions into SQL behind the scenes.",
+      "source": "Pentaho BI Developer - SW Practitioner: Key Concepts — Multidimensional"
+    },
+    {
+      "id": "sc-q10",
+      "module": "Schemas",
+      "prompt": "In a Mondrian v3 schema, why does the order of child elements inside the Schema matter?",
+      "options": [
+        "It changes the colours shown in Analyzer",
+        "If elements are in the wrong order (e.g. a cube after a role), Mondrian may silently ignore them",
+        "It changes the JDBC port",
+        "It renames the fact table"
+      ],
+      "correct": 1,
+      "explanation": "The v3 parser is order-sensitive; misplaced child elements (such as a cube appearing after a role) can be silently ignored.",
+      "source": "Pentaho BI Developer - SW Practitioner: Schemas — Overview (Schema)"
+    },
+    {
+      "id": "sc-q11",
+      "module": "Schemas",
+      "scenario": "Exploring the prebuilt SteelWheels schema, you open the Markets dimension.",
+      "prompt": "How many levels does its geographic hierarchy have?",
+      "options": [
+        "Two: Country and City",
+        "Four: Territory, Country, State/Province, City",
+        "One: Territory only",
+        "Three: Year, Quarter, Month"
+      ],
+      "correct": 1,
+      "explanation": "The SteelWheels Markets dimension is a four-level geographic hierarchy: Territory → Country → State/Province → City.",
+      "source": "Pentaho BI Developer - SW Practitioner: Schemas — SteelWheels (Markets)"
+    },
+    {
+      "id": "sc-q12",
+      "module": "Schemas",
+      "prompt": "How does the Miniature Models schema differ from Classic Models?",
+      "options": [
+        "It removes all measures",
+        "It uses three-level hierarchies (e.g. Territory → Country → Customer Name) instead of two",
+        "It has no fact table",
+        "It is authored in JSON instead of XML"
+      ],
+      "correct": 1,
+      "explanation": "Miniature Models steps up to three-level hierarchies in both CUSTOMERS and PRODUCTS, adding an intermediate drill level over the two-level Classic Models build.",
+      "source": "Pentaho BI Developer - SW Practitioner: Schemas — Standard Model"
+    },
+    {
+      "id": "ex-q7",
+      "module": "Extend Model",
+      "prompt": "A degenerate dimension differs from star and snowflake dimensions because it has…",
+      "options": [
+        "Two or more dimension tables",
+        "Exactly one dimension table",
+        "No dimension table — its columns live in the fact table",
+        "Only calculated members"
+      ],
+      "correct": 2,
+      "explanation": "A star dimension has one table and a snowflake two or more; a degenerate dimension has none, with its columns residing in the fact table.",
+      "source": "Pentaho BI Developer - SW Practitioner: Extend Model — Extended Model (Degenerate)"
+    },
+    {
+      "id": "ex-q8",
+      "module": "Extend Model",
+      "prompt": "Which of these are production-grade features you add when extending a basic cube? (Select all that apply.)",
+      "options": [
+        "Shared dimensions referenced via DimensionUsage",
+        "Geographic annotations for map visualisations",
+        "Member properties for extra context",
+        "Replacing MDX with hand-written SQL in every report"
+      ],
+      "correctIndices": [0, 1, 2],
+      "explanation": "Shared dimensions, geo annotations, and member properties are production-grade extensions. You never replace MDX with hand-written SQL — Mondrian generates the SQL from MDX.",
+      "source": "Pentaho BI Developer - SW Practitioner: Extend Model — Overview"
+    },
+    {
+      "id": "mdx-q7",
+      "module": "MDX Query",
+      "scenario": "You want measures across the columns and years down the rows, filtered to the APAC market.",
+      "prompt": "Which clauses carry the years and the APAC filter, respectively?",
+      "options": [
+        "Years go ON ROWS; the APAC filter goes in the WHERE slicer",
+        "Years go in WHERE; APAC goes ON ROWS",
+        "Both go in the FROM clause",
+        "Both are defined as a calculated member"
+      ],
+      "correct": 0,
+      "explanation": "Sets of members project onto visible axes (ON ROWS/COLUMNS); a single dimensional filter like a market goes in the WHERE slicer.",
+      "source": "Pentaho BI Developer - SW Practitioner: MDX Query — MDX Query"
+    },
+    {
+      "id": "mdx-q8",
+      "module": "MDX Query",
+      "prompt": "What is a primary reason a schema developer writes MDX directly in Schema Workbench?",
+      "options": [
+        "To replace the relational database",
+        "To validate schema designs and calculated members and troubleshoot before users hit issues in production",
+        "To localise the schema's captions",
+        "To configure the role mapper"
+      ],
+      "correct": 1,
+      "explanation": "MDX Query mode lets you proactively validate calculated members, test query behaviour, and troubleshoot a schema rather than waiting for production issues.",
+      "source": "Pentaho BI Developer - SW Practitioner: MDX Query — Overview"
+    },
+    {
+      "id": "sec-q7",
+      "module": "Data Security",
+      "prompt": "Which list orders Mondrian's grant types from broadest to narrowest scope?",
+      "options": [
+        "MemberGrant → HierarchyGrant → CubeGrant → SchemaGrant",
+        "SchemaGrant → CubeGrant → HierarchyGrant → MemberGrant",
+        "CubeGrant → SchemaGrant → MemberGrant → HierarchyGrant",
+        "SchemaGrant → MemberGrant → CubeGrant → HierarchyGrant"
+      ],
+      "correct": 1,
+      "explanation": "Grants nest from the whole schema (SchemaGrant) down through cubes, hierarchies, and finally individual members (MemberGrant).",
+      "source": "Pentaho BI Developer - SW Practitioner: Data Security — Overview (Security grants)"
+    },
+    {
+      "id": "sec-q8",
+      "module": "Data Security",
+      "prompt": "Which built-in role mapper translates differing Pentaho and Mondrian role names using key/value pairs?",
+      "options": [
+        "One-to-One mapper",
+        "Lookup Map mapper",
+        "User Session mapper",
+        "Checksum mapper"
+      ],
+      "correct": 1,
+      "explanation": "The Lookup Map mapper holds key (Pentaho role) → value (Mondrian role) pairs, useful when role names differ between the two systems.",
+      "source": "Pentaho BI Developer - SW Practitioner: Data Security — Overview (Lookup Map)"
+    },
+    {
+      "id": "sec-q9",
+      "module": "Data Security",
+      "scenario": "You need a single role that combines the grants of two existing roles.",
+      "prompt": "How do you express that in the Mondrian schema?",
+      "options": [
+        "A SchemaGrant with access=all",
+        "A Role containing a Union of RoleUsage elements",
+        "A DimensionUsage",
+        "A rollupPolicy of hidden"
+      ],
+      "correct": 1,
+      "explanation": "A union role wraps a <Union> of <RoleUsage> references, combining the access of the named roles.",
+      "source": "Pentaho BI Developer - SW Practitioner: Data Security — Overview (Roles)"
+    },
+    {
+      "id": "loc-q5",
+      "module": "Localization",
+      "prompt": "In the token %{classicmodels.dimension.customers.caption}, what does the 'dimension' segment identify?",
+      "options": [
+        "The component — the schema layer being localised",
+        "The user's locale",
+        "The measure's aggregator",
+        "The fact table name"
+      ],
+      "correct": 0,
+      "explanation": "The pattern is %{...[component].[element].[property]}; component is the schema layer (schema, dimension, hierarchy, measures), element the specific object, property the attribute.",
+      "source": "Pentaho BI Developer - SW Practitioner: Localization — FR Localization (Tokenized Schema)"
+    },
+    {
+      "id": "loc-q6",
+      "module": "Localization",
+      "scenario": "Your analytics platform must serve both French and English users from a single schema definition.",
+      "prompt": "What is the advantage of Mondrian's dynamic schema processing approach?",
+      "options": [
+        "You maintain a separate schema per language",
+        "One tokenized schema is translated at runtime by locale, keeping structure in a single place",
+        "Translations are stored as rows in the fact table",
+        "It disables schema caching entirely"
+      ],
+      "correct": 1,
+      "explanation": "Dynamic schema processing separates language-specific labels from structure: a single tokenized schema is substituted at runtime per the user's locale.",
+      "source": "Pentaho BI Developer - SW Practitioner: Localization — Overview"
+    }
+  ]
+}

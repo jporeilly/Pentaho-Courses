@@ -1,0 +1,9 @@
+{
+  "title": "EMQX",
+  "description": "Hands-on: a predictive-maintenance logistics use case. Publish delivery-truck telemetry to an EMQX MQTT broker, consume it in PDI, and write minor/major alerts to output files.",
+  "order": 4,
+  "kind": "workshop",
+  "stepCount": 5,
+  "hasVideo": false,
+  "estimatedMinutes": 20
+}

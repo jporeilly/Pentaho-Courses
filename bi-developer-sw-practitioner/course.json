@@ -1,0 +1,59 @@
+{
+  "id": "bi-developer-sw-practitioner",
+  "title": "Pentaho BI Developer - SW Practitioner",
+  "description": "Hands-on workshop for the OLAP / Mondrian schema BI Developer. Build, extend, and publish Mondrian schemas with Pentaho Schema Workbench — cubes, dimensions, hierarchies, levels, measures, calculated members, named sets — and query them with MDX.",
+  "version": "0.1.0",
+  "kind": "workshop",
+  "mode": "sequential",
+  "theme": {
+    "accent": "#db2777"
+  },
+  "assistant": {
+    "ollamaURL": "http://localhost:11434",
+    "mcpURL": "https://docs.pentaho.com/~gitbook/mcp",
+    "defaultProfile": "cpu",
+    "models": {
+      "cpu": "llama3.2:3b",
+      "gpu": "qwen2.5:7b"
+    }
+  },
+  "moduleSummaries": [
+    {
+      "title": "Getting Started",
+      "summary": "OLAP vs. OLTP, multidimensional cubes, star vs. normalized schemas, and the ROLAP Mondrian engine — the mental model behind every hands-on lab that follows."
+    },
+    {
+      "title": "Schemas",
+      "summary": "The building blocks of a Mondrian schema, then three guided builds against the SteelWheels SampleData: explore the prebuilt SteelWheels cube, build the Classic Models schema step by step, then prove your skills by constructing the Miniature Models schema independently."
+    },
+    {
+      "title": "Extend Model",
+      "summary": "Take a basic cube to production grade: shared time dimensions, geographic annotations for maps, member properties, degenerate dimensions, and calculated members (UnitPrice, Top 10 Customers) that embed business logic in the semantic layer."
+    },
+    {
+      "title": "MDX Query",
+      "summary": "Query cubes directly with MDX to validate and troubleshoot your schemas — SELECT / FROM / WHERE, axes vs. slicers, member references — then centralise reusable member collections with Named Sets."
+    },
+    {
+      "title": "Data Security",
+      "summary": "Lock cubes down with Mondrian's role-based security: roles and role mappers, then the grant hierarchy (Schema, Cube, Hierarchy, Member) and rollup policies, applied hands-on as four progressively restrictive roles on the Miniature Models schema."
+    },
+    {
+      "title": "Localization",
+      "summary": "Serve a global audience from a single schema. Tokenize the Classic Models schema, deploy English and French property files, and configure Mondrian's dynamic schema processor so cubes translate automatically by user locale."
+    }
+  ],
+  "launchers": {
+    "schema-workbench": {
+      "label": "Schema Workbench",
+      "windows": "C:\\Pentaho\\design-tools\\schema-workbench\\workbench.bat",
+      "linux": "~/Pentaho/design-tools/schema-workbench/workbench.sh",
+      "macos": "~/Pentaho/design-tools/schema-workbench/workbench.sh"
+    },
+    "puc": {
+      "label": "Pentaho User Console",
+      "url": "http://localhost:8080"
+    }
+  },
+  "role": "bi-developer"
+}

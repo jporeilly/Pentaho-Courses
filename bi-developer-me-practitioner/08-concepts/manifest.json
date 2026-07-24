@@ -1,0 +1,9 @@
+{
+  "title": "Overview of Concepts",
+  "description": "Reusable bundles of metadata properties applied across the domain via a parent-concept inheritance hierarchy.",
+  "order": 8,
+  "kind": "page",
+  "hasVideo": false,
+  "stepCount": 5,
+  "estimatedMinutes": 20
+}

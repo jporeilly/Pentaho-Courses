@@ -1,0 +1,9 @@
+{
+  "title": "HTML Parser",
+  "description": "Hands-on: extract text from HTML/XML with the HTML Parser step using XPath and CSS selectors — from files and from the stream — to feed clean text into GenAI steps.",
+  "order": 3,
+  "kind": "workshop",
+  "stepCount": 2,
+  "hasVideo": false,
+  "estimatedMinutes": 15
+}

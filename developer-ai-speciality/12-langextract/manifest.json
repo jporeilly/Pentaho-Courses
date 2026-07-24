@@ -1,0 +1,9 @@
+{
+  "title": "Overview",
+  "description": "Turn free-form text into structured rows with LangExtract, backed by a local Ollama model via a REST service. Integration patterns, the API contract, and troubleshooting that apply across the extraction workshops.",
+  "order": 12,
+  "kind": "page",
+  "stepCount": 2,
+  "hasVideo": false,
+  "estimatedMinutes": 15
+}

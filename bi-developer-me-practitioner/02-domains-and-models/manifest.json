@@ -1,0 +1,9 @@
+{
+  "title": "Overview of Domains & Models",
+  "description": "How a Pentaho Metadata Editor domain maps physical tables to a logical business model: Physical Layer, Business Layer, and Business View.",
+  "order": 2,
+  "kind": "page",
+  "hasVideo": false,
+  "stepCount": 4,
+  "estimatedMinutes": 20
+}

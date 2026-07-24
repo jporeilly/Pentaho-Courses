@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Schema name="Classic Models" description="%{classicmodels.schema.description}" measuresCaption="%{classicmodels.measures.caption}">
+    <Cube name="Classic Models - Localized" visible="true" cache="true" enabled="true">
+        <Table name="ORDERFACT" schema="PUBLIC">
+        </Table>
+        <Dimension type="StandardDimension" visible="true" foreignKey="CUSTOMERNUMBER" highCardinality="false" name="CUSTOMERS" caption="%{classicmodels.dimension.customers.caption}" description="%{classicmodels.dimension.customers.description}">
+            <Hierarchy name="Customers" visible="true" hasAll="true" allMemberName="All Customers" allMemberCaption="%{classicmodels.dimension.customers.allmember.caption}" primaryKey="CUSTOMERNUMBER" caption="%{classicmodels.hierarchy.customers.caption}" description="%{classicmodels.hierarchy.customers.description}">
+                <Table name="CUSTOMER_W_TER" schema="PUBLIC">
+                </Table>
+                <Level name="Territory" visible="true" column="TERRITORY" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never" caption="%{classicmodels.dimension.customers.territory.caption}" description="%{classicmodels.dimension.customers.territory.description}">
+                </Level>
+                <Level name="Customer Name" visible="true" column="CUSTOMERNAME" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" caption="%{classicmodels.dimension.customers.customername.caption}" description="%{classicmodels.dimension.customers.customername.description}">
+                </Level>
+            </Hierarchy>
+        </Dimension>
+        <Dimension type="StandardDimension" visible="true" foreignKey="PRODUCTCODE" highCardinality="false" name="PRODUCTS" caption="%{classicmodels.dimension.products.caption}" description="%{classicmodels.dimension.products.description}">
+            <Hierarchy name="Products" visible="true" hasAll="true" allMemberName="All Products" allMemberCaption="%{classicmodels.dimension.products.allmember.caption}" primaryKey="PRODUCTCODE" caption="%{classicmodels.hierarchy.products.caption}" description="%{classicmodels.hierarchy.products.description}">
+                <Table name="PRODUCTS" schema="PUBLIC">
+                </Table>
+                <Level name="Product Line" visible="true" column="PRODUCTLINE" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never" caption="%{classicmodels.dimension.products.line.caption}" description="%{classicmodels.dimension.products.line.description}">
+                </Level>
+                <Level name="Vendor" visible="true" column="PRODUCTVENDOR" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" caption="%{classicmodels.dimension.products.vendor.caption}" description="%{classicmodels.dimension.products.vendor.description}">
+                </Level>
+            </Hierarchy>
+        </Dimension>
+        <Measure name="Sales" column="TOTALPRICE" datatype="Numeric" formatString="$#,###.00" aggregator="sum" caption="%{classicmodels.measures.sales.caption}" visible="true">
+        </Measure>
+    </Cube>
+</Schema>

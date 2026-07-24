@@ -1,0 +1,9 @@
+{
+  "title": "Overview",
+  "description": "What streaming data is, why it differs from batch processing, and how Pentaho Data Integration handles real-time event streams over MQTT, AMQP, and Kafka.",
+  "order": 1,
+  "kind": "page",
+  "stepCount": 6,
+  "hasVideo": false,
+  "estimatedMinutes": 20
+}

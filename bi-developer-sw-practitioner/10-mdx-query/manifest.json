@@ -1,0 +1,9 @@
+{
+  "title": "Overview of MDX Query",
+  "description": "Query Mondrian cubes directly with MDX to validate and troubleshoot schemas, and define reusable Named Sets.",
+  "order": 10,
+  "kind": "page",
+  "stepCount": 2,
+  "hasVideo": false,
+  "estimatedMinutes": 15
+}

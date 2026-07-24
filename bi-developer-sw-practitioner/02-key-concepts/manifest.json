@@ -1,0 +1,9 @@
+{
+  "title": "Key Concepts & Terminology",
+  "description": "OLAP vs. OLTP, multidimensional cubes, star vs. normalized schemas, and the ROLAP Mondrian engine — the mental model behind every lab.",
+  "order": 2,
+  "kind": "page",
+  "stepCount": 6,
+  "hasVideo": false,
+  "estimatedMinutes": 20
+}

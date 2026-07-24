@@ -1,0 +1,9 @@
+{
+  "title": "Review Parameters",
+  "description": "Parameter- and variable-driven PDI pipelines — passing values in at runtime, scoping them, and using them inside SQL.",
+  "order": 0,
+  "kind": "page",
+  "stepCount": 2,
+  "hasVideo": true,
+  "estimatedMinutes": 15
+}

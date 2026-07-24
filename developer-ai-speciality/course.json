@@ -1,0 +1,51 @@
+{
+  "id": "developer-ai-speciality",
+  "title": "Pentaho Developer - AI Speciality",
+  "description": "AI-augmented data pipelines with Pentaho Data Integration. GenAI fundamentals, LLM integration patterns, structured extraction, and agent-as-a-service.",
+  "version": "0.1.0",
+  "kind": "workshop",
+  "mode": "sequential",
+  "theme": {
+    "accent": "#b91c1c"
+  },
+  "assistant": {
+    "ollamaURL": "http://localhost:11434",
+    "mcpURL": "https://docs.pentaho.com/~gitbook/mcp",
+    "defaultProfile": "cpu",
+    "models": {
+      "cpu": "llama3.2:3b",
+      "gpu": "qwen2.5:7b"
+    }
+  },
+  "moduleSummaries": [
+    {
+      "title": "PDI AI Pipelines",
+      "summary": "Key concepts behind LLM-powered pipelines — prompts, tokenization, embedding, semantic search, and transformer architecture. Foundational reading before the hands-on workshops."
+    },
+    {
+      "title": "GenAI",
+      "summary": "GenAI fundamentals for data engineers — HTML parsing, Base64 encoding, AI Chat with RAG, prompt engineering, and real-world use cases like log analysis and sentiment classification."
+    },
+    {
+      "title": "LLM Integration",
+      "summary": "PDI as the orchestration layer with a locally-hosted LLM via Ollama. Sentiment analysis, data quality, enrichment, named entity recognition, summarisation, and multi-staged pipelines."
+    },
+    {
+      "title": "LangExtract",
+      "summary": "Turn free-form text into structured rows when regex is too brittle. Support tickets, clinical notes, and contract documents — extracted via a lightweight REST service backed by Ollama."
+    },
+    {
+      "title": "Agent-as-a-Service",
+      "summary": "Move beyond direct LLM calls to genuine AI agents that reason over intermediate output. Deploy a Python agent that PDI orchestrates for cross-text pattern recognition no ETL step can replicate."
+    }
+  ],
+  "launchers": {
+    "spoon": {
+      "label": "Pentaho Data Integration",
+      "windows": "C:Pentahodesign-toolsdata-integrationspoon.bat",
+      "linux": "~/Pentaho/design-tools/data-integration/spoon.sh",
+      "macos": "~/Pentaho/design-tools/data-integration/spoon.sh",
+      "fileArg": "-file="
+    }
+  }
+}

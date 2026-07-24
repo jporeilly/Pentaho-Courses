@@ -1,0 +1,9 @@
+{
+  "title": "HiveMQ",
+  "description": "Hands-on: consume industrial robot-sensor telemetry from a HiveMQ MQTT broker. Run HiveMQ in Docker, publish sensor data with a Python script, and process the stream in PDI with the MQTT Consumer parent/child pattern.",
+  "order": 3,
+  "kind": "workshop",
+  "stepCount": 4,
+  "hasVideo": false,
+  "estimatedMinutes": 20
+}

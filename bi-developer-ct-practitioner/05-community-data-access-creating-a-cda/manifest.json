@@ -1,0 +1,9 @@
+{
+  "title": "Creating a CDA",
+  "description": "Author a CDA (Community Data Access) descriptor by hand, wire up each data source type, parameterise queries, and call them over the CDA Web API.",
+  "order": 5,
+  "stepCount": 3,
+  "estimatedMinutes": 45,
+  "hasVideo": false,
+  "kind": "workshop"
+}

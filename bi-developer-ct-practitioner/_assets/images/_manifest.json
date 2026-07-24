@@ -1,0 +1,1510 @@
+[
+  {
+    "filename": "12lr2w.png",
+    "occurrences": [
+      {
+        "page": "03-getting-started-my-first-dashboard",
+        "caption": "Dashboard template - preview"
+      }
+    ],
+    "proposedName": "gs_first_dashboard_dashboard_template_preview"
+  },
+  {
+    "filename": "162nt9.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": ""
+      }
+    ],
+    "proposedName": "cde_carrier"
+  },
+  {
+    "filename": "1reez5.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": "Advanced Properties"
+      }
+    ],
+    "proposedName": "cde_carrier_advanced_properties"
+  },
+  {
+    "filename": "1vbnr2.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": "Properties"
+      }
+    ],
+    "proposedName": "cde_carrier_properties"
+  },
+  {
+    "filename": "2ffmcw.png",
+    "occurrences": [
+      {
+        "page": "03-getting-started-my-first-dashboard",
+        "caption": "Database connection - SampleData"
+      }
+    ],
+    "proposedName": "gs_first_dashboard_database_connection_sampledata"
+  },
+  {
+    "filename": "2hd5fa.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": "sourceSelectorQuery"
+      }
+    ],
+    "proposedName": "cde_carrier_sourceselectorquery"
+  },
+  {
+    "filename": "3ca6ez.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": "Parameters - barChart"
+      }
+    ],
+    "proposedName": "cde_carrier_parameters_barchart"
+  },
+  {
+    "filename": "46oox4.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": "Sort By"
+      }
+    ],
+    "proposedName": "cde_carrier_sort_by"
+  },
+  {
+    "filename": "47441d.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": "Call-out box"
+      }
+    ],
+    "proposedName": "cde_carrier_call_out_box"
+  },
+  {
+    "filename": "4ft6yg.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": "Duplicate Query"
+      }
+    ],
+    "proposedName": "cde_carrier_duplicate_query"
+  },
+  {
+    "filename": "4goq5h.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": "Selectors"
+      }
+    ],
+    "proposedName": "cde_carrier_selectors"
+  },
+  {
+    "filename": "4i58cy.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": "Layout.cda"
+      }
+    ],
+    "proposedName": "cde_carrier_layout_cda"
+  },
+  {
+    "filename": "4ie7my.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": "exportChartPopup Component"
+      }
+    ],
+    "proposedName": "cde_carrier_exportchartpopup_component"
+  },
+  {
+    "filename": "4jkb0u.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": "Export Button Component"
+      }
+    ],
+    "proposedName": "cde_carrier_export_button_component"
+  },
+  {
+    "filename": "4lqo0z.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": "Line Chart with extensions"
+      }
+    ],
+    "proposedName": "cde_carrier_line_chart_with_extensions"
+  },
+  {
+    "filename": "4oi0h3.png",
+    "occurrences": [
+      {
+        "page": "06-community-data-access-cda-data-sources",
+        "caption": "sampledata.cda - cities query"
+      }
+    ],
+    "proposedName": "cda_sources_sampledata_cda_cities_query"
+  },
+  {
+    "filename": "4ti7n1.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": "Click pieChart to update lineChart"
+      }
+    ],
+    "proposedName": "cde_carrier_click_piechart_to_update_linechart"
+  },
+  {
+    "filename": "56lo7f.png",
+    "occurrences": [
+      {
+        "page": "01-getting-started",
+        "caption": "CDE Dashboard option"
+      }
+    ],
+    "proposedName": "gs_cde_dashboard_option"
+  },
+  {
+    "filename": "5xbaht.png",
+    "occurrences": [
+      {
+        "page": "05-community-data-access-creating-a-cda",
+        "caption": "Community Data Access"
+      }
+    ],
+    "proposedName": "cda_create_community_data_access"
+  },
+  {
+    "filename": "6rph67.png",
+    "occurrences": [
+      {
+        "page": "06-community-data-access-cda-data-sources",
+        "caption": "CRON"
+      }
+    ],
+    "proposedName": "cda_sources_cron"
+  },
+  {
+    "filename": "6zhlkv.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": "mainTable"
+      }
+    ],
+    "proposedName": "cde_carrier_maintable"
+  },
+  {
+    "filename": "79clf3.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": "Javascript"
+      }
+    ],
+    "proposedName": "cde_carrier_javascript"
+  },
+  {
+    "filename": "7do4of.png",
+    "occurrences": [
+      {
+        "page": "03-getting-started-my-first-dashboard",
+        "caption": "Apply a Template"
+      }
+    ],
+    "proposedName": "gs_first_dashboard_apply_a_template"
+  },
+  {
+    "filename": "7fy6g3.png",
+    "occurrences": [
+      {
+        "page": "03-getting-started-my-first-dashboard",
+        "caption": "Save as .."
+      }
+    ],
+    "proposedName": "gs_first_dashboard_save_as"
+  },
+  {
+    "filename": "7mmmzc.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": "Add a Resource - CSS"
+      }
+    ],
+    "proposedName": "cde_carrier_add_a_resource_css"
+  },
+  {
+    "filename": "88bsxl.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": "Change the column order"
+      }
+    ],
+    "proposedName": "cde_carrier_change_the_column_order"
+  },
+  {
+    "filename": "8qe4s1.png",
+    "occurrences": [
+      {
+        "page": "06-community-data-access-cda-data-sources",
+        "caption": "Schedule Queries &#x26; Cache Manager"
+      }
+    ],
+    "proposedName": "cda_sources_schedule_queries_and_cache_manager"
+  },
+  {
+    "filename": "8z6wpq.png",
+    "occurrences": [
+      {
+        "page": "11-community-dashboard-editor-ui-overview",
+        "caption": "(no caption)"
+      }
+    ],
+    "proposedName": "cde_ui_no_caption"
+  },
+  {
+    "filename": "98zdaz.png",
+    "occurrences": [
+      {
+        "page": "11-community-dashboard-editor-ui-overview",
+        "caption": "(no caption)"
+      }
+    ],
+    "proposedName": "cde_ui_no_caption_2"
+  },
+  {
+    "filename": "9dlywv.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": "Parameters to pass to datasource"
+      }
+    ],
+    "proposedName": "cde_carrier_parameters_to_pass_to_datasource"
+  },
+  {
+    "filename": "9o4lx7.png",
+    "occurrences": [
+      {
+        "page": "11-community-dashboard-editor-ui-overview",
+        "caption": "Community Dashboard Editor"
+      }
+    ],
+    "proposedName": "cde_ui_community_dashboard_editor"
+  },
+  {
+    "filename": "ada8rb.png",
+    "occurrences": [
+      {
+        "page": "06-community-data-access-cda-data-sources",
+        "caption": "Set a schedule"
+      }
+    ],
+    "proposedName": "cda_sources_set_a_schedule"
+  },
+  {
+    "filename": "atyx1q.png",
+    "occurrences": [
+      {
+        "page": "03-getting-started-my-first-dashboard",
+        "caption": "My First dashboard"
+      }
+    ],
+    "proposedName": "gs_first_dashboard_my_first_dashboard"
+  },
+  {
+    "filename": "ay5mth.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": "Line Chart with extensions"
+      }
+    ],
+    "proposedName": "cde_carrier_line_chart_with_extensions_2"
+  },
+  {
+    "filename": "b0f7uv.png",
+    "occurrences": [
+      {
+        "page": "06-community-data-access-cda-data-sources",
+        "caption": "Previewer"
+      }
+    ],
+    "proposedName": "cda_sources_previewer"
+  },
+  {
+    "filename": "b5covb.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": "Calls by Platform"
+      }
+    ],
+    "proposedName": "cde_carrier_calls_by_platform"
+  },
+  {
+    "filename": "bajqik.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": "Bar Chart data"
+      }
+    ],
+    "proposedName": "cde_carrier_bar_chart_data"
+  },
+  {
+    "filename": "bgqxca.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": ""
+      }
+    ],
+    "proposedName": "cde_carrier_2"
+  },
+  {
+    "filename": "bo32ze.png",
+    "occurrences": [
+      {
+        "page": "06-community-data-access-cda-data-sources",
+        "caption": "Cached Queries"
+      }
+    ],
+    "proposedName": "cda_sources_cached_queries"
+  },
+  {
+    "filename": "bq0uz5.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": "pieChartQuery"
+      }
+    ],
+    "proposedName": "cde_carrier_piechartquery"
+  },
+  {
+    "filename": "bsob75.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": "Add Listeners"
+      }
+    ],
+    "proposedName": "cde_carrier_add_listeners"
+  },
+  {
+    "filename": "c50734.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": ""
+      }
+    ],
+    "proposedName": "cde_carrier_3"
+  },
+  {
+    "filename": "ce66a5.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": "Line Chart colours"
+      }
+    ],
+    "proposedName": "cde_carrier_line_chart_colours"
+  },
+  {
+    "filename": "cg986u.png",
+    "occurrences": [
+      {
+        "page": "06-community-data-access-cda-data-sources",
+        "caption": ""
+      }
+    ],
+    "proposedName": "cda_sources"
+  },
+  {
+    "filename": "cj7lt6.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": "Slice Pie Chart - Donut"
+      }
+    ],
+    "proposedName": "cde_carrier_slice_pie_chart_donut"
+  },
+  {
+    "filename": "cpbhfk.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": ""
+      }
+    ],
+    "proposedName": "cde_carrier_4"
+  },
+  {
+    "filename": "czf649.png",
+    "occurrences": [
+      {
+        "page": "03-getting-started-my-first-dashboard",
+        "caption": "Connection Perspective"
+      }
+    ],
+    "proposedName": "gs_first_dashboard_connection_perspective"
+  },
+  {
+    "filename": "dmm5db.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": "Summary table - would be nice to have values next to Bar Chart .."
+      }
+    ],
+    "proposedName": "cde_carrier_summary_table_would_be_nice_to_have_values_next"
+  },
+  {
+    "filename": "dpo05q.png",
+    "occurrences": [
+      {
+        "page": "15-use-cases-sales-analysis-dashboard",
+        "caption": ""
+      }
+    ],
+    "proposedName": "uc_sales"
+  },
+  {
+    "filename": "dz3tgc.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": "Clickable"
+      }
+    ],
+    "proposedName": "cde_carrier_clickable"
+  },
+  {
+    "filename": "ed87ut.png",
+    "occurrences": [
+      {
+        "page": "10-community-dashboard-editor",
+        "caption": "Dashboard Lifecycle"
+      }
+    ],
+    "proposedName": "cde_dashboard_lifecycle"
+  },
+  {
+    "filename": "elfi4x.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": "Selectors"
+      }
+    ],
+    "proposedName": "cde_carrier_selectors_2"
+  },
+  {
+    "filename": "f97pyu.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": "Change column names"
+      }
+    ],
+    "proposedName": "cde_carrier_change_column_names"
+  },
+  {
+    "filename": "fbyez8.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": "Add planTypeParameter"
+      }
+    ],
+    "proposedName": "cde_carrier_add_plantypeparameter"
+  },
+  {
+    "filename": "fcruq5.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": "Numbers - Formatted"
+      }
+    ],
+    "proposedName": "cde_carrier_numbers_formatted"
+  },
+  {
+    "filename": "fg3isv.png",
+    "occurrences": [
+      {
+        "page": "11-community-dashboard-editor-ui-overview",
+        "caption": "(no caption)"
+      }
+    ],
+    "proposedName": "cde_ui_no_caption_3"
+  },
+  {
+    "filename": "fudtng.png",
+    "occurrences": [
+      {
+        "page": "01-getting-started",
+        "caption": "CDA data sources"
+      }
+    ],
+    "proposedName": "gs_cda_data_sources"
+  },
+  {
+    "filename": "g0cfol.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": "Layout Dashboard"
+      }
+    ],
+    "proposedName": "cde_carrier_layout_dashboard"
+  },
+  {
+    "filename": "geygci.png",
+    "occurrences": [
+      {
+        "page": "06-community-data-access-cda-data-sources",
+        "caption": "sampledata.cda"
+      }
+    ],
+    "proposedName": "cda_sources_sampledata_cda"
+  },
+  {
+    "filename": "gks4vd.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": "Listeners"
+      }
+    ],
+    "proposedName": "cde_carrier_listeners"
+  },
+  {
+    "filename": "glvjki.png",
+    "occurrences": [
+      {
+        "page": "06-community-data-access-cda-data-sources",
+        "caption": "CDA samples"
+      }
+    ],
+    "proposedName": "cda_sources_cda_samples"
+  },
+  {
+    "filename": "gm5031.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": "Dashboard layout"
+      }
+    ],
+    "proposedName": "cde_carrier_dashboard_layout"
+  },
+  {
+    "filename": "gsqs71.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": "MDX query - All Call Regions"
+      }
+    ],
+    "proposedName": "cde_carrier_mdx_query_all_call_regions"
+  },
+  {
+    "filename": "hdy3gp.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": "Export Chart"
+      }
+    ],
+    "proposedName": "cde_carrier_export_chart"
+  },
+  {
+    "filename": "hlye67.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": "Enable mainTable"
+      }
+    ],
+    "proposedName": "cde_carrier_enable_maintable"
+  },
+  {
+    "filename": "hrxvy8.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": "barChartQuery"
+      }
+    ],
+    "proposedName": "cde_carrier_barchartquery"
+  },
+  {
+    "filename": "httizm.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": "Pie Chart colours"
+      }
+    ],
+    "proposedName": "cde_carrier_pie_chart_colours"
+  },
+  {
+    "filename": "huzrhm.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": "Add Resource"
+      }
+    ],
+    "proposedName": "cde_carrier_add_resource"
+  },
+  {
+    "filename": "hxst5t.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": "Column Names"
+      }
+    ],
+    "proposedName": "cde_carrier_column_names"
+  },
+  {
+    "filename": "hzeaqw.png",
+    "occurrences": [
+      {
+        "page": "11-community-dashboard-editor-ui-overview",
+        "caption": "Create a New CDE Dashboard"
+      }
+    ],
+    "proposedName": "cde_ui_create_a_new_cde_dashboard"
+  },
+  {
+    "filename": "iokk55.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": "New JDBC connection"
+      }
+    ],
+    "proposedName": "cde_carrier_new_jdbc_connection"
+  },
+  {
+    "filename": "iq9xf9.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": "lineChartQuery"
+      }
+    ],
+    "proposedName": "cde_carrier_linechartquery"
+  },
+  {
+    "filename": "is8ghj.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": "Layout"
+      }
+    ],
+    "proposedName": "cde_carrier_layout"
+  },
+  {
+    "filename": "j6ucmp.png",
+    "occurrences": [
+      {
+        "page": "06-community-data-access-cda-data-sources",
+        "caption": ""
+      }
+    ],
+    "proposedName": "cda_sources_2"
+  },
+  {
+    "filename": "jidv7x.png",
+    "occurrences": [
+      {
+        "page": "03-getting-started-my-first-dashboard",
+        "caption": ""
+      }
+    ],
+    "proposedName": "gs_first_dashboard"
+  },
+  {
+    "filename": "jqry1l.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": "Advanced Properties"
+      }
+    ],
+    "proposedName": "cde_carrier_advanced_properties_2"
+  },
+  {
+    "filename": "jrez3v.png",
+    "occurrences": [
+      {
+        "page": "03-getting-started-my-first-dashboard",
+        "caption": "Chart Components"
+      }
+    ],
+    "proposedName": "gs_first_dashboard_chart_components"
+  },
+  {
+    "filename": "jwtrp8.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": "Export - Chart or Table"
+      }
+    ],
+    "proposedName": "cde_carrier_export_chart_or_table"
+  },
+  {
+    "filename": "jyspxo.png",
+    "occurrences": [
+      {
+        "page": "03-getting-started-my-first-dashboard",
+        "caption": "Pie Chart - Total Sales"
+      }
+    ],
+    "proposedName": "gs_first_dashboard_pie_chart_total_sales"
+  },
+  {
+    "filename": "k4tq8y.png",
+    "occurrences": [
+      {
+        "page": "03-getting-started-my-first-dashboard",
+        "caption": "Color picker"
+      }
+    ],
+    "proposedName": "gs_first_dashboard_color_picker"
+  },
+  {
+    "filename": "kix4o9.png",
+    "occurrences": [
+      {
+        "page": "06-community-data-access-cda-data-sources",
+        "caption": "CDA Dashboard - Top 50 customers"
+      }
+    ],
+    "proposedName": "cda_sources_cda_dashboard_top_50_customers"
+  },
+  {
+    "filename": "kj7yeg.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": "Export Options"
+      }
+    ],
+    "proposedName": "cde_carrier_export_options"
+  },
+  {
+    "filename": "ko7v65.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": "Wireless Carrier Mondrian Schema"
+      }
+    ],
+    "proposedName": "cde_carrier_wireless_carrier_mondrian_schema"
+  },
+  {
+    "filename": "kpf5rr.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": "Select mainTableObj"
+      }
+    ],
+    "proposedName": "cde_carrier_select_maintableobj"
+  },
+  {
+    "filename": "krml2e.png",
+    "occurrences": [
+      {
+        "page": "14-community-graphics-generator-carrier-dashboard",
+        "caption": "Export Chart"
+      }
+    ],
+    "proposedName": "cgg_carrier_export_chart"
+  },
+  {
+    "filename": "krz50.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": "Line Chart"
+      }
+    ],
+    "proposedName": "cde_carrier_line_chart"
+  },
+  {
+    "filename": "kseo90.png",
+    "occurrences": [
+      {
+        "page": "15-use-cases-sales-analysis-dashboard",
+        "caption": "Sales Analysis Dashboard - mock-up"
+      }
+    ],
+    "proposedName": "uc_sales_sales_analysis_dashboard_mock_up"
+  },
+  {
+    "filename": "kw6fer.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": ""
+      }
+    ],
+    "proposedName": "cde_carrier_5"
+  },
+  {
+    "filename": "l13xh5.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": "Delete Output Columns"
+      }
+    ],
+    "proposedName": "cde_carrier_delete_output_columns"
+  },
+  {
+    "filename": "laso23.png",
+    "occurrences": [
+      {
+        "page": "11-community-dashboard-editor-ui-overview",
+        "caption": "CTools Components"
+      }
+    ],
+    "proposedName": "cde_ui_ctools_components"
+  },
+  {
+    "filename": "lb25z3.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": "pieChartQuery - parameters"
+      }
+    ],
+    "proposedName": "cde_carrier_piechartquery_parameters"
+  },
+  {
+    "filename": "logo.png",
+    "occurrences": [
+      {
+        "page": "03-getting-started-my-first-dashboard",
+        "caption": "(no caption)"
+      }
+    ],
+    "proposedName": "gs_first_dashboard_no_caption"
+  },
+  {
+    "filename": "lpy1t2.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": "Add parameters to pieChart component"
+      }
+    ],
+    "proposedName": "cde_carrier_add_parameters_to_piechart_component"
+  },
+  {
+    "filename": "lykyx2.png",
+    "occurrences": [
+      {
+        "page": "03-getting-started-my-first-dashboard",
+        "caption": "Panel_3 - Total sales"
+      }
+    ],
+    "proposedName": "gs_first_dashboard_panel_3_total_sales"
+  },
+  {
+    "filename": "m4ex1j.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": "Save &#x26; Preview"
+      }
+    ],
+    "proposedName": "cde_carrier_save_and_preview"
+  },
+  {
+    "filename": "mj1b4q.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": ""
+      }
+    ],
+    "proposedName": "cde_carrier_6"
+  },
+  {
+    "filename": "mk0ad3.png",
+    "occurrences": [
+      {
+        "page": "14-community-graphics-generator-carrier-dashboard",
+        "caption": "Export lineChart"
+      }
+    ],
+    "proposedName": "cgg_carrier_export_linechart"
+  },
+  {
+    "filename": "mm8894.png",
+    "occurrences": [
+      {
+        "page": "03-getting-started-my-first-dashboard",
+        "caption": "SteelWheelsSales OLAP Schema"
+      }
+    ],
+    "proposedName": "gs_first_dashboard_steelwheelssales_olap_schema"
+  },
+  {
+    "filename": "mwy5gh.png",
+    "occurrences": [
+      {
+        "page": "02-getting-started-first-steps",
+        "caption": "Dashboard - Mock up"
+      }
+    ],
+    "proposedName": "gs_first_steps_dashboard_mock_up"
+  },
+  {
+    "filename": "mzutf5.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": "Format Columns"
+      }
+    ],
+    "proposedName": "cde_carrier_format_columns"
+  },
+  {
+    "filename": "n55qwf.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": "baseline_demo connection details"
+      }
+    ],
+    "proposedName": "cde_carrier_baseline_demo_connection_details"
+  },
+  {
+    "filename": "nke3r8.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": "Expand a record"
+      }
+    ],
+    "proposedName": "cde_carrier_expand_a_record"
+  },
+  {
+    "filename": "nuopf6.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": ""
+      }
+    ],
+    "proposedName": "cde_carrier_7"
+  },
+  {
+    "filename": "o57dov.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": "Add planTypeParameter to lineChart"
+      }
+    ],
+    "proposedName": "cde_carrier_add_plantypeparameter_to_linechart"
+  },
+  {
+    "filename": "o7y2cw.png",
+    "occurrences": [
+      {
+        "page": "03-getting-started-my-first-dashboard",
+        "caption": "CDE Layout - Two x One"
+      }
+    ],
+    "proposedName": "gs_first_dashboard_cde_layout_two_x_one"
+  },
+  {
+    "filename": "oenskc.png",
+    "occurrences": [
+      {
+        "page": "03-getting-started-my-first-dashboard",
+        "caption": "Apply a Template - Two x One"
+      }
+    ],
+    "proposedName": "gs_first_dashboard_apply_a_template_two_x_one"
+  },
+  {
+    "filename": "oofodr.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": "lineChartQuery"
+      }
+    ],
+    "proposedName": "cde_carrier_linechartquery_2"
+  },
+  {
+    "filename": "oqr240.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": "Wireless Carrier Dashboard"
+      },
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": "Wireless Carrier Dashboard"
+      },
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": "Wireless Carrier Dashboard"
+      }
+    ],
+    "proposedName": "cde_carrier_wireless_carrier_dashboard"
+  },
+  {
+    "filename": "oxuil5.png",
+    "occurrences": [
+      {
+        "page": "15-use-cases-sales-analysis-dashboard",
+        "caption": "Empty sample"
+      }
+    ],
+    "proposedName": "uc_sales_empty_sample"
+  },
+  {
+    "filename": "p2mtup.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": "Refresh CDA Dashboard"
+      }
+    ],
+    "proposedName": "cde_carrier_refresh_cda_dashboard"
+  },
+  {
+    "filename": "pgbn59.png",
+    "occurrences": [
+      {
+        "page": "15-use-cases-sales-analysis-dashboard",
+        "caption": "Sales Analysis Dashboard - Folders"
+      }
+    ],
+    "proposedName": "uc_sales_sales_analysis_dashboard_folders"
+  },
+  {
+    "filename": "q2rv2t.png",
+    "occurrences": [
+      {
+        "page": "02-getting-started-first-steps",
+        "caption": ""
+      }
+    ],
+    "proposedName": "gs_first_steps"
+  },
+  {
+    "filename": "qxrv9g.png",
+    "occurrences": [
+      {
+        "page": "03-getting-started-my-first-dashboard",
+        "caption": "New Connection"
+      }
+    ],
+    "proposedName": "gs_first_dashboard_new_connection"
+  },
+  {
+    "filename": "qzbeym.png",
+    "occurrences": [
+      {
+        "page": "03-getting-started-my-first-dashboard",
+        "caption": "New CDE Dashboard"
+      }
+    ],
+    "proposedName": "gs_first_dashboard_new_cde_dashboard"
+  },
+  {
+    "filename": "ructha.png",
+    "occurrences": [
+      {
+        "page": "03-getting-started-my-first-dashboard",
+        "caption": "ER - sampledata"
+      }
+    ],
+    "proposedName": "gs_first_dashboard_er_sampledata"
+  },
+  {
+    "filename": "rviyyt.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": "CSS External File"
+      }
+    ],
+    "proposedName": "cde_carrier_css_external_file"
+  },
+  {
+    "filename": "s92g.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": ""
+      }
+    ],
+    "proposedName": "cde_carrier_8"
+  },
+  {
+    "filename": "samrzp.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": "Add Listeners"
+      }
+    ],
+    "proposedName": "cde_carrier_add_listeners_2"
+  },
+  {
+    "filename": "sdmbl0.png",
+    "occurrences": [
+      {
+        "page": "01-getting-started",
+        "caption": "Component breakdown of a Pentaho CTools dashboard."
+      }
+    ],
+    "proposedName": "gs_component_breakdown_of_a_pentaho_ctools_dashboard"
+  },
+  {
+    "filename": "sjnk5n.png",
+    "occurrences": [
+      {
+        "page": "03-getting-started-my-first-dashboard",
+        "caption": "MDX Query"
+      }
+    ],
+    "proposedName": "gs_first_dashboard_mdx_query"
+  },
+  {
+    "filename": "snt2b3.png",
+    "occurrences": [
+      {
+        "page": "01-getting-started",
+        "caption": "Chart Components"
+      }
+    ],
+    "proposedName": "gs_chart_components"
+  },
+  {
+    "filename": "so9pkj.png",
+    "occurrences": [
+      {
+        "page": "01-getting-started",
+        "caption": "Layout Structure"
+      }
+    ],
+    "proposedName": "gs_layout_structure"
+  },
+  {
+    "filename": "suiabo.png",
+    "occurrences": [
+      {
+        "page": "05-community-data-access-creating-a-cda",
+        "caption": "Edit CDA"
+      }
+    ],
+    "proposedName": "cda_create_edit_cda"
+  },
+  {
+    "filename": "toqovk.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": "mdx over mondrianjndi"
+      }
+    ],
+    "proposedName": "cde_carrier_mdx_over_mondrianjndi"
+  },
+  {
+    "filename": "tvs6dn.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": "Export - PNG &#x26; CSV"
+      }
+    ],
+    "proposedName": "cde_carrier_export_png_and_csv"
+  },
+  {
+    "filename": "txfcfy.png",
+    "occurrences": [
+      {
+        "page": "02-getting-started-first-steps",
+        "caption": "Functional breakdown"
+      }
+    ],
+    "proposedName": "gs_first_steps_functional_breakdown"
+  },
+  {
+    "filename": "u6389v.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": "Wireless Carrier schema"
+      }
+    ],
+    "proposedName": "cde_carrier_wireless_carrier_schema"
+  },
+  {
+    "filename": "uw0mw1.png",
+    "occurrences": [
+      {
+        "page": "13-community-graphics-generator",
+        "caption": "URL for tableQuery"
+      }
+    ],
+    "proposedName": "cgg_url_for_tablequery"
+  },
+  {
+    "filename": "uwox6r.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": "MDX Data Sources"
+      }
+    ],
+    "proposedName": "cde_carrier_mdx_data_sources"
+  },
+  {
+    "filename": "v2q7ag.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": "Interactive pieChart"
+      }
+    ],
+    "proposedName": "cde_carrier_interactive_piechart"
+  },
+  {
+    "filename": "v6ta56.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": "Add dashstyle.css"
+      }
+    ],
+    "proposedName": "cde_carrier_add_dashstyle_css"
+  },
+  {
+    "filename": "vhjmmo.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": "Export table - CSV"
+      }
+    ],
+    "proposedName": "cde_carrier_export_table_csv"
+  },
+  {
+    "filename": "vjeg55.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": "Advanced Properties"
+      }
+    ],
+    "proposedName": "cde_carrier_advanced_properties_3"
+  },
+  {
+    "filename": "vk6yft.png",
+    "occurrences": [
+      {
+        "page": "11-community-dashboard-editor-ui-overview",
+        "caption": "(no caption)"
+      }
+    ],
+    "proposedName": "cde_ui_no_caption_4"
+  },
+  {
+    "filename": "vmj6hd.png",
+    "occurrences": [
+      {
+        "page": "03-getting-started-my-first-dashboard",
+        "caption": "Line Chart - Line sales"
+      }
+    ],
+    "proposedName": "gs_first_dashboard_line_chart_line_sales"
+  },
+  {
+    "filename": "vy0i31.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": "Add planTypeParameter listener."
+      }
+    ],
+    "proposedName": "cde_carrier_add_plantypeparameter_listener"
+  },
+  {
+    "filename": "wrw0w2.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": "tableQuery"
+      }
+    ],
+    "proposedName": "cde_carrier_tablequery"
+  },
+  {
+    "filename": "x6q241.png",
+    "occurrences": [
+      {
+        "page": "03-getting-started-my-first-dashboard",
+        "caption": "Preview dashboard"
+      }
+    ],
+    "proposedName": "gs_first_dashboard_preview_dashboard"
+  },
+  {
+    "filename": "x954jk.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": "baseline_demo database"
+      }
+    ],
+    "proposedName": "cde_carrier_baseline_demo_database"
+  },
+  {
+    "filename": "xguoiu.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": "Select tableQuery as Datasource"
+      }
+    ],
+    "proposedName": "cde_carrier_select_tablequery_as_datasource"
+  },
+  {
+    "filename": "xupbyy.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": "Add row - expandedContent"
+      }
+    ],
+    "proposedName": "cde_carrier_add_row_expandedcontent"
+  },
+  {
+    "filename": "xvxke8.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": "Bullet Legend added"
+      }
+    ],
+    "proposedName": "cde_carrier_bullet_legend_added"
+  },
+  {
+    "filename": "y6ub19.png",
+    "occurrences": [
+      {
+        "page": "03-getting-started-my-first-dashboard",
+        "caption": "My First Dashboard"
+      }
+    ],
+    "proposedName": "gs_first_dashboard_my_first_dashboard_2"
+  },
+  {
+    "filename": "yd531o.png",
+    "occurrences": [
+      {
+        "page": "03-getting-started-my-first-dashboard",
+        "caption": "Dashboard Layout - Header & Footer"
+      }
+    ],
+    "proposedName": "gs_first_dashboard_dashboard_layout_header_and_footer"
+  },
+  {
+    "filename": "yk1i3x.png",
+    "occurrences": [
+      {
+        "page": "01-getting-started",
+        "caption": "CCG"
+      }
+    ],
+    "proposedName": "gs_ccg"
+  },
+  {
+    "filename": "yr2niv.png",
+    "occurrences": [
+      {
+        "page": "15-use-cases-sales-analysis-dashboard",
+        "caption": ""
+      }
+    ],
+    "proposedName": "uc_sales_2"
+  },
+  {
+    "filename": "yv60tw.png",
+    "occurrences": [
+      {
+        "page": "06-community-data-access-cda-data-sources",
+        "caption": "Cache Manager"
+      }
+    ],
+    "proposedName": "cda_sources_cache_manager"
+  },
+  {
+    "filename": "yw518q.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": "Rename Columns"
+      }
+    ],
+    "proposedName": "cde_carrier_rename_columns"
+  },
+  {
+    "filename": "z1gskv.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": "Add Listeners"
+      }
+    ],
+    "proposedName": "cde_carrier_add_listeners_3"
+  },
+  {
+    "filename": "z79mts.png",
+    "occurrences": [
+      {
+        "page": "12-community-dashboard-editor-carrier-dashboard",
+        "caption": "dashstyle.css"
+      }
+    ],
+    "proposedName": "cde_carrier_dashstyle_css"
+  }
+]

@@ -1,0 +1,9 @@
+{
+  "title": "Row-Level Security",
+  "description": "Apply metadata, column-, and row-level security to a Pentaho metadata model so each role sees only its rows — Suzy sees Territory = EMEA, Admin sees all.",
+  "order": 11,
+  "stepCount": 5,
+  "estimatedMinutes": 75,
+  "hasVideo": false,
+  "kind": "workshop"
+}

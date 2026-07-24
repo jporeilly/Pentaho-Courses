@@ -1,0 +1,9 @@
+{
+  "title": "MDX Query",
+  "description": "Use Schema Workbench's MDX Query mode to write and run basic and cross-tab MDX queries against the SteelWheelsSales cube.",
+  "order": 11,
+  "stepCount": 3,
+  "estimatedMinutes": 25,
+  "hasVideo": true,
+  "kind": "workshop"
+}

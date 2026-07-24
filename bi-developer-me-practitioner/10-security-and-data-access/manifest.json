@@ -1,0 +1,9 @@
+{
+  "title": "Overview of Security & Data Access",
+  "description": "Metadata-model security in Pentaho: model-, column-, and row-level authorization that filters data by the user's role.",
+  "order": 10,
+  "kind": "page",
+  "hasVideo": false,
+  "stepCount": 6,
+  "estimatedMinutes": 20
+}

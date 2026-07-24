@@ -1,0 +1,1014 @@
+[
+  {
+    "filename": "151fg9.png",
+    "occurrences": [
+      {
+        "page": "11-mdx-query-mdx-query",
+        "caption": "MDX Query - Sales, Quantity for FY2004 &#x26; 2005 APAC Markets"
+      }
+    ],
+    "proposedName": "mdx_query_mdx_query_sales_quantity_for_fy2004_and_2005_apac"
+  },
+  {
+    "filename": "1vqzae.png",
+    "occurrences": [
+      {
+        "page": "04-schemas-steelwheels",
+        "caption": "Dimensions &#x26; Members"
+      }
+    ],
+    "proposedName": "sw_dimensions_and_members"
+  },
+  {
+    "filename": "20njc8.png",
+    "occurrences": [
+      {
+        "page": "05-schemas-basic-model",
+        "caption": ""
+      }
+    ],
+    "proposedName": "classic"
+  },
+  {
+    "filename": "21dbf7.png",
+    "occurrences": [
+      {
+        "page": "05-schemas-basic-model",
+        "caption": "CUSTOMER Dimension"
+      }
+    ],
+    "proposedName": "classic_customer_dimension"
+  },
+  {
+    "filename": "2xvcn8.png",
+    "occurrences": [
+      {
+        "page": "13-data-security",
+        "caption": "RBAC"
+      }
+    ],
+    "proposedName": "security_rbac"
+  },
+  {
+    "filename": "39itxu.png",
+    "occurrences": [
+      {
+        "page": "02-key-concepts",
+        "caption": "OLAP Cube"
+      }
+    ],
+    "proposedName": "concepts_olap_cube"
+  },
+  {
+    "filename": "3l0hoj.png",
+    "occurrences": [
+      {
+        "page": "12-mdx-query-named-sets",
+        "caption": "Named Set MDX Query - Top 3 Territories"
+      }
+    ],
+    "proposedName": "named_sets_named_set_mdx_query_top_3_territories"
+  },
+  {
+    "filename": "3nb8cf.png",
+    "occurrences": [
+      {
+        "page": "05-schemas-basic-model",
+        "caption": "Level - Customer Name"
+      }
+    ],
+    "proposedName": "classic_level_customer_name"
+  },
+  {
+    "filename": "3xfgsx.png",
+    "occurrences": [
+      {
+        "page": "12-mdx-query-named-sets",
+        "caption": "Add Named Set - Top 3 Territories"
+      }
+    ],
+    "proposedName": "named_sets_add_named_set_top_3_territories"
+  },
+  {
+    "filename": "40uffp.png",
+    "occurrences": [
+      {
+        "page": "03-schemas",
+        "caption": "Mondrian 3 Schema"
+      }
+    ],
+    "proposedName": "schema_mondrian_3_schema"
+  },
+  {
+    "filename": "44gode.png",
+    "occurrences": [
+      {
+        "page": "05-schemas-basic-model",
+        "caption": "Select Classic Models schema"
+      }
+    ],
+    "proposedName": "classic_select_classic_models_schema"
+  },
+  {
+    "filename": "452g8j.png",
+    "occurrences": [
+      {
+        "page": "14-data-security-mondrian-security",
+        "caption": ""
+      }
+    ],
+    "proposedName": "mondrian_sec"
+  },
+  {
+    "filename": "4jiwtf.png",
+    "occurrences": [
+      {
+        "page": "04-schemas-steelwheels",
+        "caption": ""
+      }
+    ],
+    "proposedName": "sw"
+  },
+  {
+    "filename": "4kag0o.png",
+    "occurrences": [
+      {
+        "page": "14-data-security-mondrian-security",
+        "caption": "Executive Role Data Sources"
+      }
+    ],
+    "proposedName": "mondrian_sec_executive_role_data_sources"
+  },
+  {
+    "filename": "4oxe6b.png",
+    "occurrences": [
+      {
+        "page": "04-schemas-steelwheels",
+        "caption": "TIME Dimension"
+      }
+    ],
+    "proposedName": "sw_time_dimension"
+  },
+  {
+    "filename": "66mlk.png",
+    "occurrences": [
+      {
+        "page": "14-data-security-mondrian-security",
+        "caption": "Assign Roles / Permissions to User"
+      }
+    ],
+    "proposedName": "mondrian_sec_assign_roles_and_permissions_to_user"
+  },
+  {
+    "filename": "73e41a.png",
+    "occurrences": [
+      {
+        "page": "05-schemas-basic-model",
+        "caption": "JDBC Connection - hsqldb_sampledata"
+      }
+    ],
+    "proposedName": "classic_jdbc_connection_hsqldb_sampledata"
+  },
+  {
+    "filename": "7wq8cx.png",
+    "occurrences": [
+      {
+        "page": "02-key-concepts",
+        "caption": ""
+      }
+    ],
+    "proposedName": "concepts"
+  },
+  {
+    "filename": "7zl0ik.png",
+    "occurrences": [
+      {
+        "page": "04-schemas-steelwheels",
+        "caption": "JDBC Connection - hsqldb:sampledata"
+      }
+    ],
+    "proposedName": "sw_jdbc_connection_hsqldb_sampledata"
+  },
+  {
+    "filename": "8hzpzh.png",
+    "occurrences": [
+      {
+        "page": "14-data-security-mondrian-security",
+        "caption": "Cube Grant to Sales_FY2003_2005 cube only"
+      }
+    ],
+    "proposedName": "mondrian_sec_cube_grant_to_sales_fy2003_2005_cube_only"
+  },
+  {
+    "filename": "8lhnxa.png",
+    "occurrences": [
+      {
+        "page": "02-key-concepts",
+        "caption": "Mondrian -"
+      }
+    ],
+    "proposedName": "concepts_mondrian"
+  },
+  {
+    "filename": "8lk761.png",
+    "occurrences": [
+      {
+        "page": "05-schemas-basic-model",
+        "caption": "View - Schema XML"
+      }
+    ],
+    "proposedName": "classic_view_schema_xml"
+  },
+  {
+    "filename": "8rxg89.png",
+    "occurrences": [
+      {
+        "page": "08-extend-model-extended-model",
+        "caption": "MARKETS - Annotations"
+      }
+    ],
+    "proposedName": "extended_markets_annotations"
+  },
+  {
+    "filename": "905868.png",
+    "occurrences": [
+      {
+        "page": "05-schemas-basic-model",
+        "caption": "Level - Territory"
+      }
+    ],
+    "proposedName": "classic_level_territory"
+  },
+  {
+    "filename": "9nuaw3.png",
+    "occurrences": [
+      {
+        "page": "14-data-security-mondrian-security",
+        "caption": "Set hierarchy [PRODUCTS.Products]"
+      }
+    ],
+    "proposedName": "mondrian_sec_set_hierarchy_products_products"
+  },
+  {
+    "filename": "9sy4no.png",
+    "occurrences": [
+      {
+        "page": "05-schemas-basic-model",
+        "caption": "Manage Data Sources"
+      }
+    ],
+    "proposedName": "classic_manage_data_sources"
+  },
+  {
+    "filename": "aknldr.png",
+    "occurrences": [
+      {
+        "page": "02-key-concepts",
+        "caption": "Normalized v Star Schema"
+      }
+    ],
+    "proposedName": "concepts_normalized_v_star_schema"
+  },
+  {
+    "filename": "anbrmh.png",
+    "occurrences": [
+      {
+        "page": "08-extend-model-extended-model",
+        "caption": "Geo Map - Geo annotations"
+      }
+    ],
+    "proposedName": "extended_geo_map_geo_annotations"
+  },
+  {
+    "filename": "atp8b7.png",
+    "occurrences": [
+      {
+        "page": "05-schemas-basic-model",
+        "caption": "Level - Products"
+      }
+    ],
+    "proposedName": "classic_level_products"
+  },
+  {
+    "filename": "auh86s.png",
+    "occurrences": [
+      {
+        "page": "14-data-security-mondrian-security",
+        "caption": "Analyst Data Sources - no Miniature Models..!"
+      }
+    ],
+    "proposedName": "mondrian_sec_analyst_data_sources_no_miniature_models"
+  },
+  {
+    "filename": "auo0o4.png",
+    "occurrences": [
+      {
+        "page": "14-data-security-mondrian-security",
+        "caption": "Miniature Models -security.xml"
+      }
+    ],
+    "proposedName": "mondrian_sec_miniature_models_security_xml"
+  },
+  {
+    "filename": "b9xx4e.png",
+    "occurrences": [
+      {
+        "page": "05-schemas-basic-model",
+        "caption": "CUSTOMER Hiearachy"
+      }
+    ],
+    "proposedName": "classic_customer_hiearachy"
+  },
+  {
+    "filename": "bavbkg.png",
+    "occurrences": [
+      {
+        "page": "05-schemas-basic-model",
+        "caption": "Level - Vendor"
+      }
+    ],
+    "proposedName": "classic_level_vendor"
+  },
+  {
+    "filename": "bg8i39.png",
+    "occurrences": [
+      {
+        "page": "03-schemas",
+        "caption": "Cube Element"
+      }
+    ],
+    "proposedName": "schema_cube_element"
+  },
+  {
+    "filename": "btnhbm.png",
+    "occurrences": [
+      {
+        "page": "13-data-security",
+        "caption": "Top &#x26; Bottom"
+      }
+    ],
+    "proposedName": "security_top_and_bottom"
+  },
+  {
+    "filename": "bvixpc.png",
+    "occurrences": [
+      {
+        "page": "04-schemas-steelwheels",
+        "caption": "Measures"
+      }
+    ],
+    "proposedName": "sw_measures"
+  },
+  {
+    "filename": "c1gqnu.png",
+    "occurrences": [
+      {
+        "page": "05-schemas-basic-model",
+        "caption": "Add table"
+      }
+    ],
+    "proposedName": "classic_add_table"
+  },
+  {
+    "filename": "clr8h3.png",
+    "occurrences": [
+      {
+        "page": "14-data-security-mondrian-security",
+        "caption": "Set Executive Role"
+      }
+    ],
+    "proposedName": "mondrian_sec_set_executive_role"
+  },
+  {
+    "filename": "dm3lbb.png",
+    "occurrences": [
+      {
+        "page": "04-schemas-steelwheels",
+        "caption": "SteelWheels Schema"
+      }
+    ],
+    "proposedName": "sw_steelwheels_schema"
+  },
+  {
+    "filename": "dm4x5w.png",
+    "occurrences": [
+      {
+        "page": "08-extend-model-extended-model",
+        "caption": "Order Status - Degenerate Dimension"
+      }
+    ],
+    "proposedName": "extended_order_status_degenerate_dimension"
+  },
+  {
+    "filename": "dsbzsi.png",
+    "occurrences": [
+      {
+        "page": "05-schemas-basic-model",
+        "caption": "Select Dimension table"
+      }
+    ],
+    "proposedName": "classic_select_dimension_table"
+  },
+  {
+    "filename": "e80oh7.png",
+    "occurrences": [
+      {
+        "page": "14-data-security-mondrian-security",
+        "caption": "sales_mgr"
+      }
+    ],
+    "proposedName": "mondrian_sec_sales_mgr"
+  },
+  {
+    "filename": "ecu3hv.png",
+    "occurrences": [
+      {
+        "page": "04-schemas-steelwheels",
+        "caption": "Degenerate Dimensions"
+      }
+    ],
+    "proposedName": "sw_degenerate_dimensions"
+  },
+  {
+    "filename": "eiq0lm.png",
+    "occurrences": [
+      {
+        "page": "05-schemas-basic-model",
+        "caption": "Workflow to define a Schema"
+      }
+    ],
+    "proposedName": "classic_workflow_to_define_a_schema"
+  },
+  {
+    "filename": "elfox3.png",
+    "occurrences": [
+      {
+        "page": "14-data-security-mondrian-security",
+        "caption": "Set hierarchy [PRODUCTS.Products]"
+      }
+    ],
+    "proposedName": "mondrian_sec_set_hierarchy_products_products_2"
+  },
+  {
+    "filename": "f3z23x.png",
+    "occurrences": [
+      {
+        "page": "11-mdx-query-mdx-query",
+        "caption": "MDX Query"
+      }
+    ],
+    "proposedName": "mdx_query_mdx_query"
+  },
+  {
+    "filename": "f9juq8.png",
+    "occurrences": [
+      {
+        "page": "08-extend-model-extended-model",
+        "caption": ""
+      }
+    ],
+    "proposedName": "extended"
+  },
+  {
+    "filename": "focpx7.png",
+    "occurrences": [
+      {
+        "page": "02-key-concepts",
+        "caption": "Data Cube Operations"
+      }
+    ],
+    "proposedName": "concepts_data_cube_operations"
+  },
+  {
+    "filename": "fypohm.png",
+    "occurrences": [
+      {
+        "page": "04-schemas-steelwheels",
+        "caption": "Dimensions"
+      }
+    ],
+    "proposedName": "sw_dimensions"
+  },
+  {
+    "filename": "gfj8x8.png",
+    "occurrences": [
+      {
+        "page": "14-data-security-mondrian-security",
+        "caption": "Set hierarchy [CUSTOMERS.Customers]  topLevel"
+      }
+    ],
+    "proposedName": "mondrian_sec_set_hierarchy_customers_customers_toplevel"
+  },
+  {
+    "filename": "h3b096.png",
+    "occurrences": [
+      {
+        "page": "12-mdx-query-named-sets",
+        "caption": "Copy &#x26; paste formula"
+      }
+    ],
+    "proposedName": "named_sets_copy_and_paste_formula"
+  },
+  {
+    "filename": "h83bj7.png",
+    "occurrences": [
+      {
+        "page": "14-data-security-mondrian-security",
+        "caption": ""
+      }
+    ],
+    "proposedName": "mondrian_sec_2"
+  },
+  {
+    "filename": "hg5hmq.png",
+    "occurrences": [
+      {
+        "page": "08-extend-model-extended-model",
+        "caption": "Extended Schema - Miniature Models"
+      }
+    ],
+    "proposedName": "extended_extended_schema_miniature_models"
+  },
+  {
+    "filename": "hm2qei.png",
+    "occurrences": [
+      {
+        "page": "03-schemas",
+        "caption": "Dimension Element"
+      }
+    ],
+    "proposedName": "schema_dimension_element"
+  },
+  {
+    "filename": "htlhxq.png",
+    "occurrences": [
+      {
+        "page": "14-data-security-mondrian-security",
+        "caption": "Set member [CUSTOMERS.Customers].[NA].[USA].[NJ]"
+      }
+    ],
+    "proposedName": "mondrian_sec_set_member_customers_customers_na_usa_nj"
+  },
+  {
+    "filename": "hwhv7i.png",
+    "occurrences": [
+      {
+        "page": "14-data-security-mondrian-security",
+        "caption": "Add Hierarchy Grant - CUSTOMERS.Customers"
+      }
+    ],
+    "proposedName": "mondrian_sec_add_hierarchy_grant_customers_customers"
+  },
+  {
+    "filename": "idn9ha.png",
+    "occurrences": [
+      {
+        "page": "03-schemas",
+        "caption": "Measures"
+      }
+    ],
+    "proposedName": "schema_measures"
+  },
+  {
+    "filename": "johc80.png",
+    "occurrences": [
+      {
+        "page": "09-extend-model-calculations",
+        "caption": "Calculated Member"
+      }
+    ],
+    "proposedName": "calc_calculated_member"
+  },
+  {
+    "filename": "juif5r.png",
+    "occurrences": [
+      {
+        "page": "16-localization-fr-localization",
+        "caption": "Add Tokens"
+      }
+    ],
+    "proposedName": "fr_l10n_add_tokens"
+  },
+  {
+    "filename": "k85dao.png",
+    "occurrences": [
+      {
+        "page": "05-schemas-basic-model",
+        "caption": "Connection - hsqldb_sampledata"
+      }
+    ],
+    "proposedName": "classic_connection_hsqldb_sampledata"
+  },
+  {
+    "filename": "kdbxfu.png",
+    "occurrences": [
+      {
+        "page": "04-schemas-steelwheels",
+        "caption": "JDBC Explorer"
+      }
+    ],
+    "proposedName": "sw_jdbc_explorer"
+  },
+  {
+    "filename": "kfd38p.png",
+    "occurrences": [
+      {
+        "page": "11-mdx-query-mdx-query",
+        "caption": "MDX Query - Quantity, Sales, Count for FY2004"
+      }
+    ],
+    "proposedName": "mdx_query_mdx_query_quantity_sales_count_for_fy2004"
+  },
+  {
+    "filename": "ljpsl5.png",
+    "occurrences": [
+      {
+        "page": "06-schemas-standard-model",
+        "caption": ""
+      }
+    ],
+    "proposedName": "miniature"
+  },
+  {
+    "filename": "luqgmc.png",
+    "occurrences": [
+      {
+        "page": "14-data-security-mondrian-security",
+        "caption": "Add Cube Grant"
+      }
+    ],
+    "proposedName": "mondrian_sec_add_cube_grant"
+  },
+  {
+    "filename": "lx7k8c.png",
+    "occurrences": [
+      {
+        "page": "08-extend-model-extended-model",
+        "caption": "Properties - Customers"
+      }
+    ],
+    "proposedName": "extended_properties_customers"
+  },
+  {
+    "filename": "mvmpbq.png",
+    "occurrences": [
+      {
+        "page": "08-extend-model-extended-model",
+        "caption": "Analyzer Report"
+      }
+    ],
+    "proposedName": "extended_analyzer_report"
+  },
+  {
+    "filename": "mx38a5.png",
+    "occurrences": [
+      {
+        "page": "05-schemas-basic-model",
+        "caption": "New Connection"
+      }
+    ],
+    "proposedName": "classic_new_connection"
+  },
+  {
+    "filename": "nb92t6.png",
+    "occurrences": [
+      {
+        "page": "12-mdx-query-named-sets",
+        "caption": "Named Set - Top 3 Territories"
+      }
+    ],
+    "proposedName": "named_sets_named_set_top_3_territories"
+  },
+  {
+    "filename": "nfru7m.png",
+    "occurrences": [
+      {
+        "page": "05-schemas-basic-model",
+        "caption": "Analyzer report"
+      }
+    ],
+    "proposedName": "classic_analyzer_report"
+  },
+  {
+    "filename": "oceuj7.png",
+    "occurrences": [
+      {
+        "page": "14-data-security-mondrian-security",
+        "caption": "Set hierarchy [CUSTOMERS.Customers]  topLevel &#x26; bottomLevel"
+      }
+    ],
+    "proposedName": "mondrian_sec_set_hierarchy_customers_customers_toplevel_and"
+  },
+  {
+    "filename": "og9v4i.png",
+    "occurrences": [
+      {
+        "page": "12-mdx-query-named-sets",
+        "caption": "Enter Formula"
+      }
+    ],
+    "proposedName": "named_sets_enter_formula"
+  },
+  {
+    "filename": "op1usz.png",
+    "occurrences": [
+      {
+        "page": "05-schemas-basic-model",
+        "caption": "Set ORDERFACT table"
+      }
+    ],
+    "proposedName": "classic_set_orderfact_table"
+  },
+  {
+    "filename": "ot0w15.png",
+    "occurrences": [
+      {
+        "page": "02-key-concepts",
+        "caption": "Data Pipeline"
+      }
+    ],
+    "proposedName": "concepts_data_pipeline"
+  },
+  {
+    "filename": "q4bfa7.png",
+    "occurrences": [
+      {
+        "page": "04-schemas-steelwheels",
+        "caption": "Annotations"
+      }
+    ],
+    "proposedName": "sw_annotations"
+  },
+  {
+    "filename": "q927zn.png",
+    "occurrences": [
+      {
+        "page": "03-schemas",
+        "caption": "Hierarchy Element"
+      }
+    ],
+    "proposedName": "schema_hierarchy_element"
+  },
+  {
+    "filename": "qkp7k8.png",
+    "occurrences": [
+      {
+        "page": "05-schemas-basic-model",
+        "caption": "Refresh the Caches"
+      }
+    ],
+    "proposedName": "classic_refresh_the_caches"
+  },
+  {
+    "filename": "qup7q6.png",
+    "occurrences": [
+      {
+        "page": "14-data-security-mondrian-security",
+        "caption": "Add Users"
+      }
+    ],
+    "proposedName": "mondrian_sec_add_users"
+  },
+  {
+    "filename": "qyyeq.png",
+    "occurrences": [
+      {
+        "page": "14-data-security-mondrian-security",
+        "caption": "Schema Grant access = none"
+      }
+    ],
+    "proposedName": "mondrian_sec_schema_grant_access_none"
+  },
+  {
+    "filename": "s9wyh0.png",
+    "occurrences": [
+      {
+        "page": "05-schemas-basic-model",
+        "caption": "Measures - Sales"
+      }
+    ],
+    "proposedName": "classic_measures_sales"
+  },
+  {
+    "filename": "smpont.png",
+    "occurrences": [
+      {
+        "page": "08-extend-model-extended-model",
+        "caption": "Geo map"
+      }
+    ],
+    "proposedName": "extended_geo_map"
+  },
+  {
+    "filename": "ukl7e2.png",
+    "occurrences": [
+      {
+        "page": "05-schemas-basic-model",
+        "caption": "Schema - ClassicModels"
+      }
+    ],
+    "proposedName": "classic_schema_classicmodels"
+  },
+  {
+    "filename": "ukq3aj.png",
+    "occurrences": [
+      {
+        "page": "05-schemas-basic-model",
+        "caption": ""
+      }
+    ],
+    "proposedName": "classic_2"
+  },
+  {
+    "filename": "umnfbs.png",
+    "occurrences": [
+      {
+        "page": "05-schemas-basic-model",
+        "caption": "Publish Schema"
+      }
+    ],
+    "proposedName": "classic_publish_schema"
+  },
+  {
+    "filename": "urw474.png",
+    "occurrences": [
+      {
+        "page": "08-extend-model-extended-model",
+        "caption": "TIME - Shared Dimension"
+      }
+    ],
+    "proposedName": "extended_time_shared_dimension"
+  },
+  {
+    "filename": "uw0jlv.png",
+    "occurrences": [
+      {
+        "page": "05-schemas-basic-model",
+        "caption": "Add Dimension"
+      }
+    ],
+    "proposedName": "classic_add_dimension"
+  },
+  {
+    "filename": "v6e30o.png",
+    "occurrences": [
+      {
+        "page": "06-schemas-standard-model",
+        "caption": "Schema - Miniature Models"
+      }
+    ],
+    "proposedName": "miniature_schema_miniature_models"
+  },
+  {
+    "filename": "vvtedb.png",
+    "occurrences": [
+      {
+        "page": "05-schemas-basic-model",
+        "caption": "Add table"
+      }
+    ],
+    "proposedName": "classic_add_table_2"
+  },
+  {
+    "filename": "vyqmmv.png",
+    "occurrences": [
+      {
+        "page": "04-schemas-steelwheels",
+        "caption": "JDBC Explorer - sampledata"
+      }
+    ],
+    "proposedName": "sw_jdbc_explorer_sampledata"
+  },
+  {
+    "filename": "vz2xa.png",
+    "occurrences": [
+      {
+        "page": "04-schemas-steelwheels",
+        "caption": "Steel Wheels Schema"
+      }
+    ],
+    "proposedName": "sw_steel_wheels_schema"
+  },
+  {
+    "filename": "wg8jha.png",
+    "occurrences": [
+      {
+        "page": "03-schemas",
+        "caption": "Annotations"
+      }
+    ],
+    "proposedName": "schema_annotations"
+  },
+  {
+    "filename": "wopglg.png",
+    "occurrences": [
+      {
+        "page": "03-schemas",
+        "caption": "Schema Element"
+      }
+    ],
+    "proposedName": "schema_schema_element"
+  },
+  {
+    "filename": "xard4q.png",
+    "occurrences": [
+      {
+        "page": "14-data-security-mondrian-security",
+        "caption": "Refresh the Mondrian Cache"
+      },
+      {
+        "page": "14-data-security-mondrian-security",
+        "caption": "Refresh the Mondrian Cache"
+      },
+      {
+        "page": "14-data-security-mondrian-security",
+        "caption": "Refresh the Mondrian Cache"
+      }
+    ],
+    "proposedName": "mondrian_sec_refresh_the_mondrian_cache"
+  },
+  {
+    "filename": "xfuvzi.png",
+    "occurrences": [
+      {
+        "page": "14-data-security-mondrian-security",
+        "caption": "Analyst"
+      }
+    ],
+    "proposedName": "mondrian_sec_analyst"
+  },
+  {
+    "filename": "xhysr2.png",
+    "occurrences": [
+      {
+        "page": "08-extend-model-extended-model",
+        "caption": "Add Dimension - MARKETS"
+      }
+    ],
+    "proposedName": "extended_add_dimension_markets"
+  },
+  {
+    "filename": "xylayo.png",
+    "occurrences": [
+      {
+        "page": "13-data-security",
+        "caption": ""
+      }
+    ],
+    "proposedName": "security"
+  },
+  {
+    "filename": "xzve8g.png",
+    "occurrences": [
+      {
+        "page": "03-schemas",
+        "caption": "Properties"
+      }
+    ],
+    "proposedName": "schema_properties"
+  },
+  {
+    "filename": "yfr80t.png",
+    "occurrences": [
+      {
+        "page": "12-mdx-query-named-sets",
+        "caption": "MDX Query"
+      }
+    ],
+    "proposedName": "named_sets_mdx_query"
+  },
+  {
+    "filename": "yr4xb0.png",
+    "occurrences": [
+      {
+        "page": "03-schemas",
+        "caption": "Level Element"
+      }
+    ],
+    "proposedName": "schema_level_element"
+  },
+  {
+    "filename": "ytopol.png",
+    "occurrences": [
+      {
+        "page": "04-schemas-steelwheels",
+        "caption": "JDBC Connection"
+      },
+      {
+        "page": "05-schemas-basic-model",
+        "caption": "JDBC Connection"
+      }
+    ],
+    "proposedName": "sw_jdbc_connection"
+  },
+  {
+    "filename": "zefjd0.png",
+    "occurrences": [
+      {
+        "page": "14-data-security-mondrian-security",
+        "caption": "Schema Grant access = all"
+      }
+    ],
+    "proposedName": "mondrian_sec_schema_grant_access_all"
+  }
+]

@@ -1,0 +1,35 @@
+{
+  "id": "developer-ml-speciality",
+  "title": "Pentaho Developer - ML Speciality",
+  "description": "Machine learning with Pentaho Data Integration. A credit-card fraud-detection use case covering H2O AutoML, supervised and unsupervised learning, and handling imbalanced datasets.",
+  "version": "0.1.0",
+  "kind": "workshop",
+  "mode": "sequential",
+  "theme": {
+    "accent": "#b91c1c"
+  },
+  "assistant": {
+    "ollamaURL": "http://localhost:11434",
+    "mcpURL": "https://docs.pentaho.com/~gitbook/mcp",
+    "defaultProfile": "cpu",
+    "models": {
+      "cpu": "llama3.2:3b",
+      "gpu": "qwen2.5:7b"
+    }
+  },
+  "moduleSummaries": [
+    {
+      "title": "Machine Learning",
+      "summary": "Detect credit-card fraud with PDI: discover models automatically with H2O AutoML, learn fraud patterns with supervised algorithms, surface novel fraud with unsupervised methods, and handle the imbalanced datasets that make fraud detection hard."
+    }
+  ],
+  "launchers": {
+    "spoon": {
+      "label": "Pentaho Data Integration",
+      "windows": "C\\:Pentaho\\design-tools\\data-integration\\spoon.bat",
+      "linux": "~/opt/pentaho/design-tools/data-integration/spoon.sh",
+      "macos": "~/Pentaho/design-tools/data-integration/spoon.sh",
+      "fileArg": "-file="
+    }
+  }
+}

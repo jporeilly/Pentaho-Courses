@@ -1,0 +1,378 @@
+{
+  "title": "Streaming Data Speciality Exam",
+  "description": "20 questions drawn from a pool of 26, covering streaming concepts and the PDI streaming pattern across MQTT, Kafka, and AMQP. Pass mark is 80%. Open-book — browse any page, hover glossary terms, or ask the AI assistant. Your answers are saved as you go. Explanations appear after submission.",
+  "passMark": 80,
+  "questionsPerAttempt": 20,
+  "shuffle": true,
+  "webhookUrl": "https://script.google.com/macros/s/AKfycbzt7thr4mfy3-kduDbiQ_UfBPwGC7JxpZA9p1XOeGJG4Q0rh9-OoKJNG965c8SVNQ7i/exec",
+  "webhookSecret": "pcm_Y61JKvDGnbuqvn3BIVCkjoSu98Jn3bE4",
+  "questions": [
+    {
+      "id": "concept-q1",
+      "module": "Streaming Data",
+      "prompt": "What most fundamentally distinguishes streaming data from batch data?",
+      "options": [
+        "Streaming data is always smaller in volume than batch data",
+        "Streaming data is an unbounded sequence of events processed as it arrives, rather than a finite dataset processed all at once",
+        "Streaming data can only be stored in time-series databases",
+        "Streaming data does not require any transformation before loading"
+      ],
+      "correct": 1,
+      "explanation": "Batch processing works on a bounded chunk and ends when the data is exhausted. Streaming data is unbounded — the consumer keeps running and processes events on the fly as they arrive.",
+      "source": "Pentaho Developer - Streaming Speciality: Overview"
+    },
+    {
+      "id": "concept-q2",
+      "module": "Streaming Data",
+      "prompt": "In PDI's streaming pattern, what is the role of the parent transformation?",
+      "options": [
+        "It parses the JSON payload of each message",
+        "It holds the streaming consumer step, which collects incoming messages into batches and hands each batch to a child transformation",
+        "It writes the final records to the target database",
+        "It runs only once at startup to create the broker"
+      ],
+      "correct": 1,
+      "explanation": "The parent transformation contains the consumer step (MQTT/Kafka/AMQP Consumer). It batches incoming messages and invokes the child transformation per batch; the child does the parsing and loading.",
+      "source": "Pentaho Developer - Streaming Speciality: Overview"
+    },
+    {
+      "id": "concept-q3",
+      "module": "Streaming Data",
+      "prompt": "Why must 'Get records from stream' be the first step in the child transformation?",
+      "options": [
+        "Because it is alphabetically first in the step list",
+        "Because it produces rows and so cannot be placed mid-stream; rows must originate at the start of the stream",
+        "Because it requires a database connection that must open before any other step",
+        "Because it deletes the previous batch before processing"
+      ],
+      "correct": 1,
+      "explanation": "'Get records from stream' produces rows from the batched messages. A row-producing step must be the first step in a stream — to add the data to an existing stream you would join it in instead.",
+      "source": "Pentaho Developer - Streaming Speciality: Overview"
+    },
+    {
+      "id": "concept-q4",
+      "module": "Streaming Data",
+      "scenario": "A consumer step is configured with Duration (ms) = 5000 and Number of records = 100, consuming a topic that produces roughly one message per second.",
+      "prompt": "What triggers a batch to be sent to the child transformation, and which threshold usually fires first here?",
+      "options": [
+        "Only the record count; it fires first",
+        "Whichever threshold is reached first; at ~1 msg/sec the 5-second duration usually fires first, sending ~5 records",
+        "Both thresholds must be satisfied simultaneously",
+        "Only the duration; the record count is ignored"
+      ],
+      "correct": 1,
+      "explanation": "A batch flushes when the first of the two thresholds is met. At ~1 msg/sec, the 5-second window is reached long before 100 records accumulate, so each batch carries about 5 records.",
+      "source": "Pentaho Developer - Streaming Speciality: Overview"
+    },
+    {
+      "id": "concept-q5",
+      "module": "Streaming Data",
+      "prompt": "Which of the following are streaming protocols supported by PDI's streaming steps? (Select all that apply.)",
+      "options": [
+        "MQTT",
+        "Kafka",
+        "AMQP",
+        "SMTP"
+      ],
+      "correctIndices": [0, 1, 2],
+      "explanation": "PDI provides consumer steps for MQTT, Kafka, AMQP (and JMS/Kinesis). SMTP is an email transfer protocol, not a streaming source.",
+      "source": "Pentaho Developer - Streaming Speciality: Overview"
+    },
+    {
+      "id": "concept-q6",
+      "module": "Streaming Data",
+      "prompt": "What is the advantage of the publish/subscribe model used by streaming brokers?",
+      "options": [
+        "Producers must wait for each consumer to acknowledge before sending the next message",
+        "Producers and consumers are decoupled — neither needs to know about the other; any number of subscribers can receive a topic",
+        "Only one consumer can ever read a given topic",
+        "Messages are delivered in random order to balance load"
+      ],
+      "correct": 1,
+      "explanation": "In pub/sub, producers publish to a topic and any number of subscribers register interest. The decoupling lets producers and consumers scale and evolve independently.",
+      "source": "Pentaho Developer - Streaming Speciality: Overview"
+    },
+    {
+      "id": "concept-q7",
+      "module": "Streaming Data",
+      "prompt": "Which two batch settings act as backpressure controls to stop a fast stream overwhelming the consumer? (Select all that apply.)",
+      "options": [
+        "Message prefetch limit",
+        "Maximum concurrent batches",
+        "Target table name",
+        "Commit comment"
+      ],
+      "correctIndices": [0, 1],
+      "explanation": "The message prefetch limit caps how many messages PDI queues in memory, and maximum concurrent batches bounds parallel batch processing. Together they manage throughput versus resource use.",
+      "source": "Pentaho Developer - Streaming Speciality: MQTT"
+    },
+    {
+      "id": "mqtt-q1",
+      "module": "MQTT",
+      "prompt": "Why is MQTT well suited to IoT and sensor networks?",
+      "options": [
+        "It encrypts every message with a hardware security module",
+        "It is a lightweight publish/subscribe protocol that needs minimal resources, suiting constrained devices",
+        "It guarantees messages are never duplicated under any configuration",
+        "It stores all historical data on the device itself"
+      ],
+      "correct": 1,
+      "explanation": "MQTT's minimal overhead lets small microcontrollers communicate reliably with low power and cost, which is exactly what IoT devices need.",
+      "source": "Pentaho Developer - Streaming Speciality: MQTT"
+    },
+    {
+      "id": "mqtt-q2",
+      "module": "MQTT",
+      "prompt": "What does MQTT QoS level 2 (exactly once) trade off compared with QoS 0?",
+      "options": [
+        "It is faster but can lose messages",
+        "It guarantees each message is delivered exactly once, at the cost of the highest overhead",
+        "It disables the broker's persistence entirely",
+        "It is identical to QoS 0 but renamed"
+      ],
+      "correct": 1,
+      "explanation": "QoS 0 is lowest latency but can lose messages; QoS 1 can duplicate; QoS 2 guarantees exactly-once delivery but carries the most overhead.",
+      "source": "Pentaho Developer - Streaming Speciality: MQTT"
+    },
+    {
+      "id": "mqtt-q3",
+      "module": "MQTT",
+      "prompt": "In the HiveMQ workshop, which port does the broker expose for the MQTT TCP listener?",
+      "options": [
+        "9090",
+        "1883",
+        "18083",
+        "5672"
+      ],
+      "correct": 1,
+      "explanation": "HiveMQ exposes the MQTT TCP listener on 1883 (Control Center on 9090). 18083 is the EMQX dashboard and 5672 is the AMQP port.",
+      "source": "Pentaho Developer - Streaming Speciality: MQTT"
+    },
+    {
+      "id": "mqtt-q4",
+      "module": "MQTT",
+      "scenario": "An MQTT producer and consumer are both connected to EMQX, but the child transformation never runs and no output files are written.",
+      "prompt": "Which are sensible first things to check? (Select all that apply.)",
+      "options": [
+        "Producer and consumer use the same topic",
+        "The consumer batch has Duration (ms) or Number of records set greater than 0",
+        "The child transformation starts with Get records from stream",
+        "The broker has been uninstalled to reset its state"
+      ],
+      "correctIndices": [0, 1, 2],
+      "explanation": "No output usually means a topic mismatch, a batch with no trigger threshold (so it never flushes), or a child transformation that does not begin with Get records from stream. Uninstalling the broker is not a troubleshooting step.",
+      "source": "Pentaho Developer - Streaming Speciality: MQTT"
+    },
+    {
+      "id": "mqtt-q5",
+      "module": "MQTT",
+      "prompt": "What is the purpose of the MQTT 'clean session' flag being set to false?",
+      "options": [
+        "It deletes all retained messages on connect",
+        "The broker persists the client's subscriptions and queued QoS 1/2 messages between connections",
+        "It forces QoS 0 for all messages",
+        "It disables the consumer's child transformation"
+      ],
+      "correct": 1,
+      "explanation": "With clean session false, the broker keeps the client's state — subscriptions and queued QoS 1/2 messages — so they survive a disconnect. True means no state is retained.",
+      "source": "Pentaho Developer - Streaming Speciality: MQTT"
+    },
+    {
+      "id": "mqtt-q6",
+      "module": "MQTT",
+      "prompt": "In the EMQX logistics workshop, what does the child transformation ultimately produce?",
+      "options": [
+        "A single aggregated row inserted into Kafka",
+        "Minor and major alert rows appended to output files",
+        "A new MQTT topic for each truck",
+        "A schema registered with the Schema Registry"
+      ],
+      "correct": 1,
+      "explanation": "The EMQX child transformation resolves the sensor type, filters minor and major alerts, aggregates them, and appends results to major_alert.txt and minor_alert.txt.",
+      "source": "Pentaho Developer - Streaming Speciality: MQTT"
+    },
+    {
+      "id": "kafka-q1",
+      "module": "Kafka",
+      "prompt": "What does Kafka's KRaft mode change about cluster operation?",
+      "options": [
+        "It adds a second ZooKeeper cluster for redundancy",
+        "It manages cluster metadata within Kafka itself using the Raft protocol, removing the ZooKeeper dependency",
+        "It disables partitions in favour of a single log",
+        "It requires every broker to also be a Schema Registry"
+      ],
+      "correct": 1,
+      "explanation": "KRaft (Kafka Raft metadata mode) consolidates metadata management inside Kafka via Raft consensus, eliminating ZooKeeper and simplifying deployment and scaling.",
+      "source": "Pentaho Developer - Streaming Speciality: Kafka"
+    },
+    {
+      "id": "kafka-q2",
+      "module": "Kafka",
+      "prompt": "What is a Kafka offset?",
+      "options": [
+        "The time in milliseconds to wait before reading",
+        "A sequential ID that uniquely identifies a record within a partition",
+        "The number of consumers in a group",
+        "The size of the message in bytes"
+      ],
+      "correct": 1,
+      "explanation": "Each record within a partition has a monotonically increasing offset. Consumers track offsets to know what they have read and where to resume.",
+      "source": "Pentaho Developer - Streaming Speciality: Kafka"
+    },
+    {
+      "id": "kafka-q3",
+      "module": "Kafka",
+      "prompt": "What does setting auto.offset.reset to 'earliest' do for a consumer with no committed offset?",
+      "options": [
+        "Starts reading only new messages produced after it connects",
+        "Starts reading from the beginning of the topic",
+        "Resets all partitions to offset zero on every batch",
+        "Skips the first record of every partition"
+      ],
+      "correct": 1,
+      "explanation": "With no committed offset, 'earliest' reads from the start of the topic; 'latest' would read only messages produced after the consumer connects.",
+      "source": "Pentaho Developer - Streaming Speciality: Kafka"
+    },
+    {
+      "id": "kafka-q4",
+      "module": "Kafka",
+      "scenario": "In the user-events workshop, String fields loaded to MySQL end up as TINYTEXT and break index creation.",
+      "prompt": "How is this fixed in the child transformation?",
+      "options": [
+        "By switching the Table output step to a Text file output",
+        "By setting explicit data-type lengths for each field on the Select values Metadata tab so PDI generates VARCHAR",
+        "By disabling the primary key on the MySQL table",
+        "By converting all fields to Integer"
+      ],
+      "correct": 1,
+      "explanation": "Without explicit lengths, PDI maps String fields to TINYTEXT, which cannot be indexed. Setting lengths on the Select values Metadata tab makes PDI emit VARCHAR of the right size.",
+      "source": "Pentaho Developer - Streaming Speciality: Kafka"
+    },
+    {
+      "id": "kafka-q5",
+      "module": "Kafka",
+      "prompt": "Why is a Formula step (not a Calculator step) used to convert register_time from epoch milliseconds to seconds?",
+      "options": [
+        "The Calculator step cannot output Integer values",
+        "The Calculator step requires both operands to be stream fields, while Formula supports an inline constant like 1000",
+        "The Formula step runs faster on streaming data",
+        "MySQL rejects values produced by the Calculator step"
+      ],
+      "correct": 1,
+      "explanation": "Calculator needs both operands as existing fields — you cannot type a literal 1000. Formula supports inline constants, so [register_time_epoch] / 1000 works directly.",
+      "source": "Pentaho Developer - Streaming Speciality: Kafka"
+    },
+    {
+      "id": "kafka-q6",
+      "module": "Kafka",
+      "prompt": "When configuring the Table output step for MySQL in this workshop, why should the Target schema be left blank?",
+      "options": [
+        "MySQL does not support the Table output step",
+        "MySQL uses the database name from the connection; setting a schema qualifies the table (e.g. kafka_warehouse.user_events) and can fail",
+        "Leaving it blank truncates the table on every run",
+        "A blank schema enables Avro serialization"
+      ],
+      "correct": 1,
+      "explanation": "For MySQL the database comes from the connection itself. Setting Target schema causes PDI to qualify the table name, which can fail or behave unexpectedly.",
+      "source": "Pentaho Developer - Streaming Speciality: Kafka"
+    },
+    {
+      "id": "kafka-q7",
+      "module": "Kafka",
+      "prompt": "What is the role of a Kafka consumer group?",
+      "options": [
+        "It encrypts messages for the group's members",
+        "Its members share the work of reading a topic, each being assigned a subset of the topic's partitions",
+        "It stores the schema for every topic the group reads",
+        "It guarantees exactly-once delivery across all topics"
+      ],
+      "correct": 1,
+      "explanation": "Consumers in a group cooperate: each is assigned a subset of partitions so the group divides the load of consuming a topic.",
+      "source": "Pentaho Developer - Streaming Speciality: Kafka"
+    },
+    {
+      "id": "amqp-q1",
+      "module": "AMQP",
+      "prompt": "In AMQP, where does a producer send a message?",
+      "options": [
+        "Directly to a queue",
+        "To an exchange, which routes it to queues using bindings and routing keys",
+        "To the consumer's IP address",
+        "To the Schema Registry"
+      ],
+      "correct": 1,
+      "explanation": "AMQP producers publish to an exchange, not a queue directly. The exchange uses bindings and routing keys to decide which queues receive the message.",
+      "source": "Pentaho Developer - Streaming Speciality: AMQP"
+    },
+    {
+      "id": "amqp-q2",
+      "module": "AMQP",
+      "prompt": "What does a 'fanout' exchange do?",
+      "options": [
+        "Routes a message to exactly one queue based on the routing key",
+        "Broadcasts every message it receives to all bound queues, ignoring routing keys",
+        "Stores messages on disk only",
+        "Converts JSON messages to Avro"
+      ],
+      "correct": 1,
+      "explanation": "Fanout is the default exchange type. It ignores routing keys and broadcasts each message to every queue bound to it.",
+      "source": "Pentaho Developer - Streaming Speciality: AMQP"
+    },
+    {
+      "id": "amqp-q3",
+      "module": "AMQP",
+      "prompt": "Which characteristics can an AMQP queue be configured with? (Select all that apply.)",
+      "options": [
+        "Durable (survives broker restarts)",
+        "Exclusive (used by a single connection)",
+        "Auto-delete (removed when its consumer count drops to zero)",
+        "Encrypted-at-rest by the routing key"
+      ],
+      "correctIndices": [0, 1, 2],
+      "explanation": "Queues can be durable, exclusive, and/or auto-delete. There is no 'encrypted by routing key' property — routing keys determine routing, not encryption.",
+      "source": "Pentaho Developer - Streaming Speciality: AMQP"
+    },
+    {
+      "id": "amqp-q4",
+      "module": "AMQP",
+      "prompt": "What is the recommended order of operations when first using the AMQP Consumer step to create a new queue?",
+      "options": [
+        "Start the producer first, then run the consumer",
+        "Run the AMQP Consumer step first to initialize the broker bindings, then start producing messages",
+        "Delete any existing exchange before running either",
+        "Run the producer and consumer simultaneously from the same transformation"
+      ],
+      "correct": 1,
+      "explanation": "As a best practice, run the AMQP Consumer first so the queue and bindings are initialized, then start the producer — otherwise early messages may have nowhere to go.",
+      "source": "Pentaho Developer - Streaming Speciality: AMQP"
+    },
+    {
+      "id": "amqp-q5",
+      "module": "AMQP",
+      "prompt": "In the RabbitMQ workshop, what default port does the broker use for AMQP connections, and what for its management UI?",
+      "options": [
+        "1883 for AMQP, 9090 for the UI",
+        "5672 for AMQP, 15672 for the management UI",
+        "9092 for AMQP, 3000 for the UI",
+        "18083 for AMQP, 8080 for the UI"
+      ],
+      "correct": 1,
+      "explanation": "RabbitMQ listens on 5672 for AMQP and serves its management UI on 15672 (default credentials guest/guest).",
+      "source": "Pentaho Developer - Streaming Speciality: AMQP"
+    },
+    {
+      "id": "amqp-q6",
+      "module": "AMQP",
+      "prompt": "What happens if you point the AMQP Consumer at an existing queue whose settings differ from those it would create?",
+      "options": [
+        "PDI silently overwrites the queue's settings",
+        "The transformation aborts",
+        "The message is rerouted to a fanout exchange",
+        "The consumer creates a second queue with a suffix"
+      ],
+      "correct": 1,
+      "explanation": "If the named queue already exists with different parameters (or a different exchange type), the transformation aborts rather than silently changing the broker configuration.",
+      "source": "Pentaho Developer - Streaming Speciality: AMQP"
+    }
+  ]
+}

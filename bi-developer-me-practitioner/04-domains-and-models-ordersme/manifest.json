@@ -1,0 +1,9 @@
+{
+  "title": "OrdersME",
+  "description": "Build a Pentaho metadata domain from scratch - JDBC connection, import tables, star-schema business model, relationships, business views, then publish the XMI and test with an Interactive Report.",
+  "order": 4,
+  "stepCount": 6,
+  "estimatedMinutes": 90,
+  "hasVideo": true,
+  "kind": "workshop"
+}

@@ -1,0 +1,9 @@
+{
+  "title": "Query Builder",
+  "description": "Use the Metadata Query Editor to test and validate the OrderStarCustomer domain by selecting business columns, running queries, and reviewing preview data.",
+  "order": 5,
+  "stepCount": 0,
+  "estimatedMinutes": 15,
+  "hasVideo": true,
+  "kind": "workshop"
+}

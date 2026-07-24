@@ -1,0 +1,9 @@
+{
+  "title": "MongoDB Reports",
+  "description": "Load SteelWheels data into MongoDB with PDI, then report on the document data via Interactive Reporting and Analyzer.",
+  "order": 12,
+  "stepCount": 2,
+  "estimatedMinutes": 60,
+  "hasVideo": false,
+  "kind": "workshop"
+}

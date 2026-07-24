@@ -1,0 +1,9 @@
+{
+  "title": "Mondrian Security",
+  "description": "Implement role-based OLAP security on the Miniature Models schema with SchemaGrant, CubeGrant, HierarchyGrant, MemberGrant, and rollup policies.",
+  "order": 14,
+  "stepCount": 5,
+  "estimatedMinutes": 120,
+  "hasVideo": false,
+  "kind": "workshop"
+}

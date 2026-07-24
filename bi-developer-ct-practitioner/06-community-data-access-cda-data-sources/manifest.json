@@ -1,0 +1,9 @@
+{
+  "title": "CDA Data Sources",
+  "description": "Review a pre-built CDA file — Mondrian/MDX queries, parameters, the editFile previewer, and query caching with scheduled cache warming.",
+  "order": 6,
+  "stepCount": 3,
+  "estimatedMinutes": 25,
+  "hasVideo": false,
+  "kind": "workshop"
+}

@@ -1,0 +1,9 @@
+{
+  "title": "FR Localization",
+  "description": "Internationalize the Classic Models Mondrian schema with %{} tokens, deploy French and English message property files, and configure dynamic schema processing on the Pentaho Server.",
+  "order": 16,
+  "stepCount": 5,
+  "estimatedMinutes": 60,
+  "hasVideo": false,
+  "kind": "workshop"
+}

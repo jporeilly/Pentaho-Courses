@@ -1,0 +1,9 @@
+{
+  "title": "OrderStarCustomer",
+  "description": "Build the OrderStarCustomer business model (Steel Wheels star schema) in Metadata Editor: import physical tables, add business tables, define N:1 inner joins, enrich properties, and organize business view categories.",
+  "order": 7,
+  "stepCount": 6,
+  "estimatedMinutes": 45,
+  "hasVideo": true,
+  "kind": "workshop"
+}

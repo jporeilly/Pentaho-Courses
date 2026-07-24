@@ -1,0 +1,9 @@
+{
+  "title": "My First Dashboard",
+  "description": "Build a complete SteelWheels sales dashboard in the Community Dashboard Editor (CDE) with layouts, OLAP charts, and a JDBC connection.",
+  "order": 3,
+  "stepCount": 5,
+  "estimatedMinutes": 30,
+  "hasVideo": false,
+  "kind": "workshop"
+}

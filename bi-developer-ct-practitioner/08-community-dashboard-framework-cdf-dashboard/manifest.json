@@ -1,0 +1,9 @@
+{
+  "title": "CDF Dashboard",
+  "description": "Build your first CDF dashboard from the two mandatory files — the XCDF descriptor and the HTML template — and view it in the Pentaho User Console.",
+  "order": 8,
+  "stepCount": 2,
+  "estimatedMinutes": 30,
+  "hasVideo": false,
+  "kind": "workshop"
+}

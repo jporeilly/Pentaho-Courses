@@ -1,0 +1,9 @@
+{
+  "title": "Review Lookups",
+  "description": "Enriching a stream with values from a reference source — Database Lookup and when to reach for it over a join.",
+  "order": 0,
+  "kind": "page",
+  "stepCount": 0,
+  "hasVideo": false,
+  "estimatedMinutes": 10
+}

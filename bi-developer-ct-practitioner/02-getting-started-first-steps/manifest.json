@@ -1,0 +1,9 @@
+{
+  "title": "First Steps",
+  "description": "Plan a dashboard before building it - gather requirements, design mock-ups, and produce a functional breakdown.",
+  "order": 2,
+  "stepCount": 3,
+  "estimatedMinutes": 30,
+  "hasVideo": false,
+  "kind": "workshop"
+}

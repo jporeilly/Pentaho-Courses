@@ -1,0 +1,9 @@
+{
+  "title": "Data Enrichment",
+  "description": "Hands-on: augment records with LLM-inferred attributes that rule-based ETL cannot derive, returning structured fields for downstream steps.",
+  "order": 8,
+  "kind": "workshop",
+  "stepCount": 6,
+  "hasVideo": false,
+  "estimatedMinutes": 20
+}

@@ -1,0 +1,9 @@
+{
+  "title": "Review Metadata Injection",
+  "description": "Driving a transformation's step metadata from another transformation — load N tables, ingest M files, or onboard new sources without cloning pipelines.",
+  "order": 0,
+  "kind": "page",
+  "stepCount": 0,
+  "hasVideo": false,
+  "estimatedMinutes": 10
+}

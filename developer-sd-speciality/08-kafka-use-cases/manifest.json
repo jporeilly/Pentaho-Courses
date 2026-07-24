@@ -1,0 +1,9 @@
+{
+  "title": "Use Cases",
+  "description": "Hands-on: consume a real-time user-activity stream from Apache Kafka (KRaft mode) with the Kafka Consumer EE step, parse the JSON payload, transform timestamps, and load into a MySQL warehouse using the parent/child pattern.",
+  "order": 8,
+  "kind": "workshop",
+  "stepCount": 12,
+  "hasVideo": false,
+  "estimatedMinutes": 35
+}

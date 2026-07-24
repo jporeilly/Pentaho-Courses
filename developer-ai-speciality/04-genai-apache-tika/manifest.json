@@ -1,0 +1,9 @@
+{
+  "title": "Apache Tika",
+  "description": "Hands-on: extract text from Office documents with Apache Tika — Word documents, password-protected files, and multiple documents — as input for GenAI processing.",
+  "order": 4,
+  "kind": "workshop",
+  "stepCount": 3,
+  "hasVideo": false,
+  "estimatedMinutes": 15
+}

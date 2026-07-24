@@ -1,0 +1,9 @@
+{
+  "title": "Components",
+  "description": "Architecture and components of the Pentaho Data Integration ecosystem — enterprise components, client tools, configuration framework, repository management, and database connectivity.",
+  "order": 0,
+  "kind": "page",
+  "stepCount": 13,
+  "hasVideo": false,
+  "estimatedMinutes": 35
+}

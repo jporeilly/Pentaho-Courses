@@ -1,0 +1,9 @@
+{
+  "title": "Overview",
+  "description": "Apache Kafka — a distributed event-streaming platform. KRaft-mode cluster components (controller, broker, schema registry), partitions, offsets, and consumer groups, and how PDI consumes a topic with the Kafka Consumer EE step.",
+  "order": 7,
+  "kind": "page",
+  "stepCount": 4,
+  "hasVideo": false,
+  "estimatedMinutes": 20
+}
