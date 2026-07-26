@@ -1,7 +1,7 @@
 {
   "title": "Review Joins",
   "description": "Combining streams in PDI — Database Join, Join Rows, Merge Join, and XML Join. Which step fits which join semantics.",
-  "order": 0,
+  "order": 32,
   "kind": "page",
   "stepCount": 4,
   "hasVideo": false,

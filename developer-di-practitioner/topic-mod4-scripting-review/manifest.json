@@ -1,7 +1,7 @@
 {
   "title": "Review Scripting",
   "description": "When the built-in steps aren't enough — Formula for spreadsheet-style expressions and Modified JavaScript Value (MJV) for arbitrary per-row logic.",
-  "order": 0,
+  "order": 39,
   "kind": "page",
   "stepCount": 4,
   "hasVideo": false,

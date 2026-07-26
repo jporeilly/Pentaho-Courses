@@ -1,7 +1,7 @@
 {
   "title": "Review CRUID",
   "description": "The full CRUID surface for relational databases — Create, Read, Update, Insert-Update, Delete — and which PDI step maps to each.",
-  "order": 0,
+  "order": 17,
   "kind": "page",
   "stepCount": 0,
   "hasVideo": false,

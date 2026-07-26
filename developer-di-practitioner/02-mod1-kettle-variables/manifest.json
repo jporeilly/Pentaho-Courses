@@ -1,7 +1,7 @@
 {
   "title": "KETTLE Variables",
   "description": "",
-  "order": 2,
+  "order": 4,
   "stepCount": 7,
   "estimatedMinutes": 25,
   "checks": [

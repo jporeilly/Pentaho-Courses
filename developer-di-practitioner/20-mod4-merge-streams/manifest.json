@@ -1,7 +1,7 @@
 {
   "title": "Merge Streams",
   "description": "",
-  "order": 20,
+  "order": 30,
   "stepCount": 7,
   "estimatedMinutes": 25,
   "hasVideo": false

@@ -1,7 +1,7 @@
 {
   "title": "Overview",
   "description": "Techniques for enriching a dataset in flight — merging streams, joining tables, looking up reference values, and scripting derived fields.",
-  "order": 0,
+  "order": 28,
   "kind": "page",
   "stepCount": 0,
   "hasVideo": false,

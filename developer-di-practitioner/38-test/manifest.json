@@ -1,7 +1,8 @@
 {
-  "title": "Database Join",
+  "title": "Please read ..!",
   "description": "",
-  "order": 33,
+  "order": 1,
+  "kind": "page",
   "stepCount": 6,
   "estimatedMinutes": 20,
   "hasVideo": false
