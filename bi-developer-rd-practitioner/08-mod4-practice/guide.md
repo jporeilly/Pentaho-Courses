@@ -31,13 +31,10 @@ Add the Customer Name, Order Number, Product Code, and Total Price data elements
 1. Open the Exercise – sql query.prpt
 Add the following Elements to the Details band:
 
-CUSTOMERNAME
-
-ORDERNUMBER
-
-PRODUCTCODE
-
-TOTALPRICE
+* CUSTOMERNAME
+* ORDERNUMBER
+* PRODUCTCODE
+* TOTALPRICE
 
 ## Align the Elements
 

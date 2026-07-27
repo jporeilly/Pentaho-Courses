@@ -14,27 +14,27 @@ The Formula Editor provides you with basic math and comparison operators so that
 
 ## Formula Editor
 
-* Click on the element you want to add a condition or constraint to.
-* In the Style pane, select the property you want to add a constraint to, then click the round green + icon on the right side of the field.
-* Click the ... button.
+1. Click on the element you want to add a condition or constraint to.
+2. In the Style pane, select the property you want to add a constraint to, then click the round green + icon on the right side of the field.
+3. Click the ... button.
 The Formula Editor window appears.
 
 ![Formula Editor](../_assets/images/mod5-01.png)
 
-* Select a function category from the drop-down box.
+4. Select a function category from the drop-down box.
 The default category is All.
 
-* Select a function from the Functions list.
+5. Select a function from the Functions list.
 If you click on a function, a description of what it does will appear in the tan-coloured field at the bottom of the window.
 
-* Double-click on a function to bring up the option fields.
+6. Double-click on a function to bring up the option fields.
 
 ![Formula Editor](../_assets/images/mod5-02.png)
 
-* Erase the default values in the option fields, and replace them with your own settings. If you need to associate a column with a function, click the Select Field button to the right of the field, then select the data or function you want to use.
+7. Erase the default values in the option fields, and replace them with your own settings. If you need to associate a column with a function, click the Select Field button to the right of the field, then select the data or function you want to use.
 Follow proper SQL syntax in your options; all values must be in quotes, and all column names must be in uppercase letters and enclosed in square brackets.
 
-* When you're done, click OK, then click Close.
+8. When you're done, click OK, then click Close.
 You have applied a formula to a report element.
 
 If you need more information on formula functions, conditions, and operators, refer to the OASIS OpenFormula reference:
@@ -43,6 +43,6 @@ http://www.oasis-open.org/committees/download.php/16826/openformula-spec-2006022
 
 Pentaho does not implement all OpenFormula functions, but the ones included in Report Designer are documented sufficiently on the OASIS Web site.
 
-## Learn more
+### Learn more
 
 - [Pentaho Report Designer documentation](https://docs.pentaho.com/pba-report-designer) - the official reference for everything in this section.

@@ -170,8 +170,6 @@ We will now configure our report so that each Product Line begins on a new page.
 
 ![Style.pagebreak-after = true](../_assets/images/mod4-24.png)
 
-![Style.pagebreak-after = true](../_assets/images/mod4-25.png)
-
 The pagebreak-after will result in separate tabs for each section when exported to Excel.
 
 1. Preview and Save the Report: Demo - data elements.prpt
