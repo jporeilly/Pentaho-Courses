@@ -1,4 +1,4 @@
-# Table of contents
+# Pentaho BI Developer - RD Practitioner
 
 ## Please read ...!
 

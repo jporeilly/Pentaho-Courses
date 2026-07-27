@@ -1,6 +1,6 @@
 {
   "id": "bi-developer-rd-practitioner",
-  "title": "Pentaho Developer - RD Practitioner",
+  "title": "Pentaho BI Developer - RD Practitioner",
   "description": "Hands-on workshop for Pentaho Report Designer: data sources, report elements and groups, calculations, formatting, parameters, charts, sub-reports, and publishing to the BA repository.",
   "version": "0.1.0",
   "kind": "workshop",

@@ -29,23 +29,28 @@
 
 For launching PRD (Pentaho Report designer), depending on your operating system:
 
-Linux environments:
+::: tabs
+### Windows
 
-1.  Open a terminal and type the following commands:
-
-```bash
-cd ~/Pentaho/design-tools/report-designer
-./report-designer.sh
-```
-
-Windows environments:
-
-Go to the folder [PRD_HOME] and execute (press Enter or double-click on) the file: reportdesigner.bat
+Windows steps:
 
 ```bash
 cd C:\Pentaho\design-tools\report-designer
 report-designer.bat
 ```
+
+<button data-launch="prd" data-path="files/Inventory List.prpt">Open in Pentaho Report Designer</button>
+
+### macOS / Linux
+
+Unix steps:
+
+```bash
+cd ~/Pentaho/design-tools/report-designer
+./report-designer.sh
+```
+:::
+
 
 1. Click on the Report Designer icon on your Desktop:
 
@@ -302,40 +307,44 @@ The Bar sample report contains a basic bar chart, the Product Line Sales Trend c
 
 ![Elements Palette](../_assets/images/mod2-23.png)
 
-To preview the report, on the formatting toolbar, click the Preview button.
+1. To preview the report, on the formatting toolbar, click the Preview button.
 
-Notice the following characteristics on the Product Line Sales Trend chart:
+> **Note:**
+>
+> Notice the following characteristics on the Product Line Sales Trend chart:
+> 1. Chart title
+> 2. Bar colors
+> 3. Data values
+> 4. Legend
 
-1. Chart title
-2. Bar colors
-3. Data values
-4. Legend
-To view the query, from the Data pane, expand Data Sets > JDBC: SampleData, and then double-click Query 1.
+2. To view the query, from the Data pane, expand Data Sets > JDBC: SampleData, and then double-click Query 1.
 
-Notice the following in the query:
+> **Note:**
+>
+> Notice the following in the query:
+> - The query uses fields from the PRODUCTS and ORDERFACT tables, which are joined by PRODUCTCODE.
+> - The sum function is used for TOTALPRICE and QUANTITYORDERED, and the fields are renamed.The GROUP BY statement is necessary when using the sum function.
 
-5. The query uses fields from the PRODUCTS and ORDERFACT tables, which are joined by PRODUCTCODE.
-6. The sum function is used for TOTALPRICE and QUANTITYORDERED, and the fields are renamed.The GROUP BY statement is necessary when using the sum function.
 Buyer Report – Help > Sample Reports > Operational Reports > Buyer’s Report
 
 The Buyer Report shows product facts grouped by product line and vendor.
 
 ![Elements Palette](../_assets/images/mod2-24.png)
 
-To preview the report, on the formatting toolbar, click the Preview button.
+1. To preview the report, on the formatting toolbar, click the Preview button.
 
-Notice the following characteristics of the Buyer’s Product Status Report:
+> **Note:**
+>
+> Notice the following characteristics of the Buyer’s Product Status Report:
+> - There is a parameter to specify the product line.
+> - The page header includes a label and date.
+> - The report header includes a title and image.
+> - The report details are grouped by product line and vendor.
+> - The History column displays a sparkline chart.
+> - There is a watermark image.
+> - The page footer includes the report author’s name and page number.
 
-7. There is a parameter to specify the product line.
-8. The page header includes a label and date.
-9. The report header includes a title and image.
-10. The report details are grouped by product line and vendor.
-11. The History column displays a sparkline chart.
-12. There is a watermark image.
-13. The page footer includes the report author’s name and page number.
-To view various report specifications, select elements on the Structure pane, and then view the details on the Style and Attributes panes.
-
-To view the specifications for the Sub-Report, in the Details band, double-click the Sparkline (Sub-Report) element.
+2. To view various report specifications, select elements on the Structure pane, and then view the details on the Style and Attributes panes.
 
 ![Elements Palette](../_assets/images/mod2-25.png)
 
