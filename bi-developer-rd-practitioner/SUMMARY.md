@@ -1,6 +1,6 @@
 # Table of contents
 
-## Getting Started
+## Please read ...!
 
 * [Please read ...!](01-mod1-getting-started/guide.md)
 
