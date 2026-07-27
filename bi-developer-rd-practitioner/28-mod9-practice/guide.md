@@ -25,17 +25,17 @@
 
 ## Publishing Report
 
-* To login to the server, from the Menu, select File > Publish.
-* In the Login dialog:
-* Verify the Server URL is http://localhost:8080/pentaho.
-* Verify the User is admin.
-* If necessary, in the Password field, type password.
-* Click OK.
-* To publish the report:
-* In the File Name field, type Training Exercise 8-3  Report.
-* In the Title field, type Training Exercise 8-3  Report.
-* In the Location field, navigate to Public > Training.
-* Click OK.
+1. To login to the server, from the Menu, select File > Publish.
+2. In the Login dialog:
+3. Verify the Server URL is http://localhost:8080/pentaho.
+4. Verify the User is admin.
+5. If necessary, in the Password field, type password.
+6. Click OK.
+7. To publish the report:
+8. In the File Name field, type Training Exercise 8-3  Report.
+9. In the Title field, type Training Exercise 8-3  Report.
+10. In the Location field, navigate to Public > Training.
+11. Click OK.
 ## Sub Report
 
 To add a sub-report showing Volume for each year grouped by Product Line:

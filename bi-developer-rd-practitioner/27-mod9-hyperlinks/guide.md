@@ -27,25 +27,25 @@
 
 By adding a parameter to the report you enable the person viewing the report to select which data displays in the report.
 
-* Open the \pentahotraining\BA2000\reports\Inventory Report.
-* To open the report we are going to drill to:
-* From the Menu bar select File > Open.
-* Navigate to \pentahotraining\BA2000\reports.
-* Click Inventory List – drill to.prpt.
-* Click Open.
+1. Open the \pentahotraining\BA2000\reports\Inventory Report.
+2. To open the report we are going to drill to:
+3. From the Menu bar select File > Open.
+4. Navigate to \pentahotraining\BA2000\reports.
+5. Click Inventory List – drill to.prpt.
+6. Click Open.
 This report displays Product Code, Product Name, Product Line, Product Vendor, and Scale. It includes a parameter (ProdCodeParameter) which requires the user to select the Product Code.
 
-* Preview the report.
-* Select the productcode S10_1678, in the prompt.
+7. Preview the report.
+8. Select the productcode S10_1678, in the prompt.
 ![Hyperlinks](../_assets/images/mod9-09.png)
 
 The goal of this demonstration is to include a hyperlink in the Inventory Report that links to these details when the user clicks on the Product Code.
 
-* To publish the Inventory List – drill to report to the Training folder:
-* From the Menu bar, select File > Publish
-* In the Login dialog, click OK.
-* Complete the following fields, and then click OK.
-* When the Launch the published report? dialog displays, click No.
+9. To publish the Inventory List – drill to report to the Training folder:
+10. From the Menu bar, select File > Publish
+11. In the Login dialog, click OK.
+12. Complete the following fields, and then click OK.
+13. When the Launch the published report? dialog displays, click No.
 ![Hyperlinks](../_assets/images/mod9-10.png)
 
 Now you can return to the original Inventory Report and create the hyperlink.
@@ -54,35 +54,35 @@ Now you can return to the original Inventory Report and create the hyperlink.
 
 If Inventory Report includes any parameters you created earlier, delete the WHERE clause in the query.
 
-* In the Data Pane, double-click on Query1 and remove the parameters from the WHERE clause.
+1. In the Data Pane, double-click on Query1 and remove the parameters from the WHERE clause.
 ![Define Hyperlink](../_assets/images/mod9-11.png)
 
-* Delete the prod_var parameter.
-* Open the Inventory Report.
-* To create the hyperlink for the Product Code, in the Details band, right-click PRODUCTCODE, and select Hyperlink.
+2. Delete the prod_var parameter.
+3. Open the Inventory Report.
+4. To create the hyperlink for the Product Code, in the Details band, right-click PRODUCTCODE, and select Hyperlink.
 ![Define Hyperlink](../_assets/images/mod9-12.png)
 
-* To set the Inventory List – drill-to report in the Path field:
-* Click the Browse button.
-* In the Server login dialog, click OK.
-* Navigate to /steel-wheels/Training.
-* Click Inventory List – Drill To Report.
-* Click OK.
-* From the Value drop-down list, select =[PRODUCTCODE], and then click OK.
+5. To set the Inventory List – drill-to report in the Path field:
+6. Click the Browse button.
+7. In the Server login dialog, click OK.
+8. Navigate to /steel-wheels/Training.
+9. Click Inventory List – Drill To Report.
+10. Click OK.
+11. From the Value drop-down list, select =[PRODUCTCODE], and then click OK.
 ![Define Hyperlink](../_assets/images/mod9-13.png)
 
 ## Preview the Report
 
-* From the Menu bar select File > Preview > HTML.
-* Click on the product code for S18_1589, in the report results, click S24_4620.
+1. From the Menu bar select File > Preview > HTML.
+2. Click on the product code for S18_1589, in the report results, click S24_4620.
 ![Preview the Report](../_assets/images/mod9-14.png)
 
-* Close and save the report: Demo – hyperlinks.prpt
+3. Close and save the report: Demo – hyperlinks.prpt
 The configuration of our Hyperlink has been saved in:
 
-* Style.url
-* Style.url-tooltip
-* Style.url-window-target.
+4. Style.url
+5. Style.url-tooltip
+6. Style.url-window-target.
 ![Preview the Report](../_assets/images/mod9-15.png)
 
 Note: You may need to switch to Pentaho Repository and add the PRODUCTCODE parameter:

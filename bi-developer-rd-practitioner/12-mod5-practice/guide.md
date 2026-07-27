@@ -46,33 +46,33 @@ Preview and Save the report: Exercise – conditional formatting.prpt
 
 To create totals for country and territory, and a grand total for the report:
 
-* Open the Exercise – conditional formatting.prpt
-* In the Data pane, right-click Functions, and then click Add Functions.
-* Add the following Sum function:  TotalGroupSumFunction0.
-* Rename to: TotalforCountry
-* Click in the Value column, and then from the drop-down list, select TOTALPRICE
-* Reset on Group Name, click in the Value column, and then from the drop-down list, select COUNTRY.
-* Add another Sum function: TotalforTerritory
-* Click in the Value column, and then from the drop-down list, select TOTALPRICE
-* Reset on Group Name, click in the Value column, and then from the drop-down list, select TERRITORY
-* Add another Sum function: TotalforReport
-* Click in the Value column, and then from the drop-down list, select TOTALPRICE
+1. Open the Exercise – conditional formatting.prpt
+2. In the Data pane, right-click Functions, and then click Add Functions.
+3. Add the following Sum function:  TotalGroupSumFunction0.
+4. Rename to: TotalforCountry
+5. Click in the Value column, and then from the drop-down list, select TOTALPRICE
+6. Reset on Group Name, click in the Value column, and then from the drop-down list, select COUNTRY.
+7. Add another Sum function: TotalforTerritory
+8. Click in the Value column, and then from the drop-down list, select TOTALPRICE
+9. Reset on Group Name, click in the Value column, and then from the drop-down list, select TERRITORY
+10. Add another Sum function: TotalforReport
+11. Click in the Value column, and then from the drop-down list, select TOTALPRICE
 ## Add Totals to Report
 
-* From the Data pane, select Sum:TotalforCountry, and drag it to the Country Group Footer band (the first Group Footer band), directly below TOTALPRICE.
-* Drag a message element to the canvas, and drop it in the Country Group Footer band directly below ORDERNUMBER.
-* Replace the Message text with Total for $(COUNTRY).
-* Format the Total for $(COUNTRY)
-* Font Size 12, Bold
-* From the Data pane, select Sum:TotalforTerritory, and drag it to the Territory Group Footer band, directly below Sum: TotalforCountry
-* Drop a Message Element in the Territory Group Footer band, directly below Total for $(COUNTRY).
-* Replace the Message text with Total for $(TERRITORY).
-* Format: Total for $(TERRITORY)
-* Font Size 12, Bold, Blue
-* From the Data pane, select Sum:TotalforReport, and drag it to the Report Footer band, directly below Sum:TotalforTerritory.
-* Drop a Label Element in the Report Footer band directly below Total for $(TERRITORY).
-* Replace the Label text with Grand Total.
-* Format Grand total:
-* Font Size 12, Bold, Blue
-* Preview and Save the report: Exercise – totals.prpt
+1. From the Data pane, select Sum:TotalforCountry, and drag it to the Country Group Footer band (the first Group Footer band), directly below TOTALPRICE.
+2. Drag a message element to the canvas, and drop it in the Country Group Footer band directly below ORDERNUMBER.
+3. Replace the Message text with Total for $(COUNTRY).
+4. Format the Total for $(COUNTRY)
+5. Font Size 12, Bold
+6. From the Data pane, select Sum:TotalforTerritory, and drag it to the Territory Group Footer band, directly below Sum: TotalforCountry
+7. Drop a Message Element in the Territory Group Footer band, directly below Total for $(COUNTRY).
+8. Replace the Message text with Total for $(TERRITORY).
+9. Format: Total for $(TERRITORY)
+10. Font Size 12, Bold, Blue
+11. From the Data pane, select Sum:TotalforReport, and drag it to the Report Footer band, directly below Sum:TotalforTerritory.
+12. Drop a Label Element in the Report Footer band directly below Total for $(TERRITORY).
+13. Replace the Label text with Grand Total.
+14. Format Grand total:
+15. Font Size 12, Bold, Blue
+16. Preview and Save the report: Exercise – totals.prpt
 ![Add Totals to Report](../_assets/images/mod5-18.png)

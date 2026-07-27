@@ -28,69 +28,69 @@
 
 By adding a parameter to the report you enable the person viewing the report to select which data displays in the report.
 
-* Open the Demo – formatting.prpt
-* To create a query that produces a list of valid Product Lines, from the Data pane, double-click JDBC: SampleData.
+1. Open the Demo – formatting.prpt
+2. To create a query that produces a list of valid Product Lines, from the Data pane, double-click JDBC: SampleData.
 ![Parameters](../_assets/images/mod7-01.png)
 
 ![Parameters](../_assets/images/mod7-02.png)
 
 To add a query, in the JDBC Data Source window, click the Add Query icon to the right of Available Queries.
 
-* By default, the new query is named Query 2. For this demonstration, you will name the query prod_list. You will need to use the exact query name later.
-* To write the query, in the Query pane, type:
+3. By default, the new query is named Query 2. For this demonstration, you will name the query prod_list. You will need to use the exact query name later.
+4. To write the query, in the Query pane, type:
 SELECT DISTINCT PRODUCTLINE FROM PRODUCTS
 
-* Preview and then click OK.
+5. Preview and then click OK.
 ![Parameters](../_assets/images/mod7-03.png)
 
-* From the Data pane, right-click Parameters, and then click Add Parameter.
+6. From the Data pane, right-click Parameters, and then click Add Parameter.
 ![Parameters](../_assets/images/mod7-04.png)
 
-* In the DataSources pane, click prod_list.
+7. In the DataSources pane, click prod_list.
 Complete or verify the following fields in the Add Parameter window, and then click OK.
 
 ![Parameters](../_assets/images/mod7-05.png)
 
 Now you must add a WHERE clause to the original query to use the value from the prompt.
 
-* To modify the original query, from the Data pane, double-click JDBC: SampleData.
-* From the Available Queries, click Query 1.
-* To add the WHERE clause, in the Query, above ORDER BY:
-* Press Return.
-* Type: WHERE productline IN (${product_var})
-* Click OK.
+8. To modify the original query, from the Data pane, double-click JDBC: SampleData.
+9. From the Available Queries, click Query 1.
+10. To add the WHERE clause, in the Query, above ORDER BY:
+11. Press Return.
+12. Type: WHERE productline IN (${product_var})
+13. Click OK.
 ![Parameters](../_assets/images/mod7-06.png)
 
-* Preview and Save the report.
+14. Preview and Save the report.
 ![Parameters](../_assets/images/mod7-07.png)
 
 ## Nested Prompts
 
-* To create a query that produces a list of distinct Countries, from the Data pane, double-click JDBC: SampleData.
+1. To create a query that produces a list of distinct Countries, from the Data pane, double-click JDBC: SampleData.
 ![Nested Prompts](../_assets/images/mod7-08.png)
 
-* To add a query, in the JDBC Data Source window, click the Add Query icon to the right of Available Queries.
-* To write the query, country_list, in the Query pane, type:
+2. To add a query, in the JDBC Data Source window, click the Add Query icon to the right of Available Queries.
+3. To write the query, country_list, in the Query pane, type:
 ## SELECT DISTINCT country FROM customer_w_ter
 
-* Preview and then click OK.
+1. Preview and then click OK.
 ![SELECT DISTINCT country FROM customer_w_ter](../_assets/images/mod7-09.png)
 
-* From the Data pane, right-click Parameters, and then click Add Parameter.
-* In the DataSources pane, click country_list.
-* Complete or verify the following fields in the Add Parameter window, and then click OK.
+2. From the Data pane, right-click Parameters, and then click Add Parameter.
+3. In the DataSources pane, click country_list.
+4. Complete or verify the following fields in the Add Parameter window, and then click OK.
 ![SELECT DISTINCT country FROM customer_w_ter](../_assets/images/mod7-10.png)
 
-* Now you must modify the WHERE clause to the original query to use the value from the prompt.
-* To modify the original query, from the Data pane, double-click JDBC: SampleData.
-* To modify the WHERE clause, in the Query, above ORDER BY:
-* Press Return.
-* Type: WHERE productline IN (${product_var})
-* Click OK.
+5. Now you must modify the WHERE clause to the original query to use the value from the prompt.
+6. To modify the original query, from the Data pane, double-click JDBC: SampleData.
+7. To modify the WHERE clause, in the Query, above ORDER BY:
+8. Press Return.
+9. Type: WHERE productline IN (${product_var})
+10. Click OK.
 ![SELECT DISTINCT country FROM customer_w_ter](../_assets/images/mod7-11.png)
 
-* Preview and Save the Report: Demo - parameters prod & country.prpt
-* If you have time Group by Country and add a Message to the report.
+11. Preview and Save the Report: Demo - parameters prod & country.prpt
+12. If you have time Group by Country and add a Message to the report.
 ![SELECT DISTINCT country FROM customer_w_ter](../_assets/images/mod7-12.png)
 
 You may need to resize the filter panel to view the options.

@@ -28,87 +28,87 @@
 
 By adding a parameter to the report, you can select the required data view.
 
-* To open the Sub Chart Demo Report:
-* From the Menu bar select File > Open.
-* Navigate to:
+1. To open the Sub Chart Demo Report:
+2. From the Menu bar select File > Open.
+3. Navigate to:
 C\Pentaho-Training\BA-2000\reports\Sub Demo Report.prpt.
 
-* Click Open.
+4. Click Open.
 At this point, the Sub Demo Report already contains a query to return three fields from the Product table.
 
-* To review the query, from the Data pane, expand Data Sets, and then double-click Query 1.
+5. To review the query, from the Data pane, expand Data Sets, and then double-click Query 1.
 ![Add Parameter](../_assets/images/mod8-01.png)
 
-* To change the page orientation to landscape:
-* From the Menu, select File > Page Setup.
-* Click the Landscape checkbox.
-* Click OK.
-* In the Resize Report Elements dialog, ensure Do not change the layout is selected, and then click OK.
+6. To change the page orientation to landscape:
+7. From the Menu, select File > Page Setup.
+8. Click the Landscape checkbox.
+9. Click OK.
+10. In the Resize Report Elements dialog, ensure Do not change the layout is selected, and then click OK.
 ![Add Parameter](../_assets/images/mod8-02.png)
 
 The default chart type is a Bar Chart. You can select a different chart type and specify the chart properties in the Edit Chart window.
 
 ![Add Parameter](../_assets/images/mod8-03.png)
 
-* To edit the chart, in the Report Header band, double-click the Chart element.
+11. To edit the chart, in the Report Header band, double-click the Chart element.
 ![Add Parameter](../_assets/images/mod8-04.png)
 
 The properties available in the Edit Chart window are based on the type of chart selected.
 
-* To change the chart to a radar chart, click the Radar Chart button.
+12. To change the chart to a radar chart, click the Radar Chart button.
 ![Add Parameter](../_assets/images/mod8-05.png)
 
 To create a basic radar chart, you specify category and value columns, and then specify the series-by value and series-by field on the Primary Data Source pane.
 
 Notice the list of properties in the left pane for customizing the chart.
 
-* On the Primary Data Source pane, for category-column, click in the Value field, and then from the drop-down list, select PRODUCTVENDOR.
+13. On the Primary Data Source pane, for category-column, click in the Value field, and then from the drop-down list, select PRODUCTVENDOR.
 ![Add Parameter](../_assets/images/mod8-06.png)
 
-* To select MSRP for the value column:
-* For value-columns, click in the Value field.
-* Click the … icon.
-* In the Edit Array window, from the Available Items, click MSRP.
-* Click in the arrow to move MSRP to the Selected Items list.
-* Click OK.
+14. To select MSRP for the value column:
+15. For value-columns, click in the Value field.
+16. Click the … icon.
+17. In the Edit Array window, from the Available Items, click MSRP.
+18. Click in the arrow to move MSRP to the Selected Items list.
+19. Click OK.
 ![Add Parameter](../_assets/images/mod8-07.png)
 
-* To select Product Line for the series-by field:
-* For series-by-field, click in the Value field.
-* Click the … icon.
-* In the Edit Array window, from the Available Items, click PRODUCTLINE.
-* Click the arrow to move PRODUCTLINE to the Selected Items list.
-* Click OK.
+20. To select Product Line for the series-by field:
+21. For series-by-field, click in the Value field.
+22. Click the … icon.
+23. In the Edit Array window, from the Available Items, click PRODUCTLINE.
+24. Click the arrow to move PRODUCTLINE to the Selected Items list.
+25. Click OK.
 ![Add Parameter](../_assets/images/mod8-08.png)
 
-* To create the chart, in the Edit Chart window, click OK.
+26. To create the chart, in the Edit Chart window, click OK.
 ![Add Parameter](../_assets/images/mod8-09.png)
 
-* Preview the report.
+27. Preview the report.
 ![Add Parameter](../_assets/images/mod8-10.png)
 
 ## Add Sub Report
 
-* To add a Sub-report:
-* From the Elements Palette, drag a Sub-report element to the right side of the Report Header band.
-* In the Insert Subreport dialog, click Inline.
+1. To add a Sub-report:
+2. From the Elements Palette, drag a Sub-report element to the right side of the Report Header band.
+3. In the Insert Subreport dialog, click Inline.
 ![Add Sub Report](../_assets/images/mod8-11.png)
 
-* In the Select Data Source window, select Query 1, and click OK.
+4. In the Select Data Source window, select Query 1, and click OK.
 ![Add Sub Report](../_assets/images/mod8-12.png)
 
-* To reposition and resize the Sub-report element, from the open reports tabs, click the Sub Report Demo tab, and then reposition and resize the Sub-report element as shown below.
+5. To reposition and resize the Sub-report element, from the open reports tabs, click the Sub Report Demo tab, and then reposition and resize the Sub-report element as shown below.
 ![Add Sub Report](../_assets/images/mod8-13.png)
 
-* To return to the Sub-report, from the open reports tabs, click the <Untitled Subreport> tab.
-* To create the Sub-report, from the Data pane, drag PRODUCTVENDOR, PRODUCTLINE, and MSRP to the Details band as shown below.
+6. To return to the Sub-report, from the open reports tabs, click the <Untitled Subreport> tab.
+7. To create the Sub-report, from the Data pane, drag PRODUCTVENDOR, PRODUCTLINE, and MSRP to the Details band as shown below.
 ![Add Sub Report](../_assets/images/mod8-14.png)
 
-* To create column headings, add Label elements and a Horizontal Line element to the Details Header band as shown. (You will need to enable the Band)
+8. To create column headings, add Label elements and a Horizontal Line element to the Details Header band as shown. (You will need to enable the Band)
 ![Add Sub Report](../_assets/images/mod8-15.png)
 
-* Adjust the height of the Bands.
-* Preview and Save the report: Demo – charts.prpt
+9. Adjust the height of the Bands.
+10. Preview and Save the report: Demo – charts.prpt
 ![Add Sub Report](../_assets/images/mod8-16.png)
 
 ## Inline v Banded

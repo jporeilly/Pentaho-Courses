@@ -44,7 +44,7 @@ Go to the folder [PRD_HOME] and execute (press Enter or double-click on) the fil
 
 [PRD_HOME] refers to the complete path to the PRD folder.
 
-* Click on the Report Designer icon on your Desktop:
+1. Click on the Report Designer icon on your Desktop:
 ![Launching Report Designer](../_assets/images/mod2-01.png)
 
 ## Welcome Screen
@@ -65,7 +65,7 @@ New Report: If you choose this option, then you can create customized reports ba
 
 To open the Inventory List sample report:
 
-* From the Samples pane, expand Operational Reports, and then double-click Inventory List.
+1. From the Samples pane, expand Operational Reports, and then double-click Inventory List.
 ![Inventory List Report](../_assets/images/mod2-03.png)
 
 ## Main Toolbar
@@ -98,24 +98,24 @@ The rest of the functions on this toolbar are standard font controls found in mo
 
 To preview the report results:
 
-* On the Formatting toolbar, click the Preview button.
+1. On the Formatting toolbar, click the Preview button.
 ![Preview Reports](../_assets/images/mod2-06.png)
 
 The Preview toolbar includes buttons to print, navigate and zoom the report results. Also notice that the Inventory List report provides prompts allowing the user to select the product line, and to show or hide the bar section and report notes.
 
-* To view the first page of results, on the Preview toolbar, click the Switch to the next page button.
+2. To view the first page of results, on the Preview toolbar, click the Switch to the next page button.
 ![Preview Reports](../_assets/images/mod2-07.png)
 
 The following features in the Inventory List report:
 
-* The report header includes a graphic image and the current date.
-* The data is grouped by Product Line.
-* The On Hand column uses a colour coded background colour based on the data.
-* Each line of the report is followed by a Bar Section with a graphical representation of the number of units.
-* The page footer includes the current page number and number of pages.
+3. The report header includes a graphic image and the current date.
+4. The data is grouped by Product Line.
+5. The On Hand column uses a colour coded background colour based on the data.
+6. Each line of the report is followed by a Bar Section with a graphical representation of the number of units.
+7. The page footer includes the current page number and number of pages.
 You will create a report with these features later on this course.
 
-* To close the report preview and return to design mode, on the Preview toolbar, click the Design button.
+8. To close the report preview and return to design mode, on the Preview toolbar, click the Design button.
 ![Preview Reports](../_assets/images/mod2-08.png)
 
 ## Report Workspace
@@ -266,10 +266,10 @@ You cannot edit any Style or Attribute option for any selected report element in
 
 ## View QUANTITYINSTOCK Report Element
 
-* To view the Style pane for the Quantity in Stock report element, in the right pane, click the Structure tab, and then in the Details section, click number-field: QUANTITYINSTOCK.
-* Scroll through the various style properties that can be set for the Quantity in Stock element. Some of these properties (such as the font family and font size) can be set either on the Style pane or on the Formatting toolbar.
-* To sort the properties in ascending order, on the Attributes pane, click the A-Z sort button.
-* To view the formula expression for the background colour, on the Style pane, click the pencil icon for text > bg-color.
+1. To view the Style pane for the Quantity in Stock report element, in the right pane, click the Structure tab, and then in the Details section, click number-field: QUANTITYINSTOCK.
+2. Scroll through the various style properties that can be set for the Quantity in Stock element. Some of these properties (such as the font family and font size) can be set either on the Style pane or on the Formatting toolbar.
+3. To sort the properties in ascending order, on the Attributes pane, click the A-Z sort button.
+4. To view the formula expression for the background colour, on the Style pane, click the pencil icon for text > bg-color.
 ![View QUANTITYINSTOCK Report Element](../_assets/images/mod2-21.png)
 
 This formula expression sets the background colour according to the value of QUANTITYINSTOCK.
@@ -296,16 +296,16 @@ To preview the report, on the formatting toolbar, click the Preview button.
 
 Notice the following characteristics on the Product Line Sales Trend chart:
 
-* Chart title
-* Bar colors
-* Data values
-* Legend
+1. Chart title
+2. Bar colors
+3. Data values
+4. Legend
 To view the query, from the Data pane, expand Data Sets > JDBC: SampleData, and then double-click Query 1.
 
 Notice the following in the query:
 
-* The query uses fields from the PRODUCTS and ORDERFACT tables, which are joined by PRODUCTCODE.
-* The sum function is used for TOTALPRICE and QUANTITYORDERED, and the fields are renamed.The GROUP BY statement is necessary when using the sum function.
+5. The query uses fields from the PRODUCTS and ORDERFACT tables, which are joined by PRODUCTCODE.
+6. The sum function is used for TOTALPRICE and QUANTITYORDERED, and the fields are renamed.The GROUP BY statement is necessary when using the sum function.
 Buyer Report – Help > Sample Reports > Operational Reports > Buyer’s Report
 
 The Buyer Report shows product facts grouped by product line and vendor.
@@ -316,13 +316,13 @@ To preview the report, on the formatting toolbar, click the Preview button.
 
 Notice the following characteristics of the Buyer’s Product Status Report:
 
-* There is a parameter to specify the product line.
-* The page header includes a label and date.
-* The report header includes a title and image.
-* The report details are grouped by product line and vendor.
-* The History column displays a sparkline chart.
-* There is a watermark image.
-* The page footer includes the report author’s name and page number.
+7. There is a parameter to specify the product line.
+8. The page header includes a label and date.
+9. The report header includes a title and image.
+10. The report details are grouped by product line and vendor.
+11. The History column displays a sparkline chart.
+12. There is a watermark image.
+13. The page footer includes the report author’s name and page number.
 To view various report specifications, select elements on the Structure pane, and then view the details on the Style and Attributes panes.
 
 To view the specifications for the Sub-Report, in the Details band, double-click the Sparkline (Sub-Report) element.
