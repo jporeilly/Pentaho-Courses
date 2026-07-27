@@ -49,6 +49,7 @@ Open the SQL Query Designer window.
 18. From the context menu, click deselect all.
 19. In the ORDERFACT view, click the checkbox for TOTALPRICE.
 20. To Sort, right-click “CUSTOMER_W_TER.TERRITORY” and then from the context menu select add to order-by.
+
 ![Multiple Queries](../_assets/images/mod8-23.png)
 
 21. Close all windows.
@@ -57,6 +58,7 @@ To add a WHERE clause to only return values for the NA territory, in the Query a
 
 23. Press Return.
 24. Type: WHERE territory = ‘NA’.
+
 ![Multiple Queries](../_assets/images/mod8-24.png)
 
 ## Add Sub Reports
@@ -76,6 +78,7 @@ You will need to play around with the positioning and size of the sub report onc
 9. Resize the Report Header band to approximately 3 on the vertical ruler.
 10. From the Elements Palette, drag a chart element to the Report Header band and position it in the top left corner.
 11. Resize the Chart element to approximately 2.5 on the horizontal ruler, and 3.25 on the vertical ruler.
+
 ![Add Sub Reports](../_assets/images/mod8-25.png)
 
 12. To create the pie chart:
@@ -85,12 +88,15 @@ You will need to play around with the positioning and size of the sub report onc
 16. For the series-by-field column, click in the Value column, then click the … button, and then add TERRITORY.
 17. In the chart-title field, type Total Sales by Territory.
 18. Click OK.
+
 ![Add Sub Reports](../_assets/images/mod8-26.png)
 
 19. Repeat the above steps to add a sub-report that includes a pie chart showing the Sales by North America to the right side of the Report Header band.
+
 ![Add Sub Reports](../_assets/images/mod8-27.png)
 
 20. Preview and Save the report: Training Demo Report 8-2 - multiple sub reports.
+
 ![Add Sub Reports](../_assets/images/mod8-28.png)
 
 ## Lab files

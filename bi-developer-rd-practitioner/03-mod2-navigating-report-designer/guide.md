@@ -31,7 +31,7 @@ For launching PRD (Pentaho Report designer), depending on your operating system:
 
 Linux environments:
 
-Open a terminal and type the following commands:
+1.  Open a terminal and type the following commands:
 
 ```bash
 cd [PRD_HOME]
@@ -45,6 +45,7 @@ Go to the folder [PRD_HOME] and execute (press Enter or double-click on) the fil
 [PRD_HOME] refers to the complete path to the PRD folder.
 
 1. Click on the Report Designer icon on your Desktop:
+
 ![Launching Report Designer](../_assets/images/mod2-01.png)
 
 ## Welcome Screen
@@ -66,6 +67,7 @@ New Report: If you choose this option, then you can create customized reports ba
 To open the Inventory List sample report:
 
 1. From the Samples pane, expand Operational Reports, and then double-click Inventory List.
+
 ![Inventory List Report](../_assets/images/mod2-03.png)
 
 ## Main Toolbar
@@ -99,11 +101,13 @@ The rest of the functions on this toolbar are standard font controls found in mo
 To preview the report results:
 
 1. On the Formatting toolbar, click the Preview button.
+
 ![Preview Reports](../_assets/images/mod2-06.png)
 
 The Preview toolbar includes buttons to print, navigate and zoom the report results. Also notice that the Inventory List report provides prompts allowing the user to select the product line, and to show or hide the bar section and report notes.
 
 2. To view the first page of results, on the Preview toolbar, click the Switch to the next page button.
+
 ![Preview Reports](../_assets/images/mod2-07.png)
 
 The following features in the Inventory List report:
@@ -116,6 +120,7 @@ The following features in the Inventory List report:
 You will create a report with these features later on this course.
 
 8. To close the report preview and return to design mode, on the Preview toolbar, click the Design button.
+
 ![Preview Reports](../_assets/images/mod2-08.png)
 
 ## Report Workspace
@@ -270,6 +275,7 @@ You cannot edit any Style or Attribute option for any selected report element in
 2. Scroll through the various style properties that can be set for the Quantity in Stock element. Some of these properties (such as the font family and font size) can be set either on the Style pane or on the Formatting toolbar.
 3. To sort the properties in ascending order, on the Attributes pane, click the A-Z sort button.
 4. To view the formula expression for the background colour, on the Style pane, click the pencil icon for text > bg-color.
+
 ![View QUANTITYINSTOCK Report Element](../_assets/images/mod2-21.png)
 
 This formula expression sets the background colour according to the value of QUANTITYINSTOCK.

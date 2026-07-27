@@ -30,6 +30,7 @@ By adding a parameter to the report you enable the person viewing the report to 
 
 1. Open the Demo – formatting.prpt
 2. To create a query that produces a list of valid Product Lines, from the Data pane, double-click JDBC: SampleData.
+
 ![Parameters](../_assets/images/mod7-01.png)
 
 ![Parameters](../_assets/images/mod7-02.png)
@@ -41,9 +42,11 @@ To add a query, in the JDBC Data Source window, click the Add Query icon to the 
 SELECT DISTINCT PRODUCTLINE FROM PRODUCTS
 
 5. Preview and then click OK.
+
 ![Parameters](../_assets/images/mod7-03.png)
 
 6. From the Data pane, right-click Parameters, and then click Add Parameter.
+
 ![Parameters](../_assets/images/mod7-04.png)
 
 7. In the DataSources pane, click prod_list.
@@ -59,14 +62,17 @@ Now you must add a WHERE clause to the original query to use the value from the 
 11. Press Return.
 12. Type: WHERE productline IN (${product_var})
 13. Click OK.
+
 ![Parameters](../_assets/images/mod7-06.png)
 
 14. Preview and Save the report.
+
 ![Parameters](../_assets/images/mod7-07.png)
 
 ## Nested Prompts
 
 1. To create a query that produces a list of distinct Countries, from the Data pane, double-click JDBC: SampleData.
+
 ![Nested Prompts](../_assets/images/mod7-08.png)
 
 2. To add a query, in the JDBC Data Source window, click the Add Query icon to the right of Available Queries.
@@ -74,11 +80,13 @@ Now you must add a WHERE clause to the original query to use the value from the 
 ## SELECT DISTINCT country FROM customer_w_ter
 
 1. Preview and then click OK.
+
 ![SELECT DISTINCT country FROM customer_w_ter](../_assets/images/mod7-09.png)
 
 2. From the Data pane, right-click Parameters, and then click Add Parameter.
 3. In the DataSources pane, click country_list.
 4. Complete or verify the following fields in the Add Parameter window, and then click OK.
+
 ![SELECT DISTINCT country FROM customer_w_ter](../_assets/images/mod7-10.png)
 
 5. Now you must modify the WHERE clause to the original query to use the value from the prompt.
@@ -87,10 +95,12 @@ Now you must add a WHERE clause to the original query to use the value from the 
 8. Press Return.
 9. Type: WHERE productline IN (${product_var})
 10. Click OK.
+
 ![SELECT DISTINCT country FROM customer_w_ter](../_assets/images/mod7-11.png)
 
 11. Preview and Save the Report: Demo - parameters prod & country.prpt
 12. If you have time Group by Country and add a Message to the report.
+
 ![SELECT DISTINCT country FROM customer_w_ter](../_assets/images/mod7-12.png)
 
 You may need to resize the filter panel to view the options.

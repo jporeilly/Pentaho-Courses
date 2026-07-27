@@ -28,6 +28,7 @@ The default category is All.
 If you click on a function, a description of what it does will appear in the tan-coloured field at the bottom of the window.
 
 * Double-click on a function to bring up the option fields.
+
 ![Formula Editor](../_assets/images/mod5-02.png)
 
 * Erase the default values in the option fields, and replace them with your own settings. If you need to associate a column with a function, click the Select Field button to the right of the field, then select the data or function you want to use.

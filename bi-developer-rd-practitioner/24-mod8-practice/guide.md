@@ -61,6 +61,7 @@ To add a multi-pie chart showing sales by year and product line:
 31. In the chart-title field, type Product Line Mix.
 32. To create the chart, in the Edit Chart window, click OK.
 33. Preview and Save the report: Training Exercise Report 8-1 charts.
+
 ![Chart](../_assets/images/mod8-29.png)
 
 ## Sub Report
@@ -191,4 +192,5 @@ Click OK.
 5. To close the pop-up window.
 6. Close the browser preview tab.
 7. Close and Save the report: Training Exercise 8-3.
+
 ![=”javascript:alert('" & ["chart::series-key"] & "')"](../_assets/images/mod8-32.png)

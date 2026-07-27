@@ -72,4 +72,5 @@ To add label elements for the column headings:
 8. Replace the Message text with Territory: $(TERRITORY).
 9. Resize to the second vertical guide.
 10. Preview and Save the report: Exercise – data elements.prpt
+
 ![Report Groups](../_assets/images/mod4-26.png)

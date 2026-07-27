@@ -43,6 +43,7 @@ If the domain ID is not properly defined, you will be able to preview the report
 Follow this procedure to access the Metadata data source in Report Designer.
 
 * Click on the Database icon on the Data tab, and select Metadata.
+
 ![Connect to Metadata Datasource](../_assets/images/refa-02.png)
 
 ![Connect to Metadata Datasource](../_assets/images/refa-03.png)
@@ -50,6 +51,7 @@ Follow this procedure to access the Metadata data source in Report Designer.
 Configure the Metadata Source Editor with the following details:
 
 * Browse to find the "metadata.xmi" file for the solution you are working with.  The metadata information is always in a metadata.xmi file, which is stored in each solution folder (assuming that metadata has been prepared for the folder).
+
 ![Connect to Metadata Datasource](../_assets/images/refa-04.gif)
 
 Domain Id value is critical
@@ -260,6 +262,7 @@ For more information on using Data Integration, see course DI1000: Pentaho Data 
 * Navigate to \pentahotraining\BA2000\transformations.
 * Click get_directions_from_mapquest_service.ktr.
 * Click Open.
+
 ![Transformations](../_assets/images/refa-10.png)
 
 To retrieve directions from this service, the following values are required:
@@ -279,6 +282,7 @@ The transformation consists of 4 steps:
 The route – from and to addresses – have been set as named parameters.
 
 * Double-click on the canvas, and select the Parameters tab.
+
 ![Transformation Properties](../_assets/images/refa-11.png)
 
 ## Get Variables
@@ -349,6 +353,7 @@ Complete the following fields in the Add Parameter window, and then click OK.
 ## PDI as a Datasource
 
 * From the Menu bar, select Data > Add Datasource > Pentaho Data Integration.
+
 ![PDI as a Datasource](../_assets/images/refa-17.png)
 
 * In the Pentaho Data Integration Data Source window:
@@ -357,12 +362,14 @@ Complete the following fields in the Add Parameter window, and then click OK.
 * Browse to: get_directions_from_mapquest_service.ktr
 * Select: Parse Result XML to Dataset Rows
 * Click on: Edit Parameter
+
 ![PDI as a Datasource](../_assets/images/refa-18.png)
 
 * To map the transformation parameters:
 * Click in the Value field for the fromAddress, and then from the drop-down list, select FromParam.
 * Click in the Value field for the toAddress, and then from the drop-down list, select toAddress.
 * Click OK.
+
 ![PDI as a Datasource](../_assets/images/refa-19.png)
 
 ## Create the Report
@@ -370,12 +377,15 @@ Complete the following fields in the Add Parameter window, and then click OK.
 The data tab shows the fields available from the PDI data source. Use the fields to build and publish the report.
 
 * On the Data tab, expand Data Sets > Pentaho Data Integration > Directions.
+
 ![Create the Report](../_assets/images/refa-20.png)
 
 * Drag the from, to, route, distanceToTravel, totalDistance, and totalTime fields to the canvas as shown below. Use your knowledge to align the report elements and right-justify the distanceToTravel, totalDistance, and totalTime elements.
+
 ![Create the Report](../_assets/images/refa-21.png)
 
 * Type the following parameter values, and then click Update:
 * Resize the Elements to read information.
 * Preview and Save the Report: Training Demo Report 10 – PDI
+
 ![Create the Report](../_assets/images/refa-22.png)

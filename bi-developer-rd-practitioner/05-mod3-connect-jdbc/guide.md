@@ -29,6 +29,7 @@
 Follow this procedure to access the SampleData JDBC data source in Report Designer.
 
 1. From the menu, select Data > Add Datasource > JDBC.
+
 ![Connect to SampleData (Hypersonic) Database](../_assets/images/mod3-04.png)
 
 Or click on the Database icon.
@@ -36,6 +37,7 @@ Or click on the Database icon.
 ![Connect to SampleData (Hypersonic) Database](../_assets/images/mod3-05.png)
 
 2. Select the SampleData
+
 ![Connect to SampleData (Hypersonic) Database](../_assets/images/mod3-06.png)
 
 ## SQL Query Designer
@@ -48,6 +50,7 @@ Follow this process to design an SQL query for your data source with SQL Query D
 
 1. Select your data source in the Connections pane on the left,
 2. Click the round green + icon above the Available Queries pane on the right (this is the + button in the upper right corner of the window).
+
 ![SQL Query Designer](../_assets/images/mod3-07.png)
 
 3. Type descriptive name for this query in the Query Name field: Products
@@ -55,6 +58,7 @@ Follow this process to design an SQL query for your data source with SQL Query D
 In this part of the guided demonstration you will create a query to return fields from the Products, Order Fact, and Customer with Territory tables, sorted by Product Line, Territory, and Customer Name.
 
 5. Ensure the PUBLIC Schema is selected, and double-click on the PRODUCTS table.
+
 ![SQL Query Designer](../_assets/images/mod3-08.png)
 
 6. In the lower left pane, click to select PRODUCTS table you want to select data from, then double-click it to move it to the query workspace.
@@ -64,26 +68,32 @@ The table you selected will appear in the workspace as a sub-window containing a
 By default, all Fields are selected. If you only want to select a few rows (or a single row), click the table name at the top of the sub-window, then click deselect all in the popup menu, then check only the rows you want to include in your query.
 
 8. Repeat the previous step and add the ORDERFACT table.
+
 ![SQL Query Designer](../_assets/images/mod3-09.png)
 
 9. To view the join details, on the join path, double-click the red square.
+
 ![SQL Query Designer](../_assets/images/mod3-10.png)
 
 You can create an SQL JOIN between tables by selecting a reference key in one table, then dragging it to the appropriate row in another table.
 
 10. Add the Customer with Territory table to the query, from the list of tables, double-click CUSTOMER_W_TER.
+
 ![SQL Query Designer](../_assets/images/mod3-11.png)
 
 11. To join the Customer with Territory table to the Order Fact table:
 12. In the CUSTOMER_W_TER table, click CUSTOMERNUMBER and hold the left mouse button.
 13. Drag CUSTOMERNUMBER onto CUSTOMERNUMBER in the ORDERFACT table and release the mouse button.
+
 ![SQL Query Designer](../_assets/images/mod3-12.png)
 
 14. By default, all the fields from the selected tables are included in the SELECT statement:
 15. To deselect the Product Description field, in the PRODUCTS view, click the checkbox for PRODUCTDESCRIPTION.
+
 ![SQL Query Designer](../_assets/images/mod3-13.png)
 
 16. To deselect all fields in the Order Fact table, in the right pane, click the “ORDERFACT” header, and then click deselect all.
+
 ![SQL Query Designer](../_assets/images/mod3-14.png)
 
 17. From the ORDERFACT table select only:
@@ -91,6 +101,7 @@ You can create an SQL JOIN between tables by selecting a reference key in one ta
 19. QUANTITYORDERED
 20. PRICEEACH
 21. ORDERDATE
+
 ![SQL Query Designer](../_assets/images/mod3-15.png)
 
 22. From the CUSTOMER_W_TER table select only:
@@ -101,19 +112,23 @@ Notice in the top left pane that the SELECT statement reflects the changes made 
 Once the fields are selected, you can specify the sort order.
 
 25. To sort the results by Product Line, in the top left pane, right-click “PRODUCTS.PRODUCTLINE” and then from the context menu select add to order-by.
+
 ![SQL Query Designer](../_assets/images/mod3-16.png)
 
 26. To change the sort from ASC to DESC:
 27. Double-click on the ORDER BY: “PUBLIC”.”PRODUCTS”.”PRODUCTSLINE” ASC
+
 ![SQL Query Designer](../_assets/images/mod3-17.png)
 
 28. Sort the results by Territory and Customer Name.
+
 ![SQL Query Designer](../_assets/images/mod3-18.png)
 
 29. Close the SQL Query Designer.
 30. Click the Preview button in the JDBC Data Source panel to view the results.
 31. Rename the Query: Customer Sales by Territory
 32. To save the report, on the toolbar, click the Save button, and then save the report to the desktop or a local folder as Demo - jdbc sql query.prpt
+
 ![SQL Query Designer](../_assets/images/mod3-19.png)
 
 Further examples of connecting to various datasources can be found in Appendix A

@@ -48,6 +48,7 @@ The stylesheets' code in PRD is stored in an XML file with the extension .prptst
 Using stylesheets in PRD will make the design of the final presentation of our reports easier and will save us a lot of manual configuration time, in addition to separating the presentation logic from the report logic. That is, we can create our stylesheets just once and then apply them to all of our reports. If, for example, our company changes its logo, colors, font face, and so on, we don't have to modify each and every report. We just modify the CSS assigned to the reports.
 
 * To create a stylesheet, navigate to: Extras > Style Definition Editor in the Main Menu.
+
 ![Style sheet](../_assets/images/refc-03.png)
 
 * Click on add Style-rule option, and configure a Rule:
@@ -90,6 +91,7 @@ The CSS Rule says that it will apply the style (italic) to all the labels in the
 ## Report
 
 * On our report, navigate to: Structure > Master report.
+
 ![Report](../_assets/images/refc-05.png)
 
 * Configure the following:

@@ -55,12 +55,14 @@ Notice the report already has a query defined, and the Report Header section has
 22. Click in the arrow to move Sales to the Selected Items list.
 23. Click OK
 24. To open the formula editor, for Values > url-formula, click in the Value column, and then click the … icon.
+
 ![Driildown Charts](../_assets/images/mod8-17.png)
 
 25. To create link to the Order Status report:
 26. From the Category drop-down list, select User-Defined.
 27. From the Function list, double-click DRILLDOWN.
 28. Click Login and then click OK to login to the server.
+
 ![Driildown Charts](../_assets/images/mod8-18.png)
 
 ![Driildown Charts](../_assets/images/mod8-19.png)
@@ -70,12 +72,14 @@ Notice the report already has a query defined, and the Report Header section has
 Public > BI Developer Examples > Steel Wheels (Legacy) >  Steel Wheels (4.8) > Reporting folder.
 
 31. Double-click Order Status.
+
 ![Driildown Charts](../_assets/images/mod8-20.png)
 
 32. Click OK.
 Ensure that the Report Parameter tab is displayed.
 
 33. Associate the oStatus report parameter (prompt) with a value:
+
 ![Driildown Charts](../_assets/images/mod8-21.png)
 
 Select =[“chart::category-key”] from the dropdown Value box.

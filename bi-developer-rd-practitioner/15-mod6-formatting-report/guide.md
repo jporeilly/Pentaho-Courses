@@ -34,6 +34,7 @@ Add various formatting features to the report.
 4. Double-click the Value for font > font-size.
 5. Change the value to 12.
 6. Press Enter.
+
 ![Formatting & Style Pane](../_assets/images/mod6-09.png)
 
 7. Change the value of Bold to: true
@@ -41,9 +42,11 @@ Add various formatting features to the report.
 As of $(report.date, date, MM-dd-yyyy).
 
 9. In the Style pane, change the font color of the report date message field, click in the Value column for text > text-color, and then click the … button.
+
 ![Formatting & Style Pane](../_assets/images/mod6-10.png)
 
 10. To select bright blue, from the Swatches tab.
+
 ![Formatting & Style Pane](../_assets/images/mod6-11.png)
 
 11. Select the horizontal line, on the Report Header band.
@@ -53,9 +56,11 @@ As of $(report.date, date, MM-dd-yyyy).
 15. Change the Width to 1.0.
 16. From the Dashes drop-down list, select the dot-dash stroke.
 17. Click OK.
+
 ![Formatting & Style Pane](../_assets/images/mod6-12.png)
 
 18. Preview and Save the report: Training Demo Report 6-2 formatting
+
 ![Formatting & Style Pane](../_assets/images/mod6-13.png)
 
 ## Background
@@ -66,6 +71,7 @@ As of $(report.date, date, MM-dd-yyyy).
 4. Click the … button.
 5. In the Edit Properties dialog, from the Swatches tab, click an aqua swatch.
 6. Click OK.
+
 ![Background](../_assets/images/mod6-14.png)
 
 7. To add a border at the bottom of the Details Header band:
@@ -75,6 +81,7 @@ As of $(report.date, date, MM-dd-yyyy).
 11. Press Enter.
 12. Click in the Value column for border > bottom-style.
 13. Select Solid.
+
 ![Background](../_assets/images/mod6-15.png)
 
 14. To format the Buy Price as currency with two decimal places:
@@ -82,6 +89,7 @@ As of $(report.date, date, MM-dd-yyyy).
 16. On the Attributes pane, click in the Value column for common > format.
 17. From the drop-down list, select □ #,###,00;( □ #,###.00).
 18. Press Enter.
+
 ![Background](../_assets/images/mod6-16.png)
 
 Note: The □ symbol displays the system’s currency symbol.
@@ -93,6 +101,7 @@ To repeat the header column fields across the report:
 19. Highlight the Details Header band, in the Structure Pane.
 20. Under the Style tab, scroll down to the Page Behavior section.
 21. Select ‘False’ from the dropdown box.
+
 ![Background](../_assets/images/mod6-18.png)
 
 22. Preview and Save the report: Demo – formatting.prpt

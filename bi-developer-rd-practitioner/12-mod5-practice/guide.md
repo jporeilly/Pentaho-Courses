@@ -75,4 +75,5 @@ To create totals for country and territory, and a grand total for the report:
 14. Format Grand total:
 15. Font Size 12, Bold, Blue
 16. Preview and Save the report: Exercise – totals.prpt
+
 ![Add Totals to Report](../_assets/images/mod5-18.png)

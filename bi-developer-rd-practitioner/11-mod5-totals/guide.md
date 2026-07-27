@@ -30,6 +30,7 @@ Report functions are commonly used to calculate group and report level aggregati
 
 1. Open the Demo - conditional formatting.prpt
 2. On the Data pane, right-click Functions, and click Add Functions.
+
 ![Functions](../_assets/images/mod5-09.png)
 
 ![Functions](../_assets/images/mod5-10.png)
@@ -38,18 +39,22 @@ Report functions are commonly used to calculate group and report level aggregati
 4. Double-click Summary.
 5. Click Sum.
 6. Click OK.
+
 ![Functions](../_assets/images/mod5-11.png)
 
 7. To customize the function, on the Data pane, click Sum: TotalGroupSumFunction( )
+
 ![Functions](../_assets/images/mod5-12.png)
 
 8. Change the Function Name: TotalGroup
 9. To apply the sum function to Quantity in Stock, in the bottom pane, for Field Name, click in the Value column, and then from the drop-down list, select QUANTITYINSTOCK.
 10. To reset the sum function for each group, in the bottom pane, for Reset on Group Name, click in the Value column, and then from the drop-down list, select Product Line Group.
+
 ![Functions](../_assets/images/mod5-13.png)
 
 11. To add another function to sum the Quantity in Stock for the entire report, on the Data pane, right-click Functions, and then click Add Functions.
 12. Repeat the workflow, renaming the function: GrandTotal
+
 ![Functions](../_assets/images/mod5-14.png)
 
 13. Select Sum:TotalGroup, and drag it to the Group Footer band, directly below QUANTITYINSTOCK.
@@ -60,6 +65,7 @@ Report functions are commonly used to calculate group and report level aggregati
 18. Click the … button to open the editor.
 19. Replace the Message text with Total for $(PRODUCTLINE).
 20. Click OK.
+
 ![Functions](../_assets/images/mod5-15.png)
 
 21. To format the elements in the Group Footer band, on the canvas:
@@ -68,6 +74,7 @@ Report functions are commonly used to calculate group and report level aggregati
 24. From the font size drop-down list, select 12.
 25. Cclick the Bold button.
 26. The font colour drop-down list, select blue.
+
 ![Functions](../_assets/images/mod5-16.png)
 
 27. Select Sum:GrandTotal, and drag it to the Report Footer band, directly below TotalGroup function.
@@ -78,6 +85,7 @@ Report functions are commonly used to calculate group and report level aggregati
 32. Click the … button to open the editor.
 33. Replace the Label text with Grand Total.
 34. Click OK.
+
 ![Functions](../_assets/images/mod5-17.png)
 
 35. Apply previous formatting options:

@@ -29,17 +29,21 @@
 In this demonstration you will use the Formula Editor to change the text colour of the Quantity in Stock depending on the value of the field.
 
 1. To select QUANTITYINSTOCK, on the canvas, in the Details band, click QUANTITYINSTOCK
+
 ![Conditional Formatting](../_assets/images/mod5-03.png)
 
 2. To access the Formula Editor for the text colour, on the Style pane, click the round green + icon to the right of text > text-color.
+
 ![Conditional Formatting](../_assets/images/mod5-04.png)
 
 The Formula Editor provides a list of built-in functions to help you build a formula expression. Alternatively, you can type the formula directly in the Formula pane. For this example, you are using an If statement to format the text colour.
 
 3. To narrow the list of functions, from the Category drop-down list, select Logical.
+
 ![Conditional Formatting](../_assets/images/mod5-05.png)
 
 4. To begin composing an If statement, from the Function list, double-click on IF.
+
 ![Conditional Formatting](../_assets/images/mod5-06.png)
 
 5. To select Quantity in Stock, in the Formula Editor dialog:

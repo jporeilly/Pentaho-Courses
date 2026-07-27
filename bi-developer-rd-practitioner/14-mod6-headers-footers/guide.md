@@ -28,11 +28,13 @@
 
 1. Open the Demo – totals.prpt
 2. Click the image icon, and then drag it to the Report Header band as shown below.
+
 ![Add an Image](../_assets/images/mod6-01.png)
 
 You will resize and position the image later.
 
 3. To edit the image contents, on the canvas, double-click the image icon.
+
 ![Add an Image](../_assets/images/mod6-02.png)
 
 From the Edit Content dialog, you will specify the image you want to add. Notice you have the option to link to the image or to embed the image in the report. In this demonstration, you will embed the image in the report.
@@ -49,6 +51,7 @@ C:\Pentaho-Training\BA-2000\images\sw_logo.jpg.
 11. Click in the center of the Steel Wheels logo to select the image.
 12. Drag the top left handle to the top left corner of the Report Header band.
 13. Drag the bottom right handle toward the center of the Report Header band and drop it at approximately 1.0” on the vertical ruler and 3.5” on the horizontal ruler.
+
 ![Add an Image](../_assets/images/mod6-03.png)
 
 14. Click the Label icon, and then drag it to the upper right corner of the Report Header band.
@@ -64,6 +67,7 @@ C:\Pentaho-Training\BA-2000\images\sw_logo.jpg.
 24. Click the … button to open the editor.
 25. Replace the Message text with As of $(report.date, date, MM-dd-yyyy).
 26. Click OK.
+
 ![Add an Image](../_assets/images/mod6-04.png)
 
 27. Highlight both Elements, and from the formatting toolbar, select right align
@@ -73,9 +77,11 @@ C:\Pentaho-Training\BA-2000\images\sw_logo.jpg.
 31. Drag the right handle to the far right of the Report Header band.
 32. Drag the left handle to the far left of the Report Header band.
 33. Drag the center handle up or down and drop the line at approximately 0.75” on the vertical ruler
+
 ![Add an Image](../_assets/images/mod6-05.png)
 
 34. Preview and Save the report: Training Demo Report 6-1 – headers
+
 ![Add an Image](../_assets/images/mod6-06.png)
 
 ## Add Page Numbering
@@ -85,9 +91,11 @@ C:\Pentaho-Training\BA-2000\images\sw_logo.jpg.
 3. Double-click Common.
 4. Click Page.
 5. Click OK.
+
 ![Add Page Numbering](../_assets/images/mod6-07.png)
 
 6. From the Data pane, select Page:PageFunction, then drag it to the Page Footer band and drop it in the top left corner.
+
 ![Add Page Numbering](../_assets/images/mod6-08.png)
 
 7. Preview and Save the report: Demo – header.prpt
