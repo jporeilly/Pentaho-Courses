@@ -3,7 +3,7 @@
   "description": "Every report starts with data. This section covers the data source types Report Designer understands and how queries feed report elements.",
   "order": 4,
   "kind": "page",
-  "stepCount": 4,
+  "stepCount": 5,
   "hasVideo": false,
-  "estimatedMinutes": 15
+  "estimatedMinutes": 20
 }

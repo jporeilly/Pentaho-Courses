@@ -24,8 +24,6 @@
 >
 > Place data fields on the canvas, then group the report and add group headers.
 
-Guided Demonstration:  Adding Data Elements and Report Groups
-
 ## Adding Data Elements
 
 In this demonstration you will add the Product Code, Product Name, Quantity in Stock, and Buy Price data elements to the Details band.
@@ -48,48 +46,48 @@ Do not worry about the exact placement of the PRODUCTCODE field. You will align 
 
 6. Add BUYPRICE to the right of QUANTITYINSTOCK.
 7. Close the Field Selector Palette
-## Aligning Data Elements
 
+## Aligning Data Elements
 1. Select: View >
-2. Grids (Show, Snap)
-3. Guides (Show Guides)
-4. Element Alignment Hints
-to ensure they’re turned checked.
+* Grids (Show, Snap)
+* Guides (Show Guides)
+* Element Alignment Hints
+ensure they’re checked.
 
 ![Aligning Data Elements](../_assets/images/mod4-05.png)
 
-5. Zoom the report canvas to 175%:
+2. Zoom the report canvas to 175%:
 In the top left corner of the report canvas, drag the zoom percentage number toward the bottom right corner until the percentage displays 175%.
 
 ![Aligning Data Elements](../_assets/images/mod4-06.png)
 
-6. To add a vertical guide, in the top ruler, at 1.25 inches or 3cm.
+3. To add a vertical guide, in the top ruler, at 1.25 inches or 3cm.
 
 ![Aligning Data Elements](../_assets/images/mod4-07.png)
 
-7. To align PRODUCTNAME with the vertical guide, on the report canvas, select PRODUCTNAME and drag it to the top of the Details band. Drop PRODUCTNAME on the vertical guide.
+4. To align PRODUCTNAME with the vertical guide, on the report canvas, select PRODUCTNAME and drag it to the top of the Details band. Drop PRODUCTNAME on the vertical guide.
 
 ![Aligning Data Elements](../_assets/images/mod4-08.png)
 
-8. Resize PRODUCTCODE field and align the PRODUCTNAME so that the fields are clear.
-9. Resize PRODUCTNAME element, to 3.75 inches or 9.5 cm on the report canvas.
-10. Adjust the QUANTITYINSTOCK and BUYPRICE along a vertical guide of 5.25 inches or 13.5 cm
-11. To select, or lasso, all the elements in the Details band:
-12. On the toolbar, click the Select Objects button.
+5. Resize PRODUCTCODE field and align the PRODUCTNAME so that the fields are clear.
+6. Resize PRODUCTNAME element, to 3.75 inches or 9.5 cm on the report canvas.
+7. Adjust the QUANTITYINSTOCK and BUYPRICE along a vertical guide of 5.25 inches or 13.5 cm
+8. To select, or lasso, all the elements in the Details band:
+9. On the toolbar, click the Select Objects button.
 
 ![Aligning Data Elements](../_assets/images/mod4-09.png)
 
-13. On the report canvas, select PRODUCTCODE.
-14. Drag the pointer to the right until all the elements in the Details band are selected.
+10. On the report canvas, select PRODUCTCODE.
+11. Drag the pointer to the right until all the elements in the Details band are selected.
 
 ![Aligning Data Elements](../_assets/images/mod4-10.png)
 
-15. Right mouse click and select: Alignment > Top
-16. Preview the report.
+12. Right mouse click and select: Alignment > Top
+13. Preview the report.
 
 ![Aligning Data Elements](../_assets/images/mod4-11.png)
 
-17. If you’re layout is different, check the order of your sorts in the datasource.
+14. If you’re layout is different, check the order of your sorts in the data source.
 ## Add Label Elements
 
 1. To enable the Details Header band:

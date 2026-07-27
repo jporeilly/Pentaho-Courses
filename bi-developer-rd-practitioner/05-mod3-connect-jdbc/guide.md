@@ -75,7 +75,9 @@ By default, all Fields are selected. If you only want to select a few rows (or a
 
 ![SQL Query Designer](../_assets/images/mod3-10.png)
 
-You can create an SQL JOIN between tables by selecting a reference key in one table, then dragging it to the appropriate row in another table.
+> **Note:**
+>
+> You can create an SQL JOIN between tables by selecting a reference key in one table, then dragging it to the appropriate row in another table.
 
 10. Add the Customer with Territory table to the query, from the list of tables, double-click CUSTOMER_W_TER.
 
@@ -97,37 +99,40 @@ You can create an SQL JOIN between tables by selecting a reference key in one ta
 ![SQL Query Designer](../_assets/images/mod3-14.png)
 
 17. From the ORDERFACT table select only:
-18. ORDERNUMBER
-19. QUANTITYORDERED
-20. PRICEEACH
-21. ORDERDATE
+* ORDERNUMBER
+* QUANTITYORDERED
+* PRICEEACH
+* ORDERDATE
 
 ![SQL Query Designer](../_assets/images/mod3-15.png)
 
-22. From the CUSTOMER_W_TER table select only:
-23. CUSTOMERNAME
-24. TERRITORY
-Notice in the top left pane that the SELECT statement reflects the changes made in the previous steps.
+18. From the CUSTOMER_W_TER table select only:
+* CUSTOMERNAME
+* TERRITORY
+
+> **Note:**
+>
+> Notice in the top left pane that the SELECT statement reflects the changes made in the previous steps.
 
 Once the fields are selected, you can specify the sort order.
 
-25. To sort the results by Product Line, in the top left pane, right-click “PRODUCTS.PRODUCTLINE” and then from the context menu select add to order-by.
+19. To sort the results by Product Line, in the top left pane, right-click “PRODUCTS.PRODUCTLINE” and then from the context menu select add to order-by.
 
 ![SQL Query Designer](../_assets/images/mod3-16.png)
 
-26. To change the sort from ASC to DESC:
-27. Double-click on the ORDER BY: “PUBLIC”.”PRODUCTS”.”PRODUCTSLINE” ASC
+20. To change the sort from ASC to DESC:
+21. Double-click on the ORDER BY: “PUBLIC”.”PRODUCTS”.”PRODUCTSLINE” ASC
 
 ![SQL Query Designer](../_assets/images/mod3-17.png)
 
-28. Sort the results by Territory and Customer Name.
+22. Sort the results by Territory and Customer Name.
 
 ![SQL Query Designer](../_assets/images/mod3-18.png)
 
-29. Close the SQL Query Designer.
-30. Click the Preview button in the JDBC Data Source panel to view the results.
-31. Rename the Query: Customer Sales by Territory
-32. To save the report, on the toolbar, click the Save button, and then save the report to the desktop or a local folder as Demo - jdbc sql query.prpt
+23. Close the SQL Query Designer.
+24. Click the Preview button in the JDBC Data Source panel to view the results.
+25. Rename the Query: Customer Sales by Territory
+26. To save the report, on the toolbar, click the Save button, and then save the report to the desktop or a local folder as Demo - jdbc sql query.prpt
 
 ![SQL Query Designer](../_assets/images/mod3-19.png)
 
