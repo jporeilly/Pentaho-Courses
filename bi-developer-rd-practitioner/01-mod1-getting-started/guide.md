@@ -9,7 +9,7 @@
 
 ## Meet your Lab Guide
 
-This panel stays beside your tools throughout the workshop:
+This panel will stay beside Pentaho Report Designer throughout the workshop:
 
 - **Float or dock** — drag the title bar anywhere on your screen, including across monitors, or use the dock button to pin it to the right edge so that maximized applications automatically adjust their size to accommodate it.
 - **The sidebar** lists every section and lab. A ▶ badge indicates a video is available for that lab; `~15 min` tags provide estimated completion times.
@@ -30,9 +30,11 @@ SELECT 'hello from the lab guide' AS greeting;
 
 Launch your main tool directly from the guide:
 
-<button data-launch="prd">Start Pentaho Report Designer</button>
+<button data-launch="prd">Start Pentaho Report Designer</button> 
 
-> **Note:** Ensure you have all necessary services running and credentials set up before starting.
+> **Note:** Ensure you have all necessary services running and credentials set up before starting:
+> - Database connection details
+> - Connection credentials
 
 ## Ask the AI Assistant
 

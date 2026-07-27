@@ -1,7 +1,7 @@
 {
   "title": "Regional Sales Report",
   "description": "Capstone: build, chart, parameterise, and publish a management-ready sales report end to end.",
-  "order": 34,
+  "order": 29,
   "kind": "workshop",
   "stepCount": 10,
   "hasVideo": false,

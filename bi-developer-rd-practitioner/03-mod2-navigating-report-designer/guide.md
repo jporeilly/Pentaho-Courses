@@ -15,7 +15,7 @@
 >
 > **Prerequisites:** Report Designer running, with the Pentaho sample data (HSQLDB) started
 >
-> **Estimated Time:** 60 minutes
+> **Estimated Time:** 15 minutes
 
 ---
 
@@ -34,15 +34,18 @@ Linux environments:
 1.  Open a terminal and type the following commands:
 
 ```bash
-cd [PRD_HOME]
-sh report-designer.sh
+cd ~/Pentaho/design-tools/report-designer
+./report-designer.sh
 ```
 
 Windows environments:
 
 Go to the folder [PRD_HOME] and execute (press Enter or double-click on) the file: reportdesigner.bat
 
-[PRD_HOME] refers to the complete path to the PRD folder.
+```bash
+cd C:\Pentaho\design-tools\report-designer
+report-designer.bat
+```
 
 1. Click on the Report Designer icon on your Desktop:
 
@@ -137,9 +140,10 @@ The following describes the various report bands:
 
 The Page Header band represents the top of each report page. On the first page of a multi-page report, the page header is the absolute top, above the report header.
 
-![Page Header](../_assets/images/mod2-10.png)
+> **Note:**
+>
+> The Inventory List report does not have a Page Header band.
 
-The Inventory List report does not have a Page Header band.
 
 ## Report Header
 

@@ -2,7 +2,7 @@
 
 ## Please read ...!
 
-* [Please read ...!](01-mod1-getting-started/guide.md)
+* [Please watch video...!](01-mod1-getting-started/guide.md)
 
 ## Navigating Report Designer
 
