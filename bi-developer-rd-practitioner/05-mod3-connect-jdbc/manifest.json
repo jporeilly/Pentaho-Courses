@@ -1,0 +1,9 @@
+{
+  "title": "Connect to a JDBC Data Source",
+  "description": "Create a JDBC connection to the sample database and build the query your first report will use.",
+  "order": 5,
+  "kind": "workshop",
+  "stepCount": 3,
+  "hasVideo": false,
+  "estimatedMinutes": 15
+}

@@ -1,0 +1,9 @@
+{
+  "title": "Practice: Parameters",
+  "description": "Build a parameterised report on your own.",
+  "order": 19,
+  "kind": "workshop",
+  "stepCount": 4,
+  "hasVideo": false,
+  "estimatedMinutes": 20
+}

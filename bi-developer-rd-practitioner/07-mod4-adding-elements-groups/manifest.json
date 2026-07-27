@@ -1,0 +1,9 @@
+{
+  "title": "Adding Data Elements and Report Groups",
+  "description": "Place data fields on the canvas, then group the report and add group headers.",
+  "order": 7,
+  "kind": "workshop",
+  "stepCount": 6,
+  "hasVideo": false,
+  "estimatedMinutes": 20
+}

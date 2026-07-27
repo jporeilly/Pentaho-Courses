@@ -1,0 +1,9 @@
+{
+  "title": "Overview of Publishing",
+  "description": "A report only matters once people can run it. This section covers publishing to the Pentaho Server and linking reports together.",
+  "order": 25,
+  "kind": "page",
+  "stepCount": 1,
+  "hasVideo": false,
+  "estimatedMinutes": 10
+}

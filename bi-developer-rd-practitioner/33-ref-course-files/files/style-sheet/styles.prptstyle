@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<style-definition xmlns="http://reporting.pentaho.org/namespaces/engine/classic/bundle/style/1.0" xmlns:layout="http://reporting.pentaho.org/namespaces/engine/classic/bundle/layout/1.0" xmlns:core="http://reporting.pentaho.org/namespaces/engine/attributes/core" xmlns:html="http://reporting.pentaho.org/namespaces/engine/attributes/html" xmlns:swing="http://reporting.pentaho.org/namespaces/engine/attributes/swing" xmlns:pdf="http://reporting.pentaho.org/namespaces/engine/attributes/pdf" xmlns:designtime="http://reporting.pentaho.org/namespaces/report-designer/2.0" xmlns:crosstab="http://reporting.pentaho.org/namespaces/engine/attributes/crosstab" xmlns:pentaho="http://reporting.pentaho.org/namespaces/engine/attributes/pentaho" xmlns:table="http://reporting.pentaho.org/namespaces/engine/attributes/table" xmlns:page="http://jfreereport.sourceforge.net/namespaces/reports/legacy/ext">
+  <rule>
+    <selector>horizontal-line[style-class=&quot;Designer&quot;]</selector>
+    <styles>
+      <content-styles color="#339900"/>
+    </styles>
+  </rule>
+  <rule>
+    <selector>horizontal-line[style-class=&quot;admin&quot;]</selector>
+    <styles>
+      <content-styles color="#f02929"/>
+    </styles>
+  </rule>
+  <rule>
+    <selector>report-header label[style-class=&quot;Designer&quot;]</selector>
+    <styles>
+      <content-styles color="blue"/>
+      <text-styles bold="true" font-size="14"/>
+    </styles>
+  </rule>
+  <rule>
+    <selector>report-header label[style-class=&quot;admin&quot;]</selector>
+    <styles>
+      <text-styles italic="true"/>
+    </styles>
+  </rule>
+</style-definition>

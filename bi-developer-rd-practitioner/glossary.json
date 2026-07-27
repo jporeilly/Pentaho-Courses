@@ -1,0 +1,18 @@
+{
+  "Report Designer": "Pentaho's desktop report authoring tool (PRD). Reports are saved as .prpt files and can be published to the Pentaho Server.",
+  "band": "A horizontal section of the report canvas (report header, group header, details, footers). Elements are placed inside bands.",
+  "data source": "Where a report's data comes from - JDBC, Metadata, Pentaho Analysis (Mondrian), XML, tables, and more.",
+  "JDBC": "Java Database Connectivity - the standard Java API Report Designer uses to connect to relational databases.",
+  "query": "The statement (usually SQL) a data source runs to produce the rows a report consumes.",
+  "group": "A report section that gathers detail rows sharing a value (e.g. one section per Product Line), with its own header and footer bands.",
+  "formula": "An OpenFormula expression (=IF(...)) attached to an element or style property, evaluated per row at run time.",
+  "function": "A predefined calculation (page number, running sum, item count) added to a report from the Data tab.",
+  "conditional formatting": "Styling that changes based on data values - driven by a formula on a style property.",
+  "parameter": "A run-time prompt whose value feeds the query or expressions, letting one report serve many filters.",
+  "sub-report": "A complete report embedded inside another, with its own query - the building block for composite layouts.",
+  "drill-down": "A link from a summary element (often a chart) to a more detailed report or view.",
+  "BA repository": "The Pentaho Server's content store. Published reports live here and run in the Pentaho User Console.",
+  "publish": "Uploading a finished .prpt from Report Designer to the Pentaho Server so users can run it in the browser.",
+  "PUC": "Pentaho User Console - the Pentaho Server's browser UI where published reports are browsed, run, and scheduled.",
+  "transformation": "A data flow you design in PDI (Spoon): steps connected by hops that read, transform, and write data."
+}

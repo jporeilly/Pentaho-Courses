@@ -1,0 +1,9 @@
+{
+  "title": "Drilldown Charts",
+  "description": "Make a chart clickable so it drills into detail data.",
+  "order": 22,
+  "kind": "workshop",
+  "stepCount": 3,
+  "hasVideo": false,
+  "estimatedMinutes": 15
+}

@@ -1,0 +1,9 @@
+{
+  "title": "Report Parameters",
+  "description": "Add a parameter, wire it into the query, and prompt the user at run time.",
+  "order": 18,
+  "kind": "workshop",
+  "stepCount": 4,
+  "hasVideo": false,
+  "estimatedMinutes": 15
+}

@@ -1,0 +1,9 @@
+{
+  "title": "Charts & Sub Reports",
+  "description": "Add a chart to a report and embed a sub-report beside it.",
+  "order": 21,
+  "kind": "workshop",
+  "stepCount": 4,
+  "hasVideo": false,
+  "estimatedMinutes": 15
+}

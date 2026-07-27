@@ -1,0 +1,75 @@
+{
+  "id": "bi-developer-rd-practitioner",
+  "title": "Pentaho Developer - RD Practitioner",
+  "description": "Hands-on workshop for Pentaho Report Designer: data sources, report elements and groups, calculations, formatting, parameters, charts, sub-reports, and publishing to the BA repository.",
+  "version": "0.1.0",
+  "kind": "workshop",
+  "mode": "sequential",
+  "theme": {
+    "accent": "#ea580c"
+  },
+  "role": "bi-developer",
+  "launchers": {
+    "prd": {
+      "label": "Pentaho Report Designer",
+      "action": "Start",
+      "windows": "C:\\Pentaho\\design-tools\\report-designer\\report-designer.bat",
+      "linux": "~/pentaho/design-tools/report-designer/report-designer.sh",
+      "macos": "~/pentaho/design-tools/report-designer/report-designer.sh"
+    }
+  },
+  "assistant": {
+    "ollamaURL": "http://localhost:11434",
+    "defaultProfile": "cpu",
+    "models": {
+      "cpu": "llama3.2:3b",
+      "gpu": "qwen2.5:7b"
+    }
+  },
+  "moduleSummaries": [
+    {
+      "title": "Getting Started",
+      "summary": "Meet the Pentaho Business Analytics platform and the lab guide itself, then take your first look at Report Designer."
+    },
+    {
+      "title": "Navigating Report Designer",
+      "summary": "Tour the Report Designer workspace: welcome screen, toolbars, tabs, palettes, and previewing sample reports."
+    },
+    {
+      "title": "Data Sources & Queries",
+      "summary": "Connect Report Designer to your data: JDBC connections, queries, and the data sets that drive every report."
+    },
+    {
+      "title": "Report Elements & Groups",
+      "summary": "Lay out data elements on the canvas and group rows into report sections with headers and footers."
+    },
+    {
+      "title": "Calculations",
+      "summary": "Add formulas and functions to reports: conditional formatting driven by data, and group / report totals."
+    },
+    {
+      "title": "Formatting the Report",
+      "summary": "Polish the report: headers, footers, fonts, spacing, and the visual details that make reports read well."
+    },
+    {
+      "title": "Report Parameters",
+      "summary": "Let report users filter at run time with parameters \u2014 prompts, defaults, and parameter-driven queries."
+    },
+    {
+      "title": "Charts & Sub Reports",
+      "summary": "Visualise data with charts, embed sub-reports, and build drill-down interactions between them."
+    },
+    {
+      "title": "Publishing Reports",
+      "summary": "Publish finished reports to the BA repository and link reports together with hyperlinks."
+    },
+    {
+      "title": "Capstone Project",
+      "summary": "Build, chart, parameterise, and publish a management-ready regional sales report - every module in one project."
+    },
+    {
+      "title": "Reference",
+      "summary": "Appendices from the course manual: data sources, chart types, environment variables, and report templates."
+    }
+  ]
+}

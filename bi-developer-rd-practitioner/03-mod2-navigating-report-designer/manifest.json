@@ -1,0 +1,9 @@
+{
+  "title": "Navigating Report Designer",
+  "description": "Launch Report Designer and explore the workspace using the Inventory List sample report.",
+  "order": 3,
+  "kind": "workshop",
+  "stepCount": 36,
+  "hasVideo": false,
+  "estimatedMinutes": 60
+}

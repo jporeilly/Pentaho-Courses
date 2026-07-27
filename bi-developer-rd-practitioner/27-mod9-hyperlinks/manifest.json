@@ -1,0 +1,9 @@
+{
+  "title": "Hyperlinks",
+  "description": "Link report elements to other reports and URLs.",
+  "order": 27,
+  "kind": "workshop",
+  "stepCount": 4,
+  "hasVideo": false,
+  "estimatedMinutes": 15
+}

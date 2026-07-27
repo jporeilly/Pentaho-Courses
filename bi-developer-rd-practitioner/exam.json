@@ -1,0 +1,269 @@
+{
+  "title": "Practitioner Exam",
+  "description": "DRAFT for review - generated from the course content; review and refine in the Question Bank app before a real workshop. 15 questions per attempt from a pool of 18, pass mark 80%.",
+  "passMark": 80,
+  "shuffle": true,
+  "questionsPerAttempt": 15,
+  "questions": [
+    {
+      "id": "q1",
+      "module": "Getting Started",
+      "prompt": "Which Pentaho design tool is the most comprehensive report authoring tool in the suite?",
+      "options": [
+        "Report Designer",
+        "Interactive Reports",
+        "Dashboard Designer",
+        "Analyzer"
+      ],
+      "explanation": "Report Designer offers the deepest layout, data, and scripting control of Pentaho's reporting tools; Interactive Reports is the lighter web-based option.",
+      "correct": 0,
+      "source": "Getting Started with Pentaho Business Analytics"
+    },
+    {
+      "id": "q2",
+      "module": "Getting Started",
+      "prompt": "Reports created in Report Designer are saved with which file extension?",
+      "options": [
+        ".prpt",
+        ".prpti",
+        ".prd",
+        ".rpt"
+      ],
+      "explanation": "Report Designer saves .prpt files; .prpti is the Interactive Reports format.",
+      "correct": 0,
+      "source": "Getting Started with Pentaho Business Analytics"
+    },
+    {
+      "id": "q3",
+      "module": "Navigating Report Designer",
+      "prompt": "The Welcome screen's sample reports only display when what is true?",
+      "options": [
+        "The Pentaho sample data (HSQLDB) database is installed and running",
+        "The Pentaho Server is licensed",
+        "The reports have been published at least once",
+        "You are connected to the BA repository"
+      ],
+      "explanation": "The samples query the HSQLDB sample database, so it must be running for them to open.",
+      "correct": 0,
+      "source": "Navigating Report Designer"
+    },
+    {
+      "id": "q4",
+      "module": "Navigating Report Designer",
+      "prompt": "In Report Designer, where do you switch to a preview of the report output?",
+      "options": [
+        "The eye icon on the formatting toolbar",
+        "File > Preview only",
+        "The Data tab",
+        "The Structure tab"
+      ],
+      "explanation": "The eye icon on the formatting toolbar toggles preview mode; the Preview toolbar then offers print, navigation, and zoom.",
+      "correct": 0,
+      "source": "Navigating Report Designer"
+    },
+    {
+      "id": "q5",
+      "module": "Data Sources & Queries",
+      "prompt": "Which data source type would you choose to query a relational database directly with SQL?",
+      "options": [
+        "JDBC",
+        "Metadata",
+        "Pentaho Analysis",
+        "XML"
+      ],
+      "explanation": "JDBC connects to relational databases and runs SQL; Metadata uses an XMI model, Pentaho Analysis a Mondrian schema, XML an XQuery file.",
+      "correct": 0,
+      "source": "Data Sources & Queries"
+    },
+    {
+      "id": "q6",
+      "module": "Data Sources & Queries",
+      "prompt": "Select all that apply: which of these are data source types Report Designer understands?",
+      "options": [
+        "Pentaho Analysis (Mondrian schema)",
+        "Metadata (XMI model)",
+        "Sequence Generator",
+        "PowerPoint"
+      ],
+      "explanation": "Report Designer supports JDBC, Metadata, Pentaho Analysis, XML, tables, and the Sequence Generator - not office documents.",
+      "correctIndices": [
+        0,
+        1,
+        2
+      ],
+      "source": "Data Sources & Queries"
+    },
+    {
+      "id": "q7",
+      "module": "Report Elements & Groups",
+      "prompt": "Where are report elements placed in Report Designer?",
+      "options": [
+        "Inside bands (report header, group header, details, footers)",
+        "Directly on the page with absolute pixel coordinates only",
+        "Inside SQL queries",
+        "Inside the Structure tab's properties"
+      ],
+      "explanation": "The canvas is organised into horizontal bands; elements live inside them and repeat according to the band's role.",
+      "correct": 0,
+      "source": "Adding Report Elements and Creating Groups"
+    },
+    {
+      "id": "q8",
+      "module": "Report Elements & Groups",
+      "prompt": "What does adding a group to a report do?",
+      "options": [
+        "Gathers detail rows that share a value into sections with their own header and footer bands",
+        "Sorts the query without changing layout",
+        "Merges several reports into one",
+        "Restricts which users can run the report"
+      ],
+      "explanation": "Groups turn flat rows into structured sections - e.g. one section per Product Line - each with header/footer bands for labels and totals.",
+      "correct": 0,
+      "source": "Adding Report Elements and Creating Groups"
+    },
+    {
+      "id": "q9",
+      "module": "Calculations",
+      "prompt": "How is conditional formatting driven in Report Designer?",
+      "options": [
+        "By attaching a formula to a style property of an element",
+        "By editing the SQL query",
+        "By a setting in the publish dialog",
+        "By the group's sort order"
+      ],
+      "explanation": "A formula on a style property evaluates per row and changes the element's appearance with the data.",
+      "correct": 0,
+      "source": "Performing Calculations (Formulas & Functions)"
+    },
+    {
+      "id": "q10",
+      "module": "Calculations",
+      "prompt": "To show a running total for a group, you would typically add what?",
+      "options": [
+        "A function from the Data tab placed in the group footer",
+        "A second query",
+        "A sub-report in the details band",
+        "A parameter with a default value"
+      ],
+      "explanation": "Predefined functions (sum, count, running totals) are added on the Data tab and placed in footer bands to summarise the group.",
+      "correct": 0,
+      "source": "Performing Calculations (Formulas & Functions)"
+    },
+    {
+      "id": "q11",
+      "module": "Formatting the Report",
+      "prompt": "Which band would you use for content that must appear at the top of every page?",
+      "options": [
+        "Page header",
+        "Report header",
+        "Details",
+        "Group footer"
+      ],
+      "explanation": "The page header repeats on every page; the report header prints once at the start of the report.",
+      "correct": 0,
+      "source": "Formatting the Report"
+    },
+    {
+      "id": "q12",
+      "module": "Report Parameters",
+      "prompt": "What is the purpose of a report parameter?",
+      "options": [
+        "To prompt the user for a value at run time and feed it into the query or expressions",
+        "To set the page size",
+        "To store the JDBC password",
+        "To schedule the report"
+      ],
+      "explanation": "Parameters make one report serve many filters: the user picks values at run time and the data responds.",
+      "correct": 0,
+      "source": "Report Parameters"
+    },
+    {
+      "id": "q13",
+      "module": "Report Parameters",
+      "prompt": "After defining a parameter, what must you usually change so it filters the data?",
+      "options": [
+        "The query, to reference the parameter in its WHERE clause",
+        "The page footer",
+        "The report title",
+        "The publish location"
+      ],
+      "explanation": "A parameter only affects the data when the query (or an expression) references it.",
+      "correct": 0,
+      "source": "Report Parameters"
+    },
+    {
+      "id": "q14",
+      "module": "Charts & Sub Reports",
+      "prompt": "A sub-report is best described as what?",
+      "options": [
+        "A complete report with its own query embedded inside another report",
+        "A chart type",
+        "A saved query snippet",
+        "A page-break marker"
+      ],
+      "explanation": "Sub-reports carry their own data source and layout - the building block for composing several result sets into one report.",
+      "correct": 0,
+      "source": "Charts & Sub Reports"
+    },
+    {
+      "id": "q15",
+      "module": "Charts & Sub Reports",
+      "prompt": "What does making a chart drillable add?",
+      "options": [
+        "A link from chart regions to a more detailed report or view",
+        "Extra chart series",
+        "3-D rendering",
+        "Automatic totals"
+      ],
+      "explanation": "Drill-down wires chart elements to a target (another report, URL, or view) so a summary click opens the underlying detail.",
+      "correct": 0,
+      "source": "Charts & Sub Reports"
+    },
+    {
+      "id": "q16",
+      "module": "Publishing Reports",
+      "prompt": "Publishing a report from Report Designer sends it where?",
+      "options": [
+        "To the Pentaho Server's BA repository",
+        "To a local PDF file",
+        "To the samples folder on disk",
+        "To the metadata model"
+      ],
+      "explanation": "Publish uploads the .prpt to the BA repository, where users run it from the Pentaho User Console.",
+      "correct": 0,
+      "source": "Publishing Reports"
+    },
+    {
+      "id": "q17",
+      "module": "Publishing Reports",
+      "prompt": "Once published, where do business users typically run the report?",
+      "options": [
+        "The Pentaho User Console in a browser",
+        "Spoon",
+        "Schema Workbench",
+        "A local copy of Report Designer"
+      ],
+      "explanation": "PUC is the server's browser UI for browsing, running, and scheduling published content.",
+      "correct": 0,
+      "source": "Publishing Reports"
+    },
+    {
+      "id": "q18",
+      "module": "Publishing Reports",
+      "prompt": "Select all that apply: hyperlinks in a published report can point to which targets?",
+      "options": [
+        "Another published report",
+        "An external URL",
+        "A drill-down detail view",
+        "The report's own SQL query"
+      ],
+      "explanation": "Hyperlinks link elements to other reports, URLs, and drill targets - queries are not link targets.",
+      "correctIndices": [
+        0,
+        1,
+        2
+      ],
+      "source": "Hyperlinks"
+    }
+  ]
+}

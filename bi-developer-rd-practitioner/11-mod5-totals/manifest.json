@@ -1,0 +1,9 @@
+{
+  "title": "Totals",
+  "description": "Add running and aggregate totals at group and report level.",
+  "order": 11,
+  "kind": "workshop",
+  "stepCount": 2,
+  "hasVideo": false,
+  "estimatedMinutes": 10
+}

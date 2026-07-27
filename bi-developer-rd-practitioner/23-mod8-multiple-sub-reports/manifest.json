@@ -1,0 +1,9 @@
+{
+  "title": "Multiple Sub Reports",
+  "description": "Compose a report from several sub-reports.",
+  "order": 23,
+  "kind": "workshop",
+  "stepCount": 3,
+  "hasVideo": false,
+  "estimatedMinutes": 15
+}

@@ -1,0 +1,9 @@
+{
+  "title": "Overview of Report Parameters",
+  "description": "Parameters turn a static report into an interactive one: the user picks values at run time and the query responds.",
+  "order": 17,
+  "kind": "page",
+  "stepCount": 1,
+  "hasVideo": false,
+  "estimatedMinutes": 10
+}
