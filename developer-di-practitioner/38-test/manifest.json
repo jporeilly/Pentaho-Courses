@@ -5,5 +5,6 @@
   "kind": "page",
   "stepCount": 6,
   "estimatedMinutes": 20,
-  "hasVideo": false
+  "hasVideo": false,
+  "noProgress": true
 }
