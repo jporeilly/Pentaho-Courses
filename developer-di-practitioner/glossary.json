@@ -43,5 +43,6 @@
   "Run Configuration": "A named choice of where and how a transformation or job runs, such as Local in Spoon, on the Pentaho Server, or on a Carte cluster.",
   "Pan and Kitchen": "The command-line runners for production and scheduling. Pan runs a transformation (.ktr) and Kitchen runs a job (.kjb).",
   "Log Level": "How much detail PDI writes when running, from Nothing up to RowLevel. RowLevel is the most verbose and prints individual row values for deep debugging.",
-  "Error Handling": "Per-step handling that routes failed rows down a separate error hop instead of stopping the flow. The error stream adds fields describing the error and the fields that caused it."
+  "Error Handling": "Per-step handling that routes failed rows down a separate error hop instead of stopping the flow. The error stream adds fields describing the error and the fields that caused it.",
+  "transformation": "A data flow you design in PDI (Spoon): steps connected by hops that read, transform, and write data."
 }
