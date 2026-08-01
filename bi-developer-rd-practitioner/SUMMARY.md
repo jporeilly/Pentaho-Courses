@@ -67,4 +67,6 @@
 * [Report Templates Reference](32-ref-report-templates/guide.md)
 * [Report Functions Reference](35-ref-function-reference/guide.md)
 * [Common Formulas Reference](36-ref-common-formulas/guide.md)
+* [Style Properties Reference](37-ref-style-properties/guide.md)
+* [Output Parameterization Reference](38-ref-output-parameterization/guide.md)
 * [Course Files](33-ref-course-files/guide.md)

@@ -1,0 +1,10 @@
+{
+  "title": "Output Parameterization Reference",
+  "description": "The four official parameterization patterns: simple and advanced SQL, Metadata condition tokens, OLAP MDX Parameter() - plus the auto-submit override.",
+  "order": 38,
+  "kind": "page",
+  "noProgress": true,
+  "stepCount": 7,
+  "hasVideo": false,
+  "estimatedMinutes": 25
+}
