@@ -114,3 +114,26 @@ On the other hand, publish the report (PDF) in Pentaho BA Server, in the same fo
 ![Attributes.style-sheet-reference](../_assets/images/refc-08.png)
 
 ![Attributes.style-sheet-reference](../_assets/images/refc-09.png)
+
+## Configuration directories
+
+On first launch, Report Designer creates a `.pentaho` directory in the
+user's home directory with these subdirectories:
+
+| Directory | Purpose |
+| --- | --- |
+| `caches` | Cached fonts — speeds up report rendering. |
+| `classic-engine` | Low-level options saved by the Pentaho Reporting engine. |
+| `report-designer` | Pentaho-supplied samples and content, plus user preferences for the interface. |
+| `report-design-wizard` | Default Report Design Wizard templates. |
+| `simple-jndi` | A properties file with JNDI connection details — by default, the HSQLDB sample database. |
+
+## Configuration files
+
+Global options live under `/pentaho/design-tools/report-designer/resources/`.
+Don't change these without guidance from Pentaho documentation or support:
+
+| File | Purpose |
+| --- | --- |
+| `report-designer.properties` | Options for the Report Designer client tool (not report options). |
+| `classic-engine.properties` | Global report rendering options for reports generated locally; some can be overridden per report. |

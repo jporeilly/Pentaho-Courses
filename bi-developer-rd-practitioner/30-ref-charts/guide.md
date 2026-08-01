@@ -264,3 +264,21 @@ A radar chart is useful for showing how two or more volume-related data points c
 ## ..\sample charts\Radar Chart.prpt
 
 ![..\sample charts\Radar Chart.prpt](../_assets/images/refb-33.jpeg)
+
+## Choosing the right chart type
+
+There are 17 JFreeChart chart types built in, and the right one
+depends on what the data is saying (from the official User Guide):
+
+| You want to show… | Best chart types |
+| --- | --- |
+| The strength of a trend for one value over time | Line, Area, XY StepArea, XY Step, XY Line |
+| A direct comparison of two or more related values | Pie, Ring, Bar, Line, Area, Radar |
+| How one set of values affects another | Bar Line Combination, Waterfall |
+| A large number of data points | XY Difference, Scatter Plot, Bubble, Multi-Pie |
+| A trend across a few numbers, inline | Sparkline (input must be comma-separated values — use a function to build the CSV string if needed) |
+
+Match the **data collector** to the chart family: CategorySet /
+PivotCategorySet for category charts (Bar, Line, Area, Waterfall,
+Radar), PieSet for Pie and Ring, TimeSeries / XYSeries / XYZSeries for
+the XY family, Scatter, and Bubble.

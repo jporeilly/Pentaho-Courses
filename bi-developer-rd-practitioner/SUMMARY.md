@@ -65,4 +65,6 @@
 * [Charts Reference](30-ref-charts/guide.md)
 * [Environment Variables Reference](31-ref-environment-variables/guide.md)
 * [Report Templates Reference](32-ref-report-templates/guide.md)
+* [Report Functions Reference](35-ref-function-reference/guide.md)
+* [Common Formulas Reference](36-ref-common-formulas/guide.md)
 * [Course Files](33-ref-course-files/guide.md)

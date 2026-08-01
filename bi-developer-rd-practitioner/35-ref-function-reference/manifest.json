@@ -1,0 +1,10 @@
+{
+  "title": "Report Functions Reference",
+  "description": "Every Data-pane function by category: Common, Report, Summary, Running, Advanced, Chart Data, Image, Script.",
+  "order": 35,
+  "kind": "page",
+  "noProgress": true,
+  "stepCount": 10,
+  "hasVideo": false,
+  "estimatedMinutes": 30
+}
