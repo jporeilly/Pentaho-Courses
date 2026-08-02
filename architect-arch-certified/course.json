@@ -10,7 +10,7 @@
   },
   "assistant": {
     "ollamaURL": "http://localhost:11434",
-    "mcpURL": "https://academy.pentaho.com/~gitbook/mcp",
+    "mcpURL": "https://docs.pentaho.com/~gitbook/mcp",
     "defaultProfile": "cpu",
     "models": {
       "cpu": "llama3.2:3b",

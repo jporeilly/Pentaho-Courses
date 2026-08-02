@@ -18,9 +18,9 @@
 > 
 > **Estimated time:** 20 minutes
 
-<div class="pcm-embed-card" data-href="https://www.loom.com/share/cd56088673de462998803583425d0488?hideEmbedTopBar=true&amp;hide_owner=true&amp;hide_share=true&amp;hide_title=true" data-title="Data Change Capture and Synchronization Process Demonstration" data-description="In this video, I walk you through a data change capture scenario where we manage product data in a database alongside changes from a text file. We utilize the merge rows diff step to identify new, deleted, and changed products, followed by the synchronize after merge step to update our records accordingly. I demonstrate how to configure these steps, including setting up the flag field for operations like inserts, updates, and deletes. Please ensure that your data is sorted by the specified keys before running the transformation. By the end of this process, our product data will be fully synchronized and up to date in the database." data-thumb="../_assets/embeds/fc2ea5f15eee.png"></div>
+<div class="pcm-embed-card" data-href="https://www.loom.com/share/cd56088673de462998803583425d0488?hideEmbedTopBar=true&amp;hide_owner=true&amp;hide_share=true&amp;hide_title=true" data-title="Data Change Capture and Synchronization Process Demonstration" data-description="In this video, I walk you through a data change capture scenario where we manage product data in a database alongside changes from a text file. We utilize the merge rows diff step to identify new, deleted, and changed products, followed by the synchronize after merge step to update our records accordingly. I demonstrate how to configure these steps, including setting up the flag field for operations like inserts, updates, and deletes. Please ensure that your data is sorted by the specified keys before running the transformation. By the end of this process, our product data will be fully synchronized and up to date in the database." data-thumb="../_assets/embeds/2d94cd73b9b2.png"></div>
 
-![Merge row (diff)](../_assets/images/merged-row-diff.png)
+![Merge row (diff)](../_assets/images/merge-rows-diff.png)
 
 > **Note:** **Create a new transformation**
 > 

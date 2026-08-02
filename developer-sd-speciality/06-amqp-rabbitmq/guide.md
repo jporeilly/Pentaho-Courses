@@ -22,12 +22,31 @@
 
 ## Install and run RabbitMQ
 
+> **Note:**
+>
+> #### Podman, not Docker
+>
+> Workshop VMs use **Podman** — free for commercial use, where Docker
+> Desktop needs a paid per-user subscription. The commands match, so
+> `podman` replaces `docker` throughout. RabbitMQ lives in the shared
+> workshop-services compose file alongside the other brokers.
+
 1. Deploy the `rabbitmq` container.
 
+```powershell
+scripts\setup-services.ps1 -Streaming
+```
+
+Or by hand:
+
 ```bash
-cd
-cd ~/RabbitMQ
-docker compose up -d
+podman compose -f workshop-services/docker-compose.yml --profile streaming up -d
+```
+
+Check it came up:
+
+```bash
+podman ps --filter name=pcm-rabbitmq
 ```
 
 <figure><img src="../_assets/images/rabbitmq-deploy.png" alt=""><figcaption><p>Deploy RabbitMQ container</p></figcaption></figure>

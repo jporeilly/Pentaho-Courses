@@ -29,7 +29,7 @@ Use this page to orient yourself. Then jump into the specific connector docs:
 > 
 > Use flat files when your data arrives as CSV, TXT, fixed-width, JSON, or XML.
 > 
-> Start here: [Flat Files](https://academy.pentaho.com/pentaho-data-integration/data-integration/data-sources/flat-files).
+> Start here: **Flat Files**.
 
 <figure><img src="../_assets/images/flat-files-2.png" alt=""><figcaption></figcaption></figure>
 
@@ -83,7 +83,7 @@ Use this page to orient yourself. Then jump into the specific connector docs:
 > 
 > Pentaho connects to databases primarily through JDBC drivers. These drivers are the main interface for database communication.
 > 
-> Start here: [Databases](https://academy.pentaho.com/pentaho-data-integration/data-integration/data-sources/databases).
+> Start here: **Databases**.
 
 <figure><img src="../_assets/images/database-connection.png" alt=""><figcaption><p>Database Connection</p></figcaption></figure>
 
@@ -97,7 +97,7 @@ Use this page to orient yourself. Then jump into the specific connector docs:
 > 
 > In PDI, you typically connect through VFS. You can read and write across hybrid environments.
 > 
-> Start here: [Storage](https://academy.pentaho.com/pentaho-data-integration/data-integration/data-sources/storage).
+> Start here: **Storage**.
 
 <figure><img src="../_assets/images/storage-types-overview.png" alt=""><figcaption></figcaption></figure>
 
@@ -111,7 +111,7 @@ Use this page to orient yourself. Then jump into the specific connector docs:
 > 
 > PDI provides specialized steps and adapters for these platforms. This lets you transform data where it lives.
 > 
-> Start here: [Big Data](https://academy.pentaho.com/pentaho-data-integration/data-integration/data-sources/big-data).
+> Start here: **Big Data**.
 
 <figure><img src="../_assets/images/types-of-big-data.png" alt=""><figcaption><p>Types of Big Data</p></figcaption></figure>
 
@@ -125,7 +125,7 @@ Use this page to orient yourself. Then jump into the specific connector docs:
 > 
 > In a PDI workflow, notebooks often handle advanced analysis. PDI handles production orchestration and scheduled pipelines.
 > 
-> Start here: [Jupyter Notebook](https://academy.pentaho.com/pentaho-data-integration/data-integration/data-sources/jupyter-notebook).
+> Start here: **Jupyter Notebook**.
 
 <figure><img src="../_assets/images/jupyter-notebook.png" alt=""><figcaption><p>Jupyter Notebook</p></figcaption></figure>
 

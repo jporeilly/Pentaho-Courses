@@ -44,9 +44,9 @@ When you have two streams that should become one. Merge Streams stacks rows; Mer
 > 
 > • Add constant step
 
-<figure><img src="../_assets/images/merge-streams.png" alt=""><figcaption><p>Merge streams</p></figcaption></figure>
+<figure><img src="../_assets/images/merge-streams-2.png" alt=""><figcaption><p>Merge streams</p></figcaption></figure>
 
-[merge-streams](https://academy.pentaho.com/pentaho-data-integration/data-integration/enrich-data/merge/merge-streams)
+**Merge Streams**
 
 ### Merge Rows (diff)
 
@@ -62,7 +62,7 @@ When you have two streams that should become one. Merge Streams stacks rows; Mer
 
 <figure><img src="../_assets/images/merge-rows-diff.png" alt=""><figcaption><p>Merge Rows (diff)</p></figcaption></figure>
 
-[merge-rows-diff](https://academy.pentaho.com/pentaho-data-integration/data-integration/enrich-data/merge/merge-rows-diff)
+**Merge Rows Diff**
 
 :::
 

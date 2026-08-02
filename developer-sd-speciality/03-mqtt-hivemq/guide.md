@@ -31,46 +31,57 @@
 
 > **Danger:** Remember to stop the Mosquitto container first so it does not hold port 1883.
 
-1. Ensure the Mosquitto broker has been stopped.
+> **Note:**
+>
+> #### Podman, not Docker
+>
+> Workshop VMs use **Podman** — it is free for commercial use, where
+> Docker Desktop needs a paid per-user subscription. The commands are
+> the same, so `podman` replaces `docker` throughout. If your machine
+> has Docker Desktop licensed, `docker` works identically.
+>
+> The brokers live in the shared workshop-services compose file
+> alongside MySQL and MinIO, so one command brings up everything and
+> the ports never clash between workshops.
+
+1. Ensure the Mosquitto broker has been stopped, so it does not hold port 1883.
 
 ```bash
-docker stop mosquitto
+podman stop mosquitto
 ```
 
-2. Copy over the required files.
+2. Start the streaming brokers from the workshop-services compose file.
 
-```bash
-cd
-mkdir -p ~/Streaming/HiveMQ4 && cd "$_"
-cp -R ~/Workshop--Data-Integration/Labs/'Module 7 - Workflows'/'Streaming Data'/HiveMQ/* .
+```powershell
+scripts\setup-services.ps1 -Streaming
 ```
 
-3. Create an isolated Docker network so this workshop's containers don't clash with the others.
+That starts HiveMQ and RabbitMQ (and leaves MySQL and MinIO running
+if they already are). To run it by hand instead:
 
 ```bash
-docker network create -d bridge hivemq
+podman compose -f workshop-services/docker-compose.yml --profile streaming up -d
 ```
 
 > **Note:** This HiveMQ deployment is **not** secure — it lacks authentication and authorization, so any MQTT client can connect with full permissions. For production, add a security extension and remove the `hivemq-allow-all` extension (see the HiveMQ Marketplace).
 
-4. Run the HiveMQ Docker container.
+3. Confirm the broker is listening.
 
 ```bash
-docker run --ulimit nofile=500000:500000 --name=hivemq4 -p 9090:8080 -p 9000:9000 -p 1883:1883 --net=hivemq hivemq/hivemq4
+podman ps --filter name=pcm-hivemq
 ```
 
-| Flag | Description |
+| Port | Description |
 | --- | --- |
-| `--ulimit` | Limits the system resource amounts that individual users can consume |
-| `nofile` | The maximum number of open files / file descriptors a user can have at once |
-| `--name` | Name of the container |
-| `-p 9090` | Exposes the HiveMQ Control Center (container port 8080) on host port 9090 |
-| `-p 9000` | Exposes the HiveMQ Websocket on port 9000 |
-| `-p 1883` | Exposes the HiveMQ TCP listener on port 1883 |
-| `--net` | Name of the isolated Docker network: `hivemq` |
-| `hivemq/hivemq4` | Docker Hub image |
+| `1883` | MQTT TCP listener — what your transformations connect to |
+| `9090` | HiveMQ Control Center (container port 8080) |
+| `9081` | HiveMQ websocket listener (container port 9000) |
 
-5. Log into the HiveMQ Control Center at `http://localhost:9090`.
+> **Warning:** The websocket is on **9081**, not the HiveMQ default of
+> 9000. Host port 9000 belongs to MinIO's S3 API, which the `pvfs://`
+> workshops use, and the two cannot share it.
+
+4. Log into the HiveMQ Control Center at `http://localhost:9090`.
 
 | | |
 | --- | --- |

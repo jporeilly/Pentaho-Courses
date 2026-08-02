@@ -19,8 +19,8 @@
 > 
 > **Prerequisites**
 > 
-> * `STG_SALES_DATA` exists. Create it in [Create DB table](https://academy.pentaho.com/pentaho-data-integration/data-integration/data-sources/databases/cruid/create-db-table).
-> * A working database connection. See [Database Connections](https://academy.pentaho.com/pentaho-data-integration/data-integration/data-sources/databases/cruid/database-connections).
+> * `STG_SALES_DATA` exists. Create it in **Create DB table**.
+> * A working database connection. See **Database Connections**.
 > 
 > **Estimated time:** 20 minutes
 

@@ -12,7 +12,7 @@ When you build a metadata domain, you're creating a framework that lets end user
 >
 > A **concept** is a bundle of metadata properties you attach to business objects (such as database tables or columns). Instead of defining properties individually each time, you package them together as reusable concepts — currency formats, number formats, text formats, and so on. Concepts can be organised in a **hierarchy where child concepts inherit properties from parents**, so you define metadata once at a higher level and have it apply automatically to everything below — avoiding repetition and ensuring consistency.
 
-<figure><img src="../_assets/images/concepts_overview.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../_assets/images/concept_editor_concept_editor.png" alt=""><figcaption></figcaption></figure>
 
 ## The Base Concept
 

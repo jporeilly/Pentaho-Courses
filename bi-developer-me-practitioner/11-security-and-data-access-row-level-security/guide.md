@@ -300,7 +300,7 @@ Follow the guide to enable Suzy to access the OrderStarCustomer Model.
 <figure><img src="../_assets/images/rls_edit_customer_w_ter_credit_limit.png" alt=""><figcaption><p>Edit CUSTOMER W TER - Credit Limit</p></figcaption></figure>
 
 3. Override the **Metadata Security** item.
-4. Click the ![](../_assets/images/96watx.png) next to this field in the **Selected Users/Groups** field. A list of users and roles appears.
+4. Click the ![](../_assets/images/883fme.png) next to this field in the **Selected Users/Groups** field. A list of users and roles appears.
 
 <figure><img src="../_assets/images/rls_override_metadata_security.png" alt=""><figcaption><p>Override Metadata Security</p></figcaption></figure>
 

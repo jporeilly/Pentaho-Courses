@@ -2,6 +2,7 @@
 
 ## PDI AI Pipelines
 
+* [Please read ..!](00-getting-started/guide.md)
 * [Overview of a Prompt](01-overview/guide.md)
 
 ## GenAI

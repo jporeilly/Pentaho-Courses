@@ -36,7 +36,7 @@ Transformations move rows; jobs orchestrate transformations. You'll build a Hell
 
 <figure><img src="../_assets/images/job-tr-hello-world.png" alt=""><figcaption></figcaption></figure>
 
-[job-hello-world](https://academy.pentaho.com/pentaho-data-integration/data-integration/enterprise-solution/jobs/job-hello-world)
+**Job Hello World**
 
 ### Backward Chaining
 
@@ -46,7 +46,7 @@ Transformations move rows; jobs orchestrate transformations. You'll build a Hell
 
 <figure><img src="../_assets/images/job-backward-chaining.png" alt=""><figcaption></figcaption></figure>
 
-[backward-chaining](https://academy.pentaho.com/pentaho-data-integration/data-integration/enterprise-solution/jobs/backward-chaining)
+**Backward Chaining**
 
 ### Parallel
 
@@ -54,7 +54,7 @@ Transformations move rows; jobs orchestrate transformations. You'll build a Hell
 
 <figure><img src="../_assets/images/job-parallel-transformations.png" alt=""><figcaption></figcaption></figure>
 
-[parallel](https://academy.pentaho.com/pentaho-data-integration/data-integration/enterprise-solution/jobs/parallel)
+**parallel**
 
 :::
 

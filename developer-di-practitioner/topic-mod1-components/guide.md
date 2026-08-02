@@ -168,7 +168,7 @@ cd ~/Scripts
 sh pentaho--platform.sh
 ```
 
-[configuring-pdi-ui](https://academy.pentaho.com/pentaho-data-integration/data-integration/components/configuring-pdi-ui)
+**Configuring Pdi Ui**
 
 ### 3. Configuration Files
 
@@ -197,7 +197,7 @@ The kettle.properties can be edited using a Text Editor or via the Toolbar, sele
 
 <div align="center"><figure><img src="../_assets/images/kettle-edit.png" alt=""><figcaption><p>kettle.properties</p></figcaption></figure></div>
 
-[kettle-variables](https://academy.pentaho.com/pentaho-data-integration/data-integration/components/kettle-variables)
+**Kettle Variables**
 
 ### 3.2 shared.xml
 

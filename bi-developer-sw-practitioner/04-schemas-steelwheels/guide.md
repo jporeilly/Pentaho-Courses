@@ -25,7 +25,7 @@
 >
 > **Estimated time:** 45 minutes
 
-<figure><img src="../_assets/images/sw_steelwheels_schema.png" alt=""><figcaption><p>SteelWheels Schema</p></figcaption></figure>
+<figure><img src="../_assets/images/schema_schema_element.png" alt=""><figcaption><p>SteelWheels Schema</p></figcaption></figure>
 
 ***
 
@@ -83,7 +83,7 @@ Follow the guide below to understand how a **Schema** is defined:
 >
 > Restart the Pentaho Schema Workbench, to register the driver.
 
-<div class="pcm-embed-card" data-href="https://www.loom.com/share/5d8aeb46632048b491c3a26eeaeb936f?hideEmbedTopBar=true&amp;hide_owner=true&amp;hide_share=true&amp;hide_title=true" data-title="Connecting to the Steel Wheels Sample Database in Schema Workbench" data-description="In this video, I demonstrate how to connect to the Steel Wheels sample database using Schema Workbench. I walk through the steps to set up the database connection, including specifying the connection name, type, hostname, database name, port, username, and password. I also emphasize the importance of testing the connection to ensure everything is set up correctly, which I successfully did. Now that the connection is established, I am ready to build the schema in the next demonstration. Please follow along as I create the schema in the upcoming video." data-thumb="../_assets/embeds/6e7e98e7d845.png"></div>
+<div class="pcm-embed-card" data-href="https://www.loom.com/share/5d8aeb46632048b491c3a26eeaeb936f?hideEmbedTopBar=true&amp;hide_owner=true&amp;hide_share=true&amp;hide_title=true" data-title="Connecting to the Steel Wheels Sample Database in Schema Workbench" data-description="In this video, I demonstrate how to connect to the Steel Wheels sample database using Schema Workbench. I walk through the steps to set up the database connection, including specifying the connection name, type, hostname, database name, port, username, and password. I also emphasize the importance of testing the connection to ensure everything is set up correctly, which I successfully did. Now that the connection is established, I am ready to build the schema in the next demonstration. Please follow along as I create the schema in the upcoming video." data-thumb="../_assets/embeds/2631a0493553.png"></div>
 1. To connect to the sampledata database, from the menu select Options > Connection.
 
 <figure><img src="../_assets/images/sw_jdbc_connection.png" alt=""><figcaption><p>JDBC Connection</p></figcaption></figure>
@@ -102,7 +102,7 @@ Follow the guide below to understand how a **Schema** is defined:
 
 3. Click Test.
 
-<figure><img src="../_assets/images/sw_jdbc_connection_hsqldb_sampledata.png" alt=""><figcaption><p>JDBC Connection - hsqldb:sampledata</p></figcaption></figure>
+<figure><img src="../_assets/images/classic_jdbc_connection_hsqldb_sampledata.png" alt=""><figcaption><p>JDBC Connection - hsqldb:sampledata</p></figcaption></figure>
 
 4. Click OK to dismiss the Message Box dialog and click OK to close the Database Connection dialog.
 

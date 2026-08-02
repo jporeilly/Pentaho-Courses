@@ -2,6 +2,7 @@
 
 ## Getting Started
 
+* [Please read ..!](00-getting-started/guide.md)
 * [Components](01-components/guide.md)
 
 ## Domains & Models

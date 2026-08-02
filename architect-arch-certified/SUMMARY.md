@@ -2,6 +2,7 @@
 
 ## Overview
 
+* [Please read ..!](00-getting-started/guide.md)
 * [Whats New](01-overview-whats-new/guide.md)
 
 ## Getting Started

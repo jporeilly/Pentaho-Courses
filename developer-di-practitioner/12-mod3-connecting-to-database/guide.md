@@ -15,12 +15,15 @@
 > **Prerequisites**
 > 
 > * PDI (Spoon) installed and working
-> * A running `sampledata` database (Docker setup recommended)
+> * A running **MySQL** `sampledata` database on port `3306` (Docker
+>   setup recommended) — **not** the HSQLDB/Hypersonic `sampledata`
+>   bundled with Pentaho, which is read-only and cannot serve the
+>   CRUID workshops that follow
 > * Basic understanding of schemas, tables, and authentication
 > 
 > **Estimated time:** 15 minutes
 
-<div class="pcm-embed-card" data-href="https://www.loom.com/share/3ec2d5123814460d92085851c18daaee?hideEmbedTopBar=true&amp;hide_owner=true&amp;hide_share=true&amp;hide_title=true" data-title="Understanding Dimension Lookup Update Steps in Data Integration" data-description="In this video, I walk you through the dimension lookup update step, highlighting its key features and how to use them effectively. We start by reading customer dimension data from a delimited file and then add the current system date before performing the lookup and update in our database table. I demonstrate how to configure the keys and fields for the dimension data, and we observe the insertion of five rows, including an empty row due to the table being initially empty. I also show how to handle updates when a customer's location changes, which increments the version number in our records. Please refer to the Pentaho data integration documentation for further details on additional capabilities and configurations." data-thumb="../_assets/embeds/31bfeafa9446.png"></div>
+<div class="pcm-embed-card" data-href="https://www.loom.com/share/3ec2d5123814460d92085851c18daaee?hideEmbedTopBar=true&amp;hide_owner=true&amp;hide_share=true&amp;hide_title=true" data-title="Understanding Dimension Lookup Update Steps in Data Integration" data-description="In this video, I walk you through the dimension lookup update step, highlighting its key features and how to use them effectively. We start by reading customer dimension data from a delimited file and then add the current system date before performing the lookup and update in our database table. I demonstrate how to configure the keys and fields for the dimension data, and we observe the insertion of five rows, including an empty row due to the table being initially empty. I also show how to handle updates when a customer's location changes, which increments the version number in our records. Please refer to the Pentaho data integration documentation for further details on additional capabilities and configurations." data-thumb="../_assets/embeds/2d94cd73b9b2.png"></div>
 
 > **Note:**
 >
@@ -46,7 +49,13 @@
 > That makes it a fast connectivity check.
 
 > **Warning:** Pentaho no longer ships a writable sample database user by default.\
-> Use the Docker `sampledata` setup for hands-on database workshops.
+> Use the containerised MySQL `sampledata` for hands-on database workshops.
+>
+> On a workshop VM it is already running. To start it yourself, run
+> `scripts\setup-services.ps1` from the repo root: that brings up
+> MySQL on `3306` with Steel Wheels loaded and the `pentaho_admin`
+> account used below. Workshop VMs run **Podman** rather than Docker
+> Desktop (free for commercial use); the commands are interchangeable.
 
 ::: tabs
 
@@ -56,8 +65,9 @@
 >
 > #### **MySQL Database**
 > 
-> If you completed the [Setup](https://academy.pentaho.com/pentaho-data-integration/data-integration/data-sources/databases/cruid/broken-reference), you should have a MySQL Docker container.\
-> It should be exposed on port `3306` and include the `sampledata` database.
+> The workshop-services stack gives you a MySQL container exposed on\
+> port `3306` with the `sampledata` database loaded. Verify it with
+> `scripts\check-environment.ps1`.
 
 1. Launch DBeaver and select **MySQL**.
 
@@ -158,7 +168,7 @@ The **Database connection** dialog opens.
 * **Connection name:** `MySQL: sampledata`
 * **Connection type:** **MySQL**
 * **Access:** **Native (JDBC)**
-* **Host name:** `localhost` (or your Docker host IP)
+* **Host name:** `localhost`
 * **Database name:** `sampledata`
 * **Username:** `pentaho_admin`
 * **Password:** `password`

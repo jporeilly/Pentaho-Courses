@@ -14,6 +14,32 @@ Relational databases are PDI's most common counterparty. This topic walks the fu
 
 ![Steel Wheels - sampledata ERP](../_assets/images/image-62.png)
 
+> **Warning:**
+>
+> #### Why these workshops use MySQL, not the bundled sampledata
+>
+> Pentaho ships a `sampledata` database running on **HSQLDB
+> (Hypersonic)**. It is perfectly good for reading — Table Input,
+> lookups, joins — and earlier workshops use it happily.
+>
+> It will **not** work for the workshops in this module. The admin
+> account has been removed from the bundled HSQLDB instance, so it is
+> effectively read-only: you cannot insert, update or delete against
+> it.
+>
+> Every CRUID workshop from here on writes to the database:
+>
+> * **Writing to a Database** — Table Output (insert)
+> * **Table Update** — update
+> * **Table Insert/Update** — upsert
+> * **Deleting Records** — delete
+> * **Slowly Changing Dimensions** — Dimension Lookup/Update
+>
+> That is why the next workshop connects to a **MySQL** copy of Steel
+> Wheels `sampledata` on port `3306`. Set that connection up once and
+> the rest of the module reuses it. If you point these workshops at
+> the HSQLDB instance instead, they will fail on the first write.
+
 > **Note:**
 >
 > #### **Steel Wheels - Schema**

@@ -111,7 +111,7 @@ Then, on one hand, preview the report in PRD.
 
 On the other hand, publish the report (PDF) in Pentaho BA Server, in the same folder where we published previous reports. When asked if you want to execute the report now, click on the Yes option.
 
-![Attributes.style-sheet-reference](../_assets/images/refc-08.png)
+![Attributes.style-sheet-reference](../_assets/images/refc-01.png)
 
 ![Attributes.style-sheet-reference](../_assets/images/refc-09.png)
 

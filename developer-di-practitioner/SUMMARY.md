@@ -2,7 +2,7 @@
 
 ## Getting Started
 
-* [Please read ..!](38-test/guide.md)
+* [Please read ..!](00-getting-started/guide.md)
 
 ## Components & Concepts
 

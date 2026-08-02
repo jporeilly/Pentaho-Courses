@@ -2,7 +2,34 @@
   "title": "Daily Sales Pipeline",
   "description": "",
   "order": 53,
-  "stepCount": 26,
+  "stepCount": 27,
   "estimatedMinutes": 60,
-  "hasVideo": false
+  "hasVideo": false,
+  "checks": [
+    {
+      "id": "fact-table-file",
+      "kind": "file-exists",
+      "label": "Fact output written (fact_sales.csv under your output path)",
+      "path": "C:/Workshop/capstone/out/fact_sales.csv"
+    },
+    {
+      "id": "summary-workbook",
+      "kind": "file-exists",
+      "label": "Region summary workbook written (dim_summary_<date>.xlsx)",
+      "path": "C:/Workshop/capstone/out/dim_summary_20260101.xlsx"
+    },
+    {
+      "id": "job-file",
+      "kind": "file-exists",
+      "label": "Orchestrating job saved (daily_sales_pipeline.kjb)",
+      "path": "C:/Workshop/capstone/solution/daily_sales_pipeline.kjb"
+    },
+    {
+      "id": "deliverables-folder",
+      "kind": "dir-not-empty",
+      "label": "solution/ folder has your transformations and README",
+      "path": "C:/Workshop/capstone/solution",
+      "min": 3
+    }
+  ]
 }

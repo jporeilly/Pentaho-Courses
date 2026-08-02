@@ -733,7 +733,7 @@ function f() {
 
 9. Save & Preview the dashboard.
 
-<figure><img src="../_assets/images/cde_carrier_numbers_formatted.png" alt=""><figcaption><p>Numbers - Formatted</p></figcaption></figure>
+<figure><img src="../_assets/images/cde_carrier_maintable.png" alt=""><figcaption><p>Numbers - Formatted</p></figcaption></figure>
 
 #### Charts - Pie Chart
 
@@ -879,7 +879,7 @@ function f() {
 
 5. Preview the dashboard.
 
-<figure><img src="../_assets/images/cde_carrier_bullet_legend_added.png" alt=""><figcaption><p>Bullet Legend added</p></figcaption></figure>
+<figure><img src="../_assets/images/cde_carrier.png" alt=""><figcaption><p>Bullet Legend added</p></figcaption></figure>
 
 #### Charts - Line Chart
 
@@ -984,7 +984,7 @@ function(d) {
 
 2. Save & Preview the dashboard.
 
-<figure><img src="../_assets/images/cde_carrier_line_chart_with_extensions_2.png" alt=""><figcaption><p>Line Chart with extensions</p></figcaption></figure>
+<figure><img src="../_assets/images/cde_carrier_line_chart_with_extensions.png" alt=""><figcaption><p>Line Chart with extensions</p></figcaption></figure>
 
 #### Interactions - Parameters & Listeners
 
@@ -1304,7 +1304,7 @@ function f(scene) {
 
 7. Save & preview the dashboard.
 
-<figure><img src="../_assets/images/cde_carrier_export_table_csv.png" alt=""><figcaption><p>Export table - CSV</p></figcaption></figure>
+<figure><img src="../_assets/images/cde_carrier_export_options.png" alt=""><figcaption><p>Export table - CSV</p></figcaption></figure>
 
 ***
 

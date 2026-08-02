@@ -134,7 +134,7 @@ Once the fields are selected, you can specify the sort order.
 25. Rename the Query: Customer Sales by Territory
 26. To save the report, on the toolbar, click the Save button, and then save the report to the desktop or a local folder as Demo - jdbc sql query.prpt
 
-![SQL Query Designer](../_assets/images/mod3-19.png)
+![SQL Query Designer](../_assets/images/mod2-20.png)
 
 Further examples of connecting to various datasources can be found in Appendix A
 

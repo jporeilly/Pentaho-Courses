@@ -130,7 +130,7 @@ this.chartDefinition.title = "Chart rendered on " + titleDate;
 > * legend alignment
 > * padding
 
-<figure><img src="../_assets/images/cgg_carrier_export_linechart.png" alt=""><figcaption><p>Export lineChart</p></figcaption></figure>
+<figure><img src="../_assets/images/cgg_carrier_export_chart.png" alt=""><figcaption><p>Export lineChart</p></figcaption></figure>
 
 1. Edit: /Public/CTools Dashboard/Carrier-Dashboard-Expand/Layout ( providing you've completed all the workshops..!)
 2. In the Components pane, click to expand the Charts group, and then click to select the lineChart.

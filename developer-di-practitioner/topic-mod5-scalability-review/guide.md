@@ -32,7 +32,7 @@ x
 
 x
 
-[run-configurations](https://academy.pentaho.com/pentaho-data-integration/data-integration/enterprise-solution/scalability/run-configurations)
+**Run Configurations**
 
 ### Cluster schema
 
@@ -71,7 +71,7 @@ carte.bat \[IP address] \[port]
 > 
 > Partitioning data is an important feature for scaling up and scaling out your Pentaho Data Integration transformations and jobs.Scaling up makes the most of a single server with multiple CPU cores, while scaling out maximizes the resources of multiple servers operating in parallel.
 
-[partition](https://academy.pentaho.com/pentaho-data-integration/data-integration/enterprise-solution/scalability/partition)
+**partition**
 
 :::
 

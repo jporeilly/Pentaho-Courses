@@ -17,7 +17,7 @@
 > 
 > **Prerequisites**
 > 
-> * A working database connection. See [Database Connections](https://academy.pentaho.com/pentaho-data-integration/data-integration/data-sources/databases/cruid/database-connections).
+> * A working database connection. See **Database Connections**.
 > * Basic primary key concepts (`EMPLOYEENUMBER`)
 > 
 > **Estimated time:** 20 minutes

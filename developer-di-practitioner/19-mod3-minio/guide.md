@@ -38,7 +38,7 @@
 | Log Parsing | regex, time-series analysis |
 | Data Lake Ingestion | schema normalization, validation |
 
-> **Danger:** Complete the setup first: [Storage: MinIO](https://academy.pentaho.com/pentaho-data-integration/setup/data-sources/storage#minio)
+> **Danger:** Complete the setup first: **Storage: MinIO**
 
 1. Verify that MinIO is running and populated.
 

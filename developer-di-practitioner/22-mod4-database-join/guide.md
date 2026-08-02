@@ -18,7 +18,7 @@
 > 
 > **Estimated time:** 20 minutes
 
-![Database Join](../_assets/images/database-join-3.png)
+![Database Join](../_assets/images/database-join-2.png)
 
 <figure><img src="../_assets/images/database-join.png" alt=""><figcaption><p>Database Join</p></figcaption></figure>
 

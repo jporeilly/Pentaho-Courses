@@ -2,6 +2,7 @@
 
 ## Streaming Data
 
+* [Please read ..!](00-getting-started/guide.md)
 * [Overview](01-overview/guide.md)
 
 ## MQTT

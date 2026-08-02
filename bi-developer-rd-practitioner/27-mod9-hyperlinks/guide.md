@@ -48,7 +48,7 @@ The goal of this demonstration is to include a hyperlink in the Inventory Report
 12. Complete the following fields, and then click OK.
 13. When the Launch the published report? dialog displays, click No.
 
-![Hyperlinks](../_assets/images/mod9-10.png)
+![Hyperlinks](../_assets/images/mod9-06.png)
 
 Now you can return to the original Inventory Report and create the hyperlink.
 

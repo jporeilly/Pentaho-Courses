@@ -15,7 +15,7 @@
 > 
 > **Prerequisites**
 > 
-> * A working database connection. See [Database Connections](https://academy.pentaho.com/pentaho-data-integration/data-integration/data-sources/databases/cruid/database-connections).
+> * A working database connection. See **Database Connections**.
 > * Basic primary key concepts (`EMPLOYEENUMBER`)
 > 
 > **Estimated time:** 20 minutes
@@ -109,7 +109,7 @@
 > Use **Update** to update existing database rows only.\
 > If a key lookup does not match, the step skips that row.
 
-> **Note:** If you also need inserts, use [Insert / Update DB](https://academy.pentaho.com/pentaho-data-integration/data-integration/data-sources/databases/cruid/insert-update-db).
+> **Note:** If you also need inserts, use **Insert / Update DB**.
 
 1. Drag **Update** onto the canvas.
 2. Create a hop from **Text file input** to **Update**.

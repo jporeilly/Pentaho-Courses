@@ -101,7 +101,7 @@ Pentaho **Community Tools (CTools)** are a stack of open-source tools installed 
 > - Rendering charts via a URL
 > - Running SVG-based charts and then converting them into images
 
-<figure><img src="../_assets/images/gs_ccg.png" alt=""><figcaption><p>CCG</p></figcaption></figure>
+<figure><img src="../_assets/images/cgg_carrier_export_chart.png" alt=""><figcaption><p>CCG</p></figcaption></figure>
 
 ### Enable CDE & CDA
 

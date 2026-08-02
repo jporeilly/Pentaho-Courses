@@ -2,6 +2,7 @@
 
 ## Getting Started
 
+* [Please read ..!](00-getting-started/guide.md)
 * [Getting Started](01-getting-started/guide.md)
 * [First Steps](02-getting-started-first-steps/guide.md)
 * [My First Dashboard](03-getting-started-my-first-dashboard/guide.md)

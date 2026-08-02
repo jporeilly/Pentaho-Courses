@@ -73,7 +73,7 @@ Now you must add a WHERE clause to the original query to use the value from the 
 
 1. To create a query that produces a list of distinct Countries, from the Data pane, double-click JDBC: SampleData.
 
-![Nested Prompts](../_assets/images/mod7-08.png)
+![Nested Prompts](../_assets/images/mod7-01.png)
 
 2. To add a query, in the JDBC Data Source window, click the Add Query icon to the right of Available Queries.
 3. To write the query, country_list, in the Query pane, type:

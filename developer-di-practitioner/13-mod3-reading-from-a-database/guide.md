@@ -18,7 +18,7 @@
 > **Prerequisites**
 > 
 > * Pentaho Data Integration installed and configured
-> * A working database connection. See [Database Connections](https://academy.pentaho.com/pentaho-data-integration/data-integration/data-sources/databases/cruid/database-connections).
+> * A working database connection. See **Database Connections**.
 > * Basic `SELECT` and `WHERE`
 > 
 > **Estimated time:** 20 minutes

@@ -24,8 +24,15 @@ scheduling, and scaling.
 
 ## Inputs
 
-The `files/data/` directory contains four files. Each represents a
-realistic feed you'd see in a small retail environment.
+Download the four files from **Lab Files** at the bottom of this
+page, and put them in a `data/` folder under the workshop root you
+will point `${WORKSHOP_HOME}` at (for example
+`C:/Workshop/capstone/data/`). Every path in this capstone is written
+as `${WORKSHOP_HOME}/data/...`, so once the variable is set the
+transformations resolve without further edits.
+
+Each file represents a realistic feed you'd see in a small retail
+environment.
 
 | File | What | How to read it |
 | --- | --- | --- |
@@ -171,18 +178,42 @@ solution/
 
 ---
 
+## Lab Files
+
+Click a file to download. Put all four in `${WORKSHOP_HOME}/data/`
+before you start — nothing else in the capstone is supplied, the
+pipeline itself is yours to build.
+
+[sales_20260101.csv](./files/sales_20260101.csv)
+
+[customers.json](./files/customers.json)
+
+[products.csv](./files/products.csv)
+
+[regions.csv](./files/regions.csv)
+
+---
+
 ## Verification checks
 
 After running your job, click **Run checks** below to confirm each
-output landed where expected. The checks read your `${OUTPUT_PATH}`
-files — adjust the paths in `manifest.json` if your output is
-elsewhere on your machine.
+output landed where expected. The checks assume the worked example
+paths (`WORKSHOP_HOME=C:/Workshop/capstone`, outputs under
+`${WORKSHOP_HOME}/out`) — if yours differ, edit the `checks` block in
+this lab's `manifest.json` to match.
 
 ---
 
 ## Deliverables
 
-When you're done, save into a `solution/` folder under this lab:
+Save your work in a `solution/` folder under your workshop root —
+`${WORKSHOP_HOME}/solution/`, e.g. `C:/Workshop/capstone/solution/`.
+
+> **Warning:** Don't save it inside the course folder itself. Course
+> content is refreshed from the repository on every launch, so
+> anything you leave there will be overwritten.
+
+Your `solution/` folder should contain:
 
 1. `daily_sales_pipeline.kjb` — the orchestrator
 2. `stage_*.ktr`, `build_fact.ktr`, `maintain_dim_region.ktr`, `write_summary.ktr`

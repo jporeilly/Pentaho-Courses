@@ -40,7 +40,7 @@ When the visual steps don't quite fit. Formula handles spreadsheet-style express
 
 <figure><img src="../_assets/images/formula-simple-calculation-if.png" alt=""><figcaption></figcaption></figure>
 
-[formula](https://academy.pentaho.com/pentaho-data-integration/data-integration/enrich-data/scripting/formula)
+**formula**
 
 ### Modified JavaScript Value
 
@@ -48,7 +48,7 @@ When the visual steps don't quite fit. Formula handles spreadsheet-style express
 
 <figure><img src="../_assets/images/modified-javascript-value-replace.png" alt=""><figcaption></figcaption></figure>
 
-[modified-javascript-value](https://academy.pentaho.com/pentaho-data-integration/data-integration/enrich-data/scripting/modified-javascript-value)
+**Modified Javascript Value**
 
 ### User Defined Java Class
 
@@ -58,7 +58,7 @@ When the visual steps don't quite fit. Formula handles spreadsheet-style express
 
 <figure><img src="../_assets/images/user-defined-java-class-easter.png" alt=""><figcaption></figcaption></figure>
 
-[user-defined-java-class](https://academy.pentaho.com/pentaho-data-integration/data-integration/enrich-data/scripting/user-defined-java-class)
+**User Defined Java Class**
 
 ### Executors
 

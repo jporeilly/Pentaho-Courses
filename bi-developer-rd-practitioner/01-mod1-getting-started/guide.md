@@ -26,15 +26,35 @@ Each code block includes a **copy button** — hover over the block and click it
 SELECT 'hello from the lab guide' AS greeting;
 ```
 
-## Set Up Your Environment
+## Set up your environment
 
-Launch your main tool directly from the guide:
+Launch your main tool straight from the guide:
 
-<button data-launch="prd">Start Pentaho Report Designer</button> 
+<button data-launch="prd">Start Pentaho Report Designer</button>
 
-> **Note:** Ensure you have all necessary services running and credentials set up before starting:
-> - Database connection details
-> - Connection credentials
+If it is already open from a previous session, the button focuses
+the running window instead of starting a second copy.
+
+### Do you need to set anything up?
+
+::: tabs
+
+### I'm using a lab VM
+
+Nothing to do. Everything is installed and running already, and it
+starts with the machine.
+
+If something looks wrong later, tell your instructor rather than
+reinstalling anything.
+
+### I'm installing on my own machine
+
+Install Pentaho Report Designer
+and make sure it starts.
+
+Nothing else is required.
+
+:::
 
 ## Ask the AI Assistant
 

@@ -2,6 +2,7 @@
 
 ## Getting Started
 
+* [Please read ..!](00-getting-started/guide.md)
 * [Getting Started](02-business-analytics-getting-started/guide.md)
 
 ## User Console

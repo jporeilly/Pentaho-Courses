@@ -16,7 +16,7 @@
 > * Merge streams in a predictable order with Append streams
 > * Write the final output with Text file output
 > 
-> **Prerequisites:** Understanding of basic transformation concepts (steps, hops, preview). Complete [Text File Input](https://academy.pentaho.com/pentaho-data-integration/data-integration/data-sources/flat-files/text/text-file-input) first.
+> **Prerequisites:** Understanding of basic transformation concepts (steps, hops, preview). Complete **Text File Input** first.
 > 
 > **Estimated time:** 35 minutes
 
@@ -39,7 +39,7 @@
 > 
 > Use **Get System Info** to read a runtime argument. We will treat the argument as the customer name.
 
-<div class="pcm-embed-card" data-href="https://www.loom.com/share/de06920fdcd84bc2b1fe63454afc8df8?hideEmbedTopBar=true&amp;hide_owner=true&amp;hide_share=true&amp;hide_title=true" data-title="Using the Get System Info Step in Pentaho Data Integration" data-description="In this demonstration, I showcased two scenarios using the Get System Info step in Pentaho Data Integration (PDI). First, I retrieved a single row of system data, including the current date and JVM memory statistics, which can be useful for monitoring system health. In the second scenario, I illustrated how to append the current date and time to each row of order data coming from a CSV file input step. I encourage you to practice using the Get System Info step in your own Pentaho environment and experiment with retrieving various information types. This will enhance your transformations and provide valuable insights for auditing and batch processing." data-thumb="../_assets/embeds/3c4ec4ec8a32.png"></div>
+<div class="pcm-embed-card" data-href="https://www.loom.com/share/de06920fdcd84bc2b1fe63454afc8df8?hideEmbedTopBar=true&amp;hide_owner=true&amp;hide_share=true&amp;hide_title=true" data-title="Using the Get System Info Step in Pentaho Data Integration" data-description="In this demonstration, I showcased two scenarios using the Get System Info step in Pentaho Data Integration (PDI). First, I retrieved a single row of system data, including the current date and JVM memory statistics, which can be useful for monitoring system health. In the second scenario, I illustrated how to append the current date and time to each row of order data coming from a CSV file input step. I encourage you to practice using the Get System Info step in your own Pentaho environment and experiment with retrieving various information types. This will enhance your transformations and provide valuable insights for auditing and batch processing." data-thumb="../_assets/embeds/2d94cd73b9b2.png"></div>
 
 1. Start Pentaho Data Integration (Spoon).
 

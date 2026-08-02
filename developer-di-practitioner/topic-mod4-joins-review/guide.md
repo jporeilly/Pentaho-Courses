@@ -42,7 +42,7 @@ Bringing two streams together by key. Database joins, join rows (cartesian-style
 
 <figure><img src="../_assets/images/cross-join-2.png" alt=""><figcaption><p>Cross Join</p></figcaption></figure>
 
-[cross-join](https://academy.pentaho.com/pentaho-data-integration/data-integration/enrich-data/joins/cross-join)
+**Cross Join**
 
 ### Merge
 
@@ -53,7 +53,7 @@ Bringing two streams together by key. Database joins, join rows (cartesian-style
 
 <figure><img src="../_assets/images/joins.png" alt=""><figcaption><p>Joins</p></figcaption></figure>
 
-[merge-join](https://academy.pentaho.com/pentaho-data-integration/data-integration/enrich-data/joins/merge-join)
+**Merge Join**
 
 ### Database
 
@@ -75,7 +75,7 @@ Bringing two streams together by key. Database joins, join rows (cartesian-style
 
 <figure><img src="../_assets/images/database-join-2.png" alt=""><figcaption><p>Database Join</p></figcaption></figure>
 
-[database-join](https://academy.pentaho.com/pentaho-data-integration/data-integration/enrich-data/joins/database-join)
+**Database Join**
 
 ### XML
 

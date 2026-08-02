@@ -108,7 +108,7 @@ Follow the guide to define and apply Concepts:
 <figure><img src="../_assets/images/concept_editor_new_concept.png" alt=""><figcaption><p>New Concept</p></figcaption></figure>
 
 2. In the Concepts pane, click Number.
-3. In the Properties section, for Available, click the Add Properties button. ![](../_assets/images/pdb52c.png)
+3. In the Properties section, for Available, click the Add Properties button. ![](../_assets/images/883fme.png)
 4. In the Add a defined property pane, scroll to Miscellaneous and select Mask for Number or Date.
 
 <figure><img src="../_assets/images/concept_editor_add_mask_property.png" alt=""><figcaption><p>Add Mask Property</p></figcaption></figure>
@@ -129,7 +129,7 @@ Follow the guide to define and apply Concepts:
 > Using the Concept Editor, a hierarchy of parent concepts including USCurrency (inheriting from Number with mask $#,##0.00;($#,##0.00)).
 
 1. Expand Concepts > Base and click Number.
-2. Click Add Concept button. ![](../_assets/images/y2oe9b.png)
+2. Click Add Concept button. ![](../_assets/images/883fme.png)
 3. In the New Concept dialog, type USCurrency and click OK.
 4. In the Concepts pane, click USCurrency.
 5. In the Available pane, select Mask for Number or Date.
@@ -149,7 +149,7 @@ Follow the guide to define and apply Concepts:
 <figure><img src="../_assets/images/concept_editor_set_number_mask_and_hidden.png" alt=""><figcaption><p>Set Number mask &#x26; Hidden</p></figcaption></figure>
 
 1. Expand Concepts > Base and click **Number**.
-2. Click Add Concept button. ![](../_assets/images/gh6ug0.png)
+2. Click Add Concept button. ![](../_assets/images/883fme.png)
 3. In the New Concept dialog, type ID and click OK.
 4. In the Concepts pane, click ID.
 5. In the Available pane, click Miscellaneous > Mask for Number or Date.
@@ -158,7 +158,7 @@ Follow the guide to define and apply Concepts:
 8. In the Concepts pane, select ID and click New Concept. ![](../_assets/images/883fme.png)
 9. In the New Concept dialog, type Hidden and click OK.
 10. In the Concepts pane, select Hidden.
-11. In the Available pane, click Add New Property button. ![](../_assets/images/9rrye0.png)
+11. In the Available pane, click Add New Property button. ![](../_assets/images/883fme.png)
 12. In the Add New Property dialog, scroll to Miscellaneous and select Hidden For the User?
 
 <figure><img src="../_assets/images/concept_editor.png" alt=""><figcaption></figcaption></figure>
@@ -187,7 +187,7 @@ Follow the guide to define and apply Concepts:
 
 1. From the menu options, choose Tools > Concept Editor.
 2. In the Concepts pane, click **Base**.
-3. Click Add Concept button. ![](../_assets/images/e3s1ly.png)
+3. Click Add Concept button. ![](../_assets/images/883fme.png)
 4. In the New Concept dialog, type Date and click OK.
 5. In the Concepts pane, select Date.
 6. In the Properties section, for Available, click the Add Properties button.
@@ -205,7 +205,7 @@ Follow the guide to define and apply Concepts:
 >
 > These concepts are then applied to business columns in the Business View by right-clicking columns and selecting "Set Parent Concept"- for example, assigning the USCurrency concept to Price Sold and Total columns, the Number concept to Quantity Ordered, the Date concept to Order Date, Shipped Date, and Required Date, and the ID concept to Order Number.
 
-<div class="pcm-embed-card" data-href="https://www.loom.com/share/c076e434bfad4b5e9c63e7bf2dca9ca2?hideEmbedTopBar=true&amp;hide_share=true&amp;hide_title=true&amp;sid=a323e4f4-9cf0-4441-8e64-2ed8174abbbe?hide_owner=true" data-title="Applying Concepts to Business Columns in Data Management" data-description="In this demonstration, I applied concepts for numbers, currency, and dates to various business columns. I assigned the number concept to the quantity ordered, the currency concept to the price sold and total price columns, and the date concept to the order date. I also applied the currency concept to the total column. The remaining columns utilize the base concept, and I am now finished with applying concepts. In the next demonstration, I will use the query editor to test this metadata domain, so please stay tuned for that." data-thumb="../_assets/embeds/d0c16fea57ef.png"></div>
+<div class="pcm-embed-card" data-href="https://www.loom.com/share/c076e434bfad4b5e9c63e7bf2dca9ca2?hideEmbedTopBar=true&amp;hide_share=true&amp;hide_title=true&amp;sid=a323e4f4-9cf0-4441-8e64-2ed8174abbbe?hide_owner=true" data-title="Applying Concepts to Business Columns in Data Management" data-description="In this demonstration, I applied concepts for numbers, currency, and dates to various business columns. I assigned the number concept to the quantity ordered, the currency concept to the price sold and total price columns, and the date concept to the order date. I also applied the currency concept to the total column. The remaining columns utilize the base concept, and I am now finished with applying concepts. In the next demonstration, I will use the query editor to test this metadata domain, so please stay tuned for that." data-thumb="../_assets/embeds/125979ecbc12.png"></div>
 ***
 
 Follow the guide to set and apply the Concepts:
