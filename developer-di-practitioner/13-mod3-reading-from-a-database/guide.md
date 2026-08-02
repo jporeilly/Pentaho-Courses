@@ -168,13 +168,17 @@
 1. Add a hop from **Sort rows** to **Select values**.
 2. Drag **Select values** onto the canvas.
 3. Open the step properties.
-4. Configure the field selection and type changes shown.
+4. On the **Meta-data** tab, set the date fields:
 
-<figure><img src="https://github.com/pentaho/academy/blob/main/pentaho-data-integration/.gitbook/assets/SV.png" alt=""><figcaption><p>Set data type</p></figcaption></figure>
+| Fieldname      | Type | Format       |
+| -------------- | ---- | ------------ |
+| `REQUIREDDATE` | Date | `yyyy-MM-dd` |
+| `SHIPPEDDATE`  | Date | `yyyy-MM-dd` |
 
 5. Select **OK**.
 
-> **Note:** This formats `REQUIREDDATE` and `SHIPPEDDATE`.
+> **Note:** This formats `REQUIREDDATE` and `SHIPPEDDATE` so they render
+> as plain dates (no time component) in the final stream.
 
 ### 6. RUN
 

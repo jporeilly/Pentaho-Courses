@@ -22,7 +22,7 @@ For the full change list, see the [11.0 release notes](https://docs.pentaho.com/
 
 Pipeline Designer is a browser-based UI for authoring ETL pipelines. Build PDI transformations and jobs in a web browser. Use Spoon only for legacy tooling.
 
-![Pipeline Designer in the browser](https://docs.pentaho.com/~gitbook/image?url=https%3A%2F%2F2804294592-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252FyzYIVXc5NujjLFFhw5Jm%252Fuploads%252FT7qwBRJmSw1J2dkMntsY%252Fimage.png%3Falt%3Dmedia%26token%3De0d86cad-bcd1-40c3-b937-8950f82dc700\&width=768\&dpr=4\&quality=100\&sign=c6becdd6\&sv=2)
+![Pipeline Designer in the browser](../_assets/images/whatsnew-01.png)
 
 It is similar to Spoon. The UI uses a modern framework. It remains compatible with transformations and jobs created in Spoon.
 
@@ -34,7 +34,7 @@ Before 11.0, PDI had no defined structure for organizing transformations, jobs, 
 
 Configuration resolution could also feel inconsistent.
 
-![Project-based organization for ETL assets](https://docs.pentaho.com/~gitbook/image?url=https%3A%2F%2F2804294592-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252FyzYIVXc5NujjLFFhw5Jm%252Fuploads%252Fj9bWqemlvUzaV4Nmz88m%252Fimage.png%3Falt%3Dmedia%26token%3De1e7e58f-70ea-4086-94ea-7a6a70c86332\&width=768\&dpr=4\&quality=100\&sign=d0225709\&sv=2)
+![Project-based organization for ETL assets](../_assets/images/whatsnew-02.png)
 
 Project-based lifecycle management addresses these gaps.
 
@@ -46,7 +46,7 @@ Learn more about [configuring ETL with Projects](https://docs.pentaho.com/pdia-d
 
 11.0 introduces a redesigned user experience (UX) for Pentaho User Console (PUC). It aligns with the broader Pentaho platform UX. It addresses pain points in PUC 10.2 and earlier.
 
-![Modern Pentaho User Console](https://docs.pentaho.com/~gitbook/image?url=https%3A%2F%2F2804294592-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252FyzYIVXc5NujjLFFhw5Jm%252Fuploads%252FUyUxCG5t0P9X4ealemYT%252Fimage.png%3Falt%3Dmedia%26token%3Df148a13e-3285-46b7-92cf-bfe33e187bd8\&width=768\&dpr=4\&quality=100\&sign=739846af\&sv=2)
+![Modern Pentaho User Console](../_assets/images/whatsnew-03.png)
 
 The existing PUC stays available until feature parity.
 
@@ -58,7 +58,7 @@ Learn more about [Modern PUC](https://docs.pentaho.com/pba/11.0-pba/pentaho-user
 
 SME works for both new and advanced users. It improves the modeling experience in PBA, especially Analyzer. It supports existing Mondrian models and adds new capabilities.
 
-![Semantic Model Editor](https://docs.pentaho.com/~gitbook/image?url=https%3A%2F%2F2804294592-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252FyzYIVXc5NujjLFFhw5Jm%252Fuploads%252FbvAaOXY6vTCT8cYvhpLG%252Fimage.png%3Falt%3Dmedia%26token%3Dbf0cdd57-08df-4c7a-8c4a-c2e468dea084\&width=768\&dpr=4\&quality=100\&sign=f676c6f1\&sv=2)
+![Semantic Model Editor](../_assets/images/whatsnew-04.png)
 
 Learn more about [Semantic Model Editor](https://docs.pentaho.com/pba/11.0-pba/semantic-model-editor).
 
@@ -66,7 +66,7 @@ Learn more about [Semantic Model Editor](https://docs.pentaho.com/pba/11.0-pba/s
 
 11.0 supports OpenID Connect (OIDC) and OAuth 2.0 authentication for Pentaho Server. This enables single sign-on (SSO) with identity providers such as Google, Okta, and Azure. It supports any OIDC-compliant identity provider (IdP).
 
-![OIDC/OAuth authentication options](https://docs.pentaho.com/~gitbook/image?url=https%3A%2F%2F2804294592-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252FyzYIVXc5NujjLFFhw5Jm%252Fuploads%252FsmMHck3iMCiWXWr3j3jn%252Fimage.png%3Falt%3Dmedia%26token%3Dc66d9337-1950-429e-8847-cc93b64d3850\&width=768\&dpr=4\&quality=100\&sign=7579d4e8\&sv=2)
+![OIDC/OAuth authentication options](../_assets/images/whatsnew-05.png)
 
 Learn more about [OIDC and OAuth 2.0](https://docs.pentaho.com/pdia-admin/pdia-11.0-admin/administer/secure-the-pentaho-system/user-security/advanced-security-providers/oidc-oauth-2.0).
 
@@ -79,7 +79,7 @@ Learn more about [OIDC and OAuth 2.0](https://docs.pentaho.com/pdia-admin/pdia-1
 * Permissions were too broad for data sources and similar assets.
 * Execute permissions were too broad.
 
-![Granular permission management](https://docs.pentaho.com/~gitbook/image?url=https%3A%2F%2F2804294592-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252FyzYIVXc5NujjLFFhw5Jm%252Fuploads%252FrTbSN2et5tUaVD8nVzls%252Fimage.png%3Falt%3Dmedia%26token%3Dcad4f374-af6b-42d9-8ee9-c9dbd89d865e\&width=768\&dpr=4\&quality=100\&sign=25687fc3\&sv=2)
+![Granular permission management](../_assets/images/whatsnew-06.png)
 
 11.0 addresses these issues in Pentaho Server. Combined with OIDC and OAuth 2.0, it provides a stronger authentication and authorization model.
 
@@ -105,7 +105,7 @@ Learn more in the [Components reference](https://docs.pentaho.com/install/pdia-1
 
 11.0 introduces a Plugin Manager for both PDI and PBA plugins. Pentaho will ship more functionality as plugins over time. This makes it easier to identify, deploy, and update plugins.
 
-![Plugin Manager](https://docs.pentaho.com/~gitbook/image?url=https%3A%2F%2F2804294592-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252FyzYIVXc5NujjLFFhw5Jm%252Fuploads%252Fy5CzkfB31Zn3EuPPsUdn%252Fimage.png%3Falt%3Dmedia%26token%3D8e60d853-c28e-4501-a22d-b5781bc80f17\&width=768\&dpr=4\&quality=100\&sign=6478f59e\&sv=2)
+![Plugin Manager](../_assets/images/whatsnew-07.png)
 
 Learn more about [Plugin Manager](https://docs.pentaho.com/pba/11.0-pba/pentaho-user-console/modern-design/plugin-manager).
 
