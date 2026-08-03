@@ -168,6 +168,8 @@ sources.
 
 :::
 
+<div data-env-check="server"></div>
+
 Nothing else is required.
 
 ::::
