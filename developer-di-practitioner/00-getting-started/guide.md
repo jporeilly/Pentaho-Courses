@@ -71,38 +71,45 @@ every port and login, for when you come back to it later.
 ### 1. Container runtime
 
 The workshop services (a writable MySQL and object storage) run as
-containers, so you need a container runtime. Install **Podman Desktop** —
-it is free (Apache 2.0), installs the Podman engine for you, and gives
-you a window to watch the containers in:
+containers, so you need a container runtime. Install **Podman
+Desktop** — free (Apache 2.0), and it installs the Podman engine for
+you:
 
 ```powershell
 winget install -e --id RedHat.Podman-Desktop
 ```
 
-Prefer the command line only? This installs the same engine without the
-UI:
-
-```powershell
-winget install -e --id Podman.CLI --version 6.0.2
-```
-
-Podman runs its containers inside WSL, and it needs a **current** WSL to
-do it:
+Podman runs its containers inside WSL, and it needs a **current** WSL
+to do it:
 
 ```powershell
 wsl --update
 ```
 
-> **Tip:** Podman Desktop is worth having even if you live in the
-> terminal. The most common workshop hiccup is "the machine is stopped
-> after a reboot", and Podman Desktop shows you that at a glance — and
-> starts it with one click.
+Then open **Podman Desktop** from the Start menu. It is a normal
+desktop application, not a web page, so there is no address to browse
+to. Its **Containers** page lists the workshop services with their
+ports, logs and a terminal, and **Podman machine** (bottom-left) is
+where you start the machine.
 
-Once installed, open **Podman Desktop** from the Start menu — it is a
-normal desktop application, not a web page. Its **Containers** page
-lists the workshop services with their ports, logs and a terminal, and
-**Podman machine** (bottom-left) is where you start the machine when
-it is stopped.
+> **Important:** The Podman machine does not start itself after a
+> reboot — this is the single most common workshop hiccup. Podman
+> Desktop shows you at a glance that it is stopped, and starts it with
+> one click. That is the main reason to install it rather than the
+> command-line package alone.
+
+<details>
+<summary>Command line only</summary>
+
+The engine is also available on its own, without the window. Every
+lab works the same way; you just start the machine yourself with
+`podman machine start` after each reboot:
+
+```powershell
+winget install -e --id Podman.CLI --version 6.0.2
+```
+
+</details>
 
 <details>
 <summary>Troubleshooting</summary>
@@ -112,7 +119,8 @@ out-of-date WSL. Run `wsl --update`, then
 `podman machine start`. WSL 2.7 or newer is required; check with
 `wsl --version`.
 
-**"cannot connect to Podman"** — the machine exists but is not running:
+**"cannot connect to Podman"** — the machine exists but is not
+running. Start it from **Podman machine** in Podman Desktop, or:
 
 ```powershell
 podman machine start
@@ -222,7 +230,7 @@ When everything is green you are ready to start Module 1.
 | Check                    | Why the course needs it                      |
 | ------------------------ | -------------------------------------------- |
 | WSL 2                    | Podman runs its containers inside it         |
-| Podman CLI               | The container engine                         |
+| Podman                   | The container engine                         |
 | Compose provider         | Brings up the whole stack in one command     |
 | Podman machine           | The Linux VM the containers run in           |
 | MySQL `sampledata`       | Labs 12–18 write to it (HSQLDB is read-only) |
