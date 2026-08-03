@@ -20,11 +20,11 @@
   "moduleSummaries": [
     {
       "title": "Getting Started",
-      "summary": "Get familiar with Spoon — PDI's design tool. Configure your workspace, set Look & Feel options, switch perspectives, and learn how Kettle variables drive every transformation you'll build."
+      "summary": "How to get the most out of this guide, and how to set your machine up — whether you are on a lab VM or installing on your own laptop. Five minutes here makes every later lab smoother."
     },
     {
-      "title": "Concepts & Terminology",
-      "summary": "Build your first transformation: a 'Hello World' that introduces steps, hops, rows, and the run/preview cycle. Vocabulary you'll lean on for every lab that follows."
+      "title": "Components & Concepts",
+      "summary": "The pieces of Pentaho and the vocabulary that runs through every later lab. Meet the client tools and server components, configure Spoon and the KETTLE variables that drive it, then build a 'Hello World' transformation covering steps, hops, rows and the run/preview cycle — finishing with logging and error handling."
     },
     {
       "title": "Data Sources",
