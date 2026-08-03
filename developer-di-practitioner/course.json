@@ -15,7 +15,14 @@
     "models": {
       "cpu": "llama3.2:3b",
       "gpu": "qwen2.5:7b"
-    }
+    },
+    "subject": "Pentaho Data Integration (Spoon, transformations, jobs and the Pentaho Server)",
+    "suggestions": [
+      "Walk me through my first transformation",
+      "What's the difference between a job and a transformation?",
+      "How do I read a CSV and filter rows?",
+      "What PDI skills does this course teach?"
+    ]
   },
   "moduleSummaries": [
     {
