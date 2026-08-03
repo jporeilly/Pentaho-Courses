@@ -71,26 +71,29 @@ every port and login, for when you come back to it later.
 ### 1. Container runtime
 
 The workshop services (a writable MySQL and object storage) run as
-containers, so you need a container runtime. Install **Podman
-Desktop** — free (Apache 2.0), and it installs the Podman engine for
-you:
+containers, so you need a container runtime.
 
-```powershell
-winget install -e --id RedHat.Podman-Desktop
-```
+1. Install **Podman Desktop**. It is free (Apache 2.0) and installs
+   the Podman engine for you:
 
-Podman runs its containers inside WSL, and it needs a **current** WSL
-to do it:
+   ```powershell
+   winget install -e --id RedHat.Podman-Desktop
+   ```
 
-```powershell
-wsl --update
-```
+2. Bring WSL up to date. Podman runs its containers inside WSL, and
+   needs a current one:
 
-Then open **Podman Desktop** from the Start menu. It is a normal
-desktop application, not a web page, so there is no address to browse
-to. Its **Containers** page lists the workshop services with their
-ports, logs and a terminal, and **Podman machine** (bottom-left) is
-where you start the machine.
+   ```powershell
+   wsl --update
+   ```
+
+3. Open **Podman Desktop** from the Start menu. It is a normal desktop
+   application, not a web page, so there is no address to browse to.
+   Its **Containers** page lists the workshop services with their
+   ports, logs and a terminal, and **Podman machine** (bottom-left) is
+   where you start the machine.
+
+There will be no containers yet — you create those in the next tab.
 
 Once step 2 has run, the Containers page is what you should see:
 
@@ -155,33 +158,38 @@ course requires you to remove it.
 
 ### 2. Start the services
 
-Open PowerShell in the **`provisioning`** folder of your install and run:
+1. Open PowerShell in the **`provisioning`** folder of your install.
+   That is one of:
 
-```powershell
-.\setup-services.ps1
-```
+   | Install type | Folder                                            |
+   | ------------ | ------------------------------------------------- |
+   | Just for me  | `%LOCALAPPDATA%\Programs\Pentaho Content Manager` |
+   | All users    | `C:\Program Files\Pentaho Content Manager`        |
 
-That one command checks your prerequisites, generates the MySQL sample
-data from your own Pentaho install, starts the Podman machine, brings up
-the containers, and waits until MySQL and MinIO genuinely answer — not
-just "started".
+2. Run the setup script:
 
-If anything from step 1 is missing it **offers to install it for you**
-— Podman Desktop, the compose provider, or Node — and waits for your
-answer before touching your machine. Press Enter to accept, or `n` to
-be given the command instead. Nothing is installed without you saying
-so. `-InstallPrereqs` answers yes to all of them, for setting up a
-room of machines.
+   ```powershell
+   .\setup-services.ps1
+   ```
 
-Your install folder is one of:
+3. Answer any prompts. If something from the previous tab is missing —
+   Podman Desktop, the compose provider, or Node — the script offers
+   to install it and waits for your answer. Press Enter to accept, or
+   `n` to be given the command instead. Nothing is installed unless
+   you say so.
 
-| Install type | Folder                                            |
-| ------------ | ------------------------------------------------- |
-| Just for me  | `%LOCALAPPDATA%\Programs\Pentaho Content Manager` |
-| All users    | `C:\Program Files\Pentaho Content Manager`        |
+4. Wait for it to finish. It generates the MySQL sample data from your
+   own Pentaho install, starts the Podman machine, brings up the
+   containers, and waits until MySQL and MinIO genuinely answer — not
+   just "started". First run takes a few minutes.
+
+Check the result against the Podman Desktop screenshot in the previous
+tab: `pcm-mysql` and `pcm-minio` running, `pcm-minio-seed` exited.
 
 > **Important:** Re-run this same command after **every reboot** — the
 > Podman machine does not start itself. It is safe to run at any time.
+> `-InstallPrereqs` answers yes to every prompt, for setting up a room
+> of machines.
 
 <details>
 <summary>Troubleshooting</summary>
@@ -261,24 +269,31 @@ When everything is green you are ready to start Module 1.
 
 ### 4. Database tool
 
-You will want a database tool for browsing tables and running ad-hoc SQL
-alongside the labs. **DBeaver Community** is free and ships with the
-drivers these workshops need:
+You will want a database tool for browsing tables and running ad-hoc
+SQL alongside the labs. **DBeaver Community** is free and ships with
+the drivers these workshops need.
 
-```powershell
-winget install -e --id dbeaver.dbeaver
-```
+1. Install it:
 
-In DBeaver choose **Database → New Database Connection → MySQL**, then
-enter:
+   ```powershell
+   winget install -e --id dbeaver.dbeaver
+   ```
 
-| Setting  | Value           |
-| -------- | --------------- |
-| Host     | `127.0.0.1`     |
-| Port     | `3306`          |
-| Database | `sampledata`    |
-| Username | `pentaho_admin` |
-| Password | `password`      |
+2. In DBeaver choose **Database → New Database Connection → MySQL**.
+
+3. Enter these details:
+
+   | Setting  | Value           |
+   | -------- | --------------- |
+   | Host     | `127.0.0.1`     |
+   | Port     | `3306`          |
+   | Database | `sampledata`    |
+   | Username | `pentaho_admin` |
+   | Password | `password`      |
+
+4. Click **Test Connection**, then **Finish**. Expand the
+   `sampledata` schema and you should see the Steel Wheels tables —
+   `CUSTOMERS`, `PRODUCTS`, `ORDERS` and the rest.
 
 These are the same credentials the labs use in their PDI database
 connections, so what you see in DBeaver is exactly what your
