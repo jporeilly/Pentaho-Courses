@@ -12,7 +12,7 @@ Bar charts are useful for discovering trends over time by displaying data in thi
 
 ![Bar Charts](../_assets/images/refb-01.png)
 
-## ..\sample charts\Bar Chart.prpt
+**File:** `..\sample charts\Bar Chart.prpt`
 
 value-columns = [SALES]: This is the value that will be shown on the y axis
 
@@ -40,7 +40,7 @@ Line charts are useful for discovering trends over time by displaying data in th
 
 ![Line](../_assets/images/refb-05.png)
 
-## ..\sample charts\Line Chart.prpt
+**File:** `..\sample charts\Line Chart.prpt`
 
 value-columns = [SALES]: This is the value that will be shown on the y axis
 
@@ -58,7 +58,7 @@ If one or more of the chart areas will dip below other areas, then the resulting
 
 ![Area](../_assets/images/refb-07.png)
 
-## ..\sample chart\Area Chart.prpt
+**File:** `..\sample chart\Area Chart.prpt`
 
 ![..\sample chart\Area Chart.prpt](../_assets/images/refb-08.jpeg)
 
@@ -81,7 +81,7 @@ Pie charts are useful for comparing multiple data points. A single pie slice can
 
 ![Pie](../_assets/images/refb-10.png)
 
-## ..\sample charts\Pie.prpt
+**File:** `..\sample charts\Pie.prpt`
 
 value-columns = Sales
 
@@ -115,7 +115,7 @@ Pie grid charts are useful for comparing multiple data points in a group. The gr
 
 ![Multi-Pie](../_assets/images/refb-12.png)
 
-## ..\sample charts\Multi Pie Chart.prpt
+**File:** `..\sample charts\Multi Pie Chart.prpt`
 
 ![..\sample charts\Multi Pie Chart.prpt](../_assets/images/refb-13.jpeg)
 
@@ -127,7 +127,7 @@ Note: Bar Line charts require two data sources -- one for the bars, one for the 
 
 ![Bar Line Combination](../_assets/images/refb-14.png)
 
-## ..\sample charts\Bar Line Chart.prpt
+**File:** `..\sample charts\Bar Line Chart.prpt`
 
 ![..\sample charts\Bar Line Chart.prpt](../_assets/images/refb-15.jpeg)
 
@@ -159,7 +159,7 @@ Ring charts, like pie charts, are useful for comparing multiple data points. Pie
 
 ![Ring](../_assets/images/refb-16.png)
 
-## ..\sample charts\Pie.prpt
+**File:** `..\sample charts\Pie.prpt`
 
 ![..\sample charts\Pie.prpt](../_assets/images/refb-17.jpeg)
 
@@ -173,7 +173,7 @@ For example, a sales chart might have the top 5 bestselling product names for th
 
 ![Bubble](../_assets/images/refb-18.png)
 
-## ..\sample charts\Bubble Chart by Line.prpt
+**File:** `..\sample charts\Bubble Chart by Line.prpt`
 
 ![..\sample charts\Bubble Chart by Line.prpt](../_assets/images/refb-19.jpeg)
 
@@ -187,7 +187,7 @@ XY dot (scatter plot) charts are useful for showing trends for many individual e
 
 ![Scatter Plot](../_assets/images/refb-20.png)
 
-## ..\sample charts\Scatter XY Collector.prpt
+**File:** `..\sample charts\Scatter XY Collector.prpt`
 
 ![..\sample charts\Scatter XY Collector.prpt](../_assets/images/refb-21.jpeg)
 
@@ -201,7 +201,7 @@ An XY step chart is essentially a horizontal bar chart where the bars are segmen
 
 ![XY Bar](../_assets/images/refb-22.png)
 
-## ..\sample charts\XY Bar Chart.prpt
+**File:** `..\sample charts\XY Bar Chart.prpt`
 
 ![..\sample charts\XY Bar Chart.prpt](../_assets/images/refb-23.jpeg)
 
@@ -211,7 +211,7 @@ XY line charts are useful for showing how multiple data trends relate to one ano
 
 ![XY Line](../_assets/images/refb-24.png)
 
-## ..\sample charts\XY Line Chart.prpt
+**File:** `..\sample charts\XY Line Chart.prpt`
 
 ![..\sample charts\XY Line Chart.prpt](../_assets/images/refb-25.jpeg)
 
@@ -221,7 +221,7 @@ XY area charts are useful for comparing multiple related data sets over time, es
 
 ![XY Area](../_assets/images/refb-26.png)
 
-## ..\sample charts\XY Area Chart.prpt
+**File:** `..\sample charts\XY Area Chart.prpt`
 
 ![..\sample charts\XY Area Chart.prpt](../_assets/images/refb-27.jpeg)
 
@@ -249,7 +249,7 @@ A Waterfall chart is useful for showing the length of each specific portion of a
 
 ![Waterfall](../_assets/images/refb-31.png)
 
-## ..\sample charts\Waterfall Legacy.prpt
+**File:** `..\sample charts\Waterfall Legacy.prpt`
 
 This type of chart is generally used to show increases and decreases in the values under analysis. The first and last values of the chart are represented with a common bar. From the second bar onward, the bars are positioned relative to the right edge of the first bar. If the second value represents a positive value, the bar grows to the right and is green; however, if the value is negative, the bar decreases to the left and is red.
 
@@ -261,7 +261,7 @@ A radar chart is useful for showing how two or more volume-related data points c
 
 ![Radar](../_assets/images/refb-32.png)
 
-## ..\sample charts\Radar Chart.prpt
+**File:** `..\sample charts\Radar Chart.prpt`
 
 ![..\sample charts\Radar Chart.prpt](../_assets/images/refb-33.jpeg)
 

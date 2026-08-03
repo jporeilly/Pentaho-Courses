@@ -24,7 +24,14 @@
     "models": {
       "cpu": "llama3.2:3b",
       "gpu": "qwen2.5:7b"
-    }
+    },
+    "subject": "Pentaho Report Designer",
+    "suggestions": [
+      "How do I add a group and a group header to a report?",
+      "What's the difference between a Details band and a Group band?",
+      "How do I create a calculated field with the Formula Editor?",
+      "How do I publish a report to the Pentaho Server?"
+    ]
   },
   "moduleSummaries": [
     {
@@ -53,7 +60,7 @@
     },
     {
       "title": "Report Parameters",
-      "summary": "Let report users filter at run time with parameters \u2014 prompts, defaults, and parameter-driven queries."
+      "summary": "Let report users filter at run time with parameters — prompts, defaults, and parameter-driven queries."
     },
     {
       "title": "Charts & Sub Reports",

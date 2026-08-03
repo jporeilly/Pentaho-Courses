@@ -3,7 +3,7 @@
   "description": "Publish your report and add hyperlinks on your own.",
   "order": 28,
   "kind": "workshop",
-  "stepCount": 3,
+  "stepCount": 2,
   "hasVideo": false,
   "estimatedMinutes": 15
 }

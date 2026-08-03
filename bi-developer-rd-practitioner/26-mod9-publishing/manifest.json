@@ -3,7 +3,7 @@
   "description": "Publish a report to the BA repository and run it from the Pentaho User Console.",
   "order": 26,
   "kind": "workshop",
-  "stepCount": 5,
+  "stepCount": 3,
   "hasVideo": false,
   "estimatedMinutes": 20
 }

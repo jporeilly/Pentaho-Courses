@@ -27,7 +27,7 @@
 
 To add a parameter for Territory:
 
-## Open Exercise - formatting.prpt
+**Open** `Exercise - formatting.prpt`
 
 From the Data pane, double-click JDBC: SampleData (Hypersonic)
 

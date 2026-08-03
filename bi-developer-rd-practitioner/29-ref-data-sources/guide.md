@@ -183,7 +183,7 @@ Click the yellow cylinder icon in the upper left part of the Data pane, or right
 Select XML from the drop-down menu. The XML Datasource Editor window will appear.
 
 * Click Browse, navigate to your XML file:
-## C:\Pentaho-Training\BA-2000\datasources\xml\orders.xml
+**File:** `C:\Pentaho-Training\BA-2000\datasources\xml\orders.xml`
 
 Click the round green + icon above the Available Queries field.
 

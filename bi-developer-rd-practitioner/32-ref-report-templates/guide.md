@@ -58,7 +58,7 @@ Important: Change only the cobalt values. Do not change any of the other color v
 
 Notice in some cases, the formatting is applied at the element level instead of the band level.
 
-## Review and Save: 5_aqua_1_left_aligned.prpt
+**Review and Save** `5_aqua_1_left_aligned.prpt`
 
 ## Deploying the Template
 
@@ -66,9 +66,9 @@ To stop the Pentaho Server, from the Windows task bar, select Start > All Progra
 
 Copy:
 
-## 5_aqua_1_left_aligned.png
+**File:** `5_aqua_1_left_aligned.png`
 
-## 5_aqua_1_left_aligned.prpt
+**File:** `5_aqua_1_left_aligned.prpt`
 
 ..\pentahotraining\BA2000\templates to either:
 

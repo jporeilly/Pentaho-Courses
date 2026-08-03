@@ -40,7 +40,7 @@
 
 To add a sub-report showing Volume for each year grouped by Product Line:
 
-## Open the ..\reports\Inventory List HyperLink Report
+**Open the** `..\reports\Inventory List HyperLink Report`
 
 To create the hyperlink for the Product Code, in the Details band, right-click PRODUCTCODE, and the select Hyperlink.
 

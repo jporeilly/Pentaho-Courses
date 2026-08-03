@@ -54,7 +54,7 @@ The Formula Editor provides a list of built-in functions to help you build a for
 10. For Test, after [QUANTITYINSTOCK] type <1000.
 11. For Then value, type “RED” (including the quotation marks).
 12. For Otherwise value, type “BLACK” (including the quotation marks).
-## =IF([QUANTITYINSTOCK]<1000;"RED";"BLACK")
+`=IF([QUANTITYINSTOCK]<1000;"RED";"BLACK")`
 
 ![=IF([QUANTITYINSTOCK]<1000;"RED";"BLACK")](../_assets/images/mod5-07.png)
 

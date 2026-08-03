@@ -30,9 +30,9 @@
 
 ![Publish Report](../_assets/images/mod9-02.png)
 
-## Or
+**Or**
 
-Click on the Publich icon in the mail toolbar.
+Click the **Publish** icon in the main toolbar.
 
 ![Or](../_assets/images/mod9-03.png)
 
@@ -40,7 +40,7 @@ Click on the Publich icon in the mail toolbar.
 
 ![Or](../_assets/images/mod9-04.png)
 
-## Password: password
+Sign in as **`admin`** with the password **`password`**.
 
 1. To publish the report:
 2. File Name field: Inventory Report.

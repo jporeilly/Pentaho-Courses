@@ -3,7 +3,7 @@
   "description": "Use a formula to change an element's formatting based on the data it displays.",
   "order": 10,
   "kind": "workshop",
-  "stepCount": 3,
+  "stepCount": 2,
   "hasVideo": false,
   "estimatedMinutes": 15
 }

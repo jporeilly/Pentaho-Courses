@@ -181,7 +181,7 @@ To enhance the chart by making it 3D and changing the x-axis label rotation:
 1. Double-click the Chart element.
 2. To open the formula editor, for Values > url-formula, click in the Value column, and then click the … icon.
 3. In the Formula pane, type the following formula on one line:
-## =”javascript:alert('" & ["chart::series-key"] & "')"
+`=”javascript:alert('" & ["chart::series-key"] & "')"`
 
 Click OK.
 

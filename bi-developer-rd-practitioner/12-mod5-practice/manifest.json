@@ -3,7 +3,7 @@
   "description": "Two exercises: apply conditional formatting, then add totals — on your own this time.",
   "order": 12,
   "kind": "workshop",
-  "stepCount": 4,
+  "stepCount": 3,
   "hasVideo": false,
   "estimatedMinutes": 20
 }

@@ -3,7 +3,7 @@
   "description": "Four exercises covering charts, sub-reports, multiple sub-reports, and drillable charts.",
   "order": 24,
   "kind": "workshop",
-  "stepCount": 9,
+  "stepCount": 8,
   "hasVideo": false,
   "estimatedMinutes": 30
 }

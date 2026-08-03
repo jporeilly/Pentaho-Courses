@@ -28,7 +28,7 @@
 
 In this exercise you will use the Formula Editor to change the text color of the Total Price depending on the value of the field
 
-## Open the Exercise – data elements.prpt
+**Open the** `Exercise – data elements.prpt`
 
 Select TOTALPRICE, in the Details band.
 
