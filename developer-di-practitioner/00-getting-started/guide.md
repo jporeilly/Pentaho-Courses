@@ -97,6 +97,23 @@ wsl --update
 > after a reboot", and Podman Desktop shows you that at a glance — and
 > starts it with one click.
 
+Once installed, open **Podman Desktop** from the Start menu. Its
+**Containers** page lists the workshop services with their ports, logs
+and a terminal; **Podman machine** (bottom-left) is where you start
+the machine if it is stopped. There is no web address — it is a normal
+desktop application.
+
+Nothing to install and prefer a browser? The compose file also carries
+**Portainer**, off by default:
+
+```powershell
+.\setup-services.ps1 -Tools
+```
+
+Then open **https://localhost:9443** and set an admin password on
+first use. Portainer runs as a container and needs the machine to be
+rootful, so Podman Desktop is the simpler option on a laptop.
+
 <details>
 <summary>Troubleshooting</summary>
 
@@ -270,6 +287,29 @@ properties** tab set `allowPublicKeyRetrieval` to `true`.
 pick `sampledata` in the Database field, not `mysql` or `information_schema`.
 
 </details>
+
+### 5. Ports and logins
+
+Everything the workshop stack exposes, in one place. All of it is
+local to your machine.
+
+| Service | Used by | Address | Username | Password |
+| --- | --- | --- | --- | --- |
+| MySQL `sampledata` | Labs 12–18 | `127.0.0.1:3306` | `pentaho_admin` | `password` |
+| MySQL (admin) | Fixing things | `127.0.0.1:3306` | `root` | `password` |
+| MinIO — S3 API | Lab 19 (`pvfs://`) | `127.0.0.1:9000` | `minioadmin` | `minioadmin` |
+| MinIO — web console | Browsing buckets | http://127.0.0.1:9099 | `minioadmin` | `minioadmin` |
+| Ollama | The Chat tab | `127.0.0.1:11434` | — | — |
+| Portainer *(optional)* | `-Tools` only | https://localhost:9443 | *set on first use* | |
+
+> **Note:** MinIO's console is on **9099**, not the usual 9001 —
+> Pentaho's HSQLDB already owns 9001, and MinIO refuses to start if
+> the port is taken. The S3 API is on the standard 9000, which is what
+> the `pvfs://` labs and the environment check use.
+
+> **Caution:** These are throwaway workshop credentials, deliberately
+> simple. Do not reuse this compose file, or these passwords, for
+> anything that holds real data.
 
 :::
 
