@@ -92,6 +92,16 @@ to. Its **Containers** page lists the workshop services with their
 ports, logs and a terminal, and **Podman machine** (bottom-left) is
 where you start the machine.
 
+Once step 2 has run, the Containers page is what you should see:
+
+<figure><img src="../_assets/images/podman-desktop-containers.png" alt="Podman Desktop showing the workshop-services containers"><figcaption><p>The workshop services in Podman Desktop</p></figcaption></figure>
+
+The three containers are grouped under **workshop-services (compose)**.
+`pcm-mysql` on port 3306 and `pcm-minio` on 9000/9099 should both say
+**RUNNING**. `pcm-minio-seed` showing **EXITED** is correct and not a
+failure — it is a one-shot container that creates the buckets and
+uploads the sample files, then stops.
+
 > **Important:** The Podman machine does not start itself after a
 > reboot — this is the single most common workshop hiccup. Podman
 > Desktop shows you at a glance that it is stopped, and starts it with
