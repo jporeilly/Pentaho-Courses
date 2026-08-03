@@ -15,7 +15,14 @@
     "models": {
       "cpu": "llama3.2:3b",
       "gpu": "qwen2.5:7b"
-    }
+    },
+    "subject": "Pentaho Business Analytics (the User Console, Interactive Reports, Analyzer and Dashboard Designer)",
+    "suggestions": [
+      "What's the difference between Interactive Reports and Analyzer?",
+      "How do I add a filter to an Analyzer report?",
+      "How do I publish a dashboard so others can see it?",
+      "What can I do in the User Console?"
+    ]
   },
   "moduleSummaries": [
     {
