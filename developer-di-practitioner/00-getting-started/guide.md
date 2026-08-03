@@ -59,8 +59,9 @@ reinstalling anything.
 ### I'm installing on my own machine
 
 Everything here is a **one-off setup** for your own laptop. Work through
-the four tabs in order — the panel underneath checks your machine as you
-go, so you can always see what is left.
+the tabs in order — the panel underneath checks your machine as you go,
+so you can always see what is left. The last tab is a reference card of
+every port and login, for when you come back to it later.
 
 > **Note:** Budget about 20 minutes the first time, most of it download
 > time. After this, starting the workshop is a single command.
@@ -149,10 +150,10 @@ just "started".
 
 Your install folder is one of:
 
-| Install type | Folder |
-| --- | --- |
-| Just for me | `%LOCALAPPDATA%\Programs\Pentaho Content Manager` |
-| All users | `C:\Program Files\Pentaho Content Manager` |
+| Install type | Folder                                            |
+| ------------ | ------------------------------------------------- |
+| Just for me  | `%LOCALAPPDATA%\Programs\Pentaho Content Manager` |
+| All users    | `C:\Program Files\Pentaho Content Manager`        |
 
 > **Important:** Re-run this same command after **every reboot** — the
 > Podman machine does not start itself. It is safe to run at any time.
@@ -218,16 +219,16 @@ When everything is green you are ready to start Module 1.
 <details>
 <summary>What it checks</summary>
 
-| Check | Why the course needs it |
-| --- | --- |
-| WSL 2 | Podman runs its containers inside it |
-| Podman CLI | The container engine |
-| Compose provider | Brings up the whole stack in one command |
-| Podman machine | The Linux VM the containers run in |
-| MySQL `sampledata` | Labs 12–18 write to it (HSQLDB is read-only) |
-| MinIO | The `pvfs://` object-storage labs |
-| Pentaho Data Integration | The tool the whole course teaches |
-| Ollama | Optional — powers the in-app chat assistant |
+| Check                    | Why the course needs it                      |
+| ------------------------ | -------------------------------------------- |
+| WSL 2                    | Podman runs its containers inside it         |
+| Podman CLI               | The container engine                         |
+| Compose provider         | Brings up the whole stack in one command     |
+| Podman machine           | The Linux VM the containers run in           |
+| MySQL `sampledata`       | Labs 12–18 write to it (HSQLDB is read-only) |
+| MinIO                    | The `pvfs://` object-storage labs            |
+| Pentaho Data Integration | The tool the whole course teaches            |
+| Ollama                   | Optional — powers the in-app chat assistant  |
 
 </details>
 
@@ -244,13 +245,13 @@ winget install -e --id dbeaver.dbeaver
 In DBeaver choose **Database → New Database Connection → MySQL**, then
 enter:
 
-| Setting | Value |
-| --- | --- |
-| Host | `127.0.0.1` |
-| Port | `3306` |
-| Database | `sampledata` |
+| Setting  | Value           |
+| -------- | --------------- |
+| Host     | `127.0.0.1`     |
+| Port     | `3306`          |
+| Database | `sampledata`    |
 | Username | `pentaho_admin` |
-| Password | `password` |
+| Password | `password`      |
 
 These are the same credentials the labs use in their PDI database
 connections, so what you see in DBeaver is exactly what your
@@ -282,13 +283,15 @@ pick `sampledata` in the Database field, not `mysql` or `information_schema`.
 Everything the workshop stack exposes, in one place. All of it is
 local to your machine.
 
-| Service | Used by | Address | Username | Password |
-| --- | --- | --- | --- | --- |
-| MySQL `sampledata` | Labs 12–18 | `127.0.0.1:3306` | `pentaho_admin` | `password` |
-| MySQL (admin) | Fixing things | `127.0.0.1:3306` | `root` | `password` |
-| MinIO — S3 API | Lab 19 (`pvfs://`) | `127.0.0.1:9000` | `minioadmin` | `minioadmin` |
-| MinIO — web console | Browsing buckets | http://127.0.0.1:9099 | `minioadmin` | `minioadmin` |
-| Ollama | The Chat tab | `127.0.0.1:11434` | — | — |
+| Service                         | Address           | Username        | Password     |
+| ------------------------------- | ----------------- | --------------- | ------------ |
+| MySQL `sampledata` — labs 12–18 | `127.0.0.1:3306`  | `pentaho_admin` | `password`   |
+| MySQL — admin account           | `127.0.0.1:3306`  | `root`          | `password`   |
+| MinIO S3 API — lab 19 `pvfs://` | `127.0.0.1:9000`  | `minioadmin`    | `minioadmin` |
+| MinIO web console — buckets     | `127.0.0.1:9099`  | `minioadmin`    | `minioadmin` |
+| Ollama — the Chat tab           | `127.0.0.1:11434` | *none*          | *none*       |
+
+Open the MinIO console in a browser at **http://127.0.0.1:9099**.
 
 > **Note:** MinIO's console is on **9099**, not the usual 9001 —
 > Pentaho's HSQLDB already owns 9001, and MinIO refuses to start if
