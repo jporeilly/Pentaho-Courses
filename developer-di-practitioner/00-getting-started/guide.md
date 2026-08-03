@@ -156,6 +156,13 @@ data from your own Pentaho install, starts the Podman machine, brings up
 the containers, and waits until MySQL and MinIO genuinely answer — not
 just "started".
 
+If anything from step 1 is missing it **offers to install it for you**
+— Podman Desktop, the compose provider, or Node — and waits for your
+answer before touching your machine. Press Enter to accept, or `n` to
+be given the command instead. Nothing is installed without you saying
+so. `-InstallPrereqs` answers yes to all of them, for setting up a
+room of machines.
+
 Your install folder is one of:
 
 | Install type | Folder                                            |
@@ -169,15 +176,16 @@ Your install folder is one of:
 <details>
 <summary>Troubleshooting</summary>
 
-**"Node.js is needed once, to generate the seed."** The sample data is
-converted from your local Pentaho install the first time only, and that
-converter needs Node:
+**Asked to install Node.js.** The sample data is converted from your
+local Pentaho install the first time only, and that converter needs
+Node. Accept the prompt, or install it yourself:
 
 ```powershell
 winget install -e --id OpenJS.NodeJS.LTS
 ```
 
-Close and reopen PowerShell afterwards so `node` is on your PATH.
+Either way, close and reopen PowerShell afterwards so `node` is on
+your PATH, then re-run the script.
 
 **"Could not find sampledata.script"** — the converter reads your
 Pentaho install and could not find it. Point it at the right place:
@@ -186,7 +194,8 @@ Pentaho install and could not find it. Point it at the right place:
 $env:PENTAHO_HOME = "C:\Pentaho"
 ```
 
-**"No compose provider"** — Podman does not ship one:
+**"No compose provider"** — Podman does not ship one. The script
+offers to install it; to do it yourself:
 
 ```powershell
 winget install -e --id Docker.DockerCompose
