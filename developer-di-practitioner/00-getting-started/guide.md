@@ -46,7 +46,7 @@ the running window instead of starting a second copy.
 
 ### Do you need to set anything up?
 
-::: tabs
+:::: tabs
 
 ### I'm using a lab VM
 
@@ -58,36 +58,224 @@ reinstalling anything.
 
 ### I'm installing on my own machine
 
-Some workshops need supporting services — a writable MySQL
-`sampledata`, and object storage for the `pvfs://` labs. Start them
-from the repository root:
+Everything here is a **one-off setup** for your own laptop. Work through
+the four tabs in order — the panel underneath checks your machine as you
+go, so you can always see what is left.
+
+> **Note:** Budget about 20 minutes the first time, most of it download
+> time. After this, starting the workshop is a single command.
+
+::: tabs
+
+### 1. Container runtime
+
+The workshop services (a writable MySQL and object storage) run as
+containers, so you need a container runtime. Install **Podman Desktop** —
+it is free (Apache 2.0), installs the Podman engine for you, and gives
+you a window to watch the containers in:
 
 ```powershell
-scripts\setup-services.ps1
+winget install -e --id RedHat.Podman-Desktop
 ```
 
-Check them at any time:
+Prefer the command line only? This installs the same engine without the
+UI:
 
 ```powershell
-scripts\check-environment.ps1
+winget install -e --id Podman.CLI --version 6.0.2
 ```
 
-It prints what is running and the exact command to fix anything that
-is not.
+Podman runs its containers inside WSL, and it needs a **current** WSL to
+do it:
 
-You will also want a database tool for browsing tables and running
-ad-hoc SQL. **DBeaver Community** is the easiest — it is free, and
-ships with the drivers these workshops need:
+```powershell
+wsl --update
+```
+
+> **Tip:** Podman Desktop is worth having even if you live in the
+> terminal. The most common workshop hiccup is "the machine is stopped
+> after a reboot", and Podman Desktop shows you that at a glance — and
+> starts it with one click.
+
+<details>
+<summary>Troubleshooting</summary>
+
+**"machine did not transition into running state"** — almost always an
+out-of-date WSL. Run `wsl --update`, then
+`podman machine start`. WSL 2.7 or newer is required; check with
+`wsl --version`.
+
+**"cannot connect to Podman"** — the machine exists but is not running:
+
+```powershell
+podman machine start
+```
+
+**Ports are unreachable even though the containers are up.** Windows
+needs mirrored networking to forward them. Create or edit
+`%USERPROFILE%\.wslconfig`:
+
+```ini
+[wsl2]
+networkingMode=mirrored
+```
+
+Then `wsl --shutdown` and start the machine again.
+
+**Already using Docker Desktop?** You can leave it installed — just do
+not run both engines against the same ports at once. Nothing in this
+course requires you to remove it.
+
+</details>
+
+### 2. Start the services
+
+Open PowerShell in the **`provisioning`** folder of your install and run:
+
+```powershell
+.\setup-services.ps1
+```
+
+That one command checks your prerequisites, generates the MySQL sample
+data from your own Pentaho install, starts the Podman machine, brings up
+the containers, and waits until MySQL and MinIO genuinely answer — not
+just "started".
+
+Your install folder is one of:
+
+| Install type | Folder |
+| --- | --- |
+| Just for me | `%LOCALAPPDATA%\Programs\Pentaho Content Manager` |
+| All users | `C:\Program Files\Pentaho Content Manager` |
+
+> **Important:** Re-run this same command after **every reboot** — the
+> Podman machine does not start itself. It is safe to run at any time.
+
+<details>
+<summary>Troubleshooting</summary>
+
+**"Node.js is needed once, to generate the seed."** The sample data is
+converted from your local Pentaho install the first time only, and that
+converter needs Node:
+
+```powershell
+winget install -e --id OpenJS.NodeJS.LTS
+```
+
+Close and reopen PowerShell afterwards so `node` is on your PATH.
+
+**"Could not find sampledata.script"** — the converter reads your
+Pentaho install and could not find it. Point it at the right place:
+
+```powershell
+$env:PENTAHO_HOME = "C:\Pentaho"
+```
+
+**"No compose provider"** — Podman does not ship one:
+
+```powershell
+winget install -e --id Docker.DockerCompose
+```
+
+**MySQL never becomes ready.** First start imports about 10,000 rows, so
+give it a couple of minutes. If it still will not come up, look at the
+log:
+
+```powershell
+podman compose -f "$env:LOCALAPPDATA\Pentaho Content Manager\workshop-services\docker-compose.yml" logs mysql
+```
+
+**Starting a new cohort and want pristine data?** The CRUID labs change
+Steel Wheels by design. Reset it:
+
+```powershell
+.\setup-services.ps1 -Reset
+```
+
+</details>
+
+### 3. Check it worked
+
+The panel below already ran this for you, but you can run it yourself at
+any time:
+
+```powershell
+.\check-environment.ps1
+```
+
+It walks the prerequisites in dependency order and prints the exact
+command that fixes anything missing. A red line early on usually makes
+the later ones meaningless — fix from the top down.
+
+When everything is green you are ready to start Module 1.
+
+<details>
+<summary>What it checks</summary>
+
+| Check | Why the course needs it |
+| --- | --- |
+| WSL 2 | Podman runs its containers inside it |
+| Podman CLI | The container engine |
+| Compose provider | Brings up the whole stack in one command |
+| Podman machine | The Linux VM the containers run in |
+| MySQL `sampledata` | Labs 12–18 write to it (HSQLDB is read-only) |
+| MinIO | The `pvfs://` object-storage labs |
+| Pentaho Data Integration | The tool the whole course teaches |
+| Ollama | Optional — powers the in-app chat assistant |
+
+</details>
+
+### 4. Database tool
+
+You will want a database tool for browsing tables and running ad-hoc SQL
+alongside the labs. **DBeaver Community** is free and ships with the
+drivers these workshops need:
 
 ```powershell
 winget install -e --id dbeaver.dbeaver
 ```
 
-First-time setup also needs Podman and a current WSL;
-`check-environment.ps1` tells you if either is missing. Full detail is
-in the repository's `workshop-services/README.md`.
+In DBeaver choose **Database → New Database Connection → MySQL**, then
+enter:
+
+| Setting | Value |
+| --- | --- |
+| Host | `127.0.0.1` |
+| Port | `3306` |
+| Database | `sampledata` |
+| Username | `pentaho_admin` |
+| Password | `password` |
+
+These are the same credentials the labs use in their PDI database
+connections, so what you see in DBeaver is exactly what your
+transformations see.
+
+**MinIO**, for the `pvfs://` labs, has a web console at
+**http://127.0.0.1:9099** — sign in with `minioadmin` / `minioadmin`.
+
+> **Caution:** Use `127.0.0.1`, not `localhost`. With WSL mirrored
+> networking `localhost` can resolve to IPv6 first, and the connection
+> quietly times out.
+
+<details>
+<summary>Troubleshooting</summary>
+
+**"Public Key Retrieval is not allowed"** — on the connection's **Driver
+properties** tab set `allowPublicKeyRetrieval` to `true`.
+
+**"Communications link failure"** — the container is not up. Re-run
+`.\setup-services.ps1` and check the panel below.
+
+**Tables are missing.** You are probably connected to the wrong schema:
+pick `sampledata` in the Database field, not `mysql` or `information_schema`.
+
+</details>
 
 :::
+
+<div data-env-check></div>
+
+::::
 
 ## Ask the AI assistant
 
