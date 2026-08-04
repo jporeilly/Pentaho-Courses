@@ -54,6 +54,10 @@
     {
       "title": "Helm",
       "summary": "Package the K3s deployment as a Helm release - install, upgrade and roll back from one chart."
+    },
+    {
+      "title": "High Availability",
+      "summary": "Cluster the Pentaho Server: one shared repository database, the Jackrabbit cluster journal with per-pod ids, and Traefik sticky sessions - deployed, scaled and torn down by make targets."
     }
   ]
 }

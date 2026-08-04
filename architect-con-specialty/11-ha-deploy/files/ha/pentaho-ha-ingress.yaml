@@ -1,0 +1,20 @@
+# Traefik (bundled with K3s) with a sticky session cookie - Pentaho
+# sessions live in node memory, so the balancer must pin each user to
+# one replica.
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: pentaho-ha
+  namespace: pentaho
+spec:
+  entryPoints: [web]
+  routes:
+    - match: PathPrefix(`/pentaho`)
+      kind: Rule
+      services:
+        - name: pentaho-server-ha
+          port: 8080
+          sticky:
+            cookie:
+              name: pentaho_ha
+              httpOnly: true

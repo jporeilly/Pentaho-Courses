@@ -1,0 +1,9 @@
+{
+  "title": "Deploy Pentaho in HA",
+  "description": "",
+  "order": 11,
+  "kind": "workshop",
+  "stepCount": 5,
+  "hasVideo": false,
+  "estimatedMinutes": 20
+}

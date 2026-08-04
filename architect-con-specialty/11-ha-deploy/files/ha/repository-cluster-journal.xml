@@ -1,0 +1,19 @@
+<!--
+  Jackrabbit cluster journal (database journal, PostgreSQL) - replaces
+  the commented "Run with a cluster journal" section at the bottom of
+  pentaho-solutions/system/jackrabbit/repository.xml.
+
+  The Cluster element carries NO id attribute on purpose: each node
+  supplies its own via the rep.cluster.id system property
+  (-Drep.cluster.id=<pod name>).
+-->
+<Cluster>
+  <Journal class="org.apache.jackrabbit.core.journal.DatabaseJournal">
+    <param name="revision" value="${rep.home}/revision.log"/>
+    <param name="url" value="jdbc:postgresql://postgres:5432/jackrabbit"/>
+    <param name="driver" value="org.postgresql.Driver"/>
+    <param name="user" value="jcr_user"/>
+    <param name="password" value="password"/>
+    <param name="schemaObjectPrefix" value="cl_j_"/>
+  </Journal>
+</Cluster>
