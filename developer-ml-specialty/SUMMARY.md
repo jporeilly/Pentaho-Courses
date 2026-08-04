@@ -1,4 +1,4 @@
-# Pentaho Developer - ML Speciality
+# Pentaho Developer - ML Specialty
 
 ## Machine Learning
 

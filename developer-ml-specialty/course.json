@@ -1,6 +1,6 @@
 {
-  "id": "developer-ml-speciality",
-  "title": "Pentaho Developer - ML Speciality",
+  "id": "developer-ml-specialty",
+  "title": "Pentaho Developer - ML Specialty",
   "description": "Machine learning with Pentaho Data Integration. A credit-card fraud-detection use case covering H2O AutoML, supervised and unsupervised learning, and handling imbalanced datasets.",
   "version": "0.1.0",
   "kind": "workshop",

@@ -1,4 +1,4 @@
-"""LangExtract REST service for the AI Speciality labs.
+"""LangExtract REST service for the AI Specialty labs.
 
 Wraps Google's langextract library behind the small HTTP contract the
 LangExtract module's transformations call:

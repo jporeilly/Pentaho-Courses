@@ -1,6 +1,6 @@
 {
-  "id": "developer-ai-speciality",
-  "title": "Pentaho Developer - AI Speciality",
+  "id": "developer-ai-specialty",
+  "title": "Pentaho Developer - AI Specialty",
   "description": "AI-augmented data pipelines with Pentaho Data Integration. GenAI fundamentals, LLM integration patterns, structured extraction, and agent-as-a-service.",
   "version": "0.1.0",
   "kind": "workshop",

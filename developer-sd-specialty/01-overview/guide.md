@@ -42,7 +42,7 @@ This pattern means the same skills — JSON Input, Select values, Formula, Table
 >
 > This step produces rows and so must be the **first** step in the child transformation — it cannot sit mid-stream. To add streamed data to an existing stream, join it in with a join step.
 
-## Protocols covered in this speciality
+## Protocols covered in this specialty
 
 ::: tabs
 

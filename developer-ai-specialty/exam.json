@@ -1,5 +1,5 @@
 {
-  "title": "AI Pipelines Speciality Exam",
+  "title": "AI Pipelines Specialty Exam",
   "description": "20 questions drawn from a pool of 36, focused on concepts and workflow patterns rather than specific pipeline implementations. Pass mark is 80%. Open-book — browse any page, hover glossary terms, or ask the AI assistant. Your answers are saved as you go. Explanations appear after submission.",
   "passMark": 80,
   "questionsPerAttempt": 20,
@@ -19,7 +19,7 @@
       ],
       "correct": 1,
       "explanation": "Tokenisation splits the input into manageable units — whole words, syllables, or punctuation — that the embedding step then maps to vectors. It is a standardisation step before any real understanding takes place.",
-      "source": "Pentaho Developer - AI Speciality: AI-PDI Pipelines — Tokenisation"
+      "source": "Pentaho Developer - AI Specialty: AI-PDI Pipelines — Tokenisation"
     },
     {
       "id": "concept-q2",
@@ -33,7 +33,7 @@
       ],
       "correct": 2,
       "explanation": "Embeddings are learned representations: the training objective pushes semantically related tokens to similar coordinates, so 'dog' lands closer to 'cat' than to 'bicycle'.",
-      "source": "Pentaho Developer - AI Speciality: AI-PDI Pipelines — Embeddings"
+      "source": "Pentaho Developer - AI Specialty: AI-PDI Pipelines — Embeddings"
     },
     {
       "id": "concept-q3",
@@ -47,7 +47,7 @@
       ],
       "correct": 1,
       "explanation": "The attention mechanism lets tokens influence each other across long distances — the core innovation behind the transformer architecture.",
-      "source": "Pentaho Developer - AI Speciality: AI-PDI Pipelines — Transformers & Attention"
+      "source": "Pentaho Developer - AI Specialty: AI-PDI Pipelines — Transformers & Attention"
     },
     {
       "id": "concept-q4",
@@ -61,7 +61,7 @@
       ],
       "correct": 2,
       "explanation": "The model outputs a probability distribution over the vocabulary at each step; sampling strategies (greedy, top-k, top-p, temperature) pick the next token from that distribution.",
-      "source": "Pentaho Developer - AI Speciality: AI-PDI Pipelines — Generation"
+      "source": "Pentaho Developer - AI Specialty: AI-PDI Pipelines — Generation"
     },
     {
       "id": "concept-q5",
@@ -76,7 +76,7 @@
       ],
       "correct": 1,
       "explanation": "Keyword search rewards literal token overlap. Vector search compares embedding-space distance, so semantically related results surface even when no keywords match.",
-      "source": "Pentaho Developer - AI Speciality: AI-PDI Pipelines — Semantic Search"
+      "source": "Pentaho Developer - AI Specialty: AI-PDI Pipelines — Semantic Search"
     },
     {
       "id": "concept-q6",
@@ -91,7 +91,7 @@
       ],
       "correct": 0,
       "explanation": "Cosine similarity measures the angle between two vectors. Values near 1.0 mean they point in almost the same direction, which for embeddings means high semantic similarity.",
-      "source": "Pentaho Developer - AI Speciality: AI-PDI Pipelines — Semantic Search"
+      "source": "Pentaho Developer - AI Specialty: AI-PDI Pipelines — Semantic Search"
     },
     {
       "id": "concept-q7",
@@ -105,7 +105,7 @@
       ],
       "correct": 0,
       "explanation": "Transformers stack an encoder (processes the input sequence) and a decoder (generates the output sequence). Both use attention; GPT-style models are decoder-only.",
-      "source": "Pentaho Developer - AI Speciality: AI-PDI Pipelines — Transformers & Attention"
+      "source": "Pentaho Developer - AI Specialty: AI-PDI Pipelines — Transformers & Attention"
     },
     {
       "id": "concept-q8",
@@ -119,7 +119,7 @@
       ],
       "correct": 1,
       "explanation": "Self-attention treats tokens as a bag and has no notion of order. Positional encodings restore sequence position so 'dog bites man' and 'man bites dog' stay distinguishable.",
-      "source": "Pentaho Developer - AI Speciality: AI-PDI Pipelines — Transformers & Attention"
+      "source": "Pentaho Developer - AI Specialty: AI-PDI Pipelines — Transformers & Attention"
     },
     {
       "id": "concept-q9",
@@ -134,7 +134,7 @@
       ],
       "correct": 1,
       "explanation": "Cosine values near 0 mean the vectors are roughly perpendicular — semantically unrelated. Near 1 means similar; near -1 means opposite (rare in normalised embedding spaces).",
-      "source": "Pentaho Developer - AI Speciality: AI-PDI Pipelines — Semantic Search"
+      "source": "Pentaho Developer - AI Specialty: AI-PDI Pipelines — Semantic Search"
     },
     {
       "id": "concept-q10",
@@ -148,7 +148,7 @@
       ],
       "correct": 1,
       "explanation": "The context window caps how many tokens (system prompt + history + retrieved context + question) the model can attend to at once. Large workflows split work into stages or use RAG to stay under the cap.",
-      "source": "Pentaho Developer - AI Speciality: AI-PDI Pipelines — Context Window"
+      "source": "Pentaho Developer - AI Specialty: AI-PDI Pipelines — Context Window"
     },
     {
       "id": "concept-q11",
@@ -163,7 +163,7 @@
       ],
       "correct": 1,
       "explanation": "Temperature scales the probability distribution. At 0, sampling collapses to greedy decoding, so the same prompt yields the same output every time. Higher values flatten the distribution and increase diversity.",
-      "source": "Pentaho Developer - AI Speciality: AI-PDI Pipelines — Temperature & Sampling"
+      "source": "Pentaho Developer - AI Specialty: AI-PDI Pipelines — Temperature & Sampling"
     },
     {
       "id": "concept-q12",
@@ -177,7 +177,7 @@
       ],
       "correct": 1,
       "explanation": "Each tokenizer was trained with its own BPE merges and vocabulary. The same string can decompose into different sub-token sequences depending on which encoding processes it.",
-      "source": "Pentaho Developer - AI Speciality: AI-PDI Pipelines — Tokenisation"
+      "source": "Pentaho Developer - AI Specialty: AI-PDI Pipelines — Tokenisation"
     },
     {
       "id": "genai-q1",
@@ -192,7 +192,7 @@
       ],
       "correct": 1,
       "explanation": "JSON cannot carry raw binary cleanly. Base64 encodes any bytes as ASCII characters that fit inside a string field — the same pattern used by every multimodal LLM API.",
-      "source": "Pentaho Developer - AI Speciality: GenAI — Base64 Encoding"
+      "source": "Pentaho Developer - AI Specialty: GenAI — Base64 Encoding"
     },
     {
       "id": "genai-q2",
@@ -211,7 +211,7 @@
         2
       ],
       "explanation": "Pre-extraction (XPath, CSS selectors, readability heuristics) keeps only the meaningful content — lowering cost, improving answer quality, and leaving more room in the context window. The model can read raw HTML; the point is to trim noise, not to make it parseable.",
-      "source": "Pentaho Developer - AI Speciality: GenAI — HTML Extraction (XPath / CSS)"
+      "source": "Pentaho Developer - AI Specialty: GenAI — HTML Extraction (XPath / CSS)"
     },
     {
       "id": "genai-q3",
@@ -225,7 +225,7 @@
       ],
       "correct": 1,
       "explanation": "RAG keeps the base model frozen but supplies relevant context at inference time — embedding both the question and the corpus, retrieving the top-k similar passages, and adding them to the prompt.",
-      "source": "Pentaho Developer - AI Speciality: GenAI — RAG"
+      "source": "Pentaho Developer - AI Specialty: GenAI — RAG"
     },
     {
       "id": "genai-q4",
@@ -239,7 +239,7 @@
       ],
       "correct": 1,
       "explanation": "Roles structure the conversation. The system role sets persona and rules, user provides input, and assistant carries previous model responses so multi-turn context is preserved.",
-      "source": "Pentaho Developer - AI Speciality: GenAI — Roles & Prompt Context"
+      "source": "Pentaho Developer - AI Specialty: GenAI — Roles & Prompt Context"
     },
     {
       "id": "genai-q5",
@@ -254,7 +254,7 @@
       ],
       "correct": 1,
       "explanation": "A general-purpose extraction layer such as Tika absorbs format variety. Downstream, every step sees only text, which keeps the LLM-facing logic simple and reusable.",
-      "source": "Pentaho Developer - AI Speciality: GenAI — Document Ingestion (Tika)"
+      "source": "Pentaho Developer - AI Specialty: GenAI — Document Ingestion (Tika)"
     },
     {
       "id": "genai-q6",
@@ -268,7 +268,7 @@
       ],
       "correct": 1,
       "explanation": "PDI is the conductor: it assembles structured and unstructured inputs, hands them to the model with the right prompt, parses the response, and writes typed results back to databases, files, or APIs.",
-      "source": "Pentaho Developer - AI Speciality: GenAI — PDI as Orchestration Layer"
+      "source": "Pentaho Developer - AI Specialty: GenAI — PDI as Orchestration Layer"
     },
     {
       "id": "genai-q7",
@@ -283,7 +283,7 @@
       ],
       "correct": 1,
       "explanation": "A stable instruction skeleton with variable slots means every row gets the same framing — easier to evaluate, debug, and iterate on the prompt without breaking comparability.",
-      "source": "Pentaho Developer - AI Speciality: GenAI — Prompt Templating"
+      "source": "Pentaho Developer - AI Specialty: GenAI — Prompt Templating"
     },
     {
       "id": "llm-q1",
@@ -298,7 +298,7 @@
       ],
       "correct": 1,
       "explanation": "Local hosting via Ollama trades operational overhead for privacy, cost predictability, and offline capability. For sensitive data or high-volume inference, that trade often makes sense.",
-      "source": "Pentaho Developer - AI Speciality: LLM Integration — Local Inference with Ollama"
+      "source": "Pentaho Developer - AI Specialty: LLM Integration — Local Inference with Ollama"
     },
     {
       "id": "llm-q2",
@@ -313,7 +313,7 @@
       ],
       "correct": 1,
       "explanation": "Models emit strings; ETL consumers want columns. A parse step (JSON Input, regex, split fields) converts the raw response into typed records the rest of the transformation can manipulate.",
-      "source": "Pentaho Developer - AI Speciality: LLM Integration — Parsing the Response (JSON Input)"
+      "source": "Pentaho Developer - AI Specialty: LLM Integration — Parsing the Response (JSON Input)"
     },
     {
       "id": "llm-q3",
@@ -327,7 +327,7 @@
       ],
       "correct": 1,
       "explanation": "NER turns narrative into rows. Once entities are tagged you can route, redact PII, build search indexes, or join the text to structured master data.",
-      "source": "Pentaho Developer - AI Speciality: LLM Integration — Named Entity Recognition"
+      "source": "Pentaho Developer - AI Specialty: LLM Integration — Named Entity Recognition"
     },
     {
       "id": "llm-q4",
@@ -341,7 +341,7 @@
       ],
       "correct": 1,
       "explanation": "Decomposing a complex task into focused stages keeps each prompt tight, makes errors easier to localise, and lets you mix model sizes (cheap classifier feeding an expensive synthesiser).",
-      "source": "Pentaho Developer - AI Speciality: LLM Integration — Multi-staged Pipelines"
+      "source": "Pentaho Developer - AI Specialty: LLM Integration — Multi-staged Pipelines"
     },
     {
       "id": "llm-q5",
@@ -359,7 +359,7 @@
         1
       ],
       "explanation": "Batching amortises per-call overhead; parallelism uses idle wait time. Together they are the standard knobs for raising throughput on LLM-dominated pipelines. Renaming fields or converting to a job does nothing for inference latency.",
-      "source": "Pentaho Developer - AI Speciality: LLM Integration — Throughput & Performance"
+      "source": "Pentaho Developer - AI Specialty: LLM Integration — Throughput & Performance"
     },
     {
       "id": "llm-q6",
@@ -373,7 +373,7 @@
       ],
       "correct": 1,
       "explanation": "Summarisation collapses verbose input into a focused output — useful when the downstream consumer has tight context limits, or when humans need to skim large volumes quickly.",
-      "source": "Pentaho Developer - AI Speciality: LLM Integration — Text Summarisation"
+      "source": "Pentaho Developer - AI Specialty: LLM Integration — Text Summarisation"
     },
     {
       "id": "llm-q7",
@@ -387,7 +387,7 @@
       ],
       "correct": 1,
       "explanation": "Enrichment fills gaps the source cannot. Classification, language detection, intent labelling, and country inference are all derivable from free text by a model that already understands meaning.",
-      "source": "Pentaho Developer - AI Speciality: LLM Integration — Data Enrichment"
+      "source": "Pentaho Developer - AI Specialty: LLM Integration — Data Enrichment"
     },
     {
       "id": "llm-q8",
@@ -402,7 +402,7 @@
       ],
       "correct": 1,
       "explanation": "Confidence-thresholded routing is the standard pattern: trust the model when it is certain, escalate when it is not. This scales automation without sacrificing quality on edge cases.",
-      "source": "Pentaho Developer - AI Speciality: LLM Integration — Sentiment Analysis & Confidence Thresholds"
+      "source": "Pentaho Developer - AI Specialty: LLM Integration — Sentiment Analysis & Confidence Thresholds"
     },
     {
       "id": "langextract-q1",
@@ -417,7 +417,7 @@
       ],
       "correct": 1,
       "explanation": "Natural language varies — synonyms, reorderings, abbreviations, typos. Each variation needs a new regex; one LLM handles them all by reading for meaning.",
-      "source": "Pentaho Developer - AI Speciality: LangExtract — Why LLM Extraction over Regex"
+      "source": "Pentaho Developer - AI Specialty: LangExtract — Why LLM Extraction over Regex"
     },
     {
       "id": "langextract-q2",
@@ -432,7 +432,7 @@
       ],
       "correct": 1,
       "explanation": "Extracted priority is only useful if it changes behaviour. Visual emphasis (colour, badge, sort key) ensures urgent rows get attention first, whether the consumer is a person or an automated routing rule.",
-      "source": "Pentaho Developer - AI Speciality: LangExtract — Surfacing Urgency"
+      "source": "Pentaho Developer - AI Specialty: LangExtract — Surfacing Urgency"
     },
     {
       "id": "langextract-q3",
@@ -446,7 +446,7 @@
       ],
       "correct": 1,
       "explanation": "Centralising the extractor as a service means model swaps, prompt tweaks, and schema upgrades roll out once. Every consumer just POSTs text and a schema; the service does the rest.",
-      "source": "Pentaho Developer - AI Speciality: LangExtract — REST Service Pattern"
+      "source": "Pentaho Developer - AI Specialty: LangExtract — REST Service Pattern"
     },
     {
       "id": "langextract-q4",
@@ -461,7 +461,7 @@
       ],
       "correct": 1,
       "explanation": "LangExtract takes text plus a schema and asks the LLM to populate the fields. The same pattern works for tickets, clinical notes, and contracts — only the schema changes.",
-      "source": "Pentaho Developer - AI Speciality: LangExtract — Schema-driven Extraction"
+      "source": "Pentaho Developer - AI Specialty: LangExtract — Schema-driven Extraction"
     },
     {
       "id": "agent-q1",
@@ -475,7 +475,7 @@
       ],
       "correct": 1,
       "explanation": "A step calls the model once. An agent reasons over partial output, fetches more data, calls the model again, and converges on an answer — it is a loop, not a function.",
-      "source": "Pentaho Developer - AI Speciality: Agent-as-a-Service — Agent vs LLM Step"
+      "source": "Pentaho Developer - AI Specialty: Agent-as-a-Service — Agent vs LLM Step"
     },
     {
       "id": "agent-q2",
@@ -490,7 +490,7 @@
       ],
       "correct": 1,
       "explanation": "If PDI can do it by adding more steps, do it in PDI — it is deterministic and observable. If the work needs the model to reason over previous output to choose its next move, that is an agent.",
-      "source": "Pentaho Developer - AI Speciality: Agent-as-a-Service — When to Use an Agent"
+      "source": "Pentaho Developer - AI Specialty: Agent-as-a-Service — When to Use an Agent"
     },
     {
       "id": "agent-q3",
@@ -505,7 +505,7 @@
       ],
       "correct": 1,
       "explanation": "Tool use is the agent pattern. The agent decides 'I need X', calls the tool, reads the result, and uses it to refine its answer. PDI orchestrates the pipeline; the agent decides what to fetch.",
-      "source": "Pentaho Developer - AI Speciality: Agent-as-a-Service — Tool Calling"
+      "source": "Pentaho Developer - AI Specialty: Agent-as-a-Service — Tool Calling"
     },
     {
       "id": "agent-q4",
@@ -522,7 +522,7 @@
         1
       ],
       "explanation": "Agents are loops, so you validate the loop: did it pick reasonable tools and did intermediate results look sensible, and did the final structured output match the schema? Raw speed and character-for-character comparison say nothing about whether the agent reasoned correctly.",
-      "source": "Pentaho Developer - AI Speciality: Agent-as-a-Service — Validating an Agent"
+      "source": "Pentaho Developer - AI Specialty: Agent-as-a-Service — Validating an Agent"
     },
     {
       "id": "agent-q5",
@@ -536,7 +536,7 @@
       ],
       "correct": 1,
       "explanation": "Wrapping the agent as a service means PDI stays the orchestrator and many pipelines can call the same agent. Updates, model swaps, and tool additions roll out once at the service.",
-      "source": "Pentaho Developer - AI Speciality: Agent-as-a-Service — Deployment Pattern"
+      "source": "Pentaho Developer - AI Specialty: Agent-as-a-Service — Deployment Pattern"
     }
   ]
 }
