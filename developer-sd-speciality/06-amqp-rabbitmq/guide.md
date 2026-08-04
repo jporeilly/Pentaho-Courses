@@ -10,13 +10,13 @@
 >
 > **What you'll do**
 >
-> * Deploy and run RabbitMQ in a Docker container
+> * Deploy and run RabbitMQ in a container with Podman
 > * Publish simulated room-sensor readings with a Python AMQP script
 > * Consume the `tv_room` queue in PDI with the AMQP Consumer step
 > * Process the stream with the parent/child transformation pattern
 > * Append the parsed sensor data to an output file
 >
-> **Prerequisites:** Docker, the [**pika**](https://pypi.org/project/pika/) Python AMQP client library, and a working Pentaho Data Integration (Spoon) install.
+> **Prerequisites:** Podman (Podman Desktop), the [**pika**](https://pypi.org/project/pika/) Python AMQP client library, and a working Pentaho Data Integration (Spoon) install.
 >
 > **Estimated time:** 30 minutes
 
@@ -104,8 +104,7 @@ if __name__ == '__main__':
 2. Execute the publisher.
 
 ```bash
-cd
-cd ~/Workshop--Data-Integration/Labs/'Module 3 - Data Sources'/'Streaming Data'/'03 RabbitMQ'
+cd ~/amqp-lab   # your copy of this lab's files (see Lab Files above)
 python3 sensor_tv_room.py
 ```
 
@@ -113,7 +112,38 @@ python3 sensor_tv_room.py
 
 <figure><img src="../_assets/images/rabbitmq-tv-room-queue.png" alt=""><figcaption><p>RabbitMQ - tv_room queue</p></figcaption></figure>
 
+#### Lab Files
+
+Everything this workshop runs ships with the lab. One-time: copy the
+files out of the guide's content folder and install the publisher's
+Python dependency:
+
+**Windows (PowerShell)**
+
+```powershell
+Copy-Item "$env:APPDATA\com.pentaho.content-manager\content\06-amqp-rabbitmq\files" "$env:USERPROFILE\amqp-lab" -Recurse
+cd $env:USERPROFILE\amqp-lab
+pip install -r requirements.txt
+```
+
+**macOS / Linux**
+
+```bash
+cp -r ~/.local/share/com.pentaho.content-manager/content/06-amqp-rabbitmq/files ~/amqp-lab
+cd ~/amqp-lab && pip3 install -r requirements.txt
+```
+
+[sensor_tv_room.py](./files/sensor_tv_room.py) [requirements.txt](./files/requirements.txt)
+
+[tr_rabbit_consumer.ktr](./files/tr_rabbit_consumer.ktr) <button data-launch="spoon" data-path="files/tr_rabbit_consumer.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/tr_rabbit_consumer.ktr">View graph</button>
+
+[tr_process_sensor_data.ktr](./files/tr_process_sensor_data.ktr) <button data-launch="spoon" data-path="files/tr_process_sensor_data.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/tr_process_sensor_data.ktr">View graph</button>
+
+***
+
 ## Consume the stream in PDI
+
+
 
 Subscribe to the `tv_room` queue and process the data with PDI's parent/child pattern.
 
@@ -128,7 +158,7 @@ sh spoon.sh
 2. With the publisher still running, open the **parent** transformation:
 
 ```
-~/Workshop--Data-Integration/Labs/Module 3 - Data Sources/Streaming Data/03 RabbitMQ/tr_amqp_consumer.ktr
+~/amqp-lab/tr_rabbit_consumer.ktr   (or use the Open in Pentaho Data Integration button above)
 ```
 
 3. Double-click the **AMQP Consumer** step.
@@ -147,7 +177,7 @@ sh spoon.sh
 4. Open the **child** transformation:
 
 ```
-~/Workshop--Data-Integration/Labs/Module 3 - Data Sources/Streaming Data/03 RabbitMQ/tr_process_sensor_data.ktr
+~/amqp-lab/tr_process_sensor_data.ktr
 ```
 
 It begins with **Get records from stream**, then a **JSON Input** step parses each `message`.

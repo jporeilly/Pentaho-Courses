@@ -15,9 +15,20 @@
     "models": {
       "cpu": "llama3.2:3b",
       "gpu": "qwen2.5:7b"
-    }
+    },
+    "subject": "streaming data pipelines in PDI (MQTT, AMQP and Kafka consumers, brokers and message processing)",
+    "suggestions": [
+      "What is the difference between MQTT, AMQP and Kafka?",
+      "How does the MQTT Consumer step hand records to a child transformation?",
+      "Why does my consumer step need a batch size or duration?",
+      "How do I check what a broker received without PDI?"
+    ]
   },
   "moduleSummaries": [
+    {
+      "title": "Getting Started",
+      "summary": "How to get the most out of this guide, and how to set your machine up — Podman Desktop, one command for all three brokers (HiveMQ, RabbitMQ, Kafka), and Python for the publisher scripts."
+    },
     {
       "title": "Streaming Data",
       "summary": "Process unbounded, real-time event streams with PDI's streaming steps. Batch vs. streaming, the parent/child transformation pattern, and the 'Get records from stream' step that underpins every streaming source."

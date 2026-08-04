@@ -1,8 +1,11 @@
 # Table of contents
 
-## Streaming Data
+## Getting Started
 
 * [Please read ..!](00-getting-started/guide.md)
+
+## Streaming Data
+
 * [Overview](01-overview/guide.md)
 
 ## MQTT

@@ -10,13 +10,13 @@
 >
 > **What you'll do**
 >
-> * Install and run a HiveMQ broker in Docker and log into its Control Center
+> * Install and run a HiveMQ broker with Podman and log into its Control Center
 > * Publish simulated robot-sensor readings to the `industrial/robot/sensor` topic with a Python script
 > * Consume the stream in PDI with an MQTT Consumer parent transformation that calls a child per batch
 > * Parse, timestamp, and append each sensor reading to an output file
 > * Demonstrate the MQTT Last Will & Testament (LWT) pattern for device presence
 >
-> **Prerequisites:** Docker installed and running, Pentaho Data Integration (Spoon) available, and an understanding of basic transformation concepts (steps, hops, preview). Stop the Mosquitto broker first so it does not hold port 1883.
+> **Prerequisites:** Podman (Podman Desktop) installed and running, Pentaho Data Integration (Spoon) available, and an understanding of basic transformation concepts (steps, hops, preview). Stop the Mosquitto broker first so it does not hold port 1883.
 >
 > **Estimated time:** 40 minutes
 
@@ -90,7 +90,38 @@ podman ps --filter name=pcm-hivemq
 
 <figure><img src="../_assets/images/hivemq-control-center.png" alt=""><figcaption><p>HiveMQ Control Center</p></figcaption></figure>
 
+#### Lab Files
+
+Everything this workshop runs ships with the lab. One-time: copy the
+files out of the guide's content folder and install the publisher's
+Python dependency:
+
+**Windows (PowerShell)**
+
+```powershell
+Copy-Item "$env:APPDATA\com.pentaho.content-manager\content\03-mqtt-hivemq\files" "$env:USERPROFILE\mqtt-lab" -Recurse
+cd $env:USERPROFILE\mqtt-lab
+pip install -r requirements.txt
+```
+
+**macOS / Linux**
+
+```bash
+cp -r ~/.local/share/com.pentaho.content-manager/content/03-mqtt-hivemq/files ~/mqtt-lab
+cd ~/mqtt-lab && pip3 install -r requirements.txt
+```
+
+[sensor.py](./files/sensor.py) [requirements.txt](./files/requirements.txt)
+
+[tr_mqtt_consumer.ktr](./files/tr_mqtt_consumer.ktr) <button data-launch="spoon" data-path="files/tr_mqtt_consumer.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/tr_mqtt_consumer.ktr">View graph</button>
+
+[tr_mqtt_producer.ktr](./files/tr_mqtt_producer.ktr) <button data-launch="spoon" data-path="files/tr_mqtt_producer.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/tr_mqtt_producer.ktr">View graph</button>
+
+***
+
 ## Generate robot-sensor data
+
+
 
 Publish simulated industrial robot-sensor readings to the broker. The `sensor.py` script publishes a JSON message (temperature plus an x/y/z position) to the `industrial/robot/sensor` topic once per second.
 
@@ -99,8 +130,7 @@ Publish simulated industrial robot-sensor readings to the broker. The `sensor.py
 1. Review the publisher script.
 
 ```bash
-cd
-cd ~/Streaming/HiveMQ4/scripts
+cd ~/mqtt-lab   # your copy of this lab's files
 cat sensor.py
 ```
 
@@ -161,8 +191,7 @@ if __name__ == '__main__':
 2. Execute the publisher.
 
 ```bash
-cd
-cd ~/Streaming/HiveMQ4/scripts
+cd ~/mqtt-lab
 python3 sensor.py
 ```
 
@@ -187,7 +216,7 @@ cd Pentaho/design-tools/data-integration
 2. With `sensor.py` still publishing, open the **parent** transformation:
 
 ```
-~/Streaming/HiveMQ4/tr_hive_consumer.ktr
+~/mqtt-lab/solution/tr_mqtt_consumer.ktr   (bundled solution - see Lab Files)
 ```
 
 3. Double-click the **MQTT Consumer** step. It runs a child transformation per batch:
@@ -209,7 +238,7 @@ ${Internal.Entry.Current.Directory}/tr_process_sensor_data.ktr
 4. Open the **child** transformation:
 
 ```
-~/Streaming/HiveMQ4/tr_process_sensor_data.ktr
+~/mqtt-lab/tr_process_sensor_data.ktr
 ```
 
 It begins with **Get records from stream**, then a **JSON Input** step parses each `message`.
@@ -224,7 +253,7 @@ It begins with **Get records from stream**, then a **JSON Input** step parses ea
 5. Open the output file and confirm rows are being appended.
 
 ```
-~/Streaming/HiveMQ4/output/robot_sensor.txt
+~/mqtt-lab/robot_sensor.txt   (written next to the transformation)
 ```
 
 <figure><img src="../_assets/images/hivemq-robot-sensor.png" alt=""><figcaption><p>robot_sensor</p></figcaption></figure>

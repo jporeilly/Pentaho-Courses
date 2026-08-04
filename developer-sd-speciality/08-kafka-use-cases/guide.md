@@ -59,12 +59,41 @@ sh spoon.sh
 >
 > The parent's Kafka Consumer reads messages in batches (every 5 seconds or 100 records, whichever comes first) and passes each batch to the child, which parses, transforms, and writes it to MySQL.
 
+#### Lab Files
+
+Everything this workshop runs ships with the lab. One-time: copy the
+files out of the guide's content folder and install the publisher's
+Python dependency:
+
+**Windows (PowerShell)**
+
+```powershell
+Copy-Item "$env:APPDATA\com.pentaho.content-manager\content\08-kafka-use-cases\files" "$env:USERPROFILE\kafka-lab" -Recurse
+cd $env:USERPROFILE\kafka-lab
+pip install -r requirements.txt
+```
+
+**macOS / Linux**
+
+```bash
+cp -r ~/.local/share/com.pentaho.content-manager/content/08-kafka-use-cases/files ~/kafka-lab
+cd ~/kafka-lab && pip3 install -r requirements.txt
+```
+
+[produce_users.py](./files/produce_users.py) [requirements.txt](./files/requirements.txt) [01-create-kafka-warehouse.sql](./files/01-create-kafka-warehouse.sql)
+
+[users-to-db-parent.ktr](./files/users-to-db-parent.ktr) <button data-launch="spoon" data-path="files/users-to-db-parent.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/users-to-db-parent.ktr">View graph</button>
+
+[users-to-db-child.ktr](./files/users-to-db-child.ktr) <button data-launch="spoon" data-path="files/users-to-db-child.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/users-to-db-child.ktr">View graph</button>
+
+***
+
 ## Configure the Kafka Consumer
 
 1. Open the parent transformation:
 
 ```
-~/Workshop--Data-Integration/Labs/Module 7 - Use Cases/Streaming Data/Kafka/transformations/users-to-db-parent.ktr
+~/kafka-lab/users-to-db-parent.ktr   (or use the Open in Pentaho Data Integration button in Lab Files)
 ```
 
 2. Double-click the **Kafka Consumer** step and review the properties across its tabs.
@@ -78,7 +107,7 @@ sh spoon.sh
 | Property | Description | Value |
 | --- | --- | --- |
 | Transformation | Child transformation to process the records | `${Internal.Entry.Current.Directory}/users-to-db-child.ktr` |
-| Connection | Direct: specify bootstrap servers. Cluster: specify a Hadoop cluster configuration. | `localhost:9092` |
+| Connection | Direct: specify bootstrap servers. Cluster: specify a Hadoop cluster configuration. | `127.0.0.1:9092` |
 | Topics | Kafka topics to consume from | `pdi-users` |
 | Consumer Group | Each consumer step starts a single thread. As part of a group, each consumer is assigned a subset of topic partitions. | `pdi-warehouse-users` |
 
@@ -122,7 +151,7 @@ The default fields received from Kafka streams:
 Open the child transformation:
 
 ```
-~/Workshop--Data-Integration/Labs/Module 7 - Use Cases/Streaming Data/Kafka/transformations/users-to-db-child.ktr
+~/kafka-lab/users-to-db-child.ktr
 ```
 
 ::: tabs
@@ -216,22 +245,27 @@ Then configure the **Table output** step: connection `warehouse_db`, target tabl
 
 ## Execute the pipeline
 
-> **Warning:** **Prerequisites** — before running: Kafka cluster is running (`make start`), datagen connectors are deployed (`make deploy-connectors`), and the MySQL database is up (`make mysql-setup`).
+> **Warning:** **Prerequisites** — before running: the streaming services are up (`provisioning\setup-services.ps1 -Streaming` starts Kafka on `127.0.0.1:9092` alongside the brokers), the `kafka_warehouse` database exists (one-time SQL below), and the bundled `produce_users.py` publisher is feeding the topic.
 
-1. Start all required containers, connectors, and MySQL in one command.
+1. One-time: create the `kafka_warehouse` database in the workshop MySQL (started by `setup-services`).
 
 ```bash
-cd
-cd ~/Workshop--Data-Integration/Labs/Module\ 7\ -\ Use\ Cases/Streaming\ Data/Kafka
-make workshop-start
+podman exec -i pcm-mysql mysql -uroot -ppassword < ~/kafka-lab/01-create-kafka-warehouse.sql
 ```
 
-2. Run `users-to-db-parent.ktr`. The user events are consumed and processed, writing the stream to the `user_events` table.
+2. Start the publisher and keep it running — it plays the role of the original workshop's datagen connector, emitting the same `pdi-users` events.
+
+```bash
+cd ~/kafka-lab
+python3 produce_users.py
+```
+
+3. Run `users-to-db-parent.ktr`. The user events are consumed and processed, writing the stream to the `user_events` table.
 
 3. Verify the data in MySQL.
 
 ```bash
-make mysql-shell
+podman exec -it pcm-mysql mysql -ukafka_user -ppassword kafka_warehouse
 ```
 
 ```sql
