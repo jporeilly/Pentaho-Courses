@@ -32,6 +32,7 @@ Open these in Schema Workbench via **File ▸ Open** (copy them out of the guide
 
 [miniaturemodels-original.xml](./files/miniaturemodels-original.xml)
 [miniaturemodels-security.xml](./files/miniaturemodels-security.xml)
+[classicmodels-security.xml](./files/classicmodels-security.xml) — the same role grants worked on the Classic Models schema, for reference
 
 
 ***

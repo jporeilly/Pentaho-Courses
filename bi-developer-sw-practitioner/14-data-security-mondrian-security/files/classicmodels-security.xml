@@ -1,0 +1,42 @@
+<Schema name="Classic Models">
+  <Cube name="ClassicModelsOrders" visible="true" cache="true" enabled="true">
+    <Table name="ORDERFACT" schema="PUBLIC">
+    </Table>
+    <Dimension type="StandardDimension" visible="true" foreignKey="CUSTOMERNUMBER" highCardinality="false" name="CUSTOMERS">
+      <Hierarchy name="Customers" visible="true" hasAll="true" allMemberName="All Customers" primaryKey="CUSTOMERNUMBER">
+        <Table name="CUSTOMER_W_TER" schema="PUBLIC">
+        </Table>
+        <Level name="Territory" visible="true" column="TERRITORY" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="Customer Name" visible="true" column="CUSTOMERNAME" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" foreignKey="PRODUCTCODE" highCardinality="false" name="PRODUCTS">
+      <Hierarchy name="Products" visible="true" hasAll="true" allMemberName="All Products" primaryKey="PRODUCTCODE">
+        <Table name="PRODUCTS" schema="PUBLIC">
+        </Table>
+        <Level name="Product Line" visible="true" column="PRODUCTLINE" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="Vendor" visible="true" column="PRODUCTVENDOR" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Measure name="Sales" column="TOTALPRICE" datatype="Numeric" formatString="$#,###.00" aggregator="sum" visible="true">
+    </Measure>
+  </Cube>
+  <Role name="Administrator">
+    <SchemaGrant access="all">
+      <CubeGrant cube="ClassicModelsOrders" access="all">
+      </CubeGrant>
+    </SchemaGrant>
+  </Role>
+  <Role name="Power User">
+    <SchemaGrant access="all">
+      <CubeGrant cube="ClassicModelsOrders" access="all">
+        <DimensionGrant dimension="CUSTOMERS" access="custom">
+        </DimensionGrant>
+      </CubeGrant>
+    </SchemaGrant>
+  </Role>
+</Schema>
