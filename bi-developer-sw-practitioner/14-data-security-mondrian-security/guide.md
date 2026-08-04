@@ -26,6 +26,14 @@
 >
 > **Estimated time:** 120 minutes
 
+#### Lab Files
+
+Open these in Schema Workbench via **File ▸ Open** (copy them out of the guide's content folder first if you plan to edit):
+
+[miniaturemodels-original.xml](./files/miniaturemodels-original.xml)
+[miniaturemodels-security.xml](./files/miniaturemodels-security.xml)
+
+
 ***
 
 > **Note:** The completed secured schema for reference:
@@ -296,7 +304,7 @@ sudo nano pentahoObjects.spring.xml
 >
 > #### Refresh the Mondrian Schema Cache
 >
-> Please remember to refresh the Mondrian Schema Cache every time you edit and save the Miniature Models - security.xml schema ..
+> Please remember to refresh the Mondrian Schema Cache every time you edit and save the miniaturemodels-security.xml schema ..
 
 1. Log in as Administrator.
 
@@ -316,10 +324,10 @@ Follow the steps below to understand the difference between Full & No access:
 >
 > The Executive role should have unrestricted access to all cubes and dimensions in the schema. The easiest method to apply the SchemaGrant is by editing.
 
-1. Open the Miniature Models - original.xml schema.
+1. Open the miniaturemodels-original.xml schema.
 2. Save as: Miniature Models - security.
 
-<figure><img src="../_assets/images/mondrian_sec_miniature_models_security_xml.png" alt=""><figcaption><p>Miniature Models -security.xml</p></figcaption></figure>
+<figure><img src="../_assets/images/mondrian_sec_miniature_models_security_xml.png" alt=""><figcaption><p>miniaturemodels-security.xml</p></figcaption></figure>
 
 3. Highlight Schema and Click on the 'User shadow+'.
 4. Enter: **Executive Role** & tab to set the value.
@@ -369,7 +377,7 @@ To test log in as: analyst — no Miniature Models..!
 >
 > So far only the Executive Role users have access to the Miniature Models - security schema as a data source. Next step is to set access to the Sales_FY2003_2005 cube only for the Sales Manager Role users.
 
-1. Open the Miniature Models - security.xml schema.
+1. Open the miniaturemodels-security.xml schema.
 2. Highlight Schema and Click on the 'User shadow+'.
 3. Enter: Sales Manager Role & tab to set the value.
 4. Right-mouse on Sales Manager Role & Select: Add Schema Grant.
@@ -419,7 +427,7 @@ To test log in as: analyst — no Miniature Models..!
 >
 > #### Refresh the Mondrian Schema Cache
 >
-> Please remember to refresh the Mondrian Schema Cache every time you edit and save the Miniature Models - security.xml schema ..
+> Please remember to refresh the Mondrian Schema Cache every time you edit and save the miniaturemodels-security.xml schema ..
 
 1. Log in as Administrator.
 
@@ -452,7 +460,7 @@ To test log in as: analyst — no Miniature Models..!
 
 ***
 
-1. Open the Miniature Models - security.xml schema.
+1. Open the miniaturemodels-security.xml schema.
 2. Highlight Schema and Click on the 'User shadow+'.
 3. Enter: Analyst Role & tab to set the value.
 4. Right-mouse on Analyst Role & Select: Add Schema Grant.
@@ -534,7 +542,7 @@ To test login in as: analyst
 >
 > #### Refresh the Mondrian Schema Cache
 >
-> Please remember to refresh the Mondrian Schema Cache every time you edit and save the Miniature Models - security.xml schema ..
+> Please remember to refresh the Mondrian Schema Cache every time you edit and save the miniaturemodels-security.xml schema ..
 
 1. Log in as Administrator.
 
@@ -544,7 +552,7 @@ To test login in as: analyst
 
 ***
 
-1. Open the Miniature Models - security.xml schema.
+1. Open the miniaturemodels-security.xml schema.
 2. Highlight Schema and Click on the 'User shadow+'.
 3. Enter: Regional Manager Role & tab to set the value.
 4. Right-mouse on Regional Manager Role & Select: Add Schema Grant.

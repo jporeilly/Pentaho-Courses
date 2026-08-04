@@ -29,6 +29,13 @@
 >
 > **Estimated time:** 60 minutes
 
+#### Lab Files
+
+Open these in Schema Workbench via **File ▸ Open** (copy them out of the guide's content folder first if you plan to edit):
+
+[classicmodels-localized.xml](./files/classicmodels-localized.xml)
+
+
 ***
 
 1. Start Schema Workbench:

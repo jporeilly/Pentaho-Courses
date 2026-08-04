@@ -28,6 +28,13 @@
 >
 > **Estimated time:** 90 minutes
 
+#### Lab Files
+
+Open these in Schema Workbench via **File ▸ Open** (copy them out of the guide's content folder first if you plan to edit):
+
+[miniaturemodels-extended.xml](./files/miniaturemodels-extended.xml)
+
+
 <figure><img src="../_assets/images/extended_extended_schema_miniature_models.png" alt=""><figcaption><p>Extended Schema - Miniature Models</p></figcaption></figure>
 
 1. Start Schema Workbench:

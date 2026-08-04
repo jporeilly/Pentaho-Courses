@@ -24,6 +24,13 @@
 >
 > **Estimated time:** 30 minutes
 
+#### Lab Files
+
+Open these in Schema Workbench via **File ▸ Open** (copy them out of the guide's content folder first if you plan to edit):
+
+[miniaturemodels-original.xml](./files/miniaturemodels-original.xml)
+
+
 #### Named Sets vs. Calculated Members
 
 Understanding the difference between Named Sets and Calculated Members is crucial:
@@ -87,7 +94,7 @@ Follow the guide below to add a Named Set to the Miniature Models Schema:
 >
 > #### MDX Query
 
-1. Open the `Miniature Models - original.xml` schema.
+1. Open the `miniaturemodels-original.xml` schema.
 2. To access MDX Query mode, from the menu select **File** > **New** > **MDX Query**.
 
 <figure><img src="../_assets/images/named_sets_mdx_query.png" alt=""><figcaption><p>MDX Query</p></figcaption></figure>
@@ -153,7 +160,7 @@ TopCount(
 >
 > #### Add NS to Schema
 
-1. Open the `Miniature Models - original.xml` schema.
+1. Open the `miniaturemodels-original.xml` schema.
 2. Right-click on the `Sales_FY2003_2005` cube and select **Add Named Set**.
 
 <figure><img src="../_assets/images/named_sets_add_named_set_top_3_territories.png" alt=""><figcaption><p>Add Named Set - Top 3 Territories</p></figcaption></figure>

@@ -66,7 +66,7 @@
 
 <figure><img src="../_assets/images/mdx_query_mdx_query.png" alt=""><figcaption><p>MDX Query</p></figcaption></figure>
 
-2. Connect to the `steelwheelssales.xml` schema.
+2. Open the SteelWheels sample schema that ships with your Pentaho install — `C:\Pentaho\design-tools\report-designer\samples\steelwheels.mondrian.xml` (its cube is `SteelWheelsSales`).
 3. To dismiss the **Mondrian connection successful** dialog, click **OK**.
 
 ### 2. A basic query

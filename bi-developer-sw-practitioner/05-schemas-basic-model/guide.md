@@ -22,6 +22,14 @@
 > 
 > **Estimated time:** 90 minutes
 
+#### Lab Files
+
+Open these in Schema Workbench via **File ▸ Open** (copy them out of the guide's content folder first if you plan to edit):
+
+[classicmodels-original.xml](./files/classicmodels-original.xml)
+[classicmodels.xml](./files/classicmodels.xml)
+
+
 ***
 
 1. Start Schema Workbench:
@@ -475,4 +483,4 @@ Follow the guide below to understand how the **Classic Models** schema is define
 Download the reference files for this lab:
 
 * [Classic Model - Workshop](../_assets/data/classicmodels-original.xml)
-* [ClassicModels - original.xml](../_assets/data/classicmodels.xml)
+* [classicmodels-original.xml](../_assets/data/classicmodels.xml)

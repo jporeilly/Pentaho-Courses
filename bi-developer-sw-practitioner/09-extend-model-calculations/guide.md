@@ -23,6 +23,14 @@
 >
 > **Estimated time:** 30 minutes
 
+#### Lab Files
+
+Open these in Schema Workbench via **File ▸ Open** (copy them out of the guide's content folder first if you plan to edit):
+
+[classicmodels.xml](./files/classicmodels.xml)
+[miniaturemodels-extended.xml](./files/miniaturemodels-extended.xml)
+
+
 1. Start Schema Workbench:
 
 > **Note:**

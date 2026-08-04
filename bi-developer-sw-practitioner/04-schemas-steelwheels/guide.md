@@ -25,6 +25,14 @@
 >
 > **Estimated time:** 45 minutes
 
+#### Lab Files
+
+Open these in Schema Workbench via **File ▸ Open** (copy them out of the guide's content folder first if you plan to edit):
+
+[steelwheels-original.xml](./files/steelwheels-original.xml)
+[steelwheels.xml](./files/steelwheels.xml)
+
+
 <figure><img src="../_assets/images/schema_schema_element.png" alt=""><figcaption><p>SteelWheels Schema</p></figcaption></figure>
 
 ***
