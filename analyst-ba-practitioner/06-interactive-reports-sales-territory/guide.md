@@ -42,7 +42,7 @@
 
 1. In the Folders pane, expand Public > Steel Wheels, and then in the Files pane, double-click Vendor Sales Report.
 
-![Vendor Sales Report](../_assets/images/fi0ww3.png)
+![Vendor Sales Report](../_assets/images/ir-vendor-sales-report.png)
 
 ***
 
@@ -52,11 +52,11 @@
 > 
 > The **Interactive Toolbar** includes buttons to undo or redo changes, export the report, display the Filters or Layout panels, create prompts, and to navigate through the report pages.
 
-![](../_assets/images/8azvg0.png)
+![](../_assets/images/ir-interactive-toolbar.png)
 
 1. To view the available fields, on the main toolbar, click the Edit Content button.
 
-![Edit Mode](../_assets/images/rejjn7.png)
+![Edit Mode](../_assets/images/ir-edit-content.png)
 
 > **Note:** You're only able to view the report ..
 > 
@@ -68,19 +68,19 @@
 
 2. To view the available export formats, on the interactive toolbar click the drop-down arrow for Export.
 
-![](../_assets/images/l1khkf.gif)
+![](../_assets/images/ir-export-formats.gif)
 
 3. To display the Filter panel, on the interactive toolbar click the Filters button.
 
-![](../_assets/images/s8a9o6.gif)
+![](../_assets/images/ir-filters-button.gif)
 
 4. To display the Layout panel, on the interactive toolbar click the Layout button.
 
-![](../_assets/images/k1ut56.gif)
+![](../_assets/images/ir-layout-button.gif)
 
 5. You can also set the Row Limit.
 
-![](../_assets/images/kl07f5.png)
+![](../_assets/images/ir-row-limit.png)
 
 ### Sales Territory Report
 
