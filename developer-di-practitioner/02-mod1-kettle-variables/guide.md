@@ -119,9 +119,8 @@ DIR_SAMPLES=/home/pentaho/Temp
 ### Windows (PowerShell)
 
 ```powershell
-cd \
-cd Workshop--Data-Integration\Scripts
-.\edit-kettle.properties.ps1
+if (-not (Test-Path $env:USERPROFILE\.kettle)) { New-Item -ItemType Directory $env:USERPROFILE\.kettle | Out-Null }
+notepad $env:USERPROFILE\.kettle\kettle.properties
 ```
 
 ### Linux/macOS

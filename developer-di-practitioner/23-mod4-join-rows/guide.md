@@ -24,4 +24,3 @@ _Author the second step here._
 
 ---
 
-_Source: `Module 4 - Enriching the Dataset/Joins/Lab - Join Rows` in the Workshop--Data-Integration repo. No matching Academy page found — body to be authored._

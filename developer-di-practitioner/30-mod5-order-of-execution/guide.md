@@ -28,4 +28,3 @@ _Author the second step here._
 
 ---
 
-_Source: `Module 5 - Enterprise Solution/Jobs/Lab - Order of Execution` in the Workshop--Data-Integration repo. No matching Academy page found — body to be authored._

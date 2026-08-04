@@ -30,4 +30,3 @@ _Author the second step here._
 
 ---
 
-_Source: `Module 5 - Enterprise Solution/Metadata Injection/Use Case  - Onboarding to a table` in the Workshop--Data-Integration repo. No matching Academy page found — body to be authored._
