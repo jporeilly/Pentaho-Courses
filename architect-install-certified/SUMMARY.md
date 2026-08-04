@@ -1,12 +1,12 @@
 # Table of contents
 
-## Overview
-
-* [Please read ..!](00-getting-started/guide.md)
-* [Whats New](01-overview-whats-new/guide.md)
-
 ## Getting Started
 
+* [Please read ..!](00-getting-started/guide.md)
+
+## Overview
+
+* [Whats New](01-overview-whats-new/guide.md)
 * [Pentaho Support Portal](02-installation-getting-started-pentaho-support-portal/guide.md)
 * [Components](03-installation-getting-started-components/guide.md)
 

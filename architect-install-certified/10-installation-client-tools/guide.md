@@ -11,7 +11,7 @@
 > 
 > The Evaluation Wizard is the easiest way to install design tools, utilities, or plugins on client workstations. Manual installation lets you place design tool files wherever needed. Choose a deployment that matches your DevOps and desktop constraints.
 
-> **Warning:** Baseline: Ubuntu 24.04 LTS with Java 21 (OpenJDK). For Windows, see: [Windows Installation](/pentaho-11-installation-en/installation/evaluation-installation.md).
+> **Warning:** Baseline: Ubuntu 24.04 LTS with Java 21 (OpenJDK). For Windows, see: the **Windows evaluation installation** in the Pentaho docs.
 
 <figure><img src="../_assets/images/pentaho_pro_suite.png" alt="Pentaho Pro Suite - client tools overview"><figcaption><p>Pentaho Pro Suite</p></figcaption></figure>
 

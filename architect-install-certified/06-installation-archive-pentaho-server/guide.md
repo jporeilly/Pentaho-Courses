@@ -16,7 +16,7 @@
 
 > **Warning:** Tested baseline: Ubuntu 24.04 LTS with Java 21 (OpenJDK) and PostgreSQL 17.
 > 
-> Make sure you have completed [Prepare Environment](/pentaho-11-installation-en/installation/archive-installation/prepare-environment.md) first.&#x20;
+> Make sure you have completed **Prepare Environment** (the previous lab) first.&#x20;
 > 
 > For compatibility details, see [Components Reference](https://docs.pentaho.com/install/components-reference).
 

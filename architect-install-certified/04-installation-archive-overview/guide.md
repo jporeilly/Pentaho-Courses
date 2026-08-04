@@ -37,7 +37,7 @@ Choose the Archive installation when you:
 * Install and validate Java 21; set `PENTAHO_JAVA_HOME`.
 * Install and configure your Pentaho Repository database (PostgreSQL recommended).
 
-Go to: [Prepare Environment](/pentaho-11-installation-en/installation/archive-installation/prepare-environment.md)
+Go to: **Prepare Environment** (next in the sidebar)
 
 
 
@@ -49,7 +49,7 @@ Go to: [Prepare Environment](/pentaho-11-installation-en/installation/archive-in
 * Configure Repository connectivity and Tomcat.
 * Start the server and verify logs.
 
-Go to: [Install Pentaho Server](/pentaho-11-installation-en/installation/archive-installation/install-pentaho-server.md)
+Go to: **Install Pentaho Server**
 
 
 
@@ -62,7 +62,7 @@ Go to: [Install Pentaho Server](/pentaho-11-installation-en/installation/archive
 * Add Pipeline Designer (PPD), Scheduler and Carte for creating and deploying automated data pipelines.
 * Restart and validate.
 
-Go to: [Server Plugins](/pentaho-11-installation-en/installation/archive-installation/install-pentaho-server/server-plugins.md)
+Go to: **Server Plugins**
 
 
 
@@ -72,7 +72,7 @@ Go to: [Server Plugins](/pentaho-11-installation-en/installation/archive-install
 
 * Install PDI, PRD, PME, PSW or other client tools used by your team.
 
-Go to: [Install Client Tools](/pentaho-11-installation-en/installation/archive-installation/install-client-tools.md)
+Go to: **Install Client Tools**
 
 
 
@@ -83,7 +83,7 @@ Go to: [Install Client Tools](/pentaho-11-installation-en/installation/archive-i
 * Start Pentaho, access PUC, and validate basic functionality.
 * Apply licenses via the License Manager.
 
-See: “Start Server” and “License Manager” in [Install Pentaho Server](/pentaho-11-installation-en/installation/archive-installation/install-pentaho-server.md)
+See: “Start Server” and “License Manager” in **Install Pentaho Server**
 
 
 
@@ -93,7 +93,7 @@ See: “Start Server” and “License Manager” in [Install Pentaho Server](/p
 
 * Secure credentials, restrict access, and tune performance for production.
 
-Go to: [Post Installation Tasks](/pentaho-11-installation-en/installation/post-installation-tasks.md)
+Go to: **Post Installation** (later in this course)
 
 > **Note:** Migrating content? Plan your repository upgrade/restore and test before opening the system to end users.
 

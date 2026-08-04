@@ -15,16 +15,23 @@
     "models": {
       "cpu": "llama3.2:3b",
       "gpu": "qwen2.5:7b"
-    }
+    },
+    "subject": "installing the Pentaho platform (archive installation on Linux, the Server, its PostgreSQL repository, plugins and client tools)",
+    "suggestions": [
+      "What's the difference between archive and installer deployments?",
+      "Which directories and users should I prepare before installing the Server?",
+      "How do I install and license the EE plugins?",
+      "Where do the client tools go relative to the Server?"
+    ]
   },
   "moduleSummaries": [
     {
-      "title": "Overview",
-      "summary": "What's new in Pentaho 11 — the modern UI, security improvements, and deployment changes that frame why the install procedure looks the way it does. Read this first."
+      "title": "Getting Started",
+      "summary": "How to get the most out of this guide. Nothing to pre-install — installing the Pentaho platform IS this course."
     },
     {
-      "title": "Getting Started",
-      "summary": "Download the Pentaho Enterprise packages, activate your license key, and choose your installation path — Windows evaluation or Linux archive deployment."
+      "title": "Overview",
+      "summary": "What's new in Pentaho 11 — the modern UI, security improvements, and deployment changes that frame why the install procedure looks the way it does. Read this first. Plus the Support Portal downloads, licence activation and the component map — download the Pentaho Enterprise packages, activate your license key, and choose your installation path — Windows evaluation or Linux archive deployment."
     },
     {
       "title": "Archive Installation",
@@ -51,7 +58,7 @@
           "courseId": "developer-di-practitioner"
         },
         {
-          "title": "Speciality Courses"
+          "title": "Specialty Courses"
         },
         {
           "title": "BI Developer — CTools Dashboards",

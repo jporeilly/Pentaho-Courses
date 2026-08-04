@@ -56,4 +56,4 @@
 >
 > * `on-prem-11.0.0.0-237.zip`
 >
-> Note: Additional EE plugins, if required for your use case, will be installed later in [Server Plugins](/pentaho-11-installation-en/installation/archive-installation/install-pentaho-server/server-plugins.md).
+> Note: Additional EE plugins, if required for your use case, will be installed later in **Server Plugins** (later in this course).
