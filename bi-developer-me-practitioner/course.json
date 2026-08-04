@@ -15,7 +15,14 @@
     "models": {
       "cpu": "llama3.2:3b",
       "gpu": "qwen2.5:7b"
-    }
+    },
+    "subject": "Pentaho Metadata Editor (physical layer, business models, concepts and publishing XMI domains)",
+    "suggestions": [
+      "What's the difference between the physical layer and a business model?",
+      "How do I build a business model from my database tables?",
+      "How do concepts and inheritance work in Metadata Editor?",
+      "How do I publish my domain so Interactive Reports can use it?"
+    ]
   },
   "moduleSummaries": [
     {

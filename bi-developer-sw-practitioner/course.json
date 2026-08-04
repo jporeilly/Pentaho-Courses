@@ -15,12 +15,23 @@
     "models": {
       "cpu": "llama3.2:3b",
       "gpu": "qwen2.5:7b"
-    }
+    },
+    "subject": "Pentaho Schema Workbench (Mondrian schemas, cubes, dimensions, measures and MDX)",
+    "suggestions": [
+      "What's the difference between a cube, a dimension and a hierarchy?",
+      "How do I add a measure with a custom aggregator?",
+      "How do I write a calculated member in MDX?",
+      "How do I publish my schema and browse it in Analyzer?"
+    ]
   },
   "moduleSummaries": [
     {
       "title": "Getting Started",
-      "summary": "OLAP vs. OLTP, multidimensional cubes, star vs. normalized schemas, and the ROLAP Mondrian engine — the mental model behind every hands-on lab that follows."
+      "summary": "How to get the most out of this guide, and how to set your machine up — whether you are on a lab VM or installing Pentaho Server and Schema Workbench on your own laptop."
+    },
+    {
+      "title": "Key Concepts & Terminology",
+      "summary": "OLAP vs. OLTP, multidimensional cubes, star vs. normalized schemas, and the ROLAP Mondrian engine — the mental model behind every lab."
     },
     {
       "title": "Schemas",

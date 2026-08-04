@@ -15,7 +15,14 @@
     "models": {
       "cpu": "llama3.2:3b",
       "gpu": "qwen2.5:7b"
-    }
+    },
+    "subject": "Pentaho CTools dashboards (CDE, CDF, CDA and CCC charts)",
+    "suggestions": [
+      "What do CDA, CDF and CDE each do?",
+      "How do I connect a CDA data source to my dashboard?",
+      "How do I add a CCC chart component in CDE?",
+      "How do I make dashboard components react to a parameter?"
+    ]
   },
   "moduleSummaries": [
     {

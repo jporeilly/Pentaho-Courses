@@ -3,6 +3,9 @@
 ## Getting Started
 
 * [Please read ..!](00-getting-started/guide.md)
+
+## Key Concepts & Terminology
+
 * [Key Concepts & Terminology](02-key-concepts/guide.md)
 
 ## Schemas
