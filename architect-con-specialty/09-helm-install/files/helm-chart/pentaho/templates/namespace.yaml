@@ -1,0 +1,39 @@
+{{/*
+=============================================================================
+NAMESPACE TEMPLATE
+=============================================================================
+Creates an isolated Kubernetes namespace to contain all Pentaho resources.
+
+Purpose:
+  - Provides logical isolation for Pentaho deployment
+  - Enables resource quotas and RBAC policies
+  - Prevents naming conflicts with other applications
+  - Simplifies cleanup (delete namespace removes all resources)
+
+Conditional Rendering:
+  - Only created if .Values.global.namespace is set
+  - If empty, Helm uses the release namespace or current context
+
+Configuration:
+  - Set namespace name in values.yaml: global.namespace
+  - Add custom labels via commonLabels
+  - Add custom annotations via commonAnnotations
+=============================================================================
+*/}}
+{{- if .Values.global.namespace }}
+apiVersion: v1
+kind: Namespace
+metadata:
+  # Namespace name from values.yaml (default: pentaho)
+  name: {{ include "pentaho.namespace" . }}
+  labels:
+    # Standard Helm labels for tracking and querying
+    {{- include "pentaho.labels" . | nindent 4 }}
+    # Component label for filtering resources
+    app.kubernetes.io/component: namespace
+  {{- with .Values.commonAnnotations }}
+  annotations:
+    # Custom annotations from values.yaml
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+{{- end }}

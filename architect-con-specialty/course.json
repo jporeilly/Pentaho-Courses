@@ -1,0 +1,59 @@
+{
+  "id": "architect-con-specialty",
+  "title": "Pentaho Solution Architect - Containers Specialty",
+  "description": "Deploy the Pentaho Server with containers and Kubernetes: build the EE image from a staged archive, run it with Podman Compose against PostgreSQL, then take the same deployment to K3s with raw manifests and Helm.",
+  "version": "0.1.0",
+  "kind": "workshop",
+  "mode": "sequential",
+  "theme": {
+    "accent": "#0d9488"
+  },
+  "launchers": {
+    "puc": {
+      "name": "Pentaho User Console",
+      "url": "http://localhost:8080/pentaho"
+    }
+  },
+  "assistant": {
+    "ollamaURL": "http://localhost:11434",
+    "mcpURL": "https://docs.pentaho.com/~gitbook/mcp",
+    "defaultProfile": "cpu",
+    "models": {
+      "cpu": "llama3.2:3b",
+      "gpu": "qwen2.5:7b"
+    },
+    "subject": "deploying the Pentaho Server with containers (Podman image builds, Compose with PostgreSQL, K3s manifests and Helm)",
+    "suggestions": [
+      "What does the softwareOverride layer pattern do in the image build?",
+      "Why does the repository need five PostgreSQL databases?",
+      "How do the K3s manifests map onto the Compose deployment?",
+      "When would I choose Helm over raw manifests?"
+    ]
+  },
+  "moduleSummaries": [
+    {
+      "title": "Getting Started",
+      "summary": "How to get the most out of this guide, and what to install up front - Podman Desktop, kubectl and Helm, plus the licensed Pentaho Server archive the image build stages."
+    },
+    {
+      "title": "Containers 101",
+      "summary": "Runtimes, orchestration and where the Pentaho Server fits - the concepts behind everything you deploy in this course."
+    },
+    {
+      "title": "Build the Image",
+      "summary": "Build a parameterised Pentaho Server EE image from a staged archive with the softwareOverride layer pattern, then smoke-test it with a throwaway compose file."
+    },
+    {
+      "title": "Compose Deployment",
+      "summary": "Run the image against PostgreSQL 15 with Podman Compose - five repository databases, health checks, persistent volumes - and see what changes for MySQL, MSSQL and Oracle."
+    },
+    {
+      "title": "Kubernetes (K3s)",
+      "summary": "Take the same deployment to a lightweight Kubernetes: namespaces, configmaps, storage, database and server manifests, deployed and torn down by script."
+    },
+    {
+      "title": "Helm",
+      "summary": "Package the K3s deployment as a Helm release - install, upgrade and roll back from one chart."
+    }
+  ]
+}

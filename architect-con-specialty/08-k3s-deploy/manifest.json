@@ -1,0 +1,9 @@
+{
+  "title": "Deploy to K3s",
+  "description": "",
+  "order": 8,
+  "kind": "workshop",
+  "stepCount": 3,
+  "hasVideo": false,
+  "estimatedMinutes": 15
+}

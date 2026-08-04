@@ -1,0 +1,35 @@
+{{/* Configures Pentaho environment variables (JVM memory, database settings, paths, timezone) */}}
+{{- if .Values.configMaps.pentahoConfig.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: pentaho-config
+  namespace: {{ include "pentaho.namespace" . }}
+  labels:
+    {{- include "pentaho.labels" . | nindent 4 }}
+    app.kubernetes.io/component: config
+  {{- with .Values.commonAnnotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+data:
+  # JVM Memory Settings
+  PENTAHO_MIN_MEMORY: {{ .Values.pentaho.jvm.minMemory | quote }}
+  PENTAHO_MAX_MEMORY: {{ .Values.pentaho.jvm.maxMemory | quote }}
+
+  # Database Configuration
+  DB_TYPE: {{ .Values.database.type | quote }}
+  DB_HOST: {{ include "pentaho.postgresql.host" . | quote }}
+  DB_PORT: {{ include "pentaho.postgresql.port" . | quote }}
+
+  # Pentaho Installation Paths
+  PENTAHO_SERVER_PATH: {{ .Values.pentaho.paths.server | quote }}
+  INSTALLATION_PATH: {{ .Values.pentaho.paths.installation | quote }}
+
+  # Timezone Configuration
+  TZ: {{ .Values.global.timezone | quote }}
+
+  {{- with .Values.configMaps.pentahoConfig.data }}
+  {{- toYaml . | nindent 2 }}
+  {{- end }}
+{{- end }}

@@ -1,0 +1,28 @@
+{{/* Exposes Pentaho Server ports 8080 (HTTP) and 8443 (HTTPS) for ingress and internal access */}}
+{{- if .Values.pentaho.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: pentaho-server
+  namespace: {{ include "pentaho.namespace" . }}
+  labels:
+    {{- include "pentaho.labels" . | nindent 4 }}
+    app.kubernetes.io/component: server
+  {{- with .Values.commonAnnotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  type: {{ .Values.pentaho.service.type }}
+  ports:
+    - port: {{ .Values.pentaho.service.http.port }}
+      targetPort: {{ .Values.pentaho.service.http.targetPort }}
+      protocol: TCP
+      name: http
+    - port: {{ .Values.pentaho.service.https.port }}
+      targetPort: {{ .Values.pentaho.service.https.targetPort }}
+      protocol: TCP
+      name: https
+  selector:
+    {{- include "pentaho.selectorLabels" . | nindent 4 }}
+{{- end }}

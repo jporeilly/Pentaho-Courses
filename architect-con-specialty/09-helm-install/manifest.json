@@ -1,0 +1,9 @@
+{
+  "title": "Install via Helm",
+  "description": "",
+  "order": 9,
+  "kind": "workshop",
+  "stepCount": 1,
+  "hasVideo": false,
+  "estimatedMinutes": 10
+}

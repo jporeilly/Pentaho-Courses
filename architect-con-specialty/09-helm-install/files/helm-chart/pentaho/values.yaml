@@ -1,0 +1,385 @@
+# =============================================================================
+# Pentaho Helm Chart - Default Values
+# =============================================================================
+# This file contains default configuration values for the Pentaho Helm chart.
+# Override these values by:
+#   1. Creating a custom values file: helm install -f custom-values.yaml
+#   2. Using --set flags: helm install --set pentaho.replicas=2
+#   3. Using --set-file for files: helm install --set-file config.xml=config.xml
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# Global Settings
+# -----------------------------------------------------------------------------
+global:
+  # Namespace will be created if it doesn't exist
+  # Leave empty to use current namespace or release namespace
+  namespace: pentaho
+
+  # Timezone for all components
+  timezone: "America/New_York"
+
+  # Storage class for persistent volumes
+  # Default: local-path (K3s default)
+  # For production: Use network storage (nfs, longhorn, rook-ceph)
+  storageClass: local-path
+
+# -----------------------------------------------------------------------------
+# Pentaho Server Configuration
+# -----------------------------------------------------------------------------
+pentaho:
+  enabled: true
+
+  # Image configuration
+  image:
+    repository: pentaho/pentaho-server
+    tag: 11.0.0.0-237
+    pullPolicy: IfNotPresent
+    # For private registries, create imagePullSecret:
+    # kubectl create secret docker-registry registry-credentials \
+    #   --docker-server=your-registry.com \
+    #   --docker-username=your-username \
+    #   --docker-password=your-password
+    # pullSecrets: []
+    # - name: registry-credentials
+
+  # Deployment configuration
+  replicas: 1
+  # Use Recreate strategy due to persistent volumes (no rolling updates)
+  strategy:
+    type: Recreate
+
+  # Container hostname
+  # Required for Pentaho application initialization
+  hostname: pentaho-server
+
+  # Service configuration
+  service:
+    type: ClusterIP
+    http:
+      port: 8080
+      targetPort: 8080
+    https:
+      port: 8443
+      targetPort: 8443
+
+  # Resource limits and requests
+  resources:
+    requests:
+      memory: "2Gi"
+      cpu: "1"
+    limits:
+      memory: "6Gi"
+      cpu: "4"
+
+  # JVM memory settings
+  jvm:
+    minMemory: "2048m"
+    maxMemory: "4096m"
+    # Additional JVM options (optional)
+    # additionalOptions: "-XX:+UseG1GC -XX:MaxGCPauseMillis=200"
+
+  # Pentaho installation paths
+  paths:
+    server: "/opt/pentaho/pentaho-server"
+    installation: "/opt/pentaho"
+
+  # Health probe configuration
+  probes:
+    startup:
+      enabled: true
+      path: /pentaho/Login
+      initialDelaySeconds: 60
+      periodSeconds: 10
+      timeoutSeconds: 5
+      failureThreshold: 30
+    liveness:
+      enabled: true
+      path: /pentaho/Login
+      initialDelaySeconds: 300
+      periodSeconds: 30
+      timeoutSeconds: 10
+      failureThreshold: 5
+    readiness:
+      enabled: true
+      path: /pentaho/Login
+      initialDelaySeconds: 120
+      periodSeconds: 10
+      timeoutSeconds: 5
+      failureThreshold: 10
+
+  # Persistent storage configuration
+  persistence:
+    # NOTE: Volumes are disabled by default to avoid overwriting container files
+    # K8s empty PVCs overwrite directories, unlike Docker named volumes
+    # For production: enable and use initContainer to populate PVCs
+    data:
+      enabled: false
+      size: 10Gi
+      accessMode: ReadWriteOnce
+      mountPath: /opt/pentaho/pentaho-server/data
+    solutions:
+      enabled: false
+      size: 5Gi
+      accessMode: ReadWriteOnce
+      mountPath: /opt/pentaho/pentaho-server/pentaho-solutions
+
+  # Init container to wait for PostgreSQL
+  initContainer:
+    enabled: true
+    image:
+      repository: busybox
+      tag: "1.36"
+    resources:
+      requests:
+        memory: "32Mi"
+        cpu: "50m"
+      limits:
+        memory: "64Mi"
+        cpu: "100m"
+
+# -----------------------------------------------------------------------------
+# PostgreSQL Configuration
+# -----------------------------------------------------------------------------
+postgresql:
+  enabled: true
+
+  # Image configuration
+  image:
+    repository: postgres
+    tag: "15"
+    pullPolicy: IfNotPresent
+
+  # Deployment configuration
+  replicas: 1
+  strategy:
+    type: Recreate
+
+  # Service configuration
+  service:
+    type: ClusterIP
+    port: 5432
+    targetPort: 5432
+
+  # Resource limits
+  resources:
+    requests:
+      memory: "512Mi"
+      cpu: "500m"
+    limits:
+      memory: "2Gi"
+      cpu: "2"
+
+  # Persistent storage for PostgreSQL data
+  persistence:
+    enabled: true
+    size: 10Gi
+    accessMode: ReadWriteOnce
+    # Custom data directory to avoid lost+found conflicts
+    dataPath: /var/lib/postgresql/data
+    pgdata: /var/lib/postgresql/data/pgdata
+
+  # Database initialization
+  # SQL scripts will be mounted from ConfigMap
+  initScripts:
+    enabled: true
+    mountPath: /docker-entrypoint-initdb.d
+
+  # Health probes
+  probes:
+    liveness:
+      enabled: true
+      initialDelaySeconds: 30
+      periodSeconds: 10
+      timeoutSeconds: 5
+      failureThreshold: 3
+    readiness:
+      enabled: true
+      initialDelaySeconds: 5
+      periodSeconds: 5
+      timeoutSeconds: 3
+      failureThreshold: 3
+
+# -----------------------------------------------------------------------------
+# Database Connection Settings
+# -----------------------------------------------------------------------------
+database:
+  type: postgres
+  host: postgres
+  port: 5432
+
+  # Database credentials
+  # For production: Use external secrets management (Vault, AWS Secrets Manager)
+  auth:
+    # PostgreSQL superuser password
+    postgresPassword: "postgres"
+    # JCR user credentials
+    jcrUser: "jcr_user"
+    jcrPassword: "password"
+    jcrDatabase: "jackrabbit"
+    # Quartz user credentials
+    quartzUser: "pentaho_user"
+    quartzPassword: "password"
+    quartzDatabase: "quartz"
+    # Hibernate user credentials
+    hibernateUser: "hibuser"
+    hibernatePassword: "password"
+    hibernateDatabase: "hibernate"
+
+# -----------------------------------------------------------------------------
+# Ingress Configuration
+# -----------------------------------------------------------------------------
+ingress:
+  enabled: true
+  className: traefik
+
+  annotations:
+    # Traefik entry points (web = HTTP:80, websecure = HTTPS:443)
+    traefik.ingress.kubernetes.io/router.entrypoints: web
+    # Enable buffering for large file uploads
+    traefik.ingress.kubernetes.io/buffering: "true"
+
+    # Optional: Enable HTTPS redirect (requires TLS configuration)
+    # traefik.ingress.kubernetes.io/router.middlewares: pentaho-redirect-https@kubernetescrd
+
+    # Optional: CORS configuration
+    # traefik.ingress.kubernetes.io/headers.accesscontrolallowmethods: "GET,OPTIONS,PUT,POST,DELETE"
+    # traefik.ingress.kubernetes.io/headers.accesscontrolalloworigin: "*"
+
+    # Optional: Session affinity (sticky sessions)
+    # traefik.ingress.kubernetes.io/service.sticky.cookie: "true"
+
+  # Ingress rules
+  rules:
+    # Rule 1: Host-based routing
+    - host: pentaho.local
+      paths:
+        - path: /
+          pathType: Prefix
+    # Rule 2: Path-based routing (no hostname)
+    - paths:
+        - path: /pentaho
+          pathType: Prefix
+
+  # TLS/HTTPS configuration
+  tls:
+    enabled: false
+    # When enabled, create TLS secret or use cert-manager
+    # secretName: pentaho-tls-secret
+    # hosts:
+    #   - pentaho.local
+
+# -----------------------------------------------------------------------------
+# ConfigMaps
+# -----------------------------------------------------------------------------
+configMaps:
+  # Pentaho environment configuration
+  pentahoConfig:
+    enabled: true
+    data: {}
+      # Add custom environment variables here
+      # Example:
+      # PENTAHO_DEBUG_MODE: "true"
+      # PENTAHO_LOG_LEVEL: "DEBUG"
+
+  # PostgreSQL initialization scripts
+  # These will be loaded from db_init_postgres directory
+  postgresInitScripts:
+    enabled: true
+    # Scripts are embedded in the chart templates
+
+# -----------------------------------------------------------------------------
+# Security Settings
+# -----------------------------------------------------------------------------
+security:
+  # Create Kubernetes secrets for sensitive data
+  createSecrets: true
+
+  # Existing secret name (if createSecrets is false)
+  # existingSecret: postgres-secrets
+
+# -----------------------------------------------------------------------------
+# Network Policies (Optional)
+# -----------------------------------------------------------------------------
+networkPolicy:
+  enabled: false
+  # When enabled, restricts network access between pods
+  # Allows:
+  #   - Pentaho -> PostgreSQL
+  #   - Ingress -> Pentaho
+  # Denies all other traffic
+
+# -----------------------------------------------------------------------------
+# Monitoring and Observability (Optional)
+# -----------------------------------------------------------------------------
+monitoring:
+  enabled: false
+  # ServiceMonitor for Prometheus (requires prometheus-operator)
+  serviceMonitor:
+    enabled: false
+    interval: 30s
+
+  # Grafana dashboards
+  grafanaDashboards:
+    enabled: false
+
+# -----------------------------------------------------------------------------
+# Backup Configuration (Optional)
+# -----------------------------------------------------------------------------
+backup:
+  enabled: false
+  # CronJob for automated PostgreSQL backups
+  schedule: "0 2 * * *"  # Daily at 2 AM
+  retention: 7  # Keep 7 days of backups
+  destination: /backups
+  persistence:
+    enabled: false
+    size: 20Gi
+
+# -----------------------------------------------------------------------------
+# Labels and Annotations
+# -----------------------------------------------------------------------------
+commonLabels:
+  app.kubernetes.io/part-of: pentaho-platform
+  app.kubernetes.io/managed-by: helm
+
+commonAnnotations: {}
+
+# -----------------------------------------------------------------------------
+# Pod Security Context
+# -----------------------------------------------------------------------------
+podSecurityContext: {}
+  # fsGroup: 1000
+  # runAsUser: 1000
+  # runAsNonRoot: true
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+# -----------------------------------------------------------------------------
+# Node Selection and Affinity
+# -----------------------------------------------------------------------------
+nodeSelector: {}
+  # kubernetes.io/hostname: node1
+
+tolerations: []
+  # - key: "key1"
+  #   operator: "Equal"
+  #   value: "value1"
+  #   effect: "NoSchedule"
+
+affinity: {}
+  # podAntiAffinity:
+  #   requiredDuringSchedulingIgnoredDuringExecution:
+  #   - labelSelector:
+  #       matchExpressions:
+  #       - key: app
+  #         operator: In
+  #         values:
+  #         - pentaho-server
+  #     topologyKey: kubernetes.io/hostname

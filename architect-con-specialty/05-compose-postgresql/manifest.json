@@ -1,0 +1,9 @@
+{
+  "title": "Pentaho Server + PostgreSQL",
+  "description": "",
+  "order": 5,
+  "kind": "workshop",
+  "stepCount": 3,
+  "hasVideo": false,
+  "estimatedMinutes": 15
+}

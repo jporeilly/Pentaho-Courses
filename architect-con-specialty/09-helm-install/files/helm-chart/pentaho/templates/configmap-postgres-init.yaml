@@ -1,0 +1,30 @@
+{{/* Contains SQL scripts to initialize PostgreSQL databases (jackrabbit, quartz, hibernate) on first startup */}}
+{{- if and .Values.postgresql.enabled .Values.postgresql.initScripts.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-init-scripts
+  namespace: {{ include "pentaho.namespace" . }}
+  labels:
+    {{- include "pentaho.postgresql.labels" . | nindent 4 }}
+    app.kubernetes.io/component: database-init
+  {{- with .Values.commonAnnotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+data:
+  1_create_jcr_postgresql.sql: |
+{{ .Files.Get "files/db_init/1_create_jcr_postgresql.sql" | indent 4 }}
+
+  2_create_quartz_postgresql.sql: |
+{{ .Files.Get "files/db_init/2_create_quartz_postgresql.sql" | indent 4 }}
+
+  3_create_repository_postgresql.sql: |
+{{ .Files.Get "files/db_init/3_create_repository_postgresql.sql" | indent 4 }}
+
+  4_pentaho_logging_postgresql.sql: |
+{{ .Files.Get "files/db_init/4_pentaho_logging_postgresql.sql" | indent 4 }}
+
+  5_pentaho_mart_postgresql.sql: |
+{{ .Files.Get "files/db_init/5_pentaho_mart_postgresql.sql" | indent 4 }}
+{{- end }}

@@ -1,0 +1,11 @@
+{
+  "title": "Please read ..!",
+  "description": "Orient yourself: progress tracking, code copy, launchers, and the AI assistant.",
+  "order": 0,
+  "kind": "page",
+  "stepCount": 14,
+  "estimatedMinutes": 25,
+  "hasVideo": false,
+  "checks": [],
+  "noProgress": true
+}

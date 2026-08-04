@@ -1,0 +1,9 @@
+{
+  "title": "Build the Pentaho Image",
+  "description": "",
+  "order": 3,
+  "kind": "workshop",
+  "stepCount": 3,
+  "hasVideo": false,
+  "estimatedMinutes": 15
+}

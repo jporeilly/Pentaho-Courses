@@ -1,0 +1,73 @@
+{{/* Requests persistent storage volumes for PostgreSQL data and optional Pentaho data/solutions */}}
+{{- if .Values.postgresql.enabled }}
+{{- if .Values.postgresql.persistence.enabled }}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: postgres-data-pvc
+  namespace: {{ include "pentaho.namespace" . }}
+  labels:
+    {{- include "pentaho.postgresql.labels" . | nindent 4 }}
+    app.kubernetes.io/component: storage
+  {{- with .Values.commonAnnotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  accessModes:
+    - {{ .Values.postgresql.persistence.accessMode }}
+  storageClassName: {{ .Values.global.storageClass }}
+  resources:
+    requests:
+      storage: {{ .Values.postgresql.persistence.size }}
+{{- end }}
+{{- end }}
+
+{{- if .Values.pentaho.enabled }}
+{{- if .Values.pentaho.persistence.data.enabled }}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pentaho-data-pvc
+  namespace: {{ include "pentaho.namespace" . }}
+  labels:
+    {{- include "pentaho.labels" . | nindent 4 }}
+    app.kubernetes.io/component: data-storage
+  {{- with .Values.commonAnnotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  accessModes:
+    - {{ .Values.pentaho.persistence.data.accessMode }}
+  storageClassName: {{ .Values.global.storageClass }}
+  resources:
+    requests:
+      storage: {{ .Values.pentaho.persistence.data.size }}
+{{- end }}
+
+{{- if .Values.pentaho.persistence.solutions.enabled }}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pentaho-solutions-pvc
+  namespace: {{ include "pentaho.namespace" . }}
+  labels:
+    {{- include "pentaho.labels" . | nindent 4 }}
+    app.kubernetes.io/component: solutions-storage
+  {{- with .Values.commonAnnotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  accessModes:
+    - {{ .Values.pentaho.persistence.solutions.accessMode }}
+  storageClassName: {{ .Values.global.storageClass }}
+  resources:
+    requests:
+      storage: {{ .Values.pentaho.persistence.solutions.size }}
+{{- end }}
+{{- end }}

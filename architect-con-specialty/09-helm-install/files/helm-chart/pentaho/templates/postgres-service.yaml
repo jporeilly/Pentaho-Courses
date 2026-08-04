@@ -1,0 +1,24 @@
+{{/* Exposes PostgreSQL port 5432 as a stable DNS endpoint for Pentaho to connect to */}}
+{{- if .Values.postgresql.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.database.host }}
+  namespace: {{ include "pentaho.namespace" . }}
+  labels:
+    {{- include "pentaho.postgresql.labels" . | nindent 4 }}
+    app.kubernetes.io/component: database
+  {{- with .Values.commonAnnotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  type: {{ .Values.postgresql.service.type }}
+  ports:
+    - port: {{ .Values.postgresql.service.port }}
+      targetPort: {{ .Values.postgresql.service.targetPort }}
+      protocol: TCP
+      name: postgres
+  selector:
+    {{- include "pentaho.postgresql.selectorLabels" . | nindent 4 }}
+{{- end }}

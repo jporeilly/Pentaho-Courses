@@ -1,0 +1,157 @@
+================================================================================
+ Pentaho Business Analytics Platform
+================================================================================
+
+Thank you for installing {{ .Chart.Name }} version {{ .Chart.Version }}!
+
+Your release is named: {{ .Release.Name }}
+Namespace: {{ include "pentaho.namespace" . }}
+
+================================================================================
+ Deployment Status
+================================================================================
+
+To check the status of your deployment:
+
+  kubectl get pods -n {{ include "pentaho.namespace" . }}
+
+To view Pentaho Server logs:
+
+  kubectl logs -f deployment/pentaho-server -n {{ include "pentaho.namespace" . }}
+
+To view PostgreSQL logs:
+
+  kubectl logs -f deployment/postgres -n {{ include "pentaho.namespace" . }}
+
+================================================================================
+ Access Information
+================================================================================
+
+{{- if .Values.ingress.enabled }}
+
+Method 1: Via Ingress
+---------------------
+{{- range .Values.ingress.rules }}
+{{- if .host }}
+Add to /etc/hosts:
+  echo "$(kubectl get nodes -o jsonpath='{.items[0].status.addresses[0].address}') {{ .host }}" | sudo tee -a /etc/hosts
+
+Then access: http://{{ .host }}/pentaho
+{{- if $.Values.ingress.tls.enabled }}
+Or: https://{{ .host }}/pentaho
+{{- end }}
+{{- end }}
+{{- end }}
+
+Direct access via node IP:
+  http://<node-ip>/pentaho
+
+{{- end }}
+
+Method 2: Port Forward (Recommended for Testing)
+-------------------------------------------------
+Run the following command:
+
+  kubectl port-forward -n {{ include "pentaho.namespace" . }} svc/pentaho-server 8080:8080
+
+Then access: http://localhost:8080/pentaho
+
+================================================================================
+ Default Credentials
+================================================================================
+
+Username: admin
+Password: password
+
+WARNING: Change these credentials immediately for production deployments!
+
+To change the admin password:
+1. Login to Pentaho
+2. Go to Administration > Users & Roles
+3. Edit the admin user and set a new password
+
+================================================================================
+ Configuration
+================================================================================
+
+PostgreSQL Connection:
+  Host: {{ include "pentaho.postgresql.host" . }}
+  Port: {{ include "pentaho.postgresql.port" . }}
+  Databases: jackrabbit, quartz, hibernate
+
+JVM Memory Settings:
+  Min: {{ .Values.pentaho.jvm.minMemory }}
+  Max: {{ .Values.pentaho.jvm.maxMemory }}
+
+Timezone: {{ .Values.global.timezone }}
+
+================================================================================
+ Database Management
+================================================================================
+
+To connect to PostgreSQL:
+
+  kubectl exec -it deployment/postgres -n {{ include "pentaho.namespace" . }} -- psql -U postgres
+
+To list all databases:
+
+  kubectl exec -it deployment/postgres -n {{ include "pentaho.namespace" . }} -- psql -U postgres -c "\l"
+
+To backup PostgreSQL:
+
+  kubectl exec deployment/postgres -n {{ include "pentaho.namespace" . }} -- \
+    pg_dumpall -U postgres > pentaho-backup-$(date +%Y%m%d).sql
+
+================================================================================
+ Monitoring
+================================================================================
+
+Check all resources:
+
+  kubectl get all -n {{ include "pentaho.namespace" . }}
+
+Describe Pentaho pod:
+
+  kubectl describe pod -l app=pentaho-server -n {{ include "pentaho.namespace" . }}
+
+Check persistent volumes:
+
+  kubectl get pvc -n {{ include "pentaho.namespace" . }}
+
+================================================================================
+ Troubleshooting
+================================================================================
+
+If Pentaho pod is not starting:
+
+1. Check pod events:
+   kubectl describe pod -l app=pentaho-server -n {{ include "pentaho.namespace" . }}
+
+2. Check PostgreSQL is ready:
+   kubectl get pods -l app=postgres -n {{ include "pentaho.namespace" . }}
+
+3. View init container logs:
+   kubectl logs -l app=pentaho-server -n {{ include "pentaho.namespace" . }} -c wait-for-postgres
+
+If you encounter "Cannot obtain JCR repository" error:
+- Ensure PostgreSQL is running and initialized
+- Check database connection settings in ConfigMap
+
+For more help, visit:
+  https://github.com/yourusername/Pentaho-K3s-PostgreSQL
+
+================================================================================
+ Next Steps
+================================================================================
+
+1. Test the login page: http://localhost:8080/pentaho (via port-forward)
+2. Login with default credentials
+3. Create a simple report to verify functionality
+4. Configure LDAP/AD authentication (optional)
+5. Set up automated backups
+6. Configure TLS/HTTPS for production
+7. Adjust resource limits based on your workload
+
+================================================================================
+
+Enjoy using Pentaho Business Analytics Platform!

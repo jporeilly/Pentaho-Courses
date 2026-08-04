@@ -1,0 +1,36 @@
+# =============================================================================
+# Chart.yaml - Helm Chart Metadata
+# =============================================================================
+# This file defines the chart's identity, version, and metadata used by Helm.
+# It serves as the "package definition" for the Helm chart, similar to
+# package.json (npm) or Chart.lock (Helm dependencies).
+#
+# Role: Chart.yaml tells Helm what this chart is, what version it is, what
+# application it deploys, and provides searchable metadata for chart repositories.
+# Helm uses this file to track chart versions, manage dependencies, and display
+# information when users search for or install charts.
+# =============================================================================
+
+apiVersion: v2
+name: pentaho
+description: A Helm chart for deploying Pentaho Business Analytics Platform with PostgreSQL on Kubernetes
+type: application
+version: 1.0.0
+appVersion: "11.0.0.0-237"
+keywords:
+  - pentaho
+  - business-intelligence
+  - analytics
+  - reporting
+  - etl
+  - postgresql
+home: https://github.com/yourusername/Pentaho-K3s-PostgreSQL
+sources:
+  - https://github.com/yourusername/Pentaho-K3s-PostgreSQL
+maintainers:
+  - name: Pentaho Administrator
+    email: admin@example.com
+icon: https://www.hitachivantara.com/content/dam/hitachi-vantara/images/logos/pentaho-logo.png
+dependencies: []
+annotations:
+  category: BusinessIntelligence

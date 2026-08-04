@@ -1,0 +1,44 @@
+{{/* Routes external HTTP/HTTPS traffic to Pentaho Server via Traefik ingress controller */}}
+{{- if .Values.ingress.enabled }}
+apiVersion: {{ include "pentaho.ingress.apiVersion" . }}
+kind: Ingress
+metadata:
+  name: pentaho-ingress
+  namespace: {{ include "pentaho.namespace" . }}
+  labels:
+    {{- include "pentaho.labels" . | nindent 4 }}
+    app.kubernetes.io/component: ingress
+  {{- with .Values.ingress.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  {{- if .Values.ingress.className }}
+  ingressClassName: {{ .Values.ingress.className }}
+  {{- end }}
+  {{- if .Values.ingress.tls.enabled }}
+  tls:
+    - hosts:
+        {{- range .Values.ingress.tls.hosts }}
+        - {{ . | quote }}
+        {{- end }}
+      secretName: {{ .Values.ingress.tls.secretName }}
+  {{- end }}
+  rules:
+    {{- range .Values.ingress.rules }}
+    - {{- if .host }}
+      host: {{ .host | quote }}
+      {{- end }}
+      http:
+        paths:
+          {{- range .paths }}
+          - path: {{ .path }}
+            pathType: {{ .pathType }}
+            backend:
+              service:
+                name: pentaho-server
+                port:
+                  number: {{ $.Values.pentaho.service.http.port }}
+          {{- end }}
+    {{- end }}
+{{- end }}

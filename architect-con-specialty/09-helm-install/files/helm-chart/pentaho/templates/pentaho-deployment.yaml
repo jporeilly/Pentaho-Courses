@@ -1,0 +1,135 @@
+{{/* Deploys Pentaho Business Analytics Server with init container, health probes, and resource limits */}}
+{{- if .Values.pentaho.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pentaho-server
+  namespace: {{ include "pentaho.namespace" . }}
+  labels:
+    {{- include "pentaho.labels" . | nindent 4 }}
+    app.kubernetes.io/component: server
+  {{- with .Values.commonAnnotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  replicas: {{ .Values.pentaho.replicas }}
+  strategy:
+    type: {{ .Values.pentaho.strategy.type }}
+  selector:
+    matchLabels:
+      {{- include "pentaho.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "pentaho.selectorLabels" . | nindent 8 }}
+    spec:
+      hostname: {{ .Values.pentaho.hostname }}
+      {{- if .Values.pentaho.initContainer.enabled }}
+      initContainers:
+        - name: wait-for-postgres
+          image: "{{ .Values.pentaho.initContainer.image.repository }}:{{ .Values.pentaho.initContainer.image.tag }}"
+          command:
+            - sh
+            - -c
+            - |
+              echo "Waiting for PostgreSQL to be ready..."
+              until nc -z {{ include "pentaho.postgresql.host" . }} {{ include "pentaho.postgresql.port" . }}; do
+                echo "PostgreSQL is not ready - sleeping"
+                sleep 2
+              done
+              echo "PostgreSQL is ready!"
+          resources:
+            {{- toYaml .Values.pentaho.initContainer.resources | nindent 12 }}
+      {{- end }}
+      containers:
+        - name: pentaho-server
+          image: "{{ .Values.pentaho.image.repository }}:{{ .Values.pentaho.image.tag }}"
+          imagePullPolicy: {{ .Values.pentaho.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.pentaho.service.http.targetPort }}
+              name: http
+            - containerPort: {{ .Values.pentaho.service.https.targetPort }}
+              name: https
+          envFrom:
+            - configMapRef:
+                name: pentaho-config
+          env:
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "pentaho.secretName" . }}
+                  key: postgres-password
+          {{- if or .Values.pentaho.persistence.data.enabled .Values.pentaho.persistence.solutions.enabled }}
+          volumeMounts:
+            {{- if .Values.pentaho.persistence.data.enabled }}
+            - name: pentaho-data
+              mountPath: {{ .Values.pentaho.persistence.data.mountPath }}
+            {{- end }}
+            {{- if .Values.pentaho.persistence.solutions.enabled }}
+            - name: pentaho-solutions
+              mountPath: {{ .Values.pentaho.persistence.solutions.mountPath }}
+            {{- end }}
+          {{- end }}
+          resources:
+            {{- toYaml .Values.pentaho.resources | nindent 12 }}
+          {{- if .Values.pentaho.probes.startup.enabled }}
+          startupProbe:
+            httpGet:
+              path: {{ .Values.pentaho.probes.startup.path }}
+              port: {{ .Values.pentaho.service.http.targetPort }}
+            initialDelaySeconds: {{ .Values.pentaho.probes.startup.initialDelaySeconds }}
+            periodSeconds: {{ .Values.pentaho.probes.startup.periodSeconds }}
+            timeoutSeconds: {{ .Values.pentaho.probes.startup.timeoutSeconds }}
+            failureThreshold: {{ .Values.pentaho.probes.startup.failureThreshold }}
+          {{- end }}
+          {{- if .Values.pentaho.probes.liveness.enabled }}
+          livenessProbe:
+            httpGet:
+              path: {{ .Values.pentaho.probes.liveness.path }}
+              port: {{ .Values.pentaho.service.http.targetPort }}
+            initialDelaySeconds: {{ .Values.pentaho.probes.liveness.initialDelaySeconds }}
+            periodSeconds: {{ .Values.pentaho.probes.liveness.periodSeconds }}
+            timeoutSeconds: {{ .Values.pentaho.probes.liveness.timeoutSeconds }}
+            failureThreshold: {{ .Values.pentaho.probes.liveness.failureThreshold }}
+          {{- end }}
+          {{- if .Values.pentaho.probes.readiness.enabled }}
+          readinessProbe:
+            httpGet:
+              path: {{ .Values.pentaho.probes.readiness.path }}
+              port: {{ .Values.pentaho.service.http.targetPort }}
+            initialDelaySeconds: {{ .Values.pentaho.probes.readiness.initialDelaySeconds }}
+            periodSeconds: {{ .Values.pentaho.probes.readiness.periodSeconds }}
+            timeoutSeconds: {{ .Values.pentaho.probes.readiness.timeoutSeconds }}
+            failureThreshold: {{ .Values.pentaho.probes.readiness.failureThreshold }}
+          {{- end }}
+      {{- if or .Values.pentaho.persistence.data.enabled .Values.pentaho.persistence.solutions.enabled }}
+      volumes:
+        {{- if .Values.pentaho.persistence.data.enabled }}
+        - name: pentaho-data
+          persistentVolumeClaim:
+            claimName: pentaho-data-pvc
+        {{- end }}
+        {{- if .Values.pentaho.persistence.solutions.enabled }}
+        - name: pentaho-solutions
+          persistentVolumeClaim:
+            claimName: pentaho-solutions-pvc
+        {{- end }}
+      {{- end }}
+      {{- with .Values.pentaho.image.pullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+{{- end }}
