@@ -57,7 +57,7 @@
     },
     {
       "title": "High Availability",
-      "summary": "Cluster the Pentaho Server: one shared repository database, the Jackrabbit cluster journal with per-pod ids, and Traefik sticky sessions - deployed, scaled and torn down by make targets."
+      "summary": "Production HA from the installation guide: two Pentaho nodes behind an HAProxy pair with Keepalived VIP failover, a shared PostgreSQL 14 repository, the Jackrabbit cluster journal and Quartz clustering - plus Carte clustering for PDI execution and Tray.io driving event-based ETL through the Carte REST API."
     }
   ]
 }

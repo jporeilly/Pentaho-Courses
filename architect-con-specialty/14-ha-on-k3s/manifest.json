@@ -1,0 +1,9 @@
+{
+  "title": "Adaptation: HA on K3s",
+  "description": "",
+  "order": 14,
+  "kind": "page",
+  "stepCount": 0,
+  "hasVideo": false,
+  "estimatedMinutes": 10
+}

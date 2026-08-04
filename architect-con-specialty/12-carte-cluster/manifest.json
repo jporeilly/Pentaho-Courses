@@ -1,0 +1,9 @@
+{
+  "title": "Carte Cluster for PDI Execution HA",
+  "description": "",
+  "order": 12,
+  "kind": "workshop",
+  "stepCount": 0,
+  "hasVideo": false,
+  "estimatedMinutes": 10
+}
