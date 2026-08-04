@@ -132,7 +132,7 @@ cd ~/langextract-service
 .venv/bin/python -m uvicorn app:app --host 0.0.0.0 --port 8765
 ```
 
-**Verify:**
+**Verify** (the first start takes ~15 seconds while the libraries load - retry if it refuses straight away):
 
 ```bash
 curl http://localhost:8765/health
