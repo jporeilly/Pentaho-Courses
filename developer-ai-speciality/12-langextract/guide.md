@@ -6,11 +6,11 @@
 > 
 > Each extraction includes source offsets, so you can trace values back to the original text.
 
-![Pipeline architecture](../_assets/images/hy12i3.png)
+![Pipeline architecture](../_assets/images/langextract-pipeline-architecture.png)
 
 **Before you start**
 
-Complete [LangExtract setup](/pentaho-data-integration/setup/use-cases/langextract.md).
+Complete the **Start the LangExtract service** section further down this page.
 
 This page assumes:
 
@@ -40,7 +40,7 @@ Use it only when you do not need a shared service.
 
 Use this when data must stay on-premises.
 
-This is already covered by the setup pattern on the linked setup page.
+This is already covered - the bundled service you start below uses your local Ollama.
 
 > **Note:** This page uses the REST service pattern throughout.
 
@@ -88,6 +88,57 @@ This is already covered by the setup pattern on the linked setup page.
 > **Warning:** The endpoint is `POST /extract`.
 > 
 > Parse response fields as `class`, `text`, `start`, and `end`.
+
+***
+
+## Start the LangExtract service
+
+The service ships with this lab: [app.py](./files/langextract-service/app.py) [requirements.txt](./files/langextract-service/requirements.txt)
+
+It wraps Google's `langextract` library behind the REST contract above, using your **local Ollama** as the backend - lab data never leaves the machine.
+
+**One-time setup** - copy it out of the guide's content folder (course updates re-sync that folder, so run from your own copy):
+
+**Windows (PowerShell)**
+
+```powershell
+Copy-Item "$env:APPDATA\com.pentaho.content-manager\content\12-langextract\files\langextract-service" "$env:USERPROFILE\langextract-service" -Recurse
+cd $env:USERPROFILE\langextract-service
+python -m venv .venv
+.\.venv\Scripts\pip install -r requirements.txt
+```
+
+**macOS / Linux** (lab VMs have the service pre-installed)
+
+```bash
+cp -r ~/.local/share/com.pentaho.content-manager/content/12-langextract/files/langextract-service ~/langextract-service
+cd ~/langextract-service
+python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
+```
+
+**Start it** (keep this terminal open while you work through the module):
+
+**Windows (PowerShell)**
+
+```powershell
+cd $env:USERPROFILE\langextract-service
+.\.venv\Scripts\python -m uvicorn app:app --host 0.0.0.0 --port 8765
+```
+
+**macOS / Linux**
+
+```bash
+cd ~/langextract-service
+.venv/bin/python -m uvicorn app:app --host 0.0.0.0 --port 8765
+```
+
+**Verify:**
+
+```bash
+curl http://localhost:8765/health
+```
+
+> **Note:** Ollama must be running with the course model pulled (the environment panel on the first page checks both). The service reads `LX_MODEL_URL` and `LX_DEFAULT_MODEL` if you need to point it elsewhere.
 
 ***
 

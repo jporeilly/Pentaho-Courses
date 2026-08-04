@@ -4,13 +4,34 @@
 
 ### Start Agent
 
+**One-time setup** - the agent ships with this lab ([agent.py](./files/agent-maintenance/agent/agent.py), [requirements.txt](./files/agent-maintenance/requirements.txt), sample SQLite data in `data/`). Copy it out of the guide's content folder and install its dependencies:
+
+**Windows (PowerShell)**
+
+```powershell
+Copy-Item "$env:APPDATA\com.pentaho.content-manager\content\17-agent-deploy\files\agent-maintenance" "$env:USERPROFILE\agent-maintenance" -Recurse
+cd $env:USERPROFILE\agent-maintenance
+python -m venv .venv
+.\.venv\Scripts\pip install -r requirements.txt
+```
+
+**macOS / Linux** (lab VMs have the agent pre-installed at `/opt/agent-maintenance`)
+
+```bash
+cp -r ~/.local/share/com.pentaho.content-manager/content/17-agent-deploy/files/agent-maintenance ~/agent-maintenance
+cd ~/agent-maintenance
+python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
+```
+
+***
+
 **Start the agent**
 
 **Windows (PowerShell)**
 
 ```powershell
-cd $env:USERPROFILE\LLM-PDI-Integration\agent-maintenance
-.\agent-venv\scripts\Activate.ps1
+cd $env:USERPROFILE\agent-maintenance
+.\.venv\Scripts\Activate.ps1
 ```
 
 ```powershell
@@ -21,8 +42,8 @@ uvicorn agent.agent:app --host 0.0.0.0 --port 8000
 **macOS / Linux**
 
 ```bash
-cd /opt/agent-maintenance
-source agent-venv/bin/activate
+cd ~/agent-maintenance   # lab VM: /opt/agent-maintenance
+source .venv/bin/activate   # lab VM: source agent-venv/bin/activate
 ```
 
 ```bash
@@ -349,7 +370,7 @@ The Table Input and Database Join steps both need a named connection to the SQLi
 
 3\.    Connection type: SQLite
 
-4\.    Database name (file path): ../data/maintenance\_log.db
+4\.    Database name (file path): browse to `agent-maintenance\data\maintenance_log.db` in your home folder (`/opt/agent-maintenance/data/maintenance_log.db` on the lab VM)
 
 5\.    Click Test — should return "Connection to database \[MAINTENANCE\_DB] is OK"
 
@@ -712,8 +733,8 @@ x
 **Windows (PowerShell)**
 
 ```powershell
-cd $env:USERPROFILE\LLM-PDI-Integration\agent-maintenance
-.\agent-venv\scripts\Activate.ps1
+cd $env:USERPROFILE\agent-maintenance
+.\.venv\Scripts\Activate.ps1
 ```
 
 ```powershell
@@ -724,8 +745,8 @@ uvicorn agent.agent:app --host 0.0.0.0 --port 8000
 **macOS / Linux**
 
 ```bash
-cd /opt/agent-maintenance
-source agent-venv/bin/activate
+cd ~/agent-maintenance   # lab VM: /opt/agent-maintenance
+source .venv/bin/activate   # lab VM: source agent-venv/bin/activate
 ```
 
 ```bash

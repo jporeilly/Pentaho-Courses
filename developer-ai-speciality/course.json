@@ -15,9 +15,20 @@
     "models": {
       "cpu": "llama3.2:3b",
       "gpu": "qwen2.5:7b"
-    }
+    },
+    "subject": "AI-augmented PDI pipelines (prompts, local LLMs via Ollama, structured extraction with LangExtract, and agent services)",
+    "suggestions": [
+      "How do I call a local LLM from a PDI transformation?",
+      "What makes a good extraction prompt with few-shot examples?",
+      "When should I use LangExtract instead of a plain LLM call?",
+      "How does the PDI-to-agent pattern split the work in the final module?"
+    ]
   },
   "moduleSummaries": [
+    {
+      "title": "Getting Started",
+      "summary": "How to get the most out of this guide, and how to set your machine up — PDI, a local Ollama model, Python, and the two lab services you will start later in the course."
+    },
     {
       "title": "PDI AI Pipelines",
       "summary": "Key concepts behind LLM-powered pipelines — prompts, tokenization, embedding, semantic search, and transformer architecture. Foundational reading before the hands-on workshops."

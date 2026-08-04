@@ -1,7 +1,7 @@
 {
   "title": "Overview",
   "description": "PDI as the orchestration layer for a locally-hosted LLM (via Ollama). The repeatable pattern behind every use case, the Ollama REST API anatomy (request, response, prompt, gotchas), and prompt engineering for reliable structured output.",
-  "order": 5,
+  "order": 6,
   "kind": "page",
   "stepCount": 4,
   "hasVideo": false,

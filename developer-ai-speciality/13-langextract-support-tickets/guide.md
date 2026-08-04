@@ -20,7 +20,7 @@
 > 
 > **Estimated time:** 40 minutes
 
-![support tickets](../_assets/images/cbzi9d.png)
+![support tickets](../_assets/images/langextract-support-tickets.png)
 
 > **Note:**
 >
@@ -109,7 +109,7 @@ Optionally route critical rows to `helpdesk.escalations`.
 
 <figure><img src="../_assets/images/ticket_triage.png" alt=""><figcaption><p>ticket_triage.ktr</p></figcaption></figure>
 
-{% file src="../_assets/files/ticket_triage.ktr" %}
+[ticket_triage.ktr](./files/ticket_triage.ktr) <button data-launch="spoon" data-path="files/ticket_triage.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/ticket_triage.ktr">View graph</button>
 
 Build `ticket_triage.ktr`.
 

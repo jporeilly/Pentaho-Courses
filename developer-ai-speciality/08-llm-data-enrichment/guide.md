@@ -41,13 +41,9 @@ Run through the following steps to build `data_quality_optimized.ktr`:
 
 **Step 1.** **Examine the incomplete data**
 
-Navigate to the workshop folder and review the sample data:
+Review the sample data, which ships with this lab:
 
-```bash
-cd
-cd ~/LLM-PDI-Integration/workshops/workshop-03-data-enrichment
-cat data/customer_data_incomplete.csv | head -10
-```
+[data_enrichment_customers.csv](./files/data_enrichment_customers.csv)
 
 **Sample records:**
 
@@ -223,11 +219,11 @@ x
 
 <figure><img src="../_assets/images/data_enrichment.png" alt=""><figcaption><p>data_quality</p></figcaption></figure>
 
-{% file src="../_assets/data/data_enrichment_customers.csv" %}
+[data_enrichment_customers.csv](./files/data_enrichment_customers.csv)
 
-{% file src="../_assets/files/data_enrichment.ktr" %}
+[data_enrichment.ktr](./files/data_enrichment.ktr) <button data-launch="spoon" data-path="files/data_enrichment.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/data_enrichment.ktr">View graph</button>
 
-{% file src="../_assets/files/data_enrichment_optimized.ktr" %}
+[data_enrichment_optimized.ktr](./files/data_enrichment_optimized.ktr) <button data-launch="spoon" data-path="files/data_enrichment_optimized.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/data_enrichment_optimized.ktr">View graph</button>
 
 ***
 

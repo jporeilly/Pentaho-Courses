@@ -141,13 +141,13 @@ x
 
 <figure><img src="../_assets/images/text_summarization.png" alt=""><figcaption><p>text_summarization</p></figcaption></figure>
 
-{% file src="../_assets/data/text_summarization_documents.csv" %}
+[text_summarization_documents.csv](./files/text_summarization_documents.csv)
 
-{% file src="../_assets/data/text_summarization_documents_2.csv" %}
+[text_summarization_documents_2.csv](./files/text_summarization_documents_2.csv)
 
-{% file src="../_assets/files/text_summarization.ktr" %}
+[text_summarization.ktr](./files/text_summarization.ktr) <button data-launch="spoon" data-path="files/text_summarization.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/text_summarization.ktr">View graph</button>
 
-{% file src="../_assets/files/text_summarization_optimized.ktr" %}
+[text_summarization_optimized.ktr](./files/text_summarization_optimized.ktr) <button data-launch="spoon" data-path="files/text_summarization_optimized.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/text_summarization_optimized.ktr">View graph</button>
 
 ***
 

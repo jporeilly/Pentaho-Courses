@@ -259,4 +259,4 @@ BT_ORDERS_ORDERS.BC_ORDERS_CUSTOMER_NUMBER - BT_PAYMENTS_PAYMENTS.BC_PAYMENTS_CU
 
 Download the reference files for this lab:
 
-* [steel-wheels.xmi](../_assets/files/5ls6oy.xmi)
+* [steel-wheels.xmi](../_assets/files/steel-wheels.xmi)

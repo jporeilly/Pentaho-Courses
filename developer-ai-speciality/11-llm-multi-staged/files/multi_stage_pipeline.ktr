@@ -577,7 +577,7 @@ Each stage uses outputs from previous stages!</note>
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <filename>${Internal.Transformation.Filename.Directory}/../data/incoming_documents_demo.csv</filename>
+    <filename>${Internal.Transformation.Filename.Directory}/multi_stage_documents.csv</filename>
     <filename_field/>
     <rownum_field/>
     <include_filename>N</include_filename>

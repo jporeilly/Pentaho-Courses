@@ -1,7 +1,7 @@
 {
   "title": "Sentiment Analysis",
   "description": "Hands-on: build an ETL pipeline that reads customer reviews, classifies sentiment with a local LLM (positive/negative/neutral with score, confidence, key phrases), and writes structured results.",
-  "order": 6,
+  "order": 7,
   "kind": "workshop",
   "stepCount": 4,
   "hasVideo": false,

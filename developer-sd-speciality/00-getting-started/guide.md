@@ -88,7 +88,7 @@ in the repository's `workshop-services/README.md`.
 
 This course also needs:
 
-- The streaming brokers: `scriptssetup-services.ps1 -Streaming` starts MQTT (HiveMQ) and AMQP (RabbitMQ).
+- The streaming brokers: `scripts\setup-services.ps1 -Streaming` starts MQTT (HiveMQ) and AMQP (RabbitMQ).
 - A **Kafka** cluster on `localhost:9092`, plus the Kafka EE plugin in PDI.
 - **Python 3.11+** for the publisher scripts.
 

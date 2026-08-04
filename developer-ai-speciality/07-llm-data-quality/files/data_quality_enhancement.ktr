@@ -20,12 +20,12 @@
       </parameter>
       <parameter>
         <name>INPUT_FILE</name>
-        <default_value>${Internal.Transformation.Filename.Directory}/../data/customer_data_raw.csv</default_value>
+        <default_value>${Internal.Transformation.Filename.Directory}/data_quality_customers.csv</default_value>
         <description>Input CSV file with raw customer data</description>
       </parameter>
       <parameter>
         <name>OUTPUT_FILE</name>
-        <default_value>${Internal.Transformation.Filename.Directory}/../data/customer_data_enhanced_${Internal.Job.Filename.Directory}.csv</default_value>
+        <default_value>${Internal.Transformation.Filename.Directory}/customer_data_enhanced.csv</default_value>
         <description>Output CSV file with enhanced data</description>
       </parameter>
     </parameters>
@@ -345,7 +345,7 @@ try {
     <fileNameField/>
     <create_parent_folder>Y</create_parent_folder>
     <file>
-      <name>${Internal.Transformation.Filename.Directory}/../data/customer_data_enhanced</name>
+      <name>${Internal.Transformation.Filename.Directory}/customer_data_enhanced</name>
       <servlet_output>N</servlet_output>
       <do_not_open_new_file_init>N</do_not_open_new_file_init>
       <extention>csv</extention>

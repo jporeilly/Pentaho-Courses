@@ -558,4 +558,4 @@ Follow the guide to create the required Business Views:
 
 Download the reference files for this lab:
 
-- [OrdersME Domain](../_assets/files/4u4huq.xmi)
+- [OrdersME Domain](../_assets/files/OrdersME.xmi)

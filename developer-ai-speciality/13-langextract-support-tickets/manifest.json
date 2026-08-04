@@ -1,7 +1,7 @@
 {
   "title": "Support Tickets",
   "description": "Hands-on: extract structured fields from free-form support tickets with LangExtract via the REST service pattern.",
-  "order": 13,
+  "order": 14,
   "kind": "workshop",
   "stepCount": 0,
   "hasVideo": false,

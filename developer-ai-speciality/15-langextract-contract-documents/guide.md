@@ -20,7 +20,7 @@
 > 
 > **Estimated time:** 35 minutes
 
-![contract documents](../_assets/images/za4983.png)
+![contract documents](../_assets/images/langextract-contract-documents.png)
 
 ### Business case
 

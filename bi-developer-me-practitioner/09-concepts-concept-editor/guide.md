@@ -108,7 +108,7 @@ Follow the guide to define and apply Concepts:
 <figure><img src="../_assets/images/concept_editor_new_concept.png" alt=""><figcaption><p>New Concept</p></figcaption></figure>
 
 2. In the Concepts pane, click Number.
-3. In the Properties section, for Available, click the Add Properties button. ![](../_assets/images/883fme.png)
+3. In the Properties section, for Available, click the Add Properties button. ![](../_assets/images/add-concept-button.png)
 4. In the Add a defined property pane, scroll to Miscellaneous and select Mask for Number or Date.
 
 <figure><img src="../_assets/images/concept_editor_add_mask_property.png" alt=""><figcaption><p>Add Mask Property</p></figcaption></figure>
@@ -129,7 +129,7 @@ Follow the guide to define and apply Concepts:
 > Using the Concept Editor, a hierarchy of parent concepts including USCurrency (inheriting from Number with mask $#,##0.00;($#,##0.00)).
 
 1. Expand Concepts > Base and click Number.
-2. Click Add Concept button. ![](../_assets/images/883fme.png)
+2. Click Add Concept button. ![](../_assets/images/add-concept-button.png)
 3. In the New Concept dialog, type USCurrency and click OK.
 4. In the Concepts pane, click USCurrency.
 5. In the Available pane, select Mask for Number or Date.
@@ -149,16 +149,16 @@ Follow the guide to define and apply Concepts:
 <figure><img src="../_assets/images/concept_editor_set_number_mask_and_hidden.png" alt=""><figcaption><p>Set Number mask &#x26; Hidden</p></figcaption></figure>
 
 1. Expand Concepts > Base and click **Number**.
-2. Click Add Concept button. ![](../_assets/images/883fme.png)
+2. Click Add Concept button. ![](../_assets/images/add-concept-button.png)
 3. In the New Concept dialog, type ID and click OK.
 4. In the Concepts pane, click ID.
 5. In the Available pane, click Miscellaneous > Mask for Number or Date.
 6. In the Settings pane, in the Miscellaneous section, click the Override icon.
 7. For Mask for Number or Date, in the Value field, type #.
-8. In the Concepts pane, select ID and click New Concept. ![](../_assets/images/883fme.png)
+8. In the Concepts pane, select ID and click New Concept. ![](../_assets/images/add-concept-button.png)
 9. In the New Concept dialog, type Hidden and click OK.
 10. In the Concepts pane, select Hidden.
-11. In the Available pane, click Add New Property button. ![](../_assets/images/883fme.png)
+11. In the Available pane, click Add New Property button. ![](../_assets/images/add-concept-button.png)
 12. In the Add New Property dialog, scroll to Miscellaneous and select Hidden For the User?
 
 <figure><img src="../_assets/images/concept_editor.png" alt=""><figcaption></figcaption></figure>
@@ -187,7 +187,7 @@ Follow the guide to define and apply Concepts:
 
 1. From the menu options, choose Tools > Concept Editor.
 2. In the Concepts pane, click **Base**.
-3. Click Add Concept button. ![](../_assets/images/883fme.png)
+3. Click Add Concept button. ![](../_assets/images/add-concept-button.png)
 4. In the New Concept dialog, type Date and click OK.
 5. In the Concepts pane, select Date.
 6. In the Properties section, for Available, click the Add Properties button.
@@ -366,4 +366,4 @@ Create Interactive Report:
 
 ## Lab Files
 
-- [OrderStarMetadata.xmi](../_assets/files/260zyp.xmi)
+- [OrderStarCustomer.xmi](../_assets/files/OrderStarCustomer.xmi)

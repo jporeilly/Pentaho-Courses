@@ -1,32 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>data_quality_enhancement_optimized</name>
-    <description>Workshop 2: Data Quality Enhancement using Ollama LLM (Optimized)</description>
-    <extended_description>OPTIMIZED version with parallel processing (4 copies), optimized prompts, and improved error handling. Processes customer data 3-4x faster than basic version.</extended_description>
+    <name>text_summarization_optimized</name>
+    <description>Optimized Text Summarization with Parallel Processing</description>
+    <extended_description>Optimized version with parallel API calls, compact prompts, and keep-alive for 3-4x performance improvement.
+
+Key Features:
+- Generates concise 2-3 sentence summaries
+- Extracts bullet points, key takeaways, and action items
+- Returns structured JSON output
+- Parallel processing with configurable step copies
+- Compact prompt (50% shorter than basic version)
+- Keep-alive to maintain model in memory
+- Handles diverse document types: meetings, reports, emails, etc.
+
+Use Case: High-volume document processing, meeting notes summarization, content digestion</extended_description>
     <trans_version/>
     <trans_type>Normal</trans_type>
     <directory>/</directory>
     <parameters>
       <parameter>
-        <name>INPUT_FILE</name>
-        <default_value>${Internal.Transformation.Filename.Directory}/../data/customer_data_raw.csv</default_value>
-        <description>Input CSV file with raw customer data</description>
+        <name>KEEP_ALIVE</name>
+        <default_value>15m</default_value>
+        <description>Keep model loaded in memory (5m/15m/30m/60m)</description>
       </parameter>
       <parameter>
         <name>MODEL_NAME</name>
         <default_value>llama3.2:3b</default_value>
-        <description>Ollama model to use (3b recommended for quality)</description>
+        <description>LLM model to use for summarization</description>
       </parameter>
       <parameter>
         <name>OLLAMA_URL</name>
         <default_value>http://localhost:11434</default_value>
-        <description>Ollama API endpoint</description>
+        <description>Ollama API base URL</description>
       </parameter>
       <parameter>
         <name>STEP_COPIES</name>
         <default_value>4</default_value>
-        <description>Number of parallel API call copies (4-8 recommended)</description>
+        <description>Number of parallel API call copies (set to CPU cores - 1)</description>
       </parameter>
     </parameters>
     <log>
@@ -446,37 +457,27 @@
     <clusterschemas>
     </clusterschemas>
     <created_user>-</created_user>
-    <created_date>2024/02/26 10:00:00.000</created_date>
+    <created_date>2025/02/28 00:00:00.000</created_date>
     <modified_user>-</modified_user>
-    <modified_date>2024/02/26 10:00:00.000</modified_date>
+    <modified_date>2025/02/28 00:00:00.000</modified_date>
     <key_for_session_key>H4sIAAAAAAAA/wMAAAAAAAAAAAA=</key_for_session_key>
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
     <notepad>
-      <note>Workshop 2: Data Quality Enhancement (OPTIMIZED)
+      <note>Workshop 5: Optimized Text Summarization
 
-Optimizations:
-- Parallel processing (4 step copies)
-- Shortened prompts (50% shorter)
-- Streaming API responses
-- Connection keep-alive
-- Error handling with fallback
+Summarize documents with structured output:
+- Summary: 2-3 sentence overview
+- Bullet Points: Key points from document
+- Key Takeaways: Main insights
+- Action Items: Tasks to be done (if applicable)
 
-Expected: 3-4x faster than basic version
-20 records: ~15-20 seconds
-100 records: ~60-80 seconds
-
-Configuration:
-- Adjust STEP_COPIES parameter based on your CPU
-  (Recommended: CPU cores - 1)
-- Use llama3.2:3b for best balance
-- For 1B model: set to llama3.2:1b (faster, less accurate)
-- For 7B model: reduce STEP_COPIES to 2-3</note>
-      <xloc>80</xloc>
-      <yloc>48</yloc>
-      <width>339</width>
-      <heigth>314</heigth>
+Optimized with parallel processing and compact prompts.</note>
+      <xloc>50</xloc>
+      <yloc>50</yloc>
+      <width>400</width>
+      <heigth>250</heigth>
       <fontname>Sans</fontname>
       <fontsize>10</fontsize>
       <fontbold>N</fontbold>
@@ -484,23 +485,23 @@ Configuration:
       <fontcolorred>0</fontcolorred>
       <fontcolorgreen>0</fontcolorgreen>
       <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>200</backgroundcolorred>
+      <backgroundcolorred>255</backgroundcolorred>
       <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>200</backgroundcolorblue>
-      <bordercolorred>100</bordercolorred>
-      <bordercolorgreen>100</bordercolorgreen>
-      <bordercolorblue>100</bordercolorblue>
+      <backgroundcolorblue>100</backgroundcolorblue>
+      <bordercolorred>200</bordercolorred>
+      <bordercolorgreen>200</bordercolorgreen>
+      <bordercolorblue>0</bordercolorblue>
       <drawshadow>N</drawshadow>
     </notepad>
   </notepads>
   <order>
     <hop>
-      <from>Read Customer Data</from>
-      <to>Build Optimized Prompt</to>
+      <from>Read Documents</from>
+      <to>Build Summarization Prompt</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Build Optimized Prompt</from>
+      <from>Build Summarization Prompt</from>
       <to>Build JSON Request</to>
       <enabled>Y</enabled>
     </hop>
@@ -511,24 +512,19 @@ Configuration:
     </hop>
     <hop>
       <from>Call Ollama API (Parallel)</from>
-      <to>Parse JSON Response</to>
+      <to>Parse Summary Response</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Parse JSON Response</from>
-      <to>Error Handling</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Error Handling</from>
-      <to>Write Enhanced Data</to>
+      <from>Parse Summary Response</from>
+      <to>Write Summaries CSV</to>
       <enabled>Y</enabled>
     </hop>
   </order>
   <step>
-    <name>Build JSON Request</name>
+    <name>Build Summarization Prompt</name>
     <type>ScriptValueMod</type>
-    <description>Build Ollama API request with streaming</description>
+    <description>Compact summarization prompt - 50% shorter for faster inference</description>
     <distribute>Y</distribute>
     <custom_distribution/>
     <copies>1</copies>
@@ -542,67 +538,13 @@ Configuration:
       <jsScript>
         <jsScript_type>0</jsScript_type>
         <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>// Build JSON request body with keep_alive
-var model_name = getVariable("MODEL_NAME", "llama3.2:3b");
-var keep_alive = getVariable("KEEP_ALIVE", "5m");
-
-var requestObj = {
-    "model": model_name,
-    "prompt": llm_prompt,
-    "stream": false,
-    "keep_alive": keep_alive,
-    "options": {
-        "temperature": 0.1,
-        "num_predict": 300
-    }
-};
-
-var request_body = JSON.stringify(requestObj);</jsScript_script>
-      </jsScript>
-    </jsScripts>
-    <fields>
-      <field>
-        <name>request_body</name>
-        <rename>request_body</rename>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>N</replace>
-      </field>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>400</xloc>
-      <yloc>416</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Build Optimized Prompt</name>
-    <type>ScriptValueMod</type>
-    <description>Optimized compact prompt</description>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <compatible>N</compatible>
-    <optimizationLevel>9</optimizationLevel>
-    <jsScripts>
-      <jsScript>
-        <jsScript_type>0</jsScript_type>
-        <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>// Optimized short prompt - 50% shorter
-var llm_prompt = "Clean this data. Return JSON: {\"name\":\"Title Case\",\"email\":\"valid@format\",\"phone\":\"+1-555-123-4567\",\"address\":\"St,City,ST ZIP\",\"company_name\":\"Proper Name\"}\nName:" + name + "\nEmail:" + email + "\nPhone:" + phone + "\nAddr:" + address + "\nCo:" + company_name;</jsScript_script>
+        <jsScript_script>// Optimized compact summarization prompt - 50% shorter than basic
+var llm_prompt = "Summarize document. Return JSON: {\"summary\":\"\",\"bullet_points\":[],\"key_takeaways\":[],\"action_items\":[]}\n" +
+  "Summary: 2-3 sentences. Bullet points: 3-5 key facts. Takeaways: 2-4 insights. Actions: tasks mentioned or [].\n" +
+  "Return ONLY JSON.\n" +
+  "TYPE: " + document_type + "\n" +
+  "TITLE: " + title + "\n" +
+  "TEXT:\n" + full_text;</jsScript_script>
       </jsScript>
     </jsScripts>
     <fields>
@@ -624,15 +566,76 @@ var llm_prompt = "Clean this data. Return JSON: {\"name\":\"Title Case\",\"email
       </output>
     </remotesteps>
     <GUI>
-      <xloc>256</xloc>
-      <yloc>416</yloc>
+      <xloc>272</xloc>
+      <yloc>352</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Build JSON Request</name>
+    <type>ScriptValueMod</type>
+    <description>Create Ollama API request with keep-alive</description>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <compatible>N</compatible>
+    <optimizationLevel>9</optimizationLevel>
+    <jsScripts>
+      <jsScript>
+        <jsScript_type>0</jsScript_type>
+        <jsScript_name>Script 1</jsScript_name>
+        <jsScript_script>// Build JSON request body with keep_alive for Ollama API
+var model_name = getVariable("MODEL_NAME", "llama3.2:3b");
+var keep_alive = getVariable("KEEP_ALIVE", "15m");
+
+var requestObj = {
+    "model": model_name,
+    "prompt": llm_prompt,
+    "stream": false,
+    "keep_alive": keep_alive,
+    "format": "json",
+    "options": {
+        "temperature": 0.2,
+        "num_predict": 800
+    }
+};
+
+var request_body = JSON.stringify(requestObj);
+</jsScript_script>
+      </jsScript>
+    </jsScripts>
+    <fields>
+      <field>
+        <name>request_body</name>
+        <rename>request_body</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>464</xloc>
+      <yloc>352</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
     <name>Call Ollama API (Parallel)</name>
     <type>Rest</type>
-    <description>Parallel API calls (4 copies)</description>
+    <description>Parallel summarization calls (4 copies) for 3-4x speedup</description>
     <distribute>Y</distribute>
     <custom_distribution/>
     <copies>${STEP_COPIES}</copies>
@@ -679,59 +682,15 @@ var llm_prompt = "Clean this data. Return JSON: {\"name\":\"Title Case\",\"email
       </output>
     </remotesteps>
     <GUI>
-      <xloc>560</xloc>
-      <yloc>416</yloc>
+      <xloc>656</xloc>
+      <yloc>352</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Error Handling</name>
-    <type>FilterRows</type>
-    <description>Log errors but continue processing</description>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <send_true_to>Write Enhanced Data</send_true_to>
-    <send_false_to/>
-    <compare>
-      <condition>
-        <negated>N</negated>
-        <leftvalue>parsing_error</leftvalue>
-        <function>=</function>
-        <rightvalue/>
-        <value>
-          <name>constant</name>
-          <type>String</type>
-          <text>N</text>
-          <length>-1</length>
-          <precision>-1</precision>
-          <isnull>N</isnull>
-          <mask/>
-        </value>
-      </condition>
-    </compare>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>736</xloc>
-      <yloc>560</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Parse JSON Response</name>
+    <name>Parse Summary Response</name>
     <type>ScriptValueMod</type>
-    <description>Extract enhanced data with error handling</description>
+    <description>Extract summary components from JSON response</description>
     <distribute>Y</distribute>
     <custom_distribution/>
     <copies>1</copies>
@@ -745,94 +704,77 @@ var llm_prompt = "Clean this data. Return JSON: {\"name\":\"Title Case\",\"email
       <jsScript>
         <jsScript_type>0</jsScript_type>
         <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>// Parse the Ollama response with robust error handling
-var enhanced_name = name;
-var enhanced_email = email;
-var enhanced_phone = phone;
-var enhanced_address = address;
-var enhanced_company = company_name;
-var parsing_error = "N";
-var error_message = "";
+        <jsScript_script>// Parse Ollama response and extract summary components
+var summary = "";
+var bullet_points = "[]";
+var key_takeaways = "[]";
+var action_items = "[]";
 
 try {
     var response = JSON.parse(api_response);
     var fullResponse = response.response;
 
-    // Extract JSON from response (handles various formats)
+    // Extract JSON object from response
     var jsonStart = fullResponse.indexOf("{");
     var jsonEnd = fullResponse.lastIndexOf("}") + 1;
 
     if (jsonStart >= 0 &amp;&amp; jsonEnd > jsonStart) {
         var jsonStr = fullResponse.substring(jsonStart, jsonEnd);
-        var data = JSON.parse(jsonStr);
+        var summaryObj = JSON.parse(jsonStr);
 
-        enhanced_name = data.name || name;
-        enhanced_email = data.email || email;
-        enhanced_phone = data.phone || phone;
-        enhanced_address = data.address || address;
-        enhanced_company = data.company_name || company_name;
-    } else {
-        parsing_error = "Y";
-        error_message = "No JSON found in response";
+        // Extract summary fields
+        summary = summaryObj.summary || "";
+
+        // Convert arrays to JSON strings
+        if (summaryObj.bullet_points &amp;&amp; Array.isArray(summaryObj.bullet_points)) {
+            bullet_points = JSON.stringify(summaryObj.bullet_points);
+        }
+
+        if (summaryObj.key_takeaways &amp;&amp; Array.isArray(summaryObj.key_takeaways)) {
+            key_takeaways = JSON.stringify(summaryObj.key_takeaways);
+        }
+
+        if (summaryObj.action_items &amp;&amp; Array.isArray(summaryObj.action_items)) {
+            action_items = JSON.stringify(summaryObj.action_items);
+        }
     }
 } catch(e) {
-    parsing_error = "Y";
-    error_message = e.message || "Parse error";
-}</jsScript_script>
+    summary = "Error parsing response: " + e.message;
+    bullet_points = "[]";
+    key_takeaways = "[]";
+    action_items = "[]";
+}
+</jsScript_script>
       </jsScript>
     </jsScripts>
     <fields>
       <field>
-        <name>enhanced_name</name>
-        <rename>enhanced_name</rename>
+        <name>summary</name>
+        <rename>summary</rename>
         <type>String</type>
         <length>-1</length>
         <precision>-1</precision>
         <replace>N</replace>
       </field>
       <field>
-        <name>enhanced_email</name>
-        <rename>enhanced_email</rename>
+        <name>bullet_points</name>
+        <rename>bullet_points</rename>
         <type>String</type>
         <length>-1</length>
         <precision>-1</precision>
         <replace>N</replace>
       </field>
       <field>
-        <name>enhanced_phone</name>
-        <rename>enhanced_phone</rename>
+        <name>key_takeaways</name>
+        <rename>key_takeaways</rename>
         <type>String</type>
         <length>-1</length>
         <precision>-1</precision>
         <replace>N</replace>
       </field>
       <field>
-        <name>enhanced_address</name>
-        <rename>enhanced_address</rename>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>N</replace>
-      </field>
-      <field>
-        <name>enhanced_company</name>
-        <rename>enhanced_company</rename>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>N</replace>
-      </field>
-      <field>
-        <name>parsing_error</name>
-        <rename>parsing_error</rename>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>N</replace>
-      </field>
-      <field>
-        <name>error_message</name>
-        <rename>error_message</rename>
+        <name>action_items</name>
+        <rename>action_items</rename>
         <type>String</type>
         <length>-1</length>
         <precision>-1</precision>
@@ -848,15 +790,15 @@ try {
       </output>
     </remotesteps>
     <GUI>
-      <xloc>560</xloc>
-      <yloc>560</yloc>
+      <xloc>656</xloc>
+      <yloc>496</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Read Customer Data</name>
+    <name>Read Documents</name>
     <type>CsvInput</type>
-    <description>Read raw customer data from CSV</description>
+    <description>Read documents to summarize</description>
     <distribute>Y</distribute>
     <custom_distribution/>
     <copies>1</copies>
@@ -864,7 +806,7 @@ try {
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <filename>${INPUT_FILE}</filename>
+    <filename>${Internal.Transformation.Filename.Directory}/text_summarization_documents.csv</filename>
     <filename_field/>
     <rownum_field/>
     <include_filename>N</include_filename>
@@ -872,76 +814,54 @@ try {
     <enclosure>"</enclosure>
     <header>Y</header>
     <buffer_size>50000</buffer_size>
-    <lazy_conversion>N</lazy_conversion>
+    <lazy_conversion>Y</lazy_conversion>
     <add_filename_result>N</add_filename_result>
     <parallel>N</parallel>
     <newline_possible>N</newline_possible>
-    <format>mixed</format>
+    <format/>
     <encoding>UTF-8</encoding>
     <fields>
       <field>
-        <name>customer_id</name>
+        <name>document_id</name>
         <type>String</type>
         <format/>
         <currency/>
         <decimal/>
         <group/>
-        <length>-1</length>
+        <length>50</length>
         <precision>-1</precision>
         <trim_type>none</trim_type>
       </field>
       <field>
-        <name>name</name>
+        <name>document_type</name>
         <type>String</type>
         <format/>
         <currency/>
         <decimal/>
         <group/>
-        <length>-1</length>
+        <length>100</length>
         <precision>-1</precision>
         <trim_type>none</trim_type>
       </field>
       <field>
-        <name>email</name>
+        <name>title</name>
         <type>String</type>
         <format/>
         <currency/>
         <decimal/>
         <group/>
-        <length>-1</length>
+        <length>500</length>
         <precision>-1</precision>
         <trim_type>none</trim_type>
       </field>
       <field>
-        <name>phone</name>
+        <name>full_text</name>
         <type>String</type>
         <format/>
         <currency/>
         <decimal/>
         <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>address</name>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>company_name</name>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
+        <length>50000</length>
         <precision>-1</precision>
         <trim_type>none</trim_type>
       </field>
@@ -955,15 +875,15 @@ try {
       </output>
     </remotesteps>
     <GUI>
-      <xloc>80</xloc>
-      <yloc>416</yloc>
+      <xloc>100</xloc>
+      <yloc>350</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Write Enhanced Data</name>
+    <name>Write Summaries CSV</name>
     <type>TextFileOutput</type>
-    <description>Write cleaned data to CSV</description>
+    <description>Save document summaries</description>
     <distribute>Y</distribute>
     <custom_distribution/>
     <copies>1</copies>
@@ -985,7 +905,7 @@ try {
     <fileNameField/>
     <create_parent_folder>Y</create_parent_folder>
     <file>
-      <name>${Internal.Transformation.Filename.Directory}/../data/customer_data_enhanced_optimized</name>
+      <name>${Internal.Transformation.Filename.Directory}/summaries_</name>
       <servlet_output>N</servlet_output>
       <do_not_open_new_file_init>N</do_not_open_new_file_init>
       <extention>csv</extention>
@@ -1003,7 +923,7 @@ try {
     </file>
     <fields>
       <field>
-        <name>customer_id</name>
+        <name>document_id</name>
         <type>String</type>
         <format/>
         <currency/>
@@ -1015,7 +935,7 @@ try {
         <precision>-1</precision>
       </field>
       <field>
-        <name>enhanced_name</name>
+        <name>document_type</name>
         <type>String</type>
         <format/>
         <currency/>
@@ -1027,7 +947,7 @@ try {
         <precision>-1</precision>
       </field>
       <field>
-        <name>enhanced_email</name>
+        <name>title</name>
         <type>String</type>
         <format/>
         <currency/>
@@ -1039,7 +959,7 @@ try {
         <precision>-1</precision>
       </field>
       <field>
-        <name>enhanced_phone</name>
+        <name>summary</name>
         <type>String</type>
         <format/>
         <currency/>
@@ -1051,7 +971,7 @@ try {
         <precision>-1</precision>
       </field>
       <field>
-        <name>enhanced_address</name>
+        <name>bullet_points</name>
         <type>String</type>
         <format/>
         <currency/>
@@ -1063,7 +983,19 @@ try {
         <precision>-1</precision>
       </field>
       <field>
-        <name>enhanced_company</name>
+        <name>key_takeaways</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>none</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>action_items</name>
         <type>String</type>
         <format/>
         <currency/>
@@ -1084,8 +1016,8 @@ try {
       </output>
     </remotesteps>
     <GUI>
-      <xloc>912</xloc>
-      <yloc>560</yloc>
+      <xloc>880</xloc>
+      <yloc>496</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

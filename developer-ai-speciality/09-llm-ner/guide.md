@@ -116,13 +116,13 @@ I placed on December 15th, 2024. Please contact me at sarah.johnson@acmecorp.com
 
 <figure><img src="../_assets/images/named_entity_recognition.png" alt=""><figcaption><p>named_entity_recognition</p></figcaption></figure>
 
-{% file src="../_assets/data/ner_documents.csv" %}
+[ner_documents.csv](./files/ner_documents.csv)
 
-{% file src="../_assets/data/ner_documents_2.csv" %}
+[ner_documents_2.csv](./files/ner_documents_2.csv)
 
-{% file src="../_assets/files/named_entity_recognition.ktr" %}
+[named_entity_recognition.ktr](./files/named_entity_recognition.ktr) <button data-launch="spoon" data-path="files/named_entity_recognition.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/named_entity_recognition.ktr">View graph</button>
 
-{% file src="../_assets/files/named_entity_recognition_optimized.ktr" %}
+[named_entity_recognition_optimized.ktr](./files/named_entity_recognition_optimized.ktr) <button data-launch="spoon" data-path="files/named_entity_recognition_optimized.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/named_entity_recognition_optimized.ktr">View graph</button>
 
 Run through the following steps to build `named_entity_recognition_optimized.ktr`&#x20;
 

@@ -734,4 +734,4 @@ Follow the guide to apply the Business Views:
 
 Download the reference files for this lab:
 
-- [OrderStarCustomer Domain](../_assets/files/260zyp.xmi)
+- [OrderStarCustomer Domain](../_assets/files/OrderStarCustomer.xmi)

@@ -487,11 +487,11 @@ x
 
 <figure><img src="../_assets/images/multi_staged.png" alt=""><figcaption><p>multi-staged</p></figcaption></figure>
 
-{% file src="../_assets/data/multi_stage_documents.csv" %}
+[multi_stage_documents.csv](./files/multi_stage_documents.csv)
 
-{% file src="../_assets/data/multi_stage_documents_2.csv" %}
+[multi_stage_documents_2.csv](./files/multi_stage_documents_2.csv)
 
-{% file src="../_assets/files/multi_stage_pipeline.ktr" %}
+[multi_stage_pipeline.ktr](./files/multi_stage_pipeline.ktr) <button data-launch="spoon" data-path="files/multi_stage_pipeline.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/multi_stage_pipeline.ktr">View graph</button>
 
 ***
 

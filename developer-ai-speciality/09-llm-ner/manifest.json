@@ -1,7 +1,7 @@
 {
   "title": "Named Entity Recognition",
   "description": "Hands-on: extract people, organisations, locations, and other entities from free text with a local LLM, emitting structured rows for the pipeline.",
-  "order": 9,
+  "order": 10,
   "kind": "workshop",
   "stepCount": 6,
   "hasVideo": false,

@@ -1,7 +1,7 @@
 {
   "title": "Data Quality",
   "description": "Hands-on: use a local LLM to clean and standardise messy customer records (name casing, email validation, phone/address formatting) and return structured JSON.",
-  "order": 7,
+  "order": 8,
   "kind": "workshop",
   "stepCount": 10,
   "hasVideo": false,

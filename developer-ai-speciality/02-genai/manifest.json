@@ -1,7 +1,7 @@
 {
   "title": "Overview",
   "description": "GenAI fundamentals for data engineers — how a GenAI system assembles prompt context, RAG, tools, and inference, plus the GenAI EE plugin steps. Sets up the text-preprocessing workshops (HTML Parser, Apache Tika).",
-  "order": 2,
+  "order": 3,
   "kind": "page",
   "stepCount": 1,
   "hasVideo": false,

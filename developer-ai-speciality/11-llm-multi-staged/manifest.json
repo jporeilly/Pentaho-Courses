@@ -1,7 +1,7 @@
 {
   "title": "Multi-staged",
   "description": "Hands-on: the most advanced LLM-ETL pattern — chain multiple LLM calls sequentially, each stage building on previous outputs, with conditional logic and error isolation.",
-  "order": 11,
+  "order": 12,
   "kind": "workshop",
   "stepCount": 6,
   "hasVideo": false,

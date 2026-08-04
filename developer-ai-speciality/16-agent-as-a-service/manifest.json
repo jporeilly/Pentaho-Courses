@@ -1,7 +1,7 @@
 {
   "title": "Overview",
   "description": "Move beyond direct LLM calls to a genuine AI agent that reasons over intermediate output. What agent-as-a-service is and why PDI orchestrates it, ahead of the deploy-and-run workshop.",
-  "order": 16,
+  "order": 17,
   "kind": "page",
   "stepCount": 1,
   "hasVideo": false,

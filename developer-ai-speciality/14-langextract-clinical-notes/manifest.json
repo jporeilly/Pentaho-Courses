@@ -1,7 +1,7 @@
 {
   "title": "Clinical Notes",
   "description": "Hands-on: extract entities from unstructured clinical notes with LangExtract, tracing each value back to its source offsets.",
-  "order": 14,
+  "order": 15,
   "kind": "workshop",
   "stepCount": 2,
   "hasVideo": false,

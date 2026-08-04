@@ -52,12 +52,9 @@ curl http://localhost:11434/api/tags
 
 Step 1: Examine the Raw Data
 
-Navigate to the workshop folder and review the sample data:
+Review the sample data, which ships with this lab:
 
-```bash
-cd /home/pentaho/LLM-PDI-Integration/workshops/workshop-02-data-quality
-cat data/customer_data_raw.csv | head -5
-```
+[data_quality_customers.csv](./files/data_quality_customers.csv)
 
 **Sample Records:**
 
@@ -203,11 +200,11 @@ curl http://localhost:11434/api/generate -d '{
 
 <figure><img src="../_assets/images/data_quality.png" alt=""><figcaption><p>data_quality</p></figcaption></figure>
 
-{% file src="../_assets/data/data_quality_customers.csv" %}
+[data_quality_customers.csv](./files/data_quality_customers.csv)
 
-{% file src="../_assets/files/data_quality_enhancement.ktr" %}
+[data_quality_enhancement.ktr](./files/data_quality_enhancement.ktr) <button data-launch="spoon" data-path="files/data_quality_enhancement.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/data_quality_enhancement.ktr">View graph</button>
 
-{% file src="../_assets/files/data_quality_enhancement_optimized.ktr" %}
+[data_quality_enhancement_optimized.ktr](./files/data_quality_enhancement_optimized.ktr) <button data-launch="spoon" data-path="files/data_quality_enhancement_optimized.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/data_quality_enhancement_optimized.ktr">View graph</button>
 
 ***
 

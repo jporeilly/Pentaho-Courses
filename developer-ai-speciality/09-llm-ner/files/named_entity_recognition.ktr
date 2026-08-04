@@ -1,31 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>text_summarization</name>
-    <description>Summarize documents using Ollama LLM with structured output</description>
-    <extended_description>This transformation demonstrates Text Summarization using a local LLM.
+    <name>named_entity_recognition</name>
+    <description>Extract named entities (people, organizations, locations, dates, etc.) from unstructured text using Ollama LLM</description>
+    <extended_description>This transformation demonstrates Named Entity Recognition (NER) using a local LLM.
 
 Key Features:
-- Generates concise 2-3 sentence summaries
-- Extracts bullet points, key takeaways, and action items
-- Returns structured JSON output
-- Handles diverse document types: meetings, reports, emails, etc.
+- Extracts multiple entity types: PERSON, ORGANIZATION, LOCATION, DATE, PRODUCT, etc.
+- Returns structured JSON with entity text, type, and context
+- Handles diverse document types: emails, reports, contracts, etc.
 - Educational version with detailed prompts for learning
 
-Use Case: Document processing, meeting notes summarization, content digestion</extended_description>
+Use Case: Document processing, customer data extraction, log analysis</extended_description>
     <trans_version/>
     <trans_type>Normal</trans_type>
     <directory>/</directory>
     <parameters>
       <parameter>
         <name>OLLAMA_URL</name>
-        <default_value>http://localhost:11434</default_value>
-        <description>Ollama API base URL</description>
+        <default_value>http://localhost:11434/api/generate</default_value>
+        <description>Ollama API endpoint</description>
       </parameter>
       <parameter>
         <name>MODEL_NAME</name>
         <default_value>llama3.2:3b</default_value>
-        <description>LLM model to use for summarization</description>
+        <description>LLM model to use for NER</description>
       </parameter>
     </parameters>
     <log>
@@ -70,19 +69,23 @@ Use Case: Document processing, meeting notes summarization, content digestion</e
     <clusterschemas>
     </clusterschemas>
     <created_user>-</created_user>
-    <created_date>2025/02/28 00:00:00.000</created_date>
+    <created_date>2025/02/27 00:00:00.000</created_date>
     <modified_user>-</modified_user>
-    <modified_date>2025/02/28 00:00:00.000</modified_date>
+    <modified_date>2025/02/27 00:00:00.000</modified_date>
   </info>
   <notepads>
     <notepad>
-      <note>Workshop 5: Text Summarization
+      <note>Workshop 4: Named Entity Recognition
 
-Summarize documents with structured output:
-- Summary: 2-3 sentence overview
-- Bullet Points: Key points from document
-- Key Takeaways: Main insights
-- Action Items: Tasks to be done (if applicable)
+Extract structured entities from unstructured text:
+- PERSON: Names of people
+- ORGANIZATION: Companies, institutions
+- LOCATION: Cities, countries, addresses
+- DATE: Dates and times
+- PRODUCT: Product names and models
+- MONEY: Currency amounts
+- CONTACT: Emails, phones
+- ID: Customer IDs, order numbers, etc.
 
 Educational transformation with detailed prompts.</note>
       <xloc>50</xloc>
@@ -106,12 +109,12 @@ Educational transformation with detailed prompts.</note>
   </notepads>
   <order>
     <hop>
-      <from>Read Documents</from>
-      <to>Build Summarization Prompt</to>
+      <from>Read Unstructured Text</from>
+      <to>Build NER Prompt</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Build Summarization Prompt</from>
+      <from>Build NER Prompt</from>
       <to>Build JSON Request</to>
       <enabled>Y</enabled>
     </hop>
@@ -122,19 +125,19 @@ Educational transformation with detailed prompts.</note>
     </hop>
     <hop>
       <from>Call Ollama API</from>
-      <to>Parse Summary Response</to>
+      <to>Parse NER Response</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Parse Summary Response</from>
-      <to>Write Summaries CSV</to>
+      <from>Parse NER Response</from>
+      <to>Write Entities CSV</to>
       <enabled>Y</enabled>
     </hop>
   </order>
   <step>
-    <name>Read Documents</name>
+    <name>Read Unstructured Text</name>
     <type>CsvInput</type>
-    <description>Read documents to summarize</description>
+    <description>Read documents with unstructured text</description>
     <distribute>Y</distribute>
     <custom_distribution/>
     <copies>1</copies>
@@ -142,7 +145,7 @@ Educational transformation with detailed prompts.</note>
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <filename>${Internal.Transformation.Filename.Directory}/../data/documents_to_summarize.csv</filename>
+    <filename>${Internal.Transformation.Filename.Directory}/ner_documents.csv</filename>
     <filename_field/>
     <rownum_field/>
     <include_filename>N</include_filename>
@@ -168,7 +171,7 @@ Educational transformation with detailed prompts.</note>
         <trim_type>none</trim_type>
       </field>
       <field>
-        <name>document_type</name>
+        <name>source</name>
         <type>String</type>
         <format/>
         <currency/>
@@ -179,24 +182,13 @@ Educational transformation with detailed prompts.</note>
         <trim_type>none</trim_type>
       </field>
       <field>
-        <name>title</name>
+        <name>text</name>
         <type>String</type>
         <format/>
         <currency/>
         <decimal/>
         <group/>
-        <length>500</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>full_text</name>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>50000</length>
+        <length>10000</length>
         <precision>-1</precision>
         <trim_type>none</trim_type>
       </field>
@@ -215,9 +207,9 @@ Educational transformation with detailed prompts.</note>
     </GUI>
   </step>
   <step>
-    <name>Build Summarization Prompt</name>
+    <name>Build NER Prompt</name>
     <type>ScriptValueMod</type>
-    <description>Create summarization prompt for LLM</description>
+    <description>Create NER prompt for LLM</description>
     <distribute>Y</distribute>
     <custom_distribution/>
     <copies>1</copies>
@@ -231,28 +223,27 @@ Educational transformation with detailed prompts.</note>
       <jsScript>
         <jsScript_type>0</jsScript_type>
         <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>// Build text summarization prompt
-var llm_prompt = "Summarize the following document and return ONLY a valid JSON object with this structure:\n\n" +
-  "{\n" +
-  "  \"summary\": \"2-3 sentence overview of the document\",\n" +
-  "  \"bullet_points\": [\"key point 1\", \"key point 2\", \"key point 3\"],\n" +
-  "  \"key_takeaways\": [\"main insight 1\", \"main insight 2\", \"main insight 3\"],\n" +
-  "  \"action_items\": [\"action 1\", \"action 2\"] or [] if none\n" +
-  "}\n\n" +
-  "Instructions:\n" +
-  "- Summary: Provide a concise 2-3 sentence overview capturing the main topic and purpose\n" +
-  "- Bullet Points: Extract 3-5 most important facts or points from the document\n" +
-  "- Key Takeaways: List 2-4 main insights, conclusions, or lessons from the content\n" +
-  "- Action Items: Identify any tasks, decisions, or follow-up actions mentioned (use empty array [] if none)\n\n" +
+        <jsScript_script>// Build Named Entity Recognition prompt
+var llm_prompt = "Extract all named entities from the following text. Return ONLY a valid JSON array of entities.\n\n" +
+  "Format: [{\"entity\":\"entity text\",\"type\":\"ENTITY_TYPE\",\"context\":\"surrounding context\"},...]\n\n" +
+  "Entity Types to Extract:\n" +
+  "- PERSON: Names of people (e.g., John Smith, Dr. Sarah Johnson)\n" +
+  "- ORGANIZATION: Companies, institutions, agencies (e.g., Acme Corp, FBI, Stanford University)\n" +
+  "- LOCATION: Cities, countries, addresses, buildings (e.g., San Francisco, 123 Main St, Room 405)\n" +
+  "- DATE: Dates and times (e.g., December 15th 2024, Feb 1st, 10:30 AM PST)\n" +
+  "- PRODUCT: Product names and models (e.g., iPhone 16, UltraBook Pro X1)\n" +
+  "- MONEY: Currency amounts (e.g., $125,000, £250,000 GBP)\n" +
+  "- CONTACT: Email addresses and phone numbers (e.g., user@company.com, 555-123-4567)\n" +
+  "- ID: Identifiers like customer IDs, order numbers, tracking codes (e.g., CUST-98765, INV-2024-0089)\n" +
+  "- TECHNOLOGY: Software, platforms, technical terms (e.g., AWS, Python, TensorFlow)\n" +
+  "- POSITION: Job titles and roles (e.g., CEO, Project Manager, CFO)\n\n" +
   "Rules:\n" +
-  "- Return ONLY valid JSON, no additional text or explanation\n" +
-  "- Be concise but accurate\n" +
-  "- Focus on what matters most\n" +
-  "- Use clear, professional language\n\n" +
-  "DOCUMENT TYPE: " + document_type + "\n" +
-  "TITLE: " + title + "\n\n" +
-  "DOCUMENT TEXT:\n" +
-  full_text;</jsScript_script>
+  "- Extract ALL entities you can identify\n" +
+  "- Include context: a few words before/after the entity\n" +
+  "- Be precise: extract exact text as it appears\n" +
+  "- Return ONLY the JSON array, no explanation\n\n" +
+  "TEXT TO ANALYZE:\n" +
+  text;</jsScript_script>
       </jsScript>
     </jsScripts>
     <fields>
@@ -304,8 +295,8 @@ var requestObj = {
     "stream": false,
     "format": "json",
     "options": {
-        "temperature": 0.2,
-        "num_predict": 800
+        "temperature": 0.1,
+        "num_predict": 1000
     }
 };
 
@@ -339,7 +330,7 @@ var request_body = JSON.stringify(requestObj);
   <step>
     <name>Call Ollama API</name>
     <type>Rest</type>
-    <description>Send summarization request to LLM</description>
+    <description>Send NER request to LLM</description>
     <distribute>Y</distribute>
     <custom_distribution/>
     <copies>1</copies>
@@ -349,7 +340,7 @@ var request_body = JSON.stringify(requestObj);
     </partitioning>
     <applicationType>TEXT PLAIN</applicationType>
     <method>POST</method>
-    <url>${OLLAMA_URL}/api/generate</url>
+    <url>${OLLAMA_URL}</url>
     <urlInField>N</urlInField>
     <dynamicMethod>N</dynamicMethod>
     <methodFieldName/>
@@ -386,9 +377,9 @@ var request_body = JSON.stringify(requestObj);
     </GUI>
   </step>
   <step>
-    <name>Parse Summary Response</name>
+    <name>Parse NER Response</name>
     <type>ScriptValueMod</type>
-    <description>Extract summary components from JSON response</description>
+    <description>Extract entities from JSON response</description>
     <distribute>Y</distribute>
     <custom_distribution/>
     <copies>1</copies>
@@ -402,78 +393,90 @@ var request_body = JSON.stringify(requestObj);
       <jsScript>
         <jsScript_type>0</jsScript_type>
         <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>// Parse Ollama response and extract summary components
-var summary = "";
-var bullet_points = "[]";
-var key_takeaways = "[]";
-var action_items = "[]";
+        <jsScript_script>// Parse Ollama response and extract entities as JSON string
+var entities_json = "[]";
+var entity_count = 0;
+var person_count = 0;
+var org_count = 0;
+var location_count = 0;
+var date_count = 0;
 
 try {
     var response = JSON.parse(api_response);
     var fullResponse = response.response;
-
-    // Extract JSON object from response
-    var jsonStart = fullResponse.indexOf("{");
-    var jsonEnd = fullResponse.lastIndexOf("}") + 1;
-
+    
+    // Extract JSON array from response
+    var jsonStart = fullResponse.indexOf("[");
+    var jsonEnd = fullResponse.lastIndexOf("]") + 1;
+    
     if (jsonStart &gt;= 0 &amp;&amp; jsonEnd &gt; jsonStart) {
         var jsonStr = fullResponse.substring(jsonStart, jsonEnd);
-        var summaryObj = JSON.parse(jsonStr);
-
-        // Extract summary fields
-        summary = summaryObj.summary || "";
-
-        // Convert arrays to JSON strings
-        if (summaryObj.bullet_points &amp;&amp; Array.isArray(summaryObj.bullet_points)) {
-            bullet_points = JSON.stringify(summaryObj.bullet_points);
-        }
-
-        if (summaryObj.key_takeaways &amp;&amp; Array.isArray(summaryObj.key_takeaways)) {
-            key_takeaways = JSON.stringify(summaryObj.key_takeaways);
-        }
-
-        if (summaryObj.action_items &amp;&amp; Array.isArray(summaryObj.action_items)) {
-            action_items = JSON.stringify(summaryObj.action_items);
+        entities_json = jsonStr;
+        
+        // Count entities by type
+        var entities = JSON.parse(jsonStr);
+        entity_count = entities.length;
+        
+        for (var i = 0; i &lt; entities.length; i++) {
+            var entityType = entities[i].type || "";
+            if (entityType == "PERSON") person_count++;
+            else if (entityType == "ORGANIZATION") org_count++;
+            else if (entityType == "LOCATION") location_count++;
+            else if (entityType == "DATE") date_count++;
         }
     }
 } catch(e) {
-    summary = "Error parsing response: " + e.message;
-    bullet_points = "[]";
-    key_takeaways = "[]";
-    action_items = "[]";
+    entities_json = "[]";
+    entity_count = 0;
 }
 </jsScript_script>
       </jsScript>
     </jsScripts>
     <fields>
       <field>
-        <name>summary</name>
-        <rename>summary</rename>
+        <name>entities_json</name>
+        <rename>entities_json</rename>
         <type>String</type>
         <length>-1</length>
         <precision>-1</precision>
         <replace>N</replace>
       </field>
       <field>
-        <name>bullet_points</name>
-        <rename>bullet_points</rename>
-        <type>String</type>
+        <name>entity_count</name>
+        <rename>entity_count</rename>
+        <type>Integer</type>
         <length>-1</length>
         <precision>-1</precision>
         <replace>N</replace>
       </field>
       <field>
-        <name>key_takeaways</name>
-        <rename>key_takeaways</rename>
-        <type>String</type>
+        <name>person_count</name>
+        <rename>person_count</rename>
+        <type>Integer</type>
         <length>-1</length>
         <precision>-1</precision>
         <replace>N</replace>
       </field>
       <field>
-        <name>action_items</name>
-        <rename>action_items</rename>
-        <type>String</type>
+        <name>org_count</name>
+        <rename>org_count</rename>
+        <type>Integer</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>
+      <field>
+        <name>location_count</name>
+        <rename>location_count</rename>
+        <type>Integer</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>
+      <field>
+        <name>date_count</name>
+        <rename>date_count</rename>
+        <type>Integer</type>
         <length>-1</length>
         <precision>-1</precision>
         <replace>N</replace>
@@ -493,9 +496,9 @@ try {
     </GUI>
   </step>
   <step>
-    <name>Write Summaries CSV</name>
+    <name>Write Entities CSV</name>
     <type>TextFileOutput</type>
-    <description>Save document summaries</description>
+    <description>Save extracted entities</description>
     <distribute>Y</distribute>
     <custom_distribution/>
     <copies>1</copies>
@@ -517,7 +520,7 @@ try {
     <fileNameField/>
     <create_parent_folder>Y</create_parent_folder>
     <file>
-      <name>${Internal.Transformation.Filename.Directory}/../data/summaries_</name>
+      <name>${Internal.Transformation.Filename.Directory}/entities_extracted</name>
       <servlet_output>N</servlet_output>
       <do_not_open_new_file_init>N</do_not_open_new_file_init>
       <extention>csv</extention>
@@ -547,7 +550,7 @@ try {
         <precision>-1</precision>
       </field>
       <field>
-        <name>document_type</name>
+        <name>source</name>
         <type>String</type>
         <format/>
         <currency/>
@@ -559,7 +562,7 @@ try {
         <precision>-1</precision>
       </field>
       <field>
-        <name>title</name>
+        <name>text</name>
         <type>String</type>
         <format/>
         <currency/>
@@ -571,8 +574,8 @@ try {
         <precision>-1</precision>
       </field>
       <field>
-        <name>summary</name>
-        <type>String</type>
+        <name>entity_count</name>
+        <type>Integer</type>
         <format/>
         <currency/>
         <decimal/>
@@ -583,8 +586,8 @@ try {
         <precision>-1</precision>
       </field>
       <field>
-        <name>bullet_points</name>
-        <type>String</type>
+        <name>person_count</name>
+        <type>Integer</type>
         <format/>
         <currency/>
         <decimal/>
@@ -595,8 +598,8 @@ try {
         <precision>-1</precision>
       </field>
       <field>
-        <name>key_takeaways</name>
-        <type>String</type>
+        <name>org_count</name>
+        <type>Integer</type>
         <format/>
         <currency/>
         <decimal/>
@@ -607,7 +610,31 @@ try {
         <precision>-1</precision>
       </field>
       <field>
-        <name>action_items</name>
+        <name>location_count</name>
+        <type>Integer</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>none</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>date_count</name>
+        <type>Integer</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>none</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>entities_json</name>
         <type>String</type>
         <format/>
         <currency/>
