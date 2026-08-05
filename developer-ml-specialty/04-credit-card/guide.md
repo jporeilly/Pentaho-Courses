@@ -1,5 +1,13 @@
 # Credit Card
 
+> **Note:** The model handoff is folder-relative: the training
+> transformation saves `train_model_output/gbm_fraud.rdata` next to
+> itself, and the predict transformation loads it from the same
+> place - both via `${Internal.Transformation.Filename.Directory}`.
+> If the R step passes the literal `${...}` through to R, enable
+> **variable substitution** on the R Script Executor step.
+
+
 > **Note:** The results from H2O point to using a **Gradient Boosting (GBM)** algorithm.
 > 
 > In this lab, you operationalize that choice in PDI:
@@ -23,7 +31,7 @@
 1. In Spoon, open the following main job:
 
 ```
-~/Workshop--Data-Integration/Labs/Module 7 - Workflows/Machine Learning/Credit Card Fraud/solution/jb_fraud_main_job.kjb
+files/solution/jb_fraud_main_job.kjb   (bundled - see Lab Files)
 ```
 
 2. Right-click the **train\_model** transformation.
@@ -95,7 +103,7 @@ best_trees <- gbm.perf(gbm_model, method = "OOB")
 # Save the trained model and optimal tree count to disk
 # The predict transformation will load this file to score new transactions
 save(gbm_model, best_trees,
-  file = "/home/pentaho/Workshop--Data-Integration/Labs/Module 7 - Use Cases/Machine Learning/Credit Card Fraud/solution/train_model_output/gbm_fraud.rdata"
+  file = "${Internal.Transformation.Filename.Directory}/train_model_output/gbm_fraud.rdata"
 )
 
 # Return a status message to PDI
@@ -118,7 +126,7 @@ ok.df
   save(
     gbm_model,
     best_trees,
-    file = "/home/pentaho/Workshop--Data-Integration/Labs/Module 7 - Use Cases/Machine Learning/Credit Card Fraud/solution/train_model_output/gbm_fraud.rdata"
+    file = "${Internal.Transformation.Filename.Directory}/train_model_output/gbm_fraud.rdata"
   )
 
   # If we reach this point, training completed successfully.
@@ -146,7 +154,7 @@ ok.df
 
 > **Note:** This step writes the model artifact to:
 > 
-> `/home/pentaho/Workshop--Data-Integration/Labs/Module 7 - Use Cases/Machine Learning/Credit Card Fraud/solution/train_model_output/gbm_fraud.rdata`
+> `solution/train_model_output/gbm_fraud.rdata`
 
 ### Predict Fraud
 
@@ -157,7 +165,7 @@ ok.df
 1. In Spoon, open the following main job:
 
 ```
-~/Workshop--Data-Integration/Labs/Module 7 - Workflows/Machine Learning/Credit Card Fraud/solution/jb_fraud_main_job.kjb
+files/solution/jb_fraud_main_job.kjb   (bundled - see Lab Files)
 ```
 
 2. Right-click the transformation labeled **predict fraud**.
@@ -198,7 +206,7 @@ test.df <- as.data.frame(test)
 
 # Load the trained model artifact saved during the training step
 # This file contains: gbm_model (the trained model) and best_trees (optimal tree count)
-load(file = "/home/pentaho/Workshop--Data-Integration/Labs/Module 7 - Use Cases/Machine Learning/Credit Card Fraud/solution/train_model_output/gbm_fraud.rdata")
+load(file = "${Internal.Transformation.Filename.Directory}/train_model_output/gbm_fraud.rdata")
 
 # ============================================================
 # Score each transaction with a fraud probability
@@ -245,7 +253,7 @@ submission
 1. Open:
 
 ```
-~/Workshop--Data-Integration/Labs/Module 7 - Workflows/Machine Learning/Credit Card Fraud/solution/output/credit_card_predict.xlsx
+the train_model_output folder next to the transformation/credit_card_predict.xlsx
 ```
 
 <figure><img src="../_assets/images/cc_fraud_prediction.png" alt=""><figcaption><p>Fraud prediction</p></figcaption></figure>

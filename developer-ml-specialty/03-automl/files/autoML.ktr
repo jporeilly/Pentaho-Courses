@@ -965,7 +965,7 @@ print(f"Ready to return: 1 row with 10 fields")</value>
           <value xsi:type="xs:boolean">false</value>
         </property>
         <property group="" name="EMBED_ENV_PATH">
-          <value xsi:type="xs:string">/home/pentaho/h2o-env/bin/python</value>
+          <value xsi:type="xs:string">python</value>
         </property>
         <property group="" name="FILE_ENV_PATH">
           <value xsi:type="xs:string"/>

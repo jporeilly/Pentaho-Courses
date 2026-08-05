@@ -15,9 +15,20 @@
     "models": {
       "cpu": "llama3.2:3b",
       "gpu": "qwen2.5:7b"
-    }
+    },
+    "subject": "machine learning pipelines in PDI (AutoML with H2O, R-backed model training and scoring, and fraud-detection workflows)",
+    "suggestions": [
+      "How does the AutoML transformation hand data to H2O?",
+      "Where does the training step save the model, and how does predict find it?",
+      "What does rJava need to line up with my PDI install?",
+      "Why did my R Script Executor step fail to load the model file?"
+    ]
   },
   "moduleSummaries": [
+    {
+      "title": "Getting Started",
+      "summary": "How to get the most out of this guide, and the honest prerequisite list - Python and Jupyter or Colab, H2O for AutoML, and rJava wired against your PDI install for the R-backed steps."
+    },
     {
       "title": "Machine Learning",
       "summary": "Detect credit-card fraud with PDI: discover models automatically with H2O AutoML, learn fraud patterns with supervised algorithms, surface novel fraud with unsupervised methods, and handle the imbalanced datasets that make fraud detection hard."
