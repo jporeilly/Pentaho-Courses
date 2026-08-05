@@ -36,3 +36,7 @@
 
 * [Overview of Localization](15-localization/guide.md)
 * [FR Localization](16-localization-fr-localization/guide.md)
+
+## Performance
+
+* [Aggregate Tables](17-performance-aggregate-tables/guide.md)

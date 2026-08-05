@@ -52,6 +52,10 @@
     {
       "title": "Localization",
       "summary": "Serve a global audience from a single schema. Tokenize the Classic Models schema, deploy English and French property files, and configure Mondrian's dynamic schema processor so cubes translate automatically by user locale."
+    },
+    {
+      "title": "Performance",
+      "summary": "Speed up the cube with aggregate tables: build two pre-computed roll-ups from ORDERFACT, switch Mondrian's aggregate matching on, declare them with AggName in the schema, and prove from the generated SQL that queries hit the small tables."
     }
   ],
   "launchers": {

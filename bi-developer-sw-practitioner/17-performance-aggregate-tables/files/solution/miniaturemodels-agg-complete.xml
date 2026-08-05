@@ -1,0 +1,144 @@
+<Schema name="Miniature Models">
+	<Cube name="Sales_FY2003_2005" visible="true" cache="true" enabled="true">
+		<Table name="ORDERFACT" schema="PUBLIC">
+			<AggName name="Miniature_Sales_AGG_1">
+				<AggFactCount column="ORDERFACT_fact_count">
+				</AggFactCount>
+				<AggMeasure column="ORDERFACT_Sales" name="[Measures].[Sales]">
+				</AggMeasure>
+				<AggMeasure column="ORDERFACT_Quantity" name="[Measures].[Quantity]">
+				</AggMeasure>
+				<AggLevel column="PRODUCTS_Line" name="[PRODUCTS.Products].[Line]">
+				</AggLevel>
+				<AggLevel column="CUSTOMER_W_TER_Territory" name="[MARKETS.Markets].[Territory]">
+				</AggLevel>
+				<AggLevel column="CUSTOMER_W_TER_Country" name="[MARKETS.Markets].[Country]">
+				</AggLevel>
+			</AggName>
+			<AggName name="Miniature_Sales_AGG_2">
+				<AggFactCount column="ORDERFACT_fact_count">
+				</AggFactCount>
+				<AggMeasure column="ORDERFACT_Sales" name="[Measures].[Sales]">
+				</AggMeasure>
+				<AggMeasure column="ORDERFACT_Quantity" name="[Measures].[Quantity]">
+				</AggMeasure>
+				<AggLevel column="CUSTOMER_W_TER_Territory" name="[MARKETS.Markets].[Territory]">
+				</AggLevel>
+				<AggLevel column="DIM_TIME_Years" name="[TIME.Time].[Years]">
+				</AggLevel>
+				<AggLevel column="DIM_TIME_Quarters" name="[TIME.Time].[Quarters]">
+				</AggLevel>
+				<AggLevel column="ORDERFACT_Type" name="[ORDER STATUS.Status].[Type]">
+				</AggLevel>
+			</AggName>
+		</Table>
+		<Dimension type="StandardDimension" visible="true" foreignKey="CUSTOMERNUMBER" highCardinality="false" name="CUSTOMERS">
+			<Hierarchy name="Customers" visible="true" hasAll="true" allMemberName="All Customers" primaryKey="CUSTOMERNUMBER">
+				<Table name="CUSTOMER_W_TER" schema="PUBLIC">
+				</Table>
+				<Level name="Customer Name" visible="true" column="CUSTOMERNAME" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+					<Property name="Customer Number" column="CUSTOMERNUMBER" type="String">
+					</Property>
+					<Property name="Contact First Name" column="CONTACTFIRSTNAME" type="String">
+					</Property>
+					<Property name="Contact Last Name" column="CONTACTLASTNAME" type="String">
+					</Property>
+					<Property name="Phone" column="PHONE" type="String">
+					</Property>
+				</Level>
+			</Hierarchy>
+		</Dimension>
+		<Dimension type="StandardDimension" visible="true" foreignKey="PRODUCTCODE" highCardinality="false" name="PRODUCTS">
+			<Hierarchy name="Products" visible="true" hasAll="true" allMemberName="All Products" primaryKey="PRODUCTCODE">
+				<Table name="PRODUCTS" schema="PUBLIC">
+				</Table>
+				<Level name="Line" visible="true" column="PRODUCTLINE" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never">
+					<Property name="Description" column="PRODUCTDESCRIPTION" type="String">
+					</Property>
+				</Level>
+				<Level name="Vendor" visible="true" column="PRODUCTVENDOR" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+				</Level>
+				<Level name="Name" visible="true" column="PRODUCTNAME" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+					<Property name="Code" column="PRODUCTCODE" type="String">
+					</Property>
+					<Property name="Vendor" column="PRODUCTVENDOR" type="String">
+					</Property>
+				</Level>
+			</Hierarchy>
+		</Dimension>
+		<Dimension type="StandardDimension" visible="true" foreignKey="CUSTOMERNUMBER" highCardinality="false" name="MARKETS">
+			<Hierarchy name="Markets" visible="true" hasAll="true" allMemberName="All Markets" primaryKey="CUSTOMERNUMBER">
+				<Table name="CUSTOMER_W_TER" schema="PUBLIC">
+				</Table>
+				<Level name="Territory" visible="true" column="TERRITORY" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never">
+				</Level>
+				<Level name="Country" visible="true" column="COUNTRY" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never">
+					<Annotations>
+						<Annotation name="Data.Role">
+							Geography						</Annotation>
+						<Annotation name="Geo.Role">
+							Country						</Annotation>
+					</Annotations>
+				</Level>
+				<Level name="State Province" visible="true" column="STATE" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never">
+					<Annotations>
+						<Annotation name="Data.Role">
+							Geography						</Annotation>
+						<Annotation name="Geo.Role">
+							State						</Annotation>
+						<Annotation name="Geo.RequiredParents">
+							Country						</Annotation>
+					</Annotations>
+				</Level>
+				<Level name="City" visible="true" column="CITY" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+					<Annotations>
+						<Annotation name="Data.Role">
+							Geography						</Annotation>
+						<Annotation name="Geo.Role">
+							City						</Annotation>
+						<Annotation name="Geo.RequiredParents">
+							Country,State						</Annotation>
+					</Annotations>
+				</Level>
+			</Hierarchy>
+		</Dimension>
+		<Dimension type="TimeDimension" visible="true" foreignKey="TIME_ID" highCardinality="false" name="TIME">
+			<Hierarchy name="Time" visible="true" hasAll="true" allMemberName="All Years" primaryKey="TIME_ID">
+				<Table name="DIM_TIME" schema="PUBLIC">
+				</Table>
+				<Level name="Years" visible="true" column="YEAR_ID" type="String" uniqueMembers="true" levelType="TimeYears" hideMemberIf="Never">
+					<Annotations>
+						<Annotation name="AnalyzerDateFormat">
+							[yyyy]						</Annotation>
+					</Annotations>
+				</Level>
+				<Level name="Quarters" visible="true" column="QTR_NAME" type="String" uniqueMembers="false" levelType="TimeQuarters" hideMemberIf="Never">
+					<Annotations>
+						<Annotation name="AnalyzerDateFormat">
+							[yyyy].[&#39;QTR&#39;q]						</Annotation>
+					</Annotations>
+				</Level>
+				<Level name="Months" visible="true" column="MONTH_NAME" type="String" uniqueMembers="false" levelType="TimeMonths" hideMemberIf="Never">
+					<Annotations>
+						<Annotation name="AnalyzerDateFormat">
+							[yyyy].[&#39;QTR&#39;q].[MMM]						</Annotation>
+					</Annotations>
+				</Level>
+			</Hierarchy>
+		</Dimension>
+		<Dimension type="StandardDimension" visible="true" highCardinality="false" name="ORDER STATUS">
+			<Hierarchy name="Status" visible="true" hasAll="true" allMemberName="All Status">
+				<Level name="Type" visible="true" column="STATUS" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never">
+				</Level>
+			</Hierarchy>
+		</Dimension>
+		<Measure name="Sales" column="TOTALPRICE" datatype="Numeric" formatString="&#163;#,###.00" aggregator="sum" visible="true">
+		</Measure>
+		<Measure name="Quantity" column="QUANTITYORDERED" datatype="Numeric" formatString="#,###" aggregator="sum" visible="true">
+		</Measure>
+		<CalculatedMember name="YTD Sales" formatString="&#163;#,###" formula="Aggregate(YTD(),[Measures].[Sales])" dimension="Measures" visible="true">
+		</CalculatedMember>
+		<CalculatedMember name="Unit Price" formatString="&#163;#,###" formula="[Measures].[Sales]/[Measures].[Quantity]" dimension="Measures" visible="true">
+		</CalculatedMember>
+	</Cube>
+</Schema>
