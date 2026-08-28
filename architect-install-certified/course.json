@@ -1,5 +1,9 @@
 {
   "id": "architect-install-certified",
+  "analytics": {
+    "measurementId": "G-8L92G6SL5P",
+    "apiSecret": "3N7n0Py7TiChgFcuEGpSbw"
+  },
   "title": "Pentaho Solution Architect - Certified",
   "description": "Pentaho 11 installation, configuration, upgrade, and post-install tasks. Archive deployment on Linux, server + client tools, plugins.",
   "version": "0.1.0",

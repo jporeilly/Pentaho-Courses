@@ -1,5 +1,9 @@
 {
   "id": "developer-ai-specialty",
+  "analytics": {
+    "measurementId": "G-NRWFEZJ6T5",
+    "apiSecret": "rYEDJtQQTO647EtKAFKS5Q"
+  },
   "title": "Pentaho Developer - AI Specialty",
   "description": "AI-augmented data pipelines with Pentaho Data Integration. GenAI fundamentals, LLM integration patterns, structured extraction, and agent-as-a-service.",
   "version": "0.1.0",

@@ -1,5 +1,9 @@
 {
   "id": "bi-developer-me-practitioner",
+  "analytics": {
+    "measurementId": "G-JGEHT8VJH5",
+    "apiSecret": "_J5Tp83zRpOjhaVRry_2FQ"
+  },
   "title": "Pentaho BI Developer - ME Practitioner",
   "description": "Hands-on workshop for the BI Developer. Build business-friendly semantic models with Pentaho Metadata Editor — physical layer, business models, relationships, business views, properties, reusable concepts, and security — then publish XMI domains for ad-hoc Interactive Reporting.",
   "version": "0.1.0",

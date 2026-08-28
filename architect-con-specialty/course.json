@@ -1,5 +1,9 @@
 {
   "id": "architect-con-specialty",
+  "analytics": {
+    "measurementId": "G-TEGN8LQVRC",
+    "apiSecret": "XerhVuECS0ar-ecffAe5ww"
+  },
   "title": "Pentaho Solution Architect - Containers Specialty",
   "description": "Deploy the Pentaho Server with containers and Kubernetes: build the EE image from a staged archive, run it with Podman Compose against PostgreSQL, then take the same deployment to K3s with raw manifests and Helm.",
   "version": "0.1.0",

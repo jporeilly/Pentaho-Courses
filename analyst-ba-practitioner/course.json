@@ -1,5 +1,9 @@
 {
   "id": "analyst-ba-practitioner",
+  "analytics": {
+    "measurementId": "G-E1B364WJYR",
+    "apiSecret": "b1oscuI1Ru-nHYpiBhLf3g"
+  },
   "title": "Pentaho Analyst - BA Practitioner",
   "description": "Hands-on workshop for the Pentaho Business Analytics Practitioner. Pentaho User Console, Interactive Reports, Analyzer Reports, Dashboard Designer, plus a MongoDB reporting use case.",
   "version": "0.1.0",

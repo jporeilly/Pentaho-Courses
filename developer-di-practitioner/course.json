@@ -1,5 +1,9 @@
 {
   "id": "developer-di-practitioner",
+  "analytics": {
+    "measurementId": "G-Y31H58JVKH",
+    "apiSecret": "9sDdakUVT-aj5kUiOx_kIg"
+  },
   "title": "Pentaho Developer - DI Practitioner",
   "description": "Self-paced, hands-on workshop for the Pentaho Data Integration Practitioner.",
   "version": "0.1.0",

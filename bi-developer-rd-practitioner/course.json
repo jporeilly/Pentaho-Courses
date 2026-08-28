@@ -1,5 +1,9 @@
 {
   "id": "bi-developer-rd-practitioner",
+  "analytics": {
+    "measurementId": "G-C8S05V62JL",
+    "apiSecret": "rwyZIAoPR7a7cF_gmdE-7Q"
+  },
   "title": "Pentaho BI Developer - RD Practitioner",
   "description": "Hands-on workshop for Pentaho Report Designer: data sources, report elements and groups, calculations, formatting, parameters, charts, sub-reports, and publishing to the BA repository.",
   "version": "0.1.0",

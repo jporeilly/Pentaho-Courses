@@ -1,5 +1,9 @@
 {
   "id": "bi-developer-sw-practitioner",
+  "analytics": {
+    "measurementId": "G-12Q963CM39",
+    "apiSecret": "UtVlidAMQI26ztkpWAqeJw"
+  },
   "title": "Pentaho BI Developer - SW Practitioner",
   "description": "Hands-on workshop for the OLAP / Mondrian schema BI Developer. Build, extend, and publish Mondrian schemas with Pentaho Schema Workbench — cubes, dimensions, hierarchies, levels, measures, calculated members, named sets — and query them with MDX.",
   "version": "0.1.0",

@@ -1,5 +1,9 @@
 {
   "id": "developer-sd-specialty",
+  "analytics": {
+    "measurementId": "G-BE2GN404FR",
+    "apiSecret": "FIC4K_luTmmvJiPilPxhAQ"
+  },
   "title": "Pentaho Developer - SD Specialty",
   "description": "Real-time streaming data integration with Pentaho Data Integration. Consume and process unbounded event streams over MQTT, AMQP, and Apache Kafka — IoT sensor telemetry, message-queue pipelines, and real-time user-activity streams using PDI's parent/child streaming pattern.",
   "version": "0.1.0",
