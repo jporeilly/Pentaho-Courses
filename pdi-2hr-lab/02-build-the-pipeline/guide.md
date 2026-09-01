@@ -26,23 +26,20 @@
 
 In PDI: **File > New > Transformation** (or `Ctrl+N`). You get an
 empty canvas and, on the left, the **Design** palette — every
-capability of the engine, organised by category.
-Save the file as: C:\Workshop\pdi-2hr\02-see-it-work\02-build-the-pipeline\check_keys.ktr
+capability of the engine, organised by category. familiarize yourself with some of the Steps.
+Save the file/transformation (.ktr) as: C:\Workshop\pdi-2hr\02-see-it-work\02-build-the-pipeline\check_keys.ktr
 
 ## Read the file
 
-1. In the Design palette, open **Input** and drag **Text file input**
+1. In the Design palette, open **Input** folder and drag **Text file input**
    onto the canvas.
-> **Note:** **Tip.** Use the Search box to enter the Step name.
+> **Note:** **Tip.** This is a steep learning curve, so use the 'Search' box to narrow down the hunt for the Step.
 2. Double-click it. Name it `Read sales`.
 3. On the **File** tab, click **Browse**, pick
    `C:\Workshop\pdi-2hr\02-see-it-work\02-build-the-pipeline\sales_20260101.csv`,
-   then click **Add** so it
-   appears in the *Selected files* grid.
-4. On the **Content** tab set **Separator** to `,` and make sure
-   **Header** is ticked with 1 header line.
-5. On the **Fields** tab click **Get Fields** — PDI reads the file
-   and detects every column and type for you. Accept the defaults.
+   then click **Add** so it appears in the *Selected files* grid.
+4. On the **Content** tab set **Separator** to `,` and make sure **Header** is ticked with 1 header line.
+5. On the **Fields** tab click **Get Fields** — PDI reads the file and detects every column and type for you. Accept the defaults.
 
 > **Note:** **Get Fields matters more than it looks.** You didn't
 > declare a schema — the tool read the data and proposed one. In Lab
