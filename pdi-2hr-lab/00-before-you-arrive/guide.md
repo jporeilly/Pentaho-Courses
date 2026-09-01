@@ -35,11 +35,11 @@
 ## Check your environment
 
 This panel probes the machine live — PDI, the MySQL container, and
-the supporting tooling. On a provided lab VM it should be all green;
-anything red tells you the exact fix. The one that matters most for
-this course is **MySQL** — Lab 4 loads a table into it.
+the container tooling that runs it. On a provided lab VM it should
+be all green; anything red tells you the exact fix. The one that
+matters most is **MySQL** — Lab 4 loads a table into it.
 
-<div data-env-check></div>
+<div data-env-check="tryit"></div>
 
 ## Start Pentaho Data Integration
 
