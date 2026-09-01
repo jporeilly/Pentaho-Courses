@@ -13,9 +13,9 @@
 >
 > * Confirm Pentaho Data Integration (Developer Edition) starts.
 > * Check the sample MySQL database is up and running.
-> * Checks the working folder.
+> * Check the working folder: C:\Workshop\pdi-2hr
 >
-> **Estimated Time:** 5 minutes — before the session, not during it.
+> **Estimated Time:** 10 minutes — before the session.
 
 > **Note:** **About the software you're using.** Pentaho Data
 > Integration **Developer Edition** is free for evaluation,
@@ -24,6 +24,8 @@
 > today is real PDI: the same designer, the same engine, the same
 > transformations you'd run in production. The last lab covers what
 > "production" adds.
+> 
+> **Version:** 11.0.0.2-294
 
 > **Note:** **A word on analytics.** This guide reports anonymous
 > usage events (pages opened, steps completed, tools launched, using [G4 measurement protocol](https://developers.google.com/analytics/devguides/collection/protocol/ga4)) so we
