@@ -13,9 +13,9 @@
     {
       "id": "rejects-rows",
       "kind": "row-count",
-      "label": "Reject file has the 2 bad rows (plus header)",
+      "label": "Reject file has the 3 bad rows (plus header)",
       "path": "C:\\Workshop\\pdi-2hr\\out\\rejects.csv",
-      "min": 2
+      "min": 4
     }
   ],
   "stepCount": 8,

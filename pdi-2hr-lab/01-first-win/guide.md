@@ -41,8 +41,8 @@ filter, and two end points — one for valid rows, one for rejects.
 1. **Right-click** the step named **Valid rows**.
 2. Choose **Preview**, then **Quick Launch**.
 
-A grid appears with yesterday's orders — typed columns, parsed dates,
-clean rows. This is the habit that changes how you build pipelines:
+A grid appears with 37 of yesterday's orders — typed columns, parsed
+dates, clean rows. This is the habit that changes how you build pipelines:
 **you can look at the data at any step, at any time**, before
 anything is written anywhere.
 
@@ -51,10 +51,11 @@ anything is written anywhere.
 1. Close the preview.
 2. **Right-click** **Rejected rows** → **Preview** → **Quick Launch**.
 
-Two rows. One is missing its `customer_id`, one its `product_id` —
-they were planted in the file, and the filter caught both. In a
-hand-coded pipeline this is a try/except and a log line you write
-yourself; here it's a visible branch in the flow you can inspect.
+Three rows. Two are missing their `customer_id`, one its
+`product_id` — they were planted in the file, and the filter caught
+all three. In a hand-coded pipeline this is a try/except and a log
+line you write yourself; here it's a visible branch in the flow you
+can inspect.
 
 ## Look inside a step
 

@@ -70,24 +70,28 @@ second stream — a hash join, in-memory, no database required.
 
 1. From **Transform**, drag **Calculator** on, hopped from
    `+ product`.
-2. Add three calculations:
+2. Add four calculations (each row can use an earlier row's result):
 
-| New field | Calculation | Field A | Field B | Field C | Type |
-| --- | --- | --- | --- | --- | --- |
-| gross | A * B | qty | unit_price | | Number |
-| net | A - ( A * B / 100 ) — use *A - A*B/100* if listed, else two rows | gross | discount_pct | | Number |
-| margin | A - ( B * C ) | net | cost | qty | Number |
+| New field | Calculation | Field A | Field B | Type |
+| --- | --- | --- | --- | --- |
+| gross | A * B | unit_price | qty | Number |
+| net | A - ( A * B / 100 ) | gross | discount_pct | Number |
+| cost_total | A * B | cost | qty | Number |
+| margin | A - B | net | cost_total | Number |
 
-> **Note:** Calculator's function list is long; if an exact formula
-> isn't there, chain two Calculator rows (each row can use the
-> previous row's result) — or use the **Formula** step, which accepts
-> spreadsheet-style expressions like `[net]-[cost]*[qty]`.
+> **Note:** **Field A sets the arithmetic type.** Put the decimal
+> field first: `qty * unit_price` (Integer first) silently rounds
+> the price to a whole number before multiplying — `unit_price *
+> qty` keeps the pennies. If you'd rather write it as one formula,
+> the **Formula** step accepts spreadsheet-style expressions like
+> `[net]-[cost]*[qty]`.
 
 3. Preview the Calculator step: every sale now carries the customer,
    region, product, category — and a margin figure that never existed
    in any source file.
 
-* [ ] Preview shows 38 enriched rows.
+* [ ] Preview shows 37 enriched rows.
+* [ ] `gross` keeps its pennies (row 1 is 99.98, not 100).
 * [ ] `margin` is populated and plausible (mostly positive).
 
 ## Troubleshooting

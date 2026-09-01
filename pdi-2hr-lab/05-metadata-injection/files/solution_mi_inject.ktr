@@ -9,23 +9,14 @@
     <trans_status>0</trans_status>
     <directory>/</directory>
     <parameters>
-      <parameter>
-        <name>FEED_FILE</name>
-        <default_value/>
-        <description>Full path of the feed file to ingest</description>
-      </parameter>
-      <parameter>
-        <name>FEED_SEP</name>
-        <default_value>,</default_value>
-        <description>Field separator used by that feed</description>
-      </parameter>
     </parameters>
   </info>
   <notepads>
     <notepad>
-      <note>Runs ONCE PER FEED - the driver job calls this for every control.csv row,
-passing FEED_FILE and FEED_SEP as parameters. The ETL metadata injection
-step pushes them into the template and executes it.</note>
+      <note>Runs ONCE PER FEED - the driver job executes this for every control.csv
+row ("Execute for every input row"), and "Get rows from result" receives
+that row. The ETL metadata injection step pushes the filename and
+separator into the template and executes it.</note>
       <xloc>48</xloc>
       <yloc>32</yloc>
       <width>440</width>
@@ -55,7 +46,7 @@ step pushes them into the template and executes it.</note>
   </order>
   <step>
     <name>File config</name>
-    <type>GetVariable</type>
+    <type>RowsFromResult</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -66,28 +57,16 @@ step pushes them into the template and executes it.</note>
     </partitioning>
     <fields>
       <field>
-        <name>feed_file</name>
-        <variable>${FEED_FILE}</variable>
+        <name>filename</name>
         <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
         <length>-1</length>
         <precision>-1</precision>
-        <trim_type>none</trim_type>
       </field>
       <field>
-        <name>feed_sep</name>
-        <variable>${FEED_SEP}</variable>
+        <name>separator</name>
         <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
         <length>-1</length>
         <precision>-1</precision>
-        <trim_type>none</trim_type>
       </field>
     </fields>
     <attributes/>
@@ -130,16 +109,16 @@ step pushes them into the template and executes it.</note>
       <mapping>
         <target_step_name>Read feed</target_step_name>
         <target_attribute_key>FILENAME</target_attribute_key>
-        <target_detail>N</target_detail>
+        <target_detail>Y</target_detail>
         <source_step>File config</source_step>
-        <source_field>feed_file</source_field>
+        <source_field>filename</source_field>
       </mapping>
       <mapping>
         <target_step_name>Read feed</target_step_name>
         <target_attribute_key>SEPARATOR</target_attribute_key>
         <target_detail>N</target_detail>
         <source_step>File config</source_step>
-        <source_field>feed_sep</source_field>
+        <source_field>separator</source_field>
       </mapping>
     </mappings>
     <attributes/>

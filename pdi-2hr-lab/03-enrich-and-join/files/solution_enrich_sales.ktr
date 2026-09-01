@@ -739,8 +739,8 @@ Preview "Compute margin" to see the enriched rows.</note>
     <calculation>
       <field_name>gross</field_name>
       <calc_type>MULTIPLY</calc_type>
-      <field_a>qty</field_a>
-      <field_b>unit_price</field_b>
+      <field_a>unit_price</field_a>
+      <field_b>qty</field_b>
       <field_c/>
       <value_type>Number</value_type>
       <value_length>-1</value_length>
@@ -753,7 +753,7 @@ Preview "Compute margin" to see the enriched rows.</note>
     </calculation>
     <calculation>
       <field_name>net</field_name>
-      <calc_type>PERCENT_3</calc_type>
+      <calc_type>PERCENT_2</calc_type>
       <field_a>gross</field_a>
       <field_b>discount_pct</field_b>
       <field_c/>

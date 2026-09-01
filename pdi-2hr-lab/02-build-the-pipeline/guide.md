@@ -78,13 +78,13 @@ capability of the engine, organised by category.
 
 1. Click **Run** (the ▶ in the canvas toolbar), then **Run** again in
    the dialog.
-2. Watch the **Step Metrics** tab fill in: 40 rows read, 38 valid,
-   2 written to the reject file.
-3. Open `C:\Workshop\pdi-2hr\out\rejects.csv` — there are your two
+2. Watch the **Step Metrics** tab fill in: 40 rows read, 37 valid,
+   3 written to the reject file.
+3. Open `C:\Workshop\pdi-2hr\out\rejects.csv` — there are your three
    bad rows, ready to send back to the source system's owner.
 
 * [ ] 40 rows read from the sales file.
-* [ ] 2 rows in the reject output.
+* [ ] 3 rows in the reject output.
 * [ ] Run finishes with no errors (all steps green-ticked).
 
 ## Troubleshooting

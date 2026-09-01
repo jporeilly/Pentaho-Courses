@@ -64,19 +64,19 @@
 ### 2. The injector
 
 1. New transformation, saved as `mi_inject.ktr` in the same folder.
-2. Give it two parameters (**Edit > Settings > Parameters**):
-   `FEED_FILE` and `FEED_SEP`.
-3. Drag on **Get variables** (from *Job*). Name it `File config`.
-   Add two fields: `feed_file` ← `${FEED_FILE}`, `feed_sep` ←
-   `${FEED_SEP}`, both String.
-4. From **Flow**, drag on **ETL metadata injection**, hopped from
+2. Drag on **Get rows from result** (from *Job*). Name it
+   `File config`. Add its two fields: `filename` and `separator`,
+   both String. When the driver job executes this transformation
+   once per control row, *this step is where that row arrives*.
+3. From **Flow**, drag on **ETL metadata injection**, hopped from
    `File config`. Double-click it and browse to `mi_template.ktr` —
    the dialog shows every injectable property of every template
    step, as a tree.
-5. Wire two injections on the `Read feed` step: **FILENAME** ←
-   `File config` / `feed_file`, and **SEPARATOR** ← `File config` /
-   `feed_sep`. Leave everything else alone.
-6. Save.
+4. Wire two injections on the `Read feed` step: **FILENAME** ←
+   `File config` / `filename` (it's under the file *list*, so it
+   accepts one entry per row), and **SEPARATOR** ← `File config` /
+   `separator`. Leave everything else alone.
+5. Save.
 
 ### 3. The driver job
 
@@ -89,9 +89,9 @@
    `control.csv` (fields `filename`, `separator`) hopped to **Copy
    rows to result** (from *Job*).
 4. Second transformation entry → `mi_inject.ktr`. On its
-   **Advanced** tab tick **Execute for every input row**. On
-   **Parameters**, map `FEED_FILE` ← stream column `filename` and
-   `FEED_SEP` ← stream column `separator`.
+   **Advanced** tab tick **Execute for every input row** — each
+   control row becomes one execution, delivered to the injector's
+   `Get rows from result` step.
 
 ### 4. Run and extend
 

@@ -1,12 +1,11 @@
 {
   "id": "pdi-2hr-lab",
   "title": "Pentaho Data Integration in 2 Hours",
-  "description": "A hands-on, try-and-buy lab: build a real pipeline with Pentaho Data Integration Developer Edition — from first preview to change history and metadata injection — in one two-hour sitting.",
+  "description": "A hands-on try-it lab: build a real pipeline with Pentaho Data Integration Developer Edition — from first preview to change history and metadata injection — in one two-hour sitting.",
   "version": "0.1.0",
   "kind": "workshop",
   "mode": "free",
   "role": "developer",
-  "tier": "practitioner",
   "theme": {
     "accent": "#f59e0b"
   },
@@ -76,5 +75,7 @@
       "summary": "What production looks like: scheduling, monitoring, clustering, lineage — and what moving from Developer Edition to a licensed deployment actually involves."
     }
   ],
-  "welcome": null
+  "welcome": {
+    "eyebrow": "Try-It Lab"
+  }
 }
