@@ -76,7 +76,10 @@ FROM   sampledata.dim_customer
 ORDER  BY customer_id, version;
 ```
 
-Every customer: version 1, open-ended validity.
+Every customer: version 1, open-ended validity — **21 rows in
+total**: your 20 customers plus a technical "unknown" row
+(`customer_tk` 0) the step inserts automatically, so later fact
+loads can point failed lookups somewhere instead of dropping rows.
 
 ## Now change history
 
@@ -91,8 +94,10 @@ closed, and version 2 (SE) open-ended. Every other customer is
 untouched. Report yesterday's sales and C001 is in the North West;
 report today's and they're in the South East — both correct.
 
-* [ ] First run: 20 rows in `dim_customer`.
-* [ ] After the edit and second run: 21 rows, C001 at version 2.
+* [ ] First run: 21 rows in `dim_customer` (20 customers + the
+      technical "unknown" row).
+* [ ] After the edit and second run: 22 rows, C001 at version 2 with
+      version 1's validity window closed.
 
 ## Troubleshooting
 
