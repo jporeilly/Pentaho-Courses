@@ -95,7 +95,7 @@ step to see its configuration:
 
 <button data-graph="files/win_preview.ktr">View graph</button>
 
-![pasted-1788270238088.png](../_assets/images/pasted-1788270238088.png)
+![1788270238088.png](../_assets/images/1788270238088.png)
 <p align="center"><em>Graph</em></p>
 
 Try out the other AI options:
