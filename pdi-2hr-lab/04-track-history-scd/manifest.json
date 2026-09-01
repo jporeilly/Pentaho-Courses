@@ -3,6 +3,6 @@
   "description": "Load a Type 2 slowly changing dimension into MySQL with Dimension lookup/update — then change a record and watch history get preserved.",
   "order": 5,
   "estimatedMinutes": 20,
-  "stepCount": 6,
+  "stepCount": 7,
   "hasVideo": false
 }

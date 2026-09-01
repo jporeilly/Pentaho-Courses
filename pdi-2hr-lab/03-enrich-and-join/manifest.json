@@ -3,6 +3,6 @@
   "description": "Join CSV sales, JSON customers, and the product catalogue on one canvas; compute margin with Calculator.",
   "order": 4,
   "estimatedMinutes": 20,
-  "stepCount": 6,
+  "stepCount": 7,
   "hasVideo": false
 }

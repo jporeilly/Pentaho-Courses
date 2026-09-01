@@ -2,7 +2,7 @@
   "title": "Wrap-Up Check",
   "passMark": 60,
   "shuffle": true,
-  "description": "Five quick questions to lock in what you built today — takes about two minutes. The short form before it asks who you are so we can send you the trial link and follow up on anything you flagged in Lab 7. No score pressure: this is a recap, not an exam.",
+  "description": "Ten quick questions to lock in what you built today — takes about three minutes. The short form before it asks who you are so we can send you the trial link and follow up on anything you flagged in Lab 7. No score pressure: this is a recap, not an exam.",
   "webhookUrl": "",
   "webhookSecret": "",
   "questions": [
@@ -89,6 +89,62 @@
       "correctIndices": [0, 1, 2],
       "explanation": "Everything you built today is real PDI and moves to production as-is — what the platform adds is the operational layer (scheduling, monitoring, scale-out, governance) and the licence and support to run it in production.",
       "source": "Lab 7 — From Lab to Production"
+    },
+    {
+      "id": "q-rejects",
+      "module": "See It Work",
+      "prompt": "In Lab 2, what happened to the sales rows that failed validation?",
+      "options": [
+        "They were routed down a reject stream and written to a file for the source team",
+        "The transformation stopped with an error on the first bad row",
+        "They were silently dropped",
+        "They were fixed automatically by the filter step"
+      ],
+      "correct": 0,
+      "explanation": "Bad data is a routing decision, not a crash: the Filter rows FALSE branch carried the rejects to their own output, while the valid rows continued — visible on the canvas, no try/except code.",
+      "source": "Lab 2 — Build the Pipeline Yourself"
+    },
+    {
+      "id": "q-sources",
+      "module": "See It Scale",
+      "prompt": "Beyond the local files used today, where can PDI's Input steps read from?",
+      "options": [
+        "Databases, Excel, cloud storage (S3), HTTP and other VFS locations — the same canvas pattern",
+        "Local CSV and text files only",
+        "Only sources that have a JDBC driver",
+        "Anything, but each source needs custom plugin development first"
+      ],
+      "correct": 0,
+      "explanation": "The pattern you learned generalises: swap the Input step and the rest of the pipeline is unchanged — databases, spreadsheets, cloud object storage, APIs and message queues are all first-class sources.",
+      "source": "Lab 6 — Bring Your Own Data"
+    },
+    {
+      "id": "q-jobs",
+      "module": "Make It Real",
+      "prompt": "In production, what sequences your transformations, retries failures, and alerts someone when the source file doesn't arrive?",
+      "options": [
+        "A job (.kjb), scheduled and monitored on a server",
+        "A cron script that calls each transformation in order",
+        "Each transformation schedules itself",
+        "The Filter rows step"
+      ],
+      "correct": 0,
+      "explanation": "Jobs are the orchestration layer: success/failure routing between entries, retries, notifications — and a server runs them on schedule with logging and history.",
+      "source": "Lab 7 — From Lab to Production"
+    },
+    {
+      "id": "q-licence",
+      "module": "Get Ready",
+      "prompt": "What does the Pentaho Developer Edition licence (BSL 1.1) cover?",
+      "options": [
+        "Evaluation, development, and learning — production use requires a commercial licence",
+        "Any use, including production, free of charge",
+        "A 30-day time-limited trial that then stops working",
+        "Non-commercial personal use only"
+      ],
+      "correct": 0,
+      "explanation": "Developer Edition is the full product for evaluating and building — it doesn't expire. Running it in production is what needs the commercial licence (which also brings support and certified updates).",
+      "source": "Lab 0 — Before You Arrive"
     }
   ]
 }

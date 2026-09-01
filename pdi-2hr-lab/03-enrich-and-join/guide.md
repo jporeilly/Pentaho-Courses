@@ -126,3 +126,10 @@ under the top-level `customers` key, not at the root.
 [products.csv](./files/products.csv)
 
 [regions.csv](./files/regions.csv)
+
+### Solution
+
+The complete transformation — all three sources joined, margin
+computed. Expects the data files at `C:\Workshop\pdi-2hr\`.
+
+[solution_enrich_sales.ktr](./files/solution_enrich_sales.ktr) <button data-launch="spoon" data-path="files/solution_enrich_sales.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/solution_enrich_sales.ktr">View graph</button>

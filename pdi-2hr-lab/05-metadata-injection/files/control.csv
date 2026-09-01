@@ -1,4 +1,4 @@
-filename,separator,field_store,field_date,field_amount
-stores_north.csv,",",store,sale_date,amount
-stores_south.txt,|,location,trading_date,takings
-partners_eu.csv,;,outlet,dt,revenue_eur
+filename,separator
+C:/Workshop/pdi-2hr/feeds/stores_north.csv,","
+C:/Workshop/pdi-2hr/feeds/stores_south.txt,|
+C:/Workshop/pdi-2hr/feeds/partners_eu.csv,;

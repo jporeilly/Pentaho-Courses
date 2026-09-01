@@ -120,3 +120,10 @@ Fix it in the grid — that's the point of the grid. Common case:
 ## Lab Files
 
 [sales_20260101.csv](./files/sales_20260101.csv)
+
+### Solution
+
+Stuck, or want to compare? The complete transformation — it expects
+the data file at `C:\Workshop\pdi-2hr\` like the instructions above.
+
+[solution_build_pipeline.ktr](./files/solution_build_pipeline.ktr) <button data-launch="spoon" data-path="files/solution_build_pipeline.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/solution_build_pipeline.ktr">View graph</button>

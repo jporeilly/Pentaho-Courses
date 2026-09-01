@@ -6,26 +6,37 @@
 >
 > Your regions all send daily sales — but the north sends
 > comma-separated CSV, the south pipe-delimited text, and the EU
-> partner semicolons with different column names. The usual answer is
-> one pipeline per feed, maintained forever. PDI's answer is
-> **metadata injection**: one *template* pipeline whose configuration
-> is filled in at runtime from a control file.
+> partner semicolons. The usual answer is one pipeline per feed,
+> maintained forever. PDI's answer is **metadata injection**: one
+> *template* pipeline whose configuration is filled in at runtime
+> from a control file.
 >
 > **What you'll do**
 >
 > * Build a template transformation with a deliberately unconfigured reader.
-> * Build a driver transformation that reads a control file and injects the metadata.
+> * Build an injection transformation that fills the template in at runtime.
+> * Drive it from a small job — one run per control-file row.
 > * Ingest three differently-shaped files through one pipeline — then add a fourth by editing a CSV, not a pipeline.
 >
 > **Prerequisites:** [Build the Pipeline Yourself](../02-build-the-pipeline/guide.md).
 >
 > **Estimated Time:** 20 minutes
 
-> **Note:** **Get the files first.** Download all four files from
-> **Lab Files** below into `C:\Workshop\pdi-2hr\feeds\` (create the
-> folder). Open `control.csv` and look at it — one row per feed:
-> filename, separator, and which source column maps to `store`,
-> `date`, and `amount`.
+> **Note:** **Get the files first.** Download the three feed files
+> and `control.csv` from **Lab Files** below into
+> `C:\Workshop\pdi-2hr\feeds\` (create the folder). Open
+> `control.csv` — one row per feed: the file's full path and its
+> separator. That file *is* the configuration; the pipelines you
+> build next never change again.
+
+> **Note:** **The shape of the solution.** One injection run
+> configures the template once — so to process many differently-
+> configured feeds, a small **job** runs the injection once per
+> control row. Three pieces: the *template* (the reusable pipeline),
+> the *injector* (fills the template in and runs it), and the
+> *driver job* (loops the injector over control.csv). This is also
+> your first look at a job — the orchestration layer Lab 7 talks
+> about.
 
 :::: tabs
 
@@ -33,62 +44,70 @@
 
 1. New transformation, saved as
    `C:\Workshop\pdi-2hr\feeds\mi_template.ktr`.
-2. Drag on a **Text file input**. Name it `Read feed`. Configure
-   **nothing else** — no file, no separator, no fields. It's a shell.
-3. Drag on a **Select values** step, hopped from `Read feed`. Name it
-   `Standardise`. Leave it empty too — the driver will inject the
-   rename mapping so every feed comes out as `store`, `sale_date`,
-   `amount`.
+2. Drag on a **Text file input**. Name it `Read feed`. On
+   **Fields**, add three **String** fields by hand: `col_store`,
+   `col_date`, `col_amount` (the feeds all share this column
+   *order*, whatever the columns are called). On **Content**, make
+   sure **Header** is ticked. Configure **no file** — that's
+   injected at runtime.
+3. Drag on a **Select values** step, hopped from `Read feed`. Name
+   it `Standardise`. On **Select & Alter**, rename
+   `col_store → store`, `col_date → sale_date`,
+   `col_amount → amount`.
 4. Drag on a **Text file output**, hopped from `Standardise`.
-   Filename `C:\Workshop\pdi-2hr\out\all_feeds`, extension `csv`,
-   and on **Content** tick **Append**. On **Fields**, add the three
-   standard names by hand: `store`, `sale_date`, `amount`.
+   Filename `C:\Workshop\pdi-2hr\out\all_feeds`, extension `csv`.
+   On **Content**: tick **Append**, untick **Header**. On
+   **Fields**: add `store`, `sale_date`, `amount`.
 5. Save. This transformation can't run on its own — that's the
    point.
 
-### 2. The driver
+### 2. The injector
 
-1. New transformation, saved as `mi_driver.ktr` in the same folder.
-2. **Text file input** named `Read control`, pointed at
-   `C:\Workshop\pdi-2hr\feeds\control.csv`, separator `,`, header
-   ticked, **Get Fields**.
-3. From **Flow**, drag on **ETL metadata injection**, hopped from
-   `Read control`.
-4. Double-click it. Browse to `mi_template.ktr`. The dialog shows
-   every injectable property of every step in the template, as a
-   tree.
-5. Wire the injections — set the *source field* for each:
+1. New transformation, saved as `mi_inject.ktr` in the same folder.
+2. Give it two parameters (**Edit > Settings > Parameters**):
+   `FEED_FILE` and `FEED_SEP`.
+3. Drag on **Get variables** (from *Job*). Name it `File config`.
+   Add two fields: `feed_file` ← `${FEED_FILE}`, `feed_sep` ←
+   `${FEED_SEP}`, both String.
+4. From **Flow**, drag on **ETL metadata injection**, hopped from
+   `File config`. Double-click it and browse to `mi_template.ktr` —
+   the dialog shows every injectable property of every template
+   step, as a tree.
+5. Wire two injections on the `Read feed` step: **FILENAME** ←
+   `File config` / `feed_file`, and **SEPARATOR** ← `File config` /
+   `feed_sep`. Leave everything else alone.
+6. Save.
 
-| Template step | Property | Source field |
-| --- | --- | --- |
-| Read feed | FILENAME (file tab) | filename |
-| Read feed | SEPARATOR | separator |
-| Read feed | FIELD_NAME (fields) | field_store, field_date, field_amount |
-| Standardise | FIELD_RENAME → store, sale_date, amount | field_store, field_date, field_amount |
+### 3. The driver job
 
-> **Note:** The exact tree labels vary slightly by PDI version —
-> the pattern is constant: pick a template property, point it at a
-> column of the control stream. Set the filename to inject as
-> `C:\Workshop\pdi-2hr\feeds\` + filename using a prior Calculator
-> step if you want full paths, or keep the control file's paths
-> absolute.
+1. **File > New > Job**, saved as `mi_driver.kjb` in the same
+   folder.
+2. Drag on **START**, then two **Transformation** entries, then
+   **Success**; hop them into a line.
+3. First transformation entry → `read_control.ktr`: build that as a
+   30-second transformation — **Text file input** reading
+   `control.csv` (fields `filename`, `separator`) hopped to **Copy
+   rows to result** (from *Job*).
+4. Second transformation entry → `mi_inject.ktr`. On its
+   **Advanced** tab tick **Execute for every input row**. On
+   **Parameters**, map `FEED_FILE` ← stream column `filename` and
+   `FEED_SEP` ← stream column `separator`.
 
-6. In the same dialog, set **Run resulting transformation** so each
-   control row executes the filled-in template.
-
-### 3. Run and extend
+### 4. Run and extend
 
 1. Delete `C:\Workshop\pdi-2hr\out\all_feeds.csv` if it exists (we
    append).
-2. Run `mi_driver.ktr`.
+2. Run the **job**. Watch the log: the injector executes three
+   times, once per control row.
 3. Open `all_feeds.csv`: **18 rows** — north, south, and EU feeds,
    three shapes, one standard output.
 
 Now the punchline:
 
-4. Copy `stores_north.csv` to `stores_scotland.csv`, change the store
-   names, and **add one line to `control.csv`** describing it.
-5. Run the driver again. Four feeds. You did not open a pipeline.
+4. Copy `stores_north.csv` to `stores_scotland.csv`, change the
+   store names, and **add one line to `control.csv`** with its path
+   and separator.
+5. Run the job again. Four feeds. You did not open a pipeline.
 
 * [ ] `all_feeds.csv` contains rows from all three (then four) feeds.
 * [ ] The new feed required editing only `control.csv`.
@@ -109,20 +128,31 @@ re-reads the template.
 
 <details>
 
-<summary>Output has header rows repeated mid-file</summary>
+<summary>The job runs but all_feeds.csv has rows from only one feed</summary>
 
-In the template's Text file output, on the **Content** tab, untick
-**Header** (or leave header on and accept one header per feed —
-cosmetic either way for this lab).
+The second transformation entry isn't iterating — check **Execute
+for every input row** is ticked on its Advanced tab, and that
+`read_control.ktr` ends in **Copy rows to result**.
+
+</details>
+
+<details>
+
+<summary>The EU feed's rows look wrong / arrive as one column</summary>
+
+Its control row must carry `;` as the separator — check the
+`separator` column parsed correctly (the comma row needs quoting:
+`","`).
 
 </details>
 
 ---
 
 > **Tip:** Metadata injection is the difference between "an ETL tool"
-> and "an ETL platform": pipelines as *data*, driven by tables your
-> operations team can edit. Teams use it to onboard hundreds of feeds
-> with one template. Next lab: your data goes through it.
+> and "an ETL platform": pipelines as *data*, driven by a control
+> table your operations team can edit. Teams use this exact pattern
+> to onboard hundreds of feeds with one template. Next lab: your
+> data goes through it.
 
 ## Lab Files
 
@@ -133,3 +163,17 @@ cosmetic either way for this lab).
 [stores_south.txt](./files/stores_south.txt)
 
 [partners_eu.csv](./files/partners_eu.csv)
+
+### Solution
+
+Complete, working versions of all four pieces — download them into
+`C:\Workshop\pdi-2hr\feeds\` together (they reference each other by
+folder) and run the job. Compare with your own build.
+
+[solution_mi_driver.kjb](./files/solution_mi_driver.kjb) <button data-launch="spoon" data-path="files/solution_mi_driver.kjb">Open in Pentaho Data Integration</button> <button data-graph="files/solution_mi_driver.kjb">View graph</button>
+
+[solution_mi_inject.ktr](./files/solution_mi_inject.ktr) <button data-launch="spoon" data-path="files/solution_mi_inject.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/solution_mi_inject.ktr">View graph</button>
+
+[solution_mi_template.ktr](./files/solution_mi_template.ktr) <button data-launch="spoon" data-path="files/solution_mi_template.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/solution_mi_template.ktr">View graph</button>
+
+[solution_read_control.ktr](./files/solution_read_control.ktr) <button data-launch="spoon" data-path="files/solution_read_control.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/solution_read_control.ktr">View graph</button>

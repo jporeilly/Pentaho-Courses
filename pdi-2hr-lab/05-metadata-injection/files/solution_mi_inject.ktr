@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<transformation>
+  <info>
+    <name>solution_mi_inject</name>
+    <description>Lab 5 solution: inject one feed's metadata and run the template</description>
+    <extended_description>Takes FEED_FILE and FEED_SEP as parameters (set per control row by solution_mi_driver.kjb), injects them into solution_mi_template.ktr's Read feed step, and executes the filled-in template.</extended_description>
+    <trans_version>1.0</trans_version>
+    <trans_type>Normal</trans_type>
+    <trans_status>0</trans_status>
+    <directory>/</directory>
+    <parameters>
+      <parameter>
+        <name>FEED_FILE</name>
+        <default_value/>
+        <description>Full path of the feed file to ingest</description>
+      </parameter>
+      <parameter>
+        <name>FEED_SEP</name>
+        <default_value>,</default_value>
+        <description>Field separator used by that feed</description>
+      </parameter>
+    </parameters>
+  </info>
+  <notepads>
+    <notepad>
+      <note>Runs ONCE PER FEED - the driver job calls this for every control.csv row,
+passing FEED_FILE and FEED_SEP as parameters. The ETL metadata injection
+step pushes them into the template and executes it.</note>
+      <xloc>48</xloc>
+      <yloc>32</yloc>
+      <width>440</width>
+      <heigth>64</heigth>
+      <fontname>Segoe UI</fontname>
+      <fontsize>10</fontsize>
+      <fontbold>N</fontbold>
+      <fontitalic>N</fontitalic>
+      <fontcolorred>14</fontcolorred>
+      <fontcolorgreen>58</fontcolorgreen>
+      <fontcolorblue>90</fontcolorblue>
+      <backgroundcolorred>201</backgroundcolorred>
+      <backgroundcolorgreen>232</backgroundcolorgreen>
+      <backgroundcolorblue>251</backgroundcolorblue>
+      <bordercolorred>14</bordercolorred>
+      <bordercolorgreen>58</bordercolorgreen>
+      <bordercolorblue>90</bordercolorblue>
+      <drawshadow>N</drawshadow>
+    </notepad>
+  </notepads>
+  <order>
+    <hop>
+      <from>File config</from>
+      <to>Inject and run template</to>
+      <enabled>Y</enabled>
+    </hop>
+  </order>
+  <step>
+    <name>File config</name>
+    <type>GetVariable</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>feed_file</name>
+        <variable>${FEED_FILE}</variable>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>feed_sep</name>
+        <variable>${FEED_SEP}</variable>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>160</xloc>
+      <yloc>176</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Inject and run template</name>
+    <type>MetaInject</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <specification_method>filename</specification_method>
+    <trans_object_id/>
+    <trans_name/>
+    <filename>${Internal.Entry.Current.Directory}/solution_mi_template.ktr</filename>
+    <directory_path/>
+    <source_step/>
+    <source_output_fields>    </source_output_fields>
+    <target_file/>
+    <no_execution>N</no_execution>
+    <stream_source_step/>
+    <stream_target_step/>
+    <mappings>
+      <mapping>
+        <target_step_name>Read feed</target_step_name>
+        <target_attribute_key>FILENAME</target_attribute_key>
+        <target_detail>N</target_detail>
+        <source_step>File config</source_step>
+        <source_field>feed_file</source_field>
+      </mapping>
+      <mapping>
+        <target_step_name>Read feed</target_step_name>
+        <target_attribute_key>SEPARATOR</target_attribute_key>
+        <target_detail>N</target_detail>
+        <source_step>File config</source_step>
+        <source_field>feed_sep</source_field>
+      </mapping>
+    </mappings>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>416</xloc>
+      <yloc>176</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step_error_handling>
+  </step_error_handling>
+  <slave-step-copy-partition-distribution>
+  </slave-step-copy-partition-distribution>
+  <slave_transformation>N</slave_transformation>
+  <attributes/>
+</transformation>

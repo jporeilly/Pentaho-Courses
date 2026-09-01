@@ -125,3 +125,11 @@ In the connection dialog, open **Options** and add parameter
 ## Lab Files
 
 [customers.json](./files/customers.json) — same file as Lab 3; download here if you jumped straight to this lab.
+
+### Solution
+
+The complete transformation, with the `warehouse` connection
+already defined (localhost MySQL, `pentaho_admin`). On first use,
+open the dimension step and click **SQL** to create the table.
+
+[solution_load_dim_customer.ktr](./files/solution_load_dim_customer.ktr) <button data-launch="spoon" data-path="files/solution_load_dim_customer.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/solution_load_dim_customer.ktr">View graph</button>

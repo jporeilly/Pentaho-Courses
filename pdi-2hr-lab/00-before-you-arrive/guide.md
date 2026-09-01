@@ -32,6 +32,15 @@
 > can see where the lab flows well and where it doesn't. No names, no
 > email addresses, and nothing you type is ever sent.
 
+## Check your environment
+
+This panel probes the machine live — PDI, the MySQL container, and
+the supporting tooling. On a provided lab VM it should be all green;
+anything red tells you the exact fix. The one that matters most for
+this course is **MySQL** — Lab 4 loads a table into it.
+
+<div data-env-check></div>
+
 ## Start Pentaho Data Integration
 
 Click the button below. First launch can take a minute — PDI is a
@@ -62,16 +71,17 @@ elsewhere.
 
 ## Check the database
 
-Lab 4 loads a dimension table into MySQL — the only service the
-course needs besides PDI itself (the lab creates its own tables, so
-no sample data needs loading). Test it from a terminal:
+Lab 4 loads a dimension table into MySQL (the lab creates its own
+tables, so no sample data needs loading). The environment panel
+above shows **MySQL** green when the container is up — or test it
+from a terminal:
 
 ```powershell
 mysql -h localhost -P 3306 -u pentaho_admin -ppassword -e "SELECT 1;"
 ```
 
 If MySQL isn't running and you're on a lab VM, run the provided
-`setup-services` script and test again.
+`setup-services` script, then click **Re-run checks** on the panel.
 
 ## Troubleshooting
 
@@ -88,10 +98,11 @@ JDK and start it via **Spoon.bat** (Windows) or **spoon.sh**
 
 <details>
 
-<summary>The MySQL test fails</summary>
+<summary>The environment panel shows MySQL red</summary>
 
-On a lab VM, run `setup-services.ps1` from the scripts folder, wait
-for it to report healthy, and test again. On your own machine, any
+The database runs as a container. On a lab VM, run
+`setup-services.ps1` from the scripts folder, wait for it to report
+healthy, then click **Re-run checks**. On your own machine, any
 MySQL 8 instance on `localhost:3306` with a user
 `pentaho_admin`/`password` works — Lab 4 creates its own tables, so
 no seeded sample data is required.
