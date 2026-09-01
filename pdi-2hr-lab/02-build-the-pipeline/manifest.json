@@ -2,7 +2,7 @@
   "title": "Build the Pipeline Yourself",
   "description": "From an empty canvas: read the sales CSV, validate keys, write rejects to a file.",
   "order": 3,
-  "estimatedMinutes": 20,
+  "estimatedMinutes": 25,
   "checks": [
     {
       "id": "rejects-file",

@@ -2,7 +2,7 @@
   "title": "Enrich and Join",
   "description": "Join CSV sales, JSON customers, and the product catalogue on one canvas; compute margin with Calculator.",
   "order": 4,
-  "estimatedMinutes": 20,
+  "estimatedMinutes": 25,
   "stepCount": 7,
   "hasVideo": false
 }

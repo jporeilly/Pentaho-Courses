@@ -51,6 +51,9 @@ full desktop designer, not a toy.
 You should see the **Spoon** welcome screen with an empty canvas.
 Leave it open — Lab 1 starts here.
 
+![1788267733090.png](../_assets/images/1788267733090.png)
+<p align="center"><em>Pentaho Developers Edition</em></p>
+
 ## Create the working folders
 
 Your working area mirrors the course outline — one folder per

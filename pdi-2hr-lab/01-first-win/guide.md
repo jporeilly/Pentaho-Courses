@@ -36,15 +36,25 @@ clipboard: switch to PDI, press `Ctrl+O`, `Ctrl+V`, `Enter`.)
 You should see three connected steps on the canvas: a file reader, a
 filter, and two end points — one for valid rows, one for rejects.
 
+![1788268810024.png](../_assets/images/1788268810024.png)
+<p align="center"><em>win_preview.ktr</em></p>
+
 ## Preview the valid rows
 
 1. **Right-click** the step named **Valid rows**.
 2. Choose **Preview**, then **Quick Launch**.
 
+![1788269301694.png](../_assets/images/1788269301694.png)
+<p align="center"><em>valid rows</em></p>
+
 A grid appears with 37 of yesterday's orders — typed columns, parsed
 dates, clean rows. This is the habit that changes how you build pipelines:
 **you can look at the data at any step, at any time**, before
 anything is written anywhere.
+
+![1788269454987.png](../_assets/images/1788269454987.png)
+<p align="center"><em>preview rows</em></p>
+
 
 ## Preview the rejects
 
@@ -64,6 +74,18 @@ configuration for parsing the file — delimiter, header, and on the
 **Fields** tab, every column with its type and format. No code was
 generated; this *is* the pipeline.
 
+![1788269769520.png](../_assets/images/1788269769520.png)
+<p align="center"><em>Text file input </em></p>
+
+Close the dialog with **Cancel** (so nothing changes).
+
+Double-click **Keys present?*.
+The Filter Rows step allows you to filter rows based on conditions and comparisons. 
+In this example we're filtering for rows where the ids / keys are not null.
+
+![1788269628158.png](../_assets/images/1788269628158.png)
+<p align="center"><em>Filter rows</em></p>
+
 Close the dialog with **Cancel** (so nothing changes).
 
 ## See the flow as a diagram
@@ -72,6 +94,14 @@ The same file, rendered by this guide's built-in viewer — click any
 step to see its configuration:
 
 <button data-graph="files/win_preview.ktr">View graph</button>
+
+![pasted-1788270238088.png](../_assets/images/pasted-1788270238088.png)
+<p align="center"><em>Graph</em></p>
+
+Try out the other AI options:
+Summary: summarized in a few sentences.
+Walkthrough: Steep-by-step walkthrough of the transformation.
+
 
 ## Troubleshooting
 

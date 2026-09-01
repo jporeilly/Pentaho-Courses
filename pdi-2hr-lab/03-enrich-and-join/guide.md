@@ -17,10 +17,10 @@
 >
 > **Prerequisites:** [Build the Pipeline Yourself](../02-build-the-pipeline/guide.md) — you'll extend that transformation.
 >
-> **Estimated Time:** 20 minutes
+> **Estimated Time:** 15 minutes
 
-> **Note:** **Get the files first.** Download `customers.json`,
-> `products.csv`, and `regions.csv` from **Lab Files** below into
+> **Note:** **Get the files first.** Check `customers.json`,
+> `products.csv`, and `regions.csv` have been downloaded into
 > this lab's workshop folder:
 > `C:\Workshop\pdi-2hr\03-make-it-yours\03-enrich-and-join\`.
 
@@ -34,6 +34,10 @@
    browse to
    `C:\Workshop\pdi-2hr\03-make-it-yours\03-enrich-and-join\customers.json`
    and **Add** it.
+
+![1788277156966.png](../_assets/images/1788276989272.png)
+<p align="center"><em>customers.json</em></p>
+
 4. On the **Fields** tab, add rows — one per field. **Path** uses
    JSONPath, relative to the array of customer objects:
 
@@ -43,8 +47,15 @@
 | customer_name | $.customers[*].name | String |
 | region_code | $.customers[*].region_code | String |
 
+![1788277506117.png](../_assets/images/1788277506117.png)
+<p align="center"><em>Fields - customers.json</em></p>
+
 5. Click **Preview rows** — 20 customers. The nested JSON is now
    just another stream of rows, identical in kind to the CSV stream.
+
+![1788277571868.png](../_assets/images/1788277571868.png)
+<p align="center"><em>Preview - customers.json</em></p>
+
 
 ## Read the product catalogue
 

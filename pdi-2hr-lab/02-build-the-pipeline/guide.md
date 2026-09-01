@@ -16,11 +16,10 @@
 >
 > **Prerequisites:** [Your First Win](../01-first-win/guide.md).
 >
-> **Estimated Time:** 20 minutes
+> **Estimated Time:** 15 minutes
 
-> **Note:** **Get the data file first.** Download
-> `sales_20260101.csv` from **Lab Files** at the bottom of this page
-> into its workshop folder:
+> **Note:** **Get the data file first.** Check the file:
+> `sales_20260101.csv` has been downloaded into the workshop folder:
 > `C:\Workshop\pdi-2hr\02-see-it-work\02-build-the-pipeline\`.
 
 ## Create a new transformation
@@ -28,11 +27,13 @@
 In PDI: **File > New > Transformation** (or `Ctrl+N`). You get an
 empty canvas and, on the left, the **Design** palette — every
 capability of the engine, organised by category.
+Save the file as: C:\Workshop\pdi-2hr\02-see-it-work\02-build-the-pipeline\check_keys.ktr
 
 ## Read the file
 
 1. In the Design palette, open **Input** and drag **Text file input**
    onto the canvas.
+> **Note:** **Tip.** Use the Search box to enter the Step name.
 2. Double-click it. Name it `Read sales`.
 3. On the **File** tab, click **Browse**, pick
    `C:\Workshop\pdi-2hr\02-see-it-work\02-build-the-pipeline\sales_20260101.csv`,
@@ -85,9 +86,9 @@ capability of the engine, organised by category.
 3. Open `C:\Workshop\pdi-2hr\out\rejects.csv` — there are your three
    bad rows, ready to send back to the source system's owner.
 
-* [ ] 40 rows read from the sales file.
-* [ ] 3 rows in the reject output.
-* [ ] Run finishes with no errors (all steps green-ticked).
+   * [ ] 40 rows read from the sales file.
+   * [ ] 3 rows in the reject output.
+   * [ ] Run finishes with no errors (all steps green-ticked).
 
 ## Troubleshooting
 
@@ -126,6 +127,6 @@ Fix it in the grid — that's the point of the grid. Common case:
 ### Solution
 
 Stuck, or want to compare? The complete transformation — it expects
-the data file in the workshop folder like the instructions above.
+the data file in the workshop folder.
 
 [solution_build_pipeline.ktr](./files/solution_build_pipeline.ktr) <button data-launch="spoon" data-path="files/solution_build_pipeline.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/solution_build_pipeline.ktr">View graph</button>
