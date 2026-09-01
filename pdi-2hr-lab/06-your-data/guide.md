@@ -22,7 +22,8 @@
 > **Note:** **Getting your file onto a lab VM.** Use your cloud file
 > share: open OneDrive, SharePoint, Google Drive, or Dropbox in the
 > VM's browser (or paste a share link a colleague sends you) and
-> download the file to `C:\Workshop\pdi-2hr\`. Nothing leaves the
+> download the file to
+> `C:\Workshop\pdi-2hr\04-see-it-scale\06-your-data\`. Nothing leaves the
 > VM — the file is read locally and the VM is wiped after the
 > session.
 >

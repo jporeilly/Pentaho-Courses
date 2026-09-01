@@ -3,7 +3,7 @@
   <info>
     <name>solution_build_pipeline</name>
     <description>Lab 2 solution: validating ingest with a reject file</description>
-    <extended_description>Reads C:/Workshop/pdi-2hr/sales_20260101.csv, routes rows missing customer_id or product_id to a reject CSV for the source team, and passes valid rows downstream. Compare with your own build - step names may differ, structure should match.</extended_description>
+    <extended_description>Reads C:/Workshop/pdi-2hr/02-see-it-work/02-build-the-pipeline/sales_20260101.csv, routes rows missing customer_id or product_id to a reject CSV for the source team, and passes valid rows downstream. Compare with your own build - step names may differ, structure should match.</extended_description>
     <trans_version>1.0</trans_version>
     <trans_type>Normal</trans_type>
     <trans_status>0</trans_status>
@@ -13,7 +13,7 @@
   </info>
   <notepads>
     <notepad>
-      <note>SOLUTION - Lab 2. Expects the data file at C:/Workshop/pdi-2hr/sales_20260101.csv
+      <note>SOLUTION - Lab 2. Expects the data file at C:/Workshop/pdi-2hr/02-see-it-work/02-build-the-pipeline/sales_20260101.csv
 and writes rejects to C:/Workshop/pdi-2hr/out/rejects.csv.</note>
       <xloc>48</xloc>
       <yloc>32</yloc>
@@ -91,7 +91,7 @@ and writes rejects to C:/Workshop/pdi-2hr/out/rejects.csv.</note>
     <length>Characters</length>
     <add_to_result_filenames>Y</add_to_result_filenames>
     <file>
-      <name>C:/Workshop/pdi-2hr/sales_20260101.csv</name>
+      <name>C:/Workshop/pdi-2hr/02-see-it-work/02-build-the-pipeline/sales_20260101.csv</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>

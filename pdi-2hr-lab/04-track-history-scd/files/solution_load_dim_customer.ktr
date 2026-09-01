@@ -125,7 +125,7 @@ to create dim_customer.</note>
     <defaultPathLeafToNull>Y</defaultPathLeafToNull>
     <rownum_field/>
     <file>
-      <name>C:/Workshop/pdi-2hr/customers.json</name>
+      <name>C:/Workshop/pdi-2hr/03-make-it-yours/04-track-history/customers.json</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>

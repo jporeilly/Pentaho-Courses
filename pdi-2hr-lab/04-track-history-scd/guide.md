@@ -23,8 +23,11 @@
 
 1. New transformation: `load_dim_customer.ktr`.
 2. Drag a **JSON input** on, configured exactly like Lab 3's
-   `Read customers` (same file, same three fields — or copy/paste
-   the step between transformations with `Ctrl+C`/`Ctrl+V`).
+   `Read customers` (same three fields — copy/paste the step between
+   transformations with `Ctrl+C`/`Ctrl+V` if you like), but pointed
+   at **this lab's own copy** of the file:
+   `C:\Workshop\pdi-2hr\03-make-it-yours\04-track-history\customers.json`
+   — you'll be editing it shortly, and Lab 3's copy stays pristine.
 3. In the **View** tab (left panel), right-click **Database
    connections > New**:
 
@@ -83,7 +86,9 @@ loads can point failed lookups somewhere instead of dropping rows.
 
 ## Now change history
 
-1. Open `C:\Workshop\pdi-2hr\customers.json` in a text editor.
+1. Open
+   `C:\Workshop\pdi-2hr\03-make-it-yours\04-track-history\customers.json`
+   in a text editor.
 2. Find **C001 (Aiden Marsh)** and change `"region_code": "NW"` to
    `"region_code": "SE"`. Save.
 3. Run the transformation again.
@@ -129,7 +134,7 @@ In the connection dialog, open **Options** and add parameter
 
 ## Lab Files
 
-[customers.json](./files/customers.json) — same file as Lab 3; download here if you jumped straight to this lab.
+[customers.json](./files/customers.json) — download into this lab's workshop folder: `C:\Workshop\pdi-2hr\03-make-it-yours\04-track-history\`.
 
 ### Solution
 

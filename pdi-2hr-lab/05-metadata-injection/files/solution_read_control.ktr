@@ -59,7 +59,7 @@
     <length>Characters</length>
     <add_to_result_filenames>N</add_to_result_filenames>
     <file>
-      <name>C:/Workshop/pdi-2hr/feeds/control.csv</name>
+      <name>C:/Workshop/pdi-2hr/04-see-it-scale/05-one-pipeline-many-files/control.csv</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>

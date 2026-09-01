@@ -24,7 +24,8 @@
 
 > **Note:** **Get the files first.** Download the three feed files
 > and `control.csv` from **Lab Files** below into
-> `C:\Workshop\pdi-2hr\feeds\` (create the folder). Open
+> this module's workshop folder:
+> `C:\Workshop\pdi-2hr\04-see-it-scale\05-one-pipeline-many-files\`. Open
 > `control.csv` — one row per feed: the file's full path and its
 > separator. That file *is* the configuration; the pipelines you
 > build next never change again.
@@ -43,7 +44,7 @@
 ### 1. The template
 
 1. New transformation, saved as
-   `C:\Workshop\pdi-2hr\feeds\mi_template.ktr`.
+   `C:\Workshop\pdi-2hr\04-see-it-scale\05-one-pipeline-many-files\mi_template.ktr`.
 2. Drag on a **Text file input**. Name it `Read feed`. On
    **Fields**, add three **String** fields by hand: `col_store`,
    `col_date`, `col_amount` (the feeds all share this column
@@ -167,7 +168,8 @@ Its control row must carry `;` as the separator — check the
 ### Solution
 
 Complete, working versions of all four pieces — download them into
-`C:\Workshop\pdi-2hr\feeds\` together (they reference each other by
+`C:\Workshop\pdi-2hr\04-see-it-scale\05-one-pipeline-many-files\`
+together (they reference each other by
 folder) and run the job. Compare with your own build.
 
 [solution_mi_driver.kjb](./files/solution_mi_driver.kjb) <button data-launch="spoon" data-path="files/solution_mi_driver.kjb">Open in Pentaho Data Integration</button> <button data-graph="files/solution_mi_driver.kjb">View graph</button>

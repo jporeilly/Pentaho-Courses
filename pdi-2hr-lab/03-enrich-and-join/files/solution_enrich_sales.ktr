@@ -3,7 +3,7 @@
   <info>
     <name>solution_enrich_sales</name>
     <description>Lab 3 solution: three sources joined, margin computed</description>
-    <extended_description>Validated sales (CSV) enriched with the JSON customer master and the product catalogue via two Stream lookups, then revenue and margin computed in a Calculator. Expects the data files under C:/Workshop/pdi-2hr/.</extended_description>
+    <extended_description>Validated sales (CSV) enriched with the JSON customer master and the product catalogue via two Stream lookups, then revenue and margin computed in a Calculator. Expects sales in the 02-see-it-work workshop folder and the master data in 03-make-it-yours/03-enrich-and-join/.</extended_description>
     <trans_version>1.0</trans_version>
     <trans_type>Normal</trans_type>
     <trans_status>0</trans_status>
@@ -13,7 +13,7 @@
   </info>
   <notepads>
     <notepad>
-      <note>SOLUTION - Lab 3. Data files expected in C:/Workshop/pdi-2hr/.
+      <note>SOLUTION - Lab 3. Data files expected in their workshop folders (02-see-it-work, 03-make-it-yours).
 Preview "Compute margin" to see the enriched rows.</note>
       <xloc>48</xloc>
       <yloc>16</yloc>
@@ -116,7 +116,7 @@ Preview "Compute margin" to see the enriched rows.</note>
     <length>Characters</length>
     <add_to_result_filenames>Y</add_to_result_filenames>
     <file>
-      <name>C:/Workshop/pdi-2hr/sales_20260101.csv</name>
+      <name>C:/Workshop/pdi-2hr/02-see-it-work/02-build-the-pipeline/sales_20260101.csv</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>
@@ -399,7 +399,7 @@ Preview "Compute margin" to see the enriched rows.</note>
     <defaultPathLeafToNull>Y</defaultPathLeafToNull>
     <rownum_field/>
     <file>
-      <name>C:/Workshop/pdi-2hr/customers.json</name>
+      <name>C:/Workshop/pdi-2hr/03-make-it-yours/03-enrich-and-join/customers.json</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>
@@ -559,7 +559,7 @@ Preview "Compute margin" to see the enriched rows.</note>
     <length>Characters</length>
     <add_to_result_filenames>Y</add_to_result_filenames>
     <file>
-      <name>C:/Workshop/pdi-2hr/products.csv</name>
+      <name>C:/Workshop/pdi-2hr/03-make-it-yours/03-enrich-and-join/products.csv</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>

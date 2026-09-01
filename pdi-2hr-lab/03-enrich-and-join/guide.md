@@ -21,7 +21,8 @@
 
 > **Note:** **Get the files first.** Download `customers.json`,
 > `products.csv`, and `regions.csv` from **Lab Files** below into
-> `C:\Workshop\pdi-2hr\`.
+> this lab's workshop folder:
+> `C:\Workshop\pdi-2hr\03-make-it-yours\03-enrich-and-join\`.
 
 ## Read the customer master (JSON)
 
@@ -30,7 +31,9 @@
 2. From **Input**, drag **JSON input** onto an empty part of the
    canvas.
 3. Double-click it. Name it `Read customers`. On the **File** tab,
-   browse to `C:\Workshop\pdi-2hr\customers.json` and **Add** it.
+   browse to
+   `C:\Workshop\pdi-2hr\03-make-it-yours\03-enrich-and-join\customers.json`
+   and **Add** it.
 4. On the **Fields** tab, add rows — one per field. **Path** uses
    JSONPath, relative to the array of customer objects:
 
@@ -46,7 +49,9 @@
 ## Read the product catalogue
 
 1. Drag another **Text file input** on. Name it `Read products`.
-2. Point it at `C:\Workshop\pdi-2hr\products.csv`, separator `,`,
+2. Point it at
+   `C:\Workshop\pdi-2hr\03-make-it-yours\03-enrich-and-join\products.csv`,
+   separator `,`,
    header ticked; **Get Fields**; OK.
 
 ## Join both onto the sales stream
@@ -134,6 +139,6 @@ under the top-level `customers` key, not at the root.
 ### Solution
 
 The complete transformation — all three sources joined, margin
-computed. Expects the data files at `C:\Workshop\pdi-2hr\`.
+computed. Expects the data files in the 02 and 03 workshop folders.
 
 [solution_enrich_sales.ktr](./files/solution_enrich_sales.ktr) <button data-launch="spoon" data-path="files/solution_enrich_sales.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/solution_enrich_sales.ktr">View graph</button>

@@ -1,4 +1,4 @@
 filename,separator
-C:/Workshop/pdi-2hr/feeds/stores_north.csv,","
-C:/Workshop/pdi-2hr/feeds/stores_south.txt,|
-C:/Workshop/pdi-2hr/feeds/partners_eu.csv,;
+C:/Workshop/pdi-2hr/04-see-it-scale/05-one-pipeline-many-files/stores_north.csv,","
+C:/Workshop/pdi-2hr/04-see-it-scale/05-one-pipeline-many-files/stores_south.txt,|
+C:/Workshop/pdi-2hr/04-see-it-scale/05-one-pipeline-many-files/partners_eu.csv,;

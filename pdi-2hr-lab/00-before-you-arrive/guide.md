@@ -51,23 +51,25 @@ full desktop designer, not a toy.
 You should see the **Spoon** welcome screen with an empty canvas.
 Leave it open — Lab 1 starts here.
 
-## Create the working folder
+## Create the working folders
 
-The labs write output files into one predictable place. Open a
-terminal and create it:
+Your working area mirrors the course outline — one folder per
+workshop, plus a shared `out\` for everything the pipelines write.
+Open a terminal and create the tree in one go:
 
 ```powershell
-mkdir C:\Workshop\pdi-2hr\out
+mkdir C:\Workshop\pdi-2hr\02-see-it-work\02-build-the-pipeline, C:\Workshop\pdi-2hr\03-make-it-yours\03-enrich-and-join, C:\Workshop\pdi-2hr\03-make-it-yours\04-track-history, C:\Workshop\pdi-2hr\04-see-it-scale\05-one-pipeline-many-files, C:\Workshop\pdi-2hr\04-see-it-scale\06-your-data, C:\Workshop\pdi-2hr\out
 ```
 
 On Linux or macOS:
 
 ```bash
-mkdir -p ~/Workshop/pdi-2hr/out
+mkdir -p ~/Workshop/pdi-2hr/{02-see-it-work/02-build-the-pipeline,03-make-it-yours/{03-enrich-and-join,04-track-history},04-see-it-scale/{05-one-pipeline-many-files,06-your-data},out}
 ```
 
-The lab text uses the Windows path — substitute yours if you're
-elsewhere.
+Each lab tells you which folder its downloads belong in — matching
+what you see in the course sidebar. The lab text uses the Windows
+paths — substitute yours if you're elsewhere.
 
 ## Check the database
 

@@ -20,7 +20,8 @@
 
 > **Note:** **Get the data file first.** Download
 > `sales_20260101.csv` from **Lab Files** at the bottom of this page
-> into `C:\Workshop\pdi-2hr\`.
+> into its workshop folder:
+> `C:\Workshop\pdi-2hr\02-see-it-work\02-build-the-pipeline\`.
 
 ## Create a new transformation
 
@@ -34,7 +35,8 @@ capability of the engine, organised by category.
    onto the canvas.
 2. Double-click it. Name it `Read sales`.
 3. On the **File** tab, click **Browse**, pick
-   `C:\Workshop\pdi-2hr\sales_20260101.csv`, then click **Add** so it
+   `C:\Workshop\pdi-2hr\02-see-it-work\02-build-the-pipeline\sales_20260101.csv`,
+   then click **Add** so it
    appears in the *Selected files* grid.
 4. On the **Content** tab set **Separator** to `,` and make sure
    **Header** is ticked with 1 header line.
@@ -124,6 +126,6 @@ Fix it in the grid — that's the point of the grid. Common case:
 ### Solution
 
 Stuck, or want to compare? The complete transformation — it expects
-the data file at `C:\Workshop\pdi-2hr\` like the instructions above.
+the data file in the workshop folder like the instructions above.
 
 [solution_build_pipeline.ktr](./files/solution_build_pipeline.ktr) <button data-launch="spoon" data-path="files/solution_build_pipeline.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/solution_build_pipeline.ktr">View graph</button>
