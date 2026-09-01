@@ -19,9 +19,20 @@
 >
 > **Estimated Time:** 15 minutes
 
-> **Note:** No file with you? Grab any public dataset — or export a
-> sheet from Excel with **File > Save as > CSV** and use that. The
-> lab works with anything tabular.
+> **Note:** **Getting your file onto a lab VM.** Use your cloud file
+> share: open OneDrive, SharePoint, Google Drive, or Dropbox in the
+> VM's browser (or paste a share link a colleague sends you) and
+> download the file to `C:\Workshop\pdi-2hr\`. Nothing leaves the
+> VM — the file is read locally and the VM is wiped after the
+> session.
+>
+> No file with you? Grab any public dataset — or export a sheet from
+> Excel with **File > Save as > CSV** and use that. The lab works
+> with anything tabular.
+>
+> PDI can also read straight from cloud storage (S3, HTTP, and
+> other VFS locations) in the same Input steps — worth knowing when
+> you test this against your real systems after the session.
 
 ## Read your file
 

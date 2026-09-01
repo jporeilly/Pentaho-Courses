@@ -14,7 +14,6 @@ person running the campaign. Learners never see this page.
 | **Conversion: CTA clicked** | `launcher_clicked` (launcher = `contact` / `trial`) | GA4 |
 | Pipeline curiosity: graph viewer opened | `graph_opened` | GA4 |
 | Assistant usage | `chat_prompt_sent` (never the text) | GA4 |
-| Environment failures blocking learners | `env_check_run` (`failures` count) | GA4 |
 | Per-page sentiment | `page_feedback` (`helpful` yes/no) | GA4 |
 | Free-text feedback comments | feedback webhook (same endpoint) | Leads spreadsheet, Feedback tab |
 | **Leads: name, email, company + recap score** | Wrap-Up Check (exam.json) webhook | Leads spreadsheet, Summary tab |
@@ -105,10 +104,13 @@ forward-only rule).
   KTR patterns but has not been opened in Spoon — **open and re-save
   it in the target PDI version before the event** (Lab 1 depends on
   it running first try).
-- Lab 4 assumes the workshop MySQL (`localhost:3306`,
-  `pentaho_admin`/`password`, db `sampledata`) from
-  `setup-services.ps1`. For a self-serve/laptop audience, ship a
-  docker-compose or re-point the lab.
+- **Footprint (user call, 2026-09-01):** PDI + a running MySQL, and
+  nothing else — no Pentaho Server, no MinIO, no env-check panel,
+  and the Steel Wheels seed is NOT required (Lab 4 creates its own
+  tables; any MySQL 8 on `localhost:3306` with
+  `pentaho_admin`/`password` works, the workshop container included).
+  MySQL is kept deliberately: the Type 2 SCD demo needs a writable
+  database, and the bundled Hypersonic/H2 sampledata is read-only.
 - Lab 7's demo (job + server + schedule) is instructor-driven; for
   fully self-serve, record it as a video and embed it.
 - CTA URLs in `course.json` (`contact`, `trial` launchers) point at
