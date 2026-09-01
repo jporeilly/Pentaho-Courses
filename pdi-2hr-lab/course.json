@@ -1,0 +1,80 @@
+{
+  "id": "pdi-2hr-lab",
+  "title": "Pentaho Data Integration in 2 Hours",
+  "description": "A hands-on, try-and-buy lab: build a real pipeline with Pentaho Data Integration Developer Edition — from first preview to change history and metadata injection — in one two-hour sitting.",
+  "version": "0.1.0",
+  "kind": "workshop",
+  "mode": "free",
+  "role": "developer",
+  "tier": "practitioner",
+  "theme": {
+    "accent": "#1e40af"
+  },
+  "analytics": {
+    "measurementId": "",
+    "apiSecret": ""
+  },
+  "feedback": {
+    "webhookUrl": "",
+    "webhookSecret": ""
+  },
+  "assistant": {
+    "ollamaURL": "http://localhost:11434",
+    "mcpURL": "https://docs.pentaho.com/~gitbook/mcp",
+    "defaultProfile": "cpu",
+    "models": {
+      "cpu": "llama3.2:3b",
+      "gpu": "qwen2.5:7b"
+    },
+    "subject": "Pentaho Data Integration (Spoon, transformations, jobs)",
+    "suggestions": [
+      "What is a transformation vs a job?",
+      "How do I preview data at any step?",
+      "What does the Dimension Lookup/Update step do?",
+      "What is metadata injection used for?"
+    ]
+  },
+  "launchers": {
+    "spoon": {
+      "label": "Pentaho Data Integration",
+      "action": "Start",
+      "windows": "C:\\Pentaho\\design-tools\\data-integration\\Spoon.bat",
+      "linux": "~/Pentaho/design-tools/data-integration/spoon.sh",
+      "macos": "~/Pentaho/design-tools/data-integration/spoon.sh",
+      "fileArg": "-file="
+    },
+    "contact": {
+      "label": "Talk to us about production",
+      "action": "Open",
+      "url": "https://pentaho.com/contact/"
+    },
+    "trial": {
+      "label": "Get the full Pentaho platform trial",
+      "action": "Open",
+      "url": "https://pentaho.com/free-trial/"
+    }
+  },
+  "moduleSummaries": [
+    {
+      "title": "Get Ready",
+      "summary": "Ten minutes before the clock starts: check your machine, start the sample database, and confirm PDI opens. Nothing in the two hours is spent on setup."
+    },
+    {
+      "title": "See It Work",
+      "summary": "Open a finished pipeline and watch it run in your first ten minutes — then build the same thing yourself and understand every step you clicked."
+    },
+    {
+      "title": "Make It Yours",
+      "summary": "Join JSON and CSV sources on one canvas, then load a warehouse table that tracks every historical change — the work that normally takes a page of SQL, done with two configured steps."
+    },
+    {
+      "title": "See It Scale",
+      "summary": "One template transformation ingests files of different shapes, driven by a control file — then swap in a file of your own data and watch the same pipeline handle it."
+    },
+    {
+      "title": "Make It Real",
+      "summary": "What production looks like: scheduling, monitoring, clustering, lineage — and what moving from Developer Edition to a licensed deployment actually involves."
+    }
+  ],
+  "welcome": null
+}

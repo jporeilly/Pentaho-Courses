@@ -1,0 +1,23 @@
+{
+  "title": "Build the Pipeline Yourself",
+  "description": "From an empty canvas: read the sales CSV, validate keys, write rejects to a file.",
+  "order": 3,
+  "estimatedMinutes": 20,
+  "checks": [
+    {
+      "id": "rejects-file",
+      "kind": "file-exists",
+      "label": "Reject file written",
+      "path": "C:\\Workshop\\pdi-2hr\\out\\rejects.csv"
+    },
+    {
+      "id": "rejects-rows",
+      "kind": "row-count",
+      "label": "Reject file has the 2 bad rows (plus header)",
+      "path": "C:\\Workshop\\pdi-2hr\\out\\rejects.csv",
+      "min": 2
+    }
+  ],
+  "stepCount": 7,
+  "hasVideo": false
+}

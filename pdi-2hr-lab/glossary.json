@@ -1,0 +1,12 @@
+{
+  "transformation": "A PDI pipeline: steps connected by hops, processing a stream of rows. Saved as a .ktr file.",
+  "job": "An orchestration flow that sequences transformations and other entries (mail, file checks, retries). Saved as a .kjb file.",
+  "step": "One unit of work in a transformation — read a file, filter rows, look up a value, write a table.",
+  "hop": "The link between two steps that rows flow along. In a job, hops carry success/failure routing instead of rows.",
+  "preview": "Inspecting the live rows at any step while designing, before anything is written to a target.",
+  "stream lookup": "An in-memory join: enriches the main stream with fields fetched from a second stream by key.",
+  "slowly changing dimension": "A warehouse table that keeps history: when a tracked attribute changes, a new versioned row is added with a validity window instead of overwriting (Type 2).",
+  "metadata injection": "Configuring a template transformation at runtime from data (e.g. a control file), so one pipeline handles many differently-shaped inputs.",
+  "Developer Edition": "The free Pentaho distribution for evaluation, development, and learning under the Business Source License 1.1 — production use requires a commercial licence.",
+  "Spoon": "The PDI desktop designer where transformations and jobs are built and run during development."
+}

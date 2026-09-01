@@ -1,0 +1,23 @@
+{
+  "title": "One Pipeline, Many Files",
+  "description": "Metadata injection: a control file drives one template transformation to ingest three differently-shaped feeds — then a fourth, without touching a pipeline.",
+  "order": 6,
+  "estimatedMinutes": 20,
+  "checks": [
+    {
+      "id": "all-feeds",
+      "kind": "file-exists",
+      "label": "Combined output written",
+      "path": "C:\\Workshop\\pdi-2hr\\out\\all_feeds.csv"
+    },
+    {
+      "id": "all-feeds-rows",
+      "kind": "row-count",
+      "label": "Combined output has all three feeds (18+ rows)",
+      "path": "C:\\Workshop\\pdi-2hr\\out\\all_feeds.csv",
+      "min": 18
+    }
+  ],
+  "stepCount": 5,
+  "hasVideo": false
+}

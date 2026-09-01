@@ -1,0 +1,94 @@
+{
+  "title": "Wrap-Up Check",
+  "passMark": 60,
+  "shuffle": true,
+  "description": "Five quick questions to lock in what you built today — takes about two minutes. The short form before it asks who you are so we can send you the trial link and follow up on anything you flagged in Lab 7. No score pressure: this is a recap, not an exam.",
+  "webhookUrl": "",
+  "webhookSecret": "",
+  "questions": [
+    {
+      "id": "q-preview",
+      "module": "See It Work",
+      "prompt": "You want to inspect the data mid-pipeline, after the filter but before anything is written. In PDI you...",
+      "options": [
+        "Right-click the step and Preview — at any step, at any time",
+        "Add temporary logging code and re-deploy",
+        "Run the whole pipeline and query the target table",
+        "Export the stream to CSV and open it in Excel"
+      ],
+      "correct": 0,
+      "explanation": "Preview works on every step while you build — the habit from Lab 1. You inspect the stream before anything is committed anywhere.",
+      "source": "Lab 1 — Your First Win"
+    },
+    {
+      "id": "q-getfields",
+      "module": "See It Work",
+      "prompt": "How did the columns and types of the sales CSV get defined in your transformation?",
+      "options": [
+        "Get Fields read the file and proposed the schema, which you could then correct",
+        "You wrote a schema file by hand first",
+        "PDI requires the source team to supply an XSD",
+        "Columns are always read as strings and cast later in SQL"
+      ],
+      "correct": 0,
+      "explanation": "Get Fields infers names, types and formats from the data itself — and the grid lets you fix anything it guessed wrong. It's also why Lab 6 worked on a file PDI had never seen.",
+      "source": "Lab 2 — Build the Pipeline Yourself"
+    },
+    {
+      "id": "q-join",
+      "module": "Make It Yours",
+      "prompt": "In Lab 3 you joined CSV sales, a JSON customer master, and a CSV product catalogue. What staging was required first?",
+      "options": [
+        "None — the three streams were joined in-memory on the canvas",
+        "All three files had to be loaded into MySQL first",
+        "The JSON had to be converted to CSV outside the tool",
+        "A schema registry entry for each source"
+      ],
+      "correct": 0,
+      "explanation": "Stream lookup joins streams in memory regardless of where each came from. Format differences disappear at the Input step; after that, everything is rows.",
+      "source": "Lab 3 — Enrich and Join"
+    },
+    {
+      "id": "q-scd",
+      "module": "Make It Yours",
+      "prompt": "After you changed customer C001's region and re-ran the load, the dimension table showed...",
+      "options": [
+        "Two rows for C001 — the old region with its validity window closed, the new one open-ended",
+        "One updated row for C001 — the old region was overwritten",
+        "A constraint violation on the natural key",
+        "Twenty-one new rows — the whole file was reloaded"
+      ],
+      "correct": 0,
+      "explanation": "That's a Type 2 slowly changing dimension: Dimension lookup/update versioned the changed record and left the other nineteen untouched — the behaviour that normally costs a page of hand-written MERGE SQL.",
+      "source": "Lab 4 — Track History with One Step"
+    },
+    {
+      "id": "q-mi",
+      "module": "See It Scale",
+      "prompt": "In Lab 5, onboarding the fourth feed (the Scotland file) required...",
+      "options": [
+        "Adding one row to control.csv — no pipeline was opened",
+        "Copying the template and editing its reader for the new file",
+        "A new transformation per feed, as usual",
+        "Regenerating the template from the driver"
+      ],
+      "correct": 0,
+      "explanation": "Metadata injection turns pipeline configuration into data. The template stays untouched; the control file — which an operations team can own — defines the feeds.",
+      "source": "Lab 5 — One Pipeline, Many Files"
+    },
+    {
+      "id": "q-production",
+      "module": "Make It Real",
+      "prompt": "Which of these does moving from today's Developer Edition lab to a production deployment add? Select all that apply.",
+      "options": [
+        "Scheduled, monitored execution on a server instead of a laptop designer",
+        "Clustered / scaled-out execution",
+        "A commercial licence covering production use, with support",
+        "A different pipeline format — today's transformations must be rebuilt"
+      ],
+      "correctIndices": [0, 1, 2],
+      "explanation": "Everything you built today is real PDI and moves to production as-is — what the platform adds is the operational layer (scheduling, monitoring, scale-out, governance) and the licence and support to run it in production.",
+      "source": "Lab 7 — From Lab to Production"
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "title": "From Lab to Production",
+  "description": "What running this every night actually takes — orchestration, scheduling, scale-out, governance — and your next step.",
+  "order": 8,
+  "estimatedMinutes": 15,
+  "stepCount": 4,
+  "hasVideo": false
+}

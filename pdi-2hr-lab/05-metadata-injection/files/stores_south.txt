@@ -1,0 +1,7 @@
+location|trading_date|takings
+Brighton|2026-01-01|870.40
+Southampton|2026-01-01|1310.90
+Exeter|2026-01-01|655.00
+Brighton|2026-01-02|912.35
+Southampton|2026-01-02|1287.60
+Exeter|2026-01-02|701.80

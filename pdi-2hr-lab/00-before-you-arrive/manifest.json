@@ -1,0 +1,23 @@
+{
+  "title": "Before You Arrive",
+  "description": "Ten minutes of setup before the session so none of the two hours is lost to it.",
+  "order": 1,
+  "estimatedMinutes": 10,
+  "checks": [
+    {
+      "id": "workshop-dir",
+      "kind": "dir-not-empty",
+      "label": "Working folder C:\\Workshop\\pdi-2hr exists",
+      "path": "C:\\Workshop\\pdi-2hr",
+      "min": 0
+    },
+    {
+      "id": "pdi-installed",
+      "kind": "file-exists",
+      "label": "PDI is installed (Spoon.bat found)",
+      "path": "C:\\Pentaho\\design-tools\\data-integration\\Spoon.bat"
+    }
+  ],
+  "stepCount": 5,
+  "hasVideo": false
+}

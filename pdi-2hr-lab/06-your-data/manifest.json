@@ -1,0 +1,8 @@
+{
+  "title": "Bring Your Own Data",
+  "description": "Point PDI at a file of your own, let Get Fields discover the structure, and profile it in minutes.",
+  "order": 7,
+  "estimatedMinutes": 15,
+  "stepCount": 4,
+  "hasVideo": false
+}
