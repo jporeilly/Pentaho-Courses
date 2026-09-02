@@ -175,8 +175,8 @@ steps.
 
 1. Drag another **Text file input** on. Name it `Read regions`, point
    it at `regions.csv` in this lab's folder, header ticked, and on
-   **Fields** tab add three String fields - ***Get fields***: `code`, `region_name` (rename from 'name'),
-   `manager_email`.
+   **Fields** tab add three String fields - ***Get fields***: `code`,
+   `region_name` (rename from 'name'),`manager_email`.
 2. From **Transform**, drag on two **Sort rows** steps:
    * `Sort regions` — hopped from `Read regions`, sorting on `code`.
    * `Sort by region` — hopped from `Compute margin`, sorting on
