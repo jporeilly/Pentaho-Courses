@@ -69,10 +69,10 @@
 <p align="center"><em>Add - products.csv</em></p>
 
 3. Click the Content tab: 
-   Separator: comma
-   Header: ticked - Number of header lines 1
-   Format: mixed
-   Encoding: UTF8
+   -   **Separator:** comma
+   -   **Header:** ticked - Number of header lines 1
+   -   **Format:** mixed
+   -   **Encoding:** UTF8
 
 ![1788339859409.png](../_assets/images/1788339859409.png)
 <p align="center"><em>Content - products.csv</em></p>
