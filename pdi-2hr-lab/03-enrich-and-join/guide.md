@@ -139,8 +139,8 @@ in memory. You'll meet the real join in a moment.
    `+ product`.
 2. Add four calculations (each row can use an earlier row's result):
 
-![1788350815322.png](../_assets/images/1788350815322.png)
-<p align="center"><em>calculator</em></p>
+![1788351746093.png](../_assets/images/1788351746093.png)
+<p align="center"><em>Compute margin</em></p>
 
 | New field | Calculation | Field A | Field B | Type |
 | --- | --- | --- | --- | --- |
