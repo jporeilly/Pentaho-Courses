@@ -100,10 +100,17 @@ in memory. You'll meet the real join in a moment.
 3. Double-click it: set **Lookup step** to `Read customers`; in
    *keys to look up*, match `customer_id` = `customer_id`; in
    *fields to retrieve*, add `customer_name` and `region_code`.
+
+![1788350927645.png](../_assets/images/1788350927645.png)
+<p align="center"><em>+ customers lookup</em></p>
+
 4. Repeat the pattern: another **Stream lookup** named `+ product`,
    fed by `+ customer` and `Read products`, matching `product_id` =
    `id`, retrieving `name` (rename to `product_name`), `category`,
    and `cost`.
+
+![1788351021033.png](../_assets/images/1788351021033.png)
+<p align="center"><em>+ products lookup</em></p>
 
 > **Under the hood:**
 >
@@ -131,6 +138,9 @@ in memory. You'll meet the real join in a moment.
 1. From **Transform**, drag **Calculator** on, hopped from
    `+ product`.
 2. Add four calculations (each row can use an earlier row's result):
+
+![1788350815322.png](../_assets/images/1788350815322.png)
+<p align="center"><em>calculator</em></p>
 
 | New field | Calculation | Field A | Field B | Type |
 | --- | --- | --- | --- | --- |
