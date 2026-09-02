@@ -37,15 +37,15 @@
     {
       "id": "q-join",
       "module": "Make It Yours",
-      "prompt": "In Lab 3 you joined CSV sales, a JSON customer master, and a CSV product catalogue. What staging was required first?",
+      "prompt": "In Lab 3 you brought together CSV sales, a JSON customer master, a product catalogue and a region reference. What staging was required first?",
       "options": [
-        "None — the three streams were joined in-memory on the canvas",
+        "None — the streams were looked up and joined on the canvas as they flowed",
         "All three files had to be loaded into MySQL first",
         "The JSON had to be converted to CSV outside the tool",
         "A schema registry entry for each source"
       ],
       "correct": 0,
-      "explanation": "Stream lookup joins streams in memory regardless of where each came from. Format differences disappear at the Input step; after that, everything is rows.",
+      "explanation": "Stream lookup and Merge join both work on rows in flight — Stream lookup holds a small reference set in memory, Merge join streams two sorted inputs with full inner/outer semantics. Format differences disappear at the Input step; after that, everything is rows.",
       "source": "Lab 3 — Enrich and Join"
     },
     {
@@ -86,7 +86,11 @@
         "A commercial licence covering production use, with support",
         "A different pipeline format — today's transformations must be rebuilt"
       ],
-      "correctIndices": [0, 1, 2],
+      "correctIndices": [
+        0,
+        1,
+        2
+      ],
       "explanation": "Everything you built today is real PDI and moves to production as-is — what the platform adds is the operational layer (scheduling, monitoring, scale-out, governance) and the licence and support to run it in production.",
       "source": "Lab 7 — From Lab to Production"
     },

@@ -1,8 +1,8 @@
 {
   "title": "Enrich and Join",
-  "description": "Join CSV sales, JSON customers, and the product catalogue on one canvas; compute margin with Calculator.",
+  "description": "Enrich CSV sales with JSON customers and the product catalogue via Stream lookup, compute margin with Calculator, then Merge-join the region reference — lookup vs join, on one canvas.",
   "order": 4,
-  "estimatedMinutes": 25,
-  "stepCount": 7,
+  "estimatedMinutes": 30,
+  "stepCount": 9,
   "hasVideo": false
 }

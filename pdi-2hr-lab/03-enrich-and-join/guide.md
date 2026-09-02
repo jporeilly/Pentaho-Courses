@@ -5,15 +5,17 @@
 > #### Workshop — Enrich and Join
 >
 > Real pipelines mix formats: your sales arrive as CSV, the customer
-> master is JSON from an API export, the product catalogue is another
-> CSV. You'll join all three on one canvas and compute a margin —
-> with no staging tables and no format wrangling.
+> master is JSON from an API export, the product catalogue and the
+> region reference are more CSVs. You'll bring all four together on
+> one canvas — two ways, because PDI gives you two tools for it — and
+> compute a margin, with no staging tables and no format wrangling.
 >
 > **What you'll do**
 >
 > * Read JSON with **JSON input** and a JSONPath expression.
-> * Join streams with **Stream lookup**.
+> * Enrich with **Stream lookup** — the in-memory lookup for small reference sets.
 > * Compute revenue and margin with **Calculator**.
+> * Join with **Merge join** — a true SQL-style join (inner / left / right / full) over two sorted streams — and learn when to reach for which.
 >
 > **Prerequisites:** [Build the Pipeline Yourself](../02-build-the-pipeline/guide.md) — you'll extend that transformation.
 >
@@ -65,10 +67,14 @@
    separator `,`,
    header ticked; **Get Fields**; OK.
 
-## Join both onto the sales stream
+## Enrich with two lookups
 
 **Stream lookup** enriches a main stream with fields fetched from a
-second stream — a hash join, in-memory, no database required.
+second stream. It loads the lookup stream into memory once, then
+matches each main row by key — perfect for small reference sets like
+a customer master or a product catalogue. It is *not* a join: one
+match per row, no outer semantics, and the whole lookup set must fit
+in memory. You'll meet the real join in a moment.
 
 1. From **Lookup**, drag **Stream lookup** on. Name it
    `+ customer`.
@@ -103,12 +109,85 @@ second stream — a hash join, in-memory, no database required.
 > `[net]-[cost]*[qty]`.
 
 3. Preview the Calculator step: every sale now carries the customer,
-   region, product, category — and a margin figure that never existed
-   in any source file.
+   region code, product, category — and a margin figure that never
+   existed in any source file.
+
+## Join the region reference (a real join)
+
+Each sale now has a `region_code`, and `regions.csv` says what that
+code means — its name and the manager who owns the number. Time for
+an actual join.
+
+**Merge join** is PDI's SQL-style join: two streams, matched on keys,
+with **INNER / LEFT OUTER / RIGHT OUTER / FULL OUTER** semantics, and
+it streams — neither side has to fit in memory. The price of that
+scalability is one rule: **both inputs must arrive sorted on the join
+keys**, so a Merge join is almost always preceded by two **Sort rows**
+steps.
+
+1. Drag another **Text file input** on. Name it `Read regions`, point
+   it at `regions.csv` in this lab's folder, header ticked, and on
+   **Fields** add three String fields by hand: `code`, `region_name`,
+   `manager_email` (naming them yourself avoids a clash with the
+   `name` column you already renamed).
+2. From **Transform**, drag on two **Sort rows** steps:
+   * `Sort regions` — hopped from `Read regions`, sorting on `code`.
+   * `Sort by region` — hopped from `Compute margin`, sorting on
+     `region_code`.
+3. From **Joins**, drag on **Merge join**. Name it `+ region`. Hop
+   both sort steps into it, then double-click it:
+   * **First step:** `Sort by region` · **Second step:** `Sort regions`
+   * **Join type:** `LEFT OUTER`
+   * **Keys for 1st step:** `region_code` · **Keys for 2nd step:** `code`
+4. Preview `+ region`: every sale now also carries `region_name` and
+   `manager_email`.
+
+> **Note:** **Why LEFT OUTER?** A sale whose region code has no entry
+> in `regions.csv` must still reach the warehouse — with the region
+> columns empty — rather than silently vanish. INNER would drop it.
+> That choice is the whole difference between "some sales went
+> missing" and "some sales need a region added"; make it
+> deliberately, every time.
+
+## Lookup or join?
+
+Your canvas now has both, side by side, on the same data — so this is
+the moment the difference sticks. They look interchangeable in a
+screenshot; they are not.
+
+| | **Stream lookup** | **Merge join** |
+| --- | --- | --- |
+| What it is | An in-memory hash lookup | A true SQL-style join |
+| Input order | Any — no sorting needed | **Both streams must be sorted on the keys** |
+| Memory | The whole lookup stream is held in RAM | Streams both sides; neither has to fit |
+| Rows out | Never more than you put in | Can **multiply** rows — one left row × N matches |
+| No match | Row continues, fields null (or your default) | Depends on join type: dropped (INNER) or kept (OUTER) |
+| Join types | One behaviour only | INNER, LEFT / RIGHT / FULL OUTER |
+| Reach for it when | The reference set is small and stable — a customer master, a product catalogue, a code table | Either side is large, you need outer semantics, or a key can legitimately match many rows |
+
+Three practical consequences worth carrying home:
+
+* **A lookup can't lose a row; a join can.** That's why an INNER Merge
+  join is where sales quietly disappear — and why we chose LEFT OUTER
+  above.
+* **A lookup can't duplicate a row; a join can.** If a Merge join
+  returns more rows than it took in, your "reference" table has
+  duplicate keys.
+* **Sorting is the join's real cost.** Two Sort rows steps for a
+  five-row region file looks like overkill — and it is. That's exactly
+  why the customer and product enrichments upstream use lookups
+  instead. Pick per case, not per habit.
+
+> **Note:** PDI has more joining steps than these two — **Database
+> lookup** (query a table per row), **Database join** (a
+> parameterised query per row), **Merge rows (diff)** for change
+> detection, and **Join rows** for a deliberate Cartesian product.
+> The two on your canvas are the ones you'll reach for most.
 
 * [ ] Preview shows 37 enriched rows.
 * [ ] `gross` keeps its pennies (row 1 is 99.98, not 100).
 * [ ] `margin` is populated and plausible (mostly positive).
+* [ ] `region_name` and `manager_email` are filled on every row.
 
 ## Troubleshooting
 
@@ -132,12 +211,36 @@ under the top-level `customers` key, not at the root.
 
 </details>
 
+<details>
+
+<summary>Merge join returns nothing, or drops most rows</summary>
+
+Almost always unsorted input. Merge join walks both streams in step
+and assumes each is already ordered by its keys — feed it unsorted
+rows and it silently mismatches. Check that both **Sort rows** steps
+are hopped in *before* the join, and that each sorts on the field
+named in its side of the key mapping (`region_code` on the sales
+side, `code` on the regions side).
+
+</details>
+
+<details>
+
+<summary>The output has both region_code and code</summary>
+
+Expected — a join keeps the key column from *each* side, exactly as
+`SELECT *` across two tables would. Add a **Select values** step
+after the join to drop the duplicate (and to put the final column
+list in the order you want).
+
+</details>
+
 ---
 
-> **Tip:** Three formats, one canvas, zero staging. The equivalent in
-> SQL alone means loading all three into a database first; in code it
-> means three parsers and a join you maintain forever. Next: load the
-> warehouse — with history.
+> **Tip:** Four sources, one canvas, zero staging — two lookups and a
+> real outer join. The equivalent in SQL alone means loading all four
+> into a database first; in code it means four parsers and a join you
+> maintain forever. Next: load the warehouse — with history.
 
 ## Lab Files
 
@@ -149,7 +252,8 @@ under the top-level `customers` key, not at the root.
 
 ### Solution
 
-The complete transformation — all three sources joined, margin
-computed. Expects the data files in the 02 and 03 workshop folders.
+The complete transformation — two Stream lookups, the Calculator,
+and the LEFT OUTER Merge join onto the region reference. Expects the
+data files in the 02 and 03 workshop folders.
 
 [solution_enrich_sales.ktr](./files/solution_enrich_sales.ktr) <button data-launch="spoon" data-path="files/solution_enrich_sales.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/solution_enrich_sales.ktr">View graph</button>
