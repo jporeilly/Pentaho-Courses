@@ -55,6 +55,24 @@ anything is written anywhere.
 ![1788269454987.png](../_assets/images/1788269454987.png)
 <p align="center"><em>preview rows</em></p>
 
+> **Under the hood:**
+>
+> #### Preview is the real engine, not a simulation
+>
+> Clicking Preview didn't consult a cached sample or a design-time
+> guess. PDI started the actual transformation, ran the real steps
+> over the real file, and stopped once it had enough rows to show
+> you — writing nothing anywhere.
+>
+> That is possible because a transformation isn't compiled and
+> deployed. Every step is its own thread, and rows travel between
+> them through in-memory buffers, so the engine can be started,
+> tapped at any point, and stopped again in under a second.
+>
+> **Why it matters:** there is no build-deploy-check loop here. You
+> inspect real data at any point in the flow while you design, which
+> is why PDI development tends to converge in minutes rather than in
+> rounds of "add a log line, redeploy, look again".
 
 ## Preview the rejects
 
@@ -66,6 +84,20 @@ Three rows. Two are missing their `customer_id`, one its
 all three. In a hand-coded pipeline this is a try/except and a log
 line you write yourself; here it's a visible branch in the flow you
 can inspect.
+
+> **Under the hood:**
+>
+> #### Two hops mean two real streams
+>
+> The filter didn't mark rows good or bad and pass one list along. It
+> has two output hops, and each is a genuinely separate stream with
+> its own buffer and its own downstream thread. Valid rows go one
+> way, rejects the other, and both run at the same time.
+>
+> **Why it matters:** "what do we do with bad data?" stops being
+> error-handling code buried inside a transform and becomes a visible
+> path on the canvas — one anybody can point at in a review, and one
+> you can preview independently, as you just did.
 
 ## Look inside a step
 
@@ -87,6 +119,21 @@ In this example we're filtering for rows where the ids / keys are not null.
 <p align="center"><em>Filter rows</em></p>
 
 Close the dialog with **Cancel** (so nothing changes).
+
+> **Under the hood:**
+>
+> #### The dialog is the source code
+>
+> Nothing was generated from what you just looked at. A `.ktr` file
+> is XML describing steps, their settings and the hops between them;
+> the dialog reads and writes that XML directly, and the engine
+> executes it. There is no build step and no generated artefact that
+> can drift from the design.
+>
+> Two consequences worth knowing: a `.ktr` is plain text, so it
+> **diffs and merges in git like code** — and because the same file
+> is what the server runs, the thing you tested is literally the
+> thing that ships.
 
 ## See the flow as a diagram
 

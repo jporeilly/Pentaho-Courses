@@ -19,7 +19,7 @@
 >
 > **Prerequisites:** [Build the Pipeline Yourself](../02-build-the-pipeline/guide.md) — you'll extend that transformation.
 >
-> **Estimated Time:** 15 minutes
+> **Estimated Time:** 20 minutes
 
 > **Note:** **Get the files first.** Check `customers.json`,
 > `products.csv`, and `regions.csv` have been downloaded into
@@ -63,9 +63,26 @@
 
 1. Drag another **Text file input** on. Name it `Read products`.
 2. Point it at
-   `C:\Workshop\pdi-2hr\03-make-it-yours\03-enrich-and-join\products.csv`,
-   separator `,`,
-   header ticked; **Get Fields**; OK.
+   `C:\Workshop\pdi-2hr\03-make-it-yours\03-enrich-and-join\products.csv`.
+
+![1788339439671.png](../_assets/images/1788339439671.png)
+<p align="center"><em>Add - products.csv</em></p>
+
+3. Click the Content tab: 
+   Separator: comma
+   Header: ticked - Number of header lines 1
+   Format: mixed
+   Encoding: UTF8
+
+![1788339859409.png](../_assets/images/1788339859409.png)
+<p align="center"><em>Content - products.csv</em></p>
+
+4. Click on the Fields tab:
+   **Get Fields**
+
+![1788340033314.png](../_assets/images/1788340033314.png)
+<p align="center"><em>Fields - products.csv</em></p>
+
 
 ## Enrich with two lookups
 
@@ -87,6 +104,27 @@ in memory. You'll meet the real join in a moment.
    fed by `+ customer` and `Read products`, matching `product_id` =
    `id`, retrieving `name` (rename to `product_name`), `category`,
    and `cost`.
+
+> **Under the hood:**
+>
+> #### A hash table, built once, probed 37 times
+>
+> Stream lookup reads its *lookup* stream to completion first and
+> builds a hash table in memory, keyed on the fields you matched on.
+> Then each main row arrives and costs a single hash probe —
+> constant time, no re-reading, no query per row.
+>
+> Notice what that means for the JSON: by the time the lookup sees
+> it, `customers.json` isn't JSON any more. The JSON input step
+> turned it into rows with typed columns, and from there it is
+> indistinguishable from the CSV. **Format is a property of the
+> Input step, not of the pipeline.**
+>
+> **Why it matters:** joining a JSON API export to a CSV normally
+> means landing both somewhere they can be queried together. Here
+> the "somewhere" is the engine's own memory, for the few seconds
+> the run lasts — no staging tables, no database round trip, and one
+> canvas that reads as the whole story.
 
 ## Compute revenue and margin
 
@@ -141,6 +179,29 @@ steps.
    * **Keys for 1st step:** `region_code` · **Keys for 2nd step:** `code`
 4. Preview `+ region`: every sale now also carries `region_name` and
    `manager_email`.
+
+> **Under the hood:**
+>
+> #### Why the join demands sorted input
+>
+> Merge join keeps one row from each side and walks the two streams
+> forward in lock-step, like merging two sorted lists: compare the
+> keys, emit a match, advance whichever side is behind. It only ever
+> holds the current rows — which is exactly why neither input has to
+> fit in memory, and exactly why both must already be sorted. Hand
+> it unsorted rows and it doesn't error; it just walks past matches
+> it can no longer see.
+>
+> That is the trade the two steps on your canvas represent. Stream
+> lookup buys speed by holding one side in RAM; Merge join buys
+> unlimited size by requiring order. **Sorting is the price of
+> scale**, and PDI makes you pay it explicitly rather than hiding a
+> memory cliff behind a friendly step.
+>
+> **Why it matters:** this is a genuine relational join — inner,
+> left, right or full — executed on rows in flight, against sources
+> that were a CSV, a JSON export and another CSV minutes ago. No
+> database was involved in doing it.
 
 > **Note:** **Why LEFT OUTER?** A sale whose region code has no entry
 > in `regions.csv` must still reach the warehouse — with the region

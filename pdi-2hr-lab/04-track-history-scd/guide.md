@@ -99,6 +99,36 @@ closed, and version 2 (SE) open-ended. Every other customer is
 untouched. Report yesterday's sales and C001 is in the North West;
 report today's and they're in the South East — both correct.
 
+> **Under the hood:**
+>
+> #### What that one step actually did
+>
+> For every incoming row, **Dimension lookup/update** ran the whole
+> Type 2 algorithm:
+>
+> 1. Looked up the current open version by natural key (`customer_id`),
+>    from a cache it built rather than a query per row.
+> 2. Compared the tracked fields to decide **unchanged / changed /
+>    new** — 19 rows took the first branch and cost nothing.
+> 3. For the changed one: issued an `UPDATE` closing version 1's
+>    `date_to` at the run timestamp, then an `INSERT` for version 2
+>    with a fresh surrogate key, `version` incremented, and
+>    `date_from` set to the same instant — so the windows abut
+>    exactly, with no gap and no overlap.
+> 4. Allocated that surrogate key itself, keeping the technical key
+>    independent of the source system's identifier.
+>
+> The equivalent hand-written SQL is a page of `MERGE` with a
+> correlated sub-query, and its bugs are the expensive kind: an
+> overlapping window that double-counts revenue, or a gap that makes
+> yesterday's report irreproducible.
+>
+> **Why it matters:** history is a *configuration* here, not an
+> implementation. Ticking "Insert" on a field is the difference
+> between overwriting the past and keeping it — and that decision is
+> visible in a dialog anybody can audit, rather than buried in SQL
+> only its author understands.
+
 * [ ] First run: 21 rows in `dim_customer` (20 customers + the
       technical "unknown" row).
 * [ ] After the edit and second run: 22 rows, C001 at version 2 with

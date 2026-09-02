@@ -50,6 +50,27 @@ Save the file/transformation (.ktr) as: C:\Workshop\pdi-2hr\02-see-it-work\02-bu
    habit as Lab 1, available while you're still configuring.
 7. Click **OK**.
 
+> **Under the hood:**
+>
+> #### Get Fields wrote a contract, not just a grid
+>
+> PDI read the first rows of the file, inferred a name, type and
+> format for every column, and stored that as the step's **row
+> metadata** — the description of a row's shape that travels down
+> the hops ahead of the data itself.
+>
+> That metadata is why the next step you add already knows
+> `unit_price` is a number and `order_date` is a date, why Preview
+> can show typed columns before anything is written, and why a
+> mis-typed column is caught at design time instead of at 2am. You
+> can edit any of it in the grid — the inference is a starting
+> point, not a lock.
+>
+> **Why it matters:** you got a typed schema from a plain CSV in one
+> click, without writing a DDL statement or a parser. Lab 6 points
+> this same step at a file PDI has never seen, and it works for
+> exactly this reason.
+
 ## Validate the keys
 
 1. From **Flow**, drag **Filter rows** onto the canvas.
@@ -86,6 +107,27 @@ Save the file/transformation (.ktr) as: C:\Workshop\pdi-2hr\02-see-it-work\02-bu
    * [ ] 40 rows read from the sales file.
    * [ ] 3 rows in the reject output.
    * [ ] Run finishes with no errors (all steps green-ticked).
+
+> **Under the hood:**
+>
+> #### Every step ran at the same time
+>
+> Step Metrics tempts you to read the run top-to-bottom, as if the
+> reader finished and then handed 40 rows to the filter. That isn't
+> what happened. **All four steps started together**, each on its own
+> thread, and rows flowed between them through small buffers — the
+> filter was already sorting row 1 while the reader was still parsing
+> row 20.
+>
+> This is why PDI is happy with files far larger than memory: only
+> the rows in flight are held, never the whole dataset. The same
+> transformation you just ran on 40 rows runs unchanged on 40
+> million — you would wait longer, but nothing about the design
+> changes.
+>
+> **Why it matters:** the parallelism is free and automatic. Nobody
+> wrote a thread pool, a queue, or a batch size — you drew boxes and
+> arrows, and the engine turned that into a concurrent pipeline.
 
 ## Troubleshooting
 

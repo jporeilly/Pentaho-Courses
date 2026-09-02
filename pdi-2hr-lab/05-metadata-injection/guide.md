@@ -110,6 +110,32 @@ Now the punchline:
    and separator.
 5. Run the job again. Four feeds. You did not open a pipeline.
 
+> **Under the hood:**
+>
+> #### The template was rewritten in memory, once per feed
+>
+> **ETL metadata injection** loaded `mi_template.ktr` as a
+> definition rather than as something to run, set the properties you
+> mapped — the filename, the separator — on the template's steps,
+> and executed that filled-in copy. The file on disk never changed;
+> each run got its own configured instance.
+>
+> That works because a step's configuration is *data* in the `.ktr`
+> XML, addressable by name. Anything the dialog can set, injection
+> can set: not just filenames and separators but whole field lists,
+> so one template can absorb feeds whose column layouts differ, not
+> merely their delimiters.
+>
+> The driver job supplies the loop. **Execute for every input row**
+> runs the injector once per control row, and *Get rows from result*
+> is where that row lands — which is why adding a feed is adding
+> data, not code.
+>
+> **Why it matters:** this is the difference between a tool and a
+> platform. Your pipeline count stops tracking your feed count —
+> 4 feeds or 400, it stays one template — and the control file is
+> something an operations team can own without ever opening Spoon.
+
 * [ ] `all_feeds.csv` contains rows from all three (then four) feeds.
 * [ ] The new feed required editing only `control.csv`.
 
