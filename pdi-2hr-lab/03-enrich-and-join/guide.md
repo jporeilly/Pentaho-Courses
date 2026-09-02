@@ -186,6 +186,10 @@ steps.
    * **First step:** `Sort by region` · **Second step:** `Sort regions`
    * **Join type:** `LEFT OUTER`
    * **Keys for 1st step:** `region_code` · **Keys for 2nd step:** `code`
+
+![1788354823498.png](../_assets/images/1788354823498.png)
+<p align="center"><em>+ region - merge join</em></p>
+
 4. Preview `+ region`: every sale now also carries `region_name` and
    `manager_email`.
 
