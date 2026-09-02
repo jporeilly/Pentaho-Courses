@@ -45,7 +45,7 @@ filter, and two end points — one for valid rows, one for rejects.
 2. Choose **Preview**, then **Quick Launch**.
 
 ![1788269301694.png](../_assets/images/1788269301694.png)
-<p align="center"><em>valid rows</em></p>
+<p align="center"><em>Filter rows</em></p>
 
 A grid appears with 37 of yesterday's orders — typed columns, parsed
 dates, clean rows. This is the habit that changes how you build pipelines:
@@ -53,7 +53,7 @@ dates, clean rows. This is the habit that changes how you build pipelines:
 anything is written anywhere.
 
 ![1788269454987.png](../_assets/images/1788269454987.png)
-<p align="center"><em>preview rows</em></p>
+<p align="center"><em>Preview rows</em></p>
 
 > **Under the hood:**
 >
@@ -77,7 +77,10 @@ anything is written anywhere.
 ## Preview the rejects
 
 1. Close the preview.
-2. **Right-click** **Rejected rows** → **Preview** → **Quick Launch**.
+2. **Right-click**: **Rejected rows** → **Preview** → **Quick Launch**.
+
+![1788366469571.png](../_assets/images/1788366469571.png)
+<p align="center"><em>Rejected rows</em></p>
 
 Three rows. Two are missing their `customer_id`, one its
 `product_id` — they were planted in the file, and the filter caught
@@ -107,7 +110,7 @@ configuration for parsing the file — delimiter, header, and on the
 generated; this *is* the pipeline.
 
 ![1788269769520.png](../_assets/images/1788269769520.png)
-<p align="center"><em>Text file input </em></p>
+<p align="center"><em>Add - sales data </em></p>
 
 Close the dialog with **Cancel** (so nothing changes).
 

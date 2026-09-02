@@ -22,6 +22,9 @@
 > `sales_20260101.csv` has been downloaded into the workshop folder:
 > `C:\Workshop\pdi-2hr\02-see-it-work\02-build-the-pipeline\`.
 
+![1788365198513.png](../_assets/images/1788365198513.png)
+<p align="center"><em>Onboard and filter sales data</em></p>
+
 ## Create a new transformation
 
 In PDI: **File > New > Transformation** (or `Ctrl+N`). You get an
@@ -38,8 +41,23 @@ Save the file/transformation (.ktr) as: C:\Workshop\pdi-2hr\02-see-it-work\02-bu
 3. On the **File** tab, click **Browse**, pick
    `C:\Workshop\pdi-2hr\02-see-it-work\02-build-the-pipeline\sales_20260101.csv`,
    then click **Add** so it appears in the *Selected files* grid.
-4. On the **Content** tab set **Separator** to `,` and make sure **Header** is ticked with 1 header line.
+
+![1788365320906.png](../_assets/images/1788365320906.png)
+<p align="center"><em>Add - sales data</em></p>
+
+4. On the **Content** tab set:
+   **Separator** to: comma and make sure 
+   **Header** is ticked with 1 header line
+   **Format** is: mixed
+   **Encoding** is: UTF8
+
+![1788365622451.png](../_assets/images/1788365622451.png)
+<p align="center"><em>Content tab</em></p>
+
 5. On the **Fields** tab click **Get Fields** — PDI reads the file and detects every column and type for you. Accept the defaults.
+
+![1788365750951.png](../_assets/images/1788365750951.png)
+<p align="center"><em>Content tab</em></p>
 
 > **Note:** **Get Fields matters more than it looks.** You didn't
 > declare a schema — the tool read the data and proposed one. In Lab
@@ -48,6 +66,10 @@ Save the file/transformation (.ktr) as: C:\Workshop\pdi-2hr\02-see-it-work\02-bu
 
 6. Click **Preview rows** at the bottom of the dialog — the same
    habit as Lab 1, available while you're still configuring.
+
+![1788269454987.png](../_assets/images/1788269454987.png)
+<p align="center"><em>Preview rows</em></p>
+
 7. Click **OK**.
 
 > **Under the hood:**
@@ -77,6 +99,11 @@ Save the file/transformation (.ktr) as: C:\Workshop\pdi-2hr\02-see-it-work\02-bu
 2. Draw a hop: hover over `Read sales`, drag from the output
    connector to the filter (or hold `Shift` and drag between steps).
 3. Double-click the filter. Name it `Keys present?`.
+
+![1788366135657.png](../_assets/images/1788366135657.png)
+<p align="center"><em>Filter keys</em></p>
+
+
 4. Build the condition: click the left field and pick
    `customer_id`, set the function to `IS NOT NULL`.
 5. Click **Add condition** (the + icon), set the second clause to
