@@ -46,10 +46,10 @@ Save the file/transformation (.ktr) as: C:\Workshop\pdi-2hr\02-see-it-work\02-bu
 <p align="center"><em>Add - sales data</em></p>
 
 4. On the **Content** tab set:
-   **Separator** to: comma and make sure 
-   **Header** is ticked with 1 header line
-   **Format** is: mixed
-   **Encoding** is: UTF8
+   -   **Separator** to: comma and make sure 
+   -   **Header** is ticked with 1 header line
+   -   **Format** is: mixed
+   -   **Encoding** is: UTF8
 
 ![1788365622451.png](../_assets/images/1788365622451.png)
 <p align="center"><em>Content tab</em></p>
@@ -103,7 +103,6 @@ Save the file/transformation (.ktr) as: C:\Workshop\pdi-2hr\02-see-it-work\02-bu
 ![1788366135657.png](../_assets/images/1788366135657.png)
 <p align="center"><em>Filter keys</em></p>
 
-
 4. Build the condition: click the left field and pick
    `customer_id`, set the function to `IS NOT NULL`.
 5. Click **Add condition** (the + icon), set the second clause to
@@ -124,13 +123,20 @@ Save the file/transformation (.ktr) as: C:\Workshop\pdi-2hr\02-see-it-work\02-bu
 
 ## Run it
 
-1. Click **Run** (the ▶ in the canvas toolbar), then **Run** again in
+1. Click **Run** (the ▶ in the canvas toolbar or F9), then **Run** again in
    the dialog.
+
+![1788367182360.png](../_assets/images/1788367182360.png)
+<p align="center"><em>Run</em></p>
+
 2. Watch the **Step Metrics** tab fill in: 40 rows read, 37 valid,
    3 written to the reject file.
+
+![1788367282631.png](../_assets/images/1788367282631.png)
+<p align="center"><em>Step metrics</em></p>
+
 3. Open `C:\Workshop\pdi-2hr\out\rejects.csv` — there are your three
    bad rows, ready to send back to the source system's owner.
-
    * [ ] 40 rows read from the sales file.
    * [ ] 3 rows in the reject output.
    * [ ] Run finishes with no errors (all steps green-ticked).
