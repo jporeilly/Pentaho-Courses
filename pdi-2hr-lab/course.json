@@ -77,6 +77,6 @@
   ],
   "welcome": {
     "eyebrow": "Try-It Lab",
-    "analyticsNote": "This course reports anonymous usage analytics — which labs are opened, steps completed and tools launched — under a random install id, so we can see where the lab flows well and where it doesn’t. It never sends your name, email address, chat questions or notes, and your Wrap-Up Check answers stay on this machine. The one exception is your choice: if you fill in the short form at the end, the details you enter are sent to Pentaho so we can answer your questions and send you any materials you ask for."
+    "analyticsNote": "This course reports anonymous usage analytics — which labs are opened, steps completed and tools launched — under a random install id, so we can see where the lab flows well and where it doesn't. It never sends your name, email address, chat questions or notes. The Wrap-Up Check is anonymous too: your answers stay on this machine and no score is sent anywhere. There is no completion certificate, so the short form at the end is optional and only for anyone who would like further information on Pentaho courses and services — if you fill it in, what you enter is sent to Pentaho so we can follow up; leave it blank and nothing personal leaves this machine."
   }
 }

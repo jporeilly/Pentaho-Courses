@@ -25,6 +25,14 @@
 > `products.csv`, and `regions.csv` have been downloaded into
 > this lab's workshop folder:
 > `C:\Workshop\pdi-2hr\03-make-it-yours\03-enrich-and-join\`.
+<figure>
+
+![1788427100975.png](../_assets/images/1788427100975.png)
+
+<div align="center">
+<figcaption><em>Part 2: Enrich and Join data</em></figcaption>
+</div>
+</figure>
 
 ## Read the customer master (JSON)
 
@@ -36,9 +44,14 @@
    browse to
    `C:\Workshop\pdi-2hr\03-make-it-yours\03-enrich-and-join\customers.json`
    and **Add** it.
+<figure>
 
 ![1788277156966.png](../_assets/images/1788276989272.png)
-<p align="center"><em>customers.json</em></p>
+
+<div align="center">
+<figcaption><em>customers.json</em></figcaption>
+</div>
+</figure>
 
 4. On the **Fields** tab, add rows — one per field. **Path** uses
    JSONPath, relative to the array of customer objects:
@@ -49,40 +62,64 @@
 | customer_name | $.customers[*].name | String |
 | region_code | $.customers[*].region_code | String |
 
+<figure>
+
 ![1788277506117.png](../_assets/images/1788277506117.png)
-<p align="center"><em>Fields - customers.json</em></p>
+
+<div align="center">
+<figcaption><em>Fields - customers.json</em></figcaption>
+</div>
+</figure>
 
 5. Click **Preview rows** — 20 customers. The nested JSON is now
    just another stream of rows, identical in kind to the CSV stream.
+<div align="center">
+<figure>
 
-![1788277571868.png](../_assets/images/1788277571868.png)
-<p align="center"><em>Preview - customers.json</em></p>
+![1788277571868.png](../_assets/images/1788277571868.png#w=420)
 
+<figcaption><em>Preview - customers.json</em></figcaption>
+</figure>
+</div>
 
 ## Read the product catalogue
 
 1. Drag another **Text file input** on. Name it `Read products`.
 2. Point it at
    `C:\Workshop\pdi-2hr\03-make-it-yours\03-enrich-and-join\products.csv`.
+<figure>
 
 ![1788339439671.png](../_assets/images/1788339439671.png)
-<p align="center"><em>Add - products.csv</em></p>
+
+<div align="center">
+<figcaption><em>products.csv</em></figcaption>
+</div>
+</figure>
 
 3. Click the Content tab: 
    -   **Separator:** comma
    -   **Header:** ticked - Number of header lines 1
    -   **Format:** mixed
    -   **Encoding:** UTF8
+<figure>
 
-![1788339859409.png](../_assets/images/1788339859409.png)
-<p align="center"><em>Content - products.csv</em></p>
+![1788340033314.png](../_assets/images/1788339859409.png)
+
+<div align="center">
+<figcaption><em>Content - products.csv</em></figcaption>
+</div>
+</figure>
 
 4. Click on the Fields tab:
    **Get Fields**
+<figure>
 
 ![1788340033314.png](../_assets/images/1788340033314.png)
-<p align="center"><em>Fields - products.csv</em></p>
 
+<div align="center">
+<figcaption><em>Fields - products.csv</em></figcaption>
+</div>
+</figure>
 
 ## Enrich with two lookups
 
@@ -100,17 +137,27 @@ in memory. You'll meet the real join in a moment.
 3. Double-click it: set **Lookup step** to `Read customers`; in
    *keys to look up*, match `customer_id` = `customer_id`; in
    *fields to retrieve*, add `customer_name` and `region_code`.
+<figure>
 
 ![1788350927645.png](../_assets/images/1788350927645.png)
-<p align="center"><em>+ customers lookup</em></p>
+
+<div align="center">
+<figcaption><em>Lookup + customers</em></figcaption>
+</div>
+</figure>
 
 4. Repeat the pattern: another **Stream lookup** named `+ product`,
    fed by `+ customer` and `Read products`, matching `product_id` =
    `id`, retrieving `name` (rename to `product_name`), `category`,
    and `cost`.
+<figure>
 
 ![1788351021033.png](../_assets/images/1788351021033.png)
-<p align="center"><em>+ products lookup</em></p>
+
+<div align="center">
+<figcaption><em>Lookup + products</em></figcaption>
+</div>
+</figure>
 
 > **Under the hood:**
 >
@@ -138,9 +185,14 @@ in memory. You'll meet the real join in a moment.
 1. From **Transform**, drag **Calculator** on, hopped from
    `+ product`.
 2. Add four calculations (each row can use an earlier row's result):
+<figure>
 
 ![1788351746093.png](../_assets/images/1788351746093.png)
-<p align="center"><em>Compute margin</em></p>
+
+<div align="center">
+<figcaption><em>Compute margin</em></figcaption>
+</div>
+</figure>
 
 | New field | Calculation | Field A | Field B | Type |
 | --- | --- | --- | --- | --- |
@@ -175,20 +227,52 @@ steps.
 
 1. Drag another **Text file input** on. Name it `Read regions`, point
    it at `regions.csv` in this lab's folder, header ticked, and on
-   **Fields** tab add three String fields - ***Get fields***: `code`,
-   `region_name` (rename from 'name'),`manager_email`.
+   **Fields** tab add three String fields
+   - ***Get fields***: `code`, 'region_name` (rename from 'name'),`manager_email`.
+<figure>
+
+![1788428448148.png](../_assets/images/1788428448148.png)
+
+<div align="center">
+<figcaption><em>Fields - Read regions</em></figcaption>
+</div>
+</figure>
+
 2. From **Transform**, drag on two **Sort rows** steps:
    * `Sort regions` — hopped from `Read regions`, sorting on `code`.
+<div align="center">
+<figure>
+
+![1788428664906.png](../_assets/images/1788428664906.png#w=420)
+
+<figcaption><em>Sort rows - code</em></figcaption>
+</figure>
+</div>
+
    * `Sort by region` — hopped from `Compute margin`, sorting on
      `region_code`.
+<div align="center">
+<figure>
+
+![1788428856220.png](../_assets/images/1788428856220.png#w=420)
+
+<figcaption><em>Sort rows - by regions</em></figcaption>
+</figure>
+</div>
+
 3. From **Joins**, drag on **Merge join**. Name it `+ region`. Hop
    both sort steps into it, then double-click it:
    * **First step:** `Sort by region` · **Second step:** `Sort regions`
    * **Join type:** `LEFT OUTER`
    * **Keys for 1st step:** `region_code` · **Keys for 2nd step:** `code`
+<div align="center">
+<figure>
 
 ![1788354823498.png](../_assets/images/1788354823498.png)
-<p align="center"><em>+ region - merge join</em></p>
+
+<figcaption><em>Merge Join + region</em></figcaption>
+</div>
+</figure>
 
 4. Preview `+ region`: every sale now also carries `region_name` and
    `manager_email`.

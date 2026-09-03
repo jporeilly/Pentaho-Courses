@@ -2,7 +2,7 @@
   "title": "Before You Arrive",
   "description": "Ten minutes of setup before the session so none of the two hours is lost to it.",
   "order": 1,
-  "estimatedMinutes": 20,
+  "estimatedMinutes": 10,
   "checks": [
     {
       "id": "workshop-dir",

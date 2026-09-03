@@ -11,7 +11,7 @@
     "notesPlaceholder": "Follow up on anything you flagged during the Try-it.",
     "startLabel": "Start Wrap-Up check",
     "trackResults": false,
-    "lead": "No results from this Check are sent anywhere — your answers stay on this machine. The short form is for anyone who would like further information on Pentaho: fill it in only if you want us to follow up, otherwise leave it blank and start."
+    "lead": "The Wrap-Up Check is anonymous — no results are sent anywhere and your answers stay on this machine. The short form is optional: fill it in only if you would like further information on Pentaho courses and services, otherwise leave it blank and start."
   },
   "questions": [
     {

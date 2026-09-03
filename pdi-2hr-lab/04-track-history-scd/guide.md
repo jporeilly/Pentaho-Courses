@@ -17,11 +17,11 @@
 >
 > **Prerequisites:** [Enrich and Join](../03-enrich-and-join/guide.md); the workshop MySQL running (green in [Before You Arrive](../00-before-you-arrive/guide.md)).
 >
-> **Estimated Time:** 20 minutes
+> **Estimated Time:** 15 minutes
 
 ## Connect to the database
 
-1. New transformation: `load_dim_customer.ktr`.
+1. Create a new transformation and Save as: `load_dim_customer.ktr`.
 2. Drag a **JSON input** on, configured exactly like Lab 3's
    `Read customers` (same three fields — copy/paste the step between
    transformations with `Ctrl+C`/`Ctrl+V` if you like), but pointed
@@ -31,11 +31,11 @@
 3. In the **View** tab (left panel), right-click **Database
    connections > New**:
 
-* **Connection name:** `warehouse`
-* **Connection type:** MySQL
-* **Host name:** `localhost` · **Port:** `3306`
-* **Database name:** `sampledata`
-* **Username:** `pentaho_admin` · **Password:** `password`
+   - **Connection name:** `warehouse`
+   - **Connection type:** MySQL
+   - **Host name:** `localhost` · **Port:** `3306`
+   - **Database name:** `sampledata`
+   - **Username:** `pentaho_admin` · **Password:** `password`
 
 4. Click **Test** — you should see *Connection ... is OK*.
 

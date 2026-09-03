@@ -149,8 +149,9 @@ step to see its configuration:
 <p align="center"><em>Graph</em></p>
 
 Try out the other AI options:
-Summary: summarized in a few sentences.
-Walkthrough: Steep-by-step walkthrough of the transformation.
+- **Summary:** summarized in a few sentences.
+- **Walkthrough:** Steep-by-step walkthrough of the transformation.
+- **Explain this Step:** Click on a Step to view its properties and 'Explanation'. 
 
 
 ## Troubleshooting

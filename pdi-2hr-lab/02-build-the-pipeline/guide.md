@@ -21,9 +21,14 @@
 > **Note:** **Get the data file first.** Check the file:
 > `sales_20260101.csv` has been downloaded into the workshop folder:
 > `C:\Workshop\pdi-2hr\02-see-it-work\02-build-the-pipeline\`.
+<div align="center">
+<figure>
 
-![1788365198513.png](../_assets/images/1788365198513.png)
-<p align="center"><em>Onboard and filter sales data</em></p>
+![1788365198513.png](../_assets/images/1788365198513.png#w=420)
+
+<figcaption><em>Part 1: Onboard and filter sales data</em></figcaption>
+</figure>
+</div>
 
 ## Create a new transformation
 
@@ -41,23 +46,38 @@ Save the file/transformation (.ktr) as: C:\Workshop\pdi-2hr\02-see-it-work\02-bu
 3. On the **File** tab, click **Browse**, pick
    `C:\Workshop\pdi-2hr\02-see-it-work\02-build-the-pipeline\sales_20260101.csv`,
    then click **Add** so it appears in the *Selected files* grid.
+<figure>
 
-![1788365320906.png](../_assets/images/1788365320906.png)
-<p align="center"><em>Add - sales data</em></p>
+![pasted-1788426433666.png](../_assets/images/pasted-1788426433666.png)
+
+<div align="center">
+<figcaption><em>Add - sales data</em></figcaption>
+</div>
+</figure>
 
 4. On the **Content** tab set:
    -   **Separator** to: comma and make sure 
    -   **Header** is ticked with 1 header line
    -   **Format** is: mixed
    -   **Encoding** is: UTF8
+<figure>
 
 ![1788365622451.png](../_assets/images/1788365622451.png)
-<p align="center"><em>Content tab</em></p>
+
+<div align="center">
+<figcaption><em>Content tab</em></figcaption>
+</div>
+</figure>
 
 5. On the **Fields** tab click **Get Fields** — PDI reads the file and detects every column and type for you. Accept the defaults.
+<figure>
 
 ![1788365750951.png](../_assets/images/1788365750951.png)
-<p align="center"><em>Content tab</em></p>
+
+<div align="center">
+<figcaption><em>Content tab</em></figcaption>
+</div>
+</figure>
 
 > **Note:** **Get Fields matters more than it looks.** You didn't
 > declare a schema — the tool read the data and proposed one. In Lab
@@ -66,9 +86,14 @@ Save the file/transformation (.ktr) as: C:\Workshop\pdi-2hr\02-see-it-work\02-bu
 
 6. Click **Preview rows** at the bottom of the dialog — the same
    habit as Lab 1, available while you're still configuring.
+<figure>
 
 ![1788269454987.png](../_assets/images/1788269454987.png)
-<p align="center"><em>Preview rows</em></p>
+
+<div align="center">
+<figcaption><em>Preview rows</em></figcaption>
+</div>
+</figure>
 
 7. Click **OK**.
 

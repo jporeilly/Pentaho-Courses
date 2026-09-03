@@ -2,7 +2,7 @@
   "title": "Your First Win",
   "description": "Open a finished pipeline, run it, preview live data, and watch bad rows get caught — in your first ten minutes.",
   "order": 2,
-  "estimatedMinutes": 25,
+  "estimatedMinutes": 10,
   "stepCount": 7,
   "hasVideo": false
 }

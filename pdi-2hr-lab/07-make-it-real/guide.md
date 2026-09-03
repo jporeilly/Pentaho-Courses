@@ -76,9 +76,10 @@ catalog — on your own data?
 Two minutes, two favours:
 
 1. **The wrap-up check** — the short quiz in the sidebar (under this
-   lab) recaps the four big ideas and tells us what stuck. It also
-   asks who you are; that's how we follow up with the trial and
-   answers to anything you flagged.
+   lab) recaps the four big ideas. It is anonymous: your answers stay
+   on this machine and no score is sent anywhere. The optional form
+   in front of it is only for anyone who wants further information on
+   Pentaho courses and services — leave it blank otherwise.
 2. **The feedback widget** at the bottom of each page — one click,
    and a comment if a lab fought you. We read every one; this
    course changes shape based on them.
