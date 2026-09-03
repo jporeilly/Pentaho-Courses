@@ -125,6 +125,19 @@ To create a column showing the rank for each country based on Quantity:
 
 &#x20;      • Click Done.
 
+> **Under the hood:**
+>
+> #### Rank is an MDX Rank over the visible set
+>
+> Rank by Quantity added a calculated member built on MDX's `Rank`
+> function: for each country, its position in the set of countries
+> ordered by Quantity. Mondrian evaluates it in the report's filter
+> context, so the ranks are within EMEA for 2004, and they recompute
+> the moment either filter changes or a country is excluded.
+>
+> **Why it matters:** a ranking that follows the filters for free is
+> the difference between an analysis tool and a spreadsheet export.
+
 
 
 

@@ -70,6 +70,25 @@
 
 <figure><img src="../_assets/images/az_sales_drill_down_quarters.png" alt="" width="450"><figcaption><p>Drill down - Quarters</p></figcaption></figure>
 
+> **Under the hood:**
+>
+> #### Keep Only and drill-down rewrote an MDX query
+>
+> Analyzer never shows you SQL because its language is MDX. The report
+> is a definition — measures, row and column attributes, filters, each
+> stored as a schema formula such as `[Time].[Years]` — and every
+> gesture edits it and sends a new MDX query to Mondrian, the server's
+> OLAP engine. Keep Only 2003 narrowed the column axis to
+> `{[Time].[2003]}`; double-clicking asked for `[Time].[2003].Children`,
+> the quarters, which exist because the Time hierarchy in the
+> SteelWheels schema is Years > Quarters > Months. Mondrian translates
+> each MDX statement into SQL against the fact and dimension tables and
+> hands back cells. Administration > Log shows exactly that MDX.
+>
+> **Why it matters:** the hierarchy in the schema is what makes
+> drilling a double-click instead of a rebuilt query. Design the schema
+> well once and every report inherits the navigation.
+
 7. To view the analysis as a chart, on the interactive toolbar click the Choose chart type button, and then click Column.
 
 <figure><img src="../_assets/images/az_sales_chart_options.png" alt="" width="242"><figcaption><p>Chart options</p></figcaption></figure>
@@ -131,6 +150,24 @@
 11. Drill down to the Vendor, double-click the green square for December.
 
 <figure><img src="../_assets/images/az_sales_drill_down_into_december_for_vendor.png" alt=""><figcaption><p>Drill down into December for Vendor</p></figcaption></figure>
+
+> **Under the hood:**
+>
+> #### The cells you had already seen were not fetched again
+>
+> Mondrian keeps a segment cache: blocks of cell values keyed by the
+> measure and the members that identify them. When you kept only Spain
+> and added Line, then drilled into 2004 QTR4 and into December, only
+> the new coordinates — finer levels, this country — needed SQL; the
+> coarser cells came from cache, which is why later drills feel faster
+> than the first. Switching between heat grid, chart and table doesn't
+> query at all: the visualisation is drawn in the browser from the same
+> result.
+>
+> **Why it matters:** exploration is cheap after the first query, and
+> the cache is shared across users, so the tenth analyst on the same
+> cube mostly never touches the database — which is also why Clear
+> Cache exists for the moment the data changes.
 
 > **Note:** Classic Metal Creations was the highest performing vendor. You could continue drilling down, however, selecting Table will make sense for exporting the sales data.
 
@@ -215,6 +252,24 @@
 
 <figure><img src="../_assets/images/az_sales_report_territory_sales_analysis.png" alt=""><figcaption><p>Report - Territory Sales Analysis</p></figcaption></figure>
 
+> **Under the hood:**
+>
+> #### Aggregation happens in the database, at exactly the levels on your axes
+>
+> Territory and Line on rows with Years and Quarters on columns
+> produced MDX that Mondrian turned into one SQL statement: select
+> territory, line, year and quarter with `SUM(total)`, grouped by all
+> four, across the fact table and its dimension tables. `SUM` came from
+> the measure's aggregator in the schema; the grain came from your
+> layout. Moving Line above Territory changed only the axis order, not
+> the SQL. That is what the note means by "dynamically aggregates": the
+> cube defines what can be added up, the layout decides at which level,
+> and the database does the arithmetic.
+>
+> **Why it matters:** a hundred-million-row fact table comes back as a
+> few dozen cells. The analyst never pays for the rows, only for the
+> answer.
+
 ### Filter & Conditional Formatting
 
 > **Note:** Filters are used to restrict or limit the data that is presented in an analysis. When you create a filter for a text field you can select from a list of values or match a specific value by typing the value in the text box and specifying a constraint (Contains or Does not Contain).&#x20;
@@ -291,6 +346,23 @@
 
 <figure><img src="../_assets/images/az_sales_emea_top_5_product_line_by_sales_for_2003.png" alt=""><figcaption><p>EMEA: Top 5 Product Line by Sales for 2003</p></figcaption></figure>
 
+> **Under the hood:**
+>
+> #### Top 5 is an MDX TopCount, evaluated after the slice
+>
+> A filter on a measure doesn't become a WHERE clause; it becomes MDX
+> set functions — in effect `TopCount(Filter([Product].[Line].Members,
+> [Measures].[Sales] > 10000), 5, [Measures].[Sales])`. Mondrian
+> evaluates that in the current context — EMEA, 2003, QTR2 — so "top
+> five lines" meant top five within that slice, ranked on cells that
+> were already aggregated. Show All Quarters changed the context, and
+> the same expression re-ranked against the whole year, which is why
+> the members moved.
+>
+> **Why it matters:** rank-and-threshold questions are one dialog here
+> and a subquery with a window function in SQL — and they re-evaluate
+> correctly every time the surrounding filters change.
+
 ***
 
 > **Note:** **Applying Conditional Formatting**
@@ -352,6 +424,26 @@
 4. Click OK.
 
 <figure><img src="../_assets/images/az_sales_grand_totals_for_rows_and_columns.png" alt=""><figcaption><p>Grand Totals for Rows &#x26; Columns</p></figcaption></figure>
+
+> **Under the hood:**
+>
+> #### Aggregate and Sum are two different totals
+>
+> A subtotal has two possible sources. **Aggregate** asks Mondrian for
+> the parent's own cell — `[Markets].[EMEA]` — computed from the fact
+> rows with the measure's aggregator, which makes it right even for
+> measures that don't add up, such as distinct counts. **Sum**,
+> **Average**, **Max** and **Min** are Analyzer's own arithmetic over
+> the cells you can see. Two consequences: Average is over displayed
+> cells, so blank versus zero (Report Options) changes it; and by
+> default Analyzer uses *visual* totals, so an Aggregate is recomputed
+> over the members left after your filters — tick **Totals with
+> filtered values** in Report Options and it becomes the cube's full
+> parent value, filtered members included.
+>
+> **Why it matters:** choose Aggregate when the number must match the
+> cube, the arithmetic options when it must match the page — and know
+> which you chose before someone tries to reconcile the two.
 
 ***
 
@@ -423,6 +515,23 @@
 
 <figure><img src="../_assets/images/az_sales_sales_6_tax.png" alt=""><figcaption><p>Sales + 6% Tax</p></figcaption></figure>
 
+> **Under the hood:**
+>
+> #### A calculated measure is an MDX calculated member
+>
+> Sales + 6% Tax went into the query as `WITH MEMBER [Measures].[Sales
+> + 6% Tax] AS [Measures].[Sales] * 1.06`. Mondrian evaluates it per
+> cell *after* aggregating Sales, so it is correct at every level —
+> territory, line, quarter — and through every drill, with no extra
+> SQL. % of Sales and Rank are generated the same way, as MDX over the
+> axis set. The member lives in this report's definition; the same
+> member declared in the Mondrian schema would be available to every
+> report on the cube, with its own format.
+>
+> **Why it matters:** a derived measure costs one expression and stays
+> right as the layout changes — the exact failure mode of a spreadsheet
+> formula that breaks when a row moves.
+
 ***
 
 #### Drill-Through
@@ -448,6 +557,21 @@
 3. Drill through to the supporting data, in the analysis details, click the value for EMEA, Classic Cars, 2003, QTR1 ($96,678).
 
 <figure><img src="../_assets/images/az_sales_drill_through_classic_cars.png" alt=""><figcaption><p>Drill-through - Classic Cars</p></figcaption></figure>
+
+> **Under the hood:**
+>
+> #### Drill-through is a SQL query Mondrian built from the cell's coordinates
+>
+> Clicking $96,678 asked Mondrian for the rows behind one cell. It took
+> the cell's members — EMEA, Classic Cars, 2003, QTR1 — and generated a
+> `SELECT` on the fact table joined to its dimension tables with a
+> `WHERE` for each member, returning order-line rows rather than
+> aggregates. That is why only non-calculated measures get links: a
+> calculated member has no fact rows of its own to point at.
+>
+> **Why it matters:** the summary and its evidence are one click apart,
+> and the evidence is live — there is no separate detail report to
+> build or keep in sync.
 
 ### Formatting
 
@@ -601,6 +725,22 @@
 <figure><img src="../_assets/images/az_sales_mdx.png" alt=""><figcaption><p>MDX</p></figcaption></figure>
 
 <figure><img src="../_assets/images/az_sales_mdx_output.png" alt=""><figcaption><p>MDX - output</p></figcaption></figure>
+
+> **Under the hood:**
+>
+> #### The log is the whole pipeline in one place
+>
+> Administration shows the layers that produced the page: the report
+> definition (the `.xanalyzer` XML, each field a schema formula), the
+> MDX Analyzer generated from it, and the time Mondrian took to answer.
+> Execute MDX runs your own statement against the same cube. Clear
+> Cache flushes both Analyzer's and Mondrian's caches — the segment
+> cache of cell values and the member cache — so fact rows loaded since
+> the last query appear without a restart.
+>
+> **Why it matters:** when a report is slow or stale, this tab is where
+> the answer is. Read the MDX for an accidental crossjoin, and clear the
+> cache before blaming the ETL.
 
 :::
 

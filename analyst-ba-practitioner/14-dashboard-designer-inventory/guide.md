@@ -77,6 +77,19 @@
 
 <figure><img src="../_assets/images/dd_inventory_inventory_table.png" alt=""><figcaption><p>Inventory Table</p></figcaption></figure>
 
+> **Under the hood:**
+>
+> #### The query editor wrote MQL, and the metadata layer wrote SQL
+>
+> Selected Columns became MQL `<selections>` and Order By an `<orders>`
+> entry, and the metadata layer resolved the join between Products and
+> Inventory and Cost from the model's relationships — you never named
+> a key. The generated SQL ran on the Inventory model's connection and
+> the data table rendered the rows it returned.
+>
+> **Why it matters:** a business user joined two tables correctly by
+> clicking, because the join was decided once, by the model's author.
+
 ***
 
 #### Chart
@@ -130,8 +143,20 @@
 | Chart Title     | Inventory         |
 | X Axis Title    | Qty               |
 | Y Axis Title    | MSRP              |
-|
+
+> **Under the hood:**
+>
+> #### The condition ran in the database; the chart only saw matching rows
+>
+> "Product Line begins with M" became an MQL `<constraint>`, rendered
+> as `LIKE 'M%'` in the generated WHERE clause, so non-matching rows
+> were never returned. The Chart Designer then mapped the three result
+> columns onto series, category and value — no second query, no
+> filtering in the browser.
+>
+> **Why it matters:** filters here are query filters, not chart
+> filters. Put the selective condition in the query and the chart stays
+> fast however large the table grows.
 
 :::
 
-   |                   |

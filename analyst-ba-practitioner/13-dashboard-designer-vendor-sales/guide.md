@@ -103,6 +103,22 @@
 
 <figure><img src="../_assets/images/dd_vendor_sales_training_demo_dashboard.png" alt=""><figcaption><p>Training Demo Dashboard</p></figcaption></figure>
 
+> **Under the hood:**
+>
+> #### Each panel is the report's own viewer, embedded
+>
+> The dashboard didn't copy anything. Each panel is an iframe that
+> loads the repository file you chose through that content type's
+> viewer — the Analyzer viewer for the geo map, the reporting viewer
+> for the `.prpti` and the `.prpt` — so every panel is rendered by its
+> own engine, with current data and the permissions of whoever is
+> looking. What gets saved is an `.xdash`: the layout template (a XUL
+> file), the theme, and for each widget the repository path plus its
+> input and output parameters.
+>
+> **Why it matters:** fix a report once and every dashboard showing it
+> updates. And a user who can't open a report can't see it here either.
+
 ### Prompts
 
 > **Note:** You can create dashboard prompts to apply to the content within the entire dashboard. Dashboard prompts can only be applied to individual reports within the dashboard if the report filter is set up as a parameter.
@@ -178,6 +194,23 @@
 &#x20;     • From the region Source drop-down list, select Select one or more territories:
 
 &#x20;     • Click Apply.
+
+> **Under the hood:**
+>
+> #### A dashboard prompt is a parameter handed to the report
+>
+> The Metadata List ran an MQL query — Territory from the Customer
+> table, `is not null` — to fetch the button labels. Selecting buttons
+> sets a dashboard-level parameter, and the association you just made
+> maps it onto the Vendor Sales report's own `region` parameter, which
+> exists only because that report's filter was defined as a parameter.
+> The panel reloads the report with `region=EMEA`, and the report's
+> engine applies it as a WHERE constraint exactly as it would from its
+> own prompt.
+>
+> **Why it matters:** one selection drives several reports because
+> they share a parameter contract, not because the dashboard knows
+> anything about their data.
 
 14. Test the prompt, on the list of prompt buttons:
 

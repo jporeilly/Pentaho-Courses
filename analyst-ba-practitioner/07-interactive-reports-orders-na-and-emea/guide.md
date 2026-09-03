@@ -133,6 +133,21 @@
 
 > **Note:** You may need to set the Row Limit to: Maximum
 
+> **Under the hood:**
+>
+> #### Why the totals look wrong at 100 rows
+>
+> A row limit is a `<limit>` on the query, so the database stopped
+> after 100 rows in `ORDER BY` order — and the summary functions summed
+> only what arrived. The first territory's subtotals look plausible;
+> later groups are missing or short, with no error anywhere, because
+> from the engine's point of view the data simply ended. Maximum
+> removes your limit (the plugin's own 10,000 default still applies).
+>
+> **Why it matters:** any total on a limited report is a total of the
+> sample. Limits are for designing; take them off before you trust a
+> number.
+
 2. Edit the label for the Product Line subtotals: Page 4
 3. Edit the label for the Territory subtotals: Page 10
 4. Edit the label for the grand total: Page 15

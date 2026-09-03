@@ -72,6 +72,20 @@ Product Sales by Year
 
 <figure><img src="../_assets/images/dd_product_content_linking_product.png" alt=""><figcaption><p>Content Linking - Product</p></figcaption></figure>
 
+> **Under the hood:**
+>
+> #### Content linking turns a click into a published parameter
+>
+> Enabling Product declared an output parameter on the Analyzer panel
+> — the saved `.xdash` records it as the schema level the field comes
+> from — which the panel emits whenever a viewer clicks a member of
+> that level. Nothing is listening yet: the click is published, not
+> acted on.
+>
+> **Why it matters:** the report knows nothing about the chart, which
+> is exactly what lets you wire any panel to any other later without
+> touching the report.
+
 ### Content Linking
 
 #### Territory Sales Mix
@@ -135,6 +149,22 @@ Product Sales by Year
 &#x20;      • Click **Apply**.
 
 <figure><img src="../_assets/images/dd_product_pass_product_and_content_link_territory.png" alt=""><figcaption><p>Pass {PRODUCT} and content link {TERRITORY}</p></figcaption></figure>
+
+> **Under the hood:**
+>
+> #### {PRODUCT} is substituted before the query runs
+>
+> The condition Product Name = `{PRODUCT}` is a parameterised
+> constraint; the default (18th century schooner) fills it when the
+> dashboard opens. Mapping the chart's PRODUCT source to *Product Sales
+> Analysis – Product* subscribes the panel to the report's output: each
+> click sets the parameter, the panel re-runs its metadata query with
+> the new value in the WHERE clause, and the pie redraws. Enabling
+> content linking on Territory makes the pie a publisher in turn.
+>
+> **Why it matters:** the parameter is the only contract between
+> panels. The chart never touches the cube and the report never touches
+> the SQL, so each can change without breaking the other.
 
 ***
 
@@ -209,6 +239,23 @@ Product Sales by Year
 &#x20;      • From the **Source** drop-down list for **TERRITORY**, select **Territory Sales Mix**.
 
 &#x20;      • Click **Apply**.
+
+> **Under the hood:**
+>
+> #### COUNT_DISTINCT became a GROUP BY in the generated SQL
+>
+> Choosing an aggregation on Order Number changed that MQL selection's
+> aggregation from NONE to COUNT_DISTINCT, and the metadata layer
+> emitted a `SELECT` of status and product name with
+> `COUNT(DISTINCT ordernumber)`, both parameterised constraints in the
+> WHERE clause, and a `GROUP BY` on the non-aggregated columns. The two
+> parameters come from two different publishers, so a click on the
+> report re-runs the pie and then the bar; a click on the pie re-runs
+> only the bar.
+>
+> **Why it matters:** three panels, one distinct count in the right
+> place (the database), and a cascade you can trace just by reading
+> which panel publishes what.
 
 ***
 
