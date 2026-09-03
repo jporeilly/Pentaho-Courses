@@ -36,24 +36,42 @@ clipboard: switch to PDI, press `Ctrl+O`, `Ctrl+V`, `Enter`.)
 You should see three connected steps on the canvas: a file reader, a
 filter, and two end points — one for valid rows, one for rejects.
 
-![1788268810024.png](../_assets/images/1788268810024.png)
-<p align="center"><em>win_preview.ktr</em></p>
+<figure>
+
+![win_preview open in Spoon: Read yesterday's sales flows into the Keys present? filter, which splits into Valid rows and Rejected rows](../_assets/images/1788268810024.png)
+
+<div align="center">
+<figcaption><em>win_preview.ktr</em></figcaption>
+</div>
+</figure>
 
 ## Preview the valid rows
 
 1. **Right-click** the step named **Valid rows**.
 2. Choose **Preview**, then **Quick Launch**.
 
-![1788269301694.png](../_assets/images/1788269301694.png)
-<p align="center"><em>Filter rows</em></p>
+<figure>
+
+![Transformation debug dialog opened from right-click Preview on Valid rows, with Quick Launch highlighted](../_assets/images/1788269301694.png)
+
+<div align="center">
+<figcaption><em>Preview → Quick Launch</em></figcaption>
+</div>
+</figure>
 
 A grid appears with 37 of yesterday's orders — typed columns, parsed
 dates, clean rows. This is the habit that changes how you build pipelines:
 **you can look at the data at any step, at any time**, before
 anything is written anywhere.
 
-![1788269454987.png](../_assets/images/1788269454987.png)
-<p align="center"><em>Preview rows</em></p>
+<div align="center">
+<figure>
+
+![Examine preview data: the 37 valid rows with typed columns order_id, order_date, customer_id, product_id, qty, unit_price and discount_pct](../_assets/images/1788269454987.png)
+
+<figcaption><em>Preview rows</em></figcaption>
+</figure>
+</div>
 
 > **Under the hood:**
 >
@@ -79,8 +97,14 @@ anything is written anywhere.
 1. Close the preview.
 2. **Right-click**: **Rejected rows** → **Preview** → **Quick Launch**.
 
-![1788366469571.png](../_assets/images/1788366469571.png)
-<p align="center"><em>Rejected rows</em></p>
+<div align="center">
+<figure>
+
+![Examine preview data: the three rejected rows, each with a null customer_id or product_id](../_assets/images/1788366469571.png)
+
+<figcaption><em>Rejected rows</em></figcaption>
+</figure>
+</div>
 
 Three rows. Two are missing their `customer_id`, one its
 `product_id` — they were planted in the file, and the filter caught
@@ -109,8 +133,14 @@ configuration for parsing the file — delimiter, header, and on the
 **Fields** tab, every column with its type and format. No code was
 generated; this *is* the pipeline.
 
-![1788269769520.png](../_assets/images/1788269769520.png)
-<p align="center"><em>Add - sales data </em></p>
+<div align="center">
+<figure>
+
+![Text file input dialog, File tab, with sales_20260101.csv listed under Selected files](../_assets/images/1788269769520.png)
+
+<figcaption><em>Add - sales data</em></figcaption>
+</figure>
+</div>
 
 Close the dialog with **Cancel** (so nothing changes).
 
@@ -118,8 +148,14 @@ Double-click **Keys present?*.
 The Filter Rows step allows you to filter rows based on conditions and comparisons. 
 In this example we're filtering for rows where the ids / keys are not null.
 
-![1788269628158.png](../_assets/images/1788269628158.png)
-<p align="center"><em>Filter rows</em></p>
+<div align="center">
+<figure>
+
+![Filter rows dialog: customer_id IS NOT NULL AND product_id IS NOT NULL, true rows to Valid rows, false rows to Rejected rows](../_assets/images/1788269628158.png)
+
+<figcaption><em>Filter rows</em></figcaption>
+</figure>
+</div>
 
 Close the dialog with **Cancel** (so nothing changes).
 
@@ -145,8 +181,14 @@ step to see its configuration:
 
 <button data-graph="files/win_preview.ktr">View graph</button>
 
-![1788270238088.png](../_assets/images/1788270238088.png)
-<p align="center"><em>Graph</em></p>
+<figure>
+
+![The guide's Graph tab rendering win_preview as a flowchart of four steps and three hops, with Summary and Walkthrough buttons](../_assets/images/1788270238088.png)
+
+<div align="center">
+<figcaption><em>Graph</em></figcaption>
+</div>
+</figure>
 
 Try out the other AI options:
 - **Summary:** summarized in a few sentences.

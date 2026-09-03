@@ -24,7 +24,7 @@
 <div align="center">
 <figure>
 
-![1788365198513.png](../_assets/images/1788365198513.png#w=420)
+![Part 1 overview: onboard the sales data and filter out rows with missing keys](../_assets/images/1788365198513.png#w=420)
 
 <figcaption><em>Part 1: Onboard and filter sales data</em></figcaption>
 </figure>
@@ -48,7 +48,7 @@ Save the file/transformation (.ktr) as: C:\Workshop\pdi-2hr\02-see-it-work\02-bu
    then click **Add** so it appears in the *Selected files* grid.
 <figure>
 
-![pasted-1788426433666.png](../_assets/images/pasted-1788426433666.png)
+![Target canvas: Read sales feeds Keys present?, valid rows go to Dummy (do nothing) and rejects to Rejects for source team](../_assets/images/pasted-1788426433666.png)
 
 <div align="center">
 <figcaption><em>Add - sales data</em></figcaption>
@@ -62,7 +62,7 @@ Save the file/transformation (.ktr) as: C:\Workshop\pdi-2hr\02-see-it-work\02-bu
    -   **Encoding** is: UTF8
 <figure>
 
-![1788365622451.png](../_assets/images/1788365622451.png)
+![Text file input dialog, Content tab: separator comma, header ticked with 1 header line, format mixed, encoding UTF-8](../_assets/images/1788365622451.png)
 
 <div align="center">
 <figcaption><em>Content tab</em></figcaption>
@@ -72,10 +72,10 @@ Save the file/transformation (.ktr) as: C:\Workshop\pdi-2hr\02-see-it-work\02-bu
 5. On the **Fields** tab click **Get Fields** — PDI reads the file and detects every column and type for you. Accept the defaults.
 <figure>
 
-![1788365750951.png](../_assets/images/1788365750951.png)
+![Text file input dialog, Fields tab after Get Fields: seven detected columns, order_date typed as Date with format yyyy-MM-dd](../_assets/images/1788365750951.png)
 
 <div align="center">
-<figcaption><em>Content tab</em></figcaption>
+<figcaption><em>Fields tab after Get Fields</em></figcaption>
 </div>
 </figure>
 
@@ -88,7 +88,7 @@ Save the file/transformation (.ktr) as: C:\Workshop\pdi-2hr\02-see-it-work\02-bu
    habit as Lab 1, available while you're still configuring.
 <figure>
 
-![1788269454987.png](../_assets/images/1788269454987.png)
+![Examine preview data: the 37 valid rows with typed columns order_id, order_date, customer_id, product_id, qty, unit_price and discount_pct](../_assets/images/1788269454987.png)
 
 <div align="center">
 <figcaption><em>Preview rows</em></figcaption>
@@ -125,8 +125,14 @@ Save the file/transformation (.ktr) as: C:\Workshop\pdi-2hr\02-see-it-work\02-bu
    connector to the filter (or hold `Shift` and drag between steps).
 3. Double-click the filter. Name it `Keys present?`.
 
-![1788366135657.png](../_assets/images/1788366135657.png)
-<p align="center"><em>Filter keys</em></p>
+<div align="center">
+<figure>
+
+![Filter rows dialog: customer_id IS NOT NULL AND product_id IS NOT NULL, true rows to Dummy (do nothing), false rows to Rejects for source team](../_assets/images/1788366135657.png)
+
+<figcaption><em>Filter keys</em></figcaption>
+</figure>
+</div>
 
 4. Build the condition: click the left field and pick
    `customer_id`, set the function to `IS NOT NULL`.
@@ -151,14 +157,26 @@ Save the file/transformation (.ktr) as: C:\Workshop\pdi-2hr\02-see-it-work\02-bu
 1. Click **Run** (the ▶ in the canvas toolbar or F9), then **Run** again in
    the dialog.
 
-![1788367182360.png](../_assets/images/1788367182360.png)
-<p align="center"><em>Run</em></p>
+<div align="center">
+<figure>
+
+![Run Options dialog with the Pentaho local run configuration selected and the Run button](../_assets/images/1788367182360.png)
+
+<figcaption><em>Run</em></figcaption>
+</figure>
+</div>
 
 2. Watch the **Step Metrics** tab fill in: 40 rows read, 37 valid,
    3 written to the reject file.
 
-![1788367282631.png](../_assets/images/1788367282631.png)
-<p align="center"><em>Step metrics</em></p>
+<figure>
+
+![Execution Results, Step Metrics tab: rows read, written and rejected for every step, all Finished](../_assets/images/1788367282631.png)
+
+<div align="center">
+<figcaption><em>Step metrics</em></figcaption>
+</div>
+</figure>
 
 3. Open `C:\Workshop\pdi-2hr\out\rejects.csv` — there are your three
    bad rows, ready to send back to the source system's owner.

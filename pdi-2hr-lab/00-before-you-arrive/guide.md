@@ -48,9 +48,14 @@ Click the button below. First launch can take a minute ..
 
 You should see the **Spoon** welcome screen with an empty canvas.
 Leave it open — Lab 1 starts here.
+<figure>
 
 ![Welcome Screen](../_assets/images/1788267733090.png)
-<p align="center"><em>Pentaho Developers Edition</em></p>
+
+<div align="center">
+<figcaption><em>Pentaho Developers Edition</em></figcaption>
+</div>
+</figure>
 
 ## Check the working folders
 
@@ -65,7 +70,7 @@ paths — substitute yours if you're elsewhere.
 ## Check the database
 
 Lab 4 loads a dimension table into MySQL (no sample data needs loading). 
-The environment panel above shows **MySQL** green when the container is up. — or 
+The environment panel above shows **MySQL** green when the container is up.
 
 ## Troubleshooting
 

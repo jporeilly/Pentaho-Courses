@@ -27,7 +27,7 @@
 > `C:\Workshop\pdi-2hr\03-make-it-yours\03-enrich-and-join\`.
 <figure>
 
-![1788427100975.png](../_assets/images/1788427100975.png)
+![Part 2 target canvas: Read sales and Keys present? feed the + customer and + products stream lookups, Compute margin, Sort by regions and the + region merge join into Enriched rows, with Read customers, Read products and Read regions supplying the lookups](../_assets/images/1788427100975.png)
 
 <div align="center">
 <figcaption><em>Part 2: Enrich and Join data</em></figcaption>
@@ -46,7 +46,7 @@
    and **Add** it.
 <figure>
 
-![1788277156966.png](../_assets/images/1788276989272.png)
+![JSON input dialog, File tab: Read customers pointing at ${Internal.Entry.Current.Directory}/customers.json](../_assets/images/1788276989272.png)
 
 <div align="center">
 <figcaption><em>customers.json</em></figcaption>
@@ -64,7 +64,7 @@
 
 <figure>
 
-![1788277506117.png](../_assets/images/1788277506117.png)
+![JSON input dialog, Fields tab: customer_id, customer_name and region_code mapped from $.customers[*] paths, all String](../_assets/images/1788277506117.png)
 
 <div align="center">
 <figcaption><em>Fields - customers.json</em></figcaption>
@@ -76,7 +76,7 @@
 <div align="center">
 <figure>
 
-![1788277571868.png](../_assets/images/1788277571868.png#w=420)
+![Examine preview data: 20 customers with customer_id, customer_name and region_code](../_assets/images/1788277571868.png#w=420)
 
 <figcaption><em>Preview - customers.json</em></figcaption>
 </figure>
@@ -89,7 +89,7 @@
    `C:\Workshop\pdi-2hr\03-make-it-yours\03-enrich-and-join\products.csv`.
 <figure>
 
-![1788339439671.png](../_assets/images/1788339439671.png)
+![Text file input dialog, File tab: Read products with products.csv under Selected files](../_assets/images/1788339439671.png)
 
 <div align="center">
 <figcaption><em>products.csv</em></figcaption>
@@ -103,7 +103,7 @@
    -   **Encoding:** UTF8
 <figure>
 
-![1788340033314.png](../_assets/images/1788339859409.png)
+![Text file input dialog, Content tab for Read products: separator comma, header 1 line, format mixed, encoding UTF-8](../_assets/images/1788339859409.png)
 
 <div align="center">
 <figcaption><em>Content - products.csv</em></figcaption>
@@ -114,7 +114,7 @@
    **Get Fields**
 <figure>
 
-![1788340033314.png](../_assets/images/1788340033314.png)
+![Text file input dialog, Fields tab for Read products: id, name and category as String, cost as BigNumber](../_assets/images/1788340033314.png)
 
 <div align="center">
 <figcaption><em>Fields - products.csv</em></figcaption>
@@ -139,7 +139,7 @@ in memory. You'll meet the real join in a moment.
    *fields to retrieve*, add `customer_name` and `region_code`.
 <figure>
 
-![1788350927645.png](../_assets/images/1788350927645.png)
+![Stream lookup dialog + customer: key customer_id matched to customer_id from Read customers, retrieving customer_name and region_code](../_assets/images/1788350927645.png)
 
 <div align="center">
 <figcaption><em>Lookup + customers</em></figcaption>
@@ -152,7 +152,7 @@ in memory. You'll meet the real join in a moment.
    and `cost`.
 <figure>
 
-![1788351021033.png](../_assets/images/1788351021033.png)
+![Stream lookup dialog + products: key product_id matched to id from Read products, retrieving name, category and cost as product_name, product_category and cost](../_assets/images/1788351021033.png)
 
 <div align="center">
 <figcaption><em>Lookup + products</em></figcaption>
@@ -187,7 +187,7 @@ in memory. You'll meet the real join in a moment.
 2. Add four calculations (each row can use an earlier row's result):
 <figure>
 
-![1788351746093.png](../_assets/images/1788351746093.png)
+![Calculator dialog Compute margin: gross = unit_price × qty, net = gross − gross × discount_pct / 100, cost_total = cost × qty, margin = net − cost_total](../_assets/images/1788351746093.png)
 
 <div align="center">
 <figcaption><em>Compute margin</em></figcaption>
@@ -231,7 +231,7 @@ steps.
    - ***Get fields***: `code`, 'region_name` (rename from 'name'),`manager_email`.
 <figure>
 
-![1788428448148.png](../_assets/images/1788428448148.png)
+![Text file input dialog, Fields tab for Read regions: code, region_name and manager_email as String](../_assets/images/1788428448148.png)
 
 <div align="center">
 <figcaption><em>Fields - Read regions</em></figcaption>
@@ -243,7 +243,7 @@ steps.
 <div align="center">
 <figure>
 
-![1788428664906.png](../_assets/images/1788428664906.png#w=420)
+![Sort rows dialog Sort regions: sorted by code, ascending](../_assets/images/1788428664906.png#w=420)
 
 <figcaption><em>Sort rows - code</em></figcaption>
 </figure>
@@ -254,7 +254,7 @@ steps.
 <div align="center">
 <figure>
 
-![1788428856220.png](../_assets/images/1788428856220.png#w=420)
+![Sort rows dialog Sort by regions: sorted by region_code, ascending](../_assets/images/1788428856220.png#w=420)
 
 <figcaption><em>Sort rows - by regions</em></figcaption>
 </figure>
@@ -268,11 +268,11 @@ steps.
 <div align="center">
 <figure>
 
-![1788354823498.png](../_assets/images/1788354823498.png)
+![Merge join dialog + region: first step Sort by regions, second step Sort regions, join type LEFT OUTER, keys region_code and code](../_assets/images/1788354823498.png)
 
 <figcaption><em>Merge Join + region</em></figcaption>
-</div>
 </figure>
+</div>
 
 4. Preview `+ region`: every sale now also carries `region_name` and
    `manager_email`.

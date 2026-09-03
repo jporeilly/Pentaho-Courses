@@ -65,15 +65,13 @@
 <div align="center">
 <figure>
 
-![1788435500408.png](../_assets/images/1788435500408.png#w=420)
+![Simple SQL editor showing the CREATE TABLE dim_customer statement PDI generated, followed by the two CREATE INDEX statements](../_assets/images/1788435500408.png#w=420)
 
 <figcaption><em>Generate SQL</em></figcaption>
 </figure>
 </div>
 
-<figure>
-
-> **Critical:** Not verything is going to go according to plan. 
+> **Critical:** Not everything is going to go according to plan. 
 > Expect issues to occur: The error comes from the DDL PDI generated: 
 > the three string columns came out as TINYTEXT, and MySQL refuses to 
 > index a TEXT column without a key length (its a .json file). 
@@ -83,10 +81,9 @@
 <div align="center">
 <figure>
 
-![pasted-1788436628184.png](../_assets/images/pasted-1788436628184.png)
+![Error executing SQL: BLOB/TEXT column customer_id used in key specification without a key length](../_assets/images/pasted-1788436628184.png)
 
-<div align="center">
-<figcaption><em>No Varchar -length- defined</em></figcaption>
+<figcaption><em>No VARCHAR length defined</em></figcaption>
 </figure>
 </div>
 
