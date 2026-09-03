@@ -2,9 +2,17 @@
   "title": "Wrap-Up Check",
   "passMark": 60,
   "shuffle": true,
-  "description": "Ten quick questions to lock in what you built today — takes about three minutes. The short form before it asks who you are so we can send you the trial link and follow up on anything you flagged in Lab 7. No score pressure: this is a recap, not an exam.",
+  "description": "Twenty quick questions to lock in what you built today — about five minutes. No score pressure: this is a recap, not an exam.",
   "webhookUrl": "",
   "webhookSecret": "",
+  "intake": {
+    "optional": true,
+    "consent": false,
+    "notesPlaceholder": "Follow up on anything you flagged during the Try-it.",
+    "startLabel": "Start Wrap-Up check",
+    "trackResults": false,
+    "lead": "No results from this Check are sent anywhere — your answers stay on this machine. The short form is for anyone who would like further information on Pentaho: fill it in only if you want us to follow up, otherwise leave it blank and start."
+  },
   "questions": [
     {
       "id": "q-preview",
@@ -149,6 +157,146 @@
       "correct": 0,
       "explanation": "Developer Edition is the full product for evaluating and building — it doesn't expire. Running it in production is what needs the commercial licence (which also brings support and certified updates).",
       "source": "Lab 0 — Before You Arrive"
+    },
+    {
+      "id": "q-filter-false",
+      "module": "See It Work",
+      "prompt": "In Lab 2 you hopped Filter rows to Text file output and PDI asked which result to send. Rows that fail the condition travel down...",
+      "options": [
+        "The FALSE hop, to whichever step you connected it to",
+        "The same hop as valid rows, flagged with an extra column",
+        "Nowhere — failing rows are discarded unless you add error handling",
+        "Back to the input step to be re-read"
+      ],
+      "correct": 0,
+      "explanation": "Filter rows has two real output hops. TRUE and FALSE are separate streams, each with its own downstream step and thread — which is why you could preview the rejects on their own in Lab 1.",
+      "source": "Lab 2 — Build the Pipeline Yourself"
+    },
+    {
+      "id": "q-rowmeta",
+      "module": "See It Work",
+      "prompt": "After Get Fields, what does the Text file input step hold besides the file path?",
+      "options": [
+        "Row metadata — each column's name, type and format — which travels down the hops ahead of the data",
+        "A cached copy of the whole file",
+        "A generated Java class that parses the file",
+        "Nothing — types are only decided when the row is written"
+      ],
+      "correct": 0,
+      "explanation": "Row metadata is why the next step already knows unit_price is a Number and order_date is a Date, and why a mis-typed column is caught at design time rather than at run time.",
+      "source": "Lab 2 — Build the Pipeline Yourself"
+    },
+    {
+      "id": "q-concurrency",
+      "module": "See It Work",
+      "prompt": "When you ran the four-step transformation in Lab 2, how did the steps execute?",
+      "options": [
+        "All at once — each step on its own thread, rows flowing between them through small buffers",
+        "One after another — the reader finished, then the filter ran, then the outputs",
+        "In the order you dragged them onto the canvas",
+        "Only the input step runs; the others are applied when rows are written"
+      ],
+      "correct": 0,
+      "explanation": "The filter was already working on row 1 while the reader parsed row 20. Only the rows in flight are held in memory, which is why the same design handles files far larger than RAM.",
+      "source": "Lab 2 — Build the Pipeline Yourself"
+    },
+    {
+      "id": "q-ktr-xml",
+      "module": "See It Work",
+      "prompt": "What is a .ktr file?",
+      "options": [
+        "XML describing the steps, their settings and the hops — the engine executes it directly",
+        "Compiled bytecode generated from the canvas",
+        "A binary snapshot of the last run",
+        "A shortcut to a transformation stored inside the server database"
+      ],
+      "correct": 0,
+      "explanation": "No code is generated: the dialog reads and writes the XML, and the same file is what the server runs. That is also why a .ktr diffs and merges in git like source code.",
+      "source": "Lab 1 — Your First Win"
+    },
+    {
+      "id": "q-lookup-limits",
+      "module": "Make It Yours",
+      "prompt": "Which situation calls for a Merge join rather than a Stream lookup?",
+      "options": [
+        "You need outer-join semantics, or a key may legitimately match many rows, or neither side fits in memory",
+        "The reference set is a small, stable code table",
+        "You want exactly one value per row, fast",
+        "The lookup data comes from JSON rather than CSV"
+      ],
+      "correct": 0,
+      "explanation": "Stream lookup holds the whole lookup stream in RAM and returns at most one match per row. Merge join streams both sides, supports INNER / LEFT / RIGHT / FULL OUTER, and can multiply rows — at the price of sorted input.",
+      "source": "Lab 3 — Enrich and Join"
+    },
+    {
+      "id": "q-sort-requirement",
+      "module": "Make It Yours",
+      "prompt": "Why did the Merge join in Lab 3 need two Sort rows steps in front of it?",
+      "options": [
+        "Merge join walks both streams in lock-step, so each must already be ordered by its join keys",
+        "Sort rows removes duplicate keys before joining",
+        "PDI cannot read two files at once without sorting them",
+        "The output file has to be in region order"
+      ],
+      "correct": 0,
+      "explanation": "Merge join holds only the current row from each side and advances whichever is behind. Unsorted input does not raise an error — it silently walks past matches it can no longer see.",
+      "source": "Lab 3 — Enrich and Join"
+    },
+    {
+      "id": "q-left-outer",
+      "module": "Make It Yours",
+      "prompt": "The region join was configured as LEFT OUTER. What does that protect against?",
+      "options": [
+        "A sale whose region code is missing from regions.csv silently disappearing from the output",
+        "Duplicate region rows multiplying sales",
+        "The region file being read before the sales file",
+        "Null values in the manager_email column"
+      ],
+      "correct": 0,
+      "explanation": "INNER would drop any sale with no matching region. LEFT OUTER keeps every sale and leaves the region columns empty — the difference between \"some sales went missing\" and \"some sales need a region added\".",
+      "source": "Lab 3 — Enrich and Join"
+    },
+    {
+      "id": "q-calc-type",
+      "module": "Make It Yours",
+      "prompt": "In the Calculator step, why does the guide insist on unit_price × qty rather than qty × unit_price?",
+      "options": [
+        "The calculation runs in Field A's data type, so an Integer in A rounds the price to a whole number before multiplying",
+        "Field A must always be the larger number",
+        "qty is a String until it is placed in Field B",
+        "It makes no difference — the two orders give the same result"
+      ],
+      "correct": 0,
+      "explanation": "2 × 49.99 came out as 100.0 with qty first. Putting the decimal field in A keeps the pennies — a small rule with an expensive failure mode.",
+      "source": "Lab 3 — Enrich and Join"
+    },
+    {
+      "id": "q-unknown-row",
+      "module": "Make It Yours",
+      "prompt": "After the first Lab 4 load, dim_customer held 21 rows for 20 customers. Where did the extra row come from?",
+      "options": [
+        "Dimension lookup/update inserts a technical \"unknown\" member (key 0) so later loads can point failed lookups somewhere",
+        "One customer appeared twice in customers.json",
+        "The header row of the JSON was loaded as data",
+        "A test row you added when you clicked SQL"
+      ],
+      "correct": 0,
+      "explanation": "The unknown row is deliberate warehouse hygiene: a fact row whose customer cannot be found is attached to key 0 instead of being dropped or failing the load.",
+      "source": "Lab 4 — Track History with One Step"
+    },
+    {
+      "id": "q-mi-per-row",
+      "module": "See It Scale",
+      "prompt": "Why does the Lab 5 driver job run the injector transformation once per control-file row, instead of once for all feeds?",
+      "options": [
+        "One metadata-injection run fills the template with one configuration, so three differently-delimited feeds need three runs",
+        "The template can only read files under 1 MB",
+        "Jobs cannot pass more than one row to a transformation",
+        "Each feed has to be sorted before injection"
+      ],
+      "correct": 0,
+      "explanation": "Injection rewrites the template in memory with the values you mapped — one filename, one separator — and executes that copy. \"Execute for every input row\" supplies the loop, and Get rows from result is where each control row arrives.",
+      "source": "Lab 5 — One Pipeline, Many Files"
     }
   ]
 }
