@@ -90,6 +90,28 @@
 
 <figure><img src="../_assets/images/param-results-1-row.png" alt="" width="563"><figcaption><p>Preview data - Parameters (1 row)</p></figcaption></figure>
 
+> **Under the hood:**
+>
+> #### The `?` markers are JDBC bind parameters, so order is everything
+>
+> **Table input** prepared the query once with the two `?` left open,
+> read the single row from *Parameters (1 row)* via **Insert data from
+> step**, and bound its fields to the markers **in field order** —
+> first field to first `?`, second to second. The database received
+> values, not text spliced into SQL: the driver quotes and types them,
+> so a product line called `O'Brien` can't break the query and can't
+> inject anything.
+>
+> That is also the limit. A bind parameter can only stand where a
+> *value* can — never a table name, column or keyword — which is what
+> the warning above is telling you. Those come from `${VARIABLE}`
+> substitution with **Replace variables in script?** ticked, which
+> really is text replacement, applied before the statement is
+> prepared.
+>
+> **Why it matters:** values by `?`, identifiers by `${}`. Keep the
+> rule and your queries stay both safe and portable.
+
 ### 2. Parameters (several rows)
 
 > **Note:**
@@ -111,6 +133,28 @@
 > * Keywords or identifiers (for example; table names) cannot be parameterized with the question marks method.
 
 <figure><img src="../_assets/images/results-several-rows.png" alt=""><figcaption><p>Preview data - Parameters (serveral rows)</p></figcaption></figure>
+
+> **Under the hood:**
+>
+> #### Three rows in: one prepared statement, executed three times
+>
+> The difference between this tab and the last is a single checkbox on
+> the Table input step: **Execute for each row?** With it on, the step
+> keeps the prepared statement and re-binds it for every row the data
+> grid sends — three rows, three executions, one result set after
+> another flowing into the same output stream.
+>
+> With it off (as in the next tab, *1 by row*), the step instead reads
+> *all* incoming rows before running anything, flattens their values
+> into one list in arrival order, and fills the `?` markers from that
+> list in a single execution. Same query, same markers, two very
+> different contracts — which is why the third approach can't mix
+> types across rows.
+>
+> **Why it matters:** a Table input driven by a stream is a loop in
+> disguise. That is ideal for a few hundred parameter sets; for a
+> million, the loop is a million queries, and a join in SQL beats it
+> every time.
 
 ### 3. Parameters (1 by row)
 

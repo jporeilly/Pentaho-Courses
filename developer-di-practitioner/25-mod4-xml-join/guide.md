@@ -25,7 +25,7 @@
 >
 > #### XML Join in Pentaho Data Integration
 > 
-> XML Join adds an XML stream into another XML stream as a new level, based on an XPath that points at the target location. It takes exactly two inputs: a **target** stream (the document you are building up) and a **source** stream (the fragment to insert). Only the target stream may contain more than one row.
+> XML Join adds an XML stream into another XML stream as a new level, based on an XPath that points at the target location. It takes exactly two inputs: a **target** stream (the document you are building up) and a **source** stream (the fragments to insert). The target carries a single row — the document — while the source may contain many.
 > 
 > By chaining several XML Join steps, each one inserting the next level at a deeper XPath, you assemble a deeply nested document — here: order list → order → header comments → lines → line comments → sub-lines.
 
@@ -183,6 +183,30 @@ xPathStatement = "//OrderHeader[@orderNumber='" + orderNumber.getInteger()
 > **Warning:** Connect the **target** and **source** hops in the right order — the target is the growing document, the source is the fragment being inserted. Reversing them produces an empty or malformed result.
 
 > **Note:** The `?` in a target XPath is the placeholder the complex join replaces with the join-compare value for the current row.
+
+> **Under the hood:**
+>
+> #### The target is one document held in memory; the source streams into it
+>
+> Each **XML Join** begins by taking a single row from its **Target
+> XML step** and parsing that field into a DOM — the document being
+> built. It then reads the **Source XML step** row by row: for each
+> fragment it evaluates the **XPath Statement** against the DOM
+> (replacing `?` with that row's **Join comparison field**), appends
+> the fragment under the node it found, and moves on. When the source
+> is exhausted it serialises the DOM back into one XML field and emits
+> exactly one row.
+>
+> That is why the chain works: each join's single output row is the
+> next join's target, and the source at every level can be as many
+> rows as the sheet holds. Reverse the hops and the step reads one
+> *fragment* as the document and tries to nest the whole order list
+> into it.
+>
+> **Why it matters:** five chained joins turned six flat sheets into a
+> nested document without a line of DOM code. The document does live
+> in memory as a tree, though — right for order feeds and API
+> payloads, not for gigabyte exports.
 
 ### 6. Text File Output
 

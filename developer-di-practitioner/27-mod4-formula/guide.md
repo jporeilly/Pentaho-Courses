@@ -105,6 +105,29 @@ Logic: result = IF(\[booking\_type]=”R”;\[b]-\[a])
 
 > **Note:** The data stream fields are referenced with the syntax: \[data field]
 
+> **Under the hood:**
+>
+> #### Same formula engine as Pentaho Reporting, parsed once per run
+>
+> The **Formula** step doesn't interpret your text row by row. At
+> start-up it hands each expression to LibFormula — the OpenFormula
+> engine that also powers Pentaho Report Designer — which parses it
+> into an expression tree once. Per row the engine binds `[a]`, `[b]`
+> and `[booking_type]` to the current row's values by name, walks the
+> tree, and writes the result into the output field with the type it
+> inferred (or the one you set).
+>
+> Because the parse happens at initialisation, a typo in a formula
+> fails the step before a single row moves, not on row 40,000. And
+> because it is OpenFormula, the function catalogue — `IF`, `AND`,
+> `OR`, `CONCATENATE`, `ROUND`, `TODAY` — is the spreadsheet vocabulary
+> your analysts already know, not a programming language.
+>
+> **Why it matters:** most business logic — conditional pricing,
+> derived flags, string assembly — fits in a Formula step with no
+> JavaScript and no Java, and runs a good deal faster than a script
+> would.
+
 <div class="pcm-embed-card" data-href="http://docs.oasis-open.org/office/v1.2/OpenDocument-v1.2-part2.html" data-title="**🎥 Embed:** [View external resource"></div>
 Link to OASIS Open Document Format](<http://wiki.pentaho.com/display/Reporting/Formula+Expressions>)
 

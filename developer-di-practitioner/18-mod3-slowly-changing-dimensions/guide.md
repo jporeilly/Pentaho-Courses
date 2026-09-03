@@ -206,6 +206,27 @@ CREATE TABLE `DIM_SCD` (
 > 
 > To maintain referential integrity, the record is assigned a TK 0, and as it doesn’t exist in the database, the value returned is NULL. As this is a lookup, no record is written to the database table.
 
+> **Under the hood:**
+>
+> #### The system date wasn't decoration — it is the lookup's point in time
+>
+> A Type 2 dimension can hold several versions of the same `id`, each
+> valid between its `date_from` and `date_to`. So a lookup needs two
+> things, not one: the natural key *and a date*. That is what **Get
+> System Info** supplied. The step's **Stream Datefield** is set to
+> it, and the query it ran was, in effect, `SELECT TK ... WHERE id = ?
+> AND date_from <= ? AND ? < date_to`. Leave the datefield empty and
+> the step substitutes the current time — fine for "what is it now",
+> wrong for "what was it when this order shipped".
+>
+> London had no row at all, so the lookup returned technical key 0 —
+> the placeholder the step reserves for "unknown", so a fact row can
+> always carry *some* key and referential integrity holds.
+>
+> **Why it matters:** feed the order's date into the datefield and a
+> fact loaded today for a 2019 order links to the 2019 version of the
+> customer, not today's. That is the whole point of keeping history.
+
 ### Workflow 2 - Type 1
 
 > **Note:** The Dimension Lookup/Update step allows you to implement Ralph Kimball's slowly changing dimension for both types:
@@ -381,6 +402,32 @@ CREATE TABLE `DIM_SCD` (
 
 > **Note:** * A new record has been inserted, with the value ‘Paris’, with an updated date\_from and last\_update timestamp, and version.
 > * Notice that the `last_update` field has also been updated for the other records.
+
+> **Under the hood:**
+>
+> #### A Type 2 change is an UPDATE and an INSERT
+>
+> When the step found `id = 3` holding `Pariss` and a stream value of
+> `Paris` on a field marked **Insert**, it did two things: `UPDATE
+> DIM_SCD SET date_to = <stream date> WHERE TK = <version 1's key>` to
+> close the old version, then an `INSERT` of a new row with `version =
+> 2`, `date_from` at the stream date and `date_to` at the end of
+> **Max. year** — 2199 by default, the step's marker for "still
+> current". The new technical key came from the step's own key
+> generation, not from the natural key, which is why TK and id part
+> company from here on.
+>
+> The other rows' `last_update` moved for a different reason. In this
+> transformation it is mapped as an ordinary **Update** field fed from
+> the system date, so its value differs on *every* run, every existing
+> row counts as changed, and each gets an `UPDATE`. Map it with one of
+> the *Date of last insert or update* options instead and the step
+> maintains it itself, only on rows it really inserts or updates.
+>
+> **Why it matters:** you configured a key, a version field and two
+> dates once, and the step now does Kimball's bookkeeping on every row,
+> forever. Hand-written, that is a few hundred lines of SQL that every
+> team gets subtly wrong the first time.
 
 ### Punch through
 

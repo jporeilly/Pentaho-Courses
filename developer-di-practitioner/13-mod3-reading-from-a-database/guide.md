@@ -93,6 +93,28 @@
 
 > **Success:** Checkpoint: Preview shows only rows with `STATUS = 'Shipped'`.
 
+> **Under the hood:**
+>
+> #### The SQL went to MySQL untouched; the rows came back as a stream
+>
+> **Table input** does not parse or rewrite your query. It sent the
+> text exactly as written through the JDBC driver, so anything MySQL
+> accepts — functions, joins, window clauses — works here. The result
+> set then flows back row by row through a cursor: the step never asks
+> the driver for the whole result, so a `SELECT` over a
+> hundred-million-row table starts emitting immediately and uses the
+> same memory as this one.
+>
+> The columns in Preview got their types from the driver's result
+> metadata — `ORDERNUMBER` arrived as an Integer and `ORDERDATE` as a
+> Date because the database said so. That is the row metadata every
+> following step builds on.
+>
+> **Why it matters:** push filters, joins and aggregations into the
+> SQL and the database does that work with its indexes, while the
+> transformation only sees the rows that matter. It is the single
+> biggest performance lever in PDI, and it costs nothing to use.
+
 ### 2. Calculator
 
 > **Note:**
@@ -155,6 +177,28 @@
 
 > **Note:** If you hit memory errors, lower the sort size.\
 > PDI spills to temp files when needed.
+
+> **Under the hood:**
+>
+> #### Sort is the first step that must see every row before it emits one
+>
+> Everything upstream — read, calculate, bucket — streams: a row in, a
+> row out, all steps busy at once. **Sort rows** can't. The smallest
+> value might be the last row to arrive, so the step buffers until it
+> has read the entire input, sorts, and only then starts writing.
+> Watch Step Metrics during a large run and the steps after the sort
+> sit at zero until the reader finishes.
+>
+> It stays memory-safe because of **Sort size (rows in memory)**. Once
+> that many rows are buffered they are sorted and spilled to a temp
+> file in the **Sort directory**; at the end the step merges the sorted
+> files back into one ordered stream. Lowering the sort size trades
+> disk for RAM; **Compress TMP Files?** trades CPU for disk.
+>
+> **Why it matters:** a sort marks the point where pipeline
+> parallelism stops. Sort as late and as narrow as you can — or let the
+> database do it with `ORDER BY`, which costs the transformation
+> nothing.
 
 ### 5. Select values
 

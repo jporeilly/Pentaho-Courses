@@ -146,6 +146,27 @@
 
 > **Note:** You should see **2 updated** rows for the Update step.
 
+> **Under the hood:**
+>
+> #### Two statements per row: a lookup, then an UPDATE only if something changed
+>
+> For each of the two incoming rows the **Update** step first ran a
+> `SELECT` on `EMPLOYEES` by `EMPLOYEENUMBER`, fetched the current
+> values of the update fields, and compared them with the stream. Only
+> where a value differed did it issue `UPDATE ... WHERE EMPLOYEENUMBER
+> = ?`. A row whose job title already matched would have been read,
+> compared and skipped — counted, but not written.
+>
+> That comparison is what **Skip lookup** turns off: with it ticked,
+> the step fires the `UPDATE` blindly for every row, halving the round
+> trips at the cost of touching rows that didn't need it (and firing
+> any last-modified triggers on them).
+>
+> **Why it matters:** the Updated count in Step Metrics is a count of
+> rows that *changed*, so re-running this transformation is safe — the
+> second run updates nothing. Idempotent loads are the ones you can
+> schedule without fear.
+
 3. Verify the updated rows:
 
 ```sql

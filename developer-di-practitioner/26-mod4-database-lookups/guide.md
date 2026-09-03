@@ -133,6 +133,29 @@
 > 
 > For values where there’s no match for PRODUCTNAME, ‘not available’ is returned. In the Preview, notice there are no PRODUCTNAMES that match %Ford Falcon% where the max price is less than the max price of 70.
 
+> **Under the hood:**
+>
+> #### Cache off: one query per row. Cache on: one query, then a hash table
+>
+> As configured, **Database lookup** prepared `SELECT PRODUCTNAME,
+> PRODUCTSCALE, BUYPRICE FROM PRODUCTS WHERE PRODUCTNAME LIKE ? AND
+> BUYPRICE < ?` once and executed it for every incoming row, taking
+> the first row the database returned and appending its columns (or
+> your defaults) to the stream. Three rows, three round trips —
+> harmless here, ruinous at a million.
+>
+> **Enable cache?** changes the engine, not the SQL: results are kept
+> in an in-memory map keyed on the lookup values, so a repeated key
+> costs a hash probe instead of a query. **Load all data from table**
+> goes further and reads the whole table once at start-up, after which
+> the database is never asked again — but it needs every comparison to
+> be `=`, which a `LIKE` or a `<` is not, and that is why both are off
+> in this workshop.
+>
+> **Why it matters:** the same step is a per-row query or an in-memory
+> join depending on two checkboxes. For a dimension that fits in RAM,
+> "load all" turns an hour into seconds.
+
 ### 3.2 Error Handling
 
 > **Note:** In this workflow, error handling has been enabled, with a write to log step.

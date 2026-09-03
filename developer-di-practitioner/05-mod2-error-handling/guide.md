@@ -91,6 +91,28 @@
 
 > **Note:** Use `errorCodes` to route errors into targeted cleanup logic.
 
+> **Under the hood:**
+>
+> #### The row failed; the step didn't
+>
+> Without an error hop, a value that won't parse throws an exception
+> inside the step, the step stops, and the whole transformation stops
+> with it. Defining error handling changes what the engine does with
+> that exception: the step catches it, appends the four fields you
+> named — count, description, field, code — to the offending row,
+> pushes that row onto the red hop's row set, and carries on with the
+> next row. The normal hop only ever sees rows that parsed.
+>
+> Nothing about *how* the date is validated changed. The same
+> `yyyy/MM/dd` mask is applied to every row; only the fate of a row
+> that fails it is different.
+>
+> **Why it matters:** one bad row in a million no longer costs you the
+> other 999,999. And because rejects arrive as ordinary rows with the
+> reason attached, "what do we do with bad data" becomes a visible
+> branch on the canvas — a file, a table, an email — rather than a
+> stack trace at 3am.
+
 **Fix the format and verify**
 
 1. Open **CSV file input** again.

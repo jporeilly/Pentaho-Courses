@@ -120,6 +120,29 @@
 
 > **Success:** You should see the two streams merged into one.
 
+> **Under the hood:**
+>
+> #### Two hops into one step is a union, checked by position — and only in safe mode
+>
+> The **Dummy** at the end doesn't merge anything clever. Given two
+> input row sets it takes rows from each as they come and passes them
+> on, so the output is the *union* of both streams in arrival order.
+> The engine identifies a field by its **position** in the row, not
+> its name: field 3 from the orders stream and field 3 from the
+> description stream land in the same column whatever they were
+> called. That is why the two **Select values** steps had to agree on
+> order and type, not just on names.
+>
+> Normally nobody checks. Rows of differing shape simply flow, and the
+> first symptom is a wrong value or an exception far downstream. Tick
+> **Enable safe mode** in the run dialog and the engine compares every
+> row's layout against the first one it saw, stopping with "rows with
+> varying number of fields" at the step where they meet.
+>
+> **Why it matters:** run merges in safe mode while you build them. It
+> costs a little speed and turns the nastiest silent bug in PDI into
+> an error message that names the step.
+
 ::::
 
 ## Lab Files

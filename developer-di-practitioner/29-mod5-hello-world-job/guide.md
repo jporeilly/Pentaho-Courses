@@ -117,6 +117,29 @@
 
 > **Success:** The job runs each entry in sequence and finishes in a success state.
 
+> **Under the hood:**
+>
+> #### A job runs one entry at a time; a transformation runs every step at once
+>
+> This is a different engine. Where a transformation starts every step
+> on its own thread and streams rows between them, a job walks its
+> entries **in sequence** on a single thread: START, then the
+> **Transformation** entry, then **Success**. Each entry returns a
+> *result* — success or failure, plus row and file lists — and the hop
+> colours are conditions on that result: green follows success, red
+> follows failure, black follows regardless.
+>
+> The Transformation entry did something more. It loaded
+> `tr_hello_world.ktr`, spun up the full multithreaded transformation
+> engine inside the job, waited for it to finish, and turned its
+> outcome into the entry's result. **Success** then forced the job's
+> final state to success no matter what came before.
+>
+> **Why it matters:** this split is PDI's design rule. Rows and data
+> logic belong in transformations; ordering, conditions, retries and
+> notifications belong in jobs. Mix them and you fight the engine;
+> keep them apart and each stays simple.
+
 ::::
 
 ## Lab Files

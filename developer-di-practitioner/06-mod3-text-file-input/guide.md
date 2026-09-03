@@ -138,6 +138,26 @@
 
 > **Note:** Each target field maps to one repeating line — target field 1 to line 1, and so on.
 
+> **Under the hood:**
+>
+> #### Flattener counts lines; it doesn't understand records
+>
+> The step collects the flatten field from consecutive rows until it
+> has as many as you listed target fields, emits them side by side as
+> one row, then starts counting again. There is no key and no marker —
+> it never looks at the *content* of a line to decide where a record
+> ends. Line 1 goes to target 1, line 2 to target 2, purely by
+> position.
+>
+> That makes it fast and simple, and it makes the file's regularity a
+> hard requirement: one stray blank line and every record after it is
+> shifted by one field.
+>
+> **Why it matters:** preview three records here, not one. If the
+> third looks right, the counting is right. If it has drifted, the fix
+> belongs upstream in **Text file input** (filters, blank-line
+> handling), not in the Flattener.
+
 ### 3. RegEx Evaluation
 
 > **Note:**
@@ -165,6 +185,26 @@
 > * `(Delivered|Returned)` matches either status.
 > * `(.+)` matches any character sequence.
 > * Use **Test RegEx** to verify capture groups.
+
+> **Under the hood:**
+>
+> #### The pattern must match the whole field, not part of it
+>
+> At start-up the step compiles your expression once into a Java
+> `Pattern`. For every row it then asks whether the *entire* field
+> matches — not whether the pattern occurs somewhere inside it. That
+> is why `(.+)` is there: without it, `Delivered:` would satisfy the
+> first group and then fail on the trailing date text, the result
+> field would be `false`, and both capture fields would be empty.
+>
+> Each parenthesised group becomes exactly one output field, in
+> order, and the step refuses to start if the group count and the
+> field count disagree. You get a clear "capture groups does not
+> match" error at initialisation instead of silently wrong columns.
+>
+> **Why it matters:** a regex that works in a tester but yields empty
+> fields here is almost always anchoring, not syntax. Wrap the part
+> you don't care about in `.*`, re-test in the dialog, then run.
 
 A good introduction can be found at:
 
@@ -215,6 +255,28 @@ A good introduction can be found at:
 | order\_date  | Date      | MMM yyyy |
 
 > **Note:** Optional: rename the step to **Set data types**.
+
+> **Under the hood:**
+>
+> #### A format mask is a parser, not a display setting
+>
+> Until this step, `order_value` and `order_date` were strings —
+> cleaned-up text, but text. On the **Meta-data** tab you told the
+> engine what each string *means*, and the mask is the instruction for
+> reading it: `#.00` says "decimal point, two places", so `21.99`
+> becomes the number 21.99; `MMM yyyy` says "three-letter month, then
+> year", so `Jan 2004` becomes a real date, the first of that month.
+>
+> From this step onward the row metadata declares those fields as
+> Number and Date, and every later step — sort, calculator, table
+> output — works with the typed value. A mask the data doesn't fit
+> fails *here*, at the step that knows the rule, rather than producing
+> garbage three steps downstream.
+>
+> **Why it matters:** a date that is really a date sorts
+> chronologically, subtracts to give days, and lands in a `DATE`
+> column without a cast. Getting types right at the boundary is what
+> lets everything after it stay simple.
 
 ### 6. RUN
 

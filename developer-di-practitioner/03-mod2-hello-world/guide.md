@@ -102,6 +102,25 @@ Ensure the following details are configured:
 7. Verify the 10 rows. Then select **OK** to close the preview dialog.
 8. Select **OK** to close the **Generate Rows** dialog.
 
+> **Under the hood:**
+>
+> #### Preview built a throwaway transformation and ran it
+>
+> The **Preview** button inside a step dialog doesn't simulate
+> anything. Spoon generated a tiny transformation in memory — this one
+> step, hopped to a hidden **Dummy** — handed it to the same engine
+> that runs your real work, let it produce the number of rows you
+> asked for, then threw it away. Your canvas and the step's saved
+> settings were never touched.
+>
+> Because a transformation is not compiled or deployed, spinning one
+> up like this costs milliseconds. That is why Preview is worth
+> pressing after every change rather than once at the end.
+>
+> **Why it matters:** what you see in Preview is exactly what the step
+> will emit at run time — same types, same formats, same values — so a
+> preview that looks right *is* the test.
+
 ### 2. Dummy
 
 > **Note:**
@@ -127,6 +146,25 @@ Ensure the following details are configured:
 2. Hold down the Shift key.
 3. Drag and drop the hop onto the Dummy step.
 4. Release the Shift key.
+
+> **Under the hood:**
+>
+> #### A hop is a buffer between two threads
+>
+> That arrow isn't a pointer from one step to the next. At run time it
+> becomes a **row set**: an in-memory queue, 10,000 rows deep by
+> default (**Transformation properties > Miscellaneous > Nr of rows in
+> rowset**), with `gr_hello-world` writing into one end from its own
+> thread and **Dummy** reading from the other end on *its* thread.
+>
+> The queue is bounded on purpose. If the reader is slower, the buffer
+> fills and the writer blocks until space frees up. The engine calls
+> this back-pressure, and it is what keeps a transformation's memory
+> flat no matter how many rows pass through.
+>
+> **Why it matters:** rows flow; they don't accumulate. A pipeline
+> that handles 10 rows in this lab handles 10 million the same way,
+> holding only what is in flight.
 
 **Add a note**
 
@@ -188,6 +226,28 @@ Logging tab displays logging information for each of the steps in the transforma
 <figure><img src="../_assets/images/step-metrics.png" alt=""><figcaption><p>Step Metrics</p></figcaption></figure>
 
 > **Note:** Step Metrics tab provides statistics for each step in your transformation including how many records were read, written, caused an error, processing speed (rows per second) and more. This tab also indicates whether an error occurred in a transformation step.
+
+> **Under the hood:**
+>
+> #### Read, Written, Input and Output are four different counters
+>
+> Step Metrics shows two pairs that look alike but measure different
+> things. **Read** and **Written** count rows moving *between steps*
+> over hops — taken from an incoming row set, placed on an outgoing
+> one. **Input** and **Output** count traffic with the *outside
+> world* — lines read from a file, rows fetched from a database,
+> records written to a table.
+>
+> So `gr_hello-world` reports 10 Written and 0 Input (it invented its
+> rows), and **Dummy** reports 10 Read and 0 Output (it wrote nothing
+> anywhere). A **Table output** at the end of a real pipeline should
+> show Output equal to Read — and if it doesn't, rows were rejected
+> inside it.
+>
+> **Why it matters:** these four numbers are the fastest audit you
+> have. A writer whose Output is lower than its Read, or a pass-through
+> step whose Written is lower than its Read, names the step to
+> investigate before anyone opens a log.
 
 <figure><img src="../_assets/images/metrics.png" alt=""><figcaption><p>Metrics</p></figcaption></figure>
 

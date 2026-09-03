@@ -148,6 +148,26 @@
 > **Note:** Expect a mix of inserts and updates, depending on your starting data.\
 > You should see activity in the Insert/Update step metrics.
 
+> **Under the hood:**
+>
+> #### Insert/Update isn't a MERGE statement
+>
+> MySQL has `INSERT ... ON DUPLICATE KEY UPDATE`; other databases have
+> `MERGE`. This step uses neither, because it has to behave the same on
+> all of them. Per row it runs a `SELECT` on the key, then one of three
+> things: no match → `INSERT`; match with a differing value →
+> `UPDATE`; match and identical → nothing. Every decision is made in
+> the engine, one row and one round-trip pair at a time.
+>
+> That is also why the key must be unique in the table. Two matching
+> rows means the lookup returns two, and the step cannot know which
+> one you meant.
+>
+> **Why it matters:** for a daily feed of thousands of rows this is
+> exactly right — simple, portable, re-runnable. For millions, the
+> per-row lookup dominates: load to a staging table with **Table
+> output** and let one SQL `MERGE` do the rest.
+
 3. Verify the four employees exist:
 
 ```sql

@@ -89,6 +89,30 @@
 
 > **Note:** Here the name of the var = name of output data stream field. In some cases you will need to 'escape' the character.
 
+> **Under the hood:**
+>
+> #### Rhino compiles the script once; every row runs it again
+>
+> **Modified Java Script Value** embeds Mozilla Rhino, a JavaScript
+> engine written in Java. When the step initialises it compiles your
+> script one time. For each row it then exposes the input fields as
+> JavaScript variables (wrapping PDI's typed values), runs the compiled
+> script, and reads back the variables you listed in the **Fields**
+> grid into output fields — which is why the variable name must equal
+> the output field name.
+>
+> Top-level variables survive between rows because the same scope is
+> reused, so a `var total = 0` in a **Start Script** and `total +=
+> amount` in the main script gives a running total. The flexibility is
+> real, but so is the cost: each row crosses the Java/JavaScript
+> boundary twice, which typically makes this step an order of
+> magnitude slower than **Calculator**, **Formula** or **User Defined
+> Java Expression** doing the same work.
+>
+> **Why it matters:** reach for JavaScript when you need loops,
+> regular-expression logic or state across rows. For arithmetic and
+> conditionals, the compiled steps are faster and easier to read.
+
 ::::
 
 ## Lab Files

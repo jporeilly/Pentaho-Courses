@@ -144,6 +144,28 @@ nano kettle.properties
 
 ![Global variable in Transformation](../_assets/images/variable-in-trans.png)
 
+> **Under the hood:**
+>
+> #### The `.ktr` stores the name, never the value
+>
+> When you inserted `${DIR_SAMPLES}` the step saved exactly that text
+> into its XML. Nothing resolved it. Resolution happens at run time,
+> when the transformation initialises: the engine walks its variable
+> space — `kettle.properties`, loaded once when Spoon started, plus
+> anything set by a parent job or the run dialog — and substitutes the
+> value into the step's settings just before the step opens the file.
+>
+> That is why a `kettle.properties` edit may need a restart (the file
+> is read once, into memory), and why the same transformation opens
+> `C:/Temp` on this machine and `/home/pentaho/Temp` on a Linux server
+> without a single edit. The file carries the *name*; each environment
+> supplies the *value*.
+>
+> **Why it matters:** a `.ktr` with no literal paths in it can be
+> committed to git, copied to a server and handed to a colleague, and
+> it runs in all three places. The environment is configuration, not
+> code.
+
 <div class="pcm-embed-card" data-href="https://docs.pentaho.com/pdia-data-integration/data-integration-perspective-in-the-pdi-client/advanced-topics-pdi-perspective/pdi-run-modifiers/variables/kettle-variables" data-title="Kettle Variables | Pentaho" data-thumb="../_assets/embeds/267325a87400.png"></div>
 
 ## Lab Files

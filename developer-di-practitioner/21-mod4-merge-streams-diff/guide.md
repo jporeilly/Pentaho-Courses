@@ -135,12 +135,54 @@
 
 <figure><img src="../_assets/images/preview-sync-after-merge.png" alt=""><figcaption><p>Synchronize after merge - FLAG</p></figcaption></figure>
 
+> **Under the hood:**
+>
+> #### It's a merge walk, so both sides must be sorted on the key
+>
+> **Merge rows (diff)** holds one row from the reference stream and
+> one from the compare stream and walks both forward in lock-step,
+> exactly like merging two sorted lists. Keys equal: compare the value
+> fields, flag `identical` or `changed`, advance both. Reference key
+> smaller: that key is gone from the new data, flag `deleted`, advance
+> the reference. Compare key smaller: flag `new`, advance the compare
+> side. It never holds more than the current pair, which is why it
+> copes with any volume — and why it assumes order.
+>
+> Hand it unsorted input and it doesn't fail. It walks past matches it
+> can no longer see and flags the same key `deleted` on one side and
+> `new` on the other. Spoon warns about exactly this when you close the
+> dialog.
+>
+> **Why it matters:** a **Sort rows** on each input (or `ORDER BY` in
+> the source query) is part of this step, not optional polish. Without
+> it, a sync turns every unchanged row into a delete plus an insert.
+
 3. Run the Transformation with the hop enabled.
 4. Examine and compare the records.
 
 <figure><img src="../_assets/images/sync-after-merge-results.png" alt="" width="563"><figcaption><p>STG_ORDERS_MERGED - Synchronize</p></figcaption></figure>
 
 > **Success:** You should see the reference and compare streams merged, with each record flagged and the database table synchronised.
+
+> **Under the hood:**
+>
+> #### Identical rows never touched the database
+>
+> **Synchronize after merge** read the flag on each row and mapped it
+> straight to a statement: `new` → `INSERT`, `changed` → `UPDATE ...
+> WHERE key = ?`, `deleted` → `DELETE ... WHERE key = ?`. Rows flagged
+> `identical` were simply dropped. Compare that with reloading the
+> table: on a typical day the vast majority of a feed is unchanged, so
+> the vast majority of your write traffic disappears.
+>
+> The step still executes one statement per changed row and commits
+> every **Commit size** rows, so its cost scales with the *delta*, not
+> with the feed.
+>
+> **Why it matters:** this pair — diff, then synchronize — is
+> change-data-capture with no triggers, no log mining and no vendor
+> feature. Two inputs and the engine works out what changed; that is
+> how a reporting mart refreshes in minutes instead of hours.
 
 ::::
 

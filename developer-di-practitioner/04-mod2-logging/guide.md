@@ -74,6 +74,29 @@
 
 The error text is in the log output. Look for the first **ERROR** entry.
 
+> **Under the hood:**
+>
+> #### The log level is a filter, not a search
+>
+> Every step runs with its own logging channel, and every line it
+> writes is tagged with the step name and a severity. The **Log
+> level** you pick in the run dialog doesn't change what the engine
+> checks — the same conversion failed the same way at **Basic** and at
+> **Row level** — it changes how much of each channel is shown. Row
+> level adds an entry for every row that passes every step, which is
+> why it is slow and why it should never be left on for a scheduled
+> run.
+>
+> The error itself came from **Generate Rows** trying to turn the text
+> `hello world` into the Integer you declared. Conversion happens in
+> the step that owns the field, so the log names *that* step — not
+> whichever step happened to be downstream — and the canvas highlights
+> the same one.
+>
+> **Why it matters:** find the first **ERROR** line, read the step
+> name in it, and you have the culprit. Everything after it is
+> consequence.
+
 > **Note:** Tip: Select the minus icon to show errors only.
 > 
 > The same error is written to `pdi.log`:

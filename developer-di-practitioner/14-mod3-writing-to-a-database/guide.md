@@ -142,6 +142,29 @@ Configure these key fields:
 
 > **Success:** Checkpoint: `STG_SALES_DATA` exists in the database.
 
+> **Under the hood:**
+>
+> #### The `CREATE TABLE` came from the row metadata, translated for MySQL
+>
+> Pressing **SQL** didn't open a template. **Table output** took the
+> stream's row metadata — every field's name, type, length and
+> precision as it stands after CSV input — and asked the connection's
+> database dialect to spell each one: a String of length 25 became
+> `VARCHAR(25)`, a Number with decimals became `DOUBLE`, an Integer
+> became `INT` or `BIGINT` depending on its digits, a Date became
+> `DATETIME`. Point the same step at PostgreSQL and the same click
+> writes `DOUBLE PRECISION` and `TIMESTAMP` instead.
+>
+> That is why the **Danger** note above matters. **Get Fields** in CSV
+> input sampled a few hundred lines to guess lengths, and the DDL
+> inherits the guess. A longer value in row 50,000 is rejected by the
+> database, not by PDI.
+>
+> **Why it matters:** the stream's shape and the table's shape came
+> from one definition, so they can't disagree today. Set lengths
+> generously at the input step and they won't disagree next month
+> either.
+
 ### 3. RUN
 
 > **Note:** **RUN and validate**
@@ -153,6 +176,28 @@ Configure these key fields:
 2. Confirm the table exists in your `sampledata` database.
 
 <figure><img src="../_assets/images/sales-data.png" alt=""><figcaption><p>STG_SALES_DATA</p></figcaption></figure>
+
+> **Under the hood:**
+>
+> #### Rows were inserted in batches inside transactions, not one INSERT at a time
+>
+> **Table output** prepared a single `INSERT INTO STG_SALES_DATA (...)
+> VALUES (?, ?, ...)` at start-up and bound each incoming row to it.
+> With **Use batch update for inserts** on, rows are queued in the
+> driver and shipped to MySQL in groups; every **Commit size** rows
+> (1,000 here) the step commits the transaction. Fewer round trips and
+> fewer commits is most of why this beats a script that inserts row by
+> row.
+>
+> The trade-off is granularity. If row 1,472 is rejected, the whole
+> batch it sat in fails, and the step can't tell you which row without
+> error handling switching batching off. A commit size of 1 gives
+> perfect attribution and terrible speed.
+>
+> **Why it matters:** commit size is the dial between throughput and
+> restartability. Large for bulk loads into staging; small, or fully
+> transactional, when a half-loaded table would be worse than no load
+> at all.
 
 ::::
 

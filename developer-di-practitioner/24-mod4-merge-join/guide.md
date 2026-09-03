@@ -125,6 +125,27 @@
 
 > **Success:** You should see the four join types produce different result sets. Now give it a go with the 'Merge Streams' scenario.
 
+> **Under the hood:**
+>
+> #### Merge Join never buffers a side, which is why both must be sorted
+>
+> The step keeps exactly one row from each input in hand and walks the
+> two streams forward on the join key: equal, emit the combined row
+> and advance; otherwise advance whichever side is behind, emitting a
+> null-padded row on the way if the join type says so. `INNER` emits
+> only matches, `LEFT OUTER` also emits unmatched left rows, `RIGHT
+> OUTER` unmatched right rows, `FULL OUTER` both. Memory use is one
+> row per side regardless of volume.
+>
+> Two things follow. Both inputs must already be in key order — feed
+> it unsorted rows and it silently walks past matches. And when a key
+> repeats on both sides, the step pairs every left row with every
+> right row for that key: a small cartesian product per duplicate.
+>
+> **Why it matters:** this is the join to reach for when neither side
+> fits in memory. Sort both inputs (or `ORDER BY` in the source) and
+> it will join two hundred-million-row files on a laptop.
+
 ::::
 
 ## Lab Files

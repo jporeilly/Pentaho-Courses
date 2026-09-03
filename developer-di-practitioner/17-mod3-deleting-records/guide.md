@@ -136,6 +136,27 @@ where QUANTITYORDERED > 50;
 
 <figure><img src="../_assets/images/get-variables-1.png" alt="" width="563"><figcaption><p>Get variables</p></figcaption></figure>
 
+> **Under the hood:**
+>
+> #### A parameter is a variable with a default; Get variables copies it into the row
+>
+> When the transformation initialises, every parameter you defined is
+> registered in its variable space — the same space `kettle.properties`
+> and `${Internal.Transformation.Filename.Directory}` live in — using
+> the default unless the run dialog or a parent job supplied a value.
+> Steps, though, only ever see *rows*. **Get variables** is the
+> bridge: it reads `${min_quantityordered}` from that space, converts
+> it to the type you set, and appends it as a field to each row
+> passing through.
+>
+> From the Delete step's point of view the threshold is now just
+> another column, indistinguishable from one read out of the CSV.
+>
+> **Why it matters:** anything that varies per run — a date, a
+> threshold, a region — is a parameter with a default, materialised
+> into the stream where it is needed. The `.ktr` never changes; the
+> value does.
+
 ### 5. Delete
 
 > **Note:**
@@ -175,6 +196,28 @@ where QUANTITYORDERED > 50;
 2. In your database tool, inspect `STG_SALES_DATA`.
 
 <figure><img src="../_assets/images/delete-data.png" alt=""><figcaption><p>STG_SALES_DATA</p></figcaption></figure>
+
+> **Under the hood:**
+>
+> #### One DELETE per incoming row, comparators and all
+>
+> The step prepared a single statement from the grid — `DELETE FROM
+> STG_SALES_DATA WHERE PRODUCTLINE = ? AND QUANTITYORDERED > ?` — and
+> executed it once for every row that arrived, binding that row's
+> `PRODUCTLINE` and its `min_quantityordered` field into the markers.
+> Three product lines in the CSV meant three statements, each free to
+> remove thousands of rows, committed together every **Commit size**
+> rows.
+>
+> No rows leave the step, and its Updated counter in Step Metrics
+> counts *statements executed* — one per driving row — not rows
+> removed. Only the database knows that number, which is why the
+> workshop has you re-run the baseline query.
+>
+> **Why it matters:** a small driving stream can delete a large amount
+> of data; that is both the point and the risk. Run with the hop into
+> Delete disabled first and preview the driving rows — each one is a
+> `WHERE` clause you are about to execute.
 
 ::::
 

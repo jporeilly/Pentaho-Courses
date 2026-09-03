@@ -129,6 +129,27 @@
 
 <figure><img src="../_assets/images/preview-xml-filepng.png" alt=""><figcaption><p>Preview data</p></figcaption></figure>
 
+> **Under the hood:**
+>
+> #### Loop XPath picks the rows; field XPaths are relative to each one
+>
+> The step parsed `orders.xml` into a DOM tree, then evaluated your
+> **Loop XPath** to select a node set — one node per output row. Each
+> field's XPath is then evaluated *from that node*, not from the
+> document root, which is why the paths on the Fields tab are short
+> and why **Get Fields** could infer them just by looking at one
+> element's children.
+>
+> A DOM means the whole file is in memory before the first row is
+> emitted. For files too big for that, the step's **Prune path to
+> handle large files** option switches to streaming: the document is
+> processed in chunks delimited by the prune path, and only one chunk
+> is ever held.
+>
+> **Why it matters:** the loop path is the one setting to get right —
+> zero rows almost always means it selected nothing — and a single
+> checkbox is the difference between a 50 MB feed and a 5 GB one.
+
 ::::
 
 ### 2. XML - URI
@@ -181,6 +202,27 @@
 <figure><img src="../_assets/images/configure-fields.png" alt=""><figcaption><p>Configure fields</p></figcaption></figure>
 
 6. Click on the ‘Get Fields’ button.
+
+> **Under the hood:**
+>
+> #### A URL is just another file path
+>
+> Nothing in the step changed to fetch from the web. Every file access
+> in PDI goes through Apache Commons VFS, a virtual file system layer
+> that turns a string into a stream: `C:/data/x.xml`,
+> `http://.../plant_catalog.xml`, `sftp://host/feed.xml`,
+> `zip:file:///archive.zip!/x.xml` and, as the MinIO lab shows,
+> `s3://` all pass through the same interface. Ticking **Read source
+> as Url** tells the step to hand the field's text to VFS as a
+> *location* rather than treat it as XML content.
+>
+> Because the URL arrived in a field, it can vary per row: a
+> **Generate rows** with three URLs, or a table of endpoints, drives
+> three fetches with no change to the step.
+>
+> **Why it matters:** anywhere PDI asks for a filename, a URL will do.
+> There is no separate "web input" to learn, and a transformation
+> written against local files moves to S3 or SFTP by editing a string.
 
 Next: open the **Dummy** tab.
 

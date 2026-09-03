@@ -139,6 +139,27 @@
 
 > **Note:** Note that there is more than one Corvette product. The database join is querying the table to return all the values, even NULL.
 
+> **Under the hood:**
+>
+> #### One prepared statement, executed once per row
+>
+> **Database join** compiled your `SELECT ... WHERE PRODUCTNAME LIKE ?
+> AND BUYPRICE < ?` once, at start-up, as a JDBC prepared statement.
+> For each incoming row it then bound that row's `like_statement` and
+> `max_price` to the two markers — in grid order — and executed it.
+> Every result row the database returned was appended to a copy of the
+> input row; with **Outer join** ticked, zero results still produced
+> one row with nulls, which is why Ford Falcon came through at all.
+>
+> So three input rows meant three round trips, and Corvette's two
+> matches became two output rows from one input. That fan-out is the
+> feature; the round trip per row is the price.
+>
+> **Why it matters:** with a handful of driving rows this is the
+> simplest way to enrich from a query. With a million, it is a million
+> queries — at that scale, read both sides with **Table input** and
+> use **Merge join**, or put the join in the SQL.
+
 ::::
 
 ## Lab Files

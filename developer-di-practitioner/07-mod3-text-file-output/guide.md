@@ -140,6 +140,26 @@
 
 > **Warning:** Make sure the header stream is the **first** input hop. Append streams will output that stream first.
 
+> **Under the hood:**
+>
+> #### Most steps read their inputs round-robin; Append is the exception
+>
+> When two hops enter an ordinary step, the engine gives it two row
+> sets and the step takes rows from whichever has one ready,
+> alternating between them. Both upstream steps are running at once,
+> so the interleaving depends on timing — run it twice and the order
+> can differ.
+>
+> **Append streams** deliberately breaks that rule. It reads its head
+> hop's row set until that stream is exhausted and only then starts on
+> the tail hop. It cannot pass a single tail row early, which is why
+> it needs to know which hop is which, and why the header lines
+> reliably come out on top.
+>
+> **Why it matters:** if output order matters — a report header, a
+> file trailer, a sequence a downstream system checks — a plain merge
+> is a bug waiting for a busy server. Append is the guarantee.
+
 ### 5. Text file input (questions)
 
 > **Note:**
@@ -253,6 +273,27 @@ File: `${Internal.Transformation.Filename.Directory}/questions.txt`
 
 5. Select **OK**.
 
+> **Under the hood:**
+>
+> #### The file was open before the first row arrived
+>
+> **Text file output** creates and opens `survey.txt` when the step
+> initialises — that is, when the transformation starts — not when the
+> first row reaches it. Rows are then written through a buffered
+> stream as they arrive, and the file is closed when the upstream
+> steps finish. Nothing is collected in memory first.
+>
+> Two consequences you will meet in real work: a run that fails early
+> still leaves a zero-byte file behind (the **Do not create file at
+> start** option exists for exactly that case), and two step copies
+> pointed at the same filename fight over one handle — hence the
+> warning above.
+>
+> **Why it matters:** an output file appearing is not proof the run
+> succeeded; the row count in Step Metrics is. And because the writer
+> streams, a ten-million-row extract costs no more memory than this
+> survey does.
+
 ### 10. RUN
 
 > **Note:**
@@ -272,6 +313,28 @@ File: `${Internal.Transformation.Filename.Directory}/questions.txt`
 <figure><img src="../_assets/images/tfo-preview.png" alt=""><figcaption><p>Preview data</p></figcaption></figure>
 
 5. Open the generated survey file in your transformation folder.
+
+> **Under the hood:**
+>
+> #### Where the argument came from
+>
+> **Get System Info** has no input hop, so it produced exactly one
+> row, and the field you configured as *command line argument 1* was
+> filled from the run dialog's **Arguments (legacy)** box. The engine
+> treats that box as a stand-in for what a scheduler would pass on the
+> command line — `pan.sh -file=tr_write_output.ktr "Acme Ltd"` — so
+> the transformation is already runnable unattended, unchanged.
+>
+> Arguments are positional and, as the label says, legacy; modern
+> transformations use named **parameters** (right-click the canvas,
+> **Parameters** tab), which you will meet in Module 5. The principle
+> is the same either way: values that vary per run come in from
+> outside, get materialised as a field, and the steps never know the
+> difference.
+>
+> **Why it matters:** the `.ktr` you just ran by hand is the one the
+> scheduler runs tonight. There is no "productionised" version to
+> maintain — only the input changes.
 
 > **Note:** This workshop reinforces the rule for merging streams:
 > 

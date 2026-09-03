@@ -88,6 +88,26 @@
 * [ ] Uncheck the ‘Show repository dialog at startup?’ checkbox.
 * [ ] Uncheck the ‘Ask user when exiting?’ checkbox.
 
+> **Under the hood:**
+>
+> #### That checkbox controls a metadata cache, not your data
+>
+> **Use database cache** tells Spoon to remember what it learns about a
+> connection — table names, column names and types — and save it to
+> disk in your `.kettle` folder, so the next **Get Fields** or SQL
+> preview doesn't have to ask the database again. It never caches
+> rows; only the *shape* of tables.
+>
+> Unchecking it means every dialog re-reads the live schema. That is a
+> touch slower on a large database and exactly what you want while you
+> are still creating and altering tables, as the workshops ahead do: a
+> cached column list can lag behind an `ALTER TABLE` and make a step
+> insist a column doesn't exist when it plainly does.
+>
+> **Why it matters:** when a step "can't see" a column you just added,
+> the cache is the first suspect. Right-click the connection in the
+> **View** tab and choose **Clear DB Cache** — no restart needed.
+
 3. Open the **Look & Feel** tab.
 4. Review these settings and update as needed:
    * **Grid size** and **snap** behavior.

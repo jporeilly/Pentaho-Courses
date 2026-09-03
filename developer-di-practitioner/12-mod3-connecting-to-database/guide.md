@@ -179,6 +179,29 @@ The **Database connection** dialog opens.
 
 > **Note:** Checkpoint: Spoon shows a success message.
 
+> **Under the hood:**
+>
+> #### Test opened a real JDBC connection, and every step will open its own
+>
+> Spoon assembled a JDBC URL from the fields you filled in —
+> `jdbc:mysql://localhost:3306/sampledata` — loaded the MySQL driver
+> from `lib/`, opened a connection, checked it and closed it again.
+> The connection you saved is *metadata*: the recipe, not a live
+> socket.
+>
+> At run time each step that uses it — **Table input**, **Table
+> output**, **Database lookup** — opens its own physical connection
+> from that recipe, with its own transaction. That is what lets a
+> reader and a writer on the same database run concurrently on
+> separate threads; it is also why a failed **Table output** doesn't
+> roll back anything another step did. (**Transformation properties >
+> Miscellaneous > Make the transformation database transactional**
+> puts them all on one connection when you need all-or-nothing.)
+>
+> **Why it matters:** connections are cheap to define and reuse, but
+> every database step is a client of your database. Ten database steps
+> is ten sessions — size connection pools accordingly.
+
 ::: tabs
 
 ### 1. Share Connection
@@ -194,6 +217,28 @@ The **Database connection** dialog opens.
 
 > **Note:** Shared connections show up for other users and projects.\
 > Use **Explore** to confirm schemas and tables.
+
+> **Under the hood:**
+>
+> #### Share copied the definition into `shared.xml`
+>
+> An ordinary connection lives inside the transformation's own XML —
+> open the `.ktr` in a text editor and you will find a `<connection>`
+> block with the host, port and an encrypted password. **Share**
+> copies that block into `shared.xml` in your `.kettle` folder,
+> alongside `kettle.properties`, and from then on every transformation
+> and job you open in this Spoon sees it in the **View** tree as if it
+> were its own.
+>
+> Nothing changes at run time: a `.ktr` still carries the connections
+> it uses, so it runs stand-alone on a server. Sharing is a design-time
+> convenience, and it lives *per machine* — a colleague gets it by
+> copying `shared.xml`, or by connecting to a repository, where
+> connections are shared for real.
+>
+> **Why it matters:** one connection definition, defined once, reused
+> by every workshop that follows — and the password never has to be
+> typed again.
 
 ### 2. Explore Database
 

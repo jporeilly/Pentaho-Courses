@@ -135,6 +135,28 @@ $.document.order[*]
 
 > **Note:** Need help writing JSONPath? Use a tester like: <https://jsonpath.com/>
 
+> **Under the hood:**
+>
+> #### Whole document in memory, then one JSONPath per column
+>
+> **JSON Input** doesn't stream. It reads `jsonfile.js` completely,
+> parses it into an in-memory tree, and then evaluates each field's
+> path against that tree — one query per field. The loop path decides
+> how many rows come out: `$.document.order[*]` selects three objects,
+> so each field path must yield three values, and the step zips them
+> together positionally into three rows.
+>
+> That positional zip is why the step is strict about shape. If one
+> order had no `customer` key, that path would return two values
+> against three for the others and the step stops with "the data
+> structure is not the same inside the resource" — a wrong-shape error
+> rather than a silently misaligned row.
+>
+> **Why it matters:** memory is bounded by the *file* size, not the
+> row count, so very large JSON is better split, or read one record per
+> field. And a structure error is the engine refusing to hand you a row
+> whose values have slid one column to the left.
+
 ### 2. Dummy
 
 > **Note:**

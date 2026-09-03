@@ -145,6 +145,28 @@ Below are the proxy tab options:
 
 <figure><img src="../_assets/images/terminal-master.png" alt=""><figcaption><p>Master Terminal</p></figcaption></figure>
 
+> **Under the hood:**
+>
+> #### Spoon shipped the XML over HTTP; Carte ran the same engine
+>
+> Selecting the *Master* run configuration changed where, not what.
+> Spoon serialised the transformation to its XML, posted it to the
+> Carte instance on port 12000 at `/kettle/registerTrans`, then called
+> `/kettle/prepareExec` and `/kettle/startExec`. Carte — a small Jetty
+> web server wrapped around exactly the engine you have been running
+> locally — parsed the XML, allocated the same threads and row sets,
+> and ran it. The Step Metrics you watched arrived because Spoon then
+> polled `/kettle/transStatus` every few seconds.
+>
+> Nothing was installed on the node and nothing was compiled. The
+> terminal shows the same log lines you would see in Spoon because it
+> *is* the same code.
+>
+> **Why it matters:** "deploy to the server" is an HTTP call with a
+> file in it. Pentaho Server's scheduler, Kitchen on a cron box and
+> this dialog all drive the same API, so what runs in the run dialog is
+> what runs in production.
+
 > **Note:** Give it a go with other RUN configurations .. Just Slave A / B
 
 ### 3.2 Cluster schema
@@ -223,6 +245,29 @@ Below are the proxy tab options:
 <figure><img src="../_assets/images/logs-slave-a.png" alt=""><figcaption><p>Logs - Slave A</p></figcaption></figure>
 
 > **Note:** The Logs indicate Slave A successfully read the transformation metadata dispatched from the Master node and executed the step, streaming the resulting dataset back to the Master node.
+
+> **Under the hood:**
+>
+> #### The engine rewrote your transformation into one per node
+>
+> Marking a step as clustered told the master to split the
+> transformation before running it. For each slave it generated a
+> **metadata transformation** — the extra tabs you saw — containing
+> only the clustered step plus **Socket reader** and **Socket writer**
+> steps inserted at the boundaries where rows must cross machines. The
+> master's own copy got the non-clustered steps and the matching
+> socket ends. Each slave received its slice over HTTP exactly as in
+> the previous tab, and rows then flowed between nodes over TCP on
+> ports allocated from the cluster schema's base port.
+>
+> The generated transformations are ordinary transformations: the Logs
+> tab on Slave A is that node running its slice, and its metrics are
+> its socket writer sending rows back to the master.
+>
+> **Why it matters:** you scaled a step across two machines by
+> right-clicking it. The partitioning, the network plumbing and the
+> reassembly were generated, and the original `.ktr` is unchanged —
+> remove the cluster assignment and it runs locally again.
 
 :::
 

@@ -146,6 +146,27 @@
 5. Click on ‘Get Fields’ button.
 6. Click OK.
 
+> **Under the hood:**
+>
+> #### The template's chart survives because the writer edits cells, not files
+>
+> **Microsoft Excel Writer** opened `template.xlsx` with Apache POI,
+> the Java library that understands the `.xlsx` object model. It
+> copied the workbook — sheets, styles, and the chart on *Sales
+> Chart* — into the output file, located the cell you named, and wrote
+> the year into it. Everything it didn't touch is preserved.
+>
+> The chart itself contains no data. It holds *references* to ranges
+> on *SourceData*, so when Excel opens the finished file and
+> recalculates, the chart draws whatever the transformation put in
+> those ranges. That is why the template can be designed entirely in
+> Excel by someone who never opens Spoon.
+>
+> **Why it matters:** the presentation layer — formatting, formulas,
+> charts, logos — lives in the template, owned by the report's
+> consumer. The transformation only ever supplies numbers, so a
+> restyle never touches the pipeline.
+
 ::::
 
 ### 3. Write Sales
@@ -204,6 +225,29 @@
 <figure><img src="../_assets/images/block-year.png" alt=""><figcaption><p>Block step</p></figcaption></figure>
 
 > **Note:** This will result in the workflow being blocked until the Write Year step has been completed.
+
+> **Under the hood:**
+>
+> #### Blocking works through back-pressure, not by pausing threads
+>
+> **Block this step until steps finish** doesn't suspend anything.
+> When the transformation starts, its thread simply doesn't take any
+> rows from its input; instead it polls the status of the step you
+> listed — the year writer — until that step reports finished. Only
+> then does it start reading, and every row it reads passes straight
+> through unchanged.
+>
+> Meanwhile **Read Sales** keeps running. It fills the row set between
+> the two steps (10,000 rows by default), then blocks on the full
+> buffer — the same back-pressure that governs every hop. Nothing is
+> copied or buffered specially; the pipeline just stalls at that point
+> until the gate opens.
+>
+> **Why it matters:** the year cell is guaranteed to be written before
+> the sales writer opens the same workbook, without a job, a second
+> transformation or a sleep. Whenever two writers must not overlap —
+> same file, same table after a truncate — this one step is the
+> ordering primitive.
 
 ### 3. Excel Writer - Write Sales
 
