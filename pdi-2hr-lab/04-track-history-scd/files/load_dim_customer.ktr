@@ -436,13 +436,14 @@
   </info>
   <notepads>
     <notepad>
-      <note>SOLUTION - Lab 4. Expects customers.json at C:/Workshop/pdi-2hr/ and the
-workshop MySQL running. Open the dimension step and click SQL on first use
-to create dim_customer.</note>
+      <note>When a customer moves region, yesterday's reports must still show
+the old region and today's the new one. That's a Type 2 Slowly
+Changing Dimension — normally a page of carefully-ordered MERGE
+SQL. In PDI it's one step: **Dimension lookup/update**.</note>
       <xloc>48</xloc>
-      <yloc>32</yloc>
-      <width>464</width>
-      <heigth>64</heigth>
+      <yloc>80</yloc>
+      <width>414</width>
+      <heigth>82</heigth>
       <fontname>Segoe UI</fontname>
       <fontsize>10</fontsize>
       <fontbold>N</fontbold>
@@ -477,6 +478,14 @@ to create dim_customer.</note>
         <attribute>true</attribute>
       </attribute>
       <attribute>
+        <code>EXTRA_OPTION_MYSQL.defaultFetchSize</code>
+        <attribute>500</attribute>
+      </attribute>
+      <attribute>
+        <code>EXTRA_OPTION_MYSQL.useCursorFetch</code>
+        <attribute>true</attribute>
+      </attribute>
+      <attribute>
         <code>EXTRA_OPTION_MYSQL.useSSL</code>
         <attribute>false</attribute>
       </attribute>
@@ -507,6 +516,10 @@ to create dim_customer.</note>
       <attribute>
         <code>QUOTE_ALL_FIELDS</code>
         <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>STREAM_RESULTS</code>
+        <attribute>Y</attribute>
       </attribute>
       <attribute>
         <code>SUPPORTS_BOOLEAN_DATA_TYPE</code>
@@ -591,7 +604,7 @@ to create dim_customer.</note>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>368</xloc>
+      <xloc>320</xloc>
       <yloc>192</yloc>
       <draw>Y</draw>
     </GUI>

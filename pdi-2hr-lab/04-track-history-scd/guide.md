@@ -17,7 +17,7 @@
 >
 > **Prerequisites:** [Enrich and Join](../03-enrich-and-join/guide.md); the workshop MySQL running (green in [Before You Arrive](../00-before-you-arrive/guide.md)).
 >
-> **Estimated Time:** 15 minutes
+> **Estimated Time:** 10 minutes
 
 ## Connect to the database
 
@@ -50,22 +50,66 @@
 
 * Tick **Update the dimension?** (top checkbox) — we're loading, not
   just looking up.
-* **Connection:** `warehouse` · **Target table:** `dim_customer`
-* **Technical key field:** `customer_tk` · **Version field:** `version`
-* **Date range start field:** `date_from` · **Table daterange end:** `date_to`
-* On the **Keys** tab: dimension field `customer_id` matches stream
-  field `customer_id`.
-* On the **Fields** tab, add `customer_name` and `region_code`, both
-  with update type **Insert** (that's what makes changes create a new
-  version instead of overwriting).
+  - **Connection:** `warehouse` · **Target table:** `dim_customer`
+  - **Technical key field:** `customer_tk` · **Version field:** `version`
+  - **Date range start field:** `date_from` · **Table daterange end:** `date_to`
+  - On the **Keys** tab: dimension field `customer_id` matches stream
+    field `customer_id`.
+  - On the **Fields** tab, add `customer_name` and `region_code`, both
+    with update type **Insert** (that's what makes changes create a new
+    version instead of overwriting).
 
 3. Click **SQL** at the bottom. PDI writes the `CREATE TABLE` (keys,
    version, date range, indexes) for you — click **Execute**, then
    close.
+<div align="center">
+<figure>
+
+![1788435500408.png](../_assets/images/1788435500408.png#w=420)
+
+<figcaption><em>Generate SQL</em></figcaption>
+</figure>
+</div>
+
+<figure>
+
+> **Critical:** Not verything is going to go according to plan. 
+> Expect issues to occur: The error comes from the DDL PDI generated: 
+> the three string columns came out as TINYTEXT, and MySQL refuses to 
+> index a TEXT column without a key length (its a .json file). 
+> PDI maps a String field with no length to TINYTEXT.
+>
+> This can cause data loss or a broken environment.
+<div align="center">
+<figure>
+
+![pasted-1788436628184.png](../_assets/images/pasted-1788436628184.png)
+
+<div align="center">
+<figcaption><em>No Varchar -length- defined</em></figcaption>
+</figure>
+</div>
+
+4. Copy and paste to replace the existing script. Execute
+
+```sql
+DROP TABLE IF EXISTS dim_customer;
+CREATE TABLE dim_customer (
+  customer_tk   BIGINT NOT NULL PRIMARY KEY,
+  version       INT,
+  date_from     DATETIME,
+  date_to       DATETIME,
+  customer_id   VARCHAR(10),
+  customer_name VARCHAR(60),
+  region_code   VARCHAR(5)
+);
+CREATE INDEX idx_dim_customer_lookup ON dim_customer (customer_id);
+CREATE INDEX idx_dim_customer_tk ON dim_customer (customer_tk);
+```
 
 > **Note:** Read that generated DDL before you close it. That is the
-> entire Type 2 apparatus — surrogate key, version counter, validity
-> window — designed and created for you.
+> entire Type 2 apparatus — surrogate key, version counter, validity window.
+
 
 ## First load
 

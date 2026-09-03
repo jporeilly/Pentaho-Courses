@@ -140,7 +140,7 @@ to create dim_customer.</note>
         <currency/>
         <decimal/>
         <group/>
-        <length>-1</length>
+        <length>10</length>
         <precision>-1</precision>
         <trim_type>none</trim_type>
         <repeat>N</repeat>
@@ -153,7 +153,7 @@ to create dim_customer.</note>
         <currency/>
         <decimal/>
         <group/>
-        <length>-1</length>
+        <length>60</length>
         <precision>-1</precision>
         <trim_type>none</trim_type>
         <repeat>N</repeat>
@@ -166,7 +166,7 @@ to create dim_customer.</note>
         <currency/>
         <decimal/>
         <group/>
-        <length>-1</length>
+        <length>5</length>
         <precision>-1</precision>
         <trim_type>none</trim_type>
         <repeat>N</repeat>
