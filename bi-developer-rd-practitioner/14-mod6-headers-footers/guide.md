@@ -54,6 +54,21 @@ C:\Pentaho-Training\BA-2000\images\sw_logo.jpg.
 
 ![Add an Image](../_assets/images/mod6-03.png)
 
+> **Under the hood:**
+>
+> #### Embed put the JPEG inside the bundle
+>
+> A `.prpt` is a zip. Choosing Embed copied `sw_logo.jpg` into it as
+> `resources/image.jpeg` and pointed the image element at that entry,
+> so the report carries its logo wherever it goes — preview, the
+> server, an email attachment. Link keeps only the path: the engine's
+> resource loader fetches it at run time, relative to the report's
+> location, which on the server means a repository path.
+>
+> **Why it matters:** embed anything the report cannot function
+> without; link only what changes independently of the report and is
+> guaranteed to exist where the report runs.
+
 14. Click the Label icon, and then drag it to the upper right corner of the Report Header band.
 15. To edit the label element:
 16. Double-click in the center of the label element to select it.
@@ -69,6 +84,23 @@ C:\Pentaho-Training\BA-2000\images\sw_logo.jpg.
 26. Click OK.
 
 ![Add an Image](../_assets/images/mod6-04.png)
+
+> **Under the hood:**
+>
+> #### `report.date` is a field the engine injects, not one from your query
+>
+> When processing starts the engine adds a set of environment fields
+> to every row alongside your query columns — `report.date` is the run
+> timestamp — and a message field reads them like any other field. The
+> three-part syntax `$(report.date, date, MM-dd-yyyy)` names the
+> field, tells the formatter to treat it as a date, and supplies the
+> pattern. On the server the same mechanism exposes the user name,
+> roles and locale as `env::` fields (see the Environment Variables
+> reference).
+>
+> **Why it matters:** "As of" dates, user stamps and locale-aware
+> formatting come from the engine, so a report can say who ran it and
+> when without a single change to the SQL.
 
 27. Highlight both Elements, and from the formatting toolbar, select right align
 28. On the Elements Palette, click the horizontal-line icon, then drag it to the Report Header band and drop it below the Steel Wheels logo image.
@@ -97,6 +129,21 @@ C:\Pentaho-Training\BA-2000\images\sw_logo.jpg.
 6. From the Data pane, select Page:PageFunction, then drag it to the Page Footer band and drop it in the top left corner.
 
 ![Add Page Numbering](../_assets/images/mod6-08.png)
+
+> **Under the hood:**
+>
+> #### Page numbers come from the pagination pass
+>
+> `PageFunction` counts pages as the pageable output processor breaks
+> them, and the `PageOfPagesFunction` used by the sample reports adds
+> the total — a number only known once the pagination pass has laid
+> out the entire report. That is why page functions only make sense in
+> the Page Header and Page Footer bands, and why they show nothing
+> useful in HTML single-page output, which has no pages at all.
+>
+> **Why it matters:** the same footer prints "Page 3 of 12" in PDF and
+> in print, and the count stays right when a parameter changes the
+> length of the report, because it is measured, not guessed.
 
 7. Preview and Save the report: Demo – header.prpt
 

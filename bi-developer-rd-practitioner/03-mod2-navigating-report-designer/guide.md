@@ -131,6 +131,26 @@ You will create a report with these features later on this course.
 
 ![Preview Reports](../_assets/images/mod2-08.png)
 
+> **Under the hood:**
+>
+> #### Preview ran the report through the engine, twice
+>
+> Preview isn't a mock-up of the design. Report Designer handed the
+> report to the Pentaho Reporting engine — the same code the server
+> runs — which executed the query, then processed the rows in two
+> passes. The first, the *pagination* pass, lays everything out to
+> discover where pages break and what the group and report totals will
+> be; the second prints the pages you paged through. That is how the
+> footer can say "page 1 of 12" on page one: the total was known before
+> anything was drawn.
+>
+> The prompts you saw first are the report's parameter definitions,
+> rendered by the same parameter framework the User Console uses.
+>
+> **Why it matters:** what you preview is what publishes. There is no
+> separate rendering path on the server to surprise you later — only
+> a different output format.
+
 ## Report Workspace
 
 The report workspace is dominated by the layout bands, which define each individual portion of the report. The currently selected band’s label is highlighted in grey.
@@ -289,6 +309,25 @@ You cannot edit any Style or Attribute option for any selected report element in
 
 This formula expression sets the background colour according to the value of QUANTITYINSTOCK.
 
+> **Under the hood:**
+>
+> #### A style expression is evaluated per element, per row
+>
+> The pencil icon means the style key has a *formula* attached instead
+> of a fixed value. Every time the engine lays out this element for a
+> row of data it evaluates the expression — `[QUANTITYINSTOCK]` reads
+> the current row — and uses the result as that instance's background
+> colour. The formula is OpenFormula, run by LibFormula, the same
+> library behind Analyzer's and Interactive Reporting's calculations.
+>
+> Any style key can carry one: colour, font, visibility, height. The
+> Structure pane shows *what* the report contains; the Style pane
+> shows how each piece decides to look.
+>
+> **Why it matters:** conditional formatting is not a special feature
+> bolted on. Every visual property is a value or a formula, so
+> anything you can compute from the row, you can style by.
+
 ## Attributes Pane
 
 The Attributes pane displays all of the low-level properties, and input and output options for any report element in the Structure pane. When you click on an element in the Structure pane, the Attributes pane adjusts to show all of the available attribute properties for that element.
@@ -324,6 +363,28 @@ The Bar sample report contains a basic bar chart, the Product Line Sales Trend c
 > Notice the following in the query:
 > - The query uses fields from the PRODUCTS and ORDERFACT tables, which are joined by PRODUCTCODE.
 > - The sum function is used for TOTALPRICE and QUANTITYORDERED, and the fields are renamed.The GROUP BY statement is necessary when using the sum function.
+
+> **Under the hood:**
+>
+> #### The chart in the header saw every row before the first page printed
+>
+> A chart element is a *chart expression* fed by a data-collector
+> function. During the pagination pass the collector walks every row
+> the query returned and builds a JFreeChart dataset from the columns
+> you nominate — category, value, series. Only when the Report Header
+> band is printed does the chart expression draw that dataset. That is
+> why a chart can sit at the top of the report and still summarise
+> data the engine hasn't "reached" yet: by the time the header prints,
+> it has.
+>
+> The `SUM` and `GROUP BY` in the query mean the database did the
+> aggregation and the chart received one row per product line and
+> year. The engine could have summed detail rows itself, but three
+> rows per line is far cheaper to ship than three thousand.
+>
+> **Why it matters:** aggregate in SQL when you can, and trust the
+> two-pass engine to put summaries wherever the layout needs them —
+> header, footer or group band.
 
 Buyer Report – Help > Sample Reports > Operational Reports > Buyer’s Report
 

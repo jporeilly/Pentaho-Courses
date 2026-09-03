@@ -54,6 +54,23 @@ Complete or verify the following fields in the Add Parameter window, and then cl
 
 ![Parameters](../_assets/images/mod7-05.png)
 
+> **Under the hood:**
+>
+> #### A parameter is a query-backed definition, validated before the report runs
+>
+> The dialog wrote a `list-parameter` into the bundle's
+> `datadefinition.xml`: its name, type, the query that supplies the
+> choices (`prod_list`), which column is the key and which the label,
+> a default, and `strict-values`. Before the engine runs the main
+> query it evaluates that definition — runs `prod_list`, builds the
+> prompt, and with strict values on, rejects any value that isn't in
+> the list. Report Designer's preview and the server's viewer both
+> render the prompt from the same definition.
+>
+> **Why it matters:** the prompt is part of the report, not of the
+> tool showing it. Publish, schedule or link to the report and the
+> same validated choices appear everywhere.
+
 Now you must add a WHERE clause to the original query to use the value from the prompt.
 
 8. To modify the original query, from the Data pane, double-click JDBC: SampleData.
@@ -68,6 +85,22 @@ Now you must add a WHERE clause to the original query to use the value from the 
 14. Preview and Save the report.
 
 ![Parameters](../_assets/images/mod7-07.png)
+
+> **Under the hood:**
+>
+> #### `${product_var}` became a bind marker, not spliced text
+>
+> The SQL data factory parses the query for `${name}` references before
+> it runs, replaces each with a JDBC `?` placeholder and binds the
+> parameter's value through a prepared statement. That is why the
+> value needs no quotes and why a product line called `O'Brien's`
+> can't break the query or inject anything. For a multi-select
+> parameter the value is an array, and the parser expands it to
+> `?, ?, ?` so `IN (...)` works with any number of choices.
+>
+> **Why it matters:** parameters are type-safe and injection-proof by
+> construction — and the database can cache the prepared statement
+> across runs, because only the values change.
 
 ## Nested Prompts
 
@@ -102,6 +135,24 @@ Now you must add a WHERE clause to the original query to use the value from the 
 12. If you have time Group by Country and add a Message to the report.
 
 ![SELECT DISTINCT country FROM customer_w_ter](../_assets/images/mod7-12.png)
+
+> **Under the hood:**
+>
+> #### Cascading prompts are just queries with parameters
+>
+> Each list parameter has its own query, and those queries may
+> reference other parameters. If `country_list` mentions
+> `${product_var}` — restricting countries to those with orders in the
+> chosen product line — the parameter framework records the
+> dependency: whenever the product line changes it re-runs the country
+> query, rebuilds that prompt, and drops a selection that is no longer
+> valid. The main query then constrains on both, adding `AND country
+> IN (${country_var})`, and each reference is bound the same way as
+> before.
+>
+> **Why it matters:** cascading filters are ordinary SQL plus a
+> naming convention. There is no wiring diagram to maintain, only the
+> parameter names the queries mention.
 
 You may need to resize the filter panel to view the options.
 

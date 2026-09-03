@@ -92,6 +92,27 @@ Select =[“chart::category-key”] from the dropdown Value box.
 
 =DRILLDOWN("local-sugar"; NA(); {"::pentaho-path"; "/public/bi-developers/legacy-steel-wheels/steel-wheels-4.8/reports/Order Status.prpt" | "oStatus"; ["chart::category-key"]})
 
+> **Under the hood:**
+>
+> #### DRILLDOWN builds a viewer URL from a profile
+>
+> `url-formula` is evaluated once per chart item, with the item's
+> context exposed as fields — `["chart::category-key"]` is the
+> category the bar belongs to. `DRILLDOWN` takes a profile name, a
+> server (`NA()` means the one the report is running on) and a list of
+> parameters, and assembles the target URL from the profile's
+> template: `local-sugar` knows the Pentaho Server's
+> `/api/repos/<path>/viewer` pattern and encodes `::pentaho-path` and
+> `oStatus` into it. The HTML output processor then writes each bar as
+> an image-map area with that href.
+>
+> Only HTML has clickable regions, which is why the step says Preview >
+> HTML; PDF gets the picture without the links.
+>
+> **Why it matters:** a drillable chart is a formula, not JavaScript.
+> Change the target report or add a parameter and the URLs regenerate
+> for every bar, every run.
+
 1. Can also add the following value for tooltip-formula:  =["chart::category-key"]
 2. From the Menu bar select File > Preview > HTML.
 3. Save the report: Training Demo Report 8-1 drillable chart

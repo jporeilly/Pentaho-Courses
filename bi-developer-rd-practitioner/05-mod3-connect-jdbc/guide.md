@@ -40,6 +40,28 @@ Or click on the Database icon.
 
 ![Connect to SampleData (Hypersonic) Database](../_assets/images/mod3-06.png)
 
+> **Under the hood:**
+>
+> #### SampleData is a connection definition that travels inside the report
+>
+> What you picked is a saved connection: a JDBC driver class, a URL
+> and credentials. When you save the report those go into the bundle
+> as `datasources/sql-ds.xml`, alongside every query you write against
+> them. At run time the engine's SQL data factory loads the driver,
+> opens the connection, runs the named query and closes it again — in
+> Report Designer's preview and on the server alike.
+>
+> The alternative access type, JNDI, stores only a *name*. Report
+> Designer resolves it locally from `simple-jndi/default.properties`;
+> the server resolves the same name against its own configured data
+> sources, so one report can point at the test database on your
+> laptop and production on the server without editing.
+>
+> **Why it matters:** the report is self-describing about where its
+> data comes from. Prefer JNDI for anything you will publish, so the
+> credentials live on the server, not in a file that gets emailed
+> around.
+
 ## SQL Query Designer
 
 You must be in the JDBC Data Source window to follow this process. You should also have configured and tested a JDBC data source connection.
@@ -114,6 +136,25 @@ By default, all Fields are selected. If you only want to select a few rows (or a
 >
 > Notice in the top left pane that the SELECT statement reflects the changes made in the previous steps.
 
+> **Under the hood:**
+>
+> #### The Query Designer is a SQL text generator, nothing more
+>
+> Every click has been rewriting the statement in the top-left pane.
+> The join path appeared because the designer asked the database's
+> JDBC metadata for foreign keys between PRODUCTS and ORDERFACT; the
+> join you drew by hand became the same kind of condition. Identifiers
+> come out schema-qualified and quoted (`"PUBLIC"."PRODUCTS"."PRODUCTLINE"`)
+> so they survive case-sensitive databases.
+>
+> Only the text is saved. The engine never sees the diagram, and you
+> can edit the SQL directly at any point — the designer is a
+> convenience, not a layer.
+>
+> **Why it matters:** anything your database can express — window
+> functions, CTEs, vendor syntax — works here, because the query goes
+> to the driver exactly as written.
+
 Once the fields are selected, you can specify the sort order.
 
 19. To sort the results by Product Line, in the top left pane, right-click “PRODUCTS.PRODUCTLINE” and then from the context menu select add to order-by.
@@ -135,6 +176,26 @@ Once the fields are selected, you can specify the sort order.
 26. To save the report, on the toolbar, click the Save button, and then save the report to the desktop or a local folder as Demo - jdbc sql query.prpt
 
 ![SQL Query Designer](../_assets/images/mod2-20.png)
+
+> **Under the hood:**
+>
+> #### Preview pulled the whole result into memory, in the order the database returned it
+>
+> Preview ran the query and read the result set into an in-memory
+> table model, which is what the engine iterates — twice, as you'll
+> see — when the report runs. Nothing is re-sorted afterwards. The
+> `ORDER BY` you just built is therefore not cosmetic: the groups you
+> will add in the next module are detected by watching a field's value
+> change from one row to the next, and that only works on sorted rows.
+>
+> The query name matters too. The report references its data by that
+> name, and a sub-report or parameter list can pick any query in the
+> data source by it.
+>
+> **Why it matters:** sort in the query, in the order you intend to
+> group — territory before customer — and the layout will follow. Get
+> the order wrong and the report won't error; it will just show the
+> same group header several times.
 
 Further examples of connecting to various datasources can be found in Appendix A
 

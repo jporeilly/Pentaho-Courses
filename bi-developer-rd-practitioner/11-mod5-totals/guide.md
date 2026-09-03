@@ -52,6 +52,28 @@ Report functions are commonly used to calculate group and report level aggregati
 
 ![Functions](../_assets/images/mod5-13.png)
 
+> **Under the hood:**
+>
+> #### TotalGroupSumFunction knows the group's total before the group starts
+>
+> The engine runs the report in two passes, and `TotalGroupSumFunction`
+> is declared to depend on the first one. During the pagination pass it
+> adds up `QUANTITYINSTOCK` for every row, resetting each time the
+> Product Line group changes, and remembers the result for each group.
+> In the print pass it can therefore report the *complete* group total
+> from the group's first row onward — which is why a Total function
+> works in a Group Header just as well as a footer.
+>
+> The other family, `ItemSumFunction`, is a running sum: correct only
+> at the moment the last row of the group has passed, so it belongs in
+> footers alone. Reset on Group Name is what scopes either kind; leave
+> it blank and the function accumulates across the whole report.
+>
+> **Why it matters:** totals in headers, percentages of a group total
+> on every detail row, "3 of 12" counters — all possible because the
+> engine reads the data twice so you don't have to write a second
+> query.
+
 11. To add another function to sum the Quantity in Stock for the entire report, on the Data pane, right-click Functions, and then click Add Functions.
 12. Repeat the workflow, renaming the function: GrandTotal
 
@@ -67,6 +89,24 @@ Report functions are commonly used to calculate group and report level aggregati
 20. Click OK.
 
 ![Functions](../_assets/images/mod5-15.png)
+
+> **Under the hood:**
+>
+> #### Dragging a function onto a band creates a field bound to its name
+>
+> The number-field that appeared in the Group Footer has its `field`
+> attribute set to `TotalGroup`. From the layout's point of view a
+> function is simply another column of the data row — one the engine
+> computes rather than the database — so it is placed, formatted and
+> aligned exactly like `QUANTITYINSTOCK`. The message field beside it
+> resolves `$(PRODUCTLINE)` from the same row, and because a Group
+> Footer prints after the group's last row but *before* the value
+> changes, it shows the group that just ended.
+>
+> **Why it matters:** functions, query columns and parameters all
+> live in one namespace. A formula can reference `[TotalGroup]` as
+> easily as `[QUANTITYINSTOCK]`, which is how you get a "% of group"
+> column with one more expression.
 
 21. To format the elements in the Group Footer band, on the canvas:
 22. Click the Total for $(PRODUCTLINE) message element.

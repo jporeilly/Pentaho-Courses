@@ -63,6 +63,22 @@ As of $(report.date, date, MM-dd-yyyy).
 
 ![Formatting & Style Pane](../_assets/images/mod6-13.png)
 
+> **Under the hood:**
+>
+> #### The Style pane edits a style sheet that cascades
+>
+> Every visual property is a style key — `font-size`, `bold`, `paint`
+> for the text colour, `stroke` for the line — stored per element in
+> the bundle. A key you haven't set is not blank: it is inherited from
+> the band the element sits in, then from the report's default style,
+> much like CSS. The formatting toolbar writes the same keys the Style
+> pane shows; it is a shortcut, not a second system.
+>
+> **Why it matters:** set a font on a band and every element in it
+> follows; set it on the master report and the whole report follows.
+> Format at the highest level that is true, and override only where
+> something must differ.
+
 ## Background
 
 1. Expand Group > Group Body > Group: PRODUCTLINE > Details Body, and then click Details Header.
@@ -95,6 +111,22 @@ As of $(report.date, date, MM-dd-yyyy).
 Note: The □ symbol displays the system’s currency symbol.
 
 ![Background](../_assets/images/mod6-17.png)
+
+> **Under the hood:**
+>
+> #### The □ is Java's currency sign, ¤
+>
+> The `format` attribute is a `java.text.DecimalFormat` pattern. The
+> character that renders as a box in the dropdown is `¤` (U+00A4),
+> which DecimalFormat replaces at run time with the currency symbol of
+> the locale the report runs in — `$` on a US machine, `€` for a German
+> user on the server. The `;` splits the pattern into positive and
+> negative halves, which is where the parentheses for negatives come
+> from.
+>
+> **Why it matters:** one pattern serves every locale, and the same
+> rule applies to dates: `MMM` will read "Jan" or "janv." depending on
+> who runs the report, with no change to the design.
 
 To repeat the header column fields across the report:
 

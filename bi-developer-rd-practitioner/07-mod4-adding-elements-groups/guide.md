@@ -87,6 +87,23 @@ In the top left corner of the report canvas, drag the zoom percentage number tow
 
 ![Aligning Data Elements](../_assets/images/mod4-11.png)
 
+> **Under the hood:**
+>
+> #### A band is a canvas of absolutely positioned elements
+>
+> Each field you dropped became an element with an x, y, width and
+> height in points (1/72 of an inch), saved in the bundle's
+> `layout.xml`. The Details band is printed once per row: the engine
+> stamps the band at the current vertical position, fills every element
+> from that row, advances by the band's height and repeats. Elements
+> don't flow around each other, which is why alignment is your job —
+> and why the guides, grid and snap exist. They are design-time aids;
+> nothing about them is saved into the output.
+>
+> **Why it matters:** pixel-exact layout is what makes PDF and print
+> output predictable. Set the band height and element positions once
+> and every row, on every page, lands in the same place.
+
 14. If you’re layout is different, check the order of your sorts in the data source.
 ## Add Label Elements
 
@@ -141,6 +158,26 @@ In this demonstration you will create a group for Product Line and add a message
 
 Notice the Group Header and Group Footer appear on the report canvas, and PRODUCTLINE appears on the Structure pane.
 
+> **Under the hood:**
+>
+> #### A group is a value change in sorted rows
+>
+> The engine doesn't gather rows by product line. It reads rows in
+> the order the query returned them and compares `PRODUCTLINE` on each
+> row with the one before; when the value changes it prints the Group
+> Footer for the old value, then the Group Header for the new one, and
+> carries on. The bundle records nothing more than
+> `group-fields="PRODUCTLINE"`.
+>
+> That is exactly why the earlier step told you to check your sort
+> order if the layout looked wrong: unsorted rows produce a "group"
+> every time the value flips back, and the engine cannot tell the
+> difference.
+>
+> **Why it matters:** grouping costs nothing at any volume — no
+> buffering, no second query — provided the ORDER BY matches the group
+> order. Nested groups work the same way, outermost sort key first.
+
 7. To add a message element to identify the Product Line, on the Elements Palette, click the message icon, and then drag it to the top left corner of the Group Header band.
 
 ![Report Groups](../_assets/images/mod4-20.png)
@@ -152,6 +189,22 @@ Notice the Group Header and Group Footer appear on the report canvas, and PRODUC
 12. Click OK.
 
 ![Report Groups](../_assets/images/mod4-21.png)
+
+> **Under the hood:**
+>
+> #### A message field is a template, filled in each time its band prints
+>
+> `Product Line: $(PRODUCTLINE)` is a pattern. Whenever the Group
+> Header band is laid out, the engine resolves each `$( )` reference
+> against the current row and substitutes the value — so the header
+> for Classic Cars says Classic Cars, and the next one says Motorcycles,
+> from one element. The syntax also takes a type and a format:
+> `$(ORDERDATE, date, dd MMM yyyy)` or `$(TOTAL, number, #,##0.00)`,
+> and a message can mix several references with literal text.
+>
+> **Why it matters:** labels that carry data are one element, not a
+> label plus a field plus alignment work — and they reformat with the
+> pattern, so a date column never shows a raw timestamp by accident.
 
 13. To resize and position the message element, in the Group Header band:
 14. approximately 0.25” on the vertical ruler
@@ -171,6 +224,25 @@ We will now configure our report so that each Product Line begins on a new page.
 ![Style.pagebreak-after = true](../_assets/images/mod4-24.png)
 
 The pagebreak-after will result in separate tabs for each section when exported to Excel.
+
+> **Under the hood:**
+>
+> #### pagebreak-after is a layout instruction; each exporter interprets it
+>
+> Setting `pagebreak-after` on the group tells the pagination pass to
+> end the page once that group's footer has printed. Pageable outputs —
+> PDF, print, the preview — honour it literally. The Excel exporter has
+> no pages, so it maps each page break to a new worksheet, which is
+> where the separate tabs come from. HTML in single-page mode ignores
+> page breaks altogether.
+>
+> This is the general rule for every output format: the engine
+> produces one laid-out result, and each *output processor* — PDF,
+> Excel, HTML, CSV — renders it the way that format can.
+>
+> **Why it matters:** design once for the page and you get sensible
+> Excel and HTML for free; but preview in the format the user will
+> actually receive before you promise how it looks.
 
 1. Preview and Save the Report: Demo - data elements.prpt
 

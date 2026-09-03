@@ -92,6 +92,24 @@ The configuration of our Hyperlink has been saved in:
 
 ![Preview the Report](../_assets/images/mod9-15.png)
 
+> **Under the hood:**
+>
+> #### A hyperlink is a style expression on href-target
+>
+> The dialog saved a formula, not a link: `href-target` (shown as
+> `url` in the Style pane) now carries `=DRILLDOWN("local-sugar";
+> NA(); {"::pentaho-path"; "...Inventory List - drill-to.prpt" |
+> "ProdCodeParameter"; [PRODUCTCODE]})`, and `href-title` holds the
+> tooltip. Because it is a style expression it is evaluated for every
+> row, so each product code links to a URL carrying its own value as
+> the target report's parameter. The HTML exporter writes it as
+> `<a href>`, the PDF exporter as a link annotation, and Excel as a
+> cell hyperlink.
+>
+> **Why it matters:** report-to-report navigation is a formula on a
+> field. Change the target, add a parameter or make the link
+> conditional, and it applies to every row without touching the data.
+
 Note: You may need to switch to Pentaho Repository and add the PRODUCTCODE parameter:
 
 =DRILLDOWN("local-sugar"; NA(); {"ProdCodeParameter"; [PRODUCTCODE] | "::pentaho-path"; "/public/Training/Inventory List - drill-to.prpt"})

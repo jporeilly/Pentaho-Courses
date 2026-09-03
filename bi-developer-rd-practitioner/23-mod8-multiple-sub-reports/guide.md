@@ -99,6 +99,22 @@ You will need to play around with the positioning and size of the sub report onc
 
 ![Add Sub Reports](../_assets/images/mod8-28.png)
 
+> **Under the hood:**
+>
+> #### Two sub-reports, two queries, one page
+>
+> Each inline sub-report was bound to a different named query — Sales
+> by Territory, Sales by Country — so when the master's Report Header
+> band printed, the engine ran the first sub-report (its query, its
+> collector, its pie chart), then the second, and placed each in its
+> rectangle. The master's own query wasn't involved in either chart,
+> and the `WHERE territory = 'NA'` you typed ran in the database, not
+> in the pie.
+>
+> **Why it matters:** side-by-side views of different questions are
+> different queries composed on one page, each as simple as it can be
+> — no unions, no pivoting a single result set to serve two charts.
+
 ## Lab files
 
 <button data-launch="prd" data-path="files/Training Guided Demo Report 8-2 multiple sub.prpt">Open: Solution: multiple sub-reports</button>

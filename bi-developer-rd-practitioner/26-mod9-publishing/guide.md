@@ -61,6 +61,24 @@ Sign in as **`admin`** with the password **`password`**.
 
 ![Password: password](../_assets/images/mod9-07.png)
 
+> **Under the hood:**
+>
+> #### Publish uploaded the bundle; the server ran the same engine
+>
+> Publish posted the `.prpt` over HTTP to the server's repository,
+> where it became a node under Public/Training with that folder's
+> permissions. When you opened it, the server's reporting plugin
+> unpacked the bundle, built the prompt panel from
+> `datadefinition.xml`, and ran the report with the reporting engine —
+> the same library as Report Designer — using the connection stored in
+> `datasources/sql-ds.xml`. For a driver-based connection that means
+> the JDBC driver must be on the server too; a JNDI connection would
+> resolve the name against the server's own data sources instead.
+>
+> **Why it matters:** publishing is a file upload, not a deployment.
+> Republish and the next viewer gets the new version; nothing is
+> compiled, cached or installed.
+
 ## Report Viewer
 
 1. Browse to the Inventory Report in the User Console.
@@ -71,6 +89,23 @@ Sign in as **`admin`** with the password **`password`**.
 A new web browser window will open as shown in the preceding screenshot, showing only the report, without the PUC UI. What we should do is copy the URL and send it to the corresponding user. Refer to the following example:
 
 http://localhost:8080/pentaho/api/repos/%3Apublic%3ATraining%3AInventory%20Report.prpt/viewer
+
+> **Under the hood:**
+>
+> #### The viewer URL is the repository path with colons for slashes
+>
+> `%3Apublic%3ATraining%3AInventory%20Report.prpt` is
+> `/public/Training/Inventory Report.prpt` with each `/` written as
+> `:` (URL-encoded as `%3A`) so the path fits in one URL segment. The
+> `/viewer` suffix asks the reporting plugin for the page with the
+> prompt panel; parameter values can be appended as ordinary query
+> string arguments, and an `output-target` such as `pageable/pdf`
+> selects the exporter. This is exactly the URL shape the `DRILLDOWN`
+> formula generates.
+>
+> **Why it matters:** every published report is an addressable URL
+> with parameters. Email it, embed it in a dashboard, bookmark a
+> specific parameter set — no portal navigation required.
 
 ## Hyperlinks
 

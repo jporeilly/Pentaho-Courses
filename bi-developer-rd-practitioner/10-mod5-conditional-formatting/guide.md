@@ -60,6 +60,27 @@ The Formula Editor provides a list of built-in functions to help you build a for
 
 If there is an error in the text of the formula, text will appear to warn us. Otherwise, the formula editor will try to show us the result that our formula will return. When it is not possible to visualize the result that a formula will return, this is usually because the values used are calculated during the execution of the report.
 
+> **Under the hood:**
+>
+> #### The formula is attached to a style key and evaluated for every row
+>
+> What you saved is a *style expression*: the bundle stores it as
+> `style-key="paint"` (the engine's name for text colour) with your
+> `=IF(...)` as the formula. During layout, each time the Details band
+> prints a row, LibFormula evaluates the expression with
+> `[QUANTITYINSTOCK]` bound to that row and hands back `"RED"` or
+> `"BLACK"`; the engine converts the string to a colour and paints the
+> element. The editor's live preview does the same thing against the
+> first data row, which is why it can show a result at all — and why
+> it can't when the value depends on a running total.
+>
+> Expressions like this are *stateless*: each evaluation sees one row.
+> The functions you'll add next are the stateful kind — they remember
+> what they saw on earlier rows.
+>
+> **Why it matters:** anything computable from the row can drive any
+> visual property, with no code and no second pass over the data.
+
 1. Close all windows.
 2. Preview and Save the report: Demo - conditional formatting.prpt
 Functions

@@ -96,6 +96,23 @@ Notice the list of properties in the left pane for customizing the chart.
 
 ![Add Parameter](../_assets/images/mod8-10.png)
 
+> **Under the hood:**
+>
+> #### The chart is an expression fed by a collector, and both ran before the header printed
+>
+> The bundle now holds a `RadarChartExpression` paired with a
+> `CategorySetDataCollector`. The collector is a function: during the
+> pagination pass it visits every row of Query 1 and accumulates a
+> JFreeChart dataset keyed by your category column (`PRODUCTVENDOR`),
+> value column (`MSRP`) and series field (`PRODUCTLINE`). When the
+> Report Header band is printed, the chart expression draws that
+> completed dataset. Change the chart type and only the expression
+> changes; the collected data is the same.
+>
+> **Why it matters:** a chart summarising the whole report can sit
+> above the detail it summarises, with no extra query, because the
+> engine had already read every row by the time it drew the header.
+
 ## Add Sub Report
 
 1. To add a Sub-report:
@@ -125,6 +142,28 @@ Notice the list of properties in the left pane for customizing the chart.
 10. Preview and Save the report: Demo – charts.prpt
 
 ![Add Sub Report](../_assets/images/mod8-16.png)
+
+> **Under the hood:**
+>
+> #### A sub-report is a whole report inside the bundle, run when its band prints
+>
+> The zip gained a `subreport/` folder with its own `layout.xml` and
+> data definition, referenced from the master as `<sub-report
+> href="/subreport/content.xml">`. It has its own bands, functions and
+> — here, by reuse — the parent's data source and Query 1. The engine
+> executes it each time the containing band is processed: once for a
+> Report Header, but once *per group* if you put it in a Group Header,
+> and once per row in the Details band.
+>
+> Inline means it occupies a rectangle at the element's x/y within
+> the parent band; banded means it stacks at the parent's left edge
+> like another band.
+>
+> **Why it matters:** anything that needs a second query, a different
+> grouping or a different orientation can be composed in rather than
+> forced into one query — and the "runs once per band instance" rule
+> is what turns a sub-report in a group header into a master-detail
+> report.
 
 ## Inline v Banded
 
