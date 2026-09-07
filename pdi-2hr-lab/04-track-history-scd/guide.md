@@ -22,7 +22,7 @@
 <div align="center">
 <figure>
 
-![alt text](../_assets/images/1788776135144.png#w=420)
+![Slowly Changing Dimension Type 2](../_assets/images/1788776135144.png#w=420)
 
 <figcaption><em>Type2 - Slowly Changing Dimension</em></figcaption>
 </figure>
@@ -39,10 +39,10 @@
    — you'll be editing it shortly, and Lab 3's copy stays pristine.
 <figure>
 
-![1788776468295.png](../_assets/images/1788776468295.png)
+![JSON input step configuration for customers.json](../_assets/images/1788776468295.png)
 
 <div align="center">
-<figcaption><em>Caption</em></figcaption>
+<figcaption><em>Add - customers.json</em></figcaption>
 </div>
 </figure>
 
@@ -59,7 +59,7 @@
 
 <figure>
 
-![JSON input dialog, Fields tab: customer_id, customer_name and region_code mapped from $.customers[*] paths, all String](../_assets/images/1788277506117.png)
+![JSON input step configuration for customers.json](../_assets/images/1788277506117.png)
 
 <div align="center">
 <figcaption><em>Fields - customers.json</em></figcaption>
@@ -69,8 +69,7 @@
 >
 > You could just copy and paste the step from .
 
-3. In the **View** tab (left panel), right-click **Database
-   connections > New**:
+3. In the **View** tab (left panel), right-click **Database connections > New**:
    - **Connection name:** `warehouse`
    - **Connection type:** MySQL
    - **Host name:** `localhost` · **Port:** `3306`
@@ -80,9 +79,9 @@
 <div align="center">
 <figure>
 
-![alt text](../_assets/images/1788777000503.png#w=420)
+![Database connection - warehouse](../_assets/images/1788777000503.png#w=420)
 
-<figcaption><em>Caption</em></figcaption>
+<figcaption><em>Enter connection details</em></figcaption>
 </figure>
 </div>
 
@@ -91,9 +90,9 @@
 <div align="center">
 <figure>
 
-![alt text](../_assets/images/1788777081402.png#w=420)
+![Test Connection](../_assets/images/1788777081402.png#w=420)
 
-<figcaption><em>Caption</em></figcaption>
+<figcaption><em>Test connection</em></figcaption>
 </figure>
 </div>
 
@@ -105,13 +104,12 @@
 1. From **Data Warehouse**, drag **Dimension lookup/update** onto
    the canvas and hop `Read customers` into it.
 2. Double-click it:
-
 <div align="center">
 <figure>
 
-![alt text](../_assets/images/1788777390992.png#w=420)
+![](../_assets/images/1788777390992.png#w=420)
 
-<figcaption><em>Caption</em></figcaption>
+<figcaption><em>Dimension / Lookup step</em></figcaption>
 </figure>
 </div>
 
@@ -187,6 +185,15 @@ FROM   sampledata.dim_customer
 ORDER  BY customer_id, version;
 ```
 
+<figure>
+
+![alt](../_assets/images/1788783628056.png)
+
+<div align="center">
+<figcaption><em></em></figcaption>
+</div>
+</figure>
+
 Every customer: version 1, open-ended validity — **21 rows in
 total**: your 20 customers plus a technical "unknown" row
 (`customer_tk` 0) the step inserts automatically, so later fact
@@ -198,14 +205,33 @@ loads can point failed lookups somewhere instead of dropping rows.
    `C:\Workshop\pdi-2hr\03-make-it-yours\04-track-history\customers.json`
    in a text editor.
 2. Find **C001 (Aiden Marsh)** and change `"region_code": "NW"` to
-   `"region_code": "SE"`. Save.
+   `"region_code": "NE"`. Save.
+
+<figure>
+
+![alt](../_assets/images/pasted-1788783085693.png)
+
+<div align="center">
+<figcaption><em>Change region_code to: NE</em></figcaption>
+</div>
+</figure>
+
 3. Run the transformation again.
 4. Re-run the SQL above.
 
+<figure>
+
+![alt](../_assets/images/1788783746338.png)
+
+<div align="center">
+<figcaption><em>Track the change in region code</em></figcaption>
+</div>
+</figure>
+
 C001 now has **two rows**: version 1 (NW) with its validity window
-closed, and version 2 (SE) open-ended. Every other customer is
+closed, and version 2 (NE) open-ended. Every other customer is
 untouched. Report yesterday's sales and C001 is in the North West;
-report today's and they're in the South East — both correct.
+report today's and they're in the North East — both correct.
 
 > **Under the hood:**
 >
