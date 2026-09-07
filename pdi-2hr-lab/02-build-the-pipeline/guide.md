@@ -148,7 +148,27 @@ Save the file/transformation (.ktr) as: C:\Workshop\pdi-2hr\02-see-it-work\02-bu
 3. Double-click it. Name it `Rejects for source team`. Set the
    **Filename** to `C:\Workshop\pdi-2hr\out\rejects` (PDI adds
    `.txt`; switch **Extension** to `csv` if you prefer).
+
+<figure>
+
+![alt text](../_assets/images/1788788198393.png)
+
+<div align="center">
+<figcaption><em>Caption</em></figcaption>
+</div>
+</figure>
+
 4. On its **Fields** tab, click **Get Fields**, then **OK**.
+
+<figure>
+
+![alt text](../_assets/images/1788788271180.png)
+
+<div align="center">
+<figcaption><em>Caption</em></figcaption>
+</div>
+</figure>
+
 5. From **Flow**, drag a **Dummy (do nothing)** step on, and hop the
    **TRUE** branch of the filter to it. Name it `Valid rows`.
 
