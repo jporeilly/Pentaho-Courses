@@ -238,31 +238,40 @@ report today's and they're in the North East — both correct.
 >
 > #### What that one step actually did
 >
-> For every incoming row, **Dimension lookup/update** ran the whole
-> Type 2 algorithm:
+> Two words first. A **dimension** is a warehouse table that describes
+> something, here customers, which facts such as sales point at.
+> Keeping every version of a customer, with the dates each version was
+> valid, is what the warehouse world calls a **Type 2** dimension: each
+> row is a version, not a customer.
 >
-> 1. Looked up the current open version by natural key (`customer_id`),
->    from a cache it built rather than a query per row.
-> 2. Compared the tracked fields to decide **unchanged / changed /
->    new** — 19 rows took the first branch and cost nothing.
-> 3. For the changed one: issued an `UPDATE` closing version 1's
->    `date_to` at the run timestamp, then an `INSERT` for version 2
->    with a fresh surrogate key, `version` incremented, and
->    `date_from` set to the same instant — so the windows abut
->    exactly, with no gap and no overlap.
-> 4. Allocated that surrogate key itself, keeping the technical key
->    independent of the source system's identifier.
+> For every incoming customer, **Dimension lookup/update** did the
+> whole of that:
 >
-> The equivalent hand-written SQL is a page of `MERGE` with a
-> correlated sub-query, and its bugs are the expensive kind: an
-> overlapping window that double-counts revenue, or a gap that makes
-> yesterday's report irreproducible.
+> 1. Looked up the customer's current version by the id the source
+>    system uses (`customer_id`, the *natural key*), from a lookup
+>    cache it built rather than a database query per row.
+> 2. Compared the tracked fields, name and region, to decide
+>    **unchanged, changed or new**. Nineteen rows were unchanged and
+>    cost nothing.
+> 3. For the changed one, closed version 1 by setting its `date_to` to
+>    the run time, then inserted version 2 with `date_from` set to the
+>    same instant, so the two validity windows meet exactly, with no
+>    gap and no overlap.
+> 4. Gave the new version its own number in `customer_tk`, the
+>    *technical key* (also called a surrogate key): a key PDI allocates
+>    itself, so the warehouse's identifier never depends on the source
+>    system's.
 >
-> **Why it matters:** history is a *configuration* here, not an
-> implementation. Ticking "Insert" on a field is the difference
-> between overwriting the past and keeping it — and that decision is
-> visible in a dialog anybody can audit, rather than buried in SQL
-> only its author understands.
+> The equivalent by hand is a page of carefully ordered SQL, and its
+> bugs are the expensive kind: an overlapping window that counts
+> revenue twice, or a gap that makes yesterday's report impossible to
+> reproduce.
+>
+> **Why it matters:** history is a *setting* here, not something you
+> implement. Ticking "Insert" on a field is the difference between
+> overwriting the past and keeping it, and that decision is visible in
+> a dialog anybody can audit, rather than buried in SQL only its author
+> understands.
 
 * [ ] First run: 21 rows in `dim_customer` (20 customers + the
       technical "unknown" row).

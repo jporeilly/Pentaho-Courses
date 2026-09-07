@@ -77,20 +77,27 @@ anything is written anywhere.
 >
 > #### Preview is the real engine, not a simulation
 >
-> Clicking Preview didn't consult a cached sample or a design-time
-> guess. PDI started the actual transformation, ran the real steps
-> over the real file, and stopped once it had enough rows to show
-> you — writing nothing anywhere.
+> Three words first, because you will see them everywhere. The picture
+> on the canvas is a **transformation**: PDI's name for a pipeline that
+> reads rows, changes them and writes them somewhere. Each box is a
+> **step**, one thing the data passes through: read a file, keep or
+> drop rows, write a file. The arrows are **hops**, and a hop carries
+> rows from one step to the next.
 >
-> That is possible because a transformation isn't compiled and
-> deployed. Every step is its own thread, and rows travel between
-> them through in-memory buffers, so the engine can be started,
-> tapped at any point, and stopped again in under a second.
+> When you clicked Preview, PDI did not show you a cached sample or a
+> guess made at design time. It started the transformation for real,
+> ran every step over the real file, and stopped once it had enough
+> rows to show you, writing nothing anywhere.
 >
-> **Why it matters:** there is no build-deploy-check loop here. You
-> inspect real data at any point in the flow while you design, which
-> is why PDI development tends to converge in minutes rather than in
-> rounds of "add a log line, redeploy, look again".
+> It can do that because there is nothing to compile or deploy first.
+> Each step is a small independent worker, and rows pass between the
+> workers in little batches, so the whole thing starts in under a
+> second, can be watched at any step, and stops just as fast.
+>
+> **Why it matters:** there is no build-then-deploy-then-check loop.
+> You look at real data at any point in the flow while you are still
+> designing, which is why work in PDI tends to converge in minutes
+> rather than in rounds of "add a log line, redeploy, look again".
 
 ## Preview the rejects
 
@@ -116,15 +123,20 @@ can inspect.
 >
 > #### Two hops mean two real streams
 >
-> The filter didn't mark rows good or bad and pass one list along. It
-> has two output hops, and each is a genuinely separate stream with
-> its own buffer and its own downstream thread. Valid rows go one
-> way, rejects the other, and both run at the same time.
+> The filter step did not tag rows as good or bad and pass one list
+> along. It has two outgoing hops (the arrows leaving it), and each
+> one is a genuinely separate stream of rows, with its own small
+> buffer and its own worker downstream. Valid rows go one way, rejects
+> the other, and both branches run at the same time.
+>
+> That is what Preview on Rejected rows just showed you: the reject
+> branch is real data you can look at on its own, not a line in a
+> log file.
 >
 > **Why it matters:** "what do we do with bad data?" stops being
-> error-handling code buried inside a transform and becomes a visible
-> path on the canvas — one anybody can point at in a review, and one
-> you can preview independently, as you just did.
+> error-handling code buried inside a program and becomes a visible
+> path on the canvas, one anybody can point at in a review and one you
+> can preview independently, as you just did.
 
 ## Look inside a step
 
@@ -163,16 +175,20 @@ Close the dialog with **Cancel** (so nothing changes).
 >
 > #### The dialog is the source code
 >
-> Nothing was generated from what you just looked at. A `.ktr` file
-> is XML describing steps, their settings and the hops between them;
-> the dialog reads and writes that XML directly, and the engine
-> executes it. There is no build step and no generated artefact that
-> can drift from the design.
+> Nothing was generated from what you just looked at. The file you
+> opened, `win_preview.ktr`, is PDI's transformation file; the
+> extension is short for "Kettle transformation", after the engine's
+> original name. Inside it is plain text in XML: a list of the steps,
+> each step's settings, and the hops between them. The dialog you
+> opened reads that text and writes it back, and the engine runs the
+> same text. There is no build step, and no generated program that can
+> drift away from what you see on the canvas.
 >
-> Two consequences worth knowing: a `.ktr` is plain text, so it
-> **diffs and merges in git like code** — and because the same file
-> is what the server runs, the thing you tested is literally the
-> thing that ships.
+> Two consequences worth knowing. Because it is plain text, a
+> transformation can live in version control alongside your code, and
+> two people's changes to it can be compared and merged. And because
+> the same file is what a server runs later, the thing you tested is
+> literally the thing that ships.
 
 ## See the flow as a diagram
 

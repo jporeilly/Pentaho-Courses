@@ -161,24 +161,27 @@ in memory. You'll meet the real join in a moment.
 
 > **Under the hood:**
 >
-> #### A hash table, built once, probed 37 times
+> #### A lookup index, built once, used 37 times
 >
-> Stream lookup reads its *lookup* stream to completion first and
-> builds a hash table in memory, keyed on the fields you matched on.
-> Then each main row arrives and costs a single hash probe —
-> constant time, no re-reading, no query per row.
+> Stream lookup enriches one stream of rows (the sales) with values
+> from another (the customers). It works in two phases. First it reads
+> the *lookup* stream, the customers, to the end and builds an index in
+> memory keyed on the fields you matched on, like a phone book sorted
+> by customer id. Then each sales row arrives and is looked up in that
+> index: one quick lookup per row, no re-reading of the customer file,
+> no query to a database.
 >
-> Notice what that means for the JSON: by the time the lookup sees
-> it, `customers.json` isn't JSON any more. The JSON input step
-> turned it into rows with typed columns, and from there it is
-> indistinguishable from the CSV. **Format is a property of the
-> Input step, not of the pipeline.**
+> Notice what that means for the JSON. By the time the lookup sees it,
+> `customers.json` is not JSON any more. The JSON input step turned it
+> into rows with named, typed columns, and from that moment it is
+> indistinguishable from rows that came out of a CSV. **The file format
+> belongs to the input step, not to the pipeline.**
 >
-> **Why it matters:** joining a JSON API export to a CSV normally
-> means landing both somewhere they can be queried together. Here
-> the "somewhere" is the engine's own memory, for the few seconds
-> the run lasts — no staging tables, no database round trip, and one
-> canvas that reads as the whole story.
+> **Why it matters:** joining an export from an API (JSON) to a
+> spreadsheet extract (CSV) normally means loading both into a database
+> first so they can be queried together. Here the "database" is the
+> engine's own memory, for the few seconds the run lasts: no staging
+> tables, no round trip, and one canvas that tells the whole story.
 
 ## Compute revenue and margin
 
@@ -281,24 +284,27 @@ steps.
 >
 > #### Why the join demands sorted input
 >
-> Merge join keeps one row from each side and walks the two streams
-> forward in lock-step, like merging two sorted lists: compare the
-> keys, emit a match, advance whichever side is behind. It only ever
-> holds the current rows — which is exactly why neither input has to
-> fit in memory, and exactly why both must already be sorted. Hand
-> it unsorted rows and it doesn't error; it just walks past matches
+> A join matches rows from two streams on a shared key and combines
+> them, exactly as a SQL join combines two tables. Merge join, the step
+> you just used, does it without loading either side into memory. It
+> keeps one row from each stream in hand and walks the two streams
+> forward together, like merging two sorted lists: compare the keys,
+> output a match, move on whichever side is behind. It only ever holds
+> the current rows, which is exactly why neither input has to fit in
+> memory, and exactly why both must already be in key order. Hand it
+> unsorted rows and it does not complain; it simply walks past matches
 > it can no longer see.
 >
-> That is the trade the two steps on your canvas represent. Stream
-> lookup buys speed by holding one side in RAM; Merge join buys
-> unlimited size by requiring order. **Sorting is the price of
-> scale**, and PDI makes you pay it explicitly rather than hiding a
-> memory cliff behind a friendly step.
+> That is the trade the two techniques on your canvas represent.
+> Stream lookup buys speed by holding one side in memory; Merge join
+> buys unlimited size by insisting on order. **Sorting is the price of
+> scale**, and PDI makes you pay it openly, with two Sort rows steps,
+> rather than hiding a memory cliff behind a friendlier step.
 >
-> **Why it matters:** this is a genuine relational join — inner,
-> left, right or full — executed on rows in flight, against sources
-> that were a CSV, a JSON export and another CSV minutes ago. No
-> database was involved in doing it.
+> **Why it matters:** this is a genuine relational join (inner, left,
+> right or full) done on rows in flight, against sources that were a
+> CSV, a JSON export and another CSV a few minutes ago. No database was
+> involved.
 
 > **Note:** **Why LEFT OUTER?** A sale whose region code has no entry
 > in `regions.csv` must still reach the warehouse — with the region
