@@ -80,7 +80,7 @@
 <div align="center">
 <figure>
 
-![Database connection - warehouse](../_assets/images/1788777000503.png#w=420)
+![Database connection - warehouse](../_assets/images/1788777000503.png)
 
 <figcaption><em>Enter connection details</em></figcaption>
 </figure>
@@ -91,7 +91,7 @@
 <div align="center">
 <figure>
 
-![Test Connection](../_assets/images/1788777081402.png#w=420)
+![Test Connection](../_assets/images/1788777081402.png#w=320)
 
 <figcaption><em>Test connection</em></figcaption>
 </figure>
@@ -108,7 +108,7 @@
 <div align="center">
 <figure>
 
-![](../_assets/images/1788777390992.png#w=420)
+![](../_assets/images/1788777390992.png)
 
 <figcaption><em>Dimension / Lookup step</em></figcaption>
 </figure>
@@ -131,7 +131,7 @@
 <div align="center">
 <figure>
 
-![Simple SQL editor showing the CREATE TABLE dim_customer statement PDI generated, followed by the two CREATE INDEX statements](../_assets/images/1788435500408.png#w=420)
+![Simple SQL editor showing the CREATE TABLE dim_customer statement PDI generated, followed by the two CREATE INDEX statements](../_assets/images/1788435500408.png)
 
 <figcaption><em>Generate SQL</em></figcaption>
 </figure>
@@ -188,10 +188,10 @@ ORDER  BY customer_id, version;
 
 <figure>
 
-![alt](../_assets/images/1788783628056.png)
+![Original region_code NW](../_assets/images/1788783628056.png)
 
 <div align="center">
-<figcaption><em></em></figcaption>
+<figcaption><em>Aiden Marsh - region code NW</em></figcaption>
 </div>
 </figure>
 
@@ -210,7 +210,7 @@ loads can point failed lookups somewhere instead of dropping rows.
 
 <figure>
 
-![alt](../_assets/images/pasted-1788783085693.png)
+![region_code to NE ](../_assets/images/1788783085693.png)
 
 <div align="center">
 <figcaption><em>Change region_code to: NE</em></figcaption>
@@ -222,7 +222,7 @@ loads can point failed lookups somewhere instead of dropping rows.
 
 <figure>
 
-![alt](../_assets/images/1788783746338.png)
+![Track change to NE](../_assets/images/1788783746338.png)
 
 <div align="center">
 <figcaption><em>Track the change in region code</em></figcaption>
