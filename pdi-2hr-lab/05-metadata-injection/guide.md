@@ -25,10 +25,48 @@
 > **Note:** **Get the files first.** Download the three feed files
 > and `control.csv` from **Lab Files** below into
 > this module's workshop folder:
-> `C:\Workshop\pdi-2hr\04-see-it-scale\05-one-pipeline-many-files\`. Open
-> `control.csv` — one row per feed: the file's full path and its
+> `C:\Workshop\pdi-2hr\04-see-it-scale\05-one-pipeline-many-files\`. 
+> - Take a 3 store files
+> - Open `control.csv` — one row per feed: the file's full path and its
 > separator. That file *is* the configuration; the pipelines you
 > build next never change again.
+
+Before we build anything, let's take a look at the files:
+
+<div style="display:flex; flex-wrap:wrap; gap:16px; align-items:flex-start">
+<figure style="flex:0 1 auto; margin:0">
+
+![stores_north.csv: store, sale_date, amount, comma-separated](../_assets/images/1788793912717.png#w=200)
+
+<div align="center">
+<figcaption><em>stores_north.csv</em></figcaption>
+</div>
+</figure>
+<figure style="flex:0 1 auto; margin:0">
+
+![stores_south.txt: location, trading_date, takings, pipe-separated](../_assets/images/1788794060798.png#w=250)
+
+<div align="center">
+<figcaption><em>stores_south.txt</em></figcaption>
+</div>
+</figure>
+<figure style="flex:0 1 auto; margin:0">
+
+![partners_eu.csv: outlet, dt, revenue_eur, semicolon-separated](../_assets/images/1788794172804.png#w=170)
+
+<div align="center">
+<figcaption><em>partners_eu.csv</em></figcaption>
+</div>
+</figure>
+</div>
+
+
+
+
+
+
+
+
 
 > **Note:** **The shape of the solution.** One injection run
 > configures the template once — so to process many differently-
@@ -94,33 +132,6 @@
    control row becomes one execution, delivered to the injector's
    `Get rows from result` step.
 
-> **Under the hood:**
->
-> #### Your first job
->
-> Everything you have built so far was a transformation: rows flow
-> through steps, and all the steps run at once. A **job** is the other
-> kind of thing PDI runs, and it works differently. A job is a list of
-> things to do one after another: run this transformation, then that
-> one, then send an email if something failed. Its boxes are called
-> **entries** rather than steps, and its hops carry no rows; they say
-> what happens next. A hop can be unconditional (always carry on),
-> follow only on success (green in Spoon), or follow only on failure
-> (red). Saved, a job is a `.kjb` file, plain XML like a `.ktr`.
->
-> Your driver job is the smallest useful one: START, an entry that runs
-> the transformation reading `control.csv`, an entry that runs the
-> injector, and Success. Two settings turn it into a loop. **Copy rows
-> to result**, the last step of `read_control.ktr`, hands that
-> transformation's rows back to the job. **Execute for every input
-> row**, on the second entry, then runs `mi_inject.ktr` once per row,
-> with that row delivered to its *Get rows from result* step.
->
-> **Why it matters:** transformations move data; jobs decide the
-> order, the repetition, and what happens when something goes wrong.
-> Every scheduled pipeline you will ever run in PDI is a job wrapped
-> around transformations, which is exactly what Lab 7 is about.
-
 ### 4. Run and extend
 
 1. Delete `C:\Workshop\pdi-2hr\out\all_feeds.csv` if it exists (we
@@ -141,29 +152,27 @@ Now the punchline:
 >
 > #### The template was rewritten in memory, once per feed
 >
-> Normally a transformation's settings, such as which file to read and
-> which character separates its columns, are typed into its dialogs
-> and saved in the file. **Metadata injection** means filling those
-> settings in at run time instead, from data.
+> **ETL metadata injection** loaded `mi_template.ktr` as a
+> definition rather than as something to run, set the properties you
+> mapped — the filename, the separator — on the template's steps,
+> and executed that filled-in copy. The file on disk never changed;
+> each run got its own configured instance.
 >
-> That is what just happened. The **ETL metadata injection** step in
-> `mi_inject.ktr` opened `mi_template.ktr` not to run it but to read
-> it as a description, wrote the two values you mapped (the filename
-> and the separator from the control row) into the template's reader
-> step, and then ran that filled-in copy. The file on disk never
-> changed; each control row got its own configured copy in memory.
+> That works because a step's configuration is *data* in the `.ktr`
+> XML, addressable by name. Anything the dialog can set, injection
+> can set: not just filenames and separators but whole field lists,
+> so one template can absorb feeds whose column layouts differ, not
+> merely their delimiters.
 >
-> This works because a transformation is just a text file (Lab 1) and
-> every setting in it has a name. Anything you can set in a dialog,
-> injection can set: not only filenames and separators but whole
-> column lists, so one template can take in feeds whose columns
-> differ, not merely their delimiters.
+> The driver job supplies the loop. **Execute for every input row**
+> runs the injector once per control row, and *Get rows from result*
+> is where that row lands — which is why adding a feed is adding
+> data, not code.
 >
 > **Why it matters:** this is the difference between a tool and a
-> platform. Your number of pipelines stops tracking your number of
-> feeds; four feeds or four hundred, it stays one template, and the
-> control file is something an operations team can own without ever
-> opening Spoon, the designer you have been using today.
+> platform. Your pipeline count stops tracking your feed count —
+> 4 feeds or 400, it stays one template — and the control file is
+> something an operations team can own without ever opening Spoon.
 
 * [ ] `all_feeds.csv` contains rows from all three (then four) feeds.
 * [ ] The new feed required editing only `control.csv`.

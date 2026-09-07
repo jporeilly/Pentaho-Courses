@@ -1,7 +1,7 @@
 store,sale_date,amount
-Manchester,2026-01-01,1240.50
-Leeds,2026-01-01,980.00
-Newcastle,2026-01-01,1511.25
-Manchester,2026-01-02,1102.75
-Leeds,2026-01-02,1045.10
-Newcastle,2026-01-02,1388.00
+Manchester,01/01/2026,1240.5
+Leeds,01/01/2026,980
+Newcastle,01/01/2026,1511.25
+Manchester,02/01/2026,1102.75
+Leeds,02/01/2026,1045.1
+Newcastle,02/01/2026,1388
