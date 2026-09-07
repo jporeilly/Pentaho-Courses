@@ -147,7 +147,7 @@
 <div align="center">
 <figure>
 
-![Error executing SQL: BLOB/TEXT column customer_id used in key specification without a key length](../_assets/images/pasted-1788436628184.png)
+![Error executing SQL: BLOB/TEXT column customer_id used in key specification without a key length](../_assets/images/1788436628184.png)
 
 <figcaption><em>No VARCHAR length defined</em></figcaption>
 </figure>

@@ -48,7 +48,7 @@ Save the file/transformation (.ktr) as: C:\Workshop\pdi-2hr\02-see-it-work\02-bu
    then click **Add** so it appears in the *Selected files* grid.
 <figure>
 
-![Target canvas: Read sales feeds Keys present?, valid rows go to Dummy (do nothing) and rejects to Rejects for source team](../_assets/images/pasted-1788426433666.png)
+![Text file input dialog, File tab: Read sales with sales_20260101.csv listed under Selected files](../_assets/images/1788426433666.png)
 
 <div align="center">
 <figcaption><em>Add - sales data</em></figcaption>
