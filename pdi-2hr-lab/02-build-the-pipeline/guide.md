@@ -154,7 +154,7 @@ Save the file/transformation (.ktr) as: C:\Workshop\pdi-2hr\02-see-it-work\02-bu
 ![alt text](../_assets/images/1788788198393.png)
 
 <div align="center">
-<figcaption><em>Caption</em></figcaption>
+<figcaption><em>Output File</em></figcaption>
 </div>
 </figure>
 
@@ -165,7 +165,7 @@ Save the file/transformation (.ktr) as: C:\Workshop\pdi-2hr\02-see-it-work\02-bu
 ![alt text](../_assets/images/1788788271180.png)
 
 <div align="center">
-<figcaption><em>Caption</em></figcaption>
+<figcaption><em>Get Fields</em></figcaption>
 </div>
 </figure>
 
