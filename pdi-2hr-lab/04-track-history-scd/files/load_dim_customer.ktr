@@ -8,7 +8,7 @@
     <trans_type>Normal</trans_type>
     <trans_status>0</trans_status>
     <directory>/</directory>
-    <filename>C:\Projects\Pentaho-Content-Manager\courses\pdi-2hr-lab\04-track-history-scd\files\load_dim_customer.ktr</filename>
+    <filename>file:///C:/Projects/Pentaho-Content-Manager/courses/pdi-2hr-lab/04-track-history-scd/files/load_dim_customer.ktr</filename>
     <parameters>
     </parameters>
     <log>

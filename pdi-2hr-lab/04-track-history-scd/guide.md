@@ -17,7 +17,16 @@
 >
 > **Prerequisites:** [Enrich and Join](../03-enrich-and-join/guide.md); the workshop MySQL running (green in [Before You Arrive](../00-before-you-arrive/guide.md)).
 >
-> **Estimated Time:** 10 minutes
+> **Estimated Time:** 15 minutes
+
+<div align="center">
+<figure>
+
+![alt text](../_assets/images/1788776135144.png#w=420)
+
+<figcaption><em>Type2 - Slowly Changing Dimension</em></figcaption>
+</figure>
+</div>
 
 ## Connect to the database
 
@@ -28,16 +37,65 @@
    at **this lab's own copy** of the file:
    `C:\Workshop\pdi-2hr\03-make-it-yours\04-track-history\customers.json`
    — you'll be editing it shortly, and Lab 3's copy stays pristine.
+<figure>
+
+![1788776468295.png](../_assets/images/1788776468295.png)
+
+<div align="center">
+<figcaption><em>Caption</em></figcaption>
+</div>
+</figure>
+
+<figure>
+
+3. On the **Fields** tab, add rows — one per field. **Path** uses
+   JSONPath, relative to the array of customer objects:
+
+| Name | Path | Type |
+| --- | --- | --- |
+| customer_id | $.customers[*].id | String |
+| customer_name | $.customers[*].name | String |
+| region_code | $.customers[*].region_code | String |
+
+<figure>
+
+![JSON input dialog, Fields tab: customer_id, customer_name and region_code mapped from $.customers[*] paths, all String](../_assets/images/1788277506117.png)
+
+<div align="center">
+<figcaption><em>Fields - customers.json</em></figcaption>
+</div>
+</figure>
+> **Tip:**
+>
+> You could just copy and paste the step from .
+
 3. In the **View** tab (left panel), right-click **Database
    connections > New**:
-
    - **Connection name:** `warehouse`
    - **Connection type:** MySQL
    - **Host name:** `localhost` · **Port:** `3306`
    - **Database name:** `sampledata`
    - **Username:** `pentaho_admin` · **Password:** `password`
 
+<div align="center">
+<figure>
+
+![alt text](../_assets/images/1788777000503.png#w=420)
+
+<figcaption><em>Caption</em></figcaption>
+</figure>
+</div>
+
 4. Click **Test** — you should see *Connection ... is OK*.
+
+<div align="center">
+<figure>
+
+![alt text](../_assets/images/1788777081402.png#w=420)
+
+<figcaption><em>Caption</em></figcaption>
+</figure>
+</div>
 
 > **Note:** If the test complains about a missing driver or public
 > key retrieval, see Troubleshooting below — it's a one-time fix.
@@ -47,6 +105,15 @@
 1. From **Data Warehouse**, drag **Dimension lookup/update** onto
    the canvas and hop `Read customers` into it.
 2. Double-click it:
+
+<div align="center">
+<figure>
+
+![alt text](../_assets/images/1788777390992.png#w=420)
+
+<figcaption><em>Caption</em></figcaption>
+</figure>
+</div>
 
 * Tick **Update the dimension?** (top checkbox) — we're loading, not
   just looking up.
