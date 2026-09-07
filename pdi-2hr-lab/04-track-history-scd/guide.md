@@ -65,9 +65,10 @@
 <figcaption><em>Fields - customers.json</em></figcaption>
 </div>
 </figure>
+
 > **Tip:**
 >
-> You could just copy and paste the step from .
+> You could just copy and paste the step from the previous enrich_sales.ktr.
 
 3. In the **View** tab (left panel), right-click **Database connections > New**:
    - **Connection name:** `warehouse`
