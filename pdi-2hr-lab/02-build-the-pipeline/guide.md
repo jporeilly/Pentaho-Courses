@@ -156,7 +156,7 @@ Save the file/transformation (.ktr) as: C:\Workshop\pdi-2hr\02-see-it-work\02-bu
 
 <figure>
 
-![alt text](../_assets/images/1788788198393.png)
+![Text file output dialog, File tab: Rejects for source team writing to C:/Workshop/pdi-2hr/out/rejects with extension csv, Create parent folder and Do not create file at start ticked](../_assets/images/1788788198393.png)
 
 <div align="center">
 <figcaption><em>Output File</em></figcaption>
@@ -167,7 +167,7 @@ Save the file/transformation (.ktr) as: C:\Workshop\pdi-2hr\02-see-it-work\02-bu
 
 <figure>
 
-![alt text](../_assets/images/1788788271180.png)
+![Text file output dialog, Fields tab after Get Fields: the seven sales columns with their types, order_date as Date yyyy-MM-dd and unit_price as Number with two decimals](../_assets/images/1788788271180.png)
 
 <div align="center">
 <figcaption><em>Get Fields</em></figcaption>

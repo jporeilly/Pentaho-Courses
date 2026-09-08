@@ -64,10 +64,10 @@ So all we need to do is pick up the filename, its associated delimiter and stand
 
 <figure>
 
-![alt text](../_assets/images/1788797924142.png)
+![Text file input dialog, File tab: Read control with control.csv from the lab folder listed under Selected files](../_assets/images/1788797924142.png)
 
 <div align="center">
-<figcaption><em>Pass filename & separator - controls.csv</em></figcaption>
+<figcaption><em>Pass filename & separator - control.csv</em></figcaption>
 </div>
 </figure>
 
@@ -87,7 +87,7 @@ So all we need to do is pick up the filename, its associated delimiter and stand
 <div align="center">
 <figure>
 
-![alt text](../_assets/images/1788798204415.png#w=420)
+![The template canvas: Read feed, Standardise and Append to all_feeds in a line, with a note saying the template is not run directly and its reader has no filename](../_assets/images/1788798204415.png#w=420)
 
 <figcaption><em>Template - Injects filename and delimiter</em></figcaption>
 </figure>
@@ -104,7 +104,7 @@ So all we need to do is pick up the filename, its associated delimiter and stand
 <div align="center">
 <figure>
 
-![alt text](../_assets/images/1788853669370.png)
+![Text file input dialog for Read feed, Fields tab: col_store, col_date and col_amount typed by hand as String, with no file selected](../_assets/images/1788853669370.png)
 
 <figcaption><em>Edit the column headers</em></figcaption>
 </div>
@@ -117,7 +117,7 @@ So all we need to do is pick up the filename, its associated delimiter and stand
 <div align="center">
 <figure>
 
-![alt text](../_assets/images/1788854261690.png)
+![Select values dialog Standardise, Select and Alter tab: col_store renamed to store, col_date to sale_date and col_amount to amount](../_assets/images/1788854261690.png)
 
 <figcaption><em>Rename fields</em></figcaption>
 </div>
@@ -127,7 +127,7 @@ So all we need to do is pick up the filename, its associated delimiter and stand
    Filename `C:\Workshop\pdi-2hr\out\all_feeds`, extension `csv`.
 <figure>
 
-![alt text](../_assets/images/1788854419767.png)
+![Text file output dialog Append to all_feeds, File tab: filename C:/Workshop/pdi-2hr/out/all_feeds with extension csv](../_assets/images/1788854419767.png)
 
 <div align="center">
 <figcaption><em>Output path</em></figcaption>
@@ -138,7 +138,7 @@ So all we need to do is pick up the filename, its associated delimiter and stand
    **Fields**: add `store`, `sale_date`, `amount`.
 <figure>
 
-![alt text](../_assets/images/1788854498452.png)
+![Text file output dialog Append to all_feeds, Fields tab: store, sale_date and amount as String](../_assets/images/1788854498452.png)
 
 <div align="center">
 <figcaption><em>Get fields</em></figcaption>
@@ -152,7 +152,7 @@ So all we need to do is pick up the filename, its associated delimiter and stand
 <div align="center">
 <figure>
 
-![alt text](../_assets/images/1788854678779.png#w=420)
+![The injector canvas: File config hopped to Inject and run template, with a note saying it runs once per feed](../_assets/images/1788854678779.png#w=420)
 
 <figcaption><em>Metadata Injector</em></figcaption>
 </div>
@@ -162,7 +162,7 @@ So all we need to do is pick up the filename, its associated delimiter and stand
 <div align="center">
 <figure>
 
-![alt text](../_assets/images/1788854882672.png#w=420)
+![Get rows from result dialog File config: two String fields, filename and separator](../_assets/images/1788854882672.png#w=420)
 
 <figcaption><em>Add data stream fields for filename and separator</em></figcaption>
 </div>
@@ -175,7 +175,7 @@ So all we need to do is pick up the filename, its associated delimiter and stand
    once per control row, *this step is where that row arrives*.
 <figure>
 
-![alt text](../_assets/images/1788855363944.png)
+![ETL metadata injection dialog Inject and run template, pointing at solution_mi_template.ktr, with the Inject Metadata tree listing every property of the template's steps](../_assets/images/1788855363944.png)
 
 <div align="center">
 <figcaption><em>Template metadata properties</em></figcaption>
@@ -192,7 +192,7 @@ So all we need to do is pick up the filename, its associated delimiter and stand
    accepts one entry per row), 
 <figure>
 
-![alt text](../_assets/images/1788855637160.png)
+![ETL metadata injection dialog: the Read feed step's SEPARATOR row mapped to the separator field of File config, with the Source field picker open](../_assets/images/1788855637160.png)
 
 <div align="center">
 <figcaption><em>Inject the separator from the File config step</em></figcaption>
@@ -203,7 +203,7 @@ and **SEPARATOR** ← `File config` / `separator`. Leave everything else alone.
 
 <figure>
 
-![alt text](../_assets/images/1788855818060.png)
+![ETL metadata injection dialog: under FILENAME_LINES, the FILENAME row mapped to the filename field of File config, with the Source field picker open](../_assets/images/1788855818060.png)
 
 <div align="center">
 <figcaption><em>Inject the filename from the File config step</em></figcaption>
@@ -219,7 +219,7 @@ and **SEPARATOR** ← `File config` / `separator`. Leave everything else alone.
 ### 3. The driver job
 <figure>
 
-![alt text](../_assets/images/1788856253833.png)
+![The driver job canvas: START, Read control file, Inject per feed and Success in a line, an unconditional hop after START and success hops after each transformation, with a note explaining the loop](../_assets/images/1788856253833.png)
 
 <div align="center">
 <figcaption><em>Job - mi_driver.kjb</em></figcaption>
@@ -232,7 +232,7 @@ and **SEPARATOR** ← `File config` / `separator`. Leave everything else alone.
    **Success**; hop them into a line.
 <figure>
 
-![alt text](../_assets/images/1788856458602.png)
+![Transformation job entry dialog for Read control file, Options tab: solution_read_control.ktr with Execute every input row unticked and Clear results rows before execution ticked](../_assets/images/1788856458602.png)
 
 <div align="center">
 <figcaption><em>Read the control file</em></figcaption>
@@ -244,7 +244,7 @@ and **SEPARATOR** ← `File config` / `separator`. Leave everything else alone.
    rows to result** (from *Job*).
 <figure>
 
-![alt text](../_assets/images/1788856780725.png)
+![Transformation job entry dialog for Inject per feed, Options tab: solution_mi_inject.ktr with Execute every input row ticked](../_assets/images/1788856780725.png)
 
 <div align="center">
 <figcaption><em>Inject metadata ..</em></figcaption>
@@ -252,9 +252,36 @@ and **SEPARATOR** ← `File config` / `separator`. Leave everything else alone.
 </figure>
 
 4. Second transformation entry → `mi_inject.ktr`. On its
-   **Advanced** tab tick **Execute for every input row** — each
+   **Options** tab tick **Execute every input row** — each
    control row becomes one execution, delivered to the injector's
    `Get rows from result` step.
+
+> **Under the hood:**
+>
+> #### Your first job
+>
+> Everything you have built so far was a transformation: rows flow
+> through steps, and all the steps run at once. A **job** is the other
+> kind of thing PDI runs, and it works differently. A job is a list of
+> things to do one after another: run this transformation, then that
+> one, then send an email if something failed. Its boxes are called
+> **entries** rather than steps, and its hops carry no rows; they say
+> what happens next. A hop can be unconditional (always carry on),
+> follow only on success (green in Spoon), or follow only on failure
+> (red). Saved, a job is a `.kjb` file, plain XML like a `.ktr`.
+>
+> Your driver job is the smallest useful one: START, an entry that runs
+> the transformation reading `control.csv`, an entry that runs the
+> injector, and Success. Two settings turn it into a loop. **Copy rows
+> to result**, the last step of `read_control.ktr`, hands that
+> transformation's rows back to the job. **Execute every input row**,
+> on the second entry's Options tab, then runs `mi_inject.ktr` once per
+> row, with that row delivered to its *Get rows from result* step.
+>
+> **Why it matters:** transformations move data; jobs decide the
+> order, the repetition, and what happens when something goes wrong.
+> Every scheduled pipeline you will ever run in PDI is a job wrapped
+> around transformations, which is exactly what Lab 7 is about.
 
 ### 4. Run and extend
 
@@ -264,7 +291,7 @@ and **SEPARATOR** ← `File config` / `separator`. Leave everything else alone.
    times, once per control row.
 <figure>
 
-![alt text](../_assets/images/1788857063686.png)
+![Execution Results, Logging tab: the driver job's log showing Inject per feed dispatched three times, once each for stores_north.csv, stores_south.txt and partners_eu.csv](../_assets/images/1788857063686.png)
 
 <div align="center">
 <figcaption><em>Notice its executed for each record</em></figcaption>
@@ -275,7 +302,7 @@ and **SEPARATOR** ← `File config` / `separator`. Leave everything else alone.
    three shapes, one standard output.
 <figure>
 
-![alt text](../_assets/images/1788857159836.png)
+![all_feeds.csv opened in a spreadsheet: eighteen rows of store, date and amount from all three feeds, with no header row](../_assets/images/1788857159836.png)
 
 <div align="center">
 <figcaption><em>Output - records are appended</em></figcaption>
@@ -293,27 +320,29 @@ Now the punchline:
 >
 > #### The template was rewritten in memory, once per feed
 >
-> **ETL metadata injection** loaded `mi_template.ktr` as a
-> definition rather than as something to run, set the properties you
-> mapped — the filename, the separator — on the template's steps,
-> and executed that filled-in copy. The file on disk never changed;
-> each run got its own configured instance.
+> Normally a transformation's settings, such as which file to read and
+> which character separates its columns, are typed into its dialogs
+> and saved in the file. **Metadata injection** means filling those
+> settings in at run time instead, from data.
 >
-> That works because a step's configuration is *data* in the `.ktr`
-> XML, addressable by name. Anything the dialog can set, injection
-> can set: not just filenames and separators but whole field lists,
-> so one template can absorb feeds whose column layouts differ, not
-> merely their delimiters.
+> That is what just happened. The **ETL metadata injection** step in
+> `mi_inject.ktr` opened `mi_template.ktr` not to run it but to read
+> it as a description, wrote the two values you mapped (the filename
+> and the separator from the control row) into the template's reader
+> step, and then ran that filled-in copy. The file on disk never
+> changed; each control row got its own configured copy in memory.
 >
-> The driver job supplies the loop. **Execute for every input row**
-> runs the injector once per control row, and *Get rows from result*
-> is where that row lands — which is why adding a feed is adding
-> data, not code.
+> This works because a transformation is just a text file (Lab 1) and
+> every setting in it has a name. Anything you can set in a dialog,
+> injection can set: not only filenames and separators but whole
+> column lists, so one template can take in feeds whose columns
+> differ, not merely their delimiters.
 >
 > **Why it matters:** this is the difference between a tool and a
-> platform. Your pipeline count stops tracking your feed count —
-> 4 feeds or 400, it stays one template — and the control file is
-> something an operations team can own without ever opening Spoon.
+> platform. Your number of pipelines stops tracking your number of
+> feeds; four feeds or four hundred, it stays one template, and the
+> control file is something an operations team can own without ever
+> opening Spoon, the designer you have been using today.
 
 * [ ] `all_feeds.csv` contains rows from all three (then four) feeds.
 * [ ] The new feed required editing only `control.csv`.
@@ -337,7 +366,7 @@ re-reads the template.
 <summary>The job runs but all_feeds.csv has rows from only one feed</summary>
 
 The second transformation entry isn't iterating — check **Execute
-for every input row** is ticked on its Advanced tab, and that
+every input row** is ticked on its Options tab, and that
 `read_control.ktr` ends in **Copy rows to result**.
 
 </details>

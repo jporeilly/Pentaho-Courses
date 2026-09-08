@@ -39,7 +39,7 @@
    — you'll be editing it shortly, and Lab 3's copy stays pristine.
 <figure>
 
-![JSON input step configuration for customers.json](../_assets/images/1788776468295.png)
+![JSON input dialog, File tab: Read customers with this lab's customers.json listed under Selected files](../_assets/images/1788776468295.png)
 
 <div align="center">
 <figcaption><em>Add - customers.json</em></figcaption>
@@ -59,7 +59,7 @@
 
 <figure>
 
-![JSON input step configuration for customers.json](../_assets/images/1788277506117.png)
+![JSON input dialog, Fields tab: customer_id, customer_name and region_code mapped from $.customers[*] paths, all String](../_assets/images/1788277506117.png)
 
 <div align="center">
 <figcaption><em>Fields - customers.json</em></figcaption>
@@ -108,7 +108,7 @@
 <div align="center">
 <figure>
 
-![](../_assets/images/1788777390992.png)
+![Dimension lookup/update dialog: Load dim_customer with Update the dimension ticked, connection warehouse, target table dim_customer, key customer_id, technical key customer_tk, version field version, date range date_from to date_to](../_assets/images/1788777390992.png)
 
 <figcaption><em>Dimension / Lookup step</em></figcaption>
 </figure>
