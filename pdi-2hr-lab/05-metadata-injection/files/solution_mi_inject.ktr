@@ -2,8 +2,8 @@
 <transformation>
   <info>
     <name>solution_mi_inject</name>
-    <description>Lab 5 solution: inject one feed's metadata and run the template</description>
-    <extended_description>Takes FEED_FILE and FEED_SEP as parameters (set per control row by solution_mi_driver.kjb), injects them into solution_mi_template.ktr's Read feed step, and executes the filled-in template.</extended_description>
+    <description>Lab 5 solution, piece 2 of 3: fill the template in for one feed and run it</description>
+    <extended_description>Runs once per control row: the driver job starts it with "Execute every input row" ticked, and "File config" (Get rows from result) receives that row's filename and separator. "Inject and run template" (ETL metadata injection) opens solution_mi_template.ktr, writes the two values into its Read feed step (the filename as a file-list entry, the separator as a step setting) and runs the filled-in copy straight away. The template on disk never changes. Run on its own this does nothing, because no row arrives.</extended_description>
     <trans_version>1.0</trans_version>
     <trans_type>Normal</trans_type>
     <trans_status>0</trans_status>
@@ -13,14 +13,14 @@
   </info>
   <notepads>
     <notepad>
-      <note>Runs ONCE PER FEED - the driver job executes this for every control.csv
-row ("Execute for every input row"), and "Get rows from result" receives
-that row. The ETL metadata injection step pushes the filename and
-separator into the template and executes it.</note>
+      <note>SOLUTION - Lab 5, piece 2 of 3. Runs ONCE PER FEED: the driver job
+starts it for every control.csv row. "File config" receives the row
+(filename + separator); "Inject and run template" writes both into the
+template's Read feed step and runs it. Run alone it does nothing.</note>
       <xloc>48</xloc>
       <yloc>32</yloc>
       <width>440</width>
-      <heigth>64</heigth>
+      <heigth>80</heigth>
       <fontname>Segoe UI</fontname>
       <fontsize>10</fontsize>
       <fontbold>N</fontbold>

@@ -2,8 +2,8 @@
 <transformation>
   <info>
     <name>solution_mi_template</name>
-    <description>Lab 5 solution: the template - deliberately incomplete</description>
-    <extended_description>The reusable pipeline shape: read a delimited file (filename and separator are INJECTED at runtime), standardise the column names positionally, append to the combined output. It cannot run on its own - that is the point. Run solution_mi_driver.kjb instead.</extended_description>
+    <description>Lab 5 solution, piece 3 of 3: the template, deliberately incomplete</description>
+    <extended_description>The reusable pipeline shape: read a delimited file, standardise the column names by position, append to the combined output all_feeds.csv. "Read feed" has no filename and no real separator; solution_mi_inject.ktr writes both in at run time, once per feed, so this file never changes however many feeds arrive. It cannot run on its own. Run solution_mi_driver.kjb instead.</extended_description>
     <trans_version>1.0</trans_version>
     <trans_type>Normal</trans_type>
     <trans_status>0</trans_status>
@@ -13,13 +13,14 @@
   </info>
   <notepads>
     <notepad>
-      <note>TEMPLATE - do not run directly. "Read feed" has no filename and a
-placeholder separator; solution_mi_inject.ktr fills both in at runtime.
-Columns are positional (store, date, amount) - Standardise renames them.</note>
+      <note>TEMPLATE - Lab 5, piece 3 of 3. Do not run directly: "Read feed" has no
+filename and a placeholder separator; solution_mi_inject.ktr fills both
+in at run time. Columns are positional (store, date, amount) and
+"Standardise" renames them before the append to all_feeds.csv.</note>
       <xloc>48</xloc>
       <yloc>32</yloc>
       <width>440</width>
-      <heigth>64</heigth>
+      <heigth>80</heigth>
       <fontname>Segoe UI</fontname>
       <fontsize>10</fontsize>
       <fontbold>N</fontbold>

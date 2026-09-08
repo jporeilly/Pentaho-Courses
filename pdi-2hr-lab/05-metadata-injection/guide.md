@@ -26,12 +26,12 @@
 > and `control.csv` from **Lab Files** below into
 > this module's workshop folder:
 > `C:\Workshop\pdi-2hr\04-see-it-scale\05-one-pipeline-many-files\`. 
-> - Take a 3 store files
+> - Take a look at the 3 store files: different headers and delimiters.
 > - Open `control.csv` — one row per feed: the file's full path and its
 > separator. That file *is* the configuration; the pipelines you
 > build next never change again.
 
-Before we build anything, let's take a look at the files:
+Before we build anything, let's take a look at the store files:
 
 <div style="display:flex; flex-wrap:wrap; gap:16px; align-items:flex-start">
 <figure style="flex:0 1 auto; margin:0">
@@ -60,13 +60,16 @@ Before we build anything, let's take a look at the files:
 </figure>
 </div>
 
+So all we need to do is pick up the filename, its associated delimiter and standardize the header - <em>control.csv</em>:
 
+<figure>
 
+![alt text](../_assets/images/1788797924142.png)
 
-
-
-
-
+<div align="center">
+<figcaption><em>Pass filename & separator - controls.csv</em></figcaption>
+</div>
+</figure>
 
 > **Note:** **The shape of the solution.** One injection run
 > configures the template once — so to process many differently-
@@ -81,52 +84,173 @@ Before we build anything, let's take a look at the files:
 
 ### 1. The template
 
+<div align="center">
+<figure>
+
+![alt text](../_assets/images/1788798204415.png#w=420)
+
+<figcaption><em>Template - Injects filename and delimiter</em></figcaption>
+</figure>
+</div>
+
 1. New transformation, saved as
    `C:\Workshop\pdi-2hr\04-see-it-scale\05-one-pipeline-many-files\mi_template.ktr`.
-2. Drag on a **Text file input**. Name it `Read feed`. On
-   **Fields**, add three **String** fields by hand: `col_store`,
+2. Drag on a **Text file input**. Name it `Read feed`. 
+   - On **Fields**, add three **String** fields by hand: `col_store`,
    `col_date`, `col_amount` (the feeds all share this column
-   *order*, whatever the columns are called). On **Content**, make
-   sure **Header** is ticked. Configure **no file** — that's
+   *order*, whatever the columns are called). 
+   - On **Content**, make sure **Header** is ticked. Select **No empty rows** — that's
    injected at runtime.
+<div align="center">
+<figure>
+
+![alt text](../_assets/images/1788853669370.png)
+
+<figcaption><em>Edit the column headers</em></figcaption>
+</div>
+</figure>
+
 3. Drag on a **Select values** step, hopped from `Read feed`. Name
    it `Standardise`. On **Select & Alter**, rename
    `col_store → store`, `col_date → sale_date`,
    `col_amount → amount`.
+<div align="center">
+<figure>
+
+![alt text](../_assets/images/1788854261690.png)
+
+<figcaption><em>Rename fields</em></figcaption>
+</div>
+</figure>
+
 4. Drag on a **Text file output**, hopped from `Standardise`.
    Filename `C:\Workshop\pdi-2hr\out\all_feeds`, extension `csv`.
-   On **Content**: tick **Append**, untick **Header**. On
+<figure>
+
+![alt text](../_assets/images/1788854419767.png)
+
+<div align="center">
+<figcaption><em>Output path</em></figcaption>
+</div>
+</figure>
+
+   - On **Content**: tick **Append**, untick **Header**. On
    **Fields**: add `store`, `sale_date`, `amount`.
+<figure>
+
+![alt text](../_assets/images/1788854498452.png)
+
+<div align="center">
+<figcaption><em>Get fields</em></figcaption>
+</div>
+</figure>
+
 5. Save. This transformation can't run on its own — that's the
    point.
 
 ### 2. The injector
+<div align="center">
+<figure>
+
+![alt text](../_assets/images/1788854678779.png#w=420)
+
+<figcaption><em>Metadata Injector</em></figcaption>
+</div>
+</figure>
 
 1. New transformation, saved as `mi_inject.ktr` in the same folder.
-2. Drag on **Get rows from result** (from *Job*). Name it
-   `File config`. Add its two fields: `filename` and `separator`,
-   both String. When the driver job executes this transformation
+<div align="center">
+<figure>
+
+![alt text](../_assets/images/1788854882672.png#w=420)
+
+<figcaption><em>Add data stream fields for filename and separator</em></figcaption>
+</div>
+</figure>
+
+2. Drag on **Get rows from result** (from *Job*). 
+   - Name it `File config`. 
+   - Add its two fields: `filename` and `separator`, both String. 
+   When the driver job executes this transformation
    once per control row, *this step is where that row arrives*.
+<figure>
+
+![alt text](../_assets/images/1788855363944.png)
+
+<div align="center">
+<figcaption><em>Template metadata properties</em></figcaption>
+</div>
+</figure>
+
 3. From **Flow**, drag on **ETL metadata injection**, hopped from
-   `File config`. Double-click it and browse to `mi_template.ktr` —
+   `File config`. 
+   - Double-click it and browse to `mi_template.ktr` —
    the dialog shows every injectable property of every template
    step, as a tree.
 4. Wire two injections on the `Read feed` step: **FILENAME** ←
    `File config` / `filename` (it's under the file *list*, so it
-   accepts one entry per row), and **SEPARATOR** ← `File config` /
-   `separator`. Leave everything else alone.
+   accepts one entry per row), 
+<figure>
+
+![alt text](../_assets/images/1788855637160.png)
+
+<div align="center">
+<figcaption><em>Inject the separator from the File config step</em></figcaption>
+</div>
+</figure>
+
+and **SEPARATOR** ← `File config` / `separator`. Leave everything else alone.
+
+<figure>
+
+![alt text](../_assets/images/1788855818060.png)
+
+<div align="center">
+<figcaption><em>Inject the filename from the File config step</em></figcaption>
+</div>
+</figure>
+
+> **Tip:**
+>
+> If you accidentally select the wrong property, then highlight and click Cancel to remove.
+
 5. Save.
 
 ### 3. The driver job
+<figure>
+
+![alt text](../_assets/images/1788856253833.png)
+
+<div align="center">
+<figcaption><em>Job - mi_driver.kjb</em></figcaption>
+</div>
+</figure>
 
 1. **File > New > Job**, saved as `mi_driver.kjb` in the same
    folder.
 2. Drag on **START**, then two **Transformation** entries, then
    **Success**; hop them into a line.
-3. First transformation entry → `read_control.ktr`: build that as a
-   30-second transformation — **Text file input** reading
+<figure>
+
+![alt text](../_assets/images/1788856458602.png)
+
+<div align="center">
+<figcaption><em>Read the control file</em></figcaption>
+</div>
+</figure>
+
+3. First transformation entry → `read_control.ktr`: **Text file input** reading
    `control.csv` (fields `filename`, `separator`) hopped to **Copy
    rows to result** (from *Job*).
+<figure>
+
+![alt text](../_assets/images/1788856780725.png)
+
+<div align="center">
+<figcaption><em>Inject metadata ..</em></figcaption>
+</div>
+</figure>
+
 4. Second transformation entry → `mi_inject.ktr`. On its
    **Advanced** tab tick **Execute for every input row** — each
    control row becomes one execution, delivered to the injector's
@@ -138,8 +262,25 @@ Before we build anything, let's take a look at the files:
    append).
 2. Run the **job**. Watch the log: the injector executes three
    times, once per control row.
+<figure>
+
+![alt text](../_assets/images/1788857063686.png)
+
+<div align="center">
+<figcaption><em>Notice its executed for each record</em></figcaption>
+</div>
+</figure>
+
 3. Open `all_feeds.csv`: **18 rows** — north, south, and EU feeds,
    three shapes, one standard output.
+<figure>
+
+![alt text](../_assets/images/1788857159836.png)
+
+<div align="center">
+<figcaption><em>Output - records are appended</em></figcaption>
+</div>
+</figure>
 
 Now the punchline:
 

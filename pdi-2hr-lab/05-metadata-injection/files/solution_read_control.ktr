@@ -2,8 +2,8 @@
 <transformation>
   <info>
     <name>solution_read_control</name>
-    <description>Lab 5 solution: read the control file and hand its rows to the job</description>
-    <extended_description>Reads control.csv (one row per feed: full path + separator) and copies the rows to the job result, so the driver job can execute the injection once per row.</extended_description>
+    <description>Lab 5 solution, piece 1 of 3: read control.csv and hand its rows to the job</description>
+    <extended_description>Two steps and no output. "Read control" (Text file input) reads control.csv from the lab folder: one row per feed, holding the file's full path and the character that separates its columns. "To result" (Copy rows to result) hands those rows to the job that ran this transformation, so the driver job can run the injector once per row. On its own it reads three rows and writes nothing.</extended_description>
     <trans_version>1.0</trans_version>
     <trans_type>Normal</trans_type>
     <trans_status>0</trans_status>
@@ -12,6 +12,16 @@
     </parameters>
   </info>
   <notepads>
+    <notepad>
+      <note>SOLUTION - Lab 5, piece 1 of 3. Reads control.csv (one row per feed:
+path + separator) and hands the rows to the job with "Copy rows to
+result". The driver job then runs the injector once per row.</note>
+      <xloc>48</xloc>
+      <yloc>32</yloc>
+      <width>440</width>
+      <heigth>64</heigth>
+      <drawshadow>N</drawshadow>
+    </notepad>
   </notepads>
   <order>
     <hop>

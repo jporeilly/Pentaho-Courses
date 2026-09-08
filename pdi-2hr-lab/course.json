@@ -23,7 +23,7 @@
     "defaultProfile": "cpu",
     "models": {
       "cpu": "llama3.2:3b",
-      "gpu": "qwen2.5:7b"
+      "gpu": "Gemma4:12b"
     },
     "subject": "Pentaho Data Integration (Spoon, transformations, jobs)",
     "suggestions": [

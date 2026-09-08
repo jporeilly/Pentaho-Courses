@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <job>
   <name>solution_mi_driver</name>
-  <description>Lab 5 solution: run the injection once per control row</description>
-  <extended_description>Reads control.csv, then executes solution_mi_inject.ktr once for every row, mapping the row's filename and separator onto the FEED_FILE / FEED_SEP parameters. Add a feed by adding a line to control.csv - no pipeline changes.</extended_description>
+  <description>Lab 5 solution: the job that runs the injection once per control row</description>
+  <extended_description>A job runs things in order. START, then solution_read_control.ktr (which copies control.csv's rows to the job result), then solution_mi_inject.ktr with "Execute every input row" ticked on its Options tab, so it runs once per row and each feed is injected into the template and processed, then Success. Add a feed by adding a line to control.csv; no transformation changes.</extended_description>
   <job_version/>
   <job_status>0</job_status>
   <directory>/</directory>
@@ -159,13 +159,14 @@
   </hops>
   <notepads>
     <notepad>
-      <note>SOLUTION - Lab 5. One template, many feeds: this job reads control.csv
-and runs the injection transformation once per row ("Execute for every
-input row"). Add a feed = add a control.csv line.</note>
+      <note>SOLUTION - Lab 5, the job. One template, many feeds: "Read control file"
+reads control.csv and hands its rows to the job; "Inject per feed" runs
+the injector once per row ("Execute every input row", Options tab).
+Add a feed = add a control.csv line. Nothing else changes.</note>
       <xloc>64</xloc>
       <yloc>48</yloc>
       <width>460</width>
-      <heigth>64</heigth>
+      <heigth>80</heigth>
       <fontname>Segoe UI</fontname>
       <fontsize>10</fontsize>
       <fontbold>N</fontbold>
