@@ -41,8 +41,7 @@ everything *around* a 2am run:
 
 ## Watch: the production shape
 
-Your instructor will demo (or you can explore in the docs — the
-assistant in the panel below is grounded on them):
+Explore in the docs — the assistant in the panel below is grounded on them:
 
 1. A **job** wrapping today's transformations: start → ingest →
    validate → load dimension → email on failure.
@@ -86,7 +85,6 @@ Two minutes, two favours:
 
 ---
 
-> **Tip:** Keep Developer Edition installed — everything you built
-> today is yours, the licence covers continued evaluation and
-> development, and the pipelines you sketched against your own data
-> in Lab 6 are the start of your real proof of concept.
+> **Tip: Everything you built> today is yours, the licence covers continued
+> evaluation and development, and the pipelines you sketched against your own data
+> in Lab 6 are the start of your real proof of concept. Feel free to export.
