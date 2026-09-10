@@ -156,7 +156,7 @@
       ],
       "correct": 0,
       "explanation": "Developer Edition is the full product for evaluating and building — it doesn't expire. Running it in production is what needs the commercial licence (which also brings support and certified updates).",
-      "source": "Lab 0 — Before You Arrive"
+      "source": "Lab 0 — Before You Start"
     },
     {
       "id": "q-filter-false",

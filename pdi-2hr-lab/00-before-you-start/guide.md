@@ -1,13 +1,15 @@
-# Before You Arrive
+# Before You Start
 
 > **Warning:**
 >
-> #### Get Ready — Before You Arrive
+> #### Get Ready — Before You Start
 >
-> This lab session moves fast: in two hours you'll build a real data
+> Before we start the course, let's check that your environment is
+> ready and that you have access to the Workshop folders and files.
+> The session moves fast: in two hours you'll build a real data
 > pipeline, from first preview to a warehouse table that tracks
-> history. To make that possible, **none of the two hours is spent on
-> setup** — this page checks your machine is ready in advance.
+> history, and **none of that time is spent on setup** — this page
+> does it in advance.
 >
 > **What you'll do**
 >
@@ -42,7 +44,9 @@ tells you the exact fix. The one that matters most is **MySQL** — Lab 4 loads 
 
 ## Start Pentaho Data Integration
 
-Click the button below. First launch can take a minute ..
+If Pentaho Data Integration hasn't loaded into your window, you can
+launch it by clicking the **Start Pentaho Data Integration** button
+below. First launch can take a minute.
 
 <button data-launch="spoon">Start Pentaho Data Integration</button>
 

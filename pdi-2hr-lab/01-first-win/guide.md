@@ -14,7 +14,7 @@
 > * Preview live data at any point in the flow.
 > * See two bad rows get caught automatically.
 >
-> **Prerequisites:** [Before You Arrive](../00-before-you-arrive/guide.md) completed.
+> **Prerequisites:** [Before You Start](../00-before-you-start/guide.md) completed.
 >
 > **Estimated Time:** 10 minutes
 

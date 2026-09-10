@@ -15,7 +15,7 @@
 > * Load it with **Dimension lookup/update** (Type 2 SCD).
 > * Change a customer's region, reload, and see history preserved.
 >
-> **Prerequisites:** [Enrich and Join](../03-enrich-and-join/guide.md); the workshop MySQL running (green in [Before You Arrive](../00-before-you-arrive/guide.md)).
+> **Prerequisites:** [Enrich and Join](../03-enrich-and-join/guide.md); the workshop MySQL running (green in [Before You Start](../00-before-you-start/guide.md)).
 >
 > **Estimated Time:** 15 minutes
 

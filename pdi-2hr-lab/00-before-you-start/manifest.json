@@ -1,6 +1,6 @@
 {
-  "title": "Before You Arrive",
-  "description": "Ten minutes of setup before the session so none of the two hours is lost to it.",
+  "title": "Before You Start",
+  "description": "Ten minutes before you start: check the environment is ready and you have the Workshop folders and files.",
   "order": 1,
   "estimatedMinutes": 10,
   "checks": [
