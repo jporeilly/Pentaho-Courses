@@ -21,6 +21,14 @@
 >
 > **Estimated Time:** 20 minutes
 
+<figure>
+
+![Walkthrough](https://vimeo.com/1225659709?share=copy&fl=sv&fe=ci)
+
+<figcaption class="pcm-video-caption">Watch: Enrich and Join</figcaption>
+
+</figure>
+
 > **Note:** **Get the files first.** Check `customers.json`,
 > `products.csv`, and `regions.csv` have been downloaded into
 > this lab's workshop folder:

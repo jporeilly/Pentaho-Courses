@@ -18,6 +18,14 @@
 >
 > **Estimated Time:** 15 minutes
 
+<figure>
+
+![Walkthrough](https://vimeo.com/1225659709?share=copy&fl=sv&fe=ci)
+
+<figcaption class="pcm-video-caption">Watch: Build the Pipeline</figcaption>
+
+</figure>
+
 > **Note:** **Get the data file first.** Check the file:
 > `sales_20260101.csv` has been downloaded into the workshop folder:
 > `C:\Workshop\pdi-2hr\02-see-it-work\02-build-the-pipeline\`.

@@ -15,8 +15,12 @@
 > * Let **Get Fields** discover the structure.
 > * Profile it: row counts, groupings, and a data-quality filter — in minutes.
 >
-> **Prerequisites:** [Build the Pipeline Yourself](../02-build-the-pipeline/guide.md). A data file of your own — an export from a spreadsheet, a system extract, a log. No customer PII if you're on a shared lab VM, please.
+> **Prerequisites:** [Build the Pipeline Yourself](../02-build-the-pipeline/guide.md). A data file of your own — an > export from a spreadsheet, a system extract, a log. 
+
+> **Critical:**
 >
+> Please **No customer PII**.
+
 > **Estimated Time:** 15 minutes
 
 > **Note:** **Getting your file onto a lab VM.** Use your cloud file
