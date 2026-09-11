@@ -25,6 +25,14 @@
 > you build that pipeline. This lab shows you the finished first
 > stage so you know where you're going.
 
+<figure>
+
+![Walkthrough](https://vimeo.com/1225659709?share=copy&fl=sv&fe=ci)
+
+<figcaption class="pcm-video-caption">Watch: Your First Win</figcaption>
+
+</figure>
+
 ## Open the pipeline
 
 Click the button below — PDI opens with the transformation loaded.
