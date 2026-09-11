@@ -2,7 +2,7 @@
   "id": "pdi-2hr-lab",
   "title": "Pentaho Data Integration in 2 Hours",
   "description": "A hands-on try-it lab: build a real pipeline with Pentaho Data Integration Developer Edition — from first preview to change history and metadata injection — in one two-hour sitting.",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "kind": "workshop",
   "mode": "free",
   "role": "developer",
@@ -77,7 +77,7 @@
   ],
   "welcome": {
     "eyebrow": "Try-It Lab",
-    "video": "https://vimeo.com/1225659709?share=copy&fl=sv&fe=ci",
+    "video": "https://vimeo.com/1225659709",
     "caption": "Course Tour (3mins)",
     "analyticsNote": "This course reports anonymous usage analytics — which labs are opened, steps completed and tools launched — under a random install id, so we can see where the lab flows well and where it doesn't. It never sends your name, email address, chat questions or notes. \n\nThe Wrap-Up Check is anonymous too: your answers stay on this machine and no score is sent anywhere. \nThere is no completion certificate, so the short form at the end is optional and only for anyone who would like further details on Pentaho products and services — if you fill it in, what you enter is sent to Pentaho so we can follow up; leave it blank and nothing personal leaves this machine."
   }
