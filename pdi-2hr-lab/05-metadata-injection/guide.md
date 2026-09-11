@@ -22,6 +22,14 @@
 >
 > **Estimated Time:** 20 minutes
 
+<figure>
+
+![Walkthrough](https://vimeo.com/1225659709?share=copy&fl=sv&fe=ci)
+
+<figcaption class="pcm-video-caption">Watch: Metadata Injection</figcaption>
+
+</figure>
+
 > **Note:** **Get the files first.** Download the three feed files
 > and `control.csv` from **Lab Files** below into
 > this module's workshop folder:
