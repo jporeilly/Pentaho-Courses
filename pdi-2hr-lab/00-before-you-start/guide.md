@@ -17,7 +17,7 @@
 > * Check the sample MySQL database is up and running.
 > * Check the working folder: C:\Workshop\pdi-2hr
 >
-> **Estimated Time:** 10 minutes — before the session.
+> **Estimated Time:** 5 minutes — before the session.
 
 > **Note:** **About the software you're using.** Pentaho Data
 > Integration **Developer Edition** is free for evaluation,
