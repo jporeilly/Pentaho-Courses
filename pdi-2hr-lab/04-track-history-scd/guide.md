@@ -19,6 +19,14 @@
 >
 > **Estimated Time:** 15 minutes
 
+<figure>
+
+![Walkthrough](https://vimeo.com/1225659709?share=copy&fl=sv&fe=ci)
+
+<figcaption class="pcm-video-caption">Watch: Track History</figcaption>
+
+</figure>
+
 <div align="center">
 <figure>
 
