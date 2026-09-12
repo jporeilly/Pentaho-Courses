@@ -1,7 +1,7 @@
 {
   "title": "One Pipeline, Many Files",
   "description": "Metadata injection: a control file drives one template transformation to ingest three differently-shaped feeds — then a fourth, without touching a pipeline.",
-  "order": 6,
+  "order": 7,
   "estimatedMinutes": 20,
   "checks": [
     {
