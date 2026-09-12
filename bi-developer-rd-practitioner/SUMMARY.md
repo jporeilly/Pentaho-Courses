@@ -1,6 +1,6 @@
 # Pentaho BI Developer - RD Practitioner
 
-## Please read ...!
+## Before You Start
 
 * [Please watch video...!](01-mod1-getting-started/guide.md)
 
