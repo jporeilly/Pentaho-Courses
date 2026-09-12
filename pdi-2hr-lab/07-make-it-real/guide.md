@@ -1,6 +1,6 @@
 # From Lab to Production
 
-> **Warning:**
+> **Note:**
 >
 > #### From Lab to Production
 >

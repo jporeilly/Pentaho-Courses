@@ -2,7 +2,7 @@
 
 ## Get Ready
 
-* [Before You Start](00-before-you-start/guide.md)
+* [Before You Start](08-before-you-start/guide.md)
 
 ## See It Work
 
