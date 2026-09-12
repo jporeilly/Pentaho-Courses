@@ -1,0 +1,10 @@
+{
+  "title": "Bring Your Own Data",
+  "description": "",
+  "order": 7,
+  "kind": "page",
+  "stepCount": 2,
+  "estimatedMinutes": 15,
+  "hasVideo": false,
+  "noProgress": true
+}

@@ -1,0 +1,10 @@
+{
+  "title": "From Lab to Production",
+  "description": "",
+  "order": 8,
+  "kind": "page",
+  "stepCount": 4,
+  "estimatedMinutes": 15,
+  "hasVideo": false,
+  "noProgress": true
+}

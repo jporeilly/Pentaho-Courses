@@ -17,8 +17,8 @@
 ## See It Scale
 
 * [One Pipeline, Many Files](05-metadata-injection/guide.md)
-* [Bring Your Own Data](06-your-data/guide.md)
+* [Bring Your Own Data](09-bring-your-own-data/guide.md)
 
 ## Make It Real
 
-* [From Lab to Production](07-make-it-real/guide.md)
+* [From Lab to Production](10-from-lab-to-production/guide.md)

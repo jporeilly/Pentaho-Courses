@@ -2,7 +2,7 @@
 
 > **Note:**
 >
-> #### From Lab to Production
+> #### Make It Real - From Lab to Production
 >
 > In ninety minutes you built a validating ingest, a three-source
 > join, a Type 2 history dimension, and a template pipeline that
