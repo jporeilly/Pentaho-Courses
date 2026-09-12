@@ -2,7 +2,7 @@
 
 ## Getting Started
 
-* [Please read ..!](00-getting-started/guide.md)
+* [Before You Start](00-before-you-start/guide.md)
 
 ## Machine Learning
 * [Overview](01-overview/guide.md)
