@@ -8,10 +8,18 @@
   "intake": {
     "optional": true,
     "consent": false,
-    "notesPlaceholder": "If you require any further details on Pentaho products and services, tell us here what you are interested in.",
     "startLabel": "Start Wrap-Up check",
     "trackResults": false,
-    "lead": "The Wrap-Up Check is anonymous — no results are sent anywhere and your answers stay on this machine. The short form is optional: fill it in only if you would like further details on Pentaho products and services, otherwise leave it blank and start."
+    "lead": "The Wrap-Up Check is anonymous — no results are sent anywhere and your answers stay on this machine, so there is no score pressure and you can retake it as often as you like. Pressing start just begins the twenty questions. If you would like to ask us something or hear more about Pentaho products and services, use Contact Us in the sidebar.",
+    "contact": {
+      "to": "academy@pentaho.com",
+      "webhookUrl": "",
+      "webhookSecret": "",
+      "heading": "Contact Us",
+      "blurb": "Ask us anything about the lab, or tell us what you would like to know about Pentaho products and services. This is separate from the Wrap-Up Check — that stays anonymous and sends nothing.",
+      "messagePlaceholder": "If you require any further details on Pentaho products and services, tell us here what you are interested in.",
+      "sendLabel": "Send"
+    }
   },
   "questions": [
     {
