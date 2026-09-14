@@ -28,7 +28,10 @@
 
 > **Note:** **Get the data file first.** Check the file:
 > `sales_20260101.csv` has been downloaded into the workshop folder:
-> `C:\Workshop\pdi-2hr\02-see-it-work\02-build-the-pipeline\`.
+
+```text
+C:\Workshop\pdi-2hr\02-see-it-work\02-build-the-pipeline\
+```
 <div align="center">
 <figure>
 
@@ -43,7 +46,11 @@
 In PDI: **File > New > Transformation** (or `Ctrl+N`). You get an
 empty canvas and, on the left, the **Design** palette — every
 capability of the engine, organised by category. familiarize yourself with some of the Steps.
-Save the file/transformation (.ktr) as: C:\Workshop\pdi-2hr\02-see-it-work\02-build-the-pipeline\check_keys.ktr
+Save the file/transformation (.ktr) as: 
+
+```text
+C:\Workshop\pdi-2hr\02-see-it-work\02-build-the-pipeline\check_keys.ktr
+```
 
 ## Read the file
 
@@ -51,9 +58,12 @@ Save the file/transformation (.ktr) as: C:\Workshop\pdi-2hr\02-see-it-work\02-bu
    onto the canvas.
 > **Note:** **Tip.** This is a steep learning curve, so use the 'Search' box to narrow down the hunt for the Step.
 2. Double-click it. Name it `Read sales`.
-3. On the **File** tab, click **Browse**, pick
-   `C:\Workshop\pdi-2hr\02-see-it-work\02-build-the-pipeline\sales_20260101.csv`,
-   then click **Add** so it appears in the *Selected files* grid.
+3. On the **File** tab, click **Browse**, pick:
+
+```text
+C:\Workshop\pdi-2hr\02-see-it-work\02-build-the-pipeline\sales_20260101.csv
+```
+then click **Add** so it appears in the *Selected files* grid.
 <figure>
 
 ![Text file input dialog, File tab: Read sales with sales_20260101.csv listed under Selected files](../_assets/images/1788426433666.png)
@@ -158,9 +168,13 @@ Save the file/transformation (.ktr) as: C:\Workshop\pdi-2hr\02-see-it-work\02-bu
 1. From **Output**, drag **Text file output** onto the canvas.
 2. Hop from `Keys present?` to it — when asked, choose the
    **FALSE** (result is false) branch.
-3. Double-click it. Name it `Rejects for source team`. Set the
-   **Filename** to `C:\Workshop\pdi-2hr\out\rejects` (PDI adds
-   `.txt`; switch **Extension** to `csv` if you prefer).
+3. Double-click it. Name it `Rejects for source team`. 
+4. Set the **Filename** to: 
+
+```text
+C:\Workshop\pdi-2hr\out\rejects
+```
+PDI adds`.txt`; switch **Extension** to `csv` if you prefer.
 
 <figure>
 
