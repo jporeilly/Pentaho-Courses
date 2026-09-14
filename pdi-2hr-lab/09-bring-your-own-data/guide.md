@@ -26,11 +26,12 @@
 > **Note:** **Getting your file onto a lab VM.** Use your cloud file
 > share: open OneDrive, SharePoint, Google Drive, or Dropbox in the
 > VM's browser (or paste a share link a colleague sends you) and
-> download the file to
-> `C:\Workshop\pdi-2hr\04-see-it-scale\06-your-data\`. Nothing leaves the
-> VM — the file is read locally and the VM is wiped after the
-> session.
->
+> download the file to:
+
+```text
+C:\Workshop\pdi-2hr\04-see-it-scale\06-your-data\
+```
+> **Note:** Nothing leaves the VM — the file is read locally and the VM is wiped after the session.
 > No file with you? Grab any public dataset — or export a sheet from
 > Excel with **File > Save as > CSV** and use that. The lab works
 > with anything tabular.
@@ -72,16 +73,24 @@ palette:
 Preview after each step. That's the loop: *add a step, look at the
 data, decide*.
 
+## Sample Data
+> **Note:**
+> If you're a bit stuck to try out various pipelines, checkout:
+>
+> **C:\Pentaho\design-tools\data-integration\samples**
+
+
 ## Reflect
 
-* [ ] My file was readable in under five minutes.
-* [ ] I found at least one thing I didn't know about my own data.
+**`[ ]`** My file was readable in under five minutes.
+
+**`[ ]`** I found at least one thing I didn't know about my own data.
 
 The second checkbox is the honest test of a data tool — most files
 hide something (a stray delimiter, a duplicated key, a date in two
 formats). What matters is how fast the tool let you *see* it.
 
-## Troubleshooting
+### Troubleshooting
 
 <details>
 

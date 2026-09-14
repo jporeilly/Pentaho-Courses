@@ -76,7 +76,7 @@ paths — substitute yours if you're elsewhere.
 Lab 4 loads a dimension table into MySQL (no sample data needs loading). 
 The environment panel above shows **MySQL** green when the container is up.
 
-## Troubleshooting
+### Troubleshooting
 
 <details>
 

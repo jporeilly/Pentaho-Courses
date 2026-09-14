@@ -55,10 +55,13 @@ Explore in the docs — the assistant in the panel below is grounded on them:
 Two hours is enough to know whether this fits how your team works.
 The honest questions:
 
-* [ ] I have feeds today that would fit the metadata-injection pattern.
-* [ ] Somebody in my team maintains hand-written SCD / merge SQL.
-* [ ] Our current pipelines fail silently or are hard to see into.
-* [ ] I have data sources this would need to connect to that I have not tested today.
+**`[ ]`** I have feeds today that would fit the metadata-injection pattern.
+
+**`[ ]`** Somebody in my team maintains hand-written SCD / merge SQL.
+
+**`[ ]`** Our current pipelines fail silently or are hard to see into.
+
+**`[ ]`** I have data sources this would need to connect to that I have not tested today.
 
 If you ticked any of these, the conversation is worth fifteen
 minutes:
@@ -85,6 +88,5 @@ Two minutes, two favours:
 
 ---
 
-> **Tip: Everything you built> today is yours, the licence covers continued
-> evaluation and development, and the pipelines you sketched against your own data
+> **Tip: Everything you built today is yours and the pipelines you sketched against your own data
 > in Lab 6 are the start of your real proof of concept. Feel free to export.

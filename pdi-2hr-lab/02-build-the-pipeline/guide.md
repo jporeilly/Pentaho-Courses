@@ -253,8 +253,8 @@ PDI adds`.txt`; switch **Extension** to `csv` if you prefer.
 > batch sizes. You drew boxes and arrows, and the engine turned that
 > into a pipeline where everything works at once.
 
-## Troubleshooting
-
+>
+### Troubleshooting
 <details>
 
 <summary>The hop dialog didn't ask TRUE or FALSE</summary>

@@ -43,8 +43,12 @@
    `Read customers` (same three fields — copy/paste the step between
    transformations with `Ctrl+C`/`Ctrl+V` if you like), but pointed
    at **this lab's own copy** of the file:
-   `C:\Workshop\pdi-2hr\03-make-it-yours\04-track-history\customers.json`
-   — you'll be editing it shortly, and Lab 3's copy stays pristine.
+
+```text
+C:\Workshop\pdi-2hr\03-make-it-yours\04-track-history\customers.json
+```
+you'll be editing it shortly, and Lab 3's copy stays pristine.
+
 <figure>
 
 ![JSON input dialog, File tab: Read customers with this lab's customers.json listed under Selected files](../_assets/images/1788776468295.png)
@@ -210,9 +214,13 @@ loads can point failed lookups somewhere instead of dropping rows.
 
 ## Now change history
 
-1. Open
-   `C:\Workshop\pdi-2hr\03-make-it-yours\04-track-history\customers.json`
-   in a text editor.
+1. Open:
+
+```text
+C:\Workshop\pdi-2hr\03-make-it-yours\04-track-history\customers.json
+```
+in a text editor.
+
 2. Find **C001 (Aiden Marsh)** and change `"region_code": "NW"` to
    `"region_code": "NE"`. Save.
 
@@ -281,12 +289,13 @@ report today's and they're in the North East — both correct.
 > a dialog anybody can audit, rather than buried in SQL only its author
 > understands.
 
-* [ ] First run: 21 rows in `dim_customer` (20 customers + the
+**`[ ]`** First run: 21 rows in `dim_customer` (20 customers + the
       technical "unknown" row).
-* [ ] After the edit and second run: 22 rows, C001 at version 2 with
+
+**`[ ]`** After the edit and second run: 22 rows, C001 at version 2 with
       version 1's validity window closed.
 
-## Troubleshooting
+### Troubleshooting
 
 <details>
 

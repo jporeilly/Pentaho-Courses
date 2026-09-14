@@ -293,8 +293,12 @@ and **SEPARATOR** ← `File config` / `separator`. Leave everything else alone.
 
 ### 4. Run and extend
 
-1. Delete `C:\Workshop\pdi-2hr\out\all_feeds.csv` if it exists (we
-   append).
+1. Delete:
+
+```text
+C:\Workshop\pdi-2hr\out\all_feeds.csv
+```
+if it exists (we append).
 2. Run the **job**. Watch the log: the injector executes three
    times, once per control row.
 <figure>
