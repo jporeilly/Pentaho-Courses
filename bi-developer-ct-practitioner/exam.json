@@ -6,6 +6,17 @@
   "shuffle": true,
   "webhookUrl": "https://script.google.com/macros/s/AKfycbzt7thr4mfy3-kduDbiQ_UfBPwGC7JxpZA9p1XOeGJG4Q0rh9-OoKJNG965c8SVNQ7i/exec",
   "webhookSecret": "pcm_Y61JKvDGnbuqvn3BIVCkjoSu98Jn3bE4",
+  "intake": {
+    "contact": {
+      "to": "academy@pentaho.com",
+      "webhookUrl": "",
+      "webhookSecret": "pcm_sPhjWMHFhIvusSc1hbqN6cvQ7NUKCX9",
+      "heading": "Contact Us",
+      "blurb": "Ask us anything about the course, or tell us what you would like to know about Pentaho products and services. This is separate from the exam.",
+      "messagePlaceholder": "What would you like to know?",
+      "sendLabel": "Send"
+    }
+  },
   "questions": [
     {
       "id": "gs-q1",
