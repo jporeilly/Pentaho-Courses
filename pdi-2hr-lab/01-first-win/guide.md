@@ -40,13 +40,11 @@ Click the button below — PDI opens with the transformation loaded.
 clipboard: switch to PDI, press `Ctrl+O`, `Ctrl+V`, `Enter`.)
 
 <button data-launch="spoon" data-path="files/win_preview.ktr">Open in Pentaho Data Integration</button>
-
 >
 Path to Transformation:
-```txt
+```text
 C:\Workshop\pdi-2hr\02-see-it-work\01-your-first-win
 ```
-
 You should see three connected steps on the canvas: a file reader, a
 filter, and two end points — one for valid rows, one for rejects.
 
