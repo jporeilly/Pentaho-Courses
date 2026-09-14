@@ -155,11 +155,12 @@ in memory. You'll meet the real join in a moment.
    - set **Lookup step** to `Read customers` 
    - in *keys to look up*, match `customer_id` = `customer_id`
    - in *fields to retrieve*, add `customer_name` and `region_code`
+
 <figure>
+<div align="center">
 
 ![Stream lookup dialog + customer: key customer_id matched to customer_id from Read customers, retrieving customer_name and region_code](../_assets/images/1788350927645.png)
 
-<div align="center">
 <figcaption><em>Lookup + customers</em></figcaption>
 </div>
 </figure>
@@ -169,10 +170,10 @@ in memory. You'll meet the real join in a moment.
    - fed by `+ customer` and `Read products`, matching `product_id`= id`
       retrieving `name` (rename to `product_name`),`category` and `cost`.
 <figure>
+<div align="center">
 
 ![Stream lookup dialog + products: key product_id matched to id from Read products, retrieving name, category and cost as product_name, product_category and cost](../_assets/images/1788351021033.png)
 
-<div align="center">
 <figcaption><em>Lookup + products</em></figcaption>
 </div>
 </figure>
@@ -262,20 +263,21 @@ steps.
 
 2. From **Transform**, drag on two **Sort rows** steps:
    * `Sort regions` — hopped from `Read regions`, sorting on `code`.
-<div align="center">
 <figure>
+<div align="center">
 
-![Sort rows dialog Sort regions: sorted by code, ascending](../_assets/images/1788428664906.png#w=420)
+![Sort rows dialog Sort regions: sorted by code, ascending](../_assets/images/1788428664906.png#w=550)
 
 <figcaption><em>Sort rows - code</em></figcaption>
 </figure>
 </div>
 
    * `Sort by region` — hopped from `Compute margin`, sorting on `region_code`.
+   
 <div align="center">
 <figure>
 
-![Sort rows dialog Sort by regions: sorted by region_code, ascending](../_assets/images/1788428856220.png#w=420)
+![Sort rows dialog Sort by regions: sorted by region_code, ascending](../_assets/images/1788428856220.png#w=550)
 
 <figcaption><em>Sort rows - by regions</em></figcaption>
 </figure>
@@ -367,10 +369,13 @@ Three practical consequences worth carrying home:
 > detection, and **Join rows** for a deliberate Cartesian product.
 > The two on your canvas are the ones you'll reach for most.
 
-* [ ] Preview shows 37 enriched rows.
-* [ ] `gross` keeps its pennies (row 1 is 99.98, not 100).
-* [ ] `margin` is populated and plausible (mostly positive).
-* [ ] `region_name` and `manager_email` are filled on every row.
+**`[ ]`** Preview shows 37 enriched rows.
+
+**`[ ]`** `gross` keeps its pennies (row 1 is 99.98, not 100).
+
+**`[ ]`** `margin` is populated and plausible (mostly positive).
+
+**`[ ]`** `region_name` and `manager_email` are filled on every row.
 
 ## Troubleshooting
 
