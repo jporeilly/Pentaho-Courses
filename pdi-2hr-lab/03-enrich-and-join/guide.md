@@ -32,8 +32,11 @@
 > **Note:** **Get the files first.** Check `customers.json`,
 > `products.csv`, and `regions.csv` have been downloaded into
 > this lab's workshop folder:
-> `C:\Workshop\pdi-2hr\03-make-it-yours\03-enrich-and-join\`.
 <figure>
+
+```text
+C:\Workshop\pdi-2hr\03-make-it-yours\03-enrich-and-join\
+```
 
 ![Part 2 target canvas: Read sales and Keys present? feed the + customer and + products stream lookups, Compute margin, Sort by regions and the + region merge join into Enriched rows, with Read customers, Read products and Read regions supplying the lookups](../_assets/images/1788427100975.png)
 
@@ -49,8 +52,11 @@
 2. From **Input**, drag **JSON input** onto an empty part of the
    canvas.
 3. Double-click it. Name it `Read customers`. On the **File** tab,
-   browse to
-   `C:\Workshop\pdi-2hr\03-make-it-yours\03-enrich-and-join\customers.json`
+   browse to:
+
+```text
+C:\Workshop\pdi-2hr\03-make-it-yours\03-enrich-and-join\customers.json
+```
    and **Add** it.
 <figure>
 
@@ -93,8 +99,11 @@
 ## Read the product catalogue
 
 1. Drag another **Text file input** on. Name it `Read products`.
-2. Point it at
-   `C:\Workshop\pdi-2hr\03-make-it-yours\03-enrich-and-join\products.csv`.
+2. Point it at:
+
+```text
+C:\Workshop\pdi-2hr\03-make-it-yours\03-enrich-and-join\products.csv
+```
 <figure>
 
 ![Text file input dialog, File tab: Read products with products.csv under Selected files](../_assets/images/1788339439671.png)
@@ -142,9 +151,10 @@ in memory. You'll meet the real join in a moment.
    `+ customer`.
 2. Hop from `Valid rows` (your Lab 2 TRUE branch) into it, and a
    second hop from `Read customers` into it.
-3. Double-click it: set **Lookup step** to `Read customers`; in
-   *keys to look up*, match `customer_id` = `customer_id`; in
-   *fields to retrieve*, add `customer_name` and `region_code`.
+3. Double-click it: 
+   - set **Lookup step** to `Read customers` 
+   - in *keys to look up*, match `customer_id` = `customer_id`
+   - in *fields to retrieve*, add `customer_name` and `region_code`
 <figure>
 
 ![Stream lookup dialog + customer: key customer_id matched to customer_id from Read customers, retrieving customer_name and region_code](../_assets/images/1788350927645.png)
@@ -154,10 +164,10 @@ in memory. You'll meet the real join in a moment.
 </div>
 </figure>
 
-4. Repeat the pattern: another **Stream lookup** named `+ product`,
-   fed by `+ customer` and `Read products`, matching `product_id` =
-   `id`, retrieving `name` (rename to `product_name`), `category`,
-   and `cost`.
+4. Repeat the pattern: 
+   - another **Stream lookup** named `+ product`
+   - fed by `+ customer` and `Read products`, matching `product_id`= id`
+      retrieving `name` (rename to `product_name`),`category` and `cost`.
 <figure>
 
 ![Stream lookup dialog + products: key product_id matched to id from Read products, retrieving name, category and cost as product_name, product_category and cost](../_assets/images/1788351021033.png)
@@ -236,9 +246,10 @@ scalability is one rule: **both inputs must arrive sorted on the join
 keys**, so a Merge join is almost always preceded by two **Sort rows**
 steps.
 
-1. Drag another **Text file input** on. Name it `Read regions`, point
-   it at `regions.csv` in this lab's folder, header ticked, and on
-   **Fields** tab add three String fields
+1. Drag another **Text file input** on. 
+   - Name it `Read regions` 
+   - point it at `regions.csv` in this lab's folder, header ticked, 
+   - and on **Fields** tab add three String fields
    - ***Get fields***: `code`, 'region_name` (rename from 'name'),`manager_email`.
 <figure>
 
@@ -260,8 +271,7 @@ steps.
 </figure>
 </div>
 
-   * `Sort by region` — hopped from `Compute margin`, sorting on
-     `region_code`.
+   * `Sort by region` — hopped from `Compute margin`, sorting on `region_code`.
 <div align="center">
 <figure>
 
@@ -273,9 +283,11 @@ steps.
 
 3. From **Joins**, drag on **Merge join**. Name it `+ region`. Hop
    both sort steps into it, then double-click it:
-   * **First step:** `Sort by region` · **Second step:** `Sort regions`
+   * **First step:** `Sort by region`
+   * **Second step:** `Sort regions`
    * **Join type:** `LEFT OUTER`
-   * **Keys for 1st step:** `region_code` · **Keys for 2nd step:** `code`
+   * **Keys for 1st step:** `region_code`
+   * **Keys for 2nd step:** `code`
 <div align="center">
 <figure>
 
@@ -285,8 +297,7 @@ steps.
 </figure>
 </div>
 
-4. Preview `+ region`: every sale now also carries `region_name` and
-   `manager_email`.
+4. Preview `+ region`: every sale now also carries `region_name` and `manager_email`.
 
 > **Under the hood:**
 >
