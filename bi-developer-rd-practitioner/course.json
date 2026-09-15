@@ -4,6 +4,15 @@
     "measurementId": "G-C8S05V62JL",
     "apiSecret": "rwyZIAoPR7a7cF_gmdE-7Q"
   },
+  "contact": {
+    "to": "academy@pentaho.com",
+    "webhookUrl": "",
+    "webhookSecret": "pcm_sPhjWMHFhIvusSc1hbqN6cvQ7NUKCX9",
+    "heading": "Contact Us",
+    "blurb": "Ask us anything about the course, or tell us what you would like to know about Pentaho products and services. This is separate from the exam.",
+    "messagePlaceholder": "What would you like to know?",
+    "sendLabel": "Send"
+  },
   "title": "Pentaho BI Developer - RD Practitioner",
   "description": "Hands-on workshop for Pentaho Report Designer: data sources, report elements and groups, calculations, formatting, parameters, charts, sub-reports, and publishing to the BA repository.",
   "version": "0.1.0",
