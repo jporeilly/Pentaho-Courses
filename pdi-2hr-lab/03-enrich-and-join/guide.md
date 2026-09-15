@@ -38,7 +38,9 @@
 C:\Workshop\pdi-2hr\03-make-it-yours\03-enrich-and-join\
 ```
 
-![Part 2 target canvas: Read sales and Keys present? feed the + customer and + products stream lookups, Compute margin, Sort by regions and the + region merge join into Enriched rows, with Read customers, Read products and Read regions supplying the lookups](../_assets/images/1788427100975.png)
+![Part 2 target canvas: Read sales and Keys present? feed the + customer and + products stream lookups, Compute margin, Sort by regions and the + region merge join into Enriched rows, with Read customers, Read products and Read regions supplying the lookups](../_assets/images/1789472862690.png)
+
+<figure>
 
 <div align="center">
 <figcaption><em>Part 2: Enrich and Join data</em></figcaption>
@@ -234,7 +236,7 @@ in memory. You'll meet the real join in a moment.
    region code, product, category — and a margin figure that never
    existed in any source file.
 
-## Join the region reference (a real join)
+## Join the region reference (a merge join)
 
 Each sale now has a `region_code`, and `regions.csv` says what that
 code means — its name and the manager who owns the number. Time for
@@ -371,14 +373,14 @@ Three practical consequences worth carrying home:
 
 **`[ ]`** Preview shows 37 enriched rows.
 
-**`[ ]`** `gross` keeps its pennies (row 1 is 99.98, not 100).
+**`[ ]`**`gross` keeps its pennies (row 1 is 99.98, not 100).
 
-**`[ ]`** `margin` is populated and plausible (mostly positive).
+**`[ ]`**`margin` is populated and plausible (mostly positive).
 
-**`[ ]`** `region_name` and `manager_email` are filled on every row.
+**`[ ]`**`region_name` and `manager_email` are filled on every row.
 
-## Troubleshooting
-
+>
+### Troubleshooting
 <details>
 
 <summary>Stream lookup returns nulls for every row</summary>
