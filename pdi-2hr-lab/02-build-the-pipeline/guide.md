@@ -35,7 +35,7 @@ C:\Workshop\pdi-2hr\02-see-it-work\02-build-the-pipeline\
 <div align="center">
 <figure>
 
-![Part 1 overview: onboard the sales data and filter out rows with missing keys](../_assets/images/1788365198513.png#w=420)
+![Part 1 overview: onboard the sales data and filter out rows with missing keys](../_assets/images/1789477304148.png)
 
 <figcaption><em>Part 1: Onboard and filter sales data</em></figcaption>
 </figure>
