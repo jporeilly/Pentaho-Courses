@@ -333,4 +333,4 @@ The complete transformation, with the `warehouse` connection
 already defined (localhost MySQL, `pentaho_admin`). On first use,
 open the dimension step and click **SQL** to create the table.
 
-[solution_load_dim_customer.ktr](./files/solution_load_dim_customer.ktr) <button data-launch="spoon" data-path="files/solution_load_dim_customer.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/solution_load_dim_customer.ktr">View graph</button>
+[load_dim_customer.ktr](./files/load_dim_customer.ktr) <button data-launch="spoon" data-path="files/load_dim_customer.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/load_dim_customer.ktr">View graph</button>

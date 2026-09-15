@@ -292,4 +292,4 @@ Fix it in the grid — that's the point of the grid. Common case:
 Stuck, or want to compare? The complete transformation — it expects
 the data file in the workshop folder.
 
-[solution_build_pipeline.ktr](./files/solution_build_pipeline.ktr) <button data-launch="spoon" data-path="files/solution_build_pipeline.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/solution_build_pipeline.ktr">View graph</button>
+[check_keys.ktr](./files/check_keys.ktr) <button data-launch="spoon" data-path="files/check_keys.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/check_keys.ktr">View graph</button>

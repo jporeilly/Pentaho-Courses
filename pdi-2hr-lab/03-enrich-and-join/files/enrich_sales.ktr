@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>solution_enrich_sales</name>
+    <name>enrich_sales</name>
     <description>First win: read yesterday's sales, catch the bad rows</description>
     <extended_description>Reads sales_20260101.csv (which contains two rows with missing keys), routes rows missing customer_id or product_id to a reject stream, and passes the rest through. Preview either branch to see the data at that point in the flow.</extended_description>
     <trans_version>1.0</trans_version>
     <trans_type>Normal</trans_type>
     <trans_status>0</trans_status>
     <directory>/</directory>
-    <filename>file:///C:/Projects/Pentaho-Content-Manager/courses/pdi-2hr-lab/03-enrich-and-join/files/solution_enrich_sales.ktr</filename>
+    <filename>file:///C:/Workshop/pdi-2hr/03-make-it-yours/03-enrich-and-join/enrich_sales.ktr</filename>
     <parameters>
     </parameters>
     <log>
@@ -436,15 +436,12 @@
   </info>
   <notepads>
     <notepad>
-      <note>In the second part of the workshop we start enriching the data stream by
-looking up some customer and product data. A  LEFT OUTER merge join resolves
-all matching values of the sorted regional codes against the list of regions.  
-If there's a regional code that doesnt match a region then a NULL value is displayed.
-This ensures the data stream remains intact.</note>
-      <xloc>48</xloc>
-      <yloc>32</yloc>
-      <width>503</width>
-      <heigth>100</heigth>
+      <note>In Part2: the data is enriched with lookups to resolve customer and product ids. A margin is
+calculated with the resulting dataset is OUTER merge joined to ensure each region is correctly assigned. </note>
+      <xloc>224</xloc>
+      <yloc>48</yloc>
+      <width>620</width>
+      <heigth>46</heigth>
       <fontname>Segoe UI</fontname>
       <fontsize>10</fontsize>
       <fontbold>N</fontbold>
@@ -513,13 +510,13 @@ This ensures the data stream remains intact.</note>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>+ region</from>
-      <to>Enriched rows</to>
+      <from>Keys present?</from>
+      <to>Read customers</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Keys present?</from>
-      <to>+ customer</to>
+      <from>+ region</from>
+      <to>Enriched rows</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -566,8 +563,8 @@ This ensures the data stream remains intact.</note>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>336</xloc>
-      <yloc>320</yloc>
+      <xloc>384</xloc>
+      <yloc>272</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -620,8 +617,8 @@ This ensures the data stream remains intact.</note>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>480</xloc>
-      <yloc>320</yloc>
+      <xloc>528</xloc>
+      <yloc>272</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -654,8 +651,8 @@ This ensures the data stream remains intact.</note>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>800</xloc>
-      <yloc>320</yloc>
+      <xloc>848</xloc>
+      <yloc>272</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -740,8 +737,8 @@ This ensures the data stream remains intact.</note>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>480</xloc>
-      <yloc>448</yloc>
+      <xloc>528</xloc>
+      <yloc>400</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -765,8 +762,8 @@ This ensures the data stream remains intact.</note>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>928</xloc>
-      <yloc>320</yloc>
+      <xloc>976</xloc>
+      <yloc>272</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -781,7 +778,7 @@ This ensures the data stream remains intact.</note>
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <send_true_to>+ customer</send_true_to>
+    <send_true_to>Read customers</send_true_to>
     <send_false_to>Rejects for source team</send_false_to>
     <compare>
       <condition>
@@ -812,8 +809,8 @@ This ensures the data stream remains intact.</note>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>192</xloc>
-      <yloc>320</yloc>
+      <xloc>240</xloc>
+      <yloc>144</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -914,8 +911,8 @@ This ensures the data stream remains intact.</note>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>336</xloc>
-      <yloc>192</yloc>
+      <xloc>384</xloc>
+      <yloc>144</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1064,8 +1061,8 @@ This ensures the data stream remains intact.</note>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>480</xloc>
-      <yloc>192</yloc>
+      <xloc>528</xloc>
+      <yloc>144</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1199,8 +1196,8 @@ This ensures the data stream remains intact.</note>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>640</xloc>
-      <yloc>192</yloc>
+      <xloc>688</xloc>
+      <yloc>144</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1394,8 +1391,8 @@ This ensures the data stream remains intact.</note>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>48</xloc>
-      <yloc>320</yloc>
+      <xloc>96</xloc>
+      <yloc>144</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1451,8 +1448,8 @@ This ensures the data stream remains intact.</note>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>192</xloc>
-      <yloc>448</yloc>
+      <xloc>240</xloc>
+      <yloc>272</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1493,8 +1490,8 @@ This ensures the data stream remains intact.</note>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>640</xloc>
-      <yloc>448</yloc>
+      <xloc>688</xloc>
+      <yloc>400</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1535,8 +1532,8 @@ This ensures the data stream remains intact.</note>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>640</xloc>
-      <yloc>320</yloc>
+      <xloc>688</xloc>
+      <yloc>272</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

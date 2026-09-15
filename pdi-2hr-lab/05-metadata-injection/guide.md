@@ -418,10 +418,10 @@ Complete, working versions of all four pieces — download them into
 together (they reference each other by
 folder) and run the job. Compare with your own build.
 
-[solution_mi_driver.kjb](./files/solution_mi_driver.kjb) <button data-launch="spoon" data-path="files/solution_mi_driver.kjb">Open in Pentaho Data Integration</button> <button data-graph="files/solution_mi_driver.kjb">View graph</button>
+[mi_driver.kjb](./files/mi_driver.kjb) <button data-launch="spoon" data-path="files/mi_driver.kjb">Open in Pentaho Data Integration</button> <button data-graph="files/mi_driver.kjb">View graph</button>
 
-[solution_mi_inject.ktr](./files/solution_mi_inject.ktr) <button data-launch="spoon" data-path="files/solution_mi_inject.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/solution_mi_inject.ktr">View graph</button>
+[mi_inject.ktr](./files/mi_inject.ktr) <button data-launch="spoon" data-path="files/mi_inject.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/mi_inject.ktr">View graph</button>
 
-[solution_mi_template.ktr](./files/solution_mi_template.ktr) <button data-launch="spoon" data-path="files/solution_mi_template.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/solution_mi_template.ktr">View graph</button>
+[mi_template.ktr](./files/mi_template.ktr) <button data-launch="spoon" data-path="files/mi_template.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/mi_template.ktr">View graph</button>
 
-[solution_read_control.ktr](./files/solution_read_control.ktr) <button data-launch="spoon" data-path="files/solution_read_control.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/solution_read_control.ktr">View graph</button>
+[read_control.ktr](./files/read_control.ktr) <button data-launch="spoon" data-path="files/read_control.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/read_control.ktr">View graph</button>

@@ -446,4 +446,4 @@ The complete transformation — two Stream lookups, the Calculator,
 and the LEFT OUTER Merge join onto the region reference. Expects the
 data files in the 02 and 03 workshop folders.
 
-[solution_enrich_sales.ktr](./files/solution_enrich_sales.ktr) <button data-launch="spoon" data-path="files/solution_enrich_sales.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/solution_enrich_sales.ktr">View graph</button>
+[enrich_sales.ktr](./files/enrich_sales.ktr) <button data-launch="spoon" data-path="files/enrich_sales.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/enrich_sales.ktr">View graph</button>
