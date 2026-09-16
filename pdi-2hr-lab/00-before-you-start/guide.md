@@ -109,10 +109,10 @@ Windows paths — substitute yours if you're elsewhere.
 
 ## Check the database
 
-Lab 4 loads a dimension table into MySQL (seeded from a JSON file). 
-The environment panel above shows **MySQL** green when the container is up.
+Workshop - Track History with One Step loads a dimension table into MySQL (seeded from a JSON file). 
+The environment panel above shows **MySQL** green when the container is up and running.
 
-These are **Connection Details for Lab 4**
+These are: **Connection Details for workshop - Track History with One Step**
 
 You don't need to provide the connection details for Lab 4 at this stage, but it's useful to know what they are.
 
@@ -124,7 +124,7 @@ You don't need to provide the connection details for Lab 4 at this stage, but it
 | Username | `pentaho_admin` |
 | Password | `password` |
 
-### Troubleshooting (Lab only)
+### Troubleshooting
 
 <details>
 
@@ -141,7 +141,7 @@ JDK and start it via **Spoon.bat** (Windows) or **spoon.sh**
 
 <summary>The environment panel shows MySQL red</summary>
 
-The database runs as a container. Run the following script:
+The database runs in a container. Run the following script:
 C:\MySQL\setup-services.ps1, wait for it to report healthy, then click **Re-run checks**. 
 test it from a terminal:
 
