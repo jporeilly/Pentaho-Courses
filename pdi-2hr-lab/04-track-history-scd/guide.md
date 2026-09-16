@@ -2,7 +2,7 @@
 
 > **Warning:**
 >
-> #### Workshop — Track History with One Step
+> #### Workshop — Track History
 >
 > When a customer moves region, yesterday's reports must still show
 > the old region and today's the new one. That's a Type 2 Slowly
@@ -39,7 +39,7 @@
 ## Connect to the database
 
 1. Create a new transformation and Save as: `load_dim_customer.ktr`.
-2. Drag a **JSON input** on, configured exactly like Lab 3's
+2. Drag a **JSON input** on, and configure exactly as in the previous workshop -
    `Read customers` (same three fields — copy/paste the step between
    transformations with `Ctrl+C`/`Ctrl+V` if you like), but pointed
    at **this lab's own copy** of the file:
@@ -149,7 +149,7 @@ you'll be editing it shortly, and Lab 3's copy stays pristine.
 </figure>
 </div>
 
-> **Critical:** Not everything is going to go according to plan. 
+> **Critical:** Not everything executes perfectly first time. 
 > Expect issues to occur: The error comes from the DDL PDI generated: 
 > the three string columns came out as TINYTEXT, and MySQL refuses to 
 > index a TEXT column without a key length (its a .json file). 
@@ -189,7 +189,7 @@ CREATE INDEX idx_dim_customer_tk ON dim_customer (customer_tk);
 ## First load
 
 1. Run the transformation. 20 rows in, 20 dimension rows written.
-2. Verify from any MySQL client:
+2. Verify from any MySQL client - DBeaver:
 
 ```sql
 SELECT customer_tk, customer_id, customer_name, region_code,
