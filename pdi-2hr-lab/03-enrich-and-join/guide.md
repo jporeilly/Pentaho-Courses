@@ -6,7 +6,7 @@
 >
 > Real pipelines mix formats: your sales arrive as CSV, the customer
 > master is JSON from an API export, the product catalogue and the
-> region reference are more CSVs. You'll bring all four together on
+> region reference are CSVs. You'll bring all four together on
 > one canvas — two ways, because PDI gives you two tools for it — and
 > compute a margin, with no staging tables and no format wrangling.
 >
@@ -142,8 +142,7 @@ C:\Workshop\pdi-2hr\03-make-it-yours\03-enrich-and-join\products.csv
 second stream. It loads the lookup stream into memory once, then
 matches each main row by key — perfect for small reference sets like
 a customer master or a product catalogue. It is *not* a join: one
-match per row, no outer semantics, and the whole lookup set must fit
-in memory. You'll meet the real join in a moment.
+match per row, and the whole lookup set must fit in memory.
 
 1. From **Lookup**, drag **Stream lookup** on. Name it
    `+ customer`.
@@ -320,10 +319,9 @@ steps.
 > scale**, and PDI makes you pay it openly, with two Sort rows steps,
 > rather than hiding a memory cliff behind a friendlier step.
 >
-> **Why it matters:** this is a genuine relational join (inner, left,
+> **Why it matters:** this is a relational join (inner, left,
 > right or full) done on rows in flight, against sources that were a
-> CSV, a JSON export and another CSV a few minutes ago. No database was
-> involved.
+> CSV, a JSON export and another CSV a few minutes ago.
 
 > **Note:** **Why LEFT OUTER?** A sale whose region code has no entry
 > in `regions.csv` must still reach the warehouse — with the region
@@ -361,11 +359,10 @@ Three practical consequences worth carrying home:
   why the customer and product enrichments upstream use lookups
   instead. Pick per case, not per habit.
 
-> **Note:** PDI has more joining steps than these two — **Database
-> lookup** (query a table per row), **Database join** (a
+> **Note:** PDI has more joining steps than just Merge — **Database join** (a
 > parameterised query per row), **Merge rows (diff)** for change
 > detection, and **Join rows** for a deliberate Cartesian product.
-> The two on your canvas are the ones you'll reach for most.
+> The Merge Join and the Join rows are the ones you'll reach for most.
 
 **`[ ]`** Preview shows 37 enriched rows.
 
