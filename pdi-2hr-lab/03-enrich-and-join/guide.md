@@ -49,12 +49,9 @@ C:\Workshop\pdi-2hr\03-make-it-yours\03-enrich-and-join\
 
 ## Read the customer master (JSON)
 
-1. Open your Lab 2 transformation and save it as
-   `enrich_sales.ktr` (**File > Save as**).
-2. From **Input**, drag **JSON input** onto an empty part of the
-   canvas.
-3. Double-click it. Name it `Read customers`. On the **File** tab,
-   browse to:
+1. Open your Lab 2 transformation and save it as `enrich_sales.ktr` (**File -> Save as**).
+2. From **Input**, drag **JSON input** onto an empty part of the canvas.
+3. Double-click it. Name it `Read customers`. On the **File** tab, browse to:
 
 ```text
 C:\Workshop\pdi-2hr\03-make-it-yours\03-enrich-and-join\customers.json
@@ -69,8 +66,7 @@ C:\Workshop\pdi-2hr\03-make-it-yours\03-enrich-and-join\customers.json
 </div>
 </figure>
 
-4. On the **Fields** tab, add rows — one per field. **Path** uses
-   JSONPath, relative to the array of customer objects:
+4. On the **Fields** tab, add rows — one per field. **Path** uses JSONPath, relative to the array of customer objects:
 
 | Name | Path | Type |
 | --- | --- | --- |
