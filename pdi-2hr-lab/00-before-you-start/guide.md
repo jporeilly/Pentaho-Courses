@@ -82,7 +82,7 @@ Leave it open — Lab 1 starts here.
 ## Check the working folders
 
 Your working area follows the course outline, grouped into three
-sections, plus a shared `out\` for everything the pipelines write:
+sections, plus a shared `out\` for everything the pipelines writes:
 
 ```text
 C:\Workshop\pdi-2hr
@@ -104,8 +104,7 @@ C:\Workshop\pdi-2hr
 transformation in the first minute, so an empty folder is the one
 thing worth catching now rather than then.
 
-Each lab names the folder its files live in. The lab text uses the
-Windows paths — substitute yours if you're elsewhere.
+Each workshop displays the folder its files live in. The workshop uses Windows paths — substitute yours if located elsewhere.
 
 ## Check the database
 
@@ -141,15 +140,27 @@ JDK and start it via **Spoon.bat** (Windows) or **spoon.sh**
 
 <summary>The environment panel shows MySQL red</summary>
 
-The database runs in a container. Most issues will clear by starting and stopping the container via Podman.
-Run the following script to recreate the container:
-C:\MySQL\setup-services.ps1, wait for it to report healthy, then click **Re-run checks**. 
-test it from a terminal:
+Let's make sure your database environment is running smoothly. The MySQL database runs in a container, and most issues can be resolved by simply starting and stopping the container using Podman.
 
+**Recreate the Container**
+
+ Run the following script to recreate your MySQL container:
+   ```powershell
+   C:\MySQL\setup-services.ps1
+   ```
+   Wait for the script to complete and report that the container is healthy.
+
+ After the script finishes, click **Re-run checks** to confirm everything is up and running.
+
+**Test the Database Connection**
+
+To verify the database connection, open a terminal and run:
 ```powershell
 mysql -h localhost -P 3306 -u pentaho_admin -ppassword -e "SELECT 1;"
-``` 
-Lab 4 creates its own tables, so no seeded sample data is required.
+```
+
+**Note**
+For the workshop step "Track History with One Step," you don't need any pre-seeded sample data — the lab creates its own tables as needed.
 
 </details>
 
