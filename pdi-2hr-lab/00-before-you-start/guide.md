@@ -23,19 +23,22 @@ The Pentaho Data Integration (PDI) 2-hour workshop guide assumes you have the fo
 - Knowledge of the Windows operating system and its command prompt
 - Access to a computer with a Windows operating system
 - A valid installation of the PDI software
- 
-> **Getting Started**
+
+> 
+ **Getting Started**
  
 To begin the workshop, ensure you have the correct PDI installation directory:
- 
+
+```text
 C:\Workshop\pdi-2hr
+```
 >
-> **Estimated Time:** 5 minutes — before the session.
+ **Estimated Time:** 5 minutes — before the session.
 
 > **Note:** **About the software you're using.** Pentaho Data
 > Integration **Developer Edition** is free for evaluation,
 > development, and learning under the Business Source License 1.1 —
-> production use requires a commercial licence.
+> production use requires a commercial license.
 > 
 > **Version:** 11.0.0.2-294
 
