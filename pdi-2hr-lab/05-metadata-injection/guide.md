@@ -95,14 +95,18 @@ So all we need to do is pick up the filename, its associated delimiter and stand
 <div align="center">
 <figure>
 
-![The template canvas: Read feed, Standardise and Append to all_feeds in a line, with a note saying the template is not run directly and its reader has no filename](../_assets/images/1788798204415.png#w=420)
+![The template canvas: Read feed, Standardise and Append to all_feeds in a line, with a note saying the template is not run directly and its reader has no filename](../_assets/images/1788798204415.png)
 
 <figcaption><em>Template - Injects filename and delimiter</em></figcaption>
 </figure>
 </div>
 
-1. New transformation, saved as
-   `C:\Workshop\pdi-2hr\04-see-it-scale\05-one-pipeline-many-files\mi_template.ktr`.
+1. New transformation, saved as;
+
+```text
+C:\Workshop\pdi-2hr\04-see-it-scale\05-one-pipeline-many-files\mi_template.ktr
+```
+
 2. Drag on a **Text file input**. Name it `Read feed`. 
    - On **Fields**, add three **String** fields by hand: `col_store`,
    `col_date`, `col_amount` (the feeds all share this column
@@ -132,7 +136,7 @@ So all we need to do is pick up the filename, its associated delimiter and stand
 </figure>
 
 4. Drag on a **Text file output**, hopped from `Standardise`.
-   Filename `C:\Workshop\pdi-2hr\out\all_feeds`, extension `csv`.
+   - **Filename:** `C:\Workshop\pdi-2hr\out\all_feeds`, extension `csv`.
 <figure>
 
 ![Text file output dialog Append to all_feeds, File tab: filename C:/Workshop/pdi-2hr/out/all_feeds with extension csv](../_assets/images/1788854419767.png)
@@ -177,7 +181,7 @@ So all we need to do is pick up the filename, its associated delimiter and stand
 </figure>
 
 2. Drag on **Get rows from result** (from *Job*). 
-   - Name it `File config`. 
+   - Name it: `File config`. 
    - Add its two fields: `filename` and `separator`, both String. 
    When the driver job executes this transformation
    once per control row, *this step is where that row arrives*.
