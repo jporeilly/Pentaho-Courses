@@ -141,7 +141,8 @@ JDK and start it via **Spoon.bat** (Windows) or **spoon.sh**
 
 <summary>The environment panel shows MySQL red</summary>
 
-The database runs in a container. Run the following script:
+The database runs in a container. Most issues will clear by starting and stopping the container via Podman.
+Run the following script to recreate the container:
 C:\MySQL\setup-services.ps1, wait for it to report healthy, then click **Re-run checks**. 
 test it from a terminal:
 
