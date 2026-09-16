@@ -40,10 +40,22 @@ Click the button below — PDI opens with the transformation loaded.
 clipboard: switch to PDI, press `Ctrl+O`, `Ctrl+V`, `Enter`.)
 
 <button data-launch="spoon" data-path="files/win_preview.ktr">Open in Pentaho Data Integration</button>
+
+1. If the pipeline - win_preview.ktr - has not displayed in PDI, then: **File -> Open** and browse:
+
+<div align="center">
+<figure>
+
+![alt text](../_assets/images/1789571937869.png)
+
+<figcaption><em>Path to: win_preview.ktr</em></figcaption>
+</figure>
+</div>
+
 >
 Path to Transformation:
 ```text
-C:\Workshop\pdi-2hr\02-see-it-work\01-your-first-win
+C:\Workshop\pdi-2hr\02-see-it-work\01-your-first-win\win_preview.ktr
 ```
 You should see three connected steps on the canvas: a file reader, a
 filter, and two end points — one for valid rows, one for rejects.

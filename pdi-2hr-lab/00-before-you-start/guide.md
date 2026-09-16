@@ -117,7 +117,7 @@ You don't need to provide the connection details for Lab 4 at this stage, but it
 | --- | --- |
 | Host | `localhost` |
 | Port | `3306` |
-| Database | `sampledata` |
+| Database | `warehouse` |
 | Username | `pentaho_admin` |
 | Password | `password` |
 
