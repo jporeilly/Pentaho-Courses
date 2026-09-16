@@ -15,17 +15,27 @@
 >
 > * Confirm Pentaho Data Integration (Developer Edition) starts.
 > * Check the sample MySQL database is up and running.
-> * Check the working folder: C:\Workshop\pdi-2hr
+> * Check the working folder: > **Prerequisites**
+ 
+The Pentaho Data Integration (PDI) 2-hour workshop guide assumes you have the following:
+ 
+- Familiarity with the basics of data integration
+- Knowledge of the Windows operating system and its command prompt
+- Access to a computer with a Windows operating system
+- A valid installation of the PDI software
+ 
+> **Getting Started**
+ 
+To begin the workshop, ensure you have the correct PDI installation directory:
+ 
+C:\Workshop\pdi-2hr
 >
 > **Estimated Time:** 5 minutes — before the session.
 
 > **Note:** **About the software you're using.** Pentaho Data
 > Integration **Developer Edition** is free for evaluation,
 > development, and learning under the Business Source License 1.1 —
-> production use requires a commercial licence. Everything you build
-> today is real PDI: the same designer, the same engine, the same
-> transformations you'd run in production. The last lab covers what
-> "production" adds.
+> production use requires a commercial licence.
 > 
 > **Version:** 11.0.0.2-294
 
@@ -37,16 +47,21 @@
 ## Check your environment
 
 This panel probes the machine live — PDI, the MySQL container, and
-the container tooling that runs it. It should be all green; anything red
-tells you the exact fix. The one that matters most is **MySQL** — Lab 4 loads a table into it.
+the container tooling that runs it. Each row reports one of four states:
+
+* **Green** — the check passed; that piece is present and answering.
+* **Amber** — usable, but worth tidying before the session.
+* **Red** — it will block a lab, and the row tells you the exact fix.
+* **Grey** — skipped, because this course doesn't use it.
+
+The one that matters most is **MySQL** — Lab 4 loads a table into it.
 
 <div data-env-check="tryit"></div>
 
 ## Start Pentaho Data Integration
 
-If Pentaho Data Integration hasn't loaded into your window, you can
-launch it by clicking the **Start Pentaho Data Integration** button
-below. First launch can take a minute.
+Click the button below to launch Pentaho Data Integration. First launch
+can take a minute.
 
 <button data-launch="spoon">Start Pentaho Data Integration</button>
 
@@ -63,20 +78,50 @@ Leave it open — Lab 1 starts here.
 
 ## Check the working folders
 
-Your working area mirrors the course outline — one folder per
-workshop, plus a shared `out\` for everything the pipelines write.
-Checkout the following folder: C:\Workshop\pdi-2hr
+Your working area follows the course outline, grouped into three
+sections, plus a shared `out\` for everything the pipelines write:
 
-Each lab tells you which folder its downloads belong in — matching
-what you see in the course sidebar. The lab text uses the Windows
-paths — substitute yours if you're elsewhere.
+```text
+C:\Workshop\pdi-2hr
+├── 02-see-it-work
+│   ├── 01-your-first-win          Lab 1
+│   └── 02-build-the-pipeline      Lab 2
+├── 03-make-it-yours
+│   ├── 03-enrich-and-join         Lab 3
+│   └── 04-track-history           Lab 4
+├── 04-see-it-scale
+│   ├── 05-one-pipeline-many-files Lab 5
+│   └── 06-your-data               Bring Your Own Data
+└── out                            everything the pipelines write
+```
+
+**Confirm the files are there**, not just the folder — open
+`02-see-it-work\01-your-first-win` and check you can see
+`win_preview.ktr` and `sales_20260101.csv`. Lab 1 opens that
+transformation in the first minute, so an empty folder is the one
+thing worth catching now rather than then.
+
+Each lab names the folder its files live in. The lab text uses the
+Windows paths — substitute yours if you're elsewhere.
 
 ## Check the database
 
-Lab 4 loads a dimension table into MySQL (no sample data needs loading). 
+Lab 4 loads a dimension table into MySQL (seeded from a JSON file). 
 The environment panel above shows **MySQL** green when the container is up.
 
-### Troubleshooting
+These are **Connection Details for Lab 4**
+
+You don't need to provide the connection details for Lab 4 at this stage, but it's useful to know what they are.
+
+| | |
+| --- | --- |
+| Host | `localhost` |
+| Port | `3306` |
+| Database | `sampledata` |
+| Username | `pentaho_admin` |
+| Password | `password` |
+
+### Troubleshooting (Lab only)
 
 <details>
 
