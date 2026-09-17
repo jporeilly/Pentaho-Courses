@@ -189,8 +189,7 @@ In this example we're filtering for rows where the ids / keys are not null.
 > **Under the hood:**
 >
 > #### The Dialog is the Source Code
-> Nothing was generated from what you just looked at. The file you opened, `win_preview.ktr`, is PDI's transformation file, with the 
-extension standing for "Kettle transformation," derived from the engine's original name. Inside it is plain text in XML: a list of steps, each step's settings, and the hops between them. The dialog you opened reads that text and writes it back, and the engine runs the same text. There is no build step, and no generated program that can drift away from what you see on the canvas.
+> Nothing was generated from what you just looked at. The file you opened, `win_preview.ktr`, is PDI's transformation file, with the extension standing for "Kettle transformation," derived from the engine's original name. Inside it is plain text in XML: a list of steps, each step's settings, and the hops between them. The dialog you opened reads that text and writes it back, and the engine runs the same text. There is no build step, and no generated program that can drift away from what you see on the canvas.
 >
 > Two consequences worth noting are:
 >
