@@ -4,6 +4,15 @@
     "measurementId": "G-Y31H58JVKH",
     "apiSecret": "9sDdakUVT-aj5kUiOx_kIg"
   },
+  "contact": {
+    "to": "academy@pentaho.com",
+    "webhookUrl": "",
+    "webhookSecret": "pcm_sPhjWMHFhIvusSc1hbqN6cvQ7NUKCX9",
+    "heading": "Contact Us",
+    "blurb": "Ask us anything about the course, or tell us what you would like to know about Pentaho products and services. This is separate from the exam.",
+    "messagePlaceholder": "What would you like to know?",
+    "sendLabel": "Send"
+  },
   "title": "Pentaho Developer - DI Practitioner",
   "description": "Self-paced, hands-on workshop for the Pentaho Data Integration Practitioner.",
   "version": "0.1.0",
