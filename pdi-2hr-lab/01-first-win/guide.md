@@ -155,7 +155,7 @@ can inspect.
 
 ## Look inside a step
 
-Double-click **Read yesterday's sales**. This is the entire
+1. Double-click **Read yesterday's sales**. This is the entire
 configuration for parsing the file — delimiter, header, and on the
 **Fields** tab, every column with its type and format. No code was
 generated; this *is* the pipeline.
@@ -169,9 +169,9 @@ generated; this *is* the pipeline.
 </figure>
 </div>
 
-Close the dialog with **Cancel** (so nothing changes).
+2. Close the dialog with **Cancel** (so nothing changes).
 
-Double-click **Keys present?*.
+3. Double-click **Keys present?*.
 The Filter Rows step allows you to filter rows based on conditions and comparisons. 
 In this example we're filtering for rows where the ids / keys are not null.
 
@@ -184,26 +184,31 @@ In this example we're filtering for rows where the ids / keys are not null.
 </figure>
 </div>
 
-Close the dialog with **Cancel** (so nothing changes).
+4. Close the dialog with **Cancel** (so nothing changes).
 
 > **Under the hood:**
 >
-> #### The dialog is the source code
+> #### The Dialog is the Source Code
+> Nothing was generated from what you just looked at. The file you opened, `win_preview.ktr`, is PDI's transformation file, with the 
+extension standing for "Kettle transformation," derived from the engine's original name. Inside it is plain text in XML: a list of steps, each step's settings, and the hops between them. The dialog you opened reads that text and writes it back, and the engine runs the same text. There is no build step, and no generated program that can drift away from what you see on the canvas.
 >
-> Nothing was generated from what you just looked at. The file you
-> opened, `win_preview.ktr`, is PDI's transformation file; the
-> extension is short for "Kettle transformation", after the engine's
-> original name. Inside it is plain text in XML: a list of the steps,
-> each step's settings, and the hops between them. The dialog you
-> opened reads that text and writes it back, and the engine runs the
-> same text. There is no build step, and no generated program that can
-> drift away from what you see on the canvas.
+> Two consequences worth noting are:
 >
-> Two consequences worth knowing. Because it is plain text, a
-> transformation can live in version control alongside your code, and
-> two people's changes to it can be compared and merged. And because
-> the same file is what a server runs later, the thing you tested is
-> literally the thing that ships.
+> *   Because it is plain text, a transformation can live in version control alongside your code, and two people's changes to it can be compared and merged.
+> *   Because the same file is what a server runs later, the thing you tested is literally the thing that ships.
+
+
+> **Note:**
+>
+> **Key Takeaways**
+>
+> * The dialog serves as the source code for your transformation.
+> * The transformation file is plain text in XML format.
+> * The dialog reads the text and writes it back, and the engine runs the same text.
+> * There is no built-in build step or generated program that can drift away from the canvas.
+> * The transformation file can be version-controlled and changes can be compared and merged.
+> * The file is also what the server runs, making it the actual deployed version.
+
 
 ## See the flow as a diagram
 

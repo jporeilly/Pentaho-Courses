@@ -63,7 +63,7 @@ C:\Workshop\pdi-2hr\02-see-it-work\02-build-the-pipeline\check_keys.ktr
 ```text
 C:\Workshop\pdi-2hr\02-see-it-work\02-build-the-pipeline\sales_20260101.csv
 ```
-then click **Add** so it appears in the *Selected files* grid.
+4. then click **Add** so it appears in the *Selected files* grid.
 <figure>
 
 ![Text file input dialog, File tab: Read sales with sales_20260101.csv listed under Selected files](../_assets/images/1788426433666.png)
@@ -73,7 +73,7 @@ then click **Add** so it appears in the *Selected files* grid.
 </div>
 </figure>
 
-4. On the **Content** tab set:
+5. On the **Content** tab set:
    -   **Separator** to: comma and make sure 
    -   **Header** is ticked with 1 header line
    -   **Format** is: mixed
@@ -87,7 +87,7 @@ then click **Add** so it appears in the *Selected files* grid.
 </div>
 </figure>
 
-5. On the **Fields** tab click **Get Fields** — PDI reads the file and detects every column and type for you. Accept the defaults.
+6. On the **Fields** tab click **Get Fields** — PDI reads the file and detects every column and type for you. Accept the defaults.
 <figure>
 
 ![Text file input dialog, Fields tab after Get Fields: seven detected columns, order_date typed as Date with format yyyy-MM-dd](../_assets/images/1788365750951.png)
@@ -102,7 +102,7 @@ then click **Add** so it appears in the *Selected files* grid.
 > 6 you'll point this same pipeline at *your own* file, and this
 > button is why that works.
 
-6. Click **Preview rows** at the bottom of the dialog — the same
+7. Click **Preview rows** at the bottom of the dialog — the same
    habit as Lab 1, available while you're still configuring.
 <figure>
 
@@ -113,7 +113,7 @@ then click **Add** so it appears in the *Selected files* grid.
 </div>
 </figure>
 
-7. Click **OK**.
+8. Click **OK**.
 
 > **Under the hood:**
 >
