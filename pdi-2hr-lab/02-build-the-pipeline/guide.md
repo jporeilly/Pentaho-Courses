@@ -239,7 +239,7 @@ PDI adds`.txt`; switch **Extension** to `csv` if you prefer.
 > if the reader finished all 40 rows and then handed them to the
 > filter. That is not what happened. **All four steps started
 > together.** Each step is its own worker, and rows moved between them
-> in small batches: the filter was already deciding about row 1 while
+> in micro batches: the filter was already deciding about row 1 while
 > the reader was still parsing row 20.
 >
 > This is why PDI copes with files far larger than the machine's
