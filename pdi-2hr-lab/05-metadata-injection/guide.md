@@ -365,8 +365,8 @@ Now the punchline:
 > control file is something an operations team can own without ever
 > opening Spoon, the designer you have been using today.
 
-* [ ] `all_feeds.csv` contains rows from all three (then four) feeds.
-* [ ] The new feed required editing only `control.csv`.
+**`[ ]`** `all_feeds.csv` contains rows from all three (then four) feeds.
+**`[ ]`** The new feed required editing only `control.csv`.
 
 ::::
 
