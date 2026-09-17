@@ -433,7 +433,7 @@ list in the order you want).
 
 [regions.csv](./files/regions.csv)
 
-### Solution
+### Solution <!-- no-step -->
 
 The complete transformation — two Stream lookups, the Calculator,
 and the LEFT OUTER Merge join onto the region reference. Expects the
