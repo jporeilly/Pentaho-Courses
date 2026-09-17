@@ -159,7 +159,7 @@ C:\Workshop\pdi-2hr\04-see-it-scale\05-one-pipeline-many-files\mi_template.ktr
 
 5. Save. This transformation can't run on its own — as it requires the injected metadata properties.
 
-**Next ->** [The injector](#tab-2-the-injector)
+<a class="pcm-btn" href="#tab-2-the-injector">**Click to next tab: The injector**</a>
 
 ### 2. The injector
 <div align="center">
@@ -229,7 +229,7 @@ C:\Workshop\pdi-2hr\04-see-it-scale\05-one-pipeline-many-files\mi_template.ktr
 
 5. Save.
 
-**Next ->** [The driver job](#tab-3-the-driver-job)
+<a class="pcm-btn" href="#tab-3-the-driver-job">**Click to next tab: The driver job**</a>
 
 ### 3. The driver job
 <figure>
