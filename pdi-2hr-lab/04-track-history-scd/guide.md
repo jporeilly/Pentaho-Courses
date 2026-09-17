@@ -47,7 +47,6 @@
 ```text
 C:\Workshop\pdi-2hr\03-make-it-yours\04-track-history\customers.json
 ```
-you'll be editing it shortly, and Lab 3's copy stays pristine.
 
 <figure>
 
@@ -295,7 +294,7 @@ report today's and they're in the North East — both correct.
 **`[ ]`** After the edit and second run: 22 rows, C001 at version 2 with
       version 1's validity window closed.
 
-### Troubleshooting
+### Troubleshooting <!-- no-step -->
 
 <details>
 
@@ -327,7 +326,7 @@ In the connection dialog, open **Options** and add parameter
 
 [customers.json](./files/customers.json) — download into this lab's workshop folder: `C:\Workshop\pdi-2hr\03-make-it-yours\04-track-history\`.
 
-### Solution
+### Solution <!-- no-step -->
 
 The complete transformation, with the `warehouse` connection
 already defined (localhost MySQL, `pentaho_admin`). On first use,

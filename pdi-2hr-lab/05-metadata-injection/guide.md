@@ -39,7 +39,7 @@
 > separator. That file *is* the configuration; the pipelines you
 > build next never change again.
 
-Before we build anything, let's take a look at the store files:
+1. Before we build anything, let's take a look at the store files:
 
 <div style="display:flex; flex-wrap:wrap; gap:16px; align-items:flex-start">
 <figure style="flex:0 1 auto; margin:0">
@@ -68,7 +68,7 @@ Before we build anything, let's take a look at the store files:
 </figure>
 </div>
 
-So all we need to do is pick up the filename, its associated delimiter and standardize the header - <em>control.csv</em>:
+2. So all we need to do is pick up the filename, its associated delimiter and standardize the header - <em>control.csv</em>:
 
 <figure>
 
@@ -101,7 +101,7 @@ So all we need to do is pick up the filename, its associated delimiter and stand
 </figure>
 </div>
 
-1. New transformation, saved as;
+1. New transformation, saved as:
 
 ```text
 C:\Workshop\pdi-2hr\04-see-it-scale\05-one-pipeline-many-files\mi_template.ktr
@@ -146,8 +146,8 @@ C:\Workshop\pdi-2hr\04-see-it-scale\05-one-pipeline-many-files\mi_template.ktr
 </div>
 </figure>
 
-   - On **Content**: tick **Append**, untick **Header**. On
-   **Fields**: add `store`, `sale_date`, `amount`.
+   - **Content**: tick **Append**, untick **Header**. 
+   - **Fields**: add `store`, `sale_date`, `amount`.
 <figure>
 
 ![Text file output dialog Append to all_feeds, Fields tab: store, sale_date and amount as String](../_assets/images/1788854498452.png)
@@ -157,8 +157,9 @@ C:\Workshop\pdi-2hr\04-see-it-scale\05-one-pipeline-many-files\mi_template.ktr
 </div>
 </figure>
 
-5. Save. This transformation can't run on its own — that's the
-   point.
+5. Save. This transformation can't run on its own — as it requires the injected metadata properties.
+
+
 
 ### 2. The injector
 <div align="center">
@@ -211,7 +212,7 @@ C:\Workshop\pdi-2hr\04-see-it-scale\05-one-pipeline-many-files\mi_template.ktr
 </div>
 </figure>
 
-and **SEPARATOR** ← `File config` / `separator`. Leave everything else alone.
+5. and **SEPARATOR** ← `File config` / `separator`. Leave everything else alone.
 
 <figure>
 
@@ -365,7 +366,7 @@ Now the punchline:
 
 ::::
 
-## Troubleshooting
+## Troubleshooting <!-- no-step -->
 
 <details>
 
@@ -415,7 +416,7 @@ Its control row must carry `;` as the separator — check the
 
 [partners_eu.csv](./files/partners_eu.csv)
 
-### Solution
+### Solution <!-- no-step -->
 
 Complete, working versions of all four pieces — download them into
 `C:\Workshop\pdi-2hr\04-see-it-scale\05-one-pipeline-many-files\`
