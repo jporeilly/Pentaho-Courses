@@ -53,10 +53,10 @@ C:\Workshop\pdi-2hr
 This panel probes the machine live — PDI, the MySQL container, and
 the container tooling that runs it. Each row reports one of four states:
 
-* **Green** — the check passed; that piece is present and answering.
-* **Amber** — usable, but worth tidying before the session.
-* **Red** — it will block a lab, and the row tells you the exact fix.
-* **Grey** — skipped, because this course doesn't use it.
+* **<span class="pcm-c-ok">Green</span>** — the check passed; that piece is present and answering.
+* **<span class="pcm-c-warn">Amber</span>** — usable, but worth tidying before the session.
+* **<span class="pcm-c-danger">Red**</span> — it will block a lab, and the row tells you the exact fix.
+* **<span class="pcm-c-muted">Grey</span>** — skipped, because this course doesn't use it.
 
 The one that matters most is **MySQL** — Lab 4 loads a table into it.
 
