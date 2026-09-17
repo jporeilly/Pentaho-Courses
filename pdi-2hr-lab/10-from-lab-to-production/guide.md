@@ -4,8 +4,8 @@
 >
 > #### Make It Real - From Lab to Production
 >
-> In ninety minutes you built a validating ingest, a three-source
-> join, a Type 2 history dimension, and a template pipeline that
+> In ninety minutes you built a validating ingest, a Merge
+> Join, a Type 2 history dimension, and a template pipeline that
 > onboards new feeds from a control file. This page is about the gap
 > between that and *running it every night at 2am* — and how teams
 > close it.
@@ -16,13 +16,13 @@
 > * Understand what the licensed platform adds to what you used today.
 > * Tell us where your data landscape hurts — and take the next step.
 >
-> **Estimated Time:** 15 minutes
+> **Estimated Time:** 10 minutes
 
 ## What you built today, honestly assessed
 
-What you have: real transformations, running on the real engine —
-Developer Edition is not a demo build. What you don't yet have is
-everything *around* a 2am run:
+What you have: real transformations, running on —
+Developer Edition, not a demo build. What you don't yet have is
+everything *around* a 2am run, that's Enterprise:
 
 * **Orchestration** — jobs that sequence transformations, retry on
   failure, and alert someone when the source file doesn't arrive.
@@ -77,13 +77,12 @@ catalog — on your own data?
 
 Two minutes, two favours:
 
-1. **The wrap-up check** — the short quiz in the sidebar (under this
-   lab) recaps the four big ideas. It is anonymous: your answers stay
-   on this machine and no score is sent anywhere. The optional form
-   in front of it is only for anyone who wants further information on
+1. **The wrap-up check** — the short quiz in the sidebar recaps the four big ideas. 
+   It is anonymous: your answers stay on this machine and no score is sent anywhere. 
+   Contact Us is only for anyone who wants further information on
    Pentaho courses and services — leave it blank otherwise.
 2. **The feedback widget** at the bottom of each page — one click,
-   and a comment if a lab fought you. We read every one; this
+   and a comment if a Environment / Guide fought you. We read every one; this
    course changes shape based on them.
 
 ---
