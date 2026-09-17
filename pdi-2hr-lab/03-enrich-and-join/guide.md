@@ -56,7 +56,7 @@ C:\Workshop\pdi-2hr\03-make-it-yours\03-enrich-and-join\
 ```text
 C:\Workshop\pdi-2hr\03-make-it-yours\03-enrich-and-join\customers.json
 ```
-   and **Add** it.
+4. and **Add** it.
 <figure>
 
 ![JSON input dialog, File tab: Read customers pointing at ${Internal.Entry.Current.Directory}/customers.json](../_assets/images/1788276989272.png)
@@ -66,7 +66,7 @@ C:\Workshop\pdi-2hr\03-make-it-yours\03-enrich-and-join\customers.json
 </div>
 </figure>
 
-4. On the **Fields** tab, add rows — one per field. **Path** uses JSONPath, relative to the array of customer objects:
+5. On the **Fields** tab, add rows — one per field. **Path** uses JSONPath, relative to the array of customer objects:
 
 | Name | Path | Type |
 | --- | --- | --- |
@@ -83,7 +83,7 @@ C:\Workshop\pdi-2hr\03-make-it-yours\03-enrich-and-join\customers.json
 </div>
 </figure>
 
-5. Click **Preview rows** — 20 customers. The nested JSON is now
+6. Click **Preview rows** — 20 customers. The nested JSON is now
    just another stream of rows, identical in kind to the CSV stream.
 <div align="center">
 <figure>
@@ -236,14 +236,14 @@ match per row, and the whole lookup set must fit in memory.
 Each sale now has a `region_code`, and `regions.csv` says what that
 code means — its name and the manager who owns the number. Time for
 an actual join.
-
+>
 **Merge join** is PDI's SQL-style join: two streams, matched on keys,
 with **INNER / LEFT OUTER / RIGHT OUTER / FULL OUTER** semantics, and
 it streams — neither side has to fit in memory. The price of that
 scalability is one rule: **both inputs must arrive sorted on the join
 keys**, so a Merge join is almost always preceded by two **Sort rows**
 steps.
-
+>
 1. Drag another **Text file input** on. 
    - Name it `Read regions` 
    - point it at `regions.csv` in this lab's folder, header ticked, 
@@ -373,7 +373,7 @@ Three practical consequences worth carrying home:
 **`[ ]`**`region_name` and `manager_email` are filled on every row.
 
 >
-### Troubleshooting
+### Troubleshooting <!-- no-step -->
 <details>
 
 <summary>Stream lookup returns nulls for every row</summary>
