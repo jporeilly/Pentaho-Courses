@@ -22,7 +22,7 @@
 > engineer at a small retailer. Every morning, yesterday's sales must
 > be validated, joined with customer and product master data, and
 > loaded into the warehouse — with history tracked — by 9am. Today
-> you build that pipeline. This lab shows you the finished first
+> you build that pipeline. This workshop shows you the finished first
 > stage so you know where you're going.
 
 <figure>
@@ -102,10 +102,10 @@ anything is written anywhere.
 > #### Preview is the real engine, not a simulation
 >
 > Three words first, because you will see them everywhere. The picture
-> on the canvas is a **transformation**: PDI's name for a pipeline that
-> reads rows, changes them and writes them somewhere. Each box is a
-> **step**, one thing the data passes through: read a file, keep or
-> drop rows, write a file. The arrows are **hops**, and a hop carries
+> on the canvas is a **Transformation**: PDI's name for a pipeline that
+> reads rows - extract, changes them - transform and writes them somewhere - loads. Each box is a
+> **Step**, one thing the data passes through: read a file, keep or
+> drop rows, write a file. The arrows are **Hops**, and a hop carries
 > rows from one step to the next.
 >
 > When you clicked Preview, PDI did not show you a cached sample or a
@@ -115,7 +115,7 @@ anything is written anywhere.
 >
 > It can do that because there is nothing to compile or deploy first.
 > Each step is a small independent worker, and rows pass between the
-> workers in little batches, so the whole thing starts in under a
+> workers in micro batches, so the whole thing starts in under a
 > second, can be watched at any step, and stops just as fast.
 >
 > **Why it matters:** there is no build-then-deploy-then-check loop.
@@ -147,20 +147,11 @@ can inspect.
 >
 > #### Two hops mean two real streams
 >
-> The filter step did not tag rows as good or bad and pass one list
-> along. It has two outgoing hops (the arrows leaving it), and each
-> one is a genuinely separate stream of rows, with its own small
-> buffer and its own worker downstream. Valid rows go one way, rejects
-> the other, and both branches run at the same time.
+> The filter step does not simply tag rows as "good" or "bad" within a single list. Instead, it creates two distinct outgoing hops; each is a separate stream of rows with its own buffer and downstream worker. Valid rows are routed one way, rejected rows the other, and both branches run simultaneously.
 >
-> That is what Preview on Rejected rows just showed you: the reject
-> branch is real data you can look at on its own, not a line in a
-> log file.
+> This is what "Preview on Rejected rows" just demonstrated: the rejected branch contains real data you can inspect independently, rather than just a line in a log file.
 >
-> **Why it matters:** "what do we do with bad data?" stops being
-> error-handling code buried inside a program and becomes a visible
-> path on the canvas, one anybody can point at in a review and one you
-> can preview independently, as you just did.
+> **Why it matters:** The question of "what do we do with bad data?" is no longer a piece of error-handling code buried deep inside a program. Instead, it becomes a visible path on the canvas—one that anyone can point to during a review and one you can preview independently, just as you just did.
 
 ## Look inside a step
 

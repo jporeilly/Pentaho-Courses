@@ -11,18 +11,19 @@
 > history, and **none of that time is spent on setup** — this page
 > does it in advance.
 >
-> **What you'll do**
+> **What you'll do:**
 >
 > * Confirm Pentaho Data Integration (Developer Edition) starts.
 > * Check the sample MySQL database is up and running.
 > * Check the working folder: > **Prerequisites**
- 
-The Pentaho Data Integration (PDI) 2-hour workshop guide assumes you have the following:
- 
-- Familiarity with the basics of data integration
-- Knowledge of the Windows operating system and its command prompt
-- Access to a computer with a Windows operating system
-- A valid installation of the PDI software
+
+> **Note:** 
+> The Pentaho Data Integration (PDI) 2-hour workshop guide assumes you have the following:
+>  
+> - Familiarity with the basics of data integration
+> - Knowledge of the Windows operating system and its command prompt
+> - Access to a computer with a Windows operating system
+> - A valid installation of the PDI software
 
 > 
  **Getting Started**
