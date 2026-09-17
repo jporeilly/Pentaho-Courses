@@ -159,7 +159,7 @@ C:\Workshop\pdi-2hr\04-see-it-scale\05-one-pipeline-many-files\mi_template.ktr
 
 5. Save. This transformation can't run on its own — as it requires the injected metadata properties.
 
-Next is the Injector step: 
+**Next ->** [The injector](#tab-2-the-injector)
 
 ### 2. The injector
 <div align="center">
@@ -229,7 +229,7 @@ Next is the Injector step:
 
 5. Save.
 
-Next is the Driver Job: 
+**Next ->** [The driver job](#tab-3-the-driver-job)
 
 ### 3. The driver job
 <figure>
@@ -298,7 +298,7 @@ Next is the Driver Job:
 > Every scheduled pipeline you will ever run in PDI is a job wrapped
 > around transformations, which is exactly what Lab 7 is about.
 
-Next is Run: 
+**Next is Run:** [Run and extend](#tab-4-run-and-extend)
 
 ### 4. Run and extend
 
