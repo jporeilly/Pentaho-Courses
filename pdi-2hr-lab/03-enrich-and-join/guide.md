@@ -17,7 +17,8 @@
 > * Compute revenue and margin with **Calculator**.
 > * Join with **Merge join** — a true SQL-style join (inner / left / right / full) over two sorted streams — and learn when to reach for which.
 >
-> **Prerequisites:** [Build the Pipeline Yourself](../02-build-the-pipeline/guide.md) — you'll extend that transformation.
+> **Prerequisites:** 
+> * [Build the Pipeline Yourself](../02-build-the-pipeline/guide.md) — you'll be extending the pipeline.
 >
 > **Estimated Time:** 20 minutes
 
@@ -49,6 +50,8 @@ C:\Workshop\pdi-2hr\03-make-it-yours\03-enrich-and-join\
 
 ## Read the customer master (JSON)
 
+
+
 1. Open your Lab 2 transformation and save it as `enrich_sales.ktr` (**File -> Save as**).
 2. From **Input**, drag **JSON input** onto an empty part of the canvas.
 3. Double-click it. Name it `Read customers`. On the **File** tab, browse to:
@@ -68,11 +71,11 @@ C:\Workshop\pdi-2hr\03-make-it-yours\03-enrich-and-join\customers.json
 
 5. On the **Fields** tab, add rows — one per field. **Path** uses JSONPath, relative to the array of customer objects:
 
-| Name | Path | Type |
-| --- | --- | --- |
-| customer_id | $.customers[*].id | String |
-| customer_name | $.customers[*].name | String |
-| region_code | $.customers[*].region_code | String |
+| Name          | Path                       | Type   |
+| ------------- | -------------------------- | ------ |
+| customer_id   | $.customers[*].id          | String |
+| customer_name | $.customers[*].name        | String |
+| region_code   | $.customers[*].region_code | String |
 
 <figure>
 
@@ -138,11 +141,13 @@ C:\Workshop\pdi-2hr\03-make-it-yours\03-enrich-and-join\products.csv
 
 ## Enrich with two lookups
 
-**Stream lookup** enriches a main stream with fields fetched from a
-second stream. It loads the lookup stream into memory once, then
-matches each main row by key — perfect for small reference sets like
-a customer master or a product catalogue. It is *not* a join: one
-match per row, and the whole lookup set must fit in memory.
+> **Note:**
+>
+> **Stream lookup** enriches a main stream with fields fetched from a
+> second stream. It loads the lookup stream into memory once, then
+> matches each main row by key — perfect for small reference sets like
+> a customer master or a product catalogue. It is *not* a join: one
+> match per row, and the whole lookup set must fit in memory.
 
 1. From **Lookup**, drag **Stream lookup** on. Name it
    `+ customer`.
@@ -178,7 +183,7 @@ match per row, and the whole lookup set must fit in memory.
 > **Under the hood:**
 >
 > #### A lookup index, built once, used 37 times
->
+> 
 > Stream lookup enriches one stream of rows (the sales) with values
 > from another (the customers). It works in two phases. First it reads
 > the *lookup* stream, the customers, to the end and builds an index in
@@ -200,6 +205,10 @@ match per row, and the whole lookup set must fit in memory.
 > tables, no round trip, and one canvas that tells the whole story.
 
 ## Compute revenue and margin
+
+> **Note:**
+>
+> **Calculator** step is used to perform arithmetic and basic calculations on your data stream. In this lab, it provides an efficient way to compute the `margin` by subtracting cost from revenue. Because it uses native Java code rather than an interpreted script, it is significantly faster and more performant than the "Modified JavaScript Value" step for simple calculations..
 
 1. From **Transform**, drag **Calculator** on, hopped from
    `+ product`.

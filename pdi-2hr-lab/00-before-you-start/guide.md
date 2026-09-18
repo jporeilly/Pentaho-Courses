@@ -17,23 +17,9 @@
 > * Check the working folder: *C:\workshop\pdi-2hr*
 >
 > **Prerequisites:** 
->
-> The Pentaho Data Integration (PDI) 2-hour workshop guide assumes you have the following:
 > - Familiarity with the basics of data integration
-> - Knowledge of the Windows operating system and its command prompt
-> - Access to a computer with a Windows operating system
-> - A valid installation of the PDI software
-
-> 
- **Getting Started**
- 
-To begin the workshop, ensure you have the correct PDI installation directory:
-
-```text
-C:\workshop\pdi-2hr
-```
 >
- **Estimated Time:** 5 minutes — before the session.
+> **Estimated Time:** 5 minutes — before the session.
 
 > **Note:** **About the software you're using.** Pentaho Data
 > Integration **Developer Edition** is free for evaluation,
@@ -46,6 +32,15 @@ C:\workshop\pdi-2hr
 > usage events (pages opened, steps completed, tools launched, using [G4 measurement protocol](https://developers.google.com/analytics/devguides/collection/protocol/ga4)) so we
 > can see where the workshop flows well and where it doesn't. No names, no
 > email addresses, and nothing you type is ever sent - only kept in-session memory.
+
+> 
+## Getting Started
+ 
+To begin the workshop, ensure you have the correct PDI installation directory:
+
+```text
+C:\workshop\pdi-2hr
+```
 
 ## Check your environment
 
@@ -126,7 +121,7 @@ You don't need to provide the connection details for workshop - Track History wi
 | Username | `pentaho_admin` |
 | Password | `password` |
 
-### Troubleshooting
+## Troubleshooting
 
 <details>
 

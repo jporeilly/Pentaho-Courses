@@ -14,7 +14,8 @@
 > * Route rows with missing keys to a reject stream with **Filter rows**.
 > * Write the rejects to a CSV with **Text file output**.
 >
-> **Prerequisites:** [Your First Win](../01-first-win/guide.md).
+> **Prerequisites:** 
+> * [Your First Win](../01-first-win/guide.md) pipeline completed.
 >
 > **Estimated Time:** 15 minutes
 
@@ -53,10 +54,17 @@ C:\Workshop\pdi-2hr\02-see-it-work\02-build-the-pipeline\check_keys.ktr
 ```
 
 ## Read the file
+> **Note:**
+>
+> The **Text file input** step loads the product information from the `products.csv` file. It parses the comma-separated values (CSV) and identifies the header row, converting the raw text file into a structured data stream that PDI can process.
 
 1. In the Design palette, open **Input** folder and drag **Text file input**
    onto the canvas.
-> **Note:** **Tip.** This is a steep learning curve, so use the 'Search' box to narrow down the hunt for the Step.
+
+> **Tip:**
+>
+> This is a steep learning curve, so use the '**Search**' box to narrow down the hunt for the Step.
+
 2. Double-click it. Name it `Read sales`.
 3. On the **File** tab, click **Browse**, pick:
 
@@ -142,6 +150,9 @@ C:\Workshop\pdi-2hr\02-see-it-work\02-build-the-pipeline\sales_20260101.csv
 > for exactly this reason.
 
 ## Validate the keys
+> **Note:**
+>
+> Think of the **Filter rows** step as a fork in the road. It evaluates a condition and decides where each row should go next. In this lab, we use it to split the stream: valid records continue forward, while records that fail the validation (like a missing key) are diverted to a separate "rejects" file..
 
 1. From **Flow**, drag **Filter rows** onto the canvas.
 2. Draw a hop: hover over `Read sales`, drag from the output
@@ -200,6 +211,9 @@ PDI adds`.txt`; switch **Extension** to `csv` if you prefer.
    **TRUE** branch of the filter to it. Name it `Valid rows`.
 
 ## Run it
+> **Note:**
+>
+> **Run options** define how the transformation engine executes your steps. The most common setting is **Number of copies**, which allows PDI to run multiple instances of a step in parallel to speed up processing for large datasets.
 
 1. Click **Run** (the ▶ in the canvas toolbar or F9), then **Run** again in
    the dialog.
