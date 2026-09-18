@@ -336,7 +336,7 @@ an actual join.
 > missing" and "some sales need a region added"; make it
 > deliberately, every time.
 
-## Lookup or join?
+## Lookup or join? <!-- no-step -->
 
 Your canvas now has both, side by side, on the same data — so this is
 the moment the difference sticks. They look interchangeable in a
@@ -379,6 +379,20 @@ Three practical consequences worth carrying home:
 **`[ ]`**`region_name` and `manager_email` are filled on every row.
 
 >
+
+## Dummy Step
+
+> **Note:**
+>
+> Something worth highlighting.
+
+
+
+
+
+
+
+
 ### Troubleshooting <!-- no-step -->
 <details>
 

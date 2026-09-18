@@ -37,7 +37,6 @@
 </div>
 
 ## Connect to the database
-
 1. Create a new transformation and Save as: `load_dim_customer.ktr`.
 2. Drag a **JSON input** on, and configure exactly as in the previous workshop -
    `Read customers` (same three fields — copy/paste the step between
@@ -62,11 +61,11 @@ C:\Workshop\pdi-2hr\03-make-it-yours\04-track-history\customers.json
 3. On the **Fields** tab, add rows — one per field. **Path** uses
    JSONPath, relative to the array of customer objects:
 
-| Name | Path | Type |
-| --- | --- | --- |
-| customer_id | $.customers[*].id | String |
-| customer_name | $.customers[*].name | String |
-| region_code | $.customers[*].region_code | String |
+| Name          | Path                       | Type   |
+| ------------- | -------------------------- | ------ |
+| customer_id   | $.customers[*].id          | String |
+| customer_name | $.customers[*].name        | String |
+| region_code   | $.customers[*].region_code | String |
 
 <figure>
 
@@ -80,6 +79,10 @@ C:\Workshop\pdi-2hr\03-make-it-yours\04-track-history\customers.json
 > **Tip:**
 >
 > You could just copy and paste the step from the previous enrich_sales.ktr.
+
+> **Note:**
+>
+> In PDI, a **Database Connection** is a reusable configuration profile that defines how the tool communicates with an external database. It encapsulates essential metadata—such as the database type (MySQL, PostgreSQL, etc.), host address, port, and authentication credentials—using JDBC drivers to bridge the gap between PDI and the data source. By defining a connection once in the repository, you can reuse it across any number of steps and transformations, ensuring consistency and making it easy to update connection details across your entire project.
 
 3. In the **View** tab (left panel), right-click **Database connections > New**:
    - **Connection name:** `warehouse`
@@ -112,6 +115,9 @@ C:\Workshop\pdi-2hr\03-make-it-yours\04-track-history\customers.json
 > key retrieval, see Troubleshooting below — it's a one-time fix.
 
 ## Configure the dimension step
+> **Note:**
+>
+> **Dimension lookup/update** step is the standard PDI solution for managing Slowly Changing Dimensions (SCD). While standard "Insert/Update" steps only overwrite existing data, this step can distinguish between different types of changes: it can perform a Type 1 update (overwriting a value) or a Type 2 update (creating a new record with a version number and updated date range). By handling technical metadata like surrogate keys and effective dates automatically, it replaces several manual steps with one specialized configuration.
 
 1. From **Data Warehouse**, drag **Dimension lookup/update** onto
    the canvas and hop `Read customers` into it.
@@ -184,18 +190,20 @@ CREATE INDEX idx_dim_customer_tk ON dim_customer (customer_tk);
 > **Note:** Read that generated DDL before you close it. That is the
 > entire Type 2 apparatus — surrogate key, version counter, validity window.
 
-
 ## First load
-
 1. Run the transformation. 20 rows in, 20 dimension rows written.
 2. Verify from any MySQL client - DBeaver:
-
+3. Double click on thee DBeaver icon to open the tool.
+4. Expand: **sampledata** database > Tables > dim_customer.
+5. Click in the SQL Editor option in the top nav bar and select New script.
+6. Copy and paste the following script:
 ```sql
 SELECT customer_tk, customer_id, customer_name, region_code,
        version, date_from, date_to
 FROM   sampledata.dim_customer
 ORDER  BY customer_id, version;
 ```
+7. Click the play button (Run).
 
 <figure>
 
