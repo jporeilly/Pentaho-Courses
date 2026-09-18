@@ -141,6 +141,10 @@ C:\Workshop\pdi-2hr\04-see-it-scale\05-one-pipeline-many-files\mi_template.ktr
 </div>
 </figure>
 
+> **Note:**
+>
+> **Text file output** step is used to write processed data to a plain text file, supporting various formats such as CSV, tab-separated, or fixed-width. In this specific workflow, it serves as the final destination for the transformed data. Because the metadata injection process standardizes the differing fields from the North, South, and EU feeds into a single schema, this one output step can successfully capture data from all sources, providing a unified landing zone for your integrated records.
+
 4. Drag on a **Text file output**, hopped from `Standardise`.
    - **Filename:** `C:\Workshop\pdi-2hr\out\all_feeds`, extension `csv`.
 <figure>
@@ -324,15 +328,13 @@ C:\Workshop\pdi-2hr\04-see-it-scale\05-one-pipeline-many-files\mi_template.ktr
 **Next is Run:** [Run and extend](#tab-4-run-and-extend)
 
 ### 4. Run and extend
+> **Note:**
+>
+> In this workshop, you moved from a "hard-coded" development model to a **configuration-driven architecture**. By implementing Metadata Injection, you decoupled the transformation logic from the source file specifics. Instead of maintaining multiple transformations for different delimiters and file paths, you created a single, agnostic **Template** that can handle any file defined in your control source.
+>
+> This architecture ensures that when a new data source is added, you no longer need to modify PDI code; you simply update a row in your control file. This is the gold standard for scaling PDI projects to handle high-volume, varied data feeds.
 
-1. Delete:
-
-```text
-C:\Workshop\pdi-2hr\out\all_feeds.csv
-```
-if it exists (we append).
-2. Run the **job**. Watch the log: the injector executes three
-   times, once per control row.
+1. Run the **job**. Watch the log: the injector executes three times, once per control row.
 <figure>
 
 ![Execution Results, Logging tab: the driver job's log showing Inject per feed dispatched three times, once each for stores_north.csv, stores_south.txt and partners_eu.csv](../_assets/images/1788857063686.png)
@@ -342,7 +344,7 @@ if it exists (we append).
 </div>
 </figure>
 
-3. Open `all_feeds.csv`: **18 rows** — north, south, and EU feeds,
+2. Open `all_feeds.csv`: **18 rows** — north, south, and EU feeds,
    three shapes, one standard output.
 <figure>
 
@@ -355,10 +357,10 @@ if it exists (we append).
 
 Now the punchline:
 
-4. Copy `stores_north.csv` to `stores_scotland.csv`, change the
+3. Copy `stores_north.csv` to `stores_scotland.csv`, change the
    store names, and **add one line to `control.csv`** with its path
    and separator.
-5. Run the job again. Four feeds. You did not open a pipeline.
+4. Run the job again. Four feeds. You did not open a pipeline.
 
 > **Under the hood:**
 >
