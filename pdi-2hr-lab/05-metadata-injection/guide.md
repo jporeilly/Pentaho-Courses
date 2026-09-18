@@ -91,6 +91,9 @@
 :::: tabs
 
 ### 1. The template
+> **Note:**
+>
+> **Template pipeline** acts as a generic, reusable engine for your data. In a metadata injection workflow, the template is designed to handle the transformation logic (e.g., calculations, lookups, and formatting) while remaining "agnostic" to the specific metadata of the source files. Instead of hard-coding details like delimiters, file paths, or field names—which would normally require a separate pipeline for every unique file — the template uses these as placeholders. These values are then injected at runtime from a control source, allowing a single pipeline to process a diverse range of files without any changes to the underlying transformation.
 
 <div align="center">
 <figure>
@@ -159,13 +162,17 @@ C:\Workshop\pdi-2hr\04-see-it-scale\05-one-pipeline-many-files\mi_template.ktr
 
 5. Save. This transformation can't run on its own — as it requires the injected metadata properties.
 
-<a class="pcm-btn" href="#tab-2-the-injector">**Click to next tab: The injector**</a>
+<a class="pcm-btn" href="#tab-2-the-injector">**Click to open next tab: The injector**</a>
 
 ### 2. The injector
+> **Note:**
+>
+> **Injector pipeline** serves as the bridge between your configuration data and your transformation logic. It reads the "control" information — such as file paths, delimiters, and field names - from a source (like `control.csv`) and feeds those values into the **Metadata Injection** step. By dynamically supplying these parameters at runtime, the Injector allows the Template pipeline to remain "agnostic," enabling it to process multiple different files without needing a unique transformation for every unique file type.
+
 <div align="center">
 <figure>
 
-![The injector canvas: File config hopped to Inject and run template, with a note saying it runs once per feed](../_assets/images/1788854678779.png#w=420)
+![The injector canvas: File config hopped to Inject and run template, with a note saying it runs once per feed](../_assets/images/1788854678779.png#w=520)
 
 <figcaption><em>Metadata Injector</em></figcaption>
 </div>
@@ -181,11 +188,16 @@ C:\Workshop\pdi-2hr\04-see-it-scale\05-one-pipeline-many-files\mi_template.ktr
 </div>
 </figure>
 
+> **Note:**
+>
+> The **Get rows from result** step acts as the bridge between your configuration source and the injection process. In a metadata injection workflow, it captures the rows (containing your file paths, delimiters, and field mappings) from a previous step or transformation and feeds them into the **Metadata Injection** step. This allows the system to dynamically "plug in" the specific requirements for each file at runtime, transforming a static template into a flexible, multi-format processor.
+
 2. Drag on **Get rows from result** (from *Job*). 
    - Name it: `File config`. 
    - Add its two fields: `filename` and `separator`, both String. 
    When the driver job executes this transformation
    once per control row, *this step is where that row arrives*.
+
 <figure>
 
 ![ETL metadata injection dialog Inject and run template, pointing at solution_mi_template.ktr, with the Inject Metadata tree listing every property of the template's steps](../_assets/images/1788855363944.png)
@@ -194,6 +206,10 @@ C:\Workshop\pdi-2hr\04-see-it-scale\05-one-pipeline-many-files\mi_template.ktr
 <figcaption><em>Template metadata properties</em></figcaption>
 </div>
 </figure>
+
+> **Note:**
+>
+> **Metadata Injection** decouples the transformation logic from the source configuration. Instead of hard-coding details like delimiters, field names, or file paths, you create a "template" pipeline that remains agnostic to the specific source. At runtime, the **injection step** pulls these configurations from a control file and "injects" them into the template, allowing a single pipeline to process multiple diverse files dynamically.
 
 3. From **Flow**, drag on **ETL metadata injection**, hopped from
    `File config`. 
@@ -232,6 +248,10 @@ C:\Workshop\pdi-2hr\04-see-it-scale\05-one-pipeline-many-files\mi_template.ktr
 <a class="pcm-btn" href="#tab-3-the-driver-job">**Click to next tab: The driver job**</a>
 
 ### 3. The driver job
+> **Note:**
+>
+> **Driver job** acts as the orchestration layer for the entire workflow. It reads the `control.csv` file and iterates through each row, triggering the injection process for every file listed. By looping the injection transformation, the job ensures that every unique file configuration is processed automatically, allowing you to scale from three files to hundreds without ever changing the underlying pipeline.
+
 <figure>
 
 ![The driver job canvas: START, Read control file, Inject per feed and Success in a line, an unconditional hop after START and success hops after each transformation, with a note explaining the loop](../_assets/images/1788856253833.png)
@@ -369,6 +389,8 @@ Now the punchline:
 **`[ ]`** The new feed required editing only `control.csv`.
 
 ::::
+
+---
 
 ## Troubleshooting <!-- no-step -->
 
