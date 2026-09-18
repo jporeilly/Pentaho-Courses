@@ -247,7 +247,6 @@ The kettle.properties can be edited using a Text Editor or via the Toolbar, sele
 <figcaption><em>kettle.proprties file</em></figcaption>
 </div>
 
-
 ### 2. shared.xml
 > **Note:** **shared.xml**
 >
@@ -268,7 +267,18 @@ The kettle.properties can be edited using a Text Editor or via the Toolbar, sele
 
 1. To share one of these objects, simply right-click on the object in the tree control on the left and choose share.
 
-<figure><img src="../_assets/images/share-connection.png" alt=""><figcaption><p>Shared Object - Connection</p></figcaption></figure>
+<div align="center">
+<figure>
+
+![alt text](../_assets/images/share-connection.png)
+
+<figcaption><em>Shared connection</em></figcaption>
+</figure>
+</div>
+
+
+
+
 
 > **Note:** **Bold Type** indicates the Object is shared.
 
@@ -307,7 +317,7 @@ The kettle.properties can be edited using a Text Editor or via the Toolbar, sele
 > * **Windows:** C:\\{user}\\.kettle\\.spoonrc
 > * **Linux:**   $HOME/.kettle/.spoonrc
 
-```
+```properties
 #Kettle Properties file
 #Wed Sep 16 17:00:56 BST 2026
 AskAboutReplacingDatabases=N
