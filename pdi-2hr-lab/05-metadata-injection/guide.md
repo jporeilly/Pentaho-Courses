@@ -109,7 +109,6 @@
 ```text
 C:\Workshop\pdi-2hr\04-see-it-scale\05-one-pipeline-many-files\mi_template.ktr
 ```
-
 2. Drag on a **Text file input**. Name it `Read feed`. 
    - On **Fields**, add three **String** fields by hand: `col_store`,
    `col_date`, `col_amount` (the feeds all share this column
@@ -124,6 +123,10 @@ C:\Workshop\pdi-2hr\04-see-it-scale\05-one-pipeline-many-files\mi_template.ktr
 <figcaption><em>Edit the column headers</em></figcaption>
 </div>
 </figure>
+
+> **Note:**
+>
+> The **Select Values** step is used to standardize and clean the data stream. It allows you to rename fields, change data types (e.g., converting a String to a Number), and remove unnecessary columns. In a metadata injection workflow, this step is critical for ensuring that different source files—each with unique headers and formats—are transformed into a single, unified schema before they hit the core processing logic.
 
 3. Drag on a **Select values** step, hopped from `Read feed`. Name
    it `Standardise`. On **Select & Alter**, rename
