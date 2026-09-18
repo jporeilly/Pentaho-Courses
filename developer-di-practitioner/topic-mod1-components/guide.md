@@ -200,8 +200,8 @@ Start-Process "C:\Pentaho\design-tools\data-integration\spoon.bat
 >
 > The default Pentaho Data Integration (PDI) home directory is the `.kettle` folder located within the system user's home directory. This directory contains the main PDI configuration files.
 >
-> * Windows C\:{user}.kettle
-> * Linux based operating systems ($HOME/.kettle)
+> * **Windows:** C:\\{user}\\.kettle
+> * **Linux:**   $HOME/.kettle
 >
 > The directory may change depending on the user who is logged on. Thus, the configuration files that control the behaviour of PDI jobs and transformations are different from user to user.
 >
@@ -219,10 +219,13 @@ Start-Process "C:\Pentaho\design-tools\data-integration\spoon.bat
 ::: tabs
 
 ### 1. kettle.properties
-
 > **Note:** **kettle.properties**
 >
 > The kettle.properties file is where you will find all the global variables for KETTLE. You can also set global variables that can be used in Transformations and Jobs. For example, you can define database connections, paths to files, or variables that can be used as parameters in your solution.
+>
+> * **Windows:** C:\\{user}\\.kettle\\kettle.properties
+> * **Linux:**   $HOME/.kettle/kettle.properties
+>
 
 The kettle.properties can be edited using a Text Editor or via the Toolbar, select:
 
@@ -231,19 +234,27 @@ The kettle.properties can be edited using a Text Editor or via the Toolbar, sele
 
 ![alt text](../_assets/images/kettle-edit.png)
 
-<figcaption><em>kettle.properties</em></figcaption>
+<figcaption><em>Edit kettle.properties</em></figcaption>
 </figure>
 </div>
 
 **Kettle Variables**
+<figure>
+
+![1789748200086.png](../_assets/images/1789748200086.png)
+
+<div align="center">
+<figcaption><em>kettle.proprties file</em></figcaption>
+</div>
+
 
 ### 2. shared.xml
-
 > **Note:** **shared.xml**
 >
 > A variety of objects can now be placed in a shared objects file on the local machine. The default location for the shared objects file is:
 >
-> $HOME/.kettle/shared.xml
+> * **Windows:** C:\\{user}\\.kettle\shared.xml
+> * **Linux:** $HOME/.kettle/shared.xml
 >
 > Objects that can be shared using this method include:
 >
@@ -262,12 +273,12 @@ The kettle.properties can be edited using a Text Editor or via the Toolbar, sele
 > **Note:** **Bold Type** indicates the Object is shared.
 
 ### 3. repositories.xml
-
 > **Note:** **repositories.xml**
 >
 > A variety of objects can now be placed in a shared objects file on the local machine. The default location for the shared objects file is:
 >
-> $HOME/.kettle/repositories.xml
+> * **Windows:** C:\\{user}\\.kettle\\repositories.xml
+> 8 **Linux:**   $HOME/.kettle/repositories.xml
 
 ```xml
 <repositories>
@@ -283,7 +294,6 @@ The kettle.properties can be edited using a Text Editor or via the Toolbar, sele
 ```
 
 ### 4. .spoonrc
-
 > **Note:** **.spoonrc**
 >
 > Used to store preferences and program state of Spoon. Other Kettle programs do not use this file.
@@ -294,11 +304,12 @@ The kettle.properties can be edited using a Text Editor or via the Toolbar, sele
 >
 > The default location for the shared objects file is:
 >
-> $HOME/.kettle/.spoonrc
+> * **Windows:** C:\\{user}\\.kettle\\.spoonrc
+> * **Linux:**   $HOME/.kettle/.spoonrc
 
 ```
 #Kettle Properties file
-#Sat Dec 16 22:49:28 GMT 2023
+#Wed Sep 16 17:00:56 BST 2026
 AskAboutReplacingDatabases=N
 AutoCollapseCoreObjectsTree=Y
 AutoSave=N
@@ -307,8 +318,12 @@ BackgroundColorB=255
 BackgroundColorG=255
 BackgroundColorR=255
 CustomParameterMergeJoinSortWarning=Y
-CustomParameterMergeRowsSortWarning=Y
-CustomParameterSetVariableUsageWarning=Y
+DefaultPreviewSize=1000
+DisableBrowserEnvironmentCheck=N
+EnableAntiAliasing=N
+FontDefaultName=Segoe UI
+FontDefaultSize=9
+FontDefaultStyle=0
 ...
 ```
 
@@ -317,21 +332,20 @@ CustomParameterSetVariableUsageWarning=Y
 :::
 
 ### 4. JDBC
-
 > **Note:** **Adding JDBC Drivers**
 >
 > The PDI & Pentaho Server needs the appropriate driver to connect to the database that stores your data. Your database administrator, Chief Intelligence Officer, or IT manager should be able to provide the appropriate driver. If not, you can download drivers from your database vendor's website.
 >
-> The [Components Reference](https://help.hitachivantara.com/Documentation/Pentaho/9.0/Setup/Components_Reference) contains a list of drivers.
->
 > Once you have the correct driver, copy it to the following directories:
 >
-> * Pentaho Server: /pentaho/server/pentaho-server/tomcat/lib/
-> * PDI client: data-integration/lib
+> * **Pentaho Server:** /pentaho/server/pentaho-server/tomcat/lib/
+> * **PDI client:**     /data-integration/lib
 
 > **Danger:** You must restart the PDI client for the driver to take effect.
 >
 > There should be only one driver for your database in the directory. Ensure that there are no other versions of the same vendor's driver in this directory. If there are, back up the old driver files and remove them to avoid version conflicts.
+
+<div class="pcm-embed-card" data-href="https://docs.pentaho.com/pdia-try-pdia/jdbc-drivers-reference" data-title="JDBC Drivers"></div>
 
 ### 5. Repository
 
