@@ -2,7 +2,7 @@
   "title": "Read JSON",
   "description": "",
   "order": 13,
-  "stepCount": 7,
+  "stepCount": 6,
   "estimatedMinutes": 25,
   "hasVideo": true
 }

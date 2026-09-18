@@ -1,5 +1,4 @@
 # Components
-
 <div class="pcm-intro">
 
 Before you build anything in Pentaho Data Integration (PDI), you need to know your way around Spoon. This module gets you set up: perspectives, options, and the kettle.properties file that drives variables across every transformation. By the time you finish, you'll feel at home in the design tool.
@@ -18,7 +17,14 @@ Pentaho Data Integration operates on a **client-server architecture** that separ
 * **Repository Management**: How PDI manages versioning, collaboration, and content organization
 * **Database Connectivity**: The process of integrating JDBC drivers to connect to various data sources
 
-![Pentaho Enterprise](../_assets/images/psi-workflow-2.svg)
+<figure>
+
+![alt text](../_assets/images/psi-workflow-2.svg)
+
+<div align="center">
+<figcaption><em>Pentaho Ecosystem</em></figcaption>
+</div>
+</figure>
 
 ---
 
@@ -27,13 +33,18 @@ Browse to learn about the components:
 :::: tabs
 
 ### 1. Components
+<div align="center">
+<figure>
 
-<div data-full-width="true"><figure><img src="../_assets/images/architecture.png" alt=""><figcaption><p>Pentaho Client / Server Architecture</p></figcaption></figure></div>
+![alt text](../_assets/images/architecture.png)
+
+<figcaption><em>Pentaho Architecture - Client / Server</em></figcaption>
+</figure>
+</div>
 
 ::: tabs
 
 ### 1. Data Integration
-
 > **Note:**
 >
 > #### **Data Integration**
@@ -71,7 +82,6 @@ Browse to learn about the components:
 <div class="pcm-embed-card" data-href="https://docs.pentaho.com/pdia-data-integration" data-title="Pentaho Data Integration 11.0 | Pentaho" data-thumb="../_assets/embeds/df6e513be97b.png"></div>
 
 ### 2. Pentaho Server
-
 > **Note:**
 >
 > #### **Pentaho Server**
@@ -80,19 +90,32 @@ Browse to learn about the components:
 
 The primary functions of the Pentaho Server are:
 
-<table data-header-hidden><thead><tr><th width="225"></th><th></th></tr></thead><tbody><tr><td><strong>Execution</strong></td><td>Executes ETL jobs and transformations using the Pentaho Data Integration engine</td></tr><tr><td><strong>Security</strong></td><td>Allows you to manage users and roles (default security) or integrate security to your existing security provider such as LDAP or Active Directory</td></tr><tr><td><strong>Content Management</strong></td><td>Provides a centralized repository that allows you to manage your ETL jobs and transformations. This includes full revision history on content and features such as sharing and locking for collaborative development environments.</td></tr><tr><td><strong>Scheduling & Monitoring</strong></td><td>Provides the services allowing you to schedule and monitor activities on the Data Integration Server from within the Spoon design environment (Quartz).</td></tr></tbody></table>
+| Function                    | Description                                                                                                                                                                                                                        |
+| --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Execution**               | Executes ETL jobs and transformations using the Pentaho Data Integration engine                                                                                                                                                    |
+| **Security**                | Allows you to manage users and roles (default security) or integrate security to your existing security provider such as LDAP or Active Directory                                                                                  |
+| **Content Management**      | Provides a centralized repository that allows you to manage your ETL jobs and transformations. This includes full revision history on content and features such as sharing and locking for collaborative development environments. |
+| **Scheduling & Monitoring** | Provides the services allowing you to schedule and monitor activities on the Data Integration Server from within the Spoon design environment (Quartz).                                                                            |
+
+
 
 <div class="pcm-embed-card" data-href="https://docs.pentaho.com/install/components-reference" data-title="Components reference | Pentaho" data-thumb="../_assets/embeds/99d6d0253453.png"></div>
 
 ### 3. Carte
-
 > **Note:**
 >
 > #### **Carte Server**
 >
 > The Pentaho DI Carte Server is a vital component within the Pentaho data integration suite, designed to facilitate robust data processing operations. It serves as a stand-alone web server and execution environment that allows for the remote execution of ETL (Extract, Transform, Load) tasks, making it a cornerstone for managing data workflows efficiently.
 
-<figure><img src="../_assets/images/carte.png" alt=""><figcaption><p>Carte Server</p></figcaption></figure>
+<div align="center">
+<figure>
+
+![alt text](../_assets/images/carte.png)
+
+<figcaption><em>Carte Ecosystem</em></figcaption>
+</figure>
+</div>
 
 > **Note:** **Simplicity and Efficiency**
 >
@@ -117,7 +140,6 @@ The primary functions of the Pentaho Server are:
 <div class="pcm-embed-card" data-href="https://docs.pentaho.com/pdia-data-integration/advanced-topics-pentaho-data-integration-overview/use-carte-clusters" data-title="Use Carte Clusters | Pentaho" data-thumb="../_assets/embeds/b2bee0a6a9e0.png"></div>
 
 ### 4. REST APIs
-
 > **Note:**
 >
 > #### **PDI REST APIs**
@@ -140,35 +162,41 @@ The primary functions of the Pentaho Server are:
 > ./kitchen.sh /file:/home/[pentaho_user]/[path]/[job].kjb  /level:[Log level]
 > ```
 
-<div class="pcm-embed-card" data-href="https://docs.pentaho.com/pentaho-rest-api/carte-apis-carte-server" data-title="View external resource"></div>
+<div class="pcm-embed-card" data-href="https://docs.pentaho.com/pentaho-rest-api/carte-apis-carte-server" data-title="Carte APIs"></div>
 
 :::
 
 ### 2. PDI UI
-
 > **Note:** **User Interface**
 >
 > Within the UI, you can author, edit, run, and debug transformations and jobs. You can also enter license keys, add data connections, and define security (default options - Pentaho or LDAP).
 >
 > The Welcome page contains useful links to documentation, community links for getting involved in the Pentaho Data Integration project, and links to blogs from some of the top contributors to the Pentaho Data Integration project.
 
-<figure><img src="../_assets/images/spoon-welcome.png" alt=""><figcaption><p>Welcome page</p></figcaption></figure>
+<div align="center">
+<figure>
+
+![alt text](../_assets/images/spoon-welcome.png)
+
+<figcaption><em>Welcome Page</em></figcaption>
+</figure>
+</div>
 
 > **Note:** There are a few different ways to start PDI. The method that you should use depends on the way you installed Pentaho Data Integration (PDI).
 
-<table><thead><tr><th width="255">OS: Windows / Unix</th><th>Action</th></tr></thead><tbody><tr><td>spoon.bat / spoon.sh</td><td>Starts Spoon</td></tr><tr><td>kichen.bat / kitchen.sh</td><td>Command Line for Jobs</td></tr><tr><td>pan.bat / pan.sh</td><td>Command Line for Transformations</td></tr></tbody></table>
+| OS: Windows / Unix       | Action                           |
+| ------------------------ | -------------------------------- |
+| spoon.bat / spoon.sh     | Starts Spoon                     |
+| kitchen.bat / kitchen.sh | Command Line for Jobs            |
+| pan.bat / pan.sh         | Command Line for Transformations |
 
 **Launch Data Integration**
 
-1. Run the following command `(Linux):`
+1. If Pentaho Data Integration is not up and running:
 
-```bash
-cd
-cd ~/Scripts
-sh pentaho--platform.sh
+```powershell
+Start-Process "C:\Pentaho\design-tools\data-integration\spoon.bat
 ```
-
-**Configuring Pdi Ui**
 
 ### 3. Configuration Files
 
@@ -176,18 +204,25 @@ sh pentaho--platform.sh
 >
 > The default Pentaho Data Integration (PDI) HOME directory is the user's home directory. Here is located in the .kettle folder, are the main PDI configuration files.
 >
-> * Windows C:{user}.kettle
+> * Windows C\:{user}.kettle
 > * Linux based operating systems ($HOME/.kettle)
 >
 > The directory may change depending on the user who is logged on. Thus, the configuration files that control the behaviour of PDI jobs and transformations are different from user to user.
 >
 > This also applies when running PDI from the Pentaho BI Platform. When you set the KETTLE\_HOME variable, the PDI jobs and transformations can be run without being affected by the user who is logged on. KETTLE\_HOME is used to change the location of the files normally in \[user home].kettle
 
-<table><thead><tr><th width="257">File</th><th>Description</th></tr></thead><tbody><tr><td>kettle.properties</td><td>main configuration file with global variables</td></tr><tr><td>shared.xml</td><td>list of shared artefacts</td></tr><tr><td>db.cache</td><td>database cache for metadata</td></tr><tr><td>repositories.xml</td><td>list of repositories</td></tr><tr><td>.spoonrc</td><td>settings for the UI</td></tr><tr><td>.languageChoice</td><td>language settings</td></tr></tbody></table>
+| File              | Description                                   |
+| ----------------- | --------------------------------------------- |
+| kettle.properties | main configuration file with global variables |
+| shared.xml        | list of shared artefacts                      |
+| db.cache          | database cache for metadata                   |
+| repositories.xml  | list of repositories                          |
+| .spoonrc          | settings for the UI                           |
+| .languageChoice   | language settings                             |
 
 ::: tabs
 
-### 3.1 kettle.properties
+### 1. kettle.properties
 
 > **Note:** **kettle.properties**
 >
@@ -195,11 +230,18 @@ sh pentaho--platform.sh
 
 The kettle.properties can be edited using a Text Editor or via the Toolbar, select:
 
-<div align="center"><figure><img src="../_assets/images/kettle-edit.png" alt=""><figcaption><p>kettle.properties</p></figcaption></figure></div>
+<div align="center">
+<figure>
+
+![alt text](../_assets/images/kettle-edit.png)
+
+<figcaption><em>kettle.properties</em></figcaption>
+</figure>
+</div>
 
 **Kettle Variables**
 
-### 3.2 shared.xml
+### 2. shared.xml
 
 > **Note:** **shared.xml**
 >
@@ -223,7 +265,7 @@ The kettle.properties can be edited using a Text Editor or via the Toolbar, sele
 
 > **Note:** **Bold Type** indicates the Object is shared.
 
-### 3.3 repositories.xml
+### 3. repositories.xml
 
 > **Note:** **repositories.xml**
 >
@@ -244,7 +286,7 @@ The kettle.properties can be edited using a Text Editor or via the Toolbar, sele
 </repositories>
 ```
 
-### 3.4 .spoonrc
+### 4. .spoonrc
 
 > **Note:** **.spoonrc**
 >

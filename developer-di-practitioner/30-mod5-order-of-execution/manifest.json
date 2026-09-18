@@ -2,7 +2,7 @@
   "title": "Order of Execution",
   "description": "",
   "order": 45,
-  "stepCount": 5,
+  "stepCount": 4,
   "estimatedMinutes": 25,
   "hasVideo": false
 }

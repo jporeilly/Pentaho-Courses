@@ -2,7 +2,7 @@
   "title": "Hello World",
   "description": "",
   "order": 6,
-  "stepCount": 7,
+  "stepCount": 6,
   "estimatedMinutes": 25,
   "hasVideo": true
 }

@@ -2,7 +2,7 @@
   "title": "Hello World (Job)",
   "description": "",
   "order": 44,
-  "stepCount": 7,
+  "stepCount": 6,
   "estimatedMinutes": 20,
   "hasVideo": false
 }

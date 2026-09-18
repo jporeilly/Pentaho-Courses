@@ -2,7 +2,7 @@
   "title": "Excel Writer",
   "description": "",
   "order": 15,
-  "stepCount": 16,
+  "stepCount": 15,
   "estimatedMinutes": 45,
   "hasVideo": true
 }
