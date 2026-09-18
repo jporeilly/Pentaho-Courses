@@ -49,8 +49,9 @@ C:\Workshop\pdi-2hr\03-make-it-yours\03-enrich-and-join\
 </figure>
 
 ## Read the customer master (JSON)
-
-
+> **Note:**
+>
+> **JSON input** step is used to parse and "flatten" semi-structured JSON data into a standard row-based stream. By using **JSONPath** expressions, you can navigate nested objects and extract specific fields into individual columns. This step is essential for normalizing data early in the pipeline, allowing you to join JSON-based data with other sources (like CSVs or SQL tables) as if they were all in the same format..
 
 1. Open your Lab 2 transformation and save it as `enrich_sales.ktr` (**File -> Save as**).
 2. From **Input**, drag **JSON input** onto an empty part of the canvas.
@@ -241,17 +242,13 @@ C:\Workshop\pdi-2hr\03-make-it-yours\03-enrich-and-join\products.csv
    existed in any source file.
 
 ## Join the region reference (a merge join)
+> **Note:**
+>
+> **Merge join** step combines two data streams into one based on a common key, mirroring the behavior of a SQL Join. Unlike the **Stream lookup**—which loads a reference set into memory—**Merge join** processes data as it flows through the pipeline, making it highly efficient for large datasets. Because it relies on sequential processing, both input streams **must** be sorted by the join key (typically using a **Sort rows** step) before reaching the join. It supports Inner, Left Outer, Right Outer, and Full Outer join types.
 
 Each sale now has a `region_code`, and `regions.csv` says what that
 code means — its name and the manager who owns the number. Time for
 an actual join.
->
-**Merge join** is PDI's SQL-style join: two streams, matched on keys,
-with **INNER / LEFT OUTER / RIGHT OUTER / FULL OUTER** semantics, and
-it streams — neither side has to fit in memory. The price of that
-scalability is one rule: **both inputs must arrive sorted on the join
-keys**, so a Merge join is almost always preceded by two **Sort rows**
-steps.
 >
 1. Drag another **Text file input** on. 
    - Name it `Read regions` 
@@ -345,14 +342,14 @@ Your canvas now has both, side by side, on the same data — so this is
 the moment the difference sticks. They look interchangeable in a
 screenshot; they are not.
 
-| | **Stream lookup** | **Merge join** |
-| --- | --- | --- |
-| What it is | An in-memory hash lookup | A true SQL-style join |
-| Input order | Any — no sorting needed | **Both streams must be sorted on the keys** |
-| Memory | The whole lookup stream is held in RAM | Streams both sides; neither has to fit |
-| Rows out | Never more than you put in | Can **multiply** rows — one left row × N matches |
-| No match | Row continues, fields null (or your default) | Depends on join type: dropped (INNER) or kept (OUTER) |
-| Join types | One behaviour only | INNER, LEFT / RIGHT / FULL OUTER |
+|                   | **Stream lookup**                                                                            | **Merge join**                                                                            |
+| ----------------- | -------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| What it is        | An in-memory hash lookup                                                                     | A true SQL-style join                                                                     |
+| Input order       | Any — no sorting needed                                                                      | **Both streams must be sorted on the keys**                                               |
+| Memory            | The whole lookup stream is held in RAM                                                       | Streams both sides; neither has to fit                                                    |
+| Rows out          | Never more than you put in                                                                   | Can **multiply** rows — one left row × N matches                                          |
+| No match          | Row continues, fields null (or your default)                                                 | Depends on join type: dropped (INNER) or kept (OUTER)                                     |
+| Join types        | One behaviour only                                                                           | INNER, LEFT / RIGHT / FULL OUTER                                                          |
 | Reach for it when | The reference set is small and stable — a customer master, a product catalogue, a code table | Either side is large, you need outer semantics, or a key can legitimately match many rows |
 
 Three practical consequences worth carrying home:
