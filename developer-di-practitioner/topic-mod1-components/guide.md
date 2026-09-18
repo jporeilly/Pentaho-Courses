@@ -16,7 +16,6 @@ Pentaho Data Integration operates on a **client-server architecture** that separ
 * **Configuration Framework**: The KETTLE configuration files that control system behaviour and store critical settings
 * **Repository Management**: How PDI manages versioning, collaboration, and content organization
 * **Database Connectivity**: The process of integrating JDBC drivers to connect to various data sources
-
 <figure>
 
 ![alt text](../_assets/images/psi-workflow-2.svg)
@@ -97,8 +96,6 @@ The primary functions of the Pentaho Server are:
 | **Content Management**      | Provides a centralized repository that allows you to manage your ETL jobs and transformations. This includes full revision history on content and features such as sharing and locking for collaborative development environments. |
 | **Scheduling & Monitoring** | Provides the services allowing you to schedule and monitor activities on the Data Integration Server from within the Spoon design environment (Quartz).                                                                            |
 
-
-
 <div class="pcm-embed-card" data-href="https://docs.pentaho.com/install/components-reference" data-title="Components reference | Pentaho" data-thumb="../_assets/embeds/99d6d0253453.png"></div>
 
 ### 3. Carte
@@ -150,7 +147,7 @@ The primary functions of the Pentaho Server are:
 >
 > A standalone command line process that can be used to execute transformations and jobs you created in Spoon. The data transformation engine Pan reads data from and writes data to various data sources. Pan also allows you to manipulate data.
 >
-> ```
+> ```bash
 > ./pan.sh /file:/home/[pentaho_user]/[path]/[transformation].ktr  /level:[Log Level]
 > ```
 
@@ -158,7 +155,7 @@ The primary functions of the Pentaho Server are:
 >
 > A standalone command line process that can be used to execute jobs. The program that executes the jobs designed in the Spoon graphical interface, either in XML or in a database repository. Jobs are usually scheduled to run in batch mode at regular intervals.
 >
-> ```
+> ```bash
 > ./kitchen.sh /file:/home/[pentaho_user]/[path]/[job].kjb  /level:[Log level]
 > ```
 
@@ -199,10 +196,9 @@ Start-Process "C:\Pentaho\design-tools\data-integration\spoon.bat
 ```
 
 ### 3. Configuration Files
-
 > **Note:** **Configuration Files**
 >
-> The default Pentaho Data Integration (PDI) HOME directory is the user's home directory. Here is located in the .kettle folder, are the main PDI configuration files.
+> The default Pentaho Data Integration (PDI) home directory is the `.kettle` folder located within the system user's home directory. This directory contains the main PDI configuration files.
 >
 > * Windows C\:{user}.kettle
 > * Linux based operating systems ($HOME/.kettle)
