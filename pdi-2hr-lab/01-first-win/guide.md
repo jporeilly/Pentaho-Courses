@@ -248,7 +248,7 @@ below) next to it.
 ---
 
 > **Tip:** Ten minutes in, you've run a pipeline, previewed data
-> mid-flow, and caught bad rows. Next: build this exact
+> mid-flow, and caught rejected rows. Next: build this exact
 > transformation yourself, from an empty canvas — it takes about
 > fifteen minutes.
 
