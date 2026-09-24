@@ -24,7 +24,7 @@
 > be validated, joined with customer and product master data, and
 > loaded into the warehouse — with history tracked — by 9am. Today
 > you build that pipeline. This workshop shows you the finished first
-> stage so you know where you're going.
+> stage so you get an idea of how a pipeline is created..
 
 <figure>
 
@@ -84,8 +84,8 @@ filter, and two end points — one for valid rows, one for rejects.
 </div>
 </figure>
 
-A grid appears with 37 of yesterday's orders — typed columns, parsed
-dates, clean rows. This is the habit that changes how you build pipelines:
+A grid appears with 37 of yesterday's orders — typed columns, formatted
+dates, all clean rows. This habit helps debug and validate your pipelines:
 **you can look at the data at any step, at any time**, before
 anything is written anywhere.
 
@@ -104,14 +104,14 @@ anything is written anywhere.
 >
 > Three words first, because you will see them everywhere. The picture
 > on the canvas is a **Transformation**: PDI's name for a pipeline that
-> reads rows - extract, changes them - transform and writes them somewhere - loads. Each box is a
+> reads rows - **Extract**, changes them - **Transform** and writes them somewhere - **Loads**. Each box is a
 > **Step**, one thing the data passes through: read a file, keep or
 > drop rows, write a file. The arrows are **Hops**, and a hop carries
 > rows from one step to the next.
 >
 > When you clicked Preview, PDI did not show you a cached sample or a
-> guess made at design time. It started the transformation for real,
-> ran every step over the real file, and stopped once it had enough
+> guess made at design time. It started the transformation,
+> ran every step over the sales data file, and stopped once it had enough
 > rows to show you, writing nothing anywhere.
 >
 > It can do that because there is nothing to compile or deploy first.
@@ -152,7 +152,7 @@ can inspect.
 >
 > This is what "Preview on Rejected rows" just demonstrated: the rejected branch contains real data you can inspect independently, rather than just a line in a log file.
 >
-> **Why it matters:** The question of "what do we do with bad data?" is no longer a piece of error-handling code buried deep inside a program. Instead, it becomes a visible path on the canvas—one that anyone can point to during a review and one you can preview independently, just as you just did.
+> **Why it matters:** The question of "what do we do with the rejected data?" is no longer a piece of error-handling code buried deep inside a program. Instead, it becomes a visible path on the canvas—one that anyone can point to during a review and one you can preview independently, just as you just did.
 
 ## Look inside a step
 
