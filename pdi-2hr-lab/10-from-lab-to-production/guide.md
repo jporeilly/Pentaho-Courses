@@ -88,4 +88,4 @@ Two minutes, two favours:
 ---
 
 > **Tip: Everything you built today is yours and the pipelines you sketched against your own data
-> in Lab 6 are the start of your real proof of concept. Feel free to export.
+> in - Bring Your Own Data - are the start of your real proof of concept. Feel free to export.
