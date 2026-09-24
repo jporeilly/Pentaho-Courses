@@ -21,7 +21,7 @@
 
 <figure>
 
-![Walkthrough](https://vimeo.com/1225659709?share=copy&fl=sv&fe=ci)
+![Walkthrough](https://vimeo.com/placeholder)
 
 <figcaption class="pcm-video-caption">Watch: Track History</figcaption>
 
@@ -30,7 +30,7 @@
 <div align="center">
 <figure>
 
-![Slowly Changing Dimension Type 2](../_assets/images/1788776135144.png#w=420)
+![Slowly Changing Dimension Type 2](../_assets/images/1788776135144.png#w=520)
 
 <figcaption><em>Type2 - Slowly Changing Dimension</em></figcaption>
 </figure>
