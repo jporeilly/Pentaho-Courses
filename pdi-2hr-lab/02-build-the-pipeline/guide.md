@@ -21,7 +21,7 @@
 
 <figure>
 
-![Walkthrough](https://vimeo.com/1225659709?share=copy&fl=sv&fe=ci)
+![Walkthrough](https://vimeo.com/placeholder)
 
 <figcaption class="pcm-video-caption">Watch: Build the Pipeline</figcaption>
 
