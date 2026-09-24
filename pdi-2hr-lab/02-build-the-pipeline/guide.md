@@ -5,8 +5,7 @@
 > #### Workshop — Build the Pipeline Yourself
 >
 > Now you build what you just ran: read the sales file, validate it,
-> and write the rejects to a file for the source team — from an empty
-> canvas.
+> and write the rejects to a file for the source team.
 >
 > **What you'll do**
 >
@@ -106,8 +105,8 @@ C:\Workshop\pdi-2hr\02-see-it-work\02-build-the-pipeline\sales_20260101.csv
 </figure>
 
 > **Note:** **Get Fields matters more than it looks.** You didn't
-> declare a schema — the tool read the data and proposed one. In Lab
-> 6 you'll point this same pipeline at *your own* file, and this
+> declare a schema — the tool read the data and proposed one. In workshop - Bring Your Own Data -
+> you'll point this same pipeline at *your own* file, and this
 > button is why that works.
 
 7. Click **Preview rows** at the bottom of the dialog — the same
@@ -127,9 +126,9 @@ C:\Workshop\pdi-2hr\02-see-it-work\02-build-the-pipeline\sales_20260101.csv
 >
 > #### Get Fields wrote a contract, not just a grid
 >
-> Every row that flows through a transformation has a shape: the names
-> of its columns, the type of each one (text, whole number, decimal,
-> date), and the format its dates and numbers are written in. PDI calls
+> Every row that flows through a transformation has a shape: the column names
+> , the data type of each one (text, whole number, decimal,
+> date), and the format, its dates and numbers are written in. PDI calls
 > that shape the row's **metadata**, and it travels along the hops
 > ahead of the data itself, so every step knows what is coming before
 > the first row arrives.
