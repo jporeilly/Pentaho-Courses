@@ -3,7 +3,6 @@
   "contact": {
     "to": "academy@pentaho.com",
     "webhookUrl": "",
-    "webhookSecret": "pcm_sPhjWMHFhIvusSc1hbqN6cvQ7NUKCX9",
     "heading": "Contact Us",
     "blurb": "Ask us anything about the lab, or tell us what you would like to know about Pentaho products and services. This is separate from the Wrap-Up Check — that stays anonymous and sends nothing.",
     "messagePlaceholder": "If you require any further details on Pentaho products and services, tell us here what you are interested in.",
@@ -11,7 +10,7 @@
   },
   "title": "PDI in 2 Hours",
   "description": "A hands-on try-it lab: build a real pipeline with Pentaho Data Integration Developer Edition — from first preview to change history and metadata injection — in one two-hour sitting.",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "kind": "workshop",
   "mode": "free",
   "role": "developer",
@@ -54,12 +53,12 @@
     "contact": {
       "label": "Talk to us about production",
       "action": "Open",
-      "url": "https://pentaho.com/contact/"
+      "url": "https://pentaho.com/contact/?utm_source=pentaho-content-manager&utm_medium=in-app&utm_campaign=pdi-2hr-lab&utm_content=contact"
     },
     "trial": {
       "label": "Get the full Pentaho platform trial",
       "action": "Open",
-      "url": "https://pentaho.com/free-trial/"
+      "url": "https://pentaho.com/free-trial/?utm_source=pentaho-content-manager&utm_medium=in-app&utm_campaign=pdi-2hr-lab&utm_content=trial"
     }
   },
   "moduleSummaries": [

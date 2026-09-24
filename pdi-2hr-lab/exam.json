@@ -1,6 +1,6 @@
 {
   "title": "Wrap-Up Check",
-  "passMark": 60,
+  "passMark": 80,
   "shuffle": true,
   "description": "Twenty quick questions to lock in what you built today — about five minutes. No score pressure: this is a recap, not an exam.",
   "webhookUrl": "",
