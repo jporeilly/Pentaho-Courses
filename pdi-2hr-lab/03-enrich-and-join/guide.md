@@ -384,13 +384,47 @@ Three practical consequences worth carrying home:
 
 > **Note:**
 >
-> Something worth highlighting.
+> **Dummy** step performs no operations on the data stream; it is a "no-op" (no operation) step. It is primarily used for organizational purposes, such as grouping related logic into distinct sections, providing a clear visual milestone in a long transformation, or creating a junction point where multiple streams meet before being joined or merged..
 
+1. Draw a hop from the + region step to the Dummy step - Enriched rows.
+2. Save your transformation.
 
+## Run it
+> **Note:**
+>
+> **Run options** define how the transformation engine executes your steps. The most common setting is **Number of copies**, which allows PDI to run multiple instances of a step in parallel to speed up processing for large datasets.
 
+1. Click **Run** (the ▶ in the canvas toolbar or F9), then **Run** again in
+   the dialog.
 
+<div align="center">
+<figure>
 
+![Run Options dialog with the Pentaho local run configuration selected and the Run button](../_assets/images/1788367182360.png)
 
+<figcaption><em>Run</em></figcaption>
+</figure>
+</div>
+
+2. Watch the **Step Metrics** tab fill in: 40 rows read, 37 valid,
+   3 written to the reject file.
+
+<figure>
+
+![Execution Results, Step Metrics tab: rows read, written and rejected for every step, all Finished](../_assets/images/.png)
+
+<div align="center">
+<figcaption><em>Step metrics</em></figcaption>
+</div>
+</figure>
+
+3. Open `C:\Workshop\pdi-2hr\out\rejects.csv` — there are your three
+   bad rows, ready to send back to the source system's owner.
+   * [ ] 40 rows read from the sales file.
+   * [ ] 3 rows in the reject output.
+   * [ ] Run finishes with no errors (all steps green-ticked).
+
+4. Right-mouse click on the final step - Enriched rows, and select: Preview.
 
 
 ### Troubleshooting <!-- no-step -->
