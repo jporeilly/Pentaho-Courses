@@ -18,6 +18,7 @@
 >
 > **Prerequisites:** 
 > - Familiarity with the basics of data integration
+> - Familiarity with database management tool - DBeaver Community Edition
 >
 > **Estimated Time:** 5 minutes — before the session.
 
@@ -110,16 +111,13 @@ These are: **Connection Details for workshop - Track History with One Step**
 
 You don't need to provide the connection details for workshop - Track History with One Step - at this stage, but it's useful to know what they are.
 
-
-
-
-| | |
-| --- | --- |
-| Host | `localhost` |
-| Port | `3306` |
-| Database | `warehouse` |
+|          |                 |
+| -------- | --------------- |
+| Host     | `localhost`     |
+| Port     | `3306`          |
+| Database | `warehouse`     |
 | Username | `pentaho_admin` |
-| Password | `password` |
+| Password | `password`      |
 
 ## Troubleshooting
 
