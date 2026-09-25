@@ -397,34 +397,43 @@ Three practical consequences worth carrying home:
 1. Click **Run** (the ▶ in the canvas toolbar or F9), then **Run** again in
    the dialog.
 
-<div align="center">
 <figure>
 
-![Run Options dialog with the Pentaho local run configuration selected and the Run button](../_assets/images/1788367182360.png)
+![Execution Results: every step Finished, with the per-step row counts in the log - Read sales 40 written, Rejects for source team 3](../_assets/images/1790331669715.png)
 
-<figcaption><em>Run</em></figcaption>
-</figure>
+<div align="center">
+<figcaption><em>The run finished, every step green</em></figcaption>
 </div>
+</figure>
 
 2. Watch the **Step Metrics** tab fill in: 40 rows read, 37 valid,
    3 written to the reject file.
 
 <figure>
 
-![Execution Results, Step Metrics tab: rows read, written and rejected for every step, all Finished](../_assets/images/.png)
+![1790331308352.png](../_assets/images/1790331780148.png)
 
 <div align="center">
-<figcaption><em>Step metrics</em></figcaption>
+<figcaption><em>Step Metrics</em></figcaption>
 </div>
 </figure>
 
-3. Open `C:\Workshop\pdi-2hr\out\rejects.csv` — there are your three
+3. Highlight the Enriched rows step and click on the Preview tab.
+
+<figure>
+
+![1790331916891.png](../_assets/images/1790331916891.png)
+
+<div align="center">
+<figcaption><em>Caption</em></figcaption>
+</div>
+</figure>
+
+4. Open `C:\Workshop\pdi-2hr\out\rejects.csv` — there are your three
    bad rows, ready to send back to the source system's owner.
    * [ ] 40 rows read from the sales file.
    * [ ] 3 rows in the reject output.
    * [ ] Run finishes with no errors (all steps green-ticked).
-
-4. Right-mouse click on the final step - Enriched rows, and select: Preview.
 
 
 ### Troubleshooting <!-- no-step -->
