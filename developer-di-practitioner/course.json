@@ -7,7 +7,6 @@
   "contact": {
     "to": "academy@pentaho.com",
     "webhookUrl": "",
-    "webhookSecret": "pcm_sPhjWMHFhIvusSc1hbqN6cvQ7NUKCX9",
     "heading": "Contact Us",
     "blurb": "Ask us anything about the course, or tell us what you would like to know about Pentaho products and services. This is separate from the exam.",
     "messagePlaceholder": "What would you like to know?",
@@ -15,8 +14,9 @@
   },
   "title": "Pentaho Developer - DI Practitioner",
   "description": "Self-paced, hands-on workshop for the Pentaho Data Integration Practitioner.",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "kind": "workshop",
+  "level": { "number": 1, "name": "Practitioner" },
   "mode": "sequential",
   "theme": {
     "accent": "#b91c1c"
@@ -70,6 +70,29 @@
       "linux": "~/Pentaho/design-tools/data-integration/spoon.sh",
       "macos": "~/Pentaho/design-tools/data-integration/spoon.sh",
       "fileArg": "-file="
+    }
+  },
+  "completionCertificate": {
+    "title": "Pentaho Data Integration Developer - Practitioner Level",
+    "topics": [
+      "Components and key concepts",
+      "Flat files, databases and storage",
+      "Enriching and joining data",
+      "Jobs, parameters and metadata injection",
+      "Scalability and run configurations",
+      "End-to-end pipeline delivery"
+    ],
+    "capstone": "Completed a capstone project: a parameterised end-to-end pipeline ingesting CSV, JSON and master data, validating and enriching it, tracking history with a slowly changing dimension, and loading a dimensional model.",
+    "validYears": 2,
+    "signatory": {
+      "name": "Jason Allaway",
+      "title": "President Pentaho - A Leo Software Group Company"
+    },
+    "watermark": "PENTAHO",
+    "requires": {
+      "labChecks": [
+        "37-mod99-daily-sales-pipeline"
+      ]
     }
   }
 }

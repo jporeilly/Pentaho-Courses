@@ -137,4 +137,10 @@ Link to OASIS Open Document Format](<http://wiki.pentaho.com/display/Reporting/F
 
 Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches PDI with the file loaded. If PDI is already running, the path is copied to your clipboard — switch to PDI and use Ctrl+O, Ctrl+V, Enter.
 
+### Solution <!-- no-step -->
+
+The finished transformation for this lab. Open it alongside your own to compare, or run to see the expected result.
+
+Also on disk at `C:\Workshop-DI-Practitioner\04-enriching-the-dataset\04-scripting\27-mod4-formula\solution`.
+
 [tr_formula.ktr](./files/tr_formula.ktr) <button data-launch="spoon" data-path="files/tr_formula.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/tr_formula.ktr">View graph</button>

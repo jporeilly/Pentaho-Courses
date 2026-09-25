@@ -194,9 +194,11 @@ tab: `pcm-mysql` and `pcm-minio` running, `pcm-minio-seed` exited.
 <details>
 <summary>Troubleshooting</summary>
 
-**Asked to install Node.js.** The sample data is converted from your
-local Pentaho install the first time only, and that converter needs
-Node. Accept the prompt, or install it yourself:
+**Asked to install Node.js.** You should not be — the sample data is
+converted by a script that uses the Node the app already ships with.
+If you do see this prompt, you are running the script from somewhere
+other than your install's `provisioning` folder. Accept it, or install
+Node yourself:
 
 ```powershell
 winget install -e --id OpenJS.NodeJS.LTS
@@ -267,7 +269,42 @@ When everything is green you are ready to start Module 1.
 
 </details>
 
-### 4. Database tool
+### 4. Lab files on disk
+
+The installer has already laid this course's lab files out under
+**`C:\Workshop-DI-Practitioner`**, one folder per module, so you can
+open a transformation in PDI directly instead of downloading it from
+the guide first. Every lab's **Solution** section quotes its path.
+
+The capstone is the one folder with a shape of its own:
+
+| Folder               | What it holds                                    |
+| -------------------- | ------------------------------------------------ |
+| `capstone\data\`     | The source files the capstone reads — shipped    |
+| `capstone\solution\` | **Your** transformations and jobs                |
+| `capstone\out\`      | **Your** output — the certificate checks look here |
+
+> **Note:** Upgrading the app refreshes the shipped lab files and never
+> touches `solution\` or `out\`. Your own work is safe, so you can
+> install a new version mid-course.
+
+<details>
+<summary>The folder isn't there</summary>
+
+It is an optional component, so a **Typical** install — or an unticked
+box under **Custom** — skips it. Lay it down at any time from the same
+`provisioning` folder as the services script:
+
+```powershell
+.\install-workshop.ps1
+```
+
+Safe to run whenever you want the shipped lab files back as they
+shipped: it only ever adds and refreshes, and never deletes your work.
+
+</details>
+
+### 5. Database tool
 
 You will want a database tool for browsing tables and running ad-hoc
 SQL alongside the labs. **DBeaver Community** is free and ships with
@@ -320,7 +357,7 @@ pick `sampledata` in the Database field, not `mysql` or `information_schema`.
 
 </details>
 
-### 5. Ports and logins
+### 6. Ports and logins
 
 Everything the workshop stack exposes, in one place. All of it is
 local to your machine.
@@ -361,6 +398,26 @@ model, so it works even when the VM is offline.
 
 Each section starts with an **overview page** (📄 — background reading,
 no checkboxes) followed by **hands-on workshops** (🧪 — tracked steps).
+The bigger sections group their workshops into **sub-sections** — Data
+Sources, for instance, splits into Flat Files, Databases and Storage.
+Click a heading to open that section's page, or the chevron beside it to
+expand the workshops underneath.
+
+## The exam and your certificate
+
+When you have worked through the sections, the **Practitioner Exam** in
+the sidebar draws 40 questions from a larger pool. It is open-book — take
+your time, browse any module to refresh your memory, or ask the
+assistant. Your answers are saved as you go, so leaving the page to look
+something up is fine, and the explanations show afterwards so you can
+learn from anything you missed. The pass mark is **80%**.
+
+You are asked for your name, email and organisation before you begin;
+those are what your certificate is made out to. Pass, and your
+**Pentaho Data Integration Developer - Practitioner Level** certificate
+appears on the results screen to download. It is valid for two years,
+and you can come back for it later from the same screen.
+
 Head to the first section whenever you're ready.
 
 ---

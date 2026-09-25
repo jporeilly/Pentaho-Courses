@@ -205,4 +205,10 @@ Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data In
 
 [employees_insert_update.txt](./files/employees_insert_update.txt)
 
+### Solution <!-- no-step -->
+
+The finished transformation for this lab. Open it alongside your own to compare, or run to see the expected result.
+
+Also on disk at `C:\Workshop-DI-Practitioner\03-data-sources\02-databases\16-mod3-table-insert-update\solution`.
+
 [tr_employee_insert_update.ktr](./files/tr_employee_insert_update.ktr) <button data-launch="spoon" data-path="files/tr_employee_insert_update.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/tr_employee_insert_update.ktr">View graph</button>

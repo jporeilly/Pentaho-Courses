@@ -158,6 +158,12 @@ Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data In
 
 [orders.txt](./files/orders.txt)
 
+### Solution <!-- no-step -->
+
+The finished transformations for this lab. Open them alongside your own to compare, or run to see the expected result.
+
+Also on disk at `C:\Workshop-DI-Practitioner\04-enriching-the-dataset\02-joins\24-mod4-merge-join\solution`.
+
 [tr_merge_join_orders.ktr](./files/tr_merge_join_orders.ktr) <button data-launch="spoon" data-path="files/tr_merge_join_orders.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/tr_merge_join_orders.ktr">View graph</button>
 
 [tr_merge_join_overview.ktr](./files/tr_merge_join_overview.ktr) <button data-launch="spoon" data-path="files/tr_merge_join_overview.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/tr_merge_join_overview.ktr">View graph</button>

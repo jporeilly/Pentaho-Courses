@@ -283,4 +283,10 @@ The **Database connection** dialog opens.
 
 Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches PDI with the file loaded. If PDI is already running, the path is copied to your clipboard — switch to PDI and use Ctrl+O, Ctrl+V, Enter.
 
+### Solution <!-- no-step -->
+
+The finished transformation for this lab. Open it alongside your own to compare, or run to see the expected result.
+
+Also on disk at `C:\Workshop-DI-Practitioner\03-data-sources\02-databases\12-mod3-connecting-to-database\solution`.
+
 [tr_connect_database.ktr](./files/tr_connect_database.ktr) <button data-launch="spoon" data-path="files/tr_connect_database.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/tr_connect_database.ktr">View graph</button>

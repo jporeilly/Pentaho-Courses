@@ -27,7 +27,7 @@ scheduling, and scaling.
 Download the four files from **Lab Files** at the bottom of this
 page, and put them in a `data/` folder under the workshop root you
 will point `${WORKSHOP_HOME}` at (for example
-`C:/Workshop/capstone/data/`). Every path in this capstone is written
+`C:/Workshop-DI-Practitioner/capstone/data/`). Every path in this capstone is written
 as `${WORKSHOP_HOME}/data/...`, so once the variable is set the
 transformations resolve without further edits.
 
@@ -198,7 +198,7 @@ pipeline itself is yours to build.
 
 After running your job, click **Run checks** below to confirm each
 output landed where expected. The checks assume the worked example
-paths (`WORKSHOP_HOME=C:/Workshop/capstone`, outputs under
+paths (`WORKSHOP_HOME=C:/Workshop-DI-Practitioner/capstone`, outputs under
 `${WORKSHOP_HOME}/out`) — if yours differ, edit the `checks` block in
 this lab's `manifest.json` to match.
 
@@ -207,7 +207,7 @@ this lab's `manifest.json` to match.
 ## Deliverables
 
 Save your work in a `solution/` folder under your workshop root —
-`${WORKSHOP_HOME}/solution/`, e.g. `C:/Workshop/capstone/solution/`.
+`${WORKSHOP_HOME}/solution/`, e.g. `C:/Workshop-DI-Practitioner/capstone/solution/`.
 
 > **Warning:** Don't save it inside the course folder itself. Course
 > content is refreshed from the repository on every launch, so
@@ -300,9 +300,9 @@ On any **fail** hop: Mail step → notify ops, then Abort job.
 ### `kettle.properties` example
 
 ```properties
-WORKSHOP_HOME=C:/Workshop/capstone
+WORKSHOP_HOME=C:/Workshop-DI-Practitioner/capstone
 SALES_DATE=20260101
-OUTPUT_PATH=C:/Workshop/capstone/out
+OUTPUT_PATH=C:/Workshop-DI-Practitioner/capstone/out
 ```
 
 ### Carte invocation

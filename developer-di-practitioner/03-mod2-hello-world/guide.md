@@ -269,4 +269,10 @@ Logging tab displays logging information for each of the steps in the transforma
 
 Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches PDI with the file loaded. If PDI is already running, the path is copied to your clipboard — switch to PDI and use Ctrl+O, Ctrl+V, Enter.
 
+### Solution <!-- no-step -->
+
+The finished transformation for this lab. Open it alongside your own to compare, or run to see the expected result.
+
+Also on disk at `C:\Workshop-DI-Practitioner\02-components-concepts\02-key-concepts\03-mod2-hello-world\solution`.
+
 [tr_hello_world.ktr](./files/tr_hello_world.ktr) <button data-launch="spoon" data-path="files/tr_hello_world.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/tr_hello_world.ktr">View graph</button>

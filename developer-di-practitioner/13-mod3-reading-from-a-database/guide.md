@@ -263,4 +263,10 @@ Lower the sort size in **Sort rows**, or increase JVM memory.
 
 Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches PDI with the file loaded. If PDI is already running, the path is copied to your clipboard — switch to PDI and use Ctrl+O, Ctrl+V, Enter.
 
+### Solution <!-- no-step -->
+
+The finished transformation for this lab. Open it alongside your own to compare, or run to see the expected result.
+
+Also on disk at `C:\Workshop-DI-Practitioner\03-data-sources\02-databases\13-mod3-reading-from-a-database\solution`.
+
 [tr_reading_database_warehouse.ktr](./files/tr_reading_database_warehouse.ktr) <button data-launch="spoon" data-path="files/tr_reading_database_warehouse.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/tr_reading_database_warehouse.ktr">View graph</button>

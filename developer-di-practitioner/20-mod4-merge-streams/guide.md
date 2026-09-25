@@ -153,4 +153,10 @@ Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data In
 
 [orders.txt](./files/orders.txt)
 
+### Solution <!-- no-step -->
+
+The finished transformation for this lab. Open it alongside your own to compare, or run to see the expected result.
+
+Also on disk at `C:\Workshop-DI-Practitioner\04-enriching-the-dataset\01-merge\20-mod4-merge-streams\solution`.
+
 [tr_merge_streams.ktr](./files/tr_merge_streams.ktr) <button data-launch="spoon" data-path="files/tr_merge_streams.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/tr_merge_streams.ktr">View graph</button>

@@ -251,4 +251,10 @@ Keep `tr_xml_join.ktr` and `xml_orders_source.xls` in the **same folder** so the
 
 [xml_orders_source.xls](./files/xml_orders_source.xls)
 
+### Solution <!-- no-step -->
+
+The finished transformation for this lab. Open it alongside your own to compare, or run to see the expected result.
+
+Also on disk at `C:\Workshop-DI-Practitioner\04-enriching-the-dataset\02-joins\25-mod4-xml-join\solution`.
+
 [tr_xml_join.ktr](./files/tr_xml_join.ktr) <button data-launch="spoon" data-path="files/tr_xml_join.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/tr_xml_join.ktr">View graph</button>

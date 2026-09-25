@@ -12,6 +12,12 @@ Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data In
 
 [data/customers.txt](./files/data/customers.txt)
 
+### Solution <!-- no-step -->
+
+The finished transformations for this lab. Open them alongside your own to compare, or run to see the expected result.
+
+Also on disk at `C:\Workshop-DI-Practitioner\05-enterprise-solution\02-metadata-injection\31-mod5-onboarding-to-a-table\solution`.
+
 [metadata_inject_step.ktr](./files/metadata_inject_step.ktr) <button data-launch="spoon" data-path="files/metadata_inject_step.ktr">Open in Pentaho Data Integration</button>
 
 [metadata_inject_template.ktr](./files/metadata_inject_template.ktr) <button data-launch="spoon" data-path="files/metadata_inject_template.ktr">Open in Pentaho Data Integration</button>

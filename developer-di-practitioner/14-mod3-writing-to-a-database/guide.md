@@ -298,4 +298,10 @@ Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data In
 
 [sales_data.csv](./files/sales_data.csv)
 
+### Solution <!-- no-step -->
+
+The finished transformation for this lab. Open it alongside your own to compare, or run to see the expected result.
+
+Also on disk at `C:\Workshop-DI-Practitioner\03-data-sources\02-databases\14-mod3-writing-to-a-database\solution`.
+
 [tr_write_database.ktr](./files/tr_write_database.ktr) <button data-launch="spoon" data-path="files/tr_write_database.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/tr_write_database.ktr">View graph</button>
