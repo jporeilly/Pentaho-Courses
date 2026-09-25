@@ -425,7 +425,7 @@ Three practical consequences worth carrying home:
 ![1790331916891.png](../_assets/images/1790331916891.png)
 
 <div align="center">
-<figcaption><em>Caption</em></figcaption>
+<figcaption><em>Preview data</em></figcaption>
 </div>
 </figure>
 
