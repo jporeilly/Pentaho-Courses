@@ -1,8 +1,9 @@
 {
   "title": "Wrap-Up Check",
   "passMark": 80,
+  "questionsPerAttempt": 20,
   "shuffle": true,
-  "description": "Twenty quick questions to lock in what you built today — about five minutes. No score pressure: this is a recap, not an exam.",
+  "description": "20 questions drawn at random from a pool of 30 — about five minutes. No score pressure: this is a recap, not an exam.",
   "webhookUrl": "",
   "webhookSecret": "",
   "intake": {
@@ -17,286 +18,487 @@
     {
       "id": "q-preview",
       "module": "See It Work",
-      "prompt": "You want to inspect the data mid-pipeline, after the filter but before anything is written. In PDI you...",
+      "bloom": "Apply",
+      "scenario": "You are building a transformation that filters a sales file and writes the valid rows to a table, and you want to see which rows leave the filter before anything is written.",
+      "prompt": "How do you inspect those rows in PDI?",
       "options": [
-        "Right-click the step and Preview — at any step, at any time",
-        "Add temporary logging code and re-deploy",
-        "Run the whole pipeline and query the target table",
-        "Export the stream to CSV and open it in Excel"
+        "Select the filter step and preview it",
+        "Add logging code to the step and redeploy it",
+        "Export the stream to CSV and open it in a spreadsheet",
+        "Run the transformation, then query the target table"
       ],
       "correct": 0,
-      "explanation": "Preview works on every step while you build — the habit from Lab 1. You inspect the stream before anything is committed anywhere.",
-      "source": "Lab 1 — Your First Win"
+      "explanation": "Previewing the filter step shows the rows arriving there, at any point while you build, without writing anything. Adding logging code and redeploying changes the thing you are trying to observe. Running the transformation and querying the table only shows what reached the end, after it has been written. Exporting to CSV is a manual detour that still writes the data out before you can look at it.",
+      "source": "Your First Win"
     },
     {
       "id": "q-getfields",
       "module": "See It Work",
-      "prompt": "How did the columns and types of the sales CSV get defined in your transformation?",
+      "bloom": "Apply",
+      "scenario": "You add a Text file input step for a delimited supplier file you have never opened, and it needs each column's name, type and format before anything downstream can use it.",
+      "prompt": "What does the 'Get Fields' button do for you here?",
       "options": [
-        "Get Fields read the file and proposed the schema, which you could then correct",
-        "You wrote a schema file by hand first",
-        "PDI requires the source team to supply an XSD",
-        "Columns are always read as strings and cast later in SQL"
+        "Reads every column as a String for later conversion in SQL",
+        "Parses the file and proposes data stream names, types and formats",
+        "Copies the field list from the last file the step read",
+        "Loads a schema definition that the supplier must provide"
       ],
-      "correct": 0,
-      "explanation": "Get Fields infers names, types and formats from the data itself — and the grid lets you fix anything it guessed wrong. It's also why Lab 6 worked on a file PDI had never seen.",
-      "source": "Lab 2 — Build the Pipeline Yourself"
+      "correct": 1,
+      "explanation": "Get Fields samples the file and proposes each column's name, type and format, and the grid lets you fix anything it guessed wrong, so the step works on a file PDI has never seen. It does not need a schema definition from the supplier. It does not leave everything as String; it infers types. It does not copy an earlier file's fields; it reads this one.",
+      "source": "Build the Pipeline Yourself"
     },
     {
       "id": "q-join",
       "module": "Make It Yours",
-      "prompt": "In Lab 3 you brought together CSV sales, a JSON customer master, a product catalogue and a region reference. What staging was required first?",
+      "bloom": "Understand",
+      "scenario": "You need one enriched sales output from four files: daily sales in CSV, a customer master in JSON, a product catalogue and a region reference.",
+      "prompt": "What must happen to the four sources before PDI can combine them?",
       "options": [
-        "None — the streams were looked up and joined on the canvas as they flowed",
-        "All three files had to be loaded into MySQL first",
-        "The JSON had to be converted to CSV outside the tool",
-        "A schema registry entry for each source"
+        "Nothing: each has its own input step and joins in flight",
+        "They must first be loaded into a staging database",
+        "Each source needs an entry in a schema registry first",
+        "The JSON must be converted to CSV so the formats match"
       ],
       "correct": 0,
-      "explanation": "Stream lookup and Merge join both work on rows in flight — Stream lookup holds a small reference set in memory, Merge join streams two sorted inputs with full inner/outer semantics. Format differences disappear at the Input step; after that, everything is rows.",
-      "source": "Lab 3 — Enrich and Join"
+      "explanation": "Each file is read by its own input step, and once read everything is rows, so lookups and joins work on the streams in flight. Loading them into a staging database first is unnecessary. Converting the JSON to CSV is unnecessary, because the format difference disappears at the input step. PDI needs no schema registry to read or join files.",
+      "source": "Enrich and Join"
     },
     {
       "id": "q-scd",
       "module": "Make It Yours",
-      "prompt": "After you changed customer C001's region and re-ran the load, the dimension table showed...",
+      "bloom": "Analyze",
+      "scenario": "A customer moves from North to South in the source file, and the nightly load runs Dimension lookup/update against a Type 2 customer dimension.",
+      "prompt": "What does the dimension hold for that customer after the load?",
       "options": [
-        "Two rows for C001 — the old region with its validity window closed, the new one open-ended",
-        "One updated row for C001 — the old region was overwritten",
-        "A constraint violation on the natural key",
-        "Twenty-one new rows — the whole file was reloaded"
+        "Two rows: North with its validity closed, South open-ended",
+        "One row, with North overwritten by South",
+        "A new row for every customer in the reloaded file",
+        "One rejected row, because the key already exists"
       ],
       "correct": 0,
-      "explanation": "That's a Type 2 slowly changing dimension: Dimension lookup/update versioned the changed record and left the other nineteen untouched — the behaviour that normally costs a page of hand-written MERGE SQL.",
-      "source": "Lab 4 — Track History with One Step"
+      "explanation": "Type 2 keeps history: Dimension lookup/update closes the old version's validity window and inserts a new, open-ended version, leaving unchanged customers alone. Overwriting North with South is Type 1 behaviour, which loses the history. The existing key is expected, not a violation; that is how the step finds the version to close. Unchanged customers get no new rows, however much of the file is reloaded.",
+      "source": "Track History with One Step"
     },
     {
       "id": "q-mi",
       "module": "See It Scale",
-      "prompt": "In Lab 5, onboarding the fourth feed (the Scotland file) required...",
+      "bloom": "Apply",
+      "scenario": "Three supplier feeds load through one metadata-injection template driven by a control file of filenames, delimiters and targets, and a fourth supplier is being onboarded.",
+      "prompt": "What is the least work needed to start loading the fourth feed?",
       "options": [
-        "Adding one row to control.csv — no pipeline was opened",
-        "Copying the template and editing its reader for the new file",
-        "A new transformation per feed, as usual",
-        "Regenerating the template from the driver"
+        "Copy the template and edit its input step for the new file",
+        "Regenerate the template transformation from the driver job",
+        "Build a new transformation dedicated to the fourth feed",
+        "Add one row describing the new feed to the control file"
       ],
-      "correct": 0,
-      "explanation": "Metadata injection turns pipeline configuration into data. The template stays untouched; the control file — which an operations team can own — defines the feeds.",
-      "source": "Lab 5 — One Pipeline, Many Files"
+      "correct": 3,
+      "explanation": "Metadata injection turns configuration into data, so a new feed is a new control-file row and no transformation is opened. Copying the template and editing it defeats the point of having one template. A dedicated transformation per feed is the pattern metadata injection replaces. The template is never regenerated; it stays as it is and is filled in at run time.",
+      "source": "One Pipeline, Many Files"
     },
     {
       "id": "q-production",
       "module": "Make It Real",
-      "prompt": "Which of these does moving from today's Developer Edition lab to a production deployment add? Select all that apply.",
+      "bloom": "Understand",
+      "scenario": "Transformations built and tested in Pentaho Developer Edition on a laptop now need to run every night in production.",
+      "prompt": "What does moving to a production deployment add?",
       "options": [
-        "Scheduled, monitored execution on a server instead of a laptop designer",
-        "Clustered / scaled-out execution",
-        "A commercial licence covering production use, with support",
-        "A different pipeline format — today's transformations must be rebuilt"
+        "Scheduled, monitored execution on a server",
+        "A commercial licence for production use, with support",
+        "A new pipeline format, so each transformation is rebuilt",
+        "Clustered, scaled-out execution",
+        "Compilation of every transformation into Java code"
       ],
       "correctIndices": [
         0,
         1,
-        2
+        3
       ],
-      "explanation": "Everything you built today is real PDI and moves to production as-is — what the platform adds is the operational layer (scheduling, monitoring, scale-out, governance) and the licence and support to run it in production.",
-      "source": "Lab 7 — From Lab to Production"
+      "explanation": "Scheduled, monitored execution on a server, clustered scale-out, and a commercial licence with support are what production adds around the same transformations. A new pipeline format is not needed: what was built in Developer Edition is real PDI and moves to production as it is. Nothing is compiled into Java; the engine runs the transformation definition directly.",
+      "source": "From Lab to Production"
     },
     {
       "id": "q-rejects",
       "module": "See It Work",
-      "prompt": "In Lab 2, what happened to the sales rows that failed validation?",
+      "bloom": "Analyze",
+      "scenario": "A nightly load routes rows that fail a business rule into a rejects file while the rest continue to the target table.",
+      "prompt": "What does this design achieve that stopping the load on the first bad row would not?",
       "options": [
-        "They were routed down a reject stream and written to a file for the source team",
-        "The transformation stopped with an error on the first bad row",
-        "They were silently dropped",
-        "They were fixed automatically by the filter step"
+        "Bad rows are corrected automatically before loading",
+        "Validation becomes unnecessary, since nothing can fail",
+        "The transformation runs measurably faster",
+        "Good rows still load, and failures return as a file to fix"
       ],
-      "correct": 0,
-      "explanation": "Bad data is a routing decision, not a crash: the Filter rows FALSE branch carried the rejects to their own output, while the valid rows continued — visible on the canvas, no try/except code.",
-      "source": "Lab 2 — Build the Pipeline Yourself"
+      "correct": 3,
+      "explanation": "Routing turns bad data into a decision rather than a crash: the load completes and the rejects are a file the source team can act on. Speed is not the point, and routing is not measurably faster. Nothing corrects the bad rows automatically; they are set aside for a person to fix. Validation is still happening, since the rule is what decides which branch a row takes.",
+      "source": "Build the Pipeline Yourself"
     },
     {
       "id": "q-sources",
       "module": "See It Scale",
-      "prompt": "Beyond the local files used today, where can PDI's Input steps read from?",
+      "bloom": "Apply",
+      "scenario": "A transformation that reads, validates, enriches and loads a sales file from a local folder must now read the same file from an Amazon S3 bucket.",
+      "prompt": "What has to change in the transformation?",
       "options": [
-        "Databases, Excel, cloud storage (S3), HTTP and other VFS locations — the same canvas pattern",
-        "Local CSV and text files only",
-        "Only sources that have a JDBC driver",
-        "Anything, but each source needs custom plugin development first"
+        "Only the input step, because downstream steps see the same rows",
+        "The file must be copied locally first, since PDI cannot read S3",
+        "The whole design, rebuilt as a job instead of a transformation",
+        "Every step, because a cloud source yields a different row format"
       ],
       "correct": 0,
-      "explanation": "The pattern you learned generalises: swap the Input step and the rest of the pipeline is unchanged — databases, spreadsheets, cloud object storage, APIs and message queues are all first-class sources.",
-      "source": "Lab 6 — Bring Your Own Data"
+      "explanation": "Only the input step changes: once rows are in the stream, validation, lookups and output neither know nor care where they came from. A cloud source does not produce a different row format. A job is for orchestration and is not needed to read from S3. PDI reads S3 and other cloud and VFS locations directly, so no local copy is needed.",
+      "source": "Bring Your Own Data"
     },
     {
       "id": "q-jobs",
       "module": "Make It Real",
-      "prompt": "In production, what sequences your transformations, retries failures, and alerts someone when the source file doesn't arrive?",
+      "bloom": "Apply",
+      "scenario": "Production needs your working transformations run in order every night, retried on failure, with an alert when the source file has not arrived.",
+      "prompt": "What in PDI provides that sequencing, retrying and alerting?",
       "options": [
         "A job (.kjb), scheduled and monitored on a server",
-        "A cron script that calls each transformation in order",
-        "Each transformation schedules itself",
-        "The Filter rows step"
+        "Schedule settings saved inside each transformation",
+        "A cron script that calls each transformation in turn",
+        "A Filter rows step at the start of each transformation"
       ],
       "correct": 0,
-      "explanation": "Jobs are the orchestration layer: success/failure routing between entries, retries, notifications — and a server runs them on schedule with logging and history.",
-      "source": "Lab 7 — From Lab to Production"
+      "explanation": "A job is PDI's orchestration layer: it routes on success and failure, retries, and notifies, and a server runs it on a schedule with logging and history. A cron script is outside PDI and would have to reimplement the retries and alerts. A transformation carries no schedule of its own. Filter rows routes rows inside a transformation; it cannot sequence or retry transformations.",
+      "source": "From Lab to Production"
     },
     {
       "id": "q-licence",
       "module": "Get Ready",
-      "prompt": "What does the Pentaho Developer Edition licence (BSL 1.1) cover?",
+      "bloom": "Apply",
+      "scenario": "A consultant plans to use Pentaho Developer Edition (BSL 1.1) to evaluate PDI on a client's data, build a proof of concept, train the client's team and then run the client's nightly loads.",
+      "prompt": "Which part of that plan needs a commercial licence?",
       "options": [
-        "Evaluation, development, and learning — production use requires a commercial licence",
-        "Any use, including production, free of charge",
-        "A 30-day time-limited trial that then stops working",
-        "Non-commercial personal use only"
+        "Building the proof of concept for the client",
+        "Training the client's team to build pipelines",
+        "Running the client's nightly loads in production",
+        "Evaluating PDI against the client's real data"
       ],
-      "correct": 0,
-      "explanation": "Developer Edition is the full product for evaluating and building — it doesn't expire. Running it in production is what needs the commercial licence (which also brings support and certified updates).",
-      "source": "Lab 0 — Before You Start"
+      "correct": 2,
+      "explanation": "Running the pipelines in production is what needs a commercial licence, which also brings support and certified updates. Evaluating PDI against real data is covered by Developer Edition. Building a proof of concept is development, which is covered. Training the team is learning, which is covered. Developer Edition does not expire.",
+      "source": "Before You Start"
     },
     {
       "id": "q-filter-false",
       "module": "See It Work",
-      "prompt": "In Lab 2 you hopped Filter rows to Text file output and PDI asked which result to send. Rows that fail the condition travel down...",
+      "bloom": "Understand",
+      "scenario": "A Filter rows step checks for a positive quantity, with one step after it writing valid orders to the warehouse and another writing to a review file.",
+      "prompt": "Where do the orders that fail the condition go?",
       "options": [
-        "The FALSE hop, to whichever step you connected it to",
-        "The same hop as valid rows, flagged with an extra column",
-        "Nowhere — failing rows are discarded unless you add error handling",
-        "Back to the input step to be re-read"
+        "Down the FALSE hop, to the step you assigned to it",
+        "Down the same hop as passing rows, flagged in a new field",
+        "Nowhere, because failing rows are discarded by default",
+        "Back to the input step, to be read again"
       ],
       "correct": 0,
-      "explanation": "Filter rows has two real output hops. TRUE and FALSE are separate streams, each with its own downstream step and thread — which is why you could preview the rejects on their own in Lab 1.",
-      "source": "Lab 2 — Build the Pipeline Yourself"
+      "explanation": "Filter rows has two real output hops, and the rows that fail go down the FALSE hop to whichever step you assigned it. They do not share a hop with the passing rows; TRUE and FALSE are separate streams. They are not discarded when a FALSE target is set. Rows never flow back to the input step.",
+      "source": "Build the Pipeline Yourself"
     },
     {
       "id": "q-rowmeta",
       "module": "See It Work",
-      "prompt": "After Get Fields, what does the Text file input step hold besides the file path?",
+      "bloom": "Understand",
+      "scenario": "After you run Get Fields on a Text file input step, the Calculator after it already lists unit_price as a Number and order_date as a Date, before any data has been read.",
+      "prompt": "What is the Calculator using to know those types?",
       "options": [
-        "Row metadata — each column's name, type and format — which travels down the hops ahead of the data",
-        "A cached copy of the whole file",
-        "A generated Java class that parses the file",
-        "Nothing — types are only decided when the row is written"
+        "Types guessed again by the Calculator from the field names",
+        "A Java class that PDI generated to parse the file",
+        "A cached copy of the whole file, taken when Get Fields ran",
+        "Row metadata: each field's name, type and format"
       ],
-      "correct": 0,
-      "explanation": "Row metadata is why the next step already knows unit_price is a Number and order_date is a Date, and why a mis-typed column is caught at design time rather than at run time.",
-      "source": "Lab 2 — Build the Pipeline Yourself"
+      "correct": 3,
+      "explanation": "Row metadata travels down the hops ahead of the data, so every downstream step knows each field's name, type and format at design time, which is also why a mis-typed field is caught before the run. Get Fields does not cache the file. PDI generates no Java class to parse it. The Calculator does not guess types from names; it is told them.",
+      "source": "Build the Pipeline Yourself"
     },
     {
       "id": "q-concurrency",
       "module": "See It Work",
-      "prompt": "When you ran the four-step transformation in Lab 2, how did the steps execute?",
+      "bloom": "Understand",
+      "scenario": "A four-step transformation that reads a 20 GB file, filters it and writes two outputs completes on a server with 8 GB of RAM without running out of memory.",
+      "prompt": "How do the four steps execute to make that possible?",
       "options": [
-        "All at once — each step on its own thread, rows flowing between them through small buffers",
-        "One after another — the reader finished, then the filter ran, then the outputs",
-        "In the order you dragged them onto the canvas",
-        "Only the input step runs; the others are applied when rows are written"
+        "One after another, with each step finishing before the next starts",
+        "Only the input step runs; the rest apply as rows are written",
+        "In the order the steps were added to the canvas",
+        "All at once, each on its own thread, passing rows through small buffers"
       ],
-      "correct": 0,
-      "explanation": "The filter was already working on row 1 while the reader parsed row 20. Only the rows in flight are held in memory, which is why the same design handles files far larger than RAM.",
-      "source": "Lab 2 — Build the Pipeline Yourself"
+      "correct": 3,
+      "explanation": "Every step runs at once on its own thread, and only the rows in flight sit in the buffers between them, so the file never has to fit in memory. Running the steps one after another would require holding each step's full output. The order steps were added to the canvas has no bearing on execution. Every step runs, not only the input.",
+      "source": "Build the Pipeline Yourself"
     },
     {
       "id": "q-ktr-xml",
       "module": "See It Work",
-      "prompt": "What is a .ktr file?",
+      "bloom": "Understand",
+      "scenario": "A reviewer opening a pull request for a changed transformation (.ktr) can read, line by line, which step settings and hops changed.",
+      "prompt": "What makes that change readable in the diff?",
       "options": [
-        "XML describing the steps, their settings and the hops — the engine executes it directly",
-        "Compiled bytecode generated from the canvas",
-        "A binary snapshot of the last run",
-        "A shortcut to a transformation stored inside the server database"
+        "A Git plugin shipped with PDI renders the binary .ktr as text",
+        "A .ktr file is XML describing the steps, their settings and the hops",
+        "PDI writes a readable summary file beside each compiled .ktr",
+        "The reviewer's IDE decodes the Java objects stored in the .ktr"
       ],
-      "correct": 0,
-      "explanation": "No code is generated: the dialog reads and writes the XML, and the same file is what the server runs. That is also why a .ktr diffs and merges in git like source code.",
-      "source": "Lab 1 — Your First Win"
+      "correct": 1,
+      "explanation": "A .ktr is plain XML, and the engine executes that XML directly, so it diffs and merges like source code. There is no compiled .ktr with a summary written beside it. No plugin is needed, because the file is not binary. It holds no serialized Java objects, only an XML description of steps, settings and hops.",
+      "source": "Your First Win"
     },
     {
       "id": "q-lookup-limits",
       "module": "Make It Yours",
-      "prompt": "Which situation calls for a Merge join rather than a Stream lookup?",
+      "bloom": "Analyze",
+      "scenario": "You are enriching orders from a second source in which some orders match several rows, and orders with no match must still appear in the output.",
+      "prompt": "Which configuration combines the two streams correctly?",
       "options": [
-        "You need outer-join semantics, or a key may legitimately match many rows, or neither side fits in memory",
-        "The reference set is a small, stable code table",
-        "You want exactly one value per row, fast",
-        "The lookup data comes from JSON rather than CSV"
+        "Database lookup, returning the first matching row",
+        "Stream lookup, keyed on the order id",
+        "Merge join, configured as an INNER join",
+        "Merge join, configured as a LEFT OUTER join"
       ],
-      "correct": 0,
-      "explanation": "Stream lookup holds the whole lookup stream in RAM and returns at most one match per row. Merge join streams both sides, supports INNER / LEFT / RIGHT / FULL OUTER, and can multiply rows — at the price of sorted input.",
-      "source": "Lab 3 — Enrich and Join"
+      "correct": 3,
+      "explanation": "Merge join returns every matching row, and LEFT OUTER keeps orders that have no match, which meets both requirements. An INNER join would drop the orders with no match. Stream lookup returns at most one match per row, so the extra matches would be lost. A Database lookup returning the first matching row also returns only one match per row.",
+      "source": "Enrich and Join"
     },
     {
       "id": "q-sort-requirement",
       "module": "Make It Yours",
-      "prompt": "Why did the Merge join in Lab 3 need two Sort rows steps in front of it?",
+      "bloom": "Analyze",
+      "scenario": "A Merge join on region_code, fed by two streams in the order their files were written, misses matches you know exist without logging any error.",
+      "prompt": "What is the most likely cause?",
       "options": [
-        "Merge join walks both streams in lock-step, so each must already be ordered by its join keys",
-        "Sort rows removes duplicate keys before joining",
-        "PDI cannot read two files at once without sorting them",
-        "The output file has to be in region order"
+        "The join type is LEFT OUTER, which skips some matches",
+        "Neither input is sorted on region_code before the join",
+        "Merge join holds only a fixed number of keys in memory",
+        "The region file is read only after the sales file ends"
       ],
-      "correct": 0,
-      "explanation": "Merge join holds only the current row from each side and advances whichever is behind. Unsorted input does not raise an error — it silently walks past matches it can no longer see.",
-      "source": "Lab 3 — Enrich and Join"
+      "correct": 1,
+      "explanation": "Merge join walks both streams in step, holding only the current row from each, so unsorted input silently passes over matches instead of raising an error; a Sort rows step on region_code before each input fixes it. LEFT OUTER keeps more rows, not fewer. Both files are read at the same time, not one after the other. Merge join streams its inputs rather than holding a fixed number of keys.",
+      "source": "Enrich and Join"
     },
     {
       "id": "q-left-outer",
       "module": "Make It Yours",
-      "prompt": "The region join was configured as LEFT OUTER. What does that protect against?",
+      "bloom": "Analyze",
+      "scenario": "Sales rows are joined to a regions file on region_code, and a region added to the sales system last week is not in the regions file yet.",
+      "prompt": "Why configure this join as LEFT OUTER rather than INNER?",
       "options": [
-        "A sale whose region code is missing from regions.csv silently disappearing from the output",
-        "Duplicate region rows multiplying sales",
-        "The region file being read before the sales file",
-        "Null values in the manager_email column"
+        "So empty manager_email values are filled in automatically",
+        "So sales with an unknown region still reach the output",
+        "So the regions file is read before the sales file",
+        "So duplicate region rows do not multiply the sales rows"
       ],
-      "correct": 0,
-      "explanation": "INNER would drop any sale with no matching region. LEFT OUTER keeps every sale and leaves the region columns empty — the difference between \"some sales went missing\" and \"some sales need a region added\".",
-      "source": "Lab 3 — Enrich and Join"
+      "correct": 1,
+      "explanation": "An INNER join drops any sale whose region is missing from the regions file; LEFT OUTER keeps every sale and leaves the region fields empty, turning 'sales went missing' into 'a region needs adding'. The join type does not stop duplicate region rows multiplying sales; that needs unique keys. It does not change the order files are read. It fills nothing in; unmatched fields are left empty.",
+      "source": "Enrich and Join"
     },
     {
       "id": "q-calc-type",
       "module": "Make It Yours",
-      "prompt": "In the Calculator step, why does the guide insist on unit_price × qty rather than qty × unit_price?",
+      "bloom": "Analyze",
+      "scenario": "A Calculator step multiplying unit_price, a Number, by quantity, an Integer, returns 100.0 as the line total for 2 × 49.99.",
+      "prompt": "What is causing the wrong total?",
       "options": [
-        "The calculation runs in Field A's data type, so an Integer in A rounds the price to a whole number before multiplying",
-        "Field A must always be the larger number",
-        "qty is a String until it is placed in Field B",
-        "It makes no difference — the two orders give the same result"
+        "Quantity is in Field A, so the calculation runs as an Integer",
+        "Unit price is read as a String until it reaches Field B",
+        "The result field's precision is set to zero decimals",
+        "The Calculator rounds every result by default"
       ],
       "correct": 0,
-      "explanation": "2 × 49.99 came out as 100.0 with qty first. Putting the decimal field in A keeps the pennies — a small rule with an expensive failure mode.",
-      "source": "Lab 3 — Enrich and Join"
+      "explanation": "The Calculator works in Field A's data type, so an Integer in Field A rounds 49.99 to 50 before multiplying; putting unit_price in Field A keeps the pennies. A precision setting on the result would round the output, but 49.99 is already lost before the multiply. The Calculator does not round results by default. Unit price is already a Number from the input step; it is not a String.",
+      "source": "Enrich and Join"
     },
     {
       "id": "q-unknown-row",
       "module": "Make It Yours",
-      "prompt": "After the first Lab 4 load, dim_customer held 21 rows for 20 customers. Where did the extra row come from?",
+      "bloom": "Analyze",
+      "scenario": "After the first Dimension lookup/update load of 20 distinct customers, the customer dimension holds 21 rows.",
+      "prompt": "Where did the extra row come from?",
       "options": [
-        "Dimension lookup/update inserts a technical \"unknown\" member (key 0) so later loads can point failed lookups somewhere",
-        "One customer appeared twice in customers.json",
-        "The header row of the JSON was loaded as data",
-        "A test row you added when you clicked SQL"
+        "The step inserted an unknown member, key 0, for failed lookups",
+        "Pressing the SQL button inserted a test row",
+        "The source file's header row was loaded as a customer",
+        "One customer was loaded twice because of a duplicate id"
       ],
       "correct": 0,
-      "explanation": "The unknown row is deliberate warehouse hygiene: a fact row whose customer cannot be found is attached to key 0 instead of being dropped or failing the load.",
-      "source": "Lab 4 — Track History with One Step"
+      "explanation": "Dimension lookup/update inserts a technical unknown member with key 0 so that a fact row whose customer cannot be found is attached to it rather than dropped. No customer is duplicated; the source holds each one once. The header row is not loaded as data by the JSON or text input steps. The SQL button creates the table; it inserts no test rows.",
+      "source": "Track History with One Step"
     },
     {
       "id": "q-mi-per-row",
       "module": "See It Scale",
-      "prompt": "Why does the Lab 5 driver job run the injector transformation once per control-file row, instead of once for all feeds?",
+      "bloom": "Analyze",
+      "scenario": "A driver job reads a control file listing three feeds, each with a different delimiter, and runs an injector transformation that fills a template through metadata injection.",
+      "prompt": "Why does the job run the injector once per control-file row rather than once for all three feeds?",
       "options": [
-        "One metadata-injection run fills the template with one configuration, so three differently-delimited feeds need three runs",
-        "The template can only read files under 1 MB",
-        "Jobs cannot pass more than one row to a transformation",
-        "Each feed has to be sorted before injection"
+        "A job cannot pass more than one row to a transformation",
+        "Each injection run fills the template with one configuration",
+        "Each feed must be sorted before it can be injected",
+        "The template can only read files smaller than 1 MB"
+      ],
+      "correct": 1,
+      "explanation": "One injection run writes one set of values, one filename and one delimiter, into the template and executes that copy, so three configurations need three runs; executing for every input row supplies the loop. The template has no file-size limit. Jobs can pass many rows; running once per row is a choice made for injection. Feeds need no sorting to be injected.",
+      "source": "One Pipeline, Many Files"
+    },
+    {
+      "id": "q-dummy",
+      "module": "Make It Yours",
+      "bloom": "Apply",
+      "scenario": "Three enrichment branches need to meet at one clearly named point before the output, and you want the canvas to stay readable.",
+      "prompt": "Which step gives you that junction without touching the data?",
+      "options": [
+        "Filter rows, with a condition that is always true",
+        "Dummy, which performs no operation on the rows",
+        "Select values, passing the fields straight through",
+        "Blocking step, gathering the branches before release"
+      ],
+      "correct": 1,
+      "explanation": "Dummy is a deliberate no-op: it changes nothing about the rows, so it serves purely as a named junction and a visual milestone. Select values does real work on fields, even when configured to pass them through. Filter rows evaluates a condition on every row. Blocking step changes when rows flow, holding them back, which is more than a junction should do.",
+      "source": "Enrich and Join"
+    },
+    {
+      "id": "q-lookup-nomatch",
+      "module": "Make It Yours",
+      "bloom": "Analyze",
+      "scenario": "A Stream lookup adds the customer name to each sale by customer_id, and one sale carries a customer_id that is not in the customer master.",
+      "prompt": "What happens to that sale?",
+      "options": [
+        "It is sent down the lookup step's error hop",
+        "It continues down the stream with the name left empty",
+        "The transformation stops on the unmatched key",
+        "It is dropped, because the lookup found no match"
+      ],
+      "correct": 1,
+      "explanation": "Stream lookup enriches rather than filters: an unmatched key leaves the retrieved fields empty and the row carries on, which is why you check for empty values downstream when a missing reference matters. It is not dropped; that is what an inner join would do. The transformation does not stop. An unmatched key is not an error, so nothing goes to the error hop.",
+      "source": "Enrich and Join"
+    },
+    {
+      "id": "q-jsonpath",
+      "module": "Make It Yours",
+      "bloom": "Apply",
+      "scenario": "A JSON input step must read one row per customer from customers.json, which holds an array of customer objects, each with id, name and region_code, under a customers key.",
+      "prompt": "Which expression on the step's Fields tab reads each customer's region_code?",
+      "options": [
+        "$.region_code[*]",
+        "$.customers[*].region_code",
+        "region_code",
+        "/customers/customer/region_code"
+      ],
+      "correct": 1,
+      "explanation": "$.customers[*].region_code is a JSONPath that walks every object in the customers array and takes its region_code. /customers/customer/region_code is XPath, the syntax of the XML steps, not JSON. A bare region_code is not a path, so the step cannot locate it. $.region_code[*] looks for an array called region_code at the top level, which does not exist; a wrong path is the usual reason a JSON field comes back empty.",
+      "source": "Track History with One Step"
+    },
+    {
+      "id": "q-chain-lookups",
+      "module": "Make It Yours",
+      "bloom": "Analyze",
+      "scenario": "To add customer fields and then product fields to each sale, you feed the second Stream lookup from the first rather than from the original sales stream.",
+      "prompt": "Why chain the two lookups this way?",
+      "options": [
+        "A Stream lookup accepts only one incoming hop",
+        "The second lookup needs the first one's output sorted",
+        "Feeding both from one source would double the rows",
+        "Each passes on its row plus what it added, so one row gets both"
+      ],
+      "correct": 3,
+      "explanation": "A Stream lookup returns the row it received plus the fields it retrieved, so chaining collects the customer fields and then the product fields on one row. Stream lookup takes two inputs, the main stream and the lookup stream, so a single-hop limit is not the reason. Stream lookup needs no sorted input. Feeding both from the sales stream would not double the rows; it would give two streams, each carrying half the enrichment.",
+      "source": "Enrich and Join"
+    },
+    {
+      "id": "q-distinct-keys",
+      "module": "See It Scale",
+      "bloom": "Apply",
+      "scenario": "For a customer file you have never seen, you need the number of distinct customer ids and the rows whose id repeats.",
+      "prompt": "Which steps give you both in one pass?",
+      "options": [
+        "Select values, with the id field marked as unique",
+        "Sort rows, then Unique rows with repeats on its error hop",
+        "Group by on its own, counting the rows for each id",
+        "Filter rows, with a duplicate condition on the id field"
+      ],
+      "correct": 1,
+      "explanation": "Unique rows compares each row with the one before it, so sorting first brings repeats together; sending the duplicates down its error hop gives the distinct count and the offending rows in the same run. Group by counts rows per id but returns a summary, not the duplicated rows themselves. Filter rows tests each row alone and cannot see repeats. Select values has no uniqueness setting.",
+      "source": "Bring Your Own Data"
+    },
+    {
+      "id": "q-groupby-profile",
+      "module": "See It Scale",
+      "bloom": "Apply",
+      "scenario": "Before designing anything, you want the total amount per category from a new file with a category field and a numeric amount field.",
+      "prompt": "Which single step gets you there?",
+      "options": [
+        "Merge join, matching category against itself",
+        "Text file output, then a pivot in a spreadsheet",
+        "Sort rows, ordering the file by category",
+        "Group by, grouping on category and summing amount"
+      ],
+      "correct": 3,
+      "explanation": "Group by does it in one step: name category as the grouping field, sum amount, and preview. Sort rows orders the rows but totals nothing. Writing a file and pivoting in a spreadsheet takes two tools and a manual step. Joining category against itself multiplies rows rather than summarising them.",
+      "source": "Bring Your Own Data"
+    },
+    {
+      "id": "q-preview-loop",
+      "module": "See It Scale",
+      "bloom": "Apply",
+      "scenario": "A developer who built ten steps and ran them once at the end spends an hour finding a date misparsed at step three.",
+      "prompt": "Which working habit would have caught the problem at step three?",
+      "options": [
+        "Sorting the rows early so that errors surface first",
+        "Running the whole transformation again with detailed logging",
+        "Previewing each step as it is added, before adding the next",
+        "Adding one validation step just before the output"
+      ],
+      "correct": 2,
+      "explanation": "Previewing each step as it is added shows the data at the point where an assumption is made, so the misparsed date would have been visible at step three. Detailed logging on a full run still reports the problem at the end, far from its cause. A single validation step before the output detects that something is wrong but not where it went wrong. Sorting does nothing to reveal a misparsed value.",
+      "source": "Bring Your Own Data"
+    },
+    {
+      "id": "q-hidden-data",
+      "module": "See It Scale",
+      "bloom": "Understand",
+      "scenario": "Before designing a pipeline for a supplier's file, you profile it with a few Group by and Unique rows previews.",
+      "prompt": "Which findings is profiling most likely to surface?",
+      "options": [
+        "Whether the supplier's system is licensed for production",
+        "The character encoding, which PDI cannot detect",
+        "The database the file was originally exported from",
+        "A stray delimiter, a duplicated key, or two date formats"
+      ],
+      "correct": 3,
+      "explanation": "Stray delimiters, duplicated keys and mixed date formats are the classic finds, and each quietly breaks a downstream assumption: a column shifts, a join multiplies rows, a sort stops meaning anything. Encoding is set on the input step and is not what profiling a file's contents reveals. Nothing in a file's rows records the database it came from. Licensing is not a property of the data at all.",
+      "source": "Bring Your Own Data"
+    },
+    {
+      "id": "q-reject-vs-error",
+      "module": "See It Work",
+      "bloom": "Analyze",
+      "scenario": "One row fails a business rule because its customer id is missing, and another makes a database insert fail outright.",
+      "prompt": "How does the transformation treat these two rows differently?",
+      "options": [
+        "The rule follows your filter branch; the insert needs error handling",
+        "Both rows are caught by the same Filter rows FALSE branch",
+        "Neither row is recoverable; the transformation stops on either",
+        "Both rows go down the output step's error hop automatically"
       ],
       "correct": 0,
-      "explanation": "Injection rewrites the template in memory with the values you mapped — one filename, one separator — and executes that copy. \"Execute for every input row\" supplies the loop, and Get rows from result is where each control row arrives.",
-      "source": "Lab 5 — One Pipeline, Many Files"
+      "explanation": "A business rule is your own logic, so the failing row goes down whichever Filter rows branch you designed; a failed insert is a technical error inside a step and stops the transformation unless you enable error handling on that step. The FALSE branch only sees rows that reach the filter, not failures inside a later step. Nothing goes to an error hop automatically; it must be switched on. The rule failure is fully recoverable, because it is just a branch.",
+      "source": "Build the Pipeline Yourself"
+    },
+    {
+      "id": "q-lookup-memory",
+      "module": "Make It Yours",
+      "bloom": "Analyze",
+      "scenario": "A colleague plans to enrich an order stream against a 40-million-row reference table, using a Stream lookup.",
+      "prompt": "What is the problem with that plan?",
+      "options": [
+        "Stream lookup cannot read from a database, only from a file",
+        "Stream lookup returns every match, so the row count would explode",
+        "Stream lookup needs both streams sorted, and that table is not",
+        "Stream lookup holds the whole reference set in memory, and it will not fit"
+      ],
+      "correct": 3,
+      "explanation": "Stream lookup gets its speed by loading the whole lookup stream into memory, which is right for a small code table and wrong for 40 million rows; a Database lookup or a Merge join suits that size. Stream lookup can take its lookup rows from any step, including a database input. It needs no sorted input. It returns at most one match per row, so rows cannot multiply.",
+      "source": "Enrich and Join"
     }
   ]
 }
