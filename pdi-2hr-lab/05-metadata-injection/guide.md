@@ -39,7 +39,7 @@
 > separator. That file *is* the configuration; the pipelines you
 > build next never change again.
 
-1. Before we build anything, let's take a look at the store files:
+1. Before we build anything, let's also take a look at the store files:
 
 <div style="display:flex; flex-wrap:wrap; gap:16px; align-items:flex-start">
 <figure style="flex:0 1 auto; margin:0">
@@ -69,13 +69,22 @@
 </div>
 
 2. So all we need to do is pick up the filename, its associated delimiter and standardize the header - <em>control.csv</em>:
+<div align="center">
+<figure>
+
+![1790332827139.png](../_assets/images/1790332827139.png)
+
+<div align="center">
+<figcaption><em>control.csv</em></figcaption>
+</div>
+</figure>
 
 <figure>
 
 ![Text file input dialog, File tab: Read control with control.csv from the lab folder listed under Selected files](../_assets/images/1788797924142.png)
 
 <div align="center">
-<figcaption><em>Pass filename & separator - control.csv</em></figcaption>
+<figcaption><em>Path to - control.csv</em></figcaption>
 </div>
 </figure>
 
@@ -87,6 +96,10 @@
 > *driver job* (loops the injector over control.csv). This is also
 > your first look at a job — the orchestration layer Lab 7 talks
 > about.
+
+
+
+
 
 :::: tabs
 
