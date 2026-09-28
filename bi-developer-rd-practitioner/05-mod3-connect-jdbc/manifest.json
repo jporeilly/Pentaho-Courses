@@ -3,7 +3,7 @@
   "description": "Create a JDBC connection to the sample database and build the query your first report will use.",
   "order": 5,
   "kind": "workshop",
-  "stepCount": 3,
+  "stepCount": 2,
   "hasVideo": false,
   "estimatedMinutes": 15
 }

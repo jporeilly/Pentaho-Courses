@@ -3,7 +3,7 @@
   "description": "Make a chart clickable so it drills into detail data.",
   "order": 22,
   "kind": "workshop",
-  "stepCount": 3,
+  "stepCount": 2,
   "hasVideo": false,
   "estimatedMinutes": 15
 }

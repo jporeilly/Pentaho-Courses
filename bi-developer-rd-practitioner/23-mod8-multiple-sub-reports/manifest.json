@@ -3,7 +3,7 @@
   "description": "Compose a report from several sub-reports.",
   "order": 23,
   "kind": "workshop",
-  "stepCount": 3,
+  "stepCount": 2,
   "hasVideo": false,
   "estimatedMinutes": 15
 }

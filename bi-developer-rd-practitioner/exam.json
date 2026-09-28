@@ -1,6 +1,6 @@
 {
   "title": "Practitioner Exam",
-  "description": "DRAFT for review - generated from the course content; review and refine in the Question Bank app before a real workshop. 15 questions per attempt from a pool of 18, pass mark 80%.",
+  "description": "15 questions per attempt from a pool of 30, covering data sources, bands and groups, calculations, parameters, sub-reports and publishing. Pass mark is 80%. Open-book — browse any page, hover glossary terms, or ask the AI assistant. Your answers are saved as you go. Explanations appear after submission.",
   "passMark": 80,
   "shuffle": true,
   "questionsPerAttempt": 15,
@@ -8,262 +8,487 @@
     {
       "id": "q1",
       "module": "Getting Started",
-      "prompt": "Which Pentaho design tool is the most comprehensive report authoring tool in the suite?",
+      "bloom": "Apply",
+      "scenario": "An invoice must match a printed template exactly: fixed positions for the logo and address block, a header on every page, and subtotals per customer. Business users will run it once it is published.",
+      "prompt": "Which tool should the invoice be authored in?",
       "options": [
-        "Report Designer",
         "Interactive Reports",
+        "Report Designer",
         "Dashboard Designer",
         "Analyzer"
       ],
-      "explanation": "Report Designer offers the deepest layout, data, and scripting control of Pentaho's reporting tools; Interactive Reports is the lighter web-based option.",
-      "correct": 0,
+      "correct": 1,
+      "explanation": "Report Designer lays out banded, pixel-positioned content with page headers and per-group subtotals, which is the control a fixed template needs, and it publishes for business users to run. Analyzer explores a cube interactively and has no notion of a printed page. Interactive Reports trades layout control for quick ad-hoc authoring. Dashboard Designer arranges existing content in panels, not a paginated document.",
       "source": "Getting Started with Pentaho Business Analytics"
     },
     {
       "id": "q2",
       "module": "Getting Started",
-      "prompt": "Reports created in Report Designer are saved with which file extension?",
+      "bloom": "Understand",
+      "scenario": "A colleague emails a .prpt file to someone whose laptop has Report Designer installed but no network route to the database the report queries.",
+      "prompt": "What happens when they preview it?",
       "options": [
-        ".prpt",
-        ".prpti",
-        ".prd",
-        ".rpt"
+        "It will not open at all unless its data source is reachable",
+        "It opens, but the query fails, as the file holds no rows",
+        "It renders the layout with placeholder values instead",
+        "It renders from rows the file cached at its last run"
       ],
-      "explanation": "Report Designer saves .prpt files; .prpti is the Interactive Reports format.",
-      "correct": 0,
+      "correct": 1,
+      "explanation": "A .prpt is a definition — layout, query and connection — with no data in it, so it opens and then fails when preview runs the query against a database it cannot reach. It caches no rows. Opening the definition does not need the database; running it does. There are no placeholder values: without rows there is nothing to render.",
       "source": "Getting Started with Pentaho Business Analytics"
     },
     {
       "id": "q3",
       "module": "Navigating Report Designer",
-      "prompt": "The Welcome screen's sample reports only display when what is true?",
+      "bloom": "Analyze",
+      "scenario": "Report Designer starts normally, but every sample report on the Welcome screen fails to render, while a colleague's identical installation shows them.",
+      "prompt": "What is the most likely explanation?",
       "options": [
-        "The Pentaho sample data (HSQLDB) database is installed and running",
-        "The Pentaho Server is licensed",
-        "The reports have been published at least once",
-        "You are connected to the BA repository"
+        "The samples must be published once before they display",
+        "The Welcome screen renders them from a cache built at first login",
+        "The installation has no licence, so it renders no reports",
+        "The sample database is not running, so their data source fails"
       ],
-      "explanation": "The samples query the HSQLDB sample database, so it must be running for them to open.",
-      "correct": 0,
+      "correct": 3,
+      "explanation": "The samples are ordinary reports bound to the Pentaho sample database, which runs with the server, so when it is down they fail exactly as any report would. Report Designer does not refuse to render for want of a licence. Samples are local files and need no publishing. The Welcome screen opens the real reports, not a cache.",
       "source": "Navigating Report Designer"
     },
     {
       "id": "q4",
       "module": "Navigating Report Designer",
-      "prompt": "In Report Designer, where do you switch to a preview of the report output?",
+      "bloom": "Understand",
+      "scenario": "A report looks right on the design canvas, with every element where the designer put it.",
+      "prompt": "What does Preview show that the canvas cannot?",
       "options": [
-        "The eye icon on the formatting toolbar",
-        "File > Preview only",
-        "The Data tab",
-        "The Structure tab"
+        "The style sheet, which the canvas deliberately leaves out",
+        "Publishing errors, found by checking against the repository",
+        "The same layout at print resolution, and nothing more",
+        "Real rows: where groups break, how many rows, where pages end"
       ],
-      "explanation": "The eye icon on the formatting toolbar toggles preview mode; the Preview toolbar then offers print, navigation, and zoom.",
-      "correct": 0,
+      "correct": 3,
+      "explanation": "Preview runs the query and the reporting engine over real data, so group breaks, row counts and page overflow appear as users will see them; the canvas shows one representative band. The canvas already applies styles. Preview does not contact the repository. The difference is the data, not the resolution.",
       "source": "Navigating Report Designer"
     },
     {
       "id": "q5",
       "module": "Data Sources & Queries",
-      "prompt": "Which data source type would you choose to query a relational database directly with SQL?",
+      "bloom": "Apply",
+      "scenario": "A report must read order data straight from the company's PostgreSQL warehouse, using SQL the report author writes.",
+      "prompt": "Which data source type should the report use?",
       "options": [
-        "JDBC",
-        "Metadata",
         "Pentaho Analysis",
-        "XML"
+        "Metadata",
+        "XML",
+        "JDBC"
       ],
-      "explanation": "JDBC connects to relational databases and runs SQL; Metadata uses an XMI model, Pentaho Analysis a Mondrian schema, XML an XQuery file.",
-      "correct": 0,
+      "correct": 3,
+      "explanation": "A JDBC data source connects to a relational database and runs the author's SQL. Metadata queries a business model defined in an XMI file, not hand-written SQL. Pentaho Analysis queries a Mondrian schema. XML reads an XQuery file.",
       "source": "Data Sources & Queries"
     },
     {
       "id": "q6",
       "module": "Data Sources & Queries",
-      "prompt": "Select all that apply: which of these are data source types Report Designer understands?",
+      "bloom": "Analyze",
+      "scenario": "Report writers who do not know the database schema must build reports against it, and the same column formatting and access rules must apply to every report they produce.",
+      "prompt": "Why point the reports at a Metadata model rather than straight at JDBC?",
       "options": [
-        "Pentaho Analysis (Mondrian schema)",
-        "Metadata (XMI model)",
-        "Sequence Generator",
-        "PowerPoint"
+        "The model caches query results, so it runs faster than raw JDBC",
+        "The model translates the SQL into each writer's own dialect",
+        "A JDBC connection cannot be shared by more than one report",
+        "Names, formatting and security are set once, above the schema"
       ],
-      "explanation": "Report Designer supports JDBC, Metadata, Pentaho Analysis, XML, tables, and the Sequence Generator - not office documents.",
-      "correctIndices": [
-        0,
-        1,
-        2
-      ],
+      "correct": 3,
+      "explanation": "A metadata model presents business names, formatting and row or column rules defined once above the schema, so writers never see raw tables and every report built on it inherits the rules. It is not a result cache. Any number of reports can share a JDBC connection. The model generates SQL for its database; it does not translate into per-writer dialects.",
       "source": "Data Sources & Queries"
     },
     {
       "id": "q7",
       "module": "Report Elements & Groups",
-      "prompt": "Where are report elements placed in Report Designer?",
+      "bloom": "Analyze",
+      "scenario": "An element in the Details band appears once for every row returned. Moved into the Group Header, the same element appears once per group.",
+      "prompt": "What does that show about how bands work?",
       "options": [
-        "Inside bands (report header, group header, details, footers)",
-        "Directly on the page with absolute pixel coordinates only",
-        "Inside SQL queries",
-        "Inside the Structure tab's properties"
+        "A band prints once per thing it stands for, so placement sets repetition",
+        "The group header hides duplicates but still renders the element per row",
+        "Bands set vertical position only; a property on each element sets repetition",
+        "Each element renders once wherever it sits; only the Details band loops"
       ],
-      "explanation": "The canvas is organised into horizontal bands; elements live inside them and repeat according to the band's role.",
       "correct": 0,
+      "explanation": "A band is printed once for each thing it stands for — once per row for Details, once per group for a Group Header — so the band an element sits in decides how often it is output. Repetition is not an element property. Nothing is rendered per row and then hidden. Group bands repeat too, once per group.",
       "source": "Adding Report Elements and Creating Groups"
     },
     {
       "id": "q8",
       "module": "Report Elements & Groups",
-      "prompt": "What does adding a group to a report do?",
+      "bloom": "Understand",
+      "scenario": "A flat list of order lines must be broken into sections, one per product line, each with its own heading and subtotal.",
+      "prompt": "What does adding a group on PRODUCTLINE do?",
       "options": [
-        "Gathers detail rows that share a value into sections with their own header and footer bands",
-        "Sorts the query without changing layout",
-        "Merges several reports into one",
-        "Restricts which users can run the report"
+        "Runs a separate query for each product line in turn",
+        "Sorts the query's rows by product line without changing the layout",
+        "Splits the rows into sections with their own header and footer bands",
+        "Hides every product line except the one that is selected"
       ],
-      "explanation": "Groups turn flat rows into structured sections - e.g. one section per Product Line - each with header/footer bands for labels and totals.",
-      "correct": 0,
+      "correct": 2,
+      "explanation": "A group starts a new section each time the product line changes, with a group header and footer for labels and totals. It does not sort anything: it relies on the query's ORDER BY. It runs no extra query. Restricting to one product line is a parameter's job.",
       "source": "Adding Report Elements and Creating Groups"
     },
     {
       "id": "q9",
       "module": "Calculations",
-      "prompt": "How is conditional formatting driven in Report Designer?",
+      "bloom": "Understand",
+      "scenario": "Quantity in Stock should print in red when it falls below 1,000 and in black otherwise.",
+      "prompt": "How is that done in Report Designer?",
       "options": [
-        "By attaching a formula to a style property of an element",
-        "By editing the SQL query",
-        "By a setting in the publish dialog",
-        "By the group's sort order"
+        "A setting chosen in the publish dialog",
+        "A group sorted on the quantity column",
+        "A formula on the element's text-color style property",
+        "A CASE expression in the SQL that returns the colour"
       ],
-      "explanation": "A formula on a style property evaluates per row and changes the element's appearance with the data.",
-      "correct": 0,
+      "correct": 2,
+      "explanation": "Any style property can carry a formula, evaluated for each row; =IF([QUANTITYINSTOCK]<1000;\"RED\";\"BLACK\") on text-color is the whole technique. A CASE in the SQL could return a word, but nothing would colour the element unless a style property used it. Publishing has no formatting settings. Sorting orders rows; it does not colour them.",
       "source": "Performing Calculations (Formulas & Functions)"
     },
     {
       "id": "q10",
       "module": "Calculations",
-      "prompt": "To show a running total for a group, you would typically add what?",
+      "bloom": "Apply",
+      "scenario": "A report grouped by product line needs each group's total Quantity in Stock beneath the group's detail rows.",
+      "prompt": "What should the author add?",
       "options": [
-        "A function from the Data tab placed in the group footer",
-        "A second query",
-        "A sub-report in the details band",
-        "A parameter with a default value"
+        "A Sum function reset on the group, placed in the group footer",
+        "A sub-report in the Details band that adds the rows up",
+        "A parameter whose default value is the group's total",
+        "A second query that sums the quantity for each product line"
       ],
-      "explanation": "Predefined functions (sum, count, running totals) are added on the Data tab and placed in footer bands to summarise the group.",
       "correct": 0,
+      "explanation": "A Sum function added in the Data pane, with Reset on Group Name set to the product-line group, totals each group, and dragged into the group footer it prints below the rows. A second query duplicates what the engine already computes. A sub-report in Details runs once per row. A parameter takes input from users; it does not total anything.",
       "source": "Performing Calculations (Formulas & Functions)"
     },
     {
       "id": "q11",
       "module": "Formatting the Report",
-      "prompt": "Which band would you use for content that must appear at the top of every page?",
+      "bloom": "Apply",
+      "scenario": "A multi-page report must show the company name and the run date at the top of every page, not only the first.",
+      "prompt": "Which band should hold them?",
       "options": [
-        "Page header",
-        "Report header",
-        "Details",
-        "Group footer"
+        "Report Footer",
+        "Page Header",
+        "Group Header",
+        "Report Header"
       ],
-      "explanation": "The page header repeats on every page; the report header prints once at the start of the report.",
-      "correct": 0,
+      "correct": 1,
+      "explanation": "The Page Header prints at the top of every page. The Report Header prints once, at the start of the report. A Group Header prints once per group, wherever that falls. The Report Footer prints once, at the end.",
       "source": "Formatting the Report"
     },
     {
       "id": "q12",
       "module": "Report Parameters",
-      "prompt": "What is the purpose of a report parameter?",
+      "bloom": "Apply",
+      "scenario": "A report takes a region parameter. Users keep mistyping region names and getting empty reports, so the prompt must offer only regions that exist.",
+      "prompt": "How should the parameter be set up?",
       "options": [
-        "To prompt the user for a value at run time and feed it into the query or expressions",
-        "To set the page size",
-        "To store the JDBC password",
-        "To schedule the report"
+        "Check the value with a formula once the report has finished running",
+        "Back it with a query listing the regions, shown as a drop-down",
+        "Give it a default value, which blocks any other value",
+        "Match region names in the main query case-insensitively"
       ],
-      "explanation": "Parameters make one report serve many filters: the user picks values at run time and the data responds.",
-      "correct": 0,
+      "correct": 1,
+      "explanation": "A list parameter backed by its own query offers only the regions that exist, and with strict values on it rejects anything else, so the mistake cannot be made. A default pre-selects a value but does not restrict the rest. Checking after the run catches the error too late. Case-insensitive matching still fails on a misspelling.",
       "source": "Report Parameters"
     },
     {
       "id": "q13",
       "module": "Report Parameters",
-      "prompt": "After defining a parameter, what must you usually change so it filters the data?",
+      "bloom": "Analyze",
+      "scenario": "An author adds a Territory parameter to a report. The prompt appears in preview, but choosing EMEA still shows every territory.",
+      "prompt": "What is missing?",
       "options": [
-        "The query, to reference the parameter in its WHERE clause",
-        "The page footer",
-        "The report title",
-        "The publish location"
+        "A WHERE clause in the query that uses ${TERRITORY}",
+        "Publishing, since prompts only filter on the server",
+        "A default value, so the parameter applies on first run",
+        "A group on Territory, which the prompt then filters"
       ],
-      "explanation": "A parameter only affects the data when the query (or an expression) references it.",
       "correct": 0,
+      "explanation": "Defining a parameter builds the prompt; it filters nothing until the query references it, as in WHERE territory IN (${TERRITORY}). A default only pre-selects a value. A group structures rows; it does not filter them. Preview applies parameters exactly as the server does.",
       "source": "Report Parameters"
     },
     {
       "id": "q14",
       "module": "Charts & Sub Reports",
-      "prompt": "A sub-report is best described as what?",
+      "bloom": "Analyze",
+      "scenario": "Beside each customer, a report must list that customer's open invoices. The invoice rows come from a different query than the customer rows.",
+      "prompt": "Why does that call for a sub-report rather than a group?",
       "options": [
-        "A complete report with its own query embedded inside another report",
-        "A chart type",
-        "A saved query snippet",
-        "A page-break marker"
+        "A group can break on only one column, and this needs two",
+        "A group only arranges rows already returned; a sub-report runs its own query",
+        "A group cannot sit in the Details band, so side content must be a sub-report",
+        "A sub-report runs its query once for the whole report, so it is faster"
       ],
-      "explanation": "Sub-reports carry their own data source and layout - the building block for composing several result sets into one report.",
-      "correct": 0,
+      "correct": 1,
+      "explanation": "Grouping structures the rows the main query already returned; a sub-report carries its own query, run in the context of the parent row and linked by a parameter, which is how a second result set gets in. Where a group can sit is not the issue. A sub-report in Details runs once per parent row, not once overall. Groups can break on several fields.",
       "source": "Charts & Sub Reports"
     },
     {
       "id": "q15",
       "module": "Charts & Sub Reports",
-      "prompt": "What does making a chart drillable add?",
+      "bloom": "Apply",
+      "scenario": "A bar chart shows sales by order status. Managers want to click a bar and open the published Order Status report, filtered to that status.",
+      "prompt": "What does the chart need?",
       "options": [
-        "A link from chart regions to a more detailed report or view",
-        "Extra chart series",
-        "3-D rendering",
-        "Automatic totals"
+        "A url-formula using DRILLDOWN that passes the bar's category",
+        "A sub-report of the Order Status report placed inside the chart",
+        "A second value column carrying each status's orders",
+        "3-D rendering, so that each bar can take a click"
       ],
-      "explanation": "Drill-down wires chart elements to a target (another report, URL, or view) so a summary click opens the underlying detail.",
       "correct": 0,
+      "explanation": "The chart's url-formula is evaluated per bar, and DRILLDOWN builds the viewer URL for the target report with [\"chart::category-key\"] as its status parameter; only HTML output makes the bars clickable. Another value column adds a series, not a link. A sub-report embeds content; it does not navigate. 3-D is appearance only.",
       "source": "Charts & Sub Reports"
     },
     {
       "id": "q16",
       "module": "Publishing Reports",
-      "prompt": "Publishing a report from Report Designer sends it where?",
+      "bloom": "Evaluate",
+      "scenario": "A finished report must reach thirty business users. A colleague proposes emailing them the .prpt file, arguing it avoids a dependency on the server and lets everyone keep a copy.",
+      "prompt": "How should that proposal be judged?",
       "options": [
-        "To the Pentaho Server's BA repository",
-        "To a local PDF file",
-        "To the samples folder on disk",
-        "To the metadata model"
+        "Accept it for now, since publishing later keeps the copies in step",
+        "Reject it, because .prpt files cannot be sent by email at all",
+        "Reject it: each user needs the tool and data access, and copies drift",
+        "Accept it: a .prpt carries its own data, so only the file size matters"
       ],
-      "explanation": "Publish uploads the .prpt to the BA repository, where users run it from the Pentaho User Console.",
-      "correct": 0,
+      "correct": 2,
+      "explanation": "A .prpt is a definition that needs Report Designer and a reachable database to become a report, which most of the thirty lack, and thirty copies diverge from the first correction; publishing puts one copy on the server, run against the server's data. The file holds no data. Publishing later does not update copies already sent. Email can carry the file; that is not the problem.",
       "source": "Publishing Reports"
     },
     {
       "id": "q17",
       "module": "Publishing Reports",
-      "prompt": "Once published, where do business users typically run the report?",
+      "bloom": "Analyze",
+      "scenario": "A report is published. The author then opens the local .prpt, fixes a column heading and saves it, but users still see the old heading.",
+      "prompt": "Why is the heading still wrong for users?",
       "options": [
-        "The Pentaho User Console in a browser",
-        "Spoon",
-        "Schema Workbench",
-        "A local copy of Report Designer"
+        "Users must sign out and back in to see the saved change",
+        "The server caches rendered output until a timer runs out",
+        "Publishing uploaded a copy, so the fix must be published again",
+        "Headings live in the repository's metadata and are edited there"
       ],
-      "explanation": "PUC is the server's browser UI for browsing, running, and scheduling published content.",
-      "correct": 0,
+      "correct": 2,
+      "explanation": "Publishing is a file upload, not a link: the repository holds its own copy, so the corrected local file has to be published again. The server renders from its copy on each run rather than holding output for a set period. The heading is part of the report definition, not repository metadata. Signing in again reads the same copy.",
       "source": "Publishing Reports"
     },
     {
       "id": "q18",
       "module": "Publishing Reports",
-      "prompt": "Select all that apply: hyperlinks in a published report can point to which targets?",
+      "bloom": "Apply",
+      "scenario": "A summary report lists sales by region. Clicking a region should open a detail report showing only that region's transactions.",
+      "prompt": "Which three things does the drill-through need?",
       "options": [
-        "Another published report",
-        "An external URL",
-        "A drill-down detail view",
-        "The report's own SQL query"
+        "A hyperlink on the region element that targets the published detail report",
+        "The region value passed to the target report as a parameter",
+        "A matching parameter on the detail report, which its query uses",
+        "Both reports built from the same query, so the clicked row carries across",
+        "The detail report embedded as a sub-report inside the summary's region band"
       ],
-      "explanation": "Hyperlinks link elements to other reports, URLs, and drill targets - queries are not link targets.",
       "correctIndices": [
         0,
         1,
         2
       ],
+      "explanation": "A drill-through is something to click (a hyperlink to the published detail report), a value to carry (the region, passed as a parameter) and something at the other end that uses it (a parameter the detail query references); miss the last and the detail opens unfiltered. A sub-report embeds rather than navigates. The two reports need share nothing but the parameter.",
       "source": "Hyperlinks"
+    },
+    {
+      "id": "rd-q1",
+      "module": "Data Sources & Queries",
+      "bloom": "Apply",
+      "scenario": "A report is developed against a test database on the author's laptop, then published to a server that must query production, without anyone editing the report.",
+      "prompt": "Which connection access type suits this?",
+      "options": [
+        "Native JDBC, with the production URL typed into the report",
+        "Native JDBC, with the credentials passed in a hidden parameter",
+        "JNDI, a named connection each environment resolves itself",
+        "ODBC, which the server translates into its own connection"
+      ],
+      "correct": 2,
+      "explanation": "A JNDI connection stores only a name: Report Designer resolves it locally, the server against its own data sources, so one report reaches test on the laptop and production on the server, and the credentials stay on the server. A typed production URL points preview at production too and carries credentials in the file. ODBC is not how the server resolves connections. A hidden parameter still puts the connection details in the report.",
+      "source": "Data Sources & Queries"
+    },
+    {
+      "id": "rd-q2",
+      "module": "Data Sources & Queries",
+      "bloom": "Analyze",
+      "scenario": "A report grouped by Territory, then by Customer, shows the same territory header several times, scattered through the output, with no error.",
+      "prompt": "What is the most likely cause?",
+      "options": [
+        "The query does not ORDER BY territory before customer",
+        "Report Designer caps each group at a fixed row count",
+        "The group was defined on the Details band instead",
+        "The Details Header is set to repeat on every page"
+      ],
+      "correct": 0,
+      "explanation": "The engine starts a new group whenever the value changes from one row to the next, so rows not sorted by territory then customer produce a new territory header every time the value flips back; the fix is the query's ORDER BY. Groups are defined in the Structure pane, not on a band. There is no row cap per group. A repeating Details Header repeats column labels, not territory headers.",
+      "source": "Data Sources & Queries"
+    },
+    {
+      "id": "rd-q3",
+      "module": "Report Elements & Groups",
+      "bloom": "Apply",
+      "scenario": "Each product line's group header must read, for example, Product Line: Classic Cars, with the name changing for every group.",
+      "prompt": "Which single element does this?",
+      "options": [
+        "A message field reading Product Line: $(PRODUCTLINE)",
+        "A label whose text is the word PRODUCTLINE",
+        "A label with the words Product Line: typed into it",
+        "A number field bound to the report's PRODUCTLINE column"
+      ],
+      "correct": 0,
+      "explanation": "A message field is a template: each time its band prints it replaces $(PRODUCTLINE) with the current value, so one element produces the text for every group. A label prints its text literally. A number field is for numeric values. A label alone cannot show the changing name.",
+      "source": "Adding Report Elements and Creating Groups"
+    },
+    {
+      "id": "rd-q4",
+      "module": "Report Elements & Groups",
+      "bloom": "Apply",
+      "scenario": "A designer drags a text field from the Details band towards the Group Header, but it will not cross: the Details band just grows taller.",
+      "prompt": "How is the element moved into the Group Header?",
+      "options": [
+        "Hold Ctrl while dragging it across the band border",
+        "Change its band setting in the element's Attributes pane",
+        "Delete the Details band so the element moves up",
+        "Cut it from Details and paste it into the Group Header"
+      ],
+      "correct": 3,
+      "explanation": "Elements cannot be dragged from one band to another — dragging towards a border just resizes the band — so they are cut from one band and pasted into the other. No key modifier lets a drag cross bands. An element has no band attribute to change. Deleting the band would delete the element with it.",
+      "source": "Adding Report Elements and Creating Groups"
+    },
+    {
+      "id": "rd-q5",
+      "module": "Calculations",
+      "bloom": "Analyze",
+      "scenario": "A group's total must appear in the Group Header, above the group's rows. An ItemSumFunction placed there shows too small a number.",
+      "prompt": "What should be used instead?",
+      "options": [
+        "A formula in the header that multiplies the first row by the row count",
+        "An ItemSumFunction with Reset on Group Name left blank",
+        "A TotalGroupSumFunction, which has each group's total from pass one",
+        "A second query that sums each group, run for every header"
+      ],
+      "correct": 2,
+      "explanation": "The engine reads the data twice: a TotalGroupSumFunction totals each group in the first pass, so it can print the complete total from the group's first row, in the header. An ItemSumFunction is a running sum, correct only once the group's last row has passed, and with the reset left blank it runs across the whole report. A second query repeats work the engine already does. Multiplying the first row guesses a total.",
+      "source": "Performing Calculations (Formulas & Functions)"
+    },
+    {
+      "id": "rd-q6",
+      "module": "Formatting the Report",
+      "bloom": "Apply",
+      "scenario": "A published report is run by users in the US and in Germany, and its price column must show each user's own currency symbol.",
+      "prompt": "What should the format pattern use for the symbol?",
+      "options": [
+        "A formula that picks $ or € from the user's name",
+        "Two price columns, one per country, chosen by a parameter",
+        "$, which each locale converts into its own currency",
+        "¤, which each locale replaces with its currency symbol"
+      ],
+      "correct": 3,
+      "explanation": "The format attribute is a Java DecimalFormat pattern, and ¤ in it is replaced at run time with the currency symbol of the locale the report runs in — $ in the US, € in Germany. A literal $ stays a dollar sign everywhere. Guessing the currency from a name is fragile and needless. Two columns duplicate the design for what one pattern does.",
+      "source": "Formatting the Report"
+    },
+    {
+      "id": "rd-q7",
+      "module": "Formatting the Report",
+      "bloom": "Evaluate",
+      "scenario": "Forty reports share the company's colours and fonts, and a rebrand is coming next quarter.",
+      "prompt": "Which approach makes the rebrand cheapest?",
+      "options": [
+        "The formatting toolbar, copying one report's styles across",
+        "One stylesheet (.prptstyle) linked by every report, changed once",
+        "Styles set on each report's master report, changed forty times",
+        "A copy of the stylesheet embedded in each of the reports"
+      ],
+      "correct": 1,
+      "explanation": "A .prptstyle stylesheet linked by every report holds the colours and fonts in one place, so the rebrand is one edit that all forty follow. Master-report styles cascade within one report, so forty reports mean forty edits. The toolbar formats element by element. An embedded copy lives inside each report, so it too has to be changed forty times.",
+      "source": "Formatting the Report"
+    },
+    {
+      "id": "rd-q8",
+      "module": "Charts & Sub Reports",
+      "bloom": "Understand",
+      "scenario": "A sub-report showing each customer's payment history is placed in the Details band of a report that lists 500 customers.",
+      "prompt": "How many times does the sub-report run?",
+      "options": [
+        "Once for each customer row: 500 times",
+        "Once for each page of the master report",
+        "Once for each group in the master report",
+        "Once, before the master report starts"
+      ],
+      "correct": 0,
+      "explanation": "A sub-report runs each time the band that contains it is processed, and the Details band is processed once per row, so it runs 500 times, each in the context of its customer. It would run once only in the Report Header. It is not tied to pages. It would run once per group if it sat in a Group Header.",
+      "source": "Charts & Sub Reports"
+    },
+    {
+      "id": "rd-q9",
+      "module": "Charts & Sub Reports",
+      "bloom": "Analyze",
+      "scenario": "A chart in the Report Header correctly summarises every detail row printed below it, though the header prints before any of those rows.",
+      "prompt": "How does the chart already have that data?",
+      "options": [
+        "The chart runs its own copy of the report's query",
+        "The chart shows figures cached from the previous run",
+        "The engine's first pass collects every row before the header prints",
+        "The header is printed last of all, then moved to the top of the page"
+      ],
+      "correct": 2,
+      "explanation": "The reporting engine processes the data twice; during the first pass the chart's data collector visits every row and builds the dataset, and when the header prints in the second pass the chart draws it. No second query runs. Bands print in order. Nothing is cached between runs.",
+      "source": "Charts & Sub Reports"
+    },
+    {
+      "id": "rd-q10",
+      "module": "Publishing Reports",
+      "bloom": "Apply",
+      "scenario": "A report that uses a native JDBC connection to MySQL previews fine in Report Designer, but once published it fails in the User Console with a driver error.",
+      "prompt": "What is the most likely fix?",
+      "options": [
+        "Republish the report with its images embedded",
+        "Add the driver JAR to the report as a resource",
+        "Put the MySQL JDBC driver on the server as well",
+        "Run the report once in Report Designer after publishing"
+      ],
+      "correct": 2,
+      "explanation": "The server runs the published report with its own reporting engine and its own drivers, so a native JDBC connection needs the driver on the server as well as in Report Designer. Embedding images changes nothing about drivers. A report bundle does not supply JDBC drivers to the server. Running it locally again does not install anything on the server.",
+      "source": "Publishing Reports"
+    },
+    {
+      "id": "rd-q11",
+      "module": "Publishing Reports",
+      "bloom": "Apply",
+      "scenario": "A manager wants a bookmark that opens a published report straight to its EMEA results, without navigating the User Console.",
+      "prompt": "What gives them that?",
+      "options": [
+        "A User Console Favorite, which remembers the last parameter values",
+        "A copy of the .prpt saved with EMEA as its default",
+        "A schedule that runs the report for EMEA each morning",
+        "The report's /viewer URL, with the parameter in its query string"
+      ],
+      "correct": 3,
+      "explanation": "Every published report has a viewer URL built from its repository path, and parameter values can be appended as ordinary query-string arguments, so one bookmark opens the EMEA results. A local copy needs Report Designer to open. A Favorite opens the report but does not keep parameter values. A schedule produces output on a timetable; it is not a bookmark.",
+      "source": "Publishing Reports"
+    },
+    {
+      "id": "rd-q12",
+      "module": "Report Parameters",
+      "bloom": "Evaluate",
+      "scenario": "Users choose a product line and then a country, and complain that the country list offers countries with no orders in the chosen line.",
+      "prompt": "What is the best fix?",
+      "options": [
+        "Make the country list's query use the product-line parameter",
+        "Merge both choices into one parameter listing every pair",
+        "Validate the pair after the run and show a warning message",
+        "Make the country prompt free text so any value can be typed"
+      ],
+      "correct": 0,
+      "explanation": "A list parameter's query can reference another parameter; the framework then re-runs the country list whenever the product line changes and drops a choice that is no longer valid, so the prompts cascade. One parameter of every pair makes a long, awkward list. Validating after the run lets the mistake happen first. Free text invites the same mistakes plus typos.",
+      "source": "Report Parameters"
     }
   ]
 }

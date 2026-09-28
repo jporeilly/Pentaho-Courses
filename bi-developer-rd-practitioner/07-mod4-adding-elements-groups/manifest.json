@@ -3,7 +3,7 @@
   "description": "Place data fields on the canvas, then group the report and add group headers.",
   "order": 7,
   "kind": "workshop",
-  "stepCount": 6,
+  "stepCount": 5,
   "hasVideo": false,
   "estimatedMinutes": 20
 }

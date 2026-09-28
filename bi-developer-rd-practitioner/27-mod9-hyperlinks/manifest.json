@@ -3,7 +3,7 @@
   "description": "Link report elements to other reports and URLs.",
   "order": 27,
   "kind": "workshop",
-  "stepCount": 4,
+  "stepCount": 3,
   "hasVideo": false,
   "estimatedMinutes": 15
 }
