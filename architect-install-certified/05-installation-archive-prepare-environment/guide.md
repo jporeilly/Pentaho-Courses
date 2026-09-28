@@ -193,7 +193,7 @@ export PENTAHO_JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64
 
 **Step 5.** **Install PostgreSQL 17**
 
-> **Note:** Ubuntu 24.04’s default repository provides a newer PostgreSQL 16. To install 17, add the official PostgreSQL (PGDG) repository.
+> **Note:** Ubuntu 24.04’s default repository provides PostgreSQL 16, not 17. To install 17, add the official PostgreSQL (PGDG) repository.
 > 
 > If a different PostgreSQL is already present, purge it first to avoid port and package conflicts (see the optional "Clean previous installs" tab).
 > 
@@ -264,6 +264,8 @@ sudo apt autoremove -y
 ```
 
 ### Optional: Install PostgreSQL 16
+
+> **Warning:** This course is tested on PostgreSQL 17, and 15 is also supported for Pentaho 11. Use 16 only if the [Components Reference](https://docs.pentaho.com/install/pdia-11.0-installation/components-reference) lists it for your Pentaho version.
 
 1. Ensure your Ubuntu system is up-to-date.
 

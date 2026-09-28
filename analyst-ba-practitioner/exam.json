@@ -6,663 +6,723 @@
   "shuffle": true,
   "webhookUrl": "https://script.google.com/macros/s/AKfycbzt7thr4mfy3-kduDbiQ_UfBPwGC7JxpZA9p1XOeGJG4Q0rh9-OoKJNG965c8SVNQ7i/exec",
   "webhookSecret": "pcm_Y61JKvDGnbuqvn3BIVCkjoSu98Jn3bE4",
-  "intake": {
-    "contact": {
-      "to": "academy@pentaho.com",
-      "webhookUrl": "",
-      "webhookSecret": "pcm_sPhjWMHFhIvusSc1hbqN6cvQ7NUKCX9",
-      "heading": "Contact Us",
-      "blurb": "Ask us anything about the course, or tell us what you would like to know about Pentaho products and services. This is separate from the exam.",
-      "messagePlaceholder": "What would you like to know?",
-      "sendLabel": "Send"
-    }
-  },
   "questions": [
     {
       "id": "ov-q1",
       "module": "Overview",
-      "scenario": "A finance analyst needs to slice revenue by product, region, and quarter, with quick drill-down to find the story behind the numbers.",
-      "prompt": "Which Pentaho Business Analytics tool is the right starting point?",
+      "bloom": "Apply",
+      "scenario": "A finance analyst wants to explore revenue by product line, territory and quarter, drilling from a year into its quarters wherever a figure looks odd.",
+      "prompt": "Which tool should they build this in?",
       "options": [
+        "Report Designer",
         "Dashboard Designer",
-        "Analyzer (PAZ)",
-        "Interactive Reports (PIR)",
-        "Pentaho Data Integration"
+        "Analyzer",
+        "Interactive Reports"
       ],
-      "correct": 1,
-      "explanation": "Analyzer's OLAP-backed pivot is built for slice-and-dice exploration and drill-down. Interactive Reports targets tabular reports; Dashboard Designer composes pre-built views; PDI is ETL.",
+      "correct": 2,
+      "explanation": "Analyzer is the OLAP tool: it pivots measures across dimensions and drills down a hierarchy such as Years to Quarters with a double-click. Interactive Reports lays out grouped rows and totals from a metadata model rather than drilling through a hierarchy. Dashboard Designer arranges existing content and prompts on one page rather than exploring a cube. Report Designer is a desktop tool for pixel-perfect published reports, not ad-hoc exploration.",
       "source": "Pentaho Analyst - Practitioner: Overview — Choosing the right tool"
     },
     {
       "id": "ov-q2",
       "module": "Overview",
-      "scenario": "An executive wants a one-page view combining five charts and a KPI panel, all driven by a single date filter.",
-      "prompt": "Which tool fits this requirement best?",
+      "bloom": "Apply",
+      "scenario": "A sales director wants one page showing a geographic analysis, an existing orders report and an inventory list, all filtered by the same Territory selection.",
+      "prompt": "Which tool builds this page?",
       "options": [
-        "Dashboard Designer (PDD)",
-        "Analyzer",
         "Interactive Reports",
+        "Analyzer",
+        "Dashboard Designer",
         "Schema Workbench"
       ],
-      "correct": 0,
-      "explanation": "Dashboard Designer composes multiple visualisations onto one canvas and wires shared prompts. Analyzer explores one cube; Interactive Reports builds tabular reports; Schema Workbench models OLAP cubes.",
+      "correct": 2,
+      "explanation": "Dashboard Designer places existing Analyzer, Interactive Reporting and Report Designer content in panels and binds one dashboard prompt to each report's parameter. Analyzer builds a single analysis, not a page of several. Interactive Reports builds a single tabular report. Schema Workbench models Mondrian cubes and produces nothing a business user views.",
       "source": "Pentaho Analyst - Practitioner: Overview — Choosing the right tool"
     },
     {
       "id": "ov-q3",
       "module": "Overview",
-      "scenario": "A regional manager just needs a tabular grouped report by Territory and Sales Rep with subtotals — no charts, no exploration.",
+      "bloom": "Apply",
+      "scenario": "A regional manager needs a printable list of orders grouped by Territory and Country, with a revenue subtotal for each group and no charts.",
       "prompt": "Which tool is the best fit?",
       "options": [
-        "Analyzer",
         "Interactive Reports",
         "Dashboard Designer",
-        "Pentaho Server admin console"
+        "Pentaho Data Integration",
+        "Analyzer"
       ],
-      "correct": 1,
-      "explanation": "Grouped tabular reports against a curated metadata model are the Interactive Reports sweet spot. Analyzer would over-tool the problem; a dashboard is heavier than needed.",
+      "correct": 0,
+      "explanation": "Interactive Reports builds grouped tabular reports with subtotals, and page setup for printing, from a metadata model in the browser. Analyzer pivots and drills a cube, which is more than a fixed grouped list needs. Dashboard Designer arranges existing content rather than building a report. Pentaho Data Integration moves and transforms data; it does not lay out reports.",
       "source": "Pentaho Analyst - Practitioner: Overview — Choosing the right tool"
     },
     {
       "id": "ov-q4",
       "module": "Overview",
-      "prompt": "Defining the data once as a reusable model or data source and referencing it from many reports delivers what benefit?",
+      "bloom": "Apply",
+      "scenario": "The database behind the Orders metadata model moves to a new server. Forty Interactive Reports are built on that model.",
+      "prompt": "What has to change for the reports to keep working?",
       "options": [
-        "It saves disk space",
-        "Centralised governance — connection or model changes propagate to every consumer, and security can be enforced once at the model layer",
-        "Reports run faster automatically",
-        "It allows offline use"
+        "The data source, re-selected inside each report",
+        "Nothing, since each report keeps its own copy of the rows",
+        "The saved query in each report, one at a time",
+        "Only the database connection the Orders model uses"
       ],
-      "correct": 1,
-      "explanation": "One model and many consumers is the BI governance pattern. Change the connection or row-level security once at the model, and every report inherits it. Without it, each report is its own silo.",
+      "correct": 3,
+      "explanation": "The database connection belongs to the metadata model, and every report on the model reaches the database through it, so re-pointing that one connection serves all forty. Reports store a query against the model, not SQL against a server, so there is no saved query to edit report by report. Re-selecting the data source in each report would pick the same model again and change nothing. A saved report holds definitions and no rows, which is why it re-queries every time it opens.",
       "source": "Pentaho Analyst - Practitioner: Overview — Data governance"
     },
     {
       "id": "ov-q5",
       "module": "Overview",
-      "scenario": "A team must email the EMEA Quantity report to regional leads on the first of every month without anyone running it by hand.",
-      "prompt": "When is scheduling a report most useful?",
+      "bloom": "Apply",
+      "scenario": "Regional leads want an orders report in their inbox on the first of every month, and nobody wants to run it by hand.",
+      "prompt": "What should the report owner set up in the User Console?",
       "options": [
-        "When the data never changes",
-        "When an audience needs a consistent cadence of the same parameterised report and you want to avoid each consumer running it manually",
-        "When the report has prompts",
-        "When the report cannot be opened in PUC"
+        "A Favorite for each lead that points to the report",
+        "A monthly schedule for the report that emails its output",
+        "A dashboard holding the report, with a refresh interval",
+        "A copy of the report in each lead's Home folder"
       ],
       "correct": 1,
-      "explanation": "Scheduling delivers the same view on a cadence to a known audience. Pair it with parameterised reports so one definition serves many recipient lists.",
+      "explanation": "A schedule runs the report on the server's scheduler at a set recurrence and can email the output, with nobody opening it. A Favorite is a per-user shortcut, so someone still has to open the report. A copy in each Home folder duplicates the definition and still has to be run by hand. A dashboard's refresh interval re-renders panels only while someone has the dashboard open.",
       "source": "Pentaho Analyst - Practitioner: User Console — Schedules"
     },
     {
       "id": "ov-q6",
       "module": "Overview",
-      "prompt": "Why is the data model (cubes, metadata) usually kept under change control in a Pentaho BI deployment?",
+      "bloom": "Evaluate",
+      "scenario": "A modeller proposes renaming the Territory level of a sales cube to Region, to match new company language. Dozens of analyses and several dashboards use the cube.",
+      "prompt": "What is the strongest reason to treat this as a reviewed change rather than a quick edit?",
       "options": [
-        "The model is decorative",
-        "Every report, dashboard, and Analyzer view depends on it, so a schema change ripples to every consumer — the model is treated like production software with versioning and review",
-        "Models are auto-generated from queries",
-        "Schemas are immutable after first publish"
+        "Mondrian must reload the fact table before the new name appears",
+        "Renaming a level resets the cube's measures to a Count aggregation",
+        "A cube cannot be republished once reports have been built on it",
+        "Saved analyses and dashboards refer to the level by its schema name"
       ],
-      "correct": 1,
-      "explanation": "Models are foundational. A breaking change to a hierarchy or measure cascades to every consumer, so change control protects the consumer surface.",
+      "correct": 3,
+      "explanation": "An Analyzer report saves each field as a schema formula such as [Markets].[Territory], and dashboards map parameters to those levels, so a rename reaches every report and link built on the cube; that reach is why models are reviewed and versioned like software. A name is metadata, so no fact table is reloaded; Mondrian generates SQL per query. A cube can be republished at any time, which is exactly what makes an unreviewed change risky. A measure's aggregation is set on the measure and does not change when a level is renamed.",
       "source": "Pentaho Analyst - Practitioner: Overview — Data governance"
     },
     {
       "id": "ov-q7",
       "module": "Overview",
-      "prompt": "Which statement best captures the difference between self-service BI and managed reporting?",
+      "bloom": "Understand",
+      "scenario": "In one company, business users build their own reports in the browser from governed models. In another, IT builds every report and business users only open them.",
+      "prompt": "What distinguishes the first approach from the second?",
       "options": [
-        "Self-service uses spreadsheets; managed uses databases",
-        "Self-service lets curated end users author their own ad-hoc views against governed models, while managed reporting delivers IT-built reports to consumers who read but don't author",
-        "Managed reporting always runs in the cloud",
-        "Self-service is faster than managed reporting"
+        "Whether the finished reports can be scheduled",
+        "Where the data lives, in spreadsheets or databases",
+        "Who authors the reports, not which models they use",
+        "How current the data is when a report is opened"
       ],
-      "correct": 1,
-      "explanation": "Both flow from the same governed models, but self-service hands authoring to the user while managed reporting keeps authoring with IT and delivers finished reports.",
+      "correct": 2,
+      "explanation": "Self-service and managed reporting can sit on the same governed models; the difference is that self-service puts authoring in business users' hands, while managed reporting keeps it with IT and delivers finished reports. Both can run on databases, so where the data lives does not separate them. Both re-query when a report opens, so freshness is the same. Reports built either way can be scheduled.",
       "source": "Pentaho Analyst - Practitioner: Overview — Self-service vs managed reporting"
     },
     {
       "id": "ov-q8",
       "module": "Overview",
-      "scenario": "EMEA managers should see only EMEA rows in every report they open, while NA managers see only NA rows — from the same report definitions.",
-      "prompt": "What does row-level security mean in this BI deployment?",
+      "bloom": "Apply",
+      "scenario": "EMEA managers must see only EMEA rows and NA managers only NA rows in every report built on the Orders model, including reports written next year.",
+      "prompt": "Where should that restriction be defined?",
       "options": [
-        "Each row is encrypted at rest",
-        "Users see different subsets of the same query results based on their identity or role, enforced at the model layer rather than re-implemented in every report",
-        "Reports run row by row instead of in batch",
-        "Rows are sorted by user role"
+        "In the repository permissions on each report's own folder",
+        "In the Orders model's security, keyed to the user's role",
+        "As a Territory prompt defaulting to the user's region",
+        "As a Territory filter saved into each report"
       ],
       "correct": 1,
-      "explanation": "Row-level security lives at the model so every consumer of every report inherits it. Without that pattern, security must be re-implemented in each report and is easy to bypass.",
+      "explanation": "Security defined in the metadata model is applied to every query the model generates, so every report on it, including future ones, is restricted by the user's role. A filter saved into each report has to be remembered in every new report, and any author can remove it. A prompt lets the user choose another value. Folder permissions decide who can open a report, not which rows it returns.",
       "source": "Pentaho Analyst - Practitioner: Overview — Data governance"
     },
     {
       "id": "puc-q1",
       "module": "User Console",
-      "prompt": "What is the primary role of the Pentaho User Console (PUC) for a business user?",
+      "bloom": "Understand",
+      "scenario": "A new analyst has a login to the Pentaho Server and a web browser, and nothing installed on their laptop.",
+      "prompt": "What can they do from the User Console alone?",
       "options": [
-        "A command-line tool for editing transformations",
-        "A browser-based hub for browsing data sources, opening reports and dashboards, and scheduling jobs",
-        "A standalone Windows application for database administration",
-        "A REST API client"
+        "Build pixel-perfect reports as in Report Designer",
+        "Design transformations and jobs on a canvas",
+        "Open, create and schedule reports and dashboards",
+        "Edit Mondrian schemas as in Schema Workbench"
       ],
-      "correct": 1,
-      "explanation": "PUC is the web-based front door of the Pentaho Server. Business users open and create reports, browse data sources, and manage schedules from the browser.",
+      "correct": 2,
+      "explanation": "The User Console is the browser front end of the Pentaho Server: from it users open content, create Interactive Reports, Analyzer reports and dashboards, and schedule them. Transformations and jobs are designed in Spoon, a desktop tool. Mondrian schemas are edited in Schema Workbench, also a desktop tool. Report Designer is a desktop application too.",
       "source": "Pentaho Analyst - Practitioner: User Console — Pentaho User Console"
     },
     {
       "id": "puc-q2",
       "module": "User Console",
-      "prompt": "Why is browser-based delivery, rather than a desktop client install, the standard model for end users?",
+      "bloom": "Evaluate",
+      "scenario": "An IT manager is choosing between giving 300 business users browser access to the User Console and installing a desktop reporting tool on each laptop.",
+      "prompt": "Which consideration most favours the browser?",
       "options": [
-        "Browsers are faster than native applications",
-        "Zero-install rollout, centralised content and permissions, easier upgrades, and consistent access across devices",
-        "Native apps cannot render charts",
-        "It is required by HTTPS"
+        "Reports run faster in a browser than in any desktop reporting tool",
+        "One server upgrade reaches every user, with no clients to update",
+        "Browsers can render chart types that desktop tools cannot draw",
+        "Browser access removes the need to manage user permissions"
       ],
       "correct": 1,
-      "explanation": "The browser model decouples the user from the install. IT updates the server once and every user benefits — no client install, no version drift, no per-laptop access control.",
+      "explanation": "With browser delivery, content, permissions and upgrades live on the server, so one upgrade reaches all 300 users and no laptop drifts out of step. Desktop tools draw charts too, so rendering is not the difference. Permissions still apply, and the server enforces them on every request. Report speed depends on the query and the server, not on the browser.",
       "source": "Pentaho Analyst - Practitioner: User Console — Pentaho User Console"
     },
     {
       "id": "puc-q3",
       "module": "User Console",
-      "prompt": "What is the typical relationship between data sources and reports in PUC?",
+      "bloom": "Understand",
+      "scenario": "An analyst opens an Interactive Report a month after it was saved and sees this morning's orders in it.",
+      "prompt": "Why does the report show current data?",
       "options": [
-        "Reports embed copies of the underlying data",
-        "Data sources expose business-friendly models or queries, and reports read from them to present the results visually",
-        "Reports always pull live data from CSV files only",
-        "Data sources are uploaded inside each report file"
+        "The server refreshes a stored copy of its rows each night",
+        "The data source copies its new rows into the report file",
+        "The report was scheduled to rebuild itself every day",
+        "The saved report holds a query definition and re-runs it"
       ],
-      "correct": 1,
-      "explanation": "Data sources are reusable abstractions (JDBC, OLAP/Analysis, metadata). Reports reference them, so administrators can change the underlying connection without rewriting every report.",
+      "correct": 3,
+      "explanation": "A saved Interactive Report is a bundle of definitions, the layout plus a query against the model, with no rows, so opening it re-runs the query against current data. No stored copy of rows exists to refresh. A schedule produces output, but opening the report does not depend on one. A report references its data source and never holds a copy of its rows.",
       "source": "Pentaho Analyst - Practitioner: User Console — Data sources"
     },
     {
       "id": "puc-q4",
       "module": "User Console",
-      "prompt": "The Home, Browse Files, and Schedules perspectives in PUC reflect which design pattern?",
+      "bloom": "Understand",
+      "scenario": "A user opened a sales report yesterday but cannot remember which folder it is in, and wants to open it again.",
+      "prompt": "Where in the User Console will they find it fastest?",
       "options": [
-        "Random feature placement",
-        "Task-oriented navigation — landing pages for what business users actually do (open content, find content, manage delivery) rather than mirroring the back-end folder structure",
-        "A database-administrator workflow",
-        "A developer / IDE workflow"
+        "Administration",
+        "Recents",
+        "Opened",
+        "Schedules"
       ],
       "correct": 1,
-      "explanation": "PUC is organised by user task, not by repository layout. That keeps non-technical users productive without learning the server's internal folder hierarchy.",
+      "explanation": "Recents lists content the user has opened lately, so yesterday's report is one click away without knowing its folder. Schedules lists scheduled runs, not recently viewed content. Opened shows what is open in the current session, and yesterday's report is not. Administration manages users, roles and server settings.",
       "source": "Pentaho Analyst - Practitioner: User Console — Perspectives"
     },
     {
       "id": "puc-q5",
       "module": "User Console",
-      "prompt": "Permissions in PUC are typically enforced where?",
+      "bloom": "Analyze",
+      "scenario": "To keep a confidential report from the Sales role, a consultant removes the link to its folder from a custom portal page, but leaves the folder's permissions unchanged.",
+      "prompt": "Can a Sales user still open the report?",
       "options": [
-        "In the browser, after the report renders",
-        "On the server, before content is returned, based on the user's role and the content's ACLs / model-level security",
-        "On the local file system of each user's laptop",
-        "In the CSS layer"
+        "Yes, from any client, because the folder's permissions allow it",
+        "No, because content with no link to it cannot be requested",
+        "Only once an administrator shares the report with them again",
+        "No, because the portal page now controls access to the folder"
       ],
-      "correct": 1,
-      "explanation": "Authorisation lives server-side so it can't be bypassed by a different client. Content ACLs and the model's security together decide what each user sees.",
+      "correct": 0,
+      "explanation": "The server checks the requested content's access-control list on every request, and the folder still grants Sales access, so the User Console, Report Designer, a script or the REST API can all fetch the report. Content needs no link to be requested; any client can ask the server for a path. A portal page is one client among many and holds no permissions. Nothing was unshared, so there is nothing to share again; changing the folder's permissions is what would stop them.",
       "source": "Pentaho Analyst - Practitioner: User Console — Users & Roles"
     },
     {
       "id": "puc-q6",
       "module": "User Console",
-      "scenario": "An analyst has just authored a report and must decide whether to save it to a shared Public folder or to their personal Home folder.",
-      "prompt": "How do these two save locations differ in PUC?",
+      "bloom": "Apply",
+      "scenario": "An analyst has finished a report the whole sales team will run each week, and has a draft of another report that is not ready to share.",
+      "prompt": "Where should each be saved?",
       "options": [
-        "Folder location is cosmetic only",
-        "Shared (Public) folders make content discoverable and runnable by other users subject to permissions, while Home folders are personal scratch space",
-        "Shared folders compress the file",
-        "Home folders are encrypted"
+        "Team report in a shared Public folder, draft in their Home folder",
+        "Team report in their Home folder, draft in a shared Public folder",
+        "Both in their Home folder, with the folder shared to the sales team",
+        "Both in a shared Public folder, with the draft renamed"
       ],
-      "correct": 1,
-      "explanation": "Save location is a publishing decision. Personal versus team scope is set by folder; that, plus permissions, controls who can find and use the content.",
+      "correct": 0,
+      "explanation": "Content in a shared Public folder can be found and run by others, subject to the folder's permissions, while a Home folder is personal space, so the draft stays private until it is ready. Sharing a Home folder makes team content depend on one person's private space. Renaming a draft in Public still exposes it to everyone with access. The reverse arrangement publishes the draft and hides the finished report.",
       "source": "Pentaho Analyst - Practitioner: User Console — Browse Files"
     },
     {
       "id": "ir-q1",
       "module": "Interactive Reports",
-      "prompt": "What problem does Interactive Reports solve compared with a fully designer-built report?",
+      "bloom": "Analyze",
+      "scenario": "An orders report with a Row Limit of 100 shows a plausible subtotal for its first territory, but later territories are missing or far too small, and no error appears.",
+      "prompt": "What is the most likely cause?",
       "options": [
-        "It produces faster SQL than Report Designer",
-        "It lets non-technical users build ad-hoc tabular and grouped reports against a curated metadata model — no SQL, no IT round-trip",
-        "It can render 3D charts",
-        "It is the only tool that can export PDFs"
+        "The later territories have no orders in the chosen date range",
+        "Subtotals are computed only for the first page of output",
+        "The summary function was set to Average instead of Sum",
+        "The query stopped at 100 rows, so the totals cover only those"
       ],
-      "correct": 1,
-      "explanation": "Interactive Reports targets the business user who needs a quick tabular answer. The metadata model hides joins and SQL, so the user just picks fields, filters, and groupings.",
-      "source": "Pentaho Analyst - Practitioner: Interactive Reports — Overview"
+      "correct": 3,
+      "explanation": "A row limit is applied in the query, so the database returns only the first 100 rows in sort order and the summaries add up only what arrived; set the limit to Maximum before trusting a total. Subtotals run over every row returned, not just the first page. Missing orders would hit territories at random, not everything after the first. Average would change every subtotal's value, not make later territories disappear.",
+      "source": "Pentaho Analyst - Practitioner: Interactive Reports — Query settings"
     },
     {
       "id": "ir-q2",
       "module": "Interactive Reports",
-      "scenario": "An analyst building a Sales Territory report wants to turn a flat list of orders into a scannable layout with one section per territory.",
-      "prompt": "What does grouping the report by Territory and adding a subtotal achieve?",
+      "bloom": "Apply",
+      "scenario": "A report grouped by Territory lists one row per order line, and the manager wants each territory's subtotal to show how many different orders it contains.",
+      "prompt": "Which summary should be set on Order Number?",
       "options": [
-        "It doubles the number of rows in the source table",
-        "It collapses the data into one section per group, with aggregated measures and a running total — far more scannable than raw rows",
-        "It hides the column header",
-        "It makes the report run slower on purpose"
+        "Count Distinct",
+        "Maximum",
+        "Count",
+        "Sum"
       ],
-      "correct": 1,
-      "explanation": "Grouping plus subtotals is the standard pattern for turning a flat list into a business-ready report. Each group becomes a section with its own measures.",
-      "source": "Pentaho Analyst - Practitioner: Interactive Reports — Sales Territory"
+      "correct": 0,
+      "explanation": "Count Distinct counts each order number once, however many lines the order has. Count counts rows, so an order with five lines is counted five times. Sum adds the order numbers themselves, which means nothing. Maximum returns only the highest order number in the group.",
+      "source": "Pentaho Analyst - Practitioner: Interactive Reports — Totals"
     },
     {
       "id": "ir-q3",
       "module": "Interactive Reports",
-      "prompt": "What does a prompt (parameter) in an Interactive Report let the consumer do?",
+      "bloom": "Apply",
+      "scenario": "Each territory manager wants the same orders report showing only their own territory, and the author wants to maintain a single report.",
+      "prompt": "What should the author add to the report?",
       "options": [
-        "Edit the SQL inline",
-        "Pick a value at run time (e.g. Year = 2024, Region = EMEA) so one report definition can serve many scenarios",
-        "Switch the report into a chart automatically",
-        "Bypass row-level security"
+        "A calculated field that returns each manager's territory",
+        "A prompt on Territory, so the value is chosen at run time",
+        "A group on Territory, so each manager scrolls to their own",
+        "A filter on Territory, set to each manager's value in turn"
       ],
       "correct": 1,
-      "explanation": "Prompts parameterise the report. One definition plus run-time values yields many concrete results, cutting maintenance and letting self-service users explore.",
+      "explanation": "A prompt is a filter whose value arrives at run time, so one report serves every territory, and schedules and dashboards can set the same parameter. A fixed filter serves one territory at a time, so it would need a copy per manager. A group shows every territory in one report instead of restricting it to one. A calculated field cannot be used as a filter or prompt at all.",
       "source": "Pentaho Analyst - Practitioner: Interactive Reports — Prompts"
     },
     {
       "id": "ir-q4",
       "module": "Interactive Reports",
-      "prompt": "Why does page setup (orientation, headers/footers, page size) matter when authoring an Interactive Report?",
+      "bloom": "Apply",
+      "scenario": "A wide grouped report looks fine in the browser, but when it is exported to PDF its rightmost columns spill onto separate pages.",
+      "prompt": "Which change fixes the exported layout?",
       "options": [
-        "It changes the underlying data",
-        "Reports are commonly exported or printed, and page setup controls how the layout breaks across pages so totals and group headers aren't orphaned",
-        "It is required to save the report at all",
-        "It affects how fast the report runs"
+        "Raise the Row Limit to Maximum",
+        "Export the report as CSV instead of PDF",
+        "Turn on Sticky HTML header rows",
+        "Switch to landscape in Page Setup"
       ],
-      "correct": 1,
-      "explanation": "Output formatting matters because reports often leave the browser as emailed PDFs or printed packs. Good page setup keeps the layout coherent across page breaks.",
+      "correct": 3,
+      "explanation": "Page Setup controls page format, orientation and margins, and the default is Letter portrait, so landscape gives the columns room on each page. Sticky HTML header rows freeze the header in HTML output only. The Row Limit controls how many rows come back, not how wide a page is. CSV drops the layout entirely, so it avoids the problem rather than fixing the PDF.",
       "source": "Pentaho Analyst - Practitioner: Interactive Reports — Page setup"
     },
     {
       "id": "ir-q5",
       "module": "Interactive Reports",
-      "scenario": "NA and EMEA both need essentially the same orders report, differing only by region and totals.",
-      "prompt": "What is usually the right authoring approach?",
+      "bloom": "Evaluate",
+      "scenario": "The NA and EMEA sales teams each want an orders report that differs only in territory, delivered monthly to their own recipients.",
+      "prompt": "Which approach is easiest to maintain?",
       "options": [
-        "Build two separate reports and maintain both",
-        "Build one parameterised report driven by a Region prompt, optionally with two saved schedules feeding different recipient lists",
-        "Combine NA and EMEA into one global region",
-        "Copy-paste the SQL into Excel"
+        "One report per team, copied each month from a master",
+        "One report with a Territory prompt, one schedule per team",
+        "Two reports, each with its own territory filter fixed in it",
+        "One report grouped by Territory, sent to both teams"
       ],
       "correct": 1,
-      "explanation": "One parameterised template plus saved schedules per audience is the standard pattern — lower maintenance, easier to evolve, and every region gets the same shape.",
+      "explanation": "One prompted report is a single definition, and each schedule sets the Territory parameter for its team, so a layout change is made once. Two fixed reports double every future change. A grouped report sends each team the other team's data. Copying from a master each month repeats the work and lets the copies drift.",
       "source": "Pentaho Analyst - Practitioner: Interactive Reports — Orders NA and EMEA"
     },
     {
       "id": "ir-q6",
       "module": "Interactive Reports",
-      "prompt": "What complexity does the metadata model behind Interactive Reports hide from the business user?",
+      "bloom": "Understand",
+      "scenario": "An analyst adds Customer Name, Order Date and Total to an Interactive Report. The three fields come from three different tables in the database.",
+      "prompt": "How is the join between those tables worked out?",
       "options": [
-        "Colour choices",
-        "Joins, key columns, technical table names, and relationships — replaced by business-friendly fields such as Customers and Orders",
-        "Page sizing",
-        "Schedule timing"
+        "The analyst picks the join keys as each field is added",
+        "The database infers the join from matching column names",
+        "The metadata layer follows relationships defined in the model",
+        "Interactive Reports joins the rows together in the user's browser"
       ],
-      "correct": 1,
-      "explanation": "The metadata model translates the physical schema into a business vocabulary. The user picks Sales Amount and Territory instead of navigating a join graph between fact and dimension tables.",
+      "correct": 2,
+      "explanation": "Relationships between business tables are defined once in the metadata model, and the metadata layer walks them to generate one SQL statement with the right joins. The analyst never names a key column; that is the point of the model. The join happens in the generated SQL, in the database, not in the browser. Databases do not infer joins from column names; the SQL has to state them.",
       "source": "Pentaho Analyst - Practitioner: Interactive Reports — Metadata model"
     },
     {
       "id": "ir-q7",
       "module": "Interactive Reports",
-      "scenario": "A report needs a Margin column, but Margin isn't defined in the metadata — only Revenue and Cost are.",
-      "prompt": "When is a computed field / formula column the right answer?",
+      "bloom": "Analyze",
+      "scenario": "An analyst adds a calculated field, Tax = [Total] * 0.15, to an Interactive Report, then tries to filter to orders where Tax is over 1,000 and finds the option unavailable.",
+      "prompt": "Why can the calculated field not be filtered?",
       "options": [
-        "When you want a new report file",
-        "When a measure isn't pre-defined in the metadata but can be derived from existing fields, e.g. Margin = Revenue − Cost",
-        "When you need a new database",
-        "When the report needs a different page layout"
+        "The expression has to be written in SQL before it can filter",
+        "Calculated fields must be published before they can filter",
+        "The report engine computes it after the query has returned",
+        "Filters accept only fields that already have a prompt"
       ],
-      "correct": 1,
-      "explanation": "Computed fields keep authoring agile — the user derives the field they need without going back to the metadata team to add it permanently.",
+      "correct": 2,
+      "explanation": "A calculated field is a formula the reporting engine evaluates row by row after the data arrives, so the database never sees it and there is nothing for a WHERE clause to use; the same expression defined as a formula column in the metadata model would filter, sort and aggregate. No publish step enables filtering. Filters work on ordinary fields with or without a prompt. Interactive Reports takes no SQL expressions; the fix is the model, not a different syntax.",
       "source": "Pentaho Analyst - Practitioner: Interactive Reports — Computed fields"
     },
     {
       "id": "ir-q8",
       "module": "Interactive Reports",
-      "prompt": "In what order are filtering, sorting, and grouping applied in an Interactive Report?",
+      "bloom": "Understand",
+      "scenario": "A report is filtered to one territory, grouped by Country, and sorted by Customer Name. The author wonders how the rows arrive in group order.",
+      "prompt": "How are the rows put in order for the groups to work?",
       "options": [
-        "At random points in the rendering",
-        "Filters narrow the rows first, then sorting orders the remaining set, then subtotals and group breaks layer onto the sorted output",
-        "Only after export",
-        "Only in the client browser"
+        "The groups are formed first, and the filter is applied after",
+        "Group fields go into the query's ORDER BY ahead of the column sort",
+        "The report engine re-sorts all of the returned rows in memory by group",
+        "The column sort is applied first, and the groups follow it"
       ],
       "correct": 1,
-      "explanation": "Filter, then sort, then group is the consistent order. Filtering first reduces work, sorting establishes iteration order, and grouping then breaks the stream into sections.",
+      "explanation": "The engine starts a new group when a value changes between consecutive rows, so group fields are placed ahead of any column sort in the query's ORDER BY and the database does the ordering, while the filter goes into the WHERE clause. Nothing is re-sorted in memory, which is why large reports group without extra memory. The filter runs in the database before any rows reach the engine. A column sort ahead of the groups would break them, which is why group keys always sort first.",
       "source": "Pentaho Analyst - Practitioner: Interactive Reports — Filtering & sorting"
     },
     {
       "id": "ir-q9",
       "module": "Interactive Reports",
-      "prompt": "Which output formats can an Interactive Report be exported to?",
+      "bloom": "Apply",
+      "scenario": "A finance system accepts only delimited text files, and the regional director wants a fixed-layout copy of the same report to print for a board meeting.",
+      "prompt": "Which two export formats meet those needs?",
       "options": [
-        "HTML",
-        "PDF",
         "CSV",
-        "Excel"
-      ],
-      "correctIndices": [
-        0,
-        1,
-        2,
-        3
-      ],
-      "explanation": "Interactive Reports can be output as HTML, PDF, CSV, or Excel files — CSV/Excel for downstream tooling, PDF/HTML for human consumption. The format follows the audience.",
-      "source": "Pentaho Analyst - Practitioner: Interactive Reports — Output formats"
-    },
-    {
-      "id": "ir-q10",
-      "module": "Interactive Reports",
-      "scenario": "A Ships and Trains report needs to combine two related datasets into one coherent view.",
-      "prompt": "What is the cleanest authoring pattern?",
-      "options": [
-        "Build separate reports and hope users open both",
-        "Pre-join the data in the metadata model and report against one logical view, or use shared prompts so both datasets respond to the same context",
-        "Use a different tool entirely",
-        "Manually concatenate exports"
-      ],
-      "correct": 1,
-      "explanation": "Reporting against pre-joined metadata keeps the report simple. Failing that, shared prompts keep parallel datasets in sync from the user's point of view.",
-      "source": "Pentaho Analyst - Practitioner: Interactive Reports — Ships and Trains"
-    },
-    {
-      "id": "az-q1",
-      "module": "Analyzer Reports",
-      "prompt": "Because Analyzer is backed by a Mondrian OLAP model, which interactions can a user perform directly on the data?",
-      "options": [
-        "Drill, slice, dice, and pivot the cube",
-        "Filter data and add calculated fields",
-        "Rewrite the report's SQL by hand at run time",
-        "Edit the rows in the underlying fact table"
+        "PDF",
+        "Excel",
+        "HTML",
+        "PowerPoint (PPTX)"
       ],
       "correctIndices": [
         0,
         1
       ],
-      "explanation": "The Mondrian model lets users drill, slice, dice, pivot, filter, chart data, and create calculated fields — without knowing how the database is structured. Analyzer is for analysis, not for editing source rows or hand-writing SQL.",
+      "explanation": "CSV is delimited text the finance system can load, and PDF keeps a fixed page layout for printing. HTML is built for viewing in a browser, where page layout and printing depend on the browser. Excel produces a workbook, not delimited text. PowerPoint (PPTX) is not an Interactive Reports output at all; the formats are HTML, PDF, CSV and Excel.",
+      "source": "Pentaho Analyst - Practitioner: Interactive Reports — Output formats"
+    },
+    {
+      "id": "ir-q10",
+      "module": "Interactive Reports",
+      "bloom": "Apply",
+      "scenario": "A sales manager wants an orders report covering only the Motorcycles and Planes product lines, with Quantity Ordered subtotalled for each product line within each territory.",
+      "prompt": "Which report design meets this?",
+      "options": [
+        "Filter Product Line to the two lines, then sort by Territory and then Product Line",
+        "Prompt for Product Line, then group by Territory and then Product Line",
+        "Filter Product Line to the two lines, then group by Product Line and then Territory",
+        "Filter Product Line to the two lines, then group by Territory and then Product Line"
+      ],
+      "correct": 3,
+      "explanation": "The filter keeps only the two product lines, and nesting Product Line inside Territory puts a subtotal for each product line within each territory. Grouping by Product Line and then Territory nests the other way round, subtotalling each territory within each product line. Sorting orders the rows but creates no group footers, so there are no subtotals. A prompt leaves the choice of product line to whoever runs the report.",
+      "source": "Pentaho Analyst - Practitioner: Interactive Reports — Ships and Trains"
+    },
+    {
+      "id": "az-q1",
+      "module": "Analyzer Reports",
+      "bloom": "Understand",
+      "scenario": "A product manager exploring a sales cube in Analyzer wants to reshape and extend the analysis without asking IT for help.",
+      "prompt": "Which two of these can they do directly in the analysis?",
+      "options": [
+        "Drill from Years down to Quarters",
+        "Add a new level to the Time hierarchy",
+        "Create a calculated measure from Sales",
+        "Rewrite the SQL that Mondrian generates",
+        "Correct order rows in the fact table"
+      ],
+      "correctIndices": [
+        0,
+        2
+      ],
+      "explanation": "Drilling a hierarchy and creating a calculated measure are both analysis actions: each edits the report's MDX query. Analyzer reads the cube and never writes to the fact table. Hierarchy levels are defined in the Mondrian schema, so a new level is a modelling change. Mondrian generates the SQL from MDX, and users do not edit it.",
       "source": "Pentaho Analyst - Practitioner: Analyzer Reports — OLAP & Mondrian"
     },
     {
       "id": "az-q2",
       "module": "Analyzer Reports",
-      "scenario": "An analyst viewing sales by Year clicks Year to expand it into Quarters while keeping every other part of the view unchanged.",
+      "bloom": "Remember",
+      "scenario": "An analyst viewing Sales by Years double-clicks the 2003 column header, and it expands into QTR1 to QTR4 while every other field stays the same.",
       "prompt": "What is this operation called?",
       "options": [
-        "Reducing the row count by random sampling",
-        "Drill-down — moving from a higher level of a hierarchy (Year) to the level below it (Quarter) while keeping the rest of the context constant",
-        "Switching from a chart to a table",
-        "Changing the database connection"
+        "Drill-through",
+        "Pivot",
+        "Slice",
+        "Drill-down"
       ],
-      "correct": 1,
-      "explanation": "Drill-down walks down a hierarchy one level. The Year-level aggregate becomes Quarter-level while the rest of the slice (region, product, etc.) stays put.",
+      "correct": 3,
+      "explanation": "Drill-down moves from one level of a hierarchy to the level below it, here Years to Quarters, keeping the rest of the view. Drill-through opens the detail rows behind a cell. A pivot moves fields between rows and columns. A slice restricts a dimension to chosen members.",
       "source": "Pentaho Analyst - Practitioner: Analyzer Reports — Drill-down"
     },
     {
       "id": "az-q3",
       "module": "Analyzer Reports",
-      "scenario": "A sales manager wants underperforming cells to jump out, turning a dense grid into an at-a-glance status display.",
-      "prompt": "Why is conditional formatting (stop-lighting) on a measure useful here?",
+      "bloom": "Apply",
+      "scenario": "A sales manager wants each cell in a Quantity column to show a bar whose length reflects its value, so the largest countries stand out without reading the numbers.",
+      "prompt": "Which conditional formatting should be applied to Quantity?",
       "options": [
-        "It changes the actual data values",
-        "Visual cues let consumers spot exceptions in seconds without reading every number",
-        "It is required before the report can be saved",
-        "It speeds up query execution"
+        "Data Bar",
+        "Trend Arrow",
+        "Color Scale",
+        "Heat grid"
       ],
-      "correct": 1,
-      "explanation": "Conditional stop-lighting shifts cognitive load from the reader to the layout. Red / amber / green cells direct attention to the rows that need action.",
+      "correct": 0,
+      "explanation": "A Data Bar draws a bar in each cell sized to its value, which is exactly a comparison by length. A Color Scale shades cell backgrounds by value, so it compares by colour rather than length. A Trend Arrow shows the direction of change, not magnitude. A heat grid is a chart type that replaces the table rather than formatting a column in it.",
       "source": "Pentaho Analyst - Practitioner: Analyzer Reports — Conditional formatting"
     },
     {
       "id": "az-q4",
       "module": "Analyzer Reports",
-      "prompt": "A tree map visualisation is best for what kind of question?",
+      "bloom": "Apply",
+      "scenario": "Management wants to see at a glance which countries in a territory account for the largest share of the quantity sold in one year.",
+      "prompt": "Which visualisation suits this best?",
       "options": [
-        "Comparing a time series across many years",
-        "Showing the relative size of nested categories — e.g. quantity sold per territory within EMEA — using area to encode magnitude",
-        "Displaying a binary yes/no status",
-        "Plotting geographic coordinates"
+        "Tree map",
+        "Line chart",
+        "Scatter chart",
+        "Heat grid"
       ],
-      "correct": 1,
-      "explanation": "Tree maps encode hierarchical part-of-whole relationships with area, making 'who is biggest within this group' visible at a glance.",
+      "correct": 0,
+      "explanation": "A tree map sizes each rectangle by its value within the whole, so the biggest contributors stand out at a glance. A line chart shows change along an ordered axis such as time, not share. A scatter chart plots two measures against each other to show a relationship. A heat grid colours cells across two dimensions, which compares values but does not show each country's share of the total.",
       "source": "Pentaho Analyst - Practitioner: Analyzer Reports — Visualisations"
     },
     {
       "id": "az-q5",
       "module": "Analyzer Reports",
-      "prompt": "Filtering by Year while keeping Territory broken out is an example of which OLAP concept?",
+      "bloom": "Analyze",
+      "scenario": "The nightly load added yesterday's orders to the sales fact table, but an analysis that had been run before the load still shows the old totals after it is refreshed.",
+      "prompt": "What is the most likely cause?",
       "options": [
-        "Slicing — restricting one dimension to a value or set while leaving other dimensions free to vary",
-        "Pivoting — swapping rows and columns",
-        "Dicing — restricting multiple dimensions simultaneously",
-        "Joining — combining two fact tables"
+        "Analyzer only sends a new query when the layout changes",
+        "Mondrian is serving cell values it cached before the load",
+        "The browser is showing a cached copy of the earlier page",
+        "The saved analysis stored its results along with its layout"
       ],
-      "correct": 0,
-      "explanation": "Slicing pins one dimension (Year = 2024) and lets the rest vary. Dicing pins several; pivoting reorganises rows and columns. All are interactive moves Analyzer supports.",
-      "source": "Pentaho Analyst - Practitioner: Analyzer Reports — Slice, dice, pivot"
+      "correct": 1,
+      "explanation": "Mondrian keeps a cache of cell values, shared across users, so cells it already holds are served without new SQL; Administration > Clear Cache flushes it and the new rows appear. A saved analysis holds a report definition, not results. A browser refresh fetches the page again, and the stale figures come from the server. Analyzer sends a query whenever the report runs; it is the cache that answers it.",
+      "source": "Pentaho Analyst - Practitioner: Analyzer Reports — Administration"
     },
     {
       "id": "az-q6",
       "module": "Analyzer Reports",
-      "prompt": "Why is hierarchy-aware modelling (Country → Region → City) more useful in Analyzer than a flat list of geographies?",
+      "bloom": "Analyze",
+      "scenario": "A cube models Country, State and City as three separate dimensions instead of one Markets hierarchy, and users complain that double-clicking a country does not show its cities.",
+      "prompt": "Why does this design block the drill?",
       "options": [
-        "It makes the schema file smaller",
-        "Hierarchies let the user drill seamlessly without rebuilding the query, and roll-ups aggregate measures automatically at each level",
-        "Hierarchies are required for charts to render",
-        "It controls user permissions"
+        "Analyzer supports drill-down only on the Time dimension",
+        "Cities must first be added as a filter before drilling",
+        "Drill-down works only once drill-through links have been enabled",
+        "Drill-down follows one hierarchy's levels, and none links them"
       ],
-      "correct": 1,
-      "explanation": "Hierarchies are the navigation skeleton. Drill-up and drill-down are free, and aggregations at each level happen automatically.",
+      "correct": 3,
+      "explanation": "Double-clicking asks Mondrian for a member's children, and those exist only when the schema defines the levels in one hierarchy, such as Country > State > City. Any hierarchy can be drilled, not only Time. Drill-through links show detail rows and are a separate option from drill-down. A filter restricts members; it does not create the parent-child link a drill needs.",
       "source": "Pentaho Analyst - Practitioner: Analyzer Reports — Hierarchies"
     },
     {
       "id": "az-q7",
       "module": "Analyzer Reports",
-      "scenario": "Several Analyzer views, a dashboard, and an Interactive Report all need Margin % = Revenue / Cost − 1, computed identically everywhere.",
-      "prompt": "Where is the best place to define that calculated measure?",
+      "bloom": "Evaluate",
+      "scenario": "Margin % is needed in a dozen Analyzer reports and two dashboards, and finance insists it is calculated identically everywhere.",
+      "prompt": "Where should Margin % be defined?",
       "options": [
-        "In every report individually",
-        "In the schema (cube), so every Analyzer view, dashboard, and dependent report inherits the same definition",
-        "In the browser",
-        "In the HTTP layer"
+        "As a user-defined measure in each Analyzer report",
+        "As a calculated field in an Interactive Report",
+        "As a calculated member in the Mondrian schema",
+        "In a spreadsheet, after exporting the data to CSV"
       ],
-      "correct": 1,
-      "explanation": "Shared calculations belong with the model. Every consumer gets the same definition and changes propagate; per-report definitions cause subtle drift.",
+      "correct": 2,
+      "explanation": "A calculated member declared in the schema is available to every report on the cube with one definition and one format, so every consumer computes it the same way. A user-defined measure lives in one report's definition, so a dozen copies can drift apart. An Interactive Report calculated field serves only that report and cannot be aggregated. Exporting to a spreadsheet takes the calculation out of the governed model entirely.",
       "source": "Pentaho Analyst - Practitioner: Analyzer Reports — Calculated measures"
     },
     {
       "id": "az-q8",
       "module": "Analyzer Reports",
-      "prompt": "Why does drill-through (clicking a cell to see the underlying detail rows) complement OLAP?",
+      "bloom": "Apply",
+      "scenario": "A manager sees an unexpectedly high Sales figure for one territory, product line and quarter, and wants to see the individual order lines behind it.",
+      "prompt": "What should be enabled in the analysis?",
       "options": [
-        "It is required for accessibility",
-        "OLAP excels at aggregates, and drill-through reveals the detail records that produced an aggregate — the 'why' behind the number",
-        "It changes the database connection",
-        "It is faster than drill-down"
+        "Drill-through links on measure cells, in Report Options",
+        "Subtotals on the Territory level, with Show Subtotals",
+        "A Rank user-defined measure on the Sales column",
+        "Drill-down on the Quarters level of the Time hierarchy"
       ],
-      "correct": 1,
-      "explanation": "Aggregates answer 'how much'; detail rows answer 'which records'. Drill-through bridges the two without forcing the user into a different tool.",
+      "correct": 0,
+      "explanation": "Showing drill-through links on measure cells, in Report Options, turns each non-calculated measure into a link that returns the fact rows behind that cell. Drill-down moves to finer levels such as months but still shows aggregates. Subtotals add summary rows, not detail. A rank orders members; it does not reveal the rows behind a figure.",
       "source": "Pentaho Analyst - Practitioner: Analyzer Reports — Drill-through"
     },
     {
       "id": "az-q9",
       "module": "Analyzer Reports",
-      "prompt": "Moving Year from rows to columns to re-shape an Analyzer report is called:",
+      "bloom": "Analyze",
+      "scenario": "An analysis filtered to three EMEA countries shows a Territory subtotal set to Aggregate. A colleague expected it to match the cube's full EMEA figure, but it is lower.",
+      "prompt": "Why is the subtotal lower than the full EMEA figure?",
       "options": [
-        "Drill-down",
-        "Pivoting — reorganising the dimensions to reveal patterns the original orientation hid",
-        "Slicing",
-        "Joining"
+        "Totals are visual by default, covering only members left after filters",
+        "Subtotals leave out every member whose value is blank rather than zero",
+        "Aggregate averages the visible cells instead of adding them all together",
+        "The cube caches EMEA figures only at the country level of the hierarchy"
       ],
-      "correct": 1,
-      "explanation": "Pivoting reorganises how dimensions lay out in the grid. It often surfaces patterns the original orientation hid, without changing the data or filters.",
-      "source": "Pentaho Analyst - Practitioner: Analyzer Reports — Slice, dice, pivot"
+      "correct": 0,
+      "explanation": "By default Analyzer uses visual totals, so the Aggregate is recomputed over the countries left after the filter; a Report Options setting makes totals include the filtered members and return the cube's full EMEA value. Aggregate asks Mondrian for the parent's own cell using the measure's aggregator; it does not average. The cache stores cell values and does not change what a total covers. Blank versus zero affects averages, not which members a total covers.",
+      "source": "Pentaho Analyst - Practitioner: Analyzer Reports — Totals"
     },
     {
       "id": "az-q10",
       "module": "Analyzer Reports",
-      "prompt": "What is the job of the Mondrian (Analysis Schema) layer?",
+      "bloom": "Understand",
+      "scenario": "An analyst drags Territory to rows and Years to columns, and an administrator then opens the analysis log to see what ran.",
+      "prompt": "What does the log show that Analyzer sent to Mondrian?",
       "options": [
-        "Rendering the chart",
-        "Translating multidimensional queries (MDX) into efficient SQL against the relational warehouse and aggregating the results into cube form",
-        "Scheduling reports",
-        "Storing the cube in a binary file"
+        "A request to reload the cube from its tables",
+        "An MDX query, which Mondrian turned into SQL",
+        "A SQL query that Analyzer wrote directly",
+        "An MQL query against a metadata model"
       ],
       "correct": 1,
-      "explanation": "Mondrian is the OLAP engine. It defines dimensions, hierarchies, and measures over a relational source and converts user-issued MDX into SQL on demand.",
+      "explanation": "Analyzer's language is MDX: each gesture edits the report and sends MDX to Mondrian, which translates it into SQL against the fact and dimension tables, and the log shows the MDX and its timing. Analyzer never writes SQL itself. MQL is the metadata query language behind Interactive Reports and Dashboard Designer queries. Nothing is reloaded; Mondrian queries on demand and caches the cells.",
       "source": "Pentaho Analyst - Practitioner: Analyzer Reports — OLAP & Mondrian"
     },
     {
       "id": "dd-q1",
       "module": "Dashboard Designer",
-      "prompt": "Which content types can be placed in a Dashboard Designer panel?",
+      "bloom": "Remember",
+      "scenario": "A designer is building a sales dashboard and wants to combine existing content with new visuals in its panels.",
+      "prompt": "Which three of these can be placed in a panel?",
       "options": [
-        "Charts created with Chart Designer",
-        "Data Tables and Interactive Reporting / Analyzer content",
-        "URLs (an external web page in a panel)",
-        "Raw Spoon transformation canvases"
+        "A PDI transformation canvas",
+        "An Analyzer report from the repository",
+        "A web page, shown by its URL",
+        "A Mondrian schema, opened for editing",
+        "A chart built in Chart Designer"
       ],
       "correctIndices": [
-        0,
         1,
-        2
+        2,
+        4
       ],
-      "explanation": "A dashboard composes content from Interactive Reporting and Analyzer plus Charts (Chart Designer), Data Tables, and URLs into one at-a-glance view. It does not embed the PDI transformation canvas itself.",
+      "explanation": "A panel can show Interactive Reporting, Analyzer and Report Designer content from the repository, charts built in Chart Designer, data tables, and a web page by its URL. A PDI transformation canvas belongs to Spoon, a desktop tool, and is not dashboard content. A Mondrian schema is edited in Schema Workbench; a dashboard can show reports built on it, not the schema itself.",
       "source": "Pentaho Analyst - Practitioner: Dashboard Designer — Overview"
     },
     {
       "id": "dd-q2",
       "module": "Dashboard Designer",
-      "scenario": "A dashboard has five panels, and a single Year picker should drive all of them so the consumer never compares mismatched filters.",
-      "prompt": "What benefit do shared dashboard prompts deliver?",
+      "bloom": "Apply",
+      "scenario": "A designer adds a Territory prompt to a dashboard, but the orders report in one panel offers no parameter to associate it with, so the report ignores the selection.",
+      "prompt": "What must change for the prompt to filter that report?",
       "options": [
-        "They reduce the file size of the dashboard",
-        "Consistency — every panel responds to the same context, so the consumer never compares visualisations across mismatched filters",
-        "They are required for the dashboard to save",
-        "They prevent users from drilling down"
+        "The panel must have content linking enabled on its Territory field",
+        "The prompt must take its values from a Metadata List",
+        "The dashboard must be saved before the prompt can apply",
+        "The report's Territory filter must be defined as a parameter"
       ],
-      "correct": 1,
-      "explanation": "When one prompt drives every panel, the dashboard is always internally consistent. Without shared prompts, comparing panels becomes a trap because they may be filtered differently.",
+      "correct": 3,
+      "explanation": "A dashboard prompt can be applied to a report only when the report's filter is set up as a parameter; the association then maps the prompt onto that parameter. A Metadata List only supplies the prompt's values and gives the report no parameter. Content linking publishes clicks from a panel; it does not give a report a parameter to receive. Saving matters for content linking, and an unmapped report ignores the prompt whether or not the dashboard is saved.",
       "source": "Pentaho Analyst - Practitioner: Dashboard Designer — Filters & content linking"
     },
     {
       "id": "dd-q3",
       "module": "Dashboard Designer",
-      "scenario": "A vendor-sales dashboard loads slowly because each panel issues its own overlapping query at render time.",
-      "prompt": "What is usually the most effective design improvement?",
+      "bloom": "Apply",
+      "scenario": "A dashboard chart is meant to compare only the product lines beginning with M, but its query returns every row of a large inventory table, and the panel loads slowly.",
+      "prompt": "Which change will do most to speed it up?",
       "options": [
-        "Switch to a different colour palette",
-        "Reduce the number of independent queries — pre-aggregate at the data layer, share queries across panels, or cache results",
-        "Re-export the dashboard as PDF",
-        "Increase the browser zoom level"
+        "Add a Product Line condition to the chart's query",
+        "Switch the dashboard to a lighter visual theme",
+        "Give the chart a larger panel in the layout",
+        "Set a shorter refresh interval on the dashboard"
       ],
-      "correct": 1,
-      "explanation": "Dashboard latency is usually query-bound. Pre-aggregating, caching, or sharing one query across visualisations cuts database round trips dramatically.",
-      "source": "Pentaho Analyst - Practitioner: Dashboard Designer — Vendor Sales"
+      "correct": 0,
+      "explanation": "A condition in the query is rendered into the SQL's WHERE clause, so the database returns only the rows the chart needs, and the chart only ever sees the query's result. A theme changes colours, not how much data is fetched. A larger panel changes the drawing area, not the query. A shorter refresh interval runs the same slow query more often.",
+      "source": "Pentaho Analyst - Practitioner: Dashboard Designer — Inventory"
     },
     {
       "id": "dd-q4",
       "module": "Dashboard Designer",
-      "scenario": "An inventory dashboard pairs a total inventory value KPI with per-SKU detail panels underneath.",
-      "prompt": "What is the rationale for this layout?",
+      "bloom": "Evaluate",
+      "scenario": "A team needs a quick inventory table on a dashboard, and no report exists for it. A colleague suggests building and publishing an Interactive Report first, to place in the panel.",
+      "prompt": "What is the more direct option?",
       "options": [
-        "To consume more screen space",
-        "Top-down information design — the headline tells the consumer whether to investigate, and the detail panels answer the follow-up without leaving the page",
-        "Dashboards must always have at least four panels",
-        "To run more queries"
+        "Insert a Data Table panel that queries the inventory model",
+        "Insert a URL panel that points straight at the inventory database",
+        "Wait for IT to publish a report built in Report Designer",
+        "Export the inventory to CSV and place the file in a panel"
       ],
-      "correct": 1,
-      "explanation": "The standard pattern is headline first, supporting detail underneath. Consumers see the summary, decide whether to drill, and stay on one page if they do.",
+      "correct": 0,
+      "explanation": "Dashboard Designer can build data tables and charts straight from a data source with a metadata query, with no report needed first, which is what query-based panels are for. A URL panel shows a web page and cannot query a database. Waiting for a published report is the slow route a query-based panel avoids. A CSV export is a static copy that goes stale, and a panel shows content, not raw files.",
       "source": "Pentaho Analyst - Practitioner: Dashboard Designer — Inventory"
     },
     {
       "id": "dd-q5",
       "module": "Dashboard Designer",
-      "scenario": "A product-performance dashboard combines a ranked list of products with a trend chart.",
-      "prompt": "What is the design rationale for pairing these two visualisations?",
+      "bloom": "Analyze",
+      "scenario": "In a three-panel dashboard, clicking a product in an Analyzer report updates a pie chart of territory sales, and clicking a territory in the pie updates a bar chart of order status for that product and territory.",
+      "prompt": "Which panels re-run their queries when a user clicks a territory in the pie chart?",
       "options": [
-        "Variety for variety's sake",
-        "The list answers 'which products' and the trend answers 'is performance improving or declining', so together they support diagnosis and action",
-        "Two visualisations are required by the framework",
-        "Trend charts can only sit next to ranked lists"
+        "Only the bar chart",
+        "The pie chart and the bar chart",
+        "All three, starting with the report",
+        "None, until the dashboard is refreshed"
       ],
-      "correct": 1,
-      "explanation": "Distinct visualisations answer distinct questions. Lists order, trends show direction. Pairing them makes the dashboard usable for both 'who' and 'where are they going'.",
+      "correct": 0,
+      "explanation": "The bar chart is the only panel that takes its territory from the pie, so a click on the pie re-runs the bar chart alone; a click on the report would re-run the pie and then the bar, since both take the product from it. The pie publishes the territory; it does not re-query itself when clicked. The Analyzer report subscribes to nothing, so no click in another panel reaches it. Content linking acts on the click itself, with no manual refresh.",
       "source": "Pentaho Analyst - Practitioner: Dashboard Designer — Product Performance"
     },
     {
       "id": "dd-q6",
       "module": "Dashboard Designer",
-      "prompt": "Why are drill-through links (clicking a chart bar to open a detailed report) useful on a dashboard?",
+      "bloom": "Understand",
+      "scenario": "A designer enables content linking on the Product field of an Analyzer panel, but no other panel changes yet when a product is clicked.",
+      "prompt": "What has enabling content linking done so far?",
       "options": [
-        "They double the number of dashboards",
-        "They let consumers stay on the summary by default and jump to detail only when needed, keeping the dashboard fast and uncluttered",
-        "They are required for accessibility",
-        "They cache the underlying data"
+        "Made the panel publish the clicked product as a parameter",
+        "Added a Product prompt to the dashboard's prompt toolbar",
+        "Filtered every panel on the dashboard by the product",
+        "Linked the panel to every chart that has a Product column"
       ],
-      "correct": 1,
-      "explanation": "Drill-through is progressive disclosure. The dashboard stays light and detail is available on demand, so consumers don't pay for rendering detail they didn't ask for.",
-      "source": "Pentaho Analyst - Practitioner: Dashboard Designer — Drill-through"
+      "correct": 0,
+      "explanation": "Enabling content linking declares an output parameter that the panel emits on each click; nothing reacts until another panel maps one of its parameters to that output. It filters nothing by itself. Prompts in the toolbar are created separately, in the Prompts area. Panels are never linked automatically by matching column names; each link is an explicit parameter mapping.",
+      "source": "Pentaho Analyst - Practitioner: Dashboard Designer — Content linking"
     },
     {
       "id": "dd-q7",
       "module": "Dashboard Designer",
-      "scenario": "One vendor-sales dashboard must serve both NA and EMEA business units, each seeing only its own data.",
-      "prompt": "What is the typical pattern?",
+      "bloom": "Apply",
+      "scenario": "Managers using a sales dashboard must be able to pick one or more territories with a single click each, and the list must stay in step with the data as territories are added.",
+      "prompt": "Which prompt set-up meets both needs?",
       "options": [
-        "Build a separate dashboard per unit",
-        "Build one dashboard, parameterise it with a region prompt, and let permissions / row-level security narrow the data each user sees",
-        "Combine all units into one big total",
-        "Build a third dashboard summarising the others"
+        "Text field, values typed in by the user, multiple selections allowed",
+        "Buttons, values from a static list, one selection only",
+        "Buttons, values from a Metadata List, multiple selections allowed",
+        "Drop-down, values from a Metadata List, one selection only"
       ],
-      "correct": 1,
-      "explanation": "One parameterised dashboard plus row-level security scales naturally. Each consumer sees a personalised view from the same definition — far less to maintain than a dashboard per unit.",
+      "correct": 2,
+      "explanation": "Buttons select with one click each, a Metadata List queries the model for the current Territory values so the list keeps up with the data, and allowing multiple selections lets a manager pick several. A drop-down over a Metadata List keeps the values current, but one selection only blocks picking several territories. A text field makes users type values, which invites mismatches. Buttons over a static single-select list fail on both counts: the list has to be edited by hand when territories change, and only one can be picked.",
       "source": "Pentaho Analyst - Practitioner: Dashboard Designer — Vendor Sales"
     },
     {
       "id": "dd-q8",
       "module": "Dashboard Designer",
-      "prompt": "What should primarily drive the choice of chart type for a dashboard panel?",
+      "bloom": "Apply",
+      "scenario": "A dashboard needs one panel showing each territory's share of total sales, and another showing how monthly sales have moved over two years.",
+      "prompt": "Which pair of Chart Designer chart types fits best?",
       "options": [
-        "The author's aesthetic preference",
-        "The question the consumer needs to answer — counts, trends, proportions, and relationships each call for a different chart family",
-        "Whichever chart loads fastest",
-        "Whatever was used in the last dashboard"
+        "A pie chart for the share, a dial chart for the trend",
+        "A pie chart for the share, a line chart for the trend",
+        "A dial chart for the share, a pie chart for the trend",
+        "A line chart for the share, a pie chart for the trend"
       ],
       "correct": 1,
-      "explanation": "Chart type is a function of the question: bars for comparison, lines for trend, treemaps for hierarchical proportion, scatter for correlation. Aesthetics come after function.",
+      "explanation": "A pie shows the parts of a whole, which is exactly each territory's share of total sales, and a line shows change along an ordered time axis. A line chart for the share draws unordered territories as if they were a sequence, and a pie chart for the trend hides the order of the months. A dial shows one value against a scale, so it can show neither several territories' shares nor a trend.",
       "source": "Pentaho Analyst - Practitioner: Dashboard Designer — Chart selection"
     },
     {
       "id": "dd-q9",
       "module": "Dashboard Designer",
-      "prompt": "When two panels in a dashboard need the same underlying query, what is the cleanest pattern?",
+      "bloom": "Apply",
+      "scenario": "A chart's query has the condition Product Name = {PRODUCT} with a default value, and PRODUCT is mapped to clicks in another panel.",
+      "prompt": "What does the chart show when the dashboard first opens, before anyone clicks?",
       "options": [
-        "Issue the query twice for safety",
-        "Define the query once and let both panels read the same result — fewer database round trips and guaranteed consistency",
-        "Hard-code the panel data",
-        "Run each panel sequentially"
+        "Every product's figures, until a product is clicked",
+        "Figures for the default product, until a click replaces it",
+        "An error, because PRODUCT does not have a value yet",
+        "An empty chart, until a product has been clicked"
       ],
       "correct": 1,
-      "explanation": "A shared query is both the optimisation lever and the consistency lever. Define once, render twice. Independent queries can drift slightly and double the database load.",
-      "source": "Pentaho Analyst - Practitioner: Dashboard Designer — Queries"
+      "explanation": "The default fills the parameter when the dashboard opens, so the query runs with the default product until a click supplies another value. The condition always applies, so the chart never falls back to every product. It is not empty, because the default gives the condition a value. No error arises, for the same reason.",
+      "source": "Pentaho Analyst - Practitioner: Dashboard Designer — Product Performance"
     },
     {
       "id": "dd-q10",
       "module": "Dashboard Designer",
-      "prompt": "When a dashboard layout breaks at small screen sizes, what is usually the right response?",
+      "bloom": "Apply",
+      "scenario": "A designer maps a chart's PRODUCT parameter to an Analyzer panel's Product output, then clicks a product in the not-yet-saved dashboard, and the chart does not change.",
+      "prompt": "What should they do first?",
       "options": [
-        "Force users to use larger monitors",
-        "Design with responsive proportions and stacking from the start, prioritising headline panels and letting detail wrap or collapse on smaller widths",
-        "Lock the layout to a single resolution",
-        "Remove all charts on mobile"
+        "Add a Product prompt to the prompt toolbar",
+        "Enable drill-through links in the Analyzer report",
+        "Save the dashboard, then test the link again",
+        "Rebuild the chart's query against the cube"
       ],
-      "correct": 1,
-      "explanation": "Design for variability. Headline panels first, supporting panels collapse or wrap. The dashboard should degrade gracefully across the screens consumers actually use.",
-      "source": "Pentaho Analyst - Practitioner: Dashboard Designer — Layout templates"
+      "correct": 2,
+      "explanation": "Content linking works only once the dashboard has been saved, so an unsaved dashboard ignores the click even when the mapping is right. A toolbar prompt is a separate way to set a parameter and does not activate the link. Drill-through links show detail rows inside Analyzer and have nothing to do with publishing a click to other panels. The chart's metadata query is fine as it is; the parameter mapping is the only link between the panels.",
+      "source": "Pentaho Analyst - Practitioner: Dashboard Designer — Content linking"
     }
   ]
 }

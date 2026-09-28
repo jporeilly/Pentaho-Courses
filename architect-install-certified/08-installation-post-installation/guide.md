@@ -39,7 +39,7 @@ sudo systemctl restart pentaho-server
 
 <summary>Java Security Manager (deprecated/removed)</summary>
 
-The legacy Java Security Manager is deprecated and not available on modern Java LTS versions (including Java 21). Do not use `-security` with Tomcat on Java 21. Prefer OS‑level hardening, least‑privilege users, network scoping, and container/AppArmor/SELinux policies as appropriate.
+The legacy Java Security Manager is deprecated for removal: it still works on Java 21 but prints warnings, and from JDK 24 it is permanently disabled. Do not build new hardening on Tomcat's `-security` option. Prefer OS‑level hardening, least‑privilege users, network scoping, and container/AppArmor/SELinux policies as appropriate.
 
 </details>
 
@@ -137,26 +137,26 @@ sudo nano /opt/pentaho/server/pentaho-server/tomcat/conf/server.xml
       clientAuth="false"
       sslProtocol="TLS"
       keystoreType="PKCS12"
-      keystoreFile="/opt/pentaho/pentaho-server/tomcat/ssl/keystore.p12"
+      keystoreFile="/opt/pentaho/server/pentaho-server/tomcat/ssl/keystore.p12"
       keystorePass="changeit"
     />
 ```
 
-3. Update the server URL.
+3. Update the server URL to the new scheme and port.
 
 ```bash
 sudo nano /opt/pentaho/server/pentaho-server/pentaho-solutions/system/server.properties
 ```
 
 ```
-fully-qualified-server-url=http://localhost:8090/pentaho/
+fully-qualified-server-url=https://localhost:8443/pentaho/
 ```
 
-4. Start the server and verify.
+4. Start the server and verify (`-k` accepts a self-signed certificate while testing).
 
 ```bash
 sudo ./start-pentaho.sh
-curl -I http://localhost:8090/pentaho/ | head -n 1
+curl -kI https://localhost:8443/pentaho/ | head -n 1
 ```
 
 </details>
@@ -213,10 +213,12 @@ curl -I http://localhost:8090/pentaho/ | head -n 1
 
 <summary>Harden or disable the Tomcat shutdown port</summary>
 
-By default Tomcat listens on a local shutdown port (8005) for the `SHUTDOWN` command.
+By default the Pentaho Server's Tomcat listens on a local shutdown port (8012) for the `SHUTDOWN` command.
 
-* Disable the port by setting `port="-1"`, or
-* Change both the port and the shutdown command to unpredictable values.
+* Change both the port and the shutdown command to unpredictable values, or
+* Disable the port by setting `port="-1"`.
+
+> **Warning:** `stop-pentaho.sh` stops Tomcat by sending that command to the shutdown port. With the port disabled the script cannot stop the server, so the systemd unit's `ExecStop` hangs until its timeout and the process is killed. Prefer changing the port and command; disable the port only if something else stops the server.
 
 1. Edit the `<Server>` element in `server.xml`.
 
@@ -314,6 +316,8 @@ sudo nano /opt/pentaho/server/pentaho-server/tomcat/webapps/pentaho/WEB-INF/web.
 <details>
 
 <summary>Increase Karaf startup wait time</summary>
+
+> **Note:** This applies to releases that start Karaf. Pentaho 11.0 removed Karaf and OSGi from PDI (see **What's New**), so on an 11.0 server there may be nothing for this setting to wait for. Keep it only if your server's log shows Karaf installing features.
 
 If server startup times out while Karaf installs features, increase the wait time.
 

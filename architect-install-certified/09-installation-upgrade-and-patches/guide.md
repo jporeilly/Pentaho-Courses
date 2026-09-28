@@ -1,5 +1,7 @@
 # Pentaho Upgrade & Patches
 
+> **Warning:** The version paths on this page — 8.3 or later to 10.1, and a 9.4 release — are the ones documented for the 10.1 Upgrade Installer. Before planning an upgrade to Pentaho 11.0, check the 11.0 upgrade documentation for the versions it upgrades from. The practices below — back up first, stop the server, review customizations, reapply plugins and Hadoop drivers — hold either way.
+
 > **Note:**
 >
 > #### Pentaho Upgrade Installer
@@ -32,16 +34,13 @@ sh stop-pentaho.sh
 
 1. Review your customizations. During the upgrade process, you can help the upgrade installer specify which items contain your customizations. See [Specify customized items to address after upgrading](https://docs.hitachivantara.com/r/HuHAFx8OjcQg31CW~6gISg/r2F5~x211KC0wwU0qcq6cQ) for details. Then, after upgrading your Pentaho products to 10.1, you can merge your previous customizations into post-upgrade versions of the Pentaho files. See the [Apply customizations](https://docs.hitachivantara.com/r/HuHAFx8OjcQg31CW~6gISg/S2d88cUzhPmuc8jUpi9NaA) post-upgrade task for instructions.
 
-> **Warning:** The upgrade process does not retain the drivers for your Hadoop clusters. You will need to re-install your drivers after completing the upgrade process.
+> **Warning:** The upgrade process does not retain the drivers for your Hadoop clusters. You will need to re-install your drivers after completing the upgrade process. See the [Install drivers for your Hadoop clusters](https://docs.hitachivantara.com/r/HuHAFx8OjcQg31CW~6gISg/UEFngjwGGT~SZRKXjCWeNQ) post-upgrade task for details.
 
-1. Note: The upgrade process does not retain the drivers for your Hadoop clusters. You will need to re-install your drivers after completing the upgrade process. See the [Install drivers for your Hadoop clusters](https://docs.hitachivantara.com/r/HuHAFx8OjcQg31CW~6gISg/UEFngjwGGT~SZRKXjCWeNQ) post-upgrade task for details.
 2. If you are using plugins with your Pentaho products, review and back up your plugins to a separate directory structure.
 
-> **Warning:** The upgrade process does not retain your plugins. You will need to re-apply your plugins after completing the upgrade process.
+> **Warning:** The upgrade process does not retain your plugins. You will need to re-apply your plugins after completing the upgrade process. See the [Apply your plugins](https://docs.hitachivantara.com/r/HuHAFx8OjcQg31CW~6gISg/pKp_UIrYWFitwgefW2h9ig) post-upgrade task for details.
 
-1.
-2. See the [Apply your plugins](https://docs.hitachivantara.com/r/HuHAFx8OjcQg31CW~6gISg/pKp_UIrYWFitwgefW2h9ig) post-upgrade task for details.
-3. If you are upgrading the Pentaho Server, verify that no users are logged on to the server.As a best practice, perform the upgrade process of the Pentaho Server during off-business hours to minimize the impact on your day-to-day operations.
+3. If you are upgrading the Pentaho Server, verify that no users are logged on to the server. As a best practice, perform the upgrade process of the Pentaho Server during off-business hours to minimize the impact on your day-to-day operations.
 4. Before installing the Pentaho Upgrade, verify that you have the most recent version of Java installed and that the JAVA\_HOME environment variable is set to that version of Java.
 
 ### Release

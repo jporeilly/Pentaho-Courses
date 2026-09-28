@@ -190,6 +190,8 @@ Key components include:
 > **Note:**
 >
 > #### Pipeline Designer
+> 
+> Pipeline Designer, new in 11.0, builds PDI transformations and jobs in a web browser. It works like Spoon on a modern interface and stays compatible with transformations and jobs created in Spoon, so teams can design ETL without installing a desktop client. It is installed as a server plugin.
 
 <figure><img src="../_assets/images/pipeline_designer_component.png" alt=""><figcaption><p>Pipeline Designer</p></figcaption></figure>
 
@@ -198,8 +200,8 @@ Key components include:
 > **Note:**
 >
 > #### Semantic Model Editor
-
-x
+> 
+> Semantic Model Editor (SME), new in 11.0, builds and manages Mondrian data models — the semantic layer Analyzer reads — in the browser. It replaces the Schema Workbench and Data Source Wizard workflow for new and advanced users alike, and opens existing Mondrian models. It is installed as a server plugin.
 
 :::
 

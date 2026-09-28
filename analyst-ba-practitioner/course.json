@@ -4,13 +4,22 @@
     "measurementId": "G-E1B364WJYR",
     "apiSecret": "b1oscuI1Ru-nHYpiBhLf3g"
   },
+  "contact": {
+    "to": "academy@pentaho.com",
+    "webhookUrl": "",
+    "heading": "Contact Us",
+    "blurb": "Ask us anything about the course, or tell us what you would like to know about Pentaho products and services. This is separate from the exam.",
+    "messagePlaceholder": "What would you like to know?",
+    "sendLabel": "Send"
+  },
   "title": "Pentaho Analyst - BA Practitioner",
   "description": "Hands-on workshop for the Pentaho Business Analytics Practitioner. Pentaho User Console, Interactive Reports, Analyzer Reports, Dashboard Designer, plus a MongoDB reporting use case.",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "kind": "workshop",
+  "level": { "number": 1, "name": "Practitioner" },
   "mode": "sequential",
   "theme": {
-    "accent": "#16a34a"
+    "accent": "#1d4ed8"
   },
   "assistant": {
     "ollamaURL": "http://localhost:11434",

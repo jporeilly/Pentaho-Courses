@@ -587,16 +587,16 @@ sudo systemctl stop pentaho-server
 > 
 > A 30-day trial license is included if you have downloaded from:  [Pentaho 30-day Trial](https://pentaho.com/download/)
 > 
-> If you have dowwnloaded the GA binaries from: [Pentaho Customer Portal](https://support.pentaho.com/hc/en-us), then you will require an Activation ID or your LIcensing URL.
+> If you have downloaded the GA binaries from: [Pentaho Customer Portal](https://support.pentaho.com/hc/en-us), then you will require an Activation ID or your Licensing URL.
 > 
-> If you have installed in an air-gapped envirnoment, you will need to request an offline license.
+> If you have installed in an air-gapped environment, you will need to request an offline license.
 
 1. Launch Pentaho Server > Administration > Licenses to open the Add License dialog.
 2. Click the + sign.
 
 <figure><img src="../_assets/images/license_manager_add.png" alt=""><figcaption><p>Add license</p></figcaption></figure>
 
-5. Enter Activation code or your licensing URL:
+3. Enter Activation code or your licensing URL:
 
 <figure><img src="../_assets/images/license_manager.png" alt="Add License dialog"><figcaption><p>License Manager</p></figcaption></figure>
 
