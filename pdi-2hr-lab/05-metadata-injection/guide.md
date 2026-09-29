@@ -74,10 +74,9 @@
 
 ![1790332827139.png](../_assets/images/1790332827139.png)
 
-<div align="center">
 <figcaption><em>control.csv</em></figcaption>
-</div>
 </figure>
+</div>
 
 <figure>
 
@@ -88,7 +87,9 @@
 </div>
 </figure>
 
-> **Note:** **The shape of the solution.** One injection run
+> **Note:** 
+>
+> **The shape of the solution.** One injection run
 > configures the template once — so to process many differently-
 > configured feeds, a small **job** runs the injection once per
 > control row. Three pieces: the *template* (the reusable pipeline),
@@ -96,10 +97,6 @@
 > *driver job* (loops the injector over control.csv). This is also
 > your first look at a job — the orchestration layer Lab 7 talks
 > about.
-
-
-
-
 
 :::: tabs
 
@@ -338,7 +335,7 @@ C:\Workshop\pdi-2hr\04-see-it-scale\05-one-pipeline-many-files\mi_template.ktr
 > Every scheduled pipeline you will ever run in PDI is a job wrapped
 > around transformations, which is exactly what Lab 7 is about.
 
-**Next is Run:** [Run and extend](#tab-4-run-and-extend)
+<a class="pcm-btn" href="#tab-4-run-and-extend">**Click to open next tab: Run and extend***</a>
 
 ### 4. Run and extend
 > **Note:**
