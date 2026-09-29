@@ -18,7 +18,7 @@
 > * Drive it from a small job — one run per control-file row.
 > * Ingest three differently-shaped files through one pipeline — then add a fourth by editing a CSV, not a pipeline.
 >
-> **Prerequisites:** [Build the Pipeline Yourself](../02-build-the-pipeline/guide.md).
+> **Prerequisites:** [Enrich and Join](../03-enrich-and-join/guide.md).
 >
 > **Estimated Time:** 20 minutes
 
