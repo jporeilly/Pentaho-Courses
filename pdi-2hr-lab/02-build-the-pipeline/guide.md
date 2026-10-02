@@ -267,7 +267,7 @@ PDI adds`.txt`; switch **Extension** to `csv` if you prefer.
 > into a pipeline where everything works at once.
 
 >
-### Troubleshooting
+### Troubleshooting <!-- no-step -->
 <details>
 
 <summary>The hop dialog didn't ask TRUE or FALSE</summary>
@@ -300,7 +300,7 @@ Fix it in the grid — that's the point of the grid. Common case:
 
 [sales_20260101.csv](./files/sales_20260101.csv)
 
-### Solution
+### Solution <!-- no-step -->
 
 Stuck, or want to compare? The complete transformation — it expects
 the data file in the workshop folder.

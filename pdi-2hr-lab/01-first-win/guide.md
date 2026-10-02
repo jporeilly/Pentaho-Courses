@@ -14,7 +14,8 @@
 > * Preview live data at any point in the flow.
 > * See two bad rows get caught automatically.
 >
-> **Prerequisites:** 
+> **Prerequisites:**
+>
 > * [Before You Start](../00-before-you-start/guide.md) completed.
 >
 > **Estimated Time:** 10 minutes
@@ -47,17 +48,12 @@ clipboard: switch to PDI, press `Ctrl+O`, `Ctrl+V`, `Enter`.)
 <div align="center">
 <figure>
 
-![alt text](../_assets/images/1789571937869.png)
-
-<figcaption><em>Path to: win_preview.ktr</em></figcaption>
-</figure>
-</div>
-
->
 Path to Transformation:
+
 ```text
 C:\Workshop\pdi-2hr\02-see-it-work\01-your-first-win\win_preview.ktr
 ```
+
 You should see three connected steps on the canvas: a file reader, a
 filter, and two end points — one for valid rows, one for rejects.
 
@@ -91,12 +87,6 @@ anything is written anywhere.
 
 <div align="center">
 <figure>
-
-![Examine preview data: the 37 valid rows with typed columns order_id, order_date, customer_id, product_id, qty, unit_price and discount_pct](../_assets/images/1788269454987.png)
-
-<figcaption><em>Preview rows</em></figcaption>
-</figure>
-</div>
 
 > **Under the hood:**
 >
@@ -132,12 +122,6 @@ anything is written anywhere.
 <div align="center">
 <figure>
 
-![Examine preview data: the three rejected rows, each with a null customer_id or product_id](../_assets/images/1788366469571.png)
-
-<figcaption><em>Rejected rows</em></figcaption>
-</figure>
-</div>
-
 Three rows. Two are missing their `customer_id`, one its
 `product_id` — they were planted in the file, and the filter caught
 all three. In a hand-coded pipeline this is a try/except and a log
@@ -157,46 +141,33 @@ can inspect.
 ## Look inside a step
 
 1. Double-click **Read yesterday's sales**. This is the entire
-configuration for parsing the file — delimiter, header, and on the
-**Fields** tab, every column with its type and format. No code was
-generated; this *is* the pipeline.
+   configuration for parsing the file — delimiter, header, and on the
+   **Fields** tab, every column with its type and format. No code was
+   generated; this *is* the pipeline.
 
 <div align="center">
 <figure>
-
-![Text file input dialog, File tab, with sales_20260101.csv listed under Selected files](../_assets/images/1788269769520.png)
-
-<figcaption><em>Add - sales data</em></figcaption>
-</figure>
-</div>
 
 2. Close the dialog with **Cancel** (so nothing changes).
-
 3. Double-click **Keys present?*.
-The Filter Rows step allows you to filter rows based on conditions and comparisons. 
-In this example we're filtering for rows where the ids / keys are not null.
+   The Filter Rows step allows you to filter rows based on conditions and comparisons.
+   In this example we're filtering for rows where the ids / keys are not null.
 
 <div align="center">
 <figure>
-
-![Filter rows dialog: customer_id IS NOT NULL AND product_id IS NOT NULL, true rows to Valid rows, false rows to Rejected rows](../_assets/images/1788269628158.png)
-
-<figcaption><em>Filter rows</em></figcaption>
-</figure>
-</div>
 
 4. Close the dialog with **Cancel** (so nothing changes).
 
 > **Under the hood:**
 >
 > #### The Dialog is the Source Code
+>
 > Nothing was generated from what you just looked at. The file you opened, `win_preview.ktr`, is PDI's transformation file, with the extension standing for "Kettle transformation," derived from the engine's original name. Inside it is plain text in XML: a list of steps, each step's settings, and the hops between them. The dialog you opened reads that text and writes it back, and the engine runs the same text. There is no build step, and no generated program that can drift away from what you see on the canvas.
 >
 > Two consequences worth noting are:
 >
-> *   Because it is plain text, a transformation can live in version control alongside your code, and two people's changes to it can be compared and merged.
-> *   Because the same file is what a server runs later, the thing you tested is literally the thing that ships.
-
+> * Because it is plain text, a transformation can live in version control alongside your code, and two people's changes to it can be compared and merged.
+> * Because the same file is what a server runs later, the thing you tested is literally the thing that ships.
 
 > **Note:**
 >
@@ -208,7 +179,6 @@ In this example we're filtering for rows where the ids / keys are not null.
 > * There is no built-in build step or generated program that can drift away from the canvas.
 > * The transformation file can be version-controlled and changes can be compared and merged.
 > * The file is also what the server runs, making it the actual deployed version.
-
 
 ## See the flow as a diagram
 
@@ -227,10 +197,10 @@ step to see its configuration:
 </figure>
 
 Try out the other AI options:
+
 - **Summary:** summarized in a few sentences.
 - **Walkthrough:** Steep-by-step walkthrough of the transformation.
-- **Explain this Step:** Click on a Step to view its properties and 'Explanation'. 
-
+- **Explain this Step:** Click on a Step to view its properties and 'Explanation'.
 
 ## Troubleshooting
 
@@ -256,4 +226,4 @@ below) next to it.
 
 [sales_20260101.csv](./files/sales_20260101.csv)
 
-[win_preview.ktr](./files/win_preview.ktr) <button data-launch="spoon" data-path="files/win_preview.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/win_preview.ktr">View graph</button>
+[win_preview.ktr](./files/win_preview.ktr)  <button data-graph="files/win_preview.ktr">View graph</button>

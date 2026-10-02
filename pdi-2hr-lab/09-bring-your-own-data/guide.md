@@ -90,7 +90,7 @@ The second checkbox is the honest test of a data tool — most files
 hide something (a stray delimiter, a duplicated key, a date in two
 formats). What matters is how fast the tool let you *see* it.
 
-### Troubleshooting
+### Troubleshooting <!-- no-step -->
 
 <details>
 

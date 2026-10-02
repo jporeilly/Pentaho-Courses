@@ -3,7 +3,7 @@
   "description": "",
   "order": 1,
   "kind": "page",
-  "stepCount": 6,
+  "stepCount": 5,
   "estimatedMinutes": 5,
   "hasVideo": false,
   "noProgress": true
