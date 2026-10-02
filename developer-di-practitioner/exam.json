@@ -1,6 +1,6 @@
 {
   "title": "Practitioner Exam",
-  "description": "40 questions covering all five modules, drawn from a pool of 48. Pass mark is 80%. This is an open-book exam — take your time, browse any module to refresh your memory, or ask the AI assistant for help. Your answers are saved as you go, so leaving the page to look something up is fine. Explanations show after submission so you can learn from any answers you missed.",
+  "description": "40 questions covering all five modules, drawn from a pool of 50. Pass mark is 80%. This is an open-book exam — take your time, browse any module to refresh your memory, or ask the AI assistant for help. Your answers are saved as you go, so leaving the page to look something up is fine. Explanations show after submission so you can learn from any answers you missed.",
   "passMark": 80,
   "questionsPerAttempt": 40,
   "shuffle": true,
@@ -8,27 +8,27 @@
   "webhookSecret": "pcm_Y61JKvDGnbuqvn3BIVCkjoSu98Jn3bE4",
   "questions": [
     {
-      "id": "m1-q1",
+      "id": "di-m1-q1",
       "module": "Getting Started",
       "bloom": "Analyze",
-      "scenario": "A transformation runs on your machine and fails on a colleague's with a file-not-found error, using the same .ktr and the same shared source file.",
-      "prompt": "What is the most likely cause?",
+      "scenario": "A Transformation executes successfully on one developer's machine but fails with a file-not-found error when run by a colleague, despite using the same transformation file (.ktr) and accessing the same shared source files.",
+      "prompt": "What is the most probable reason for this discrepancy?",
       "options": [
-        "Their Spoon is a different version and reads the step settings differently",
-        "The source file must be re-imported before another machine can read it",
-        "The path comes from a variable set in your kettle.properties but not theirs",
-        "The .ktr stores absolute paths, so it only runs where it was authored"
+        "A configured file path relies on a variable defined in a `.properties` file, and this variable has a different value or is not defined on the colleague's machine.",
+        "The colleague is using a different version of Spoon, causing it to interpret step settings, including file paths, incorrectly.",
+        "The source file requires re-importation into Spoon on each machine before it can be accessed by the transformation.",
+        "The transformation file (.ktr) contains absolute file paths, making it non-portable and restricted to the environment where it was originally created."
       ],
-      "correct": 2,
-      "explanation": "kettle.properties is per user and per machine, so a path built from a variable resolves on the machine where the variable is set and nowhere else until it is distributed. A .ktr stores whatever you typed, so a variable-based path is portable by design. A different Spoon version would not turn a valid path into file-not-found. Files are read in place; nothing is imported per machine.",
+      "correct": 0,
+      "explanation": "'A configured file path relies on a variable defined in the `kettle.properties` file, and this variable has a different value or is not defined on the colleague's machine.' — Correct: The `kettle.properties` file is environment-specific. Variables defined there will resolve differently (or not at all) on different machines. 'The colleague is using a different version of Spoon, causing it to interpret step settings, including file paths, incorrectly.' — Incorrect: While version mismatches can cause issues, they typically don't manifest as a simple file-not-found error. Different versions would likely cause a different type of error. 'The source file requires re-importation into Spoon on each machine before it can be accessed by the transformation.' — Incorrect: PDI reads files directly based on their path; re-importing is not required, and has no effect on execution. 'The transformation file (.ktr) contains absolute file paths, making it non-portable and restricted to the environment where it was originally created.' — Incorrect: Using absolute paths would indeed cause portability issues, but is a poor practice and not the most *probable* cause given the scenario.",
       "source": "Pentaho Developer - Practitioner: Getting Started — Configuring PDI"
     },
     {
-      "id": "m1-q2",
+      "id": "di-m1-q2",
       "module": "Getting Started",
       "bloom": "Understand",
-      "scenario": "Your team wants a database hostname and an input folder defined once per machine, so that every transformation and job on that machine can reference them without hard-coding.",
-      "prompt": "Which file should hold those values?",
+      "scenario": "A development team needs to define a standard database hostname and an input folder path for all Pentaho Data Integration (PDI) transformations and jobs running on each server. They want to avoid hard-coding these values directly into each transformation or job.",
+      "prompt": "Which configuration file should be used to store these values so they can be referenced across all PDI jobs and transformations on a given machine?",
       "options": [
         "kettle.properties",
         "repositories.xml",
@@ -36,15 +36,15 @@
         "shared.xml"
       ],
       "correct": 0,
-      "explanation": "kettle.properties holds variables that PDI loads at startup and resolves as ${name} in any transformation or job. repositories.xml lists repository connections, not variables. shared.xml holds shared objects such as database connections defined once for reuse, not free-standing values. .spoonrc stores Spoon's own interface preferences.",
+      "explanation": "'kettle.properties' — Correct: This file is loaded by PDI at startup and allows defining variables that can be used throughout transformations and jobs using the `${variable_name}` syntax. 'repositories.xml' — Incorrect: This file defines connections to data repositories, not general configuration variables. 'shared.xml' — Incorrect: This file is used for defining and managing shared objects, such as database connections, for reuse, but does not store general configuration values like hostnames or folder paths.",
       "source": "Pentaho Developer - Practitioner: Getting Started — Kettle Variables"
     },
     {
-      "id": "m1-q3",
+      "id": "di-m1-q3",
       "module": "Getting Started",
       "bloom": "Apply",
-      "scenario": "A developer wants a CSV path to come from a Kettle variable named INPUT_PATH instead of being hard-coded in a Text file input step.",
-      "prompt": "What should the step's file name field contain?",
+      "scenario": "A data integration developer is configuring a 'Text file input' step in Pentaho Data Integration (PDI). The desired input file path should be dynamically determined at runtime using a Kettle variable named INPUT_PATH, rather than being hardcoded within the step configuration.",
+      "prompt": "Which expression should be used in the 'Filename' field of the Text file input step to reference the value of the INPUT_PATH variable?",
       "options": [
         "$INPUT_PATH$",
         "%INPUT_PATH%",
@@ -52,15 +52,15 @@
         "${INPUT_PATH}"
       ],
       "correct": 3,
-      "explanation": "${INPUT_PATH} is PDI's variable syntax, accepted in any field that shows the variable icon. %INPUT_PATH% is the Windows command-prompt form and is not resolved by PDI. @INPUT_PATH is the parameter style of some SQL dialects. $INPUT_PATH$ is not a form PDI recognises.",
+      "explanation": "'${INPUT_PATH}' — Correct: This is the correct syntax for referencing Kettle variables within PDI steps. The `${}` notation tells PDI to resolve the variable at runtime. '%INPUT_PATH%' — Incorrect: This syntax is commonly used for variable expansion in Windows command-line environments, but it is not recognized by PDI. '@INPUT_PATH' — Incorrect: This syntax is used for parameter referencing in some SQL dialects, but it is not valid for resolving Kettle variables within PDI.",
       "source": "Pentaho Developer - Practitioner: Getting Started — Kettle Variables"
     },
     {
-      "id": "m1-q4",
+      "id": "di-m1-q4",
       "module": "Getting Started",
       "bloom": "Remember",
-      "scenario": "On a Windows workstation a developer adds a variable to kettle.properties, but Spoon does not pick it up. They suspect they edited a copy in the wrong folder.",
-      "prompt": "Where does PDI read kettle.properties from by default on Windows?",
+      "scenario": "A Pentaho Data Integration developer modifies the `kettle.properties` file on their Windows workstation to adjust a system-level setting. After restarting Spoon, the change is not reflected in the application's behavior, leading them to suspect an issue with the configuration file location.",
+      "prompt": "By default, where does Pentaho Data Integration (PDI) locate the `kettle.properties` file on a Windows system?",
       "options": [
         "%USERPROFILE%\\.kettle\\kettle.properties",
         "%APPDATA%\\Pentaho\\kettle.properties",
@@ -68,63 +68,63 @@
         "C:\\ProgramData\\Pentaho\\kettle.properties"
       ],
       "correct": 0,
-      "explanation": "By default PDI reads kettle.properties from the hidden .kettle folder in the user's profile, %USERPROFILE%\\.kettle, unless KETTLE_HOME points somewhere else. The data-integration install folder holds the program, not the per-user settings. ProgramData would make it machine-wide, which it is not. %APPDATA% is a different per-user folder that PDI does not use for it.",
+      "explanation": "'%USERPROFILE%\\.kettle\\kettle.properties' — Correct: PDI prioritizes the `kettle.properties` file located in the user’s home directory, specifically within the `.kettle` folder. This allows for user-specific configurations. '%APPDATA%\\Pentaho\\kettle.properties' — Incorrect: While `%APPDATA%` is a standard per-user application data directory, PDI does not use it to locate `kettle.properties` by default. 'C:\\Pentaho\\design-tools\\data-integration\\kettle.properties' — Incorrect: This path points to the PDI installation directory, which contains the application files but not user-specific configuration files. 'C:\\ProgramData\\Pentaho\\kettle.properties' — Incorrect: The `ProgramData` folder is for system-wide, machine-level data and is not the default location for user-specific PDI configurations.",
       "source": "Pentaho Developer - Practitioner: Getting Started — Kettle Variables"
     },
     {
-      "id": "m1-q5",
+      "id": "di-m1-q5",
       "module": "Getting Started",
       "bloom": "Remember",
-      "scenario": "You open Spoon to build a new transformation, but the window is showing a scheduling view rather than a design canvas.",
-      "prompt": "Which perspective do you switch to for the transformation canvas?",
+      "scenario": "A data engineer opens Pentaho Spoon to begin designing a new transformation. Instead of the graphical design canvas, the application displays a calendar and scheduling interface.",
+      "prompt": "Which perspective must be selected to access the transformation design canvas?",
       "options": [
-        "Schedule",
-        "Visualize",
-        "Model",
+        "Data Modeling",
+        "Scheduling",
+        "Visualization",
         "Data Integration"
       ],
       "correct": 3,
-      "explanation": "The Data Integration perspective is the canvas for designing transformations and jobs. Model is for building analysis models over data. Visualize is for exploring data visually. Schedule is the view you are already in, for planning runs.",
+      "explanation": "'Data Integration' — Correct: This perspective provides the graphical canvas for designing and building PDI transformations and jobs. 'Data Modeling' — Incorrect: This perspective is used for creating analytical models, not for building data integration workflows. 'Scheduling' — Incorrect: This perspective is used for defining and monitoring the execution of transformations and jobs, not designing them. 'Visualization' — Incorrect: This perspective focuses on data exploration and graphical representation, not transformation design.",
       "source": "Pentaho Developer - Practitioner: Getting Started — Configuring PDI"
     },
     {
-      "id": "m2-q1",
+      "id": "di-m2-q1",
       "module": "Concepts & Terminology",
       "bloom": "Understand",
-      "scenario": "On the canvas you draw a hop from a Text file input step to a Filter rows step.",
-      "prompt": "What does that hop do when the transformation runs?",
+      "scenario": "A Pentaho Data Integration (PDI) transformation is designed to process customer data from a text file. A transformation designer has connected a 'Text file input' step directly to a 'Filter rows' step using a hop.",
+      "prompt": "What is the primary function of the hop between the 'Text file input' step and the 'Filter rows' step when the transformation executes?",
       "options": [
-        "Retries the filter if the input step fails",
-        "Schedules the filter to run once the input ends",
-        "Passes the input step's rows on to the filter",
-        "Copies the input step's settings to the filter"
-      ],
-      "correct": 2,
-      "explanation": "A hop is the directional connection that carries rows from one step to the next. It does not retry anything; retries belong to jobs. It does not schedule the filter after the input finishes, because both steps run at the same time. It carries data, never settings.",
-      "source": "Pentaho Developer - Practitioner: Concepts & Terminology — Hello World"
-    },
-    {
-      "id": "m2-q2",
-      "module": "Concepts & Terminology",
-      "bloom": "Understand",
-      "scenario": "Midway through building a ten-step transformation, you want to see the rows reaching step four without anything being written at the end.",
-      "prompt": "What does Preview do that Run does not?",
-      "options": [
-        "Executes only up to the chosen step and shows its rows",
-        "Executes every step but skips writing the outputs",
-        "Runs the whole transformation faster, with fewer checks",
-        "Shows the expected output without executing anything"
+        "The hop carries rows read from the text file to the filter for evaluation.",
+        "The hop re-reads the text file if the filter encounters an error.",
+        "The hop schedules the filter step to run after the text file input is complete.",
+        "The hop copies configuration parameters from the input step to the filter step."
       ],
       "correct": 0,
-      "explanation": "Preview runs the upstream steps as far as the chosen step and shows the rows arriving there, which is what makes it a debugging tool. It does execute; it does not predict output without running. It is not a faster whole run; it stops early. It does not run every step and suppress the outputs; the steps after the chosen one do not run at all.",
+      "explanation": "'The hop carries rows read from the text file to the filter for evaluation.' — Correct: A hop defines the flow of data (rows) between steps in a transformation. 'The hop re-reads the text file if the filter encounters an error.' — Incorrect: Hops are for data flow, not error handling or retries, which are typically managed through job entries or step-level error handling. 'The hop schedules the filter step to run after the text file input is complete.' — Incorrect: Transformation steps execute concurrently or sequentially based on hop connections, not scheduling. 'The hop copies configuration parameters from the input step to the filter step.' — Incorrect: While steps can share variables, a hop itself does not copy configuration settings; these are defined within each step.",
       "source": "Pentaho Developer - Practitioner: Concepts & Terminology — Hello World"
     },
     {
-      "id": "m2-q3",
+      "id": "di-m2-q2",
+      "module": "Concepts & Terminology",
+      "bloom": "Understand",
+      "scenario": "A data integration specialist is building a transformation with multiple steps. They need to verify the data flowing into step four, without fully executing the entire transformation and writing output files.",
+      "prompt": "What primary function does the Preview feature provide that a standard Run execution does not?",
+      "options": [
+        "Executes transformation steps up to a specified step and displays the resulting data rows.",
+        "Executes the entire transformation, but suppresses the writing of output data to files.",
+        "Performs a faster execution of the transformation by skipping data validation checks.",
+        "Generates a sample output based on the transformation’s logic, without actually processing data."
+      ],
+      "correct": 0,
+      "explanation": "'Executes transformation steps up to a specified step and displays the resulting data rows' — Correct: This accurately describes the core functionality of the Preview feature, allowing focused debugging. 'Executes the entire transformation, but suppresses the writing of output data to files' — Incorrect: Preview stops execution at the specified step; it does not complete the entire transformation. 'Performs a faster execution of the transformation by skipping data validation checks' — Incorrect: While Preview might be quicker due to early termination, it does not bypass validation. 'Generates a sample output based on the transformation’s logic, without actually processing data' — Incorrect: Preview relies on actual data processing, not a simulated output.",
+      "source": "Pentaho Developer - Practitioner: Concepts & Terminology — Hello World"
+    },
+    {
+      "id": "di-m2-q3",
       "module": "Concepts & Terminology",
       "bloom": "Apply",
-      "scenario": "A developer is debugging a transformation and wants the log to show the actual values inside each row as it passes through a step.",
-      "prompt": "Which log level should they choose?",
+      "scenario": "A data integration developer is troubleshooting a transformation that processes sensitive customer data. They need to examine the data flowing through each step to identify the source of a data quality issue.",
+      "prompt": "Which logging level will capture the actual data values for each row as the transformation executes?",
       "options": [
         "Detailed",
         "Basic",
@@ -132,75 +132,59 @@
         "Debug"
       ],
       "correct": 2,
-      "explanation": "Row Level is the most verbose setting and the only one that writes the values inside each row. Basic records the start and end of the run and step totals. Detailed adds more information about each step but not row contents. Debug adds internal diagnostic messages, still without the row values.",
+      "explanation": "'Row Level' — Correct: This logging level provides the most granular output, including the contents of each row as it passes through each step of the transformation. 'Detailed' — Incorrect: Detailed logging adds information about the execution of each step, such as timings and resource usage, but does not include the actual row data. 'Basic' — Incorrect: Basic logging only records the start and end of the transformation and the total number of rows processed by each step. 'Debug' — Incorrect: Debug logging captures internal diagnostic messages intended for developers but does not display the row-level data.",
       "source": "Pentaho Developer - Practitioner: Concepts & Terminology — Logging"
     },
     {
-      "id": "m2-q4",
-      "module": "Concepts & Terminology",
-      "bloom": "Apply",
-      "scenario": "A transformation occasionally meets rows that fail a database insert, and the developer wants those rows routed aside instead of the run failing.",
-      "prompt": "How do you route them aside while the good rows still load?",
-      "options": [
-        "Enable error handling on the output step and route its error hop",
-        "Add an Abort step immediately after the output step",
-        "Wrap the insert in a try/catch inside a JavaScript step",
-        "Run the transformation from a job that handles errors"
-      ],
-      "correct": 0,
-      "explanation": "Error handling is set per step: enable it on the output step and connect its error hop to a separate stream, and failed rows go there while the rest load. A JavaScript try/catch cannot catch an insert that happens in another step. Abort stops the whole transformation, the opposite of what is wanted. A job can react to the transformation failing, but only after the run has already stopped.",
-      "source": "Pentaho Developer - Practitioner: Concepts & Terminology — Error Handling"
-    },
-    {
-      "id": "m2-q5",
+      "id": "di-m2-q5",
       "module": "Concepts & Terminology",
       "bloom": "Understand",
-      "scenario": "A step's output is connected to two steps: one writes a file and the other loads a table. When you drew the second hop, you chose Copy when Spoon asked how to send the rows.",
-      "prompt": "How are the rows sent to the two steps?",
+      "scenario": "A transformation reads data from a source and sends it to two downstream steps: one writes the data to a text file, and the other inserts it into a database table. When defining the second hop from the initial step, you selected the 'Copy' option in the dialog box.",
+      "prompt": "How does the 'Copy' hop type determine the flow of data to the connected steps?",
       "options": [
-        "Every row is sent to both steps",
-        "The run fails, as one output is allowed",
-        "Rows alternate between the two steps",
-        "Only the first connected step gets rows"
+        "Each row of data is sent to both the file writing step and the database table step.",
+        "Data is sent alternately to the file writing step, then the database table step, repeating until all rows are processed.",
+        "The transformation will fail, as a step can only have one output hop.",
+        "Only the first step connected to the source step will receive any data."
       ],
       "correct": 0,
-      "explanation": "Copy sends every row to each connected step, so both the file and the table receive the full stream. Alternating rows between the steps is what Distribute does, the other choice Spoon offers. Rows are not limited to the first connected step. A step may have several output hops, so nothing fails.",
+      "explanation": "'Each row of data is sent to both the file writing step and the database table step.' — Correct: The 'Copy' hop type duplicates the data stream, sending every row to all connected steps. 'Data is sent alternately to the file writing step, then the database table step, repeating until all rows are processed.' — Incorrect: This describes the behavior of the 'Distribute' hop type, not 'Copy'. 'The transformation will fail, as a step can only have one output hop.' — Incorrect: A step in a Pentaho Data Integration transformation can have multiple output hops. 'Only the first step connected to the source step will receive any data.' — Incorrect: When using 'Copy', all connected steps receive data, not just the first one.",
       "source": "Pentaho Developer - Practitioner: Concepts & Terminology"
     },
     {
-      "id": "m2-q6",
+      "id": "di-m2-q6",
       "module": "Concepts & Terminology",
       "bloom": "Apply",
-      "scenario": "While testing a transformation, you want a checkpoint message that includes a field's value written to the execution log for every row passing a certain point.",
-      "prompt": "Which step writes that message?",
+      "scenario": "A data integration specialist is building a Transformation to process customer records. The specialist needs detailed logging of specific field values as the data flows through the transformation, to help with debugging and monitoring data quality.",
+      "prompt": "Which Transformation step is designed to write custom messages, including field values, to the execution log for each processed row?",
       "options": [
         "Set variables, with a message field",
-        "Text file output, to a log file",
+        "Text file output, configured to append to a log file",
         "Write to log",
-        "Abort, with a log message set"
+        "Abort, configured to include a diagnostic message"
       ],
       "correct": 2,
-      "explanation": "Write to log writes a message, with the field values you choose, to the execution log at a level you set, for every row that passes it. Abort also logs a message, but it stops the transformation. Text file output writes to a file of its own, not the execution log. Set variables sets variables; it writes nothing to the log.",
+      "explanation": "'Write to log' — Correct: This step specifically allows for writing custom messages, including field values, to the execution log for each row processed. 'Set variables, with a message field' — Incorrect: While this step can set variables with text, it does not directly write to the execution log on a per-row basis. 'Text file output, configured to append to a log file' — Incorrect: This step writes data to a separate text file, not the execution log within Pentaho. 'Abort, configured to include a diagnostic message' — Incorrect: Abort stops the transformation and writes a message, but it does not provide per-row logging of field values.",
       "source": "Pentaho Developer - Practitioner: Concepts & Terminology — Logging"
     },
     {
-      "id": "m2-q7",
+      "id": "di-m2-q7",
       "module": "Concepts & Terminology",
       "bloom": "Understand",
-      "scenario": "A Table output step has error handling enabled, and rows that fail the insert go down its error hop into a text file the team reviews each morning.",
-      "prompt": "What does each row in that file contain?",
+      "scenario": "A data integration process uses a Table output step configured to handle errors. When an attempt to insert a row into the target database fails, the row is routed to an error handling hop, appending data to a designated text file for review.",
+      "prompt": "What information is included in each row written to the error file?",
       "options": [
-        "Only the error message, as a single field",
-        "The Java exception stack trace for each failure",
-        "The whole row plus error description, codes and fields",
-        "Only the row's key fields and an error flag"
+        "The complete row data, along with fields containing the error description, error codes, and the specific fields that caused the error.",
+        "Only the error message, presented as a single field within the error file row.",
+        "The Java exception stack trace generated when the insertion attempt failed.",
+        "Only the row's key fields and an error flag."
       ],
-      "correct": 2,
-      "explanation": "Error handling passes the whole original row down the error hop and adds the fields you name for the error description, the error codes and the fields that caused it, so the row can be fixed or reprocessed. It is not reduced to a single message field. It carries no stack trace. It keeps every field, not only the key.",
+      "correct": 0,
+      "explanation": "'The complete row data, along with fields containing the error description, error codes, and the specific fields that caused the error.' — Correct: The Table output error handling mechanism preserves the entire row for investigation, and appends details on the error itself. 'Only the error message, presented as a single field within the error file row.' — Incorrect: This doesn't provide enough context for debugging or reprocessing the failed row. The complete row is required. 'The Java exception stack trace generated when the insertion attempt failed.' — Incorrect: While the stack trace might be logged elsewhere, it is not included directly in the error file row. The primary goal of the error file is to capture the problematic data, not debugging information.",
       "source": "Pentaho Developer - Practitioner: Concepts & Terminology — Error Handling"
     },
     {
-      "id": "m2-q8",
+      "id": "di-m2-q8",
       "module": "Concepts & Terminology",
       "bloom": "Analyze",
       "scenario": "A nightly load can meet two kinds of trouble: a handful of rows failing validation, and the source file arriving with zero rows when a thousand were expected.",
@@ -216,7 +200,7 @@
       "source": "Pentaho Developer - Practitioner: Concepts & Terminology — Error Handling"
     },
     {
-      "id": "m2-q9",
+      "id": "di-m2-q9",
       "module": "Concepts & Terminology",
       "bloom": "Apply",
       "scenario": "A Calculator step in the middle of your transformation produces odd totals. You want to see the rows it outputs without running the transformation to the end.",
@@ -232,7 +216,7 @@
       "source": "Pentaho Developer - Practitioner: Concepts & Terminology — Hello World"
     },
     {
-      "id": "m3-q1",
+      "id": "di-m3-q1",
       "module": "Data Sources",
       "bloom": "Apply",
       "scenario": "You are loading a CSV whose first line holds column names rather than data, using a Text file input step.",
@@ -248,7 +232,7 @@
       "source": "Pentaho Developer - Practitioner: Data Sources — Text File Input"
     },
     {
-      "id": "m3-q2",
+      "id": "di-m3-q2",
       "module": "Data Sources",
       "bloom": "Apply",
       "scenario": "An orders.json document holds an array under orders, and each order has a nested customer object with an email field. You are configuring a JSON input step to read one row per order.",
@@ -264,7 +248,7 @@
       "source": "Pentaho Developer - Practitioner: Data Sources — Read JSON"
     },
     {
-      "id": "m3-q3",
+      "id": "di-m3-q3",
       "module": "Data Sources",
       "bloom": "Apply",
       "scenario": "A supplier sends invoices as XML: an <invoices> root holding <invoice> elements, each with an <amount> child. You configure Get data from XML to read one row per invoice.",
@@ -280,7 +264,7 @@
       "source": "Pentaho Developer - Practitioner: Data Sources — Read XML"
     },
     {
-      "id": "m3-q4",
+      "id": "di-m3-q4",
       "module": "Data Sources",
       "bloom": "Apply",
       "scenario": "You are loading a customer table and must update a customer's row if the key already exists, or insert a new row if it does not.",
@@ -296,13 +280,13 @@
       "source": "Pentaho Developer - Practitioner: Data Sources — Table Insert/Update"
     },
     {
-      "id": "m3-q5",
+      "id": "di-m3-q5",
       "module": "Data Sources",
       "bloom": "Understand",
       "scenario": "Finance asks which region a customer was in on 1 March, even though the customer has since moved. The customer dimension is maintained as a Type 2 slowly changing dimension.",
       "prompt": "Why can the dimension answer that?",
       "options": [
-        "It keeps a row per version, each with validity dates",
+        "It keeps a row per version, each with valid dates",
         "It keeps only the changes since the last load",
         "It keeps a version flag per row, but no dates",
         "It keeps the latest value, overwritten in place"
@@ -312,7 +296,7 @@
       "source": "Pentaho Developer - Practitioner: Data Sources — Slowly Changing Dimensions"
     },
     {
-      "id": "m3-q6",
+      "id": "di-m3-q6",
       "module": "Data Sources",
       "bloom": "Apply",
       "scenario": "A developer needs to read and write objects in a MinIO bucket running on-premises.",
@@ -328,7 +312,7 @@
       "source": "Pentaho Developer - Practitioner: Data Sources — MinIO"
     },
     {
-      "id": "m3-q7",
+      "id": "di-m3-q7",
       "module": "Data Sources",
       "bloom": "Apply",
       "scenario": "The first step of a new transformation must take the rows returned by a SELECT that joins two tables in a PostgreSQL source.",
@@ -344,7 +328,7 @@
       "source": "Pentaho Developer - Practitioner: Data Sources — Reading from a Database"
     },
     {
-      "id": "m3-q8",
+      "id": "di-m3-q8",
       "module": "Data Sources",
       "bloom": "Apply",
       "scenario": "A monthly transformation writes to an Excel workbook, and each run must add its rows below the previous month's rather than replacing the file.",
@@ -360,7 +344,7 @@
       "source": "Pentaho Developer - Practitioner: Data Sources — Excel Writer"
     },
     {
-      "id": "m3-q9",
+      "id": "di-m3-q9",
       "module": "Data Sources",
       "bloom": "Apply",
       "scenario": "A nightly export produces millions of rows, and the team wants each output file capped at a manageable number of rows.",
@@ -376,7 +360,7 @@
       "source": "Pentaho Developer - Practitioner: Data Sources — Text File Output"
     },
     {
-      "id": "m3-q11",
+      "id": "di-m3-q11",
       "module": "Data Sources",
       "bloom": "Apply",
       "scenario": "A developer sets up a new connection to a MySQL database, but Spoon reports that the driver cannot be found.",
@@ -392,7 +376,7 @@
       "source": "Pentaho Developer - Practitioner: Data Sources — Connecting to a Database"
     },
     {
-      "id": "m3-q12",
+      "id": "di-m3-q12",
       "module": "Data Sources",
       "bloom": "Understand",
       "scenario": "You join an orders stream to a customers stream with Merge join on customer_id. The orders come from a Table input with no ORDER BY, and the customers from a CSV in file order.",
@@ -408,7 +392,7 @@
       "source": "Pentaho Developer - Practitioner: Data Sources — Merge Join"
     },
     {
-      "id": "m3-q13",
+      "id": "di-m3-q13",
       "module": "Data Sources",
       "bloom": "Apply",
       "scenario": "A fact table carries four low-cardinality flags: payment type, channel, promotion and gift wrap. The warehouse design folds them into one junk dimension with a surrogate key per combination.",
@@ -424,7 +408,7 @@
       "source": "Pentaho Developer - Practitioner: Data Sources — Slowly Changing Dimensions"
     },
     {
-      "id": "m3-q14",
+      "id": "di-m3-q14",
       "module": "Data Sources",
       "bloom": "Apply",
       "scenario": "A CSV you are reading has text fields wrapped in double quotes because they contain commas.",
@@ -440,7 +424,7 @@
       "source": "Pentaho Developer - Practitioner: Data Sources — Text File Input"
     },
     {
-      "id": "m4-q1",
+      "id": "di-m4-q1",
       "module": "Enriching the Dataset",
       "bloom": "Analyze",
       "scenario": "You must enrich five million order rows with customer data from a two-million-row database table. A colleague suggests Database join; you are weighing it against Merge join.",
@@ -460,7 +444,7 @@
       "source": "Pentaho Developer - Practitioner: Enriching the Dataset — Database Join"
     },
     {
-      "id": "m4-q2",
+      "id": "di-m4-q2",
       "module": "Enriching the Dataset",
       "bloom": "Analyze",
       "scenario": "A transformation that should output about 5,000 rows produces several million, and the run never finishes.",
@@ -476,7 +460,7 @@
       "source": "Pentaho Developer - Practitioner: Enriching the Dataset — Join Rows"
     },
     {
-      "id": "m4-q3",
+      "id": "di-m4-q3",
       "module": "Enriching the Dataset",
       "bloom": "Understand",
       "scenario": "A transformation runs millions of rows through a Database lookup against a small, static reference table, and the developer wants to cut the repeated round-trips to the database.",
@@ -492,7 +476,7 @@
       "source": "Pentaho Developer - Practitioner: Enriching the Dataset — Database Lookups"
     },
     {
-      "id": "m4-q4",
+      "id": "di-m4-q4",
       "module": "Enriching the Dataset",
       "bloom": "Apply",
       "scenario": "You compare yesterday's customer extract, the reference stream, with today's, the compare stream, using Merge rows (diff). Customer 1042 is in yesterday's extract but missing from today's.",
@@ -508,7 +492,7 @@
       "source": "Pentaho Developer - Practitioner: Enriching the Dataset — Merge Rows (diff)"
     },
     {
-      "id": "m4-q5",
+      "id": "di-m4-q5",
       "module": "Enriching the Dataset",
       "bloom": "Apply",
       "scenario": "An analyst hands you pricing rules written as spreadsheet formulas, such as IF([qty] > 100; [bulk_price]; [list_price]), and wants them carried into a transformation as written.",
@@ -524,23 +508,23 @@
       "source": "Pentaho Developer - Practitioner: Enriching the Dataset — Formula"
     },
     {
-      "id": "m4-q6",
+      "id": "di-m4-q6",
       "module": "Enriching the Dataset",
       "bloom": "Analyze",
-      "scenario": "You need to enrich a large order stream with names from a small, fixed reference set of country codes.",
-      "prompt": "Why is Stream lookup the better choice than Database lookup here?",
+      "scenario": "An e-commerce company receives a high-volume stream of order data, and each order includes a two-letter country code. The company needs to enrich each order with the full country name from a static list of valid country codes.",
+      "prompt": "Which characteristic makes Stream lookup the most efficient method for this enrichment?",
       "options": [
-        "It re-reads the reference table for each order",
-        "The small set is held in memory, so probes are fast",
-        "It is faster than Database lookup at any size",
-        "It can return several matches for each order"
+        "The reference data set is small enough to be fully cached in memory, enabling very fast lookups.",
+        "Stream lookup automatically handles updates to the reference data set without requiring a restart.",
+        "Stream lookup is optimized to handle large reference data sets that exceed available memory.",
+        "Stream lookup can return multiple matching country names for a single country code."
       ],
-      "correct": 1,
-      "explanation": "Stream lookup reads the whole reference set into memory once, which suits a small, fixed table and makes each probe fast. Re-reading the table for each order describes an uncached Database lookup. It is not faster at any size; a reference set too large for memory is where it fails. It returns at most one match per row.",
+      "correct": 0,
+      "explanation": "'The reference data set is small enough to be fully cached in memory, enabling very fast lookups' — Correct: Stream lookup excels when the entire reference set can be held in memory, providing rapid access. 'Stream lookup automatically handles updates to the reference data set without requiring a restart' — Incorrect: Stream lookup requires a restart if the reference data changes. 'Stream lookup is optimized to handle large reference data sets that exceed available memory' — Incorrect: Stream lookup performance degrades significantly with large reference data sets that do not fit in memory. 'Stream lookup can return multiple matching country names for a single country code' — Incorrect: Stream lookup typically returns a single match per input row.",
       "source": "Pentaho Developer - Practitioner: Enriching the Dataset — Lookups"
     },
     {
-      "id": "m4-q7",
+      "id": "di-m4-q7",
       "module": "Enriching the Dataset",
       "bloom": "Analyze",
       "scenario": "A Group by step totals sales per region, but the output lists the North region several times, each with a partial total.",
@@ -556,7 +540,7 @@
       "source": "Pentaho Developer - Practitioner: Enriching the Dataset"
     },
     {
-      "id": "m4-q8",
+      "id": "di-m4-q8",
       "module": "Enriching the Dataset",
       "bloom": "Analyze",
       "scenario": "A new rule sets a discount from several conditions together: the customer's tier, the order size, and whether the order date falls in a promotion window.",
@@ -572,7 +556,7 @@
       "source": "Pentaho Developer - Practitioner: Enriching the Dataset — Modified JavaScript Value"
     },
     {
-      "id": "m4-q9",
+      "id": "di-m4-q9",
       "module": "Enriching the Dataset",
       "bloom": "Apply",
       "scenario": "You need to remove duplicate rows from a stream based on a single key field, and the stream arrives in no particular order.",
@@ -588,7 +572,7 @@
       "source": "Pentaho Developer - Practitioner: Enriching the Dataset"
     },
     {
-      "id": "m4-q10",
+      "id": "di-m4-q10",
       "module": "Enriching the Dataset",
       "bloom": "Understand",
       "scenario": "A Filter rows step checks qty > 0. You connect one step for orders with a quantity and another for orders without.",
@@ -604,7 +588,39 @@
       "source": "Pentaho Developer - Practitioner: Enriching the Dataset"
     },
     {
-      "id": "m5-q1",
+      "id": "di-m4-q11",
+      "module": "Enriching the Dataset",
+      "bloom": "Apply",
+      "scenario": "A data integration specialist is building a Pentaho Data Integration (PDI) transformation to calculate a discount based on customer loyalty status. The discount amount must be dynamically calculated for each customer record as part of a larger data flow.",
+      "prompt": "Within a PDI transformation, what is the primary function of the Formula step?",
+      "options": [
+        "The Formula step establishes connections to relational databases for direct data retrieval.",
+        "The Formula step provides a mechanism for generating synthetic data to validate transformation logic.",
+        "The Formula step automatically categorizes and tags fields based on their data type.",
+        "The Formula step evaluates Formula Expressions to derive new field values."
+      ],
+      "correct": 3,
+      "explanation": "'The Formula step evaluates Formula Expressions to derive new field values' — Correct: This accurately describes the core purpose of the Formula step – performing calculations and creating derived data. 'The Formula step provides a mechanism for generating synthetic data to validate transformation logic' — Incorrect: The ‘Generate rows’ step is responsible for generating test data, and the Formula step operates on the data provided to it. 'The Formula step automatically categorizes and tags fields based on their data type' — Incorrect: Data categorization and tagging are not functions of the Formula step. 'The Formula step establishes connections to relational databases for direct data retrieval' — Incorrect: Database connections are handled by dedicated input steps, such as ‘Table Input’.",
+      "source": "Formula"
+    },
+    {
+      "id": "di-m4-q12",
+      "module": "Enriching the Dataset",
+      "bloom": "Remember",
+      "scenario": "A data analyst needs to enrich a dataset with information from a database based on values within each row of the incoming data.",
+      "prompt": "What is a key characteristic of the Database Join step in Pentaho Data Integration?",
+      "options": [
+        "Every result row the database returned was appended to a copy of the input row.",
+        "The Database Join step automatically classifies data for easier search and retrieval.",
+        "The Database Join step is most efficient when processing millions of rows of data.",
+        "The Database Join step merges tables within the database using standard join operations."
+      ],
+      "correct": 0,
+      "explanation": "'Every result row the database returned was appended to a copy of the input row.' — Correct: This accurately describes how the Database Join step handles output, adding database results to each input row. 'The Database Join step merges tables within the database using standard join operations.' — Incorrect: The Database Join step does *not* perform a traditional database join; it executes queries for each input row. 'The Database Join step automatically classifies data for easier search and retrieval.' — Incorrect: Data classification is not a function of the Database Join step. 'The Database Join step is most efficient when processing millions of rows of data.' — Incorrect: The Database Join step is explicitly stated to be inefficient at large scales because it makes a round trip to the database for each row.",
+      "source": "Database Join"
+    },
+    {
+      "id": "di-m5-q1",
       "module": "Enterprise Solution",
       "bloom": "Understand",
       "scenario": "A nightly process must download a file, load it with two transformations in order, and email the team if either load fails.",
@@ -620,7 +636,7 @@
       "source": "Pentaho Developer - Practitioner: Enterprise Solution — Hello World Job"
     },
     {
-      "id": "m5-q2",
+      "id": "di-m5-q2",
       "module": "Enterprise Solution",
       "bloom": "Apply",
       "scenario": "In a job, a developer wants a follow-on entry to run only when the preceding entry completes successfully.",
@@ -636,23 +652,23 @@
       "source": "Pentaho Developer - Practitioner: Enterprise Solution — Order of Execution"
     },
     {
-      "id": "m5-q3",
+      "id": "di-m5-q3",
       "module": "Enterprise Solution",
       "bloom": "Understand",
-      "scenario": "A transformation reads its input folder from a parameter named IN_DIR. One night a job runs it; the next, Pan runs it from the command line, each time with a different folder.",
-      "prompt": "How does the transformation get the value each time?",
+      "scenario": "A data pipeline uses a transformation that expects an input folder location. This location is defined by a parameter named IN_DIR. The transformation is executed both by a nightly batch job and interactively from the command line using Pan, often with different folder paths each time.",
+      "prompt": "How does the transformation resolve the correct input folder location for each execution?",
       "options": [
-        "It arrives as the first row of the input stream",
-        "It is fixed in the .ktr when the file is saved",
-        "The caller sets it at run time, read as ${IN_DIR}",
-        "It is read from kettle.properties on the host"
+        "The transformation uses the value of the IN_DIR parameter, which is set by the calling process at runtime.",
+        "The transformation reads the input folder path from the first row of data in the input stream.",
+        "The transformation retrieves the input folder path from a pre-configured value within the .ktr file.",
+        "The transformation obtains the input folder path from the kettle.properties file on the server hosting the transformation."
       ],
-      "correct": 2,
-      "explanation": "A parameter is supplied by whatever runs the transformation, a parent job or a Pan command line, and resolves as ${IN_DIR} for that run. kettle.properties defines machine-wide variables, not a per-run parameter value. Only the parameter's default is saved in the .ktr, and the caller overrides it. Parameters are not passed as rows.",
+      "correct": 0,
+      "explanation": "'The transformation uses the value of the IN_DIR parameter, which is set by the calling process at runtime.' — Correct: Parameters allow external control of transformation behavior, and their values are supplied when the transformation runs. 'The transformation reads the input folder path from the first row of data in the input stream.' — Incorrect: This describes a method of passing data, not configuration parameters. Parameters and input data are distinct concepts. 'The transformation retrieves the input folder path from a pre-configured value within the .ktr file.' — Incorrect: The .ktr file stores the parameter *definition*, but not the runtime value, which is overridden by the calling process. 'The transformation obtains the input folder path from the kettle.properties file on the server hosting the transformation.' — Incorrect: kettle.properties stores system-wide properties, not per-transformation or per-execution parameters.",
       "source": "Pentaho Developer - Practitioner: Enterprise Solution — Parameters"
     },
     {
-      "id": "m5-q5",
+      "id": "di-m5-q5",
       "module": "Enterprise Solution",
       "bloom": "Apply",
       "scenario": "You are creating a run configuration in Spoon for a transformation that must run on a remote Carte server rather than on your laptop.",
@@ -668,11 +684,11 @@
       "source": "Pentaho Developer - Practitioner: Enterprise Solution — Run Configurations"
     },
     {
-      "id": "m5-q6",
+      "id": "di-m5-q6",
       "module": "Enterprise Solution",
       "bloom": "Remember",
       "scenario": "A scheduler on a Linux server with no Spoon installed must run a nightly job (.kjb) and, separately, a standalone transformation (.ktr).",
-      "prompt": "Which command-line tools run them?",
+      "prompt": "Which command-line APIs run them?",
       "options": [
         "spoon.sh in headless mode, for both of them",
         "Pan for the job, and Kitchen for the transformation",
@@ -684,7 +700,7 @@
       "source": "Pentaho Developer - Practitioner: Enterprise Solution — Run Configurations"
     },
     {
-      "id": "m5-q7",
+      "id": "di-m5-q7",
       "module": "Enterprise Solution",
       "bloom": "Understand",
       "scenario": "A transformation declares a parameter named REGION. It is sometimes run with no value supplied, and must then use EMEA.",
@@ -700,7 +716,7 @@
       "source": "Pentaho Developer - Practitioner: Enterprise Solution — Parameters"
     },
     {
-      "id": "m5-q8",
+      "id": "di-m5-q8",
       "module": "Enterprise Solution",
       "bloom": "Apply",
       "scenario": "The operations team wants an email automatically each time the nightly load job finishes.",
@@ -716,7 +732,7 @@
       "source": "Pentaho Developer - Practitioner: Enterprise Solution — Jobs"
     },
     {
-      "id": "m5-q9",
+      "id": "di-m5-q9",
       "module": "Enterprise Solution",
       "bloom": "Understand",
       "scenario": "An administrator adds DB_HOST to kettle.properties on the server. A job and the three transformations it calls all reference ${DB_HOST}.",
@@ -728,11 +744,11 @@
         "Only on the master node in a clustered run"
       ],
       "correct": 1,
-      "explanation": "Variables in kettle.properties are loaded when PDI starts and are available to every job and transformation in that process. Jobs see them as well as transformations. No Set variables step is needed; that is for setting variables during a run. They are loaded on every node that runs PDI, not only a master.",
+      "explanation": "Variables in kettle.properties are loaded when PDI starts and are available to every job and transformation in that process - global scope. Jobs see them as well as transformations. No Set variables step is needed; that is for setting variables during a run. They are loaded on every node that runs PDI, not only a master.",
       "source": "Pentaho Developer - Practitioner: Enterprise Solution — Parameters and Variables"
     },
     {
-      "id": "m5-q10",
+      "id": "di-m5-q10",
       "module": "Enterprise Solution",
       "bloom": "Evaluate",
       "scenario": "Four developers will work on the same transformations, and the team already runs all code review through Git.",
@@ -748,11 +764,11 @@
       "source": "Pentaho Developer - Practitioner: Enterprise Solution"
     },
     {
-      "id": "m5-q11",
+      "id": "di-m5-q11",
       "module": "Enterprise Solution",
       "bloom": "Understand",
       "scenario": "Operations want one tool that runs a nightly job from cron and exits, and another that stays running so remote transformations can be sent to it over HTTP.",
-      "prompt": "Which tool fills each role?",
+      "prompt": "Which Pentaho services can be used for each role?",
       "options": [
         "Kitchen runs the job and exits; Carte stays up for HTTP",
         "Pan runs the job and exits; Kitchen stays up for HTTP",
@@ -764,7 +780,7 @@
       "source": "Pentaho Developer - Practitioner: Enterprise Solution — Run Configurations"
     },
     {
-      "id": "m5-q12",
+      "id": "di-m5-q12",
       "module": "Enterprise Solution",
       "bloom": "Understand",
       "scenario": "A clustered transformation runs across one Carte master and two slave servers, with its heavy aggregation steps marked as clustered.",
@@ -778,6 +794,22 @@
       "correct": 1,
       "explanation": "The master coordinates: it sends rows to the slaves, which do the heavy work in parallel, and collects their results into one stream. Processing every row itself would make the cluster pointless. It does not act as a connection pool for the slaves. Logging is not its only role.",
       "source": "Pentaho Developer - Practitioner: Enterprise Solution — Run Configurations"
+    },
+    {
+      "id": "di-m6-q1",
+      "module": "Components & Concepts",
+      "bloom": "Apply",
+      "scenario": "A data integration developer is setting up a new workstation and wants to ensure the Pentaho Data Integration (PDI) environment is optimized for rapid development, especially given a database schema that changes frequently.",
+      "prompt": "Which option, when disabled in Spoon’s ‘General’ settings, would be most beneficial in this scenario?",
+      "options": [
+        "Show tips at startup?",
+        "Use database cache",
+        "Ask user when exiting?",
+        "Show repository dialog at startup?"
+      ],
+      "correct": 1,
+      "explanation": "'Use database cache' — Correct: Disabling this ensures Spoon always reflects the latest database schema, which is critical when the schema is frequently altered. 'Show tips at startup?' — Incorrect: This is a user interface setting and doesn't impact data integration accuracy or performance related to schema changes. 'Show repository dialog at startup?' — Incorrect: This affects repository connections, not local schema handling. 'Ask user when exiting?' — Incorrect: This is a convenience feature and unrelated to schema synchronization.",
+      "source": "Configuring PDI"
     }
   ]
 }
