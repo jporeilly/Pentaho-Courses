@@ -19,8 +19,8 @@
 > 
 > **Prerequisites**
 > 
-> * `STG_SALES_DATA` exists. Create it in **Create DB table**.
-> * A working database connection. See **Database Connections**.
+> * `STG_SALES_DATA` exists. Create it in **[Create DB table](../14-mod3-writing-to-a-database/guide.md)**.
+> * A working database connection. See **[Database Connections](../12-mod3-connecting-to-database/guide.md)**.
 > 
 > **Estimated time:** 20 minutes
 

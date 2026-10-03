@@ -16,7 +16,7 @@
 > * Merge streams in a predictable order with Append streams
 > * Write the final output with Text file output
 > 
-> **Prerequisites:** Understanding of basic transformation concepts (steps, hops, preview). Complete **Text File Input** first.
+> **Prerequisites:** Understanding of basic transformation concepts (steps, hops, preview). Complete **[Text File Input](../06-mod3-text-file-input/guide.md)** first.
 > 
 > **Estimated time:** 35 minutes
 

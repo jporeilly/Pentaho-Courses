@@ -14,7 +14,7 @@ This panel stays beside your tools for the whole workshop:
 - **Float or dock** — drag the title bar to move the window anywhere
   (any monitor), or use the dock button to pin it to the right edge of
   the screen so maximised apps make room for it.
-- **The sidebar** lists every section and lab. A ▶ badge means the lab
+- **The sidebar** lists every section and lab. A <span data-icon="video"></span> badge means the lab
   includes a video; the `~15 min` tag is a time estimate.
 - Use the **font-size** and **reading-mode** controls in the toolbar if
   you're on a small VM screen.
@@ -282,7 +282,7 @@ The capstone is the one folder with a shape of its own:
 | -------------------- | ------------------------------------------------ |
 | `capstone\data\`     | The source files the capstone reads — shipped    |
 | `capstone\solution\` | **Your** transformations and jobs                |
-| `capstone\out\`      | **Your** output — the certificate checks look here |
+| `capstone\out\`      | **Your** output — the accreditation checks look here |
 
 > **Note:** Upgrading the app refreshes the shipped lab files and never
 > touches `solution\` or `out\`. Your own work is safe, so you can
@@ -383,6 +383,14 @@ Open the MinIO console in a browser at **http://127.0.0.1:9099**.
 
 :::
 
+The panel below probes this machine live, checking what this course's
+labs need. Each row reports one of four states:
+
+* **<span class="pcm-c-ok">Green</span>** — the check passed; that piece is present and answering.
+* **<span class="pcm-c-warn">Amber</span>** — usable, but worth tidying before the session.
+* **<span class="pcm-c-danger">Red</span>** — it will block a lab, and the row tells you the exact fix.
+* **<span class="pcm-c-muted">Grey</span>** — skipped, because this course doesn't use it.
+
 <div data-env-check></div>
 
 ::::
@@ -396,14 +404,14 @@ model, so it works even when the VM is offline.
 
 ## How this course is organised
 
-Each section starts with an **overview page** (📄 — background reading,
-no checkboxes) followed by **hands-on workshops** (🧪 — tracked steps).
+Each section starts with an **overview page** (<span data-icon="page"></span> — background reading,
+no checkboxes) followed by **hands-on workshops** (<span data-icon="workshop"></span> — tracked steps).
 The bigger sections group their workshops into **sub-sections** — Data
 Sources, for instance, splits into Flat Files, Databases and Storage.
 Click a heading to open that section's page, or the chevron beside it to
 expand the workshops underneath.
 
-## The exam and your certificate
+## The exam and your course accreditation
 
 When you have worked through the sections, the **Practitioner Exam** in
 the sidebar draws 40 questions from a larger pool. It is open-book — take
@@ -412,11 +420,13 @@ assistant. Your answers are saved as you go, so leaving the page to look
 something up is fine, and the explanations show afterwards so you can
 learn from anything you missed. The pass mark is **80%**.
 
-You are asked for your name, email and organisation before you begin;
-those are what your certificate is made out to. Pass, and your
-**Pentaho Data Integration Developer - Practitioner Level** certificate
-appears on the results screen to download. It is valid for two years,
-and you can come back for it later from the same screen.
+You are asked for your name, email and organisation before you begin
+(and your Partner ID, if you are taking it as part of the Pentaho Partner
+Program); those are what your accreditation is made out to. Complete the
+capstone project and pass the exam, and your **Pentaho Data Integration
+Developer - Practitioner Level** course accreditation appears on the
+results screen to download. It is valid for two years, and you can come
+back for it later from the same screen.
 
 Head to the first section whenever you're ready.
 

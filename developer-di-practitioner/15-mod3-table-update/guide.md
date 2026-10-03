@@ -15,7 +15,7 @@
 > 
 > **Prerequisites**
 > 
-> * A working database connection. See **Database Connections**.
+> * A working database connection. See **[Database Connections](../12-mod3-connecting-to-database/guide.md)**.
 > * Basic primary key concepts (`EMPLOYEENUMBER`)
 > 
 > **Estimated time:** 20 minutes

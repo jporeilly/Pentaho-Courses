@@ -4,8 +4,7 @@
   "passMark": 80,
   "questionsPerAttempt": 40,
   "shuffle": true,
-  "webhookUrl": "https://script.google.com/macros/s/AKfycbzt7thr4mfy3-kduDbiQ_UfBPwGC7JxpZA9p1XOeGJG4Q0rh9-OoKJNG965c8SVNQ7i/exec",
-  "webhookSecret": "pcm_Y61JKvDGnbuqvn3BIVCkjoSu98Jn3bE4",
+  "webhookUrl": "https://script.google.com/macros/s/AKfycbzsCLkWA07Nr7qQCwibn6_RiyhYi33xzeq529mlYhf3xYZPAxKOntIN-Wd1qjv4M4c/exec",
   "questions": [
     {
       "id": "di-m1-q1",

@@ -18,7 +18,7 @@
 > 
 > By the end, you will know how to write into an Excel template safely. You will also know when to block parallel flows.
 > 
-> **Prerequisites:** Understanding of basic transformation concepts (steps, hops, preview). Complete **Text File Input** first.
+> **Prerequisites:** Understanding of basic transformation concepts (steps, hops, preview). Complete **[Text File Input](../06-mod3-text-file-input/guide.md)** first.
 > 
 > **Estimated time:** 35 minutes
 

@@ -16,7 +16,7 @@
 > 
 > **Prerequisites**
 > 
-> * A working database connection. See **Database Connections**.
+> * A working database connection. See **[Database Connections](../12-mod3-connecting-to-database/guide.md)**.
 > * Basic understanding of tables and SQL data types
 > 
 > **Estimated time:** 30 minutes

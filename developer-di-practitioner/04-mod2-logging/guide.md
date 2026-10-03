@@ -13,7 +13,7 @@
 > * Use **Execution results** to find the failing step
 > * Locate the same error in `pdi.log`
 > 
-> **Prerequisites:** Complete the **Hello World** workshop
+> **Prerequisites:** Complete the **[Hello World](../03-mod2-hello-world/guide.md)** workshop
 > 
 > **Estimated time:** 5 minutes
 

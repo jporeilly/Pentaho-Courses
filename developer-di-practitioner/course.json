@@ -1,8 +1,7 @@
 {
   "id": "developer-di-practitioner",
   "analytics": {
-    "measurementId": "G-Y31H58JVKH",
-    "apiSecret": "9sDdakUVT-aj5kUiOx_kIg"
+    "measurementId": "G-Y31H58JVKH"
   },
   "contact": {
     "to": "academy@pentaho.com",
@@ -14,7 +13,7 @@
   },
   "title": "Pentaho Developer - DI Practitioner",
   "description": "Self-paced, hands-on workshop for the Pentaho Data Integration Practitioner.",
-  "version": "0.1.3",
+  "version": "0.1.5",
   "kind": "workshop",
   "level": { "number": 1, "name": "Practitioner" },
   "mode": "sequential",
@@ -27,8 +26,9 @@
     "defaultProfile": "cpu",
     "models": {
       "cpu": "llama3.2:3b",
-      "gpu": "qwen2.5:7b"
+      "gpu": "gemma4:12b"
     },
+    "ladder": ["gemma4:12b", "qwen2.5:7b"],
     "subject": "Pentaho Data Integration (Spoon, transformations, jobs and the Pentaho Server)",
     "suggestions": [
       "Walk me through my first transformation",

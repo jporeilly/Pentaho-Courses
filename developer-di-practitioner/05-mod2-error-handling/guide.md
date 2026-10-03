@@ -14,7 +14,7 @@
 > * Review the error metadata fields (description, field name, error code)
 > * Fix the date format and verify success
 > 
-> **Prerequisites:** Complete the **Hello World** and **Logging** workshops
+> **Prerequisites:** Complete the **[Hello World](../03-mod2-hello-world/guide.md)** and **[Logging](../04-mod2-logging/guide.md)** workshops
 > 
 > **Estimated time:** 10 minutes
 
