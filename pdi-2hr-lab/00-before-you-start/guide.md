@@ -14,7 +14,7 @@
 > **What you'll do:**
 > * Confirm Pentaho Data Integration (Developer Edition) starts.
 > * Check the sample MySQL database is up and running.
-> * Check the working folder: *C:\workshop\pdi-2hr*
+> * Check the working folder: *C:\Workshop\pdi-2hr*
 >
 > **Prerequisites:** 
 > - Familiarity with the basics of data integration
