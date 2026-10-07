@@ -19,7 +19,7 @@
       "id": "2hr-m2-q1",
       "module": "See It Work",
       "bloom": "Apply",
-      "scenario": "You are building a transformation that filters a 'Sales data' file and writes the valid rows to a table. You want to examine which rows leave the filter before anything is written. ",
+      "scenario": "You are building a transformation that filters a 'Sales data' file and will write the valid rows to a table. Before adding the table step, you want to examine which rows leave the filter.",
       "prompt": "How do you inspect those rows in Pentaho Data Integration (PDI)?",
       "options": [
         "Select the filter step and preview it",
@@ -28,7 +28,7 @@
         "Run the transformation, then query the target table"
       ],
       "correct": 0,
-      "explanation": "Previewing the filter step shows the rows arriving there, at any point while you build, without writing anything. Adding logging code and redeploying changes the thing you are trying to observe. Running the transformation and querying the table only shows what reached the end, after it has been written. Exporting to CSV is a manual detour that still writes the data out before you can look at it.",
+      "explanation": "Previewing the filter step shows the rows leaving it while you build; with no output step connected yet, nothing is written. (Preview starts every step on the canvas, so an output step already connected would write the rows that reach it.) Adding logging code and redeploying changes the thing you are trying to observe. Running the transformation and querying the table only shows what reached the end, after it has been written. Exporting to CSV is a manual detour that still writes the data out before you can look at it.",
       "source": "Your First Win"
     },
     {
