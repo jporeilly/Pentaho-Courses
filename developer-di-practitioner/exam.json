@@ -19,7 +19,7 @@
         "The transformation file (.ktr) contains absolute file paths, making it non-portable and restricted to the environment where it was originally created."
       ],
       "correct": 0,
-      "explanation": "'A configured file path relies on a variable defined in the `kettle.properties` file, and this variable has a different value or is not defined on the colleague's machine.' — Correct: The `kettle.properties` file is environment-specific. Variables defined there will resolve differently (or not at all) on different machines. 'The colleague is using a different version of Spoon, causing it to interpret step settings, including file paths, incorrectly.' — Incorrect: While version mismatches can cause issues, they typically don't manifest as a simple file-not-found error. Different versions would likely cause a different type of error. 'The source file requires re-importation into Spoon on each machine before it can be accessed by the transformation.' — Incorrect: PDI reads files directly based on their path; re-importing is not required, and has no effect on execution. 'The transformation file (.ktr) contains absolute file paths, making it non-portable and restricted to the environment where it was originally created.' — Incorrect: Using absolute paths would indeed cause portability issues, but is a poor practice and not the most *probable* cause given the scenario.",
+      "explanation": "'A configured file path relies on a variable defined in a `.properties` file, and this variable has a different value or is not defined on the colleague's machine.' — Correct: kettle.properties lives in each user's own .kettle folder, so a variable defined there can resolve to a different folder, or to nothing at all, on another machine. 'The colleague is using a different version of Spoon, causing it to interpret step settings, including file paths, incorrectly.' — Incorrect: a version difference does not change how a path is read, and would show up as a different kind of error. 'The source file requires re-importation into Spoon on each machine before it can be accessed by the transformation.' — Incorrect: PDI reads files straight from their path; there is no import step. 'The transformation file (.ktr) contains absolute file paths, making it non-portable and restricted to the environment where it was originally created.' — Incorrect: both machines read the same shared files, so an absolute path to them would resolve the same way on each; what differs from one machine to the next is a variable's value.",
       "source": "Pentaho Developer - Practitioner: Getting Started — Configuring PDI"
     },
     {
@@ -35,7 +35,7 @@
         "shared.xml"
       ],
       "correct": 0,
-      "explanation": "'kettle.properties' — Correct: This file is loaded by PDI at startup and allows defining variables that can be used throughout transformations and jobs using the `${variable_name}` syntax. 'repositories.xml' — Incorrect: This file defines connections to data repositories, not general configuration variables. 'shared.xml' — Incorrect: This file is used for defining and managing shared objects, such as database connections, for reuse, but does not store general configuration values like hostnames or folder paths.",
+      "explanation": "'kettle.properties' — Correct: This file is loaded by PDI at startup and allows defining variables that can be used throughout transformations and jobs using the `${variable_name}` syntax. 'repositories.xml' — Incorrect: This file defines connections to data repositories, not general configuration variables. 'shared.xml' — Incorrect: This file is used for defining and managing shared objects, such as database connections, for reuse, but does not store general configuration values like hostnames or folder paths. '.spoonrc' — Incorrect: it holds Spoon's own preferences, such as recent files and window settings, not variables that jobs and transformations can reference.",
       "source": "Pentaho Developer - Practitioner: Getting Started — Kettle Variables"
     },
     {
@@ -51,7 +51,7 @@
         "${INPUT_PATH}"
       ],
       "correct": 3,
-      "explanation": "'${INPUT_PATH}' — Correct: This is the correct syntax for referencing Kettle variables within PDI steps. The `${}` notation tells PDI to resolve the variable at runtime. '%INPUT_PATH%' — Incorrect: This syntax is commonly used for variable expansion in Windows command-line environments, but it is not recognized by PDI. '@INPUT_PATH' — Incorrect: This syntax is used for parameter referencing in some SQL dialects, but it is not valid for resolving Kettle variables within PDI.",
+      "explanation": "'${INPUT_PATH}' — Correct: This is the correct syntax for referencing Kettle variables within PDI steps. The `${}` notation tells PDI to resolve the variable at runtime. '%INPUT_PATH%' — Incorrect: This syntax is commonly used for variable expansion in Windows command-line environments, but it is not recognized by PDI. '@INPUT_PATH' — Incorrect: This syntax is used for parameter referencing in some SQL dialects, but it is not valid for resolving Kettle variables within PDI. '$INPUT_PATH$' — Incorrect: a name between dollar signs is not a variable reference PDI recognises. (PDI's other accepted form is %%INPUT_PATH%%, with two percent signs on each side.)",
       "source": "Pentaho Developer - Practitioner: Getting Started — Kettle Variables"
     },
     {
@@ -74,16 +74,16 @@
       "id": "di-m1-q5",
       "module": "Getting Started",
       "bloom": "Remember",
-      "scenario": "A data engineer opens Pentaho Spoon to begin designing a new transformation. Instead of the graphical design canvas, the application displays a calendar and scheduling interface.",
+      "scenario": "A data engineer opens Spoon to start a new transformation. Instead of the design canvas, the window shows a table of scheduled runs.",
       "prompt": "Which perspective must be selected to access the transformation design canvas?",
       "options": [
-        "Data Modeling",
-        "Scheduling",
-        "Visualization",
-        "Data Integration"
+        "Scheduler",
+        "Data Integration",
+        "Welcome page",
+        "Model"
       ],
-      "correct": 3,
-      "explanation": "'Data Integration' — Correct: This perspective provides the graphical canvas for designing and building PDI transformations and jobs. 'Data Modeling' — Incorrect: This perspective is used for creating analytical models, not for building data integration workflows. 'Scheduling' — Incorrect: This perspective is used for defining and monitoring the execution of transformations and jobs, not designing them. 'Visualization' — Incorrect: This perspective focuses on data exploration and graphical representation, not transformation design.",
+      "correct": 1,
+      "explanation": "'Data Integration' — Correct: the design canvas for transformations and jobs is the Data Integration perspective. 'Scheduler' — Incorrect: it is the view this engineer is looking at, a table of scheduled runs for planning when things run, not for designing them. 'Welcome page' — Incorrect: it is a tab of documentation and community links shown at startup, not a perspective. 'Model' — Incorrect: PDI 11 has no Model perspective; its perspectives are Data Integration and Scheduler.",
       "source": "Pentaho Developer - Practitioner: Getting Started — Configuring PDI"
     },
     {
@@ -99,23 +99,23 @@
         "The hop copies configuration parameters from the input step to the filter step."
       ],
       "correct": 0,
-      "explanation": "'The hop carries rows read from the text file to the filter for evaluation.' — Correct: A hop defines the flow of data (rows) between steps in a transformation. 'The hop re-reads the text file if the filter encounters an error.' — Incorrect: Hops are for data flow, not error handling or retries, which are typically managed through job entries or step-level error handling. 'The hop schedules the filter step to run after the text file input is complete.' — Incorrect: Transformation steps execute concurrently or sequentially based on hop connections, not scheduling. 'The hop copies configuration parameters from the input step to the filter step.' — Incorrect: While steps can share variables, a hop itself does not copy configuration settings; these are defined within each step.",
+      "explanation": "'The hop carries rows read from the text file to the filter for evaluation.' — Correct: A hop defines the flow of data (rows) between steps in a transformation. 'The hop re-reads the text file if the filter encounters an error.' — Incorrect: Hops are for data flow, not error handling or retries, which are typically managed through job entries or step-level error handling. 'The hop schedules the filter step to run after the text file input is complete.' — Incorrect: all the steps of a transformation start together and run concurrently; a hop passes rows along and never makes one step wait for another to finish. 'The hop copies configuration parameters from the input step to the filter step.' — Incorrect: While steps can share variables, a hop itself does not copy configuration settings; these are defined within each step.",
       "source": "Pentaho Developer - Practitioner: Concepts & Terminology — Hello World"
     },
     {
       "id": "di-m2-q2",
       "module": "Concepts & Terminology",
       "bloom": "Understand",
-      "scenario": "A data integration specialist is building a transformation with multiple steps. They need to verify the data flowing into step four, without fully executing the entire transformation and writing output files.",
+      "scenario": "A data integration specialist is building a transformation with several steps and needs to check the rows coming out of step four without waiting for the whole transformation to finish.",
       "prompt": "What primary function does the Preview feature provide that a standard Run execution does not?",
       "options": [
-        "Executes transformation steps up to a specified step and displays the resulting data rows.",
-        "Executes the entire transformation, but suppresses the writing of output data to files.",
-        "Performs a faster execution of the transformation by skipping data validation checks.",
-        "Generates a sample output based on the transformation’s logic, without actually processing data."
+        "It runs faster than a normal execution by skipping data validation checks.",
+        "It runs the whole transformation but suppresses all writing to output files.",
+        "It captures the rows a chosen step produces and pauses the run once enough rows are collected.",
+        "It generates sample rows from the transformation's logic without processing real data."
       ],
-      "correct": 0,
-      "explanation": "'Executes transformation steps up to a specified step and displays the resulting data rows' — Correct: This accurately describes the core functionality of the Preview feature, allowing focused debugging. 'Executes the entire transformation, but suppresses the writing of output data to files' — Incorrect: Preview stops execution at the specified step; it does not complete the entire transformation. 'Performs a faster execution of the transformation by skipping data validation checks' — Incorrect: While Preview might be quicker due to early termination, it does not bypass validation. 'Generates a sample output based on the transformation’s logic, without actually processing data' — Incorrect: Preview relies on actual data processing, not a simulated output.",
+      "correct": 2,
+      "explanation": "'It captures the rows a chosen step produces and pauses the run once enough rows are collected' — Correct: preview starts the transformation, collects the rows the chosen step outputs, and pauses once it has as many as you asked for, so you see them without running to the end. 'It runs the whole transformation but suppresses all writing to output files' — Incorrect: nothing is suppressed; every step starts, so an output step downstream writes any rows that reach it before the run pauses. 'It runs faster than a normal execution by skipping data validation checks' — Incorrect: rows pass through the same steps and checks as in a normal run; preview just stops early. 'It generates sample rows from the transformation's logic without processing real data' — Incorrect: the rows shown are real rows, read from the real sources and processed by the steps.",
       "source": "Pentaho Developer - Practitioner: Concepts & Terminology — Hello World"
     },
     {
@@ -131,7 +131,7 @@
         "Debug"
       ],
       "correct": 2,
-      "explanation": "'Row Level' — Correct: This logging level provides the most granular output, including the contents of each row as it passes through each step of the transformation. 'Detailed' — Incorrect: Detailed logging adds information about the execution of each step, such as timings and resource usage, but does not include the actual row data. 'Basic' — Incorrect: Basic logging only records the start and end of the transformation and the total number of rows processed by each step. 'Debug' — Incorrect: Debug logging captures internal diagnostic messages intended for developers but does not display the row-level data.",
+      "explanation": "'Row Level' — Correct: This logging level provides the most granular output, including the contents of each row as it passes through each step of the transformation. 'Detailed' — Incorrect: Detailed logging adds more messages about each step's progress, but not the row data. 'Basic' — Incorrect: Basic logging only records the start and end of the transformation and the total number of rows processed by each step. 'Debug' — Incorrect: Debug logging captures internal diagnostic messages intended for developers but does not display the row-level data.",
       "source": "Pentaho Developer - Practitioner: Concepts & Terminology — Logging"
     },
     {
@@ -179,7 +179,7 @@
         "Only the row's key fields and an error flag."
       ],
       "correct": 0,
-      "explanation": "'The complete row data, along with fields containing the error description, error codes, and the specific fields that caused the error.' — Correct: The Table output error handling mechanism preserves the entire row for investigation, and appends details on the error itself. 'Only the error message, presented as a single field within the error file row.' — Incorrect: This doesn't provide enough context for debugging or reprocessing the failed row. The complete row is required. 'The Java exception stack trace generated when the insertion attempt failed.' — Incorrect: While the stack trace might be logged elsewhere, it is not included directly in the error file row. The primary goal of the error file is to capture the problematic data, not debugging information.",
+      "explanation": "'The complete row data, along with fields containing the error description, error codes, and the specific fields that caused the error.' — Correct: the error hop carries the entire row, plus the error details under the field names you give in the step's error handling settings (number of errors, descriptions, the fields in error, error codes). 'Only the error message, presented as a single field within the error file row.' — Incorrect: This doesn't provide enough context for debugging or reprocessing the failed row. The complete row is required. 'The Java exception stack trace generated when the insertion attempt failed.' — Incorrect: While the stack trace might be logged elsewhere, it is not included directly in the error file row. The primary goal of the error file is to capture the problematic data, not debugging information. 'Only the row's key fields and an error flag.' — Incorrect: the whole incoming row goes down the error hop, not just its key fields, and the error details are the fields you name in the error handling settings, not a flag.",
       "source": "Pentaho Developer - Practitioner: Concepts & Terminology — Error Handling"
     },
     {
@@ -211,7 +211,7 @@
         "Select the Calculator step and preview it"
       ],
       "correct": 3,
-      "explanation": "Previewing the Calculator runs only the steps it needs and shows the rows it outputs, without running to the end. Running and reading the log runs everything and shows no rows unless the log level is raised. Adding a file output still runs to the end and writes a file. A separate workspace does not execute the step at all.",
+      "explanation": "Previewing the Calculator shows the rows it outputs and pauses the run once enough have been collected, so you do not wait for the end. Running and reading the log runs everything and shows no rows unless the log level is raised. Adding a file output still runs to the end and writes a file. A separate workspace does not execute the step at all.",
       "source": "Pentaho Developer - Practitioner: Concepts & Terminology — Hello World"
     },
     {
@@ -227,7 +227,7 @@
         "Tick Header on the Content tab"
       ],
       "correct": 3,
-      "explanation": "Ticking Header on the Content tab, with one header line, tells the step to read the first line as field names. A Filter rows step could discard the line, but only after it was read as data with every field forced to string. Lazy conversion delays type conversion for speed and has nothing to do with headers. Get Fields reads the header once the setting is on; it does not set it.",
+      "explanation": "Ticking Header on the Content tab, with one header line, tells the step to read the first line as field names. A Filter rows step could discard the line, but only after it had been read as data, where its text would fail the conversion of any numeric field. Lazy conversion delays type conversion for speed and has nothing to do with headers. Get Fields reads the header once the setting is on; it does not set it.",
       "source": "Pentaho Developer - Practitioner: Data Sources — Text File Input"
     },
     {
@@ -519,7 +519,7 @@
         "Stream lookup can return multiple matching country names for a single country code."
       ],
       "correct": 0,
-      "explanation": "'The reference data set is small enough to be fully cached in memory, enabling very fast lookups' — Correct: Stream lookup excels when the entire reference set can be held in memory, providing rapid access. 'Stream lookup automatically handles updates to the reference data set without requiring a restart' — Incorrect: Stream lookup requires a restart if the reference data changes. 'Stream lookup is optimized to handle large reference data sets that exceed available memory' — Incorrect: Stream lookup performance degrades significantly with large reference data sets that do not fit in memory. 'Stream lookup can return multiple matching country names for a single country code' — Incorrect: Stream lookup typically returns a single match per input row.",
+      "explanation": "'The reference data set is small enough to be fully cached in memory, enabling very fast lookups' — Correct: Stream lookup excels when the entire reference set can be held in memory, providing rapid access. 'Stream lookup automatically handles updates to the reference data set without requiring a restart' — Incorrect: Stream lookup reads its lookup stream once at the start of each run, so a change to the list shows up on the next run, not during one. 'Stream lookup is optimized to handle large reference data sets that exceed available memory' — Incorrect: Stream lookup performance degrades significantly with large reference data sets that do not fit in memory. 'Stream lookup can return multiple matching country names for a single country code' — Incorrect: Stream lookup typically returns a single match per input row.",
       "source": "Pentaho Developer - Practitioner: Enriching the Dataset — Lookups"
     },
     {
@@ -609,13 +609,13 @@
       "scenario": "A data analyst needs to enrich a dataset with information from a database based on values within each row of the incoming data.",
       "prompt": "What is a key characteristic of the Database Join step in Pentaho Data Integration?",
       "options": [
-        "Every result row the database returned was appended to a copy of the input row.",
-        "The Database Join step automatically classifies data for easier search and retrieval.",
-        "The Database Join step is most efficient when processing millions of rows of data.",
-        "The Database Join step merges tables within the database using standard join operations."
+        "It runs a query for each input row and appends every row returned to a copy of that row.",
+        "It classifies the data automatically for easier search and retrieval.",
+        "It is most efficient when processing millions of rows of data.",
+        "It merges tables inside the database using standard join operations."
       ],
       "correct": 0,
-      "explanation": "'Every result row the database returned was appended to a copy of the input row.' — Correct: This accurately describes how the Database Join step handles output, adding database results to each input row. 'The Database Join step merges tables within the database using standard join operations.' — Incorrect: The Database Join step does *not* perform a traditional database join; it executes queries for each input row. 'The Database Join step automatically classifies data for easier search and retrieval.' — Incorrect: Data classification is not a function of the Database Join step. 'The Database Join step is most efficient when processing millions of rows of data.' — Incorrect: The Database Join step is explicitly stated to be inefficient at large scales because it makes a round trip to the database for each row.",
+      "explanation": "'It runs a query for each input row and appends every row returned to a copy of that row' — Correct: Database join runs its parameterised query once per incoming row and outputs a copy of that row for each result row returned. 'It merges tables inside the database using standard join operations' — Incorrect: it does not join tables inside the database; it queries the database once for each incoming row. 'It classifies the data automatically for easier search and retrieval' — Incorrect: classifying data is not something the step does. 'It is most efficient when processing millions of rows of data' — Incorrect: a query per row means a round trip per row, which makes it slow at that scale.",
       "source": "Database Join"
     },
     {
@@ -801,13 +801,13 @@
       "scenario": "A data integration developer is setting up a new workstation and wants to ensure the Pentaho Data Integration (PDI) environment is optimized for rapid development, especially given a database schema that changes frequently.",
       "prompt": "Which option, when disabled in Spoon’s ‘General’ settings, would be most beneficial in this scenario?",
       "options": [
-        "Show tips at startup?",
+        "Show welcome page at startup",
         "Use database cache",
-        "Ask user when exiting?",
-        "Show repository dialog at startup?"
+        "Ask user when exiting",
+        "Show repository dialog at startup"
       ],
       "correct": 1,
-      "explanation": "'Use database cache' — Correct: Disabling this ensures Spoon always reflects the latest database schema, which is critical when the schema is frequently altered. 'Show tips at startup?' — Incorrect: This is a user interface setting and doesn't impact data integration accuracy or performance related to schema changes. 'Show repository dialog at startup?' — Incorrect: This affects repository connections, not local schema handling. 'Ask user when exiting?' — Incorrect: This is a convenience feature and unrelated to schema synchronization.",
+      "explanation": "'Use database cache' — Correct: with the cache on, Spoon remembers what it has read about tables and fields; turning it off makes Spoon read the schema afresh, which matters when the schema changes often. 'Show welcome page at startup' — Incorrect: it only decides whether the Welcome page opens, and has nothing to do with the database. 'Ask user when exiting' — Incorrect: it is a confirmation prompt, unrelated to the schema. 'Show repository dialog at startup' — Incorrect: it controls the repository login prompt, not how Spoon reads a database schema.",
       "source": "Configuring PDI"
     }
   ]
