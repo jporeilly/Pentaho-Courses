@@ -56,8 +56,6 @@ C:\Workshop\pdi-2hr\03-make-it-yours\04-track-history\customers.json
 </div>
 </figure>
 
-<figure>
-
 3. On the **Fields** tab, add rows — one per field. **Path** uses
    JSONPath, relative to the array of customer objects:
 

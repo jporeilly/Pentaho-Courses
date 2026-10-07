@@ -45,9 +45,6 @@ clipboard: switch to PDI, press `Ctrl+O`, `Ctrl+V`, `Enter`.)
 
 1. If the pipeline - win_preview.ktr - has not displayed in PDI, then: **File -> Open** and browse:
 
-<div align="center">
-<figure>
-
 Path to Transformation:
 
 ```text
@@ -85,9 +82,6 @@ dates, all clean rows. This habit helps debug and validate your pipelines:
 **you can look at the data at any step, at any time**, before
 anything is written anywhere.
 
-<div align="center">
-<figure>
-
 > **Under the hood:**
 >
 > #### Preview is the real engine, not a simulation
@@ -119,9 +113,6 @@ anything is written anywhere.
 1. Close the preview.
 2. **Right-click**: **Rejected rows** → **Preview** → **Quick Launch**.
 
-<div align="center">
-<figure>
-
 Three rows. Two are missing their `customer_id`, one its
 `product_id` — they were planted in the file, and the filter caught
 all three. In a hand-coded pipeline this is a try/except and a log
@@ -145,16 +136,10 @@ can inspect.
    **Fields** tab, every column with its type and format. No code was
    generated; this *is* the pipeline.
 
-<div align="center">
-<figure>
-
 2. Close the dialog with **Cancel** (so nothing changes).
 3. Double-click **Keys present?*.
    The Filter Rows step allows you to filter rows based on conditions and comparisons.
    In this example we're filtering for rows where the ids / keys are not null.
-
-<div align="center">
-<figure>
 
 4. Close the dialog with **Cancel** (so nothing changes).
 

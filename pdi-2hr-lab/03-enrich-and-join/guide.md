@@ -33,15 +33,14 @@
 > **Note:** **Get the files first.** Check `customers.json`,
 > `products.csv`, and `regions.csv` have been downloaded into
 > this lab's workshop folder:
-<figure>
 
 ```text
 C:\Workshop\pdi-2hr\03-make-it-yours\03-enrich-and-join\
 ```
 
-![Part 2 target canvas: Read sales and Keys present? feed the + customer and + products stream lookups, Compute margin, Sort by regions and the + region merge join into Enriched rows, with Read customers, Read products and Read regions supplying the lookups](../_assets/images/1789472862690.png)
-
 <figure>
+
+![Part 2 target canvas: Read sales and Keys present? feed the + customer and + products stream lookups, Compute margin, Sort by regions and the + region merge join into Enriched rows, with Read customers, Read products and Read regions supplying the lookups](../_assets/images/1789472862690.png)
 
 <div align="center">
 <figcaption><em>Part 2: Enrich and Join data</em></figcaption>

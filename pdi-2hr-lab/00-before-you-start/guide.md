@@ -36,12 +36,18 @@
 
 > 
 ## Getting Started
- 
-To begin the workshop, ensure you have the correct PDI installation directory:
+
+The installer's **Workshop lab files** component lays this course's
+lab files out in your working folder:
 
 ```text
-C:\workshop\pdi-2hr
+C:\Workshop\pdi-2hr
 ```
+
+Pentaho Data Integration itself is expected where the Pentaho 11
+installer puts it, `C:\Pentaho\design-tools\data-integration`. The
+**Start Pentaho Data Integration** button below and the machine check
+look there first, then elsewhere on this machine.
 
 ## Check your environment
 
@@ -111,13 +117,14 @@ These are: **Connection Details for workshop - Track History with One Step**
 
 You don't need to provide the connection details for workshop - Track History with One Step - at this stage, but it's useful to know what they are.
 
-|          |                 |
-| -------- | --------------- |
-| Host     | `localhost`     |
-| Port     | `3306`          |
-| Database | `warehouse`     |
-| Username | `pentaho_admin` |
-| Password | `password`      |
+|                 |                 |
+| --------------- | --------------- |
+| Host            | `localhost`     |
+| Port            | `3306`          |
+| Database        | `sampledata`    |
+| Connection Name | `warehouse`     |
+| Username        | `pentaho_admin` |
+| Password        | `password`      |
 
 ## Troubleshooting <!-- no-step -->
 
@@ -125,10 +132,11 @@ You don't need to provide the connection details for workshop - Track History wi
 
 <summary>Spoon doesn't start / closes immediately</summary>
 
-PDI needs a Java runtime. Developer Edition bundles one; if you
-installed manually, ensure `PENTAHO_JAVA_HOME` points at a Java 11+
-JDK and start it via **Spoon.bat** (Windows) or **spoon.sh**
-(Linux/macOS), not the jar directly.
+PDI needs a Java runtime. Pentaho 11 bundles Java 21 in
+`C:\Pentaho\java` and finds it by itself; if you installed PDI
+elsewhere, ensure `PENTAHO_JAVA_HOME` points at a Java 21 JDK and
+start it via **Spoon.bat** (Windows) or **spoon.sh** (Linux/macOS),
+not the jar directly.
 
 </details>
 
@@ -136,17 +144,25 @@ JDK and start it via **Spoon.bat** (Windows) or **spoon.sh**
 
 <summary>The environment panel shows MySQL red</summary>
 
-Let's make sure your database environment is running smoothly. The MySQL database runs in a container, and most issues can be resolved by simply starting and stopping the container using Podman.
+The MySQL database runs in a container, and the container does not
+start itself after a reboot. The setup script starts the Podman
+machine, brings MySQL up and waits until it answers; it also puts the
+MySQL JDBC driver into PDI if it is missing. It is safe to run at any
+time.
 
-**Recreate the Container**
+**Start (or recreate) the container**
 
- Run the following script to recreate your MySQL container:
-   ```powershell
-   C:\MySQL\setup-services.ps1
-   ```
-   Wait for the script to complete and report that the container is healthy.
+Open PowerShell and run the script from the app's `provisioning`
+folder (the all-users install is shown; a just-for-me install has it
+under `%LOCALAPPDATA%\Programs\Pentaho Content Manager\provisioning`):
 
- After the script finishes, click **Re-run checks** to confirm everything is up and running.
+```powershell
+& "C:\Program Files\Pentaho Content Manager\provisioning\setup-services.ps1"
+```
+
+Wait for it to report that MySQL is answering, then click
+**Re-check** in the panel above. A **Podman machine** row that says
+*rootless* is fine: every port this course uses is above 1024.
 
 **Test the Database Connection**
 
@@ -154,6 +170,24 @@ To verify the database connection, open a terminal and run:
 ```powershell
 mysql -h localhost -P 3306 -u pentaho_admin -ppassword -e "SELECT 1;"
 ```
+
+</details>
+
+<details>
+
+<summary>The environment panel shows the MySQL JDBC driver red</summary>
+
+PDI 11 does not ship a MySQL driver, and Lab 4 cannot connect without
+one. The installer downloads it from Maven Central into PDI's `lib`
+folder when PDI is already installed; if you installed PDI afterwards,
+the setup script above does the same the next time it runs, or run
+the driver step on its own:
+
+```powershell
+& "C:\Program Files\Pentaho Content Manager\provisioning\install-pdi-driver.ps1"
+```
+
+Restart Spoon if it is open, then click **Re-check**.
 
 **Note**
 For the workshop step "Track History with One Step," you don't need any pre-seeded sample data — the lab creates its own tables as needed.
