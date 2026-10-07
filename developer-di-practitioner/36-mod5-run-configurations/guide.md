@@ -24,43 +24,73 @@
 
 **Master Node**
 
-> **Note:** You can indiviually start the carte instances or execute the following command to deploy all 3 at the same time .
+> **Note:** Each Carte instance runs in its own terminal and keeps it busy, so you need three terminals.
 
-```bash
-cd
-cd ~/Scripts
-./start_carte.sh
+1. In a terminal start the master on port 12000:
+
+::: tabs
+
+### Windows (PowerShell)
+
+```powershell
+Set-Location C:\Pentaho\design-tools\data-integration
+.\Carte.bat localhost 12000
 ```
 
-1. In a terminal execute the following command.
+### macOS / Linux
 
 ```bash
-cd
 cd ~/Pentaho/design-tools/data-integration
-sh carte.sh localhost 12000
+./carte.sh localhost 12000
 ```
+
+:::
 
 <figure><img src="../_assets/images/master-node.png" alt=""><figcaption><p>Master node - port 12000</p></figcaption></figure>
 
 **Slave Nodes**
 
-1. In a new terminal execute the following command (Slave A).
+1. In a new terminal start Slave A on port 12100:
+
+::: tabs
+
+### Windows (PowerShell)
+
+```powershell
+Set-Location C:\Pentaho\design-tools\data-integration
+.\Carte.bat localhost 12100
+```
+
+### macOS / Linux
 
 ```bash
-cd
 cd ~/Pentaho/design-tools/data-integration
-sh carte.sh localhost 12100
+./carte.sh localhost 12100
 ```
+
+:::
 
 <figure><img src="../_assets/images/run-slave-a.png" alt=""><figcaption><p>Slave node A - port 12100</p></figcaption></figure>
 
-2. In a new terminal execute the following command (Slave B).
+2. In a new terminal start Slave B on port 12200:
+
+::: tabs
+
+### Windows (PowerShell)
+
+```powershell
+Set-Location C:\Pentaho\design-tools\data-integration
+.\Carte.bat localhost 12200
+```
+
+### macOS / Linux
 
 ```bash
-cd
 cd ~/Pentaho/design-tools/data-integration
-sh carte.sh localhost 12200
+./carte.sh localhost 12200
 ```
+
+:::
 
 <figure><img src="../_assets/images/run-slave-b.png" alt=""><figcaption><p>Slave node B - port 12200</p></figcaption></figure>
 
@@ -70,7 +100,7 @@ sh carte.sh localhost 12200
 
 ### 2. Configure Nodes
 
-1. Open the tr\_hello\_world transformation.
+1. Open the tr\_hello\_world transformation (from [Hello World](../03-mod2-hello-world/guide.md), or its solution `tr_hello_world.ktr`).
 2. Select the View tab
 3. Highlight the Slave server option; right mouse click and select: New
 
@@ -130,7 +160,7 @@ Below are the proxy tab options:
 
 <figure><img src="../_assets/images/master-config.png" alt=""><figcaption><p>Master - RUN configuration</p></figcaption></figure>
 
-3. When you come to RUN the transformation, select Master node.
+4. When you come to RUN the transformation, select Master node.
 
 <figure><img src="../_assets/images/run-master.png" alt=""><figcaption><p>RUN configuration - Master</p></figcaption></figure>
 
@@ -141,7 +171,7 @@ Below are the proxy tab options:
 
 <figure><img src="../_assets/images/run-master-result.png" alt=""><figcaption><p>RUN configuration - Master</p></figcaption></figure>
 
-3. Take a look at the Master Terminal.
+5. Take a look at the Master Terminal.
 
 <figure><img src="../_assets/images/terminal-master.png" alt=""><figcaption><p>Master Terminal</p></figcaption></figure>
 
@@ -218,7 +248,7 @@ Below are the proxy tab options:
 
 <figure><img src="../_assets/images/clusters.png" alt=""><figcaption><p>Clusters</p></figcaption></figure>
 
-4. Select 'Pentaho' cluster schema.
+2. Select 'Pentaho' cluster schema.
 
 <figure><img src="../_assets/images/pentaho-cluster.png" alt=""><figcaption><p>Pentaho - Cluster schema</p></figcaption></figure>
 
@@ -226,13 +256,13 @@ Below are the proxy tab options:
 
 <figure><img src="../_assets/images/clustered-slave-nodes.png" alt=""><figcaption><p>Indicated nmber of Slave Nodes</p></figcaption></figure>
 
-5. RUN the transformation with Clustered configuration.
+3. RUN the transformation with Clustered configuration.
 
 <figure><img src="../_assets/images/clustered-run-configuration.png" alt=""><figcaption><p>RUN configuration - Clustered</p></figcaption></figure>
 
 > **Note:** A bunch of Tabs will appear for each node which display the Metrics and Metadata transformations.
 
-6. Take a look at the Tabs (example below is for Slave A).
+4. Take a look at the Tabs (example below is for Slave A).
 
 <figure><img src="../_assets/images/metadata-trans-slave-a.png" alt=""><figcaption><p>Metadat transformation - Slave A</p></figcaption></figure>
 

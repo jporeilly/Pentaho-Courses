@@ -5,7 +5,7 @@
 > #### Workshop - Update DB table
 > 
 > Update existing rows in `EMPLOYEES` using a key lookup.\
-> You will change job titles for two employees.
+> You will update two employees (job title and other details) from a file.
 > 
 > **What you’ll do**
 > 
@@ -87,11 +87,13 @@
    * `EMPLOYEE_NUMBER`
    * `LASTNAME`
    * `FIRSTNAME`
-   * `EXTENSION`
+   * `EXT`
    * `EMAIL`
-   * `OFFICECODE`
-   * `REPORTSTO`
-   * `JOBTITLE`
+   * `OFFICE`
+   * `REPORTS`
+   * `TITLE`
+
+   These names differ from the table's columns (`EXTENSION`, `OFFICECODE`, `REPORTSTO`, `JOBTITLE`); you map them in the next step.
 
 <figure><img src="../_assets/images/tfi-fields-update.png" alt=""><figcaption><p>Text file input - Fields</p></figcaption></figure>
 
@@ -199,7 +201,7 @@ Confirm the key mapping is `EMPLOYEENUMBER` (table) = `EMPLOYEE_NUMBER` (stream)
 
 Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches PDI with the file loaded. If PDI is already running, the path is copied to your clipboard — switch to PDI and use Ctrl+O, Ctrl+V, Enter.
 
-[employee_table_backup.sql](./files/employee_table_backup.sql)
+[employee_table_backup.sql](./files/employee_table_backup.sql) — puts `EMPLOYEES` back as it shipped (23 rows). Run it in DBeaver when you want to repeat this lab or the next one.
 
 [employees_update.txt](./files/employees_update.txt)
 

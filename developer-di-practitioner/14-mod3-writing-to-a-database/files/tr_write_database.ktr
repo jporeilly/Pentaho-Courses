@@ -500,18 +500,34 @@
     </notepad>
   </notepads>
   <connection>
-    <name>HSQLDB</name>
+    <name>MySQL:sampledata</name>
     <server>localhost</server>
-    <type>HYPERSONIC</type>
+    <type>MYSQL</type>
     <access>Native</access>
     <database>sampledata</database>
-    <port>9001</port>
+    <port>3306</port>
     <username>pentaho_admin</username>
     <password>Encrypted 2be98afc86aa7f2e4bb18bd63c99dbdde</password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
     <attributes>
+      <attribute>
+        <code>EXTRA_OPTION_MYSQL.allowPublicKeyRetrieval</code>
+        <attribute>true</attribute>
+      </attribute>
+      <attribute>
+        <code>EXTRA_OPTION_MYSQL.defaultFetchSize</code>
+        <attribute>500</attribute>
+      </attribute>
+      <attribute>
+        <code>EXTRA_OPTION_MYSQL.useCursorFetch</code>
+        <attribute>true</attribute>
+      </attribute>
+      <attribute>
+        <code>EXTRA_OPTION_MYSQL.useSSL</code>
+        <attribute>false</attribute>
+      </attribute>
       <attribute>
         <code>FORCE_IDENTIFIERS_TO_LOWERCASE</code>
         <attribute>N</attribute>
@@ -525,12 +541,8 @@
         <attribute>N</attribute>
       </attribute>
       <attribute>
-        <code>MSSQL_DOUBLE_DECIMAL_SEPARATOR</code>
-        <attribute>N</attribute>
-      </attribute>
-      <attribute>
         <code>PORT_NUMBER</code>
-        <attribute>9001</attribute>
+        <attribute>3306</attribute>
       </attribute>
       <attribute>
         <code>PRESERVE_RESERVED_WORD_CASE</code>
@@ -539,6 +551,10 @@
       <attribute>
         <code>QUOTE_ALL_FIELDS</code>
         <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>STREAM_RESULTS</code>
+        <attribute>Y</attribute>
       </attribute>
       <attribute>
         <code>SUPPORTS_BOOLEAN_DATA_TYPE</code>
@@ -556,18 +572,18 @@
   </connection>
   <order>
     <hop>
-      <from>CSV Input</from>
+      <from>csvi-sales_data</from>
       <to>stg_sales_data</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>orders</from>
       <to>stg_orders_merged</to>
-      <enabled>N</enabled>
+      <enabled>Y</enabled>
     </hop>
   </order>
   <step>
-    <name>CSV Input</name>
+    <name>csvi-sales_data</name>
     <type>CsvInput</type>
     <description/>
     <distribute>Y</distribute>
@@ -581,11 +597,11 @@
     <filename_field/>
     <rownum_field/>
     <include_filename>N</include_filename>
-    <separator>;</separator>
+    <separator>,</separator>
     <enclosure>"</enclosure>
     <header>Y</header>
     <buffer_size>50000</buffer_size>
-    <lazy_conversion>Y</lazy_conversion>
+    <lazy_conversion>N</lazy_conversion>
     <add_filename_result>N</add_filename_result>
     <parallel>N</parallel>
     <newline_possible>N</newline_possible>
@@ -742,7 +758,7 @@
         <currency>£</currency>
         <decimal>.</decimal>
         <group>,</group>
-        <length>30</length>
+        <length>40</length>
         <precision>-1</precision>
         <trim_type>none</trim_type>
       </field>
@@ -764,7 +780,7 @@
         <currency>£</currency>
         <decimal>.</decimal>
         <group>,</group>
-        <length>40</length>
+        <length>50</length>
         <precision>-1</precision>
         <trim_type>none</trim_type>
       </field>
@@ -797,7 +813,7 @@
         <currency>£</currency>
         <decimal>.</decimal>
         <group>,</group>
-        <length>10</length>
+        <length>20</length>
         <precision>-1</precision>
         <trim_type>none</trim_type>
       </field>
@@ -1062,7 +1078,7 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection/>
+    <connection>MySQL:sampledata</connection>
     <schema/>
     <table>STG_ORDERS_MERGED</table>
     <commit>1000</commit>
@@ -1080,6 +1096,30 @@
     <return_keys>N</return_keys>
     <return_field/>
     <fields>
+      <field>
+        <column_name>PRODUCTCODE</column_name>
+        <stream_name>PRODUCTCODE</stream_name>
+      </field>
+      <field>
+        <column_name>PRODUCTNAME</column_name>
+        <stream_name>PRODUCTNAME</stream_name>
+      </field>
+      <field>
+        <column_name>PRODUCTLINE</column_name>
+        <stream_name>PRODUCTLINE</stream_name>
+      </field>
+      <field>
+        <column_name>PRODUCTSCALE</column_name>
+        <stream_name>PRODUCTSCALE</stream_name>
+      </field>
+      <field>
+        <column_name>PRODUCTVENDOR</column_name>
+        <stream_name>PRODUCTVENDOR</stream_name>
+      </field>
+      <field>
+        <column_name>PRODUCTDESCRIPTION</column_name>
+        <stream_name>PRODUCTDESCRIPTION</stream_name>
+      </field>
     </fields>
     <attributes/>
     <cluster_schema/>
@@ -1106,7 +1146,7 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>HSQLDB</connection>
+    <connection>MySQL:sampledata</connection>
     <schema/>
     <table>STG_SALES_DATA</table>
     <commit>1000</commit>

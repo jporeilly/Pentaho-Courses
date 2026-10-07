@@ -185,7 +185,7 @@ CREATE TABLE `DIM_SCD` (
 
 <figure><img src="../_assets/images/dim-scd-set-lookup.png" alt=""><figcaption><p>set lookup mode</p></figcaption></figure>
 
-> **Note:** Sets the step to Update Mode with lookup keys: id
+> **Note:** The lookup key is `id`.
 > 
 > There’s no point adding the `last_update` field because we’re dealing with Type 1 changes.
 
@@ -495,7 +495,7 @@ TRUNCATE TABLE DIM_SCD;
 
 Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches PDI with the file loaded. If PDI is already running, the path is copied to your clipboard — switch to PDI and use Ctrl+O, Ctrl+V, Enter.
 
-[dim_scd script.txt](./files/dim_scd%20script.txt)
+[dim_scd script.txt](./files/dim_scd%20script.txt) — the `CREATE TABLE DIM_SCD` statement from step 2, for MySQL.
 
 ### Solution <!-- no-step -->
 

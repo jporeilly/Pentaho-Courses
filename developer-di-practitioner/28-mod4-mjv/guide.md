@@ -4,7 +4,7 @@
 >
 > #### Workshop - Modified JavaScript value
 > 
-> The Modified Java Script Expression step lets you execute custom JavaScript code to transform and manipulate data within a transformation. It provides a powerful scripting environment for calculations, validations, string manipulations, and conditional logic that standard steps cannot easily achieve.
+> The Modified Java Script Value step lets you execute custom JavaScript code to transform and manipulate data within a transformation. It provides a powerful scripting environment for calculations, validations, string manipulations, and conditional logic that standard steps cannot easily achieve.
 > 
 > In this workshop, you generate sample rows and run them through a Modified JavaScript Value step to produce new and modified output fields.
 > 

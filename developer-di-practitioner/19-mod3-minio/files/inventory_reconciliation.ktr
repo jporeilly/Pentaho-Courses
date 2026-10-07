@@ -554,7 +554,7 @@
         <repeat>N</repeat>
       </field>
       <field>
-        <name>warehouse_ item_name</name>
+        <name>warehouse_item_name</name>
         <xpath>name</xpath>
         <element_type>node</element_type>
         <result_type>valueof</result_type>
@@ -584,7 +584,7 @@
         <repeat>N</repeat>
       </field>
       <field>
-        <name>warehouse_qty</name>
+        <name>warehouse_quantity</name>
         <xpath>quantity</xpath>
         <element_type>node</element_type>
         <result_type>valueof</result_type>
@@ -869,7 +869,7 @@
         <rename>product_id</rename>
       </field>
       <field>
-        <name>warehouse_ item_name</name>
+        <name>warehouse_item_name</name>
         <rename>warehouse_product_name</rename>
       </field>
       <field>
@@ -877,8 +877,8 @@
         <rename/>
       </field>
       <field>
-        <name>warehouse_qty</name>
-        <rename>warehouse_quantity</rename>
+        <name>warehouse_quantity</name>
+        <rename/>
       </field>
       <field>
         <name>warehouse_location</name>
@@ -1793,7 +1793,7 @@ var data_source_erp = "ERP-CSV-Extract";
     <fileNameField/>
     <create_parent_folder>Y</create_parent_folder>
     <file>
-      <name>file</name>
+      <name>pvfs://MinIO/staging/reconciliation/review_queue</name>
       <servlet_output>N</servlet_output>
       <do_not_open_new_file_init>N</do_not_open_new_file_init>
       <extention>csv</extention>
@@ -2186,10 +2186,10 @@ var data_source_erp = "ERP-CSV-Extract";
     <fileNameField/>
     <create_parent_folder>Y</create_parent_folder>
     <file>
-      <name>file</name>
+      <name>pvfs://MinIO/staging/reconciliation/low_priority</name>
       <servlet_output>N</servlet_output>
       <do_not_open_new_file_init>N</do_not_open_new_file_init>
-      <extention>txt</extention>
+      <extention>csv</extention>
       <append>N</append>
       <split>N</split>
       <haspartno>N</haspartno>

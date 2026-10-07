@@ -60,6 +60,8 @@ select * from STG_SALES_DATA
 where QUANTITYORDERED > 50;
 ```
 
+These are the rows that survive: the Delete step removes every row with `QUANTITYORDERED <= 50`.
+
 <figure><img src="../_assets/images/stg-sales-data-sql.png" alt=""><figcaption><p>STG_SALES_DATA constraint QUANTITYORDERED > 50</p></figcaption></figure>
 
 ### 2. CSV File input
@@ -68,7 +70,7 @@ where QUANTITYORDERED > 50;
 >
 > #### CSV File input
 > 
-> Read `productlines.csv`. Each row is one `PRODUCTLINE` value.
+> Read `productline.txt`. Each row is one `PRODUCTLINE` value.
 
 1. Start Spoon.
 
@@ -102,7 +104,7 @@ where QUANTITYORDERED > 50;
 
 2. Drag the CSV File Input step onto the canvas.
 3. Open the CSV File Input properties dialog box.
-4. Configure it to read: `${Internal.Transformation.Filename.Directory}/productlines.csv`
+4. Configure it to read: `${Internal.Transformation.Filename.Directory}/productline.txt`
 5. Select **Get Fields**.
 
 <figure><img src="../_assets/images/prod-list.png" alt=""><figcaption><p>CSV File input - PRODUCTLINE list</p></figcaption></figure>
@@ -117,7 +119,7 @@ where QUANTITYORDERED > 50;
 > This keeps your transformation easy to reuse.
 
 1. Double-click on the canvas and select the Parameter tab.
-2. Create a parameter named `min_quantityordered`.
+2. Create a parameter named `MIN_QUANTITYORDERED`.
 3. Set a default value (for example `50`).
 
 <figure><img src="../_assets/images/param.png" alt="" width="563"><figcaption><p>Set parameters</p></figcaption></figure>
@@ -128,11 +130,11 @@ where QUANTITYORDERED > 50;
 >
 > #### Get variables
 > 
-> Bring `min_quantityordered` into the stream so the Delete step can use it.
+> Bring `MIN_QUANTITYORDERED` into the stream so the Delete step can use it.
 
 1. Drag the Get variables step onto the canvas.
 2. Open the Get variables properties dialog box.
-3. Configure the step to output a field for `${min_quantityordered}`.
+3. Configure the step to output a field for `${MIN_QUANTITYORDERED}`.
 
 <figure><img src="../_assets/images/get-variables-1.png" alt="" width="563"><figcaption><p>Get variables</p></figcaption></figure>
 
@@ -145,7 +147,7 @@ where QUANTITYORDERED > 50;
 > and `${Internal.Transformation.Filename.Directory}` live in — using
 > the default unless the run dialog or a parent job supplied a value.
 > Steps, though, only ever see *rows*. **Get variables** is the
-> bridge: it reads `${min_quantityordered}` from that space, converts
+> bridge: it reads `${MIN_QUANTITYORDERED}` from that space, converts
 > it to the type you set, and appends it as a field to each row
 > passing through.
 >
@@ -178,8 +180,8 @@ where QUANTITYORDERED > 50;
 
 > **Note:** This workshop uses criteria based on:
 > 
-> * `QUANTITYORDERED` and the `min_quantityordered` value
-> * `PRODUCTLINE` values from `productlines.csv`
+> * `QUANTITYORDERED` and the `MIN_QUANTITYORDERED` value
+> * `PRODUCTLINE` values from `productline.txt`
 
 ### 6. Run and validate
 
@@ -202,10 +204,10 @@ where QUANTITYORDERED > 50;
 > #### One DELETE per incoming row, comparators and all
 >
 > The step prepared a single statement from the grid — `DELETE FROM
-> STG_SALES_DATA WHERE PRODUCTLINE = ? AND QUANTITYORDERED > ?` — and
+> STG_SALES_DATA WHERE QUANTITYORDERED <= ? AND PRODUCTLINE = ?` — and
 > executed it once for every row that arrived, binding that row's
-> `PRODUCTLINE` and its `min_quantityordered` field into the markers.
-> Three product lines in the CSV meant three statements, each free to
+> `PRODUCTLINE` and its `MIN_QUANTITYORDERED` field into the markers.
+> Seven product lines in the file meant seven statements, each free to
 > remove thousands of rows, committed together every **Commit size**
 > rows.
 >
@@ -232,7 +234,7 @@ Your criteria did not match any rows. Confirm your comparator and data types.
 Your comparator is too broad, or you mapped the wrong field names.
 
 **Delete step fails with type conversion errors**\
-Cast `min_quantityordered` to a number with **Select values**.
+Cast `MIN_QUANTITYORDERED` to a number with **Select values**.
 
 </details>
 

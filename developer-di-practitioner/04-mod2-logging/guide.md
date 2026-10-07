@@ -107,7 +107,7 @@ The error text is in the log output. Look for the first **ERROR** entry.
 
 ### Windows
 
-> `C:\\Pentaho\\design-tools\\data-integration\\logs\\pdi.log`
+> `C:\Pentaho\design-tools\data-integration\logs\pdi.log`
 >
 
 ### macOS / Linux

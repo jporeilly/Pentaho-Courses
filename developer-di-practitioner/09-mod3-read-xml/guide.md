@@ -122,7 +122,7 @@
 > * a file
 > * a stream field (XML stored in a field)
 
-> **Warning:** Remember to disable the hops on the second workflow.
+> **Warning:** When you build the second workflow (XML - URI) in the same transformation, disable this workflow's hop before running it.
 
 1. Click the Run button in the Canvas Toolbar.
 2. Preview the data.
@@ -167,6 +167,10 @@
 > **Warning:** In this workshop, you pass the URL in a data stream field.
 > 
 > Copy the URL to your clipboard. You will paste it into the XPath dialog.
+>
+> URL: `https://raw.githubusercontent.com/jporeilly/Pentaho-Courses/main/developer-di-practitioner/_assets/files/plant_catalog.xml`
+>
+> (The screenshot shows the original w3schools address. That site now refuses PDI's HTTP client with a 403, so use this copy of the same file.)
 
 > **Note:**
 >

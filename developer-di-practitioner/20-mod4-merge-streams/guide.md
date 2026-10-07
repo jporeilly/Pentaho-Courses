@@ -72,7 +72,7 @@
 
 2. Examine both `orders.txt` and `description.txt`.
 3. Drag two **Text file input** steps onto the canvas.
-4. Configure each step to point to and retrieve the data from its file.
+4. Point each step at its file (separator `;`, header row present) and click **Get Fields**.
 
 ### 2. Add Constant
 
@@ -100,6 +100,7 @@
 
 1. Drag a **Select values** step onto each stream.
 2. Configure each step so both streams share the same field order and types.
+3. Drag a **Dummy** step onto the canvas and create a hop from each **Select values** step to it.
 
 <figure><img src="../_assets/images/merge-streams-select.png" alt=""><figcaption><p>Select values</p></figcaption></figure>
 

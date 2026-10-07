@@ -803,7 +803,7 @@ of the dataset is unknown.</note>
     <directory>%%java.io.tmpdir%%</directory>
     <prefix>out</prefix>
     <cache_size>500</cache_size>
-    <main>new_component</main>
+    <main>name_initials</main>
     <compare>
       <condition>
         <negated>Y</negated>

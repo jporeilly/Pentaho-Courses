@@ -25,7 +25,7 @@
 >
 > #### **Global Variables - kettle.properties**
 > 
-> Variables can be used throughout Pentaho Data Integration, including in transformation steps and job entries. You define variables by setting them with the Set Variable step in a transformation or by setting them in the kettle.properties file in the directory.
+> Variables can be used throughout Pentaho Data Integration, including in transformation steps and job entries. You define variables by setting them with the Set Variable step in a transformation or by setting them in the kettle.properties file in your .kettle directory.
 > 
 > Use variables by either retrieving them with the Get Variable step or by using metadata strings like:
 > 
@@ -71,7 +71,7 @@
 <button data-launch="spoon" data-path="">Start PDI</button>
 
 2. Select Edit -> Edit the kettle.properties file
-3. Highlight the first row and right mouse click, and select the following option.
+3. Right-click the first row and select **Insert before this row**. Type the variable name in **Variable name** and its value in **Value** (step 4 shows the pair as a properties line).
 
 ![Global variables](../_assets/images/set-kettle-variable.png)
 
@@ -110,7 +110,7 @@ DIR_SAMPLES=/home/pentaho/Temp
 > * Windows: `C:\Users\<username>\.kettle\kettle.properties`
 > * Linux/macOS: `~/.kettle/kettle.properties`
 > 
-> The PowerShell script uses [nano](https://github.com/okibcn/nano-for-windows) which was installed using [scoop](https://scoop.sh/)
+> On Windows the commands below open the file in Notepad; on Linux/macOS they use nano.
 
 6. Open a terminal.
 
@@ -172,4 +172,10 @@ nano kettle.properties
 
 Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches PDI with the file loaded. If PDI is already running, the path is copied to your clipboard — switch to PDI and use Ctrl+O, Ctrl+V, Enter.
 
-[kettle.properties](./files/kettle.properties)
+### Solution <!-- no-step -->
+
+The finished result of this lab: the `DIR_SAMPLES` line it adds. **Merge** that line into your own `kettle.properties`; don't copy this file over yours, or you lose any variables you have already set.
+
+Also on disk at `C:\Workshop-DI-Practitioner\02-components-concepts\01-components\02-mod1-kettle-variables\solution`.
+
+[kettle.properties](./files/solution/kettle.properties)

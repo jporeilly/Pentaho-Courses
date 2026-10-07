@@ -23,8 +23,6 @@
 > 
 > **Estimated time:** 15 minutes
 
-<div class="pcm-embed-card" data-href="https://www.loom.com/share/3ec2d5123814460d92085851c18daaee?hideEmbedTopBar=true&amp;hide_owner=true&amp;hide_share=true&amp;hide_title=true" data-title="Understanding Dimension Lookup Update Steps in Data Integration" data-description="In this video, I walk you through the dimension lookup update step, highlighting its key features and how to use them effectively. We start by reading customer dimension data from a delimited file and then add the current system date before performing the lookup and update in our database table. I demonstrate how to configure the keys and fields for the dimension data, and we observe the insertion of five rows, including an empty row due to the table being initially empty. I also show how to handle updates when a customer's location changes, which increments the version number in our records. Please refer to the Pentaho data integration documentation for further details on additional capabilities and configurations." data-thumb="../_assets/embeds/2d94cd73b9b2.png"></div>
-
 > **Note:**
 >
 > ### Create a new transformation
@@ -52,7 +50,7 @@
 > Use the containerised MySQL `sampledata` for hands-on database workshops.
 >
 > On a workshop VM it is already running. To start it yourself, run
-> `scripts\setup-services.ps1` from the repo root: that brings up
+> `.\setup-services.ps1` from your install's **provisioning** folder (see [Before You Start](../00-before-you-start/guide.md)): that brings up
 > MySQL on `3306` with Steel Wheels loaded and the `pentaho_admin`
 > account used below. Workshop VMs run **Podman** rather than Docker
 > Desktop (free for commercial use); the commands are interchangeable.
@@ -67,7 +65,7 @@
 > 
 > The workshop-services stack gives you a MySQL container exposed on\
 > port `3306` with the `sampledata` database loaded. Verify it with
-> `scripts\check-environment.ps1`.
+> `.\check-environment.ps1` (same folder).
 
 1. Launch DBeaver and select **MySQL**.
 
@@ -113,12 +111,21 @@ where COUNTRY = 'USA' and CITY = 'NYC';
 >
 > #### **Download JDBC Driver**
 > 
-> PDI does not ship all JDBC drivers.\
-> If your database type is missing, add the driver JAR.
+> PDI does not ship all JDBC drivers, and **PDI 11 does not include the
+> MySQL driver this course needs**. Without it, the **Test** in the next
+> part fails. On a workshop VM it may already be there: look for
+> `mysql-connector-j-*.jar` in the folder below, or check the **MySQL
+> JDBC driver** row in Before You Start's environment panel.
 
 <div class="pcm-embed-card" data-href="https://docs.pentaho.com/install/jdbc-drivers-reference" data-title="JDBC drivers reference | Pentaho" data-thumb="../_assets/embeds/1c4d9f7d98fc.png"></div>
 
-1. Download the JDBC driver for your database.
+1. Download the MySQL driver, `mysql-connector-j-8.4.0.jar`, from Maven Central: <https://repo1.maven.org/maven2/com/mysql/mysql-connector-j/8.4.0/mysql-connector-j-8.4.0.jar>. In PowerShell this downloads it straight into PDI's `lib` folder (step 2):
+
+```powershell
+Invoke-WebRequest https://repo1.maven.org/maven2/com/mysql/mysql-connector-j/8.4.0/mysql-connector-j-8.4.0.jar -OutFile C:\Pentaho\design-tools\data-integration\lib\mysql-connector-j-8.4.0.jar
+```
+
+For another database, find its driver here:
 
 <div class="pcm-embed-card" data-href="https://dbschema.com/databases.html" data-title="DbSchema Supported Databases" data-description="Explore all SQL and NoSQL databases supported by DbSchema. Visually design schemas, create ER diagrams, synchronize changes, and document your database — for any database engine." data-thumb="../_assets/embeds/6c6ef7a1bcc8.png"></div>
 
@@ -165,7 +172,7 @@ The **Database connection** dialog opens.
 > **Danger:** If you use a MariaDB driver newer than `2.7.x`, you might see a **fetch size** error.\
 > If that happens, use the **MySQL** driver instead.
 
-* **Connection name:** `MySQL: sampledata`
+* **Connection name:** `MySQL:sampledata`
 * **Connection type:** **MySQL**
 * **Access:** **Native (JDBC)**
 * **Host name:** `localhost`
@@ -259,7 +266,7 @@ The **Database connection** dialog opens.
 | Open SQL for ..                   | Edit SELECT statement                                                 |
 | Truncate table                    | Deletees all the rows from selected table                             |
 
-3. In the Database Explorer window, expand Sampledata > Tables
+3. In the Database Explorer window, expand MySQL:sampledata > Tables
 
 <figure><img src="../_assets/images/db-explorer.png" alt="" width="375"><figcaption><p>Database Explorer - sampledata</p></figcaption></figure>
 

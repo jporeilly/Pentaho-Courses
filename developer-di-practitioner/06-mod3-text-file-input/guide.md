@@ -20,8 +20,6 @@
 > 
 > **Estimated time:** 30 minutes
 
-<div class="pcm-embed-card" data-href="https://www.loom.com/share/6b3348c091764d08806280206bd53434?hideEmbedTopBar=true&amp;hide_owner=true&amp;hide_share=true&amp;hide_title=true" data-title="Defining Parameters in Transformations for Effective Data Management 📊" data-description="In this video, I demonstrate how to define parameters within a transformation using Spoon, highlighting their role as local variables compared to global variables. I walk you through viewing the current parameters and variables in memory, and I create two parameters: one for the delimiter character and another for the output file's extension. It's crucial to provide default values and descriptions for these parameters to avoid potential issues. I also explain how a parameter can override a variable if they share the same name. Please pay attention to these concepts, as they will be applied in the next demonstration video." data-thumb="../_assets/embeds/2d94cd73b9b2.png"></div>
-
 > **Note:** **Create a new transformation**
 > 
 > Use any of these options to open a new transformation tab:
@@ -218,7 +216,7 @@ A good introduction can be found at:
 > 
 > Use **Replace in string** for search-and-replace, with optional regex and group references (`$n`).
 > 
-> Here you replace the `Order Value:` label with an empty string to clean the `order_value` field.
+> Here you replace three labels with an empty string: `Order Value: $` in `order_value`, `Productline: ` in `productline` and `Customer: ` in `customers`.
 
 1. Drag **Replace in string** onto the canvas.
 2. Create a hop from **Parse status and date**.
@@ -229,7 +227,7 @@ A good introduction can be found at:
 4. Optional: rename the step to **Clean order value**.
 5. Select **OK**.
 
-> **Danger:** Use the exact label text, including the trailing space. If you enable regular expressions, use `Order Value:\s*`.
+> **Danger:** Use the exact label text, including the trailing space. If you enable regular expressions, use `Order Value:\s*\$` (the dollar sign must go too, or **Select values** cannot read the number).
 
 ### 5. Select Values
 

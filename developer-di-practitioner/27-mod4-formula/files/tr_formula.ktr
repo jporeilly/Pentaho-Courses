@@ -711,7 +711,7 @@ functions.</note>
     </partitioning>
     <formula>
       <field_name>result</field_name>
-      <formula_string>IF([booking_type]="R";[b]+[a])</formula_string>
+      <formula_string>IF([booking_type]="R";[b]-[a])</formula_string>
       <value_type>Number</value_type>
       <value_length>-1</value_length>
       <value_precision>-1</value_precision>

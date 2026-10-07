@@ -94,7 +94,7 @@
 
 <figure><img src="../_assets/images/merge-join-2.png" alt="" width="375"><figcaption><p>Merge Join</p></figcaption></figure>
 
-> **Warning:** Obviously you need to join on a unique key(s)
+> **Warning:** Join on the key and sort both inputs on it; duplicate keys multiply rows.
 
 ### 3. RUN
 
@@ -105,7 +105,7 @@
 > Run the transformation locally and preview the result of each join type.
 
 1. Click the Run button in the Canvas Toolbar.
-2. Click on the Dummy step Preview tab:
+2. Click on the Dummy step Preview tab (if you haven't added it: put a **Dummy** step after **Merge Join**, hop both Data grids into Merge Join and Merge Join into the Dummy):
 
 **INNER Join**
 
@@ -123,7 +123,7 @@
 
 <figure><img src="../_assets/images/full-outer-join.png" alt=""><figcaption><p>FULL OUTER Join</p></figcaption></figure>
 
-> **Success:** You should see the four join types produce different result sets. Now give it a go with the 'Merge Streams' scenario.
+> **Success:** You should see the four join types produce different result sets. Now open `tr_merge_join_orders.ktr` (Lab Files): it INNER-joins `orders.txt` and `description.txt` on `PRODUCTCODE` and writes `merged_orders.txt` - compare it with the bundled `merged_orders.txt`.
 
 > **Under the hood:**
 >

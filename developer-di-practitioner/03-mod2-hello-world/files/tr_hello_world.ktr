@@ -493,7 +493,7 @@ Step2: Dummy
   </notepads>
   <order>
     <hop>
-      <from>Hello World</from>
+      <from>gr_hello-world</from>
       <to>Dummy (do nothing)</to>
       <enabled>Y</enabled>
     </hop>
@@ -524,7 +524,7 @@ Step2: Dummy
     </GUI>
   </step>
   <step>
-    <name>Hello World</name>
+    <name>gr_hello-world</name>
     <type>RowGenerator</type>
     <description/>
     <distribute>Y</distribute>

@@ -12,7 +12,7 @@
 > * Trigger a controlled date parsing error
 > * Configure an error hop to capture failing rows
 > * Review the error metadata fields (description, field name, error code)
-> * Fix the date format and verify success
+> * Decide what to do with the rows that fail
 > 
 > **Prerequisites:** Complete the **[Hello World](../03-mod2-hello-world/guide.md)** and **[Logging](../04-mod2-logging/guide.md)** workshops
 > 
@@ -39,17 +39,21 @@
 > 
 > **Note:** The semicolon (;) is set as the default separator type for this step.
 
-1. Double-click to edit the CSV file input step.
+1. Save the transformation as `tr_error_handling.ktr` in the lab folder, `C:\Workshop-DI-Practitioner\02-components-concepts\02-key-concepts\05-mod2-error-handling`, next to `customers-100-with-errors.txt` (or download the file from **Lab Files** below into the folder you save in). Saving first gives `${Internal.Entry.Current.Directory}` a value.
+2. Drag **CSV file input** onto the canvas and double-click it.
+3. Set **Filename** to `${Internal.Entry.Current.Directory}/customers-100-with-errors.txt`, keep the **Delimiter** `;`, and select **Get Fields**.
 
 <figure><img src="../_assets/images/csv-file-input.png" alt=""><figcaption><p>CSV file input</p></figcaption></figure>
 
-2. Set the following metadata properties for: birthdate
+4. Set the following metadata properties for: birthdate
 
 | Fieldname | Type | Format     |
 | --------- | ---- | ---------- |
 | birthdate | date | yyyy/MM/dd |
 
-> **Warning:** If your CSV uses a different date pattern, keep `yyyy/MM/dd` for now. This mismatch is what triggers the error rows in the next step.
+> **Warning:** Keep `yyyy/MM/dd`. Almost every row uses it; the few that don't are what trigger the error rows in the next step.
+
+5. Add two **Dummy (do nothing)** steps. Hop **CSV file input** to the first. Name the second `Errors`.
 
 ### 2. Error hop
 
@@ -59,7 +63,7 @@
 > 
 > An error hop routes rows that fail in a step to a separate target step. This lets you keep processing valid rows. You also get extra error fields in the error stream.
 
-1. Double-click the white diagonal cross on the red error hop.
+1. Right-click **CSV file input**, choose **Error Handling...**, and set **Target step** to `Errors`. The hop to `Errors` turns red with a white diagonal cross; double-click that cross to come back to these settings.
 
 <figure><img src="../_assets/images/hop-error-handling.png" alt=""><figcaption><p>Hop - Error handling</p></figcaption></figure>
 
@@ -79,11 +83,11 @@
 > Preview both streams. One contains valid rows. One contains error rows plus error metadata.
 
 1. Select **Run** in the canvas toolbar.
-2. Preview the **Dummy** step:
+2. Preview the **Dummy (do nothing)** step: 97 rows.
 
 <figure><img src="../_assets/images/correct-birthdate-format.png" alt=""><figcaption><p>Correct birthdate format</p></figcaption></figure>
 
-3. Preview the **Dummy - Errors** step:
+3. Preview the **Errors** step: 3 rows, each with the four error fields.
 
 <figure><img src="../_assets/images/errors-for-incorrectly-formatted-birthdates.png" alt=""><figcaption><p>Errors for incorrectly formatted birthdates</p></figcaption></figure>
 
@@ -113,18 +117,30 @@
 > branch on the canvas — a file, a table, an email — rather than a
 > stack trace at 3am.
 
-**Fix the format and verify**
+**Decide what to do with the error rows**
 
-1. Open **CSV file input** again.
-2. Update the **Format** value for `birthdate` to match your CSV.
+Read the three rows in **Errors**. Each one is bad *data*, not a wrong setting:
 
-> **Note:** Example: if your data looks like `2026-02-17`, use `yyyy-MM-dd`.
+| Customer | Field       | Value        | Why it fails                                |
+| -------- | ----------- | ------------ | ------------------------------------------- |
+| 3        | `birthdate` | `01/01/1996` | Day/month/year, not the `yyyy/MM/dd` mask   |
+| 18       | `id`        | `#18`        | Not an Integer                              |
+| 66       | `housenr`   | `#11`        | Not an Integer                              |
 
-3. Run the transformation again.
-4. Preview **Dummy - Errors**. You should see fewer rows, or none.
+Don't change the mask to make customer 3 pass: it is right for the other 97 rows, and changing it would send *them* to the error stream instead. In a real pipeline the `Errors` stream goes somewhere a person can act on it, such as a reject file or a table, while the good rows carry on.
 
 :::
 
 ## Lab Files
 
-_No bundled files for this lab._
+Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches PDI with the file loaded. If PDI is already running, the path is copied to your clipboard — switch to PDI and use Ctrl+O, Ctrl+V, Enter.
+
+[customers-100-with-errors.txt](./files/customers-100-with-errors.txt) (PDI's own sample, from `data-integration\samples\transformations\files`)
+
+### Solution <!-- no-step -->
+
+The finished transformation for this lab. Open it alongside your own to compare, or run it to see the expected result: 97 rows to **Dummy (do nothing)** and 3 to **Errors**.
+
+Also on disk at `C:\Workshop-DI-Practitioner\02-components-concepts\02-key-concepts\05-mod2-error-handling\solution`.
+
+[tr_error_handling.ktr](./files/tr_error_handling.ktr) <button data-launch="spoon" data-path="files/tr_error_handling.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/tr_error_handling.ktr">View graph</button>

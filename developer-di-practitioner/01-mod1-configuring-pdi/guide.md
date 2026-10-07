@@ -83,10 +83,10 @@
 
 <div align="center"><figure><img src="../_assets/images/kettle-options.png" alt="Kettle Options dialog showing General settings" width="375"><figcaption><p>kettle options - general</p></figcaption></figure></div>
 
-* [ ] Uncheck the ‘Show tips at startup?’ checkbox.
+* [ ] Uncheck the ‘Show welcome page at startup’ checkbox.
 * [ ] Uncheck the ‘Use database cache’ checkbox.
-* [ ] Uncheck the ‘Show repository dialog at startup?’ checkbox.
-* [ ] Uncheck the ‘Ask user when exiting?’ checkbox.
+* [ ] Uncheck the ‘Show repository dialog at startup’ checkbox.
+* [ ] Uncheck the ‘Ask user when exiting’ checkbox.
 
 > **Under the hood:**
 >

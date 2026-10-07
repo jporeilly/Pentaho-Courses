@@ -7,9 +7,10 @@
   "checks": [
     {
       "id": "kettle-properties",
-      "kind": "file-exists",
-      "label": "kettle.properties exists in your .kettle directory",
-      "path": "~/.kettle/kettle.properties"
+      "kind": "file-contains",
+      "label": "DIR_SAMPLES is set in your kettle.properties",
+      "path": "~/.kettle/kettle.properties",
+      "text": "DIR_SAMPLES"
     }
   ],
   "hasVideo": true

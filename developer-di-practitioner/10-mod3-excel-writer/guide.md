@@ -134,7 +134,7 @@
 
 > **Note:** Use these paths:
 > 
-> * Output: `${Internal.Transformation.Filename.Directory}/Sales_and_Expenses_2023.xlsx`
+> * Output: `${Internal.Transformation.Filename.Directory}/Sales_and_Expenses_2023`, with **Extension** `xlsx` (the step adds the extension; typing it here as well gives `.xlsx.xlsx`)
 > * Template: `${Internal.Transformation.Filename.Directory}/template.xlsx`
 > 
 > Select **Replace with new output file** while you develop. It resets the workbook on every run.
@@ -265,7 +265,7 @@
 
 > **Note:** Use the same output path you used in the year writer:
 > 
-> * Output: `${Internal.Transformation.Filename.Directory}/Sales_and_Expenses_2023.xlsx`
+> * Output: `${Internal.Transformation.Filename.Directory}/Sales_and_Expenses_2023`, with **Extension** `xlsx` (the step adds the extension; typing it here as well gives `.xlsx.xlsx`)
 > 
 > Select **Use existing file for writing**.
 
@@ -350,7 +350,7 @@ Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data In
 
 [expenses.txt](./files/expenses.txt)
 
-[Sales_and_Expenses_2017.xlsx](./files/Sales_and_Expenses_2017.xlsx)
+[Sales_and_Expenses_2017.xlsx](./files/Sales_and_Expenses_2017.xlsx) (a finished example of the report, for comparison)
 
 [sales.txt](./files/sales.txt)
 

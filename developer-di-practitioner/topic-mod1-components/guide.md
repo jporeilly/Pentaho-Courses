@@ -192,7 +192,7 @@ The primary functions of the Pentaho Server are:
 1. If Pentaho Data Integration is not up and running:
 
 ```powershell
-Start-Process "C:\Pentaho\design-tools\data-integration\spoon.bat
+Start-Process "C:\Pentaho\design-tools\data-integration\spoon.bat"
 ```
 
 ### 3. Configuration Files
@@ -246,6 +246,7 @@ The kettle.properties can be edited using a Text Editor or via the Toolbar, sele
 <div align="center">
 <figcaption><em>kettle.proprties file</em></figcaption>
 </div>
+</figure>
 
 ### 2. shared.xml
 > **Note:** **shared.xml**
@@ -387,14 +388,15 @@ FontDefaultStyle=0
 
 ```bash
 cd
-cd ~/Pentaho/server/pentaho-server/pentaho-solution/systems
+cd ~/Pentaho/server/pentaho-server/pentaho-solutions/system
 nano repository.spring.properties
 ```
 
 4. Edit the versioningEnabled and versionCommentsEnabled statements:
 
 ```
-versioningEnabled=true versionCommentsEnabled=true
+versioningEnabled=true
+versionCommentsEnabled=true
 ```
 
 ::::

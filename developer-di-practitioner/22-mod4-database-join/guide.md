@@ -100,13 +100,13 @@
 > 
 > So, let’s look at the WHERE conditions entered:
 > 
-> PRODUCTNAME LIKE like\_statement and BUYPRICE < max\_price
+> PRODUCTNAME LIKE concat('%', prod, '%') and BUYPRICE < max\_price
 > 
 > For the first record this translates as:
 > 
 > WHERE PRODUCTNAME LIKE concat ('%','Aston Martin','%') AND BUYPRICE < 90
 > 
-> As the Outer Join option is checked The FULL OUTER JOIN keyword returns all rows from the left table and from the right table. The FULL OUTER JOIN keyword combines the result of both LEFT and RIGHT joins.
+> As the **Outer join?** option is ticked, an input row whose query returns nothing is still passed on, with nulls for the returned fields (like a LEFT OUTER JOIN from the stream to the query result).
 > 
 > <img src="../_assets/images/outer-join.jpg" alt="" data-size="original">
 > 
@@ -145,7 +145,7 @@
 >
 > **Database join** compiled your `SELECT ... WHERE PRODUCTNAME LIKE ?
 > AND BUYPRICE < ?` once, at start-up, as a JDBC prepared statement.
-> For each incoming row it then bound that row's `like_statement` and
+> For each incoming row it then bound that row's `prod` and
 > `max_price` to the two markers — in grid order — and executed it.
 > Every result row the database returned was appended to a copy of the
 > input row; with **Outer join** ticked, zero results still produced

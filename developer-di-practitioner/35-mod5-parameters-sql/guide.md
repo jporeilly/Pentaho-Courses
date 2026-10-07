@@ -1,10 +1,181 @@
 # Parameters SQL
 
-> Parameters & Variables
+> **Warning:**
+>
+> #### Workshop - Parameters SQL
+> 
+> Most of the time you need flexible queries—queries that receive parameters. This workshop shows you how to pass parameters to a SELECT statement in PDI to list all products in Steel Wheels for a given product line and scale.
+> 
+> In this workshop, you build a transformation that drives a parameterized Table input query from a Data grid, using three different ways of supplying the parameter values.
+> 
+> **What you'll do**
+> 
+> * Pass parameters to a Table input query as a single row
+> * Pass several rows of parameters in one run
+> * Pass parameter values one parameter per row
+> * Preview the results for each approach
+> 
+> **Prerequisites:** **[Parameters](../34-mod5-parameters/guide.md)** (named parameters and `${}` substitution) and the `MySQL:sampledata` connection from **[Database Connections](../12-mod3-connecting-to-database/guide.md)**.
+> 
+> **Estimated time:** 20 minutes
 
-## Overview
+![database queries - Parameters](../_assets/images/param-database.png)
 
-_Lab guide content to be authored. Source materials are listed below._
+> **Note:** If you need to create a dataset with data coming from a database, you can do it just by using a Table Input step.
+> 
+> If the SELECT statement that retrieves the data doesn't need parameters, you simply write it in the Table Input setting window and proceed.
+> 
+> However, most of the times you need flexible queries—queries that receive parameters.
+
+> **Note:** **Open the finished transformation**
+> 
+> This workshop walks through a finished transformation: open `tr_parameters_sql.ktr` from **Lab Files** below (or from its folder on disk). It holds three Data grids, each feeding its own **Table input**, one per way of supplying the values.
+
+:::: tabs
+
+### 1. Parameters (1 row)
+
+> **Note:**
+>
+> #### Parameters (1 row)
+> 
+> As we're passing the parameters in a single row, we have to careful and ensure the datastream fields are mapped in the correct order according to the WHERE clause.
+
+1. Start Pentaho Data Integration (Spoon).
+
+> **Note:** 
+
+::: tabs
+
+### Windows (PowerShell)
+
+> 
+> ```powershell
+> Set-Location C:\Pentaho\design-tools\data-integration
+> .\spoon.bat
+> ```
+> 
+>
+
+### macOS / Linux
+
+> 
+> ```bash
+> cd ~/Pentaho/design-tools/data-integration
+> ./spoon.sh
+> ```
+> 
+>
+
+:::
+
+<button data-launch="spoon" data-path="">Start PDI</button>
+
+2. Open the Data grid step: Parameters (1 row).
+
+<figure><img src="../_assets/images/dg-param-1-row.png" alt="" width="375"><figcaption><p>Data grid - Parameters (1 row)</p></figcaption></figure>
+
+3. Open the Table input step - Steel Wheels Products 1.
+
+<figure><img src="../_assets/images/ti-param.png" alt="" width="563"><figcaption><p>Table input - parameters ? - single row</p></figcaption></figure>
+
+> **Warning:** * The replacement of the markers respects the order of the incoming fields.
+> * Any values that are used in this manner are consumed by the Table Input step. Finally, it's important to note that question marks can only be used to parameterize value expressions just as you did in the recipe.
+> * Keywords or identifiers (for example; table names) cannot be parameterized with the question marks method.
+
+<figure><img src="../_assets/images/param-results-1-row.png" alt="" width="563"><figcaption><p>Preview data - Parameters (1 row)</p></figcaption></figure>
+
+> **Under the hood:**
+>
+> #### The `?` markers are JDBC bind parameters, so order is everything
+>
+> **Table input** prepared the query once with the two `?` left open,
+> read the single row from *Parameters (1 row)* via **Insert data from
+> step**, and bound its fields to the markers **in field order** —
+> first field to first `?`, second to second. The database received
+> values, not text spliced into SQL: the driver quotes and types them,
+> so a product line called `O'Brien` can't break the query and can't
+> inject anything.
+>
+> That is also the limit. A bind parameter can only stand where a
+> *value* can — never a table name, column or keyword — which is what
+> the warning above is telling you. Those come from `${VARIABLE}`
+> substitution with **Replace variables in script?** ticked, which
+> really is text replacement, applied before the statement is
+> prepared.
+>
+> **Why it matters:** values by `?`, identifiers by `${}`. Keep the
+> rule and your queries stay both safe and portable.
+
+### 2. Parameters (several rows)
+
+> **Note:**
+>
+> #### Parameters (several rows)
+> 
+> Suppose that you not only want to list the Classic Cars in 1:10 scale, but also the Motorcycles in 1:10 and 1:12 scales. You don't have to run the transformation three times in order to do this. You can have a dataset with three rows, one for each set of parameters.
+
+1. Open the Data grid step: Parameters (several rows).
+
+<figure><img src="../_assets/images/dg-param-several-rows.png" alt=""><figcaption><p>Data grid - Parameters (serveral rows)</p></figcaption></figure>
+
+2. Open the Table input step - Steel Wheels Products 2.
+
+<figure><img src="../_assets/images/ti-param-serveral-rows.png" alt=""><figcaption><p>Table input - parameters ? - several rows</p></figcaption></figure>
+
+> **Warning:** * The replacement of the markers respects the order of the incoming fields.
+> * Any values that are used in this manner are consumed by the Table Input step. Finally, it's important to note that question marks can only be used to parameterize value expressions just as you did in the recipe.
+> * Keywords or identifiers (for example; table names) cannot be parameterized with the question marks method.
+
+<figure><img src="../_assets/images/results-several-rows.png" alt=""><figcaption><p>Preview data - Parameters (serveral rows)</p></figcaption></figure>
+
+> **Under the hood:**
+>
+> #### Three rows in: one prepared statement, executed three times
+>
+> The difference between this tab and the last is a single checkbox on
+> the Table input step: **Execute for each row?** With it on, the step
+> keeps the prepared statement and re-binds it for every row the data
+> grid sends — three rows, three executions, one result set after
+> another flowing into the same output stream.
+>
+> With it off (as in the next tab, *1 by row*), the step instead reads
+> *all* incoming rows before running anything, flattens their values
+> into one list in arrival order, and fills the `?` markers from that
+> list in a single execution. Same query, same markers, two very
+> different contracts — which is why the third approach can't mix
+> types across rows.
+>
+> **Why it matters:** a Table input driven by a stream is a loop in
+> disguise. That is ideal for a few hundred parameter sets; for a
+> million, the loop is a million queries, and a join in SQL beats it
+> every time.
+
+### 3. Parameters (1 by row)
+
+> **Note:**
+>
+> #### Parameters (1 by row)
+> 
+> It's also possible to receive the parameter values in several rows. Instead of a row, you had one parameter by row.
+
+1. Open the Data grid step: Parameters (1 by row).
+
+<figure><img src="../_assets/images/dg-1-by-row.png" alt=""><figcaption><p>Data grid - Parameters (1 by row)</p></figcaption></figure>
+
+2. Open the Table input step - Steel Wheels Products 3.
+
+<figure><img src="../_assets/images/param-row-by-row.png" alt=""><figcaption><p>Table input - parameters ? - 1 by row</p></figcaption></figure>
+
+> **Warning:** * The replacement of the markers respects the order of the incoming fields.
+> * Any values that are used in this manner are consumed by the Table Input step. Finally, it's important to note that question marks can only be used to parameterize value expressions just as you did in the recipe.
+> * Keywords or identifiers (for example; table names) cannot be parameterized with the question marks method.
+
+<figure><img src="../_assets/images/param-results-1-row.png" alt=""><figcaption><p>Preview data - Parameters (1 by row)</p></figcaption></figure>
+
+> **Note:** Note that this approach is less flexible than the Parameters (1 row). For example, if you have to provide values for parameters with different data types, you will not be able to put them in the same column and different rows.
+
+::::
 
 ## Lab Files
 
@@ -12,21 +183,12 @@ Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data In
 
 ### Solution <!-- no-step -->
 
-The finished transformation for this lab. Open it alongside your own to compare, or run to see the expected result.
+The finished transformation for this lab. Run it to see all three approaches at once (on the MySQL `sampledata`):
+
+* **Steel Wheels Products 1** (1 row): 3 products, the Classic Cars in 1:10.
+* **Steel Wheels Products 2** (several rows): 7 products, Classic Cars 1:10 plus Motorcycles 1:10 and 1:12.
+* **Steel Wheels Products 3** (1 by row): the same 3 products as the first.
 
 Also on disk at `C:\Workshop-DI-Practitioner\05-enterprise-solution\03-parameters\35-mod5-parameters-sql\solution`.
 
 [tr_parameters_sql.ktr](./files/tr_parameters_sql.ktr) <button data-launch="spoon" data-path="files/tr_parameters_sql.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/tr_parameters_sql.ktr">View graph</button>
-
-## Steps
-
-### Step 1
-
-_Author the first step here. Each `###` heading becomes a tickable progress item._
-
-### Step 2
-
-_Author the second step here._
-
----
-

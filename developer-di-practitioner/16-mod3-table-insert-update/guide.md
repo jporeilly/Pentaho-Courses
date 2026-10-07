@@ -89,11 +89,13 @@
    * `EMPLOYEE_NUMBER`
    * `LASTNAME`
    * `FIRSTNAME`
-   * `EXTENSION`
+   * `EXT`
    * `EMAIL`
-   * `OFFICECODE`
-   * `REPORTSTO`
-   * `JOBTITLE`
+   * `OFFICE`
+   * `REPORTS`
+   * `TITLE`
+
+   These names differ from the table's columns (`EXTENSION`, `OFFICECODE`, `REPORTSTO`, `JOBTITLE`); you map them in the next step.
 
 <figure><img src="../_assets/images/insert-update-fields.png" alt=""><figcaption><p>Text File input - Fields</p></figcaption></figure>
 

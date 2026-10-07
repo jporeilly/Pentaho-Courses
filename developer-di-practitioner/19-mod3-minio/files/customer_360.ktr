@@ -441,6 +441,11 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
+      <from>Sort Customers</from>
+      <to>Memory group by</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
       <from>Sort Events</from>
       <to>Group by User</to>
       <enabled>Y</enabled>
@@ -501,11 +506,6 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Sort Customers</from>
-      <to>Memory group by</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>Memory group by</from>
       <to>Final Customer Sort</to>
       <enabled>Y</enabled>
@@ -531,6 +531,48 @@
       <enabled>Y</enabled>
     </hop>
   </order>
+  <step>
+    <name>Sort Customers</name>
+    <type>SortRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <directory>%%java.io.tmpdir%%</directory>
+    <prefix>out</prefix>
+    <sort_size>1000000</sort_size>
+    <free_memory/>
+    <compress>N</compress>
+    <compress_variable/>
+    <unique_rows>N</unique_rows>
+    <fields>
+      <field>
+        <name>customer_id</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>256</xloc>
+      <yloc>400</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
   <step>
     <name>Calculator</name>
     <type>Calculator</type>
@@ -1438,6 +1480,18 @@ var is_product_view = (event_type == "product_view") ? 1 : 0;
         <type>String</type>
         <format/>
         <currency/>
+        <decimal>.</decimal>
+        <group>,</group>
+        <nullif/>
+        <trim_type>none</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>customer_segment</name>
+        <type>String</type>
+        <format/>
+        <currency/>
         <decimal/>
         <group/>
         <nullif/>
@@ -2095,40 +2149,6 @@ var is_product_view = (event_type == "product_view") ? 1 : 0;
     <GUI>
       <xloc>816</xloc>
       <yloc>96</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Sort Customers</name>
-    <type>SortRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <directory>%%java.io.tmpdir%%</directory>
-    <prefix>out</prefix>
-    <sort_size>1000000</sort_size>
-    <free_memory/>
-    <compress>N</compress>
-    <compress_variable/>
-    <unique_rows>N</unique_rows>
-    <fields>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>256</xloc>
-      <yloc>400</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

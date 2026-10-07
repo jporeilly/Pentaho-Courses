@@ -2,7 +2,7 @@
   "title": "MinIO",
   "description": "",
   "order": 27,
-  "stepCount": 2,
+  "stepCount": 35,
   "estimatedMinutes": 30,
   "hasVideo": false
 }

@@ -97,6 +97,7 @@
 > This step clears any error state encountered in a job and forces it to a success state.
 
 1. Drag the ‘Success’ job entry onto the canvas.
+2. Create hops START → Transformation A → Success (hold `Shift` and drag, as in a transformation). The second hop turns green: it is followed only on success.
 
 ### 4. RUN
 

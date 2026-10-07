@@ -9,9 +9,8 @@
 > **What you’ll do**
 > 
 > * Read a JSON file from disk.
-> * Set a loop path for an array.
 > * Extract fields with JSONPath.
-> * Use **Get Fields** to infer metadata.
+> * Use **Select fields** to pick the JSON keys.
 > * Preview rows and validate types.
 > 
 > **Prerequisites:** Basic transformations. Basic JSON (objects, arrays). PDI installed.
@@ -113,21 +112,15 @@ Example:
 ${Internal.Transformation.Filename.Directory}/jsonfile.js
 ```
 
-5. Set **Loop path** to:
+5. Open the **Fields** tab. (JSON Input has no loop path: each field's own **Path** selects one value per order.)
+6. Select **Select fields** and tick the five order keys.
+7. Verify these fields, their paths and types:
 
-```
-$.document.order[*]
-```
-
-6. Open the **Fields** tab.
-7. Select **Get Fields**.
-8. Verify these field paths and types:
-
-* `productline` (String)
-* `customer` (String)
-* `status` (String)
-* `date` (String)
-* `value` (Number)
+* `productline` (String), path `$..productline`
+* `customer` (String), path `$..customer`
+* `status` (String), path `$..status`
+* `date` (String), path `$..date`
+* `value` (Number), path `$..value`
 
 <figure><img src="../_assets/images/json-file.png" alt=""><figcaption><p>JSON input - file</p></figcaption></figure>
 
@@ -141,16 +134,16 @@ $.document.order[*]
 >
 > **JSON Input** doesn't stream. It reads `jsonfile.js` completely,
 > parses it into an in-memory tree, and then evaluates each field's
-> path against that tree — one query per field. The loop path decides
-> how many rows come out: `$.document.order[*]` selects three objects,
-> so each field path must yield three values, and the step zips them
-> together positionally into three rows.
+> path against that tree — one query per field. In this file each path
+> matches seven values, one per order, and the step zips the seven
+> lists together positionally into seven rows.
 >
-> That positional zip is why the step is strict about shape. If one
-> order had no `customer` key, that path would return two values
-> against three for the others and the step stops with "the data
-> structure is not the same inside the resource" — a wrong-shape error
-> rather than a silently misaligned row.
+> That positional zip is why the step cares about shape. With
+> **Default path leaf to null** off, an order with no `customer` key
+> makes the step stop with "the data structure is not the same inside
+> the resource" rather than hand you rows whose values have slid out
+> of line. The solution has it on, so a missing key becomes a null
+> instead.
 >
 > **Why it matters:** memory is bounded by the *file* size, not the
 > row count, so very large JSON is better split, or read one record per
@@ -207,7 +200,7 @@ If the JSON structure changes, update the loop path.
 
 <summary>Fields are null</summary>
 
-Confirm field paths match the JSON keys. If you loop over `order[*]`, use `productline`, not `$.document.order.productline`.
+Confirm field paths match the JSON keys. Use a JSONPath that matches every order, for example `$..productline` or `$.document.order[*].productline`.
 
 </details>
 

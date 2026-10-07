@@ -3,30 +3,30 @@
 > **Warning:**
 >
 > #### Workshop series: PDI + MinIO (S3)
-> 
+>
 > Build hands-on Pentaho Data Integration (PDI) transformations that read from and write to **MinIO** using **VFS**.
-> 
+>
 > Workshops get harder as you go. Start with CSV joins. Then move into XML/JSON parsing, reconciliation, and multi-format ingestion.
-> 
+>
 > **Workshops in this series**
-> 
+>
 > * Sales Dashboard (CSV inputs + lookups + output)
 > * Inventory Reconciliation (XML + CSV + variance detection)
 > * Customer 360 (multi-source joins + metrics)
-> * Clickstream Funnel (sessionization + pivoting)
+> * Fraud Detection (multi-table joins + rule-based risk scoring)
 > * Log Parsing (regex + time-series checks)
 > * Data Lake Ingestion (schema normalization + validation)
-> 
+>
 > **You’ll practice**
-> 
+>
 > * Connecting to MinIO buckets with VFS
 > * Reading and writing objects with `pvfs://MinIO/...` paths
 > * Joining and enriching streams (lookups and joins)
 > * Parsing XML and JSON
 > * Validating and shaping data for a curated layer
-> 
-> **Prerequisites:** MinIO running with sample data populated; basic transformation concepts; basic joins and aggregations
-> 
+>
+> **Prerequisites:** The MinIO container running and seeded (see [Before You Start](../00-before-you-start/guide.md)); basic transformation concepts; basic joins and aggregations
+>
 > **Estimated time:** 4–6 hours total (each workshop is \~20–60 minutes)
 
 | Workshop | Key Skills |
@@ -34,33 +34,1293 @@
 | Sales Dashboard | joins, lookups, aggregations |
 | Inventory Reconciliation | XML parsing, outer joins, variance |
 | Customer 360 | multi-source, JSONL, calculations |
-| Clickstream Funnel | sessionization, pivoting |
+| Fraud Detection | stream lookup, joins, rule-based scoring |
 | Log Parsing | regex, time-series analysis |
 | Data Lake Ingestion | schema normalization, validation |
 
-> **Danger:** Complete the setup first: **Storage: MinIO**
+> **Danger:** Every path in these workshops starts `pvfs://MinIO/`, which means "the VFS connection named **MinIO**". Create it once, before the first workshop.
 
-1. Verify that MinIO is running and populated.
+1. Check that MinIO is running and seeded: open the MinIO console at **http://127.0.0.1:9099** and sign in as `minioadmin` / `minioadmin`. The **raw-data** bucket holds `csv/`, `json/`, `xml/` and `finance/` folders, and the **logs** bucket holds `app/`, `web/` and `error/`.
 
-```bash
-# Check MinIO is running
-curl -sf http://localhost:9000/minio/health/live && echo "MinIO OK" || echo "MinIO not running"
-
-# Verify data exists (using mc client)
-mc ls minio-local/raw-data --recursive
+```powershell
+# Or check the S3 API from PowerShell
+Invoke-WebRequest http://127.0.0.1:9000/minio/health/live -UseBasicParsing | Select-Object StatusCode
 ```
 
 2. Start Pentaho Data Integration.
 
 > **Note:** Start Pentaho Data Integration (Spoon).
-> 
-> 
+>
+>
 
-<div class="pcm-tabs-widget" data-tabs="%5B%7B%22title%22%3A%22Windows%20(PowerShell)%22%2C%22body%22%3A%22%3E%20%5Cn%3E%20%60%60%60powershell%5Cn%3E%20Set-Location%20C%3A%5C%5CPentaho%5C%5Cdesign-tools%5C%5Cdata-integration%5Cn%3E%20.%5C%5Cspoon.bat%5Cn%3E%20%60%60%60%5Cn%3E%20%5Cn%3E%22%7D%2C%7B%22title%22%3A%22macOS%20%2F%20Linux%22%2C%22body%22%3A%22%3E%20%5Cn%3E%20%60%60%60bash%5Cn%3E%20cd%20~%2FPentaho%2Fdesign-tools%2Fdata-integration%5Cn%3E%20.%2Fspoon.sh%5Cn%3E%20%60%60%60%5Cn%3E%20%5Cn%3E%22%7D%5D"></div>
+::: tabs
+
+### Windows (PowerShell)
+
+>
+> ```powershell
+> Set-Location C:\Pentaho\design-tools\data-integration
+> .\spoon.bat
+> ```
+>
+>
+
+### macOS / Linux
+
+>
+> ```bash
+> cd ~/Pentaho/design-tools/data-integration
+> ./spoon.sh
+> ```
+>
+>
+
+:::
+
+3. Create the VFS connection. In Spoon's **View** tab, right-click **VFS Connections** and select **New**. In the **New VFS Connection** dialog enter:
+
+| Setting                | Value                     |
+| ---------------------- | ------------------------- |
+| **Connection Name:**   | `MinIO`                   |
+| **Connection Type:**   | Amazon S3/Minio/HCP       |
+| **S3 Connection Type:** | Minio/HCP                |
+| **Access Key:**        | `minioadmin`              |
+| **Secret Key:**        | `minioadmin`              |
+| **Endpoint:**          | `http://127.0.0.1:9000`   |
+| **PathStyle Access:**  | ticked                    |
+
+4. Select **Test**, then **OK**. The connection is saved for every transformation on this machine, so you create it once.
+
+> **Under the hood:**
+>
+> #### `pvfs://` is a name, not an address
+>
+> PDI reads `pvfs://MinIO/raw-data/csv/sales.csv` as "bucket `raw-data`,
+> object `csv/sales.csv`, through the connection called MinIO". The
+> endpoint and keys live in the connection, not in the transformation.
+> Point the same connection at AWS S3 and every transformation in this
+> series runs there unchanged. **PathStyle Access** is what MinIO needs:
+> it addresses buckets as `host/bucket` rather than `bucket.host`.
+>
+> **Why it matters:** credentials stay out of `.ktr` files, and moving
+> between environments is one connection, not every path.
+
 
 <button data-launch="spoon" data-path="">Start PDI</button>
 
-<div class="pcm-tabs-widget" data-tabs="%5B%7B%22title%22%3A%22Sales%20Dashboard%22%2C%22body%22%3A%22%3E%20**Warning%3A**%5Cn%3E%5Cn%3E%20%23%23%23%23%20Sales%20Dashboard%5Cn%3E%20%5Cn%3E%20The%20workshop%20demonstrates%20how%20Pentaho%20Data%20Integration%20enables%20organizations%20to%20rapidly%20create%20denormalized%20fact%20tables%20that%20power%20real-time%20business%20intelligence%20dashboards.%20By%20integrating%20data%20from%20multiple%20sources%20(customer%20data%2C%20product%20catalogs%2C%20and%20sales%20transactions)%2C%20business%20users%20gain%20immediate%20access%20to%20actionable%20insights%20without%20waiting%20for%20IT%20to%20build%20complex%20data%20warehouses.%5Cn%3E%20%5Cn%3E%20**Scenario%3A**%20A%20mid-sized%20e-commerce%20company%20needs%20to%20track%20daily%20sales%20performance%20across%20products%2C%20customer%20segments%2C%20and%20regions.%20Currently%2C%20sales%20managers%20wait%2024-48%20hours%20for%20IT%20to%20generate%20reports%20from%20disparate%20systems.%20With%20PDI%2C%20they%20can%20automate%20this%20process%20and%20refresh%20dashboards%20hourly.%5Cn%3E%20%5Cn%3E%20**Key%20Stakeholders%3A**%5Cn%3E%20%5Cn%3E%20*%20Sales%20Directors%3A%20Need%20to%20identify%20top-performing%20products%20and%20regions%5Cn%3E%20*%20Marketing%20Teams%3A%20Require%20customer%20segmentation%20for%20targeted%20campaigns%5Cn%3E%20*%20Finance%3A%20Need%20accurate%20revenue%20reporting%20by%20product%20category%5Cn%3E%20*%20Operations%3A%20Must%20monitor%20inventory%20turnover%20rates%5Cn%5Cn***%5Cn%5Cn%3E%20**Note%3A**%20**Workshop%20files**%5Cn%3E%20%5Cn%3E%20These%20files%20are%20already%20in%20MinIO%3A%5Cn%3E%20%5Cn%3E%20*%20%60pvfs%3A%2F%2FMinIO%2Fraw-data%2Fcsv%2Fsales.csv%60%5Cn%3E%20*%20%60pvfs%3A%2F%2FMinIO%2Fraw-data%2Fcsv%2Fproducts.csv%60%5Cn%3E%20*%20%60pvfs%3A%2F%2FMinIO%2Fraw-data%2Fcsv%2Fcustomers.csv%60%5Cn%3E%20%5Cn%3E%20Output%20path%20used%20later%3A%20%60pvfs%3A%2F%2FMinIO%2Fstaging%2Fdashboard%2F%60%5Cn%5Cn***%5Cn%5Cn%3Cfigure%3E%3Cimg%20src%3D%5C%22..%2F_assets%2Fimages%2Fsales-dashboard.png%5C%22%20alt%3D%5C%22%5C%22%3E%3Cfigcaption%3E%3Cp%3ESales%20Dashboard%3C%2Fp%3E%3C%2Ffigcaption%3E%3C%2Ffigure%3E%5Cn%5Cn%3E%20**Note%3A**%20Create%20a%20new%20transformation.%5Cn%3E%20%5Cn%3E%20Use%20any%20of%20these%20options%3A%5Cn%3E%20%5Cn%3E%20*%20Select%20**File**%20%3E%20**New**%20%3E%20**Transformation**%5Cn%3E%20*%20Use%20%60Ctrl%2BN%60%20(Windows%2FLinux)%20or%20%60Cmd%2BN%60%20(macOS)%5Cn%5Cn***%5Cn%5CnFollow%20the%20steps%20to%20create%20the%20transformation%3A%5Cn%5Cn%5Cn%5Cn%3Cdiv%20class%3D%5C%22pcm-tabs-widget%5C%22%20data-tabs%3D%5C%22%255B%257B%2522title%2522%253A%25221.%2520Read%2520Data%2520Sources%2522%252C%2522body%2522%253A%2522%253E%2520**Note%253A**%255Cn%253E%255Cn%253E%2520%2523%2523%2523%2523%2520**Text%2520File%2520Input**%255Cn%253E%2520%255Cn%253E%2520The%2520Text%2520File%2520Input%2520step%2520is%2520used%2520to%2520read%2520data%2520from%2520a%2520variety%2520of%2520different%2520text-file%2520types.%2520The%2520most%2520commonly%2520used%2520formats%2520include%2520Comma%2520Separated%2520Values%2520(CSV%2520files)%2520generated%2520by%2520spreadsheets%2520and%2520fixed%2520width%2520flat%2520files.%255Cn%253E%2520%255Cn%253E%2520The%2520Text%2520File%2520Input%2520step%2520provides%2520you%2520with%2520the%2520ability%2520to%2520specify%2520a%2520list%2520of%2520files%2520to%2520read%252C%2520or%2520a%2520list%2520of%2520directories%2520with%2520wild%2520cards%2520in%2520the%2520form%2520of%2520regular%2520expressions.%2520In%2520addition%252C%2520you%2520can%2520accept%2520filenames%2520from%2520a%2520previous%2520step%2520making%2520filename%2520handling%2520more%2520even%2520more%2520generic.%255Cn%255Cn%253Cfigure%253E%253Cimg%2520src%253D%255C%2522..%252F_assets%252Fimages%252Ftext-file-inputs.png%255C%2522%2520alt%253D%255C%2522%255C%2522%253E%253Cfigcaption%253E%253Cp%253EText%2520file%2520inputs%253C%252Fp%253E%253C%252Ffigcaption%253E%253C%252Ffigure%253E%255Cn%255Cn%253E%2520**Note%253A**%2520VFS%2520connection%2520names%2520are%2520case-sensitive.%2520These%2520examples%2520assume%2520your%2520connection%2520name%2520is%2520%2560MinIO%2560.%255Cn%255Cn1.%2520Drag%2520%2526%2520drop%25203%2520Text%2520File%2520Input%2520Steps%2520onto%2520the%2520canvas.%255Cn2.%2520Save%2520transformation%2520as%253A%2520%2560sales_dashboard_etl.ktr%2560%2520in%2520your%2520workshop%2520folder.%255Cn%255Cn***%255Cn%255Cn**Sales%2520(Order%2520Management)**%255Cn%255Cn1.%2520Double-click%2520on%2520the%2520first%2520TFI%2520step%252C%2520and%2520configure%2520with%2520the%2520following%2520properties%253A%255Cn%255Cn%257C%2520Setting%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%257C%2520Value%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%257C%255Cn%257C%2520----------------%2520%257C%2520-------------------------------------%2520%257C%255Cn%257C%2520Step%2520name%2520%2520%2520%2520%2520%2520%2520%2520%257C%2520%2560Sales%2560%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%257C%255Cn%257C%2520Filename%2520%2520%2520%2520%2520%2520%2520%2520%2520%257C%2520%2560pvfs%253A%252F%252FMinIO%252Fraw-data%252Fcsv%252Fsales.csv%2560%2520%257C%255Cn%257C%2520Delimiter%2520%2520%2520%2520%2520%2520%2520%2520%257C%2520%252C%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%257C%255Cn%257C%2520Head%2520row%2520present%2520%257C%2520%25E2%259C%2585%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%257C%255Cn%257C%2520Format%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%257C%2520mixed%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%257C%255Cn%255Cn%253Cfigure%253E%253Cimg%2520src%253D%255C%2522..%252F_assets%252Fimages%252Fselect-sales-csv-from-vfs-connections.png%255C%2522%2520alt%253D%255C%2522%255C%2522%253E%253Cfigcaption%253E%253Cp%253ESelect%2520-%2520sales.csv%2520from%2520VFS%2520connections%253C%252Fp%253E%253C%252Ffigcaption%253E%253C%252Ffigure%253E%255Cn%255Cn2.%2520Click%253A%2520**Get%2520Fields**%2520to%2520auto-detect%2520columns.%255Cn%255Cn%253E%2520**Note%253A**%2520**Business%2520Logic%253A**%2520Note%2520that%2520%2560sale_amount%2560%2520may%2520differ%2520from%2520%2560price%2520*%2520quantity%2560%2520due%2520to%253A%255Cn%253E%2520%255Cn%253E%2520*%2520Volume%2520discounts%255Cn%253E%2520*%2520Promotional%2520pricing%255Cn%253E%2520*%2520Customer-specific%2520pricing%2520tiers%255Cn%253E%2520*%2520Currency%2520conversion%2520(for%2520international%2520sales)%255Cn%255Cn%253Cfigure%253E%253Cimg%2520src%253D%255C%2522..%252F_assets%252Fimages%252Fget-fields-sales.png%255C%2522%2520alt%253D%255C%2522%255C%2522%253E%253Cfigcaption%253E%253Cp%253EGet%2520Fields%2520-%2520Sales%253C%252Fp%253E%253C%252Ffigcaption%253E%253C%252Ffigure%253E%255Cn%255Cn3.%2520Preview%2520data.%255Cn%255Cn%253Cfigure%253E%253Cimg%2520src%253D%255C%2522..%252F_assets%252Fimages%252Fpreview-data-sales.png%255C%2522%2520alt%253D%255C%2522%255C%2522%253E%253Cfigcaption%253E%253Cp%253EPreview%2520data%2520-%2520Sales%253C%252Fp%253E%253C%252Ffigcaption%253E%253C%252Ffigure%253E%255Cn%255Cn%253E%2520**Note%253A**%2520**Business%2520Significance%253A**%255Cn%253E%2520%255Cn%253E%2520*%2520%2560sale_amount%2560%253A%2520Actual%2520revenue%2520(may%2520include%2520discounts)%255Cn%253E%2520*%2520%2560quantity%2560%253A%2520Volume%2520metrics%2520for%2520demand%2520planning%255Cn%253E%2520*%2520%2560payment_method%2560%253A%2520Payment%2520preference%2520insights%255Cn%253E%2520*%2520%2560status%2560%253A%2520Filter%2520out%2520cancelled%252Frefunded%2520orders%255Cn%255Cn***%255Cn%255Cn**Products%2520(ERP%2520system)**%255Cn%255Cn1.%2520Double-click%2520on%2520the%2520second%2520TFI%2520step%252C%2520and%2520configure%2520with%2520the%2520following%2520properties%253A%255Cn%255Cn%253Ctable%253E%253Cthead%253E%253Ctr%253E%253Cth%2520width%253D%255C%2522165.5%255C%2522%253ESetting%253C%252Fth%253E%253Cth%253EValue%253C%252Fth%253E%253C%252Ftr%253E%253C%252Fthead%253E%253Ctbody%253E%253Ctr%253E%253Ctd%253EStep%2520name%253C%252Ftd%253E%253Ctd%253E%253Ccode%253EProducts%253C%252Fcode%253E%253C%252Ftd%253E%253C%252Ftr%253E%253Ctr%253E%253Ctd%253EFilename%253C%252Ftd%253E%253Ctd%253E%253Ccode%253Epvfs%253A%252F%252FMinIO%252Fraw-data%252Fcsv%252Fproducts.csv%253C%252Fcode%253E%253C%252Ftd%253E%253C%252Ftr%253E%253Ctr%253E%253Ctd%253EDelimiter%253C%252Ftd%253E%253Ctd%253E%252C%253C%252Ftd%253E%253C%252Ftr%253E%253Ctr%253E%253Ctd%253EHead%2520row%2520present%253C%252Ftd%253E%253Ctd%253E%25E2%259C%2585%253C%252Ftd%253E%253C%252Ftr%253E%253Ctr%253E%253Ctd%253EFormat%253C%252Ftd%253E%253Ctd%253Emixed%253C%252Ftd%253E%253C%252Ftr%253E%253C%252Ftbody%253E%253C%252Ftable%253E%255Cn%255Cn%253Cfigure%253E%253Cimg%2520src%253D%255C%2522..%252F_assets%252Fimages%252Fselect-products-csv-from-vfs-connections.png%255C%2522%2520alt%253D%255C%2522%255C%2522%253E%253Cfigcaption%253E%253Cp%253ESelect%2520-%2520products.csv%2520from%2520VFS%2520connections%253C%252Fp%253E%253C%252Ffigcaption%253E%253C%252Ffigure%253E%255Cn%255Cn2.%2520Click%253A%2520**Get%2520Fields**%2520to%2520auto-detect%2520columns.%255Cn%255Cn%253Cfigure%253E%253Cimg%2520src%253D%255C%2522..%252F_assets%252Fimages%252Fget-fields-customers.png%255C%2522%2520alt%253D%255C%2522%255C%2522%253E%253Cfigcaption%253E%253Cp%253EGet%2520Fields%2520-%2520Customers%253C%252Fp%253E%253C%252Ffigcaption%253E%253C%252Ffigure%253E%255Cn%255Cn3.%2520Preview%2520the%2520data.%255Cn%255Cn%253Cfigure%253E%253Cimg%2520src%253D%255C%2522..%252F_assets%252Fimages%252Fpreview-data-products.png%255C%2522%2520alt%253D%255C%2522%255C%2522%253E%253Cfigcaption%253E%253Cp%253EPreview%2520data%2520-%2520Products%253C%252Fp%253E%253C%252Ffigcaption%253E%253C%252Ffigure%253E%255Cn%255Cn%253E%2520**Note%253A**%2520**Business%2520Significance%253A**%255Cn%253E%2520%255Cn%253E%2520*%2520%2560category%2560%253A%2520Enables%2520product%2520performance%2520analysis%2520by%2520segment%255Cn%253E%2520*%2520%2560price%2560%253A%2520Base%2520pricing%2520for%2520margin%2520calculations%255Cn%253E%2520*%2520%2560stock_quantity%2560%253A%2520Inventory%2520turnover%2520insights%255Cn%255Cn***%255Cn%255Cn**Customers%2520(CRM%2520System)**%255Cn%255Cn1.%2520Double-click%2520on%2520the%2520third%2520TFI%2520step%252C%2520and%2520configure%2520with%2520the%2520following%2520properties%253A%255Cn%255Cn%253Ctable%253E%253Cthead%253E%253Ctr%253E%253Cth%2520width%253D%255C%2522186%255C%2522%253ESetting%253C%252Fth%253E%253Cth%253EValue%253C%252Fth%253E%253C%252Ftr%253E%253C%252Fthead%253E%253Ctbody%253E%253Ctr%253E%253Ctd%253EStep%2520name%253C%252Ftd%253E%253Ctd%253E%253Ccode%253ECustomers%253C%252Fcode%253E%253C%252Ftd%253E%253C%252Ftr%253E%253Ctr%253E%253Ctd%253EFilename%253C%252Ftd%253E%253Ctd%253E%253Ccode%253Epvfs%253A%252F%252FMinIO%252Fraw-data%252Fcsv%252Fcustomers.csv%253C%252Fcode%253E%253C%252Ftd%253E%253C%252Ftr%253E%253Ctr%253E%253Ctd%253EDelimiter%253C%252Ftd%253E%253Ctd%253E%252C%253C%252Ftd%253E%253C%252Ftr%253E%253Ctr%253E%253Ctd%253EHeader%2520row%2520present%253C%252Ftd%253E%253Ctd%253E%25E2%259C%2585%253C%252Ftd%253E%253C%252Ftr%253E%253Ctr%253E%253Ctd%253EFormat%253C%252Ftd%253E%253Ctd%253Emixed%253C%252Ftd%253E%253C%252Ftr%253E%253C%252Ftbody%253E%253C%252Ftable%253E%255Cn%255Cn%253Cfigure%253E%253Cimg%2520src%253D%255C%2522..%252F_assets%252Fimages%252Fselect-customers-csv-from-vfs-connections.png%255C%2522%2520alt%253D%255C%2522%255C%2522%253E%253Cfigcaption%253E%253Cp%253ESelect%2520-%2520customers.csv%2520from%2520VFS%2520connections%253C%252Fp%253E%253C%252Ffigcaption%253E%253C%252Ffigure%253E%255Cn%255Cn2.%2520Click%253A%2520**Get%2520Fields**%2520to%2520auto-detect%2520columns.%255Cn%255Cn%253Cfigure%253E%253Cimg%2520src%253D%255C%2522..%252F_assets%252Fimages%252Fget-fields-customers-2.png%255C%2522%2520alt%253D%255C%2522%255C%2522%253E%253Cfigcaption%253E%253Cp%253EGet%2520Fields%2520-%2520Customers%253C%252Fp%253E%253C%252Ffigcaption%253E%253C%252Ffigure%253E%255Cn%255Cn3.%2520Preview%2520the%2520data.%255Cn%255Cn%253Cfigure%253E%253Cimg%2520src%253D%255C%2522..%252F_assets%252Fimages%252Fpreview-data-customers.png%255C%2522%2520alt%253D%255C%2522%255C%2522%253E%253Cfigcaption%253E%253Cp%253EPreview%2520data%2520-%2520Customers%253C%252Fp%253E%253C%252Ffigcaption%253E%253C%252Ffigure%253E%255Cn%255Cn%253E%2520**Note%253A**%2520**Business%2520Significance%253A**%255Cn%253E%2520%255Cn%253E%2520*%2520%2560customer_id%2560%253A%2520Primary%2520key%2520for%2520joining%2520to%2520sales%255Cn%253E%2520*%2520%2560country%2560%253A%2520Critical%2520for%2520geographic%2520segmentation%255Cn%253E%2520*%2520%2560status%2560%253A%2520Identifies%2520churned%2520vs.%2520active%2520customers%255Cn%253E%2520*%2520%2560registration_date%2560%253A%2520Enables%2520customer%2520tenure%2520analysis%2522%257D%252C%257B%2522title%2522%253A%25222.%2520Stream%2520Lookup%2522%252C%2522body%2522%253A%2522%253E%2520**Note%253A**%255Cn%253E%255Cn%253E%2520%2523%2523%2523%2523%2520Stream%2520Lookup%255Cn%253E%2520%255Cn%253E%2520A%2520**Stream%2520lookup**%2520step%2520enriches%2520rows%2520by%2520looking%2520up%2520matching%2520values%2520from%2520another%2520stream.%255Cn%253E%2520%255Cn%253E%2520In%2520a%2520transformation%252C%2520you%2520feed%2520your%2520main%2520rows%2520into%2520one%2520hop%2520and%2520a%2520reference%2520dataset%2520into%2520the%2520other%2520hop.%2520The%2520step%2520then%2520matches%2520rows%2520using%2520key%2520fields%2520and%2520returns%2520the%2520lookup%2520fields%2520on%2520the%2520output.%2520It%25E2%2580%2599s%2520the%2520in-memory%2520alternative%2520to%2520a%2520database%2520lookup%252C%2520but%2520the%2520reference%2520stream%2520must%2520be%2520available%2520in%2520the%2520same%2520transformation%2520flow.%255Cn%255Cn%253Cfigure%253E%253Cimg%2520src%253D%255C%2522..%252F_assets%252Fimages%252Flookups.png%255C%2522%2520alt%253D%255C%2522%255C%2522%253E%253Cfigcaption%253E%253Cp%253ELookups%253C%252Fp%253E%253C%252Ffigcaption%253E%253C%252Ffigure%253E%255Cn%255Cn1.%2520Drag%2520%2526%2520drop%25202%2520**Stream%2520lookup**%2520steps%2520onto%2520the%2520canvas.%255Cn2.%2520Save%2520transformation%2520as%253A%2520%2560sales_dashboard_etl.ktr%2560%2520in%2520your%2520workshop%2520folder.%255Cn%255Cn***%255Cn%255Cn**Product%2520Lookup**%255Cn%255Cn1.%2520Draw%2520a%2520hop%2520between%2520**Sales**%2520and%2520**Product%2520Lookup**.%255Cn2.%2520Draw%2520a%2520hop%2520between%2520**Products**%2520and%2520**Product%2520Lookup**.%255Cn%255Cn%253E%2520**Note%253A**%2520The%2520Sales%2520is%2520acting%2520as%2520our%2520Fact%2520table.%2520It%2520holds%2520the%2520transaction%2520data%2520for%2520our%2520Products%2520%2526%2520Customers.%255Cn%255Cn3.%2520Double-click%2520on%2520the%2520'Product%2520Lookup'%2520step%252C%2520and%2520configure%2520with%2520the%2520following%2520properties%253A%255Cn%255Cn%257C%2520Tab%2520%2520%2520%2520%2520%257C%2520Setting%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%257C%2520Value%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%257C%255Cn%257C%2520-------%2520%257C%2520---------------------%2520%257C%2520----------------%2520%257C%255Cn%257C%2520General%2520%257C%2520Step%2520name%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%257C%2520%2560Product%2520Lookup%2560%2520%257C%255Cn%257C%2520General%2520%257C%2520Lookup%2520step%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%257C%2520%2560Products%2560%2520%2520%2520%2520%2520%2520%2520%257C%255Cn%257C%2520Keys%2520%2520%2520%2520%257C%2520Field%2520(from%2520Sales)%2520%2520%2520%2520%257C%2520%2560product_id%2560%2520%2520%2520%2520%2520%257C%255Cn%257C%2520Keys%2520%2520%2520%2520%257C%2520Field%2520(from%2520Products)%2520%257C%2520%2560product_id%2560%2520%2520%2520%2520%2520%257C%255Cn%255Cn4.%2520In%2520**Values%2520to%2520retrieve**%252C%2520add%253A%255Cn%2520%2520%2520*%2520%2560product_name%2560%2520(rename%2520to%2520%2560product_name%2560)%255Cn%2520%2520%2520*%2520%2560category%2560%2520(rename%2520to%2520%2560product_category%2560)%255Cn%2520%2520%2520*%2520%2560price%2560%2520(rename%2520to%2520%2560unit_price%2560)%255Cn%255Cn%253Cfigure%253E%253Cimg%2520src%253D%255C%2522..%252F_assets%252Fimages%252Fproduct-lookup.png%255C%2522%2520alt%253D%255C%2522%255C%2522%253E%253Cfigcaption%253E%253Cp%253EProduct%2520Lookup%253C%252Fp%253E%253C%252Ffigcaption%253E%253C%252Ffigure%253E%255Cn%255Cn***%255Cn%255Cn**Customers%2520Lookup**%255Cn%255Cn1.%2520Draw%2520a%2520hop%2520between%2520**Product%2520Lookup**%2520and%2520**Customers%2520Lookup**.%255Cn2.%2520Draw%2520a%2520hop%2520between%2520**Customers**%2520and%2520**Customers%2520Lookup**.%255Cn3.%2520Double-click%2520**Customers%2520Lookup**%252C%2520and%2520configure%2520the%2520following%2520properties%253A%255Cn%255Cn%257C%2520Setting%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%257C%2520Value%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%257C%255Cn%257C%2520------------------%2520%257C%2520------------------%2520%257C%255Cn%257C%2520Step%2520name%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%257C%2520%2560Customers%2520Lookup%2560%2520%257C%255Cn%257C%2520Lookup%2520step%2520%2520%2520%2520%2520%2520%2520%2520%257C%2520%2560Customers%2560%2520%2520%2520%2520%2520%2520%2520%2520%257C%255Cn%257C%2520Key%2520field%2520(stream)%2520%257C%2520%2560customer_id%2560%2520%2520%2520%2520%2520%2520%257C%255Cn%257C%2520Key%2520field%2520(lookup)%2520%257C%2520%2560customer_id%2560%2520%2520%2520%2520%2520%2520%257C%255Cn%255Cn4.%2520Values%2520to%2520retrieve%253A%255Cn%2520%2520%2520*%2520%2560first_name%2560%255Cn%2520%2520%2520*%2520%2560last_name%2560%255Cn%2520%2520%2520*%2520%2560country%2560%2520(rename%2520to%2520%2560customer_country%2560)%255Cn%2520%2520%2520*%2520%2560status%2560%2520(rename%2520to%2520%2560customer_status%2560)%255Cn%255Cn%253Cfigure%253E%253Cimg%2520src%253D%255C%2522..%252F_assets%252Fimages%252Fcustomers-lookup.png%255C%2522%2520alt%253D%255C%2522%255C%2522%253E%253Cfigcaption%253E%253Cp%253ECustomers%2520Lookup%253C%252Fp%253E%253C%252Ffigcaption%253E%253C%252Ffigure%253E%255Cn%255Cn***%255Cn%255Cn**Preview%2520data**%255Cn%255Cn1.%2520Save%2520the%2520transformation.%255Cn2.%2520RUN%2520%2526%2520Preview%2520the%2520data.%255Cn%255Cn%253Cfigure%253E%253Cimg%2520src%253D%255C%2522..%252F_assets%252Fimages%252Flookups-preview-data.png%255C%2522%2520alt%253D%255C%2522%255C%2522%253E%253Cfigcaption%253E%253Cp%253ELookups%2520-%2520Preview%2520data%253C%252Fp%253E%253C%252Ffigcaption%253E%253C%252Ffigure%253E%2522%257D%252C%257B%2522title%2522%253A%25223.%2520Calculator%2522%252C%2522body%2522%253A%2522%253E%2520**Note%253A**%255Cn%253E%255Cn%253E%2520%2523%2523%2523%2523%2520Calculator%255Cn%253E%2520%255Cn%253E%2520The%2520Calculator%2520step%2520provides%2520predefined%2520functions%2520that%2520you%2520can%2520run%2520on%2520input%2520field%2520values.%2520Use%2520Calculator%2520as%2520a%2520quick%2520alternative%2520to%2520custom%2520JavaScript%2520for%2520common%2520calculations.%255Cn%253E%2520%255Cn%253E%2520To%2520use%2520Calculator%252C%2520specify%2520the%2520input%2520fields%2520and%2520the%2520calculation%2520type%252C%2520and%2520then%2520write%2520results%2520to%2520new%2520fields.%2520You%2520can%2520also%2520remove%2520temporary%2520fields%2520from%2520the%2520output%2520after%2520all%2520values%2520are%2520calculated.%255Cn%255Cn%253Cfigure%253E%253Cimg%2520src%253D%255C%2522..%252F_assets%252Fimages%252Fcalculator-step.png%255C%2522%2520alt%253D%255C%2522%255C%2522%253E%253Cfigcaption%253E%253Cp%253ECalculator%2520step%253C%252Fp%253E%253C%252Ffigcaption%253E%253C%252Ffigure%253E%255Cn%255Cn1.%2520Drag%2520%2526%2520drop%2520a%2520'Calculator'%2520step%2520onto%2520the%2520canvas.%255Cn2.%2520Draw%2520a%2520Hop%2520from%2520the%2520'Customers%2520Lookup'%2520step%2520to%2520the%2520'Calculator'%2520step.%255Cn3.%2520Double-click%2520on%2520the%2520'Calculator'%2520step%252C%2520and%2520configure%2520the%2520following%2520properties%253A%255Cn%255Cn%253Ctable%253E%253Cthead%253E%253Ctr%253E%253Cth%2520width%253D%255C%2522161%255C%2522%253ENew%2520field%253C%252Fth%253E%253Cth%253ECalculation%253C%252Fth%253E%253Cth%253EField%2520A%253C%252Fth%253E%253Cth%253EField%2520B%253C%252Fth%253E%253Cth%253EValue%2520type%253C%252Fth%253E%253C%252Ftr%253E%253C%252Fthead%253E%253Ctbody%253E%253Ctr%253E%253Ctd%253E%253Ccode%253Eline_total%253C%252Fcode%253E%253C%252Ftd%253E%253Ctd%253EA%2520*%2520B%253C%252Ftd%253E%253Ctd%253Equantity%253C%252Ftd%253E%253Ctd%253Eunit_price%253C%252Ftd%253E%253Ctd%253ENumber%253C%252Ftd%253E%253C%252Ftr%253E%253Ctr%253E%253Ctd%253E%253Ccode%253Ediscount_amount%253C%252Fcode%253E%253C%252Ftd%253E%253Ctd%253EA%2520-%2520B%253C%252Ftd%253E%253Ctd%253Esale_amount%253C%252Ftd%253E%253Ctd%253Eline_total%253C%252Ftd%253E%253Ctd%253ENumber%253C%252Ftd%253E%253C%252Ftr%253E%253C%252Ftbody%253E%253C%252Ftable%253E%255Cn%255Cn%253Cfigure%253E%253Cimg%2520src%253D%255C%2522..%252F_assets%252Fimages%252Fcalculator-2.png%255C%2522%2520alt%253D%255C%2522%255C%2522%253E%253Cfigcaption%253E%253Cp%253ECalculator%253C%252Fp%253E%253C%252Ffigcaption%253E%253C%252Ffigure%253E%255Cn%255Cn***%255Cn%255Cn**Preview%2520data**%255Cn%255Cn1.%2520Save%2520the%2520transformation.%255Cn2.%2520RUN%2520%2526%2520Preview%2520the%2520data.%255Cn%255Cn%253Cfigure%253E%253Cimg%2520src%253D%255C%2522..%252F_assets%252Fimages%252Fpreview-data-3.png%255C%2522%2520alt%253D%255C%2522%255C%2522%253E%253Cfigcaption%253E%253Cp%253EPreview%2520data%253C%252Fp%253E%253C%252Ffigcaption%253E%253C%252Ffigure%253E%255Cn%255Cn%253E%2520**Note%253A**%2520**Business%2520Insight%2520Enabled%253A**%255Cn%253E%2520%255Cn%253E%2520*%2520**Positive%2520%2560discount_amount%2560%253A**%2520Customer%2520received%2520a%2520discount%2520(common)%255Cn%253E%2520*%2520**Negative%2520%2560discount_amount%2560%253A**%2520Customer%2520paid%2520more%2520than%2520list%2520price%2520(expedite%252C%2520premium%252C%2520etc.)%255Cn%253E%2520*%2520**Zero%2520%2560discount_amount%2560%253A**%2520Sold%2520at%2520list%2520price%2522%257D%252C%257B%2522title%2522%253A%25224.%2520Formula%2522%252C%2522body%2522%253A%2522%253E%2520**Note%253A**%255Cn%253E%255Cn%253E%2520%2523%2523%2523%2523%2520Formula%255Cn%253E%2520%255Cn%253E%2520The%2520Formula%2520step%2520can%2520calculate%2520Formula%2520Expressions%2520within%2520a%2520data%2520stream.%2520It%2520can%2520be%2520used%2520to%2520create%2520simple%2520calculations%2520like%2520%255C%255C%255BA%255D%252B%255C%255C%255BB%255D%2520or%2520more%2520complex%2520business%2520logic%2520with%2520a%2520lot%2520of%2520nested%2520if%2520%252F%2520then%2520logic.%255Cn%255Cn%253Cfigure%253E%253Cimg%2520src%253D%255C%2522..%252F_assets%252Fimages%252Fformula-step.png%255C%2522%2520alt%253D%255C%2522%255C%2522%253E%253Cfigcaption%253E%253Cp%253EFormula%2520step%253C%252Fp%253E%253C%252Ffigcaption%253E%253C%252Ffigure%253E%255Cn%255Cn1.%2520Drag%2520%2526%2520drop%2520a%2520'Formula'%2520step%2520onto%2520the%2520canvas.%255Cn2.%2520Draw%2520a%2520Hop%2520from%2520the%2520'Calculator'%2520step%2520to%2520the%2520'Formula'%2520step.%255Cn3.%2520Double-click%2520on%2520the%2520'Formula'%2520step%252C%2520and%2520configure%2520the%2520following%2520properties%253A%255Cn%255Cn%253Ctable%253E%253Cthead%253E%253Ctr%253E%253Cth%2520width%253D%255C%2522190%255C%2522%253ENew%2520Field%253C%252Fth%253E%253Cth%253EFormula%253C%252Fth%253E%253C%252Ftr%253E%253C%252Fthead%253E%253Ctbody%253E%253Ctr%253E%253Ctd%253Ecustomer_full_name%253C%252Ftd%253E%253Ctd%253ECONCATENATE(%255Bfirst_name%255D%253B%255C%2522%2520%255C%2522%253B%255Blast_name%255D)%253C%252Ftd%253E%253C%252Ftr%253E%253Ctr%253E%253Ctd%253Eis_high_value%253C%252Ftd%253E%253Ctd%253EIF(%255Bsale_amount%255D%253E500%253B%255C%2522Yes%255C%2522%253B%255C%2522No%255C%2522)%253C%252Ftd%253E%253C%252Ftr%253E%253C%252Ftbody%253E%253C%252Ftable%253E%255Cn%255Cn%253Cfigure%253E%253Cimg%2520src%253D%255C%2522..%252F_assets%252Fimages%252Fformula-step-2.png%255C%2522%2520alt%253D%255C%2522%255C%2522%253E%253Cfigcaption%253E%253Cp%253EFormula%2520step%253C%252Fp%253E%253C%252Ffigcaption%253E%253C%252Ffigure%253E%255Cn%255Cn***%255Cn%255Cn**Preview%2520data**%255Cn%255Cn1.%2520Save%2520the%2520transformation.%255Cn2.%2520RUN%2520%2526%2520Preview%2520the%2520data.%255Cn%255Cn%253Cfigure%253E%253Cimg%2520src%253D%255C%2522..%252F_assets%252Fimages%252Fpreview-data-2.png%255C%2522%2520alt%253D%255C%2522%255C%2522%253E%253Cfigcaption%253E%253Cp%253EPreview%2520data%253C%252Fp%253E%253C%252Ffigcaption%253E%253C%252Ffigure%253E%255Cn%255Cn%253E%2520**Note%253A**%2520**Business%2520Applications%253A**%255Cn%253E%2520%255Cn%253E%2520*%2520**is%255C%255C_high%255C%255C_value%253A**%2520Trigger%2520VIP%2520customer%2520service%2520workflows%2522%257D%252C%257B%2522title%2522%253A%25225.%2520Add%2520Constants%2522%252C%2522body%2522%253A%2522%253E%2520**Note%253A**%255Cn%253E%255Cn%253E%2520%2523%2523%2523%2523%2520Add%2520Constants%255Cn%253E%2520%255Cn%253E%2520The%2520Add%2520constant%2520values%2520step%2520is%2520a%2520simple%2520and%2520high%2520performance%2520way%2520to%2520add%2520constant%2520values%2520to%2520the%2520stream.%255Cn%255Cn%253Cfigure%253E%253Cimg%2520src%253D%255C%2522..%252F_assets%252Fimages%252Fadd-constants-2.png%255C%2522%2520alt%253D%255C%2522%255C%2522%253E%253Cfigcaption%253E%253Cp%253EAdd%2520constants%253C%252Fp%253E%253C%252Ffigcaption%253E%253C%252Ffigure%253E%255Cn%255Cn1.%2520Drag%2520%2526%2520drop%2520'Add%2520constants'%2520step%2520onto%2520the%2520canvas.%255Cn2.%2520Draw%2520a%2520Hop%2520from%2520the%2520'Formula'%2520step%2520to%2520the%2520'Add%2520constants%2520'%2520step.%255Cn3.%2520Double-click%2520on%2520the%2520'Add%2520constants'%2520step%252C%2520and%2520configure%2520the%2520following%2520properties%253A%255Cn%255Cn%257C%2520Name%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%257C%2520Type%2520%2520%2520%257C%2520Value%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%257C%255Cn%257C%2520-------------%2520%257C%2520------%2520%257C%2520----------------%2520%257C%255Cn%257C%2520%2560data_source%2560%2520%257C%2520String%2520%257C%2520%2560minio_workshop%2560%2520%257C%255Cn%255Cn%253Cfigure%253E%253Cimg%2520src%253D%255C%2522..%252F_assets%252Fimages%252Fadd-constants.png%255C%2522%2520alt%253D%255C%2522%255C%2522%253E%253Cfigcaption%253E%253Cp%253EAdd%2520constants%253C%252Fp%253E%253C%252Ffigcaption%253E%253C%252Ffigure%253E%2522%257D%252C%257B%2522title%2522%253A%25226.%2520Get%2520System%2520info%2522%252C%2522body%2522%253A%2522%253E%2520**Note%253A**%255Cn%253E%255Cn%253E%2520%2523%2523%2523%2523%2520Get%2520system%2520info%255Cn%253E%2520%255Cn%253E%2520This%2520step%2520retrieves%2520system%2520information%2520from%2520the%2520Kettle%2520environment.%2520The%2520step%2520includes%2520a%2520table%2520where%2520you%2520can%2520designate%2520a%2520name%2520and%2520assign%2520it%2520to%2520any%2520available%2520system%2520info%2520type%2520you%2520want%2520to%2520retrieve.%2520This%2520step%2520generates%2520a%2520single%2520row%2520with%2520the%2520fields%2520containing%2520the%2520requested%2520information.%255Cn%253E%2520%255Cn%253E%2520It%2520can%2520also%2520accept%2520any%2520number%2520of%2520input%2520streams%252C%2520aggregate%2520any%2520fields%2520defined%2520by%2520this%2520step%252C%2520and%2520send%2520the%2520combined%2520results%2520to%2520the%2520output%2520stream.%255Cn%255Cn%253Cfigure%253E%253Cimg%2520src%253D%255C%2522..%252F_assets%252Fimages%252Fget-system-info-2.png%255C%2522%2520alt%253D%255C%2522%255C%2522%253E%253Cfigcaption%253E%253Cp%253Eget%2520system%2520info%253C%252Fp%253E%253C%252Ffigcaption%253E%253C%252Ffigure%253E%255Cn%255Cn1.%2520Drag%2520%2526%2520drop%2520'Get%2520system%2520info'%2520step%2520onto%2520the%2520canvas.%255Cn2.%2520Draw%2520a%2520Hop%2520from%2520the%2520'Add%2520constants'%2520step%2520to%2520the%2520'Get%2520system%2520info%2520'%2520step.%255Cn3.%2520Double-click%2520on%2520the%2520**Get%2520system%2520info**%2520step%252C%2520and%2520configure%2520the%2520following%2520properties%253A%255Cn%255Cn%257C%2520Name%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%257C%2520Type%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%257C%255Cn%257C%2520--------------%2520%257C%2520----------------------%2520%257C%255Cn%257C%2520etl%255C%255C_timestamp%2520%257C%2520system%2520date%2520(variable)%2520%257C%255Cn%255Cn%253Cfigure%253E%253Cimg%2520src%253D%255C%2522..%252F_assets%252Fimages%252Fget-system-info-3.png%255C%2522%2520alt%253D%255C%2522%255C%2522%253E%253Cfigcaption%253E%253Cp%253EGet%2520system%2520info%253C%252Fp%253E%253C%252Ffigcaption%253E%253C%252Ffigure%253E%2522%257D%252C%257B%2522title%2522%253A%25227.%2520Select%2520Values%2522%252C%2522body%2522%253A%2522%253E%2520**Note%253A**%255Cn%253E%255Cn%253E%2520%2523%2523%2523%2523%2520**Select%2520Values**%255Cn%253E%2520%255Cn%253E%2520The%2520Select%2520Values%2520step%2520can%2520perform%2520all%2520the%2520following%2520actions%2520on%2520fields%2520in%2520the%2520PDI%2520stream%253A%255Cn%253E%2520%255Cn%253E%2520**Select%2520fields**%2520-%2520The%2520Select%2520Values%2520step%2520can%2520perform%2520all%2520the%2520following%2520actions%2520on%2520fields%2520in%2520the%2520PDI%2520stream.%255Cn%253E%2520%255Cn%253E%2520**Remove%2520fields**%2520-%2520Use%2520this%2520tab%2520to%2520remove%2520fields%2520from%2520the%2520input%2520stream.%255Cn%253E%2520%255Cn%253E%2520**Meta-data**%2520-%2520Use%2520this%2520tab%2520to%2520change%2520field%2520types%252C%2520lengths%252C%2520and%2520formats.%255Cn%255Cn%253Cfigure%253E%253Cimg%2520src%253D%255C%2522..%252F_assets%252Fimages%252Fselect-values.png%255C%2522%2520alt%253D%255C%2522%255C%2522%253E%253Cfigcaption%253E%253Cp%253ESelect%2520values%253C%252Fp%253E%253C%252Ffigcaption%253E%253C%252Ffigure%253E%255Cn%255Cn1.%2520Drag%2520%2526%2520drop%2520a%2520'Select%2520values'%2520step%2520onto%2520the%2520canvas.%255Cn2.%2520Draw%2520a%2520Hop%2520from%2520the%2520'Get%2520system%2520info'%2520step%2520to%2520the%2520'Select%2520values'%2520step.%255Cn3.%2520Double-click%2520on%2520the%2520'Select%2520values'%2520step%252C%2520and%2520configure%2520the%2520following%2520properties%253A%255Cn4.%2520On%2520**Select%2520%2526%2520Alter**%2520tab%252C%2520choose%2520fields%2520in%2520order%253A%255Cn%255Cn*%2520sale%255C%255C_id%255Cn*%2520sale%255C%255C_date%255Cn*%2520customer%255C%255C_id%255Cn*%2520customer%255C%255C_full%255C%255C_name%255Cn*%2520customer%255C%255C_country%255Cn*%2520customer%255C%255C_status%255Cn*%2520product%255C%255C_id%255Cn*%2520product%255C%255C_name%255Cn*%2520product%255C%255C_category%255Cn*%2520quantity%255Cn*%2520unit%255C%255C_price%255Cn*%2520sale%255C%255C_amount%255Cn*%2520line%255C%255C_total%255Cn*%2520discount%255C%255C_amount%255Cn*%2520is%255C%255C_high%255C%255C_value%255Cn*%2520payment%255C%255C_method%255Cn*%2520status%2520(rename%2520to%2520%2560sale_status%2560)%255Cn*%2520etl%255C%255C_timestamp%255Cn*%2520data%255C%255C_source%255Cn%255Cn%253Cfigure%253E%253Cimg%2520src%253D%255C%2522..%252F_assets%252Fimages%252Fselect.png%255C%2522%2520alt%253D%255C%2522%255C%2522%253E%253Cfigcaption%253E%253Cp%253ESelect%253C%252Fp%253E%253C%252Ffigcaption%253E%253C%252Ffigure%253E%255Cn%255Cn***%255Cn%255Cn**Preview%2520data**%255Cn%255Cn1.%2520Save%2520the%2520transformation.%255Cn2.%2520RUN%2520%2526%2520Preview%2520the%2520data.%255Cn%255Cn%253Cfigure%253E%253Cimg%2520src%253D%255C%2522..%252F_assets%252Fimages%252Fpreview-data.png%255C%2522%2520alt%253D%255C%2522%255C%2522%253E%253Cfigcaption%253E%253Cp%253EPreview%2520data%253C%252Fp%253E%253C%252Ffigcaption%253E%253C%252Ffigure%253E%2522%257D%252C%257B%2522title%2522%253A%25228.%2520Text%2520File%2520Output%2522%252C%2522body%2522%253A%2522%253E%2520**Note%253A**%255Cn%253E%255Cn%253E%2520%2523%2523%2523%2523%2520Text%2520file%2520output%255Cn%253E%2520%255Cn%253E%2520The%2520Text%2520File%2520Output%2520step%2520exports%2520rows%2520to%2520a%2520text%2520file.%255Cn%253E%2520%255Cn%253E%2520This%2520step%2520is%2520commonly%2520used%2520to%2520generate%2520delimited%2520files%2520(for%2520example%252C%2520CSV)%2520that%2520can%2520be%2520read%2520by%2520spreadsheet%2520applications%252C%2520and%2520it%2520can%2520also%2520generate%2520fixed-length%2520output.%255Cn%253E%2520%255Cn%253E%2520You%2520can%25E2%2580%2599t%2520run%2520this%2520step%2520in%2520parallel%2520to%2520write%2520to%2520the%2520same%2520file.%255Cn%253E%2520%255Cn%253E%2520If%2520you%2520need%2520to%2520run%2520multiple%2520copies%252C%2520select%2520Include%2520stepnr%2520in%2520filename%2520and%2520merge%2520the%2520resulting%2520files%2520afterward.%255Cn%255Cn%253Cfigure%253E%253Cimg%2520src%253D%255C%2522..%252F_assets%252Fimages%252Ftext-file-output.png%255C%2522%2520alt%253D%255C%2522%255C%2522%253E%253Cfigcaption%253E%253Cp%253EText%2520File%2520output%253C%252Fp%253E%253C%252Ffigcaption%253E%253C%252Ffigure%253E%255Cn%255Cn1.%2520Drag%2520%2526%2520drop%2520a%2520**Text%2520file%2520output**%2520step%2520onto%2520the%2520canvas.%255Cn2.%2520Draw%2520a%2520Hop%2520from%2520the%2520'Select%2520values'%2520step%2520to%2520the%2520'Write%2520to%2520staging'%2520step.%255Cn3.%2520Double-click%2520on%2520the%2520'Write%2520to%2520staging'%2520step%252C%2520and%2520configure%2520with%2520the%2520following%2520properties%253A%255Cn%255Cn%257C%2520Setting%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%257C%2520Value%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%257C%255Cn%257C%2520-----------------------------%2520%257C%2520-------------------------------------------%2520%257C%255Cn%257C%2520Step%2520name%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%257C%2520%2560Write%2520to%2520Staging%2560%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%257C%255Cn%257C%2520Filename%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%257C%2520%2560pvfs%253A%252F%252FMinIO%252Fstaging%252Fdashboard%252Fsales_fact%2560%2520%257C%255Cn%257C%2520Extension%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%257C%2520%2560csv%2560%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%257C%255Cn%257C%2520Include%2520date%252Ftime%2520in%2520filename%2520%257C%2520%25E2%259C%2585%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%257C%255Cn%257C%2520Separator%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%257C%2520%252C%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%257C%255Cn%257C%2520Add%2520header%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%257C%2520%25E2%259C%2585%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%257C%255Cn%255Cn%253E%2520**Warning%253A**%2520Select%2520**Get%2520fields**%2520to%2520populate%2520the%2520output%2520fields.%255Cn%255Cn%253E%2520**Note%253A**%2520**Business%2520Benefit%253A**%2520Timestamped%2520files%2520enable%253A%255Cn%253E%2520%255Cn%253E%2520*%2520**Historical%2520tracking%253A**%2520%255C%2522What%2520did%2520the%2520data%2520look%2520like%2520last%2520Tuesday%253F%255C%2522%255Cn%253E%2520*%2520**Incremental%2520processing%253A**%2520Keep%2520processing%2520latest%2520file%2520without%2520overwriting%2520history%255Cn%253E%2520*%2520**Rollback%2520capability%253A**%2520%255C%2522The%25203pm%2520run%2520had%2520bad%2520data%252C%2520revert%2520to%25202pm%2520version%255C%2522%255Cn%255Cn***%255Cn%255Cn**MinIO**%255Cn%255Cn1.%2520Save%2520the%2520transformation.%255Cn2.%2520Log%2520into%2520MinIO%253A%255Cn%255Cn%253Cfigure%253E%253Cimg%2520src%253D%255C%2522..%252F_assets%252Fimages%252Fminio-dashboard-data.png%255C%2522%2520alt%253D%255C%2522%255C%2522%253E%253Cfigcaption%253E%253Cp%253EMinIO%2520-%2520Dashboard%2520data%253C%252Fp%253E%253C%252Ffigcaption%253E%253C%252Ffigure%253E%255Cn%255Cn***%255Cn%255Cn**Checklist**%255Cn%255Cn*%2520%255B%2520%255D%2520Three%2520Text%2520file%2520inputs%2520configured%2520(reading%2520CSV%2520from%2520S3)%255Cn*%2520%255B%2520%255D%2520Product%2520lookup%2520working%2520(no%2520null%2520product%2520names)%255Cn*%2520%255B%2520%255D%2520Customer%2520lookup%2520working%2520(no%2520null%2520countries)%255Cn*%2520%255B%2520%255D%2520Calculations%2520producing%2520correct%2520values%255Cn*%2520%255B%2520%255D%2520Fields%2520in%2520correct%2520order%255Cn*%2520%255B%2520%255D%2520Output%2520file%2520created%2520in%2520staging%2520bucket%255Cn*%2520%255B%2520%255D%2520All%252015%2520sales%2520records%2520processed%2522%257D%255D%5C%22%3E%3C%2Fdiv%3E%5Cn%5Cn***%5Cn%5Cn%3E%20**Note%3A**%20**Workshop%20files**%5Cn%3E%20%5Cn%3E%20Download%20the%20files%20for%20this%20workshop.%20For%20%60.ktr%60%20files%2C%20**Open%20in%20Pentaho%20Data%20Integration**%20launches%20PDI%20with%20the%20transformation%20loaded%3B%20if%20PDI%20is%20already%20running%2C%20the%20path%20is%20copied%20to%20your%20clipboard%20(Ctrl%2BO%2C%20Ctrl%2BV%2C%20Enter).%5Cn%5Cn%5Bsales_dashboard_etl.ktr%5D(.%2Ffiles%2Fsales_dashboard_etl.ktr)%20%3Cbutton%20data-launch%3D%5C%22spoon%5C%22%20data-path%3D%5C%22files%2Fsales_dashboard_etl.ktr%5C%22%3EOpen%20in%20Pentaho%20Data%20Integration%3C%2Fbutton%3E%20%3Cbutton%20data-graph%3D%5C%22files%2Fsales_dashboard_etl.ktr%5C%22%3EView%20graph%3C%2Fbutton%3E%5Cn%22%7D%2C%7B%22title%22%3A%22Inventory%20Reconciliation%22%2C%22body%22%3A%22%3E%20**Warning%3A**%5Cn%3E%5Cn%3E%20%23%23%23%23%20Inventory%20Reconciliation%20-%20XML%20%2B%20CSV%20Integration%5Cn%3E%20%5Cn%3E%20This%20workshop%20demonstrates%20how%20Pentaho%20Data%20Integration%20eliminates%20costly%20inventory%20discrepancies%20by%20automatically%20reconciling%20data%20between%20warehouse%20management%20systems%20(XML%20feeds)%20and%20ERP%20product%20catalogs%20(CSV%20files).%20Organizations%20lose%20millions%20annually%20due%20to%20inventory%20inaccuracies%2C%20stockouts%2C%20and%20overstocking.%20PDI's%20ability%20to%20parse%20complex%20XML%20and%20perform%20full%20outer%20joins%20enables%20real-time%20discrepancy%20detection%20that%20would%20require%20hours%20of%20manual%20spreadsheet%20work.%5Cn%3E%20%5Cn%3E%20**Business%20Value%20Delivered%3A**%5Cn%3E%20%5Cn%3E%20*%20**Cost%20Reduction%3A**%20Eliminate%20manual%20reconciliation%20labor%20(%2475K-150K%20annually%20per%20analyst)%5Cn%3E%20*%20**Inventory%20Optimization%3A**%20Reduce%20excess%20inventory%20carrying%20costs%20by%2015-25%25%5Cn%3E%20*%20**Stockout%20Prevention%3A**%20Identify%20missing%20items%20before%20customers%20notice%5Cn%3E%20*%20**Compliance%3A**%20Audit%20trail%20for%20SOX%2C%20ISO%209001%2C%20and%20supply%20chain%20regulations%5Cn%3E%20*%20**Real-Time%20Visibility%3A**%20Know%20your%20actual%20inventory%20position%20within%20minutes%2C%20not%20days%5Cn%3E%20%5Cn%3E%20**Scenario%3A**%20A%20manufacturing%20company%20operates%2012%20distribution%20warehouses.%20Each%20warehouse%20uses%20a%20legacy%20WMS%20(Warehouse%20Management%20System)%20that%20exports%20XML%20inventory%20files%20nightly.%20The%20corporate%20ERP%20system%20maintains%20a%20CSV%20product%20master%20catalog.%20Discrepancies%20cause%3A%5Cn%3E%20%5Cn%3E%20*%20**Phantom%20stock%3A**%20ERP%20shows%20item%20in%20stock%2C%20warehouse%20says%20it's%20not%20%E2%86%92%20Lost%20sales%5Cn%3E%20*%20**Ghost%20inventory%3A**%20Warehouse%20has%20items%20ERP%20doesn't%20recognize%20%E2%86%92%20Dead%20capital%5Cn%3E%20*%20**Quantity%20variances%3A**%20Mismatches%20of%2010%2B%20units%20trigger%20expensive%20physical%20counts%5Cn%3E%20%5Cn%3E%20**Key%20Stakeholders%3A**%5Cn%3E%20%5Cn%3E%20*%20**Supply%20Chain%20Directors%3A**%20Need%20accurate%20inventory%20positions%20across%20all%20locations%5Cn%3E%20*%20**Warehouse%20Managers%3A**%20Require%20daily%20reconciliation%20reports%20to%20prioritize%20cycle%20counts%5Cn%3E%20*%20**Finance%20Teams%3A**%20Must%20report%20accurate%20inventory%20valuations%20for%20financial%20statements%5Cn%3E%20*%20**Procurement%3A**%20Need%20to%20identify%20slow-moving%20items%20and%20prevent%20overstocking%5Cn%5Cn***%5Cn%5Cn%3E%20**Note%3A**%20**Workshop%20files**%5Cn%3E%20%5Cn%3E%20These%20files%20are%20already%20in%20MinIO%3A%5Cn%3E%20%5Cn%3E%20*%20%60pvfs%3A%2F%2FMinIO%2Fraw-data%2Fxml%2Finventory.xml%60%5Cn%3E%20*%20%60pvfs%3A%2F%2FMinIO%2Fraw-data%2Fcsv%2Fproducts.csv%60%5Cn%3E%20%5Cn%3E%20Planned%20output%20path%3A%20%60pvfs%3A%2F%2FMinIO%2Fstaging%2Finventory%2Freconciliation%2F%60%5Cn%5Cn%3Cfigure%3E%3Cimg%20src%3D%5C%22..%2F_assets%2Fimages%2Finventory-reconciliation.png%5C%22%20alt%3D%5C%22%5C%22%3E%3Cfigcaption%3E%3Cp%3EInventory%20reconciliation%3C%2Fp%3E%3C%2Ffigcaption%3E%3C%2Ffigure%3E%5Cn%5Cn%3E%20**Note%3A**%20Create%20a%20new%20transformation.%5Cn%3E%20%5Cn%3E%20Use%20any%20of%20these%20options%3A%5Cn%3E%20%5Cn%3E%20*%20Select%20**File**%20%3E%20**New**%20%3E%20**Transformation**%5Cn%3E%20*%20Use%20%60Ctrl%2BN%60%20(Windows%2FLinux)%20or%20%60Cmd%2BN%60%20(macOS)%5Cn%5Cn***%5Cn%5CnFollow%20the%20steps%20to%20create%20the%20transformation%3A%5Cn%5Cn%5Cn%5Cn%3Cdiv%20class%3D%5C%22pcm-tabs-widget%5C%22%20data-tabs%3D%5C%22%255B%257B%2522title%2522%253A%25221.%2520Data%2520Source%2520streams%2522%252C%2522body%2522%253A%2522%253Cdiv%2520class%253D%255C%2522pcm-tabs-widget%255C%2522%2520data-tabs%253D%255C%2522%25255B%25257B%252522title%252522%25253A%2525221.%252520Read%252520Warehouse%252522%25252C%252522body%252522%25253A%252522%25253E%252520**Note%25253A**%25255Cn%25253E%25255Cn%25253E%252520%252523%252523%252523%252523%252520Get%252520data%252520from%252520XML%25255Cn%25255Cn1.%252520Drag%252520%252526%252520drop%252520'Get%252520data%252520from%252520XML'%252520onto%252520the%252520canvas.%25255Cn2.%252520Save%252520transformation%252520as%25253A%252520%252560inventory_reconciliation.ktr%252560%252520in%252520your%252520workshop%252520folder.%25255Cn3.%252520Double-click%252520on%252520the%252520'Get%252520data%252520from%252520XML'%252520step%25252C%252520and%252520configure%252520with%252520the%252520following%252520properties%25253A%25255Cn%25255Cn%25253Ctable%25253E%25253Cthead%25253E%25253Ctr%25253E%25253Cth%252520width%25253D%25255C%252522186%25255C%252522%25253ESetting%25253C%25252Fth%25253E%25253Cth%25253EValue%25253C%25252Fth%25253E%25253C%25252Ftr%25253E%25253C%25252Fthead%25253E%25253Ctbody%25253E%25253Ctr%25253E%25253Ctd%25253EStep%252520name%25253C%25252Ftd%25253E%25253Ctd%25253ERead%252520Warehouse%252520XML%25253C%25252Ftd%25253E%25253C%25252Ftr%25253E%25253Ctr%25253E%25253Ctd%25253EFile%252520or%252520directory%25253C%25252Ftd%25253E%25253Ctd%25253E%25253Ccode%25253Epvfs%25253A%25252F%25252FMinIO%25252Fraw-data%25252Fxml%25252Finventory.xml%25253C%25252Fcode%25253E%25253C%25252Ftd%25253E%25253C%25252Ftr%25253E%25253Ctr%25253E%25253Ctd%25253ELoop%252520XPath%25253C%25252Ftd%25253E%25253Ctd%25253E%25253Ccode%25253E%25252Finventory%25252Fitems%25252Fitem%25253C%25252Fcode%25253E%25253C%25252Ftd%25253E%25253C%25252Ftr%25253E%25253Ctr%25253E%25253Ctd%25253EEncoding%25253C%25252Ftd%25253E%25253Ctd%25253E%25253Ccode%25253EUTF-8%25253C%25252Fcode%25253E%25253C%25252Ftd%25253E%25253C%25252Ftr%25253E%25253Ctr%25253E%25253Ctd%25253EIgnore%252520comments%25253C%25252Ftd%25253E%25253Ctd%25253E%2525E2%25259C%252585%25253C%25252Ftd%25253E%25253C%25252Ftr%25253E%25253Ctr%25253E%25253Ctd%25253EValidate%252520XML%25253C%25252Ftd%25253E%25253Ctd%25253ENo%25253C%25252Ftd%25253E%25253C%25252Ftr%25253E%25253Ctr%25253E%25253Ctd%25253EIgnore%252520empty%252520file%25253C%25252Ftd%25253E%25253Ctd%25253E%2525E2%25259C%252585%25253C%25252Ftd%25253E%25253C%25252Ftr%25253E%25253C%25252Ftbody%25253E%25253C%25252Ftable%25253E%25255Cn%25255Cn%25253E%252520**Note%25253A**%252520**XPath%252520Explanation%25253A**%25255Cn%25253E%252520%25255Cn%25253E%252520*%252520%252560%25252Finventory%252560%252520%25253D%252520Start%252520at%252520root%252520element%25255Cn%25253E%252520*%252520%252560%25252Fitems%252560%252520%25253D%252520Navigate%252520to%252520items%252520container%25255Cn%25253E%252520*%252520%252560%25252Fitem%252560%252520%25253D%252520Loop%252520over%252520each%252520item%252520element%25255Cn%25255Cn4.%252520Browse%252520%252526%252520Add%252520the%252520path%252520to%252520the%252520inventory.xml%25255Cn5.%252520Click%252520on%252520the%252520Content%252520tab%25255Cn%25255Cn%25253Cfigure%25253E%25253Cimg%252520src%25253D%25255C%252522..%25252F_assets%25252Fimages%25252Fconfigure-xpath.png%25255C%252522%252520alt%25253D%25255C%252522%25255C%252522%25253E%25253Cfigcaption%25253E%25253Cp%25253EConfigure%252520XPath%25253C%25252Fp%25253E%25253C%25252Ffigcaption%25253E%25253C%25252Ffigure%25253E%25255Cn%25255Cn6.%252520Click%252520on%252520the%252520Fields%252520tab%252520%252526%252520Get%252520Fields.%25255Cn7.%252520Remap%252520the%252520fields%252520%252526%252520Preview%252520rows.%25255Cn%25255Cn%25253E%252520**Note%25253A**%252520**Business%252520Field%252520Naming%25253A**%25255Cn%25253E%252520%25255Cn%25253E%252520*%252520Prefix%252520with%252520%252560warehouse_%252560%252520to%252520distinguish%252520from%252520ERP%252520fields%252520later%25255Cn%25253E%252520*%252520%252560warehouse_quantity%252560%252520vs.%252520%252560stock_quantity%252560%252520makes%252520joins%252520clearer%25255Cn%25253E%252520*%252520Keep%252520original%252520field%252520names%252520in%252520a%252520data%252520dictionary%252520for%252520auditing%25255Cn%25255Cn%25257C%252520Name%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%25257C%252520XPath%252520%252520%252520%252520%252520%252520%252520%252520%252520%25257C%25255Cn%25257C%252520---------------------%252520%25257C%252520-------------%252520%25257C%25255Cn%25257C%252520warehouse%25255C%25255C_item%25255C%25255C_name%252520%25257C%252520name%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%25257C%25255Cn%25257C%252520warehouse%25255C%25255C_quantity%252520%252520%252520%25257C%252520quantity%252520%252520%252520%252520%252520%252520%25257C%25255Cn%25257C%252520warehouse%25255C%25255C_location%252520%252520%252520%25257C%252520location%252520%252520%252520%252520%252520%252520%25257C%25255Cn%25257C%252520last%25255C%25255C_physical%25255C%25255C_count%252520%25257C%252520last%25255C%25255C_checked%252520%25257C%25255Cn%25255Cn%25253Cfigure%25253E%25253Cimg%252520src%25253D%25255C%252522..%25252F_assets%25252Fimages%25252Fremap-field-names-x26-preview-data.png%25255C%252522%252520alt%25253D%25255C%252522%25255C%252522%25253E%25253Cfigcaption%25253E%25253Cp%25253ERemap%252520field%252520names%252520%252526%252523x26%25253B%252520Preview%252520data%25253C%25252Fp%25253E%25253C%25252Ffigcaption%25253E%25253C%25252Ffigure%25253E%25255Cn%25255Cn%25253E%252520**Note%25253A**%252520Next%25253A%252520configure%252520the%252520product%252520catalog%252520input%25252C%252520then%252520join%252520the%252520two%252520streams.%252522%25257D%25252C%25257B%252522title%252522%25253A%2525222.%252520Read%252520Product%252520Catalog%252522%25252C%252522body%252522%25253A%252522%25253E%252520**Note%25253A**%252520Status%25253A%252520**Draft**.%252520Add%252520a%252520**Text%252520file%252520input**%252520step%252520for%252520%252560pvfs%25253A%25252F%25252FMinIO%25252Fraw-data%25252Fcsv%25252Fproducts.csv%252560.%252522%25257D%25255D%255C%2522%253E%253C%252Fdiv%253E%2522%257D%252C%257B%2522title%2522%253A%25222.%2520Join%2522%252C%2522body%2522%253A%2522%253E%2520**Note%253A**%2520Status%253A%2520**Draft**.%2520Join%2520warehouse%2520items%2520to%2520the%2520ERP%2520product%2520master%2520using%2520a%2520full%2520outer%2520join.%2522%257D%252C%257B%2522title%2522%253A%25223.%2520Output%2522%252C%2522body%2522%253A%2522%253E%2520**Note%253A**%2520Status%253A%2520**Draft**.%2520Write%2520discrepancy%2520rows%2520to%2520%2560pvfs%253A%252F%252FMinIO%252Fstaging%252Finventory%252Freconciliation%252F%2560.%2522%257D%255D%5C%22%3E%3C%2Fdiv%3E%5Cn%5Cn***%5Cn%5Cn%3E%20**Note%3A**%20**Workshop%20files**%5Cn%3E%20%5Cn%3E%20Download%20the%20files%20for%20this%20workshop.%20For%20%60.ktr%60%20files%2C%20**Open%20in%20Pentaho%20Data%20Integration**%20launches%20PDI%20with%20the%20transformation%20loaded%3B%20if%20PDI%20is%20already%20running%2C%20the%20path%20is%20copied%20to%20your%20clipboard%20(Ctrl%2BO%2C%20Ctrl%2BV%2C%20Enter).%5Cn%5Cn%5Binventory_reconciliation.ktr%5D(.%2Ffiles%2Finventory_reconciliation.ktr)%20%3Cbutton%20data-launch%3D%5C%22spoon%5C%22%20data-path%3D%5C%22files%2Finventory_reconciliation.ktr%5C%22%3EOpen%20in%20Pentaho%20Data%20Integration%3C%2Fbutton%3E%20%3Cbutton%20data-graph%3D%5C%22files%2Finventory_reconciliation.ktr%5C%22%3EView%20graph%3C%2Fbutton%3E%5Cn%22%7D%2C%7B%22title%22%3A%22Customer%20360%22%2C%22body%22%3A%22%3E%20**Warning%3A**%5Cn%3E%5Cn%3E%20%23%23%23%23%20Customer%20360%5Cn%3E%20%5Cn%3E%20Create%20unified%20customer%20profiles%20combining%20demographic%20data%2C%20purchase%20history%2C%20and%20behavioral%20events.%5Cn%3E%20%5Cn%3E%20**Skills%3A**%20Multiple%20joins%2C%20JSONL%20parsing%2C%20aggregations%2C%20calculated%20metrics%5Cn%5Cn%3Cfigure%3E%3Cimg%20src%3D%5C%22..%2F_assets%2Fimages%2Fcustomer-360.png%5C%22%20alt%3D%5C%22%5C%22%3E%3Cfigcaption%3E%3Cp%3ECustomer%20360%3C%2Fp%3E%3C%2Ffigcaption%3E%3C%2Ffigure%3E%5Cn%5Cn%3E%20**Note%3A**%20**Workshop%20files**%5Cn%3E%20%5Cn%3E%20Current%20draft%20inputs%20(already%20in%20MinIO)%3A%5Cn%3E%20%5Cn%3E%20*%20%60pvfs%3A%2F%2FMinIO%2Fraw-data%2Fcsv%2Fcustomers.csv%60%5Cn%3E%20*%20%60pvfs%3A%2F%2FMinIO%2Fraw-data%2Fcsv%2Fsales.csv%60%5Cn%5Cn%3E%20**Note%3A**%20Status%3A%20**Draft**.%20This%20workshop%20is%20incomplete.%5Cn%5Cn%3E%20**Note%3A**%20Create%20a%20new%20transformation.%5Cn%3E%20%5Cn%3E%20Use%20any%20of%20these%20options%3A%5Cn%3E%20%5Cn%3E%20*%20Select%20**File**%20%3E%20**New**%20%3E%20**Transformation**%5Cn%3E%20*%20Use%20%60Ctrl%2BN%60%20(Windows%2FLinux)%20or%20%60Cmd%2BN%60%20(macOS)%5Cn%5Cn%5Cn%5Cn%3Cdiv%20class%3D%5C%22pcm-tabs-widget%5C%22%20data-tabs%3D%5C%22%255B%257B%2522title%2522%253A%25221.%2520Data%2520Source%2520streams%2522%252C%2522body%2522%253A%2522%253Cdiv%2520class%253D%255C%2522pcm-tabs-widget%255C%2522%2520data-tabs%253D%255C%2522%25255B%25257B%252522title%252522%25253A%2525221.%252520Customers%252520stream%252522%25252C%252522body%252522%25253A%252522%25253E%252520**Note%25253A**%25255Cn%25253E%25255Cn%25253E%252520%252523%252523%252523%252523%252520Text%252520file%252520input%25255Cn%25253E%252520%25255Cn%25253E%252520Use%252520**Text%252520file%252520input**%252520to%252520read%252520customer%25252C%252520sales%25252C%252520and%252520event%252520streams.%25255Cn%25255Cn1.%252520Drag%252520%252526%252520drop%252520'Text%252520file%252520input'%252520steps%252520onto%252520the%252520canvas.%25255Cn2.%252520Save%252520transformation%252520as%25253A%252520%252560customer_360.ktr%252560%252520in%252520your%252520workshop%252520folder.%25255Cn%25255Cn***%25255Cn%25255Cn**Sales%252520(Order%252520Management)**%25255Cn%25255Cn1.%252520Double-click%252520on%252520the%252520first%252520TFI%252520step%25252C%252520and%252520configure%252520with%252520the%252520following%252520properties%25253A%25255Cn%25255Cn%25257C%252520Setting%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%25257C%252520Value%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%25257C%25255Cn%25257C%252520----------------%252520%25257C%252520-------------------------------------%252520%25257C%25255Cn%25257C%252520Step%252520name%252520%252520%252520%252520%252520%252520%252520%252520%25257C%252520%252560Sales%252560%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%25257C%25255Cn%25257C%252520Filename%252520%252520%252520%252520%252520%252520%252520%252520%252520%25257C%252520%252560pvfs%25253A%25252F%25252FMinIO%25252Fraw-data%25252Fcsv%25252Fsales.csv%252560%252520%25257C%25255Cn%25257C%252520Delimiter%252520%252520%252520%252520%252520%252520%252520%252520%25257C%252520%25252C%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%25257C%25255Cn%25257C%252520Head%252520row%252520present%252520%25257C%252520%2525E2%25259C%252585%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%25257C%25255Cn%25257C%252520Format%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%25257C%252520mixed%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%252520%25257C%25255Cn%25255Cn%25253Cfigure%25253E%25253Cimg%252520src%25253D%25255C%252522..%25252F_assets%25252Fimages%25252Fselect-sales-csv-from-vfs-connections.png%25255C%252522%252520alt%25253D%25255C%252522%25255C%252522%25253E%25253Cfigcaption%25253E%25253Cp%25253ESelect%252520-%252520sales.csv%252520from%252520VFS%252520connections%25253C%25252Fp%25253E%25253C%25252Ffigcaption%25253E%25253C%25252Ffigure%25253E%25255Cn%25255Cn2.%252520Click%25253A%252520**Get%252520Fields**%252520to%252520auto-detect%252520columns.%25255Cn%25255Cn%25253E%252520**Note%25253A**%252520**Business%252520Logic%25253A**%252520Note%252520that%252520%252560sale_amount%252560%252520may%252520differ%252520from%252520%252560price%252520*%252520quantity%252560%252520due%252520to%25253A%25255Cn%25253E%252520%25255Cn%25253E%252520*%252520Volume%252520discounts%25255Cn%25253E%252520*%252520Promotional%252520pricing%25255Cn%25253E%252520*%252520Customer-specific%252520pricing%252520tiers%25255Cn%25253E%252520*%252520Currency%252520conversion%252520(for%252520international%252520sales)%25255Cn%25255Cn%25253Cfigure%25253E%25253Cimg%252520src%25253D%25255C%252522..%25252F_assets%25252Fimages%25252Fget-fields-sales.png%25255C%252522%252520alt%25253D%25255C%252522%25255C%252522%25253E%25253Cfigcaption%25253E%25253Cp%25253EGet%252520Fields%252520-%252520Sales%25253C%25252Fp%25253E%25253C%25252Ffigcaption%25253E%25253C%25252Ffigure%25253E%25255Cn%25255Cn3.%252520Preview%252520data.%25255Cn%25255Cn%25253Cfigure%25253E%25253Cimg%252520src%25253D%25255C%252522..%25252F_assets%25252Fimages%25252Fpreview-data-sales.png%25255C%252522%252520alt%25253D%25255C%252522%25255C%252522%25253E%25253Cfigcaption%25253E%25253Cp%25253EPreview%252520data%252520-%252520Sales%25253C%25252Fp%25253E%25253C%25252Ffigcaption%25253E%25253C%25252Ffigure%25253E%25255Cn%25255Cn%25253E%252520**Note%25253A**%252520**Business%252520Significance%25253A**%25255Cn%25253E%252520%25255Cn%25253E%252520*%252520%252560sale_amount%252560%25253A%252520Actual%252520revenue%252520(may%252520include%252520discounts)%25255Cn%25253E%252520*%252520%252560quantity%252560%25253A%252520Volume%252520metrics%252520for%252520demand%252520planning%25255Cn%25253E%252520*%252520%252560payment_method%252560%25253A%252520Payment%252520preference%252520insights%25255Cn%25253E%252520*%252520%252560status%252560%25253A%252520Filter%252520out%252520cancelled%25252Frefunded%252520orders%25255Cn%25255Cn***%25255Cn%25255Cn%25253E%252520**Note%25253A**%25255Cn%25253E%25255Cn%25253E%252520%252523%252523%252523%252523%252520Sort%252520rows%25255Cn%25255Cn1.%252520Drag%252520%252526%252520drop%252520'Sort%252520rows'%252520steps%252520onto%252520the%252520canvas.%25255Cn2.%252520Create%252520a%252520Hop%252520between%252520'Read%252520Customers'%252520%252526%252520'Sort%252520rows'.%25255Cn3.%252520Double-click%252520on%252520'Sort%252520rows'%252520and%252520configure%252520the%252520sort%252520keys.%252522%25257D%25252C%25257B%252522title%252522%25253A%2525222.%252520Sales%252520stream%252522%25252C%252522body%252522%25253A%252522%25253E%252520**Note%25253A**%252520Status%25253A%252520**Draft**.%252520Define%252520sales-level%252520aggregations%252520(for%252520example%25252C%252520total%252520spend%252520per%252520customer).%252522%25257D%25252C%25257B%252522title%252522%25253A%2525223.%252520User%252520Events%252520stream%252522%25252C%252522body%252522%25253A%252522%252522%25257D%25255D%255C%2522%253E%253C%252Fdiv%253E%2522%257D%252C%257B%2522title%2522%253A%25222.%2520Joins%2522%252C%2522body%2522%253A%2522%253E%2520**Note%253A**%2520Status%253A%2520**Draft**.%2520Join%2520the%2520customer%252C%2520sales%252C%2520and%2520user%2520event%2520streams.%2522%257D%252C%257B%2522title%2522%253A%25223.%2520Output%2522%252C%2522body%2522%253A%2522%253E%2520**Note%253A**%2520Status%253A%2520**Draft**.%2520Create%2520one%2520row%2520per%2520customer%2520and%2520write%2520to%2520%2560pvfs%253A%252F%252FMinIO%252Fstaging%252Fcustomer360%252F%2560.%2522%257D%255D%5C%22%3E%3C%2Fdiv%3E%5Cn%5Cn***%5Cn%5Cn%3E%20**Note%3A**%20**Workshop%20files**%5Cn%3E%20%5Cn%3E%20Download%20the%20files%20for%20this%20workshop.%20For%20%60.ktr%60%20files%2C%20**Open%20in%20Pentaho%20Data%20Integration**%20launches%20PDI%20with%20the%20transformation%20loaded%3B%20if%20PDI%20is%20already%20running%2C%20the%20path%20is%20copied%20to%20your%20clipboard%20(Ctrl%2BO%2C%20Ctrl%2BV%2C%20Enter).%5Cn%5Cn%5Bcustomer_360.ktr%5D(.%2Ffiles%2Fcustomer_360.ktr)%20%3Cbutton%20data-launch%3D%5C%22spoon%5C%22%20data-path%3D%5C%22files%2Fcustomer_360.ktr%5C%22%3EOpen%20in%20Pentaho%20Data%20Integration%3C%2Fbutton%3E%20%3Cbutton%20data-graph%3D%5C%22files%2Fcustomer_360.ktr%5C%22%3EView%20graph%3C%2Fbutton%3E%5Cn%22%7D%2C%7B%22title%22%3A%22Log%20Parsing%22%2C%22body%22%3A%22%3E%20**Warning%3A**%5Cn%3E%5Cn%3E%20%23%23%23%23%20Log%20Parsing%20and%20Anomaly%20Detection%5Cn%3E%20%5Cn%3E%20**Objective%3A**%20Parse%20application%20logs%2C%20extract%20metrics%2C%20and%20detect%20anomalies.%5Cn%3E%20%5Cn%3E%20**Skills%3A**%20Regex%2C%20timestamp%20parsing%2C%20time-series%20analysis%2C%20conditional%20logic%5Cn%5Cn%3Cfigure%3E%3Cimg%20src%3D%5C%22..%2F_assets%2Fimages%2Flog-analysis.png%5C%22%20alt%3D%5C%22%5C%22%3E%3Cfigcaption%3E%3Cp%3ELog%20Analysis%3C%2Fp%3E%3C%2Ffigcaption%3E%3C%2Ffigure%3E%5Cn%5Cn%3E%20**Note%3A**%20Status%3A%20**Draft**.%20Steps%20coming%20soon.%5Cn%5Cn***%5Cn%5Cn%3E%20**Note%3A**%20**Workshop%20files**%5Cn%3E%20%5Cn%3E%20Download%20the%20files%20for%20this%20workshop.%20For%20%60.ktr%60%20files%2C%20**Open%20in%20Pentaho%20Data%20Integration**%20launches%20PDI%20with%20the%20transformation%20loaded%3B%20if%20PDI%20is%20already%20running%2C%20the%20path%20is%20copied%20to%20your%20clipboard%20(Ctrl%2BO%2C%20Ctrl%2BV%2C%20Enter).%5Cn%5Cn%5Blog_analysis_anomaly.ktr%5D(.%2Ffiles%2Flog_analysis_anomaly.ktr)%20%3Cbutton%20data-launch%3D%5C%22spoon%5C%22%20data-path%3D%5C%22files%2Flog_analysis_anomaly.ktr%5C%22%3EOpen%20in%20Pentaho%20Data%20Integration%3C%2Fbutton%3E%20%3Cbutton%20data-graph%3D%5C%22files%2Flog_analysis_anomaly.ktr%5C%22%3EView%20graph%3C%2Fbutton%3E%5Cn%22%7D%2C%7B%22title%22%3A%22Fraud%22%2C%22body%22%3A%22%3E%20**Warning%3A**%5Cn%3E%5Cn%3E%20%23%23%23%23%20Transactions%20%26%20Fraud%20Detection%5Cn%3E%20%5Cn%3E%20**Objective%3A**%20Process%20credit%20card%20transactions%2C%20enrich%20with%20account%20and%20merchant%20data%2C%20calculate%20transaction%20metrics%2C%20and%20detect%20suspicious%20patterns%20using%20rule-based%20fraud%20detection.%5Cn%3E%20%5Cn%3E%20**Skills%3A**%20Financial%20data%20processing%2C%20multi-table%20joins%2C%20running%20totals%2C%20rule-based%20fraud%20detection%2C%20transaction%20velocity%20analysis%5Cn%3E%20%5Cn%3E%20**Business%20Context%3A**%20A%20payment%20processor%20needs%20to%20analyze%20transaction%20data%20in%20real-time%20to%20detect%20potentially%20fraudulent%20activity%20before%20authorizing%20transactions.%20The%20system%20must%20flag%20high-risk%20transactions%20based%20on%20amount%20thresholds%2C%20unusual%20merchant%20activity%2C%20account%20balance%20checks%2C%20and%20transaction%20velocity%20patterns.%5Cn%5Cn%3E%20**Note%3A**%20Status%3A%20**Draft**.%20Steps%20coming%20soon.%5Cn%5Cn***%5Cn%5Cn%3E%20**Note%3A**%20**Workshop%20files**%5Cn%3E%20%5Cn%3E%20Download%20the%20files%20for%20this%20workshop.%20For%20%60.ktr%60%20files%2C%20**Open%20in%20Pentaho%20Data%20Integration**%20launches%20PDI%20with%20the%20transformation%20loaded%3B%20if%20PDI%20is%20already%20running%2C%20the%20path%20is%20copied%20to%20your%20clipboard%20(Ctrl%2BO%2C%20Ctrl%2BV%2C%20Enter).%5Cn%5Cn%5Bfraud_detection.ktr%5D(.%2Ffiles%2Ffraud_detection.ktr)%20%3Cbutton%20data-launch%3D%5C%22spoon%5C%22%20data-path%3D%5C%22files%2Ffraud_detection.ktr%5C%22%3EOpen%20in%20Pentaho%20Data%20Integration%3C%2Fbutton%3E%20%3Cbutton%20data-graph%3D%5C%22files%2Ffraud_detection.ktr%5C%22%3EView%20graph%3C%2Fbutton%3E%5Cn%5Cn%5Bdata%2Faccounts.csv%5D(.%2Ffiles%2Fdata%2Faccounts.csv)%5Cn%5Cn%5Bdata%2Fmerchants.csv%5D(.%2Ffiles%2Fdata%2Fmerchants.csv)%5Cn%5Cn%5Bdata%2Ftransactions.csv%5D(.%2Ffiles%2Fdata%2Ftransactions.csv)%5Cn%22%7D%2C%7B%22title%22%3A%22Data%20Lake%20Ingestion%22%2C%22body%22%3A%22%3E%20**Warning%3A**%5Cn%3E%5Cn%3E%20%23%23%23%23%20Data%20Lake%20Ingestion%5Cn%3E%20%5Cn%3E%20Modern%20data%20lakes%20often%20receive%20the%20same%20entities%20(products%2C%20customers%2C%20orders)%20from%20multiple%20sources%20in%20different%20formats.%20This%20workshop%20demonstrates%20how%20to%20ingest%2C%20normalize%2C%20validate%2C%20and%20deduplicate%20multi-format%20data%20into%20a%20unified%20schema%20-%20a%20common%20data%20engineering%20pattern.%5Cn%3E%20%5Cn%3E%20**Objective%3A**%20Combine%20data%20from%20CSV%2C%20JSON%2C%20and%20XML%20into%20a%20unified%20product%20schema.%5Cn%3E%20%5Cn%3E%20**Skills%3A**%20Multi-format%20parsing%2C%20schema%20normalization%2C%20data%20validation%2C%20deduplication%5Cn%5Cn%3E%20**Note%3A**%20**Workshop%20files**%5Cn%3E%20%5Cn%3E%20These%20files%20are%20already%20in%20MinIO%3A%5Cn%3E%20%5Cn%3E%20*%20%60pvfs%3A%2F%2FMinIO%2Fraw-data%2Fcsv%2Fproducts.csv%60%5Cn%3E%20*%20%60pvfs%3A%2F%2FMinIO%2Fraw-data%2Fjson%2Fapi_response.json%60%5Cn%3E%20*%20%60pvfs%3A%2F%2FMinIO%2Fraw-data%2Fxml%2Finventory.xml%60%5Cn%5Cn%3E%20**Note%3A**%20Create%20a%20new%20transformation.%5Cn%3E%20%5Cn%3E%20Use%20any%20of%20these%20options%3A%5Cn%3E%20%5Cn%3E%20*%20Select%20**File**%20%3E%20**New**%20%3E%20**Transformation**%5Cn%3E%20*%20Use%20%60Ctrl%2BN%60%20(Windows%2FLinux)%20or%20%60Cmd%2BN%60%20(macOS)%5Cn%5Cn%5Cn%5Cn%3Cdiv%20class%3D%5C%22pcm-tabs-widget%5C%22%20data-tabs%3D%5C%22%255B%257B%2522title%2522%253A%25221.%2520Define%2520Target%2520Schema%2522%252C%2522body%2522%253A%2522%253E%2520**Note%253A**%255Cn%253E%255Cn%253E%2520%2523%2523%2523%2523%2520Define%2520Target%2520Schema%255Cn%253E%2520%255Cn%253E%2520**Objective%253A**%2520Design%2520a%2520unified%2520schema%2520that%2520accommodates%2520all%2520source%2520formats.%255Cn%253E%2520%255Cn%253E%2520**Why%2520Important%253A**%2520Before%2520ingesting%2520data%252C%2520you%2520need%2520a%2520clear%2520target%2520schema.%2520This%2520ensures%2520consistency%2520across%2520all%2520sources%2520and%2520makes%2520downstream%2520analytics%2520easier.%255Cn%255Cn%253Ctable%2520data-full-width%253D%255C%2522true%255C%2522%253E%253Cthead%253E%253Ctr%253E%253Cth%2520width%253D%255C%2522141%255C%2522%253EField%253C%252Fth%253E%253Cth%2520width%253D%255C%2522109%255C%2522%253EType%253C%252Fth%253E%253Cth%2520width%253D%255C%252295%255C%2522%253ELength%253C%252Fth%253E%253Cth%2520width%253D%255C%2522125%255C%2522%253EDescription%253C%252Fth%253E%253Cth%253ESource%2520Mapping%253C%252Fth%253E%253C%252Ftr%253E%253C%252Fthead%253E%253Ctbody%253E%253Ctr%253E%253Ctd%253Eproduct_id%253C%252Ftd%253E%253Ctd%253EString%253C%252Ftd%253E%253Ctd%253E50%253C%252Ftd%253E%253Ctd%253EUnique%2520product%2520identifier%253C%252Ftd%253E%253Ctd%253ECSV%253A%2520product_id%253Cbr%253EJSON%253A%2520product_id%253Cbr%253EXML%253A%2520sku%253C%252Ftd%253E%253C%252Ftr%253E%253Ctr%253E%253Ctd%253Eproduct_name%253C%252Ftd%253E%253Ctd%253EString%253C%252Ftd%253E%253Ctd%253E200%253C%252Ftd%253E%253Ctd%253EProduct%2520display%2520name%253C%252Ftd%253E%253Ctd%253ECSV%253A%2520product_name%253Cbr%253EJSON%253A%2520product_name%253Cbr%253EXML%253A%2520name%253C%252Ftd%253E%253C%252Ftr%253E%253Ctr%253E%253Ctd%253Ecategory%253C%252Ftd%253E%253Ctd%253EString%253C%252Ftd%253E%253Ctd%253E100%253C%252Ftd%253E%253Ctd%253EProduct%2520category%253C%252Ftd%253E%253Ctd%253ECSV%253A%2520category%253Cbr%253EJSON%253A%2520(derived%2520from%2520order%2520type)%253Cbr%253EXML%253A%2520category%253C%252Ftd%253E%253C%252Ftr%253E%253Ctr%253E%253Ctd%253Eprice%253C%252Ftd%253E%253Ctd%253ENumber%253C%252Ftd%253E%253Ctd%253E15%252C2%253C%252Ftd%253E%253Ctd%253EUnit%2520price%2520in%2520USD%253C%252Ftd%253E%253Ctd%253ECSV%253A%2520price%253Cbr%253EJSON%253A%2520unit_price%253Cbr%253EXML%253A%2520null%2520(not%2520available)%253C%252Ftd%253E%253C%252Ftr%253E%253Ctr%253E%253Ctd%253Equantity%253C%252Ftd%253E%253Ctd%253EInteger%253C%252Ftd%253E%253Ctd%253E10%253C%252Ftd%253E%253Ctd%253EAvailable%2520stock%2520quantity%253C%252Ftd%253E%253Ctd%253ECSV%253A%2520stock_quantity%253Cbr%253EJSON%253A%2520quantity%253Cbr%253EXML%253A%2520quantity%253C%252Ftd%253E%253C%252Ftr%253E%253Ctr%253E%253Ctd%253Esource_system%253C%252Ftd%253E%253Ctd%253EString%253C%252Ftd%253E%253Ctd%253E10%253C%252Ftd%253E%253Ctd%253EOrigin%2520system%2520identifier%253C%252Ftd%253E%253Ctd%253EConstant%253A%2520'csv'%252C%2520'json'%252C%2520or%2520'xml'%253C%252Ftd%253E%253C%252Ftr%253E%253Ctr%253E%253Ctd%253Eingestion_time%253C%252Ftd%253E%253Ctd%253ETimestamp%253C%252Ftd%253E%253Ctd%253E-%253C%252Ftd%253E%253Ctd%253EWhen%2520record%2520was%2520ingested%253C%252Ftd%253E%253Ctd%253ESystem%2520timestamp%253C%252Ftd%253E%253C%252Ftr%253E%253C%252Ftbody%253E%253C%252Ftable%253E%255Cn%255Cn***%255Cn%255Cn%253E%2520**Note%253A**%255Cn%253E%255Cn%253E%2520%2523%2523%2523%2523%2520Schema%2520Discovery%2520%2526%2520Analysis%255Cn%253E%2520%255Cn%253E%2520**Objective%253A**%2520Understand%2520each%2520source%2520structure%2520before%2520you%2520design%2520the%2520target%2520schema.%255Cn%253E%2520%255Cn%253E%2520**Why%2520it%2520matters%253A**%2520You%2520can%25E2%2580%2599t%2520normalize%2520what%2520you%2520haven%25E2%2580%2599t%2520inspected.%255Cn%255Cn**Step%25201.**%2520**Inspect%2520each%2520Data%2520Source**%255Cn%255CnUse%2520real%2520samples.%2520Avoid%2520guessing%2520field%2520names.%255Cn%255Cn%255Cn%255Cn%253Cdiv%2520class%253D%255C%2522pcm-tabs-widget%255C%2522%2520data-tabs%253D%255C%2522%25255B%25257B%252522title%252522%25253A%252522CSV%252520(products.csv)%252522%25252C%252522body%252522%25253A%252522**Inspect%252520the%252520file**%25255Cn%25255Cn%252560%252560%252560bash%25255Cnmc%252520cat%252520minio-local%25252Fraw-data%25252Fcsv%25252Fproducts.csv%252520%25257C%252520head%252520-5%25255Cn%252560%252560%252560%25255Cn%25255Cn**Sample%252520output**%25255Cn%25255Cn%252560%252560%252560csv%25255Cnproduct_id%25252Cproduct_name%25252Ccategory%25252Cprice%25252Cstock_quantity%25255CnPROD-001%25252CLaptop%252520Pro%25252015%25252CElectronics%25252C999.99%25252C50%25255CnPROD-002%25252COffice%252520Chair%25252CFurniture%25252C299.99%25252C100%25255CnPROD-003%25252CCoffee%252520Maker%25252CAppliances%25252C79.99%25252C200%25255Cn%252560%252560%252560%25255Cn%25255Cn**Findings**%25255Cn%25255Cn*%252520Has%252520%252560product_id%252560%25252C%252520%252560product_name%252560%25252C%252520%252560category%252560%25252C%252520%252560price%252560%25252C%252520%252560stock_quantity%252560.%25255Cn*%252520Completeness%252520looks%252520high.%25255Cn*%252520Naming%252520is%252520consistent%252520and%252520explicit.%252522%25257D%25252C%25257B%252522title%252522%25253A%252522JSON%252520(api%25255C%25255C_response.json)%252522%25252C%252522body%252522%25253A%252522**Inspect%252520one%252520nested%252520item**%25255Cn%25255Cn%252560%252560%252560bash%25255Cnmc%252520cat%252520minio-local%25252Fraw-data%25252Fjson%25252Fapi_response.json%252520%25257C%252520jq%252520'.data.orders%25255B0%25255D.items%25255B0%25255D'%25255Cn%252560%252560%252560%25255Cn%25255Cn**Sample%252520output**%25255Cn%25255Cn%252560%252560%252560json%25255Cn%25257B%25255Cn%252520%252520%25255C%252522product_id%25255C%252522%25253A%252520%25255C%252522PROD-001%25255C%252522%25252C%25255Cn%252520%252520%25255C%252522product_name%25255C%252522%25253A%252520%25255C%252522Laptop%252520Pro%25252015%25255C%252522%25252C%25255Cn%252520%252520%25255C%252522unit_price%25255C%252522%25253A%252520999.99%25252C%25255Cn%252520%252520%25255C%252522quantity%25255C%252522%25253A%2525202%25255Cn%25257D%25255Cn%252560%252560%252560%25255Cn%25255Cn**Findings**%25255Cn%25255Cn*%252520Has%252520%252560product_id%252560%252520and%252520%252560product_name%252560.%25255Cn*%252520Uses%252520%252560unit_price%252560%252520instead%252520of%252520%252560price%252560.%25255Cn*%252520%252560quantity%252560%252520is%252520order%252520quantity%25252C%252520not%252520stock.%25255Cn*%252520%252560category%252560%252520is%252520missing.%25255Cn*%252520Path%252520is%252520%252560%252524.data.orders%25255B*%25255D.items%25255B*%25255D%252560.%252522%25257D%25252C%25257B%252522title%252522%25253A%252522XML%252520(inventory.xml)%252522%25252C%252522body%252522%25253A%252522**Inspect%252520one%252520item%252520node**%25255Cn%25255Cn%252560%252560%252560bash%25255Cnmc%252520cat%252520minio-local%25252Fraw-data%25252Fxml%25252Finventory.xml%252520%25257C%252520grep%252520-A%2525206%252520%25255C%252522%25253Citem%25253E%25255C%252522%252520%25257C%252520head%252520-10%25255Cn%252560%252560%252560%25255Cn%25255Cn**Sample%252520output**%25255Cn%25255Cn%252560%252560%252560xml%25255Cn%25253Citem%25253E%25255Cn%252520%252520%25253Csku%25253EPROD-001%25253C%25252Fsku%25253E%25255Cn%252520%252520%25253Cname%25253ELaptop%252520Pro%25252015%25253C%25252Fname%25253E%25255Cn%252520%252520%25253Ccategory%25253EElectronics%25253C%25252Fcategory%25253E%25255Cn%252520%252520%25253Cquantity%25253E50%25253C%25252Fquantity%25253E%25255Cn%252520%252520%25253Clocation%25253EA-15%25253C%25252Flocation%25253E%25255Cn%25253C%25252Fitem%25253E%25255Cn%252560%252560%252560%25255Cn%25255Cn**Findings**%25255Cn%25255Cn*%252520Uses%252520%252560sku%252560%252520for%252520%252560product_id%252560.%25255Cn*%252520Uses%252520%252560name%252560%252520for%252520%252560product_name%252560.%25255Cn*%252520Has%252520%252560category%252560%252520and%252520warehouse%252520%252560quantity%252560.%25255Cn*%252520%252560price%252560%252520is%252520missing.%25255Cn*%252520%252560location%252560%252520is%252520extra%252520for%252520a%252520product%252520master.%252522%25257D%25255D%255C%2522%253E%253C%252Fdiv%253E%255Cn%255Cn%255Cn%255Cn%255Cn%255Cn%255Cn%255Cn**Step%25202.**%2520**Build%2520a%2520field%2520mapping%2520matrix**%255Cn%255CnThis%2520shows%2520name%2520differences%2520and%2520missing%2520fields.%255Cn%255Cn%253Ctable%2520data-full-width%253D%255C%2522true%255C%2522%253E%253Cthead%253E%253Ctr%253E%253Cth%253EUnified%2520field%253C%252Fth%253E%253Cth%253ECSV%253C%252Fth%253E%253Cth%253EJSON%253C%252Fth%253E%253Cth%2520width%253D%255C%2522109%255C%2522%253EXML%253C%252Fth%253E%253Cth%253ENotes%253C%252Fth%253E%253C%252Ftr%253E%253C%252Fthead%253E%253Ctbody%253E%253Ctr%253E%253Ctd%253EIdentifier%253C%252Ftd%253E%253Ctd%253E%253Ccode%253Eproduct_id%253C%252Fcode%253E%253C%252Ftd%253E%253Ctd%253E%253Ccode%253Eproduct_id%253C%252Fcode%253E%253C%252Ftd%253E%253Ctd%253E%253Ccode%253Esku%253C%252Fcode%253E%253C%252Ftd%253E%253Ctd%253ESame%2520meaning.%2520Different%2520name%2520in%2520XML.%253C%252Ftd%253E%253C%252Ftr%253E%253Ctr%253E%253Ctd%253EName%253C%252Ftd%253E%253Ctd%253E%253Ccode%253Eproduct_name%253C%252Fcode%253E%253C%252Ftd%253E%253Ctd%253E%253Ccode%253Eproduct_name%253C%252Fcode%253E%253C%252Ftd%253E%253Ctd%253E%253Ccode%253Ename%253C%252Fcode%253E%253C%252Ftd%253E%253Ctd%253ESame%2520meaning.%2520Different%2520name%2520in%2520XML.%253C%252Ftd%253E%253C%252Ftr%253E%253Ctr%253E%253Ctd%253ECategory%253C%252Ftd%253E%253Ctd%253E%253Ccode%253Ecategory%253C%252Fcode%253E%253C%252Ftd%253E%253Ctd%253E%25E2%259D%258C%253C%252Ftd%253E%253Ctd%253E%253Ccode%253Ecategory%253C%252Fcode%253E%253C%252Ftd%253E%253Ctd%253EMissing%2520in%2520JSON.%253C%252Ftd%253E%253C%252Ftr%253E%253Ctr%253E%253Ctd%253EPrice%253C%252Ftd%253E%253Ctd%253E%253Ccode%253Eprice%253C%252Fcode%253E%253C%252Ftd%253E%253Ctd%253E%253Ccode%253Eunit_price%253C%252Fcode%253E%253C%252Ftd%253E%253Ctd%253E%25E2%259D%258C%253C%252Ftd%253E%253Ctd%253EDifferent%2520name%2520in%2520JSON.%2520Missing%2520in%2520XML.%253C%252Ftd%253E%253C%252Ftr%253E%253Ctr%253E%253Ctd%253EStock%2520quantity%253C%252Ftd%253E%253Ctd%253E%253Ccode%253Estock_quantity%253C%252Fcode%253E%253C%252Ftd%253E%253Ctd%253E%253Ccode%253Equantity%253C%252Fcode%253E%253C%252Ftd%253E%253Ctd%253E%253Ccode%253Equantity%253C%252Fcode%253E%253C%252Ftd%253E%253Ctd%253EJSON%2520%253Ccode%253Equantity%253C%252Fcode%253E%2520is%2520not%2520stock.%253C%252Ftd%253E%253C%252Ftr%253E%253C%252Ftbody%253E%253C%252Ftable%253E%255Cn%255Cn**What%2520to%2520watch**%255Cn%255Cn*%2520Missing%2520data%2520is%2520normal%2520in%2520multi-source%2520ingestion.%255Cn*%2520Same%2520name%2520can%2520mean%2520different%2520things.%255Cn%255Cn%255Cn%255Cn%255Cn%255Cn**Step%25203.**%2520**Make%2520schema%2520decisions**%255Cn%255CnWrite%2520these%2520down.%2520You%2520will%2520forget%2520them%2520later.%255Cn%255Cn**Field%2520names**%255Cn%255Cn*%2520Use%2520CSV%2520naming%2520as%2520the%2520standard.%255Cn*%2520Map%2520XML%2520%2560sku%2520%25E2%2586%2592%2520product_id%2560%2520and%2520%2560name%2520%25E2%2586%2592%2520product_name%2560.%255Cn*%2520Map%2520JSON%2520%2560unit_price%2520%25E2%2586%2592%2520price%2560.%255Cn%255Cn**Missing%2520fields**%255Cn%255Cn*%2520Missing%2520%2560category%2560%2520in%2520JSON%253A%2520set%2520a%2520default%2520like%2520%2560E-commerce%2560.%255Cn*%2520Missing%2520%2560price%2560%2520in%2520XML%253A%2520leave%2520%2560NULL%2560.%255Cn%255Cn**Data%2520types**%255Cn%255Cn*%2520%2560product_id%2560%253A%2520string.%2520It%2520contains%2520%2560PROD-%2560%2520prefix.%255Cn*%2520%2560product_name%2560%253A%2520string.%2520Allow%2520up%2520to%2520200%2520chars.%255Cn*%2520%2560category%2560%253A%2520string.%2520Allow%2520up%2520to%2520100%2520chars.%255Cn*%2520%2560price%2560%253A%2520decimal(15%252C2).%255Cn*%2520%2560quantity%2560%253A%2520integer.%255Cn%255Cn**Metadata**%255Cn%255Cn*%2520Add%2520%2560source_system%2560%2520for%2520lineage.%255Cn*%2520Add%2520%2560ingestion_time%2560%2520for%2520auditability.%255Cn%255Cn%255Cn%255Cn%255Cn%255Cn**Step%25204.**%2520**Define%2520a%2520deduplication%2520rule**%255Cn%255CnSame%2520%2560product_id%2560%2520can%2520appear%2520in%2520multiple%2520sources.%255Cn%255Cn**Example%2520collision**%255Cn%255Cn%2560%2560%2560%255CnCSV%253A%2520%2520PROD-001%252C%2520price%253D999.99%252C%2520stock_quantity%253D50%252C%2520category%253DElectronics%255CnJSON%253A%2520PROD-001%252C%2520price%253D999.99%252C%2520quantity%253D2%252C%2520%2520%2520%2520%2520%2520%2520category%253DNULL%255CnXML%253A%2520%2520PROD-001%252C%2520price%253DNULL%252C%2520%2520%2520quantity%253D50%252C%2520%2520%2520%2520%2520%2520category%253DElectronics%255Cn%2560%2560%2560%255Cn%255Cn**Recommended%2520rule**%255Cn%255Cn1.%2520Prefer%2520CSV.%255Cn2.%2520Then%2520JSON.%255Cn3.%2520Then%2520XML.%255Cn%255CnImplement%2520this%2520with%2520%2560source_priority%2560%2520(CSV%253D1%252C%2520JSON%253D2%252C%2520XML%253D3).%255Cn%255Cn%255Cn%255Cn%255Cn%255Cn**Step%25205.**%2520**Checklist**%255Cn%255Cn*%2520You%2520inspected%2520real%2520records%2520for%2520each%2520source.%255Cn*%2520You%2520captured%2520paths%2520for%2520nested%2520formats.%255Cn*%2520You%2520documented%2520mappings%2520and%2520type%2520choices.%255Cn*%2520You%2520decided%2520how%2520to%2520handle%2520missing%2520data.%255Cn*%2520You%2520decided%2520how%2520to%2520dedupe%2520collisions.%2522%257D%252C%257B%2522title%2522%253A%25222.%2520Ingest%2520Data%2520Sources%2522%252C%2522body%2522%253A%2522%253E%2520**Note%253A**%255Cn%253E%255Cn%253E%2520%2523%2523%2523%2523%2520Ingest%2520Data%2520Sources%255Cn%255Cn%253E%2520**Warning%253A**%2520**Path%2520convention%2520used%2520below%253A**%2520%2560pvfs%253A%252F%252FMinIO%252F...%2560%255Cn%253E%2520%255Cn%253E%2520%2560MinIO%2560%2520is%2520the%2520**VFS%2520connection%2520name**.%2520It%2520must%2520match%2520your%2520connection%2520exactly.%255Cn%255Cn**Step%25201.**%2520**Ingest%2520CSV%2520products**%255Cn%255Cn**Goal%253A**%2520Read%2520%2560products.csv%2560%2520and%2520map%2520it%2520to%2520the%2520unified%2520schema.%255Cn%255Cn**Path%253A**%2520%2560pvfs%253A%252F%252FMinIO%252Fraw-data%252Fcsv%252Fproducts.csv%2560%255Cn%255Cn1.%2520Add%2520a%2520**Text%2520file%2520input**%2520step.%255Cn%2520%2520%2520*%2520Step%2520name%253A%2520%2560Read%2520CSV%2520Products%2560%255Cn%2520%2520%2520*%2520File%252Fdirectory%253A%2520%2560pvfs%253A%252F%252FMinIO%252Fraw-data%252Fcsv%252Fproducts.csv%2560%255Cn%2520%2520%2520*%2520Separator%253A%2520%2560%252C%2560%255Cn%2520%2520%2520*%2520Enclosure%253A%2520%2560%255C%2522%2560%2520(double%2520quote)%255Cn%2520%2520%2520*%2520Header%2520row%2520present%253A%2520enabled%255Cn2.%2520On%2520**Fields**%252C%2520select%2520**Get%2520Fields**.%255Cn3.%2520Add%2520a%2520**Select%2520values**%2520step.%255Cn%2520%2520%2520*%2520Step%2520name%253A%2520%2560Map%2520CSV%2520to%2520Target%2520Schema%2560%255Cn%2520%2520%2520*%2520Rename%2520%2560stock_quantity%2560%2520%25E2%2586%2592%2520%2560quantity%2560%255Cn4.%2520Add%2520**Add%2520constants**.%255Cn%2520%2520%2520*%2520Step%2520name%253A%2520%2560Add%2520CSV%2520Metadata%2560%255Cn%2520%2520%2520*%2520Add%2520field%2520%2560source_system%2560%2520%253D%2520%2560csv%2560%255Cn5.%2520Add%2520**Get%2520System%2520Info**.%255Cn%2520%2520%2520*%2520Step%2520name%253A%2520%2560Add%2520Ingestion%2520Timestamp%2560%255Cn%2520%2520%2520*%2520Add%2520field%2520%2560ingestion_time%2560%2520%253D%2520%2560system%2520date%2520(variable)%2560%255Cn%255Cn**Preview%2520check**%255Cn%255Cn*%2520Expected%2520rows%253A%2520%256012%2560%255Cn*%2520%2560product_id%2560%252C%2520%2560product_name%2560%252C%2520%2560category%2560%2520should%2520be%2520populated.%255Cn%255Cn%255Cn%255Cn%255Cn%255Cn%2523%2523%2523%2520Ingest%2520JSON%2520order%2520items%255Cn%255Cn**Goal%253A**%2520Extract%2520product%2520fields%2520from%2520nested%2520JSON%2520order%2520items.%255Cn%255Cn**Path%253A**%2520%2560pvfs%253A%252F%252FMinIO%252Fraw-data%252Fjson%252Fapi_response.json%2560%255Cn%255Cn%253E%2520**Warning%253A**%2520%2560quantity%2560%2520in%2520JSON%2520is%2520**order%2520quantity**%252C%2520not%2520stock%2520quantity.%255Cn%253E%2520%255Cn%253E%2520Keep%2520it%2520as%2520%2560quantity%2560%2520only%2520if%2520that%25E2%2580%2599s%2520what%2520you%2520want%2520to%2520model.%255Cn%255Cn1.%2520Add%2520a%2520**JSON%2520Input**%2520step.%255Cn%2520%2520%2520*%2520Step%2520name%253A%2520%2560Read%2520JSON%2520Products%2560%255Cn%2520%2520%2520*%2520File%253A%2520%2560pvfs%253A%252F%252FMinIO%252Fraw-data%252Fjson%252Fapi_response.json%2560%255Cn%2520%2520%2520*%2520Ignore%2520empty%2520file%253A%2520enabled%255Cn2.%2520On%2520**Fields**%252C%2520use%2520**explicit%2520JSONPaths**%2520(recommended)%253A%255Cn%2520%2520%2520*%2520%2560product_id%2560%253A%2520%2560%2524.data.orders%255B*%255D.items%255B*%255D.product_id%2560%255Cn%2520%2520%2520*%2520%2560product_name%2560%253A%2520%2560%2524.data.orders%255B*%255D.items%255B*%255D.product_name%2560%255Cn%2520%2520%2520*%2520%2560unit_price%2560%253A%2520%2560%2524.data.orders%255B*%255D.items%255B*%255D.unit_price%2560%255Cn%2520%2520%2520*%2520%2560quantity%2560%253A%2520%2560%2524.data.orders%255B*%255D.items%255B*%255D.quantity%2560%255Cn%255Cn%253Cdetails%253E%255Cn%255Cn%253Csummary%253EAlternative%2520approach%2520(base%2520path%2520%252B%2520relative%2520field%2520paths)%253C%252Fsummary%253E%255Cn%255CnIf%2520your%2520PDI%2520build%2520supports%2520a%2520base%2520%25E2%2580%259CPath%25E2%2580%259D%2520for%2520the%2520JSON%2520Input%2520step%252C%2520set%253A%255C%255Cn%255C%255Cn-%2520Base%2520path%253A%2520%2560%2524.data.orders%255B*%255D.items%255B*%255D%2560%255C%255Cn%255C%255CnThen%2520set%2520field%2520paths%2520relative%2520to%2520the%2520base%253A%255C%255Cn%255C%255Cn-%2520%2560product_id%2560%253A%2520%2560product_id%2560%255C%255Cn-%2520%2560product_name%2560%253A%2520%2560product_name%2560%255C%255Cn-%2520%2560unit_price%2560%253A%2520%2560unit_price%2560%255C%255Cn-%2520%2560quantity%2560%253A%2520%2560quantity%2560%255C%255Cn%255Cn%255Cn%253C%252Fdetails%253E%255Cn%255Cn3.%2520Add%2520a%2520**Select%2520values**%2520step.%255Cn%2520%2520%2520*%2520Step%2520name%253A%2520%2560Map%2520JSON%2520to%2520Target%2520Schema%2560%255Cn%2520%2520%2520*%2520Rename%2520%2560unit_price%2560%2520%25E2%2586%2592%2520%2560price%2560%255Cn4.%2520Add%2520**Add%2520constants**.%255Cn%2520%2520%2520*%2520Step%2520name%253A%2520%2560Add%2520JSON%2520Metadata%2560%255Cn%2520%2520%2520*%2520%2560source_system%2560%2520%253D%2520%2560json%2560%255Cn%2520%2520%2520*%2520%2560category%2560%2520%253D%2520%2560E-commerce%2560%2520(default)%255Cn5.%2520Add%2520**Get%2520System%2520Info**.%255Cn%2520%2520%2520*%2520Step%2520name%253A%2520%2560Add%2520JSON%2520Ingestion%2520Timestamp%2560%255Cn%2520%2520%2520*%2520%2560ingestion_time%2560%2520%253D%2520%2560system%2520date%2520(variable)%2560%255Cn%255Cn**Preview%2520check**%255Cn%255Cn*%2520Expected%2520rows%253A%2520%2560~10%25E2%2580%259315%2560%2520(can%2520vary%2520with%2520sample%2520file).%255Cn*%2520%2560product_name%2560%2520should%2520not%2520be%2520NULL.%255Cn%255Cn%255Cn%255Cn%255Cn%255Cn%2523%2523%2523%2520Ingest%2520XML%2520inventory%2520items%255Cn%255Cn**Goal%253A**%2520Extract%2520inventory%2520items%2520from%2520XML%2520using%2520XPath.%255Cn%255Cn**Path%253A**%2520%2560pvfs%253A%252F%252FMinIO%252Fraw-data%252Fxml%252Finventory.xml%2560%255Cn%255Cn1.%2520Add%2520**Get%2520data%2520from%2520XML**.%255Cn%2520%2520%2520*%2520Step%2520name%253A%2520%2560Read%2520XML%2520Products%2560%255Cn%2520%2520%2520*%2520File%253A%2520%2560pvfs%253A%252F%252FMinIO%252Fraw-data%252Fxml%252Finventory.xml%2560%255Cn%2520%2520%2520*%2520Loop%2520XPath%253A%2520%2560%252Finventory%252Fitems%252Fitem%2560%255Cn2.%2520On%2520**Fields**%252C%2520add%253A%255Cn%2520%2520%2520*%2520%2560sku%2560%2520(String)%255Cn%2520%2520%2520*%2520%2560name%2560%2520(String)%255Cn%2520%2520%2520*%2520%2560category%2560%2520(String)%255Cn%2520%2520%2520*%2520%2560quantity%2560%2520(Integer)%255Cn%255Cn%253E%2520**Note%253A**%2520Field%2520XPaths%2520are%2520**relative%2520to%2520the%2520loop%2520node**.%255Cn%253E%2520%255Cn%253E%2520Example%253A%2520%2560sku%2560%2520means%2520%25E2%2580%259Cread%2520the%2520%2560%253Csku%253E%2560%2520element%2520under%2520each%2520%2560%253Citem%253E%2560%25E2%2580%259D.%255Cn%255Cn3.%2520Add%2520a%2520**Select%2520values**%2520step.%255Cn%2520%2520%2520*%2520Step%2520name%253A%2520%2560Map%2520XML%2520to%2520Target%2520Schema%2560%255Cn%2520%2520%2520*%2520Rename%2520%2560sku%2560%2520%25E2%2586%2592%2520%2560product_id%2560%255Cn%2520%2520%2520*%2520Rename%2520%2560name%2560%2520%25E2%2586%2592%2520%2560product_name%2560%255Cn%2520%2520%2520*%2520Add%2520a%2520new%2520field%2520%2560price%2560%2520in%2520**Meta-data**%2520(type%2520%2560Number%2560).%2520Leave%2520it%2520empty%2520(NULL).%255Cn4.%2520Add%2520**Add%2520constants**.%255Cn%2520%2520%2520*%2520Step%2520name%253A%2520%2560Add%2520XML%2520Metadata%2560%255Cn%2520%2520%2520*%2520%2560source_system%2560%2520%253D%2520%2560xml%2560%255Cn5.%2520Add%2520**Get%2520System%2520Info**.%255Cn%2520%2520%2520*%2520Step%2520name%253A%2520%2560Add%2520XML%2520Ingestion%2520Timestamp%2560%255Cn%2520%2520%2520*%2520%2560ingestion_time%2560%2520%253D%2520%2560system%2520date%2520(variable)%2560%255Cn%255Cn**Preview%2520check**%255Cn%255Cn*%2520Expected%2520rows%253A%2520%2560~8%25E2%2580%259310%2560%255Cn*%2520If%2520you%2520get%2520%25600%2560%2520rows%252C%2520re-check%2520the%2520Loop%2520XPath.%2522%257D%252C%257B%2522title%2522%253A%25223.%2520Merge%2520streams%2522%252C%2522body%2522%253A%2522%253E%2520**Note%253A**%255Cn%253E%255Cn%253E%2520%2523%2523%2523%2523%2520Merge%2520Streams%255Cn%253E%2520%255Cn%253E%2520**Objective%253A**%2520Merge%2520all%2520three%2520data%2520streams%2520(CSV%252C%2520JSON%252C%2520XML)%2520into%2520one%2520unified%2520stream.%255Cn%253E%2520%255Cn%253E%2520**Why%2520Append%2520Streams%253A**%2520This%2520step%2520stacks%2520all%2520rows%2520from%2520different%2520sources%2520vertically%2520-%2520like%2520a%2520SQL%2520UNION%2520ALL.%255Cn%255Cn**Configuration%253A**%255Cn%255Cn1.%2520**Add%2520Append%2520streams%2520step**%255Cn%2520%2520%2520*%2520**Name**%253A%2520%255C%2522Combine%2520All%2520Products%255C%2522%255Cn2.%2520**Connect%2520all%2520three%2520streams**%2520to%2520this%2520step%253A%255Cn%2520%2520%2520*%2520%255C%2522Add%2520Ingestion%2520Timestamp%255C%2522%2520(CSV%2520branch)%2520%25E2%2586%2592%2520Append%2520streams%255Cn%2520%2520%2520*%2520%255C%2522Add%2520JSON%2520Ingestion%2520Timestamp%255C%2522%2520(JSON%2520branch)%2520%25E2%2586%2592%2520Append%2520streams%255Cn%2520%2520%2520*%2520%255C%2522Add%2520XML%2520Ingestion%2520Timestamp%255C%2522%2520(XML%2520branch)%2520%25E2%2586%2592%2520Append%2520streams%255Cn3.%2520**Important%253A**%2520All%2520input%2520streams%2520MUST%2520have%2520the%2520same%2520fields%2520with%2520the%2520same%2520names%2520and%2520types%253A%255Cn%2520%2520%2520*%2520product%255C%255C_id%2520(String)%255Cn%2520%2520%2520*%2520product%255C%255C_name%2520(String)%255Cn%2520%2520%2520*%2520category%2520(String)%255Cn%2520%2520%2520*%2520price%2520(Number)%2520-%2520can%2520be%2520null%255Cn%2520%2520%2520*%2520quantity%2520(Integer)%255Cn%2520%2520%2520*%2520source%255C%255C_system%2520(String)%255Cn%2520%2520%2520*%2520ingestion%255C%255C_time%2520(Timestamp)%255Cn%255Cn**Expected%2520Output%253A**%255Cn%255Cn*%2520Row%2520count%253A%2520%255C%255C~30-35%2520rows%2520(12%2520CSV%2520%252B%252010-15%2520JSON%2520%252B%25208-10%2520XML)%255Cn*%2520All%2520products%2520from%2520all%2520sources%2520combined%255Cn*%2520Some%2520products%2520will%2520appear%2520multiple%2520times%2520(duplicates%2520to%2520be%2520handled%2520in%2520Step%25207)%255Cn%255Cn**Preview%2520Check%253A**%255Cn%255Cn%2560%2560%2560%255Cnproduct_id%2520%2520%2520product_name%2520%2520%2520%2520%2520%2520source_system%2520%2520price%255CnPROD-001%2520%2520%2520%2520%2520Laptop%2520Pro%252015%2520%2520%2520%2520%2520csv%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520999.99%255CnPROD-002%2520%2520%2520%2520%2520Office%2520Chair%2520%2520%2520%2520%2520%2520csv%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520299.99%255Cn...%255CnPROD-001%2520%2520%2520%2520%2520Laptop%2520Pro%252015%2520%2520%2520%2520%2520json%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520999.99%2520%2520%2520%25E2%2586%2590%2520Duplicate!%255CnPROD-005%2520%2520%2520%2520%2520Desk%2520Lamp%2520%2520%2520%2520%2520%2520%2520%2520%2520json%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%252045.00%255Cn...%255CnPROD-001%2520%2520%2520%2520%2520Laptop%2520Pro%252015%2520%2520%2520%2520%2520xml%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520null%2520%2520%2520%2520%2520%25E2%2586%2590%2520Duplicate%252C%2520no%2520price%255CnPROD-002%2520%2520%2520%2520%2520Office%2520Chair%2520%2520%2520%2520%2520%2520xml%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520null%255Cn%2560%2560%2560%2522%257D%252C%257B%2522title%2522%253A%25224.%2520Data%2520Validation%2522%252C%2522body%2522%253A%2522%253E%2520**Note%253A**%255Cn%253E%255Cn%253E%2520%2523%2523%2523%2523%2520Data%2520Validation%255Cn%253E%2520%255Cn%253E%2520**Objective%253A**%2520Validate%2520data%2520quality%2520and%2520route%2520bad%2520records%2520to%2520error%2520handling.%255Cn%253E%2520%255Cn%253E%2520**Why%2520Important%253A**%2520Multi-source%2520data%2520often%2520has%2520quality%2520issues.%2520Better%2520to%2520catch%2520and%2520handle%2520them%2520explicitly%2520than%2520have%2520them%2520cause%2520downstream%2520failures.%255Cn%255Cn**Configuration%253A**%255Cn%255Cn1.%2520**Add%2520Data%2520Validator%2520step**%255Cn%2520%2520%2520*%2520**Name**%253A%2520%255C%2522Validate%2520Product%2520Data%255C%2522%255Cn2.%2520**Validations%2520tab**%2520-%2520Add%2520validation%2520rules%253A%255Cn%255Cn%2520%2520%2520%257C%2520Fieldname%2520%2520%2520%2520%2520%257C%2520Validation%2520Type%2520%2520%257C%2520Configuration%2520%2520%2520%2520%2520%2520%2520%257C%2520Error%2520Message%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%257C%255Cn%2520%2520%2520%257C%2520-------------%2520%257C%2520----------------%2520%257C%2520-------------------%2520%257C%2520-------------------------------%2520%257C%255Cn%2520%2520%2520%257C%2520product%255C%255C_id%2520%2520%2520%257C%2520NOT%2520NULL%2520%2520%2520%2520%2520%2520%2520%2520%2520%257C%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%257C%2520Product%2520ID%2520is%2520required%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%257C%255Cn%2520%2520%2520%257C%2520product%255C%255C_id%2520%2520%2520%257C%2520NOT%2520EMPTY%2520STRING%2520%257C%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%257C%2520Product%2520ID%2520cannot%2520be%2520empty%2520%2520%2520%2520%2520%2520%257C%255Cn%2520%2520%2520%257C%2520product%255C%255C_name%2520%257C%2520NOT%2520NULL%2520%2520%2520%2520%2520%2520%2520%2520%2520%257C%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%257C%2520Product%2520name%2520is%2520required%2520%2520%2520%2520%2520%2520%2520%2520%257C%255Cn%2520%2520%2520%257C%2520product%255C%255C_name%2520%257C%2520NOT%2520EMPTY%2520STRING%2520%257C%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%257C%2520Product%2520name%2520cannot%2520be%2520empty%2520%2520%2520%2520%257C%255Cn%2520%2520%2520%257C%2520price%2520%2520%2520%2520%2520%2520%2520%2520%2520%257C%2520NUMERIC%2520RANGE%2520%2520%2520%2520%257C%2520Min%253A%25200%252C%2520Max%253A%2520999999%2520%257C%2520Price%2520must%2520be%2520%253E%253D%25200%2520(if%2520present)%2520%257C%255Cn%2520%2520%2520%257C%2520quantity%2520%2520%2520%2520%2520%2520%257C%2520NUMERIC%2520RANGE%2520%2520%2520%2520%257C%2520Min%253A%25200%252C%2520Max%253A%2520999999%2520%257C%2520Quantity%2520must%2520be%2520%253E%253D%25200%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%257C%255Cn3.%2520**Options%2520tab**%253A%255Cn%2520%2520%2520*%2520%25E2%2598%2591%2520**Concatenate%2520errors**%253A%2520Shows%2520all%2520validation%2520errors%2520for%2520a%2520row%255Cn%2520%2520%2520*%2520**Separator**%253A%2520%2560%252C%2560%2520(comma-space)%255Cn%2520%2520%2520*%2520%25E2%2598%2591%2520**Output%2520all%2520errors%2520as%2520one%2520field**%253A%2520%2560validation_errors%2560%255Cn4.%2520**Add%2520Filter%2520rows%2520step**%2520after%2520Data%2520Validator%255Cn%2520%2520%2520*%2520**Name**%253A%2520%255C%2522Route%2520Valid%2520vs%2520Invalid%255C%2522%255Cn5.%2520**Condition**%253A%255Cn%255Cn%2520%2520%2520%2560%2560%2560%255Cn%2520%2520%2520validation_errors%2520IS%2520NULL%255Cn%2520%2520%2520%2560%2560%2560%255Cn%255Cn%2520%2520%2520*%2520**True**%2520(valid%2520records)%2520%25E2%2586%2592%2520Continue%2520to%2520deduplication%255Cn%2520%2520%2520*%2520**False**%2520(invalid%2520records)%2520%25E2%2586%2592%2520Error%2520output%255Cn6.%2520**Add%2520Text%2520file%2520output%2520for%2520errors**%2520(connect%2520from%2520False%2520branch)%253A%255Cn%2520%2520%2520*%2520**Name**%253A%2520%255C%2522Write%2520Error%2520Records%255C%2522%255Cn%2520%2520%2520*%2520**Filename**%253A%2520%2560pvfs%253A%252F%252FMinIO%252Fcurated%252Fproducts%252Ferrors%252Fvalidation_errors_%2524%257BInternal.Job.Start.Date.yyyyMMdd%257D.csv%2560%255Cn%2520%2520%2520*%2520**Include%2520date%2520in%2520filename**%253A%2520Helps%2520track%2520when%2520errors%2520occurred%255Cn%2520%2520%2520*%2520**Fields%2520to%2520output**%253A%2520All%2520fields%2520%252B%2520%2560validation_errors%2560%255Cn%255Cn**Expected%2520Output%253A**%255Cn%255Cn*%2520Valid%2520records%253A%2520%255C%255C~95-100%2525%2520should%2520pass%2520(25-35%2520rows)%255Cn*%2520Invalid%2520records%253A%25200-5%2525%2520to%2520error%2520file%2520(0-2%2520rows)%255Cn%255Cn**Common%2520Validation%2520Failures%253A**%255Cn%255Cn*%2520Empty%2520product%255C%255C_id%2520or%2520product%255C%255C_name%255Cn*%2520Negative%2520price%2520or%2520quantity%2520values%255Cn*%2520Non-numeric%2520values%2520in%2520numeric%2520fields%2522%257D%255D%5C%22%3E%3C%2Fdiv%3E%5Cn%5Cn***%5Cn%5Cn%3E%20**Note%3A**%20**Workshop%20files**%5Cn%3E%20%5Cn%3E%20Download%20the%20files%20for%20this%20workshop.%20For%20%60.ktr%60%20files%2C%20**Open%20in%20Pentaho%20Data%20Integration**%20launches%20PDI%20with%20the%20transformation%20loaded%3B%20if%20PDI%20is%20already%20running%2C%20the%20path%20is%20copied%20to%20your%20clipboard%20(Ctrl%2BO%2C%20Ctrl%2BV%2C%20Enter).%5Cn%5Cn%5Bdata_lake_ingestion.ktr%5D(.%2Ffiles%2Fdata_lake_ingestion.ktr)%20%3Cbutton%20data-launch%3D%5C%22spoon%5C%22%20data-path%3D%5C%22files%2Fdata_lake_ingestion.ktr%5C%22%3EOpen%20in%20Pentaho%20Data%20Integration%3C%2Fbutton%3E%20%3Cbutton%20data-graph%3D%5C%22files%2Fdata_lake_ingestion.ktr%5C%22%3EView%20graph%3C%2Fbutton%3E%5Cn%22%7D%5D"></div>
+::::: tabs
+
+### Sales Dashboard
+
+> **Warning:**
+>
+> #### Sales Dashboard
+>
+> The workshop demonstrates how Pentaho Data Integration enables organizations to rapidly create denormalized fact tables that power real-time business intelligence dashboards. By integrating data from multiple sources (customer data, product catalogs, and sales transactions), business users gain immediate access to actionable insights without waiting for IT to build complex data warehouses.
+>
+> **Scenario:** A mid-sized e-commerce company needs to track daily sales performance across products, customer segments, and regions. Currently, sales managers wait 24-48 hours for IT to generate reports from disparate systems. With PDI, they can automate this process and refresh dashboards hourly.
+>
+> **Key Stakeholders:**
+>
+> * Sales Directors: Need to identify top-performing products and regions
+> * Marketing Teams: Require customer segmentation for targeted campaigns
+> * Finance: Need accurate revenue reporting by product category
+> * Operations: Must monitor inventory turnover rates
+
+***
+
+> **Note:** **Workshop files**
+>
+> These files are already in MinIO:
+>
+> * `pvfs://MinIO/raw-data/csv/sales.csv`
+> * `pvfs://MinIO/raw-data/csv/products.csv`
+> * `pvfs://MinIO/raw-data/csv/customers.csv`
+>
+> Output path used later: `pvfs://MinIO/staging/dashboard/`
+
+***
+
+<figure><img src="../_assets/images/sales-dashboard.png" alt=""><figcaption><p>Sales Dashboard</p></figcaption></figure>
+
+> **Note:** Create a new transformation.
+>
+> Use any of these options:
+>
+> * Select **File** > **New** > **Transformation**
+> * Use `Ctrl+N` (Windows/Linux) or `Cmd+N` (macOS)
+
+***
+
+Follow the steps to create the transformation:
+
+::: tabs
+
+### 1. Read Data Sources
+
+> **Note:**
+>
+> #### **Text File Input**
+>
+> The Text File Input step is used to read data from a variety of different text-file types. The most commonly used formats include Comma Separated Values (CSV files) generated by spreadsheets and fixed width flat files.
+>
+> The Text File Input step provides you with the ability to specify a list of files to read, or a list of directories with wild cards in the form of regular expressions. In addition, you can accept filenames from a previous step making filename handling more even more generic.
+
+<figure><img src="../_assets/images/text-file-inputs.png" alt=""><figcaption><p>Text file inputs</p></figcaption></figure>
+
+> **Note:** VFS connection names are case-sensitive. These examples assume your connection name is `MinIO`.
+
+1. Drag & drop 3 Text File Input Steps onto the canvas.
+2. Save transformation as: `sales_dashboard_etl.ktr` in your workshop folder.
+
+***
+
+**Sales (Order Management)**
+
+1. Double-click on the first TFI step, and configure with the following properties:
+
+| Setting          | Value                                 |
+| ---------------- | ------------------------------------- |
+| Step name        | `Sales`                               |
+| Filename         | `pvfs://MinIO/raw-data/csv/sales.csv` |
+| Delimiter        | ,                                     |
+| Head row present | ✅                                     |
+| Format           | mixed                                 |
+
+<figure><img src="../_assets/images/select-sales-csv-from-vfs-connections.png" alt=""><figcaption><p>Select - sales.csv from VFS connections</p></figcaption></figure>
+
+2. Click: **Get Fields** to auto-detect columns.
+
+> **Note:** **Business Logic:** Note that `sale_amount` may differ from `price * quantity` due to:
+>
+> * Volume discounts
+> * Promotional pricing
+> * Customer-specific pricing tiers
+> * Currency conversion (for international sales)
+
+<figure><img src="../_assets/images/get-fields-sales.png" alt=""><figcaption><p>Get Fields - Sales</p></figcaption></figure>
+
+3. Preview data.
+
+<figure><img src="../_assets/images/preview-data-sales.png" alt=""><figcaption><p>Preview data - Sales</p></figcaption></figure>
+
+> **Note:** **Business Significance:**
+>
+> * `sale_amount`: Actual revenue (may include discounts)
+> * `quantity`: Volume metrics for demand planning
+> * `payment_method`: Payment preference insights
+> * `status`: Filter out cancelled/refunded orders
+
+***
+
+**Products (ERP system)**
+
+1. Double-click on the second TFI step, and configure with the following properties:
+
+<table><thead><tr><th width="165.5">Setting</th><th>Value</th></tr></thead><tbody><tr><td>Step name</td><td><code>Products</code></td></tr><tr><td>Filename</td><td><code>pvfs://MinIO/raw-data/csv/products.csv</code></td></tr><tr><td>Delimiter</td><td>,</td></tr><tr><td>Head row present</td><td>✅</td></tr><tr><td>Format</td><td>mixed</td></tr></tbody></table>
+
+<figure><img src="../_assets/images/select-products-csv-from-vfs-connections.png" alt=""><figcaption><p>Select - products.csv from VFS connections</p></figcaption></figure>
+
+2. Click: **Get Fields** to auto-detect columns.
+
+<figure><img src="../_assets/images/get-fields-customers.png" alt=""><figcaption><p>Get Fields - Customers</p></figcaption></figure>
+
+3. Preview the data.
+
+<figure><img src="../_assets/images/preview-data-products.png" alt=""><figcaption><p>Preview data - Products</p></figcaption></figure>
+
+> **Note:** **Business Significance:**
+>
+> * `category`: Enables product performance analysis by segment
+> * `price`: Base pricing for margin calculations
+> * `stock_quantity`: Inventory turnover insights
+
+***
+
+**Customers (CRM System)**
+
+1. Double-click on the third TFI step, and configure with the following properties:
+
+<table><thead><tr><th width="186">Setting</th><th>Value</th></tr></thead><tbody><tr><td>Step name</td><td><code>Customers</code></td></tr><tr><td>Filename</td><td><code>pvfs://MinIO/raw-data/csv/customers.csv</code></td></tr><tr><td>Delimiter</td><td>,</td></tr><tr><td>Header row present</td><td>✅</td></tr><tr><td>Format</td><td>mixed</td></tr></tbody></table>
+
+<figure><img src="../_assets/images/select-customers-csv-from-vfs-connections.png" alt=""><figcaption><p>Select - customers.csv from VFS connections</p></figcaption></figure>
+
+2. Click: **Get Fields** to auto-detect columns.
+
+<figure><img src="../_assets/images/get-fields-customers-2.png" alt=""><figcaption><p>Get Fields - Customers</p></figcaption></figure>
+
+3. Preview the data.
+
+<figure><img src="../_assets/images/preview-data-customers.png" alt=""><figcaption><p>Preview data - Customers</p></figcaption></figure>
+
+> **Note:** **Business Significance:**
+>
+> * `customer_id`: Primary key for joining to sales
+> * `country`: Critical for geographic segmentation
+> * `status`: Identifies churned vs. active customers
+> * `registration_date`: Enables customer tenure analysis
+
+### 2. Stream Lookup
+
+> **Note:**
+>
+> #### Stream Lookup
+>
+> A **Stream lookup** step enriches rows by looking up matching values from another stream.
+>
+> In a transformation, you feed your main rows into one hop and a reference dataset into the other hop. The step then matches rows using key fields and returns the lookup fields on the output. It’s the in-memory alternative to a database lookup, but the reference stream must be available in the same transformation flow.
+
+<figure><img src="../_assets/images/lookups.png" alt=""><figcaption><p>Lookups</p></figcaption></figure>
+
+1. Drag & drop 2 **Stream lookup** steps onto the canvas.
+2. Save transformation as: `sales_dashboard_etl.ktr` in your workshop folder.
+
+***
+
+**Product Lookup**
+
+1. Draw a hop between **Sales** and **Product Lookup**.
+2. Draw a hop between **Products** and **Product Lookup**.
+
+> **Note:** The Sales is acting as our Fact table. It holds the transaction data for our Products & Customers.
+
+3. Double-click on the 'Product Lookup' step, and configure with the following properties:
+
+| Tab     | Setting               | Value            |
+| ------- | --------------------- | ---------------- |
+| General | Step name             | `Product Lookup` |
+| General | Lookup step           | `Products`       |
+| Keys    | Field (from Sales)    | `product_id`     |
+| Keys    | Field (from Products) | `product_id`     |
+
+4. In **Values to retrieve**, add:
+   * `product_name` (rename to `product_name`)
+   * `category` (rename to `product_category`)
+   * `price` (rename to `unit_price`)
+
+<figure><img src="../_assets/images/product-lookup.png" alt=""><figcaption><p>Product Lookup</p></figcaption></figure>
+
+***
+
+**Customers Lookup**
+
+1. Draw a hop between **Product Lookup** and **Customers Lookup**.
+2. Draw a hop between **Customers** and **Customers Lookup**.
+3. Double-click **Customers Lookup**, and configure the following properties:
+
+| Setting            | Value              |
+| ------------------ | ------------------ |
+| Step name          | `Customers Lookup` |
+| Lookup step        | `Customers`        |
+| Key field (stream) | `customer_id`      |
+| Key field (lookup) | `customer_id`      |
+
+4. Values to retrieve:
+   * `first_name`
+   * `last_name`
+   * `country` (rename to `customer_country`)
+   * `status` (rename to `customer_status`)
+
+<figure><img src="../_assets/images/customers-lookup.png" alt=""><figcaption><p>Customers Lookup</p></figcaption></figure>
+
+***
+
+**Preview data**
+
+1. Save the transformation.
+2. RUN & Preview the data.
+
+<figure><img src="../_assets/images/lookups-preview-data.png" alt=""><figcaption><p>Lookups - Preview data</p></figcaption></figure>
+
+### 3. Calculator
+
+> **Note:**
+>
+> #### Calculator
+>
+> The Calculator step provides predefined functions that you can run on input field values. Use Calculator as a quick alternative to custom JavaScript for common calculations.
+>
+> To use Calculator, specify the input fields and the calculation type, and then write results to new fields. You can also remove temporary fields from the output after all values are calculated.
+
+<figure><img src="../_assets/images/calculator-step.png" alt=""><figcaption><p>Calculator step</p></figcaption></figure>
+
+1. Drag & drop a 'Calculator' step onto the canvas.
+2. Draw a Hop from the 'Customers Lookup' step to the 'Calculator' step.
+3. Double-click on the 'Calculator' step, and configure the following properties:
+
+<table><thead><tr><th width="161">New field</th><th>Calculation</th><th>Field A</th><th>Field B</th><th>Value type</th></tr></thead><tbody><tr><td><code>line_total</code></td><td>A * B</td><td>quantity</td><td>unit_price</td><td>Number</td></tr><tr><td><code>discount_amount</code></td><td>A - B</td><td>sale_amount</td><td>line_total</td><td>Number</td></tr></tbody></table>
+
+<figure><img src="../_assets/images/calculator-2.png" alt=""><figcaption><p>Calculator</p></figcaption></figure>
+
+***
+
+**Preview data**
+
+1. Save the transformation.
+2. RUN & Preview the data.
+
+<figure><img src="../_assets/images/preview-data-3.png" alt=""><figcaption><p>Preview data</p></figcaption></figure>
+
+> **Note:** **Business Insight Enabled:**
+>
+> * **Positive `discount_amount`:** Customer received a discount (common)
+> * **Negative `discount_amount`:** Customer paid more than list price (expedite, premium, etc.)
+> * **Zero `discount_amount`:** Sold at list price
+
+### 4. Formula
+
+> **Note:**
+>
+> #### Formula
+>
+> The Formula step can calculate Formula Expressions within a data stream. It can be used to create simple calculations like \[A]+\[B] or more complex business logic with a lot of nested if / then logic.
+
+<figure><img src="../_assets/images/formula-step.png" alt=""><figcaption><p>Formula step</p></figcaption></figure>
+
+1. Drag & drop a 'Formula' step onto the canvas.
+2. Draw a Hop from the 'Calculator' step to the 'Formula' step.
+3. Double-click on the 'Formula' step, and configure the following properties:
+
+<table><thead><tr><th width="190">New Field</th><th>Formula</th></tr></thead><tbody><tr><td>customer_full_name</td><td>CONCATENATE([first_name];" ";[last_name])</td></tr><tr><td>is_high_value</td><td>IF([sale_amount]>500;"Yes";"No")</td></tr></tbody></table>
+
+<figure><img src="../_assets/images/formula-step-2.png" alt=""><figcaption><p>Formula step</p></figcaption></figure>
+
+***
+
+**Preview data**
+
+1. Save the transformation.
+2. RUN & Preview the data.
+
+<figure><img src="../_assets/images/preview-data-2.png" alt=""><figcaption><p>Preview data</p></figcaption></figure>
+
+> **Note:** **Business Applications:**
+>
+> * **is\_high\_value:** Trigger VIP customer service workflows
+
+### 5. Add Constants
+
+> **Note:**
+>
+> #### Add Constants
+>
+> The Add constant values step is a simple and high performance way to add constant values to the stream.
+
+<figure><img src="../_assets/images/add-constants-2.png" alt=""><figcaption><p>Add constants</p></figcaption></figure>
+
+1. Drag & drop 'Add constants' step onto the canvas.
+2. Draw a Hop from the 'Formula' step to the 'Add constants ' step.
+3. Double-click on the 'Add constants' step, and configure the following properties:
+
+| Name          | Type   | Value            |
+| ------------- | ------ | ---------------- |
+| `data_source` | String | `minio_workshop` |
+
+<figure><img src="../_assets/images/add-constants.png" alt=""><figcaption><p>Add constants</p></figcaption></figure>
+
+### 6. Get System info
+
+> **Note:**
+>
+> #### Get system info
+>
+> This step retrieves system information from the Kettle environment. The step includes a table where you can designate a name and assign it to any available system info type you want to retrieve. This step generates a single row with the fields containing the requested information.
+>
+> It can also accept any number of input streams, aggregate any fields defined by this step, and send the combined results to the output stream.
+
+<figure><img src="../_assets/images/get-system-info-2.png" alt=""><figcaption><p>get system info</p></figcaption></figure>
+
+1. Drag & drop 'Get system info' step onto the canvas.
+2. Draw a Hop from the 'Add constants' step to the 'Get system info ' step.
+3. Double-click on the **Get system info** step, and configure the following properties:
+
+| Name           | Type                   |
+| -------------- | ---------------------- |
+| etl\_timestamp | system date (variable) |
+
+<figure><img src="../_assets/images/get-system-info-3.png" alt=""><figcaption><p>Get system info</p></figcaption></figure>
+
+### 7. Select Values
+
+> **Note:**
+>
+> #### **Select Values**
+>
+> The Select Values step can perform all the following actions on fields in the PDI stream:
+>
+> **Select fields** - The Select Values step can perform all the following actions on fields in the PDI stream.
+>
+> **Remove fields** - Use this tab to remove fields from the input stream.
+>
+> **Meta-data** - Use this tab to change field types, lengths, and formats.
+
+<figure><img src="../_assets/images/select-values.png" alt=""><figcaption><p>Select values</p></figcaption></figure>
+
+1. Drag & drop a 'Select values' step onto the canvas.
+2. Draw a Hop from the 'Get system info' step to the 'Select values' step.
+3. Double-click on the 'Select values' step, and configure the following properties:
+4. On **Select & Alter** tab, choose fields in order:
+
+* sale\_id
+* sale\_date
+* customer\_id
+* customer\_full\_name
+* customer\_country
+* customer\_status
+* product\_id
+* product\_name
+* product\_category
+* quantity
+* unit\_price
+* sale\_amount
+* line\_total
+* discount\_amount
+* is\_high\_value
+* payment\_method
+* status (rename to `sale_status`)
+* etl\_timestamp
+* data\_source
+
+<figure><img src="../_assets/images/select.png" alt=""><figcaption><p>Select</p></figcaption></figure>
+
+***
+
+**Preview data**
+
+1. Save the transformation.
+2. RUN & Preview the data.
+
+<figure><img src="../_assets/images/preview-data.png" alt=""><figcaption><p>Preview data</p></figcaption></figure>
+
+### 8. Text File Output
+
+> **Note:**
+>
+> #### Text file output
+>
+> The Text File Output step exports rows to a text file.
+>
+> This step is commonly used to generate delimited files (for example, CSV) that can be read by spreadsheet applications, and it can also generate fixed-length output.
+>
+> You can’t run this step in parallel to write to the same file.
+>
+> If you need to run multiple copies, select Include stepnr in filename and merge the resulting files afterward.
+
+<figure><img src="../_assets/images/text-file-output.png" alt=""><figcaption><p>Text File output</p></figcaption></figure>
+
+1. Drag & drop a **Text file output** step onto the canvas.
+2. Draw a Hop from the 'Select values' step to the 'Write to staging' step.
+3. Double-click on the 'Write to staging' step, and configure with the following properties:
+
+| Setting                       | Value                                       |
+| ----------------------------- | ------------------------------------------- |
+| Step name                     | `Write to Staging`                          |
+| Filename                      | `pvfs://MinIO/staging/dashboard/sales_fact` |
+| Extension                     | `csv`                                       |
+| Include date/time in filename | ✅                                           |
+| Separator                     | ,                                           |
+| Add header                    | ✅                                           |
+
+> **Warning:** Select **Get fields** to populate the output fields.
+
+> **Note:** **Business Benefit:** Timestamped files enable:
+>
+> * **Historical tracking:** "What did the data look like last Tuesday?"
+> * **Incremental processing:** Keep processing latest file without overwriting history
+> * **Rollback capability:** "The 3pm run had bad data, revert to 2pm version"
+
+***
+
+**MinIO**
+
+1. Save the transformation.
+2. Log into MinIO:
+
+<figure><img src="../_assets/images/minio-dashboard-data.png" alt=""><figcaption><p>MinIO - Dashboard data</p></figcaption></figure>
+
+***
+
+**Checklist**
+
+* [ ] Three Text file inputs configured (reading CSV from S3)
+* [ ] Product lookup working (no null product names)
+* [ ] Customer lookup working (no null countries)
+* [ ] Calculations producing correct values
+* [ ] Fields in correct order
+* [ ] Output file created in staging bucket
+* [ ] All 15 sales records processed
+
+:::
+
+***
+
+> **Note:** **Workshop files**
+>
+> Download the files for this workshop. For `.ktr` files, **Open in Pentaho Data Integration** launches PDI with the transformation loaded; if PDI is already running, the path is copied to your clipboard (Ctrl+O, Ctrl+V, Enter).
+
+[sales_dashboard_etl.ktr](./files/sales_dashboard_etl.ktr) <button data-launch="spoon" data-path="files/sales_dashboard_etl.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/sales_dashboard_etl.ktr">View graph</button>
+
+### Inventory Reconciliation
+
+> **Warning:**
+>
+> #### Inventory Reconciliation - XML + CSV Integration
+>
+> This workshop demonstrates how Pentaho Data Integration eliminates costly inventory discrepancies by automatically reconciling data between warehouse management systems (XML feeds) and ERP product catalogs (CSV files). Organizations lose millions annually due to inventory inaccuracies, stockouts, and overstocking. PDI's ability to parse complex XML and perform full outer joins enables real-time discrepancy detection that would require hours of manual spreadsheet work.
+>
+> **Business Value Delivered:**
+>
+> * **Cost Reduction:** Eliminate manual reconciliation labor ($75K-150K annually per analyst)
+> * **Inventory Optimization:** Reduce excess inventory carrying costs by 15-25%
+> * **Stockout Prevention:** Identify missing items before customers notice
+> * **Compliance:** Audit trail for SOX, ISO 9001, and supply chain regulations
+> * **Real-Time Visibility:** Know your actual inventory position within minutes, not days
+>
+> **Scenario:** A manufacturing company operates 12 distribution warehouses. Each warehouse uses a legacy WMS (Warehouse Management System) that exports XML inventory files nightly. The corporate ERP system maintains a CSV product master catalog. Discrepancies cause:
+>
+> * **Phantom stock:** ERP shows item in stock, warehouse says it's not → Lost sales
+> * **Ghost inventory:** Warehouse has items ERP doesn't recognize → Dead capital
+> * **Quantity variances:** Mismatches of 10+ units trigger expensive physical counts
+>
+> **Key Stakeholders:**
+>
+> * **Supply Chain Directors:** Need accurate inventory positions across all locations
+> * **Warehouse Managers:** Require daily reconciliation reports to prioritize cycle counts
+> * **Finance Teams:** Must report accurate inventory valuations for financial statements
+> * **Procurement:** Need to identify slow-moving items and prevent overstocking
+
+***
+
+> **Note:** **Workshop files**
+>
+> These files are already in MinIO:
+>
+> * `pvfs://MinIO/raw-data/xml/inventory.xml`
+> * `pvfs://MinIO/raw-data/csv/products.csv`
+>
+> Outputs: `pvfs://MinIO/staging/reconciliation/` (`urgent_actions`, `review_queue` and `low_priority` CSV files)
+
+<figure><img src="../_assets/images/inventory-reconciliation.png" alt=""><figcaption><p>Inventory reconciliation</p></figcaption></figure>
+
+> **Note:** Create a new transformation.
+>
+> Use any of these options:
+>
+> * Select **File** > **New** > **Transformation**
+> * Use `Ctrl+N` (Windows/Linux) or `Cmd+N` (macOS)
+
+***
+
+Follow the steps to create the transformation:
+
+:::: tabs
+
+### 1. Data Source streams
+
+::: tabs
+
+### 1. Read Warehouse
+
+> **Note:**
+>
+> #### Get data from XML
+
+1. Drag & drop 'Get data from XML' onto the canvas.
+2. Save transformation as: `inventory_reconciliation.ktr` in your workshop folder.
+3. Double-click on the 'Get data from XML' step, and configure with the following properties:
+
+<table><thead><tr><th width="186">Setting</th><th>Value</th></tr></thead><tbody><tr><td>Step name</td><td>Read Warehouse XML</td></tr><tr><td>File or directory</td><td><code>pvfs://MinIO/raw-data/xml/inventory.xml</code></td></tr><tr><td>Loop XPath</td><td><code>/inventory/items/item</code></td></tr><tr><td>Encoding</td><td><code>UTF-8</code></td></tr><tr><td>Ignore comments</td><td>✅</td></tr><tr><td>Validate XML</td><td>No</td></tr><tr><td>Ignore empty file</td><td>✅</td></tr></tbody></table>
+
+> **Note:** **XPath Explanation:**
+>
+> * `/inventory` = Start at root element
+> * `/items` = Navigate to items container
+> * `/item` = Loop over each item element
+
+4. Browse & Add the path to the inventory.xml
+5. Click on the Content tab
+
+<figure><img src="../_assets/images/configure-xpath.png" alt=""><figcaption><p>Configure XPath</p></figcaption></figure>
+
+6. Click on the Fields tab & Get Fields.
+7. Remap the fields & Preview rows.
+
+> **Note:** **Business Field Naming:**
+>
+> * Prefix with `warehouse_` to distinguish from ERP fields later
+> * `warehouse_quantity` vs. `stock_quantity` makes joins clearer
+> * Keep original field names in a data dictionary for auditing
+
+| Name                  | XPath         |
+| --------------------- | ------------- |
+| warehouse\_item\_name | name          |
+| warehouse\_quantity   | quantity      |
+| warehouse\_location   | location      |
+| last\_physical\_count | last\_checked |
+
+<figure><img src="../_assets/images/remap-field-names-x26-preview-data.png" alt=""><figcaption><p>Remap field names &#x26; Preview data</p></figcaption></figure>
+
+> **Note:** Next: configure the product catalog input, then join the two streams.
+
+### 2. Read Product Catalog
+
+> **Note:**
+>
+> #### Text file input
+>
+> The ERP side: the product master, one row per product.
+
+1. Drag **Text file input** onto the canvas and name it `Read Product Catalog`.
+2. **File** tab: add `pvfs://MinIO/raw-data/csv/products.csv`.
+3. **Content** tab: separator `,`, enclosure `"`, header row on.
+4. **Fields** tab: **Get Fields**. Check the types: `product_id`, `product_name`, `category`, `supplier` String; `price` BigNumber; `stock_quantity` Integer; `last_updated` Date (`yyyy-MM-dd`).
+5. Preview: 18 products, `P001` to `P018`.
+
+:::
+
+### 2. Join
+
+> **Note:**
+>
+> #### Full outer join on the product id
+>
+> Rename both sides to one key, sort, then join so that items missing from *either* system still come through.
+
+1. **Select values** `Map Warehouse` after `Read Warehouse XML`: on **Select && Alter** keep `sku` renamed to `product_id`, `warehouse_item_name` renamed to `warehouse_product_name`, and `category`, `warehouse_quantity`, `warehouse_location`, `last_physical_count`.
+2. **Select values** `Map Product Catalog` after `Read Product Catalog`: rename `product_name` to `erp_product_name` and `stock_quantity` to `erp_quantity`, and keep `product_id`, `category`, `price`, `supplier`, `last_updated`.
+3. **Sort rows** after each: `Sort Warehouse` and `Sort ERP`, both on `product_id`, ascending.
+4. **Merge join** `Full Outer Join`: **First step** `Sort Warehouse`, **Second step** `Sort ERP`, **Join type** `FULL OUTER`, key `product_id` on both sides. Preview: 19 rows: 17 warehouse items plus 2 products only the ERP knows.
+5. **Calculator**: `quantity_variance` = `warehouse_quantity` - `erp_quantity` (**A - B**), and `abs_variance` = **ABS(A)** of `quantity_variance`, both Integer.
+6. **Modified JavaScript value**: classify each row. Copy the script from the solution's step of the same name; it sets:
+
+| Output field          | Rule                                                                                   |
+| --------------------- | -------------------------------------------------------------------------------------- |
+| `discrepency_type`    | `MISSING_IN_WAREHOUSE` (no warehouse quantity), `MISSING_IN_CATALOG` (no ERP quantity), `MATCH` (within ±2), `OVERSTOCK` or `UNDERSTOCK` |
+| `severity_level`      | HIGH for missing in warehouse, or a variance over 20%; MEDIUM otherwise; NONE for a match |
+| `priority_rank`       | 1 for HIGH, 2 for MEDIUM, 3 for the rest                                                |
+| `recommended_action`, `financial_impact`, `excess_carrying_cost`, `lost_sales_risk` | the work-queue text and cost estimates |
+
+### 3. Output
+
+> **Note:**
+>
+> #### Route by priority
+>
+> One work queue per priority, plus a summary by discrepancy type.
+
+1. **Switch / case** `Priority` on `priority_rank` (type Number): `1` to `High Priority`, `2` to `Medium Priority`, `3` to `Low Priority`; default `Medium Priority`.
+2. Three **Text file output** steps, extension `csv`:
+   * `High Priority`: `pvfs://MinIO/staging/reconciliation/urgent_actions` (tick **Include date in filename?** and **Include time in filename?**)
+   * `Medium Priority`: `pvfs://MinIO/staging/reconciliation/review_queue` (date and time too)
+   * `Low Priority`: `pvfs://MinIO/staging/reconciliation/low_priority`
+3. For the summary, a **Sort rows** on `discrepency_type` from the JavaScript step, then **Group by** `discrepency_type` with the sums of `financial_impact`, `excess_carrying_cost` and `lost_sales_risk` and a distinct count of `product_id`.
+4. Run. In MinIO, `staging/reconciliation/` holds three files:
+
+| File               | Rows | What is in it                                             |
+| ------------------ | ---- | --------------------------------------------------------- |
+| `urgent_actions_*` | 6    | 3 understock, 2 missing in the warehouse, 1 overstock      |
+| `review_queue_*`   | 9    | 4 overstock, 4 understock, 1 missing in the catalog        |
+| `low_priority`     | 4    | the matches                                                |
+
+The Group by previews 5 rows, one per discrepancy type.
+
+::::
+
+***
+
+> **Note:** **Workshop files**
+>
+> Download the files for this workshop. For `.ktr` files, **Open in Pentaho Data Integration** launches PDI with the transformation loaded; if PDI is already running, the path is copied to your clipboard (Ctrl+O, Ctrl+V, Enter).
+
+[inventory_reconciliation.ktr](./files/inventory_reconciliation.ktr) <button data-launch="spoon" data-path="files/inventory_reconciliation.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/inventory_reconciliation.ktr">View graph</button>
+
+### Customer 360
+
+> **Warning:**
+>
+> #### Customer 360
+>
+> Create unified customer profiles combining demographic data, purchase history, and behavioral events.
+>
+> **Skills:** Multiple joins, JSONL parsing, aggregations, calculated metrics
+
+<figure><img src="../_assets/images/customer-360.png" alt=""><figcaption><p>Customer 360</p></figcaption></figure>
+
+> **Note:** **Workshop files**
+>
+> These files are already in MinIO:
+>
+> * `pvfs://MinIO/raw-data/csv/customers.csv` (12 customers)
+> * `pvfs://MinIO/raw-data/csv/sales.csv` (15 sales)
+> * `pvfs://MinIO/raw-data/json/user_events.json` (46 events, one JSON object per line)
+>
+> Output: `pvfs://MinIO/curated/customer/customer_360`
+
+> **Note:** Create a new transformation.
+>
+> Use any of these options:
+>
+> * Select **File** > **New** > **Transformation**
+> * Use `Ctrl+N` (Windows/Linux) or `Cmd+N` (macOS)
+
+:::: tabs
+
+### 1. Customers
+
+1. Save the transformation as `customer_360.ktr` in your workshop folder.
+2. **Text file input** `Read Customers`: `pvfs://MinIO/raw-data/csv/customers.csv`, separator `,`, header row, **Get Fields** (`customer_id` Integer, `registration_date` Date `yyyy-MM-dd`, the rest String).
+3. **Sort rows** `Sort rows` on `customer_id`.
+
+### 2. Sales per customer
+
+1. **Text file input** `Read Sales`: `pvfs://MinIO/raw-data/csv/sales.csv`, separator `,`, header row, **Get Fields** (`customer_id` Integer, `sale_date` Date, `sale_amount` BigNumber).
+
+<figure><img src="../_assets/images/select-sales-csv-from-vfs-connections.png" alt=""><figcaption><p>Select - sales.csv from VFS connections</p></figcaption></figure>
+
+2. **Sort rows** `Sort Customers` on `customer_id`.
+3. **Memory group by** on `customer_id`: `total_orders` = Number of values (`sale_id`), `total_spent` = Sum (`sale_amount`), `first_purchase` = Minimum (`sale_date`), `last_purchase` = Maximum (`sale_date`), `avg_order_value` = Average (`sale_amount`). 15 sales become 12 rows.
+4. **Sort rows** `Final Customer Sort` on `customer_id`.
+
+> **Note:** Memory group by holds every group in memory, so unlike Group by it doesn't need the sort before it; `Final Customer Sort` is the one that matters, for the Merge join.
+
+### 3. User events
+
+1. **Text file input** `Read User Events`: `pvfs://MinIO/raw-data/json/user_events.json`, no header, one String field `json_line`, and a separator that never occurs in the data (the solution uses `|||DELIM|||`), so each line arrives whole.
+2. **JSON input** `JSON input`: on **File**, tick **Source is from a previous step** and pick `json_line`. Fields: `event_id` `$.event_id`, `user_id` `$.user_id` (Integer), `event_type` `$.event_type`, `product_id` `$.product_id`, `timestamp` `$.timestamp`.
+3. **Modified JavaScript value** `MJV - Define Events`: one 0/1 flag per event type (`is_page_view`, `is_add_to_cart`, `is_purchase`, `is_checkout`, `is_search`, `is_product_view`), e.g. `var is_page_view = (event_type == "page_view") ? 1 : 0;`
+4. **Sort rows** `Sort Events` on `user_id`, then **Group by** `Group by User` on `user_id`: `total_events` = distinct count of `event_id`, and the Sum of each flag (`page_views`, `cart_additions`, `purchases`, `checkouts`, `searches`, `product_views`). 46 events become 12 rows.
+5. **Sort rows** `Final User Sort` on `user_id`.
+
+### 4. Join
+
+1. **Merge join** `Sales & Events`: `Final Customer Sort` and `Final User Sort`, **INNER**, keys `customer_id` and `user_id`.
+2. **Merge join** `Customers + Sales + Events`: `Sales & Events` and `Sort rows` (the customers), **LEFT OUTER**, key `customer_id` on both.
+3. **Get system info** `todays_date` (system date (variable)), then **Calculator**: `days_since_last_purchase` = DATE_DIFF(`todays_date`, `last_purchase`) and `days_as_customer` = DATE_DIFF(`last_purchase`, `first_purchase`).
+4. **Formula** `Engagement`: `engagement_score` = `[total_events]*0.3 + [cart_additions]*0.5 + [total_orders]*0.2`.
+5. **Modified JavaScript value** `MJV - Customer Segment`: `customer_segment` = High Value (spent 1,000 or more), Medium Value (500 or more), Low Value (any spend) or Prospect.
+
+### 5. Output
+
+1. **Select values**: keep the customer details, the order metrics, the event counts, `engagement_score` and `customer_segment`.
+2. **Text file output** `Output - Customer 360`: `pvfs://MinIO/curated/customer/customer_360`, extension `csv`, header row, date and time in the filename.
+3. Run. The file holds one row per customer: 12 rows, 2 High Value, 3 Medium Value and 7 Low Value.
+
+::::
+
+***
+
+> **Note:** **Workshop files**
+>
+> Download the files for this workshop. For `.ktr` files, **Open in Pentaho Data Integration** launches PDI with the transformation loaded; if PDI is already running, the path is copied to your clipboard (Ctrl+O, Ctrl+V, Enter).
+
+[customer_360.ktr](./files/customer_360.ktr) <button data-launch="spoon" data-path="files/customer_360.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/customer_360.ktr">View graph</button>
+
+### Log Parsing
+
+> **Warning:**
+>
+> #### Log Parsing and Anomaly Detection
+>
+> **Objective:** Parse application logs, extract metrics, and detect anomalies.
+>
+> **Skills:** Regex, timestamp parsing, time-series analysis, conditional logic
+
+<figure><img src="../_assets/images/log-analysis.png" alt=""><figcaption><p>Log Analysis</p></figcaption></figure>
+
+> **Note:** **Workshop files**
+>
+> Input: `pvfs://MinIO/logs/app/application.log` (123 lines over four hours). Output: `pvfs://MinIO/logs/alerts/critical_alerts.csv`.
+
+Build `log_analysis_anomaly.ktr`, step by step:
+
+1. **Text file input** `Read App Log`: the log file, no header, one String field `log_line`, and a separator that never occurs (the solution uses `||||`) so each line arrives whole.
+2. **Regex evaluation**: field `log_line`, regular expression `^(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})\s+(\w+)\s+\[([^\]]+)\]\s+(.*)$`, tick **Create fields for capture groups**, capture fields `timestamp_str`, `log_level`, `component`, `message` (String).
+3. **Select values**: on **Meta-data**, change `timestamp_str` to `timestamp`, type Timestamp, format `yyyy-MM-dd HH:mm:ss`.
+4. **Calculator**: `log_hour` = **Hour of Day of Date A** (`timestamp`).
+5. **Filter rows** `Filter Errors`: `log_level` CONTAINS `ERROR` OR `log_level` = `WARN`. True to the next step; false to a **Dummy** `All others`. 58 of the 123 lines pass.
+6. **Sort rows** on `log_hour`, then **Group by** `Group by Hour` on `log_hour`: `error_count` = Number of rows, `error_messages` = concatenated `message` values. 4 rows, one per hour.
+7. **Modified JavaScript value** `MJV - Rolling Avg`: `rolling_avg_errors`, the average of this hour and the two before it (copy the script from the solution: it keeps the previous two counts in variables between rows).
+8. **Formula** `Anomaly Detection`: `is_anomaly` = `IF([error_count] > ([rolling_avg_errors] * 1.2); "YES"; "NO")` and `anomaly_severity` = `IF([error_count] > ([rolling_avg_errors] * 1.5); "CRITICAL"; IF([error_count] > ([rolling_avg_errors] * 1.2); "WARNING"; "NORMAL"))`.
+9. **Switch / case** on `anomaly_severity`: `CRITICAL` to a **Text file output** `Output - Critical` (`pvfs://MinIO/logs/alerts/critical_alerts`, extension `csv`), `WARNING` and `NORMAL` to two Dummy steps.
+10. Run. Of the four hours, 1 is critical, 1 a warning and 2 normal; the critical one is written to `logs/alerts/`.
+
+> **Under the hood:**
+>
+> #### A rolling average needs memory between rows
+>
+> Every other step here treats each row on its own. A rolling average
+> cannot: it needs the last two hours' counts. The JavaScript step keeps
+> them in script variables that survive from one row to the next, which
+> is why the rows must arrive in hour order, and why the Sort rows comes
+> first.
+>
+> **Why it matters:** "compared with recent history" is the core of
+> most anomaly checks, and the order of the rows is part of the logic.
+
+***
+
+> **Note:** **Workshop files**
+>
+> Download the files for this workshop. For `.ktr` files, **Open in Pentaho Data Integration** launches PDI with the transformation loaded; if PDI is already running, the path is copied to your clipboard (Ctrl+O, Ctrl+V, Enter).
+
+[log_analysis_anomaly.ktr](./files/log_analysis_anomaly.ktr) <button data-launch="spoon" data-path="files/log_analysis_anomaly.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/log_analysis_anomaly.ktr">View graph</button>
+
+### Fraud
+
+> **Warning:**
+>
+> #### Transactions & Fraud Detection
+>
+> **Objective:** Process credit card transactions, enrich with account and merchant data, calculate transaction metrics, and detect suspicious patterns using rule-based fraud detection.
+>
+> **Skills:** Financial data processing, multi-table joins, running totals, rule-based fraud detection, transaction velocity analysis
+>
+> **Business Context:** A payment processor needs to analyze transaction data in real-time to detect potentially fraudulent activity before authorizing transactions. The system must flag high-risk transactions based on amount thresholds, unusual merchant activity, account balance checks, and transaction velocity patterns.
+
+> **Note:** **Workshop files**
+>
+> Inputs (already in MinIO, and also under **Workshop files** below): `pvfs://MinIO/raw-data/finance/transactions.csv` (63 transactions), `accounts.csv` (13 accounts), `merchants.csv` (18 merchants).
+
+Build `fraud_detection.ktr`, step by step:
+
+1. Three **Text file input** steps, `Read Transactions`, `Read Accounts` and `Read Merchants`, one per finance file: separator `,`, header row, **Get Fields**. Make `amount`, `balance` and `credit_limit` BigNumber, and `transaction_date` (`yyyy-MM-dd HH:mm:ss`) and `open_date` (`yyyy-MM-dd`) Date.
+2. **Stream lookup** `Lookup Accounts` after `Read Transactions`: **Lookup step** `Read Accounts`, key `account_id` = `account_id`, returning `customer_name`, `account_type`, `balance`, `credit_limit`, `open_date` and `risk_rating`.
+3. **Sort rows** `Sort by Merchants` (after the lookup) and `Sort Merchants` (after `Read Merchants`), both on `merchant_id`.
+4. **Merge join** `Join Merchants`: the sorted transactions first, merchants second, **LEFT OUTER**, key `merchant_id`. Every transaction keeps its row even if the merchant is unknown.
+5. **Formula** `Metrics + Flags`: the metrics and six 0/1 flags:
+
+| Field | Formula |
+| --- | --- |
+| `days_since_account_open` | `ABS(DAYS([transaction_date]; [open_date]))` |
+| `balance_after_transaction` | `[balance] - [amount]` |
+| `credit_utilization` | `IF([credit_limit] > 0; ([amount] / [credit_limit]) * 100; 0)` |
+| `high_amount_flag` | `IF([amount] > 1000; 1; 0)` |
+| `overlimit_flag` | `IF(AND([account_type]="CREDIT"; [balance_after_transaction] < 0); 1; 0)` |
+| `high_risk_merchant_flag` | `IF([risk_level]="HIGH"; 1; 0)` |
+| `velocity_flag` | `IF([status]="DECLINED"; 1; 0)` |
+| `new_account_flag` | `IF([days_since_account_open] < 30; 1; 0)` |
+| `high_utilization_flag` | `IF([credit_utilization] > 80; 1; 0)` |
+
+6. **Formula** `Calculate Fraud Score`: `fraud_risk_score` = `([high_amount_flag] * 20) + ([overlimit_flag] * 30) + ([high_risk_merchant_flag] * 25) + ([velocity_flag] * 15) + ([new_account_flag] * 5) + ([high_utilization_flag] * 15)` (Integer).
+7. **Formula** `risk_category`: `IF([fraud_risk_score] >= 80; "CRITICAL"; IF([fraud_risk_score] >= 50; "HIGH"; IF([fraud_risk_score] >= 20; "MEDIUM"; "APPROVE")))`.
+8. Preview `risk_category`: of the 63 transactions, 45 APPROVE, 6 MEDIUM, 5 HIGH and 7 CRITICAL.
+
+> **Under the hood:**
+>
+> #### Stream lookup for the small side, merge join for the sorted one
+>
+> The accounts are small, so **Stream lookup** reads all 13 into memory
+> once and answers each transaction from there, with no sorting. The
+> merchants go through **Merge join**, which needs both inputs sorted
+> but never holds a whole side in memory. Two ways of enriching a
+> stream, chosen by size.
+>
+> **Why it matters:** the score is plain arithmetic over flags, so every
+> rating can be explained: a CRITICAL is a sum of named reasons.
+
+***
+
+> **Note:** **Workshop files**
+>
+> Download the files for this workshop. For `.ktr` files, **Open in Pentaho Data Integration** launches PDI with the transformation loaded; if PDI is already running, the path is copied to your clipboard (Ctrl+O, Ctrl+V, Enter).
+
+[fraud_detection.ktr](./files/fraud_detection.ktr) <button data-launch="spoon" data-path="files/fraud_detection.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/fraud_detection.ktr">View graph</button>
+
+[data/accounts.csv](./files/data/accounts.csv)
+
+[data/merchants.csv](./files/data/merchants.csv)
+
+[data/transactions.csv](./files/data/transactions.csv)
+
+### Data Lake Ingestion
+
+> **Warning:**
+>
+> #### Data Lake Ingestion
+>
+> Modern data lakes often receive the same entities (products, customers, orders) from multiple sources in different formats. This workshop demonstrates how to ingest, normalize, validate, and deduplicate multi-format data into a unified schema - a common data engineering pattern.
+>
+> **Objective:** Combine data from CSV, JSON, and XML into a unified product schema.
+>
+> **Skills:** Multi-format parsing, schema normalization, data validation, deduplication
+
+> **Note:** **Workshop files**
+>
+> These files are already in MinIO:
+>
+> * `pvfs://MinIO/raw-data/csv/products.csv`
+> * `pvfs://MinIO/raw-data/json/api_response.json`
+> * `pvfs://MinIO/raw-data/xml/inventory.xml`
+
+> **Note:** Create a new transformation.
+>
+> Use any of these options:
+>
+> * Select **File** > **New** > **Transformation**
+> * Use `Ctrl+N` (Windows/Linux) or `Cmd+N` (macOS)
+
+:::: tabs
+
+### 1. Define Target Schema
+
+> **Note:**
+>
+> #### Define Target Schema
+>
+> **Objective:** Design a unified schema that accommodates all source formats.
+>
+> **Why Important:** Before ingesting data, you need a clear target schema. This ensures consistency across all sources and makes downstream analytics easier.
+
+<table data-full-width="true"><thead><tr><th width="141">Field</th><th width="109">Type</th><th width="95">Length</th><th width="125">Description</th><th>Source Mapping</th></tr></thead><tbody><tr><td>product_id</td><td>String</td><td>50</td><td>Unique product identifier</td><td>CSV: product_id<br>JSON: product_id<br>XML: sku</td></tr><tr><td>product_name</td><td>String</td><td>200</td><td>Product display name</td><td>CSV: product_name<br>JSON: product_name<br>XML: name</td></tr><tr><td>category</td><td>String</td><td>100</td><td>Product category</td><td>CSV: category<br>JSON: (derived from order type)<br>XML: category</td></tr><tr><td>price</td><td>Number</td><td>15,2</td><td>Unit price in USD</td><td>CSV: price<br>JSON: unit_price<br>XML: null (not available)</td></tr><tr><td>quantity</td><td>Integer</td><td>10</td><td>Available stock quantity</td><td>CSV: stock_quantity<br>JSON: quantity<br>XML: quantity</td></tr><tr><td>source_system</td><td>String</td><td>10</td><td>Origin system identifier</td><td>Constant: 'csv', 'json', or 'xml'</td></tr><tr><td>ingestion_time</td><td>Timestamp</td><td>-</td><td>When record was ingested</td><td>System timestamp</td></tr></tbody></table>
+
+***
+
+> **Note:**
+>
+> #### Schema Discovery & Analysis
+>
+> **Objective:** Understand each source structure before you design the target schema.
+>
+> **Why it matters:** You can’t normalize what you haven’t inspected.
+
+**Step 1.** **Inspect each Data Source**
+
+Use real samples. Avoid guessing field names.
+
+::: tabs
+
+### CSV (products.csv)
+
+**Inspect the file**
+
+Open it in the MinIO console (**raw-data** > `csv/products.csv` > **Download**, or **Preview**).
+
+**Sample**
+
+```csv
+product_id,product_name,category,price,stock_quantity,supplier,last_updated
+P001,Laptop Pro 15,Electronics,1299.99,45,TechSupply Inc,2024-01-15
+P002,Wireless Mouse,Electronics,29.99,230,TechSupply Inc,2024-01-16
+```
+
+**Findings**
+
+* Has `product_id`, `product_name`, `category`, `price`, `stock_quantity` (plus `supplier`, `last_updated`); 18 products.
+* Completeness looks high.
+* Naming is consistent and explicit.
+
+### JSON (api\_response.json)
+
+**Inspect one nested item**
+
+Open `json/api_response.json` in the MinIO console. Each order has an `items` array; one item:
+
+**Sample**
+
+```json
+{
+  "product_id": "P001",
+  "name": "Laptop Pro 15",
+  "quantity": 1,
+  "unit_price": 1299.99
+}
+```
+
+**Findings**
+
+* Has `product_id`, and `name` for the product name; 2 orders, one item each.
+* Uses `unit_price` instead of `price`.
+* `quantity` is order quantity, not stock.
+* `category` is missing.
+* Path is `$.data.orders[*].items[*]`.
+
+### XML (inventory.xml)
+
+**Inspect one item node**
+
+Open `xml/inventory.xml` in the MinIO console. Items sit under `/inventory/items/item`:
+
+**Sample**
+
+```xml
+<item>
+    <sku>P001</sku>
+    <name>Laptop Pro 15</name>
+    <category>Electronics</category>
+    <quantity>45</quantity>
+    <location>A-12-3</location>
+    <last_checked>2024-01-20</last_checked>
+</item>
+```
+
+**Findings**
+
+* Uses `sku` for `product_id`.
+* Uses `name` for `product_name`.
+* Has `category` and warehouse `quantity`.
+* `price` is missing.
+* `location` is extra for a product master.
+
+:::
+
+**Step 2.** **Build a field mapping matrix**
+
+This shows name differences and missing fields.
+
+<table data-full-width="true"><thead><tr><th>Unified field</th><th>CSV</th><th>JSON</th><th width="109">XML</th><th>Notes</th></tr></thead><tbody><tr><td>Identifier</td><td><code>product_id</code></td><td><code>product_id</code></td><td><code>sku</code></td><td>Same meaning. Different name in XML.</td></tr><tr><td>Name</td><td><code>product_name</code></td><td><code>product_name</code></td><td><code>name</code></td><td>Same meaning. Different name in XML.</td></tr><tr><td>Category</td><td><code>category</code></td><td>❌</td><td><code>category</code></td><td>Missing in JSON.</td></tr><tr><td>Price</td><td><code>price</code></td><td><code>unit_price</code></td><td>❌</td><td>Different name in JSON. Missing in XML.</td></tr><tr><td>Stock quantity</td><td><code>stock_quantity</code></td><td><code>quantity</code></td><td><code>quantity</code></td><td>JSON <code>quantity</code> is not stock.</td></tr></tbody></table>
+
+**What to watch**
+
+* Missing data is normal in multi-source ingestion.
+* Same name can mean different things.
+
+**Step 3.** **Make schema decisions**
+
+Write these down. You will forget them later.
+
+**Field names**
+
+* Use CSV naming as the standard.
+* Map XML `sku → product_id` and `name → product_name`.
+* Map JSON `unit_price → price`.
+
+**Missing fields**
+
+* Missing `category` in JSON: set a default like `E-commerce`.
+* Missing `price` in XML: leave `NULL`.
+
+**Data types**
+
+* `product_id`: string. It contains `PROD-` prefix.
+* `product_name`: string. Allow up to 200 chars.
+* `category`: string. Allow up to 100 chars.
+* `price`: decimal(15,2).
+* `quantity`: integer.
+
+**Metadata**
+
+* Add `source_system` for lineage.
+* Add `ingestion_time` for auditability.
+
+**Step 4.** **Define a deduplication rule**
+
+Same `product_id` can appear in multiple sources.
+
+**Example collision**
+
+```
+CSV:  PROD-001, price=999.99, stock_quantity=50, category=Electronics
+JSON: PROD-001, price=999.99, quantity=2,       category=NULL
+XML:  PROD-001, price=NULL,   quantity=50,      category=Electronics
+```
+
+**Recommended rule**
+
+1. Prefer CSV.
+2. Then JSON.
+3. Then XML.
+
+Implement this with `source_priority` (CSV=1, JSON=2, XML=3).
+
+**Step 5.** **Checklist**
+
+* You inspected real records for each source.
+* You captured paths for nested formats.
+* You documented mappings and type choices.
+* You decided how to handle missing data.
+* You decided how to dedupe collisions.
+
+### 2. Ingest Data Sources
+
+> **Note:**
+>
+> #### Ingest Data Sources
+
+> **Warning:** **Path convention used below:** `pvfs://MinIO/...`
+>
+> `MinIO` is the **VFS connection name**. It must match your connection exactly.
+
+**Step 1.** **Ingest CSV products**
+
+**Goal:** Read `products.csv` and map it to the unified schema.
+
+**Path:** `pvfs://MinIO/raw-data/csv/products.csv`
+
+1. Add a **Text file input** step.
+   * Step name: `Read CSV Products`
+   * File/directory: `pvfs://MinIO/raw-data/csv/products.csv`
+   * Separator: `,`
+   * Enclosure: `"` (double quote)
+   * Header row present: enabled
+2. On **Fields**, select **Get Fields**.
+3. Add a **Select values** step.
+   * Step name: `Map CSV to Target Schema`
+   * Rename `stock_quantity` → `quantity`
+4. Add **Add constants**.
+   * Step name: `Add CSV Metadata`
+   * Add field `source_system` = `csv`
+5. Add **Get System Info**.
+   * Step name: `Add Ingestion Timestamp`
+   * Add field `ingestion_time` = `system date (variable)`
+
+**Preview check**
+
+* Expected rows: `12`
+* `product_id`, `product_name`, `category` should be populated.
+
+### Ingest JSON order items
+
+**Goal:** Extract product fields from nested JSON order items.
+
+**Path:** `pvfs://MinIO/raw-data/json/api_response.json`
+
+> **Warning:** `quantity` in JSON is **order quantity**, not stock quantity.
+>
+> Keep it as `quantity` only if that’s what you want to model.
+
+1. Add a **JSON Input** step.
+   * Step name: `Read JSON Products`
+   * File: `pvfs://MinIO/raw-data/json/api_response.json`
+   * Ignore empty file: enabled
+2. On **Fields**, use **explicit JSONPaths** (recommended):
+   * `product_id`: `$.data.orders[*].items[*].product_id`
+   * `product_name`: `$.data.orders[*].items[*].product_name`
+   * `unit_price`: `$.data.orders[*].items[*].unit_price`
+   * `quantity`: `$.data.orders[*].items[*].quantity`
+
+<details>
+
+<summary>Alternative approach (base path + relative field paths)</summary>
+
+If your PDI build supports a base “Path” for the JSON Input step, set:\n\n- Base path: `$.data.orders[*].items[*]`\n\nThen set field paths relative to the base:\n\n- `product_id`: `product_id`\n- `product_name`: `product_name`\n- `unit_price`: `unit_price`\n- `quantity`: `quantity`\n
+
+</details>
+
+3. Add a **Select values** step.
+   * Step name: `Map JSON to Target Schema`
+   * Rename `unit_price` → `price`
+4. Add **Add constants**.
+   * Step name: `Add JSON Metadata`
+   * `source_system` = `json`
+   * `category` = `E-commerce` (default)
+5. Add **Get System Info**.
+   * Step name: `Add JSON Ingestion Timestamp`
+   * `ingestion_time` = `system date (variable)`
+
+**Preview check**
+
+* Expected rows: `~10–15` (can vary with sample file).
+* `product_name` should not be NULL.
+
+### Ingest XML inventory items
+
+**Goal:** Extract inventory items from XML using XPath.
+
+**Path:** `pvfs://MinIO/raw-data/xml/inventory.xml`
+
+1. Add **Get data from XML**.
+   * Step name: `Read XML Products`
+   * File: `pvfs://MinIO/raw-data/xml/inventory.xml`
+   * Loop XPath: `/inventory/items/item`
+2. On **Fields**, add:
+   * `sku` (String)
+   * `name` (String)
+   * `category` (String)
+   * `quantity` (Integer)
+
+> **Note:** Field XPaths are **relative to the loop node**.
+>
+> Example: `sku` means “read the `<sku>` element under each `<item>`”.
+
+3. Add a **Select values** step.
+   * Step name: `Map XML to Target Schema`
+   * Rename `sku` → `product_id`
+   * Rename `name` → `product_name`
+   * Add a new field `price` in **Meta-data** (type `Number`). Leave it empty (NULL).
+4. Add **Add constants**.
+   * Step name: `Add XML Metadata`
+   * `source_system` = `xml`
+5. Add **Get System Info**.
+   * Step name: `Add XML Ingestion Timestamp`
+   * `ingestion_time` = `system date (variable)`
+
+**Preview check**
+
+* Expected rows: `~8–10`
+* If you get `0` rows, re-check the Loop XPath.
+
+### 3. Merge streams
+
+> **Note:**
+>
+> #### Merge Streams
+>
+> **Objective:** Merge all three data streams (CSV, JSON, XML) into one unified stream.
+>
+> **Why Append Streams:** This step stacks all rows from different sources vertically - like a SQL UNION ALL.
+
+**Configuration:**
+
+1. **Add a Dummy (do nothing) step**
+   * **Name**: "Combine All Products"
+   * **Append streams** takes only two inputs (a head and a tail). For three, hop them all into one step: PDI passes on every row that arrives on any hop.
+2. **Connect all three streams** to this step:
+   * "Add Ingestion Timestamp" (CSV branch) → Append streams
+   * "Add JSON Ingestion Timestamp" (JSON branch) → Append streams
+   * "Add XML Ingestion Timestamp" (XML branch) → Append streams
+3. **Important:** All input streams MUST have the same fields with the same names and types:
+   * product\_id (String)
+   * product\_name (String)
+   * category (String)
+   * price (Number) - can be null
+   * quantity (Integer)
+   * source\_system (String)
+   * ingestion\_time (Timestamp)
+
+**Expected Output:**
+
+* Row count: 37 rows (18 CSV + 2 JSON + 17 XML)
+* All products from all sources combined
+* Some products will appear multiple times (duplicates to be handled in Step 7)
+
+**Preview Check:**
+
+```
+product_id   product_name      source_system  price
+P001         Laptop Pro 15     csv            1299.99
+P002         Wireless Mouse    csv            29.99
+...
+P001         Laptop Pro 15     json           1299.99   <- the same product again
+...
+P001         Laptop Pro 15     xml            null      <- again, and no price
+```
+
+### 4. Data Validation (extension)
+
+> **Note:**
+>
+> #### Data Validation
+>
+> An extension beyond the solution, which stops at **Combine All Products**: check the unified rows before you publish them, and route the failures to an error file.
+
+1. Add a **Data validator** step after **Combine All Products** and name it `Validate Product Data`.
+2. Add validations: `product_id` and `product_name` must not be null or empty; `price` must be at least 0, with null allowed (the XML feed has no price).
+3. Right-click the step, choose **Error Handling...**, and send the error rows to a **Text file output** `Write Error Records`: `pvfs://MinIO/curated/products/errors/validation_errors`, extension `csv`, **Include date in filename?** ticked. Give the error descriptions field a name such as `validation_errors`.
+4. Rows that pass carry on from the validator's normal hop; write them on to `pvfs://MinIO/curated/products/`.
+
+> **Note:** **Data validator** routes failing rows through its error hop; there is no "validation result" field on the good rows to filter on.
+
+::::
+
+***
+
+> **Note:** **Workshop files**
+>
+> Download the files for this workshop. For `.ktr` files, **Open in Pentaho Data Integration** launches PDI with the transformation loaded; if PDI is already running, the path is copied to your clipboard (Ctrl+O, Ctrl+V, Enter).
+
+[data_lake_ingestion.ktr](./files/data_lake_ingestion.ktr) <button data-launch="spoon" data-path="files/data_lake_ingestion.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/data_lake_ingestion.ktr">View graph</button>
+
+:::::
 
 ## Lab Files
 

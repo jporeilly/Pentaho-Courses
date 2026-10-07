@@ -16,7 +16,7 @@ scheduling, and scaling.
 >
 > - Build a parameterised PDI **job** that ingests three data sources, validates them, enriches with master data, and loads a fact + dimension table.
 > - Demonstrate **production-readiness**: error handling, logging, parameters, scheduled execution.
-> - Produce a complete artefact you can show in interviews ("I built this for my Practitioner cert").
+> - Produce a complete artefact you can show in interviews ("I built this for my Practitioner course accreditation").
 >
 > **Estimated time:** 90-120 minutes for a clean, well-named solution. Re-shape and revisit as you'd like.
 
@@ -27,7 +27,7 @@ scheduling, and scaling.
 Download the four files from **Lab Files** at the bottom of this
 page, and put them in a `data/` folder under the workshop root you
 will point `${WORKSHOP_HOME}` at (for example
-`C:/Workshop-DI-Practitioner/capstone/data/`). Every path in this capstone is written
+`C:/Workshop-DI-Practitioner/capstone/data/`; they are already there if the installer laid out `C:\Workshop-DI-Practitioner`). Every path in this capstone is written
 as `${WORKSHOP_HOME}/data/...`, so once the variable is set the
 transformations resolve without further edits.
 
@@ -36,12 +36,12 @@ environment.
 
 | File | What | How to read it |
 | --- | --- | --- |
-| `sales_20260101.csv` | Yesterday's orders (40 rows, 2 with intentionally bad keys for the validation step) | **Text File Input** — header row, comma delimiter |
-| `customers.json` | Customer master (20 rows under `$.customers[*]`) | **JSON Input** — JSONPath `$.customers[*]` |
-| `products.csv` | Product catalogue (13 SKUs across 3 categories) | **Text File Input** — header row, comma delimiter |
+| `sales_20260101.csv` | Yesterday's orders (40 rows, 3 with intentionally missing keys for the validation step) | **Text File Input** — header row, comma delimiter |
+| `customers.json` | Customer master (20 rows under `$.customers[*]`) | **JSON Input** — field paths under `$.customers[*]` |
+| `products.csv` | Product catalogue (13 SKUs across 4 categories) | **Text File Input** — header row, comma delimiter |
 | `regions.csv` | Region reference (5 regions) | **Text File Input** — header row, comma delimiter |
 
-Two of the sales rows have intentionally missing keys (one missing
+Three of the sales rows have intentionally missing keys (two missing
 `customer_id`, one missing `product_id`) — they're there to give your
 validation step something real to catch.
 
@@ -69,7 +69,7 @@ Nothing in the transformations should be hard-coded.
 Three transformations, each reading one source:
 
 - `stage_orders.ktr` — Text File Input → `sales_${SALES_DATE}.csv`
-- `stage_customers.ktr` — JSON Input → `customers.json` with JSONPath `$.customers[*]`
+- `stage_customers.ktr` — JSON Input → `customers.json`, field paths under `$.customers[*]`
 - `stage_products.ktr` — Text File Input → `products.csv`
 
 ### 3. Validate *(Module 2)*
@@ -106,24 +106,28 @@ maintained manually using a Combination Lookup-style pattern.
 
 ### 7. Write outputs *(Module 3)*
 
-- **Table Output** to a `fact_sales` table  *(or Text File Output to `${OUTPUT_PATH}/fact_sales.csv` if no DB)*
+- **Text File Output** to `${OUTPUT_PATH}/fact_sales.csv` (required: the accreditation check looks for it), plus **Table Output** to a `fact_sales` table if you want it in MySQL too
 - **Excel Writer** to `${OUTPUT_PATH}/sales_summary_${SALES_DATE}.xlsx` — by region: revenue, gross margin, order count
 
 ### 8. Job orchestration *(Module 5)*
 
 Wrap the transformations in a job:
 
-```
+```text
 Start
-  → Set Variables (read kettle.properties values into job vars)
+  → Set Variables          read kettle.properties values into job variables
   → stage_orders.ktr
-  → stage_customers.ktr      (in parallel with orders if you want)
+  → stage_customers.ktr
   → stage_products.ktr
   → build_fact.ktr
   → maintain_dim_region.ktr
   → write_summary.ktr
-Success / Abort job
+  → Success
+
+every entry's failure hop → Mail (notify ops) → Abort job
 ```
+
+> **Warning:** Want the three stage transformations to run in parallel? Put them in a **sub-job** whose START has **Run Next Entries in Parallel**, and call that sub-job where the three entries are above. The parent job moves on to `build_fact.ktr` only when the sub-job has finished. Don't run them in parallel in the main job and hop each one into `build_fact.ktr`: a job has no "wait for all" hop, so `build_fact.ktr` would run three times (see [Order of Execution](../30-mod5-order-of-execution/guide.md)).
 
 Use a **Mail** step on the failure hop so the on-call engineer gets
 notified when something breaks (you can leave the SMTP server stubbed
@@ -145,8 +149,10 @@ Define a **Carte** Run Configuration for the job and document — in a
 parameters:
 
 ```
-kitchen.sh -file=daily_sales_pipeline.kjb -param:SALES_DATE=20260101
+Kitchen.bat -file=daily_sales_pipeline.kjb "-param:SALES_DATE=20260101"
 ```
+
+(On Linux/macOS: `./kitchen.sh -file=daily_sales_pipeline.kjb -param:SALES_DATE=20260101`. On Windows the parameter goes in quotes, because the batch files split arguments at `=`.)
 
 ---
 
@@ -169,9 +175,9 @@ solution/
 
 ## Hints for the tricky bits
 
-- **JSONPath**: `$.customers[*]` iterates the array; field paths are then `$.id`, `$.name`, `$.region_code` — relative to each iterated object.
+- **JSONPath**: JSON Input has no loop path - give each field a full path that matches every customer, e.g. `$.customers[*].id`, `$.customers[*].name`, `$.customers[*].region_code`.
 - **Sorting before Merge Join**: both inputs MUST be sorted on the join key. Add a Sort Rows step on each side, or `ORDER BY` in the source query.
-- **Error handling**: right-click the Filter Rows step → "Define error handling…". The "error" hop becomes red; route bad rows to a Write to Log + Text File Output to keep an audit trail.
+- **Rejects**: Filter rows has no error handling; it has two outputs instead. In its dialog set **Send 'true' data to step** to the good-rows path and **Send 'false' data to step** to a Write to Log + Text File Output, to keep an audit trail.
 - **Stream Lookup vs Database Lookup**: Stream Lookup is in-memory and fastest for small dimensions (regions, customers). Database Lookup hits the DB per row but works for big dimensions that don't fit in memory.
 - **SCD Type 2**: Dimension Lookup/Update manages the technical key + valid-from / valid-to dates automatically. Configure the surrogate key, version field, and date fields once; the step does the bookkeeping.
 - **Excel Writer**: use the **Append** option set to "Yes" if you're running daily and want to keep the file rolling; "No" creates a fresh file each run.
@@ -199,8 +205,7 @@ pipeline itself is yours to build.
 After running your job, click **Run checks** below to confirm each
 output landed where expected. The checks assume the worked example
 paths (`WORKSHOP_HOME=C:/Workshop-DI-Practitioner/capstone`, outputs under
-`${WORKSHOP_HOME}/out`) — if yours differ, edit the `checks` block in
-this lab's `manifest.json` to match.
+`${WORKSHOP_HOME}/out`) — use exactly these paths, or the checks (and the accreditation) cannot find your work.
 
 ---
 
@@ -234,14 +239,14 @@ This becomes a portfolio piece — keep it tidy, name things clearly, and docume
 Steps in order:
 
 1. **Text File Input**: `${WORKSHOP_HOME}/data/sales_${SALES_DATE}.csv`. Comma delimiter. Header row. 7 fields with types — `qty` Integer, `unit_price` Number(10,2), `discount_pct` Number(5,2), the rest String.
-2. **Filter Rows**: condition `customer_id IS NOT NULL AND product_id IS NOT NULL`. Right-click → Define error handling → route the false branch to:
+2. **Filter Rows**: condition `customer_id IS NOT NULL AND product_id IS NOT NULL`. Set **Send 'false' data to step** to:
 3. **Text File Output**: `${OUTPUT_PATH}/rejected_${SALES_DATE}.csv` (audit trail).
 4. **Write to Log** (basic level): `Rejected rows for ${SALES_DATE}: <count>`.
 5. The good rows continue to **Sort rows** on `product_id`, then a **Copy rows to result** so the parent job's later transformations can pick them up via "Get rows from result".
 
 ### `stage_customers.ktr`
 
-1. **JSON Input**: `${WORKSHOP_HOME}/data/customers.json`. JSONPath `$.customers[*]`. Fields `id`, `name`, `email`, `region_code`, `joined_date` — all String except `joined_date` (Date with format `yyyy-MM-dd`).
+1. **JSON Input**: `${WORKSHOP_HOME}/data/customers.json`. Fields `id`, `name`, `email`, `region_code`, `joined_date`, each with a full path such as `$.customers[*].id` — all String except `joined_date` (Date with format `yyyy-MM-dd`).
 2. **Copy rows to result** — staged for the fact build.
 
 ### `stage_products.ktr`
@@ -260,7 +265,7 @@ Steps in order:
    - `gross_margin = [revenue] - ([qty] * [cost])`
    - Both as Number(12,2).
 5. **Stream Lookup** on `region_code` against `regions.csv` (read once at start) → returns `region_name`.
-6. **Table Output** to `fact_sales`. Or **Text File Output** to `${OUTPUT_PATH}/fact_sales.csv` if you don't have a DB.
+6. **Text File Output** to `${OUTPUT_PATH}/fact_sales.csv` (required by the accreditation check), and **Table Output** to `fact_sales` as well if you want it in MySQL.
 7. **Write to Log**: row count.
 
 ### `maintain_dim_region.ktr`
@@ -279,14 +284,16 @@ Steps in order:
 
 ### `daily_sales_pipeline.kjb`
 
-```
+```text
 Start
  ↓
-Set Variables (load kettle.properties values into job-scope variables)
+Set Variables            load kettle.properties values into job-scope variables
  ↓
-[stage_orders.ktr] [stage_customers.ktr] [stage_products.ktr]   ← three in parallel
- ↓ (all-success hop)
-build_fact.ktr
+stage_all.kjb            sub-job: START (Run Next Entries in Parallel)
+ ↓                         ├─ stage_orders.ktr
+ ↓                         ├─ stage_customers.ktr
+ ↓                         └─ stage_products.ktr
+build_fact.ktr           runs once, after the sub-job has finished
  ↓
 maintain_dim_region.ktr
  ↓
@@ -294,6 +301,8 @@ write_summary.ktr
  ↓
 Success
 ```
+
+The sub-job is what lets the three staging transformations run together and still be followed by one `build_fact.ktr`. Running them one after another in the main job (as in **8. Job orchestration**) is just as valid, and simpler.
 
 On any **fail** hop: Mail step → notify ops, then Abort job.
 
@@ -305,7 +314,9 @@ SALES_DATE=20260101
 OUTPUT_PATH=C:/Workshop-DI-Practitioner/capstone/out
 ```
 
-### Carte invocation
+### Kitchen invocation
+
+On Windows: `Kitchen.bat -file=daily_sales_pipeline.kjb -level=Basic "-param:SALES_DATE=20260101"`. On Linux:
 
 ```
 kitchen.sh \

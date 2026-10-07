@@ -15,8 +15,8 @@
     {
       "id": "summary-workbook",
       "kind": "file-exists",
-      "label": "Region summary workbook written (dim_summary_<date>.xlsx)",
-      "path": "C:/Workshop-DI-Practitioner/capstone/out/dim_summary_20260101.xlsx"
+      "label": "Region summary workbook written (sales_summary_<date>.xlsx)",
+      "path": "C:/Workshop-DI-Practitioner/capstone/out/sales_summary_20260101.xlsx"
     },
     {
       "id": "job-file",

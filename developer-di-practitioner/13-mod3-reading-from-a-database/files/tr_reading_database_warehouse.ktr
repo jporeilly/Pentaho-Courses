@@ -595,18 +595,34 @@
     </notepad>
   </notepads>
   <connection>
-    <name>Sampledata</name>
+    <name>MySQL:sampledata</name>
     <server>localhost</server>
-    <type>HYPERSONIC</type>
+    <type>MYSQL</type>
     <access>Native</access>
     <database>sampledata</database>
-    <port>9001</port>
+    <port>3306</port>
     <username>pentaho_admin</username>
     <password>Encrypted 2be98afc86aa7f2e4bb18bd63c99dbdde</password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
     <attributes>
+      <attribute>
+        <code>EXTRA_OPTION_MYSQL.allowPublicKeyRetrieval</code>
+        <attribute>true</attribute>
+      </attribute>
+      <attribute>
+        <code>EXTRA_OPTION_MYSQL.defaultFetchSize</code>
+        <attribute>500</attribute>
+      </attribute>
+      <attribute>
+        <code>EXTRA_OPTION_MYSQL.useCursorFetch</code>
+        <attribute>true</attribute>
+      </attribute>
+      <attribute>
+        <code>EXTRA_OPTION_MYSQL.useSSL</code>
+        <attribute>false</attribute>
+      </attribute>
       <attribute>
         <code>FORCE_IDENTIFIERS_TO_LOWERCASE</code>
         <attribute>N</attribute>
@@ -621,7 +637,7 @@
       </attribute>
       <attribute>
         <code>PORT_NUMBER</code>
-        <attribute>9001</attribute>
+        <attribute>3306</attribute>
       </attribute>
       <attribute>
         <code>PRESERVE_RESERVED_WORD_CASE</code>
@@ -630,6 +646,10 @@
       <attribute>
         <code>QUOTE_ALL_FIELDS</code>
         <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>STREAM_RESULTS</code>
+        <attribute>Y</attribute>
       </attribute>
       <attribute>
         <code>SUPPORTS_BOOLEAN_DATA_TYPE</code>
@@ -888,7 +908,7 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>Sampledata</connection>
+    <connection>MySQL:sampledata</connection>
     <sql>SELECT
   ORDERNUMBER
 , ORDERDATE

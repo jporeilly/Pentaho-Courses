@@ -105,7 +105,8 @@ Configure these key fields:
 > **Note:** If `${Internal.Transformation.Filename.Directory}` is empty, save the transformation first.
 
 > **Danger:** CSV File Input infers field lengths from a sample.\
-> Increase string lengths before you generate table DDL.
+> Increase string lengths before you generate table DDL.\
+> In `sales_data.csv` the sample guesses too short for three fields: set **CUSTOMERNAME** to 40, **ADDRESSLINE1** to 50 and **STATE** to 20 (the longest values are 34, 42 and 13 characters). Otherwise the table is created too narrow and the load stops with "Data too long for column".
 
 4. Ensure the following details are configured, as outlined below:
 
@@ -179,7 +180,7 @@ Configure these key fields:
 
 > **Under the hood:**
 >
-> #### Rows were inserted in batches inside transactions, not one INSERT at a time
+> #### Rows are inserted inside transactions - and in batches if you tick batch update
 >
 > **Table output** prepared a single `INSERT INTO STG_SALES_DATA (...)
 > VALUES (?, ?, ...)` at start-up and bound each incoming row to it.
@@ -221,9 +222,9 @@ Follow the steps outlined below:
 
 > **Note:** **CSV File Input**
 > 
-> Same setup as Workflow 1, but point to your orders file.
+> This time use a **Text file input**, as in the screenshots: file `orders.txt`, separator `;`, header row on.
 
-1. Drag the CSV file input step onto the canvas.
+1. Drag the Text file input step onto the canvas.
 2. Open the CSV file input properties dialog box.
 
 Ensure the following details are configured, as outlined below:

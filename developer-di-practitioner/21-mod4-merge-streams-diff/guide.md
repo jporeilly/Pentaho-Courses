@@ -14,7 +14,7 @@
 > * Apply inserts, updates, and deletes with Synchronize after merge
 > * Run the transformation and inspect the CRUD operations on the result
 > 
-> **Prerequisites:** Understanding of basic transformation concepts (steps, hops, preview). Pentaho Data Integration installed and configured.
+> **Prerequisites:** Understanding of basic transformation concepts (steps, hops, preview). Pentaho Data Integration installed and configured. `STG_ORDERS_MERGED` loaded in **[Create DB table](../14-mod3-writing-to-a-database/guide.md)**, Workflow 2.
 > 
 > **Estimated time:** 20 minutes
 
@@ -93,7 +93,9 @@
 
 <button data-launch="spoon" data-path="">Start PDI</button>
 
-2. Configure the **Merge rows (diff)** step like this:
+2. Add a **Table input** on your connection: `SELECT PRODUCTCODE, PRODUCTNAME, PRODUCTLINE, PRODUCTSCALE, PRODUCTVENDOR, PRODUCTDESCRIPTION FROM STG_ORDERS_MERGED ORDER BY PRODUCTCODE` (the table you loaded in Create DB table, Workflow 2).
+3. Add a **Text file input** for `orders_update.txt` (separator `;`, header row) and a **Sort rows** on `PRODUCTCODE` after it.
+4. Add **Merge rows (diff)**, hop both streams into it, and configure it like this (reference = the table, compare = the sorted file):
 
 <figure><img src="../_assets/images/merge-diff-step.png" alt="" width="563"><figcaption><p>Merge rows (diff)</p></figcaption></figure>
 
@@ -203,3 +205,5 @@ Also on disk at `C:\Workshop-DI-Practitioner\04-enriching-the-dataset\01-merge\2
 [tr_merge_streams_database_diff.ktr](./files/tr_merge_streams_database_diff.ktr) <button data-launch="spoon" data-path="files/tr_merge_streams_database_diff.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/tr_merge_streams_database_diff.ktr">View graph</button>
 
 [tr_merge_streams_diff.ktr](./files/tr_merge_streams_diff.ktr) <button data-launch="spoon" data-path="files/tr_merge_streams_diff.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/tr_merge_streams_diff.ktr">View graph</button>
+
+`tr_merge_streams_diff.ktr` compares `orders.txt` with `orders_update.txt` without a database: run it to see the four flags (identical, new, changed, deleted) before you synchronise a table.

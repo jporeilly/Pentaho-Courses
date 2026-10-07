@@ -482,17 +482,17 @@
     </hop>
     <hop>
       <from>Ingestion Timestamp</from>
-      <to>Dummy (do nothing)</to>
+      <to>Combine All Products</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>Ingestion Timestamp 2</from>
-      <to>Dummy (do nothing)</to>
+      <to>Combine All Products</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>Ingestion Timestamp 3</from>
-      <to>Dummy (do nothing)</to>
+      <to>Combine All Products</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -1468,7 +1468,7 @@
     </GUI>
   </step>
   <step>
-    <name>Dummy (do nothing)</name>
+    <name>Combine All Products</name>
     <type>Dummy</type>
     <description/>
     <distribute>Y</distribute>

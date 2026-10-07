@@ -538,7 +538,7 @@
       <schema_name/>
     </partitioning>
     <formula>
-      <field_name>is_anomaly </field_name>
+      <field_name>is_anomaly</field_name>
       <formula_string> IF([error_count] > ([rolling_avg_errors] * 1.2); "YES"; "NO")</formula_string>
       <value_type>String</value_type>
       <value_length>-1</value_length>
@@ -1199,7 +1199,7 @@ if (rowNum == 1) {        // CHANGED: was rowNum == 0
     <fileNameField/>
     <create_parent_folder>Y</create_parent_folder>
     <file>
-      <name>pvfs://MinIO/logs/alerts/critical_alerts.csv</name>
+      <name>pvfs://MinIO/logs/alerts/critical_alerts</name>
       <servlet_output>N</servlet_output>
       <do_not_open_new_file_init>N</do_not_open_new_file_init>
       <extention>csv</extention>
@@ -1265,7 +1265,7 @@ if (rowNum == 1) {        // CHANGED: was rowNum == 0
         <precision>2</precision>
       </field>
       <field>
-        <name>is_anomaly </name>
+        <name>is_anomaly</name>
         <type>String</type>
         <format/>
         <currency/>

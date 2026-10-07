@@ -1,14 +1,14 @@
-Required scripts:
+-- DIM_SCD for the Slowly Changing Dimensions workshop (MySQL sampledata).
+-- The same statement as step 2 of the guide; run it in DBeaver as pentaho_admin.
 
-CREATE TABLE PUBLIC.DIM_SCD (
-	TK BIGINT NOT NULL,
-	VERSION INTEGER,
-	DATE_FROM TIMESTAMP,
-	DATE_TO TIMESTAMP,
-	ID INTEGER,
-	CITY VARCHAR(20),
-	LAST_UPDATE TIMESTAMP,
-	PRIMARY KEY (TK)
-);
-
-
+CREATE TABLE `DIM_SCD` (
+  `TK` bigint(10) NOT NULL,
+  `version` int(11) DEFAULT '0',
+  `id` int(11) DEFAULT '0',
+  `city` tinytext,
+  `date_from` datetime DEFAULT NULL,
+  `date_to` datetime DEFAULT NULL,
+  `last_update` datetime DEFAULT NULL,
+  PRIMARY KEY (`TK`),
+  KEY `idx_DIM_SCD_lookup` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;

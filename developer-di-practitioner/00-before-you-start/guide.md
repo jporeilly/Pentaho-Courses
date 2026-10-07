@@ -2,10 +2,24 @@
 
 > **Note:**
 >
-> ### Welcome!
- 
-> This page highlights how to get the best user experience using this lab guide.
-> Five minutes here makes every later lab smoother.
+> #### Get Ready — Before You Start
+>
+> Before the first workshop, check that your environment is ready and
+> that the workshop folders and files are in place. The course builds
+> real pipelines against files, a MySQL database and object storage,
+> and **none of the lab time should go on setup**: this page does it in
+> advance.
+>
+> **What you'll do:**
+>
+> * Learn how the guide works: progress, copy buttons, the assistant.
+> * Confirm Pentaho Data Integration starts and the services answer.
+> * Check the workshop folder: *C:\Workshop-DI-Practitioner*
+>
+> **Prerequisites:** Familiarity with the basics of data integration.
+>
+> **Estimated Time:** 5 minutes on a lab VM; about 20 minutes the first
+> time on your own machine.
 
 ## Meet your lab guide
 
@@ -13,7 +27,7 @@ This panel stays beside your tools for the whole workshop:
 
 - **Float or dock** — drag the title bar to move the window anywhere
   (any monitor), or use the dock button to pin it to the right edge of
-  the screen so maximised apps make room for it.
+  the screen so maximized apps make room for it.
 - **The sidebar** lists every section and lab. A <span data-icon="video"></span> badge means the lab
   includes a video; the `~15 min` tag is a time estimate.
 - Use the **font-size** and **reading-mode** controls in the toolbar if
@@ -87,6 +101,10 @@ containers, so you need a container runtime.
    wsl --update
    ```
 
+   WSL 3.0 changed how containers are given their resource limits, and
+   Podman cannot start containers on it as shipped. The setup script in
+   the next tab adjusts the Podman machine for it, once, by itself.
+
 3. Open **Podman Desktop** from the Start menu. It is a normal desktop
    application, not a web page, so there is no address to browse to.
    Its **Containers** page lists the workshop services with their
@@ -132,6 +150,12 @@ out-of-date WSL. Run `wsl --update`, then
 `podman machine start`. WSL 2.7 or newer is required; check with
 `wsl --version`.
 
+**Every container fails with "crun: controller `pids` is not
+available"** — WSL 2.9 or 3.0. Run `.\setup-services.ps1` again: it adds
+a setting to the Podman machine that creates containers without
+resource limits, and restarts the machine. On a shared lab VM, do not
+run `wsl --update`; the lab image pins a version that works.
+
 **"cannot connect to Podman"** — the machine exists but is not
 running. Start it from **Podman machine** in Podman Desktop, or:
 
@@ -161,10 +185,10 @@ course requires you to remove it.
 1. Open PowerShell in the **`provisioning`** folder of your install.
    That is one of:
 
-   | Install type | Folder                                            |
-   | ------------ | ------------------------------------------------- |
-   | Just for me  | `%LOCALAPPDATA%\Programs\Pentaho Content Manager` |
-   | All users    | `C:\Program Files\Pentaho Content Manager`        |
+| Install type | Folder                                                         |
+| ------------ | -------------------------------------------------------------- |
+| Just for me  | `%LOCALAPPDATA%\Programs\Pentaho Content Manager\provisioning` |
+| All users    | `C:\Program Files\Pentaho Content Manager\provisioning`        |
 
 2. Run the setup script:
 
@@ -186,10 +210,23 @@ course requires you to remove it.
 Check the result against the Podman Desktop screenshot in the previous
 tab: `pcm-mysql` and `pcm-minio` running, `pcm-minio-seed` exited.
 
-> **Important:** Re-run this same command after **every reboot** — the
-> Podman machine does not start itself. It is safe to run at any time.
-> `-InstallPrereqs` answers yes to every prompt, for setting up a room
-> of machines.
+5. Check PDI has the MySQL driver. PDI 11 doesn't include it, and
+   every database lab needs it. The installer already downloaded it
+   into the `lib` folder of the PDI it found, and the script in step 2
+   does the same if you installed PDI after the course. If the
+   **MySQL JDBC driver** row in the panel below is still red, run the
+   driver step on its own from the same folder:
+
+   ```powershell
+   .\install-pdi-driver.ps1
+   ```
+
+   Restart Spoon if it is open. The row turns green.
+
+> **Important:** Re-run `.\setup-services.ps1` after **every reboot** —
+> the Podman machine does not start itself. It is safe to run at any
+> time. `-InstallPrereqs` answers yes to every prompt, for setting up a
+> room of machines.
 
 <details>
 <summary>Troubleshooting</summary>
@@ -262,9 +299,11 @@ When everything is green you are ready to start Module 1.
 | Podman                   | The container engine                         |
 | Compose provider         | Brings up the whole stack in one command     |
 | Podman machine           | The Linux VM the containers run in           |
-| MySQL `sampledata`       | Labs 12–18 write to it (HSQLDB is read-only) |
+| MySQL `sampledata`       | Labs 12–18 and several later labs read and write it |
+| MySQL JDBC driver (PDI)  | PDI 11 doesn't ship one; without it no lab can connect |
 | MinIO                    | The `pvfs://` object-storage labs            |
-| Pentaho Data Integration | The tool the whole course teaches            |
+| Pentaho Data Integration | The tool the whole course teaches. Looked for in `C:\Pentaho\design-tools\data-integration` first, then elsewhere on the machine |
+| Java (for Spoon)         | Pentaho's bundled Java 21 in `C:\Pentaho\java`, or `PENTAHO_JAVA_HOME` |
 | Ollama                   | Optional — powers the in-app chat assistant  |
 
 </details>
@@ -291,8 +330,8 @@ The capstone is the one folder with a shape of its own:
 <details>
 <summary>The folder isn't there</summary>
 
-It is an optional component, so a **Typical** install — or an unticked
-box under **Custom** — skips it. Lay it down at any time from the same
+It is an optional component, so a **Minimal (app only)** install, or
+an unticked **Workshop lab files** box, skips it. Lay it down at any time from the same
 `provisioning` folder as the services script:
 
 ```powershell
@@ -394,6 +433,69 @@ labs need. Each row reports one of four states:
 <div data-env-check></div>
 
 ::::
+
+## Check the working folders
+
+The installer lays every lab's files out under
+**`C:\Workshop-DI-Practitioner`**, one folder per module and
+sub-section, in the order the sidebar reads. (Module 1 is reading
+only, so the numbering starts at `02`.) Each workshop's **Solution**
+section quotes its own folder.
+
+```text
+C:\Workshop-DI-Practitioner
+├── 02-components-concepts
+│   ├── 01-components
+│   │   └── 02-mod1-kettle-variables
+│   └── 02-key-concepts
+│       └── 03-mod2-hello-world
+├── 03-data-sources
+│   ├── 01-flat-files
+│   │   ├── 06-mod3-text-file-input
+│   │   │   ├── orders.txt                  the lab's data: open and read it
+│   │   │   └── solution                    the finished answer, ready to run
+│   │   │       ├── orders.txt              its own copy of the data
+│   │   │       └── tr_read_text.ktr
+│   │   └── 07-mod3-text-file-output ... 10-mod3-excel-writer
+│   ├── 02-databases                        labs 12-18, MySQL sampledata
+│   └── 03-storage                          lab 19, MinIO
+├── 04-enriching-the-dataset
+│   └── 01-merge, 02-joins, 03-lookups, 04-scripting
+├── 05-enterprise-solution
+│   └── 01-jobs, 02-metadata-injection, 03-parameters
+└── capstone
+    ├── data                                what the capstone reads, shipped
+    ├── solution                            your transformations and jobs
+    └── out                                 your output, checked for your accreditation
+```
+
+Every `solution` folder holds a **complete, working** solution: the
+transformations and jobs plus their own copy of the data they read.
+Open one in PDI and run it to see the expected result; your own work
+at the lab root is never touched.
+
+**Confirm the files are there**, not just the folder: open
+`03-data-sources\01-flat-files\06-mod3-text-file-input` and check you
+can see `orders.txt` and a `solution` folder holding
+`tr_read_text.ktr`. An empty folder is the one thing worth catching now
+rather than in the middle of a lab.
+
+## Check the database
+
+The database labs (12-18, and several in modules 4 and 5) use the Steel
+Wheels sample in the MySQL container. The environment panel shows
+**MySQL** green when it is up. Workshop 12 builds the connection the
+others reuse, and every bundled solution connects with exactly these
+details:
+
+|                 |                    |
+| --------------- | ------------------ |
+| Connection name | `MySQL:sampledata` |
+| Host            | `localhost`        |
+| Port            | `3306`             |
+| Database        | `sampledata`       |
+| Username        | `pentaho_admin`    |
+| Password        | `password`         |
 
 ## Ask the AI assistant
 

@@ -115,8 +115,8 @@
 > 
 > The Database lookup step allows you to look up values in a database table. Lookup values are added as new fields onto the stream.
 
-1. Drag the Data Grid step onto the canvas.
-2. Open the Data grid properties dialog box.
+1. Drag the Database lookup step onto the canvas and create a hop from like_statement.
+2. Open the Database lookup properties dialog box.
 3. Ensure the following details are configured, as outlined below:
 
 <figure><img src="../_assets/images/databse-lookup-simple.png" alt=""><figcaption><p>Dtabase lookup - simple</p></figcaption></figure>
@@ -125,7 +125,7 @@
 > 
 > In this example:
 > 
-> WHERE PRODUCTNAME LIKE '%Aston Martin%' AND BUYPRICE < 90 WHERE PRODUCTNAME LIKE '%'Ford Falcon%' AND BUYPRICE < 70 WHERE PRODUCTNAME LIKE '%Corvette'%' AND BUYPRICE < 70
+> WHERE PRODUCTNAME LIKE '%Aston Martin%' AND BUYPRICE < 90 WHERE PRODUCTNAME LIKE '%Ford Falcon%' AND BUYPRICE < 70 WHERE PRODUCTNAME LIKE '%Corvette%' AND BUYPRICE < 70
 
 > **Note:** The Database lookup step allow us to retrieve any number of columns based on the search criteria. Each database column you enter in the lower grid will become a new field in your dataset.
 > 
@@ -149,7 +149,7 @@
 > costs a hash probe instead of a query. **Load all data from table**
 > goes further and reads the whole table once at start-up, after which
 > the database is never asked again — but it needs every comparison to
-> be `=`, which a `LIKE` or a `<` is not, and that is why both are off
+> be a comparison it can index (`=`, `<`, `>`, IS NULL) - a `LIKE` is not, and that is why both are off
 > in this workshop.
 >
 > **Why it matters:** the same step is a per-row query or an in-memory
@@ -160,7 +160,7 @@
 
 > **Note:** In this workflow, error handling has been enabled, with a write to log step.
 
-1. To see this in action, disable the Hops to Database Lookup (simple) and Database Lookup (do not pass).
+1. To see this in action, disable the hops to Database lookup (simple) and Database lookup (do not pass), and enable the hop into Database lookup (with error handling) and its error hop to Write to log.
 2. The error message is written out in the Logging output.
 
 <figure><img src="../_assets/images/results-error-handling.png" alt=""><figcaption><p>Logging Results</p></figcaption></figure>
@@ -181,13 +181,13 @@
 > 
 > \- Database lookup (fail on multiple res.).0 – ERROR: Only 1 row was expected as a result of a lookup, and at least 2 were found! Then you can decide whether you want to leave the transformation or capture the error.
 > 
-> 2. If you don't check the Fail on multiple results? option, the step will return the first row it encounters. You can decide which one to return by specifying the order. You do that by typing an order clause in the Order by textbox. In the Sampledata database, there are three products that meet the conditions for the Corvette row. If, for Order by, you type PRODUCTSCALE DESC, PRODUCTNAME, then you will get 1958 Chevy Corvette Limited Edition, which is the first product after ordering the three found products by the specified criterion.
+> 2. If you don't check the Fail on multiple results? option, the step will return the first row it encounters. You can decide which one to return by specifying the order. You do that by typing an order clause in the Order by textbox. In the Sampledata database, there are two products that meet the conditions for the Corvette row. If, for Order by, you type PRODUCTSCALE DESC, PRODUCTNAME, then you will get 1958 Chevy Corvette Limited Edition, which is the first product after ordering the two found products by the specified criterion.
 > 
 > If, instead of taking some of those actions, you realize that you need all the resulting rows, you should take another approach—replace the Database lookup step with a Database join or a Dynamic SQL row step.
 > 
 > Compare this with the Database Join
 > 
-> As the database join is a full outer, all the records are returned from the database table, rather than just return a single lookup reference value.
+> The Database join returns every matching row for each input row (and, with **Outer join?**, keeps rows with no match), rather than a single lookup value.
 
 :::
 

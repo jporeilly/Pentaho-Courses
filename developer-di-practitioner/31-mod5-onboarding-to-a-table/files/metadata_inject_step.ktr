@@ -868,7 +868,7 @@ in template steps.</note>
     <specification_method>filename</specification_method>
     <trans_object_id/>
     <trans_name/>
-    <filename>${Internal.Entry.Current.Directory}/tr_metadata_inject_template.ktr</filename>
+    <filename>${Internal.Entry.Current.Directory}/metadata_inject_template.ktr</filename>
     <directory_path/>
     <source_step/>
     <source_output_fields>    </source_output_fields>
@@ -924,7 +924,7 @@ in template steps.</note>
         <target_attribute_key>FIELD_TRIM_TYPE</target_attribute_key>
         <target_detail>Y</target_detail>
         <source_step>dg-metadata _fields</source_step>
-        <source_field>type</source_field>
+        <source_field>trimtype</source_field>
       </mapping>
       <mapping>
         <target_step_name>csvi-mdi</target_step_name>

@@ -5,7 +5,7 @@
 > #### Workshop - Read DB table
 > 
 > Build a transformation that reads `ORDERS` rows from a database.\
-> Filter to shipped orders, calculate lead time, and label late shipments.
+> Filter to shipped orders, calculate how many days before the required date each order shipped, and bucket the result.
 > 
 > **What you’ll do**
 > 
@@ -124,8 +124,8 @@
 > Add a derived field using built-in functions.\
 > Use Calculator for speed and simple expressions.
 
-1. Add a hop from **Table Input** to **Calculator**.
-2. Drag **Calculator** onto the canvas.
+1. Drag **Calculator** onto the canvas.
+2. Add a hop from **Table Input** to **Calculator**.
 3. Open the step properties.
 4. Configure the calculation shown in the screenshot.
 
@@ -133,7 +133,7 @@
 
 5. Select **OK**.
 
-> **Note:** This creates `order_time`.\
+> **Note:** This creates `diff_days`: the days between `SHIPPEDDATE` and `REQUIREDDATE`, so how early each order shipped.\
 > It represents the day difference between required and shipped dates.
 
 ### 3. Number range
@@ -145,14 +145,14 @@
 > Map numeric values into named buckets.\
 > This makes reports easier to scan.
 
-1. Add a hop from **Calculator** to **Number range**.
-2. Drag **Number range** onto the canvas.
+1. Drag **Number range** onto the canvas.
+2. Add a hop from **Calculator** to **Number range**.
 3. Open the step properties.
 4. Configure the ranges as shown.
 
 <figure><img src="../_assets/images/number-range.png" alt=""><figcaption><p>Number range</p></figcaption></figure>
 
-> **Note:** This writes an output label (for example, `order_status`) based on `order_time`.\
+> **Note:** This writes an output label, `delivery`, based on `diff_days`.\
 > Use the same labels and thresholds as the screenshot.
 
 5. Select **OK**.
@@ -166,8 +166,8 @@
 > Sort output to match how you want to read it.\
 > This is also a common prerequisite for merge-style steps.
 
-1. Add a hop from **Number range** to **Sort rows**.
-2. Drag **Sort rows** onto the canvas.
+1. Drag **Sort rows** onto the canvas.
+2. Add a hop from **Number range** to **Sort rows**.
 3. Open the step properties.
 4. Configure the sort keys as shown.
 
@@ -209,15 +209,15 @@
 > Keep only fields you need.\
 > Fix types, lengths, and formats for downstream steps.
 
-1. Add a hop from **Sort rows** to **Select values**.
-2. Drag **Select values** onto the canvas.
+1. Drag **Select values** onto the canvas.
+2. Add a hop from **Sort rows** to **Select values**.
 3. Open the step properties.
 4. On the **Meta-data** tab, set the date fields:
 
 | Fieldname      | Type | Format       |
 | -------------- | ---- | ------------ |
-| `REQUIREDDATE` | Date | `yyyy-MM-dd` |
-| `SHIPPEDDATE`  | Date | `yyyy-MM-dd` |
+| `REQUIREDDATE` | Date | `MM/dd/yyyy` |
+| `SHIPPEDDATE`  | Date | `MM/dd/yyyy` |
 
 5. Select **OK**.
 
@@ -237,7 +237,7 @@
 
 <figure><img src="../_assets/images/status-of-shipped-orders.png" alt=""><figcaption><p>Status of 'shipped' orders</p></figcaption></figure>
 
-> **Success:** Checkpoint: You see shipped orders plus your derived fields (`order_time`, and the range label).
+> **Success:** Checkpoint: You see shipped orders plus your derived fields (`diff_days` and `delivery`).
 
 ::::
 
