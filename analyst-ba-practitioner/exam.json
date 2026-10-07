@@ -4,11 +4,10 @@
   "passMark": 80,
   "questionsPerAttempt": 35,
   "shuffle": true,
-  "webhookUrl": "https://script.google.com/macros/s/AKfycbzt7thr4mfy3-kduDbiQ_UfBPwGC7JxpZA9p1XOeGJG4Q0rh9-OoKJNG965c8SVNQ7i/exec",
-  "webhookSecret": "pcm_Y61JKvDGnbuqvn3BIVCkjoSu98Jn3bE4",
+  "webhookUrl": "https://script.google.com/macros/s/AKfycbzsCLkWA07Nr7qQCwibn6_RiyhYi33xzeq529mlYhf3xYZPAxKOntIN-Wd1qjv4M4c/exec",
   "questions": [
     {
-      "id": "ov-q1",
+      "id": "ba-m1-q1",
       "module": "Overview",
       "bloom": "Apply",
       "scenario": "A finance analyst wants to explore revenue by product line, territory and quarter, drilling from a year into its quarters wherever a figure looks odd.",
@@ -24,7 +23,7 @@
       "source": "Pentaho Analyst - Practitioner: Overview — Choosing the right tool"
     },
     {
-      "id": "ov-q2",
+      "id": "ba-m1-q2",
       "module": "Overview",
       "bloom": "Apply",
       "scenario": "A sales director wants one page showing a geographic analysis, an existing orders report and an inventory list, all filtered by the same Territory selection.",
@@ -40,7 +39,7 @@
       "source": "Pentaho Analyst - Practitioner: Overview — Choosing the right tool"
     },
     {
-      "id": "ov-q3",
+      "id": "ba-m1-q3",
       "module": "Overview",
       "bloom": "Apply",
       "scenario": "A regional manager needs a printable list of orders grouped by Territory and Country, with a revenue subtotal for each group and no charts.",
@@ -56,7 +55,7 @@
       "source": "Pentaho Analyst - Practitioner: Overview — Choosing the right tool"
     },
     {
-      "id": "ov-q4",
+      "id": "ba-m1-q4",
       "module": "Overview",
       "bloom": "Apply",
       "scenario": "The database behind the Orders metadata model moves to a new server. Forty Interactive Reports are built on that model.",
@@ -72,7 +71,7 @@
       "source": "Pentaho Analyst - Practitioner: Overview — Data governance"
     },
     {
-      "id": "ov-q5",
+      "id": "ba-m1-q5",
       "module": "Overview",
       "bloom": "Apply",
       "scenario": "Regional leads want an orders report in their inbox on the first of every month, and nobody wants to run it by hand.",
@@ -88,7 +87,7 @@
       "source": "Pentaho Analyst - Practitioner: User Console — Schedules"
     },
     {
-      "id": "ov-q6",
+      "id": "ba-m1-q6",
       "module": "Overview",
       "bloom": "Evaluate",
       "scenario": "A modeller proposes renaming the Territory level of a sales cube to Region, to match new company language. Dozens of analyses and several dashboards use the cube.",
@@ -104,7 +103,7 @@
       "source": "Pentaho Analyst - Practitioner: Overview — Data governance"
     },
     {
-      "id": "ov-q7",
+      "id": "ba-m1-q7",
       "module": "Overview",
       "bloom": "Understand",
       "scenario": "In one company, business users build their own reports in the browser from governed models. In another, IT builds every report and business users only open them.",
@@ -120,7 +119,7 @@
       "source": "Pentaho Analyst - Practitioner: Overview — Self-service vs managed reporting"
     },
     {
-      "id": "ov-q8",
+      "id": "ba-m1-q8",
       "module": "Overview",
       "bloom": "Apply",
       "scenario": "EMEA managers must see only EMEA rows and NA managers only NA rows in every report built on the Orders model, including reports written next year.",
@@ -136,7 +135,7 @@
       "source": "Pentaho Analyst - Practitioner: Overview — Data governance"
     },
     {
-      "id": "puc-q1",
+      "id": "ba-m2-q1",
       "module": "User Console",
       "bloom": "Understand",
       "scenario": "A new analyst has a login to the Pentaho Server and a web browser, and nothing installed on their laptop.",
@@ -152,7 +151,7 @@
       "source": "Pentaho Analyst - Practitioner: User Console — Pentaho User Console"
     },
     {
-      "id": "puc-q2",
+      "id": "ba-m2-q2",
       "module": "User Console",
       "bloom": "Evaluate",
       "scenario": "An IT manager is choosing between giving 300 business users browser access to the User Console and installing a desktop reporting tool on each laptop.",
@@ -168,7 +167,7 @@
       "source": "Pentaho Analyst - Practitioner: User Console — Pentaho User Console"
     },
     {
-      "id": "puc-q3",
+      "id": "ba-m2-q3",
       "module": "User Console",
       "bloom": "Understand",
       "scenario": "An analyst opens an Interactive Report a month after it was saved and sees this morning's orders in it.",
@@ -184,7 +183,7 @@
       "source": "Pentaho Analyst - Practitioner: User Console — Data sources"
     },
     {
-      "id": "puc-q4",
+      "id": "ba-m2-q4",
       "module": "User Console",
       "bloom": "Understand",
       "scenario": "A user opened a sales report yesterday but cannot remember which folder it is in, and wants to open it again.",
@@ -200,7 +199,7 @@
       "source": "Pentaho Analyst - Practitioner: User Console — Perspectives"
     },
     {
-      "id": "puc-q5",
+      "id": "ba-m2-q5",
       "module": "User Console",
       "bloom": "Analyze",
       "scenario": "To keep a confidential report from the Sales role, a consultant removes the link to its folder from a custom portal page, but leaves the folder's permissions unchanged.",
@@ -216,7 +215,7 @@
       "source": "Pentaho Analyst - Practitioner: User Console — Users & Roles"
     },
     {
-      "id": "puc-q6",
+      "id": "ba-m2-q6",
       "module": "User Console",
       "bloom": "Apply",
       "scenario": "An analyst has finished a report the whole sales team will run each week, and has a draft of another report that is not ready to share.",
@@ -232,7 +231,7 @@
       "source": "Pentaho Analyst - Practitioner: User Console — Browse Files"
     },
     {
-      "id": "ir-q1",
+      "id": "ba-m3-q1",
       "module": "Interactive Reports",
       "bloom": "Analyze",
       "scenario": "An orders report with a Row Limit of 100 shows a plausible subtotal for its first territory, but later territories are missing or far too small, and no error appears.",
@@ -248,7 +247,7 @@
       "source": "Pentaho Analyst - Practitioner: Interactive Reports — Query settings"
     },
     {
-      "id": "ir-q2",
+      "id": "ba-m3-q2",
       "module": "Interactive Reports",
       "bloom": "Apply",
       "scenario": "A report grouped by Territory lists one row per order line, and the manager wants each territory's subtotal to show how many different orders it contains.",
@@ -264,7 +263,7 @@
       "source": "Pentaho Analyst - Practitioner: Interactive Reports — Totals"
     },
     {
-      "id": "ir-q3",
+      "id": "ba-m3-q3",
       "module": "Interactive Reports",
       "bloom": "Apply",
       "scenario": "Each territory manager wants the same orders report showing only their own territory, and the author wants to maintain a single report.",
@@ -280,7 +279,7 @@
       "source": "Pentaho Analyst - Practitioner: Interactive Reports — Prompts"
     },
     {
-      "id": "ir-q4",
+      "id": "ba-m3-q4",
       "module": "Interactive Reports",
       "bloom": "Apply",
       "scenario": "A wide grouped report looks fine in the browser, but when it is exported to PDF its rightmost columns spill onto separate pages.",
@@ -296,7 +295,7 @@
       "source": "Pentaho Analyst - Practitioner: Interactive Reports — Page setup"
     },
     {
-      "id": "ir-q5",
+      "id": "ba-m3-q5",
       "module": "Interactive Reports",
       "bloom": "Evaluate",
       "scenario": "The NA and EMEA sales teams each want an orders report that differs only in territory, delivered monthly to their own recipients.",
@@ -312,7 +311,7 @@
       "source": "Pentaho Analyst - Practitioner: Interactive Reports — Orders NA and EMEA"
     },
     {
-      "id": "ir-q6",
+      "id": "ba-m3-q6",
       "module": "Interactive Reports",
       "bloom": "Understand",
       "scenario": "An analyst adds Customer Name, Order Date and Total to an Interactive Report. The three fields come from three different tables in the database.",
@@ -328,7 +327,7 @@
       "source": "Pentaho Analyst - Practitioner: Interactive Reports — Metadata model"
     },
     {
-      "id": "ir-q7",
+      "id": "ba-m3-q7",
       "module": "Interactive Reports",
       "bloom": "Analyze",
       "scenario": "An analyst adds a calculated field, Tax = [Total] * 0.15, to an Interactive Report, then tries to filter to orders where Tax is over 1,000 and finds the option unavailable.",
@@ -344,7 +343,7 @@
       "source": "Pentaho Analyst - Practitioner: Interactive Reports — Computed fields"
     },
     {
-      "id": "ir-q8",
+      "id": "ba-m3-q8",
       "module": "Interactive Reports",
       "bloom": "Understand",
       "scenario": "A report is filtered to one territory, grouped by Country, and sorted by Customer Name. The author wonders how the rows arrive in group order.",
@@ -360,7 +359,7 @@
       "source": "Pentaho Analyst - Practitioner: Interactive Reports — Filtering & sorting"
     },
     {
-      "id": "ir-q9",
+      "id": "ba-m3-q9",
       "module": "Interactive Reports",
       "bloom": "Apply",
       "scenario": "A finance system accepts only delimited text files, and the regional director wants a fixed-layout copy of the same report to print for a board meeting.",
@@ -380,7 +379,7 @@
       "source": "Pentaho Analyst - Practitioner: Interactive Reports — Output formats"
     },
     {
-      "id": "ir-q10",
+      "id": "ba-m3-q10",
       "module": "Interactive Reports",
       "bloom": "Apply",
       "scenario": "A sales manager wants an orders report covering only the Motorcycles and Planes product lines, with Quantity Ordered subtotalled for each product line within each territory.",
@@ -396,7 +395,7 @@
       "source": "Pentaho Analyst - Practitioner: Interactive Reports — Ships and Trains"
     },
     {
-      "id": "az-q1",
+      "id": "ba-m4-q1",
       "module": "Analyzer Reports",
       "bloom": "Understand",
       "scenario": "A product manager exploring a sales cube in Analyzer wants to reshape and extend the analysis without asking IT for help.",
@@ -416,7 +415,7 @@
       "source": "Pentaho Analyst - Practitioner: Analyzer Reports — OLAP & Mondrian"
     },
     {
-      "id": "az-q2",
+      "id": "ba-m4-q2",
       "module": "Analyzer Reports",
       "bloom": "Remember",
       "scenario": "An analyst viewing Sales by Years double-clicks the 2003 column header, and it expands into QTR1 to QTR4 while every other field stays the same.",
@@ -432,7 +431,7 @@
       "source": "Pentaho Analyst - Practitioner: Analyzer Reports — Drill-down"
     },
     {
-      "id": "az-q3",
+      "id": "ba-m4-q3",
       "module": "Analyzer Reports",
       "bloom": "Apply",
       "scenario": "A sales manager wants each cell in a Quantity column to show a bar whose length reflects its value, so the largest countries stand out without reading the numbers.",
@@ -448,7 +447,7 @@
       "source": "Pentaho Analyst - Practitioner: Analyzer Reports — Conditional formatting"
     },
     {
-      "id": "az-q4",
+      "id": "ba-m4-q4",
       "module": "Analyzer Reports",
       "bloom": "Apply",
       "scenario": "Management wants to see at a glance which countries in a territory account for the largest share of the quantity sold in one year.",
@@ -464,7 +463,7 @@
       "source": "Pentaho Analyst - Practitioner: Analyzer Reports — Visualisations"
     },
     {
-      "id": "az-q5",
+      "id": "ba-m4-q5",
       "module": "Analyzer Reports",
       "bloom": "Analyze",
       "scenario": "The nightly load added yesterday's orders to the sales fact table, but an analysis that had been run before the load still shows the old totals after it is refreshed.",
@@ -480,7 +479,7 @@
       "source": "Pentaho Analyst - Practitioner: Analyzer Reports — Administration"
     },
     {
-      "id": "az-q6",
+      "id": "ba-m4-q6",
       "module": "Analyzer Reports",
       "bloom": "Analyze",
       "scenario": "A cube models Country, State and City as three separate dimensions instead of one Markets hierarchy, and users complain that double-clicking a country does not show its cities.",
@@ -496,7 +495,7 @@
       "source": "Pentaho Analyst - Practitioner: Analyzer Reports — Hierarchies"
     },
     {
-      "id": "az-q7",
+      "id": "ba-m4-q7",
       "module": "Analyzer Reports",
       "bloom": "Evaluate",
       "scenario": "Margin % is needed in a dozen Analyzer reports and two dashboards, and finance insists it is calculated identically everywhere.",
@@ -512,7 +511,7 @@
       "source": "Pentaho Analyst - Practitioner: Analyzer Reports — Calculated measures"
     },
     {
-      "id": "az-q8",
+      "id": "ba-m4-q8",
       "module": "Analyzer Reports",
       "bloom": "Apply",
       "scenario": "A manager sees an unexpectedly high Sales figure for one territory, product line and quarter, and wants to see the individual order lines behind it.",
@@ -528,7 +527,7 @@
       "source": "Pentaho Analyst - Practitioner: Analyzer Reports — Drill-through"
     },
     {
-      "id": "az-q9",
+      "id": "ba-m4-q9",
       "module": "Analyzer Reports",
       "bloom": "Analyze",
       "scenario": "An analysis filtered to three EMEA countries shows a Territory subtotal set to Aggregate. A colleague expected it to match the cube's full EMEA figure, but it is lower.",
@@ -540,11 +539,11 @@
         "The cube caches EMEA figures only at the country level of the hierarchy"
       ],
       "correct": 0,
-      "explanation": "By default Analyzer uses visual totals, so the Aggregate is recomputed over the countries left after the filter; a Report Options setting makes totals include the filtered members and return the cube's full EMEA value. Aggregate asks Mondrian for the parent's own cell using the measure's aggregator; it does not average. The cache stores cell values and does not change what a total covers. Blank versus zero affects averages, not which members a total covers.",
+      "explanation": "By default Analyzer uses visual totals, so the Aggregate is recomputed over the countries left after the filter; the right-click option Display Totals that Includes Filtered Out Values switches to totals that include the filtered members and return the cube's full EMEA value. Aggregate asks Mondrian for the parent's own cell using the measure's aggregator; it does not average. The cache stores cell values and does not change what a total covers. Blank versus zero affects averages, not which members a total covers.",
       "source": "Pentaho Analyst - Practitioner: Analyzer Reports — Totals"
     },
     {
-      "id": "az-q10",
+      "id": "ba-m4-q10",
       "module": "Analyzer Reports",
       "bloom": "Understand",
       "scenario": "An analyst drags Territory to rows and Years to columns, and an administrator then opens the analysis log to see what ran.",
@@ -560,7 +559,7 @@
       "source": "Pentaho Analyst - Practitioner: Analyzer Reports — OLAP & Mondrian"
     },
     {
-      "id": "dd-q1",
+      "id": "ba-m5-q1",
       "module": "Dashboard Designer",
       "bloom": "Remember",
       "scenario": "A designer is building a sales dashboard and wants to combine existing content with new visuals in its panels.",
@@ -581,7 +580,7 @@
       "source": "Pentaho Analyst - Practitioner: Dashboard Designer — Overview"
     },
     {
-      "id": "dd-q2",
+      "id": "ba-m5-q2",
       "module": "Dashboard Designer",
       "bloom": "Apply",
       "scenario": "A designer adds a Territory prompt to a dashboard, but the orders report in one panel offers no parameter to associate it with, so the report ignores the selection.",
@@ -597,7 +596,7 @@
       "source": "Pentaho Analyst - Practitioner: Dashboard Designer — Filters & content linking"
     },
     {
-      "id": "dd-q3",
+      "id": "ba-m5-q3",
       "module": "Dashboard Designer",
       "bloom": "Apply",
       "scenario": "A dashboard chart is meant to compare only the product lines beginning with M, but its query returns every row of a large inventory table, and the panel loads slowly.",
@@ -613,7 +612,7 @@
       "source": "Pentaho Analyst - Practitioner: Dashboard Designer — Inventory"
     },
     {
-      "id": "dd-q4",
+      "id": "ba-m5-q4",
       "module": "Dashboard Designer",
       "bloom": "Evaluate",
       "scenario": "A team needs a quick inventory table on a dashboard, and no report exists for it. A colleague suggests building and publishing an Interactive Report first, to place in the panel.",
@@ -629,7 +628,7 @@
       "source": "Pentaho Analyst - Practitioner: Dashboard Designer — Inventory"
     },
     {
-      "id": "dd-q5",
+      "id": "ba-m5-q5",
       "module": "Dashboard Designer",
       "bloom": "Analyze",
       "scenario": "In a three-panel dashboard, clicking a product in an Analyzer report updates a pie chart of territory sales, and clicking a territory in the pie updates a bar chart of order status for that product and territory.",
@@ -645,7 +644,7 @@
       "source": "Pentaho Analyst - Practitioner: Dashboard Designer — Product Performance"
     },
     {
-      "id": "dd-q6",
+      "id": "ba-m5-q6",
       "module": "Dashboard Designer",
       "bloom": "Understand",
       "scenario": "A designer enables content linking on the Product field of an Analyzer panel, but no other panel changes yet when a product is clicked.",
@@ -661,7 +660,7 @@
       "source": "Pentaho Analyst - Practitioner: Dashboard Designer — Content linking"
     },
     {
-      "id": "dd-q7",
+      "id": "ba-m5-q7",
       "module": "Dashboard Designer",
       "bloom": "Apply",
       "scenario": "Managers using a sales dashboard must be able to pick one or more territories with a single click each, and the list must stay in step with the data as territories are added.",
@@ -677,7 +676,7 @@
       "source": "Pentaho Analyst - Practitioner: Dashboard Designer — Vendor Sales"
     },
     {
-      "id": "dd-q8",
+      "id": "ba-m5-q8",
       "module": "Dashboard Designer",
       "bloom": "Apply",
       "scenario": "A dashboard needs one panel showing each territory's share of total sales, and another showing how monthly sales have moved over two years.",
@@ -693,7 +692,7 @@
       "source": "Pentaho Analyst - Practitioner: Dashboard Designer — Chart selection"
     },
     {
-      "id": "dd-q9",
+      "id": "ba-m5-q9",
       "module": "Dashboard Designer",
       "bloom": "Apply",
       "scenario": "A chart's query has the condition Product Name = {PRODUCT} with a default value, and PRODUCT is mapped to clicks in another panel.",
@@ -709,7 +708,7 @@
       "source": "Pentaho Analyst - Practitioner: Dashboard Designer — Product Performance"
     },
     {
-      "id": "dd-q10",
+      "id": "ba-m5-q10",
       "module": "Dashboard Designer",
       "bloom": "Apply",
       "scenario": "A designer maps a chart's PRODUCT parameter to an Analyzer panel's Product output, then clicks a product in the not-yet-saved dashboard, and the chart does not change.",
