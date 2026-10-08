@@ -19,7 +19,7 @@
       "id": "2hr-m2-q1",
       "module": "See It Work",
       "bloom": "Apply",
-      "scenario": "You are building a transformation that filters a 'Sales data' file and will write the valid rows to a table. Before adding the table step, you want to examine which rows leave the filter.",
+      "scenario": "You are building a transformation that filters a 'Sales data' file and will write the valid rows to a table. Before adding the 'Table input' step, you want to examine which rows leave the filter.",
       "prompt": "How do you inspect those rows in Pentaho Data Integration (PDI)?",
       "options": [
         "Select the filter step and preview it",
@@ -35,7 +35,7 @@
       "id": "2hr-m4-q1",
       "module": "See It Scale",
       "bloom": "Apply",
-      "scenario": "A data analyst receives a flat file containing customer records, but suspects there are duplicate customer IDs. The analyst needs to identify both the unique customer IDs and the complete rows representing the duplicate records in a single Pentaho Data Integration (PDI) transformation.",
+      "scenario": "A data analyst receives a flat file containing customer records, but suspects there are duplicate customer IDs. The analyst needs to identify both the unique customer IDs, and the complete rows representing the duplicate records in a single Pentaho Data Integration (PDI) transformation.",
       "prompt": "Which combination of transformation steps efficiently achieves both objectives?",
       "options": [
         "Sort rows, then Unique rows",
@@ -51,7 +51,7 @@
       "id": "2hr-m3-q1",
       "module": "Make It Yours",
       "bloom": "Understand",
-      "scenario": "A transformation must combine four sources: sales, product and region reference files in CSV, and a customer master exported from an API as JSON.",
+      "scenario": "A transformation must combine four sources: sales, product and region reference files in CSV, and a customer master, exported from an API as JSON.",
       "prompt": "What must happen to the four sources before Pentaho Data Integration (PDI) can combine them?",
       "options": [
         "Nothing: each has its own input step and joins in flight",
@@ -67,7 +67,7 @@
       "id": "2hr-m3-q2",
       "module": "Make It Yours",
       "bloom": "Analyze",
-      "scenario": "A customer moves from the North region to the South. The nightly load runs Dimension lookup/update against a Type 2 customer dimension.",
+      "scenario": "A customer moves from the North region to the South. The nightly load runs 'Dimension lookup/update' against a Type 2 customer dimension.",
       "prompt": "What does the dimension hold for that customer after the load?",
       "options": [
         "Two rows: North with its validity closed, South open-ended",
@@ -83,7 +83,7 @@
       "id": "2hr-m4-q2",
       "module": "See It Scale",
       "bloom": "Apply",
-      "scenario": "Three supplier files are loaded through one metadata-injection template, driven by a control file that lists each feed's filename, delimiter and target. A fourth supplier now needs to be loaded the same way.",
+      "scenario": "Three supplier files are loaded through one metadata-injection template, driven by a 'control' file that lists each feed's filename, delimiter and target. A fourth supplier now needs to be loaded in the same way.",
       "prompt": "What is the least work needed to start loading the fourth supplier?",
       "options": [
         "Copy the template and edit its input step for the new file",
@@ -99,7 +99,7 @@
       "id": "2hr-m5-q1",
       "module": "Make It Real",
       "bloom": "Understand",
-      "scenario": "Transformations built and tested in Pentaho Developer Edition on a laptop now need to run every night in production.",
+      "scenario": "Transformations built and tested in Pentaho Developer Edition, on a laptop now need to run every night in production.",
       "prompt": "What does moving to a production deployment add?",
       "options": [
         "Scheduled, monitored execution on a server",
@@ -136,7 +136,7 @@
       "id": "2hr-m4-q3",
       "module": "See It Scale",
       "bloom": "Apply",
-      "scenario": "A transformation reads, validates, enriches and loads a 'Sales data' file from a local folder in development. In production, the same file arrives in an Amazon S3 bucket.",
+      "scenario": "A transformation reads, validates, enriches and loads a 'Sales' data file from a local folder in development. In production, the same file arrives in an Amazon S3 bucket.",
       "prompt": "What has to change in the transformation?",
       "options": [
         "Only the input step, because downstream steps see the same rows",
@@ -184,8 +184,8 @@
       "id": "2hr-m2-q3",
       "module": "See It Work",
       "bloom": "Understand",
-      "scenario": "A 'Filter rows' step checks for a positive quantity, with a final step writing valid orders to the warehouse.",
-      "prompt": "Where do the orders that fail the condition go?",
+      "scenario": "A 'Filter rows' step checks for a positive quantity, with a final step writing valid 'orders' to a data warehouse.",
+      "prompt": "Where do the 'orders' that fail the condition go?",
       "options": [
         "Down the FALSE hop, to the step you assigned to it",
         "Down the same hop as passing rows, flagged in a new field",
@@ -200,8 +200,8 @@
       "id": "2hr-m2-q4",
       "module": "See It Work",
       "bloom": "Understand",
-      "scenario": "A Pentaho Data Integration (PDI) transformation reads data from a text file. The Calculator step, positioned downstream, needs to correctly interpret the data types of each incoming field. This determination happens during transformation design, *before* any data is processed.",
-      "prompt": "What information does the Calculator step utilize to pre-determine the data types of incoming fields?",
+      "scenario": "A Pentaho Data Integration (PDI) transformation reads data from a text file. The 'Calculator' step, positioned downstream, needs to correctly interpret the data types of each incoming field. This determination happens during transformation design, before any data is processed.",
+      "prompt": "What information does the 'Calculator' step utilize to pre-determine the data types of incoming fields?",
       "options": [
         "Row metadata: each field's name, type, and format.",
         "Inferred data types, derived by the Calculator from field names.",
@@ -249,7 +249,7 @@
       "id": "2hr-m3-q3",
       "module": "Make It Yours",
       "bloom": "Analyze",
-      "scenario": "An e-commerce company receives order data from two systems: a primary database and a third-party logistics provider. Some orders in the primary system match multiple records in the logistics system due to partial shipments, and all orders—even those without a match in the logistics system—must be included in a consolidated report.",
+      "scenario": "An e-commerce company receives 'order' data from two systems: a primary database and a third-party logistics provider. Some orders in the primary system match multiple records in the logistics system due to partial shipments, and all orders - even those without a match in the logistics system - must be included in a consolidated report.",
       "prompt": "Which join configuration within Pentaho Data Integration (PDI) would correctly combine these two data streams to achieve the desired result?",
       "options": [
         "Database lookup, configured to return the first matching row",
@@ -265,7 +265,7 @@
       "id": "2hr-m3-q4",
       "module": "Make It Yours",
       "bloom": "Analyze",
-      "scenario": "A pipeline uses a Merge join to combine records from a region file and a sales file, both keyed on region_code. The files are processed in the order they are written, and analysis reveals missing matches despite their existence in both files, with no error messages generated.",
+      "scenario": "A pipeline uses a 'Merge join' to combine records from a 'region' file and a 'sales' file, both keyed on 'region_code'. The files are processed in the order they are written, and analysis reveals missing matches despite their existence in both files, with no error messages generated.",
       "prompt": "What is the most likely cause of the missing matches?",
       "options": [
         "Neither input stream is sorted on region_code before the join.",
@@ -281,7 +281,7 @@
       "id": "2hr-m3-q5",
       "module": "Make It Yours",
       "bloom": "Analyze",
-      "scenario": "A data integration process joins sales records with a regional data file using the ‘region_code’ field. A new region was recently added to the sales system, but the corresponding record is not yet present in the regional data file.",
+      "scenario": "A data integration process joins 'sales' records with a 'regional' data file using the ‘region_code’ field. A new 'region' was recently added to the 'sales' system, but the corresponding record is not yet present in the 'regional' data file.",
       "prompt": "What is the primary reason to configure this join as a LEFT OUTER JOIN rather than an INNER JOIN?",
       "options": [
         "To ensure all sales records are retained in the output, even those with a region not found in the regional data file.",
@@ -297,7 +297,7 @@
       "id": "2hr-m3-q6",
       "module": "Make It Yours",
       "bloom": "Analyze",
-      "scenario": "A Pentaho Data Integration (PDI) transformation calculates the line total by multiplying a unit price and a quantity. When processing a record with a unit price of 49.99 and a quantity of 2, the Calculator step returns a line total of 100.00.",
+      "scenario": "A Pentaho Data Integration (PDI) transformation calculates the line total by multiplying a unit price and a quantity. When processing a record with a unit price of 49.99 and a quantity of 2, the 'Calculator' step returns a line total of 100.00.",
       "prompt": "What is the most likely cause of this incorrect calculation?",
       "options": [
         "The quantity field is assigned to Input Field A, causing the calculation to be performed using integer arithmetic.",
@@ -313,7 +313,7 @@
       "id": "2hr-m3-q7",
       "module": "Make It Yours",
       "bloom": "Analyze",
-      "scenario": "A data warehouse team is loading customer data using a Dimension Lookup/Update step. After processing 20 distinct customer records, the resulting customer dimension table contains 21 rows.",
+      "scenario": "A data warehouse team is loading 'customer' data using a 'Dimension Lookup/Update' step. After processing 20 distinct 'customer' records, the resulting customer dimension table contains 21 rows.",
       "prompt": "What is the most likely reason for the additional row in the customer dimension table?",
       "options": [
         "The step inserted an unknown member, key 0, for failed lookups.",
@@ -329,10 +329,10 @@
       "id": "2hr-m4-q4",
       "module": "See It Scale",
       "bloom": "Analyze",
-      "scenario": "A driver job reads a control file that lists several data feeds, each with its own delimiter. For every row, it runs a metadata injection transformation that fills a template with that feed's settings.",
-      "prompt": "Why is the metadata injection transformation executed for each row in the control file, rather than processing all feeds in a single execution?",
+      "scenario": "A 'driver job'- take a look at Workshop: One Pipeline, Many Files - reads a 'control' file that lists several data feeds, each with its own delimiter. For every row, it runs a metadata injection transformation that fills a template with that feed's settings.",
+      "prompt": "Why is the metadata injection transformation executed for each row in the 'control' file, rather than processing all feeds in a single execution?",
       "options": [
-        "Each execution of the transformation applies a unique feed configuration to the template.",
+        "Each execution of the transformation applies the specific metadata properties to the template.",
         "The transformation is limited to processing only one input row at a time.",
         "Data feeds must be pre-sorted based on delimiter before injection.",
         "Metadata injection can only be started from a job entry, never from inside a transformation."
@@ -345,32 +345,32 @@
       "id": "2hr-m3-q8",
       "module": "Make It Yours",
       "bloom": "Apply",
-      "scenario": "A data integration specialist is building a transformation with multiple input streams that require merging before further processing. Maintaining a clear and readable transformation canvas is a priority for collaboration and future maintenance.",
-      "prompt": "Which transformation step is best suited to create a visual merge point for these streams without altering the data itself?",
+      "scenario": "A data integration specialist is designing a complex Pentaho Data Integration (PDI) transformation with multiple data streams. To improve readability and maintainability for a team of developers, the specialist wants to visually represent the confluence of these streams on the canvas without introducing data modification or processing overhead.",
+      "prompt": "Which PDI transformation step best serves as a visual merge point for multiple input streams while performing no data manipulation?",
       "options": [
         "Dummy step, which performs no operation on the rows.",
-        "Filter rows step, configured to pass all rows.",
-        "Select values step, configured to pass all fields unchanged.",
-        "Blocking step, configured to pass all rows after buffering."
+        "Filter rows step, configured to allow all rows to pass.",
+        "Select values step, configured to output all input fields without changes.",
+        "Blocking step, configured to pass all rows without buffering."
       ],
       "correct": 0,
-      "explanation": "'Dummy step, which performs no operation on the rows.' — Correct: The Dummy step is designed specifically to act as a merge point without modifying the data. 'Filter rows step, configured to pass all rows.' — Incorrect: While it can pass all rows, the Filter step still *performs* an evaluation, making it less ideal as a simple merge point. 'Select values step, configured to pass all fields unchanged.' — Incorrect: The Select step alters the stream by explicitly defining the fields, even if only to pass them through. This is unnecessary overhead for a simple merge. 'Blocking step, configured to pass all rows after buffering.' — Incorrect: The Blocking step introduces buffering and potential delays, changing the behavior of the transformation, and is therefore unsuitable as a purely visual merge point.",
+      "explanation": "'Dummy step, which performs no operation on the rows.' — Correct: The Dummy step is specifically designed to act as a merge point on the transformation canvas without modifying the data flow. 'Filter rows step, configured to allow all rows to pass.' — Incorrect: Although it can pass all rows, the Filter step inherently involves a conditional evaluation, making it less suitable as a purely visual merge point. 'Select values step, configured to output all input fields without changes.' — Incorrect: While it preserves the data, the Select step *is* a data operation; it explicitly defines the output fields, adding unnecessary complexity. 'Blocking step, configured to pass all rows without buffering.' — Incorrect: The Blocking step introduces buffering, which alters the timing and behavior of the transformation, and is not designed for a simple visual merge.",
       "source": "Enrich and Join"
     },
     {
       "id": "2hr-m3-q9",
       "module": "Make It Yours",
       "bloom": "Analyze",
-      "scenario": "A Pentaho Data Integration (PDI) transformation uses a Stream lookup step to add customer names to sales records by matching `customer_id`. During testing, a sale record is encountered with a `customer_id` that does not exist in the customer master data being used by the lookup.",
-      "prompt": "What happens to the sale record?",
+      "scenario": "A Pentaho Data Integration (PDI) transformation enriches 'sales' records with 'customer names' using a 'Stream lookup' step, matching on the `customer_id` field. The stream lookup is configured with no specific error handling. During execution, a sales record is encountered with a `customer_id` value that does not exist in the customer data stream used by the lookup.",
+      "prompt": "What is the expected outcome for this sales record?",
       "options": [
-        "The sale record continues processing with the customer name field remaining empty.",
-        "The sale record is sent to the lookup step’s error handling output.",
-        "The entire transformation process halts immediately.",
-        "The sale record is filtered out and not included in the downstream output."
+        "The sales record continues processing, with the customer name field left empty.",
+        "The transformation will halt immediately upon encountering the unmatched `customer_id`.",
+        "The sales record is routed to a designated error handling step if one is configured.",
+        "The sales record is silently discarded and excluded from the transformation output."
       ],
       "correct": 0,
-      "explanation": "‘The sale record continues processing with the customer name field remaining empty.’ — Correct: A Stream lookup is designed to enrich data, not filter it. Unmatched keys result in empty fields, allowing the record to proceed. ‘The sale record is sent to the lookup step’s error handling output.’ — Incorrect: Stream lookup does not automatically send unmatched records to an error hop; this would require explicit configuration. ‘The entire transformation process halts immediately.’ — Incorrect: PDI transformations do not halt upon encountering an unmatched key in a Stream lookup; they continue processing subsequent records. ‘The sale record is filtered out and not included in the downstream output.’ — Incorrect: This behavior is typical of an inner join, not a Stream lookup, which aims to enrich all incoming records regardless of a match.",
+      "explanation": "'The sales record continues processing, with the customer name field left empty.' — Correct: A Stream lookup is designed to enrich, not filter. Unmatched keys result in empty fields, allowing the record to proceed. 'The transformation will halt immediately upon encountering the unmatched `customer_id`.' — Incorrect: PDI transformations do not automatically halt on unmatched keys; they continue processing. 'The sales record is routed to a designated error handling step if one is configured.' — Incorrect: While error handling *can* be configured, the Stream lookup step does not have built-in error handling without explicit configuration. 'The sales record is silently discarded and excluded from the transformation output.' — Incorrect: This behaviour is more characteristic of a join, where records without a match are often excluded.",
       "source": "Enrich and Join"
     },
     {
@@ -393,8 +393,8 @@
       "id": "2hr-m3-q11",
       "module": "Make It Yours",
       "bloom": "Analyze",
-      "scenario": "A data integration process enriches sales records with customer and product details. The transformation uses two consecutive Stream Lookup steps. The first Stream Lookup adds customer data, and its output is connected to the input of the second Stream Lookup, which adds product information. Both Stream Lookups receive lookup data from independent sources.",
-      "prompt": "What is the primary reason for chaining the second Stream Lookup step to the output of the first, rather than connecting both Stream Lookups directly to the original sales stream?",
+      "scenario": "A data integration process enriches 'sales' records with 'customer' and 'product' details. The transformation uses two consecutive 'Stream Lookup' steps. The first 'Stream Lookup' adds 'customer' data, and its output is connected to the input of the second 'Stream Lookup', which adds 'product' information. Both 'Stream Lookups' receive lookup data from independent sources.",
+      "prompt": "What is the primary reason for chaining the second 'Stream Lookup' step to the output of the first, rather than connecting both 'Stream Lookups' directly to the original sales stream?",
       "options": [
         "Chaining allows each Stream Lookup to propagate the original row along with any added fields, combining information from both lookups into a single output row.",
         "Stream Lookup steps are restricted to accepting input from only one preceding transformation step.",
@@ -409,7 +409,7 @@
       "id": "2hr-m4-q5",
       "module": "See It Scale",
       "bloom": "Apply",
-      "scenario": "A supplier's product file is read with a Text file input whose fields were set up with Get Fields. In preview, product codes such as 00125 and 04410 appear as 125 and 4410, and lookups against the product catalogue no longer match.",
+      "scenario": "A 'supplier's product' file is read with a 'Text file input' whose fields were set up with 'Get Fields'. In preview, product codes such as 00125 and 04410 appear as 125 and 4410, and lookups against the product catalogue no longer match.",
       "prompt": "What should you change to keep the product codes intact?",
       "options": [
         "Set the file's encoding to UTF-8 on the Content tab and run Get Fields again.",
@@ -425,8 +425,8 @@
       "id": "2hr-m4-q6",
       "module": "See It Scale",
       "bloom": "Apply",
-      "scenario": "A data analyst receives a flat file of sales transactions, already sorted by category, each with a category and a numeric amount. The analyst needs a summary showing the total amount for each category.",
-      "prompt": "Within Pentaho Data Integration (PDI), which single transformation step most efficiently calculates the total amount per category?",
+      "scenario": "A data analyst receives a flat file of 'sales' transactions, already sorted by 'category', each with a category and a numeric amount. The analyst needs a summary showing the total amount for each 'category'.",
+      "prompt": "Within Pentaho Data Integration (PDI), which single transformation step most efficiently calculates the total amount per 'category'?",
       "options": [
         "Sort rows, ordering the input by category before outputting to a file.",
         "Stream lookup, matching category values against a pre-defined category list.",
@@ -457,7 +457,7 @@
       "id": "2hr-m4-q8",
       "module": "See It Scale",
       "bloom": "Apply",
-      "scenario": "A data engineering team receives daily sales data from multiple regions, each formatted differently, including varying delimiters, field orders, and file encodings. The team requires a repeatable process to ingest this data into a central data warehouse, avoiding the creation of a separate transformation for each region’s data.",
+      "scenario": "A data engineering team receives 'daily sales' data from multiple 'regions', each formatted differently, including varying delimiters, field orders, and file encodings. The team requires a repeatable process to ingest this data into a central data warehouse, avoiding the creation of a separate transformation for each region’s data.",
       "prompt": "How does metadata injection support this requirement?",
       "options": [
         "Data validation rules are automatically applied based on the file extension, identifying and correcting errors.",
@@ -473,7 +473,7 @@
       "id": "2hr-m2-q7",
       "module": "See It Work",
       "bloom": "Analyze",
-      "scenario": "A data integration transformation processes customer records. One record fails a defined condition due to a missing customer ID, while another record causes a database insert step to fail due to a constraint violation.",
+      "scenario": "A data integration transformation processes 'customer' records. One record fails a defined condition due to a missing 'customer ID', while another record causes a database insert step to fail due to a constraint violation.",
       "prompt": "How does the transformation engine handle these two distinct failure scenarios?",
       "options": [
         "The condition failure directs processing via the designated Filter rows output branch; the database insert failure requires explicit error handling to continue.",
@@ -489,8 +489,8 @@
       "id": "2hr-m3-q12",
       "module": "Make It Yours",
       "bloom": "Analyze",
-      "scenario": "A data integration specialist is designing a transformation to enrich an incoming order stream by matching customer data from a reference table containing 40 million rows. They are considering using a Stream lookup step for this purpose.",
-      "prompt": "What is the most significant limitation of using a Stream lookup step in this scenario?",
+      "scenario": "A data integration specialist is designing a transformation to enrich an incoming order stream by matching customer data from a reference table containing 40 million rows. They are considering using a 'Stream lookup' step for this purpose.",
+      "prompt": "What is the most significant limitation of using a 'Stream lookup' step in this scenario?",
       "options": [
         "Stream lookup loads the entire reference dataset into memory, potentially exceeding available resources with a 40-million-row table.",
         "Stream lookup requires both the incoming stream and the reference table to be sorted before the lookup can begin.",
