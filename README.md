@@ -56,10 +56,10 @@ provision with `-Ref v2026.07` — those VMs never move until you retag.
 | --- | --- |
 | analyst-ba-practitioner | Analyst |
 | architect-arch-certified | Architect (certified) |
-| bi-developer-ct-practitioner | BI Developer (CTools) |
-| bi-developer-me-practitioner | BI Developer (Metadata Editor) |
-| bi-developer-rd-practitioner | BI Developer (Report Designer) |
-| bi-developer-sw-practitioner | BI Developer (Schema Workbench) |
+| bi-developer-ct-associate | BI Developer (CTools) |
+| bi-developer-me-associate | BI Developer (Metadata Editor) |
+| bi-developer-rd-associate | BI Developer (Report Designer) |
+| bi-developer-sw-associate | BI Developer (Schema Workbench) |
 | developer-ai-speciality | Developer (AI speciality) |
 | developer-di-practitioner | Developer (Data Integration) |
 | developer-ml-speciality | Developer (ML speciality) |

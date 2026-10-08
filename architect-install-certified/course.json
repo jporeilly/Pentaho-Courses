@@ -13,7 +13,7 @@
   },
   "title": "Pentaho Solution Architect - Certified",
   "description": "Pentaho 11 installation, configuration, upgrade, and post-install tasks. Archive deployment on Linux, server + client tools, plugins.",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "kind": "workshop",
   "level": { "number": 3, "name": "Certified" },
   "mode": "sequential",

@@ -323,7 +323,10 @@ cd "$PENTAHO_SERVER"
 [ -d "$PENTAHO_SERVER/pentaho-solutions/system/pas-scheduler" ] && echo OK || echo "Scheduler plugin directory missing"
 ```
 
-2. Otherwise, in the Plugin Manager select **Not Installed** and search for Scheduler. The Plugin Manager lists it as **Modern Pentaho User Console – Scheduler**.
+2. Otherwise, in the Plugin Manager change **View All** to **Not Installed** and type Scheduler into **Search for plugins**. The Plugin Manager lists it as **Modern Pentaho User Console – Scheduler**.
+
+<figure><img src="../_assets/images/plugin_manager.png" alt=""><figcaption><p>Plugin Manager: the View All filter and Search for plugins</p></figcaption></figure>
+
 3. From the drop-down box, select : Version
 4. Click Install.
 5. Optional: Verify the Scheduler is installed.
