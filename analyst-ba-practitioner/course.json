@@ -1,8 +1,7 @@
 {
   "id": "analyst-ba-practitioner",
   "analytics": {
-    "measurementId": "G-E1B364WJYR",
-    "apiSecret": "b1oscuI1Ru-nHYpiBhLf3g"
+    "measurementId": "G-E1B364WJYR"
   },
   "contact": {
     "to": "academy@pentaho.com",
@@ -13,13 +12,13 @@
     "sendLabel": "Send"
   },
   "title": "Pentaho Analyst - BA Practitioner",
-  "description": "Hands-on workshop for the Pentaho Business Analytics Practitioner. Pentaho User Console, Interactive Reports, Analyzer Reports, Dashboard Designer, plus a MongoDB reporting use case.",
+  "description": "Hands-on workshop for the Pentaho Business Analytics Practitioner. Pentaho User Console, Interactive Reports, Analyzer Reports and Dashboard Designer.",
   "version": "0.1.6",
   "kind": "workshop",
   "level": { "number": 1, "name": "Practitioner" },
   "mode": "sequential",
   "theme": {
-    "accent": "#1d4ed8"
+    "accent": "#2e7d32"
   },
   "assistant": {
     "ollamaURL": "http://localhost:11434",
@@ -27,8 +26,9 @@
     "defaultProfile": "cpu",
     "models": {
       "cpu": "llama3.2:3b",
-      "gpu": "qwen2.5:7b"
+      "gpu": "gemma4:12b"
     },
+    "ladder": ["gemma4:12b", "qwen2.5:7b"],
     "subject": "Pentaho Business Analytics (the User Console, Interactive Reports, Analyzer and Dashboard Designer)",
     "suggestions": [
       "What's the difference between Interactive Reports and Analyzer?",

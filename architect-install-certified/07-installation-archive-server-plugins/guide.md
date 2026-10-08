@@ -14,11 +14,13 @@
 > 
 > for both Server and Client side EE plugins.
 
+> **Warning:** The Plugin Manager downloads from `download.pentaho.com`, so the server needs outbound HTTPS.
+
 ***
 
 1. Log in:
 
-**🎥 Embed:** [View external resource](<https://localhost:8080/pentaho/content/login/web/index.html>)
+<div class="pcm-embed-card" data-href="http://localhost:8080/pentaho/content/login/web/index.html" data-title="localhost"></div>
 
 2. Select Plugin Manager.
 
@@ -82,7 +84,7 @@ Or
 4. Optional: Verify Analyzer is installed.
 
 ```bash
-[ -d analyzer ] && echo OK || echo "Analyzer directory missing"
+[ -d "$PENTAHO_SERVER/pentaho-solutions/system/analyzer" ] && echo OK || echo "Analyzer directory missing"
 ```
 
 5. Restart Pentaho Server and verify in the UI.
@@ -129,7 +131,7 @@ cd "$PENTAHO_SERVER"
 4. Optional: Verify Interactive Reporting is installed.
 
 ```bash
-[ -d pentaho-interactive ] && echo OK || echo "Interactive Reporting directory missing"
+[ -d "$PENTAHO_SERVER/pentaho-solutions/system/pentaho-interactive-reporting" ] && echo OK || echo "Interactive Reporting directory missing"
 ```
 
 5. Restart Pentaho Server and verify in the UI.
@@ -174,7 +176,7 @@ cd "$PENTAHO_SERVER"
 4. Optional: Verify Dashboard Designer is installed.
 
 ```bash
-[ -d dashboards ] && echo OK || echo "Dashboard Designer directory missing"
+[ -d "$PENTAHO_SERVER/pentaho-solutions/system/dashboards" ] && echo OK || echo "Dashboard Designer directory missing"
 ```
 
 5. Restart Pentaho Server and verify in the UI.
@@ -215,6 +217,8 @@ Browse the various plugins:
 > 
 > It's essentially a no-code environment for designing data pipelines, and it's one of the plugin components that gets deployed in your Pentaho Server setup.
 
+> **Note:** The 11.0 server archive already contains Pipeline Designer (`pentaho-webttle`), so the check in step 4 can pass before you install anything. Use the Plugin Manager to update it.
+
 1. Select: Pipeline Designer.
 
 <figure><img src="../_assets/images/pipeline_designer.png" alt=""><figcaption><p>Pipeline Designer</p></figcaption></figure>
@@ -227,7 +231,7 @@ Browse the various plugins:
 4. Optional: Verify Pipeline Designer is installed.
 
 ```bash
-[ -d pentaho-webttle ] && echo OK || echo "Pipeline Designer directory missing"
+[ -d "$PENTAHO_SERVER/pentaho-solutions/system/pentaho-webttle" ] && echo OK || echo "Pipeline Designer directory missing"
 ```
 
 5. Restart Pentaho Server and verify in the UI.
@@ -246,7 +250,7 @@ cd "$PENTAHO_SERVER"
 
 6. Log in:
 
-<div class="pcm-embed-card" data-href="https://localhost:8080/pentaho/content/login/web/index.html" data-title="localhost"></div>
+<div class="pcm-embed-card" data-href="http://localhost:8080/pentaho/content/login/web/index.html" data-title="localhost"></div>
 
 7. Select: Pipeline Designer.
 
@@ -273,10 +277,10 @@ cd "$PENTAHO_SERVER"
 <figure><img src="../_assets/images/semantic_model_editor_step.png" alt=""><figcaption></figcaption></figure>
 
 3. Click Install.
-4. Optional: Verify semantic model editor is installed.
+4. Optional: Verify the Semantic Model Editor is installed: its folder is among the newest in `system`.
 
 ```bash
-[ -d semantic-model-editor ] && echo OK || echo "semantic-model-editor directory missing"
+ls -1t "$PENTAHO_SERVER/pentaho-solutions/system" | head -3
 ```
 
 5. Restart Pentaho Server and verify in the UI.
@@ -295,7 +299,7 @@ cd "$PENTAHO_SERVER"
 
 6. Log in:
 
-<div class="pcm-embed-card" data-href="https://localhost:8080/pentaho/content/login/web/index.html" data-title="localhost"></div>
+<div class="pcm-embed-card" data-href="http://localhost:8080/pentaho/content/login/web/index.html" data-title="localhost"></div>
 
 7. Select: Model Editor.
 
@@ -313,7 +317,22 @@ cd "$PENTAHO_SERVER"
 > 
 > You can view all schedules or filter by active/paused status, manually execute jobs on-demand, set blockout times when jobs shouldn't run, and pause/resume the entire scheduler - essentially giving you complete visibility and control over automated data transformation workflows and their execution timing.
 
-1. Stop Pentaho Server.
+1. Check whether the Scheduler is already installed: the 11.0 server archive ships it as `pas-scheduler`. If this prints OK, go straight to step 7.
+
+```bash
+[ -d "$PENTAHO_SERVER/pentaho-solutions/system/pas-scheduler" ] && echo OK || echo "Scheduler plugin directory missing"
+```
+
+2. Otherwise, in the Plugin Manager select **Not Installed** and search for Scheduler. The Plugin Manager lists it as **Modern Pentaho User Console – Scheduler**.
+3. From the drop-down box, select : Version
+4. Click Install.
+5. Optional: Verify the Scheduler is installed.
+
+```bash
+[ -d "$PENTAHO_SERVER/pentaho-solutions/system/pas-scheduler" ] && echo OK || echo "Scheduler plugin directory missing"
+```
+
+6. Restart Pentaho Server and verify in the UI.
 
 ```bash
 cd
@@ -321,39 +340,17 @@ cd "$PENTAHO_SERVER"
 ./stop-pentaho.sh
 ```
 
-2. Confirm the plugin archive exists.
-
-```bash
-ls -1 "$PENTAHO_BASE/software/ee-plugins" | grep -i pas-scheduler || echo "Scheduler plugin ZIP not found"
-```
-
-3. Extract `pas-scheduler-*.zip` into the `system` folder.
-
-```bash
-cd
-cd "$PENTAHO_SERVER/pentaho-solutions/system"
-unzip "$PENTAHO_BASE/software/ee-plugins/pas-scheduler-11.0.0.0-237.zip"
-```
-
-4. Verify the plugin was unpacked: list the scheduler folders under `system`, and check one is new since step 3.
-
-```bash
-ls -1d *sched*/
-```
-
-5. Start Pentaho Server and verify in the UI.
-
 ```bash
 cd
 cd "$PENTAHO_SERVER"
 ./start-pentaho.sh
 ```
 
-6. Log in:
+7. Log in:
 
-<div class="pcm-embed-card" data-href="https://localhost:8080/pentaho/content/login/web/index.html" data-title="localhost"></div>
+<div class="pcm-embed-card" data-href="http://localhost:8080/pentaho/content/login/web/index.html" data-title="localhost"></div>
 
-7. Select: Scheduler
+8. Select: Scheduler
 
 <figure><img src="../_assets/images/scheduler_plugin.png" alt=""><figcaption><p>Scheduler</p></figcaption></figure>
 
@@ -365,10 +362,10 @@ cd "$PENTAHO_SERVER"
 > 
 > The **Pentaho Carte Server** is the execution engine that runs and monitors Pentaho transformations and jobs. It provides a web-based status dashboard showing all running and completed transformations/jobs with their execution details (status, timestamps, unique IDs), detailed step-by-step performance metrics (rows read/written, processing speed, errors), and configuration settings for log management and object lifecycle. The server tracks real-time execution stats for each transformation step, displays visual canvas previews of the pipeline flow, and maintains comprehensive execution logs - essentially serving as both the runtime engine and monitoring console for your workflows.
 
-1. Verify directory structure.
+1. Verify the Carte API plugin is there. It ships in the 11.0 server archive, under the server's PDI plugins rather than `system`; if it is missing, install **Pipeline Designer Carte API Plugin** from the Plugin Manager.
 
 ```bash
-[ -d webttle-carte-api-plugin ] && echo OK || echo "Carte API plugin directory missing"
+[ -d "$PENTAHO_SERVER/pentaho-solutions/system/kettle/plugins/webttle-carte-api-plugin" ] && echo OK || echo "Carte API plugin directory missing"
 ```
 
 2. Restart Pentaho Server and verify in the UI.
@@ -387,7 +384,7 @@ cd "$PENTAHO_SERVER"
 
 <div class="pcm-embed-card" data-href="http://localhost:8080/pentaho" data-title="localhost"></div>
 
-3. Run your test transformation - see Pipeline Designer - see Pipeline Designer.
+3. Run your test transformation (see the Pipeline Designer tab).
 
 <figure><img src="../_assets/images/carte_status.png" alt=""><figcaption><p>Carte Status</p></figcaption></figure>
 

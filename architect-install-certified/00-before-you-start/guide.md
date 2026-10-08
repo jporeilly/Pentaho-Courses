@@ -2,8 +2,23 @@
 
 > **Note:**
 >
-> Welcome! This first lab shows you how to work with this guide.
-> Five minutes here makes every later lab smoother.
+> #### Get Ready — Before You Start
+>
+> This course installs Pentaho 11.0 from its archive packages, so the
+> labs run on the machine you install onto, not on a ready-made server.
+> Check you have what the install needs before the first lab.
+>
+> **What you'll need:**
+>
+> * An Ubuntu 24.04 LTS machine (or VM) and an account with `sudo`.
+> * Outbound internet access: the labs install Java, PostgreSQL and
+>   pgAdmin from package repositories, and the Plugin Manager downloads
+>   from `download.pentaho.com`.
+> * The 11.0 packages from the Pentaho Customer Portal (see **Pentaho
+>   Support Portal**), and a licence for the Enterprise plugins.
+>
+> **Estimated Time:** 5 minutes here; the install itself takes the
+> rest of the course.
 
 ## Meet your lab guide
 
@@ -12,7 +27,7 @@ This panel stays beside your tools for the whole workshop:
 - **Float or dock** — drag the title bar to move the window anywhere
   (any monitor), or use the dock button to pin it to the right edge of
   the screen so maximised apps make room for it.
-- **The sidebar** lists every section and lab. A ▶ badge means the lab
+- **The sidebar** lists every section and lab. A <span data-icon="video"></span> badge means the lab
   includes a video; the `~15 min` tag is a time estimate.
 - Use the **font-size** and **reading-mode** controls in the toolbar if
   you're on a small VM screen.
@@ -70,8 +85,8 @@ model, so it works even when the VM is offline.
 
 ## How this course is organised
 
-Each section starts with an **overview page** (📄 — background reading,
-no checkboxes) followed by **hands-on workshops** (🧪 — tracked steps).
+Each section starts with an **overview page** (<span data-icon="page"></span> — background reading,
+no checkboxes) followed by **hands-on workshops** (<span data-icon="workshop"></span> — tracked steps).
 Head to the first section whenever you're ready.
 
 ---

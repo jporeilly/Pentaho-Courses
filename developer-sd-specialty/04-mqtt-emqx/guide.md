@@ -16,7 +16,7 @@
 > * Filter and aggregate minor and major alerts
 > * Append the results to output files
 >
-> **Prerequisites:** EMQX running - `provisioningsetup-services.ps1 -Streaming` starts it alongside the other brokers, on its own port so HiveMQ keeps running too. EMQX must be reachable — MQTT broker (TCP) at `localhost:1884` and the EMQX Dashboard at `http://localhost:18083` (default credentials `admin` / `public`; EMQX asks you to change them on first sign-in). This lab reuses the HiveMQ lab's bundled transformations - complete its **Lab Files** copy-out first (they land in `~/mqtt-lab`).
+> **Prerequisites:** EMQX running - `provisioningsetup-services.ps1 -Streaming` starts it alongside the other brokers, on its own port so HiveMQ keeps running too. EMQX must be reachable — MQTT broker (TCP) at `localhost:1884` and the EMQX Dashboard at `http://localhost:18083` (default credentials `admin` / `public`; EMQX asks you to change them on first sign-in). This lab reuses the [HiveMQ](../03-mqtt-hivemq/guide.md) lab's bundled transformations - complete its **Lab Files** copy-out first (they land in `~/mqtt-lab`).
 >
 > **Estimated time:** 35 minutes
 

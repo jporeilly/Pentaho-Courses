@@ -22,10 +22,11 @@
 
 **Step 1.** **Prerequisites**
 
-1. Ensure unzip is installed.
+1. Ensure unzip is installed (a minimal Ubuntu 24.04 does not include it).
 
 ```bash
-unzip --version
+sudo apt update && sudo apt install -y unzip
+unzip -v | head -1
 ```
 
 2. Set the Pentaho path variables.
@@ -49,7 +50,7 @@ PENTAHO_SERVER=/opt/pentaho/server/pentaho-server
 TOMCAT_HOME=/opt/pentaho/server/pentaho-server/tomcat
 ```
 
-> **Warning:** If you add these to `~/.bashrc` or `/etc/environment`, re-open your shell or `source` the file to apply.
+> **Warning:** Variables in `/etc/environment` apply from your next login. Log out and back in, or load them into the current shell as Step 4 shows.
 
 <figure><img src="../_assets/images/pentaho_paths.png" alt=""><figcaption><p>Pentaho paths</p></figcaption></figure>
 
@@ -89,7 +90,7 @@ sudo -v
 
 <details>
 
-<summary>What's the difference bewteen Oracle JDK &#x26; OpenJDK?</summary>
+<summary>What's the difference between Oracle JDK &#x26; OpenJDK?</summary>
 
 Oracle JDK and OpenJDK are both implementations of the Java Platform, but they have some important differences:
 
@@ -162,11 +163,13 @@ PENTAHO_JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64
 
 <figure><img src="../_assets/images/set_pentaho_java_home.png" alt=""><figcaption><p>Set PENTAHO_JAVA_HOME</p></figcaption></figure>
 
-3. Save and reload the environment (or log out/in):
+3. Save, then log out and back in (a new login reads `/etc/environment`). To load it into the current shell instead, export the variables as you read them:
 
 ```bash
-source /etc/environment
+set -a; source /etc/environment; set +a
 ```
+
+> **Note:** A plain `source /etc/environment` sets the variables in the current shell only: `echo` shows them, but programs you start from that shell, `start-pentaho.sh` included, do not see them. `set -a` exports them.
 
 4. Verify:
 
@@ -215,20 +218,22 @@ sudo apt update && sudo apt upgrade -y
 2. Install prerequisite packages.
 
 ```bash
-sudo apt install -y wget ca-certificates
+sudo apt install -y curl ca-certificates gnupg
 ```
 
-3. Import PostgreSQL GPG Key.
+3. Import the PostgreSQL signing key into its own keyring.
 
 ```bash
-wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+curl -fsSL https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo gpg --dearmor -o /usr/share/keyrings/postgresql-keyring.gpg
 ```
 
-4. Add PostgreSQL Repository
+4. Add the PostgreSQL repository, signed by that key.
 
 ```bash
-sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
+echo "deb [signed-by=/usr/share/keyrings/postgresql-keyring.gpg] http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" | sudo tee /etc/apt/sources.list.d/pgdg.list
 ```
+
+> **Note:** Older guides pipe the key into `apt-key add`. Ubuntu 24.04 still accepts it but warns twice (`apt-key is deprecated` and `Key is stored in legacy trusted.gpg keyring`); a keyring per repository is the supported way.
 
 5. Update Package List.
 
@@ -240,13 +245,12 @@ sudo apt update
 
 ```bash
 sudo apt update -y && sudo apt upgrade -y
-sudo apt install -y postgresql-17 postgresql-contrib-17
+sudo apt install -y postgresql-17
 ```
 
 > **Note:** **What gets installed:**
-> 
-> * `postgresql-17`: Main database server
-> * `postgresql-contrib-17`: Additional utilities and extensions
+>
+> * `postgresql-17`: the database server, with the client and the contrib extensions. There is no separate `postgresql-contrib-17` package any more: `postgresql-17` provides it.
 
 7. Check service and version:
 
@@ -255,7 +259,7 @@ sudo systemctl status postgresql --no-pager
 psql --version
 ```
 
-<figure><img src="../_assets/images/postgresql_17_7.png" alt=""><figcaption><p>PostgreSQL 17.7</p></figcaption></figure>
+<figure><img src="../_assets/images/postgresql_17_7.png" alt=""><figcaption><p>PostgreSQL 17 (the minor version you get will be newer)</p></figcaption></figure>
 
 8. Optional tidy up:
 
@@ -364,11 +368,7 @@ postgres=#
 
 > **Note:** This lists all databases. You should see three default databases: postgres, template0, and template1.
 
-5. Exit.
-
-```sql
-q
-```
+5. If the list opened in a pager (a `:` or `(END)` at the bottom of the screen), press `q` to close it. Do not type `q` at the `postgres=#` prompt: psql takes it as the start of a query, and the next command fails with `syntax error at or near "q"`.
 
 6. Check PostgreSQL Version from SQL.
 
@@ -406,7 +406,7 @@ sudo -u postgres psql -c "CREATE USER pentaho WITH PASSWORD 'SecurePassword123';
 sudo -u postgres psql -c "ALTER USER pentaho WITH SUPERUSER;" # Demo only
 ```
 
-> **Note:** * `sudo -u postgres` - Run the command as the Linux system user `postgres` (who has local access to PostgreSQL without a password)
+> **Note:** * `sudo -u postgres` - Run the command as the Linux system user `postgres` (who has local access to PostgreSQL without a password, until Step 8 switches local connections to passwords)
 > * `psql -c` - Execute a single SQL command and exit
 > * `CREATE USER pentaho` - Creates a new PostgreSQL role/user named `pentaho`
 > * `WITH PASSWORD 'SecurePassword123'` - Sets the password for this user
@@ -492,12 +492,16 @@ sudo cat "$PG_HBA_PATH" | grep -E "^(local|host)[[:space:]]+(all|replication)"
 > 
 > Ensure your JDBC driver supports SCRAM (e.g., recent PostgreSQL drivers). If compatibility issues arise, use `md5` as a fallback.
 
+> **Warning:** From here on every local connection asks for a password, including `sudo -u postgres psql` (the `postgres` password, `SecurePassword123`) and `sudo -u pentaho psql` (`SecurePassword123`).
+
+> **Warning:** From here on every local connection asks for a password, including `sudo -u postgres psql` (the `postgres` password, `SecurePassword123`) and `sudo -u pentaho psql` (`SecurePassword123`).
+
+> **Warning:** From here on every local connection asks for a password, including `sudo -u postgres psql` (the `postgres` password, `SecurePassword123`) and `sudo -u pentaho psql` (`SecurePassword123`).
+
 3. Restart the PostgreSQL service.
 
 ```bash
-cd
-systemctl restart postgresql
-# Password: password
+sudo systemctl restart postgresql
 ```
 
 4. Allow firewall (if enabled) and restart:
@@ -559,7 +563,7 @@ cat /etc/apt/sources.list.d/pgadmin4.list
 java -version
 [ "$PENTAHO_JAVA_HOME" = "/usr/lib/jvm/java-21-openjdk-amd64" ] && echo OK || echo "Check PENTAHO_JAVA_HOME"
 
-# PostgreSQL
+# PostgreSQL (asks for the postgres password, SecurePassword123, since Step 8)
 sudo -u postgres psql -c "SELECT version();"
 sudo systemctl status postgresql --no-pager | sed -n '1,5p'
 

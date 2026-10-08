@@ -12,7 +12,7 @@ This panel stays beside your tools for the whole workshop:
 - **Float or dock** — drag the title bar to move the window anywhere
   (any monitor), or use the dock button to pin it to the right edge of
   the screen so maximised apps make room for it.
-- **The sidebar** lists every section and lab. A ▶ badge means the lab
+- **The sidebar** lists every section and lab. A <span data-icon="video"></span> badge means the lab
   includes a video; the `~15 min` tag is a time estimate.
 - Use the **font-size** and **reading-mode** controls in the toolbar if
   you're on a small VM screen.
@@ -121,7 +121,8 @@ the two lab services and this guide's Chat tab all use it.
    ollama list
    ```
 
-   You should see `llama3.2:3b` (CPU profile) in the list.
+   You should see `llama3.2:3b` in the list: the model every machine
+   can run, and the one the labs use.
 
 <details>
 <summary>Troubleshooting</summary>
@@ -135,8 +136,10 @@ Ollama refuses the app's origin. `setup-ollama.ps1` sets
 restart this app.
 
 **Generation is very slow.** Expected on CPU: 15–30 s per call for
-`llama3.2:3b`. On a machine with a supported GPU, switch the Chat tab
-to the GPU profile and pull `qwen2.5:7b`.
+`llama3.2:3b`. With a supported NVIDIA GPU the Chat tab moves to a
+larger model by itself; if that model isn't downloaded yet, the
+**AI assistant** rows of the panel on this page say so and offer
+**Set up the assistant for this machine**.
 
 </details>
 
@@ -196,6 +199,14 @@ Everything this course uses, all local to your machine:
 
 :::
 
+The panel below probes this machine live, checking what this course's
+labs need. Each row reports one of four states:
+
+* **<span class="pcm-c-ok">Green</span>** — the check passed; that piece is present and answering.
+* **<span class="pcm-c-warn">Amber</span>** — usable, but worth tidying before the session.
+* **<span class="pcm-c-danger">Red</span>** — it will block a lab, and the row tells you the exact fix.
+* **<span class="pcm-c-muted">Grey</span>** — skipped, because this course doesn't use it.
+
 <div data-env-check="ai"></div>
 
 Nothing else is required.
@@ -211,8 +222,8 @@ model, so it works even when the VM is offline.
 
 ## How this course is organised
 
-Each section starts with an **overview page** (📄 — background reading,
-no checkboxes) followed by **hands-on workshops** (🧪 — tracked steps).
+Each section starts with an **overview page** (<span data-icon="page"></span> — background reading,
+no checkboxes) followed by **hands-on workshops** (<span data-icon="workshop"></span> — tracked steps).
 Head to the first section whenever you're ready.
 
 ---

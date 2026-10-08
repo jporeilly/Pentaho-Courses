@@ -25,10 +25,6 @@
 
 > **Note:** **Pentaho packages used in this lab:**
 >
-> **Big Data Shims**
->
-> * `pentaho-server-ee-11.0.0.0-237.zip`
->
 > **Pentaho Server**
 >
 > * `pentaho-server-ee-11.0.0.0-237.zip`
@@ -42,7 +38,7 @@
 >
 > **Client Tools**
 >
-> * `pdi-ee-11.0.0.0-237.zip`
+> * `pdi-ee-client-11.0.0.0-237.zip`
 > * `pad-ee-11.0.0.0-237.zip`
 > * `psw-ee-11.0.0.0-237.zip`
 > * `pme-ee-11.0.0.0-237.zip`

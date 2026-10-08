@@ -39,15 +39,17 @@
 2. In the Select Data Source window, click Orders, and then click OK.
 3. In the Selection Pane, click the General tab, and then click Select.
 4. Use the left and right arrow to scroll through the available templates, and then select: Left Aligned - Cobalt.
-5. From the top Toolbar panel: In the Row Limit box, enter No more than 100.
+5. On the toolbar, from the Row Limit drop-down list select No more than, and type 100 in the box.
 
 ***
 
 > **Note:** To add Product Name, Order Number, Order Date, Status, Quantity Ordered, and Total to the report.
 
+> **Tip:** If a drag does not take, use the click alternatives: double-click a field to add it as a column, or right-click it and choose **Add to Columns**, **Add to Groups** or **Filter...**.
+
 1. In the Selection Pane, click the Data tab.
 2. Select Product Name from the Data panel, and drag it to the Report Canvas.
-3. Select Order Number from the Data panel, , then drag it to the Report Canvas and drop it to the *right* of Product Name.
+3. Select Order Number from the Data panel, then drag it to the Report Canvas and drop it to the *right* of Product Name.
 4. Add the following additional fields:
 
    &#x20; • Hold the Ctrl key
@@ -81,7 +83,7 @@
 
 > **Note:** To filter the report to only show shipped orders on or after January 1, 2005 for EMEA and NA.
 
-1. On the Interactive Toolbar, click the Filter button.
+1. On the Interactive Toolbar, click the Filters button.
 2. From the Data panel, select Territory and drag it to the Filters panel.
 3. In the Filter on Territory dialog box:
 
@@ -107,11 +109,7 @@
 
    &#x20; • From the available constraints drop-down list, select On or after.
 
-   &#x20; • Click the next drop-down arrow.
-
-   &#x20; • Navigate to January 2005.
-
-   &#x20; • Select January 1, 2005 (2005-01-01)
+   &#x20; • In the date box, type 2005-01-01 (the calendar button opens at today's month, so typing is quicker than paging back to January 2005).
 
    &#x20; • Click OK.
 
@@ -131,7 +129,7 @@
 
 <figure><img src="../_assets/images/ir_orders_sum_totals.png" alt="" width="334"><figcaption><p>Sum - Totals</p></figcaption></figure>
 
-> **Note:** You may need to set the Row Limit to: Maximum
+> **Note:** Set the Row Limit to Maximum now. The filtered report has 316 rows, so at 100 the later groups and the grand total are missing.
 
 > **Under the hood:**
 >
@@ -148,9 +146,11 @@
 > sample. Limits are for designing; take them off before you trust a
 > number.
 
-2. Edit the label for the Product Line subtotals: Page 4
-3. Edit the label for the Territory subtotals: Page 10
-4. Edit the label for the grand total: Page 15
+2. Edit the label for the Product Line subtotals (the first follows EMEA > Classic Cars, around page 4): type Line subtotal:
+3. Edit the label for the Territory subtotals (the NA one is on the last page, just above the grand total): type Territory Total:
+4. Edit the label for the grand total (last page): type Grand Total:
+
+> **Tip:** Check your figures: the first Line subtotal (EMEA > Classic Cars) is $324,125.00, the NA Territory Total is $460,810.00 and the Grand Total is $1,191,419.00, so EMEA comes to $730,609.00.
 
 <figure><img src="../_assets/images/ir_orders_totals.png" alt="" width="375"><figcaption><p>Totals</p></figcaption></figure>
 
@@ -164,7 +164,7 @@
 
 <figure><img src="../_assets/images/ir_orders_title.png" alt="" width="312"><figcaption><p>Title</p></figcaption></figure>
 
-4. Resize columns.
+4. Resize the columns so product names fit on one line: click the Product Name header and, on the Formatting tab, set Column Width (%) to 25; then set Order Number to 12.
 5. Center align header text.
 6. Format the decimal places from the Total column: $#,###
 7. Change the column header for the Total column: Order Total
@@ -176,16 +176,36 @@
 1. To save the report, on the toolbar click the Save icon.
 2. To save the report:
 
-   &#x20; • In the Filename field, type Shipped Orders Activity – Jan 1st 2005.
+   &#x20; • In the Filename field, type Shipped Orders Activity - Jan 1st 2005.
 
    &#x20; • For the location, click the Up One Level icon twice.
 
    &#x20; • In the list of folders, double-click Public.
 
-   &#x20; • In the list of folders, double-click Training & Save.
+   &#x20; • In the list of folders, double-click Training, and then click Save.
 
 <figure><img src="../_assets/images/ir_orders_reports.png" alt=""><figcaption><p>Reports</p></figcaption></figure>
 
 :::
 
 > **Success:** You've built a sophisticated business report that combines temporal and categorical filters, multi-level grouping, and summary calculations to professional standards.
+
+---
+
+## Lab Files
+
+Click a file to download it.
+
+### Solution <!-- no-step -->
+
+The finished report for this lab: EMEA and NA shipped orders since January 1, 2005, grouped by Territory and Product Line, with the three totals and the formatting above. Open it alongside your own to compare.
+
+Also on disk at `C:\Workshop-BA-Practitioner\03-interactive-reports\07-interactive-reports-orders-na-and-emea\solution`.
+
+[Shipped Orders Activity - Jan 1st 2005.prpti](./files/Shipped%20Orders%20Activity%20-%20Jan%201st%202005.prpti)
+
+To open it in the User Console:
+
+1. In **Browse Files**, select your own folder under **Home** (Home > admin, say), so the solution sits apart from your own report in Public > Training.
+2. In the **Folder Actions** pane, click **Upload...**, click **Browse...** and choose the `.prpti` file, and then click **OK**.
+3. Double-click **Shipped Orders Activity - Jan 1st 2005** to run it, and click **Edit** on the toolbar to see how it is built.

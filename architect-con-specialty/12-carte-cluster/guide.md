@@ -7,7 +7,7 @@
 > * Run Carte on both app nodes and register them as a cluster schema
 > * Execute a transformation across the cluster and watch the work distribute
 >
-> **Prerequisites:** The HA deployment running (previous lab).
+> **Prerequisites:** The [HA deployment](../11-ha-deploy/guide.md) running (previous lab).
 >
 > **Estimated time:** 45 minutes
 

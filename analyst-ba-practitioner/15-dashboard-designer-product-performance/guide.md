@@ -47,7 +47,7 @@
 2. Select the 1 and 2 template, on the Templates tab, click 1 and 2.
 3. To view the available themes, click the Themes tab.
 4. Select: Ruby theme.
-5. In the Page Title text box, type: Product Performance Dashboard.
+5. Click the Properties tab, and in the Page Title text box, type: Product Performance Dashboard.
 
 ***
 
@@ -57,7 +57,7 @@ Product Sales by Year
 
 1. To add the Product Sales by Year report to the dashboard, from the Browse pane:
 2. Expand the Steel Wheels -> Widget Library -> Analysis Views folder.
-3. From the Files pane, drag: 'Product Sales by Year' to the Untitled 1 panel on the dashboard.
+3. From the Files pane, drag: 'Product Sales by Year' to the Untitled 1 panel on the dashboard (or click the Insert Content icon on the Untitled 1 panel, click File, and double-click Product Sales by Year in Public > Steel Wheels > Widget Library > Analysis Views).
 4. To add a panel title, in the Title text box, type: 'Product Sales Analysis'.
 
 > **Note:** To enable dashboard viewers to click a Product Name in the report and have the chart on the right update with the values associated with that product, you must enable content linking.
@@ -94,7 +94,7 @@ Product Sales by Year
 
 <figure><img src="../_assets/images/dd_product.png" alt=""><figcaption></figcaption></figure>
 
-1. In the Untitled 2 header, click Insert Content, and then click Chart.
+1. Click the Insert Content icon at the top right of the Untitled 2 panel, and then click Chart.
 2. From the Select Data Source dialog, click Orders, and then click OK.
 3. Add columns to the Selected Columns:
 
@@ -110,7 +110,7 @@ Product Sales by Year
 
 &#x20;      • From the Categories / Columns list, click Products > Product Name.
 
-&#x20;      • Click the middle arrow to move Product Name to the Conditions area.
+&#x20;      • Click the middle arrow (the one beside Switch to Advanced...) to move Product Name to the Conditions area. The bottom arrow adds it to Order By instead.
 
 &#x20;      • In the Value field, type {PRODUCT}.
 
@@ -130,7 +130,7 @@ Product Sales by Year
 | Values Column | Total                              |
 | Chart Title   | Click on a Product Name to update: |
 
-6. To add a panel title with the parameter, in the **Title** text box, type **Territory Sales Mix for**, and then click the **Add parameters to title** icon.
+6. To add a panel title with the parameter, in the **Title** text box, type **Territory Sales Mix for**, and then click the **Add parameters to title** icon beside it. The icon adds **{PRODUCT}** to the end of the title.
 
 <figure><img src="../_assets/images/dd_product_add_product_param_to_title_and_pickup_for_pie_cha.png" alt=""><figcaption><p>Add {PRODUCT} param to Title &#x26; pickup for Pie Chart.</p></figcaption></figure>
 
@@ -138,7 +138,7 @@ Product Sales by Year
 
 &#x20;      • In the bottom pane, click the **Parameters** tab.
 
-&#x20;      • From the **Source** drop-down list, select **Product Sales Analysis – Product**.
+&#x20;      • From the **Source** drop-down list, select **Product Sales Analysis - Product**.
 
 8. To enable content linking for the Territory field:
 
@@ -172,7 +172,7 @@ Product Sales by Year
 
 > **Note:** Finally .. create a bar chart showing the number of orders for the product selected on the Product Sales by Year report and the Territory.&#x20;
 
-1. In the **Untitled 3** header, click **Insert Content**, and then click **Chart**.
+1. Click the **Insert Content** icon at the top right of the **Untitled 3** panel, and then click **Chart**.
 2. From the **Select Data Source** dialog, click **Orders**, and then click **OK**.
 
 <figure><img src="../_assets/images/dd_product_query_order_status.png" alt=""><figcaption><p>Query - Order Status</p></figcaption></figure>
@@ -196,13 +196,13 @@ Product Sales by Year
 
 &#x20;      • From the **Categories / Columns** list, click **Products -> Product Name**.
 
-&#x20;      • Click the **middle arrow** to move **Product Name** to the **Conditions** area.
+&#x20;      • Click the **middle arrow** (the one beside Switch to Advanced...) to move **Product Name** to the **Conditions** area.
 
 &#x20;      • In the **Value** field, type **{PRODUCT}**.
 
 &#x20;      • In the **Default** field, type **18th century schooner**.
 
-&#x20;      • From the **Categories/Columns** list, click **Customer ->Territory**.
+&#x20;      • From the **Categories/Columns** list, click **Customer -> Territory**.
 
 &#x20;      • Click the **middle arrow** to move **Territory** to the **Conditions** area.
 
@@ -227,16 +227,14 @@ Product Sales by Year
 
 <figure><img src="../_assets/images/dd_product_3.png" alt=""><figcaption></figcaption></figure>
 
-7. In the **Title** text box, type **Order Status Summary for**, and then click the **Add parameters to title** icon.
+7. In the **Title** text box, type **Order Status for**, and then click the **Add parameters to title** icon. The icon adds **{PRODUCT} & {TERRITORY}**.
 8. To create parameters that obtain the Product Name from the Product Sales Analysis report and the Territory from the Territory Sales Mix chart:
 
 &#x20;      • In the bottom pane, click the **Parameters** tab.
 
-&#x20;      • From the **Source** drop-down list for **PRODUCT**, select **Product Sales Analysis – Product**.
+&#x20;      • From the **Source** drop-down list for **PRODUCT**, select **Product Sales Analysis - Product**.
 
-&#x20;      • In the bottom pane, click the **Parameters** tab.
-
-&#x20;      • From the **Source** drop-down list for **TERRITORY**, select **Territory Sales Mix**.
+&#x20;      • From the **Source** drop-down list for **TERRITORY**, select **Territory Sales Mix for {PRODUCT} - Territory**.
 
 &#x20;      • Click **Apply**.
 
@@ -259,15 +257,38 @@ Product Sales by Year
 
 ***
 
-> **Note:** The Content Linking will only work once you have saved your dashboard.
-> 
-> On the main toolbar, click the **Edit Content** button.
-> 
+9. To save the dashboard, on the toolbar click the **Save** icon. Click the **Up One Level** icon twice, double-click **Public** and then **Training**, type **Product Performance Dashboard** in the **Filename** field, and click **Save**.
+
+> **Note:** Content linking only works once the dashboard is saved. To try it:
+>
+> On the main toolbar, click the **Edit Content** button to leave edit mode.
+>
 > From the Product Sales Analysis report, click **1900s Vintage Tri-Plane**.
-> 
+>
 > From the **Territory Sales Mix** chart, click **NA**.
+
+> **Tip:** Until you click, the two chart titles read **&lt;default&gt;** where the parameters go, and the charts use the defaults (18th century schooner, NA). After the two clicks, the pie shows EMEA 47% and NA 34% for 1900s Vintage Tri-Plane, and the bar chart shows 8 Shipped orders and 1 On Hold, as in the picture below.
 
 <figure><img src="../_assets/images/dd_product_content_linking.png" alt=""><figcaption></figcaption></figure>
 
 :::
 
+---
+
+## Lab Files
+
+Click a file to download it.
+
+### Solution <!-- no-step -->
+
+The finished dashboard: 1 and 2 with the Ruby theme, the Product Sales by Year analysis publishing Product, the Territory Sales Mix pie (Orders, filtered on {PRODUCT}) publishing Territory, and the Order Status bar chart filtered on both. The report panel opens Public > Steel Wheels > Widget Library > Analysis Views > Product Sales by Year, so that sample must be on your server.
+
+Also on disk at `C:\Workshop-BA-Practitioner\05-dashboard-designer\15-dashboard-designer-product-performance\solution`.
+
+[Product Performance Dashboard.xdash](./files/Product%20Performance%20Dashboard.xdash)
+
+To open it in the User Console:
+
+1. In **Browse Files**, select your own folder under **Home** (Home > admin, say), so the solution sits apart from your own dashboard in Public > Training.
+2. In the **Folder Actions** pane, click **Upload...**, click **Browse...** and choose the `.xdash` file, and then click **OK**.
+3. Double-click **Product Performance Dashboard** to run it, click a product and then a territory, and click **Edit** on the toolbar to see each panel's parameters and content linking.

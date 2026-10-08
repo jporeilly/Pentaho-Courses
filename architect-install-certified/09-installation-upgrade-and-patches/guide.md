@@ -20,16 +20,16 @@
 
 > **Note:** Before you can run the Pentaho Upgrade Installer, you must also perform the following tasks:
 
-* [x] Verify that your system components are current.
+* [ ] Verify that your system components are current.
 
-<div class="pcm-embed-card" data-href="https://docs.pentaho.com/pdia-10.2-install/components-reference" data-title="docs.pentaho.com"></div>
+<div class="pcm-embed-card" data-href="https://docs.pentaho.com/install/pdia-11.0-installation/components-reference" data-title="docs.pentaho.com"></div>
 
-* [x] If you are upgrading an environment that includes the Pentaho Server, stop the server prior to performing backups and installation.
+* [ ] If you are upgrading an environment that includes the Pentaho Server, stop the server prior to performing backups and installation.
 
 ```bash
 cd 
-cd ~/[Pentaho Installation Directory]/server/pentaho-server
-sh stop-pentaho.sh
+cd "$PENTAHO_SERVER"
+./stop-pentaho.sh
 ```
 
 1. Review your customizations. During the upgrade process, you can help the upgrade installer specify which items contain your customizations. See [Specify customized items to address after upgrading](https://docs.hitachivantara.com/r/HuHAFx8OjcQg31CW~6gISg/r2F5~x211KC0wwU0qcq6cQ) for details. Then, after upgrading your Pentaho products to 10.1, you can merge your previous customizations into post-upgrade versions of the Pentaho files. See the [Apply customizations](https://docs.hitachivantara.com/r/HuHAFx8OjcQg31CW~6gISg/S2d88cUzhPmuc8jUpi9NaA) post-upgrade task for instructions.
@@ -42,34 +42,6 @@ sh stop-pentaho.sh
 
 3. If you are upgrading the Pentaho Server, verify that no users are logged on to the server. As a best practice, perform the upgrade process of the Pentaho Server during off-business hours to minimize the impact on your day-to-day operations.
 4. Before installing the Pentaho Upgrade, verify that you have the most recent version of Java installed and that the JAVA\_HOME environment variable is set to that version of Java.
-
-### Release
-
-> **Note:** You can upgrade your Pentaho products from version 8.3 or later to version 9.4 using the Pentaho Upgrade Installer.
-> 
-> The upgrade installer checks your environment for version 8.3 or later Pentaho products, creates a backup of these products, then upgrades them to version 9.4.
-> 
-> The Pentaho Upgrade Installer works for any Pentaho products you have installed on your server or workstations, including your Pentaho Server and your Pentaho client tools.
-
-> **Warning:** The Pentaho Upgrade Installer requires 22 GB of free space to perform the upgrade process.
-
-Before you can run the Pentaho Upgrade Installer, you must also perform the following tasks:
-
-* [ ] Verify that your system components are current.
-
-<div class="pcm-embed-card" data-href="https://help.hitachivantara.com/Documentation/Pentaho/9.4/Setup/Components_Reference" data-title="help.hitachivantara.com"></div>
-
-* [ ] If you are upgrading an environment that includes the Pentaho Server, stop the server prior to performing backups and installation.
-
-```bash
-cd 
-cd ~/Pentaho/server/pentaho-server
-sh stop-pentaho.sh
-```
-
-* [ ] Review any customizations.
-
-During the upgrade process, you can help the upgrade installer specify which items contain your customizations.
 
 :::
 

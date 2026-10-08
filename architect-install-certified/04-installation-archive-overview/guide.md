@@ -12,7 +12,7 @@ Choose the Archive installation when you:
 #### What you’ll achieve
 
 * Pentaho Server running on Tomcat 10
-* A configured Pentaho Repository (database) - PostgreSQL 17.7
+* A configured Pentaho Repository (database) - PostgreSQL 17
 * Server plugins installed
 * Client tools installed
 * Licenses applied and validated

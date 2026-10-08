@@ -1,0 +1,10 @@
+{
+  "title": "Please watch video...!",
+  "description": "Welcome to the Pentaho Report Designer associate course. This first lab introduces the Pentaho Business Analytics platform and how Report",
+  "order": 1,
+  "kind": "workshop",
+  "stepCount": 13,
+  "hasVideo": false,
+  "estimatedMinutes": 20,
+  "noProgress": true
+}

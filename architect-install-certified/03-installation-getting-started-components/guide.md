@@ -8,7 +8,7 @@
 
 <figure><img src="../_assets/images/pentaho_architecture.png" alt=""><figcaption><p>Pentaho Architecture</p></figcaption></figure>
 
-<table><thead><tr><th width="186">Port Number</th><th>Description</th></tr></thead><tbody><tr><td>5432</td><td>PostgreSQL Server</td></tr><tr><td>8080</td><td>Pentaho Server Tomcat Web Server Startup Port</td></tr><tr><td>8012</td><td>Pentaho Server Shutdown Port</td></tr><tr><td>9001</td><td>HSQL Server Port</td></tr><tr><td>9092</td><td>Embedded H2 Database</td></tr></tbody></table>
+<table><thead><tr><th width="186">Port Number</th><th>Description</th></tr></thead><tbody><tr><td>5432</td><td>PostgreSQL Server</td></tr><tr><td>8080</td><td>Pentaho Server Tomcat Web Server Startup Port</td></tr><tr><td>8005 / 8012</td><td>Pentaho Server Shutdown Port: the <code>port</code> of <code>&#x3C;Server></code> in <code>server.xml</code> (8005 in the archive, 8012 in installer builds)</td></tr><tr><td>9001</td><td>HSQL Server Port</td></tr></tbody></table>
 
 Key components include:
 
@@ -213,7 +213,7 @@ Key components include:
 > 
 > Carte is built on Java and uses the embedded Jetty web server. It relies on XML-based configuration and exposes functionality through a REST API, with a simple browser-based interface for monitoring.
 > 
-> The server enables remote execution of transformations and jobs, supports clustering for load balancing, provides real-time monitoring, and allows scheduling of ETL processes.
+> The server enables remote execution of transformations and jobs, supports clustering for load balancing, and provides real-time monitoring. Scheduling is done by the Pentaho Server's Quartz scheduler, or by an external scheduler that calls Carte.
 > 
 > Carte can be deployed as a standalone server, in a master-slave cluster setup, or in a load-balanced environment for high availability. It's typically launched via command line with a configuration file containing server settings.
 > 

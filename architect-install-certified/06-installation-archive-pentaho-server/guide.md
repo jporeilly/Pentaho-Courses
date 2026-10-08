@@ -16,9 +16,9 @@
 
 > **Warning:** Tested baseline: Ubuntu 24.04 LTS with Java 21 (OpenJDK) and PostgreSQL 17.
 > 
-> Make sure you have completed **Prepare Environment** (the previous lab) first.&#x20;
+> Make sure you have completed **[Prepare Environment](../05-installation-archive-prepare-environment/guide.md)** (the previous lab) first.&#x20;
 > 
-> For compatibility details, see [Components Reference](https://docs.pentaho.com/install/components-reference).
+> For compatibility details, see [Components Reference](https://docs.pentaho.com/install/pdia-11.0-installation/components-reference).
 
 > **Note:** **Prerequisites**
 > 
@@ -78,7 +78,7 @@ shims        - Hadoop shims collections
 > 
 > Use `unzip` to extract the server ZIP into the runtime directory. This avoids requiring the full JDK (the JRE does not include the `jar` tool).
 > 
-> * `pentaho-server-ee-11.0.0.0-2xx.zip` - Pentaho Server (Archive - incl Tomcat 10)
+> * `pentaho-server-ee-11.0.0.0-237.zip` - Pentaho Server (Archive - incl Tomcat 10)
 
 1. Ensure `unzip` is available and copy the server ZIPs into staging.
 
@@ -95,7 +95,7 @@ cd
 cd "$PENTAHO_BASE/server"
 
 # Replace <version> with the exact file name you downloaded
-sudo unzip /opt/pentaho/software/server/pentaho-server-ee-11.0.0.0-2xx.zip
+sudo unzip /opt/pentaho/software/server/pentaho-server-ee-11.0.0.0-237.zip
 ```
 
 <figure><img src="../_assets/images/unzip_pentaho_server.png" alt=""><figcaption><p>Unzip Pentaho Server</p></figcaption></figure>
@@ -128,12 +128,14 @@ sudo find /opt/pentaho -name "*.sh" -exec chmod 755 {} \;
 > 
 > ```
 >   server/
+>     jdbc-distribution/
+>     license-installer/
 >     pentaho-server/
 >       pentaho-solutions/
 >         system/
 > ```
-> 
-> Server plugins are installed into the `pentaho-solutions/system` folder.
+>
+> The archive unpacks three folders side by side: `pentaho-server` (Tomcat and the Pentaho web application), `jdbc-distribution` (a driver-copying tool) and `license-installer`. Server plugins are installed into the `pentaho-solutions/system` folder.
 
 ### 2. Pentaho Repository
 
@@ -203,22 +205,30 @@ ls -l
 sudo -u pentaho psql -d postgres
 ```
 
-3. Execute the commands step-by-step - not as a single script block. Provide passwords if prompted - see below.
+3. Run the first two scripts, one line at a time, then quit:
 
-```plsql
+```sql
 \i create_jcr_postgresql.sql
 \i create_quartz_postgresql.sql
-\q quit after Quartz and log back in ..
-ensure your in the "$PENTAHO_SERVER/data/postgresql" directory
+\q
+```
+
+Quit there: the Quartz script ends by connecting you as `pentaho_user`, who cannot create the next script's user (`permission denied to create role`). Back in the shell, still in `$PENTAHO_SERVER/data/postgresql`, reconnect:
+
+```bash
 sudo -u pentaho psql -d postgres
+```
+
+Then run the other three:
+
+```sql
 \i create_repository_postgresql.sql
 \i pentaho_mart_postgresql.sql
-\q quit after hibernate and log back in ..
-ensure your in the "$PENTAHO_SERVER/data/postgresql" directory
-sudo -u pentaho psql -d postgres
 \i pentaho_logging_postgresql.sql
 \q
 ```
+
+The scripts connect as each user they create, so psql asks for that user's password as it goes:
 
 | User          | Password          |
 | ------------- | ----------------- |
@@ -228,18 +238,19 @@ sudo -u pentaho psql -d postgres
 | pentaho\_user | password          |
 | hibuser       | password          |
 
-4. Quick validation (CLI) - list created databases and connect - hit q to scroll through list.
+4. Quick validation (CLI): reconnect with `sudo -u pentaho psql -d postgres`, then list the databases and look inside them (press `q` to close a pager).
 
 ```sql
 \l+ jackrabbit
 \l+ quartz
-\l+ hibuser
-\l+ opsmart
-\c jackrabbit
-\dt
+\l+ hibernate
+\c hibernate
+\dn
 \c quartz
 \dt
 ```
+
+The Operations Mart and the PDI logging tables are schemas (`pentaho_operations_mart`, `pentaho_dilogs`) inside the `hibernate` database, not databases of their own, and the Quartz tables carry the `qrtz6_` prefix (11 of them).
 
 > **Warning:** Tables for Hibernate and Jackrabbit may be created later by the Pentaho Server on first start. Seeing empty schemas at this stage can be expected.
 
@@ -330,7 +341,7 @@ sudo nano -c repository.xml
 > 
 > * Quartz: `Quartz`
 > * Hibernate: `java:comp/env/jdbc/Hibernate`
-> * Jackrabbit: as referenced in `repository.xml`
+> * Jackrabbit: `java:comp/env/jdbc/jackrabbit` (in `repository.xml`)
 
 ### 3. Tomcat
 
@@ -360,30 +371,24 @@ sudo nano -c repository.xml
 ls -1 "$TOMCAT_HOME/lib" | grep -i postgresql || echo "PostgreSQL driver not found"
 ```
 
-> **Note:** If not found, download the PostgreSQL JDBC driver (e.g., `postgresql-42.7.8.jar`) and distribute it using the helper script:
+> **Note:** The archive ships one. If it is not found, download the PostgreSQL JDBC driver (e.g., `postgresql-42.7.8.jar`) and copy it into Tomcat's lib folder:
 
 ```bash
-sudo cp ~/Downloads/'Database Drivers'/postgresql-*.jar /opt/pentaho/server/jdbc-distribution
-cd /opt/pentaho/server/jdbc-distribution
-sudo ./distribute-files.sh "$TOMCAT_HOME/lib"
+sudo cp ~/Downloads/'Database Drivers'/postgresql-*.jar "$TOMCAT_HOME/lib/"
+sudo chown pentaho:pentaho "$TOMCAT_HOME"/lib/postgresql-*.jar
 ```
 
-2. Copy any additional JDBC drivers to the staging folder and distribute.
+2. Stage any additional JDBC drivers, and copy the ones the server needs (MySQL here) into Tomcat's lib folder.
 
 ```bash
 sudo cp ~/Downloads/'Database Drivers'/* /opt/pentaho/software/db-drivers
 cd /opt/pentaho/software/db-drivers
-sudo cp mysql-connector-j-9.0.0.jar /opt/pentaho/server/jdbc-distribution
+sudo cp mysql-connector-j-9.0.0.jar "$TOMCAT_HOME/lib/" && sudo chown pentaho:pentaho "$TOMCAT_HOME/lib/mysql-connector-j-9.0.0.jar"
 ```
 
-3. Distribute the drivers to Tomcat.
+> **Note:** **Why not `distribute-files.sh`?** The archive's `jdbc-distribution/distribute-files.sh` takes the **driver** as its argument (`./distribute-files.sh mysql-connector-j-9.0.0.jar`), not a target folder, and copies it to the folders listed in its `config.xml`. Those are relative to the folder above it (`server/pentaho-server/tomcat/lib`, `design-tools/...`), so unpacked under `/opt/pentaho/server` they point at paths that do not exist. It copies nothing there, yet still prints `You must restart your Pentaho Server and Client tools...`. A direct copy works whatever the layout.
 
-```bash
-cd /opt/pentaho/server/jdbc-distribution
-sudo ./distribute-files.sh "$TOMCAT_HOME/lib"
-```
-
-4. Verify the JARs are present in Tomcat lib.
+3. Verify the JARs are present in Tomcat lib.
 
 ```bash
 ls -1 "$TOMCAT_HOME/lib" | grep -Ei 'mysql|postgresql' || echo "Not found"
@@ -468,7 +473,7 @@ Password: password
 
 > **Success:** **Quick validations**
 
-* Check HTTP is responding:
+* Check HTTP is responding (expect `HTTP/1.1 401`: Tomcat is up and the request sent no login):
 
 ```bash
 curl -I http://localhost:8080/pentaho/ | head -n 1
@@ -486,13 +491,15 @@ sudo ufw allow 8080/tcp || true
 
 <summary>Validate Repository after first run (click to expand)</summary>
 
-```sql
--- Quartz example
-\c quartz
-SELECT COUNT(*) FROM qrtz_scheduler_state;
+Connect with `sudo -u pentaho psql -d postgres`, then:
 
--- Hibernate example (expect many tables after first start)
-\c hibuser
+```sql
+-- Quartz: the scheduler's lock rows (5 after the first start)
+\c quartz
+SELECT COUNT(*) FROM qrtz6_locks;
+
+-- Hibernate: about 17 tables after the first start
+\c hibernate
 \dt
 ```
 
@@ -630,14 +637,14 @@ Append (or update) the following:
 PENTAHO_LICENSE_INFORMATION_PATH=/home/pentaho/.pentaho/.elmLicInfo.plt
 ```
 
-3. Log out/log in or reload the environment and verify.
+3. Log out and back in (a new login reads `/etc/environment`), or load it into the current shell with `set -a`, then verify.
 
 ```bash
-source /etc/environment
+set -a; source /etc/environment; set +a
 env | grep PENTAHO_LICENSE_INFORMATION_PATH
 ```
 
-The `PENTAHO_LICENSE_INFORMATION_PATH` variable is now set.
+The `PENTAHO_LICENSE_INFORMATION_PATH` variable is now set. `start-pentaho.sh` passes it to the server as `-Dpentaho.license.information.file`, but only when the variable is set in the shell that starts it, so restart the server from a new login if it is running.
 
 :::
 

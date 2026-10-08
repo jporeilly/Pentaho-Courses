@@ -25,7 +25,7 @@ Messages are not published directly to a queue; instead, the producer sends mess
 * A **binding** is a link between a queue and an exchange.
 * The **routing key** is a message attribute the exchange looks at when deciding how to route the message (depending on exchange type).
 
-Exchanges, connections, and queues can be configured as *durable* (survive a restart), *temporary* (last until the broker is shut down), or *auto-delete* (removed once the last bound object is unbound). RabbitMQ provides four exchange types; the default is **fanout**, which broadcasts every message it receives to all bound queues, ignoring routing keys.
+Exchanges, connections, and queues can be configured as *durable* (survive a restart), *temporary* (last until the broker is shut down), or *auto-delete* (removed once the last bound object is unbound). RabbitMQ provides four exchange types: **direct**, **fanout**, **topic** and **headers**. Its built-in **default exchange** - the one with no name, used when no exchange is named - is a **direct** exchange: every queue is bound to it automatically, with the queue's own name as the routing key. A **fanout** exchange, by contrast, broadcasts every message it receives to all bound queues, ignoring routing keys.
 
 <figure><img src="../_assets/images/amqp-exchanges.png" alt=""><figcaption><p>Exchanges</p></figcaption></figure>
 

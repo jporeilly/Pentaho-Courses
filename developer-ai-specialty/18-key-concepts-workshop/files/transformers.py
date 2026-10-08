@@ -9,7 +9,7 @@ import ollama  # Python client for interacting with Ollama API
 
 def ensure_output_directory() -> str:
     """
-    Create and return the output directory path with timestamp...
+    Create and return the output directory path with timestamp.
     
     This function creates a unique timestamped directory for each run to prevent
     overwriting previous results and provide easy identification.
@@ -66,7 +66,7 @@ class TransformerDemonstrator:
     Demonstrates transformer processing using Ollama embeddings.
     
     This class provides methods to visualize and understand how transformers work,
-    using the llama3.2:latest model from Ollama to generate embeddings and simulate
+    using the nomic-embed-text model from Ollama to generate embeddings and simulate
     the transformer process.
     """
     def __init__(self, ollama_host: str, output_dir: str):
@@ -81,7 +81,7 @@ class TransformerDemonstrator:
         self.client = ollama.Client(host=ollama_host)
         
         # Specify which Ollama model to use for embeddings
-        self.model = "llama3.2:latest"
+        self.model = "nomic-embed-text"
         
         # Directory where all output files will be saved
         self.output_dir = output_dir
@@ -125,7 +125,7 @@ class TransformerDemonstrator:
         Get embeddings from Ollama API.
         
         This function sends a request to Ollama to generate an embedding vector
-        for the provided text using the llama3.2:latest model.
+        for the provided text using the nomic-embed-text model.
         
         Args:
             text: The text to generate an embedding for
@@ -135,7 +135,7 @@ class TransformerDemonstrator:
         """
         # Request embedding from Ollama API
         response = self.client.embeddings(
-            model=self.model,  # Using llama3.2:latest model
+            model=self.model,  # Using nomic-embed-text model
             prompt=text  # The text to embed
         )
         
@@ -385,7 +385,7 @@ def demonstrate_full_process():
     print("Transformer Visualization Demo using Ollama")
     print("===========================================")
     print("This script demonstrates transformer processing using")
-    print("the llama3.2:latest model via Ollama.\n")
+    print("the nomic-embed-text model via Ollama.\n")
     
     try:
         # Create output directory
@@ -396,7 +396,7 @@ def demonstrate_full_process():
         ollama_host = get_ollama_host()
         
         # Initialize demonstrator
-        print(f"\nInitializing TransformerDemonstrator with Ollama (model: llama3.2:latest)")
+        print(f"\nInitializing TransformerDemonstrator with Ollama (model: nomic-embed-text)")
         demonstrator = TransformerDemonstrator(ollama_host, output_dir)
         
         print("\nDemonstrating Transformer Process:")
@@ -416,7 +416,7 @@ def demonstrate_full_process():
         print(f"\nError: {str(e)}")
         print("\nTroubleshooting steps:")
         print("1. Ensure Ollama is installed and running (see https://ollama.com)")
-        print("2. Check if the llama3.2:latest model is pulled (`ollama pull llama3.2:latest`)")
+        print("2. Check if the nomic-embed-text model is pulled (`ollama pull nomic-embed-text`)")
         print("3. Verify the Ollama server URL is correct")
         print("4. Make sure the ollama Python package is installed (`pip install ollama`)")
         print(f"\nError details: {type(e).__name__}: {str(e)}")

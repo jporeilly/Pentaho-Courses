@@ -25,12 +25,15 @@ Copy-Item "$env:APPDATA\com.pentaho.content-manager\content\18-key-concepts-work
 cd $env:USERPROFILE\key-concepts
 python -m venv .venv
 .\.venv\Scripts\pip install -r requirements.txt
+ollama pull nomic-embed-text
 ```
 
 [prompt.py](./files/prompt.py) [tokenization.py](./files/tokenization.py) [embedding.py](./files/embedding.py) [search.py](./files/search.py) [transformers.py](./files/transformers.py) [requirements.txt](./files/requirements.txt)
 
-> **Note:** Ollama must be running with the course model pulled - the
-> scripts talk to it on `localhost:11434`.
+> **Note:** Ollama must be running - the scripts talk to it on
+> `localhost:11434` - with `nomic-embed-text` pulled (the last line
+> above). The scripts use it because a chat model such as `llama3.2`
+> cannot produce embeddings on current Ollama releases.
 
 :::: tabs
 
@@ -99,7 +102,7 @@ def save_plot(plt, filename):
 
 def create_embedding(text, client):
     """
-    Create an embedding for the given text using Ollama's llama3.2:latest model.
+    Create an embedding for the given text using Ollama's nomic-embed-text model.
     
     This function uses the Ollama Python client to generate an embedding vector
     for the provided text. Embeddings are numerical representations of text that
@@ -113,12 +116,12 @@ def create_embedding(text, client):
         numpy.ndarray: The embedding vector as a numpy array
         
     Notes:
-        - The model "llama3.2:latest" must be available in your Ollama installation
+        - The model "nomic-embed-text" must be available in your Ollama installation
         - The returned embedding dimensions depend on the specific model
     """
-    # Generate the embedding using the llama3.2:latest model
+    # Generate the embedding using the nomic-embed-text model
     response = client.embeddings(
-        model="llama3.2:latest",  # Specify which model to use for embedding
+        model="nomic-embed-text",  # Specify which model to use for embedding
         prompt=text  # The text input to embed
     )
     
@@ -317,7 +320,7 @@ def main():
     - How to create informative visualizations
     - How semantic similarity is captured in the embedding space
     """
-    print("Embedding Visualization with Ollama and llama3.2:latest")
+    print("Embedding Visualization with Ollama and nomic-embed-text")
     print("======================================================")
     print("This script will generate embeddings using Ollama and create")
     print("visualizations to help understand the embedding properties.")
@@ -358,8 +361,8 @@ def main():
         print("1. Ensure Ollama is installed and running")
         print("   - Ollama can be installed from https://ollama.com")
         print("   - Check if the Ollama service is running on your system")
-        print("\n2. Make sure the llama3.2:latest model is pulled")
-        print("   - Run 'ollama pull llama3.2:latest' in your terminal")
+        print("\n2. Make sure the nomic-embed-text model is pulled")
+        print("   - Run 'ollama pull nomic-embed-text' in your terminal")
         print("   - This may take some time depending on your internet connection")
         print("\n3. Verify the API host is correct")
         print("   - Check for typos in the URL")
@@ -384,7 +387,7 @@ if __name__ == "__main__":
 > 
 > 1. The user is prompted to connect to the Ollama server - N (local Ollama server)
 > 2. A text prompt "What is the capital of France?" is defined.
-> 3. An embedding for the given text prompt is created using the `create_embedding(text, client)` function and Ollama' s text-embedding model.
+> 3. An embedding for the given text prompt is created using the `create_embedding(text, client)` function and Ollama's `nomic-embed-text` embedding model.
 > 4. The shape (dimensions) and first 10 dimensions of the resulting embedding vector are printed to provide an overview.
 > 5. Basic statistics about the embedding vector such as mean, standard deviation, minimum value, and maximum value are calculated and visualized using a histogram plot, line plot, and text summary in a single figure. The visualization is saved as a timestamped PNG file.
 > 6. A comparison of different text prompts' embeddings is made to demonstrate how similar or dissimilar the text inputs are based on their vector representations. This comparison results in a cosine similarity matrix, which is then visualized with text annotations and saved as another PNG file.
@@ -405,7 +408,39 @@ cd $env:USERPROFILE\key-concepts
 .\.venv\Scripts\python prompt.py
 ```
 
-<figure><img src="../_assets/images/prompt_py_output.png" alt=""><figcaption><p>Output - prompt.py</p></figcaption></figure>
+```text
+Embedding Visualization with Ollama and nomic-embed-text
+======================================================
+This script will generate embeddings using Ollama and create
+visualizations to help understand the embedding properties.
+
+Ollama Connection Configuration
+==============================
+Default Ollama server address: http://localhost:11434
+Connect to a different Ollama server? (y/N): Using default Ollama server at http://localhost:11434
+
+Creating embedding for: 'What is the capital of France?'
+Requesting embedding from Ollama API...
+
+Embedding shape: (768,)
+Number of dimensions: 768
+
+First 10 dimensions of the embedding vector:
+[-0.03822199  0.5150606  -3.48149633 -0.4722178   1.27025628  0.8101337
+ -0.81043905  0.64384741 -0.07330117 -0.68807495]
+
+Visualizing embedding statistics...
+Created output directory: embedding_visualizations
+Saved visualization to: embedding_visualizations\embedding_stats_20261005_094826.png
+
+Comparing similar texts...
+Generating embeddings for comparison texts...
+Calculating similarity matrix...
+Saved visualization to: embedding_visualizations\similarity_matrix_20261005_094827.png
+
+All visualizations completed successfully!
+Check the 'embedding_visualizations' directory for output files.
+```
 
 > **Note:** So what does this all mean ..?
 > 
@@ -421,13 +456,13 @@ Take a look at the embedding\_stats graphs:
 
 <figure><img src="../_assets/images/embedding_stats.png" alt=""><figcaption><p>Embedding Stats</p></figcaption></figure>
 
-> **Note:** The embedding analysis of the prompt "What is the capital of France?" reveals some interesting characteristics about how this question is represented in the AI model's vector space. This 1536-dimensional vector essentially transforms the text question into a mathematical format that the AI can process.
+> **Note:** The embedding of the prompt "What is the capital of France?" is a 768-dimensional vector: the question turned into a list of 768 numbers the model can compare.
 > 
-> Looking at the distribution plot (left graph), we can see that most of the vector values cluster tightly around zero, with a clear bell-shaped curve. This suggests that the question has a well-defined, standard representation - which makes sense given that it's a straightforward, common type of geographical question. The narrow spread indicates that the model doesn't need extreme values to encode this query's meaning.
+> The distribution plot (left graph) shows most values clustered around zero in a rough bell shape, spread from about -3.5 to +3. `nomic-embed-text` returns its vectors raw, without scaling them to length 1, which is why the values are larger than the -1 to 1 range you may see from other embedding models.
 > 
-> The First 50 dimensions (right graph), displays the first 50 dimensions, with a more detailed view of how the information is encoded. The oscillating pattern between positive and negative values (roughly between -0.03 and 0.03) shows how different aspects of the question - perhaps the interrogative nature ("what is"), the concept of a capital city, and the specific country (France) - are distributed across different dimensions.
+> The First 50 dimensions (middle graph) gives a closer view of how the information is encoded. The values swing between roughly -3.5 and +3, with a few strong peaks: different aspects of the question - perhaps the interrogative nature ("what is"), the concept of a capital city, and the specific country (France) - are spread across many dimensions rather than held in any single one.
 > 
-> Some dimensions show stronger signals (bigger peaks), likely corresponding to key semantic elements of the question. The statistical summary (right) confirms this balanced representation, with a mean very close to zero (-0.0007) and a moderate standard deviation (0.0255), indicating that the embedding effectively captures the question's meaning without requiring extreme values in any particular dimension. This balanced, normalized representation helps the model accurately process and respond to this type of geographical query.
+> The statistical summary (right) shows a mean very close to zero (0.0034) and a standard deviation of 0.82, with values from -3.48 to 2.91. Similarity is measured by cosine - the angle between two vectors, not their length - so the raw scale makes no difference to the comparisons that follow. Your figures may differ slightly on different hardware.
 
 ### Similarity Matrix
 
@@ -437,11 +472,11 @@ Take a look at the similarity\_matrix:
 
 > **Note:** This similarity matrix provides insights into how the embedding model understands and relates different questions about capital cities. Let's break down what the cosine similarity scores indicate:
 > 
-> The first two questions ("What is the capital of France?" and "Tell me France's capital city") show an extremely high similarity (0.938), which makes perfect sense as they're asking the same thing in slightly different ways. This demonstrates that the embedding model understands semantic equivalence even when the syntax differs.
+> The first two questions ("What is the capital of France?" and "Tell me France's capital city") show an extremely high similarity (0.939), which makes perfect sense as they're asking the same thing in slightly different ways. This demonstrates that the embedding model understands semantic equivalence even when the syntax differs.
 > 
-> The third question ("Paris is located in which country?") shows moderately high similarity with the France-related questions (0.877 and 0.863), but noticeably lower than the direct capital questions. This makes sense because while it involves the same entities (Paris and France), it reverses the relationship being asked about - instead of asking what the capital is, it's asking which country contains Paris.
+> The third question ("Paris is located in which country?") shows clearly lower similarity with the France-related questions (0.739 and 0.719) than they share with each other. This makes sense because while it involves the same entities (Paris and France), it reverses the relationship being asked about - instead of asking what the capital is, it's asking which country contains Paris.
 > 
-> Perhaps most interesting is how the model handles "What is the capital of Germany?" This question has relatively high similarity with the France capital questions (0.900 with the first question), despite being about a different country. This suggests the model recognizes the structural similarity of capital-city questions, while still maintaining enough difference to distinguish between different countries. The lower similarity (0.804) with the Paris question makes sense, as it's both about a different country and asks the relationship in a different direction.
+> Perhaps most interesting is how the model handles "What is the capital of Germany?" It scores 0.767 with the first France question - higher than the Paris question manages, despite being about a different country - so the model recognizes the shared shape of a capital-city question. But that is well below the 0.939 of a true paraphrase, so it still keeps the two countries apart. The lowest score in the matrix (0.611) is with the Paris question, which makes sense: a different country, and the relationship asked the other way round.
 > 
 > The color gradient in the heatmap effectively visualizes these relationships, with the darkest reds showing perfect self-similarity (1.000) along the diagonal, bright reds for near-equivalent questions, and progressively lighter colors for questions that share less semantic content.
 
@@ -455,7 +490,7 @@ x
 >
 > #### Tokenization
 > 
-> We've jumped ahead a bit with our prompt .. the OpenAI model - via API call -handled the important first step of Tokenization.
+> We've jumped ahead a bit with our prompt: the model, called through Ollama's API, handled the important first step of Tokenization for us.
 > 
 > So .. it all begins begins with tokenization - essentially the model's way of breaking down text into manageable pieces. Think of it like cutting a sentence into puzzle pieces that the model can understand. Some tokenizers work at the word level, while others might split words into subwords or even individual characters.
 > 
@@ -791,7 +826,7 @@ class EmbeddingAnalyzer:
     A class to analyze and visualize text embeddings using Ollama.
     
     This class provides methods to:
-    - Generate embeddings for text using Ollama's llama3.2 model
+    - Generate embeddings for text using Ollama's nomic-embed-text model
     - Calculate similarities between texts
     - Visualize embedding properties and relationships
     - Create semantic search demonstrations
@@ -807,7 +842,7 @@ class EmbeddingAnalyzer:
         # Initialize the Ollama client with the specified host
         self.client = ollama.Client(host=host)
         # Specify which Ollama model to use for embeddings
-        self.model = "llama3.2:latest"
+        self.model = "nomic-embed-text"
         # Cache to store embeddings to avoid regenerating for the same text
         self.cache: Dict[str, np.ndarray] = {}
         # Directory where all output files will be saved
@@ -1078,7 +1113,7 @@ def demonstrate_embeddings():
     
     try:
         # Initialize analyzer with Ollama
-        print(f"\nInitializing EmbeddingAnalyzer with Ollama (model: llama3.2:latest)")
+        print(f"\nInitializing EmbeddingAnalyzer with Ollama (model: nomic-embed-text)")
         analyzer = EmbeddingAnalyzer(output_dir, host)
         
         # Example 1: Basic Semantic Similarity
@@ -1192,7 +1227,7 @@ def demonstrate_embeddings():
         print(f"\nError: {str(e)}")
         print("\nTroubleshooting steps:")
         print("1. Ensure Ollama is installed and running (see https://ollama.com)")
-        print("2. Check if the llama3.2:latest model is pulled (`ollama pull llama3.2:latest`)")
+        print("2. Check if the nomic-embed-text model is pulled (`ollama pull nomic-embed-text`)")
         print("3. Verify the Ollama server URL is correct")
         print("4. Make sure the ollama Python package is installed (`pip install ollama`)")
         print(f"\nError details: {type(e).__name__}: {str(e)}")
@@ -1224,7 +1259,29 @@ cd $env:USERPROFILE\key-concepts
 .\.venv\Scripts\python embedding.py
 ```
 
-<figure><img src="../_assets/images/embedding_py_output.png" alt=""><figcaption><p>Out - embedding.py</p></figcaption></figure>
+```text
+Analysis results will be saved to: embedding_analysis\analysis_20261005_094747
+
+Ollama Configuration
+===================
+Default Ollama server: http://localhost:11434
+Use a different Ollama server? (y/N): 
+Initializing EmbeddingAnalyzer with Ollama (model: nomic-embed-text)
+
+Example 1: Basic Semantic Similarity
+Saved visualization to: embedding_analysis\analysis_20261005_094747\similarity_heatmap.png
+
+Example 2: Topic Clustering
+Saved visualization to: embedding_analysis\analysis_20261005_094747\embedding_clusters.png
+
+Example 3: Analyzing Embedding Properties
+Saved visualization to: embedding_analysis\analysis_20261005_094747\embedding_distribution.png
+
+Example 4: Semantic Search Demo
+Analysis results saved to: embedding_analysis\analysis_20261005_094747\analysis_results.txt
+
+Analysis complete! All visualizations and results have been saved.
+```
 
 > **Note:** So what does this all mean ?
 > 
@@ -1250,9 +1307,9 @@ Text 5: "What's the weather like in Paris?"
 
 > **Note:** Basically the same as discussed in the 'Prompt' section ..
 > 
-> This heatmap visualizes how similar different phrases are to each other, using data from OpenAI's text embedding model. The darkness and numbers in each square show how closely related two pieces of text are - with darker reds showing stronger relationships (closer to 1.0) and lighter yellows showing weaker relationships (closer to 0.8).
+> This heatmap visualizes how similar different phrases are to each other, using embeddings from `nomic-embed-text`. The darkness and numbers in each square show how closely related two pieces of text are - with darker reds showing stronger relationships (closer to 1.0) and lighter yellows showing weaker relationships (around 0.55-0.6).
 > 
-> Looking at the pattern, we can see that the first three texts are very closely related (showing dark red with scores around 0.93-0.95), suggesting they're asking similar questions. The fourth text is also fairly similar to these first three but slightly less so. The fifth text stands out as being the most different from all others, showing consistently lighter colors (scores around 0.83-0.85) across its row and column.
+> Looking at the pattern, we can see that the first three texts are very closely related (showing dark red with scores of 0.92-0.94), suggesting they're asking similar questions. The fourth text ("largest city") is related but clearly less so (0.77-0.78): a different question about the same country. The fifth text stands out as being the most different from all others, showing consistently lighter colors (scores of 0.55-0.62) across its row and column.
 > 
 > This kind of visualization is particularly useful for understanding how language models group similar concepts together and distinguish between different topics, even when they share some common elements or words.
 
@@ -1262,11 +1319,11 @@ Take a look at the embedding\_clusters graph:
 
 > **Note:** This visualization shows how different topics cluster together when their text embeddings are reduced to 2D space using t-SNE (as implemented in the code's visualize\_embedding\_clusters method). Each point represents a question or statement, color-coded into three categories: Tech (blue dots), Sports (orange X's), and Cooking (green squares).
 > 
-> The plot demonstrates clear topic separation, with tech-related questions clustering in the lower portion of the plot, sports questions scattered across the middle, and cooking-related queries grouped in the upper region. This clustering shows how the embedding model effectively captures the semantic relationships between similar topics, keeping related concepts close together in the vector space while separating different subject matters.
+> With only three questions per topic, the picture is rough. The cooking questions sit apart on the left, but the tech and sports questions are interleaved on the right. t-SNE, which squeezes 768 dimensions into two, has very little to work with at nine points, and its layout changes from run to run; the similarity scores, as in the heatmap above, are the more reliable view of what the model groups together.
 > 
 > From the code, we can see these points represent questions like "How do computers process information?" (Tech), "Who won the last World Cup?" (Sports), and "What's the best way to cook pasta?" (Cooking).
 > 
-> The clear separation between these clusters validates that the embedding model is successfully capturing the distinct semantic meanings of these different topics - content classification.
+> Try adding a few more questions per topic to the texts in `visualize_embedding_clusters` and run the script again: with more points, t-SNE has more to work with when it lays the topics out.
 
 <figure><img src="../_assets/images/topic_clustering.png" alt=""><figcaption><p>Topic clustering</p></figcaption></figure>
 
@@ -1276,10 +1333,10 @@ Take a look at the embedding\_distribution graph:
 
 ```
 Embedding Statistics:
-Dimensionality: 1536 dimensions
-Mean value: -0.0007
-Standard deviation: 0.0255
-Vector magnitude: 1.0000
+Dimensionality: 768 dimensions
+Mean value: 0.0041
+Standard deviation: 0.7362
+Vector magnitude: 20.4033
 ```
 
 <figure><img src="../_assets/images/vector_distribution.png" alt=""><figcaption><p>Distribution of vectors</p></figcaption></figure>
@@ -1288,11 +1345,11 @@ Vector magnitude: 1.0000
 > 
 > But what is a dimension ..?
 > 
-> A text embedding with 1536 dimensions means that each piece of text is converted into a list of 1536 different numbers. Think of it like a very detailed fingerprint of the text, where each number captures a different aspect of its meaning. While we can easily picture things in 2 or 3 dimensions (like length, width, and height), this embedding uses many more dimensions to capture the rich complexity of language.
+> A text embedding with 768 dimensions means that each piece of text is converted into a list of 768 different numbers. Think of it like a very detailed fingerprint of the text, where each number captures a different aspect of its meaning. While we can easily picture things in 2 or 3 dimensions (like length, width, and height), this embedding uses many more dimensions to capture the rich complexity of language.
 > 
-> These 1536 numbers work together to represent subtle patterns in the text - everything from the topic and tone to the structure and style. When we want to compare two pieces of text, we can compare their 1536-dimensional fingerprints to see how similar they are, as we saw in the earlier heatmap. The high number of dimensions allows the model to be very precise in distinguishing between different types of text while recognizing similarities.
+> These 768 numbers work together to represent subtle patterns in the text - everything from the topic and tone to the structure and style. When we want to compare two pieces of text, we can compare their 768-dimensional fingerprints to see how similar they are, as we saw in the earlier heatmap. (The vector magnitude above, about 20, is the vector's length: `nomic-embed-text` does not scale its vectors to length 1, and cosine similarity ignores length anyway.) The high number of dimensions allows the model to be very precise in distinguishing between different types of text while recognizing similarities.
 > 
-> Since humans can't visualize 1536 dimensions, we use techniques to reduce it down to 2 dimensions for visualization - topic cluster plot. This is similar to taking a complex 3D object and drawing its shadow on a flat surface - you lose some detail, but you can still see the basic relationships between different points.
+> Since humans can't visualize 768 dimensions, we use techniques to reduce it down to 2 dimensions for visualization - topic cluster plot. This is similar to taking a complex 3D object and drawing its shadow on a flat surface - you lose some detail, but you can still see the basic relationships between different points.
 
 ### Semantic Search
 
@@ -1422,7 +1479,7 @@ class SearchComparator:
     A class to compare traditional keyword search with embedding-based semantic search.
     
     This class provides methods to:
-    - Generate embeddings using Ollama's llama3.2:latest model
+    - Generate embeddings using Ollama's nomic-embed-text model
     - Perform keyword-based search using term frequency
     - Perform vector-based semantic search using embeddings
     - Visualize and compare results from both search methods
@@ -1440,7 +1497,7 @@ class SearchComparator:
         self.client = ollama.Client(host=ollama_host)
         
         # Specify which Ollama model to use for embeddings
-        self.model = "llama3.2:latest"
+        self.model = "nomic-embed-text"
         
         # Cache to store embeddings to avoid regenerating for the same text
         self.cache: Dict[str, np.ndarray] = {}
@@ -1489,7 +1546,7 @@ class SearchComparator:
         
         # Request embedding from Ollama API
         response = self.client.embeddings(
-            model=self.model,  # Using llama3.2:latest model
+            model=self.model,  # Using nomic-embed-text model
             prompt=text  # The text to embed
         )
         
@@ -1840,7 +1897,7 @@ def demonstrate_search_comparison():
     print("Search Comparison Demo: Keyword vs. Vector Search using Ollama")
     print("=" * 65)
     print("This script compares traditional keyword search with embedding-based")
-    print("semantic search using the llama3.2:latest model via Ollama.")
+    print("semantic search using the nomic-embed-text model via Ollama.")
     
     try:
         # Create output directory
@@ -1851,7 +1908,7 @@ def demonstrate_search_comparison():
         ollama_host = get_ollama_host()
         
         # Initialize comparator
-        print(f"\nInitializing SearchComparator with Ollama (model: llama3.2:latest)")
+        print(f"\nInitializing SearchComparator with Ollama (model: nomic-embed-text)")
         comparator = SearchComparator(ollama_host, output_dir)
         
         # Test documents
@@ -1893,7 +1950,7 @@ def demonstrate_search_comparison():
         print(f"\nError: {str(e)}")
         print("\nTroubleshooting steps:")
         print("1. Ensure Ollama is installed and running (see https://ollama.com)")
-        print("2. Check if the llama3.2:latest model is pulled (`ollama pull llama3.2:latest`)")
+        print("2. Check if the nomic-embed-text model is pulled (`ollama pull nomic-embed-text`)")
         print("3. Verify the Ollama server URL is correct")
         print("4. Make sure the ollama Python package is installed (`pip install ollama`)")
         print(f"\nError details: {type(e).__name__}: {str(e)}")
@@ -1920,7 +1977,89 @@ cd $env:USERPROFILE\key-concepts
 .\.venv\Scripts\python search.py
 ```
 
-<figure><img src="../_assets/images/search_py_output.png" alt=""><figcaption><p>output - search.py</p></figcaption></figure>
+```text
+Search Comparison Demo: Keyword vs. Vector Search using Ollama
+=================================================================
+This script compares traditional keyword search with embedding-based
+semantic search using the nomic-embed-text model via Ollama.
+Created output directory: search_analysis\analysis_20261005_094838
+
+Results will be saved to: search_analysis\analysis_20261005_094838
+
+Ollama Configuration
+===================
+Default Ollama server: http://localhost:11434
+Use a different Ollama server? (y/N): 
+Initializing SearchComparator with Ollama (model: nomic-embed-text)
+
+Preparing test documents...
+
+Test Documents:
+Doc 0: The rapid brown fox jumps over the lazy dog in the forest
+Doc 1: A quick auburn canine leaps across a sleepy hound in the woods
+Doc 2: The fox hunts for food in the dense woodland
+Doc 3: Dogs and other canines play together in the park
+Doc 4: A lazy afternoon in the garden with sleeping pets
+Doc 5: Wild animals roaming through the forest at night
+Doc 6: The weather is perfect for outdoor activities today
+Doc 7: Forest creatures gather near the stream at dusk
+
+Running search comparisons...
+
+----------------------------------------
+Processing query: 'A fox jumping over a dog'
+
+Keyword Search Results:
+Score: 3.0000 | The rapid brown fox jumps over the lazy dog in the forest
+Score: 2.0000 | A quick auburn canine leaps across a sleepy hound in the woods
+Score: 1.0000 | The fox hunts for food in the dense woodland
+
+Vector Search Results:
+Score: 0.8355 | The rapid brown fox jumps over the lazy dog in the forest
+Score: 0.6854 | A quick auburn canine leaps across a sleepy hound in the woods
+Score: 0.6092 | The fox hunts for food in the dense woodland
+
+----------------------------------------
+Processing query: 'Canines in natural habitats'
+
+Keyword Search Results:
+Score: 2.0000 | Dogs and other canines play together in the park
+Score: 1.0000 | The rapid brown fox jumps over the lazy dog in the forest
+Score: 1.0000 | A quick auburn canine leaps across a sleepy hound in the woods
+
+Vector Search Results:
+Score: 0.7151 | Dogs and other canines play together in the park
+Score: 0.6779 | Wild animals roaming through the forest at night
+Score: 0.6412 | A quick auburn canine leaps across a sleepy hound in the woods
+
+----------------------------------------
+Processing query: 'Sleeping animals outdoors'
+
+Keyword Search Results:
+Score: 1.0000 | A lazy afternoon in the garden with sleeping pets
+Score: 1.0000 | Wild animals roaming through the forest at night
+Score: 0.0000 | The rapid brown fox jumps over the lazy dog in the forest
+
+Vector Search Results:
+Score: 0.7679 | Wild animals roaming through the forest at night
+Score: 0.7211 | A lazy afternoon in the garden with sleeping pets
+Score: 0.6970 | A quick auburn canine leaps across a sleepy hound in the woods
+
+----------------------------------------
+Processing query: 'Forest wildlife activity'
+
+Keyword Search Results:
+Score: 1.0000 | The rapid brown fox jumps over the lazy dog in the forest
+Score: 1.0000 | Wild animals roaming through the forest at night
+Score: 1.0000 | Forest creatures gather near the stream at dusk
+
+Vector Search Results:
+Score: 0.7771 | Wild animals roaming through the forest at night
+Score: 0.7053 | Forest creatures gather near the stream at dusk
+Score: 0.6808 | The rapid brown fox jumps over the lazy dog in the forest
+
+All comparisons complete! Results saved to search_analysis\analysis_20261005_094838
+```
 
 > **Note:** The results illustrate the different types of searches that can be performed by the model on the corpus of text.&#x20;
 > 
@@ -1974,9 +2113,9 @@ cd $env:USERPROFILE\key-concepts
 
 ### Thematic
 
-> **Note:** **Thematic Matching** represents the most sophisticated search approach, where the system understands broader themes and contexts. When searching for "forest wildlife activity," it can recognize various related concepts like "creatures gathering," "animals roaming," and "fox hunting" as thematically relevant, even when the specific words don't match.
+> **Note:** **Thematic Matching** represents the most sophisticated search approach, where the system understands broader themes and contexts. When searching for "forest wildlife activity," it can recognize various related concepts like "creatures gathering," "animals roaming," and a fox in the forest as thematically relevant, even when the specific words don't match.
 
-> **Note:** For forest wildlife activity, vector search recognized various forms of animal behavior in forest settings, while keyword search only matched on "forest" and "wildlife" terms. This demonstrated vector search's ability to understand thematic relationships rather than just matching words.
+> **Note:** For forest wildlife activity, vector search recognized various forms of animal behavior in forest settings, while keyword search could only match the word "forest" - no document says "wildlife" - and so scored all three forest documents the same. This demonstrated vector search's ability to understand thematic relationships rather than just matching words.
 
 <figure><img src="../_assets/images/thematic_search.png" alt=""><figcaption><p>Keyword v Vector search - Forest wildlife activity</p></figcaption></figure>
 
@@ -2074,7 +2213,7 @@ cd $env:USERPROFILE\key-concepts
 
 1. Take a look at the Python script below.
 
-```bash
+```python
 import numpy as np  # For numerical operations and array handling
 import matplotlib.pyplot as plt  # For creating visualizations
 import seaborn as sns  # For enhanced visualizations (especially heatmaps)
@@ -2143,7 +2282,7 @@ class TransformerDemonstrator:
     Demonstrates transformer processing using Ollama embeddings.
     
     This class provides methods to visualize and understand how transformers work,
-    using the llama3.2:latest model from Ollama to generate embeddings and simulate
+    using the nomic-embed-text model from Ollama to generate embeddings and simulate
     the transformer process.
     """
     def __init__(self, ollama_host: str, output_dir: str):
@@ -2158,7 +2297,7 @@ class TransformerDemonstrator:
         self.client = ollama.Client(host=ollama_host)
         
         # Specify which Ollama model to use for embeddings
-        self.model = "llama3.2:latest"
+        self.model = "nomic-embed-text"
         
         # Directory where all output files will be saved
         self.output_dir = output_dir
@@ -2202,7 +2341,7 @@ class TransformerDemonstrator:
         Get embeddings from Ollama API.
         
         This function sends a request to Ollama to generate an embedding vector
-        for the provided text using the llama3.2:latest model.
+        for the provided text using the nomic-embed-text model.
         
         Args:
             text: The text to generate an embedding for
@@ -2212,7 +2351,7 @@ class TransformerDemonstrator:
         """
         # Request embedding from Ollama API
         response = self.client.embeddings(
-            model=self.model,  # Using llama3.2:latest model
+            model=self.model,  # Using nomic-embed-text model
             prompt=text  # The text to embed
         )
         
@@ -2462,7 +2601,7 @@ def demonstrate_full_process():
     print("Transformer Visualization Demo using Ollama")
     print("===========================================")
     print("This script demonstrates transformer processing using")
-    print("the llama3.2:latest model via Ollama.\n")
+    print("the nomic-embed-text model via Ollama.\n")
     
     try:
         # Create output directory
@@ -2473,7 +2612,7 @@ def demonstrate_full_process():
         ollama_host = get_ollama_host()
         
         # Initialize demonstrator
-        print(f"\nInitializing TransformerDemonstrator with Ollama (model: llama3.2:latest)")
+        print(f"\nInitializing TransformerDemonstrator with Ollama (model: nomic-embed-text)")
         demonstrator = TransformerDemonstrator(ollama_host, output_dir)
         
         print("\nDemonstrating Transformer Process:")
@@ -2493,7 +2632,7 @@ def demonstrate_full_process():
         print(f"\nError: {str(e)}")
         print("\nTroubleshooting steps:")
         print("1. Ensure Ollama is installed and running (see https://ollama.com)")
-        print("2. Check if the llama3.2:latest model is pulled (`ollama pull llama3.2:latest`)")
+        print("2. Check if the nomic-embed-text model is pulled (`ollama pull nomic-embed-text`)")
         print("3. Verify the Ollama server URL is correct")
         print("4. Make sure the ollama Python package is installed (`pip install ollama`)")
         print(f"\nError details: {type(e).__name__}: {str(e)}")
@@ -2520,7 +2659,45 @@ cd $env:USERPROFILE\key-concepts
 .\.venv\Scripts\python transformers.py
 ```
 
-<figure><img src="../_assets/images/transformers_py_output.png" alt=""><figcaption><p>Output - transformers.py</p></figcaption></figure>
+```text
+Transformer Visualization Demo using Ollama
+===========================================
+This script demonstrates transformer processing using
+the nomic-embed-text model via Ollama.
+
+Created output directory: transformer_analysis\analysis_20261005_094900
+
+Analysis results will be saved to: transformer_analysis\analysis_20261005_094900
+
+Ollama Configuration
+===================
+Default Ollama server: http://localhost:11434
+Use a different Ollama server? (y/N): 
+Initializing TransformerDemonstrator with Ollama (model: nomic-embed-text)
+
+Demonstrating Transformer Process:
+Input Prompt: 'What is the capital of France?'
+
+Generating embeddings for tokens...
+
+Generating token attention visualization...
+Saved visualization to: transformer_analysis\analysis_20261005_094900\token_attention.png
+
+Generating transformer stages visualization...
+Saved visualization to: transformer_analysis\analysis_20261005_094900\transformer_stages.png
+
+Generating response process visualization...
+Generating embeddings for prompt and response...
+Saved visualization to: transformer_analysis\analysis_20261005_094900\response_generation.png
+
+All analysis results have been saved to: transformer_analysis\analysis_20261005_094900
+
+Generated files:
+1. token_attention.png - Shows attention weights between tokens
+2. transformer_stages.png - Shows stages of transformer processing
+3. response_generation.png - Shows response generation process
+4. analysis_results.txt - Detailed analysis data and metrics
+```
 
 ::: tabs
 
@@ -2530,7 +2707,7 @@ cd $env:USERPROFILE\key-concepts
 
 <figure><img src="../_assets/images/transformer_stages.png" alt=""><figcaption><p>Transformer stages</p></figcaption></figure>
 
-> **Note:** **Input Embedding** forms the foundation of the process. Here, each token (like "What", "is", etc.) is converted into a dense vector representation. These embeddings capture semantic meaning by mapping similar words to similar vector spaces. In your code, this is simulated by retrieving embeddings from the llama3.2 model via the Ollama API.
+> **Note:** **Input Embedding** forms the foundation of the process. Here, each token (like "What", "is", etc.) is converted into a dense vector representation. These embeddings capture semantic meaning by mapping similar words to similar vector spaces. In your code, this is simulated by retrieving embeddings from the nomic-embed-text model via the Ollama API.
 > 
 > **Positional Encoding** addresses a critical limitation of the basic transformer architecture—lack of sequence awareness. Since transformers process all tokens simultaneously rather than sequentially, positional encodings are added to the token embeddings to provide information about token position within the sequence. This helps the model distinguish between different arrangements of the same words.
 > 

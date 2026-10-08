@@ -41,7 +41,7 @@
 
 <figure><img src="../_assets/images/dd_vendor_sales_dashboard_designer.png" alt="" width="353"><figcaption><p>Dashboard Designer</p></figcaption></figure>
 
-&#x20;2\. To select the 2 over 1 template, on the Templates tab, click 2 over 1.
+2. To select the 2 over 1 template, on the Templates tab, click 2 over 1.
 
 <figure><img src="../_assets/images/dd_vendor_sales_dashboard_templates.png" alt="" width="563"><figcaption><p>Dashboard Templates</p></figcaption></figure>
 
@@ -50,16 +50,16 @@
 <figure><img src="../_assets/images/dd_vendor_sales_themes.png" alt="" width="563"><figcaption><p>Themes</p></figcaption></figure>
 
 4. Keep the default Ruby theme.
-5. Enter a title for the dashboard, click the Properties tab.
-6. Type: Training Demo Dashboard.
+5. To give the dashboard a title, click the Properties tab.
+6. In the Page Title box, type: Training Demo Dashboard.
 
 <figure><img src="../_assets/images/dd_vendor_sales_dashboard_properties.png" alt=""><figcaption><p>Dashboard Properties</p></figcaption></figure>
 
 > **Note:** Notice the button allowing you to resize the panels and the Refresh Interval field.
 
 7. To resize the panels, click the Resize Panels button.
-8. Drag the vertical line about an inch to the left to make the Untitled 1 panel smaller, and then in the lower right corner of the canvas.
-9. Click Close.
+8. Drag the vertical line about an inch to the left to make the Untitled 1 panel smaller.
+9. In the lower right corner of the canvas, click Close.
 
 > **Note:** The blue horizontal and vertical lines, allow you to resize the panels.
 
@@ -71,12 +71,12 @@
 > 
 > Alternatively, you can click the Add Content icon on the panel title bar and then select File.
 
-1. Highlight ‘Untitled1’ dashboard pane.
-2. Click on the dropdown ‘Content’ icon in the top right, and select File.
+1. Click the Untitled 1 panel to select it.
+2. Click the Insert Content icon at the top right of the panel, and select File.
 
 <figure><img src="../_assets/images/dd_vendor_sales_add_content_from_repository.png" alt="" width="392"><figcaption><p>Add content from Repository</p></figcaption></figure>
 
-3. From the Files pane, Select: European Sales (geo map).
+3. In the Select dialog, go to Public > Steel Wheels and double-click European Sales (geo map).
 
 <figure><img src="../_assets/images/dd_vendor_sales_add_european_sales_geomap.png" alt="" width="563"><figcaption><p>Add European Sales (geomap)</p></figcaption></figure>
 
@@ -87,7 +87,7 @@
 
 6. To add a report created with Interactive Reporting to the dashboard, from the Browse pane:
 7. Click the main Steel Wheels folder (Public -> Steel Wheels).
-8. Select: Vendor Sales Report (interactive report).
+8. Drag Vendor Sales Report (interactive report) from the Files pane onto the Untitled 2 panel (or use Insert Content > File on that panel, as for Untitled 1).
 9. In the Title text box, type Vendor Sales.
 10. Click Apply.
 
@@ -97,7 +97,7 @@
 > 
 > Later, we will use these parameters as dashboard prompts.
 
-11. Add a report created with Report Designer to the dashboard, from the Files pane, click Inventory List.
+11. Add a report created with Report Designer to the dashboard, drag Inventory List from the Files pane onto the Untitled 3 panel (or use Insert Content > File).
 12. In the Title text box, type Inventory List
 13. Click Apply.
 
@@ -137,7 +137,7 @@
 > 
 > The Control area shows the various types of prompts available: drop-down, list, radio button, checkbox, buttons, text field, or date picker.
 > 
-> The Data area identifies the values for the prompt. You can type a static list of values, create a SQL query to pull the values from a file, or use a metadata list from a defined data source.
+> The Data area identifies the values for the prompt. You can type a static list of values, create a SQL query against a database connection, or use a metadata list from a defined data source.
 > 
 > The Control Properties area shows different options depending on the type of prompt.
 
@@ -150,7 +150,7 @@
 
 <figure><img src="../_assets/images/dd_vendor_sales.png" alt=""><figcaption></figcaption></figure>
 
-> **Note:** The Query Editor window opens.&#x20;
+> **Note:** The Query Editor window opens. (If it does not, click the Edit MQL Query pencil next to Selected Items.)&#x20;
 > 
 > Create a simple query to pull the list of territories from the Customer table, excluding Null values. In other words, a statement to only return the territories that are not null.
 
@@ -166,17 +166,15 @@
 
 8. Specify a condition to return Territory values that are not null:
 
-&#x20;      • Click the middle arrow to move Territory to the Conditions.
+&#x20;      • With Territory still selected, click the middle arrow (the one beside Switch to Advanced...) to move Territory to the Conditions. The bottom arrow adds it to Order By instead.
 
 &#x20;      • From the Comparison drop-down list, select is not null.
-
-&#x20;      • Click OK.
 
 9. Click Preview and check that the list is what you expect.
 
 <figure><img src="../_assets/images/dd_vendor_sales_preview_list.png" alt=""><figcaption><p>Preview List</p></figcaption></figure>
 
-10. Click Close.
+10. Click Close, and then click OK.
 11. In the Control Properties area:
 
 &#x20;      • From the Display drop-down list, select Horizontal.
@@ -187,11 +185,11 @@
 
 <figure><img src="../_assets/images/dd_vendor_sales_associate_the_prompt_with_vendor_sales_repor.png" alt=""><figcaption><p>Associate the prompt with Vendor Sales report.</p></figcaption></figure>
 
-13. Apply the Territory prompt to the Vendor Sales Report, from the Objects list in the bottom pane:
+12. Apply the Territory prompt to the Vendor Sales Report, from the Objects list in the bottom pane:
 
 &#x20;     • Click Vendor Sales Report.
 
-&#x20;     • From the region Source drop-down list, select Select one or more territories:
+&#x20;     • From the region Source drop-down list, select Select one or more Territories:
 
 &#x20;     • Click Apply.
 
@@ -212,18 +210,40 @@
 > they share a parameter contract, not because the dashboard knows
 > anything about their data.
 
-14. Test the prompt, on the list of prompt buttons:
+13. Test the prompt, on the list of prompt buttons:
 
 &#x20;     • Deselect APAC.
 
 &#x20;     • Select: EMEA.
 
-15. Repeat the workflow to create a prompt for: Product Line
-16. View the results in the Vendor Sales Report.
+14. Repeat steps 2-12 for Product Line: name it Select a Product Line:, choose Buttons and a Metadata List on Orders with Products > Product Line, Display Horizontal, leave Allow multiple selections cleared (the report's Product Line parameter takes one value), and set it as the Source of the Vendor Sales Report's Product Line parameter.
+15. View the results in the Vendor Sales Report.
+16. To save the dashboard, on the toolbar click the Save icon. Click the Up One Level icon twice, double-click Public and then Training, type Training Demo Dashboard in the Filename field, and click Save.
 
 <figure><img src="../_assets/images/dd_vendor_sales_vendor_sales_prompts.png" alt=""><figcaption><p>Vendor Sales</p></figcaption></figure>
 
 :::
 
+> **Tip:** Check your dashboard: the Territory buttons are APAC, EMEA, Japan and NA, the Product Line buttons run from Classic Cars to Vintage Cars, and with EMEA and Classic Cars selected the Vendor Sales panel shows Territory: EMEA.
+
 > **Success:** You've built an interactive report-based dashboard whose prompts cascade filtering across multiple reports, turning a static report collection into a synchronized, decision-support tool.
 
+---
+
+## Lab Files
+
+Click a file to download it.
+
+### Solution <!-- no-step -->
+
+The finished dashboard: 2 over 1 with the Ruby theme, European Sales, Vendor Sales and Inventory List panels, and Territory and Product Line prompts wired to the Vendor Sales report's region and Product Line parameters. The panels show the Steel Wheels sample reports, so they must be in Public > Steel Wheels on your server.
+
+Also on disk at `C:\Workshop-BA-Practitioner\05-dashboard-designer\13-dashboard-designer-vendor-sales\solution`.
+
+[Training Demo Dashboard.xdash](./files/Training%20Demo%20Dashboard.xdash)
+
+To open it in the User Console:
+
+1. In **Browse Files**, select your own folder under **Home** (Home > admin, say), so the solution sits apart from your own dashboard in Public > Training.
+2. In the **Folder Actions** pane, click **Upload...**, click **Browse...** and choose the `.xdash` file, and then click **OK**.
+3. Double-click **Training Demo Dashboard** to run it, and click **Edit** on the toolbar to see its panels and prompts.

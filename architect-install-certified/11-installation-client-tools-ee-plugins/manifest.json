@@ -1,6 +1,6 @@
 {
   "title": "Kettle Plugins",
-  "description": "x",
+  "description": "Install, update and remove EE PDI plugins with the PDI Plugin Manager.",
   "order": 11,
   "stepCount": 2,
   "estimatedMinutes": 15,

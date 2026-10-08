@@ -12,6 +12,12 @@
 > The Evaluation Wizard is the easiest way to install design tools, utilities, or plugins on client workstations. Manual installation lets you place design tool files wherever needed. Choose a deployment that matches your DevOps and desktop constraints.
 
 > **Warning:** Baseline: Ubuntu 24.04 LTS with Java 21 (OpenJDK). For Windows, see: the **Windows evaluation installation** in the Pentaho docs.
+>
+> The desktop tools need the full Java runtime, not the headless one **Prepare Environment** installed on the server: `openjdk-21-jre-headless` has no X11 support (`libawt_xawt.so`), so Schema Workbench, Aggregation Designer and Report Designer cannot open a window with it.
+>
+> ```bash
+> sudo apt install -y openjdk-21-jre
+> ```
 
 <figure><img src="../_assets/images/pentaho_pro_suite.png" alt="Pentaho Pro Suite - client tools overview"><figcaption><p>Pentaho Pro Suite</p></figcaption></figure>
 
@@ -19,9 +25,9 @@ The following steps install the client tools on a Linux Desktop. ZIP filenames s
 
 > **Note:** **Unpack Pentaho Client Package (ZIP)**
 > 
-> Use `unzip` to extract the server ZIP into the runtime directory. This avoids requiring the full JDK (the JRE does not include the `jar` tool).
+> Use `unzip` to extract the client ZIPs into the runtime directory. This avoids requiring the full JDK (the JRE does not include the `jar` tool).
 > 
-> * `pdi-ee-11.0.0.0-237.zip` - Pentaho Data Integration
+> * `pdi-ee-client-11.0.0.0-237.zip` - Pentaho Data Integration
 > 
 > * `pad-ee-11.0.0.0-237.zip`   - Pentaho Aggregation Designer
 > 
@@ -44,12 +50,14 @@ cd
 mkdir -p ~/Pentaho/design-tools
 ```
 
-<pre><code>~/Pentaho/design-tools
-├── design-tools             
-    └── data-integration  
-    └── metadata-editor   
-<strong>    └── schema-workbench      
-</strong></code></pre>
+```
+~/Pentaho/design-tools
+├── data-integration
+├── metadata-editor
+├── schema-workbench
+├── aggregation-designer
+└── report-designer
+```
 
 ::: tabs
 
@@ -61,24 +69,24 @@ mkdir -p ~/Pentaho/design-tools
 > 
 > Pentaho Data Integration (PDI) provides ETL capabilities for capturing, cleansing, and transforming data.
 
-1. Locate `pdi-ee-11.0.0.0-237.zip`.
+1. Locate `pdi-ee-client-11.0.0.0-237.zip`.
 
 ```bash
 ls -1 ~/Downloads/'Client Tools'/'PDI (Spoon)'
 ```
 
-3. Extract `pdi-ee-11.0.0.0-237.zip`
+2. Extract `pdi-ee-client-11.0.0.0-237.zip`
 
 ```bash
 cd
 cd ~/Pentaho/design-tools
 
 # Replace <version> with the exact file name you downloaded.
-unzip ~/Downloads/'Client Tools'/'PDI (Spoon)'/pdi-ee-11.0.0.0-2xx.zip
+unzip ~/Downloads/'Client Tools'/'PDI (Spoon)'/pdi-ee-client-11.0.0.0-237.zip
 # You may need to adjust the path.
 ```
 
-4. Make `.sh` files executable.
+3. Make `.sh` files executable.
 
 ```bash
 cd
@@ -86,7 +94,7 @@ cd ~/Pentaho/design-tools
 find . -iname "*.sh" -exec chmod +x {} \;
 ```
 
-5. Verify structure:
+4. Verify structure:
 
 > **Note:** \~/Pentaho/design-tools/
 > 
@@ -100,7 +108,7 @@ find . -iname "*.sh" -exec chmod +x {} \;
 > 
 > Some legacy UI components in Spoon may require GTK/WebKit libraries that vary by desktop flavor. On Ubuntu 24.04, if Spoon reports missing GTK/WebKit modules, follow the instructions: [Missing GTK/WebKit modules](#missing-gtk-webkit-modules)
 
-6. Start PDI (Spoon):
+5. Start PDI (Spoon):
 
 ```bash
 cd
@@ -131,7 +139,7 @@ cd
 cd ~/Pentaho/design-tools
 
 # Replace <version> with the exact file name you downloaded.
-unzip ~/Downloads/'Client Tools'/'Metadata Editor'/pme-ee-11.0.0.0-2xx.zip
+unzip ~/Downloads/'Client Tools'/'Metadata Editor'/pme-ee-11.0.0.0-237.zip
 # You may need to adjust the path.
 ```
 
@@ -183,11 +191,11 @@ cd
 cd ~/Pentaho/design-tools
 
 # Replace <version> with the exact file name you downloaded.
-unzip ~/Downloads/'Client Tools'/'Schema Workbench'/psw-ee-10.2.0.0-2xx.zip
+unzip ~/Downloads/'Client Tools'/'Schema Workbench'/psw-ee-11.0.0.0-237.zip
 # You may need to adjust the path.
 ```
 
-2. Make `.sh` files executable.
+3. Make `.sh` files executable.
 
 ```bash
 cd
@@ -195,7 +203,7 @@ cd ~/Pentaho/design-tools
 find . -iname "*.sh" -exec chmod +x {} \;
 ```
 
-3. Verify structure:
+4. Verify structure:
 
 > **Note:** \~/Pentaho/design-tools/
 > 
@@ -205,7 +213,7 @@ find . -iname "*.sh" -exec chmod +x {} \;
 > * metadata-editor
 > * schema-workbench
 
-4. Start PSW:
+5. Start PSW:
 
 ```bash
 cd
@@ -227,7 +235,7 @@ cd ~/Pentaho/design-tools/schema-workbench
 
 ```bash
 cd ~/Pentaho/design-tools
-unzip ~/Downloads/'Client Tools'/'Aggregation Designer'/pad-ee-10.2.0.0-222.zip
+unzip ~/Downloads/'Client Tools'/'Aggregation Designer'/pad-ee-11.0.0.0-237.zip
 ```
 
 2. Make `.sh` files executable.
@@ -257,6 +265,48 @@ cd ~/Pentaho/design-tools/aggregation-designer
 
 <figure><img src="../_assets/images/aggregation_designer.png" alt="Pentaho Aggregation Designer UI"><figcaption><p>Aggregation Designer</p></figcaption></figure>
 
+### 5. Report Designer
+
+> **Note:**
+>
+> #### **Report Designer (PRD)**
+>
+> Report Designer builds pixel-perfect, banded reports (`.prpt`) that you publish to the Pentaho Server.
+
+1. Extract `prd-ee-11.0.0.0-237.zip`. It unpacks a single `report-designer` folder.
+
+```bash
+cd ~/Pentaho/design-tools
+unzip ~/Downloads/'Client Tools'/'Report Designer'/prd-ee-11.0.0.0-237.zip
+# You may need to adjust the path.
+```
+
+2. Make `.sh` files executable.
+
+```bash
+cd ~/Pentaho/design-tools
+find . -iname "*.sh" -exec chmod +x {} \;
+```
+
+3. Verify structure:
+
+> **Note:** \~/Pentaho/design-tools/
+>
+> * data-integration
+> * jdbc-distribution
+> * license-installer
+> * metadata-editor
+> * schema-workbench
+> * aggregation-designer
+> * report-designer
+
+4. Start PRD:
+
+```bash
+cd ~/Pentaho/design-tools/report-designer
+./report-designer.sh
+```
+
 :::
 
 <details>
@@ -281,7 +331,7 @@ cd ~/Pentaho/design-tools/aggregation-designer
 
 <summary>Missing GTK/WebKit modules</summary>
 
-You will need to add a version from previous Jammy release:
+You will need to add the package from the Ubuntu 18.04 (bionic) archive:
 
 1. Add package repository.
 
@@ -302,7 +352,7 @@ sudo add-apt-repository 'deb [trusted=yes] http://cz.archive.ubuntu.com/ubuntu b
 sudo apt-get update
 ```
 
-5. Install package.
+4. Install package.
 
 ```bash
 sudo apt-get install -qq libwebkitgtk-1.0-0
@@ -312,7 +362,7 @@ sudo apt-get install -qq libwebkitgtk-1.0-0
 sudo apt-get install libcanberra-gtk-module
 ```
 
-6. Start PDI.
+5. Start PDI.
 
 ```bash
 cd

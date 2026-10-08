@@ -1,0 +1,73 @@
+{
+  "id": "bi-developer-ct-associate",
+  "analytics": {
+    "measurementId": "G-C834DBGX15"
+  },
+  "contact": {
+    "to": "academy@pentaho.com",
+    "webhookUrl": "",
+    "heading": "Contact Us",
+    "blurb": "Ask us anything about the course, or tell us what you would like to know about Pentaho products and services. This is separate from the exam.",
+    "messagePlaceholder": "What would you like to know?",
+    "sendLabel": "Send"
+  },
+  "title": "Pentaho BI Developer - CTools Associate",
+  "description": "Hands-on workshop for the dashboard BI Developer. Build interactive Pentaho Community Tools (CTools) dashboards in the Pentaho User Console — Community Data Access (CDA), the Community Dashboard Framework (CDF), the Community Dashboard Editor (CDE) with CCC charts, and the Community Graphics Generator (CGG).",
+  "version": "0.1.5",
+  "kind": "workshop",
+  "level": { "number": 1, "name": "Associate" },
+  "mode": "sequential",
+  "theme": {
+    "accent": "#2e7d32"
+  },
+  "assistant": {
+    "ollamaURL": "http://localhost:11434",
+    "mcpURL": "https://docs.pentaho.com/~gitbook/mcp",
+    "defaultProfile": "cpu",
+    "models": {
+      "cpu": "llama3.2:3b",
+      "gpu": "gemma4:12b"
+    },
+    "ladder": ["gemma4:12b", "qwen2.5:7b"],
+    "subject": "Pentaho CTools dashboards (CDE, CDF, CDA and CCC charts)",
+    "suggestions": [
+      "What do CDA, CDF and CDE each do?",
+      "How do I connect a CDA data source to my dashboard?",
+      "How do I add a CCC chart component in CDE?",
+      "How do I make dashboard components react to a parameter?"
+    ]
+  },
+  "moduleSummaries": [
+    {
+      "title": "Getting Started",
+      "summary": "Meet the CTools stack — CDA, CDF, CDE, CCC, and CGG — installed on top of the Pentaho Server. Enable the CDE/CDA plugins, then build your first dashboard to see how the pieces fit together."
+    },
+    {
+      "title": "Community Data Access",
+      "summary": "CDA is the data layer for CTools dashboards: a single abstraction over many sources with parameter-driven queries, joins/unions, preview, and exports. Create CDA data sources and feed them to dashboard components."
+    },
+    {
+      "title": "Community Dashboard Framework",
+      "summary": "CDF is the code-first dashboard framework — HTML/CSS/JavaScript with managed component and dashboard lifecycles. Understand the framework that CDE is built on by assembling CDF dashboards directly."
+    },
+    {
+      "title": "Community Dashboard Editor",
+      "summary": "CDE is the graphical dashboard editor: a Layout / Components / Data Sources workflow over the CDF framework. Build the Carrier Dashboard with responsive Bootstrap layouts, CCC charts, parameters, and selectors — no hand-coding required."
+    },
+    {
+      "title": "Community Graphics Generator",
+      "summary": "CGG renders CCC charts server-side as images — for reports, for browsers with limited SVG support, and via URL. Generate the Carrier Dashboard's charts with CGG."
+    },
+    {
+      "title": "Use Cases",
+      "summary": "Put it together end-to-end: build a complete Retail Sales analysis dashboard that combines CDA data sources, CDE layout and components, and CCC charts."
+    }
+  ],
+  "launchers": {
+    "puc": {
+      "label": "Pentaho User Console",
+      "url": "http://localhost:8080"
+    }
+  },
+  "role": "bi-developer"
+}

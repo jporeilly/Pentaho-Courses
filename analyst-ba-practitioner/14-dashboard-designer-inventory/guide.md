@@ -13,7 +13,7 @@
 > * Select and configure dashboard layout templates (2 Column) and themes (Crystal) for visual presentation
 > * Set dashboard properties including title (Inventory Dashboard)
 > * Connect to the Inventory data source using the metadata layer
-> * Build a data table component by constructing a metadata query that selects Product Line, Product Name, Quantity in Stock, and MSRP
+> * Build a data table component by constructing a metadata query that selects Product Line, Product Name, Quantity In Stock, and MSRP
 > * Apply sorting (ascending by Product Line) to organize tabular data logically
 > * Configure data table properties and apply custom titles (Inventory Table)
 > * Create a chart component using the same Inventory data source with a new query
@@ -42,8 +42,8 @@
 1. From the User Console Home Perspective, click Create New -> Dashboard.
 2. On the Templates tab, click 2 Column.
 3. On the Themes tab, select Crystal.
-4. Click the Properties tab, and Enter: Inventory Dashboard as the title.
-5. In the Untitled 1 header, click Insert Content, and then click Data Table.
+4. Click the Properties tab, and in the Page Title box type Inventory Dashboard.
+5. Click the Insert Content icon at the top right of the Untitled 1 panel, and then click Data Table.
 6. From the Select Data Source dialog, click Inventory, and then click OK.
 
 <figure><img src="../_assets/images/dd_inventory_inventory_data_source.png" alt=""><figcaption><p>Inventory - data source</p></figcaption></figure>
@@ -71,6 +71,8 @@
 
 &#x20;      • Click the bottom arrow to move Product Line to the Order By area.
 
+&#x20;      • In the Order By area, from the Order drop-down list, select ASC (the Query Editor adds an order as DESC).
+
 &#x20;      • Click OK.
 
 4. In the Title text box, type Inventory Table, and then click Apply.
@@ -96,7 +98,7 @@
 
 > **Note:** 
 
-1. In the Untitled 2 header, click Insert Content, and then click Chart.
+1. Click the Insert Content icon at the top right of the Untitled 2 panel, and then click Chart.
 2. From the Select Data Source dialog, click Inventory, and then click OK.
 
 <figure><img src="../_assets/images/dd_inventory_condition_product_line_begins_with_m.png" alt=""><figcaption><p>Condition: Product Line begins with M</p></figcaption></figure>
@@ -111,9 +113,9 @@
 
 &#x20;      • Expand Inventory and Cost.
 
-&#x20;      • Click Quantity in Stock.
+&#x20;      • Click Quantity In Stock.
 
-&#x20;      • Click the top arrow to move Quantity in Stock to the Selected Columns area.
+&#x20;      • Click the top arrow to move Quantity In Stock to the Selected Columns area.
 
 &#x20;      • Click MSRP.
 
@@ -123,13 +125,13 @@
 
 &#x20;      • From the Categories/Columns list, click Product Line.
 
-&#x20;      • Click the middle arrow to move Product Line to the Conditions area.
+&#x20;      • Click the middle arrow (the one beside Switch to Advanced...) to move Product Line to the Conditions area. The bottom arrow adds it to Order By instead.
 
 &#x20;      • From the Comparison drop-down list, select begins with.
 
 &#x20;      • In the Value column, type M.
 
-&#x20;      • Click OK.
+&#x20;      • Click OK. The Chart Designer opens.
 
 5. To create the chart, complete the following fields in the Chart Designer window, and then click OK:
 
@@ -138,11 +140,16 @@
 | Field           | Entry             |
 | --------------- | ----------------- |
 | Series Column   | Product Line      |
-| Category Column | Quantity in Stock |
+| Category Column | Quantity In Stock |
 | Values Column   | MSRP              |
 | Chart Title     | Inventory         |
 | X Axis Title    | Qty               |
 | Y Axis Title    | MSRP              |
+
+6. In the Title text box, type Inventory, and then click Apply.
+7. To save the dashboard, on the toolbar click the Save icon. Click the Up One Level icon twice, double-click Public and then Training, type Inventory Dashboard in the Filename field, and click Save.
+
+> **Tip:** Check your dashboard: the Inventory Table opens on Classic Cars (Vintage Cars come last) and reads Displaying 1 - 20 of 110, and the Inventory chart has a single series, Motorcycles, the only product line that begins with M.
 
 > **Under the hood:**
 >
@@ -160,3 +167,22 @@
 
 :::
 
+---
+
+## Lab Files
+
+Click a file to download it.
+
+### Solution <!-- no-step -->
+
+The finished dashboard: 2 Column with the Crystal theme, the Inventory Table data table (Product Line, Product Name, Quantity In Stock and MSRP, sorted ascending by Product Line) and the Inventory bar chart of Motorcycles stock against MSRP. Both panels query the Inventory model in the Steel Wheels sample data, so it must be on your server.
+
+Also on disk at `C:\Workshop-BA-Practitioner\05-dashboard-designer\14-dashboard-designer-inventory\solution`.
+
+[Inventory Dashboard.xdash](./files/Inventory%20Dashboard.xdash)
+
+To open it in the User Console:
+
+1. In **Browse Files**, select your own folder under **Home** (Home > admin, say), so the solution sits apart from your own dashboard in Public > Training.
+2. In the **Folder Actions** pane, click **Upload...**, click **Browse...** and choose the `.xdash` file, and then click **OK**.
+3. Double-click **Inventory Dashboard** to run it, and click **Edit** on the toolbar to see each panel's query.

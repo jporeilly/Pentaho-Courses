@@ -1,16 +1,24 @@
 {
   "id": "architect-con-specialty",
   "analytics": {
-    "measurementId": "G-TEGN8LQVRC",
-    "apiSecret": "XerhVuECS0ar-ecffAe5ww"
+    "measurementId": "G-TEGN8LQVRC"
+  },
+  "contact": {
+    "to": "academy@pentaho.com",
+    "webhookUrl": "",
+    "heading": "Contact Us",
+    "blurb": "Ask us anything about the course, or tell us what you would like to know about Pentaho products and services. This is separate from the exam.",
+    "messagePlaceholder": "What would you like to know?",
+    "sendLabel": "Send"
   },
   "title": "Pentaho Solution Architect - Containers Specialty",
   "description": "Deploy the Pentaho Server with containers and Kubernetes: build the EE image from a staged archive, run it with Podman Compose against PostgreSQL, then take the same deployment to K3s with raw manifests and Helm.",
-  "version": "0.1.0",
+  "version": "0.1.3",
   "kind": "workshop",
+  "level": { "number": 2, "name": "Specialty" },
   "mode": "sequential",
   "theme": {
-    "accent": "#0d9488"
+    "accent": "#1d5fbf"
   },
   "launchers": {
     "puc": {
@@ -24,8 +32,9 @@
     "defaultProfile": "cpu",
     "models": {
       "cpu": "llama3.2:3b",
-      "gpu": "qwen2.5:7b"
+      "gpu": "gemma4:12b"
     },
+    "ladder": ["gemma4:12b", "qwen2.5:7b"],
     "subject": "deploying the Pentaho Server with containers (Podman image builds, Compose with PostgreSQL, K3s manifests and Helm)",
     "suggestions": [
       "What does the softwareOverride layer pattern do in the image build?",

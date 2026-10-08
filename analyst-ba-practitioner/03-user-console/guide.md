@@ -97,7 +97,7 @@ course — it is described here so you can place it alongside the rest.
 > Its enterprise-grade features, combined with its cost-effectiveness, make it particularly attractive for organizations looking to implement robust reporting solutions without significant licensing costs.
 
 Report Designer has its own workshop — **Pentaho BI Developer - RD
-Practitioner** — which covers it hands-on.
+Associate** — which covers it hands-on.
 
 :::
 

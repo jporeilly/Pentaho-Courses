@@ -50,13 +50,13 @@
 > 
 > The More actions and options button provides export options, additional report and chart options, and reset options.
 
-3. To view the available fields, on the interactive toolbar, click the Add more fields onto the report button.
+2. To view the available fields, on the interactive toolbar, click the Add more fields onto the report button.
 
 <div align="center"><figure><img src="../_assets/images/az_sales_available_fields.png" alt="" width="340"><figcaption><p>Available fields</p></figcaption></figure></div>
 
-> **Note:** The Available Fields pane shows the data source and the fields available. The fields are listed by category, but you can use the View drop-down list to view the fields by type, alphabetically, or schema.
+> **Note:** The Available Fields pane shows the data source and the fields available. The fields are listed by category, but you can use the View drop-down list to view the fields by type (Measure - Level - Time) or by schema.
 
-4. To view the Layout panel, on the interactive toolbar, click the Rearrange fields on the report button.
+3. To view the Layout panel, on the interactive toolbar, click the Rearrange fields on the report button.
 
 <figure><img src="../_assets/images/az_sales_layout.png" alt="" width="340"><figcaption><p>Layout</p></figcaption></figure>
 
@@ -201,7 +201,7 @@
 > **Note:** 
 
 1. From the User Console Home Perspective, click Create New > Analysis Report.
-2. In the Select Data Source window, click Steel Wheels: SteelWheelsSales, and then click OK.
+2. In the Select Data Source window, click SteelWheels: SteelWheelsSales, and then click OK.
 
 <figure><img src="../_assets/images/az_sales_steelwheels_steelwheelssales.png" alt="" width="563"><figcaption><p>SteelWheels: SteelWheelsSales</p></figcaption></figure>
 
@@ -220,6 +220,8 @@
 > &#x20; • Properties: are single data items related to a database object. The database schema associates one or more properties with each database entity.  For example, the dimension ‘Product’ can have the properties: colour, shape, size, weight, etc..
 
 <figure><img src="../_assets/images/az_sales_3.png" alt=""><figcaption></figcaption></figure>
+
+> **Tip:** Right-click a field and choose **Add to Report** to place it without dragging: a level goes to Rows (or to Columns, under a level of the same hierarchy that is already there) and a measure goes to Measures. Moving a level onto Columns the first time still needs a drag, to the Columns drop zone or onto the column headers.
 
 1. From the Available Fields panel, select Country and drag it to the Rows drop zone on the Layout panel.
 
@@ -342,7 +344,6 @@
 <figure><img src="../_assets/images/az_sales_emea_top_5_product_lines_by_sales_2003_qtr2.png" alt="" width="375"><figcaption><p>EMEA: Top 5 Product Lines by Sales 2003 QTR2</p></figcaption></figure>
 
 11. On the analysis canvas, right-click the QTR2 header for 2003, and then select Show All Quarters.
-12. Remove the Sales is greater than 10000 filter.
 
 <figure><img src="../_assets/images/az_sales_emea_top_5_product_line_by_sales_for_2003.png" alt=""><figcaption><p>EMEA: Top 5 Product Line by Sales for 2003</p></figcaption></figure>
 
@@ -356,8 +357,9 @@
 > evaluates that in the current context — EMEA, 2003, QTR2 — so "top
 > five lines" meant top five within that slice, ranked on cells that
 > were already aggregated. Show All Quarters changed the context, and
-> the same expression re-ranked against the whole year, which is why
-> the members moved.
+> the same expression re-ranked against the whole year. Here the same
+> five lines win both times (Motorcycles is sixth for the year), but the
+> ranking was recomputed, and on another slice the members could change.
 >
 > **Why it matters:** rank-and-threshold questions are one dialog here
 > and a subquery with a window function in SQL — and they re-evaluate
@@ -383,7 +385,7 @@
 
 <figure><img src="../_assets/images/az_sales_conditional_formatting.png" alt=""><figcaption><p>Conditional Formatting</p></figcaption></figure>
 
-2. Remove the conditional formatting, right-click one of the Sales headers, and then deselect Conditional Formatting >  Green-Yellow-Red.
+2. Remove the conditional formatting, right-click one of the Sales headers, and then deselect Conditional Formatting > Color Scale: Green-Yellow-Red.
 
 ### Calculations & Drill-Through
 
@@ -404,11 +406,11 @@
 
 <figure><img src="../_assets/images/az_sales_subtotals.png" alt="" width="398"><figcaption><p>Subtotals</p></figcaption></figure>
 
-2. Select Average, and then click OK.
+3. Select Average, and then click OK.
 
 <figure><img src="../_assets/images/az_sales_calculations.png" alt="" width="375"><figcaption><p>Calculations</p></figcaption></figure>
 
-3. In the analysis details, right-click the Territory header, and then select Show Subtotals.
+4. In the analysis details, right-click the Territory header, and then select Show Subtotals.
 
 <figure><img src="../_assets/images/az_sales_show_subtotals.png" alt="" width="253"><figcaption><p>Show Subtotals</p></figcaption></figure>
 
@@ -416,12 +418,12 @@
 
 <figure><img src="../_assets/images/az_sales_subtotals_and_averages.png" alt=""><figcaption><p>Subtotals &#x26; Averages</p></figcaption></figure>
 
-4. To show grand totals for columns and rows, from the Layout panel: Click Report Options.
-5. In the Report Options window, select Show Grand Totals for Rows and Show Grand Totals for Columns.
+5. To show grand totals for columns and rows, from the Layout panel: Click Report Options.
+6. In the Report Options window, select Grand Totals for Rows and Grand Totals for Columns.
 
 <figure><img src="../_assets/images/az_sales_grand_totals_rows_and_columns.png" alt="" width="375"><figcaption><p>Grand Totals - Rows &#x26; Columns</p></figcaption></figure>
 
-4. Click OK.
+7. Click OK.
 
 <figure><img src="../_assets/images/az_sales_grand_totals_for_rows_and_columns.png" alt=""><figcaption><p>Grand Totals for Rows &#x26; Columns</p></figcaption></figure>
 
@@ -548,7 +550,7 @@
 
 &#x20;       • Click Report Options.
 
-&#x20;       • Select Show drill-through links on Measure cells.
+&#x20;       • Select Drill-through links on measures.
 
 &#x20;       • Click OK.
 
@@ -583,11 +585,11 @@
 > 
 > To format numeric data, right-click the column header and select Column Name and Format.
 
-1. Right-click the column header for Line, then select Edit.
+1. Right-click the column header for Line, then select Edit....
 
 <figure><img src="../_assets/images/az_sales_4.png" alt="" width="272"><figcaption></figcaption></figure>
 
-2. In the Name text box, type Product Line, and then click OK.
+2. In the Display Name box, type Product Line, and then click OK.
 
 <figure><img src="../_assets/images/az_sales_edit_header_cells.png" alt="" width="375"><figcaption><p>Edit header cells</p></figcaption></figure>
 
@@ -595,13 +597,17 @@
 
 <figure><img src="../_assets/images/az_sales_format_column.png" alt="" width="563"><figcaption><p>Format Column</p></figcaption></figure>
 
-4. Change the name: Revenue
+4. In the Display Name box, type Revenue.
 
 <figure><img src="../_assets/images/az_sales_8.png" alt=""><figcaption></figcaption></figure>
 
-5. From the Format drop-down list, select Currency ($), and then click OK.
+5. From the Format drop-down list, select Currency (Decimal Places 0, Symbol $), and then click OK.
 
 <figure><img src="../_assets/images/az_sales_final_table_emea_revenue_by_product_line_yr2003.png" alt=""><figcaption><p>Formatting</p></figcaption></figure>
+
+6. To save the analysis, on the toolbar click the Save icon. Click the Up One Level icon twice, double-click Public and then Training, type EMEA Revenue by Product Line Yr2003 in the Filename field, and click Save.
+
+> **Tip:** Check your figures: with the EMEA and 2003 filters, Classic Cars shows $96,678 in QTR1 and $407,683 in QTR4, and Motorcycles has no QTR1 sales (a dash).
 
 ***
 
@@ -677,12 +683,12 @@
 
 > **Note:**
 >
-> #### Adminstration
+> #### Administration
 > 
 > If been assigned the Administrator role, then you'll have access to some options that will help troubleshoot and optimize your PAZ reports.
 
 1. Click on the 'cog-wheel'.
-2. Select: Chart Options.
+2. Select: Administration.
 
 <figure><img src="../_assets/images/az_sales_administration_options.png" alt=""><figcaption><p>Administration options</p></figcaption></figure>
 
@@ -720,7 +726,7 @@
 >
 > #### MDX
 > 
-> From here you're able to open the log file, Clear the Cache, Check the Time dimension and Execute MDX queries.
+> From here you're able to open the log file, Clear the Cache, Check AnalyzerDateFormat and Execute MDX queries.
 
 <figure><img src="../_assets/images/az_sales_mdx.png" alt=""><figcaption><p>MDX</p></figcaption></figure>
 
@@ -746,3 +752,22 @@
 
 ::::
 
+---
+
+## Lab Files
+
+Click a file to download it.
+
+### Solution <!-- no-step -->
+
+The finished analysis from the Sales Analysis tab: Territory and Product Line by Years and Quarters, filtered to EMEA and 2003, with Revenue as currency and drill-through links on. Open it alongside your own to compare.
+
+Also on disk at `C:\Workshop-BA-Practitioner\04-analyzer-reports\10-analyzer-reports-sales-analysis\solution`.
+
+[EMEA Revenue by Product Line Yr2003.xanalyzer](./files/EMEA%20Revenue%20by%20Product%20Line%20Yr2003.xanalyzer)
+
+To open it in the User Console:
+
+1. In **Browse Files**, select your own folder under **Home** (Home > admin, say), so the solution sits apart from your own analysis in Public > Training.
+2. In the **Folder Actions** pane, click **Upload...**, click **Browse...** and choose the `.xanalyzer` file, and then click **OK**.
+3. Double-click **EMEA Revenue by Product Line Yr2003** to open it, and click **Edit** on the toolbar to see its layout and filters.

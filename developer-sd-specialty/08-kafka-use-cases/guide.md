@@ -41,7 +41,7 @@ sh spoon.sh
 > │  ┌────────────────────────┐                  │
 > │  │    Kafka Consumer      │                  │
 > │  │    Topic: pdi-users    │                  │
-> │  │    Batch: 5s / 100 rec │──── batches ───► │
+> │  │  Batch: 500ms / 100 rec│──── batches ───► │
 > │  └────────────────────────┘                  │
 > └──────────────────────────────────────────────┘
 >                     │
@@ -57,7 +57,7 @@ sh spoon.sh
 > └──────────────────────────────────────────────┘
 > ```
 >
-> The parent's Kafka Consumer reads messages in batches (every 5 seconds or 100 records, whichever comes first) and passes each batch to the child, which parses, transforms, and writes it to MySQL.
+> The parent's Kafka Consumer reads messages in batches (every 500 milliseconds or 100 records, whichever comes first) and passes each batch to the child, which parses, transforms, and writes it to MySQL.
 
 #### Lab Files
 
@@ -113,7 +113,7 @@ cd ~/kafka-lab && pip3 install -r requirements.txt
 
 ### Batch
 
-> **Note:** **How batching works** — whichever threshold is reached first (duration or record count) triggers the batch to be sent to the child. With `pdi-users` producing ~1 msg/sec, the 5-second duration usually triggers first, sending ~5 records per batch.
+> **Note:** **How batching works** — whichever threshold is reached first (duration or record count) triggers the batch to be sent to the child. With `pdi-users` producing ~1 msg/sec, the 500 ms duration almost always triggers first, so most batches carry a single record. Raise **Duration** to `5000` to collect about five records per batch.
 
 | Property | Description | Value |
 | --- | --- | --- |
@@ -223,7 +223,7 @@ First, create the MySQL connection in Spoon: **View** panel → right-click **Da
 | Database Name | `kafka_warehouse` |
 | Port Number | `3306` |
 | User Name | `kafka_user` |
-| Password | `kafka_password` |
+| Password | `password` (set by `01-create-kafka-warehouse.sql`) |
 
 Then configure the **Table output** step: connection `warehouse_db`, target table `user_events`, **leave Target schema blank**, commit size `1000`, **Specify database fields: Yes**.
 

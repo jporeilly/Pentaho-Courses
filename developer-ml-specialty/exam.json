@@ -1,610 +1,674 @@
 {
   "title": "PDI Machine Learning Specialty Exam",
-  "description": "20 questions drawn from a pool of 41, focused on machine-learning concepts and the credit-card fraud workflow rather than specific pipeline implementations. Pass mark is 80%. Open-book — browse any page, hover glossary terms, or ask the AI assistant. Your answers are saved as you go. Explanations appear after submission.",
+  "description": "20 questions drawn from a pool of 41, covering machine-learning concepts and the PDI credit-card fraud workflow: the R setup, choosing a model with AutoML, and training and scoring a GBM in R. Pass mark is 80%. Open-book — browse any page, hover glossary terms, or ask the AI assistant. Your answers are saved as you go. Explanations appear after submission.",
   "passMark": 80,
   "questionsPerAttempt": 20,
   "shuffle": true,
-  "webhookUrl": "https://script.google.com/macros/s/AKfycbzt7thr4mfy3-kduDbiQ_UfBPwGC7JxpZA9p1XOeGJG4Q0rh9-OoKJNG965c8SVNQ7i/exec",
-  "webhookSecret": "pcm_Y61JKvDGnbuqvn3BIVCkjoSu98Jn3bE4",
+  "webhookUrl": "https://script.google.com/macros/s/AKfycbzsCLkWA07Nr7qQCwibn6_RiyhYi33xzeq529mlYhf3xYZPAxKOntIN-Wd1qjv4M4c/exec",
   "questions": [
     {
-      "id": "foundations-q1",
+      "id": "ml-m1-q1",
       "module": "ML Foundations",
-      "prompt": "What distinguishes supervised learning from unsupervised learning in this fraud-detection course?",
+      "bloom": "Apply",
+      "scenario": "A fraud team holds years of transactions already marked fraud or legitimate. It also wants to catch kinds of fraud nobody has seen before.",
+      "prompt": "Which learning approaches fit the two aims?",
       "options": [
-        "Supervised learning runs on a GPU; unsupervised learning runs on a CPU",
-        "Supervised learning trains on labelled examples marked fraud or legitimate; unsupervised learning finds structure in unlabelled data to surface novel fraud",
-        "Supervised learning needs no data, while unsupervised learning needs a large dataset",
-        "Supervised learning is for images and unsupervised learning is for tabular data"
+        "Supervised for the known patterns, unsupervised for new kinds",
+        "Unsupervised for the known patterns, supervised for new kinds",
+        "Supervised for both, as the marked history covers new kinds too",
+        "Unsupervised for both, as labels only bias the model's judgement"
       ],
-      "correct": 1,
-      "explanation": "Supervised learning fits patterns from known labels so it can predict the target on new rows. Unsupervised learning has no labels and is used here to spot transactions that do not fit normal patterns, revealing new kinds of fraud.",
-      "source": "Pentaho Developer - ML Specialty: ML Foundations — Supervised vs Unsupervised Learning"
+      "correct": 0,
+      "explanation": "Supervised learning learns patterns from historical fraud cases, which the marked history supplies; unsupervised methods are for identifying new, previously unseen types of fraud, which no label describes yet. Swapping them asks labels to describe what has never been labelled. The history cannot mark fraud no one has seen. The labels are what make the known-pattern model possible, not a bias to avoid.",
+      "source": "Pentaho Developer - ML Specialty: Overview"
     },
     {
-      "id": "foundations-q2",
+      "id": "ml-m1-q2",
       "module": "ML Foundations",
-      "scenario": "A team trains a fraud model and sees 98% accuracy on the same rows it trained on, then watches it perform far worse once deployed.",
-      "prompt": "Why is the data divided into a training set and a held-back test set?",
+      "bloom": "Analyze",
+      "scenario": "Customer details sit in a relational database and orders in another table. Which orders proved fraudulent is recorded only in a historical fraud report kept as a CSV.",
+      "prompt": "What does that CSV contribute to a supervised fraud model?",
       "options": [
-        "To make training run twice as fast",
-        "Because PDI can only load half the rows at a time",
-        "So model quality is measured on rows the model has not seen, giving an honest estimate of real-world performance",
-        "Because the test set is used to train and the training set is used to score"
+        "Extra features, describing each customer's billing address",
+        "The label, marking which past orders turned out to be fraud",
+        "Nothing, since the model infers fraud from the orders alone",
+        "A finished model, ready to score each incoming order"
+      ],
+      "correct": 1,
+      "explanation": "Supervised learning learns from historical fraud cases, so the report's record of which orders were fraud becomes the target the preparation joins onto the orders. Without it there is nothing to learn the outcome from. Billing details come from the customer tables, not the fraud report. A CSV of past fraud is data, not a model.",
+      "source": "Pentaho Developer - ML Specialty: AutoML"
+    },
+    {
+      "id": "ml-m1-q3",
+      "module": "ML Foundations",
+      "bloom": "Analyze",
+      "scenario": "A gbm model is trained with n.trees = 500. Its out-of-bag error falls until about 300 trees, then creeps up again to 500.",
+      "prompt": "What does scoring with all 500 trees risk?",
+      "options": [
+        "A slower model, but one that is otherwise just as good",
+        "Underfitting, as 500 trees are too few for the data",
+        "Overfitting, which is why gbm.perf picks the tree count",
+        "Nothing, as each extra tree can only improve the model"
       ],
       "correct": 2,
-      "explanation": "A held-out test set measures performance on unseen examples rather than rows the model has already memorised, giving a realistic estimate of production behaviour.",
-      "source": "Pentaho Developer - ML Specialty: ML Foundations — Train/Test Split"
+      "explanation": "gbm.perf with the OOB method returns the tree count where out-of-bag error is lowest; using more trees than that would overfit, and fewer would underfit, so scoring uses best_trees. Too few trees is underfitting, the opposite of this curve. A rising error shows extra trees can make things worse. The cost is accuracy on new data, not only speed.",
+      "source": "Pentaho Developer - ML Specialty: Credit Card"
     },
     {
-      "id": "foundations-q3",
+      "id": "ml-m1-q4",
       "module": "ML Foundations",
-      "prompt": "What is overfitting?",
+      "bloom": "Analyze",
+      "scenario": "The training script fits reported_as_fraud_historic ~ . on the frame it receives. A transaction_id column, unique to every row, was left in that frame.",
+      "prompt": "What happens to transaction_id?",
       "options": [
-        "When a model is too small to capture the data",
-        "When a model learns the training data too closely, including its noise, and then performs poorly on new data",
-        "When the dataset has too many columns to load",
-        "When training takes longer than scoring"
+        "It is used as a predictor, though it describes nothing",
+        "It is used only to join the predictions back afterwards",
+        "It is used as the target, since it is the frame's key",
+        "It is skipped, as gbm ignores columns with unique values"
       ],
-      "correct": 1,
-      "explanation": "An overfit model memorises the quirks and noise of the training rows rather than the general signal, so it generalises badly. A held-out test set and cross-validation help detect it.",
-      "source": "Pentaho Developer - ML Specialty: ML Foundations — Overfitting"
+      "correct": 0,
+      "explanation": "The formula's ~ . means predict the target from every other column in the frame, so an identifier left there becomes a predictor even though it describes nothing about the transaction and can only be memorised. gbm does not drop columns for being unique. The target is named on the left of the ~. Joining back is done later with cbind in the prediction script, not by the training formula.",
+      "source": "Pentaho Developer - ML Specialty: Credit Card"
     },
     {
-      "id": "foundations-q4",
+      "id": "ml-m1-q5",
       "module": "ML Foundations",
-      "prompt": "What is a feature in a machine-learning model?",
+      "bloom": "Apply",
+      "scenario": "The training script converts reported_as_fraud_historic with as.numeric(as.factor(x)) - 1 before calling gbm.",
+      "prompt": "Why is 1 subtracted?",
       "options": [
-        "A bug that has been fixed in the model",
-        "The saved model file produced after training",
-        "An individual input column the model learns from, such as transaction amount or billing details",
-        "A ranked list of candidate models"
+        "To shift each fraud probability below the 0.5 threshold",
+        "To exclude the first transaction from the training data",
+        "as.factor numbering starts at 1, so it yields 0 and 1",
+        "To turn the target into a continuous dollar amount"
       ],
       "correct": 2,
-      "explanation": "A feature is an input column carrying signal the model uses to separate fraud from legitimate activity. Feature engineering creates new, more useful columns from the raw data.",
-      "source": "Pentaho Developer - ML Specialty: ML Foundations — Features"
+      "explanation": "as.factor creates levels and as.numeric numbers them 1 and 2, so subtracting 1 gives 0 for not fraud and 1 for fraud, the binary target the bernoulli distribution expects. No row is dropped; the arithmetic applies to every value. The threshold is applied to predictions at scoring time, not to the training target. The target is binary, not an amount.",
+      "source": "Pentaho Developer - ML Specialty: Credit Card"
     },
     {
-      "id": "foundations-q5",
+      "id": "ml-m1-q6",
       "module": "ML Foundations",
-      "prompt": "In this course, what is the target the fraud model is trained to predict?",
+      "bloom": "Apply",
+      "scenario": "A fraud model was trained last week. Today's transactions have arrived and need fraud probabilities.",
+      "prompt": "What does scoring them involve?",
       "options": [
-        "The transaction amount in dollars",
-        "Whether a transaction is fraudulent",
-        "The customer's billing address",
-        "The number of trees in the model"
+        "Retraining on today's rows before anything is predicted",
+        "Recomputing the model's accuracy against today's rows",
+        "Rerunning the AutoML search to pick a fresh model first",
+        "Loading the saved model and predicting, with no retraining"
       ],
-      "correct": 1,
-      "explanation": "The target, also called the label, is whether a transaction is fraudulent. Supervised learning uses the known label on historical rows to train and to measure performance.",
-      "source": "Pentaho Developer - ML Specialty: ML Foundations — Target and Label"
+      "correct": 3,
+      "explanation": "The prediction transformation loads gbm_fraud.rdata, saved by training, and calls predict on the new rows, so scoring needs no training at all. Retraining is a separate job. AutoML was used once to choose the algorithm. Accuracy cannot be computed on new rows whose outcome is not yet known.",
+      "source": "Pentaho Developer - ML Specialty: Credit Card"
     },
     {
-      "id": "foundations-q6",
+      "id": "ml-m1-q7",
       "module": "ML Foundations",
-      "prompt": "What does scoring (also called prediction) mean?",
+      "bloom": "Analyze",
+      "scenario": "A developer adds cv.folds = 5 to the gbm call inside the R Script Executor. The transformation then aborts the whole JVM.",
+      "prompt": "Why does it abort?",
       "options": [
-        "Ranking candidate models on a leaderboard",
-        "Splitting the data into training and test portions",
-        "Applying a trained model to new transactions to produce a fraud probability or label for each",
-        "Counting how many features the dataset has"
+        "Its extra processes exceed select()'s FD_SETSIZE limit",
+        "Five folds use more memory than the R step can be given",
+        "Cross-validation needs more trees than n.trees allows",
+        "gbm cannot run cross-validation on a binary target"
+      ],
+      "correct": 0,
+      "explanation": "JRI runs R inside the JVM process, and cross-validation spawns extra processes that exceed the FD_SETSIZE limit of 1024 in Linux's select() call, so the JVM aborts; that is why the script uses OOB estimation instead. The tree count is unrelated to folds. Memory is not the reason given. The failure comes from where R runs, not from the target type.",
+      "source": "Pentaho Developer - ML Specialty: Credit Card"
+    },
+    {
+      "id": "ml-m1-q8",
+      "module": "ML Foundations",
+      "bloom": "Analyze",
+      "scenario": "To keep the artifact small, someone changes the training script to save only gbm_model to gbm_fraud.rdata.",
+      "prompt": "What breaks in the prediction script?",
+      "options": [
+        "predict is passed n.trees = best_trees, which no longer loads",
+        "Nothing, as predict always uses all 500 trees by default",
+        "The bernoulli distribution is lost, so outputs turn to counts",
+        "load() fails, as an .rdata file must hold two objects"
+      ],
+      "correct": 0,
+      "explanation": "The prediction script loads the file and calls predict with n.trees = best_trees, the OOB-chosen tree count saved alongside the model, so without it that object is missing. The script names best_trees explicitly rather than relying on a default. An .rdata file can hold one object or many. The distribution is part of gbm_model, which is still saved.",
+      "source": "Pentaho Developer - ML Specialty: Credit Card"
+    },
+    {
+      "id": "ml-m2-q1",
+      "module": "Prerequisites & Setup",
+      "bloom": "Apply",
+      "scenario": "R is installed and works in a terminal. PDI must now run an R Script Executor step.",
+      "prompt": "Why is rJava needed as well?",
+      "options": [
+        "It bridges Java and R, so Java-based PDI can call into R",
+        "It is needed only when an R script draws a chart",
+        "It installs R itself, since the base R install is not enough",
+        "It converts R scripts to Java before PDI runs them"
+      ],
+      "correct": 0,
+      "explanation": "rJava (with its JRI library) is what lets a Java application such as PDI run R, which is why the R steps need it. It does not install R; R is installed separately. Scripts run as R, not translated to Java. Every R step needs the bridge, not only charting ones.",
+      "source": "Pentaho Developer - ML Specialty: Prerequisite Tasks"
+    },
+    {
+      "id": "ml-m2-q2",
+      "module": "Prerequisites & Setup",
+      "bloom": "Apply",
+      "scenario": "Java was upgraded on a machine where rJava used to build, and rJava now fails to build.",
+      "prompt": "What does sudo R CMD javareconf do about it?",
+      "options": [
+        "Disables the Java bridge so that R runs without it",
+        "Reinstalls Java at the version R was first set up with",
+        "Detects current Java and updates R's config to match",
+        "Downgrades rJava to match the previous version of Java"
       ],
       "correct": 2,
-      "explanation": "Scoring applies the already-trained model to fresh rows to produce predictions, here a fraud probability or label, without retraining the model.",
-      "source": "Pentaho Developer - ML Specialty: ML Foundations — Scoring"
+      "explanation": "R CMD javareconf detects the Java installation now on the system and updates R's configuration files to match, so rJava builds against it. It installs nothing and downgrades nothing. Disabling the bridge would defeat the purpose, since PDI's R steps depend on it.",
+      "source": "Pentaho Developer - ML Specialty: Prerequisite Tasks"
     },
     {
-      "id": "foundations-q7",
-      "module": "ML Foundations",
-      "prompt": "What does cross-validation give you that a single train/test split does not?",
+      "id": "ml-m2-q3",
+      "module": "Prerequisites & Setup",
+      "bloom": "Apply",
+      "scenario": "rJava has been built and verified with library(rJava); .jinit(), but Spoon still cannot load R support for an R Script Executor step.",
+      "prompt": "Which file has to be copied into Spoon's native-lib directory?",
       "options": [
-        "A guarantee that the model will never overfit",
-        "A more reliable estimate of performance by repeatedly splitting into folds and averaging the results",
-        "A faster training run on a single CPU core",
-        "A way to skip the test set entirely"
-      ],
-      "correct": 1,
-      "explanation": "Cross-validation rotates the data through several training and validation folds and averages the outcomes, smoothing out the luck of any single split for a more dependable performance estimate.",
-      "source": "Pentaho Developer - ML Specialty: ML Foundations — Cross-Validation"
-    },
-    {
-      "id": "foundations-q8",
-      "module": "ML Foundations",
-      "prompt": "What is a model artifact in this workflow?",
-      "options": [
-        "A visual diagram of the transformation steps",
-        "A row of the training data set aside for testing",
-        "The saved trained model file, loaded later to score new data without retraining",
-        "An error message produced when training fails"
+        "libR.so, from R's own lib folder",
+        "libjvm.so, from the JDK's server folder",
+        "libjri.so, from rJava's jri folder",
+        "rJava.so, from rJava's libs folder"
       ],
       "correct": 2,
-      "explanation": "The model artifact is the persisted trained model. The AutoML lab saves the best one, and in the credit-card lab the GBM model is saved to an .rdata file that the scoring transformation loads later.",
-      "source": "Pentaho Developer - ML Specialty: ML Foundations — Model Artifact"
+      "explanation": "libjri.so, from the rJava package's jri folder, goes into Spoon's native-lib/linux/x86_64 directory (owned by the PDI user) so PDI can load the R-Java interface. libR.so is R's own library, which R finds through R_HOME. rJava.so is the R-side package library, not what Spoon loads. libjvm.so is Java's, which Spoon already runs on.",
+      "source": "Pentaho Developer - ML Specialty: Prerequisite Tasks"
     },
     {
-      "id": "prereq-q1",
+      "id": "ml-m2-q4",
       "module": "Prerequisites & Setup",
-      "prompt": "What is the purpose of the rJava package in this setup?",
+      "bloom": "Apply",
+      "scenario": "The AutoML model search needs Python with H2O and other ML libraries, and nobody wants to depend on what happens to be installed on each workstation.",
+      "prompt": "What does Google Colab provide here?",
       "options": [
-        "It compiles R scripts into standalone executables",
-        "It provides a bridge between R and Java so PDI can run R steps",
-        "It replaces the need to install R at all",
-        "It is an H2O plugin for automatic model search"
-      ],
-      "correct": 1,
-      "explanation": "rJava bridges R and Java, which PDI needs in order to run R steps. Setup involves configuring R with javareconf and copying libjri into Spoon's native library folder.",
-      "source": "Pentaho Developer - ML Specialty: Prerequisites & Setup — rJava"
-    },
-    {
-      "id": "prereq-q2",
-      "module": "Prerequisites & Setup",
-      "prompt": "What does the command R CMD javareconf do during rJava setup?",
-      "options": [
-        "It downloads and installs the R base packages",
-        "It detects the current Java installation and updates R's configuration to match it",
-        "It launches Spoon with R support enabled",
-        "It converts an R script into a PDI transformation"
-      ],
-      "correct": 1,
-      "explanation": "R CMD javareconf detects the installed Java and rewrites R's configuration files to match, a required step before rJava can build against the correct JDK.",
-      "source": "Pentaho Developer - ML Specialty: Prerequisites & Setup — rJava"
-    },
-    {
-      "id": "prereq-q3",
-      "module": "Prerequisites & Setup",
-      "scenario": "An engineer has built rJava successfully, but PDI still fails to load R support when a transformation with an R step runs.",
-      "prompt": "Which native library must be copied into Spoon's native-lib directory for R steps to work?",
-      "options": [
-        "librJava.dll",
-        "libh2o.so",
-        "libjri.so",
-        "libpentaho.so"
+        "A hosted database to hold the scored transactions",
+        "A managed PDI server that runs the transformations for you",
+        "Browser-based Jupyter, with ML runtimes ready-made",
+        "An R environment, so the R steps can run remotely"
       ],
       "correct": 2,
-      "explanation": "The libjri.so file from rJava's jri folder must be copied into Spoon's native-lib directory so PDI can load the R-Java interface at runtime.",
-      "source": "Pentaho Developer - ML Specialty: Prerequisites & Setup — rJava"
+      "explanation": "Colab runs Jupyter notebooks in the browser with preconfigured runtimes for common ML libraries, so the search runs on the uploaded H2O.csv without local setup. It does not run PDI transformations. Scored results are written by PDI, not stored in Colab. The R steps run inside PDI through rJava, not in Colab.",
+      "source": "Pentaho Developer - ML Specialty: Prerequisite Tasks"
     },
     {
-      "id": "prereq-q4",
+      "id": "ml-m2-q5",
       "module": "Prerequisites & Setup",
-      "prompt": "What is Google Colab used for in this course?",
+      "bloom": "Analyze",
+      "scenario": "R and rJava are installed and libjri.so has been copied into Spoon's native-lib directory, but the R Script Executor step still fails.",
+      "prompt": "Which two remaining steps are most likely missing?",
       "options": [
-        "Editing the PDI transformation files in the browser",
-        "Running Jupyter notebooks with preconfigured ML runtimes to run the H2O AutoML model search",
-        "Hosting the trained model artifact for download",
-        "Storing the customer relational database"
-      ],
-      "correct": 1,
-      "explanation": "Colab runs Jupyter notebooks in the browser with preconfigured ML libraries. You upload the H2O.csv produced by PDI and run the AutoML model search there.",
-      "source": "Pentaho Developer - ML Specialty: Prerequisites & Setup — Google Colab"
-    },
-    {
-      "id": "prereq-q5",
-      "module": "Prerequisites & Setup",
-      "prompt": "Which Python libraries does the prerequisite setup install in the virtual environment for the H2O AutoML workflow?",
-      "options": [
-        "h2o",
-        "pandas",
-        "numpy",
-        "matplotlib",
-        "py4j",
-        "tensorflow",
-        "torch"
+        "Restarting so the newly copied libraries are registered",
+        "Removing the default JDK that rJava was built against",
+        "Installing h2o and py4j in the Python virtual environment",
+        "Uploading H2O.csv to the Colab notebook first",
+        "Setting R_HOME and R_LIBS_USER, with R's bin on PATH"
       ],
       "correctIndices": [
         0,
-        1,
-        2,
-        3,
         4
       ],
-      "explanation": "The setup installs h2o, pandas, numpy, matplotlib and py4j into a Python virtual environment. TensorFlow and PyTorch are deep-learning frameworks not used in this H2O AutoML workflow.",
-      "source": "Pentaho Developer - ML Specialty: Prerequisites & Setup — Python Environment"
+      "explanation": "PDI's R integration needs the environment variables, R_HOME and R_LIBS_USER in /etc/environment with R's bin directory on PATH, and a restart may be needed to register the libraries. The Python venv serves the H2O work, not the R steps. Colab is for the AutoML search. Removing the JDK would break the rJava build it depends on.",
+      "source": "Pentaho Developer - ML Specialty: Prerequisite Tasks"
     },
     {
-      "id": "prereq-q6",
+      "id": "ml-m2-q6",
       "module": "Prerequisites & Setup",
-      "prompt": "Which PDI step runs R code inside a transformation?",
+      "bloom": "Analyze",
+      "scenario": "The gbm package was installed by running R as the developer's own user. When PDI runs the training step as a different service user, R reports there is no package called gbm.",
+      "prompt": "What explains the failure, and the fix?",
       "options": [
-        "R Script Executor",
-        "Modified Java Script Value",
-        "Execute SQL Script",
-        "Python Executor"
+        "gbm went into that user's library; install it with sudo -i R",
+        "rJava is missing gbm; rebuild rJava with --with-java-home",
+        "gbm cannot run inside PDI; train the model in Colab instead",
+        "The package name is case-sensitive; call library(GBM)"
       ],
       "correct": 0,
-      "explanation": "The R Script Executor step runs R code inside a transformation. It validates the R integration in the prerequisites and trains and applies the GBM model in the credit-card lab.",
-      "source": "Pentaho Developer - ML Specialty: Prerequisites & Setup — R Script Executor"
+      "explanation": "Running R without sudo installs packages for that user only, so another user cannot load them; sudo -i R installs them system-wide. gbm is exactly what the PDI training step uses. rJava is the Java bridge; it does not carry R packages. R package names are case-sensitive, and the package is gbm in lower case.",
+      "source": "Pentaho Developer - ML Specialty: Prerequisite Tasks"
     },
     {
-      "id": "prereq-q7",
+      "id": "ml-m2-q7",
       "module": "Prerequisites & Setup",
-      "prompt": "How do you verify the R Script Executor step is configured correctly during the prerequisite validation?",
+      "bloom": "Apply",
+      "scenario": "Before building the fraud pipeline, a developer wants proof that the R Script Executor step is wired to a working R.",
+      "prompt": "What is the quickest check?",
       "options": [
-        "Run the entire main job and inspect the Excel output",
-        "Use a simple script that loads the iris dataset and click Test Script to preview the result",
-        "Open Colab and upload the H2O.csv file",
-        "Check that the leaderboard lists at least ten models"
+        "Open the step and confirm that the R home field is filled in",
+        "Run the full training transformation to see if it finishes",
+        "Check that the installed R version matches the documented one",
+        "Run library(datasets); iris and use Test Script to see the rows"
       ],
-      "correct": 1,
-      "explanation": "The validation transformation uses a minimal R script that loads the datasets library and the iris data, then you click Test Script to confirm R runs and previews output inside PDI.",
-      "source": "Pentaho Developer - ML Specialty: Prerequisites & Setup — R Script Executor"
+      "correct": 3,
+      "explanation": "A two-line script that returns the built-in iris data, previewed with Test Script, exercises the whole chain from PDI through rJava to R. The full training run takes far longer and mixes in other failures. A matching version number does not prove the bridge works. A filled-in field looks right without showing anything runs.",
+      "source": "Pentaho Developer - ML Specialty: Prerequisite Tasks"
     },
     {
-      "id": "automl-q1",
+      "id": "ml-m3-q1",
       "module": "AutoML",
-      "prompt": "What does H2O AutoML do?",
+      "bloom": "Apply",
+      "scenario": "A team has a labelled fraud dataset and no strong view on which algorithm suits it.",
+      "prompt": "What does H2O AutoML do for them?",
       "options": [
-        "It writes the PDI transformations for you automatically",
-        "It tries many algorithms and settings, then ranks them so you can shortlist strong candidate models",
-        "It cleans and joins the raw source files",
-        "It deploys the chosen model as a REST service"
+        "Deploys the winning model straight into the PDI pipeline",
+        "Trains one model that needs no further evaluation at all",
+        "Shortlists strong models without lengthy manual tuning",
+        "Removes the need for a labelled target column in the data"
       ],
-      "correct": 1,
-      "explanation": "AutoML automates the model search: H2O trains many algorithms with different settings and ranks them, letting you shortlist well-performing candidates instead of hand-building each model.",
-      "source": "Pentaho Developer - ML Specialty: AutoML — H2O AutoML"
+      "correct": 2,
+      "explanation": "AutoML automatically discovers well-performing models, giving a shortlist of candidates to compare on the right metric. Its output still has to be judged, which is what the metrics cheat sheet is for. The fraud search runs on the labelled dataset. Deployment is a separate step: the H2O result pointed to GBM, which is then trained in R inside PDI.",
+      "source": "Pentaho Developer - ML Specialty: Overview"
     },
     {
-      "id": "automl-q2",
+      "id": "ml-m3-q2",
       "module": "AutoML",
-      "prompt": "What is the H2O AutoML leaderboard?",
+      "bloom": "Apply",
+      "scenario": "AutoML has produced a leaderboard of fraud classifiers on data where fraud is about 1% of rows.",
+      "prompt": "Which metric should rank the candidates?",
       "options": [
-        "A log of every error encountered during training",
-        "The ranked table of candidate models ordered by a chosen metric so you can pick the best performer",
-        "A list of features sorted by importance",
-        "The history of decision thresholds you have tried"
+        "AUC",
+        "Accuracy",
+        "RMSE",
+        "AUCPR"
       ],
-      "correct": 1,
-      "explanation": "The leaderboard is the ranked table AutoML produces, listing the candidate models it trained ordered by a chosen metric so you can identify the strongest one.",
-      "source": "Pentaho Developer - ML Specialty: AutoML — Leaderboard"
+      "correct": 3,
+      "explanation": "AUCPR is the best single-number metric for imbalanced classification and is used to compare candidates before tuning thresholds. AUC is a sanity check on ranking that can look good while precision is poor. Accuracy is the trap on 1% fraud. RMSE is a regression-style error on probabilities, not decision-friendly here.",
+      "source": "Pentaho Developer - ML Specialty: AutoML"
     },
     {
-      "id": "automl-q3",
+      "id": "ml-m3-q3",
       "module": "AutoML",
-      "scenario": "You are choosing which metrics to report when comparing AutoML candidates on a fraud dataset where genuine fraud is well under 1% of rows.",
-      "prompt": "According to the metrics cheat sheet, which metrics are appropriate for highly imbalanced fraud data?",
+      "bloom": "Evaluate",
+      "scenario": "Genuine fraud is about 1% of transactions. A colleague proposes judging models by plain accuracy, since it is the one number the business already understands.",
+      "prompt": "What is the fairest assessment of the proposal?",
       "options": [
-        "AUCPR",
-        "Recall",
-        "Precision",
-        "Plain accuracy",
-        "RMSE"
+        "Reject it: a do-nothing model would score 99% here",
+        "Reject it, and rank the candidates on RMSE in its place",
+        "Accept it, provided RMSE is reported alongside accuracy",
+        "Accept it: accuracy is computed alike for every candidate"
+      ],
+      "correct": 0,
+      "explanation": "With fraud at 1%, predicting legitimate for every row is 99% accurate and useless, which is why accuracy is a trap here. Being computed the same way for every model does not make it meaningful. RMSE is a regression-style error on probabilities, so adding it or ranking on it does not judge the fraud decision.",
+      "source": "Pentaho Developer - ML Specialty: AutoML"
+    },
+    {
+      "id": "ml-m3-q4",
+      "module": "AutoML",
+      "bloom": "Analyze",
+      "scenario": "A fraud model reports an AUC of 0.97, and the team wants to put it into production on that figure alone.",
+      "prompt": "What is the problem with that?",
+      "options": [
+        "AUC cannot be computed on imbalanced data, so 0.97 is meaningless",
+        "AUC rates ranking; precision at the threshold used may be poor",
+        "Nothing at all, since any AUC above 0.95 is enough on its own",
+        "AUC applies only to regression problems, never to classification"
+      ],
+      "correct": 1,
+      "explanation": "AUC measures how well the model ranks fraud above legitimate transactions and can look good even when precision is poor at useful thresholds, so it is a sanity check rather than the decision. It can be computed on imbalanced data; it just says less there. It is a classification metric. No AUC figure settles behaviour at the threshold you run.",
+      "source": "Pentaho Developer - ML Specialty: AutoML"
+    },
+    {
+      "id": "ml-m3-q5",
+      "module": "AutoML",
+      "bloom": "Apply",
+      "scenario": "A fraud model raises 100 alerts in a month, and 20 of them are real fraud. There were 50 fraudulent transactions in total that month.",
+      "prompt": "What are its precision and recall?",
+      "options": [
+        "Precision 50% and recall 40%",
+        "Precision 40% and recall 20%",
+        "Precision 20% and recall 40%",
+        "Precision 20% and recall 80%"
+      ],
+      "correct": 2,
+      "explanation": "Precision is how many alerts are real fraud, 20 of 100, so 20%; recall is how much of the fraud is caught, 20 of 50, so 40%. Swapping them confuses alerts with frauds. 80% would mean 40 frauds caught. 50% treats the total fraud count as the alert count.",
+      "source": "Pentaho Developer - ML Specialty: AutoML"
+    },
+    {
+      "id": "ml-m3-q6",
+      "module": "AutoML",
+      "bloom": "Evaluate",
+      "scenario": "For one card issuer every undetected fraud is refunded at the bank's expense, while a false alarm only means a customer confirming a purchase. Two colleagues disagree on whether to prioritise precision or recall.",
+      "prompt": "Which position is better supported?",
+      "options": [
+        "Precision, as false alarms are the only cost the bank controls",
+        "Recall, and precision then stops carrying any information at all",
+        "Neither, as accuracy balances the two and should be used instead",
+        "Recall, as missed fraud costs more, within the alert volume"
+      ],
+      "correct": 3,
+      "explanation": "When fraud losses are expensive the guidance is to prioritise recall, and here missed fraud is the costly error; precision still sets how many alerts the team must work through. The bank controls both errors through the threshold. Accuracy is the trap on imbalanced data. Precision remains informative even when recall leads, because it measures the alert burden.",
+      "source": "Pentaho Developer - ML Specialty: AutoML"
+    },
+    {
+      "id": "ml-m3-q7",
+      "module": "AutoML",
+      "bloom": "Apply",
+      "scenario": "A team has twelve candidate fraud models from AutoML and must also settle the probability at which an alert is raised.",
+      "prompt": "In what order should those decisions be made?",
+      "options": [
+        "Choose the model with the lowest RMSE, then leave the threshold at 0.5",
+        "Compare candidates on AUCPR, then tune the chosen one's threshold",
+        "Tune a threshold for each of the twelve, then compare them on AUC",
+        "Set one threshold first, then choose the model with best accuracy"
+      ],
+      "correct": 1,
+      "explanation": "AUCPR compares candidates before thresholds are tuned, and the threshold is then set for the chosen model to balance precision and recall. Accuracy is the wrong yardstick on imbalanced data. AUC is a sanity check, not the comparison metric. RMSE is not decision-friendly, and 0.5 is a default to adjust, not a decision.",
+      "source": "Pentaho Developer - ML Specialty: AutoML"
+    },
+    {
+      "id": "ml-m3-q8",
+      "module": "AutoML",
+      "bloom": "Apply",
+      "scenario": "The data preparation is done in PDI, and the AutoML search runs in a Colab notebook.",
+      "prompt": "What passes from one to the other?",
+      "options": [
+        "The H2O.csv file that autoML.ktr writes, uploaded to Colab",
+        "Nothing, as Colab queries PDI's database connections live",
+        "The autoML.ktr transformation itself, which Colab runs",
+        "A trained model artifact that Colab goes on to refine"
+      ],
+      "correct": 0,
+      "explanation": "Running autoML.ktr in PDI creates data/H2O.csv, which is uploaded to Colab when prompted; the handover is a file. Colab runs notebooks, not PDI transformations. The model is trained in Colab, not received from PDI. Colab has no live connection to PDI's databases.",
+      "source": "Pentaho Developer - ML Specialty: AutoML"
+    },
+    {
+      "id": "ml-m3-q9",
+      "module": "AutoML",
+      "bloom": "Apply",
+      "scenario": "The AutoML results in Colab point to a Gradient Boosting model as the best fit for the fraud data.",
+      "prompt": "How is that result carried into the PDI fraud workflow?",
+      "options": [
+        "PDI calls Colab to score each new transaction",
+        "A GBM is trained in R inside PDI, on the same dataset",
+        "The leaderboard's CSV is loaded as if it were the model",
+        "The H2O model is copied unchanged into the R step"
+      ],
+      "correct": 1,
+      "explanation": "The H2O results point to GBM, and the PDI workflow operationalises that choice by training a GBM with the R gbm package on the same dataset, saving the artifact and scoring with it. The H2O model itself is not moved into R. Scoring runs in PDI's R step, not in Colab. A leaderboard lists candidates; it is not a model.",
+      "source": "Pentaho Developer - ML Specialty: Credit Card"
+    },
+    {
+      "id": "ml-m3-q10",
+      "module": "AutoML",
+      "bloom": "Analyze",
+      "scenario": "A fraud classifier leaderboard has been sorted by RMSE, and the top model by that measure is being put forward for deployment.",
+      "prompt": "Why is RMSE the wrong sort key here?",
+      "options": [
+        "It is valid only on balanced data, so it would suit a higher fraud rate",
+        "It cannot be computed for classifiers, so the column is meaningless",
+        "It measures error on probabilities, not the quality of the fraud decision",
+        "It is right for ranking, but must be weighed against training time"
+      ],
+      "correct": 2,
+      "explanation": "RMSE and MSE are regression-style errors on probabilities and are not decision-friendly for fraud, so they are mostly ignored; AUCPR ranks candidates. The column can be computed, which is why it appears. Balance is not the issue; it measures the wrong thing either way. Training time does not repair a metric that does not judge the decision.",
+      "source": "Pentaho Developer - ML Specialty: AutoML"
+    },
+    {
+      "id": "ml-m4-q1",
+      "module": "Credit-Card Fraud Use Case",
+      "bloom": "Understand",
+      "scenario": "A colleague reviewing the gbm training script asks which values are chosen before training rather than produced by it.",
+      "prompt": "Which two are set before the model is trained?",
+      "options": [
+        "n.trees = 500",
+        "best_trees (gbm.perf)",
+        "fraud_probability",
+        "OOB error per tree",
+        "shrinkage = 0.01"
       ],
       "correctIndices": [
         0,
-        1,
-        2
+        4
       ],
-      "explanation": "AUCPR is the best single-number metric for imbalanced classification, while recall and precision describe the fraud caught versus the false alarms raised. Plain accuracy is a trap on imbalanced data and RMSE is a regression-style error that is not decision-friendly here.",
-      "source": "Pentaho Developer - ML Specialty: AutoML — Metrics Cheat Sheet"
+      "explanation": "n.trees, the number of boosting iterations, and shrinkage, the learning rate, are arguments passed to gbm before it runs. best_trees is computed from the trained model by gbm.perf. fraud_probability comes from predict at scoring time. The OOB error is measured during training, not chosen beforehand.",
+      "source": "Pentaho Developer - ML Specialty: Credit Card"
     },
     {
-      "id": "automl-q4",
-      "module": "AutoML",
-      "scenario": "A fraud model reports 99% accuracy, but the security team notices it never actually flags a fraudulent transaction.",
-      "prompt": "Why is plain accuracy described as a trap on fraud data?",
-      "options": [
-        "Accuracy is too slow to compute on large datasets",
-        "If fraud is about 1% of transactions, a model can be 99% accurate yet useless by predicting legitimate for every row",
-        "Accuracy only works for regression problems",
-        "Accuracy requires a GPU to calculate correctly"
-      ],
-      "correct": 1,
-      "explanation": "On heavily imbalanced data, always predicting the majority class yields high accuracy while catching no fraud at all, so accuracy can look excellent yet hide a worthless model.",
-      "source": "Pentaho Developer - ML Specialty: AutoML — Metrics Cheat Sheet"
-    },
-    {
-      "id": "automl-q5",
-      "module": "AutoML",
-      "prompt": "What is the difference between precision and recall in fraud detection?",
-      "options": [
-        "Precision is how much fraud you catch; recall is how many alerts are real",
-        "Precision is how many flagged transactions really are fraud; recall is how much of the actual fraud you catch",
-        "Precision and recall are two names for the same metric",
-        "Precision measures speed; recall measures memory use"
-      ],
-      "correct": 1,
-      "explanation": "Precision is the share of flagged transactions that are truly fraud, so high precision means fewer false alarms. Recall is the share of all real fraud the model catches, so high recall means fewer missed frauds.",
-      "source": "Pentaho Developer - ML Specialty: AutoML — Precision and Recall"
-    },
-    {
-      "id": "automl-q6",
-      "module": "AutoML",
-      "scenario": "For this issuer, every undetected fraudulent transaction is reimbursed at the bank's expense, so missed fraud is far costlier than a customer being asked to confirm a purchase.",
-      "prompt": "According to the cheat sheet's selection guide, which metric should you prioritise?",
-      "options": [
-        "Precision, to reduce false alarms",
-        "Recall, to minimise missed fraud",
-        "Accuracy, to keep the overall error low",
-        "RMSE, to reduce probability error"
-      ],
-      "correct": 1,
-      "explanation": "When the cost of missing fraud is high, prioritise recall so you catch as much fraud as possible. Prioritise precision instead when customer friction from false alarms is the bigger cost.",
-      "source": "Pentaho Developer - ML Specialty: AutoML — Metrics Cheat Sheet"
-    },
-    {
-      "id": "automl-q7",
-      "module": "AutoML",
-      "prompt": "What is the decision threshold when scoring transactions?",
-      "options": [
-        "The number of trees used in the model",
-        "The probability cut-off above which a scored transaction is labelled fraud",
-        "The minimum accuracy a model must reach to pass",
-        "The maximum number of rows the R step can process"
-      ],
-      "correct": 1,
-      "explanation": "The decision threshold is the probability cut-off for labelling a transaction as fraud. Lowering it catches more fraud but raises more false alarms, so you tune it to balance precision and recall for the business.",
-      "source": "Pentaho Developer - ML Specialty: AutoML — Decision Threshold"
-    },
-    {
-      "id": "automl-q8",
-      "module": "AutoML",
-      "prompt": "How is AUC (area under the ROC curve) best used according to the cheat sheet?",
-      "options": [
-        "As the only metric you ever need for fraud",
-        "As a sanity check, since it can look good even when precision is poor at useful thresholds",
-        "As a replacement for the train/test split",
-        "As a measure of how fast the model scores"
-      ],
-      "correct": 1,
-      "explanation": "AUC measures how well the model ranks fraud above legitimate transactions and is a useful sanity check, but it can look good even when precision is poor at usable thresholds, so it is not the primary metric for imbalanced fraud data.",
-      "source": "Pentaho Developer - ML Specialty: AutoML — Metrics Cheat Sheet"
-    },
-    {
-      "id": "automl-q9",
-      "module": "AutoML",
-      "prompt": "Which file does the autoML.ktr transformation produce for uploading to Colab?",
-      "options": [
-        "gbm_fraud.rdata",
-        "H2O.csv",
-        "credit_card_predict.xlsx",
-        "customer_billing.csv"
-      ],
-      "correct": 1,
-      "explanation": "Running autoML.ktr in PDI creates data/H2O.csv, which you then upload to Colab when prompted to run the H2O AutoML model search.",
-      "source": "Pentaho Developer - ML Specialty: AutoML — autoML.ktr"
-    },
-    {
-      "id": "automl-q10",
-      "module": "AutoML",
-      "prompt": "Why does the cheat sheet say RMSE and MSE can usually be ignored for this fraud problem?",
-      "options": [
-        "They are too expensive to compute",
-        "They are regression-style errors on probabilities and are not decision-friendly here",
-        "They only work on balanced datasets",
-        "They are deprecated in newer versions of H2O"
-      ],
-      "correct": 1,
-      "explanation": "RMSE and MSE measure regression-style error on probabilities, which does not translate into a useful fraud-or-not decision, so they are largely irrelevant for this classification task.",
-      "source": "Pentaho Developer - ML Specialty: AutoML — Metrics Cheat Sheet"
-    },
-    {
-      "id": "creditcard-q1",
+      "id": "ml-m4-q2",
       "module": "Credit-Card Fraud Use Case",
-      "prompt": "Which algorithm do the H2O results point to for the credit-card dataset, and which R package implements it in the lab?",
+      "bloom": "Understand",
+      "scenario": "The gbm call in the training script sets bag.fraction = 0.5.",
+      "prompt": "What does that setting do?",
       "options": [
-        "Logistic regression, using the glm package",
-        "Gradient Boosting Machine (GBM), using the gbm package",
-        "Random forest, using the ranger package",
-        "K-means clustering, using the cluster package"
+        "Keeps half the rows back as a fixed test set",
+        "Fits each tree on a random half of the rows",
+        "Halves the learning rate on every iteration",
+        "Discards half the trees once training ends"
       ],
       "correct": 1,
-      "explanation": "The H2O results point to a Gradient Boosting (GBM) algorithm, and the credit-card lab trains it in R using the gbm package to predict fraudulent transactions.",
-      "source": "Pentaho Developer - ML Specialty: Credit-Card Fraud — GBM in R"
+      "explanation": "bag.fraction = 0.5 uses 50% of the data for each tree, which makes it a stochastic GBM; the rows left out of each tree are what out-of-bag estimation measures. No trees are discarded; gbm.perf only chooses how many to use. The sample is drawn afresh for each tree, not a fixed test set. The learning rate is shrinkage, set separately.",
+      "source": "Pentaho Developer - ML Specialty: Credit Card"
     },
     {
-      "id": "creditcard-q2",
+      "id": "ml-m4-q3",
       "module": "Credit-Card Fraud Use Case",
-      "prompt": "How does gradient boosting (GBM) build its predictor?",
+      "bloom": "Understand",
+      "scenario": "The training script sets distribution = \"bernoulli\" for a target holding 0 for not fraud and 1 for fraud.",
+      "prompt": "Why bernoulli?",
       "options": [
-        "It trains one very deep decision tree on all the data at once",
-        "It builds many small decision trees in sequence, each correcting the errors of the last",
-        "It averages the predictions of independent trees trained in parallel",
-        "It fits a single straight line through the feature space"
+        "The target is a continuous amount",
+        "The target has more than two classes",
+        "It makes the training run faster",
+        "The target is binary, fraud or not"
+      ],
+      "correct": 3,
+      "explanation": "bernoulli is the distribution for binary classification, fraud yes or no, which is what the converted target holds. A continuous amount would call for a regression distribution. There are exactly two classes. The choice follows the target's type, not speed.",
+      "source": "Pentaho Developer - ML Specialty: Credit Card"
+    },
+    {
+      "id": "ml-m4-q4",
+      "module": "Credit-Card Fraud Use Case",
+      "bloom": "Apply",
+      "scenario": "Each tree in the fraud model may be at most four levels deep, and no terminal node may hold fewer than 10 observations.",
+      "prompt": "Which gbm settings express those limits?",
+      "options": [
+        "shrinkage = 4, n.trees = 10",
+        "interaction.depth = 4, n.minobsinnode = 10",
+        "interaction.depth = 10, n.minobsinnode = 4",
+        "n.trees = 4, bag.fraction = 10"
       ],
       "correct": 1,
-      "explanation": "GBM builds many small trees sequentially, where each new tree corrects the residual errors of the combined trees before it, producing one strong combined predictor.",
-      "source": "Pentaho Developer - ML Specialty: Credit-Card Fraud — Gradient Boosting"
+      "explanation": "interaction.depth sets the maximum depth of each tree and n.minobsinnode the minimum observations per terminal node. n.trees counts boosting iterations and bag.fraction is a share of rows between 0 and 1. shrinkage is the learning rate. The last option swaps the two values.",
+      "source": "Pentaho Developer - ML Specialty: Credit Card"
     },
     {
-      "id": "creditcard-q3",
+      "id": "ml-m4-q5",
       "module": "Credit-Card Fraud Use Case",
-      "prompt": "In the GBM training script, why is the distribution set to bernoulli?",
+      "bloom": "Apply",
+      "scenario": "A training script ends with the save() call that writes gbm_fraud.rdata, and the R Script Executor step then reports an error although the file was written.",
+      "prompt": "What should the script end with?",
       "options": [
-        "Because the target is a continuous dollar amount",
-        "Because the task is binary classification, fraud yes or no",
-        "Because the data has more than two classes",
-        "Because it makes training run faster"
+        "A print() of the saved model's full summary",
+        "A call to quit() so that the R session closes",
+        "The path of the .rdata file as a plain string",
+        "A data frame, such as one holding Finished"
+      ],
+      "correct": 3,
+      "explanation": "The R Script Executor expects a data frame as the script's output, so the training script builds ok.df from a status value and returns it. Printed output is not the step's result. Quitting R would end the session PDI runs it in. A bare string is not a data frame.",
+      "source": "Pentaho Developer - ML Specialty: Credit Card"
+    },
+    {
+      "id": "ml-m4-q6",
+      "module": "Credit-Card Fraud Use Case",
+      "bloom": "Apply",
+      "scenario": "The prediction script calls predict(gbm_model, newdata = test.df, n.trees = best_trees, type = \"response\").",
+      "prompt": "What does it return for each transaction?",
+      "options": [
+        "A count of the trees that voted fraud",
+        "A fraud probability between 0 and 1",
+        "A 0 or 1 label from the 0.5 cut-off",
+        "The row's rank among all transactions"
       ],
       "correct": 1,
-      "explanation": "The bernoulli distribution is for binary classification. The target is whether a transaction is fraud (1) or not (0), so the model is trained to output a fraud probability.",
-      "source": "Pentaho Developer - ML Specialty: Credit-Card Fraud — GBM Training Script"
+      "explanation": "With a bernoulli model, type = \"response\" returns probabilities on the 0 to 1 scale, with values closer to 1 more likely fraud. Boosted trees are summed into one score, not counted as votes. The 0/1 flag is made afterwards with ifelse(fraud_prob >= 0.5, 1, 0). The output is a probability per row, not a rank.",
+      "source": "Pentaho Developer - ML Specialty: Credit Card"
     },
     {
-      "id": "creditcard-q4",
+      "id": "ml-m4-q7",
       "module": "Credit-Card Fraud Use Case",
-      "prompt": "Which of these are hyperparameters of the GBM model, set before training rather than learned from the data?",
+      "bloom": "Evaluate",
+      "scenario": "The business would rather review a few more legitimate transactions than let fraud through, and asks for the prediction script's cut-off to move from 0.5 to 0.3.",
+      "prompt": "What is the fairest assessment of the change?",
       "options": [
-        "Number of trees (n.trees)",
-        "Interaction depth (tree depth)",
-        "Shrinkage (learning rate)",
-        "The fraud probability returned for each row",
-        "The decision threshold used when scoring"
-      ],
-      "correctIndices": [
-        0,
-        1,
-        2
-      ],
-      "explanation": "Number of trees, interaction depth and shrinkage are GBM hyperparameters fixed before training. The fraud probability is the model's learned output, and the decision threshold is a scoring-time choice applied after the model produces that probability.",
-      "source": "Pentaho Developer - ML Specialty: Credit-Card Fraud — Hyperparameters"
-    },
-    {
-      "id": "creditcard-q5",
-      "module": "Credit-Card Fraud Use Case",
-      "prompt": "Why does the training script use OOB (out-of-bag) estimation via gbm.perf to choose the number of trees?",
-      "options": [
-        "Because OOB always produces more trees than cross-validation",
-        "To find where performance plateaus and avoid overfitting from using too many trees",
-        "Because the gbm package does not support any other method",
-        "To make the model file smaller on disk"
-      ],
-      "correct": 1,
-      "explanation": "gbm.perf with the OOB method analyses the out-of-bag improvement curve to find the optimal tree count, which avoids overfitting from using more trees than needed while still capturing the signal.",
-      "source": "Pentaho Developer - ML Specialty: Credit-Card Fraud — GBM Training Script"
-    },
-    {
-      "id": "creditcard-q6",
-      "module": "Credit-Card Fraud Use Case",
-      "prompt": "In the prediction script, what does predict() with type set to response return for each transaction?",
-      "options": [
-        "A fraud probability on a 0 to 1 scale",
-        "The raw count of decision trees that fired",
-        "The customer's billing address",
-        "A ranked leaderboard of models"
+        "It catches more fraud, at the cost of more false alarms",
+        "It changes only how the probability is displayed",
+        "It catches more fraud with no increase in false alarms",
+        "It has no effect until the model has been retrained"
       ],
       "correct": 0,
-      "explanation": "Because the model was trained with the bernoulli distribution, predict with type response returns a fraud probability between 0 and 1, where values closer to 1 indicate higher likelihood of fraud.",
-      "source": "Pentaho Developer - ML Specialty: Credit-Card Fraud — Prediction Script"
+      "explanation": "Lowering the threshold flags transactions on weaker evidence, so more fraud is caught and more legitimate transactions are flagged; it is right only if reviewers can absorb the extra volume. False alarms do rise. The threshold decides predicted_fraud, so it changes which rows are flagged. It is applied to probabilities the model already produces, so no retraining is involved.",
+      "source": "Pentaho Developer - ML Specialty: Credit Card"
     },
     {
-      "id": "creditcard-q7",
+      "id": "ml-m4-q8",
       "module": "Credit-Card Fraud Use Case",
-      "scenario": "The business decides it would rather review a few more legitimate transactions than let fraud slip through, so it asks you to change the prediction script's 0.5 cut-off to 0.3.",
-      "prompt": "What does the lab note about this change?",
+      "bloom": "Apply",
+      "scenario": "The training step fails because R cannot open a file whose path begins with the literal text ${Internal.Transformation.Filename.Directory}.",
+      "prompt": "What fixes it?",
       "options": [
-        "It would make the model train faster",
-        "It is a more aggressive threshold that catches more fraud, adjustable based on business rules",
-        "It would break the model artifact",
-        "It only changes the readability percentage, not the decision"
+        "Escaping the dollar sign so R treats it as an R variable",
+        "Replacing the variable with the developer's own absolute path",
+        "Defining the variable in kettle.properties so R can read it",
+        "Enabling variable substitution on the R Script Executor step"
       ],
-      "correct": 1,
-      "explanation": "The predicted_fraud flag uses a 0.5 decision threshold by default. Lowering it to 0.3 is a more aggressive setting that catches more fraud, and the script notes you adjust the threshold based on business rules.",
-      "source": "Pentaho Developer - ML Specialty: Credit-Card Fraud — Decision Threshold"
+      "correct": 3,
+      "explanation": "The path is resolved by PDI, so the step must substitute variables before handing the script to R; otherwise R receives the literal text. An absolute path breaks the folder-relative handoff when the files move. The variable is PDI's internal one, and R does not read kettle.properties. R has no such variable to refer to.",
+      "source": "Pentaho Developer - ML Specialty: Credit Card"
     },
     {
-      "id": "creditcard-q8",
+      "id": "ml-m4-q9",
       "module": "Credit-Card Fraud Use Case",
-      "prompt": "Where does the training transformation save the trained GBM model so the scoring transformation can use it?",
+      "bloom": "Apply",
+      "scenario": "Reviewers need each scored transaction's original fields beside its fraud probability and flag.",
+      "prompt": "What in the prediction script provides that?",
       "options": [
-        "To a relational database table",
-        "To an .rdata file (gbm_fraud.rdata) on disk",
-        "To the H2O leaderboard in memory",
-        "To the Excel results spreadsheet"
+        "load(), which restores the original rows with the model",
+        "cbind(test.df, pred.df), joining inputs to predictions",
+        "predict(), which returns the input fields with each score",
+        "as.data.frame(test), which adds the predictions to the rows"
       ],
       "correct": 1,
-      "explanation": "The training script saves the gbm_model and best_trees to gbm_fraud.rdata on disk. The separate scoring transformation later loads that file to apply the model to new transactions.",
-      "source": "Pentaho Developer - ML Specialty: Credit-Card Fraud — Model Artifact"
+      "explanation": "The script binds the input frame and the predictions column-wise, so every input field travels downstream with fraud_probability, fraud_pct and predicted_fraud. load() restores the model and best_trees, not rows. predict returns probabilities only. as.data.frame(test) converts the incoming rows before scoring.",
+      "source": "Pentaho Developer - ML Specialty: Credit Card"
     },
     {
-      "id": "creditcard-q9",
-      "module": "Credit-Card Fraud Use Case",
-      "prompt": "Why is the credit-card dataset described as imbalanced, and why does that matter?",
-      "options": [
-        "Because there are more columns than rows, which slows training",
-        "Because fraudulent transactions are rare compared with legitimate ones, so the model must be evaluated carefully or it will simply ignore the rare cases",
-        "Because the data is split unevenly between two database servers",
-        "Because the billing and shipping addresses rarely match"
-      ],
-      "correct": 1,
-      "explanation": "Fraud is a tiny fraction of all transactions, so the classes are heavily imbalanced. Handling this properly, including the choice of metric, is essential so the model does not just predict the common class and miss the rare fraud cases.",
-      "source": "Pentaho Developer - ML Specialty: Credit-Card Fraud — Imbalanced Data"
-    },
-    {
-      "id": "orchestration-q1",
+      "id": "ml-m5-q1",
       "module": "PDI Orchestration",
-      "prompt": "Which PDI job ties the training and prediction transformations together in the credit-card use case?",
+      "bloom": "Apply",
+      "scenario": "Training and scoring are built as two transformations sequenced by a job, rather than as one transformation that trains and then predicts.",
+      "prompt": "What does that split make possible?",
       "options": [
-        "autoML.ktr",
-        "jb_fraud_main_job.kjb",
-        "tr_predict_fraud.ktr",
-        "test_r.ktr"
+        "Staying under a limit on steps per transformation",
+        "Running R twice, which one transformation cannot do",
+        "Setting variables, which only a job is able to do",
+        "Each runs alone; the saved model is the handoff"
       ],
-      "correct": 1,
-      "explanation": "jb_fraud_main_job.kjb is the orchestration job (.kjb) that sequences the training and prediction transformations, calling tr_train_model_fraud.ktr and tr_predict_fraud.ktr.",
-      "source": "Pentaho Developer - ML Specialty: PDI Orchestration — Main Job"
+      "correct": 3,
+      "explanation": "Training saves gbm_fraud.rdata and prediction loads it, so the two can run, be tested and be rerun independently, with the artifact as the seam. A transformation can hold several R steps. There is no step limit that forces the split. Transformations have parameters and variables of their own.",
+      "source": "Pentaho Developer - ML Specialty: Credit Card"
     },
     {
-      "id": "orchestration-q2",
+      "id": "ml-m5-q2",
       "module": "PDI Orchestration",
-      "prompt": "What is the difference between a PDI transformation and a PDI job?",
+      "bloom": "Apply",
+      "scenario": "The training model must be fitted on every row of the prepared data in a single run of the R script.",
+      "prompt": "Which R Script Executor setting ensures that?",
       "options": [
-        "A transformation is a .kjb file; a job is a .ktr file",
-        "A transformation is a data-flow of steps and hops (.ktr); a job is an orchestration unit (.kjb) that sequences transformations and other tasks",
-        "A transformation runs R while a job runs Python",
-        "They are two names for the same file type"
+        "R frame name set to all, naming the data frame",
+        "Row handling, Number of rows to process, set to All",
+        "Variable substitution, so ${ALL} expands to the rows",
+        "Input frames set to every step in the transformation"
       ],
       "correct": 1,
-      "explanation": "A transformation is a data-flow made of steps connected by hops, saved as .ktr. A job is an orchestration unit, saved as .kjb, that sequences transformations and other tasks in order.",
-      "source": "Pentaho Developer - ML Specialty: PDI Orchestration — Jobs vs Transformations"
+      "explanation": "Row handling's Number of rows to process set to All passes every row to the script at once, so one model is fitted on the whole dataset. The R frame name only names the data frame variable. Input frames name the step the rows come from, here sv-convert_booleans_to_numbers. Variable substitution resolves PDI variables in the script text; it does not change how many rows arrive.",
+      "source": "Pentaho Developer - ML Specialty: Credit Card"
     },
     {
-      "id": "orchestration-q3",
+      "id": "ml-m5-q3",
       "module": "PDI Orchestration",
-      "prompt": "In the train_model transformation, what does the R Script Executor's R frame name setting control?",
+      "bloom": "Analyze",
+      "scenario": "The prediction step was copied from the training step and its R frame name left as train, while its script reads as.data.frame(test).",
+      "prompt": "What happens when it runs?",
       "options": [
-        "The file path where the model artifact is saved",
-        "The name of the R data frame variable the incoming PDI rows are exposed as inside the script",
-        "The number of trees the GBM model will build",
-        "The decision threshold for flagging fraud"
+        "It scores the training rows instead of the new ones",
+        "The script fails, as the rows arrive in R as train",
+        "It works, as PDI renames the frame to suit the script",
+        "It works, as R frame name is only a display label"
       ],
       "correct": 1,
-      "explanation": "The R frame name names the R data frame variable that holds the incoming rows. In training it is set to train, so the script reads the rows via as.data.frame(train); in prediction it is set to test.",
-      "source": "Pentaho Developer - ML Specialty: PDI Orchestration — R Script Executor"
+      "explanation": "The R frame name is the name of the data frame variable the incoming rows appear as in R, so with train set there is no test object for the script to read. It is not a display label. The rows are the prediction step's own input, only under the wrong name. PDI does not rewrite the script or rename the frame to match it.",
+      "source": "Pentaho Developer - ML Specialty: Credit Card"
     },
     {
-      "id": "orchestration-q4",
+      "id": "ml-m5-q4",
       "module": "PDI Orchestration",
-      "prompt": "What is the end-to-end flow that PDI orchestrates in the fraud use case?",
+      "bloom": "Understand",
+      "scenario": "A new team member asks how the pieces of the fraud solution fit together, from raw data to flagged transactions.",
+      "prompt": "Which order is right?",
       "options": [
-        "Train a model in Colab, then download it to the relational database",
-        "Wrangle and prepare data, train the GBM model in R and save the artifact, then load that artifact to score new transactions",
-        "Score transactions first, then train a model on the results",
-        "Run AutoML repeatedly until accuracy reaches 100%"
+        "Score transactions, train GBM on the scores, then run AutoML",
+        "Prepare data, shortlist with AutoML, train GBM in R, then score",
+        "Run AutoML in PDI, then send each transaction to Colab",
+        "Train GBM in R, run AutoML on it, then prepare the data"
       ],
       "correct": 1,
-      "explanation": "PDI conducts the whole workflow: prepare and wrangle the data, train the GBM model in an R step and save the artifact to disk, then in a separate transformation load that artifact and score new transactions with a fraud probability.",
-      "source": "Pentaho Developer - ML Specialty: PDI Orchestration — End-to-End Flow"
+      "explanation": "PDI prepares the data and writes H2O.csv, AutoML in Colab shortlists models and points to GBM, PDI trains a GBM in R and saves gbm_fraud.rdata, and a separate transformation loads it to score new transactions. Scoring needs a trained model first. AutoML needs the prepared data before any model exists. AutoML runs in Colab, and scoring runs in PDI.",
+      "source": "Pentaho Developer - ML Specialty: Credit Card"
     },
     {
-      "id": "orchestration-q5",
+      "id": "ml-m5-q5",
       "module": "PDI Orchestration",
-      "prompt": "In the prediction transformation, how is the model artifact made available to the R Script Executor?",
+      "bloom": "Analyze",
+      "scenario": "The whole solution folder is copied to another machine under a different path. Training and prediction still find gbm_fraud.rdata without any edits.",
+      "prompt": "Why does the handoff survive the move?",
       "options": [
-        "It is passed in as a PDI variable",
-        "The R script loads the saved gbm_fraud.rdata file, which contains gbm_model and best_trees",
-        "It is re-trained from scratch each time the transformation runs",
-        "It is fetched from the H2O leaderboard over the network"
+        "Both paths start from the transformation's folder",
+        "R remembers the last file it saved and reloads it",
+        "PDI searches the whole disk for the .rdata file",
+        "The model is stored inside the job file itself"
       ],
-      "correct": 1,
-      "explanation": "The prediction R script calls load() on gbm_fraud.rdata, restoring the gbm_model and best_trees objects saved during training, then uses them to score the incoming test rows without retraining.",
-      "source": "Pentaho Developer - ML Specialty: PDI Orchestration — Prediction Transformation"
+      "correct": 0,
+      "explanation": "Both scripts use ${Internal.Transformation.Filename.Directory}/train_model_output/gbm_fraud.rdata, so the path follows wherever the transformations sit. PDI does not search for files. The job references the transformations; it does not hold the model. Each R session starts fresh and remembers nothing.",
+      "source": "Pentaho Developer - ML Specialty: Credit Card"
     },
     {
-      "id": "orchestration-q6",
+      "id": "ml-m5-q6",
       "module": "PDI Orchestration",
-      "prompt": "How do you open the referenced training transformation from inside the main job in Spoon?",
+      "bloom": "Analyze",
+      "scenario": "The training transformation is renamed and moved into a subfolder for tidiness. The job that runs it is not edited, and its next run fails.",
+      "prompt": "Why does the run fail?",
       "options": [
-        "Double-click an empty area of the canvas",
-        "Right-click the train_model transformation and choose Open referenced object then Transformation",
-        "Use File then New then Transformation",
-        "Press Ctrl+O and type the leaderboard name"
+        "The job refers to the file's old location, not a copy of it",
+        "A rename is harmless, but moving the file breaks the job",
+        "The job holds a stale copy of the transformation inside it",
+        "The job compiles each .ktr into itself when it is saved"
       ],
-      "correct": 1,
-      "explanation": "In the main job you right-click the train_model transformation entry and select Open referenced object then Transformation, which opens the underlying .ktr so you can edit its steps.",
-      "source": "Pentaho Developer - ML Specialty: PDI Orchestration — Main Job"
+      "correct": 0,
+      "explanation": "A job entry points at its transformation, which is why Spoon offers Open referenced object, so renaming or moving the file breaks the reference until the entry is updated. The job embeds no copy. A rename alone also breaks it, since the reference names the file. Nothing is compiled in, which is also why an edited transformation needs no rebuild of the job.",
+      "source": "Pentaho Developer - ML Specialty: Credit Card"
     },
     {
-      "id": "orchestration-q7",
+      "id": "ml-m5-q7",
       "module": "PDI Orchestration",
-      "prompt": "Where does the prediction workflow write its final scored results for review?",
+      "bloom": "Apply",
+      "scenario": "A reviewer who does not use PDI needs to look through last night's scored transactions and their fraud probabilities.",
+      "prompt": "What does the prediction workflow give them?",
       "options": [
-        "Into gbm_fraud.rdata",
-        "Into an Excel file, credit_card_predict.xlsx",
-        "Into the H2O.csv upload file",
-        "Into the kettle.properties file"
+        "An entry for each transaction in kettle.properties",
+        "gbm_fraud.rdata, which also stores each prediction",
+        "H2O.csv, refreshed with each night's new scores",
+        "credit_card_predict.xlsx, in train_model_output"
       ],
-      "correct": 1,
-      "explanation": "The results stage opens credit_card_predict.xlsx, the Excel output containing the scored transactions with their fraud probabilities, which can also trigger further downstream events.",
-      "source": "Pentaho Developer - ML Specialty: PDI Orchestration — Results"
+      "correct": 3,
+      "explanation": "The results are written to credit_card_predict.xlsx in the train_model_output folder, a file a reviewer can open and sort, and which can also trigger further events downstream. The .rdata file holds the model and best_trees, not predictions. H2O.csv is the AutoML upload. kettle.properties holds PDI variables, not results.",
+      "source": "Pentaho Developer - ML Specialty: Credit Card"
     }
   ]
 }

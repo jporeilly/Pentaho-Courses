@@ -4,9 +4,9 @@
 >
 > #### Overview
 > 
-> This workshop introduces the architectural boundary between LLM-enriched ETL and a genuine AI agent. Previous workshops in this series called an LLM directly from a PDI REST Client step - one prompt in, one JSON response out. That is a pure function: no external state, no mid-reasoning decisions.
+> This workshop introduces the architectural boundary between LLM-enriched ETL and a genuine AI agent. Previous workshops in this series called an LLM directly from a PDI REST Client step - one prompt in, one JSON response out. That is a pure function of one row: no external state, nothing beyond the text in front of it.
 > 
-> This workshop is different. PDI calls a deployed Python agent that uses the LLM's intermediate output to decide what external data to retrieve before producing its final answer. The lookup target is not known until after the first LLM call completes. PDI cannot replicate this in the transformation canvas - the sequence requires a reasoning loop that only the agent can own.
+> This workshop is different. PDI retrieves an asset's history and calls a deployed Python agent, which reads the current entry and every history entry together, in one LLM call, and reasons across them: is this a recurrence of a known fault, a new fault, or normal variation? PDI cannot replicate this on the transformation canvas - no step can read several free-text entries as a whole and judge what they mean together, so that judgement is what the agent owns.
 
 The test for whether something is an agent is simple: can PDI replicate the behaviour by adding more steps to the canvas? &#x20;
 

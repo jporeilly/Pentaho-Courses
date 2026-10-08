@@ -1,25 +1,35 @@
 {
   "id": "developer-ai-specialty",
   "analytics": {
-    "measurementId": "G-NRWFEZJ6T5",
-    "apiSecret": "rYEDJtQQTO647EtKAFKS5Q"
+    "measurementId": "G-NRWFEZJ6T5"
+  },
+  "contact": {
+    "to": "academy@pentaho.com",
+    "webhookUrl": "",
+    "heading": "Contact Us",
+    "blurb": "Ask us anything about the course, or tell us what you would like to know about Pentaho products and services. This is separate from the exam.",
+    "messagePlaceholder": "What would you like to know?",
+    "sendLabel": "Send"
   },
   "title": "Pentaho Developer - AI Specialty",
   "description": "AI-augmented data pipelines with Pentaho Data Integration. GenAI fundamentals, LLM integration patterns, structured extraction, and agent-as-a-service.",
-  "version": "0.1.0",
+  "version": "0.1.4",
   "kind": "workshop",
+  "level": { "number": 2, "name": "Specialty" },
   "mode": "sequential",
   "theme": {
     "accent": "#b91c1c"
   },
+  "labModels": ["nomic-embed-text"],
   "assistant": {
     "ollamaURL": "http://localhost:11434",
     "mcpURL": "https://docs.pentaho.com/~gitbook/mcp",
     "defaultProfile": "cpu",
     "models": {
       "cpu": "llama3.2:3b",
-      "gpu": "qwen2.5:7b"
+      "gpu": "gemma4:12b"
     },
+    "ladder": ["gemma4:12b", "qwen2.5:7b"],
     "subject": "AI-augmented PDI pipelines (prompts, local LLMs via Ollama, structured extraction with LangExtract, and agent services)",
     "suggestions": [
       "How do I call a local LLM from a PDI transformation?",
@@ -57,7 +67,7 @@
   "launchers": {
     "spoon": {
       "label": "Pentaho Data Integration",
-      "windows": "C:Pentahodesign-toolsdata-integrationspoon.bat",
+      "windows": "C:\\Pentaho\\design-tools\\data-integration\\spoon.bat",
       "linux": "~/Pentaho/design-tools/data-integration/spoon.sh",
       "macos": "~/Pentaho/design-tools/data-integration/spoon.sh",
       "fileArg": "-file="

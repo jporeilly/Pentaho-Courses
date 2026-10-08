@@ -12,7 +12,7 @@ This panel stays beside your tools for the whole workshop:
 - **Float or dock** — drag the title bar to move the window anywhere
   (any monitor), or use the dock button to pin it to the right edge of
   the screen so maximised apps make room for it.
-- **The sidebar** lists every section and lab. A ▶ badge means the lab
+- **The sidebar** lists every section and lab. A <span data-icon="video"></span> badge means the lab
   includes a video; the `~15 min` tag is a time estimate.
 - Use the **font-size** and **reading-mode** controls in the toolbar if
   you're on a small VM screen.
@@ -78,8 +78,8 @@ model, so it works even when the VM is offline.
 
 ## How this course is organised
 
-Each section starts with an **overview page** (📄 — background reading,
-no checkboxes) followed by **hands-on workshops** (🧪 — tracked steps).
+Each section starts with an **overview page** (<span data-icon="page"></span> — background reading,
+no checkboxes) followed by **hands-on workshops** (<span data-icon="workshop"></span> — tracked steps).
 Head to the first section whenever you're ready.
 
 ---

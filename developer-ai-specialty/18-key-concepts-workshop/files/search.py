@@ -70,7 +70,7 @@ class SearchComparator:
     A class to compare traditional keyword search with embedding-based semantic search.
     
     This class provides methods to:
-    - Generate embeddings using Ollama's llama3.2:latest model
+    - Generate embeddings using Ollama's nomic-embed-text model
     - Perform keyword-based search using term frequency
     - Perform vector-based semantic search using embeddings
     - Visualize and compare results from both search methods
@@ -88,7 +88,7 @@ class SearchComparator:
         self.client = ollama.Client(host=ollama_host)
         
         # Specify which Ollama model to use for embeddings
-        self.model = "llama3.2:latest"
+        self.model = "nomic-embed-text"
         
         # Cache to store embeddings to avoid regenerating for the same text
         self.cache: Dict[str, np.ndarray] = {}
@@ -137,7 +137,7 @@ class SearchComparator:
         
         # Request embedding from Ollama API
         response = self.client.embeddings(
-            model=self.model,  # Using llama3.2:latest model
+            model=self.model,  # Using nomic-embed-text model
             prompt=text  # The text to embed
         )
         
@@ -488,7 +488,7 @@ def demonstrate_search_comparison():
     print("Search Comparison Demo: Keyword vs. Vector Search using Ollama")
     print("=" * 65)
     print("This script compares traditional keyword search with embedding-based")
-    print("semantic search using the llama3.2:latest model via Ollama.")
+    print("semantic search using the nomic-embed-text model via Ollama.")
     
     try:
         # Create output directory
@@ -499,7 +499,7 @@ def demonstrate_search_comparison():
         ollama_host = get_ollama_host()
         
         # Initialize comparator
-        print(f"\nInitializing SearchComparator with Ollama (model: llama3.2:latest)")
+        print(f"\nInitializing SearchComparator with Ollama (model: nomic-embed-text)")
         comparator = SearchComparator(ollama_host, output_dir)
         
         # Test documents
@@ -541,7 +541,7 @@ def demonstrate_search_comparison():
         print(f"\nError: {str(e)}")
         print("\nTroubleshooting steps:")
         print("1. Ensure Ollama is installed and running (see https://ollama.com)")
-        print("2. Check if the llama3.2:latest model is pulled (`ollama pull llama3.2:latest`)")
+        print("2. Check if the nomic-embed-text model is pulled (`ollama pull nomic-embed-text`)")
         print("3. Verify the Ollama server URL is correct")
         print("4. Make sure the ollama Python package is installed (`pip install ollama`)")
         print(f"\nError details: {type(e).__name__}: {str(e)}")

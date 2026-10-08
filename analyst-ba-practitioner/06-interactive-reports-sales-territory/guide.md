@@ -142,13 +142,13 @@
 
 <figure><img src="../_assets/images/ir_sales_territory_select_report_template.png" alt=""><figcaption><p>Select - Report Template</p></figcaption></figure>
 
-2. Use the left and right arrow to scroll through the available templates, and then click on Left Aligned - Nickel.
+2. Use the left and right arrow to scroll through the available templates, and then click on Left Aligned - Grid - Nickel.
 
 <figure><img src="../_assets/images/ir_sales_territory_report_templates.png" alt=""><figcaption><p>Report Templates</p></figcaption></figure>
 
 > **Note:** You can define your own Report Template using Pentaho Report Designer.
 
-<figure><img src="../_assets/images/ir_sales_territory_left_aligned_grid_nickel.png" alt=""><figcaption><p>Left Aligned - Grid -Nickel</p></figcaption></figure>
+<figure><img src="../_assets/images/ir_sales_territory_left_aligned_grid_nickel.png" alt=""><figcaption><p>Left Aligned - Grid - Nickel</p></figcaption></figure>
 
 > **Note:**
 >
@@ -177,6 +177,8 @@
 > You can select more than one field by holding the Shift or Control key before adding them to the report. As you add fields, a blue vertical or horizontal line indicates where the column will be placed.&#x20;
 
 <div class="pcm-embed-card" data-href="https://www.loom.com/share/e45f3699b5234ff7975e836dae839f11?hideEmbedTopBar=true&hide_owner=true&hide_share=true&hide_title=true" data-title="loom.com"></div>
+
+> **Tip:** If a drag does not take (it can be fiddly over a remote desktop), every drag in this lab has a click alternative. Right-click a field in the Data panel and choose **Add to Columns** or **Add to Groups**; to remove a column, click the arrow on its header and choose **Remove**; to move one, use the same arrow and choose **Move**.
 
 ***
 
@@ -244,7 +246,7 @@
 > identical detail rows collapse into one. The canvas shows the result
 > of that SQL.
 >
-> **Why it matters:** five columns from three business tables became
+> **Why it matters:** six columns from three business tables became
 > one correct join without anyone writing it. The join knowledge lives
 > in the model, not in the report — change it there and every report
 > follows.
@@ -283,15 +285,15 @@
 > 
 > To change the sort order for an individual column, click the drop-down arrow next to the column heading, and then select Sort > Ascending, Sort > Descending, or Sort > None from the context menu.
 
-1. To change the sort order for Territory to Descending.
+1. To change the sort order for Territory to Descending, in the Group Sorting section at the bottom of the Data tab, select Descending from the Territory drop-down list.
 
 <figure><img src="../_assets/images/ir_sales_territory_descending_sort_on_territory.png" alt=""><figcaption><p>Descending sort on Territory</p></figcaption></figure>
 
-2. To sort the Customer Name column, on the Report Canvas, click the drop-down arrow next to the Customer Name column header, and then select Sort > Ascending.
+2. To sort the Customer Name column, on the Report Canvas, click the drop-down arrow next to the Customer Name column header, and then select Sort > Descending.
 
 <figure><img src="../_assets/images/ir_sales_territory_descending_sort_on_customer_name.png" alt=""><figcaption><p>Descending sort on Customer Name</p></figcaption></figure>
 
-> **Note:** Under Field Sorting in the Selection Pane, the sort order for Customer Name is Ascending. There is a red X you can click to remove the sort.
+> **Note:** Under Field Sorting in the Selection Pane, the sort order for Customer Name is Descending. There is a red X you can click to remove the sort.
 
 <figure><img src="../_assets/images/ir_sales_territory_data_tab_sorting.png" alt=""><figcaption><p>Data tab - sorting</p></figcaption></figure>
 
@@ -306,7 +308,7 @@
 > the group fields. That is why Territory and Country sit under Group
 > Sorting: they go into the query's `<orders>` ahead of any column
 > sort, and the database does the ordering (`ORDER BY territory DESC,
-> country, customername`). Nothing is re-sorted in memory.
+> country, customername DESC`). Nothing is re-sorted in memory.
 >
 > **Why it matters:** a million-row report groups correctly with the
 > same memory as a hundred-row one — and a column sort can never break
@@ -373,7 +375,7 @@
 
    &#x20; • Click OK.
 
-The filters applied are illustrated below:
+Filters are combined with the operator shown at the left of the Filters panel:
 
 | Operator | Definition                                                                  |
 | -------- | --------------------------------------------------------------------------- |
@@ -415,7 +417,7 @@ Let's create a prompt for Territory.
 
 <figure><img src="../_assets/images/ir_sales_territory_report_layout_2.png" alt=""><figcaption><p>Report Layout</p></figcaption></figure>
 
-> **Warning:** You will need to remove ‘Country begins with US’ filter and Territory.&#x20;
+> **Warning:** Delete the Territory filter and the Country Begins with US filter (keep Order Date): use the drop-down arrow on each filter and select Delete.
 
 2. Click on the dropdown arrow and select ‘Delete’.
 
@@ -509,7 +511,9 @@ The default prompt is a drop-down list.
 
 <figure><img src="../_assets/images/ir_sales_territory_add_caption.png" alt="" width="258"><figcaption><p>Add caption</p></figcaption></figure>
 
-6. Repeat the workflow for Territory and Grand Total.
+6. Repeat the workflow for the Territory subtotal (type Territory Subtotal) and for the grand total on the last page (type Grand Total).
+
+> **Tip:** Check your figures: the first group, Territory NA > Canada, has a Country Subtotal of $224,085.00, and the Grand Total on the last page is $10,644,855.00.
 
 > **Under the hood:**
 >
@@ -544,13 +548,13 @@ The default prompt is a drop-down list.
 <figure><img src="../_assets/images/ir_sales_territory_calculated_fields.png" alt="" width="254"><figcaption><p>Calculated Fields</p></figcaption></figure>
 
 3. Click the + sign on the Calculated Fields.
-4. To calculate the Tax:  =\[BC\_ORDERDETAILS\_TOTAL]\*0.15
+4. In Display Name type Tax, in Formula type =\[BC\_ORDERDETAILS\_TOTAL]\*0.15, and from the Data Format drop-down list select Numeric (the dialog will not close without one), then click OK.
 
 <figure><img src="../_assets/images/ir_sales_territory_calculated_measure_tax.png" alt=""><figcaption><p>Calculated Measure - Tax</p></figcaption></figure>
 
-5. Add to the Report Drag & Drop.
+5. Double-click Tax under Calculated Fields (or drag it onto the report canvas). It is added as the last column.
 
-> **Note:** If you're creating alot of Calculated Measures, then BP is to add them to the Schema.
+> **Note:** If you create a lot of calculated fields, best practice is to add them to the metadata model as formula columns.
 
 > **Under the hood:**
 >
@@ -592,6 +596,8 @@ The default prompt is a drop-down list.
 > &#x20; • Format column headers and data&#x20;
 > 
 > &#x20; • Change the column header for the Total column&#x20;
+>
+> &#x20; • Format the Tax column as currency&#x20;
 > 
 > &#x20; • Change the page layout to landscape.
 
@@ -607,7 +613,7 @@ The default prompt is a drop-down list.
 
 2. To centre the report title, in the Selection Pane, click the Formatting tab, and then click the Align Center icon.
 
-<figure><img src="../_assets/images/ir_sales_territory_fomatting_options.png" alt="" width="297"><figcaption><p>Fomatting options</p></figcaption></figure>
+<figure><img src="../_assets/images/ir_sales_territory_fomatting_options.png" alt="" width="297"><figcaption><p>Formatting options</p></figcaption></figure>
 
 3. To add text to the report header, in the header area:
 
@@ -642,14 +648,15 @@ The default prompt is a drop-down list.
    &#x20; • On the Formatting panel, click the drop-down arrow for Numeric Format.
 
    &#x20; • Select $#,###.
-8. To change the column header for the Total column:
+8. To format the Tax column, click within the Tax data column, select $#,###.00 from Numeric Format, and click the Align Right icon. Then click the Tax column header and click Align Right.
+9. To change the column header for the Total column:
 
    &#x20; • Double-click the Total column header.
 
    &#x20; • In the text box, type Revenue.
 
    &#x20; • Press Enter.
-9. To change the page format to landscape, in the Selection Pane, click the General panel, and then click the Page Setup button.
+10. To change the page format to landscape, in the Selection Pane, click the General panel, click the Page Setup button, select Landscape, and then click OK.
 
 <figure><img src="../_assets/images/ir_sales_territory_page_setup.png" alt="" width="563"><figcaption><p>Page setup</p></figcaption></figure>
 
@@ -731,8 +738,9 @@ The default prompt is a drop-down list.
 > The row limit is written into the MQL `<limit>` and rendered as the
 > database's own limit clause where the dialect has one, so the
 > database stops after that many rows. Interactive Reporting applies
-> 500 while you design and 10,000 when a report is viewed unless you
-> raise it. The timeout is handed to the JDBC driver as a statement
+> a starting row limit of 500 and a ceiling of 10,000 rows in edit and view
+> mode that only an administrator can raise (query-limit in the plugin's
+> settings.xml). The timeout is handed to the JDBC driver as a statement
 > timeout, which cancels a runaway query on the database side rather
 > than just abandoning it in the browser. Auto Refresh off means the
 > MQL keeps being edited with every drop but is not executed until you
@@ -744,3 +752,22 @@ The default prompt is a drop-down list.
 
 ::::
 
+---
+
+## Lab Files
+
+Click a file to download it.
+
+### Solution <!-- no-step -->
+
+The finished report for this lab: grouped by Territory and Country, with the three totals, the Tax calculated field, the formatting and the landscape page. Open it alongside your own to compare.
+
+Also on disk at `C:\Workshop-BA-Practitioner\03-interactive-reports\06-interactive-reports-sales-territory\solution`.
+
+[Sales Territory Report - Demo.prpti](./files/Sales%20Territory%20Report%20-%20Demo.prpti)
+
+To open it in the User Console:
+
+1. In **Browse Files**, select your own folder under **Home** (Home > admin, say), so the solution sits apart from your own report in Public > Training.
+2. In the **Folder Actions** pane, click **Upload...**, click **Browse...** and choose the `.prpti` file, and then click **OK**.
+3. Double-click **Sales Territory Report - Demo** to run it, and click **Edit** on the toolbar to see how it is built.

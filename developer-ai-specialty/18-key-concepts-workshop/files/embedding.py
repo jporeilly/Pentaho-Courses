@@ -16,7 +16,7 @@ class EmbeddingAnalyzer:
     A class to analyze and visualize text embeddings using Ollama.
     
     This class provides methods to:
-    - Generate embeddings for text using Ollama's llama3.2 model
+    - Generate embeddings for text using Ollama's nomic-embed-text model
     - Calculate similarities between texts
     - Visualize embedding properties and relationships
     - Create semantic search demonstrations
@@ -32,7 +32,7 @@ class EmbeddingAnalyzer:
         # Initialize the Ollama client with the specified host
         self.client = ollama.Client(host=host)
         # Specify which Ollama model to use for embeddings
-        self.model = "llama3.2:latest"
+        self.model = "nomic-embed-text"
         # Cache to store embeddings to avoid regenerating for the same text
         self.cache: Dict[str, np.ndarray] = {}
         # Directory where all output files will be saved
@@ -303,7 +303,7 @@ def demonstrate_embeddings():
     
     try:
         # Initialize analyzer with Ollama
-        print(f"\nInitializing EmbeddingAnalyzer with Ollama (model: llama3.2:latest)")
+        print(f"\nInitializing EmbeddingAnalyzer with Ollama (model: nomic-embed-text)")
         analyzer = EmbeddingAnalyzer(output_dir, host)
         
         # Example 1: Basic Semantic Similarity
@@ -417,7 +417,7 @@ def demonstrate_embeddings():
         print(f"\nError: {str(e)}")
         print("\nTroubleshooting steps:")
         print("1. Ensure Ollama is installed and running (see https://ollama.com)")
-        print("2. Check if the llama3.2:latest model is pulled (`ollama pull llama3.2:latest`)")
+        print("2. Check if the nomic-embed-text model is pulled (`ollama pull nomic-embed-text`)")
         print("3. Verify the Ollama server URL is correct")
         print("4. Make sure the ollama Python package is installed (`pip install ollama`)")
         print(f"\nError details: {type(e).__name__}: {str(e)}")

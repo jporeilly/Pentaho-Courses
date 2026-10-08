@@ -150,7 +150,7 @@ curl http://localhost:8765/health
 
 ***
 
-## Troubleshooting
+## Troubleshooting <!-- no-step -->
 
 > **Warning:** Common issues:
 >

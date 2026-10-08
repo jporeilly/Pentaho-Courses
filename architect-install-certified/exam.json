@@ -4,11 +4,10 @@
   "passMark": 80,
   "questionsPerAttempt": 40,
   "shuffle": true,
-  "webhookUrl": "https://script.google.com/macros/s/AKfycbzt7thr4mfy3-kduDbiQ_UfBPwGC7JxpZA9p1XOeGJG4Q0rh9-OoKJNG965c8SVNQ7i/exec",
-  "webhookSecret": "pcm_Y61JKvDGnbuqvn3BIVCkjoSu98Jn3bE4",
+  "webhookUrl": "https://script.google.com/macros/s/AKfycbzsCLkWA07Nr7qQCwibn6_RiyhYi33xzeq529mlYhf3xYZPAxKOntIN-Wd1qjv4M4c/exec",
   "questions": [
     {
-      "id": "install-m1-q1",
+      "id": "inst-m2-q1",
       "module": "Overview",
       "bloom": "Analyze",
       "scenario": "An estate runs Pentaho Server 10.2. A team wants to roll the PDI 11.0 client out to its developers now and leave the server upgrade until next quarter.",
@@ -24,7 +23,7 @@
       "source": "Pentaho Installation - Practitioner: Overview — What's New"
     },
     {
-      "id": "install-m1-q2",
+      "id": "inst-m2-q2",
       "module": "Overview",
       "bloom": "Evaluate",
       "scenario": "The platform team wants Pentaho 11.0 on its standard Linux image, which is not a configuration the Pentaho 11.0 Components Reference lists. They say the archive will start on it, and they are probably right.",
@@ -40,7 +39,7 @@
       "source": "Pentaho Installation - Practitioner: Overview — Components Reference"
     },
     {
-      "id": "install-m1-q3",
+      "id": "inst-m1-q1",
       "module": "Getting Started",
       "bloom": "Apply",
       "scenario": "A customer downloads the Pentaho 11.0 GA binaries from the Customer Portal, installs the server on a networked host, and finds no licence when it starts.",
@@ -56,7 +55,7 @@
       "source": "Pentaho Installation - Practitioner: Getting Started — Support Portal & Licensing"
     },
     {
-      "id": "install-m2-q1",
+      "id": "inst-m3-q1",
       "module": "Archive Installation",
       "bloom": "Apply",
       "scenario": "PENTAHO_JAVA_HOME was never set on a Pentaho 11 host. After an OS patch cycle the server will not start, and the default java command now reports OpenJDK 17.",
@@ -72,7 +71,7 @@
       "source": "Pentaho Installation - Practitioner: Archive Installation — Prepare Environment"
     },
     {
-      "id": "install-m2-q2",
+      "id": "inst-m3-q2",
       "module": "Archive Installation",
       "bloom": "Apply",
       "scenario": "The build plan names PostgreSQL 17 for the repository, but apt install postgresql on Ubuntu 24.04 installs version 16 from the distribution's own repository.",
@@ -88,7 +87,7 @@
       "source": "Pentaho Installation - Practitioner: Archive Installation — Prepare Environment"
     },
     {
-      "id": "install-m2-q3",
+      "id": "inst-m1-q2",
       "module": "Getting Started",
       "bloom": "Apply",
       "scenario": "A host already runs another Java application listening on port 8080, and the new Pentaho Server fails to start there.",
@@ -104,7 +103,7 @@
       "source": "Pentaho Installation - Practitioner: Getting Started — Components"
     },
     {
-      "id": "install-m2-q4",
+      "id": "inst-m3-q3",
       "module": "Archive Installation",
       "bloom": "Evaluate",
       "scenario": "The install creates a dedicated pentaho account that owns /opt/pentaho and runs the server. A colleague keeps hitting permission errors during setup and proposes running everything as root instead.",
@@ -120,7 +119,7 @@
       "source": "Pentaho Installation - Practitioner: Archive Installation — Prepare Environment"
     },
     {
-      "id": "install-m2-q5",
+      "id": "inst-m3-q4",
       "module": "Archive Installation",
       "bloom": "Apply",
       "scenario": "A systemd unit and several scripts on a new host must find the Pentaho install root, /opt/pentaho, without hard-coding it, and the value must be there for every user after a reboot.",
@@ -136,7 +135,7 @@
       "source": "Pentaho Installation - Practitioner: Archive Installation — Prepare Environment"
     },
     {
-      "id": "install-m2-q6",
+      "id": "inst-m1-q3",
       "module": "Getting Started",
       "bloom": "Apply",
       "scenario": "A nightly cron entry must run a .kjb that runs three transformations in sequence and stops if one fails, on a host with no desktop.",
@@ -152,7 +151,7 @@
       "source": "Pentaho Installation - Practitioner: Getting Started — Components (Pan / Kitchen)"
     },
     {
-      "id": "install-m2-q7",
+      "id": "inst-m1-q4",
       "module": "Getting Started",
       "bloom": "Understand",
       "scenario": "An ETL team wants transformations sent from its design tools to run on two dedicated worker machines, with a browser page to watch them and a REST API for its scheduler.",
@@ -168,7 +167,7 @@
       "source": "Pentaho Installation - Practitioner: Getting Started — Components (Carte)"
     },
     {
-      "id": "install-m2-q8",
+      "id": "inst-m3-q5",
       "module": "Archive Installation",
       "bloom": "Evaluate",
       "scenario": "A node is being built only to run scheduled ETL, and no reports or dashboards will ever be served from it. A colleague wants the full analytics plugin set installed anyway, so that every server in the estate is identical.",
@@ -184,7 +183,7 @@
       "source": "Pentaho Installation - Practitioner: Archive Installation — Server Plugins"
     },
     {
-      "id": "install-m2-q9",
+      "id": "inst-m3-q6",
       "module": "Archive Installation",
       "bloom": "Analyze",
       "scenario": "After a disk failure, an administrator restores only the jackrabbit database from backup. Reports and folders are back in the User Console, but every schedule has gone.",
@@ -200,7 +199,7 @@
       "source": "Pentaho Installation - Practitioner: Archive Installation — Install Pentaho Server (Repository)"
     },
     {
-      "id": "install-m3-q1",
+      "id": "inst-m3-q7",
       "module": "Archive Installation",
       "bloom": "Apply",
       "scenario": "A security review reports that the Pentaho Server tells anyone who makes an HTTP request which Tomcat version it runs.",
@@ -216,7 +215,7 @@
       "source": "Pentaho Installation - Practitioner: Archive Installation — Post Installation Tasks"
     },
     {
-      "id": "install-m3-q2",
+      "id": "inst-m3-q8",
       "module": "Archive Installation",
       "bloom": "Analyze",
       "scenario": "To harden a server, an administrator sets port=\"-1\" on the Server element in Tomcat's server.xml. The server still starts, but stopping it through its systemd unit, which runs stop-pentaho.sh, now hangs until the unit's timeout.",
@@ -232,7 +231,7 @@
       "source": "Pentaho Installation - Practitioner: Archive Installation — Post Installation Tasks"
     },
     {
-      "id": "install-m3-q3",
+      "id": "inst-m3-q9",
       "module": "Archive Installation",
       "bloom": "Analyze",
       "scenario": "An estate running Pentaho 7.1 is to be upgraded to 10.1, and the plan is to point the Pentaho Upgrade Installer straight at it.",
@@ -248,7 +247,7 @@
       "source": "Pentaho Installation - Practitioner: Archive Installation — Pentaho Upgrade & Patches"
     },
     {
-      "id": "install-m3-q4",
+      "id": "inst-m3-q10",
       "module": "Archive Installation",
       "bloom": "Evaluate",
       "scenario": "A host has 15 GB free on the Pentaho filesystem and the upgrade window is booked. A colleague proposes starting on time and clearing space if the Upgrade Installer complains.",
@@ -264,7 +263,7 @@
       "source": "Pentaho Installation - Practitioner: Archive Installation — Pentaho Upgrade & Patches"
     },
     {
-      "id": "install-m4-q1",
+      "id": "inst-m4-q1",
       "module": "Install Client Tools",
       "bloom": "Apply",
       "scenario": "Design tools have to go onto a fleet of Linux workstations, and the desktop team decides where every file lands.",
@@ -280,7 +279,7 @@
       "source": "Pentaho Installation - Practitioner: Install Client Tools — Client Plugins"
     },
     {
-      "id": "install-m4-q2",
+      "id": "inst-m4-q2",
       "module": "Install Client Tools",
       "bloom": "Analyze",
       "scenario": "A MySQL driver was distributed into the Pentaho Server's tomcat/lib, and reports on the server connect to MySQL. On a designer's workstation, Spoon still fails to connect to the same database with a driver error.",
@@ -296,7 +295,7 @@
       "source": "Pentaho Installation - Practitioner: Install Client Tools — Client Plugins"
     },
     {
-      "id": "install-m4-q3",
+      "id": "inst-m4-q3",
       "module": "Install Client Tools",
       "bloom": "Analyze",
       "scenario": "An engineer drops a PDI plugin into the plugins directory by hand, because it is quicker than opening the Plugin Manager.",
@@ -312,7 +311,7 @@
       "source": "Pentaho Installation - Practitioner: Install Client Tools — Kettle Plugins"
     },
     {
-      "id": "install-m4-q4",
+      "id": "inst-m4-q4",
       "module": "Install Client Tools",
       "bloom": "Apply",
       "scenario": "A plugin has just been installed through the Plugin Manager, which reported success, but its new steps are nowhere in the PDI client.",
@@ -328,7 +327,7 @@
       "source": "Pentaho Installation - Practitioner: Install Client Tools — Kettle Plugins"
     },
     {
-      "id": "install-ov-q1",
+      "id": "inst-m2-q3",
       "module": "Overview",
       "bloom": "Apply",
       "scenario": "A team of ETL developers works on locked-down laptops, where every desktop install needs a change request. They must build and edit transformations and jobs against the Pentaho 11.0 server they already run.",
@@ -344,7 +343,7 @@
       "source": "Pentaho Installation - Practitioner: Overview — What's New"
     },
     {
-      "id": "install-ov-q2",
+      "id": "inst-m2-q4",
       "module": "Overview",
       "bloom": "Analyze",
       "scenario": "An estate upgrading to PDI 11.0 used to deploy a separate big data add-on distribution beside the standard client. The build engineer cannot find that distribution for 11.0.",
@@ -360,7 +359,7 @@
       "source": "Pentaho Installation - Practitioner: Overview — What's New"
     },
     {
-      "id": "install-ov-q3",
+      "id": "inst-m2-q5",
       "module": "Overview",
       "bloom": "Evaluate",
       "scenario": "An architect is planning a production rollout of Pentaho 11.0 for 400 business users. A stakeholder wants every user moved to the redesigned Pentaho User Console on day one.",
@@ -376,7 +375,7 @@
       "source": "Pentaho Installation - Practitioner: Overview — What's New"
     },
     {
-      "id": "install-ov-q4",
+      "id": "inst-m2-q6",
       "module": "Overview",
       "bloom": "Apply",
       "scenario": "A company standardises on Okta for single sign-on and wants its users to reach the Pentaho 11.0 User Console with their Okta login.",
@@ -392,7 +391,7 @@
       "source": "Pentaho Installation - Practitioner: Overview — What's New"
     },
     {
-      "id": "install-ov-q5",
+      "id": "inst-m2-q7",
       "module": "Overview",
       "bloom": "Apply",
       "scenario": "In a Pentaho 10.2 estate, administrators could not let one group use Analyzer while blocking another plugin, because Read Content opened content from any plugin. The estate is moving to 11.0.",
@@ -408,7 +407,7 @@
       "source": "Pentaho Installation - Practitioner: Overview — What's New"
     },
     {
-      "id": "install-ov-q6",
+      "id": "inst-m2-q8",
       "module": "Overview",
       "bloom": "Apply",
       "scenario": "An operations team wants to run Pentaho 11.0 on Amazon EKS, supplying its licence and configuration files when a container starts rather than baking them into a custom image.",
@@ -424,7 +423,7 @@
       "source": "Pentaho Installation - Practitioner: Overview — What's New"
     },
     {
-      "id": "install-ov-q7",
+      "id": "inst-m2-q9",
       "module": "Overview",
       "bloom": "Apply",
       "scenario": "A platform team already collects traces and metrics from its services in Datadog. It wants PDI runs to appear there too, with task timings and the execution hierarchy.",
@@ -440,7 +439,7 @@
       "source": "Pentaho Installation - Practitioner: Overview — What's New"
     },
     {
-      "id": "install-ov-q8",
+      "id": "inst-m2-q10",
       "module": "Overview",
       "bloom": "Apply",
       "scenario": "Modellers building Analyzer cubes on Pentaho 11.0 want a web-based modelling workflow that also opens the Mondrian models they already have.",
@@ -456,7 +455,7 @@
       "source": "Pentaho Installation - Practitioner: Overview — What's New"
     },
     {
-      "id": "install-gs-q1",
+      "id": "inst-m1-q5",
       "module": "Getting Started",
       "bloom": "Apply",
       "scenario": "A firewall request for a new single-host Pentaho Server must list the ports users' browsers need. The repository database runs on the same host.",
@@ -472,7 +471,7 @@
       "source": "Pentaho Installation - Practitioner: Getting Started — Components"
     },
     {
-      "id": "install-gs-q2",
+      "id": "inst-m1-q6",
       "module": "Getting Started",
       "bloom": "Analyze",
       "scenario": "A developer schedules a transformation from Spoon on the Pentaho Server, but it was saved as a .ktr file on their laptop, and the scheduled run cannot find it.",
@@ -488,7 +487,7 @@
       "source": "Pentaho Installation - Practitioner: Getting Started — Components"
     },
     {
-      "id": "install-gs-q3",
+      "id": "inst-m1-q7",
       "module": "Getting Started",
       "bloom": "Apply",
       "scenario": "A customer's database team supports only Microsoft SQL Server and Oracle, and will not run PostgreSQL.",
@@ -504,7 +503,7 @@
       "source": "Pentaho Installation - Practitioner: Getting Started — Components"
     },
     {
-      "id": "install-gs-q4",
+      "id": "inst-m1-q8",
       "module": "Getting Started",
       "bloom": "Understand",
       "scenario": "Business users should see Customer and Order Total in their Interactive Reports rather than table and column names, and some users must see only their own region's rows.",
@@ -520,7 +519,7 @@
       "source": "Pentaho Installation - Practitioner: Getting Started — Components"
     },
     {
-      "id": "install-gs-q5",
+      "id": "inst-m1-q9",
       "module": "Getting Started",
       "bloom": "Analyze",
       "scenario": "Analyzer reports over a 400-million-row fact table take minutes to open at the year and quarter levels, though the cube itself is well designed.",
@@ -536,7 +535,7 @@
       "source": "Pentaho Installation - Practitioner: Getting Started — Components"
     },
     {
-      "id": "install-gs-q6",
+      "id": "inst-m1-q10",
       "module": "Getting Started",
       "bloom": "Evaluate",
       "scenario": "Nightly loads on one PDI server now overrun their window. The transformations are CPU-bound and split cleanly by region, and an architect is weighing options.",
@@ -552,7 +551,7 @@
       "source": "Pentaho Installation - Practitioner: Getting Started — Components (Carte)"
     },
     {
-      "id": "install-gs-q7",
+      "id": "inst-m1-q11",
       "module": "Getting Started",
       "bloom": "Analyze",
       "scenario": "A security scan of a production Pentaho Server finds port 9001 listening, and nobody on the team knows why.",
@@ -568,7 +567,7 @@
       "source": "Pentaho Installation - Practitioner: Getting Started — Components"
     },
     {
-      "id": "install-ai-q1",
+      "id": "inst-m3-q11",
       "module": "Archive Installation",
       "bloom": "Evaluate",
       "scenario": "A customer already runs a hardened, centrally patched Tomcat estate and wants Pentaho deployed into it, not beside a second, bundled Tomcat.",
@@ -584,7 +583,7 @@
       "source": "Pentaho Installation - Practitioner: Archive Installation — Overview"
     },
     {
-      "id": "install-ai-q2",
+      "id": "inst-m3-q12",
       "module": "Archive Installation",
       "bloom": "Apply",
       "scenario": "An administrator adds PENTAHO_JAVA_HOME to /etc/environment and, in the same terminal session, runs echo $PENTAHO_JAVA_HOME, which prints nothing.",
@@ -600,7 +599,7 @@
       "source": "Pentaho Installation - Practitioner: Archive Installation — Prepare Environment"
     },
     {
-      "id": "install-ai-q3",
+      "id": "inst-m3-q13",
       "module": "Archive Installation",
       "bloom": "Apply",
       "scenario": "An Ubuntu host has both OpenJDK 17 and OpenJDK 21 installed, and java -version reports 17.",
@@ -616,7 +615,7 @@
       "source": "Pentaho Installation - Practitioner: Archive Installation — Prepare Environment"
     },
     {
-      "id": "install-ai-q4",
+      "id": "inst-m3-q14",
       "module": "Archive Installation",
       "bloom": "Evaluate",
       "scenario": "The install procedure grants the pentaho database role SUPERUSER to make creating the repository databases simple. The same script is about to be run for production.",
@@ -632,7 +631,7 @@
       "source": "Pentaho Installation - Practitioner: Archive Installation — Prepare Environment"
     },
     {
-      "id": "install-ai-q5",
+      "id": "inst-m3-q15",
       "module": "Archive Installation",
       "bloom": "Apply",
       "scenario": "The Pentaho Server moves to a different host from its PostgreSQL repository and cannot connect, though PostgreSQL is running and pg_hba.conf allows the server's address.",
@@ -648,7 +647,7 @@
       "source": "Pentaho Installation - Practitioner: Archive Installation — Prepare Environment"
     },
     {
-      "id": "install-ai-q6",
+      "id": "inst-m3-q16",
       "module": "Archive Installation",
       "bloom": "Analyze",
       "scenario": "After pg_hba.conf is switched from md5 to scram-sha-256, the Pentaho Server can no longer authenticate to the repository, while psql logins with the same users still work.",
@@ -664,7 +663,7 @@
       "source": "Pentaho Installation - Practitioner: Archive Installation — Prepare Environment"
     },
     {
-      "id": "install-ai-q7",
+      "id": "inst-m3-q17",
       "module": "Archive Installation",
       "bloom": "Understand",
       "scenario": "Administrators want reports of which content users run and how it performs, but the pentaho_mart scripts were skipped when the repository was created.",
@@ -680,7 +679,7 @@
       "source": "Pentaho Installation - Practitioner: Archive Installation — Install Pentaho Server (Repository)"
     },
     {
-      "id": "install-ai-q8",
+      "id": "inst-m3-q18",
       "module": "Archive Installation",
       "bloom": "Evaluate",
       "scenario": "Straight after running the repository SQL scripts, an administrator finds no tables in the jackrabbit and hibuser databases and wants to rerun the scripts before starting the server.",
@@ -696,7 +695,7 @@
       "source": "Pentaho Installation - Practitioner: Archive Installation — Install Pentaho Server (Repository)"
     },
     {
-      "id": "install-ai-q9",
+      "id": "inst-m3-q19",
       "module": "Archive Installation",
       "bloom": "Analyze",
       "scenario": "The repository database moves to a new host. The administrator updates the connections in Tomcat's context.xml only, and after a restart the server fails when it reads repository content.",
@@ -712,7 +711,7 @@
       "source": "Pentaho Installation - Practitioner: Archive Installation — Install Pentaho Server (Repository)"
     },
     {
-      "id": "install-ai-q10",
+      "id": "inst-m3-q20",
       "module": "Archive Installation",
       "bloom": "Apply",
       "scenario": "An administrator copies a MySQL JDBC driver into Tomcat's lib folder so a new data connection can reach MySQL, but the connection still fails with a driver-not-found error.",
@@ -728,7 +727,7 @@
       "source": "Pentaho Installation - Practitioner: Archive Installation — Install Pentaho Server"
     },
     {
-      "id": "install-ai-q11",
+      "id": "inst-m3-q21",
       "module": "Archive Installation",
       "bloom": "Analyze",
       "scenario": "The Tomcat log shows the server started, but browsing to /pentaho returns HTTP 404.",
@@ -744,7 +743,7 @@
       "source": "Pentaho Installation - Practitioner: Archive Installation — Install Pentaho Server"
     },
     {
-      "id": "install-ai-q12",
+      "id": "inst-m3-q22",
       "module": "Archive Installation",
       "bloom": "Apply",
       "scenario": "An administrator's systemd unit runs start-pentaho.sh as root and has no restart setting, so a crash leaves the server down until someone notices.",
@@ -760,7 +759,7 @@
       "source": "Pentaho Installation - Practitioner: Archive Installation — Install Pentaho Server"
     },
     {
-      "id": "install-ai-q13",
+      "id": "inst-m3-q23",
       "module": "Archive Installation",
       "bloom": "Apply",
       "scenario": "The server sometimes starts without finding its licence, depending on which account and which shell started it.",
@@ -776,7 +775,7 @@
       "source": "Pentaho Installation - Practitioner: Archive Installation — Install Pentaho Server"
     },
     {
-      "id": "install-ai-q14",
+      "id": "inst-m3-q24",
       "module": "Archive Installation",
       "bloom": "Evaluate",
       "scenario": "An estate on Pentaho 9.3 is being upgraded, and the new licences have arrived early. A colleague proposes starting the old server to activate them before the upgrade.",
@@ -792,7 +791,7 @@
       "source": "Pentaho Installation - Practitioner: Archive Installation — Install Pentaho Server"
     },
     {
-      "id": "install-ai-q15",
+      "id": "inst-m3-q25",
       "module": "Archive Installation",
       "bloom": "Analyze",
       "scenario": "Last year the server's context path was changed from /pentaho to /company by renaming the web app and editing its files. After an upgrade, users' /company links fail.",
@@ -808,7 +807,7 @@
       "source": "Pentaho Installation - Practitioner: Archive Installation — Post Installation Tasks"
     },
     {
-      "id": "install-ai-q16",
+      "id": "inst-m3-q26",
       "module": "Archive Installation",
       "bloom": "Apply",
       "scenario": "Security requires the Pentaho Server to serve HTTPS itself, from a PKCS12 keystore, with no reverse proxy in front of it.",
@@ -824,7 +823,7 @@
       "source": "Pentaho Installation - Practitioner: Archive Installation — Post Installation Tasks"
     },
     {
-      "id": "install-ai-q17",
+      "id": "inst-m3-q27",
       "module": "Archive Installation",
       "bloom": "Evaluate",
       "scenario": "A server about to go live still carries the evaluation samples: the sample content, the HSQL sample database and a development-only status filter.",
@@ -840,7 +839,7 @@
       "source": "Pentaho Installation - Practitioner: Archive Installation — Post Installation Tasks"
     },
     {
-      "id": "install-ai-q18",
+      "id": "inst-m3-q28",
       "module": "Archive Installation",
       "bloom": "Analyze",
       "scenario": "Security wants the login page to stop browsers offering to remember passwords, and an administrator plans to edit the server's PUCLogin.jsp to do it.",
@@ -856,7 +855,7 @@
       "source": "Pentaho Installation - Practitioner: Archive Installation — Post Installation Tasks"
     },
     {
-      "id": "install-ai-q19",
+      "id": "inst-m3-q29",
       "module": "Archive Installation",
       "bloom": "Analyze",
       "scenario": "After a run of the Pentaho Upgrade Installer, the upgraded server starts cleanly, but two plugins it used before have gone.",
@@ -872,7 +871,7 @@
       "source": "Pentaho Installation - Practitioner: Archive Installation — Pentaho Upgrade & Patches"
     },
     {
-      "id": "install-ct-q1",
+      "id": "inst-m4-q5",
       "module": "Install Client Tools",
       "bloom": "Analyze",
       "scenario": "On an Ubuntu 24.04 workstation, spoon.sh fails at startup with errors about missing GTK and WebKit modules, though Java 21 is installed and PDI unpacked cleanly.",
@@ -888,7 +887,7 @@
       "source": "Pentaho Installation - Practitioner: Install Client Tools — Client Plugins"
     },
     {
-      "id": "install-ct-q2",
+      "id": "inst-m4-q6",
       "module": "Install Client Tools",
       "bloom": "Apply",
       "scenario": "On a high-DPI laptop, Spoon's toolbars and dialogs render too small to read.",
@@ -904,7 +903,7 @@
       "source": "Pentaho Installation - Practitioner: Install Client Tools — Client Plugins"
     },
     {
-      "id": "install-ct-q3",
+      "id": "inst-m4-q7",
       "module": "Install Client Tools",
       "bloom": "Apply",
       "scenario": "Designers report Spoon slowing to a crawl and then failing with out-of-memory errors while they preview large transformations.",
@@ -920,7 +919,7 @@
       "source": "Pentaho Installation - Practitioner: Install Client Tools — Client Plugins"
     },
     {
-      "id": "install-ct-q4",
+      "id": "inst-m4-q8",
       "module": "Install Client Tools",
       "bloom": "Apply",
       "scenario": "Production is certified against an earlier version of a PDI plugin, and a developer's workstation must match it rather than take the latest.",
@@ -936,7 +935,7 @@
       "source": "Pentaho Installation - Practitioner: Install Client Tools — Kettle Plugins"
     },
     {
-      "id": "install-ct-q5",
+      "id": "inst-m4-q9",
       "module": "Install Client Tools",
       "bloom": "Apply",
       "scenario": "A team must upsert millions of records into Salesforce from PDI and route the records that fail into a separate error table.",
@@ -952,7 +951,7 @@
       "source": "Pentaho Installation - Practitioner: Install Client Tools — Kettle Plugins"
     },
     {
-      "id": "install-ct-q6",
+      "id": "inst-m4-q10",
       "module": "Install Client Tools",
       "bloom": "Analyze",
       "scenario": "On a designer's workstation, Spoon starts but its enterprise features are disabled and it prompts for a licence, while the server's licences are all active.",

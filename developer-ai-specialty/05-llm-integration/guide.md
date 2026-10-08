@@ -38,7 +38,7 @@ The request payload structure is:
 > 
 > **`format: "json"`** — Forces the model's output to be valid JSON. Without this, the model might add conversational preamble, markdown fences, or explanations around its JSON answer, all of which break downstream parsing.
 > 
-> **`keep_alive`** — This is the single biggest performance optimization for batch processing. By default Ollama unloads the model from memory after each request. Reloading takes 10–30 seconds depending on model size and disk speed. Setting `keep_alive: "30m"` keeps the model resident in RAM across all rows in a batch run, turning a multi-hour job into a fraction of that time.
+> **`keep_alive`** — This is the single biggest performance optimization for batch processing. By default Ollama keeps a model loaded for only 5 minutes after its last request, then unloads it, so a batch with pauses longer than that (or two models taking turns) pays the reload again and again. Reloading takes 10–30 seconds depending on model size and disk speed. Setting `keep_alive: "30m"` keeps the model resident in RAM across all rows in a batch run, turning a multi-hour job into a fraction of that time. (`"0"` unloads it straight after each request.)
 > 
 > **`temperature: 0.1`** — Controls randomness. Values near 0 produce near-deterministic output, meaning the same review will produce the same sentiment classification on repeated runs. This is essential for reproducible ETL — you don't want results changing every time the pipeline runs.
 > 

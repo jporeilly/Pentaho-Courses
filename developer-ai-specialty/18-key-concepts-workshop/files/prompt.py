@@ -48,7 +48,7 @@ def save_plot(plt, filename):
 
 def create_embedding(text, client):
     """
-    Create an embedding for the given text using Ollama's llama3.2:latest model.
+    Create an embedding for the given text using Ollama's nomic-embed-text model.
     
     This function uses the Ollama Python client to generate an embedding vector
     for the provided text. Embeddings are numerical representations of text that
@@ -62,12 +62,12 @@ def create_embedding(text, client):
         numpy.ndarray: The embedding vector as a numpy array
         
     Notes:
-        - The model "llama3.2:latest" must be available in your Ollama installation
+        - The model "nomic-embed-text" must be available in your Ollama installation
         - The returned embedding dimensions depend on the specific model
     """
-    # Generate the embedding using the llama3.2:latest model
+    # Generate the embedding using the nomic-embed-text model
     response = client.embeddings(
-        model="llama3.2:latest",  # Specify which model to use for embedding
+        model="nomic-embed-text",  # Specify which model to use for embedding
         prompt=text  # The text input to embed
     )
     
@@ -266,7 +266,7 @@ def main():
     - How to create informative visualizations
     - How semantic similarity is captured in the embedding space
     """
-    print("Embedding Visualization with Ollama and llama3.2:latest")
+    print("Embedding Visualization with Ollama and nomic-embed-text")
     print("======================================================")
     print("This script will generate embeddings using Ollama and create")
     print("visualizations to help understand the embedding properties.")
@@ -307,8 +307,8 @@ def main():
         print("1. Ensure Ollama is installed and running")
         print("   - Ollama can be installed from https://ollama.com")
         print("   - Check if the Ollama service is running on your system")
-        print("\n2. Make sure the llama3.2:latest model is pulled")
-        print("   - Run 'ollama pull llama3.2:latest' in your terminal")
+        print("\n2. Make sure the nomic-embed-text model is pulled")
+        print("   - Run 'ollama pull nomic-embed-text' in your terminal")
         print("   - This may take some time depending on your internet connection")
         print("\n3. Verify the API host is correct")
         print("   - Check for typos in the URL")

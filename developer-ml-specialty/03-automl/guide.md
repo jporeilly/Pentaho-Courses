@@ -12,7 +12,7 @@
 > 
 > You need Colab access and a working PDI environment. Do the setup first if you have not done it yet.
 > 
-> * Complete **Prerequisite Tasks** (the previous lab).
+> * Complete **[Prerequisite Tasks](../02-prerequisite-tasks/guide.md)** (the previous lab).
 > * In PDI, you will run `autoML.ktr`.
 >   * Location: this lab's **files** (everything ships with the lab)
 > * From that transformation, you will create `data/H2O.csv`.

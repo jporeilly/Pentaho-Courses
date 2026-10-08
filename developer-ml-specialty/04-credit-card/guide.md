@@ -111,45 +111,6 @@ save(gbm_model, best_trees,
 ok <- "Finished"
 ok.df <- as.data.frame(ok)
 ok.df
-  )
-
-  # Determine the optimal number of trees using Out-of-Bag (OOB) estimation.
-  # gbm.perf() analyzes the OOB improvement curve and returns the iteration
-  # (tree count) where the OOB error is minimized. Using more trees than this
-  # would overfit; using fewer would underfit. This value will be used during
-  # scoring to make predictions with only the best-performing subset of trees.
-  best_trees <- gbm.perf(gbm_model, method = "OOB")
-
-  # Save the trained model object and the optimal tree count to an .rdata file.
-  # This file will be loaded later by a separate PDI scoring transformation
-  # to apply the model to new/unseen transactions for real-time fraud detection.
-  save(
-    gbm_model,
-    best_trees,
-    file = "${Internal.Transformation.Filename.Directory}/train_model_output/gbm_fraud.rdata"
-  )
-
-  # If we reach this point, training completed successfully.
-  # This string is returned as the value of 'ok' by tryCatch().
-  "Finished"
-
-# Error handler: if ANY step above throws an R error, this function catches it
-# and returns the error message as a string. This ensures the script always
-# produces the 'ok' output column that PDI expects, while preserving the
-# actual error details for troubleshooting in the PDI log.
-}, error = function(e) {
-  paste("ERROR:", e$message)
-})
-
-# Create a single-column data frame with the status result.
-# The R Script Executor step in PDI expects a data frame as output.
-# The column name 'ok' must match what is configured in the step's output fields.
-#   - "Finished"       = training completed successfully
-#   - "ERROR: <msg>"   = training failed; check the message for the root cause
-# This allows downstream PDI steps (e.g., a Filter or Switch/Case) to route
-# the flow based on success or failure of the model training.
-ok.df <- as.data.frame(ok)
-ok.df
 ```
 
 > **Note:** This step writes the model artifact to:
@@ -248,15 +209,17 @@ submission
 
 ### Results
 
-> **Note:** AObviously can be used to trigger further events downstream..
+> **Note:** The scored rows can drive further work downstream: for example, a **Filter Rows** step on `predicted_fraud` could route likely fraud for review.
 
-1. Open:
+1. Open the file the job wrote. The **Predict Fraud** step adds the time of the run to its name, and it has a header row:
 
 ```
-the train_model_output folder next to the transformation/credit_card_predict.xlsx
+files/solution/output/credit_card_fraud_<HHmmss>.csv
 ```
 
-<figure><img src="../_assets/images/cc_fraud_prediction.png" alt=""><figcaption><p>Fraud prediction</p></figcaption></figure>
+2. Each row is a transaction with three new columns: `fraud_probability` (0 to 1), `fraud_pct` (the same as a percentage) and `predicted_fraud` (1 when the probability is 0.5 or more).
+
+<figure><img src="../_assets/images/cc_fraud_prediction.png" alt=""><figcaption><p>Fraud prediction, from an earlier version of the script that wrote a single <code>pred</code> column</p></figcaption></figure>
 
 :::
 

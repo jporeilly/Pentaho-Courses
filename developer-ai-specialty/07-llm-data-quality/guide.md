@@ -349,8 +349,9 @@ var model_name = getVariable("MODEL_NAME", "llama3.2:3b");
 
 // KEEP_ALIVE: Duration Ollama keeps the model loaded in memory after each
 // request. This is the most impactful performance setting for batch ETL —
-// without it, Ollama unloads the model after each request (default: 5m),
-// and reloading takes ~10-30 seconds depending on model size and disk speed.
+// without it, Ollama unloads the model 5 minutes after the last request
+// (its own default), and reloading takes ~10-30 seconds depending on model
+// size and disk speed.
 // Default: "5m" (5 minutes) — sufficient for steady row-by-row processing.
 // Increase to "30m" or higher for transformations with variable pacing or
 // if rows arrive in bursts with gaps between them.

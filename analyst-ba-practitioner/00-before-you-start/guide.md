@@ -2,8 +2,22 @@
 
 > **Note:**
 >
-> Welcome! This first lab shows you how to work with this guide.
-> Five minutes here makes every later lab smoother.
+> #### Get Ready — Before You Start
+>
+> Before the first workshop, check that the Pentaho Server is running
+> and that the workshop folder is in place. The course builds reports,
+> analyses and dashboards in the Pentaho User Console against the Steel
+> Wheels sample data, and **none of the lab time should go on setup**:
+> this page does it in advance.
+>
+> **What you'll do:**
+>
+> * Learn how the guide works: progress, copy buttons, the assistant.
+> * Confirm the Pentaho Server starts and the User Console signs you in.
+> * Check the workshop folder: *C:\Workshop-BA-Practitioner*
+>
+> **Estimated Time:** 5 minutes on a lab VM; about 15 minutes the first
+> time on your own machine.
 
 ## Meet your lab guide
 
@@ -12,7 +26,7 @@ This panel stays beside your tools for the whole workshop:
 - **Float or dock** — drag the title bar to move the window anywhere
   (any monitor), or use the dock button to pin it to the right edge of
   the screen so maximised apps make room for it.
-- **The sidebar** lists every section and lab. A ▶ badge means the lab
+- **The sidebar** lists every section and lab. A <span data-icon="video"></span> badge means the lab
   includes a video; the `~15 min` tag is a time estimate.
 - Use the **font-size** and **reading-mode** controls in the toolbar if
   you're on a small VM screen.
@@ -99,8 +113,10 @@ starting, or it stopped. Watch the console window for
 second Pentaho Server, or another Tomcat. Stop it, or change the
 port in `tomcat\conf\server.xml`.
 
-**The window closes immediately.** Almost always `JAVA_HOME` is unset
-or points at the wrong JDK. Check it with `echo $env:JAVA_HOME`, and
+**The window closes immediately.** The server could not find a usable
+Java. It checks `PENTAHO_JAVA_HOME` first, then the bundled
+`C:\Pentaho\java`, and only then `JAVA_HOME`: check `echo $env:PENTAHO_JAVA_HOME`
+and `echo $env:JAVA_HOME` (a JDK newer than 21 stops the server), and
 see `set-pentaho-env.bat` in the same folder for what the server
 expects.
 
@@ -146,7 +162,34 @@ nothing you try is blocked for a reason unrelated to the lesson.
 
 </details>
 
-### 3. Ports and logins
+### 3. Lab files on disk
+
+The installer lays each workshop's finished answer out under
+**`C:\Workshop-BA-Practitioner`**, one folder per module, so you can
+compare your work with a solution without downloading it from the
+guide first. Every lab's **Solution** section quotes its path.
+
+These are repository files (`.prpti`, `.xanalyzer`, `.xdash`), not
+programs: you open one by uploading it to the User Console, and each
+Solution section gives the steps.
+
+<details>
+<summary>The folder isn't there</summary>
+
+It is an optional component, so a **Minimal (app only)** install, or
+an unticked **Workshop lab files** box, skips it. Lay it down at any
+time from your install's `provisioning` folder:
+
+```powershell
+.\install-workshop.ps1
+```
+
+Safe to run whenever you want the shipped files back as they shipped:
+it only ever adds and refreshes, and never deletes your work.
+
+</details>
+
+### 4. Ports and logins
 
 Everything this course uses, in one place. All of it is local to your
 machine.
@@ -168,11 +211,53 @@ sources.
 
 :::
 
+The panel below probes this machine live, checking what this course's
+labs need. Each row reports one of four states:
+
+* **<span class="pcm-c-ok">Green</span>** — the check passed; that piece is present and answering.
+* **<span class="pcm-c-warn">Amber</span>** — usable, but worth tidying before the session.
+* **<span class="pcm-c-danger">Red</span>** — it will block a lab, and the row tells you the exact fix.
+* **<span class="pcm-c-muted">Grey</span>** — skipped, because this course doesn't use it.
+
 <div data-env-check="server"></div>
 
 Nothing else is required.
 
 ::::
+
+## Check the working folders
+
+The installer lays every workshop's solution out under
+**`C:\Workshop-BA-Practitioner`**, one folder per module, in the
+order the sidebar reads. The User Console module is reading and
+exploring only, so the numbering starts at `03`.
+
+```text
+C:\Workshop-BA-Practitioner
+├── 03-interactive-reports
+│   ├── 06-interactive-reports-sales-territory
+│   │   └── solution
+│   │       └── Sales Territory Report - Demo.prpti     the finished report
+│   ├── 07-interactive-reports-orders-na-and-emea\solution
+│   └── 08-interactive-reports-ships-and-trains\solution
+├── 04-analyzer-reports
+│   ├── 10-analyzer-reports-sales-analysis\solution    an .xanalyzer each
+│   └── 11-analyzer-reports-emea-quantity\solution
+└── 05-dashboard-designer
+    ├── 13-dashboard-designer-vendor-sales\solution    an .xdash each
+    ├── 14-dashboard-designer-inventory\solution
+    └── 15-dashboard-designer-product-performance\solution
+```
+
+Every `solution` folder holds the **finished, working** answer to its
+workshop. Your own work never lives here: you build it in the User
+Console and save it to **Public > Training** on the server.
+
+**Confirm the files are there**, not just the folder: open
+`03-interactive-reports\06-interactive-reports-sales-territory\solution`
+and check you can see `Sales Territory Report - Demo.prpti`. An empty
+folder is the one thing worth catching now rather than in the middle
+of a lab.
 
 ## Ask the AI assistant
 
@@ -183,8 +268,8 @@ model, so it works even when the VM is offline.
 
 ## How this course is organised
 
-Each section starts with an **overview page** (📄 — background reading,
-no checkboxes) followed by **hands-on workshops** (🧪 — tracked steps).
+Each section starts with an **overview page** (<span data-icon="page"></span> — background reading,
+no checkboxes) followed by **hands-on workshops** (<span data-icon="workshop"></span> — tracked steps).
 Head to the first section whenever you're ready.
 
 ---

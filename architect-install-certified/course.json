@@ -1,8 +1,7 @@
 {
   "id": "architect-install-certified",
   "analytics": {
-    "measurementId": "G-8L92G6SL5P",
-    "apiSecret": "3N7n0Py7TiChgFcuEGpSbw"
+    "measurementId": "G-8L92G6SL5P"
   },
   "contact": {
     "to": "academy@pentaho.com",
@@ -14,12 +13,12 @@
   },
   "title": "Pentaho Solution Architect - Certified",
   "description": "Pentaho 11 installation, configuration, upgrade, and post-install tasks. Archive deployment on Linux, server + client tools, plugins.",
-  "version": "0.1.2",
+  "version": "0.1.7",
   "kind": "workshop",
   "level": { "number": 3, "name": "Certified" },
   "mode": "sequential",
   "theme": {
-    "accent": "#0d9488"
+    "accent": "#1d5fbf"
   },
   "assistant": {
     "ollamaURL": "http://localhost:11434",
@@ -27,8 +26,9 @@
     "defaultProfile": "cpu",
     "models": {
       "cpu": "llama3.2:3b",
-      "gpu": "qwen2.5:7b"
+      "gpu": "gemma4:12b"
     },
+    "ladder": ["gemma4:12b", "qwen2.5:7b"],
     "subject": "installing the Pentaho platform (archive installation on Linux, the Server, its PostgreSQL repository, plugins and client tools)",
     "suggestions": [
       "What's the difference between archive and installer deployments?",
@@ -63,7 +63,7 @@
       "steps": [
         {
           "title": "Architecture & Installation",
-          "courseId": "architect-arch-certified",
+          "courseId": "architect-install-certified",
           "current": true
         },
         {
@@ -75,7 +75,7 @@
         },
         {
           "title": "BI Developer — CTools Dashboards",
-          "courseId": "bi-developer-ct-practitioner"
+          "courseId": "bi-developer-ct-associate"
         },
         {
           "title": "Certified Solution Architect",

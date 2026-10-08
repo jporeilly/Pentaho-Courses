@@ -6,11 +6,21 @@
 > 
 > Optional settings you can apply after installation to harden Tomcat/Pentaho and tune behaviour:
 
+> **Warning:** Stop and start the server as the `pentaho` user (`sudo -u pentaho ./stop-pentaho.sh`), or with `systemctl` if you created the service in **Install Pentaho Server**. Started as root, it leaves root-owned files under `tomcat/logs`, `work` and `temp` that the `pentaho` user can no longer write.
+
+> **Warning:** Stop and start the server as the `pentaho` user (`sudo -u pentaho ./stop-pentaho.sh`), or with `systemctl` if you created the service in **Install Pentaho Server**. Started as root, it leaves root-owned files under `tomcat/logs`, `work` and `temp` that the `pentaho` user can no longer write.
+
 <details>
 
 <summary>Hide Tomcat Server header</summary>
 
-By default, Tomcat sends a `Server` header exposing version information. You can override it to reduce information leakage.
+Tomcat 10.1 sends no `Server` header unless an application sets one, and Pentaho's `server.xml` already hides the version on error pages (`showServerInfo="false"` on the `ErrorReportValve`). Check what your server sends first:
+
+```bash
+curl -sI http://localhost:8080/pentaho/Login | grep -i '^server:' || echo "no Server header"
+```
+
+Set the connector's `server` attribute only if a scan still shows a `Server` header, for example one added by a proxy or an application.
 
 1. Edit the Tomcat connector in `server.xml`.
 
@@ -53,7 +63,7 @@ Change the context path if you do not want the application accessible at `/penta
 
 ```bash
 cd /opt/pentaho/server/pentaho-server
-sudo ./stop-pentaho.sh
+sudo -u pentaho ./stop-pentaho.sh
 ```
 
 2. Edit `context.xml`.
@@ -62,11 +72,13 @@ sudo ./stop-pentaho.sh
 sudo nano /opt/pentaho/server/pentaho-server/tomcat/webapps/pentaho/META-INF/context.xml
 ```
 
-3. Update the context path.
+3. In the opening `<Context ...>` tag, change `/pentaho` to `/company` in both attributes. Keep the `<Resource>` elements inside it: they are the server's database connections, and replacing the element with a self-closing one deletes them.
 
 ```xml
-<Context path="/company" docBase="webapps/company/" />
+<Context path="/company" docbase="webapps/company/">
 ```
+
+> **Note:** Tomcat ignores these two attributes in `META-INF/context.xml` (its log says `failed to set property [docbase]`): the folder name in step 4 is what sets the path. Changing them keeps the file consistent.
 
 4. Rename the webapp folder to match the new context name.
 
@@ -95,12 +107,13 @@ sudo nano /opt/pentaho/server/pentaho-server/pentaho-solutions/system/server.pro
 
 ```
 fully-qualified-server-url=http://localhost:8080/company/
+alternative-fully-qualified-server-urls=http://127.0.0.1:8080/company/
 ```
 
 7. Start the server and test.
 
 ```bash
-sudo ./start-pentaho.sh
+sudo -u pentaho ./start-pentaho.sh
 ```
 
 > **Warning:** Upgrades may overwrite deployed webapps. Reapply customizations after upgrades, or use reverse proxy path mapping instead.
@@ -117,10 +130,19 @@ Default port is 8080.
 
 ```bash
 cd /opt/pentaho/server/pentaho-server
-sudo ./stop-pentaho.sh
+sudo -u pentaho ./stop-pentaho.sh
 ```
 
-2. Change the connector port.
+2. Create a keystore for the certificate (self-signed here; use your CA's certificate in production).
+
+```bash
+sudo -u pentaho mkdir -p /opt/pentaho/server/pentaho-server/tomcat/ssl
+sudo -u pentaho "$PENTAHO_JAVA_HOME/bin/keytool" -genkeypair -alias tomcat -keyalg RSA -keysize 2048 -validity 365 \
+  -storetype PKCS12 -keystore /opt/pentaho/server/pentaho-server/tomcat/ssl/keystore.p12 \
+  -storepass changeit -dname "CN=localhost"
+```
+
+3. Add an HTTPS connector: in `server.xml`, replace the commented-out 8443 connector with this one.
 
 ```bash
 sudo nano /opt/pentaho/server/pentaho-server/tomcat/conf/server.xml
@@ -133,16 +155,19 @@ sudo nano /opt/pentaho/server/pentaho-server/tomcat/conf/server.xml
       maxThreads="150"
       SSLEnabled="true"
       scheme="https"
-      secure="true"
-      clientAuth="false"
-      sslProtocol="TLS"
-      keystoreType="PKCS12"
-      keystoreFile="/opt/pentaho/server/pentaho-server/tomcat/ssl/keystore.p12"
-      keystorePass="changeit"
-    />
+      secure="true">
+  <SSLHostConfig>
+    <Certificate certificateKeystoreFile="/opt/pentaho/server/pentaho-server/tomcat/ssl/keystore.p12"
+                 certificateKeystorePassword="changeit"
+                 certificateKeystoreType="PKCS12"
+                 type="RSA" />
+  </SSLHostConfig>
+</Connector>
 ```
 
-3. Update the server URL to the new scheme and port.
+> **Note:** Tomcat 10.1 reads the keystore from the nested `<Certificate>` element. The older `keystoreFile`, `keystorePass`, `keystoreType`, `clientAuth` and `sslProtocol` attributes on `<Connector>` (still in the commented-out example) are ignored with `failed to set property`, and the connector then fails to start with `No SSLHostConfig element was found`.
+
+4. Update the server URL to the new scheme and port.
 
 ```bash
 sudo nano /opt/pentaho/server/pentaho-server/pentaho-solutions/system/server.properties
@@ -150,12 +175,13 @@ sudo nano /opt/pentaho/server/pentaho-server/pentaho-solutions/system/server.pro
 
 ```
 fully-qualified-server-url=https://localhost:8443/pentaho/
+alternative-fully-qualified-server-urls=https://127.0.0.1:8443/pentaho/
 ```
 
-4. Start the server and verify (`-k` accepts a self-signed certificate while testing).
+5. Start the server and verify: expect `HTTP/1.1 401` (`-k` accepts a self-signed certificate while testing).
 
 ```bash
-sudo ./start-pentaho.sh
+sudo -u pentaho ./start-pentaho.sh
 curl -kI https://localhost:8443/pentaho/ | head -n 1
 ```
 
@@ -171,7 +197,7 @@ Default port is 8080.
 
 ```bash
 cd /opt/pentaho/server/pentaho-server
-sudo ./stop-pentaho.sh
+sudo -u pentaho ./stop-pentaho.sh
 ```
 
 2. Change the connector port.
@@ -198,12 +224,13 @@ sudo nano /opt/pentaho/server/pentaho-server/pentaho-solutions/system/server.pro
 
 ```
 fully-qualified-server-url=http://localhost:8090/pentaho/
+alternative-fully-qualified-server-urls=http://127.0.0.1:8090/pentaho/
 ```
 
 4. Start the server and verify.
 
 ```bash
-sudo ./start-pentaho.sh
+sudo -u pentaho ./start-pentaho.sh
 curl -I http://localhost:8090/pentaho/ | head -n 1
 ```
 
@@ -213,7 +240,11 @@ curl -I http://localhost:8090/pentaho/ | head -n 1
 
 <summary>Harden or disable the Tomcat shutdown port</summary>
 
-By default the Pentaho Server's Tomcat listens on a local shutdown port (8012) for the `SHUTDOWN` command.
+By default the Pentaho Server's Tomcat listens on a local shutdown port for the `SHUTDOWN` command: the `port` of the `<Server>` element in `server.xml` (8005 in the archive, 8012 in installer-built servers). Check yours:
+
+```bash
+grep '<Server ' /opt/pentaho/server/pentaho-server/tomcat/conf/server.xml
+```
 
 * Change both the port and the shutdown command to unpredictable values, or
 * Disable the port by setting `port="-1"`.
@@ -250,7 +281,7 @@ sudo systemctl restart pentaho-server
 
 <summary>Custom error pages (404, 403, 500)</summary>
 
-Define application‑level error pages to avoid exposing defaults.
+Pentaho already maps 404, 403 and 500 to `/unavailable.html` in the webapp's `web.xml`, so Tomcat's default error pages are not shown. To use your own page, create it and point those existing `<error-page>` entries at it rather than adding a second set.
 
 1. Create an error page in your webapp.
 
@@ -268,7 +299,7 @@ sudo tee /opt/pentaho/server/pentaho-server/tomcat/webapps/pentaho/error.jsp >/d
 EOF
 ```
 
-2. Add error mappings in the webapp `web.xml`.
+2. In the webapp `web.xml`, change the `<location>` of the three existing `<error-page>` entries:
 
 ```bash
 sudo nano /opt/pentaho/server/pentaho-server/tomcat/webapps/pentaho/WEB-INF/web.xml
@@ -297,19 +328,19 @@ sudo nano /opt/pentaho/server/pentaho-server/tomcat/webapps/pentaho/WEB-INF/web.
 
 <summary>Session timeout</summary>
 
-Set a global session timeout for the application.
+Change the timeout in the existing `<session-config>` of the webapp `web.xml` (the shipped value is 120 minutes). Do not add a second `<session-config>`: Tomcat then refuses to deploy the webapp (`<session-config> element is limited to 1 occurrence`) and `/pentaho` returns 404.
 
-1. Edit the webapp `web.xml`.
+1. Edit the webapp `web.xml` and change the value inside the existing element.
 
 ```bash
 sudo nano /opt/pentaho/server/pentaho-server/tomcat/webapps/pentaho/WEB-INF/web.xml
 ```
 
 ```xml
-<session-config>
-  <session-timeout>20</session-timeout>
-</session-config>
+<session-timeout>20</session-timeout>
 ```
+
+2. Restart the server.
 
 </details>
 
@@ -317,7 +348,7 @@ sudo nano /opt/pentaho/server/pentaho-server/tomcat/webapps/pentaho/WEB-INF/web.
 
 <summary>Increase Karaf startup wait time</summary>
 
-> **Note:** This applies to releases that start Karaf. Pentaho 11.0 removed Karaf and OSGi from PDI (see **What's New**), so on an 11.0 server there may be nothing for this setting to wait for. Keep it only if your server's log shows Karaf installing features.
+> **Note:** Karaf was removed from the PDI client in 11.0, but the 11.0 Pentaho Server still ships and starts it (`pentaho-solutions/system/karaf`; `tomcat/logs/karaf.log`). `server.properties` already contains the setting, commented out, at its default of 120000 (2 minutes).
 
 If server startup times out while Karaf installs features, increase the wait time.
 
@@ -333,7 +364,7 @@ sudo systemctl stop pentaho-server
 sudo nano /opt/pentaho/server/pentaho-server/pentaho-solutions/system/server.properties
 ```
 
-Uncomment or add:
+Uncomment and raise:
 
 ```
 # Time (ms) to wait for Karaf to install features before timing out
@@ -360,10 +391,11 @@ Remove evaluation samples before moving to production.
 sudo systemctl stop pentaho-server
 ```
 
-2. Delete the `samples.zip` from default content (path may vary by version).
+2. Delete the sample zips from default content. The server imports each zip there on start and then renames it with a timestamp (`plugin-samples.zip.202610061459`), so once a zip is imported, deleting it no longer removes its content: step 5 does that.
 
 ```bash
-sudo rm -f /opt/pentaho/server/pentaho-server/pentaho-solutions/system/default-content/samples.zip || true
+sudo rm -f /opt/pentaho/server/pentaho-server/pentaho-solutions/system/default-content/pentaho-samples-ee.zip* \
+           /opt/pentaho/server/pentaho-server/pentaho-solutions/system/default-content/plugin-samples.zip*
 ```
 
 3. Edit the webapp `web.xml` and remove the HSQLDB sample definitions and the SystemStatusFilter (dev‑only).
@@ -422,10 +454,10 @@ sudo systemctl stop pentaho-server
 sudo nano /opt/pentaho/server/pentaho-server/tomcat/webapps/pentaho/mantle/home/properties/config.properties
 ```
 
-Add or update:
+Set the existing key (it ships empty):
 
 ```
-disabled-widgets=getting-started,recents,favorites
+disabled_widgets=getting-started,recents,favorites
 ```
 
 3. Start the server and log in to verify.
@@ -440,31 +472,10 @@ sudo systemctl start pentaho-server
 
 <summary>Turn off autocomplete on the login page (advanced)</summary>
 
-Changing vendor JSPs may be overwritten on upgrade. Prefer SSO or reverse proxy controls. If you must, edit the login JSP.
-
-1. Stop the server.
+In 11.0 `PUCLogin.jsp` already sets `autocomplete="off"` on both the user name and password inputs. Upgrades replace vendor JSPs, so check it is still there afterwards:
 
 ```bash
-sudo systemctl stop pentaho-server
-```
-
-2. Edit `PUCLogin.jsp`.
-
-```bash
-sudo nano /opt/pentaho/server/pentaho-server/tomcat/webapps/pentaho/jsp/PUCLogin.jsp
-```
-
-3. Set autocomplete to off for user/password inputs.
-
-```html
-<input id="j_username" name="j_username" type="text" autocomplete="off">
-<input id="j_password" name="j_password" type="password" autocomplete="off">
-```
-
-4. Start the server.
-
-```bash
-sudo systemctl start pentaho-server
+grep -n 'autocomplete' /opt/pentaho/server/pentaho-server/tomcat/webapps/pentaho/jsp/PUCLogin.jsp
 ```
 
 </details>
@@ -489,6 +500,10 @@ sudo nano /opt/pentaho/server/pentaho-server/pentaho-solutions/system/pentaho.xm
 </file-upload-defaults>
 ```
 
+These are the shipped defaults (10 MB per file, 500 MB per folder): raise them as needed.
+
+These are the shipped defaults (10 MB per file, 500 MB per folder): raise them as needed.
+
 2. Change the staging database for CSV files (optional) in `data-access/settings.xml`.
 
 ```bash
@@ -497,10 +512,10 @@ sudo nano /opt/pentaho/server/pentaho-server/pentaho-solutions/system/data-acces
 
 ```xml
 <!-- settings for Agile Data Access -->
-<data-access-staging-jndi>hibernate</data-access-staging-jndi>
+<data-access-staging-jndi>Hibernate</data-access-staging-jndi>
 ```
 
-3. In PUC, go to Tools → Refresh System Settings, then restart PUC (or the server) to apply.
+3. In PUC, go to Tools → Refresh → System Settings, then restart PUC (or the server) to apply. JNDI names are case-sensitive: the shipped value `Hibernate` matches the `jdbc/Hibernate` resource in `context.xml`.
 
 </details>
 

@@ -1,13 +1,21 @@
 {
   "id": "developer-sd-specialty",
   "analytics": {
-    "measurementId": "G-BE2GN404FR",
-    "apiSecret": "FIC4K_luTmmvJiPilPxhAQ"
+    "measurementId": "G-BE2GN404FR"
+  },
+  "contact": {
+    "to": "academy@pentaho.com",
+    "webhookUrl": "",
+    "heading": "Contact Us",
+    "blurb": "Ask us anything about the course, or tell us what you would like to know about Pentaho products and services. This is separate from the exam.",
+    "messagePlaceholder": "What would you like to know?",
+    "sendLabel": "Send"
   },
   "title": "Pentaho Developer - SD Specialty",
   "description": "Real-time streaming data integration with Pentaho Data Integration. Consume and process unbounded event streams over MQTT, AMQP, and Apache Kafka — IoT sensor telemetry, message-queue pipelines, and real-time user-activity streams using PDI's parent/child streaming pattern.",
-  "version": "0.1.0",
+  "version": "0.1.4",
   "kind": "workshop",
+  "level": { "number": 2, "name": "Specialty" },
   "mode": "sequential",
   "theme": {
     "accent": "#b91c1c"
@@ -18,8 +26,9 @@
     "defaultProfile": "cpu",
     "models": {
       "cpu": "llama3.2:3b",
-      "gpu": "qwen2.5:7b"
+      "gpu": "gemma4:12b"
     },
+    "ladder": ["gemma4:12b", "qwen2.5:7b"],
     "subject": "streaming data pipelines in PDI (MQTT, AMQP and Kafka consumers, brokers and message processing)",
     "suggestions": [
       "What is the difference between MQTT, AMQP and Kafka?",
@@ -53,7 +62,7 @@
   "launchers": {
     "spoon": {
       "label": "Pentaho Data Integration",
-      "windows": "C:Pentahodesign-toolsdata-integrationspoon.bat",
+      "windows": "C:\\Pentaho\\design-tools\\data-integration\\spoon.bat",
       "linux": "~/Pentaho/design-tools/data-integration/spoon.sh",
       "macos": "~/Pentaho/design-tools/data-integration/spoon.sh",
       "fileArg": "-file="

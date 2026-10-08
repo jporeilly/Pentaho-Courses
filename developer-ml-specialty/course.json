@@ -1,13 +1,21 @@
 {
   "id": "developer-ml-specialty",
   "analytics": {
-    "measurementId": "G-KYGTRFPPE7",
-    "apiSecret": "1TXNVrM0SwGgcV9K3As5JA"
+    "measurementId": "G-KYGTRFPPE7"
+  },
+  "contact": {
+    "to": "academy@pentaho.com",
+    "webhookUrl": "",
+    "heading": "Contact Us",
+    "blurb": "Ask us anything about the course, or tell us what you would like to know about Pentaho products and services. This is separate from the exam.",
+    "messagePlaceholder": "What would you like to know?",
+    "sendLabel": "Send"
   },
   "title": "Pentaho Developer - ML Specialty",
   "description": "Machine learning with Pentaho Data Integration. A credit-card fraud-detection use case covering H2O AutoML, supervised and unsupervised learning, and handling imbalanced datasets.",
-  "version": "0.1.0",
+  "version": "0.1.4",
   "kind": "workshop",
+  "level": { "number": 2, "name": "Specialty" },
   "mode": "sequential",
   "theme": {
     "accent": "#b91c1c"
@@ -18,8 +26,9 @@
     "defaultProfile": "cpu",
     "models": {
       "cpu": "llama3.2:3b",
-      "gpu": "qwen2.5:7b"
+      "gpu": "gemma4:12b"
     },
+    "ladder": ["gemma4:12b", "qwen2.5:7b"],
     "subject": "machine learning pipelines in PDI (AutoML with H2O, R-backed model training and scoring, and fraud-detection workflows)",
     "suggestions": [
       "How does the AutoML transformation hand data to H2O?",
@@ -41,8 +50,8 @@
   "launchers": {
     "spoon": {
       "label": "Pentaho Data Integration",
-      "windows": "C\\:Pentaho\\design-tools\\data-integration\\spoon.bat",
-      "linux": "~/opt/pentaho/design-tools/data-integration/spoon.sh",
+      "windows": "C:\\Pentaho\\design-tools\\data-integration\\spoon.bat",
+      "linux": "~/Pentaho/design-tools/data-integration/spoon.sh",
       "macos": "~/Pentaho/design-tools/data-integration/spoon.sh",
       "fileArg": "-file="
     }

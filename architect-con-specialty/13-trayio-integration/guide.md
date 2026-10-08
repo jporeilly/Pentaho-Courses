@@ -7,7 +7,7 @@
 > * Build a Tray.io workflow that triggers a Pentaho job through the Carte REST API
 > * Pass webhook payload values into the job as parameters and monitor completion
 >
-> **Prerequisites:** The Carte cluster lab; a Tray.io account (app.tray.io).
+> **Prerequisites:** The [Carte cluster](../12-carte-cluster/guide.md) lab; a Tray.io account (app.tray.io).
 >
 > **Estimated time:** 45 minutes
 
