@@ -63,10 +63,16 @@ the running window instead of starting a second copy.
 
 ### I'm using a lab VM
 
-Nothing to install. Everything is already on the machine and starts
-with it: the guide brought the Pentaho Server up as you signed in.
-**Check your environment**, just below these tabs, shows every service
-live, and its **Get my lab ready** button starts anything that is down.
+Nothing to install. Everything is already on the machine, and the
+Pentaho Server starts by itself with it.
+
+> **Note:** **Give the Pentaho Server time to load.** It starts its
+> repository database first and then needs **3 to 5 minutes** to finish,
+> so it will not answer the moment you sign in. **Check your
+> environment**, just below these tabs, shows **Starting up** while it
+> loads and turns green by itself. **Please don't click anything or
+> restart anything while it says so**: that only makes the server start
+> again from the beginning.
 
 If something looks wrong later, tell your instructor rather than
 reinstalling anything.
@@ -230,7 +236,12 @@ whichever tab above you chose. Each row reports one of four states:
 * **<span class="pcm-c-muted">Grey</span>** — skipped, because this course doesn't use it.
 
 The row that matters most is **Pentaho Server URL**: every lab runs in
-the User Console. When a row is red, **Get my lab ready** runs the same
+the User Console. It is green only once the sign-in page really answers.
+
+A row with a turning circle and **Starting up** is not broken: the
+Pentaho Server is still loading (3 to 5 minutes), and the list checks
+again by itself every few seconds. Wait for it. Only when a row is
+**red** is something wrong, and then **Get my lab ready** runs the same
 steps the sign-in runs and checks again.
 
 <div data-env-check="server"></div>

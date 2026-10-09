@@ -13,7 +13,7 @@
   },
   "title": "Pentaho Analyst - BA Practitioner",
   "description": "Hands-on workshop for the Pentaho Business Analytics Practitioner. Pentaho User Console, Interactive Reports, Analyzer Reports and Dashboard Designer.",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "kind": "workshop",
   "level": { "number": 1, "name": "Practitioner" },
   "mode": "sequential",
