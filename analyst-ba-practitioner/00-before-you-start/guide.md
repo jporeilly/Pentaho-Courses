@@ -229,7 +229,7 @@ whichever tab above you chose. Each row reports one of four states:
 * **<span class="pcm-c-danger">Red</span>** — it will block a lab, and the row tells you the exact fix.
 * **<span class="pcm-c-muted">Grey</span>** — skipped, because this course doesn't use it.
 
-The row that matters most is the **Pentaho Server**: every lab runs in
+The row that matters most is **Pentaho Server URL**: every lab runs in
 the User Console. When a row is red, **Get my lab ready** runs the same
 steps the sign-in runs and checks again.
 
