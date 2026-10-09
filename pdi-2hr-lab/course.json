@@ -34,6 +34,7 @@
     },
     "ladder": ["gemma4:12b", "qwen2.5:7b"],
     "subject": "Pentaho Data Integration (Spoon, transformations, jobs)",
+    "startCollapsed": true,
     "suggestions": [
       "What is a transformation vs a job?",
       "How do I preview data at any step?",
