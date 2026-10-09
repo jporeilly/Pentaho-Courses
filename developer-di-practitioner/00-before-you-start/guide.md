@@ -64,8 +64,11 @@ the running window instead of starting a second copy.
 
 ### I'm using a lab VM
 
-Nothing to do. Everything is installed and running already, and it
-starts with the machine.
+Nothing to install. Everything is already on the machine and starts
+with it: the guide brought MySQL, MinIO and Pentaho Data Integration up
+as you signed in. **Check your environment**, just below these tabs,
+shows every service live, and its **Get my lab ready** button starts
+anything that is down.
 
 If something looks wrong later, tell your instructor rather than
 reinstalling anything.
@@ -117,11 +120,15 @@ Once step 2 has run, the Containers page is what you should see:
 
 <figure><img src="../_assets/images/podman-desktop-containers.png" alt="Podman Desktop showing the workshop-services containers"><figcaption><p>The workshop services in Podman Desktop</p></figcaption></figure>
 
-The three containers are grouped under **workshop-services (compose)**.
-`pcm-mysql` on port 3306 and `pcm-minio` on 9000/9099 should both say
-**RUNNING**. `pcm-minio-seed` showing **EXITED** is correct and not a
-failure — it is a one-shot container that creates the buckets and
-uploads the sample files, then stops.
+`sampledata-mysql` on port 3306 and `pcm-minio` on 9000/9099 should both
+say **RUNNING** (`sampledata-adminer`, a database browser on 8050, comes
+with MySQL). They are started by the two lab kits the course installer
+laid down, `C:\MySQL` and `C:\minIO`, which the guide runs for you at
+sign-in. On a machine with a compose provider you may instead see
+`pcm-mysql` and `pcm-minio` grouped under **workshop-services (compose)**
+with a third, `pcm-minio-seed`, showing **EXITED** — also correct: that is
+a one-shot container that creates the buckets and uploads the sample
+files, then stops.
 
 > **Important:** The Podman machine does not start itself after a
 > reboot — this is the single most common workshop hiccup. Podman
@@ -196,19 +203,29 @@ course requires you to remove it.
    .\setup-services.ps1
    ```
 
-3. Answer any prompts. If something from the previous tab is missing —
-   Podman Desktop, the compose provider, or Node — the script offers
-   to install it and waits for your answer. Press Enter to accept, or
-   `n` to be given the command instead. Nothing is installed unless
-   you say so.
+   It starts the Podman machine, then runs the two lab kits the
+   installer laid down — `C:\MySQL\run-podman-mysql.ps1` (builds and
+   starts `sampledata-mysql`, with Steel Wheels loaded on the first
+   start) and `C:\minIO\run-podman-minio.ps1` (starts `pcm-minio` and
+   puts lab 19's files in) — and waits until MySQL and MinIO genuinely
+   answer, not just "started". The first run pulls two images and loads
+   the sample data, so it takes a few minutes. You can run either kit
+   script on its own at any time; each prints its connection details.
 
-4. Wait for it to finish. It generates the MySQL sample data from your
-   own Pentaho install, starts the Podman machine, brings up the
-   containers, and waits until MySQL and MinIO genuinely answer — not
-   just "started". First run takes a few minutes.
+3. Answer any prompts. If Podman Desktop from the previous tab is
+   missing, the script offers to install it and waits for your answer.
+   Press Enter to accept, or `n` to be given the command instead.
+   Nothing is installed unless you say so. A compose provider is not
+   needed: with one present the script uses the compose file instead of
+   the kits (`pcm-mysql` and `pcm-minio`), which works the same way.
+
+4. On a lab VM none of this is typed: the guide runs the same steps at
+   sign-in under "Setting up your lab", and the panel at the bottom of
+   this page has **Get my lab ready** for later.
 
 Check the result against the Podman Desktop screenshot in the previous
-tab: `pcm-mysql` and `pcm-minio` running, `pcm-minio-seed` exited.
+tab: `sampledata-mysql` (and `sampledata-adminer`) and `pcm-minio`
+running.
 
 5. Check PDI has the MySQL driver. PDI 11 doesn't include it, and
    every database lab needs it. The installer already downloaded it
@@ -251,11 +268,24 @@ Pentaho install and could not find it. Point it at the right place:
 $env:PENTAHO_HOME = "C:\Pentaho"
 ```
 
-**"No compose provider"** — Podman does not ship one. The script
-offers to install it; to do it yourself:
+**"no compose provider - MySQL and MinIO come from the lab kits"** — a
+report, not a problem: Podman does not ship a compose provider, and this
+course does not need one; the kits do the same job with `podman run`. A
+provider is only required for the streaming brokers (a different
+course). To use compose anyway, install it and re-run the script:
 
 ```powershell
 winget install -e --id Docker.DockerCompose
+```
+
+**"sampledata-mysql ... treats table names case-sensitively"** — the
+container was built by an older MySQL kit (before 1.5.0). The DI labs
+name one table in both cases, so they need a case-insensitive server,
+and that setting is fixed when the database is first created. The guide
+rebuilds it for you at sign-in (Steel Wheels is loaded again); by hand:
+
+```powershell
+C:\MySQL\run-podman-mysql.ps1 -Reset
 ```
 
 **MySQL never becomes ready.** First start imports about 10,000 rows, so
@@ -263,22 +293,23 @@ give it a couple of minutes. If it still will not come up, look at the
 log:
 
 ```powershell
-podman compose -f "$env:LOCALAPPDATA\Pentaho Content Manager\workshop-services\docker-compose.yml" logs mysql
+podman logs sampledata-mysql
 ```
 
 **Starting a new cohort and want pristine data?** The CRUID labs change
-Steel Wheels by design. Reset it:
+Steel Wheels by design. Reset it (MinIO the same way, with its own kit):
 
 ```powershell
-.\setup-services.ps1 -Reset
+C:\MySQL\run-podman-mysql.ps1 -Reset
+C:\minIO\run-podman-minio.ps1 -Reset
 ```
 
 </details>
 
 ### 3. Check it worked
 
-The panel below already ran this for you, but you can run it yourself at
-any time:
+The **Check your environment** panel below these tabs already ran this
+for you, but you can run it yourself at any time:
 
 ```powershell
 .\check-environment.ps1
@@ -297,7 +328,7 @@ When everything is green you are ready to start Module 1.
 | ------------------------ | -------------------------------------------- |
 | WSL 2                    | Podman runs its containers inside it         |
 | Podman                   | The container engine                         |
-| Compose provider         | Brings up the whole stack in one command     |
+| Compose provider         | Optional — without one the services start with `podman run` (an amber row, not a red one) |
 | Podman machine           | The Linux VM the containers run in           |
 | MySQL `sampledata`       | Labs 12–18 and several later labs read and write it |
 | MySQL JDBC driver (PDI)  | PDI 11 doesn't ship one; without it no lab can connect |
@@ -369,7 +400,9 @@ the drivers these workshops need.
 
 4. Click **Test Connection**, then **Finish**. Expand the
    `sampledata` schema and you should see the Steel Wheels tables —
-   `CUSTOMERS`, `PRODUCTS`, `ORDERS` and the rest.
+   `customers`, `products`, `orders` and the rest (shown in lower case:
+   the server compares table names case-insensitively, so `ORDERS` and
+   `orders` are the same table, which the later labs rely on).
 
 These are the same credentials the labs use in their PDI database
 connections, so what you see in DBeaver is exactly what your
@@ -405,6 +438,7 @@ local to your machine.
 | ------------------------------- | ----------------- | --------------- | ------------ |
 | MySQL `sampledata` — labs 12–18 | `127.0.0.1:3306`  | `pentaho_admin` | `password`   |
 | MySQL — admin account           | `127.0.0.1:3306`  | `root`          | `password`   |
+| Adminer — browse MySQL in a browser | `127.0.0.1:8050` (server `sampledata-mysql`) | `pentaho_admin` | `password` |
 | MinIO S3 API — lab 19 `pvfs://` | `127.0.0.1:9000`  | `minioadmin`    | `minioadmin` |
 | MinIO web console — buckets     | `127.0.0.1:9099`  | `minioadmin`    | `minioadmin` |
 | Ollama — the Chat tab           | `127.0.0.1:11434` | *none*          | *none*       |
@@ -422,17 +456,28 @@ Open the MinIO console in a browser at **http://127.0.0.1:9099**.
 
 :::
 
-The panel below probes this machine live, checking what this course's
-labs need. Each row reports one of four states:
+When the last tab is done, **Check your environment** just below these
+tabs should be all green.
+
+::::
+
+## Check your environment
+
+This panel probes the machine live — PDI, the MySQL and MinIO
+containers, and the container tooling that runs them — whichever tab
+above you chose. Each row reports one of four states:
 
 * **<span class="pcm-c-ok">Green</span>** — the check passed; that piece is present and answering.
 * **<span class="pcm-c-warn">Amber</span>** — usable, but worth tidying before the session.
 * **<span class="pcm-c-danger">Red</span>** — it will block a lab, and the row tells you the exact fix.
 * **<span class="pcm-c-muted">Grey</span>** — skipped, because this course doesn't use it.
 
-<div data-env-check></div>
+The two that matter most are **MySQL** — labs 12 to 18 read and write
+Steel Wheels — and **MinIO**, which lab 19 reads through `pvfs://`.
+When a row is red, **Get my lab ready** runs the same steps the sign-in
+runs and checks again.
 
-::::
+<div data-env-check></div>
 
 ## Check the working folders
 

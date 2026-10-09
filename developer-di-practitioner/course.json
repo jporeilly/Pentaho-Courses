@@ -13,7 +13,7 @@
   },
   "title": "Pentaho Developer - DI Practitioner",
   "description": "Self-paced, hands-on workshop for the Pentaho Data Integration Practitioner.",
-  "version": "0.1.8",
+  "version": "0.1.12",
   "kind": "workshop",
   "level": { "number": 1, "name": "Practitioner" },
   "mode": "sequential",
@@ -30,6 +30,7 @@
     },
     "ladder": ["gemma4:12b", "qwen2.5:7b"],
     "subject": "Pentaho Data Integration (Spoon, transformations, jobs and the Pentaho Server)",
+    "startCollapsed": true,
     "suggestions": [
       "Walk me through my first transformation",
       "What's the difference between a job and a transformation?",
