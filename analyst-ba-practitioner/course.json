@@ -13,7 +13,7 @@
   },
   "title": "Pentaho Analyst - BA Practitioner",
   "description": "Hands-on workshop for the Pentaho Business Analytics Practitioner. Pentaho User Console, Interactive Reports, Analyzer Reports and Dashboard Designer.",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "kind": "workshop",
   "level": { "number": 1, "name": "Practitioner" },
   "mode": "sequential",
@@ -30,6 +30,7 @@
     },
     "ladder": ["gemma4:12b", "qwen2.5:7b"],
     "subject": "Pentaho Business Analytics (the User Console, Interactive Reports, Analyzer and Dashboard Designer)",
+    "startCollapsed": true,
     "suggestions": [
       "What's the difference between Interactive Reports and Analyzer?",
       "How do I add a filter to an Analyzer report?",

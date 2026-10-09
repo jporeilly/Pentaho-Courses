@@ -63,8 +63,10 @@ the running window instead of starting a second copy.
 
 ### I'm using a lab VM
 
-Nothing to do. Everything is installed and running already, and it
-starts with the machine.
+Nothing to install. Everything is already on the machine and starts
+with it: the guide brought the Pentaho Server up as you signed in.
+**Check your environment**, just below these tabs, shows every service
+live, and its **Get my lab ready** button starts anything that is down.
 
 If something looks wrong later, tell your instructor rather than
 reinstalling anything.
@@ -211,19 +213,27 @@ sources.
 
 :::
 
-The panel below probes this machine live, checking what this course's
-labs need. Each row reports one of four states:
+When the last tab is done, **Check your environment** just below these
+tabs should be all green. Nothing else is required.
+
+::::
+
+## Check your environment
+
+This panel probes the machine live — the Pentaho Server, the User
+Console, the repository database behind it, and the Java it runs on —
+whichever tab above you chose. Each row reports one of four states:
 
 * **<span class="pcm-c-ok">Green</span>** — the check passed; that piece is present and answering.
 * **<span class="pcm-c-warn">Amber</span>** — usable, but worth tidying before the session.
 * **<span class="pcm-c-danger">Red</span>** — it will block a lab, and the row tells you the exact fix.
 * **<span class="pcm-c-muted">Grey</span>** — skipped, because this course doesn't use it.
 
+The row that matters most is the **Pentaho Server**: every lab runs in
+the User Console. When a row is red, **Get my lab ready** runs the same
+steps the sign-in runs and checks again.
+
 <div data-env-check="server"></div>
-
-Nothing else is required.
-
-::::
 
 ## Check the working folders
 
