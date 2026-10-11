@@ -1,6 +1,6 @@
 {
   "title": "Associate Exam",
-  "description": "A fixed 40-question exam drawn at random from a 50-question bank covering all six modules. Pass mark is 80%. This is an open-book exam — take your time, browse any module to refresh your memory, or ask the AI assistant for help. Your answers are saved as you go, so leaving the page to look something up is fine. Explanations show after submission so you can learn from any answers you missed.",
+  "description": "A fixed 40-question exam drawn at random from a 46-question bank covering all five modules. Pass mark is 80%. This is an open-book exam — take your time, browse any module to refresh your memory, or ask the AI assistant for help. Your answers are saved as you go, so leaving the page to look something up is fine. Explanations show after submission so you can learn from any answers you missed.",
   "passMark": 80,
   "questionsPerAttempt": 40,
   "shuffle": true,
@@ -10,7 +10,7 @@
       "id": "me-m1-q1",
       "module": "Getting Started",
       "bloom": "Apply",
-      "scenario": "Business users ask IT to write SQL for every new report, because the database's names, such as CUSTOMER_W_TER and PRICEEACH, mean nothing to them.",
+      "scenario": "Business users ask IT to write SQL for every new report because the database's names, such as CUSTOMER_W_TER and PRICEEACH, mean nothing to them.",
       "prompt": "What would a PME metadata domain change for them?",
       "options": [
         "IT writes each report's SQL once in PME, and users rerun it",
@@ -19,14 +19,14 @@
         "PME renames the database's tables and columns to business terms"
       ],
       "correct": 2,
-      "explanation": "A domain translates technical names into business terms, and its relationships let the query generator build the SQL, so users report without writing any. PME does not rename anything in the database; the physical layer mirrors it as it is. It is not a store of SQL written by IT: queries are generated from the model as users build reports. Friendly names live once in the model rather than in each report, which is what keeps them consistent.",
+      "explanation": "A **metadata domain** translates technical database names into business terms, and the query generator uses the model's relationships to build the SQL, so users report by picking **business-named fields** without writing any.\n\nThe friendly names live once in the model rather than in every report, which keeps them consistent.",
       "source": "Pentaho BI Developer - ME Associate: Getting Started — Components"
     },
     {
       "id": "me-m1-q2",
       "module": "Getting Started",
       "bloom": "Analyze",
-      "scenario": "A DBA renames a database column that forty reports use. All forty are built on a published metadata domain.",
+      "scenario": "A DBA renames a database column that 40 reports use. All 40 reports are built on a published metadata domain.",
       "prompt": "Where does the fix go?",
       "options": [
         "In the domain's physical layer, once, then republish the domain",
@@ -35,14 +35,14 @@
         "Nowhere, since the published domain follows the rename by itself"
       ],
       "correct": 0,
-      "explanation": "The metadata layer is a buffer: reports use business columns, so a change at the database level is absorbed in the physical layer and republished, and the reports are untouched. The reports never name the database column, which is the point of the buffer. The domain does not follow a rename by itself; somebody updates the physical layer. Categories hold business columns, and the business column is unchanged, so nothing needs adding to the business view.",
+      "explanation": "The **metadata layer** acts as a buffer between the source data and the reports. Because reports reference business columns rather than the physical database columns, a change at the database level is absorbed in the **physical layer** of the domain. Once the physical layer is updated and the domain is republished, the reports are untouched, because their business columns have not changed.",
       "source": "Pentaho BI Developer - ME Associate: Getting Started — Components"
     },
     {
       "id": "me-m1-q3",
       "module": "Getting Started",
       "bloom": "Understand",
-      "scenario": "A new modeller opens a domain. One part of the tree holds connections, physical tables and physical columns; another holds business tables, relationships and categories.",
+      "scenario": "A new modeler opens a domain. One part of the tree holds connections, physical tables, and physical columns, while another part holds business tables, relationships, and categories.",
       "prompt": "Which part do report writers work against?",
       "options": [
         "The business model layer, through its business view",
@@ -51,7 +51,7 @@
         "The physical layer, through its physical columns"
       ],
       "correct": 0,
-      "explanation": "A domain has two layers: the physical layer holds the technical definitions of the database, and the business model layer gives the business-oriented view that applications and users work against, presented through the business view's categories. The physical columns are the technical definitions the business layer abstracts. The connection only describes how to reach the database. Report writers do not choose between layers per column; they see the business view.",
+      "explanation": "Report writers work against the **business model layer** because it provides a business-oriented view of the data. This layer uses categories to present information in a way that applications and users can easily interact with, abstracting the technical details of the underlying database.",
       "source": "Pentaho BI Developer - ME Associate: Getting Started — Components"
     },
     {
@@ -67,7 +67,7 @@
         "One set of formatting rules that every report built on it uses"
       ],
       "correct": 3,
-      "explanation": "PME streamlines report maintenance by setting consistent formatting rules for text, dates and numbers in the model, which every report built on it then shares. Formatting in the model changes how values are presented, not how fast the database returns them. Storing formats with each report is the current problem, not the fix. PME does not alter the database; the rules live in the metadata layer.",
+      "explanation": "Moving formatting to the metadata layer ensures that a single set of **formatting rules** for text, dates, and numbers is established within the model.\n\nBecause these rules are defined centrally in the metadata domain, every report built upon that model automatically shares the same consistent formatting for its data fields.",
       "source": "Pentaho BI Developer - ME Associate: Getting Started — Components"
     },
     {
@@ -87,7 +87,7 @@
         2,
         3
       ],
-      "explanation": "Localization adjusts how information is presented to each user's regional settings, and security controls manage which data elements each user can see, so one domain serves every country. Calculated columns derive new values from existing columns; they neither translate labels nor hide data. Complex joins relate tables on several keys. The Query Editor tests a model inside PME; report writers never see it.",
+      "explanation": "The requirement to adapt labels based on regional settings is met by **Localization**, which ensures information is presented correctly according to local context.\n\n**Security controls** manage which data elements, such as salary figures, are visible to specific users, allowing a single domain to serve a diverse, global user base.",
       "source": "Pentaho BI Developer - ME Associate: Getting Started — Components"
     },
     {
@@ -103,14 +103,14 @@
         "One shared model of names, formats and security, which must be maintained"
       ],
       "correct": 3,
-      "explanation": "The gain is consistency: business names, formatting and security are defined once and shared by every report, and database changes are absorbed in one place. The cost is a model somebody keeps in step with the database. A domain is not a results cache, and it has upkeep of its own. It reduces the impact of database changes but does not remove them; the physical layer still has to be updated. Importing gives only the physical layer; names, relationships and categories are designed by hand.",
+      "explanation": "A metadata domain provides a **shared model** where business names, formatting, and security are defined in one location. While this design ensures consistency across all reports and allows the system to absorb many database changes, the domain itself requires maintenance to remain in sync with the physical layer.",
       "source": "Pentaho BI Developer - ME Associate: Getting Started — Components"
     },
     {
       "id": "me-m1-q7",
       "module": "Getting Started",
       "bloom": "Apply",
-      "scenario": "A domain has been designed and saved in Metadata Editor. Report writers using Interactive Reporting cannot find it as a data source.",
+      "scenario": "A domain has been designed and saved in the Metadata Editor. Report writers using Interactive Reporting cannot find it as a data source.",
       "prompt": "What makes it available to them?",
       "options": [
         "Exporting it as an XMI file into each writer's home folder",
@@ -119,7 +119,7 @@
         "Publishing it to the Pentaho Server from Metadata Editor"
       ],
       "correct": 3,
-      "explanation": "File > Publish To Server sends the domain to the Pentaho Server, where it becomes a data source for the reporting tools. File > Save stores the domain locally; it does not reach the server. An XMI file placed in a home folder is just a file; it is publishing that registers the domain as a data source. Re-importing tables changes the physical layer of the local domain and leaves the server untouched.",
+      "explanation": "**File > Publish To Server** sends the domain to the **Pentaho Server**, which registers it as a data source for the reporting tools. Saving the domain only stores it locally, so it never reaches the server.",
       "source": "Pentaho BI Developer - ME Associate: Domains & Models — OrdersME"
     },
     {
@@ -135,23 +135,23 @@
         "Drop the tables the reports will not need from the database itself"
       ],
       "correct": 2,
-      "explanation": "The physical layer represents the database as it is and is not part of the business model; the business tables, relationships and business view built on top of it are what applications and users work against. Report writers do not browse the physical layer. Categories hold business columns, so there must be a business model before there is anything to categorize. Unneeded tables can simply be left out of the model; nothing is dropped from the database.",
+      "explanation": "The **physical layer** represents the database as it is and is not part of the business model; the business tables, relationships, and business view built on top of it are what applications and users work against.\n\nReport writers do not browse the physical layer. Because **categories** hold business columns, a business model must exist before there is anything to categorize. Unneeded tables can simply be left out of the model; no items are dropped from the actual database.",
       "source": "Pentaho BI Developer - ME Associate: Domains & Models — Overview"
     },
     {
       "id": "me-m2-q2",
       "module": "Domains & Models",
       "bloom": "Apply",
-      "scenario": "One business model must join order data in a MySQL warehouse with customer data in a separate Oracle CRM.",
-      "prompt": "What stops it being built as described?",
+      "scenario": "A business model must join order data in a MySQL warehouse with customer data in a separate Oracle CRM.",
+      "prompt": "What stops it from being built as described?",
       "options": [
-        "Relationships can join only tables of similar size",
-        "A domain can hold only one business model at a time",
-        "A business model can reference only one connection",
-        "Oracle tables cannot be imported into Metadata Editor"
+        "Relationships can join only tables of similar size.",
+        "A domain can hold only one business model at a time.",
+        "A business model can reference only one connection.",
+        "Oracle tables cannot be imported into Metadata Editor."
       ],
       "correct": 2,
-      "explanation": "Each business model references one and only one connection, so physical tables from two connections cannot be mixed in the same model; the data would have to be brought into one database first. A domain can hold several business models, so that is not the limit. Metadata Editor connects to most common relational databases over JDBC, Oracle included. Relationships join tables on columns; table size has nothing to do with it.",
+      "explanation": "A **business model** can reference only one connection. Because tables from different connections cannot be mixed in the same model, the data must be moved into a single database before the business model is created.",
       "source": "Pentaho BI Developer - ME Associate: Domains & Models — Overview"
     },
     {
@@ -167,15 +167,15 @@
         "One category holding both tables' columns, which joins them for reports"
       ],
       "correct": 0,
-      "explanation": "Relationships in the business layer can link any two business tables on any two columns, including relationships that are not obvious in the physical layer, which is how budget and actual figures can be compared. PME does not need a database foreign key to model a relationship. Categories are buckets with no tie to tables, so they join nothing. A model can reference only one connection, so two connections would put the tables out of reach of one model.",
+      "explanation": "The business layer allows the creation of a **relationship** between two business tables based on shared columns. This enables the comparison of data across different tables even when a formal foreign key does not exist in the physical database schema.",
       "source": "Pentaho BI Developer - ME Associate: Domains & Models — Overview"
     },
     {
       "id": "me-m2-q4",
       "module": "Domains & Models",
       "bloom": "Apply",
-      "scenario": "Order Date belongs under both an Orders heading and a Time heading in a model's business view.",
-      "prompt": "Can the business view do that?",
+      "scenario": "Order Date should appear under both an Orders heading and a Time heading in a model's business view.",
+      "prompt": "Can the business view display the field in both locations?",
       "options": [
         "Yes, as a column can sit in several categories, once in each",
         "Only if both categories draw on the same business table",
@@ -183,30 +183,30 @@
         "Only by creating a second business table over the same table"
       ],
       "correct": 0,
-      "explanation": "In the business view a business column can be added to more than one category; the only restriction is that it cannot appear twice in a single category. Nothing limits a column to one category. A second business table is not needed to show a column twice. Categories have no tie to any business table, so they can mix columns from different tables freely.",
+      "explanation": "A business column can be added to more than one **category** in a business view. The only restriction is that a column cannot appear more than once within a single category.\n\nBecause categories are not tied to specific business tables, a column can be shared across multiple categories without requiring additional tables or duplicate entries.",
       "source": "Pentaho BI Developer - ME Associate: Domains & Models — Overview"
     },
     {
       "id": "me-m2-q5",
       "module": "Domains & Models",
       "bloom": "Analyze",
-      "scenario": "A modeller imported all forty tables of a schema into a domain's physical layer. The reporting model needs only six of them.",
-      "prompt": "What should happen to the other thirty-four?",
+      "scenario": "A modeler imported all 40 tables of a schema into a domain's physical layer. The reporting model requires only six of those tables.",
+      "prompt": "What should happen to the other 34 tables?",
       "options": [
-        "They must be dropped from the database before the domain is published",
-        "They must move to a second connection, so the model stays valid",
-        "They must join the business model, or the domain will not validate",
-        "They can stay, as only what a model uses reaches report writers"
+        "They must be dropped from the database before the domain is published.",
+        "They must move to a second connection, so the model stays valid.",
+        "They must join the business model, or the domain will not validate.",
+        "They can stay, as only what a model uses reaches report writers."
       ],
       "correct": 3,
-      "explanation": "The physical layer is not part of the business model precisely because not everything in it is used by every model; report writers see only the business view, so unused physical tables are harmless and can be removed later if wanted. Nothing requires every physical table to appear in a model. PME never needs tables dropped from the database. Moving tables to another connection achieves nothing, and a model can reference only one connection anyway.",
+      "explanation": "The physical layer is not part of the business model, because not every table in it is needed by every model. Report writers see only the **business view**, so the unused tables are harmless and can be removed later if wanted.\n\nNothing requires every physical table to appear in a model, and PME never needs tables dropped from the database.",
       "source": "Pentaho BI Developer - ME Associate: Domains & Models — Overview"
     },
     {
       "id": "me-m2-q6",
       "module": "Domains & Models",
       "bloom": "Apply",
-      "scenario": "Reports need a line total, quantity ordered times price each. The ORDERDETAILS table stores only QUANTITYORDERED and PRICEEACH.",
+      "scenario": "Reports need a line total, the quantity ordered multiplied by the price of each item. The ORDERDETAILS table stores only `QUANTITYORDERED` and `PRICEEACH`.",
       "prompt": "How is the total provided in the domain?",
       "options": [
         "A column PME adds to the database table when the domain is published",
@@ -215,14 +215,14 @@
         "A relationship joining ORDERDETAILS to itself on PRICEEACH"
       ],
       "correct": 1,
-      "explanation": "A column that does not exist in the physical table can be created from existing ones; the formula refers to columns in square brackets, as in [QUANTITYORDERED]*[PRICEEACH]. Curly brackets name a parameter, such as {Parameter Name}, not a column. A relationship describes how tables join; it does not compute a value. PME does not alter the database; the calculation lives in the metadata.",
+      "explanation": "A column that does not exist in the physical table can be created as a **calculated column** using existing fields. The formula utilizes **square brackets** to identify the columns, such as `[QUANTITYORDERED]*[PRICEEACH]`.",
       "source": "Pentaho BI Developer - ME Associate: Domains & Models — SteelWheels"
     },
     {
       "id": "me-m2-q7",
       "module": "Domains & Models",
       "bloom": "Analyze",
-      "scenario": "A domain built against a development database will also be published to a production server. The team wants the same domain to work on both without editing it.",
+      "scenario": "A domain built against a development database will also be published to a production server. The team wants the same domain to work on both environments without editing the domain.",
       "prompt": "Which connection setup supports that?",
       "options": [
         "JNDI access, so each server supplies the database behind one name",
@@ -231,7 +231,7 @@
         "A second business model for production, with its own connection"
       ],
       "correct": 0,
-      "explanation": "With JNDI the connection names a resource, such as SampleData, and the application server manages the actual connection details, which makes the domain portable between servers. Native JDBC holds the host and credentials in the connection, so it has to be edited for each environment. A business model references one and only one connection, so it cannot hold two. A second model duplicates the whole model, and reports would point at a different data source in each environment.",
+      "explanation": "Using **JNDI access** allows the connection to name a resource, such as `SampleData`, while the application server manages the actual connection details. This configuration makes the domain portable because the specific connection details are managed by the environment's server rather than being hardcoded in the definition.",
       "source": "Pentaho BI Developer - ME Associate: Domains & Models — OrdersME"
     },
     {
@@ -247,14 +247,14 @@
         "Two categories in the business view, Orders and Payments"
       ],
       "correct": 2,
-      "explanation": "The prefixes name the object type: BT is a business table and BC a business column, so this relationship joins a column of the Orders business table to one of the Payments business table. Physical tables and columns carry PT and PC. Categories carry CT, and relationships are drawn between business tables, not categories. Both ends here carry BT, so neither is a physical table.",
+      "explanation": "The prefix **BT** identifies a business table, and the prefix **BC** identifies a business column. Because both sides of the relationship use the **BT** and **BC** prefixes, the link connects business columns of two business tables.",
       "source": "Pentaho BI Developer - ME Associate: Domains & Models — SteelWheels"
     },
     {
       "id": "me-m2-q9",
       "module": "Domains & Models",
       "bloom": "Apply",
-      "scenario": "A modeller adds a MySQL connection in a fresh Metadata Editor install. Testing it fails because no driver for the database can be found.",
+      "scenario": "A modeler adds a MySQL connection in a fresh Metadata Editor install. Testing the connection fails because no driver for the database can be found.",
       "prompt": "What fixes it?",
       "options": [
         "Publishing the domain, so the server supplies the missing driver",
@@ -263,14 +263,14 @@
         "Copying the driver into the database server's own install folder"
       ],
       "correct": 2,
-      "explanation": "The client tool loads the driver: the JDBC driver goes into Metadata Editor's lib folder (removing any older copy of the same JAR) and the editor is restarted to register it. JNDI looks a connection up by name on an application server; it does not supply a driver to the editor. Publishing needs a working domain first, and the server's drivers do not help the editor's own test. The database server does not load the client's JDBC driver.",
+      "explanation": "The client tool loads the driver itself, so the **JDBC driver** goes into Metadata Editor's `lib` folder (removing any older copy of the same JAR), and the editor is restarted to register it.",
       "source": "Pentaho BI Developer - ME Associate: Domains & Models — OrdersME"
     },
     {
       "id": "me-m2-q10",
       "module": "Domains & Models",
       "bloom": "Apply",
-      "scenario": "Publishing a domain from Metadata Editor fails. Earlier that day someone closed the Pentaho Server's console window.",
+      "scenario": "Publishing a domain from Metadata Editor fails. Earlier that day, a user closed the Pentaho Server console window.",
       "prompt": "What should be checked first?",
       "options": [
         "That the JDBC driver is still in Metadata Editor's lib folder",
@@ -279,7 +279,7 @@
         "That the domain was saved as XMI into the server's own folder"
       ],
       "correct": 1,
-      "explanation": "Publishing posts the domain to the server's metadata import endpoint, so the server must be up, and closing its console window stops it. The domain is sent through that API, not saved into a server folder by hand. The editor's JDBC driver matters for the connection, not for reaching the server. Unused physical tables do not stop a domain from publishing.",
+      "explanation": "Publishing posts the domain to the server's **metadata import endpoint**, so the server must be running. Closing its console window stops the server, and it has to be started again before the domain can be published.",
       "source": "Pentaho BI Developer - ME Associate: Domains & Models — OrdersME"
     },
     {
@@ -295,7 +295,7 @@
         "Building an Interactive Report on it in the User Console"
       ],
       "correct": 3,
-      "explanation": "Choosing the domain as the data source of an Interactive Report exercises what report writers will use: the business view, its categories and the generated joins. Finding the file shows it arrived, not that it works as a data source. Re-importing it into the editor checks the file, not the server's use of it. Querying the tables directly bypasses the metadata layer entirely.",
+      "explanation": "Building an Interactive Report on the domain as the data source exercises the **business view**, its categories, and the generated joins. This confirms that the metadata layer is correctly processed for end-user consumption.",
       "source": "Pentaho BI Developer - ME Associate: Domains & Models — OrdersME"
     },
     {
@@ -311,14 +311,14 @@
         "N:1, since many fact rows refer to each product"
       ],
       "correct": 3,
-      "explanation": "Many order lines refer to the same product, so ORDERFACT to PRODUCTS is many-to-one (N:1); the fact table has an N:1 relationship with each of its dimension tables. 1:N runs the other way, from one product to its many lines. 1:1 would need each product to appear on only one line. N:N needs a separate linking table, and PRODUCTCODE is a column, not a table.",
+      "explanation": "The relationship from ORDERFACT to PRODUCTS is **many-to-one (N:1)** because multiple order lines in the fact table can refer to the same single product record in the dimension table.\n\nIn a standard star schema, the fact table maintains an N:1 relationship with each of its associated dimension tables.",
       "source": "Pentaho BI Developer - ME Associate: Domains & Models — OrdersME"
     },
     {
       "id": "me-m2-q13",
       "module": "Domains & Models",
       "bloom": "Apply",
-      "scenario": "A modeller has just added relationships and aggregations to a model and wants to check them before anyone else sees it.",
+      "scenario": "A modeler has just added relationships and aggregations to a model and wants to check them before anyone else sees it.",
       "prompt": "Which tool does that inside Metadata Editor?",
       "options": [
         "The Editor Graph, which runs the joins drawn between tables",
@@ -327,14 +327,14 @@
         "The Security Service dialog, which returns the model as XML"
       ],
       "correct": 1,
-      "explanation": "The Query Editor builds a query from business categories and columns, shows the generated SQL and the resulting data, and so catches problems with relationships, aggregations or column definitions before deployment. The Concept Editor defines concepts; it runs no queries. The Security Service dialog retrieves users, roles and access control lists from the server. The Editor Graph draws business tables and their relationships but does not execute anything.",
+      "explanation": "The **Query Editor** builds a query from business categories and columns, shows the generated SQL and the resulting data, and identifies issues with relationships, aggregations, or column definitions before deployment.\n\nThis tool allows a user to verify the logic of the metadata model by executing a query against the source data.",
       "source": "Pentaho BI Developer - ME Associate: Domains & Models — Query Builder"
     },
     {
       "id": "me-m2-q14",
       "module": "Domains & Models",
       "bloom": "Analyze",
-      "scenario": "Most users of a model should see every customer. One business area must work with a filtered version of the same customer table.",
+      "scenario": "Most users of a model should see every customer, but one specific business area requires a filtered version of the same customer table.",
       "prompt": "How can one model hold both?",
       "options": [
         "Two categories over the customer columns, one of them filtered",
@@ -343,31 +343,31 @@
         "Two connections to the same database, one for each business area"
       ],
       "correct": 1,
-      "explanation": "More than one business table can reference the same physical table, which is useful for filtering or security on the same data. A database copy duplicates data that the metadata layer can already present twice. A model references only one connection, so two connections cannot meet in it. Categories are buckets with no metadata of their own, so a category cannot filter rows.",
+      "explanation": "One model can accommodate different requirements by defining **two business tables** that reference the same physical table. This allows the metadata layer to present the same source data in different ways for different business needs, such as applying specific filters or security constraints.",
       "source": "Pentaho BI Developer - ME Associate: Domains & Models — Overview"
     },
     {
       "id": "me-m3-q1",
       "module": "Properties",
       "bloom": "Apply",
-      "scenario": "A new business model's ID is BV_MODEL_1. The modeller would like it to read OrderStarCustomer, like the model's name.",
-      "prompt": "What should they do?",
+      "scenario": "A new business model's ID is `BV_MODEL_1`. The modeler would like it to read OrderStarCustomer, matching the model's name.",
+      "prompt": "What should the modeler do?",
       "options": [
-        "Change the ID, since it is only a label shown to report writers",
-        "Delete the ID, and Metadata Editor regenerates it from the name",
-        "Leave the ID as it is and set the Name property instead",
-        "Change the ID, then republish so the server picks up the new value"
+        "Change the ID, since it is only a label shown to report writers.",
+        "Delete the ID, and Metadata Editor regenerates it from the name.",
+        "Leave the ID as it is and set the Name property instead.",
+        "Change the ID, then republish so the server picks up the new value."
       ],
       "correct": 2,
-      "explanation": "The ID is used internally to reference the model when SQL is generated, and it must be unique across models, so the pre-populated value is kept; the Name property is what users see. The ID is not a display label, which is the Name's job. Republishing does not make changing it safe. The ID is not something to delete; it is what the generator uses to find the model.",
+      "explanation": "The **ID** is used internally to reference the model when SQL is generated and must be unique across all models. The **Name** property is the correct field for display labels that users see.",
       "source": "Pentaho BI Developer - ME Associate: Properties — OrderStarCustomer"
     },
     {
       "id": "me-m3-q2",
       "module": "Properties",
       "bloom": "Apply",
-      "scenario": "A modeller selects four physical tables together and drags them onto a model's Business Tables. They are not added.",
-      "prompt": "How are they added?",
+      "scenario": "A modeler selects four physical tables together and drags them onto a model's Business Tables, but they are not added.",
+      "prompt": "How are these tables added?",
       "options": [
         "One at a time, each drag opening a properties dialog",
         "By importing them again from the connection into the model",
@@ -375,30 +375,30 @@
         "As a group, once a category exists for them to drop into"
       ],
       "correct": 0,
-      "explanation": "Tables cannot be dragged into Business Tables as a group; each is added individually, and each drag opens a properties dialog showing the business table's ID (such as BT_PRODUCTS_PRODUCTS) and its physical table, where columns can optionally be removed. Categories are part of the business view and play no part in adding tables. Relationships join business tables, so they come after the tables exist. Importing fills the physical layer, not the business model.",
+      "explanation": "Tables cannot be added to the business layer as a group; they must be added individually. Each drag operation triggers a **properties dialog** that displays the business table's ID (such as `BT_PRODUCTS_PRODUCTS`) and its corresponding physical table, where the user can then choose to remove specific columns.",
       "source": "Pentaho BI Developer - ME Associate: Properties — OrderStarCustomer"
     },
     {
       "id": "me-m3-q3",
       "module": "Properties",
       "bloom": "Understand",
-      "scenario": "PT_PRODUCTS was dragged into a model, creating BT_PRODUCTS_PRODUCTS. Later, a description is set on one of PT_PRODUCTS' physical columns.",
+      "scenario": "The physical table `PT_PRODUCTS` was dragged into a model, creating the business table `BT_PRODUCTS_PRODUCTS`. Later, a description is set on one of the physical table's columns.",
       "prompt": "What happens to the matching business column?",
       "options": [
-        "Nothing, as the business table took a copy when created",
-        "It inherits the description, unless it overrides its own",
-        "It inherits it, replacing a description it had overridden",
-        "It inherits it, and loses every property it had overridden"
+        "Nothing, as the business table took a copy when created.",
+        "It inherits the description, unless it overrides its own.",
+        "It inherits it, replacing a description it had overridden.",
+        "It inherits it, and loses every property it had overridden."
       ],
       "correct": 1,
-      "explanation": "A business table keeps a reference to the physical table it models, and business columns inherit from physical columns property by property, unless and until they override a property themselves. A one-time copy would break that reference-based inheritance. An override stands until it is removed, so the business column keeps its own description. Inheritance works per property, so a new value on one property leaves every other override alone.",
+      "explanation": "A business table maintains a **reference link** to the physical table it models. Business columns inherit properties from their corresponding physical columns on a per-property basis.\n\nIf a property is not explicitly overridden, the business column **inherits the value** from the physical column. If a business column has its own override, that specific property remains unchanged regardless of updates to the physical column's property.",
       "source": "Pentaho BI Developer - ME Associate: Domains & Models — Overview"
     },
     {
       "id": "me-m3-q4",
       "module": "Properties",
       "bloom": "Analyze",
-      "scenario": "A model has business tables for ORDERFACT, CUSTOMER_W_TER, PRODUCTS and DIM_TIME, with categories populated, but no relationships yet. A report writer will put Customer Name and Total in the same report.",
+      "scenario": "A model contains business tables for ORDERFACT, CUSTOMER_W_TER, PRODUCTS, and DIM_TIME. The tables have populated categories, but no relationships have been defined yet. A report writer plans to include Customer Name and Total in the same report.",
       "prompt": "What does the model still lack for that report?",
       "options": [
         "A relationship from ORDERFACT to CUSTOMER_W_TER for the join",
@@ -407,7 +407,7 @@
         "A calculated column that combines Customer Name and Total"
       ],
       "correct": 0,
-      "explanation": "Relationships tell the query and SQL generators how business tables join, here ORDERFACT N:1 to CUSTOMER_W_TER on CUSTOMERNUMBER, so a report spanning both tables needs one. Categories have no tie to business tables and supply no joins. Customer Name and Total are separate fields in the report; nothing needs combining. Concepts carry formatting and similar properties, not joins.",
+      "explanation": "A **relationship** tells the query and SQL generators how business tables join. The report takes Customer Name from CUSTOMER_W_TER and Total from ORDERFACT, so the two need one, here ORDERFACT N:1 to CUSTOMER_W_TER on `CUSTOMERNUMBER`.",
       "source": "Pentaho BI Developer - ME Associate: Properties — OrderStarCustomer"
     },
     {
@@ -423,30 +423,30 @@
         "Whichever mask was set most recently, wherever it was set"
       ],
       "correct": 2,
-      "explanation": "A business column inherits a physical column's metadata until it overrides a property, and the override then applies to that property alone. Physical metadata does not win; it is the default the business layer can override. Conflicting values do not cancel: the override is the value used. Timing does not matter either, as a later change to the physical mask still yields to the business column's override.",
+      "explanation": "A business column inherits the metadata of a physical column until a property is overridden. When an **override** is applied, the business layer uses its own specific configuration for that property.\n\nPhysical metadata acts as the default value, but the specific configuration of the business layer takes precedence over the inherited values.",
       "source": "Pentaho BI Developer - ME Associate: Domains & Models — Overview"
     },
     {
       "id": "me-m3-q6",
       "module": "Properties",
       "bloom": "Understand",
-      "scenario": "A modeller tries to delete the Target Table property from a physical table to tidy its property list. Metadata Editor does not allow it.",
-      "prompt": "Why not?",
+      "scenario": "A modeler attempts to delete the Target Table property from a physical table to tidy the property list, but the Metadata Editor does not allow the action.",
+      "prompt": "Why can it not be deleted?",
       "options": [
-        "It comes from the Base concept, which cannot be deleted",
-        "It belongs to the connection, so only its owner may edit it",
-        "It is a required property, which SQL generation depends on",
-        "It is locked until the domain has been published once"
+        "It comes from the Base concept, which cannot be deleted.",
+        "It belongs to the connection, so only its owner may edit it.",
+        "It is a required property, which SQL generation depends on.",
+        "It is locked until the domain has been published once."
       ],
       "correct": 2,
-      "explanation": "Physical objects carry mandatory properties that are created automatically and cannot be deleted, so that nothing essential to SQL generation can be removed by accident; a physical table must always have a Target Table. Base cannot be deleted from the concept list, but it is the parent of physical columns, and Target Table belongs to the table itself. Publishing has nothing to do with it. Properties have no owner who alone may edit them.",
+      "explanation": "Physical objects carry **mandatory properties** that are created automatically and cannot be deleted, so nothing essential to **SQL generation** can be removed by accident. A physical table must always have a Target Table.",
       "source": "Pentaho BI Developer - ME Associate: Properties — Overview"
     },
     {
       "id": "me-m3-q7",
       "module": "Properties",
       "bloom": "Apply",
-      "scenario": "Reports need one Contact Name field reading Last, First. The customer table stores CONTACTLASTNAME and CONTACTFIRSTNAME separately.",
+      "scenario": "Reports need one Contact Name field that reads Last, First. The customer table stores `CONTACTLASTNAME` and `CONTACTFIRSTNAME` separately.",
       "prompt": "How is the field built in the domain?",
       "options": [
         "A category holding both name columns, which reports show as one field",
@@ -455,14 +455,14 @@
         "A relationship between the two name columns of the customer table"
       ],
       "correct": 2,
-      "explanation": "A new physical column (PC_CONTACT) takes the formula [CONTACTLASTNAME]+\",\"+[CONTACTFIRSTNAME], and is then added to the business table so it can be categorized like any other column. A category groups columns but does not merge them. A relationship joins tables; it does not combine values. A mask formats one value, such as a number or date; it cannot merge two columns.",
+      "explanation": "A new **physical column** (`PC_CONTACT`) takes the formula `[CONTACTLASTNAME]+\",\"+[CONTACTFIRSTNAME]` and is then added to the business table, so it can be categorized like any other column.",
       "source": "Pentaho BI Developer - ME Associate: Properties — OrderStarCustomer"
     },
     {
       "id": "me-m3-q8",
       "module": "Properties",
       "bloom": "Apply",
-      "scenario": "Report writers see fields named PRODUCTCODE and CUSTOMERNUMBER in a published data source.",
+      "scenario": "Report writers see fields named `PRODUCTCODE` and `CUSTOMERNUMBER` in a published data source.",
       "prompt": "What gives them Product Code and Customer Number instead?",
       "options": [
         "Putting the columns in categories named for the business labels",
@@ -471,14 +471,14 @@
         "Renaming the columns in the database, then importing them again"
       ],
       "correct": 2,
-      "explanation": "In the business table's properties, General > Name is overridden on each column and the business label typed in, which is what report writers then see. Renaming database columns changes the database for a presentation need the metadata layer exists to meet. A category's name is the heading it shows, not the name of the columns inside it. Concepts carry shared properties such as masks, not a column's own name.",
+      "explanation": "Overriding the **Name property** of each business column with the business label is what report writers then see.\n\nThe label lives in the metadata layer, so the database columns keep their names.",
       "source": "Pentaho BI Developer - ME Associate: Properties — OrderStarCustomer"
     },
     {
       "id": "me-m3-q9",
       "module": "Properties",
       "bloom": "Apply",
-      "scenario": "Report writers summarizing Price Sold usually want a sum. Sometimes they want the average, the smallest or the largest instead.",
+      "scenario": "Report writers summarizing Price Sold usually want a sum. Sometimes they want the average, the smallest, or the largest instead.",
       "prompt": "How is Price Sold set up to allow all of these?",
       "options": [
         "Four calculated columns, one for each of the aggregations wanted",
@@ -487,7 +487,7 @@
         "No aggregation set, so that the report tool chooses one each time"
       ],
       "correct": 2,
-      "explanation": "Default Aggregation sets the aggregation applied when nobody chooses (Sum), and Optional Aggregations lists the others report writers may pick, here Average, Minimum and Maximum. Four calculated columns multiply fields that one column's properties already cover. Writing aggregations into each report moves into reports what the model should hold once. Leaving the aggregation unset gives the report tool no default and no set of choices to offer.",
+      "explanation": "**Default Aggregation** sets the aggregation applied when nobody chooses one (Sum), and **Optional Aggregations** lists the others report writers may pick, here Average, Minimum, and Maximum.",
       "source": "Pentaho BI Developer - ME Associate: Properties — OrderStarCustomer"
     },
     {
@@ -497,20 +497,20 @@
       "scenario": "ORDERFACT is joined N:1 to CUSTOMER_W_TER with an Inner join. A few order rows carry a CUSTOMERNUMBER that is missing from the customer table.",
       "prompt": "What happens to those rows in a report using both tables?",
       "options": [
-        "They appear with blank customer columns, as unmatched rows are kept",
-        "They are left out, since an inner join keeps only matched rows",
-        "They appear once for every customer, as the join cannot match them",
-        "They make the report fail until the missing customers are added"
+        "They appear with blank customer columns, as unmatched rows are kept.",
+        "They are left out, since an inner join keeps only matched rows.",
+        "They appear once for every customer, as the join cannot match them.",
+        "They make the report fail until the missing customers are added."
       ],
       "correct": 1,
-      "explanation": "An inner join produces a result only where at least one row in each table matches the join condition, so order rows with no matching customer drop out of the report. Keeping unmatched rows with blanks is what an outer join does. Repeating a row for every customer describes a join with no condition, not an inner join. A missing match is not an error; the rows are simply not returned.",
+      "explanation": "An **inner join** produces a result only where there is a match in both tables based on the join condition. When a row in one table does not have a corresponding match in the other table, that row is excluded from the final result set.",
       "source": "Pentaho BI Developer - ME Associate: Properties — OrderStarCustomer"
     },
     {
       "id": "me-m4-q1",
       "module": "Concepts",
       "bloom": "Apply",
-      "scenario": "Forty currency columns across several models each carry their own copy of the same mask. Finance now wants negative values shown in parentheses.",
+      "scenario": "Forty currency columns across several models each carry their own copy of the same mask. Finance requires negative values to be displayed in parentheses.",
       "prompt": "What setup would make a change like this a single edit?",
       "options": [
         "A USCurrency concept set as the parent of every currency column",
@@ -519,7 +519,7 @@
         "A calculated column for each currency field that formats it as text"
       ],
       "correct": 0,
-      "explanation": "A concept bundles properties once and columns inherit them, so a change to USCurrency's mask reaches every column whose parent it is. Categories carry no metadata, so a mask cannot live there. Moving forty masks to forty physical columns still leaves forty edits. A calculated column per field adds forty more objects and turns numbers into text.",
+      "explanation": "A **concept** bundles properties once, and columns inherit them. With the concept set as the parent of the currency columns, one change to its mask reaches every one of them.",
       "source": "Pentaho BI Developer - ME Associate: Concepts — Concept Editor"
     },
     {
@@ -527,7 +527,7 @@
       "module": "Concepts",
       "bloom": "Apply",
       "scenario": "A USCurrency concept exists in the Concept Editor, but Price Sold in the Orders category still shows plain numbers.",
-      "prompt": "What links the column to the concept?",
+      "prompt": "What action links the column to the concept?",
       "options": [
         "Typing USCurrency into the column's Mask for Number or Date",
         "Dragging Price Sold onto USCurrency in the Concept Editor",
@@ -535,14 +535,14 @@
         "Adding USCurrency to the Orders category's properties"
       ],
       "correct": 2,
-      "explanation": "A concept takes effect on a column only once it is assigned: right-click the column, choose Set Parent Concept and pick USCurrency, and the column inherits its properties. The Concept Editor defines concepts; columns are not dragged into it. Categories have no metadata to hold a concept. The mask field takes a format pattern such as $#,##0.00, not a concept's name.",
+      "explanation": "A column inherits a concept's properties only once the concept is assigned to it. Right-clicking the column and choosing **Set Parent Concept** links the two, and the column then takes the formatting defined in the **Concept Editor**.",
       "source": "Pentaho BI Developer - ME Associate: Concepts — Concept Editor"
     },
     {
       "id": "me-m4-q3",
       "module": "Concepts",
       "bloom": "Apply",
-      "scenario": "Some physical columns should stop picking up the default properties of the Base concept. A modeller considers deleting Base from the concept list.",
+      "scenario": "Some physical columns should stop picking up the default properties of the Base concept. A modeler considers deleting Base from the concept list.",
       "prompt": "What does Metadata Editor allow?",
       "options": [
         "Deleting Base, once every column has been given another parent",
@@ -551,7 +551,7 @@
         "Nothing, as Base's properties can be neither changed nor removed"
       ],
       "correct": 2,
-      "explanation": "Base is the parent of every physical column by default; it can be removed as the parent for particular columns, and its properties can be updated, added or deleted, but Base itself cannot be deleted from the concept list. That rules out both deleting options, whatever is done to the columns first. The last option is too strong, because Base's properties can be changed.",
+      "explanation": "Base can be removed as the parent of particular columns, so they stop inheriting its properties, but the **Base concept** itself cannot be deleted from the concept list.\n\nBase's own properties can still be updated, added, or deleted.",
       "source": "Pentaho BI Developer - ME Associate: Concepts — Overview"
     },
     {
@@ -567,15 +567,15 @@
         "The default concept"
       ],
       "correct": 1,
-      "explanation": "Properties applied directly to an object are its self-concept. A parent concept is the one assigned to the column, here USCurrency. Inherited concepts are those further up the hierarchy, here Number. The default concept is Base, the parent of physical columns, which supplies values not set anywhere else.",
+      "explanation": "Properties applied directly to an object are its **self-concept**, so a mask typed onto the column belongs there.\n\nUSCurrency is the column's **parent concept**, Number an **inherited concept** further up the hierarchy, and Base the **default concept**, which supplies any value not set elsewhere.",
       "source": "Pentaho BI Developer - ME Associate: Concepts — Overview"
     },
     {
       "id": "me-m4-q5",
       "module": "Concepts",
       "bloom": "Apply",
-      "scenario": "Employee Number must not appear in report writers' column lists. When it is read, it should show as a whole number.",
-      "prompt": "Which parent concept fits it?",
+      "scenario": "Employee Number must not appear in report writers' column lists. When it is read, it must show as a whole number.",
+      "prompt": "Which parent concept fits this requirement?",
       "options": [
         "ID, whose # mask shows the value as a whole number in reports",
         "Hidden, a child of ID that also sets Hidden For the User?",
@@ -583,14 +583,14 @@
         "Number, with its mask overridden to # on the column"
       ],
       "correct": 1,
-      "explanation": "Hidden inherits ID's # mask, giving a whole number, and adds Hidden For the User?, so the column drops out of report interfaces. ID alone gives the whole number but leaves the column visible. Number with an overridden mask is also visible. USCurrency is for money, and overriding its mask still leaves the column visible.",
+      "explanation": "The **Hidden** concept inherits the `#` mask from its parent, **ID**, so the value shows as a whole number, and it adds **Hidden For the User?**, which drops the column from report interfaces.",
       "source": "Pentaho BI Developer - ME Associate: Concepts — Concept Editor"
     },
     {
       "id": "me-m4-q6",
       "module": "Concepts",
       "bloom": "Apply",
-      "scenario": "All dates in reports must appear as MM-dd-yyyy. Order Date, Required Date and Shipped Date are all affected.",
+      "scenario": "All dates in reports must appear as MM-dd-yyyy. The Order Date, Required Date, and Shipped Date are all affected.",
       "prompt": "How is this set up?",
       "options": [
         "A Date concept under Number, inheriting its #,##0 mask unchanged",
@@ -599,23 +599,23 @@
         "A Date concept under USCurrency, keeping its currency mask for dates"
       ],
       "correct": 1,
-      "explanation": "A Date concept is created under Base with Mask for Number or Date set to MM-dd-yyyy, then set as the parent of each date column. A concept that kept Number's #,##0 mask would format dates as numbers. Categories hold no metadata, so a mask cannot be typed into one. A currency mask is the wrong format for a date.",
+      "explanation": "A **Date concept** is created under Base with the mask set to `MM-dd-yyyy` and then assigned as the parent of each specific date column to ensure consistent formatting across the report.\n\nBy defining the format at the **concept level**, the requirement is met for all columns sharing that underlying definition.",
       "source": "Pentaho BI Developer - ME Associate: Concepts — Concept Editor"
     },
     {
       "id": "me-m4-q7",
       "module": "Concepts",
       "bloom": "Analyze",
-      "scenario": "USCurrency sits beneath Number and overrides only the mask. Number's text alignment is later changed from Right to Left.",
-      "prompt": "What happens to columns whose parent is USCurrency?",
+      "scenario": "The `USCurrency` concept sits beneath the `Number` concept and overrides only the mask property. The text alignment of the `Number` concept is later changed from Right to Left.",
+      "prompt": "What happens to columns whose parent is `USCurrency`?",
       "options": [
-        "They stay right-aligned, as USCurrency copied Number when made",
-        "They lose their currency mask, as Number's change resets its children",
-        "They align left too, as USCurrency inherits alignment from Number",
-        "They stay right-aligned until each column's parent is set again"
+        "They stay right-aligned, as `USCurrency` copied `Number` when it was created.",
+        "They lose their currency mask, as `Number`'s change resets its children.",
+        "They align left too, as `USCurrency` inherits alignment from `Number`.",
+        "They stay right-aligned until each column's parent is set again."
       ],
       "correct": 2,
-      "explanation": "Inheritance is live: a child concept takes every property from its parent except those it overrides, so USCurrency columns follow Number's new alignment and keep their own mask. A child is not a copy taken when it was created. Changing one property of a parent does not reset a child's overrides. Columns do not need their parent concept set again to pick up a change.",
+      "explanation": "Inheritance is **live**; a child concept inherits every property from its parent except those it specifically overrides. Because the `USCurrency` concept only overrides the mask, it continues to inherit the alignment property from the `Number` parent.\n\nSince the property is inherited dynamically, the columns update to the new alignment immediately without requiring the parent to be reassigned.",
       "source": "Pentaho BI Developer - ME Associate: Concepts — Concept Editor"
     },
     {
@@ -631,14 +631,14 @@
         "Required Date's parent concept was set after publishing"
       ],
       "correct": 2,
-      "explanation": "Mask for Number or Date applies only to numeric or date data types, so a column still typed as String is not formatted; Order Date's Data Type was set to Date and Required Date's was not. Setting a parent concept after publishing only means republishing; it does not explain the difference. Categories have no metadata, so which one holds a column does not matter. A concept applies to every column whose parent it is.",
+      "explanation": "The **Mask for Number or Date** applies only to fields specifically defined as date or numeric data types. Because the Order Date was explicitly overridden to a date type while Required Date remained a string, only the former is formatted by the system.\n\nFormatting logic is applied based on the individual field's **Data Type** definition rather than the grouping or category in which the field resides.",
       "source": "Pentaho BI Developer - ME Associate: Concepts — Concept Editor"
     },
     {
       "id": "me-m4-q9",
       "module": "Concepts",
       "bloom": "Evaluate",
-      "scenario": "A modeller proposes creating USCurrency directly under Base and copying Number's right alignment into it, instead of nesting it under Number.",
+      "scenario": "A modeler proposes creating USCurrency directly under Base and copying Number's right alignment into it, instead of nesting it under Number.",
       "prompt": "What is the fairest assessment of the proposal?",
       "options": [
         "It is better, since a nested concept cannot override a parent's mask",
@@ -647,14 +647,14 @@
         "It makes no difference, since concepts copy their parent when created"
       ],
       "correct": 2,
-      "explanation": "Nesting lets a child state only what differs from its parent, which minimizes repeated properties; copying alignment into USCurrency works, but a later alignment change must then be made in two places. A nested concept can override its parent's mask, which is how USCurrency changes Number's. Hierarchies go several levels deep, as Hidden under ID under Number shows. Concepts inherit rather than copy, which is exactly why the nested design is easier to maintain.",
+      "explanation": "Nesting a concept allows it to **inherit properties** from a parent while only defining specific differences. If the modeler copies the alignment into a top-level concept, it works, but the value must be updated in two locations if the alignment needs to change.\n\nUsing a **nested hierarchy** ensures that common properties are managed in a single location, which reduces maintenance and the risk of inconsistency.",
       "source": "Pentaho BI Developer - ME Associate: Concepts — Concept Editor"
     },
     {
       "id": "me-m5-q1",
       "module": "Security & Data Access",
       "bloom": "Apply",
-      "scenario": "Sales reps in the Power User role build reports on a customer domain. They must not see Credit Limit, though Admin must.",
+      "scenario": "Sales representatives in the Power User role build reports on a customer domain. They must not see the Credit Limit field, while the Admin role must have access to it.",
       "prompt": "Where is the restriction set?",
       "options": [
         "On the Credit Limit business column, assigning Metadata Security to Admin",
@@ -663,14 +663,14 @@
         "In the Customers category, by removing Credit Limit from it entirely"
       ],
       "correct": 0,
-      "explanation": "Column-level security is set by overriding the Credit Limit business column's Metadata Security and assigning only Admin, so other roles no longer see the field. A data constraint filters rows, not columns. Removing the column from the category hides it from Admin too. Metadata security exists so that database views per role are not needed.",
+      "explanation": "The restriction is applied by overriding the **Metadata Security** for the Credit Limit business column. By assigning access specifically to the Admin role, the field is hidden from all other roles, including those of the sales representatives.\n\nThis approach ensures that **column-level security** is enforced in the metadata layer, removing the need to create separate database views for different user roles.",
       "source": "Pentaho BI Developer - ME Associate: Security & Data Access — Row-Level Security"
     },
     {
       "id": "me-m5-q2",
       "module": "Security & Data Access",
       "bloom": "Apply",
-      "scenario": "EMEA sales managers must see only EMEA customers, from the same domain everyone else uses. Admin must still see all customers.",
+      "scenario": "EMEA sales managers must see only EMEA customers from the same domain everyone else uses. An administrator must still see all customers.",
       "prompt": "Which security mechanism fits?",
       "options": [
         "A role-based MQL data constraint on the business model",
@@ -679,7 +679,7 @@
         "A category named EMEA that holds only the EMEA customer columns"
       ],
       "correct": 0,
-      "explanation": "Row-level security filters the rows a user sees by role, through role-based MQL formulas on the business model, such as Territory = \"EMEA\" for the managers' role and TRUE() for Administrator; a role with no entry sees no rows. Metadata Security on a column decides who sees the column, not which rows come back. A separate model duplicates the domain the requirement says to share. Categories group columns and cannot filter rows.",
+      "explanation": "A **role-based MQL data constraint** on the business model filters the rows each role sees, with formulas such as `Territory = \"EMEA\"` for the managers' role and `TRUE()` for Administrator. A role with no entry sees no rows.\n\nEveryone shares one domain, and **row-level security** decides what each of them gets back.",
       "source": "Pentaho BI Developer - ME Associate: Security & Data Access — Overview"
     },
     {
@@ -689,13 +689,13 @@
       "scenario": "A team codes its security rules into each report's query. A consultant proposes moving them into the metadata domain instead.",
       "prompt": "What is the strongest reason to accept the proposal?",
       "options": [
-        "Reports can then be shared with other users without publishing them",
-        "The database no longer needs logins or permissions of its own at all",
-        "Rules defined once are enforced in every tool, including later reports",
-        "Reports run faster, since a secured domain is cached for each user"
+        "Reports can then be shared with other users without publishing them.",
+        "The database no longer needs logins or permissions of its own at all.",
+        "Rules defined once are enforced in every tool, including later reports.",
+        "Reports run faster, since a secured domain is cached for each user."
       ],
       "correct": 2,
-      "explanation": "Security declared in the metadata layer is enforced consistently by every reporting tool and data access method that queries the domain, so no report has to reimplement it, including reports written later. Security is not a performance feature. The domain still connects to the database with its own credentials. Sharing reports is a separate matter from what data they return.",
+      "explanation": "Security defined in the **metadata layer** is enforced consistently by every reporting tool and data access method that queries the domain. This ensures that no report has to reimplement security logic, including reports created in the future.",
       "source": "Pentaho BI Developer - ME Associate: Security & Data Access — Overview"
     },
     {
@@ -715,7 +715,7 @@
         3,
         4
       ],
-      "explanation": "Model-level Metadata Security is inherited by business tables and columns but not by the business view's categories, so the override is stopped on each category; and security takes effect only once the domain is republished and the server's Reporting Metadata is refreshed. A data constraint filters rows and would only narrow her view. Renaming the model changes the data source's displayed name, not who may use it. metadata_security.xml is an offline copy of the users and roles for the editor, not something the server reads.",
+      "explanation": "While model-level **Metadata Security** is inherited by business tables and columns, it is not inherited by the business view's categories. To ensure visibility, the **override** must be stopped on each category.\n\nSecurity changes only take effect once the domain is **republished** and the server's **Reporting Metadata** is refreshed.",
       "source": "Pentaho BI Developer - ME Associate: Security & Data Access — Row-Level Security"
     },
     {
@@ -731,92 +731,24 @@
         "A JDBC connection to the server's internal user database"
       ],
       "correct": 0,
-      "explanation": "The editor gets users, roles and access control lists from the Pentaho Server's security service, configured under Tools > Security with a URL such as http://localhost:8080/pentaho/api/userrolelist; on a server with hundreds of users, returning only roles is the practical choice. settings.xml governs which roles may use data sources on the server, not what the editor lists. The editor does not read users through a JDBC connection. Concepts carry formatting and similar properties, not users or roles.",
+      "explanation": "The Metadata Editor retrieves users, roles, and access control lists from the Pentaho Server's security service. This service is configured under **Tools > Security** with a URL, such as `http://localhost:8080/pentaho/api/userrolelist`.\n\nOn a server with hundreds of users, returning only **roles** is the practical choice.",
       "source": "Pentaho BI Developer - ME Associate: Security & Data Access — Row-Level Security"
     },
     {
       "id": "me-m5-q6",
       "module": "Security & Data Access",
       "bloom": "Analyze",
-      "scenario": "A domain is published with no security changes. Admin can choose it as a data source, but Suzy, a Power User, cannot see it at all.",
+      "scenario": "A domain is published with no security changes. An administrator can choose it as a data source, but a Power User cannot see it at all.",
       "prompt": "What explains this?",
       "options": [
-        "The domain was published with a Native JDBC connection",
-        "Suzy's row-level constraint returns no rows, hiding the domain",
-        "By default only Administrator can use metadata domains",
-        "The domain's column security hides every column from her role"
+        "The domain was published with a Native JDBC connection.",
+        "The Power User's row-level constraint returns no rows, hiding the domain.",
+        "By default only Administrator can use metadata domains.",
+        "The domain's column security hides every column from the Power User role."
       ],
       "correct": 2,
-      "explanation": "Out of the box only the authenticated Administrator has access, so Power User has to be granted access, through the model's Metadata Security or the data-access roles in the server's settings.xml. No security changes were made, so she has no row constraint, and a row constraint filters rows rather than hiding a domain. Nor is there any column security yet. The connection type has no bearing on who may use the domain.",
+      "explanation": "Out of the box only the authenticated **Administrator** can use metadata domains, so the Power User role has to be granted access, through the model's Metadata Security or the data-access roles in the server's `settings.xml`.",
       "source": "Pentaho BI Developer - ME Associate: Security & Data Access — Row-Level Security"
-    },
-    {
-      "id": "me-m6-q1",
-      "module": "Use Cases",
-      "bloom": "Apply",
-      "scenario": "Order documents in MongoDB hold nested customer details. Business users want to build Interactive Reports on them.",
-      "prompt": "What has to exist before they can drag fields onto the report canvas?",
-      "options": [
-        "A metadata layer mapping the documents into a relational-style form",
-        "A MongoDB index on every field the users might want to report on",
-        "A Mondrian schema mapping the collections to a multidimensional model",
-        "An aggregation pipeline written into the query of every report"
-      ],
-      "correct": 0,
-      "explanation": "Interactive Reporting needs a metadata layer that translates MongoDB's document structure, including how nested documents and arrays are represented, into a relational-style form. A Mondrian schema is what Analyzer needs. Indexes are a performance measure, not a prerequisite. Aggregation pipelines can pre-aggregate data, but they are not what lets users drag fields onto the canvas.",
-      "source": "Pentaho BI Developer - ME Associate: Use Cases — MongoDB Reports"
-    },
-    {
-      "id": "me-m6-q2",
-      "module": "Use Cases",
-      "bloom": "Apply",
-      "scenario": "A PDI transformation copies the SteelWheels CUSTOMERS table into MongoDB. The documents should use camel-case field names, such as customerName, instead of the table's uppercase names.",
-      "prompt": "Which two settings on the MongoDB Output step's Mongo document fields tab achieve that?",
-      "options": [
-        "Editing each document path to the camel-case name",
-        "Checking the Query is aggregation pipeline option",
-        "Setting Use Field Name to Yes for each of the fields",
-        "Unchecking the Output single JSON field option",
-        "Setting Use Field Name to No for each field"
-      ],
-      "correctIndices": [
-        0,
-        4
-      ],
-      "explanation": "After Get fields fills the list, each MongoDB document path is edited to the camel-case name and Use Field Name is set to No, so the path rather than the uppercase field name is used. Use Field Name set to Yes keeps the uppercase names. Query is aggregation pipeline and Output single JSON field are options of the MongoDB Input step, which reads documents rather than writing them.",
-      "source": "Pentaho BI Developer - ME Associate: Use Cases — MongoDB Reports"
-    },
-    {
-      "id": "me-m6-q3",
-      "module": "Use Cases",
-      "bloom": "Apply",
-      "scenario": "A transformation must read each order's total spend for one customer from the Orders collection. MongoDB itself should do the summing.",
-      "prompt": "How is the MongoDB Input step's query set up?",
-      "options": [
-        "A query on customer.name, with a Group By step after the input",
-        "A find query on customer.name, with totalSpend listed on the Fields tab",
-        "Query is aggregation pipeline, with a $match stage and then a $group",
-        "Output single JSON field checked, with totals read from the JSON"
-      ],
-      "correct": 2,
-      "explanation": "With Query is aggregation pipeline checked, a $match stage selects the customer's orders and a $group stage sums totalPrice for each order, so MongoDB returns the totals. A Group By step after the input would sum in PDI, not in MongoDB. Output single JSON field returns each document as one JSON field and computes nothing. The Fields tab lists the fields a query returns; naming totalSpend there does not make MongoDB calculate it.",
-      "source": "Pentaho BI Developer - ME Associate: Use Cases — MongoDB Reports"
-    },
-    {
-      "id": "me-m6-q4",
-      "module": "Use Cases",
-      "bloom": "Analyze",
-      "scenario": "The same MongoDB order data must also be sliced and diced in Analyzer, by year, month and day.",
-      "prompt": "What does that require beyond the Interactive Reporting setup?",
-      "options": [
-        "A Mondrian schema in Schema Workbench, with a TimeDimension for dates",
-        "A PDI job that exports the order data to a spreadsheet each day",
-        "A Date concept applied to the order date column in Metadata Editor",
-        "A second metadata domain, published with a Date category added to it"
-      ],
-      "correct": 0,
-      "explanation": "Analyzer runs on Mondrian, which turns MDX into queries, so it needs a Mondrian schema, built in Schema Workbench, with a date dimension of type TimeDimension and year, month and day levels. A metadata domain serves Interactive Reporting, and a Date category only groups columns. A Date concept formats a date; it gives Analyzer no hierarchy. A spreadsheet export leaves Analyzer with nothing to analyze.",
-      "source": "Pentaho BI Developer - ME Associate: Use Cases — MongoDB Reports"
     }
   ]
 }

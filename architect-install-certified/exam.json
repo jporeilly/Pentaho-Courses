@@ -13,36 +13,36 @@
       "scenario": "An estate runs Pentaho Server 10.2. A team wants to roll the PDI 11.0 client out to its developers now and leave the server upgrade until next quarter.",
       "prompt": "What is the problem with that plan?",
       "options": [
-        "The 11.0 client cannot open transformations that were saved in 10.2",
-        "None: the client negotiates a protocol with whichever server version it meets",
-        "The 11.0 client must first be registered as a plugin on the 10.2 server",
-        "Client and server should run the same version, so 11.0 against 10.2 is unsupported"
+        "The 11.0 client cannot open transformations that were saved in 10.2.",
+        "None: the client negotiates a protocol with whichever server version it meets.",
+        "The 11.0 client must first be registered as a plugin on the 10.2 server.",
+        "Client and server should run the same version, so 11.0 against 10.2 is unsupported."
       ],
       "correct": 3,
-      "explanation": "The PDI client and the Pentaho Server are released and supported as a matched pair, so an 11.0 client against a 10.2 server is a combination nobody has certified, and it tends to fail in ways a support case will not cover. The client does not negotiate its way across versions. Older transformations open in 11.0; that is not the problem. A client is not registered as a server plugin; the Plugin Manager handles plugins, not client tools.",
+      "explanation": "The PDI client and the Pentaho Server are released and supported as a **matched pair**, so an 11.0 client against a 10.2 server is a combination nobody has certified, and the client does not negotiate its way across versions.",
       "source": "Pentaho Installation - Practitioner: Overview — What's New"
     },
     {
       "id": "inst-m2-q2",
       "module": "Overview",
       "bloom": "Evaluate",
-      "scenario": "The platform team wants Pentaho 11.0 on its standard Linux image, which is not a configuration the Pentaho 11.0 Components Reference lists. They say the archive will start on it, and they are probably right.",
-      "prompt": "What is the strongest argument for asking them for an exception?",
+      "scenario": "A platform team wants to install Pentaho 11.0 on a standard Linux image that is not listed in the Pentaho 11.0 Components Reference. They say the archive will start on it, and they are probably right.",
+      "prompt": "What is the strongest argument for requesting an exception from the team?",
       "options": [
-        "The License Manager will not activate on an unlisted image",
-        "Support covers tested configurations, not ones that merely start",
-        "An unlisted image stops the archive from unpacking at all",
-        "The Plugin Manager installs plugins only on listed images"
+        "The License Manager will not activate on an unlisted image.",
+        "Support covers tested configurations, not ones that merely start.",
+        "An unlisted image stops the archive from unpacking at all.",
+        "The Plugin Manager installs plugins only on listed images."
       ],
       "correct": 1,
-      "explanation": "A supported matrix is not a claim about whether the software runs; it is what the vendor has tested and will stand behind, so a system outside it risks a support case being declined in the middle of an outage. The archive is a ZIP and unpacks anywhere, which is exactly why 'it starts' proves little. The License Manager does not check the operating system image. The Plugin Manager does not check it either.",
+      "explanation": "A supported matrix is not a statement regarding whether the software functions; it defines the specific configurations that the vendor has tested and will **support**. Systems outside of these listed configurations risk having a support case declined during a service outage.\n\nBecause the archive is a ZIP file, it can be unpacked and started on almost any system, which means the ability to start does not equate to a **tested configuration**.",
       "source": "Pentaho Installation - Practitioner: Overview — Components Reference"
     },
     {
       "id": "inst-m1-q1",
       "module": "Getting Started",
       "bloom": "Apply",
-      "scenario": "A customer downloads the Pentaho 11.0 GA binaries from the Customer Portal, installs the server on a networked host, and finds no licence when it starts.",
+      "scenario": "A customer downloads the Pentaho 11.0 GA binaries from the Customer Portal and installs the server on a networked host. The server starts, but no license is detected.",
       "prompt": "What does the administrator need to supply?",
       "options": [
         "An offline licence, which every new server requires first",
@@ -51,31 +51,31 @@
         "An Activation ID or licensing URL, entered in the License Manager"
       ],
       "correct": 3,
-      "explanation": "GA binaries from the Customer Portal are activated with an Activation ID or the customer's licensing URL, entered through Administration > Licenses. The 30-day trial comes with the public trial download, not the GA build. A trial file is for evaluation, not a customer's entitlement. An offline licence is for air-gapped installs, and this host is networked.",
+      "explanation": "GA binaries from the Customer Portal are activated with an **Activation ID** or the customer's licensing URL, entered through **Administration > Licenses**.",
       "source": "Pentaho Installation - Practitioner: Getting Started — Support Portal & Licensing"
     },
     {
       "id": "inst-m3-q1",
       "module": "Archive Installation",
       "bloom": "Apply",
-      "scenario": "PENTAHO_JAVA_HOME was never set on a Pentaho 11 host. After an OS patch cycle the server will not start, and the default java command now reports OpenJDK 17.",
-      "prompt": "What is the right fix?",
+      "scenario": "The `PENTAHO_JAVA_HOME` variable was never set on a Pentaho 11 host. Following an OS patch cycle, the server fails to start and the default `java` command reports OpenJDK 17.",
+      "prompt": "What is the correct fix?",
       "options": [
-        "Install Java 21 and set PENTAHO_JAVA_HOME to it",
+        "Install Java 21 and set `PENTAHO_JAVA_HOME` to it",
         "Downgrade to Java 11, the long-term baseline",
-        "Add a flag in server.xml so Tomcat accepts Java 17",
+        "Add a flag in `server.xml` so Tomcat accepts Java 17",
         "Move the repository to PostgreSQL 17 and restart"
       ],
       "correct": 0,
-      "explanation": "Pentaho 11 is certified on Java 21, and with PENTAHO_JAVA_HOME unset the server took whatever java the patch made the default; setting PENTAHO_JAVA_HOME pins the server's JVM so the next patch cannot move it. The repository database has nothing to do with the JVM the server starts on. Java 11 is further below the requirement, not closer to it. No server.xml setting lets Tomcat 10 run on an unsupported JVM.",
+      "explanation": "Pentaho 11 is certified on **Java 21**. Because the `PENTAHO_JAVA_HOME` variable was not set, the server executed the system default of Java 17 after the patch. Setting `PENTAHO_JAVA_HOME` pins the server to the specific **JVM** required for compatibility, ensuring that subsequent system updates do not change the underlying Java environment.",
       "source": "Pentaho Installation - Practitioner: Archive Installation — Prepare Environment"
     },
     {
       "id": "inst-m3-q2",
       "module": "Archive Installation",
       "bloom": "Apply",
-      "scenario": "The build plan names PostgreSQL 17 for the repository, but apt install postgresql on Ubuntu 24.04 installs version 16 from the distribution's own repository.",
-      "prompt": "How should the installer get version 17?",
+      "scenario": "The build plan requires PostgreSQL 17 for the repository, but the `apt install postgresql` command on Ubuntu 24.04 installs version 16 from the distribution's own repository.",
+      "prompt": "How should the installer obtain version 17?",
       "options": [
         "Keep 16 and set a version 17 compatibility level in postgresql.conf",
         "Wait for Ubuntu 24.04's own repository to move to version 17",
@@ -83,30 +83,30 @@
         "Build PostgreSQL 17 from source and install it by hand"
       ],
       "correct": 2,
-      "explanation": "The PostgreSQL project's own apt repository (PGDG) carries version 17 for Ubuntu 24.04, installed as postgresql-17 and patched through apt like any other package. PostgreSQL has no setting that makes 16 behave as 17. A distribution keeps its major version for the life of the release, so waiting does not bring 17. Building from source gives an install that apt does not know about and nobody will patch.",
+      "explanation": "The installer must add the **PostgreSQL Global Development Group (PGDG)** repository to provide access to the specific version required.\n\nBy adding this repository, the installer can target the specific package `postgresql-17`, which is maintained and patched through the standard **apt** package manager.",
       "source": "Pentaho Installation - Practitioner: Archive Installation — Prepare Environment"
     },
     {
       "id": "inst-m1-q2",
       "module": "Getting Started",
       "bloom": "Apply",
-      "scenario": "A host already runs another Java application listening on port 8080, and the new Pentaho Server fails to start there.",
-      "prompt": "What should be changed so that both can run?",
+      "scenario": "A host currently runs another Java application listening on port 8080, and the new Pentaho Server fails to start on that port.",
+      "prompt": "What must be changed so that both applications can run?",
       "options": [
-        "The AJP connector port in server.xml, leaving the HTTP one alone",
+        "The AJP connector port in `server.xml`, leaving the HTTP one alone",
         "The repository database port, which also defaults to 8080",
-        "Tomcat's shutdown port in server.xml, which Tomcat binds before HTTP",
-        "The HTTP connector port in server.xml, and the server URL to match"
+        "Tomcat's shutdown port in `server.xml`, which Tomcat binds before HTTP",
+        "The HTTP connector port in `server.xml`, and the server URL to match"
       ],
       "correct": 3,
-      "explanation": "8080 is Tomcat's default HTTP port, so the connector's port in server.xml moves, and fully-qualified-server-url in server.properties follows so the links the server generates still work. The shutdown port is a separate local listener and is not what collides. PostgreSQL listens on 5432, not 8080. Moving the AJP connector leaves the HTTP connector still on 8080.",
+      "explanation": "When the **HTTP connector port** in `server.xml` is changed from the default to avoid a conflict, the `fully-qualified-server-url` in `server.properties` must be updated to match the new port.\n\nThis ensures that the links generated by the server are correct and point to the new location.",
       "source": "Pentaho Installation - Practitioner: Getting Started — Components"
     },
     {
       "id": "inst-m3-q3",
       "module": "Archive Installation",
       "bloom": "Evaluate",
-      "scenario": "The install creates a dedicated pentaho account that owns /opt/pentaho and runs the server. A colleague keeps hitting permission errors during setup and proposes running everything as root instead.",
+      "scenario": "The installation creates a dedicated `pentaho` account that owns /opt/pentaho and runs the server. A colleague encounters permission errors during setup and proposes running the entire environment as root.",
       "prompt": "How should that proposal be judged?",
       "options": [
         "Reject it, but only because the Upgrade Installer needs pentaho-owned files",
@@ -115,15 +115,15 @@
         "Accept it for setup only, then fix ownership afterwards at no risk"
       ],
       "correct": 2,
-      "explanation": "The server is a network-facing JVM, so the account it runs as sets how far an attacker can reach through a flaw in it; a dedicated non-root owner limits that, and setting ownership correctly once is what ends the permission errors. Running as root even during setup leaves root-owned files the pentaho account cannot write, and exposes the server while it runs. Tomcat does not drop privileges by itself. The Upgrade Installer is not the reason; the blast radius is.",
+      "explanation": "The server is a network-facing JVM, so the account it runs as sets how far an attacker can reach through a flaw in it. A dedicated non-root owner limits that **blast radius**, and setting ownership correctly once is what ends the permission errors.\n\nRunning as root, even only during setup, leaves root-owned files the `pentaho` account cannot write.",
       "source": "Pentaho Installation - Practitioner: Archive Installation — Prepare Environment"
     },
     {
       "id": "inst-m3-q4",
       "module": "Archive Installation",
       "bloom": "Apply",
-      "scenario": "A systemd unit and several scripts on a new host must find the Pentaho install root, /opt/pentaho, without hard-coding it, and the value must be there for every user after a reboot.",
-      "prompt": "Where should PENTAHO_BASE be defined?",
+      "scenario": "A systemd unit and several scripts on a new host must find the Pentaho install root, `/opt/pentaho`, without hard-coding it. The value must be available to every user after a reboot.",
+      "prompt": "Where should `PENTAHO_BASE` be defined?",
       "options": [
         "With export in the current shell",
         "In the pentaho user's ~/.bashrc",
@@ -131,14 +131,14 @@
         "In /etc/environment"
       ],
       "correct": 3,
-      "explanation": "/etc/environment is read at every login and can be loaded by systemd units, as the Pentaho service unit does with EnvironmentFile, so every user and the service see the same value after a reboot. ~/.bashrc applies only to that user's interactive shells, not to systemd. server.xml configures Tomcat's connectors, not the operating system's environment. An export lasts only as long as the current shell.",
+      "explanation": "Defining the variable in `/etc/environment` ensures that it is **read at every login** and can be loaded by systemd units via the `EnvironmentFile` directive. This configuration ensures that every user and the service see the same value after a reboot.",
       "source": "Pentaho Installation - Practitioner: Archive Installation — Prepare Environment"
     },
     {
       "id": "inst-m1-q3",
       "module": "Getting Started",
       "bloom": "Apply",
-      "scenario": "A nightly cron entry must run a .kjb that runs three transformations in sequence and stops if one fails, on a host with no desktop.",
+      "scenario": "A nightly cron entry must run a `.kjb` that runs three transformations in sequence and stops if one fails, on a host with no desktop.",
       "prompt": "Which command-line tool should the cron entry call?",
       "options": [
         "Pan",
@@ -147,7 +147,7 @@
         "Kitchen"
       ],
       "correct": 3,
-      "explanation": "Kitchen runs jobs, including their sequencing and error handling, from the command line. Pan runs a single transformation and cannot execute a job's control flow. Carte is a server for remote execution and clustering, not a one-shot command. Spoon is the desktop designer and needs a display.",
+      "explanation": "The **Kitchen** command-line tool is used to execute jobs, including those that require complex logic such as sequencing and error handling.\n\nIt provides the necessary functionality to execute a .kjb file from a headless environment.",
       "source": "Pentaho Installation - Practitioner: Getting Started — Components (Pan / Kitchen)"
     },
     {
@@ -163,15 +163,15 @@
         "Pan"
       ],
       "correct": 0,
-      "explanation": "Carte is a lightweight Jetty-based server that runs transformations and jobs sent to it remotely, supports clustering, and exposes a status page and a REST API. Kitchen runs a job once from the command line and then exits. Pan does the same for a single transformation. The Pentaho User Console is the server's web interface for content, not a remote execution engine.",
+      "explanation": "The **Carte** component is a lightweight Jetty-based server that runs transformations and jobs sent to it remotely, supports clustering, and exposes a status page and a REST API.",
       "source": "Pentaho Installation - Practitioner: Getting Started — Components (Carte)"
     },
     {
       "id": "inst-m3-q5",
       "module": "Archive Installation",
       "bloom": "Evaluate",
-      "scenario": "A node is being built only to run scheduled ETL, and no reports or dashboards will ever be served from it. A colleague wants the full analytics plugin set installed anyway, so that every server in the estate is identical.",
-      "prompt": "How should that be judged?",
+      "scenario": "A node is being built specifically to run scheduled ETL, and no reports or dashboards will ever be served from it. A colleague wants the full analytics plugin set installed to ensure every server in the estate is identical.",
+      "prompt": "How should that request be judged?",
       "options": [
         "Leave them off, and copy any plugin it does need in by hand",
         "Install them all: the server cannot start without the analytics set",
@@ -179,7 +179,7 @@
         "Install them all: unused plugins cost nothing until someone opens them"
       ],
       "correct": 2,
-      "explanation": "Identical builds are a real operational value, but Analyzer and Dashboard Designer serve interactive analytics, and a node that serves no users gains nothing from them while carrying their memory and exposed surface. Plugins load with the server, so unused ones are not free. The server starts without the analytics plugins. Copying plugins in by hand takes them outside the Plugin Manager, so every future update becomes manual.",
+      "explanation": "**Analyzer** and **Dashboard Designer** serve interactive analytics; a node that serves no users does not benefit from these features but does incur a cost in memory and a larger attack surface.\n\nPlugins load when the server starts, so unused plugins are not free. The server does not require the analytics plugins to start.",
       "source": "Pentaho Installation - Practitioner: Archive Installation — Server Plugins"
     },
     {
@@ -195,14 +195,14 @@
         "The opsmart database, which holds scheduled job definitions"
       ],
       "correct": 2,
-      "explanation": "The repository is several databases: Jackrabbit holds content, security and metadata, which is why reports and folders came back, and Quartz holds the scheduler's data, which is why schedules did not. Hibernate holds audit logging. The Operations Mart holds usage and performance reporting. pentaho-solutions holds system configuration and plugins, not schedules.",
+      "explanation": "The **Quartz** database holds the scheduler's data. While the Jackrabbit database contains content, security, and metadata, it does not contain the data necessary to maintain scheduled jobs.",
       "source": "Pentaho Installation - Practitioner: Archive Installation — Install Pentaho Server (Repository)"
     },
     {
       "id": "inst-m3-q7",
       "module": "Archive Installation",
       "bloom": "Apply",
-      "scenario": "A security review reports that the Pentaho Server tells anyone who makes an HTTP request which Tomcat version it runs.",
+      "scenario": "A security review reports that the Pentaho Server discloses the Tomcat version to anyone who makes an HTTP request.",
       "prompt": "What removes that disclosure?",
       "options": [
         "Switch the HTTP connector to AJP, which sends no such header",
@@ -211,23 +211,23 @@
         "Set the server attribute on the connector in server.xml, then restart"
       ],
       "correct": 3,
-      "explanation": "Tomcat sends a Server header with version information by default; setting the connector's server attribute, on the HTTP connector and any AJP connector in use, overrides it once the server restarts. No version file controls the header. AJP is a protocol for a front-end web server, not a replacement for the HTTP connector users reach. The shutdown port is a separate hardening item and does not touch HTTP headers.",
+      "explanation": "By default, Tomcat includes version information in the **Server header**. Configuring the `server` attribute on the connector within the `server.xml` file overrides this default behavior and removes the version disclosure upon a server restart.",
       "source": "Pentaho Installation - Practitioner: Archive Installation — Post Installation Tasks"
     },
     {
       "id": "inst-m3-q8",
       "module": "Archive Installation",
       "bloom": "Analyze",
-      "scenario": "To harden a server, an administrator sets port=\"-1\" on the Server element in Tomcat's server.xml. The server still starts, but stopping it through its systemd unit, which runs stop-pentaho.sh, now hangs until the unit's timeout.",
+      "scenario": "To harden a server, an administrator sets `port=\"-1\"` on the Server element in Tomcat's `server.xml`. The server still starts, but stopping it through its systemd unit, which runs `stop-pentaho.sh`, now hangs until the unit's timeout.",
       "prompt": "Why does stopping hang?",
       "options": [
-        "The stop script reaches Tomcat through that port, which is now closed",
-        "The shutdown command must now be sent over HTTPS instead",
-        "systemd relies on the shutdown port to track the server's main process",
-        "Port -1 disables the HTTP connector, so requests cannot drain"
+        "The stop script reaches Tomcat through that port, which is now closed.",
+        "The shutdown command must now be sent over HTTPS instead.",
+        "systemd relies on the shutdown port to track the server's main process.",
+        "Port -1 disables the HTTP connector, so requests cannot drain."
       ],
       "correct": 0,
-      "explanation": "stop-pentaho.sh stops Tomcat by sending the shutdown command to that local port; with the port disabled nothing is listening, so the script cannot ask Tomcat to stop and systemd waits out its timeout before killing it. Changing the port and the command to unpredictable values hardens it without breaking the scripts. systemd tracks the process itself, not through the port. port=\"-1\" on the Server element closes only the shutdown listener, not the HTTP connector. The shutdown command is a plain message to a local port, not an HTTP request.",
+      "explanation": "The `stop-pentaho.sh` script attempts to stop the service by sending the shutdown command to the local port specified in the configuration. When the port is set to -1, that **shutdown listener** is disabled, meaning the script cannot communicate with Tomcat to initiate a graceful shutdown, causing the systemd unit to wait until it reaches its timeout.",
       "source": "Pentaho Installation - Practitioner: Archive Installation — Post Installation Tasks"
     },
     {
@@ -243,7 +243,7 @@
         "No upgrade path exists, so 7.1 must be reinstalled"
       ],
       "correct": 0,
-      "explanation": "The Pentaho Upgrade Installer works from 8.3 or later, so an estate on 7.1 has to reach 8.3 by its own route before the installer can take it to 10.1. It does not accept releases before 8.3. It upgrades the Pentaho Server and the client tools alike. A path exists; it runs through 8.3.",
+      "explanation": "The **Pentaho Upgrade Installer** only supports versions from 8.3 or later. Because the current environment is on 7.1, the system must first be upgraded to at least 8.3 before the installer can be used to reach version 10.1.\n\nThe installer does not accept any releases prior to 8.3 and is designed to upgrade both the Pentaho Server and the client tools simultaneously.",
       "source": "Pentaho Installation - Practitioner: Archive Installation — Pentaho Upgrade & Patches"
     },
     {
@@ -259,14 +259,14 @@
         "Accept it: 15 GB is well above what the installer needs"
       ],
       "correct": 0,
-      "explanation": "The Upgrade Installer requires 22 GB free and backs up the installed products before upgrading them, so starting at 15 GB plans to run short in the middle of the change; the space has to exist before the window, not be found during it. 15 GB is below the stated requirement. The backup is the way back if the upgrade fails. Copying files over an installation bypasses the installer's backup and its handling of customisations, the riskier route of all.",
+      "explanation": "The **Upgrade Installer** requires a minimum of 22 GB of free space to proceed. Because the installer also creates a backup of the existing products before performing the upgrade, the required space must be available before the window begins rather than being secured during the process.\n\nProviding only 15 GB of space is insufficient to meet the **minimum requirements** for the installation to complete successfully.",
       "source": "Pentaho Installation - Practitioner: Archive Installation — Pentaho Upgrade & Patches"
     },
     {
       "id": "inst-m4-q1",
       "module": "Install Client Tools",
       "bloom": "Apply",
-      "scenario": "Design tools have to go onto a fleet of Linux workstations, and the desktop team decides where every file lands.",
+      "scenario": "Design tools must be deployed onto a fleet of Linux workstations where the desktop team determines the specific directory locations for every file.",
       "prompt": "Which installation route fits?",
       "options": [
         "The PDI Plugin Manager on each workstation",
@@ -275,62 +275,62 @@
         "A Pentaho Server on each workstation"
       ],
       "correct": 2,
-      "explanation": "Manual installation from the per-tool ZIPs works on Linux and places files wherever the build needs them. The Evaluation Wizard is a Windows desktop installer. A Pentaho Server does not install the design tools on a workstation. The Plugin Manager adds plugins to an installed PDI; it does not install the design tools.",
+      "explanation": "A manual installation from the per-tool ZIP files allows for installation on Linux systems and ensures the files are placed exactly where the build requires them. This approach provides the necessary control over the **file paths** and directory structure required by the desktop team.",
       "source": "Pentaho Installation - Practitioner: Install Client Tools — Client Plugins"
     },
     {
       "id": "inst-m4-q2",
       "module": "Install Client Tools",
       "bloom": "Analyze",
-      "scenario": "A MySQL driver was distributed into the Pentaho Server's tomcat/lib, and reports on the server connect to MySQL. On a designer's workstation, Spoon still fails to connect to the same database with a driver error.",
+      "scenario": "A MySQL driver is distributed into the Pentaho Server's `tomcat/lib` folder, and reports on the server connect to MySQL. On a designer's workstation, Spoon fails to connect to the same database with a driver error.",
       "prompt": "What is the cause?",
       "options": [
-        "The driver has to be registered through the License Manager",
-        "Spoon cannot connect to MySQL; only the server can",
-        "Spoon borrows the server's drivers, so the server needs restarting first",
-        "Each client tool loads drivers from its own folder, which lacks the JAR"
+        "The driver has to be registered through the License Manager.",
+        "Spoon cannot connect to MySQL; only the server can.",
+        "Spoon borrows the server's drivers, so the server needs restarting first.",
+        "Each client tool loads drivers from its own folder, which lacks the JAR."
       ],
       "correct": 3,
-      "explanation": "The server's tomcat/lib serves the server only; each client tool loads JDBC drivers from its own folder, so the JAR has to be copied there and the tool restarted. Spoon does not use the server's drivers, so restarting the server changes nothing on the workstation. Spoon connects to MySQL once it has the driver. The License Manager handles entitlements, not drivers.",
+      "explanation": "Each client tool, such as Spoon, loads **JDBC drivers** from its own local directory rather than sharing the libraries used by the Pentaho Server.\n\nBecause the server and the client tools are separate environments, the JAR must be placed in the specific folder used by the client tool for a successful connection.",
       "source": "Pentaho Installation - Practitioner: Install Client Tools — Client Plugins"
     },
     {
       "id": "inst-m4-q3",
       "module": "Install Client Tools",
       "bloom": "Analyze",
-      "scenario": "An engineer drops a PDI plugin into the plugins directory by hand, because it is quicker than opening the Plugin Manager.",
-      "prompt": "What does that cost later?",
+      "scenario": "An engineer places a PDI plugin into the plugins directory manually because it is faster than using the Plugin Manager.",
+      "prompt": "What is the consequence of this action?",
       "options": [
-        "PDI refuses to start until the plugin is registered",
-        "It won't show in the Plugin Manager, so updates and removal stay manual",
-        "The Plugin Manager deletes it the next time it runs",
-        "Nothing: the Plugin Manager adopts whatever it finds in the plugins folder"
+        "PDI refuses to start until the plugin is registered.",
+        "It will not show in the Plugin Manager, so updates and removal remain manual.",
+        "The Plugin Manager deletes the file the next time it runs.",
+        "Nothing: the Plugin Manager adopts whatever it finds in the plugins folder."
       ],
       "correct": 1,
-      "explanation": "A plugin installed by hand works, but the Plugin Manager does not know about it, so it is never offered updates and cannot be removed through the interface; the shortcut turns it into a permanent manual job. The Plugin Manager does not adopt what it finds. It does not delete plugins it did not install. PDI starts with the plugin loaded; nothing forces a registration.",
+      "explanation": "Because the plugin was not installed via the **Plugin Manager** interface, the application does not register it within the management system. While the plugin remains functional, it will not be listed for updates or removal through the standard UI.\n\nThis creates a situation where the plugin becomes a **manual management** task, as the system does not automatically adopt or track files placed in the directory outside of the official installation path.",
       "source": "Pentaho Installation - Practitioner: Install Client Tools — Kettle Plugins"
     },
     {
       "id": "inst-m4-q4",
       "module": "Install Client Tools",
       "bloom": "Apply",
-      "scenario": "A plugin has just been installed through the Plugin Manager, which reported success, but its new steps are nowhere in the PDI client.",
+      "scenario": "A plugin has just been installed through the Plugin Manager, and the manager reported success. However, the new steps are not appearing in the PDI client.",
       "prompt": "What is the most likely reason?",
       "options": [
         "Plugins installed through PUC never reach the PDI client",
         "Neither the server nor the PDI client has been restarted since",
         "The plugin must also be copied into the plugins folder by hand",
-        "New steps appear only after the licence has been refreshed"
+        "New steps appear only after the license has been refreshed"
       ],
       "correct": 1,
-      "explanation": "A newly installed plugin is not active until both the Pentaho Server and the PDI client restart; after that its steps appear and its version can be checked in Tools > Plugin Manager. The Plugin Manager in PUC and in the client manage the same plugins. Copying it in by hand would take it outside the Plugin Manager. Licences govern entitlements, not whether installed steps appear.",
+      "explanation": "A newly installed plugin is not active until both the Pentaho Server and the PDI client are **restarted**. After that, its steps appear, and its version can be checked in **Tools > Plugin Manager**.",
       "source": "Pentaho Installation - Practitioner: Install Client Tools — Kettle Plugins"
     },
     {
       "id": "inst-m2-q3",
       "module": "Overview",
       "bloom": "Apply",
-      "scenario": "A team of ETL developers works on locked-down laptops, where every desktop install needs a change request. They must build and edit transformations and jobs against the Pentaho 11.0 server they already run.",
+      "scenario": "A team of ETL developers works on locked-down laptops where every desktop installation requires a change request. They must build and edit transformations and jobs against the Pentaho 11.0 server they already run.",
       "prompt": "Which 11.0 capability fits best?",
       "options": [
         "The redesigned User Console, which replaces Spoon for ETL design",
@@ -339,23 +339,23 @@
         "Carte, which serves a browser canvas for designing jobs"
       ],
       "correct": 1,
-      "explanation": "Pipeline Designer builds PDI transformations and jobs in a web browser and stays compatible with ones made in Spoon, so nothing needs installing on the laptops. Semantic Model Editor builds Mondrian models, not transformations. The redesigned User Console is a new console experience, in preview, not an ETL designer. Carte runs and monitors transformations and jobs sent to it; it does not design them.",
+      "explanation": "The **Pipeline Designer** allows users to author transformations and jobs directly in a web browser. This capability maintains compatibility with designs made in Spoon, allowing developers to work on restricted hardware without requiring a local installation.",
       "source": "Pentaho Installation - Practitioner: Overview — What's New"
     },
     {
       "id": "inst-m2-q4",
       "module": "Overview",
       "bloom": "Analyze",
-      "scenario": "An estate upgrading to PDI 11.0 used to deploy a separate big data add-on distribution beside the standard client. The build engineer cannot find that distribution for 11.0.",
-      "prompt": "Why is it missing?",
+      "scenario": "An estate upgrading to PDI 11.0 previously used a separate big data add-on distribution in addition to the standard client. The build engineer cannot find a separate big data distribution for version 11.0.",
+      "prompt": "Why is the separate distribution missing?",
       "options": [
-        "11.0 delivers big data components as plugins, like any other",
-        "The big data distribution ships a quarter after each release",
-        "Big data components now ship inside the Pentaho Server install only",
-        "11.0 dropped big data support from PDI altogether"
+        "11.0 delivers big data components as plugins, like any other.",
+        "The big data distribution ships a quarter after each release.",
+        "Big data components now ship inside the Pentaho Server install only.",
+        "11.0 dropped big data support from PDI altogether."
       ],
       "correct": 0,
-      "explanation": "In 11.0 Karaf and OSGi are removed from PDI and big data components are delivered as plugins, so there is no separate distribution; they are deployed the same way as other PDI plugins, and both the client and the server shrink by more than 1 GB. Big data support was not dropped. There is no delayed distribution. The components are client-side plugins, not server-only.",
+      "explanation": "Since PDI 11.0 removed Karaf and OSGi, it no longer requires a separate distribution for big data. These components are now delivered as **plugins**, which are deployed in the same manner as other PDI plugins, and both the client and the server were reduced by more than 1 GB.",
       "source": "Pentaho Installation - Practitioner: Overview — What's New"
     },
     {
@@ -371,14 +371,14 @@
         "Move everyone, since the old console goes at the first 11.0 patch"
       ],
       "correct": 2,
-      "explanation": "The redesigned console is a preview in 11.0 whose behaviour and interface may still change, and the existing console stays available until the two reach feature parity, so a production rollout is safer on the existing one. The redesign did not replace the old console. Nothing removes the old console at the first patch. The redesign has its own login page.",
+      "explanation": "The redesigned console is a **preview** in version 11.0 where the behavior and interface may still change. The existing console remains available until the two reach feature parity, making the original console the safer choice for a production rollout.",
       "source": "Pentaho Installation - Practitioner: Overview — What's New"
     },
     {
       "id": "inst-m2-q6",
       "module": "Overview",
       "bloom": "Apply",
-      "scenario": "A company standardises on Okta for single sign-on and wants its users to reach the Pentaho 11.0 User Console with their Okta login.",
+      "scenario": "A company standardizes on Okta for single sign-on and wants its users to reach the Pentaho 11.0 User Console with their Okta login.",
       "prompt": "What does 11.0 offer for this?",
       "options": [
         "An LDAP bridge that Okta has to emulate for Pentaho",
@@ -387,14 +387,14 @@
         "Single sign-on through Carte's REST API"
       ],
       "correct": 1,
-      "explanation": "11.0 supports OpenID Connect and OAuth 2.0 for the Pentaho Server, giving single sign-on with any OIDC-compliant identity provider such as Okta, Azure or Google. A custom security module is what SSO needed before it was built in. Okta does not need to pose as LDAP. Carte runs ETL remotely and has nothing to do with console sign-on.",
+      "explanation": "Pentaho 11.0 supports **OpenID Connect** and **OAuth 2.0** for the Pentaho Server. This provides native single sign-on with any OIDC-compliant identity provider, such as Okta, Azure, or Google.",
       "source": "Pentaho Installation - Practitioner: Overview — What's New"
     },
     {
       "id": "inst-m2-q7",
       "module": "Overview",
       "bloom": "Apply",
-      "scenario": "In a Pentaho 10.2 estate, administrators could not let one group use Analyzer while blocking another plugin, because Read Content opened content from any plugin. The estate is moving to 11.0.",
+      "scenario": "In a Pentaho 10.2 estate, administrators were unable to allow one group to use Analyzer while blocking another plugin because Read Content opened content from any plugin. The estate is migrating to version 11.0.",
       "prompt": "What does 11.0 change for this requirement?",
       "options": [
         "Folder permissions that now decide which plugins open",
@@ -403,23 +403,23 @@
         "Nothing, since plugin access is still governed by Read Content"
       ],
       "correct": 2,
-      "explanation": "11.0 adds granular permissions to the Pentaho Server, addressing exactly this: permissions that can allow or block individual plugins, with finer control over data sources and execution. Read Content alone was the old limitation. Plugins are not switched per user in their own files. Folder permissions can still block content, but they are not how plugin access is decided.",
+      "explanation": "Version 11.0 introduces **finer-grained permissions** to the Pentaho Server. These permissions allow administrators to specifically allow or block individual plugins, providing more granular control over data sources and execution than the previous Read Content limitation.",
       "source": "Pentaho Installation - Practitioner: Overview — What's New"
     },
     {
       "id": "inst-m2-q8",
       "module": "Overview",
       "bloom": "Apply",
-      "scenario": "An operations team wants to run Pentaho 11.0 on Amazon EKS, supplying its licence and configuration files when a container starts rather than baking them into a custom image.",
+      "scenario": "An operations team wants to run Pentaho 11.0 on Amazon EKS, supplying its license and configuration files when a container starts rather than baking them into a custom image.",
       "prompt": "What does 11.0 provide for this?",
       "options": [
-        "A Carte cluster image that carries the licence server",
-        "Only the archive install, which the team must containerise itself",
-        "A build step that rebakes the image around each new licence",
+        "A Carte cluster image that carries the license server",
+        "Only the archive install, which the team must containerize itself",
+        "A build step that rebakes the image around each new license",
         "Prebuilt images whose entrypoint scripts take runtime overrides"
       ],
       "correct": 3,
-      "explanation": "11.0 ships prebuilt images for Docker, Kubernetes, EKS, AKS and GKE with standard paths and variables, and their entrypoint scripts accept runtime overrides for configuration files and licences. The team does not have to containerise an archive install. Rebaking an image per licence is what runtime overrides avoid. Carte is an ETL execution server, not a licence server.",
+      "explanation": "Pentaho 11.0 provides **prebuilt images** for various container environments, including Amazon EKS. These images utilize **entrypoint scripts** that allow for runtime overrides of configuration files and licenses, eliminating the need to bake these specific files into the image during the build process.",
       "source": "Pentaho Installation - Practitioner: Overview — What's New"
     },
     {
@@ -435,14 +435,14 @@
         "Parsing Kitchen's console output and forwarding it to Datadog"
       ],
       "correct": 0,
-      "explanation": "The OpenTelemetry plugin sends hierarchical logs, traces with task timing and execution hierarchy, and metrics in an open format that Datadog, Splunk, Elastic and others consume. Parsing console output loses the hierarchy and breaks on any format change. The Operations Mart is usage and performance reporting inside the repository, not a telemetry feed. Carte's status page is for people to watch runs, not an export.",
+      "explanation": "The **OpenTelemetry plugin** sends hierarchical logs, traces with task timing and execution hierarchy, and metrics in an open format that Datadog, Splunk, Elastic, and other providers can consume.",
       "source": "Pentaho Installation - Practitioner: Overview — What's New"
     },
     {
       "id": "inst-m2-q10",
       "module": "Overview",
       "bloom": "Apply",
-      "scenario": "Modellers building Analyzer cubes on Pentaho 11.0 want a web-based modelling workflow that also opens the Mondrian models they already have.",
+      "scenario": "Modelers building Analyzer cubes on Pentaho 11.0 want a web-based modeling workflow that also opens the Mondrian models they already have.",
       "prompt": "Which tool fits?",
       "options": [
         "Schema Workbench",
@@ -451,7 +451,7 @@
         "Aggregation Designer"
       ],
       "correct": 1,
-      "explanation": "Semantic Model Editor, new in 11.0, builds and manages Mondrian models in the browser and supports existing models. Schema Workbench edits Mondrian schemas but is a desktop tool. Metadata Editor builds the metadata models behind Interactive Reports, not Mondrian cubes. Aggregation Designer builds aggregate tables to speed cubes up; it does not model them.",
+      "explanation": "The **Semantic Model Editor** is a tool introduced in version 11.0 that allows users to build and manage Mondrian models directly in a web browser. It specifically supports both new and existing Mondrian models within this web-based workflow.",
       "source": "Pentaho Installation - Practitioner: Overview — What's New"
     },
     {
@@ -467,14 +467,14 @@
         "5432, the repository database's port"
       ],
       "correct": 1,
-      "explanation": "Users reach the User Console over Tomcat's HTTP port, 8080 by default. The shutdown port is a local control listener that should never be reachable from users. PostgreSQL on 5432 serves the server on the same host, not browsers. 9001 is the HSQL sample database, which belongs nowhere near users.",
+      "explanation": "Users reach the User Console over **Tomcat's HTTP port**, which is 8080 by default.",
       "source": "Pentaho Installation - Practitioner: Getting Started — Components"
     },
     {
       "id": "inst-m1-q6",
       "module": "Getting Started",
       "bloom": "Analyze",
-      "scenario": "A developer schedules a transformation from Spoon on the Pentaho Server, but it was saved as a .ktr file on their laptop, and the scheduled run cannot find it.",
+      "scenario": "A developer schedules a transformation from Spoon on the Pentaho Server, but the transformation is saved as a .ktr file on their local laptop. The scheduled run cannot find the file.",
       "prompt": "What has the developer missed?",
       "options": [
         "Scheduling from Spoon needs Carte running on the laptop",
@@ -483,7 +483,7 @@
         "The server can schedule jobs only, never transformations"
       ],
       "correct": 1,
-      "explanation": "The Scheduler hands work to the server's Quartz scheduler, and the jobs and transformations it runs must be uploaded to the repository, where the server can reach them; a file on a laptop is invisible to it. Carte on the laptop plays no part in server scheduling. The server schedules transformations as well as jobs. Variables may matter to a run, but they are not why the file cannot be found.",
+      "explanation": "The scheduler hands work to the server's Quartz scheduler. Because the server cannot access local files on a workstation, scheduled work must be stored in the **Pentaho Repository** to be accessible by the server.\n\nWhen a transformation is stored in the repository, the server can locate and execute it independently of the developer's local environment.",
       "source": "Pentaho Installation - Practitioner: Getting Started — Components"
     },
     {
@@ -499,14 +499,14 @@
         "Yes: the repository can sit on SQL Server or Oracle too"
       ],
       "correct": 3,
-      "explanation": "The repository is Apache Jackrabbit backed by a supported relational database: PostgreSQL, SQL Server, Oracle, MySQL or MariaDB, so either of the team's databases will do. PostgreSQL is the recommended default, not a requirement. The repository does not depend on Oracle's XML types. An embedded H2 file is not a production repository.",
+      "explanation": "The **Pentaho Repository** is backed by Apache Jackrabbit and supports several relational database engines, including PostgreSQL, SQL Server, Oracle, MySQL, and MariaDB.\n\nWhile PostgreSQL is the recommended default, it is not a requirement for the repository to function. The repository does not rely on specific features like Oracle's XML types for its schema.",
       "source": "Pentaho Installation - Practitioner: Getting Started — Components"
     },
     {
       "id": "inst-m1-q8",
       "module": "Getting Started",
       "bloom": "Understand",
-      "scenario": "Business users should see Customer and Order Total in their Interactive Reports rather than table and column names, and some users must see only their own region's rows.",
+      "scenario": "Business users must see Customer and Order Total in their Interactive Reports rather than table and column names. Certain users must only see rows belonging to their specific region.",
       "prompt": "Which client tool defines that business layer?",
       "options": [
         "Metadata Editor",
@@ -515,14 +515,14 @@
         "Schema Workbench"
       ],
       "correct": 0,
-      "explanation": "Metadata Editor builds the business models behind Interactive Reports: friendly names, relationships, and security constraints at the model level. Aggregation Designer builds aggregate tables for cube performance. Schema Workbench builds Mondrian cubes for Analyzer, not the models Interactive Reports use. Report Designer designs reports; it does not define the business layer beneath them.",
+      "explanation": "The **Metadata Editor** is used to build the business models behind Interactive Reports. This tool defines the business layer by establishing friendly names, relationships, and security constraints at the model level.",
       "source": "Pentaho Installation - Practitioner: Getting Started — Components"
     },
     {
       "id": "inst-m1-q9",
       "module": "Getting Started",
       "bloom": "Analyze",
-      "scenario": "Analyzer reports over a 400-million-row fact table take minutes to open at the year and quarter levels, though the cube itself is well designed.",
+      "scenario": "Analyzer reports over a 400-million-row fact table take several minutes to open at the year and quarter levels, although the cube itself is well designed.",
       "prompt": "Which tool addresses this most directly?",
       "options": [
         "Schema Workbench, to rename the Time hierarchy's levels",
@@ -531,7 +531,7 @@
         "Metadata Editor, to add year and quarter as business columns"
       ],
       "correct": 2,
-      "explanation": "Aggregation Designer recommends and builds aggregate tables, so queries at coarse levels read a summary instead of scanning hundreds of millions of rows. Metadata Editor serves Interactive Reports, not Analyzer's cube queries. Renaming levels changes labels, not how much data is read. Carte executes PDI work; it does not run Mondrian queries.",
+      "explanation": "The **Aggregation Designer** identifies and builds aggregate tables so that queries at coarse levels, such as year and quarter, read a summary instead of scanning 400 million rows of raw data.",
       "source": "Pentaho Installation - Practitioner: Getting Started — Components"
     },
     {
@@ -547,62 +547,62 @@
         "Move the repository database onto the PDI server itself"
       ],
       "correct": 0,
-      "explanation": "Carte supports clustering, so CPU-bound work that partitions cleanly can be spread over several machines, which is what a saturated single server needs. Pan runs single transformations and cannot run the jobs' sequencing, and job overhead is not the bottleneck. Putting the database on the same host adds contention for the same CPU. Tomcat threads serve web requests, not ETL.",
+      "explanation": "A **Carte cluster** spreads CPU-bound work that partitions cleanly, such as by region, over several machines, which is what a saturated single server needs.",
       "source": "Pentaho Installation - Practitioner: Getting Started — Components (Carte)"
     },
     {
       "id": "inst-m1-q11",
       "module": "Getting Started",
       "bloom": "Analyze",
-      "scenario": "A security scan of a production Pentaho Server finds port 9001 listening, and nobody on the team knows why.",
-      "prompt": "What does it most likely indicate?",
+      "scenario": "A security scan of a production Pentaho Server finds port 9001 listening, and no one on the team knows why.",
+      "prompt": "What does this finding most likely indicate?",
       "options": [
-        "Carte is listening there for remote transformations",
-        "The shutdown port was moved to 9001 during the install",
-        "PostgreSQL has been bound to a second port by mistake",
-        "The HSQL sample database still starts, so the samples remain"
+        "Carte is listening there for remote transformations.",
+        "The shutdown port was moved to 9001 during the install.",
+        "PostgreSQL has been bound to a second port by mistake.",
+        "The HSQL sample database still starts, so the samples remain."
       ],
       "correct": 3,
-      "explanation": "9001 is the HSQL server port, started for the sample data from definitions in the web app's web.xml; removing the samples before production removes it. The shutdown port is 8012, and nobody moved it. Carte listens on its own configured port and is not part of a server install. PostgreSQL listens on 5432.",
+      "explanation": "Port 9001 is the default port for the **HSQL database** engine. This server starts automatically if the sample data definitions remain in the web application's `web.xml` file.\n\nRemoving the sample data from the configuration before deploying to a production environment will prevent the **HSQL server** from starting on that port.",
       "source": "Pentaho Installation - Practitioner: Getting Started — Components"
     },
     {
       "id": "inst-m3-q11",
       "module": "Archive Installation",
       "bloom": "Evaluate",
-      "scenario": "A customer already runs a hardened, centrally patched Tomcat estate and wants Pentaho deployed into it, not beside a second, bundled Tomcat.",
+      "scenario": "A customer runs a hardened, centrally patched Tomcat estate and requires Pentaho to be deployed into this environment rather than alongside a second, bundled Tomcat.",
       "prompt": "Is the archive installation the right route?",
       "options": [
-        "No: Pentaho 11.0 cannot run inside a customer's own Tomcat at all",
-        "Yes: the archive deploys into any existing Tomcat",
-        "Yes: the archive is the only route supported for 11.0",
-        "No: the archive brings its own Tomcat, so a manual install fits"
+        "No: Pentaho 11.0 cannot run inside a customer's own Tomcat at all.",
+        "Yes: the archive deploys into any existing Tomcat.",
+        "Yes: the archive is the only route supported for 11.0.",
+        "No: the archive brings its own Tomcat, so a manual install fits."
       ],
       "correct": 3,
-      "explanation": "The archive installation ships Pentaho on its own Tomcat 10 as a snapshot, which suits a site that does not already run Tomcat; deploying into an existing application server is the manual installation. The archive does not deploy into another Tomcat. It is not the only route. Pentaho can be installed manually into an application server the customer runs.",
+      "explanation": "The **archive installation** ships Pentaho with its own bundled Tomcat instance, which is suitable for environments where a pre-existing server is not available.\n\nWhen a customer already provides an application server, a **manual installation** is required to deploy Pentaho into the existing environment.",
       "source": "Pentaho Installation - Practitioner: Archive Installation — Overview"
     },
     {
       "id": "inst-m3-q12",
       "module": "Archive Installation",
       "bloom": "Apply",
-      "scenario": "An administrator adds PENTAHO_JAVA_HOME to /etc/environment and, in the same terminal session, runs echo $PENTAHO_JAVA_HOME, which prints nothing.",
+      "scenario": "An administrator adds `PENTAHO_JAVA_HOME` to `/etc/environment` and, in the same terminal session, runs `echo $PENTAHO_JAVA_HOME`, which prints nothing.",
       "prompt": "What is the most likely reason?",
       "options": [
-        "/etc/environment accepts only variables that begin with JAVA_",
-        "Each line in /etc/environment needs export in front of it",
-        "Only root sessions are allowed to read /etc/environment",
-        "The file is read at login, so re-login or source it"
+        "`/etc/environment` accepts only variables that begin with `JAVA_`.",
+        "Each line in `/etc/environment` needs `export` in front of it.",
+        "Only root sessions are allowed to read `/etc/environment`.",
+        "The file is read at login, so re-login or source it."
       ],
       "correct": 3,
-      "explanation": "/etc/environment is read when a session starts, so a shell that was already open does not see the change until it is re-opened or the file is sourced. Any variable name is allowed. The file takes plain NAME=value lines, without export. Every login reads it, not only root's.",
+      "explanation": "The system reads the `/etc/environment` file only when a **new session** starts. A shell that is already open does not see the changes until the session is restarted or the file is manually sourced.\n\nAny variable name is allowed in this file, and the system accepts plain `NAME=value` lines without the `export` command.",
       "source": "Pentaho Installation - Practitioner: Archive Installation — Prepare Environment"
     },
     {
       "id": "inst-m3-q13",
       "module": "Archive Installation",
       "bloom": "Apply",
-      "scenario": "An Ubuntu host has both OpenJDK 17 and OpenJDK 21 installed, and java -version reports 17.",
+      "scenario": "An Ubuntu host has both OpenJDK 17 and OpenJDK 21 installed, and the command `java -version` reports 17.",
       "prompt": "Which command makes 21 the system's default java?",
       "options": [
         "sudo update-alternatives --config java",
@@ -611,62 +611,62 @@
         "sudo apt install --default openjdk-21-jdk"
       ],
       "correct": 0,
-      "explanation": "update-alternatives --config java chooses which installed JDK the java command runs, system-wide. apt has no --default option for this. JAVA_VERSION is not a variable anything reads to pick the JVM. systemctl set-default sets the boot target, not a Java version. The Pentaho Server is pinned separately by PENTAHO_JAVA_HOME.",
+      "explanation": "The `update-alternatives` command is used to manage the **alternatives** available to the system. Using the `--config` flag allows the administrator to select which installed Java version the `java` command points to on a system-wide basis.",
       "source": "Pentaho Installation - Practitioner: Archive Installation — Prepare Environment"
     },
     {
       "id": "inst-m3-q14",
       "module": "Archive Installation",
       "bloom": "Evaluate",
-      "scenario": "The install procedure grants the pentaho database role SUPERUSER to make creating the repository databases simple. The same script is about to be run for production.",
+      "scenario": "The installation procedure grants the `pentaho` database role SUPERUSER to make creating the repository databases simple. The same script is about to be run for production.",
       "prompt": "How should that step be judged for production?",
       "options": [
-        "Replace it with least-privilege roles; SUPERUSER is for a demo",
-        "Keep it, since the server needs SUPERUSER to start",
-        "Drop the role and let the server connect as postgres",
-        "Keep it, but change the role's password once the install is done"
+        "Replace it with least-privilege roles; SUPERUSER is for a demo.",
+        "Keep it, since the server needs SUPERUSER to start.",
+        "Drop the role and let the server connect as postgres.",
+        "Keep it, but change the role's password once the install is done."
       ],
       "correct": 0,
-      "explanation": "A permanent superuser for application use gives anything that compromises it control of the whole database server; production wants roles holding only what they need, and the procedure elevates privileges only to simplify a demo. The server connects through its own repository users and does not need SUPERUSER to start. A new password leaves the privilege in place. Connecting as postgres is the same problem, only worse.",
+      "explanation": "A permanent superuser for application use gives anything that compromises it control of the whole database server. Production environments require **least-privilege roles** that hold only the permissions required for operation, as the original procedure intended to elevate privileges only to simplify a demo.",
       "source": "Pentaho Installation - Practitioner: Archive Installation — Prepare Environment"
     },
     {
       "id": "inst-m3-q15",
       "module": "Archive Installation",
       "bloom": "Apply",
-      "scenario": "The Pentaho Server moves to a different host from its PostgreSQL repository and cannot connect, though PostgreSQL is running and pg_hba.conf allows the server's address.",
-      "prompt": "What else must change on the database host?",
+      "scenario": "The Pentaho Server is moved to a different host from its PostgreSQL repository. The server cannot connect to the database, even though the PostgreSQL service is running and `pg_hba.conf` allows the server's IP address.",
+      "prompt": "What other configuration must be updated on the database host?",
       "options": [
-        "The port set in pg_hba.conf, which defaults to 5433",
-        "shared_buffers in postgresql.conf, which blocks remote connections",
-        "listen_addresses in postgresql.conf, which defaults to local only",
+        "The port set in `pg_hba.conf`, which defaults to 5433",
+        "`shared_buffers` in `postgresql.conf`, which blocks remote connections",
+        "`listen_addresses` in `postgresql.conf`, which defaults to local only",
         "The JDBC driver in the database host's lib folder"
       ],
       "correct": 2,
-      "explanation": "By default PostgreSQL accepts only local connections, so listen_addresses must name the interface the server will reach (or '*'), followed by a restart and any firewall rule for 5432. pg_hba.conf sets who may connect and how, not the port, and the default port is 5432. The JDBC driver belongs on the Pentaho side, in Tomcat's lib. shared_buffers is memory and does not block anything.",
+      "explanation": "By default, PostgreSQL accepts only local connections, so `listen_addresses` in `postgresql.conf` must name the interface the server will reach, or `*` for all of them. A **restart** follows, plus any firewall rule for port 5432.",
       "source": "Pentaho Installation - Practitioner: Archive Installation — Prepare Environment"
     },
     {
       "id": "inst-m3-q16",
       "module": "Archive Installation",
       "bloom": "Analyze",
-      "scenario": "After pg_hba.conf is switched from md5 to scram-sha-256, the Pentaho Server can no longer authenticate to the repository, while psql logins with the same users still work.",
+      "scenario": "The `pg_hba.conf` file is updated from `md5` to `scram-sha-256`. The Pentaho Server can no longer authenticate to the repository, even though `psql` logins with the same credentials still succeed.",
       "prompt": "What is the most likely cause?",
       "options": [
-        "SCRAM requires the repository to move to another port",
-        "The server's PostgreSQL JDBC driver is too old for SCRAM",
-        "scram-sha-256 applies only to the postgres superuser",
-        "psql caches its credentials, hiding the same failure"
+        "SCRAM requires the repository to move to another port.",
+        "The server's PostgreSQL JDBC driver is too old for SCRAM.",
+        "scram-sha-256 applies only to the postgres superuser.",
+        "psql caches its credentials, hiding the same failure."
       ],
       "correct": 1,
-      "explanation": "SCRAM needs a driver that supports it; psql's own library does, so it keeps working while an older JDBC driver fails. The fix is a recent PostgreSQL driver in Tomcat's lib, with md5 as the fallback. scram-sha-256 applies to whichever users pg_hba.conf names. psql does not cache credentials across logins. The authentication method has nothing to do with the port.",
+      "explanation": "The **JDBC driver** used by the Pentaho Server must support the `scram-sha-256` authentication method. While the `psql` utility uses its own internal library that supports SCRAM, an outdated driver in the application server will fail to authenticate when the method is changed.",
       "source": "Pentaho Installation - Practitioner: Archive Installation — Prepare Environment"
     },
     {
       "id": "inst-m3-q17",
       "module": "Archive Installation",
       "bloom": "Understand",
-      "scenario": "Administrators want reports of which content users run and how it performs, but the pentaho_mart scripts were skipped when the repository was created.",
+      "scenario": "Administrators want reports of which content users run and how it performs, but the `pentaho_mart` scripts were skipped when the repository was created.",
       "prompt": "Which part of the repository is missing?",
       "options": [
         "The Operations Mart, which holds usage and performance data",
@@ -675,15 +675,15 @@
         "Quartz, which records how long each run took"
       ],
       "correct": 0,
-      "explanation": "The repository has four parts: Jackrabbit for content, security and metadata; Quartz for the scheduler; Hibernate for audit logging; and the Operations Mart for usage and performance reporting, which pentaho_mart_postgresql.sql creates. Quartz holds schedules, not performance history. Jackrabbit stores content rather than a usage log. Tomcat's access log is not what Pentaho's usage reporting reads.",
+      "explanation": "The **Operations Mart** holds usage and performance data for reporting. It is the specific component created by the `pentaho_mart_postgresql.sql` script to track how content performs and is used.",
       "source": "Pentaho Installation - Practitioner: Archive Installation — Install Pentaho Server (Repository)"
     },
     {
       "id": "inst-m3-q18",
       "module": "Archive Installation",
       "bloom": "Evaluate",
-      "scenario": "Straight after running the repository SQL scripts, an administrator finds no tables in the jackrabbit and hibuser databases and wants to rerun the scripts before starting the server.",
-      "prompt": "How should that be judged?",
+      "scenario": "After running the repository SQL scripts, an administrator finds no tables in the jackrabbit and hibuser databases. The administrator intends to rerun the scripts before starting the server.",
+      "prompt": "How should this situation be judged?",
       "options": [
         "Start the server first: it creates those tables on first start",
         "Drop and recreate both databases as the postgres user",
@@ -691,14 +691,14 @@
         "Restore the sample data, which creates the missing tables"
       ],
       "correct": 0,
-      "explanation": "The scripts create the databases and users; the Pentaho Server creates the Jackrabbit and Hibernate tables when it first starts, so empty schemas at this point are expected. Rerunning the scripts treats a normal state as a failure. Recreating the databases throws away the correct setup. Sample data does not create repository tables.",
+      "explanation": "The repository SQL scripts are only responsible for creating the databases and the necessary users. The **Pentaho Server** is responsible for creating the specific tables within the jackrabbit and hibuser databases upon its first startup.\n\nBecause the system is designed to generate these tables automatically during the initialization process, an empty schema is the expected state before the server is started.",
       "source": "Pentaho Installation - Practitioner: Archive Installation — Install Pentaho Server (Repository)"
     },
     {
       "id": "inst-m3-q19",
       "module": "Archive Installation",
       "bloom": "Analyze",
-      "scenario": "The repository database moves to a new host. The administrator updates the connections in Tomcat's context.xml only, and after a restart the server fails when it reads repository content.",
+      "scenario": "The repository database moves to a new host. The administrator updates the connections in the Tomcat `context.xml` file only, and after a restart, the server fails when it reads repository content.",
       "prompt": "What is the most likely reason?",
       "options": [
         "Jackrabbit reads its connection from quartz.properties",
@@ -707,14 +707,14 @@
         "repository.xml still points Jackrabbit at the old host"
       ],
       "correct": 3,
-      "explanation": "Quartz, Hibernate, Jackrabbit and context.xml each carry connection details, and Jackrabbit's repository.xml points at the database directly, so all of them must agree on host and port. A restart picks up context.xml; no reinstall is needed. quartz.properties configures the scheduler, not Jackrabbit. A repository can move, provided every configuration follows it.",
+      "explanation": "Quartz, Hibernate, Jackrabbit, and `context.xml` each carry connection details, and Jackrabbit's **repository.xml** points at the database directly, so all of them must agree on the new host and port.",
       "source": "Pentaho Installation - Practitioner: Archive Installation — Install Pentaho Server (Repository)"
     },
     {
       "id": "inst-m3-q20",
       "module": "Archive Installation",
       "bloom": "Apply",
-      "scenario": "An administrator copies a MySQL JDBC driver into Tomcat's lib folder so a new data connection can reach MySQL, but the connection still fails with a driver-not-found error.",
+      "scenario": "An administrator copies a MySQL JDBC driver into the Tomcat `lib` folder to establish a new data connection, but the connection fails with a driver-not-found error.",
       "prompt": "What is the most likely missing step?",
       "options": [
         "Reboot the host so the operating system registers it",
@@ -723,14 +723,14 @@
         "Copy the JAR into pentaho-solutions/system as well"
       ],
       "correct": 1,
-      "explanation": "Tomcat loads the JARs in its lib folder when it starts, so a driver copied in while it runs is not seen until the server restarts. A full reboot is not required. The License Manager handles entitlements, not drivers. pentaho-solutions/system holds plugins and configuration, not the server's JDBC drivers.",
+      "explanation": "Tomcat loads the JAR files in its `lib` folder only at **startup**, so a driver copied in while the server runs is not seen until the server restarts.",
       "source": "Pentaho Installation - Practitioner: Archive Installation — Install Pentaho Server"
     },
     {
       "id": "inst-m3-q21",
       "module": "Archive Installation",
       "bloom": "Analyze",
-      "scenario": "The Tomcat log shows the server started, but browsing to /pentaho returns HTTP 404.",
+      "scenario": "The Tomcat log shows the server started, but browsing to /pentaho returns an HTTP 404 error.",
       "prompt": "Where should the administrator look first?",
       "options": [
         "listen_addresses in postgresql.conf on the repository host",
@@ -739,14 +739,14 @@
         "The License Manager, which hides /pentaho until a licence is added"
       ],
       "correct": 2,
-      "explanation": "A 404 with Tomcat running means the pentaho web app did not deploy, so check it is present under webapps, read catalina's log for deployment errors, and check file permissions. A database problem shows as errors, not a missing path. Licensing does not hide the path. Carte does not serve /pentaho; Tomcat does.",
+      "explanation": "A 404 with Tomcat running means the **pentaho web app** did not deploy, so check that it is present under `webapps`, read Catalina's log for deployment errors, and check file permissions.",
       "source": "Pentaho Installation - Practitioner: Archive Installation — Install Pentaho Server"
     },
     {
       "id": "inst-m3-q22",
       "module": "Archive Installation",
       "bloom": "Apply",
-      "scenario": "An administrator's systemd unit runs start-pentaho.sh as root and has no restart setting, so a crash leaves the server down until someone notices.",
+      "scenario": "A systemd unit runs start-pentaho.sh as root and lacks a restart configuration. A crash leaves the server down until a manual intervention occurs.",
       "prompt": "Which settings fix both problems?",
       "options": [
         "Group=root and TimeoutSec=0",
@@ -755,62 +755,62 @@
         "User=root and Restart=always"
       ],
       "correct": 1,
-      "explanation": "User=pentaho runs the server as its own unprivileged account, and Restart=on-failure brings it back after a crash. User=root keeps the first problem. Type and RemainAfterExit describe how systemd tracks the process, not who runs it or whether it restarts. Group=root is the wrong direction, and a timeout does not restart anything.",
+      "explanation": "The `User=pentaho` setting ensures the server runs under an **unprivileged account** rather than as root. The `Restart=on-failure` setting ensures the systemd service **automatically restarts** the process following a crash.",
       "source": "Pentaho Installation - Practitioner: Archive Installation — Install Pentaho Server"
     },
     {
       "id": "inst-m3-q23",
       "module": "Archive Installation",
       "bloom": "Apply",
-      "scenario": "The server sometimes starts without finding its licence, depending on which account and which shell started it.",
-      "prompt": "What makes the licence location consistent?",
+      "scenario": "A server occasionally fails to locate its license because different user accounts and shells are used to start the service.",
+      "prompt": "What makes the license location consistent?",
       "options": [
         "Entering the Activation ID again at each start",
-        "Copying the licence file into every user's home folder",
-        "Storing the licence inside Tomcat's server.xml",
+        "Copying the license file into every user's home folder",
+        "Storing the license inside Tomcat's server.xml",
         "Setting PENTAHO_LICENSE_INFORMATION_PATH in /etc/environment"
       ],
       "correct": 3,
-      "explanation": "PENTAHO_LICENSE_INFORMATION_PATH tells the server exactly where the licence file is, and set in /etc/environment every account and service sees the same value. Copies in each home folder multiply the files without fixing which one is read. An Activation ID is entered once, not at every start. server.xml configures Tomcat, not the licence.",
+      "explanation": "Defining the **PENTAHO_LICENSE_INFORMATION_PATH** variable in the `/etc/environment` file ensures that the server identifies the correct location of the license file regardless of which user account or shell starts the service.",
       "source": "Pentaho Installation - Practitioner: Archive Installation — Install Pentaho Server"
     },
     {
       "id": "inst-m3-q24",
       "module": "Archive Installation",
       "bloom": "Evaluate",
-      "scenario": "An estate on Pentaho 9.3 is being upgraded, and the new licences have arrived early. A colleague proposes starting the old server to activate them before the upgrade.",
+      "scenario": "An estate on Pentaho 9.3 is being upgraded, and the new licenses have arrived early. A colleague proposes starting the old server to activate them before the upgrade.",
       "prompt": "How should that be judged?",
       "options": [
-        "Accept it: licences must be active before any upgrade",
-        "Reject it, because licences can only be activated from the client tools",
-        "Reject it: install the new version first, then activate the licences",
-        "Accept it, provided the old server is stopped straight after"
+        "Accept it: licenses must be active before any upgrade.",
+        "Reject it, because licenses can only be activated from the client tools.",
+        "Reject it: install the new version first, then activate the licenses.",
+        "Accept it, provided the old server is stopped straight after."
       ],
       "correct": 2,
-      "explanation": "Upgrading from 9.x or earlier, the new product version is installed before the licences are activated, and the server is not started before the licences are upgraded. Activating first is the reverse of that order. Stopping the old server afterwards does not undo the wrong order. Licences are activated in the server's License Manager.",
+      "explanation": "When upgrading from version 9.x or earlier, the **installation sequence** requires the new product version to be installed before the licenses are activated. The server must not be started before the licenses are upgraded; activating them on the old server first reverses the required order and cannot be corrected by stopping the old server afterward.\n\nLicenses are activated specifically within the server's **License Manager**.",
       "source": "Pentaho Installation - Practitioner: Archive Installation — Install Pentaho Server"
     },
     {
       "id": "inst-m3-q25",
       "module": "Archive Installation",
       "bloom": "Analyze",
-      "scenario": "Last year the server's context path was changed from /pentaho to /company by renaming the web app and editing its files. After an upgrade, users' /company links fail.",
+      "scenario": "Last year, the server's context path was changed from /pentaho to /company by renaming the web app and editing its files. Following an upgrade, users find that the /company links no longer function.",
       "prompt": "What is the most likely cause?",
       "options": [
-        "The upgrade laid down the default web app, undoing the rename",
-        "The upgrade deleted the repository's /company folder and its content",
-        "The upgrade reset listen_addresses on the repository",
-        "Context paths can no longer be changed after 10.x"
+        "The upgrade laid down the default web app, undoing the rename.",
+        "The upgrade deleted the repository's /company folder and its content.",
+        "The upgrade reset listen_addresses on the repository.",
+        "Context paths can no longer be changed after 10.x."
       ],
       "correct": 0,
-      "explanation": "Upgrades can overwrite deployed web apps, so a context path made by renaming and editing the app's files must be reapplied after each upgrade, or mapped by a reverse proxy instead so there is nothing to lose. The repository database's settings do not decide the URL path. /company was a web path, not a repository folder. Context paths can still be changed.",
+      "explanation": "When an upgrade occurs, the system may replace the modified web application files with the default version. Because the custom **context path** was established by renaming and editing those specific files, any installation that overwrites the application will undo those changes.\n\nTo maintain a custom path through upgrades, the files must be reapplied or the path must be managed by a **reverse proxy**.",
       "source": "Pentaho Installation - Practitioner: Archive Installation — Post Installation Tasks"
     },
     {
       "id": "inst-m3-q26",
       "module": "Archive Installation",
       "bloom": "Apply",
-      "scenario": "Security requires the Pentaho Server to serve HTTPS itself, from a PKCS12 keystore, with no reverse proxy in front of it.",
+      "scenario": "Security requirements dictate that the Pentaho Server must serve HTTPS directly from a PKCS12 keystore without a reverse proxy.",
       "prompt": "What does the administrator configure?",
       "options": [
         "The keystore in Jackrabbit's repository.xml",
@@ -819,14 +819,14 @@
         "An SSL connector in server.xml pointing at the keystore"
       ],
       "correct": 3,
-      "explanation": "Tomcat serves HTTPS through a connector in server.xml with SSL enabled and the keystore's type, file and password, and the server URL in server.properties follows the new scheme and port. The License Manager handles licences. The console has no HTTPS switch. repository.xml configures content storage, not the web tier.",
+      "explanation": "The administrator configures an **SSL connector** in the `server.xml` file to enable HTTPS. This configuration requires the keystore type, file path, and password, while the `server.properties` file must be updated to reflect the correct scheme and port.",
       "source": "Pentaho Installation - Practitioner: Archive Installation — Post Installation Tasks"
     },
     {
       "id": "inst-m3-q27",
       "module": "Archive Installation",
       "bloom": "Evaluate",
-      "scenario": "A server about to go live still carries the evaluation samples: the sample content, the HSQL sample database and a development-only status filter.",
+      "scenario": "A server is about to go live and still contains evaluation samples, including the sample content, the HSQL sample database, and a development-only status filter.",
       "prompt": "What is the soundest approach?",
       "options": [
         "Keep them, but hide the Public folder from ordinary users",
@@ -835,23 +835,23 @@
         "Remove only the sample folders, through the User Console"
       ],
       "correct": 1,
-      "explanation": "Samples are for evaluation: the sample content, the HSQL database definitions and the SystemStatusFilter in web.xml all come out before production, with the server stopped for the file changes. Removing them does not harm the repository. Hiding a folder leaves the sample database running. Deleting only the folders leaves the database and the development filter behind.",
+      "explanation": "The **evaluation samples** (the sample content, the HSQL database definitions, and the `SystemStatusFilter` in `web.xml`) all come out before production, with the **server stopped** for the file changes. Removing them does not harm the repository.",
       "source": "Pentaho Installation - Practitioner: Archive Installation — Post Installation Tasks"
     },
     {
       "id": "inst-m3-q28",
       "module": "Archive Installation",
       "bloom": "Analyze",
-      "scenario": "Security wants the login page to stop browsers offering to remember passwords, and an administrator plans to edit the server's PUCLogin.jsp to do it.",
+      "scenario": "Security wants the login page to stop browsers from offering to remember passwords, and an administrator plans to edit the server's PUCLogin.jsp to implement this change.",
       "prompt": "What is the drawback of that plan?",
       "options": [
-        "Editing the page requires the licence to be activated again",
-        "An upgrade can overwrite the vendor JSP and silently undo it",
-        "The login page is served by Carte rather than by Tomcat",
-        "A JSP edit needs the server recompiled from its source"
+        "Editing the page requires the license to be activated again.",
+        "An upgrade can overwrite the vendor JSP and silently undo it.",
+        "The login page is served by Carte rather than by Tomcat.",
+        "A JSP edit needs the server recompiled from its source."
       ],
       "correct": 1,
-      "explanation": "Vendor JSPs can be replaced on upgrade, so a change made there quietly disappears; single sign-on or controls at a reverse proxy are the sturdier route. Tomcat compiles JSPs itself, so no rebuild is involved. The login page comes from the pentaho web app in Tomcat. Licensing is unaffected by editing a page.",
+      "explanation": "Modifying a vendor JSP file is unreliable because a system **upgrade** can overwrite the original file and silently undo the custom changes.\n\nBecause the original file is replaced during the update process, any local modifications are lost. Alternative methods, such as implementing controls at a **reverse proxy** or via single sign-on, are more persistent for security configurations.",
       "source": "Pentaho Installation - Practitioner: Archive Installation — Post Installation Tasks"
     },
     {
@@ -861,20 +861,20 @@
       "scenario": "After a run of the Pentaho Upgrade Installer, the upgraded server starts cleanly, but two plugins it used before have gone.",
       "prompt": "What explains it?",
       "options": [
-        "The upgrade does not keep plugins; they are reapplied from a backup",
-        "They failed the installer's licence check and were quarantined by it",
-        "They come back by themselves after the first restart",
-        "The installer moved them into the repository database"
+        "The upgrade does not keep plugins; they are reapplied from a backup.",
+        "They failed the installer's license check and were quarantined by it.",
+        "They come back by themselves after the first restart.",
+        "The installer moved them into the repository database."
       ],
       "correct": 0,
-      "explanation": "The upgrade process does not retain plugins, so they are backed up to a separate directory beforehand and reapplied afterwards; the same is true of Hadoop cluster drivers. The installer does not quarantine plugins over licensing. Plugins are files, not repository content. Nothing restores them on a restart.",
+      "explanation": "The upgrade process does not retain plugins during the installation; therefore, they are backed up to a separate directory before the process begins and are **reapplied from a backup** afterward. The same procedure applies to Hadoop cluster drivers.",
       "source": "Pentaho Installation - Practitioner: Archive Installation — Pentaho Upgrade & Patches"
     },
     {
       "id": "inst-m4-q5",
       "module": "Install Client Tools",
       "bloom": "Analyze",
-      "scenario": "On an Ubuntu 24.04 workstation, spoon.sh fails at startup with errors about missing GTK and WebKit modules, though Java 21 is installed and PDI unpacked cleanly.",
+      "scenario": "On an Ubuntu 24.04 workstation, `spoon.sh` fails at startup with errors about missing GTK and WebKit modules, though Java 21 is installed and PDI unpacked cleanly.",
       "prompt": "What is the most likely fix?",
       "options": [
         "Unpack PDI again with the jar tool instead of unzip",
@@ -883,7 +883,7 @@
         "Point PENTAHO_JAVA_HOME at a Java 11 runtime, which bundles them"
       ],
       "correct": 2,
-      "explanation": "Some of Spoon's legacy UI depends on GTK and WebKit libraries that vary by desktop, and Ubuntu 24.04 does not ship the ones it expects, so installing them fixes the start. How the archive was unpacked does not change which libraries the system has. Java 21 is the supported runtime, and the error is about native libraries. Running as root does not provide a library that is not installed.",
+      "explanation": "Some of Spoon's legacy UI depends on **GTK and WebKit libraries** that vary by desktop, and Ubuntu 24.04 does not ship the ones it expects, so installing them fixes the start.",
       "source": "Pentaho Installation - Practitioner: Install Client Tools — Client Plugins"
     },
     {
@@ -899,7 +899,7 @@
         "Pass -Xmx2g in Spoon's startup script"
       ],
       "correct": 0,
-      "explanation": "Spoon's interface is drawn through GTK on Linux, and GDK_SCALE=2 doubles its scale; adjusting the desktop's own scaling works too. -Xmx sets memory, not rendering. There is no special HiDPI Java runtime to point at. The Evaluation Wizard is a Windows installer and would not change Linux rendering.",
+      "explanation": "Spoon's interface is drawn through GTK on Linux, and setting **GDK_SCALE** to 2 doubles its scale. Adjusting the desktop's own scaling works too.",
       "source": "Pentaho Installation - Practitioner: Install Client Tools — Client Plugins"
     },
     {
@@ -915,23 +915,23 @@
         "The Pentaho Server's session timeout in web.xml"
       ],
       "correct": 1,
-      "explanation": "Out-of-memory errors in a client tool mean its JVM heap is too small, and -Xms and -Xmx in the tool's startup script or .ini set it. The server's session timeout governs web sessions. PostgreSQL's memory does not size Spoon's heap. A lower log level trims output but does not give the JVM more memory.",
+      "explanation": "Out-of-memory errors in a client tool indicate that the **JVM heap** is too small to process the data. Increasing the `-Xms` and `-Xmx` values in the startup script provides the application with more available memory for execution.",
       "source": "Pentaho Installation - Practitioner: Install Client Tools — Client Plugins"
     },
     {
       "id": "inst-m4-q8",
       "module": "Install Client Tools",
       "bloom": "Apply",
-      "scenario": "Production is certified against an earlier version of a PDI plugin, and a developer's workstation must match it rather than take the latest.",
-      "prompt": "What is the right way to install it?",
+      "scenario": "Production is certified against an earlier version of a PDI plugin, and a developer's workstation must match that specific version rather than the latest available version.",
+      "prompt": "What is the correct way to install the specific version?",
       "options": [
-        "Install the latest, since the Plugin Manager cannot pin versions",
-        "Copy the older JAR into the plugins folder by hand instead",
-        "Install the latest, then edit the version number in its JAR",
-        "Open the plugin's row in the Plugin Manager and pick that version"
+        "Install the latest, since the Plugin Manager cannot pin versions.",
+        "Copy the older JAR into the plugins folder by hand instead.",
+        "Install the latest, then edit the version number in its JAR.",
+        "Open the plugin's row in the Plugin Manager and pick that version."
       ],
       "correct": 3,
-      "explanation": "The Plugin Manager installs the latest version with one click, and an earlier one by opening the plugin's row and choosing the version before installing; either way it then manages updates and removal. It can install earlier versions. A hand-copied JAR works but falls outside the Plugin Manager for good. Editing a version number changes a label, not the code.",
+      "explanation": "The **Plugin Manager** allows for the installation of specific versions of a plugin by selecting the desired version from the options provided in the plugin's row.\n\nThis method ensures that the local environment remains consistent with the certified production environment while allowing the manager to continue handling updates and removals.",
       "source": "Pentaho Installation - Practitioner: Install Client Tools — Kettle Plugins"
     },
     {
@@ -947,23 +947,23 @@
         "Salesforce Bulk Operation, which routes failures to their own stream"
       ],
       "correct": 3,
-      "explanation": "Salesforce Bulk Operation runs insert, update, upsert and delete through the Bulk API 2.0 and can route successful, unprocessed and failed records to separate streams, given a Client ID and Secret. Google Analytics v4 reads analytics data; it does not write to Salesforce. Hierarchical Data Type handles nested data inside PDI. Bulk load into Databricks loads Databricks tables, not Salesforce.",
+      "explanation": "The **Salesforce Bulk Operation** step performs insert, update, upsert, and delete operations through the Bulk API 2.0. It is designed to handle large volumes of data and can route successful, unprocessed, and failed records to separate streams when provided with a Client ID and Secret.",
       "source": "Pentaho Installation - Practitioner: Install Client Tools — Kettle Plugins"
     },
     {
       "id": "inst-m4-q10",
       "module": "Install Client Tools",
       "bloom": "Analyze",
-      "scenario": "On a designer's workstation, Spoon starts but its enterprise features are disabled and it prompts for a licence, while the server's licences are all active.",
+      "scenario": "On a designer's workstation, Spoon starts but its enterprise features are disabled and it prompts for a license, while the server's licenses are all active.",
       "prompt": "What should be checked first?",
       "options": [
         "That the workstation runs Ubuntu 24.04 rather than another OS",
         "That Spoon was unpacked with unzip rather than with jar",
-        "That the server has been restarted since its licence was added",
-        "That client entitlements are activated and the licence path is set"
+        "That the server has been restarted since its license was added",
+        "That client entitlements are activated and the license path is set"
       ],
       "correct": 3,
-      "explanation": "Client tools need their own entitlements activated in the License Manager, and PENTAHO_LICENSE_INFORMATION_PATH must point where the licence file is for that user. The server's licences are already active, so restarting it changes nothing on the workstation. The unpacking tool does not affect licensing. The operating system is not what switches EE features off.",
+      "explanation": "Client tools require their own **entitlements** to be activated in the License Manager. Additionally, the `PENTAHO_LICENSE_INFORMATION_PATH` environment variable must be correctly configured to point to the location of the license file for that specific user.",
       "source": "Pentaho Installation - Practitioner: Install Client Tools — Client Plugins"
     }
   ]

@@ -19,8 +19,8 @@
       "id": "2hr-m2-q1",
       "module": "See It Work",
       "bloom": "Apply",
-      "scenario": "You are building a transformation that filters a 'Sales data' file and will write the valid rows to a table. Before adding the 'Table input' step, you want to examine which rows leave the filter.",
-      "prompt": "How do you inspect those rows in Pentaho Data Integration (PDI)?",
+      "scenario": "A developer is building a transformation that filters a sales data file and will write the valid rows to a table. Before adding the Table output step, the developer wants to examine which rows leave the filter.",
+      "prompt": "How can the developer inspect those rows in Pentaho Data Integration (PDI)?",
       "options": [
         "Select the filter step and preview it",
         "Add logging code to the step and redeploy it",
@@ -28,30 +28,30 @@
         "Run the transformation, then query the target table"
       ],
       "correct": 0,
-      "explanation": "Previewing the filter step shows the rows leaving it while you build; with no output step connected yet, nothing is written. (Preview starts every step on the canvas, so an output step already connected would write the rows that reach it.) Adding logging code and redeploying changes the thing you are trying to observe. Running the transformation and querying the table only shows what reached the end, after it has been written. Exporting to CSV is a manual detour that still writes the data out before you can look at it.",
+      "explanation": "Previewing the filter step shows the rows leaving it while the transformation is built. With no output step connected yet, **nothing is written**.\n\n**Preview** starts every step on the canvas, so an output step that was already connected would write the rows that reach it.",
       "source": "Your First Win"
     },
     {
       "id": "2hr-m4-q1",
       "module": "See It Scale",
       "bloom": "Apply",
-      "scenario": "A data analyst receives a flat file containing customer records, but suspects there are duplicate customer IDs. The analyst needs to identify both the unique customer IDs, and the complete rows representing the duplicate records in a single Pentaho Data Integration (PDI) transformation.",
+      "scenario": "A data analyst receives a flat file containing customer records and suspects there are duplicate customer IDs. The analyst needs to identify both the unique customer IDs and the complete rows representing the duplicate records in a single Pentaho Data Integration transformation.",
       "prompt": "Which combination of transformation steps efficiently achieves both objectives?",
       "options": [
         "Sort rows, then Unique rows",
-        "Group by on the customer ID field, counting rows, then join back to the original data.",
-        "Filter rows based on a condition detecting duplicate customer IDs using a JavaScript evaluation.",
-        "Use Select values to mark the customer ID field as unique, then write to a target table."
+        "Group by on the customer ID field, counting rows, then join back to the original data",
+        "Filter rows based on a condition detecting duplicate customer IDs using a JavaScript evaluation",
+        "Use Select values to mark the customer ID field as unique, then write to a target table"
       ],
       "correct": 0,
-      "explanation": "'Sort rows, then Unique rows' — Correct: Sorting ensures identical customer IDs are adjacent, allowing the Unique step to flag and route duplicate rows to an error output while passing unique rows through the main output. 'Group by on the customer ID field, counting rows, then join back to the original data' — Incorrect: Group by aggregates data, providing a count of duplicates but not the original rows themselves, and requires a join to restore the complete records. 'Filter rows based on a condition detecting duplicate customer IDs using a JavaScript evaluation' — Incorrect: While possible with JavaScript, it’s inefficient for large datasets and requires multiple steps to identify and extract the duplicate rows. 'Use Select values to mark the customer ID field as unique, then write to a target table' — Incorrect: Select values does not have a uniqueness constraint, and simply writing data to a target table does not identify duplicate records.",
+      "explanation": "**Sort rows** puts identical customer IDs next to each other, which **Unique rows** needs, because it compares each row with the one before it. Unique rows then passes the unique rows through its main output and can redirect each duplicate row, complete, to its error output.\n\nSort rows → Unique rows",
       "source": "Build the Pipeline Yourself"
     },
     {
       "id": "2hr-m3-q1",
       "module": "Make It Yours",
       "bloom": "Understand",
-      "scenario": "A transformation must combine four sources: sales, product and region reference files in CSV, and a customer master, exported from an API as JSON.",
+      "scenario": "A transformation must combine four sources: sales, product, and region reference files in CSV format, and a customer master exported from an API as JSON.",
       "prompt": "What must happen to the four sources before Pentaho Data Integration (PDI) can combine them?",
       "options": [
         "Nothing: each has its own input step and joins in flight",
@@ -60,14 +60,14 @@
         "The JSON must be converted to CSV so the formats match"
       ],
       "correct": 0,
-      "explanation": "Each file is read by its own input step, and once read everything is rows, so lookups and joins work on the streams in flight. Loading them into a staging database first is unnecessary. Converting the JSON to CSV is unnecessary, because the format difference disappears at the input step. PDI needs no schema registry to read or join files.",
+      "explanation": "Because each source is read by its own input step, the data is converted into a uniform row format. This allows the data to be combined via **in-flight** processing, where joins and lookups occur as the data streams through the transformation.",
       "source": "Enrich and Join"
     },
     {
       "id": "2hr-m3-q2",
       "module": "Make It Yours",
       "bloom": "Analyze",
-      "scenario": "A customer moves from the North region to the South. The nightly load runs 'Dimension lookup/update' against a Type 2 customer dimension.",
+      "scenario": "A customer moves from the North region to the South. The nightly load runs a Dimension lookup/update step against a Type 2 customer dimension.",
       "prompt": "What does the dimension hold for that customer after the load?",
       "options": [
         "Two rows: North with its validity closed, South open-ended",
@@ -76,14 +76,14 @@
         "One rejected row, because the key already exists"
       ],
       "correct": 0,
-      "explanation": "Type 2 keeps history: Dimension lookup/update closes the old version's validity window and inserts a new, open-ended version, leaving unchanged customers alone. Overwriting North with South is Type 1 behaviour, which loses the history. The existing key is expected, not a violation; that is how the step finds the version to close. Unchanged customers get no new rows, however much of the file is reloaded.",
+      "explanation": "The Dimension lookup/update step supports **Type 2 dimension** logic by maintaining a history of changes. When a change is detected, the step expires the previous record by updating its end date and inserts a new record with an open-ended expiration date for the new value.\n\nThis process ensures that the history of the customer's location is preserved while the current status is updated to the South region.",
       "source": "Track History with One Step"
     },
     {
       "id": "2hr-m4-q2",
       "module": "See It Scale",
       "bloom": "Apply",
-      "scenario": "Three supplier files are loaded through one metadata-injection template, driven by a 'control' file that lists each feed's filename, delimiter and target. A fourth supplier now needs to be loaded in the same way.",
+      "scenario": "Three supplier files are loaded through one metadata-injection template, driven by a control file that lists each feed's filename, delimiter, and target. A fourth supplier now needs to be loaded in the same way.",
       "prompt": "What is the least work needed to start loading the fourth supplier?",
       "options": [
         "Copy the template and edit its input step for the new file",
@@ -92,18 +92,18 @@
         "Add one row describing the new feed to the control file"
       ],
       "correct": 3,
-      "explanation": "Metadata injection turns configuration into data, so a new feed is a new control-file row and no transformation is opened. Copying the template and editing it defeats the point of having one template. A dedicated transformation per feed is the pattern metadata injection replaces. The template is never regenerated; it stays as it is and is filled in at run time.",
+      "explanation": "Because **metadata injection** converts configuration into data, adding a new feed only requires a new row in the control file.\n\nThis approach allows the system to process the new feed using the existing template without requiring the user to open the transformation or modify the underlying logic.",
       "source": "One Pipeline, Many Files"
     },
     {
       "id": "2hr-m5-q1",
       "module": "Make It Real",
       "bloom": "Understand",
-      "scenario": "Transformations built and tested in Pentaho Developer Edition, on a laptop now need to run every night in production.",
-      "prompt": "What does moving to a production deployment add?",
+      "scenario": "Transformations are developed and tested in Pentaho Developer Edition on a local workstation and must be migrated to a production environment for nightly execution.",
+      "prompt": "Which three things does moving to a production deployment add?",
       "options": [
         "Scheduled, monitored execution on a server",
-        "A commercial licence for production use, with support",
+        "A commercial license for production use, with support",
         "A new pipeline format, so each transformation is rebuilt",
         "Clustered, scaled-out execution",
         "Compilation of every transformation into Java code"
@@ -113,47 +113,47 @@
         1,
         3
       ],
-      "explanation": "Scheduled, monitored execution on a server, clustered scale-out, and a commercial licence with support are what production adds around the same transformations. A new pipeline format is not needed: what was built in Developer Edition is real PDI and moves to production as it is. Nothing is compiled into Java; the engine runs the transformation definition directly.",
+      "explanation": "Production adds the infrastructure around the same transformations: **scheduled, monitored execution** on a server, **clustered scale-out** for larger workloads, and a **commercial license** with support.\n\nWhat was built in Developer Edition is real PDI, and it moves to production as it is.",
       "source": "From Lab to Production"
     },
     {
       "id": "2hr-m2-q2",
       "module": "See It Work",
       "bloom": "Analyze",
-      "scenario": "A nightly load routes rows that fail a 'Filter' step condition into a rejects file, while the rest continue to the target table.",
-      "prompt": "What does this design achieve that stopping the load on the first 'reject' row would not?",
+      "scenario": "A nightly load routes rows that fail a Filter rows step condition into a rejects file, while the remaining rows continue to the target table.",
+      "prompt": "What does this design achieve that stopping the load on the first reject row would not?",
       "options": [
-        "Valid rows still load, and 'rejects' return as a file to resolve.",
+        "Reject rows are corrected automatically before loading",
         "Validation becomes unnecessary, since nothing can fail",
         "The transformation runs measurably faster",
-        "Reject rows are corrected automatically before loading"
+        "Valid rows still load, and rejects return as a file to resolve"
       ],
-      "correct": 0,
-      "explanation": "Routing turns 'Reject' data into a decision rather than a crash: the load completes and the rejects are a file the source team can act on. Speed is not the point, and routing is not measurably faster. Nothing corrects the reject rows automatically; they are set aside for a person to fix. Validation is still happening, since the condition is what decides which branch a row takes.",
+      "correct": 3,
+      "explanation": "By routing the rows that fail its condition, the **Filter rows** step turns bad data into a **decision rather than a crash**. The load completes for every valid row, and the rejects become a file the source team can act on.",
       "source": "Build the Pipeline Yourself"
     },
     {
       "id": "2hr-m4-q3",
       "module": "See It Scale",
       "bloom": "Apply",
-      "scenario": "A transformation reads, validates, enriches and loads a 'Sales' data file from a local folder in development. In production, the same file arrives in an Amazon S3 bucket.",
-      "prompt": "What has to change in the transformation?",
+      "scenario": "A transformation reads, validates, enriches, and loads a sales data file. In development, the file is located in a local folder, but in production, the file is hosted in an Amazon S3 bucket.",
+      "prompt": "What must be modified in the transformation to support both environments?",
       "options": [
         "Only the input step, because downstream steps see the same rows",
         "The file must be copied locally first, since PDI cannot read S3",
-        "The whole design, rebuilt as a job instead of a transformation",
-        "Every step, because a cloud source yields a different row format"
+        "The entire design must be rebuilt as a job instead of a transformation",
+        "Every step must be updated because a cloud source yields a different row format"
       ],
       "correct": 0,
-      "explanation": "Only the input step changes: once rows are in the stream, validation, lookups and output neither know nor care where they came from. A cloud source does not produce a different row format. A job is for orchestration and is not needed to read from S3. PDI reads S3 and other cloud and VFS locations directly, so no local copy is needed.",
+      "explanation": "Once the data is ingested into the transformation stream, subsequent steps perform operations based on the **data content** rather than the source location. Because the row structure remains consistent regardless of whether the source is a local file or an Amazon S3 bucket, only the input step requires modification.",
       "source": "Bring Your Own Data"
     },
     {
       "id": "2hr-m5-q2",
       "module": "Make It Real",
       "bloom": "Apply",
-      "scenario": "Production needs your working transformations run in order every night, retried on failure, with an alert when the source file has not arrived.",
-      "prompt": "What in Pentaho Data Integration (PDI) provides that pipeline orchestration - sequencing, retrying and alerting?",
+      "scenario": "Production requirements dictate that transformations run in a specific sequence every night, include retry logic upon failure, and trigger an alert if a source file is missing.",
+      "prompt": "What component in Pentaho Data Integration (PDI) provides this orchestration, including sequencing, retrying, and alerting?",
       "options": [
         "A job (.kjb), scheduled and monitored on a server",
         "Schedule settings saved inside each transformation",
@@ -161,14 +161,14 @@
         "A Filter rows step at the start of each transformation"
       ],
       "correct": 0,
-      "explanation": "A job is PDI's orchestration layer: it routes on success and failure, retries, and notifies, and a server runs it on a schedule with logging and history. A cron script is outside PDI and would have to reimplement the retries and alerts. A transformation carries no schedule of its own. Filter rows routes rows inside a transformation; it cannot sequence or retry transformations.",
+      "explanation": "A **job** serves as the orchestration layer in PDI. It provides the logic to route based on success or failure, execute retries, and send notifications.\n\nWhen a job is run on a **server**, it allows for automated scheduling, logging, and history tracking to meet production requirements.",
       "source": "From Lab to Production"
     },
     {
       "id": "2hr-m1-q1",
       "module": "Get Ready",
       "bloom": "Apply",
-      "scenario": "A data integration consultant is engaged to assess Pentaho Data Integration (PDI) for a new client. The initial engagement includes data profiling, building a proof-of-concept pipeline, providing training to the client’s development team, and ultimately automating the client’s overnight data loading processes.",
+      "scenario": "A data integration consultant is engaged to assess Pentaho Data Integration (PDI) for a new client. The initial engagement includes data profiling, building a proof-of-concept pipeline, providing training to the client's development team, and ultimately automating the client's overnight data loading processes.",
       "prompt": "According to Pentaho licensing terms, which activity requires a commercial license beyond what is provided by the Pentaho Developer Edition (BSL 1.1)?",
       "options": [
         "Building the proof of concept for the client",
@@ -177,15 +177,15 @@
         "Evaluating PDI against the client's real data"
       ],
       "correct": 2,
-      "explanation": "Running the pipelines in production needs a commercial license, which also includes support and certified updates. Evaluating PDI against real data is covered by Developer Edition. Building a proof of concept is development, which is covered. Training the team is learning, which is covered. Developer Edition does not expire.",
+      "explanation": "Running the client's nightly loads in production requires a **commercial license**, which also includes support and certified updates.\n\nWhile the Developer Edition allows for evaluation, development, and training, it does not cover production environments.",
       "source": "Before You Start"
     },
     {
       "id": "2hr-m2-q3",
       "module": "See It Work",
       "bloom": "Understand",
-      "scenario": "A 'Filter rows' step checks for a positive quantity, with a final step writing valid 'orders' to a data warehouse.",
-      "prompt": "Where do the 'orders' that fail the condition go?",
+      "scenario": "A Filter rows step checks for a positive quantity, and the final step writes valid orders to a data warehouse.",
+      "prompt": "Where do the orders that fail the condition go?",
       "options": [
         "Down the FALSE hop, to the step you assigned to it",
         "Down the same hop as passing rows, flagged in a new field",
@@ -193,23 +193,23 @@
         "Back to the input step, to be read again"
       ],
       "correct": 0,
-      "explanation": "Filter rows has two real output hops, and the rows that fail go down the FALSE hop to whichever step you assigned it. They do not share a hop with the passing rows; TRUE and FALSE are separate streams. A failed condition is not an error, so nothing goes to the log or to an error hop: it is simply the filter's FALSE result (and with no FALSE step set at all, those rows are dropped). Rows never flow back to the input step.",
+      "explanation": "**Filter rows** has two output hops, TRUE and FALSE, and they are separate streams. The rows that fail the condition go down the **FALSE hop** to whichever step is assigned to it.\n\nA failed condition is not an error, so nothing goes to the log or to an error hop. With no FALSE step set at all, those rows are dropped.",
       "source": "Build the Pipeline Yourself"
     },
     {
       "id": "2hr-m2-q4",
       "module": "See It Work",
       "bloom": "Understand",
-      "scenario": "A Pentaho Data Integration (PDI) transformation reads data from a text file. The 'Calculator' step, positioned downstream, needs to correctly interpret the data types of each incoming field. This determination happens during transformation design, before any data is processed.",
-      "prompt": "What information does the 'Calculator' step utilize to pre-determine the data types of incoming fields?",
+      "scenario": "A Pentaho Data Integration (PDI) transformation reads data from a text file. The Calculator step, positioned downstream, needs to interpret the data type of each incoming field. This happens while the transformation is designed, before any data is processed.",
+      "prompt": "What information does the Calculator step use to determine the data types of incoming fields?",
       "options": [
-        "Row metadata: each field's name, type, and format.",
         "Inferred data types, derived by the Calculator from field names.",
         "A dynamically generated Java class that parses the input file's format.",
-        "A sample of rows the Calculator reads from the file when the run starts."
+        "A sample of rows the Calculator reads from the file when the run starts.",
+        "Row metadata: each field's name, type, and format."
       ],
-      "correct": 0,
-      "explanation": "'Row metadata: each field's name, type, and format' — Correct: Row metadata is passed downstream, providing each step with the necessary field definitions before data transmission. 'Inferred data types, derived by the Calculator from field names' — Incorrect: The Calculator does not infer types; it relies on explicitly provided metadata. 'A dynamically generated Java class that parses the input file's format' — Incorrect: PDI does not generate a Java class to parse the file; it uses metadata to understand the field structure. 'A sample of rows the Calculator reads from the file when the run starts' — Incorrect: nothing is sampled; each field's type is known at design time from the row metadata, before a single row is read.",
+      "correct": 3,
+      "explanation": "The Calculator step uses **row metadata** to identify the name, type, and format of each field. This metadata is passed downstream from the input step, ensuring the step understands the structure of the data before the transformation begins.",
       "source": "Build the Pipeline Yourself"
     },
     {
@@ -226,7 +226,7 @@
         "Steps execute concurrently, but each waits for its input step to finish reading the whole file before processing any rows."
       ],
       "correct": 2,
-      "explanation": "'Each step executes concurrently on its own thread, passing rows between steps using small buffers' — Correct: every step runs at the same time on its own thread, and rows stream between steps through small in-memory buffers (10,000 rows per hop by default), so memory holds a bounded number of rows at a time, never the whole 20 GB file. 'Steps execute sequentially, with each completing entirely before the next begins' — Incorrect: each step's full output would have to be held before the next step started, which a 20 GB file could not fit into 8 GB of RAM. 'Only the input step keeps rows in memory; the later steps read their rows back from temporary files on disk' — Incorrect: all four steps work in memory on rows in flight; nothing is staged to disk between steps. 'PDI reads the file in fixed-size chunks and sends each chunk through all four steps before reading the next' — Incorrect: there are no batches; rows flow continuously, and the input step keeps reading while later steps are still processing earlier rows. 'Steps execute concurrently, but each waits for its input step to finish reading the whole file before processing any rows' — Incorrect: a step starts on the first rows it receives; waiting for the whole file would mean holding it all, the same problem as sequential execution.",
+      "explanation": "PDI handles large datasets because each step executes concurrently on its own **thread**. Rows are passed between these threads through small in-memory **buffers** (10,000 rows per hop by default). Because only a bounded number of rows is held at any time, never the entire 20 GB file, the process does not exhaust the available memory.",
       "source": "Build the Pipeline Yourself"
     },
     {
@@ -236,20 +236,20 @@
       "scenario": "A data integration developer is reviewing a pull request for a modified transformation (.ktr) file. The version control system displays a detailed, line-by-line comparison of the changes, showing exactly which step settings and hop connections have been altered.",
       "prompt": "What characteristic of the .ktr file format enables this detailed, readable change comparison?",
       "options": [
-        "A .ktr file is structured as human-readable XML, defining steps, settings, and the connections between them.",
         "Pentaho Data Integration includes a Git plugin that renders the binary .ktr file as a text-based diff.",
+        "A .ktr file is structured as human-readable XML, defining steps, settings, and the connections between them.",
         "PDI automatically generates a supplementary, human-readable summary file alongside each compiled .ktr file.",
         "The .ktr file internally stores data transformation logic as serialized Java objects which are decoded by the reviewer's IDE."
       ],
-      "correct": 0,
-      "explanation": "'A .ktr file is structured as human-readable XML' — Correct: The .ktr format is XML-based, allowing for direct, readable diffs in version control systems. 'Pentaho Data Integration includes a Git plugin' — Incorrect: No special plugin is required; the file’s XML structure allows native diffing. 'PDI automatically generates a supplementary, human-readable summary file' — Incorrect: PDI does not create auxiliary summary files. The .ktr file itself contains all necessary information. 'The .ktr file internally stores data transformation logic as serialized Java objects' — Incorrect: The .ktr file does not use serialized Java objects; it is a declarative XML definition of the transformation.",
+      "correct": 1,
+      "explanation": "The .ktr file is structured as **human-readable XML**, which allows version control systems to perform direct, text-based comparisons of the transformation logic.\n\nBecause the file uses an **XML-based structure** to define steps, settings, and hops, the differences between versions are easily discernible without needing additional tools or translation layers.",
       "source": "Your First Win"
     },
     {
       "id": "2hr-m3-q3",
       "module": "Make It Yours",
       "bloom": "Analyze",
-      "scenario": "An e-commerce company receives 'order' data from two systems: a primary database and a third-party logistics provider. Some orders in the primary system match multiple records in the logistics system due to partial shipments, and all orders - even those without a match in the logistics system - must be included in a consolidated report.",
+      "scenario": "An e-commerce company receives order data from two systems: a primary database and a third-party logistics provider. Some orders in the primary system match multiple records in the logistics system because of partial shipments, and all orders, even those without a match in the logistics system, must be included in a consolidated report.",
       "prompt": "Which join configuration within Pentaho Data Integration (PDI) would correctly combine these two data streams to achieve the desired result?",
       "options": [
         "Database lookup, configured to return the first matching row",
@@ -258,30 +258,30 @@
         "Merge join, configured as a LEFT OUTER join"
       ],
       "correct": 3,
-      "explanation": "'Merge join, configured as a LEFT OUTER join' — Correct: This configuration ensures all records from the primary data stream are included in the output, while matching records from the secondary stream are joined. Multiple matches are retained, and orders with no match still appear. 'Database lookup, configured to return the first matching row' — Incorrect: This would only return the first match from the logistics system for each order, discarding potential additional matches. 'Stream lookup, keyed on the order ID, configured to return only the first match' — Incorrect: Similar to the database lookup, this limits the output to a single match per order, losing data. 'Merge join, configured as an INNER join' — Incorrect: An inner join would exclude any orders from the primary stream that do not have a corresponding match in the logistics system, violating the requirement to include all orders.",
+      "explanation": "A **Merge join** with a **LEFT OUTER join** configuration ensures that all records from the primary stream are preserved in the output. This method allows for multiple matches from the secondary stream to be joined to a single primary record while still including primary records that have no corresponding match in the secondary stream.",
       "source": "Enrich and Join"
     },
     {
       "id": "2hr-m3-q4",
       "module": "Make It Yours",
       "bloom": "Analyze",
-      "scenario": "A pipeline uses a 'Merge join' to combine records from a 'region' file and a 'sales' file, both keyed on 'region_code'. The files are processed in the order they are written, and analysis reveals missing matches despite their existence in both files, with no error messages generated.",
+      "scenario": "A pipeline uses a Merge join step to combine records from a region file and a sales file, both keyed on `region_code`. The files are processed in the order they are written, and analysis reveals missing matches even though the records exist in both files, with no error messages generated.",
       "prompt": "What is the most likely cause of the missing matches?",
       "options": [
-        "Neither input stream is sorted on region_code before the join.",
         "The join type is configured as LEFT OUTER, resulting in the exclusion of certain matches.",
+        "Neither input stream is sorted on region_code before the join.",
         "The Merge join step has a limited in-memory buffer, preventing it from holding all required keys.",
         "The sales file is only read after the entire region file has been processed."
       ],
-      "correct": 0,
-      "explanation": "'Neither input stream is sorted on region_code before the join.' — Correct: Merge join requires sorted input on the join key to efficiently find matches. Without sorting, the algorithm will silently skip over corresponding records. 'The join type is configured as LEFT OUTER, resulting in the exclusion of certain matches.' — Incorrect: A LEFT OUTER join includes all records from the left stream, even if there's no match in the right stream. This would *add* rows, not *exclude* existing matches. 'The Merge join step has a limited in-memory buffer, preventing it from holding all required keys.' — Incorrect: Merge join streams its inputs, processing them row by row, rather than buffering them in memory. 'The sales file is only read after the entire region file has been processed.' — Incorrect: Merge join processes both input streams concurrently, not sequentially.",
+      "correct": 1,
+      "explanation": "The Merge join step requires that both input streams are **sorted by the join key** before the data reaches the step. If the data is not sorted, the algorithm cannot reliably find all matches and will skip records that do not appear consecutively in the streams.",
       "source": "Enrich and Join"
     },
     {
       "id": "2hr-m3-q5",
       "module": "Make It Yours",
       "bloom": "Analyze",
-      "scenario": "A data integration process joins 'sales' records with a 'regional' data file using the ‘region_code’ field. A new 'region' was recently added to the 'sales' system, but the corresponding record is not yet present in the 'regional' data file.",
+      "scenario": "A data integration process joins sales records with a regional data file using the `region_code` field. A new region was added to the sales system, but the corresponding record is not yet present in the regional data file.",
       "prompt": "What is the primary reason to configure this join as a LEFT OUTER JOIN rather than an INNER JOIN?",
       "options": [
         "To ensure all sales records are retained in the output, even those with a region not found in the regional data file.",
@@ -290,47 +290,47 @@
         "To prevent multiplication of sales records in cases of duplicate region codes within the regional data file."
       ],
       "correct": 0,
-      "explanation": "'To ensure all sales records are retained in the output, even those with a region not found in the regional data file.' — Correct: A LEFT OUTER JOIN preserves all rows from the left table (sales data) and includes matching data from the right table (regional data) where available. If no match exists, the fields from the right table are populated with null values. 'To automatically populate missing regional information with default values.' — Incorrect: Join types do not automatically populate default values; this would require a separate transformation step. 'To prioritize reading the regional data file before processing the sales records.' — Incorrect: The order in which files are read is determined by the data integration tool's processing logic, not the join type itself. 'To prevent multiplication of sales records in cases of duplicate region codes within the regional data file.' — Incorrect: Preventing multiplication of records requires ensuring the uniqueness of keys, and is independent of the join type.",
+      "explanation": "A **LEFT OUTER JOIN** ensures that all rows from the left table (sales data) are preserved in the output. When a match is not found in the right table (regional data), the result set still includes the record from the left table with null values for the missing fields.\n\nThis approach prevents the loss of records that do not have a corresponding entry in the lookup source.",
       "source": "Enrich and Join"
     },
     {
       "id": "2hr-m3-q6",
       "module": "Make It Yours",
       "bloom": "Analyze",
-      "scenario": "A Pentaho Data Integration (PDI) transformation calculates the line total by multiplying a unit price and a quantity. When processing a record with a unit price of 49.99 and a quantity of 2, the 'Calculator' step returns a line total of 100.00.",
+      "scenario": "A Pentaho Data Integration (PDI) transformation calculates the line total by multiplying a unit price and a quantity. When processing a record with a unit price of 49.99 and a quantity of 2, the Calculator step returns a line total of 100.00.",
       "prompt": "What is the most likely cause of this incorrect calculation?",
       "options": [
         "The quantity field is assigned to Input Field A, causing the calculation to be performed using integer arithmetic.",
-        "The result field has its storage precision set to zero decimal places, rounding the calculated total.",
         "The unit price field is being incorrectly interpreted as a String before being used in the calculation.",
+        "The result field has its storage precision set to zero decimal places, rounding the calculated total.",
         "The Calculator step includes default rounding logic that modifies the result of each calculation."
       ],
       "correct": 0,
-      "explanation": "'The quantity field is assigned to Input Field A, causing the calculation to be performed using integer arithmetic.' — Correct: the Calculator does the arithmetic in the type of Field A, so with the Integer quantity as A the unit price is converted to a whole number as well: 49.99 becomes 50, and 50 × 2 = 100. With the unit price as Field A the result is 99.98. 'The result field has its storage precision set to zero decimal places, rounding the calculated total.' — Incorrect: the total is shown as 100.00, with its two decimal places; the value was already 100 when it was calculated. 'The unit price field is being incorrectly interpreted as a String before being used in the calculation.' — Incorrect: multiplying a number by a String makes the Calculator repeat the text ('49.9949.99'), not return 100.00. 'The Calculator step includes default rounding logic that modifies the result of each calculation.' — Incorrect: the Calculator does not round results by default; the rounding here comes from converting the unit price to Field A's Integer type.",
+      "explanation": "The **calculation type** is determined by the data type of the field assigned to Input Field A. When the quantity field (an Integer) is assigned to Input Field A, the unit price is cast to an Integer (49.99 becomes 50) before the multiplication occurs, resulting in a total of 100.00 instead of 99.98.",
       "source": "Enrich and Join"
     },
     {
       "id": "2hr-m3-q7",
       "module": "Make It Yours",
       "bloom": "Analyze",
-      "scenario": "A data warehouse team is loading 'customer' data using a 'Dimension Lookup/Update' step. After processing 20 distinct 'customer' records, the resulting customer dimension table contains 21 rows.",
+      "scenario": "A data warehouse team is loading customer data using a Dimension lookup/update step. After processing 20 distinct customer records, the resulting customer dimension table contains 21 rows.",
       "prompt": "What is the most likely reason for the additional row in the customer dimension table?",
       "options": [
         "The step inserted an unknown member, key 0, for failed lookups.",
-        "A header row from the source file was incorrectly loaded as a customer record.",
         "A duplicate customer ID in the source data resulted in a second record being loaded.",
+        "A header row from the source file was incorrectly loaded as a customer record.",
         "The database table was pre-populated with a test record before the transformation ran."
       ],
       "correct": 0,
-      "explanation": "'The step inserted an unknown member, key 0, for failed lookups' — Correct: The Dimension Lookup/Update step automatically inserts a technical 'unknown' member (key 0) to handle fact data that does not match any known dimension member, preventing data loss. 'A header row from the source file was incorrectly loaded as a customer record' — Incorrect: Input steps like JSON or Text Input typically do not load header rows as data. 'A duplicate customer ID in the source data resulted in a second record being loaded' — Incorrect: the scenario's 20 records are distinct, so no ID arrives twice. (A repeated ID with changed attributes would add a version row in a Type 2 dimension, but that cannot happen here.) 'The database table was pre-populated with a test record before the transformation ran' — Incorrect: While possible, this is less likely and the step does not contribute to adding a row, it would already exist.",
+      "explanation": "The Dimension lookup/update step automatically inserts a technical **unknown member** with key 0. Fact rows that match no known customer can point at it instead of being lost, which is why 20 customers make 21 rows.",
       "source": "Track History with One Step"
     },
     {
       "id": "2hr-m4-q4",
       "module": "See It Scale",
       "bloom": "Analyze",
-      "scenario": "A 'driver job'- take a look at Workshop: One Pipeline, Many Files - reads a 'control' file that lists several data feeds, each with its own delimiter. For every row, it runs a metadata injection transformation that fills a template with that feed's settings.",
-      "prompt": "Why is the metadata injection transformation executed for each row in the 'control' file, rather than processing all feeds in a single execution?",
+      "scenario": "A driver job reads a control file that lists several data feeds, each with its own delimiter. For each row in the control file, it runs a metadata injection transformation that fills a template with that feed's settings.",
+      "prompt": "Why is the metadata injection transformation executed for each row in the control file rather than processing all feeds in a single execution?",
       "options": [
         "Each execution of the transformation applies the specific metadata properties to the template.",
         "The transformation is limited to processing only one input row at a time.",
@@ -338,7 +338,7 @@
         "Metadata injection can only be started from a job entry, never from inside a transformation."
       ],
       "correct": 0,
-      "explanation": "'Each execution of the transformation applies a unique feed configuration to the template.' — Correct: The metadata injection transformation uses the values in each control file row to define the configuration for a single template execution. 'The transformation is limited to processing only one input row at a time.' — Incorrect: PDI transformations are not inherently limited to processing one row; the one-row-at-a-time approach is a design choice for this metadata injection process. 'Data feeds must be pre-sorted based on delimiter before injection.' — Incorrect: Sorting is not a requirement for using the metadata injection transformation. 'Metadata injection can only be started from a job entry, never from inside a transformation.' — Incorrect: ETL Metadata Injection is itself a transformation step; running it once per control-file row is a design choice, made because each run carries one feed's settings.",
+      "explanation": "The **metadata injection** transformation uses the values in each control file row to define the configuration for a single template execution.\n\nBy executing the transformation for each row, the system ensures that the specific properties for each individual feed are applied to the template during that specific execution cycle.",
       "source": "One Pipeline, Many Files"
     },
     {
@@ -348,69 +348,69 @@
       "scenario": "A data integration specialist is designing a complex Pentaho Data Integration (PDI) transformation with multiple data streams. To improve readability and maintainability for a team of developers, the specialist wants to visually represent the confluence of these streams on the canvas without introducing data modification or processing overhead.",
       "prompt": "Which PDI transformation step best serves as a visual merge point for multiple input streams while performing no data manipulation?",
       "options": [
-        "Dummy step, which performs no operation on the rows.",
         "Filter rows step, configured to allow all rows to pass.",
+        "Dummy step, which performs no operation on the rows.",
         "Select values step, configured to output all input fields without changes.",
         "Blocking step, configured to pass all rows without buffering."
       ],
-      "correct": 0,
-      "explanation": "'Dummy step, which performs no operation on the rows.' — Correct: The Dummy step is specifically designed to act as a merge point on the transformation canvas without modifying the data flow. 'Filter rows step, configured to allow all rows to pass.' — Incorrect: Although it can pass all rows, the Filter step inherently involves a conditional evaluation, making it less suitable as a purely visual merge point. 'Select values step, configured to output all input fields without changes.' — Incorrect: While it preserves the data, the Select step *is* a data operation; it explicitly defines the output fields, adding unnecessary complexity. 'Blocking step, configured to pass all rows without buffering.' — Incorrect: The Blocking step introduces buffering, which alters the timing and behavior of the transformation, and is not designed for a simple visual merge.",
+      "correct": 1,
+      "explanation": "The **Dummy step** is specifically designed to act as a merge point on the transformation canvas without modifying the data flow.",
       "source": "Enrich and Join"
     },
     {
       "id": "2hr-m3-q9",
       "module": "Make It Yours",
       "bloom": "Analyze",
-      "scenario": "A Pentaho Data Integration (PDI) transformation enriches 'sales' records with 'customer names' using a 'Stream lookup' step, matching on the `customer_id` field. The stream lookup is configured with no specific error handling. During execution, a sales record is encountered with a `customer_id` value that does not exist in the customer data stream used by the lookup.",
+      "scenario": "A Pentaho Data Integration (PDI) transformation enriches sales records with customer names using a Stream lookup step, matching on the `customer_id` field. The lookup is configured without specific error handling, and a record is processed where the `customer_id` does not exist in the lookup stream.",
       "prompt": "What is the expected outcome for this sales record?",
       "options": [
+        "The sales record is routed to a designated error handling step if one is configured.",
         "The sales record continues processing, with the customer name field left empty.",
         "The transformation will halt immediately upon encountering the unmatched `customer_id`.",
-        "The sales record is routed to a designated error handling step if one is configured.",
         "The sales record is silently discarded and excluded from the transformation output."
       ],
-      "correct": 0,
-      "explanation": "'The sales record continues processing, with the customer name field left empty.' — Correct: A Stream lookup is designed to enrich, not filter. Unmatched keys result in empty fields, allowing the record to proceed. 'The transformation will halt immediately upon encountering the unmatched `customer_id`.' — Incorrect: PDI transformations do not automatically halt on unmatched keys; they continue processing. 'The sales record is routed to a designated error handling step if one is configured.' — Incorrect: While error handling *can* be configured, the Stream lookup step does not have built-in error handling without explicit configuration. 'The sales record is silently discarded and excluded from the transformation output.' — Incorrect: This behaviour is more characteristic of a join, where records without a match are often excluded.",
+      "correct": 1,
+      "explanation": "The **Stream lookup** step is designed to enrich data rather than filter it. When a match for a key is not found, the fields specified in the lookup are populated with null values, and the record continues downstream.",
       "source": "Enrich and Join"
     },
     {
       "id": "2hr-m3-q10",
       "module": "Make It Yours",
       "bloom": "Apply",
-      "scenario": "A data integration process receives customer data as a JSON file. The file's structure includes a top-level key named 'customers' that contains an array of customer objects. Each customer object has attributes like 'id', 'name', and 'region_code'. You need to extract the 'region_code' from each customer object within this array using a JSON Input step in Pentaho Data Integration (PDI).",
-      "prompt": "Which JSONPath expression will correctly extract the 'region_code' attribute from each customer object within the 'customers' array?",
+      "scenario": "A data integration process receives customer data as a JSON file. The file has a top-level key named `customers` that holds an array of customer objects, each with attributes such as `id`, `name`, and `region_code`. The `region_code` of each customer is to be extracted with a JSON input step in Pentaho Data Integration (PDI).",
+      "prompt": "Which JSONPath expression will correctly extract the `region_code` attribute from each customer object within the `customers` array?",
       "options": [
         "$.region_code[*]",
         "$.customers[*].region_code",
-        "$.customers.region_code",
-        "$.customers.*.region.code"
+        "$.customers.*.region.code",
+        "$.customers.region_code"
       ],
       "correct": 1,
-      "explanation": "'$.customers[*].region_code' — Correct: it navigates to the 'customers' array, takes each object in it with the '[*]' wildcard, and extracts that object's 'region_code' attribute. '$.region_code[*]' — Incorrect: it looks for a top-level 'region_code' array, which this JSON does not have. '$.customers.region_code' — Incorrect: it treats 'region_code' as an attribute of the 'customers' array itself rather than of each object inside it. '$.customers.*.region.code' — Incorrect: the syntax is valid, but it looks for a 'code' field inside a 'region' object, and each customer has a single 'region_code' attribute instead.",
+      "explanation": "The **JSONPath expression** `$.customers[*].region_code` selects the `customers` array, uses the `[*]` wildcard to take every object in it, and then reads the `region_code` attribute of each object.\n\n```json\n{\n  \"customers\": [\n    {\"id\": 1, \"name\": \"Alpha\", \"region_code\": \"US\"},\n    {\"id\": 2, \"name\": \"Beta\", \"region_code\": \"CA\"}\n  ]\n}\n```",
       "source": "Track History with One Step"
     },
     {
       "id": "2hr-m3-q11",
       "module": "Make It Yours",
       "bloom": "Analyze",
-      "scenario": "A data integration process enriches 'sales' records with 'customer' and 'product' details. The transformation uses two consecutive 'Stream Lookup' steps. The first 'Stream Lookup' adds 'customer' data, and its output is connected to the input of the second 'Stream Lookup', which adds 'product' information. Both 'Stream Lookups' receive lookup data from independent sources.",
-      "prompt": "What is the primary reason for chaining the second 'Stream Lookup' step to the output of the first, rather than connecting both 'Stream Lookups' directly to the original sales stream?",
+      "scenario": "A data integration process enriches sales records with customer and product details. The transformation uses two consecutive Stream lookup steps: the first adds customer data, and its output is connected to the input of the second, which adds product information. Both Stream lookup steps receive their lookup data from independent sources.",
+      "prompt": "What is the primary reason for chaining the second Stream lookup step to the output of the first, rather than connecting both Stream lookup steps directly to the original sales stream?",
       "options": [
-        "Chaining allows each Stream Lookup to propagate the original row along with any added fields, combining information from both lookups into a single output row.",
-        "Stream Lookup steps are restricted to accepting input from only one preceding transformation step.",
-        "The second Stream Lookup step requires the output of the first Stream Lookup to be sorted before processing can begin.",
-        "Connecting both Stream Lookups directly to the original sales stream would significantly increase processing time due to redundant data access."
+        "Stream lookup steps are restricted to accepting input from only one preceding transformation step.",
+        "Chaining allows each Stream lookup to propagate the original row along with any added fields, combining information from both lookups into a single output row.",
+        "The second Stream lookup step requires the output of the first Stream lookup to be sorted before processing can begin.",
+        "Connecting both Stream lookup steps directly to the original sales stream would significantly increase processing time due to redundant data access."
       ],
-      "correct": 0,
-      "explanation": "'Chaining allows each Stream Lookup to propagate the original row along with any added fields, combining information from both lookups into a single output row.' — Correct: Stream Lookup steps preserve the original input row while adding lookup data. Chaining allows for the aggregation of data from multiple sources onto a single record. 'Stream Lookup steps are restricted to accepting input from only one preceding transformation step.' — Incorrect: While this design uses a single preceding step, Stream Lookup steps are not inherently limited to only one input. 'The second Stream Lookup step requires the output of the first Stream Lookup to be sorted before processing can begin.' — Incorrect: Stream Lookup steps do not rely on sorted input data. 'Connecting both Stream Lookups directly to the original sales stream would significantly increase processing time due to redundant data access.' — Incorrect: While accessing the same source multiple times increases overhead, this is not the primary reason for the chosen design; the core issue is combining enrichment data into a single row.",
+      "correct": 1,
+      "explanation": "Chaining allows each **Stream lookup** to propagate the original row while adding the relevant fields from its lookup source. The data from both lookups is combined into a single output row.",
       "source": "Enrich and Join"
     },
     {
       "id": "2hr-m4-q5",
       "module": "See It Scale",
       "bloom": "Apply",
-      "scenario": "A 'supplier's product' file is read with a 'Text file input' whose fields were set up with 'Get Fields'. In preview, product codes such as 00125 and 04410 appear as 125 and 4410, and lookups against the product catalogue no longer match.",
-      "prompt": "What should you change to keep the product codes intact?",
+      "scenario": "A supplier product file is read using a Text file input step where fields were automatically populated using Get Fields. In the preview, product codes such as 00125 and 04410 are displayed as 125 and 4410, causing lookups against the product catalog to fail.",
+      "prompt": "What should be changed to keep the product codes intact?",
       "options": [
         "Set the file's encoding to UTF-8 on the Content tab and run Get Fields again.",
         "On the input step's Fields tab, change the product code's type from Integer to String.",
@@ -418,46 +418,46 @@
         "Tick Header on the Content tab so the first line is no longer read as data."
       ],
       "correct": 1,
-      "explanation": "'On the input step's Fields tab, change the product code's type from Integer to String' — Correct: Get Fields guesses each column's type from sample values, and codes made only of digits look like whole numbers, so it picks Integer and 00125 becomes 125. The Fields grid is the schema: make the code a String and every character is kept, so the catalogue lookups match again. 'Add a Calculator step after the input to pad each code back to five digits with zeros' — Incorrect: it patches the symptom downstream, and only works if every code was five digits long; the input step still throws the zeros away. 'Set the file's encoding to UTF-8 on the Content tab and run Get Fields again' — Incorrect: encoding decides how characters such as accented letters are read; the digits are read correctly already, and a fresh Get Fields makes the same Integer guess. 'Tick Header on the Content tab so the first line is no longer read as data' — Incorrect: the first line is already being read as field names, which is why the column holds only digits; the Header setting does not choose the column's type.",
+      "explanation": "When the Get Fields feature determines the data type, it often identifies columns containing only digits as an **Integer** type. This causes leading zeros to be dropped because they are not mathematically significant in a numeric data type.\n\nChanging the type to **String** on the Fields tab ensures that the data is treated as text, which preserves every character, including leading zeros, and allows for successful lookups against the catalog.",
       "source": "Bring Your Own Data"
     },
     {
       "id": "2hr-m4-q6",
       "module": "See It Scale",
       "bloom": "Apply",
-      "scenario": "A data analyst receives a flat file of 'sales' transactions, already sorted by 'category', each with a category and a numeric amount. The analyst needs a summary showing the total amount for each 'category'.",
-      "prompt": "Within Pentaho Data Integration (PDI), which single transformation step most efficiently calculates the total amount per 'category'?",
+      "scenario": "A data analyst has a flat file of sales transactions sorted by `category`, where each record contains a category and a numeric amount. The analyst needs to generate a summary of the total amount for each category.",
+      "prompt": "Which single Pentaho Data Integration step most efficiently calculates the total amount per `category`?",
       "options": [
-        "Sort rows, ordering the input by category before outputting to a file.",
-        "Stream lookup, matching category values against a pre-defined category list.",
-        "Calculator, applying a mathematical formula to each amount field.",
-        "Group by, grouping on category and summing amount"
+        "Stream lookup, matching `category` values against a pre-defined category list",
+        "Calculator, applying a mathematical formula to each amount field",
+        "Sort rows, ordering the input by `category` before outputting to a file",
+        "Group by, grouping on `category` and summing amount"
       ],
       "correct": 3,
-      "explanation": "'Group by, grouping on category and summing amount' — Correct: This step directly addresses the requirement by grouping the data by category and applying the sum aggregation function to the amount field. 'Sort rows, ordering the input by category before outputting to a file' — Incorrect: Sorting only arranges the data; it does not perform any calculations or summarization. 'Stream lookup, matching category values against a pre-defined category list' — Incorrect: Stream lookup is used for enrichment or validation against another data source, not for aggregation. 'Calculator, applying a mathematical formula to each amount field' — Incorrect: Calculator applies a formula to individual rows; it does not group or summarise data. Group by relies on its input being sorted on the grouping field, as this file is; for unsorted input, sort it first or use Memory group by.",
+      "explanation": "The **Group by** step groups the rows by the `category` field and applies the sum aggregation to the amount field.\n\nGroup by needs its input sorted on the grouping field, as this file already is, which makes it the most efficient choice here. Unsorted input would need sorting first, or **Memory group by**.",
       "source": "Bring Your Own Data"
     },
     {
       "id": "2hr-m4-q7",
       "module": "See It Scale",
       "bloom": "Apply",
-      "scenario": "A data integration developer completes a transformation with ten steps and executes it. Upon reviewing the results, they discover a date parsing error occurred during the third step, requiring significant debugging effort.",
+      "scenario": "A data integration developer completes a transformation with 10 steps and runs it. On reviewing the results, they discover that a date parsing error occurred in the third step, which took significant effort to debug.",
       "prompt": "What proactive practice would most likely have identified this date parsing issue during the development process?",
       "options": [
-        "Previewing data at each step as the transformation is built.",
         "Applying data sorting techniques early in the transformation process.",
         "Activating detailed logging and re-running the entire transformation after completion.",
+        "Previewing data at each step as the transformation is built.",
         "Implementing a data validation step immediately preceding the final output."
       ],
-      "correct": 0,
-      "explanation": "'Previewing data at each step as the transformation is built' — Correct: This allows immediate verification of data at each stage, exposing errors like date parsing issues as they occur. 'Applying data sorting techniques early in the transformation process' — Incorrect: Sorting does not inherently reveal data type or parsing errors; it changes the order of data but not the data itself. 'Activating detailed logging and re-running the entire transformation after completion' — Incorrect: While logging can identify the error, it doesn't prevent it or help locate it quickly during development. It only reports the failure after the fact. 'Implementing a data validation step immediately preceding the final output' — Incorrect: Validation at the output stage confirms the existence of an error, but provides no insight into its source or the step where it originated.",
+      "correct": 2,
+      "explanation": "**Previewing data** at each step during the development process allows for the immediate verification of data at every stage of the transformation. This allows developers to identify issues, such as date parsing errors, as they occur rather than after the entire transformation is complete.",
       "source": "Bring Your Own Data"
     },
     {
       "id": "2hr-m4-q8",
       "module": "See It Scale",
       "bloom": "Apply",
-      "scenario": "A data engineering team receives 'daily sales' data from multiple 'regions', each formatted differently, including varying delimiters, field orders, and file encodings. The team requires a repeatable process to ingest this data into a central data warehouse, avoiding the creation of a separate transformation for each region’s data.",
+      "scenario": "A data engineering team receives daily sales data from multiple regions, each formatted differently, with varying delimiters, field orders, and file encodings. The team needs a repeatable process to ingest this data into a central data warehouse without creating a separate transformation for each region.",
       "prompt": "How does metadata injection support this requirement?",
       "options": [
         "Data validation rules are automatically applied based on the file extension, identifying and correcting errors.",
@@ -466,14 +466,14 @@
         "Separate transformations are created for each regional data format, ensuring data consistency."
       ],
       "correct": 2,
-      "explanation": "‘A single transformation process can be adapted to handle diverse input files through runtime configuration.’ — Correct: Metadata injection enables a single PDI transformation to process multiple data sources by dynamically configuring its behavior using external metadata. ‘Separate transformations are created for each regional data format, ensuring data consistency.’ — Incorrect: This defeats the purpose of metadata injection, which aims to avoid creating numerous, similar transformations. ‘A standardized data format is enforced on all regional data prior to transformation, simplifying downstream processing.’ — Incorrect: While standardization is beneficial, metadata injection doesn’t *perform* the standardization; it allows the transformation to *understand* and process the data in its native format. ‘Data validation rules are automatically applied based on the file extension, identifying and correcting errors.’ — Incorrect: While validation is important, metadata injection focuses on configuration, not automatic data cleansing or validation.",
+      "explanation": "**Metadata injection** enables a single PDI transformation to process multiple data sources by dynamically configuring its behavior using external metadata at runtime.\n\nBy using a template transformation, the system can ingest different file formats without manual reconfiguration for each new source, effectively replacing the need for multiple nearly identical transformation files.",
       "source": "One Pipeline, Many Files"
     },
     {
       "id": "2hr-m2-q7",
       "module": "See It Work",
       "bloom": "Analyze",
-      "scenario": "A data integration transformation processes 'customer' records. One record fails a defined condition due to a missing 'customer ID', while another record causes a database insert step to fail due to a constraint violation.",
+      "scenario": "A data integration transformation processes customer records. One record fails a defined condition due to a missing customer ID, while another record causes a database insert step to fail due to a constraint violation.",
       "prompt": "How does the transformation engine handle these two distinct failure scenarios?",
       "options": [
         "The condition failure directs processing via the designated Filter rows output branch; the database insert failure requires explicit error handling to continue.",
@@ -482,23 +482,23 @@
         "Both failing records are automatically routed to an error handling mechanism configured on the output step, regardless of the failure type."
       ],
       "correct": 0,
-      "explanation": "'The condition failure directs processing via the designated Filter rows output branch; the database insert failure requires explicit error handling to continue.' — Correct: Condition failures are handled by routing rows to different branches of a Filter rows step. Technical failures, like database constraint violations, require error handling to be enabled on the relevant step to prevent transformation termination. 'Both failures are automatically directed to the FALSE output of the Filter rows step, allowing the transformation to continue without intervention.' — Incorrect: Only rows *evaluated* by the Filter rows step are directed to its FALSE output; a failure *within* a step (like an insert) doesn’t reach the filter. 'Both failures immediately halt the transformation, requiring manual intervention to identify and resolve the issues.' — Incorrect: This is only true if error handling is not configured. PDI allows the transformation to continue despite errors with appropriate configuration. 'Both failing records are automatically routed to an error handling mechanism configured on the output step, regardless of the failure type.' — Incorrect: Error handling must be explicitly configured on the step where the error occurs; it’s not automatic for all failures.",
+      "explanation": "Condition failures are handled by routing rows to different branches of a **Filter rows** step. Technical failures, such as database constraint violations, require **error handling** to be enabled on the relevant step to prevent the transformation from terminating.\n\nFilter rows logic is used for business logic branching, while error handling captures system-level exceptions or constraints.",
       "source": "Build the Pipeline Yourself"
     },
     {
       "id": "2hr-m3-q12",
       "module": "Make It Yours",
       "bloom": "Analyze",
-      "scenario": "A data integration specialist is designing a transformation to enrich an incoming order stream by matching customer data from a reference table containing 40 million rows. They are considering using a 'Stream lookup' step for this purpose.",
-      "prompt": "What is the most significant limitation of using a 'Stream lookup' step in this scenario?",
+      "scenario": "A data integration specialist is designing a transformation to enrich an incoming order stream by matching customer data from a reference table containing 40 million rows. They are considering using a Stream lookup step for this purpose.",
+      "prompt": "What is the most significant limitation of using a Stream lookup step in this scenario?",
       "options": [
-        "Stream lookup loads the entire reference dataset into memory, potentially exceeding available resources with a 40-million-row table.",
-        "Stream lookup requires both the incoming stream and the reference table to be sorted before the lookup can begin.",
         "Stream lookup is designed only for looking up data from flat files, and cannot connect directly to a database table.",
-        "Stream lookup duplicates every matched row from the reference table to the output stream, greatly increasing data volume."
+        "Stream lookup duplicates every matched row from the reference table to the output stream, greatly increasing data volume.",
+        "Stream lookup requires both the incoming stream and the reference table to be sorted before the lookup can begin.",
+        "Stream lookup loads the entire reference dataset into memory, potentially exceeding available resources with a 40-million-row table."
       ],
-      "correct": 0,
-      "explanation": "'Stream lookup loads the entire reference dataset into memory, potentially exceeding available resources with a 40-million-row table.' — Correct: Stream lookup is an in-memory operation, making it unsuitable for large reference tables. 'Stream lookup requires both the incoming stream and the reference table to be sorted before the lookup can begin.' — Incorrect: Stream lookup does not require sorted input streams. 'Stream lookup is designed only for looking up data from flat files, and cannot connect directly to a database table.' — Incorrect: Stream lookup can obtain its lookup data from various sources, including database tables. 'Stream lookup duplicates every matched row from the reference table to the output stream, greatly increasing data volume.' — Incorrect: Stream lookup returns at most one matching row from the reference table for each input row.",
+      "correct": 3,
+      "explanation": "The Stream lookup step is an **in-memory** operation. Because it must load the entire reference dataset into the system memory to perform the lookup, it is not suitable for large reference tables that may exceed the available resources.",
       "source": "Enrich and Join"
     }
   ]
