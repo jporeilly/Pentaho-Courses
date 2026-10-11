@@ -1,8 +1,8 @@
 {
   "title": "Streaming Data Specialty Exam",
-  "description": "20 questions drawn from a pool of 40, covering streaming concepts and the PDI streaming pattern across MQTT, Kafka, and AMQP. Pass mark is 80%. Open-book — browse any page, hover glossary terms, or ask the AI assistant. Your answers are saved as you go. Explanations appear after submission.",
+  "description": "30 questions drawn from a pool of 40, covering streaming concepts and the PDI streaming pattern across MQTT, Kafka, and AMQP. Pass mark is 80%. Open-book — browse any page, hover glossary terms, or ask the AI assistant. Your answers are saved as you go. Explanations appear after submission.",
   "passMark": 80,
-  "questionsPerAttempt": 20,
+  "questionsPerAttempt": 30,
   "shuffle": true,
   "webhookUrl": "https://script.google.com/macros/s/AKfycbzsCLkWA07Nr7qQCwibn6_RiyhYi33xzeq529mlYhf3xYZPAxKOntIN-Wd1qjv4M4c/exec",
   "questions": [

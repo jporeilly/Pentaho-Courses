@@ -1,16 +1,16 @@
 {
   "title": "Associate Exam",
-  "description": "15 questions per attempt from a pool of 30, covering data sources, bands and groups, calculations, parameters, sub-reports and publishing. Pass mark is 80%. Open-book — browse any page, hover glossary terms, or ask the AI assistant. Your answers are saved as you go. Explanations appear after submission.",
+  "description": "40 questions per attempt from a pool of 50, covering data sources, bands and groups, calculations, parameters, sub-reports and publishing. Pass mark is 80%. Open-book — browse any page, hover glossary terms, or ask the AI assistant. Your answers are saved as you go. Explanations appear after submission.",
   "passMark": 80,
   "shuffle": true,
-  "questionsPerAttempt": 15,
+  "questionsPerAttempt": 40,
   "webhookUrl": "https://script.google.com/macros/s/AKfycbzsCLkWA07Nr7qQCwibn6_RiyhYi33xzeq529mlYhf3xYZPAxKOntIN-Wd1qjv4M4c/exec",
   "questions": [
     {
       "id": "rd-m1-q1",
       "module": "Getting Started",
       "bloom": "Apply",
-      "scenario": "An invoice must match a printed template exactly: fixed positions for the logo and address block, a header on every page, and subtotals per customer. Business users will run it once it is published.",
+      "scenario": "An invoice must match a printed template exactly with fixed positions for the logo and address block, a header on every page, and subtotals per customer. Business users will run the report once it is published.",
       "prompt": "Which tool should the invoice be authored in?",
       "options": [
         "Interactive Reports",
@@ -19,15 +19,15 @@
         "Analyzer"
       ],
       "correct": 1,
-      "explanation": "Report Designer lays out banded, pixel-positioned content with page headers and per-group subtotals, which is the control a fixed template needs, and it publishes for business users to run. Analyzer explores a cube interactively and has no notion of a printed page. Interactive Reports trades layout control for quick ad-hoc authoring. Dashboard Designer arranges existing content in panels, not a paginated document.",
+      "explanation": "**Report Designer** lays out banded, pixel-positioned content with page headers and per-group subtotals, which is the control a fixed print template needs, and it publishes the report for business users to run.",
       "source": "Getting Started with Pentaho Business Analytics"
     },
     {
       "id": "rd-m1-q2",
       "module": "Getting Started",
       "bloom": "Understand",
-      "scenario": "A colleague emails a .prpt file to someone whose laptop has Report Designer installed but no network route to the database the report queries.",
-      "prompt": "What happens when they preview it?",
+      "scenario": "A colleague sends a `.prpt` file to a team member who has Report Designer installed but lacks a network route to the database the report queries.",
+      "prompt": "What happens when they attempt to preview the report?",
       "options": [
         "It will not open at all unless its data source is reachable",
         "It opens, but the query fails, as the file holds no rows",
@@ -35,46 +35,94 @@
         "It renders from rows the file cached at its last run"
       ],
       "correct": 1,
-      "explanation": "A .prpt is a definition — layout, query and connection — with no data in it, so it opens and then fails when preview runs the query against a database it cannot reach. It caches no rows. Opening the definition does not need the database; running it does. There are no placeholder values: without rows there is nothing to render.",
+      "explanation": "A `.prpt` file is a **definition file** containing the layout, query, and connection details, but it does not contain the underlying data. Because it is only a definition, the file can be opened without a connection, but the preview will fail because the **query** cannot reach the database.\n\nReport Designer does not cache rows; therefore, there are no values to render if the query fails.",
       "source": "Getting Started with Pentaho Business Analytics"
+    },
+    {
+      "id": "rd-m1-q3",
+      "module": "Getting Started",
+      "bloom": "Apply",
+      "scenario": "An author installs Pentaho on a new laptop and runs `start-pentaho.bat` to bring up the Pentaho Server. The console window opens and closes again at once, and the sign-in page never loads.",
+      "prompt": "What should the author check first?",
+      "options": [
+        "That the sample database is running before the server",
+        "That Report Designer is open before the server starts",
+        "That JAVA_HOME is set and points at the right JDK",
+        "That the SampleData connection holds its user and password"
+      ],
+      "correct": 2,
+      "explanation": "A Pentaho Server console window that closes immediately almost always comes down to the **Java home setting**: `JAVA_HOME` is unset or points at the wrong JDK. Check it with `echo $env:JAVA_HOME`, and see `set-pentaho-env.bat`, in the same folder as `start-pentaho.bat`, for what the server expects.",
+      "source": "bi-developer-rd-associate/01-mod1-getting-started"
     },
     {
       "id": "rd-m2-q1",
       "module": "Navigating Report Designer",
       "bloom": "Analyze",
-      "scenario": "Report Designer starts normally, but every sample report on the Welcome screen fails to render, while a colleague's identical installation shows them.",
+      "scenario": "Report Designer starts normally, but every sample report on the Welcome screen fails to render. A colleague with an identical installation can view them without issue.",
       "prompt": "What is the most likely explanation?",
       "options": [
-        "The samples must be published once before they display",
-        "The Welcome screen renders them from a cache built at first login",
-        "The installation has no licence, so it renders no reports",
-        "The sample database is not running, so their data source fails"
+        "The samples must be published once before they display.",
+        "The Welcome screen renders them from a cache built at first login.",
+        "The installation has no license, so it renders no reports.",
+        "The sample database is not running, so the data source fails."
       ],
       "correct": 3,
-      "explanation": "The samples are ordinary reports bound to the Pentaho sample database, which runs with the server, so when it is down they fail exactly as any report would. Report Designer does not refuse to render for want of a licence. Samples are local files and need no publishing. The Welcome screen opens the real reports, not a cache.",
+      "explanation": "The sample reports are linked to the **sample database** that runs alongside the server. If this database is not running, the report fails to render because it cannot connect to its data source.",
       "source": "Navigating Report Designer"
     },
     {
       "id": "rd-m2-q2",
       "module": "Navigating Report Designer",
       "bloom": "Understand",
-      "scenario": "A report looks right on the design canvas, with every element where the designer put it.",
+      "scenario": "A report appears correctly formatted on the design canvas with all elements positioned as intended.",
       "prompt": "What does Preview show that the canvas cannot?",
       "options": [
         "The style sheet, which the canvas deliberately leaves out",
         "Publishing errors, found by checking against the repository",
         "The same layout at print resolution, and nothing more",
-        "Real rows: where groups break, how many rows, where pages end"
+        "Real rows: where groups break, how many rows, and where pages end"
       ],
       "correct": 3,
-      "explanation": "Preview runs the query and the reporting engine over real data, so group breaks, row counts and page overflow appear as users will see them; the canvas shows one representative band. The canvas already applies styles. Preview does not contact the repository. The difference is the data, not the resolution.",
+      "explanation": "The **Preview** feature runs the query and the reporting engine over real data, which allows the system to calculate and display accurate **group breaks**, row counts, and page overflows. In contrast, the canvas only displays a single representative band of data.",
       "source": "Navigating Report Designer"
+    },
+    {
+      "id": "rd-m2-q3",
+      "module": "Navigating Report Designer",
+      "bloom": "Understand",
+      "scenario": "An author must show the No Data band on the design canvas so a message can be added to it. In the same report, the quantity number field needs a pale background color.",
+      "prompt": "Where are these two settings made?",
+      "options": [
+        "Style pane for both the band and the color",
+        "Attributes pane for the band, Style pane for the color",
+        "Style pane for the band, Attributes pane for the color",
+        "Attributes pane for both the band and the color"
+      ],
+      "correct": 1,
+      "explanation": "The **Style pane** holds an element's visual and positional options, so the background color is set there, in the `bg-color` property under text.\n\nThe **Attributes pane** holds the low-level properties and the input and output options, including `hide-on-canvas`. A band such as No Data is shown on the canvas by selecting it in the Structure pane and setting its `hide-on-canvas` attribute to `false`.",
+      "source": "bi-developer-rd-associate/03-mod2-navigating-report-designer"
+    },
+    {
+      "id": "rd-m2-q4",
+      "module": "Navigating Report Designer",
+      "bloom": "Analyze",
+      "scenario": "A report holds only a bar chart in its Report Header, showing total sales for each product line by year. Its query returns every order line, about 3,000 rows, and the totals are worked out as the report runs. The author wants the report to do less work.",
+      "prompt": "Where should the totals be calculated?",
+      "options": [
+        "In the Report Footer, where every row has already been read",
+        "In a Sum function in the Data pane that feeds the chart",
+        "In the query, with a SUM grouped by product line and year",
+        "In a sub-report that runs its own copy of the query"
+      ],
+      "correct": 2,
+      "explanation": "With `SUM` and `GROUP BY` in the query, the database does the aggregation and the chart receives one row per product line and year instead of every order line. The engine could total the detail rows itself, but a few aggregated rows are far cheaper to ship than thousands, so the rule is to **aggregate in SQL** wherever possible.\n\nThe chart's **data collector** builds its dataset from whatever rows the query returns, during the engine's first pass, so the chart in the Report Header shows the same totals from far fewer rows.",
+      "source": "bi-developer-rd-associate/03-mod2-navigating-report-designer"
     },
     {
       "id": "rd-m3-q1",
       "module": "Data Sources & Queries",
       "bloom": "Apply",
-      "scenario": "A report must read order data straight from the company's PostgreSQL warehouse, using SQL the report author writes.",
+      "scenario": "A report must read order data directly from the company's PostgreSQL warehouse using SQL written by the report author.",
       "prompt": "Which data source type should the report use?",
       "options": [
         "Pentaho Analysis",
@@ -83,47 +131,47 @@
         "JDBC"
       ],
       "correct": 3,
-      "explanation": "A JDBC data source connects to a relational database and runs the author's SQL. Metadata queries a business model defined in an XMI file, not hand-written SQL. Pentaho Analysis queries a Mondrian schema. XML reads an XQuery file.",
+      "explanation": "A **JDBC** data source provides a way to connect to a relational database and execute custom SQL statements directly against the source tables.",
       "source": "Data Sources & Queries"
     },
     {
       "id": "rd-m3-q2",
       "module": "Data Sources & Queries",
       "bloom": "Analyze",
-      "scenario": "Report writers who do not know the database schema must build reports against it, and the same column formatting and access rules must apply to every report they produce.",
-      "prompt": "Why point the reports at a Metadata model rather than straight at JDBC?",
+      "scenario": "Report writers do not know the database schema, but they must produce reports where specific column formatting and access rules are applied consistently across all reports.",
+      "prompt": "Why should these reports point to a metadata model instead of a direct JDBC connection?",
       "options": [
-        "The model caches query results, so it runs faster than raw JDBC",
-        "The model translates the SQL into each writer's own dialect",
-        "A JDBC connection cannot be shared by more than one report",
-        "Names, formatting and security are set once, above the schema"
+        "The model caches query results, so it runs faster than raw JDBC.",
+        "The model translates the SQL into each writer's own dialect.",
+        "A JDBC connection cannot be shared by more than one report.",
+        "Names, formatting, and security are set once, above the schema."
       ],
       "correct": 3,
-      "explanation": "A metadata model presents business names, formatting and row or column rules defined once above the schema, so writers never see raw tables and every report built on it inherits the rules. It is not a result cache. Any number of reports can share a JDBC connection. The model generates SQL for its database; it does not translate into per-writer dialects.",
+      "explanation": "A **metadata model** is a layer above the physical database schema. Business names, formatting, and security rules are defined in it once, so writers never see raw tables and every report built on the model inherits the rules.",
       "source": "Data Sources & Queries"
     },
     {
       "id": "rd-m4-q1",
       "module": "Report Elements & Groups",
       "bloom": "Analyze",
-      "scenario": "An element in the Details band appears once for every row returned. Moved into the Group Header, the same element appears once per group.",
-      "prompt": "What does that show about how bands work?",
+      "scenario": "An element in the Details band appears once for every row returned, while the same element moved into a Group Header appears only once per group.",
+      "prompt": "What does this behavior indicate about how bands function?",
       "options": [
-        "A band prints once per thing it stands for, so placement sets repetition",
-        "The group header hides duplicates but still renders the element per row",
-        "Bands set vertical position only; a property on each element sets repetition",
-        "Each element renders once wherever it sits; only the Details band loops"
+        "A band prints once per thing it stands for, so placement sets repetition.",
+        "The group header hides duplicates but still renders the element per row.",
+        "Bands set vertical position only; a property on each element sets repetition.",
+        "Each element renders once wherever it sits; only the Details band loops."
       ],
       "correct": 0,
-      "explanation": "A band is printed once for each thing it stands for — once per row for Details, once per group for a Group Header — so the band an element sits in decides how often it is output. Repetition is not an element property. Nothing is rendered per row and then hidden. Group bands repeat too, once per group.",
+      "explanation": "The **band type** determines the repetition logic for any element placed within it. Because a band is printed once for every unit it represents—such as a row or a group—the placement of an element determines its output frequency.\n\nRepetition is not an individual property of an element; instead, the element follows the behavior of the **container band** in which it resides.",
       "source": "Adding Report Elements and Creating Groups"
     },
     {
       "id": "rd-m4-q2",
       "module": "Report Elements & Groups",
       "bloom": "Understand",
-      "scenario": "A flat list of order lines must be broken into sections, one per product line, each with its own heading and subtotal.",
-      "prompt": "What does adding a group on PRODUCTLINE do?",
+      "scenario": "A flat list of order lines must be broken into sections where each product line has its own heading and subtotal.",
+      "prompt": "What does adding a group on `PRODUCTLINE` do?",
       "options": [
         "Runs a separate query for each product line in turn",
         "Sorts the query's rows by product line without changing the layout",
@@ -131,23 +179,23 @@
         "Hides every product line except the one that is selected"
       ],
       "correct": 2,
-      "explanation": "A group starts a new section each time the product line changes, with a group header and footer for labels and totals. It does not sort anything: it relies on the query's ORDER BY. It runs no extra query. Restricting to one product line is a parameter's job.",
+      "explanation": "Adding a **group** starts a new section every time the `PRODUCTLINE` value changes, with its own header and footer bands for labels and totals.\n\nA group does not sort the rows: it relies on the query's `ORDER BY`, and it runs no extra query.",
       "source": "Adding Report Elements and Creating Groups"
     },
     {
       "id": "rd-m5-q1",
       "module": "Calculations",
       "bloom": "Understand",
-      "scenario": "Quantity in Stock should print in red when it falls below 1,000 and in black otherwise.",
-      "prompt": "How is that done in Report Designer?",
+      "scenario": "A report must highlight a specific inventory metric. The quantity in stock should appear in red text when it falls below 1,000 and in black otherwise.",
+      "prompt": "How is this achieved in Report Designer?",
       "options": [
         "A setting chosen in the publish dialog",
         "A group sorted on the quantity column",
         "A formula on the element's text-color style property",
-        "A CASE expression in the SQL that returns the colour"
+        "A CASE expression in the SQL that returns the color"
       ],
       "correct": 2,
-      "explanation": "Any style property can carry a formula, evaluated for each row; =IF([QUANTITYINSTOCK]<1000;\"RED\";\"BLACK\") on text-color is the whole technique. A CASE in the SQL could return a word, but nothing would colour the element unless a style property used it. Publishing has no formatting settings. Sorting orders rows; it does not colour them.",
+      "explanation": "In Report Designer any **style property** can carry a formula, evaluated for each row. On the `text-color` property, this formula is the whole technique:\n\n```\n=IF([QUANTITYINSTOCK]<1000;\"RED\";\"BLACK\")\n```",
       "source": "Performing Calculations (Formulas & Functions)"
     },
     {
@@ -163,15 +211,15 @@
         "A second query that sums the quantity for each product line"
       ],
       "correct": 0,
-      "explanation": "A Sum function added in the Data pane, with Reset on Group Name set to the product-line group, totals each group, and dragged into the group footer it prints below the rows. A second query duplicates what the engine already computes. A sub-report in Details runs once per row. A parameter takes input from users; it does not total anything.",
+      "explanation": "A **Sum function** added in the Data pane with the **Reset on Group Name** property set to the product-line group calculates the total for each group. Placing this function in the group footer ensures it prints immediately after the detail rows of that group.",
       "source": "Performing Calculations (Formulas & Functions)"
     },
     {
       "id": "rd-m6-q1",
       "module": "Formatting the Report",
       "bloom": "Apply",
-      "scenario": "A multi-page report must show the company name and the run date at the top of every page, not only the first.",
-      "prompt": "Which band should hold them?",
+      "scenario": "A multi-page report must display the company name and the current run date at the top of every page instead of only on the first page.",
+      "prompt": "Which band should hold these fields?",
       "options": [
         "Report Footer",
         "Page Header",
@@ -179,14 +227,14 @@
         "Report Header"
       ],
       "correct": 1,
-      "explanation": "The Page Header prints at the top of every page. The Report Header prints once, at the start of the report. A Group Header prints once per group, wherever that falls. The Report Footer prints once, at the end.",
+      "explanation": "The **Page Header** band prints at the top of every page in the report.\n\nThis ensures that consistent information, such as a company name, is repeated on every page for the reader.",
       "source": "Formatting the Report"
     },
     {
       "id": "rd-m7-q1",
       "module": "Report Parameters",
       "bloom": "Apply",
-      "scenario": "A report takes a region parameter. Users keep mistyping region names and getting empty reports, so the prompt must offer only regions that exist.",
+      "scenario": "A report uses a region parameter. Users frequently mistype region names, which results in empty reports. The prompt must be configured to only offer valid regions.",
       "prompt": "How should the parameter be set up?",
       "options": [
         "Check the value with a formula once the report has finished running",
@@ -195,14 +243,14 @@
         "Match region names in the main query case-insensitively"
       ],
       "correct": 1,
-      "explanation": "A list parameter backed by its own query offers only the regions that exist, and with strict values on it rejects anything else, so the mistake cannot be made. A default pre-selects a value but does not restrict the rest. Checking after the run catches the error too late. Case-insensitive matching still fails on a misspelling.",
+      "explanation": "Backing the parameter with a **query-based list** offers only the regions that exist, and with **strict values** set it rejects anything else, so the mistake cannot be made.",
       "source": "Report Parameters"
     },
     {
       "id": "rd-m7-q2",
       "module": "Report Parameters",
       "bloom": "Analyze",
-      "scenario": "An author adds a Territory parameter to a report. The prompt appears in preview, but choosing EMEA still shows every territory.",
+      "scenario": "An author adds a Territory parameter to a report. The prompt appears in preview, but selecting a specific territory still returns all records from every territory.",
       "prompt": "What is missing?",
       "options": [
         "A WHERE clause in the query that uses ${TERRITORY}",
@@ -211,7 +259,7 @@
         "A group on Territory, which the prompt then filters"
       ],
       "correct": 0,
-      "explanation": "Defining a parameter builds the prompt; it filters nothing until the query references it, as in WHERE territory IN (${TERRITORY}). A default only pre-selects a value. A group structures rows; it does not filter them. Preview applies parameters exactly as the server does.",
+      "explanation": "Defining a parameter only creates the **prompt**; it does not filter anything by itself. The selection takes effect only when the query references the parameter, as in `WHERE territory IN (${TERRITORY})`.",
       "source": "Report Parameters"
     },
     {
@@ -219,22 +267,22 @@
       "module": "Charts & Sub Reports",
       "bloom": "Analyze",
       "scenario": "Beside each customer, a report must list that customer's open invoices. The invoice rows come from a different query than the customer rows.",
-      "prompt": "Why does that call for a sub-report rather than a group?",
+      "prompt": "Why does this call for a sub-report rather than a group?",
       "options": [
-        "A group can break on only one column, and this needs two",
-        "A group only arranges rows already returned; a sub-report runs its own query",
-        "A group cannot sit in the Details band, so side content must be a sub-report",
-        "A sub-report runs its query once for the whole report, so it is faster"
+        "A group can break on only one column, and this needs two.",
+        "A group only arranges rows already returned; a sub-report runs its own query.",
+        "A group cannot sit in the Details band, so side content must be a sub-report.",
+        "A sub-report runs its query once for the whole report, so it is faster."
       ],
       "correct": 1,
-      "explanation": "Grouping structures the rows the main query already returned; a sub-report carries its own query, run in the context of the parent row and linked by a parameter, which is how a second result set gets in. Where a group can sit is not the issue. A sub-report in Details runs once per parent row, not once overall. Groups can break on several fields.",
+      "explanation": "A **group** only organizes the results of the primary query, whereas a **sub-report** executes its own independent query in the context of the parent row.\n\nBecause the invoice data is retrieved from a separate query, it requires the sub-report to fetch and display the secondary result set linked by a parameter.",
       "source": "Charts & Sub Reports"
     },
     {
       "id": "rd-m8-q2",
       "module": "Charts & Sub Reports",
       "bloom": "Apply",
-      "scenario": "A bar chart shows sales by order status. Managers want to click a bar and open the published Order Status report, filtered to that status.",
+      "scenario": "A bar chart displays sales by order status. Managers want to click a bar and open a published Order Status report that is filtered to the status of that bar.",
       "prompt": "What does the chart need?",
       "options": [
         "A url-formula using DRILLDOWN that passes the bar's category",
@@ -243,47 +291,47 @@
         "3-D rendering, so that each bar can take a click"
       ],
       "correct": 0,
-      "explanation": "The chart's url-formula is evaluated per bar, and DRILLDOWN builds the viewer URL for the target report with [\"chart::category-key\"] as its status parameter; only HTML output makes the bars clickable. Another value column adds a series, not a link. A sub-report embeds content; it does not navigate. 3-D is appearance only.",
+      "explanation": "The chart needs a **url-formula** that uses the **DRILLDOWN** function. It is evaluated for each bar and builds the viewer URL for the target report, passing the bar's category as its status parameter.\n\nOnly HTML output makes the bars clickable.",
       "source": "Charts & Sub Reports"
     },
     {
       "id": "rd-m9-q1",
       "module": "Publishing Reports",
       "bloom": "Evaluate",
-      "scenario": "A finished report must reach thirty business users. A colleague proposes emailing them the .prpt file, arguing it avoids a dependency on the server and lets everyone keep a copy.",
+      "scenario": "A report must be distributed to 30 business users. A colleague suggests emailing the `.prpt` file to each user to avoid server dependency and allow them to keep personal copies.",
       "prompt": "How should that proposal be judged?",
       "options": [
-        "Accept it for now, since publishing later keeps the copies in step",
-        "Reject it, because .prpt files cannot be sent by email at all",
-        "Reject it: each user needs the tool and data access, and copies drift",
-        "Accept it: a .prpt carries its own data, so only the file size matters"
+        "Accept it for now, since publishing later keeps the copies in step.",
+        "Reject it, because .prpt files cannot be sent by email at all.",
+        "Reject it: each user needs the tool and data access, and copies drift.",
+        "Accept it: a .prpt carries its own data, so only the file size matters."
       ],
       "correct": 2,
-      "explanation": "A .prpt is a definition that needs Report Designer and a reachable database to become a report, which most of the thirty lack, and thirty copies diverge from the first correction; publishing puts one copy on the server, run against the server's data. The file holds no data. Publishing later does not update copies already sent. Email can carry the file; that is not the problem.",
+      "explanation": "A `.prpt` file is a **report definition** and does not contain any data. To view the report, a user must have access to the required tools and a **reachable database**, which is not guaranteed for all recipients.\n\nDistributing individual files to 30 people causes the files to diverge from the original version over time. Publishing the report ensures a single, consistent copy is run against the central data on the server.",
       "source": "Publishing Reports"
     },
     {
       "id": "rd-m9-q2",
       "module": "Publishing Reports",
       "bloom": "Analyze",
-      "scenario": "A report is published. The author then opens the local .prpt, fixes a column heading and saves it, but users still see the old heading.",
-      "prompt": "Why is the heading still wrong for users?",
+      "scenario": "A report is published to a repository. An author opens the local `.prpt` file, corrects a column heading, and saves the local file.",
+      "prompt": "Why do users still see the old heading?",
       "options": [
-        "Users must sign out and back in to see the saved change",
-        "The server caches rendered output until a timer runs out",
-        "Publishing uploaded a copy, so the fix must be published again",
-        "Headings live in the repository's metadata and are edited there"
+        "Users must sign out and back in to see the saved change.",
+        "The server caches rendered output until a timer runs out.",
+        "Publishing uploaded a copy, so the fix must be published again.",
+        "Headings live in the repository's metadata and are edited there."
       ],
       "correct": 2,
-      "explanation": "Publishing is a file upload, not a link: the repository holds its own copy, so the corrected local file has to be published again. The server renders from its copy on each run rather than holding output for a set period. The heading is part of the report definition, not repository metadata. Signing in again reads the same copy.",
+      "explanation": "Publishing creates a **separate copy** of the file in the repository, so updating the local file does not change the version on the server. The edited file must be published again for users to see the change.",
       "source": "Publishing Reports"
     },
     {
       "id": "rd-m9-q3",
       "module": "Publishing Reports",
       "bloom": "Apply",
-      "scenario": "A summary report lists sales by region. Clicking a region should open a detail report showing only that region's transactions.",
-      "prompt": "Which three things does the drill-through need?",
+      "scenario": "A summary report lists sales by region. A user wants to click a region to open a detail report showing only the transactions for that specific region.",
+      "prompt": "Which three components are required to implement this drill-through?",
       "options": [
         "A hyperlink on the region element that targets the published detail report",
         "The region value passed to the target report as a parameter",
@@ -296,15 +344,15 @@
         1,
         2
       ],
-      "explanation": "A drill-through is something to click (a hyperlink to the published detail report), a value to carry (the region, passed as a parameter) and something at the other end that uses it (a parameter the detail query references); miss the last and the detail opens unfiltered. A sub-report embeds rather than navigates. The two reports need share nothing but the parameter.",
+      "explanation": "A drill-through needs a **hyperlink** on the element that opens the published detail report, and the region's value passed to that report as a **parameter**.\n\nThe detail report must have a **matching parameter** that its query uses to filter the results. Without it, the detail report opens unfiltered.",
       "source": "Hyperlinks"
     },
     {
       "id": "rd-m3-q3",
       "module": "Data Sources & Queries",
       "bloom": "Apply",
-      "scenario": "A report is developed against a test database on the author's laptop, then published to a server that must query production, without anyone editing the report.",
-      "prompt": "Which connection access type suits this?",
+      "scenario": "A report is developed against a test database on a local machine and is later deployed to a server that must query a production database without modifying the report source.",
+      "prompt": "Which connection access type suits this requirement?",
       "options": [
         "Native JDBC, with the production URL typed into the report",
         "Native JDBC, with the credentials passed in a hidden parameter",
@@ -312,7 +360,7 @@
         "ODBC, which the server translates into its own connection"
       ],
       "correct": 2,
-      "explanation": "A JNDI connection stores only a name: Report Designer resolves it locally, the server against its own data sources, so one report reaches test on the laptop and production on the server, and the credentials stay on the server. A typed production URL points preview at production too and carries credentials in the file. ODBC is not how the server resolves connections. A hidden parameter still puts the connection details in the report.",
+      "explanation": "A **JNDI connection** stores only a name rather than specific connection details. This allows the report to be deployed to different environments where the local system resolves the name to a test database and the server resolves the same name to a production database.\n\nBecause the resolution happens at the environment level, the credentials remain secured on the server and the report file does not need to be edited for different environments.",
       "source": "Data Sources & Queries"
     },
     {
@@ -328,15 +376,47 @@
         "The Details Header is set to repeat on every page"
       ],
       "correct": 0,
-      "explanation": "The engine starts a new group whenever the value changes from one row to the next, so rows not sorted by territory then customer produce a new territory header every time the value flips back; the fix is the query's ORDER BY. Groups are defined in the Structure pane, not on a band. There is no row cap per group. A repeating Details Header repeats column labels, not territory headers.",
+      "explanation": "The reporting engine determines when to start a new group based on whether the value of the group field changes from one record to the next. If the data is not sorted by the grouping field, the engine will trigger a new **group header** every time the value flips back and forth, resulting in repeated headers for the same territory.\n\nTo ensure headers appear only when a value actually changes, the underlying SQL query must include a specific `ORDER BY` clause to keep identical group values contiguous.",
       "source": "Data Sources & Queries"
+    },
+    {
+      "id": "rd-m3-q5",
+      "module": "Data Sources & Queries",
+      "bloom": "Apply",
+      "scenario": "A report gets its rows from a PDI transformation. The transformation needs a region and a start date as parameters, and report users must choose both values each time they run it.",
+      "prompt": "How should the users' values reach the transformation?",
+      "options": [
+        "As environment variables the server sets for each user's session",
+        "As report parameters, each mapped to a transformation parameter",
+        "As a WHERE clause on the rows the transformation returns",
+        "As parameter defaults edited in the transformation before each run"
+      ],
+      "correct": 1,
+      "explanation": "A **Pentaho Data Integration** data source runs a `.ktr` transformation and uses the rows of the step selected in the data source as its data set. Its Edit Parameter dialog maps each of the transformation's **named parameters** to a report parameter, so the values users choose in the prompts are passed into the transformation when the report runs.\n\nThe report parameters themselves are added in the Data tab, by right-clicking Parameters and choosing Add Parameter.",
+      "source": "bi-developer-rd-associate/29-ref-data-sources"
+    },
+    {
+      "id": "rd-m3-q6",
+      "module": "Data Sources & Queries",
+      "bloom": "Analyze",
+      "scenario": "A report reads an XML file in which every order is an `order` element inside a single `document` element. Previewing the XML data source returns one record instead of one record for each order.",
+      "prompt": "What is the most likely cause?",
+      "options": [
+        "An XML data source returns one record for each file",
+        "The XPath query selects the document element, not each order",
+        "The query has no ORDER BY to split the orders apart",
+        "The orders need a group before they become records"
+      ],
+      "correct": 1,
+      "explanation": "XML is a tree with several levels, not a flat table of rows and columns, so an XML data source needs an **XPath query** to identify which nodes of the document count as **records**. Each node the expression selects becomes one record.\n\nAn expression that selects the `document` element finds a single node and so returns one record. The expression `/document/order` selects every `order` node inside it, which gives one record per order.",
+      "source": "bi-developer-rd-associate/29-ref-data-sources"
     },
     {
       "id": "rd-m4-q3",
       "module": "Report Elements & Groups",
       "bloom": "Apply",
-      "scenario": "Each product line's group header must read, for example, Product Line: Classic Cars, with the name changing for every group.",
-      "prompt": "Which single element does this?",
+      "scenario": "Each product line group header must display a dynamic label such as Product Line: Classic Cars, where the specific name changes for every group.",
+      "prompt": "Which single element displays this dynamic content?",
       "options": [
         "A message field reading Product Line: $(PRODUCTLINE)",
         "A label whose text is the word PRODUCTLINE",
@@ -344,14 +424,14 @@
         "A number field bound to the report's PRODUCTLINE column"
       ],
       "correct": 0,
-      "explanation": "A message field is a template: each time its band prints it replaces $(PRODUCTLINE) with the current value, so one element produces the text for every group. A label prints its text literally. A number field is for numeric values. A label alone cannot show the changing name.",
+      "explanation": "A **message field** acts as a template that replaces the `$(PRODUCTLINE)` variable with the current value every time the band prints.\n\nThis allows a single element to generate unique text for each group by dynamically injecting the value from the underlying data source.",
       "source": "Adding Report Elements and Creating Groups"
     },
     {
       "id": "rd-m4-q4",
       "module": "Report Elements & Groups",
       "bloom": "Apply",
-      "scenario": "A designer drags a text field from the Details band towards the Group Header, but it will not cross: the Details band just grows taller.",
+      "scenario": "A designer attempts to move a text field from the Details band to the Group Header band in a report template, but the field stays in its original band and the band expands in height.",
       "prompt": "How is the element moved into the Group Header?",
       "options": [
         "Hold Ctrl while dragging it across the band border",
@@ -360,8 +440,40 @@
         "Cut it from Details and paste it into the Group Header"
       ],
       "correct": 3,
-      "explanation": "Elements cannot be dragged from one band to another — dragging towards a border just resizes the band — so they are cut from one band and pasted into the other. No key modifier lets a drag cross bands. An element has no band attribute to change. Deleting the band would delete the element with it.",
+      "explanation": "Because elements cannot be moved between bands by dragging, the item must be **cut and pasted** to change its band assignment.\n\nDragging an element toward a border will only resize the band rather than moving the element across the boundary.",
       "source": "Adding Report Elements and Creating Groups"
+    },
+    {
+      "id": "rd-m4-q5",
+      "module": "Report Elements & Groups",
+      "bloom": "Apply",
+      "scenario": "A product report grouped by product line is exported to Excel for the sales team. The team wants each product line on its own worksheet.",
+      "prompt": "What should the author set?",
+      "options": [
+        "`pagebreak-after` set to true on the group",
+        "`repeat-header` set to true on the Group Header",
+        "`avoid-page-break` set to true on the group",
+        "`display-on-first-page` set to true on the Group Header"
+      ],
+      "correct": 0,
+      "explanation": "Setting `pagebreak-after` to true on the group tells the **pagination pass** to end the page once that group's footer has printed. The Excel exporter has no pages, so it maps each **page break** to a new worksheet, and each product line arrives on its own tab.\n\nThis follows a general rule: the engine produces one laid-out result, and each **output processor** renders it the way its format can. PDF and print honor the same page break literally.",
+      "source": "bi-developer-rd-associate/07-mod4-adding-elements-groups"
+    },
+    {
+      "id": "rd-m4-q6",
+      "module": "Report Elements & Groups",
+      "bloom": "Analyze",
+      "scenario": "A product listing looks correct in the Preview window. Its HTML and Excel exports, however, show unusual layout problems in the Details band.",
+      "prompt": "What is the most likely cause?",
+      "options": [
+        "The grid and guides were saved into the exported files.",
+        "Dragged fields store no exact position, so exports guess one.",
+        "The query does not sort the rows by the group field.",
+        "Elements in the Details band overlap one another."
+      ],
+      "correct": 3,
+      "explanation": "Report Designer places every element at an absolute position in its band, and elements do not flow around each other. **Overlapping elements** may look agreeable in the Preview window and in some kinds of output, but the HTML and Excel output formats have unusual problems with them, so the guidance is to avoid overlapping elements altogether.\n\nEach **output processor** renders the same laid-out result the way its own format can.",
+      "source": "bi-developer-rd-associate/06-mod4-overview"
     },
     {
       "id": "rd-m5-q3",
@@ -376,14 +488,62 @@
         "A second query that sums each group, run for every header"
       ],
       "correct": 2,
-      "explanation": "The engine reads the data twice: a TotalGroupSumFunction totals each group in the first pass, so it can print the complete total from the group's first row, in the header. An ItemSumFunction is a running sum, correct only once the group's last row has passed, and with the reset left blank it runs across the whole report. A second query repeats work the engine already does. Multiplying the first row guesses a total.",
+      "explanation": "A **TotalGroupSumFunction** calculates the total for each group during an initial pass of the data. This allows the engine to provide the complete total for the group even when that value is required in the header before the group rows are processed.\n\nIn contrast, an ItemSumFunction is a running sum that is only accurate once the final row of a group has passed.",
       "source": "Performing Calculations (Formulas & Functions)"
+    },
+    {
+      "id": "rd-m5-q4",
+      "module": "Calculations",
+      "bloom": "Apply",
+      "scenario": "In an order report, the `STATUS` cell must have a red background for both `Cancelled` and `Disputed` orders, and a green background for every other status.",
+      "prompt": "Which formula belongs on the cell's `bg-color` property?",
+      "options": [
+        "`=IF(AND([STATUS]=\"Cancelled\";[STATUS]=\"Disputed\");\"red\";\"green\")`",
+        "`=IF(OR(STATUS=\"Cancelled\";STATUS=\"Disputed\");\"red\";\"green\")`",
+        "`=IF(OR([STATUS]=\"Cancelled\";[STATUS]=\"Disputed\");red;green)`",
+        "`=IF(OR([STATUS]=\"Cancelled\";[STATUS]=\"Disputed\");\"red\";\"green\")`"
+      ],
+      "correct": 3,
+      "explanation": "Report Designer formulas follow **OpenFormula** syntax: column names in uppercase inside square brackets, such as `[STATUS]`, and values in quotes, including color values such as `\"red\"`. The **OR** function returns true when either comparison is true, so the `IF` returns `\"red\"` for a `Cancelled` order and for a `Disputed` one, and `\"green\"` for every other status.\n\nPlaced on the element's `bg-color` style property, the formula drives **conditional formatting**: it is evaluated for each row, and the color it returns paints the cell's background.",
+      "source": "bi-developer-rd-associate/36-ref-common-formulas"
+    },
+    {
+      "id": "rd-m5-q5",
+      "module": "Calculations",
+      "bloom": "Apply",
+      "scenario": "A long inventory listing has many narrow columns, and readers lose track of which values belong to the same row. The manager wants every other detail row shaded.",
+      "prompt": "What should the author add?",
+      "options": [
+        "A bottom border on the Details band",
+        "A Row Banding function",
+        "A Hide Repeating function",
+        "One background color set on the Details band"
+      ],
+      "correct": 1,
+      "explanation": "The **Row Banding** function alternates the background color of each item band in a group, so every other detail row prints shaded. It belongs to the **Report functions**, the category of functions that modify the layout of the rendered report.\n\nLike other functions, it is added from the Data pane by right-clicking Functions and choosing Add Functions.",
+      "source": "bi-developer-rd-associate/35-ref-function-reference"
+    },
+    {
+      "id": "rd-m5-q6",
+      "module": "Calculations",
+      "bloom": "Understand",
+      "scenario": "An author writes a formula that divides `[QUANTITYINSTOCK]` by `[RunningStock]`, a running Sum function in the report. The Formula Editor shows no warning, but it also shows no result for the formula.",
+      "prompt": "Why does the editor show no result?",
+      "options": [
+        "The function's value is calculated only while the report runs.",
+        "The formula contains an error that the editor does not report.",
+        "Formulas cannot divide, so the division belongs in the query.",
+        "A formula can refer to query columns, but never to functions."
+      ],
+      "correct": 0,
+      "explanation": "The Formula Editor warns when the formula text contains an error; otherwise it tries to show the result by evaluating the formula against the first data row. A running total is a **stateful function**: it maintains its state during report generation, so its value is **calculated during the execution of the report** and there is nothing for the editor to show beforehand.\n\nThe missing result does not mean the formula is wrong. Functions, query columns, and parameters share one namespace, so a formula can refer to a function by name just as it refers to `[QUANTITYINSTOCK]`.",
+      "source": "bi-developer-rd-associate/10-mod5-conditional-formatting"
     },
     {
       "id": "rd-m6-q2",
       "module": "Formatting the Report",
       "bloom": "Apply",
-      "scenario": "A published report is run by users in the US and in Germany, and its price column must show each user's own currency symbol.",
+      "scenario": "A published report is accessed by users in different countries. The price column must display the appropriate currency symbol based on the locale of the user running the report.",
       "prompt": "What should the format pattern use for the symbol?",
       "options": [
         "A formula that picks $ or € from the user's name",
@@ -392,24 +552,72 @@
         "¤, which each locale replaces with its currency symbol"
       ],
       "correct": 3,
-      "explanation": "The format attribute is a Java DecimalFormat pattern, and ¤ in it is replaced at run time with the currency symbol of the locale the report runs in — $ in the US, € in Germany. A literal $ stays a dollar sign everywhere. Guessing the currency from a name is fragile and needless. Two columns duplicate the design for what one pattern does.",
+      "explanation": "The format attribute is a **Java DecimalFormat** pattern. The use of the `¤` character ensures that the system replaces the symbol at run time with the specific currency symbol associated with the user's locale, such as `$` for the United States or `€` for Germany.\n\nUsing a literal `$` in the pattern would result in a dollar sign being displayed regardless of the locale.",
       "source": "Formatting the Report"
     },
     {
       "id": "rd-m6-q3",
       "module": "Formatting the Report",
       "bloom": "Evaluate",
-      "scenario": "Forty reports share the company's colours and fonts, and a rebrand is coming next quarter.",
+      "scenario": "Forty reports share the company colors and fonts, and a rebrand is scheduled for next quarter.",
       "prompt": "Which approach makes the rebrand cheapest?",
       "options": [
         "The formatting toolbar, copying one report's styles across",
         "One stylesheet (.prptstyle) linked by every report, changed once",
-        "Styles set on each report's master report, changed forty times",
+        "Styles set on each report's master report, changed 40 times",
         "A copy of the stylesheet embedded in each of the reports"
       ],
       "correct": 1,
-      "explanation": "A .prptstyle stylesheet linked by every report holds the colours and fonts in one place, so the rebrand is one edit that all forty follow. Master-report styles cascade within one report, so forty reports mean forty edits. The toolbar formats element by element. An embedded copy lives inside each report, so it too has to be changed forty times.",
+      "explanation": "Using a **linked stylesheet** (.prptstyle) allows all reports to reference a single file for colors and fonts. This ensures that a rebrand requires only one edit to update all 40 reports.",
       "source": "Formatting the Report"
+    },
+    {
+      "id": "rd-m6-q4",
+      "module": "Formatting the Report",
+      "bloom": "Apply",
+      "scenario": "A 30-page sales report is printed and handed out page by page at a meeting. Each page must show, at the bottom, its own page number together with the total number of pages.",
+      "prompt": "Which function should the Page Footer field use?",
+      "options": [
+        "The Total Page Count function",
+        "The Count by Page function",
+        "The Page of Pages function",
+        "The Page function"
+      ],
+      "correct": 2,
+      "explanation": "The **Page of Pages** function, in the Common category, prints the current page number against the total, such as 3 / 12. It is added from the Data pane and bound to a text field in the Page Footer through that field's `field` attribute.\n\nThe total is known only once the **pagination pass** has laid out the entire report, which is why page functions belong in the Page Header and Page Footer bands. Because the count is measured, it stays right when a parameter changes the length of the report.",
+      "source": "bi-developer-rd-associate/14-mod6-headers-footers"
+    },
+    {
+      "id": "rd-m6-q5",
+      "module": "Formatting the Report",
+      "bloom": "Analyze",
+      "scenario": "A designer changes the `text-color` of a Group Header band from blue to green. Most elements in the band turn green, but two labels stay blue.",
+      "prompt": "What is the most likely cause?",
+      "options": [
+        "The two labels carry a color setting of their own.",
+        "Labels take their color from the Page Header, not their band.",
+        "A band's color reaches only elements added after the change.",
+        "The report's default style outranks the band for labels."
+      ],
+      "correct": 0,
+      "explanation": "Every visual property is a **style key**, stored per element. A key that an element has not set is inherited from the band it sits in, then from the report's default style, much like CSS, so a new `text-color` on the band reaches every element that has no color of its own.\n\nAn element's own `text-color` **overrides** the inherited value, so those two labels keep theirs. The formatting toolbar writes the same keys as the Style pane, so a color applied to them from the toolbar is also a setting of their own.",
+      "source": "bi-developer-rd-associate/15-mod6-formatting-report"
+    },
+    {
+      "id": "rd-m6-q6",
+      "module": "Formatting the Report",
+      "bloom": "Evaluate",
+      "scenario": "A promotional banner appears in the Report Header of 20 published reports. Marketing replaces the banner image each month in a repository folder that all 20 reports can reach on the server.",
+      "prompt": "Which way of adding the banner is best?",
+      "options": [
+        "Link the image, so publishing copies it into each report.",
+        "Link the image, so each run fetches the current banner.",
+        "Embed the image, so the server refreshes it from the folder.",
+        "Embed the image, so each report carries its own copy."
+      ],
+      "correct": 1,
+      "explanation": "A **linked image** keeps only its path, and the engine's resource loader fetches the file at run time, relative to the report's location; on the server that is a repository path. Every run of the 20 reports therefore shows the banner Marketing saved most recently, with no report edited or republished.\n\nThe rule is to embed anything the report cannot function without, and to link only what **changes independently of the report** and is guaranteed to exist where the report runs. The banner meets both conditions.",
+      "source": "bi-developer-rd-associate/14-mod6-headers-footers"
     },
     {
       "id": "rd-m8-q3",
@@ -424,30 +632,62 @@
         "Once, before the master report starts"
       ],
       "correct": 0,
-      "explanation": "A sub-report runs each time the band that contains it is processed, and the Details band is processed once per row, so it runs 500 times, each in the context of its customer. It would run once only in the Report Header. It is not tied to pages. It would run once per group if it sat in a Group Header.",
+      "explanation": "The **sub-report** execution is determined by the band in which it is placed. Because the Details band is processed once for every record in the data set, the sub-report executes 500 times, once for each customer record.",
       "source": "Charts & Sub Reports"
     },
     {
       "id": "rd-m8-q4",
       "module": "Charts & Sub Reports",
       "bloom": "Analyze",
-      "scenario": "A chart in the Report Header correctly summarises every detail row printed below it, though the header prints before any of those rows.",
+      "scenario": "A chart in a Report Header correctly summarizes every detail row printed below it, even though the header is printed before those rows.",
       "prompt": "How does the chart already have that data?",
       "options": [
-        "The chart runs its own copy of the report's query",
-        "The chart shows figures cached from the previous run",
-        "The engine's first pass collects every row before the header prints",
-        "The header is printed last of all, then moved to the top of the page"
+        "The chart runs its own copy of the report's query.",
+        "The chart shows figures cached from the previous run.",
+        "The engine's first pass collects every row before the header prints.",
+        "The header is printed last of all, then moved to the top of the page."
       ],
       "correct": 2,
-      "explanation": "The reporting engine processes the data twice; during the first pass the chart's data collector visits every row and builds the dataset, and when the header prints in the second pass the chart draws it. No second query runs. Bands print in order. Nothing is cached between runs.",
+      "explanation": "The reporting engine performs two passes over the data. During the first pass, the **data collector** visits every row to build the dataset, and when the header prints in the second pass, the chart renders the collected information.",
       "source": "Charts & Sub Reports"
+    },
+    {
+      "id": "rd-m8-q5",
+      "module": "Charts & Sub Reports",
+      "bloom": "Apply",
+      "scenario": "A chart must show `SALES` for each year as bars and `VOLUME` for each year as a line. The line needs its own scale on the right of the chart.",
+      "prompt": "How should the chart be set up?",
+      "options": [
+        "A Bar Line chart, with `VOLUME` on its Secondary DataSource tab",
+        "A Bar Line chart, with `VOLUME` added as a series-by-field",
+        "A Bar chart, with `SALES` and `VOLUME` both as value-columns",
+        "A Waterfall chart, with `VOLUME` as a second value column"
+      ],
+      "correct": 0,
+      "explanation": "A **Bar Line chart** takes two data sources, one for the bars and one for the line, set on its Primary DataSource and **Secondary DataSource** tabs. Here the primary has the year as its `category-column` and `SALES` in `value-columns`; the secondary has the same `category-column` with `VOLUME`, which draws the line.\n\nThe scale on the left is configured under Y-Axis and the scale on the right under **Y2-Axis**, so the line is read against its own scale.",
+      "source": "bi-developer-rd-associate/30-ref-charts"
+    },
+    {
+      "id": "rd-m8-q6",
+      "module": "Charts & Sub Reports",
+      "bloom": "Analyze",
+      "scenario": "An author drags a Sub-report element into the Report Header, to the right of a chart, so a small table can print beside it. In preview, the table prints at the left edge of the page instead.",
+      "prompt": "What is the most likely cause?",
+      "options": [
+        "Preview places every sub-report at the left edge until it is published",
+        "It was inserted as banded, which stacks at the parent's left edge",
+        "It was inserted as inline, which starts at the parent's left edge",
+        "It reuses the master's query, so it cannot sit beside the master's chart"
+      ],
+      "correct": 1,
+      "explanation": "An **inline sub-report** occupies a rectangle at the element's x and y position within the parent band, so it can print beside a chart. A **banded sub-report** stacks at the parent's left edge like another band, and a master report prints its sections from the left edge of the page (x=0), so that is where this table appears.\n\nThe choice is made in the Insert Subreport dialog; inserting the table as **Inline** keeps it beside the chart.",
+      "source": "bi-developer-rd-associate/21-mod8-charts-sub-reports"
     },
     {
       "id": "rd-m9-q4",
       "module": "Publishing Reports",
       "bloom": "Apply",
-      "scenario": "A report that uses a native JDBC connection to MySQL previews fine in Report Designer, but once published it fails in the User Console with a driver error.",
+      "scenario": "A report that uses a native JDBC connection to MySQL previews successfully in Report Designer but fails in the User Console with a driver error after publication.",
       "prompt": "What is the most likely fix?",
       "options": [
         "Republish the report with its images embedded",
@@ -456,15 +696,15 @@
         "Run the report once in Report Designer after publishing"
       ],
       "correct": 2,
-      "explanation": "The server runs the published report with its own reporting engine and its own drivers, so a native JDBC connection needs the driver on the server as well as in Report Designer. Embedding images changes nothing about drivers. A report bundle does not supply JDBC drivers to the server. Running it locally again does not install anything on the server.",
+      "explanation": "The reporting engine on the server executes the report independently of the local workstation. Therefore, a **native JDBC connection** requires the appropriate driver to be installed on the server environment to function correctly.",
       "source": "Publishing Reports"
     },
     {
       "id": "rd-m9-q5",
       "module": "Publishing Reports",
       "bloom": "Apply",
-      "scenario": "A manager wants a bookmark that opens a published report straight to its EMEA results, without navigating the User Console.",
-      "prompt": "What gives them that?",
+      "scenario": "A manager wants to create a bookmark that opens a published report directly to the results for the EMEA region without navigating the User Console.",
+      "prompt": "Which option provides this functionality?",
       "options": [
         "A User Console Favorite, which remembers the last parameter values",
         "A copy of the .prpt saved with EMEA as its default",
@@ -472,24 +712,104 @@
         "The report's /viewer URL, with the parameter in its query string"
       ],
       "correct": 3,
-      "explanation": "Every published report has a viewer URL built from its repository path, and parameter values can be appended as ordinary query-string arguments, so one bookmark opens the EMEA results. A local copy needs Report Designer to open. A Favorite opens the report but does not keep parameter values. A schedule produces output on a timetable; it is not a bookmark.",
+      "explanation": "Every published report generates a **viewer URL** derived from its repository path. By appending specific values as **query-string** arguments to this URL, a bookmark can be created that automatically loads the report with the intended parameters applied.",
       "source": "Publishing Reports"
+    },
+    {
+      "id": "rd-m9-q6",
+      "module": "Publishing Reports",
+      "bloom": "Apply",
+      "scenario": "A long report viewed as HTML opens with a list of its product lines. Readers want to click a product line in that list and jump to its section further down the same report.",
+      "prompt": "Which hyperlink option should the author use?",
+      "options": [
+        "Self",
+        "URL",
+        "Manual Linking",
+        "Pentaho Repository"
+      ],
+      "correct": 2,
+      "explanation": "Of the four hyperlink options in Report Designer, **Manual Linking** is the one for navigating inside a report: the link is configured by hand and moves within the report using **HTML anchors**. That lets each product line in the opening list link to its own section further down the same report.",
+      "source": "bi-developer-rd-associate/26-mod9-publishing"
+    },
+    {
+      "id": "rd-m9-q7",
+      "module": "Publishing Reports",
+      "bloom": "Evaluate",
+      "scenario": "A summary report links each product code to a published detail report. The author plans to use the URL option and type in the test server's full viewer address, and both reports move to a production server next month.",
+      "prompt": "How should that plan be judged?",
+      "options": [
+        "Accept it: publishing to production rewrites any server address in links.",
+        "Accept it: only a URL link can pass the product code to the detail report.",
+        "Reject it: a Pentaho Repository link targets whichever server runs the report.",
+        "Reject it: Self is the option that links to reports on the same server."
+      ],
+      "correct": 2,
+      "explanation": "A link built with the **Pentaho Repository** option is saved as a `DRILLDOWN` formula in the element's `url` style, and its **server argument** is `NA()`, which means the server the report is running on. It carries each row's product code to the detail report as a parameter.\n\nOnce both reports are on production, the same link opens the detail report there with no edit, while a typed test-server address would keep pointing at the test server.",
+      "source": "bi-developer-rd-associate/22-mod8-drilldown-charts"
     },
     {
       "id": "rd-m7-q3",
       "module": "Report Parameters",
       "bloom": "Evaluate",
-      "scenario": "Users choose a product line and then a country, and complain that the country list offers countries with no orders in the chosen line.",
+      "scenario": "Users select a product line and then select a country from a list. Users report that the country list contains options that do not have any associated orders for the chosen product line.",
       "prompt": "What is the best fix?",
       "options": [
-        "Make the country list's query use the product-line parameter",
-        "Merge both choices into one parameter listing every pair",
-        "Validate the pair after the run and show a warning message",
-        "Make the country prompt free text so any value can be typed"
+        "Make the country list's query use the product-line parameter.",
+        "Merge both choices into one parameter listing every pair.",
+        "Validate the pair after the run and show a warning message.",
+        "Make the country prompt free text so any value can be typed."
       ],
       "correct": 0,
-      "explanation": "A list parameter's query can reference another parameter; the framework then re-runs the country list whenever the product line changes and drops a choice that is no longer valid, so the prompts cascade. One parameter of every pair makes a long, awkward list. Validating after the run lets the mistake happen first. Free text invites the same mistakes plus typos.",
+      "explanation": "The **query for a list parameter** can reference another parameter. By making the country list query dependent on the product line parameter, the framework automatically refreshes the available choices whenever the first selection changes, creating a **cascading parameter** effect that ensures only valid options are displayed.",
       "source": "Report Parameters"
+    },
+    {
+      "id": "rd-m7-q4",
+      "module": "Report Parameters",
+      "bloom": "Apply",
+      "scenario": "A sales report has a Year parameter. Its prompt must open with the current year already selected while users can still pick any other year, and nobody should have to edit the report each January.",
+      "prompt": "How should the pre-selected year be supplied?",
+      "options": [
+        "A Post-Processing Formula that replaces the chosen year",
+        "A Default Value holding this year, typed into the dialog",
+        "A Default Value Formula that computes the current year",
+        "A Display Value Formula that shows the current year"
+      ],
+      "correct": 2,
+      "explanation": "In the Add Parameter dialog, a parameter's pre-selected value comes from either a **Default Value**, which is static, or a **Default Value Formula**, which computes it. A formula that works out the current year moves the prompt's starting choice on by itself each January, and because it only sets the default, users can still select any other year.",
+      "source": "bi-developer-rd-associate/38-ref-output-parameterization"
+    },
+    {
+      "id": "rd-m7-q5",
+      "module": "Report Parameters",
+      "bloom": "Analyze",
+      "scenario": "A report's query filters with `WHERE productline IN (${product_var})`. A user picks a product line whose name contains an apostrophe, and the report returns the right rows.",
+      "prompt": "What keeps the apostrophe from breaking the SQL?",
+      "options": [
+        "The engine escapes each apostrophe, then splices the value in",
+        "The value is bound to a placeholder, not spliced into the SQL",
+        "Strict values clean the value before it reaches the query",
+        "The prompt strips punctuation from the value before the run"
+      ],
+      "correct": 1,
+      "explanation": "Before the query runs, the SQL data factory finds each `${name}` reference, replaces it with a JDBC `?` placeholder, and binds the parameter's value through a **prepared statement**. The value never becomes part of the SQL text, so an apostrophe in a product line name cannot break the query or inject anything.\n\nThe same **bind marker** is why `${product_var}` needs no quotes in the query.",
+      "source": "bi-developer-rd-associate/18-mod7-parameters"
+    },
+    {
+      "id": "rd-m7-q6",
+      "module": "Report Parameters",
+      "bloom": "Evaluate",
+      "scenario": "Managers want one report that lists either product lines or product vendors, chosen at run time. A colleague proposes adding a parameter to the query's WHERE clause to switch between the two columns.",
+      "prompt": "How should that proposal be judged?",
+      "options": [
+        "Accept it, provided the parameter is Mandatory so a column is always chosen.",
+        "Accept it: a WHERE clause parameter can name the column the query returns.",
+        "Reject it: no parameter can change columns, so build two separate reports.",
+        "Reject it: a WHERE clause filters values; a query formula can pick columns."
+      ],
+      "correct": 3,
+      "explanation": "**Simple parameterization** references the parameter, as `${NAME}`, in a `WHERE` clause; it constrains the values the query returns and cannot change its columns or structure. Letting readers choose among columns is **advanced parameterization**, which is expressed as a formula and executed along with the query.\n\nIn Report Designer that is a JDBC (Custom) data source with a **query formula** on the Master Report, such as `=\"SELECT DISTINCT \" & [paramexample] & \" AS COL1 FROM PRODUCTS\"`, with the report field named after the `AS` alias. One report then serves both lists.",
+      "source": "bi-developer-rd-associate/38-ref-output-parameterization"
     }
   ]
 }
