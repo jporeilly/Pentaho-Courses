@@ -13,7 +13,7 @@
   },
   "title": "Pentaho BI Developer - ME Associate",
   "description": "Hands-on workshop for the BI Developer. Build business-friendly semantic models with Pentaho Metadata Editor — physical layer, business models, relationships, business views, properties, reusable concepts, and security — then publish XMI domains for ad-hoc Interactive Reporting.",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "kind": "workshop",
   "level": { "number": 1, "name": "Associate" },
   "mode": "sequential",

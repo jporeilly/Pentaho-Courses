@@ -19,7 +19,7 @@
         "The transformation file (.ktr) contains absolute file paths, making it non-portable and restricted to the environment where it was originally created."
       ],
       "correct": 2,
-      "explanation": "The path relies on a **variable** defined in `kettle.properties`, which lives in each user's own `.kettle` folder, so the variable can resolve to a different folder, or to nothing at all, on another machine.",
+      "explanation": "The path relies on a **variable** defined in `kettle.properties`, which is located in each user's individual `.kettle` folder. Because these files are local to the machine, a variable can resolve to a different directory or fail to resolve entirely on another machine.",
       "source": "Pentaho Developer - Practitioner: Getting Started — Configuring PDI"
     },
     {
@@ -42,8 +42,8 @@
       "id": "di-m1-q3",
       "module": "Getting Started",
       "bloom": "Apply",
-      "scenario": "A data integration developer is configuring a Text file input step in Pentaho Data Integration (PDI). The desired input file path should be dynamically determined at runtime using a Kettle variable named INPUT_PATH, rather than being hardcoded within the step configuration.",
-      "prompt": "Which expression should be used in the Filename field of the Text file input step to reference the value of the INPUT_PATH variable?",
+      "scenario": "A data integration developer is configuring a Text file input step in Pentaho Data Integration (PDI). The desired input file path should be dynamically determined at runtime using a Kettle variable named `INPUT_PATH` rather than being hardcoded within the step configuration.",
+      "prompt": "Which expression should be used in the Filename field of the Text file input step to reference the value of the `INPUT_PATH` variable?",
       "options": [
         "`$INPUT_PATH$`",
         "`%INPUT_PATH%`",
@@ -51,7 +51,7 @@
         "`${INPUT_PATH}`"
       ],
       "correct": 3,
-      "explanation": "`${INPUT_PATH}` is PDI's **variable syntax**: the `${}` notation tells PDI to resolve the variable at runtime.",
+      "explanation": "The use of the `${}` notation is the **variable syntax** in PDI. This syntax instructs the engine to resolve the value of the variable at runtime.",
       "source": "Pentaho Developer - Practitioner: Getting Started — Kettle Variables"
     },
     {
@@ -67,7 +67,7 @@
         "C:\\ProgramData\\Pentaho\\kettle.properties"
       ],
       "correct": 0,
-      "explanation": "Pentaho Data Integration (PDI) prioritizes the `kettle.properties` file located in the **user home directory**, specifically within the `.kettle` folder.\n\nThis specific path allows for **user-specific configurations** to be maintained independently of the installation directory or system-wide settings.",
+      "explanation": "PDI reads `kettle.properties` from the `.kettle` folder in the **user home directory**, which is `%USERPROFILE%\\.kettle` on Windows, so each user's settings are kept apart from the installation directory.",
       "source": "Pentaho Developer - Practitioner: Getting Started — Kettle Variables"
     },
     {
@@ -83,7 +83,7 @@
         "Model"
       ],
       "correct": 1,
-      "explanation": "The **Data Integration** perspective is the design canvas for transformations and jobs.",
+      "explanation": "The **Data Integration** perspective provides the design canvas for creating and editing transformations and jobs.",
       "source": "Pentaho Developer - Practitioner: Getting Started — Configuring PDI"
     },
     {
@@ -115,7 +115,7 @@
         "It generates sample rows from the transformation's logic without processing real data."
       ],
       "correct": 2,
-      "explanation": "The **Preview** feature initiates the transformation and captures the rows produced by the selected step, pausing the execution once the specified number of rows is gathered. This allows the developer to see the data at a specific point in the transformation without running the entire process to completion.\n\nUnlike a standard run, which processes all data through all steps, a preview focuses on a **limited sample** of rows from a specific point to facilitate debugging and verification.",
+      "explanation": "The **Preview** feature starts the transformation, captures the rows produced by the selected step, and pauses the run once the requested number of rows is gathered, so the developer sees the data at that point without running everything to completion.\n\nA standard run takes all the data through all the steps; a preview stops after a **limited sample** from one step.",
       "source": "Pentaho Developer - Practitioner: Concepts & Terminology — Hello World"
     },
     {
@@ -138,7 +138,7 @@
       "id": "di-m2-q5",
       "module": "Concepts & Terminology",
       "bloom": "Understand",
-      "scenario": "A transformation reads data from a source and sends it to two downstream steps: one writes the data to a text file, and the other inserts it into a database table. When defining the second hop from the initial step, the Copy option is selected in the dialog box.",
+      "scenario": "A transformation reads data from a source and sends it to two downstream steps: one writes the data to a text file, and the other inserts it into a database table. The Copy option is selected in the dialog box for the second hop from the initial step.",
       "prompt": "How does the Copy hop type determine the flow of data to the connected steps?",
       "options": [
         "Each row of data is sent to both the file writing step and the database table step.",
@@ -147,7 +147,7 @@
         "Only the first step connected to the source step will receive any data."
       ],
       "correct": 0,
-      "explanation": "The **Copy** hop type duplicates the data stream, so every row is sent to every connected step: here, both the text file and the database table.",
+      "explanation": "The **Copy** hop type duplicates the data stream so that every row is sent to every connected step. In this scenario, every row is passed to both the text file and the database table.",
       "source": "Pentaho Developer - Practitioner: Concepts & Terminology"
     },
     {
@@ -175,8 +175,8 @@
       "options": [
         "Only the error message, presented as a single field within the error file row.",
         "The Java exception stack trace generated when the insertion attempt failed.",
-        "The complete row data, along with fields containing the error description, error codes, and the specific fields that caused the error.",
-        "Only the row's key fields and an error flag."
+        "The complete row, plus fields for the error description, codes, and fields in error.",
+        "Only the row's key fields, followed by a single true or false error flag."
       ],
       "correct": 2,
       "explanation": "The **error handling hop** captures the entire original row and appends technical details regarding the failure. These details include the error description, error codes, and the specific fields that caused the error, as defined in the configuration of the step.",
@@ -218,7 +218,7 @@
       "id": "di-m3-q1",
       "module": "Data Sources",
       "bloom": "Apply",
-      "scenario": "A CSV file is read with a Text file input step, and its first line holds column names rather than data.",
+      "scenario": "A CSV file is read using a Text file input step, and the first line contains column names instead of data.",
       "prompt": "How do you configure the step to treat the first line as a header?",
       "options": [
         "Enable Lazy conversion on the Content tab",
@@ -227,7 +227,7 @@
         "Tick Header on the Content tab"
       ],
       "correct": 3,
-      "explanation": "Ticking **Header** on the Content tab, with one header line, tells the step to read the first line as field names rather than data.",
+      "explanation": "Ticking **Header** on the Content tab tells the step to treat the first line as field names rather than data records.",
       "source": "Pentaho Developer - Practitioner: Data Sources — Text File Input"
     },
     {
@@ -259,7 +259,7 @@
         "`invoices > invoice`"
       ],
       "correct": 1,
-      "explanation": "The **loop path** is an XPath expression that identifies the repeating element within the XML structure, such as `/invoices/invoice`.\n\nBy defining the loop path, the step determines the level at which it iterates to create rows, ensuring that fields like `amount` are retrieved relative to each specific invoice.",
+      "explanation": "The **loop path** is an XPath expression that names the repeating element in the XML, such as `/invoices/invoice`. The step creates one row for each element it matches, and fields like `amount` are read relative to each invoice.\n\n```xml\n<invoices>\n  <invoice>\n    <amount>100</amount>\n  </invoice>\n</invoices>\n```",
       "source": "Pentaho Developer - Practitioner: Data Sources — Read XML"
     },
     {
@@ -291,7 +291,7 @@
         "It keeps the latest value, overwritten in place."
       ],
       "correct": 0,
-      "explanation": "A Type 2 **slowly changing dimension** maintains a historical record by creating a new row for every change. Each row includes specific **valid dates**, which allows a query to identify the specific record that was active at any point in the past.",
+      "explanation": "A **Type 2 slowly changing dimension** maintains a historical record by creating a new row for every change. Each row includes specific **valid dates**, which allows a query to identify the record that was active at any point in the past.",
       "source": "Pentaho Developer - Practitioner: Data Sources — Slowly Changing Dimensions"
     },
     {
@@ -304,10 +304,10 @@
         "Create an S3-compatible VFS connection to MinIO",
         "Use an HDFS path in the Hadoop file input step",
         "Create a JDBC connection to the MinIO server",
-        "Install a dedicated MinIO plugin from Marketplace"
+        "Install a dedicated MinIO plugin from the Marketplace"
       ],
       "correct": 0,
-      "explanation": "Because MinIO uses the S3 protocol, a connection configured as an **S3-compatible VFS** allows PDI to read and write data to the bucket exactly as it would with AWS S3.",
+      "explanation": "Because MinIO utilizes the S3 protocol, a connection configured as an **S3-compatible VFS** allows Pentaho Data Integration to read from and write to the bucket as it would with AWS S3.",
       "source": "Pentaho Developer - Practitioner: Data Sources — MinIO"
     },
     {
@@ -339,7 +339,7 @@
         "Write a new workbook with the date in its name"
       ],
       "correct": 0,
-      "explanation": "The **Microsoft Excel writer** can reuse the existing file and sheet and start writing at the end of the sheet, so the new rows are appended below last month's.",
+      "explanation": "The **Microsoft Excel writer** set to **Use existing file for writing** writes into the same workbook and sheet, and starting at the end of the sheet appends the new rows below last month's.",
       "source": "Pentaho Developer - Practitioner: Data Sources — Excel Writer"
     },
     {
@@ -355,7 +355,7 @@
         "Split every ... rows, set to the row limit"
       ],
       "correct": 3,
-      "explanation": "**Split every ... rows** starts a new output file after that many rows, so each file stays capped.",
+      "explanation": "The **Split every ... rows** setting starts a new output file after the specified number of rows are written, ensuring each file remains capped at a manageable size.",
       "source": "Pentaho Developer - Practitioner: Data Sources — Text File Output"
     },
     {
@@ -371,7 +371,7 @@
         "A MySQL connector plugin from Marketplace"
       ],
       "correct": 1,
-      "explanation": "Pentaho Data Integration connects to databases via **JDBC**, and since the MySQL driver is not bundled with the software, the JAR file must be placed in the `data-integration/lib` directory.\n\nAfter placing the driver in the correct directory, the application must be restarted for the connection to be recognized.",
+      "explanation": "Pentaho Data Integration connects to databases via **JDBC**. Because the MySQL driver is not bundled with the software, the `.jar` file must be placed in the `data-integration/lib` directory.\n\nAfter placing the driver in the correct directory, the application must be restarted for the connection to be recognized.",
       "source": "Pentaho Developer - Practitioner: Data Sources — Connecting to a Database"
     },
     {
@@ -419,7 +419,7 @@
         "Lazy conversion, turned off"
       ],
       "correct": 1,
-      "explanation": "The **Enclosure** setting identifies the character that wraps a field. This ensures that any commas contained within those wrapping characters are treated as part of the data rather than as delimiters.",
+      "explanation": "The **Enclosure** setting names the character that wraps a field, so commas inside those characters are read as part of the data, not as delimiters.",
       "source": "Pentaho Developer - Practitioner: Data Sources — Text File Input"
     },
     {
@@ -439,7 +439,7 @@
         0,
         4
       ],
-      "explanation": "The **Merge join** step requires both input streams to be sorted on the join key before the join operation can be performed.\n\nThe **Database join** step functions by executing a separate SQL query for every incoming row in the stream, which provides flexibility but results in a high volume of individual queries when processing large datasets.",
+      "explanation": "The **Merge join** step requires both input streams to be sorted on the join key before the join operation can be performed.\n\nThe **Database join** step functions by executing a separate SQL query for every incoming row in the stream. This provides flexibility but results in a high volume of individual queries when processing large datasets.",
       "source": "Pentaho Developer - Practitioner: Enriching the Dataset — Database Join"
     },
     {
@@ -471,15 +471,15 @@
         "Race conditions between concurrent step copies"
       ],
       "correct": 1,
-      "explanation": "By enabling the **lookup cache**, the result of each lookup is stored in memory. This ensures that if a key is encountered again, the result is retrieved from the cache rather than executing another query against the database.",
+      "explanation": "Enabling the **lookup cache** stores the result of each lookup in memory. When the transformation encounters a key that has been processed previously, it retrieves the value from the memory cache instead of executing a new query against the database.",
       "source": "Pentaho Developer - Practitioner: Enriching the Dataset — Database Lookups"
     },
     {
       "id": "di-m4-q4",
       "module": "Enriching the Dataset",
       "bloom": "Apply",
-      "scenario": "A user compares yesterday's customer extract, the reference stream, with today's, the compare stream, using the Merge rows (diff) step. Customer 1042 is in yesterday's extract but missing from today's.",
-      "prompt": "Which flag does Merge rows (diff) give that customer?",
+      "scenario": "A user compares yesterday's customer extract, the reference stream, with today's, the compare stream, using the Merge rows (diff) step. Customer 1042 is in yesterday's extract but is missing from today's.",
+      "prompt": "Which flag does the Merge rows (diff) step assign to that customer?",
       "options": [
         "removed",
         "changed",
@@ -503,7 +503,7 @@
         "Modified JavaScript value"
       ],
       "correct": 1,
-      "explanation": "The **Formula** step evaluates spreadsheet-style expressions, such as `IF`, where fields are referenced in square brackets. This allows the rules to be carried into the transformation with minimal changes to the original logic.",
+      "explanation": "The **Formula** step evaluates spreadsheet-style expressions, such as `IF`, with fields referenced in square brackets, so the rules carry into the transformation almost unchanged.",
       "source": "Pentaho Developer - Practitioner: Enriching the Dataset — Formula"
     },
     {
@@ -519,7 +519,7 @@
         "Stream lookup can return multiple matching country names for a single country code."
       ],
       "correct": 0,
-      "explanation": "The **Stream lookup** step is highly efficient because it loads the entire reference data set into memory at the start of the transformation. This caching allows the engine to perform very fast lookups for each incoming row without hitting a database or file for every record.",
+      "explanation": "The **Stream lookup** step loads the whole reference data set into memory when the transformation starts, so each incoming row is matched in memory without a query to a database or a file.",
       "source": "Pentaho Developer - Practitioner: Enriching the Dataset — Lookups"
     },
     {
@@ -535,7 +535,7 @@
         "An aggregation that pre-sums each region"
       ],
       "correct": 0,
-      "explanation": "The Group by step aggregates **consecutive rows** that share the same key value. If the input data is not ordered, a single region may appear in multiple non-contiguous blocks, causing the step to treat them as separate groups. Applying a Sort rows step ensures all rows for a specific region are adjacent, allowing the Group by step to calculate a single total for that region.",
+      "explanation": "The Group by step aggregates **consecutive rows** that share the same key value. If the input data is not ordered, a single region may appear in multiple non-contiguous blocks, which causes the step to treat them as separate groups.\n\nA Sort rows step ensures all rows for a specific region are adjacent, allowing the Group by step to calculate a single total for that region.\n\nSort rows → Group by",
       "source": "Pentaho Developer - Practitioner: Enriching the Dataset"
     },
     {
@@ -599,7 +599,7 @@
         "The Formula step evaluates Formula Expressions to derive new field values."
       ],
       "correct": 3,
-      "explanation": "The Formula step evaluates **Formula Expressions** to derive new field values. It is used to perform calculations and create derived data within a stream.\n\nThis step allows for the dynamic generation of values based on existing fields, which is essential when calculating variables like discounts or status flags for each record in a transformation.",
+      "explanation": "The Formula step evaluates **Formula Expressions** to derive new field values from the existing fields of each row, such as a discount calculated from a customer's loyalty status.",
       "source": "Formula"
     },
     {
@@ -609,7 +609,7 @@
       "scenario": "A data analyst needs to enrich a dataset with information from a database based on values within each row of the incoming data.",
       "prompt": "What is a key characteristic of the Database join step in Pentaho Data Integration?",
       "options": [
-        "It runs a query for each input row and appends every row returned to a copy of that row.",
+        "It queries once per input row, joining each result to a copy of it.",
         "It classifies the data automatically for easier search and retrieval.",
         "It is most efficient when processing millions of rows of data.",
         "It merges tables inside the database using standard join operations."
@@ -631,7 +631,7 @@
         "A job sequences entries and branches on the outcome"
       ],
       "correct": 3,
-      "explanation": "A job is designed to **orchestrate** a workflow. It executes entries in a specific sequence, such as a download, multiple transformations, and a mail notification, while managing the logic of the process by following success or failure hops.\n\nUnlike a transformation, which processes data row by row, a job manages the high-level execution flow of the overall process.",
+      "explanation": "A **job** is designed to orchestrate a workflow by executing entries in a specific sequence, such as a download, multiple transformations, and a mail notification. It manages the logic of the process by following success or failure hops.\n\nUnlike a transformation, which processes data row by row, a job manages the high-level execution flow of the overall process.",
       "source": "Pentaho Developer - Practitioner: Enterprise Solution — Hello World Job"
     },
     {
@@ -663,7 +663,7 @@
         "The transformation obtains the input folder path from the `kettle.properties` file on the server hosting the transformation."
       ],
       "correct": 1,
-      "explanation": "The transformation uses the value of the `IN_DIR` parameter, which is set by the calling process at runtime.\n\n**Parameters** allow external control of transformation behavior, and their values are supplied when the transformation runs.",
+      "explanation": "The transformation uses the value of the `IN_DIR` **parameter**, which is set by the calling process at runtime.\n\n**Parameters** allow external control of transformation behavior, and their values are supplied when the transformation runs.",
       "source": "Pentaho Developer - Practitioner: Enterprise Solution — Parameters"
     },
     {
@@ -687,15 +687,15 @@
       "module": "Enterprise Solution",
       "bloom": "Remember",
       "scenario": "A scheduler on a Linux server with no Spoon installed must run a nightly job (.kjb) and, separately, a standalone transformation (.ktr).",
-      "prompt": "Which command-line APIs run them?",
+      "prompt": "Which command-line APIs run these files?",
       "options": [
-        "spoon.sh in headless mode, for both of them",
+        "spoon.sh in headless mode for both of them",
         "Pan for the job, and Kitchen for the transformation",
         "Kitchen for the job, and Pan for the transformation",
         "Carte for both, started once as a service"
       ],
       "correct": 2,
-      "explanation": "The **Kitchen** utility is used to execute job files (.kjb) from the command line, while the **Pan** utility is used to execute transformation files (.ktr).\n\nBoth tools execute the processes to completion, making them suitable for use with an automated scheduler in a headless environment.",
+      "explanation": "The **Kitchen** utility is used to execute job files (.kjb) from the command line, while the **Pan** utility is used to execute transformation files (.ktr). Both tools execute the processes to completion, making them suitable for use with an automated scheduler in a headless environment.",
       "source": "Pentaho Developer - Practitioner: Enterprise Solution — Run Configurations"
     },
     {
@@ -718,7 +718,7 @@
       "id": "di-m5-q8",
       "module": "Enterprise Solution",
       "bloom": "Apply",
-      "scenario": "The operations team wants an email automatically each time the nightly load job finishes.",
+      "scenario": "The operations team wants an email automatically sent each time the nightly load job finishes.",
       "prompt": "Which job entry sends that email?",
       "options": [
         "HTTP",
@@ -727,7 +727,7 @@
         "Write to log"
       ],
       "correct": 2,
-      "explanation": "The **Mail** entry sends an SMTP message and is usually placed on the success or failure hop of the entry that matters.",
+      "explanation": "The **Mail** entry sends an SMTP message and is typically placed on the success or failure hop of the preceding job entry to provide notifications.",
       "source": "Pentaho Developer - Practitioner: Enterprise Solution — Jobs"
     },
     {
@@ -791,7 +791,7 @@
         "Holds the database connection pool for the slaves"
       ],
       "correct": 1,
-      "explanation": "The master coordinates: it **distributes rows** to the slave servers, which do the heavy work in parallel, and gathers their results into a single stream.",
+      "explanation": "The master node acts as the coordinator in a **clustered transformation**. It distributes rows to the slave servers to perform heavy processing in parallel and then gathers those results into a single stream.",
       "source": "Pentaho Developer - Practitioner: Enterprise Solution — Run Configurations"
     },
     {
@@ -807,7 +807,7 @@
         "Show repository dialog at startup"
       ],
       "correct": 1,
-      "explanation": "Disabling the **Use database cache** option ensures that Spoon re-reads the live schema every time a dialog is opened. This is beneficial when the underlying database schema changes frequently, as it prevents the software from relying on outdated metadata stored in the cache.",
+      "explanation": "Disabling the **Use database cache** option ensures that Spoon re-reads the live schema every time a dialog is opened. This prevents the software from relying on outdated metadata when the underlying database schema changes frequently.",
       "source": "Configuring PDI"
     }
   ]

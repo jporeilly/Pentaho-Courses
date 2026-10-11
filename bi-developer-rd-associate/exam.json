@@ -26,7 +26,7 @@
       "id": "rd-m1-q2",
       "module": "Getting Started",
       "bloom": "Understand",
-      "scenario": "A colleague sends a `.prpt` file to a team member who has Report Designer installed but lacks a network route to the database the report queries.",
+      "scenario": "A colleague sends a .prpt file to a team member who has Report Designer installed but lacks a network route to the database the report queries.",
       "prompt": "What happens when they attempt to preview the report?",
       "options": [
         "It will not open at all unless its data source is reachable",
@@ -35,7 +35,7 @@
         "It renders from rows the file cached at its last run"
       ],
       "correct": 1,
-      "explanation": "A `.prpt` file is a **definition file** containing the layout, query, and connection details, but it does not contain the underlying data. Because it is only a definition, the file can be opened without a connection, but the preview will fail because the **query** cannot reach the database.\n\nReport Designer does not cache rows; therefore, there are no values to render if the query fails.",
+      "explanation": "A `.prpt` file is a **definition file** containing the layout, query, and connection details, but it does not contain the underlying data. The file can be opened without a connection because it is only a definition, but the preview fails because the **query** cannot reach the database.\n\nReport Designer does not cache rows; therefore, there are no values to render if the query fails.",
       "source": "Getting Started with Pentaho Business Analytics"
     },
     {
@@ -67,7 +67,7 @@
         "The sample database is not running, so the data source fails."
       ],
       "correct": 3,
-      "explanation": "The sample reports are linked to the **sample database** that runs alongside the server. If this database is not running, the report fails to render because it cannot connect to its data source.",
+      "explanation": "The sample reports are linked to the **sample database** that runs alongside the server. If this database is not running, the report fails to render because it cannot connect to its **data source**.",
       "source": "Navigating Report Designer"
     },
     {
@@ -83,7 +83,7 @@
         "Real rows: where groups break, how many rows, and where pages end"
       ],
       "correct": 3,
-      "explanation": "The **Preview** feature runs the query and the reporting engine over real data, which allows the system to calculate and display accurate **group breaks**, row counts, and page overflows. In contrast, the canvas only displays a single representative band of data.",
+      "explanation": "The **Preview** feature runs the query and the reporting engine over real data, so it shows the actual **group breaks**, row counts, and page overflows. The canvas only displays a single representative band of each kind.",
       "source": "Navigating Report Designer"
     },
     {
@@ -163,7 +163,7 @@
         "Each element renders once wherever it sits; only the Details band loops."
       ],
       "correct": 0,
-      "explanation": "The **band type** determines the repetition logic for any element placed within it. Because a band is printed once for every unit it represents—such as a row or a group—the placement of an element determines its output frequency.\n\nRepetition is not an individual property of an element; instead, the element follows the behavior of the **container band** in which it resides.",
+      "explanation": "The **band type** determines the repetition logic for any element placed within it. Because a band is printed once for every unit it represents, such as a row or a group, the placement of an element determines its output frequency.\n\nRepetition is not an individual property of an element; instead, the element follows the behavior of the **container band** in which it resides.",
       "source": "Adding Report Elements and Creating Groups"
     },
     {
@@ -202,7 +202,7 @@
       "id": "rd-m5-q2",
       "module": "Calculations",
       "bloom": "Apply",
-      "scenario": "A report grouped by product line needs each group's total Quantity in Stock beneath the group's detail rows.",
+      "scenario": "A report is grouped by product line and needs to display the total Quantity in Stock for each group immediately following the detail rows of that group.",
       "prompt": "What should the author add?",
       "options": [
         "A Sum function reset on the group, placed in the group footer",
@@ -211,7 +211,7 @@
         "A second query that sums the quantity for each product line"
       ],
       "correct": 0,
-      "explanation": "A **Sum function** added in the Data pane with the **Reset on Group Name** property set to the product-line group calculates the total for each group. Placing this function in the group footer ensures it prints immediately after the detail rows of that group.",
+      "explanation": "A **Sum function** added in the Data pane with the **Reset on Group Name** property set to the product-line group calculates the total for each group. Placing this function in the **group footer** ensures it prints immediately after the detail rows of that group.\n\n```text\nGroup Header\nDetail Rows\nGroup Footer (Sum function located here)\n```",
       "source": "Performing Calculations (Formulas & Functions)"
     },
     {
@@ -227,7 +227,7 @@
         "Report Header"
       ],
       "correct": 1,
-      "explanation": "The **Page Header** band prints at the top of every page in the report.\n\nThis ensures that consistent information, such as a company name, is repeated on every page for the reader.",
+      "explanation": "The **Page Header** band prints at the top of every page in the report, while the Report Header prints only once, at the start.\n\n```text\nPage Header     every page\nReport Header   first page only\nGroup Header\nDetails\nGroup Footer\nReport Footer   last page only\nPage Footer     every page\n```",
       "source": "Formatting the Report"
     },
     {
@@ -259,7 +259,7 @@
         "A group on Territory, which the prompt then filters"
       ],
       "correct": 0,
-      "explanation": "Defining a parameter only creates the **prompt**; it does not filter anything by itself. The selection takes effect only when the query references the parameter, as in `WHERE territory IN (${TERRITORY})`.",
+      "explanation": "Defining a parameter only creates the **prompt**; it does not filter anything by itself. The selection takes effect only when the query references the parameter, as in a `WHERE` clause:\n\n```sql\nWHERE territory IN (${TERRITORY})\n```",
       "source": "Report Parameters"
     },
     {
@@ -323,7 +323,7 @@
         "Headings live in the repository's metadata and are edited there."
       ],
       "correct": 2,
-      "explanation": "Publishing creates a **separate copy** of the file in the repository, so updating the local file does not change the version on the server. The edited file must be published again for users to see the change.",
+      "explanation": "Publishing creates a **separate copy** of the file in the repository. Updating a local file does not modify the version stored on the server. The local file must be published again for the changes to become visible to users.",
       "source": "Publishing Reports"
     },
     {
@@ -360,7 +360,7 @@
         "ODBC, which the server translates into its own connection"
       ],
       "correct": 2,
-      "explanation": "A **JNDI connection** stores only a name rather than specific connection details. This allows the report to be deployed to different environments where the local system resolves the name to a test database and the server resolves the same name to a production database.\n\nBecause the resolution happens at the environment level, the credentials remain secured on the server and the report file does not need to be edited for different environments.",
+      "explanation": "A **JNDI connection** stores only a name, not the connection details, so the local system resolves the name to the test database and the server resolves the same name to the production database.\n\nBecause each environment resolves the name itself, the credentials stay on the server and the report file is never edited for a move.",
       "source": "Data Sources & Queries"
     },
     {
@@ -383,7 +383,7 @@
       "id": "rd-m3-q5",
       "module": "Data Sources & Queries",
       "bloom": "Apply",
-      "scenario": "A report gets its rows from a PDI transformation. The transformation needs a region and a start date as parameters, and report users must choose both values each time they run it.",
+      "scenario": "A report gets its rows from a PDI transformation. The transformation requires a region and a start date as parameters, and report users must choose both values each time they run the report.",
       "prompt": "How should the users' values reach the transformation?",
       "options": [
         "As environment variables the server sets for each user's session",
@@ -392,7 +392,7 @@
         "As parameter defaults edited in the transformation before each run"
       ],
       "correct": 1,
-      "explanation": "A **Pentaho Data Integration** data source runs a `.ktr` transformation and uses the rows of the step selected in the data source as its data set. Its Edit Parameter dialog maps each of the transformation's **named parameters** to a report parameter, so the values users choose in the prompts are passed into the transformation when the report runs.\n\nThe report parameters themselves are added in the Data tab, by right-clicking Parameters and choosing Add Parameter.",
+      "explanation": "A **Pentaho Data Integration** data source runs a `.ktr` transformation and uses the rows of the step selected in the data source as its data set. The Edit Parameter dialog maps each of the transformation's **named parameters** to a report parameter, so the values users choose in the prompts are passed into the transformation when the report runs.\n\nThe report parameters are added in the Data tab by right-clicking Parameters and choosing Add Parameter.",
       "source": "bi-developer-rd-associate/29-ref-data-sources"
     },
     {
@@ -424,14 +424,14 @@
         "A number field bound to the report's PRODUCTLINE column"
       ],
       "correct": 0,
-      "explanation": "A **message field** acts as a template that replaces the `$(PRODUCTLINE)` variable with the current value every time the band prints.\n\nThis allows a single element to generate unique text for each group by dynamically injecting the value from the underlying data source.",
+      "explanation": "A **message field** acts as a template that replaces `$(PRODUCTLINE)` with the current value every time the band prints, so one element shows a different label for each group.",
       "source": "Adding Report Elements and Creating Groups"
     },
     {
       "id": "rd-m4-q4",
       "module": "Report Elements & Groups",
       "bloom": "Apply",
-      "scenario": "A designer attempts to move a text field from the Details band to the Group Header band in a report template, but the field stays in its original band and the band expands in height.",
+      "scenario": "A designer attempts to move a text field from the Details band to the Group Header band in a report template, but the field remains in its original band and the band expands in height.",
       "prompt": "How is the element moved into the Group Header?",
       "options": [
         "Hold Ctrl while dragging it across the band border",
@@ -440,7 +440,7 @@
         "Cut it from Details and paste it into the Group Header"
       ],
       "correct": 3,
-      "explanation": "Because elements cannot be moved between bands by dragging, the item must be **cut and pasted** to change its band assignment.\n\nDragging an element toward a border will only resize the band rather than moving the element across the boundary.",
+      "explanation": "Because elements cannot be moved between bands by dragging, the item must be **cut and pasted** to change its band assignment.\n\nDragging an element toward a border only resizes the band rather than moving the element across the boundary.",
       "source": "Adding Report Elements and Creating Groups"
     },
     {
@@ -488,7 +488,7 @@
         "A second query that sums each group, run for every header"
       ],
       "correct": 2,
-      "explanation": "A **TotalGroupSumFunction** calculates the total for each group during an initial pass of the data. This allows the engine to provide the complete total for the group even when that value is required in the header before the group rows are processed.\n\nIn contrast, an ItemSumFunction is a running sum that is only accurate once the final row of a group has passed.",
+      "explanation": "A **TotalGroupSumFunction** calculates each group's total during the engine's first pass over the data, so the complete total is available in the header before the group's rows print.\n\nAn ItemSumFunction is a running sum, accurate only once the last row of a group has passed.",
       "source": "Performing Calculations (Formulas & Functions)"
     },
     {
@@ -568,7 +568,7 @@
         "A copy of the stylesheet embedded in each of the reports"
       ],
       "correct": 1,
-      "explanation": "Using a **linked stylesheet** (.prptstyle) allows all reports to reference a single file for colors and fonts. This ensures that a rebrand requires only one edit to update all 40 reports.",
+      "explanation": "A **linked stylesheet** (`.prptstyle`) lets every report reference one file for its colors and fonts, so the rebrand is a single edit that reaches all 40 reports.",
       "source": "Formatting the Report"
     },
     {
@@ -632,7 +632,7 @@
         "Once, before the master report starts"
       ],
       "correct": 0,
-      "explanation": "The **sub-report** execution is determined by the band in which it is placed. Because the Details band is processed once for every record in the data set, the sub-report executes 500 times, once for each customer record.",
+      "explanation": "The **band** a sub-report sits in decides how often it runs. The **Details band** is printed once for every row, so a sub-report placed there runs 500 times, once for each customer.\n\n```text\nReport Header\nDetails          printed once per customer row\n  Sub-report     runs each time Details prints\nReport Footer\n```",
       "source": "Charts & Sub Reports"
     },
     {
@@ -648,7 +648,7 @@
         "The header is printed last of all, then moved to the top of the page."
       ],
       "correct": 2,
-      "explanation": "The reporting engine performs two passes over the data. During the first pass, the **data collector** visits every row to build the dataset, and when the header prints in the second pass, the chart renders the collected information.",
+      "explanation": "The reporting engine performs two passes over the data. During the first pass, the **data collector** visits every row to build the dataset. When the header prints in the second pass, the chart renders the already collected information.",
       "source": "Charts & Sub Reports"
     },
     {
@@ -696,7 +696,7 @@
         "Run the report once in Report Designer after publishing"
       ],
       "correct": 2,
-      "explanation": "The reporting engine on the server executes the report independently of the local workstation. Therefore, a **native JDBC connection** requires the appropriate driver to be installed on the server environment to function correctly.",
+      "explanation": "The reporting engine on the server executes the report independently of the local workstation. Therefore, a **native JDBC connection** requires the appropriate driver to be installed in the server environment to function correctly.",
       "source": "Publishing Reports"
     },
     {
@@ -751,7 +751,7 @@
       "id": "rd-m7-q3",
       "module": "Report Parameters",
       "bloom": "Evaluate",
-      "scenario": "Users select a product line and then select a country from a list. Users report that the country list contains options that do not have any associated orders for the chosen product line.",
+      "scenario": "Users select a product line and then select a country from a list. They report that the country list contains options that do not have any associated orders for the chosen product line.",
       "prompt": "What is the best fix?",
       "options": [
         "Make the country list's query use the product-line parameter.",

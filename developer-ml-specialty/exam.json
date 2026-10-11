@@ -67,7 +67,7 @@
         "It is skipped, as gbm ignores columns with unique values."
       ],
       "correct": 0,
-      "explanation": "The formula `reported_as_fraud_historic ~ .` instructs the model to use every available column in the frame as a **predictor** to predict the target. Because the `transaction_id` is part of the frame and is not the target, it is treated as a feature by the model.\n\nWhile a unique identifier provides no meaningful information about the transaction, the **gradient boosting machine** (gbm) does not automatically discard columns based on their uniqueness.",
+      "explanation": "The formula `reported_as_fraud_historic ~ .` instructs the model to use every available column in the frame as a **predictor** to predict the target. Because the `transaction_id` is part of the frame and is not the target, the model treats it as a feature.\n\nWhile a unique identifier provides no meaningful information about the transaction, the **gradient boosting machine** (gbm) does not automatically discard columns based on their uniqueness.",
       "source": "Pentaho Developer - ML Specialty: Credit Card"
     },
     {
@@ -79,7 +79,7 @@
       "options": [
         "To shift each fraud probability below the 0.5 threshold.",
         "To exclude the first transaction from the training data.",
-        "as.factor numbering starts at 1, so it yields 0 and 1.",
+        "as.factor numbers from 1, so subtracting 1 gives 0 and 1.",
         "To turn the target into a continuous dollar amount."
       ],
       "correct": 2,
@@ -125,7 +125,7 @@
       "scenario": "To keep the artifact small, a developer modifies the training script to save only `gbm_model` to `gbm_fraud.rdata`.",
       "prompt": "What breaks in the prediction script?",
       "options": [
-        "predict is passed n.trees = best_trees, which no longer loads",
+        "predict needs best_trees, which is no longer saved with the model",
         "Nothing, as predict always uses all 500 trees by default",
         "The bernoulli distribution is lost, so outputs turn to counts",
         "load() fails, as an .rdata file must hold two objects"
@@ -147,7 +147,7 @@
         "It converts R scripts to Java before PDI runs them"
       ],
       "correct": 0,
-      "explanation": "The **rJava** library provides the necessary bridge between the Java Virtual Machine and the R environment. This allows a Java-based application like Pentaho Data Integration to interact with and execute R code directly.",
+      "explanation": "The **rJava** library is the bridge between the Java Virtual Machine and R, so a Java-based application like Pentaho Data Integration can run R code directly.",
       "source": "Pentaho Developer - ML Specialty: Prerequisite Tasks"
     },
     {
@@ -159,11 +159,11 @@
       "options": [
         "Disables the Java bridge so that R runs without it",
         "Reinstalls Java at the version R was first set up with",
-        "Detects current Java and updates R's config to match",
+        "Detects the current Java and updates R's config to match",
         "Downgrades rJava to match the previous version of Java"
       ],
       "correct": 2,
-      "explanation": "The `R CMD javareconf` command **detects the current Java** installation on the system and updates the configuration files for R to match that environment. This ensures that the **rJava** library builds against the available Java version.\n\nThe command performs a configuration update rather than installing or downgrading software packages.",
+      "explanation": "The `R CMD javareconf` command **detects the current Java** installation and updates R's configuration files to match it, so **rJava** builds against the Java now installed.\n\nThe command updates configuration; it does not install or downgrade software.",
       "source": "Pentaho Developer - ML Specialty: Prerequisite Tasks"
     },
     {
@@ -195,7 +195,7 @@
         "An R environment, so the R steps can run remotely"
       ],
       "correct": 2,
-      "explanation": "Google Colab provides a **browser-based Jupyter** environment with **preconfigured runtimes** for common machine learning libraries. This allows the search to run on the uploaded H2O data without requiring local configuration on the user's machine.",
+      "explanation": "Google Colab provides a **browser-based Jupyter** environment with **preconfigured runtimes** for common machine learning libraries, so the search runs on the uploaded H2O data with nothing to configure on a workstation.",
       "source": "Pentaho Developer - ML Specialty: Prerequisite Tasks"
     },
     {
@@ -247,7 +247,7 @@
         "Run library(datasets); iris and use Test Script to see the rows"
       ],
       "correct": 3,
-      "explanation": "Executing a small script that returns the built-in iris data and viewing it with the **Test Script** feature validates the entire integration chain from PDI through `rJava` to the R environment.\n\nThis method provides immediate confirmation of the connection without the time required to run a full transformation or the ambiguity of simply checking configuration fields.",
+      "explanation": "Executing a small script that returns the built-in iris data and viewing it with the **Test Script** feature exercises the whole chain, from PDI through `rJava` to the R environment.\n\nIt confirms the connection at once, without running a full transformation and without relying on configuration fields alone.",
       "source": "Pentaho Developer - ML Specialty: Prerequisite Tasks"
     },
     {
@@ -263,7 +263,7 @@
         "Removes the need for a labeled target column in the data"
       ],
       "correct": 2,
-      "explanation": "H2O AutoML automatically discovers well-performing models and provides a **shortlist of candidates** to compare based on the appropriate metric.\n\nThis allows the team to evaluate the performance of various algorithms before selecting the best one for the production environment.",
+      "explanation": "H2O AutoML automatically discovers well-performing models and provides a **shortlist of candidates** to compare on the appropriate metric.\n\nThe team then compares how the algorithms perform before choosing one for production.",
       "source": "Pentaho Developer - ML Specialty: Overview"
     },
     {
@@ -279,7 +279,7 @@
         "AUCPR"
       ],
       "correct": 3,
-      "explanation": "The **AUCPR** (Area Under the Precision-Recall Curve) is the best single-number metric for evaluating models on imbalanced classification tasks, as it allows for the comparison of candidates before specific thresholds are tuned.",
+      "explanation": "**AUCPR** (Area Under the Precision-Recall Curve) is built from precision and recall, which both focus on the fraud class, so the score is not inflated by the 99% of rows that are not fraud, as accuracy is. It also ranks candidates before any threshold is tuned.",
       "source": "Pentaho Developer - ML Specialty: AutoML"
     },
     {
@@ -340,10 +340,10 @@
         "Precision, as false alarms are the only cost the bank controls",
         "Recall, and precision then stops carrying any information at all",
         "Neither, as accuracy balances the two and should be used instead",
-        "Recall, as missed fraud costs more, within the alert volume"
+        "Recall, as missed fraud costs more, within a manageable alert volume"
       ],
       "correct": 3,
-      "explanation": "When fraud losses are expensive, the guidance is to prioritize **recall**, because missed fraud is the costlier error. Precision remains informative because it measures the burden of the alert volume that the team must process.\n\nWhile the bank can control both types of errors by adjusting the threshold, a focus on recall ensures that the primary financial risk is mitigated.",
+      "explanation": "When fraud losses are expensive, the guidance is to prioritize **recall** because missed fraud is the costlier error. Precision remains informative because it measures the burden of the alert volume that the team must process.\n\nWhile the bank can control both types of errors by adjusting the threshold, a focus on **recall** ensures that the primary financial risk is mitigated.",
       "source": "Pentaho Developer - ML Specialty: AutoML"
     },
     {
@@ -375,7 +375,7 @@
         "A trained model artifact that Colab goes on to refine"
       ],
       "correct": 0,
-      "explanation": "The handover between the two systems is achieved via the **file transfer** of the `H2O.csv` file.\n\nAfter the `autoML.ktr` transformation is executed in PDI, the resulting file is uploaded to the Colab environment to provide the data for the AutoML search.",
+      "explanation": "The handover between the two systems is achieved via the **file transfer** of the `H2O.csv` file. After the `autoML.ktr` transformation is executed in PDI, the resulting file is uploaded to the Colab environment to provide the data for the AutoML search.",
       "source": "Pentaho Developer - ML Specialty: AutoML"
     },
     {
@@ -399,7 +399,7 @@
       "module": "AutoML",
       "bloom": "Analyze",
       "scenario": "A fraud classifier leaderboard is sorted by RMSE, and the top model by that measure is being put forward for deployment.",
-      "prompt": "Why is RMSE the wrong sort key here?",
+      "prompt": "Why is RMSE the wrong sort key for this leaderboard?",
       "options": [
         "It is valid only on balanced data, so it would suit a higher fraud rate.",
         "It cannot be computed for classifiers, so the column is meaningless.",
@@ -407,7 +407,7 @@
         "It is right for ranking, but must be weighed against training time."
       ],
       "correct": 2,
-      "explanation": "RMSE and MSE are **regression-style errors** calculated on probabilities. They do not provide an accurate measure of the quality of a final decision in a classification task like fraud detection.\n\nMetrics such as AUCPR are better suited for ranking candidates because they evaluate the actual classification performance.",
+      "explanation": "Root Mean Square Error (RMSE) and Mean Squared Error (MSE) are **regression-style errors** calculated on predicted probabilities. These metrics do not provide an accurate measure of the quality of a final decision in a classification task such as fraud detection.\n\nMetrics like AUCPR are better suited for ranking candidates because they evaluate the actual **classification performance**.",
       "source": "Pentaho Developer - ML Specialty: AutoML"
     },
     {
@@ -437,13 +437,13 @@
       "scenario": "A training script for a gradient boosting machine (GBM) includes the configuration `bag.fraction = 0.5`.",
       "prompt": "What does the `bag.fraction` setting do?",
       "options": [
-        "Keeps half the rows back as a fixed test set",
+        "Keeps half of the rows back as a fixed test set",
         "Fits each tree on a random half of the rows",
         "Halves the learning rate on every iteration",
-        "Discards half the trees once training ends"
+        "Discards half of the trees once training ends"
       ],
       "correct": 1,
-      "explanation": "The `bag.fraction` setting determines the proportion of data used to train each individual tree. By setting this to 0.5, the model performs **stochastic gradient boosting** by selecting a random subset of rows for each tree.\n\nThe rows that are not selected during the training of a specific tree are considered out-of-bag, which can be used for estimation. This sampling happens independently for each tree rather than reserving a fixed portion of the data for testing.",
+      "explanation": "The `bag.fraction` setting determines the proportion of data used to train each individual tree. By setting this value to 0.5, the model performs **stochastic gradient boosting** by selecting a random subset of rows for each tree.\n\nThe rows that are not selected during the training of a specific tree are considered out-of-bag, which can be used for estimation. This sampling occurs independently for each tree rather than reserving a fixed portion of the data for testing.",
       "source": "Pentaho Developer - ML Specialty: Credit Card"
     },
     {
@@ -459,7 +459,7 @@
         "The target is binary, fraud or not."
       ],
       "correct": 3,
-      "explanation": "The `bernoulli` distribution is used because the target represents a **binary classification** problem, where the outcome is limited to two possible states, such as fraud or not fraud.\n\nThis distribution is specifically designed for data that is categorized into exactly two classes, matching the binary nature of the target variable.",
+      "explanation": "The `bernoulli` distribution is used because the target represents a **binary classification** problem, where the outcome is limited to two possible states, such as fraud or not fraud.\n\nThis distribution is specifically designed for data categorized into exactly two classes, matching the binary nature of the target variable.",
       "source": "Pentaho Developer - ML Specialty: Credit Card"
     },
     {
@@ -488,10 +488,10 @@
         "A print() of the saved model's full summary",
         "A call to quit() so that the R session closes",
         "The path of the .rdata file as a plain string",
-        "A data frame, such as one holding Finished"
+        "A data frame, such as one holding the status Finished"
       ],
       "correct": 3,
-      "explanation": "The R Script Executor step requires the final expression in the script to be a **data frame** object. This allows the step to capture and pass the data from the R environment into the PDI pipeline.\n\nWhen the script concludes with a data frame, such as one containing a status value like `Finished`, the step completes successfully and passes the corresponding data to the next step.",
+      "explanation": "The R Script Executor step requires the script's final expression to be a **data frame**, which is what the step passes from R into the PDI pipeline.\n\nA script that ends with a data frame, such as one holding the status `Finished`, completes, and the step passes that row on to the next step.",
       "source": "Pentaho Developer - ML Specialty: Credit Card"
     },
     {
@@ -555,7 +555,7 @@
         "as.data.frame(test), which adds the predictions to the rows"
       ],
       "correct": 1,
-      "explanation": "The script uses the **cbind** function to bind the input frame and the predictions column-wise. This ensures that every original input field is preserved and travels downstream alongside the `fraud_probability`, `fraud_pct`, and `predicted_fraud` values.",
+      "explanation": "The script uses **cbind** to join the input frame and the predictions column by column, so every original input field travels downstream with the `fraud_probability`, `fraud_pct`, and `predicted_fraud` values.",
       "source": "Pentaho Developer - ML Specialty: Credit Card"
     },
     {
@@ -571,7 +571,7 @@
         "Each runs alone; the saved model is the handoff"
       ],
       "correct": 3,
-      "explanation": "Splitting the process into two transformations allows each to run, be tested, and be rerun independently by using a **saved model** as the intermediary handoff.\n\nThis approach ensures that the training phase and the prediction phase are decoupled, utilizing a specific **artifact** as the seam between them.",
+      "explanation": "Splitting the process into two transformations lets each one run, be tested, and be rerun on its own, with the **saved model** as the handoff between them: training writes the **artifact**, and prediction reads it.",
       "source": "Pentaho Developer - ML Specialty: Credit Card"
     },
     {
@@ -587,7 +587,7 @@
         "Input frames set to every step in the transformation"
       ],
       "correct": 1,
-      "explanation": "Setting the **Number of rows to process** to `All` within the Row handling configuration ensures that every row in the data stream is passed to the script at once. This allows a single model to be fitted on the entire dataset during a single execution.",
+      "explanation": "Setting **Number of rows to process** to `All` in the Row handling configuration passes every row in the stream to the script at once, so one model is fitted on the whole dataset in a single run.",
       "source": "Pentaho Developer - ML Specialty: Credit Card"
     },
     {
@@ -600,10 +600,10 @@
         "It scores the training rows instead of the new ones.",
         "The script fails, as the rows arrive in R as train.",
         "It works, as PDI renames the frame to suit the script.",
-        "It works, as R frame name is only a display label."
+        "It works, as the R frame name is only a display label."
       ],
       "correct": 1,
-      "explanation": "The **R frame name** defines the specific variable name that the incoming data rows are assigned to within the R environment. Because the script attempts to access an object named `test` while the data is bound to the variable `train`, the script cannot find the required object and fails.\n\nPDI does not automatically synchronize the script content with the configured frame name; the **frame name** is the functional identifier for the data, not a simple label.",
+      "explanation": "The **R frame name** defines the specific variable name that the incoming data rows are assigned to within the R environment. Because the script attempts to access an object named `test` while the data is bound to the variable `train`, the script cannot find the required object and fails.\n\nPentaho Data Integration does not automatically synchronize the script content with the configured **frame name**; the frame name is the functional identifier for the data, not a simple display label.",
       "source": "Pentaho Developer - ML Specialty: Credit Card"
     },
     {
@@ -651,7 +651,7 @@
         "The job compiles each .ktr into itself when it is saved."
       ],
       "correct": 0,
-      "explanation": "The job entry points to a specific file path for the transformation. Because the job does not embed a **copy of the file**, any change to the filename or its location breaks the **file reference** until the entry is updated.\n\nWhen a transformation is renamed or moved, the absolute or relative path in the job file no longer matches the actual location of the .ktr file.",
+      "explanation": "The job entry points to a specific **file path** for the transformation. Because the job does not embed a copy of the file, any change to the filename or its location breaks the **file reference** until the entry is updated.\n\nWhen a transformation is renamed or moved, the absolute or relative path in the job file no longer matches the actual location of the .ktr file.",
       "source": "Pentaho Developer - ML Specialty: Credit Card"
     },
     {
@@ -664,10 +664,10 @@
         "An entry for each transaction in `kettle.properties`",
         "`gbm_fraud.rdata`, which also stores each prediction",
         "`H2O.csv`, refreshed with each night's new scores",
-        "`credit_card_predict.xlsx`, in `train_model_output`"
+        "`credit_card_fraud_<HHmmss>.csv`, in the `output` folder"
       ],
       "correct": 3,
-      "explanation": "The prediction workflow generates the `credit_card_predict.xlsx` file within the `train_model_output` folder. This file is designed for a reviewer to open and sort, and it can also **trigger downstream events**.",
+      "explanation": "The prediction job writes a **CSV file** to the `output` folder and adds the time of the run to its name: `credit_card_fraud_<HHmmss>.csv`. Each row is a scored transaction with its original fields plus `fraud_probability`, `fraud_pct`, and `predicted_fraud`, so a reviewer can open and sort it without PDI.",
       "source": "Pentaho Developer - ML Specialty: Credit Card"
     }
   ]

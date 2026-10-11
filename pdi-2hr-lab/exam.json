@@ -60,7 +60,7 @@
         "The JSON must be converted to CSV so the formats match"
       ],
       "correct": 0,
-      "explanation": "Because each source is read by its own input step, the data is converted into a uniform row format. This allows the data to be combined via **in-flight** processing, where joins and lookups occur as the data streams through the transformation.",
+      "explanation": "Each source is read by its own input step into the same row format, so joins and lookups combine the data **in flight**, as the rows stream through the transformation.",
       "source": "Enrich and Join"
     },
     {
@@ -76,7 +76,7 @@
         "One rejected row, because the key already exists"
       ],
       "correct": 0,
-      "explanation": "The Dimension lookup/update step supports **Type 2 dimension** logic by maintaining a history of changes. When a change is detected, the step expires the previous record by updating its end date and inserts a new record with an open-ended expiration date for the new value.\n\nThis process ensures that the history of the customer's location is preserved while the current status is updated to the South region.",
+      "explanation": "The Dimension lookup/update step supports **Type 2 dimension** logic by keeping a history of changes. When a change is detected, the step expires the previous record by updating its end date and inserts a new record with an open-ended expiration date for the new value.\n\nThe customer's North row is kept as history, and the South row is the current one.",
       "source": "Track History with One Step"
     },
     {
@@ -92,7 +92,7 @@
         "Add one row describing the new feed to the control file"
       ],
       "correct": 3,
-      "explanation": "Because **metadata injection** converts configuration into data, adding a new feed only requires a new row in the control file.\n\nThis approach allows the system to process the new feed using the existing template without requiring the user to open the transformation or modify the underlying logic.",
+      "explanation": "Because **metadata injection** converts configuration into data, adding a new feed only requires a new row in the control file.\n\nThe existing template then processes the new feed, without anyone opening the transformation or changing its logic.",
       "source": "One Pipeline, Many Files"
     },
     {
@@ -177,7 +177,7 @@
         "Evaluating PDI against the client's real data"
       ],
       "correct": 2,
-      "explanation": "Running the client's nightly loads in production requires a **commercial license**, which also includes support and certified updates.\n\nWhile the Developer Edition allows for evaluation, development, and training, it does not cover production environments.",
+      "explanation": "The **Developer Edition** license allows for evaluation, development, and training, but it does not cover production environments.\n\nRunning the client's nightly loads in production requires a **commercial license**, which also includes support and certified updates.",
       "source": "Before You Start"
     },
     {
@@ -200,10 +200,10 @@
       "id": "2hr-m2-q4",
       "module": "See It Work",
       "bloom": "Understand",
-      "scenario": "A Pentaho Data Integration (PDI) transformation reads data from a text file. The Calculator step, positioned downstream, needs to interpret the data type of each incoming field. This happens while the transformation is designed, before any data is processed.",
+      "scenario": "A Pentaho Data Integration (PDI) transformation reads data from a text file. The Calculator step, positioned downstream, needs to interpret the data type of each incoming field. This process occurs while the transformation is being designed, before any data is processed.",
       "prompt": "What information does the Calculator step use to determine the data types of incoming fields?",
       "options": [
-        "Inferred data types, derived by the Calculator from field names.",
+        "Inferred data types derived by the Calculator from field names.",
         "A dynamically generated Java class that parses the input file's format.",
         "A sample of rows the Calculator reads from the file when the run starts.",
         "Row metadata: each field's name, type, and format."
@@ -226,7 +226,7 @@
         "Steps execute concurrently, but each waits for its input step to finish reading the whole file before processing any rows."
       ],
       "correct": 2,
-      "explanation": "PDI handles large datasets because each step executes concurrently on its own **thread**. Rows are passed between these threads through small in-memory **buffers** (10,000 rows per hop by default). Because only a bounded number of rows is held at any time, never the entire 20 GB file, the process does not exhaust the available memory.",
+      "explanation": "PDI handles large datasets because each step executes concurrently on its own **thread**. Rows are passed between these threads through small in-memory **buffers** (10,000 rows per hop by default). Because only a bounded number of rows is held at any time, rather than the entire 20 GB file, the process does not exhaust the available memory.",
       "source": "Build the Pipeline Yourself"
     },
     {
@@ -258,7 +258,7 @@
         "Merge join, configured as a LEFT OUTER join"
       ],
       "correct": 3,
-      "explanation": "A **Merge join** with a **LEFT OUTER join** configuration ensures that all records from the primary stream are preserved in the output. This method allows for multiple matches from the secondary stream to be joined to a single primary record while still including primary records that have no corresponding match in the secondary stream.",
+      "explanation": "A **Merge join** configured as a **LEFT OUTER join** keeps every record from the primary stream. Each order is joined to every logistics record that matches it, so partial shipments all appear, and an order with no match is kept with empty logistics fields.",
       "source": "Enrich and Join"
     },
     {
@@ -290,7 +290,7 @@
         "To prevent multiplication of sales records in cases of duplicate region codes within the regional data file."
       ],
       "correct": 0,
-      "explanation": "A **LEFT OUTER JOIN** ensures that all rows from the left table (sales data) are preserved in the output. When a match is not found in the right table (regional data), the result set still includes the record from the left table with null values for the missing fields.\n\nThis approach prevents the loss of records that do not have a corresponding entry in the lookup source.",
+      "explanation": "A **LEFT OUTER JOIN** keeps every row from the left table (sales data) in the output. When no match is found in the right table (regional data), the sales record is still included, with null values for the missing fields.",
       "source": "Enrich and Join"
     },
     {
@@ -377,7 +377,7 @@
       "id": "2hr-m3-q10",
       "module": "Make It Yours",
       "bloom": "Apply",
-      "scenario": "A data integration process receives customer data as a JSON file. The file has a top-level key named `customers` that holds an array of customer objects, each with attributes such as `id`, `name`, and `region_code`. The `region_code` of each customer is to be extracted with a JSON input step in Pentaho Data Integration (PDI).",
+      "scenario": "A data integration process receives customer data as a JSON file. The file contains a top-level key named `customers` that holds an array of customer objects, each containing attributes such as `id`, `name`, and `region_code`. The `region_code` for each customer must be extracted using a JSON input step in Pentaho Data Integration (PDI).",
       "prompt": "Which JSONPath expression will correctly extract the `region_code` attribute from each customer object within the `customers` array?",
       "options": [
         "$.region_code[*]",
@@ -386,7 +386,7 @@
         "$.customers.region_code"
       ],
       "correct": 1,
-      "explanation": "The **JSONPath expression** `$.customers[*].region_code` selects the `customers` array, uses the `[*]` wildcard to take every object in it, and then reads the `region_code` attribute of each object.\n\n```json\n{\n  \"customers\": [\n    {\"id\": 1, \"name\": \"Alpha\", \"region_code\": \"US\"},\n    {\"id\": 2, \"name\": \"Beta\", \"region_code\": \"CA\"}\n  ]\n}\n```",
+      "explanation": "The **JSONPath expression** `$.customers[*].region_code` selects the `customers` array, uses the `[*]` wildcard to select every object within that array, and then retrieves the `region_code` attribute from each of those objects.\n\n```json\n{\n  \"customers\": [\n    {\"id\": 1, \"name\": \"Alpha\", \"region_code\": \"US\"},\n    {\"id\": 2, \"name\": \"Beta\", \"region_code\": \"CA\"}\n  ]\n}\n```",
       "source": "Track History with One Step"
     },
     {
@@ -402,7 +402,7 @@
         "Connecting both Stream lookup steps directly to the original sales stream would significantly increase processing time due to redundant data access."
       ],
       "correct": 1,
-      "explanation": "Chaining allows each **Stream lookup** to propagate the original row while adding the relevant fields from its lookup source. The data from both lookups is combined into a single output row.",
+      "explanation": "Chaining lets each **Stream lookup** pass on the original row with the fields it adds from its lookup source, so the data from both lookups ends up in a single output row.\n\nStream lookup → Stream lookup",
       "source": "Enrich and Join"
     },
     {
@@ -431,7 +431,7 @@
         "Stream lookup, matching `category` values against a pre-defined category list",
         "Calculator, applying a mathematical formula to each amount field",
         "Sort rows, ordering the input by `category` before outputting to a file",
-        "Group by, grouping on `category` and summing amount"
+        "Group by, grouping on `category` and summing the amount"
       ],
       "correct": 3,
       "explanation": "The **Group by** step groups the rows by the `category` field and applies the sum aggregation to the amount field.\n\nGroup by needs its input sorted on the grouping field, as this file already is, which makes it the most efficient choice here. Unsorted input would need sorting first, or **Memory group by**.",
@@ -450,7 +450,7 @@
         "Implementing a data validation step immediately preceding the final output."
       ],
       "correct": 2,
-      "explanation": "**Previewing data** at each step during the development process allows for the immediate verification of data at every stage of the transformation. This allows developers to identify issues, such as date parsing errors, as they occur rather than after the entire transformation is complete.",
+      "explanation": "**Previewing data** at each step as the transformation is built shows the rows at every stage, so an issue such as a date parsing error is found where it occurs, not after the whole transformation has run.",
       "source": "Bring Your Own Data"
     },
     {
@@ -466,7 +466,7 @@
         "Separate transformations are created for each regional data format, ensuring data consistency."
       ],
       "correct": 2,
-      "explanation": "**Metadata injection** enables a single PDI transformation to process multiple data sources by dynamically configuring its behavior using external metadata at runtime.\n\nBy using a template transformation, the system can ingest different file formats without manual reconfiguration for each new source, effectively replacing the need for multiple nearly identical transformation files.",
+      "explanation": "**Metadata injection** enables a single transformation to process multiple data sources by dynamically configuring its behavior using external metadata at runtime.\n\nBy using a template transformation, the system can ingest different file formats without manual reconfiguration for each new source, effectively replacing the need for multiple nearly identical transformation files.",
       "source": "One Pipeline, Many Files"
     },
     {
@@ -492,7 +492,7 @@
       "scenario": "A data integration specialist is designing a transformation to enrich an incoming order stream by matching customer data from a reference table containing 40 million rows. They are considering using a Stream lookup step for this purpose.",
       "prompt": "What is the most significant limitation of using a Stream lookup step in this scenario?",
       "options": [
-        "Stream lookup is designed only for looking up data from flat files, and cannot connect directly to a database table.",
+        "Stream lookup is designed only for looking up data from flat files and cannot connect directly to a database table.",
         "Stream lookup duplicates every matched row from the reference table to the output stream, greatly increasing data volume.",
         "Stream lookup requires both the incoming stream and the reference table to be sorted before the lookup can begin.",
         "Stream lookup loads the entire reference dataset into memory, potentially exceeding available resources with a 40-million-row table."

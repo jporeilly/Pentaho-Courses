@@ -35,7 +35,7 @@
         "The consumer emits one row per message into its own transformation's stream."
       ],
       "correct": 2,
-      "explanation": "A parent transformation contains the consumer step, which collects messages into batches. Each batch is then passed to a **child transformation** that processes the group as a single unit. This pattern ensures that subsequent operations, such as lookups or database writes, are performed on a collection of records rather than on an individual basis.",
+      "explanation": "A parent transformation holds the consumer step, which collects messages into batches and passes each batch to a **child transformation**. The lookup and database write then run once for each batch rather than once for each message.",
       "source": "Pentaho Developer - Streaming Specialty: Overview"
     },
     {
@@ -64,7 +64,7 @@
         "One hundred records, as the record count must always be met",
         "One record, as each message triggers a batch of its own",
         "About five records, but only once 100 have also arrived",
-        "About five, as the five-second window is reached first"
+        "About five records, as the five-second window is reached first"
       ],
       "correct": 3,
       "explanation": "A batch is flushed when the first of the two thresholds is reached. Because the **batch window** of 5 seconds is reached before the 100-record count is reached at a rate of one message per second, each batch carries about five records.",
@@ -132,7 +132,7 @@
         "It keeps every device's full history on the broker indefinitely",
         "It encrypts every message in the device's own hardware",
         "It guarantees exactly-once delivery whatever the settings",
-        "It needs minimal resources, so small microcontrollers run it"
+        "It needs so little that even small microcontrollers can run it"
       ],
       "correct": 3,
       "explanation": "MQTT is a **lightweight protocol** that requires minimal resources, which allows small microcontrollers to run it while keeping power consumption and manufacturing costs low.",
@@ -142,7 +142,7 @@
       "id": "sd-m2-q2",
       "module": "MQTT",
       "bloom": "Analyze",
-      "scenario": "One feed sends a temperature reading every second, and losing the odd reading is harmless. Another feed sends payment commands, where a duplicate would charge a customer twice.",
+      "scenario": "One feed sends a temperature reading every second, and losing an odd reading is harmless. Another feed sends payment commands, where a duplicate would charge a customer twice.",
       "prompt": "Which QoS levels fit the two feeds?",
       "options": [
         "QoS 0 for the readings and QoS 2 for the payment commands",
@@ -178,10 +178,10 @@
       "prompt": "Which two settings should be checked first?",
       "options": [
         "That both clients use one and the same Client ID",
-        "That Duration (ms) or Number of records is above 0",
+        "That the Duration (ms) or Number of records is above 0",
         "That the Dashboard's default admin password was changed",
         "That the consumer's QoS has been raised to 2",
-        "That producer and consumer use the same topic"
+        "That the producer and consumer use the same topic"
       ],
       "correctIndices": [
         1,
@@ -219,7 +219,7 @@
         "A lower alert threshold, so a missing reading counts as zero"
       ],
       "correct": 1,
-      "explanation": "A **Last Will** message is registered by a client at the time of connection. The broker publishes this message to a designated topic if the client disconnects ungracefully or misses its keep-alive signal. This allows a subscriber to identify when a device goes offline.\n\nBecause the consumer only reacts to incoming messages, a silent truck sends no data. A Last Will ensures that the absence of a heartbeat is communicated by the broker as a specific notification.",
+      "explanation": "A **Last Will** is a message registered by a client at the time of connection. The broker publishes this message to a designated topic if the client disconnects ungracefully or misses its keep-alive signal.\n\nBecause the consumer only reacts to incoming messages, a silent truck sends no data. The **Last Will** ensures that the absence of a heartbeat is communicated by the broker as a specific notification.",
       "source": "Pentaho Developer - Streaming Specialty: HiveMQ"
     },
     {
@@ -242,7 +242,7 @@
       "id": "sd-m4-q2",
       "module": "Kafka",
       "bloom": "Apply",
-      "scenario": "A Kafka consumer restarts after a crash and continues from where it stopped instead of reprocessing the entire topic.",
+      "scenario": "A Kafka consumer is restarted after a crash. It continues processing from the point where it stopped instead of reprocessing the entire topic.",
       "prompt": "What makes that possible?",
       "options": [
         "A replay that skips records the consumer has seen",
@@ -294,7 +294,7 @@
       "prompt": "Why is a Formula step used rather than a Calculator step?",
       "options": [
         "MySQL rejects the values that a Calculator step produces.",
-        "Formula accepts a constant like 1000, whereas a Calculator step requires two fields.",
+        "Formula accepts a constant such as 1000; Calculator needs two fields.",
         "Calculator cannot return an Integer result from a division.",
         "Formula runs faster than Calculator on batches of streamed rows."
       ],
@@ -315,7 +315,7 @@
         "Set the commit size to 1 so that each row is checked on its own"
       ],
       "correct": 1,
-      "explanation": "MySQL retrieves the database name from the **connection details**. When a value is entered into the Target schema field, Pentaho Data Integration (PDI) may attempt to qualify the table name, which can cause execution failures. Leaving the field blank ensures the database is correctly identified from the connection properties.",
+      "explanation": "MySQL retrieves the database name from the **connection details**. When a value is entered into the Target schema field, Pentaho Data Integration may attempt to qualify the table name, which can cause execution failures. Leaving the field blank ensures the database is correctly identified from the connection properties.",
       "source": "Pentaho Developer - Streaming Specialty: Kafka Use Cases"
     },
     {
@@ -331,7 +331,7 @@
         "At most four will work, as each partition goes to one member"
       ],
       "correct": 3,
-      "explanation": "In a consumer group, each **partition** is assigned to exactly one member. Since there are only four partitions available, only four consumers can be active at any given time, while the remaining four consumers will sit idle.\n\nIncreasing the number of consumers only improves throughput if the number of **available partitions** is greater than or equal to the number of consumers.",
+      "explanation": "In a **consumer group**, each **partition** is assigned to exactly one member. Since there are only four partitions available, only four consumers can be active at any given time, while the remaining four consumers will sit idle.\n\nIncreasing the number of consumers only improves throughput if the number of available partitions is greater than or equal to the number of consumers.",
       "source": "Pentaho Developer - Streaming Specialty: Kafka Use Cases"
     },
     {
@@ -376,10 +376,10 @@
         "Durable, and neither exclusive nor auto-delete",
         "Durable and exclusive, so one consumer owns it",
         "Transient, with auto-delete so it never goes stale",
-        "Transient, exclusive and auto-delete"
+        "Transient, exclusive, and auto-delete"
       ],
       "correct": 0,
-      "explanation": "A **durable** queue is saved to disk and survives broker restarts. By ensuring the queue is neither exclusive nor auto-delete, the queue remains available for multiple connections and does not disappear when its consumer count drops to zero.",
+      "explanation": "A **durable** queue is saved to disk and survives broker restarts. By ensuring the queue is neither **exclusive** nor **auto-delete**, the queue remains available for multiple connections and does not disappear when the consumer count drops to zero.",
       "source": "Pentaho Developer - Streaming Specialty: AMQP"
     },
     {
@@ -395,7 +395,7 @@
         "Held by the exchange until a queue was bound, then delivered"
       ],
       "correct": 2,
-      "explanation": "Because an **exchange** cannot store messages itself, it routes messages to bound queues immediately. If no queue is bound at the moment of publication, the messages are lost because the producer does not maintain a buffer for messages that have no destination.\n\nThe **AMQP Consumer** step creates its own queue and binding upon connection. Because the producer finished sending messages before this step created the necessary infrastructure, the messages had no destination to wait in and were not retained.",
+      "explanation": "An **exchange** does not have the capacity to store messages; it acts as a routing agent that directs messages to bound queues immediately. If no queue is bound to the exchange at the moment of publication, the messages are lost because the producer does not maintain a buffer for messages without a destination.\n\nThe **AMQP Consumer** step only creates its own queue and binding upon establishing a connection. Because the producer finished sending messages before the consumer created the necessary infrastructure, the messages had no destination to wait in and were not retained.",
       "source": "Pentaho Developer - Streaming Specialty: RabbitMQ"
     },
     {
@@ -411,14 +411,14 @@
         "Reject it: the queue would vanish as each night's run ends"
       ],
       "correct": 3,
-      "explanation": "The **auto-delete** flag causes a queue to be deleted as soon as the number of consumers connected to it drops to zero. Since the consumer only runs once a night, the queue would be deleted immediately after each nightly run finishes, causing any messages produced before the next run to have no queue to wait in.",
+      "explanation": "The **auto-delete** flag causes a queue to be deleted as soon as the number of consumers connected to it drops to zero. Because the consumer only runs once a night, the queue would be deleted immediately after each nightly run finishes, preventing any messages produced before the next run from having a queue to wait in.",
       "source": "Pentaho Developer - Streaming Specialty: AMQP"
     },
     {
       "id": "sd-m3-q6",
       "module": "AMQP",
       "bloom": "Apply",
-      "scenario": "An AMQP Consumer step names an existing queue that another application declared non-durable. The step itself is configured to create a durable queue.",
+      "scenario": "An AMQP Consumer step names an existing queue that another application declared non-durable. The step is configured to create a durable queue.",
       "prompt": "What happens when the transformation runs?",
       "options": [
         "It reads from the queue and ignores the difference.",
@@ -427,14 +427,14 @@
         "It aborts, as the queue exists with other settings."
       ],
       "correct": 3,
-      "explanation": "The AMQP Consumer step creates a new queue only during the first execution. If a queue with the same name already exists but possesses different configuration settings, the transformation **aborts** because the step cannot automatically resolve the conflict between the existing queue and the configured parameters.",
+      "explanation": "The AMQP Consumer step creates a new queue only during the first execution. If a queue with the same name exists but has different configuration settings, the transformation **aborts** because the step cannot automatically resolve the conflict between the existing queue and the configured parameters.",
       "source": "Pentaho Developer - Streaming Specialty: RabbitMQ"
     },
     {
       "id": "sd-m1-q8",
       "module": "Streaming Data",
       "bloom": "Evaluate",
-      "scenario": "A team will rebuild a nightly load as a streaming pipeline and wants to keep the parsing and table-loading steps they already trust. A colleague suggests that streaming in Pentaho Data Integration (PDI) requires learning an entirely new set of processing steps.",
+      "scenario": "A team is rebuilding a nightly load as a streaming pipeline and wants to keep the parsing and table-loading steps they already trust. A colleague suggests that streaming in Pentaho Data Integration (PDI) requires learning an entirely new set of processing steps.",
       "prompt": "What is the fairest assessment of the colleague's view?",
       "options": [
         "Right: each protocol needs its own set of processing steps after it",
@@ -443,7 +443,7 @@
         "Right: streaming transformations use their own separate set of steps"
       ],
       "correct": 1,
-      "explanation": "Streaming transformations follow a consistent parent/child pattern where the only new components are the **consumer** at the front and the **Get records from stream** step at the start of the child transformation.\n\nStandard processing steps, such as JSON input, Select values, Formula, and Table output, function identically in both batch and streaming contexts. The standard processing steps serve every protocol, meaning the core logic of the transformation does not change based on the source type.",
+      "explanation": "Streaming transformations follow a consistent parent/child pattern where the only new components are the **consumer** at the front and the **Get records from stream** step at the start of the child transformation.\n\nStandard processing steps, such as JSON input, Select values, Formula, and Table output, function identically in both batch and streaming contexts. These steps serve every protocol, meaning the core logic of the transformation does not change based on the source type.",
       "source": "Pentaho Developer - Streaming Specialty: Overview"
     },
     {
@@ -475,7 +475,7 @@
         "The message was retained, so the broker replays it."
       ],
       "correct": 3,
-      "explanation": "The message was stored by the broker because it was published with the **retained** flag. When a new client subscribes to a topic containing a retained message, the broker immediately delivers that specific value to the subscriber.\n\nThis ensures that the last known state of a device is available to any client that connects after the initial broadcast.",
+      "explanation": "The message was stored by the broker because it was published with the **retained** flag. When a new client subscribes to a topic with a retained message, the broker delivers that last value at once, so a late subscriber still learns the device's last known state.",
       "source": "Pentaho Developer - Streaming Specialty: HiveMQ"
     },
     {
@@ -555,7 +555,7 @@
         "Either, since offsets matter only when a new group starts"
       ],
       "correct": 0,
-      "explanation": "The **Commit when batch completed** setting ensures that the offset moves only after the child has finished processing the entire batch. This means that if a batch fails, the offset is not updated, and the batch is read again upon restart.\n\nThis behavior prevents the loss of records during a failure because the system treats the entire batch as a single unit of work for the **offset update**.",
+      "explanation": "The **Commit when batch completed** setting ensures that the offset moves only after the child has finished processing the entire batch. If a batch fails, the offset is not updated, and the batch is read again upon restart.\n\nThis behavior prevents the loss of records during a failure because the system treats the entire batch as a single unit of work for the **offset update**.",
       "source": "Pentaho Developer - Streaming Specialty: Kafka Use Cases"
     },
     {
@@ -594,7 +594,7 @@
       "id": "sd-m4-q11",
       "module": "Kafka",
       "bloom": "Apply",
-      "scenario": "Several teams produce Avro messages to shared Kafka topics. Consumers keep breaking when a producer changes the structure of its messages.",
+      "scenario": "Several teams produce Avro messages to shared Kafka topics. Consumers break whenever a producer changes the structure of the messages.",
       "prompt": "Which component addresses this?",
       "options": [
         "A consumer group, which pins the schema its members read",
@@ -603,7 +603,7 @@
         "A broker setting that rejects messages of an unknown shape"
       ],
       "correct": 2,
-      "explanation": "A **Schema Registry** is a central repository for managing and validating message schemas. It sits apart from the brokers, and producers and consumers talk to it alongside Kafka to send and retrieve schemas.",
+      "explanation": "A **Schema Registry** is a central repository for managing and validating message schemas. It sits apart from the brokers, and producers and consumers consult it alongside Kafka to send and retrieve schemas.",
       "source": "Pentaho Developer - Streaming Specialty: Kafka"
     },
     {
@@ -635,7 +635,7 @@
         "No exchange, so the queue receives every message on the broker"
       ],
       "correct": 1,
-      "explanation": "When the Exchange name is left blank, the step uses the **default exchange**. This default exchange is of type DIRECT and routes messages based on the specific routing key provided by the producer.",
+      "explanation": "When the Exchange name is left blank, the step uses the **default exchange**. This default exchange is of type **DIRECT** and routes messages based on the specific routing key provided by the producer.",
       "source": "Pentaho Developer - Streaming Specialty: RabbitMQ"
     },
     {
@@ -651,7 +651,7 @@
         "They are lost, as no consumer was there to read them"
       ],
       "correct": 0,
-      "explanation": "The use of a **message queue** ensures that messages are stored by the broker until a consumer is available to retrieve them. This architecture decouples the services, ensuring that a temporary failure in a downstream service does not result in the loss of data.\n\nBecause the communication is **asynchronous**, the producer does not wait for a response from the consumer. The broker maintains these messages in the queue specifically because they are bound to a queue, rather than being sent to an exchange with no bound queue.",
+      "explanation": "The use of a **message queue** ensures that messages are stored by the broker until a consumer is available to retrieve them. This architecture decouples the services, ensuring that a temporary failure in a downstream service does not result in the loss of data.\n\nBecause the communication is **asynchronous**, the producer does not wait for a response from the consumer. The broker maintains these messages in the queue because they are bound to a queue rather than being sent to an exchange with no bound queue.",
       "source": "Pentaho Developer - Streaming Specialty: AMQP"
     }
   ]

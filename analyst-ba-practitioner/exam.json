@@ -19,7 +19,7 @@
         "Interactive Reports"
       ],
       "correct": 2,
-      "explanation": "The **Analyzer** tool is designed for OLAP functionality, allowing users to pivot measures across dimensions and drill down through a hierarchy, such as from years to quarters, with a double-click.\n\nThis functionality enables the user to perform ad-hoc exploration of the data cube to investigate specific figures.",
+      "explanation": "The **Analyzer** tool is designed for OLAP analysis: users pivot measures across dimensions and drill down through a hierarchy, such as from years to quarters, with a double-click, exploring the cube whenever a figure looks odd.",
       "source": "Pentaho Analyst - Practitioner: Overview — Choosing the right tool"
     },
     {
@@ -67,7 +67,7 @@
         "Only the database connection the Orders model uses"
       ],
       "correct": 3,
-      "explanation": "The **database connection** belongs to the metadata model, and every report built on that model accesses the database through that specific connection. Updating the connection in the model automatically updates the access point for all associated reports.\n\nReports store a query against the model rather than raw SQL against a specific server, so the query does not need to be updated individually for each report.",
+      "explanation": "The **database connection** belongs to the metadata model. Every report built on that model accesses the database through that specific connection, so updating the connection in the model automatically updates the access point for all associated reports.\n\nBecause reports store a query against the model rather than raw SQL against a specific server, the query does not need to be updated individually for each report.",
       "source": "Pentaho Analyst - Practitioner: Overview — Data governance"
     },
     {
@@ -131,7 +131,7 @@
         "As a Territory filter saved into each report"
       ],
       "correct": 1,
-      "explanation": "Defining the restriction in the **metadata model security** ensures that the constraint is applied to every query the model generates. This ensures that all current and future reports built upon the model are automatically restricted based on the user's role.\n\nThis approach provides a centralized security layer that remains consistent across the entire ecosystem regardless of which specific report is being accessed.",
+      "explanation": "Defining the restriction in the **metadata model security** applies it to every query the model generates, so every report built on the model, now or next year, is restricted by the user's role, whichever report is opened.",
       "source": "Pentaho Analyst - Practitioner: Overview — Data governance"
     },
     {
@@ -175,11 +175,11 @@
       "options": [
         "Build pixel-perfect reports as in Report Designer",
         "Design transformations and jobs on a canvas",
-        "Open, create and schedule reports and dashboards",
+        "Open, create, and schedule reports and dashboards",
         "Edit Mondrian schemas as in Schema Workbench"
       ],
       "correct": 2,
-      "explanation": "The **User Console** is the web-based front end of the Pentaho Server. It allows users to open content, create Interactive Reports, create Analyzer reports, and schedule reports and dashboards.",
+      "explanation": "The **User Console** is the web-based front end of the Pentaho Server. It provides the interface for users to open content, create Interactive Reports, create Analyzer reports, and schedule reports and dashboards.",
       "source": "Pentaho Analyst - Practitioner: User Console — Pentaho User Console"
     },
     {
@@ -243,7 +243,7 @@
         "No, because the portal page now controls access to the folder"
       ],
       "correct": 0,
-      "explanation": "The server checks the **access-control list** of the requested content on every request. Because the folder still grants the Sales role access, the user can still fetch the report using any client, including the User Console, Report Designer, a script, or the REST API.\n\nContent does not require a link to be requested; any client can ask the server for a path. A portal page is only one of many possible clients and does not manage permissions; only the **folder permissions** determine if a user can access the file.",
+      "explanation": "The server checks the **access-control list** of the requested content on every request. Because the folder still grants the Sales role access, the user can still fetch the report using any client, including the User Console, Report Designer, a script, or the REST API.\n\nContent does not require a link to be requested; any client can request a path from the server. A portal page is only one of many possible clients and does not manage permissions; only the **folder permissions** determine if a user can access the file.",
       "source": "Pentaho Analyst - Practitioner: User Console — Users & Roles"
     },
     {
@@ -355,7 +355,7 @@
         "Sum"
       ],
       "correct": 0,
-      "explanation": "The **Count Distinct** summary calculates how many unique values exist in a group. This ensures that if an order contains multiple lines, the order number is counted only once in the total for the territory.",
+      "explanation": "The **Count Distinct** summary counts how many unique values a group holds, so an order with several lines is counted once in its territory's total.",
       "source": "Pentaho Analyst - Practitioner: Interactive Reports — Totals"
     },
     {
@@ -371,7 +371,7 @@
         "A filter on Territory, set to each manager's value in turn"
       ],
       "correct": 1,
-      "explanation": "A **prompt** is a filter whose value is provided at run time, allowing a single report to serve different users depending on the value they enter.\n\nThis approach allows the report to be integrated into schedules and dashboards where the parameter can be set automatically for each specific territory.",
+      "explanation": "A **prompt** is a filter whose value is provided at run time, so a single report serves each manager with the territory they choose.\n\nThe same report can also go into schedules and dashboards, where the parameter is set for each territory.",
       "source": "Pentaho Analyst - Practitioner: Interactive Reports — Prompts"
     },
     {
@@ -403,7 +403,7 @@
         "One report grouped by Territory, sent to both teams"
       ],
       "correct": 1,
-      "explanation": "Using a report with a **Territory prompt** creates a single definition for the report content. Each unique schedule then sets the specific `Territory` parameter for its respective team.\n\nThis approach ensures that any future changes to the report layout or logic only need to be performed once in the shared definition.",
+      "explanation": "A report with a **Territory prompt** is a single definition of the report. Each schedule then sets the `Territory` parameter for its own team.\n\nA change to the layout or logic is made once, in the shared report.",
       "source": "Pentaho Analyst - Practitioner: Interactive Reports — Orders NA and EMEA"
     },
     {
@@ -419,7 +419,7 @@
         "Interactive Reports joins the rows together in the user's browser"
       ],
       "correct": 2,
-      "explanation": "The **metadata layer** follows relationships established in the data model to generate a single SQL statement with the correct joins.\n\nBecause the relationships are defined once in the model, the analyst does not need to specify join keys for each field, and the join is executed in the database rather than in the browser.",
+      "explanation": "The **metadata layer** follows relationships established in the data model to generate a single SQL statement with the correct joins. Because the relationships are defined once in the model, the analyst does not need to specify join keys for each field, and the join is executed in the database rather than in the browser.",
       "source": "Pentaho Analyst - Practitioner: Interactive Reports — Metadata model"
     },
     {
@@ -429,8 +429,8 @@
       "scenario": "An analyst adds a calculated field, `Tax = [Total] * 0.15`, to an Interactive Report. The analyst then attempts to filter for orders where the tax amount exceeds 1,000 but finds the filtering option is unavailable for that field.",
       "prompt": "Why can the calculated field not be filtered?",
       "options": [
-        "The expression has to be written in SQL before it can filter.",
-        "Calculated fields must be published before they can filter.",
+        "The expression has to be written in SQL before it can be filtered.",
+        "Calculated fields must be published before they can be filtered.",
         "The report engine computes it after the query has returned.",
         "Filters accept only fields that already have a prompt."
       ],
@@ -451,7 +451,7 @@
         "The column sort is applied first, and the groups follow it"
       ],
       "correct": 1,
-      "explanation": "The engine determines a new group when a value changes between consecutive rows. To ensure this logic functions correctly, **group fields** are placed ahead of any additional column sort in the query's `ORDER BY` clause. This allows the database to perform the ordering, which ensures that records are grouped together without the need for the engine to re-sort data in memory.\n\nThe filter goes into the `WHERE` clause, so it runs in the database before any rows reach the engine.",
+      "explanation": "The engine starts a new group when a value changes between consecutive rows, so the **group fields** go into the query's `ORDER BY` ahead of any column sort, and the database does the ordering.\n\nThe filter goes into the `WHERE` clause, so it runs in the database before any rows reach the engine.",
       "source": "Pentaho Analyst - Practitioner: Interactive Reports — Filtering & sorting"
     },
     {
@@ -471,7 +471,7 @@
         0,
         1
       ],
-      "explanation": "The **CSV** format is a delimited text file that the finance system can load, and the **PDF** format maintains a fixed page layout for printing.",
+      "explanation": "The **CSV** format is a delimited text file that the finance system can load. The **PDF** format maintains a fixed page layout for printing.",
       "source": "Pentaho Analyst - Practitioner: Interactive Reports — Output formats"
     },
     {
@@ -507,7 +507,7 @@
         0,
         2
       ],
-      "explanation": "Drilling through a hierarchy and creating a **calculated measure** are both analysis actions because each action modifies the report's MDX query.\n\nThese operations occur within the **Analyzer** tool, which reads from the cube rather than modifying the underlying data or the schema.",
+      "explanation": "Drilling through a hierarchy and creating a **calculated measure** are analysis actions because each action modifies the report's **MDX query**.\n\nThese operations occur within the **Analyzer** tool, which reads from the cube rather than modifying the underlying data or the schema.",
       "source": "Pentaho Analyst - Practitioner: Analyzer Reports — OLAP & Mondrian"
     },
     {
@@ -523,7 +523,7 @@
         "Drill-down"
       ],
       "correct": 3,
-      "explanation": "The operation of moving from one level of a hierarchy to the level below it, such as from years to quarters, while keeping the rest of the view the same is called a **drill-down**.",
+      "explanation": "The operation of moving from one level of a hierarchy to the level below it, such as from years to quarters, while keeping the rest of the view the same is called a **drill-down**.\n\n```text\nYears\n  2004          double-click\n    QTR1\n    QTR2\n    QTR3\n    QTR4\n```",
       "source": "Pentaho Analyst - Practitioner: Analyzer Reports — Drill-down"
     },
     {
@@ -578,16 +578,16 @@
       "id": "ba-m4-q6",
       "module": "Analyzer Reports",
       "bloom": "Analyze",
-      "scenario": "A cube models Country, State, and City as three separate dimensions instead of one Markets hierarchy, and users complain that double-clicking a country does not show its cities.",
+      "scenario": "A cube models Country, State, and City as three separate dimensions instead of one Markets hierarchy. Users complain that double-clicking a country does not show its cities.",
       "prompt": "Why does this design block the drill?",
       "options": [
         "Analyzer supports drill-down only on the Time dimension",
         "Cities must first be added as a filter before drilling",
         "Drill-down works only once drill-through links have been enabled",
-        "Drill-down follows one hierarchy's levels, and none links them"
+        "Drill-down follows one hierarchy, and no hierarchy holds all three"
       ],
       "correct": 3,
-      "explanation": "A double-click requests the children of a specific member from the engine. This request succeeds only when the schema defines the levels within a single **hierarchy**, such as Country > State > City.\n\nBecause the dimensions are defined as three separate entities, there is no inherent parent-child relationship between them to support a **drill-down** operation.",
+      "explanation": "A double-click requests the children of a specific member from the engine. This request succeeds only when the schema defines the levels within a single **hierarchy**, such as Country > State > City.\n\nBecause the dimensions are defined as three separate entities, there is no inherent parent-child relationship between them to support a **drill-down** operation.\n\n```text\nMarkets\n  Country\n    State\n      City\n```",
       "source": "Pentaho Analyst - Practitioner: Analyzer Reports — Hierarchies"
     },
     {
@@ -619,14 +619,14 @@
         "Drill-down on the Quarters level of the Time hierarchy"
       ],
       "correct": 0,
-      "explanation": "Enabling **drill-through links** on measure cells in the Report Options turns each non-calculated measure into a link. This link allows the user to navigate directly to the underlying fact rows that compose that specific aggregate value.",
+      "explanation": "Enabling **drill-through links** on measure cells in Report Options turns each non-calculated measure into a link that opens the fact rows behind that aggregate value.",
       "source": "Pentaho Analyst - Practitioner: Analyzer Reports — Drill-through"
     },
     {
       "id": "ba-m4-q9",
       "module": "Analyzer Reports",
       "bloom": "Analyze",
-      "scenario": "An analysis filtered to three EMEA countries shows a Territory subtotal set to Aggregate. A colleague expected it to match the cube's full EMEA figure, but it is lower.",
+      "scenario": "An analysis filtered to three EMEA countries shows a Territory subtotal set to Aggregate. A colleague expected it to match the cube's full EMEA figure, but the value is lower.",
       "prompt": "Why is the subtotal lower than the full EMEA figure?",
       "options": [
         "Totals are visual by default, covering only members left after filters",
@@ -635,7 +635,7 @@
         "The cube caches EMEA figures only at the country level of the hierarchy"
       ],
       "correct": 0,
-      "explanation": "By default, the Analyzer uses **visual totals**. The Aggregate is recomputed over the members remaining after the filter is applied.\n\nTo include the values of the members that were filtered out and return the full figure, the user must select the **Display Totals that Includes Filtered Out Values** option.",
+      "explanation": "By default, the Analyzer uses **visual totals**. The **Aggregate** calculation is performed only on the members remaining after a filter is applied.\n\nTo include the values of the members that were filtered out and return the full figure, the user must select the **Display Totals that Includes Filtered Out Values** option.",
       "source": "Pentaho Analyst - Practitioner: Analyzer Reports — Totals"
     },
     {
@@ -688,7 +688,7 @@
         "The report's Territory filter must be defined as a parameter"
       ],
       "correct": 3,
-      "explanation": "A dashboard prompt can be applied to a report only when the report's filter is set up as a **parameter**. This configuration establishes the link that maps the prompt's value onto the specific report filter.",
+      "explanation": "A dashboard prompt can be applied to a report only when the report's filter is set up as a **parameter**, which the prompt's value is then mapped onto.",
       "source": "Pentaho Analyst - Practitioner: Dashboard Designer — Filters & content linking"
     },
     {
@@ -704,7 +704,7 @@
         "Set a shorter refresh interval on the dashboard"
       ],
       "correct": 0,
-      "explanation": "Adding a condition to the query ensures that the request is translated into a SQL `WHERE` clause. This ensures the database only returns the specific rows the chart needs, meaning the dashboard only processes the relevant result set.\n\nApplying a filter at the query level optimizes performance by reducing the **data volume** transferred from the database to the application.",
+      "explanation": "A condition added to the query becomes a SQL `WHERE` clause, so the database returns only the rows the chart needs.\n\nFiltering at the query level cuts the **data volume** sent from the database to the dashboard.",
       "source": "Pentaho Analyst - Practitioner: Dashboard Designer — Inventory"
     },
     {
@@ -720,7 +720,7 @@
         "Export the inventory to CSV and place the file in a panel"
       ],
       "correct": 0,
-      "explanation": "The **Data Table panel** allows the user to create a visualization by querying a data source directly. This method avoids the need to create a prerequisite report, providing a more direct path to displaying data on the dashboard.",
+      "explanation": "The **Data Table panel** queries a data source directly, so the table goes on the dashboard with no report to build and publish first.",
       "source": "Pentaho Analyst - Practitioner: Dashboard Designer — Inventory"
     },
     {
@@ -768,7 +768,7 @@
         "Drop-down, values from a Metadata List, one selection only"
       ],
       "correct": 2,
-      "explanation": "The use of **Buttons** allows a manager to select an option with a single click, while a **Metadata List** dynamically queries the system to ensure the list stays current as new territories are added. Enabling **multiple selections** ensures that more than one territory can be chosen simultaneously.",
+      "explanation": "The use of **Buttons** allows a manager to select an option with a single click, while a **Metadata List** dynamically queries the system to ensure the list remains current as new territories are added. Enabling **multiple selections** ensures that more than one territory can be chosen simultaneously.",
       "source": "Pentaho Analyst - Practitioner: Dashboard Designer — Vendor Sales"
     },
     {
@@ -807,7 +807,7 @@
       "id": "ba-m5-q10",
       "module": "Dashboard Designer",
       "bloom": "Apply",
-      "scenario": "A designer maps a chart's PRODUCT parameter to an Analyzer panel's Product output, then clicks a product in the not-yet-saved dashboard, and the chart does not change.",
+      "scenario": "A designer maps a chart's PRODUCT parameter to an Analyzer panel's Product output. They click a product in the not-yet-saved dashboard, but the chart does not change.",
       "prompt": "What should they do first?",
       "options": [
         "Add a Product prompt to the prompt toolbar",

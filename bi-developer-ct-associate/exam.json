@@ -10,7 +10,7 @@
       "id": "ct-m1-q1",
       "module": "Getting Started",
       "bloom": "Understand",
-      "scenario": "A prospect's architect asks what it takes to start building CTools dashboards. Their Pentaho Server is already running in production.",
+      "scenario": "A prospect's architect asks what it takes to start building CTools dashboards. The Pentaho Server is already running in production.",
       "prompt": "What does adding CTools involve?",
       "options": [
         "Open-source plugins that run on top of the existing Pentaho Server",
@@ -19,7 +19,7 @@
         "A desktop design tool installed on each author's own PC"
       ],
       "correct": 0,
-      "explanation": "CTools is a stack of **open-source plugins** that are installed directly on the existing Pentaho Server infrastructure.\n\nThe tools run within the existing environment rather than requiring a separate server or a standalone license. Because the CDE component is web-based and accessible through the Pentaho User Console, no additional desktop design tools are required.",
+      "explanation": "CTools is a stack of **open-source plugins** that are installed directly on the existing Pentaho Server infrastructure. The tools run within the existing environment rather than requiring a separate server or a standalone license. Because the CDE component is web-based and accessible through the Pentaho User Console, no additional desktop design tools are required.",
       "source": "Pentaho BI Developer - CT Associate: Getting Started"
     },
     {
@@ -30,7 +30,7 @@
       "prompt": "What is the fairest assessment of that proposal?",
       "options": [
         "It removes the need for the connections to be defined",
-        "A .cda file to maintain, for shared, cached, safe queries",
+        "It adds a .cda file to maintain, for shared, cached, safe queries",
         "It speeds up every query and adds nothing that needs maintaining",
         "It only gives each existing connection a friendlier name"
       ],
@@ -67,7 +67,7 @@
         "CCC, the charting library built on Protovis"
       ],
       "correct": 3,
-      "explanation": "The **CCC (Community Chart Components)** library is built on the Protovis SVG toolkit. It provides the components that render interactive, clickable charts directly in the browser.\n\nUsers interact with the library via CCC-prefixed components rather than interfacing with Protovis directly, as these components provide the necessary **extension points** to reach Protovis properties.",
+      "explanation": "The **CCC (Community Chart Components)** library is built on the Protovis SVG toolkit. It provides the components that render interactive, clickable charts directly in the browser.\n\nUsers interact with the library via **CCC-prefixed components** rather than interfacing with Protovis directly, as these components provide the necessary extension points to reach Protovis properties.",
       "source": "Pentaho BI Developer - CT Associate: Getting Started"
     },
     {
@@ -83,7 +83,7 @@
         "CDF, which falls back to Flash when SVG is unavailable"
       ],
       "correct": 0,
-      "explanation": "The **CGG** tool addresses this by rendering the chart on the server and converting it into an image. This ensures that the chart is displayed correctly even when the browser lacks the ability to render SVG.",
+      "explanation": "The **CGG** tool renders the chart on the server as an image, so it shows even in a browser that cannot render SVG.",
       "source": "Pentaho BI Developer - CT Associate: Getting Started"
     },
     {
@@ -119,14 +119,14 @@
         1,
         2
       ],
-      "explanation": "The **CDA (Community Data Access)** tool allows the gathering and combining of data from multiple sources into a single structure using a compound query to join or union the results.\n\n**CGG (Community Graphics Generator)** renders charts on the server as images, making them ready for distribution via email or inclusion in reports.",
+      "explanation": "The **CDA (Community Data Access)** tool allows the gathering and combining of data from multiple sources into a single structure using a compound query to join or union the results.\n\nThe **CGG (Community Graphics Generator)** renders charts on the server as images, making them ready for distribution via email or inclusion in reports.",
       "source": "Pentaho BI Developer - CT Associate: Getting Started"
     },
     {
       "id": "ct-m2-q1",
       "module": "Community Data Access",
       "bloom": "Apply",
-      "scenario": "Each of a company's dashboards holds its own database connection details. When a DBA renames one database, 11 dashboards break.",
+      "scenario": "Each of a company's dashboards holds its own database connection details. When a database is renamed, 11 dashboards break.",
       "prompt": "How would CDA have limited the damage?",
       "options": [
         "CDA would serve cached results until the old name returned",
@@ -135,7 +135,7 @@
         "The connection is defined once, and dashboards call CDA queries"
       ],
       "correct": 3,
-      "explanation": "CDA acts as an **abstraction layer** between the dashboards and the physical connections. Because queries are stored in the `.cda` file and utilize a connection defined once in the `DataSources` element, a renamed database only requires a single update to fix all affected dashboards.\n\nThis architecture ensures that the physical connection details are not duplicated across multiple downstream assets.",
+      "explanation": "CDA is an **abstraction layer** between the dashboards and the physical connections. The queries live in the `.cda` file and use a connection defined once in its `DataSources` element, so a renamed database needs a single update to fix every dashboard.",
       "source": "Pentaho BI Developer - CT Associate: Community Data Access — Overview"
     },
     {
@@ -151,14 +151,14 @@
         "Charts without components, as CDA renders its results"
       ],
       "correct": 0,
-      "explanation": "Moving the query into CDA provides a **shared definition** that both dashboards can call. A **compound query** then allows for the blending of that shared result with data from the second system.\n\nThis approach ensures consistency across reports while providing a mechanism to combine disparate data sources into a single view.",
+      "explanation": "Moving the query into CDA provides a **shared definition** that both dashboards call. A **compound query** then blends that shared result with the figures from the second system.",
       "source": "Pentaho BI Developer - CT Associate: Getting Started (CDA)"
     },
     {
       "id": "ct-m2-q3",
       "module": "Community Data Access",
       "bloom": "Apply",
-      "scenario": "A CDA SQL query must return orders for whichever status a user picks in a drop-down. When nothing is picked, it should use Shipped.",
+      "scenario": "A CDA SQL query must return orders for whichever status a user selects in a drop-down. If no status is selected, the query must default to Shipped.",
       "prompt": "How is the query written?",
       "options": [
         "With ${status} in the SQL and a Parameter defaulting to Shipped",
@@ -167,7 +167,7 @@
         "With a separate DataAccess for each status in the drop-down"
       ],
       "correct": 0,
-      "explanation": "The query uses a **Parameter** defined as `${status}`. By defining a default value of `Shipped` within the Parameters element, the system automatically uses that value if the user's selection is empty.\n\nThis approach ensures the query remains secure and efficient because **prepared statements** are used instead of concatenating values directly into the SQL string.",
+      "explanation": "The query uses a **Parameter** referenced as `${status}`. With a default value of `Shipped` in the Parameters element, that value is used whenever the user's selection is empty.\n\nCDA passes `${status}` to the database as a **prepared statement** parameter rather than concatenating it into the SQL.\n\n```sql\nSELECT * FROM orders WHERE status = ${status}\n```",
       "source": "Pentaho BI Developer - CT Associate: Community Data Access — Creating a CDA (Parameters)"
     },
     {
@@ -247,7 +247,7 @@
         "A CDADescriptor root holding the connection once, then three DataAccess elements"
       ],
       "correct": 3,
-      "explanation": "The `.cda` file is an XML structure where the **CDADescriptor root** contains a DataSources element. This structure allows a connection to be defined once with a unique ID and a specific type, while the three **DataAccess elements** refer to that shared connection by its ID.\n\nThis organization ensures that a single connection is shared across multiple queries rather than being redefined for every query.",
+      "explanation": "The `.cda` file is XML with a **CDADescriptor root** that holds a `DataSources` element. The connection is defined there once, with a unique `id` and a type, and each of the three **DataAccess elements** refers to it by that `id`.\n\n```xml\n<CDADescriptor>\n  <DataSources>\n    <Connection id=\"sales\" type=\"sql.jndi\">...</Connection>\n  </DataSources>\n  <DataAccess id=\"q1\" connection=\"sales\" type=\"sql\">...</DataAccess>\n  <DataAccess id=\"q2\" connection=\"sales\" type=\"sql\">...</DataAccess>\n  <DataAccess id=\"q3\" connection=\"sales\" type=\"sql\">...</DataAccess>\n</CDADescriptor>\n```",
       "source": "Pentaho BI Developer - CT Associate: Community Data Access — Creating a CDA"
     },
     {
@@ -263,7 +263,7 @@
         "A compound query joining two private placeholder queries"
       ],
       "correct": 2,
-      "explanation": "A **scripting query** using BeanShell or JavaScript allows a developer to build a result set directly in code without requiring an active database connection. This makes it an ideal tool for prototyping and demonstrating layouts before the final infrastructure is available.\n\nBecause the results are hard-coded, the query provides static data that is easily replaced with a dynamic source once the actual database is live.",
+      "explanation": "A **scripting query** in BeanShell or JavaScript builds a result set in code, with no database connection, so the layout can be demonstrated before the database exists.\n\nThe hard-coded rows are replaced with a real source once the database is live.",
       "source": "Pentaho BI Developer - CT Associate: Community Data Access — Creating a CDA"
     },
     {
@@ -335,7 +335,7 @@
       "module": "Community Dashboard Framework",
       "bloom": "Evaluate",
       "scenario": "A team with strong JavaScript skills needs a dashboard whose markup and styling no CDE template produces. They are choosing between CDF and CDE.",
-      "prompt": "Which choice fits, and why?",
+      "prompt": "Which choice fits the requirements, and why?",
       "options": [
         "CDF, as they write the template and components themselves",
         "CDE, since CDF components cannot read CDA queries",
@@ -343,7 +343,7 @@
         "CDF, since its dashboards draw charts without CCC"
       ],
       "correct": 0,
-      "explanation": "CDF is designed for developers with JavaScript and HTML skills who require full control over the **markup and styling** of their components.\n\nWhile the developer creates the custom HTML template and defines the components, the **CDF framework** still manages the lifecycle of the objects.",
+      "explanation": "The **CDF** framework is designed for developers with JavaScript and HTML skills who require full control over the **markup and styling** of their components.\n\nWhile the developer creates the custom HTML template and defines the components, the **CDF framework** still manages the lifecycle of the objects.",
       "source": "Pentaho BI Developer - CT Associate: Getting Started (CDF)"
     },
     {
@@ -359,7 +359,7 @@
         "author, template and style"
       ],
       "correct": 1,
-      "explanation": "The `title` element defines the name displayed in the User Console. The `template` element specifies the name of the HTML file, such as `sales.html`, that the components render into. The `require` setting, when set to `true`, enables the dashboard to use **RequireJS/AMD loading**.\n\nThese three properties specifically map to the user interface title, the target file for rendering, and the module loading mechanism, respectively.",
+      "explanation": "The `title` element defines the name displayed in the User Console. The `template` element specifies the name of the HTML file, such as `sales.html`, that the components render into. The `require` setting, when set to `true`, enables the dashboard to use **RequireJS/AMD loading**.\n\nThese three properties map to the user interface title, the target file for rendering, and the module loading mechanism, respectively.",
       "source": "Pentaho BI Developer - CT Associate: Community Dashboard Framework — CDF Dashboard"
     },
     {
@@ -391,7 +391,7 @@
         "CDE dashboards must be rewritten in CDF before they are published"
       ],
       "correct": 0,
-      "explanation": "CDE is a graphical editor over CDF. While a developer may not write manual CDF code, the components still initialize, update, and interact through the **CDF lifecycle**. This lifecycle determines how pre-execution, priorities, and listeners behave within the system.",
+      "explanation": "CDE is a graphical editor that operates over the **CDF** framework. Even though a developer may not write manual CDF code, the components still initialize, update, and interact through the **CDF lifecycle**. This lifecycle determines how pre-execution, priorities, and listeners behave within the system.",
       "source": "Pentaho BI Developer - CT Associate: Community Dashboard Editor — Overview"
     },
     {
@@ -407,7 +407,7 @@
         "Every component's required properties are checked before render"
       ],
       "correct": 0,
-      "explanation": "Setting `require` to true enables the dashboard to use **RequireJS**, which is the **AMD loader** for CDF. This ensures that code lives in modules rather than the global namespace, preventing conflicting function names from overlapping.\n\nBy using **AMD modules**, dependencies are loaded asynchronously in the correct order, and the explicit declaration of dependencies makes the dashboard easier to embed in external applications.",
+      "explanation": "Setting `require` to `true` enables **RequireJS**, the **AMD loader** for CDF, so code lives in modules rather than the global namespace, and two functions with the same name no longer overwrite each other.\n\nWith **AMD modules**, dependencies load in the correct order, and their explicit declaration makes the dashboard easier to embed in another application.",
       "source": "Pentaho BI Developer - CT Associate: Community Dashboard Framework — CDF Dashboards"
     },
     {
@@ -423,7 +423,7 @@
         "A clickAction that calls setParameter, so no listener is needed at all"
       ],
       "correct": 2,
-      "explanation": "The **clickAction** that calls `fireChange` sets the `planTypeParameter` to the clicked category and updates every component that is listening to that parameter.\n\nWhile `setParameter` only stores a value, **fireChange** is the mechanism required to trigger the update of the listeners, ensuring the line chart redraws with the new data.",
+      "explanation": "The **clickAction** that calls `fireChange` sets the `planTypeParameter` to the clicked category and updates every component that is listening to that parameter. While `setParameter` only stores a value, **fireChange** is the mechanism required to trigger the update of the listeners, ensuring the line chart redraws with the new data.",
       "source": "Pentaho BI Developer - CT Associate: Community Dashboard Editor — Carrier Dashboard"
     },
     {
@@ -439,7 +439,7 @@
         "Priority, as a chart left at the default 5 never renders"
       ],
       "correct": 1,
-      "explanation": "A component renders into the layout element defined by its **HtmlObject** property. Without this property, the chart has no assigned destination on the dashboard despite being correctly fed with data.\n\nBy defining the `HtmlObject`, the system identifies the specific **layout column** where the chart must be rendered.",
+      "explanation": "A component renders into the layout element defined by its **HtmlObject** property. Without this property, the chart has no assigned destination on the dashboard despite being correctly fed with data.\n\nDefining the `HtmlObject` identifies the specific **layout column** where the chart must be rendered.",
       "source": "Pentaho BI Developer - CT Associate: Community Dashboard Editor — UI Overview"
     },
     {
@@ -462,7 +462,7 @@
       "id": "ct-m4-q4",
       "module": "Community Dashboard Editor",
       "bloom": "Apply",
-      "scenario": "A CDE dashboard has a layout column named `salesChartObj` and an MDX data source named `salesQuery`. The dashboard preview is empty.",
+      "scenario": "A CDE dashboard has a layout column named `salesChartObj` and an MDX data source named `salesQuery`. The dashboard preview is currently empty.",
       "prompt": "What connects the two so that a chart appears?",
       "options": [
         "A chart component pointing at both, via HtmlObject and Datasource",
@@ -481,13 +481,13 @@
       "scenario": "A chart includes `monthParameter` in its Listeners and redraws every time the user selects a month. The chart consistently displays January, which is the default value in the data source.",
       "prompt": "What is missing?",
       "options": [
-        "A second listener on `monthParameter`, to force a new fetch",
-        "A higher Priority number, so the chart runs after the month selector",
-        "Execute at Start set to False, so January is never drawn",
+        "A second listener on `monthParameter` to force a new fetch",
+        "A higher Priority number so the chart runs after the month selector",
+        "Execute at Start set to False so January is never drawn",
         "`monthParameter` in the chart's Parameters, passing it to the query"
       ],
       "correct": 3,
-      "explanation": "While Listeners determine when a component must re-execute, the **Parameters** property defines which specific values are passed into the query. Because the `monthParameter` is not defined in the Parameters list, the query does not receive the selected value and defaults to the data source's default value.",
+      "explanation": "While **Listeners** determine when a component must re-execute, the **Parameters** property defines which specific values are passed into the query. Because the `monthParameter` is not defined in the Parameters list, the query does not receive the selected value and defaults to the data source value.",
       "source": "Pentaho BI Developer - CT Associate: Community Dashboard Editor — UI Overview (Components)"
     },
     {
@@ -519,7 +519,7 @@
         "Parameter, where the selector stores the value picked"
       ],
       "correct": 3,
-      "explanation": "The **Parameter** property is the specific location where a selector stores the user's input for use across the dashboard. If this is not set to the specific variable the charts are listening to, the charts will not reflect the updated selection.",
+      "explanation": "The **Parameter** property is the specific location where a selector stores the user input for use across the dashboard. If the selection is not mapped to the specific variable that the charts are listening to, the charts will not reflect the updated selection.",
       "source": "Pentaho BI Developer - CT Associate: Community Dashboard Editor — UI Overview (Components)"
     },
     {
@@ -535,7 +535,7 @@
         "Giving the KPI component a higher Priority number than the table"
       ],
       "correct": 2,
-      "explanation": "The **Priority** attribute determines the execution order of components. The default value is 5; a lower number ensures a component runs first, while a higher number causes it to run after other components. Since components with the same priority may not execute in the order they appear in the layout, a lower **Priority** number is required to guarantee that the KPI component sets the parameter before the table is processed.",
+      "explanation": "The **Priority** attribute determines the execution order of components. The default value is 5; a lower number ensures a component runs first, while a higher number causes it to run after other components.\n\nBecause components with the same priority may not execute in the order they appear in the layout, a lower **Priority** number is required to guarantee that the KPI component sets the parameter before the table is processed.",
       "source": "Pentaho BI Developer - CT Associate: Community Dashboard Editor — UI Overview (Components)"
     },
     {
@@ -551,7 +551,7 @@
         "Execute at Start True, with no Listeners set at all"
       ],
       "correct": 1,
-      "explanation": "Setting **Execute at Start** to `False` ensures the chart does not run automatically when the dashboard loads. The inclusion of **Listeners** on the specific row parameters ensures the chart triggers and updates only when those parameters change via a user interaction, such as a row click.\n\nThis combination ensures the chart stays empty during initial load and only populates when the necessary data is selected.",
+      "explanation": "Setting **Execute at Start** to `False` stops the chart from running when the dashboard loads. **Listeners** on the row parameters run it each time a row click changes those parameters, so the chart stays empty until a row is selected.",
       "source": "Pentaho BI Developer - CT Associate: Community Dashboard Editor — UI Overview (Components)"
     },
     {
@@ -615,7 +615,7 @@
         "A SQL query (sql over sqlJndi) with the cube's name used as the table"
       ],
       "correct": 2,
-      "explanation": "An MDX query of type `mdx over mondrianJndi` is the correct selection because it utilizes the **JNDI connection** and the Mondrian schema to execute MDX against the cube.\n\nThis configuration allows the system to map the specific connection name, such as `BaselineDemo`, to the corresponding cube structure.",
+      "explanation": "An MDX query of type `mdx over mondrianJndi` runs MDX against the cube through the Mondrian schema and the **JNDI connection**, here `BaselineDemo`, which the server uses to reach the cube's database.",
       "source": "Pentaho BI Developer - CT Associate: Community Dashboard Editor — UI Overview (Data Sources)"
     },
     {
@@ -647,7 +647,7 @@
         "Set the chart title as a fixed string in the chart's properties"
       ],
       "correct": 2,
-      "explanation": "CGG export scripts cannot reach **CDE parameters** or CDF functions such as `Dashboards.getParameterValue`, so the value has to travel as a **query parameter**.\n\nAdd `_date` with the value `dateParam` to the component's Parameters, then in postFetch use `params.get('_date')` when `cgg` is defined.",
+      "explanation": "CGG export scripts cannot access **CDE parameters** or **CDF functions** such as `Dashboards.getParameterValue`. To resolve this, the value must be passed as a **query parameter**.\n\nAdd `_date` with the value `dateParam` to the component's Parameters. When `cgg` is defined, the postFetch script must use `params.get('_date')` to retrieve the value.",
       "source": "Pentaho BI Developer - CT Associate: Community Graphics Generator — Carrier Dashboard Charts"
     },
     {
@@ -683,7 +683,7 @@
         "The CGG draw URL, with the path to the chart's script"
       ],
       "correct": 3,
-      "explanation": "The **CGG draw URL** (located at `/pentaho/plugin/cgg/api/services/draw`) accepts the path to a chart's script and returns the chart as an image.\n\nThis allows the image to be rendered dynamically as an image file rather than an interactive dashboard or a static HTML table.",
+      "explanation": "The **CGG draw URL** (`/pentaho/plugin/cgg/api/services/draw`) takes the path to a chart's script and returns the chart as an image, drawn afresh on every request.",
       "source": "Pentaho BI Developer - CT Associate: Community Graphics Generator — Overview"
     },
     {
@@ -699,7 +699,7 @@
         "CGG renders the CCC chart on the server as an image to embed"
       ],
       "correct": 3,
-      "explanation": "The **CGG** tool renders the same chart shown in the dashboard on the server and converts it into an image. This allows automated reports, which run on a server without a browser session, to include the chart in the final document.",
+      "explanation": "The **CGG** tool renders the dashboard's chart on the server as an image, so a report that runs on the server, with no browser session, can include it.",
       "source": "Pentaho BI Developer - CT Associate: Community Graphics Generator — Overview"
     },
     {
@@ -707,7 +707,7 @@
       "module": "Community Graphics Generator",
       "bloom": "Apply",
       "scenario": "Users of a CDE dashboard want to download a line chart as a PNG and the chart's data as a CSV from a single control beside the chart.",
-      "prompt": "Which component provides that?",
+      "prompt": "Which component provides that functionality?",
       "options": [
         "A Button Component, whose click action calls CDA's doQuery",
         "A Table Component, with Expand on Click set to True",
@@ -715,7 +715,7 @@
         "An Export Popup Component, with the chart image made by CGG"
       ],
       "correct": 3,
-      "explanation": "The **Export Popup Component** provides a solution because it exports both chart images, such as PNG or SVG formats drawn by CGG, and data in one or more formats.\n\nThis capability allows the user to obtain both the visual representation and the underlying data from a single interface control.",
+      "explanation": "The **Export Popup Component** exports both the chart image, drawn by CGG as PNG or SVG, and the chart's data in one or more formats, such as CSV, from one control.",
       "source": "Pentaho BI Developer - CT Associate: Community Dashboard Editor — Carrier Dashboard"
     },
     {
@@ -738,7 +738,7 @@
       "id": "ct-m6-q1",
       "module": "Use Cases",
       "bloom": "Analyze",
-      "scenario": "A finished sales dashboard has a territory filter, a sales chart, and a detail table that update together. A nightly email also carries the sales chart as an image.",
+      "scenario": "A finished sales dashboard contains a territory filter, a sales chart, and a detail table that update together. A nightly email also includes the sales chart as an image.",
       "prompt": "Which pairing of tools and jobs is correct?",
       "options": [
         "CDA supplies the rows; CCC renders the emailed chart",
@@ -747,7 +747,7 @@
         "CDF supplies the rows; CGG draws the on-screen chart"
       ],
       "correct": 1,
-      "explanation": "CDA provides the data rows required by the dashboard components, while CGG is the specific engine used to **render charts** as images on the server for automated tasks like emails.\n\nWhile other components handle layout or browser-based rendering, only the combination of CDA for data supply and CGG for server-side image rendering ensures the emailed chart is generated correctly.",
+      "explanation": "CDA provides the data rows required by the dashboard components, while **CGG** is the specific engine used to **render charts** as images on the server for automated tasks such as emails.\n\nWhile other components handle layout or browser-based rendering, the combination of CDA for data supply and CGG for server-side image rendering ensures the emailed chart is generated correctly.",
       "source": "Pentaho BI Developer - CT Associate: Use Cases — Sales Analysis Dashboard"
     },
     {
@@ -763,7 +763,7 @@
         "Data sources, then components, then the layout they render into"
       ],
       "correct": 2,
-      "explanation": "Building the **layout** first, followed by the **data sources**, and finally the **components** ensures that every reference exists when a step is created.\n\nComponents must point to specific layout elements via `HtmlObject` and to data sources via `Datasource`. By establishing the layout and data sources first, the components have both required references available during the build process.",
+      "explanation": "Establishing the **layout** first, followed by the **data sources**, and finally the **components** ensures that every reference exists when a component is created.\n\nComponents must point to specific layout elements via `HtmlObject` and to data sources via `Datasource`. By defining the layout and data sources first, the components have both required references available during the build process.",
       "source": "Pentaho BI Developer - CT Associate: Use Cases — Sales Analysis Dashboard"
     },
     {
@@ -811,7 +811,7 @@
         "Open the saved dashboard itself from Browse Files"
       ],
       "correct": 3,
-      "explanation": "The **Export Popup Component** has to be used on the dashboard itself, opened from **Browse Files** in the User Console, not in CDE's Preview.",
+      "explanation": "The **Export Popup Component** must be used on a dashboard that is opened via the **Browse Files** menu in the User Console rather than within the CDE Preview environment.",
       "source": "Pentaho BI Developer - CT Associate: Community Dashboard Editor — Carrier Dashboard"
     }
   ]
