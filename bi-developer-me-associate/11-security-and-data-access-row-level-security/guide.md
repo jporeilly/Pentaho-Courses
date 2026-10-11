@@ -22,7 +22,7 @@
 >
 > By the end of this workshop, you'll understand how Pentaho's metadata security framework provides layered data protection that's both powerful and maintainable. Rather than creating complex database views for each user role or embedding security logic in individual reports, you'll centralize security rules within your metadata layer where they're automatically enforced across all reporting tools and data access methods. You'll see first-hand how administrators view all data while restricted users like Suzy only see information appropriate to their role and territory - all managed through intuitive metadata properties rather than custom SQL or application code.
 >
-> **Prerequisites:** Completion of [OrdersME](../04-domains-and-models-ordersme/guide.md) and Concepts workshops or access to OrderStarCustomer domain; Pentaho Metadata Editor and Pentaho Server installed and configured; Administrative access to Pentaho Server; Understanding of user roles and security concepts
+> **Prerequisites:** Completion of the [OrderStarCustomer](../07-properties-orderstarcustomer/guide.md) and [Concept Editor](../09-concepts-concept-editor/guide.md) workshops, or the OrderStarCustomer-concepts.xmi domain (Lab Files); Pentaho Metadata Editor and Pentaho Server installed and configured; Administrative access to Pentaho Server; Understanding of user roles and security concepts
 >
 > **Estimated time:** 75 minutes
 
@@ -86,7 +86,7 @@ Follow the guide to apply security restrictions:
 >
 > #### Access Control List
 >
-> You must know the base URL for the Pentaho BA Server (the default URL is <http://localhost:8080/pentaho>) as well as the name of the service to execute security information retrieval (the service is ServiceAction).
+> You must know the base URL for the Pentaho BA Server (the default URL is <http://localhost:8080/pentaho>) as well as the name of the service to execute security information retrieval (Metadata Editor 11 uses http://localhost:8080/pentaho/api/userrolelist, its dialog's own example).
 >
 > The Pentaho Metadata Editor must be configured to connect to your BA Server so that it can retrieve usernames, roles, and access control lists. Follow the below directions to set up Metadata Editor.
 
@@ -125,17 +125,12 @@ Password: password
 
 > **Note:**
 >
-> #### OrderSecurity
+> #### Open the domain
 >
-> For clarity let's rename the current OrderStarModel to OrderSecurity. Remember its the name of the Business Models that is displayed as the Data Source.
+> Work on the domain you finished in the Concept Editor workshop. The data source your reports pick is the business model's name, **OrderStarCustomer**.
 
-1. Open the OrderStarCustomer.
-2. Right-click on Business Models and select: Edit.
-
-<figure><img src="../_assets/images/rls_2.png" alt=""><figcaption></figcaption></figure>
-
-3. Name the model `OrderSecurity`
-4. Click OK.
+1. Choose **File > Open** and select **OrderStarCustomer**.
+2. Starting from the Lab Files instead? Choose **File > Import from XMI File**, open **OrderStarCustomer-concepts.xmi**, and in the Save Model dialog type **OrderStarCustomer**.
 
 ***
 
@@ -159,7 +154,7 @@ Password: password
 >
 > The ACL provides the server with a list of Users and their Roles that is used to define both the Metadata Security (Model, Table, Column, Row) & Data (None, Global, User/Role - MQL) constraints.
 >
-> The out-of-the-box default security and data constraints enable only the Authenticated Administrator have access to everything.
+> Out of the box a model has no Metadata Security, and that means only the Administrator sees it: the server lets an administrator through every Metadata Security check, and refuses everyone else when the list is empty.
 
 Follow the guide to enable Suzy to access the OrderStarCustomer Model.
 
@@ -171,7 +166,9 @@ Follow the guide to enable Suzy to access the OrderStarCustomer Model.
 >
 > As we know, the Business Model is comprised of the Business Tables + Business Views. Any Properties that are set at the Business Model level will be inherited by the Business Tables & Columns.
 
-1. Edit the OrderStarCustomer Model.
+1. Right-click the **OrderStarCustomer** business model and select **Edit**.
+
+<figure><img src="../_assets/images/rls_2.png" alt=""><figcaption><p>Edit the business model</p></figcaption></figure>
 
 <figure><img src="../_assets/images/rls_orderstarcustomer.png" alt=""><figcaption><p>OrderStarCustomer</p></figcaption></figure>
 
@@ -234,10 +231,10 @@ Follow the guide to enable Suzy to access the OrderStarCustomer Model.
 >
 > Another method is to grant the access by editing the settings.xml.
 >
-> By default, only users with the Administrator role can access metadata domains. To allow other users (for example, Suzy in the sample environment) to use OrderStarCustomer as a data source, you must adjust data-access permissions.
+> By default every authenticated user can already view data sources (`data-access-view-roles` is `Authenticated,Administrator`, and `data-access-view-users` lists `suzy`); `data-access-roles` (Administrator) decides who may create and manage them. Whether Suzy sees OrderStarCustomer is decided by the model's Metadata Security, set above; change these lines only to widen who may manage data sources.
 
 1. Stop the Pentaho Server.
-2. Navigate to `/pentaho/server/pentaho-server/pentaho-solutions/system/data-access/` and open `settings.xml` in a text editor.
+2. Navigate to `C:\Pentaho\server\pentaho-server\pentaho-solutions\system\data-access\` (Pentaho Lab: `/opt/pentaho/server/pentaho-server/pentaho-solutions/system/data-access/`) and open `settings.xml` in a text editor.
 3. Find the following lines:
 
 ```xml
@@ -245,7 +242,7 @@ Follow the guide to enable Suzy to access the OrderStarCustomer Model.
 <data-access-view-roles>Authenticated,Administrator</data-access-view-roles>
 ```
 
-4. To allow all authenticated users to access data sources, change them to:
+4. To let every authenticated user create and manage data sources, change them to:
 
 ```xml
 <data-access-roles>Authenticated</data-access-roles>
@@ -355,7 +352,7 @@ Follow the guide to enable Suzy to access the OrderStarCustomer Model.
 
 Row-level security is applied as a **Data Constraint** on the **business model**. The metadata engine reads row-level security from the model only; a data constraint added to a business table or column is ignored. In **Role Based** mode each role (or user) gets its own MQL formula. When a user matches several entries their formulas are OR'ed together, and **a user who matches no entry sees no rows at all** - so Admin needs an entry too.
 
-1. Right-click the business model (**OrderSecurity**, renamed in step 1) and select **Edit**.
+1. Right-click the business model (**OrderStarCustomer**) and select **Edit**.
 2. In the Properties list, Override / Add the **Data Constraints** item.
 3. Set the constraint type to **Role Based** constraints.
 4. Add an entry for the **Power User** role (Suzy) that keeps only EMEA customers:
@@ -364,7 +361,7 @@ Row-level security is applied as a **Data Constraint** on the **business model**
 [BT_CUSTOMER_W_TER_CUSTOMER_W_TER.BC_CUSTOMER_W_TER_TERRITORY] = "EMEA"
 ```
 
-5. Add an entry for the **Administrator** role that allows every row:
+5. Add an entry for the user **admin** that allows every row (the security service lists the admin user, but not the Administrator role):
 
 ```
 TRUE()
@@ -375,8 +372,9 @@ TRUE()
 > #### How the constraints work
 >
 > * Each formula refers to business columns as `[business table id.business column id]` - the ids you met when building the relationships in the OrderStarCustomer workshop.
-> * Suzy holds the Power User role, so her queries get `Territory = "EMEA"`; Admin holds the Administrator role, so `TRUE()` - every row.
-> * A user in neither role matches no entry and sees no rows. Add an entry for every role that should see data.
+> * Suzy holds the Power User role, so her queries get `Territory = "EMEA"`; the admin user has its own entry, so `TRUE()` - every row.
+> * A user who matches neither entry sees no rows. Add an entry for every role (or user) that should see data.
+> * The server has no administrator bypass for row-level security, unlike Metadata Security: without the admin entry, admin would see nothing too.
 > * `ROLES()` and `USER()` are expanded only in a **Global** constraint (one formula for everyone), not in role-based entries - which is why each role gets its own entry here.
 
 6. Click OK to apply the constraint.
@@ -408,7 +406,7 @@ Test the row-level security by logging in as each user:
 > the server knows the logged-in user and roles, for the constraint, and
 > takes the entry for the user's role. For Power User that is the EMEA
 > formula, translated to WHERE TERRITORY = 'EMEA', and the Territory
-> query returns one row. Administrator's TRUE() becomes WHERE TRUE and
+> query returns one row. admin's TRUE() becomes WHERE TRUE and
 > returns all five territory values, including the customers with no
 > territory. A role with no entry gets FALSE(): WHERE FALSE, and no rows
 > at all.
@@ -422,3 +420,5 @@ Test the row-level security by logging in as each user:
 ## Lab Files
 
 - [SecurityOrder constraints](../_assets/data/security-order-constraints.txt)
+- [OrderStarCustomer-concepts.xmi](../_assets/files/OrderStarCustomer-concepts.xmi) - the starting domain (the Concept Editor workshop's result)
+- [OrderStarCustomer-security.xmi](../_assets/files/OrderStarCustomer-security.xmi) - the finished domain, with this workshop's model, category, column and row-level security

@@ -61,10 +61,12 @@ Everything here is a **one-off setup** for your own laptop. Work through
 the tabs in order — the last one is a reference card of ports and
 logins, for when you come back to it later.
 
-> **Note:** This course needs no containers and no extra databases —
+> **Note:** Labs 01–11 need no containers and no extra databases —
 > you model against the Steel Wheels sample data served by the
 > Pentaho Server's bundled HSQLDB, and publish finished domains back
-> to that same server.
+> to that same server. The **Capstone** (lab 12) models a second
+> database, `trailhead`, in the **sampledata MySQL** container; its
+> page shows how to check it is there.
 
 ::: tabs
 
@@ -123,8 +125,10 @@ expects.
    password `password`) — the **server must be running** for that
    connection to work, because it hosts the HSQLDB.
 
-4. Publishing a domain prompts for the server URL and credentials:
-   **http://localhost:8080/pentaho** as `admin` / `password`.
+4. Publishing a domain asks for a **Web Publish URL** — keep the
+   pre-filled
+   **http://localhost:8080/pentaho/plugin/data-access/api/metadata/import**
+   — and the server login `admin` / `password`.
 
 <details>
 <summary>Troubleshooting</summary>
@@ -137,9 +141,12 @@ path.
 Pentaho Server* on port 9001 — start the server first (tab 1), then
 retest the connection.
 
-**Publish fails with 401.** Use `admin` / `password` — and if your
-server has a separate publish password configured, set it in the
-server's `publisher_config.xml` or use that value here.
+**Publish fails with 401.** Check the Server Userid and Server
+Password (`admin` / `password`). Metadata Editor 11 has no separate
+publish password.
+
+**Publish fails with 404.** The Web Publish URL is wrong: it must end
+`/plugin/data-access/api/metadata/import`, with the hyphen.
 
 </details>
 

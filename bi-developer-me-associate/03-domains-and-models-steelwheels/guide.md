@@ -257,10 +257,12 @@ BT_ORDERS_ORDERS.BC_ORDERS_CUSTOMERNUMBER - BT_PAYMENTS_PAYMENTS.BC_PAYMENTS_CUS
 >
 > The relationship defines an inner join on the customer number and declares it 1:1: one order, one payment.
 >
-> The SQL is generated from references the unique keys in the Tables using the following metadata syntax:
+> Wherever metadata writes a formula (a complex join, a calculated
+> column), it names a business column by its business table and column
+> IDs, inside one pair of brackets:
 >
 > ```
-> [BT_ORDERS_ORDERS].[BC_ORDERS_CUSTOMERNUMBER]
+> [BT_ORDERS_ORDERS.BC_ORDERS_CUSTOMERNUMBER]
 > ```
 
 

@@ -204,7 +204,7 @@ Follow the guide below to create your OrdersME domain:
 | ORDERFACT | (2,996 rows) - A fact table for OLAP analysis containing order transaction data linked to customers and other dimensional tables |
 | PRODUCTS | (110 rows) - Contains product catalog information including product line, vendor, code, name, scale, description, quantity in stock, buy price, and MSRP |
 | ORDERS | (326 rows) - Records customer orders placed with the company, containing order-level information like order dates and customer references. |
-| ORDERDETAILS | (2,996 rows) - Stores line-item details for each order, breaking down individual products and quantities within each order. |
+| ORDERDETAILS | (2,996 rows) - Stores line-item details for each order, breaking down individual products and quantities within each order. The OrdersME model below does not use it; ORDERFACT already carries the order lines. |
 | DIM_TIME | (265 rows) - A time dimension table for temporal analysis, supporting date-based reporting and analytics. |
 
 ***
@@ -254,7 +254,7 @@ Create Business Model:
 
 <figure><img src="../_assets/images/dm_ordersme_new_business_model.png" alt=""><figcaption><p>New Business Model</p></figcaption></figure>
 
-> **Note:** The Model Properties dialog displays.
+> **Note:** The Business Model Properties dialog displays.
 >
 > At the top of the dialog, there is an ID text field, pre-populated with a value. We recommend you accept the pre-populated value as this value MUST be unique across all models that you define.
 
@@ -262,7 +262,7 @@ Create Business Model:
 
 <figure><img src="../_assets/images/dm_ordersme_ordersme_business_model.png" alt=""><figcaption><p>OrdersME - Business Model</p></figcaption></figure>
 
-4. From the Connection drop-down box, select: **mysql:sampledata**.
+4. From the Connection drop-down box, select the connection you created in step 1: **hsqldb:sampledata** (Windows Enterprise Edition) or **mysql:sampledata** (Pentaho Lab).
 5. Click the **OK** button to close the dialog.
 
 > **Note:** Your business model will show up in the Navigator Tree. All business models by default are created with a place to hold business tables, relationships and a business view. These are the next items you will want to define.
@@ -343,8 +343,8 @@ Follow the guide to create the required Relationships:
 
 > **Note:** You must also specify the business columns (from the adjacent lists) from each business table that identify this relationship. An alternative, if the business column names are similar, is to click the **Guess Matching Fields** button, and let the dialog attempt to determine the columns for you.
 
-5. Next step, define the relationship from the Relationship drop down list. For Relationship, choose **1:N** (1 to many), and then click **OK**.
-6. If the relationship requires a complex join, select the complex join checkbox, and enter a formula in the text box provided.
+5. Next step, define the relationship from the Relationship drop down list. For Relationship, choose **1:N** (1 to many).
+6. If the relationship requires a complex join, tick **Complex Join?** and enter a Metadata Formula in the **Complex Join Metadata Formula** box (see *Complex Joins* below). None of this model's joins needs one.
 7. Click **OK**.
 
 > **Note:** You should see a new relationship line drawn between the two tables on the Editor Graph, and the relationship represented in the tree.
@@ -400,9 +400,13 @@ Follow the guide to create the required Relationships:
 >
 > Complex joins appear in the `WHERE` clause of the SQL statement, so currently any joining that takes place in the `FROM` clause of the SQL statement is not supported.
 >
-> An example of a complex join might be `TABLE_A.COL_A=TABLE_B.COL_A AND TABLE_A.COL_B=TABLE_B.COL_B`.
+> An example of a complex join might be `AND([BT_TABLE_A.BC_COL_A]=[BT_TABLE_B.BC_COL_A]; [BT_TABLE_A.BC_COL_B]=[BT_TABLE_B.BC_COL_B])`.
 >
-> This represents a join of two tables based on two key columns versus a single join column. Also note, the complex join expression provided must use the names of the physical tables and physical columns, not business tables and business column names.
+> This represents a join of two tables based on two key columns versus a single join column. The expression is a **Metadata Formula**: it names each column by its business table ID and business column ID inside one pair of brackets, and `AND(...; ...)` joins the conditions. In this model, ORDERS and ORDERFACT share both ORDERNUMBER and CUSTOMERNUMBER, so a two-column join between them would read:
+>
+> `AND([BT_ORDERS_ORDERS.BC_ORDERS_ORDERNUMBER]=[BT_ORDERFACT_ORDERFACT.BC_ORDERFACT_ORDERNUMBER]; [BT_ORDERS_ORDERS.BC_ORDERS_CUSTOMERNUMBER]=[BT_ORDERFACT_ORDERFACT.BC_ORDERFACT_CUSTOMERNUMBER])`
+>
+> Do not write SQL with physical table names (`ORDERS.ORDERNUMBER=ORDERFACT.ORDERNUMBER`). The Metadata Editor pastes a SQL expression into the query unchanged, the generated SQL calls each table by its business table ID, and the database answers *object not found*.
 
 > **Note:**
 >
@@ -439,13 +443,13 @@ Follow the guide to create the required Business Views:
 >
 > #### Categories
 >
-> A business category is just a named bucket for you to group and re-group your business columns in. They can mimic your business table names or be based on business terminology. Categories do not have metadata associated with them, have no tie back to any business table (although our Editor will give you the impression this relationship exists - don't be fooled), and have the simple purpose of allowing you to bucket the business columns in your model as intuitively as possibly for your data consumers.
+> A business category is just a named bucket for you to group and re-group your business columns in. They can mimic your business table names or be based on business terminology. Categories carry only a name, a description and Metadata Security (workshop 11 sets it), have no tie back to any business table (although our Editor will give you the impression this relationship exists - don't be fooled), and have the simple purpose of allowing you to bucket the business columns in your model as intuitively as possibly for your data consumers.
 >
 > Today, categories are a single level entity. We hope in the future to support nested categories.
 >
 > Building a business view consists of creating your categories, then moving your business columns from the business tables into the categories. You can move columns from different business tables into the same category, and even duplicate the same business column into two different categories.
 >
-> The Editor Graph only represents the business tables portion of the business model, so we use the Tree Navigator and the Category Editor to create a business view.
+> The Editor Graph only represents the business tables portion of the business model, so we use the Tree Navigator and the Manage Categories dialog to create a business view.
 
 1. Right-click (or ALT-click) on the **Business View** branch in the Navigator Tree.
 2. Select the **New Category...** option from the popup menu.
@@ -473,7 +477,7 @@ Follow the guide to create the required Business Views:
 ***
 
 1. Either double-click on the **Business View** branch in the Navigator Tree or choose the **Manage Categories** option from either the main menu or the main toolbar.
-2. The Category Editor dialog displays.
+2. The Manage Categories dialog displays.
 
 <figure><img src="../_assets/images/dm_ordersme_manage_categories.png" alt=""><figcaption><p>Manage Categories</p></figcaption></figure>
 
@@ -492,7 +496,8 @@ Follow the guide to create the required Business Views:
 > STATUS
 > COMMENTS
 
-6. Repeat the previous steps to add the following columns from the PRODUCTS table to the Products category:
+6. Create the other two categories: click the green **+** (*Add New Category...*) above the Business View Categories pane, and in the Business Category Properties dialog enter ID **CT_PRODUCTS**, Name **Products**. Do the same for ID **CT_MEASURES**, Name **Measures**.
+7. Repeat the previous steps to add the following columns from the PRODUCTS table to the Products category:
 
 > **Note:**
 > PRODUCTNAME
@@ -500,7 +505,7 @@ Follow the guide to create the required Business Views:
 > PRODUCTVENDOR
 > PRODUCTDESCRIPTION
 
-7. Repeat the previous steps to add the following columns from the ORDERFACT table to the Measures category:
+8. Repeat the previous steps to add the following columns from the ORDERFACT table to the Measures category, then click **Close**:
 
 > **Note:**
 > QUANTITYINSTOCK – located in PRODUCTS
@@ -524,7 +529,7 @@ Follow the guide to create the required Business Views:
 > **Danger:** Before you publish, ensure the Pentaho Server is up and running ..!
 
 1. Save the metadata domain by choose **File > Save** from the menu options or by clicking the Save icon.
-2. In the Save Domain dialog, type **Order Info** and click **OK**.
+2. In the Save Domain dialog, type **OrdersME** and click **OK**.
 3. From the menu, choose **File > Publish To Server**.
 
 <figure><img src="../_assets/images/dm_ordersme_publish_to_pentaho_server.png" alt=""><figcaption><p>Publish to Pentaho Server</p></figcaption></figure>
@@ -533,7 +538,7 @@ Follow the guide to create the required Business Views:
 
 | Field | Value |
 | --- | --- |
-| Web Publish URL | http://localhost:8080/pentaho/plugin/dataaccess/api/metadata/import |
+| Web Publish URL | http://localhost:8080/pentaho/plugin/data-access/api/metadata/import |
 | Server UserID | admin |
 | Server Password | password |
 | Domain Name | OrdersME |
@@ -561,7 +566,7 @@ Follow the guide to create the required Business Views:
 
 <figure><img src="../_assets/images/dm_ordersme_data_source_ordersme.png" alt=""><figcaption><p>Data Source - OrdersME</p></figcaption></figure>
 
-4. Create the following report:
+4. Create the following report: drag **PRODUCTLINE** to Groups, and **PRODUCTNAME**, **ORDERNUMBER** and **TOTALPRICE** to Columns.
 
 <figure><img src="../_assets/images/dm_ordersme_test_interactive_report.png" alt=""><figcaption><p>Test Interactive Report</p></figcaption></figure>
 

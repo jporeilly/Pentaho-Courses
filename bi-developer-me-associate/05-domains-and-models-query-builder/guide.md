@@ -18,7 +18,7 @@
 > * Understand how the Query Editor translates business selections into SQL
 > * Validate that relationships and joins work correctly across tables
 >
-> **Prerequisites:** Completion of the [OrdersME](../04-domains-and-models-ordersme/guide.md) workshop or access to the OrderStarCustomer.xmi domain file; Pentaho Metadata Editor installed and configured
+> **Prerequisites:** The OrderStarCustomer.xmi domain file (Lab Files below; you build it yourself in the [OrderStarCustomer](../07-properties-orderstarcustomer/guide.md) workshop); Pentaho Metadata Editor installed and configured
 >
 > **Estimated time:** 15 minutes
 
@@ -51,13 +51,13 @@
 <div class="pcm-embed-card" data-href="https://www.loom.com/share/fb31dbf09b494e71bd03a3ca905b0e58?hideEmbedTopBar=true&amp;hide_share=true&amp;hide_title=true&amp;sid=c17f1cdc-2507-463d-82ff-ff04702f3edd?hide_owner=true" data-title="Testing and Validating Data Models in Metadata Editor" data-description="In this video, I demonstrate how to use the Metadata Editor's query tool to test the order's ME model we built earlier. I walk you through selecting columns, setting a row limit of 100, and executing queries to validate our calculations and relationships within the data model. It's crucial to thoroughly test the model using various queries to ensure everything functions correctly. After reviewing the results, I conclude by saving and preparing to publish the metadata domain for use in interactive reports. Please make sure to apply these testing methods to your own models as well." data-thumb="../_assets/embeds/125979ecbc12.png"></div>
 ***
 
-1. From the menu options, select **File > Open**, then select: **OrderStarCustomer**.
-2. Click: **OK**.
+1. Download **OrderStarCustomer.xmi** from Lab Files at the bottom of this page, then from the menu select **File > Import from XMI File** and open it.
+2. In the Save Model dialog, type: **OrderStarCustomer**, and click **OK**.
 3. To open the Query Editor, in the top toolbar, click the **Query Editor** button. <figure><img src="../_assets/images/dm_query_builder.png" alt=""><figcaption></figcaption></figure>
 
 <figure><img src="../_assets/images/dm_query_builder_query_builder.png" alt=""><figcaption><p>Query Builder</p></figcaption></figure>
 
-4. In the Query Builder window, in the **Categories / Columns** pane, click to expand the **Orders** category.
+4. In the Query Builder window, in the **Categories / Columns** pane, click to expand the **Orders** and **Products** categories.
 5. Hold down the **Ctrl** key and in the **Categories / Columns** pane, select:
 
 > **Note:**
@@ -95,8 +95,14 @@
 
 9. Close the Query Builder, click: **OK**.
 
-> **Note:** To define a parameter, specify the parameter's name by using curly brackets, `{Parameter Name}` for example. The parameter name must reference the parameter you created in your report. The **Default** value column is used to preview data in the Metadata Data Source Editor, only.
+> **Note:** In Report Designer's Metadata Data Source Editor (not this Query Builder), to define a parameter, specify the parameter's name by using curly brackets, `{Parameter Name}` for example. The parameter name must reference the parameter you created in your report. The **Default** value column is used to preview data in the Metadata Data Source Editor, only.
 
 ***
 
 > **Success:** You've used the Query Editor to test and validate the OrderStarCustomer domain — selecting business columns, running a query, and reviewing the preview data to confirm your relationships and joins work correctly before publishing.
+
+## Lab Files
+
+Download the reference files for this lab:
+
+- [OrderStarCustomer Domain](../_assets/files/OrderStarCustomer.xmi)

@@ -1,0 +1,9 @@
+{
+  "title": "Capstone: Trailhead Outfitters",
+  "description": "Capstone: model, secure and publish a MySQL retail database end to end - complex join, calculated columns, concepts, and model, column and row security tested with three users.",
+  "order": 12,
+  "kind": "workshop",
+  "stepCount": 12,
+  "hasVideo": false,
+  "estimatedMinutes": 120
+}

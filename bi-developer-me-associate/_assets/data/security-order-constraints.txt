@@ -1,3 +1,8 @@
-[BT_CUSTOMER_W_TER_CUSTOMER_W_TER.BC_CUSTOMER_W_TER_TERRITORY]="NA"
+Row-level security for the OrderStarCustomer business model
+Data Constraints > Role Based - one entry per role or user
 
-[BT_CUSTOMER_W_TER_CUSTOMER_W_TER.BC_CUSTOMER_W_TER_TERRITORY]="EMEA"
+Role: Power User (Suzy) - EMEA customers only
+[BT_CUSTOMER_W_TER_CUSTOMER_W_TER.BC_CUSTOMER_W_TER_TERRITORY] = "EMEA"
+
+User: admin - every row
+TRUE()

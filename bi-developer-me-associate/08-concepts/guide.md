@@ -16,7 +16,7 @@ When you build a metadata domain, you're creating a framework that lets end user
 
 ## The Base Concept
 
-At the foundation sits the **Base concept**, which automatically serves as the parent to all physical columns in your metadata model. Think of it as a safety net: it establishes baseline metadata properties that apply everywhere by default — for example, a currency mask of `$#,##0.00;($#,##0.00)`. You can update, add, or remove properties on the Base concept, and you can remove it as the parent for specific columns, but you **cannot delete it** from the concept list.
+At the foundation sits the **Base concept**, which automatically serves as the parent to all physical columns in your metadata model. Think of it as a safety net: it establishes baseline metadata properties that apply everywhere by default — for example, the font and text alignment. (A currency mask belongs lower down, on a concept such as USCurrency: on Base it would format every column as money.) You can update, add, or remove properties on the Base concept, and you can remove it as the parent for specific columns, but you **cannot delete it** from the concept list.
 
 ## Three levels of Concepts
 
@@ -46,6 +46,6 @@ Together these create a flexible, reusable system for managing metadata across y
 >
 > #### Default Concept
 >
-> The **Default Concept** is the default set of properties assigned to objects, used mainly for formatting (for example, a default currency mask of `$#,##0.00;($#,##0.00)`). Every model contains a default concept called **Base**, applied as the parent to all physical columns created under a connection. Its purpose is to provide legitimate values for common metadata properties that may not be set elsewhere in your hierarchy. You can update, add, and delete properties on the Default Concept and remove it as the parent for any physical columns, but you cannot delete it from the list of concepts in the Concept Editor.
+> The **Default Concept** is the default set of properties assigned to objects, used mainly for formatting (for example, a default font and text alignment). Every model contains a default concept called **Base**, applied as the parent to all physical columns created under a connection. Its purpose is to provide legitimate values for common metadata properties that may not be set elsewhere in your hierarchy. You can update, add, and delete properties on the Default Concept and remove it as the parent for any physical columns, but you cannot delete it from the list of concepts in the Concept Editor.
 
 ::::

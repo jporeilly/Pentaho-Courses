@@ -27,6 +27,6 @@
 * [Overview of Security & Data Access](10-security-and-data-access/guide.md)
 * [Row-Level Security](11-security-and-data-access-row-level-security/guide.md)
 
-## Use Cases
+## Capstone Project
 
-* [MongoDB Reports](12-use-cases-mongodb-reports/guide.md)
+* [Trailhead Outfitters](12-capstone-trailhead-outfitters/guide.md)

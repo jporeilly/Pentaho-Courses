@@ -48,7 +48,7 @@ The metadata security framework provides three complementary layers of protectio
 >
 > #### Filtering rows by role
 >
-> Row-level security filters the **rows** returned from a table based on the user's role or department, so different users see different rows from the same table. It is configured with a **role-based MQL formula** (a data constraint) on the business table. For example, a constraint can ensure that an EMEA manager only sees customers where `Territory = "EMEA"`, while an administrator continues to see all data.
+> Row-level security filters the **rows** returned from a table based on the user's role or department, so different users see different rows from the same table. It is configured with a **role-based MQL formula** (a data constraint) on the business model. For example, a constraint can ensure that an EMEA manager only sees customers where `Territory = "EMEA"`, while an administrator continues to see all data.
 
 ::::
 
@@ -58,7 +58,7 @@ The metadata security framework provides three complementary layers of protectio
 >
 > #### EMEA managers only see EMEA rows
 >
-> A typical row-level rule constrains a business table so that the rows returned depend on who is asking. Configure security so that the user **SUZY** can only see customers where `Territory = "EMEA"`, while **Admin** continues to see every row. The constraint is expressed as an MQL formula evaluated against the current user's roles, and Pentaho applies the appropriate filter automatically whenever the table is queried.
+> A typical row-level rule, set on the business model, filters a business table's rows so that the rows returned depend on who is asking. Configure security so that the user **SUZY** can only see customers where `Territory = "EMEA"`, while **Admin** continues to see every row. The constraint is expressed as an MQL formula evaluated against the current user's roles, and Pentaho applies the appropriate filter automatically whenever the table is queried.
 
 To make role-based constraints work, the Metadata Editor must be able to read the platform's users, roles, and security constraints. This is done by pointing the editor at the **Pentaho Server's security service** and configuring **Access Control Lists (ACLs)** so that usernames and roles are available when you author the constraint formulas.
 

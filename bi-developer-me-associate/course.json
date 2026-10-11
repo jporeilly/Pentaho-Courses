@@ -59,8 +59,8 @@
       "summary": "Lock the model down with metadata security and row-level data constraints, so different roles see different rows and columns from the same published domain."
     },
     {
-      "title": "Use Cases",
-      "summary": "Put it together end-to-end: model a MongoDB data source and build Interactive Reports on the resulting metadata domain."
+      "title": "Capstone Project",
+      "summary": "Put it together end-to-end: model Trailhead Outfitters' MySQL sales database from an empty domain to a published, secured data source, and prove it with three users in Interactive Reports."
     }
   ],
   "launchers": {

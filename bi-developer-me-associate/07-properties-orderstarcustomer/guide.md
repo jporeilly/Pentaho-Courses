@@ -21,10 +21,10 @@
 > * Create calculated columns using formulas including PC_TOTAL (QUANTITYORDERED multiplied by PRICEEACH) in the physical layer and BC_TOTAL in the business layer
 > * Build a concatenated Contact Name field using the formula CONTACTLASTNAME comma CONTACTFIRSTNAME to combine customer contact information
 > * Organize business columns into four logical Business View categories (CT_ORDERS for Orders, CT_CUSTOMERS for Customers, CT_PRODUCTS for Products, CT_TIME for Time)
-> * Populate the Orders category with nine columns including Order Number, Order Date, Status, Price Sold, Quantity Ordered, and the calculated Total field
+> * Populate the Orders category with ten columns including Order Number, Order Date, Status, Price Sold, Quantity Ordered, and the calculated Total field
 > * Populate the Customers category with thirteen columns including Customer Number, Customer Name, Contact Name, complete address details, Territory, Employee Number, Credit Limit, and Phone
-> * Populate the Products category with nine columns including Product Code, Product Name, Product Line, Product Scale, Product Vendor, Product Description, Quantity In Stock, Buy Price, and MSRP
-> * Populate the Time category with seven temporal attributes including Time ID, Year ID, Month Name, Month Description, Quarter Name, and Quarter Description
+> * Populate the Products category with eight columns: Product Code, Product Name, Product Line, Product Scale, Product Vendor, Product Description, Buy Price, and MSRP
+> * Populate the Time category with six temporal attributes: Time ID, Year ID, Month Name, Month Description, Quarter Name, and Quarter Description
 > * Save the completed OrderStarCustomer domain file ready for publishing to the Pentaho Server
 >
 > By the end of this workshop, you'll have created a production-ready metadata domain that demonstrates best practices in semantic layer design. You'll understand how the three-layer architecture (physical tables, business model, business views) separates technical implementation from business presentation, how properties control SQL generation and data formatting, and how formulas extend the data model with calculated fields. You'll have mastered the relationship modeling that enables automatic join generation, the property configuration that ensures consistent aggregations and data types, and the business view organization that creates intuitive, category-based navigation for report designers. These skills form the foundation of enterprise metadata modeling, enabling you to create semantic layers that democratize data access, ensure consistency across reports, and shield business users from database complexity while maintaining data integrity and performance.
@@ -184,9 +184,9 @@ Follow the guide below to create your OrderStarCustomer domain:
 
 > **Note:**
 >
-> The tables cannot be dragged into the 'Business Tables' view as a group. They must be added individually. When you receive the Business Model Properties dialog, note the table 'ID,' BT_PRODUCTS_PRODUCTS, and the 'Physical Table' name, PT_PRODUCTS.
+> The tables cannot be dragged into the 'Business Tables' view as a group. They must be added individually. When you receive the Business Table Properties dialog, note the table 'ID,' BT_PRODUCTS_PRODUCTS, and the 'Physical Table' name, PT_PRODUCTS.
 
-3. Click **OK** to dismiss the properties dialog. Using the Business Model Properties dialog, you can (optionally) remove columns from the tables before adding them to the business model.
+3. Click **OK** to dismiss the properties dialog. Using the Business Table Properties dialog, you can (optionally) remove columns from the tables before adding them to the business model.
 4. Repeat the previous steps to add:
 
 > **Note:**
@@ -197,7 +197,7 @@ Follow the guide below to create your OrderStarCustomer domain:
 >
 > CUSTOMER_W_TER
 
-5. Save.
+5. Save (**File > Save**). The first time, the Save Domain dialog asks for a name: type **OrderStarCustomer** and click **OK**.
 
 ### 3. Relationships
 
@@ -375,9 +375,9 @@ Follow the guide to define the Relationships:
 >
 > Phone
 >
-> Addressline1
+> Address Line 1
 >
-> Addressline2
+> Address Line 2
 >
 > City
 >
@@ -465,7 +465,7 @@ Follow the guide to define the Relationships:
 
 > **Warning:**
 >
-> It is important to set the correct data type in this case for Java date formatting to be applied. We will only change the Data Type for the Order Date now. We will apply formatting later in this workshop.
+> It is important to set the correct data type in this case for Java date formatting to be applied. We will only change the Data Type for the Order Date now. You apply formatting with concepts in the Concept Editor workshop.
 
 4. Click **OK** and save your work.
 
@@ -551,10 +551,10 @@ Follow the guide to define the Relationships:
 9. In the Formula section, in the Value field, type:
 
 ```
-[CONTACTLASTNAME]+","+[CONTACTFIRSTNAME]
+[CONTACTLASTNAME]+", "+[CONTACTFIRSTNAME]
 ```
 
-10. Check **Is the formula exact?**
+10. Check **Is the formula exact?** and click **OK**.
 11. Expand **Business Models > OrderStarCustomer > Business Tables** (if necessary).
 12. Right-click **CUSTOMER_W_TER** and choose **Edit**.
 13. In the Business Table Properties dialog, above the Subject pane, click the **Add New Column** button.
@@ -600,7 +600,7 @@ Follow the guide to apply the Business Views:
 >
 > The CT_ORDERS category is a business view within the OrderStarCustomer metadata model that organizes order-related data from the ORDERFACT table into a business-friendly structure.
 >
-> This category, named "Orders" for end users, consolidates nine key order management columns including Order Number, Order Date, Required Date, Shipped Date, Status, and Comments for tracking order fulfillment, along with transactional metrics such as Price Sold, Quantity Ordered, and Total (a calculated field multiplying quantity by price).
+> This category, named "Orders" for end users, consolidates ten key order management columns including Order Number, Order Date, Required Date, Shipped Date, Status, and Comments for tracking order fulfillment, along with transactional metrics such as Price Sold, Quantity Ordered, and Total (a calculated field multiplying quantity by price).
 
 1. Expand **Business Models > OrderStarCustomer** (if necessary), right-click **Business View** and choose **New Category**.
 2. In the Business Category Properties dialog, in the ID field, type: `CT_ORDERS`.
@@ -674,7 +674,7 @@ Follow the guide to apply the Business Views:
 >
 > Phone
 >
-> Addressline1 & Addressline2
+> Address Line 1 & Address Line 2
 >
 > City
 >
@@ -700,9 +700,9 @@ Follow the guide to apply the Business Views:
 >
 > The CT_PRODUCTS category is a business view within the OrderStarCustomer metadata model that organizes product dimension data from the PRODUCTS table into a comprehensive, business-friendly structure for product analysis and inventory management.
 >
-> This category, named "Products" for end users, encompasses nine key product attributes including Product Code as the unique identifier, Product Name for item identification, and descriptive classification fields such as Product Line (for product family groupings), Product Scale (indicating model or size specifications), and Product Vendor (identifying suppliers or manufacturers).
+> This category, named "Products" for end users, encompasses eight key product attributes including Product Code as the unique identifier, Product Name for item identification, and descriptive classification fields such as Product Line (for product family groupings), Product Scale (indicating model or size specifications), and Product Vendor (identifying suppliers or manufacturers).
 >
-> The category also includes Product Description for detailed item information, inventory management metrics with Quantity In Stock for availability tracking, and pricing data through Buy Price (wholesale or cost basis) and MSRP (Manufacturer's Suggested Retail Price) for margin analysis and pricing strategy. By consolidating these product dimension attributes into a single category, the business view enables analysts to perform product performance analysis, inventory optimization, vendor evaluation, pricing strategy assessment, and product portfolio management without requiring technical knowledge of the underlying database schema.
+> The category also includes Product Description for detailed item information, and pricing data through Buy Price (wholesale or cost basis) and MSRP (Manufacturer's Suggested Retail Price) for margin analysis and pricing strategy. By consolidating these product dimension attributes into a single category, the business view enables analysts to perform product performance analysis, vendor evaluation, pricing strategy assessment, and product portfolio management without requiring technical knowledge of the underlying database schema.
 
 1. In the Manage Categories dialog, click the **Add New Category** button.
 2. In the Business Category Properties dialog, in the ID field, type: `CT_PRODUCTS`.
@@ -741,9 +741,9 @@ Follow the guide to apply the Business Views:
 >
 > The CT_TIME category is a business view within the OrderStarCustomer metadata model that provides comprehensive temporal analysis capabilities by organizing time dimension attributes from the DIM_TIME table into a hierarchical, business-friendly structure for date-based reporting and trend analysis.
 >
-> This category, named "Time" for end users, includes seven essential time attributes starting with Time ID as the unique temporal identifier, followed by The Full Date for complete date reference, and granular time components including Day of Week (enabling weekday pattern analysis), Day of Month (supporting daily cycle analysis), Month (facilitating monthly comparisons), Year (enabling annual trending), and Quarter (supporting quarterly business cycle analysis).
+> This category, named "Time" for end users, holds six DIM_TIME attributes: Time ID as the key, Year ID, Month Name, Month Description, Qtr Name and Qtr Description. Each of DIM_TIME's 265 rows is one order date: Time ID holds the date itself (2003-01-06 to 2005-05-31), and the other columns roll it up to month, quarter and year.
 >
-> By structuring these temporal attributes into a dedicated category, the business view enables analysts to perform sophisticated time-series analysis, seasonal trend identification, period-over-period comparisons, fiscal reporting, and date-driven business intelligence without requiring knowledge of the underlying time dimension table structure or complex date manipulation SQL, supporting common business scenarios such as year-over-year growth analysis, quarterly performance reviews, and day-of-week sales patterns.
+> By structuring these temporal attributes into a dedicated category, the business view enables analysts to perform sophisticated time-series analysis, seasonal trend identification, period-over-period comparisons, fiscal reporting, and date-driven business intelligence without requiring knowledge of the underlying time dimension table structure or complex date manipulation SQL, supporting common business scenarios such as year-over-year growth analysis and quarterly performance reviews.
 
 1. In the Manage Categories dialog, click the **Add New Category** button.
 2. In the Business Category Properties dialog, in the ID field, type: `CT_TIME`.
@@ -781,4 +781,4 @@ Follow the guide to apply the Business Views:
 
 Download the reference files for this lab:
 
-- [OrderStarCustomer Domain](../_assets/files/OrderStarCustomer.xmi)
+- [OrderStarCustomer Domain](../_assets/files/OrderStarCustomer.xmi) - the finished domain from this workshop (no concepts yet)

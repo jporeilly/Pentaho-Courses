@@ -21,7 +21,7 @@
 > * Validate concept application through Interactive Report creation
 > * Understand inheritance behaviour and how concepts propagate properties
 >
-> **Prerequisites:** Completion of [OrdersME](../04-domains-and-models-ordersme/guide.md) workshop or access to OrderStarCustomer domain; Pentaho Metadata Editor and Pentaho Server installed and configured; Understanding of metadata domain structure
+> **Prerequisites:** Completion of the [OrderStarCustomer](../07-properties-orderstarcustomer/guide.md) workshop or the OrderStarCustomer.xmi domain (Lab Files); Pentaho Metadata Editor and Pentaho Server installed and configured; Understanding of metadata domain structure
 >
 > **Estimated time:** 60 minutes
 
@@ -90,7 +90,7 @@ Follow the guide to define and apply Concepts:
 > This inheritance-based approach ensures consistent formatting across all reports generated from the metadata domain, automatically applying currency symbols, decimal places, thousand separators, and date formats whenever users create reports, while minimizing redundant property definitions and ensuring organizational standards are maintained throughout the BI environment.
 
 <div class="pcm-embed-card" data-href="https://www.loom.com/share/c53a49ad5f204a29818000b69e47f7c8?hideEmbedTopBar=true&amp;hide_share=true&amp;hide_title=true&amp;sid=c43fa08d-06b6-4b14-8658-993775337ca4?hide_owner=true" data-title="Creating and Applying Metadata Concepts for Business Objects 💻" data-description="In this video, I demonstrate how to create and apply metadata concepts for formatting business columns, specifically for numbers, currency, and dates. I walk you through accessing the Concept Editor, where I start by modifying the base concept to create a number concept with right alignment and comma formatting. Next, I create a currency concept inheriting from the number concept, adding a dollar sign and two decimal places. Finally, I establish a date concept with a specific Java date format. Please be prepared to apply these concepts to the business columns in the next demonstration." data-thumb="../_assets/embeds/125979ecbc12.png"></div>
-1. Choose File > Open from the menu options, choose OrderStarMetadata in the Select a Domain dialog and click OK.
+1. Choose File > Open from the menu options, choose **OrderStarCustomer** (the name you saved it under in the OrderStarCustomer workshop) in the Select a Domain dialog and click OK. Starting from the Lab Files instead? Choose File > Import from XMI File, open **OrderStarCustomer.xmi**, and in the Save Model dialog type **OrderStarCustomer**.
 2. From the menu options, choose Tools > Concept Editor.
 3. Click Base.
 4. Click Add Concept button.
@@ -118,7 +118,7 @@ Follow the guide to define and apply Concepts:
 
 <figure><img src="../_assets/images/concept_editor_set_text_alignment_and_mask.png" alt=""><figcaption><p>Set Text Alignment &#x26; Mask</p></figcaption></figure>
 
-7. For Text Alignment, for Alignment Type, click the Override icon, and then choose Right. In the Value field, type: #,##0
+7. For Text Alignment, for Alignment Type, click the Override icon, and then choose Right. For Mask for Number or Date, in the Value field, type: #,##0
 
 #### Currency
 
@@ -169,11 +169,14 @@ Follow the guide to define and apply Concepts:
 
 > **Note:**
 >
-> You now have three defined concepts that can be used anywhere in your business model. Each concept serves a different type of business object:
+> You now have four concepts below Base that can be used anywhere in your business model:
 >
-> * Base for default, generic columns,
-> * Number for those columns you know contain numeric financial data, and
-> * ID for ID columns (the value is hidden from the user).
+> * Number for numeric columns (#,##0, right-aligned),
+> * USCurrency for currency amounts,
+> * ID for identifier columns (mask #), and
+> * Hidden for identifiers that are hidden from the user.
+>
+> Base itself stays the default for generic columns.
 
 > **Under the hood:**
 >
@@ -240,11 +243,11 @@ Follow the guide to set and apply the Concepts:
 >
 > The three date columns—Order Date, Required Date, and Shipped Date—are assigned the Date concept to standardize their display format as MM-dd-yyyy.
 >
-> This systematic application of parent concepts eliminates the need to configure formatting properties individually for each column and ensures that whenever users create reports using the OrdersStarCustomer data source, all numeric values display with thousand separators, currency values show proper dollar formatting, dates appear in consistent MM-dd-yyyy format, and identifiers display as whole numbers without decimals.
+> This systematic application of parent concepts eliminates the need to configure formatting properties individually for each column and ensures that whenever users create reports using the OrderStarCustomer data source, all numeric values display with thousand separators, currency values show proper dollar formatting, dates appear in consistent MM-dd-yyyy format, and identifiers display as whole numbers without decimals.
 
 <figure><img src="../_assets/images/concept_editor_set_orders_concepts.png" alt=""><figcaption><p>Set Orders Concepts</p></figcaption></figure>
 
-1. In Metadata Editor, expand Business Models > OrdersStarCustomer > Business View > Orders.
+1. In Metadata Editor, expand Business Models > OrderStarCustomer > Business View > Orders.
 2. Right-click Order Number and choose Set Parent Concept.
 
 <figure><img src="../_assets/images/concept_editor_set_parent_concept_id.png" alt=""><figcaption><p>Set Parent Concept - ID</p></figcaption></figure>
@@ -264,7 +267,7 @@ Follow the guide to set and apply the Concepts:
 1. Right-click Price Sold and choose Set Parent Concept.
 2. In the Select a Parent Concept dialog, select USCurrency and click OK.
 3. Right-click Total Price and choose Set Parent Concept.
-4. In the Select a Parent dialog, select USCurrency and click OK.
+4. In the Select a Parent Concept dialog, select USCurrency and click OK.
 
 ***
 
@@ -336,7 +339,7 @@ Follow the guide to set and apply the Concepts:
 
 | Field | Value |
 | --- | --- |
-| Web Publish URL | http://localhost:8080/pentaho/plugin/dataaccess/api/metadata/import |
+| Web Publish URL | http://localhost:8080/pentaho/plugin/data-access/api/metadata/import |
 | Server UserID | admin |
 | Server Password | password |
 | Domain Name | OrdersStarCustomer |
@@ -353,7 +356,7 @@ Follow the guide to set and apply the Concepts:
 
 1. Maximize the User Console browser window.
 2. From the Home Perspective, click Create New > Interactive Report.
-3. In the Select Data Source dialog, choose OrdersStarCustomer and click OK.
+3. In the Select Data Source dialog, choose **OrderStarCustomer** and click OK. The list shows business model names, so the domain you published as OrdersStarCustomer appears under its model's name.
 
 <figure><img src="../_assets/images/concept_editor_data_source_ordersstarcustomer.png" alt=""><figcaption><p>Data Source - OrdersStarCustomer</p></figcaption></figure>
 
@@ -393,4 +396,5 @@ Create Interactive Report:
 
 ## Lab Files
 
-- [OrderStarCustomer.xmi](../_assets/files/OrderStarCustomer.xmi)
+- [OrderStarCustomer.xmi](../_assets/files/OrderStarCustomer.xmi) - the starting domain (the OrderStarCustomer workshop's result)
+- [OrderStarCustomer-concepts.xmi](../_assets/files/OrderStarCustomer-concepts.xmi) - the finished domain, with this workshop's concepts applied
