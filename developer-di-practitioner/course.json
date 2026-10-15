@@ -13,7 +13,7 @@
   },
   "title": "Pentaho Developer - DI Practitioner",
   "description": "Self-paced, hands-on workshop for the Pentaho Data Integration Practitioner.",
-  "version": "0.1.14",
+  "version": "0.1.16",
   "kind": "workshop",
   "level": { "number": 1, "name": "Practitioner" },
   "mode": "sequential",
@@ -95,5 +95,14 @@
         "37-mod99-daily-sales-pipeline"
       ]
     }
+  },
+  "install": {
+    "code": "DI",
+    "signIn": "full",
+    "services": true,
+    "steelWheelsExport": true,
+    "kits": ["MySQL", "minIO"],
+    "pdiDriver": true,
+    "workshop": true
   }
 }

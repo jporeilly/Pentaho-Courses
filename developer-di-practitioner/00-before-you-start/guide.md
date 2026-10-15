@@ -353,6 +353,7 @@ The capstone is the one folder with a shape of its own:
 | `capstone\data\`     | The source files the capstone reads — shipped    |
 | `capstone\solution\` | **Your** transformations and jobs                |
 | `capstone\out\`      | **Your** output — the accreditation checks look here |
+| `capstone\reference\` | A worked solution to compare with, once you have built yours — shipped, never checked |
 
 > **Note:** Upgrading the app refreshes the shipped lab files and never
 > touches `solution\` or `out\`. Your own work is safe, so you can
@@ -511,7 +512,8 @@ C:\Workshop-DI-Practitioner
 └── capstone
     ├── data                                what the capstone reads, shipped
     ├── solution                            your transformations and jobs
-    └── out                                 your output, checked for your accreditation
+    ├── out                                 your output, checked for your accreditation
+    └── reference                           a worked solution to compare with, shipped
 ```
 
 Every `solution` folder holds a **complete, working** solution: the

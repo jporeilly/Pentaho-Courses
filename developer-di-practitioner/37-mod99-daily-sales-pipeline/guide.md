@@ -234,77 +234,121 @@ This becomes a portfolio piece — keep it tidy, name things clearly, and docume
 <details>
 <summary>Click to see a step-by-step walkthrough of one valid solution. Try the capstone yourself first.</summary>
 
+> **Note:** A worked reference solution — the job, the transformations
+> and a README with the numbers a correct run produces — is laid out at
+> `C:\Workshop-DI-Practitioner\capstone\reference\`. Open it after you
+> have built your own. Your work stays in `capstone\solution\`; that is
+> the folder the accreditation checks read, and the reference folder is
+> never looked at.
+
+The three staging transformations write to **staging tables** in the
+workshop's MySQL (`stg_orders`, `stg_customers`, `stg_products`, through
+one connection named `capstone`), and the fact build reads them back. A
+job holds a single "rows to result" set, so three stagings cannot hand
+their rows to one transformation that way; tables can. Every diagram
+below uses the same colours:
+
+<figure><img src="../_assets/images/capstone-legend.png" alt="Legend: read, validate, enrich, dimension, write, rejects, log and job-entry steps by colour"><figcaption><p>How to read the diagrams</p></figcaption></figure>
+
 ### `stage_orders.ktr`
 
 Steps in order:
 
-1. **Text File Input**: `${WORKSHOP_HOME}/data/sales_${SALES_DATE}.csv`. Comma delimiter. Header row. 7 fields with types — `qty` Integer, `unit_price` Number(10,2), `discount_pct` Number(5,2), the rest String.
-2. **Filter Rows**: condition `customer_id IS NOT NULL AND product_id IS NOT NULL`. Set **Send 'false' data to step** to:
-3. **Text File Output**: `${OUTPUT_PATH}/rejected_${SALES_DATE}.csv` (audit trail).
-4. **Write to Log** (basic level): `Rejected rows for ${SALES_DATE}: <count>`.
-5. The good rows continue to **Sort rows** on `product_id`, then a **Copy rows to result** so the parent job's later transformations can pick them up via "Get rows from result".
+1. **Text File Input**: `${WORKSHOP_HOME}/data/sales_${SALES_DATE}.csv`. Comma delimiter. Header row. 7 fields with types — `qty` Integer, `unit_price` Number(10,2), `discount_pct` Number(5,2), `order_date` Date `yyyy-MM-dd`, the rest String.
+2. **Filter Rows**: `customer_id IS NOT NULL AND product_id IS NOT NULL`, and while you are there `qty > 0`, `unit_price > 0`, `discount_pct` between 0 and 100. Set **Send 'true' data to step** to the Table Output and **Send 'false' data to step** to:
+3. **Text File Output**: `${OUTPUT_PATH}/rejected_${SALES_DATE}.csv` (the audit trail), then a **Group by** with no group field and one aggregate, `rejected_rows` = Number of Values of `order_id`, with **Always give back a result row** on, then **Write to Log** (Basic): `Rejected rows for ${SALES_DATE}:` with `rejected_rows` in its fields.
+4. The good rows go to **Table Output** `stg_orders` with **Truncate table** on, then the same Group by and Write to Log pair counting `valid_rows`.
+
+<figure><img src="../_assets/images/capstone-stage-orders.png" alt="stage_orders.ktr: Text File Input, Filter Rows, then Table Output and a rejects file, each followed by Group by and Write to Log"><figcaption><p>stage_orders.ktr</p></figcaption></figure>
 
 ### `stage_customers.ktr`
 
 1. **JSON Input**: `${WORKSHOP_HOME}/data/customers.json`. Fields `id`, `name`, `email`, `region_code`, `joined_date`, each with a full path such as `$.customers[*].id` — all String except `joined_date` (Date with format `yyyy-MM-dd`).
-2. **Copy rows to result** — staged for the fact build.
+2. **Table Output** `stg_customers`, truncate on, then **Group by** (`customers_staged` = Number of Values of `id`) and **Write to Log**.
+
+<figure><img src="../_assets/images/capstone-stage-customers.png" alt="stage_customers.ktr: JSON Input, Table Output, Group by, Write to Log"><figcaption><p>stage_customers.ktr</p></figcaption></figure>
 
 ### `stage_products.ktr`
 
 1. **Text File Input**: `${WORKSHOP_HOME}/data/products.csv`. Header, 4 fields, `cost` as Number(10,2).
-2. **Sort rows** on `id` — required for the upcoming Merge Join.
-3. **Copy rows to result**.
+2. **Table Output** `stg_products`, truncate on, then **Group by** (`products_staged` = Number of Values of `id`) and **Write to Log**.
 
-### `build_fact.ktr`
-
-1. **Get rows from result** — pulls the validated, sorted-by-product orders.
-2. **Stream Lookup** — keyed on `customer_id`, returns `name` and `region_code` from the customers stream. (You'll need a second "Get rows from result" + cache; or run customer staging in a sub-transformation, or load to a cache table.)
-3. **Merge Join** — INNER on `product_id`. Left input = orders, right = sorted products. Returns `name`, `cost`.
-4. **Formula** —
-   - `revenue = [qty] * [unit_price] * (1 - [discount_pct] / 100)`
-   - `gross_margin = [revenue] - ([qty] * [cost])`
-   - Both as Number(12,2).
-5. **Stream Lookup** on `region_code` against `regions.csv` (read once at start) → returns `region_name`.
-6. **Text File Output** to `${OUTPUT_PATH}/fact_sales.csv` (required by the accreditation check), and **Table Output** to `fact_sales` as well if you want it in MySQL.
-7. **Write to Log**: row count.
+<figure><img src="../_assets/images/capstone-stage-products.png" alt="stage_products.ktr: Text File Input, Table Output, Group by, Write to Log"><figcaption><p>stage_products.ktr</p></figcaption></figure>
 
 ### `maintain_dim_region.ktr`
 
+Runs **before** the fact, so the fact can carry the region's key.
+
 1. **Text File Input**: `${WORKSHOP_HOME}/data/regions.csv`.
-2. **Dimension Lookup/Update** against `dim_region` —
-   - Technical key: `region_sk` (auto-increment).
-   - Lookup field: `code`.
-   - Versioned fields: `name`, `manager_email`.
-   - Date range: `valid_from`, `valid_to`. SCD type 2 (insert new version on change).
+2. **Get System Info**: one field, `load_date` = system date (start of transformation), the stream date for the dimension.
+3. **Dimension Lookup/Update** against `dim_region`, **Update the dimension** on —
+   - Key: `code` = `code`.
+   - Technical key: `region_sk` (auto-increment). Version field: `version`.
+   - Stream datefield: `load_date`. Date range: `valid_from`, `valid_to`.
+   - Fields `name` and `manager_email` with type **Insert** (SCD type 2: a new version on change).
+   - Let the step create the table with its SQL button.
+4. **Group by** and **Write to Log** as before, counting `code`.
+
+<figure><img src="../_assets/images/capstone-maintain-dim-region.png" alt="maintain_dim_region.ktr: Text File Input, Get System Info, Dimension Lookup/Update, Group by, Write to Log"><figcaption><p>maintain_dim_region.ktr</p></figcaption></figure>
+
+### `build_fact.ktr`
+
+1. **Table Input** `SELECT ... FROM stg_orders ORDER BY product_id` — the main stream, already sorted for the join.
+2. **Stream Lookup** against a second **Table Input** (`SELECT id, name, region_code FROM stg_customers`): key `customer_id` = `id`, returning `name` as `customer_name` and `region_code`.
+3. **Merge Join**, INNER, first step the orders on `product_id`, second step a third **Table Input** (`SELECT id, name, category, cost FROM stg_products ORDER BY id`) on `id`, bringing `name` as `product_name`, `category`, `cost`. Both inputs are sorted by their queries.
+4. **Filter Rows**: `customer_name IS NOT NULL AND product_name IS NOT NULL`; the false branch writes `${OUTPUT_PATH}/rejected_unmatched_${SALES_DATE}.csv`.
+5. **Formula** —
+   - `revenue = [qty] * [unit_price] * (1 - [discount_pct] / 100)`
+   - `gross_margin = [revenue] - ([qty] * [cost])`
+   - Both as Number(12,2).
+6. **Dimension Lookup/Update** against `dim_region` with **Update the dimension** off (lookup only): key `region_code` = `code`, stream datefield `order_date`, returning `region_sk` and `name` as `region_name`.
+7. **Select values** to order the columns and set precision 2 on the money fields.
+8. **Text File Output** to `${OUTPUT_PATH}/fact_sales.csv` (required by the accreditation check), then **Table Output** `fact_sales` (truncate on) — chained, so one stream feeds both.
+9. **Group by** and **Write to Log**: the fact's row count.
+
+<figure><img src="../_assets/images/capstone-build-fact.png" alt="build_fact.ktr: three Table Inputs, Stream Lookup, Merge Join, Filter Rows, Formula, Dimension Lookup/Update, Select values, Text File Output, Table Output, Group by, Write to Log"><figcaption><p>build_fact.ktr</p></figcaption></figure>
 
 ### `write_summary.ktr`
 
-1. **Table Input** (or Text File Input from `fact_sales.csv`): `SELECT region_name, SUM(revenue), SUM(gross_margin), COUNT(*) FROM fact_sales GROUP BY region_name`.
-2. **Excel Writer** → `${OUTPUT_PATH}/sales_summary_${SALES_DATE}.xlsx`. One sheet, headers, append=No (fresh file every run).
+1. **Text File Input** from `${OUTPUT_PATH}/fact_sales.csv` (`revenue` and `gross_margin` as Number(12,2)), so this step needs no database.
+2. **Sort rows** on `region_name`, then **Group by** `region_name`: `revenue` = SUM, `gross_margin` = SUM, `orders` = Number of Values of `order_id`.
+3. **Microsoft Excel Writer** → `${OUTPUT_PATH}/sales_summary_${SALES_DATE}.xlsx`. One sheet, headers, append=No (fresh file every run).
+
+<figure><img src="../_assets/images/capstone-write-summary.png" alt="write_summary.ktr: Text File Input, Sort rows, Group by, Microsoft Excel Writer"><figcaption><p>write_summary.ktr</p></figcaption></figure>
+
+### `stage_all.kjb`
+
+A sub-job whose START has **Run Next Entries in Parallel** and three **Transformation** entries, each with **Pass parameter values to sub transformation** ticked. The parent moves on only when all three have finished; a failure in any one fails the sub-job.
+
+<figure><img src="../_assets/images/capstone-stage-all-job.png" alt="stage_all.kjb: START running stage_orders, stage_customers and stage_products in parallel, failures to Abort job"><figcaption><p>stage_all.kjb</p></figcaption></figure>
 
 ### `daily_sales_pipeline.kjb`
 
 ```text
 Start
  ↓
-Set Variables            load kettle.properties values into job-scope variables
+Set Variables            optional: kettle.properties values into job variables
+ ↓
+Checks if files exist    the four data files, so a missing feed fails here
  ↓
 stage_all.kjb            sub-job: START (Run Next Entries in Parallel)
  ↓                         ├─ stage_orders.ktr
  ↓                         ├─ stage_customers.ktr
  ↓                         └─ stage_products.ktr
-build_fact.ktr           runs once, after the sub-job has finished
+maintain_dim_region.ktr  the dimension first, so the fact can carry region_sk
  ↓
-maintain_dim_region.ktr
+build_fact.ktr
  ↓
 write_summary.ktr
  ↓
 Success
 ```
 
-The sub-job is what lets the three staging transformations run together and still be followed by one `build_fact.ktr`. Running them one after another in the main job (as in **8. Job orchestration**) is just as valid, and simpler.
+The job declares the same three parameters as the transformations, with the same defaults, and every Transformation entry has **Pass parameter values to sub transformation** ticked, so a Kitchen `-param:` override reaches every step. The sub-job is what lets the three staging transformations run together and still be followed by one `maintain_dim_region.ktr`. Running them one after another in the main job (as in **8. Job orchestration**) is just as valid, and simpler.
 
-On any **fail** hop: Mail step → notify ops, then Abort job.
+On any **failure** hop: Mail step → notify ops, then Abort job.
+
+<figure><img src="../_assets/images/capstone-daily-sales-pipeline-job.png" alt="daily_sales_pipeline.kjb: START, Set variables, Checks if files exist, stage_all.kjb, maintain_dim_region, build_fact, write_summary, Success; failures to Mail then Abort job"><figcaption><p>daily_sales_pipeline.kjb</p></figcaption></figure>
 
 ### `kettle.properties` example
 
@@ -316,7 +360,9 @@ OUTPUT_PATH=C:/Workshop-DI-Practitioner/capstone/out
 
 ### Kitchen invocation
 
-On Windows: `Kitchen.bat -file=daily_sales_pipeline.kjb -level=Basic "-param:SALES_DATE=20260101"`. On Linux:
+On Windows: `Kitchen.bat -file=daily_sales_pipeline.kjb -level=Basic "-param:SALES_DATE=20260101"`.
+
+On Linux:
 
 ```
 kitchen.sh \
