@@ -10,12 +10,13 @@ is ever written to by the pipeline.
 
 | File | Role |
 | --- | --- |
-| `daily_sales_pipeline.kjb` | The orchestrator: parameters, file checks, the three stage transformations, dimension, fact, summary; failure hops to Mail then Abort |
+| `daily_sales_pipeline.kjb` | The orchestrator: parameters, file checks, Create tables (an SQL entry), the staging sub-job, dimension, fact, summary; failure hops to Mail then Abort |
+| `stage_all.kjb` | The three stagings, started together (START runs the next entries in parallel); a failure in any one aborts the sub-job |
 | `stage_orders.ktr` | Text File Input of `sales_${SALES_DATE}.csv`, validation (missing keys, qty, price, discount) with the rejects written to `out\rejected_${SALES_DATE}.csv` and counted in the log, then Table Output `stg_orders` |
 | `stage_customers.ktr` | JSON Input of `customers.json` (`$.customers[*].<field>`), then Table Output `stg_customers` |
 | `stage_products.ktr` | Text File Input of `products.csv`, then Table Output `stg_products` |
 | `maintain_dim_region.ktr` | `regions.csv` into `dim_region` with Dimension Lookup/Update (Type 2 on `name` and `manager_email`; key `region_sk`, dates `valid_from` / `valid_to`) |
-| `build_fact.ktr` | `stg_orders` + Stream Lookup (customers) + Merge Join (products, both sides sorted) + Formula (`revenue`, `gross_margin`) + the region key from `dim_region`, to `out\fact_sales.csv` and table `fact_sales` |
+| `build_fact.ktr` | `stg_orders` + Stream Lookup (customers) + Merge Join (products, both sides sorted) + Formula (`revenue` rounded half-up to the cent, `gross_margin`) + the region key from `dim_region`, to `out\fact_sales.csv` and table `fact_sales` |
 | `write_summary.ktr` | `fact_sales.csv` grouped by region into `out\sales_summary_${SALES_DATE}.xlsx` |
 | `kettle.properties` | The three parameters with the workshop's values |
 
@@ -29,9 +30,11 @@ is ever written to by the pipeline.
 
 The staging tables, `dim_region` and `fact_sales` live in the workshop's
 MySQL: the connection is named `capstone` and is defined inside each
-file (database `sampledata` on `127.0.0.1:3306`, `pentaho_admin` /
-`password`, the same server the course's database labs use). The steps
-create the tables on first run. `DIAGRAMS.md` beside this file draws
+file (database `sampledata` on `localhost:3306`, `pentaho_admin` /
+`password`, the same server the course's database labs use). The job's
+Create tables entry drops and recreates the three staging tables on
+every run, and creates `dim_region` and `fact_sales` when they are
+missing. `DIAGRAMS.md` beside this file draws
 every transformation and the job, step by step.
 
 ## Run it
@@ -46,8 +49,9 @@ Kitchen.bat -file=daily_sales_pipeline.kjb -level=Basic "-param:SALES_DATE=20260
 ## What a correct run produces (the shipped data)
 
 40 sales rows read; 3 rejected for a missing customer or product key; 37
-rows in `fact_sales.csv` and the `fact_sales` table; 5 rows in
-`dim_region` after the first run.
+rows in `fact_sales.csv` and the `fact_sales` table; 6 rows in
+`dim_region` after the first run: the five regions, plus the
+"unknown" row (`region_sk` 1) that Dimension Lookup/Update adds.
 
 | Region | Revenue | Gross margin | Orders |
 | --- | ---: | ---: | ---: |

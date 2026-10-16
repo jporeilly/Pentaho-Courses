@@ -123,8 +123,9 @@ flowchart LR
 
 The Type 2 dimension. 5 regions the first time; change a `manager_email`
 in `regions.csv` and run again to see a version 2 row appear with
-`valid_from` set to the run date. Let the step create the table with its
-SQL button.
+`valid_from` set to the run date. The main job's Create tables entry
+creates `dim_region` when it is missing; in Spoon the step's SQL button
+does the same.
 
 ```mermaid
 %%{init: {"theme":"base","themeVariables":{"fontFamily":"Segoe UI, Helvetica, Arial, sans-serif","fontSize":"13px","lineColor":"#64748b","clusterBkg":"#fafaf9","clusterBorder":"#d6d3d1","edgeLabelBackground":"#ffffff"},"flowchart":{"curve":"basis","nodeSpacing":34,"rankSpacing":44,"padding":10,"htmlLabels":true}}}%%
@@ -162,18 +163,18 @@ flowchart TB
     direction LR
     A["<b>Table Input</b><br/>connection: capstone<br/>SELECT order_id, order_date, customer_id,<br/>product_id, qty, unit_price, discount_pct<br/>FROM stg_orders ORDER BY product_id"]:::input
     L1["<b>Table Input</b><br/>connection: capstone<br/>SELECT id, name, region_code<br/>FROM stg_customers"]:::input
-    L2["<b>Table Input</b><br/>connection: capstone<br/>SELECT id, name, category, cost<br/>FROM stg_products ORDER BY id"]:::input
+    L2["<b>Table Input</b><br/>connection: capstone<br/>SELECT id, name AS product_name,<br/>category, cost<br/>FROM stg_products ORDER BY id"]:::input
   end
   subgraph enrich ["Enrich"]
     direction LR
     B["<b>Stream Lookup</b><br/>lookup step: the customers Table Input<br/>key: customer_id = id<br/>returns: name as customer_name, region_code"]:::enrich
-    C["<b>Merge Join</b><br/>join type: INNER<br/>first step: orders, key product_id<br/>second step: products, key id<br/>brings: name as product_name, category, cost"]:::enrich
+    C["<b>Merge Join</b><br/>join type: INNER<br/>first step: orders, key product_id<br/>second step: products, key id<br/>brings: product_name, category, cost"]:::enrich
     D{"<b>Filter Rows</b><br/>customer_name IS NOT NULL<br/>AND product_name IS NOT NULL"}:::check
     B --> C --> D
   end
   subgraph calc ["Calculate"]
     direction LR
-    E["<b>Formula</b><br/>revenue = [qty]\*[unit_price]\*(1-[discount_pct]/100)<br/>gross_margin = [revenue]-[qty]\*[cost]<br/>both Number 12,2"]:::enrich
+    E["<b>Formula</b><br/>revenue = INT([qty]\*[unit_price]\*(1-[discount_pct]/100)\*100+0.5)/100<br/>(exact decimals, rounded half-up to the cent)<br/>gross_margin = [revenue]-[qty]\*[cost]<br/>both BigNumber 12,2"]:::enrich
     F["<b>Dimension Lookup/Update</b><br/>connection: capstone, table: dim_region<br/>update the dimension: no (lookup only)<br/>key: region_code = code<br/>stream datefield: order_date<br/>returns: region_sk, name as region_name"]:::dim
     G["<b>Select values</b><br/>column order for the fact<br/>precision 2 on revenue, gross_margin"]:::enrich
     E --> F --> G
@@ -205,7 +206,7 @@ flowchart LR
   classDef input fill:#dbeafe,stroke:#1d4ed8,color:#1e3a8a,text-align:left,rx:6,ry:6
   classDef enrich fill:#ede9fe,stroke:#6d28d9,color:#3b0764,text-align:left,rx:6,ry:6
   classDef output fill:#dcfce7,stroke:#15803d,color:#14532d,text-align:left,rx:6,ry:6
-  A["<b>Text File Input</b><br/>file: out/fact_sales.csv<br/>header row, comma<br/>revenue, gross_margin Number 12,2"]:::input
+  A["<b>Text File Input</b><br/>file: out/fact_sales.csv<br/>header row, comma<br/>revenue, gross_margin BigNumber 12,2"]:::input
   B["<b>Sort rows</b><br/>region_name ascending"]:::enrich
   C["<b>Group by</b><br/>group field: region_name<br/>revenue = SUM(revenue)<br/>gross_margin = SUM(gross_margin)<br/>orders = N(order_id)"]:::enrich
   D["<b>Microsoft Excel Writer</b><br/>file: out/sales_summary_${SALES_DATE}.xlsx<br/>sheet: By region<br/>header row: yes, append: no"]:::output
@@ -258,6 +259,7 @@ flowchart TB
   S(["<b>START</b>"]):::job
   V["<b>Set variables</b> (optional)<br/>values from kettle.properties"]:::opt
   F{"<b>Checks if files exist</b><br/>data/sales_${SALES_DATE}.csv<br/>data/customers.json<br/>data/products.csv<br/>data/regions.csv"}:::check
+  DDL["<b>SQL</b> Create tables<br/>connection: capstone<br/>drop and create stg_orders, stg_customers, stg_products<br/>create dim_region, fact_sales if missing"]:::job
   J1["<b>Job</b><br/>stage_all.kjb<br/>pass parameter values: yes"]:::job
   T1["<b>Transformation</b><br/>maintain_dim_region.ktr<br/>pass parameter values: yes"]:::tr
   T2["<b>Transformation</b><br/>build_fact.ktr<br/>pass parameter values: yes"]:::tr
@@ -267,12 +269,14 @@ flowchart TB
   M["<b>Mail</b><br/>to: ops (SMTP a placeholder)<br/>subject: Daily sales pipeline FAILED ${SALES_DATE}"]:::fail
   X["<b>Abort job</b>"]:::fail
   S --> V --> F
-  F -->|success| J1
+  F -->|success| DDL
+  DDL -->|success| J1
   J1 -->|success| T1
   T1 -->|success| T2
   T2 -->|success| T3
   T3 -->|success| A --> OK
   F -->|failure| M
+  DDL -->|failure| M
   J1 -->|failure| M
   T1 -->|failure| M
   T2 -->|failure| M

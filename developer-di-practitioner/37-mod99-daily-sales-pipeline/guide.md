@@ -119,8 +119,8 @@ Start
   → stage_orders.ktr
   → stage_customers.ktr
   → stage_products.ktr
-  → build_fact.ktr
   → maintain_dim_region.ktr
+  → build_fact.ktr
   → write_summary.ktr
   → Success
 
@@ -286,7 +286,7 @@ Runs **before** the fact, so the fact can carry the region's key.
    - Technical key: `region_sk` (auto-increment). Version field: `version`.
    - Stream datefield: `load_date`. Date range: `valid_from`, `valid_to`.
    - Fields `name` and `manager_email` with type **Insert** (SCD type 2: a new version on change).
-   - Let the step create the table with its SQL button.
+   - The main job's **Create tables** entry creates `dim_region` when it is missing; in Spoon the step's **SQL** button does the same.
 4. **Group by** and **Write to Log** as before, counting `code`.
 
 <figure><img src="../_assets/images/capstone-maintain-dim-region.png" alt="maintain_dim_region.ktr: Text File Input, Get System Info, Dimension Lookup/Update, Group by, Write to Log"><figcaption><p>maintain_dim_region.ktr</p></figcaption></figure>
@@ -295,12 +295,12 @@ Runs **before** the fact, so the fact can carry the region's key.
 
 1. **Table Input** `SELECT ... FROM stg_orders ORDER BY product_id` — the main stream, already sorted for the join.
 2. **Stream Lookup** against a second **Table Input** (`SELECT id, name, region_code FROM stg_customers`): key `customer_id` = `id`, returning `name` as `customer_name` and `region_code`.
-3. **Merge Join**, INNER, first step the orders on `product_id`, second step a third **Table Input** (`SELECT id, name, category, cost FROM stg_products ORDER BY id`) on `id`, bringing `name` as `product_name`, `category`, `cost`. Both inputs are sorted by their queries.
+3. **Merge Join**, INNER, first step the orders on `product_id`, second step a third **Table Input** (`SELECT id, name AS product_name, category, cost FROM stg_products ORDER BY id`) on `id`, bringing `product_name`, `category`, `cost`. Both inputs are sorted by their queries.
 4. **Filter Rows**: `customer_name IS NOT NULL AND product_name IS NOT NULL`; the false branch writes `${OUTPUT_PATH}/rejected_unmatched_${SALES_DATE}.csv`.
 5. **Formula** —
-   - `revenue = [qty] * [unit_price] * (1 - [discount_pct] / 100)`
+   - `revenue = INT([qty] * [unit_price] * (1 - [discount_pct] / 100) * 100 + 0.5) / 100`
    - `gross_margin = [revenue] - ([qty] * [cost])`
-   - Both as Number(12,2).
+   - Both as BigNumber(12,2). PDI 11's Formula step has no ROUND function, so `INT(x * 100 + 0.5) / 100` rounds each row half-up to the cent, in exact decimals. That keeps the CSV, the table and the summary agreeing to the cent.
 6. **Dimension Lookup/Update** against `dim_region` with **Update the dimension** off (lookup only): key `region_code` = `code`, stream datefield `order_date`, returning `region_sk` and `name` as `region_name`.
 7. **Select values** to order the columns and set precision 2 on the money fields.
 8. **Text File Output** to `${OUTPUT_PATH}/fact_sales.csv` (required by the accreditation check), then **Table Output** `fact_sales` (truncate on) — chained, so one stream feeds both.
@@ -310,7 +310,7 @@ Runs **before** the fact, so the fact can carry the region's key.
 
 ### `write_summary.ktr`
 
-1. **Text File Input** from `${OUTPUT_PATH}/fact_sales.csv` (`revenue` and `gross_margin` as Number(12,2)), so this step needs no database.
+1. **Text File Input** from `${OUTPUT_PATH}/fact_sales.csv` (`revenue` and `gross_margin` as BigNumber(12,2)), so this step needs no database.
 2. **Sort rows** on `region_name`, then **Group by** `region_name`: `revenue` = SUM, `gross_margin` = SUM, `orders` = Number of Values of `order_id`.
 3. **Microsoft Excel Writer** → `${OUTPUT_PATH}/sales_summary_${SALES_DATE}.xlsx`. One sheet, headers, append=No (fresh file every run).
 
@@ -331,6 +331,8 @@ Set Variables            optional: kettle.properties values into job variables
  ↓
 Checks if files exist    the four data files, so a missing feed fails here
  ↓
+Create tables            SQL entry: drop and create the three staging tables,
+ ↓                       create dim_region and fact_sales if they are missing
 stage_all.kjb            sub-job: START (Run Next Entries in Parallel)
  ↓                         ├─ stage_orders.ktr
  ↓                         ├─ stage_customers.ktr
@@ -348,7 +350,7 @@ The job declares the same three parameters as the transformations, with the same
 
 On any **failure** hop: Mail step → notify ops, then Abort job.
 
-<figure><img src="../_assets/images/capstone-daily-sales-pipeline-job.png" alt="daily_sales_pipeline.kjb: START, Set variables, Checks if files exist, stage_all.kjb, maintain_dim_region, build_fact, write_summary, Success; failures to Mail then Abort job"><figcaption><p>daily_sales_pipeline.kjb</p></figcaption></figure>
+<figure><img src="../_assets/images/capstone-daily-sales-pipeline-job.png" alt="daily_sales_pipeline.kjb: START, Set variables, Checks if files exist, Create tables, stage_all.kjb, maintain_dim_region, build_fact, write_summary, Success; failures to Mail then Abort job"><figcaption><p>daily_sales_pipeline.kjb</p></figcaption></figure>
 
 ### `kettle.properties` example
 
