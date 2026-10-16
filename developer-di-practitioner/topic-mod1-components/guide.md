@@ -130,16 +130,16 @@ The primary functions of the Pentaho Server are:
 > #### **Command line tools and REST APIs**
 >
 > Pan and Kitchen run transformations and jobs from the command line, outside Spoon - typically from a script or a scheduler such as cron or Windows Task Scheduler. Carte and the Pentaho Server also expose REST APIs for starting and monitoring work remotely.
-
-> **Note:** **Pan**
+>
+> **Pan**
 >
 > Runs a transformation (`.ktr`) from the command line, with the same engine Spoon uses.
 >
 > ```bash
 > ./pan.sh -file=/home/pentaho/transformations/example.ktr -level=Basic
 > ```
-
-> **Note:** **Kitchen**
+>
+> **Kitchen**
 >
 > Runs a job (`.kjb`) from the command line, from a file or a repository. Jobs are usually scheduled to run in batch at regular intervals.
 >
@@ -340,11 +340,11 @@ FontDefaultStyle=0
 > * **Pentaho Server:** /pentaho/server/pentaho-server/tomcat/lib/
 > * **PDI client:**     /data-integration/lib
 
+<div class="pcm-embed-card" data-href="https://docs.pentaho.com/pdia-try-pdia/jdbc-drivers-reference" data-title="JDBC Drivers"></div>
+
 > **Warning:** Restart Spoon (and the Pentaho Server) after adding a driver.
 >
 > Keep one driver per database in each folder. If an older version of the same vendor's driver is there, back it up and remove it, or the two versions conflict.
-
-<div class="pcm-embed-card" data-href="https://docs.pentaho.com/pdia-try-pdia/jdbc-drivers-reference" data-title="JDBC Drivers"></div>
 
 ### 5. Repository
 
@@ -356,10 +356,10 @@ FontDefaultStyle=0
 >
 > * **Repository home directory** - the folder that holds the repository's content, search indexes and internal configuration. Jackrabbit fills it in the first time the repository starts.
 > * **Repository configuration file** - the XML file that names the Jackrabbit components (persistence managers and so on) the repository uses. Jackrabbit reads it when the repository starts.
-
-> **Note:** [**Hibernate**](https://hibernate.org/) is an open-source object-relational mapping (ORM) framework that the Pentaho Server uses to store Java objects in a relational database.
-
-> **Note:** [**Quartz**](http://www.quartz-scheduler.org/) is the open-source Java job scheduler behind the Pentaho Server's schedules.
+>
+> [**Hibernate**](https://hibernate.org/) is an open-source object-relational mapping (ORM) framework that the Pentaho Server uses to store Java objects in a relational database.
+>
+> [**Quartz**](http://www.quartz-scheduler.org/) is the open-source Java job scheduler behind the Pentaho Server's schedules.
 
 ---
 

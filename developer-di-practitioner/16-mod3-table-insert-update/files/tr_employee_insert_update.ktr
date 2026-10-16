@@ -699,7 +699,7 @@ Ensure all the Field mappings are correct</note>
     <length>Characters</length>
     <add_to_result_filenames>Y</add_to_result_filenames>
     <file>
-      <name>${Internal.Entry.Current.Directory}\employees_insert_update.txt</name>
+      <name>${Internal.Entry.Current.Directory}/employees_insert_update.txt</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>

@@ -27,10 +27,6 @@
 </div>
 </figure>
 
-> **Note:** **Create a new transformation**
-> 
-> Select **File > New > Transformation**, or press `Ctrl+N` (`Cmd+N` on macOS). Save it as `tr_mjv.ktr` in the lab folder, `C:\Workshop-DI-Practitioner\04-enriching-the-dataset\04-scripting\28-mod4-mjv`.
-
 :::: tabs
 
 ### 1. Generate rows
@@ -41,42 +37,46 @@
 > 
 > One row with two messy strings to clean.
 
-1. Start Spoon.
+1. Start Spoon with the **Start PDI** button below, or from a terminal:
 
 ::: tabs
 
 ### Windows (PowerShell)
 
-> 
-> ```powershell
-> Set-Location C:\Pentaho\design-tools\data-integration
-> .\spoon.bat
-> ```
-> 
->
+```powershell
+Set-Location C:\Pentaho\design-tools\data-integration
+.\spoon.bat
+```
 
 ### macOS / Linux
 
-> 
-> ```bash
-> cd ~/Pentaho/design-tools/data-integration
-> ./spoon.sh
-> ```
-> 
->
+```bash
+cd ~/Pentaho/design-tools/data-integration
+./spoon.sh
+```
 
 :::
 
 <button data-launch="spoon" data-path="">Start PDI</button>
 
-2. From the **Input** folder, drag **Generate rows** onto the canvas. Set **Limit** to `1` and add two String fields:
+2. Select **File > New > Transformation** (`Ctrl+N`).
+3. Select **File > Save as** and save it as `tr_mjv.ktr` in `C:\Workshop-DI-Practitioner\04-enriching-the-dataset\04-scripting\28-mod4-mjv`.
+4. On the **Design** tab, open the **Input** folder and drag **Generate rows** onto the canvas.
+5. Double-click **Generate rows**. Set **Step name** to `Generate Rows` and **Limit** to `1`.
+6. Fill the **Fields** grid with two String fields:
 
-| Name        | Value                                                        |
-| ----------- | ------------------------------------------------------------ |
-| `field`     | `This is a String \ with / some weird characters - in it!`   |
-| `fieldsame` | `This is a String // with - some weird characters - in it!`  |
+   | Name        | Type   | Length | Value                                                       |
+   | ----------- | ------ | ------ | ----------------------------------------------------------- |
+   | `field`     | String | `100`  | `This is a String \ with / some weird characters - in it!`  |
+   | `fieldsame` | String | `100`  | `This is a String // with - some weird characters - in it!` |
 
 <figure><img src="../_assets/images/gr-mjv.png" alt="Generate rows with the two String fields field and fieldsame"><figcaption><p>Two strings to clean</p></figcaption></figure>
+
+7. Select **Preview**, then **OK** in **Enter preview size**.
+
+> **Success:** Checkpoint: **Examine preview data** shows 1 row, with `field` and `fieldsame` as you typed them.
+
+8. Select **Close**, then **OK**.
 
 ### 2. Modified JavaScript value
 
@@ -86,8 +86,11 @@
 > 
 > The script runs once per row. Each input field is a variable of the same name, and each variable you list in the **Fields** grid becomes an output field. The step needs an input stream: it doesn't create rows.
 
-1. From the **Scripting** folder, drag **Modified JavaScript value** onto the canvas and hop **Generate Rows** to it.
-2. Enter this script:
+1. On the **Design** tab, open the **Scripting** folder and drag **Modified JavaScript value** onto the canvas.
+2. Create a hop from **Generate Rows** to **Modified JavaScript value**: hold `Shift` and drag from one step to the other.
+3. Double-click **Modified JavaScript value**. Set **Step name** to `Modified Java Script Value`.
+4. Leave **Compatibility mode?** cleared.
+5. In the script tab, replace the `//Script here` line with this script:
 
    ```javascript
    var result = field.replace("/", "").replace("\\", "").replace("-", "").replace("!", "");
@@ -97,22 +100,10 @@
    var resultfieldsame = replace(fieldsame, "/", "", "\\\\", "", "-", "");
    ```
 
-3. In the **Fields** grid, select **Get variables**, so `result` and `resultfieldsame` are listed, both String.
+6. Select **Get variables**. The **Fields** grid lists `result` and `resultfieldsame`, both String.
+7. Select **OK**.
 
 <figure><img src="../_assets/images/mjv-replace.png" alt="Modified JavaScript value with the replace script and the two output fields"><figcaption><p>Script and output fields</p></figcaption></figure>
-
-4. Save, run and preview the step.
-
-> **Success:** Checkpoint: the two new fields read
->
-> | Field             | Value                                                   |
-> | ----------------- | ------------------------------------------------------- |
-> | `result`          | `This is a String  with  some weird characters  in it`  |
-> | `resultfieldsame` | `This is a String  with  some weird characters  in it!` |
->
-> `result` lost its `\`, `/`, `-` and `!`. `resultfieldsame` lost both `/` and both `-`, but kept its `!`, which isn't in its list.
-
-> **Note:** **Two `replace`s.** JavaScript's `string.replace("-", "")` replaces only the *first* match; it works on `field` because each character appears once there. PDI's `replace(value, search, replacement, ...)` replaces *every* match, and takes several search-replacement pairs in one call.
 
 > **Under the hood:**
 >
@@ -136,11 +127,26 @@
 > regular-expression logic or state across rows. For arithmetic and
 > conditions, the other steps are faster and easier to read.
 
+8. Save the transformation (`Ctrl+S`).
+9. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
+10. Select **Modified Java Script Value** on the canvas and open the **Preview data** tab.
+
+> **Success:** Checkpoint: the two new fields read
+>
+> | Field             | Value                                                   |
+> | ----------------- | ------------------------------------------------------- |
+> | `result`          | `This is a String  with  some weird characters  in it`  |
+> | `resultfieldsame` | `This is a String  with  some weird characters  in it!` |
+>
+> `result` lost its `\`, `/`, `-` and `!`. `resultfieldsame` lost both `/` and both `-`, but kept its `!`, which isn't in its list.
+>
+> The two `replace`s differ. JavaScript's `string.replace("-", "")` replaces only the *first* match; it works on `field` because each character appears once there. PDI's `replace(value, search, replacement, ...)` replaces *every* match, and takes several search-replacement pairs in one call.
+
 ::::
 
 ## Lab Files
 
-Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches PDI with the file loaded. If PDI is already running, the path is copied to your clipboard — switch to PDI and use Ctrl+O, Ctrl+V, Enter.
+Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches PDI with the file loaded. If PDI is already running, the path is copied to your clipboard — switch to PDI and press `Ctrl+O`, `Ctrl+V`, `Enter`.
 
 ### Solution <!-- no-step -->
 

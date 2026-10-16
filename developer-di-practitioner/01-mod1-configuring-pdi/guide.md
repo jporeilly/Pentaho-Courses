@@ -4,141 +4,148 @@
 >
 > #### Workshop - Configuring PDI
 >
-> Configure Spoon before you build transformations and jobs. Set a few defaults that speed up daily work.
->
-> You will start Spoon, review the Welcome page, and update UI options.
+> Set up Spoon, the PDI designer, before you build anything in it: a few defaults that save time every day, and a look round the workspace you will use in every workshop.
 >
 > **What you'll do**
 >
-> * Start Spoon and confirm your install.
-> * Find docs and community links from the Welcome page.
-> * Update General and Look & Feel options.
-> * Switch perspectives and understand what changes.
+> * Start Spoon and find your way round its Welcome page
+> * Change two General options: the Welcome page and the database cache
+> * Turn on the canvas grid in Look & Feel
+> * Switch perspectives, and see why Scheduler is unavailable
 >
-> You will finish with a clean, predictable workspace. You will know where to change these settings later.
+> **Prerequisites:** Pentaho Data Integration installed (see [Before You Start](../00-before-you-start/guide.md))
 >
-> **Prerequisites:** Pentaho Data Integration installed and ready to launch
->
-> **Estimated Time:** 20 minutes
+> **Estimated time:** 20 minutes
 
 ---
 
 > **Note:**
 >
-> #### **Configuring PDI UI**
+> #### Spoon's options
 >
-> Use **Tools > Options** to configure Spoon. Start with **General** and **Look & Feel**.
+> **Tools > Options** opens the **Kettle Options** dialog, where Spoon keeps its own settings. Its two tabs are **General** (how Spoon behaves) and **Look & Feel** (how the canvas looks). The settings are saved for your user, so they apply to every transformation and job you open.
 
-:::: tabs
+## 1. Start Spoon and read the Welcome page
 
-### 1. Welcome Page
-
-> **Note:**
->
-> #### **Welcome page**
->
-> The Welcome page has links to:
->
-> * Documentation
-> * Community Forum
-
-1. Start Pentaho Data Integration.
-
+1. Start Pentaho Data Integration with the button below, or from a terminal:
 
 ::: tabs
 
 ### Windows (PowerShell)
 
-> ```powershell
-> Set-Location C:\Pentaho\design-tools\data-integration
-> .\spoon.bat
-> ```
+```powershell
+Set-Location C:\Pentaho\design-tools\data-integration
+.\spoon.bat
+```
 
 ### macOS / Linux
 
-> ```bash
-> cd ~/Pentaho/design-tools/data-integration
-> ./spoon.sh
-> ```
+```bash
+cd ~/Pentaho/design-tools/data-integration
+./spoon.sh
+```
 
 :::
 
 <button data-launch="spoon" data-path="">Start: Pentaho Data Integration</button>
 
-2. Spoon opens on its **Welcome** page.
+2. Wait for Spoon to open. It loads all its plugins first, so it takes longer to start than most applications.
+3. Look at the **Welcome!** tab. It has four panels:
+   * **OPEN**: **Files**, to open a transformation or job you already have.
+   * **CREATE**: **Transformation** and **Job**, the same as **File > New**.
+   * **LEARN**: **Documentation**, **Watch tutorials** and **Release notes**.
+   * **EXTEND**: **Build plugins**, for developers who write their own steps.
 
-<figure><img src="../_assets/images/spoon-welcome.png" alt="Spoon Welcome page"><figcaption><p>Welcome screen</p></figcaption></figure>
+   Below them are links to the community and the forums.
 
-### 2. Modify Look & Feel
+<figure>
 
-> **Note:**
->
-> #### **Kettle Options**
->
-> Set a few defaults once. It reduces prompts and visual noise.
+![Spoon's Welcome tab with the OPEN, CREATE, LEARN and EXTEND panels, and the View and Design tabs on the left](../_assets/images/spoon-welcome.png)
 
-1. In Spoon, click **Tools > Options**.
-2. Open the **General** tab.
+<div align="center">
+<figcaption><em>The Welcome page</em></figcaption>
+</div>
+</figure>
 
-<div align="center"><figure><img src="../_assets/images/kettle-options.png" alt="Kettle Options dialog showing General settings" width="375"><figcaption><p>Kettle options - general</p></figcaption></figure></div>
+> **Success:** Checkpoint: the title bar reads **Spoon - Welcome!**, and the left side has two tabs, **View** and **Design**.
 
-* [ ] Clear **Show welcome page at startup**.
-* [ ] Clear **Use database cache**.
-* [ ] Clear **Show repository dialog at startup**.
-* [ ] Clear **Ask user when exiting**.
+## 2. Change the General options
+
+1. Select **Tools > Options**. The **Kettle Options** dialog opens on the **General** tab.
+2. Clear **Show welcome page at startup**. **Help > Welcome Screen** brings the page back whenever you want it.
+3. Clear **Use database cache**.
+4. Check that **Show repository dialog at startup** and **Ask user when exiting** are cleared. They are cleared by default; if either is selected, clear it.
+5. Leave every other option as it is, and stay in the dialog for the next step.
+
+<figure>
+
+![The Kettle Options dialog on the General tab, with options such as Show welcome page at startup and Use database cache](../_assets/images/kettle-options.png)
+
+<div align="center">
+<figcaption><em>Kettle Options, General tab, before your changes</em></figcaption>
+</div>
+</figure>
 
 > **Under the hood:**
 >
-> #### That checkbox controls a metadata cache, not your data
+> #### That option controls a metadata cache, not your data
 >
-> **Use database cache** tells Spoon to remember what it learns about a
-> connection — table names, column names and types — and save it to
-> disk in your `.kettle` folder, so the next **Get Fields** or SQL
-> preview doesn't have to ask the database again. It never caches
-> rows; only the *shape* of tables.
+> **Use database cache** tells Spoon to remember what it learns about a connection (table names, column names and types) and save it to disk in your `.kettle` folder, so the next **Get Fields** or SQL preview doesn't have to ask the database again. It never caches rows, only the *shape* of tables.
 >
-> Unchecking it means every dialog re-reads the live schema. That is a
-> touch slower on a large database and exactly what you want while you
-> are still creating and altering tables, as the workshops ahead do: a
-> cached column list can lag behind an `ALTER TABLE` and make a step
-> insist a column doesn't exist when it plainly does.
+> Clearing it means every dialog re-reads the live schema. That is a little slower on a large database, and exactly what you want while you are still creating and altering tables, as the workshops ahead do: a cached column list can lag behind an `ALTER TABLE` and make a step insist a column doesn't exist when it does.
 >
-> **Why it matters:** when a step "can't see" a column you just added,
-> the cache is the first suspect. Right-click the connection in the
-> **View** tab and choose **Clear DB Cache** — no restart needed.
+> **Why it matters:** when a step "can't see" a column you just added, the cache is the first suspect. Right-click the connection in the **View** tab and select **Clear DB Cache**; no restart needed.
 
-3. Open the **Look & Feel** tab.
-4. Review these settings and update as needed:
-   * **Grid size** and **snap** behavior.
-   * Canvas look (colors, anti-aliasing).
-   * **Preferred language** and **alternative language**.
+## 3. Turn on the canvas grid
 
-<figure><img src="../_assets/images/kettle-options-feel.png" alt="Kettle Options dialog showing Look & Feel settings"><figcaption><p>Kettle options - look & feel</p></figcaption></figure>
+1. Still in **Kettle Options**, open the **Look & Feel** tab.
+2. Select **Show Canvas Grid**.
+3. Check that **Canvas Grid Size** is `16`. Steps you place on the canvas snap to this grid, so they line up.
+4. Leave **Canvas anti-aliasing** selected and **Preferred Language** as **English (US)**.
+5. Select **OK** to save the options and close the dialog.
+
+<figure>
+
+![The Kettle Options dialog on the Look & Feel tab: fonts, colors, icon size, Canvas Grid Size 16, Show Canvas Grid, Canvas anti-aliasing and Preferred Language](../_assets/images/kettle-options-feel.png)
+
+<div align="center">
+<figcaption><em>Kettle Options, Look & Feel tab</em></figcaption>
+</div>
+</figure>
+
+6. Select **File > New > Transformation** (or `Ctrl+N`) to open an empty canvas.
+
+> **Success:** Checkpoint: the new transformation's canvas shows a grid of dots. Close the empty transformation without saving it.
 
 <div class="pcm-embed-card" data-href="https://docs.pentaho.com/pdia-data-integration/customizing-pdi" data-title="Customizing PDI | Pentaho Documentation"></div>
 
-### 3. Perspectives
+## 4. Switch perspectives
 
-> **Note:**
->
-> #### **Perspectives**
->
-> Use perspectives to switch your workspace. You can move between design and scheduling views.
->
-> Switch between:
->
-> * Designing ETL jobs and transformations
-> * Scheduling jobs and transformations
->
-> Click the **Perspective** icon in the toolbar to switch.
+A perspective is a whole-window layout for one kind of work. You design transformations and jobs in **Data Integration**, and schedule them in **Scheduler**.
 
-<div align="center"><figure><img src="../_assets/images/perspectives.png" alt="Perspective switcher in the Spoon toolbar" width="375"><figcaption><p>Perspectives</p></figcaption></figure></div>
+1. On the toolbar, select the arrow beside the **Perspective** icon (the stack of layers).
+2. The menu lists **Data Integration**, with a check mark, and **Scheduler**, which is grayed out: **Scheduler** needs a connection to a repository on a Pentaho Server, because the server runs the schedules. These workshops save files to disk, so you stay in **Data Integration** throughout.
+3. Select **Data Integration** to close the menu and stay in the design perspective.
 
-> **Note:** You must connect to a repository to schedule jobs and transformations.
+<figure>
+
+![The perspective menu open on the toolbar: Data Integration checked, Scheduler grayed out](../_assets/images/perspectives.png)
+
+<div align="center">
+<figcaption><em>The perspective menu</em></figcaption>
+</div>
+</figure>
+
+> **Success:** Checkpoint: **Data Integration** has a check mark, and **Scheduler** can't be selected.
 
 <div class="pcm-embed-card" data-href="https://docs.pentaho.com/pdia-data-integration/use-the-pdi-client-perspectives" data-title="Use the PDI client perspectives | Pentaho Documentation"></div>
 
-::::
+## 5. Restart Spoon
+
+1. Close Spoon (**File > Exit**). It closes without asking, because **Ask user when exiting** is cleared.
+2. Start Spoon again.
+
+> **Success:** Checkpoint: Spoon opens on an empty workspace with no **Welcome!** tab, and no repository dialog appears.
 
 ## Lab Files
 

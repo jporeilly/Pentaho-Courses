@@ -13,7 +13,7 @@
   },
   "title": "Pentaho Developer - DI Practitioner",
   "description": "Self-paced, hands-on workshop for the Pentaho Data Integration Practitioner.",
-  "version": "0.1.19",
+  "version": "0.1.20",
   "kind": "workshop",
   "level": { "number": 1, "name": "Practitioner" },
   "mode": "sequential",
@@ -61,7 +61,7 @@
     },
     {
       "title": "Capstone Project",
-      "summary": "Bring it all together: build a parameterised job that ingests CSV, JSON, and master data, validates and enriches the rows, tracks historical changes with an SCD, and loads a dimensional model — a complete, interview-ready pipeline."
+      "summary": "Bring it all together: build a parameterized job that ingests CSV, JSON, and master data, validates and enriches the rows, tracks historical changes with an SCD, and loads a dimensional model — a complete, interview-ready pipeline."
     }
   ],
   "launchers": {
@@ -83,7 +83,7 @@
       "Scalability and run configurations",
       "End-to-end pipeline delivery"
     ],
-    "capstone": "Completed a capstone project: a parameterised end-to-end pipeline ingesting CSV, JSON and master data, validating and enriching it, tracking history with a slowly changing dimension, and loading a dimensional model.",
+    "capstone": "Completed a capstone project: a parameterized end-to-end pipeline ingesting CSV, JSON and master data, validating and enriching it, tracking history with a slowly changing dimension, and loading a dimensional model.",
     "validYears": 2,
     "signatory": {
       "name": "Jason Allaway",

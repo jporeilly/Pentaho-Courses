@@ -744,7 +744,7 @@
     <length>Characters</length>
     <add_to_result_filenames>Y</add_to_result_filenames>
     <file>
-      <name>${Internal.Transformation.Filename.Directory}\description.txt</name>
+      <name>${Internal.Entry.Current.Directory}/description.txt</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>
@@ -924,7 +924,7 @@
     <length>Characters</length>
     <add_to_result_filenames>Y</add_to_result_filenames>
     <file>
-      <name>${Internal.Transformation.Filename.Directory}\orders.txt</name>
+      <name>${Internal.Entry.Current.Directory}/orders.txt</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>

@@ -103,7 +103,7 @@
 
 <!-- topic-page: topic-mod5-metadata-injection-review -->
 
-* [Onboarding to a table](31-mod5-onboarding-to-a-table/guide.md)
+* [Onboarding to a Table](31-mod5-onboarding-to-a-table/guide.md)
 
 ### Parameters
 

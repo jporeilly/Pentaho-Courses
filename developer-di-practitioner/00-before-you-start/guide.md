@@ -18,7 +18,7 @@
 >
 > **Prerequisites:** Familiarity with the basics of data integration.
 >
-> **Estimated Time:** 5 minutes on a lab VM; about 20 minutes the first
+> **Estimated time:** 5 minutes on a lab VM; about 20 minutes the first
 > time on your own machine.
 
 ## Meet your lab guide
@@ -35,14 +35,15 @@ This panel stays beside your tools for the whole workshop:
 
 ## Track your progress
 
-Every numbered heading like this one is a **step** with a checkbox —
-check it off when you're done. Your progress is saved on this machine and
-survives restarts, so you can pick up exactly where you left off after
-a break.
+In every workshop, each numbered step heading has a check box: select
+it when you have finished that step. (This page is a guide to the
+course, so its headings have none.) Your progress is saved on this
+machine and survives restarts, so you can pick up exactly where you
+left off after a break.
 
-## Copy code with one click
+## Copy code from the guide
 
-Every code block has a **copy button** — hover over the block and click
+Every code block has a **copy button**: hover over the block and select
 it, then paste into your tool. Try it:
 
 ```sql
@@ -66,7 +67,7 @@ the running window instead of starting a second copy.
 
 Nothing to install. Everything is already on the machine and starts
 with it: the guide brought MySQL, MinIO and Pentaho Data Integration up
-as you signed in. **Check your environment**, just below these tabs,
+as you signed in. **Check your environment**, below these tabs,
 shows every service live, and its **Get my lab ready** button starts
 anything that is down.
 
@@ -116,7 +117,7 @@ containers, so you need a container runtime.
 
 There will be no containers yet — you create those in the next tab.
 
-Once step 2 has run, the Containers page is what you should see:
+Once the **2. Start the services** tab is done, the Containers page is what you should see:
 
 <figure><img src="../_assets/images/podman-desktop-containers.png" alt="Podman Desktop showing the workshop-services containers"><figcaption><p>The workshop services in Podman Desktop</p></figcaption></figure>
 
@@ -130,17 +131,17 @@ with a third, `pcm-minio-seed`, showing **EXITED** — also correct: that is
 a one-shot container that creates the buckets and uploads the sample
 files, then stops.
 
-> **Important:** The Podman machine does not start itself after a
+> **Warning:** The Podman machine does not start itself after a
 > reboot — this is the single most common workshop hiccup. Podman
 > Desktop shows you at a glance that it is stopped, and starts it with
-> one click. That is the main reason to install it rather than the
+> one button. That is the main reason to install it rather than the
 > command-line package alone.
 
 <details>
 <summary>Command line only</summary>
 
 The engine is also available on its own, without the window. Every
-lab works the same way; you just start the machine yourself with
+lab works the same way; you start the machine yourself with
 `podman machine start` after each reboot:
 
 ```powershell
@@ -181,21 +182,26 @@ networkingMode=mirrored
 
 Then `wsl --shutdown` and start the machine again.
 
-**Already using Docker Desktop?** You can leave it installed — just do
-not run both engines against the same ports at once. Nothing in this
+**Already using Docker Desktop?** You can leave it installed, as long as
+you do not run both engines against the same ports at once. Nothing in this
 course requires you to remove it.
 
 </details>
 
 ### 2. Start the services
 
-1. Open PowerShell in the **`provisioning`** folder of your install.
-   That is one of:
+1. Open PowerShell in the **`provisioning`** folder of your install. For
+   a **Just for me** install, in PowerShell, run:
 
-| Install type | Folder                                                         |
-| ------------ | -------------------------------------------------------------- |
-| Just for me  | `%LOCALAPPDATA%\Programs\Pentaho Content Manager\provisioning` |
-| All users    | `C:\Program Files\Pentaho Content Manager\provisioning`        |
+   ```powershell
+   Set-Location "$env:LOCALAPPDATA\Programs\Pentaho Content Manager\provisioning"
+   ```
+
+   For an **All users** install, run instead:
+
+   ```powershell
+   Set-Location "C:\Program Files\Pentaho Content Manager\provisioning"
+   ```
 
 2. Run the setup script:
 
@@ -208,24 +214,21 @@ course requires you to remove it.
    starts `sampledata-mysql`, with Steel Wheels loaded on the first
    start) and `C:\minIO\run-podman-minio.ps1` (starts `pcm-minio` and
    puts lab 19's files in) — and waits until MySQL and MinIO genuinely
-   answer, not just "started". The first run pulls two images and loads
+   answer, not merely "started". The first run pulls two images and loads
    the sample data, so it takes a few minutes. You can run either kit
    script on its own at any time; each prints its connection details.
 
 3. Answer any prompts. If Podman Desktop from the previous tab is
    missing, the script offers to install it and waits for your answer.
-   Press Enter to accept, or `n` to be given the command instead.
+   Press `Enter` to accept, or type `n` to be given the command instead.
    Nothing is installed unless you say so. A compose provider is not
    needed: with one present the script uses the compose file instead of
    the kits (`pcm-mysql` and `pcm-minio`), which works the same way.
 
-4. On a lab VM none of this is typed: the guide runs the same steps at
-   sign-in under "Setting up your lab", and the panel at the bottom of
-   this page has **Get my lab ready** for later.
+4. Open the **Containers** page in Podman Desktop and compare it with
+   the screenshot in the previous tab.
 
-Check the result against the Podman Desktop screenshot in the previous
-tab: `sampledata-mysql` (and `sampledata-adminer`) and `pcm-minio`
-running.
+   > **Success:** Checkpoint: `sampledata-mysql` (and `sampledata-adminer`) and `pcm-minio` are **RUNNING**.
 
 5. Check PDI has the MySQL driver. PDI 11 doesn't include it, and
    every database lab needs it. The installer already downloaded it
@@ -240,7 +243,11 @@ running.
 
    Restart Spoon if it is open. The row turns green.
 
-> **Important:** Re-run `.\setup-services.ps1` after **every reboot** —
+On a lab VM none of this is typed: the guide runs the same steps at
+sign-in under "Setting up your lab", and the panel at the bottom of
+this page has **Get my lab ready** for later.
+
+> **Warning:** Re-run `.\setup-services.ps1` after **every reboot** —
 > the Podman machine does not start itself. It is safe to run at any
 > time. `-InstallPrereqs` answers yes to every prompt, for setting up a
 > room of machines.
@@ -309,7 +316,8 @@ C:\minIO\run-podman-minio.ps1 -Reset
 ### 3. Check it worked
 
 The **Check your environment** panel below these tabs already ran this
-for you, but you can run it yourself at any time:
+for you, but you can run it yourself at any time. From the same
+`provisioning` folder as the setup script, in PowerShell, run:
 
 ```powershell
 .\check-environment.ps1
@@ -387,9 +395,10 @@ the drivers these workshops need.
    winget install -e --id dbeaver.dbeaver
    ```
 
-2. In DBeaver choose **Database → New Database Connection → MySQL**.
+2. In DBeaver, select **Database > New Database Connection**, select
+   **MySQL**, and select **Next**.
 
-3. Enter these details:
+3. Fill the connection settings:
 
    | Setting  | Value           |
    | -------- | --------------- |
@@ -399,22 +408,25 @@ the drivers these workshops need.
    | Username | `pentaho_admin` |
    | Password | `password`      |
 
-4. Click **Test Connection**, then **Finish**. Expand the
-   `sampledata` schema and you should see the Steel Wheels tables —
-   `customers`, `products`, `orders` and the rest (shown in lower case:
-   the server compares table names case-insensitively, so `ORDERS` and
-   `orders` are the same table, which the later labs rely on).
+   The host is `127.0.0.1` rather than `localhost` on purpose: with WSL
+   mirrored networking `localhost` can resolve to IPv6 first, and the
+   connection then quietly times out. Both names reach the same server,
+   and the setup tabs use `127.0.0.1` throughout.
 
-These are the same credentials the labs use in their PDI database
-connections, so what you see in DBeaver is exactly what your
-transformations see.
+4. Select **Test Connection**.
+
+   > **Success:** Checkpoint: DBeaver reports the connection as **Connected**.
+
+5. Select **Finish**, and expand the `sampledata` schema.
+
+   > **Success:** Checkpoint: the Steel Wheels tables are listed — `customers`, `products`, `orders` and the rest, in lower case. The server compares table names case-insensitively, so `ORDERS` and `orders` are the same table, which the later labs rely on.
+
+These are the same database, user and password the labs use in their
+PDI database connections, so what you see in DBeaver is exactly what
+your transformations see.
 
 **MinIO**, for the `pvfs://` labs, has a web console at
 **http://127.0.0.1:9099** — sign in with `minioadmin` / `minioadmin`.
-
-> **Caution:** Use `127.0.0.1`, not `localhost`. With WSL mirrored
-> networking `localhost` can resolve to IPv6 first, and the connection
-> quietly times out.
 
 <details>
 <summary>Troubleshooting</summary>
@@ -435,6 +447,10 @@ pick `sampledata` in the Database field, not `mysql` or `information_schema`.
 Everything the workshop stack exposes, in one place. All of it is
 local to your machine.
 
+> **Warning:** These are throwaway workshop credentials, deliberately
+> simple. Do not reuse these services, or these passwords, for
+> anything that holds real data.
+
 | Service                         | Address           | Username        | Password     |
 | ------------------------------- | ----------------- | --------------- | ------------ |
 | MySQL `sampledata` — labs 12–18 | `127.0.0.1:3306`  | `pentaho_admin` | `password`   |
@@ -451,13 +467,9 @@ Open the MinIO console in a browser at **http://127.0.0.1:9099**.
 > the port is taken. The S3 API is on the standard 9000, which is what
 > the `pvfs://` labs and the environment check use.
 
-> **Caution:** These are throwaway workshop credentials, deliberately
-> simple. Do not reuse this compose file, or these passwords, for
-> anything that holds real data.
-
 :::
 
-When the last tab is done, **Check your environment** just below these
+When the last tab is done, **Check your environment** below these
 tabs should be all green.
 
 ::::
@@ -480,13 +492,15 @@ runs and checks again.
 
 <div data-env-check></div>
 
+> **Success:** Checkpoint: every row is green, or grey for a check this course skips. An amber row is usable, but worth tidying.
+
 ## Check the working folders
 
 The installer lays every lab's files out under
 **`C:\Workshop-DI-Practitioner`**, one folder per module and
-sub-section, in the order the sidebar reads. (Module 1 is reading
-only, so the numbering starts at `02`.) Each workshop's **Solution**
-section quotes its own folder.
+sub-section, in the order the sidebar reads. (The first section, Getting Started,
+has no lab files, so the numbering starts at `02`.) Each workshop's
+**Solution** section quotes its own folder.
 
 ```text
 C:\Workshop-DI-Practitioner
@@ -521,7 +535,7 @@ transformations and jobs plus their own copy of the data they read.
 Open one in PDI and run it to see the expected result; your own work
 at the lab root is never touched.
 
-**Confirm the files are there**, not just the folder: open
+**Confirm the files are there**, not only the folder: open
 `03-data-sources\01-flat-files\06-mod3-text-file-input` and check you
 can see `orders.txt` and a `solution` folder holding
 `tr_read_text.ktr`. An empty folder is the one thing worth catching now
@@ -544,20 +558,26 @@ details:
 | Username        | `pentaho_admin`    |
 | Password        | `password`         |
 
+The solutions name the host `localhost`. If a connection times out
+with it, set **Host Name** to `127.0.0.1`, the address the setup tabs
+use: it reaches the same server (see **5. Database tool** above).
+
 ## Ask the AI assistant
 
-The **Chat** tab in the bottom panel answers questions about Pentaho,
-grounded in the official docs — ask it anything from "what does this
-step do?" to "why did my transformation fail?". It runs on a local
-model, so it works even when the VM is offline.
+The **Chat** tab in the bottom panel answers questions about Pentaho —
+ask it anything from "what does this step do?" to "why did my
+transformation fail?". A model on this machine writes the answers, and
+it grounds them in a live search of the official Pentaho documentation.
+Without an internet connection that search is unavailable, so only the
+local model answers, without the documentation behind it.
 
 ## How this course is organized
 
 Each section starts with an **overview page** (<span data-icon="page"></span> — background reading,
-no checkboxes) followed by **hands-on workshops** (<span data-icon="workshop"></span> — tracked steps).
+no check boxes) followed by **hands-on workshops** (<span data-icon="workshop"></span> — tracked steps).
 The bigger sections group their workshops into **sub-sections** — Data
 Sources, for instance, splits into Flat Files, Databases and Storage.
-Click a heading to open that section's page, or the chevron beside it to
+Select a heading to open that section's page, or the chevron beside it to
 expand the workshops underneath.
 
 ## The exam and your course accreditation
@@ -581,4 +601,4 @@ Head to the first section whenever you're ready.
 
 ---
 
-> **Tip:** You can revisit this lab any time from the sidebar.
+> **Tip:** You can revisit this page any time from the sidebar.

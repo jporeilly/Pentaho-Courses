@@ -30,7 +30,7 @@
   "Table Output": "A step that inserts rows into a database table. It only inserts, so it is paired with other steps when updates are also needed.",
   "Insert / Update": "A step that performs an upsert: it looks up each row by key, updates the matching row if found, and inserts a new row if not.",
   "Database Lookup": "A step that fetches values from a database table for each incoming row based on lookup keys. With caching enabled it reads the table once and avoids repeated queries.",
-  "Database Join": "A step that runs a parameterised SQL query once per incoming row, joining each row against the database. Flexible, but slower than a merge join on large datasets.",
+  "Database Join": "A step that runs a parameterized SQL query once per incoming row, joining each row against the database. Flexible, but slower than a merge join on large datasets.",
   "Merge Join": "A step that joins two input streams that are both sorted on the join key, walking them in lockstep. Supports INNER, LEFT OUTER, RIGHT OUTER, and FULL OUTER joins.",
   "Join Rows": "A step that produces the Cartesian product of two streams, outputting every combination of rows from the two inputs.",
   "Merge Rows (diff)": "A step that compares two sorted streams and flags each row as new, changed, deleted, or identical, the basis of change-data-capture patterns.",

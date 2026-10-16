@@ -533,7 +533,7 @@
     <defaultPathLeafToNull>Y</defaultPathLeafToNull>
     <rownum_field/>
     <file>
-      <name>${Internal.Entry.Current.Directory}\jsonfile.js</name>
+      <name>${Internal.Entry.Current.Directory}/jsonfile.js</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>

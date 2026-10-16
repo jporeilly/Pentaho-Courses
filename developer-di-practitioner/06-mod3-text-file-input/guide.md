@@ -11,8 +11,8 @@
 > **What you'll do**
 > 
 > * Read unstructured text with **Text file input**
-> * Turn multi-line records into single rows with **Flattener**
-> * Extract values into capture groups with **RegEx Evaluation**
+> * Turn multi-line records into single rows with **Row flattener**
+> * Extract values into capture groups with **Regex evaluation**
 > * Remove labels and symbols with **Replace in string**
 > * Set data types and formats with **Select values**
 > 
@@ -20,16 +20,11 @@
 > 
 > **Estimated time:** 30 minutes
 
-> **Note:** **Create a new transformation**
-> 
-> Use any of these options to open a new transformation tab:
-> 
-> * Select **File** > **New** > **Transformation**
-> * Use `Ctrl+N` (Windows/Linux) or `Cmd+N` (macOS)
+<div class="pcm-embed-card" data-href="https://www.loom.com/share/0646ed96c4734d16b6721c902f9c7e0e?hideEmbedTopBar=true&amp;hide_owner=true&amp;hide_share=true&amp;hide_title=true" data-title="String Operations for Data Cleaning and Transformation" data-description="In this video, I demonstrate how to use the string operation step to modify string values effectively. We focus on cleaning up the product code field by removing trailing spaces and retaining only numeric characters, while also addressing the country field by trimming spaces and converting all characters to uppercase. I guide you through configuring the step, including naming conventions and the specific operations required for each field. Please ensure you follow along and replicate these steps in your own work to achieve similar results. Thank you for watching!" data-thumb="../_assets/embeds/2d94cd73b9b2.png"></div>
 
 <figure>
 
-![The finished transformation: Text file input, Flattener, RegEx Evaluation, Replace in string, Select values](../_assets/images/txt-file-input.png)
+![The finished transformation: read order list, flatten rows, parse status, discard texts and change order_value metadata, hopped in a line](../_assets/images/txt-file-input.png)
 
 <div align="center">
 <figcaption><em>What you build</em></figcaption>
@@ -47,23 +42,22 @@ Look at the input file first; it decides the parsing approach.
 </div>
 </figure>
 
-> **Note:** What to notice:
-> 
-> * Each order spans four lines, and a blank line separates one order from the next.
+> **Note:**
+>
+> #### What to notice, and the approach
+>
+> `orders.txt` has 34 lines: 7 orders of four lines each, with a blank line between one order and the next.
+>
+> * Every value is prefixed with a label (`Productline:`, `Customer:`).
 > * Line 3 holds two values: the order status and the order date.
 > * The order value carries a label and a currency symbol (`Order Value: $21.99`).
-> * Every value is prefixed with a label (`Productline:`, `Customer:`).
-
-> **Note:** **Approach**
-> 
+>
 > You will:
-> 
+>
 > 1. Flatten each four-line record into a single row.
 > 2. Split line 3 into a status and a date (capture groups).
 > 3. Remove the labels and the currency symbol.
 > 4. Set the data types and formats (number and date).
-
-<div class="pcm-embed-card" data-href="https://www.loom.com/share/0646ed96c4734d16b6721c902f9c7e0e?hideEmbedTopBar=true&amp;hide_owner=true&amp;hide_share=true&amp;hide_title=true" data-title="String Operations for Data Cleaning and Transformation" data-description="In this video, I demonstrate how to use the string operation step to modify string values effectively. We focus on cleaning up the product code field by removing trailing spaces and retaining only numeric characters, while also addressing the country field by trimming spaces and converting all characters to uppercase. I guide you through configuring the string operation step, including naming conventions and the specific operations required for each field. Please ensure you follow along and replicate these steps in your own work to achieve similar results. Thank you for watching!" data-thumb="../_assets/embeds/2d94cd73b9b2.png"></div>
 
 :::: tabs
 
@@ -75,41 +69,34 @@ Look at the input file first; it decides the parsing approach.
 > 
 > Use **Text file input** to read the raw lines from `orders.txt`. Treat each line as a single string field for now.
 
-1. Start Spoon, create a transformation and save it as `tr_read_text.ktr` in the lab folder, `C:\Workshop-DI-Practitioner\03-data-sources\01-flat-files\06-mod3-text-file-input`, next to `orders.txt`. Saving first gives `${Internal.Entry.Current.Directory}` a value.
-
+1. Start Spoon with the **Start PDI** button below, or from a terminal:
 
 ::: tabs
 
 ### Windows (PowerShell)
 
-> 
-> ```powershell
-> Set-Location C:\Pentaho\design-tools\data-integration
-> .\spoon.bat
-> ```
-> 
->
+```powershell
+Set-Location C:\Pentaho\design-tools\data-integration
+.\spoon.bat
+```
 
 ### macOS / Linux
 
-> 
-> ```bash
-> cd ~/Pentaho/design-tools/data-integration
-> ./spoon.sh
-> ```
-> 
->
+```bash
+cd ~/Pentaho/design-tools/data-integration
+./spoon.sh
+```
 
 :::
 
 <button data-launch="spoon" data-path="">Start PDI</button>
 
-2. In the **Design** tab, expand the `Input` category.
-3. Drag **Text file input** onto the canvas.
-
-> **Tip:** You can also search for `Text file input`.
-
-4. Double-click the step. In **File or directory**, enter the path below, then select **Add**:
+2. Select **File > New > Transformation** (`Ctrl+N`).
+3. Select **File > Save as** and save it as `tr_read_text.ktr` in `C:\Workshop-DI-Practitioner\03-data-sources\01-flat-files\06-mod3-text-file-input`, next to `orders.txt`. Saving first gives `${Internal.Entry.Current.Directory}` a value.
+4. On the **Design** tab, open the **Input** folder and drag **Text file input** onto the canvas.
+5. Double-click **Text file input**.
+6. Set **Step name** to `read order list`.
+7. On the **File** tab, enter the path below in **File or directory**, then select **Add**:
 
    ```text
    ${Internal.Entry.Current.Directory}/orders.txt
@@ -119,26 +106,33 @@ Look at the input file first; it decides the parsing approach.
 
 > **Note:** `${Internal.Entry.Current.Directory}` is the folder of the saved transformation, so the path keeps working wherever the lab folder is.
 
-5. Select the **Content** tab and set:
+8. Open the **Content** tab and set:
 
    | Setting | Value |
    | --- | --- |
-   | **Filetype** | `CSV` |
-   | **Separator** | empty - delete the default `;`, so each whole line becomes one field |
-   | **Header** | cleared - `orders.txt` has no header line |
-   | **No empty rows** | selected - drops the blank lines between orders |
+   | **Filetype** | `CSV` (the default) |
+   | **Separator** | a tab: delete the default `;`, then select **Insert TAB** |
+   | **Header** | cleared: `orders.txt` has no header line |
+   | **No empty rows** | selected (the default): drops the blank lines between orders |
    | **Format** | `mixed` |
 
-<figure><img src="../_assets/images/tfi.png" alt="The Content tab of Text file input" width="563"><figcaption><p>The Content tab</p></figcaption></figure>
+   `orders.txt` contains no tab characters, so with a tab as the separator each whole line becomes one field.
 
-6. Select the **Fields** tab, then **Get Fields**.
+<figure><img src="../_assets/images/tfi.png" alt="The Content tab of Text file input: a tab in Separator, Header cleared, No empty rows selected, Format mixed" width="563"><figcaption><p>The Content tab</p></figcaption></figure>
+
+9. Open the **Fields** tab and select **Get Fields**.
+10. In the **Sample data** dialog, leave **Number of lines to sample** at `100` and select **OK**. (If you select **Show sample summary** first, a **Scan results** window also opens; select **Close**.)
 
 <figure><img src="../_assets/images/tfi-fields.png" alt="The Fields tab with a single String field, Field1" width="563"><figcaption><p>One field per line</p></figcaption></figure>
 
-> **Note:** The step returns one field named `Field1`. It has type **String**.
+> **Success:** Checkpoint: the **Fields** tab lists one field, `Field1`, of type **String**.
 
-7. Optional: rename the step to **Read orders**.
-8. Select **OK**.
+11. Select **Preview rows**, enter `100` rows, and select **OK**.
+
+> **Success:** Checkpoint: **Examine preview data** shows 28 rows of `Field1`: the 28 lines of `orders.txt` that are not blank. Row 1 is `Productline: Classic Cars` and row 4 is `Order Value: $21.99`.
+
+12. Select **Close**.
+13. Select **OK**.
 
 ### 2. Row flattener
 
@@ -146,18 +140,25 @@ Look at the input file first; it decides the parsing approach.
 >
 > #### Row Flattener
 > 
-> Use **Flattener** to turn each group of four lines into a single output row.
+> Use **Row flattener** to turn each group of four lines into a single output row. Each target field takes one line of the group, by position: target field 1 gets line 1, and so on.
 
-1. Drag **Flattener** onto the canvas.
-2. Create a hop from **Read orders**.
-3. Double-click the step. Set **The field to flatten** to `Field1`, and enter the four target fields, in this order: `productline`, `customers`, `status`, `order_value`.
+1. On the **Design** tab, open the **Transform** folder and drag **Row flattener** onto the canvas.
+2. Create a hop from **read order list** to **Row flattener**: hold `Shift` and drag from one step to the other.
+3. Double-click **Row flattener**.
+4. Set **Step name** to `flatten rows`.
+5. Set **The field to flatten** to `Field1`.
+6. Fill **The target fields after flattening** grid, in this order:
 
-<figure><img src="../_assets/images/flattner.png" alt="The Flattener dialog: Field1 flattened into productline, customers, status and order_value" width="375"><figcaption><p>Four lines become four fields</p></figcaption></figure>
+   | Target field |
+   | --- |
+   | `productline` |
+   | `customers` |
+   | `status` |
+   | `order_value` |
 
-4. Optional: rename the step to **Flatten rows**.
-5. Select **OK**.
+<figure><img src="../_assets/images/flattner.png" alt="The Row flattener dialog: Field1 flattened into productline, customers, status and order_value" width="375"><figcaption><p>Four lines become four fields</p></figcaption></figure>
 
-> **Note:** Each target field maps to one repeating line — target field 1 to line 1, and so on.
+7. Select **OK**.
 
 > **Under the hood:**
 >
@@ -181,19 +182,33 @@ Look at the input file first; it decides the parsing approach.
 > belongs upstream in **Text file input** (filters, blank-line
 > handling), not in the Flattener.
 
+8. Select **flatten rows** on the canvas, press `F10` (**Action > Preview**), and select **Quick Launch**.
+
+> **Success:** Checkpoint: **Examine preview data** shows 7 rows, one per order, with four fields. Row 1 is `Productline: Classic Cars`, `Customer: Christine Loomis`, `Delivered: January 2004`, `Order Value: $21.99`, and row 7 is `Productline: Boats`, `Customer: Jill Robinson`, `Delivered: November 2014`, `Order Value: $19.99`.
+
+9. Select **Close**.
+
 ### 3. RegEx Evaluation
 
 > **Note:**
 >
 > #### RegEx Evaluation
 > 
-> Use **RegEx Evaluation** to match a field against a regular expression and capture substrings into new fields.
+> Use **Regex evaluation** to match a field against a regular expression and capture substrings into new fields.
 > 
-> Here you split `status` into two capture groups, `order_status` and `order_date`, with the pattern `(Delivered|Returned):(.+)`.
+> Here you split `status` into two capture groups, `order_status` and `order_date`, with the pattern `(Delivered|Returned):(.+)`:
+>
+> * It has two capture groups, each in parentheses, separated by a colon.
+> * `(Delivered|Returned)` matches either status.
+> * `(.+)` matches the rest of the line - the date.
+>
+> **Test regEx**, on the step's **Settings** tab, opens a dialog where you can try the expression on sample values.
 
-1. Drag **RegEx Evaluation** onto the canvas.
-2. Create a hop from **Flatten rows**.
-3. Double-click the step and set:
+1. On the **Design** tab, open the **Scripting** folder and drag **Regex evaluation** onto the canvas.
+2. Create a hop from **flatten rows** to **Regex evaluation**.
+3. Double-click **Regex evaluation**.
+4. Set **Step name** to `parse status`.
+5. On the **Settings** tab, set:
 
    | Setting | Value |
    | --- | --- |
@@ -202,21 +217,18 @@ Look at the input file first; it decides the parsing approach.
    | **Create fields for capture groups** | selected |
    | **Regular expression** | `(Delivered\|Returned):(.+)` |
 
-   Then add two fields, both type **String** with **Trim** set to **both**: `order_status` and `order_date`.
+6. Fill the **Capture Group Fields** grid with two rows:
 
-<figure><img src="../_assets/images/regex.png" alt="The RegEx Evaluation dialog with the expression and the two capture fields"><figcaption><p>Two capture groups, two fields</p></figcaption></figure>
+   | New field | Type | Format | Trim |
+   | --- | --- | --- | --- |
+   | `order_status` | String | | both |
+   | `order_date` | String | `MMM yyyy` | both |
 
-> **Warning:** Set **Trim** to **both** on both fields. The date follows the colon with a space, and an untrimmed ` January 2004` won't parse as a date later.
+<figure><img src="../_assets/images/regex.png" alt="The Regex evaluation dialog with the expression and the two capture fields"><figcaption><p>Two capture groups, two fields</p></figcaption></figure>
 
-4. Optional: rename the step to **Parse status and date**.
-5. Select **OK**.
+> **Warning:** Set **Trim** to **both** on both fields. The date follows the colon with a space (two spaces in the fourth order), and an untrimmed ` January 2004` won't parse as a date later.
 
-> **Note:** **How the expression works**
-> 
-> * It has two capture groups, each in parentheses, separated by a colon.
-> * `(Delivered|Returned)` matches either status.
-> * `(.+)` matches the rest of the line - the date.
-> * Select **Test RegEx** to check the groups against a sample value.
+7. Select **OK**.
 
 > **Under the hood:**
 >
@@ -229,14 +241,21 @@ Look at the input file first; it decides the parsing approach.
 > first group and then fail on the trailing date text, the result
 > field would be `false`, and both capture fields would be empty.
 >
-> Each parenthesised group becomes exactly one output field, in
+> Each parenthesized group becomes exactly one output field, in
 > order, and the step refuses to start if the group count and the
-> field count disagree. You get a clear "capture groups does not
-> match" error at initialization instead of silently wrong columns.
+> field count disagree: "The number of capture groups in the regular
+> expression ... does not match the number of fields specified". You
+> get that error at initialization instead of silently wrong columns.
 >
 > **Why it matters:** a regex that works in a tester but yields empty
 > fields here is almost always anchoring, not syntax. Wrap the part
 > you don't care about in `.*`, re-test in the dialog, then run.
+
+8. Select **parse status** on the canvas, press `F10` (**Action > Preview**), and select **Quick Launch**.
+
+> **Success:** Checkpoint: **Examine preview data** shows 7 rows, each with an `order_status` and an `order_date`: every `status` line matched. Row 1 has `Delivered` and `January 2004`; row 5 has `Returned` and `April 2007`.
+
+9. Select **Close**.
 
 To learn or test regular expressions, regex101 is a good start:
 
@@ -252,22 +271,28 @@ To learn or test regular expressions, regex101 is a good start:
 > 
 > Here you replace three labels with nothing.
 
-1. Drag **Replace in string** onto the canvas.
-2. Create a hop from **Parse status and date**.
-3. Double-click the step and add three rows, with **use RegEx** set to `N` and **Replace with** left empty:
+1. On the **Design** tab, open the **Transform** folder and drag **Replace in string** onto the canvas.
+2. Create a hop from **parse status** to **Replace in string**.
+3. Double-click **Replace in string**.
+4. Set **Step name** to `discard texts`.
+5. Fill the **Fields string** grid with three rows. Leave **Out stream field** and **Replace with** empty, so each field is changed in place and the label is replaced with nothing:
 
-   | In stream field | Search |
-   | --- | --- |
-   | `order_value` | `Order Value: $` |
-   | `productline` | `Productline: ` |
-   | `customers` | `Customer: ` |
+   | In stream field | use RegEx | Search | Set empty string? |
+   | --- | --- | --- | --- |
+   | `order_value` | `N` | `Order Value: $` | `N` |
+   | `productline` | `N` | `Productline: ` | `N` |
+   | `customers` | `N` | `Customer: ` | `N` |
 
 <figure><img src="../_assets/images/replace.png" alt="The Replace in string dialog with three search strings"><figcaption><p>Three labels removed</p></figcaption></figure>
 
-4. Optional: rename the step to **Clean order value**.
-5. Select **OK**.
+> **Warning:** Type each label exactly, including the trailing space. If you set **use RegEx** to `Y`, use `Order Value:\s*\$` instead: the dollar sign must go too, or **Select values** can't read the number.
 
-> **Warning:** Type each label exactly, including the trailing space. If you turn on **use RegEx**, use `Order Value:\s*\$` instead: the dollar sign must go too, or **Select values** can't read the number.
+6. Select **OK**.
+7. Select **discard texts** on the canvas, press `F10` (**Action > Preview**), and select **Quick Launch**.
+
+> **Success:** Checkpoint: **Examine preview data** shows 7 rows without labels. Row 1 has `productline` `Classic Cars`, `customers` `Christine Loomis` and `order_value` `21.99`.
+
+8. Select **Close**.
 
 ### 5. Select Values
 
@@ -281,19 +306,21 @@ To learn or test regular expressions, regex101 is a good start:
 > * **Remove** - fields to drop
 > * **Meta-data** - a field's type, format, length and precision
 
-1. Drag **Select values** onto the canvas.
-2. Create a hop from **Clean order value**.
-3. Double-click the step. On the **Remove** tab, add `result` and `status` - the regex's true/false flag and the raw line you split.
-4. On the **Meta-data** tab, add:
+1. On the **Design** tab, open the **Transform** folder and drag **Select values** onto the canvas.
+2. Create a hop from **discard texts** to **Select values**.
+3. Double-click **Select values**.
+4. Set **Step name** to `change order_value metadata`.
+5. Open the **Remove** tab and fill **Fields to remove** with two rows, `result` and `status`: the regex's match flag and the raw line you split.
+6. Open the **Meta-data** tab and fill **Fields to alter the meta-data for**:
 
-| Field name     | Type   | Format     |
-| -------------- | ------ | ---------- |
-| `order_value`  | Number | `#.00`     |
-| `order_date`   | Date   | `MMM yyyy` |
+   | Fieldname | Type | Format |
+   | --- | --- | --- |
+   | `order_value` | Number | `#.00` |
+   | `order_date` | Date | `MMM yyyy` |
 
 <figure><img src="../_assets/images/sv-2.png" alt="The Meta-data tab of Select values: order_value as Number and order_date as Date"><figcaption><p>Typed fields</p></figcaption></figure>
 
-> **Note:** Optional: rename the step to **Set data types**.
+7. Select **OK**.
 
 > **Under the hood:**
 >
@@ -303,8 +330,10 @@ To learn or test regular expressions, regex101 is a good start:
 > cleaned-up text, but text. On the **Meta-data** tab you told the
 > engine what each string *means*, and the mask is the instruction for
 > reading it: `#.00` says "decimal point, two places", so `21.99`
-> becomes the number 21.99; `MMM yyyy` says "three-letter month, then
-> year", so `Jan 2004` becomes a real date, the first of that month.
+> becomes the number 21.99. `MMM yyyy` says "month name, then year";
+> when Java parses text, `MMM` accepts the full month name as well, so
+> `January 2004` becomes a real date, the first of that month. When
+> Spoon displays the date, the same mask writes it as `Jan 2004`.
 >
 > From this step onward the row metadata declares those fields as
 > Number and Date, and every later step — sort, calculator, table
@@ -325,18 +354,23 @@ To learn or test regular expressions, regex101 is a good start:
 > 
 > Run the transformation and check the result.
 
-1. Select **Run** in the toolbar, then **Run** in **Run Options**.
-2. Select the last step, then the **Preview data** tab in **Execution Results**.
+1. Save the transformation (`Ctrl+S`).
+2. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
+3. In **Execution Results**, open the **Step Metrics** tab.
+
+> **Success:** Checkpoint: **read order list** shows `28` in **Written**, and **flatten rows** shows `28` in **Read** and `7` in **Written**. **parse status**, **discard texts** and **change order_value metadata** each write 7 rows.
+
+4. Select **change order_value metadata** on the canvas and open the **Preview data** tab.
 
 <figure><img src="../_assets/images/results.png" alt="Preview data: seven orders with product line, customer, value, status and date"><figcaption><p>Seven clean orders</p></figcaption></figure>
 
-> **Success:** **Read orders** reads 28 lines and **Flatten rows** turns them into 7 orders. The first is `Classic Cars`, `Christine Loomis`, `21.99`, `Delivered`, `Jan 2004` - no labels, no `$`, a real number and a real date.
+> **Success:** Checkpoint: 7 orders with the fields `productline`, `customers`, `order_value`, `order_status` and `order_date`. The first is `Classic Cars`, `Christine Loomis`, `21.99`, `Delivered`, `Jan 2004`: no labels, no `$`, a real number, and a real date that the file wrote as `January 2004` and Spoon displays with its `MMM yyyy` mask.
 
 ::::
 
 ## Lab Files
 
-Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches PDI with the file loaded. If PDI is already running, the path is copied to your clipboard — switch to PDI and use Ctrl+O, Ctrl+V, Enter.
+Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches PDI with the file loaded. If PDI is already running, the path is copied to your clipboard — switch to PDI and press `Ctrl+O`, `Ctrl+V`, `Enter`.
 
 [orders.txt](./files/orders.txt)
 

@@ -31,10 +31,6 @@
 </div>
 </figure>
 
-> **Note:** **Create a new transformation**
-> 
-> Select **File > New > Transformation**, or press `Ctrl+N` (`Cmd+N` on macOS). Save it as `tr_reading_database.ktr`.
-
 :::: tabs
 
 ### 1. Table input
@@ -46,41 +42,36 @@
 > **Table input** runs a SQL query over a database connection and outputs one row per result row.\
 > Here the query keeps only the orders with `STATUS = 'Shipped'`.
 
-1. Start Spoon.
-
+1. Start Spoon with the **Start PDI** button below, or from a terminal:
 
 ::: tabs
 
 ### Windows (PowerShell)
 
-> 
-> ```powershell
-> Set-Location C:\Pentaho\design-tools\data-integration
-> .\spoon.bat
-> ```
-> 
->
+```powershell
+Set-Location C:\Pentaho\design-tools\data-integration
+.\spoon.bat
+```
 
 ### macOS / Linux
 
-> 
-> ```bash
-> cd ~/Pentaho/design-tools/data-integration
-> ./spoon.sh
-> ```
-> 
->
+```bash
+cd ~/Pentaho/design-tools/data-integration
+./spoon.sh
+```
 
 :::
 
 <button data-launch="spoon" data-path="">Start PDI</button>
 
-2. From the **Input** folder in the **Design** tab, drag **Table input** onto the canvas.
-3. Double-click the step.
-4. In **Connection**, select `MySQL:sampledata`.
-5. Select **Get SQL select statement...**. In the **Database Explorer**, expand **Tables**, select `ORDERS` and select **OK**.
-6. When asked **Do you want to include the field-names in the SQL?**, select **Yes**.
-7. Delete the columns you don't need and add the filter, so the **SQL** reads:
+2. Select **File > New > Transformation** (`Ctrl+N`).
+3. Select **File > Save as** and save it as `tr_reading_database_warehouse.ktr` in `C:\Workshop-DI-Practitioner\03-data-sources\02-databases\13-mod3-reading-from-a-database`.
+4. On the **Design** tab, open the **Input** folder and drag **Table input** onto the canvas.
+5. Double-click **Table input**. Keep its **Step name**, `Table input`.
+6. In **Connection**, select `MySQL:sampledata`.
+7. Select **Get SQL select statement...**. In the **Database Explorer**, expand **Tables**, select `ORDERS`, and select **OK**.
+8. When asked **Do you want to include the field-names in the SQL?**, select **Yes**. The **SQL** box fills with a `SELECT` of the seven `ORDERS` columns.
+9. Add the filter on a new line at the end, so the **SQL** reads:
 
    ```sql
    SELECT
@@ -95,12 +86,13 @@
    WHERE STATUS = 'Shipped'
    ```
 
-<figure><img src="../_assets/images/read-db.png" alt="Table input with the MySQL:sampledata connection and the SELECT over ORDERS filtered to shipped orders"><figcaption><p>The query</p></figcaption></figure>
+<figure><img src="../_assets/images/read-db.png" alt="Table input with the sampledata MySQL connection and the SELECT over ORDERS filtered to shipped orders"><figcaption><p>The query</p></figcaption></figure>
 
-8. Select **Preview**, then **OK** to preview the first 1000 rows.
-9. Close the preview and select **OK**.
+10. Select **Preview**, enter `100` rows, and select **OK**. The rows show in **Examine preview data**.
 
-> **Success:** Checkpoint: the preview shows only rows with `STATUS` = `Shipped`. The table holds 303 of them.
+> **Success:** Checkpoint: 100 rows, every one with `STATUS` `Shipped`.
+
+11. Select **Close**, then select **OK** to close **Table input**.
 
 > **Under the hood:**
 >
@@ -133,9 +125,9 @@
 > **Calculator** adds fields computed from a list of built-in functions.\
 > It is fast, and needs no expression language.
 
-1. From the **Transform** folder, drag **Calculator** onto the canvas.
-2. Hop **Table input** to **Calculator**.
-3. Double-click the step and fill in the first row:
+1. On the **Design** tab, open the **Transform** folder and drag **Calculator** onto the canvas.
+2. Create a hop from **Table input** to **Calculator**: hold `Shift` and drag from one step to the other.
+3. Double-click **Calculator** and fill the first row of the grid:
 
 | New field   | Calculation                 | Field A        | Field B       | Value type |
 | ----------- | --------------------------- | -------------- | ------------- | ---------- |
@@ -156,13 +148,11 @@
 > **Number range** maps a number to a label, using a list of ranges.\
 > Labels are easier to scan, group and filter on than raw numbers.
 
-1. From the **Transform** folder, drag **Number range** onto the canvas.
-2. Hop **Calculator** to **Number range**.
-3. Double-click the step and set:
-   * **Input field**: `diff_days`
-   * **Output field**: `delivery`
-   * **Default value(if no range matches)**: `unknown`
-4. Fill in **Ranges (min <= x< max)**. Leave the last **Upper Bound** empty, so the range has no upper limit:
+1. On the **Design** tab, open the **Transform** folder and drag **Number range** onto the canvas.
+2. Create a hop from **Calculator** to **Number range**.
+3. Double-click **Number range**.
+4. Set **Input field** to `diff_days`, **Output field** to `delivery`, and **Default value(if no range matches)** to `unknown`.
+5. Fill the **Ranges (min <= x< max)** grid. Leave the last **Upper Bound** empty, so the range has no upper limit:
 
 | Lower Bound | Upper Bound | Value     |
 | ----------- | ----------- | --------- |
@@ -173,7 +163,7 @@
 
 <figure><img src="../_assets/images/number-range.png" alt="Number range with input diff_days, output delivery and four ranges"><figcaption><p>Four ranges, one label each</p></figcaption></figure>
 
-5. Select **OK**.
+6. Select **OK**.
 
 > **Note:** Each range includes its lower bound and excludes its upper bound, so `diff_days` = 3 is `10%`, not `On Time`. A value outside every range, such as a late shipment, gets the default, `unknown`.
 
@@ -186,15 +176,13 @@
 > Sort the output into the order you want to read it.\
 > Merge steps also need sorted input, as later workshops show.
 
-1. From the **Transform** folder, drag **Sort rows** onto the canvas.
-2. Hop **Number range** to **Sort rows**.
-3. Double-click the step. In **Fields**, add `diff_days` with **Ascending** set to `Y`.
+1. On the **Design** tab, open the **Transform** folder and drag **Sort rows** onto the canvas.
+2. Create a hop from **Number range** to **Sort rows**.
+3. Double-click **Sort rows**. In the **Fields** grid, set **Fieldname** to `diff_days` and **Ascending** to `Y`.
 
 <figure><img src="../_assets/images/sort.png" alt="Sort rows with diff_days ascending"><figcaption><p>Sort on diff_days</p></figcaption></figure>
 
 4. Select **OK**.
-
-> **Note:** If a sort runs out of memory, lower **Sort size (rows in memory)**. PDI then writes sorted chunks to temporary files and merges them.
 
 > **Under the hood:**
 >
@@ -227,17 +215,28 @@
 > **Select values** keeps, drops, renames and reorders fields.\
 > It also sets their types, lengths and formats for the steps that follow.
 
-1. From the **Transform** folder, drag **Select values** onto the canvas.
-2. Hop **Sort rows** to **Select values**.
-3. Double-click the step. On the **Select & Alter** tab, list the fields to keep, in this order: `delivery`, `ORDERNUMBER`, `REQUIREDDATE`, `SHIPPEDDATE`, `CUSTOMERNUMBER`.
-4. On the **Meta-data** tab, set the date fields:
+1. On the **Design** tab, open the **Transform** folder and drag **Select values** onto the canvas.
+2. Create a hop from **Sort rows** to **Select values**.
+3. Double-click **Select values**. On the **Select & Alter** tab, select **Get fields to select**. The grid lists the nine incoming fields, from `ORDERNUMBER` to `delivery`.
+4. Delete the rows for `ORDERDATE`, `STATUS`, `COMMENTS` and `diff_days`: select each row, right-click, and select **Delete selected lines**.
+5. Move `delivery` to the top: select its row and press `Ctrl+Up` until it is first. The grid now reads:
+
+| Fieldname        |
+| ---------------- |
+| `delivery`       |
+| `ORDERNUMBER`    |
+| `REQUIREDDATE`   |
+| `SHIPPEDDATE`    |
+| `CUSTOMERNUMBER` |
+
+6. On the **Meta-data** tab, fill the grid for the two date fields:
 
 | Fieldname      | Type | Format       |
 | -------------- | ---- | ------------ |
 | `REQUIREDDATE` | Date | `MM/dd/yyyy` |
 | `SHIPPEDDATE`  | Date | `MM/dd/yyyy` |
 
-5. Select **OK**.
+7. Select **OK**.
 
 > **Note:** The format makes `REQUIREDDATE` and `SHIPPEDDATE` display as
 > plain dates, with no time. `diff_days` isn't in the list, so it
@@ -251,38 +250,59 @@
 > 
 > Run the transformation and check the final stream.
 
-1. Save the transformation, select **Run** in the toolbar, then **Run** in **Run Options**.
-2. Select **Select values**, then the **Preview data** tab in **Execution Results**.
+1. Save the transformation (`Ctrl+S`).
+2. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
+3. In **Execution Results**, open the **Step Metrics** tab.
+
+> **Success:** Checkpoint: every step, from **Table input** to **Select values**, shows 303 in **Written**: the 303 shipped orders in the lab database.
+
+4. Select **Select values** on the canvas and open the **Preview data** tab.
+
+> **Note:** The screenshot was taken against an older copy of the data, in which order 10165 shipped late and so sorts first, as `unknown`. In the lab database it shipped five days early, so it is labeled `Action`, and your first rows are `On Time`.
 
 <figure><img src="../_assets/images/status-of-shipped-orders.png" alt="Preview data: delivery label, order number, required and shipped dates, customer number"><figcaption><p>Shipped orders with their delivery label</p></figcaption></figure>
 
-> **Success:** Checkpoint: 303 rows, sorted by `diff_days`, so the `On Time` rows come first. By label: 54 `On Time`, 54 `10%`, 42 `20%` and 153 `Action`; none is `unknown`.
-
-> **Note:** The screenshot was taken against an older copy of the data, in which order 10165 shipped late and so shows `unknown`. In the lab database it shipped five days early, so your first row is `On Time`.
+> **Success:** Checkpoint: five fields, `delivery` first, sorted by `diff_days`, so the `On Time` rows come first; the dates show as `MM/dd/yyyy`. Across all 303 rows: 54 `On Time`, 54 `10%`, 42 `20%` and 153 `Action`; none is `unknown`.
 
 ::::
 
+## Troubleshooting <!-- no-step -->
+
 <details>
 
-<summary>Troubleshooting</summary>
+<summary>Preview shows zero rows</summary>
 
-**Preview shows zero rows**\
 Check the filter: the value is `'Shipped'`, in single quotes. Run `SELECT DISTINCT STATUS FROM ORDERS` in the database to see the values.
 
-**SQL errors**\
+</details>
+
+<details>
+
+<summary>SQL errors</summary>
+
 Select **Get SQL select statement...** again, then add your `WHERE` clause back.
 
-**Date or number conversion errors**\
+</details>
+
+<details>
+
+<summary>Date or number conversion errors</summary>
+
 Fix the types on the **Meta-data** tab of **Select values**, then run again.
 
-**Out of memory during the sort**\
-Lower **Sort size (rows in memory)** in **Sort rows**, or give PDI more memory.
+</details>
+
+<details>
+
+<summary>Out of memory during the sort</summary>
+
+Lower **Sort size (rows in memory)** in **Sort rows**, or give PDI more memory. PDI then writes sorted chunks to temporary files and merges them.
 
 </details>
 
 ## Lab Files
 
-Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches PDI with the file loaded. If PDI is already running, the path is copied to your clipboard — switch to PDI and use Ctrl+O, Ctrl+V, Enter.
+Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches PDI with the file loaded. If PDI is already running, the path is copied to your clipboard — switch to PDI and press `Ctrl+O`, `Ctrl+V`, `Enter`.
 
 ### Solution <!-- no-step -->
 

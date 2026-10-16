@@ -20,7 +20,7 @@
 
 <figure>
 
-![The Hello World transformation that runs on the servers](../_assets/images/hello-world-tr-2.png)
+![The Hello World transformation: a Generate Rows step hopped to Dummy (do nothing)](../_assets/images/hello-world-tr-2.png)
 
 <div align="center">
 <figcaption><em>The transformation you run on the servers</em></figcaption>
@@ -29,20 +29,15 @@
 
 :::: tabs
 
-### 1. Master & Slave nodes
+### 1. Start the Carte servers
 
-> **Note:** Each server (node) is a Carte instance, in one of two roles:
-> 
-> * **Master**: coordinates a clustered run. It hands each node its share of the work and collects the progress and results.
-> * **Slave**: runs the jobs and transformations, or parts of them, that it is sent.
-> 
-> Here all three run on this machine, on different ports. In production each is a separate server.
+> **Note:**
+>
+> #### Master and slave servers
+>
+> Each server (node) is a Carte instance, in one of two roles. A **slave** runs the jobs and transformations, or the parts of them, that it is sent. The **master** is the slave server a cluster names as its master: in a clustered run it runs the steps that are not clustered and receives the rows the other slaves send it. Here all three run on this machine, on different ports; in production each is a separate server. Each Carte instance keeps its terminal busy, so you need three terminals, and you keep all three open until the end of the workshop: closing a terminal stops its server.
 
-**Master Node**
-
-> **Note:** Each Carte instance runs in its own terminal and keeps it busy, so you need three terminals.
-
-1. In a terminal start the master on port 12000:
+1. Start the master on port `12000`. In PowerShell, run:
 
 ::: tabs
 
@@ -62,11 +57,11 @@ cd ~/Pentaho/design-tools/data-integration
 
 :::
 
-<figure><img src="../_assets/images/master-node.png" alt="Master node - port 12000"><figcaption><p>Master node - port 12000</p></figcaption></figure>
+<figure><img src="../_assets/images/master-node.png" alt="A terminal running carte.sh localhost 12000; the last line reads Created listener for webserver @ address : localhost:12000"><figcaption><p>Master node - port 12000</p></figcaption></figure>
 
-**Slave Nodes**
+> **Success:** Checkpoint: Carte keeps running, and its last line reads `Carte - Created listener for webserver @ address : localhost:12000`.
 
-1. In a new terminal start Slave A on port 12100:
+2. Open a second terminal and start Slave A on port `12100`. In PowerShell, run:
 
 ::: tabs
 
@@ -86,9 +81,9 @@ cd ~/Pentaho/design-tools/data-integration
 
 :::
 
-<figure><img src="../_assets/images/run-slave-a.png" alt="Slave node A - port 12100"><figcaption><p>Slave node A - port 12100</p></figcaption></figure>
+<figure><img src="../_assets/images/run-slave-a.png" alt="A second terminal running carte.sh localhost 12100, listening on localhost:12100"><figcaption><p>Slave node A - port 12100</p></figcaption></figure>
 
-2. In a new terminal start Slave B on port 12200:
+3. Open a third terminal and start Slave B on port `12200`. In PowerShell, run:
 
 ::: tabs
 
@@ -108,79 +103,110 @@ cd ~/Pentaho/design-tools/data-integration
 
 :::
 
-<figure><img src="../_assets/images/run-slave-b.png" alt="Slave node B - port 12200"><figcaption><p>Slave node B - port 12200</p></figcaption></figure>
+<figure><img src="../_assets/images/run-slave-b.png" alt="A third terminal running carte.sh localhost 12200"><figcaption><p>Slave node B - port 12200</p></figcaption></figure>
 
-> **Warning:** You now have 3 terminals, each running a Carte instance. Keep them open until the end of the workshop: closing a terminal stops its server.
+> **Success:** Checkpoint: three terminals are running Carte. The second ends with `Created listener for webserver @ address : localhost:12100`, the third with `localhost:12200`.
 
-### 2. Configure Nodes
+### 2. Register the servers in Spoon
 
-1. Open the tr\_hello\_world transformation (from [Hello World](../03-mod2-hello-world/guide.md), or its solution `tr_hello_world.ktr`).
-2. Select the **View** tab.
-3. Right-click **Slave server** and select **New**.
+> **Note:**
+>
+> #### Slave servers
+>
+> Spoon reaches a Carte server through a slave server entry: its address, port and login. You add one for each of the three servers, in the transformation you will run.
 
-<figure><img src="../_assets/images/configure-nodes.png" alt="Configure Nodes" width="375"><figcaption><p>Configure Nodes</p></figcaption></figure>
+1. Start Spoon with the **Start PDI** button below, or from a terminal:
 
-<table><thead><tr><th width="253">Option</th><th>Description</th></tr></thead><tbody><tr><td><strong>Server name</strong></td><td>The name of the slave server.</td></tr><tr><td><strong>Hostname or IP address</strong></td><td>The address of the device to be used as a slave.</td></tr><tr><td><strong>Port (empty is port 80)</strong></td><td>Defines the port you are for communicating with the remote server. If you leave the port blank, 80 is used.</td></tr><tr><td><strong>Web App Name (required for Pentaho Server)</strong></td><td>Leave this blank if you are setting up a Carte server. This field is used for connecting to the Pentaho server.</td></tr><tr><td><strong>User name</strong></td><td>Enter the user name for accessing the remote server.</td></tr><tr><td><strong>Password</strong></td><td>Enter the password for accessing the remote server. A Carte server started as above accepts the user name <code>cluster</code> and password <code>cluster</code>.</td></tr><tr><td><strong>Is the master</strong></td><td>Enables this server as the master server in any clustered executions of the transformation.</td></tr></tbody></table>
+::: tabs
 
-Below are the proxy tab options:
+### Windows (PowerShell)
 
-<table><thead><tr><th width="255">Option</th><th>Description</th></tr></thead><tbody><tr><td><strong>Proxy server hostname</strong></td><td>Sets the host name for the proxy server you are using.</td></tr><tr><td><strong>The proxy server port</strong></td><td>Sets the port number used for communicating with the proxy.</td></tr><tr><td><strong>Ignore proxy for hosts: regexp | separated</strong></td><td>Specify the server(s) for which the proxy should not be active. This option supports specifying multiple servers using regular expressions. You can also add multiple servers and expressions separated by the ' | ' character.</td></tr></tbody></table>
+```powershell
+Set-Location C:\Pentaho\design-tools\data-integration
+.\spoon.bat
+```
 
-**Master Node**
+### macOS / Linux
 
-1. Enter the following settings to configure the Master node:
+```bash
+cd ~/Pentaho/design-tools/data-integration
+./spoon.sh
+```
 
-<figure><img src="../_assets/images/master-dialog.png" alt="Master Node"><figcaption><p>Master Node</p></figcaption></figure>
+:::
 
-**Slave Nodes**
+<button data-launch="spoon" data-path="">Start PDI</button>
 
-1. Enter the following settings to configure the Slave node A:
+2. Select **File > Open** (`Ctrl+O`) and open `tr_hello_world.ktr`, the transformation you built in [Hello World](../03-mod2-hello-world/guide.md). If you don't have it, open the solution copy, `C:\Workshop-DI-Practitioner\02-components-concepts\02-key-concepts\03-mod2-hello-world\solution\tr_hello_world.ktr`.
+3. Select the **View** tab.
+4. Under `tr_hello_world`, right-click **Slave server** and select **New**. The **Slave Server dialog** opens on its **Service** tab.
 
-<figure><img src="../_assets/images/slave-a-dialog.png" alt="Slave Node A"><figcaption><p>Slave Node A</p></figcaption></figure>
+<figure><img src="../_assets/images/configure-nodes.png" alt="The View tab tree under tr_hello_world, with the Slave server folder right-clicked and New on the menu" width="375"><figcaption><p>Configure Nodes</p></figcaption></figure>
 
-2. Enter the following settings to configure the Slave node B:
+5. Fill the **Service** tab with the **Master** column of the table below, and select **OK**. Leave the **Proxy** tab as it is.
+6. Repeat steps 4 and 5 for **Slave A** and for **Slave B**, with their columns.
 
-<figure><img src="../_assets/images/slave-b-dialog.png" alt="Slave Node B"><figcaption><p>Slave Node B</p></figcaption></figure>
+A Carte server started with only a host and a port accepts the user `cluster` with the password `cluster`: they are in `pwd\kettle.pwd` in the PDI folder.
 
-> **Success:** Checkpoint: the **View** tab lists three slave servers, Master, Slave A and Slave B.
+| Setting | Master | Slave A | Slave B |
+| --- | --- | --- | --- |
+| **Server name** | `Master` | `Slave A` | `Slave B` |
+| **Hostname or IP address** | `localhost` | `localhost` | `localhost` |
+| **Port (empty is port 80)** | `12000` | `12100` | `12200` |
+| **Web App Name (required for Pentaho Server)** | empty | empty | empty |
+| **Username** | `cluster` | `cluster` | `cluster` |
+| **Password** | `cluster` | `cluster` | `cluster` |
+| **Is the master** | selected | cleared | cleared |
+| **Use https protocol** | cleared | cleared | cleared |
 
-### 3. Run configurations
+<figure><img src="../_assets/images/master-dialog.png" alt="Slave Server dialog, Service tab: server name Master, localhost, port 12000, username cluster, Is the master selected"><figcaption><p>Master Node</p></figcaption></figure>
+
+<figure><img src="../_assets/images/slave-a-dialog.png" alt="Slave Server dialog, Service tab: server name Slave A, localhost, port 12100, username cluster, Is the master cleared"><figcaption><p>Slave Node A</p></figcaption></figure>
+
+<figure><img src="../_assets/images/slave-b-dialog.png" alt="Slave Server dialog, Service tab: server name Slave B, localhost, port 12200, username cluster, Is the master cleared"><figcaption><p>Slave Node B</p></figcaption></figure>
+
+> **Success:** Checkpoint: in the **View** tab, **Slave server** lists **Master**, **Slave A** and **Slave B**.
+
+<figure><img src="../_assets/images/list-slave-nodes.png" alt="The View tab tree with the Slave server folder expanded: Master, Slave A and Slave B"><figcaption><p>Slave Nodes</p></figcaption></figure>
+
+### 3. Run on the servers
 
 > **Note:** With three servers running, create run configurations that send the transformation to a particular server.
 > 
 > Light work, such as loading a small file or filtering a few rows, runs well on your own machine with the default configuration, **Pentaho local**. Heavier work can run on a server dedicated to it, with the same Pentaho engine; that is what a run configuration pointing at a Carte server does.
 
-<figure><img src="../_assets/images/hello-world-tr-2.png" alt="Tr_hello_world"><figcaption><p>tr_hello_world</p></figcaption></figure>
+<figure><img src="../_assets/images/hello-world-tr-2.png" alt="The Hello World transformation: a Generate Rows step hopped to Dummy (do nothing)"><figcaption><p>tr_hello_world</p></figcaption></figure>
 
 ::: tabs
 
-### 3.1 Nodes
+### 3.1 Run on the master
 
-> **Note:** Pentaho local is the default run configuration. It runs transformations with the Pentaho engine on your local machine. You cannot edit this default configuration.
+> **Note:** **Pentaho local** is the default run configuration. It runs transformations with the Pentaho engine on your local machine. You cannot edit this default configuration.
 
-1. Ensure you have configured the Nodes.
+1. In the **View** tab, right-click **Run configurations** and select **New...**.
 
-<figure><img src="../_assets/images/list-slave-nodes.png" alt="Slave Nodes"><figcaption><p>Slave Nodes</p></figcaption></figure>
+<figure><img src="../_assets/images/run-config.png" alt="The View tab tree with Run configurations right-clicked and New... on the menu; Pentaho local is listed grayed out"><figcaption><p>Run configuration</p></figcaption></figure>
 
-2. To create a run configuration, right-click the **Run configurations** folder in the **View** tab and select **New**.
+2. In the **Run configuration** dialog, set **Name** to `Master`. **Description** is optional; the screenshot has `RUN on Master node.` in it.
+3. Leave **Engine** as **Pentaho**.
+4. Under **Settings**, select **Slave server**, and set **Location** to `Master`. Leave **Send resources to this server** cleared.
+5. Select **OK**. **Master** appears under **Run configurations**.
 
-<figure><img src="../_assets/images/run-config.png" alt="Run configuration"><figcaption><p>Run configuration</p></figcaption></figure>
+<figure><img src="../_assets/images/master-config.png" alt="Run configuration dialog: name Master, engine Pentaho, Slave server selected, the Location list open with Master, Slave A and Slave B"><figcaption><p>Master - Run configuration</p></figcaption></figure>
 
-3. Enter the details below, with the **Pentaho** engine selected.
+6. Press `F9` (**Action > Run**). In the **Run Options** dialog, set **Run configuration** to `Master`, and select **Run**.
 
-<figure><img src="../_assets/images/master-config.png" alt="Master - Run configuration"><figcaption><p>Master - Run configuration</p></figcaption></figure>
+<figure><img src="../_assets/images/run-master.png" alt="The Run Options dialog with the Run configuration list open on Pentaho local and Master"><figcaption><p>Run configuration - Master</p></figcaption></figure>
 
-4. Run the transformation, and in **Run Options** select the **Master** run configuration.
+7. Spoon opens a **Slave server: Master** tab with the transformation's steps and log, as the server reports them.
 
-<figure><img src="../_assets/images/run-master.png" alt="Run configuration - Master"><figcaption><p>Run configuration - Master</p></figcaption></figure>
+> **Success:** Checkpoint: on the **Slave server: Master** tab, `tr_hello_world` is **Finished**. **gr_hello-world** wrote 10 rows and **Dummy (do nothing)** read 10, and the log ends with `Dummy (do nothing).0 - Finished processing (I=0, O=0, R=10, W=10, U=0, E=0)`.
 
-> **Success:** Checkpoint: the transformation runs on the master node, and Spoon shows its step metrics, fetched from the server.
+<figure><img src="../_assets/images/run-master-result.png" alt="The Slave server: Master tab: the transformation and both steps Finished, 10 rows written and read, and the log below"><figcaption><p>Run configuration - Master</p></figcaption></figure>
 
-<figure><img src="../_assets/images/run-master-result.png" alt="Run configuration - Master"><figcaption><p>Run configuration - Master</p></figcaption></figure>
+8. Look at the master's terminal: the same log lines appear there.
 
-5. Take a look at the Master Terminal.
-
-<figure><img src="../_assets/images/terminal-master.png" alt="Master Terminal"><figcaption><p>Master Terminal</p></figcaption></figure>
+<figure><img src="../_assets/images/terminal-master.png" alt="The master's terminal, ending with the transformation's log lines: Dispatching started and Finished processing for both steps"><figcaption><p>Master Terminal</p></figcaption></figure>
 
 > **Under the hood:**
 >
@@ -204,101 +230,111 @@ Below are the proxy tab options:
 > this dialog all drive the same API, so what runs in the run dialog is
 > what runs in production.
 
-> **Tip:** Create run configurations for Slave A and Slave B the same way, and run the transformation on each.
+9. Optionally, create run configurations for Slave A and Slave B the same way, with **Location** set to `Slave A` and `Slave B`, and run the transformation on each.
 
-### 3.2 Cluster schema
+### 3.2 Define the cluster schema
 
-> **Note:** A cluster schema is a named set of slave servers, one of which is the master. The master is also a Carte instance; it coordinates the work across the others.
+> **Note:**
+>
+> #### Cluster schema
+>
+> A cluster schema is a named set of slave servers, one of which is the master. When you run a transformation on it, Spoon splits the transformation: the master runs the steps that are not clustered, each other slave runs the clustered steps, and rows move between them over sockets.
 
-> **Note:** The workflow in a clustered Pentaho transformation is as follows:
-> 
-> • The job entry or the transformation connects to the cluster master node, which is responsible for coordinating the execution of the transformation steps on the cluster slave nodes.
-> 
-> • The master node sends the transformation metadata and the cluster schema to the slave nodes, and assigns each step to one or more nodes based on the cluster schema.
-> 
-> • The slave nodes execute the assigned steps and exchange data with each other using sockets or shared files, depending on the partitioning method and the clustering plugin used.
-> 
-> • The master node monitors the progress and status of the slave nodes, and collects logging information and performance metrics from them.
-> 
-> • The master node reports the outcome of the transformation execution to the job entry or the transformation that initiated it.
+1. In the **View** tab, right-click **Kettle cluster schemas** and select **New**. The **Clustering schema dialog** opens.
 
-**Cluster Schema**
+<figure><img src="../_assets/images/kettle-schema.png" alt="The View tab tree with Kettle cluster schemas right-clicked and New on the menu"><figcaption><p>Kettle cluster schema</p></figcaption></figure>
 
-1. To create a cluster schema, right-click the **Kettle cluster schemas** folder in the **View** tab and select **New**.
+2. Set **Schema name** to `Pentaho`, and check the other settings against this table:
 
-<figure><img src="../_assets/images/kettle-schema.png" alt="Kettle cluster schema"><figcaption><p>Kettle cluster schema</p></figcaption></figure>
+| Setting | Value | What it does |
+| --- | --- | --- |
+| **Schema name** | `Pentaho` | The name you pick the schema by |
+| **Port** | `40000` | The first port of the range the nodes' sockets use; each clustered step on a slave takes another |
+| **Sockets buffer size** | `2000` | The buffer each socket uses |
+| **Sockets flush interval (rows)** | `5000` | After this many rows the buffer is sent over the network and emptied |
+| **Sockets data compressed?** | selected | Rows are compressed before they cross the network |
+| **Dynamic cluster** | cleared | This schema lists its servers itself |
 
-2. Enter the following configuration details.
+3. Select **Select slave servers**. In the list, select `Master`, `Slave A` and `Slave B` (hold `Ctrl` to select more than one), and select **OK**.
 
-<figure><img src="../_assets/images/cluster-schema.png" alt="Pentaho Cluster schema"><figcaption><p>Pentaho Cluster schema</p></figcaption></figure>
+> **Success:** Checkpoint: the **Slave servers** grid lists **Master** with **Master?** `Y`, and **Slave A** and **Slave B** with `N`.
 
-<table><thead><tr><th width="197">Option</th><th>Description</th></tr></thead><tbody><tr><td><strong>Schema name</strong></td><td>The name of the clustering schema</td></tr><tr><td><strong>Port</strong></td><td>Specify the port from which to start numbering ports for the slave servers. Each additional clustered step executing on a slave server will consume an additional port.<br>Note: To avoid networking problems, make sure no other networking protocols are in the same range.</td></tr><tr><td><strong>Sockets buffer size</strong></td><td>The internal buffer size to use</td></tr><tr><td><strong>Sockets flush interval rows</strong></td><td>The number of rows after which the internal buffer is sent completely over the network and emptied.</td></tr><tr><td><strong>Sockets data compressed?</strong></td><td>When enabled, all data is compressed using the Gzip compression algorithm to minimize network traffic</td></tr><tr><td><strong>Dynamic cluster</strong></td><td>If checked, a master Carte server will perform failover operations, and you must define the master as a slave server in the field below. If unchecked, Spoon will act as the master server, and you must define the available Carte slaves in the field below.</td></tr><tr><td><strong>Slave Servers</strong></td><td>A list of the servers to be used in the cluster. You must have one master server and any number of slave servers. To add servers to the cluster, click Select slave servers to select from the list of available slave servers.</td></tr></tbody></table>
+<figure><img src="../_assets/images/cluster-schema.png" alt="Clustering schema dialog: schema name Pentaho, port 40000, buffer size 2000, flush interval 5000, compression selected, and the three slave servers with Master marked Y"><figcaption><p>Pentaho Cluster schema</p></figcaption></figure>
 
-3. Create a run configuration for the cluster: right-click **Run configurations**, select **New**, and enter the details below, with the **Pentaho** engine selected.
+4. Select **OK**.
+5. Right-click **Run configurations** and select **New...**.
+6. Set **Name** to `Clustered`, and optionally **Description** to `Run on cluster`. Leave **Engine** as **Pentaho**.
+7. Under **Settings**, select **Slave server**, and set **Location** to `Clustered`.
+8. Select **Log remote execution locally** and **Show transformations**. **Show transformations** opens the transformation generated for each node, which shows how the work was split.
+9. Select **OK**.
 
-<figure><img src="../_assets/images/clustered-dialog.png" alt="Clustered - Run configuration"><figcaption><p>Clustered - Run configuration</p></figcaption></figure>
+<figure><img src="../_assets/images/clustered-dialog.png" alt="Run configuration dialog: name Clustered, engine Pentaho, Slave server selected, Location Clustered, Log remote execution locally and Show transformations selected"><figcaption><p>Clustered - Run configuration</p></figcaption></figure>
 
-> **Note:** The logs can be kept on this machine. **Show transformations** opens the transformations generated for each node, which shows how the work was split.
+### 3.3 Run on the cluster
 
-### 3.3 Clustered
+> **Note:**
+>
+> #### Clustered steps
+>
+> A step assigned to a cluster schema runs on each slave server in it that is not the master; the steps you leave unassigned run on the master. This schema is static: it lists its servers. A dynamic one gets the list of slave servers from the first master it can contact, and that master monitors which slaves are available.
 
-> **Note:** A Carte cluster consists of two or more Carte slave servers and a Carte master server. A Carte server is a lightweight web service that can execute jobs and transformations remotely. A Carte cluster can speed up the processing of transformations by distributing the work across multiple Carte slave nodes, while the Carte master node tracks the progress. A Carte cluster can be static or dynamic. A static Carte cluster has a fixed schema that specifies the nodes in advance. A dynamic Carte cluster allows you to add or remove nodes at runtime.
-> 
+1. On the canvas, right-click **gr_hello-world** and select **Clusters...**.
 
-1. Right-click the **Hello World** step and select **Clusters...**.
+<figure><img src="../_assets/images/clusters.png" alt="The step's right-click menu on the canvas, with Clusters... at the bottom"><figcaption><p>Clusters</p></figcaption></figure>
 
-<figure><img src="../_assets/images/clusters.png" alt="Clusters"><figcaption><p>Clusters</p></figcaption></figure>
+2. In the **Cluster schema** dialog, select `Pentaho`, and select **OK**.
 
-2. Select the `Pentaho` cluster schema.
+<figure><img src="../_assets/images/pentaho-cluster.png" alt="The Cluster schema dialog: Select the cluster schema to use (cancel=clear), with Pentaho selected"><figcaption><p>Pentaho - Cluster schema</p></figcaption></figure>
 
-<figure><img src="../_assets/images/pentaho-cluster.png" alt="Pentaho - Cluster schema"><figcaption><p>Pentaho - Cluster schema</p></figcaption></figure>
+> **Success:** Checkpoint: **gr_hello-world** shows `Cx2` above its icon: it runs on the two slaves that are not the master. **Dummy (do nothing)** has no mark: it runs on the master.
 
-> **Note:** Notice that the step will indicate the number of Slave nodes it will be executed on.
+<figure><img src="../_assets/images/clustered-slave-nodes.png" alt="The canvas: the Generate Rows step marked Cx2, hopped to Dummy (do nothing)"><figcaption><p>The step shows its slave-node count</p></figcaption></figure>
 
-<figure><img src="../_assets/images/clustered-slave-nodes.png" alt="The Hello World step marked with the number of slave nodes it runs on"><figcaption><p>The step shows its slave-node count</p></figcaption></figure>
+3. Press `F9` (**Action > Run**). In the **Run Options** dialog, set **Run configuration** to `Clustered`, and select **Run**.
 
-3. Run the transformation with the **Clustered** run configuration.
+<figure><img src="../_assets/images/clustered-run-configuration.png" alt="The Run Options dialog with the Run configuration list open and Clustered selected"><figcaption><p>Run configuration - Clustered</p></figcaption></figure>
 
-<figure><img src="../_assets/images/clustered-run-configuration.png" alt="Run configuration - Clustered"><figcaption><p>Run configuration - Clustered</p></figcaption></figure>
+4. Spoon opens a tab for each generated transformation (the master's, Slave A's and Slave B's) and a **Slave server** tab for each node. Select the tab of the transformation generated for Slave A: its note reads `This is a generated slave transformation. It will be run on slave server: Slave A`.
+5. Hover over the small square at the end of the step's outgoing hop. The tooltip lists the step's **Remote output steps**: from Slave A to **Dummy (do nothing)** on the master, through `localhost:40000`.
 
-> **Note:** Spoon opens a set of tabs for each node, with the transformation generated for it and its metrics.
+<figure><img src="../_assets/images/metadata-trans-slave-a.png" alt="The transformation generated for Slave A: the Cx2 step alone, a note naming Slave A, and a tooltip listing the remote output step localhost:40000 to Master's Dummy (do nothing)"><figcaption><p>Metadata transformation: Slave A</p></figcaption></figure>
 
-4. Look at the tabs (the example below is for Slave A).
+6. Select the **Slave server: Slave A** tab. It shows the step that ran on Slave A and the rows it sent on.
 
-<figure><img src="../_assets/images/metadata-trans-slave-a.png" alt="The transformation generated for Slave A"><figcaption><p>Metadata transformation: Slave A</p></figcaption></figure>
+<figure><img src="../_assets/images/metrics-slave-a.png" alt="The Slave server: Slave A tab: the generated transformation and its step Finished, with its log below"><figcaption><p>Metrics - Slave A</p></figcaption></figure>
 
-> **Note:** Here you can see that the records are streamed from Slave node A back to the Master node.
+> **Success:** Checkpoint: the transformation is **Finished** on all three nodes. On **Slave server: Slave A**, **gr_hello-world** shows **Output** 10; on **Slave server: Slave B**, also **Output** 10; on **Slave server: Master**, **Dummy (do nothing)** shows **Input** 20. The rows left each slave over a socket, which counts as output there and as input on the master. Each slave ran its own copy of the 10-row generator, so the master received 20 rows, not 10: clustering an input step that is not partitioned repeats its data on every slave.
 
-<figure><img src="../_assets/images/metrics-slave-a.png" alt="Metrics - Slave A"><figcaption><p>Metrics - Slave A</p></figcaption></figure>
+7. Look at Slave A's terminal. It logged the generated transformation: the step took its socket on port `40000`, sent its rows to the master, and finished.
 
-> **Note:** The metrics indicate that Slave Node A ingested the records.
-
-<figure><img src="../_assets/images/logs-slave-a.png" alt="Logs - Slave A"><figcaption><p>Logs - Slave A</p></figcaption></figure>
-
-> **Note:** The Logs indicate Slave A successfully read the transformation metadata dispatched from the Master node and executed the step, streaming the resulting dataset back to the Master node.
+<figure><img src="../_assets/images/logs-slave-a.png" alt="Slave A's terminal: Dispatching started for the generated transformation, the step's server socket on port 40000 reading from server Master, then Finished processing"><figcaption><p>Logs - Slave A</p></figcaption></figure>
 
 > **Under the hood:**
 >
-> #### The engine rewrote your transformation into one per node
+> #### Spoon split the transformation and posted each piece to its node
 >
-> Marking a step as clustered told the master to split the
-> transformation before running it. For each slave it generated a
-> **metadata transformation** — the extra tabs you saw — containing
-> only the clustered step plus **Socket reader** and **Socket writer**
-> steps inserted at the boundaries where rows must cross machines. The
-> master's own copy got the non-clustered steps and the matching
-> socket ends. Each slave received its slice over HTTP exactly as in
-> the previous tab, and rows then flowed between nodes over TCP on
-> ports allocated from the cluster schema's base port.
+> The split happens in Spoon, the client, not on the master. With the
+> *Clustered* configuration, Spoon read the cluster schema and rewrote
+> the transformation in memory: one transformation for the master, with
+> the steps that are not clustered, and one for each slave, with the
+> clustered step. Where rows must cross between nodes it attached a
+> remote output to the sending step and a matching remote input to the
+> receiving one: the tooltip you hovered over. Spoon then posted each
+> piece over HTTP to its own Carte, exactly as in 3.1, started them all,
+> and monitored all three. The rows moved between the nodes directly,
+> over TCP sockets on ports counted up from the schema's `40000`.
 >
-> The generated transformations are ordinary transformations: the Logs
-> tab on Slave A is that node running its slice, and its metrics are
-> its socket writer sending rows back to the master.
+> The generated transformations are ordinary transformations: the
+> terminal on Slave A shows that node running its piece, and the master
+> runs its own piece, **Dummy (do nothing)** reading what the slaves send.
 >
-> **Why it matters:** you scaled a step across two machines by
-> right-clicking it. The partitioning, the network plumbing and the
-> reassembly were generated, and the original `.ktr` is unchanged —
-> remove the cluster assignment and it runs locally again.
+> **Why it matters:** you scaled a step across two servers by
+> right-clicking it. The split, the network plumbing and the reassembly
+> were generated at run time; the transformation you designed changed
+> by one cluster assignment, nothing more.
+
+8. When you have finished, close the transformation without saving it: select **File > Close** (`Ctrl+W`), and select **No** when Spoon asks whether to save it. Your Hello World transformation stays as it was.
+9. Stop each Carte server: press `Ctrl+C` in its terminal.
 
 :::
 

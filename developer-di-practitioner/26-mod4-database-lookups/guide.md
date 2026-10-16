@@ -14,7 +14,7 @@
 > * Route failed lookups to the log with error handling, or drop them
 > * Handle multiple matches with **Fail on multiple results?** and **Order by**
 > 
-> **Prerequisites:** [Review Lookups](../topic-mod4-lookups-review/guide.md); [Database Join](../22-mod4-database-join/guide.md), whose search rows this workshop reuses
+> **Prerequisites:** [Review Lookups](../topic-mod4-lookups-review/guide.md); [Database Join](../22-mod4-database-join/guide.md), whose search rows this workshop reuses; the `MySQL:sampledata` connection from [Connecting to Database](../12-mod3-connecting-to-database/guide.md)
 > 
 > **Estimated time:** 30 minutes
 
@@ -29,10 +29,6 @@
 
 <figure><img src="../_assets/images/database-lookup-2.png" alt="Pentaho Data Integration title card: Database Lookup"><figcaption><p>Database Lookup</p></figcaption></figure>
 
-> **Note:** **Create a new transformation**
-> 
-> Select **File > New > Transformation**, or press `Ctrl+N` (`Cmd+N` on macOS). Save it as `tr_database_lookup.ktr` in the lab folder, `C:\Workshop-DI-Practitioner\04-enriching-the-dataset\03-lookups\26-mod4-database-lookups`.
-
 :::: tabs
 
 ### 1. Data grid
@@ -43,37 +39,54 @@
 > 
 > The same three searches as [Database Join](../22-mod4-database-join/guide.md): a product name and a maximum buy price.
 
-1. Start Spoon.
+1. Start Spoon with the **Start PDI** button below, or from a terminal:
 
 ::: tabs
 
 ### Windows (PowerShell)
 
-> 
-> ```powershell
-> Set-Location C:\Pentaho\design-tools\data-integration
-> .\spoon.bat
-> ```
-> 
->
+```powershell
+Set-Location C:\Pentaho\design-tools\data-integration
+.\spoon.bat
+```
 
 ### macOS / Linux
 
-> 
-> ```bash
-> cd ~/Pentaho/design-tools/data-integration
-> ./spoon.sh
-> ```
-> 
->
+```bash
+cd ~/Pentaho/design-tools/data-integration
+./spoon.sh
+```
 
 :::
 
 <button data-launch="spoon" data-path="">Start PDI</button>
 
-2. From the **Input** folder, drag **Data grid** onto the canvas and name it `some conditions`. On **Meta** add `prod` (String) and `max_price` (Integer); on **Data** enter `Aston Martin` 90, `Ford Falcon` 70 and `Corvette` 70.
+2. Select **File > New > Transformation** (`Ctrl+N`).
+3. Select **File > Save as** and save it as `tr_database_lookup.ktr` in `C:\Workshop-DI-Practitioner\04-enriching-the-dataset\03-lookups\26-mod4-database-lookups`.
+4. On the **Design** tab, open the **Input** folder and drag **Data grid** onto the canvas.
+5. Double-click **Data grid**. Set **Step name** to `some conditions`.
+6. On the **Meta** tab, fill the grid:
+
+   | Name        | Type    |
+   | ----------- | ------- |
+   | `prod`      | String  |
+   | `max_price` | Integer |
+
+7. Open the **Data** tab and fill the grid:
+
+   | prod           | max_price |
+   | -------------- | --------- |
+   | `Aston Martin` | `90`      |
+   | `Ford Falcon`  | `70`      |
+   | `Corvette`     | `70`      |
 
 <div><figure><img src="../_assets/images/dg-database-join.png" alt="Data grid Meta tab with prod String and max_price Integer"><figcaption><p>Meta tab</p></figcaption></figure> <figure><img src="../_assets/images/dg-database-join-data.png" alt="Data grid Data tab with the three search rows"><figcaption><p>Data tab</p></figcaption></figure></div>
+
+8. Select **Preview**, then **OK** in **Enter the preview size**.
+
+> **Success:** Checkpoint: **Examine preview data** shows the 3 rows you typed.
+
+9. Select **Close**, then **OK**.
 
 ### 2. User defined Java expression
 
@@ -83,12 +96,24 @@
 > 
 > **User defined Java expression** calculates new fields with Java expressions, one per field, with the row's fields available by name. Here it wraps the product name in `%` signs, the wildcards a SQL `LIKE` needs.
 
-1. From the **Scripting** folder, drag **User defined Java expression** onto the canvas, name it `like_statement`, and hop **some conditions** to it.
-2. Add one field: **New field** `like_statement`, **Java expression** `"%"+prod+"%"`, **Value type** String.
+1. On the **Design** tab, open the **Scripting** folder and drag **User defined Java expression** onto the canvas.
+2. Create a hop from **some conditions** to **User defined Java expression**: hold `Shift` and drag from one step to the other.
+3. Double-click **User defined Java expression**. Set **Step name** to `like_statement`.
+4. Fill the **Fields** grid with one row:
+
+   | New field        | Java expression | Value type |
+   | ---------------- | --------------- | ---------- |
+   | `like_statement` | `"%"+prod+"%"`  | String     |
+
+5. Select **OK**.
 
 <figure><img src="../_assets/images/like-statement.png" alt="User defined Java expression: like_statement = &quot;%&quot;+prod+&quot;%&quot;, String" width="563"><figcaption><p>Aston Martin becomes %Aston Martin%</p></figcaption></figure>
 
-> **Success:** Checkpoint: the preview shows `%Aston Martin%`, `%Ford Falcon%` and `%Corvette%`.
+6. Select **like_statement** on the canvas, press `F10` (**Action > Preview**), and select **Quick Launch**.
+
+> **Success:** Checkpoint: 3 rows, with `like_statement` `%Aston Martin%`, `%Ford Falcon%` and `%Corvette%`.
+
+7. Select **Close**.
 
 ### 3. Database lookup
 
@@ -102,39 +127,39 @@
 
 ### 3.1 Simple
 
-1. From the **Lookup** folder, drag **Database lookup** onto the canvas, name it `Database lookup (simple)`, and hop **like_statement** to it.
-2. Set **Connection** `MySQL:sampledata` and **Lookup table** `PRODUCTS`. Leave **Enable cache?** clear.
-3. In **The key(s) to look up the value(s)**, add two rows:
+1. On the **Design** tab, open the **Lookup** folder and drag **Database lookup** onto the canvas.
+2. Create a hop from **like_statement** to **Database lookup**.
+3. Double-click **Database lookup**. Set **Step name** to `Database lookup (simple)`.
+4. Set **Connection** to `MySQL:sampledata` and **Lookup table** to `PRODUCTS`. Leave **Enable cache?** cleared.
+5. Fill the **The key(s) to look up the value(s)** grid:
 
-| Table field   | Comparator | Field1           |
-| ------------- | ---------- | ---------------- |
-| `BUYPRICE`    | `<`        | `max_price`      |
-| `PRODUCTNAME` | `LIKE`     | `like_statement` |
+   | Table field   | Comparator | Field1           |
+   | ------------- | ---------- | ---------------- |
+   | `BUYPRICE`    | `<`        | `max_price`      |
+   | `PRODUCTNAME` | `LIKE`     | `like_statement` |
 
-4. In **Values to return from the lookup table**, add `PRODUCTNAME` with **Default** `not available`, then `PRODUCTSCALE` and `BUYPRICE`.
+6. Fill the **Values to return from the lookup table** grid. Leave **New name** empty.
+
+   | Field          | Default         | Type    |
+   | -------------- | --------------- | ------- |
+   | `PRODUCTNAME`  | `not available` | String  |
+   | `PRODUCTSCALE` |                 | String  |
+   | `BUYPRICE`     |                 | Integer |
+
+7. Select **OK**.
 
 <figure><img src="../_assets/images/databse-lookup-simple.png" alt="Database lookup (simple): lookup table PRODUCTS, keys BUYPRICE less than max_price and PRODUCTNAME LIKE like_statement, three return values"><figcaption><p>Two key conditions, three return values</p></figcaption></figure>
 
-5. Save, run, and preview **Database lookup (simple)**.
-
-> **Success:** Checkpoint: one row out for each row in, 3 in all.
->
-> | prod           | PRODUCTNAME               | PRODUCTSCALE | BUYPRICE |
-> | -------------- | ------------------------- | ------------ | -------- |
-> | `Aston Martin` | 1965 Aston Martin DB5     | 1:18         | 65.96    |
-> | `Ford Falcon`  | `not available`           | (null)       | (null)   |
-> | `Corvette`     | 1957 Corvette Convertible | 1:18         | 69.93    |
->
-> Ford Falcon has no product under 70, so it gets the default. Corvette has three, and the lookup returns the first the database sends back.
+The screenshot shows an older connection name, `Sampledata`; yours is `MySQL:sampledata`.
 
 > **Under the hood:**
 >
 > #### Cache off: one query per row. Cache on: a hash table
 >
-> As configured, **Database lookup** prepared `SELECT PRODUCTNAME,
+> As configured, **Database lookup** prepares `SELECT PRODUCTNAME,
 > PRODUCTSCALE, BUYPRICE FROM PRODUCTS WHERE BUYPRICE < ? AND
-> PRODUCTNAME LIKE ?` once and executed it for every incoming row,
-> taking the first row the database returned and adding its columns
+> PRODUCTNAME LIKE ?` once and executes it for every incoming row,
+> taking the first row the database returns and adding its columns
 > (or your defaults) to the stream. Three rows, three round trips:
 > harmless here, ruinous at a million.
 >
@@ -147,57 +172,124 @@
 > here.
 >
 > **Why it matters:** the same step is a per-row query or an in-memory
-> join depending on two checkboxes. For a reference table that fits in
+> join depending on two check boxes. For a reference table that fits in
 > memory and an equality key, "load all" turns an hour into seconds.
+
+8. Save the transformation (`Ctrl+S`).
+9. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
+10. Select **Database lookup (simple)** on the canvas and open the **Preview data** tab.
+
+> **Success:** Checkpoint: one row out for each row in, 3 in all.
+>
+> | prod           | PRODUCTNAME | PRODUCTSCALE | BUYPRICE |
+> | -------------- | ----------- | ------------ | -------- |
+> | `Aston Martin` | `1965 Aston Martin DB5` | `1:18` | `65.96` |
+> | `Ford Falcon`  | `not available` | no value | no value |
+> | `Corvette`     | `1957 Corvette Convertible` | `1:18` | `69.93` |
+>
+> Ford Falcon has no product under 70 (the one Falcon in `PRODUCTS` costs 83.05), so it gets the default. Corvette has three, and the lookup returns the first the database sends back. `BUYPRICE` keeps its decimals although its **Type** is Integer: the value read from the table keeps the database column's type.
 
 ### 3.2 Error handling
 
-1. Add a second **Database lookup**, `Database lookup (with error handling)`, configured as the first. Hop **like_statement** to it; when Spoon asks, choose **Copy**, so each lookup step gets every row rather than a share of them.
-2. Add a **Write to log** step from the **Utility** folder.
-3. Right-click the new lookup step, select **Error Handling...**, select **Enable the error handling?** and set the **Target step** to **Write to log**.
-4. Disable the hop to **Database lookup (simple)**, then save and run.
+1. Drag a second **Database lookup** onto the canvas and create a hop from **like_statement** to it. When Spoon asks, select **Copy**, so each lookup step gets every row rather than a share of them.
+2. Double-click the new step. Set **Step name** to `Database lookup (with error handling)` and configure it as in steps 4 to 6 of 3.1. Select **OK**.
+3. On the **Design** tab, open the **Utility** folder and drag **Write to log** onto the canvas.
+4. Create a hop from **Database lookup (with error handling)** to **Write to log** and select **Error handling of step**.
+5. Right-click **Database lookup (with error handling)** and select **Error Handling...**. Check that **Target step** is **Write to log** and **Enable the error handling?** is selected, then set the field names:
+
+   | Setting                          | Value           |
+   | -------------------------------- | --------------- |
+   | **Nr of errors fieldname**       | `err_num`       |
+   | **Error descriptions fieldname** | `err_descrip`   |
+   | **Error fields fieldname**       | `err_fieldname` |
+   | **Error codes fieldname**        | `err_code`      |
+
+6. Select **OK**.
+7. Double-click **Write to log**. Clear **Print header**.
+8. Click in **Log message**, press `Enter` once, and type these two lines:
+
+   ```text
+   ==================================
+   no productname matches that price
+   ```
+
+9. Fill the **Fields** grid with three rows: `prod`, `max_price` and `like_statement`.
+10. Select **OK**.
+11. Right-click the hop from **like_statement** to **Database lookup (simple)** and select **Disable**.
+12. Save the transformation (`Ctrl+S`).
+13. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
+14. In **Execution Results**, open the **Logging** tab.
 
 <figure><img src="../_assets/images/results-error-handling.png" alt="Logging tab with the Write to log output for the Ford Falcon row"><figcaption><p>The failed lookup, in the log</p></figcaption></figure>
 
+> **Success:** Checkpoint: with error handling on, a lookup that finds nothing is an error. **Write to log** prints your message, then the Ford Falcon row's values: `Ford Falcon`, `70` and `%Ford Falcon%`.
+
+15. Select **Database lookup (with error handling)** on the canvas and open the **Preview data** tab.
+
 <figure><img src="../_assets/images/lookup-error.png" alt="Preview of Database lookup (with error handling): Aston Martin and Corvette only"><figcaption><p>Only the found rows carry on</p></figcaption></figure>
 
-> **Success:** Checkpoint: with error handling on, a lookup that finds nothing is an error. The Ford Falcon row goes to **Write to log** (it appears in the **Logging** tab), and the step passes on 2 rows: Aston Martin and Corvette.
+> **Success:** Checkpoint: 2 rows, Aston Martin and Corvette, with the values the simple lookup found. The Ford Falcon row went to **Write to log** instead.
 
 ### 3.3 Do not pass
 
-1. Add a third **Database lookup**, `Database lookup (do not pass)`, configured as the first, and select **Do not pass the row if the lookup fails**. Hop **like_statement** to it (choose **Copy**).
-2. Disable the other two lookup hops, then save, run and preview it.
+1. Drag a third **Database lookup** onto the canvas and create a hop from **like_statement** to it. If Spoon asks, select **Copy**.
+2. Double-click the new step. Set **Step name** to `Database lookup (do not pass)` and configure it as in steps 4 to 6 of 3.1, but leave **Default** empty for `PRODUCTNAME`.
+3. Select **Do not pass the row if the lookup fails**, then select **OK**.
+4. Right-click the hop from **like_statement** to **Database lookup (with error handling)** and select **Disable**.
+5. Save the transformation (`Ctrl+S`).
+6. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
+7. Select **Database lookup (do not pass)** on the canvas and open the **Preview data** tab.
 
 > **Success:** Checkpoint: 2 rows, Aston Martin and Corvette. The Ford Falcon row is dropped, silently: no default, no error.
 
 ### 3.4 Several matches
 
-**Database lookup** is meant to find one row per input row. When the table has several (Corvette matches three products under 70), you choose what happens:
+**Database lookup** is meant to find one row per input row. When the table has several (Corvette matches three products under 70), you choose what happens: fail, or decide which row comes first.
 
-* **Fail on multiple results?** selected: the row is an error. Without error handling the step stops with "Only 1 row was expected as a result of a lookup, and at least 2 were found!"; with error handling, like 3.2, the Corvette row goes to **Write to log** alongside Ford Falcon.
-* **Fail on multiple results?** clear: the step returns the first row, so decide which with **Order by**. With `PRODUCTSCALE DESC, PRODUCTNAME`, Corvette returns `1958 Chevy Corvette Limited Edition` (scale 1:24) instead of the 1957 Convertible.
+1. Right-click the hop from **like_statement** to **Database lookup (do not pass)** and select **Disable**.
+2. Right-click the hop from **like_statement** to **Database lookup (simple)** and select **Enable**.
+3. Double-click **Database lookup (simple)**. Select **Fail on multiple results?**, then select **OK**. **Order by** is grayed out while it is selected: the two settings are alternatives.
+4. Save the transformation (`Ctrl+S`).
+5. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
 
-To get *all* the matching rows, use [Database Join](../22-mod4-database-join/guide.md) instead: it returns every row the query finds.
+> **Success:** Checkpoint: the run stops with an error on **Database lookup (simple)**, at the Corvette row. The **Logging** tab shows `Only 1 row was expected as a result of a lookup, and at least 2 were found!`
+
+6. Double-click **Database lookup (simple)**. Clear **Fail on multiple results?** and set **Order by** to `PRODUCTSCALE DESC, PRODUCTNAME`. Select **OK**.
+7. Save the transformation (`Ctrl+S`).
+8. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
+9. Select **Database lookup (simple)** on the canvas and open the **Preview data** tab.
+
+> **Success:** Checkpoint: the Corvette row now returns `1958 Chevy Corvette Limited Edition`, scale `1:24`, with **BUYPRICE** `15.91`. Scale `1:24` sorts before `1:18` in descending order, and of the two 1:24 Corvettes, its name sorts first.
+
+10. Double-click **Database lookup (simple)**, delete the contents of **Order by**, and select **OK**. The step is back as the solution has it.
+
+With error handling, as in 3.2, **Fail on multiple results?** sends the Corvette row to **Write to log** alongside Ford Falcon instead of stopping the run. To get *all* the matching rows, use [Database Join](../22-mod4-database-join/guide.md) instead: it returns every row the query finds.
 
 :::
 
 ::::
 
+## Troubleshooting <!-- no-step -->
+
 <details>
 
-<summary>Troubleshooting</summary>
+<summary>Each lookup step previews only some of the rows</summary>
 
-**Each lookup step previews only some of the rows**\
 The hops from `like_statement` distribute rows instead of copying them. Right-click **like_statement**, select **Data Movement**, then **Copy Data to Next Steps**.
 
-**Every row gets the default value**\
+</details>
+
+<details>
+
+<summary>Every row gets the default value</summary>
+
 Check the key rows: `BUYPRICE` `<` `max_price`, and `PRODUCTNAME` `LIKE` `like_statement` (with its `%` signs).
 
 </details>
 
 ## Lab Files
 
-Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches PDI with the file loaded. If PDI is already running, the path is copied to your clipboard — switch to PDI and use Ctrl+O, Ctrl+V, Enter.
+Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches PDI with the file loaded. If PDI is already running, the path is copied to your clipboard — switch to PDI and press `Ctrl+O`, `Ctrl+V`, `Enter`.
 
 ### Solution <!-- no-step -->
 

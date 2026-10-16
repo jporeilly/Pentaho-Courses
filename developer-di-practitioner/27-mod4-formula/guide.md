@@ -26,10 +26,6 @@
 </div>
 </figure>
 
-> **Note:** **Create a new transformation**
-> 
-> Select **File > New > Transformation**, or press `Ctrl+N` (`Cmd+N` on macOS). Save it as `tr_formula.ktr` in the lab folder, `C:\Workshop-DI-Practitioner\04-enriching-the-dataset\04-scripting\27-mod4-formula`.
-
 :::: tabs
 
 ### 1. Generate rows
@@ -40,40 +36,48 @@
 > 
 > **Generate rows** outputs a set number of rows, each with the same fixed values. It is mostly for tests, or for one row that starts a flow, such as a row of parameters for a query.
 
-1. Start Spoon.
+1. Start Spoon with the **Start PDI** button below, or from a terminal:
 
 ::: tabs
 
 ### Windows (PowerShell)
 
-> 
-> ```powershell
-> Set-Location C:\Pentaho\design-tools\data-integration
-> .\spoon.bat
-> ```
-> 
->
+```powershell
+Set-Location C:\Pentaho\design-tools\data-integration
+.\spoon.bat
+```
 
 ### macOS / Linux
 
-> 
-> ```bash
-> cd ~/Pentaho/design-tools/data-integration
-> ./spoon.sh
-> ```
-> 
->
+```bash
+cd ~/Pentaho/design-tools/data-integration
+./spoon.sh
+```
 
 :::
 
 <button data-launch="spoon" data-path="">Start PDI</button>
 
-2. From the **Input** folder, drag **Generate rows** onto the canvas and name it `Generate Rows`.
-3. Double-click it. Set **Limit** to `1` and add two fields, `a` (Integer, **Value** `1`) and `b` (Integer, **Value** `2`).
+2. Select **File > New > Transformation** (`Ctrl+N`).
+3. Select **File > Save as** and save it as `tr_formula.ktr` in `C:\Workshop-DI-Practitioner\04-enriching-the-dataset\04-scripting\27-mod4-formula`.
+4. On the **Design** tab, open the **Input** folder and drag **Generate rows** onto the canvas.
+5. Double-click **Generate rows**. Set **Step name** to `Generate Rows` and **Limit** to `1`.
+6. Fill the **Fields** grid:
+
+   | Name | Type    | Value |
+   | ---- | ------- | ----- |
+   | `a`  | Integer | `1`   |
+   | `b`  | Integer | `2`   |
 
 <figure><img src="../_assets/images/gr-formula1.png" alt="Generate rows with limit 1 and the fields a = 1 and b = 2"><figcaption><p>One row: a = 1, b = 2</p></figcaption></figure>
 
-### 2. Formula
+7. Select **Preview**, then **OK** in **Enter preview size**.
+
+> **Success:** Checkpoint: **Examine preview data** shows 1 row: `a` 1, `b` 2.
+
+8. Select **Close**, then **OK**.
+
+### 2. Workflow 1: A Sum
 
 > **Note:**
 >
@@ -81,29 +85,55 @@
 > 
 > Each row of the **Formula** step's grid creates a **New field** from a **Formula**. Fields of the row are written in square brackets, `[a]`, and functions take their arguments separated by semicolons: `IF(condition; then; else)`.
 
-**Workflow 1: a sum**
+1. On the **Design** tab, open the **Scripting** folder and drag **Formula** onto the canvas.
+2. Create a hop from **Generate Rows** to **Formula**: hold `Shift` and drag from one step to the other.
+3. Double-click **Formula**. Set **Step name** to `Formula [a]+[b]`.
+4. Fill the **Fields** grid with one row:
 
-1. From the **Scripting** folder, drag **Formula** onto the canvas, name it `Formula [a]+[b]`, and hop **Generate Rows** to it.
-2. Add **New field** `result`, **Formula** `[a]+[b]`, **Value type** Number.
+   | New field | Formula   | Value type |
+   | --------- | --------- | ---------- |
+   | `result`  | `[a]+[b]` | Number     |
+
+5. Select **OK**.
 
 <figure><img src="../_assets/images/formula-1.png" alt="Formula step: result = [a]+[b], Number"><figcaption><p>result = [a]+[b]</p></figcaption></figure>
 
-3. Save, run and preview **Formula [a]+[b]**.
+6. Save the transformation (`Ctrl+S`).
+7. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
+8. Select **Formula [a]+[b]** on the canvas and open the **Preview data** tab.
 
-> **Success:** Checkpoint: one row, `a` 1, `b` 2, `result` 3.0.
+> **Success:** Checkpoint: one row: `a` 1, `b` 2, and `result` 3.
 
-**Workflow 2: a condition**
+### 3. Workflow 2: A Condition
 
-1. Add a second **Generate rows**, `Generate Rows 2`, with `a` and `b` as before and a third field, `booking_type` (String, **Value** `R`).
-2. Add a second **Formula**, `IF Formula b-a`, hopped from **Generate Rows 2**: **New field** `result`, **Formula** `IF([booking_type]="R";[b]-[a])`, **Value type** Number.
+> **Note:**
+>
+> #### IF
+> 
+> `IF` returns its second argument when the condition is true, and its third when it is false. This first version gives it only two.
+
+1. Drag a second **Generate rows** onto the canvas. Double-click it, and set **Step name** to `Generate Rows 2` and **Limit** to `1`.
+2. Fill the **Fields** grid, then select **OK**:
+
+   | Name           | Type    | Value |
+   | -------------- | ------- | ----- |
+   | `a`            | Integer | `1`   |
+   | `b`            | Integer | `2`   |
+   | `booking_type` | String  | `R`   |
+
+3. Drag a second **Formula** onto the canvas, and create a hop from **Generate Rows 2** to it.
+4. Double-click the new step. Set **Step name** to `IF Formula b-a`.
+5. Fill the **Fields** grid with one row:
+
+   | New field | Formula                          | Value type |
+   | --------- | -------------------------------- | ---------- |
+   | `result`  | `IF([booking_type]="R";[b]-[a])` | Number     |
+
+6. Select **OK**.
 
 <figure><img src="../_assets/images/formula-2.png" alt="Formula step: result = IF([booking_type]=&quot;R&quot;;[b]-[a]), Number"><figcaption><p>A conditional formula</p></figcaption></figure>
 
-3. Save, run and preview **IF Formula b-a**.
-
-> **Success:** Checkpoint: `result` is 1.0, `b` minus `a`, because `booking_type` is `R`.
-
-> **Warning:** **Give IF all three arguments.** This formula has no *else*. Set `booking_type` to `X` and run it: `IF` returns FALSE, a Boolean, and the step stops with "Please specify a Boolean type for field [result]". Write the value for other rows as the third argument, for example `IF([booking_type]="R";[b]-[a];0)`.
+The screenshot shows `[b]+[a]`; type `[b]-[a]`, as the step's name says.
 
 > **Under the hood:**
 >
@@ -127,13 +157,43 @@
 > **Why it matters:** most business logic (conditional pricing, derived
 > flags, string assembly) fits in a Formula step, without a script.
 
+7. Save the transformation (`Ctrl+S`).
+8. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
+9. Select **IF Formula b-a** on the canvas and open the **Preview data** tab.
+
+> **Success:** Checkpoint: `result` is 1, `b` minus `a`, because `booking_type` is `R`.
+
+### 4. Give IF All Three Arguments
+
+> **Note:**
+>
+> #### When the condition is false
+> 
+> The formula has no third argument, so `IF` has no value to return for a row whose `booking_type` isn't `R`. The OpenFormula specification says it then returns FALSE, a Boolean, which the Number field `result` can't hold.
+
+1. Double-click **Generate Rows 2**. Set the **Value** of `booking_type` to `X`, then select **OK**.
+2. Save the transformation (`Ctrl+S`).
+3. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
+4. In **Execution Results**, open the **Logging** tab.
+
+> **Success:** Checkpoint: the run fails on **IF Formula b-a**. The log shows `Please specify a Boolean type for field [result] as a result of formula [IF([booking_type]="R";[b]-[a])]`.
+
+5. Double-click **IF Formula b-a**. Change **Formula** to `IF([booking_type]="R";[b]-[a];0)`, then select **OK**.
+6. Save the transformation (`Ctrl+S`).
+7. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
+8. Select **IF Formula b-a** on the canvas and open the **Preview data** tab.
+
+> **Success:** Checkpoint: the run succeeds, and `result` is 0: the condition is false, so `IF` returns its third argument.
+
+9. Double-click **Generate Rows 2**, set the **Value** of `booking_type` back to `R`, and select **OK**. A run now gives `result` 1 again. In your own formulas, give every `IF` its third argument.
+
 <div class="pcm-embed-card" data-href="http://docs.oasis-open.org/office/v1.2/OpenDocument-v1.2-part2.html" data-title="OpenDocument formula specification (OASIS)"></div>
 
 ::::
 
 ## Lab Files
 
-Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches PDI with the file loaded. If PDI is already running, the path is copied to your clipboard — switch to PDI and use Ctrl+O, Ctrl+V, Enter.
+Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches PDI with the file loaded. If PDI is already running, the path is copied to your clipboard — switch to PDI and press `Ctrl+O`, `Ctrl+V`, `Enter`.
 
 ### Solution <!-- no-step -->
 

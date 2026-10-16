@@ -858,7 +858,7 @@ ORDER BY PRODUCTCODE
     <length/>
     <add_to_result_filenames>N</add_to_result_filenames>
     <file>
-      <name>${Internal.Transformation.Filename.Directory}\orders_update.txt</name>
+      <name>${Internal.Entry.Current.Directory}/orders_update.txt</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>

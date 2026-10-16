@@ -27,58 +27,56 @@
 | Fraud Detection          | lookups and joins, rule-based scoring       |
 | Data Lake Ingestion      | three formats, one schema                   |
 
-> **Danger:** Every path in these workshops starts `pvfs://MinIO/`, which means "the VFS connection named **MinIO**". Create it once, before the first workshop.
+## Connect PDI to MinIO
 
-1. Check that MinIO is running and seeded: open the MinIO console at **http://127.0.0.1:9099** and sign in as `minioadmin` / `minioadmin`. The **raw-data** bucket holds `csv/`, `json/`, `xml/` and `finance/` folders, and the **logs** bucket holds `app/`, `web/` and `error/`.
+> **Warning:** Every path in these workshops starts `pvfs://MinIO/`, which means "the VFS connection named **MinIO**". Create it once, before the first workshop. Connection names are case-sensitive: `pvfs://minio/...` doesn't find a connection named `MinIO`.
+
+1. Start Spoon with the **Start PDI** button below, or from a terminal:
+
+::: tabs
+
+### Windows (PowerShell)
+
+```powershell
+Set-Location C:\Pentaho\design-tools\data-integration
+.\spoon.bat
+```
+
+### macOS / Linux
+
+```bash
+cd ~/Pentaho/design-tools/data-integration
+./spoon.sh
+```
+
+:::
+
+<button data-launch="spoon" data-path="">Start PDI</button>
+
+2. Check that MinIO is running and seeded: open the MinIO console at **http://127.0.0.1:9099** and sign in as `minioadmin` / `minioadmin`. The **raw-data** bucket holds `csv/`, `json/`, `xml/` and `finance/` folders, and the **logs** bucket holds `app/`, `web/` and `error/`.
 
    ```powershell
    # Or check the S3 API from PowerShell
    Invoke-WebRequest http://127.0.0.1:9000/minio/health/live -UseBasicParsing | Select-Object StatusCode
    ```
 
-2. Start Spoon.
+3. In Spoon, open the **View** tab, right-click **VFS Connections** and select **New...**. In the **New VFS Connection** dialog, set:
 
-::: tabs
+| Setting                | Value                   |
+| ---------------------- | ----------------------- |
+| **Connection Name**    | `MinIO`                 |
+| **Connection Type**    | Amazon S3/Minio/HCP     |
+| **S3 Connection Type** | Minio/HCP               |
+| **Access Key**         | `minioadmin`            |
+| **Secret Key**         | `minioadmin`            |
+| **Endpoint**           | `http://127.0.0.1:9000` |
+| **PathStyle Access**   | selected                |
 
-### Windows (PowerShell)
+4. Select **Test**.
 
->
-> ```powershell
-> Set-Location C:\Pentaho\design-tools\data-integration
-> .\spoon.bat
-> ```
->
->
+> **Success:** Checkpoint: Spoon reports `Connection was successfully established.`
 
-### macOS / Linux
-
->
-> ```bash
-> cd ~/Pentaho/design-tools/data-integration
-> ./spoon.sh
-> ```
->
->
-
-:::
-
-<button data-launch="spoon" data-path="">Start PDI</button>
-
-3. Create the VFS connection. In Spoon's **View** tab, right-click **VFS Connections** and select **New**. In the **New VFS Connection** dialog enter:
-
-| Setting                 | Value                   |
-| ----------------------- | ----------------------- |
-| **Connection Name:**    | `MinIO`                 |
-| **Connection Type:**    | Amazon S3/Minio/HCP     |
-| **S3 Connection Type:** | Minio/HCP               |
-| **Access Key:**         | `minioadmin`            |
-| **Secret Key:**         | `minioadmin`            |
-| **Endpoint:**           | `http://127.0.0.1:9000` |
-| **PathStyle Access:**   | selected                |
-
-4. Select **Test**, then **OK**. The connection is saved for every transformation on this machine, so you create it once.
-
-> **Note:** VFS connection names are case-sensitive: `pvfs://minio/...` doesn't find a connection named `MinIO`.
+5. Select **OK**. The connection is saved for every transformation on this machine, so you create it once.
 
 > **Under the hood:**
 >
@@ -95,6 +93,8 @@
 > **Why it matters:** credentials stay out of `.ktr` files, and moving
 > between environments is one connection, not every path.
 
+## The Workshops <!-- no-step -->
+
 Save each transformation in the lab folder, `C:\Workshop-DI-Practitioner\03-data-sources\03-storage\19-mod3-minio`.
 
 ::::: tabs
@@ -109,6 +109,8 @@ Save each transformation in the lab folder, `C:\Workshop-DI-Practitioner\03-data
 >
 > **Skills:** reading from a bucket, **Stream lookup**, **Calculator**, **Formula**, writing to a bucket
 
+<figure><img src="../_assets/images/sales-dashboard.png" alt="The Sales Dashboard transformation: Sales, Products and Customers inputs, two lookups, Calculator, Formula, Add constants, Get system info, Select values and Write to staging"><figcaption><p>What you build</p></figcaption></figure>
+
 > **Note:** **Workshop files**
 >
 > These files are already in MinIO:
@@ -119,13 +121,9 @@ Save each transformation in the lab folder, `C:\Workshop-DI-Practitioner\03-data
 >
 > Output: `pvfs://MinIO/staging/dashboard/sales_fact_<date>_<time>.csv`
 
-<figure><img src="../_assets/images/sales-dashboard.png" alt="The Sales Dashboard transformation: Sales, Products and Customers inputs, two lookups, Calculator, Formula, Add constants, Get system info, Select values and Write to staging"><figcaption><p>What you build</p></figcaption></figure>
-
-Create a new transformation (**File > New > Transformation**) and save it as `sales_dashboard_etl.ktr`.
-
 ::: tabs
 
-### 1. Read the sources
+### 1. Read the Sources
 
 > **Note:**
 >
@@ -133,8 +131,11 @@ Create a new transformation (**File > New > Transformation**) and save it as `sa
 >
 > **Text file input** reads delimited or fixed-width files from disk or, through a VFS connection, from object storage. Here three of them read CSV files from the `raw-data` bucket.
 
-1. From the **Input** folder, drag three **Text file input** steps onto the canvas. Name them `Sales`, `Products` and `Customers`.
-2. In each, on the **File** tab, enter the file in **File or directory** and select **Add**. Or select **Browse** and pick it from the MinIO connection:
+1. Select **File > New > Transformation** (`Ctrl+N`).
+2. Select **File > Save as** and save it as `sales_dashboard_etl.ktr` in `C:\Workshop-DI-Practitioner\03-data-sources\03-storage\19-mod3-minio`.
+3. On the **Design** tab, open the **Input** folder and drag **Text file input** onto the canvas three times.
+4. Double-click each **Text file input** in turn and set **Step name** to `Sales`, `Products` and `Customers`.
+5. In each, on the **File** tab, enter the file in **File or directory** and select **Add**. Or select **Browse** and pick it from the MinIO connection:
 
 | Step        | File                                      |
 | ----------- | ----------------------------------------- |
@@ -144,8 +145,8 @@ Create a new transformation (**File > New > Transformation**) and save it as `sa
 
 <figure><img src="../_assets/images/select-sales-csv-from-vfs-connections.png" alt="Browsing the MinIO connection's raw-data bucket to pick csv/sales.csv"><figcaption><p>Browse the bucket through the connection</p></figcaption></figure>
 
-3. On each **Content** tab, set **Separator** to `,`, keep **Header** selected and set **Format** to `mixed`.
-4. On each **Fields** tab, select **Get Fields**, then check the types:
+6. On each **Content** tab, set **Separator** to `,`, keep **Header** selected and set **Format** to `mixed`.
+7. On each **Fields** tab, select **Get Fields**, select **OK** at **Number of sample lines**, and close the **Scan results**. Check the types:
 
 | Step        | Types to check                                                                                                   |
 | ----------- | ---------------------------------------------------------------------------------------------------------------- |
@@ -157,11 +158,13 @@ Create a new transformation (**File > New > Transformation**) and save it as `sa
 
 <figure><img src="../_assets/images/get-fields-customers.png" alt="Products Fields tab after Get Fields: price as BigNumber, stock_quantity as Integer, last_updated as Date"><figcaption><p>Products fields</p></figcaption></figure>
 
-5. Select **Preview rows** in each.
+8. In each, select **Preview rows**, enter `100` rows, and select **OK**.
 
 > **Success:** Checkpoint: 15 sales (`S001` to `S015`), 18 products (`P001` to `P018`) and 12 customers.
 
-### 2. Look up products and customers
+9. Select **Close**, then **OK**.
+
+### 2. Look Up Products and Customers
 
 > **Note:**
 >
@@ -169,9 +172,10 @@ Create a new transformation (**File > New > Transformation**) and save it as `sa
 >
 > **Stream lookup** adds fields to each main row from a second stream, matched on key fields. The second stream comes from another step in the same transformation, not from a database.
 
-1. From the **Lookup** folder, drag two **Stream lookup** steps onto the canvas. Name them `Product lookup` and `Customers lookup`.
-2. Hop **Sales** and **Products** to **Product lookup**, then **Product lookup** and **Customers** to **Customers lookup**.
-3. Double-click **Product lookup**. Set **Lookup step** to `Products`, add the key **Field** `product_id` = **LookupField** `product_id`, and under **Specify the fields to retrieve** add:
+1. On the **Design** tab, open the **Lookup** folder and drag **Stream lookup** onto the canvas twice. Double-click each in turn, set **Step name** to `Product lookup` and `Customers lookup`, and select **OK**.
+2. Create a hop from **Sales** to **Product lookup**: hold `Shift` and drag from one step to the other. If Spoon shows a menu of hop types, select **Main output of step**.
+3. Create a hop from **Products** to **Product lookup**, from **Product lookup** to **Customers lookup**, and from **Customers** to **Customers lookup**.
+4. Double-click **Product lookup** and set **Lookup step** to `Products`. In **The key(s) to look up the value(s)**, set **Field** to `product_id` and **LookupField** to `product_id`. Fill **Specify the fields to retrieve**:
 
 | Field          | New name           |
 | -------------- | ------------------ |
@@ -181,15 +185,29 @@ Create a new transformation (**File > New > Transformation**) and save it as `sa
 
 <figure><img src="../_assets/images/product-lookup.png" alt="Product lookup: lookup step Products, key product_id, retrieving product_name, category and price"><figcaption><p>Product lookup</p></figcaption></figure>
 
-4. Double-click **Customers lookup**. Set **Lookup step** to `Customers`, key `customer_id` = `customer_id`, and retrieve `first_name`, `last_name`, `country` as `customer_country` and `status` as `customer_status`.
+5. Select **OK**.
+6. Double-click **Customers lookup** and set **Lookup step** to `Customers`, with the key **Field** `customer_id` and **LookupField** `customer_id`. Fill **Specify the fields to retrieve**:
 
-<figure><img src="../_assets/images/customers-lookup.png" alt="Customers lookup: lookup step Customers, key customer_id, retrieving names, country and status"><figcaption><p>Customers lookup</p></figcaption></figure>
+| Field        | New name           |
+| ------------ | ------------------ |
+| `first_name` |                    |
+| `last_name`  |                    |
+| `email`      |                    |
+| `country`    | `customer_country` |
+| `status`     | `customer_status`  |
 
-5. Save, run, and preview **Customers lookup**.
+<figure><img src="../_assets/images/customers-lookup.png" alt="Customers lookup: lookup step Customers, key customer_id, retrieving names, email, country and status"><figcaption><p>Customers lookup</p></figcaption></figure>
+
+> **Note:** The screenshot leaves **New name** empty for `country` and `status`. Use the table: the later steps look for `customer_country` and `customer_status`.
+
+7. Select **OK** and save the transformation (`Ctrl+S`).
+8. Select **Customers lookup** on the canvas, press `F10` (**Action > Preview**), and select **Quick Launch**.
 
 <figure><img src="../_assets/images/lookups-preview-data.png" alt="Preview data: each sale with its product and customer fields"><figcaption><p>Sales with product and customer details</p></figcaption></figure>
 
 > **Success:** Checkpoint: 15 rows, every one with a `product_name` and a `customer_country`.
+
+9. Select **Close**.
 
 > **Under the hood:**
 >
@@ -214,7 +232,8 @@ Create a new transformation (**File > New > Transformation**) and save it as `sa
 >
 > **Calculator** runs predefined functions on fields; **Formula** evaluates spreadsheet-style expressions. Use whichever reads more clearly.
 
-1. From the **Transform** folder, drag **Calculator** onto the canvas and hop **Customers lookup** to it. Add two rows:
+1. On the **Design** tab, open the **Transform** folder and drag **Calculator** onto the canvas. Create a hop from **Customers lookup** to **Calculator**.
+2. Double-click **Calculator** and fill the **Fields** grid:
 
 | New field         | Calculation | Field A      | Field B       | Value type |
 | ----------------- | ----------- | ------------ | ------------- | ---------- |
@@ -227,7 +246,9 @@ Create a new transformation (**File > New > Transformation**) and save it as `sa
 
 > **Note:** The screenshot shows an earlier version: `quantity` as Field A, and the second field named `profit_margin`. Use the table above.
 
-2. From the **Scripting** folder, drag **Formula** onto the canvas and hop **Calculator** to it. Add two fields, both String:
+3. Select **OK**.
+4. On the **Design** tab, open the **Scripting** folder and drag **Formula** onto the canvas. Create a hop from **Calculator** to **Formula**.
+5. Double-click **Formula** and fill the **Fields** grid with two fields, both with **Value type** String:
 
 | New field            | Formula                                       |
 | -------------------- | --------------------------------------------- |
@@ -236,31 +257,40 @@ Create a new transformation (**File > New > Transformation**) and save it as `sa
 
 <figure><img src="../_assets/images/formula-step-2.png" alt="Formula step with customer_full_name and is_high_value"><figcaption><p>Formula</p></figcaption></figure>
 
-3. Save, run and preview **Formula**.
+6. Select **OK** and save the transformation (`Ctrl+S`).
+7. Select **Formula** on the canvas, press `F10` (**Action > Preview**), and select **Quick Launch**.
 
 > **Success:** Checkpoint: `line_total` equals `sale_amount` on all 15 rows, to the cent. Every sale in this data is at list price, so `discount_amount` is 0; a positive value would mean the customer paid less than list. 5 sales are `is_high_value` `Yes`.
 
-### 4. Add audit fields
+8. Select **Close**.
 
-1. From the **Transform** folder, drag **Add constants** onto the canvas and hop **Formula** to it. Add **Name** `data_source`, **Type** String, **Value** `minio_workshop`.
-2. From the **Input** folder, drag **Get system info** onto the canvas and hop **Add constants** to it. Add **Name** `etl_timestamp`, **Type** `system date (variable)`.
+### 4. Add Audit Fields
+
+1. On the **Design** tab, open the **Transform** folder and drag **Add constants** onto the canvas. Create a hop from **Formula** to **Add constants**.
+2. Double-click **Add constants** and fill the **Fields** grid with one row: **Name** `data_source`, **Type** String, **Value** `minio_workshop`. Select **OK**.
+3. On the **Design** tab, open the **Input** folder and drag **Get system info** onto the canvas. Create a hop from **Add constants** to **Get system info**.
+4. Double-click **Get system info** and fill the **Fields** grid with one row: **Name** `etl_timestamp`, **Type** `system date (variable)`. Select **OK**.
 
 > **Note:** `data_source` and `etl_timestamp` say where each row came from and when it was loaded, the two questions asked first when a number in a dashboard looks wrong.
 
-### 5. Select and write
+### 5. Select and Write
 
-1. From the **Transform** folder, drag **Select values** onto the canvas and hop **Get system info** to it. On **Select & Alter**, list these fields in this order, renaming `status` to `sale_status`:
+1. On the **Design** tab, open the **Transform** folder and drag **Select values** onto the canvas. Create a hop from **Get system info** to **Select values**.
+2. Double-click **Select values**. On the **Select & Alter** tab, list these fields in this order, and set **Rename to** `sale_status` on the `status` row:
 
    `sale_id`, `sale_date`, `customer_id`, `customer_full_name`, `customer_country`, `customer_status`, `product_id`, `product_name`, `product_category`, `quantity`, `unit_price`, `sale_amount`, `line_total`, `discount_amount`, `is_high_value`, `payment_method`, `status`, `etl_timestamp`, `data_source`
 
-2. From the **Output** folder, drag **Text file output** onto the canvas, name it `Write to staging` and hop **Select values** to it. Set:
-   * **File** tab: **Filename** `pvfs://MinIO/staging/dashboard/sales_fact`, **Extension** `csv`, **Include date in filename?** and **Include time in filename?** selected
-   * **Content** tab: **Separator** `,`, **Header** selected
-   * **Fields** tab: select **Get Fields**, then **Minimal width**
+3. Select **OK**.
+4. On the **Design** tab, open the **Output** folder and drag **Text file output** onto the canvas. Create a hop from **Select values** to it, double-click it and set **Step name** to `Write to staging`.
+5. On the **File** tab, set **Filename** to `pvfs://MinIO/staging/dashboard/sales_fact` and **Extension** to `csv`, and select **Include date in filename?** and **Include time in filename?**.
+6. On the **Content** tab, set **Separator** to `,` and keep **Header** selected.
+7. On the **Fields** tab, select **Get Fields**, then **Minimal width**.
 
 > **Warning:** Select **Minimal width**. Without it, Text file output pads every String to its declared length, and `USA` is written as `USA` followed by spaces.
 
-3. Save and run the transformation. In the MinIO console, open **staging** > `dashboard/`.
+8. Select **OK** and save the transformation (`Ctrl+S`).
+9. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
+10. In the MinIO console, open **staging** > `dashboard/`.
 
 <figure><img src="../_assets/images/minio-dashboard-data.png" alt="MinIO console: the staging bucket's dashboard folder with the sales_fact CSV file"><figcaption><p>The output in MinIO</p></figcaption></figure>
 
@@ -272,7 +302,7 @@ Create a new transformation (**File > New > Transformation**) and save it as `sa
 
 > **Note:** **Workshop files**
 >
-> Download the files for this workshop. For `.ktr` files, **Open in Pentaho Data Integration** launches PDI with the transformation loaded; if PDI is already running, the path is copied to your clipboard (Ctrl+O, Ctrl+V, Enter).
+> Download the files for this workshop. For `.ktr` files, **Open in Pentaho Data Integration** launches PDI with the transformation loaded; if PDI is already running, the path is copied to your clipboard (press `Ctrl+O`, `Ctrl+V`, `Enter`).
 
 [sales_dashboard_etl.ktr](./files/sales_dashboard_etl.ktr) <button data-launch="spoon" data-path="files/sales_dashboard_etl.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/sales_dashboard_etl.ktr">View graph</button>
 
@@ -290,39 +320,22 @@ Create a new transformation (**File > New > Transformation**) and save it as `sa
 > * **Missing in the catalog:** the warehouse holds an item the ERP doesn't know
 > * **Quantity variance:** both know the product, but the quantities differ
 >
-> **Skills:** **Get data from XML**, **Merge join** (full outer), **Calculator**, **Modified JavaScript value**, **Switch / case**
+> **Skills:** **Get data from XML**, **Merge join** (full outer), **Calculator**, **Modified JavaScript value**, **Switch / case**, **Group by**
 
-***
+<figure><img src="../_assets/images/inventory-reconciliation.png" alt="The Inventory Reconciliation transformation: the warehouse XML and the product catalog are mapped, sorted and fully outer joined, then Calculator and a JavaScript step feed Priority, which routes to three outputs, and a Sort rows and Group by summary"><figcaption><p>What you build</p></figcaption></figure>
 
 > **Note:** **Workshop files**
 >
 > These files are already in MinIO:
 >
-> * `pvfs://MinIO/raw-data/xml/inventory.xml`
-> * `pvfs://MinIO/raw-data/csv/products.csv`
+> * `pvfs://MinIO/raw-data/xml/inventory.xml` (17 items)
+> * `pvfs://MinIO/raw-data/csv/products.csv` (18 products)
 >
-> Outputs: `pvfs://MinIO/staging/reconciliation/` (`urgent_actions`, `review_queue` and `low_priority` CSV files)
-
-<figure><img src="../_assets/images/inventory-reconciliation.png" alt="Inventory reconciliation"><figcaption><p>Inventory reconciliation</p></figcaption></figure>
-
-> **Note:** Create a new transformation.
->
-> Use any of these options:
->
-> * Select **File** > **New** > **Transformation**
-> * Use `Ctrl+N` (Windows/Linux) or `Cmd+N` (macOS)
-
-***
-
-Follow the steps to create the transformation:
-
-:::: tabs
-
-### 1. Data Source streams
+> Outputs, in `pvfs://MinIO/staging/reconciliation/`: `urgent_actions_<date>_<time>.csv`, `review_queue_<date>_<time>.csv` and `low_priority.csv`
 
 ::: tabs
 
-### 1. Read Warehouse
+### 1. Read the Warehouse Feed
 
 > **Note:**
 >
@@ -330,32 +343,38 @@ Follow the steps to create the transformation:
 >
 > **Get data from XML** reads an XML file and returns one row per node that matches the **Loop XPath**. Each field is an XPath relative to that node.
 
-1. From the **Input** folder, drag **Get data from XML** onto the canvas and name it `Read Warehouse XML`.
-2. On the **File** tab, add `pvfs://MinIO/raw-data/xml/inventory.xml` (in **File or directory**, then **Add**).
-3. On the **Content** tab, set **Loop XPath** to `/inventory/items/item`, **Encoding** to `UTF-8`, and select **Ignore comments?**.
+1. Select **File > New > Transformation** (`Ctrl+N`).
+2. Select **File > Save as** and save it as `inventory_reconciliation.ktr` in `C:\Workshop-DI-Practitioner\03-data-sources\03-storage\19-mod3-minio`.
+3. On the **Design** tab, open the **Input** folder and drag **Get data from XML** onto the canvas.
+4. Double-click **Get data from XML** and set **Step name** to `Read Warehouse XML`.
+5. On the **File** tab, enter `pvfs://MinIO/raw-data/xml/inventory.xml` in **File or directory** and select **Add**.
+6. On the **Content** tab, select **Get XPath nodes**, select `/inventory/items/item` in **Available Paths**, and select **OK**. **Loop XPath** now reads `/inventory/items/item`.
+7. Set **Encoding** to `UTF-8`, and select **Ignore comments?** and **Ignore empty file**.
 
-<figure><img src="../_assets/images/configure-xpath.png" alt="Get data from XML Content tab with the loop XPath /inventory/items/item"><figcaption><p>One row per item element</p></figcaption></figure>
+<figure><img src="../_assets/images/configure-xpath.png" alt="Get data from XML Content tab with the Available Paths list open and /inventory/items/item selected"><figcaption><p>One row per item element</p></figcaption></figure>
 
 > **Note:** `/inventory/items/item` starts at the root element, `inventory`, goes into `items`, and returns one row for each `item` inside it.
 
-4. On the **Fields** tab, select **Get Fields**, then rename the fields and set their types. The `warehouse_` prefix keeps them apart from the ERP fields after the join:
+8. On the **Fields** tab, select **Get fields**. Make the grid match this table: rename the fields, set their types, and delete any other row, such as `status`. **Element** stays `Node` and **Result type** `Value of`. The `warehouse_` prefix keeps these fields apart from the ERP fields after the join:
 
-| Name                     | XPath          | Type    |
-| ------------------------ | -------------- | ------- |
-| `sku`                    | `sku`          | String  |
-| `warehouse_item_name`    | `name`         | String  |
-| `category`               | `category`     | String  |
-| `warehouse_quantity`     | `quantity`     | Integer |
-| `warehouse_location`     | `location`     | String  |
-| `last_physical_count`    | `last_checked` | Date    |
+| Name                  | XPath          | Type    | Format       | Length |
+| --------------------- | -------------- | ------- | ------------ | ------ |
+| `sku`                 | `sku`          | String  |              | 20     |
+| `warehouse_item_name` | `name`         | String  |              | 100    |
+| `category`            | `category`     | String  |              |        |
+| `warehouse_quantity`  | `quantity`     | Integer |              |        |
+| `warehouse_location`  | `location`     | String  |              | 50     |
+| `last_physical_count` | `last_checked` | Date    | `yyyy-MM-dd` |        |
 
-<figure><img src="../_assets/images/remap-field-names-x26-preview-data.png" alt="Fields tab with the renamed warehouse fields, and the preview of the items"><figcaption><p>Renamed fields and the preview</p></figcaption></figure>
+9. Select **Preview rows**, enter `100` rows, and select **OK**.
 
-5. Select **Preview rows**.
+<figure><img src="../_assets/images/remap-field-names-x26-preview-data.png" alt="Fields tab with the renamed warehouse fields, and a preview of the items"><figcaption><p>Renamed fields and the preview</p></figcaption></figure>
 
-> **Success:** Checkpoint: 17 warehouse items.
+> **Success:** Checkpoint: 17 rows, in file order. The first is `P001`, `Laptop Pro 15`, `Electronics`, `45`, `A-12-3`, `2024-01-20`; the last is `P099`, `Legacy Tablet (Discontinued)`. The screenshot is older: its second field name has a stray space after `warehouse_`, and its preview comes from an earlier copy of the file, so trust the table and this checkpoint.
 
-### 2. Read Product Catalog
+10. Select **Close**, then **OK**.
+
+### 2. Read the Product Catalog
 
 > **Note:**
 >
@@ -363,15 +382,29 @@ Follow the steps to create the transformation:
 >
 > The ERP side: the product master, one row per product.
 
-1. Drag **Text file input** onto the canvas and name it `Read Product Catalog`.
-2. **File** tab: add `pvfs://MinIO/raw-data/csv/products.csv`.
-3. **Content** tab: separator `,`, enclosure `"`, header row on.
-4. **Fields** tab: **Get Fields**. Check the types: `product_id`, `product_name`, `category`, `supplier` String; `price` BigNumber; `stock_quantity` Integer; `last_updated` Date (`yyyy-MM-dd`).
-5. Preview: 18 products, `P001` to `P018`.
+1. On the **Design** tab, open the **Input** folder and drag **Text file input** onto the canvas.
+2. Double-click **Text file input** and set **Step name** to `Read Product Catalog`.
+3. On the **File** tab, enter `pvfs://MinIO/raw-data/csv/products.csv` in **File or directory** and select **Add**.
+4. On the **Content** tab, set **Separator** to `,` and **Format** to `mixed`, keep **Enclosure** `"`, and keep **Header** selected.
+5. On the **Fields** tab, select **Get Fields**, select **OK** at **Number of sample lines**, and close the **Scan results**. Check the types:
 
-:::
+| Name             | Type      | Format       |
+| ---------------- | --------- | ------------ |
+| `product_id`     | String    |              |
+| `product_name`   | String    |              |
+| `category`       | String    |              |
+| `price`          | BigNumber | `#.##`       |
+| `stock_quantity` | Integer   | `#`          |
+| `supplier`       | String    |              |
+| `last_updated`   | Date      | `yyyy-MM-dd` |
 
-### 2. Join
+6. Select **Preview rows**, enter `100` rows, and select **OK**.
+
+> **Success:** Checkpoint: 18 rows, from `P001` (`Laptop Pro 15`, price `1299.99`, stock `45`) to `P018` (`Laptop Stand`).
+
+7. Select **Close**, then **OK**.
+
+### 3. Join the Two Systems
 
 > **Note:**
 >
@@ -379,51 +412,314 @@ Follow the steps to create the transformation:
 >
 > Rename both sides to one key, sort, then join so that items missing from *either* system still come through.
 
-1. **Select values** `Map Warehouse` after `Read Warehouse XML`: on **Select & Alter** keep `sku` renamed to `product_id`, `warehouse_item_name` renamed to `warehouse_product_name`, and `category`, `warehouse_quantity`, `warehouse_location`, `last_physical_count`.
-2. **Select values** `Map Product Catalog` after `Read Product Catalog`: rename `product_name` to `erp_product_name` and `stock_quantity` to `erp_quantity`, and keep `product_id`, `category`, `price`, `supplier`, `last_updated`.
-3. **Sort rows** after each: `Sort Warehouse` and `Sort ERP`, both on `product_id`, ascending.
-4. **Merge join** `Full Outer Join`: **First step** `Sort Warehouse`, **Second step** `Sort ERP`, **Join type** `FULL OUTER`, key `product_id` on both sides. Preview: 19 rows: 17 warehouse items plus 2 products only the ERP knows.
-5. **Calculator**: `quantity_variance` = `warehouse_quantity` - `erp_quantity` (**A - B**), and `abs_variance` = **ABS(A)** of `quantity_variance`, both Integer.
-6. **Modified JavaScript value**: classify each row. Copy the script from the solution's step of the same name; it sets:
+1. On the **Design** tab, open the **Transform** folder and drag **Select values** onto the canvas. Create a hop from **Read Warehouse XML** to it.
+2. Double-click **Select values** and set **Step name** to `Map Warehouse`. On the **Select & Alter** tab, fill the **Fields** grid:
 
-| Output field          | Rule                                                                                   |
-| --------------------- | -------------------------------------------------------------------------------------- |
-| `discrepancy_type`    | `MISSING_IN_WAREHOUSE` (no warehouse quantity), `MISSING_IN_CATALOG` (no ERP quantity), `MATCH` (within ±2), `OVERSTOCK` or `UNDERSTOCK` |
-| `severity_level`      | HIGH for missing in warehouse, or a variance over 20%; MEDIUM otherwise; NONE for a match |
-| `priority_rank`       | 1 for HIGH, 2 for MEDIUM, 3 for the rest                                                |
-| `recommended_action`, `financial_impact`, `excess_carrying_cost`, `lost_sales_risk` | the work-queue text and cost estimates |
+| Fieldname             | Rename to                |
+| --------------------- | ------------------------ |
+| `sku`                 | `product_id`             |
+| `warehouse_item_name` | `warehouse_product_name` |
+| `category`            |                          |
+| `warehouse_quantity`  |                          |
+| `warehouse_location`  |                          |
+| `last_physical_count` |                          |
 
-### 3. Output
+3. Select **OK**.
+4. Drag a second **Select values** onto the canvas and create a hop from **Read Product Catalog** to it. Double-click it and set **Step name** to `Map Product Catalog`. On the **Select & Alter** tab, fill the **Fields** grid:
+
+| Fieldname        | Rename to          |
+| ---------------- | ------------------ |
+| `product_id`     |                    |
+| `product_name`   | `erp_product_name` |
+| `category`       |                    |
+| `price`          |                    |
+| `stock_quantity` | `erp_quantity`     |
+| `supplier`       |                    |
+| `last_updated`   |                    |
+
+5. Select **OK**.
+6. From the **Transform** folder, drag **Sort rows** onto the canvas twice. Create a hop from **Map Warehouse** to the first and from **Map Product Catalog** to the second.
+7. Double-click each **Sort rows** in turn. Set **Step name** to `Sort Warehouse` and `Sort ERP`, and in each fill the **Fields** grid with one row: **Fieldname** `product_id`, **Ascending** `Y`, **Case sensitive compare?** `N`. Select **OK**.
+8. On the **Design** tab, open the **Joins** folder and drag **Merge join** onto the canvas. Create a hop from **Sort Warehouse** to **Merge join**, and one from **Sort ERP** to **Merge join**.
+9. Double-click **Merge join** and set:
+   * **Step name**: `Full Outer Join`
+   * **First Step**: `Sort Warehouse`
+   * **Second Step**: `Sort ERP`
+   * **Join Type**: `FULL OUTER`
+10. Enter `product_id` in **Keys for 1st step** and in **Keys for 2nd step**. Select **OK**.
+11. Save the transformation (`Ctrl+S`).
+12. Select **Full Outer Join** on the canvas, press `F10` (**Action > Preview**), and select **Quick Launch**.
+
+> **Success:** Checkpoint: 19 rows: the 17 warehouse items plus `P011` and `P012`, which only the ERP knows. On those two rows `product_id` and the warehouse fields are empty, and the ERP's id is in `product_id_1`. `P099` has a warehouse quantity of 12 and empty ERP fields.
+
+13. Select **Close**.
+
+> **Under the hood:**
+>
+> #### A full outer join keeps the unmatched rows from both sides
+>
+> **Merge join** reads its two sorted inputs side by side, comparing
+> one key from each. Equal keys become one joined row. A key that only
+> one side has still becomes a row, with the other side's fields left
+> empty: `P099` from the warehouse, `P011` and `P012` from the ERP. Both
+> inputs carry `product_id` and `category`, so the join renames the
+> second step's copies `product_id_1` and `category_1`.
+>
+> **Why it matters:** a reconciliation is about the rows that don't
+> match. An inner join would drop exactly the three products that need
+> someone's attention first.
+
+### 4. Calculate the Variance
 
 > **Note:**
 >
-> #### Route by priority
+> #### Calculator
 >
-> One work queue per priority, plus a summary by discrepancy type.
+> Two numbers per row: the signed difference between the warehouse and ERP quantities, and its size.
 
-1. **Switch / case** `Priority` on `priority_rank` (type Number): `1` to `High Priority`, `2` to `Medium Priority`, `3` to `Low Priority`; default `Medium Priority`.
-2. Three **Text file output** steps, extension `csv`:
-   * `High Priority`: `pvfs://MinIO/staging/reconciliation/urgent_actions` (select **Include date in filename?** and **Include time in filename?**)
-   * `Medium Priority`: `pvfs://MinIO/staging/reconciliation/review_queue` (date and time too)
-   * `Low Priority`: `pvfs://MinIO/staging/reconciliation/low_priority`
-3. For the summary, a **Sort rows** on `discrepancy_type` from the JavaScript step, then **Group by** `discrepancy_type` with the sums of `financial_impact`, `excess_carrying_cost` and `lost_sales_risk` and a distinct count of `product_id`.
-4. Run. In MinIO, `staging/reconciliation/` holds three files:
+1. On the **Design** tab, open the **Transform** folder and drag **Calculator** onto the canvas. Create a hop from **Full Outer Join** to **Calculator**.
+2. Double-click **Calculator** and fill the **Fields** grid:
 
-| File               | Rows | What is in it                                             |
-| ------------------ | ---- | --------------------------------------------------------- |
-| `urgent_actions_*` | 6    | 3 understock, 2 missing in the warehouse, 1 overstock      |
-| `review_queue_*`   | 9    | 4 overstock, 4 understock, 1 missing in the catalog        |
-| `low_priority`     | 4    | the matches                                                |
+| New field           | Calculation             | Field A              | Field B        | Value type | Conversion mask |
+| ------------------- | ----------------------- | -------------------- | -------------- | ---------- | --------------- |
+| `quantity_variance` | A - B                   | `warehouse_quantity` | `erp_quantity` | Integer    | `#,##0`         |
+| `abs_variance`      | Absolute value ABS( A ) | `quantity_variance`  |                | Integer    | `#,##0`         |
 
-The Group by previews 5 rows, one per discrepancy type.
+3. Select **OK** and save the transformation (`Ctrl+S`).
+4. Select **Calculator** on the canvas, press `F10` (**Action > Preview**), and select **Quick Launch**.
 
-::::
+> **Success:** Checkpoint: 19 rows. `P006` has `quantity_variance` `44` (200 in the warehouse, 156 in the ERP); `P005` has `-80` and `abs_variance` `80`. The three rows with one side missing, `P011`, `P012` and `P099`, have both fields empty.
+
+5. Select **Close**.
+
+### 5. Classify Each Row
+
+> **Note:**
+>
+> #### Modified JavaScript value
+>
+> A script reads each joined row and sets its discrepancy type, severity, work-queue priority and cost estimates.
+
+1. On the **Design** tab, open the **Scripting** folder and drag **Modified JavaScript value** onto the canvas. Create a hop from **Calculator** to it. Keep its name, `Modified JavaScript value`.
+2. Double-click **Modified JavaScript value** and replace the text on the **Script 1** tab with this script:
+
+```javascript
+// Initialize variables
+var match_status = "";
+var severity = "";
+var action_required = "";
+var variance_pct = 0;
+
+// Determine status based on null checks and variance
+if (warehouse_quantity == null || warehouse_quantity == 0) {
+    match_status = "MISSING_IN_WAREHOUSE";
+    severity = "HIGH";
+    action_required = "Physical inventory check required";
+
+} else if (erp_quantity == null || erp_quantity == 0) {
+    match_status = "MISSING_IN_CATALOG";
+    severity = "MEDIUM";
+    action_required = "Add to ERP or remove from warehouse";
+
+} else {
+    // Both systems have the item - check variance
+    var variance = warehouse_quantity - erp_quantity;
+
+    // Calculate variance percentage
+    if (erp_quantity > 0) {
+        variance_pct = Math.abs((variance / erp_quantity) * 100);
+    }
+
+    // Classify based on variance thresholds
+    if (Math.abs(variance) <= 2) {
+        match_status = "MATCH";
+        severity = "NONE";
+        action_required = "No action - within tolerance";
+
+    } else if (variance > 0) {
+        match_status = "OVERSTOCK";
+        severity = variance_pct > 20 ? "HIGH" : "MEDIUM";
+        action_required = "Update ERP quantity or investigate recent receiving";
+
+    } else {
+        match_status = "UNDERSTOCK";
+        severity = variance_pct > 20 ? "HIGH" : "MEDIUM";
+        action_required = "Update ERP quantity or investigate shrinkage";
+    }
+}
+
+// Determine priority for work queue
+var priority;
+if (severity == "HIGH") {
+    priority = 1;
+} else if (severity == "MEDIUM") {
+    priority = 2;
+} else {
+    priority = 3;
+}
+
+// Financial Impact
+// Requires price field from ERP
+var financial_impact = abs_variance * price;
+
+// Carrying cost of excess inventory (20% annually)
+var excess_carrying_cost = 0;
+if (match_status == "OVERSTOCK") {
+    excess_carrying_cost = (quantity_variance * price * 0.20) / 365 * 30; // Monthly cost
+}
+
+// Lost sales from understocked items
+var lost_sales_risk = 0;
+if (match_status == "UNDERSTOCK") {
+    lost_sales_risk = quantity_variance * price * -1; // Absolute value
+}
+
+// Add Audit Trail
+var reconciliation_timestamp = new Date();
+var reconciliation_date = new Date();
+reconciliation_date.setHours(0, 0, 0, 0); // Remove time component
+
+var tolerance_threshold = 2;
+var data_source_warehouse = "WMS-XML-Export";
+var data_source_erp = "ERP-CSV-Extract";
+```
+
+3. Fill the **Fields** grid under the script. Type the rows, or select **Get variables** and then delete any row that is not in this table and correct the rest. **Replace value 'Fieldname' or 'Rename to'** stays `N` on every row:
+
+| Fieldname                  | Rename to             | Type    | Length | Precision |
+| -------------------------- | --------------------- | ------- | ------ | --------- |
+| `match_status`             | `discrepancy_type`    | String  | 50     |           |
+| `severity`                 | `severity_level`      | String  | 20     |           |
+| `action_required`          | `recommended_action`  | String  | 200    |           |
+| `variance_pct`             | `variance_percentage` | Number  |        | 2         |
+| `priority`                 | `priority_rank`       | Integer |        |           |
+| `financial_impact`         |                       | Number  |        | 2         |
+| `excess_carrying_cost`     |                       | Number  |        | 2         |
+| `lost_sales_risk`          |                       | Number  |        | 2         |
+| `reconciliation_timestamp` |                       | Date    |        |           |
+| `reconciliation_date`      |                       | Date    |        |           |
+| `tolerance_threshold`      |                       | Integer |        |           |
+| `data_source_warehouse`    |                       | String  |        |           |
+| `data_source_erp`          |                       | String  |        |           |
+
+4. Select **OK**.
+
+What the script decides, row by row:
+
+| Output field          | Rule                                                                                   |
+| --------------------- | -------------------------------------------------------------------------------------- |
+| `discrepancy_type`    | `MISSING_IN_WAREHOUSE` (no warehouse quantity, or 0), `MISSING_IN_CATALOG` (no ERP quantity, or 0), `MATCH` (within ±2), else `OVERSTOCK` or `UNDERSTOCK` |
+| `severity_level`      | `HIGH` for missing in the warehouse, or a variance over 20% of the ERP quantity; `MEDIUM` for missing in the catalog or a smaller variance; `NONE` for a match |
+| `priority_rank`       | 1 for `HIGH`, 2 for `MEDIUM`, 3 for the rest                                              |
+| `recommended_action`, `financial_impact`, `excess_carrying_cost`, `lost_sales_risk` | the work-queue text and cost estimates |
+
+5. Save the transformation (`Ctrl+S`).
+6. Select **Modified JavaScript value** on the canvas, press `F10` (**Action > Preview**), and select **Quick Launch**.
+
+> **Success:** Checkpoint: 19 rows. `P006` is `OVERSTOCK`, `HIGH`, priority `1`; `P099` is `MISSING_IN_CATALOG`, `MEDIUM`, priority `2`; `P015` (48 against 50) is `MATCH`, `NONE`, priority `3`. The two rows with an empty `product_id` are `MISSING_IN_WAREHOUSE`, `HIGH`.
+
+7. Select **Close**.
+
+> **Under the hood:**
+>
+> #### Script variables become fields through the Fields grid
+>
+> For each row, the step hands the script every incoming field as a
+> JavaScript variable of the same name, runs the script, then reads back
+> only the variables listed in the **Fields** grid. Each one is added to
+> the row under its **Rename to** name, converted to its **Type**.
+> A variable that is not in the grid, such as `variance`, stays inside
+> the script.
+>
+> **Why it matters:** the script can use short working names while the
+> output gets clear, typed fields, and the grid is the one place that
+> says what the step adds to the stream.
+
+### 6. Route to the Work Queues
+
+> **Note:**
+>
+> #### Switch / case
+>
+> **Switch / case** sends each row to one of several steps, by the value of one field. Here `priority_rank` picks the work queue.
+
+1. On the **Design** tab, open the **Flow** folder and drag **Switch / case** onto the canvas. Create a hop from **Modified JavaScript value** to it.
+2. On the **Design** tab, open the **Output** folder and drag **Text file output** onto the canvas three times. Double-click each in turn, set **Step name** to `High Priority`, `Medium Priority` and `Low Priority`, and select **OK**.
+3. Create a hop from **Switch / case** to each of the three outputs. In the menu Spoon shows for each hop, select **Create a new target case for this step**.
+4. Double-click **Switch / case** and set:
+   * **Step name**: `Priority`
+   * **Field name to switch**: `priority_rank`
+   * **Case value data type**: `Number`
+   * **Default target step**: `Medium Priority`
+5. Fill the **Case values** grid:
+
+| Value | Target step       |
+| ----- | ----------------- |
+| `1`   | `High Priority`   |
+| `2`   | `Medium Priority` |
+| `3`   | `Low Priority`    |
+
+6. Select **OK**.
+7. Double-click **High Priority**. On the **File** tab, set **Filename** to `pvfs://MinIO/staging/reconciliation/urgent_actions` and **Extension** to `csv`, and select **Include date in filename?** and **Include time in filename?**.
+8. On the **Content** tab, set **Separator** to `,` and **Encoding** to `UTF-8`, and keep **Header** selected.
+9. On the **Fields** tab, select **Get Fields**, then **Minimal width**. Select **OK**.
+10. Set up **Medium Priority** and **Low Priority** the same way, with these files:
+
+| Step              | Filename                                           | Include date and time in filename? |
+| ----------------- | -------------------------------------------------- | ---------------------------------- |
+| `Medium Priority` | `pvfs://MinIO/staging/reconciliation/review_queue` | both selected                      |
+| `Low Priority`    | `pvfs://MinIO/staging/reconciliation/low_priority` | both cleared                       |
+
+> **Note:** **Get Fields** also lists `product_id_1` and `category_1`, the ERP's copies of the key and the category. Keep them: on the two products missing in the warehouse, `product_id_1` holds the only product id.
+
+### 7. Summarize and Run
+
+> **Note:**
+>
+> #### Sort rows and Group by
+>
+> A second copy of every classified row goes to a summary: one row per discrepancy type, with its total costs.
+
+1. On the **Design** tab, open the **Transform** folder and drag **Sort rows** onto the canvas. Create a hop from **Modified JavaScript value** to it. When Spoon asks, select **Copy**: **Distribute** would send each row to only one of the two steps, so neither would see all 19.
+2. Double-click **Sort rows**, keep its name, and fill the **Fields** grid with one row: **Fieldname** `discrepancy_type`, **Ascending** `Y`, **Case sensitive compare?** `N`. Select **OK**.
+3. On the **Design** tab, open the **Statistics** folder and drag **Group by** onto the canvas. Create a hop from **Sort rows** to **Group by**.
+4. Double-click **Group by**, keep its name, and enter `discrepancy_type` in **The fields that make up the group**.
+5. Fill the **Aggregates** grid:
+
+| Name                          | Subject                | Type                          |
+| ----------------------------- | ---------------------- | ----------------------------- |
+| `Sum of financial_impact`     | `financial_impact`     | Sum                           |
+| `Sum of excess_carrying_cost` | `excess_carrying_cost` | Sum                           |
+| `Sum of lost_sales_risk`      | `lost_sales_risk`      | Sum                           |
+| `Count of product_id`         | `product_id`           | Number of Distinct Values (N) |
+
+6. Select **OK** and save the transformation (`Ctrl+S`).
+7. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
+8. In **Execution Results**, open the **Step Metrics** tab.
+
+> **Success:** Checkpoint: in **Written**, **Read Warehouse XML** shows 17, **Read Product Catalog** 18 and **Full Outer Join** 19. **High Priority** shows 6, **Medium Priority** 9 and **Low Priority** 4: 19 rows, each in one queue.
+
+9. In the MinIO console, open **staging** > `reconciliation/`.
+
+> **Success:** Checkpoint: three files, each with a header row:
+>
+> | File               | Rows | What is in it                                             |
+> | ------------------ | ---- | --------------------------------------------------------- |
+> | `urgent_actions_*` | 6    | 3 understock, 2 missing in the warehouse, 1 overstock      |
+> | `review_queue_*`   | 9    | 4 overstock, 4 understock, 1 missing in the catalog        |
+> | `low_priority.csv` | 4    | the matches: `P001`, `P004`, `P015` and `P017`             |
+
+10. In Spoon, select **Group by** on the canvas and open the **Preview data** tab.
+
+> **Success:** Checkpoint: 5 rows, one per discrepancy type, in order: `MATCH`, `MISSING_IN_CATALOG`, `MISSING_IN_WAREHOUSE`, `OVERSTOCK`, `UNDERSTOCK`.
+
+:::
 
 ***
 
 > **Note:** **Workshop files**
 >
-> Download the files for this workshop. For `.ktr` files, **Open in Pentaho Data Integration** launches PDI with the transformation loaded; if PDI is already running, the path is copied to your clipboard (Ctrl+O, Ctrl+V, Enter).
+> Download the files for this workshop. For `.ktr` files, **Open in Pentaho Data Integration** launches PDI with the transformation loaded; if PDI is already running, the path is copied to your clipboard (press `Ctrl+O`, `Ctrl+V`, `Enter`).
 
 [inventory_reconciliation.ktr](./files/inventory_reconciliation.ktr) <button data-launch="spoon" data-path="files/inventory_reconciliation.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/inventory_reconciliation.ktr">View graph</button>
 
@@ -433,11 +729,11 @@ The Group by previews 5 rows, one per discrepancy type.
 >
 > #### Customer 360
 >
-> Create unified customer profiles combining demographic data, purchase history, and behavioral events.
+> Build one profile per customer from three sources: who they are (`customers.csv`), what they bought (`sales.csv`) and what they did on the site (`user_events.json`). The sales and the events are each reduced to one row per customer, then all three are joined, scored and segmented.
 >
-> **Skills:** Multiple joins, JSONL parsing, aggregations, calculated metrics
+> **Skills:** JSON lines, **Memory group by** and **Group by**, **Merge join**, **Calculator**, **Formula**, **Modified JavaScript value**
 
-<figure><img src="../_assets/images/customer-360.png" alt="Customer 360"><figcaption><p>Customer 360</p></figcaption></figure>
+<figure><img src="../_assets/images/customer-360.png" alt="The Customer 360 transformation: customers, sales and user events in three rows of steps, two merge joins, then Get system info, Calculator, Engagement, a segment script, Select values and the output"><figcaption><p>What you build</p></figcaption></figure>
 
 > **Note:** **Workshop files**
 >
@@ -447,64 +743,255 @@ The Group by previews 5 rows, one per discrepancy type.
 > * `pvfs://MinIO/raw-data/csv/sales.csv` (15 sales)
 > * `pvfs://MinIO/raw-data/json/user_events.json` (46 events, one JSON object per line)
 >
-> Output: `pvfs://MinIO/curated/customer/customer_360`
+> Output: `pvfs://MinIO/curated/customer/customer_360_<date>_<time>.csv`
 
-> **Note:** Create a new transformation.
+::: tabs
+
+### 1. Read the Customers
+
+> **Note:**
 >
-> Use any of these options:
+> #### The customer master
 >
-> * Select **File** > **New** > **Transformation**
-> * Use `Ctrl+N` (Windows/Linux) or `Cmd+N` (macOS)
+> One row per customer, sorted on `customer_id` for the join at the end.
 
-:::: tabs
+1. Select **File > New > Transformation** (`Ctrl+N`).
+2. Select **File > Save as** and save it as `customer_360.ktr` in `C:\Workshop-DI-Practitioner\03-data-sources\03-storage\19-mod3-minio`.
+3. On the **Design** tab, open the **Input** folder and drag **Text file input** onto the canvas.
+4. Double-click **Text file input** and set **Step name** to `Read Customers`.
+5. On the **File** tab, enter `pvfs://MinIO/raw-data/csv/customers.csv` in **File or directory** and select **Add**.
+6. On the **Content** tab, set **Separator** to `,` and **Format** to `mixed`, and keep **Header** selected.
+7. On the **Fields** tab, select **Get Fields**, select **OK** at **Number of sample lines**, and close the **Scan results**. Check the types: `customer_id` Integer (`#`); `registration_date` Date (`yyyy-MM-dd`); `first_name`, `last_name`, `email`, `phone`, `country` and `status` String.
+8. Select **Preview rows**, enter `100` rows, and select **OK**.
 
-### 1. Customers
+> **Success:** Checkpoint: 12 rows, from `1001` (`John`, `Smith`, `USA`) to `1012` (`Jean`, `Dupont`, `France`).
 
-1. Save the transformation as `customer_360.ktr` in your workshop folder.
-2. **Text file input** `Read Customers`: `pvfs://MinIO/raw-data/csv/customers.csv`, separator `,`, header row, **Get Fields** (`customer_id` Integer, `registration_date` Date `yyyy-MM-dd`, the rest String).
-3. **Sort rows** `Sort rows` on `customer_id`.
+9. Select **Close**, then **OK**.
+10. On the **Design** tab, open the **Transform** folder and drag **Sort rows** onto the canvas. Create a hop from **Read Customers** to it.
+11. Double-click **Sort rows** and keep its name, `Sort rows`. Fill the **Fields** grid with one row: **Fieldname** `customer_id`, **Ascending** `Y`, **Case sensitive compare?** `N`. Select **OK**.
 
-### 2. Sales per customer
+### 2. Summarize the Sales
 
-1. **Text file input** `Read Sales`: `pvfs://MinIO/raw-data/csv/sales.csv`, separator `,`, header row, **Get Fields** (`customer_id` Integer, `sale_date` Date, `sale_amount` BigNumber).
+> **Note:**
+>
+> #### Memory group by
+>
+> **Memory group by** reduces the 15 sales to one row per customer. Watch the names of the two sorts: `Sort rows` (tab 1) sorts the customers, and `Sort Customers` (here) sorts the *sales*. They are named as in the solution file, so your transformation matches it.
 
-<figure><img src="../_assets/images/select-sales-csv-from-vfs-connections.png" alt="Select - sales.csv from VFS connections"><figcaption><p>Select - sales.csv from VFS connections</p></figcaption></figure>
+1. On the **Design** tab, open the **Input** folder and drag **Text file input** onto the canvas. Double-click it and set **Step name** to `Read Sales`.
+2. On the **File** tab, enter `pvfs://MinIO/raw-data/csv/sales.csv` in **File or directory** and select **Add**, or select **Browse** and pick it from the MinIO connection.
 
-2. **Sort rows** `Sort Customers` on `customer_id`.
-3. **Memory group by** on `customer_id`: `total_orders` = Number of values (`sale_id`), `total_spent` = Sum (`sale_amount`), `first_purchase` = Minimum (`sale_date`), `last_purchase` = Maximum (`sale_date`), `avg_order_value` = Average (`sale_amount`). 15 sales become 12 rows.
-4. **Sort rows** `Final Customer Sort` on `customer_id`.
+<figure><img src="../_assets/images/select-sales-csv-from-vfs-connections.png" alt="Browsing the MinIO connection's raw-data bucket to pick csv/sales.csv"><figcaption><p>Browse the bucket through the connection</p></figcaption></figure>
 
-> **Note:** Memory group by holds every group in memory, so unlike Group by it doesn't need the sort before it; `Final Customer Sort` is the one that matters, for the Merge join.
+3. On the **Content** tab, set **Separator** to `,` and **Format** to `mixed`, and keep **Header** selected.
+4. On the **Fields** tab, select **Get Fields**, select **OK** at **Number of sample lines**, and close the **Scan results**. Check the types: `customer_id` and `quantity` Integer (`#`); `sale_date` Date (`yyyy-MM-dd`); `sale_amount` BigNumber (`#.##`); `sale_id`, `product_id`, `payment_method` and `status` String. Select **OK**.
+5. On the **Design** tab, open the **Transform** folder and drag **Sort rows** onto the canvas. Create a hop from **Read Sales** to it.
+6. Double-click the new **Sort rows** and set **Step name** to `Sort Customers`. Fill the **Fields** grid with one row: **Fieldname** `customer_id`, **Ascending** `Y`, **Case sensitive compare?** `N`. Select **OK**.
+7. On the **Design** tab, open the **Statistics** folder and drag **Memory group by** onto the canvas. Create a hop from **Sort Customers** to it.
+8. Double-click **Memory group by** and keep its name. Enter `customer_id` in **The fields that make up the group**, and fill the **Aggregates** grid:
 
-### 3. User events
+| Name              | Subject       | Type                 |
+| ----------------- | ------------- | -------------------- |
+| `total_orders`    | `sale_id`     | Number of Values (N) |
+| `total_spent`     | `sale_amount` | Sum                  |
+| `first_purchase`  | `sale_date`   | Minimum              |
+| `last_purchase`   | `sale_date`   | Maximum              |
+| `avg_order_value` | `sale_amount` | Average (Mean)       |
 
-1. **Text file input** `Read User Events`: `pvfs://MinIO/raw-data/json/user_events.json`, no header, one String field `json_line`, and a separator that never occurs in the data (the solution uses `|||DELIM|||`), so each line arrives whole.
-2. **JSON input** `JSON input`: on **File**, select **Source is from a previous step** and pick `json_line`. Fields: `event_id` `$.event_id`, `user_id` `$.user_id` (Integer), `event_type` `$.event_type`, `product_id` `$.product_id`, `timestamp` `$.timestamp`.
-3. **Modified JavaScript value** `MJV - Define Events`: one 0/1 flag per event type (`is_page_view`, `is_add_to_cart`, `is_purchase`, `is_checkout`, `is_search`, `is_product_view`), e.g. `var is_page_view = (event_type == "page_view") ? 1 : 0;`
-4. **Sort rows** `Sort Events` on `user_id`, then **Group by** `Group by User` on `user_id`: `total_events` = distinct count of `event_id`, and the Sum of each flag (`page_views`, `cart_additions`, `purchases`, `checkouts`, `searches`, `product_views`). 46 events become 12 rows.
-5. **Sort rows** `Final User Sort` on `user_id`.
+9. Select **OK**.
+10. From the **Transform** folder, drag **Sort rows** onto the canvas. Create a hop from **Memory group by** to it, double-click it and set **Step name** to `Final Customer Sort`. Fill the **Fields** grid with one row: **Fieldname** `customer_id`, **Ascending** `Y`, **Case sensitive compare?** `N`. Select **OK**.
+11. Save the transformation (`Ctrl+S`).
+12. Select **Final Customer Sort** on the canvas, press `F10` (**Action > Preview**), and select **Quick Launch**.
 
-### 4. Join
+> **Success:** Checkpoint: 12 rows, one per customer, `1001` to `1012`. `1001` has `total_orders` `2`, `total_spent` `1759.98`, `avg_order_value` `879.99`, `first_purchase` `2025-11-15` and `last_purchase` `2026-01-28`.
 
-1. **Merge join** `Sales & Events`: `Final Customer Sort` and `Final User Sort`, **INNER**, keys `customer_id` and `user_id`.
-2. **Merge join** `Customers + Sales + Events`: `Sales & Events` and `Sort rows` (the customers), **LEFT OUTER**, key `customer_id` on both.
-3. **Get system info** `todays_date` (system date (variable)), then **Calculator**: `days_since_last_purchase` = DATE_DIFF(`todays_date`, `last_purchase`) and `days_as_customer` = DATE_DIFF(`last_purchase`, `first_purchase`).
-4. **Formula** `Engagement`: `engagement_score` = `[total_events]*0.3 + [cart_additions]*0.5 + [total_orders]*0.2`.
-5. **Modified JavaScript value** `MJV - Customer Segment`: `customer_segment` = High Value (spent 1,000 or more), Medium Value (500 or more), Low Value (any spend) or Prospect.
+13. Select **Close**.
 
-### 5. Output
+> **Under the hood:**
+>
+> #### Memory group by keeps a table of groups, not a sorted stream
+>
+> **Memory group by** holds one entry per `customer_id` in memory and
+> adds each sale to its entry, in whatever order the sales arrive. When
+> the input ends, it writes the entries out, in no particular key order.
+> That is why the sort before it is not needed, and the sort after it,
+> `Final Customer Sort`, is: **Merge join** needs its input sorted.
+> **Group by**, in the next tab, works the other way: it needs sorted
+> input and writes each group as soon as the key changes.
+>
+> **Why it matters:** **Memory group by** suits a modest number of
+> groups; **Group by** handles any number, provided the input is sorted.
 
-1. **Select values**: keep the customer details, the order metrics, the event counts, `engagement_score` and `customer_segment`.
-2. **Text file output** `Output - Customer 360`: `pvfs://MinIO/curated/customer/customer_360`, extension `csv`, header row, date and time in the filename.
-3. Run. The file holds one row per customer: 12 rows, 2 High Value, 3 Medium Value and 7 Low Value.
+### 3. Count the Events
 
-::::
+> **Note:**
+>
+> #### JSON lines
+>
+> `user_events.json` holds one JSON object per line, not one JSON document. **Text file input** reads each line whole into one field, and **JSON input** parses that field.
+
+1. On the **Design** tab, open the **Input** folder and drag **Text file input** onto the canvas. Double-click it and set **Step name** to `Read User Events`.
+2. On the **File** tab, enter `pvfs://MinIO/raw-data/json/user_events.json` in **File or directory** and select **Add**.
+3. On the **Content** tab, set **Separator** to `|||DELIM|||`, delete the `"` from **Enclosure**, clear **Header**, and set **Format** to `Unix`. The separator never occurs in the data, so each line arrives whole.
+4. On the **Fields** tab, fill the grid with one row: **Name** `json_line`, **Type** `String`.
+5. Select **Preview rows**, enter `100` rows, and select **OK**.
+
+> **Success:** Checkpoint: 46 rows, each one whole JSON object. The first starts `{"event_id":"evt_001","user_id":1001,"event_type":"page_view"`.
+
+6. Select **Close**, then **OK**.
+7. On the **Design** tab, open the **Input** folder and drag **JSON input** onto the canvas. Create a hop from **Read User Events** to it, and keep its name, `JSON input`.
+8. Double-click **JSON input**. On the **File** tab, select **Source is from a previous step**, and set **Select field** to `json_line`.
+9. On the **Content** tab, keep **Ignore missing path** and **Default path leaf to null** selected, as PDI 11 sets them for a new step: not every event has a `product_id` or a `rating`.
+10. On the **Fields** tab, fill the grid:
+
+| Name         | Path           | Type    |
+| ------------ | -------------- | ------- |
+| `event_id`   | `$.event_id`   | String  |
+| `user_id`    | `$.user_id`    | Integer |
+| `event_type` | `$.event_type` | String  |
+| `product_id` | `$.product_id` | String  |
+| `rating`     | `$.rating`     | Integer |
+| `timestamp`  | `$.timestamp`  | String  |
+
+11. Select **OK**.
+12. On the **Design** tab, open the **Scripting** folder and drag **Modified JavaScript value** onto the canvas. Create a hop from **JSON input** to it.
+13. Double-click **Modified JavaScript value** and set **Step name** to `MJV - Define Events`. Replace the text on the **Script 1** tab with this script:
+
+```javascript
+// Initialize counters (these will accumulate per row, so we'll aggregate later)
+var is_page_view = (event_type == "page_view") ? 1 : 0;
+var is_add_to_cart = (event_type == "add_to_cart") ? 1 : 0;
+var is_purchase = (event_type == "purchase") ? 1 : 0;
+var is_checkout = (event_type == "checkout") ? 1 : 0;
+var is_search = (event_type == "search") ? 1 : 0;
+var is_product_view = (event_type == "product_view") ? 1 : 0;
+```
+
+14. Fill the **Fields** grid under the script with six rows, each with **Type** `Number`: `is_page_view`, `is_add_to_cart`, `is_purchase`, `is_checkout`, `is_search` and `is_product_view`. Select **OK**.
+15. On the **Design** tab, open the **Transform** folder and drag **Sort rows** onto the canvas. Create a hop from **MJV - Define Events** to it, double-click it and set **Step name** to `Sort Events`. Fill the **Fields** grid with one row: **Fieldname** `user_id`, **Ascending** `Y`, **Case sensitive compare?** `N`. Select **OK**.
+16. On the **Design** tab, open the **Statistics** folder and drag **Group by** onto the canvas. Create a hop from **Sort Events** to it.
+17. Double-click **Group by** and set **Step name** to `Group by User`. Enter `user_id` in **The fields that make up the group**, and fill the **Aggregates** grid:
+
+| Name             | Subject           | Type                          |
+| ---------------- | ----------------- | ----------------------------- |
+| `total_events`   | `event_id`        | Number of Distinct Values (N) |
+| `page_views`     | `is_page_view`    | Sum                           |
+| `cart_additions` | `is_add_to_cart`  | Sum                           |
+| `purchases`      | `is_purchase`     | Sum                           |
+| `checkouts`      | `is_checkout`     | Sum                           |
+| `searches`       | `is_search`       | Sum                           |
+| `product_views`  | `is_product_view` | Sum                           |
+
+18. Select **OK**.
+19. From the **Transform** folder, drag **Sort rows** onto the canvas. Create a hop from **Group by User** to it, double-click it and set **Step name** to `Final User Sort`. Fill the **Fields** grid with one row: **Fieldname** `user_id`, **Ascending** `Y`, **Case sensitive compare?** `N`. Select **OK**.
+20. Save the transformation (`Ctrl+S`).
+21. Select **Final User Sort** on the canvas, press `F10` (**Action > Preview**), and select **Quick Launch**.
+
+> **Success:** Checkpoint: 12 rows, users `1001` to `1012`. `1001` has 8 events, 3 page views and 1 cart addition; `1003` has 4 events and no page views.
+
+22. Select **Close**.
+
+### 4. Join the Three Streams
+
+> **Note:**
+>
+> #### Two merge joins
+>
+> **Merge join** matches two streams sorted on their keys. The first join keeps the customers who have both sales and events; the second adds each one's details from the customer master.
+
+1. On the **Design** tab, open the **Joins** folder and drag **Merge join** onto the canvas. Create a hop from **Final Customer Sort** to it, and one from **Final User Sort** to it.
+2. Double-click **Merge join** and set:
+   * **Step name**: `Sales & Events`
+   * **First Step**: `Final Customer Sort`
+   * **Second Step**: `Final User Sort`
+   * **Join Type**: `INNER`
+3. Enter `customer_id` in **Keys for 1st step** and `user_id` in **Keys for 2nd step**. Select **OK**.
+4. Drag a second **Merge join** onto the canvas. Create a hop from **Sales & Events** to it, and one from **Sort rows** to it.
+5. Double-click it and set:
+   * **Step name**: `Customers + Sales + Events`
+   * **First Step**: `Sales & Events`
+   * **Second Step**: `Sort rows`
+   * **Join Type**: `LEFT OUTER`
+6. Enter `customer_id` in **Keys for 1st step** and in **Keys for 2nd step**. Select **OK**.
+7. Save the transformation (`Ctrl+S`).
+8. Select **Customers + Sales + Events** on the canvas, press `F10` (**Action > Preview**), and select **Quick Launch**.
+
+> **Success:** Checkpoint: 12 rows, one per customer: every customer in `customers.csv` has at least one sale and one event. Each row carries the order totals, the event counts and the customer's `first_name`, `last_name`, `email` and `country`.
+
+9. Select **Close**.
+
+### 5. Score and Segment
+
+> **Note:**
+>
+> #### Calculator, Formula and a script
+>
+> Three derived fields: how many days since each customer's last purchase, an engagement score from the counts, and a segment from the total spend.
+
+1. On the **Design** tab, open the **Input** folder and drag **Get system info** onto the canvas. Create a hop from **Customers + Sales + Events** to it.
+2. Double-click **Get system info**, keep its name, and fill the **Fields** grid with one row: **Name** `todays_date`, **Type** `system date (variable)`. Select **OK**.
+3. On the **Design** tab, open the **Transform** folder and drag **Calculator** onto the canvas. Create a hop from **Get system info** to it.
+4. Double-click **Calculator** and fill the **Fields** grid:
+
+| New field                  | Calculation               | Field A         | Field B          | Value type |
+| -------------------------- | ------------------------- | --------------- | ---------------- | ---------- |
+| `days_since_last_purchase` | Date A - Date B (in days) | `todays_date`   | `last_purchase`  | Integer    |
+| `days_as_customer`         | Date A - Date B (in days) | `last_purchase` | `first_purchase` | Integer    |
+
+5. Select **OK**.
+6. On the **Design** tab, open the **Scripting** folder and drag **Formula** onto the canvas. Create a hop from **Calculator** to it.
+7. Double-click **Formula** and set **Step name** to `Engagement`. Fill the **Fields** grid with one row: **New field** `engagement_score`, **Formula** `[total_events]*0.3 + [cart_additions]*0.5 + [total_orders]*0.2`, **Value type** Number. Select **OK**.
+8. On the **Design** tab, open the **Scripting** folder and drag **Modified JavaScript value** onto the canvas. Create a hop from **Engagement** to it.
+9. Double-click **Modified JavaScript value** and set **Step name** to `MJV - Customer Segment`. Replace the text on the **Script 1** tab with this script:
+
+```javascript
+// Classify customer based on total lifetime spend
+var customer_segment = "";
+
+if (total_spent == null || total_spent == 0) {
+    customer_segment = "Prospect";
+} else if (total_spent >= 1000) {
+    customer_segment = "High Value";
+} else if (total_spent >= 500) {
+    customer_segment = "Medium Value";
+} else if (total_spent > 0) {
+    customer_segment = "Low Value";
+}
+```
+
+10. Fill the **Fields** grid with one row: **Fieldname** `customer_segment`, **Type** `String`. Select **OK**.
+11. Save the transformation (`Ctrl+S`).
+12. Select **MJV - Customer Segment** on the canvas, press `F10` (**Action > Preview**), and select **Quick Launch**.
+
+> **Success:** Checkpoint: 12 rows. `customer_segment` is `High Value` for `1001` and `1003` (1,759.98 and 1,329.98 spent), `Medium Value` for `1002`, `1007` and `1011`, and `Low Value` for the other 7. `days_since_last_purchase` depends on today's date.
+
+13. Select **Close**.
+
+### 6. Select and Write
+
+1. On the **Design** tab, open the **Transform** folder and drag **Select values** onto the canvas. Create a hop from **MJV - Customer Segment** to it, and keep its name, `Select values`.
+2. Double-click **Select values**. On the **Select & Alter** tab, list these 17 fields in this order:
+
+   `customer_id`, `first_name`, `last_name`, `email`, `country`, `registration_date`, `total_orders`, `total_spent`, `avg_order_value`, `first_purchase`, `last_purchase`, `days_since_last_purchase`, `total_events`, `page_views`, `cart_additions`, `engagement_score`, `customer_segment`
+
+3. Select **OK**.
+4. On the **Design** tab, open the **Output** folder and drag **Text file output** onto the canvas. Create a hop from **Select values** to it, double-click it and set **Step name** to `Output - Customer 360`.
+5. On the **File** tab, set **Filename** to `pvfs://MinIO/curated/customer/customer_360` and **Extension** to `csv`, and select **Include date in filename?** and **Include time in filename?**.
+6. On the **Content** tab, set **Separator** to `,` and **Encoding** to `UTF-8`, and keep **Header** selected.
+7. On the **Fields** tab, select **Get Fields**, then **Minimal width**. Select **OK**.
+8. Save the transformation (`Ctrl+S`).
+9. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
+10. In the MinIO console, open **curated** > `customer/`.
+
+> **Success:** Checkpoint: `customer_360_<date>_<time>.csv` holds a header with the 17 fields and 12 rows, one per customer: 2 `High Value`, 3 `Medium Value` and 7 `Low Value`.
+
+:::
 
 ***
 
 > **Note:** **Workshop files**
 >
-> Download the files for this workshop. For `.ktr` files, **Open in Pentaho Data Integration** launches PDI with the transformation loaded; if PDI is already running, the path is copied to your clipboard (Ctrl+O, Ctrl+V, Enter).
+> Download the files for this workshop. For `.ktr` files, **Open in Pentaho Data Integration** launches PDI with the transformation loaded; if PDI is already running, the path is copied to your clipboard (press `Ctrl+O`, `Ctrl+V`, `Enter`).
 
 [customer_360.ktr](./files/customer_360.ktr) <button data-launch="spoon" data-path="files/customer_360.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/customer_360.ktr">View graph</button>
 
@@ -514,28 +1001,200 @@ The Group by previews 5 rows, one per discrepancy type.
 >
 > #### Log Parsing and Anomaly Detection
 >
-> **Objective:** Parse application logs, extract metrics, and detect anomalies.
+> Parse an application log into fields, count the errors and warnings in each hour, and flag an hour whose count jumps above its recent average. The critical hours go to an alert file in MinIO.
 >
-> **Skills:** Regex, timestamp parsing, time-series analysis, conditional logic
+> **Skills:** **Regex evaluation**, **Calculator** on dates, **Filter rows**, **Group by**, a rolling average in **Modified JavaScript value**, **Formula**, **Switch / case**
 
-<figure><img src="../_assets/images/log-analysis.png" alt="Log Analysis"><figcaption><p>Log Analysis</p></figcaption></figure>
+<figure><img src="../_assets/images/log-analysis.png" alt="The Log Analysis transformation: Read App Log, Regex evaluation, Select values, Calculator and Filter Errors, then Sort rows, Group by Hour, the rolling average script, Anomaly Detection and Switch / case to Output - Critical, Warning and Normal"><figcaption><p>What you build</p></figcaption></figure>
 
 > **Note:** **Workshop files**
 >
-> Input: `pvfs://MinIO/logs/app/application.log` (123 lines over four hours). Output: `pvfs://MinIO/logs/alerts/critical_alerts.csv`.
+> Input: `pvfs://MinIO/logs/app/application.log` (123 lines over four hours). Output: `pvfs://MinIO/logs/alerts/critical_alerts_<date>_<time>.csv`.
 
-Build `log_analysis_anomaly.ktr`, step by step:
+::: tabs
 
-1. **Text file input** `Read App Log`: the log file, no header, one String field `log_line`, and a separator that never occurs (the solution uses `||||`) so each line arrives whole.
-2. **Regex evaluation**: field `log_line`, regular expression `^(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})\s+(\w+)\s+\[([^\]]+)\]\s+(.*)$`, select **Create fields for capture groups**, capture fields `timestamp_str`, `log_level`, `component`, `message` (String).
-3. **Select values**: on **Meta-data**, change `timestamp_str` to `timestamp`, type Timestamp, format `yyyy-MM-dd HH:mm:ss`.
-4. **Calculator**: `log_hour` = **Hour of Day of Date A** (`timestamp`).
-5. **Filter rows** `Filter Errors`: `log_level` CONTAINS `ERROR` OR `log_level` = `WARN`. True to the next step; false to a **Dummy** `All others`. 58 of the 123 lines pass.
-6. **Sort rows** on `log_hour`, then **Group by** `Group by Hour` on `log_hour`: `error_count` = Number of rows, `error_messages` = concatenated `message` values. 4 rows, one per hour.
-7. **Modified JavaScript value** `MJV - Rolling Avg`: `rolling_avg_errors`, the average of this hour and the two before it (copy the script from the solution: it keeps the previous two counts in variables between rows).
-8. **Formula** `Anomaly Detection`: `is_anomaly` = `IF([error_count] > ([rolling_avg_errors] * 1.2); "YES"; "NO")` and `anomaly_severity` = `IF([error_count] > ([rolling_avg_errors] * 1.5); "CRITICAL"; IF([error_count] > ([rolling_avg_errors] * 1.2); "WARNING"; "NORMAL"))`.
-9. **Switch / case** on `anomaly_severity`: `CRITICAL` to a **Text file output** `Output - Critical` (`pvfs://MinIO/logs/alerts/critical_alerts`, extension `csv`), `WARNING` and `NORMAL` to two Dummy steps.
-10. Run. Of the four hours, 1 is critical, 1 a warning and 2 normal; the critical one is written to `logs/alerts/`.
+### 1. Read the Log
+
+> **Note:**
+>
+> #### One line, one field
+>
+> **Text file input** with a separator that never occurs in the data reads each log line whole, into one String field.
+
+1. Select **File > New > Transformation** (`Ctrl+N`).
+2. Select **File > Save as** and save it as `log_analysis_anomaly.ktr` in `C:\Workshop-DI-Practitioner\03-data-sources\03-storage\19-mod3-minio`.
+3. On the **Design** tab, open the **Input** folder and drag **Text file input** onto the canvas.
+4. Double-click **Text file input** and set **Step name** to `Read App Log`.
+5. On the **File** tab, enter `pvfs://MinIO/logs/app/application.log` in **File or directory** and select **Add**.
+6. On the **Content** tab, set **Separator** to `||||`, delete the `"` from **Enclosure**, clear **Header**, and set **Format** to `mixed`.
+7. On the **Fields** tab, fill the grid with one row: **Name** `log_line`, **Type** `String`.
+8. Select **Preview rows**, enter `100` rows, and select **OK**.
+
+> **Success:** Checkpoint: 100 rows, one whole log line each. The first is `2024-01-23 08:00:01 INFO  [main] Application started successfully`.
+
+9. Select **Close**, then **OK**.
+
+### 2. Parse Each Line
+
+> **Note:**
+>
+> #### Regex evaluation
+>
+> **Regex evaluation** matches a field against a regular expression. With **Create fields for capture groups** selected, each group in parentheses becomes a new field.
+
+1. On the **Design** tab, open the **Scripting** folder and drag **Regex evaluation** onto the canvas. Create a hop from **Read App Log** to it, and keep its name, `Regex evaluation`.
+2. Double-click **Regex evaluation**. On the **Settings** tab, set **Field to evaluate** to `log_line`, keep **Result field name** `result`, and select **Create fields for capture groups**.
+3. In **Regular expression**, enter:
+
+   ```text
+   ^(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})\s+(\w+)\s+\[([^\]]+)\]\s+(.*)$
+   ```
+
+4. Fill the **Capture Group Fields** grid, one row per group, in this order:
+
+| New field       | Type   | Trim |
+| --------------- | ------ | ---- |
+| `timestamp_str` | String | both |
+| `log_level`     | String | both |
+| `component`     | String | both |
+| `message`       | String | both |
+
+5. Select **OK**.
+
+The four groups, read against the first line:
+
+| Group | Matches                                     | Field           | First line              |
+| ----- | ------------------------------------------- | --------------- | ----------------------- |
+| 1     | a date and a time, `yyyy-MM-dd HH:mm:ss`    | `timestamp_str` | `2024-01-23 08:00:01`   |
+| 2     | one word                                    | `log_level`     | `INFO`                  |
+| 3     | the text inside the square brackets         | `component`     | `main`                  |
+| 4     | the rest of the line                        | `message`       | `Application started successfully` |
+
+6. On the **Design** tab, open the **Transform** folder and drag **Select values** onto the canvas. Create a hop from **Regex evaluation** to it, and keep its name, `Select values`.
+7. Double-click **Select values**. Leave the **Select & Alter** tab empty, so every field passes. On the **Meta-data** tab, fill the grid with one row:
+
+| Fieldname       | Rename to   | Type      | Format                |
+| --------------- | ----------- | --------- | --------------------- |
+| `timestamp_str` | `timestamp` | Timestamp | `yyyy-MM-dd HH:mm:ss` |
+
+8. Select **OK**.
+9. On the **Design** tab, open the **Transform** folder and drag **Calculator** onto the canvas. Create a hop from **Select values** to it.
+10. Double-click **Calculator** and fill the **Fields** grid with one row: **New field** `log_hour`, **Calculation** `Hour of Day of Date A`, **Field A** `timestamp`, **Value type** Integer. Select **OK**.
+11. Save the transformation (`Ctrl+S`).
+12. Select **Calculator** on the canvas, press `F10` (**Action > Preview**), and select **Quick Launch**.
+
+> **Success:** Checkpoint: 123 rows. The first has `log_level` `INFO`, `component` `main`, `message` `Application started successfully` and `log_hour` `8`.
+
+13. Select **Close**.
+
+### 3. Keep Errors and Warnings
+
+> **Note:**
+>
+> #### Filter rows
+>
+> **Filter rows** sends each row to one of two steps, by a condition. Here `ERROR` and `WARN` lines go on; the `INFO` lines go to a **Dummy (do nothing)** step, which discards them.
+
+1. On the **Design** tab, open the **Flow** folder and drag **Filter rows** onto the canvas. Create a hop from **Calculator** to it.
+2. From the **Flow** folder, drag **Dummy (do nothing)** onto the canvas. Double-click it, set **Step name** to `All others`, and select **OK**.
+3. On the **Design** tab, open the **Transform** folder and drag **Sort rows** onto the canvas.
+4. Create a hop from **Filter rows** to **Sort rows** and select **Result is TRUE**. Create a hop from **Filter rows** to **All others** and select **Result is FALSE**.
+5. Double-click **Filter rows** and set **Step name** to `Filter Errors`. **Send 'true' data to step** reads `Sort rows`, and **Send 'false' data to step** reads `All others`.
+6. In **The condition**, select `<field>` on the left and select `log_level`. Select the function (`=`) and select `CONTAINS`. Select `<value>`, set **Value** to `ERROR`, and select **OK**.
+7. Select **Add condition** (the `+` icon), set the second condition to `log_level` `=` `WARN`, and set its operator to `OR`. The condition reads:
+
+   ```text
+   log_level CONTAINS ERROR
+   OR log_level = WARN
+   ```
+
+8. Select **OK**.
+9. Double-click **Sort rows**, keep its name, and fill the **Fields** grid with one row: **Fieldname** `log_hour`, **Ascending** `Y`, **Case sensitive compare?** `N`. Select **OK**.
+
+### 4. Count per Hour
+
+> **Note:**
+>
+> #### Group by
+>
+> **Group by** aggregates rows that arrive sorted on the group field: one output row per hour.
+
+1. On the **Design** tab, open the **Statistics** folder and drag **Group by** onto the canvas. Create a hop from **Sort rows** to it.
+2. Double-click **Group by** and set **Step name** to `Group by Hour`. Enter `log_hour` in **The fields that make up the group**.
+3. Fill the **Aggregates** grid:
+
+| Name             | Subject    | Type                               |
+| ---------------- | ---------- | ---------------------------------- |
+| `error_count`    | `log_hour` | Number of Values (N)               |
+| `error_messages` | `message`  | Concatenate strings separated by , |
+
+4. Select **OK** and save the transformation (`Ctrl+S`).
+5. Select **Group by Hour** on the canvas, press `F10` (**Action > Preview**), and select **Quick Launch**.
+
+> **Success:** Checkpoint: 4 rows, one per hour: `log_hour` `8` with `error_count` `2`, `9` with `5`, `10` with `50` and `11` with `1`. 58 of the 123 lines passed the filter. `error_messages` holds each hour's messages, separated by commas.
+
+6. Select **Close**.
+
+### 5. Compare with the Rolling Average
+
+> **Note:**
+>
+> #### A rolling average
+>
+> Each hour is compared with the average of itself and the two hours before it. A script keeps the previous counts from one row to the next.
+
+1. On the **Design** tab, open the **Scripting** folder and drag **Modified JavaScript value** onto the canvas. Create a hop from **Group by Hour** to it.
+2. Double-click **Modified JavaScript value** and set **Step name** to `MJV - Rolling Avg`. Replace the text on the **Script 1** tab with this script:
+
+```javascript
+// Calculate 3-hour rolling average using global variables
+var rowNum = getProcessCount('r');
+
+if (typeof prev_error_1 == 'undefined') {
+    prev_error_1 = 0;
+    prev_error_2 = 0;
+}
+
+if (rowNum == 1) {
+    // First row: no history, use current value
+    rolling_avg_errors = error_count;
+    prev_error_1 = error_count;
+    prev_error_2 = 0;
+} else if (rowNum == 2) {
+    // Second row: average of 2 values
+    rolling_avg_errors = (prev_error_1 + error_count) / 2.0;
+    prev_error_2 = prev_error_1;
+    prev_error_1 = error_count;
+} else {
+    // Third row onwards: average of current + 2 previous
+    rolling_avg_errors = (prev_error_2 + prev_error_1 + error_count) / 3.0;
+    prev_error_2 = prev_error_1;
+    prev_error_1 = error_count;
+}
+```
+
+3. Fill the **Fields** grid with one row: **Fieldname** `rolling_avg_errors`, **Type** `Number`. Select **OK**.
+4. On the **Design** tab, open the **Scripting** folder and drag **Formula** onto the canvas. Create a hop from **MJV - Rolling Avg** to it.
+5. Double-click **Formula** and set **Step name** to `Anomaly Detection`. Fill the **Fields** grid with two rows, both with **Value type** String:
+
+| New field          | Formula                                                                                                                          |
+| ------------------ | -------------------------------------------------------------------------------------------------------------------------------- |
+| `is_anomaly`       | `IF([error_count] > ([rolling_avg_errors] * 1.2); "YES"; "NO")`                                                                   |
+| `anomaly_severity` | `IF([error_count] > ([rolling_avg_errors] * 1.5); "CRITICAL"; IF([error_count] > ([rolling_avg_errors] * 1.2); "WARNING"; "NORMAL"))` |
+
+6. Select **OK** and save the transformation (`Ctrl+S`).
+7. Select **Anomaly Detection** on the canvas, press `F10` (**Action > Preview**), and select **Quick Launch**.
+
+> **Success:** Checkpoint: 4 rows:
+>
+> | `log_hour` | `error_count` | `rolling_avg_errors` | `is_anomaly` | `anomaly_severity` |
+> | ---------- | ------------- | -------------------- | ------------ | ------------------ |
+> | 8          | 2             | 2                    | NO           | NORMAL             |
+> | 9          | 5             | 3.5                  | YES          | WARNING            |
+> | 10         | 50            | 19                   | YES          | CRITICAL           |
+> | 11         | 1             | 18.67 (to 2 places)  | NO           | NORMAL             |
+
+8. Select **Close**.
 
 > **Under the hood:**
 >
@@ -550,11 +1209,51 @@ Build `log_analysis_anomaly.ktr`, step by step:
 > **Why it matters:** "compared with recent history" is the core of
 > most anomaly checks, and the order of the rows is part of the logic.
 
+### 6. Route and Write the Alerts
+
+> **Note:**
+>
+> #### Switch / case
+>
+> Each hour goes to one step by its `anomaly_severity`: critical hours to a file in MinIO, the others to two **Dummy (do nothing)** steps.
+
+1. On the **Design** tab, open the **Output** folder and drag **Text file output** onto the canvas. Double-click it, set **Step name** to `Output - Critical`, and select **OK**.
+2. On the **Design** tab, open the **Flow** folder and drag **Dummy (do nothing)** onto the canvas twice. Double-click each in turn, set **Step name** to `Warning` and `Normal`, and select **OK**.
+3. From the **Flow** folder, drag **Switch / case** onto the canvas. Create a hop from **Anomaly Detection** to it, and keep its name, `Switch / case`.
+4. Create a hop from **Switch / case** to **Output - Critical**, to **Warning** and to **Normal**. In the menu Spoon shows for each hop, select **Create a new target case for this step**.
+5. Double-click **Switch / case** and set:
+   * **Field name to switch**: `anomaly_severity`
+   * **Case value data type**: `String`
+   * **Default target step**: `Output - Critical`
+6. Fill the **Case values** grid:
+
+| Value      | Target step         |
+| ---------- | ------------------- |
+| `CRITICAL` | `Output - Critical` |
+| `WARNING`  | `Warning`           |
+| `NORMAL`   | `Normal`            |
+
+7. Select **OK**.
+8. Double-click **Output - Critical**. On the **File** tab, set **Filename** to `pvfs://MinIO/logs/alerts/critical_alerts` and **Extension** to `csv`, and select **Include date in filename?** and **Include time in filename?**.
+9. On the **Content** tab, set **Separator** to `,` and **Encoding** to `UTF-8`, and keep **Header** selected.
+10. On the **Fields** tab, select **Get Fields**, then **Minimal width**. Select **OK**.
+11. Save the transformation (`Ctrl+S`).
+12. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
+13. In **Execution Results**, open the **Step Metrics** tab.
+
+> **Success:** Checkpoint: **Filter Errors** reads 123 rows, and **All others** reads 65 and **Sort rows** 58 of them. **Group by Hour** writes 4 rows. **Output - Critical** and **Warning** read 1 row each, and **Normal** 2.
+
+14. In the MinIO console, open **logs** > `alerts/`.
+
+> **Success:** Checkpoint: `critical_alerts_<date>_<time>.csv` holds a header and one row: `log_hour` `10`, `error_count` `50`, that hour's messages, `rolling_avg_errors` 19, `YES` and `CRITICAL`. Each run adds a new file, because the date and time are in the name.
+
+:::
+
 ***
 
 > **Note:** **Workshop files**
 >
-> Download the files for this workshop. For `.ktr` files, **Open in Pentaho Data Integration** launches PDI with the transformation loaded; if PDI is already running, the path is copied to your clipboard (Ctrl+O, Ctrl+V, Enter).
+> Download the files for this workshop. For `.ktr` files, **Open in Pentaho Data Integration** launches PDI with the transformation loaded; if PDI is already running, the path is copied to your clipboard (press `Ctrl+O`, `Ctrl+V`, `Enter`).
 
 [log_analysis_anomaly.ktr](./files/log_analysis_anomaly.ktr) <button data-launch="spoon" data-path="files/log_analysis_anomaly.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/log_analysis_anomaly.ktr">View graph</button>
 
@@ -564,39 +1263,160 @@ Build `log_analysis_anomaly.ktr`, step by step:
 >
 > #### Transactions & Fraud Detection
 >
-> **Objective:** Process credit card transactions, enrich with account and merchant data, calculate transaction metrics, and detect suspicious patterns using rule-based fraud detection.
+> Score 63 card transactions for fraud risk. Each transaction gets its account and merchant details, a few metrics and six 0/1 flags; the flags add up to a score, and the score sets a risk category.
 >
-> **Skills:** Financial data processing, multi-table joins, running totals, rule-based fraud detection, transaction velocity analysis
+> **Scenario:** a payment processor reviews transactions for fraud before it authorizes them. It flags a high amount, a credit account pushed below zero, a high-risk merchant, a declined attempt, a new account and a high share of the credit limit.
 >
-> **Business Context:** A payment processor needs to analyze transaction data in real-time to detect potentially fraudulent activity before authorizing transactions. The system must flag high-risk transactions based on amount thresholds, unusual merchant activity, account balance checks, and transaction velocity patterns.
+> **Skills:** **Stream lookup**, **Merge join** (left outer), **Formula**, rule-based scoring
+
+<figure>
+
+![fraud_detection.ktr on the Spoon canvas: every step of the solution and the hops between them](../_assets/images/canvas-19-fraud-detection.png)
+
+<div align="center">
+<figcaption><em>What you build</em></figcaption>
+</div>
+</figure>
 
 > **Note:** **Workshop files**
 >
-> Inputs (already in MinIO, and also under **Workshop files** below): `pvfs://MinIO/raw-data/finance/transactions.csv` (63 transactions), `accounts.csv` (13 accounts), `merchants.csv` (18 merchants).
+> Inputs (already in MinIO, and also under **Workshop files** below):
+>
+> * `pvfs://MinIO/raw-data/finance/transactions.csv` (63 transactions)
+> * `pvfs://MinIO/raw-data/finance/accounts.csv` (13 accounts)
+> * `pvfs://MinIO/raw-data/finance/merchants.csv` (18 merchants)
 
-Build `fraud_detection.ktr`, step by step:
+::: tabs
 
-1. Three **Text file input** steps, `Read Transactions`, `Read Accounts` and `Read Merchants`, one per finance file: separator `,`, header row, **Get Fields**. Make `amount`, `balance` and `credit_limit` BigNumber, and `transaction_date` (`yyyy-MM-dd HH:mm:ss`) and `open_date` (`yyyy-MM-dd`) Date.
-2. **Stream lookup** `Lookup Accounts` after `Read Transactions`: **Lookup step** `Read Accounts`, key `account_id` = `account_id`, returning `customer_name`, `account_type`, `balance`, `credit_limit`, `open_date` and `risk_rating`.
-3. **Sort rows** `Sort by Merchants` (after the lookup) and `Sort Merchants` (after `Read Merchants`), both on `merchant_id`.
-4. **Merge join** `Join Merchants`: the sorted transactions first, merchants second, **LEFT OUTER**, key `merchant_id`. Every transaction keeps its row even if the merchant is unknown.
-5. **Formula** `Metrics + Flags`: the metrics and six 0/1 flags:
+### 1. Read the Finance Files
 
-| Field | Formula |
-| --- | --- |
-| `days_since_account_open` | `ABS(DAYS([transaction_date]; [open_date]))` |
-| `balance_after_transaction` | `[balance] - [amount]` |
-| `credit_utilization` | `IF([credit_limit] > 0; ([amount] / [credit_limit]) * 100; 0)` |
-| `high_amount_flag` | `IF([amount] > 1000; 1; 0)` |
-| `overlimit_flag` | `IF(AND([account_type]="CREDIT"; [balance_after_transaction] < 0); 1; 0)` |
-| `high_risk_merchant_flag` | `IF([risk_level]="HIGH"; 1; 0)` |
-| `velocity_flag` | `IF([status]="DECLINED"; 1; 0)` |
-| `new_account_flag` | `IF([days_since_account_open] < 30; 1; 0)` |
-| `high_utilization_flag` | `IF([credit_utilization] > 80; 1; 0)` |
+> **Note:**
+>
+> #### Three Text file inputs
+>
+> The transactions, and the two reference files that enrich them.
 
-6. **Formula** `Calculate Fraud Score`: `fraud_risk_score` = `([high_amount_flag] * 20) + ([overlimit_flag] * 30) + ([high_risk_merchant_flag] * 25) + ([velocity_flag] * 15) + ([new_account_flag] * 5) + ([high_utilization_flag] * 15)` (Integer).
-7. **Formula** `risk_category`: `IF([fraud_risk_score] >= 80; "CRITICAL"; IF([fraud_risk_score] >= 50; "HIGH"; IF([fraud_risk_score] >= 20; "MEDIUM"; "APPROVE")))`.
-8. Preview `risk_category`: of the 63 transactions, 45 APPROVE, 6 MEDIUM, 5 HIGH and 7 CRITICAL.
+1. Select **File > New > Transformation** (`Ctrl+N`).
+2. Select **File > Save as** and save it as `fraud_detection.ktr` in `C:\Workshop-DI-Practitioner\03-data-sources\03-storage\19-mod3-minio`.
+3. On the **Design** tab, open the **Input** folder and drag **Text file input** onto the canvas three times.
+4. Double-click each **Text file input** in turn and set **Step name** to `Read Transactions`, `Read Accounts` and `Read Merchants`.
+5. In each, on the **File** tab, enter the file in **File or directory** and select **Add**:
+
+| Step                | File                                              |
+| ------------------- | ------------------------------------------------- |
+| `Read Transactions` | `pvfs://MinIO/raw-data/finance/transactions.csv`  |
+| `Read Accounts`     | `pvfs://MinIO/raw-data/finance/accounts.csv`      |
+| `Read Merchants`    | `pvfs://MinIO/raw-data/finance/merchants.csv`     |
+
+6. On each **Content** tab, set **Separator** to `,` and **Format** to `mixed`, and keep **Header** selected.
+7. On each **Fields** tab, select **Get Fields**, select **OK** at **Number of sample lines**, and close the **Scan results**. Check the types:
+
+| Step                | Types to check                                                                                                         |
+| ------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `Read Transactions` | `amount` BigNumber (`#.##`); `transaction_date` Date (`yyyy-MM-dd HH:mm:ss`); `transaction_id`, `account_id`, `merchant_id`, `currency`, `status` String |
+| `Read Accounts`     | `balance`, `credit_limit` BigNumber (`#.##`); `open_date` Date (`yyyy-MM-dd`); `account_id`, `customer_name`, `account_type`, `risk_rating` String |
+| `Read Merchants`    | all five String: `merchant_id`, `merchant_name`, `merchant_category`, `country`, `risk_level`                          |
+
+8. In each, select **Preview rows**, enter `100` rows, and select **OK**.
+
+> **Success:** Checkpoint: 63 transactions (`TXN-2024-001` to `TXN-2024-063`), 13 accounts (`ACC-1001` to `ACC-1013`) and 18 merchants (`MER-5001` to `MER-5018`).
+
+9. Select **Close**, then **OK**.
+
+### 2. Add the Account Details
+
+> **Note:**
+>
+> #### Stream lookup
+>
+> The 13 accounts are few enough to hold in memory: **Stream lookup** reads them once and answers each transaction from there.
+
+1. On the **Design** tab, open the **Lookup** folder and drag **Stream lookup** onto the canvas.
+2. Create a hop from **Read Transactions** to **Stream lookup**, and one from **Read Accounts** to **Stream lookup**.
+3. Double-click **Stream lookup**, set **Step name** to `Lookup Accounts` and **Lookup step** to `Read Accounts`.
+4. In **The key(s) to look up the value(s)**, set **Field** to `account_id` and **LookupField** to `account_id`.
+5. Fill **Specify the fields to retrieve** with six rows: `customer_name`, `account_type`, `balance`, `credit_limit`, `open_date` and `risk_rating`. Or select **Get lookup fields** and delete the `account_id` row.
+6. Select **OK**.
+
+### 3. Add the Merchant Details
+
+> **Note:**
+>
+> #### Merge join, left outer
+>
+> The merchants are joined with **Merge join**, which needs both streams sorted on `merchant_id`. A left outer join keeps every transaction, even one whose merchant is unknown.
+
+1. On the **Design** tab, open the **Transform** folder and drag **Sort rows** onto the canvas twice. Create a hop from **Lookup Accounts** to the first, and from **Read Merchants** to the second.
+2. Double-click each **Sort rows** in turn. Set **Step name** to `Sort by Merchants` (after **Lookup Accounts**) and `Sort Merchants` (after **Read Merchants**), and in each fill the **Fields** grid with one row: **Fieldname** `merchant_id`, **Ascending** `Y`, **Case sensitive compare?** `N`. Select **OK**.
+3. On the **Design** tab, open the **Joins** folder and drag **Merge join** onto the canvas. Create a hop from **Sort by Merchants** to it, and one from **Sort Merchants** to it.
+4. Double-click **Merge join** and set:
+   * **Step name**: `Join Merchants`
+   * **First Step**: `Sort by Merchants`
+   * **Second Step**: `Sort Merchants`
+   * **Join Type**: `LEFT OUTER`
+5. Enter `merchant_id` in **Keys for 1st step** and in **Keys for 2nd step**. Select **OK**.
+6. Save the transformation (`Ctrl+S`).
+7. Select **Join Merchants** on the canvas, press `F10` (**Action > Preview**), and select **Quick Launch**.
+
+> **Success:** Checkpoint: 63 rows, in `merchant_id` order. Every account and every merchant is found, so each row has its `customer_name`, `balance`, `merchant_name` and `risk_level` filled.
+
+8. Select **Close**.
+
+### 4. Calculate Metrics and Flags
+
+> **Note:**
+>
+> #### Formula
+>
+> One **Formula** step adds three metrics, an amount in US dollars and six 0/1 flags. A formula can use a field that a row above it in the same grid calculates.
+
+1. On the **Design** tab, open the **Scripting** folder and drag **Formula** onto the canvas. Create a hop from **Join Merchants** to it.
+2. Double-click **Formula** and set **Step name** to `Metrics + Flags`. Fill the **Fields** grid, in this order:
+
+| New field                   | Formula                                                                 | Value type | Length | Precision |
+| --------------------------- | ----------------------------------------------------------------------- | ---------- | ------ | --------- |
+| `days_since_account_open`   | `ABS(DAYS([transaction_date]; [open_date]))`                            | Integer    |        |           |
+| `balance_after_transaction` | `[balance] - [amount]`                                                  | Number     |        |           |
+| `credit_utilization`        | `IF([credit_limit] > 0; ([amount] / [credit_limit]) * 100; 0)`          | Integer    |        |           |
+| `amount_usd`                | `IF([currency]="USD"; [amount]; IF([currency]="EUR"; [amount]*1.08; IF([currency]="GBP"; [amount]*1.27; [amount])))` | Number | 15 | 2 |
+| `high_amount_flag`          | `IF([amount] > 1000; 1; 0)`                                             | Integer    |        |           |
+| `overlimit_flag`            | `IF(AND([account_type]="CREDIT"; [balance_after_transaction] < 0); 1; 0)` | Integer  |        |           |
+| `high_risk_merchant_flag`   | `IF([risk_level]="HIGH"; 1; 0)`                                         | Integer    |        |           |
+| `velocity_flag`             | `IF([status]="DECLINED"; 1; 0)`                                         | Integer    |        |           |
+| `new_account_flag`          | `IF([days_since_account_open] < 30; 1; 0)`                              | Integer    |        |           |
+| `high_utilization_flag`     | `IF([credit_utilization] > 80; 1; 0)`                                   | Integer    |        |           |
+
+3. Select **OK**.
+
+### 5. Score and Categorize
+
+> **Note:**
+>
+> #### A weighted score
+>
+> Each flag carries a weight; the sum is the score, and the score sets the category.
+
+1. On the **Design** tab, open the **Scripting** folder and drag **Formula** onto the canvas. Create a hop from **Metrics + Flags** to it.
+2. Double-click **Formula** and set **Step name** to `Calculate Fraud Score`. Fill the **Fields** grid with one row: **New field** `fraud_risk_score`, **Value type** Integer, and this **Formula**:
+
+   ```text
+   ([high_amount_flag] * 20) + ([overlimit_flag] * 30) + ([high_risk_merchant_flag] * 25) + ([velocity_flag] * 15) + ([new_account_flag] * 5) + ([high_utilization_flag] * 15)
+   ```
+
+3. Select **OK**.
+4. Drag another **Formula** onto the canvas. Create a hop from **Calculate Fraud Score** to it.
+5. Double-click it and set **Step name** to `risk_category`. Fill the **Fields** grid with one row: **New field** `risk_category`, **Value type** String, and this **Formula**:
+
+   ```text
+   IF([fraud_risk_score] >= 80; "CRITICAL"; IF([fraud_risk_score] >= 50; "HIGH"; IF([fraud_risk_score] >= 20; "MEDIUM"; "APPROVE")))
+   ```
+
+6. Select **OK** and save the transformation (`Ctrl+S`).
+7. Select **risk_category** on the canvas, press `F10` (**Action > Preview**), and select **Quick Launch**.
+
+> **Success:** Checkpoint: 63 rows: 45 `APPROVE`, 6 `MEDIUM`, 5 `HIGH` and 7 `CRITICAL`. `TXN-2024-002` (1250.00 at Luxury Watches Inc, on account `ACC-1002`, which holds 150.00) has `high_amount_flag`, `overlimit_flag` and `high_risk_merchant_flag` at 1: score `75`, `HIGH`. `TXN-2024-015`, a declined 3500.00 on the same account, scores `105`: `CRITICAL`.
+
+8. Select **Close**.
 
 > **Under the hood:**
 >
@@ -611,11 +1431,13 @@ Build `fraud_detection.ktr`, step by step:
 > **Why it matters:** the score is plain arithmetic over flags, so every
 > rating can be explained: a CRITICAL is a sum of named reasons.
 
+:::
+
 ***
 
 > **Note:** **Workshop files**
 >
-> Download the files for this workshop. For `.ktr` files, **Open in Pentaho Data Integration** launches PDI with the transformation loaded; if PDI is already running, the path is copied to your clipboard (Ctrl+O, Ctrl+V, Enter).
+> Download the files for this workshop. For `.ktr` files, **Open in Pentaho Data Integration** launches PDI with the transformation loaded; if PDI is already running, the path is copied to your clipboard (press `Ctrl+O`, `Ctrl+V`, `Enter`).
 
 [fraud_detection.ktr](./files/fraud_detection.ktr) <button data-launch="spoon" data-path="files/fraud_detection.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/fraud_detection.ktr">View graph</button>
 
@@ -635,6 +1457,15 @@ Build `fraud_detection.ktr`, step by step:
 >
 > **Skills:** three input formats, schema mapping, **Select values** for layout, combining streams
 
+<figure>
+
+![data_lake_ingestion.ktr on the Spoon canvas: every step of the solution and the hops between them](../_assets/images/canvas-19-data-lake-ingestion.png)
+
+<div align="center">
+<figcaption><em>What you build (the solution ends at Combine All Products)</em></figcaption>
+</div>
+</figure>
+
 > **Note:** **Workshop files**
 >
 > These files are already in MinIO:
@@ -643,11 +1474,9 @@ Build `fraud_detection.ktr`, step by step:
 > * `pvfs://MinIO/raw-data/json/api_response.json` (2 orders, one item each)
 > * `pvfs://MinIO/raw-data/xml/inventory.xml` (17 items)
 
-Create a new transformation (**File > New > Transformation**) and save it as `data_lake_ingestion.ktr`.
-
 :::: tabs
 
-### 1. Design the schema
+### 1. Design the Schema
 
 > **Note:**
 >
@@ -729,7 +1558,7 @@ Open `xml/inventory.xml`. Items sit under `/inventory/items/item`:
 * `source_system` and `ingestion_time` record where each row came from and when.
 * The same product can arrive from all three sources. `P001` comes from the CSV (price 1299.99, stock 45, Electronics), the JSON (price 1299.99, quantity 1, E-commerce) and the XML (no price, stock 45, Electronics). This workshop keeps all three rows; a later step could keep one per product, preferring the CSV, then the JSON, then the XML.
 
-### 2. Ingest the sources
+### 2. Ingest the Sources
 
 > **Note:**
 >
@@ -737,36 +1566,58 @@ Open `xml/inventory.xml`. Items sit under `/inventory/items/item`:
 >
 > Each branch reads its source, adds the fields the source lacks, stamps the time, and ends in a **Select values** that lists the seven target fields in the same order. The branches only differ in where each field comes from.
 
+1. Select **File > New > Transformation** (`Ctrl+N`).
+2. Select **File > Save as** and save it as `data_lake_ingestion.ktr` in `C:\Workshop-DI-Practitioner\03-data-sources\03-storage\19-mod3-minio`.
+
 **CSV branch**
 
-1. **Text file input** `Read Products - CSV`: **File or directory** `pvfs://MinIO/raw-data/csv/products.csv`; on **Content**, **Separator** `,` and **Header** selected; on **Fields**, **Get Fields** (`price` BigNumber, `stock_quantity` Integer).
-2. **Add constants** `Add Metadata`: `source_system`, String, `csv`.
-3. **Get system info** `Ingestion Timestamp`: `ingestion_time`, `system date (variable)`.
-4. **Select values** `Map to Schema - CSV`. On **Select & Alter**: `product_id`, `product_name`, `category`, `price`, `stock_quantity` renamed `quantity`, `source_system`, `ingestion_time`. On **Meta-data**: `price`, Type Number.
+3. On the **Design** tab, open the **Input** folder and drag **Text file input** onto the canvas. Double-click it and set **Step name** to `Read Products - CSV`.
+4. On the **File** tab, enter `pvfs://MinIO/raw-data/csv/products.csv` in **File or directory** and select **Add**. On the **Content** tab, set **Separator** to `,` and **Format** to `mixed`, and keep **Header** selected.
+5. On the **Fields** tab, select **Get Fields**, select **OK** at **Number of sample lines**, and close the **Scan results**. Check that `price` is BigNumber and `stock_quantity` Integer. Select **OK**.
+6. On the **Design** tab, open the **Transform** folder and drag **Add constants** onto the canvas. Create a hop from **Read Products - CSV** to it. Double-click it, set **Step name** to `Add Metadata`, and fill the **Fields** grid with one row: **Name** `source_system`, **Type** String, **Value** `csv`. Select **OK**.
+7. On the **Design** tab, open the **Input** folder and drag **Get system info** onto the canvas. Create a hop from **Add Metadata** to it. Double-click it, set **Step name** to `Ingestion Timestamp`, and fill the **Fields** grid with one row: **Name** `ingestion_time`, **Type** `system date (variable)`. Select **OK**.
+8. On the **Design** tab, open the **Transform** folder and drag **Select values** onto the canvas. Create a hop from **Ingestion Timestamp** to it, double-click it and set **Step name** to `Map to Schema - CSV`.
+9. On the **Select & Alter** tab, list `product_id`, `product_name`, `category`, `price`, `stock_quantity` (with **Rename to** `quantity`), `source_system` and `ingestion_time`, in that order.
+10. On the **Meta-data** tab, fill the grid with one row: **Fieldname** `price`, **Type** Number, **Length** `15`, **Precision** `2`, **Format** `0.00`. Select **OK**.
 
 **JSON branch**
 
-1. **JSON input** `Read Products - JSON`: on **File**, add `pvfs://MinIO/raw-data/json/api_response.json`; on **Fields**:
+11. On the **Design** tab, open the **Input** folder and drag **JSON input** onto the canvas. Double-click it and set **Step name** to `Read Products - JSON`. On the **File** tab, enter `pvfs://MinIO/raw-data/json/api_response.json` in **File or directory** and select **Add**.
+12. On the **Fields** tab, fill the grid, and select **OK**:
 
-| Name         | Path                                   | Type    |
-| ------------ | -------------------------------------- | ------- |
-| `product_id` | `$.data.orders[*].items[*].product_id` | String  |
-| `name`       | `$.data.orders[*].items[*].name`       | String  |
-| `quantity`   | `$.data.orders[*].items[*].quantity`   | Integer |
-| `unit_price` | `$.data.orders[*].items[*].unit_price` | Number  |
+| Name         | Path                                   | Type    | Length | Precision |
+| ------------ | -------------------------------------- | ------- | ------ | --------- |
+| `product_id` | `$.data.orders[*].items[*].product_id` | String  | 50     |           |
+| `name`       | `$.data.orders[*].items[*].name`       | String  | 200    |           |
+| `quantity`   | `$.data.orders[*].items[*].quantity`   | Integer | 10     |           |
+| `unit_price` | `$.data.orders[*].items[*].unit_price` | Number  | 15     | 2         |
 
-2. **Add constants** `Add Metadata 2`: `source_system`, String, `json`, and `category`, String, `E-commerce`.
-3. **Get system info** `Ingestion Timestamp 2`: `ingestion_time`, `system date (variable)`.
-4. **Select values** `Map to Schema - JSON`, on **Select & Alter**: `product_id`, `name` renamed `product_name`, `category`, `unit_price` renamed `price`, `quantity`, `source_system`, `ingestion_time`.
+13. From the **Transform** folder, drag **Add constants** onto the canvas. Create a hop from **Read Products - JSON** to it. Double-click it, set **Step name** to `Add Metadata 2`, and fill the **Fields** grid with two rows: `source_system`, String, `json`; and `category`, String, `E-commerce`. Select **OK**.
+14. From the **Input** folder, drag **Get system info** onto the canvas. Create a hop from **Add Metadata 2** to it. Double-click it, set **Step name** to `Ingestion Timestamp 2`, and fill the **Fields** grid with one row: **Name** `ingestion_time`, **Type** `system date (variable)`. Select **OK**.
+15. From the **Transform** folder, drag **Select values** onto the canvas. Create a hop from **Ingestion Timestamp 2** to it, double-click it and set **Step name** to `Map to Schema - JSON`. On the **Select & Alter** tab, list `product_id`, `name` (renamed `product_name`), `category`, `unit_price` (renamed `price`), `quantity`, `source_system` and `ingestion_time`. Select **OK**.
 
 **XML branch**
 
-1. **Get data from XML** `Read Products - XML`: file `pvfs://MinIO/raw-data/xml/inventory.xml`, **Loop XPath** `/inventory/items/item`; fields `sku`, `name` and `category` (String) and `quantity` (Integer), each with the XPath of its own name.
-2. **Add constants** `Add Metadata 3`: `source_system`, String, `xml`, and `price`, Number, with no value (null).
-3. **Get system info** `Ingestion Timestamp 3`: `ingestion_time`, `system date (variable)`.
-4. **Select values** `Map to Schema - XML`, on **Select & Alter**: `sku` renamed `product_id`, `name` renamed `product_name`, `category`, `price`, `quantity`, `source_system`, `ingestion_time`.
+16. On the **Design** tab, open the **Input** folder and drag **Get data from XML** onto the canvas. Double-click it and set **Step name** to `Read Products - XML`. On the **File** tab, enter `pvfs://MinIO/raw-data/xml/inventory.xml` in **File or directory** and select **Add**.
+17. On the **Content** tab, set **Loop XPath** to `/inventory/items/item` and **Encoding** to `UTF-8`.
+18. On the **Fields** tab, fill the grid (each **XPath** is the field's own name), and select **OK**:
 
-> **Success:** Checkpoint: preview each **Map to Schema** step. The CSV gives 18 rows, the JSON 2 and the XML 17, each with the same seven columns in the same order.
+| Name       | XPath      | Type    | Format | Length |
+| ---------- | ---------- | ------- | ------ | ------ |
+| `sku`      | `sku`      | String  |        | 50     |
+| `name`     | `name`     | String  |        | 200    |
+| `category` | `category` | String  |        | 100    |
+| `quantity` | `quantity` | Integer | `#`    | 10     |
+
+19. From the **Transform** folder, drag **Add constants** onto the canvas. Create a hop from **Read Products - XML** to it. Double-click it, set **Step name** to `Add Metadata 3`, and fill the **Fields** grid with two rows: `source_system`, String, `xml`; and `price`, Number, **Format** `0.00`, with no value (null). Select **OK**.
+20. From the **Input** folder, drag **Get system info** onto the canvas. Create a hop from **Add Metadata 3** to it. Double-click it, set **Step name** to `Ingestion Timestamp 3`, and fill the **Fields** grid with one row: **Name** `ingestion_time`, **Type** `system date (variable)`. Select **OK**.
+21. From the **Transform** folder, drag **Select values** onto the canvas. Create a hop from **Ingestion Timestamp 3** to it, double-click it and set **Step name** to `Map to Schema - XML`. On the **Select & Alter** tab, list `sku` (renamed `product_id`), `name` (renamed `product_name`), `category`, `price`, `quantity`, `source_system` and `ingestion_time`. Select **OK**.
+22. Save the transformation (`Ctrl+S`).
+23. Select each **Map to Schema** step on the canvas in turn, press `F10` (**Action > Preview**), and select **Quick Launch**.
+
+> **Success:** Checkpoint: the CSV gives 18 rows, the JSON 2 and the XML 17, each with the same seven columns in the same order.
+
+24. Select **Close**.
 
 ### 3. Combine
 
@@ -776,9 +1627,31 @@ Open `xml/inventory.xml`. Items sit under `/inventory/items/item`:
 >
 > **Append streams** takes only two inputs, a head and a tail. To stack three, hop them all into one step: PDI passes on every row that arrives on any of its input hops, like a SQL `UNION ALL`.
 
-1. From the **Flow** folder, drag **Dummy (do nothing)** onto the canvas and name it `Combine All Products`.
-2. Hop each **Map to Schema** step to it.
-3. Save, then run with **Enable safe mode** selected in **Run Options**, and preview **Combine All Products**.
+1. On the **Design** tab, open the **Flow** folder and drag **Dummy (do nothing)** onto the canvas. Double-click it, set **Step name** to `Combine All Products`, and select **OK**.
+2. Create a hop from each **Map to Schema** step to **Combine All Products**.
+3. Save the transformation (`Ctrl+S`).
+4. Press `F9` (**Action > Run**). In the **Run Options** dialog, select **Enable safe mode**, then select **Run**.
+
+> **Under the hood:**
+>
+> #### A step expects every row to have the same layout
+>
+> A step reads each incoming row by position, using the layout of the
+> first row it received. Rows with a different order or different
+> types still flow, but their values are read as the wrong fields:
+> without the final **Select values**, a JSON row's `quantity` sits
+> where the CSV rows have `category`. Nothing fails; the data is
+> wrong.
+>
+> **Enable safe mode** makes PDI compare every row with the first and
+> stop at the first difference, with a message such as "you're mixing
+> rows with different layout. Field [category String] does not have
+> the same name as field [quantity Integer]".
+>
+> **Why it matters:** whenever streams meet, give them one layout first,
+> and use safe mode while you build.
+
+5. Select **Combine All Products** on the canvas and open the **Preview data** tab.
 
 ```text
 product_id  product_name    category     price    quantity  source_system
@@ -791,46 +1664,42 @@ P001        Laptop Pro 15   Electronics           45        xml    <- again, and
 
 > **Success:** Checkpoint: 37 rows (18 CSV, 2 JSON, 17 XML), no errors in safe mode, and every value in its own column.
 
-> **Under the hood:**
->
-> #### A step expects every row to have the same layout
->
-> A step reads each incoming row by position, using the layout of the
-> first row it received. Rows with a different order or different
-> types still flow, but their values are read as the wrong fields:
-> without the final **Select values**, a JSON row's `quantity` sits
-> where the CSV rows have `category`. Nothing fails; the data is just
-> wrong.
->
-> **Enable safe mode** makes PDI compare every row with the first and
-> stop at the first difference, with a message such as "you're mixing
-> rows with different layout. Field [category String] does not have
-> the same name as field [quantity Integer]".
->
-> **Why it matters:** whenever streams meet, give them one layout first,
-> and use safe mode while you build.
-
-### 4. Validate (extension)
+### 4. Validate (Extension)
 
 > **Note:**
 >
-> #### Data Validation
+> #### Data validation
 >
-> An extension beyond the solution, which stops at **Combine All Products**: check the unified rows before you publish them, and route the failures to an error file.
+> An extension beyond the solution, which stops at **Combine All Products**: check the unified rows before you publish them, write the good rows to the curated layer, and route the failures to an error file.
 
-1. Add a **Data validator** step after **Combine All Products** and name it `Validate Product Data`.
-2. Add validations: `product_id` and `product_name` must not be null or empty; `price` must be at least 0, with null allowed (the XML feed has no price).
-3. Right-click the step, choose **Error Handling...**, and send the error rows to a **Text file output** `Write Error Records`: `pvfs://MinIO/curated/products/errors/validation_errors`, extension `csv`, **Include date in filename?** selected. Give the error descriptions field a name such as `validation_errors`.
-4. Rows that pass carry on from the validator's normal hop; write them on to `pvfs://MinIO/curated/products/`.
+1. On the **Design** tab, open the **Validation** folder and drag **Data validator** onto the canvas. Create a hop from **Combine All Products** to it.
+2. Double-click **Data validator** and set **Stepname** to `Validate Product Data`.
+3. Select **New validation**, enter `product_id required`, and select **OK**. Set **Name of field to validate** to `product_id`, and clear **Null allowed?**.
+4. Select **New validation**, enter `product_name required`, and select **OK**. Set **Name of field to validate** to `product_name`, and clear **Null allowed?**.
+5. Select **New validation**, enter `price not negative`, and select **OK**. Set **Name of field to validate** to `price`, keep **Null allowed?** selected (the XML feed has no price), set **Data type** to `Number` and **Minimum value** to `0`.
+6. Select **OK**.
+7. On the **Design** tab, open the **Output** folder and drag **Text file output** onto the canvas twice. Double-click each in turn, set **Step name** to `Write Valid Products` and `Write Error Records`, and select **OK**.
+8. Create a hop from **Validate Product Data** to **Write Valid Products** and select **Main output of step**.
+9. Create a hop from **Validate Product Data** to **Write Error Records** and select **Error handling of step**.
+10. Right-click **Validate Product Data** and select **Error Handling...**. In the **Step error handling settings** dialog, set **Error descriptions fieldname** to `validation_errors`, and select **OK**.
 
 > **Note:** **Data validator** routes failing rows through its error hop; there is no "validation result" field on the good rows to filter on.
 
+11. Double-click **Write Valid Products**. On the **File** tab, set **Filename** to `pvfs://MinIO/curated/products/products` and **Extension** to `csv`, and select **Include date in filename?**. On the **Content** tab, set **Separator** to `,`. On the **Fields** tab, select **Get Fields**, then **Minimal width**. Select **OK**.
+12. Set up **Write Error Records** the same way, with **Filename** `pvfs://MinIO/curated/products/errors/validation_errors`. Its **Get Fields** adds `validation_errors` after the product fields.
+13. Save the transformation (`Ctrl+S`).
+14. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
+15. In **Execution Results**, open the **Step Metrics** tab.
+
+> **Success:** Checkpoint: **Validate Product Data** reads 37 rows, **Write Valid Products** writes 37 and **Write Error Records** writes 0. Every row has a `product_id` and a `product_name`, and every price is 0 or more, or empty.
+
 ::::
+
 ***
 
 > **Note:** **Workshop files**
 >
-> Download the files for this workshop. For `.ktr` files, **Open in Pentaho Data Integration** launches PDI with the transformation loaded; if PDI is already running, the path is copied to your clipboard (Ctrl+O, Ctrl+V, Enter).
+> Download the files for this workshop. For `.ktr` files, **Open in Pentaho Data Integration** launches PDI with the transformation loaded; if PDI is already running, the path is copied to your clipboard (press `Ctrl+O`, `Ctrl+V`, `Enter`).
 
 [data_lake_ingestion.ktr](./files/data_lake_ingestion.ktr) <button data-launch="spoon" data-path="files/data_lake_ingestion.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/data_lake_ingestion.ktr">View graph</button>
 
@@ -838,9 +1707,15 @@ P001        Laptop Pro 15   Electronics           45        xml    <- again, and
 
 ## Lab Files
 
-Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches PDI with the file loaded. If PDI is already running, the path is copied to your clipboard — switch to PDI and use Ctrl+O, Ctrl+V, Enter.
+Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches PDI with the file loaded. If PDI is already running, the path is copied to your clipboard — switch to PDI and press `Ctrl+O`, `Ctrl+V`, `Enter`.
 
-The sample data for these workshops is in `data/` beside them.
+The workshops read their data from MinIO. The three finance files that the Fraud workshop reads are also here, in `data/`:
+
+[data/accounts.csv](./files/data/accounts.csv)
+
+[data/merchants.csv](./files/data/merchants.csv)
+
+[data/transactions.csv](./files/data/transactions.csv)
 
 ### Solution <!-- no-step -->
 

@@ -4,7 +4,7 @@
 >
 > #### Workshop - Read JSON
 > 
-> Parse a JSON file into rows with **JSON Input**.
+> Parse a JSON file into rows with **JSON input**.
 > 
 > **What you’ll do**
 > 
@@ -21,21 +21,14 @@
 
 <figure>
 
-![The finished transformation: JSON input hopped to Dummy](../_assets/images/json.png)
+![The finished transformation: Json input hopped to Dummy](../_assets/images/json.png)
 
 <div align="center">
 <figcaption><em>What you build</em></figcaption>
 </div>
 </figure>
 
-> **Note:** **Create a new transformation**
-> 
-> Use any of these options to open a new transformation tab:
-> 
-> * Select **File** > **New** > **Transformation**
-> * Use `Ctrl+N` (Windows/Linux) or `Cmd+N` (macOS)
-
-1. Open `jsonfile.js` (JSON, despite the `.js` extension) in a text editor. It holds seven orders in one array; these are the first three:
+Look at the input first. `jsonfile.js` is JSON, despite the `.js` extension: one `document` object whose `order` array holds seven orders. These are the first three:
 
 ```json
 { "document": {
@@ -73,66 +66,80 @@
 >
 > #### JSON Input
 > 
-> **JSON Input** reads JSON and outputs rows. Each field has its own JSONPath; the step evaluates every path against the document and lines the results up into rows.
+> **JSON input** reads JSON and outputs rows. Each field has its own JSONPath; the step evaluates every path against the document and lines the results up into rows. It has no loop path: each field's own **Path** selects one value per order.
 
-1. Start Spoon, create a transformation and save it as `tr_json.ktr` in the lab folder, `C:\Workshop-DI-Practitioner\03-data-sources\01-flat-files\08-mod3-read-json`, next to `jsonfile.js`.
-
+1. Start Spoon with the **Start PDI** button below, or from a terminal:
 
 ::: tabs
 
 ### Windows (PowerShell)
 
-> 
-> ```powershell
-> Set-Location C:\Pentaho\design-tools\data-integration
-> .\spoon.bat
-> ```
-> 
->
+```powershell
+Set-Location C:\Pentaho\design-tools\data-integration
+.\spoon.bat
+```
 
 ### macOS / Linux
 
-> 
-> ```bash
-> cd ~/Pentaho/design-tools/data-integration
-> ./spoon.sh
-> ```
-> 
->
+```bash
+cd ~/Pentaho/design-tools/data-integration
+./spoon.sh
+```
 
 :::
 
 <button data-launch="spoon" data-path="">Start PDI</button>
 
-2. Drag **JSON Input** onto the canvas.
-3. Double-click the step.
-4. On the **File** tab, in **File or directory**, enter the path below and select **Add**:
+2. Select **File > New > Transformation** (`Ctrl+N`).
+3. Select **File > Save as** and save it as `tr_json.ktr` in `C:\Workshop-DI-Practitioner\03-data-sources\01-flat-files\08-mod3-read-json`, next to `jsonfile.js`.
+4. On the **Design** tab, open the **Input** folder and drag **JSON input** onto the canvas.
+5. Double-click **JSON input**.
+6. Set **Step name** to `Json input`.
+7. On the **File** tab, enter the path below in **File or directory**, then select **Add**:
 
    ```text
    ${Internal.Entry.Current.Directory}/jsonfile.js
    ```
 
-5. Open the **Fields** tab. (JSON Input has no loop path: each field's own **Path** selects one value per order.)
-6. Select **Select fields**, then the five order keys.
-7. Verify these fields, their paths and types:
+<figure><img src="../_assets/images/json-file.png" alt="JSON input File tab with jsonfile.js in the Selected files list"><figcaption><p>The file</p></figcaption></figure>
 
-* `productline` (String), path `$..productline`
-* `customer` (String), path `$..customer`
-* `status` (String), path `$..status`
-* `date` (String), path `$..date`
-* `value` (Number), path `$..value`
+8. Open the **Content** tab and set:
 
-<figure><img src="../_assets/images/json-file.png" alt="JSON Input File tab with jsonfile.js selected"><figcaption><p>The file</p></figcaption></figure>
+   | Setting | Value |
+   | --- | --- |
+   | **Do not raise an error if no files** | cleared |
+   | **Ignore missing path** | cleared |
+   | **Default path leaf to null** | selected (the default) |
 
-<figure><img src="../_assets/images/json-fields.png" alt="JSON Input Fields tab with five fields and their JSONPath expressions"><figcaption><p>Five fields, one JSONPath each</p></figcaption></figure>
+9. Open the **Fields** tab and select **Select fields**.
+10. In the **Select fields** window, expand `document` and then `order` until you see the keys of an order. Select only the five keys, `productline`, `customer`, `status`, `date` and `value`, not `document` or `order` themselves.
+11. Select **OK**.
+12. Compare the **Fields** grid with this table. If a **Path** or **Type** differs, set it to the value in the table:
+
+    | Name | Path | Type |
+    | --- | --- | --- |
+    | `productline` | `$..productline` | String |
+    | `customer` | `$..customer` | String |
+    | `status` | `$..status` | String |
+    | `date` | `$..date` | String |
+    | `value` | `$..value` | Number |
+
+<figure><img src="../_assets/images/json-fields.png" alt="JSON input Fields tab with five fields and their JSONPath expressions"><figcaption><p>Five fields, one JSONPath each</p></figcaption></figure>
 
 > **Tip:** To try a JSONPath expression before you use it, paste the file into a tester such as [jsonpath.com](https://jsonpath.com/).
+
+13. Select **Preview rows**, enter `100` rows, and select **OK**.
+
+> **Success:** Checkpoint: **Examine preview data** shows 7 rows, one per order. The first is `Classic Cars`, `Christine Loomis`, `Delivered`, `January 2004`, `21.99`; the last is `Boats`, `Jill Robinson`, `Delivered`, `November 2014`, `19.99`.
+
+14. Select **Close**.
+15. Select **OK**.
 
 > **Under the hood:**
 >
 > #### Whole document in memory, then one JSONPath per column
 >
-> **JSON Input** doesn't stream. It reads `jsonfile.js` completely,
+> **JSON input** doesn't stream. It reads `jsonfile.js` completely,
 > parses it into an in-memory tree, and then evaluates each field's
 > path against that tree — one query per field. In this file each path
 > matches seven values, one per order, and the step zips the seven
@@ -140,10 +147,10 @@
 >
 > That positional zip is why the step cares about shape. With
 > **Default path leaf to null** off, an order with no `customer` key
-> makes the step stop with "the data structure is not the same inside
+> makes the step stop with "The data structure is not the same inside
 > the resource" rather than hand you rows whose values have slid out
-> of line. The solution has it on, so a missing key becomes a null
-> instead.
+> of line. In PDI 11 that option is on by default, and the solution
+> keeps it on, so a missing key becomes a null instead.
 >
 > **Why it matters:** memory is bounded by the *file* size, not the
 > row count, so very large JSON is better split, or read one record per
@@ -156,11 +163,13 @@
 >
 > #### Dummy
 > 
-> **Dummy** does nothing with the rows. Here it is the step you preview.
+> **Dummy (do nothing)** does nothing with the rows. Here it is the step you preview.
 
-1. Expand **Flow** in the Design palette.
-2. Drag **Dummy** onto the canvas.
-3. Create a hop from **JSON Input** to **Dummy**.
+1. On the **Design** tab, open the **Flow** folder and drag **Dummy (do nothing)** onto the canvas.
+2. Double-click **Dummy (do nothing)**.
+3. Set **Step name** to `Dummy`.
+4. Select **OK**.
+5. Create a hop from **Json input** to **Dummy**: hold `Shift` and drag from one step to the other.
 
 ### 3. Run
 
@@ -170,22 +179,23 @@
 > 
 > Run it and preview the rows.
 
-1. Select **Run** in the toolbar, then **Run** in **Run Options**.
-2. Select **Dummy**, then the **Preview data** tab in **Execution Results**.
+1. Save the transformation (`Ctrl+S`).
+2. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
+3. Select **Dummy** on the canvas and open the **Preview data** tab.
 
 <figure><img src="../_assets/images/json-1.png" alt="Preview data: one row per order with product line, customer, status, date and value"><figcaption><p>One row per order</p></figcaption></figure>
 
-> **Success:** 7 rows, one per order. The first is `Classic Cars`, `Christine Loomis`, `Delivered`, `January 2004`, `21.99`, with `value` a Number.
+> **Success:** Checkpoint: 7 rows, one per order. The first is `Classic Cars`, `Christine Loomis`, `Delivered`, `January 2004`, `21.99`, with `value` a Number.
 
 ::::
 
-### Troubleshooting <!-- no-step -->
+## Troubleshooting <!-- no-step -->
 
 <details>
 
 <summary>No rows returned</summary>
 
-The field paths match nothing in the file. JSON Input has no loop path: each field's **Path** does the selecting. Check one, such as `$..productline`, against the file in a JSONPath tester.
+The field paths match nothing in the file. **JSON input** has no loop path: each field's **Path** does the selecting. Check one, such as `$..productline`, against the file in a JSONPath tester.
 
 If the JSON structure changes, update every field's path.
 
@@ -209,7 +219,7 @@ Use **Select fields** as a starting point, then set each type yourself. Here `va
 
 ## Lab Files
 
-Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches PDI with the file loaded. If PDI is already running, the path is copied to your clipboard — switch to PDI and use Ctrl+O, Ctrl+V, Enter.
+Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches PDI with the file loaded. If PDI is already running, the path is copied to your clipboard — switch to PDI and press `Ctrl+O`, `Ctrl+V`, `Enter`.
 
 [jsonfile.js](./files/jsonfile.js)
 

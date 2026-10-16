@@ -104,10 +104,8 @@ The following table describes these mappings:
 > #### **Jobs**
 > 
 > A job runs transformations and other jobs in a defined order, with conditions between them, to carry out a business process.
-
-> **Note:**
 >
-> #### **Job Entries**
+> **Job Entries**
 > 
 > Each job entry is one task in the job: run a transformation, run a shell script, execute SQL, copy or check files, and more. Each entry has its own options and parameters.
 > 

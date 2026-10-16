@@ -593,7 +593,7 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <filename>${Internal.Entry.Current.Directory}\sales_data.csv</filename>
+    <filename>${Internal.Entry.Current.Directory}/sales_data.csv</filename>
     <filename_field/>
     <rownum_field/>
     <include_filename>N</include_filename>
@@ -926,7 +926,7 @@
     <length>Characters</length>
     <add_to_result_filenames>Y</add_to_result_filenames>
     <file>
-      <name>${Internal.Entry.Current.Directory}\orders.txt</name>
+      <name>${Internal.Entry.Current.Directory}/orders.txt</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>

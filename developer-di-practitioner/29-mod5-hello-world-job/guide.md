@@ -9,7 +9,7 @@
 > 
 > **What you'll do**
 > 
-> * Start a job with the **START** entry
+> * Start a job with the **Start** entry
 > * Run an existing transformation with a **Transformation** entry
 > * End in a success state with **Success**
 > * Run the job and read its **Job metrics**
@@ -27,49 +27,54 @@
 </div>
 </figure>
 
-> **Note:** **Create a new job**
-> 
-> First copy `tr_hello_world.ktr` from the lab's `solution` folder into the lab folder, `C:\Workshop-DI-Practitioner\05-enterprise-solution\01-jobs\29-mod5-hello-world-job` (or use your own from [Hello World](../03-mod2-hello-world/guide.md)). Then select **File > New > Job**, or press `Ctrl+Alt+N` (`Cmd+Alt+N` on macOS), and save the job as `kjb_hello_world.kjb` in the same folder.
-
 :::: tabs
 
-### 1. START
+### 1. Start
 
 > **Note:**
 >
-> #### START
+> #### Start
 > 
-> **START** is where a job begins. Every job has exactly one, and the hops leaving it are always unconditional. Its settings include a simple repeat schedule, but that only lasts while Spoon or Kitchen keeps running; schedule production jobs with the Pentaho Server instead.
+> **Start** is where a job begins. Every job has exactly one, and the hops leaving it are always unconditional. Its settings include a simple repeat schedule, but that only lasts while Spoon or Kitchen keeps running; schedule production jobs with the Pentaho Server instead.
 
-1. Start Spoon.
+1. Start Spoon with the **Start PDI** button below, or from a terminal:
 
 ::: tabs
 
 ### Windows (PowerShell)
 
-> 
-> ```powershell
-> Set-Location C:\Pentaho\design-tools\data-integration
-> .\spoon.bat
-> ```
-> 
->
+```powershell
+Set-Location C:\Pentaho\design-tools\data-integration
+.\spoon.bat
+```
 
 ### macOS / Linux
 
-> 
-> ```bash
-> cd ~/Pentaho/design-tools/data-integration
-> ./spoon.sh
-> ```
-> 
->
+```bash
+cd ~/Pentaho/design-tools/data-integration
+./spoon.sh
+```
 
 :::
 
 <button data-launch="spoon" data-path="">Start PDI</button>
 
-2. Create the job as above. From the **General** folder of the **Design** tab, drag **START** onto the canvas.
+2. Copy `tr_hello_world.ktr` from the lab's `solution` folder, `C:\Workshop-DI-Practitioner\05-enterprise-solution\01-jobs\29-mod5-hello-world-job\solution`, into the lab folder, `C:\Workshop-DI-Practitioner\05-enterprise-solution\01-jobs\29-mod5-hello-world-job`. The job you build looks for the transformation in its own folder.
+
+> **Tip:** Your own `tr_hello_world.ktr` from [Hello World](../03-mod2-hello-world/guide.md) works too: copy it into the lab folder instead. Its first step is named `gr_hello-world` rather than `Hello World`.
+
+3. Select **File > Open** (`Ctrl+O`) and open `tr_hello_world.ktr` from the lab folder.
+4. Select **Hello World** on the canvas, press `F10` (**Action > Preview**), and select **Quick Launch**.
+
+> **Success:** Checkpoint: **Examine preview data** shows 10 rows, and every row's `message` is `hello world`. This is the work the job runs.
+
+5. Select **Close**.
+6. Select **File > Close** (`Ctrl+W`) to close the transformation.
+7. Select **File > New > Job** (`Ctrl+Alt+N`).
+8. Select **File > Save as** and save it as `kjb_hello_world.kjb` in `C:\Workshop-DI-Practitioner\05-enterprise-solution\01-jobs\29-mod5-hello-world-job`.
+9. On the **Design** tab, open the **General** folder and drag **Start** onto the canvas.
+
+> **Note:** Spoon names the entry `Start`. The solution and the screenshots name it `START`; the name makes no difference to how the job runs.
 
 ### 2. Transformation
 
@@ -79,8 +84,10 @@
 > 
 > The **Transformation** entry runs a transformation from a file, and its result (success or failure) becomes the entry's result.
 
-1. From the **General** folder, drag **Transformation** onto the canvas and double-click it.
-2. Set **Entry Name** to `Transformation A` and **Transformation** to:
+1. On the **Design** tab, open the **General** folder and drag **Transformation** onto the canvas.
+2. Double-click **Transformation**.
+3. Set **Entry Name** to `Transformation A`.
+4. Set **Transformation** to:
 
    ```text
    ${Internal.Entry.Current.Directory}/tr_hello_world.ktr
@@ -90,7 +97,7 @@
 
 <figure><img src="../_assets/images/job-transformation-a.png" alt="Transformation entry: name Transformation A, transformation ${Internal.Entry.Current.Directory}/tr_hello_world.ktr, run configuration Pentaho local"><figcaption><p>The Transformation entry</p></figcaption></figure>
 
-3. Keep **Run configuration** `Pentaho local` and select **OK**.
+5. Leave **Run configuration** set to `Pentaho local`, and select **OK**. The label under the entry now reads **Transformation A**.
 
 ### 3. Success
 
@@ -98,27 +105,35 @@
 >
 > #### Success
 > 
-> **Success** clears any error state and ends the job as successful.
+> The **Success** entry clears any error state and ends the job as successful.
 
-1. From the **General** folder, drag **Success** onto the canvas.
-2. Create the hops **START** to **Transformation A** to **Success** (hold `Shift` and drag, as in a transformation). The hop from **START** shows a lock: it is unconditional. The second hop is green: it is followed only when **Transformation A** succeeds.
+1. On the **Design** tab, open the **General** folder and drag **Success** onto the canvas. Keep its entry name, `Success`.
+2. Create a hop from **Start** to **Transformation A**: hold `Shift` and drag from one entry to the other. It is an unconditional hop: it shows a lock.
+3. Create a hop from **Transformation A** to **Success**. Spoon makes it a **Result is TRUE** hop: it is green, with a check mark, and the job follows it only when **Transformation A** succeeds. If it is not green, right-click the hop and select **Evaluation > Follow When Result is True**.
+4. Save the job (`Ctrl+S`).
+
+> **Success:** Checkpoint: your canvas matches the **What you build** figure: **Start**, a lock hop to **Transformation A**, a green hop to **Success**.
 
 ### 4. Run
 
 > **Note:**
 >
-> #### Run the job
+> #### Run the Job
 > 
 > Run it, then read what each entry did.
 
-1. Save the job, select **Run** in the toolbar, then **Run** in **Run Options**.
+1. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
 2. In **Execution Results**, open the **Job metrics** tab.
 
 <figure><img src="../_assets/images/job-step-metrics.png" alt="Job metrics: START, Transformation A and Success each finish with result Success"><figcaption><p>Job metrics: one entry after another</p></figcaption></figure>
 
-> **Success:** Checkpoint: **START**, **Transformation A** and **Success** each end with **Result** `Success`, in that order. **Transformation A** was reached by "Followed unconditional link", and **Success** by "Followed link after success".
+> **Success:** Checkpoint: **Start**, **Transformation A** and **Success** each end with **Result** `Success`, in that order. **Transformation A** was reached by "Followed unconditional link", and **Success** by "Followed link after success".
 
-3. Open the **Metrics** tab: a timeline of the job, its entry, and the transformation's initialization and steps inside it.
+3. Open the **Logging** tab. The job's log includes the lines the transformation wrote while it ran inside the job.
+
+> **Success:** Checkpoint: the transformation's steps report their rows: `Hello World.0 - Finished processing (I=0, O=0, R=0, W=10, U=0, E=0)` and `Dummy (do nothing).0 - Finished processing (I=0, O=0, R=10, W=10, U=0, E=0)`, between `Starting entry [Transformation A]` and `Starting entry [Success]`.
+
+4. Open the **Metrics** tab: a timeline of the job, its entry, and the transformation's initialization and steps inside it.
 
 <figure><img src="../_assets/images/job-metrics.png" alt="Metrics tab: a timeline bar for the job, the job entry, and the transformation's initialization and steps"><figcaption><p>Metrics: where the time went</p></figcaption></figure>
 
@@ -128,7 +143,7 @@
 >
 > This is a different engine. Where a transformation starts every step
 > on its own thread and streams rows between them, a job walks its
-> entries **in sequence**: START, then the **Transformation** entry,
+> entries **in sequence**: Start, then the **Transformation** entry,
 > then **Success**. Each entry returns a *result* (success or failure,
 > plus lists of rows and files), and the hop colors are conditions on
 > that result: green follows success, red follows failure, and a lock
@@ -147,7 +162,7 @@
 
 ## Lab Files
 
-Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches PDI with the file loaded. If PDI is already running, the path is copied to your clipboard — switch to PDI and use Ctrl+O, Ctrl+V, Enter.
+Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches PDI with the file loaded. If PDI is already running, the path is copied to your clipboard — switch to PDI and press `Ctrl+O`, `Ctrl+V`, `Enter`.
 
 ### Solution <!-- no-step -->
 

@@ -19,31 +19,53 @@
 
 <div class="pcm-embed-card" data-href="https://www.loom.com/share/6b3348c091764d08806280206bd53434?hideEmbedTopBar=true&amp;hide_owner=true&amp;hide_share=true&amp;hide_title=true" data-title="Defining Parameters in Transformations for Effective Data Management 📊" data-description="In this video, I demonstrate how to define parameters within a transformation using Spoon, highlighting their role as local variables compared to global variables. I walk you through viewing the current parameters and variables in memory, and I create two parameters: one for the delimiter character and another for the output file's extension. It's crucial to provide default values and descriptions for these parameters to avoid potential issues. I also explain how a parameter can override a variable if they share the same name. Please pay attention to these concepts, as they will be applied in the next demonstration video." data-thumb="../_assets/embeds/2d94cd73b9b2.png"></div>
 
-> **Note:** **Create a new transformation**
-> 
-> Start Spoon, select **File > New > Transformation** (or press `Ctrl+N`, `Cmd+N` on macOS), and save it as `tr_parameters_variables_orders.ktr` in the lab folder, `C:\Workshop-DI-Practitioner\05-enterprise-solution\03-parameters\34-mod5-parameters`.
->
-> Or open your **Reading from a Database** transformation and save it as `tr_parameters_variables_orders.ktr`: the solution follows the query with the same Calculator, Number range, Sort rows and Select values pattern, and only the query changes.
-
 :::: tabs
 
-### 1. Define the parameter
+### 1. Define the Parameter
 
 > **Note:**
 >
-> #### Named parameters
+> #### Named Parameters
 > 
 > A named parameter belongs to the transformation: it has a name, a default value and a description, and whoever runs the transformation can give it a different value for that run.
 
-1. Double-click an empty part of the canvas (or press `Ctrl+T`) to open **Transformation properties**.
-2. Open the **Parameters** tab.
-3. Add one row:
+1. Start Spoon with the **Start PDI** button below, or from a terminal:
+
+::: tabs
+
+### Windows (PowerShell)
+
+```powershell
+Set-Location C:\Pentaho\design-tools\data-integration
+.\spoon.bat
+```
+
+### macOS / Linux
+
+```bash
+cd ~/Pentaho/design-tools/data-integration
+./spoon.sh
+```
+
+:::
+
+<button data-launch="spoon" data-path="">Start PDI</button>
+
+2. Select **File > New > Transformation** (`Ctrl+N`).
+3. Select **File > Save as** and save it as `tr_parameters_variables_orders.ktr` in `C:\Workshop-DI-Practitioner\05-enterprise-solution\03-parameters\34-mod5-parameters`.
+
+> **Tip:** The solution follows the query with a **Calculator**, **Number range**, **Sort rows** and **Select values**, the pattern from [Reading from a Database](../13-mod3-reading-from-a-database/guide.md). To work with that pipeline, open your `tr_reading_database.ktr` from that workshop instead, save it under this name, and in tab 2 change its **Table input** rather than adding a new one. This workshop's checkpoints read only the **Table input**.
+
+4. Double-click an empty part of the canvas, or select **Edit > Settings...**. The **Transformation properties** dialog opens.
+5. Open the **Parameters** tab.
+6. Fill the grid with one row:
 
 | Parameter | Default Value | Description            |
 | --------- | ------------- | ---------------------- |
 | `STATUS`  | `Cancelled`   | `Order status to read` |
 
-4. Select **OK**, and save the transformation.
+7. Select **OK**.
+8. Save the transformation (`Ctrl+S`).
 
 <figure><img src="../_assets/images/param.png" alt="Transformation properties, Parameters tab"><figcaption><p>The Parameters tab (shown with the Deleting Records parameter; yours holds STATUS)</p></figcaption></figure>
 
@@ -65,11 +87,18 @@
 > **Why it matters:** the default keeps the transformation runnable as
 > it stands, and the declaration tells every caller what it can change.
 
-### 2. Use it in the query
+### 2. Use It in the Query
 
-1. From the **Input** folder, drag **Table input** onto the canvas and double-click it.
-2. Set **Connection** to `MySQL:sampledata`.
-3. Enter the query:
+> **Note:**
+>
+> #### Use It in the Query
+>
+> **Table input** reads the orders whose status is the parameter's value.
+
+1. On the **Design** tab, open the **Input** folder and drag **Table input** onto the canvas. Keep its step name, `Table input`.
+2. Double-click **Table input**.
+3. Set **Connection** to `MySQL:sampledata`.
+4. Enter the query in **SQL**:
 
 ```sql
 SELECT
@@ -84,12 +113,15 @@ FROM ORDERS
 WHERE STATUS = '${STATUS}'
 ```
 
-4. Select **Replace variables in script?**
-5. Select **Preview**.
-
-> **Success:** Checkpoint: 6 rows, the canceled orders.
-
 > **Warning:** The quotes are yours. `${STATUS}` is replaced as plain text, so `'${STATUS}'` becomes `'Cancelled'`. Leave the quotes out and MySQL receives `WHERE STATUS = Cancelled`, a column name, and the query fails.
+
+5. Select **Replace variables in script?**.
+6. Select **OK**.
+7. Select **Table input** on the canvas, press `F10` (**Action > Preview**), and select **Quick Launch**. The preview runs with the parameter's default value.
+
+> **Success:** Checkpoint: **Examine preview data** shows 6 rows, the canceled orders: every `STATUS` is `Cancelled`.
+
+8. Select **Close**.
 
 > **Under the hood:**
 >
@@ -110,20 +142,33 @@ WHERE STATUS = '${STATUS}'
 > control (a status, a date, a schema name); `?` markers are for values
 > that arrive in the data.
 
-### 3. Run with another value
+### 3. Run with Another Value
 
-1. Select **Run** (or press `F8`, **Run Options...**).
-2. In the **Run Options** dialog, open the **Parameters** tab. `STATUS` is listed with its default.
-3. Set its **Value** to `On Hold`, and select **Run**.
-4. Open **Step Metrics** in **Execution Results**.
+> **Note:**
+>
+> #### Run with Another Value
+>
+> The **Run Options** dialog lists the transformation's parameters, so each run can give `STATUS` its own value.
 
-> **Success:** Checkpoint: **Table input** wrote 4 rows, the orders on hold.
+1. Save the transformation (`Ctrl+S`).
+2. Press `F8` (**Action > Run Options...**). The **Run Options** dialog opens.
+3. Open the **Parameters** tab. `STATUS` is listed with **Default value** `Cancelled`.
+4. Set its **Value** to `On Hold`, and select **Run**.
+5. In **Execution Results**, open the **Step Metrics** tab.
 
-Leave the value empty and the run uses the default again (6 rows). The other statuses in Steel Wheels are `Shipped` (303), `In Process` (6), `Resolved` (4) and `Disputed` (3).
+> **Success:** Checkpoint: **Table input** shows 4 in **Input**: the four orders on hold.
 
-### 4. Run it from the command line
+Leave the **Value** empty and the run uses the default again (6 rows). The other statuses in Steel Wheels are `Shipped` (303), `In Process` (6), `Resolved` (4) and `Disputed` (3).
 
-Pan, the command-line runner for transformations, takes the value with `-param`. On Windows the launcher batch files split arguments at `=`, so the parameter must reach them in quotes; in PowerShell, `--%` passes the rest of the line through untouched:
+### 4. Run It from the Command Line
+
+> **Note:**
+>
+> #### Run It from the Command Line
+>
+> Pan, the command-line runner for transformations, takes the value with `-param`. On Windows the launcher batch files split arguments at `=`, so the parameter must reach them in quotes; in PowerShell, `--%` passes the rest of the line through untouched.
+
+1. In PowerShell, run the solution with `STATUS` set to `Resolved`. On macOS or Linux, the command assumes you copied the workshop folder to your home folder as `~/Workshop-DI-Practitioner`.
 
 ::: tabs
 
@@ -138,20 +183,20 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 ```bash
 cd ~/Pentaho/design-tools/data-integration
-./pan.sh -file=/path/to/tr_parameters_variables_orders.ktr "-param:STATUS=Resolved" -level=Basic
+./pan.sh -file=$HOME/Workshop-DI-Practitioner/05-enterprise-solution/03-parameters/34-mod5-parameters/solution/tr_parameters_variables_orders.ktr "-param:STATUS=Resolved" -level=Basic
 ```
 
 :::
 
-The log ends with `Table input.0 - Finished processing (I=4, O=0, R=0, W=4, U=0, E=0)`: the four resolved orders.
+> **Success:** Checkpoint: the log ends with `Table input.0 - Finished processing (I=4, O=0, R=0, W=4, U=0, E=0)`: the four resolved orders.
 
-> **Note:** `-listparam` in place of `-param:...` prints the parameters a transformation declares, with their defaults, without running it.
+`-listparam` in place of `-param:...` prints the parameters a transformation declares, with their defaults, without running it.
 
 ::::
 
 ## Lab Files
 
-Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches PDI with the file loaded. If PDI is already running, the path is copied to your clipboard — switch to PDI and use Ctrl+O, Ctrl+V, Enter.
+Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches PDI with the file loaded. If PDI is already running, the path is copied to your clipboard — switch to PDI and press `Ctrl+O`, `Ctrl+V`, `Enter`.
 
 ### Solution <!-- no-step -->
 

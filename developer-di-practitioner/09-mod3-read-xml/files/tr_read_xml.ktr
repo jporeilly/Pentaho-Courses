@@ -591,7 +591,7 @@
     <rownum_field/>
     <encoding>UTF-8</encoding>
     <file>
-      <name>${Internal.Transformation.Filename.Directory}\orders.xml</name>
+      <name>${Internal.Entry.Current.Directory}/orders.xml</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>

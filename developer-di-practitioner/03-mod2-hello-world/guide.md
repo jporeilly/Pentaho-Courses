@@ -3,30 +3,23 @@
 > **Warning:**
 >
 > #### Workshop - Hello World
-> 
+>
 > Build a minimal transformation in Spoon. Use steps, hops, and notes. Preview data and review execution metrics.
-> 
-> **What you’ll do**
-> 
-> * Create a transformation
-> * Add and configure **Generate Rows** and **Dummy**
-> * Connect steps with hops
-> * Add a note to document the flow
+>
+> **What you'll do**
+>
+> * Create and save a transformation
+> * Add and configure **Generate rows** and **Dummy (do nothing)**
+> * Connect the steps with a hop
+> * Add a note and set the transformation's properties
 > * Preview data from a step
-> * Run the transformation and review results
-> 
-> **Prerequisites:** Pentaho Data Integration installed and configured
-> 
+> * Run the transformation and review the results
+>
+> **Prerequisites:** Pentaho Data Integration installed and configured (see [Configuring PDI](../01-mod1-configuring-pdi/guide.md))
+>
 > **Estimated time:** 25 minutes
 
 <div class="pcm-embed-card" data-href="https://www.loom.com/share/cb9fa033ddcf46c6b7d17c532c16ac66?hideEmbedTopBar=true&amp;hide_owner=true&amp;hide_share=true&amp;hide_title=true" data-title="Introduction to Data Transformation with PDI" data-description="In this demonstration, I introduced you to your first transformation, showcasing its execution and results. We explored a CSV file input step that reads sales territory data, filtering records based on the EMEA territory for separate database table outputs. After executing the transformation, we verified that the data was inserted correctly into the respective tables. I encourage you to familiarize yourself with the Spoon Log and Step Metrics as we progress through the course. This overview sets the stage for deeper learning about PDI and its components in future lessons." data-thumb="../_assets/embeds/2d94cd73b9b2.png"></div>
-
-> **Note:** **Create a new transformation**
-> 
-> Use any of these options to open a new transformation tab:
-> 
-> * Select **File** > **New** > **Transformation**
-> * Use `Ctrl+N` (Windows/Linux) or `Cmd+N` (macOS)
 
 <figure>
 
@@ -43,70 +36,62 @@
 
 > **Note:**
 >
-> #### **Generate Rows**
-> 
-> Generate Rows outputs a specified number of rows. By default, the rows are empty. You can also generate static fields for test data. For example, generate 12 rows for 12 months.
-> 
-> Generate Rows is also useful as a single-row “starter” step.
+> #### Generate Rows
+>
+> **Generate rows** outputs a set number of rows. By default the rows are empty, but you can also give every row the same field values, as test data: for example, generate 12 rows for 12 months.
+>
+> **Generate rows** is also useful as a one-row "starter" step.
 
-1. Start Pentaho Data Integration (Spoon).
-
+1. Start Spoon with the **Start PDI** button below, or from a terminal:
 
 ::: tabs
 
 ### Windows (PowerShell)
 
-> 
-> ```powershell
-> Set-Location C:\Pentaho\design-tools\data-integration
-> .\spoon.bat
-> ```
-> 
->
+```powershell
+Set-Location C:\Pentaho\design-tools\data-integration
+.\spoon.bat
+```
 
 ### macOS / Linux
 
-> 
-> ```bash
-> cd ~/Pentaho/design-tools/data-integration
-> ./spoon.sh
-> ```
-> 
->
+```bash
+cd ~/Pentaho/design-tools/data-integration
+./spoon.sh
+```
 
 :::
 
 <button data-launch="spoon" data-path="">Start PDI</button>
 
-2. In the **Design** tab, expand the `Input` category.
-3. Drag **Generate Rows** onto the canvas.
+2. Select **File > New > Transformation** (`Ctrl+N`).
+3. Select **File > Save as** and save it as `tr_hello_world.ktr` in `C:\Workshop-DI-Practitioner\02-components-concepts\02-key-concepts\03-mod2-hello-world`. The Logging workshop starts from this file.
+4. On the **Design** tab, open the **Input** folder and drag **Generate rows** onto the canvas.
 
-> **Tip:** You can also search for `Generate Rows`.
+> **Tip:** To find a step faster, type part of its name, such as `generate`, in the search box at the top of the **Design** tab.
 
-<div align="center"><figure><img src="../_assets/images/gen-rows.png" alt="Generate rows" width="563"><figcaption><p>Generate rows</p></figcaption></figure></div>
+<div align="center"><figure><img src="../_assets/images/gen-rows.png" alt="The Design tab searched for generate, with Generate rows selected in the Input folder and its tooltip showing" width="563"><figcaption><p>Generate rows in the Input folder</p></figcaption></figure></div>
 
-4. Double-click **Generate Rows** to open the step properties.
+5. Double-click **Generate rows**.
+6. Set **Step name** to `gr_hello-world`.
+7. Set **Limit** to `10`.
+8. Fill the **Fields** grid with one row:
 
-<figure><img src="../_assets/images/hello-world-2.png" alt="Generate rows - settings" width="563"><figcaption><p>Generate rows - settings</p></figcaption></figure>
+| Name      | Type   | Value         |
+| --------- | ------ | ------------- |
+| `message` | String | `hello world` |
 
-Ensure the following details are configured:
+<figure><img src="../_assets/images/hello-world-2.png" alt="The Generate rows dialog with Limit 10 and one field, message, of type String with the value hello world" width="563"><figcaption><p>Generate rows settings; name the step gr_hello-world</p></figcaption></figure>
 
-| **Step name** | gr\_hello-world |
-| ------------- | --------------- |
-| **Limit**     | 10              |
-| **Name**      | message         |
-| **Type**      | String          |
-| **Value**     | hello world     |
+9. Select **Preview**, enter `100` rows in the **Enter preview size** dialog, and select **OK**. The step makes only as many rows as its **Limit**.
 
-> **Note:** Before you close the dialog, preview the data.
+<figure><img src="../_assets/images/preview-1.png" alt="Examine preview data: 10 rows, each with message hello world" width="375"><figcaption><p>Examine preview data</p></figcaption></figure>
 
-5. Select **Preview**. The **Enter preview size** dialog opens.
+> **Success:** Checkpoint: **Examine preview data** shows 10 rows, and every row's `message` is `hello world`.
 
-<figure><img src="../_assets/images/preview-1.png" alt="Preview rows" width="375"><figcaption><p>Preview rows</p></figcaption></figure>
-
-6. In **Enter preview size**, select **OK**.
-7. Verify the 10 rows. Then select **OK** to close the preview dialog.
-8. Select **OK** to close the **Generate Rows** dialog.
+10. Select **Close**.
+11. Select **OK**.
+12. Save the transformation (`Ctrl+S`).
 
 > **Under the hood:**
 >
@@ -131,27 +116,23 @@ Ensure the following details are configured:
 
 > **Note:**
 >
-> #### **Dummy**
-> 
-> The Dummy step does not process records. Use it as a placeholder during development. It is handy when you need a second step to connect.
+> #### Dummy
+>
+> **Dummy (do nothing)** passes on the rows it receives without changing them. Use it as a placeholder during development: it is handy when you need a second step to connect.
 
-1. In the **Design** tab, expand the `Flow` category.
-2. Drag **Dummy** onto the canvas.
+1. On the **Design** tab, open the **Flow** folder and drag **Dummy (do nothing)** onto the canvas, below **gr_hello-world**. Keep its step name, `Dummy (do nothing)`.
 
-<div align="center"><figure><img src="../_assets/images/dummy.png" alt="Dummy step" width="375"><figcaption><p>Dummy step</p></figcaption></figure></div>
+<div align="center"><figure><img src="../_assets/images/dummy.png" alt="The Flow folder of the Design tab, with Dummy (do nothing)" width="375"><figcaption><p>Dummy (do nothing) in the Flow folder</p></figcaption></figure></div>
 
 ### 3. Hops and Notes
 
 > **Note:**
 >
-> #### **Hops**
-> 
-> Hops define row flow between steps. PDI buffers rows between steps as the transformation runs.
+> #### Hops and Notes
+>
+> Hops define row flow between steps. PDI buffers rows between steps as the transformation runs. A note is text on the canvas that documents the flow for the next person who opens the file.
 
-1. Select the `gr_hello-world` step.
-2. Hold down the Shift key.
-3. Drag and drop the hop onto the Dummy step.
-4. Release the Shift key.
+1. Create a hop from **gr_hello-world** to **Dummy (do nothing)**: hold `Shift` and drag from one step to the other. An arrow now joins the two steps.
 
 > **Under the hood:**
 >
@@ -172,66 +153,82 @@ Ensure the following details are configured:
 > that handles 10 rows in this lab handles 10 million the same way,
 > holding only what is in flight.
 
-**Add a note**
+2. Right-click an empty part of the canvas and select **New Note...**. The **Notes** dialog opens.
+3. On the **Note** tab, enter `Lab1: Hello World`.
+4. Optional: to match the solution's title note, open the dialog's second tab, select **Font bold**, set **Font name** to `Segoe UI`, and set **Font size** to `11`.
+5. Select **OK**.
+6. Drag the note above the two steps.
+7. Optional: add a second note the same way, recording the settings you used. The solution's second note reads:
 
-1. Right-click anywhere on the Spoon canvas.
-2. Select **New note**.
+   ```text
+   This transformation generates rows, 'hello world'.  Illustrates some of the key features:
 
-<div align="left"><figure><img src="../_assets/images/note.png" alt="Notes"><figcaption><p>Notes</p></figcaption></figure> <figure><img src="../_assets/images/note2.png" alt="Notes - Style"><figcaption><p>Notes - Style</p></figcaption></figure></div>
+   Step1: Generate Rows
+      Limit: 10 rows
 
-**Transformation properties**
+      Name: message
+      Type: String
+      Value: hello world
 
-To view the transformation properties:
+     click: Preview
 
-1. Double-click anywhere on the canvas.
+   Step2: Dummy
+   ```
 
-<div align="center"><figure><img src="../_assets/images/properties.png" alt="Transformation properties" width="563"><figcaption><p>Transformation properties</p></figcaption></figure></div>
+<div align="left"><figure><img src="../_assets/images/note.png" alt="The Notes dialog on the Note tab, with the note text typed in"><figcaption><p>Notes - the Note tab</p></figcaption></figure> <figure><img src="../_assets/images/note2.png" alt="The Notes dialog on its font and style tab: Font name, Font size, Font bold, Font italic, Font color and Background color"><figcaption><p>Notes - font and style</p></figcaption></figure></div>
 
-> **Tip:** Add details in **Extended description**.
-
-### 4. Run
+### 4. Transformation Properties
 
 > **Note:**
 >
-> #### Run the transformation
-> 
-> Run the transformation locally.
+> #### Transformation Properties
+>
+> The **Transformation properties** dialog holds the transformation's name and description, and the settings that apply to the whole transformation, such as the size of the row sets between steps.
 
-1. In Spoon, select **Action > Run** (or press `F9`).
+1. Double-click an empty part of the canvas (or select **Edit > Settings...**). The **Transformation properties** dialog opens on the **Transformation** tab.
+2. Set **Transformation name** to `tr_hello_world`.
+3. Set **Description** to `Hello World Transformation`.
+4. Set **Extended description** to `This transformation generates 10 rows with the message Hello World.`
+5. In **Status**, select **Production**.
+6. Set **Version** to `1.0`.
 
-> **Note:** You can also select **Run** in the toolbar.
-> 
-> The **Run Options** dialog opens. For this workshop, keep the **Pentaho local** run configuration.
+<div align="center"><figure><img src="../_assets/images/properties.png" alt="The Transformation properties dialog on the Transformation tab, with the name, description, extended description, status and version fields" width="563"><figcaption><p>Transformation properties, before your changes</p></figcaption></figure></div>
 
-2. Review the settings in **Run Options**, then select **Run**.
+7. Select **OK**.
+8. Save the transformation (`Ctrl+S`).
 
-<div align="center"><figure><img src="../_assets/images/run.png" alt="Run Options" width="375"><figcaption><p>Run Options</p></figcaption></figure></div>
+### 5. Run
 
-> **Note:** In **Run Options** you can set:
-> 
-> * **Run configuration** (local, remote, or cluster)
-> * **Log level**
-> * **Automatically save** the transformation
+> **Note:**
+>
+> #### Run the Transformation
+>
+> Run the transformation on this machine, with the **Pentaho local** run configuration, and read what happened in **Execution Results**.
 
-<div align="center"><figure><img src="../_assets/images/save-transformations.png" alt="Automatically save transformation" width="375"><figcaption><p>Automatically save transformation</p></figcaption></figure></div>
+1. Press `F9` (**Action > Run**), or select **Run** on the toolbar. The **Run Options** dialog opens.
 
-The transformation executes.
+<div align="center"><figure><img src="../_assets/images/run.png" alt="The toolbar's Run menu open: Run (F9) and Run Options... (F8)" width="375"><figcaption><p>Run from the toolbar</p></figcaption></figure></div>
 
-<figure><img src="../_assets/images/ex-trans.png" alt="Green check marks indicate successful execution" width="375"><figcaption><p>Green check marks indicate successful execution</p></figcaption></figure>
+2. Keep **Run configuration** as **Pentaho local** and **Log level** as **Basic**, and select **Run**.
+3. If the **File has changed!** dialog asks you to save the transformation, select **Yes**. Select **Automatically save the transformation.** first if you want Spoon to save without asking next time.
 
-> **Warning:** A green check mark confirms the transformation's execution, but doesn't guarantee the success of the underlying operations.
+<div align="center"><figure><img src="../_assets/images/save-transformations.png" alt="The File has changed! dialog asking to save the transformation before running it, with the Automatically save the transformation check box" width="375"><figcaption><p>Save before running</p></figcaption></figure></div>
 
-> **Note:** **Execution Results**
-> 
-> The Execution Results section of the window contains several different tabs that help you to see how the transformation executed, pinpoint errors, and monitor performance.
+<figure><img src="../_assets/images/ex-trans.png" alt="The canvas after the run: gr_hello-world and Dummy (do nothing) each with a green check mark" width="375"><figcaption><p>Green check marks indicate successful execution</p></figcaption></figure>
 
-<div align="center"><figure><img src="../_assets/images/tr-metrics.png" alt="Logging"><figcaption><p>Logging</p></figcaption></figure></div>
+> **Success:** Checkpoint: both steps show a green check mark on the canvas. A check mark means the step finished without an error; it doesn't prove the data is right. The tabs of **Execution Results**, below the canvas, show what each step did.
 
-The **Logging** tab shows the log lines each step wrote.
+4. In **Execution Results**, open the **Logging** tab. It shows the log lines each step wrote.
 
-<figure><img src="../_assets/images/step-metrics.png" alt="Step Metrics"><figcaption><p>Step Metrics</p></figcaption></figure>
+<div align="center"><figure><img src="../_assets/images/tr-metrics.png" alt="The Logging tab: a Finished processing line for gr_hello-world and one for Dummy (do nothing)"><figcaption><p>Logging</p></figcaption></figure></div>
 
-> **Note:** The **Step Metrics** tab has statistics for every step: rows read and written, errors, speed (rows per second) and more. A step that failed is highlighted here.
+> **Success:** Checkpoint: the log has a `Finished processing` line for each step: `gr_hello-world.0` with `W=10`, and `Dummy (do nothing).0` with `R=10, W=10`.
+
+5. Open the **Step Metrics** tab. It has a row of statistics for every step: rows read and written, errors, time and speed (rows per second).
+
+> **Success:** Checkpoint: **gr_hello-world** shows **Written** 10, and **Dummy (do nothing)** shows **Read** 10 and **Written** 10. **Errors** is 0 for both.
+
+<figure><img src="../_assets/images/step-metrics.png" alt="The Step Metrics tab: gr_hello-world Written 10, Dummy (do nothing) Read 10 and Written 10"><figcaption><p>Step Metrics</p></figcaption></figure>
 
 > **Under the hood:**
 >
@@ -255,25 +252,29 @@ The **Logging** tab shows the log lines each step wrote.
 > step whose Written is lower than its Read, names the step to
 > investigate before anyone opens a log.
 
-<figure><img src="../_assets/images/metrics.png" alt="Metrics"><figcaption><p>Metrics</p></figcaption></figure>
+6. Open the **Metrics** tab. It draws how long each part of the run took: the transformation, each step's initialization, and each step's execution.
 
-> **Note:** Metrics can help identify bottlenecks (back pressure). In this example, the transformation took 30 ms. Notice `gr_hello-world` and `Dummy` initialize at the same time. Steps run in parallel in separate threads.
+<figure><img src="../_assets/images/metrics.png" alt="The Metrics tab: bars for executing and initializing the transformation and for initializing and executing each step"><figcaption><p>Metrics</p></figcaption></figure>
 
-<figure><img src="../_assets/images/run-preview.png" alt="Preview data"><figcaption><p>Preview data</p></figcaption></figure>
+In the screenshot the whole run took 30 ms, and `gr_hello-world` and `Dummy (do nothing)` initialize at the same moment: each step runs in its own thread, in parallel. On a slow run, these bars help you find the bottleneck.
 
-> **Note:** The **Preview data** tab shows the rows of the step selected on the canvas.
+7. Select **Dummy (do nothing)** on the canvas and open the **Preview data** tab. It shows the rows of the step selected on the canvas.
 
-> **Note:** **Viewing the Transformation structure**
-> 
-> Select the **View** tab (upper left). The tree switches to the structure of the open transformation: its steps, hops and connections.
+<figure><img src="../_assets/images/run-preview.png" alt="The Preview data tab: 10 rows, each with message hello world"><figcaption><p>Preview data</p></figcaption></figure>
 
-<div align="center"><figure><img src="../_assets/images/view.png" alt="View"><figcaption><p>View</p></figcaption></figure></div>
+> **Success:** Checkpoint: 10 rows, each with `message` `hello world`.
+
+8. Select the **View** tab, at the top left beside **Design**. The tree shows the structure of the open transformation: its run configurations, connections, steps and hops.
+
+<div align="center"><figure><img src="../_assets/images/view.png" alt="The View tab: the transformation's tree with Run configurations, Database connections, Steps and Hops, next to the canvas"><figcaption><p>View</p></figcaption></figure></div>
+
+> **Success:** Checkpoint: under **Steps**, the tree lists `gr_hello-world` and `Dummy (do nothing)`.
 
 ::::
 
 ## Lab Files
 
-Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches PDI with the file loaded. If PDI is already running, the path is copied to your clipboard — switch to PDI and use Ctrl+O, Ctrl+V, Enter.
+Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches PDI with the file loaded. If PDI is already running, the path is copied to your clipboard — switch to PDI and press `Ctrl+O`, `Ctrl+V`, `Enter`.
 
 ### Solution <!-- no-step -->
 

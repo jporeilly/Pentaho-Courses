@@ -47,10 +47,8 @@ Relational databases are what PDI works with most. This topic covers the full CR
 > `3306`. Set that connection up once and the rest of the module reuses
 > it. Pointed at the HSQLDB instance instead, these workshops fail on
 > the first write.
-
-> **Note:**
 >
-> #### **Steel Wheels - Schema**
+> **Steel Wheels - Schema**
 > 
 > The Steel Wheels schema models a company that sells and distributes scale-model products. It centers on order processing - orders and their line items - with customer profiles that hold contact details, territories and credit limits.
 > 

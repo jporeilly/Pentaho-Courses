@@ -652,7 +652,7 @@ from several Excel spreadsheets, with text files as their datasource.</note>
     <length>Characters</length>
     <add_to_result_filenames>Y</add_to_result_filenames>
     <file>
-      <name>${Internal.Entry.Current.Directory}\expenses.txt</name>
+      <name>${Internal.Entry.Current.Directory}/expenses.txt</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>
@@ -847,7 +847,7 @@ from several Excel spreadsheets, with text files as their datasource.</note>
     <length>Characters</length>
     <add_to_result_filenames>Y</add_to_result_filenames>
     <file>
-      <name>${Internal.Transformation.Filename.Directory}\sales.txt</name>
+      <name>${Internal.Entry.Current.Directory}/sales.txt</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>
@@ -1089,7 +1089,7 @@ from several Excel spreadsheets, with text files as their datasource.</note>
     <appendLines>N</appendLines>
     <add_to_result_filenames>N</add_to_result_filenames>
     <file>
-      <name>${Internal.Transformation.Filename.Directory}/Sales_and_Expenses_2023</name>
+      <name>${Internal.Entry.Current.Directory}/Sales_and_Expenses_2023</name>
       <extention>xlsx</extention>
       <do_not_open_newfile_init>Y</do_not_open_newfile_init>
       <split>N</split>
@@ -1226,7 +1226,7 @@ from several Excel spreadsheets, with text files as their datasource.</note>
     <appendLines>N</appendLines>
     <add_to_result_filenames>Y</add_to_result_filenames>
     <file>
-      <name>${Internal.Transformation.Filename.Directory}/Sales_and_Expenses_2023</name>
+      <name>${Internal.Entry.Current.Directory}/Sales_and_Expenses_2023</name>
       <extention>xlsx</extention>
       <do_not_open_newfile_init>Y</do_not_open_newfile_init>
       <split>N</split>
@@ -1384,7 +1384,7 @@ from several Excel spreadsheets, with text files as their datasource.</note>
     <template>
       <enabled>Y</enabled>
       <sheet_enabled>N</sheet_enabled>
-      <filename>${Internal.Entry.Current.Directory}\template.xlsx</filename>
+      <filename>${Internal.Entry.Current.Directory}/template.xlsx</filename>
       <sheetname/>
       <hidden>N</hidden>
     </template>

@@ -28,10 +28,6 @@
 
 <figure><img src="../_assets/images/database-join.png" alt="Pentaho Data Integration title card: Database Join"><figcaption><p>Database Join</p></figcaption></figure>
 
-> **Note:** **Create a new transformation**
-> 
-> Select **File > New > Transformation**, or press `Ctrl+N` (`Cmd+N` on macOS). Save it as `tr_database_join.ktr` in the lab folder, `C:\Workshop-DI-Practitioner\04-enriching-the-dataset\02-joins\22-mod4-database-join`.
-
 :::: tabs
 
 ### 1. Data grid
@@ -42,46 +38,54 @@
 > 
 > **Data grid** holds rows typed into the step itself: handy for tests, reference values and demonstrations. Here each row is one search.
 
-1. Start Spoon.
+1. Start Spoon with the **Start PDI** button below, or from a terminal:
 
 ::: tabs
 
 ### Windows (PowerShell)
 
-> 
-> ```powershell
-> Set-Location C:\Pentaho\design-tools\data-integration
-> .\spoon.bat
-> ```
-> 
->
+```powershell
+Set-Location C:\Pentaho\design-tools\data-integration
+.\spoon.bat
+```
 
 ### macOS / Linux
 
-> 
-> ```bash
-> cd ~/Pentaho/design-tools/data-integration
-> ./spoon.sh
-> ```
-> 
->
+```bash
+cd ~/Pentaho/design-tools/data-integration
+./spoon.sh
+```
 
 :::
 
 <button data-launch="spoon" data-path="">Start PDI</button>
 
-2. From the **Input** folder, drag **Data grid** onto the canvas and name it `some conditions`.
-3. On the **Meta** tab, add `prod` (String) and `max_price` (Integer). On the **Data** tab, enter three rows:
+2. Select **File > New > Transformation** (`Ctrl+N`).
+3. Select **File > Save as** and save it as `tr_database_join.ktr` in `C:\Workshop-DI-Practitioner\04-enriching-the-dataset\02-joins\22-mod4-database-join`.
+4. On the **Design** tab, open the **Input** folder and drag **Data grid** onto the canvas.
+5. Double-click **Data grid**. Set **Step name** to `some conditions`.
+6. On the **Meta** tab, fill the grid with two fields:
+
+| Name        | Type      |
+| ----------- | --------- |
+| `prod`      | `String`  |
+| `max_price` | `Integer` |
+
+7. Open the **Data** tab and enter three rows:
 
 | prod           | max_price |
 | -------------- | --------- |
-| `Aston Martin` | 90        |
-| `Ford Falcon`  | 70        |
-| `Corvette`     | 70        |
+| `Aston Martin` | `90`      |
+| `Ford Falcon`  | `70`      |
+| `Corvette`     | `70`      |
 
 <div><figure><img src="../_assets/images/dg-database-join.png" alt="Data grid Meta tab with prod String and max_price Integer"><figcaption><p>Meta tab</p></figcaption></figure> <figure><img src="../_assets/images/dg-database-join-data.png" alt="Data grid Data tab with the three search rows"><figcaption><p>Data tab</p></figcaption></figure></div>
 
-4. Select **OK**.
+8. Select **Preview**, enter `100` rows, and select **OK**.
+
+> **Success:** Checkpoint: **Examine preview data** shows 3 rows: `Aston Martin` with `90`, `Ford Falcon` with `70` and `Corvette` with `70`.
+
+9. Select **Close**, then **OK**.
 
 ### 2. Database join
 
@@ -91,8 +95,10 @@
 > 
 > The query's parameters are question marks (`?`) in the SQL. For each row, **Database join** replaces them, in order, with the fields listed in **The parameters to use**.
 
-1. From the **Lookup** folder, drag **Database join** onto the canvas and hop **some conditions** to it.
-2. Double-click the step and set **Connection** to `MySQL:sampledata` and the **SQL** to:
+1. On the **Design** tab, open the **Lookup** folder and drag **Database join** onto the canvas.
+2. Create a hop from **some conditions** to **Database join**: hold `Shift` and drag from one step to the other.
+3. Double-click **Database join**. Set **Connection** to `MySQL:sampledata`.
+4. Enter this query in **SQL**:
 
    ```sql
    SELECT PRODUCTNAME
@@ -103,12 +109,19 @@
    AND    BUYPRICE < ?
    ```
 
-3. Keep **Number of rows to return** at `0` (all of them) and select **Outer join?**.
-4. Under **The parameters to use**, add `prod` (String) and then `max_price` (Integer): the first `?` gets `prod`, the second `max_price`.
+5. Keep **Number of rows to return** at `0` (all of them), and select **Outer join?**.
+6. Fill **The parameters to use** with two rows, in this order: the first `?` gets `prod`, the second `max_price`.
+
+| Parameter fieldname | Parameter Type |
+| ------------------- | -------------- |
+| `prod`              | `String`       |
+| `max_price`         | `Integer`      |
+
+7. Select **OK**.
 
 <figure><img src="../_assets/images/database-join-step.png" alt="Database join with the SELECT on PRODUCTS, Outer join selected and the parameters prod and max_price" width="563"><figcaption><p>Two markers, two parameters, in order</p></figcaption></figure>
 
-5. Select **OK**.
+The screenshot names the connection `Sampledata`; yours is `MySQL:sampledata`.
 
 > **Note:** **What each row runs**
 > 
@@ -122,26 +135,10 @@
 >
 > #### Run the transformation
 > 
-> Run it and look at what each search row returned.
+> Run it and look at what each search row returned. A database lookup returns at most one row per input row; Database join returns every row the query finds. If you expect one match per row, [Database Lookups](../26-mod4-database-lookups/guide.md) is the simpler step.
 
-1. Save the transformation, select **Run** in the toolbar, then **Run** in **Run Options**.
-2. Select **Database join**, then the **Preview data** tab in **Execution Results**.
-
-<figure><img src="../_assets/images/results-1.png" alt="Preview data: Aston Martin with one product, Ford Falcon with nulls, and Corvette products"><figcaption><p>One search row can return several rows</p></figcaption></figure>
-
-> **Success:** Checkpoint: 5 rows from 3 searches.
->
-> | prod           | PRODUCTNAME                          | BUYPRICE |
-> | -------------- | ------------------------------------ | -------- |
-> | `Aston Martin` | 1965 Aston Martin DB5                | 65.96    |
-> | `Ford Falcon`  | (null)                               | (null)   |
-> | `Corvette`     | 1957 Corvette Convertible            | 69.93    |
-> | `Corvette`     | 1958 Chevy Corvette Limited Edition  | 15.91    |
-> | `Corvette`     | 2002 Chevy Corvette                  | 62.11    |
-
-> **Note:** The screenshot shows two Corvettes: it was taken against an older copy of the data. In the lab database the 1957 Corvette Convertible's buy price, 69.93, is also under 70.
-
-> **Note:** **Database join or Database lookup?** A database lookup returns at most one row per input row. Database join returns every row the query finds: Corvette's three matches become three output rows. If you expect one match per row, [Database Lookups](../26-mod4-database-lookups/guide.md) is the simpler step.
+1. Save the transformation (`Ctrl+S`).
+2. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
 
 > **Under the hood:**
 >
@@ -163,11 +160,29 @@
 > queries: at that scale, read both sides with **Table input** and use
 > **Merge join**, or put the join in the SQL.
 
+3. In **Execution Results**, open the **Step Metrics** tab.
+
+> **Success:** Checkpoint: **some conditions** shows 3 in **Written**, and **Database join** shows 3 in **Read** and 5 in **Written**: three queries, five rows out.
+
+4. Select **Database join** on the canvas and open the **Preview data** tab.
+
+<figure><img src="../_assets/images/results-1.png" alt="Preview data: Aston Martin with one product, Ford Falcon with nulls, and Corvette products"><figcaption><p>One search row can return several rows</p></figcaption></figure>
+
+> **Success:** Checkpoint: 5 rows from 3 searches. The screenshot shows two Corvettes: it was taken against an older copy of the data. In the lab database the 1957 Corvette Convertible's buy price, 69.93, is also under 70.
+>
+> | prod           | max_price | PRODUCTNAME                          | PRODUCTSCALE | BUYPRICE |
+> | -------------- | --------- | ------------------------------------ | ------------ | -------- |
+> | `Aston Martin` | 90        | 1965 Aston Martin DB5                | 1:18         | 65.96    |
+> | `Ford Falcon`  | 70        | `<null>`                             | `<null>`     | `<null>` |
+> | `Corvette`     | 70        | 1957 Corvette Convertible            | 1:18         | 69.93    |
+> | `Corvette`     | 70        | 1958 Chevy Corvette Limited Edition  | 1:24         | 15.91    |
+> | `Corvette`     | 70        | 2002 Chevy Corvette                  | 1:24         | 62.11    |
+
 ::::
 
 ## Lab Files
 
-Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches PDI with the file loaded. If PDI is already running, the path is copied to your clipboard — switch to PDI and use Ctrl+O, Ctrl+V, Enter.
+Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches PDI with the file loaded. If PDI is already running, the path is copied to your clipboard — switch to PDI and press `Ctrl+O`, `Ctrl+V`, `Enter`.
 
 ### Solution <!-- no-step -->
 
