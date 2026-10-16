@@ -1,14 +1,14 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
     <name>build_fact</name>
-    <description />
-    <extended_description />
-    <trans_version />
+    <description/>
+    <extended_description/>
+    <trans_version/>
     <trans_type>Normal</trans_type>
     <trans_status>0</trans_status>
     <directory>/</directory>
-    <filename />
+    <filename>file:///C:/Workshop-DI-Practitioner/capstone/solution/build_fact.ktr</filename>
     <parameters>
       <parameter>
         <name>OUTPUT_PATH</name>
@@ -28,12 +28,12 @@
     </parameters>
     <log>
       <trans-log-table>
-        <connection />
-        <schema />
-        <table />
-        <size_limit_lines />
-        <interval />
-        <timeout_days />
+        <connection/>
+        <schema/>
+        <table/>
+        <size_limit_lines/>
+        <interval/>
+        <timeout_days/>
         <field>
           <id>ID_BATCH</id>
           <enabled>Y</enabled>
@@ -58,37 +58,37 @@
           <id>LINES_READ</id>
           <enabled>Y</enabled>
           <name>LINES_READ</name>
-          <subject />
+          <subject/>
         </field>
         <field>
           <id>LINES_WRITTEN</id>
           <enabled>Y</enabled>
           <name>LINES_WRITTEN</name>
-          <subject />
+          <subject/>
         </field>
         <field>
           <id>LINES_UPDATED</id>
           <enabled>Y</enabled>
           <name>LINES_UPDATED</name>
-          <subject />
+          <subject/>
         </field>
         <field>
           <id>LINES_INPUT</id>
           <enabled>Y</enabled>
           <name>LINES_INPUT</name>
-          <subject />
+          <subject/>
         </field>
         <field>
           <id>LINES_OUTPUT</id>
           <enabled>Y</enabled>
           <name>LINES_OUTPUT</name>
-          <subject />
+          <subject/>
         </field>
         <field>
           <id>LINES_REJECTED</id>
           <enabled>Y</enabled>
           <name>LINES_REJECTED</name>
-          <subject />
+          <subject/>
         </field>
         <field>
           <id>ERRORS</id>
@@ -142,11 +142,11 @@
         </field>
       </trans-log-table>
       <perf-log-table>
-        <connection />
-        <schema />
-        <table />
-        <interval />
-        <timeout_days />
+        <connection/>
+        <schema/>
+        <table/>
+        <interval/>
+        <timeout_days/>
         <field>
           <id>ID_BATCH</id>
           <enabled>Y</enabled>
@@ -224,10 +224,10 @@
         </field>
       </perf-log-table>
       <channel-log-table>
-        <connection />
-        <schema />
-        <table />
-        <timeout_days />
+        <connection/>
+        <schema/>
+        <table/>
+        <timeout_days/>
         <field>
           <id>ID_BATCH</id>
           <enabled>Y</enabled>
@@ -290,10 +290,10 @@
         </field>
       </channel-log-table>
       <step-log-table>
-        <connection />
-        <schema />
-        <table />
-        <timeout_days />
+        <connection/>
+        <schema/>
+        <table/>
+        <timeout_days/>
         <field>
           <id>ID_BATCH</id>
           <enabled>Y</enabled>
@@ -366,10 +366,10 @@
         </field>
       </step-log-table>
       <metrics-log-table>
-        <connection />
-        <schema />
-        <table />
-        <timeout_days />
+        <connection/>
+        <schema/>
+        <table/>
+        <timeout_days/>
         <field>
           <id>ID_BATCH</id>
           <enabled>Y</enabled>
@@ -418,9 +418,9 @@
       </metrics-log-table>
     </log>
     <maxdate>
-      <connection />
-      <table />
-      <field />
+      <connection/>
+      <table/>
+      <field/>
       <offset>0.0</offset>
       <maxdiff>0.0</maxdiff>
     </maxdate>
@@ -446,15 +446,15 @@
     <created_date>2026/10/15 14:58:02.486</created_date>
     <modified_user>-</modified_user>
     <modified_date>2026/10/15 14:58:02.486</modified_date>
-    <key_for_session_key />
+    <key_for_session_key>H4sIAAAAAAAA/wMAAAAAAAAAAAA=</key_for_session_key>
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
     <notepad>
       <note>stg_orders + customers (Stream Lookup) + products (Merge Join) + revenue and margin + the region key, to out/fact_sales.csv and the fact_sales table.</note>
-      <xloc>32</xloc>
+      <xloc>144</xloc>
       <yloc>16</yloc>
-      <width>520</width>
+      <width>896</width>
       <heigth>40</heigth>
       <fontname>Segoe UI</fontname>
       <fontsize>10</fontsize>
@@ -471,6 +471,44 @@
       <bordercolorblue>100</bordercolorblue>
       <drawshadow>Y</drawshadow>
     </notepad>
+    <notepad>
+      <note>build_fact - builds the sales fact from the three staging tables.
+Runs after maintain_dim_region (it needs dim_region for the region key).
+
+1. Read orders: stg_orders, sorted by product_id (the main stream).
+2. Lookup customer: Stream Lookup on customer_id = stg_customers.id, returns customer_name and region_code.
+3. Join products: Merge Join (INNER) on product_id = stg_products.id, brings product_name, category, cost. Both inputs are sorted by their SQL.
+4. Customer and product found?: rows missing either go to out/rejected_unmatched_${SALES_DATE}.csv.
+5. Revenue and margin (Formula, BigNumber 12,2):
+   revenue = qty x unit_price x (1 - discount_pct / 100),
+             rounded half-up to the cent with INT(x * 100 + 0.5) / 100
+             (PDI 11's Formula step has no ROUND)
+   gross_margin = revenue - qty x cost
+6. Region key: Dimension Lookup/Update, lookup only, on dim_region (region_code = code, order_date between valid_from and valid_to), returns region_sk and region_name.
+7. Fact columns: Select values sets the column order and precision 2.
+8. Write fact_sales.csv to out/ (the file the accreditation check reads), then Load fact_sales into the table (truncated every run).
+9. Count fact rows, written to the log.
+
+Shipped data: 37 fact rows, 0 unmatched.</note>
+      <xloc>144</xloc>
+      <yloc>320</yloc>
+      <width>1024</width>
+      <heigth>332</heigth>
+      <fontname>Segoe UI</fontname>
+      <fontsize>10</fontsize>
+      <fontbold>N</fontbold>
+      <fontitalic>N</fontitalic>
+      <fontcolorred>0</fontcolorred>
+      <fontcolorgreen>0</fontcolorgreen>
+      <fontcolorblue>0</fontcolorblue>
+      <backgroundcolorred>179</backgroundcolorred>
+      <backgroundcolorgreen>225</backgroundcolorgreen>
+      <backgroundcolorblue>251</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
+      <drawshadow>Y</drawshadow>
+    </notepad>
   </notepads>
   <connection>
     <name>capstone</name>
@@ -481,9 +519,9 @@
     <port>3306</port>
     <username>pentaho_admin</username>
     <password>Encrypted 2be98afc86aa7f2e4bb18bd63c99dbdde</password>
-    <servername />
-    <data_tablespace />
-    <index_tablespace />
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
     <attributes>
       <attribute>
         <code>EXTRA_OPTION_MYSQL.defaultFetchSize</code>
@@ -503,6 +541,10 @@
       </attribute>
       <attribute>
         <code>IS_CLUSTERED</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>MSSQL_DOUBLE_DECIMAL_SEPARATOR</code>
         <attribute>N</attribute>
       </attribute>
       <attribute>
@@ -603,27 +645,36 @@
     </hop>
   </order>
   <step>
-    <name>Read orders</name>
-    <type>TableInput</type>
-    <description />
+    <name>Count fact rows</name>
+    <type>GroupBy</type>
+    <description/>
     <distribute>Y</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
-    <connection>capstone</connection>
-    <sql>SELECT order_id, order_date, customer_id, product_id, qty, unit_price, discount_pct
-FROM stg_orders
-ORDER BY product_id</sql>
-    <limit>0</limit>
-    <lookup />
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-    <attributes />
-    <cluster_schema />
+    <all_rows>N</all_rows>
+    <ignore_aggregate>N</ignore_aggregate>
+    <field_ignore/>
+    <directory>%%java.io.tmpdir%%</directory>
+    <prefix>grp</prefix>
+    <add_linenr>N</add_linenr>
+    <linenr_fieldname/>
+    <give_back_row>Y</give_back_row>
+    <group>
+      </group>
+    <fields>
+      <field>
+        <aggregate>fact_rows</aggregate>
+        <subject>order_id</subject>
+        <type>COUNT_ALL</type>
+        <valuefield/>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -631,66 +682,182 @@ ORDER BY product_id</sql>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>64</xloc>
-      <yloc>112</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Read customers</name>
-    <type>TableInput</type>
-    <description />
-    <distribute>Y</distribute>
-    <custom_distribution />
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name />
-    </partitioning>
-    <connection>capstone</connection>
-    <sql>SELECT id, name, region_code
-FROM stg_customers</sql>
-    <limit>0</limit>
-    <lookup />
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-    <attributes />
-    <cluster_schema />
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>256</xloc>
+      <xloc>1104</xloc>
       <yloc>240</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Read products</name>
-    <type>TableInput</type>
-    <description />
+    <name>Customer and product found?</name>
+    <type>FilterRows</type>
+    <description/>
     <distribute>Y</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
-    <connection>capstone</connection>
-    <sql>SELECT id, name AS product_name, category, cost
-FROM stg_products
-ORDER BY id</sql>
-    <limit>0</limit>
-    <lookup />
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-    <attributes />
-    <cluster_schema />
+    <send_true_to>Revenue and margin</send_true_to>
+    <send_false_to>Rejected unmatched</send_false_to>
+    <compare>
+      <condition>
+        <negated>N</negated>
+        <conditions>
+          <condition>
+            <negated>N</negated>
+            <leftvalue>customer_name</leftvalue>
+            <function>IS NOT NULL</function>
+            <rightvalue/>
+          </condition>
+          <condition>
+            <negated>N</negated>
+            <operator>AND</operator>
+            <leftvalue>product_name</leftvalue>
+            <function>IS NOT NULL</function>
+            <rightvalue/>
+          </condition>
+        </conditions>
+      </condition>
+    </compare>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>592</xloc>
+      <yloc>112</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Fact columns</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>order_id</name>
+        <rename/>
+      </field>
+      <field>
+        <name>order_date</name>
+        <rename/>
+      </field>
+      <field>
+        <name>customer_id</name>
+        <rename/>
+      </field>
+      <field>
+        <name>customer_name</name>
+        <rename/>
+      </field>
+      <field>
+        <name>product_id</name>
+        <rename/>
+      </field>
+      <field>
+        <name>product_name</name>
+        <rename/>
+      </field>
+      <field>
+        <name>category</name>
+        <rename/>
+      </field>
+      <field>
+        <name>region_sk</name>
+        <rename/>
+      </field>
+      <field>
+        <name>region_code</name>
+        <rename/>
+      </field>
+      <field>
+        <name>region_name</name>
+        <rename/>
+      </field>
+      <field>
+        <name>qty</name>
+        <rename/>
+      </field>
+      <field>
+        <name>unit_price</name>
+        <rename/>
+        <length>10</length>
+        <precision>2</precision>
+      </field>
+      <field>
+        <name>discount_pct</name>
+        <rename/>
+        <length>5</length>
+        <precision>2</precision>
+      </field>
+      <field>
+        <name>cost</name>
+        <rename/>
+        <length>10</length>
+        <precision>2</precision>
+      </field>
+      <field>
+        <name>revenue</name>
+        <rename/>
+        <length>12</length>
+        <precision>2</precision>
+      </field>
+      <field>
+        <name>gross_margin</name>
+        <rename/>
+        <length>12</length>
+        <precision>2</precision>
+      </field>
+      <select_unspecified>N</select_unspecified>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>928</xloc>
+      <yloc>240</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Join products</name>
+    <type>MergeJoin</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <join_type>INNER</join_type>
+    <step1>Lookup customer</step1>
+    <step2>Read products</step2>
+    <keys_1>
+      <key>product_id</key>
+    </keys_1>
+    <keys_2>
+      <key>id</key>
+    </keys_2>
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -699,6 +866,85 @@ ORDER BY id</sql>
     </remotesteps>
     <GUI>
       <xloc>432</xloc>
+      <yloc>112</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Load fact_sales</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>capstone</connection>
+    <schema/>
+    <table>fact_sales</table>
+    <commit>1000</commit>
+    <truncate>Y</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>Y</use_batch>
+    <specify_fields>N</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1104</xloc>
+      <yloc>112</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Log fact rows</name>
+    <type>WriteToLog</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <loglevel>log_level_basic</loglevel>
+    <displayHeader>Y</displayHeader>
+    <limitRows>N</limitRows>
+    <limitRowsNumber>0</limitRowsNumber>
+    <logmessage>fact_sales rows for ${SALES_DATE}:</logmessage>
+    <fields>
+      <field>
+        <name>fact_rows</name>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1248</xloc>
       <yloc>240</yloc>
       <draw>Y</draw>
     </GUI>
@@ -706,13 +952,13 @@ ORDER BY id</sql>
   <step>
     <name>Lookup customer</name>
     <type>StreamLookup</type>
-    <description />
+    <description/>
     <distribute>Y</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
     <from>Read customers</from>
     <input_sorted>N</input_sorted>
@@ -727,18 +973,18 @@ ORDER BY id</sql>
       <value>
         <name>name</name>
         <rename>customer_name</rename>
-        <default />
+        <default/>
         <type>String</type>
       </value>
       <value>
         <name>region_code</name>
         <rename>region_code</rename>
-        <default />
+        <default/>
         <type>String</type>
       </value>
     </lookup>
-    <attributes />
-    <cluster_schema />
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -752,27 +998,100 @@ ORDER BY id</sql>
     </GUI>
   </step>
   <step>
-    <name>Join products</name>
-    <type>MergeJoin</type>
-    <description />
+    <name>Read customers</name>
+    <type>TableInput</type>
+    <description/>
     <distribute>Y</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
-    <join_type>INNER</join_type>
-    <step1>Lookup customer</step1>
-    <step2>Read products</step2>
-    <keys_1>
-      <key>product_id</key>
-    </keys_1>
-    <keys_2>
-      <key>id</key>
-    </keys_2>
-    <attributes />
-    <cluster_schema />
+    <connection>capstone</connection>
+    <sql>SELECT id, name, region_code
+FROM stg_customers</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+    <cached_row_meta_active>N</cached_row_meta_active>
+    <row-meta/>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>256</xloc>
+      <yloc>240</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Read orders</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>capstone</connection>
+    <sql>SELECT order_id, order_date, customer_id, product_id, qty, unit_price, discount_pct
+FROM stg_orders
+ORDER BY product_id</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+    <cached_row_meta_active>N</cached_row_meta_active>
+    <row-meta/>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>64</xloc>
+      <yloc>112</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Read products</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>capstone</connection>
+    <sql>SELECT id, name AS product_name, category, cost
+FROM stg_products
+ORDER BY id</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+    <cached_row_meta_active>N</cached_row_meta_active>
+    <row-meta/>
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -781,203 +1100,22 @@ ORDER BY id</sql>
     </remotesteps>
     <GUI>
       <xloc>432</xloc>
-      <yloc>112</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Customer and product found?</name>
-    <type>FilterRows</type>
-    <description />
-    <distribute>Y</distribute>
-    <custom_distribution />
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name />
-    </partitioning>
-    <send_true_to>Revenue and margin</send_true_to>
-    <send_false_to>Rejected unmatched</send_false_to>
-    <compare>
-      <condition>
-        <negated>N</negated>
-        <conditions>
-          <condition>
-            <negated>N</negated>
-            <leftvalue>customer_name</leftvalue>
-            <function>IS NOT NULL</function>
-            <rightvalue />
-          </condition>
-          <condition>
-            <negated>N</negated>
-            <operator>AND</operator>
-            <leftvalue>product_name</leftvalue>
-            <function>IS NOT NULL</function>
-            <rightvalue />
-          </condition>
-        </conditions>
-      </condition>
-    </compare>
-    <attributes />
-    <cluster_schema />
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>592</xloc>
-      <yloc>112</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Rejected unmatched</name>
-    <type>TextFileOutput</type>
-    <description />
-    <distribute>Y</distribute>
-    <custom_distribution />
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name />
-    </partitioning>
-    <separator>,</separator>
-    <enclosure>"</enclosure>
-    <enclosure_forced>N</enclosure_forced>
-    <enclosure_fix_disabled>N</enclosure_fix_disabled>
-    <header>Y</header>
-    <footer>N</footer>
-    <format>DOS</format>
-    <compression>None</compression>
-    <encoding>UTF-8</encoding>
-    <endedLine />
-    <fileNameInField>N</fileNameInField>
-    <fileNameField />
-    <create_parent_folder>Y</create_parent_folder>
-    <file>
-      <name>${OUTPUT_PATH}/rejected_unmatched_${SALES_DATE}</name>
-      <servlet_output>N</servlet_output>
-      <do_not_open_new_file_init>N</do_not_open_new_file_init>
-      <extention>csv</extention>
-      <append>N</append>
-      <split>N</split>
-      <haspartno>N</haspartno>
-      <add_date>N</add_date>
-      <add_time>N</add_time>
-      <SpecifyFormat>N</SpecifyFormat>
-      <date_time_format />
-      <add_to_result_filenames>Y</add_to_result_filenames>
-      <pad>N</pad>
-      <fast_dump>N</fast_dump>
-      <splitevery />
-    </file>
-    <fields>
-      <field>
-        <name>order_id</name>
-        <type>Integer</type>
-        <format>0</format>
-        <currency />
-        <decimal>.</decimal>
-        <group />
-        <nullif />
-        <trim_type>none</trim_type>
-        <length>15</length>
-        <precision>0</precision>
-      </field>
-      <field>
-        <name>customer_id</name>
-        <type>String</type>
-        <format />
-        <currency />
-        <decimal>.</decimal>
-        <group />
-        <nullif />
-        <trim_type>none</trim_type>
-        <length>-1</length>
-        <precision>-1</precision>
-      </field>
-      <field>
-        <name>product_id</name>
-        <type>String</type>
-        <format />
-        <currency />
-        <decimal>.</decimal>
-        <group />
-        <nullif />
-        <trim_type>none</trim_type>
-        <length>-1</length>
-        <precision>-1</precision>
-      </field>
-    </fields>
-    <attributes />
-    <cluster_schema />
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>592</xloc>
       <yloc>240</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Revenue and margin</name>
-    <type>Formula</type>
-    <description />
-    <formula>
-      <field_name>revenue</field_name>
-      <formula_string>INT([qty] * [unit_price] * (1 - [discount_pct] / 100) * 100 + 0.5) / 100</formula_string>
-      <value_type>BigNumber</value_type>
-      <value_length>12</value_length>
-      <value_precision>2</value_precision>
-      <replace_field />
-    </formula>
-    <formula>
-      <field_name>gross_margin</field_name>
-      <formula_string>[revenue] - ([qty] * [cost])</formula_string>
-      <value_type>BigNumber</value_type>
-      <value_length>12</value_length>
-      <value_precision>2</value_precision>
-      <replace_field />
-    </formula>
-    <distribute>Y</distribute>
-    <custom_distribution />
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name />
-    </partitioning>
-    <attributes />
-    <cluster_schema />
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>768</xloc>
-      <yloc>112</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
     <name>Region key</name>
     <type>DimensionLookup</type>
-    <description />
+    <description/>
     <distribute>Y</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
-    <schema />
+    <schema/>
     <table>dim_region</table>
     <connection>capstone</connection>
     <commit>100</commit>
@@ -995,27 +1133,27 @@ ORDER BY id</sql>
       <field>
         <name>region_name</name>
         <lookup>name</lookup>
-        <update>String</update>
+        <update>None</update>
       </field>
       <return>
         <name>region_sk</name>
-        <rename />
+        <rename/>
         <creation_method>autoinc</creation_method>
         <use_autoinc>Y</use_autoinc>
         <version>version</version>
       </return>
     </fields>
-    <sequence />
+    <sequence/>
     <min_year>1900</min_year>
     <max_year>2199</max_year>
     <cache_size>5000</cache_size>
     <preload_cache>N</preload_cache>
     <use_start_date_alternative>N</use_start_date_alternative>
     <start_date_alternative>none</start_date_alternative>
-    <start_date_field_name />
+    <start_date_field_name/>
     <useBatch>N</useBatch>
-    <attributes />
-    <cluster_schema />
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -1023,145 +1161,21 @@ ORDER BY id</sql>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>944</xloc>
-      <yloc>112</yloc>
+      <xloc>768</xloc>
+      <yloc>240</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Fact columns</name>
-    <type>SelectValues</type>
-    <description />
-    <distribute>Y</distribute>
-    <custom_distribution />
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name />
-    </partitioning>
-    <fields>
-      <field>
-        <name>order_id</name>
-        <rename />
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>
-      <field>
-        <name>order_date</name>
-        <rename />
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>
-      <field>
-        <name>customer_id</name>
-        <rename />
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>
-      <field>
-        <name>customer_name</name>
-        <rename />
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>
-      <field>
-        <name>product_id</name>
-        <rename />
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>
-      <field>
-        <name>product_name</name>
-        <rename />
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>
-      <field>
-        <name>category</name>
-        <rename />
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>
-      <field>
-        <name>region_sk</name>
-        <rename />
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>
-      <field>
-        <name>region_code</name>
-        <rename />
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>
-      <field>
-        <name>region_name</name>
-        <rename />
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>
-      <field>
-        <name>qty</name>
-        <rename />
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>
-      <field>
-        <name>unit_price</name>
-        <rename />
-        <length>10</length>
-        <precision>2</precision>
-      </field>
-      <field>
-        <name>discount_pct</name>
-        <rename />
-        <length>5</length>
-        <precision>2</precision>
-      </field>
-      <field>
-        <name>cost</name>
-        <rename />
-        <length>10</length>
-        <precision>2</precision>
-      </field>
-      <field>
-        <name>revenue</name>
-        <rename />
-        <length>12</length>
-        <precision>2</precision>
-      </field>
-      <field>
-        <name>gross_margin</name>
-        <rename />
-        <length>12</length>
-        <precision>2</precision>
-      </field>
-      <select_unspecified>N</select_unspecified>
-    </fields>
-    <attributes />
-    <cluster_schema />
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>1104</xloc>
-      <yloc>112</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Write fact_sales.csv</name>
+    <name>Rejected unmatched</name>
     <type>TextFileOutput</type>
-    <description />
+    <description/>
     <distribute>Y</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
     <separator>,</separator>
     <enclosure>"</enclosure>
@@ -1172,9 +1186,143 @@ ORDER BY id</sql>
     <format>DOS</format>
     <compression>None</compression>
     <encoding>UTF-8</encoding>
-    <endedLine />
+    <endedLine/>
     <fileNameInField>N</fileNameInField>
-    <fileNameField />
+    <fileNameField/>
+    <create_parent_folder>Y</create_parent_folder>
+    <file>
+      <name>${OUTPUT_PATH}/rejected_unmatched_${SALES_DATE}</name>
+      <servlet_output>N</servlet_output>
+      <do_not_open_new_file_init>N</do_not_open_new_file_init>
+      <extention>csv</extention>
+      <append>N</append>
+      <split>N</split>
+      <haspartno>N</haspartno>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <SpecifyFormat>N</SpecifyFormat>
+      <date_time_format/>
+      <add_to_result_filenames>Y</add_to_result_filenames>
+      <pad>N</pad>
+      <fast_dump>N</fast_dump>
+      <splitevery/>
+    </file>
+    <fields>
+      <field>
+        <name>order_id</name>
+        <type>Integer</type>
+        <format>0</format>
+        <currency/>
+        <decimal>.</decimal>
+        <group/>
+        <nullif/>
+        <trim_type>none</trim_type>
+        <length>15</length>
+        <precision>0</precision>
+      </field>
+      <field>
+        <name>customer_id</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal>.</decimal>
+        <group/>
+        <nullif/>
+        <trim_type>none</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>product_id</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal>.</decimal>
+        <group/>
+        <nullif/>
+        <trim_type>none</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>592</xloc>
+      <yloc>240</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Revenue and margin</name>
+    <type>Formula</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <formula>
+      <field_name>revenue</field_name>
+      <formula_string>INT([qty] * [unit_price] * (1 - [discount_pct] / 100) * 100 + 0.5) / 100</formula_string>
+      <value_type>BigNumber</value_type>
+      <value_length>12</value_length>
+      <value_precision>2</value_precision>
+      <replace_field/>
+    </formula>
+    <formula>
+      <field_name>gross_margin</field_name>
+      <formula_string>[revenue] - ([qty] * [cost])</formula_string>
+      <value_type>BigNumber</value_type>
+      <value_length>12</value_length>
+      <value_precision>2</value_precision>
+      <replace_field/>
+    </formula>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>768</xloc>
+      <yloc>112</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Write fact_sales.csv</name>
+    <type>TextFileOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <separator>,</separator>
+    <enclosure>"</enclosure>
+    <enclosure_forced>N</enclosure_forced>
+    <enclosure_fix_disabled>N</enclosure_fix_disabled>
+    <header>Y</header>
+    <footer>N</footer>
+    <format>DOS</format>
+    <compression>None</compression>
+    <encoding>UTF-8</encoding>
+    <endedLine/>
+    <fileNameInField>N</fileNameInField>
+    <fileNameField/>
     <create_parent_folder>Y</create_parent_folder>
     <file>
       <name>${OUTPUT_PATH}/fact_sales</name>
@@ -1187,21 +1335,21 @@ ORDER BY id</sql>
       <add_date>N</add_date>
       <add_time>N</add_time>
       <SpecifyFormat>N</SpecifyFormat>
-      <date_time_format />
+      <date_time_format/>
       <add_to_result_filenames>Y</add_to_result_filenames>
       <pad>N</pad>
       <fast_dump>N</fast_dump>
-      <splitevery />
+      <splitevery/>
     </file>
     <fields>
       <field>
         <name>order_id</name>
         <type>Integer</type>
         <format>0</format>
-        <currency />
+        <currency/>
         <decimal>.</decimal>
-        <group />
-        <nullif />
+        <group/>
+        <nullif/>
         <trim_type>none</trim_type>
         <length>15</length>
         <precision>0</precision>
@@ -1210,10 +1358,10 @@ ORDER BY id</sql>
         <name>order_date</name>
         <type>Date</type>
         <format>yyyy-MM-dd</format>
-        <currency />
+        <currency/>
         <decimal>.</decimal>
-        <group />
-        <nullif />
+        <group/>
+        <nullif/>
         <trim_type>none</trim_type>
         <length>-1</length>
         <precision>-1</precision>
@@ -1221,11 +1369,11 @@ ORDER BY id</sql>
       <field>
         <name>customer_id</name>
         <type>String</type>
-        <format />
-        <currency />
+        <format/>
+        <currency/>
         <decimal>.</decimal>
-        <group />
-        <nullif />
+        <group/>
+        <nullif/>
         <trim_type>none</trim_type>
         <length>-1</length>
         <precision>-1</precision>
@@ -1233,11 +1381,11 @@ ORDER BY id</sql>
       <field>
         <name>customer_name</name>
         <type>String</type>
-        <format />
-        <currency />
+        <format/>
+        <currency/>
         <decimal>.</decimal>
-        <group />
-        <nullif />
+        <group/>
+        <nullif/>
         <trim_type>none</trim_type>
         <length>-1</length>
         <precision>-1</precision>
@@ -1245,11 +1393,11 @@ ORDER BY id</sql>
       <field>
         <name>product_id</name>
         <type>String</type>
-        <format />
-        <currency />
+        <format/>
+        <currency/>
         <decimal>.</decimal>
-        <group />
-        <nullif />
+        <group/>
+        <nullif/>
         <trim_type>none</trim_type>
         <length>-1</length>
         <precision>-1</precision>
@@ -1257,11 +1405,11 @@ ORDER BY id</sql>
       <field>
         <name>product_name</name>
         <type>String</type>
-        <format />
-        <currency />
+        <format/>
+        <currency/>
         <decimal>.</decimal>
-        <group />
-        <nullif />
+        <group/>
+        <nullif/>
         <trim_type>none</trim_type>
         <length>-1</length>
         <precision>-1</precision>
@@ -1269,11 +1417,11 @@ ORDER BY id</sql>
       <field>
         <name>category</name>
         <type>String</type>
-        <format />
-        <currency />
+        <format/>
+        <currency/>
         <decimal>.</decimal>
-        <group />
-        <nullif />
+        <group/>
+        <nullif/>
         <trim_type>none</trim_type>
         <length>-1</length>
         <precision>-1</precision>
@@ -1282,10 +1430,10 @@ ORDER BY id</sql>
         <name>region_sk</name>
         <type>Integer</type>
         <format>0</format>
-        <currency />
+        <currency/>
         <decimal>.</decimal>
-        <group />
-        <nullif />
+        <group/>
+        <nullif/>
         <trim_type>none</trim_type>
         <length>15</length>
         <precision>0</precision>
@@ -1293,11 +1441,11 @@ ORDER BY id</sql>
       <field>
         <name>region_code</name>
         <type>String</type>
-        <format />
-        <currency />
+        <format/>
+        <currency/>
         <decimal>.</decimal>
-        <group />
-        <nullif />
+        <group/>
+        <nullif/>
         <trim_type>none</trim_type>
         <length>-1</length>
         <precision>-1</precision>
@@ -1305,11 +1453,11 @@ ORDER BY id</sql>
       <field>
         <name>region_name</name>
         <type>String</type>
-        <format />
-        <currency />
+        <format/>
+        <currency/>
         <decimal>.</decimal>
-        <group />
-        <nullif />
+        <group/>
+        <nullif/>
         <trim_type>none</trim_type>
         <length>-1</length>
         <precision>-1</precision>
@@ -1318,10 +1466,10 @@ ORDER BY id</sql>
         <name>qty</name>
         <type>Integer</type>
         <format>0</format>
-        <currency />
+        <currency/>
         <decimal>.</decimal>
-        <group />
-        <nullif />
+        <group/>
+        <nullif/>
         <trim_type>none</trim_type>
         <length>15</length>
         <precision>0</precision>
@@ -1330,10 +1478,10 @@ ORDER BY id</sql>
         <name>unit_price</name>
         <type>BigNumber</type>
         <format>0.00</format>
-        <currency />
+        <currency/>
         <decimal>.</decimal>
-        <group />
-        <nullif />
+        <group/>
+        <nullif/>
         <trim_type>none</trim_type>
         <length>10</length>
         <precision>2</precision>
@@ -1342,10 +1490,10 @@ ORDER BY id</sql>
         <name>discount_pct</name>
         <type>BigNumber</type>
         <format>0.00</format>
-        <currency />
+        <currency/>
         <decimal>.</decimal>
-        <group />
-        <nullif />
+        <group/>
+        <nullif/>
         <trim_type>none</trim_type>
         <length>5</length>
         <precision>2</precision>
@@ -1354,10 +1502,10 @@ ORDER BY id</sql>
         <name>cost</name>
         <type>BigNumber</type>
         <format>0.00</format>
-        <currency />
+        <currency/>
         <decimal>.</decimal>
-        <group />
-        <nullif />
+        <group/>
+        <nullif/>
         <trim_type>none</trim_type>
         <length>10</length>
         <precision>2</precision>
@@ -1366,10 +1514,10 @@ ORDER BY id</sql>
         <name>revenue</name>
         <type>BigNumber</type>
         <format>0.00</format>
-        <currency />
+        <currency/>
         <decimal>.</decimal>
-        <group />
-        <nullif />
+        <group/>
+        <nullif/>
         <trim_type>none</trim_type>
         <length>12</length>
         <precision>2</precision>
@@ -1378,17 +1526,17 @@ ORDER BY id</sql>
         <name>gross_margin</name>
         <type>BigNumber</type>
         <format>0.00</format>
-        <currency />
+        <currency/>
         <decimal>.</decimal>
-        <group />
-        <nullif />
+        <group/>
+        <nullif/>
         <trim_type>none</trim_type>
         <length>12</length>
         <precision>2</precision>
       </field>
     </fields>
-    <attributes />
-    <cluster_schema />
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -1396,127 +1544,7 @@ ORDER BY id</sql>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1264</xloc>
-      <yloc>112</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Load fact_sales</name>
-    <type>TableOutput</type>
-    <description />
-    <distribute>Y</distribute>
-    <custom_distribution />
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name />
-    </partitioning>
-    <connection>capstone</connection>
-    <schema />
-    <table>fact_sales</table>
-    <commit>1000</commit>
-    <truncate>Y</truncate>
-    <ignore_errors>N</ignore_errors>
-    <use_batch>Y</use_batch>
-    <specify_fields>N</specify_fields>
-    <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field />
-    <partitioning_daily>N</partitioning_daily>
-    <partitioning_monthly>Y</partitioning_monthly>
-    <tablename_in_field>N</tablename_in_field>
-    <tablename_field />
-    <tablename_in_table>Y</tablename_in_table>
-    <return_keys>N</return_keys>
-    <return_field />
-    <fields />
-    <attributes />
-    <cluster_schema />
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>1424</xloc>
-      <yloc>112</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Count fact rows</name>
-    <type>GroupBy</type>
-    <description />
-    <distribute>Y</distribute>
-    <custom_distribution />
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name />
-    </partitioning>
-    <all_rows>N</all_rows>
-    <ignore_aggregate>N</ignore_aggregate>
-    <field_ignore />
-    <directory>%%java.io.tmpdir%%</directory>
-    <prefix>grp</prefix>
-    <add_linenr>N</add_linenr>
-    <linenr_fieldname />
-    <give_back_row>Y</give_back_row>
-    <group />
-    <fields>
-      <field>
-        <aggregate>fact_rows</aggregate>
-        <subject>order_id</subject>
-        <type>COUNT_ALL</type>
-        <valuefield />
-      </field>
-    </fields>
-    <attributes />
-    <cluster_schema />
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>1584</xloc>
-      <yloc>112</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Log fact rows</name>
-    <type>WriteToLog</type>
-    <description />
-    <distribute>Y</distribute>
-    <custom_distribution />
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name />
-    </partitioning>
-    <loglevel>log_level_basic</loglevel>
-    <displayHeader>Y</displayHeader>
-    <limitRows>N</limitRows>
-    <limitRowsNumber>0</limitRowsNumber>
-    <logmessage>fact_sales rows for ${SALES_DATE}:</logmessage>
-    <fields>
-      <field>
-        <name>fact_rows</name>
-      </field>
-    </fields>
-    <attributes />
-    <cluster_schema />
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>1744</xloc>
+      <xloc>928</xloc>
       <yloc>112</yloc>
       <draw>Y</draw>
     </GUI>
@@ -1526,5 +1554,5 @@ ORDER BY id</sql>
   <slave-step-copy-partition-distribution>
   </slave-step-copy-partition-distribution>
   <slave_transformation>N</slave_transformation>
-  <attributes />
+  <attributes/>
 </transformation>

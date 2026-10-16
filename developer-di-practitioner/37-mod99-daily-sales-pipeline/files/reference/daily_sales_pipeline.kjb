@@ -1,15 +1,15 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <job>
   <name>daily_sales_pipeline</name>
-  <description />
-  <extended_description />
-  <job_version />
+  <description/>
+  <extended_description/>
+  <job_version/>
   <job_status>0</job_status>
   <directory>/</directory>
-  <filename />
-  <created_user />
+  <filename>file:///C:/Workshop-DI-Practitioner/capstone/solution/daily_sales_pipeline.kjb</filename>
+  <created_user/>
   <created_date>2026/10/15 12:29:53.777</created_date>
-  <modified_user />
+  <modified_user/>
   <modified_date>2026/10/15 12:29:53.777</modified_date>
   <parameters>
     <parameter>
@@ -37,9 +37,9 @@
     <port>3306</port>
     <username>pentaho_admin</username>
     <password>Encrypted 2be98afc86aa7f2e4bb18bd63c99dbdde</password>
-    <servername />
-    <data_tablespace />
-    <index_tablespace />
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
     <attributes>
       <attribute>
         <code>EXTRA_OPTION_MYSQL.defaultFetchSize</code>
@@ -59,6 +59,10 @@
       </attribute>
       <attribute>
         <code>IS_CLUSTERED</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>MSSQL_DOUBLE_DECIMAL_SEPARATOR</code>
         <attribute>N</attribute>
       </attribute>
       <attribute>
@@ -94,12 +98,12 @@
   <slaveservers>
     </slaveservers>
   <job-log-table>
-    <connection />
-    <schema />
-    <table />
-    <size_limit_lines />
-    <interval />
-    <timeout_days />
+    <connection/>
+    <schema/>
+    <table/>
+    <size_limit_lines/>
+    <interval/>
+    <timeout_days/>
     <field>
       <id>ID_JOB</id>
       <enabled>N</enabled>
@@ -207,10 +211,10 @@
     </field>
   </job-log-table>
   <jobentry-log-table>
-    <connection />
-    <schema />
-    <table />
-    <timeout_days />
+    <connection/>
+    <schema/>
+    <table/>
+    <timeout_days/>
     <field>
       <id>ID_BATCH</id>
       <enabled>Y</enabled>
@@ -298,10 +302,10 @@
     </field>
   </jobentry-log-table>
   <channel-log-table>
-    <connection />
-    <schema />
-    <table />
-    <timeout_days />
+    <connection/>
+    <schema/>
+    <table/>
+    <timeout_days/>
     <field>
       <id>ID_BATCH</id>
       <enabled>Y</enabled>
@@ -364,16 +368,16 @@
     </field>
   </channel-log-table>
   <checkpoint-log-table>
-    <connection />
-    <schema />
-    <table />
-    <timeout_days />
-    <max_nr_retries />
-    <run_retry_period />
-    <namespace_parameter />
-    <save_parameters />
-    <save_result_rows />
-    <save_result_files />
+    <connection/>
+    <schema/>
+    <table/>
+    <timeout_days/>
+    <max_nr_retries/>
+    <run_retry_period/>
+    <namespace_parameter/>
+    <save_parameters/>
+    <save_result_rows/>
+    <save_result_files/>
     <field>
       <id>ID_JOB_RUN</id>
       <enabled>Y</enabled>
@@ -434,9 +438,9 @@
   <entries>
     <entry>
       <name>Start</name>
-      <description />
+      <description/>
       <type>SPECIAL</type>
-      <attributes />
+      <attributes/>
       <start>Y</start>
       <dummy>N</dummy>
       <repeat>N</repeat>
@@ -450,16 +454,16 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>48</xloc>
-      <yloc>160</yloc>
-      <attributes_kjc />
+      <xloc>112</xloc>
+      <yloc>384</yloc>
+      <attributes_kjc/>
     </entry>
     <entry>
       <name>Check source files</name>
-      <description />
+      <description/>
       <type>FILES_EXIST</type>
-      <attributes />
-      <filename />
+      <attributes/>
+      <filename/>
       <fields>
         <field>
           <name>${WORKSHOP_HOME}/data/sales_${SALES_DATE}.csv</name>
@@ -477,15 +481,15 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>176</xloc>
-      <yloc>160</yloc>
-      <attributes_kjc />
+      <xloc>240</xloc>
+      <yloc>384</yloc>
+      <attributes_kjc/>
     </entry>
     <entry>
       <name>Create tables</name>
-      <description />
+      <description/>
       <type>SQL</type>
-      <attributes />
+      <attributes/>
       <sql>DROP TABLE IF EXISTS stg_orders;
 CREATE TABLE stg_orders (
   order_id BIGINT, order_date DATE, customer_id VARCHAR(10), product_id VARCHAR(10),
@@ -509,35 +513,36 @@ CREATE TABLE IF NOT EXISTS fact_sales (
 </sql>
       <useVariableSubstitution>F</useVariableSubstitution>
       <sqlfromfile>F</sqlfromfile>
-      <sqlfilename />
+      <sqlfilename/>
       <sendOneStatement>F</sendOneStatement>
       <connection>capstone</connection>
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>336</xloc>
-      <yloc>160</yloc>
-      <attributes_kjc />
+      <xloc>400</xloc>
+      <yloc>384</yloc>
+      <attributes_kjc/>
     </entry>
     <entry>
       <name>Stage all</name>
-      <description />
+      <description/>
       <type>JOB</type>
-      <attributes />
+      <attributes/>
       <specification_method>filename</specification_method>
-      <job_object_id />
+      <job_object_id/>
       <filename>${Internal.Entry.Current.Directory}/stage_all.kjb</filename>
-      <jobname />
+      <jobname/>
+      <directory/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
       <set_logfile>N</set_logfile>
-      <logfile />
-      <logext />
+      <logfile/>
+      <logext/>
       <add_date>N</add_date>
       <add_time>N</add_time>
       <loglevel>Basic</loglevel>
-      <slave_server_name />
+      <slave_server_name/>
       <wait_until_finished>Y</wait_until_finished>
       <follow_abort_remote>N</follow_abort_remote>
       <expand_remote_job>N</expand_remote_job>
@@ -551,32 +556,32 @@ CREATE TABLE IF NOT EXISTS fact_sales (
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>496</xloc>
-      <yloc>160</yloc>
-      <attributes_kjc />
+      <xloc>560</xloc>
+      <yloc>384</yloc>
+      <attributes_kjc/>
     </entry>
     <entry>
       <name>Maintain dim_region</name>
-      <description />
+      <description/>
       <type>TRANS</type>
-      <attributes />
+      <attributes/>
       <specification_method>filename</specification_method>
-      <trans_object_id />
+      <trans_object_id/>
       <filename>${Internal.Entry.Current.Directory}/maintain_dim_region.ktr</filename>
-      <transname />
+      <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
       <clear_rows>N</clear_rows>
       <clear_files>N</clear_files>
       <set_logfile>N</set_logfile>
-      <logfile />
-      <logext />
+      <logfile/>
+      <logext/>
       <add_date>N</add_date>
       <add_time>N</add_time>
       <loglevel>Basic</loglevel>
       <cluster>N</cluster>
-      <slave_server_name />
+      <slave_server_name/>
       <set_append_logfile>N</set_append_logfile>
       <wait_until_finished>Y</wait_until_finished>
       <follow_abort_remote>N</follow_abort_remote>
@@ -590,32 +595,32 @@ CREATE TABLE IF NOT EXISTS fact_sales (
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>656</xloc>
-      <yloc>160</yloc>
-      <attributes_kjc />
+      <xloc>720</xloc>
+      <yloc>384</yloc>
+      <attributes_kjc/>
     </entry>
     <entry>
       <name>Build fact</name>
-      <description />
+      <description/>
       <type>TRANS</type>
-      <attributes />
+      <attributes/>
       <specification_method>filename</specification_method>
-      <trans_object_id />
+      <trans_object_id/>
       <filename>${Internal.Entry.Current.Directory}/build_fact.ktr</filename>
-      <transname />
+      <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
       <clear_rows>N</clear_rows>
       <clear_files>N</clear_files>
       <set_logfile>N</set_logfile>
-      <logfile />
-      <logext />
+      <logfile/>
+      <logext/>
       <add_date>N</add_date>
       <add_time>N</add_time>
       <loglevel>Basic</loglevel>
       <cluster>N</cluster>
-      <slave_server_name />
+      <slave_server_name/>
       <set_append_logfile>N</set_append_logfile>
       <wait_until_finished>Y</wait_until_finished>
       <follow_abort_remote>N</follow_abort_remote>
@@ -629,32 +634,32 @@ CREATE TABLE IF NOT EXISTS fact_sales (
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>816</xloc>
-      <yloc>160</yloc>
-      <attributes_kjc />
+      <xloc>880</xloc>
+      <yloc>384</yloc>
+      <attributes_kjc/>
     </entry>
     <entry>
       <name>Write summary</name>
-      <description />
+      <description/>
       <type>TRANS</type>
-      <attributes />
+      <attributes/>
       <specification_method>filename</specification_method>
-      <trans_object_id />
+      <trans_object_id/>
       <filename>${Internal.Entry.Current.Directory}/write_summary.ktr</filename>
-      <transname />
+      <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
       <clear_rows>N</clear_rows>
       <clear_files>N</clear_files>
       <set_logfile>N</set_logfile>
-      <logfile />
-      <logext />
+      <logfile/>
+      <logext/>
       <add_date>N</add_date>
       <add_time>N</add_time>
       <loglevel>Basic</loglevel>
       <cluster>N</cluster>
-      <slave_server_name />
+      <slave_server_name/>
       <set_append_logfile>N</set_append_logfile>
       <wait_until_finished>Y</wait_until_finished>
       <follow_abort_remote>N</follow_abort_remote>
@@ -668,46 +673,54 @@ CREATE TABLE IF NOT EXISTS fact_sales (
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>976</xloc>
-      <yloc>160</yloc>
-      <attributes_kjc />
+      <xloc>1040</xloc>
+      <yloc>384</yloc>
+      <attributes_kjc/>
     </entry>
     <entry>
       <name>Success</name>
-      <description />
+      <description/>
       <type>SUCCESS</type>
-      <attributes />
+      <attributes/>
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>1136</xloc>
-      <yloc>160</yloc>
-      <attributes_kjc />
+      <xloc>1200</xloc>
+      <yloc>384</yloc>
+      <attributes_kjc/>
     </entry>
     <entry>
       <name>Mail ops</name>
-      <description />
+      <description/>
       <type>MAIL</type>
-      <attributes />
+      <attributes/>
       <server>localhost</server>
       <port>25</port>
       <destination>ops@example.com</destination>
-      <destinationCc />
-      <destinationBCc />
+      <destinationCc/>
+      <destinationBCc/>
       <replyto>pdi@example.com</replyto>
       <replytoname>Daily sales pipeline</replytoname>
       <subject>Daily sales pipeline FAILED ${SALES_DATE}</subject>
       <include_date>Y</include_date>
-      <contact_person />
-      <contact_phone />
+      <contact_person/>
+      <contact_phone/>
       <comment>The daily sales pipeline failed for ${SALES_DATE}. The job log has the step that failed.</comment>
       <include_files>N</include_files>
       <zip_files>N</zip_files>
-      <zip_name />
-      <use_auth>N</use_auth>
+      <zip_name/>
+      <use_grantType/>
+      <use_auth>No Auth</use_auth>
       <use_secure_auth>N</use_secure_auth>
-      <auth_user />
-      <auth_password />
+      <auth_user/>
+      <auth_password>Encrypted </auth_password>
+      <auth_clientId/>
+      <auth_secretKey/>
+      <auth_scope/>
+      <auth_tokenUrl/>
+      <auth_authorizationCode/>
+      <redirectURI/>
+      <refreshToken/>
       <only_comment>N</only_comment>
       <use_HTML>N</use_HTML>
       <use_Priority>N</use_Priority>
@@ -716,28 +729,29 @@ CREATE TABLE IF NOT EXISTS fact_sales (
       <importance>normal</importance>
       <sensitivity>normal</sensitivity>
       <secureconnectiontype>SSL</secureconnectiontype>
-      <replyToAddresses />
-      <filetypes />
-      <embeddedimages />
+      <replyToAddresses/>
+      <filetypes>      </filetypes>
+      <embeddedimages>
+      </embeddedimages>
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>656</xloc>
-      <yloc>320</yloc>
-      <attributes_kjc />
+      <xloc>720</xloc>
+      <yloc>544</yloc>
+      <attributes_kjc/>
     </entry>
     <entry>
       <name>Abort job</name>
-      <description />
+      <description/>
       <type>ABORT</type>
-      <attributes />
+      <attributes/>
       <message>Daily sales pipeline failed for ${SALES_DATE}</message>
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>816</xloc>
-      <yloc>320</yloc>
-      <attributes_kjc />
+      <xloc>880</xloc>
+      <yloc>544</yloc>
+      <attributes_kjc/>
     </entry>
   </entries>
   <hops>
@@ -869,6 +883,41 @@ CREATE TABLE IF NOT EXISTS fact_sales (
     </hop>
   </hops>
   <notepads>
+    <notepad>
+      <note>daily_sales_pipeline - the orchestrator. Run this one.
+
+Parameters (defaults): WORKSHOP_HOME = C:/Workshop-DI-Practitioner/capstone, SALES_DATE = 20260101, OUTPUT_PATH = ${WORKSHOP_HOME}/out.
+Every entry passes parameter values, so a Kitchen -param: override reaches every step.
+
+START
+ -> Check source files: sales_${SALES_DATE}.csv, customers.json, products.csv and regions.csv in ${WORKSHOP_HOME}/data
+ -> Create tables (SQL): drops and recreates stg_orders, stg_customers, stg_products; creates dim_region and fact_sales if they are missing
+ -> Stage all (stage_all.kjb)
+ -> Maintain dim_region -> Build fact -> Write summary
+ -> Success
+Any failure -> Mail ops (SMTP localhost:25, a placeholder: on a lab VM the send is refused at once) -> Abort job, so the run ends failed.
+
+Kitchen.bat -file=daily_sales_pipeline.kjb -level=Basic "-param:SALES_DATE=20260101"
+</note>
+      <xloc>192</xloc>
+      <yloc>48</yloc>
+      <width>906</width>
+      <heigth>276</heigth>
+      <fontname>Segoe UI</fontname>
+      <fontsize>10</fontsize>
+      <fontbold>N</fontbold>
+      <fontitalic>N</fontitalic>
+      <fontcolorred>0</fontcolorred>
+      <fontcolorgreen>0</fontcolorgreen>
+      <fontcolorblue>0</fontcolorblue>
+      <backgroundcolorred>179</backgroundcolorred>
+      <backgroundcolorgreen>225</backgroundcolorgreen>
+      <backgroundcolorblue>251</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
+      <drawshadow>Y</drawshadow>
+    </notepad>
   </notepads>
-  <attributes />
+  <attributes/>
 </job>

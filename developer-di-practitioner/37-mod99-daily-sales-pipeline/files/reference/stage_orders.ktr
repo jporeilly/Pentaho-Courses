@@ -1,14 +1,14 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
     <name>stage_orders</name>
-    <description />
-    <extended_description />
-    <trans_version />
+    <description/>
+    <extended_description/>
+    <trans_version/>
     <trans_type>Normal</trans_type>
     <trans_status>0</trans_status>
     <directory>/</directory>
-    <filename />
+    <filename>file:///C:/Workshop-DI-Practitioner/capstone/solution/stage_orders.ktr</filename>
     <parameters>
       <parameter>
         <name>OUTPUT_PATH</name>
@@ -28,12 +28,12 @@
     </parameters>
     <log>
       <trans-log-table>
-        <connection />
-        <schema />
-        <table />
-        <size_limit_lines />
-        <interval />
-        <timeout_days />
+        <connection/>
+        <schema/>
+        <table/>
+        <size_limit_lines/>
+        <interval/>
+        <timeout_days/>
         <field>
           <id>ID_BATCH</id>
           <enabled>Y</enabled>
@@ -58,37 +58,37 @@
           <id>LINES_READ</id>
           <enabled>Y</enabled>
           <name>LINES_READ</name>
-          <subject />
+          <subject/>
         </field>
         <field>
           <id>LINES_WRITTEN</id>
           <enabled>Y</enabled>
           <name>LINES_WRITTEN</name>
-          <subject />
+          <subject/>
         </field>
         <field>
           <id>LINES_UPDATED</id>
           <enabled>Y</enabled>
           <name>LINES_UPDATED</name>
-          <subject />
+          <subject/>
         </field>
         <field>
           <id>LINES_INPUT</id>
           <enabled>Y</enabled>
           <name>LINES_INPUT</name>
-          <subject />
+          <subject/>
         </field>
         <field>
           <id>LINES_OUTPUT</id>
           <enabled>Y</enabled>
           <name>LINES_OUTPUT</name>
-          <subject />
+          <subject/>
         </field>
         <field>
           <id>LINES_REJECTED</id>
           <enabled>Y</enabled>
           <name>LINES_REJECTED</name>
-          <subject />
+          <subject/>
         </field>
         <field>
           <id>ERRORS</id>
@@ -142,11 +142,11 @@
         </field>
       </trans-log-table>
       <perf-log-table>
-        <connection />
-        <schema />
-        <table />
-        <interval />
-        <timeout_days />
+        <connection/>
+        <schema/>
+        <table/>
+        <interval/>
+        <timeout_days/>
         <field>
           <id>ID_BATCH</id>
           <enabled>Y</enabled>
@@ -224,10 +224,10 @@
         </field>
       </perf-log-table>
       <channel-log-table>
-        <connection />
-        <schema />
-        <table />
-        <timeout_days />
+        <connection/>
+        <schema/>
+        <table/>
+        <timeout_days/>
         <field>
           <id>ID_BATCH</id>
           <enabled>Y</enabled>
@@ -290,10 +290,10 @@
         </field>
       </channel-log-table>
       <step-log-table>
-        <connection />
-        <schema />
-        <table />
-        <timeout_days />
+        <connection/>
+        <schema/>
+        <table/>
+        <timeout_days/>
         <field>
           <id>ID_BATCH</id>
           <enabled>Y</enabled>
@@ -366,10 +366,10 @@
         </field>
       </step-log-table>
       <metrics-log-table>
-        <connection />
-        <schema />
-        <table />
-        <timeout_days />
+        <connection/>
+        <schema/>
+        <table/>
+        <timeout_days/>
         <field>
           <id>ID_BATCH</id>
           <enabled>Y</enabled>
@@ -418,9 +418,9 @@
       </metrics-log-table>
     </log>
     <maxdate>
-      <connection />
-      <table />
-      <field />
+      <connection/>
+      <table/>
+      <field/>
       <offset>0.0</offset>
       <maxdiff>0.0</maxdiff>
     </maxdate>
@@ -446,16 +446,26 @@
     <created_date>2026/10/15 12:02:31.789</created_date>
     <modified_user>-</modified_user>
     <modified_date>2026/10/15 12:02:31.789</modified_date>
-    <key_for_session_key />
+    <key_for_session_key>H4sIAAAAAAAA/wMAAAAAAAAAAAA=</key_for_session_key>
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
     <notepad>
-      <note>Build stg_orders table based on: sales_20260101.csv</note>
-      <xloc>240</xloc>
-      <yloc>32</yloc>
-      <width>315</width>
-      <heigth>28</heigth>
+      <note>stage_orders - validates the day's sales file and stages the good rows.
+
+1. Read Sales: ${WORKSHOP_HOME}/data/sales_${SALES_DATE}.csv, header, comma, 7 fields (order_date as Date yyyy-MM-dd, unit_price as BigNumber).
+2. Filter rows - a row is good when:
+   customer_id IS NOT NULL AND product_id IS NOT NULL
+   AND qty > 0 AND unit_price > 0 AND discount_pct between 0 and 100.
+3. Good rows: Table output into stg_orders (truncated every run), then Group by (valid_rows = N(order_id)) and Write to log.
+4. Bad rows: Rejected Sales writes out/rejected_${SALES_DATE}.csv (the audit trail), then Group by (rejected_rows) and Write to log.
+   Both Group bys always give back a row, so a count of 0 is still logged.
+
+Shipped data: 40 rows read, 37 staged, 3 rejected (missing customer or product).</note>
+      <xloc>64</xloc>
+      <yloc>48</yloc>
+      <width>901</width>
+      <heigth>206</heigth>
       <fontname>Segoe UI</fontname>
       <fontsize>10</fontsize>
       <fontbold>N</fontbold>
@@ -481,9 +491,9 @@
     <port>3306</port>
     <username>pentaho_admin</username>
     <password>Encrypted 2be98afc86aa7f2e4bb18bd63c99dbdde</password>
-    <servername />
-    <data_tablespace />
-    <index_tablespace />
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
     <attributes>
       <attribute>
         <code>EXTRA_OPTION_MYSQL.defaultFetchSize</code>
@@ -503,6 +513,10 @@
       </attribute>
       <attribute>
         <code>IS_CLUSTERED</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>MSSQL_DOUBLE_DECIMAL_SEPARATOR</code>
         <attribute>N</attribute>
       </attribute>
       <attribute>
@@ -573,24 +587,221 @@
     </hop>
   </order>
   <step>
-    <name>Read Sales</name>
-    <type>TextFileInput</type>
-    <description />
+    <name>Filter rows</name>
+    <type>FilterRows</type>
+    <description/>
     <distribute>Y</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
+    </partitioning>
+    <send_true_to>Table output</send_true_to>
+    <send_false_to>Rejected Sales</send_false_to>
+    <compare>
+      <condition>
+        <negated>N</negated>
+        <conditions>
+          <condition>
+            <negated>N</negated>
+            <leftvalue>customer_id</leftvalue>
+            <function>IS NOT NULL</function>
+            <rightvalue/>
+          </condition>
+          <condition>
+            <negated>N</negated>
+            <operator>AND</operator>
+            <leftvalue>product_id</leftvalue>
+            <function>IS NOT NULL</function>
+            <rightvalue/>
+          </condition>
+          <condition>
+            <negated>N</negated>
+            <operator>AND</operator>
+            <leftvalue>qty</leftvalue>
+            <function>&gt;</function>
+            <rightvalue/>
+            <value>
+              <name>constant</name>
+              <type>Integer</type>
+              <text>0</text>
+              <length>-1</length>
+              <precision>0</precision>
+              <isnull>N</isnull>
+              <mask>####0;-####0</mask>
+            </value>
+          </condition>
+          <condition>
+            <negated>N</negated>
+            <operator>AND</operator>
+            <leftvalue>unit_price</leftvalue>
+            <function>&gt;</function>
+            <rightvalue/>
+            <value>
+              <name>constant</name>
+              <type>Number</type>
+              <text>0.0</text>
+              <length>-1</length>
+              <precision>-1</precision>
+              <isnull>N</isnull>
+              <mask>####0.0#########;-####0.0#########</mask>
+            </value>
+          </condition>
+          <condition>
+            <negated>N</negated>
+            <operator>AND</operator>
+            <leftvalue>discount_pct</leftvalue>
+            <function>&gt;=</function>
+            <rightvalue/>
+            <value>
+              <name>constant</name>
+              <type>Integer</type>
+              <text>0</text>
+              <length>-1</length>
+              <precision>0</precision>
+              <isnull>N</isnull>
+              <mask>####0;-####0</mask>
+            </value>
+          </condition>
+          <condition>
+            <negated>N</negated>
+            <operator>AND</operator>
+            <leftvalue>discount_pct</leftvalue>
+            <function>&lt;=</function>
+            <rightvalue/>
+            <value>
+              <name>constant</name>
+              <type>Integer</type>
+              <text>100</text>
+              <length>-1</length>
+              <precision>0</precision>
+              <isnull>N</isnull>
+              <mask>####0;-####0</mask>
+            </value>
+          </condition>
+        </conditions>
+      </condition>
+    </compare>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>336</xloc>
+      <yloc>288</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Group by Order - rejected</name>
+    <type>GroupBy</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <all_rows>N</all_rows>
+    <ignore_aggregate>N</ignore_aggregate>
+    <field_ignore/>
+    <directory>%%java.io.tmpdir%%</directory>
+    <prefix>grp</prefix>
+    <add_linenr>N</add_linenr>
+    <linenr_fieldname/>
+    <give_back_row>Y</give_back_row>
+    <group>
+      </group>
+    <fields>
+      <field>
+        <aggregate>rejected_rows</aggregate>
+        <subject>order_id</subject>
+        <type>COUNT_ALL</type>
+        <valuefield/>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>576</xloc>
+      <yloc>400</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Group by Order - valid</name>
+    <type>GroupBy</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <all_rows>N</all_rows>
+    <ignore_aggregate>N</ignore_aggregate>
+    <field_ignore/>
+    <directory>%%java.io.tmpdir%%</directory>
+    <prefix>grp</prefix>
+    <add_linenr>N</add_linenr>
+    <linenr_fieldname/>
+    <give_back_row>Y</give_back_row>
+    <group>
+      </group>
+    <fields>
+      <field>
+        <aggregate>valid_rows</aggregate>
+        <subject>order_id</subject>
+        <type>COUNT_ALL</type>
+        <valuefield/>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>576</xloc>
+      <yloc>288</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Read Sales</name>
+    <type>TextFileInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
     </partitioning>
     <accept_filenames>N</accept_filenames>
     <passing_through_fields>N</passing_through_fields>
-    <accept_field />
-    <accept_stepname />
+    <accept_field/>
+    <accept_stepname/>
     <separator>,</separator>
     <enclosure>"</enclosure>
     <enclosure_breaks>N</enclosure_breaks>
-    <escapechar />
+    <escapechar/>
     <header>Y</header>
     <nr_headerlines>1</nr_headerlines>
     <footer>N</footer>
@@ -602,18 +813,18 @@
     <nr_lines_doc_header>0</nr_lines_doc_header>
     <noempty>Y</noempty>
     <include>N</include>
-    <include_field />
+    <include_field/>
     <rownum>N</rownum>
     <rownumByFile>N</rownumByFile>
-    <rownum_field />
+    <rownum_field/>
     <format>mixed</format>
     <encoding>UTF-8</encoding>
     <length>Characters</length>
     <add_to_result_filenames>Y</add_to_result_filenames>
     <file>
       <name>${WORKSHOP_HOME}/data/sales_${SALES_DATE}.csv</name>
-      <filemask />
-      <exclude_filemask />
+      <filemask/>
+      <exclude_filemask/>
       <file_required>N</file_required>
       <include_subfolders>N</include_subfolders>
       <type>CSV</type>
@@ -630,7 +841,7 @@
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
-        <ifnull />
+        <ifnull/>
         <position>-1</position>
         <length>15</length>
         <precision>0</precision>
@@ -645,7 +856,7 @@
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
-        <ifnull />
+        <ifnull/>
         <position>-1</position>
         <length>-1</length>
         <precision>-1</precision>
@@ -655,12 +866,12 @@
       <field>
         <name>customer_id</name>
         <type>String</type>
-        <format />
+        <format/>
         <currency>£</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
-        <ifnull />
+        <ifnull/>
         <position>-1</position>
         <length>10</length>
         <precision>-1</precision>
@@ -670,12 +881,12 @@
       <field>
         <name>product_id</name>
         <type>String</type>
-        <format />
+        <format/>
         <currency>£</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
-        <ifnull />
+        <ifnull/>
         <position>-1</position>
         <length>10</length>
         <precision>-1</precision>
@@ -690,7 +901,7 @@
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
-        <ifnull />
+        <ifnull/>
         <position>-1</position>
         <length>15</length>
         <precision>0</precision>
@@ -705,7 +916,7 @@
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
-        <ifnull />
+        <ifnull/>
         <position>-1</position>
         <length>10</length>
         <precision>2</precision>
@@ -720,7 +931,7 @@
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
-        <ifnull />
+        <ifnull/>
         <position>-1</position>
         <length>15</length>
         <precision>0</precision>
@@ -731,30 +942,30 @@
     <limit>0</limit>
     <error_ignored>N</error_ignored>
     <skip_bad_files>N</skip_bad_files>
-    <file_error_field />
-    <file_error_message_field />
+    <file_error_field/>
+    <file_error_message_field/>
     <error_line_skipped>N</error_line_skipped>
-    <error_count_field />
-    <error_fields_field />
-    <error_text_field />
-    <bad_line_files_destination_directory />
+    <error_count_field/>
+    <error_fields_field/>
+    <error_text_field/>
+    <bad_line_files_destination_directory/>
     <bad_line_files_extension>warning</bad_line_files_extension>
-    <error_line_files_destination_directory />
+    <error_line_files_destination_directory/>
     <error_line_files_extension>error</error_line_files_extension>
-    <line_number_files_destination_directory />
+    <line_number_files_destination_directory/>
     <line_number_files_extension>line</line_number_files_extension>
     <date_format_lenient>Y</date_format_lenient>
     <date_format_locale>en_GB</date_format_locale>
-    <shortFileFieldName />
-    <pathFieldName />
-    <hiddenFieldName />
-    <lastModificationTimeFieldName />
-    <uriNameFieldName />
-    <rootUriNameFieldName />
-    <extensionFieldName />
-    <sizeFieldName />
-    <attributes />
-    <cluster_schema />
+    <shortFileFieldName/>
+    <pathFieldName/>
+    <hiddenFieldName/>
+    <lastModificationTimeFieldName/>
+    <uriNameFieldName/>
+    <rootUriNameFieldName/>
+    <extensionFieldName/>
+    <sizeFieldName/>
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -762,132 +973,21 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>96</xloc>
-      <yloc>128</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Filter rows</name>
-    <type>FilterRows</type>
-    <description />
-    <distribute>Y</distribute>
-    <custom_distribution />
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name />
-    </partitioning>
-    <send_true_to>Table output</send_true_to>
-    <send_false_to>Rejected Sales</send_false_to>
-    <compare>
-      <condition>
-        <negated>N</negated>
-        <conditions>
-          <condition>
-            <negated>N</negated>
-            <leftvalue>customer_id</leftvalue>
-            <function>IS NOT NULL</function>
-            <rightvalue />
-          </condition>
-          <condition>
-            <negated>N</negated>
-            <operator>AND</operator>
-            <leftvalue>product_id</leftvalue>
-            <function>IS NOT NULL</function>
-            <rightvalue />
-          </condition>
-          <condition>
-            <negated>N</negated>
-            <operator>AND</operator>
-            <leftvalue>qty</leftvalue>
-            <function>&gt;</function>
-            <rightvalue />
-            <value>
-              <name>constant</name>
-              <type>Integer</type>
-              <text>0</text>
-              <length>-1</length>
-              <precision>-1</precision>
-              <isnull>N</isnull>
-              <mask />
-            </value>
-          </condition>
-          <condition>
-            <negated>N</negated>
-            <operator>AND</operator>
-            <leftvalue>unit_price</leftvalue>
-            <function>&gt;</function>
-            <rightvalue />
-            <value>
-              <name>constant</name>
-              <type>Number</type>
-              <text>0</text>
-              <length>-1</length>
-              <precision>-1</precision>
-              <isnull>N</isnull>
-              <mask />
-            </value>
-          </condition>
-          <condition>
-            <negated>N</negated>
-            <operator>AND</operator>
-            <leftvalue>discount_pct</leftvalue>
-            <function>&gt;=</function>
-            <rightvalue />
-            <value>
-              <name>constant</name>
-              <type>Integer</type>
-              <text>0</text>
-              <length>-1</length>
-              <precision>-1</precision>
-              <isnull>N</isnull>
-              <mask />
-            </value>
-          </condition>
-          <condition>
-            <negated>N</negated>
-            <operator>AND</operator>
-            <leftvalue>discount_pct</leftvalue>
-            <function>&lt;=</function>
-            <rightvalue />
-            <value>
-              <name>constant</name>
-              <type>Integer</type>
-              <text>100</text>
-              <length>-1</length>
-              <precision>-1</precision>
-              <isnull>N</isnull>
-              <mask />
-            </value>
-          </condition>
-        </conditions>
-      </condition>
-    </compare>
-    <attributes />
-    <cluster_schema />
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>224</xloc>
-      <yloc>128</yloc>
+      <xloc>208</xloc>
+      <yloc>288</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
     <name>Rejected Sales</name>
     <type>TextFileOutput</type>
-    <description />
+    <description/>
     <distribute>Y</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
     <separator>;</separator>
     <enclosure>"</enclosure>
@@ -898,9 +998,9 @@
     <format>DOS</format>
     <compression>None</compression>
     <encoding>UTF-8</encoding>
-    <endedLine />
+    <endedLine/>
     <fileNameInField>N</fileNameInField>
-    <fileNameField />
+    <fileNameField/>
     <create_parent_folder>Y</create_parent_folder>
     <file>
       <name>${OUTPUT_PATH}/rejected_${SALES_DATE}</name>
@@ -913,11 +1013,11 @@
       <add_date>N</add_date>
       <add_time>N</add_time>
       <SpecifyFormat>N</SpecifyFormat>
-      <date_time_format />
+      <date_time_format/>
       <add_to_result_filenames>Y</add_to_result_filenames>
       <pad>N</pad>
       <fast_dump>N</fast_dump>
-      <splitevery />
+      <splitevery/>
     </file>
     <fields>
       <field>
@@ -927,7 +1027,7 @@
         <currency>£</currency>
         <decimal>.</decimal>
         <group>,</group>
-        <nullif />
+        <nullif/>
         <trim_type>none</trim_type>
         <length>15</length>
         <precision>0</precision>
@@ -936,10 +1036,10 @@
         <name>order_date</name>
         <type>Date</type>
         <format>yyyy-MM-dd</format>
-        <currency />
-        <decimal />
-        <group />
-        <nullif />
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
         <trim_type>none</trim_type>
         <length>-1</length>
         <precision>-1</precision>
@@ -947,11 +1047,11 @@
       <field>
         <name>customer_id</name>
         <type>String</type>
-        <format />
-        <currency />
-        <decimal />
-        <group />
-        <nullif />
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
         <trim_type>none</trim_type>
         <length>-1</length>
         <precision>-1</precision>
@@ -959,11 +1059,11 @@
       <field>
         <name>product_id</name>
         <type>String</type>
-        <format />
-        <currency />
-        <decimal />
-        <group />
-        <nullif />
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
         <trim_type>none</trim_type>
         <length>-1</length>
         <precision>-1</precision>
@@ -975,7 +1075,7 @@
         <currency>£</currency>
         <decimal>.</decimal>
         <group>,</group>
-        <nullif />
+        <nullif/>
         <trim_type>none</trim_type>
         <length>15</length>
         <precision>0</precision>
@@ -987,7 +1087,7 @@
         <currency>£</currency>
         <decimal>.</decimal>
         <group>,</group>
-        <nullif />
+        <nullif/>
         <trim_type>none</trim_type>
         <length>10</length>
         <precision>2</precision>
@@ -999,14 +1099,14 @@
         <currency>£</currency>
         <decimal>.</decimal>
         <group>,</group>
-        <nullif />
+        <nullif/>
         <trim_type>none</trim_type>
         <length>15</length>
         <precision>0</precision>
       </field>
     </fields>
-    <attributes />
-    <cluster_schema />
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -1014,67 +1114,24 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>224</xloc>
-      <yloc>240</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Group by Order - valid</name>
-    <type>GroupBy</type>
-    <description />
-    <distribute>Y</distribute>
-    <custom_distribution />
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name />
-    </partitioning>
-    <all_rows>N</all_rows>
-    <ignore_aggregate>N</ignore_aggregate>
-    <field_ignore />
-    <directory>%%java.io.tmpdir%%</directory>
-    <prefix>grp</prefix>
-    <add_linenr>N</add_linenr>
-    <linenr_fieldname />
-    <give_back_row>Y</give_back_row>
-    <group>
-      </group>
-    <fields>
-      <field>
-        <aggregate>valid_rows</aggregate>
-        <subject>order_id</subject>
-        <type>COUNT_ALL</type>
-        <valuefield />
-      </field>
-    </fields>
-    <attributes />
-    <cluster_schema />
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>464</xloc>
-      <yloc>128</yloc>
+      <xloc>336</xloc>
+      <yloc>400</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
     <name>Table output</name>
     <type>TableOutput</type>
-    <description />
+    <description/>
     <distribute>Y</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
     <connection>capstone</connection>
-    <schema />
+    <schema/>
     <table>stg_orders</table>
     <commit>1000</commit>
     <truncate>Y</truncate>
@@ -1082,96 +1139,18 @@
     <use_batch>Y</use_batch>
     <specify_fields>N</specify_fields>
     <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field />
+    <partitioning_field/>
     <partitioning_daily>N</partitioning_daily>
     <partitioning_monthly>Y</partitioning_monthly>
     <tablename_in_field>N</tablename_in_field>
-    <tablename_field />
+    <tablename_field/>
     <tablename_in_table>Y</tablename_in_table>
     <return_keys>N</return_keys>
-    <return_field />
+    <return_field/>
     <fields>
     </fields>
-    <attributes />
-    <cluster_schema />
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>352</xloc>
-      <yloc>128</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Write Valid Sales</name>
-    <type>WriteToLog</type>
-    <description />
-    <distribute>Y</distribute>
-    <custom_distribution />
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name />
-    </partitioning>
-    <loglevel>log_level_basic</loglevel>
-    <displayHeader>Y</displayHeader>
-    <limitRows>N</limitRows>
-    <limitRowsNumber>0</limitRowsNumber>
-    <logmessage>Valid rows loaded for ${SALES_DATE}:</logmessage>
-    <fields>
-      <field>
-        <name>valid_rows</name>
-      </field>
-    </fields>
-    <attributes />
-    <cluster_schema />
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>608</xloc>
-      <yloc>128</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Group by Order - rejected</name>
-    <type>GroupBy</type>
-    <description />
-    <distribute>Y</distribute>
-    <custom_distribution />
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name />
-    </partitioning>
-    <all_rows>N</all_rows>
-    <ignore_aggregate>N</ignore_aggregate>
-    <field_ignore />
-    <directory>%%java.io.tmpdir%%</directory>
-    <prefix>grp</prefix>
-    <add_linenr>N</add_linenr>
-    <linenr_fieldname />
-    <give_back_row>Y</give_back_row>
-    <group>
-      </group>
-    <fields>
-      <field>
-        <aggregate>rejected_rows</aggregate>
-        <subject>order_id</subject>
-        <type>COUNT_ALL</type>
-        <valuefield />
-      </field>
-    </fields>
-    <attributes />
-    <cluster_schema />
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -1180,20 +1159,20 @@
     </remotesteps>
     <GUI>
       <xloc>464</xloc>
-      <yloc>240</yloc>
+      <yloc>288</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
     <name>Write Rejected Sales</name>
     <type>WriteToLog</type>
-    <description />
+    <description/>
     <distribute>Y</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
     <loglevel>log_level_basic</loglevel>
     <displayHeader>Y</displayHeader>
@@ -1205,8 +1184,8 @@
         <name>rejected_rows</name>
       </field>
     </fields>
-    <attributes />
-    <cluster_schema />
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -1214,8 +1193,43 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>608</xloc>
-      <yloc>240</yloc>
+      <xloc>720</xloc>
+      <yloc>400</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Write Valid Sales</name>
+    <type>WriteToLog</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <loglevel>log_level_basic</loglevel>
+    <displayHeader>Y</displayHeader>
+    <limitRows>N</limitRows>
+    <limitRowsNumber>0</limitRowsNumber>
+    <logmessage>Valid rows loaded for ${SALES_DATE}:</logmessage>
+    <fields>
+      <field>
+        <name>valid_rows</name>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>720</xloc>
+      <yloc>288</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1224,5 +1238,5 @@
   <slave-step-copy-partition-distribution>
   </slave-step-copy-partition-distribution>
   <slave_transformation>N</slave_transformation>
-  <attributes />
+  <attributes/>
 </transformation>

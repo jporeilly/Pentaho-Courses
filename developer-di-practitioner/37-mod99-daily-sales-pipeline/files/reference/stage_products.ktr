@@ -1,14 +1,14 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
     <name>stage_products</name>
-    <description />
-    <extended_description />
-    <trans_version />
+    <description/>
+    <extended_description/>
+    <trans_version/>
     <trans_type>Normal</trans_type>
     <trans_status>0</trans_status>
     <directory>/</directory>
-    <filename />
+    <filename>file:///C:/Workshop-DI-Practitioner/capstone/solution/stage_products.ktr</filename>
     <parameters>
       <parameter>
         <name>OUTPUT_PATH</name>
@@ -28,12 +28,12 @@
     </parameters>
     <log>
       <trans-log-table>
-        <connection />
-        <schema />
-        <table />
-        <size_limit_lines />
-        <interval />
-        <timeout_days />
+        <connection/>
+        <schema/>
+        <table/>
+        <size_limit_lines/>
+        <interval/>
+        <timeout_days/>
         <field>
           <id>ID_BATCH</id>
           <enabled>Y</enabled>
@@ -58,37 +58,37 @@
           <id>LINES_READ</id>
           <enabled>Y</enabled>
           <name>LINES_READ</name>
-          <subject />
+          <subject/>
         </field>
         <field>
           <id>LINES_WRITTEN</id>
           <enabled>Y</enabled>
           <name>LINES_WRITTEN</name>
-          <subject />
+          <subject/>
         </field>
         <field>
           <id>LINES_UPDATED</id>
           <enabled>Y</enabled>
           <name>LINES_UPDATED</name>
-          <subject />
+          <subject/>
         </field>
         <field>
           <id>LINES_INPUT</id>
           <enabled>Y</enabled>
           <name>LINES_INPUT</name>
-          <subject />
+          <subject/>
         </field>
         <field>
           <id>LINES_OUTPUT</id>
           <enabled>Y</enabled>
           <name>LINES_OUTPUT</name>
-          <subject />
+          <subject/>
         </field>
         <field>
           <id>LINES_REJECTED</id>
           <enabled>Y</enabled>
           <name>LINES_REJECTED</name>
-          <subject />
+          <subject/>
         </field>
         <field>
           <id>ERRORS</id>
@@ -142,11 +142,11 @@
         </field>
       </trans-log-table>
       <perf-log-table>
-        <connection />
-        <schema />
-        <table />
-        <interval />
-        <timeout_days />
+        <connection/>
+        <schema/>
+        <table/>
+        <interval/>
+        <timeout_days/>
         <field>
           <id>ID_BATCH</id>
           <enabled>Y</enabled>
@@ -224,10 +224,10 @@
         </field>
       </perf-log-table>
       <channel-log-table>
-        <connection />
-        <schema />
-        <table />
-        <timeout_days />
+        <connection/>
+        <schema/>
+        <table/>
+        <timeout_days/>
         <field>
           <id>ID_BATCH</id>
           <enabled>Y</enabled>
@@ -290,10 +290,10 @@
         </field>
       </channel-log-table>
       <step-log-table>
-        <connection />
-        <schema />
-        <table />
-        <timeout_days />
+        <connection/>
+        <schema/>
+        <table/>
+        <timeout_days/>
         <field>
           <id>ID_BATCH</id>
           <enabled>Y</enabled>
@@ -366,10 +366,10 @@
         </field>
       </step-log-table>
       <metrics-log-table>
-        <connection />
-        <schema />
-        <table />
-        <timeout_days />
+        <connection/>
+        <schema/>
+        <table/>
+        <timeout_days/>
         <field>
           <id>ID_BATCH</id>
           <enabled>Y</enabled>
@@ -418,9 +418,9 @@
       </metrics-log-table>
     </log>
     <maxdate>
-      <connection />
-      <table />
-      <field />
+      <connection/>
+      <table/>
+      <field/>
       <offset>0.0</offset>
       <maxdiff>0.0</maxdiff>
     </maxdate>
@@ -446,16 +446,22 @@
     <created_date>2026/10/15 14:58:02.486</created_date>
     <modified_user>-</modified_user>
     <modified_date>2026/10/15 14:58:02.486</modified_date>
-    <key_for_session_key />
+    <key_for_session_key>H4sIAAAAAAAA/wMAAAAAAAAAAAA=</key_for_session_key>
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
     <notepad>
-      <note>Build stg_products table based on: products.csv</note>
-      <xloc>208</xloc>
-      <yloc>144</yloc>
-      <width>290</width>
-      <heigth>28</heigth>
+      <note>stage_products - stages the product list.
+
+1. Read Products: ${WORKSHOP_HOME}/data/products.csv, header, comma, id, name, category, cost (BigNumber, 2 decimals).
+2. Table output into stg_products (truncated every run).
+3. Group by (products_staged = N(id)) and Write to log.
+
+Shipped data: 13 products.</note>
+      <xloc>48</xloc>
+      <yloc>48</yloc>
+      <width>748</width>
+      <heigth>134</heigth>
       <fontname>Segoe UI</fontname>
       <fontsize>10</fontsize>
       <fontbold>N</fontbold>
@@ -481,9 +487,9 @@
     <port>3306</port>
     <username>pentaho_admin</username>
     <password>Encrypted 2be98afc86aa7f2e4bb18bd63c99dbdde</password>
-    <servername />
-    <data_tablespace />
-    <index_tablespace />
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
     <attributes>
       <attribute>
         <code>EXTRA_OPTION_MYSQL.defaultFetchSize</code>
@@ -503,6 +509,10 @@
       </attribute>
       <attribute>
         <code>IS_CLUSTERED</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>MSSQL_DOUBLE_DECIMAL_SEPARATOR</code>
         <attribute>N</attribute>
       </attribute>
       <attribute>
@@ -553,24 +563,67 @@
     </hop>
   </order>
   <step>
-    <name>Read Products</name>
-    <type>TextFileInput</type>
-    <description />
+    <name>Group by</name>
+    <type>GroupBy</type>
+    <description/>
     <distribute>Y</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
+    </partitioning>
+    <all_rows>N</all_rows>
+    <ignore_aggregate>N</ignore_aggregate>
+    <field_ignore/>
+    <directory>%%java.io.tmpdir%%</directory>
+    <prefix>grp</prefix>
+    <add_linenr>N</add_linenr>
+    <linenr_fieldname/>
+    <give_back_row>Y</give_back_row>
+    <group>
+      </group>
+    <fields>
+      <field>
+        <aggregate>products_staged</aggregate>
+        <subject>id</subject>
+        <type>COUNT_ALL</type>
+        <valuefield/>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>384</xloc>
+      <yloc>240</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Read Products</name>
+    <type>TextFileInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
     </partitioning>
     <accept_filenames>N</accept_filenames>
     <passing_through_fields>N</passing_through_fields>
-    <accept_field />
-    <accept_stepname />
+    <accept_field/>
+    <accept_stepname/>
     <separator>,</separator>
     <enclosure>"</enclosure>
     <enclosure_breaks>N</enclosure_breaks>
-    <escapechar />
+    <escapechar/>
     <header>Y</header>
     <nr_headerlines>1</nr_headerlines>
     <footer>N</footer>
@@ -582,18 +635,18 @@
     <nr_lines_doc_header>0</nr_lines_doc_header>
     <noempty>Y</noempty>
     <include>N</include>
-    <include_field />
+    <include_field/>
     <rownum>N</rownum>
     <rownumByFile>N</rownumByFile>
-    <rownum_field />
+    <rownum_field/>
     <format>mixed</format>
     <encoding>UTF-8</encoding>
     <length>Characters</length>
     <add_to_result_filenames>Y</add_to_result_filenames>
     <file>
       <name>${WORKSHOP_HOME}/data/products.csv</name>
-      <filemask />
-      <exclude_filemask />
+      <filemask/>
+      <exclude_filemask/>
       <file_required>N</file_required>
       <include_subfolders>N</include_subfolders>
       <type>CSV</type>
@@ -605,12 +658,12 @@
       <field>
         <name>id</name>
         <type>String</type>
-        <format />
+        <format/>
         <currency>£</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
-        <ifnull />
+        <ifnull/>
         <position>-1</position>
         <length>5</length>
         <precision>-1</precision>
@@ -620,12 +673,12 @@
       <field>
         <name>name</name>
         <type>String</type>
-        <format />
+        <format/>
         <currency>£</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
-        <ifnull />
+        <ifnull/>
         <position>-1</position>
         <length>20</length>
         <precision>-1</precision>
@@ -635,12 +688,12 @@
       <field>
         <name>category</name>
         <type>String</type>
-        <format />
+        <format/>
         <currency>£</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
-        <ifnull />
+        <ifnull/>
         <position>-1</position>
         <length>15</length>
         <precision>-1</precision>
@@ -655,7 +708,7 @@
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
-        <ifnull />
+        <ifnull/>
         <position>-1</position>
         <length>10</length>
         <precision>2</precision>
@@ -666,30 +719,30 @@
     <limit>0</limit>
     <error_ignored>N</error_ignored>
     <skip_bad_files>N</skip_bad_files>
-    <file_error_field />
-    <file_error_message_field />
+    <file_error_field/>
+    <file_error_message_field/>
     <error_line_skipped>N</error_line_skipped>
-    <error_count_field />
-    <error_fields_field />
-    <error_text_field />
-    <bad_line_files_destination_directory />
+    <error_count_field/>
+    <error_fields_field/>
+    <error_text_field/>
+    <bad_line_files_destination_directory/>
     <bad_line_files_extension>warning</bad_line_files_extension>
-    <error_line_files_destination_directory />
+    <error_line_files_destination_directory/>
     <error_line_files_extension>error</error_line_files_extension>
-    <line_number_files_destination_directory />
+    <line_number_files_destination_directory/>
     <line_number_files_extension>line</line_number_files_extension>
     <date_format_lenient>Y</date_format_lenient>
     <date_format_locale>en_GB</date_format_locale>
-    <shortFileFieldName />
-    <pathFieldName />
-    <hiddenFieldName />
-    <lastModificationTimeFieldName />
-    <uriNameFieldName />
-    <rootUriNameFieldName />
-    <extensionFieldName />
-    <sizeFieldName />
-    <attributes />
-    <cluster_schema />
+    <shortFileFieldName/>
+    <pathFieldName/>
+    <hiddenFieldName/>
+    <lastModificationTimeFieldName/>
+    <uriNameFieldName/>
+    <rootUriNameFieldName/>
+    <extensionFieldName/>
+    <sizeFieldName/>
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -705,16 +758,16 @@
   <step>
     <name>Table output</name>
     <type>TableOutput</type>
-    <description />
+    <description/>
     <distribute>Y</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
     <connection>capstone</connection>
-    <schema />
+    <schema/>
     <table>stg_products</table>
     <commit>1000</commit>
     <truncate>Y</truncate>
@@ -722,18 +775,18 @@
     <use_batch>Y</use_batch>
     <specify_fields>N</specify_fields>
     <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field />
+    <partitioning_field/>
     <partitioning_daily>N</partitioning_daily>
     <partitioning_monthly>Y</partitioning_monthly>
     <tablename_in_field>N</tablename_in_field>
-    <tablename_field />
+    <tablename_field/>
     <tablename_in_table>Y</tablename_in_table>
     <return_keys>N</return_keys>
-    <return_field />
+    <return_field/>
     <fields>
     </fields>
-    <attributes />
-    <cluster_schema />
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -747,57 +800,15 @@
     </GUI>
   </step>
   <step>
-    <name>Group by</name>
-    <type>GroupBy</type>
-    <description />
-    <distribute>Y</distribute>
-    <custom_distribution />
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name />
-    </partitioning>
-    <all_rows>N</all_rows>
-    <ignore_aggregate>N</ignore_aggregate>
-    <field_ignore />
-    <directory>%%java.io.tmpdir%%</directory>
-    <prefix>grp</prefix>
-    <add_linenr>N</add_linenr>
-    <linenr_fieldname />
-    <give_back_row>Y</give_back_row>
-    <group />
-    <fields>
-      <field>
-        <aggregate>products_staged</aggregate>
-        <subject>id</subject>
-        <type>COUNT_ALL</type>
-        <valuefield />
-      </field>
-    </fields>
-    <attributes />
-    <cluster_schema />
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>384</xloc>
-      <yloc>240</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
     <name>Write to log</name>
     <type>WriteToLog</type>
-    <description />
+    <description/>
     <distribute>Y</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
     <loglevel>log_level_basic</loglevel>
     <displayHeader>Y</displayHeader>
@@ -809,8 +820,8 @@
         <name>products_staged</name>
       </field>
     </fields>
-    <attributes />
-    <cluster_schema />
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -828,5 +839,5 @@
   <slave-step-copy-partition-distribution>
   </slave-step-copy-partition-distribution>
   <slave_transformation>N</slave_transformation>
-  <attributes />
+  <attributes/>
 </transformation>

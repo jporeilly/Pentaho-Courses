@@ -1,14 +1,14 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
     <name>maintain_dim_region</name>
-    <description />
-    <extended_description />
-    <trans_version />
+    <description/>
+    <extended_description/>
+    <trans_version/>
     <trans_type>Normal</trans_type>
     <trans_status>0</trans_status>
     <directory>/</directory>
-    <filename />
+    <filename>file:///C:/Workshop-DI-Practitioner/capstone/solution/maintain_dim_region.ktr</filename>
     <parameters>
       <parameter>
         <name>OUTPUT_PATH</name>
@@ -28,12 +28,12 @@
     </parameters>
     <log>
       <trans-log-table>
-        <connection />
-        <schema />
-        <table />
-        <size_limit_lines />
-        <interval />
-        <timeout_days />
+        <connection/>
+        <schema/>
+        <table/>
+        <size_limit_lines/>
+        <interval/>
+        <timeout_days/>
         <field>
           <id>ID_BATCH</id>
           <enabled>Y</enabled>
@@ -58,37 +58,37 @@
           <id>LINES_READ</id>
           <enabled>Y</enabled>
           <name>LINES_READ</name>
-          <subject />
+          <subject/>
         </field>
         <field>
           <id>LINES_WRITTEN</id>
           <enabled>Y</enabled>
           <name>LINES_WRITTEN</name>
-          <subject />
+          <subject/>
         </field>
         <field>
           <id>LINES_UPDATED</id>
           <enabled>Y</enabled>
           <name>LINES_UPDATED</name>
-          <subject />
+          <subject/>
         </field>
         <field>
           <id>LINES_INPUT</id>
           <enabled>Y</enabled>
           <name>LINES_INPUT</name>
-          <subject />
+          <subject/>
         </field>
         <field>
           <id>LINES_OUTPUT</id>
           <enabled>Y</enabled>
           <name>LINES_OUTPUT</name>
-          <subject />
+          <subject/>
         </field>
         <field>
           <id>LINES_REJECTED</id>
           <enabled>Y</enabled>
           <name>LINES_REJECTED</name>
-          <subject />
+          <subject/>
         </field>
         <field>
           <id>ERRORS</id>
@@ -142,11 +142,11 @@
         </field>
       </trans-log-table>
       <perf-log-table>
-        <connection />
-        <schema />
-        <table />
-        <interval />
-        <timeout_days />
+        <connection/>
+        <schema/>
+        <table/>
+        <interval/>
+        <timeout_days/>
         <field>
           <id>ID_BATCH</id>
           <enabled>Y</enabled>
@@ -224,10 +224,10 @@
         </field>
       </perf-log-table>
       <channel-log-table>
-        <connection />
-        <schema />
-        <table />
-        <timeout_days />
+        <connection/>
+        <schema/>
+        <table/>
+        <timeout_days/>
         <field>
           <id>ID_BATCH</id>
           <enabled>Y</enabled>
@@ -290,10 +290,10 @@
         </field>
       </channel-log-table>
       <step-log-table>
-        <connection />
-        <schema />
-        <table />
-        <timeout_days />
+        <connection/>
+        <schema/>
+        <table/>
+        <timeout_days/>
         <field>
           <id>ID_BATCH</id>
           <enabled>Y</enabled>
@@ -366,10 +366,10 @@
         </field>
       </step-log-table>
       <metrics-log-table>
-        <connection />
-        <schema />
-        <table />
-        <timeout_days />
+        <connection/>
+        <schema/>
+        <table/>
+        <timeout_days/>
         <field>
           <id>ID_BATCH</id>
           <enabled>Y</enabled>
@@ -418,9 +418,9 @@
       </metrics-log-table>
     </log>
     <maxdate>
-      <connection />
-      <table />
-      <field />
+      <connection/>
+      <table/>
+      <field/>
       <offset>0.0</offset>
       <maxdiff>0.0</maxdiff>
     </maxdate>
@@ -446,16 +446,25 @@
     <created_date>2026/10/15 14:58:02.486</created_date>
     <modified_user>-</modified_user>
     <modified_date>2026/10/15 14:58:02.486</modified_date>
-    <key_for_session_key />
+    <key_for_session_key>H4sIAAAAAAAA/wMAAAAAAAAAAAA=</key_for_session_key>
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
     <notepad>
-      <note>regions.csv into dim_region, SCD type 2 on name and manager_email. Runs before build_fact.</note>
-      <xloc>32</xloc>
-      <yloc>16</yloc>
-      <width>520</width>
-      <heigth>40</heigth>
+      <note>maintain_dim_region - keeps dim_region as a Type 2 slowly changing dimension.
+Runs before build_fact, so the fact can carry region_sk.
+
+1. Read regions: ${WORKSHOP_HOME}/data/regions.csv (code, name, manager_email).
+2. Load date: Get System Info, load_date = system date (fixed), the start of the transformation. It is the stream date for the dimension.
+3. dim_region (SCD type 2): Dimension Lookup/Update, update the dimension on.
+   Key code = code; technical key region_sk (auto-increment); version field version; date range valid_from / valid_to; name and manager_email are type Insert, so a change creates a new version.
+4. Count regions (regions = N(code)) and Write to log.
+
+First run: 6 rows - the 5 regions plus the "unknown" row (region_sk 1) the step adds. Change a manager_email and run again: that region gets version 2, valid from the run time, and version 1 is closed at the same moment.</note>
+      <xloc>16</xloc>
+      <yloc>32</yloc>
+      <width>1300</width>
+      <heigth>188</heigth>
       <fontname>Segoe UI</fontname>
       <fontsize>10</fontsize>
       <fontbold>N</fontbold>
@@ -481,9 +490,9 @@
     <port>3306</port>
     <username>pentaho_admin</username>
     <password>Encrypted 2be98afc86aa7f2e4bb18bd63c99dbdde</password>
-    <servername />
-    <data_tablespace />
-    <index_tablespace />
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
     <attributes>
       <attribute>
         <code>EXTRA_OPTION_MYSQL.defaultFetchSize</code>
@@ -503,6 +512,10 @@
       </attribute>
       <attribute>
         <code>IS_CLUSTERED</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>MSSQL_DOUBLE_DECIMAL_SEPARATOR</code>
         <attribute>N</attribute>
       </attribute>
       <attribute>
@@ -558,24 +571,133 @@
     </hop>
   </order>
   <step>
-    <name>Read regions</name>
-    <type>TextFileInput</type>
-    <description />
+    <name>Count regions</name>
+    <type>GroupBy</type>
+    <description/>
     <distribute>Y</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
+    </partitioning>
+    <all_rows>N</all_rows>
+    <ignore_aggregate>N</ignore_aggregate>
+    <field_ignore/>
+    <directory>%%java.io.tmpdir%%</directory>
+    <prefix>grp</prefix>
+    <add_linenr>N</add_linenr>
+    <linenr_fieldname/>
+    <give_back_row>Y</give_back_row>
+    <group>
+      </group>
+    <fields>
+      <field>
+        <aggregate>regions</aggregate>
+        <subject>code</subject>
+        <type>COUNT_ALL</type>
+        <valuefield/>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>720</xloc>
+      <yloc>256</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Load date</name>
+    <type>SystemInfo</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>load_date</name>
+        <type>system date (fixed)</type>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>368</xloc>
+      <yloc>256</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Log regions</name>
+    <type>WriteToLog</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <loglevel>log_level_basic</loglevel>
+    <displayHeader>Y</displayHeader>
+    <limitRows>N</limitRows>
+    <limitRowsNumber>0</limitRowsNumber>
+    <logmessage>dim_region rows processed:</logmessage>
+    <fields>
+      <field>
+        <name>regions</name>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>880</xloc>
+      <yloc>256</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Read regions</name>
+    <type>TextFileInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
     </partitioning>
     <accept_filenames>N</accept_filenames>
     <passing_through_fields>N</passing_through_fields>
-    <accept_field />
-    <accept_stepname />
+    <accept_field/>
+    <accept_stepname/>
     <separator>,</separator>
     <enclosure>"</enclosure>
     <enclosure_breaks>N</enclosure_breaks>
-    <escapechar />
+    <escapechar/>
     <header>Y</header>
     <nr_headerlines>1</nr_headerlines>
     <footer>N</footer>
@@ -587,18 +709,18 @@
     <nr_lines_doc_header>0</nr_lines_doc_header>
     <noempty>Y</noempty>
     <include>N</include>
-    <include_field />
+    <include_field/>
     <rownum>N</rownum>
     <rownumByFile>N</rownumByFile>
-    <rownum_field />
+    <rownum_field/>
     <format>mixed</format>
     <encoding>UTF-8</encoding>
     <length>Characters</length>
     <add_to_result_filenames>Y</add_to_result_filenames>
     <file>
       <name>${WORKSHOP_HOME}/data/regions.csv</name>
-      <filemask />
-      <exclude_filemask />
+      <filemask/>
+      <exclude_filemask/>
       <file_required>N</file_required>
       <include_subfolders>N</include_subfolders>
       <type>CSV</type>
@@ -610,12 +732,12 @@
       <field>
         <name>code</name>
         <type>String</type>
-        <format />
-        <currency />
+        <format/>
+        <currency/>
         <decimal>.</decimal>
-        <group />
-        <nullif />
-        <ifnull />
+        <group/>
+        <nullif/>
+        <ifnull/>
         <position>-1</position>
         <length>10</length>
         <precision>-1</precision>
@@ -625,12 +747,12 @@
       <field>
         <name>name</name>
         <type>String</type>
-        <format />
-        <currency />
+        <format/>
+        <currency/>
         <decimal>.</decimal>
-        <group />
-        <nullif />
-        <ifnull />
+        <group/>
+        <nullif/>
+        <ifnull/>
         <position>-1</position>
         <length>100</length>
         <precision>-1</precision>
@@ -640,12 +762,12 @@
       <field>
         <name>manager_email</name>
         <type>String</type>
-        <format />
-        <currency />
+        <format/>
+        <currency/>
         <decimal>.</decimal>
-        <group />
-        <nullif />
-        <ifnull />
+        <group/>
+        <nullif/>
+        <ifnull/>
         <position>-1</position>
         <length>200</length>
         <precision>-1</precision>
@@ -656,30 +778,30 @@
     <limit>0</limit>
     <error_ignored>N</error_ignored>
     <skip_bad_files>N</skip_bad_files>
-    <file_error_field />
-    <file_error_message_field />
+    <file_error_field/>
+    <file_error_message_field/>
     <error_line_skipped>N</error_line_skipped>
-    <error_count_field />
-    <error_fields_field />
-    <error_text_field />
-    <bad_line_files_destination_directory />
+    <error_count_field/>
+    <error_fields_field/>
+    <error_text_field/>
+    <bad_line_files_destination_directory/>
     <bad_line_files_extension>warning</bad_line_files_extension>
-    <error_line_files_destination_directory />
+    <error_line_files_destination_directory/>
     <error_line_files_extension>error</error_line_files_extension>
-    <line_number_files_destination_directory />
+    <line_number_files_destination_directory/>
     <line_number_files_extension>line</line_number_files_extension>
     <date_format_lenient>Y</date_format_lenient>
     <date_format_locale>en_GB</date_format_locale>
-    <shortFileFieldName />
-    <pathFieldName />
-    <hiddenFieldName />
-    <lastModificationTimeFieldName />
-    <uriNameFieldName />
-    <rootUriNameFieldName />
-    <extensionFieldName />
-    <sizeFieldName />
-    <attributes />
-    <cluster_schema />
+    <shortFileFieldName/>
+    <pathFieldName/>
+    <hiddenFieldName/>
+    <lastModificationTimeFieldName/>
+    <uriNameFieldName/>
+    <rootUriNameFieldName/>
+    <extensionFieldName/>
+    <sizeFieldName/>
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -687,54 +809,23 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>64</xloc>
-      <yloc>112</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Load date</name>
-    <type>SystemInfo</type>
-    <description />
-    <distribute>Y</distribute>
-    <custom_distribution />
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name />
-    </partitioning>
-    <fields>
-      <field>
-        <name>load_date</name>
-        <type>system date (fixed)</type>
-      </field>
-    </fields>
-    <attributes />
-    <cluster_schema />
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>224</xloc>
-      <yloc>112</yloc>
+      <xloc>208</xloc>
+      <yloc>256</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
     <name>dim_region (SCD type 2)</name>
     <type>DimensionLookup</type>
-    <description />
+    <description/>
     <distribute>Y</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
-    <schema />
+    <schema/>
     <table>dim_region</table>
     <connection>capstone</connection>
     <commit>100</commit>
@@ -761,23 +852,23 @@
       </field>
       <return>
         <name>region_sk</name>
-        <rename />
+        <rename/>
         <creation_method>autoinc</creation_method>
         <use_autoinc>Y</use_autoinc>
         <version>version</version>
       </return>
     </fields>
-    <sequence />
+    <sequence/>
     <min_year>1900</min_year>
     <max_year>2199</max_year>
     <cache_size>5000</cache_size>
     <preload_cache>N</preload_cache>
     <use_start_date_alternative>N</use_start_date_alternative>
     <start_date_alternative>none</start_date_alternative>
-    <start_date_field_name />
+    <start_date_field_name/>
     <useBatch>N</useBatch>
-    <attributes />
-    <cluster_schema />
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -785,85 +876,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>400</xloc>
-      <yloc>112</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Count regions</name>
-    <type>GroupBy</type>
-    <description />
-    <distribute>Y</distribute>
-    <custom_distribution />
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name />
-    </partitioning>
-    <all_rows>N</all_rows>
-    <ignore_aggregate>N</ignore_aggregate>
-    <field_ignore />
-    <directory>%%java.io.tmpdir%%</directory>
-    <prefix>grp</prefix>
-    <add_linenr>N</add_linenr>
-    <linenr_fieldname />
-    <give_back_row>Y</give_back_row>
-    <group />
-    <fields>
-      <field>
-        <aggregate>regions</aggregate>
-        <subject>code</subject>
-        <type>COUNT_ALL</type>
-        <valuefield />
-      </field>
-    </fields>
-    <attributes />
-    <cluster_schema />
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>576</xloc>
-      <yloc>112</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Log regions</name>
-    <type>WriteToLog</type>
-    <description />
-    <distribute>Y</distribute>
-    <custom_distribution />
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name />
-    </partitioning>
-    <loglevel>log_level_basic</loglevel>
-    <displayHeader>Y</displayHeader>
-    <limitRows>N</limitRows>
-    <limitRowsNumber>0</limitRowsNumber>
-    <logmessage>dim_region rows processed:</logmessage>
-    <fields>
-      <field>
-        <name>regions</name>
-      </field>
-    </fields>
-    <attributes />
-    <cluster_schema />
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>736</xloc>
-      <yloc>112</yloc>
+      <xloc>544</xloc>
+      <yloc>256</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -872,5 +886,5 @@
   <slave-step-copy-partition-distribution>
   </slave-step-copy-partition-distribution>
   <slave_transformation>N</slave_transformation>
-  <attributes />
+  <attributes/>
 </transformation>

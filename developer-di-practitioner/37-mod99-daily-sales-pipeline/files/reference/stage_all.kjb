@@ -1,15 +1,15 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <job>
   <name>stage_all</name>
-  <description />
-  <extended_description />
-  <job_version />
+  <description/>
+  <extended_description/>
+  <job_version/>
   <job_status>0</job_status>
   <directory>/</directory>
-  <filename />
-  <created_user />
+  <filename>file:///C:/Workshop-DI-Practitioner/capstone/solution/stage_all.kjb</filename>
+  <created_user/>
   <created_date>2026/10/15 12:29:53.777</created_date>
-  <modified_user />
+  <modified_user/>
   <modified_date>2026/10/15 12:29:53.777</modified_date>
   <parameters>
     <parameter>
@@ -31,12 +31,12 @@
   <slaveservers>
     </slaveservers>
   <job-log-table>
-    <connection />
-    <schema />
-    <table />
-    <size_limit_lines />
-    <interval />
-    <timeout_days />
+    <connection/>
+    <schema/>
+    <table/>
+    <size_limit_lines/>
+    <interval/>
+    <timeout_days/>
     <field>
       <id>ID_JOB</id>
       <enabled>N</enabled>
@@ -144,10 +144,10 @@
     </field>
   </job-log-table>
   <jobentry-log-table>
-    <connection />
-    <schema />
-    <table />
-    <timeout_days />
+    <connection/>
+    <schema/>
+    <table/>
+    <timeout_days/>
     <field>
       <id>ID_BATCH</id>
       <enabled>Y</enabled>
@@ -235,10 +235,10 @@
     </field>
   </jobentry-log-table>
   <channel-log-table>
-    <connection />
-    <schema />
-    <table />
-    <timeout_days />
+    <connection/>
+    <schema/>
+    <table/>
+    <timeout_days/>
     <field>
       <id>ID_BATCH</id>
       <enabled>Y</enabled>
@@ -301,16 +301,16 @@
     </field>
   </channel-log-table>
   <checkpoint-log-table>
-    <connection />
-    <schema />
-    <table />
-    <timeout_days />
-    <max_nr_retries />
-    <run_retry_period />
-    <namespace_parameter />
-    <save_parameters />
-    <save_result_rows />
-    <save_result_files />
+    <connection/>
+    <schema/>
+    <table/>
+    <timeout_days/>
+    <max_nr_retries/>
+    <run_retry_period/>
+    <namespace_parameter/>
+    <save_parameters/>
+    <save_result_rows/>
+    <save_result_files/>
     <field>
       <id>ID_JOB_RUN</id>
       <enabled>Y</enabled>
@@ -371,9 +371,9 @@
   <entries>
     <entry>
       <name>Start</name>
-      <description />
+      <description/>
       <type>SPECIAL</type>
-      <attributes />
+      <attributes/>
       <start>Y</start>
       <dummy>N</dummy>
       <repeat>N</repeat>
@@ -387,32 +387,32 @@
       <parallel>Y</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>128</xloc>
-      <yloc>272</yloc>
-      <attributes_kjc />
+      <xloc>320</xloc>
+      <yloc>384</yloc>
+      <attributes_kjc/>
     </entry>
     <entry>
       <name>Stage Orders</name>
-      <description />
+      <description/>
       <type>TRANS</type>
-      <attributes />
+      <attributes/>
       <specification_method>filename</specification_method>
-      <trans_object_id />
+      <trans_object_id/>
       <filename>${Internal.Entry.Current.Directory}/stage_orders.ktr</filename>
-      <transname />
+      <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
       <clear_rows>N</clear_rows>
       <clear_files>N</clear_files>
       <set_logfile>N</set_logfile>
-      <logfile />
-      <logext />
+      <logfile/>
+      <logext/>
       <add_date>N</add_date>
       <add_time>N</add_time>
       <loglevel>Basic</loglevel>
       <cluster>N</cluster>
-      <slave_server_name />
+      <slave_server_name/>
       <set_append_logfile>N</set_append_logfile>
       <wait_until_finished>Y</wait_until_finished>
       <follow_abort_remote>N</follow_abort_remote>
@@ -426,32 +426,32 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>272</xloc>
-      <yloc>176</yloc>
-      <attributes_kjc />
+      <xloc>464</xloc>
+      <yloc>288</yloc>
+      <attributes_kjc/>
     </entry>
     <entry>
       <name>Stage Customers</name>
-      <description />
+      <description/>
       <type>TRANS</type>
-      <attributes />
+      <attributes/>
       <specification_method>filename</specification_method>
-      <trans_object_id />
+      <trans_object_id/>
       <filename>${Internal.Entry.Current.Directory}/stage_customers.ktr</filename>
-      <transname />
+      <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
       <clear_rows>N</clear_rows>
       <clear_files>N</clear_files>
       <set_logfile>N</set_logfile>
-      <logfile />
-      <logext />
+      <logfile/>
+      <logext/>
       <add_date>N</add_date>
       <add_time>N</add_time>
       <loglevel>Basic</loglevel>
       <cluster>N</cluster>
-      <slave_server_name />
+      <slave_server_name/>
       <set_append_logfile>N</set_append_logfile>
       <wait_until_finished>Y</wait_until_finished>
       <follow_abort_remote>N</follow_abort_remote>
@@ -465,32 +465,32 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>272</xloc>
-      <yloc>272</yloc>
-      <attributes_kjc />
+      <xloc>464</xloc>
+      <yloc>384</yloc>
+      <attributes_kjc/>
     </entry>
     <entry>
       <name>Stage Products</name>
-      <description />
+      <description/>
       <type>TRANS</type>
-      <attributes />
+      <attributes/>
       <specification_method>filename</specification_method>
-      <trans_object_id />
+      <trans_object_id/>
       <filename>${Internal.Entry.Current.Directory}/stage_products.ktr</filename>
-      <transname />
+      <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
       <clear_rows>N</clear_rows>
       <clear_files>N</clear_files>
       <set_logfile>N</set_logfile>
-      <logfile />
-      <logext />
+      <logfile/>
+      <logext/>
       <add_date>N</add_date>
       <add_time>N</add_time>
       <loglevel>Basic</loglevel>
       <cluster>N</cluster>
-      <slave_server_name />
+      <slave_server_name/>
       <set_append_logfile>N</set_append_logfile>
       <wait_until_finished>Y</wait_until_finished>
       <follow_abort_remote>N</follow_abort_remote>
@@ -504,22 +504,22 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>272</xloc>
-      <yloc>368</yloc>
-      <attributes_kjc />
+      <xloc>464</xloc>
+      <yloc>480</yloc>
+      <attributes_kjc/>
     </entry>
     <entry>
       <name>Abort job</name>
-      <description />
+      <description/>
       <type>ABORT</type>
-      <attributes />
+      <attributes/>
       <message>A staging step failed</message>
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>416</xloc>
-      <yloc>272</yloc>
-      <attributes_kjc />
+      <xloc>608</xloc>
+      <yloc>384</yloc>
+      <attributes_kjc/>
     </entry>
   </entries>
   <hops>
@@ -579,6 +579,41 @@
     </hop>
   </hops>
   <notepads>
+    <notepad>
+      <note>stage_all - runs the three stagings at the same time.
+
+START has "Run next entries in parallel" ticked, so Stage Orders, Stage Customers and Stage Products start together. 
+Each entry passes parameter values to its transformation and finds it beside this job (${Internal.Entry.Current.Directory}/...).
+The job moves on only when all three have finished; any failure goes to Abort job ("A staging step failed"), which fails the sub-job.
+
+The staging tables must exist first. The main job's Create tables entry makes them, so run stage_all through daily_sales_pipeline on a new database.</note>
+      <xloc>48</xloc>
+      <yloc>96</yloc>
+      <width>867</width>
+      <heigth>134</heigth>
+      <fontname>Segoe UI</fontname>
+      <fontsize>10</fontsize>
+      <fontbold>N</fontbold>
+      <fontitalic>N</fontitalic>
+      <fontcolorred>0</fontcolorred>
+      <fontcolorgreen>0</fontcolorgreen>
+      <fontcolorblue>0</fontcolorblue>
+      <backgroundcolorred>179</backgroundcolorred>
+      <backgroundcolorgreen>225</backgroundcolorgreen>
+      <backgroundcolorblue>251</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
+      <drawshadow>Y</drawshadow>
+    </notepad>
   </notepads>
-  <attributes />
+  <attributes>
+    <group>
+      <name>JobRestart</name>
+      <attribute>
+        <key>UniqueConnections</key>
+        <value>N</value>
+      </attribute>
+    </group>
+  </attributes>
 </job>
