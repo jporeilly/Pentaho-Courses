@@ -4,45 +4,46 @@
 >
 > #### Workshop - Merge Streams
 > 
-> Merging streams only works when every stream shares the same layout. Each stream must have the same fields, in the same order, with the same data types before it can be merged.
-> 
-> In this workshop, you align an orders stream with a separate description stream, then merge the two.
+> Two streams can only become one when they share a layout: the same fields, in the same order, with the same types.\
+> In this workshop you bring a products stream and a descriptions stream to one layout, then merge them.
 > 
 > **What you'll do**
 > 
-> * Read two text files with Text file input
-> * Add a matching field to a stream with Add constants
-> * Align field order and types with Select values
-> * Merge the streams and preview the result
+> * Read two text files with **Text file input**
+> * Add the missing field to one stream with **Add constants**
+> * Put both streams in the same field order with **Select values**
+> * Merge them into one step and check the result
 > 
-> **Prerequisites:** Understanding of basic transformation concepts (steps, hops, preview). Pentaho Data Integration installed and configured.
+> **Prerequisites:** [Review Merge](../topic-mod4-merge-review/guide.md), and the steps from the earlier workshops: Text file input, Add constants, Select values.
 > 
 > **Estimated time:** 25 minutes
 
-![Merge data streams](../_assets/images/merge-streams-2.png)
+<figure>
 
-<figure><img src="../_assets/images/merge-streams-3.png" alt=""><figcaption><p>Merge data streams</p></figcaption></figure>
+![The finished transformation: orders and description inputs, Add description, two Select values steps, and a Dummy step they both feed](../_assets/images/merge-streams-2.png)
+
+<div align="center">
+<figcaption><em>What you build</em></figcaption>
+</div>
+</figure>
+
+<figure><img src="../_assets/images/merge-streams-3.png" alt="Pentaho Data Integration title card: Merge Streams"><figcaption><p>Merge Streams</p></figcaption></figure>
 
 > **Note:** **Create a new transformation**
 > 
-> Use any of these options to open a new transformation tab:
-> 
-> * Select **File** > **New** > **Transformation**
-> * Use `Ctrl+N` (Windows/Linux) or `Cmd+N` (macOS)
+> Select **File > New > Transformation**, or press `Ctrl+N` (`Cmd+N` on macOS). Save it as `tr_merge_streams.ktr` in the lab folder, `C:\Workshop-DI-Practitioner\04-enriching-the-dataset\01-merge\20-mod4-merge-streams`, next to `orders.txt` and `description.txt`.
 
 :::: tabs
 
-### 1. Text File Input
+### 1. Text file input
 
 > **Note:**
 >
 > #### Text file input
 > 
-> Use **Text file input** to read the `orders.txt` and `description.txt` files. Each becomes its own stream.
+> Read the two files, each into its own stream. Look at them first: `orders.txt` has five product fields, and `description.txt` has the same five plus `PRODUCTDESCRIPTION`, with only the code and the description filled in.
 
-1. Start Pentaho Data Integration (Spoon).
-
-> **Note:** 
+1. Start Spoon.
 
 ::: tabs
 
@@ -70,79 +71,93 @@
 
 <button data-launch="spoon" data-path="">Start PDI</button>
 
-2. Examine both `orders.txt` and `description.txt`.
-3. Drag two **Text file input** steps onto the canvas.
-4. Point each step at its file (separator `;`, header row present) and click **Get Fields**.
+2. Open both files in a text editor and compare their header lines:
 
-### 2. Add Constant
+   ```text
+   orders.txt:       PRODUCTCODE;PRODUCTNAME;PRODUCTLINE;PRODUCTSCALE;PRODUCTVENDOR
+   description.txt:  PRODUCTCODE;PRODUCTNAME;PRODUCTLINE;PRODUCTSCALE;PRODUCTVENDOR;PRODUCTDESCRIPTION
+   ```
+
+3. From the **Input** folder, drag two **Text file input** steps onto the canvas. Name them `orders` and `description`.
+4. In each, on the **File** tab, add `${Internal.Entry.Current.Directory}/orders.txt` or `${Internal.Entry.Current.Directory}/description.txt`. On the **Content** tab, set **Separator** to `;` and keep **Header** selected.
+5. On each **Fields** tab, select **Get Fields**. Every field is a String.
+
+> **Success:** Checkpoint: each step previews 9 rows. `orders` has 5 fields; `description` has 6.
+
+### 2. Add constants
 
 > **Note:**
 >
 > #### Add constants
 > 
-> Use **Add constants** to add a fixed value to every row in a stream. To merge two streams, both must have the same layout.
+> **Add constants** adds the same value to every row. Here it gives the `orders` stream the field it lacks.
 
-1. Drag **Add constants** onto the canvas.
-2. Create a hop from the orders **Text file input**.
-3. Add a `PRODUCTDESCRIPTION` field to the orders stream so it matches the description stream.
+1. From the **Transform** folder, drag **Add constants** onto the canvas, name it `Add description`, and hop **orders** to it.
+2. Add one field: **Name** `PRODUCTDESCRIPTION`, **Type** String, **Value** left empty, so every row gets a null description.
 
-### 3. Select Values
+> **Success:** Checkpoint: **Add description** previews the 9 orders with a sixth, empty field, `PRODUCTDESCRIPTION`.
+
+### 3. Select values
 
 > **Note:**
 >
 > #### Select values
 > 
-> The Select Values step is useful for selecting, removing, renaming, changing data types and configuring the length and precision of the fields on the stream. These operations are organized into different categories:
+> **Select values** chooses, orders, renames and retypes fields. It has three tabs:
 > 
-> * Select and Alter — Specify the exact order and name in which the fields should be placed in the output rows
-> * Remove — Specify the fields that should be removed from the output rows
-> * Meta-data — Change the name, type, length, and precision (the metadata) of one or more fields
+> * **Select & Alter**: the fields to keep, in output order, with new names or lengths
+> * **Remove**: fields to drop
+> * **Meta-data**: new types, lengths and formats
 
-1. Drag a **Select values** step onto each stream.
-2. Configure each step so both streams share the same field order and types.
-3. Drag a **Dummy** step onto the canvas and create a hop from each **Select values** step to it.
+1. From the **Transform** folder, drag two **Select values** steps onto the canvas. Name them `Select Orders` and `Select Description`.
+2. Hop **Add description** to **Select Orders**, and **description** to **Select Description**.
+3. In each, on **Select & Alter**, list the same six fields in the same order:
 
-<figure><img src="../_assets/images/merge-streams-select.png" alt=""><figcaption><p>Select values</p></figcaption></figure>
+   `PRODUCTCODE`, `PRODUCTNAME`, `PRODUCTLINE`, `PRODUCTSCALE`, `PRODUCTVENDOR`, `PRODUCTDESCRIPTION`
 
-> **Note:** Each **Select values** step makes its stream consistent in layout before merging. Fields must be in the same order in both streams for the merge to map correctly.
+<figure><img src="../_assets/images/merge-streams-select.png" alt="Select Orders: the six product fields in order on the Select and Alter tab"><figcaption><p>The same six fields, in the same order, in both</p></figcaption></figure>
 
-### 4. RUN
+4. From the **Flow** folder, drag **Dummy (do nothing)** onto the canvas, and hop both **Select values** steps to it.
+
+### 4. Run
 
 > **Note:**
 >
 > #### Run the transformation
 > 
-> Run the transformation locally and preview the merged output.
+> Run it, then check the merged stream.
 
-1. Select **Run** in the canvas toolbar.
-2. Right-click the **Dummy** step and select **Preview**.
+1. Save the transformation, select **Run** in the toolbar, then **Run** in **Run Options**.
+2. Select **Dummy (do nothing)**, then the **Preview data** tab in **Execution Results**.
 
-<figure><img src="../_assets/images/merge-streams-preview.png" alt=""><figcaption><p>Preview data</p></figcaption></figure>
+<figure><img src="../_assets/images/merge-streams-preview.png" alt="Preview data: the merged rows from both streams in one set of columns"><figcaption><p>One stream, one layout</p></figcaption></figure>
 
-> **Success:** You should see the two streams merged into one.
+> **Success:** Checkpoint: 18 rows. The 9 rows from `orders` have their names, lines, scales and vendors, and an empty description; the 9 from `description` have only the code and the description. **Dummy (do nothing)** shows 18 in **Read** in **Step Metrics**.
+
+> **Note:** The merge stacks rows, it doesn't combine them: each product appears twice, once from each file. To combine both halves into one row per product, you join the streams on `PRODUCTCODE`, as the [Joins](../topic-mod4-joins-review/guide.md) workshops show.
 
 > **Under the hood:**
 >
-> #### Two hops into one step is a union, checked by position — and only in safe mode
+> #### Two hops into one step is a union, matched by position
 >
 > The **Dummy** at the end doesn't merge anything clever. Given two
-> input row sets it takes rows from each as they come and passes them
+> input hops, it takes rows from each as they arrive and passes them
 > on, so the output is the *union* of both streams in arrival order.
-> The engine identifies a field by its **position** in the row, not
-> its name: field 3 from the orders stream and field 3 from the
-> description stream land in the same column whatever they were
-> called. That is why the two **Select values** steps had to agree on
-> order and type, not just on names.
+> The engine identifies a field by its **position** in the row, not its
+> name: field 3 from one stream and field 3 from the other land in the
+> same column whatever they are called. That is why the two **Select
+> values** steps had to agree on order and type, not just on names.
 >
-> Normally nobody checks. Rows of differing shape simply flow, and the
-> first symptom is a wrong value or an exception far downstream. Tick
-> **Enable safe mode** in the run dialog and the engine compares every
-> row's layout against the first one it saw, stopping with "rows with
-> varying number of fields" at the step where they meet.
+> Normally nothing checks this. Rows of a different shape flow on, and
+> the first symptom is a wrong value or an error far downstream. Select
+> **Enable safe mode** in **Run Options** and PDI compares every row
+> with the first one it saw, stopping with an error such as "you're
+> mixing rows with different layout" at the step where the streams
+> meet.
 >
 > **Why it matters:** run merges in safe mode while you build them. It
-> costs a little speed and turns the nastiest silent bug in PDI into
-> an error message that names the step.
+> costs a little speed and turns a silent data bug into an error that
+> names the step.
 
 ::::
 

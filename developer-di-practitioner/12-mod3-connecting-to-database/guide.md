@@ -1,96 +1,84 @@
-# Database Connections
+# Connecting to Database
 
 > **Warning:**
 >
-> #### Workshop - Database connections
+> #### Workshop - Connecting to Database
 > 
 > Create a reusable MySQL connection to the Steel Wheels `sampledata` database.
 > 
 > **What you’ll do**
 > 
-> * Validate the database is reachable (optional, using DBeaver)
-> * Install a JDBC driver (only if PDI does not include it)
-> * Create, test, share, and explore a PDI database connection
+> * Check the database is reachable (optional: Adminer on a lab VM, or DBeaver)
+> * Install the MySQL JDBC driver, if PDI doesn't have it yet
+> * Create, test, share and explore a PDI database connection
 > 
 > **Prerequisites**
 > 
 > * PDI (Spoon) installed and working
-> * A running **MySQL** `sampledata` database on port `3306` (Docker
->   setup recommended) — **not** the HSQLDB/Hypersonic `sampledata`
->   bundled with Pentaho, which is read-only and cannot serve the
->   CRUID workshops that follow
-> * Basic understanding of schemas, tables, and authentication
+> * A running **MySQL** `sampledata` database on port `3306` - on a lab
+>   VM the course's lab kit starts it at sign-in. **Not** the
+>   HSQLDB/Hypersonic `sampledata` bundled with Pentaho, which is
+>   read-only and can't serve the CRUID workshops that follow
+> * Basic understanding of schemas, tables and logins
 > 
-> **Estimated time:** 15 minutes
-
-> **Note:**
->
-> ### Create a new transformation
-> 
-> Use any of these options to open a new transformation tab:
-> 
-> * Select **File** > **New** > **Transformation**
-> * Use `Ctrl+N` (Windows/Linux) or `Cmd+N` (macOS)
+> **Estimated time:** 30 minutes
 
 :::: tabs
 
-### 1. DBeaver
+### 1. Check the Database
 
 > **Note:**
 >
-> #### **DBeaver**
+> #### **Check the database first**
 > 
-> DBeaver is optional.\
-> Use it to confirm the database is reachable before you touch PDI.
-> 
-> DBeaver CE ships with most drivers.\
-> That makes it a fast connectivity check.
+> This part is optional. Confirming the database answers, outside PDI, means a failed **Test** later is a PDI setting, not the database.
 
-> **Warning:** Pentaho no longer ships a writable sample database user by default.\
-> Use the containerised MySQL `sampledata` for hands-on database workshops.
+> **Warning:** Use the course's MySQL `sampledata`, not Pentaho's bundled sample database, which has no writable user.
 >
-> On a workshop VM it is already running. To start it yourself, run
-> `.\setup-services.ps1` from your install's **provisioning** folder (see [Before You Start](../00-before-you-start/guide.md)): that brings up
-> MySQL on `3306` with Steel Wheels loaded and the `pentaho_admin`
-> account used below. Workshop VMs run **Podman** rather than Docker
-> Desktop (free for commercial use); the commands are interchangeable.
+> On a lab VM it is already running: the guide's lab kit started it at sign-in, and the environment panel on [Before You Start](../00-before-you-start/guide.md) shows it. On your own machine, Before You Start's setup tabs bring it up on `3306`, with Steel Wheels loaded and the `pentaho_admin` login used below.
 
 ::: tabs
 
-### MySQL
+### Adminer (lab VM)
 
-> **Note:**
->
-> #### **MySQL Database**
-> 
-> The workshop-services stack gives you a MySQL container exposed on\
-> port `3306` with the `sampledata` database loaded. Verify it with
-> `.\check-environment.ps1` (same folder).
+The lab VM comes with **Adminer**, a database browser that runs beside MySQL.
+
+1. Open <http://127.0.0.1:8050> in a browser.
+2. Log in with **System** `MySQL`, **Server** `sampledata-mysql`, **Username** `pentaho_admin`, **Password** `password` and **Database** `sampledata`.
+3. Select **SQL command**, run the query below, and select **Execute**:
+
+```sql
+select * from CUSTOMERS
+where COUNTRY = 'USA' and CITY = 'NYC';
+```
+
+> **Success:** Checkpoint: 5 customers, from `Land of Toys Inc.` to `Microscale Inc.`.
+
+### DBeaver
+
+DBeaver Community Edition ships with most drivers, which makes it a quick connectivity check on your own machine.
 
 1. Launch DBeaver and select **MySQL**.
 
-<figure><img src="../_assets/images/mysql.png" alt=""><figcaption><p>MySQL</p></figcaption></figure>
+<figure><img src="../_assets/images/mysql.png" alt="DBeaver's new connection dialog with MySQL selected"><figcaption><p>Choose MySQL</p></figcaption></figure>
 
-2. Configure the connection:
+2. Configure the connection: **Host** `localhost`, **Port** `3306`, **Database** `sampledata`, **Username** `pentaho_admin`, **Password** `password`.
 
-* **Username:** `root`
-* **Password:** `password`
+<figure><img src="../_assets/images/configure-x26-test-mysql-connection-sampledata.png" alt="Configure &#x26; Test MySQL connection - sampledata"><figcaption><p>Configure &#x26; Test MySQL connection - sampledata</p></figcaption></figure>
 
-<figure><img src="../_assets/images/configure-x26-test-mysql-connection-sampledata.png" alt=""><figcaption><p>Configure &#x26; Test MySQL connection - sampledata</p></figcaption></figure>
-
-> **Warning:** You might need to download the supported driver version.
+> **Warning:** DBeaver may offer to download the MySQL driver; accept it.
 > 
-> If the test fails, enable `allowPublicKeyRetrieval`.
+> If the test fails with a public key error, set the driver property `allowPublicKeyRetrieval` to `true`.
 
-<figure><img src="../_assets/images/image-56.png" alt=""><figcaption><p>Enable: allowPublicKeyRetrieval</p></figcaption></figure>
+<figure><img src="../_assets/images/image-56.png" alt="Enable: allowPublicKeyRetrieval"><figcaption><p>Enable: allowPublicKeyRetrieval</p></figcaption></figure>
 
 3. Test the connection.
 
-<figure><img src="../_assets/images/test-connection-2.png" alt=""><figcaption><p>Test connection</p></figcaption></figure>
+<figure><img src="../_assets/images/test-connection-2.png" alt="Test connection"><figcaption><p>Test connection</p></figcaption></figure>
 
-4. Expand **Databases** > **sampledata** > **Tables**.
+4. Expand **Databases > sampledata > Tables**.
 
-<figure><img src="../_assets/images/customer-data.png" alt=""><figcaption><p>Customer Data</p></figcaption></figure>
+<figure><img src="../_assets/images/customer-data.png" alt="Customer Data"><figcaption><p>Customer Data</p></figcaption></figure>
 
 5. Open a SQL window and run a test query:
 
@@ -99,9 +87,9 @@ select * from CUSTOMERS
 where COUNTRY = 'USA' and CITY = 'NYC';
 ```
 
-<figure><img src="../_assets/images/sql-query-nyc-customers.png" alt=""><figcaption><p>Sql query - NYC Customers</p></figcaption></figure>
+<figure><img src="../_assets/images/sql-query-nyc-customers.png" alt="DBeaver showing the five New York customers"><figcaption><p>The NYC customers</p></figcaption></figure>
 
-> **Success:** Checkpoint: you can browse tables and run a query against `CUSTOMERS`.
+> **Success:** Checkpoint: 5 customers, from `Land of Toys Inc.` to `Microscale Inc.`.
 
 :::
 
@@ -129,7 +117,7 @@ For another database, find its driver here:
 
 <div class="pcm-embed-card" data-href="https://dbschema.com/databases.html" data-title="DbSchema Supported Databases" data-description="Explore all SQL and NoSQL databases supported by DbSchema. Visually design schemas, create ER diagrams, synchronize changes, and document your database — for any database engine." data-thumb="../_assets/embeds/6c6ef7a1bcc8.png"></div>
 
-2. Copy the driver JAR into your PDI install:
+2. If you downloaded it some other way, copy the driver JAR into your PDI install:
 
 ::: tabs
 
@@ -160,31 +148,31 @@ For another database, find its driver here:
 
 **Define a database connection (MySQL)**
 
-1. Create a transformation.
-2. In Spoon, select **File** > **New** > **Database connection**.
+1. In Spoon, create a transformation and save it as `tr_connect_database.ktr` in the lab folder, `C:\Workshop-DI-Practitioner\03-data-sources\02-databases\12-mod3-connecting-to-database`.
+2. Select **File > New > Database Connection**. The **Database Connection** dialog opens.
 
-The **Database connection** dialog opens.
+<figure><img src="../_assets/images/file-new-database-connection.png" alt="The File menu with New and Database Connection highlighted"><figcaption><p>File &gt; New &gt; Database Connection</p></figcaption></figure>
 
-<figure><img src="../_assets/images/file-new-database-connection.png" alt=""><figcaption></figcaption></figure>
+3. Enter these details:
 
-3. Enter the following details:
+   | Setting | Value |
+   | --- | --- |
+   | **Connection name** | `MySQL:sampledata` |
+   | **Connection type** | MySQL |
+   | **Access** | Native (JDBC) |
+   | **Host name** | `localhost` |
+   | **Database name** | `sampledata` |
+   | **Port number** | `3306` |
+   | **Username** | `pentaho_admin` |
+   | **Password** | `password` |
 
-> **Danger:** If you use a MariaDB driver newer than `2.7.x`, you might see a **fetch size** error.\
-> If that happens, use the **MySQL** driver instead.
+> **Warning:** Use the MySQL driver. A MariaDB driver newer than 2.7.x can fail with a **fetch size** error against this database.
 
-* **Connection name:** `MySQL:sampledata`
-* **Connection type:** **MySQL**
-* **Access:** **Native (JDBC)**
-* **Host name:** `localhost`
-* **Database name:** `sampledata`
-* **Username:** `pentaho_admin`
-* **Password:** `password`
-
-<figure><img src="../_assets/images/mysql-sampledata.png" alt=""><figcaption><p>MySQL - sampledata</p></figcaption></figure>
+<figure><img src="../_assets/images/mysql-sampledata.png" alt="The Database Connection dialog filled in for MySQL:sampledata"><figcaption><p>The MySQL:sampledata connection</p></figcaption></figure>
 
 4. Select **Test**.
 
-> **Note:** Checkpoint: Spoon shows a success message.
+> **Success:** Checkpoint: Spoon reports that the connection to `sampledata` is OK.
 
 > **Under the hood:**
 >
@@ -217,68 +205,68 @@ The **Database connection** dialog opens.
 > 
 > Share the connection so other transformations can reuse it.
 
-1. Click OK to save your entries and exit the Database Connection dialog box.
-2. From within the View tab, right-click on the connection and select Share from the list that appears.
+1. Select **OK** to save the connection and close the dialog.
+2. In the **View** tab, expand **Database connections**, right-click `MySQL:sampledata` and select **Share**. Its name turns bold.
 
-<figure><img src="../_assets/images/share-database-connection.png" alt=""><figcaption><p>Share database connection</p></figcaption></figure>
+<figure><img src="../_assets/images/share-database-connection.png" alt="The connection's right-click menu with Share"><figcaption><p>Share the connection</p></figcaption></figure>
 
-> **Note:** Shared connections show up for other users and projects.\
-> Use **Explore** to confirm schemas and tables.
+> **Note:** A shared connection appears in every transformation and job you open in this Spoon. **Stop sharing** on the same menu reverses it.
 
 > **Under the hood:**
 >
-> #### Share copied the definition into `shared.xml`
+> #### Share moved the definition into `shared.xml`
 >
-> An ordinary connection lives inside the transformation's own XML —
+> An ordinary connection lives inside the transformation's own XML -
 > open the `.ktr` in a text editor and you will find a `<connection>`
 > block with the host, port and an encrypted password. **Share**
-> copies that block into `shared.xml` in your `.kettle` folder,
-> alongside `kettle.properties`, and from then on every transformation
-> and job you open in this Spoon sees it in the **View** tree as if it
-> were its own.
+> writes that definition to `shared.xml` in your `.kettle` folder,
+> beside `kettle.properties`, and from then on every transformation
+> and job you open in this Spoon sees it in the **View** tree.
 >
-> Nothing changes at run time: a `.ktr` still carries the connections
-> it uses, so it runs stand-alone on a server. Sharing is a design-time
-> convenience, and it lives *per machine* — a colleague gets it by
-> copying `shared.xml`, or by connecting to a repository, where
-> connections are shared for real.
+> It also changes what Spoon saves: a transformation you create that
+> uses a shared connection is saved *without* the `<connection>`
+> block, because `shared.xml` holds it. That file runs anywhere the
+> same `shared.xml` exists - this machine, or a server you copy
+> `shared.xml` to - and fails with a missing connection anywhere else.
+> A repository shares connections between machines for real.
 >
-> **Why it matters:** one connection definition, defined once, reused
-> by every workshop that follows — and the password never has to be
-> typed again.
+> **Why it matters:** one definition, reused by every workshop that
+> follows, and the password never typed again. When a file must run
+> on its own somewhere else, keep its connection unshared, or ship
+> `shared.xml` with it.
 
 ### 2. Explore Database
 
-> **Note:** **Explore Database**
+> **Note:** **Explore the database**
 > 
-> Use **Database Explorer** to browse schemas, preview rows, and run SQL.
+> Use the **Database Explorer** to browse tables, preview rows and run SQL.
 
-1. Click on the View tab, expand Database Connections.
-2. Right-click MySQL:sampledata and choose Explore from the menu options:
+1. In the **View** tab, expand **Database connections**.
+2. Right-click `MySQL:sampledata` and select **Explore**. Right-clicking a table in the explorer offers:
 
-|                                   | Action                                                                |
-| --------------------------------- | --------------------------------------------------------------------- |
-| Preview the first 100 rows of ..  | Return the first 100 rows of the selected table.                      |
-| Preview first .. rows of ..       | Enter the number of rows to preview                                   |
-| Number of rows ..                 | Displays number of rows                                               |
-| Generate DDL                      | Displays DDL statement that creates table.                            |
-| Generate DDL for other connection | Select connection to display DDL. Syntax is based on database engine. |
-| Open SQL for ..                   | Edit SELECT statement                                                 |
-| Truncate table                    | Deletees all the rows from selected table                             |
+| Menu item | What it does |
+| --- | --- |
+| **Preview first 100 rows of [table]** | Shows the table's first 100 rows |
+| **Preview first ... rows of [table]** | Asks how many rows, then shows them |
+| **Number of rows of [table]** | Counts the rows |
+| **Show layout of [table]** | Lists the columns and their types |
+| **Generate DDL** | Shows the `CREATE TABLE` statement for the table |
+| **Generate DDL for other connection** | The same, in another connection's SQL dialect |
+| **Open SQL for [table]** | Opens a `SELECT` for the table in the SQL editor |
+| **Truncate table [table]** | Deletes every row in the table |
 
-3. In the Database Explorer window, expand MySQL:sampledata > Tables
+3. In the **Database Explorer**, expand `MySQL:sampledata` > **Tables**.
 
-<figure><img src="../_assets/images/db-explorer.png" alt="" width="375"><figcaption><p>Database Explorer - sampledata</p></figcaption></figure>
+<figure><img src="../_assets/images/db-explorer.png" alt="The Database Explorer listing the sampledata tables" width="375"><figcaption><p>The sampledata tables</p></figcaption></figure>
 
-4. Right-click the `CUSTOMERS` table and choose **Preview first 100**.
-5. Examine the customer data.
-6. Select **View SQL**.
+4. Right-click `CUSTOMERS` and select **Preview first 100 rows of [CUSTOMERS]**. Look over the customer data, then close the preview.
+5. Right-click `CUSTOMERS` again and select **Open SQL for [CUSTOMERS]**. The SQL editor opens with a `SELECT`.
 
-<figure><img src="../_assets/images/sql.png" alt="" width="375"><figcaption><p>SQL</p></figcaption></figure>
+<figure><img src="../_assets/images/sql.png" alt="The SQL editor with a SELECT on CUSTOMERS" width="375"><figcaption><p>The generated SELECT</p></figcaption></figure>
 
-7. Click Execute.
+6. Select **Execute**.
 
-<figure><img src="../_assets/images/execute-sql-statement.png" alt=""><figcaption><p>Execute SQL statement</p></figcaption></figure>
+<figure><img src="../_assets/images/execute-sql-statement.png" alt="The results of the SELECT on CUSTOMERS"><figcaption><p>The query's results</p></figcaption></figure>
 
 > **Success:** Checkpoint: you can preview `CUSTOMERS` and execute SQL in Database Explorer.
 
@@ -292,7 +280,7 @@ Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data In
 
 ### Solution <!-- no-step -->
 
-The finished transformation for this lab. Open it alongside your own to compare, or run to see the expected result.
+The finished transformation for this lab: it holds just the `MySQL:sampledata` connection, embedded, so it works without your shared one. Open it to compare your connection settings.
 
 Also on disk at `C:\Workshop-DI-Practitioner\03-data-sources\02-databases\12-mod3-connecting-to-database\solution`.
 

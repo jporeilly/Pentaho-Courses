@@ -1,4 +1,4 @@
-# Configuring PDI UI
+# Configuring PDI
 
 > **Warning:**
 >
@@ -19,7 +19,7 @@
 >
 > **Prerequisites:** Pentaho Data Integration installed and ready to launch
 >
-> **Estimated Time:** 15 minutes
+> **Estimated Time:** 20 minutes
 
 ---
 
@@ -44,7 +44,6 @@
 
 1. Start Pentaho Data Integration.
 
-> **Note:**
 
 ::: tabs
 
@@ -66,7 +65,7 @@
 
 <button data-launch="spoon" data-path="">Start: Pentaho Data Integration</button>
 
-2. The Pentaho Data Integration UI - Spoon will be displayed.
+2. Spoon opens on its **Welcome** page.
 
 <figure><img src="../_assets/images/spoon-welcome.png" alt="Spoon Welcome page"><figcaption><p>Welcome screen</p></figcaption></figure>
 
@@ -81,12 +80,12 @@
 1. In Spoon, click **Tools > Options**.
 2. Open the **General** tab.
 
-<div align="center"><figure><img src="../_assets/images/kettle-options.png" alt="Kettle Options dialog showing General settings" width="375"><figcaption><p>kettle options - general</p></figcaption></figure></div>
+<div align="center"><figure><img src="../_assets/images/kettle-options.png" alt="Kettle Options dialog showing General settings" width="375"><figcaption><p>Kettle options - general</p></figcaption></figure></div>
 
-* [ ] Uncheck the ‘Show welcome page at startup’ checkbox.
-* [ ] Uncheck the ‘Use database cache’ checkbox.
-* [ ] Uncheck the ‘Show repository dialog at startup’ checkbox.
-* [ ] Uncheck the ‘Ask user when exiting’ checkbox.
+* [ ] Clear **Show welcome page at startup**.
+* [ ] Clear **Use database cache**.
+* [ ] Clear **Show repository dialog at startup**.
+* [ ] Clear **Ask user when exiting**.
 
 > **Under the hood:**
 >
@@ -116,7 +115,7 @@
 
 <figure><img src="../_assets/images/kettle-options-feel.png" alt="Kettle Options dialog showing Look & Feel settings"><figcaption><p>Kettle options - look & feel</p></figcaption></figure>
 
-<div class="pcm-embed-card" data-href="https://docs.pentaho.com/pdia-data-integration/get-started-with-the-pdi-client-1/customize-the-pdi-client" data-title="View external resource"></div>
+<div class="pcm-embed-card" data-href="https://docs.pentaho.com/pdia-data-integration/customizing-pdi" data-title="Customizing PDI | Pentaho Documentation"></div>
 
 ### 3. Perspectives
 
@@ -137,7 +136,7 @@
 
 > **Note:** You must connect to a repository to schedule jobs and transformations.
 
-<div class="pcm-embed-card" data-href="https://docs.pentaho.com/pdia-data-integration/get-started-with-the-pdi-client-1/use-the-pdi-client-perspectives" data-title="View external resource"></div>
+<div class="pcm-embed-card" data-href="https://docs.pentaho.com/pdia-data-integration/use-the-pdi-client-perspectives" data-title="Use the PDI client perspectives | Pentaho Documentation"></div>
 
 ::::
 

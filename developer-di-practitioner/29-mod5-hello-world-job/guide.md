@@ -1,32 +1,35 @@
-# Job - Hello World
+# Hello World (Job)
 
 > **Warning:**
 >
 > #### Workshop - Hello World (Job)
 > 
-> A job orchestrates the order of execution. It chains together transformations and other entries to build a repeatable process.
-> 
-> In this workshop, you build a simple job that runs a transformation and forces a success state.
+> A **job** orchestrates work: it runs transformations and other entries in an order you set, and decides what happens next from each one's success or failure.\
+> In this workshop you build the simplest useful job: it runs the Hello World transformation and ends in a success state.
 > 
 > **What you'll do**
 > 
-> * Add a START entry to define the job's starting point
-> * Run a previously defined transformation with the Transformation entry
-> * Force a success state with the Success entry
-> * Run the job and review the Job Metrics
+> * Start a job with the **START** entry
+> * Run an existing transformation with a **Transformation** entry
+> * End in a success state with **Success**
+> * Run the job and read its **Job metrics**
 > 
-> **Prerequisites:** Understanding of basic transformation concepts (steps, hops, preview). Pentaho Data Integration installed and configured.
+> **Prerequisites:** [Review Jobs](../topic-mod5-jobs-review/guide.md); the `tr_hello_world.ktr` transformation from [Hello World](../03-mod2-hello-world/guide.md), also in this lab's **Lab Files**
 > 
 > **Estimated time:** 20 minutes
 
-![Pentaho Job](../_assets/images/job.png)
+<figure>
+
+![The finished job: START, then Transformation A, then Success](../_assets/images/job.png)
+
+<div align="center">
+<figcaption><em>What you build</em></figcaption>
+</div>
+</figure>
 
 > **Note:** **Create a new job**
 > 
-> Use any of these options to open a new job tab:
-> 
-> * Select **File** > **New** > **Job**
-> * Use `Ctrl+Alt+N` (Windows/Linux) or `Cmd+Alt+N` (macOS)
+> First copy `tr_hello_world.ktr` from the lab's `solution` folder into the lab folder, `C:\Workshop-DI-Practitioner\05-enterprise-solution\01-jobs\29-mod5-hello-world-job` (or use your own from [Hello World](../03-mod2-hello-world/guide.md)). Then select **File > New > Job**, or press `Ctrl+Alt+N` (`Cmd+Alt+N` on macOS), and save the job as `kjb_hello_world.kjb` in the same folder.
 
 :::: tabs
 
@@ -36,15 +39,9 @@
 >
 > #### START
 > 
-> START defines the starting point for job execution. Every job must have one (and only one) Start. Unconditional job hops only are available from a Start job entry. The start job entry settings contain basic scheduling functionality; however, scheduling is not persistent and is only available while the device is running.
-> 
-> The Data Integration Server provides a more robust option for scheduling execution of jobs and transformations and is the preferred alternative to scheduling using the Start step. If you want the job to run like a daemon process, however, enable Repeat in the job settings dialog box.
-> 
-> Note: The basic scheduling functionality and the repeat option are only functional within the main job and not within a sub job.
+> **START** is where a job begins. Every job has exactly one, and the hops leaving it are always unconditional. Its settings include a simple repeat schedule, but that only lasts while Spoon or Kitchen keeps running; schedule production jobs with the Pentaho Server instead.
 
-1. Start Pentaho Data Integration (Spoon).
-
-> **Note:** 
+1. Start Spoon.
 
 ::: tabs
 
@@ -72,21 +69,28 @@
 
 <button data-launch="spoon" data-path="">Start PDI</button>
 
-2. In Spoon, click File > New > Job.
-3. Drag the ‘START’ job entry onto the canvas.
+2. Create the job as above. From the **General** folder of the **Design** tab, drag **START** onto the canvas.
 
-### 2. Transformation A
+### 2. Transformation
 
 > **Note:**
 >
-> #### Transformation A
+> #### Transformation
 > 
-> The Transformation job entry is used to execute a previously defined transformation. For ease of use, it is also possible to create a new transformation within the dialog, pressing the New Transformation button.
+> The **Transformation** entry runs a transformation from a file, and its result (success or failure) becomes the entry's result.
 
-1. Drag the ‘Transformation’ job entry onto the canvas.
-2. Double-click on the step, and configure the following properties:
+1. From the **General** folder, drag **Transformation** onto the canvas and double-click it.
+2. Set **Entry Name** to `Transformation A` and **Transformation** to:
 
-<figure><img src="../_assets/images/job-transformation-a.png" alt=""><figcaption><p>Configure Transformation Job Entry</p></figcaption></figure>
+   ```text
+   ${Internal.Entry.Current.Directory}/tr_hello_world.ktr
+   ```
+
+   `${Internal.Entry.Current.Directory}` is the job's own folder, so the job finds the transformation wherever the two are copied together.
+
+<figure><img src="../_assets/images/job-transformation-a.png" alt="Transformation entry: name Transformation A, transformation ${Internal.Entry.Current.Directory}/tr_hello_world.ktr, run configuration Pentaho local"><figcaption><p>The Transformation entry</p></figcaption></figure>
+
+3. Keep **Run configuration** `Pentaho local` and select **OK**.
 
 ### 3. Success
 
@@ -94,29 +98,29 @@
 >
 > #### Success
 > 
-> This step clears any error state encountered in a job and forces it to a success state.
+> **Success** clears any error state and ends the job as successful.
 
-1. Drag the ‘Success’ job entry onto the canvas.
-2. Create hops START → Transformation A → Success (hold `Shift` and drag, as in a transformation). The second hop turns green: it is followed only on success.
+1. From the **General** folder, drag **Success** onto the canvas.
+2. Create the hops **START** to **Transformation A** to **Success** (hold `Shift` and drag, as in a transformation). The hop from **START** shows a lock: it is unconditional. The second hop is green: it is followed only when **Transformation A** succeeds.
 
-### 4. RUN
+### 4. Run
 
 > **Note:**
 >
 > #### Run the job
 > 
-> Run the job locally and review the Job Metrics.
+> Run it, then read what each entry did.
 
-1. Click the Run button in the Canvas Toolbar.
-2. Click on the Job Metrics tab.
+1. Save the job, select **Run** in the toolbar, then **Run** in **Run Options**.
+2. In **Execution Results**, open the **Job metrics** tab.
 
-<figure><img src="../_assets/images/job-step-metrics.png" alt=""><figcaption><p>Job Metrics</p></figcaption></figure>
+<figure><img src="../_assets/images/job-step-metrics.png" alt="Job metrics: START, Transformation A and Success each finish with result Success"><figcaption><p>Job metrics: one entry after another</p></figcaption></figure>
 
-> **Note:** The Job Entries are executed sequentially.
+> **Success:** Checkpoint: **START**, **Transformation A** and **Success** each end with **Result** `Success`, in that order. **Transformation A** was reached by "Followed unconditional link", and **Success** by "Followed link after success".
 
-<figure><img src="../_assets/images/job-metrics.png" alt=""><figcaption><p>Metrics</p></figcaption></figure>
+3. Open the **Metrics** tab: a timeline of the job, its entry, and the transformation's initialization and steps inside it.
 
-> **Success:** The job runs each entry in sequence and finishes in a success state.
+<figure><img src="../_assets/images/job-metrics.png" alt="Metrics tab: a timeline bar for the job, the job entry, and the transformation's initialization and steps"><figcaption><p>Metrics: where the time went</p></figcaption></figure>
 
 > **Under the hood:**
 >
@@ -124,22 +128,20 @@
 >
 > This is a different engine. Where a transformation starts every step
 > on its own thread and streams rows between them, a job walks its
-> entries **in sequence** on a single thread: START, then the
-> **Transformation** entry, then **Success**. Each entry returns a
-> *result* — success or failure, plus row and file lists — and the hop
-> colours are conditions on that result: green follows success, red
-> follows failure, black follows regardless.
+> entries **in sequence**: START, then the **Transformation** entry,
+> then **Success**. Each entry returns a *result* (success or failure,
+> plus lists of rows and files), and the hop colors are conditions on
+> that result: green follows success, red follows failure, and a lock
+> means unconditional.
 >
 > The Transformation entry did something more. It loaded
-> `tr_hello_world.ktr`, spun up the full multithreaded transformation
-> engine inside the job, waited for it to finish, and turned its
-> outcome into the entry's result. **Success** then forced the job's
-> final state to success no matter what came before.
+> `tr_hello_world.ktr`, started the full multithreaded transformation
+> engine inside the job, waited for it to finish, and turned its outcome
+> into the entry's result. **Success** then ended the job as successful.
 >
 > **Why it matters:** this split is PDI's design rule. Rows and data
-> logic belong in transformations; ordering, conditions, retries and
-> notifications belong in jobs. Mix them and you fight the engine;
-> keep them apart and each stays simple.
+> logic belong in transformations; order, conditions, retries and
+> notifications belong in jobs. Keep them apart and each stays simple.
 
 ::::
 

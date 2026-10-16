@@ -2,30 +2,34 @@
 
 > **Warning:**
 >
-> #### Workshop - Modified JavaScript value
+> #### Workshop - Modified JavaScript Value
 > 
-> The Modified Java Script Value step lets you execute custom JavaScript code to transform and manipulate data within a transformation. It provides a powerful scripting environment for calculations, validations, string manipulations, and conditional logic that standard steps cannot easily achieve.
-> 
-> In this workshop, you generate sample rows and run them through a Modified JavaScript Value step to produce new and modified output fields.
+> **Modified JavaScript value** runs a JavaScript script once for each row, with the row's fields as variables. Use it for logic the other steps can't express: loops, state across rows, string handling of any complexity.\
+> In this workshop you clean unwanted characters out of two strings, two ways.
 > 
 > **What you'll do**
 > 
-> * Generate synthetic test data with Generate rows
-> * Write custom JavaScript to transform the rows with Modified JavaScript Value
-> * Map script variables to output stream fields
+> * Generate a test row with **Generate rows**
+> * Write a script in **Modified JavaScript value**
+> * Return script variables as new fields
+> * Compare JavaScript's `replace` with PDI's own `replace()` function
 > 
-> **Prerequisites:** Understanding of basic transformation concepts (steps, hops, preview). Pentaho Data Integration installed and configured.
+> **Prerequisites:** [Review Scripting](../topic-mod4-scripting-review/guide.md); a little JavaScript
 > 
 > **Estimated time:** 20 minutes
 
-![Modified JavaScript Value](../_assets/images/mjv.png)
+<figure>
+
+![The finished transformation: Generate Rows hopped to the Modified JavaScript value step](../_assets/images/mjv.png)
+
+<div align="center">
+<figcaption><em>What you build</em></figcaption>
+</div>
+</figure>
 
 > **Note:** **Create a new transformation**
 > 
-> Use any of these options to open a new transformation tab:
-> 
-> * Select **File** > **New** > **Transformation**
-> * Use `Ctrl+N` (Windows/Linux) or `Cmd+N` (macOS)
+> Select **File > New > Transformation**, or press `Ctrl+N` (`Cmd+N` on macOS). Save it as `tr_mjv.ktr` in the lab folder, `C:\Workshop-DI-Practitioner\04-enriching-the-dataset\04-scripting\28-mod4-mjv`.
 
 :::: tabs
 
@@ -35,13 +39,9 @@
 >
 > #### Generate rows
 > 
-> The Generate Rows step is a data generation component that creates synthetic data rows based on user-defined specifications. This step allows you to generate test data, sample datasets, or placeholder records by defining field names, data types, and value ranges or patterns.
-> 
-> You can specify how many rows to generate and configure various parameters like random number ranges, date intervals, or fixed values for each field. It's particularly useful for testing transformations, creating mock data for development purposes, or generating large datasets for performance testing without requiring an external data source.
+> One row with two messy strings to clean.
 
-1. Start Pentaho Data Integration (Spoon).
-
-> **Note:** 
+1. Start Spoon.
 
 ::: tabs
 
@@ -69,49 +69,72 @@
 
 <button data-launch="spoon" data-path="">Start PDI</button>
 
-2. Drag **Generate rows** onto the canvas.
-3. Double-click the step. Configure it like this:
+2. From the **Input** folder, drag **Generate rows** onto the canvas. Set **Limit** to `1` and add two String fields:
 
-<figure><img src="../_assets/images/gr-mjv.png" alt=""><figcaption><p>Generate rows</p></figcaption></figure>
+| Name        | Value                                                        |
+| ----------- | ------------------------------------------------------------ |
+| `field`     | `This is a String \ with / some weird characters - in it!`   |
+| `fieldsame` | `This is a String // with - some weird characters - in it!`  |
 
-### 2. Modified JavaScript Value
+<figure><img src="../_assets/images/gr-mjv.png" alt="Generate rows with the two String fields field and fieldsame"><figcaption><p>Two strings to clean</p></figcaption></figure>
+
+### 2. Modified JavaScript value
 
 > **Note:**
 >
 > #### Modified JavaScript value
 > 
-> The Modified JavaScript value step provides a user interface for building JavaScript expressions that you can use to modify your data. The code you type in the script area is executed once for each input row.
-> 
-> * The transform allows multiple scripts in a single transform instance.
-> * The JavaScript step is not an input step and therefore requires an input stream from the pipeline.
+> The script runs once per row. Each input field is a variable of the same name, and each variable you list in the **Fields** grid becomes an output field. The step needs an input stream: it doesn't create rows.
 
-<figure><img src="../_assets/images/mjv-replace.png" alt=""><figcaption><p>Modified JavaScript value</p></figcaption></figure>
+1. From the **Scripting** folder, drag **Modified JavaScript value** onto the canvas and hop **Generate Rows** to it.
+2. Enter this script:
 
-> **Note:** Here the name of the var = name of output data stream field. In some cases you will need to 'escape' the character.
+   ```javascript
+   var result = field.replace("/", "").replace("\\", "").replace("-", "").replace("!", "");
+
+   // PDI's own replace(): pairs of search and replacement, every occurrence.
+   // Its search is a regular expression, so a backslash is written "\\\\".
+   var resultfieldsame = replace(fieldsame, "/", "", "\\\\", "", "-", "");
+   ```
+
+3. In the **Fields** grid, select **Get variables**, so `result` and `resultfieldsame` are listed, both String.
+
+<figure><img src="../_assets/images/mjv-replace.png" alt="Modified JavaScript value with the replace script and the two output fields"><figcaption><p>Script and output fields</p></figcaption></figure>
+
+4. Save, run and preview the step.
+
+> **Success:** Checkpoint: the two new fields read
+>
+> | Field             | Value                                                   |
+> | ----------------- | ------------------------------------------------------- |
+> | `result`          | `This is a String  with  some weird characters  in it`  |
+> | `resultfieldsame` | `This is a String  with  some weird characters  in it!` |
+>
+> `result` lost its `\`, `/`, `-` and `!`. `resultfieldsame` lost both `/` and both `-`, but kept its `!`, which isn't in its list.
+
+> **Note:** **Two `replace`s.** JavaScript's `string.replace("-", "")` replaces only the *first* match; it works on `field` because each character appears once there. PDI's `replace(value, search, replacement, ...)` replaces *every* match, and takes several search-replacement pairs in one call.
 
 > **Under the hood:**
 >
 > #### Rhino compiles the script once; every row runs it again
 >
-> **Modified Java Script Value** embeds Mozilla Rhino, a JavaScript
-> engine written in Java. When the step initialises it compiles your
-> script one time. For each row it then exposes the input fields as
-> JavaScript variables (wrapping PDI's typed values), runs the compiled
-> script, and reads back the variables you listed in the **Fields**
-> grid into output fields — which is why the variable name must equal
-> the output field name.
+> **Modified JavaScript value** embeds Mozilla Rhino, a JavaScript
+> engine written in Java. When the step starts, it compiles your script
+> once. For each row it then exposes the input fields as JavaScript
+> variables (wrapping PDI's typed values), runs the compiled script,
+> and reads back the variables listed in the **Fields** grid into output
+> fields; that is why a variable's name is the field's name.
 >
 > Top-level variables survive between rows because the same scope is
-> reused, so a `var total = 0` in a **Start Script** and `total +=
-> amount` in the main script gives a running total. The flexibility is
-> real, but so is the cost: each row crosses the Java/JavaScript
-> boundary twice, which typically makes this step an order of
-> magnitude slower than **Calculator**, **Formula** or **User Defined
-> Java Expression** doing the same work.
+> reused, so `var total = 0` in a **Start Script** and `total += amount`
+> in the main script give a running total. The flexibility has a cost:
+> each row crosses between Java and JavaScript twice, which makes this
+> step slower than **Calculator**, **Formula** or **User defined Java
+> expression** doing the same work.
 >
 > **Why it matters:** reach for JavaScript when you need loops,
 > regular-expression logic or state across rows. For arithmetic and
-> conditionals, the compiled steps are faster and easier to read.
+> conditions, the other steps are faster and easier to read.
 
 ::::
 

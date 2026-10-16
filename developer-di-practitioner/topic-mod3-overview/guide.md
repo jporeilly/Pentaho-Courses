@@ -2,13 +2,13 @@
 
 <div class="pcm-intro">
 
-Every PDI pipeline starts and ends at a source. This module covers the read/write side for everything you'll meet in production: flat files (text, JSON, XML, Excel, RSS), relational databases (full CRUID coverage and slowly changing dimensions), and the big-data layer — Hadoop, Snowflake, MinIO, SMB, Jupyter.
+Every PDI pipeline starts and ends at a data source. This module's workshops cover the ones you'll meet most: flat files (text, JSON, XML and Excel), relational databases (create, read, update, insert and delete, plus slowly changing dimensions) and object storage (MinIO, which speaks the Amazon S3 protocol). The last two tabs below introduce big-data platforms and notebooks, which PDI also works with.
 
 </div>
 
 ### Choose a data source
 
-Use this page to orient yourself. Then jump into the specific connector docs:
+Use this page to find your way, then open the section you need.
 
 > **Note:**
 >
@@ -27,11 +27,11 @@ Use this page to orient yourself. Then jump into the specific connector docs:
 >
 > #### Flat files
 > 
-> Use flat files when your data arrives as CSV, TXT, fixed-width, JSON, or XML.
+> Flat files are how data most often arrives: CSV, other delimited text, fixed-width, JSON, XML or Excel.
 > 
-> Start here: **Flat Files**.
+> Start here: [Flat Files](../topic-mod3-flat-files-review/guide.md).
 
-<figure><img src="../_assets/images/flat-files-2.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../_assets/images/flat-files-2.png" alt="Flat file types: structured, unstructured, semi-structured, and metadata"><figcaption><p>Kinds of flat file</p></figcaption></figure>
 
 ::: tabs
 
@@ -41,9 +41,7 @@ Use this page to orient yourself. Then jump into the specific connector docs:
 >
 > #### Structured
 > 
-> Structured data uses a predefined model. It is easy to validate and query.
-> 
-> Think tables, rows, and columns. Examples include SQL databases and well-formed CSV files.
+> Structured data follows a predefined model of tables, rows and columns, so it is easy to validate and query. Examples: SQL databases and well-formed CSV files.
 
 ### Unstructured
 
@@ -51,9 +49,7 @@ Use this page to orient yourself. Then jump into the specific connector docs:
 >
 > #### Unstructured
 > 
-> Unstructured data has no consistent schema. Examples include PDFs, images, video, and free-form text.
-> 
-> You typically need parsing, extraction, or ML to use it.
+> Unstructured data has no consistent schema - PDFs, images, video, free-form text. Using it usually takes parsing, extraction or machine learning.
 
 ### Semi-structured
 
@@ -61,9 +57,7 @@ Use this page to orient yourself. Then jump into the specific connector docs:
 >
 > #### Semi-structured
 > 
-> Semi-structured data has a loose schema. It uses tags or keys to describe fields and hierarchy.
-> 
-> Common formats are JSON and XML.
+> Semi-structured data has a loose schema: tags or keys describe the fields and their hierarchy. JSON and XML are the common formats.
 
 ### Metadata
 
@@ -71,7 +65,7 @@ Use this page to orient yourself. Then jump into the specific connector docs:
 >
 > #### Metadata
 > 
-> Metadata is “data about data”. Examples include headers, schemas, and data dictionaries.
+> Metadata is data about data: header rows, schemas and data dictionaries.
 
 :::
 
@@ -81,11 +75,11 @@ Use this page to orient yourself. Then jump into the specific connector docs:
 >
 > #### Databases
 > 
-> Pentaho connects to databases primarily through JDBC drivers. These drivers are the main interface for database communication.
+> PDI connects to relational databases through JDBC drivers, one for each kind of database.
 > 
-> Start here: **Databases**.
+> Start here: [Databases](../topic-mod3-databases-review/guide.md).
 
-<figure><img src="../_assets/images/database-connection.png" alt=""><figcaption><p>Database Connection</p></figcaption></figure>
+<figure><img src="../_assets/images/database-connection.png" alt="PDI connecting through JDBC drivers to several relational databases"><figcaption><p>Database connections</p></figcaption></figure>
 
 ### Storage
 
@@ -93,13 +87,11 @@ Use this page to orient yourself. Then jump into the specific connector docs:
 >
 > #### Storage
 > 
-> Storage sources are cloud or network repositories. Examples include Amazon S3, Azure Blob Storage, and Google Cloud Storage.
+> Storage sources are cloud or network file stores, such as Amazon S3, Azure Blob Storage and Google Cloud Storage. PDI reaches them through a VFS (virtual file system) connection, so the same steps read and write files on any of them.
 > 
-> In PDI, you typically connect through VFS. You can read and write across hybrid environments.
-> 
-> Start here: **Storage**.
+> Start here: [Storage](../topic-mod3-storage-review/guide.md).
 
-<figure><img src="../_assets/images/storage-types-overview.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../_assets/images/storage-types-overview.png" alt="Storage types PDI can reach through VFS connections"><figcaption><p>Storage types</p></figcaption></figure>
 
 ### Big Data
 
@@ -107,13 +99,9 @@ Use this page to orient yourself. Then jump into the specific connector docs:
 >
 > #### Big Data
 > 
-> Big data sources require distributed compute. Common examples are Hadoop (HDFS, Hive, HBase), Spark, NoSQL, and Kafka.
-> 
-> PDI provides specialized steps and adapters for these platforms. This lets you transform data where it lives.
-> 
-> Start here: **Big Data**.
+> Big data sources need distributed compute: Hadoop (HDFS, Hive, HBase), Spark, NoSQL stores and Kafka. PDI has dedicated steps and adapters for these platforms, so it can transform data where it lives. This course has no workshop on them; the Pentaho documentation covers each one.
 
-<figure><img src="../_assets/images/types-of-big-data.png" alt=""><figcaption><p>Types of Big Data</p></figcaption></figure>
+<figure><img src="../_assets/images/types-of-big-data.png" alt="Types of big data platforms"><figcaption><p>Types of big data</p></figcaption></figure>
 
 ### Jupyter Notebook
 
@@ -121,13 +109,9 @@ Use this page to orient yourself. Then jump into the specific connector docs:
 >
 > #### Jupyter Notebook
 > 
-> Jupyter is a web-based notebook for code, visuals, and narrative text. It works well for exploratory analysis and prototyping.
-> 
-> In a PDI workflow, notebooks often handle advanced analysis. PDI handles production orchestration and scheduled pipelines.
-> 
-> Start here: **Jupyter Notebook**.
+> Jupyter is a web-based notebook that mixes code, charts and narrative text, which suits exploratory analysis and prototyping. In a typical setup the notebook does the advanced analysis and PDI runs the production pipelines and schedules around it.
 
-<figure><img src="../_assets/images/jupyter-notebook.png" alt=""><figcaption><p>Jupyter Notebook</p></figcaption></figure>
+<figure><img src="../_assets/images/jupyter-notebook.png" alt="Jupyter Notebook"><figcaption><p>Jupyter Notebook</p></figcaption></figure>
 
 ::::
 

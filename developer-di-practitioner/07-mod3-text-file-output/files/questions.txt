@@ -1,3 +1,3 @@
-How many employees currently in your organisation?
+How many people does your organization employ?
 Which ETL tool do you currently use?
 What would you do if you had a magic wand?

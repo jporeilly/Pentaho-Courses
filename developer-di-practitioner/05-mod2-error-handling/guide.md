@@ -4,7 +4,7 @@
 >
 > #### Workshop - Error Handling
 > 
-> Bad data happens. Don’t fail the whole transformation because of a few rows. Route error rows to a separate stream for review and cleanup.
+> Bad data happens. Don't let a few bad rows fail the whole transformation: route them to a separate stream for review and cleanup.
 > 
 > **What you’ll do**
 > 
@@ -16,9 +16,16 @@
 > 
 > **Prerequisites:** Complete the **[Hello World](../03-mod2-hello-world/guide.md)** and **[Logging](../04-mod2-logging/guide.md)** workshops
 > 
-> **Estimated time:** 10 minutes
+> **Estimated time:** 15 minutes
 
-![Error handling](../_assets/images/error-handling.png)
+<figure>
+
+![The finished transformation: CSV file input with a normal hop to Dummy (do nothing) and an error hop to Errors](../_assets/images/error-handling.png)
+
+<div align="center">
+<figcaption><em>What you build: good rows one way, bad rows the other</em></figcaption>
+</div>
+</figure>
 
 > **Note:** **Create a new transformation**
 > 
@@ -35,21 +42,21 @@
 >
 > #### **CSV file input**
 > 
-> The CSV File Input step reads data from delimited text files into a PDI transformation. While this step is called CSV File Input, you can also use CSV File Input with many other separator types, such as pipes, tabs, and semicolons.
+> **CSV file input** reads delimited text files. Despite its name it handles any single-character separator: commas, semicolons, pipes or tabs.
 > 
-> **Note:** The semicolon (;) is set as the default separator type for this step.
+> Its default delimiter is the semicolon (`;`), which is what this lab's file uses.
 
 1. Save the transformation as `tr_error_handling.ktr` in the lab folder, `C:\Workshop-DI-Practitioner\02-components-concepts\02-key-concepts\05-mod2-error-handling`, next to `customers-100-with-errors.txt` (or download the file from **Lab Files** below into the folder you save in). Saving first gives `${Internal.Entry.Current.Directory}` a value.
 2. Drag **CSV file input** onto the canvas and double-click it.
 3. Set **Filename** to `${Internal.Entry.Current.Directory}/customers-100-with-errors.txt`, keep the **Delimiter** `;`, and select **Get Fields**.
 
-<figure><img src="../_assets/images/csv-file-input.png" alt=""><figcaption><p>CSV file input</p></figcaption></figure>
+<figure><img src="../_assets/images/csv-file-input.png" alt="The CSV file input dialog with the file name and the fields from Get Fields"><figcaption><p>CSV file input after Get Fields</p></figcaption></figure>
 
-4. Set the following metadata properties for: birthdate
+4. On the `birthdate` row, set the type and format:
 
-| Fieldname | Type | Format     |
-| --------- | ---- | ---------- |
-| birthdate | date | yyyy/MM/dd |
+| Field name | Type | Format       |
+| ---------- | ---- | ------------ |
+| birthdate  | Date | `yyyy/MM/dd` |
 
 > **Warning:** Keep `yyyy/MM/dd`. Almost every row uses it; the few that don't are what trigger the error rows in the next step.
 
@@ -61,11 +68,11 @@
 >
 > #### Error hop
 > 
-> An error hop routes rows that fail in a step to a separate target step. This lets you keep processing valid rows. You also get extra error fields in the error stream.
+> An error hop sends the rows that fail in a step to a separate step, so the valid rows keep flowing. Each failed row arrives with extra fields that say why it failed.
 
 1. Right-click **CSV file input**, choose **Error Handling...**, and set **Target step** to `Errors`. The hop to `Errors` turns red with a white diagonal cross; double-click that cross to come back to these settings.
 
-<figure><img src="../_assets/images/hop-error-handling.png" alt=""><figcaption><p>Hop - Error handling</p></figcaption></figure>
+<figure><img src="../_assets/images/hop-error-handling.png" alt="The Step error handling settings dialog with the target step and the four error field names"><figcaption><p>Step error handling settings</p></figcaption></figure>
 
 2. Set the error field names (you can pick your own).
 
@@ -80,20 +87,20 @@
 >
 > #### Run the transformation
 > 
-> Preview both streams. One contains valid rows. One contains error rows plus error metadata.
+> Run it, then preview both streams: one holds the valid rows, the other the failed rows with their error fields.
 
-1. Select **Run** in the canvas toolbar.
+1. Select **Run** in the toolbar, then **Run** in **Run Options**.
 2. Preview the **Dummy (do nothing)** step: 97 rows.
 
-<figure><img src="../_assets/images/correct-birthdate-format.png" alt=""><figcaption><p>Correct birthdate format</p></figcaption></figure>
+<figure><img src="../_assets/images/correct-birthdate-format.png" alt="Preview of the Dummy step: customers whose birthdates parsed"><figcaption><p>The valid rows</p></figcaption></figure>
 
 3. Preview the **Errors** step: 3 rows, each with the four error fields.
 
-<figure><img src="../_assets/images/errors-for-incorrectly-formatted-birthdates.png" alt=""><figcaption><p>Errors for incorrectly formatted birthdates</p></figcaption></figure>
+<figure><img src="../_assets/images/errors-for-incorrectly-formatted-birthdates.png" alt="Preview of the Errors step: rejected rows with the error count, description, field and code"><figcaption><p>The rejected rows and their error fields</p></figcaption></figure>
 
-4. Scroll to the end of the **Execution results** pane.
+4. In **Execution Results**, open **Step Metrics**. The **CSV file input** row shows **Input** 101 (the header line and 100 customers), **Written** 97 and **Errors** 3.
 
-> **Note:** Use `errorCodes` to route errors into targeted cleanup logic.
+> **Tip:** Route on the error codes field to send each kind of error to its own cleanup logic.
 
 > **Under the hood:**
 >
@@ -117,7 +124,7 @@
 > branch on the canvas — a file, a table, an email — rather than a
 > stack trace at 3am.
 
-**Decide what to do with the error rows**
+**Decide what to do with the rejected rows**
 
 Read the three rows in **Errors**. Each one is bad *data*, not a wrong setting:
 

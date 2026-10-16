@@ -4,46 +4,46 @@
 >
 > #### Workshop - Database Lookups
 > 
-> The Database lookup step allows you to look for values in a database table. Lookup values are added as new fields onto the stream.
-> 
-> In this workshop, you build a transformation that looks up product values in a database table and explores the step's simple lookup, error handling, and multiple-result options.
+> **Database lookup** adds values from a database table to each row, found by key fields. It returns at most one row per input row.\
+> In this workshop you look up products by a name pattern and a maximum price, then see what the step does when a lookup finds nothing, and when it finds more than one row.
 > 
 > **What you'll do**
 > 
-> * Build a test dataset with Data Grid
-> * Construct a LIKE search pattern with User Defined Java Expression
-> * Configure a simple Database lookup to add new fields onto the stream
-> * Enable error handling to route failed lookups to a log
-> * Handle multiple results with the Do not pass and Fail on multiple results options
+> * Build a search pattern with **User defined Java expression**
+> * Configure a **Database lookup** with two key conditions and default values
+> * Route failed lookups to the log with error handling, or drop them
+> * Handle multiple matches with **Fail on multiple results?** and **Order by**
 > 
-> **Prerequisites:** Understanding of basic transformation concepts (steps, hops, preview). Pentaho Data Integration installed and configured.
+> **Prerequisites:** [Review Lookups](../topic-mod4-lookups-review/guide.md); [Database Join](../22-mod4-database-join/guide.md), whose search rows this workshop reuses
 > 
 > **Estimated time:** 30 minutes
 
-![Database lookup](../_assets/images/database-lookup.png)
+<figure>
 
-<figure><img src="../_assets/images/database-lookup-2.png" alt=""><figcaption><p>Database Lookup</p></figcaption></figure>
+![The finished transformation: some conditions, like_statement, and three Database lookup steps, one with an error hop to Write to log](../_assets/images/database-lookup.png)
+
+<div align="center">
+<figcaption><em>What you build: three variants of one lookup</em></figcaption>
+</div>
+</figure>
+
+<figure><img src="../_assets/images/database-lookup-2.png" alt="Pentaho Data Integration title card: Database Lookup"><figcaption><p>Database Lookup</p></figcaption></figure>
 
 > **Note:** **Create a new transformation**
 > 
-> Use any of these options to open a new transformation tab:
-> 
-> * Select **File** > **New** > **Transformation**
-> * Use `Ctrl+N` (Windows/Linux) or `Cmd+N` (macOS)
+> Select **File > New > Transformation**, or press `Ctrl+N` (`Cmd+N` on macOS). Save it as `tr_database_lookup.ktr` in the lab folder, `C:\Workshop-DI-Practitioner\04-enriching-the-dataset\03-lookups\26-mod4-database-lookups`.
 
 :::: tabs
 
-### 1. Data Grid
+### 1. Data grid
 
 > **Note:**
 >
 > #### Data grid
 > 
-> The Data Grid step allows you to enter a static list of rows in a grid. This is usually done for testing, reference or demo purposes.
+> The same three searches as [Database Join](../22-mod4-database-join/guide.md): a product name and a maximum buy price.
 
-1. Start Pentaho Data Integration (Spoon).
-
-> **Note:** 
+1. Start Spoon.
 
 ::: tabs
 
@@ -71,127 +71,129 @@
 
 <button data-launch="spoon" data-path="">Start PDI</button>
 
-2. Drag the Data Grid step onto the canvas.
-3. Open the Data grid properties dialog box.
-4. Ensure the following details are configured, as outlined below:
+2. From the **Input** folder, drag **Data grid** onto the canvas and name it `some conditions`. On **Meta** add `prod` (String) and `max_price` (Integer); on **Data** enter `Aston Martin` 90, `Ford Falcon` 70 and `Corvette` 70.
 
-<div><figure><img src="../_assets/images/dg-database-join.png" alt=""><figcaption><p>Data grid - Meta</p></figcaption></figure> <figure><img src="../_assets/images/dg-database-join-data.png" alt=""><figcaption><p>Data grid - Data</p></figcaption></figure></div>
+<div><figure><img src="../_assets/images/dg-database-join.png" alt="Data grid Meta tab with prod String and max_price Integer"><figcaption><p>Meta tab</p></figcaption></figure> <figure><img src="../_assets/images/dg-database-join-data.png" alt="Data grid Data tab with the three search rows"><figcaption><p>Data tab</p></figcaption></figure></div>
 
-### 2. UDJE
+### 2. User defined Java expression
 
 > **Note:**
 >
 > #### User defined Java expression
 > 
-> The User Defined Java Expression step in Pentaho Data Integration allows you to write custom Java code that executes on each row of your data transformation. This step is useful when you need to perform complex calculations or data manipulations that aren't possible with PDI's standard steps.
-> 
-> You can access field values using the `get("fieldname")` method and create multiple expressions within a single step. Each expression produces a new output field in your data stream. The step handles type conversion automatically, making it flexible for various data operations.
-> 
-> Common uses include mathematical calculations, string manipulations, conditional logic, and date transformations. It's particularly valuable when you need Java-specific functionality or want to simplify your transformation by replacing multiple basic steps with a single, powerful Java expression.
+> **User defined Java expression** calculates new fields with Java expressions, one per field, with the row's fields available by name. Here it wraps the product name in `%` signs, the wildcards a SQL `LIKE` needs.
 
-1. Drag the User Defined Java expression step onto the canvas.
-2. Open the User defined Java expression properties dialog box.
-3. Ensure the following details are configured, as outlined below:
+1. From the **Scripting** folder, drag **User defined Java expression** onto the canvas, name it `like_statement`, and hop **some conditions** to it.
+2. Add one field: **New field** `like_statement`, **Java expression** `"%"+prod+"%"`, **Value type** String.
 
-<figure><img src="../_assets/images/like-statement.png" alt="" width="563"><figcaption><p>UDJE - like statement</p></figcaption></figure>
+<figure><img src="../_assets/images/like-statement.png" alt="User defined Java expression: like_statement = &quot;%&quot;+prod+&quot;%&quot;, String" width="563"><figcaption><p>Aston Martin becomes %Aston Martin%</p></figcaption></figure>
 
-> **Note:** The LIKE operator is used in a WHERE clause to search for a specified pattern in a column.
+> **Success:** Checkpoint: the preview shows `%Aston Martin%`, `%Ford Falcon%` and `%Corvette%`.
 
-### 3. Database Lookup
+### 3. Database lookup
 
 > **Note:**
 >
 > #### Database lookup
 > 
-> The Database lookup step has 3 options
+> Each row in **The key(s) to look up the value(s)** compares a table column with a stream field; together they form the query's `WHERE` clause. Each row in **Values to return from the lookup table** becomes a new field, with a default for when nothing is found.
 
 ::: tabs
 
 ### 3.1 Simple
 
-> **Note:**
+1. From the **Lookup** folder, drag **Database lookup** onto the canvas, name it `Database lookup (simple)`, and hop **like_statement** to it.
+2. Set **Connection** `MySQL:sampledata` and **Lookup table** `PRODUCTS`. Leave **Enable cache?** clear.
+3. In **The key(s) to look up the value(s)**, add two rows:
+
+| Table field   | Comparator | Field1           |
+| ------------- | ---------- | ---------------- |
+| `BUYPRICE`    | `<`        | `max_price`      |
+| `PRODUCTNAME` | `LIKE`     | `like_statement` |
+
+4. In **Values to return from the lookup table**, add `PRODUCTNAME` with **Default** `not available`, then `PRODUCTSCALE` and `BUYPRICE`.
+
+<figure><img src="../_assets/images/databse-lookup-simple.png" alt="Database lookup (simple): lookup table PRODUCTS, keys BUYPRICE less than max_price and PRODUCTNAME LIKE like_statement, three return values"><figcaption><p>Two key conditions, three return values</p></figcaption></figure>
+
+5. Save, run, and preview **Database lookup (simple)**.
+
+> **Success:** Checkpoint: one row out for each row in, 3 in all.
 >
-> #### Simple Lookup
-> 
-> The Database lookup step allows you to look up values in a database table. Lookup values are added as new fields onto the stream.
-
-1. Drag the Database lookup step onto the canvas and create a hop from like_statement.
-2. Open the Database lookup properties dialog box.
-3. Ensure the following details are configured, as outlined below:
-
-<figure><img src="../_assets/images/databse-lookup-simple.png" alt=""><figcaption><p>Dtabase lookup - simple</p></figcaption></figure>
-
-> **Note:** The ‘key’ fields are where you specify the conditions. Each row in the grid represents a comparison between a column in the table, and a field in your stream, by using one of the provided comparators.
-> 
-> In this example:
-> 
-> WHERE PRODUCTNAME LIKE '%Aston Martin%' AND BUYPRICE < 90 WHERE PRODUCTNAME LIKE '%Ford Falcon%' AND BUYPRICE < 70 WHERE PRODUCTNAME LIKE '%Corvette%' AND BUYPRICE < 70
-
-> **Note:** The Database lookup step allow us to retrieve any number of columns based on the search criteria. Each database column you enter in the lower grid will become a new field in your dataset.
-> 
-> You can rename them (this is particularly useful if you already have a field with the same name) and supply a default value if no record is found in the search. In the workflow, you added three fields: PRODUCTNAME, PRODUCTSCALE, and BUYPRICE.
-> 
-> For values where there’s no match for PRODUCTNAME, ‘not available’ is returned. In the Preview, notice there are no PRODUCTNAMES that match %Ford Falcon% where the max price is less than the max price of 70.
+> | prod           | PRODUCTNAME               | PRODUCTSCALE | BUYPRICE |
+> | -------------- | ------------------------- | ------------ | -------- |
+> | `Aston Martin` | 1965 Aston Martin DB5     | 1:18         | 65.96    |
+> | `Ford Falcon`  | `not available`           | (null)       | (null)   |
+> | `Corvette`     | 1957 Corvette Convertible | 1:18         | 69.93    |
+>
+> Ford Falcon has no product under 70, so it gets the default. Corvette has three, and the lookup returns the first the database sends back.
 
 > **Under the hood:**
 >
-> #### Cache off: one query per row. Cache on: one query, then a hash table
+> #### Cache off: one query per row. Cache on: a hash table
 >
 > As configured, **Database lookup** prepared `SELECT PRODUCTNAME,
-> PRODUCTSCALE, BUYPRICE FROM PRODUCTS WHERE PRODUCTNAME LIKE ? AND
-> BUYPRICE < ?` once and executed it for every incoming row, taking
-> the first row the database returned and appending its columns (or
-> your defaults) to the stream. Three rows, three round trips —
+> PRODUCTSCALE, BUYPRICE FROM PRODUCTS WHERE BUYPRICE < ? AND
+> PRODUCTNAME LIKE ?` once and executed it for every incoming row,
+> taking the first row the database returned and adding its columns
+> (or your defaults) to the stream. Three rows, three round trips:
 > harmless here, ruinous at a million.
 >
-> **Enable cache?** changes the engine, not the SQL: results are kept
-> in an in-memory map keyed on the lookup values, so a repeated key
-> costs a hash probe instead of a query. **Load all data from table**
-> goes further and reads the whole table once at start-up, after which
-> the database is never asked again — but it needs every comparison to
-> be a comparison it can index (`=`, `<`, `>`, IS NULL) - a `LIKE` is not, and that is why both are off
-> in this workshop.
+> **Enable cache?** changes the engine, not the SQL: results are kept in
+> an in-memory map keyed on the lookup values, so a repeated key costs a
+> hash probe instead of a query. **Load all data from table** goes
+> further and reads the whole table once at start-up, after which the
+> database is never asked again; but PDI then does the comparisons
+> itself, and it can't evaluate a `LIKE`. That is why both are off
+> here.
 >
 > **Why it matters:** the same step is a per-row query or an in-memory
-> join depending on two checkboxes. For a dimension that fits in RAM,
-> "load all" turns an hour into seconds.
+> join depending on two checkboxes. For a reference table that fits in
+> memory and an equality key, "load all" turns an hour into seconds.
 
-### 3.2 Error Handling
+### 3.2 Error handling
 
-> **Note:** In this workflow, error handling has been enabled, with a write to log step.
+1. Add a second **Database lookup**, `Database lookup (with error handling)`, configured as the first. Hop **like_statement** to it; when Spoon asks, choose **Copy**, so each lookup step gets every row rather than a share of them.
+2. Add a **Write to log** step from the **Utility** folder.
+3. Right-click the new lookup step, select **Error Handling...**, select **Enable the error handling?** and set the **Target step** to **Write to log**.
+4. Disable the hop to **Database lookup (simple)**, then save and run.
 
-1. To see this in action, disable the hops to Database lookup (simple) and Database lookup (do not pass), and enable the hop into Database lookup (with error handling) and its error hop to Write to log.
-2. The error message is written out in the Logging output.
+<figure><img src="../_assets/images/results-error-handling.png" alt="Logging tab with the Write to log output for the Ford Falcon row"><figcaption><p>The failed lookup, in the log</p></figcaption></figure>
 
-<figure><img src="../_assets/images/results-error-handling.png" alt=""><figcaption><p>Logging Results</p></figcaption></figure>
+<figure><img src="../_assets/images/lookup-error.png" alt="Preview of Database lookup (with error handling): Aston Martin and Corvette only"><figcaption><p>Only the found rows carry on</p></figcaption></figure>
 
-3. Preview the Database Lookup (with error handling) step.
-
-<figure><img src="../_assets/images/lookup-error.png" alt=""><figcaption><p>Database lookup - erorr handling</p></figcaption></figure>
-
-> **Note:** The rows for which the lookup fails, go directly to the stream that captures the error, in this case, the ‘Write to log’ step.
+> **Success:** Checkpoint: with error handling on, a lookup that finds nothing is an error. The Ford Falcon row goes to **Write to log** (it appears in the **Logging** tab), and the step passes on 2 rows: Aston Martin and Corvette.
 
 ### 3.3 Do not pass
 
-> **Note:** Taking some action when there are too many results The Database lookup step is meant to retrieve just one row of the table for each row in your dataset. If the search finds more than one row, the following two things may happen:
-> 
-> 1. If you check the Fail on multiple results? option, the rows for which the lookup retrieves more than one row will cause the step to fail. In that case, in the Logging tab window, you will see an error similar to the following: ...
-> 
-> \- Database lookup (fail on multiple res.).0 – ERROR... Because of an error, this step can't continue:
-> 
-> \- Database lookup (fail on multiple res.).0 – ERROR: Only 1 row was expected as a result of a lookup, and at least 2 were found! Then you can decide whether you want to leave the transformation or capture the error.
-> 
-> 2. If you don't check the Fail on multiple results? option, the step will return the first row it encounters. You can decide which one to return by specifying the order. You do that by typing an order clause in the Order by textbox. In the Sampledata database, there are two products that meet the conditions for the Corvette row. If, for Order by, you type PRODUCTSCALE DESC, PRODUCTNAME, then you will get 1958 Chevy Corvette Limited Edition, which is the first product after ordering the two found products by the specified criterion.
-> 
-> If, instead of taking some of those actions, you realize that you need all the resulting rows, you should take another approach—replace the Database lookup step with a Database join or a Dynamic SQL row step.
-> 
-> Compare this with the Database Join
-> 
-> The Database join returns every matching row for each input row (and, with **Outer join?**, keeps rows with no match), rather than a single lookup value.
+1. Add a third **Database lookup**, `Database lookup (do not pass)`, configured as the first, and select **Do not pass the row if the lookup fails**. Hop **like_statement** to it (choose **Copy**).
+2. Disable the other two lookup hops, then save, run and preview it.
+
+> **Success:** Checkpoint: 2 rows, Aston Martin and Corvette. The Ford Falcon row is dropped, silently: no default, no error.
+
+### 3.4 Several matches
+
+**Database lookup** is meant to find one row per input row. When the table has several (Corvette matches three products under 70), you choose what happens:
+
+* **Fail on multiple results?** selected: the row is an error. Without error handling the step stops with "Only 1 row was expected as a result of a lookup, and at least 2 were found!"; with error handling, like 3.2, the Corvette row goes to **Write to log** alongside Ford Falcon.
+* **Fail on multiple results?** clear: the step returns the first row, so decide which with **Order by**. With `PRODUCTSCALE DESC, PRODUCTNAME`, Corvette returns `1958 Chevy Corvette Limited Edition` (scale 1:24) instead of the 1957 Convertible.
+
+To get *all* the matching rows, use [Database Join](../22-mod4-database-join/guide.md) instead: it returns every row the query finds.
 
 :::
 
 ::::
+
+<details>
+
+<summary>Troubleshooting</summary>
+
+**Each lookup step previews only some of the rows**\
+The hops from `like_statement` distribute rows instead of copying them. Right-click **like_statement**, select **Data Movement**, then **Copy Data to Next Steps**.
+
+**Every row gets the default value**\
+Check the key rows: `BUYPRICE` `<` `max_price`, and `PRODUCTNAME` `LIKE` `like_statement` (with its `%` signs).
+
+</details>
 
 ## Lab Files
 

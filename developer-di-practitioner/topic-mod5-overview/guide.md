@@ -2,20 +2,44 @@
 
 <div class="pcm-intro">
 
-Standalone transformations don't survive contact with production. This module is about going from 'it works on my machine' to a maintainable, scheduled, parameterised pipeline that scales: jobs, parameters and variables, and master/slave + partitioning.
+Standalone transformations don't survive contact with production. This module is about going from 'it works on my machine' to a maintainable, scheduled, parameterized pipeline that scales: jobs, metadata injection, parameters and variables, and Carte servers and clusters.
 
 </div>
 
+**What You'll Learn**
+
+* How jobs put transformations and other tasks in order, and react to success and failure
+* How one template transformation can serve many sources, with metadata injection
+* How parameters and variables configure a pipeline without editing it
+* How Carte servers run work remotely, and clusters share it out
+
 > **Note:** **Jobs & Carte Servers**
-> 
-> Jobs are workflows whose role is to orchestrate the execution of a set of tasks: they generally synchronize and prioritize the execution of tasks and give an order of execution based on the success or failure of the execution of the current task. These tasks are basic tasks that either prepare the execution environment for other tasks that are next in the execution workflow or that manage the artefacts produced by tasks that are preceding them in the execution workflow.
-> 
-> For example, there are tasks that manipulate files and directories in the local filesystem, tasks that move files between remote servers through FTP or SSH, and tasks that check the availability of a table or the content of a table. Any job can call other jobs or transformations to design more complex processes. Therefore, jobs orchestrate the execution of jobs and transformations into large ETL processes.
+>
+> A **job** orchestrates tasks: it runs them in an order you set, and each hop decides what happens next from the result of the entry before it. The entries prepare the ground for the work or clean up after it: they move and check files, transfer them by FTP or SSH, check that a table exists or holds data, send mail, and run transformations and other jobs. Jobs that call jobs build up large processes from small, tested parts.
 
-![Job Entries](../_assets/images/job-entries.png)
+<figure>
 
-> **Note:** Carte is a simple web server that allows you to run transformations and jobs remotely. It receives XML (using a small servlet) that contains the transformation to run and the execution configuration. It allows you to remotely monitor, start and stop the transformations and jobs that run on the Carte server.
-> 
-> You can set up an individual instance of Carte to operate as a standalone execution engine for a job or transformation. In Spoon, you can define one or more Carte servers and send jobs and transformations to them. If you want to improve PDI performance for resource-intensive transformations and jobs, use Carte cluster.
+![A job: START, Check Db Conn., daily process, Zip files and Put generated files with FTP; on failure, Mail and Abort job](../_assets/images/job-entries.png)
 
-![Jetty - Carte server](../_assets/images/jetty-carte-server.png)
+<div align="center">
+<figcaption><em>Job entries joined by hops</em></figcaption>
+</div>
+</figure>
+
+> **Note:** **Carte** is a small web server that runs transformations and jobs remotely. Spoon, Kitchen or the Pentaho Server sends it the transformation or job to run, and can then monitor, start and stop it over HTTP. One Carte server is a remote execution engine; several, as a **Carte cluster**, can share one transformation's work between them.
+
+<figure>
+
+![The Jetty web server inside Carte: an HTTP connector, a handler chain, and the servlets that answer requests](../_assets/images/jetty-carte-server.png)
+
+<div align="center">
+<figcaption><em>Carte runs on an embedded Jetty web server</em></figcaption>
+</div>
+</figure>
+
+| Topic | Workshops |
+| --- | --- |
+| [Jobs](../topic-mod5-jobs-review/guide.md) | [Hello World (Job)](../29-mod5-hello-world-job/guide.md), [Order of Execution](../30-mod5-order-of-execution/guide.md) |
+| [Metadata Injection](../topic-mod5-metadata-injection-review/guide.md) | [Onboarding to a table](../31-mod5-onboarding-to-a-table/guide.md) |
+| [Parameters](../topic-mod5-parameters-and-variables-review/guide.md) | [Parameters](../34-mod5-parameters/guide.md), [Parameters SQL](../35-mod5-parameters-sql/guide.md) |
+| [Scalability](../topic-mod5-scalability-review/guide.md) | [Run Configurations](../36-mod5-run-configurations/guide.md) |

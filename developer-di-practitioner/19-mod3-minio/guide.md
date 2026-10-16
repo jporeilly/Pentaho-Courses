@@ -2,56 +2,41 @@
 
 > **Warning:**
 >
-> #### Workshop series: PDI + MinIO (S3)
+> #### Workshop - MinIO
 >
-> Build hands-on Pentaho Data Integration (PDI) transformations that read from and write to **MinIO** using **VFS**.
+> Six transformations that read from and write to **MinIO**, an S3-compatible object store, through a PDI **VFS connection**.\
+> They get harder as you go: CSV lookups first, then XML and JSON parsing, reconciliation, log analysis, scoring and multi-format ingestion.
 >
-> Workshops get harder as you go. Start with CSV joins. Then move into XML/JSON parsing, reconciliation, and multi-format ingestion.
+> **What you’ll do**
 >
-> **Workshops in this series**
+> * Connect PDI to MinIO with a VFS connection
+> * Read and write objects with `pvfs://MinIO/...` paths
+> * Enrich and join streams with lookups and merge joins
+> * Parse XML, JSON and log lines, and shape the results for a curated layer
 >
-> * Sales Dashboard (CSV inputs + lookups + output)
-> * Inventory Reconciliation (XML + CSV + variance detection)
-> * Customer 360 (multi-source joins + metrics)
-> * Fraud Detection (multi-table joins + rule-based risk scoring)
-> * Log Parsing (regex + time-series checks)
-> * Data Lake Ingestion (schema normalization + validation)
+> **Prerequisites:** MinIO running and seeded (see [Before You Start](../00-before-you-start/guide.md)); [Review Storage](../topic-mod3-storage-review/guide.md); joins and aggregations at the level of the earlier workshops
 >
-> **You’ll practice**
->
-> * Connecting to MinIO buckets with VFS
-> * Reading and writing objects with `pvfs://MinIO/...` paths
-> * Joining and enriching streams (lookups and joins)
-> * Parsing XML and JSON
-> * Validating and shaping data for a curated layer
->
-> **Prerequisites:** The MinIO container running and seeded (see [Before You Start](../00-before-you-start/guide.md)); basic transformation concepts; basic joins and aggregations
->
-> **Estimated time:** 4–6 hours total (each workshop is \~20–60 minutes)
+> **Estimated time:** 4 to 6 hours in all; each workshop takes 20 to 60 minutes
 
-| Workshop | Key Skills |
-| --- | --- |
-| Sales Dashboard | joins, lookups, aggregations |
-| Inventory Reconciliation | XML parsing, outer joins, variance |
-| Customer 360 | multi-source, JSONL, calculations |
-| Fraud Detection | stream lookup, joins, rule-based scoring |
-| Log Parsing | regex, time-series analysis |
-| Data Lake Ingestion | schema normalization, validation |
+| Workshop                 | Key skills                                  |
+| ------------------------ | ------------------------------------------- |
+| Sales Dashboard          | VFS input, stream lookups, calculations     |
+| Inventory Reconciliation | XML parsing, full outer join, variance      |
+| Customer 360             | JSON lines, aggregation, merge joins        |
+| Log Parsing              | regular expressions, rolling averages       |
+| Fraud Detection          | lookups and joins, rule-based scoring       |
+| Data Lake Ingestion      | three formats, one schema                   |
 
 > **Danger:** Every path in these workshops starts `pvfs://MinIO/`, which means "the VFS connection named **MinIO**". Create it once, before the first workshop.
 
 1. Check that MinIO is running and seeded: open the MinIO console at **http://127.0.0.1:9099** and sign in as `minioadmin` / `minioadmin`. The **raw-data** bucket holds `csv/`, `json/`, `xml/` and `finance/` folders, and the **logs** bucket holds `app/`, `web/` and `error/`.
 
-```powershell
-# Or check the S3 API from PowerShell
-Invoke-WebRequest http://127.0.0.1:9000/minio/health/live -UseBasicParsing | Select-Object StatusCode
-```
+   ```powershell
+   # Or check the S3 API from PowerShell
+   Invoke-WebRequest http://127.0.0.1:9000/minio/health/live -UseBasicParsing | Select-Object StatusCode
+   ```
 
-2. Start Pentaho Data Integration.
-
-> **Note:** Start Pentaho Data Integration (Spoon).
->
->
+2. Start Spoon.
 
 ::: tabs
 
@@ -77,19 +62,23 @@ Invoke-WebRequest http://127.0.0.1:9000/minio/health/live -UseBasicParsing | Sel
 
 :::
 
+<button data-launch="spoon" data-path="">Start PDI</button>
+
 3. Create the VFS connection. In Spoon's **View** tab, right-click **VFS Connections** and select **New**. In the **New VFS Connection** dialog enter:
 
-| Setting                | Value                     |
-| ---------------------- | ------------------------- |
-| **Connection Name:**   | `MinIO`                   |
-| **Connection Type:**   | Amazon S3/Minio/HCP       |
-| **S3 Connection Type:** | Minio/HCP                |
-| **Access Key:**        | `minioadmin`              |
-| **Secret Key:**        | `minioadmin`              |
-| **Endpoint:**          | `http://127.0.0.1:9000`   |
-| **PathStyle Access:**  | ticked                    |
+| Setting                 | Value                   |
+| ----------------------- | ----------------------- |
+| **Connection Name:**    | `MinIO`                 |
+| **Connection Type:**    | Amazon S3/Minio/HCP     |
+| **S3 Connection Type:** | Minio/HCP               |
+| **Access Key:**         | `minioadmin`            |
+| **Secret Key:**         | `minioadmin`            |
+| **Endpoint:**           | `http://127.0.0.1:9000` |
+| **PathStyle Access:**   | selected                |
 
 4. Select **Test**, then **OK**. The connection is saved for every transformation on this machine, so you create it once.
+
+> **Note:** VFS connection names are case-sensitive: `pvfs://minio/...` doesn't find a connection named `MinIO`.
 
 > **Under the hood:**
 >
@@ -98,15 +87,15 @@ Invoke-WebRequest http://127.0.0.1:9000/minio/health/live -UseBasicParsing | Sel
 > PDI reads `pvfs://MinIO/raw-data/csv/sales.csv` as "bucket `raw-data`,
 > object `csv/sales.csv`, through the connection called MinIO". The
 > endpoint and keys live in the connection, not in the transformation.
-> Point the same connection at AWS S3 and every transformation in this
-> series runs there unchanged. **PathStyle Access** is what MinIO needs:
-> it addresses buckets as `host/bucket` rather than `bucket.host`.
+> Point the same connection at Amazon S3 and every transformation in
+> this series runs there unchanged. **PathStyle Access** is what MinIO
+> needs: it addresses buckets as `host/bucket` rather than
+> `bucket.host`.
 >
 > **Why it matters:** credentials stay out of `.ktr` files, and moving
 > between environments is one connection, not every path.
 
-
-<button data-launch="spoon" data-path="">Start PDI</button>
+Save each transformation in the lab folder, `C:\Workshop-DI-Practitioner\03-data-sources\03-storage\19-mod3-minio`.
 
 ::::: tabs
 
@@ -116,439 +105,166 @@ Invoke-WebRequest http://127.0.0.1:9000/minio/health/live -UseBasicParsing | Sel
 >
 > #### Sales Dashboard
 >
-> The workshop demonstrates how Pentaho Data Integration enables organizations to rapidly create denormalized fact tables that power real-time business intelligence dashboards. By integrating data from multiple sources (customer data, product catalogs, and sales transactions), business users gain immediate access to actionable insights without waiting for IT to build complex data warehouses.
+> Build one fact file for a sales dashboard from three CSV files in MinIO: sales, products and customers. Each sale gets its product and customer details, a few calculated fields and two audit fields, and the result goes back to MinIO.
 >
-> **Scenario:** A mid-sized e-commerce company needs to track daily sales performance across products, customer segments, and regions. Currently, sales managers wait 24-48 hours for IT to generate reports from disparate systems. With PDI, they can automate this process and refresh dashboards hourly.
->
-> **Key Stakeholders:**
->
-> * Sales Directors: Need to identify top-performing products and regions
-> * Marketing Teams: Require customer segmentation for targeted campaigns
-> * Finance: Need accurate revenue reporting by product category
-> * Operations: Must monitor inventory turnover rates
-
-***
+> **Skills:** reading from a bucket, **Stream lookup**, **Calculator**, **Formula**, writing to a bucket
 
 > **Note:** **Workshop files**
 >
 > These files are already in MinIO:
 >
-> * `pvfs://MinIO/raw-data/csv/sales.csv`
-> * `pvfs://MinIO/raw-data/csv/products.csv`
-> * `pvfs://MinIO/raw-data/csv/customers.csv`
+> * `pvfs://MinIO/raw-data/csv/sales.csv` (15 sales)
+> * `pvfs://MinIO/raw-data/csv/products.csv` (18 products)
+> * `pvfs://MinIO/raw-data/csv/customers.csv` (12 customers)
 >
-> Output path used later: `pvfs://MinIO/staging/dashboard/`
+> Output: `pvfs://MinIO/staging/dashboard/sales_fact_<date>_<time>.csv`
 
-***
+<figure><img src="../_assets/images/sales-dashboard.png" alt="The Sales Dashboard transformation: Sales, Products and Customers inputs, two lookups, Calculator, Formula, Add constants, Get system info, Select values and Write to staging"><figcaption><p>What you build</p></figcaption></figure>
 
-<figure><img src="../_assets/images/sales-dashboard.png" alt=""><figcaption><p>Sales Dashboard</p></figcaption></figure>
-
-> **Note:** Create a new transformation.
->
-> Use any of these options:
->
-> * Select **File** > **New** > **Transformation**
-> * Use `Ctrl+N` (Windows/Linux) or `Cmd+N` (macOS)
-
-***
-
-Follow the steps to create the transformation:
+Create a new transformation (**File > New > Transformation**) and save it as `sales_dashboard_etl.ktr`.
 
 ::: tabs
 
-### 1. Read Data Sources
+### 1. Read the sources
 
 > **Note:**
 >
-> #### **Text File Input**
+> #### Text file input
 >
-> The Text File Input step is used to read data from a variety of different text-file types. The most commonly used formats include Comma Separated Values (CSV files) generated by spreadsheets and fixed width flat files.
->
-> The Text File Input step provides you with the ability to specify a list of files to read, or a list of directories with wild cards in the form of regular expressions. In addition, you can accept filenames from a previous step making filename handling more even more generic.
+> **Text file input** reads delimited or fixed-width files from disk or, through a VFS connection, from object storage. Here three of them read CSV files from the `raw-data` bucket.
 
-<figure><img src="../_assets/images/text-file-inputs.png" alt=""><figcaption><p>Text file inputs</p></figcaption></figure>
+1. From the **Input** folder, drag three **Text file input** steps onto the canvas. Name them `Sales`, `Products` and `Customers`.
+2. In each, on the **File** tab, enter the file in **File or directory** and select **Add**. Or select **Browse** and pick it from the MinIO connection:
 
-> **Note:** VFS connection names are case-sensitive. These examples assume your connection name is `MinIO`.
+| Step        | File                                      |
+| ----------- | ----------------------------------------- |
+| `Sales`     | `pvfs://MinIO/raw-data/csv/sales.csv`     |
+| `Products`  | `pvfs://MinIO/raw-data/csv/products.csv`  |
+| `Customers` | `pvfs://MinIO/raw-data/csv/customers.csv` |
 
-1. Drag & drop 3 Text File Input Steps onto the canvas.
-2. Save transformation as: `sales_dashboard_etl.ktr` in your workshop folder.
+<figure><img src="../_assets/images/select-sales-csv-from-vfs-connections.png" alt="Browsing the MinIO connection's raw-data bucket to pick csv/sales.csv"><figcaption><p>Browse the bucket through the connection</p></figcaption></figure>
 
-***
+3. On each **Content** tab, set **Separator** to `,`, keep **Header** selected and set **Format** to `mixed`.
+4. On each **Fields** tab, select **Get Fields**, then check the types:
 
-**Sales (Order Management)**
+| Step        | Types to check                                                                                                   |
+| ----------- | ---------------------------------------------------------------------------------------------------------------- |
+| `Sales`     | `customer_id`, `quantity` Integer; `sale_date` Date (`yyyy-MM-dd`); `sale_amount` BigNumber; the rest String       |
+| `Products`  | `price` BigNumber; `stock_quantity` Integer; `last_updated` Date (`yyyy-MM-dd`); the rest String                  |
+| `Customers` | `customer_id` Integer; `registration_date` Date (`yyyy-MM-dd`); the rest String                                   |
 
-1. Double-click on the first TFI step, and configure with the following properties:
+<figure><img src="../_assets/images/get-fields-sales.png" alt="Sales Fields tab after Get Fields: eight fields with their types"><figcaption><p>Sales fields</p></figcaption></figure>
 
-| Setting          | Value                                 |
-| ---------------- | ------------------------------------- |
-| Step name        | `Sales`                               |
-| Filename         | `pvfs://MinIO/raw-data/csv/sales.csv` |
-| Delimiter        | ,                                     |
-| Head row present | ✅                                     |
-| Format           | mixed                                 |
+<figure><img src="../_assets/images/get-fields-customers.png" alt="Products Fields tab after Get Fields: price as BigNumber, stock_quantity as Integer, last_updated as Date"><figcaption><p>Products fields</p></figcaption></figure>
 
-<figure><img src="../_assets/images/select-sales-csv-from-vfs-connections.png" alt=""><figcaption><p>Select - sales.csv from VFS connections</p></figcaption></figure>
+5. Select **Preview rows** in each.
 
-2. Click: **Get Fields** to auto-detect columns.
+> **Success:** Checkpoint: 15 sales (`S001` to `S015`), 18 products (`P001` to `P018`) and 12 customers.
 
-> **Note:** **Business Logic:** Note that `sale_amount` may differ from `price * quantity` due to:
->
-> * Volume discounts
-> * Promotional pricing
-> * Customer-specific pricing tiers
-> * Currency conversion (for international sales)
-
-<figure><img src="../_assets/images/get-fields-sales.png" alt=""><figcaption><p>Get Fields - Sales</p></figcaption></figure>
-
-3. Preview data.
-
-<figure><img src="../_assets/images/preview-data-sales.png" alt=""><figcaption><p>Preview data - Sales</p></figcaption></figure>
-
-> **Note:** **Business Significance:**
->
-> * `sale_amount`: Actual revenue (may include discounts)
-> * `quantity`: Volume metrics for demand planning
-> * `payment_method`: Payment preference insights
-> * `status`: Filter out cancelled/refunded orders
-
-***
-
-**Products (ERP system)**
-
-1. Double-click on the second TFI step, and configure with the following properties:
-
-<table><thead><tr><th width="165.5">Setting</th><th>Value</th></tr></thead><tbody><tr><td>Step name</td><td><code>Products</code></td></tr><tr><td>Filename</td><td><code>pvfs://MinIO/raw-data/csv/products.csv</code></td></tr><tr><td>Delimiter</td><td>,</td></tr><tr><td>Head row present</td><td>✅</td></tr><tr><td>Format</td><td>mixed</td></tr></tbody></table>
-
-<figure><img src="../_assets/images/select-products-csv-from-vfs-connections.png" alt=""><figcaption><p>Select - products.csv from VFS connections</p></figcaption></figure>
-
-2. Click: **Get Fields** to auto-detect columns.
-
-<figure><img src="../_assets/images/get-fields-customers.png" alt=""><figcaption><p>Get Fields - Customers</p></figcaption></figure>
-
-3. Preview the data.
-
-<figure><img src="../_assets/images/preview-data-products.png" alt=""><figcaption><p>Preview data - Products</p></figcaption></figure>
-
-> **Note:** **Business Significance:**
->
-> * `category`: Enables product performance analysis by segment
-> * `price`: Base pricing for margin calculations
-> * `stock_quantity`: Inventory turnover insights
-
-***
-
-**Customers (CRM System)**
-
-1. Double-click on the third TFI step, and configure with the following properties:
-
-<table><thead><tr><th width="186">Setting</th><th>Value</th></tr></thead><tbody><tr><td>Step name</td><td><code>Customers</code></td></tr><tr><td>Filename</td><td><code>pvfs://MinIO/raw-data/csv/customers.csv</code></td></tr><tr><td>Delimiter</td><td>,</td></tr><tr><td>Header row present</td><td>✅</td></tr><tr><td>Format</td><td>mixed</td></tr></tbody></table>
-
-<figure><img src="../_assets/images/select-customers-csv-from-vfs-connections.png" alt=""><figcaption><p>Select - customers.csv from VFS connections</p></figcaption></figure>
-
-2. Click: **Get Fields** to auto-detect columns.
-
-<figure><img src="../_assets/images/get-fields-customers-2.png" alt=""><figcaption><p>Get Fields - Customers</p></figcaption></figure>
-
-3. Preview the data.
-
-<figure><img src="../_assets/images/preview-data-customers.png" alt=""><figcaption><p>Preview data - Customers</p></figcaption></figure>
-
-> **Note:** **Business Significance:**
->
-> * `customer_id`: Primary key for joining to sales
-> * `country`: Critical for geographic segmentation
-> * `status`: Identifies churned vs. active customers
-> * `registration_date`: Enables customer tenure analysis
-
-### 2. Stream Lookup
+### 2. Look up products and customers
 
 > **Note:**
 >
-> #### Stream Lookup
+> #### Stream lookup
 >
-> A **Stream lookup** step enriches rows by looking up matching values from another stream.
+> **Stream lookup** adds fields to each main row from a second stream, matched on key fields. The second stream comes from another step in the same transformation, not from a database.
+
+1. From the **Lookup** folder, drag two **Stream lookup** steps onto the canvas. Name them `Product lookup` and `Customers lookup`.
+2. Hop **Sales** and **Products** to **Product lookup**, then **Product lookup** and **Customers** to **Customers lookup**.
+3. Double-click **Product lookup**. Set **Lookup step** to `Products`, add the key **Field** `product_id` = **LookupField** `product_id`, and under **Specify the fields to retrieve** add:
+
+| Field          | New name           |
+| -------------- | ------------------ |
+| `product_name` |                    |
+| `category`     | `product_category` |
+| `price`        | `unit_price`       |
+
+<figure><img src="../_assets/images/product-lookup.png" alt="Product lookup: lookup step Products, key product_id, retrieving product_name, category and price"><figcaption><p>Product lookup</p></figcaption></figure>
+
+4. Double-click **Customers lookup**. Set **Lookup step** to `Customers`, key `customer_id` = `customer_id`, and retrieve `first_name`, `last_name`, `country` as `customer_country` and `status` as `customer_status`.
+
+<figure><img src="../_assets/images/customers-lookup.png" alt="Customers lookup: lookup step Customers, key customer_id, retrieving names, country and status"><figcaption><p>Customers lookup</p></figcaption></figure>
+
+5. Save, run, and preview **Customers lookup**.
+
+<figure><img src="../_assets/images/lookups-preview-data.png" alt="Preview data: each sale with its product and customer fields"><figcaption><p>Sales with product and customer details</p></figcaption></figure>
+
+> **Success:** Checkpoint: 15 rows, every one with a `product_name` and a `customer_country`.
+
+> **Under the hood:**
 >
-> In a transformation, you feed your main rows into one hop and a reference dataset into the other hop. The step then matches rows using key fields and returns the lookup fields on the output. It’s the in-memory alternative to a database lookup, but the reference stream must be available in the same transformation flow.
+> #### The lookup stream is read first, into memory
+>
+> **Stream lookup** reads the whole **Lookup step** stream before it
+> passes a single main row: all 18 products go into an in-memory table
+> keyed on `product_id`. Then each sale is answered from that table, with
+> no sort and no database round trip. That is why the hop from
+> **Products** shows a small information icon on the canvas: it feeds
+> the lookup, not the main flow.
+>
+> **Why it matters:** this is the fastest way to enrich a stream from a
+> small reference set. For a reference set too large for memory, sort
+> both streams and use **Merge join**, as the later workshops do.
 
-<figure><img src="../_assets/images/lookups.png" alt=""><figcaption><p>Lookups</p></figcaption></figure>
-
-1. Drag & drop 2 **Stream lookup** steps onto the canvas.
-2. Save transformation as: `sales_dashboard_etl.ktr` in your workshop folder.
-
-***
-
-**Product Lookup**
-
-1. Draw a hop between **Sales** and **Product Lookup**.
-2. Draw a hop between **Products** and **Product Lookup**.
-
-> **Note:** The Sales is acting as our Fact table. It holds the transaction data for our Products & Customers.
-
-3. Double-click on the 'Product Lookup' step, and configure with the following properties:
-
-| Tab     | Setting               | Value            |
-| ------- | --------------------- | ---------------- |
-| General | Step name             | `Product Lookup` |
-| General | Lookup step           | `Products`       |
-| Keys    | Field (from Sales)    | `product_id`     |
-| Keys    | Field (from Products) | `product_id`     |
-
-4. In **Values to retrieve**, add:
-   * `product_name` (rename to `product_name`)
-   * `category` (rename to `product_category`)
-   * `price` (rename to `unit_price`)
-
-<figure><img src="../_assets/images/product-lookup.png" alt=""><figcaption><p>Product Lookup</p></figcaption></figure>
-
-***
-
-**Customers Lookup**
-
-1. Draw a hop between **Product Lookup** and **Customers Lookup**.
-2. Draw a hop between **Customers** and **Customers Lookup**.
-3. Double-click **Customers Lookup**, and configure the following properties:
-
-| Setting            | Value              |
-| ------------------ | ------------------ |
-| Step name          | `Customers Lookup` |
-| Lookup step        | `Customers`        |
-| Key field (stream) | `customer_id`      |
-| Key field (lookup) | `customer_id`      |
-
-4. Values to retrieve:
-   * `first_name`
-   * `last_name`
-   * `country` (rename to `customer_country`)
-   * `status` (rename to `customer_status`)
-
-<figure><img src="../_assets/images/customers-lookup.png" alt=""><figcaption><p>Customers Lookup</p></figcaption></figure>
-
-***
-
-**Preview data**
-
-1. Save the transformation.
-2. RUN & Preview the data.
-
-<figure><img src="../_assets/images/lookups-preview-data.png" alt=""><figcaption><p>Lookups - Preview data</p></figcaption></figure>
-
-### 3. Calculator
+### 3. Calculate
 
 > **Note:**
 >
-> #### Calculator
+> #### Calculator and Formula
 >
-> The Calculator step provides predefined functions that you can run on input field values. Use Calculator as a quick alternative to custom JavaScript for common calculations.
->
-> To use Calculator, specify the input fields and the calculation type, and then write results to new fields. You can also remove temporary fields from the output after all values are calculated.
+> **Calculator** runs predefined functions on fields; **Formula** evaluates spreadsheet-style expressions. Use whichever reads more clearly.
 
-<figure><img src="../_assets/images/calculator-step.png" alt=""><figcaption><p>Calculator step</p></figcaption></figure>
+1. From the **Transform** folder, drag **Calculator** onto the canvas and hop **Customers lookup** to it. Add two rows:
 
-1. Drag & drop a 'Calculator' step onto the canvas.
-2. Draw a Hop from the 'Customers Lookup' step to the 'Calculator' step.
-3. Double-click on the 'Calculator' step, and configure the following properties:
+| New field         | Calculation | Field A      | Field B       | Value type |
+| ----------------- | ----------- | ------------ | ------------- | ---------- |
+| `line_total`      | A * B       | `unit_price` | `quantity`    | BigNumber  |
+| `discount_amount` | A - B       | `line_total` | `sale_amount` | BigNumber  |
 
-<table><thead><tr><th width="161">New field</th><th>Calculation</th><th>Field A</th><th>Field B</th><th>Value type</th></tr></thead><tbody><tr><td><code>line_total</code></td><td>A * B</td><td>quantity</td><td>unit_price</td><td>Number</td></tr><tr><td><code>discount_amount</code></td><td>A - B</td><td>sale_amount</td><td>line_total</td><td>Number</td></tr></tbody></table>
+> **Warning:** Put `unit_price` in **Field A**. Calculator works in Field A's type, so with the Integer `quantity` first, `unit_price` is cut to a whole number before the multiplication: 1299.99 × 1 comes out as 1299.
 
-<figure><img src="../_assets/images/calculator-2.png" alt=""><figcaption><p>Calculator</p></figcaption></figure>
+<figure><img src="../_assets/images/calculator-2.png" alt="Calculator with two calculations, line_total and a second field"><figcaption><p>Calculator</p></figcaption></figure>
 
-***
+> **Note:** The screenshot shows an earlier version: `quantity` as Field A, and the second field named `profit_margin`. Use the table above.
 
-**Preview data**
+2. From the **Scripting** folder, drag **Formula** onto the canvas and hop **Calculator** to it. Add two fields, both String:
 
-1. Save the transformation.
-2. RUN & Preview the data.
+| New field            | Formula                                       |
+| -------------------- | --------------------------------------------- |
+| `customer_full_name` | `CONCATENATE([first_name];" ";[last_name])`   |
+| `is_high_value`      | `IF([sale_amount]>500;"Yes";"No")`            |
 
-<figure><img src="../_assets/images/preview-data-3.png" alt=""><figcaption><p>Preview data</p></figcaption></figure>
+<figure><img src="../_assets/images/formula-step-2.png" alt="Formula step with customer_full_name and is_high_value"><figcaption><p>Formula</p></figcaption></figure>
 
-> **Note:** **Business Insight Enabled:**
->
-> * **Positive `discount_amount`:** Customer received a discount (common)
-> * **Negative `discount_amount`:** Customer paid more than list price (expedite, premium, etc.)
-> * **Zero `discount_amount`:** Sold at list price
+3. Save, run and preview **Formula**.
 
-### 4. Formula
+> **Success:** Checkpoint: `line_total` equals `sale_amount` on all 15 rows, to the cent. Every sale in this data is at list price, so `discount_amount` is 0; a positive value would mean the customer paid less than list. 5 sales are `is_high_value` `Yes`.
 
-> **Note:**
->
-> #### Formula
->
-> The Formula step can calculate Formula Expressions within a data stream. It can be used to create simple calculations like \[A]+\[B] or more complex business logic with a lot of nested if / then logic.
+### 4. Add audit fields
 
-<figure><img src="../_assets/images/formula-step.png" alt=""><figcaption><p>Formula step</p></figcaption></figure>
+1. From the **Transform** folder, drag **Add constants** onto the canvas and hop **Formula** to it. Add **Name** `data_source`, **Type** String, **Value** `minio_workshop`.
+2. From the **Input** folder, drag **Get system info** onto the canvas and hop **Add constants** to it. Add **Name** `etl_timestamp`, **Type** `system date (variable)`.
 
-1. Drag & drop a 'Formula' step onto the canvas.
-2. Draw a Hop from the 'Calculator' step to the 'Formula' step.
-3. Double-click on the 'Formula' step, and configure the following properties:
+> **Note:** `data_source` and `etl_timestamp` say where each row came from and when it was loaded, the two questions asked first when a number in a dashboard looks wrong.
 
-<table><thead><tr><th width="190">New Field</th><th>Formula</th></tr></thead><tbody><tr><td>customer_full_name</td><td>CONCATENATE([first_name];" ";[last_name])</td></tr><tr><td>is_high_value</td><td>IF([sale_amount]>500;"Yes";"No")</td></tr></tbody></table>
+### 5. Select and write
 
-<figure><img src="../_assets/images/formula-step-2.png" alt=""><figcaption><p>Formula step</p></figcaption></figure>
+1. From the **Transform** folder, drag **Select values** onto the canvas and hop **Get system info** to it. On **Select & Alter**, list these fields in this order, renaming `status` to `sale_status`:
 
-***
+   `sale_id`, `sale_date`, `customer_id`, `customer_full_name`, `customer_country`, `customer_status`, `product_id`, `product_name`, `product_category`, `quantity`, `unit_price`, `sale_amount`, `line_total`, `discount_amount`, `is_high_value`, `payment_method`, `status`, `etl_timestamp`, `data_source`
 
-**Preview data**
+2. From the **Output** folder, drag **Text file output** onto the canvas, name it `Write to staging` and hop **Select values** to it. Set:
+   * **File** tab: **Filename** `pvfs://MinIO/staging/dashboard/sales_fact`, **Extension** `csv`, **Include date in filename?** and **Include time in filename?** selected
+   * **Content** tab: **Separator** `,`, **Header** selected
+   * **Fields** tab: select **Get Fields**, then **Minimal width**
 
-1. Save the transformation.
-2. RUN & Preview the data.
+> **Warning:** Select **Minimal width**. Without it, Text file output pads every String to its declared length, and `USA` is written as `USA` followed by spaces.
 
-<figure><img src="../_assets/images/preview-data-2.png" alt=""><figcaption><p>Preview data</p></figcaption></figure>
+3. Save and run the transformation. In the MinIO console, open **staging** > `dashboard/`.
 
-> **Note:** **Business Applications:**
->
-> * **is\_high\_value:** Trigger VIP customer service workflows
+<figure><img src="../_assets/images/minio-dashboard-data.png" alt="MinIO console: the staging bucket's dashboard folder with the sales_fact CSV file"><figcaption><p>The output in MinIO</p></figcaption></figure>
 
-### 5. Add Constants
-
-> **Note:**
->
-> #### Add Constants
->
-> The Add constant values step is a simple and high performance way to add constant values to the stream.
-
-<figure><img src="../_assets/images/add-constants-2.png" alt=""><figcaption><p>Add constants</p></figcaption></figure>
-
-1. Drag & drop 'Add constants' step onto the canvas.
-2. Draw a Hop from the 'Formula' step to the 'Add constants ' step.
-3. Double-click on the 'Add constants' step, and configure the following properties:
-
-| Name          | Type   | Value            |
-| ------------- | ------ | ---------------- |
-| `data_source` | String | `minio_workshop` |
-
-<figure><img src="../_assets/images/add-constants.png" alt=""><figcaption><p>Add constants</p></figcaption></figure>
-
-### 6. Get System info
-
-> **Note:**
->
-> #### Get system info
->
-> This step retrieves system information from the Kettle environment. The step includes a table where you can designate a name and assign it to any available system info type you want to retrieve. This step generates a single row with the fields containing the requested information.
->
-> It can also accept any number of input streams, aggregate any fields defined by this step, and send the combined results to the output stream.
-
-<figure><img src="../_assets/images/get-system-info-2.png" alt=""><figcaption><p>get system info</p></figcaption></figure>
-
-1. Drag & drop 'Get system info' step onto the canvas.
-2. Draw a Hop from the 'Add constants' step to the 'Get system info ' step.
-3. Double-click on the **Get system info** step, and configure the following properties:
-
-| Name           | Type                   |
-| -------------- | ---------------------- |
-| etl\_timestamp | system date (variable) |
-
-<figure><img src="../_assets/images/get-system-info-3.png" alt=""><figcaption><p>Get system info</p></figcaption></figure>
-
-### 7. Select Values
-
-> **Note:**
->
-> #### **Select Values**
->
-> The Select Values step can perform all the following actions on fields in the PDI stream:
->
-> **Select fields** - The Select Values step can perform all the following actions on fields in the PDI stream.
->
-> **Remove fields** - Use this tab to remove fields from the input stream.
->
-> **Meta-data** - Use this tab to change field types, lengths, and formats.
-
-<figure><img src="../_assets/images/select-values.png" alt=""><figcaption><p>Select values</p></figcaption></figure>
-
-1. Drag & drop a 'Select values' step onto the canvas.
-2. Draw a Hop from the 'Get system info' step to the 'Select values' step.
-3. Double-click on the 'Select values' step, and configure the following properties:
-4. On **Select & Alter** tab, choose fields in order:
-
-* sale\_id
-* sale\_date
-* customer\_id
-* customer\_full\_name
-* customer\_country
-* customer\_status
-* product\_id
-* product\_name
-* product\_category
-* quantity
-* unit\_price
-* sale\_amount
-* line\_total
-* discount\_amount
-* is\_high\_value
-* payment\_method
-* status (rename to `sale_status`)
-* etl\_timestamp
-* data\_source
-
-<figure><img src="../_assets/images/select.png" alt=""><figcaption><p>Select</p></figcaption></figure>
-
-***
-
-**Preview data**
-
-1. Save the transformation.
-2. RUN & Preview the data.
-
-<figure><img src="../_assets/images/preview-data.png" alt=""><figcaption><p>Preview data</p></figcaption></figure>
-
-### 8. Text File Output
-
-> **Note:**
->
-> #### Text file output
->
-> The Text File Output step exports rows to a text file.
->
-> This step is commonly used to generate delimited files (for example, CSV) that can be read by spreadsheet applications, and it can also generate fixed-length output.
->
-> You can’t run this step in parallel to write to the same file.
->
-> If you need to run multiple copies, select Include stepnr in filename and merge the resulting files afterward.
-
-<figure><img src="../_assets/images/text-file-output.png" alt=""><figcaption><p>Text File output</p></figcaption></figure>
-
-1. Drag & drop a **Text file output** step onto the canvas.
-2. Draw a Hop from the 'Select values' step to the 'Write to staging' step.
-3. Double-click on the 'Write to staging' step, and configure with the following properties:
-
-| Setting                       | Value                                       |
-| ----------------------------- | ------------------------------------------- |
-| Step name                     | `Write to Staging`                          |
-| Filename                      | `pvfs://MinIO/staging/dashboard/sales_fact` |
-| Extension                     | `csv`                                       |
-| Include date/time in filename | ✅                                           |
-| Separator                     | ,                                           |
-| Add header                    | ✅                                           |
-
-> **Warning:** Select **Get fields** to populate the output fields.
-
-> **Note:** **Business Benefit:** Timestamped files enable:
->
-> * **Historical tracking:** "What did the data look like last Tuesday?"
-> * **Incremental processing:** Keep processing latest file without overwriting history
-> * **Rollback capability:** "The 3pm run had bad data, revert to 2pm version"
-
-***
-
-**MinIO**
-
-1. Save the transformation.
-2. Log into MinIO:
-
-<figure><img src="../_assets/images/minio-dashboard-data.png" alt=""><figcaption><p>MinIO - Dashboard data</p></figcaption></figure>
-
-***
-
-**Checklist**
-
-* [ ] Three Text file inputs configured (reading CSV from S3)
-* [ ] Product lookup working (no null product names)
-* [ ] Customer lookup working (no null countries)
-* [ ] Calculations producing correct values
-* [ ] Fields in correct order
-* [ ] Output file created in staging bucket
-* [ ] All 15 sales records processed
+> **Success:** Checkpoint: `sales_fact_<date>_<time>.csv` holds a header and 15 rows, with no padded values. Each run adds a new file, because the date and time are in the name.
 
 :::
 
@@ -564,30 +280,17 @@ Follow the steps to create the transformation:
 
 > **Warning:**
 >
-> #### Inventory Reconciliation - XML + CSV Integration
+> #### Inventory Reconciliation
 >
-> This workshop demonstrates how Pentaho Data Integration eliminates costly inventory discrepancies by automatically reconciling data between warehouse management systems (XML feeds) and ERP product catalogs (CSV files). Organizations lose millions annually due to inventory inaccuracies, stockouts, and overstocking. PDI's ability to parse complex XML and perform full outer joins enables real-time discrepancy detection that would require hours of manual spreadsheet work.
+> Reconcile a warehouse system's XML inventory feed with the ERP product catalog, a CSV file. A full outer join keeps items missing from either side; each row is classified, and the results go to three work queues by priority.
 >
-> **Business Value Delivered:**
+> **Scenario:** a warehouse management system (WMS) exports its stock as XML each night, and the ERP holds the product master. Where they disagree, someone has to investigate or count:
 >
-> * **Cost Reduction:** Eliminate manual reconciliation labor ($75K-150K annually per analyst)
-> * **Inventory Optimization:** Reduce excess inventory carrying costs by 15-25%
-> * **Stockout Prevention:** Identify missing items before customers notice
-> * **Compliance:** Audit trail for SOX, ISO 9001, and supply chain regulations
-> * **Real-Time Visibility:** Know your actual inventory position within minutes, not days
+> * **Missing in the warehouse:** the ERP lists a product the warehouse doesn't hold
+> * **Missing in the catalog:** the warehouse holds an item the ERP doesn't know
+> * **Quantity variance:** both know the product, but the quantities differ
 >
-> **Scenario:** A manufacturing company operates 12 distribution warehouses. Each warehouse uses a legacy WMS (Warehouse Management System) that exports XML inventory files nightly. The corporate ERP system maintains a CSV product master catalog. Discrepancies cause:
->
-> * **Phantom stock:** ERP shows item in stock, warehouse says it's not → Lost sales
-> * **Ghost inventory:** Warehouse has items ERP doesn't recognize → Dead capital
-> * **Quantity variances:** Mismatches of 10+ units trigger expensive physical counts
->
-> **Key Stakeholders:**
->
-> * **Supply Chain Directors:** Need accurate inventory positions across all locations
-> * **Warehouse Managers:** Require daily reconciliation reports to prioritize cycle counts
-> * **Finance Teams:** Must report accurate inventory valuations for financial statements
-> * **Procurement:** Need to identify slow-moving items and prevent overstocking
+> **Skills:** **Get data from XML**, **Merge join** (full outer), **Calculator**, **Modified JavaScript value**, **Switch / case**
 
 ***
 
@@ -600,7 +303,7 @@ Follow the steps to create the transformation:
 >
 > Outputs: `pvfs://MinIO/staging/reconciliation/` (`urgent_actions`, `review_queue` and `low_priority` CSV files)
 
-<figure><img src="../_assets/images/inventory-reconciliation.png" alt=""><figcaption><p>Inventory reconciliation</p></figcaption></figure>
+<figure><img src="../_assets/images/inventory-reconciliation.png" alt="Inventory reconciliation"><figcaption><p>Inventory reconciliation</p></figcaption></figure>
 
 > **Note:** Create a new transformation.
 >
@@ -624,43 +327,33 @@ Follow the steps to create the transformation:
 > **Note:**
 >
 > #### Get data from XML
-
-1. Drag & drop 'Get data from XML' onto the canvas.
-2. Save transformation as: `inventory_reconciliation.ktr` in your workshop folder.
-3. Double-click on the 'Get data from XML' step, and configure with the following properties:
-
-<table><thead><tr><th width="186">Setting</th><th>Value</th></tr></thead><tbody><tr><td>Step name</td><td>Read Warehouse XML</td></tr><tr><td>File or directory</td><td><code>pvfs://MinIO/raw-data/xml/inventory.xml</code></td></tr><tr><td>Loop XPath</td><td><code>/inventory/items/item</code></td></tr><tr><td>Encoding</td><td><code>UTF-8</code></td></tr><tr><td>Ignore comments</td><td>✅</td></tr><tr><td>Validate XML</td><td>No</td></tr><tr><td>Ignore empty file</td><td>✅</td></tr></tbody></table>
-
-> **Note:** **XPath Explanation:**
 >
-> * `/inventory` = Start at root element
-> * `/items` = Navigate to items container
-> * `/item` = Loop over each item element
+> **Get data from XML** reads an XML file and returns one row per node that matches the **Loop XPath**. Each field is an XPath relative to that node.
 
-4. Browse & Add the path to the inventory.xml
-5. Click on the Content tab
+1. From the **Input** folder, drag **Get data from XML** onto the canvas and name it `Read Warehouse XML`.
+2. On the **File** tab, add `pvfs://MinIO/raw-data/xml/inventory.xml` (in **File or directory**, then **Add**).
+3. On the **Content** tab, set **Loop XPath** to `/inventory/items/item`, **Encoding** to `UTF-8`, and select **Ignore comments?**.
 
-<figure><img src="../_assets/images/configure-xpath.png" alt=""><figcaption><p>Configure XPath</p></figcaption></figure>
+<figure><img src="../_assets/images/configure-xpath.png" alt="Get data from XML Content tab with the loop XPath /inventory/items/item"><figcaption><p>One row per item element</p></figcaption></figure>
 
-6. Click on the Fields tab & Get Fields.
-7. Remap the fields & Preview rows.
+> **Note:** `/inventory/items/item` starts at the root element, `inventory`, goes into `items`, and returns one row for each `item` inside it.
 
-> **Note:** **Business Field Naming:**
->
-> * Prefix with `warehouse_` to distinguish from ERP fields later
-> * `warehouse_quantity` vs. `stock_quantity` makes joins clearer
-> * Keep original field names in a data dictionary for auditing
+4. On the **Fields** tab, select **Get Fields**, then rename the fields and set their types. The `warehouse_` prefix keeps them apart from the ERP fields after the join:
 
-| Name                  | XPath         |
-| --------------------- | ------------- |
-| warehouse\_item\_name | name          |
-| warehouse\_quantity   | quantity      |
-| warehouse\_location   | location      |
-| last\_physical\_count | last\_checked |
+| Name                     | XPath          | Type    |
+| ------------------------ | -------------- | ------- |
+| `sku`                    | `sku`          | String  |
+| `warehouse_item_name`    | `name`         | String  |
+| `category`               | `category`     | String  |
+| `warehouse_quantity`     | `quantity`     | Integer |
+| `warehouse_location`     | `location`     | String  |
+| `last_physical_count`    | `last_checked` | Date    |
 
-<figure><img src="../_assets/images/remap-field-names-x26-preview-data.png" alt=""><figcaption><p>Remap field names &#x26; Preview data</p></figcaption></figure>
+<figure><img src="../_assets/images/remap-field-names-x26-preview-data.png" alt="Fields tab with the renamed warehouse fields, and the preview of the items"><figcaption><p>Renamed fields and the preview</p></figcaption></figure>
 
-> **Note:** Next: configure the product catalog input, then join the two streams.
+5. Select **Preview rows**.
+
+> **Success:** Checkpoint: 17 warehouse items.
 
 ### 2. Read Product Catalog
 
@@ -686,7 +379,7 @@ Follow the steps to create the transformation:
 >
 > Rename both sides to one key, sort, then join so that items missing from *either* system still come through.
 
-1. **Select values** `Map Warehouse` after `Read Warehouse XML`: on **Select && Alter** keep `sku` renamed to `product_id`, `warehouse_item_name` renamed to `warehouse_product_name`, and `category`, `warehouse_quantity`, `warehouse_location`, `last_physical_count`.
+1. **Select values** `Map Warehouse` after `Read Warehouse XML`: on **Select & Alter** keep `sku` renamed to `product_id`, `warehouse_item_name` renamed to `warehouse_product_name`, and `category`, `warehouse_quantity`, `warehouse_location`, `last_physical_count`.
 2. **Select values** `Map Product Catalog` after `Read Product Catalog`: rename `product_name` to `erp_product_name` and `stock_quantity` to `erp_quantity`, and keep `product_id`, `category`, `price`, `supplier`, `last_updated`.
 3. **Sort rows** after each: `Sort Warehouse` and `Sort ERP`, both on `product_id`, ascending.
 4. **Merge join** `Full Outer Join`: **First step** `Sort Warehouse`, **Second step** `Sort ERP`, **Join type** `FULL OUTER`, key `product_id` on both sides. Preview: 19 rows: 17 warehouse items plus 2 products only the ERP knows.
@@ -695,7 +388,7 @@ Follow the steps to create the transformation:
 
 | Output field          | Rule                                                                                   |
 | --------------------- | -------------------------------------------------------------------------------------- |
-| `discrepency_type`    | `MISSING_IN_WAREHOUSE` (no warehouse quantity), `MISSING_IN_CATALOG` (no ERP quantity), `MATCH` (within ±2), `OVERSTOCK` or `UNDERSTOCK` |
+| `discrepancy_type`    | `MISSING_IN_WAREHOUSE` (no warehouse quantity), `MISSING_IN_CATALOG` (no ERP quantity), `MATCH` (within ±2), `OVERSTOCK` or `UNDERSTOCK` |
 | `severity_level`      | HIGH for missing in warehouse, or a variance over 20%; MEDIUM otherwise; NONE for a match |
 | `priority_rank`       | 1 for HIGH, 2 for MEDIUM, 3 for the rest                                                |
 | `recommended_action`, `financial_impact`, `excess_carrying_cost`, `lost_sales_risk` | the work-queue text and cost estimates |
@@ -710,10 +403,10 @@ Follow the steps to create the transformation:
 
 1. **Switch / case** `Priority` on `priority_rank` (type Number): `1` to `High Priority`, `2` to `Medium Priority`, `3` to `Low Priority`; default `Medium Priority`.
 2. Three **Text file output** steps, extension `csv`:
-   * `High Priority`: `pvfs://MinIO/staging/reconciliation/urgent_actions` (tick **Include date in filename?** and **Include time in filename?**)
+   * `High Priority`: `pvfs://MinIO/staging/reconciliation/urgent_actions` (select **Include date in filename?** and **Include time in filename?**)
    * `Medium Priority`: `pvfs://MinIO/staging/reconciliation/review_queue` (date and time too)
    * `Low Priority`: `pvfs://MinIO/staging/reconciliation/low_priority`
-3. For the summary, a **Sort rows** on `discrepency_type` from the JavaScript step, then **Group by** `discrepency_type` with the sums of `financial_impact`, `excess_carrying_cost` and `lost_sales_risk` and a distinct count of `product_id`.
+3. For the summary, a **Sort rows** on `discrepancy_type` from the JavaScript step, then **Group by** `discrepancy_type` with the sums of `financial_impact`, `excess_carrying_cost` and `lost_sales_risk` and a distinct count of `product_id`.
 4. Run. In MinIO, `staging/reconciliation/` holds three files:
 
 | File               | Rows | What is in it                                             |
@@ -744,7 +437,7 @@ The Group by previews 5 rows, one per discrepancy type.
 >
 > **Skills:** Multiple joins, JSONL parsing, aggregations, calculated metrics
 
-<figure><img src="../_assets/images/customer-360.png" alt=""><figcaption><p>Customer 360</p></figcaption></figure>
+<figure><img src="../_assets/images/customer-360.png" alt="Customer 360"><figcaption><p>Customer 360</p></figcaption></figure>
 
 > **Note:** **Workshop files**
 >
@@ -775,7 +468,7 @@ The Group by previews 5 rows, one per discrepancy type.
 
 1. **Text file input** `Read Sales`: `pvfs://MinIO/raw-data/csv/sales.csv`, separator `,`, header row, **Get Fields** (`customer_id` Integer, `sale_date` Date, `sale_amount` BigNumber).
 
-<figure><img src="../_assets/images/select-sales-csv-from-vfs-connections.png" alt=""><figcaption><p>Select - sales.csv from VFS connections</p></figcaption></figure>
+<figure><img src="../_assets/images/select-sales-csv-from-vfs-connections.png" alt="Select - sales.csv from VFS connections"><figcaption><p>Select - sales.csv from VFS connections</p></figcaption></figure>
 
 2. **Sort rows** `Sort Customers` on `customer_id`.
 3. **Memory group by** on `customer_id`: `total_orders` = Number of values (`sale_id`), `total_spent` = Sum (`sale_amount`), `first_purchase` = Minimum (`sale_date`), `last_purchase` = Maximum (`sale_date`), `avg_order_value` = Average (`sale_amount`). 15 sales become 12 rows.
@@ -786,7 +479,7 @@ The Group by previews 5 rows, one per discrepancy type.
 ### 3. User events
 
 1. **Text file input** `Read User Events`: `pvfs://MinIO/raw-data/json/user_events.json`, no header, one String field `json_line`, and a separator that never occurs in the data (the solution uses `|||DELIM|||`), so each line arrives whole.
-2. **JSON input** `JSON input`: on **File**, tick **Source is from a previous step** and pick `json_line`. Fields: `event_id` `$.event_id`, `user_id` `$.user_id` (Integer), `event_type` `$.event_type`, `product_id` `$.product_id`, `timestamp` `$.timestamp`.
+2. **JSON input** `JSON input`: on **File**, select **Source is from a previous step** and pick `json_line`. Fields: `event_id` `$.event_id`, `user_id` `$.user_id` (Integer), `event_type` `$.event_type`, `product_id` `$.product_id`, `timestamp` `$.timestamp`.
 3. **Modified JavaScript value** `MJV - Define Events`: one 0/1 flag per event type (`is_page_view`, `is_add_to_cart`, `is_purchase`, `is_checkout`, `is_search`, `is_product_view`), e.g. `var is_page_view = (event_type == "page_view") ? 1 : 0;`
 4. **Sort rows** `Sort Events` on `user_id`, then **Group by** `Group by User` on `user_id`: `total_events` = distinct count of `event_id`, and the Sum of each flag (`page_views`, `cart_additions`, `purchases`, `checkouts`, `searches`, `product_views`). 46 events become 12 rows.
 5. **Sort rows** `Final User Sort` on `user_id`.
@@ -825,7 +518,7 @@ The Group by previews 5 rows, one per discrepancy type.
 >
 > **Skills:** Regex, timestamp parsing, time-series analysis, conditional logic
 
-<figure><img src="../_assets/images/log-analysis.png" alt=""><figcaption><p>Log Analysis</p></figcaption></figure>
+<figure><img src="../_assets/images/log-analysis.png" alt="Log Analysis"><figcaption><p>Log Analysis</p></figcaption></figure>
 
 > **Note:** **Workshop files**
 >
@@ -834,7 +527,7 @@ The Group by previews 5 rows, one per discrepancy type.
 Build `log_analysis_anomaly.ktr`, step by step:
 
 1. **Text file input** `Read App Log`: the log file, no header, one String field `log_line`, and a separator that never occurs (the solution uses `||||`) so each line arrives whole.
-2. **Regex evaluation**: field `log_line`, regular expression `^(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})\s+(\w+)\s+\[([^\]]+)\]\s+(.*)$`, tick **Create fields for capture groups**, capture fields `timestamp_str`, `log_level`, `component`, `message` (String).
+2. **Regex evaluation**: field `log_line`, regular expression `^(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})\s+(\w+)\s+\[([^\]]+)\]\s+(.*)$`, select **Create fields for capture groups**, capture fields `timestamp_str`, `log_level`, `component`, `message` (String).
 3. **Select values**: on **Meta-data**, change `timestamp_str` to `timestamp`, type Timestamp, format `yyyy-MM-dd HH:mm:ss`.
 4. **Calculator**: `log_hour` = **Hour of Day of Date A** (`timestamp`).
 5. **Filter rows** `Filter Errors`: `log_level` CONTAINS `ERROR` OR `log_level` = `WARN`. True to the next step; false to a **Dummy** `All others`. 58 of the 123 lines pass.
@@ -938,64 +631,35 @@ Build `fraud_detection.ktr`, step by step:
 >
 > #### Data Lake Ingestion
 >
-> Modern data lakes often receive the same entities (products, customers, orders) from multiple sources in different formats. This workshop demonstrates how to ingest, normalize, validate, and deduplicate multi-format data into a unified schema - a common data engineering pattern.
+> A data lake often receives the same entities from several sources in different formats. Here the products arrive three ways, as CSV, JSON and XML, and you bring them into one schema: same field names, same order, same types, with each row's source recorded.
 >
-> **Objective:** Combine data from CSV, JSON, and XML into a unified product schema.
->
-> **Skills:** Multi-format parsing, schema normalization, data validation, deduplication
+> **Skills:** three input formats, schema mapping, **Select values** for layout, combining streams
 
 > **Note:** **Workshop files**
 >
 > These files are already in MinIO:
 >
-> * `pvfs://MinIO/raw-data/csv/products.csv`
-> * `pvfs://MinIO/raw-data/json/api_response.json`
-> * `pvfs://MinIO/raw-data/xml/inventory.xml`
+> * `pvfs://MinIO/raw-data/csv/products.csv` (18 products)
+> * `pvfs://MinIO/raw-data/json/api_response.json` (2 orders, one item each)
+> * `pvfs://MinIO/raw-data/xml/inventory.xml` (17 items)
 
-> **Note:** Create a new transformation.
->
-> Use any of these options:
->
-> * Select **File** > **New** > **Transformation**
-> * Use `Ctrl+N` (Windows/Linux) or `Cmd+N` (macOS)
+Create a new transformation (**File > New > Transformation**) and save it as `data_lake_ingestion.ktr`.
 
 :::: tabs
 
-### 1. Define Target Schema
+### 1. Design the schema
 
 > **Note:**
 >
-> #### Define Target Schema
+> #### Inspect first, then decide
 >
-> **Objective:** Design a unified schema that accommodates all source formats.
->
-> **Why Important:** Before ingesting data, you need a clear target schema. This ensures consistency across all sources and makes downstream analytics easier.
-
-<table data-full-width="true"><thead><tr><th width="141">Field</th><th width="109">Type</th><th width="95">Length</th><th width="125">Description</th><th>Source Mapping</th></tr></thead><tbody><tr><td>product_id</td><td>String</td><td>50</td><td>Unique product identifier</td><td>CSV: product_id<br>JSON: product_id<br>XML: sku</td></tr><tr><td>product_name</td><td>String</td><td>200</td><td>Product display name</td><td>CSV: product_name<br>JSON: product_name<br>XML: name</td></tr><tr><td>category</td><td>String</td><td>100</td><td>Product category</td><td>CSV: category<br>JSON: (derived from order type)<br>XML: category</td></tr><tr><td>price</td><td>Number</td><td>15,2</td><td>Unit price in USD</td><td>CSV: price<br>JSON: unit_price<br>XML: null (not available)</td></tr><tr><td>quantity</td><td>Integer</td><td>10</td><td>Available stock quantity</td><td>CSV: stock_quantity<br>JSON: quantity<br>XML: quantity</td></tr><tr><td>source_system</td><td>String</td><td>10</td><td>Origin system identifier</td><td>Constant: 'csv', 'json', or 'xml'</td></tr><tr><td>ingestion_time</td><td>Timestamp</td><td>-</td><td>When record was ingested</td><td>System timestamp</td></tr></tbody></table>
-
-***
-
-> **Note:**
->
-> #### Schema Discovery & Analysis
->
-> **Objective:** Understand each source structure before you design the target schema.
->
-> **Why it matters:** You can’t normalize what you haven’t inspected.
-
-**Step 1.** **Inspect each Data Source**
-
-Use real samples. Avoid guessing field names.
+> You can't normalize what you haven't inspected. Look at a real record from each source, map the fields, and write the decisions down before you build anything.
 
 ::: tabs
 
 ### CSV (products.csv)
 
-**Inspect the file**
-
-Open it in the MinIO console (**raw-data** > `csv/products.csv` > **Download**, or **Preview**).
-
-**Sample**
+Open `csv/products.csv` in the MinIO console (**raw-data** bucket, then **Preview** or **Download**):
 
 ```csv
 product_id,product_name,category,price,stock_quantity,supplier,last_updated
@@ -1003,19 +667,12 @@ P001,Laptop Pro 15,Electronics,1299.99,45,TechSupply Inc,2024-01-15
 P002,Wireless Mouse,Electronics,29.99,230,TechSupply Inc,2024-01-16
 ```
 
-**Findings**
+* All five product fields are there, as `product_id`, `product_name`, `category`, `price` and `stock_quantity`, plus `supplier` and `last_updated`.
+* 18 products, `P001` to `P018`.
 
-* Has `product_id`, `product_name`, `category`, `price`, `stock_quantity` (plus `supplier`, `last_updated`); 18 products.
-* Completeness looks high.
-* Naming is consistent and explicit.
+### JSON (api_response.json)
 
-### JSON (api\_response.json)
-
-**Inspect one nested item**
-
-Open `json/api_response.json` in the MinIO console. Each order has an `items` array; one item:
-
-**Sample**
+Open `json/api_response.json`. Each order has an `items` array; one item:
 
 ```json
 {
@@ -1026,21 +683,14 @@ Open `json/api_response.json` in the MinIO console. Each order has an `items` ar
 }
 ```
 
-**Findings**
-
-* Has `product_id`, and `name` for the product name; 2 orders, one item each.
-* Uses `unit_price` instead of `price`.
-* `quantity` is order quantity, not stock.
-* `category` is missing.
-* Path is `$.data.orders[*].items[*]`.
+* The product name is `name`, and the price is `unit_price`.
+* `quantity` is the quantity *ordered*, not stock.
+* There is no `category`.
+* The items sit at `$.data.orders[*].items[*]`: 2 orders, one item each.
 
 ### XML (inventory.xml)
 
-**Inspect one item node**
-
-Open `xml/inventory.xml` in the MinIO console. Items sit under `/inventory/items/item`:
-
-**Sample**
+Open `xml/inventory.xml`. Items sit under `/inventory/items/item`:
 
 ```xml
 <item>
@@ -1053,249 +703,114 @@ Open `xml/inventory.xml` in the MinIO console. Items sit under `/inventory/items
 </item>
 ```
 
-**Findings**
-
-* Uses `sku` for `product_id`.
-* Uses `name` for `product_name`.
-* Has `category` and warehouse `quantity`.
-* `price` is missing.
-* `location` is extra for a product master.
+* The product id is `sku`, and the name is `name`.
+* `quantity` is the warehouse stock.
+* There is no price.
+* 17 items.
 
 :::
 
-**Step 2.** **Build a field mapping matrix**
+**The field mapping**
 
-This shows name differences and missing fields.
+| Target field     | Type      | CSV              | JSON                     | XML        |
+| ---------------- | --------- | ---------------- | ------------------------ | ---------- |
+| `product_id`     | String    | `product_id`     | `product_id`             | `sku`      |
+| `product_name`   | String    | `product_name`   | `name`                   | `name`     |
+| `category`       | String    | `category`       | none: `E-commerce`       | `category` |
+| `price`          | Number    | `price`          | `unit_price`             | none: null |
+| `quantity`       | Integer   | `stock_quantity` | `quantity` (ordered)     | `quantity` |
+| `source_system`  | String    | `csv`            | `json`                   | `xml`      |
+| `ingestion_time` | Date      | system date      | system date              | system date |
 
-<table data-full-width="true"><thead><tr><th>Unified field</th><th>CSV</th><th>JSON</th><th width="109">XML</th><th>Notes</th></tr></thead><tbody><tr><td>Identifier</td><td><code>product_id</code></td><td><code>product_id</code></td><td><code>sku</code></td><td>Same meaning. Different name in XML.</td></tr><tr><td>Name</td><td><code>product_name</code></td><td><code>product_name</code></td><td><code>name</code></td><td>Same meaning. Different name in XML.</td></tr><tr><td>Category</td><td><code>category</code></td><td>❌</td><td><code>category</code></td><td>Missing in JSON.</td></tr><tr><td>Price</td><td><code>price</code></td><td><code>unit_price</code></td><td>❌</td><td>Different name in JSON. Missing in XML.</td></tr><tr><td>Stock quantity</td><td><code>stock_quantity</code></td><td><code>quantity</code></td><td><code>quantity</code></td><td>JSON <code>quantity</code> is not stock.</td></tr></tbody></table>
+**The decisions**
 
-**What to watch**
+* Names follow the CSV, the product master.
+* A field a source lacks gets a stated default (`category` = `E-commerce` for JSON) or stays null (`price` for XML).
+* `source_system` and `ingestion_time` record where each row came from and when.
+* The same product can arrive from all three sources. `P001` comes from the CSV (price 1299.99, stock 45, Electronics), the JSON (price 1299.99, quantity 1, E-commerce) and the XML (no price, stock 45, Electronics). This workshop keeps all three rows; a later step could keep one per product, preferring the CSV, then the JSON, then the XML.
 
-* Missing data is normal in multi-source ingestion.
-* Same name can mean different things.
-
-**Step 3.** **Make schema decisions**
-
-Write these down. You will forget them later.
-
-**Field names**
-
-* Use CSV naming as the standard.
-* Map XML `sku → product_id` and `name → product_name`.
-* Map JSON `unit_price → price`.
-
-**Missing fields**
-
-* Missing `category` in JSON: set a default like `E-commerce`.
-* Missing `price` in XML: leave `NULL`.
-
-**Data types**
-
-* `product_id`: string. It contains `PROD-` prefix.
-* `product_name`: string. Allow up to 200 chars.
-* `category`: string. Allow up to 100 chars.
-* `price`: decimal(15,2).
-* `quantity`: integer.
-
-**Metadata**
-
-* Add `source_system` for lineage.
-* Add `ingestion_time` for auditability.
-
-**Step 4.** **Define a deduplication rule**
-
-Same `product_id` can appear in multiple sources.
-
-**Example collision**
-
-```
-CSV:  PROD-001, price=999.99, stock_quantity=50, category=Electronics
-JSON: PROD-001, price=999.99, quantity=2,       category=NULL
-XML:  PROD-001, price=NULL,   quantity=50,      category=Electronics
-```
-
-**Recommended rule**
-
-1. Prefer CSV.
-2. Then JSON.
-3. Then XML.
-
-Implement this with `source_priority` (CSV=1, JSON=2, XML=3).
-
-**Step 5.** **Checklist**
-
-* You inspected real records for each source.
-* You captured paths for nested formats.
-* You documented mappings and type choices.
-* You decided how to handle missing data.
-* You decided how to dedupe collisions.
-
-### 2. Ingest Data Sources
+### 2. Ingest the sources
 
 > **Note:**
 >
-> #### Ingest Data Sources
-
-> **Warning:** **Path convention used below:** `pvfs://MinIO/...`
+> #### One branch per source, one layout at the end
 >
-> `MinIO` is the **VFS connection name**. It must match your connection exactly.
+> Each branch reads its source, adds the fields the source lacks, stamps the time, and ends in a **Select values** that lists the seven target fields in the same order. The branches only differ in where each field comes from.
 
-**Step 1.** **Ingest CSV products**
+**CSV branch**
 
-**Goal:** Read `products.csv` and map it to the unified schema.
+1. **Text file input** `Read Products - CSV`: **File or directory** `pvfs://MinIO/raw-data/csv/products.csv`; on **Content**, **Separator** `,` and **Header** selected; on **Fields**, **Get Fields** (`price` BigNumber, `stock_quantity` Integer).
+2. **Add constants** `Add Metadata`: `source_system`, String, `csv`.
+3. **Get system info** `Ingestion Timestamp`: `ingestion_time`, `system date (variable)`.
+4. **Select values** `Map to Schema - CSV`. On **Select & Alter**: `product_id`, `product_name`, `category`, `price`, `stock_quantity` renamed `quantity`, `source_system`, `ingestion_time`. On **Meta-data**: `price`, Type Number.
 
-**Path:** `pvfs://MinIO/raw-data/csv/products.csv`
+**JSON branch**
 
-1. Add a **Text file input** step.
-   * Step name: `Read CSV Products`
-   * File/directory: `pvfs://MinIO/raw-data/csv/products.csv`
-   * Separator: `,`
-   * Enclosure: `"` (double quote)
-   * Header row present: enabled
-2. On **Fields**, select **Get Fields**.
-3. Add a **Select values** step.
-   * Step name: `Map CSV to Target Schema`
-   * Rename `stock_quantity` → `quantity`
-4. Add **Add constants**.
-   * Step name: `Add CSV Metadata`
-   * Add field `source_system` = `csv`
-5. Add **Get System Info**.
-   * Step name: `Add Ingestion Timestamp`
-   * Add field `ingestion_time` = `system date (variable)`
+1. **JSON input** `Read Products - JSON`: on **File**, add `pvfs://MinIO/raw-data/json/api_response.json`; on **Fields**:
 
-**Preview check**
+| Name         | Path                                   | Type    |
+| ------------ | -------------------------------------- | ------- |
+| `product_id` | `$.data.orders[*].items[*].product_id` | String  |
+| `name`       | `$.data.orders[*].items[*].name`       | String  |
+| `quantity`   | `$.data.orders[*].items[*].quantity`   | Integer |
+| `unit_price` | `$.data.orders[*].items[*].unit_price` | Number  |
 
-* Expected rows: `12`
-* `product_id`, `product_name`, `category` should be populated.
+2. **Add constants** `Add Metadata 2`: `source_system`, String, `json`, and `category`, String, `E-commerce`.
+3. **Get system info** `Ingestion Timestamp 2`: `ingestion_time`, `system date (variable)`.
+4. **Select values** `Map to Schema - JSON`, on **Select & Alter**: `product_id`, `name` renamed `product_name`, `category`, `unit_price` renamed `price`, `quantity`, `source_system`, `ingestion_time`.
 
-### Ingest JSON order items
+**XML branch**
 
-**Goal:** Extract product fields from nested JSON order items.
+1. **Get data from XML** `Read Products - XML`: file `pvfs://MinIO/raw-data/xml/inventory.xml`, **Loop XPath** `/inventory/items/item`; fields `sku`, `name` and `category` (String) and `quantity` (Integer), each with the XPath of its own name.
+2. **Add constants** `Add Metadata 3`: `source_system`, String, `xml`, and `price`, Number, with no value (null).
+3. **Get system info** `Ingestion Timestamp 3`: `ingestion_time`, `system date (variable)`.
+4. **Select values** `Map to Schema - XML`, on **Select & Alter**: `sku` renamed `product_id`, `name` renamed `product_name`, `category`, `price`, `quantity`, `source_system`, `ingestion_time`.
 
-**Path:** `pvfs://MinIO/raw-data/json/api_response.json`
+> **Success:** Checkpoint: preview each **Map to Schema** step. The CSV gives 18 rows, the JSON 2 and the XML 17, each with the same seven columns in the same order.
 
-> **Warning:** `quantity` in JSON is **order quantity**, not stock quantity.
->
-> Keep it as `quantity` only if that’s what you want to model.
-
-1. Add a **JSON Input** step.
-   * Step name: `Read JSON Products`
-   * File: `pvfs://MinIO/raw-data/json/api_response.json`
-   * Ignore empty file: enabled
-2. On **Fields**, use **explicit JSONPaths** (recommended):
-   * `product_id`: `$.data.orders[*].items[*].product_id`
-   * `product_name`: `$.data.orders[*].items[*].product_name`
-   * `unit_price`: `$.data.orders[*].items[*].unit_price`
-   * `quantity`: `$.data.orders[*].items[*].quantity`
-
-<details>
-
-<summary>Alternative approach (base path + relative field paths)</summary>
-
-If your PDI build supports a base “Path” for the JSON Input step, set:\n\n- Base path: `$.data.orders[*].items[*]`\n\nThen set field paths relative to the base:\n\n- `product_id`: `product_id`\n- `product_name`: `product_name`\n- `unit_price`: `unit_price`\n- `quantity`: `quantity`\n
-
-</details>
-
-3. Add a **Select values** step.
-   * Step name: `Map JSON to Target Schema`
-   * Rename `unit_price` → `price`
-4. Add **Add constants**.
-   * Step name: `Add JSON Metadata`
-   * `source_system` = `json`
-   * `category` = `E-commerce` (default)
-5. Add **Get System Info**.
-   * Step name: `Add JSON Ingestion Timestamp`
-   * `ingestion_time` = `system date (variable)`
-
-**Preview check**
-
-* Expected rows: `~10–15` (can vary with sample file).
-* `product_name` should not be NULL.
-
-### Ingest XML inventory items
-
-**Goal:** Extract inventory items from XML using XPath.
-
-**Path:** `pvfs://MinIO/raw-data/xml/inventory.xml`
-
-1. Add **Get data from XML**.
-   * Step name: `Read XML Products`
-   * File: `pvfs://MinIO/raw-data/xml/inventory.xml`
-   * Loop XPath: `/inventory/items/item`
-2. On **Fields**, add:
-   * `sku` (String)
-   * `name` (String)
-   * `category` (String)
-   * `quantity` (Integer)
-
-> **Note:** Field XPaths are **relative to the loop node**.
->
-> Example: `sku` means “read the `<sku>` element under each `<item>`”.
-
-3. Add a **Select values** step.
-   * Step name: `Map XML to Target Schema`
-   * Rename `sku` → `product_id`
-   * Rename `name` → `product_name`
-   * Add a new field `price` in **Meta-data** (type `Number`). Leave it empty (NULL).
-4. Add **Add constants**.
-   * Step name: `Add XML Metadata`
-   * `source_system` = `xml`
-5. Add **Get System Info**.
-   * Step name: `Add XML Ingestion Timestamp`
-   * `ingestion_time` = `system date (variable)`
-
-**Preview check**
-
-* Expected rows: `~8–10`
-* If you get `0` rows, re-check the Loop XPath.
-
-### 3. Merge streams
+### 3. Combine
 
 > **Note:**
 >
-> #### Merge Streams
+> #### Three hops into one step
 >
-> **Objective:** Merge all three data streams (CSV, JSON, XML) into one unified stream.
->
-> **Why Append Streams:** This step stacks all rows from different sources vertically - like a SQL UNION ALL.
+> **Append streams** takes only two inputs, a head and a tail. To stack three, hop them all into one step: PDI passes on every row that arrives on any of its input hops, like a SQL `UNION ALL`.
 
-**Configuration:**
+1. From the **Flow** folder, drag **Dummy (do nothing)** onto the canvas and name it `Combine All Products`.
+2. Hop each **Map to Schema** step to it.
+3. Save, then run with **Enable safe mode** selected in **Run Options**, and preview **Combine All Products**.
 
-1. **Add a Dummy (do nothing) step**
-   * **Name**: "Combine All Products"
-   * **Append streams** takes only two inputs (a head and a tail). For three, hop them all into one step: PDI passes on every row that arrives on any hop.
-2. **Connect all three streams** to this step:
-   * "Add Ingestion Timestamp" (CSV branch) → Append streams
-   * "Add JSON Ingestion Timestamp" (JSON branch) → Append streams
-   * "Add XML Ingestion Timestamp" (XML branch) → Append streams
-3. **Important:** All input streams MUST have the same fields with the same names and types:
-   * product\_id (String)
-   * product\_name (String)
-   * category (String)
-   * price (Number) - can be null
-   * quantity (Integer)
-   * source\_system (String)
-   * ingestion\_time (Timestamp)
-
-**Expected Output:**
-
-* Row count: 37 rows (18 CSV + 2 JSON + 17 XML)
-* All products from all sources combined
-* Some products will appear multiple times (duplicates to be handled in Step 7)
-
-**Preview Check:**
-
-```
-product_id   product_name      source_system  price
-P001         Laptop Pro 15     csv            1299.99
-P002         Wireless Mouse    csv            29.99
+```text
+product_id  product_name    category     price    quantity  source_system
+P001        Laptop Pro 15   Electronics  1299.99  45        csv
 ...
-P001         Laptop Pro 15     json           1299.99   <- the same product again
+P001        Laptop Pro 15   E-commerce   1299.99  1         json   <- the same product again
 ...
-P001         Laptop Pro 15     xml            null      <- again, and no price
+P001        Laptop Pro 15   Electronics           45        xml    <- again, and no price
 ```
 
-### 4. Data Validation (extension)
+> **Success:** Checkpoint: 37 rows (18 CSV, 2 JSON, 17 XML), no errors in safe mode, and every value in its own column.
+
+> **Under the hood:**
+>
+> #### A step expects every row to have the same layout
+>
+> A step reads each incoming row by position, using the layout of the
+> first row it received. Rows with a different order or different
+> types still flow, but their values are read as the wrong fields:
+> without the final **Select values**, a JSON row's `quantity` sits
+> where the CSV rows have `category`. Nothing fails; the data is just
+> wrong.
+>
+> **Enable safe mode** makes PDI compare every row with the first and
+> stop at the first difference, with a message such as "you're mixing
+> rows with different layout. Field [category String] does not have
+> the same name as field [quantity Integer]".
+>
+> **Why it matters:** whenever streams meet, give them one layout first,
+> and use safe mode while you build.
+
+### 4. Validate (extension)
 
 > **Note:**
 >
@@ -1305,13 +820,12 @@ P001         Laptop Pro 15     xml            null      <- again, and no price
 
 1. Add a **Data validator** step after **Combine All Products** and name it `Validate Product Data`.
 2. Add validations: `product_id` and `product_name` must not be null or empty; `price` must be at least 0, with null allowed (the XML feed has no price).
-3. Right-click the step, choose **Error Handling...**, and send the error rows to a **Text file output** `Write Error Records`: `pvfs://MinIO/curated/products/errors/validation_errors`, extension `csv`, **Include date in filename?** ticked. Give the error descriptions field a name such as `validation_errors`.
+3. Right-click the step, choose **Error Handling...**, and send the error rows to a **Text file output** `Write Error Records`: `pvfs://MinIO/curated/products/errors/validation_errors`, extension `csv`, **Include date in filename?** selected. Give the error descriptions field a name such as `validation_errors`.
 4. Rows that pass carry on from the validator's normal hop; write them on to `pvfs://MinIO/curated/products/`.
 
 > **Note:** **Data validator** routes failing rows through its error hop; there is no "validation result" field on the good rows to filter on.
 
 ::::
-
 ***
 
 > **Note:** **Workshop files**

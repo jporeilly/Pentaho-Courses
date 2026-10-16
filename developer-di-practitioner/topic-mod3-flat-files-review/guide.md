@@ -8,14 +8,33 @@ The bread and butter of any pipeline. You'll cover the four formats you'll see m
 
 > **Note:**
 >
-> #### **Flat Files**
-> 
-> **Structured flat files** are the most common type used in data integration, containing data organized in a consistent, predictable format with clearly defined fields and delimiters. Examples include **CSV (Comma-Separated Values)** files where each row represents a record and columns are separated by commas (e.g., `CustomerID,Name,Email,Purchase_Date`), **TSV (Tab-Separated Values)** files that use tabs as delimiters, and **fixed-width files** where each field occupies a specific number of characters (common in legacy mainframe systems). These files are ideal for Pentaho transformations because their predictable structure makes them easy to parse, with each row mapping directly to a database record and each column corresponding to a specific field. 
-> 
-> **Unstructured flat files**, by contrast, contain free-form text without any predefined schema or organization, such as plain text documents, email bodies, or raw application log files that lack consistent formatting - these require more sophisticated text parsing and natural language processing techniques to extract meaningful data.
+> #### **Flat files**
+>
+> A flat file holds data as text in a single file, with no database around it. Flat files come in four kinds.
 
-![Flat Files](../_assets/images/flat-files.png)
+* **Structured** - a consistent, predictable layout with defined fields and delimiters. The most common in data integration, and the easiest for PDI: each row maps to a record and each column to a field.
+  * **CSV** (comma-separated values), e.g. `CustomerID,Name,Email,Purchase_Date`
+  * **TSV** (tab-separated values)
+  * **Fixed-width**, where each field takes a set number of characters - common in legacy mainframe systems
+* **Semi-structured** - some structure, but not a database's rigid schema. Self-describing and flexible, which is why APIs and web services use them.
+  * **JSON** (JavaScript Object Notation): key-value pairs and nested objects, e.g. `{"customer": {"id": 123, "orders": [{"item": "laptop", "price": 899}]}}`
+  * **XML** (eXtensible Markup Language): hierarchical tags
+* **Unstructured** - free-form text with no schema: documents, email bodies, raw application logs. Getting data out of them takes text parsing or natural language processing.
+* **Metadata** - information about the data: header rows with column names, schema definitions with types and constraints, notes on where a file came from.
 
-> **Note:** **Semi-structured flat files** occupy a middle ground, containing data with some organizational structure but without the rigid schema of databases or structured files. The most prominent examples are **JSON (JavaScript Object Notation)** files, which use key-value pairs and nested objects (e.g., `{"customer": {"id": 123, "orders": [{"item": "laptop", "price": 899}]}}`), and **XML (eXtensible Markup Language)** files that use hierarchical tags to define data relationships. These formats are self-describing and flexible, making them popular for APIs, web services, and modern application data exchange. 
-> 
-> **Metadata in flat files** refers to descriptive information about the data itself - this can include header rows that define column names in CSV files, schema definitions that specify data types and constraints, file-level documentation about data source and creation date, or embedded comments that explain field meanings. In Pentaho, understanding and properly handling metadata is crucial for accurate data mapping, as it helps define how the ETL process should interpret field types (string vs. integer vs. date), handle null values, and validate data quality during transformation steps.
+<figure>
+
+![Flat file kinds: structured, semi-structured and unstructured, with examples](../_assets/images/flat-files.png)
+
+<div align="center">
+<figcaption><em>The kinds of flat file</em></figcaption>
+</div>
+</figure>
+
+> **Under the hood:**
+>
+> #### PDI reads the metadata first
+>
+> Before a file step reads a single row, it settles each field's name, type and format - from a header row, from **Get Fields** (which samples the file and guesses), or from what you type in. Every value is then converted as it is read, so a date that doesn't match its format fails in the input step, where the log names it, rather than three steps later.
+>
+> **Why it matters:** most flat-file problems are metadata problems: a wrong delimiter, a date format, a number with a thousands separator. Check the field list before you blame the data.

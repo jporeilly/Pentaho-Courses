@@ -4,7 +4,7 @@
 >
 > #### Workshop - Parameters
 > 
-> A transformation that reads "the cancelled orders" is a one-off. Give it a **named parameter** and the same file reads whichever order status you ask for: from Spoon, from the command line, or from a job.
+> A transformation that reads "the canceled orders" is a one-off. Give it a **named parameter** and the same file reads whichever order status you ask for: from Spoon, from the command line, or from a job.
 > 
 > **What you'll do**
 > 
@@ -13,18 +13,15 @@
 > * Run with the default, then with another value
 > * Pass the value from the command line with Pan
 > 
-> **Prerequisites:** **[Reading from a Database](../13-mod3-reading-from-a-database/guide.md)** and the `MySQL:sampledata` connection from **[Database Connections](../12-mod3-connecting-to-database/guide.md)**.
+> **Prerequisites:** [Review Parameters](../topic-mod5-parameters-and-variables-review/guide.md); [Reading from a Database](../13-mod3-reading-from-a-database/guide.md) and the `MySQL:sampledata` connection from [Connecting to Database](../12-mod3-connecting-to-database/guide.md)
 > 
-> **Estimated time:** 15 minutes
+> **Estimated time:** 20 minutes
 
 <div class="pcm-embed-card" data-href="https://www.loom.com/share/6b3348c091764d08806280206bd53434?hideEmbedTopBar=true&amp;hide_owner=true&amp;hide_share=true&amp;hide_title=true" data-title="Defining Parameters in Transformations for Effective Data Management 📊" data-description="In this video, I demonstrate how to define parameters within a transformation using Spoon, highlighting their role as local variables compared to global variables. I walk you through viewing the current parameters and variables in memory, and I create two parameters: one for the delimiter character and another for the output file's extension. It's crucial to provide default values and descriptions for these parameters to avoid potential issues. I also explain how a parameter can override a variable if they share the same name. Please pay attention to these concepts, as they will be applied in the next demonstration video." data-thumb="../_assets/embeds/2d94cd73b9b2.png"></div>
 
 > **Note:** **Create a new transformation**
 > 
-> Use any of these options to open a new transformation tab:
-> 
-> * Select **File** > **New** > **Transformation**
-> * Use `Ctrl+N` (Windows/Linux) or `Cmd+N` (macOS)
+> Start Spoon, select **File > New > Transformation** (or press `Ctrl+N`, `Cmd+N` on macOS), and save it as `tr_parameters_variables_orders.ktr` in the lab folder, `C:\Workshop-DI-Practitioner\05-enterprise-solution\03-parameters\34-mod5-parameters`.
 >
 > Or open your **Reading from a Database** transformation and save it as `tr_parameters_variables_orders.ktr`: the solution follows the query with the same Calculator, Number range, Sort rows and Select values pattern, and only the query changes.
 
@@ -70,7 +67,7 @@
 
 ### 2. Use it in the query
 
-1. Drag **Table input** onto the canvas and double-click it.
+1. From the **Input** folder, drag **Table input** onto the canvas and double-click it.
 2. Set **Connection** to `MySQL:sampledata`.
 3. Enter the query:
 
@@ -87,8 +84,10 @@ FROM ORDERS
 WHERE STATUS = '${STATUS}'
 ```
 
-4. Tick **Replace variables in script?**
-5. Select **Preview**: 6 rows, the cancelled orders.
+4. Select **Replace variables in script?**
+5. Select **Preview**.
+
+> **Success:** Checkpoint: 6 rows, the canceled orders.
 
 > **Warning:** The quotes are yours. `${STATUS}` is replaced as plain text, so `'${STATUS}'` becomes `'Cancelled'`. Leave the quotes out and MySQL receives `WHERE STATUS = Cancelled`, a column name, and the query fails.
 
@@ -96,7 +95,7 @@ WHERE STATUS = '${STATUS}'
 >
 > #### `${}` is text substitution, done before the query is prepared
 >
-> With **Replace variables in script?** ticked, Table input rewrites the
+> With **Replace variables in script?** selected, Table input rewrites the
 > SQL text first, swapping each `${NAME}` for its value, and only then
 > hands the finished statement to the driver. The database never sees
 > a parameter; it sees `WHERE STATUS = 'Cancelled'`.
@@ -116,7 +115,9 @@ WHERE STATUS = '${STATUS}'
 1. Select **Run** (or press `F8`, **Run Options...**).
 2. In the **Run Options** dialog, open the **Parameters** tab. `STATUS` is listed with its default.
 3. Set its **Value** to `On Hold`, and select **Run**.
-4. In **Execution Results** > **Step Metrics**, **Table input** wrote 4 rows: the orders on hold.
+4. Open **Step Metrics** in **Execution Results**.
+
+> **Success:** Checkpoint: **Table input** wrote 4 rows, the orders on hold.
 
 Leave the value empty and the run uses the default again (6 rows). The other statuses in Steel Wheels are `Shipped` (303), `In Process` (6), `Resolved` (4) and `Disputed` (3).
 

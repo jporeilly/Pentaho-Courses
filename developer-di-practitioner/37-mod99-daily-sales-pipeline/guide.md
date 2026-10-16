@@ -14,9 +14,9 @@ scheduling, and scaling.
 
 > **Objectives:**
 >
-> - Build a parameterised PDI **job** that ingests three data sources, validates them, enriches with master data, and loads a fact + dimension table.
+> - Build a parameterized PDI **job** that ingests three data sources, validates them, enriches with master data, and loads a fact + dimension table.
 > - Demonstrate **production-readiness**: error handling, logging, parameters, scheduled execution.
-> - Produce a complete artefact you can show in interviews ("I built this for my Practitioner course accreditation").
+> - Produce a complete artifact you can show in interviews ("I built this for my Practitioner course accreditation").
 >
 > **Estimated time:** 90-120 minutes for a clean, well-named solution. Re-shape and revisit as you'd like.
 
@@ -38,7 +38,7 @@ environment.
 | --- | --- | --- |
 | `sales_20260101.csv` | Yesterday's orders (40 rows, 3 with intentionally missing keys for the validation step) | **Text File Input** — header row, comma delimiter |
 | `customers.json` | Customer master (20 rows under `$.customers[*]`) | **JSON Input** — field paths under `$.customers[*]` |
-| `products.csv` | Product catalogue (13 SKUs across 4 categories) | **Text File Input** — header row, comma delimiter |
+| `products.csv` | Product catalog (13 SKUs across 4 categories) | **Text File Input** — header row, comma delimiter |
 | `regions.csv` | Region reference (5 regions) | **Text File Input** — header row, comma delimiter |
 
 Three of the sales rows have intentionally missing keys (two missing
@@ -47,14 +47,14 @@ validation step something real to catch.
 
 ---
 
-## Required behaviour
+## Required behavior
 
 Build a job (`.kjb`) that runs the following stages, end to end.
 Each numbered stage maps to a module in the course — the capstone is
 explicit about which skills it's exercising so you can double-check
 yourself.
 
-### 1. Parameterise the run *(Module 1)*
+### 1. Parameterize the run *(Module 1)*
 
 Create a `kettle.properties` (or transformation parameters) for:
 
@@ -246,7 +246,7 @@ workshop's MySQL (`stg_orders`, `stg_customers`, `stg_products`, through
 one connection named `capstone`), and the fact build reads them back. A
 job holds a single "rows to result" set, so three stagings cannot hand
 their rows to one transformation that way; tables can. Every diagram
-below uses the same colours:
+below uses the same colors:
 
 <figure><img src="../_assets/images/capstone-legend.png" alt="Legend: read, validate, enrich, dimension, write, rejects, log and job-entry steps by colour"><figcaption><p>How to read the diagrams</p></figcaption></figure>
 
@@ -318,7 +318,7 @@ Runs **before** the fact, so the fact can carry the region's key.
 
 ### `stage_all.kjb`
 
-A sub-job whose START has **Run Next Entries in Parallel** and three **Transformation** entries, each with **Pass parameter values to sub transformation** ticked. The parent moves on only when all three have finished; a failure in any one fails the sub-job.
+A sub-job whose START has **Run Next Entries in Parallel** and three **Transformation** entries, each with **Pass parameter values to sub transformation** selected. The parent moves on only when all three have finished; a failure in any one fails the sub-job.
 
 <figure><img src="../_assets/images/capstone-stage-all-job.png" alt="stage_all.kjb: START running stage_orders, stage_customers and stage_products in parallel, failures to Abort job"><figcaption><p>stage_all.kjb</p></figcaption></figure>
 
@@ -346,7 +346,7 @@ write_summary.ktr
 Success
 ```
 
-The job declares the same three parameters as the transformations, with the same defaults, and every Transformation entry has **Pass parameter values to sub transformation** ticked, so a Kitchen `-param:` override reaches every step. The sub-job is what lets the three staging transformations run together and still be followed by one `maintain_dim_region.ktr`. Running them one after another in the main job (as in **8. Job orchestration**) is just as valid, and simpler.
+The job declares the same three parameters as the transformations, with the same defaults, and every Transformation entry has **Pass parameter values to sub transformation** selected, so a Kitchen `-param:` override reaches every step. The sub-job is what lets the three staging transformations run together and still be followed by one `maintain_dim_region.ktr`. Running them one after another in the main job (as in **8. Job orchestration**) is just as valid, and simpler.
 
 On any **failure** hop: Mail step → notify ops, then Abort job.
 

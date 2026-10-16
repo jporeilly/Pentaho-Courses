@@ -901,7 +901,7 @@ no productname matches that price
       </field>
       <field>
         <name>max_price</name>
-        <type>String</type>
+        <type>Integer</type>
         <format/>
         <currency/>
         <decimal/>

@@ -4,44 +4,45 @@
 >
 > #### Workshop - Database Join
 > 
-> Searching for information in databases, text files, and web services is a common task. The Database Join step is not actually a join — it runs a series of queries against a table based on set conditions, which carries a performance cost.
-> 
-> In this workshop, you query the Products table to return products listed below a set buy price.
+> **Database join** runs a query for each row in the stream, with values from that row as its parameters, and adds the query's results to the row. It doesn't join two tables in the database; it joins a stream to a query result.\
+> In this workshop, three search rows find products in the `PRODUCTS` table below a maximum buy price.
 > 
 > **What you'll do**
 > 
-> * Provide static input rows with Data grid
-> * Query a database per row with Database Join
-> * Run the transformation and preview the result
+> * Provide search rows with **Data grid**
+> * Query the database once per row with **Database join**
+> * See an outer join keep a row with no match, and one row return several
 > 
-> **Prerequisites:** Understanding of basic transformation concepts (steps, hops, preview). Pentaho Data Integration installed and configured.
+> **Prerequisites:** [Review Joins](../topic-mod4-joins-review/guide.md); the `MySQL:sampledata` connection from [Connecting to Database](../12-mod3-connecting-to-database/guide.md)
 > 
 > **Estimated time:** 20 minutes
 
-![Database Join](../_assets/images/database-join-2.png)
+<figure>
 
-<figure><img src="../_assets/images/database-join.png" alt=""><figcaption><p>Database Join</p></figcaption></figure>
+![The finished transformation: the Data grid "some conditions" hopped to Database join](../_assets/images/database-join-2.png)
+
+<div align="center">
+<figcaption><em>What you build</em></figcaption>
+</div>
+</figure>
+
+<figure><img src="../_assets/images/database-join.png" alt="Pentaho Data Integration title card: Database Join"><figcaption><p>Database Join</p></figcaption></figure>
 
 > **Note:** **Create a new transformation**
 > 
-> Use any of these options to open a new transformation tab:
-> 
-> * Select **File** > **New** > **Transformation**
-> * Use `Ctrl+N` (Windows/Linux) or `Cmd+N` (macOS)
+> Select **File > New > Transformation**, or press `Ctrl+N` (`Cmd+N` on macOS). Save it as `tr_database_join.ktr` in the lab folder, `C:\Workshop-DI-Practitioner\04-enriching-the-dataset\02-joins\22-mod4-database-join`.
 
 :::: tabs
 
-### 1. Data Grid
+### 1. Data grid
 
 > **Note:**
 >
 > #### Data grid
 > 
-> The Data grid step allows you to enter a static list of rows in a grid. This is usually done for testing, reference or demo purposes.
+> **Data grid** holds rows typed into the step itself: handy for tests, reference values and demonstrations. Here each row is one search.
 
-1. Start Pentaho Data Integration (Spoon).
-
-> **Note:** 
+1. Start Spoon.
 
 ::: tabs
 
@@ -69,96 +70,98 @@
 
 <button data-launch="spoon" data-path="">Start PDI</button>
 
-2. Drag the Data grid step onto the canvas.
-3. Open the Data grid properties dialog box.
-4. Ensure the following details are configured, as outlined below:
+2. From the **Input** folder, drag **Data grid** onto the canvas and name it `some conditions`.
+3. On the **Meta** tab, add `prod` (String) and `max_price` (Integer). On the **Data** tab, enter three rows:
 
-<div><figure><img src="../_assets/images/dg-database-join.png" alt=""><figcaption><p>Data grid - Meta</p></figcaption></figure> <figure><img src="../_assets/images/dg-database-join-data.png" alt=""><figcaption><p>Data grid - Data</p></figcaption></figure></div>
+| prod           | max_price |
+| -------------- | --------- |
+| `Aston Martin` | 90        |
+| `Ford Falcon`  | 70        |
+| `Corvette`     | 70        |
 
-### 2. Database Join
+<div><figure><img src="../_assets/images/dg-database-join.png" alt="Data grid Meta tab with prod String and max_price Integer"><figcaption><p>Meta tab</p></figcaption></figure> <figure><img src="../_assets/images/dg-database-join-data.png" alt="Data grid Data tab with the three search rows"><figcaption><p>Data tab</p></figcaption></figure></div>
+
+4. Select **OK**.
+
+### 2. Database join
 
 > **Note:**
 >
-> #### Database Join
+> #### Database join
 > 
-> The Database Join step allows you to run a query against a database using data obtained from previous steps. The parameters for this query are specified as follows:
-> 
-> * The data grid in the step properties dialog. This allows you to select the data coming in from the source hop.
-> * As question marks (?) in the SQL query. When the step runs, these will be replaced with data coming in from the fields defined from the data grid. The question marks will be replaced in the same order as defined in the data grid.
+> The query's parameters are question marks (`?`) in the SQL. For each row, **Database join** replaces them, in order, with the fields listed in **The parameters to use**.
 
-1. Drag the Database Join step onto the canvas.
-2. Open the Database Join properties dialog box.
-3. Ensure the following details are configured, as outlined below:
+1. From the **Lookup** folder, drag **Database join** onto the canvas and hop **some conditions** to it.
+2. Double-click the step and set **Connection** to `MySQL:sampledata` and the **SQL** to:
 
-<figure><img src="../_assets/images/database-join-step.png" alt="" width="563"><figcaption><p>Database join</p></figcaption></figure>
+   ```sql
+   SELECT PRODUCTNAME
+        , PRODUCTSCALE
+        , BUYPRICE
+   FROM   PRODUCTS
+   WHERE  PRODUCTNAME LIKE concat('%',?,'%')
+   AND    BUYPRICE < ?
+   ```
 
-> **Note:** The ‘Parameter fieldname’ is where you specify the parameters, therefore the values, for the conditions. Each row in the grid represents a comparison between a column in the table, and a field in your stream, by using one of the provided comparators.
-> 
-> **LIKE** matches values. You can't alias a column in the select clause and then use it in the where clause
-> 
-> The question marks you type in the SQL statement represent parameters. The purpose of these parameters is to be replaced with the fields you provide in ‘Parameter fieldname’. For each row in the stream, the Database join step replaces the parameters in the same order as they are in the grid, and executes the SQL statement.
-> 
-> So, let’s look at the WHERE conditions entered:
-> 
-> PRODUCTNAME LIKE concat('%', prod, '%') and BUYPRICE < max\_price
-> 
-> For the first record this translates as:
-> 
-> WHERE PRODUCTNAME LIKE concat ('%','Aston Martin','%') AND BUYPRICE < 90
-> 
-> As the **Outer join?** option is ticked, an input row whose query returns nothing is still passed on, with nulls for the returned fields (like a LEFT OUTER JOIN from the stream to the query result).
-> 
-> <img src="../_assets/images/outer-join.jpg" alt="" data-size="original">
-> 
-> The table dataset A is then compared with the stream dataset B. If there’s a match, then values for PRODUCTNAME and PRODUCTSCALE are returned.
-> 
-> *This is not a database join. Instead of joining tables in a database, you are joining the result of a database query with a dataset.*
-> 
-> For the second record:
-> 
-> WHERE PRODUCTNAME LIKE concat ('%','Ford Falcon','%') AND BUYPRICE < 70
-> 
-> As there is no record, NULL values are returned for:
-> 
-> PRODUCTNAME and PRODUCTSCALE.
-> 
-> So far, the results could be achieved using a Database Lookup step. However, there is a significant difference, as illustrated with the third row. For Corvette, the Database join found two matching rows in the database, and retrieved them both. Not possible with a Database lookup step.
+3. Keep **Number of rows to return** at `0` (all of them) and select **Outer join?**.
+4. Under **The parameters to use**, add `prod` (String) and then `max_price` (Integer): the first `?` gets `prod`, the second `max_price`.
 
-### 3. RUN
+<figure><img src="../_assets/images/database-join-step.png" alt="Database join with the SELECT on PRODUCTS, Outer join selected and the parameters prod and max_price" width="563"><figcaption><p>Two markers, two parameters, in order</p></figcaption></figure>
+
+5. Select **OK**.
+
+> **Note:** **What each row runs**
+> 
+> For the first row, the query becomes `... WHERE PRODUCTNAME LIKE concat('%','Aston Martin','%') AND BUYPRICE < 90`. The other two rows run the same query with their own values. **LIKE** with `%` on both sides matches the name anywhere in `PRODUCTNAME`.
+> 
+> **Outer join?** keeps an input row whose query finds nothing, with nulls for the returned fields: the stream-side rows are always kept, as in a left outer join from the stream to the query result.
+
+### 3. Run
 
 > **Note:**
 >
 > #### Run the transformation
 > 
-> A Database Join involves running a bunch of queries with conditions against a table. Useful when you're expecting to return a few records.
+> Run it and look at what each search row returned.
 
-1. Click the Run button in the Canvas Toolbar.
-2. Click on the Preview tab:
+1. Save the transformation, select **Run** in the toolbar, then **Run** in **Run Options**.
+2. Select **Database join**, then the **Preview data** tab in **Execution Results**.
 
-<figure><img src="../_assets/images/results-1.png" alt=""><figcaption><p>Results</p></figcaption></figure>
+<figure><img src="../_assets/images/results-1.png" alt="Preview data: Aston Martin with one product, Ford Falcon with nulls, and Corvette products"><figcaption><p>One search row can return several rows</p></figcaption></figure>
 
-> **Note:** Note that there is more than one Corvette product. The database join is querying the table to return all the values, even NULL.
+> **Success:** Checkpoint: 5 rows from 3 searches.
+>
+> | prod           | PRODUCTNAME                          | BUYPRICE |
+> | -------------- | ------------------------------------ | -------- |
+> | `Aston Martin` | 1965 Aston Martin DB5                | 65.96    |
+> | `Ford Falcon`  | (null)                               | (null)   |
+> | `Corvette`     | 1957 Corvette Convertible            | 69.93    |
+> | `Corvette`     | 1958 Chevy Corvette Limited Edition  | 15.91    |
+> | `Corvette`     | 2002 Chevy Corvette                  | 62.11    |
+
+> **Note:** The screenshot shows two Corvettes: it was taken against an older copy of the data. In the lab database the 1957 Corvette Convertible's buy price, 69.93, is also under 70.
+
+> **Note:** **Database join or Database lookup?** A database lookup returns at most one row per input row. Database join returns every row the query finds: Corvette's three matches become three output rows. If you expect one match per row, [Database Lookups](../26-mod4-database-lookups/guide.md) is the simpler step.
 
 > **Under the hood:**
 >
 > #### One prepared statement, executed once per row
 >
-> **Database join** compiled your `SELECT ... WHERE PRODUCTNAME LIKE ?
+> **Database join** compiled your `SELECT ... WHERE PRODUCTNAME LIKE ...
 > AND BUYPRICE < ?` once, at start-up, as a JDBC prepared statement.
-> For each incoming row it then bound that row's `prod` and
-> `max_price` to the two markers — in grid order — and executed it.
-> Every result row the database returned was appended to a copy of the
-> input row; with **Outer join** ticked, zero results still produced
-> one row with nulls, which is why Ford Falcon came through at all.
->
-> So three input rows meant three round trips, and Corvette's two
-> matches became two output rows from one input. That fan-out is the
-> feature; the round trip per row is the price.
+> For each incoming row it then bound that row's `prod` and `max_price`
+> to the two markers, in grid order, and executed it. Every result row
+> the database returned was added to a copy of the input row; with
+> **Outer join?** selected, no results still produced one row with
+> nulls, which is why Ford Falcon came through at all. Three input rows
+> meant three round trips, and Corvette's three matches became three
+> output rows from one input. That fan-out is the feature; the round
+> trip per row is the price.
 >
 > **Why it matters:** with a handful of driving rows this is the
 > simplest way to enrich from a query. With a million, it is a million
-> queries — at that scale, read both sides with **Table input** and
-> use **Merge join**, or put the join in the SQL.
+> queries: at that scale, read both sides with **Table input** and use
+> **Merge join**, or put the join in the SQL.
 
 ::::
 

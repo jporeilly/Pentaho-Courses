@@ -1,38 +1,40 @@
-# Create DB table
+# Writing to a Database
 
 > **Warning:**
 >
-> #### Workshop - Create DB table
+> #### Workshop - Writing to a Database
 > 
-> Create a table from a stream definition.\
-> Load rows into that table in the same run.
+> Load a CSV file into a table that doesn't exist yet: **Table output** writes the `CREATE TABLE` for you, from the stream's own fields.\
+> Then load a second file the same way. A later workshop uses that table.
 > 
 > **What you’ll do**
 > 
-> * Read a delimited file into a stream
-> * Map stream fields to table columns
-> * Generate and run `CREATE TABLE` SQL from **Table Output**
-> * Insert rows with commit and batch settings
+> * Read a delimited file with **CSV file input**
+> * Map stream fields to table columns in **Table output**
+> * Generate and run the `CREATE TABLE` with the **SQL** button
+> * Insert rows, with the commit size, truncate and batch settings
 > 
 > **Prerequisites**
 > 
-> * A working database connection. See **[Database Connections](../12-mod3-connecting-to-database/guide.md)**.
+> * The `MySQL:sampledata` connection from [Connecting to Database](../12-mod3-connecting-to-database/guide.md)
 > * Basic understanding of tables and SQL data types
 > 
-> **Estimated time:** 30 minutes
+> **Estimated time:** 35 minutes
 
 <div class="pcm-embed-card" data-href="https://www.loom.com/share/ebcc69cd2a9347f8bec1620259952df7?hideEmbedTopBar=true&amp;hide_owner=true&amp;hide_share=true&amp;hide_title=true" data-title="Loading Sales Data into a Database Table 📊" data-description="In this video, I walk you through the process of loading sales data from a delimited text file into a new database table using Spoon. We connect to our repository, create a transformation, and configure the CSV file input step to read the sales data. After setting up the table output step and executing the transformation, we successfully inserted 2,823 records into the new table. I also demonstrate how to verify the data loaded correctly by checking the row count in the table. Please ensure to follow along with the steps to replicate this process effectively." data-thumb="../_assets/embeds/2d94cd73b9b2.png"></div>
 
-![Create databases](../_assets/images/create-db.png)
+<figure>
 
-> **Note:**
->
-> ### Create a new transformation
+![The finished transformation: CSV Input hopped to stg_sales_data, and orders hopped to stg_orders_merged](../_assets/images/create-db.png)
+
+<div align="center">
+<figcaption><em>What you build: two independent loads in one transformation</em></figcaption>
+</div>
+</figure>
+
+> **Note:** **Create a new transformation**
 > 
-> Use any of these options to open a new transformation tab:
-> 
-> * Select **File** > **New** > **Transformation**
-> * Use `Ctrl+N` (Windows/Linux) or `Cmd+N` (macOS)
+> Select **File > New > Transformation**, or press `Ctrl+N` (`Cmd+N` on macOS). Save it as `tr_write_database.ktr` in the lab folder, `C:\Workshop-DI-Practitioner\03-data-sources\02-databases\14-mod3-writing-to-a-database`, next to `sales_data.csv` and `orders.txt`.
 
 ::::: tabs
 
@@ -40,30 +42,21 @@
 
 > **Note:**
 >
-> #### **Load Sales Data**
+> #### Load the sales data
 > 
-> Load sales data from a CSV file into `STG_SALES_DATA`.
-> 
-> Adjust field lengths to avoid truncation.
+> Load `sales_data.csv`, 2,823 order lines, into a new table, `STG_SALES_DATA`.
 
-<figure><img src="../_assets/images/load-sales-data.png" alt="" width="277"><figcaption><p>Load sales data</p></figcaption></figure>
-
-Follow the steps outlined below:
+<figure><img src="../_assets/images/load-sales-data.png" alt="CSV Input hopped to the stg_sales_data Table output step" width="277"><figcaption><p>Workflow 1</p></figcaption></figure>
 
 :::: tabs
 
-### 1. CSV File Input
+### 1. CSV file input
 
-> **Note:** **CSV File Input**
+> **Note:** **CSV file input**
 > 
-> Read a delimited file into a stream.\
-> Use **Text File Input** if you need more format options.
+> **CSV file input** reads a delimited file fast, with fewer options than **Text file input**.
 
-1. Start Pentaho Data Integration.
-
-> **Note:** **Start Spoon**
-> 
-> 
+1. Start Spoon.
 
 ::: tabs
 
@@ -91,104 +84,110 @@ Follow the steps outlined below:
 
 <button data-launch="spoon" data-path="">Start PDI</button>
 
-2. Drag the CSV file input step onto the canvas.
-3. Open the CSV file input properties dialog box.
+2. From the **Input** folder in the **Design** tab, drag **CSV file input** onto the canvas.
+3. Double-click the step and set:
+   * **Step name**: `csvi-sales_data`
+   * **Filename**: `${Internal.Entry.Current.Directory}/sales_data.csv`
+   * **Delimiter**: `,` (comma)
+   * **Lazy conversion?**: clear
+   * **Header row present?**: select
+4. Select **Get Fields**, then **OK** in **Sample size**. PDI reads that many lines and fills in the fields, with a type and length for each. Close the **Scan results**.
 
-Configure these key fields:
+> **Danger:** **Get Fields** guesses each string's length from the sample, and the table you generate inherits the guess. In `sales_data.csv` three guesses are too short. Set **Length** for `CUSTOMERNAME` to 40, `ADDRESSLINE1` to 50 and `STATE` to 20, or longer (the longest values are 34, 42 and 13 characters). Otherwise the table is created too narrow and the load stops with "Data too long for column".
 
-* **Step name:** `csvi-sales_data`
-* **File name:** `${Internal.Transformation.Filename.Directory}/sales_data.csv`
-* **Delimiter:** `,` (comma)
-* **Lazy conversion:** clear
-* **Header row present:** select
+<figure><img src="../_assets/images/csv-sales.png" alt="CSV file input with sales_data.csv, comma delimiter, header row and 24 fields"><figcaption><p>sales_data.csv, 24 fields</p></figcaption></figure>
 
-> **Note:** If `${Internal.Transformation.Filename.Directory}` is empty, save the transformation first.
+5. Select **OK**.
 
-> **Danger:** CSV File Input infers field lengths from a sample.\
-> Increase string lengths before you generate table DDL.\
-> In `sales_data.csv` the sample guesses too short for three fields: set **CUSTOMERNAME** to 40, **ADDRESSLINE1** to 50 and **STATE** to 20 (the longest values are 34, 42 and 13 characters). Otherwise the table is created too narrow and the load stops with "Data too long for column".
+> **Note:** The screenshot shows the step name `CSV Input` and longer lengths than the minimums above; both work. The fields' **Currency** column shows the symbol for your computer's locale.
 
-4. Ensure the following details are configured, as outlined below:
+### 2. Table output
 
-<figure><img src="../_assets/images/csv-sales.png" alt=""><figcaption><p>CSV file input</p></figcaption></figure>
-
-5. Click on the Get Fields button.
-6. Select **OK**.
-
-### 2. Table Output
-
-> **Note:** **Table Output**
+> **Note:** **Table output**
 > 
-> Load rows into a database table.\
-> This step uses SQL `INSERT`.
+> **Table output** inserts each row into a database table with an SQL `INSERT`.
 
-1. Drag the Table Output step onto the canvas.
-2. Open the Table Output properties dialog box. Ensure the following details are configured, as outlined below:
+1. From the **Output** folder, drag **Table output** onto the canvas.
+2. Hop **csvi-sales_data** to **Table output**.
+3. Double-click the step and set:
+   * **Step name**: `stg_sales_data`
+   * **Connection**: `MySQL:sampledata`
+   * **Target table**: `STG_SALES_DATA`
+   * **Commit size**: `1000`
+   * **Truncate table**: select, so a second run replaces the rows instead of adding them again
+   * **Specify database fields**: select
 
-<figure><img src="../_assets/images/table-output.png" alt=""><figcaption><p>Table output - options</p></figcaption></figure>
+<figure><img src="../_assets/images/table-output.png" alt="Table output with target table STG_SALES_DATA and commit size 1000"><figcaption><p>Main options</p></figcaption></figure>
 
-3. Click on the Database fields.
-4. Click on the ‘Get Fields’ button.
+4. On the **Database fields** tab, select **Get fields**. Each stream field is mapped to a table column of the same name.
 
-<figure><img src="../_assets/images/table-output-fields.png" alt=""><figcaption><p>Table output - fields</p></figcaption></figure>
+<figure><img src="../_assets/images/table-output-fields.png" alt="Database fields tab mapping each table field to the stream field of the same name"><figcaption><p>Table field = stream field</p></figcaption></figure>
 
-> **Warning:** Confirm the mappings between **Table fields** and **Stream fields**.
+> **Warning:** Check the mapping: each **Table field** on the left should match its **Stream field** on the right.
 
-5. Click on the SQL button.
+5. Select **SQL**. The table doesn't exist yet, so the **Simple SQL editor** opens with a `CREATE TABLE STG_SALES_DATA` statement built from the stream's fields.
 
-<figure><img src="../_assets/images/sales-sql.png" alt="" width="375"><figcaption><p>SQL editor</p></figcaption></figure>
+<figure><img src="../_assets/images/sales-sql.png" alt="Simple SQL editor with the generated CREATE TABLE STG_SALES_DATA statement" width="375"><figcaption><p>The generated CREATE TABLE</p></figcaption></figure>
 
-6. Select **Execute**.
-7. Select **OK** to close all dialogs.
+6. Select **Execute**, then **OK** in the results and **Close**.
+7. Select **OK**.
 
-> **Success:** Checkpoint: `STG_SALES_DATA` exists in the database.
+> **Success:** Checkpoint: `STG_SALES_DATA` exists in the database, with no rows yet.
 
 > **Under the hood:**
 >
 > #### The `CREATE TABLE` came from the row metadata, translated for MySQL
 >
-> Pressing **SQL** didn't open a template. **Table output** took the
-> stream's row metadata — every field's name, type, length and
-> precision as it stands after CSV input — and asked the connection's
-> database dialect to spell each one: a String of length 25 became
-> `VARCHAR(25)`, a Number with decimals became `DOUBLE`, an Integer
-> became `INT` or `BIGINT` depending on its digits, a Date became
-> `DATETIME`. Point the same step at PostgreSQL and the same click
-> writes `DOUBLE PRECISION` and `TIMESTAMP` instead.
+> Selecting **SQL** didn't open a template. **Table output** took the
+> stream's row metadata (every field's name, type, length and
+> precision as it stands after CSV file input) and asked the
+> connection's database dialect to spell each one. A String of length
+> 40 became `VARCHAR(40)`, a Date became `DATETIME`, and Integers and
+> Numbers became `BIGINT`, `DOUBLE` or `DECIMAL` depending on their
+> length and precision: the screenshot's length-20 fields became
+> `DECIMAL(20)`. Point the same step at PostgreSQL and the same click
+> writes `TIMESTAMP` and `DOUBLE PRECISION` instead.
 >
-> That is why the **Danger** note above matters. **Get Fields** in CSV
-> input sampled a few hundred lines to guess lengths, and the DDL
-> inherits the guess. A longer value in row 50,000 is rejected by the
-> database, not by PDI.
+> That is why the **Danger** note above matters. **Get Fields** sampled
+> the start of the file to guess lengths, and the DDL inherits the
+> guess. A longer value in row 50,000 is rejected by the database, not
+> by PDI.
 >
 > **Why it matters:** the stream's shape and the table's shape came
 > from one definition, so they can't disagree today. Set lengths
 > generously at the input step and they won't disagree next month
 > either.
 
-### 3. RUN
+### 3. Run
 
-> **Note:** **RUN and validate**
+> **Note:** **Run and validate**
 > 
-> Use a database tool to verify results (DBeaver, Workbench, or your IDE).\
-> In production, you usually manage DDL with migrations or scripts.
+> Run the load, then check the table with a database tool such as Adminer or DBeaver.\
+> In production, DDL is usually managed with migration scripts rather than from a step.
 
-1. Click the Run button in the Canvas Toolbar.
-2. Confirm the table exists in your `sampledata` database.
+1. Save the transformation, select **Run** in the toolbar, then **Run** in **Run Options**.
+2. Check **Step Metrics**: **stg_sales_data** shows 2823 in **Output**.
+3. In your database tool, run:
 
-<figure><img src="../_assets/images/sales-data.png" alt=""><figcaption><p>STG_SALES_DATA</p></figcaption></figure>
+   ```sql
+   SELECT COUNT(*) FROM STG_SALES_DATA;
+   ```
+
+<figure><img src="../_assets/images/sales-data.png" alt="STG_SALES_DATA rows in DBeaver"><figcaption><p>STG_SALES_DATA</p></figcaption></figure>
+
+> **Success:** Checkpoint: `STG_SALES_DATA` holds 2,823 rows. Run the transformation again and it still holds 2,823, because **Truncate table** empties it first.
 
 > **Under the hood:**
 >
-> #### Rows are inserted inside transactions - and in batches if you tick batch update
+> #### Rows are inserted inside transactions, and in batches when you ask
 >
 > **Table output** prepared a single `INSERT INTO STG_SALES_DATA (...)
 > VALUES (?, ?, ...)` at start-up and bound each incoming row to it.
-> With **Use batch update for inserts** on, rows are queued in the
-> driver and shipped to MySQL in groups; every **Commit size** rows
-> (1,000 here) the step commits the transaction. Fewer round trips and
-> fewer commits is most of why this beats a script that inserts row by
-> row.
+> Every **Commit size** rows (1,000 here) the step commits the
+> transaction. With **Use batch update for inserts** selected, as in
+> Workflow 2, rows are also queued in the driver and shipped to MySQL
+> in groups. Fewer round trips and fewer commits are most of why this
+> beats a script that inserts row by row.
 >
 > The trade-off is granularity. If row 1,472 is rejected, the whole
 > batch it sat in fails, and the step can't tell you which row without
@@ -206,71 +205,78 @@ Configure these key fields:
 
 > **Note:**
 >
-> #### **Load Orders**
+> #### Load the products for Merge Rows (diff)
 > 
-> Load orders data from a delimited file into `STG_ORDERS_MERGED`.
-> 
-> Adjust field lengths to avoid truncation.
+> Load `orders.txt` into a new table, `STG_ORDERS_MERGED`. Despite its name, the file holds seven products. [Merge Rows (diff)](../21-mod4-merge-streams-diff/guide.md) in Module 4 compares this table with a changed copy.
 
-<figure><img src="../_assets/images/load-orders-data.png" alt="" width="288"><figcaption><p>Load orders data</p></figcaption></figure>
-
-Follow the steps outlined below:
+<figure><img src="../_assets/images/load-orders-data.png" alt="orders Text file input hopped to the stg_orders_merged Table output step" width="288"><figcaption><p>Workflow 2</p></figcaption></figure>
 
 ::: tabs
 
-### 1. CSV File Input
+### 1. Text file input
 
-> **Note:** **CSV File Input**
+> **Note:** **Text file input**
 > 
-> This time use a **Text file input**, as in the screenshots: file `orders.txt`, separator `;`, header row on.
+> This time read the file with **Text file input**: `orders.txt` is separated by semicolons.
 
-1. Drag the Text file input step onto the canvas.
-2. Open the CSV file input properties dialog box.
+1. Drag **Text file input** onto the same canvas, below Workflow 1.
+2. Double-click the step. Set **Step name** to `orders`.
+3. On the **File** tab, in **File or directory**, enter `${Internal.Entry.Current.Directory}/orders.txt` and select **Add**.
 
-Ensure the following details are configured, as outlined below:
+<figure><img src="../_assets/images/add-path-to-orders-txt.png" alt="Text file input File tab with orders.txt added to the selected files"><figcaption><p>The file</p></figcaption></figure>
 
-<figure><img src="../_assets/images/add-path-to-orders-txt.png" alt=""><figcaption><p>Add path to orders.txt</p></figcaption></figure>
+4. On the **Content** tab, set **Separator** to `;` and keep **Header** selected, with **Number of header lines** `1`.
 
-<figure><img src="../_assets/images/set-content.png" alt=""><figcaption><p>Set Content</p></figcaption></figure>
+<figure><img src="../_assets/images/set-content.png" alt="Content tab with filetype CSV, separator semicolon and one header line"><figcaption><p>Semicolon separator, one header line</p></figcaption></figure>
 
-<figure><img src="../_assets/images/get-fields.png" alt=""><figcaption><p>Get Fields</p></figcaption></figure>
+5. On the **Fields** tab, select **Get Fields**, then **OK** at the number of sample lines, and close the **Scan results**.
 
-### 2. Table Output
+<figure><img src="../_assets/images/get-fields.png" alt="Fields tab with six String fields from PRODUCTCODE to PRODUCTDESCRIPTION"><figcaption><p>Six String fields</p></figcaption></figure>
 
-> **Note:** **Table Output**
+6. Select **OK**.
+
+### 2. Table output
+
+> **Note:** **Table output**
 > 
-> Load rows into a database table.\
-> This step uses SQL `INSERT`.
+> The same step as Workflow 1, with batch updates on.
 
-1. Drag the Table Output step onto the canvas.
-2. Open the Table Output properties dialog box. Ensure the following details are configured, as outlined below:
+1. Drag **Table output** onto the canvas and hop **orders** to it.
+2. Double-click the step and set:
+   * **Step name**: `stg_orders_merged`
+   * **Connection**: `MySQL:sampledata`
+   * **Target table**: `STG_ORDERS_MERGED`
+   * **Commit size**: `1000`
+   * **Truncate table**: select
+   * **Specify database fields**: select
+   * **Use batch update for inserts**: select
 
-<figure><img src="../_assets/images/stg-orders-merged.png" alt=""><figcaption><p>Table output - options</p></figcaption></figure>
+<figure><img src="../_assets/images/stg-orders-merged.png" alt="Table output with target table STG_ORDERS_MERGED and batch update selected"><figcaption><p>Main options</p></figcaption></figure>
 
-3. Click on the Database fields.
-4. Click on the ‘Get Fields’ button.
+3. On the **Database fields** tab, select **Get fields**.
 
-<figure><img src="../_assets/images/stg-orders-merged-fields.png" alt=""><figcaption><p>Table output -fields</p></figcaption></figure>
+<figure><img src="../_assets/images/stg-orders-merged-fields.png" alt="Database fields tab mapping the six product fields"><figcaption><p>Six fields mapped</p></figcaption></figure>
 
-5. Click on the SQL button.
+4. Select **SQL**, then **Execute**, then **OK** and **Close**.
 
-<figure><img src="../_assets/images/orders-sql.png" alt=""><figcaption><p>SQL editor</p></figcaption></figure>
+<figure><img src="../_assets/images/orders-sql.png" alt="Simple SQL editor with CREATE TABLE STG_ORDERS_MERGED: five VARCHAR columns and a TEXT column"><figcaption><p>A 390-character string becomes TEXT</p></figcaption></figure>
 
-6. Click Execute.
-7. Select **OK** to close all dialogs.
+5. Select **OK**.
 
 > **Success:** Checkpoint: `STG_ORDERS_MERGED` exists in the database.
 
-### 3. RUN
+### 3. Run
 
-> **Note:** **RUN and validate**
+> **Note:** **Run and validate**
 > 
-> Use a database tool to verify results.
+> Run the transformation again: both loads run, side by side.
 
-1. Click the Run button in the Canvas Toolbar.
-2. Confirm the table exists in your `sampledata` database.
+1. Save and run the transformation.
+2. In your database tool, run `SELECT * FROM STG_ORDERS_MERGED;`.
 
-<figure><img src="../_assets/images/stg-orders-merged-2.png" alt=""><figcaption><p>STG_ORDERS_MERGED</p></figcaption></figure>
+<figure><img src="../_assets/images/stg-orders-merged-2.png" alt="The seven STG_ORDERS_MERGED rows in DBeaver"><figcaption><p>STG_ORDERS_MERGED</p></figcaption></figure>
+
+> **Success:** Checkpoint: `STG_ORDERS_MERGED` holds 7 rows, `S10_1678` to `S12_1666`, and `STG_SALES_DATA` still holds 2,823.
 
 :::
 
@@ -280,14 +286,20 @@ Ensure the following details are configured, as outlined below:
 
 <summary>Troubleshooting</summary>
 
-**“Table already exists”**\
-Disable table creation in **Table Output**, or drop the table first.
+**"No SQL needs to be executed to make this step function properly"**\
+The table already exists with the same columns. Nothing to do: run the transformation.
 
-**String truncation / data too long**\
-Increase field lengths in **CSV File Input** before you generate SQL.
+**The SQL editor shows an `ALTER TABLE`**\
+The table exists but its columns differ from the stream. Execute it only if you mean to change the table; otherwise fix the field types or lengths in the input step.
 
-**SQL window is empty**\
+**"Data too long for column"**\
+A string is longer than its column. Increase the field's **Length** in the input step, drop the table and generate the SQL again.
+
+**The SQL editor is empty**\
 Select **Get fields** on the **Database fields** tab first.
+
+**The table has twice the rows you expect**\
+**Truncate table** was clear and the transformation ran twice. Select it, or empty the table with `TRUNCATE TABLE`, and run again.
 
 </details>
 

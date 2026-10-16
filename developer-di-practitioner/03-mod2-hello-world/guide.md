@@ -17,7 +17,7 @@
 > 
 > **Prerequisites:** Pentaho Data Integration installed and configured
 > 
-> **Estimated time:** 10 minutes
+> **Estimated time:** 25 minutes
 
 <div class="pcm-embed-card" data-href="https://www.loom.com/share/cb9fa033ddcf46c6b7d17c532c16ac66?hideEmbedTopBar=true&amp;hide_owner=true&amp;hide_share=true&amp;hide_title=true" data-title="Introduction to Data Transformation with PDI" data-description="In this demonstration, I introduced you to your first transformation, showcasing its execution and results. We explored a CSV file input step that reads sales territory data, filtering records based on the EMEA territory for separate database table outputs. After executing the transformation, we verified that the data was inserted correctly into the respective tables. I encourage you to familiarize yourself with the Spoon Log and Step Metrics as we progress through the course. This overview sets the stage for deeper learning about PDI and its components in future lessons." data-thumb="../_assets/embeds/2d94cd73b9b2.png"></div>
 
@@ -28,7 +28,14 @@
 > * Select **File** > **New** > **Transformation**
 > * Use `Ctrl+N` (Windows/Linux) or `Cmd+N` (macOS)
 
-![hello world.tr](../_assets/images/hello-world-tr.png)
+<figure>
+
+![The finished Hello World transformation](../_assets/images/hello-world-tr.png)
+
+<div align="center">
+<figcaption><em>What you build</em></figcaption>
+</div>
+</figure>
 
 :::: tabs
 
@@ -44,7 +51,6 @@
 
 1. Start Pentaho Data Integration (Spoon).
 
-> **Note:** 
 
 ::: tabs
 
@@ -75,13 +81,13 @@
 2. In the **Design** tab, expand the `Input` category.
 3. Drag **Generate Rows** onto the canvas.
 
-> **Note:** Tip: You can also search for `Generate Rows`.
+> **Tip:** You can also search for `Generate Rows`.
 
-<div align="center"><figure><img src="../_assets/images/gen-rows.png" alt="" width="563"><figcaption><p>Generate rows</p></figcaption></figure></div>
+<div align="center"><figure><img src="../_assets/images/gen-rows.png" alt="Generate rows" width="563"><figcaption><p>Generate rows</p></figcaption></figure></div>
 
 4. Double-click **Generate Rows** to open the step properties.
 
-<figure><img src="../_assets/images/hello-world-2.png" alt="" width="563"><figcaption><p>Generate rows - settings</p></figcaption></figure>
+<figure><img src="../_assets/images/hello-world-2.png" alt="Generate rows - settings" width="563"><figcaption><p>Generate rows - settings</p></figcaption></figure>
 
 Ensure the following details are configured:
 
@@ -89,14 +95,14 @@ Ensure the following details are configured:
 | ------------- | --------------- |
 | **Limit**     | 10              |
 | **Name**      | message         |
-| **Type**      | string          |
+| **Type**      | String          |
 | **Value**     | hello world     |
 
 > **Note:** Before you close the dialog, preview the data.
 
 5. Select **Preview**. The **Enter preview size** dialog opens.
 
-<figure><img src="../_assets/images/preview-1.png" alt="" width="375"><figcaption><p>Preview rows</p></figcaption></figure>
+<figure><img src="../_assets/images/preview-1.png" alt="Preview rows" width="375"><figcaption><p>Preview rows</p></figcaption></figure>
 
 6. In **Enter preview size**, select **OK**.
 7. Verify the 10 rows. Then select **OK** to close the preview dialog.
@@ -132,9 +138,9 @@ Ensure the following details are configured:
 1. In the **Design** tab, expand the `Flow` category.
 2. Drag **Dummy** onto the canvas.
 
-<div align="center"><figure><img src="../_assets/images/dummy.png" alt="" width="375"><figcaption><p>dummy step</p></figcaption></figure></div>
+<div align="center"><figure><img src="../_assets/images/dummy.png" alt="Dummy step" width="375"><figcaption><p>Dummy step</p></figcaption></figure></div>
 
-### 3. Hops, Annotations, etc
+### 3. Hops and Notes
 
 > **Note:**
 >
@@ -171,7 +177,7 @@ Ensure the following details are configured:
 1. Right-click anywhere on the Spoon canvas.
 2. Select **New note**.
 
-<div align="left"><figure><img src="../_assets/images/note.png" alt=""><figcaption><p>Notes</p></figcaption></figure> <figure><img src="../_assets/images/note2.png" alt=""><figcaption><p>Notes - Style</p></figcaption></figure></div>
+<div align="left"><figure><img src="../_assets/images/note.png" alt="Notes"><figcaption><p>Notes</p></figcaption></figure> <figure><img src="../_assets/images/note2.png" alt="Notes - Style"><figcaption><p>Notes - Style</p></figcaption></figure></div>
 
 **Transformation properties**
 
@@ -179,9 +185,9 @@ To view the transformation properties:
 
 1. Double-click anywhere on the canvas.
 
-<div align="center"><figure><img src="../_assets/images/properties.png" alt="" width="563"><figcaption><p>transformation properties</p></figcaption></figure></div>
+<div align="center"><figure><img src="../_assets/images/properties.png" alt="Transformation properties" width="563"><figcaption><p>Transformation properties</p></figcaption></figure></div>
 
-> **Note:** Tip: Add details in **Extended description**.
+> **Tip:** Add details in **Extended description**.
 
 ### 4. Run
 
@@ -191,41 +197,41 @@ To view the transformation properties:
 > 
 > Run the transformation locally.
 
-1. In Spoon, select **Action** > **Run this transformation**.
+1. In Spoon, select **Action > Run** (or press `F9`).
 
 > **Note:** You can also select **Run** in the toolbar.
 > 
-> The **Execute a transformation** window opens. For this workshop, keep **Local** execution.
+> The **Run Options** dialog opens. For this workshop, keep the **Pentaho local** run configuration.
 
-2. In the run dialog, open **Run options**.
+2. Review the settings in **Run Options**, then select **Run**.
 
-<div align="center"><figure><img src="../_assets/images/run.png" alt="" width="375"><figcaption><p>Run Options</p></figcaption></figure></div>
+<div align="center"><figure><img src="../_assets/images/run.png" alt="Run Options" width="375"><figcaption><p>Run Options</p></figcaption></figure></div>
 
-> **Note:** In the Run Options panel you can set:
+> **Note:** In **Run Options** you can set:
 > 
 > * **Run configuration** (local, remote, or cluster)
 > * **Log level**
 > * **Automatically save** the transformation
 
-<div align="center"><figure><img src="../_assets/images/save-transformations.png" alt="" width="375"><figcaption><p>Automatically save transformation</p></figcaption></figure></div>
+<div align="center"><figure><img src="../_assets/images/save-transformations.png" alt="Automatically save transformation" width="375"><figcaption><p>Automatically save transformation</p></figcaption></figure></div>
 
 The transformation executes.
 
-<figure><img src="../_assets/images/ex-trans.png" alt="" width="375"><figcaption><p>Green ticks indicate successful execution</p></figcaption></figure>
+<figure><img src="../_assets/images/ex-trans.png" alt="Green check marks indicate successful execution" width="375"><figcaption><p>Green check marks indicate successful execution</p></figcaption></figure>
 
-> **Warning:** A green tick confirms the transformation's execution, but doesn't guarantee the success of the underlying operations.
+> **Warning:** A green check mark confirms the transformation's execution, but doesn't guarantee the success of the underlying operations.
 
 > **Note:** **Execution Results**
 > 
 > The Execution Results section of the window contains several different tabs that help you to see how the transformation executed, pinpoint errors, and monitor performance.
 
-<div align="center"><figure><img src="../_assets/images/tr-metrics.png" alt=""><figcaption><p>Logging</p></figcaption></figure></div>
+<div align="center"><figure><img src="../_assets/images/tr-metrics.png" alt="Logging"><figcaption><p>Logging</p></figcaption></figure></div>
 
-Logging tab displays logging information for each of the steps in the transformation.
+The **Logging** tab shows the log lines each step wrote.
 
-<figure><img src="../_assets/images/step-metrics.png" alt=""><figcaption><p>Step Metrics</p></figcaption></figure>
+<figure><img src="../_assets/images/step-metrics.png" alt="Step Metrics"><figcaption><p>Step Metrics</p></figcaption></figure>
 
-> **Note:** Step Metrics tab provides statistics for each step in your transformation including how many records were read, written, caused an error, processing speed (rows per second) and more. This tab also indicates whether an error occurred in a transformation step.
+> **Note:** The **Step Metrics** tab has statistics for every step: rows read and written, errors, speed (rows per second) and more. A step that failed is highlighted here.
 
 > **Under the hood:**
 >
@@ -249,19 +255,19 @@ Logging tab displays logging information for each of the steps in the transforma
 > step whose Written is lower than its Read, names the step to
 > investigate before anyone opens a log.
 
-<figure><img src="../_assets/images/metrics.png" alt=""><figcaption><p>Metrics</p></figcaption></figure>
+<figure><img src="../_assets/images/metrics.png" alt="Metrics"><figcaption><p>Metrics</p></figcaption></figure>
 
 > **Note:** Metrics can help identify bottlenecks (back pressure). In this example, the transformation took 30 ms. Notice `gr_hello-world` and `Dummy` initialize at the same time. Steps run in parallel in separate threads.
 
-<figure><img src="../_assets/images/run-preview.png" alt=""><figcaption><p>Preview data</p></figcaption></figure>
+<figure><img src="../_assets/images/run-preview.png" alt="Preview data"><figcaption><p>Preview data</p></figcaption></figure>
 
-> **Note:** Preview tab displays the records.
+> **Note:** The **Preview data** tab shows the rows of the step selected on the canvas.
 
 > **Note:** **Viewing the Transformation structure**
 > 
-> Select the **View** icon (upper-left). The tree switches to the structure of the transformation.
+> Select the **View** tab (upper left). The tree switches to the structure of the open transformation: its steps, hops and connections.
 
-<div align="center"><figure><img src="../_assets/images/view.png" alt=""><figcaption><p>View</p></figcaption></figure></div>
+<div align="center"><figure><img src="../_assets/images/view.png" alt="View"><figcaption><p>View</p></figcaption></figure></div>
 
 ::::
 

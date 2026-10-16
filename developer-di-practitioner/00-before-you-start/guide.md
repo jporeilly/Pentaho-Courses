@@ -36,7 +36,7 @@ This panel stays beside your tools for the whole workshop:
 ## Track your progress
 
 Every numbered heading like this one is a **step** with a checkbox —
-tick it when you're done. Your progress is saved on this machine and
+check it off when you're done. Your progress is saved on this machine and
 survives restarts, so you can pick up exactly where you left off after
 a break.
 
@@ -363,7 +363,7 @@ The capstone is the one folder with a shape of its own:
 <summary>The folder isn't there</summary>
 
 It is an optional component, so a **Minimal (app only)** install, or
-an unticked **Workshop lab files** box, skips it. Lay it down at any time from the same
+a cleared **Workshop lab files** box, skips it. Lay it down at any time from the same
 `provisioning` folder as the services script:
 
 ```powershell
@@ -551,7 +551,7 @@ grounded in the official docs — ask it anything from "what does this
 step do?" to "why did my transformation fail?". It runs on a local
 model, so it works even when the VM is offline.
 
-## How this course is organised
+## How this course is organized
 
 Each section starts with an **overview page** (<span data-icon="page"></span> — background reading,
 no checkboxes) followed by **hands-on workshops** (<span data-icon="workshop"></span> — tracked steps).
@@ -569,7 +569,7 @@ assistant. Your answers are saved as you go, so leaving the page to look
 something up is fine, and the explanations show afterwards so you can
 learn from anything you missed. The pass mark is **80%**.
 
-You are asked for your name, email and organisation before you begin
+You are asked for your name, email and organization before you begin
 (and your Partner ID, if you are taking it as part of the Pentaho Partner
 Program); those are what your accreditation is made out to. Complete the
 capstone project and pass the exam, and your **Pentaho Data Integration

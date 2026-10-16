@@ -19,7 +19,7 @@
 > 
 > **Prerequisites:** Pentaho Data Integration installed and configured
 > 
-> **Estimated Time:** 10 minutes
+> **Estimated Time:** 25 minutes
 
 > **Note:**
 >
@@ -42,7 +42,6 @@
 
 1. Start Pentaho Data Integration.
 
-> **Note:** 
 
 ::: tabs
 
@@ -70,10 +69,17 @@
 
 <button data-launch="spoon" data-path="">Start PDI</button>
 
-2. Select Edit -> Edit the kettle.properties file
+2. Select **Edit > Edit the kettle.properties file**.
 3. Right-click the first row and select **Insert before this row**. Type the variable name in **Variable name** and its value in **Value** (step 4 shows the pair as a properties line).
 
-![Global variables](../_assets/images/set-kettle-variable.png)
+<figure>
+
+![The kettle.properties editor: a grid of variable names and values, with the row menu open at Insert before this row](../_assets/images/set-kettle-variable.png)
+
+<div align="center">
+<figcaption><em>Edit kettle.properties from Spoon</em></figcaption>
+</div>
+</figure>
 
 4. Add a `DIR_SAMPLES` variable for your OS.
 
@@ -133,7 +139,14 @@ nano kettle.properties
 
 :::
 
-![kettle.properties - Linux](../_assets/images/kettle.png)
+<figure>
+
+![kettle.properties open in nano on Linux, with comments and variables such as DIR_SAMPLES=/home/pentaho/Temp](../_assets/images/kettle.png)
+
+<div align="center">
+<figcaption><em>The same file in a text editor, on Linux</em></figcaption>
+</div>
+</figure>
 
 > **Note:** Verify in Spoon:
 > 
@@ -142,7 +155,14 @@ nano kettle.properties
 > 3. Search for `DIR_SAMPLES`.
 > 4. Insert it into the field.
 
-![Global variable in Transformation](../_assets/images/variable-in-trans.png)
+<figure>
+
+![CSV file input with the variables list open on the Filename field, DIR_SAMPLES at the top](../_assets/images/variable-in-trans.png)
+
+<div align="center">
+<figcaption><em>Ctrl+Space in a field lists the variables</em></figcaption>
+</div>
+</figure>
 
 > **Under the hood:**
 >
@@ -150,7 +170,7 @@ nano kettle.properties
 >
 > When you inserted `${DIR_SAMPLES}` the step saved exactly that text
 > into its XML. Nothing resolved it. Resolution happens at run time,
-> when the transformation initialises: the engine walks its variable
+> when the transformation initializes: the engine walks its variable
 > space — `kettle.properties`, loaded once when Spoon started, plus
 > anything set by a parent job or the run dialog — and substitutes the
 > value into the step's settings just before the step opens the file.

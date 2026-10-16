@@ -1236,7 +1236,7 @@ var data_source_erp = "ERP-CSV-Extract";
     <fields>
       <field>
         <name>match_status</name>
-        <rename>discrepency_type</rename>
+        <rename>discrepancy_type</rename>
         <type>String</type>
         <length>50</length>
         <precision>-1</precision>
@@ -1450,7 +1450,7 @@ var data_source_erp = "ERP-CSV-Extract";
         <group/>
         <nullif/>
         <trim_type>none</trim_type>
-        <length>20</length>
+        <length>-1</length>
         <precision>-1</precision>
       </field>
       <field>
@@ -1462,7 +1462,7 @@ var data_source_erp = "ERP-CSV-Extract";
         <group/>
         <nullif/>
         <trim_type>none</trim_type>
-        <length>100</length>
+        <length>-1</length>
         <precision>-1</precision>
       </field>
       <field>
@@ -1487,7 +1487,7 @@ var data_source_erp = "ERP-CSV-Extract";
         <nullif/>
         <trim_type>none</trim_type>
         <length>-1</length>
-        <precision>0</precision>
+        <precision>-1</precision>
       </field>
       <field>
         <name>warehouse_location</name>
@@ -1498,7 +1498,7 @@ var data_source_erp = "ERP-CSV-Extract";
         <group/>
         <nullif/>
         <trim_type>none</trim_type>
-        <length>50</length>
+        <length>-1</length>
         <precision>-1</precision>
       </field>
       <field>
@@ -1522,7 +1522,7 @@ var data_source_erp = "ERP-CSV-Extract";
         <group/>
         <nullif/>
         <trim_type>none</trim_type>
-        <length>27</length>
+        <length>-1</length>
         <precision>-1</precision>
       </field>
       <field>
@@ -1534,8 +1534,8 @@ var data_source_erp = "ERP-CSV-Extract";
         <group>,</group>
         <nullif/>
         <trim_type>none</trim_type>
-        <length>7</length>
-        <precision>2</precision>
+        <length>-1</length>
+        <precision>-1</precision>
       </field>
       <field>
         <name>erp_quantity</name>
@@ -1546,8 +1546,8 @@ var data_source_erp = "ERP-CSV-Extract";
         <group>,</group>
         <nullif/>
         <trim_type>none</trim_type>
-        <length>15</length>
-        <precision>0</precision>
+        <length>-1</length>
+        <precision>-1</precision>
       </field>
       <field>
         <name>supplier</name>
@@ -1558,7 +1558,7 @@ var data_source_erp = "ERP-CSV-Extract";
         <group/>
         <nullif/>
         <trim_type>none</trim_type>
-        <length>16</length>
+        <length>-1</length>
         <precision>-1</precision>
       </field>
       <field>
@@ -1583,7 +1583,7 @@ var data_source_erp = "ERP-CSV-Extract";
         <nullif/>
         <trim_type>none</trim_type>
         <length>-1</length>
-        <precision>0</precision>
+        <precision>-1</precision>
       </field>
       <field>
         <name>abs_variance</name>
@@ -1595,10 +1595,10 @@ var data_source_erp = "ERP-CSV-Extract";
         <nullif/>
         <trim_type>none</trim_type>
         <length>-1</length>
-        <precision>0</precision>
+        <precision>-1</precision>
       </field>
       <field>
-        <name>discrepency_type</name>
+        <name>discrepancy_type</name>
         <type>String</type>
         <format/>
         <currency/>
@@ -1606,7 +1606,7 @@ var data_source_erp = "ERP-CSV-Extract";
         <group/>
         <nullif/>
         <trim_type>none</trim_type>
-        <length>50</length>
+        <length>-1</length>
         <precision>-1</precision>
       </field>
       <field>
@@ -1618,7 +1618,7 @@ var data_source_erp = "ERP-CSV-Extract";
         <group/>
         <nullif/>
         <trim_type>none</trim_type>
-        <length>20</length>
+        <length>-1</length>
         <precision>-1</precision>
       </field>
       <field>
@@ -1630,7 +1630,7 @@ var data_source_erp = "ERP-CSV-Extract";
         <group/>
         <nullif/>
         <trim_type>none</trim_type>
-        <length>200</length>
+        <length>-1</length>
         <precision>-1</precision>
       </field>
       <field>
@@ -1643,7 +1643,7 @@ var data_source_erp = "ERP-CSV-Extract";
         <nullif/>
         <trim_type>none</trim_type>
         <length>-1</length>
-        <precision>2</precision>
+        <precision>-1</precision>
       </field>
       <field>
         <name>priority_rank</name>
@@ -1655,7 +1655,7 @@ var data_source_erp = "ERP-CSV-Extract";
         <nullif/>
         <trim_type>none</trim_type>
         <length>-1</length>
-        <precision>0</precision>
+        <precision>-1</precision>
       </field>
       <field>
         <name>financial_impact</name>
@@ -1667,7 +1667,7 @@ var data_source_erp = "ERP-CSV-Extract";
         <nullif/>
         <trim_type>none</trim_type>
         <length>-1</length>
-        <precision>2</precision>
+        <precision>-1</precision>
       </field>
       <field>
         <name>excess_carrying_cost</name>
@@ -1679,7 +1679,7 @@ var data_source_erp = "ERP-CSV-Extract";
         <nullif/>
         <trim_type>none</trim_type>
         <length>-1</length>
-        <precision>2</precision>
+        <precision>-1</precision>
       </field>
       <field>
         <name>lost_sales_risk</name>
@@ -1691,7 +1691,7 @@ var data_source_erp = "ERP-CSV-Extract";
         <nullif/>
         <trim_type>none</trim_type>
         <length>-1</length>
-        <precision>2</precision>
+        <precision>-1</precision>
       </field>
       <field>
         <name>reconciliation_timestamp</name>
@@ -1727,7 +1727,7 @@ var data_source_erp = "ERP-CSV-Extract";
         <nullif/>
         <trim_type>none</trim_type>
         <length>-1</length>
-        <precision>0</precision>
+        <precision>-1</precision>
       </field>
       <field>
         <name>data_source_warehouse</name>
@@ -1819,7 +1819,7 @@ var data_source_erp = "ERP-CSV-Extract";
         <group/>
         <nullif/>
         <trim_type>none</trim_type>
-        <length>20</length>
+        <length>-1</length>
         <precision>-1</precision>
       </field>
       <field>
@@ -1831,7 +1831,7 @@ var data_source_erp = "ERP-CSV-Extract";
         <group/>
         <nullif/>
         <trim_type>none</trim_type>
-        <length>100</length>
+        <length>-1</length>
         <precision>-1</precision>
       </field>
       <field>
@@ -1856,7 +1856,7 @@ var data_source_erp = "ERP-CSV-Extract";
         <nullif/>
         <trim_type>none</trim_type>
         <length>-1</length>
-        <precision>0</precision>
+        <precision>-1</precision>
       </field>
       <field>
         <name>warehouse_location</name>
@@ -1867,7 +1867,7 @@ var data_source_erp = "ERP-CSV-Extract";
         <group/>
         <nullif/>
         <trim_type>none</trim_type>
-        <length>50</length>
+        <length>-1</length>
         <precision>-1</precision>
       </field>
       <field>
@@ -1891,7 +1891,7 @@ var data_source_erp = "ERP-CSV-Extract";
         <group/>
         <nullif/>
         <trim_type>none</trim_type>
-        <length>4</length>
+        <length>-1</length>
         <precision>-1</precision>
       </field>
       <field>
@@ -1903,7 +1903,7 @@ var data_source_erp = "ERP-CSV-Extract";
         <group/>
         <nullif/>
         <trim_type>none</trim_type>
-        <length>27</length>
+        <length>-1</length>
         <precision>-1</precision>
       </field>
       <field>
@@ -1915,7 +1915,7 @@ var data_source_erp = "ERP-CSV-Extract";
         <group/>
         <nullif/>
         <trim_type>none</trim_type>
-        <length>11</length>
+        <length>-1</length>
         <precision>-1</precision>
       </field>
       <field>
@@ -1927,8 +1927,8 @@ var data_source_erp = "ERP-CSV-Extract";
         <group>,</group>
         <nullif/>
         <trim_type>none</trim_type>
-        <length>7</length>
-        <precision>2</precision>
+        <length>-1</length>
+        <precision>-1</precision>
       </field>
       <field>
         <name>erp_quantity</name>
@@ -1939,8 +1939,8 @@ var data_source_erp = "ERP-CSV-Extract";
         <group>,</group>
         <nullif/>
         <trim_type>none</trim_type>
-        <length>15</length>
-        <precision>0</precision>
+        <length>-1</length>
+        <precision>-1</precision>
       </field>
       <field>
         <name>supplier</name>
@@ -1951,7 +1951,7 @@ var data_source_erp = "ERP-CSV-Extract";
         <group/>
         <nullif/>
         <trim_type>none</trim_type>
-        <length>16</length>
+        <length>-1</length>
         <precision>-1</precision>
       </field>
       <field>
@@ -1976,7 +1976,7 @@ var data_source_erp = "ERP-CSV-Extract";
         <nullif/>
         <trim_type>none</trim_type>
         <length>-1</length>
-        <precision>0</precision>
+        <precision>-1</precision>
       </field>
       <field>
         <name>abs_variance</name>
@@ -1988,10 +1988,10 @@ var data_source_erp = "ERP-CSV-Extract";
         <nullif/>
         <trim_type>none</trim_type>
         <length>-1</length>
-        <precision>0</precision>
+        <precision>-1</precision>
       </field>
       <field>
-        <name>discrepency_type</name>
+        <name>discrepancy_type</name>
         <type>String</type>
         <format/>
         <currency/>
@@ -1999,7 +1999,7 @@ var data_source_erp = "ERP-CSV-Extract";
         <group/>
         <nullif/>
         <trim_type>none</trim_type>
-        <length>50</length>
+        <length>-1</length>
         <precision>-1</precision>
       </field>
       <field>
@@ -2011,7 +2011,7 @@ var data_source_erp = "ERP-CSV-Extract";
         <group/>
         <nullif/>
         <trim_type>none</trim_type>
-        <length>20</length>
+        <length>-1</length>
         <precision>-1</precision>
       </field>
       <field>
@@ -2023,7 +2023,7 @@ var data_source_erp = "ERP-CSV-Extract";
         <group/>
         <nullif/>
         <trim_type>none</trim_type>
-        <length>200</length>
+        <length>-1</length>
         <precision>-1</precision>
       </field>
       <field>
@@ -2036,7 +2036,7 @@ var data_source_erp = "ERP-CSV-Extract";
         <nullif/>
         <trim_type>none</trim_type>
         <length>-1</length>
-        <precision>2</precision>
+        <precision>-1</precision>
       </field>
       <field>
         <name>priority_rank</name>
@@ -2048,7 +2048,7 @@ var data_source_erp = "ERP-CSV-Extract";
         <nullif/>
         <trim_type>none</trim_type>
         <length>-1</length>
-        <precision>0</precision>
+        <precision>-1</precision>
       </field>
       <field>
         <name>financial_impact</name>
@@ -2060,7 +2060,7 @@ var data_source_erp = "ERP-CSV-Extract";
         <nullif/>
         <trim_type>none</trim_type>
         <length>-1</length>
-        <precision>2</precision>
+        <precision>-1</precision>
       </field>
       <field>
         <name>excess_carrying_cost</name>
@@ -2072,7 +2072,7 @@ var data_source_erp = "ERP-CSV-Extract";
         <nullif/>
         <trim_type>none</trim_type>
         <length>-1</length>
-        <precision>2</precision>
+        <precision>-1</precision>
       </field>
       <field>
         <name>lost_sales_risk</name>
@@ -2084,7 +2084,7 @@ var data_source_erp = "ERP-CSV-Extract";
         <nullif/>
         <trim_type>none</trim_type>
         <length>-1</length>
-        <precision>2</precision>
+        <precision>-1</precision>
       </field>
       <field>
         <name>reconciliation_timestamp</name>
@@ -2120,7 +2120,7 @@ var data_source_erp = "ERP-CSV-Extract";
         <nullif/>
         <trim_type>none</trim_type>
         <length>-1</length>
-        <precision>0</precision>
+        <precision>-1</precision>
       </field>
       <field>
         <name>data_source_warehouse</name>
@@ -2212,7 +2212,7 @@ var data_source_erp = "ERP-CSV-Extract";
         <group/>
         <nullif/>
         <trim_type>none</trim_type>
-        <length>20</length>
+        <length>-1</length>
         <precision>-1</precision>
       </field>
       <field>
@@ -2224,7 +2224,7 @@ var data_source_erp = "ERP-CSV-Extract";
         <group/>
         <nullif/>
         <trim_type>none</trim_type>
-        <length>100</length>
+        <length>-1</length>
         <precision>-1</precision>
       </field>
       <field>
@@ -2249,7 +2249,7 @@ var data_source_erp = "ERP-CSV-Extract";
         <nullif/>
         <trim_type>none</trim_type>
         <length>-1</length>
-        <precision>0</precision>
+        <precision>-1</precision>
       </field>
       <field>
         <name>warehouse_location</name>
@@ -2260,7 +2260,7 @@ var data_source_erp = "ERP-CSV-Extract";
         <group/>
         <nullif/>
         <trim_type>none</trim_type>
-        <length>50</length>
+        <length>-1</length>
         <precision>-1</precision>
       </field>
       <field>
@@ -2272,7 +2272,7 @@ var data_source_erp = "ERP-CSV-Extract";
         <group/>
         <nullif/>
         <trim_type>none</trim_type>
-        <length>27</length>
+        <length>-1</length>
         <precision>-1</precision>
       </field>
       <field>
@@ -2284,8 +2284,8 @@ var data_source_erp = "ERP-CSV-Extract";
         <group>,</group>
         <nullif/>
         <trim_type>none</trim_type>
-        <length>7</length>
-        <precision>2</precision>
+        <length>-1</length>
+        <precision>-1</precision>
       </field>
       <field>
         <name>erp_quantity</name>
@@ -2296,8 +2296,8 @@ var data_source_erp = "ERP-CSV-Extract";
         <group>,</group>
         <nullif/>
         <trim_type>none</trim_type>
-        <length>15</length>
-        <precision>0</precision>
+        <length>-1</length>
+        <precision>-1</precision>
       </field>
       <field>
         <name>supplier</name>
@@ -2308,7 +2308,7 @@ var data_source_erp = "ERP-CSV-Extract";
         <group/>
         <nullif/>
         <trim_type>none</trim_type>
-        <length>16</length>
+        <length>-1</length>
         <precision>-1</precision>
       </field>
       <field>
@@ -2333,7 +2333,7 @@ var data_source_erp = "ERP-CSV-Extract";
         <nullif/>
         <trim_type>none</trim_type>
         <length>-1</length>
-        <precision>0</precision>
+        <precision>-1</precision>
       </field>
       <field>
         <name>abs_variance</name>
@@ -2345,10 +2345,10 @@ var data_source_erp = "ERP-CSV-Extract";
         <nullif/>
         <trim_type>none</trim_type>
         <length>-1</length>
-        <precision>0</precision>
+        <precision>-1</precision>
       </field>
       <field>
-        <name>discrepency_type</name>
+        <name>discrepancy_type</name>
         <type>String</type>
         <format/>
         <currency/>
@@ -2356,7 +2356,7 @@ var data_source_erp = "ERP-CSV-Extract";
         <group/>
         <nullif/>
         <trim_type>none</trim_type>
-        <length>50</length>
+        <length>-1</length>
         <precision>-1</precision>
       </field>
       <field>
@@ -2368,7 +2368,7 @@ var data_source_erp = "ERP-CSV-Extract";
         <group/>
         <nullif/>
         <trim_type>none</trim_type>
-        <length>20</length>
+        <length>-1</length>
         <precision>-1</precision>
       </field>
       <field>
@@ -2380,7 +2380,7 @@ var data_source_erp = "ERP-CSV-Extract";
         <group/>
         <nullif/>
         <trim_type>none</trim_type>
-        <length>200</length>
+        <length>-1</length>
         <precision>-1</precision>
       </field>
       <field>
@@ -2393,7 +2393,7 @@ var data_source_erp = "ERP-CSV-Extract";
         <nullif/>
         <trim_type>none</trim_type>
         <length>-1</length>
-        <precision>2</precision>
+        <precision>-1</precision>
       </field>
       <field>
         <name>priority_rank</name>
@@ -2405,7 +2405,7 @@ var data_source_erp = "ERP-CSV-Extract";
         <nullif/>
         <trim_type>none</trim_type>
         <length>-1</length>
-        <precision>0</precision>
+        <precision>-1</precision>
       </field>
       <field>
         <name>financial_impact</name>
@@ -2417,7 +2417,7 @@ var data_source_erp = "ERP-CSV-Extract";
         <nullif/>
         <trim_type>none</trim_type>
         <length>-1</length>
-        <precision>2</precision>
+        <precision>-1</precision>
       </field>
       <field>
         <name>excess_carrying_cost</name>
@@ -2429,7 +2429,7 @@ var data_source_erp = "ERP-CSV-Extract";
         <nullif/>
         <trim_type>none</trim_type>
         <length>-1</length>
-        <precision>2</precision>
+        <precision>-1</precision>
       </field>
       <field>
         <name>lost_sales_risk</name>
@@ -2441,7 +2441,7 @@ var data_source_erp = "ERP-CSV-Extract";
         <nullif/>
         <trim_type>none</trim_type>
         <length>-1</length>
-        <precision>2</precision>
+        <precision>-1</precision>
       </field>
       <field>
         <name>reconciliation_timestamp</name>
@@ -2477,7 +2477,7 @@ var data_source_erp = "ERP-CSV-Extract";
         <nullif/>
         <trim_type>none</trim_type>
         <length>-1</length>
-        <precision>0</precision>
+        <precision>-1</precision>
       </field>
       <field>
         <name>data_source_warehouse</name>
@@ -2538,7 +2538,7 @@ var data_source_erp = "ERP-CSV-Extract";
     <unique_rows>N</unique_rows>
     <fields>
       <field>
-        <name>discrepency_type</name>
+        <name>discrepancy_type</name>
         <ascending>Y</ascending>
         <case_sensitive>N</case_sensitive>
         <collator_enabled>N</collator_enabled>
@@ -2581,7 +2581,7 @@ var data_source_erp = "ERP-CSV-Extract";
     <give_back_row>N</give_back_row>
     <group>
       <field>
-        <name>discrepency_type</name>
+        <name>discrepancy_type</name>
       </field>
     </group>
     <fields>

@@ -2,67 +2,84 @@
 
 <div class="pcm-intro">
 
-When you have two streams that should become one. Merge Streams stacks rows; Merge Streams (diff) reconciles changes between two snapshots — the building block for change-data-capture patterns.
+When you have two streams that should become one. Merge Streams stacks rows; Merge Streams (diff) reconciles changes between two snapshots: the building block for change-data-capture patterns.
 
 </div>
 
-> **Note:** **Introduction**
-> 
-> In Pentaho Data Integration (PDI), true record merging differs from joining and focuses on combining or consolidating duplicate records into single entries:
-> 
-> The Append operation simply stacks records from two input streams. All rows from both streams appear in the output without any sorting or matching logic applied.
-> 
-> With Append, the output contains all records from the first stream followed immediately by all records from the second stream. Both input streams must share the same structure with compatible field types.
+**What You'll Learn**
 
-![Merge streams](../_assets/images/merge-streams-4.png)
+* How to stack two streams, with or without keeping a sort order
+* Why streams must share a layout before they meet
+* How **Merge rows (diff)** finds the differences between two versions of the same data
 
-> **Note:** The Sorted Merge operation interleaves records from both input streams based on a predetermined sort order. This creates an integrated output where records are organized by their values.
-> 
-> For Sorted Merge to work properly, both input streams must be pre-sorted on the same field(s) before reaching the merge step. The operation preserves all records while maintaining the specified sort order.
-> 
-> Unlike joining operations, neither of these merging methods matches records based on key fields. They simply combine complete datasets according to different organizing principles - stacking for Append and interleaving by sort order for Sorted Merge.
-> 
-> Both techniques are valuable when you need to process records from multiple sources while maintaining all original data points.
+> **Note:** **Merging is not joining**
+>
+> A *merge* stacks rows: every row from each input comes out, and no row is matched with another. A *join* matches rows on a key and combines their fields into one row; that is the [Joins](../topic-mod4-joins-review/guide.md) topic. Either way, rows that meet in one step must have the same layout: the same fields, in the same order, with the same types.
 
-![Sorted Merge](../_assets/images/sorted-merge.png)
+**Append**
 
-> **Note:** **Workshops**
-> 
-> The Dummy step in Pentaho Data Integration is a simple "do nothing" transformation that passes data through unchanged. It serves as a placeholder, helps join multiple streams, creates empty data rows when needed, and improves transformation organization.
-> 
-> The Merge Rows step compares two input data streams with identical structures to identify differences between them. It requires configuration of reference and compare streams, key fields for matching rows, and value fields to compare. The step outputs a single stream with all rows plus a "flagfield" indicating if each row is identical, changed, new, or deleted. This functionality is particularly useful for change data capture, data synchronization, audit trails, and implementing slowly changing dimensions.
+**Append streams** outputs every row of its first input (the *head*), then every row of its second (the *tail*). Several hops into any one step stack the rows too, but in arrival order rather than head first.
+
+| Head: A | B | C | D |
+| --- | --- | --- | --- |
+| 1 | 2 | 3 | 4 |
+| 1 | 2 | 3 | 4 |
+
+| Tail: A | B | C | D |
+| --- | --- | --- | --- |
+| 5 | 6 | 7 | 8 |
+| 5 | 6 | 7 | 8 |
+
+| Appended: A | B | C | D |
+| --- | --- | --- | --- |
+| 1 | 2 | 3 | 4 |
+| 1 | 2 | 3 | 4 |
+| **5** | **6** | **7** | **8** |
+| **5** | **6** | **7** | **8** |
+
+**Sorted merge**
+
+**Sorted merge** interleaves two inputs that are both already sorted on the same key, so the output stays sorted. It doesn't sort; it relies on its inputs being sorted.
+
+| Input 1 (sorted on A): A | B |
+| --- | --- |
+| 3 | 4 |
+| 6 | 2 |
+| 7 | 2 |
+
+| Input 2 (sorted on A): A | B |
+| --- | --- |
+| 1 | 6 |
+| 2 | 4 |
+| 4 | 2 |
+
+| Merged, still sorted: A | B |
+| --- | --- |
+| **1** | **6** |
+| **2** | **4** |
+| 3 | 4 |
+| **4** | **2** |
+| 6 | 2 |
+| 7 | 2 |
 
 ::: tabs
 
-### Merge stream
+### Merge Streams
 
-> **Note:** **Merge stream - Dummy**
-> 
-> The Transformation underlines the ‘rules’ for manipulating data streams. Each data stream must have the same structure / layout, before they can be merged.
-> 
-> In this guided demonstration, you will merge data streams based on a set of rules:
-> 
-> • Add constant step
+> **Note:** **Merge Streams**
+>
+> In the [Merge Streams](../20-mod4-merge-streams/guide.md) workshop you bring two streams with different fields to one layout, with **Add constants** and **Select values**, and merge them in a **Dummy** step.
 
-<figure><img src="../_assets/images/merge-streams-2.png" alt=""><figcaption><p>Merge streams</p></figcaption></figure>
-
-**Merge Streams**
+<figure><img src="../_assets/images/merge-streams-2.png" alt="The Merge Streams transformation: orders and description streams brought to one layout and merged in a Dummy step"><figcaption><p>Merge Streams</p></figcaption></figure>
 
 ### Merge Rows (diff)
 
-> **Note:** **Merge rows (diff)**
-> 
-> The Merge Rows (diff) compares the values between the merging rows and sets a ‘flag’.
-> 
-> In this guided demonstration, you will compare incoming records with reference records and then determine whether the record is Identical or needs updating, inserting, deleting:
-> 
-> • Merge Rows (diff) stream
-> 
-> • Merge Rows (diff) database
+> **Note:** **Merge Rows (diff)**
+>
+> **Merge rows (diff)** compares a *reference* stream with a *compare* stream, matched on key fields, and adds a flag to every row: `identical`, `changed`, `new` or `deleted`. **Synchronize after merge** then turns the flags into inserts, updates and deletes on a table. Together they find and apply what changed between two snapshots: change data capture without database triggers.
+>
+> In the [Merge Rows (diff)](../21-mod4-merge-streams-diff/guide.md) workshop you compare two files, then a file with a table.
 
-<figure><img src="../_assets/images/merge-rows-diff.png" alt=""><figcaption><p>Merge Rows (diff)</p></figcaption></figure>
-
-**Merge Rows Diff**
+<figure><img src="../_assets/images/merge-rows-diff.png" alt="A table and a sorted file feeding Merge Rows (diff), which feeds Synchronize after merge"><figcaption><p>Merge Rows (diff)</p></figcaption></figure>
 
 :::
-

@@ -13,12 +13,12 @@ Pentaho Data Integration operates on a **client-server architecture** that separ
 
 * **Enterprise Components**: The server-side infrastructure that handles execution, security, content management, and scheduling
 * **Client Tools**: The desktop applications used to design, test, and deploy your data integration solutions
-* **Configuration Framework**: The KETTLE configuration files that control system behaviour and store critical settings
+* **Configuration Framework**: The KETTLE configuration files that control system behavior and store critical settings
 * **Repository Management**: How PDI manages versioning, collaboration, and content organization
 * **Database Connectivity**: The process of integrating JDBC drivers to connect to various data sources
 <figure>
 
-![alt text](../_assets/images/psi-workflow-2.svg)
+![Pentaho Ecosystem](../_assets/images/psi-workflow-2.svg)
 
 <div align="center">
 <figcaption><em>Pentaho Ecosystem</em></figcaption>
@@ -35,7 +35,7 @@ Browse to learn about the components:
 <div align="center">
 <figure>
 
-![alt text](../_assets/images/architecture.png)
+![Pentaho Architecture - Client / Server](../_assets/images/architecture.png)
 
 <figcaption><em>Pentaho Architecture - Client / Server</em></figcaption>
 </figure>
@@ -50,7 +50,7 @@ Browse to learn about the components:
 >
 > **Spoon**
 >
-> Graphical modelling environment for developing, testing, debugging and monitoring jobs and transformations.
+> Graphical modeling environment for developing, testing, debugging and monitoring jobs and transformations.
 >
 > **Designer**
 >
@@ -58,15 +58,15 @@ Browse to learn about the components:
 >
 > **Scheduler**
 >
-> Connects to Quartz scheduler on server. Jobs and transformations must be uploaded to Repository.
+> Connects to the Quartz scheduler on the Pentaho Server. Jobs and transformations must be saved to the repository first.
 >
 > **Engine**
 >
-> Kettle and Spark engines available to execute jobs and transformations.
+> The Kettle (Pentaho) engine runs jobs and transformations; Spark is also available as an engine.
 >
 > **Repository Browser**
 >
-> Connects to Apache Jackrabbit content Repository, pointing to a supported database:
+> Connects to the Pentaho Repository (Apache Jackrabbit), which stores its content in a supported database:
 >
 > * PostgreSQL
 > * MSSQL Server
@@ -76,7 +76,7 @@ Browse to learn about the components:
 >
 > **DB Explorer**
 >
-> Database Explorer that enables you to conduct minimal database operations.
+> Browses a connection's schemas and tables and runs simple queries.
 
 <div class="pcm-embed-card" data-href="https://docs.pentaho.com/pdia-data-integration" data-title="Pentaho Data Integration 11.0 | Pentaho" data-thumb="../_assets/embeds/df6e513be97b.png"></div>
 
@@ -103,63 +103,51 @@ The primary functions of the Pentaho Server are:
 >
 > #### **Carte Server**
 >
-> The Pentaho DI Carte Server is a vital component within the Pentaho data integration suite, designed to facilitate robust data processing operations. It serves as a stand-alone web server and execution environment that allows for the remote execution of ETL (Extract, Transform, Load) tasks, making it a cornerstone for managing data workflows efficiently.
+> Carte is a lightweight web server that runs transformations and jobs remotely. It receives work from Spoon, Kitchen or the Pentaho Server, runs it in its own Java process, and reports status and logs back. Several Carte servers together form a cluster.
 
 <div align="center">
 <figure>
 
-![alt text](../_assets/images/carte.png)
+![Carte Ecosystem](../_assets/images/carte.png)
 
 <figcaption><em>Carte Ecosystem</em></figcaption>
 </figure>
 </div>
 
-> **Note:** **Simplicity and Efficiency**
+> **Note:** **What Carte gives you**
 >
-> Carte stands out for its straightforward and user-friendly setup, paired with a highly efficient operation that conserves resources. This makes it the ideal choice for organizations seeking to enhance their data integration workflows efficiently and with minimal operational burden.
->
-> **Remote Execution Flexibility**
->
-> With Carte, executing ETL tasks remotely becomes effortless, allowing for versatile data integration management from any location. Serving as a powerful remote ETL server, Carte can handle jobs and transformations from afar, broadening the capabilities of data integration strategies.
->
-> **Seamless Integration Capabilities**
->
-> Featuring an extensive array of built-in connectors, Carte excels in smoothly integrating with a multitude of sources and destinations, including databases and data warehouses. This capability facilitates straightforward data extraction, transformation, and loading processes across various platforms.
->
-> **Built for Scalability**
->
-> Carte is designed to grow with your needs, enabling deployment in multiple configurations such as Kubernetes, Docker, and cloud-based solutions. Its lightweight design ensures consistent performance, even as data demands increase.
->
-> **Intuitive Web Interface**
->
-> The Carte web interface offers a clean and efficient way to oversee jobs and transformations. Users gain access to real-time task updates, status reports, and comprehensive execution logs, all through a user-friendly dashboard.
+> * **A small footprint** - one Java process, started with `carte.bat` or `carte.sh`, with no application server around it.
+> * **Remote execution** - run a transformation or job on the machine that holds the data, from Spoon's **Run Options** or from Kitchen.
+> * **The same steps everywhere** - Carte runs the PDI engine, so every step and connection that works in Spoon works there too.
+> * **Scale-out** - deploy several Carte servers (on VMs, in Docker or on Kubernetes) and spread work across them as a cluster.
+> * **A status page** - a browser view of the transformations and jobs running on the server, with their status and logs.
 
 <div class="pcm-embed-card" data-href="https://docs.pentaho.com/pdia-data-integration/advanced-topics-pentaho-data-integration-overview/use-carte-clusters" data-title="Use Carte Clusters | Pentaho" data-thumb="../_assets/embeds/b2bee0a6a9e0.png"></div>
 
-### 4. REST APIs
+### 4. Command Line and APIs
 > **Note:**
 >
-> #### **PDI REST APIs**
+> #### **Command line tools and REST APIs**
 >
-> You can use PDI's command line tools to execute PDI content from outside of Spoon. Typically, you would use these tools in the context of creating a script or a Cron job to run the job or transformation based on some condition outside of the realm of Pentaho software.
+> Pan and Kitchen run transformations and jobs from the command line, outside Spoon - typically from a script or a scheduler such as cron or Windows Task Scheduler. Carte and the Pentaho Server also expose REST APIs for starting and monitoring work remotely.
 
 > **Note:** **Pan**
 >
-> A standalone command line process that can be used to execute transformations and jobs you created in Spoon. The data transformation engine Pan reads data from and writes data to various data sources. Pan also allows you to manipulate data.
+> Runs a transformation (`.ktr`) from the command line, with the same engine Spoon uses.
 >
 > ```bash
-> ./pan.sh /file:/home/[pentaho_user]/[path]/[transformation].ktr  /level:[Log Level]
+> ./pan.sh -file=/home/pentaho/transformations/example.ktr -level=Basic
 > ```
 
 > **Note:** **Kitchen**
 >
-> A standalone command line process that can be used to execute jobs. The program that executes the jobs designed in the Spoon graphical interface, either in XML or in a database repository. Jobs are usually scheduled to run in batch mode at regular intervals.
+> Runs a job (`.kjb`) from the command line, from a file or a repository. Jobs are usually scheduled to run in batch at regular intervals.
 >
 > ```bash
-> ./kitchen.sh /file:/home/[pentaho_user]/[path]/[job].kjb  /level:[Log level]
+> ./kitchen.sh -file=/home/pentaho/jobs/example.kjb -level=Basic
 > ```
 
-<div class="pcm-embed-card" data-href="https://docs.pentaho.com/pentaho-rest-api/carte-apis-carte-server" data-title="Carte APIs"></div>
+<div class="pcm-embed-card" data-href="https://docs.pentaho.com/pdia-data-integration/loading-data-from-pdi#run-transformations-and-jobs-from-the-command-line" data-title="Run transformations and jobs from the command line | Pentaho Documentation"></div>
 
 :::
 
@@ -173,7 +161,7 @@ The primary functions of the Pentaho Server are:
 <div align="center">
 <figure>
 
-![alt text](../_assets/images/spoon-welcome.png)
+![Welcome Page](../_assets/images/spoon-welcome.png)
 
 <figcaption><em>Welcome Page</em></figcaption>
 </figure>
@@ -198,41 +186,41 @@ Start-Process "C:\Pentaho\design-tools\data-integration\spoon.bat"
 ### 3. Configuration Files
 > **Note:** **Configuration Files**
 >
-> The default Pentaho Data Integration (PDI) home directory is the `.kettle` folder located within the system user's home directory. This directory contains the main PDI configuration files.
+> The PDI home directory is the `.kettle` folder in the user's home directory. It holds the main PDI configuration files.
 >
-> * **Windows:** C:\\{user}\\.kettle
-> * **Linux:**   $HOME/.kettle
+> * **Windows:** `C:\Users\<username>\.kettle`
+> * **Linux:** `$HOME/.kettle`
 >
-> The directory may change depending on the user who is logged on. Thus, the configuration files that control the behaviour of PDI jobs and transformations are different from user to user.
+> Because the folder belongs to the user who is signed in, two users can see different settings for the same transformations and jobs. The same applies when PDI runs inside the Pentaho Server.
 >
-> This also applies when running PDI from the Pentaho BI Platform. When you set the KETTLE\_HOME variable, the PDI jobs and transformations can be run without being affected by the user who is logged on. KETTLE\_HOME is used to change the location of the files normally in \[user home].kettle
+> Set the `KETTLE_HOME` environment variable to point every user (and the server) at one `.kettle` folder, so the configuration no longer depends on who is signed in.
 
 | File              | Description                                   |
 | ----------------- | --------------------------------------------- |
-| kettle.properties | main configuration file with global variables |
-| shared.xml        | list of shared artefacts                      |
-| db.cache          | database cache for metadata                   |
-| repositories.xml  | list of repositories                          |
-| .spoonrc          | settings for the UI                           |
-| .languageChoice   | language settings                             |
+| kettle.properties | Main configuration file with global variables |
+| shared.xml        | Shared objects: connections, steps, servers   |
+| db.cache          | Cached database metadata                      |
+| repositories.xml  | The repositories Spoon can connect to         |
+| .spoonrc          | Spoon's preferences and state                 |
+| .languageChoice   | Language settings                             |
 
 ::: tabs
 
 ### 1. kettle.properties
 > **Note:** **kettle.properties**
 >
-> The kettle.properties file is where you will find all the global variables for KETTLE. You can also set global variables that can be used in Transformations and Jobs. For example, you can define database connections, paths to files, or variables that can be used as parameters in your solution.
+> `kettle.properties` holds the global variables for PDI. Every transformation and job can use them - for example a database host, a folder path, or a value you pass as a parameter.
 >
-> * **Windows:** C:\\{user}\\.kettle\\kettle.properties
-> * **Linux:**   $HOME/.kettle/kettle.properties
+> * **Windows:** `C:\Users\<username>\.kettle\kettle.properties`
+> * **Linux:** `$HOME/.kettle/kettle.properties`
 >
 
-The kettle.properties can be edited using a Text Editor or via the Toolbar, select:
+Edit `kettle.properties` in a text editor, or in Spoon select **Edit > Edit the kettle.properties file**:
 
 <div align="center">
 <figure>
 
-![alt text](../_assets/images/kettle-edit.png)
+![Edit kettle.properties](../_assets/images/kettle-edit.png)
 
 <figcaption><em>Edit kettle.properties</em></figcaption>
 </figure>
@@ -241,20 +229,20 @@ The kettle.properties can be edited using a Text Editor or via the Toolbar, sele
 **Kettle Variables**
 <figure>
 
-![1789748200086.png](../_assets/images/1789748200086.png)
+![Kettle.properties file](../_assets/images/1789748200086.png)
 
 <div align="center">
-<figcaption><em>kettle.proprties file</em></figcaption>
+<figcaption><em>kettle.properties file</em></figcaption>
 </div>
 </figure>
 
 ### 2. shared.xml
 > **Note:** **shared.xml**
 >
-> A variety of objects can now be placed in a shared objects file on the local machine. The default location for the shared objects file is:
+> Objects you share are stored in a shared objects file on the local machine. The default location is:
 >
-> * **Windows:** C:\\{user}\\.kettle\shared.xml
-> * **Linux:** $HOME/.kettle/shared.xml
+> * **Windows:** `C:\Users\<username>\.kettle\shared.xml`
+> * **Linux:** `$HOME/.kettle/shared.xml`
 >
 > Objects that can be shared using this method include:
 >
@@ -264,14 +252,14 @@ The kettle.properties can be edited using a Text Editor or via the Toolbar, sele
 > * Partition schemas
 > * Cluster schemas
 >
-> The location of the shared objects file is configurable on the "Miscellaneous" tab of the Transformation > Settings dialog.
+> You can point a transformation at a different shared objects file on the **Miscellaneous** tab of its **Transformation properties**.
 
-1. To share one of these objects, simply right-click on the object in the tree control on the left and choose share.
+1. To share an object, right-click it in the **View** tab and select **Share**.
 
 <div align="center">
 <figure>
 
-![alt text](../_assets/images/share-connection.png)
+![Shared connection](../_assets/images/share-connection.png)
 
 <figcaption><em>Shared connection</em></figcaption>
 </figure>
@@ -281,15 +269,15 @@ The kettle.properties can be edited using a Text Editor or via the Toolbar, sele
 
 
 
-> **Note:** **Bold Type** indicates the Object is shared.
+> **Note:** A shared object is shown in **bold** in the **View** tab.
 
 ### 3. repositories.xml
 > **Note:** **repositories.xml**
 >
-> A variety of objects can now be placed in a shared objects file on the local machine. The default location for the shared objects file is:
+> Lists the repositories Spoon can connect to, such as the Pentaho Repository on a Pentaho Server. The default location is:
 >
-> * **Windows:** C:\\{user}\\.kettle\\repositories.xml
-> 8 **Linux:**   $HOME/.kettle/repositories.xml
+> * **Windows:** `C:\Users\<username>\.kettle\repositories.xml`
+> * **Linux:** `$HOME/.kettle/repositories.xml`
 
 ```xml
 <repositories>
@@ -313,10 +301,10 @@ The kettle.properties can be edited using a Text Editor or via the Toolbar, sele
 > * User interface settings
 > * The last opened transformation/job
 >
-> The default location for the shared objects file is:
+> The default location is:
 >
-> * **Windows:** C:\\{user}\\.kettle\\.spoonrc
-> * **Linux:**   $HOME/.kettle/.spoonrc
+> * **Windows:** `C:\Users\<username>\.kettle\.spoonrc`
+> * **Linux:** `$HOME/.kettle/.spoonrc`
 
 ```properties
 #Kettle Properties file
@@ -338,23 +326,23 @@ FontDefaultStyle=0
 ...
 ```
 
-> **Note:** These options are set from the main menu: Tools -> Options
+> **Note:** Set these options in Spoon from **Tools > Options**.
 
 :::
 
 ### 4. JDBC
 > **Note:** **Adding JDBC Drivers**
 >
-> The PDI & Pentaho Server needs the appropriate driver to connect to the database that stores your data. Your database administrator, Chief Intelligence Officer, or IT manager should be able to provide the appropriate driver. If not, you can download drivers from your database vendor's website.
+> PDI and the Pentaho Server need a JDBC driver for each kind of database they connect to. Your database administrator can usually provide it; otherwise download it from the database vendor's website.
 >
-> Once you have the correct driver, copy it to the following directories:
+> Copy the driver `.jar` to:
 >
 > * **Pentaho Server:** /pentaho/server/pentaho-server/tomcat/lib/
 > * **PDI client:**     /data-integration/lib
 
-> **Danger:** You must restart the PDI client for the driver to take effect.
+> **Warning:** Restart Spoon (and the Pentaho Server) after adding a driver.
 >
-> There should be only one driver for your database in the directory. Ensure that there are no other versions of the same vendor's driver in this directory. If there are, back up the old driver files and remove them to avoid version conflicts.
+> Keep one driver per database in each folder. If an older version of the same vendor's driver is there, back it up and remove it, or the two versions conflict.
 
 <div class="pcm-embed-card" data-href="https://docs.pentaho.com/pdia-try-pdia/jdbc-drivers-reference" data-title="JDBC Drivers"></div>
 
@@ -366,13 +354,12 @@ FontDefaultStyle=0
 >
 > Apache Jackrabbit needs two pieces of information to set up a runtime content repository instance:
 >
-> * Repository home directoryThe filesystem path of the directory containing the content repository accessed by the runtime instance of Jackrabbit. This directory usually contains all the repository content, search indexes, internal configuration, and other persistent information managed within the content repository. Note that this is not absolutely required and some persistence managers and other Jackrabbit components may well be configured to access files and even other resources (like remote databases) outside the repository home directory. A designated repository home directory is however always needed even if some components choose to not use it. Jackrabbit will automatically fill in the repository home directory with all the required files and subdirectories when the repository is first instantiated.
-> * Repository configuration file
->   The filesystem path of the repository configuration XML file. This file specifies the class names and properties of the various Jackrabbit components used to manage and access the content repository. Jackrabbit parses this configuration file and instantiates the specified components when the runtime content repository instance is created.
+> * **Repository home directory** - the folder that holds the repository's content, search indexes and internal configuration. Jackrabbit fills it in the first time the repository starts.
+> * **Repository configuration file** - the XML file that names the Jackrabbit components (persistence managers and so on) the repository uses. Jackrabbit reads it when the repository starts.
 
-> **Note:** [**Hibernate**](https://hibernate.org/) is a Java framework which is used to store the Java objects in the relational database system. It is an open-source, lightweight, ORM (Object Relational Mapping) tool.
+> **Note:** [**Hibernate**](https://hibernate.org/) is an open-source object-relational mapping (ORM) framework that the Pentaho Server uses to store Java objects in a relational database.
 
-> **Note:** [**Quartz**](http://www.quartz-scheduler.org/) is an open source job-scheduling framework written entirely in Java and designed for use in both *J2SE* and *J2EE* applications.
+> **Note:** [**Quartz**](http://www.quartz-scheduler.org/) is the open-source Java job scheduler behind the Pentaho Server's schedules.
 
 ---
 
@@ -380,19 +367,29 @@ FontDefaultStyle=0
 >
 > Pentaho Data Integration (PDI) can track versions and comments for jobs, transformations, and connection information when you save them. You can turn version control and comment tracking on or off by modifying their related statements in the repository.spring.properties text file.
 >
-> By default, version control and comment tracking are disabled (set to false). Best Practice: manage your ETL workflows with a 3rd party content management tool, e.g. Github; only uploading the production version into the Repository.
+> By default, version control and comment tracking are disabled (set to `false`). Best practice: keep your transformations and jobs in a version-control system such as Git, and upload only the production version to the repository.
 
-1. Exit from the PDI client (also called Spoon).
+1. Exit Spoon.
 2. Stop the Pentaho Server.
-3. Edit repository.spring.properties file.
+3. Open `repository.spring.properties` in the server's `pentaho-solutions\system` folder.
 
-```bash
-cd
-cd ~/Pentaho/server/pentaho-server/pentaho-solutions/system
-nano repository.spring.properties
+::: tabs
+
+### Windows (PowerShell)
+
+```powershell
+notepad C:\Pentaho\server\pentaho-server\pentaho-solutions\system\repository.spring.properties
 ```
 
-4. Edit the versioningEnabled and versionCommentsEnabled statements:
+### macOS / Linux
+
+```bash
+nano ~/Pentaho/server/pentaho-server/pentaho-solutions/system/repository.spring.properties
+```
+
+:::
+
+4. Set `versioningEnabled` and `versionCommentsEnabled` to `true`, save the file, and start the Pentaho Server again:
 
 ```
 versioningEnabled=true

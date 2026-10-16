@@ -1,0 +1,46 @@
+%%{init: {"theme":"base","themeVariables":{"fontFamily":"Segoe UI, Helvetica, Arial, sans-serif","fontSize":"13px","lineColor":"#64748b","clusterBkg":"#fafaf9","clusterBorder":"#d6d3d1","edgeLabelBackground":"#ffffff"},"flowchart":{"curve":"basis","nodeSpacing":22,"rankSpacing":40,"padding":10,"htmlLabels":true}}}%%
+flowchart LR
+  classDef input fill:#dbeafe,stroke:#1d4ed8,color:#1e3a8a,text-align:left,rx:6,ry:6
+  classDef enrich fill:#ede9fe,stroke:#6d28d9,color:#3b0764,text-align:left,rx:6,ry:6
+  classDef join fill:#ccfbf1,stroke:#0f766e,color:#134e4a,text-align:left,rx:6,ry:6
+  classDef output fill:#dcfce7,stroke:#15803d,color:#14532d,text-align:left,rx:6,ry:6
+  I1["<b>Excel input</b><br/>OrderList"]:::input
+  I2["<b>Excel input</b><br/>OrderHeaders"]:::input
+  I3["<b>Excel input</b><br/>OrderHeaderComments"]:::input
+  I4["<b>Excel input</b><br/>OrderLines"]:::input
+  I5["<b>Excel input</b><br/>OrderLineComments"]:::input
+  I6["<b>Excel input</b><br/>OrderSubLines"]:::input
+  P1["<b>Add constants</b><br/>Placeholder<br/>empty OrderHeaders"]:::enrich
+  P2["<b>Add constants</b><br/>Placeholder 2<br/>empty OrderLines,<br/>OrderHeaderComments"]:::enrich
+  P3["<b>Add constants</b><br/>Placeholder 3x<br/>empty OrderSubLines,<br/>OrderLineComments"]:::enrich
+  X5["<b>Modified JavaScript value</b><br/>Create XPath<br/>xPathStatement"]:::enrich
+  X6["<b>Modified JavaScript value</b><br/>Create XPath 2<br/>xPathStatement"]:::enrich
+  A1["<b>Add XML</b><br/>xmlOrderList"]:::enrich
+  A2["<b>Add XML</b><br/>xmlOrderHeaders"]:::enrich
+  A3["<b>Add XML</b><br/>xmlOrderHeaderComments"]:::enrich
+  A4["<b>Add XML</b><br/>xmlOrderLines"]:::enrich
+  A5["<b>Add XML</b><br/>xmlOrderLineComments"]:::enrich
+  A6["<b>Add XML</b><br/>xmlOrderSubLines"]:::enrich
+  J1["<b>XML Join Step</b><br/>headers into //OrderHeaders"]:::join
+  J2["<b>XML Join Step 2</b><br/>header comments, per orderNumber"]:::join
+  J3["<b>XML Join Step 3</b><br/>lines, per orderNumber"]:::join
+  J4["<b>XML Join Step 4</b><br/>line comments, per xPathStatement"]:::join
+  J5["<b>XML Join Step 5</b><br/>sub-lines, per xPathStatement"]:::join
+  O["<b>Text file output</b><br/>XMLOrders.xml"]:::output
+  I1 --> P1 --> A1
+  I2 --> P2 --> A2
+  I3 --> A3
+  I4 --> P3 --> A4
+  I5 --> X5 --> A5
+  I6 --> X6 --> A6
+  A1 -->|target| J1
+  A2 -->|source| J1
+  J1 -->|target| J2
+  A3 -->|source| J2
+  J2 -->|target| J3
+  A4 -->|source| J3
+  J3 -->|target| J4
+  A5 -->|source| J4
+  J4 -->|target| J5
+  A6 -->|source| J5
+  J5 --> O

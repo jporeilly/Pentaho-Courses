@@ -6,61 +6,59 @@ When the visual steps don't quite fit. Formula handles spreadsheet-style express
 
 </div>
 
-> **Note:** **Introduction**
-> 
-> There’s often a careful balancing act to perform with ETL workflows. For example, consider schema changes: new data sources need to be added, and the data model needs to be updated. In the manual route, you would need to go back to the drawing board, make the necessary changes and then run a series of test to make sure you haven’t broken anything; in larger data teams or deployments, multiple people need to be intimately familiar with the code whenever a simple modification is needed.
-> 
-> On the other hand, a visual ETL layer makes the process much more transparent and easier to modify, as well as troubleshoot in case things go wrong. And more importantly: every change is clearly documented, immediately noticeable and can be retraced – without having to spend hours or days poring over code to locate a change made by one of the developers, who in the meantime has gone on his annual vacation.
-> 
-> Pentaho Data Integration has several steps / job entries that help you automate the workflow. One of the most flexible, is the job entry:
-> 
-> **Execute a shell script**
-> 
-> Use the Shell job entry to execute a shell script on the host where the job is running. For example, suppose you have a program that reads five data tables and creates a file in a specified format. You know the program works. Shell allows you to do portions of your work in Pentaho Data Integration but reuse the program that reads the data tables as needed.
-> 
-> The Shell job entry is platform agnostic; you can use a batch file, UNIX, and so on. When you use a Shell job entry, Pentaho Data Integration makes a Java call to execute a program in a specified location. The return status is provided by the operating system call. For example, in batch scripting a return value of 1 indicates that the script was successful; a return value of 0 (zero) indicates that it was unsuccessful. You can pass command line arguments and set up logging for the Shell job entry.
+**What You'll Learn**
 
-#### Workshops
+* The five ways to calculate in a transformation, from no code to a Java class
+* When a formula is enough, and when you need a script
+* What each costs in speed and in readability
+
+> **Note:** **Introduction**
+>
+> Most calculations need no code at all. PDI offers a ladder of steps, and the rule of thumb is to use the lowest rung that does the job: the higher you go, the more you can express, and the harder the transformation is for the next person to read.
+>
+> | Step | You write | Good for |
+> | --- | --- | --- |
+> | **Calculator** | Nothing: pick a function from a list | Arithmetic, dates, string functions on up to three fields |
+> | **Formula** | A spreadsheet-style expression, `[a]+[b]` | Conditions, text assembly, anything an analyst would write in a spreadsheet |
+> | **User defined Java expression** | One Java expression per field | Java string and math methods, compiled for speed |
+> | **Modified JavaScript value** | A JavaScript script, run for each row | Loops, regular expressions, state carried from row to row |
+> | **User defined Java class** | A Java class that is the step | Logic too large for an expression, with full control of the rows |
 
 ::: tabs
 
 ### Formula
 
-> **Note:** The Formula transform allows you to apply Excel-like formulas and functions on fields in a pipeline.
-> 
-> With a formula you are not limited to comparing to three fields like in the Calculator. This is where you can set and compare Date and Times as well.
-> 
-> You have the option of creating a new field (use New field column) or replacing a field (use Replace value column).
-> 
-> Formula Examples using the TEXT function:
-> 
-> * Int to Text: "size=" & TEXT(\[RowLimitInteger],"0").
-> * DateTime to Text: \[StartDateField] & "=" & TEXT(\[StartDateTime], "yyyy-mm-dd")
-> * String to Text: "new\_counter=" & TEXT(\[counter]+1, "0")
+> **Note:** **Formula**
+>
+> **Formula** evaluates OpenFormula expressions, the language of spreadsheet formulas, with the row's fields in square brackets and arguments separated by semicolons:
+>
+> * `[a]+[b]`
+> * `IF([booking_type]="R";[b]-[a];0)`
+> * `CONCATENATE([first_name];" ";[last_name])`
+> * `INT([amount]*100+0.5)/100`, rounding to the cent (PDI 11's Formula has no `ROUND`)
+>
+> Each formula creates a new field, or replaces one with **Replace value**.
+>
+> Workshop: [Formula](../27-mod4-formula/guide.md).
 
-<figure><img src="../_assets/images/formula-simple-calculation-if.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../_assets/images/formula-simple-calculation-if.png" alt="Two flows: Generate Rows into a Formula that adds a and b, and Generate Rows 2 into an IF formula"><figcaption><p>A calculation and a condition</p></figcaption></figure>
 
-**formula**
+### Modified JavaScript value
 
-### Modified JavaScript Value
+> **Note:** **Modified JavaScript value**
+>
+> **Modified JavaScript value** runs a script once for each input row. The row's fields are JavaScript variables, and the variables you list in the step's **Fields** grid become output fields. Variables declared at the top level keep their values from one row to the next, which makes running totals and comparisons with the previous row possible.
+>
+> Workshop: [Modified JavaScript Value](../28-mod4-mjv/guide.md).
 
-> **Note:** The JavaScript transform provides a user interface for building JavaScript expressions that you can use to modify your data. The code you type in the script area is executed once for each input row.
+<figure><img src="../_assets/images/modified-javascript-value-replace.png" alt="Generate Rows into a Modified JavaScript value step that replaces characters in a string"><figcaption><p>A script that cleans a string</p></figcaption></figure>
 
-<figure><img src="../_assets/images/modified-javascript-value-replace.png" alt=""><figcaption></figcaption></figure>
+### User defined Java class
 
-**Modified Javascript Value**
+> **Note:** **User defined Java class**
+>
+> **User defined Java class** lets you write the logic of a whole step in Java: you define the methods that process each row, and PDI compiles the class when the transformation starts, with the [Janino](https://janino-compiler.github.io/janino/) compiler. It is for logic that is too large for an expression, not for building full plugins inside a step.
 
-### User Defined Java Class
-
-> **Note:** You can use the User Defined Java Class step to enter your own Java class to drive the functionality of a complete step. You can program your own plugin into a step, yet the goal of this step is not to do full-scale Java development inside of a step.
-> 
-> The goal is for you to just define Java methods and logic. For this step, the [Janino](https://janino-compiler.github.io/janino/apidocs/) project libraries are used to compile Java code in the form of classes at runtime.
-
-<figure><img src="../_assets/images/user-defined-java-class-easter.png" alt=""><figcaption></figcaption></figure>
-
-**User Defined Java Class**
-
-### Executors
+<figure><img src="../_assets/images/user-defined-java-class-easter.png" alt="Generate rows into a User defined Java class that works out the date of Easter Sunday for a year"><figcaption><p>A Java class that calculates Easter Sunday</p></figcaption></figure>
 
 :::
-

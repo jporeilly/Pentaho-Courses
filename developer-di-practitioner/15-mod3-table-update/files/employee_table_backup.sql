@@ -2,19 +2,26 @@
 -- undoing the updates and inserts of the Table Update and Insert / Update
 -- workshops. MySQL sampledata: run it in DBeaver (or any MySQL client)
 -- connected as pentaho_admin.
+--
+-- EMPLOYEES references itself (REPORTSTO) and CUSTOMERS references it,
+-- so foreign-key checks are off for this session while the rows are
+-- replaced, and back on at the end. The same 23 rows go back, so every
+-- reference is valid again when they are.
+
+SET FOREIGN_KEY_CHECKS = 0;
 
 DELETE FROM EMPLOYEES;
 
 INSERT INTO EMPLOYEES VALUES(1002,'Murphy','Diane','x5800','dmurphy@classicmodelcars.com','1',NULL,'President');
 INSERT INTO EMPLOYEES VALUES(1056,'Patterson','Mary','x4611','mpatterso@classicmodelcars.com','1',1002,'VP Sales');
 INSERT INTO EMPLOYEES VALUES(1076,'Firrelli','Jeff','x9273','jfirrelli@classicmodelcars.com','1',1002,'VP Marketing');
-INSERT INTO EMPLOYEES VALUES(1088,'Patterson','William','x4871','wpatterson@classicmodelcars.com','6',1056,'Sales Manager (JAPAN, APAC)');
-INSERT INTO EMPLOYEES VALUES(1102,'Bondur','Gerard','x5408','athompson@classicmodelcars.com','4',1056,'Sale Manager (EMEA)');
-INSERT INTO EMPLOYEES VALUES(1143,'Bow','Anthony','x5428','bhoward@classicmodelcars.com','1',1056,'Sales Manager (NA)');
+INSERT INTO EMPLOYEES VALUES(1088,'Patterson','William','x4871','wpatterson@classicmodelcars.com','6',1056,'Sales Manager (APAC)');
+INSERT INTO EMPLOYEES VALUES(1102,'Bondur','Gerard','x5408','gbondur@classicmodelcars.com','4',1056,'Sale Manager (EMEA)');
+INSERT INTO EMPLOYEES VALUES(1143,'Bow','Anthony','x5428','abow@classicmodelcars.com','1',1056,'Sales Manager (NA)');
 INSERT INTO EMPLOYEES VALUES(1165,'Jennings','Leslie','x3291','ljennings@classicmodelcars.com','1',1143,'Sales Rep');
 INSERT INTO EMPLOYEES VALUES(1166,'Thompson','Leslie','x4065','lthompson@classicmodelcars.com','1',1143,'Sales Rep');
 INSERT INTO EMPLOYEES VALUES(1188,'Firrelli','Julie','x2173','jfirrelli@classicmodelcars.com','2',1143,'Sales Rep');
-INSERT INTO EMPLOYEES VALUES(1216,'Patterson','Steve','x4334','spatterso@classicmodelcars.com','2',1143,'Sales Rep');
+INSERT INTO EMPLOYEES VALUES(1216,'Patterson','Steve','x4334','spatterson@classicmodelcars.com','2',1143,'Sales Rep');
 INSERT INTO EMPLOYEES VALUES(1286,'Tseng','Foon Yue','x2248','ftseng@classicmodelcars.com','3',1143,'Sales Rep');
 INSERT INTO EMPLOYEES VALUES(1323,'Vanauf','George','x4102','gvanauf@classicmodelcars.com','3',1143,'Sales Rep');
 INSERT INTO EMPLOYEES VALUES(1337,'Bondur','Loui','x6493','lbondur@classicmodelcars.com','4',1102,'Sales Rep');
@@ -25,6 +32,8 @@ INSERT INTO EMPLOYEES VALUES(1504,'Jones','Barry','x102','bjones@classicmodelcar
 INSERT INTO EMPLOYEES VALUES(1611,'Fixter','Andy','x101','afixter@classicmodelcars.com','6',1088,'Sales Rep');
 INSERT INTO EMPLOYEES VALUES(1612,'Marsh','Peter','x102','pmarsh@classicmodelcars.com','6',1088,'Sales Rep');
 INSERT INTO EMPLOYEES VALUES(1619,'King','Tom','x103','tking@classicmodelcars.com','6',1088,'Sales Rep');
-INSERT INTO EMPLOYEES VALUES(1621,'Nishi','Mami','x101','mnishi@classicmodelcars.com','5',1088,'Sales Rep');
-INSERT INTO EMPLOYEES VALUES(1625,'Kato','Yoshimi','x102','ekato@classicmodelcars.com','5',1088,'Sales Rep');
-INSERT INTO EMPLOYEES VALUES(1702,'Gerard','Martin','x2312','gmartin@classicmodelcars.com','4',1102,'Sales Rep');
+INSERT INTO EMPLOYEES VALUES(1621,'Nishi','Mami','x101','mnishi@classicmodelcars.com','5',1056,'Sales Rep');
+INSERT INTO EMPLOYEES VALUES(1625,'Kato','Yoshimi','x102','ykato@classicmodelcars.com','5',1621,'Sales Rep');
+INSERT INTO EMPLOYEES VALUES(1702,'Gerard','Martin','x2312','mgerard@classicmodelcars.com','4',1102,'Sales Rep');
+
+SET FOREIGN_KEY_CHECKS = 1;

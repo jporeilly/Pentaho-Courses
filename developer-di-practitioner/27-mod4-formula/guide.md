@@ -4,29 +4,31 @@
 >
 > #### Workshop - Formula
 > 
-> The Formula step in Pentaho Data Integration (PDI) lets you create new fields or modify existing ones using mathematical expressions, string manipulations, and logical operations.
-> 
-> In this workshop, you generate test rows and use the Formula step to build calculated fields with both simple arithmetic and conditional business logic.
+> The **Formula** step creates or replaces fields with spreadsheet-style expressions: arithmetic, text, dates and conditions.\
+> In this workshop you generate a test row and build two formulas, a sum and a conditional.
 > 
 > **What you'll do**
 > 
-> * Generate test data with Generate rows
-> * Build a simple calculation with the Formula step
-> * Add conditional business logic with an IF formula
-> * Reference data stream fields using the `[data field]` syntax
+> * Generate a test row with **Generate rows**
+> * Write a simple calculation in **Formula**, referring to fields as `[field]`
+> * Add a condition with `IF`, and see why it needs all three arguments
 > 
-> **Prerequisites:** Understanding of basic transformation concepts (steps, hops, preview). Pentaho Data Integration installed and configured.
+> **Prerequisites:** [Review Scripting](../topic-mod4-scripting-review/guide.md)
 > 
 > **Estimated time:** 20 minutes
 
-![Formula](../_assets/images/formula.png)
+<figure>
+
+![The finished transformation: Generate Rows into Formula [a]+[b], and Generate Rows 2 into IF Formula b-a](../_assets/images/formula.png)
+
+<div align="center">
+<figcaption><em>What you build: two small flows</em></figcaption>
+</div>
+</figure>
 
 > **Note:** **Create a new transformation**
 > 
-> Use any of these options to open a new transformation tab:
-> 
-> * Select **File** > **New** > **Transformation**
-> * Use `Ctrl+N` (Windows/Linux) or `Cmd+N` (macOS)
+> Select **File > New > Transformation**, or press `Ctrl+N` (`Cmd+N` on macOS). Save it as `tr_formula.ktr` in the lab folder, `C:\Workshop-DI-Practitioner\04-enriching-the-dataset\04-scripting\27-mod4-formula`.
 
 :::: tabs
 
@@ -36,21 +38,9 @@
 >
 > #### Generate rows
 > 
-> Generate rows outputs a specified number of rows. By default, the rows are empty; however, they can contain several static fields. This step is used primarily for testing purposes. It may be useful for generating a fixed number of rows, for example, you want exactly 12 rows for 12 months.
-> 
-> Sometimes you may use Generate Rows to generate one row that is an initiating point for your transformation. For example, you might generate one row that contains two or three field values that you might use to parameterize your SQL and then generate the real rows.
-> 
-> Used to generate some testing data:
-> 
-> a = 1
-> 
-> b = 2
-> 
-> booking\_type = R
+> **Generate rows** outputs a set number of rows, each with the same fixed values. It is mostly for tests, or for one row that starts a flow, such as a row of parameters for a query.
 
-1. Start Pentaho Data Integration (Spoon).
-
-> **Note:** 
+1. Start Spoon.
 
 ::: tabs
 
@@ -78,10 +68,10 @@
 
 <button data-launch="spoon" data-path="">Start PDI</button>
 
-2. Drag **Generate rows** onto the canvas.
-3. Double-click the step. Configure it like this:
+2. From the **Input** folder, drag **Generate rows** onto the canvas and name it `Generate Rows`.
+3. Double-click it. Set **Limit** to `1` and add two fields, `a` (Integer, **Value** `1`) and `b` (Integer, **Value** `2`).
 
-<figure><img src="../_assets/images/gr-formula1.png" alt=""><figcaption><p>Generate rows</p></figcaption></figure>
+<figure><img src="../_assets/images/gr-formula1.png" alt="Generate rows with limit 1 and the fields a = 1 and b = 2"><figcaption><p>One row: a = 1, b = 2</p></figcaption></figure>
 
 ### 2. Formula
 
@@ -89,44 +79,53 @@
 >
 > #### Formula
 > 
-> The Formula step can calculate Formula Expressions within a data stream. It can be used to create simple calculations like \[A]+\[B] or more complex business logic with a lot of nested if / then logic.
+> Each row of the **Formula** step's grid creates a **New field** from a **Formula**. Fields of the row are written in square brackets, `[a]`, and functions take their arguments separated by semicolons: `IF(condition; then; else)`.
 
-**Workflow 1**
+**Workflow 1: a sum**
 
-Simple formula: result = \[a] + \[b]
+1. From the **Scripting** folder, drag **Formula** onto the canvas, name it `Formula [a]+[b]`, and hop **Generate Rows** to it.
+2. Add **New field** `result`, **Formula** `[a]+[b]`, **Value type** Number.
 
-<figure><img src="../_assets/images/formula-1.png" alt=""><figcaption><p>Formula - [a]+[b]</p></figcaption></figure>
+<figure><img src="../_assets/images/formula-1.png" alt="Formula step: result = [a]+[b], Number"><figcaption><p>result = [a]+[b]</p></figcaption></figure>
 
-**Workflow 2**
+3. Save, run and preview **Formula [a]+[b]**.
 
-Logic: result = IF(\[booking\_type]="R";\[b]-\[a])
+> **Success:** Checkpoint: one row, `a` 1, `b` 2, `result` 3.0.
 
-<figure><img src="../_assets/images/formula-2.png" alt=""><figcaption><p>Formula - IF([booking_type]=”R”;[b]-[a])</p></figcaption></figure>
+**Workflow 2: a condition**
 
-> **Note:** The data stream fields are referenced with the syntax: \[data field]
+1. Add a second **Generate rows**, `Generate Rows 2`, with `a` and `b` as before and a third field, `booking_type` (String, **Value** `R`).
+2. Add a second **Formula**, `IF Formula b-a`, hopped from **Generate Rows 2**: **New field** `result`, **Formula** `IF([booking_type]="R";[b]-[a])`, **Value type** Number.
+
+<figure><img src="../_assets/images/formula-2.png" alt="Formula step: result = IF([booking_type]=&quot;R&quot;;[b]-[a]), Number"><figcaption><p>A conditional formula</p></figcaption></figure>
+
+3. Save, run and preview **IF Formula b-a**.
+
+> **Success:** Checkpoint: `result` is 1.0, `b` minus `a`, because `booking_type` is `R`.
+
+> **Warning:** **Give IF all three arguments.** This formula has no *else*. Set `booking_type` to `X` and run it: `IF` returns FALSE, a Boolean, and the step stops with "Please specify a Boolean type for field [result]". Write the value for other rows as the third argument, for example `IF([booking_type]="R";[b]-[a];0)`.
 
 > **Under the hood:**
 >
 > #### Same formula engine as Pentaho Reporting, parsed once per run
 >
-> The **Formula** step doesn't interpret your text row by row. On
-> the first row it hands each expression to LibFormula — the OpenFormula
-> engine that also powers Pentaho Report Designer — which parses it
-> into an expression tree once. Per row the engine binds `[a]`, `[b]`
-> and `[booking_type]` to the current row's values by name, walks the
-> tree, and writes the result into the output field with the type it
-> inferred (or the one you set).
+> The **Formula** step doesn't interpret your text row by row. On the
+> first row it hands each expression to LibFormula, the OpenFormula
+> engine that also powers Pentaho Report Designer, which parses it into
+> an expression tree once. Per row the engine binds `[a]`, `[b]` and
+> `[booking_type]` to the current row's values by name, walks the tree,
+> and writes the result into the output field with the type you set.
 >
 > Because the parse happens once, on the first row, a typo in a formula
-> fails the step on row 1, not on row 40,000. And
-> because it is OpenFormula, the function catalogue — `IF`, `AND`,
-> `OR`, `CONCATENATE`, `ROUND`, `TODAY` — is the spreadsheet vocabulary
-> your analysts already know, not a programming language.
+> fails the step on row 1, not on row 40,000. And because it is
+> OpenFormula, the functions (`IF`, `AND`, `OR`, `CONCATENATE`,
+> `TODAY` and many more) are the spreadsheet vocabulary your analysts
+> already know. Not every spreadsheet function is there: PDI 11's
+> Formula has no `ROUND`, for example; `INT([x]*100+0.5)/100` rounds to
+> the cent instead.
 >
-> **Why it matters:** most business logic — conditional pricing,
-> derived flags, string assembly — fits in a Formula step with no
-> JavaScript and no Java, and runs a good deal faster than a script
-> would.
+> **Why it matters:** most business logic (conditional pricing, derived
+> flags, string assembly) fits in a Formula step, without a script.
 
 <div class="pcm-embed-card" data-href="http://docs.oasis-open.org/office/v1.2/OpenDocument-v1.2-part2.html" data-title="OpenDocument formula specification (OASIS)"></div>
 
@@ -138,7 +137,7 @@ Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data In
 
 ### Solution <!-- no-step -->
 
-The finished transformation for this lab. Open it alongside your own to compare, or run to see the expected result.
+The finished transformation for this lab. Open it alongside your own to compare, or run to see the expected result. Its hop into **IF Formula b-a** is disabled, so a run shows Workflow 1; enable the hop to run Workflow 2.
 
 Also on disk at `C:\Workshop-DI-Practitioner\04-enriching-the-dataset\04-scripting\27-mod4-formula\solution`.
 

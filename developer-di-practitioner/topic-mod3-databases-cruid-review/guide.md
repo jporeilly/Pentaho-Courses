@@ -4,7 +4,7 @@
 >
 > #### Database Operations
 >
-> Steel Wheels utilizes a straightforward Enterprise Resource Platform (ERP) to manage various Business Units (BUs) including Human Resources, Marketing, Finance, Supply Chain, and others. The upcoming workshops will demonstrate steps that illustrate CRUD (Create, Read, Update, Insert, Delete) operations:
+> CRUD names the four basic database operations: create, read, update and delete. This course adds a fifth, **insert-update**, so it says CRUID. The workshops that follow run each one against the Steel Wheels `sampledata` database.
 >
 > **Create** operations add new records to a database. This might involve inserting a new customer profile, product listing, or transaction record. In SQL, this is typically done using the INSERT statement, while in NoSQL databases, it might use methods like insertOne() or save().
 >
@@ -12,6 +12,15 @@
 >
 > **Update** operations modify existing records in the database. This could involve changing a customer's address, updating a product's price, or modifying any stored information. SQL uses the UPDATE statement, while NoSQL databases might use methods like updateOne() or save() on an existing document.
 >
+> **Insert-update** (an "upsert") updates a record when its key already exists and inserts it when it doesn't, so one load can both add and change data. PDI's **Insert / update** step does it with a lookup on the key, then an `UPDATE` or an `INSERT`; some databases have a single statement for it, such as `MERGE` or MySQL's `INSERT ... ON DUPLICATE KEY UPDATE`.
+>
 > **Delete** operations remove records from the database. This might involve permanently removing a user account or archiving old data. SQL uses the DELETE statement, while NoSQL databases typically use methods like deleteOne() or remove().
 
-![CRUID](../_assets/images/cruid.png)
+<figure>
+
+![The CRUID operations and the PDI steps that perform them](../_assets/images/cruid.png)
+
+<div align="center">
+<figcaption><em>CRUID in PDI</em></figcaption>
+</div>
+</figure>

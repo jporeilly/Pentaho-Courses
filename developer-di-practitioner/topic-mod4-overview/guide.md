@@ -6,27 +6,24 @@ Reading and writing is rarely enough. Most pipelines need to transform data in f
 
 </div>
 
+**What You'll Learn**
+
+* How to stack streams, and how to find what changed between two versions of the same data
+* Four ways to join streams, and when each fits
+* How to add values from a database table to each row
+* When to calculate with **Formula** and when to write a script
+
 > **Note:**
 >
 > #### **Overview**
-> 
-> Data Enrichment is a value adding process, where external data from multiple sources is added to the existing data set to enhance the quality and richness of the data. This process provides more information of the product / service to the customer.
-> 
-> A common data enrichment process could, for example, correct likely misspellings or typographical errors in a database using precision algorithms. Following this logic, data enrichment could also add information to simple data tables.
-> 
-> Another way that data enrichment can work is in extrapolating data. Through methodologies such as fuzzy logic, engineers can produce more from a given raw data set. This and other projects can be described as data enrichment activities.
-> 
-> There are numerous data enhancement options available including:
-> 
-> * Telephone & Fax numbers
-> * Additional contact names
-> * Residential or Business location
-> * Standard Industrial Classification Codes (SIC’s) & ‘Market Sector’ codes
-> * No. of employees
-> * Small office /Home office (SoHo’s)
-> * Household income /Age
-> * Credit score
-> * Financial information
-> * Adding valuable geographic information and mapping (GIS) such as location analysis, distance calculations, spatial analysis, natural boundary analysis, and more
-> * Enhancing data by classifying, segmenting, and aggregating customer data using advanced statistical methodologies such as factor, cluster, and conjoint analysis.
-
+>
+> *Enrichment* adds to each row what it doesn't carry itself: a product's name next to its code, a customer's region next to an order, a flag that says whether a value changed since yesterday. The data comes from another stream, a database table or a calculation.
+>
+> This module covers the four ways PDI does it:
+>
+> | Topic | Steps | What they do |
+> | --- | --- | --- |
+> | [Merge](../topic-mod4-merge-review/guide.md) | Append streams, Merge rows (diff), Synchronize after merge | Stack streams with the same layout; compare two versions and apply the differences |
+> | [Joins](../topic-mod4-joins-review/guide.md) | Database join, Join rows, Merge join, XML join | Combine rows from two sources on a key or a condition |
+> | [Lookups](../topic-mod4-lookups-review/guide.md) | Database lookup, Stream lookup | Add fields from a reference set to each row |
+> | [Scripting](../topic-mod4-scripting-review/guide.md) | Formula, Modified JavaScript value | Calculate what the other steps can't |

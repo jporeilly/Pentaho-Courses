@@ -2,6 +2,6 @@ Customer name: James
 ----------------------------------------------------
 Please answer the questions below:
 
-1. How many employees currently in your organisation?
+1. How many people does your organization employ?
 2. Which ETL tool do you currently use?
 3. What would you do if you had a magic wand?

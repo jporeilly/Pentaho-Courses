@@ -4,22 +4,29 @@
 >
 > #### Workshop - Read JSON
 > 
-> Parse a JSON file into rows. Use **JSON Input**.
+> Parse a JSON file into rows with **JSON Input**.
 > 
 > **What you’ll do**
 > 
-> * Read a JSON file from disk.
-> * Extract fields with JSONPath.
-> * Use **Select fields** to pick the JSON keys.
-> * Preview rows and validate types.
+> * Read a JSON file from disk
+> * Extract fields with JSONPath
+> * Use **Select fields** to pick the JSON keys
+> * Preview the rows and check their types
 > 
-> **Prerequisites:** Basic transformations. Basic JSON (objects, arrays). PDI installed.
+> **Prerequisites:** [Text File Input](../06-mod3-text-file-input/guide.md), and basic JSON (objects and arrays).
 > 
-> **Estimated time:** 15 minutes
+> **Estimated time:** 25 minutes
 
 <div class="pcm-embed-card" data-href="https://www.loom.com/share/992afd2bbf75465ab70ae76d895ea4f3?hideEmbedTopBar=true&amp;hide_owner=true&amp;hide_share=true&amp;hide_title=true" data-title="Using the JSON Input Step to Retrieve Data from Files 📂" data-description="In this video, I demonstrate how to use the JSON input step to read data from a JSON file located in the Sample's folder of Spoon. We focus on retrieving specific elements for books, including the title, category, and author, while noting that some books may also have an ISBN number. I guide you through configuring the step, including selecting the file and manually entering the required fields. After completing the setup, we preview the data to ensure everything is correct. Please take a moment to review the configuration and familiarize yourself with the process." data-thumb="../_assets/embeds/2d94cd73b9b2.png"></div>
 
-![JSON input](../_assets/images/json.png)
+<figure>
+
+![The finished transformation: JSON input hopped to Dummy](../_assets/images/json.png)
+
+<div align="center">
+<figcaption><em>What you build</em></figcaption>
+</div>
+</figure>
 
 > **Note:** **Create a new transformation**
 > 
@@ -28,7 +35,7 @@
 > * Select **File** > **New** > **Transformation**
 > * Use `Ctrl+N` (Windows/Linux) or `Cmd+N` (macOS)
 
-1. Open `jsonfile.js` in an editor. You will extract fields from this array:
+1. Open `jsonfile.js` (JSON, despite the `.js` extension) in a text editor. It holds seven orders in one array; these are the first three:
 
 ```json
 { "document": {
@@ -66,13 +73,10 @@
 >
 > #### JSON Input
 > 
-> JSON Input reads JSON and outputs rows.
-> 
-> You set one loop path. It outputs one row per loop element.
+> **JSON Input** reads JSON and outputs rows. Each field has its own JSONPath; the step evaluates every path against the document and lines the results up into rows.
 
-1. Start Pentaho Data Integration.
+1. Start Spoon, create a transformation and save it as `tr_json.ktr` in the lab folder, `C:\Workshop-DI-Practitioner\03-data-sources\01-flat-files\08-mod3-read-json`, next to `jsonfile.js`.
 
-> **Note:** 
 
 ::: tabs
 
@@ -101,19 +105,15 @@
 <button data-launch="spoon" data-path="">Start PDI</button>
 
 2. Drag **JSON Input** onto the canvas.
-3. Open the step.
-4. On the **File** tab, select your `jsonfile.js`.
+3. Double-click the step.
+4. On the **File** tab, in **File or directory**, enter the path below and select **Add**:
 
-> **Note:** Save your transformation near `jsonfile.js`. Then use a portable path.
-
-Example:
-
-```
-${Internal.Transformation.Filename.Directory}/jsonfile.js
-```
+   ```text
+   ${Internal.Entry.Current.Directory}/jsonfile.js
+   ```
 
 5. Open the **Fields** tab. (JSON Input has no loop path: each field's own **Path** selects one value per order.)
-6. Select **Select fields** and tick the five order keys.
+6. Select **Select fields**, then the five order keys.
 7. Verify these fields, their paths and types:
 
 * `productline` (String), path `$..productline`
@@ -122,11 +122,11 @@ ${Internal.Transformation.Filename.Directory}/jsonfile.js
 * `date` (String), path `$..date`
 * `value` (Number), path `$..value`
 
-<figure><img src="../_assets/images/json-file.png" alt=""><figcaption><p>JSON input - file</p></figcaption></figure>
+<figure><img src="../_assets/images/json-file.png" alt="JSON Input File tab with jsonfile.js selected"><figcaption><p>The file</p></figcaption></figure>
 
-<figure><img src="../_assets/images/json-fields.png" alt=""><figcaption><p>JSON input - fields</p></figcaption></figure>
+<figure><img src="../_assets/images/json-fields.png" alt="JSON Input Fields tab with five fields and their JSONPath expressions"><figcaption><p>Five fields, one JSONPath each</p></figcaption></figure>
 
-> **Note:** Need help writing JSONPath? Use a tester like: <https://jsonpath.com/>
+> **Tip:** To try a JSONPath expression before you use it, paste the file into a tester such as [jsonpath.com](https://jsonpath.com/).
 
 > **Under the hood:**
 >
@@ -156,7 +156,7 @@ ${Internal.Transformation.Filename.Directory}/jsonfile.js
 >
 > #### Dummy
 > 
-> Dummy does not do anything. Use it as a preview target.
+> **Dummy** does nothing with the rows. Here it is the step you preview.
 
 1. Expand **Flow** in the Design palette.
 2. Drag **Dummy** onto the canvas.
@@ -168,15 +168,14 @@ ${Internal.Transformation.Filename.Directory}/jsonfile.js
 >
 > #### Run the transformation
 > 
-> Run locally and preview the output rows.
+> Run it and preview the rows.
 
-1. Select **Run** in the canvas toolbar.
-2. After it finishes, right-click **Dummy**.
-3. Select **Preview**.
+1. Select **Run** in the toolbar, then **Run** in **Run Options**.
+2. Select **Dummy**, then the **Preview data** tab in **Execution Results**.
 
-> **Success:** You should see one row per order in the JSON array.
+<figure><img src="../_assets/images/json-1.png" alt="Preview data: one row per order with product line, customer, status, date and value"><figcaption><p>One row per order</p></figcaption></figure>
 
-<figure><img src="../_assets/images/json-1.png" alt=""><figcaption><p>Preview data</p></figcaption></figure>
+> **Success:** 7 rows, one per order. The first is `Classic Cars`, `Christine Loomis`, `Delivered`, `January 2004`, `21.99`, with `value` a Number.
 
 ::::
 
@@ -186,13 +185,9 @@ ${Internal.Transformation.Filename.Directory}/jsonfile.js
 
 <summary>No rows returned</summary>
 
-Check the **Loop path** first. For this file, it must point to the array:
+The field paths match nothing in the file. JSON Input has no loop path: each field's **Path** does the selecting. Check one, such as `$..productline`, against the file in a JSONPath tester.
 
-```
-$.document.order[*]
-```
-
-If the JSON structure changes, update the loop path.
+If the JSON structure changes, update every field's path.
 
 </details>
 
@@ -200,7 +195,7 @@ If the JSON structure changes, update the loop path.
 
 <summary>Fields are null</summary>
 
-Confirm field paths match the JSON keys. Use a JSONPath that matches every order, for example `$..productline` or `$.document.order[*].productline`.
+Check that each path matches its JSON key exactly, including case. A path that matches every order looks like `$..productline` or `$.document.order[*].productline`.
 
 </details>
 
@@ -208,9 +203,7 @@ Confirm field paths match the JSON keys. Use a JSONPath that matches every order
 
 <summary>Wrong data types</summary>
 
-Use **Get Fields** as a starting point. Then set types explicitly.
-
-Example: keep `status` as **String**.
+Use **Select fields** as a starting point, then set each type yourself. Here `value` is **Number** and the rest are **String**.
 
 </details>
 

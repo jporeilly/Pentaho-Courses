@@ -1,36 +1,39 @@
-# Read DB table
+# Reading from a Database
 
 > **Warning:**
 >
-> #### Workshop - Read DB table
+> #### Workshop - Reading from a Database
 > 
-> Build a transformation that reads `ORDERS` rows from a database.\
-> Filter to shipped orders, calculate how many days before the required date each order shipped, and bucket the result.
+> Build a transformation that reads the `ORDERS` table from the Steel Wheels database.\
+> Keep the shipped orders, calculate how many days before the required date each one shipped, and label the result.
 > 
 > **What you’ll do**
 > 
-> * Read rows with **Table Input**
-> * Generate SQL with **Get SQL select statement**
+> * Read rows with **Table input**
+> * Generate the SQL with **Get SQL select statement**
 > * Add a calculated field with **Calculator**
-> * Bucket values with **Number range**
-> * Sort and format output for review
+> * Label values with **Number range**
+> * Sort and format the output with **Sort rows** and **Select values**
 > 
 > **Prerequisites**
 > 
-> * Pentaho Data Integration installed and configured
-> * A working database connection. See **[Database Connections](../12-mod3-connecting-to-database/guide.md)**.
-> * Basic `SELECT` and `WHERE`
+> * The `MySQL:sampledata` connection from [Connecting to Database](../12-mod3-connecting-to-database/guide.md)
+> * Basic SQL: `SELECT` and `WHERE`
 > 
-> **Estimated time:** 20 minutes
+> **Estimated time:** 30 minutes
 
-![Read from a database](../_assets/images/read-database.png)
+<figure>
+
+![The finished transformation: Table input, Calculator, Number range, Sort rows and Select values in a line](../_assets/images/read-database.png)
+
+<div align="center">
+<figcaption><em>What you build</em></figcaption>
+</div>
+</figure>
 
 > **Note:** **Create a new transformation**
 > 
-> Use any of these options to open a new transformation tab:
-> 
-> * Select **File** > **New** > **Transformation**
-> * Use `Ctrl+N` (Windows/Linux) or `Cmd+N` (macOS)
+> Select **File > New > Transformation**, or press `Ctrl+N` (`Cmd+N` on macOS). Save it as `tr_reading_database.ktr`.
 
 :::: tabs
 
@@ -38,14 +41,13 @@
 
 > **Note:**
 >
-> #### Table Input
+> #### Table input
 > 
-> Read rows from a database using a connection and SQL.\
-> In this workshop, filter to orders with `STATUS = 'Shipped'`.
+> **Table input** runs a SQL query over a database connection and outputs one row per result row.\
+> Here the query keeps only the orders with `STATUS = 'Shipped'`.
 
 1. Start Spoon.
 
-> **Note:** 
 
 ::: tabs
 
@@ -73,25 +75,32 @@
 
 <button data-launch="spoon" data-path="">Start PDI</button>
 
-2. Drag **Table Input** onto the canvas.
-3. Open the step properties.
-4. Configure the step to match your environment:
-   * Select your database **Connection**
-   * Use **Get SQL select statement** to generate a base query
-   * Add a `WHERE` clause for shipped orders
+2. From the **Input** folder in the **Design** tab, drag **Table input** onto the canvas.
+3. Double-click the step.
+4. In **Connection**, select `MySQL:sampledata`.
+5. Select **Get SQL select statement...**. In the **Database Explorer**, expand **Tables**, select `ORDERS` and select **OK**.
+6. When asked **Do you want to include the field-names in the SQL?**, select **Yes**.
+7. Delete the columns you don't need and add the filter, so the **SQL** reads:
 
-> **Note:** Example filter:
-> 
-> ```sql
-> WHERE STATUS = 'Shipped'
-> ```
+   ```sql
+   SELECT
+     ORDERNUMBER
+   , ORDERDATE
+   , REQUIREDDATE
+   , SHIPPEDDATE
+   , STATUS
+   , COMMENTS
+   , CUSTOMERNUMBER
+   FROM ORDERS
+   WHERE STATUS = 'Shipped'
+   ```
 
-<figure><img src="../_assets/images/read-db.png" alt=""><figcaption><p>Table input</p></figcaption></figure>
+<figure><img src="../_assets/images/read-db.png" alt="Table input with the MySQL:sampledata connection and the SELECT over ORDERS filtered to shipped orders"><figcaption><p>The query</p></figcaption></figure>
 
-5. Select **Preview**. Confirm you get shipped orders.
-6. Select **OK**.
+8. Select **Preview**, then **OK** to preview the first 1000 rows.
+9. Close the preview and select **OK**.
 
-> **Success:** Checkpoint: Preview shows only rows with `STATUS = 'Shipped'`.
+> **Success:** Checkpoint: the preview shows only rows with `STATUS` = `Shipped`. The table holds 303 of them.
 
 > **Under the hood:**
 >
@@ -99,7 +108,7 @@
 >
 > **Table input** does not parse or rewrite your query. It sent the
 > text exactly as written through the JDBC driver, so anything MySQL
-> accepts — functions, joins, window clauses — works here. The result
+> accepts (functions, joins, window clauses) works here. The result
 > set then flows back row by row through a cursor: the step never asks
 > the driver for the whole result, so a `SELECT` over a
 > hundred-million-row table starts emitting immediately and uses the
@@ -112,8 +121,8 @@
 >
 > **Why it matters:** push filters, joins and aggregations into the
 > SQL and the database does that work with its indexes, while the
-> transformation only sees the rows that matter. It is the single
-> biggest performance lever in PDI, and it costs nothing to use.
+> transformation only sees the rows that matter. It is the biggest
+> single performance lever in PDI, and it costs nothing to use.
 
 ### 2. Calculator
 
@@ -121,20 +130,22 @@
 >
 > #### Calculator
 > 
-> Add a derived field using built-in functions.\
-> Use Calculator for speed and simple expressions.
+> **Calculator** adds fields computed from a list of built-in functions.\
+> It is fast, and needs no expression language.
 
-1. Drag **Calculator** onto the canvas.
-2. Add a hop from **Table Input** to **Calculator**.
-3. Open the step properties.
-4. Configure the calculation shown in the screenshot.
+1. From the **Transform** folder, drag **Calculator** onto the canvas.
+2. Hop **Table input** to **Calculator**.
+3. Double-click the step and fill in the first row:
 
-<figure><img src="../_assets/images/calc.png" alt=""><figcaption><p>Calculate diff days</p></figcaption></figure>
+| New field   | Calculation                 | Field A        | Field B       | Value type |
+| ----------- | --------------------------- | -------------- | ------------- | ---------- |
+| `diff_days` | Date A - Date B (in days)   | `REQUIREDDATE` | `SHIPPEDDATE` | Integer    |
 
-5. Select **OK**.
+<figure><img src="../_assets/images/calc.png" alt="Calculator with diff_days = REQUIREDDATE minus SHIPPEDDATE in days"><figcaption><p>diff_days</p></figcaption></figure>
 
-> **Note:** This creates `diff_days`: the days between `SHIPPEDDATE` and `REQUIREDDATE`, so how early each order shipped.\
-> It represents the day difference between required and shipped dates.
+4. Select **OK**.
+
+> **Note:** `diff_days` is how many days before its required date each order shipped. `0` means it shipped on the required date; a negative value would mean it shipped late.
 
 ### 3. Number range
 
@@ -142,20 +153,29 @@
 >
 > #### Number range
 > 
-> Map numeric values into named buckets.\
-> This makes reports easier to scan.
+> **Number range** maps a number to a label, using a list of ranges.\
+> Labels are easier to scan, group and filter on than raw numbers.
 
-1. Drag **Number range** onto the canvas.
-2. Add a hop from **Calculator** to **Number range**.
-3. Open the step properties.
-4. Configure the ranges as shown.
+1. From the **Transform** folder, drag **Number range** onto the canvas.
+2. Hop **Calculator** to **Number range**.
+3. Double-click the step and set:
+   * **Input field**: `diff_days`
+   * **Output field**: `delivery`
+   * **Default value(if no range matches)**: `unknown`
+4. Fill in **Ranges (min <= x< max)**. Leave the last **Upper Bound** empty, so the range has no upper limit:
 
-<figure><img src="../_assets/images/number-range.png" alt=""><figcaption><p>Number range</p></figcaption></figure>
+| Lower Bound | Upper Bound | Value     |
+| ----------- | ----------- | --------- |
+| 0           | 3           | `On Time` |
+| 3           | 4           | `10%`     |
+| 4           | 5           | `20%`     |
+| 5           |             | `Action`  |
 
-> **Note:** This writes an output label, `delivery`, based on `diff_days`.\
-> Use the same labels and thresholds as the screenshot.
+<figure><img src="../_assets/images/number-range.png" alt="Number range with input diff_days, output delivery and four ranges"><figcaption><p>Four ranges, one label each</p></figcaption></figure>
 
 5. Select **OK**.
+
+> **Note:** Each range includes its lower bound and excludes its upper bound, so `diff_days` = 3 is `10%`, not `On Time`. A value outside every range, such as a late shipment, gets the default, `unknown`.
 
 ### 4. Sort rows
 
@@ -163,20 +183,18 @@
 >
 > #### Sort rows
 > 
-> Sort output to match how you want to read it.\
-> This is also a common prerequisite for merge-style steps.
+> Sort the output into the order you want to read it.\
+> Merge steps also need sorted input, as later workshops show.
 
-1. Drag **Sort rows** onto the canvas.
-2. Add a hop from **Number range** to **Sort rows**.
-3. Open the step properties.
-4. Configure the sort keys as shown.
+1. From the **Transform** folder, drag **Sort rows** onto the canvas.
+2. Hop **Number range** to **Sort rows**.
+3. Double-click the step. In **Fields**, add `diff_days` with **Ascending** set to `Y`.
 
-<figure><img src="../_assets/images/sort.png" alt=""><figcaption><p>Sort rows</p></figcaption></figure>
+<figure><img src="../_assets/images/sort.png" alt="Sort rows with diff_days ascending"><figcaption><p>Sort on diff_days</p></figcaption></figure>
 
-5. Select **OK**.
+4. Select **OK**.
 
-> **Note:** If you hit memory errors, lower the sort size.\
-> PDI spills to temp files when needed.
+> **Note:** If a sort runs out of memory, lower **Sort size (rows in memory)**. PDI then writes sorted chunks to temporary files and merges them.
 
 > **Under the hood:**
 >
@@ -186,7 +204,7 @@
 > row out, all steps busy at once. **Sort rows** can't. The smallest
 > value might be the last row to arrive, so the step buffers until it
 > has read the entire input, sorts, and only then starts writing.
-> Watch Step Metrics during a large run and the steps after the sort
+> Watch **Step Metrics** during a large run: the steps after the sort
 > sit at zero until the reader finishes.
 >
 > It stays memory-safe because of **Sort size (rows in memory)**. Once
@@ -196,8 +214,8 @@
 > disk for RAM; **Compress TMP Files?** trades CPU for disk.
 >
 > **Why it matters:** a sort marks the point where pipeline
-> parallelism stops. Sort as late and as narrow as you can — or let the
-> database do it with `ORDER BY`, which costs the transformation
+> parallelism stops. Sort as late and on as few rows as you can, or let
+> the database do it with `ORDER BY`, which costs the transformation
 > nothing.
 
 ### 5. Select values
@@ -206,12 +224,12 @@
 >
 > #### Select values
 > 
-> Keep only fields you need.\
-> Fix types, lengths, and formats for downstream steps.
+> **Select values** keeps, drops, renames and reorders fields.\
+> It also sets their types, lengths and formats for the steps that follow.
 
-1. Drag **Select values** onto the canvas.
-2. Add a hop from **Sort rows** to **Select values**.
-3. Open the step properties.
+1. From the **Transform** folder, drag **Select values** onto the canvas.
+2. Hop **Sort rows** to **Select values**.
+3. Double-click the step. On the **Select & Alter** tab, list the fields to keep, in this order: `delivery`, `ORDERNUMBER`, `REQUIREDDATE`, `SHIPPEDDATE`, `CUSTOMERNUMBER`.
 4. On the **Meta-data** tab, set the date fields:
 
 | Fieldname      | Type | Format       |
@@ -221,23 +239,26 @@
 
 5. Select **OK**.
 
-> **Note:** This formats `REQUIREDDATE` and `SHIPPEDDATE` so they render
-> as plain dates (no time component) in the final stream.
+> **Note:** The format makes `REQUIREDDATE` and `SHIPPEDDATE` display as
+> plain dates, with no time. `diff_days` isn't in the list, so it
+> leaves the stream here: it has done its job.
 
-### 6. RUN
+### 6. Run
 
 > **Note:**
 >
 > #### Run and validate
 > 
-> Run the transformation and inspect the final stream.
+> Run the transformation and check the final stream.
 
-1. In Spoon, select **Run**.
-2. In **Execution Results**, open **Preview data** for **Select values**.
+1. Save the transformation, select **Run** in the toolbar, then **Run** in **Run Options**.
+2. Select **Select values**, then the **Preview data** tab in **Execution Results**.
 
-<figure><img src="../_assets/images/status-of-shipped-orders.png" alt=""><figcaption><p>Status of 'shipped' orders</p></figcaption></figure>
+<figure><img src="../_assets/images/status-of-shipped-orders.png" alt="Preview data: delivery label, order number, required and shipped dates, customer number"><figcaption><p>Shipped orders with their delivery label</p></figcaption></figure>
 
-> **Success:** Checkpoint: You see shipped orders plus your derived fields (`diff_days` and `delivery`).
+> **Success:** Checkpoint: 303 rows, sorted by `diff_days`, so the `On Time` rows come first. By label: 54 `On Time`, 54 `10%`, 42 `20%` and 153 `Action`; none is `unknown`.
+
+> **Note:** The screenshot was taken against an older copy of the data, in which order 10165 shipped late and so shows `unknown`. In the lab database it shipped five days early, so your first row is `On Time`.
 
 ::::
 
@@ -246,16 +267,16 @@
 <summary>Troubleshooting</summary>
 
 **Preview shows zero rows**\
-Confirm the `WHERE STATUS = 'Shipped'` filter matches your source values.
+Check the filter: the value is `'Shipped'`, in single quotes. Run `SELECT DISTINCT STATUS FROM ORDERS` in the database to see the values.
 
 **SQL errors**\
-Select **Get SQL select statement** again. Then re-apply your `WHERE` clause.
+Select **Get SQL select statement...** again, then add your `WHERE` clause back.
 
-**Date or number conversion issues**\
-Fix types in **Select values**. Re-run the preview.
+**Date or number conversion errors**\
+Fix the types on the **Meta-data** tab of **Select values**, then run again.
 
-**Out of memory during sort**\
-Lower the sort size in **Sort rows**, or increase JVM memory.
+**Out of memory during the sort**\
+Lower **Sort size (rows in memory)** in **Sort rows**, or give PDI more memory.
 
 </details>
 

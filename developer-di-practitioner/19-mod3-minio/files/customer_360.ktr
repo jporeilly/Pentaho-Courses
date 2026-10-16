@@ -1292,8 +1292,8 @@ var is_product_view = (event_type == "product_view") ? 1 : 0;
         <group>,</group>
         <nullif/>
         <trim_type>none</trim_type>
-        <length>15</length>
-        <precision>0</precision>
+        <length>-1</length>
+        <precision>-1</precision>
       </field>
       <field>
         <name>first_name</name>
@@ -1304,7 +1304,7 @@ var is_product_view = (event_type == "product_view") ? 1 : 0;
         <group/>
         <nullif/>
         <trim_type>none</trim_type>
-        <length>8</length>
+        <length>-1</length>
         <precision>-1</precision>
       </field>
       <field>
@@ -1316,7 +1316,7 @@ var is_product_view = (event_type == "product_view") ? 1 : 0;
         <group/>
         <nullif/>
         <trim_type>none</trim_type>
-        <length>9</length>
+        <length>-1</length>
         <precision>-1</precision>
       </field>
       <field>
@@ -1328,7 +1328,7 @@ var is_product_view = (event_type == "product_view") ? 1 : 0;
         <group/>
         <nullif/>
         <trim_type>none</trim_type>
-        <length>28</length>
+        <length>-1</length>
         <precision>-1</precision>
       </field>
       <field>
@@ -1340,7 +1340,7 @@ var is_product_view = (event_type == "product_view") ? 1 : 0;
         <group/>
         <nullif/>
         <trim_type>none</trim_type>
-        <length>7</length>
+        <length>-1</length>
         <precision>-1</precision>
       </field>
       <field>
@@ -1364,8 +1364,8 @@ var is_product_view = (event_type == "product_view") ? 1 : 0;
         <group>,</group>
         <nullif/>
         <trim_type>none</trim_type>
-        <length>10</length>
-        <precision>0</precision>
+        <length>-1</length>
+        <precision>-1</precision>
       </field>
       <field>
         <name>total_spent</name>
@@ -1425,7 +1425,7 @@ var is_product_view = (event_type == "product_view") ? 1 : 0;
         <nullif/>
         <trim_type>none</trim_type>
         <length>-1</length>
-        <precision>0</precision>
+        <precision>-1</precision>
       </field>
       <field>
         <name>total_events</name>
@@ -1436,8 +1436,8 @@ var is_product_view = (event_type == "product_view") ? 1 : 0;
         <group>,</group>
         <nullif/>
         <trim_type>none</trim_type>
-        <length>10</length>
-        <precision>0</precision>
+        <length>-1</length>
+        <precision>-1</precision>
       </field>
       <field>
         <name>page_views</name>
@@ -1482,18 +1482,6 @@ var is_product_view = (event_type == "product_view") ? 1 : 0;
         <currency/>
         <decimal>.</decimal>
         <group>,</group>
-        <nullif/>
-        <trim_type>none</trim_type>
-        <length>-1</length>
-        <precision>-1</precision>
-      </field>
-      <field>
-        <name>customer_segment</name>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
         <nullif/>
         <trim_type>none</trim_type>
         <length>-1</length>

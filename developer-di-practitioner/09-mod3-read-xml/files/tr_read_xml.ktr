@@ -813,7 +813,7 @@
         <xpath>ZONE</xpath>
         <element_type>node</element_type>
         <result_type>valueof</result_type>
-        <type>Integer</type>
+        <type>String</type>
         <format/>
         <currency/>
         <decimal/>

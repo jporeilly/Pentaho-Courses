@@ -13,15 +13,15 @@
 > * Run the branches in parallel with **Run Next Entries in Parallel**
 > * See what parallel does, and doesn't, guarantee
 > 
-> **Prerequisites:** Complete **[Hello World Job](../29-mod5-hello-world-job/guide.md)**; this lab reuses its `tr_hello_world.ktr`.
+> **Prerequisites:** [Hello World (Job)](../29-mod5-hello-world-job/guide.md); this lab reuses its `tr_hello_world.ktr`, also in **Lab Files**.
 > 
-> **Estimated time:** 15 minutes
+> **Estimated time:** 25 minutes
 
 :::: tabs
 
 ### 1. Build the job
 
-1. Select **File** > **New** > **Job** (`Ctrl+Alt+N`), and save it as `kjb_hello_world_backward.kjb` in the folder that holds `tr_hello_world.ktr`.
+1. Copy `tr_hello_world.ktr` from the lab's `solution` folder into the lab folder, `C:\Workshop-DI-Practitioner\05-enterprise-solution\01-jobs\30-mod5-order-of-execution`. Then start Spoon, select **File > New > Job** (`Ctrl+Alt+N`), and save the job as `kjb_hello_world_backward.kjb` in the same folder.
 2. Drag **START** onto the canvas, then three **Transformation** entries, named `Transformation A`, `Transformation B` and `Transformation C`, and a **Success** entry.
 3. In each Transformation entry set the transformation file to `${Internal.Entry.Current.Directory}/tr_hello_world.ktr`.
 4. Create the hops, in this order:

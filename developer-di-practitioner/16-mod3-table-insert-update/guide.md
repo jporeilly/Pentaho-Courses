@@ -1,35 +1,38 @@
-# Insert / Update DB
+# Table Insert - Update
 
 > **Warning:**
 >
-> #### Workshop - Insert / Update DB
+> #### Workshop - Table Insert - Update
 > 
-> Synchronize a file feed to the `EMPLOYEES` table.\
-> Some rows already exist. Others are new.
-> 
-> This pattern is called **upsert**: update if found, insert if not.
+> Apply a file of employees to the `EMPLOYEES` table. Two are already in the table and two are new.\
+> One step handles both: it updates the rows it finds and inserts the rest. This is an **upsert**.
 > 
 > **What you’ll do**
 > 
-> * Read a mixed employee feed with **Text file input**
-> * Upsert into `EMPLOYEES` with **Insert/Update**
-> * Validate inserted and updated rows with SQL
+> * Read the employee feed with **Text file input**
+> * Upsert into `EMPLOYEES` with **Insert / update**
+> * Decide which columns an update may change
+> * Check the inserted and updated rows with SQL
 > 
 > **Prerequisites**
 > 
-> * A working database connection. See **[Database Connections](../12-mod3-connecting-to-database/guide.md)**.
-> * Basic primary key concepts (`EMPLOYEENUMBER`)
+> * [Table Update](../15-mod3-table-update/guide.md): the same file layout and field mapping
+> * The `MySQL:sampledata` connection from [Connecting to Database](../12-mod3-connecting-to-database/guide.md)
 > 
-> **Estimated time:** 20 minutes
+> **Estimated time:** 25 minutes
 
-![Insert / Update](../_assets/images/insert-update-2.png)
+<figure>
+
+![The finished transformation: Text File Input hopped to Insert / Update Employees](../_assets/images/insert-update-2.png)
+
+<div align="center">
+<figcaption><em>What you build</em></figcaption>
+</div>
+</figure>
 
 > **Note:** **Create a new transformation**
 > 
-> Use any of these options to open a new transformation tab:
-> 
-> * Select **File** > **New** > **Transformation**
-> * Use `Ctrl+N` (Windows/Linux) or `Cmd+N` (macOS)
+> Select **File > New > Transformation**, or press `Ctrl+N` (`Cmd+N` on macOS). Save it as `tr_employee_insert_update.ktr` in the lab folder, `C:\Workshop-DI-Practitioner\03-data-sources\02-databases\16-mod3-table-insert-update`, next to `employees_insert_update.txt`.
 
 :::: tabs
 
@@ -39,11 +42,9 @@
 >
 > #### Text file input
 > 
-> Read the incoming mixed feed from `employees_insert_update.txt`.
+> Read the feed from `employees_insert_update.txt`: a header line and four employees. It has the same columns as the Table Update file.
 
 1. Start Spoon.
-
-> **Note:** 
 
 ::: tabs
 
@@ -71,66 +72,66 @@
 
 <button data-launch="spoon" data-path="">Start PDI</button>
 
-2. Drag **Text file input** onto the canvas.
-3. Open the step properties.
-4. Configure the file path:
-   * **File:** `${Internal.Transformation.Filename.Directory}/employees_insert_update.txt`
+2. From the **Input** folder, drag **Text file input** onto the canvas.
+3. Double-click the step. On the **File** tab, in **File or directory**, enter the path below and select **Add**:
 
-<figure><img src="../_assets/images/insert-update-1.png" alt=""><figcaption><p>Text File input - File</p></figcaption></figure>
+   ```text
+   ${Internal.Entry.Current.Directory}/employees_insert_update.txt
+   ```
 
-> **Note:** If `${Internal.Transformation.Filename.Directory}` is empty, save the transformation first.
+<figure><img src="../_assets/images/insert-update-1.png" alt="Text file input File tab with employees_insert_update.txt in the selected files"><figcaption><p>The file</p></figcaption></figure>
 
-5. Select **Content**. Use the same delimiter settings as the screenshot.
+4. On the **Content** tab, set **Separator** to `,` and keep **Header** selected, with **Number of header lines** `1`.
 
-<figure><img src="../_assets/images/tfi-content-update.png" alt="" width="563"><figcaption><p>Text file input - Content</p></figcaption></figure>
+<figure><img src="../_assets/images/tfi-content-update.png" alt="Content tab with a comma separator and one header line" width="563"><figcaption><p>Comma separator, one header line</p></figcaption></figure>
 
-6. Select **Get Fields**.
-7. On **Fields**, confirm you have these stream fields:
-   * `EMPLOYEE_NUMBER`
-   * `LASTNAME`
-   * `FIRSTNAME`
-   * `EXT`
-   * `EMAIL`
-   * `OFFICE`
-   * `REPORTS`
-   * `TITLE`
+5. On the **Fields** tab, select **Get Fields**, then **OK** at the number of sample lines, and close the **Scan results**.
+6. Check the eight fields: `EMPLOYEE_NUMBER`, `LASTNAME`, `FIRSTNAME`, `EXT`, `EMAIL`, `OFFICE`, `REPORTS` and `TITLE`. `EMPLOYEE_NUMBER`, `OFFICE` and `REPORTS` are Integer; the rest are String.
 
-   These names differ from the table's columns (`EXTENSION`, `OFFICECODE`, `REPORTSTO`, `JOBTITLE`); you map them in the next step.
+<figure><img src="../_assets/images/insert-update-fields.png" alt="Fields tab with the eight fields from EMPLOYEE_NUMBER to TITLE"><figcaption><p>Eight fields</p></figcaption></figure>
 
-<figure><img src="../_assets/images/insert-update-fields.png" alt=""><figcaption><p>Text File input - Fields</p></figcaption></figure>
+7. Select **Preview rows**, then **OK**.
+8. Close the preview and select **OK**.
 
-8. Optional: select **Preview**. Confirm you get 4 rows.
-9. Select **OK**.
+> **Success:** Checkpoint: the preview shows 4 rows: employees `1188`, `1619`, `1810` and `1811`.
 
-> **Success:** Checkpoint: Preview shows 4 employee rows.
-
-### 2. Insert / Update
+### 2. Insert / update
 
 > **Note:**
 >
-> #### Insert / Update
+> #### Insert / update
 > 
-> Upsert into the `EMPLOYEES` table.
+> **Insert / update** looks each row up by its key. A row it finds is updated; a row it doesn't find is inserted.
 
-1. Drag **Insert / Update** onto the canvas.
-2. Create a hop from **Text file input** to **Insert / Update**.
-3. Open the step properties.
-4. Select your database **Connection**.
-5. Set **Target table** to `EMPLOYEES`.
+1. From the **Output** folder, drag **Insert / update** onto the canvas.
+2. Hop **Text file input** to **Insert / update**.
+3. Double-click the step and set:
+   * **Step name**: `Insert / Update Employees`
+   * **Connection**: `MySQL:sampledata`
+   * **Target table**: `EMPLOYEES`
+   * **Commit size**: `100`
+4. In **The key(s) to look up the value(s)**, enter one row:
 
-<figure><img src="../_assets/images/insert-update.png" alt="" width="563"><figcaption><p>Insert / update options</p></figcaption></figure>
+| Table field      | Comparator | Stream field1     |
+| ---------------- | ---------- | ----------------- |
+| `EMPLOYEENUMBER` | `=`        | `EMPLOYEE_NUMBER` |
 
-> **Note:** **Key lookup**
-> 
-> Map the table key `EMPLOYEENUMBER` to the stream field `EMPLOYEE_NUMBER`.
-> 
-> **Update fields**
-> 
-> Select **Get update fields**. Then confirm mappings are correct.
-> 
-> Do not add `EMPLOYEENUMBER` as an update field.
+5. Under **Update fields**, select **Get update fields**, then make the list match the table below. Correct the four names that differ, and set **Update** to `N` for `EMPLOYEENUMBER`:
 
-> **Warning:** Do not enable **Update the keys**.
+| Table field      | Stream field      | Update |
+| ---------------- | ----------------- | ------ |
+| `LASTNAME`       | `LASTNAME`        | `Y`    |
+| `FIRSTNAME`      | `FIRSTNAME`       | `Y`    |
+| `EXTENSION`      | `EXT`             | `Y`    |
+| `EMAIL`          | `EMAIL`           | `Y`    |
+| `EMPLOYEENUMBER` | `EMPLOYEE_NUMBER` | `N`    |
+| `OFFICECODE`     | `OFFICE`          | `Y`    |
+| `REPORTSTO`      | `REPORTS`         | `Y`    |
+| `JOBTITLE`       | `TITLE`           | `Y`    |
+
+<figure><img src="../_assets/images/insert-update.png" alt="Insert / update with the EMPLOYEENUMBER key and eight update fields, EMPLOYEENUMBER set to Update N" width="563"><figcaption><p>Key and update fields</p></figcaption></figure>
+
+> **Warning:** Keep `EMPLOYEENUMBER` in **Update fields**. This step builds its `INSERT` from that list, so without it the new employees have no employee number and MySQL rejects them: "Field 'EMPLOYEENUMBER' doesn't have a default value". **Update** `N` means the column is written on insert and never changed on update.
 
 6. Select **OK**.
 
@@ -140,46 +141,59 @@
 >
 > #### Run and validate
 > 
-> Run the transformation. Then validate the results in the database.
+> Run the transformation, then check the results in the database.
 
-1. Select **Run** in the canvas toolbar.
+1. Save the transformation, select **Run** in the toolbar, then **Run** in **Run Options**.
 2. In **Execution Results**, open **Step Metrics**.
 
-<figure><img src="../_assets/images/results-update-insert.png" alt=""><figcaption><p>Step metrics</p></figcaption></figure>
+<figure><img src="../_assets/images/results-update-insert.png" alt="Step Metrics: Insert / Update Employees read 4 rows, output 2 and updated 2"><figcaption><p>2 inserted, 2 updated</p></figcaption></figure>
 
-> **Note:** Expect a mix of inserts and updates, depending on your starting data.\
-> You should see activity in the Insert/Update step metrics.
+> **Success:** Checkpoint: **Insert / Update Employees** shows 2 in **Output** (the inserts, `1810` and `1811`) and 2 in **Updated** (`1188` and `1619`).
+
+3. In your database tool, check the four employees and the row count:
+
+   ```sql
+   SELECT EMPLOYEENUMBER, FIRSTNAME, EXTENSION, JOBTITLE
+   FROM EMPLOYEES
+   WHERE EMPLOYEENUMBER IN (1188, 1619, 1810, 1811);
+
+   SELECT COUNT(*) FROM EMPLOYEES;
+   ```
+
+<figure><img src="../_assets/images/insert-update-db.png" alt="The four employees in DBeaver after the upsert"><figcaption><p>Two updated, two new</p></figcaption></figure>
+
+> **Success:** Checkpoint: `EMPLOYEES` holds 25 rows, 2 more than it shipped with.
+>
+> | `EMPLOYEENUMBER` | What happened                                                          |
+> | ---------------- | ---------------------------------------------------------------------- |
+> | `1188`           | Updated: `Julie` is now `Julianne`, extension `x2174`, `Sales Manager` |
+> | `1619`           | Updated: extension `x103` is now `x6324`                               |
+> | `1810`           | Inserted: Anna Lundberg, `Sales Rep`                                   |
+> | `1811`           | Inserted: Chris Schulz, `Sales Rep`                                    |
+
+4. Run the transformation again. **Output** and **Updated** are both 0: every row is found, and nothing differs.
 
 > **Under the hood:**
 >
-> #### Insert/Update isn't a MERGE statement
+> #### Insert / update isn't a MERGE statement
 >
 > MySQL has `INSERT ... ON DUPLICATE KEY UPDATE`; other databases have
 > `MERGE`. This step uses neither, because it has to behave the same on
 > all of them. Per row it runs a `SELECT` on the key, then one of three
-> things: no match → `INSERT`; match with a differing value →
-> `UPDATE`; match and identical → nothing. Every decision is made in
-> the engine, one row and one round-trip pair at a time.
+> things: no match, an `INSERT`; a match with a differing value, an
+> `UPDATE`; a match with identical values, nothing. Every decision is
+> made in the engine, one row and one pair of round trips at a time.
 >
-> That is also why the key must be unique in the table. Two matching
-> rows means the lookup returns two, and the step cannot know which
-> one you meant.
+> That is also why the key must be unique in the table. If two rows
+> match, the lookup returns two, and the step cannot know which one you
+> meant.
 >
 > **Why it matters:** for a daily feed of thousands of rows this is
-> exactly right — simple, portable, re-runnable. For millions, the
-> per-row lookup dominates: load to a staging table with **Table
+> exactly right: simple, portable and safe to re-run. For millions,
+> the per-row lookup dominates. Load to a staging table with **Table
 > output** and let one SQL `MERGE` do the rest.
 
-3. Verify the four employees exist:
-
-```sql
-select * from EMPLOYEES
-where EMPLOYEENUMBER in ('1188','1619','1810','1811');
-```
-
-<figure><img src="../_assets/images/insert-update-db.png" alt=""><figcaption><p>Insert / Update Employees</p></figcaption></figure>
-
-> **Success:** Checkpoint: All four `EMPLOYEENUMBER` values exist in `EMPLOYEES`.
+> **Tip:** To repeat this workshop from the start, run `employee_table_backup.sql` from the [Table Update](../15-mod3-table-update/guide.md) Lab Files. It puts `EMPLOYEES` back as it shipped, 23 rows.
 
 ::::
 
@@ -187,17 +201,14 @@ where EMPLOYEENUMBER in ('1188','1619','1810','1811');
 
 <summary>Troubleshooting</summary>
 
-**All rows updated (no inserts)**\
-Those employee numbers already exist in `EMPLOYEES`.
+**"Field 'EMPLOYEENUMBER' doesn't have a default value"**\
+`EMPLOYEENUMBER` is missing from **Update fields**. Add it back with **Update** `N`.
 
-**All rows inserted (no updates)**\
-Your `EMPLOYEENUMBER` values were not found, or key mapping is wrong.
+**Output is 0 on the first run**\
+All four employees are already in the table: the workshop ran before. Run `employee_table_backup.sql` and run again.
 
-**Duplicate key errors**\
-You likely used **Table Output** instead of **Insert/Update**, or you mapped keys incorrectly.
-
-**Updates affect too many rows**\
-Ensure `EMPLOYEENUMBER` is unique in your table. Fix duplicates before you upsert.
+**"Duplicate entry '1188' for key 'PRIMARY'"**\
+The step tried to insert an employee who already exists, so the lookup didn't find them. Check the key row: **Table field** `EMPLOYEENUMBER`, **Comparator** `=`, **Stream field1** `EMPLOYEE_NUMBER`. **Table output** gives the same error, because it only inserts.
 
 </details>
 

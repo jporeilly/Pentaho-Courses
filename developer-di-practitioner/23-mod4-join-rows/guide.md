@@ -13,16 +13,22 @@
 > * Join a parameter's value onto every row, with a filter condition
 > * Pick a reproducible random sample with **Reservoir sampling**
 > 
-> **Prerequisites:** Understanding of basic transformation concepts (steps, hops, preview), and named parameters from **[Parameters](../34-mod5-parameters/guide.md)** (this lab uses two).
+> **Prerequisites:** [Review Joins](../topic-mod4-joins-review/guide.md). The lab uses two named parameters; [Parameters](../34-mod5-parameters/guide.md), in Module 5, explains them in full.
 > 
 > **Estimated time:** 20 minutes
 
+<figure>
+
+![The finished transformation in Spoon: first name and middle name into Join rows, then name_initials, join surname with get ${surname}, Select values, name +surname and Select a name](../_assets/images/cross-join-2.png)
+
+<div align="center">
+<figcaption><em>What you build</em></figcaption>
+</div>
+</figure>
+
 > **Note:** **Create a new transformation**
 > 
-> Use any of these options to open a new transformation tab:
-> 
-> * Select **File** > **New** > **Transformation**
-> * Use `Ctrl+N` (Windows/Linux) or `Cmd+N` (macOS)
+> Start Spoon, select **File > New > Transformation** (or press `Ctrl+N`, `Cmd+N` on macOS), and save it as `tr_join_rows_names.ktr` in the lab folder, `C:\Workshop-DI-Practitioner\04-enriching-the-dataset\02-joins\23-mod4-join-rows`.
 
 :::: tabs
 
@@ -46,16 +52,18 @@
 
 ### 2. Two lists
 
-1. Drag a **Data grid** onto the canvas and name it `first name`.
+1. From the **Input** folder, drag a **Data grid** onto the canvas and name it `first name`.
 2. On its **Meta** tab add one field, `first_name`, type **String**. On the **Data** tab enter ten values: `Oliver`, `Jack`, `Harry`, `George`, `Jacob`, `Charlie`, `Noah`, `William`, `Thomas`, `Oscar`.
 3. Add a second **Data grid**, `middle name`, with one String field, `middle_name`, and ten values: `James`, `John`, `William`, `Thomas`, `Alexander`, `Robert`, `Michael`, `David`, `Andrew`, `Peter`.
 
 ### 3. Every combination
 
-1. Drag **Join rows (cartesian product)** onto the canvas and name it `all possible first and middle name combinations`.
+1. From the **Joins** folder, drag **Join rows (cartesian product)** onto the canvas and name it `all possible first and middle name combinations`.
 2. Create a hop from each Data grid to it.
 3. Leave **The condition** empty.
-4. Preview the step: 100 rows, every first name with every middle name.
+4. Preview the step.
+
+> **Success:** Checkpoint: 100 rows, every first name with every middle name.
 
 > **Under the hood:**
 >
@@ -76,7 +84,7 @@
 
 ### 4. Initials
 
-1. Drag **User defined Java expression** onto the canvas, name it `name_initials`, and hop the Join rows step into it.
+1. From the **Scripting** folder, drag **User defined Java expression** onto the canvas, name it `name_initials`, and hop the Join rows step into it.
 2. Add two fields:
 
 | New field           | Java expression                                           | Value type |
@@ -86,11 +94,13 @@
 
 ### 5. Add the surname
 
-1. Drag **Get variables** onto the canvas and name it `get ${surname}`. Add one field: **Name** `surname`, **Variable** `${surname}`, type **String**. It outputs one row.
+1. From the **Job** folder, drag **Get variables** onto the canvas and name it `get ${surname}`. Add one field: **Name** `surname`, **Variable** `${surname}`, type **String**. It outputs one row.
 2. Drag a second **Join rows (cartesian product)** onto the canvas and name it `join surname`. Create hops into it from `name_initials` and from `get ${surname}`.
 3. Set **Main step to read from** to `name_initials`.
 4. Set **The condition** to: `initials` **IN LIST** `AA;DD;PP;TT;OO;RR;WW`, and click the condition's **NOT** toggle so it reads "NOT ... IN LIST".
-5. Preview the step: 98 rows. The condition dropped Thomas Thomas (`TT`) and William William (`WW`), the only two pairs whose initials are in the list.
+5. Preview the step.
+
+> **Success:** Checkpoint: 98 rows. The condition dropped `Thomas Thomas` (`TT`) and `William William` (`WW`), the only two pairs whose initials are in the list.
 
 ### 6. Build the name
 
@@ -104,15 +114,17 @@
 
 ### 7. Pick five
 
-1. Drag **Reservoir sampling** onto the canvas, name it `Select a name`, and hop `name +surname` into it.
+1. From the **Statistics** folder, drag **Reservoir sampling** onto the canvas, name it `Select a name`, and hop `name +surname` into it.
 2. Set **Sample size (rows)** to `5` and **Random seed** to `${SEED}`.
-3. Preview `Select a name`. With the defaults (`Smith`, seed `23`) you get:
+3. Save, run, and preview `Select a name`.
 
-* Noah Andrew Smith
-* Oliver John Smith
-* Thomas Alexander Smith
-* Jack Robert Smith
-* Oscar Thomas Smith
+> **Success:** Checkpoint: with the defaults (`Smith`, seed `23`) you get these five:
+>
+> * Noah Andrew Smith
+> * Oliver John Smith
+> * Thomas Alexander Smith
+> * Jack Robert Smith
+> * Oscar Thomas Smith
 
 > **Under the hood:**
 >

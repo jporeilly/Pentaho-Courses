@@ -586,7 +586,7 @@ With a 'join' you dont have to ensure that each data stream has the same structu
         <group/>
         <nullif/>
         <trim_type>none</trim_type>
-        <length>8</length>
+        <length>-1</length>
         <precision>-1</precision>
       </field>
       <field>
@@ -598,7 +598,7 @@ With a 'join' you dont have to ensure that each data stream has the same structu
         <group/>
         <nullif/>
         <trim_type>none</trim_type>
-        <length>37</length>
+        <length>-1</length>
         <precision>-1</precision>
       </field>
       <field>
@@ -610,7 +610,7 @@ With a 'join' you dont have to ensure that each data stream has the same structu
         <group/>
         <nullif/>
         <trim_type>none</trim_type>
-        <length>16</length>
+        <length>-1</length>
         <precision>-1</precision>
       </field>
       <field>
@@ -622,7 +622,7 @@ With a 'join' you dont have to ensure that each data stream has the same structu
         <group/>
         <nullif/>
         <trim_type>none</trim_type>
-        <length>4</length>
+        <length>-1</length>
         <precision>-1</precision>
       </field>
       <field>
@@ -634,7 +634,7 @@ With a 'join' you dont have to ensure that each data stream has the same structu
         <group/>
         <nullif/>
         <trim_type>none</trim_type>
-        <length>25</length>
+        <length>-1</length>
         <precision>-1</precision>
       </field>
       <field>
@@ -646,7 +646,7 @@ With a 'join' you dont have to ensure that each data stream has the same structu
         <group/>
         <nullif/>
         <trim_type>none</trim_type>
-        <length>391</length>
+        <length>-1</length>
         <precision>-1</precision>
       </field>
     </fields>

@@ -4,68 +4,141 @@
 >
 > #### **Overview**
 > 
-> Slowly Changing Dimensions (SCD) - dimensions that change slowly over time, rather than changing on regular schedule, time-base. In a Data Warehouse, there is a need to track changes in dimension attributes in order to report historical data. In other words, implementing one of the SCD types should enable users assigning proper dimension's attribute value for given date. Example of such dimensions could be: customer, geography, employee.
+> A **slowly changing dimension** (SCD) is a dimension whose attributes change now and then, not on a schedule: a customer moves, an employee changes job, a product moves to another product line. A data warehouse has to decide what to do with the old value, because reports about the past may need it. Customers, geography and employees are typical examples.
 > 
-> There are many approaches how to deal with SCD. The most popular are:
+> The common approaches are numbered by type:
 > 
-> * Type 0 - The passive method
-> * Type 1 - Overwriting the old value
-> * Type 2 - Creating a new additional record
-> * Type 3 - Adding a new column
-> * Type 4 - Using historical table
-> * Type 6 - Combine approaches of types 1,2,3 (1+2+3=6)
+> * **Type 0** - keep the original value
+> * **Type 1** - overwrite the old value
+> * **Type 2** - add a new row for each version
+> * **Type 3** - add a column for the previous value
+> * **Type 4** - keep history in a separate table
+> * **Type 6** - combine types 1, 2 and 3 (1 + 2 + 3 = 6)
+> 
+> PDI's **Dimension lookup/update** step, in the next workshop, handles types 1 and 2, chosen field by field: **Update** and **Punch through** overwrite (type 1), and **Insert** adds a version (type 2).
+
+Every tab uses the same example. Customer `1`, `Cust_1`, has been a `Corporate` customer since 2010-07-22. On 2012-05-17 they become a `Retail` customer. Each type records that change differently; values that change are in **bold**.
 
 ::: tabs
 
 ### Type 0
 
-> **Note:** **Type 0 - value does not change over time**
+> **Note:** **Type 0 - the value never changes**
 > 
-> A type 0 slowly changing dimension is a dimension that never changes its attributes over time.
-> 
-> For example, the date of birth of a person is a type 0 attribute, because it does not change after it is recorded. A type 0 dimension can be used to store the original values of some attributes that are not relevant for historical analysis.
+> A type 0 attribute keeps the value it was first loaded with, and the change is ignored. A person's date of birth is one: once recorded, it doesn't change. Type 0 also suits attributes whose original value matters and whose later values don't, such as the date a customer first signed up.
+
+**Before and after the change**
+
+| CUSTOMER_ID | CUSTOMER_NAME | CUSTOMER_TYPE |
+| ----------- | ------------- | ------------- |
+| 1           | Cust_1        | Corporate     |
 
 ### Type 1
 
-> **Note:** **Type 1 - Overwrite with new value**
+> **Note:** **Type 1 - overwrite with the new value**
 > 
-> Overwriting the old value. In this method, no history of dimension changes is kept in the database. The old dimension value is simply overwritten with the new one. This type is easy to maintain and is often use for data which changes are caused by processing corrections (e.g. removal special characters, correcting spelling errors).
+> The new value replaces the old one, and no history is kept. Type 1 is the easiest to maintain, and it suits corrections, such as a fixed spelling mistake or removed special characters, where the old value was never right.
 
-<figure><img src="../_assets/images/type1.png" alt=""><figcaption><p>Type 1</p></figcaption></figure>
+**Before the change**
+
+| CUSTOMER_ID | CUSTOMER_NAME | CUSTOMER_TYPE |
+| ----------- | ------------- | ------------- |
+| 1           | Cust_1        | Corporate     |
+
+**After the change**
+
+| CUSTOMER_ID | CUSTOMER_NAME | CUSTOMER_TYPE |
+| ----------- | ------------- | ------------- |
+| 1           | Cust_1        | **Retail**    |
 
 ### Type 2
 
-> **Note:** **Type 2 - Historically track the value change**
+> **Note:** **Type 2 - add a row for each version**
 > 
-> Type 2 - Creating a new additional record. In this methodology, all history of dimension changes is kept in the database. You capture attribute change by adding a new row with a new surrogate key to the dimension table. Both the prior and new rows contain as attributes the natural key (or another durable identifier).
+> Every change adds a new row with a new surrogate key (here `TK`, the technical key), so the full history is kept. Each version carries the same natural key, `CUSTOMER_ID`, which ties them together.
 > 
-> Also 'effective date' and 'current indicator' columns are used in this method. There could be only one record with current indicator set to 'Y'. For 'effective date' columns, i.e. start\_date and end\_date, the end\_date for current record usually is set to value 9999-12-31.
+> Effective-date columns, here `START_DATE` and `END_DATE`, say when each version applied; the current version ends on a far-future date such as `9999-12-31`. Some designs add a current-row flag (`Y` on exactly one version) or, as here, a version number.
 > 
-> Introducing changes to the dimensional model in type 2 could be very expensive database operation so it is not recommended to use it in dimensions where a new attribute could be added in the future.
+> Type 2 makes the dimension grow with every change, and adding a new tracked attribute later is expensive, so choose its attributes carefully.
 
-<figure><img src="../_assets/images/type2.png" alt=""><figcaption><p>Type 2</p></figcaption></figure>
+**Before the change**
+
+| TK | CUSTOMER_ID | CUSTOMER_NAME | CUSTOMER_TYPE | START_DATE | END_DATE   | VERSION |
+| -- | ----------- | ------------- | ------------- | ---------- | ---------- | ------- |
+| 1  | 1           | Cust_1        | Corporate     | 2010-07-22 | 9999-12-31 | 1       |
+
+**After the change**
+
+| TK    | CUSTOMER_ID | CUSTOMER_NAME | CUSTOMER_TYPE | START_DATE     | END_DATE       | VERSION |
+| ----- | ----------- | ------------- | ------------- | -------------- | -------------- | ------- |
+| 1     | 1           | Cust_1        | Corporate     | 2010-07-22     | **2012-05-17** | 1       |
+| **2** | 1           | Cust_1        | **Retail**    | **2012-05-17** | 9999-12-31     | **2**   |
+
+The old version is closed on the day of the change, and the new one starts that day.
 
 ### Type 3
 
-> **Note:** **Type 3 - Add a column to track value changes**
+> **Note:** **Type 3 - add a column for the previous value**
 > 
-> Adding a new column. In this type, usually only the current and previous value of dimension is kept in the database. The new value is loaded into 'current/new' column and the old one into 'old/previous' column.
+> The table holds the current value and the previous one in two columns. When the value changes, the current value moves to the "previous" column and the new value takes its place.
 > 
-> The history is limited to the number of column created for storing historical data. This is the least commonly needed technique.
+> History is limited to the columns you create for it, usually one change back. It is the least often needed type.
 
-<figure><img src="../_assets/images/type3.png" alt=""><figcaption><p>Type 3</p></figcaption></figure>
+**Before the change**
+
+| CUSTOMER_ID | CUSTOMER_NAME | CUSTOMER_TYPE | PREVIOUS_TYPE |
+| ----------- | ------------- | ------------- | ------------- |
+| 1           | Cust_1        | Corporate     | Corporate     |
+
+**After the change**
+
+| CUSTOMER_ID | CUSTOMER_NAME | CUSTOMER_TYPE | PREVIOUS_TYPE |
+| ----------- | ------------- | ------------- | ------------- |
+| 1           | Cust_1        | **Retail**    | Corporate     |
 
 ### Type 4
 
-> **Note:** Using historical table. In this method, a separate historical table is used to track all dimension's attribute historical changes for each of the dimension. The 'main' dimension table keeps only the current data e.g. customer and customer\_history tables.
+> **Note:** **Type 4 - keep history in a separate table**
+> 
+> The dimension table holds only the current values, and a second table, such as `CUSTOMER_HISTORY`, holds every version with its effective dates. Queries about today read the small current table; queries about the past read the history.
 
-<figure><img src="../_assets/images/type4.png" alt=""><figcaption><p>Type 4</p></figcaption></figure>
+**After the change: the current table**
+
+| CUSTOMER_ID | CUSTOMER_NAME | CUSTOMER_TYPE |
+| ----------- | ------------- | ------------- |
+| 1           | Cust_1        | **Retail**    |
+
+**After the change: the history table**
+
+| CUSTOMER_ID | CUSTOMER_NAME | CUSTOMER_TYPE | START_DATE     | END_DATE       |
+| ----------- | ------------- | ------------- | -------------- | -------------- |
+| 1           | Cust_1        | Corporate     | 2010-07-22     | **2012-05-17** |
+| 1           | Cust_1        | **Retail**    | **2012-05-17** | 9999-12-31     |
 
 ### Type 6
 
-> **Note:** Combine approaches of types 1,2,3 (1+2+3=6). In this type, we have in dimension table such additional columns as:\ <mark style="color:red;">current\_type</mark> - for keeping current value of the attribute. All history records for given item of attribute have the same current value.\ <mark style="color:red;">historical\_type</mark> - for keeping historical value of the attribute. All history records for given item of attribute could have different values.\ <mark style="color:red;">start\_date</mark> - for keeping start date of 'effective date' of attribute's history. <mark style="color:red;">end\_date</mark> - for keeping end date of 'effective date' of attribute's history. <mark style="color:red;">current\_flag</mark> - for keeping information about the most recent record. In this method to capture attribute change we add a new record as in type 2. The current\_type information is overwritten with the new one as in type 1. We store the history in a historical\_column as in type 3.
+> **Note:** **Type 6 - combine types 1, 2 and 3**
+> 
+> Type 6 adds a row for each change, as type 2 does, and keeps two columns for the attribute:
+> 
+> * `CURRENT_TYPE`, today's value, overwritten on every version when it changes, as in type 1
+> * `HISTORICAL_TYPE`, the value that applied during that version, as in type 3
+> 
+> plus `START_DATE` and `END_DATE` for each version's effective dates, and a current-row flag. Every version can then be reported both as it was and as it is now.
 
-<figure><img src="../_assets/images/type6.png" alt=""><figcaption><p>Type 6</p></figcaption></figure>
+**Before the change**
+
+| TK | CUSTOMER_ID | CURRENT_TYPE | HISTORICAL_TYPE | START_DATE | END_DATE   | CURRENT_FLAG |
+| -- | ----------- | ------------ | --------------- | ---------- | ---------- | ------------ |
+| 1  | 1           | Corporate    | Corporate       | 2010-07-22 | 9999-12-31 | Y            |
+
+**After the change**
+
+| TK    | CUSTOMER_ID | CURRENT_TYPE | HISTORICAL_TYPE | START_DATE     | END_DATE       | CURRENT_FLAG |
+| ----- | ----------- | ------------ | --------------- | -------------- | -------------- | ------------ |
+| 1     | 1           | **Retail**   | Corporate       | 2010-07-22     | **2012-05-17** | **N**        |
+| **2** | 1           | **Retail**   | **Retail**      | **2012-05-17** | 9999-12-31     | **Y**        |
+
+Version 1 still says what the customer *was* (`HISTORICAL_TYPE`), and now also what they *are* (`CURRENT_TYPE`).
 
 :::
-

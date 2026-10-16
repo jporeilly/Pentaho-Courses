@@ -3,7 +3,7 @@
   "description": "Parameter- and variable-driven PDI pipelines — passing values in at runtime, scoping them, and using them inside SQL.",
   "order": 48,
   "kind": "page",
-  "stepCount": 2,
+  "stepCount": 3,
   "hasVideo": true,
   "estimatedMinutes": 15,
   "navSection": true

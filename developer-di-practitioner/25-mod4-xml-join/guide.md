@@ -17,7 +17,7 @@
 > * Nest the fragments into one document with five XML Join steps
 > * Write the assembled multi-layer XML with Text file output
 > 
-> **Prerequisites:** Understanding of basic transformation concepts (steps, hops, preview). Basic XML and XPath. Pentaho Data Integration installed and configured.
+> **Prerequisites:** [Review Joins](../topic-mod4-joins-review/guide.md); basic XML and XPath, as in [Read XML](../09-mod3-read-xml/guide.md).
 > 
 > **Estimated time:** 30 minutes
 
@@ -29,16 +29,22 @@
 > 
 > By chaining several XML Join steps, each one inserting the next level at a deeper XPath, you assemble a deeply nested document — here: order list → order → header comments → lines → line comments → sub-lines.
 
-<figure><img src="../_assets/images/xml-join.png" alt=""><figcaption><p>XML Join - multilayer output</p></figcaption></figure>
+<figure>
+
+![The flow: six Excel sheets become XML fragments with Add XML, and five chained XML Join steps nest them into one document, written by Text file output](../_assets/images/xml-join-orders.png)
+
+<div align="center">
+<figcaption><em>What you build: each join takes the document so far as its target and adds one level</em></figcaption>
+</div>
+</figure>
+
+<figure><img src="../_assets/images/xml-join.png" alt="Pentaho Data Integration title card: XML Join"><figcaption><p>XML Join</p></figcaption></figure>
 
 > **Note:** This workshop reproduces the shipped PDI sample. Download the transformation and workbook from **Lab Files** below — keep `tr_xml_join.ktr` and `xml_orders_source.xls` in the **same folder** so the relative paths resolve — and open it in Spoon to follow the wiring as you work.
 
 > **Note:** **Create a new transformation**
 > 
-> Use any of these options to open a new transformation tab:
-> 
-> * Select **File** > **New** > **Transformation**
-> * Use `Ctrl+N` (Windows/Linux) or `Cmd+N` (macOS)
+> Select **File > New > Transformation**, or press `Ctrl+N` (`Cmd+N` on macOS). Save it as `tr_xml_join.ktr` in the lab folder, `C:\Workshop-DI-Practitioner\04-enriching-the-dataset\02-joins\25-mod4-xml-join`, next to `xml_orders_source.xls`.
 
 :::: tabs
 
@@ -52,7 +58,6 @@
 
 1. Start Pentaho Data Integration (Spoon).
 
-> **Note:** 
 
 ::: tabs
 
@@ -194,7 +199,7 @@ xPathStatement = "//OrderHeader[@orderNumber='" + orderNumber.getInteger()
 > fragment it evaluates the **XPath Statement** against the DOM
 > (replacing `?` with that row's **Join comparison field**), appends
 > the fragment under the node it found, and moves on. When the source
-> is exhausted it serialises the DOM back into one XML field and emits
+> is exhausted it serializes the DOM back into one XML field and emits
 > exactly one row.
 >
 > That is why the chain works: each join's single output row is the
@@ -236,10 +241,10 @@ with **Extension** `xml`.
 > 
 > Run the transformation locally, then open the generated file.
 
-1. Select **Run** in the canvas toolbar.
-2. Open `XMLOrders.xml` from your transformation folder.
+1. Save the transformation, select **Run** in the toolbar, then **Run** in **Run Options**.
+2. Open `XMLOrders.xml` from the lab folder in a browser or text editor.
 
-> **Success:** You should see one `<OrderList>` document with nested `<OrderHeader>` elements, each containing its comments, lines, line comments, and sub-lines.
+> **Success:** Checkpoint: one `<OrderList>` with two `<OrderHeader>` elements, orders `4711` and `4712`. Each order has 2 order lines; between them they carry 3 header comments, 3 line comments and 5 sub-lines (2 under order `4711`, 3 under `4712`), each nested under the order and line it belongs to.
 
 ::::
 

@@ -1,10 +1,8 @@
 # Onboarding to a table
 
-> Metadata Injection
-
 > **Warning:**
 >
-> #### Workshop - Onboarding to a Table
+> #### Workshop - Onboarding to a table
 > 
 > Onboarding a new file into a table usually means a new transformation: the same CSV input, select and table output, with a different field list. **Metadata injection** builds that transformation once, as a template with no fields, and fills the field list in at run time from data. Here you load `customers.txt` both ways and get the same table.
 > 
@@ -15,25 +13,25 @@
 > * Describe the fields, renames and removals in Data grids
 > * Inject them with **ETL metadata injection** and run the result
 > 
-> **Prerequisites:** **[Writing to a Database](../14-mod3-writing-to-a-database/guide.md)** (Table output) and the `MySQL:sampledata` connection from **[Database Connections](../12-mod3-connecting-to-database/guide.md)**.
+> **Prerequisites:** [Review Metadata Injection](../topic-mod5-metadata-injection-review/guide.md); [Writing to a Database](../14-mod3-writing-to-a-database/guide.md) (Table output) and the `MySQL:sampledata` connection from [Connecting to Database](../12-mod3-connecting-to-database/guide.md)
 > 
-> **Estimated time:** 30 minutes
+> **Estimated time:** 25 minutes
 
-```text
-injector (metadata_inject_step.ktr)              template (metadata_inject_template.ktr)
-  dg-metadata _fields  --+                         csvi-mdi       CSV file input, no fields
-  dg-rename            --+--> ETL metadata  --->     |
-  dg_remove_name       --+    injection             sv-mdi        Select values, empty
-  gr-filename -> sfvc  --+    (fills the            |
-                              template, runs it)   to-metadata_injection_customers   Table output
-```
+<figure>
+
+![Two transformations: metadata_inject_step.ktr's Data grids and file name feed ETL metadata injection, which fills in and runs metadata_inject_template.ktr, a CSV file input, Select values and Table output with no fields of their own](../_assets/images/metadata-injection-onboarding.png)
+
+<div align="center">
+<figcaption><em>What you build: the metadata on the left fills the template on the right</em></figcaption>
+</div>
+</figure>
 
 :::: tabs
 
 ### 1. The target table
 
 1. Download `create_metadata_injection_customers.sql` from **Lab Files** (it is also in the lab folder).
-2. Run it in DBeaver, connected to `sampledata` as `pentaho_admin`.
+2. Run it in your database tool (Adminer or DBeaver), connected to `sampledata` as `pentaho_admin`.
 
 It creates `METADATA_INJECTION_CUSTOMERS` with the columns the load produces: `customers.txt`'s fields, with `id` renamed to `key_id` and `stateCode` removed.
 
@@ -43,9 +41,11 @@ Build the ordinary version, so you know what the template has to become.
 
 1. Create a transformation and save it as `tr_onboard_customers_by_hand.ktr` in the lab folder (next to the `data` folder).
 2. **CSV file input** (`csvi-customers`): **Filename** `${Internal.Entry.Current.Directory}/data/customers.txt`, **Delimiter** `;`, then **Get Fields**.
-3. **Select values** (`sv-customers`): on **Select && Alter**, add `id` with **Rename to** `key_id`, and tick **Include unspecified fields, ordered by name**. On **Remove**, add `stateCode`.
-4. **Table output** (`to-customers`): connection `MySQL:sampledata`, target table `METADATA_INJECTION_CUSTOMERS`, tick **Truncate table**.
-5. Run it: **Table output** writes 100 rows.
+3. **Select values** (`sv-customers`): on **Select & Alter**, add `id` with **Rename to** `key_id`, and select **Include unspecified fields, ordered by name**. On **Remove**, add `stateCode`.
+4. **Table output** (`to-customers`): connection `MySQL:sampledata`, target table `METADATA_INJECTION_CUSTOMERS`, select **Truncate table**.
+5. Run it.
+
+> **Success:** Checkpoint: **Table output** writes 100 rows.
 
 Every one of those settings is metadata: a file name, ten field definitions, one rename, one removal. That list is what injection supplies.
 
@@ -105,8 +105,10 @@ Create a new transformation, `metadata_inject_step.ktr`, in the same folder, wit
 | `sv-mdi`    | `META_RENAME`     | `dg-rename`           | `rename`      |
 | `sv-mdi`    | `REMOVE_NAME`     | `dg_remove_name`      | `remove_name` |
 
-4. On the **Options** tab, leave **Run resulting transformation** ticked.
-5. Run `metadata_inject_step.ktr`. The template's Table output writes 100 rows, and the table holds exactly what the hand-built version wrote.
+4. On the **Options** tab, leave **Run resulting transformation** selected.
+5. Run `metadata_inject_step.ktr`.
+
+> **Success:** Checkpoint: the template's Table output writes 100 rows, and the table holds exactly what the hand-built version wrote.
 
 > **Under the hood:**
 >

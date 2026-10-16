@@ -14,11 +14,11 @@ Now that PDI is configured, build something with it. You'll create a 'Hello Worl
 > 
 > **Transformations**
 > 
-> Transformations are used to describe the data flows for ETL such as reading from a source, transforming data and loading it into a target location.
+> A transformation describes a data flow: reading from a source, transforming the data, and loading it into a target.
 > 
 > **Jobs**
 > 
-> Jobs are used to coordinate ETL activities such as defining the flow and dependencies for what order transformations should be run, or prepare for execution by checking conditions such as, "Is my source file available?" or "Does a table exist in my database?"
+> A job coordinates the work around those data flows: which transformations run, in what order, and what has to be true first - for example "Is my source file available?" or "Does the table exist?"
 
 ### Transformations & Jobs
 
@@ -30,20 +30,18 @@ Now that PDI is configured, build something with it. You'll create a 'Hello Worl
 >
 > #### **Transformation**
 > 
-> Transformations are the workhorses of the ETL process. They are comprised of:
+> Transformations are the workhorses of ETL. They are made of two things:
 > 
 > **Steps**
 > 
-> which provide you with a wide range of functionality ranging from reading text-files to implementing slowly changing dimensions.
-> 
-> Steps executed in parallel.
+> Each step does one job, from reading a text file to maintaining a slowly changing dimension. All the steps in a transformation run at the same time.
 > 
 > **Hops**
 > 
-> help you define the flow of the data in the stream. They represent a row buffer between the Step Output and the next Step Input, as illustrated in the below Transformation. Data flows from the Text file input step to Filter rows to Sort Rows, finally to Table output.
+> A hop carries rows from one step to the next. Each hop is a row buffer between one step's output and the next step's input. In the transformation below, rows flow from **Text file input** to **Filter rows**, then **Sort rows**, and finally **Table output**.
 
-<div class="pcm-embed-card" data-href="https://pentaho-public.atlassian.net/wiki/spaces/EAI/overview?homepageId=363267360" data-title="Latest Pentaho Data Integration (aka Kettle) Documentation - Pentaho Data Integration - Pentaho Community Wiki"></div>
-<div data-full-width="true"><figure><img src="../_assets/images/steps.png" alt="" width="563"><figcaption><p>Steps &#x26; Hops = Transformation</p></figcaption></figure></div>
+<div class="pcm-embed-card" data-href="https://docs.pentaho.com/pdia-data-integration/transforming-data-with-pdi" data-title="Transforming data with PDI | Pentaho Documentation"></div>
+<div data-full-width="true"><figure><img src="../_assets/images/steps.png" alt="Steps &#x26; Hops = Transformation" width="563"><figcaption><p>Steps &#x26; Hops = Transformation</p></figcaption></figure></div>
 
 ***
 
@@ -51,21 +49,21 @@ Now that PDI is configured, build something with it. You'll create a 'Hello Worl
 >
 > #### **Steps**
 > 
-> There are some key characteristics of Steps:
+> Key characteristics of steps:
 > 
-> * Step names must be unique in a single Transformation
-> * Virtually all Steps read and write rows of data (exception Generate rows)
-> * Most Steps can have multiple outgoing hops. These can be configured to either copy or distribute the data. Copy ensures all Steps receive a copy of the row of data; Distribute sends the data in a round robin fashion to each of the Steps.
-> * Steps run in their own thread. It’s possible to run multiple copies of the Step, for performance tuning, each in their own thread.
-> * All Steps are executed in parallel, so it’s not possible to define an order of execution.
+> * A step's name must be unique within its transformation.
+> * Almost every step reads rows and writes rows. **Generate Rows** is an exception: it only writes.
+> * A step can have several outgoing hops. It either **copies** each row to every one of them, or **distributes** the rows among them in turn (round robin).
+> * Each step runs in its own thread. For performance tuning you can run several copies of a step, each in its own thread.
+> * All steps run in parallel, so you can't set an order of execution inside a transformation. Use a job for that.
 
-In addition to Steps, Hops, and Notes enable you to document the Transformation.
+As well as steps and hops, a transformation can hold **notes**, which document it on the canvas.
 
-<div align="left"><figure><img src="../_assets/images/copy-rows.png" alt="" width="563"><figcaption><p>copy rows</p></figcaption></figure></div>
+<div align="left"><figure><img src="../_assets/images/copy-rows.png" alt="Copy rows" width="563"><figcaption><p>Copy rows</p></figcaption></figure></div>
 
-<div align="left"><figure><img src="../_assets/images/distribute-rows.png" alt="" width="563"><figcaption><p>distribute rows</p></figcaption></figure></div>
+<div align="left"><figure><img src="../_assets/images/distribute-rows.png" alt="Distribute rows" width="563"><figcaption><p>Distribute rows</p></figcaption></figure></div>
 
-<figure><img src="../_assets/images/transformations.jpeg" alt=""><figcaption><p>Steps</p></figcaption></figure>
+<figure><img src="../_assets/images/transformations.jpeg" alt="Steps"><figcaption><p>Steps</p></figcaption></figure>
 
 ### 2. Parallelism
 
@@ -73,19 +71,19 @@ In addition to Steps, Hops, and Notes enable you to document the Transformation.
 >
 > #### **Parallelism**
 > 
-> When a transformation starts, all steps start at the same time. The hop is configured as a buffer, with generally a 10k row set.
+> When a transformation starts, all its steps start at the same time. Each hop is a buffer that holds 10,000 rows by default.
 > 
-> The flow for the data stream occurs when the first step has initialized, started reading the first row sets, then writing them into the hop (10 k buffer). The row sets are then read by the next step, while the first step is still reading and writing row sets into the stream, and the second step outputs into the stream for the next step, and so on.. The buffer size can be set in Miscellaneous tab, in the Transformation properties panel.
+> As soon as the first step has read some rows, it writes them into its outgoing hop. The next step reads them from there while the first step is still reading, and writes its own output into the next hop, and so on down the line. Rows stream through; no step waits for the one before it to finish. You set the buffer size on the **Miscellaneous** tab of **Transformation properties**.
 
-<figure><img src="../_assets/images/parallelism.png" alt="" width="563"><figcaption><p>parallelism</p></figcaption></figure>
+<figure><img src="../_assets/images/parallelism.png" alt="Parallelism" width="563"><figcaption><p>parallelism</p></figcaption></figure>
 
 > **Note:**
 >
 > #### **Adjusting the Queue Size**
 > 
-> When trying to optimize performance, you may want to adjust the input/output queue size. Especially if you have a lot of RAM available. The queue size is configured as the “Nr of rows in rowset” in the transformation settings and applies to all transformation steps. Increasing it might finish the opening steps of a transformation more quickly, thus freeing up CPU time for the subsequent steps.
+> When you tune performance, especially on a machine with plenty of RAM, you may want a larger buffer. It is the **Nr of rows in rowset** setting in **Transformation properties**, and it applies to every hop in the transformation. A larger buffer can let the first steps finish sooner, freeing CPU time for the steps after them.
 
-<div align="center"><figure><img src="../_assets/images/buffer-rows.png" alt="" width="563"><figcaption><p>Changing buffer row set</p></figcaption></figure></div>
+<div align="center"><figure><img src="../_assets/images/buffer-rows.png" alt="Changing buffer row set" width="563"><figcaption><p>Changing buffer row set</p></figcaption></figure></div>
 
 ### 3. Data Types
 
@@ -93,7 +91,7 @@ In addition to Steps, Hops, and Notes enable you to document the Transformation.
 >
 > #### **Data Types**
 > 
-> PDI data types map internally to Java data types, so the Java behavior of these data types applies to the associated fields, parameters, and variables used in your transformations and jobs.
+> Each PDI data type maps to a Java type, so the field, parameter or variable behaves the way that Java type does.
 
 The following table describes these mappings:
 
@@ -105,17 +103,17 @@ The following table describes these mappings:
 >
 > #### **Jobs**
 > 
-> In a PDI process, jobs orchestrate other jobs and transformations in a coordinated way to realize our business process:
+> A job runs transformations and other jobs in a defined order, with conditions between them, to carry out a business process.
 
 > **Note:**
 >
 > #### **Job Entries**
 > 
-> Represent the different tasks or processes that need to be executed as part of the job. Job entries can include Transformations, shell scripts, database operations, file operations, and more. Each job entry performs a specific task and can be configured with various options and parameters.
+> Each job entry is one task in the job: run a transformation, run a shell script, execute SQL, copy or check files, and more. Each entry has its own options and parameters.
 > 
-> Entries executed sequentially.
+> Job entries run one after another, following the hops. (An entry can also be set to start the entries after it in parallel.)
 
-<figure><img src="../_assets/images/job-entries.jpeg" alt=""><figcaption><p>Job Entries</p></figcaption></figure>
+<figure><img src="../_assets/images/job-entries.jpeg" alt="Job Entries"><figcaption><p>Job Entries</p></figcaption></figure>
 
 :::
 

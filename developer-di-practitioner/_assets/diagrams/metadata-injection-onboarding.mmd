@@ -1,0 +1,28 @@
+%%{init: {"theme":"base","themeVariables":{"fontFamily":"Segoe UI, Helvetica, Arial, sans-serif","fontSize":"13px","lineColor":"#64748b","clusterBkg":"#fafaf9","clusterBorder":"#d6d3d1","edgeLabelBackground":"#ffffff"},"flowchart":{"curve":"basis","nodeSpacing":28,"rankSpacing":44,"padding":10,"htmlLabels":true}}}%%
+flowchart LR
+  classDef input fill:#dbeafe,stroke:#1d4ed8,color:#1e3a8a,text-align:left,rx:6,ry:6
+  classDef enrich fill:#ede9fe,stroke:#6d28d9,color:#3b0764,text-align:left,rx:6,ry:6
+  classDef inject fill:#ccfbf1,stroke:#0f766e,color:#134e4a,text-align:left,rx:6,ry:6
+  classDef output fill:#dcfce7,stroke:#15803d,color:#14532d,text-align:left,rx:6,ry:6
+  subgraph injector ["metadata_inject_step.ktr: the metadata"]
+    direction LR
+    A["<b>Data grid</b><br/>dg-metadata _fields<br/>one row per field of customers.txt"]:::input
+    B["<b>Data grid</b><br/>dg-rename<br/>id to key_id"]:::input
+    C["<b>Data grid</b><br/>dg_remove_name<br/>stateCode"]:::input
+    D["<b>Generate rows</b><br/>gr-filename"]:::input
+    E["<b>Set field value to a constant</b><br/>sfvc-path_filename<br/>data/customers.txt"]:::enrich
+    M["<b>ETL metadata injection</b><br/>template: metadata_inject_template.ktr<br/>run resulting transformation"]:::inject
+    D --> E
+    A --> M
+    B --> M
+    C --> M
+    E --> M
+  end
+  subgraph template ["metadata_inject_template.ktr: the shape"]
+    direction LR
+    T1["<b>CSV file input</b><br/>csvi-mdi<br/>no file, no fields"]:::input
+    T2["<b>Select values</b><br/>sv-mdi<br/>empty"]:::enrich
+    T3["<b>Table output</b><br/>to-metadata_injection_customers<br/>table METADATA_INJECTION_<br/>CUSTOMERS"]:::output
+    T1 --> T2 --> T3
+  end
+  M -.->|fills in the settings, then runs it| T1

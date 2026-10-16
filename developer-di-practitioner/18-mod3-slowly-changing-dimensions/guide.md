@@ -1,67 +1,62 @@
-# SCDs
+# Slowly Changing Dimensions
 
 > **Warning:**
 >
-> #### Workshop - Slowly changing dimensions (SCDs)
+> #### Workshop - Slowly Changing Dimensions
 > 
-> Maintain a dimension table as attributes change over time.\
-> Use **Dimension Lookup/Update** for both **Type 1** and **Type 2** behavior.
+> Maintain a small city dimension, `DIM_SCD`, as its values change, with the **Dimension lookup/update** step.\
+> Six runs take it from a lookup on an empty table, through type 1 overwrites and type 2 versions, to punch through.
 > 
 > **What you’ll do**
 > 
-> * Create a `DIM_SCD` table in `sampledata`
-> * Generate test rows with **Data Grid**
-> * Add timestamps with **Get System Info**
-> * Configure **Dimension Lookup/Update** for:
->   * Lookup mode (read-only enrichment)
->   * Update mode (writes)
-> * Test field strategies:
->   * **Update** (Type 1 overwrite)
->   * **Insert** (Type 2 new version)
->   * **Punch through** (update all versions)
+> * Create the `DIM_SCD` table and build a three-step transformation
+> * Use **Dimension lookup/update** in lookup mode, then in update mode
+> * Overwrite a value with **Update** (type 1) and keep its history with **Insert** (type 2)
+> * Rewrite every version of a key with **Punch through**
 > 
 > **Prerequisites**
 > 
-> * PDI installed and running
-> * A working MySQL connection to `sampledata`
-> * Familiarity with natural keys vs surrogate keys
+> * [Review SCDs](../topic-mod3-databases-scds-review/guide.md): types 1 and 2, natural and surrogate keys
+> * The `MySQL:sampledata` connection from [Connecting to Database](../12-mod3-connecting-to-database/guide.md)
 > 
 > **Estimated time:** 40 minutes
 
 <div class="pcm-embed-card" data-href="https://www.loom.com/share/3ec2d5123814460d92085851c18daaee?hideEmbedTopBar=true&amp;hide_owner=true&amp;hide_share=true&amp;hide_title=true" data-title="Understanding Dimension Lookup Update Steps in Data Integration" data-description="In this video, I walk you through the dimension lookup update step, highlighting its key features and how to use them effectively. We start by reading customer dimension data from a delimited file and then add the current system date before performing the lookup and update in our database table. I demonstrate how to configure the keys and fields for the dimension data, and we observe the insertion of five rows, including an empty row due to the table being initially empty. I also show how to handle updates when a customer's location changes, which increments the version number in our records. Please refer to the Pentaho data integration documentation for further details on additional capabilities and configurations." data-thumb="../_assets/embeds/2d94cd73b9b2.png"></div>
 
+<figure>
+
+![The finished transformation: Data Grid, Get System Info and Dimension lookup/update in a line](../_assets/images/dim-scd-trans.png)
+
+<div align="center">
+<figcaption><em>What you build</em></figcaption>
+</div>
+</figure>
+
 > **Note:** **Create a new transformation**
 > 
-> Use any of these options to open a new transformation tab:
-> 
-> * Select **File** > **New** > **Transformation**
-> * Use `Ctrl+N` (Windows/Linux) or `Cmd+N` (macOS)
-
-![tr_scd](../_assets/images/dim-scd-trans.png)
+> Select **File > New > Transformation**, or press `Ctrl+N` (`Cmd+N` on macOS). Save it as `tr_scd.ktr` in the lab folder, `C:\Workshop-DI-Practitioner\03-data-sources\02-databases\18-mod3-slowly-changing-dimensions`.
 
 ::::: tabs
 
-### Transformation
+### 1. Build
 
 > **Danger:**
 >
-> #### Transformation
+> #### Build it first
 > 
-> Ensure the tr\_scd.ktr has been created before you explore the Workflows.
+> Create the table and the transformation in this tab before you start the runs in the other tabs. The runs build on each other: do them in order.
 
 :::: tabs
 
-### 1. DIM\_SCD Table
+### 1. DIM_SCD table
 
 > **Note:**
 >
-> #### **SCD table**
+> #### **The dimension table**
 > 
-> First step in these series of workshops, is to create a simple DIM\_SCD table that has the required fields to illustrate a Type 1 change - just overwrite the value - and Type 2 - where you need to record when any change in the value occurs.
+> `DIM_SCD` holds one city per natural key, `id`, with the columns a type 2 dimension needs: a technical key (`TK`), a `version`, and the dates each version is valid from and to. `last_update` records when a row last changed.
 
-1. Start PDI.
-
-> **Note:** 
+1. Start Spoon.
 
 ::: tabs
 
@@ -89,9 +84,7 @@
 
 <button data-launch="spoon" data-path="">Start PDI</button>
 
-> **Warning:** Create the Table in MySQL sampledata database.
-
-2. In your DB management tool, execute the following statement.
+2. In your database tool, connected to the MySQL `sampledata` database, run this statement. It is also in `dim_scd script.txt` in **Lab Files**.
 
 ```sql
 CREATE TABLE `DIM_SCD` (
@@ -107,41 +100,41 @@ CREATE TABLE `DIM_SCD` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 ```
 
-<figure><img src="../_assets/images/dim-scd-table.png" alt=""><figcaption><p>DIM_SCD</p></figcaption></figure>
+> **Success:** Checkpoint: `DIM_SCD` exists, empty, with seven columns: `TK`, `version`, `id`, `city`, `date_from`, `date_to` and `last_update`.
 
-### 2. Data Grid
+### 2. Data grid
 
 > **Note:**
 >
 > #### **Data grid**
 > 
-> This step allows you to enter a static list of rows in a grid. This is usually done for testing, reference or demo purposes.
+> **Data grid** holds a few rows typed into the step itself: handy for tests and demonstrations. Here it is the source data, and you edit it between runs.
 
-1. Drag the Data Grid step onto the canvas.
-2. Open the Data Grid properties dialog box.
-3. Ensure the following details are configured, as outlined below:
+1. From the **Input** folder, drag **Data grid** onto the canvas.
+2. Double-click the step. On the **Meta** tab, add two fields: `id`, Integer, and `city`, String.
 
-<figure><img src="../_assets/images/dg-scd.png" alt=""><figcaption><p>Data grid - meta</p></figcaption></figure>
+<figure><img src="../_assets/images/dg-scd.png" alt="Data grid Meta tab with id Integer and city String"><figcaption><p>Two fields</p></figcaption></figure>
 
-4. On the Data tab enter the following values:
+3. On the **Data** tab, enter one row: `1`, `London`.
 
-<figure><img src="../_assets/images/dg-data-scd.png" alt=""><figcaption><p>Data grid - data</p></figcaption></figure>
+<figure><img src="../_assets/images/dg-data-scd.png" alt="Data grid Data tab with the row 1, London"><figcaption><p>One city to start</p></figcaption></figure>
 
-### 3. Get System Info
+4. Select **OK**.
+
+### 3. Get system info
 
 > **Note:**
 >
 > #### **Get system info**
 > 
-> The Get System Info step retrieves information from the Kettle environment.
-> 
-> This step generates a single row with the fields containing the requested information. It also accepts input rows.
+> **Get system info** adds values from the PDI environment, such as the current date, to each row. The dimension step uses it as the date of each change.
 
-1. Drag the Get System Info step onto the canvas.
-2. Open the Get System Info properties dialog box.
-3. Ensure the following details are configured, as outlined below:
+1. From the **Input** folder, drag **Get system info** onto the canvas and hop **Data grid** to it.
+2. Double-click the step and add one field: **Name** `LAST_UPDATE`, **Type** `system date (variable)`.
 
-<figure><img src="../_assets/images/get-system-info.png" alt="" width="563"><figcaption><p>Get system info</p></figcaption></figure>
+<figure><img src="../_assets/images/get-system-info.png" alt="Get system info with LAST_UPDATE as system date (variable)" width="563"><figcaption><p>The time of the run</p></figcaption></figure>
+
+3. Select **OK**.
 
 ### 4. Dimension lookup/update
 
@@ -149,357 +142,274 @@ CREATE TABLE `DIM_SCD` (
 >
 > #### **Dimension lookup/update**
 > 
-> The Dimension Lookup/Update step allows you to implement Ralph Kimball's slowly changing dimension for both types: Type I (update) and Type II (insert) together with some additional functions. Not only can you use this step to update a dimension table, it may also be used to look up values in a dimension.
+> **Dimension lookup/update** maintains a type 1 or type 2 dimension, field by field, or only looks keys up in it. It finds a row by its natural key and the stream date, and returns the row's technical key.
 
-1. Drag the Dimension lookup/update step onto the canvas.
-2. Open the Dimension lookup/update properties dialog box.
-3. Ensure the following details are configured, as outlined below:
+1. From the **Data Warehouse** folder, drag **Dimension lookup/update** onto the canvas and hop **Get system info** to it.
+2. Double-click the step and set:
+   * **Update the dimension?**: select
+   * **Connection**: `MySQL:sampledata`
+   * **Target table**: `DIM_SCD`
+   * **Commit size**: `100`
+3. On the **Keys** tab, add one row: **Dimension field** `id`, **Field in stream** `id`.
+4. Set the fields below the tabs:
+   * **Technical key field**: `TK`, with **Creation of technical key** set to **Use table maximum + 1**
+   * **Version field**: `version`
+   * **Stream Datefield**: `LAST_UPDATE`
+   * **Date range start field**: `date_from`, **Min. year** `1900`
+   * **Table date range end**: `date_to`, **Max. year** `2199`
 
-* **Connection:** your `sampledata` connection
-* **Target table:** `DIM_SCD`
-* **Technical key field:** `TK`
-* **Version field:** `version`
-* **Lookup key:** `id`
+<figure><img src="../_assets/images/dim-scd-update-2.png" alt="Dimension lookup/update with Update the dimension selected, the id key, TK, version, the LAST_UPDATE stream date and the date range fields" width="563"><figcaption><p>Keys and the type 2 columns</p></figcaption></figure>
 
-> **Note:** You will switch between **Lookup mode** and **Update mode** in the workflows below.
+5. On the **Fields** tab, add two rows. You change the **Type of dimension update** between runs; start with **Update** for both:
+
+| Dimension field | Stream field to compare with | Type of dimension update |
+| --------------- | ---------------------------- | ------------------------ |
+| `city`          | `city`                       | Update                   |
+| `last_update`   | `LAST_UPDATE`                | Update                   |
+
+6. Select **OK** and save the transformation.
 
 ::::
 
-### Workflow 1 - Lookup
+### 2. Lookup
 
-> **Note:** **Lookup**
+> **Note:**
+>
+> #### Run 1: lookup mode
 > 
-> This step is rarely used for lookups because specific steps exist. However, it does illustrate how referential integrity is maintained.
+> With **Update the dimension?** clear, the step only reads: it finds each row's technical key and writes nothing.
 
-1. Add ‘London’ to the Data Grid.
+1. Double-click **Dimension lookup/update** and clear **Update the dimension?**.
 
-<figure><img src="../_assets/images/dg-lookup.png" alt=""><figcaption><p>Data grid - lookup</p></figcaption></figure>
+<figure><img src="../_assets/images/dim-scd-set-lookup.png" alt="Dimension lookup/update with Update the dimension cleared"><figcaption><p>Lookup mode</p></figcaption></figure>
 
-> **Warning:** To initially configure the fields set the step to Update mode.
-> 
-> Once completed remember to reset to lookup mode.
+2. On the **Fields** tab, the columns now describe what the lookup returns. Keep the `city` row with **Type of return field** `String`, and delete the `last_update` row.
 
-<figure><img src="../_assets/images/configure-scd.png" alt=""><figcaption><p>Configure fields</p></figcaption></figure>
+<figure><img src="../_assets/images/dim-scd-city-string.png" alt="Fields tab in lookup mode: city returned as a String"><figcaption><p>Return city as a String</p></figcaption></figure>
 
-2. Ensure that the Dimension Lookup / Update is set to: Lookup Mode.
+3. Select **OK**, run the transformation, then select **Dimension lookup/update** and open **Preview data**.
 
-<figure><img src="../_assets/images/dim-scd-set-lookup.png" alt=""><figcaption><p>set lookup mode</p></figcaption></figure>
+<figure><img src="../_assets/images/view-lookup-data.png" alt="Preview data: London with TK 0 and an empty city_1"><figcaption><p>London isn't in the dimension: TK 0</p></figcaption></figure>
 
-> **Note:** The lookup key is `id`.
-> 
-> There’s no point adding the `last_update` field because we’re dealing with Type 1 changes.
-
-3. Click on the Fields tab.
-
-<figure><img src="../_assets/images/dim-scd-city-string.png" alt=""><figcaption><p>Set city to string</p></figcaption></figure>
-
-> **Note:** **Run the transformation**
-> 
-> Preview the output from **Dimension lookup/update**.
-
-1. Click the Run button in the Canvas Toolbar.
-2. Preview data for the **Dimension lookup/update** step.
-
-<figure><img src="../_assets/images/view-lookup-data.png" alt=""><figcaption><p>Preview data</p></figcaption></figure>
-
-> **Note:** **Why does London have a TK 0 and a value of NULL?**
-> 
-> To maintain referential integrity, the record is assigned a TK 0, and as it doesn’t exist in the database, the value returned is NULL. As this is a lookup, no record is written to the database table.
+> **Success:** Checkpoint: London comes back with `TK` `0` and an empty `city_1` (the returned city, renamed because the stream already has a `city`). `DIM_SCD` is still empty.
 
 > **Under the hood:**
 >
-> #### The system date wasn't decoration — it is the lookup's point in time
+> #### The system date isn't decoration: it is the lookup's point in time
 >
-> A Type 2 dimension can hold several versions of the same `id`, each
+> A type 2 dimension can hold several versions of the same `id`, each
 > valid between its `date_from` and `date_to`. So a lookup needs two
-> things, not one: the natural key *and a date*. That is what **Get
-> System Info** supplied. The step's **Stream Datefield** is set to
-> it, and the query it ran was, in effect, `SELECT TK ... WHERE id = ?
-> AND date_from <= ? AND ? < date_to`. Leave the datefield empty and
-> the step substitutes the current time — fine for "what is it now",
-> wrong for "what was it when this order shipped".
+> things, not one: the natural key *and a date*. **Get system info**
+> supplied the date, as the **Stream Datefield**, and the query the
+> step ran was, in effect, `SELECT TK ... WHERE id = ? AND date_from <= ?
+> AND ? < date_to`. Leave the datefield empty and the step uses the
+> current time: fine for "what is it now", wrong for "what was it when
+> this order shipped".
 >
-> London had no row at all, so the lookup returned technical key 0 —
-> the placeholder the step reserves for "unknown", so a fact row can
-> always carry *some* key and referential integrity holds.
+> London had no row at all, so the lookup returned technical key 0, the
+> key the step keeps for "unknown". A fact row can then always carry
+> *some* key, and referential integrity holds.
 >
-> **Why it matters:** feed the order's date into the datefield and a
-> fact loaded today for a 2019 order links to the 2019 version of the
+> **Why it matters:** feed an order's date into the datefield and a fact
+> loaded today for a 2019 order links to the 2019 version of the
 > customer, not today's. That is the whole point of keeping history.
 
-### Workflow 2 - Type 1
+### 3. Type 1
 
-> **Note:** The Dimension Lookup/Update step allows you to implement Ralph Kimball's slowly changing dimension for both types:
+> **Note:**
+>
+> #### Runs 2 and 3: update mode, type 1
 > 
-> **Type 1**
+> With **Update the dimension?** selected, the step inserts keys it doesn't find and compares the ones it does, field by field. A field set to **Update** is overwritten in place: type 1.
+
+1. Double-click **Dimension lookup/update** and select **Update the dimension?** again.
+2. On the **Fields** tab, put back the two rows from the Build tab, both with **Type of dimension update** `Update`.
+
+<figure><img src="../_assets/images/update-fields.png" alt="Fields tab: city and last_update both set to Update"><figcaption><p>Both fields: Update (type 1)</p></figcaption></figure>
+
+3. Select **OK**, save and run the transformation (run 2).
+4. In your database tool, run `SELECT * FROM DIM_SCD ORDER BY TK;`.
+
+In the tables below, `(run N)` stands for the date and time of run N.
+
+> **Success:** Checkpoint after run 2: two rows. The step added row `0` itself, for unknown keys, the first time it wrote to the table.
+>
+> | TK | version | id | city   | date_from           | date_to             | last_update |
+> | -- | ------- | -- | ------ | ------------------- | ------------------- | ----------- |
+> | 0  | 1       | 0  | NULL   | NULL                | NULL                | NULL        |
+> | 1  | 1       | 1  | London | 1900-01-01 00:00:00 | 2200-01-01 00:00:00 | (run 2)     |
+
+> **Note:** A key's first version is valid from the start of **Min. year** to the end of **Max. year**, so a lookup at any date finds it. The step writes the end as 2199-12-31 23:59:59.999; MySQL's `DATETIME` rounds that to `2200-01-01 00:00:00`.
+
+5. Double-click **Data grid** and, on the **Data** tab, add a second row: `2`, `Madrid`.
+
+<figure><img src="../_assets/images/dg-update.png" alt="Data grid with London and Madrid"><figcaption><p>Add Madrid</p></figcaption></figure>
+
+6. Select **OK** and run the transformation (run 3). In **Step Metrics**, **Dimension lookup/update** shows 1 in **Output** (the insert) and 1 in **Updated**.
+
+> **Success:** Checkpoint after run 3: Madrid is inserted, and London's `last_update` moves to the new run.
+>
+> | TK | version | id | city       | date_from           | date_to             | last_update   |
+> | -- | ------- | -- | ---------- | ------------------- | ------------------- | ------------- |
+> | 0  | 1       | 0  | NULL       | NULL                | NULL                | NULL          |
+> | 1  | 1       | 1  | London     | 1900-01-01 00:00:00 | 2200-01-01 00:00:00 | **(run 3)**   |
+> | **2** | **1** | **2** | **Madrid** | 1900-01-01 00:00:00 | 2200-01-01 00:00:00 | **(run 3)** |
+
+> **Note:** **What the step decides for each row**
 > 
-> Overwriting the old value. In this method, no history of dimension changes is kept in the database. The old dimension value is simply overwritten with the new one. This type is easy to maintain and is often used for data where changes are caused by processing corrections (for example, removal of special characters, correcting spelling errors).
-
-1. Open the Dimension Lookup / Update properties dialog box.
-2. Ensure the following details are configured, as outlined below:
-
-<figure><img src="../_assets/images/dim-scd-update-2.png" alt=""><figcaption><p>Type 1</p></figcaption></figure>
-
-3. Click on the Get Fields button.
-
-> **Note:** This will add the key fields used in the Lookup.
+> In update mode the step looks up the version valid at the stream date and compares each field on the **Fields** tab:
 > 
-> The keys that map dimension table rows to stream rows are: `id`
-
-4. Click on the Fields tab and map the stream name field to the dimension name field and ensure:
-
-<figure><img src="../_assets/images/dim-scd-fields.png" alt=""><figcaption><p>Field mapping and set database strategy</p></figcaption></figure>
-
-> **Note:** There are several options available to insert / update the dimension record (row).
+> * **Key not found**: insert a new row, version 1.
+> * **An Insert field differs**: close the current version and insert a new one (type 2).
+> * **An Update field differs**: overwrite it on the current version (type 1).
+> * **A Punch through field differs**: overwrite the punch-through fields on *every* version of the key.
+> * **Nothing differs**: do nothing.
 > 
-> **Insert:**
+> Mixing the types per field gives a hybrid dimension. The other types in the list (*Date of last insert or update*, *Date of last insert*, *Date of last update* and *Last version*, all "without stream field as source") let the step maintain a date or a current-version flag itself.
+
+### 4. Type 2
+
+> **Note:**
+>
+> #### Runs 4 and 5: keep the history
 > 
-> This option implements a Type I & II slowly changing dimension policy. If the difference is detected for one or more mappings that have the Insert option, then a row is added to the dimension table.
-> 
-> **Update:**
-> 
-> This option simply updates the matched row. It can be used to implement a Type I slowly changing dimension.
-> 
-> **Punch through:**
-> 
-> The punch through option also performs an update. But instead of only updating the matched dimension row, it will update all versions of the row in a Type II slowly changing dimension.
-> 
-> **Date of last insert or update (without stream field as source):**
-> 
-> Use this option to let the step automatically maintain a date field that records the date of the insert or update using the system date field as source.
-> 
-> **Date of last insert (without stream field as source):**
-> 
-> Use this option to let the step automatically maintain a date field that records the date of the last insert using the system date field as source.
-> 
-> **Date of last update (without stream field as source):**
-> 
-> Use this option to let the step automatically maintain a date field that records the date of the last update using the system date field as source.
-> 
-> **Last version (without stream field as source):**
-> 
-> Use this option to let the step automatically maintain a flag that indicates if the row is the last version.
+> First add a city with a typo, `Pariss`. Then correct it with `city` set to **Insert**, so the correction is recorded as a new version instead of overwriting the old one.
 
-> **Success:** **RUN Transformation**
-> 
-> At the moment it's all Type I changes .. Insert / Update record and Update when that record change occurred.
+1. In **Data grid**, add a third row: `3`, `Pariss` (misspelled on purpose).
 
-1. Click the Run button in the Canvas Toolbar.
-2. Click on the Preview tab:
+<figure><img src="../_assets/images/dg-pariss.png" alt="Data grid with London, Madrid and Pariss"><figcaption><p>Add Pariss</p></figcaption></figure>
 
-<figure><img src="../_assets/images/preview-scd.png" alt=""><figcaption><p>Preview data</p></figcaption></figure>
+2. Run the transformation with the fields unchanged (run 4).
 
-3. Examine the table in your SQL Query Tool:
+> **Success:** Checkpoint after run 4: `Pariss` is `TK` `3`, version 1, and all three cities' `last_update` is (run 4).
 
-<figure><img src="../_assets/images/dim-scd.png" alt=""><figcaption><p>DIM_SCD - view data</p></figcaption></figure>
+3. In **Data grid**, correct `Pariss` to `Paris`.
 
-> **Note:** **So what's happening behind TK 0?**
-> 
-> Kettle automatically inserts an additional record with a technical key of value 0 (for default or unknown values). This will only happen in the first execution. Below this record, you find the one record (London) from our sample dataset.
-> 
-> In update mode (update option is enabled) the step first performs a lookup of the dimension entry. The result of the lookup is different though. Not only the technical key is retrieved from the query, but also the dimension attribute fields. A field-by-field comparison then follows. The result can be one of the following situations:
-> 
-> * The record was not found, we insert a new record in the table.
-> * The record was found and any of the following is true:
-> * One or more attributes were different and had an "Insert" (Kimball Type II) setting: A new dimension record version is inserted.
-> * One or more attributes were different and had a "Punch through" (Kimball Type I) setting: These attributes in all the dimension record versions are updated.
-> * One or more attributes were different and had an "Update" setting: These attributes in the last dimension record version are updated.
-> * All the attributes (fields) were identical: No updates or insertions are performed.
-> 
-> If you mix Insert, Punch Through and Update options in this step, this algorithm acts like a Hybrid Slowly Changing Dimension. (it is no longer just Type I or II, it is a combination)
+<figure><img src="../_assets/images/dg-paris.png" alt="Data grid with Pariss corrected to Paris"><figcaption><p>Correct the typo</p></figcaption></figure>
 
-**Try different scenarios**
+4. Double-click **Dimension lookup/update**. On the **Fields** tab, set **Type of dimension update** for `city` to **Insert**, and keep `last_update` on **Update**.
 
-::: tabs
+<figure><img src="../_assets/images/dim-scd-fields.png" alt="Fields tab: city set to Insert, LAST_UPDATE set to Update"><figcaption><p>city: Insert (type 2)</p></figcaption></figure>
 
-### Insert / Update
+> **Warning:** **Insert** records the change as a new version. With **Update**, the step would overwrite `Pariss` in place, and the old value would be gone (type 1).
 
-1. Double-click on the Data Grid step.
-2. Add the following City: Madrid
+5. Select **OK** and run the transformation (run 5).
 
-<figure><img src="../_assets/images/dg-update.png" alt=""><figcaption><p>data Grid - Madrid</p></figcaption></figure>
-
-3. Double-click on the Dimension lookup/update step.
-4. Click on the Fields tab and set the following:
-
-<figure><img src="../_assets/images/update-fields.png" alt=""><figcaption><p>Field mapping and set database operation</p></figcaption></figure>
-
-5. Execute the transformation and view the results.
-
-<figure><img src="../_assets/images/dim-scd-update.png" alt=""><figcaption><p>DIM_SCD update</p></figcaption></figure>
-
-> **Note:** Note that if the record does not exist (Madrid), then it gets inserted. Both records are updated with the same last\_update timestamp.
-
-:::
-
-### Workflow 3 - Type 2
-
-> **Note:** The Dimension Lookup/Update step allows you to implement Ralph Kimball's slowly changing dimension for both types:
-> 
-> **Type 2**
-> 
-> Creating a new additional record. In this methodology, all history of dimension changes are kept in the database. You capture attribute change by adding a new row with a new surrogate key to the dimension table. Both the prior and new rows contain as attributes the natural key (or another durable identifier). Also 'effective date' and 'current indicator' columns are used in this method. There could be only one record with current indicator set to 'Y'. For 'effective date' columns, i.e. start\_date and end\_date, the end\_date for current record usually is set to value 9999-12-31. Introducing changes to the dimensional model in Type 2 could be very expensive database operation so it is not recommended to use it in dimensions where a new attribute could be added in the future.
-
-1. Double-click on the Data Grid step.
-2. Add the following City: Pariss (intentionally misspelled)
-
-<figure><img src="../_assets/images/dg-pariss.png" alt=""><figcaption><p>Data grid - Pariss</p></figcaption></figure>
-
-3. Keep the Fields strategy the same:
-
-<figure><img src="../_assets/images/update-fields.png" alt=""><figcaption><p>Field mapping and set database strategy</p></figcaption></figure>
-
-**RUN Transformation**
-
-> **Success:** At the moment it's all Type I changes .. Insert / Update record and Update when that record change occurred.
-
-1. Click the Run button in the Canvas Toolbar.
-2. Click on the Preview tab:
-
-<figure><img src="../_assets/images/preview-data-pariss.png" alt=""><figcaption><p>Preview data</p></figcaption></figure>
-
-3. Examine the table in your SQL Query Tool:
-4. Execute the transformation and view the results.
-
-<figure><img src="../_assets/images/dim-scd-pariss.png" alt=""><figcaption><p>DIM_SCD - view data</p></figcaption></figure>
-
-> **Note:** As expected the Pariss record is inserted. Notice that the natural primary keys (id) are the same as the TK (Technical Key) and we're on version 1 for each record.
-
-> **Warning:** Let's now do a bit of data entry .. Correct the entry: Pariss to Paris
-
-**Try out different Strategies**
-
-> **Note:** The workflows below will give you an idea of the different strategies that can be implemented.
-
-::: tabs
-
-### Type 2
-
-> **Note:** Any records that are changed are:
-> 
-> * Archived with date\_from to date\_to timestamp.
-> * Record is assigned Version 1. New record Version 2
-> * Note the Keys.
-
-1. Double-click on the Data Grid step.
-2. Edit the Pariss value to: Paris
-
-<figure><img src="../_assets/images/dg-paris.png" alt=""><figcaption><p>Data grid - edit Paris</p></figcaption></figure>
-
-3. Double-click on the Dimension lookup/update step.
-4. Click on the Fields tab and set the following:
-
-> **Warning:** The reason for selecting Insert is obvious.. you need to insert a new record that tracks the change. If you select Update, then a Type 1 change occurs; i.e. the original record is updated.
-
-<figure><img src="../_assets/images/dim-scd-insert-city-record.png" alt=""><figcaption><p>Field mapping and set database strategy</p></figcaption></figure>
-
-**RUN the Transformation**
-
-1. Click the Run button in the Canvas Toolbar.
-2. Examine the table in your SQL Query Tool:.
-
-<figure><img src="../_assets/images/dim-scd-pariss-track.png" alt=""><figcaption><p>DIM_SCD - view data</p></figcaption></figure>
-
-> **Note:** * A new record has been inserted, with the value ‘Paris’, with an updated date\_from and last\_update timestamp, and version.
-> * Notice that the `last_update` field has also been updated for the other records.
+> **Success:** Checkpoint after run 5: id `3` now has two versions. Version 1 ends when version 2 begins.
+>
+> | TK | version | id | city      | date_from           | date_to             | last_update |
+> | -- | ------- | -- | --------- | ------------------- | ------------------- | ----------- |
+> | 0  | 1       | 0  | NULL      | NULL                | NULL                | NULL        |
+> | 1  | 1       | 1  | London    | 1900-01-01 00:00:00 | 2200-01-01 00:00:00 | **(run 5)** |
+> | 2  | 1       | 2  | Madrid    | 1900-01-01 00:00:00 | 2200-01-01 00:00:00 | **(run 5)** |
+> | 3  | 1       | 3  | Pariss    | 1900-01-01 00:00:00 | **(run 5)**         | (run 4)     |
+> | **4** | **2** | 3 | **Paris** | **(run 5)**       | 2200-01-01 00:00:00 | **(run 5)** |
 
 > **Under the hood:**
 >
-> #### A Type 2 change is an UPDATE and an INSERT
+> #### A type 2 change is an UPDATE and an INSERT
 >
 > When the step found `id = 3` holding `Pariss` and a stream value of
-> `Paris` on a field marked **Insert**, it did two things: `UPDATE
-> DIM_SCD SET date_to = <stream date> WHERE TK = <version 1's key>` to
-> close the old version, then an `INSERT` of a new row with `version =
-> 2`, `date_from` at the stream date and `date_to` at the end of
-> **Max. year** — 2199 by default, the step's marker for "still
-> current". The new technical key came from the step's own key
-> generation, not from the natural key, which is why TK and id part
-> company from here on.
+> `Paris` on a field set to **Insert**, it did two things. It closed the
+> old version, `UPDATE DIM_SCD SET date_to = <stream date> WHERE TK = 3`,
+> and inserted a new row with `version = 2`, `date_from` at the stream
+> date and `date_to` at the end of **Max. year**. The new technical key
+> came from the step's own key generation (**Use table maximum + 1**),
+> not from the natural key, which is why `TK` and `id` part company from
+> here on.
 >
-> The other rows' `last_update` moved for a different reason. In this
-> transformation it is mapped as an ordinary **Update** field fed from
-> the system date, so its value differs on *every* run, every existing
-> row counts as changed, and each gets an `UPDATE`. Map it with one of
-> the *Date of last insert or update* options instead and the step
-> maintains it itself, only on rows it really inserts or updates.
+> `last_update` moved on every *current* row for a different reason. It
+> is an ordinary **Update** field fed from the system date, so its value
+> differs on every run and each current version gets an `UPDATE`; the
+> closed version keeps (run 4). Run the transformation again and
+> **Updated** shows 3 even though nothing else changed. Use one of the
+> *Date of last insert or update* types for that column instead and the
+> step maintains it itself, only on rows it really inserts or updates.
 >
-> **Why it matters:** you configured a key, a version field and two
-> dates once, and the step now does Kimball's bookkeeping on every row,
-> forever. Hand-written, that is a few hundred lines of SQL that every
-> team gets subtly wrong the first time.
+> **Why it matters:** you set a key, a version field and two dates once,
+> and the step does the type 2 bookkeeping on every row, every run.
+> Written by hand, that is a few hundred lines of SQL that are easy to
+> get subtly wrong.
 
-### Punch through
+### 5. Punch through
 
-> **Note:** **Punch through:**
+> **Note:**
+>
+> #### Run 6: punch through
 > 
-> The punch through option also performs an update. But instead of only updating the matched dimension row, it will update all versions of the row in a Type II slowly changing dimension.
-> 
-> So let's update all versions to Paris.
+> **Punch through** is also an overwrite, but on *every* version of the key, not only the current one. Use it for a correction that should apply to all of history.
 
-1. Let's start with a clean table to clearly illustrate the results. Truncate the table.
+1. Double-click **Dimension lookup/update**. On the **Fields** tab, set **Type of dimension update** to **Punch through** for both `city` and `last_update`.
 
-```sql
-TRUNCATE TABLE DIM_SCD;
-```
+<figure><img src="../_assets/images/punch-through-strategy.png" alt="Fields tab: city and last_update both set to Punch through"><figcaption><p>Both fields: Punch through</p></figcaption></figure>
 
-2. Repeat the workflow above and check the results.
+2. Select **OK** and run the transformation (run 6), with the grid unchanged.
 
-> **Warning:** * Ensure you have set 'Pariss' as the value for city in the data grid step.
-> * Set update as your initial strategy.
+> **Success:** Checkpoint after run 6: both versions of id `3` now say `Paris`, and every city row's `last_update` is (run 6). The dates and versions are untouched.
+>
+> | TK | version | id | city      | date_from           | date_to             | last_update |
+> | -- | ------- | -- | --------- | ------------------- | ------------------- | ----------- |
+> | 0  | 1       | 0  | NULL      | NULL                | NULL                | NULL        |
+> | 1  | 1       | 1  | London    | 1900-01-01 00:00:00 | 2200-01-01 00:00:00 | **(run 6)** |
+> | 2  | 1       | 2  | Madrid    | 1900-01-01 00:00:00 | 2200-01-01 00:00:00 | **(run 6)** |
+> | 3  | 1       | 3  | **Paris** | 1900-01-01 00:00:00 | (run 5)             | **(run 6)** |
+> | 4  | 2       | 3  | Paris     | (run 5)             | 2200-01-01 00:00:00 | **(run 6)** |
 
-<figure><img src="../_assets/images/dim-scd-pariss.png" alt=""><figcaption><p>Preview data</p></figcaption></figure>
+> **Under the hood:**
+>
+> #### Punch through fires when a punch-through field differs from the current version
+>
+> The step compares the stream with the *current* version only. For id
+> `3` that is version 2, which already says `Paris`, so `city` alone
+> would not have triggered anything. `last_update` did: it is set to
+> **Punch through** too, and it differs on every run. One differing
+> punch-through field is enough, and the step then writes *all* the
+> punch-through fields, `city` included, to every version of the key.
+> That is how version 1's `Pariss` became `Paris`.
+>
+> Try it: set `last_update` back to **Update**, leave `city` on
+> **Punch through** and run again. The current versions get a new
+> `last_update`, but version 1 keeps (run 6): no punch-through field
+> differed from the current version, so nothing was punched through.
+>
+> **Why it matters:** punch through rewrites history, so it suits
+> corrections (a typo, a renamed product line) that should read the
+> same in every period's reports. For a real change of value, use
+> **Insert** and keep the history.
 
-3. Double-click on the Data Grid step.
-4. Edit the Pariss value to: Paris
-
-   <figure><img src="../_assets/images/dg-paris.png" alt=""><figcaption><p>Data grid - edit Paris</p></figcaption></figure>
-
-5. Double-click on the Dimension lookup/update step.
-6. Click on the Fields tab and set the following:
-
-<figure><img src="../_assets/images/insert-update-fields-2.png" alt=""><figcaption><p>Field mapping and set database strategy</p></figcaption></figure>
-
-**RUN the Transformation**
-
-1. Click the Run button in the Canvas Toolbar.
-2. Examine the table in your SQL Query Tool:
-
-<figure><img src="../_assets/images/dim-scd-pariss-track.png" alt=""><figcaption><p>DIM_SCD - view data</p></figcaption></figure>
-
-**Punch through**
-
-1. Edit the Fields tab in the Dimension Lookup/update step to Punch through:
-
-<figure><img src="../_assets/images/punch-through-strategy.png" alt=""><figcaption><p>Field mapping and set database strategy</p></figcaption></figure>
-
-**RUN the Transformation**
-
-1. Click the Run button in the Canvas Toolbar.
-2. Examine the table in your SQL Query Tool:
-
-<figure><img src="../_assets/images/dim-scd-punch-through.png" alt=""><figcaption><p>DIM_SCD - view data</p></figcaption></figure>
-
-> **Note:** What happened
-> 
-> Remember a Punch through updates the fields where the records match ..
-> 
-> * All the records have a last\_update field .. so this will be updated
-> * As both our Pariss & Paris records have a matching key id=3 then the archived record will be updated with the current city value .. Paris
-
-:::
+> **Tip:** To start the runs again, empty the table with `TRUNCATE TABLE DIM_SCD;` and set the grid and the fields back as in the Build tab.
 
 :::::
+
+<details>
+
+<summary>Troubleshooting</summary>
+
+**"Table DIM_SCD doesn't exist"**\
+Run the `CREATE TABLE` in the Build tab, in the `sampledata` database the connection points at.
+
+**Every run adds a version for every key**\
+A field that changes on every run, such as `last_update`, is set to **Insert**. Set it to **Update**, or to one of the *Date of last ...* types.
+
+**Run 5 overwrote Pariss instead of adding a version**\
+`city` was still on **Update**. Set it to **Insert**; to repeat run 5, truncate the table and run from run 2.
+
+**The lookup returns TK 0 for a key that exists**\
+The stream date falls outside every version's `date_from` to `date_to` range, or **Stream Datefield** is set to the wrong field.
+
+</details>
 
 ## Lab Files
 
 Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches PDI with the file loaded. If PDI is already running, the path is copied to your clipboard — switch to PDI and use Ctrl+O, Ctrl+V, Enter.
 
-[dim_scd script.txt](./files/dim_scd%20script.txt) — the `CREATE TABLE DIM_SCD` statement from step 2, for MySQL.
+The `CREATE TABLE DIM_SCD` statement from the Build tab, for MySQL:
+
+[dim_scd script.txt](./files/dim_scd%20script.txt)
 
 ### Solution <!-- no-step -->
 
-The finished transformation for this lab. Open it alongside your own to compare, or run to see the expected result.
+The transformation as built in the Build tab, with `city` set to **Insert** (type 2), `last_update` to **Update**, and London in the grid. Open it alongside your own to compare. Run on an empty `DIM_SCD`, it gives the table after run 2: row `0` and London.
 
 Also on disk at `C:\Workshop-DI-Practitioner\03-data-sources\02-databases\18-mod3-slowly-changing-dimensions\solution`.
 

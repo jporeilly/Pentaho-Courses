@@ -540,10 +540,10 @@
     <calculation>
       <field_name>line_total</field_name>
       <calc_type>MULTIPLY</calc_type>
-      <field_a>quantity</field_a>
-      <field_b>unit_price</field_b>
+      <field_a>unit_price</field_a>
+      <field_b>quantity</field_b>
       <field_c/>
-      <value_type>Number</value_type>
+      <value_type>BigNumber</value_type>
       <value_length>-1</value_length>
       <value_precision>-1</value_precision>
       <remove>N</remove>
@@ -553,12 +553,12 @@
       <currency_symbol/>
     </calculation>
     <calculation>
-      <field_name>profit_margin</field_name>
+      <field_name>discount_amount</field_name>
       <calc_type>SUBTRACT</calc_type>
-      <field_a>sale_amount</field_a>
-      <field_b>line_total</field_b>
+      <field_a>line_total</field_a>
+      <field_b>sale_amount</field_b>
       <field_c/>
-      <value_type>Number</value_type>
+      <value_type>BigNumber</value_type>
       <value_length>-1</value_length>
       <value_precision>-1</value_precision>
       <remove>N</remove>
@@ -1458,7 +1458,7 @@
         <rename/>
       </field>
       <field>
-        <name>profit_margin</name>
+        <name>discount_amount</name>
         <rename/>
       </field>
       <field>
@@ -1548,7 +1548,7 @@
         <group/>
         <nullif/>
         <trim_type>none</trim_type>
-        <length>4</length>
+        <length>-1</length>
         <precision>-1</precision>
       </field>
       <field>
@@ -1572,8 +1572,8 @@
         <group>,</group>
         <nullif/>
         <trim_type>none</trim_type>
-        <length>15</length>
-        <precision>0</precision>
+        <length>-1</length>
+        <precision>-1</precision>
       </field>
       <field>
         <name>customer_full_name</name>
@@ -1596,7 +1596,7 @@
         <group/>
         <nullif/>
         <trim_type>none</trim_type>
-        <length>7</length>
+        <length>-1</length>
         <precision>-1</precision>
       </field>
       <field>
@@ -1608,7 +1608,7 @@
         <group/>
         <nullif/>
         <trim_type>none</trim_type>
-        <length>8</length>
+        <length>-1</length>
         <precision>-1</precision>
       </field>
       <field>
@@ -1620,7 +1620,7 @@
         <group/>
         <nullif/>
         <trim_type>none</trim_type>
-        <length>4</length>
+        <length>-1</length>
         <precision>-1</precision>
       </field>
       <field>
@@ -1632,7 +1632,7 @@
         <group/>
         <nullif/>
         <trim_type>none</trim_type>
-        <length>27</length>
+        <length>-1</length>
         <precision>-1</precision>
       </field>
       <field>
@@ -1644,7 +1644,7 @@
         <group/>
         <nullif/>
         <trim_type>none</trim_type>
-        <length>11</length>
+        <length>-1</length>
         <precision>-1</precision>
       </field>
       <field>
@@ -1656,8 +1656,8 @@
         <group>,</group>
         <nullif/>
         <trim_type>none</trim_type>
-        <length>15</length>
-        <precision>0</precision>
+        <length>-1</length>
+        <precision>-1</precision>
       </field>
       <field>
         <name>unit_price</name>
@@ -1668,8 +1668,8 @@
         <group>,</group>
         <nullif/>
         <trim_type>none</trim_type>
-        <length>7</length>
-        <precision>2</precision>
+        <length>-1</length>
+        <precision>-1</precision>
       </field>
       <field>
         <name>sale_amount</name>
@@ -1680,12 +1680,12 @@
         <group>,</group>
         <nullif/>
         <trim_type>none</trim_type>
-        <length>7</length>
-        <precision>2</precision>
+        <length>-1</length>
+        <precision>-1</precision>
       </field>
       <field>
         <name>line_total</name>
-        <type>Number</type>
+        <type>BigNumber</type>
         <format/>
         <currency/>
         <decimal/>
@@ -1696,8 +1696,8 @@
         <precision>-1</precision>
       </field>
       <field>
-        <name>profit_margin</name>
-        <type>Number</type>
+        <name>discount_amount</name>
+        <type>BigNumber</type>
         <format/>
         <currency/>
         <decimal/>
@@ -1728,7 +1728,7 @@
         <group/>
         <nullif/>
         <trim_type>none</trim_type>
-        <length>11</length>
+        <length>-1</length>
         <precision>-1</precision>
       </field>
       <field>
@@ -1740,7 +1740,7 @@
         <group/>
         <nullif/>
         <trim_type>none</trim_type>
-        <length>10</length>
+        <length>-1</length>
         <precision>-1</precision>
       </field>
       <field>

@@ -437,11 +437,6 @@
   <order>
     <hop>
       <from>Read Products - CSV</from>
-      <to>Map to Schema - CSV</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Map to Schema - CSV</from>
       <to>Add Metadata</to>
       <enabled>Y</enabled>
     </hop>
@@ -451,12 +446,17 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Read Products - JSON</from>
-      <to>Map to Schema - JSON</to>
+      <from>Ingestion Timestamp</from>
+      <to>Map to Schema - CSV</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Map to Schema - JSON</from>
+      <from>Map to Schema - CSV</from>
+      <to>Combine All Products</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Read Products - JSON</from>
       <to>Add Metadata 2</to>
       <enabled>Y</enabled>
     </hop>
@@ -466,12 +466,17 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Read Products - XML</from>
-      <to>Map to Schema - XML</to>
+      <from>Ingestion Timestamp 2</from>
+      <to>Map to Schema - JSON</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Map to Schema - XML</from>
+      <from>Map to Schema - JSON</from>
+      <to>Combine All Products</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Read Products - XML</from>
       <to>Add Metadata 3</to>
       <enabled>Y</enabled>
     </hop>
@@ -481,17 +486,12 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Ingestion Timestamp</from>
-      <to>Combine All Products</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Ingestion Timestamp 2</from>
-      <to>Combine All Products</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>Ingestion Timestamp 3</from>
+      <to>Map to Schema - XML</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Map to Schema - XML</from>
       <to>Combine All Products</to>
       <enabled>Y</enabled>
     </hop>
@@ -703,64 +703,49 @@
       <schema_name/>
     </partitioning>
     <fields>
-      <select_unspecified>N</select_unspecified>
-      <remove>
-        <name>supplier</name>
-      </remove>
-      <remove>
-        <name>last_updated</name>
-      </remove>
-      <meta>
+      <field>
         <name>product_id</name>
-        <rename>product_id</rename>
-        <type>String</type>
-        <length>50</length>
+        <rename/>
+        <length>-2</length>
         <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <date_format_locale/>
-        <date_format_timezone/>
-        <lenient_string_to_number>false</lenient_string_to_number>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>
-      <meta>
+      </field>
+      <field>
         <name>product_name</name>
-        <rename>product_name</rename>
-        <type>String</type>
-        <length>200</length>
+        <rename/>
+        <length>-2</length>
         <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <date_format_locale/>
-        <date_format_timezone/>
-        <lenient_string_to_number>false</lenient_string_to_number>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>
-      <meta>
+      </field>
+      <field>
         <name>category</name>
-        <rename>category</rename>
-        <type>String</type>
-        <length>100</length>
+        <rename/>
+        <length>-2</length>
         <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <date_format_locale/>
-        <date_format_timezone/>
-        <lenient_string_to_number>false</lenient_string_to_number>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>
+      </field>
+      <field>
+        <name>price</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>
+      <field>
+        <name>stock_quantity</name>
+        <rename>quantity</rename>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>
+      <field>
+        <name>source_system</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>
+      <field>
+        <name>ingestion_time</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>
+      <select_unspecified>N</select_unspecified>
       <meta>
         <name>price</name>
         <rename>price</rename>
@@ -768,23 +753,6 @@
         <length>15</length>
         <precision>2</precision>
         <conversion_mask>0.00</conversion_mask>
-        <date_format_lenient>false</date_format_lenient>
-        <date_format_locale/>
-        <date_format_timezone/>
-        <lenient_string_to_number>false</lenient_string_to_number>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>
-      <meta>
-        <name>stock_quantity</name>
-        <rename>quantity</rename>
-        <type>Integer</type>
-        <length>10</length>
-        <precision>-2</precision>
-        <conversion_mask>#</conversion_mask>
         <date_format_lenient>false</date_format_lenient>
         <date_format_locale/>
         <date_format_timezone/>
@@ -805,7 +773,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>256</xloc>
+      <xloc>528</xloc>
       <yloc>80</yloc>
       <draw>Y</draw>
     </GUI>
@@ -844,7 +812,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>384</xloc>
+      <xloc>256</xloc>
       <yloc>80</yloc>
       <draw>Y</draw>
     </GUI>
@@ -875,7 +843,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>528</xloc>
+      <xloc>384</xloc>
       <yloc>80</yloc>
       <draw>Y</draw>
     </GUI>
@@ -913,7 +881,7 @@
     <fields>
       <field>
         <name>product_id</name>
-        <path>$..data..items[*].product_id</path>
+        <path>$.data.orders[*].items[*].product_id</path>
         <type>String</type>
         <format/>
         <currency/>
@@ -926,7 +894,7 @@
       </field>
       <field>
         <name>name</name>
-        <path>$..data..items[*].name</path>
+        <path>$.data.orders[*].items[*].name</path>
         <type>String</type>
         <format/>
         <currency/>
@@ -939,7 +907,7 @@
       </field>
       <field>
         <name>quantity</name>
-        <path>$..data..items[*].quantity</path>
+        <path>$.data.orders[*].items[*].quantity</path>
         <type>Integer</type>
         <format/>
         <currency/>
@@ -952,7 +920,7 @@
       </field>
       <field>
         <name>unit_price</name>
-        <path>$..data..items[*].unit_price</path>
+        <path>$.data.orders[*].items[*].unit_price</path>
         <type>Number</type>
         <format/>
         <currency/>
@@ -1002,75 +970,49 @@
       <schema_name/>
     </partitioning>
     <fields>
-      <select_unspecified>N</select_unspecified>
-      <meta>
+      <field>
         <name>product_id</name>
-        <rename>product_id</rename>
-        <type>String</type>
-        <length>50</length>
+        <rename/>
+        <length>-2</length>
         <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <date_format_locale/>
-        <date_format_timezone/>
-        <lenient_string_to_number>false</lenient_string_to_number>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>
-      <meta>
+      </field>
+      <field>
         <name>name</name>
         <rename>product_name</rename>
-        <type>String</type>
-        <length>200</length>
+        <length>-2</length>
         <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <date_format_locale/>
-        <date_format_timezone/>
-        <lenient_string_to_number>false</lenient_string_to_number>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>
-      <meta>
-        <name>quantity</name>
-        <rename>quantity</rename>
-        <type>Integer</type>
-        <length>10</length>
-        <precision>0</precision>
-        <conversion_mask>#</conversion_mask>
-        <date_format_lenient>false</date_format_lenient>
-        <date_format_locale/>
-        <date_format_timezone/>
-        <lenient_string_to_number>false</lenient_string_to_number>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>
-      <meta>
+      </field>
+      <field>
+        <name>category</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>
+      <field>
         <name>unit_price</name>
         <rename>price</rename>
-        <type>Number</type>
-        <length>15</length>
-        <precision>2</precision>
-        <conversion_mask>0.00</conversion_mask>
-        <date_format_lenient>false</date_format_lenient>
-        <date_format_locale/>
-        <date_format_timezone/>
-        <lenient_string_to_number>false</lenient_string_to_number>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>
+      <field>
+        <name>quantity</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>
+      <field>
+        <name>source_system</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>
+      <field>
+        <name>ingestion_time</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>
+      <select_unspecified>N</select_unspecified>
     </fields>
     <attributes/>
     <cluster_schema/>
@@ -1081,7 +1023,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>256</xloc>
+      <xloc>528</xloc>
       <yloc>192</yloc>
       <draw>Y</draw>
     </GUI>
@@ -1132,7 +1074,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>384</xloc>
+      <xloc>256</xloc>
       <yloc>192</yloc>
       <draw>Y</draw>
     </GUI>
@@ -1163,7 +1105,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>528</xloc>
+      <xloc>384</xloc>
       <yloc>192</yloc>
       <draw>Y</draw>
     </GUI>
@@ -1301,75 +1243,49 @@
       <schema_name/>
     </partitioning>
     <fields>
-      <select_unspecified>N</select_unspecified>
-      <meta>
+      <field>
         <name>sku</name>
         <rename>product_id</rename>
-        <type>String</type>
-        <length>50</length>
+        <length>-2</length>
         <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <date_format_locale/>
-        <date_format_timezone/>
-        <lenient_string_to_number>false</lenient_string_to_number>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>
-      <meta>
+      </field>
+      <field>
         <name>name</name>
         <rename>product_name</rename>
-        <type>String</type>
-        <length>200</length>
+        <length>-2</length>
         <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <date_format_locale/>
-        <date_format_timezone/>
-        <lenient_string_to_number>false</lenient_string_to_number>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>
-      <meta>
+      </field>
+      <field>
         <name>category</name>
-        <rename>category</rename>
-        <type>String</type>
-        <length>100</length>
+        <rename/>
+        <length>-2</length>
         <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <date_format_locale/>
-        <date_format_timezone/>
-        <lenient_string_to_number>false</lenient_string_to_number>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>
-      <meta>
+      </field>
+      <field>
+        <name>price</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>
+      <field>
         <name>quantity</name>
-        <rename>quantity</rename>
-        <type>Integer</type>
-        <length>10</length>
-        <precision>0</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <date_format_locale/>
-        <date_format_timezone/>
-        <lenient_string_to_number>false</lenient_string_to_number>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>
+      <field>
+        <name>source_system</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>
+      <field>
+        <name>ingestion_time</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>
+      <select_unspecified>N</select_unspecified>
     </fields>
     <attributes/>
     <cluster_schema/>
@@ -1380,7 +1296,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>256</xloc>
+      <xloc>528</xloc>
       <yloc>304</yloc>
       <draw>Y</draw>
     </GUI>
@@ -1431,7 +1347,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>384</xloc>
+      <xloc>256</xloc>
       <yloc>304</yloc>
       <draw>Y</draw>
     </GUI>
@@ -1462,7 +1378,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>528</xloc>
+      <xloc>384</xloc>
       <yloc>304</yloc>
       <draw>Y</draw>
     </GUI>
