@@ -17,14 +17,12 @@
 > 
 > **Estimated time:** 25 minutes
 
-<figure>
-
-![Two transformations: metadata_inject_step.ktr's Data grids and file name feed ETL metadata injection, which fills in and runs metadata_inject_template.ktr, a CSV file input, Select values and Table output with no fields of their own](../_assets/images/metadata-injection-onboarding.png)
-
 <div align="center">
-<figcaption><em>What you build: the metadata on the left fills the template on the right</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/metadata-injection-onboarding.png" alt="Two transformations: metadata_inject_step.ktr's Data grids and file name feed ETL metadata injection, which fills in and runs metadata_inject_template.ktr, a CSV file input, Select values and Table output with no fields of their own" width="800">
+<figcaption>What you build: the metadata on the left fills the template on the right</figcaption>
 </figure>
+</div>
 
 :::: tabs
 
@@ -134,14 +132,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
 27. Select **Truncate table**, so every run starts from an empty table. Leave **Commit size** `1000` and **Use batch update for inserts** selected.
 28. Select **OK**.
 
-<figure>
-
-![tr_onboard_customers_by_hand.ktr on the Spoon canvas: every step of the solution and the hops between them](../_assets/images/canvas-31-tr-onboard-customers-by-hand.png)
-
 <div align="center">
-<figcaption><em>The hand-built load: csvi-customers, sv-customers, to-customers</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/canvas-31-tr-onboard-customers-by-hand.png" alt="tr_onboard_customers_by_hand.ktr on the Spoon canvas: every step of the solution and the hops between them" width="646">
+<figcaption>The hand-built load: csvi-customers, sv-customers, to-customers</figcaption>
 </figure>
+</div>
 
 29. Save the transformation (`Ctrl+S`).
 30. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
@@ -302,14 +298,12 @@ The template can no longer run on its own: it has no file and no fields. It is a
 8. Open the **Options** tab and leave **Run resulting transformation** selected.
 9. Select **OK**.
 
-<figure>
-
-![metadata_inject_step.ktr on the Spoon canvas: every step of the solution and the hops between them](../_assets/images/canvas-31-metadata-inject-step.png)
-
 <div align="center">
-<figcaption><em>The metadata transformation: three Data grids and the file name feed emi-onboarding_csv</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/canvas-31-metadata-inject-step.png" alt="metadata_inject_step.ktr on the Spoon canvas: every step of the solution and the hops between them" width="699">
+<figcaption>The metadata transformation: three Data grids and the file name feed emi-onboarding_csv</figcaption>
 </figure>
+</div>
 
 10. Save the transformation (`Ctrl+S`).
 11. In DBeaver, run the statement below. It empties the table, so the next check shows what the injected run loads.

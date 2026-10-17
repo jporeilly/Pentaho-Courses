@@ -21,14 +21,12 @@
 >
 > **Estimated time:** 25 minutes
 
-<figure>
-
-![The finished transformation: Text File Input hopped to Insert / Update Employees](../_assets/images/insert-update-2.png)
-
 <div align="center">
-<figcaption><em>What you build</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/insert-update-2.png" alt="The finished transformation: Text File Input hopped to Insert / Update Employees" width="663">
+<figcaption>What you build</figcaption>
 </figure>
+</div>
 
 :::: tabs
 
@@ -56,11 +54,21 @@ Set-Location C:\Pentaho\design-tools\data-integration
 6. Set **Step name** to `Text File Input`.
 7. On the **File** tab, enter `${Internal.Entry.Current.Directory}/employees_insert_update.txt` in **File or directory** and select **Add**. The path moves to **Selected files**.
 
-<figure><img src="../_assets/images/insert-update-1.png" alt="Text file input File tab with employees_insert_update.txt in the selected files"><figcaption><p>The file</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/insert-update-1.png" alt="Text file input File tab with employees_insert_update.txt in the selected files" width="800">
+<figcaption>The file</figcaption>
+</figure>
+</div>
 
 8. On the **Content** tab, set **Separator** to `,` and **Format** to `mixed`. Leave **Header** selected, with **Number of header lines** `1`.
 
-<figure><img src="../_assets/images/tfi-content-update.png" alt="Content tab with a comma separator, one header line and the mixed format" width="563"><figcaption><p>Comma separator, one header line</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/tfi-content-update.png" alt="Content tab with a comma separator, one header line and the mixed format" width="800">
+<figcaption>Comma separator, one header line</figcaption>
+</figure>
+</div>
 
 9. On the **Fields** tab, select **Get Fields**. Spoon asks for the number of lines to sample: select **OK**, then close **Scan results**.
 10. Compare the **Fields** grid with this table. Keep the lengths that **Get Fields** detected.
@@ -76,7 +84,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
 | `REPORTS`         | Integer | `#`    |
 | `TITLE`           | String  |        |
 
-<figure><img src="../_assets/images/insert-update-fields.png" alt="Fields tab with the eight fields from EMPLOYEE_NUMBER to TITLE"><figcaption><p>Eight fields</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/insert-update-fields.png" alt="Fields tab with the eight fields from EMPLOYEE_NUMBER to TITLE" width="800">
+<figcaption>Eight fields</figcaption>
+</figure>
+</div>
 
 11. Select **Preview rows**, enter `100` rows, and select **OK**. The rows show in **Examine preview data**.
 
@@ -117,7 +130,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
 | **`REPORTSTO`**      | `REPORTS`         | `Y`     |
 | **`JOBTITLE`**       | `TITLE`           | `Y`     |
 
-<figure><img src="../_assets/images/insert-update.png" alt="Insert / update with the EMPLOYEENUMBER key and eight update fields, EMPLOYEENUMBER set to Update N" width="563"><figcaption><p>Key and update fields</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/insert-update.png" alt="Insert / update with the EMPLOYEENUMBER key and eight update fields, EMPLOYEENUMBER set to Update N" width="800">
+<figcaption>Key and update fields</figcaption>
+</figure>
+</div>
 
 > **Warning:** Keep `EMPLOYEENUMBER` in **Update fields**. This step builds its `INSERT` from that list, so without it the new employees have no employee number and MySQL rejects them: "Field 'EMPLOYEENUMBER' doesn't have a default value". **Update** `N` means the column is written on insert and never changed on update.
 
@@ -135,7 +153,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
 2. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
 3. In **Execution Results**, open the **Step Metrics** tab.
 
-<figure><img src="../_assets/images/results-update-insert.png" alt="Step Metrics: Insert / Update Employees read 4 rows, output 2 and updated 2"><figcaption><p>2 inserted, 2 updated</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/results-update-insert.png" alt="Step Metrics: Insert / Update Employees read 4 rows, output 2 and updated 2" width="800">
+<figcaption>2 inserted, 2 updated</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: **Insert / Update Employees** shows 2 in **Output** (the inserts, `1810` and `1811`) and 2 in **Updated** (`1188` and `1619`).
 
@@ -149,7 +172,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
    SELECT COUNT(*) FROM EMPLOYEES;
    ```
 
-<figure><img src="../_assets/images/insert-update-db.png" alt="The four employees in DBeaver after the upsert"><figcaption><p>Two updated, two new</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/insert-update-db.png" alt="The four employees in DBeaver after the upsert" width="766">
+<figcaption>Two updated, two new</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: `EMPLOYEES` holds 25 rows, 2 more than it shipped with.
 >

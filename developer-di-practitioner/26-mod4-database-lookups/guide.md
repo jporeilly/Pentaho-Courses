@@ -18,16 +18,19 @@
 > 
 > **Estimated time:** 30 minutes
 
+<div align="center">
 <figure>
-
-![The finished transformation: some conditions, like_statement, and three Database lookup steps, one with an error hop to Write to log](../_assets/images/database-lookup.png)
+<img src="../_assets/images/database-lookup.png" alt="The finished transformation: some conditions, like_statement, and three Database lookup steps, one with an error hop to Write to log" width="784">
+<figcaption>What you build: three variants of one lookup</figcaption>
+</figure>
+</div>
 
 <div align="center">
-<figcaption><em>What you build: three variants of one lookup</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/database-lookup-2.png" alt="Pentaho Data Integration title card: Database Lookup" width="800">
+<figcaption>Database Lookup</figcaption>
 </figure>
-
-<figure><img src="../_assets/images/database-lookup-2.png" alt="Pentaho Data Integration title card: Database Lookup"><figcaption><p>Database Lookup</p></figcaption></figure>
+</div>
 
 :::: tabs
 
@@ -67,7 +70,19 @@ Set-Location C:\Pentaho\design-tools\data-integration
    | `Ford Falcon`  | `70`      |
    | `Corvette`     | `70`      |
 
-<div><figure><img src="../_assets/images/dg-database-join.png" alt="Data grid Meta tab with prod String and max_price Integer"><figcaption><p>Meta tab</p></figcaption></figure> <figure><img src="../_assets/images/dg-database-join-data.png" alt="Data grid Data tab with the three search rows"><figcaption><p>Data tab</p></figcaption></figure></div>
+<div align="center">
+<figure>
+<img src="../_assets/images/dg-database-join.png" alt="Data grid Meta tab with prod String and max_price Integer" width="746">
+<figcaption>Meta tab</figcaption>
+</figure>
+</div>
+
+<div align="center">
+<figure>
+<img src="../_assets/images/dg-database-join-data.png" alt="Data grid Data tab with the three search rows" width="746">
+<figcaption>Data tab</figcaption>
+</figure>
+</div>
 
 8. Select **Preview**, then **OK** in **Enter the preview size**.
 
@@ -94,7 +109,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 5. Select **OK**.
 
-<figure><img src="../_assets/images/like-statement.png" alt="User defined Java expression: like_statement = &quot;%&quot;+prod+&quot;%&quot;, String" width="563"><figcaption><p>Aston Martin becomes %Aston Martin%</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/like-statement.png" alt="User defined Java expression: like_statement = &quot;%&quot;+prod+&quot;%&quot;, String" width="800">
+<figcaption>Aston Martin becomes %Aston Martin%</figcaption>
+</figure>
+</div>
 
 6. Select **like_statement** on the canvas, press `F10` (**Action > Preview**), and select **Quick Launch**.
 
@@ -135,7 +155,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 7. Select **OK**.
 
-<figure><img src="../_assets/images/databse-lookup-simple.png" alt="Database lookup (simple): lookup table PRODUCTS, keys BUYPRICE less than max_price and PRODUCTNAME LIKE like_statement, three return values"><figcaption><p>Two key conditions, three return values</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/databse-lookup-simple.png" alt="Database lookup (simple): lookup table PRODUCTS, keys BUYPRICE less than max_price and PRODUCTNAME LIKE like_statement, three return values" width="800">
+<figcaption>Two key conditions, three return values</figcaption>
+</figure>
+</div>
 
 > **Under the hood:**
 >
@@ -205,13 +230,23 @@ Set-Location C:\Pentaho\design-tools\data-integration
 13. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
 14. In **Execution Results**, open the **Logging** tab.
 
-<figure><img src="../_assets/images/results-error-handling.png" alt="Logging tab with the Write to log output for the Ford Falcon row"><figcaption><p>The failed lookup, in the log</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/results-error-handling.png" alt="Logging tab with the Write to log output for the Ford Falcon row" width="800">
+<figcaption>The failed lookup, in the log</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: with error handling on, a lookup that finds nothing is an error. **Write to log** prints your message, then the Ford Falcon row's values: `Ford Falcon`, `70` and `%Ford Falcon%`.
 
 15. Select **Database lookup (with error handling)** on the canvas and open the **Preview data** tab.
 
-<figure><img src="../_assets/images/lookup-error.png" alt="Preview of Database lookup (with error handling): Aston Martin and Corvette only"><figcaption><p>Only the found rows carry on</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/lookup-error.png" alt="Preview of Database lookup (with error handling): Aston Martin and Corvette only" width="800">
+<figcaption>Only the found rows carry on</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: 2 rows, Aston Martin and Corvette, with the values the simple lookup found. The Ford Falcon row went to **Write to log** instead.
 

@@ -22,14 +22,12 @@ The bread and butter of any pipeline. You'll cover the four formats you'll see m
 * **Unstructured** - free-form text with no schema: documents, email bodies, raw application logs. Getting data out of them takes text parsing or natural language processing.
 * **Metadata** - information about the data: header rows with column names, schema definitions with types and constraints, notes on where a file came from.
 
-<figure>
-
-![Flat file kinds: structured, semi-structured and unstructured, with examples](../_assets/images/flat-files.png)
-
 <div align="center">
-<figcaption><em>The kinds of flat file</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/flat-files.png" alt="Flat file kinds: structured, semi-structured and unstructured, with examples" width="800">
+<figcaption>The kinds of flat file</figcaption>
 </figure>
+</div>
 
 > **Under the hood:**
 >

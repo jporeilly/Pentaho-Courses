@@ -20,14 +20,12 @@
 >
 > **Estimated time:** 25 minutes
 
-<figure>
-
-![The finished transformation: Text File Input hopped to Update employees](../_assets/images/update-1.png)
-
 <div align="center">
-<figcaption><em>What you build</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/update-1.png" alt="The finished transformation: Text File Input hopped to Update employees" width="667">
+<figcaption>What you build</figcaption>
 </figure>
+</div>
 
 :::: tabs
 
@@ -55,11 +53,21 @@ Set-Location C:\Pentaho\design-tools\data-integration
 6. Set **Step name** to `Text File Input`.
 7. On the **File** tab, enter `${Internal.Entry.Current.Directory}/employees_update.txt` in **File or directory** and select **Add**. The path moves to **Selected files**.
 
-<figure><img src="../_assets/images/tfo-update.png" alt="Text file input File tab with employees_update.txt in the selected files"><figcaption><p>The file</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/tfo-update.png" alt="Text file input File tab with employees_update.txt in the selected files" width="800">
+<figcaption>The file</figcaption>
+</figure>
+</div>
 
 8. On the **Content** tab, set **Separator** to `,` and **Format** to `mixed`. Leave **Header** selected, with **Number of header lines** `1`.
 
-<figure><img src="../_assets/images/tfi-content-update.png" alt="Content tab with a comma separator, one header line and the mixed format"><figcaption><p>Comma separator, one header line</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/tfi-content-update.png" alt="Content tab with a comma separator, one header line and the mixed format" width="800">
+<figcaption>Comma separator, one header line</figcaption>
+</figure>
+</div>
 
 9. On the **Fields** tab, select **Get Fields**. Spoon asks for the number of lines to sample: select **OK**, then close **Scan results**.
 10. Compare the **Fields** grid with this table. Keep the lengths that **Get Fields** detected.
@@ -77,7 +85,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 Four names differ from the table's columns: `EXT` is `EXTENSION`, `OFFICE` is `OFFICECODE`, `REPORTS` is `REPORTSTO` and `TITLE` is `JOBTITLE`. You map them in the next tab.
 
-<figure><img src="../_assets/images/tfi-fields-update.png" alt="Fields tab with the eight fields from EMPLOYEE_NUMBER to TITLE"><figcaption><p>Eight fields</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/tfi-fields-update.png" alt="Fields tab with the eight fields from EMPLOYEE_NUMBER to TITLE" width="800">
+<figcaption>Eight fields</figcaption>
+</figure>
+</div>
 
 11. Select **Preview rows**, enter `100` rows, and select **OK**. The rows show in **Examine preview data**.
 
@@ -118,7 +131,12 @@ Four names differ from the table's columns: `EXT` is `EXTENSION`, `OFFICE` is `O
 | **`REPORTSTO`**  | `REPORTS`    |
 | **`JOBTITLE`**   | `TITLE`      |
 
-<figure><img src="../_assets/images/update-options.png" alt="Update step with target table EMPLOYEES, the EMPLOYEENUMBER key and the update fields" width="563"><figcaption><p>Key and update fields</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/update-options.png" alt="Update step with target table EMPLOYEES, the EMPLOYEENUMBER key and the update fields" width="800">
+<figcaption>Key and update fields</figcaption>
+</figure>
+</div>
 
 10. Select **OK**.
 
@@ -134,7 +152,12 @@ Four names differ from the table's columns: `EXT` is `EXTENSION`, `OFFICE` is `O
 2. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
 3. In **Execution Results**, open the **Step Metrics** tab.
 
-<figure><img src="../_assets/images/update-step-metrics.png" alt="Step Metrics: Update employees read 2 rows and updated 2"><figcaption><p>2 rows updated</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/update-step-metrics.png" alt="Step Metrics: Update employees read 2 rows and updated 2" width="800">
+<figcaption>2 rows updated</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: **Update employees** shows 2 in **Updated**. (The 1 under **Updated** for **Text File Input** is not a database update.)
 
@@ -146,7 +169,12 @@ Four names differ from the table's columns: `EXT` is `EXTENSION`, `OFFICE` is `O
    WHERE EMPLOYEENUMBER IN (1002, 1102);
    ```
 
-<figure><img src="../_assets/images/update-db.png" alt="The two updated EMPLOYEES rows in DBeaver"><figcaption><p>The updated employees</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/update-db.png" alt="The two updated EMPLOYEES rows in DBeaver" width="800">
+<figcaption>The updated employees</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: these values changed. Every other column already matched the file, so it stayed as it was, and `REPORTSTO` is still `NULL` for `1002`.
 >

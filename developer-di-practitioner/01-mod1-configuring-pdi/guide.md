@@ -45,14 +45,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
    Below them are links to the community and the forums.
 
-<figure>
-
-![Spoon's Welcome tab with the OPEN, CREATE, LEARN and EXTEND panels, and the View and Design tabs on the left](../_assets/images/spoon-welcome.png)
-
 <div align="center">
-<figcaption><em>The Welcome page</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/spoon-welcome.png" alt="Spoon's Welcome tab with the OPEN, CREATE, LEARN and EXTEND panels, and the View and Design tabs on the left" width="800">
+<figcaption>The Welcome page</figcaption>
 </figure>
+</div>
 
 > **Success:** Checkpoint: the title bar reads **Spoon - Welcome!**, and the left side has two tabs, **View** and **Design**.
 
@@ -64,14 +62,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
 4. Check that **Show repository dialog at startup** and **Ask user when exiting** are cleared. They are cleared by default; if either is selected, clear it.
 5. Leave every other option as it is, and stay in the dialog for the next step.
 
-<figure>
-
-![The Kettle Options dialog on the General tab, with options such as Show welcome page at startup and Use database cache](../_assets/images/kettle-options.png)
-
 <div align="center">
-<figcaption><em>Kettle Options, General tab, before your changes</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/kettle-options.png" alt="The Kettle Options dialog on the General tab, with options such as Show welcome page at startup and Use database cache" width="732">
+<figcaption>Kettle Options, General tab, before your changes</figcaption>
 </figure>
+</div>
 
 > **Under the hood:**
 >
@@ -91,14 +87,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
 4. Leave **Canvas anti-aliasing** selected and the other options as they are.
 5. Select **OK** to save the options and close the dialog.
 
-<figure>
-
-![The Kettle Options dialog on the Look & Feel tab: fonts, colors, icon size, Canvas Grid Size 16, Show Canvas Grid, Canvas anti-aliasing and Preferred Language](../_assets/images/kettle-options-feel.png)
-
 <div align="center">
-<figcaption><em>Kettle Options, Look & Feel tab</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/kettle-options-feel.png" alt="The Kettle Options dialog on the Look &amp; Feel tab: fonts, colors, icon size, Canvas Grid Size 16, Show Canvas Grid, Canvas anti-aliasing and Preferred Language" width="732">
+<figcaption>Kettle Options, Look & Feel tab</figcaption>
 </figure>
+</div>
 
 6. Select **File > New > Transformation** (or `Ctrl+N`) to open an empty canvas.
 
@@ -114,14 +108,12 @@ A perspective is a whole-window layout for one kind of work. You design transfor
 2. The menu lists **Data Integration**, with a check mark, and **Scheduler**, which is grayed out: **Scheduler** needs a connection to a repository on a Pentaho Server, because the server runs the schedules. These workshops save files to disk, so you stay in **Data Integration** throughout.
 3. Select **Data Integration** to close the menu and stay in the design perspective.
 
-<figure>
-
-![The perspective menu open on the toolbar: Data Integration checked, Scheduler grayed out](../_assets/images/perspectives.png)
-
 <div align="center">
-<figcaption><em>The perspective menu</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/perspectives.png" alt="The perspective menu open on the toolbar: Data Integration checked, Scheduler grayed out" width="331">
+<figcaption>The perspective menu</figcaption>
 </figure>
+</div>
 
 > **Success:** Checkpoint: **Data Integration** has a check mark, and **Scheduler** can't be selected.
 

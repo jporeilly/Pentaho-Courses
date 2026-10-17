@@ -16,14 +16,12 @@ Two ways to make PDI go faster: Carte clusters, which share a transformation's w
 >
 > To speed up heavy transformations, run them on a **Carte cluster**: two or more Carte *slave* servers and one Carte *master*. The master splits the transformation, sends each slave its part, and tracks the progress, while the slaves do the work in parallel.
 
-<figure>
-
-![A Carte cluster: source data from files, applications and databases is processed by parallel slave nodes, with a master distributing the workload, and loaded into a target database](../_assets/images/cluster.jpg)
-
 <div align="center">
-<figcaption><em>A master and its slave servers</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/cluster.jpg" alt="A Carte cluster: source data from files, applications and databases is processed by parallel slave nodes, with a master distributing the workload, and loaded into a target database" width="475">
+<figcaption>A master and its slave servers</figcaption>
 </figure>
+</div>
 
 ::: tabs
 

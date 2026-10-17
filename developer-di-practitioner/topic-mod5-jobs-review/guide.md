@@ -20,14 +20,12 @@ Transformations move rows; jobs orchestrate transformations. You'll build a Hell
 > * An entry passes a *result* to the next: success or failure, and lists of rows and files, handed over all at once rather than streamed.
 > * You can place a copy of the same entry in several places in a job.
 
-<figure>
-
-![A job's parts: START and the other entries, and the hops between them, with a lock on the unconditional hop, green success hops and a red failure hop to Mail](../_assets/images/jobs.jpg)
-
 <div align="center">
-<figcaption><em>Entries and hops</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/jobs.jpg" alt="A job's parts: START and the other entries, and the hops between them, with a lock on the unconditional hop, green success hops and a red failure hop to Mail" width="550">
+<figcaption>Entries and hops</figcaption>
 </figure>
+</div>
 
 > **Note:** A hop decides whether the next entry runs. A lock means **unconditional**: it is always followed. Green means it is followed when the previous entry succeeds, red when it fails. Right-click a hop to change its **Evaluation** mode.
 
@@ -41,7 +39,12 @@ Transformations move rows; jobs orchestrate transformations. You'll build a Hell
 >
 > Workshop: [Hello World (Job)](../29-mod5-hello-world-job/guide.md).
 
-<figure><img src="../_assets/images/job-tr-hello-world.png" alt="The Hello World job: START, Transformation A and Success"><figcaption><p>START, a transformation, Success</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/job-tr-hello-world.png" alt="The Hello World job: START, Transformation A and Success" width="393">
+<figcaption>START, a transformation, Success</figcaption>
+</figure>
+</div>
 
 ### Order of execution
 
@@ -51,7 +54,12 @@ Transformations move rows; jobs orchestrate transformations. You'll build a Hell
 >
 > Workshop: [Order of Execution](../30-mod5-order-of-execution/guide.md).
 
-<figure><img src="../_assets/images/job-backward-chaining.png" alt="A job with two branches from START: Transformation A, C and Success on one, Transformation B on the other"><figcaption><p>Two branches, run one after the other</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/job-backward-chaining.png" alt="A job with two branches from START: Transformation A, C and Success on one, Transformation B on the other" width="752">
+<figcaption>Two branches, run one after the other</figcaption>
+</figure>
+</div>
 
 ### Parallel
 
@@ -61,6 +69,11 @@ Transformations move rows; jobs orchestrate transformations. You'll build a Hell
 >
 > Workshop: [Order of Execution](../30-mod5-order-of-execution/guide.md), part 3.
 
-<figure><img src="../_assets/images/job-parallel-transformations.png" alt="The same job with dashed parallel hops from START to Transformation A and Transformation B"><figcaption><p>Branches started together</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/job-parallel-transformations.png" alt="The same job with dashed parallel hops from START to Transformation A and Transformation B" width="704">
+<figcaption>Branches started together</figcaption>
+</figure>
+</div>
 
 :::

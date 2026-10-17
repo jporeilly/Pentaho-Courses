@@ -58,7 +58,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
 7. Select **OK**.
 8. Save the transformation (`Ctrl+S`).
 
-<figure><img src="../_assets/images/param-status.png" alt="Transformation properties Parameters tab: STATUS, default Cancelled, description Order status to read"><figcaption><p>The STATUS parameter</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/param-status.png" alt="Transformation properties Parameters tab: STATUS, default Cancelled, description Order status to read" width="800">
+<figcaption>The STATUS parameter</figcaption>
+</figure>
+</div>
 
 > **Under the hood:**
 >

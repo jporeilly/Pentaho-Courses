@@ -24,14 +24,12 @@
 
 </figure>
 
-<figure>
-
-![The database version: STG_ORDERS_MERGED and the sorted orders updates feed Merge Rows (diff), which feeds Synchronize after merge](../_assets/images/merge-rows-diff.png)
-
 <div align="center">
-<figcaption><em>What you build in Workflow 2</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/merge-rows-diff.png" alt="The database version: STG_ORDERS_MERGED and the sorted orders updates feed Merge Rows (diff), which feeds Synchronize after merge" width="641">
+<figcaption>What you build in Workflow 2</figcaption>
 </figure>
+</div>
 
 > **Note:** **The flags**
 > 
@@ -52,14 +50,12 @@
 > 
 > `orders.txt` is yesterday's product list and `orders_update.txt` today's. Compare them without a database first, to see each flag.
 
-<figure>
-
-![tr_merge_streams_diff.ktr on the Spoon canvas: every step of the solution and the hops between them](../_assets/images/canvas-21-tr-merge-streams-diff.png)
-
 <div align="center">
-<figcaption><em>What you build in Workflow 1</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/canvas-21-tr-merge-streams-diff.png" alt="tr_merge_streams_diff.ktr on the Spoon canvas: every step of the solution and the hops between them" width="608">
+<figcaption>What you build in Workflow 1</figcaption>
 </figure>
+</div>
 
 1. Start Spoon with the **Start PDI** button below, or from PowerShell:
 
@@ -218,7 +214,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 18. Select **OK**. If a **Notice** about sorted input appears, select **Close**.
 
-<figure><img src="../_assets/images/merge-diff-step.png" alt="Merge rows (diff): reference STG_ORDERS_MERGED, compare Sort updates, flag FLAG, key PRODUCTCODE and five value fields" width="563"><figcaption><p>Reference: the table; compare: the file</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/merge-diff-step.png" alt="Merge rows (diff): reference STG_ORDERS_MERGED, compare Sort updates, flag FLAG, key PRODUCTCODE and five value fields" width="706">
+<figcaption>Reference: the table; compare: the file</figcaption>
+</figure>
+</div>
 
 ### 2. Synchronize after merge
 
@@ -255,7 +256,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
    As with **Insert / update**, the key stays in the list so that inserts include it, but an update never changes it.
 
-<figure><img src="../_assets/images/sync-after-merge.png" alt="Synchronize after merge General tab: target table STG_ORDERS_MERGED, key PRODUCTCODE, six update fields with PRODUCTCODE set to N" width="563"><figcaption><p>General tab</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/sync-after-merge.png" alt="Synchronize after merge General tab: target table STG_ORDERS_MERGED, key PRODUCTCODE, six update fields with PRODUCTCODE set to N" width="800">
+<figcaption>General tab</figcaption>
+</figure>
+</div>
 
 8. Open the **Advanced** tab and set:
    * **Operation fieldname**: `FLAG`
@@ -263,7 +269,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
    * **Update when value equal**: `changed`
    * **Delete when value equal**: `deleted`
 
-<figure><img src="../_assets/images/sync-after-merge-adv.png" alt="Synchronize after merge Advanced tab: operation field FLAG, insert on new, update on changed, delete on deleted" width="563"><figcaption><p>Advanced tab: one flag value per operation</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/sync-after-merge-adv.png" alt="Synchronize after merge Advanced tab: operation field FLAG, insert on new, update on changed, delete on deleted" width="800">
+<figcaption>Advanced tab: one flag value per operation</figcaption>
+</figure>
+</div>
 
 9. Select **OK**.
 
@@ -281,7 +292,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
    SELECT * FROM STG_ORDERS_MERGED ORDER BY PRODUCTCODE;
    ```
 
-<figure><img src="../_assets/images/stg-orders-orginal.png" alt="STG_ORDERS_MERGED before the sync: 7 products in DBeaver" width="563"><figcaption><p>Before</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/stg-orders-orginal.png" alt="STG_ORDERS_MERGED before the sync: 7 products in DBeaver" width="800">
+<figcaption>Before</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: 7 products, `S10_1678` to `S12_1666`.
 
@@ -290,7 +306,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
 4. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
 5. Select **Merge Rows (diff)** on the canvas and open the **Preview data** tab.
 
-<figure><img src="../_assets/images/preview-sync-after-merge.png" alt="Preview data of Merge Rows (diff) with the FLAG column"><figcaption><p>The flags, before anything is written</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/preview-sync-after-merge.png" alt="Preview data of Merge Rows (diff) with the FLAG column" width="800">
+<figcaption>The flags, before anything is written</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: 9 rows with the same flags as Workflow 1: 5 `identical`, `S10_4698` `changed`, `S10_1949` and `S12_1108` `new`, `S10_4757` `deleted`.
 
@@ -302,7 +323,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 9. In DBeaver, run the query from action 1 again.
 
-<figure><img src="../_assets/images/sync-after-merge-results.png" alt="STG_ORDERS_MERGED after the sync in DBeaver" width="563"><figcaption><p>After</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/sync-after-merge-results.png" alt="STG_ORDERS_MERGED after the sync in DBeaver" width="800">
+<figcaption>After</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: the table now holds 8 products: `S10_1949` and `S12_1108` added, `S10_4698` renamed to the 2004 model, `S10_4757` gone.
 

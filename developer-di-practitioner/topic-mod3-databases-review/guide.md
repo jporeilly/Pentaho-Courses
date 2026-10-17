@@ -12,14 +12,12 @@ Relational databases are what PDI works with most. This topic covers the full CR
 > 
 > Steel Wheels runs a simple Enterprise Resource Planning (ERP) system for its business units: Human Resources, Marketing, Finance, Supply Chain and others. The workshops in this section run each CRUID operation against its database, `sampledata`.
 
-<figure>
-
-![The Steel Wheels sampledata database and the business units it serves](../_assets/images/image-62.png)
-
 <div align="center">
-<figcaption><em>Steel Wheels: the sampledata ERP database</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/image-62.png" alt="The Steel Wheels sampledata database and the business units it serves" width="800">
+<figcaption>Steel Wheels: the sampledata ERP database</figcaption>
 </figure>
+</div>
 
 > **Warning:**
 >

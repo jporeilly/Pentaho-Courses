@@ -53,7 +53,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
     * Create a hop from **Transformation C** to **Success**, also a **Result is TRUE** hop.
 13. Save the job (`Ctrl+S`).
 
-<figure><img src="../_assets/images/job-backward-chaining.png" alt="START branches to Transformation A, then C and Success, and to Transformation B"><figcaption><p>Two branches from Start</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/job-backward-chaining.png" alt="START branches to Transformation A, then C and Success, and to Transformation B" width="752">
+<figcaption>Two branches from Start</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: your canvas matches the figure. The two hops from **Start** show a lock; the hops from **Transformation A** and **Transformation C** are green. (The solution and the figure name the first entry `START`; Spoon names a new one `Start`. The name makes no difference.)
 
@@ -112,7 +117,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
 2. Right-click **Start** and select **Run Next Entries in Parallel**.
 3. Read the **Warning!** dialog and select **I understand**. The hops from **Start** turn dashed, with a parallel marker.
 
-<figure><img src="../_assets/images/job-parallel-transformations.png" alt="The same job with dashed parallel hops from Start"><figcaption><p>Run Next Entries in Parallel on Start</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/job-parallel-transformations.png" alt="The same job with dashed parallel hops from Start" width="704">
+<figcaption>Run Next Entries in Parallel on Start</figcaption>
+</figure>
+</div>
 
 4. Save the job (`Ctrl+S`).
 5. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.

@@ -35,7 +35,12 @@ Bringing two streams together by key. Database joins, join rows (cartesian-style
 >
 > Workshop: [Join Rows](../23-mod4-join-rows/guide.md).
 
-<figure><img src="../_assets/images/cross-join-2.png" alt="The Join Rows workshop's transformation: two Data grids into Join rows, and a second Join rows that adds the surname"><figcaption><p>Join rows in the Join Rows workshop</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/cross-join-2.png" alt="The Join Rows workshop's transformation: two Data grids into Join rows, and a second Join rows that adds the surname" width="800">
+<figcaption>Join rows in the Join Rows workshop</figcaption>
+</figure>
+</div>
 
 ### Merge join
 
@@ -45,7 +50,12 @@ Bringing two streams together by key. Database joins, join rows (cartesian-style
 >
 > Workshop: [Merge Join](../24-mod4-merge-join/guide.md).
 
-<figure><img src="../_assets/images/joins.png" alt="Venn diagrams of the inner, left, right and full join, each with a sentence on which records it selects"><figcaption><p>The four join types</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/joins.png" alt="Venn diagrams of the inner, left, right and full join, each with a sentence on which records it selects" width="644">
+<figcaption>The four join types</figcaption>
+</figure>
+</div>
 
 ### Database join
 
@@ -55,7 +65,12 @@ Bringing two streams together by key. Database joins, join rows (cartesian-style
 >
 > Workshop: [Database Join](../22-mod4-database-join/guide.md).
 
-<figure><img src="../_assets/images/database-join-2.png" alt="A Data grid of search conditions hopped to Database join"><figcaption><p>Database join</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/database-join-2.png" alt="A Data grid of search conditions hopped to Database join" width="628">
+<figcaption>Database join</figcaption>
+</figure>
+</div>
 
 ### XML join
 
@@ -65,6 +80,11 @@ Bringing two streams together by key. Database joins, join rows (cartesian-style
 >
 > Workshop: [XML Join](../25-mod4-xml-join/guide.md).
 
-<figure><img src="../_assets/images/xml-join-orders.png" alt="The XML Join workshop's flow: six Excel sheets become XML fragments, nested by five chained XML Join steps into one document"><figcaption><p>Five XML joins build one nested document</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/xml-join-orders.png" alt="The XML Join workshop's flow: six Excel sheets become XML fragments, nested by five chained XML Join steps into one document" width="800">
+<figcaption>Five XML joins build one nested document</figcaption>
+</figure>
+</div>
 
 :::

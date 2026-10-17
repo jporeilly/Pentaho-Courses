@@ -16,14 +16,12 @@ Pentaho Data Integration operates on a **client-server architecture** that separ
 * **Configuration Framework**: The Kettle configuration files that control system behavior and store critical settings
 * **Repository Management**: How PDI manages versioning, collaboration, and content organization
 * **Database Connectivity**: The process of integrating JDBC drivers to connect to various data sources
-<figure>
-
-![Pentaho Ecosystem](../_assets/images/psi-workflow-2.svg)
-
 <div align="center">
-<figcaption><em>Pentaho Ecosystem</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/psi-workflow-2.svg" alt="Pentaho Ecosystem" width="800">
+<figcaption>Pentaho Ecosystem</figcaption>
 </figure>
+</div>
 
 ---
 
@@ -34,10 +32,8 @@ Browse to learn about the components:
 ### 1. Components
 <div align="center">
 <figure>
-
-![Pentaho Architecture - Client / Server](../_assets/images/architecture.png)
-
-<figcaption><em>Pentaho Architecture - Client / Server</em></figcaption>
+<img src="../_assets/images/architecture.png" alt="Pentaho Architecture - Client / Server" width="800">
+<figcaption>Pentaho Architecture - Client / Server</figcaption>
 </figure>
 </div>
 
@@ -107,10 +103,8 @@ The primary functions of the Pentaho Server are:
 
 <div align="center">
 <figure>
-
-![Carte Ecosystem](../_assets/images/carte.png)
-
-<figcaption><em>Carte Ecosystem</em></figcaption>
+<img src="../_assets/images/carte.png" alt="Carte Ecosystem" width="800">
+<figcaption>Carte Ecosystem</figcaption>
 </figure>
 </div>
 
@@ -160,10 +154,8 @@ The primary functions of the Pentaho Server are:
 
 <div align="center">
 <figure>
-
-![Welcome Page](../_assets/images/spoon-welcome.png)
-
-<figcaption><em>Welcome Page</em></figcaption>
+<img src="../_assets/images/spoon-welcome.png" alt="Welcome Page" width="800">
+<figcaption>Welcome Page</figcaption>
 </figure>
 </div>
 
@@ -217,22 +209,18 @@ Edit `kettle.properties` in a text editor, or in Spoon select **Edit > Edit the 
 
 <div align="center">
 <figure>
-
-![Edit kettle.properties](../_assets/images/kettle-edit.png)
-
-<figcaption><em>Edit kettle.properties</em></figcaption>
+<img src="../_assets/images/kettle-edit.png" alt="Edit kettle.properties" width="393">
+<figcaption>Edit kettle.properties</figcaption>
 </figure>
 </div>
 
 **Kettle Variables**
-<figure>
-
-![The Kettle properties dialog: each variable with its value and a description](../_assets/images/1789748200086.png)
-
 <div align="center">
-<figcaption><em>Edit > Edit the kettle.properties file</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/1789748200086.png" alt="The Kettle properties dialog: each variable with its value and a description" width="800">
+<figcaption>Edit > Edit the kettle.properties file</figcaption>
 </figure>
+</div>
 
 ### 2. shared.xml
 > **Note:** **shared.xml**
@@ -255,10 +243,8 @@ Edit `kettle.properties` in a text editor, or in Spoon select **Edit > Edit the 
 
 <div align="center">
 <figure>
-
-![Shared connection](../_assets/images/share-connection.png)
-
-<figcaption><em>Shared connection</em></figcaption>
+<img src="../_assets/images/share-connection.png" alt="Shared connection" width="524">
+<figcaption>Shared connection</figcaption>
 </figure>
 </div>
 

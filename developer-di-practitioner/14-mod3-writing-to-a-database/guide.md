@@ -27,14 +27,12 @@
 
 </figure>
 
-<figure>
-
-![The finished transformation: csvi-sales_data, a CSV file input step, hopped to stg_sales_data, and orders hopped to stg_orders_merged](../_assets/images/create-db.png)
-
 <div align="center">
-<figcaption><em>What you build: two independent loads in one transformation</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/create-db.png" alt="The finished transformation: csvi-sales_data, a CSV file input step, hopped to stg_sales_data, and orders hopped to stg_orders_merged" width="648">
+<figcaption>What you build: two independent loads in one transformation</figcaption>
 </figure>
+</div>
 
 ::::: tabs
 
@@ -46,7 +44,12 @@
 > 
 > Load `sales_data.csv`, 2,823 order lines, into a new table, `STG_SALES_DATA`.
 
-<figure><img src="../_assets/images/load-sales-data.png" alt="csvi-sales_data, a CSV file input step, hopped to the stg_sales_data Table output step" width="277"><figcaption><p>Workflow 1</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/load-sales-data.png" alt="csvi-sales_data, a CSV file input step, hopped to the stg_sales_data Table output step" width="277">
+<figcaption>Workflow 1</figcaption>
+</figure>
+</div>
 
 :::: tabs
 
@@ -107,7 +110,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
 | `CONTACTLASTNAME` | String | | **`15`** (11) | |
 | `CONTACTFIRSTNAME` | String | | **`15`** (10) | |
 
-<figure><img src="../_assets/images/csv-sales.png" alt="CSV file input csvi-sales_data with sales_data.csv, comma delimiter, header row, Lazy conversion cleared and the 24 fields Get Fields detects"><figcaption><p>sales_data.csv, 24 fields</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/csv-sales.png" alt="CSV file input csvi-sales_data with sales_data.csv, comma delimiter, header row, Lazy conversion cleared and the 24 fields Get Fields detects" width="800">
+<figcaption>sales_data.csv, 24 fields</figcaption>
+</figure>
+</div>
 
 > **Note:** The screenshot is from an earlier version of the step: its name is `CSV Input`, **Lazy conversion?** is selected, and most lengths are `20` or more. Use the settings in the steps and the table above. The fields' **Currency** column shows the symbol for your computer's locale.
 
@@ -134,17 +142,32 @@ Set-Location C:\Pentaho\design-tools\data-integration
 7. Select **Specify database fields**.
 8. On the **Main options** tab, clear **Use batch update for inserts**.
 
-<figure><img src="../_assets/images/table-output.png" alt="Table output named stg_sales_data with target table STG_SALES_DATA, commit size 1000, Specify database fields selected and Use batch update for inserts cleared"><figcaption><p>Main options</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/table-output.png" alt="Table output named stg_sales_data with target table STG_SALES_DATA, commit size 1000, Specify database fields selected and Use batch update for inserts cleared" width="800">
+<figcaption>Main options</figcaption>
+</figure>
+</div>
 
 > **Note:** The screenshot shows an older connection name, `Sampledata`, and **Truncate table** cleared. Use `MySQL:sampledata` and select **Truncate table**.
 
 9. On the **Database fields** tab, select **Get fields**. Each stream field is mapped to a table column of the same name: every **Table field** on the left matches its **Stream field** on the right.
 
-<figure><img src="../_assets/images/table-output-fields.png" alt="Database fields tab mapping each table field to the stream field of the same name"><figcaption><p>Table field = stream field</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/table-output-fields.png" alt="Database fields tab mapping each table field to the stream field of the same name" width="800">
+<figcaption>Table field = stream field</figcaption>
+</figure>
+</div>
 
 10. Select **SQL**. The table doesn't exist yet, so the **Simple SQL editor** opens with a `CREATE TABLE STG_SALES_DATA` statement built from the stream's fields.
 
-<figure><img src="../_assets/images/sales-sql.png" alt="Simple SQL editor with the generated CREATE TABLE STG_SALES_DATA statement: BIGINT, DOUBLE, DATETIME and VARCHAR columns sized from the fields" width="375"><figcaption><p>The generated CREATE TABLE</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/sales-sql.png" alt="Simple SQL editor with the generated CREATE TABLE STG_SALES_DATA statement: BIGINT, DOUBLE, DATETIME and VARCHAR columns sized from the fields" width="746">
+<figcaption>The generated CREATE TABLE</figcaption>
+</figure>
+</div>
 
 11. Select **Execute**. In **Results of the SQL statements**, select **OK**, then select **Close** in the **Simple SQL editor**.
 12. Select **SQL** again.
@@ -200,7 +223,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
    SELECT COUNT(*) FROM STG_SALES_DATA;
    ```
 
-<figure><img src="../_assets/images/sales-data.png" alt="STG_SALES_DATA rows in DBeaver"><figcaption><p>STG_SALES_DATA</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/sales-data.png" alt="STG_SALES_DATA rows in DBeaver" width="800">
+<figcaption>STG_SALES_DATA</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: `STG_SALES_DATA` holds 2,823 rows.
 
@@ -238,7 +266,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
 > 
 > Load `orders.txt` into a new table, `STG_ORDERS_MERGED`. Despite its name, the file holds seven products. [Merge Rows (diff)](../21-mod4-merge-streams-diff/guide.md) in Module 4 compares this table with a changed copy.
 
-<figure><img src="../_assets/images/load-orders-data.png" alt="orders Text file input hopped to the stg_orders_merged Table output step" width="288"><figcaption><p>Workflow 2</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/load-orders-data.png" alt="orders Text file input hopped to the stg_orders_merged Table output step" width="288">
+<figcaption>Workflow 2</figcaption>
+</figure>
+</div>
 
 ::: tabs
 
@@ -254,12 +287,22 @@ Set-Location C:\Pentaho\design-tools\data-integration
 2. Double-click **Text file input**. Set **Step name** to `orders`.
 3. On the **File** tab, enter `${Internal.Entry.Current.Directory}/orders.txt` in **File or directory** and select **Add**.
 
-<figure><img src="../_assets/images/add-path-to-orders-txt.png" alt="Text file input File tab with orders.txt added to the selected files"><figcaption><p>The file</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/add-path-to-orders-txt.png" alt="Text file input File tab with orders.txt added to the selected files" width="800">
+<figcaption>The file</figcaption>
+</figure>
+</div>
 
 4. On the **Content** tab, set **Separator** to `;`, and keep **Header** selected with **Number of header lines** `1`.
 5. Set **Format** to `mixed`.
 
-<figure><img src="../_assets/images/set-content.png" alt="Content tab with filetype CSV, separator semicolon and one header line"><figcaption><p>Semicolon separator, one header line</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/set-content.png" alt="Content tab with filetype CSV, separator semicolon and one header line" width="800">
+<figcaption>Semicolon separator, one header line</figcaption>
+</figure>
+</div>
 
 6. On the **Fields** tab, select **Get Fields**. In the **Sample data** dialog, keep `100` in **Number of lines to sample** and select **OK**. Close the **Scan results** window if it opens.
 7. Check the grid against this table. The file has only seven products, so the sample reads them all and every length is the longest value in the file:
@@ -273,7 +316,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
 | `PRODUCTVENDOR` | String | `25` |
 | `PRODUCTDESCRIPTION` | String | `390` |
 
-<figure><img src="../_assets/images/get-fields.png" alt="Fields tab with six String fields from PRODUCTCODE to PRODUCTDESCRIPTION"><figcaption><p>Six String fields</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/get-fields.png" alt="Fields tab with six String fields from PRODUCTCODE to PRODUCTDESCRIPTION" width="800">
+<figcaption>Six String fields</figcaption>
+</figure>
+</div>
 
 8. Select **Preview rows**, enter `100` rows, and select **OK**. The rows show in **Examine preview data**.
 
@@ -297,17 +345,32 @@ Set-Location C:\Pentaho\design-tools\data-integration
 6. Select **Truncate table** and **Specify database fields**.
 7. On the **Main options** tab, leave **Use batch update for inserts** selected, as it is by default.
 
-<figure><img src="../_assets/images/stg-orders-merged.png" alt="Table output named stg_orders_merged with target table STG_ORDERS_MERGED, commit size 1000, Specify database fields and Use batch update for inserts selected"><figcaption><p>Main options</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/stg-orders-merged.png" alt="Table output named stg_orders_merged with target table STG_ORDERS_MERGED, commit size 1000, Specify database fields and Use batch update for inserts selected" width="800">
+<figcaption>Main options</figcaption>
+</figure>
+</div>
 
 > **Note:** The screenshot shows an older connection name, `MySQL - sampledata`, and **Truncate table** cleared. Use `MySQL:sampledata` and select **Truncate table**.
 
 8. On the **Database fields** tab, select **Get fields**.
 
-<figure><img src="../_assets/images/stg-orders-merged-fields.png" alt="Database fields tab mapping the six product fields"><figcaption><p>Six fields mapped</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/stg-orders-merged-fields.png" alt="Database fields tab mapping the six product fields" width="800">
+<figcaption>Six fields mapped</figcaption>
+</figure>
+</div>
 
 9. Select **SQL**. The **Simple SQL editor** opens with a `CREATE TABLE STG_ORDERS_MERGED` statement.
 
-<figure><img src="../_assets/images/orders-sql.png" alt="Simple SQL editor with CREATE TABLE STG_ORDERS_MERGED: five VARCHAR columns and a TEXT column"><figcaption><p>A 390-character string becomes TEXT</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/orders-sql.png" alt="Simple SQL editor with CREATE TABLE STG_ORDERS_MERGED: five VARCHAR columns and a TEXT column" width="746">
+<figcaption>A 390-character string becomes TEXT</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: five `VARCHAR` columns, from `PRODUCTCODE VARCHAR(8)` to `PRODUCTVENDOR VARCHAR(25)`, and `PRODUCTDESCRIPTION TEXT`.
 
@@ -334,7 +397,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
    SELECT * FROM STG_ORDERS_MERGED;
    ```
 
-<figure><img src="../_assets/images/stg-orders-merged-2.png" alt="The seven STG_ORDERS_MERGED rows in DBeaver"><figcaption><p>STG_ORDERS_MERGED</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/stg-orders-merged-2.png" alt="The seven STG_ORDERS_MERGED rows in DBeaver" width="800">
+<figcaption>STG_ORDERS_MERGED</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: `STG_ORDERS_MERGED` holds 7 rows, `S10_1678` to `S12_1666`, and `STG_SALES_DATA` still holds 2,823.
 

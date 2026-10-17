@@ -119,7 +119,12 @@ There will be no containers yet — you create those in the next tab.
 
 Once the **2. Start the services** tab is done, the Containers page is what you should see:
 
-<figure><img src="../_assets/images/podman-desktop-containers.png" alt="Podman Desktop showing the workshop-services containers"><figcaption><p>The workshop services in Podman Desktop</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/podman-desktop-containers.png" alt="Podman Desktop showing the workshop-services containers" width="800">
+<figcaption>The workshop services in Podman Desktop</figcaption>
+</figure>
+</div>
 
 `sampledata-mysql` on port 3306 and `pcm-minio` on 9000/9099 should both
 say **RUNNING** (`sampledata-adminer`, a database browser on 8050, comes

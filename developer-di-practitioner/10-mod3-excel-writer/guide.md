@@ -26,14 +26,12 @@
 
 </figure>
 
-<figure>
-
-![The finished transformation: three branches - year, sales and expenses - each writing to the same workbook](../_assets/images/excel.png)
-
 <div align="center">
-<figcaption><em>What you build</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/excel.png" alt="The finished transformation: three branches - year, sales and expenses - each writing to the same workbook" width="619">
+<figcaption>What you build</figcaption>
 </figure>
+</div>
 
 ::::: tabs
 
@@ -50,9 +48,19 @@
 
 1. Open `template.xlsx` from the lab folder, `C:\Workshop-DI-Practitioner\03-data-sources\01-flat-files\10-mod3-excel-writer`, in your spreadsheet application, and look at both sheets:
 
-<figure><img src="../_assets/images/blank-template.png" alt="The Sales Chart sheet of the template, with an empty chart"><figcaption><p>Sales Chart: the chart, still empty</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/blank-template.png" alt="The Sales Chart sheet of the template, with an empty chart" width="800">
+<figcaption>Sales Chart: the chart, still empty</figcaption>
+</figure>
+</div>
 
-<figure><img src="../_assets/images/blank-sourcedata.png" alt="The SourceData sheet: labels, formulas and empty data cells"><figcaption><p>SourceData: labels and formulas, no numbers yet</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/blank-sourcedata.png" alt="The SourceData sheet: labels, formulas and empty data cells" width="800">
+<figcaption>SourceData: labels and formulas, no numbers yet</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: on **SourceData**, the data cells are empty, so for each product line and expense the **6-MONTH TOTAL** column shows `$0.00` and the **MEAN** column shows `#DIV/0!`.
 
@@ -68,7 +76,12 @@
 > 
 > The first branch writes the report year into `SourceData`, creating the output file from the template.
 
-<figure><img src="../_assets/images/excel-year.png" alt="The year branch: Generate Rows hopped to Microsoft Excel Writer" width="375"><figcaption><p>The year branch</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/excel-year.png" alt="The year branch: Generate Rows hopped to Microsoft Excel Writer" width="304">
+<figcaption>The year branch</figcaption>
+</figure>
+</div>
 
 :::: tabs
 
@@ -100,7 +113,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
    | --- | --- | --- | --- |
    | `year` | Date | `yyyy` | `2023` |
 
-<figure><img src="../_assets/images/gr-year.png" alt="Generate Rows with one Date field, year, formatted yyyy, value 2023"><figcaption><p>One row: the year</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/gr-year.png" alt="Generate Rows with one Date field, year, formatted yyyy, value 2023" width="800">
+<figcaption>One row: the year</figcaption>
+</figure>
+</div>
 
 8. Select **OK**.
 
@@ -138,7 +156,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
    | **Use template when creating new files** | selected |
    | **Template file** | `${Internal.Entry.Current.Directory}/template.xlsx` |
 
-<figure><img src="../_assets/images/excel-writer-year.png" alt="Excel writer File and Sheet tab: output file, SourceData sheet and the template"><figcaption><p>A new file from the template, every run</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/excel-writer-year.png" alt="Excel writer File and Sheet tab: output file, SourceData sheet and the template" width="800">
+<figcaption>A new file from the template, every run</figcaption>
+</figure>
+</div>
 
 5. Open the **Content** tab and enter these settings:
 
@@ -152,7 +175,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
    **Force formula recalculation** makes the step evaluate every formula in the workbook before it saves the file, so the totals hold values computed from your numbers instead of the template's cached `0` and `#DIV/0!`. **Leave styles of existing cells unchanged** keeps the template's cell formats, such as `yyyy` on `B1` and the euro format on the data cells.
 
-<figure><img src="../_assets/images/excel-writer-content.png" alt="Excel writer Content tab: start writing at cell B1, overwrite existing cells, Force formula recalculation and Leave styles of existing cells unchanged selected, and the year field in the Fields grid"><figcaption><p>The year goes in B1</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/excel-writer-content.png" alt="Excel writer Content tab: start writing at cell B1, overwrite existing cells, Force formula recalculation and Leave styles of existing cells unchanged selected, and the year field in the Fields grid" width="800">
+<figcaption>The year goes in B1</figcaption>
+</figure>
+</div>
 
 6. Under **Fields**, select **Get Fields**. The grid lists one field, `year`, a Date.
 7. Select **OK**.
@@ -188,7 +216,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
 > 
 > Write the sales rows into the same workbook. A blocking step makes sure the year write has finished first.
 
-<figure><img src="../_assets/images/write-sales.png" alt="The sales branch: Text file input, Block this step until steps finish, Microsoft Excel Writer" width="375"><figcaption><p>The sales branch</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/write-sales.png" alt="The sales branch: Text file input, Block this step until steps finish, Microsoft Excel Writer" width="448">
+<figcaption>The sales branch</figcaption>
+</figure>
+</div>
 
 ::: tabs
 
@@ -204,12 +237,22 @@ Set-Location C:\Pentaho\design-tools\data-integration
 2. Double-click **Text file input**. Set **Step name** to `Read Sales`.
 3. On the **File** tab, enter `${Internal.Entry.Current.Directory}/sales.txt` in **File or directory** and select **Add**.
 
-<figure><img src="../_assets/images/tfi-sales.png" alt="Text file input File tab with sales.txt in the selected files"><figcaption><p>The sales file</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/tfi-sales.png" alt="Text file input File tab with sales.txt in the selected files" width="800">
+<figcaption>The sales file</figcaption>
+</figure>
+</div>
 
 4. Open the **Content** tab. Set **Separator** to `,`, and keep **Header** selected with **Number of header lines** `1`, and **No empty rows** selected.
 5. Set **Format** to `mixed` and **Encoding** to `UTF-8`.
 
-<figure><img src="../_assets/images/tfi-content.png" alt="Content tab: comma separator, header and no empty rows selected, format mixed, encoding UTF-8"><figcaption><p>Comma-separated, with a header</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/tfi-content.png" alt="Content tab: comma separator, header and no empty rows selected, format mixed, encoding UTF-8" width="800">
+<figcaption>Comma-separated, with a header</figcaption>
+</figure>
+</div>
 
 6. Open the **Fields** tab and select **Get Fields**. In the **Sample data** dialog, keep `100` in **Number of lines to sample** and select **OK**. Close the **Scan results** window if it opens.
 7. Check the grid against this table. The names come from the file's header line:
@@ -244,7 +287,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
 3. Double-click **Block this step until steps finish**. Set **Step name** to `Wait For Year`.
 4. In the **Watch the following steps** grid, set **Step name** to `Write Year` and **Copy Nr** to `0`. If you used **Get steps** instead, delete every row except `Write Year`.
 
-<figure><img src="../_assets/images/block-year.png" alt="The Block this step until steps finish dialog watching Write Year"><figcaption><p>Wait for Write Year</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/block-year.png" alt="The Block this step until steps finish dialog watching Write Year" width="506">
+<figcaption>Wait for Write Year</figcaption>
+</figure>
+</div>
 
 5. Select **OK**. The sales rows now wait here until **Write Year** has finished.
 
@@ -298,7 +346,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
    **Wait for first row before creating file** makes the step open the workbook only when its first row arrives, and **Wait For Year** holds that row back until **Write Year** has created the file.
 
-<figure><img src="../_assets/images/excel-writer-sales.png" alt="Excel writer File and Sheet tab reusing the existing output file, with Wait for first row before creating file selected"><figcaption><p>Reuse the file the year writer made</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/excel-writer-sales.png" alt="Excel writer File and Sheet tab reusing the existing output file, with Wait for first row before creating file selected" width="800">
+<figcaption>Reuse the file the year writer made</figcaption>
+</figure>
+</div>
 
 > **Note:** The screenshots of **Write Sales** and **Write Expenses** show `${Internal.Transformation.Filename.Directory}` in **Filename**. When you run a saved transformation from Spoon, it names the same folder, but use `${Internal.Entry.Current.Directory}`, as the table shows, in all three writers.
 
@@ -312,7 +365,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
    | **Force formula recalculation** | selected |
    | **Leave styles of existing cells unchanged** | selected |
 
-<figure><img src="../_assets/images/excel-writer-content-1.png" alt="Excel writer Content tab starting at cell B5, with the six monthly fields in the Fields grid"><figcaption><p>Sales start at B5</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/excel-writer-content-1.png" alt="Excel writer Content tab starting at cell B5, with the six monthly fields in the Fields grid" width="800">
+<figcaption>Sales start at B5</figcaption>
+</figure>
+</div>
 
 6. Under **Fields**, select **Get Fields**. The grid lists `productline` and the six months, each with a **Format** such as `000000.00`.
 7. Delete the `productline` row: select it, right-click, and select **Delete selected lines**. The template already has the product line names in column A, so you write only the six months, into `B5:G8`.
@@ -328,7 +386,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
 > 
 > Write the expense rows into the same workbook, after the sales write has finished. The branch is built like the sales one.
 
-<figure><img src="../_assets/images/write-expenses.png" alt="The expenses branch: Text file input, Block this step until steps finish, Microsoft Excel Writer" width="375"><figcaption><p>The expenses branch</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/write-expenses.png" alt="The expenses branch: Text file input, Block this step until steps finish, Microsoft Excel Writer" width="448">
+<figcaption>The expenses branch</figcaption>
+</figure>
+</div>
 
 ::: tabs
 
@@ -344,12 +407,22 @@ Set-Location C:\Pentaho\design-tools\data-integration
 2. Double-click **Text file input**. Set **Step name** to `Read Expenses`.
 3. On the **File** tab, enter `${Internal.Entry.Current.Directory}/expenses.txt` in **File or directory** and select **Add**.
 
-<figure><img src="../_assets/images/tfi-expenses.png" alt="Text file input File tab with expenses.txt in the selected files"><figcaption><p>The expenses file</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/tfi-expenses.png" alt="Text file input File tab with expenses.txt in the selected files" width="800">
+<figcaption>The expenses file</figcaption>
+</figure>
+</div>
 
 4. Open the **Content** tab. Set **Separator** to `,`, and keep **Header** selected with **Number of header lines** `1`, and **No empty rows** selected.
 5. Set **Format** to `mixed` and **Encoding** to `UTF-8`.
 
-<figure><img src="../_assets/images/tfi-content-expenses.png" alt="Content tab for expenses.txt: comma separator, one header line, no empty rows, format mixed, encoding UTF-8"><figcaption><p>Same layout as sales</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/tfi-content-expenses.png" alt="Content tab for expenses.txt: comma separator, one header line, no empty rows, format mixed, encoding UTF-8" width="800">
+<figcaption>Same layout as sales</figcaption>
+</figure>
+</div>
 
 6. Open the **Fields** tab and select **Get Fields**. In the **Sample data** dialog, keep `100` in **Number of lines to sample** and select **OK**. Close the **Scan results** window if it opens.
 7. Check the grid against this table. Every **Trim type** is `none`:
@@ -364,7 +437,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
    | `m_may` | Number | `#.#` | `7` | `2` |
    | `m_june` | Number | `#.#` | `8` | `2` |
 
-<figure><img src="../_assets/images/tfi-field-expenses.png" alt="Fields tab: expense_type and six monthly Number fields"><figcaption><p>Seven fields</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/tfi-field-expenses.png" alt="Fields tab: expense_type and six monthly Number fields" width="800">
+<figcaption>Seven fields</figcaption>
+</figure>
+</div>
 
 8. Select **Preview rows**, enter `100` rows, and select **OK**. The rows show in **Examine preview data**.
 
@@ -385,7 +463,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
 3. Double-click **Block this step until steps finish**. Set **Step name** to `Wait For Sales`.
 4. In the **Watch the following steps** grid, set **Step name** to `Write Sales` and **Copy Nr** to `0`.
 
-<figure><img src="../_assets/images/block-expenses.png" alt="The Block dialog watching Write Sales"><figcaption><p>Wait for Write Sales</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/block-expenses.png" alt="The Block dialog watching Write Sales" width="506">
+<figcaption>Wait for Write Sales</figcaption>
+</figure>
+</div>
 
 5. Select **OK**.
 
@@ -414,7 +497,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
    | **If sheet exists in output file** | **write to existing sheet** |
    | **Use template when creating new files** | cleared (the default) |
 
-<figure><img src="../_assets/images/excel-writer-expenses.png" alt="Excel writer File and Sheet tab for the expenses writer"><figcaption><p>The same file and sheet</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/excel-writer-expenses.png" alt="Excel writer File and Sheet tab for the expenses writer" width="800">
+<figcaption>The same file and sheet</figcaption>
+</figure>
+</div>
 
 5. Open the **Content** tab and enter these settings:
 
@@ -428,7 +516,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 6. Under **Fields**, select **Get Fields**, then delete the `expense_type` row: select it, right-click, and select **Delete selected lines**. The six months go into `B13:G18`.
 
-<figure><img src="../_assets/images/excel-writer-expenses-fields.png" alt="Excel writer Content tab starting at B13 with the six monthly fields"><figcaption><p>Expenses start at B13</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/excel-writer-expenses-fields.png" alt="Excel writer Content tab starting at B13 with the six monthly fields" width="800">
+<figcaption>Expenses start at B13</figcaption>
+</figure>
+</div>
 
 7. Select **OK**.
 
@@ -450,7 +543,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 4. Open `Sales_and_Expenses_2023.xlsx` from the lab folder in your spreadsheet application, and open the **SourceData** sheet.
 
-<figure><img src="../_assets/images/excel-template.jpg" alt="The finished workbook with the chart drawn from the written figures"><figcaption><p>The finished report</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/excel-template.jpg" alt="The finished workbook with the chart drawn from the written figures" width="800">
+<figcaption>The finished report</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: `B1` shows `2023`, the sales fill `B5:G8` and the expenses `B13:G18`, and the totals are computed:
 >

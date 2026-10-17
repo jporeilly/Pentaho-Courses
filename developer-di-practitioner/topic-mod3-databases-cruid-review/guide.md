@@ -16,11 +16,9 @@
 >
 > **Delete** operations remove records from the database. This might involve permanently removing a user account or archiving old data. SQL uses the DELETE statement, while NoSQL databases typically use methods like deleteOne() or remove().
 
-<figure>
-
-![The CRUID operations and the PDI steps that perform them](../_assets/images/cruid.png)
-
 <div align="center">
-<figcaption><em>CRUID in PDI</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/cruid.png" alt="The CRUID operations and the PDI steps that perform them" width="800">
+<figcaption>CRUID in PDI</figcaption>
 </figure>
+</div>

@@ -20,14 +20,12 @@
 > 
 > **Estimated time:** 35 minutes
 
-<figure>
-
-![The finished transformation: name and text +name appended with instructions, then with the numbered questions, and written by TFO - survey](../_assets/images/survey-text-file-output.png)
-
 <div align="center">
-<figcaption><em>What you build</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/survey-text-file-output.png" alt="The finished transformation: name and text +name appended with instructions, then with the numbered questions, and written by TFO - survey" width="720">
+<figcaption>What you build</figcaption>
 </figure>
+</div>
 
 :::: tabs
 
@@ -65,7 +63,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
    | --- | --- |
    | `text` | `command line argument 1` |
 
-<figure><img src="../_assets/images/get-sys-info.png" alt="Get system info with one field, text, of type command line argument 1" width="375"><figcaption><p>The customer name arrives as argument 1</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/get-sys-info.png" alt="Get system info with one field, text, of type command line argument 1" width="746">
+<figcaption>The customer name arrives as argument 1</figcaption>
+</figure>
+</div>
 
 8. Select **OK**.
 
@@ -87,7 +90,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
    | --- | --- | --- | --- |
    | `text` | `"Customer name: " + text` | String | `text` |
 
-<figure><img src="../_assets/images/text-name.png" alt="User defined Java expression building Customer name: plus the text field"><figcaption><p>A Java expression builds the header line</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/text-name.png" alt="User defined Java expression building Customer name: plus the text field" width="800">
+<figcaption>A Java expression builds the header line</figcaption>
+</figure>
+</div>
 
 6. Select **OK**.
 
@@ -117,7 +125,19 @@ Set-Location C:\Pentaho\design-tools\data-integration
    2. `Please answer the questions below:`
    3. Nothing: leave the third row empty. It becomes the blank line before the questions. If the grid has only two rows, right-click the second row and select **Insert after this row**.
 
-<div><figure><img src="../_assets/images/dg-instructions.png" alt="Data grid Meta tab with one String field, text"><figcaption><p>Meta: one field</p></figcaption></figure> <figure><img src="../_assets/images/dg-data.png" alt="Data grid Data tab with the three header rows"><figcaption><p>Data: the header rows</p></figcaption></figure></div>
+<div align="center">
+<figure>
+<img src="../_assets/images/dg-instructions.png" alt="Data grid Meta tab with one String field, text" width="800">
+<figcaption>Meta: one field</figcaption>
+</figure>
+</div>
+
+<div align="center">
+<figure>
+<img src="../_assets/images/dg-data.png" alt="Data grid Data tab with the three header rows" width="686">
+<figcaption>Data: the header rows</figcaption>
+</figure>
+</div>
 
 6. Select **Preview**, enter `100` rows, and select **OK**.
 
@@ -142,7 +162,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
 4. Double-click **Append streams**.
 5. Set **Head hop** to `text +name` (the customer line) and **Tail hop** to `instructions`.
 
-<figure><img src="../_assets/images/append-2.png" alt="Append streams with text +name as head and instructions as tail" width="375"><figcaption><p>The customer line comes first</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/append-2.png" alt="Append streams with text +name as head and instructions as tail" width="406">
+<figcaption>The customer line comes first</figcaption>
+</figure>
+</div>
 
 6. Select **OK**.
 
@@ -180,7 +205,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
 3. Set **Step name** to `survey questions`.
 4. On the **File** tab, enter `${Internal.Entry.Current.Directory}/questions.txt` in **File or directory**, then select **Add**.
 
-<figure><img src="../_assets/images/survey-2.png" alt="Text file input File tab with questions.txt selected"><figcaption><p>The question list</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/survey-2.png" alt="Text file input File tab with questions.txt selected" width="800">
+<figcaption>The question list</figcaption>
+</figure>
+</div>
 
 5. Open the **Content** tab and set:
 
@@ -193,13 +223,23 @@ Set-Location C:\Pentaho\design-tools\data-integration
    | **Rownum fieldname** | `question_num` |
    | **Format** | `mixed` |
 
-<figure><img src="../_assets/images/survey-content.png" alt="Text file input Content tab: tab separator, no header, row numbers on in question_num"><figcaption><p>Row numbers become question numbers</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/survey-content.png" alt="Text file input Content tab: tab separator, no header, row numbers on in question_num" width="800">
+<figcaption>Row numbers become question numbers</figcaption>
+</figure>
+</div>
 
 6. Open the **Fields** tab and select **Get Fields**.
 7. In the **Sample data** dialog, leave **Number of lines to sample** at `100` and select **OK**.
 8. In the grid, change the field's **Name** from `Field1` to `text`.
 
-<figure><img src="../_assets/images/survey-fields.png" alt="Text file input Fields tab with one String field, text"><figcaption><p>One field, text</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/survey-fields.png" alt="Text file input Fields tab with one String field, text" width="800">
+<figcaption>One field, text</figcaption>
+</figure>
+</div>
 
 9. Select **Preview rows**, enter `100` rows, and select **OK**.
 
@@ -226,7 +266,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
    | --- | --- | --- | --- |
    | `text` | `question_num + ". " + text` | String | `text` |
 
-<figure><img src="../_assets/images/udje-question.png" alt="User defined Java expression joining question_num, a period and the question text"><figcaption><p>Number each question</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/udje-question.png" alt="User defined Java expression joining question_num, a period and the question text" width="651">
+<figcaption>Number each question</figcaption>
+</figure>
+</div>
 
 6. Select **OK**.
 7. Select **question seq** on the canvas, press `F10` (**Action > Preview**), and select **Quick Launch**.
@@ -249,7 +294,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
 4. Set **Step name** to `select questions`.
 5. Open the **Remove** tab and enter `question_num` in **Fields to remove**.
 
-<figure><img src="../_assets/images/sv-1-1.png" alt="Select values Remove tab with question_num listed" width="375"><figcaption><p>Remove question_num</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/sv-1-1.png" alt="Select values Remove tab with question_num listed" width="746">
+<figcaption>Remove question_num</figcaption>
+</figure>
+</div>
 
 6. Select **OK**.
 
@@ -268,7 +318,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
 5. Set **Step name** to `Append body`.
 6. Set **Head hop** to `Append streams` and **Tail hop** to `select questions`.
 
-<figure><img src="../_assets/images/append-q.png" alt="Append body with Append streams as head and select questions as tail" width="375"><figcaption><p>Header first, then the questions</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/append-q.png" alt="Append body with Append streams as head and select questions as tail" width="406">
+<figcaption>Header first, then the questions</figcaption>
+</figure>
+</div>
 
 7. Select **OK**.
 
@@ -302,11 +357,21 @@ Set-Location C:\Pentaho\design-tools\data-integration
    | **Header** | cleared, so the file doesn't start with the word `text` |
    | **Disable the enclosure fix?** | selected |
 
-<figure><img src="../_assets/images/tfo-content-1.png" alt="Text file output Content tab: Header cleared and Disable the enclosure fix? selected" width="563"><figcaption><p>The Content tab</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/tfo-content-1.png" alt="Text file output Content tab: Header cleared and Disable the enclosure fix? selected" width="563">
+<figcaption>The Content tab</figcaption>
+</figure>
+</div>
 
 7. Open the **Fields** tab and select **Get Fields**. The grid lists one field, `text`, of type **String**.
 
-<figure><img src="../_assets/images/tfo-survey.png" alt="Text file output Fields tab with the text field" width="563"><figcaption><p>One field, text</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/tfo-survey.png" alt="Text file output Fields tab with the text field" width="800">
+<figcaption>One field, text</figcaption>
+</figure>
+</div>
 
 8. Select **OK**.
 
@@ -345,7 +410,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
 2. Press `F9` (**Action > Run**). In the **Run Options** dialog, select **Arguments (legacy)**.
 3. In the **Arguments** dialog, in the row whose **Argument** is `01`, set **Value** to `James`. Select **OK**.
 
-<figure><img src="../_assets/images/tfo-run.png" alt="The Arguments dialog over Run Options, with James as the value of argument 01"><figcaption><p>The customer name, as argument 1</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/tfo-run.png" alt="The Arguments dialog over Run Options, with James as the value of argument 01" width="663">
+<figcaption>The customer name, as argument 1</figcaption>
+</figure>
+</div>
 
 4. Select **Run** in the **Run Options** dialog.
 
@@ -377,7 +447,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 6. Select **TFO - survey** on the canvas and open the **Preview data** tab.
 
-<figure><img src="../_assets/images/tfo-preview.png" alt="Preview data of the survey lines: the customer line, the hyphens, the instruction, a null row and three numbered questions"><figcaption><p>The survey, line by line</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/tfo-preview.png" alt="Preview data of the survey lines: the customer line, the hyphens, the instruction, a null row and three numbered questions" width="700">
+<figcaption>The survey, line by line</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: 7 rows of `text`: `Customer name: James`, the hyphens, `Please answer the questions below:`, `<null>` (the empty row), then the three numbered questions. (The screenshot was taken with an older `questions.txt`, so its first question reads differently.)
 

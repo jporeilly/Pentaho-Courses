@@ -18,14 +18,12 @@
 > 
 > **Estimated time:** 20 minutes
 
-<figure>
-
-![The finished job: START, then Transformation A, then Success](../_assets/images/job.png)
-
 <div align="center">
-<figcaption><em>What you build</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/job.png" alt="The finished job: START, then Transformation A, then Success" width="626">
+<figcaption>What you build</figcaption>
 </figure>
+</div>
 
 :::: tabs
 
@@ -82,7 +80,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
    `${Internal.Entry.Current.Directory}` is the job's own folder, so the job finds the transformation wherever the two are copied together.
 
-<figure><img src="../_assets/images/job-transformation-a.png" alt="Transformation entry: name Transformation A, transformation ${Internal.Entry.Current.Directory}/tr_hello_world.ktr, run configuration Pentaho local"><figcaption><p>The Transformation entry</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/job-transformation-a.png" alt="Transformation entry: name Transformation A, transformation ${Internal.Entry.Current.Directory}/tr_hello_world.ktr, run configuration Pentaho local" width="800">
+<figcaption>The Transformation entry</figcaption>
+</figure>
+</div>
 
 5. Leave **Run configuration** set to `Pentaho local`, and select **OK**. The label under the entry now reads **Transformation A**.
 
@@ -112,7 +115,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
 1. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
 2. In **Execution Results**, open the **Job metrics** tab.
 
-<figure><img src="../_assets/images/job-step-metrics.png" alt="Job metrics: START, Transformation A and Success each finish with result Success"><figcaption><p>Job metrics: one entry after another</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/job-step-metrics.png" alt="Job metrics: START, Transformation A and Success each finish with result Success" width="800">
+<figcaption>Job metrics: one entry after another</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: **Start**, **Transformation A** and **Success** each end with **Result** `Success`, in that order. **Transformation A** was reached by "Followed unconditional link", and **Success** by "Followed link after success".
 
@@ -122,7 +130,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 4. Open the **Metrics** tab: a timeline of the job, its entry, and the transformation's initialization and steps inside it.
 
-<figure><img src="../_assets/images/job-metrics.png" alt="Metrics tab: a timeline bar for the job, the job entry, and the transformation's initialization and steps"><figcaption><p>Metrics: where the time went</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/job-metrics.png" alt="Metrics tab: a timeline bar for the job, the job entry, and the transformation's initialization and steps" width="800">
+<figcaption>Metrics: where the time went</figcaption>
+</figure>
+</div>
 
 > **Under the hood:**
 >

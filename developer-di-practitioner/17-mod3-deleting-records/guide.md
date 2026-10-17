@@ -21,14 +21,12 @@
 >
 > **Estimated time:** 30 minutes
 
-<figure>
-
-![The finished transformation: productlines list, getting min_quantityordered and delete min quantity ordered in a line](../_assets/images/delete-1.png)
-
 <div align="center">
-<figcaption><em>What you build</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/delete-1.png" alt="The finished transformation: productlines list, getting min_quantityordered and delete min quantity ordered in a line" width="686">
+<figcaption>What you build</figcaption>
 </figure>
+</div>
 
 :::: tabs
 
@@ -48,7 +46,12 @@
    FROM STG_SALES_DATA;
    ```
 
-<figure><img src="../_assets/images/stg-sales-data-data.png" alt="DBeaver: ALL_ROWS 2,823 and OVER_50 54 for STG_SALES_DATA"><figcaption><p>The baseline counts</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/stg-sales-data-data.png" alt="DBeaver: ALL_ROWS 2,823 and OVER_50 54 for STG_SALES_DATA" width="616">
+<figcaption>The baseline counts</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: `ALL_ROWS` is 2,823, and `OVER_50` is 54: the rows with `QUANTITYORDERED` over 50.
 
@@ -59,7 +62,12 @@
    WHERE QUANTITYORDERED > 50;
    ```
 
-<figure><img src="../_assets/images/stg-sales-data-sql.png" alt="The STG_SALES_DATA rows with QUANTITYORDERED over 50"><figcaption><p>The rows that survive</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/stg-sales-data-sql.png" alt="The STG_SALES_DATA rows with QUANTITYORDERED over 50" width="800">
+<figcaption>The rows that survive</figcaption>
+</figure>
+</div>
 
 > **Note:** The delete removes every row with `QUANTITYORDERED` of 50 or less, in each product line listed in `productline.txt`. The file lists all seven, so only these 54 rows remain.
 
@@ -88,7 +96,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
 7. Enter `${Internal.Entry.Current.Directory}/productline.txt` in **Filename**. Leave **Header row present?** selected.
 8. Select **Get Fields**, select **OK** in **Sample size**, and close **Scan results**. The grid has one field, `PRODUCTLINE`, a String.
 
-<figure><img src="../_assets/images/prod-list.png" alt="CSV file input reading productline.txt with one PRODUCTLINE field"><figcaption><p>One field: PRODUCTLINE</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/prod-list.png" alt="CSV file input reading productline.txt with one PRODUCTLINE field" width="800">
+<figcaption>One field: PRODUCTLINE</figcaption>
+</figure>
+</div>
 
 9. Select **Preview**, enter `100` rows, and select **OK**. The rows show in **Examine preview data**.
 
@@ -111,7 +124,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
 | --------------------- | ------------- |
 | `MIN_QUANTITYORDERED` | `50`          |
 
-<figure><img src="../_assets/images/param.png" alt="Transformation properties Parameters tab with MIN_QUANTITYORDERED defaulting to 50" width="563"><figcaption><p>The threshold parameter</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/param.png" alt="Transformation properties Parameters tab with MIN_QUANTITYORDERED defaulting to 50" width="800">
+<figcaption>The threshold parameter</figcaption>
+</figure>
+</div>
 
 3. Select **OK**.
 
@@ -133,7 +151,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
 | --------------------- | ------------------------ | ------ |
 | `MIN_QUANTITYORDERED` | `${MIN_QUANTITYORDERED}` | Number |
 
-<figure><img src="../_assets/images/get-variables-1.png" alt="Get variables with field MIN_QUANTITYORDERED from the variable ${MIN_QUANTITYORDERED}, type Number" width="563"><figcaption><p>The parameter, as a field</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/get-variables-1.png" alt="Get variables with field MIN_QUANTITYORDERED from the variable ${MIN_QUANTITYORDERED}, type Number" width="800">
+<figcaption>The parameter, as a field</figcaption>
+</figure>
+</div>
 
 6. Select **OK**.
 
@@ -177,7 +200,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
 | `QUANTITYORDERED` | `<=`       | `MIN_QUANTITYORDERED` |
 | `PRODUCTLINE`     | `=`        | `PRODUCTLINE`         |
 
-<figure><img src="../_assets/images/delete-options.png" alt="Delete step with target table STG_SALES_DATA and the two key rows" width="563"><figcaption><p>Delete where QUANTITYORDERED &lt;= 50 and the product line matches</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/delete-options.png" alt="Delete step with target table STG_SALES_DATA and the two key rows" width="800">
+<figcaption>Delete where QUANTITYORDERED &lt;= 50 and the product line matches</figcaption>
+</figure>
+</div>
 
 7. Select **OK**.
 
@@ -227,7 +255,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
    FROM STG_SALES_DATA;
    ```
 
-<figure><img src="../_assets/images/delete-data.png" alt="DBeaver after the delete: ALL_ROWS 54 and OVER_50 54"><figcaption><p>The counts after the delete</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/delete-data.png" alt="DBeaver after the delete: ALL_ROWS 54 and OVER_50 54" width="616">
+<figcaption>The counts after the delete</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: `ALL_ROWS` and `OVER_50` are both 54. `STG_SALES_DATA` holds 54 rows, every one with `QUANTITYORDERED` over 50.
 

@@ -19,14 +19,12 @@
 > 
 > **Estimated time:** 20 minutes
 
-<figure>
-
-![The finished transformation: three Data grids, each feeding its own Table input](../_assets/images/param-database.png)
-
 <div align="center">
-<figcaption><em>Three ways to feed the same query</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/param-database.png" alt="The finished transformation: three Data grids, each feeding its own Table input" width="645">
+<figcaption>Three ways to feed the same query</figcaption>
 </figure>
+</div>
 
 :::: tabs
 
@@ -67,7 +65,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 9. Select **OK**.
 
-<figure><img src="../_assets/images/dg-param-1-row.png" alt="Data grid - Parameters (1 row)" width="375"><figcaption><p>Data grid - Parameters (1 row)</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/dg-param-1-row.png" alt="Data grid - Parameters (1 row)" width="626">
+<figcaption>Data grid - Parameters (1 row)</figcaption>
+</figure>
+</div>
 
 10. On the **Design** tab, open the **Input** folder and drag **Table input** onto the canvas.
 11. Create a hop from **Parameters (1 row)** to **Table input**: hold `Shift` and drag from one step to the other.
@@ -90,7 +93,12 @@ AND    PRODUCTSCALE = ?
 17. Set **Insert data from step** to `Parameters (1 row)`.
 18. Leave **Execute for each row?** cleared, and select **OK**.
 
-<figure><img src="../_assets/images/ti-param.png" alt="Table input - parameters ? - single row" width="563"><figcaption><p>Table input - parameters ? - single row</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/ti-param.png" alt="Table input - parameters ? - single row" width="800">
+<figcaption>Table input - parameters ? - single row</figcaption>
+</figure>
+</div>
 
 > **Note:** How the `?` markers are filled:
 >
@@ -104,7 +112,12 @@ AND    PRODUCTSCALE = ?
 
 > **Success:** Checkpoint: 3 products, the Classic Cars in 1:10 scale: `1952 Alpine Renault 1300`, `1972 Alfa Romeo GTA` and `1962 LanciaA Delta 16V`.
 
-<figure><img src="../_assets/images/param-results-1-row.png" alt="Preview data: the Classic Cars products in 1:10 scale" width="563"><figcaption><p>One row of values, one query</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/param-results-1-row.png" alt="Preview data: the Classic Cars products in 1:10 scale" width="800">
+<figcaption>One row of values, one query</figcaption>
+</figure>
+</div>
 
 > **Under the hood:**
 >
@@ -156,7 +169,12 @@ AND    PRODUCTSCALE = ?
 
 6. Select **OK**.
 
-<figure><img src="../_assets/images/dg-param-several-rows.png" alt="Data grid Parameters (several rows) with three product line and scale pairs"><figcaption><p>Three sets of values</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/dg-param-several-rows.png" alt="Data grid Parameters (several rows) with three product line and scale pairs" width="626">
+<figcaption>Three sets of values</figcaption>
+</figure>
+</div>
 
 7. From the **Input** folder, drag a second **Table input** onto the canvas.
 8. Create a hop from **Parameters (several rows)** to the new **Table input**.
@@ -167,7 +185,12 @@ AND    PRODUCTSCALE = ?
 13. Set **Insert data from step** to `Parameters (several rows)`.
 14. Select **Execute for each row?**, and select **OK**.
 
-<figure><img src="../_assets/images/ti-param-serveral-rows.png" alt="Table input Steel Wheels Products 2 with the ? query and Execute for each row selected"><figcaption><p>Table input - parameters ? - several rows</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/ti-param-serveral-rows.png" alt="Table input Steel Wheels Products 2 with the ? query and Execute for each row selected" width="800">
+<figcaption>Table input - parameters ? - several rows</figcaption>
+</figure>
+</div>
 
 15. Save the transformation (`Ctrl+S`).
 16. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
@@ -175,7 +198,12 @@ AND    PRODUCTSCALE = ?
 
 > **Success:** Checkpoint: 7 products, 3 Classic Cars in 1:10, 3 Motorcycles in 1:10 and 1 Motorcycle in 1:12, from three executions of the one query. The markers are filled as in tab 1: in field order, values only.
 
-<figure><img src="../_assets/images/results-several-rows.png" alt="Preview data: Classic Cars in 1:10 and Motorcycles in 1:10 and 1:12"><figcaption><p>One query per row, one result</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/results-several-rows.png" alt="Preview data: Classic Cars in 1:10 and Motorcycles in 1:10 and 1:12" width="800">
+<figcaption>One query per row, one result</figcaption>
+</figure>
+</div>
 
 > **Under the hood:**
 >
@@ -220,7 +248,12 @@ AND    PRODUCTSCALE = ?
 
 6. Select **OK**.
 
-<figure><img src="../_assets/images/dg-1-by-row.png" alt="Data grid - Parameters (1 by row)"><figcaption><p>Data grid - Parameters (1 by row)</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/dg-1-by-row.png" alt="Data grid - Parameters (1 by row)" width="626">
+<figcaption>Data grid - Parameters (1 by row)</figcaption>
+</figure>
+</div>
 
 7. From the **Input** folder, drag a third **Table input** onto the canvas.
 8. Create a hop from **Parameters (1 by row)** to the new **Table input**.
@@ -231,7 +264,12 @@ AND    PRODUCTSCALE = ?
 13. Set **Insert data from step** to `Parameters (1 by row)`.
 14. Leave **Execute for each row?** cleared, and select **OK**.
 
-<figure><img src="../_assets/images/param-row-by-row.png" alt="Table input - parameters ? - 1 by row"><figcaption><p>Table input - parameters ? - 1 by row</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/param-row-by-row.png" alt="Table input - parameters ? - 1 by row" width="800">
+<figcaption>Table input - parameters ? - 1 by row</figcaption>
+</figure>
+</div>
 
 15. Save the transformation (`Ctrl+S`).
 16. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
@@ -239,7 +277,12 @@ AND    PRODUCTSCALE = ?
 
 > **Success:** Checkpoint: the same 3 products as tab 1. The first row's value fills the first `?`, the second row's value the second.
 
-<figure><img src="../_assets/images/param-results-1-row.png" alt="Preview data: the Classic Cars products in 1:10 scale, as in tab 1"><figcaption><p>The same result as one row</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/param-results-1-row.png" alt="Preview data: the Classic Cars products in 1:10 scale, as in tab 1" width="800">
+<figcaption>The same result as one row</figcaption>
+</figure>
+</div>
 
 > **Note:** This approach is less flexible than one row: every value shares one column, so values of different types (a String and a Date, say) can't be passed this way.
 

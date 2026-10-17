@@ -27,14 +27,12 @@
 
 </figure>
 
-<figure>
-
-![The finished transformation: Data Grid, Get System Info and Dimension lookup/update in a line](../_assets/images/dim-scd-trans.png)
-
 <div align="center">
-<figcaption><em>What you build</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/dim-scd-trans.png" alt="The finished transformation: Data Grid, Get System Info and Dimension lookup/update in a line" width="610">
+<figcaption>What you build</figcaption>
 </figure>
+</div>
 
 ::::: tabs
 
@@ -105,7 +103,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
 | `id`   | Integer |
 | `city` | String  |
 
-<figure><img src="../_assets/images/dg-scd.png" alt="Data grid Meta tab with id Integer and city String"><figcaption><p>Two fields</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/dg-scd.png" alt="Data grid Meta tab with id Integer and city String" width="686">
+<figcaption>Two fields</figcaption>
+</figure>
+</div>
 
 8. On the **Data** tab, enter one row:
 
@@ -113,7 +116,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
 | ---- | -------- |
 | `1`  | `London` |
 
-<figure><img src="../_assets/images/dg-data-scd.png" alt="Data grid Data tab with the row 1, London"><figcaption><p>One city to start</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/dg-data-scd.png" alt="Data grid Data tab with the row 1, London" width="686">
+<figcaption>One city to start</figcaption>
+</figure>
+</div>
 
 9. Select **OK**.
 
@@ -135,7 +143,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
 | ------------- | ------------------------ |
 | `LAST_UPDATE` | `system date (variable)` |
 
-<figure><img src="../_assets/images/get-system-info.png" alt="Get system info with LAST_UPDATE as system date (variable)" width="563"><figcaption><p>The time of the run</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/get-system-info.png" alt="Get system info with LAST_UPDATE as system date (variable)" width="746">
+<figcaption>The time of the run</figcaption>
+</figure>
+</div>
 
 6. Select **OK**.
 
@@ -171,7 +184,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
 | **Table date range end**      | `date_to`                 |
 | **Max. year**                 | `2199`                    |
 
-<figure><img src="../_assets/images/dim-scd-update-2.png" alt="Dimension lookup/update with Update the dimension selected, the cache cleared, the id key, TK, version, the LAST_UPDATE stream date and the date range fields" width="563"><figcaption><p>Keys and the type 2 columns</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/dim-scd-update-2.png" alt="Dimension lookup/update with Update the dimension selected, the cache cleared, the id key, TK, version, the LAST_UPDATE stream date and the date range fields" width="800">
+<figcaption>Keys and the type 2 columns</figcaption>
+</figure>
+</div>
 
 8. On the **Fields** tab, fill the grid with two rows. You change **Type of dimension update** between runs; start with **Update** for both:
 
@@ -197,12 +215,22 @@ MySQL column names are not case-sensitive, so the dimension field `LAST_UPDATE` 
 
 1. Double-click **Dimension lookup/update** and clear **Update the dimension?**.
 
-<figure><img src="../_assets/images/dim-scd-set-lookup.png" alt="Dimension lookup/update with Update the dimension cleared"><figcaption><p>Lookup mode</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/dim-scd-set-lookup.png" alt="Dimension lookup/update with Update the dimension cleared" width="800">
+<figcaption>Lookup mode</figcaption>
+</figure>
+</div>
 
 2. On the **Fields** tab, the columns now describe what the lookup returns. On the `city` row, set **Type of return field** to `String`.
 3. Right-click the `LAST_UPDATE` row and select **Delete selected lines**.
 
-<figure><img src="../_assets/images/dim-scd-city-string.png" alt="Fields tab in lookup mode: city returned as a String"><figcaption><p>Return city as a String</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/dim-scd-city-string.png" alt="Fields tab in lookup mode: city returned as a String" width="800">
+<figcaption>Return city as a String</figcaption>
+</figure>
+</div>
 
 4. Select **OK**.
 5. Save the transformation (`Ctrl+S`).
@@ -239,7 +267,12 @@ MySQL column names are not case-sensitive, so the dimension field `LAST_UPDATE` 
 
 8. Select **Dimension lookup/update** on the canvas and open the **Preview data** tab.
 
-<figure><img src="../_assets/images/view-lookup-data.png" alt="Preview data: London with TK 0 and city_1 null"><figcaption><p>London isn't in the dimension: TK 0</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/view-lookup-data.png" alt="Preview data: London with TK 0 and city_1 null" width="800">
+<figcaption>London isn't in the dimension: TK 0</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: London comes back with `TK` `0` and `city_1` `<null>` (`city_1` is the returned city, renamed because the stream already has a `city`).
 
@@ -259,7 +292,12 @@ MySQL column names are not case-sensitive, so the dimension field `LAST_UPDATE` 
 | `city`          | `city`                       | Update                   |
 | `LAST_UPDATE`   | `LAST_UPDATE`                | Update                   |
 
-<figure><img src="../_assets/images/update-fields.png" alt="Fields tab: city and last_update both set to Update"><figcaption><p>Both fields: Update (type 1)</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/update-fields.png" alt="Fields tab: city and last_update both set to Update" width="800">
+<figcaption>Both fields: Update (type 1)</figcaption>
+</figure>
+</div>
 
 > **Note:**
 >
@@ -301,7 +339,12 @@ In the tables below, `(run N)` stands for the date and time of run N.
 | ---- | -------- |
 | `2`  | `Madrid` |
 
-<figure><img src="../_assets/images/dg-update.png" alt="Data grid with London and Madrid"><figcaption><p>Add Madrid</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/dg-update.png" alt="Data grid with London and Madrid" width="686">
+<figcaption>Add Madrid</figcaption>
+</figure>
+</div>
 
 8. Select **OK**.
 9. Save the transformation (`Ctrl+S`).
@@ -338,7 +381,12 @@ In the tables below, `(run N)` stands for the date and time of run N.
 | ---- | -------- |
 | `3`  | `Pariss` |
 
-<figure><img src="../_assets/images/dg-pariss.png" alt="Data grid with London, Madrid and Pariss"><figcaption><p>Add Pariss</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/dg-pariss.png" alt="Data grid with London, Madrid and Pariss" width="686">
+<figcaption>Add Pariss</figcaption>
+</figure>
+</div>
 
 2. Select **OK**.
 3. Save the transformation (`Ctrl+S`).
@@ -360,12 +408,22 @@ In the tables below, `(run N)` stands for the date and time of run N.
 
 6. Double-click **Data Grid** and, on the **Data** tab, correct `Pariss` to `Paris`.
 
-<figure><img src="../_assets/images/dg-paris.png" alt="Data grid with Pariss corrected to Paris"><figcaption><p>Correct the typo</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/dg-paris.png" alt="Data grid with Pariss corrected to Paris" width="686">
+<figcaption>Correct the typo</figcaption>
+</figure>
+</div>
 
 7. Select **OK**.
 8. Double-click **Dimension lookup/update**. On the **Fields** tab, set **Type of dimension update** for `city` to **Insert**, and leave `LAST_UPDATE` on **Update**.
 
-<figure><img src="../_assets/images/dim-scd-fields.png" alt="Fields tab: city set to Insert, LAST_UPDATE set to Update"><figcaption><p>city: Insert (type 2)</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/dim-scd-fields.png" alt="Fields tab: city set to Insert, LAST_UPDATE set to Update" width="800">
+<figcaption>city: Insert (type 2)</figcaption>
+</figure>
+</div>
 
 > **Warning:** **Insert** records the change as a new version. With **Update**, the step would overwrite `Pariss` in place, and the old value would be gone (type 1).
 
@@ -425,7 +483,12 @@ In the tables below, `(run N)` stands for the date and time of run N.
 
 1. Double-click **Dimension lookup/update**. On the **Fields** tab, set **Type of dimension update** to **Punch through** for both `city` and `LAST_UPDATE`.
 
-<figure><img src="../_assets/images/punch-through-strategy.png" alt="Fields tab: city and last_update both set to Punch through"><figcaption><p>Both fields: Punch through</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/punch-through-strategy.png" alt="Fields tab: city and last_update both set to Punch through" width="800">
+<figcaption>Both fields: Punch through</figcaption>
+</figure>
+</div>
 
 2. Select **OK**.
 3. Save the transformation (`Ctrl+S`).

@@ -21,14 +21,12 @@
 > 
 > **Estimated time:** 30 minutes
 
-<figure>
-
-![The flow: six Excel sheets become XML fragments with Add XML, and five chained XML Join steps nest them into one document, written by Text file output](../_assets/images/xml-join-orders.png)
-
 <div align="center">
-<figcaption><em>What you build: each join takes the document so far as its target and adds one level</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/xml-join-orders.png" alt="The flow: six Excel sheets become XML fragments with Add XML, and five chained XML Join steps nest them into one document, written by Text file output" width="800">
+<figcaption>What you build: each join takes the document so far as its target and adds one level</figcaption>
 </figure>
+</div>
 
 > **Note:**
 >
@@ -38,7 +36,12 @@
 > 
 > By chaining several **XML join** steps, each one inserting the next level at a deeper XPath, you assemble a deeply nested document: here, order list, order, header comments, lines, line comments and sub-lines.
 
-<figure><img src="../_assets/images/xml-join.png" alt="Pentaho Data Integration title card: XML Join"><figcaption><p>XML Join</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/xml-join.png" alt="Pentaho Data Integration title card: XML Join" width="800">
+<figcaption>XML Join</figcaption>
+</figure>
+</div>
 
 > **Tip:** The finished transformation is installed in the lab's `solution` folder (see **Lab Files**). Open it in Spoon beside your own to compare the wiring as you work.
 
@@ -402,14 +405,12 @@ With **Complex join?** selected, the step replaces the `?` in **XPath Statement*
 8. Select **OK**.
 9. Save the transformation (`Ctrl+S`).
 
-<figure>
-
-![tr_xml_join.ktr on the Spoon canvas: every step of the solution and the hops between them](../_assets/images/canvas-25-tr-xml-join.png)
-
 <div align="center">
-<figcaption><em>The finished transformation in Spoon</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/canvas-25-tr-xml-join.png" alt="tr_xml_join.ktr on the Spoon canvas: every step of the solution and the hops between them" width="680">
+<figcaption>The finished transformation in Spoon</figcaption>
 </figure>
+</div>
 
 ### 7. Run
 

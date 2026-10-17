@@ -58,25 +58,50 @@ DBeaver Community Edition ships with most drivers, which makes it a quick connec
 
 1. Start DBeaver. On the toolbar, select the arrow beside the **New Database Connection** button (the plug icon), and select **MySQL**.
 
-<figure><img src="../_assets/images/mysql.png" alt="DBeaver's New Database Connection drop-down on the toolbar, listing database types with the pointer on MySQL"><figcaption><p>New Database Connection, MySQL</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/mysql.png" alt="DBeaver's New Database Connection drop-down on the toolbar, listing database types with the pointer on MySQL" width="490">
+<figcaption>New Database Connection, MySQL</figcaption>
+</figure>
+</div>
 
 2. On the **Main** tab, set **Server Host** to `localhost`, **Port** to `3306`, **Database** to `sampledata`, **Username** to `pentaho_admin` and **Password** to `password`.
 
-<figure><img src="../_assets/images/configure-x26-test-mysql-connection-sampledata.png" alt="DBeaver's connection settings on the Main tab: Server Host localhost, Port 3306, Database sampledata, with the Username and Password fields below and Test Connection at the bottom left"><figcaption><p>The Main tab (the screenshot shows a different username)</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/configure-x26-test-mysql-connection-sampledata.png" alt="DBeaver's connection settings on the Main tab: Server Host localhost, Port 3306, Database sampledata, with the Username and Password fields below and Test Connection at the bottom left" width="686">
+<figcaption>The Main tab (the screenshot shows a different username)</figcaption>
+</figure>
+</div>
 
 3. Select **Test Connection ...**. If DBeaver offers to download the MySQL driver, accept the download.
 4. If the test fails with an error about public key retrieval, open the **Driver properties** tab, set **allowPublicKeyRetrieval** to `TRUE`, and select **Test Connection ...** again.
 
-<figure><img src="../_assets/images/image-56.png" alt="DBeaver's Driver properties tab with the allowPublicKeyRetrieval row selected and its value list open: TRUE, FALSE, YES, NO"><figcaption><p>allowPublicKeyRetrieval on the Driver properties tab</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/image-56.png" alt="DBeaver's Driver properties tab with the allowPublicKeyRetrieval row selected and its value list open: TRUE, FALSE, YES, NO" width="611">
+<figcaption>allowPublicKeyRetrieval on the Driver properties tab</figcaption>
+</figure>
+</div>
 
-<figure><img src="../_assets/images/test-connection-2.png" alt="DBeaver's Connection test dialog reading Connected, with the MySQL server version and the Connector/J driver version"><figcaption><p>A successful connection test</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/test-connection-2.png" alt="DBeaver's Connection test dialog reading Connected, with the MySQL server version and the Connector/J driver version" width="412">
+<figcaption>A successful connection test</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: the **Connection test** dialog reads **Connected**.
 
 5. Select **OK** to close the test dialog, then select **Finish**.
 6. In the **Database Navigator**, expand **sampledata**, **Databases**, **sampledata** and **Tables**, double-click `CUSTOMERS`, and open the **Data** tab.
 
-<figure><img src="../_assets/images/customer-data.png" alt="DBeaver with the sampledata tables listed in the Database Navigator and the CUSTOMERS table open on the Data tab, the first row customer 103, Atelier graphique; the status bar reads 122 row(s) fetched"><figcaption><p>The CUSTOMERS table on the Data tab</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/customer-data.png" alt="DBeaver with the sampledata tables listed in the Database Navigator and the CUSTOMERS table open on the Data tab, the first row customer 103, Atelier graphique; the status bar reads 122 row(s) fetched" width="800">
+<figcaption>The CUSTOMERS table on the Data tab</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: the status bar under the grid reads `122 row(s) fetched`, and the first row is customer `103`, `Atelier graphique`.
 
@@ -88,7 +113,12 @@ select * from CUSTOMERS
 where COUNTRY = 'USA' and CITY = 'NYC';
 ```
 
-<figure><img src="../_assets/images/sql-query-nyc-customers.png" alt="DBeaver's SQL editor with the NYC query and, below it, five result rows from Land of Toys Inc. to Microscale Inc.; the status bar reads 5 row(s) fetched"><figcaption><p>The NYC customers</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/sql-query-nyc-customers.png" alt="DBeaver's SQL editor with the NYC query and, below it, five result rows from Land of Toys Inc. to Microscale Inc.; the status bar reads 5 row(s) fetched" width="800">
+<figcaption>The NYC customers</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: 5 customers, from `Land of Toys Inc.` to `Microscale Inc.`, and the status bar reads `5 row(s) fetched`.
 
@@ -155,7 +185,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
 2. Select **File > New > Transformation** (`Ctrl+N`).
 3. Select **File > New > Database Connection**. The **Database Connection** dialog opens on **General**.
 
-<figure><img src="../_assets/images/file-new-database-connection.png" alt="Spoon's File menu with New open and Database Connection highlighted in the submenu"><figcaption><p>File &gt; New &gt; Database Connection</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/file-new-database-connection.png" alt="Spoon's File menu with New open and Database Connection highlighted in the submenu" width="605">
+<figcaption>File &gt; New &gt; Database Connection</figcaption>
+</figure>
+</div>
 
 4. On **General**, enter these settings. Select **MySQL** in the **Connection type** list and **Native (JDBC)** in the **Access** list:
 
@@ -170,7 +205,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
    | **Username** | `pentaho_admin` |
    | **Password** | `password` |
 
-<figure><img src="../_assets/images/mysql-sampledata.png" alt="The Database Connection dialog on General: connection name MySQL:sampledata, connection type MySQL, access Native (JDBC), and the Settings panel with localhost, sampledata, 3306 and pentaho_admin"><figcaption><p>The MySQL:sampledata connection, General</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/mysql-sampledata.png" alt="The Database Connection dialog on General: connection name MySQL:sampledata, connection type MySQL, access Native (JDBC), and the Settings panel with localhost, sampledata, 3306 and pentaho_admin" width="780">
+<figcaption>The MySQL:sampledata connection, General</figcaption>
+</figure>
+</div>
 
 > **Warning:** Use the MySQL driver. A MariaDB driver newer than 2.7.x can fail with a **fetch size** error against this database.
 
@@ -232,7 +272,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 1. In the **View** tab, expand **Database connections**, right-click `MySQL:sampledata`, and select **Move to System**.
 
-<figure><img src="../_assets/images/share-database-connection.png" alt="Spoon's View tab with the right-click menu of MySQL:sampledata [File] open: Edit, Move to System, Copy to System, Delete, SQL Editor, Clear DB Cache and Explore"><figcaption><p>The connection's right-click menu (earlier PDI version)</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/share-database-connection.png" alt="Spoon's View tab with the right-click menu of MySQL:sampledata [File] open: Edit, Move to System, Copy to System, Delete, SQL Editor, Clear DB Cache and Explore" width="468">
+<figcaption>The connection's right-click menu (earlier PDI version)</figcaption>
+</figure>
+</div>
 
 2. Select **File > New > Transformation** (`Ctrl+N`), and in the **View** tab expand **Database connections** under the new transformation.
 
@@ -290,7 +335,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
 | **Truncate Table** | Deletes every row in the table |
 | **Data Profile** | Profiles the table's columns |
 
-<figure><img src="../_assets/images/db-explorer.png" alt="The Database Explorer with the Tables folder expanded, listing customers, employees, orders, products and the other sampledata tables, and the Actions button at the top right" width="375"><figcaption><p>The sampledata tables</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/db-explorer.png" alt="The Database Explorer with the Tables folder expanded, listing customers, employees, orders, products and the other sampledata tables, and the Actions button at the top right" width="626">
+<figcaption>The sampledata tables</figcaption>
+</figure>
+</div>
 
 4. Right-click `CUSTOMERS` and select **Preview first 100**. The rows show in **Examine preview data**.
 
@@ -305,11 +355,21 @@ SELECT * FROM CUSTOMERS
 where COUNTRY = 'USA' and CITY = 'NYC';
 ```
 
-<figure><img src="../_assets/images/sql.png" alt="The Simple SQL editor with a SELECT on CUSTOMERS filtered to Country USA and city NYC, and the Execute, Clear cache and Close buttons" width="375"><figcaption><p>The SELECT with the NYC filter</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/sql.png" alt="The Simple SQL editor with a SELECT on CUSTOMERS filtered to Country USA and city NYC, and the Execute, Clear cache and Close buttons" width="626">
+<figcaption>The SELECT with the NYC filter</figcaption>
+</figure>
+</div>
 
 8. Select **Execute**.
 
-<figure><img src="../_assets/images/execute-sql-statement.png" alt="Examine preview data with 5 rows of SQL statement #1: customers 131, 151, 181, 424 and 456, from Land of Toys Inc. to Microscale Inc."><figcaption><p>The query's results</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/execute-sql-statement.png" alt="Examine preview data with 5 rows of SQL statement #1: customers 131, 151, 181, 424 and 456, from Land of Toys Inc. to Microscale Inc." width="800">
+<figcaption>The query's results</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: **Examine preview data** shows 5 rows, from `131`, `Land of Toys Inc.` to `456`, `Microscale Inc.`, the same customers as in Adminer or DBeaver.
 

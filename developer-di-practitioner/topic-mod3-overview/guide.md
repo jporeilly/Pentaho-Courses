@@ -31,7 +31,12 @@ Use this page to find your way, then open the section you need.
 > 
 > Start here: [Flat Files](../topic-mod3-flat-files-review/guide.md).
 
-<figure><img src="../_assets/images/flat-files-2.png" alt="Flat file types: structured, unstructured, semi-structured, and metadata"><figcaption><p>Kinds of flat file</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/flat-files-2.png" alt="Flat file types: structured, unstructured, semi-structured, and metadata" width="800">
+<figcaption>Kinds of flat file</figcaption>
+</figure>
+</div>
 
 ::: tabs
 
@@ -79,7 +84,12 @@ Use this page to find your way, then open the section you need.
 > 
 > Start here: [Databases](../topic-mod3-databases-review/guide.md).
 
-<figure><img src="../_assets/images/database-connection.png" alt="PDI connecting through JDBC drivers to several relational databases"><figcaption><p>Database connections</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/database-connection.png" alt="PDI connecting through JDBC drivers to several relational databases" width="800">
+<figcaption>Database connections</figcaption>
+</figure>
+</div>
 
 ### Storage
 
@@ -91,7 +101,12 @@ Use this page to find your way, then open the section you need.
 > 
 > Start here: [Storage](../topic-mod3-storage-review/guide.md).
 
-<figure><img src="../_assets/images/storage-types-overview.png" alt="Storage types PDI can reach through VFS connections"><figcaption><p>Storage types</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/storage-types-overview.png" alt="Storage types PDI can reach through VFS connections" width="800">
+<figcaption>Storage types</figcaption>
+</figure>
+</div>
 
 ### Big Data
 
@@ -101,7 +116,12 @@ Use this page to find your way, then open the section you need.
 > 
 > Big data sources need distributed compute: Hadoop (HDFS, Hive, HBase), Spark, NoSQL stores and Kafka. PDI has dedicated steps and adapters for these platforms, so it can transform data where it lives. This course has no workshop on them; the Pentaho documentation covers each one.
 
-<figure><img src="../_assets/images/types-of-big-data.png" alt="Types of big data platforms"><figcaption><p>Types of big data</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/types-of-big-data.png" alt="Types of big data platforms" width="720">
+<figcaption>Types of big data</figcaption>
+</figure>
+</div>
 
 ### Jupyter Notebook
 
@@ -111,7 +131,12 @@ Use this page to find your way, then open the section you need.
 > 
 > Jupyter is a web-based notebook that mixes code, charts and narrative text, which suits exploratory analysis and prototyping. In a typical setup the notebook does the advanced analysis and PDI runs the production pipelines and schedules around it.
 
-<figure><img src="../_assets/images/jupyter-notebook.png" alt="Jupyter Notebook"><figcaption><p>Jupyter Notebook</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/jupyter-notebook.png" alt="Jupyter Notebook" width="800">
+<figcaption>Jupyter Notebook</figcaption>
+</figure>
+</div>
 
 ::::
 

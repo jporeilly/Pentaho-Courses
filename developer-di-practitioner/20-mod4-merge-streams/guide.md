@@ -18,16 +18,19 @@
 > 
 > **Estimated time:** 25 minutes
 
+<div align="center">
 <figure>
-
-![The finished transformation: orders and description inputs, Add description, two Select values steps, and a Dummy step they both feed](../_assets/images/merge-streams-2.png)
+<img src="../_assets/images/merge-streams-2.png" alt="The finished transformation: orders and description inputs, Add description, two Select values steps, and a Dummy step they both feed" width="630">
+<figcaption>What you build</figcaption>
+</figure>
+</div>
 
 <div align="center">
-<figcaption><em>What you build</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/merge-streams-3.png" alt="Pentaho Data Integration title card: Merge Streams" width="800">
+<figcaption>Merge Streams</figcaption>
 </figure>
-
-<figure><img src="../_assets/images/merge-streams-3.png" alt="Pentaho Data Integration title card: Merge Streams"><figcaption><p>Merge Streams</p></figcaption></figure>
+</div>
 
 :::: tabs
 
@@ -140,7 +143,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 5. Select **OK**.
 
-<figure><img src="../_assets/images/merge-streams-select.png" alt="Select Orders: the six product fields in order on the Select and Alter tab"><figcaption><p>The same six fields, in the same order, in both</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/merge-streams-select.png" alt="Select Orders: the six product fields in order on the Select and Alter tab" width="800">
+<figcaption>The same six fields, in the same order, in both</figcaption>
+</figure>
+</div>
 
 6. Drag a second **Select values** onto the canvas, and create a hop from **description** to it.
 7. Double-click it. Set **Step name** to `Select Description`.
@@ -164,7 +172,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
 2. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
 3. Select **Dummy (do nothing)** on the canvas and open the **Preview data** tab.
 
-<figure><img src="../_assets/images/merge-streams-preview.png" alt="Preview data: the merged rows from both streams in one set of columns"><figcaption><p>One stream, one layout</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/merge-streams-preview.png" alt="Preview data: the merged rows from both streams in one set of columns" width="800">
+<figcaption>One stream, one layout</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: 18 rows. The 9 rows from `orders` have their names, lines, scales and vendors, and an empty description; the 9 from `description` have only the code and the description. The merge stacks rows, it doesn't combine them: each product appears twice, once from each file. To combine both halves into one row per product, you join the streams on `PRODUCTCODE`, as the [Joins](../topic-mod4-joins-review/guide.md) workshops show.
 

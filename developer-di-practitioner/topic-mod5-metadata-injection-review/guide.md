@@ -22,14 +22,12 @@ Build a transformation once and feed it its settings at run time. Metadata injec
 >
 > The template file is never changed: the injection fills a copy in memory and runs that.
 
-<figure>
-
-![A metadata injection transformation: per-supplier metadata from a spreadsheet and the supplier's files are joined and passed to ETL Metadata Injection, which modifies and runs the template](../_assets/images/mdi.png)
-
 <div align="center">
-<figcaption><em>Metadata in, template filled, template run</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/mdi.png" alt="A metadata injection transformation: per-supplier metadata from a spreadsheet and the supplier's files are joined and passed to ETL Metadata Injection, which modifies and runs the template" width="716">
+<figcaption>Metadata in, template filled, template run</figcaption>
 </figure>
+</div>
 
 Workshop: [Onboarding to a table](../31-mod5-onboarding-to-a-table/guide.md).
 

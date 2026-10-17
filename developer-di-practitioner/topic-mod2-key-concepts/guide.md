@@ -41,7 +41,12 @@ Now that PDI is configured, build something with it. You'll create a 'Hello Worl
 > A hop carries rows from one step to the next. Each hop is a row buffer between one step's output and the next step's input. In the transformation below, rows flow from **Text file input** to **Filter rows**, then **Sort rows**, and finally **Table output**.
 
 <div class="pcm-embed-card" data-href="https://docs.pentaho.com/pdia-data-integration/transforming-data-with-pdi" data-title="Transforming data with PDI | Pentaho Documentation"></div>
-<div data-full-width="true"><figure><img src="../_assets/images/steps.png" alt="Steps &#x26; Hops = Transformation" width="563"><figcaption><p>Steps &#x26; Hops = Transformation</p></figcaption></figure></div>
+<div align="center">
+<figure>
+<img src="../_assets/images/steps.png" alt="Steps &amp; Hops = Transformation" width="500">
+<figcaption>Steps &#x26; Hops = Transformation</figcaption>
+</figure>
+</div>
 
 ***
 
@@ -59,11 +64,26 @@ Now that PDI is configured, build something with it. You'll create a 'Hello Worl
 
 As well as steps and hops, a transformation can hold **notes**, which document it on the canvas.
 
-<div align="left"><figure><img src="../_assets/images/copy-rows.png" alt="Copy rows" width="563"><figcaption><p>Copy rows</p></figcaption></figure></div>
+<div align="center">
+<figure>
+<img src="../_assets/images/copy-rows.png" alt="Copy rows" width="500">
+<figcaption>Copy rows</figcaption>
+</figure>
+</div>
 
-<div align="left"><figure><img src="../_assets/images/distribute-rows.png" alt="Distribute rows" width="563"><figcaption><p>Distribute rows</p></figcaption></figure></div>
+<div align="center">
+<figure>
+<img src="../_assets/images/distribute-rows.png" alt="Distribute rows" width="500">
+<figcaption>Distribute rows</figcaption>
+</figure>
+</div>
 
-<figure><img src="../_assets/images/transformations.jpeg" alt="Steps"><figcaption><p>Steps</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/transformations.jpeg" alt="Steps" width="800">
+<figcaption>Steps</figcaption>
+</figure>
+</div>
 
 ### 2. Parallelism
 
@@ -75,7 +95,12 @@ As well as steps and hops, a transformation can hold **notes**, which document i
 > 
 > As soon as the first step has read some rows, it writes them into its outgoing hop. The next step reads them from there while the first step is still reading, and writes its own output into the next hop, and so on down the line. Rows stream through; no step waits for the one before it to finish. You set the buffer size on the **Miscellaneous** tab of **Transformation properties**.
 
-<figure><img src="../_assets/images/parallelism.png" alt="Parallelism" width="563"><figcaption><p>parallelism</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/parallelism.png" alt="Parallelism" width="500">
+<figcaption>parallelism</figcaption>
+</figure>
+</div>
 
 > **Note:**
 >
@@ -83,7 +108,12 @@ As well as steps and hops, a transformation can hold **notes**, which document i
 > 
 > When you tune performance, especially on a machine with plenty of RAM, you may want a larger buffer. It is the **Nr of rows in rowset** setting in **Transformation properties**, and it applies to every hop in the transformation. A larger buffer can let the first steps finish sooner, freeing CPU time for the steps after them.
 
-<div align="center"><figure><img src="../_assets/images/buffer-rows.png" alt="Changing buffer row set" width="563"><figcaption><p>Changing buffer row set</p></figcaption></figure></div>
+<div align="center">
+<figure>
+<img src="../_assets/images/buffer-rows.png" alt="Changing buffer row set" width="563">
+<figcaption>Changing buffer row set</figcaption>
+</figure>
+</div>
 
 ### 3. Data Types
 
@@ -95,7 +125,7 @@ As well as steps and hops, a transformation can hold **notes**, which document i
 
 The following table describes these mappings:
 
-<table><thead><tr><th width="176.66666666666666">PDI Data Type</th><th width="149">Java Data Type</th><th>Description</th><th>Example</th></tr></thead><tbody><tr><td>BigNumber</td><td>BigDecimal</td><td>An arbitrary unlimited precision number.</td><td>3.141592653589793238462643383279502884197169399375105820974944</td></tr><tr><td>Binary</td><td>Byte[]</td><td>An array of bytes that contain any type of binary data.</td><td>An image file or a compressed file can be stored as Binary data</td></tr><tr><td>Boolean</td><td>Boolean</td><td>A boolean value <code>true</code> or <code>false.</code></td><td>A boolean value true or false</td></tr><tr><td>Date</td><td>Date</td><td>A date-time value with millisecond precision.</td><td>2023-10-20T10:48:51.123</td></tr><tr><td><p><mark style="color:red;">Hierarchical -</mark></p><p><mark style="color:red;">EE Plugin 9.5+</mark></p></td><td>BinaryTree</td><td>Data items that are related to each other by hierarchical relationships</td><td>A family tree</td></tr><tr><td>Integer</td><td>Long</td><td>A signed long 64-bit integer.</td><td>42</td></tr><tr><td>Internet Address</td><td>InetAddress</td><td>An Internet Protocol (IP) address.</td><td>192.168.0.1</td></tr><tr><td>Number</td><td>Double</td><td>A double precision floating point value (64bits).</td><td>2.7182818284590452353602874713526624977572470936999</td></tr><tr><td>String</td><td>String</td><td>A variable unlimited length text encoded in UTF-8 (Unicode).</td><td>“Hello world!”</td></tr><tr><td>Timestamp</td><td>Timestamp</td><td>Allows the specification of fractional seconds to a precision of nanoseconds.</td><td>2023-10-20T10:48:51.123456789</td></tr></tbody></table>
+<table><thead><tr><th width="176.66666666666666">PDI Data Type</th><th width="149">Java Data Type</th><th>Description</th><th>Example</th></tr></thead><tbody><tr><td>BigNumber</td><td>BigDecimal</td><td>An arbitrary unlimited precision number.</td><td>3.141592653589793238462643383279502884197169399375105820974944</td></tr><tr><td>Binary</td><td>Byte[]</td><td>An array of bytes that contain any type of binary data.</td><td>An image file or a compressed file can be stored as Binary data</td></tr><tr><td>Boolean</td><td>Boolean</td><td>A boolean value <code>true</code> or <code>false.</code></td><td>A boolean value true or false</td></tr><tr><td>Date</td><td>Date</td><td>A date-time value with millisecond precision.</td><td>2023-10-20T10:48:51.123</td></tr><tr><td><p>Hierarchical</p><p>EE Plugin 9.5+</p></td><td>BinaryTree</td><td>Data items that are related to each other by hierarchical relationships</td><td>A family tree</td></tr><tr><td>Integer</td><td>Long</td><td>A signed long 64-bit integer.</td><td>42</td></tr><tr><td>Internet Address</td><td>InetAddress</td><td>An Internet Protocol (IP) address.</td><td>192.168.0.1</td></tr><tr><td>Number</td><td>Double</td><td>A double precision floating point value (64bits).</td><td>2.7182818284590452353602874713526624977572470936999</td></tr><tr><td>String</td><td>String</td><td>A variable unlimited length text encoded in UTF-8 (Unicode).</td><td>“Hello world!”</td></tr><tr><td>Timestamp</td><td>Timestamp</td><td>Allows the specification of fractional seconds to a precision of nanoseconds.</td><td>2023-10-20T10:48:51.123456789</td></tr></tbody></table>
 
 ### 4. Jobs
 
@@ -111,7 +141,12 @@ The following table describes these mappings:
 > 
 > Job entries run one after another, following the hops. (An entry can also be set to start the entries after it in parallel.)
 
-<figure><img src="../_assets/images/job-entries.jpeg" alt="Job Entries"><figcaption><p>Job Entries</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/job-entries.jpeg" alt="Job Entries" width="800">
+<figcaption>Job Entries</figcaption>
+</figure>
+</div>
 
 :::
 

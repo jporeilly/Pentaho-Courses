@@ -22,14 +22,12 @@
 > 
 > **Estimated time:** 30 minutes
 
-<figure>
-
-![The finished transformation: Table input, Calculator, Number range, Sort rows and Select values in a line](../_assets/images/read-database.png)
-
 <div align="center">
-<figcaption><em>What you build</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/read-database.png" alt="The finished transformation: Table input, Calculator, Number range, Sort rows and Select values in a line" width="640">
+<figcaption>What you build</figcaption>
 </figure>
+</div>
 
 :::: tabs
 
@@ -73,7 +71,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
    WHERE STATUS = 'Shipped'
    ```
 
-<figure><img src="../_assets/images/read-db.png" alt="Table input with the sampledata MySQL connection and the SELECT over ORDERS filtered to shipped orders"><figcaption><p>The query</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/read-db.png" alt="Table input with the sampledata MySQL connection and the SELECT over ORDERS filtered to shipped orders" width="800">
+<figcaption>The query</figcaption>
+</figure>
+</div>
 
 10. Select **Preview**, enter `100` rows, and select **OK**. The rows show in **Examine preview data**.
 
@@ -120,7 +123,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
 | ----------- | --------------------------- | -------------- | ------------- | ---------- |
 | `diff_days` | Date A - Date B (in days)   | `REQUIREDDATE` | `SHIPPEDDATE` | Integer    |
 
-<figure><img src="../_assets/images/calc.png" alt="Calculator with diff_days = REQUIREDDATE minus SHIPPEDDATE in days"><figcaption><p>diff_days</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/calc.png" alt="Calculator with diff_days = REQUIREDDATE minus SHIPPEDDATE in days" width="800">
+<figcaption>diff_days</figcaption>
+</figure>
+</div>
 
 4. Select **OK**.
 
@@ -148,7 +156,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
 | 4           | 5           | `20%`     |
 | 5           |             | `Action`  |
 
-<figure><img src="../_assets/images/number-range.png" alt="Number range with input diff_days, output delivery and four ranges"><figcaption><p>Four ranges, one label each</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/number-range.png" alt="Number range with input diff_days, output delivery and four ranges" width="686">
+<figcaption>Four ranges, one label each</figcaption>
+</figure>
+</div>
 
 6. Select **OK**.
 
@@ -167,7 +180,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
 2. Create a hop from **Number range** to **Sort rows**.
 3. Double-click **Sort rows**. In the **Fields** grid, set **Fieldname** to `diff_days` and **Ascending** to `Y`.
 
-<figure><img src="../_assets/images/sort.png" alt="Sort rows with diff_days ascending"><figcaption><p>Sort on diff_days</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/sort.png" alt="Sort rows with diff_days ascending" width="800">
+<figcaption>Sort on diff_days</figcaption>
+</figure>
+</div>
 
 4. Select **OK**.
 
@@ -247,7 +265,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 > **Note:** The screenshot was taken against an older copy of the data, in which order 10165 shipped late and so sorts first, as `unknown`. In the lab database it shipped five days early, so it is labeled `Action`, and your first rows are `On Time`.
 
-<figure><img src="../_assets/images/status-of-shipped-orders.png" alt="Preview data: delivery label, order number, required and shipped dates, customer number"><figcaption><p>Shipped orders with their delivery label</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/status-of-shipped-orders.png" alt="Preview data: delivery label, order number, required and shipped dates, customer number" width="800">
+<figcaption>Shipped orders with their delivery label</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: five fields, `delivery` first, sorted by `diff_days`, so the `On Time` rows come first; the dates show as `MM/dd/yyyy`. Across all 303 rows: 54 `On Time`, 54 `10%`, 42 `20%` and 153 `Action`; none is `unknown`.
 

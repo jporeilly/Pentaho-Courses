@@ -59,14 +59,12 @@ C:/Temp
 
 5. Select **OK**. Spoon writes the file.
 
-<figure>
-
-![The Kettle properties dialog: a grid of variable names and values, with the row menu open at Insert before this row](../_assets/images/set-kettle-variable.png)
-
 <div align="center">
-<figcaption><em>Edit kettle.properties from Spoon</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/set-kettle-variable.png" alt="The Kettle properties dialog: a grid of variable names and values, with the row menu open at Insert before this row" width="800">
+<figcaption>Edit kettle.properties from Spoon</figcaption>
 </figure>
+</div>
 
 > **Success:** Checkpoint: select **Edit > Edit the kettle.properties file** again. The `DIR_SAMPLES` row is there with your value. Select **Cancel**.
 
@@ -82,14 +80,12 @@ Variable names are case-sensitive: `${DIR_SAMPLES}` and `${dir_samples}` are two
 6. Type `/sales.csv` after it, so the field reads `${DIR_SAMPLES}/sales.csv`.
 7. Select **OK**. The file does not need to exist for this workshop.
 
-<figure>
-
-![CSV file input with the variables list open on the Filename field, DIR_SAMPLES at the top](../_assets/images/variable-in-trans.png)
-
 <div align="center">
-<figcaption><em><code>Ctrl+Space</code> in a field lists the variables</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/variable-in-trans.png" alt="CSV file input with the variables list open on the Filename field, DIR_SAMPLES at the top" width="745">
+<figcaption><code>Ctrl+Space</code> in a field lists the variables</figcaption>
 </figure>
+</div>
 
 8. Select **Edit > Show Used Environment Variables** (`Ctrl+L`). The **Existing variables** dialog lists the variables that the open files refer to.
 
@@ -131,14 +127,12 @@ notepad $env:USERPROFILE\.kettle\kettle.properties
 ```
 
 2. Find the `DIR_SAMPLES` line that Spoon wrote in step 1. It reads `DIR_SAMPLES=C\:/Temp`: Spoon saves the file in Java's properties format, which escapes a colon with a backslash. `C\:/Temp` and `C:/Temp` mean the same value, so either works when you type a line yourself.
-<figure>
-
-![kettle.properties open in Notepad: the comment header Spoon writes, then DIR_SAMPLES=C\:/Temp and the KETTLE_ variables](../_assets/images/kettle.png)
-
 <div align="center">
-<figcaption><em>The same file in Notepad</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/kettle.png" alt="kettle.properties open in Notepad: the comment header Spoon writes, then DIR_SAMPLES=C:/Temp and the KETTLE_ variables" width="800">
+<figcaption>The same file in Notepad</figcaption>
 </figure>
+</div>
 
 > **Success:** Checkpoint: the file has a `DIR_SAMPLES=` line with your folder.
 

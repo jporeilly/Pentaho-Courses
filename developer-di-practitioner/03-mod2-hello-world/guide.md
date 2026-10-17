@@ -20,19 +20,15 @@
 > **Estimated time:** 25 minutes
 
 <figure>
-
 <figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
-
 </figure>
-
-<figure>
-
-![The finished Hello World transformation](../_assets/images/hello-world-tr.png)
 
 <div align="center">
-<figcaption><em>What you build</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/hello-world-tr.png" alt="The finished Hello World transformation" width="591">
+<figcaption>What you build</figcaption>
 </figure>
+</div>
 
 :::: tabs
 
@@ -53,7 +49,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 .\spoon.bat
 ```
 
-<button data-launch="spoon" data-path="">Start PDI</button>
+<button data-launch="spoon" data-path="">Start Pentaho Data Integration</button>
 
 2. Select **File > New > Transformation** (`Ctrl+N`).
 3. Select **File > Save as** and save it as `tr_hello_world.ktr` in `C:\Workshop-DI-Practitioner\02-components-concepts\02-key-concepts\03-mod2-hello-world`. The Logging workshop starts from this file.
@@ -61,7 +57,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 > **Tip:** To find a step faster, type part of its name, such as `generate`, in the search box at the top of the **Design** tab.
 
-<div align="center"><figure><img src="../_assets/images/gen-rows.png" alt="The Design tab searched for generate, with Generate rows selected in the Input folder and its tooltip showing" width="563"><figcaption><p>Generate rows in the Input folder</p></figcaption></figure></div>
+<div align="center">
+<figure>
+<img src="../_assets/images/gen-rows.png" alt="The Design tab searched for generate, with Generate rows selected in the Input folder and its tooltip showing" width="475">
+<figcaption>Generate rows in the Input folder</figcaption>
+</figure>
+</div>
 
 5. Double-click **Generate rows**.
 6. Set **Step name** to `gr_hello-world`.
@@ -72,11 +73,21 @@ Set-Location C:\Pentaho\design-tools\data-integration
 | --------- | ------ | ------------- |
 | `message` | String | `hello world` |
 
-<figure><img src="../_assets/images/hello-world-2.png" alt="The Generate rows dialog with Limit 10 and one field, message, of type String with the value hello world" width="563"><figcaption><p>Generate rows settings; name the step gr_hello-world</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/hello-world-2.png" alt="The Generate rows dialog with Limit 10 and one field, message, of type String with the value hello world" width="800">
+<figcaption>Generate rows settings; name the step gr_hello-world</figcaption>
+</figure>
+</div>
 
 9. Select **Preview**, enter `100` rows in the **Enter preview size** dialog, and select **OK**. The step makes only as many rows as its **Limit**.
 
-<figure><img src="../_assets/images/preview-1.png" alt="Examine preview data: 10 rows, each with message hello world" width="375"><figcaption><p>Examine preview data</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/preview-1.png" alt="Examine preview data: 10 rows, each with message hello world" width="626">
+<figcaption>Examine preview data</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: **Examine preview data** shows 10 rows, and every row's `message` is `hello world`.
 
@@ -113,7 +124,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 1. On the **Design** tab, open the **Flow** folder and drag **Dummy (do nothing)** onto the canvas, below **gr_hello-world**. Keep its step name, `Dummy (do nothing)`.
 
-<div align="center"><figure><img src="../_assets/images/dummy.png" alt="The Flow folder of the Design tab, with Dummy (do nothing)" width="375"><figcaption><p>Dummy (do nothing) in the Flow folder</p></figcaption></figure></div>
+<div align="center">
+<figure>
+<img src="../_assets/images/dummy.png" alt="The Flow folder of the Design tab, with Dummy (do nothing)" width="352">
+<figcaption>Dummy (do nothing) in the Flow folder</figcaption>
+</figure>
+</div>
 
 ### 3. Hops and Notes
 
@@ -162,7 +178,19 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 > **Tip:** Every solution in this course carries one note like this, above its steps. Open a solution, and its note tells you what each step does and what the run should give you before you run it.
 
-<div align="left"><figure><img src="../_assets/images/note.png" alt="The Notes dialog on the Note tab, with the note text typed in"><figcaption><p>Notes - the Note tab</p></figcaption></figure> <figure><img src="../_assets/images/note2.png" alt="The Notes dialog on its font and style tab: Font name, Font size, Font bold, Font italic, Font color and Background color"><figcaption><p>Notes - font and style</p></figcaption></figure></div>
+<div align="center">
+<figure>
+<img src="../_assets/images/note.png" alt="The Notes dialog on the Note tab, with the note text typed in" width="543">
+<figcaption>Notes - the Note tab</figcaption>
+</figure>
+</div>
+
+<div align="center">
+<figure>
+<img src="../_assets/images/note2.png" alt="The Notes dialog on its font and style tab: Font name, Font size, Font bold, Font italic, Font color and Background color" width="543">
+<figcaption>Notes - font and style</figcaption>
+</figure>
+</div>
 
 ### 4. Transformation Properties
 
@@ -179,7 +207,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
 5. In **Status**, select **Production**.
 6. Set **Version** to `1.0`.
 
-<div align="center"><figure><img src="../_assets/images/properties.png" alt="The Transformation properties dialog on the Transformation tab, with the name, description, extended description, status and version fields" width="563"><figcaption><p>Transformation properties, before your changes</p></figcaption></figure></div>
+<div align="center">
+<figure>
+<img src="../_assets/images/properties.png" alt="The Transformation properties dialog on the Transformation tab, with the name, description, extended description, status and version fields" width="800">
+<figcaption>Transformation properties, before your changes</figcaption>
+</figure>
+</div>
 
 7. Select **OK**.
 8. Save the transformation (`Ctrl+S`).
@@ -194,20 +227,40 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 1. Press `F9` (**Action > Run**), or select **Run** on the toolbar. The **Run Options** dialog opens.
 
-<div align="center"><figure><img src="../_assets/images/run.png" alt="The toolbar's Run menu open: Run (F9) and Run Options... (F8)" width="375"><figcaption><p>Run from the toolbar</p></figcaption></figure></div>
+<div align="center">
+<figure>
+<img src="../_assets/images/run.png" alt="The toolbar's Run menu open: Run (F9) and Run Options... (F8)" width="276">
+<figcaption>Run from the toolbar</figcaption>
+</figure>
+</div>
 
 2. Keep **Run configuration** as **Pentaho local** and **Log level** as **Basic**, and select **Run**.
 3. If the **File has changed!** dialog asks you to save the transformation, select **Yes**. Select **Automatically save the transformation.** first if you want Spoon to save without asking next time.
 
-<div align="center"><figure><img src="../_assets/images/save-transformations.png" alt="The File has changed! dialog asking to save the transformation before running it, with the Automatically save the transformation check box" width="375"><figcaption><p>Save before running</p></figcaption></figure></div>
+<div align="center">
+<figure>
+<img src="../_assets/images/save-transformations.png" alt="The File has changed! dialog asking to save the transformation before running it, with the Automatically save the transformation check box" width="518">
+<figcaption>Save before running</figcaption>
+</figure>
+</div>
 
-<figure><img src="../_assets/images/ex-trans.png" alt="The canvas after the run: gr_hello-world and Dummy (do nothing) each with a green check mark" width="375"><figcaption><p>Green check marks indicate successful execution</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/ex-trans.png" alt="The canvas after the run: gr_hello-world and Dummy (do nothing) each with a green check mark" width="591">
+<figcaption>Green check marks indicate successful execution</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: both steps show a green check mark on the canvas. A check mark means the step finished without an error; it doesn't prove the data is right. The tabs of **Execution Results**, below the canvas, show what each step did.
 
 4. In **Execution Results**, open the **Logging** tab. It shows the log lines each step wrote.
 
-<div align="center"><figure><img src="../_assets/images/tr-metrics.png" alt="The Logging tab: a Finished processing line for gr_hello-world and one for Dummy (do nothing)"><figcaption><p>Logging</p></figcaption></figure></div>
+<div align="center">
+<figure>
+<img src="../_assets/images/tr-metrics.png" alt="The Logging tab: a Finished processing line for gr_hello-world and one for Dummy (do nothing)" width="800">
+<figcaption>Logging</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: the log has a `Finished processing` line for each step: `gr_hello-world.0` with `W=10`, and `Dummy (do nothing).0` with `R=10, W=10`.
 
@@ -215,7 +268,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 > **Success:** Checkpoint: **gr_hello-world** shows **Written** 10, and **Dummy (do nothing)** shows **Read** 10 and **Written** 10. **Errors** is 0 for both.
 
-<figure><img src="../_assets/images/step-metrics.png" alt="The Step Metrics tab: gr_hello-world Written 10, Dummy (do nothing) Read 10 and Written 10"><figcaption><p>Step Metrics</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/step-metrics.png" alt="The Step Metrics tab: gr_hello-world Written 10, Dummy (do nothing) Read 10 and Written 10" width="800">
+<figcaption>Step Metrics</figcaption>
+</figure>
+</div>
 
 > **Under the hood:**
 >
@@ -241,19 +299,34 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 6. Open the **Metrics** tab. It draws how long each part of the run took: the transformation, each step's initialization, and each step's execution.
 
-<figure><img src="../_assets/images/metrics.png" alt="The Metrics tab: bars for executing and initializing the transformation and for initializing and executing each step"><figcaption><p>Metrics</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/metrics.png" alt="The Metrics tab: bars for executing and initializing the transformation and for initializing and executing each step" width="800">
+<figcaption>Metrics</figcaption>
+</figure>
+</div>
 
 In the screenshot the whole run took 30 ms, and `gr_hello-world` and `Dummy (do nothing)` initialize at the same moment: each step runs in its own thread, in parallel. On a slow run, these bars help you find the bottleneck.
 
 7. Select **Dummy (do nothing)** on the canvas and open the **Preview data** tab. It shows the rows of the step selected on the canvas.
 
-<figure><img src="../_assets/images/run-preview.png" alt="The Preview data tab: 10 rows, each with message hello world"><figcaption><p>Preview data</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/run-preview.png" alt="The Preview data tab: 10 rows, each with message hello world" width="700">
+<figcaption>Preview data</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: 10 rows, each with `message` `hello world`.
 
 8. Select the **View** tab, at the top left beside **Design**. Under **Configurations**, it lists what a transformation can use besides its steps: database connections, cluster and partition schemas, run configurations, slave servers and VFS connections. The steps themselves are on the canvas.
 
-<div align="center"><figure><img src="../_assets/images/view.png" alt="The View tab: Configurations with Database connections, Kettle cluster schemas, Partition schemas, Run configurations, Slave server and VFS Connections"><figcaption><p>View</p></figcaption></figure></div>
+<div align="center">
+<figure>
+<img src="../_assets/images/view.png" alt="The View tab: Configurations with Database connections, Kettle cluster schemas, Partition schemas, Run configurations, Slave server and VFS Connections" width="760">
+<figcaption>View</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: under **Configurations**, the tree lists **Database connections**, **Run configurations**, **Slave server** and **VFS Connections**, among others.
 

@@ -23,14 +23,12 @@
 
 </figure>
 
-<figure>
-
-![The finished transformation: Json input hopped to Dummy](../_assets/images/json.png)
-
 <div align="center">
-<figcaption><em>What you build</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/json.png" alt="The finished transformation: Json input hopped to Dummy" width="599">
+<figcaption>What you build</figcaption>
 </figure>
+</div>
 
 Look at the input first. `jsonfile.js` is JSON, despite the `.js` extension: one `document` object whose `order` array holds seven orders. These are the first three:
 
@@ -92,7 +90,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
    ${Internal.Entry.Current.Directory}/jsonfile.js
    ```
 
-<figure><img src="../_assets/images/json-file.png" alt="JSON input File tab with jsonfile.js in the Selected files list"><figcaption><p>The file</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/json-file.png" alt="JSON input File tab with jsonfile.js in the Selected files list" width="800">
+<figcaption>The file</figcaption>
+</figure>
+</div>
 
 8. Open the **Content** tab and set:
 
@@ -115,7 +118,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
     | `date` | `$..date` | String |
     | `value` | `$..value` | Number |
 
-<figure><img src="../_assets/images/json-fields.png" alt="JSON input Fields tab with five fields and their JSONPath expressions"><figcaption><p>Five fields, one JSONPath each</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/json-fields.png" alt="JSON input Fields tab with five fields and their JSONPath expressions" width="800">
+<figcaption>Five fields, one JSONPath each</figcaption>
+</figure>
+</div>
 
 > **Tip:** To try a JSONPath expression before you use it, paste the file into a tester such as [jsonpath.com](https://jsonpath.com/).
 
@@ -174,7 +182,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
 2. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
 3. Select **Dummy** on the canvas and open the **Preview data** tab.
 
-<figure><img src="../_assets/images/json-1.png" alt="Preview data: one row per order with product line, customer, status, date and value"><figcaption><p>One row per order</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/json-1.png" alt="Preview data: one row per order with product line, customer, status, date and value" width="760">
+<figcaption>One row per order</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: 7 rows, one per order. The first is `Classic Cars`, `Christine Loomis`, `Delivered`, `January 2004`, `21.99`, with `value` a Number.
 

@@ -24,14 +24,12 @@
 
 </figure>
 
-<figure>
-
-![The finished transformation: a file branch and a URL branch, each ending in a Dummy step](../_assets/images/xml.png)
-
 <div align="center">
-<figcaption><em>What you build: two ways in</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/xml.png" alt="The finished transformation: a file branch and a URL branch, each ending in a Dummy step" width="622">
+<figcaption>What you build: two ways in</figcaption>
 </figure>
+</div>
 
 ::::: tabs
 
@@ -43,9 +41,19 @@
 > 
 > In this branch you read an XML **file** and use XPath to pick out the rows and fields.
 
-<figure><img src="../_assets/images/get-xml-file.png" alt="The file branch: Get data from XML hopped to Dummy (do nothing)" width="375"><figcaption><p>The file branch</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/get-xml-file.png" alt="The file branch: Get data from XML hopped to Dummy (do nothing)" width="336">
+<figcaption>The file branch</figcaption>
+</figure>
+</div>
 
-<figure><img src="../_assets/images/orders.png" alt="orders.xml: a document element holding order elements" width="375"><figcaption><p>orders.xml</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/orders.png" alt="orders.xml: a document element holding order elements" width="800">
+<figcaption>orders.xml</figcaption>
+</figure>
+</div>
 
 :::: tabs
 
@@ -72,11 +80,21 @@ Set-Location C:\Pentaho\design-tools\data-integration
 5. Double-click **Get data from XML**.
 6. On the **File** tab, enter `${Internal.Entry.Current.Directory}/orders.xml` in **File or directory**, then select **Add**.
 
-<figure><img src="../_assets/images/xml-file.png" alt="Get data from XML File tab with orders.xml in the Selected files list"><figcaption><p>The file</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/xml-file.png" alt="Get data from XML File tab with orders.xml in the Selected files list" width="800">
+<figcaption>The file</figcaption>
+</figure>
+</div>
 
 7. Open the **Content** tab and set **Loop XPath** to `/document/order`: one row per `order` element. Set **Encoding** to `UTF-8`.
 
-<figure><img src="../_assets/images/xpath-files.png" alt="Content tab with Loop XPath /document/order"><figcaption><p>The loop XPath picks the rows</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/xpath-files.png" alt="Content tab with Loop XPath /document/order" width="800">
+<figcaption>The loop XPath picks the rows</figcaption>
+</figure>
+</div>
 
 8. Open the **Fields** tab and select **Get fields**.
 9. Compare the grid with this table. If a **Type** differs, set it to the value in the table:
@@ -89,7 +107,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
    | `date` | `date` | Node | Value of | String |
    | `value` | `value` | Node | Value of | Number |
 
-<figure><img src="../_assets/images/xml-file-fields.png" alt="Fields tab with the five order fields and their XPaths"><figcaption><p>Five fields</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/xml-file-fields.png" alt="Fields tab with the five order fields and their XPaths" width="800">
+<figcaption>Five fields</figcaption>
+</figure>
+</div>
 
 10. Select **OK**.
 
@@ -116,7 +139,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
 2. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
 3. Select **Dummy (do nothing)** on the canvas and open the **Preview data** tab.
 
-<figure><img src="../_assets/images/preview-xml-filepng.png" alt="Preview data: seven orders read from orders.xml"><figcaption><p>Seven orders from the file</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/preview-xml-filepng.png" alt="Preview data: seven orders read from orders.xml" width="760">
+<figcaption>Seven orders from the file</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: 7 rows, one per `<order>` element in `orders.xml`. The first is `Classic Cars`, `Christine Loomis`, `Delivered`, `January 2004`, `21.99`.
 
@@ -153,9 +181,19 @@ Set-Location C:\Pentaho\design-tools\data-integration
 >
 > In this branch the XML comes from a **URL**, passed to the step in a field, and XPath picks out the rows and fields as before. You build it in the same transformation, below the file branch.
 
-<figure><img src="../_assets/images/xml-url.png" alt="The URL branch: Generate rows passing the URL to Get data from XML, then Dummy" width="375"><figcaption><p>The URL branch</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/xml-url.png" alt="The URL branch: Generate rows passing the URL to Get data from XML, then Dummy" width="512">
+<figcaption>The URL branch</figcaption>
+</figure>
+</div>
 
-<figure><img src="../_assets/images/xml-url-plants.png" alt="plant_catalog.xml: a CATALOG element holding PLANT elements" width="375"><figcaption><p><a href="../_assets/files/plant_catalog.xml">plant_catalog.xml</a></p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/xml-url-plants.png" alt="plant_catalog.xml: a CATALOG element holding PLANT elements" width="800">
+<figcaption><a href="../_assets/files/plant_catalog.xml">plant_catalog.xml</a></figcaption>
+</figure>
+</div>
 
 ::: tabs
 
@@ -179,7 +217,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 6. Select **OK**.
 
-<figure><img src="../_assets/images/xml-url-plant.png" alt="Generate rows with one String field, xmlUrl, holding the URL"><figcaption><p>The URL travels in a field</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/xml-url-plant.png" alt="Generate rows with one String field, xmlUrl, holding the URL" width="800">
+<figcaption>The URL travels in a field</figcaption>
+</figure>
+</div>
 
 > **Warning:** The screenshot shows the original w3schools address. That site now refuses PDI's HTTP client (HTTP 403), so use the copy of the same file above.
 
@@ -203,7 +246,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
    | **Read source as Url** | selected |
    | **get XML source from a field** | `xmlUrl` |
 
-<figure><img src="../_assets/images/xml-datastream-field.png" alt="File tab: XML source defined in a field, Read source as Url selected, xmlUrl as the field"><figcaption><p>Read the XML from the URL in xmlUrl</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/xml-datastream-field.png" alt="File tab: XML source defined in a field, Read source as Url selected, xmlUrl as the field" width="800">
+<figcaption>Read the XML from the URL in xmlUrl</figcaption>
+</figure>
+</div>
 
 6. Open the **Content** tab and set:
 
@@ -213,12 +261,22 @@ Set-Location C:\Pentaho\design-tools\data-integration
    | **Encoding** | `UTF-8` |
    | **Do not raise an error if no files** | cleared |
 
-<figure><img src="../_assets/images/xml-catalog-path.png" alt="Content tab with Loop XPath /CATALOG/PLANT"><figcaption><p>One row per plant</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/xml-catalog-path.png" alt="Content tab with Loop XPath /CATALOG/PLANT" width="800">
+<figcaption>One row per plant</figcaption>
+</figure>
+</div>
 
 7. Open the **Fields** tab and select **Get fields**. The XML arrives in a field only at run time, so Spoon asks for a sample: a **URL** dialog opens.
 8. Paste the same URL into the **URL** dialog and select **OK**. **Get fields** reads the catalog and fills the grid with `COMMON`, `BOTANICAL`, `ZONE`, `LIGHT`, `PRICE` and `AVAILABILITY`.
 
-<figure><img src="../_assets/images/configure-fields.png" alt="Fields tab with the six plant fields, ZONE and AVAILABILITY guessed as Integer"><figcaption><p>Six fields, types guessed</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/configure-fields.png" alt="Fields tab with the six plant fields, ZONE and AVAILABILITY guessed as Integer" width="800">
+<figcaption>Six fields, types guessed</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: **Get fields** guessed `ZONE` and `AVAILABILITY` as **Integer** and the other four as **String**.
 
@@ -275,7 +333,12 @@ Next: open the **Dummy** tab.
 4. Save the transformation (`Ctrl+S`).
 5. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog. The run fails.
 
-<figure><img src="../_assets/images/xml-fail.png" alt="The Read Url step marked with an error" width="375"><figcaption><p>The run fails in Read Url</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/xml-fail.png" alt="The Read Url step marked with an error" width="512">
+<figcaption>The run fails in Read Url</figcaption>
+</figure>
+</div>
 
 6. In **Execution Results**, open the **Logging** tab and find the first error for **Read Url**:
 
@@ -283,7 +346,12 @@ Next: open the **Dummy** tab.
 ZONE String : couldn't convert String to number : non-numeric character found at position 1 for value [Annual]
 ```
 
-<figure><img src="../_assets/images/xml-logs.png" alt="The log showing the conversion error for ZONE"><figcaption><p>The log names the field and the value</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/xml-logs.png" alt="The log showing the conversion error for ZONE" width="800">
+<figcaption>The log names the field and the value</figcaption>
+</figure>
+</div>
 
 > **Warning:** **Get fields** guessed `ZONE` from the first plants, whose zones are numbers. Further down, plant 23 (`Black-Eyed Susan`) has the zone `Annual`, which no Integer can hold; 8 of the 36 plants do. `ZONE` is really text.
 
@@ -308,7 +376,12 @@ ZONE String : couldn't convert String to number : non-numeric character found at
 
 13. Select **Dummy** on the canvas and open the **Preview data** tab.
 
-<figure><img src="../_assets/images/xml-plants-preview.png" alt="Preview data: plants from the catalog with the URL, common name, botanical name, zone, light and price"><figcaption><p>36 plants from the URL</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/xml-plants-preview.png" alt="Preview data: plants from the catalog with the URL, common name, botanical name, zone, light and price" width="800">
+<figcaption>36 plants from the URL</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: the first row is `Bloodroot`, `Sanguinaria canadensis`, zone `4`, `Mostly Shady`, `$2.44`. `xmlUrl` comes first: the step passes the incoming field through. The screenshot shows the old w3schools address in `xmlUrl`; yours shows the raw.githubusercontent.com URL.
 

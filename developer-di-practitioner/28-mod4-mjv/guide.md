@@ -18,14 +18,12 @@
 > 
 > **Estimated time:** 20 minutes
 
-<figure>
-
-![The finished transformation: Generate Rows hopped to the Modified JavaScript value step](../_assets/images/mjv.png)
-
 <div align="center">
-<figcaption><em>What you build</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/mjv.png" alt="The finished transformation: Generate Rows hopped to the Modified JavaScript value step" width="608">
+<figcaption>What you build</figcaption>
 </figure>
+</div>
 
 :::: tabs
 
@@ -57,7 +55,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
    | `field`     | String | `100`  | `This is a String \ with / some weird characters - in it!`  |
    | `fieldsame` | String | `100`  | `This is a String // with - some weird characters - in it!` |
 
-<figure><img src="../_assets/images/gr-mjv.png" alt="Generate rows with the two String fields field and fieldsame"><figcaption><p>Two strings to clean</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/gr-mjv.png" alt="Generate rows with the two String fields field and fieldsame" width="800">
+<figcaption>Two strings to clean</figcaption>
+</figure>
+</div>
 
 7. Select **Preview**, then **OK** in **Enter preview size**.
 
@@ -90,7 +93,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
 6. Select **Get variables**. The **Fields** grid lists `result` and `resultfieldsame`, both String.
 7. Select **OK**.
 
-<figure><img src="../_assets/images/mjv-replace.png" alt="Modified JavaScript value with the replace script and the two output fields"><figcaption><p>Script and output fields</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/mjv-replace.png" alt="Modified JavaScript value with the replace script and the two output fields" width="800">
+<figcaption>Script and output fields</figcaption>
+</figure>
+</div>
 
 > **Under the hood:**
 >

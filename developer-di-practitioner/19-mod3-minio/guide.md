@@ -96,7 +96,12 @@ Choose one workshop from the tabs below and build it. Save the transformation in
 >
 > **Skills:** reading from a bucket, **Stream lookup**, **Calculator**, **Formula**, writing to a bucket
 
-<figure><img src="../_assets/images/sales-dashboard.png" alt="The Sales Dashboard transformation: Sales, Products and Customers inputs, two lookups, Calculator, Formula, Add constants, Get system info, Select values and Write to staging"><figcaption><p>What you build</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/sales-dashboard.png" alt="The Sales Dashboard transformation: Sales, Products and Customers inputs, two lookups, Calculator, Formula, Add constants, Get system info, Select values and Write to staging" width="784">
+<figcaption>What you build</figcaption>
+</figure>
+</div>
 
 > **Note:** **Workshop files**
 >
@@ -130,7 +135,12 @@ Choose one workshop from the tabs below and build it. Save the transformation in
 | `Products`  | `pvfs://MinIO/raw-data/csv/products.csv`  |
 | `Customers` | `pvfs://MinIO/raw-data/csv/customers.csv` |
 
-<figure><img src="../_assets/images/select-sales-csv-from-vfs-connections.png" alt="Browsing the MinIO connection's raw-data bucket to pick csv/sales.csv"><figcaption><p>Browse the bucket through the connection</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/select-sales-csv-from-vfs-connections.png" alt="Browsing the MinIO connection's raw-data bucket to pick csv/sales.csv" width="800">
+<figcaption>Browse the bucket through the connection</figcaption>
+</figure>
+</div>
 
 6. On each **Content** tab, set **Separator** to `,`, keep **Header** selected and set **Format** to `mixed`.
 7. On each **Fields** tab, select **Get Fields**, select **OK** at **Number of sample lines**, and close the **Scan results**. Check the types:
@@ -141,9 +151,19 @@ Choose one workshop from the tabs below and build it. Save the transformation in
 | `Products`  | `price` BigNumber; `stock_quantity` Integer; `last_updated` Date (`yyyy-MM-dd`); the rest String                  |
 | `Customers` | `customer_id` Integer; `registration_date` Date (`yyyy-MM-dd`); the rest String                                   |
 
-<figure><img src="../_assets/images/get-fields-sales.png" alt="Sales Fields tab after Get Fields: eight fields with their types"><figcaption><p>Sales fields</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/get-fields-sales.png" alt="Sales Fields tab after Get Fields: eight fields with their types" width="800">
+<figcaption>Sales fields</figcaption>
+</figure>
+</div>
 
-<figure><img src="../_assets/images/get-fields-customers.png" alt="Products Fields tab after Get Fields: price as BigNumber, stock_quantity as Integer, last_updated as Date"><figcaption><p>Products fields</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/get-fields-customers.png" alt="Products Fields tab after Get Fields: price as BigNumber, stock_quantity as Integer, last_updated as Date" width="800">
+<figcaption>Products fields</figcaption>
+</figure>
+</div>
 
 8. In each, select **Preview rows**, enter `100` rows, and select **OK**.
 
@@ -170,7 +190,12 @@ Choose one workshop from the tabs below and build it. Save the transformation in
 | `category`     | `product_category` |
 | `price`        | `unit_price`       |
 
-<figure><img src="../_assets/images/product-lookup.png" alt="Product lookup: lookup step Products, key product_id, retrieving product_name, category and price"><figcaption><p>Product lookup</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/product-lookup.png" alt="Product lookup: lookup step Products, key product_id, retrieving product_name, category and price" width="746">
+<figcaption>Product lookup</figcaption>
+</figure>
+</div>
 
 5. Select **OK**.
 6. Double-click **Customers lookup** and set **Lookup step** to `Customers`, with the key **Field** `customer_id` and **LookupField** `customer_id`. Fill **Specify the fields to retrieve**:
@@ -183,12 +208,22 @@ Choose one workshop from the tabs below and build it. Save the transformation in
 | `country`    | `customer_country` |
 | `status`     | `customer_status`  |
 
-<figure><img src="../_assets/images/customers-lookup.png" alt="Customers lookup: lookup step Customers, key customer_id, retrieving names, email, country and status"><figcaption><p>Customers lookup</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/customers-lookup.png" alt="Customers lookup: lookup step Customers, key customer_id, retrieving names, email, country and status" width="746">
+<figcaption>Customers lookup</figcaption>
+</figure>
+</div>
 
 7. Select **OK** and save the transformation (`Ctrl+S`).
 8. Select **Customers lookup** on the canvas, press `F10` (**Action > Preview**), and select **Quick Launch**.
 
-<figure><img src="../_assets/images/lookups-preview-data.png" alt="Preview data: each sale with its product and customer fields"><figcaption><p>Sales with product and customer details</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/lookups-preview-data.png" alt="Preview data: each sale with its product and customer fields" width="800">
+<figcaption>Sales with product and customer details</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: 15 rows, every one with a `product_name` and a `customer_country`.
 
@@ -227,7 +262,12 @@ Choose one workshop from the tabs below and build it. Save the transformation in
 
 > **Warning:** Put `unit_price` in **Field A**. Calculator works in Field A's type, so with the Integer `quantity` first, `unit_price` is cut to a whole number before the multiplication: 1299.99 × 1 comes out as 1299.
 
-<figure><img src="../_assets/images/calculator-2.png" alt="Calculator with two calculations, line_total and a second field"><figcaption><p>Calculator</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/calculator-2.png" alt="Calculator with two calculations, line_total and a second field" width="800">
+<figcaption>Calculator</figcaption>
+</figure>
+</div>
 
 3. Select **OK**.
 4. On the **Design** tab, open the **Scripting** folder and drag **Formula** onto the canvas. Create a hop from **Calculator** to **Formula**.
@@ -238,7 +278,12 @@ Choose one workshop from the tabs below and build it. Save the transformation in
 | `customer_full_name` | `CONCATENATE([first_name];" ";[last_name])`   |
 | `is_high_value`      | `IF([sale_amount]>500;"Yes";"No")`            |
 
-<figure><img src="../_assets/images/formula-step-2.png" alt="Formula step with customer_full_name and is_high_value"><figcaption><p>Formula</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/formula-step-2.png" alt="Formula step with customer_full_name and is_high_value" width="800">
+<figcaption>Formula</figcaption>
+</figure>
+</div>
 
 6. Select **OK** and save the transformation (`Ctrl+S`).
 7. Select **Formula** on the canvas, press `F10` (**Action > Preview**), and select **Quick Launch**.
@@ -275,7 +320,12 @@ Choose one workshop from the tabs below and build it. Save the transformation in
 9. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
 10. In the MinIO console, open **staging** > `dashboard/`.
 
-<figure><img src="../_assets/images/minio-dashboard-data.png" alt="MinIO console: the staging bucket's dashboard folder with the sales_fact CSV file"><figcaption><p>The output in MinIO</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-dashboard-data.png" alt="MinIO console: the staging bucket's dashboard folder with the sales_fact CSV file" width="800">
+<figcaption>The output in MinIO</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: `sales_fact_<date>_<time>.csv` holds a header and 15 rows, with no padded values. Each run adds a new file, because the date and time are in the name.
 
@@ -305,7 +355,12 @@ Choose one workshop from the tabs below and build it. Save the transformation in
 >
 > **Skills:** **Get data from XML**, **Merge join** (full outer), **Calculator**, **Modified JavaScript value**, **Switch / case**, **Group by**
 
-<figure><img src="../_assets/images/inventory-reconciliation.png" alt="The Inventory Reconciliation transformation: the warehouse XML and the product catalog are mapped, sorted and fully outer joined, then Calculator and a JavaScript step feed Priority, which routes to three outputs, and a Sort rows and Group by summary"><figcaption><p>What you build</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/inventory-reconciliation.png" alt="The Inventory Reconciliation transformation: the warehouse XML and the product catalog are mapped, sorted and fully outer joined, then Calculator and a JavaScript step feed Priority, which routes to three outputs, and a Sort rows and Group by summary" width="800">
+<figcaption>What you build</figcaption>
+</figure>
+</div>
 
 > **Note:** **Workshop files**
 >
@@ -334,7 +389,12 @@ Choose one workshop from the tabs below and build it. Save the transformation in
 6. On the **Content** tab, select **Get XPath nodes**, select `/inventory/items/item` in **Available Paths**, and select **OK**. **Loop XPath** now reads `/inventory/items/item`.
 7. Set **Encoding** to `UTF-8`, and select **Ignore comments?** and **Ignore empty file**.
 
-<figure><img src="../_assets/images/configure-xpath.png" alt="Get data from XML Content tab with the Available Paths list open and /inventory/items/item selected"><figcaption><p>One row per item element</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/configure-xpath.png" alt="Get data from XML Content tab with the Available Paths list open and /inventory/items/item selected" width="800">
+<figcaption>One row per item element</figcaption>
+</figure>
+</div>
 
 > **Note:** `/inventory/items/item` starts at the root element, `inventory`, goes into `items`, and returns one row for each `item` inside it.
 
@@ -351,7 +411,12 @@ Choose one workshop from the tabs below and build it. Save the transformation in
 
 9. Select **Preview rows**, enter `100` rows, and select **OK**.
 
-<figure><img src="../_assets/images/remap-field-names-x26-preview-data.png" alt="Fields tab with the renamed warehouse fields, and a preview of the items"><figcaption><p>Renamed fields and the preview</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/remap-field-names-x26-preview-data.png" alt="Fields tab with the renamed warehouse fields, and a preview of the items" width="800">
+<figcaption>Renamed fields and the preview</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: 17 rows, in file order. The first is `P001`, `Laptop Pro 15`, `Electronics`, `45`, `A-12-3`, `2024-01-20`; the last is `P099`, `Legacy Tablet (Discontinued)`.
 
@@ -716,7 +781,12 @@ What the script decides, row by row:
 >
 > **Skills:** JSON lines, **Memory group by** and **Group by**, **Merge join**, **Calculator**, **Formula**, **Modified JavaScript value**
 
-<figure><img src="../_assets/images/customer-360.png" alt="The Customer 360 transformation: customers, sales and user events in three rows of steps, two merge joins, then Get system info, Calculator, Engagement, a segment script, Select values and the output"><figcaption><p>What you build</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/customer-360.png" alt="The Customer 360 transformation: customers, sales and user events in three rows of steps, two merge joins, then Get system info, Calculator, Engagement, a segment script, Select values and the output" width="800">
+<figcaption>What you build</figcaption>
+</figure>
+</div>
 
 > **Note:** **Workshop files**
 >
@@ -764,7 +834,12 @@ What the script decides, row by row:
 1. On the **Design** tab, open the **Input** folder and drag **Text file input** onto the canvas. Double-click it and set **Step name** to `Read Sales`.
 2. On the **File** tab, enter `pvfs://MinIO/raw-data/csv/sales.csv` in **File or directory** and select **Add**, or select **Browse**, set **File type** to `*.csv`, and pick it under **VFS Connections > MinIO**.
 
-<figure><img src="../_assets/images/select-sales-csv-from-vfs-connections.png" alt="Browsing the MinIO connection's raw-data bucket to pick csv/sales.csv"><figcaption><p>Browse the bucket through the connection</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/select-sales-csv-from-vfs-connections.png" alt="Browsing the MinIO connection's raw-data bucket to pick csv/sales.csv" width="800">
+<figcaption>Browse the bucket through the connection</figcaption>
+</figure>
+</div>
 
 3. On the **Content** tab, set **Separator** to `,` and **Format** to `mixed`, and keep **Header** selected.
 4. On the **Fields** tab, select **Get Fields**, select **OK** at **Number of sample lines**, and close the **Scan results**. Check the types: `customer_id` and `quantity` Integer (`#`); `sale_date` Date (`yyyy-MM-dd`); `sale_amount` BigNumber (`#.##`); `sale_id`, `product_id`, `payment_method` and `status` String. Select **OK**.
@@ -988,7 +1063,12 @@ if (total_spent == null || total_spent == 0) {
 >
 > **Skills:** **Regex evaluation**, **Calculator** on dates, **Filter rows**, **Group by**, a rolling average in **Modified JavaScript value**, **Formula**, **Switch / case**
 
-<figure><img src="../_assets/images/log-analysis.png" alt="The Log Analysis transformation: Read App Log, Regex evaluation, Select values, Calculator and Filter Errors, then Sort rows, Group by Hour, the rolling average script, Anomaly Detection and Switch / case to Output - Critical, Warning and Normal"><figcaption><p>What you build</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/log-analysis.png" alt="The Log Analysis transformation: Read App Log, Regex evaluation, Select values, Calculator and Filter Errors, then Sort rows, Group by Hour, the rolling average script, Anomaly Detection and Switch / case to Output - Critical, Warning and Normal" width="800">
+<figcaption>What you build</figcaption>
+</figure>
+</div>
 
 > **Note:** **Workshop files**
 >
@@ -1252,14 +1332,12 @@ if (rowNum == 1) {
 >
 > **Skills:** **Stream lookup**, **Merge join** (left outer), **Formula**, rule-based scoring
 
-<figure>
-
-![fraud_detection.ktr on the Spoon canvas: every step of the solution and the hops between them](../_assets/images/canvas-19-fraud-detection.png)
-
 <div align="center">
-<figcaption><em>What you build</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/canvas-19-fraud-detection.png" alt="fraud_detection.ktr on the Spoon canvas: every step of the solution and the hops between them" width="672">
+<figcaption>What you build</figcaption>
 </figure>
+</div>
 
 > **Note:** **Workshop files**
 >
@@ -1440,14 +1518,12 @@ if (rowNum == 1) {
 >
 > **Skills:** three input formats, schema mapping, **Select values** for layout, combining streams
 
-<figure>
-
-![data_lake_ingestion.ktr on the Spoon canvas: every step of the solution and the hops between them](../_assets/images/canvas-19-data-lake-ingestion.png)
-
 <div align="center">
-<figcaption><em>What you build (the solution ends at Combine All Products)</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/canvas-19-data-lake-ingestion.png" alt="data_lake_ingestion.ktr on the Spoon canvas: every step of the solution and the hops between them" width="800">
+<figcaption>What you build (the solution ends at Combine All Products)</figcaption>
 </figure>
+</div>
 
 > **Note:** **Workshop files**
 >

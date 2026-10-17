@@ -24,14 +24,12 @@
 
 </figure>
 
-<figure>
-
-![The Hello World transformation: Generate Rows hopped to Dummy](../_assets/images/hello-world-tr.png)
-
 <div align="center">
-<figcaption><em>Start from your Hello World transformation</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/hello-world-tr.png" alt="The Hello World transformation: Generate Rows hopped to Dummy" width="591">
+<figcaption>Start from your Hello World transformation</figcaption>
 </figure>
+</div>
 
 :::: tabs
 
@@ -50,14 +48,19 @@ Set-Location C:\Pentaho\design-tools\data-integration
 .\spoon.bat
 ```
 
-<button data-launch="spoon" data-path="">Start PDI</button>
+<button data-launch="spoon" data-path="">Start Pentaho Data Integration</button>
 
 2. Select **File > Open** (`Ctrl+O`) and open `tr_hello_world.ktr` in `C:\Workshop-DI-Practitioner\02-components-concepts\02-key-concepts\03-mod2-hello-world`. If you don't have your own, open the Hello World solution in that folder's `solution` subfolder.
 3. Select **File > Save as** and save it as `tr_logging.ktr` in `C:\Workshop-DI-Practitioner\02-components-concepts\02-key-concepts\04-mod2-logging`. Your Hello World transformation stays as it was.
 4. Double-click **gr_hello-world**.
 5. In the **Fields** grid, select **Integer** in the **Type** cell of `message`.
 
-<div align="center"><figure><img src="../_assets/images/change-to-integer.png" alt="The Fields grid of Generate rows with the Type list open and Integer selected" width="375"><figcaption><p>Change the type to Integer</p></figcaption></figure></div>
+<div align="center">
+<figure>
+<img src="../_assets/images/change-to-integer.png" alt="The Fields grid of Generate rows with the Type list open and Integer selected" width="800">
+<figcaption>Change the type to Integer</figcaption>
+</figure>
+</div>
 
 6. Select **OK**.
 7. Save the transformation (`Ctrl+S`).
@@ -72,14 +75,24 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 1. Press `F9` (**Action > Run**). In the **Run Options** dialog, select **Basic** in **Log level**, and select **Run**.
 
-<figure><img src="../_assets/images/log-step.png" alt="The gr_hello-world step marked with an error icon on the canvas" width="375"><figcaption><p>The failing step is marked</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/log-step.png" alt="The gr_hello-world step marked with an error icon on the canvas" width="631">
+<figcaption>The failing step is marked</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: the run stops at once, and **gr_hello-world** has a red error icon on the canvas.
 
 2. In **Execution Results**, open the **Logging** tab.
 3. Find the first line that contains `ERROR`. In a long log, the first button on the **Logging** tab's toolbar, **Show error lines**, lists only the error lines.
 
-<figure><img src="../_assets/images/log-error.png" alt="The Logging tab with red ERROR lines written by gr_hello-world.0"><figcaption><p>Logging - error</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/log-error.png" alt="The Logging tab with red ERROR lines written by gr_hello-world.0" width="800">
+<figcaption>Logging - error</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: the first **ERROR** line comes from `gr_hello-world.0` and names the field and the value it couldn't convert:
 >
@@ -91,7 +104,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 4. Press `F9` again. In the **Run Options** dialog, select **Row Level (very detailed)** in **Log level**, and select **Run**.
 
-<div align="center"><figure><img src="../_assets/images/log-row-level.png" alt="Run Options with the Log level list open and Row Level (very detailed) selected" width="563"><figcaption><p>Set the log level to Row Level (very detailed)</p></figcaption></figure></div>
+<div align="center">
+<figure>
+<img src="../_assets/images/log-row-level.png" alt="Run Options with the Log level list open and Row Level (very detailed) selected" width="663">
+<figcaption>Set the log level to Row Level (very detailed)</figcaption>
+</figure>
+</div>
 
 5. On the **Logging** tab, find the first `ERROR` line again.
 
@@ -136,7 +154,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
 Select-String -Path C:\Pentaho\design-tools\data-integration\logs\pdi.log -Pattern "Couldn't parse Integer"
 ```
 
-<figure><img src="../_assets/images/pdi-log.png" alt="PowerShell: Select-String finds the Couldn't parse Integer line in pdi.log, once for each failed run"><figcaption><p>pdi.log, searched in PowerShell</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/pdi-log.png" alt="PowerShell: Select-String finds the Couldn't parse Integer line in pdi.log, once for each failed run" width="800">
+<figcaption>pdi.log, searched in PowerShell</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: a line for each failed run of `tr_logging.ktr` today (two, after the **Basic** and **Row Level** runs). Each one has `ERROR`, then `<init of gr_hello-world.0` and a thread name, the path of your `tr_logging.ktr`, and `Couldn't parse Integer field [message] with value [hello world]`.
 

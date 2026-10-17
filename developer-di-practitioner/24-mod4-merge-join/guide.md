@@ -23,14 +23,12 @@
 
 </figure>
 
-<figure>
-
-![The overview transformation: the Data grids "A B C D" and "Red Blue Yellow" into Merge Join, then a Dummy step](../_assets/images/merge-join.png)
-
 <div align="center">
-<figcaption><em>What you build first</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/merge-join.png" alt="The overview transformation: the Data grids &quot;A B C D&quot; and &quot;Red Blue Yellow&quot; into Merge Join, then a Dummy step" width="643">
+<figcaption>What you build first</figcaption>
 </figure>
+</div>
 
 :::: tabs
 
@@ -92,7 +90,19 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 Both grids are already in `id` order, as **Merge join** needs.
 
-<div align="left"><figure><img src="../_assets/images/abcd-dg.png" alt="The A B C D Data grid: ids 1 to 4 with the values A to D"><figcaption><p>A B C D</p></figcaption></figure> <figure><img src="../_assets/images/red-dg.png" alt="The Red Blue Yellow Data grid: ids 1, 3 and 5 with Red, Blue and Yellow"><figcaption><p>Red Blue Yellow</p></figcaption></figure></div>
+<div align="center">
+<figure>
+<img src="../_assets/images/abcd-dg.png" alt="The A B C D Data grid: ids 1 to 4 with the values A to D" width="626">
+<figcaption>A B C D</figcaption>
+</figure>
+</div>
+
+<div align="center">
+<figure>
+<img src="../_assets/images/red-dg.png" alt="The Red Blue Yellow Data grid: ids 1, 3 and 5 with Red, Blue and Yellow" width="626">
+<figcaption>Red Blue Yellow</figcaption>
+</figure>
+</div>
 
 ### 2. Merge join
 
@@ -113,7 +123,12 @@ Both grids are already in `id` order, as **Merge join** needs.
 5. Enter `id` in the **Key field** column of **Keys for 1st step**, and `id` in the **Key field** column of **Keys for 2nd step**.
 6. Select **OK**. If a **Notice** about sorted input appears, select **Close**.
 
-<figure><img src="../_assets/images/merge-join-2.png" alt="Merge join: first step A B C D, second step Red Blue Yellow, keys id and id" width="375"><figcaption><p>Keys from each side</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/merge-join-2.png" alt="Merge join: first step A B C D, second step Red Blue Yellow, keys id and id" width="546">
+<figcaption>Keys from each side</figcaption>
+</figure>
+</div>
 
 7. On the **Design** tab, open the **Flow** folder and drag **Dummy (do nothing)** onto the canvas.
 8. Create a hop from **Merge Join** to **Dummy (do nothing)**. It gives you a step to look at the joined rows.
@@ -132,18 +147,38 @@ Both grids are already in `id` order, as **Merge join** needs.
 2. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
 3. Select **Dummy (do nothing)** on the canvas and open the **Preview data** tab.
 
-<figure><img src="../_assets/images/inner-join.png" alt="INNER join: ids 1 and 3, with their values from both grids"><figcaption><p>INNER</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/inner-join.png" alt="INNER join: ids 1 and 3, with their values from both grids" width="700">
+<figcaption>INNER</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: 2 rows, ids `1` and `3`, the ids in both grids. The output has both sides' fields, `id`, `value`, `id_1` and `value_2`: PDI adds `_1` to a second-step field whose name is already taken.
 
 4. Double-click **Merge Join**, set **Join Type** to `LEFT OUTER`, and select **OK**. Then run again and open the **Preview data** tab of **Dummy (do nothing)**.
 5. Repeat action 4 with `RIGHT OUTER`, then with `FULL OUTER`.
 
-<figure><img src="../_assets/images/left-outer-join.png" alt="LEFT OUTER join: all four rows of A B C D, with nulls where the second grid has no id"><figcaption><p>LEFT OUTER</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/left-outer-join.png" alt="LEFT OUTER join: all four rows of A B C D, with nulls where the second grid has no id" width="700">
+<figcaption>LEFT OUTER</figcaption>
+</figure>
+</div>
 
-<figure><img src="../_assets/images/right-outer-join.png" alt="RIGHT OUTER join: the three rows of Red Blue Yellow, with nulls for id 5"><figcaption><p>RIGHT OUTER</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/right-outer-join.png" alt="RIGHT OUTER join: the three rows of Red Blue Yellow, with nulls for id 5" width="700">
+<figcaption>RIGHT OUTER</figcaption>
+</figure>
+</div>
 
-<figure><img src="../_assets/images/full-outer-join.png" alt="FULL OUTER join: five rows, ids 1 to 5, with nulls where either side has no match"><figcaption><p>FULL OUTER</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/full-outer-join.png" alt="FULL OUTER join: five rows, ids 1 to 5, with nulls where either side has no match" width="700">
+<figcaption>FULL OUTER</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: each join type keeps these rows:
 >
@@ -186,14 +221,12 @@ Both grids are already in `id` order, as **Merge join** needs.
 > 
 > `orders.txt` has each product's name, line, scale and vendor; `description.txt` has its code and description. Join them into one row per product.
 
-<figure>
-
-![tr_merge_join_orders.ktr on the Spoon canvas: every step of the solution and the hops between them](../_assets/images/canvas-24-tr-merge-join-orders.png)
-
 <div align="center">
-<figcaption><em>What you build in this part</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/canvas-24-tr-merge-join-orders.png" alt="tr_merge_join_orders.ktr on the Spoon canvas: every step of the solution and the hops between them" width="626">
+<figcaption>What you build in this part</figcaption>
 </figure>
+</div>
 
 1. Select **File > New > Transformation** (`Ctrl+N`).
 2. Select **File > Save as** and save it as `tr_merge_join_orders.ktr` in `C:\Workshop-DI-Practitioner\04-enriching-the-dataset\02-joins\24-mod4-merge-join`.

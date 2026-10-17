@@ -26,25 +26,21 @@
 
 </figure>
 
-<figure>
-
-![The finished transformation: read order list, flatten rows, parse status, discard texts and change order_value metadata, hopped in a line](../_assets/images/txt-file-input.png)
-
 <div align="center">
-<figcaption><em>What you build</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/txt-file-input.png" alt="The finished transformation: read order list, flatten rows, parse status, discard texts and change order_value metadata, hopped in a line" width="602">
+<figcaption>What you build</figcaption>
 </figure>
+</div>
 
 Look at the input file first; it decides the parsing approach.
 
-<figure>
-
-![orders.txt: each order spread over four labeled lines, separated by blank lines](../_assets/images/orders-txt.png)
-
 <div align="center">
-<figcaption><em>orders.txt</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/orders-txt.png" alt="orders.txt: each order spread over four labeled lines, separated by blank lines" width="800">
+<figcaption>orders.txt</figcaption>
 </figure>
+</div>
 
 > **Note:**
 >
@@ -93,7 +89,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
    ${Internal.Entry.Current.Directory}/orders.txt
    ```
 
-<figure><img src="../_assets/images/tfi-read-data.png" alt="The File tab with orders.txt in the Selected files list"><figcaption><p>The file path, using an internal variable</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/tfi-read-data.png" alt="The File tab with orders.txt in the Selected files list" width="800">
+<figcaption>The file path, using an internal variable</figcaption>
+</figure>
+</div>
 
 > **Note:** `${Internal.Entry.Current.Directory}` is the folder of the saved transformation, so the path keeps working wherever the lab folder is.
 
@@ -109,12 +110,22 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
    `orders.txt` contains no tab characters, so with a tab as the separator each whole line becomes one field.
 
-<figure><img src="../_assets/images/tfi.png" alt="The Content tab of Text file input: a tab in Separator, Header cleared, No empty rows selected, Format mixed" width="563"><figcaption><p>The Content tab</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/tfi.png" alt="The Content tab of Text file input: a tab in Separator, Header cleared, No empty rows selected, Format mixed" width="800">
+<figcaption>The Content tab</figcaption>
+</figure>
+</div>
 
 9. Open the **Fields** tab and select **Get Fields**.
 10. In the **Sample data** dialog, leave **Number of lines to sample** at `100` and select **OK**. (If you select **Show sample summary** first, a **Scan results** window also opens; select **Close**.)
 
-<figure><img src="../_assets/images/tfi-fields.png" alt="The Fields tab with a single String field, Field1" width="563"><figcaption><p>One field per line</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/tfi-fields.png" alt="The Fields tab with a single String field, Field1" width="800">
+<figcaption>One field per line</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: the **Fields** tab lists one field, `Field1`, of type **String**.
 
@@ -147,7 +158,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
    | `status` |
    | `order_value` |
 
-<figure><img src="../_assets/images/flattner.png" alt="The Row flattener dialog: Field1 flattened into productline, customers, status and order_value" width="375"><figcaption><p>Four lines become four fields</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/flattner.png" alt="The Row flattener dialog: Field1 flattened into productline, customers, status and order_value" width="300">
+<figcaption>Four lines become four fields</figcaption>
+</figure>
+</div>
 
 7. Select **OK**.
 
@@ -215,7 +231,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
    | `order_status` | String | | both |
    | `order_date` | String | `MMM yyyy` | both |
 
-<figure><img src="../_assets/images/regex.png" alt="The Regex evaluation dialog with the expression and the two capture fields"><figcaption><p>Two capture groups, two fields</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/regex.png" alt="The Regex evaluation dialog with the expression and the two capture fields" width="800">
+<figcaption>Two capture groups, two fields</figcaption>
+</figure>
+</div>
 
 > **Warning:** Set **Trim** to **both** on both fields. The date follows the colon with a space (two spaces in the fourth order), and an untrimmed ` January 2004` won't parse as a date later.
 
@@ -274,7 +295,12 @@ To learn or test regular expressions, regex101 is a good start:
    | `productline` | `N` | `Productline: ` | `N` |
    | `customers` | `N` | `Customer: ` | `N` |
 
-<figure><img src="../_assets/images/replace.png" alt="The Replace in string dialog with three search strings"><figcaption><p>Three labels removed</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/replace.png" alt="The Replace in string dialog with three search strings" width="800">
+<figcaption>Three labels removed</figcaption>
+</figure>
+</div>
 
 > **Warning:** Type each label exactly, including the trailing space. If you set **use RegEx** to `Y`, use `Order Value:\s*\$` instead: the dollar sign must go too, or **Select values** can't read the number.
 
@@ -309,7 +335,12 @@ To learn or test regular expressions, regex101 is a good start:
    | `order_value` | Number | `#.00` |
    | `order_date` | Date | `MMM yyyy` |
 
-<figure><img src="../_assets/images/sv-2.png" alt="The Meta-data tab of Select values: order_value as Number and order_date as Date"><figcaption><p>Typed fields</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/sv-2.png" alt="The Meta-data tab of Select values: order_value as Number and order_date as Date" width="800">
+<figcaption>Typed fields</figcaption>
+</figure>
+</div>
 
 7. Select **OK**.
 
@@ -353,7 +384,12 @@ To learn or test regular expressions, regex101 is a good start:
 
 4. Select **change order_value metadata** on the canvas and open the **Preview data** tab.
 
-<figure><img src="../_assets/images/results.png" alt="Preview data: seven orders with product line, customer, value, status and date"><figcaption><p>Seven clean orders</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/results.png" alt="Preview data: seven orders with product line, customer, value, status and date" width="800">
+<figcaption>Seven clean orders</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: 7 orders with the fields `productline`, `customers`, `order_value`, `order_status` and `order_date`. The first is `Classic Cars`, `Christine Loomis`, `21.99`, `Delivered`, `Jan 2004`: no labels, no `$`, a real number, and a real date that the file wrote as `January 2004` and Spoon displays with its `MMM yyyy` mask.
 

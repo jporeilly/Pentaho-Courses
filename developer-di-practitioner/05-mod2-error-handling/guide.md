@@ -18,14 +18,12 @@
 >
 > **Estimated time:** 15 minutes
 
-<figure>
-
-![The finished transformation: CSV file input with a normal hop to Dummy (do nothing) and an error hop to Errors](../_assets/images/error-handling.png)
-
 <div align="center">
-<figcaption><em>What you build: good rows one way, bad rows the other</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/error-handling.png" alt="The finished transformation: CSV file input with a normal hop to Dummy (do nothing) and an error hop to Errors" width="618">
+<figcaption>What you build: good rows one way, bad rows the other</figcaption>
 </figure>
+</div>
 
 :::: tabs
 
@@ -46,7 +44,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 .\spoon.bat
 ```
 
-<button data-launch="spoon" data-path="">Start PDI</button>
+<button data-launch="spoon" data-path="">Start Pentaho Data Integration</button>
 
 2. Select **File > New > Transformation** (`Ctrl+N`).
 3. Select **File > Save as** and save it as `tr_error_handling.ktr` in `C:\Workshop-DI-Practitioner\02-components-concepts\02-key-concepts\05-mod2-error-handling`, next to `customers-100-with-errors.txt`. Saving first gives `${Internal.Entry.Current.Directory}` a value. (On your own machine, download the file from **Lab Files** below into the folder you save in.)
@@ -73,7 +71,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
 | `stateCode` | String  |              | 9      |           |         |       | none      |
 | `state`     | String  |              | 30     |           |         |       | none      |
 
-<figure><img src="../_assets/images/csv-file-input.png" alt="The CSV file input dialog with the file name, the semicolon delimiter and the fields from Get Fields"><figcaption><p>CSV file input after Get Fields; set id, zip and housenr as the table shows</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/csv-file-input.png" alt="The CSV file input dialog with the file name, the semicolon delimiter and the fields from Get Fields" width="800">
+<figcaption>CSV file input after Get Fields; set id, zip and housenr as the table shows</figcaption>
+</figure>
+</div>
 
 > **Warning:** Keep these types and the `yyyy/MM/dd` format. 99 of the 100 birthdates use that format, and all but one `id` and all but one `housenr` are whole numbers. The few values that don't fit are what send rows to the error stream. Customer 87's `zip` is written `18,00`; with these settings it converts, so customer 87 is not an error row.
 
@@ -105,7 +108,12 @@ Next, name the four fields that PDI adds to every failed row. The names are your
 7. Set **Error codes fieldname** to `errorCodes`: a code you can filter or group by.
 8. Leave **Max nr errors allowed** and the two settings under it as they are. The solution has `-1` in all three.
 
-<figure><img src="../_assets/images/hop-error-handling.png" alt="The Step error handling settings dialog with the target step Errors, error handling enabled and the four error field names"><figcaption><p>Step error handling settings</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/hop-error-handling.png" alt="The Step error handling settings dialog with the target step Errors, error handling enabled and the four error field names" width="763">
+<figcaption>Step error handling settings</figcaption>
+</figure>
+</div>
 
 9. Select **OK**.
 10. Save the transformation (`Ctrl+S`).
@@ -125,13 +133,23 @@ Next, name the four fields that PDI adds to every failed row. The names are your
 
 3. Select **Dummy (do nothing)** on the canvas and open the **Preview data** tab.
 
-<figure><img src="../_assets/images/correct-birthdate-format.png" alt="Preview data of the Dummy step: customers whose values converted, starting with ids 1, 2, 4 and 5"><figcaption><p>The valid rows</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/correct-birthdate-format.png" alt="Preview data of the Dummy step: customers whose values converted, starting with ids 1, 2, 4 and 5" width="800">
+<figcaption>The valid rows</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: the valid customers. The first rows are customers 1, 2, 4 and 5: customer 3 is not among them.
 
 4. Select **Errors** on the canvas and open the **Preview data** tab.
 
-<figure><img src="../_assets/images/errors-for-incorrectly-formatted-birthdates.png" alt="Preview data of the Errors step: a rejected row with its error count, description, field and code"><figcaption><p>The rejected rows and their error fields</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/errors-for-incorrectly-formatted-birthdates.png" alt="Preview data of the Errors step: a rejected row with its error count, description, field and code" width="800">
+<figcaption>The rejected rows and their error fields</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: 3 rows, for the customers whose `id` is `3`, `#18` and `66` in the file. Each has `errorCount` `1` and `errorCodes` `CSVINPUT001`. Customer `3` has `errorFields` `Date<binary-string>` and an `errorDescriptions` that starts `birthdate String : couldn't convert string [01/01/1996] to a date using format [yyyy/MM/dd]`; the other two have `Integer(3)<binary-string>` and start `Unexpected conversion error while converting value [id String] to an Integer` (`#18`) and `... [housenr String] ...` (`#11`, customer `66`). `<binary-string>` is how CSV file input holds a field before it converts it, whatever **Lazy conversion?** says.
 

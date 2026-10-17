@@ -458,76 +458,60 @@ and on any failure notify ops and abort. Requirements 8 and 10.
 <details>
 <summary>Show the screenshots of one solution</summary>
 
+<div align="center">
 <figure>
-
-![stage_orders.ktr on the Spoon canvas: a text file input, a filter that splits valid rows from rejects, a table output, a rejects file, and a count written to the log](../_assets/images/capstone-canvas-stage-orders.png)
+<img src="../_assets/images/capstone-canvas-stage-orders.png" alt="stage_orders.ktr on the Spoon canvas: a text file input, a filter that splits valid rows from rejects, a table output, a rejects file, and a count written to the log" width="714">
+<figcaption>stage_orders.ktr</figcaption>
+</figure>
+</div>
 
 <div align="center">
-<figcaption><em>stage_orders.ktr</em></figcaption>
-</div>
-</figure>
-
 <figure>
-
-![stage_customers.ktr on the Spoon canvas: a JSON input into a table output, then a count written to the log](../_assets/images/capstone-canvas-stage-customers.png)
+<img src="../_assets/images/capstone-canvas-stage-customers.png" alt="stage_customers.ktr on the Spoon canvas: a JSON input into a table output, then a count written to the log" width="712">
+<figcaption>stage_customers.ktr</figcaption>
+</figure>
+</div>
 
 <div align="center">
-<figcaption><em>stage_customers.ktr</em></figcaption>
-</div>
-</figure>
-
 <figure>
-
-![stage_products.ktr on the Spoon canvas: a text file input into a table output, then a count written to the log](../_assets/images/capstone-canvas-stage-products.png)
+<img src="../_assets/images/capstone-canvas-stage-products.png" alt="stage_products.ktr on the Spoon canvas: a text file input into a table output, then a count written to the log" width="692">
+<figcaption>stage_products.ktr</figcaption>
+</figure>
+</div>
 
 <div align="center">
-<figcaption><em>stage_products.ktr</em></figcaption>
-</div>
-</figure>
-
 <figure>
-
-![stage_all.kjb on the Spoon canvas: Start running the three staging transformations in parallel, each with a failure hop to Abort job](../_assets/images/capstone-canvas-stage-all.png)
+<img src="../_assets/images/capstone-canvas-stage-all.png" alt="stage_all.kjb on the Spoon canvas: Start running the three staging transformations in parallel, each with a failure hop to Abort job" width="723">
+<figcaption>stage_all.kjb</figcaption>
+</figure>
+</div>
 
 <div align="center">
-<figcaption><em>stage_all.kjb</em></figcaption>
-</div>
-</figure>
-
 <figure>
-
-![maintain_dim_region.ktr on the Spoon canvas: the regions file, the system date, a Dimension lookup/update, and a count written to the log](../_assets/images/capstone-canvas-maintain-dim-region.png)
+<img src="../_assets/images/capstone-canvas-maintain-dim-region.png" alt="maintain_dim_region.ktr on the Spoon canvas: the regions file, the system date, a Dimension lookup/update, and a count written to the log" width="800">
+<figcaption>maintain_dim_region.ktr</figcaption>
+</figure>
+</div>
 
 <div align="center">
-<figcaption><em>maintain_dim_region.ktr</em></figcaption>
-</div>
-</figure>
-
 <figure>
-
-![build_fact.ktr on the Spoon canvas: orders, customers and products read from the staging tables, a stream lookup and a merge join, a filter for unmatched rows, the revenue and margin calculation, the region key lookup, the fact columns, the CSV and table outputs, and a count written to the log](../_assets/images/capstone-canvas-build-fact.png)
+<img src="../_assets/images/capstone-canvas-build-fact.png" alt="build_fact.ktr on the Spoon canvas: orders, customers and products read from the staging tables, a stream lookup and a merge join, a filter for unmatched rows, the revenue and margin calculation, the region key lookup, the fact columns, the CSV and table outputs, and a count written to the log" width="800">
+<figcaption>build_fact.ktr</figcaption>
+</figure>
+</div>
 
 <div align="center">
-<figcaption><em>build_fact.ktr</em></figcaption>
-</div>
-</figure>
-
 <figure>
-
-![write_summary.ktr on the Spoon canvas: the fact file read back, sorted and grouped by region, and written to an Excel workbook](../_assets/images/capstone-canvas-write-summary.png)
+<img src="../_assets/images/capstone-canvas-write-summary.png" alt="write_summary.ktr on the Spoon canvas: the fact file read back, sorted and grouped by region, and written to an Excel workbook" width="693">
+<figcaption>write_summary.ktr</figcaption>
+</figure>
+</div>
 
 <div align="center">
-<figcaption><em>write_summary.ktr</em></figcaption>
-</div>
-</figure>
-
 <figure>
-
-![daily_sales_pipeline.kjb on the Spoon canvas: Start, Check source files, Create tables, Stage all, Maintain dim_region, Build fact, Write summary and Success in a row, every failure hop going to Mail ops and then Abort job](../_assets/images/capstone-canvas-daily-sales-pipeline.png)
-
-<div align="center">
-<figcaption><em>daily_sales_pipeline.kjb</em></figcaption>
-</div>
+<img src="../_assets/images/capstone-canvas-daily-sales-pipeline.png" alt="daily_sales_pipeline.kjb on the Spoon canvas: Start, Check source files, Create tables, Stage all, Maintain dim_region, Build fact, Write summary and Success in a row, every failure hop going to Mail ops and then Abort job" width="800">
+<figcaption>daily_sales_pipeline.kjb</figcaption>
 </figure>
+</div>
 
 </details>

@@ -70,7 +70,12 @@ When you have two streams that should become one. Merge Streams stacks rows; Mer
 >
 > In the [Merge Streams](../20-mod4-merge-streams/guide.md) workshop you bring two streams with different fields to one layout, with **Add constants** and **Select values**, and merge them in a **Dummy** step.
 
-<figure><img src="../_assets/images/merge-streams-2.png" alt="The Merge Streams transformation: orders and description streams brought to one layout and merged in a Dummy step"><figcaption><p>Merge Streams</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/merge-streams-2.png" alt="The Merge Streams transformation: orders and description streams brought to one layout and merged in a Dummy step" width="630">
+<figcaption>Merge Streams</figcaption>
+</figure>
+</div>
 
 ### Merge Rows (diff)
 
@@ -80,6 +85,11 @@ When you have two streams that should become one. Merge Streams stacks rows; Mer
 >
 > In the [Merge Rows (diff)](../21-mod4-merge-streams-diff/guide.md) workshop you compare two files, then a file with a table.
 
-<figure><img src="../_assets/images/merge-rows-diff.png" alt="A table and a sorted file feeding Merge Rows (diff), which feeds Synchronize after merge"><figcaption><p>Merge Rows (diff)</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/merge-rows-diff.png" alt="A table and a sorted file feeding Merge Rows (diff), which feeds Synchronize after merge" width="641">
+<figcaption>Merge Rows (diff)</figcaption>
+</figure>
+</div>
 
 :::

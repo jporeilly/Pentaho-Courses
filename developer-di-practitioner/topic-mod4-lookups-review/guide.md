@@ -21,14 +21,12 @@ Enriching one stream with values from another. Database Lookup is the most commo
 >
 > A lookup takes a key from each row, finds the matching row in a reference set, and adds the fields you ask for. If nothing matches, it adds a default, or none.
 
-<figure>
-
-![An entity-relationship diagram: Customers and Orders, each pointing at small lookup tables such as Countries, States, Order_Status and Order_Priorities](../_assets/images/lookups.jpg)
-
 <div align="center">
-<figcaption><em>Reference (lookup) tables around a sales schema</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/lookups.jpg" alt="An entity-relationship diagram: Customers and Orders, each pointing at small lookup tables such as Countries, States, Order_Status and Order_Priorities" width="604">
+<figcaption>Reference (lookup) tables around a sales schema</figcaption>
 </figure>
+</div>
 
 > **Note:** Reference tables like these are usually small: a handful of statuses, a few hundred countries. That makes them ideal for a lookup that is cached, or read into memory once.
 

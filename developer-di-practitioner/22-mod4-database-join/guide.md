@@ -17,16 +17,19 @@
 > 
 > **Estimated time:** 20 minutes
 
+<div align="center">
 <figure>
-
-![The finished transformation: the Data grid "some conditions" hopped to Database join](../_assets/images/database-join-2.png)
+<img src="../_assets/images/database-join-2.png" alt="The finished transformation: the Data grid &quot;some conditions&quot; hopped to Database join" width="628">
+<figcaption>What you build</figcaption>
+</figure>
+</div>
 
 <div align="center">
-<figcaption><em>What you build</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/database-join.png" alt="Pentaho Data Integration title card: Database Join" width="800">
+<figcaption>Database Join</figcaption>
 </figure>
-
-<figure><img src="../_assets/images/database-join.png" alt="Pentaho Data Integration title card: Database Join"><figcaption><p>Database Join</p></figcaption></figure>
+</div>
 
 :::: tabs
 
@@ -66,7 +69,19 @@ Set-Location C:\Pentaho\design-tools\data-integration
 | `Ford Falcon`  | `70`      |
 | `Corvette`     | `70`      |
 
-<div><figure><img src="../_assets/images/dg-database-join.png" alt="Data grid Meta tab with prod String and max_price Integer"><figcaption><p>Meta tab</p></figcaption></figure> <figure><img src="../_assets/images/dg-database-join-data.png" alt="Data grid Data tab with the three search rows"><figcaption><p>Data tab</p></figcaption></figure></div>
+<div align="center">
+<figure>
+<img src="../_assets/images/dg-database-join.png" alt="Data grid Meta tab with prod String and max_price Integer" width="746">
+<figcaption>Meta tab</figcaption>
+</figure>
+</div>
+
+<div align="center">
+<figure>
+<img src="../_assets/images/dg-database-join-data.png" alt="Data grid Data tab with the three search rows" width="746">
+<figcaption>Data tab</figcaption>
+</figure>
+</div>
 
 8. Select **Preview**, enter `100` rows, and select **OK**.
 
@@ -106,7 +121,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 7. Select **OK**.
 
-<figure><img src="../_assets/images/database-join-step.png" alt="Database join with the SELECT on PRODUCTS, Outer join selected and the parameters prod and max_price" width="563"><figcaption><p>Two markers, two parameters, in order</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/database-join-step.png" alt="Database join with the SELECT on PRODUCTS, Outer join selected and the parameters prod and max_price" width="800">
+<figcaption>Two markers, two parameters, in order</figcaption>
+</figure>
+</div>
 
 > **Note:** **What each row runs**
 > 
@@ -151,7 +171,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 4. Select **Database join** on the canvas and open the **Preview data** tab.
 
-<figure><img src="../_assets/images/results-1.png" alt="Preview data: Aston Martin with one product, Ford Falcon with nulls, and Corvette products"><figcaption><p>One search row can return several rows</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/results-1.png" alt="Preview data: Aston Martin with one product, Ford Falcon with nulls, and Corvette products" width="800">
+<figcaption>One search row can return several rows</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: 5 rows from 3 searches: Aston Martin finds one product, Ford Falcon none (an outer join keeps it, with nulls), and Corvette three. The 1957 Corvette Convertible's buy price, 69.93, is just under 70.
 >

@@ -17,14 +17,12 @@
 > 
 > **Estimated time:** 20 minutes
 
-<figure>
-
-![The finished transformation: Generate Rows into Formula [a]+[b], and Generate Rows 2 into IF Formula b-a](../_assets/images/formula.png)
-
 <div align="center">
-<figcaption><em>What you build: two small flows</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/formula.png" alt="The finished transformation: Generate Rows into Formula [a]+[b], and Generate Rows 2 into IF Formula b-a" width="765">
+<figcaption>What you build: two small flows</figcaption>
 </figure>
+</div>
 
 :::: tabs
 
@@ -56,7 +54,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
    | `a`  | Integer | `1`   |
    | `b`  | Integer | `2`   |
 
-<figure><img src="../_assets/images/gr-formula1.png" alt="Generate rows with limit 1 and the fields a = 1 and b = 2"><figcaption><p>One row: a = 1, b = 2</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/gr-formula1.png" alt="Generate rows with limit 1 and the fields a = 1 and b = 2" width="800">
+<figcaption>One row: a = 1, b = 2</figcaption>
+</figure>
+</div>
 
 7. Select **Preview**, then **OK** in **Enter preview size**.
 
@@ -83,7 +86,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 5. Select **OK**.
 
-<figure><img src="../_assets/images/formula-1.png" alt="Formula step: result = [a]+[b], Number"><figcaption><p>result = [a]+[b]</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/formula-1.png" alt="Formula step: result = [a]+[b], Number" width="800">
+<figcaption>result = [a]+[b]</figcaption>
+</figure>
+</div>
 
 6. Save the transformation (`Ctrl+S`).
 7. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
@@ -118,7 +126,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 6. Select **OK**.
 
-<figure><img src="../_assets/images/formula-2.png" alt="Formula step: result = IF([booking_type]=&quot;R&quot;;[b]-[a]), Number"><figcaption><p>A conditional formula</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/formula-2.png" alt="Formula step: result = IF([booking_type]=&quot;R&quot;;[b]-[a]), Number" width="800">
+<figcaption>A conditional formula</figcaption>
+</figure>
+</div>
 
 > **Under the hood:**
 >

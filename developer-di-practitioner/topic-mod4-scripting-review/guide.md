@@ -41,7 +41,12 @@ When the visual steps don't quite fit. Formula handles spreadsheet-style express
 >
 > Workshop: [Formula](../27-mod4-formula/guide.md).
 
-<figure><img src="../_assets/images/formula-simple-calculation-if.png" alt="Two flows: Generate Rows into a Formula that adds a and b, and Generate Rows 2 into an IF formula"><figcaption><p>A calculation and a condition</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/formula-simple-calculation-if.png" alt="Two flows: Generate Rows into a Formula that adds a and b, and Generate Rows 2 into an IF formula" width="594">
+<figcaption>A calculation and a condition</figcaption>
+</figure>
+</div>
 
 ### Modified JavaScript value
 
@@ -51,7 +56,12 @@ When the visual steps don't quite fit. Formula handles spreadsheet-style express
 >
 > Workshop: [Modified JavaScript Value](../28-mod4-mjv/guide.md).
 
-<figure><img src="../_assets/images/modified-javascript-value-replace.png" alt="Generate Rows into a Modified JavaScript value step that replaces characters in a string"><figcaption><p>A script that cleans a string</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/modified-javascript-value-replace.png" alt="Generate Rows into a Modified JavaScript value step that replaces characters in a string" width="608">
+<figcaption>A script that cleans a string</figcaption>
+</figure>
+</div>
 
 ### User defined Java class
 
@@ -59,6 +69,11 @@ When the visual steps don't quite fit. Formula handles spreadsheet-style express
 >
 > **User defined Java class** lets you write the logic of a whole step in Java: you define the methods that process each row, and PDI compiles the class when the transformation starts, with the [Janino](https://janino-compiler.github.io/janino/) compiler. It is for logic that is too large for an expression, not for building full plugins inside a step.
 
-<figure><img src="../_assets/images/user-defined-java-class-easter.png" alt="Generate rows into a User defined Java class that works out the date of Easter Sunday for a year"><figcaption><p>A Java class that calculates Easter Sunday</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/user-defined-java-class-easter.png" alt="Generate rows into a User defined Java class that works out the date of Easter Sunday for a year" width="464">
+<figcaption>A Java class that calculates Easter Sunday</figcaption>
+</figure>
+</div>
 
 :::

@@ -17,14 +17,12 @@
 > 
 > **Estimated time:** 20 minutes
 
-<figure>
-
-![The finished transformation in Spoon: first name and middle name into Join rows, then name_initials, join surname with get ${surname}, Select values, name +surname and Select a name](../_assets/images/cross-join-2.png)
-
 <div align="center">
-<figcaption><em>What you build</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/cross-join-2.png" alt="The finished transformation in Spoon: first name and middle name into Join rows, then name_initials, join surname with get ${surname}, Select values, name +surname and Select a name" width="800">
+<figcaption>What you build</figcaption>
 </figure>
+</div>
 
 :::: tabs
 
