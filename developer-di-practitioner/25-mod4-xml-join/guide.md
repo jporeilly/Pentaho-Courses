@@ -52,25 +52,12 @@
 > 
 > The workbook `xml_orders_source.xls` holds one sheet per level of the order hierarchy, plus a `Remark` sheet you don't read. `OrderList` is the root level. `OrderHeaders` are the orders, each with `OrderHeaderComments` and `OrderLines`; each line has `OrderLineComments` and `OrderSubLines`. Read each of the six sheets with its own **Microsoft Excel input** step.
 
-1. Start Spoon with the **Start PDI** button below, or from a terminal:
-
-::: tabs
-
-### Windows (PowerShell)
+1. Start Spoon with the **Start PDI** button below, or from PowerShell:
 
 ```powershell
 Set-Location C:\Pentaho\design-tools\data-integration
 .\spoon.bat
 ```
-
-### macOS / Linux
-
-```bash
-cd ~/Pentaho/design-tools/data-integration
-./spoon.sh
-```
-
-:::
 
 <button data-launch="spoon" data-path="">Start PDI</button>
 

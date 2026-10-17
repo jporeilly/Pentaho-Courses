@@ -1,4 +1,4 @@
-# KETTLE Variables
+# Kettle Variables
 
 > **Warning:**
 >
@@ -18,7 +18,11 @@
 >
 > **Estimated time:** 25 minutes
 
-<div class="pcm-embed-card" data-href="https://www.loom.com/share/89d5419da317432eb272b583e30f8904?hideEmbedTopBar=true&amp;hide_owner=true&amp;hide_share=true&amp;hide_title=true" data-title="Defining and Managing Variables in Kettle.Properties" data-description="In this video, I demonstrate how to define variables in the Kettle.Properties file and view the variables currently loaded into memory using Spoon. I guide you through the process of editing the Kettle.Properties file to add new variables, specifically for our sales database server name and database name, while emphasizing the importance of using case sensitivity. After editing, I show you how these new variables appear in the run dialog, confirming they are loaded into memory. Please remember that this file is meant for global variables across environments, and I recommend creating separate properties files for specific transformations or jobs. Your action is to review the steps and consider how you might implement variable definitions in your own projects." data-thumb="../_assets/embeds/2d94cd73b9b2.png"></div>
+<figure>
+
+<figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
+
+</figure>
 
 > **Note:**
 >
@@ -36,25 +40,12 @@
 
 ## 1. Add a variable from Spoon
 
-1. Start Pentaho Data Integration with the button below, or from a terminal:
-
-::: tabs
-
-### Windows (PowerShell)
+1. Start Pentaho Data Integration with the button below, or from PowerShell:
 
 ```powershell
 Set-Location C:\Pentaho\design-tools\data-integration
 .\spoon.bat
 ```
-
-### macOS / Linux
-
-```bash
-cd ~/Pentaho/design-tools/data-integration
-./spoon.sh
-```
-
-:::
 
 <button data-launch="spoon" data-path="">Start PDI</button>
 
@@ -62,21 +53,9 @@ cd ~/Pentaho/design-tools/data-integration
 3. Right-click the first row and select **Insert before this row**.
 4. In the new row, set **Variable name** to `DIR_SAMPLES`, and **Value** to the folder for your operating system:
 
-::: tabs
-
-### Windows
-
 ```properties
 C:/Temp
 ```
-
-### Linux/macOS
-
-```properties
-/home/pentaho/Temp
-```
-
-:::
 
 5. Select **OK**. Spoon writes the file.
 
@@ -114,7 +93,7 @@ Variable names are case-sensitive: `${DIR_SAMPLES}` and `${dir_samples}` are two
 
 8. Select **Edit > Show Used Environment Variables** (`Ctrl+L`). The **Existing variables** dialog lists the variables that the open files refer to.
 
-> **Success:** Checkpoint: `DIR_SAMPLES` is in the list, with the value you set (`C:/Temp` or `/home/pentaho/Temp`).
+> **Success:** Checkpoint: `DIR_SAMPLES` is in the list, with the value you set, `C:/Temp`.
 
 9. Close the **Existing variables** dialog.
 
@@ -124,7 +103,7 @@ Variable names are case-sensitive: `${DIR_SAMPLES}` and `${dir_samples}` are two
 >
 > When you inserted `${DIR_SAMPLES}`, the step saved exactly that text into its XML. Nothing resolved it. Resolution happens at run time, when the transformation starts: the engine looks the name up in its variables (`kettle.properties`, plus anything set by a parent job or the run dialog) and substitutes the value into the step's settings just before the step opens the file.
 >
-> That is why the same transformation opens `C:/Temp` on this machine and `/home/pentaho/Temp` on a Linux server without a single edit. The file carries the *name*; each environment supplies the *value*.
+> That is why the same transformation opens `C:/Temp` on this machine and `D:/Data/Samples` on a production server without a single edit. The file carries the *name*; each environment supplies the *value*.
 >
 > **Why it matters:** a `.ktr` with no literal paths in it can be committed to git, copied to a server and handed to a colleague, and it runs in all three places. The environment is configuration, not code.
 
@@ -145,31 +124,19 @@ Variable names are case-sensitive: `${DIR_SAMPLES}` and `${dir_samples}` are two
 
 `kettle.properties` is a plain text file, one `name=value` line per variable, so you can also edit it outside Spoon: on a server with no Spoon, for example.
 
-1. Open the file in a text editor. It is in your `.kettle` folder: `C:\Users\<username>\.kettle\kettle.properties` on Windows, `~/.kettle/kettle.properties` on Linux and macOS.
-
-::: tabs
-
-### Windows (PowerShell)
+1. Open the file in a text editor. It is in your `.kettle` folder, `C:\Users\<username>\.kettle\kettle.properties`.
 
 ```powershell
 notepad $env:USERPROFILE\.kettle\kettle.properties
 ```
 
-### Linux/macOS
-
-```bash
-nano ~/.kettle/kettle.properties
-```
-
-:::
-
-2. Find the `DIR_SAMPLES` line that Spoon wrote in step 1. On Windows it reads `DIR_SAMPLES=C\:/Temp`: Spoon saves the file in Java's properties format, which escapes a colon with a backslash. `C\:/Temp` and `C:/Temp` mean the same value, so either works when you type a line yourself.
+2. Find the `DIR_SAMPLES` line that Spoon wrote in step 1. It reads `DIR_SAMPLES=C\:/Temp`: Spoon saves the file in Java's properties format, which escapes a colon with a backslash. `C\:/Temp` and `C:/Temp` mean the same value, so either works when you type a line yourself.
 <figure>
 
-![kettle.properties open in nano on Linux, with comments and variables such as DIR_SAMPLES=/home/pentaho/Temp](../_assets/images/kettle.png)
+![kettle.properties open in Notepad: the comment header Spoon writes, then DIR_SAMPLES=C\:/Temp and the KETTLE_ variables](../_assets/images/kettle.png)
 
 <div align="center">
-<figcaption><em>The same file in a text editor, on Linux</em></figcaption>
+<figcaption><em>The same file in Notepad</em></figcaption>
 </div>
 </figure>
 

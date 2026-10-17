@@ -373,7 +373,7 @@
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>112</xloc>
-      <yloc>208</yloc>
+      <yloc>404</yloc>
       <attributes_kjc/>
     </entry>
     <entry>
@@ -411,7 +411,7 @@
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>304</xloc>
-      <yloc>144</yloc>
+      <yloc>340</yloc>
       <attributes_kjc/>
     </entry>
     <entry>
@@ -423,7 +423,7 @@
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>704</xloc>
-      <yloc>144</yloc>
+      <yloc>340</yloc>
       <attributes_kjc/>
     </entry>
     <entry>
@@ -461,7 +461,7 @@
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>304</xloc>
-      <yloc>288</yloc>
+      <yloc>484</yloc>
       <attributes_kjc/>
     </entry>
     <entry>
@@ -499,7 +499,7 @@
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>512</xloc>
-      <yloc>144</yloc>
+      <yloc>340</yloc>
       <attributes_kjc/>
     </entry>
   </entries>
@@ -543,69 +543,37 @@
   </hops>
   <notepads>
     <notepad>
-      <note>Lab 2: Order of Execution</note>
-      <xloc>80</xloc>
+      <note>kjb_hello_world_backward - two branches from START, run one after the other.
+Every Transformation entry runs tr_hello_world.ktr from the job's own folder.
+
+1. START: two unconditional hops. The hop to Transformation A was drawn first,
+   so the job takes that branch first and follows it to its end.
+2. Transformation A: runs first.
+3. Transformation C: runs second, when A succeeds (a green Result is TRUE hop).
+4. Success: runs third, when C succeeds.
+5. Transformation B: runs last. It is the second hop out of START, so the job comes
+   back for it only after the A, C, Success branch has finished.
+
+A job runs on one thread and walks its hops depth-first, in the order they are
+stored (the order they were drawn), not by where the entries sit on the canvas.
+Shipped data: the log's Starting entry lines read A, C, Success, B on every run.</note>
+      <xloc>112</xloc>
       <yloc>32</yloc>
-      <width>188</width>
-      <heigth>30</heigth>
+      <width>490</width>
+      <heigth>260</heigth>
       <fontname>Segoe UI</fontname>
-      <fontsize>11</fontsize>
-      <fontbold>Y</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>255</bordercolorred>
-      <bordercolorgreen>255</bordercolorgreen>
-      <bordercolorblue>255</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
-    <notepad>
-      <note>Transformation A was placed on the canvas first, then Transformation B, followed by Transformation C
-The complete path (thread) for Transformation A will be executed before Transformation B</note>
-      <xloc>80</xloc>
-      <yloc>80</yloc>
-      <width>546</width>
-      <heigth>42</heigth>
-      <fontname>Segoe UI</fontname>
-      <fontsize>9</fontsize>
+      <fontsize>10</fontsize>
       <fontbold>N</fontbold>
       <fontitalic>N</fontitalic>
       <fontcolorred>0</fontcolorred>
       <fontcolorgreen>0</fontcolorgreen>
       <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>255</bordercolorred>
-      <bordercolorgreen>255</bordercolorgreen>
-      <bordercolorblue>255</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
-    <notepad>
-      <note>Transformation C was placed on the canvas
-after Transformation A.
-Order of Execution: A - C - B</note>
-      <xloc>512</xloc>
-      <yloc>224</yloc>
-      <width>239</width>
-      <heigth>58</heigth>
-      <fontname>Segoe UI</fontname>
-      <fontsize>9</fontsize>
-      <fontbold>N</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>192</bordercolorred>
-      <bordercolorgreen>192</bordercolorgreen>
-      <bordercolorblue>192</bordercolorblue>
+      <backgroundcolorred>167</backgroundcolorred>
+      <backgroundcolorgreen>224</backgroundcolorgreen>
+      <backgroundcolorblue>245</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
       <drawshadow>Y</drawshadow>
     </notepad>
   </notepads>

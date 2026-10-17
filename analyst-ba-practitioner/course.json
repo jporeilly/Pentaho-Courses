@@ -13,10 +13,12 @@
   },
   "title": "Pentaho Analyst - BA Practitioner",
   "description": "Hands-on workshop for the Pentaho Business Analytics Practitioner. Pentaho User Console, Interactive Reports, Analyzer Reports and Dashboard Designer.",
-  "version": "0.1.11",
+  "version": "0.1.13",
   "kind": "workshop",
+  "platform": "windows11",
   "level": { "number": 1, "name": "Practitioner" },
   "mode": "sequential",
+  "welcome": { "caption": "Welcome Tour: coming soon" },
   "theme": {
     "accent": "#2e7d32"
   },
@@ -66,5 +68,10 @@
       "action": "Log into",
       "url": "http://localhost:8080"
     }
+  },
+  "install": {
+    "code": "BA",
+    "signIn": "server",
+    "workshop": true
   }
 }

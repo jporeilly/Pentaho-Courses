@@ -433,15 +433,71 @@
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
+    <notepad>
+      <note>customer_360 - builds one profile per customer from customers, sales and site events.
+Reads and writes through the VFS connection named MinIO (pvfs://MinIO/...).
+
+1. Read Customers: Text file input, pvfs://MinIO/raw-data/csv/customers.csv.
+2. Sort Customers: by customer_id, for the last join.
+3. Read Sales: Text file input, pvfs://MinIO/raw-data/csv/sales.csv.
+4. Sort Sales: by customer_id.
+5. Memory group by: per customer_id, total_orders (count of sale_id), total_spent (sum),
+   first_purchase and last_purchase (min and max sale_date), avg_order_value.
+6. Final Customer Sort: by customer_id.
+7. Read User Events: Text file input, pvfs://MinIO/raw-data/json/user_events.json,
+   each line whole into json_line (separator |||DELIM|||, no header, format Unix).
+8. JSON input: parses the field json_line into event_id, user_id, event_type,
+   product_id, rating and timestamp.
+9. MJV - Define Events: 0/1 flags from event_type: is_page_view, is_add_to_cart,
+   is_purchase, is_checkout, is_search, is_product_view.
+10. Sort Events: by user_id.
+11. Group by User: per user_id, total_events (distinct event_id) and the flag sums
+    page_views, cart_additions, purchases, checkouts, searches, product_views.
+12. Final User Sort: by user_id.
+13. Sales &amp; Events: Merge join INNER, customer_id = user_id: customers with both.
+14. Customers + Sales + Events: Merge join LEFT OUTER with Sort Customers on
+    customer_id, adds each customer's name, email and country.
+15. Get system info: todays_date = system date (variable).
+16. Calculator: days_since_last_purchase = todays_date - last_purchase and
+    days_as_customer = last_purchase - first_purchase, in days (Integer).
+17. Engagement: Formula, engagement_score =
+    [total_events]*0.3 + [cart_additions]*0.5 + [total_orders]*0.2.
+18. MJV - Customer Segment: customer_segment from total_spent: High Value from 1000,
+    Medium Value from 500, Low Value above 0, Prospect when empty or 0.
+19. Select values: the 17 output fields in order.
+20. Output - Customer 360: Text file output, pvfs://MinIO/curated/customer/customer_360,
+    extension csv, date and time in the file name.
+
+Shipped data: 12 customers and 46 events; 12 rows, one per customer,
+in customer_360_&lt;date&gt;_&lt;time&gt;.csv: 2 High Value, 3 Medium Value and 7 Low Value.</note>
+      <xloc>144</xloc>
+      <yloc>32</yloc>
+      <width>534</width>
+      <heigth>656</heigth>
+      <fontname>Segoe UI</fontname>
+      <fontsize>10</fontsize>
+      <fontbold>N</fontbold>
+      <fontitalic>N</fontitalic>
+      <fontcolorred>0</fontcolorred>
+      <fontcolorgreen>0</fontcolorgreen>
+      <fontcolorblue>0</fontcolorblue>
+      <backgroundcolorred>167</backgroundcolorred>
+      <backgroundcolorgreen>224</backgroundcolorgreen>
+      <backgroundcolorblue>245</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
+      <drawshadow>Y</drawshadow>
+    </notepad>
   </notepads>
   <order>
     <hop>
       <from>Read Sales</from>
-      <to>Sort Customers</to>
+      <to>Sort Sales</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Sort Customers</from>
+      <from>Sort Sales</from>
       <to>Memory group by</to>
       <enabled>Y</enabled>
     </hop>
@@ -467,7 +523,7 @@
     </hop>
     <hop>
       <from>Read Customers</from>
-      <to>Sort rows</to>
+      <to>Sort Customers</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
@@ -491,7 +547,7 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Sort rows</from>
+      <from>Sort Customers</from>
       <to>Customers + Sales + Events</to>
       <enabled>Y</enabled>
     </hop>
@@ -532,7 +588,7 @@
     </hop>
   </order>
   <step>
-    <name>Sort Customers</name>
+    <name>Sort Sales</name>
     <type>SortRows</type>
     <description/>
     <distribute>Y</distribute>
@@ -569,7 +625,7 @@
     </remotesteps>
     <GUI>
       <xloc>256</xloc>
-      <yloc>400</yloc>
+      <yloc>1040</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -625,7 +681,7 @@
     </remotesteps>
     <GUI>
       <xloc>384</xloc>
-      <yloc>96</yloc>
+      <yloc>736</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -681,7 +737,7 @@ if (total_spent == null || total_spent == 0) {
     </remotesteps>
     <GUI>
       <xloc>672</xloc>
-      <yloc>96</yloc>
+      <yloc>736</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -698,7 +754,7 @@ if (total_spent == null || total_spent == 0) {
     </partitioning>
     <join_type>LEFT OUTER</join_type>
     <step1>Sales &amp; Events</step1>
-    <step2>Sort rows</step2>
+    <step2>Sort Customers</step2>
     <keys_1>
       <key>customer_id</key>
     </keys_1>
@@ -715,7 +771,7 @@ if (total_spent == null || total_spent == 0) {
     </remotesteps>
     <GUI>
       <xloc>384</xloc>
-      <yloc>288</yloc>
+      <yloc>928</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -748,7 +804,7 @@ if (total_spent == null || total_spent == 0) {
     </remotesteps>
     <GUI>
       <xloc>528</xloc>
-      <yloc>96</yloc>
+      <yloc>736</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -790,7 +846,7 @@ if (total_spent == null || total_spent == 0) {
     </remotesteps>
     <GUI>
       <xloc>528</xloc>
-      <yloc>400</yloc>
+      <yloc>1040</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -832,7 +888,7 @@ if (total_spent == null || total_spent == 0) {
     </remotesteps>
     <GUI>
       <xloc>672</xloc>
-      <yloc>400</yloc>
+      <yloc>1040</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -863,7 +919,7 @@ if (total_spent == null || total_spent == 0) {
     </remotesteps>
     <GUI>
       <xloc>384</xloc>
-      <yloc>192</yloc>
+      <yloc>832</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -945,7 +1001,7 @@ if (total_spent == null || total_spent == 0) {
     </remotesteps>
     <GUI>
       <xloc>672</xloc>
-      <yloc>512</yloc>
+      <yloc>1152</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1081,7 +1137,7 @@ if (total_spent == null || total_spent == 0) {
     </remotesteps>
     <GUI>
       <xloc>256</xloc>
-      <yloc>512</yloc>
+      <yloc>1152</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1174,7 +1230,7 @@ var is_product_view = (event_type == "product_view") ? 1 : 0;
     </remotesteps>
     <GUI>
       <xloc>384</xloc>
-      <yloc>512</yloc>
+      <yloc>1152</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1237,7 +1293,7 @@ var is_product_view = (event_type == "product_view") ? 1 : 0;
     </remotesteps>
     <GUI>
       <xloc>384</xloc>
-      <yloc>400</yloc>
+      <yloc>1040</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1287,7 +1343,7 @@ var is_product_view = (event_type == "product_view") ? 1 : 0;
         <name>customer_id</name>
         <type>Integer</type>
         <format>#</format>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif/>
@@ -1498,7 +1554,7 @@ var is_product_view = (event_type == "product_view") ? 1 : 0;
     </remotesteps>
     <GUI>
       <xloc>816</xloc>
-      <yloc>192</yloc>
+      <yloc>832</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1556,7 +1612,7 @@ var is_product_view = (event_type == "product_view") ? 1 : 0;
         <name>customer_id</name>
         <type>Integer</type>
         <format>#</format>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -1571,7 +1627,7 @@ var is_product_view = (event_type == "product_view") ? 1 : 0;
         <name>first_name</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -1586,7 +1642,7 @@ var is_product_view = (event_type == "product_view") ? 1 : 0;
         <name>last_name</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -1601,7 +1657,7 @@ var is_product_view = (event_type == "product_view") ? 1 : 0;
         <name>email</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -1616,7 +1672,7 @@ var is_product_view = (event_type == "product_view") ? 1 : 0;
         <name>phone</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -1631,7 +1687,7 @@ var is_product_view = (event_type == "product_view") ? 1 : 0;
         <name>country</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -1646,7 +1702,7 @@ var is_product_view = (event_type == "product_view") ? 1 : 0;
         <name>registration_date</name>
         <type>Date</type>
         <format>yyyy-MM-dd</format>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -1661,7 +1717,7 @@ var is_product_view = (event_type == "product_view") ? 1 : 0;
         <name>status</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -1708,7 +1764,7 @@ var is_product_view = (event_type == "product_view") ? 1 : 0;
     </remotesteps>
     <GUI>
       <xloc>144</xloc>
-      <yloc>288</yloc>
+      <yloc>928</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1766,7 +1822,7 @@ var is_product_view = (event_type == "product_view") ? 1 : 0;
         <name>sale_id</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -1781,7 +1837,7 @@ var is_product_view = (event_type == "product_view") ? 1 : 0;
         <name>customer_id</name>
         <type>Integer</type>
         <format>#</format>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -1796,7 +1852,7 @@ var is_product_view = (event_type == "product_view") ? 1 : 0;
         <name>product_id</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -1811,7 +1867,7 @@ var is_product_view = (event_type == "product_view") ? 1 : 0;
         <name>quantity</name>
         <type>Integer</type>
         <format>#</format>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -1826,7 +1882,7 @@ var is_product_view = (event_type == "product_view") ? 1 : 0;
         <name>sale_date</name>
         <type>Date</type>
         <format>yyyy-MM-dd</format>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -1841,7 +1897,7 @@ var is_product_view = (event_type == "product_view") ? 1 : 0;
         <name>sale_amount</name>
         <type>BigNumber</type>
         <format>#.##</format>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -1856,7 +1912,7 @@ var is_product_view = (event_type == "product_view") ? 1 : 0;
         <name>payment_method</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -1871,7 +1927,7 @@ var is_product_view = (event_type == "product_view") ? 1 : 0;
         <name>status</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -1918,7 +1974,7 @@ var is_product_view = (event_type == "product_view") ? 1 : 0;
     </remotesteps>
     <GUI>
       <xloc>144</xloc>
-      <yloc>400</yloc>
+      <yloc>1040</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -2023,7 +2079,7 @@ var is_product_view = (event_type == "product_view") ? 1 : 0;
     </remotesteps>
     <GUI>
       <xloc>144</xloc>
-      <yloc>512</yloc>
+      <yloc>1152</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -2057,7 +2113,7 @@ var is_product_view = (event_type == "product_view") ? 1 : 0;
     </remotesteps>
     <GUI>
       <xloc>608</xloc>
-      <yloc>288</yloc>
+      <yloc>928</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -2136,7 +2192,7 @@ var is_product_view = (event_type == "product_view") ? 1 : 0;
     </remotesteps>
     <GUI>
       <xloc>816</xloc>
-      <yloc>96</yloc>
+      <yloc>736</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -2178,12 +2234,12 @@ var is_product_view = (event_type == "product_view") ? 1 : 0;
     </remotesteps>
     <GUI>
       <xloc>528</xloc>
-      <yloc>512</yloc>
+      <yloc>1152</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Sort rows</name>
+    <name>Sort Customers</name>
     <type>SortRows</type>
     <description/>
     <distribute>Y</distribute>
@@ -2220,7 +2276,7 @@ var is_product_view = (event_type == "product_view") ? 1 : 0;
     </remotesteps>
     <GUI>
       <xloc>256</xloc>
-      <yloc>288</yloc>
+      <yloc>928</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

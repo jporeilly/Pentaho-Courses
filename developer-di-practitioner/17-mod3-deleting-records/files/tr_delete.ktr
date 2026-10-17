@@ -441,91 +441,37 @@
   </info>
   <notepads>
     <notepad>
-      <note>Lists the Productline. Could have used a Lookup.</note>
-      <xloc>256</xloc>
-      <yloc>112</yloc>
-      <width>266</width>
-      <heigth>26</heigth>
-      <fontname>Segoe UI</fontname>
-      <fontsize>9</fontsize>
-      <fontbold>N</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>192</bordercolorred>
-      <bordercolorgreen>192</bordercolorgreen>
-      <bordercolorblue>192</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
-    <notepad>
-      <note>Retrieves the value for the ${min_quantityordered}. 50
-Set in the Transformation Properties > Parameters.</note>
-      <xloc>256</xloc>
-      <yloc>224</yloc>
-      <width>293</width>
-      <heigth>42</heigth>
-      <fontname>Segoe UI</fontname>
-      <fontsize>9</fontsize>
-      <fontbold>N</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>192</bordercolorred>
-      <bordercolorgreen>192</bordercolorgreen>
-      <bordercolorblue>192</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
-    <notepad>
-      <note>Maps (sets Keys) the QUANTITYORDERED database field
- to the &lt;= min_quantityordered stream field, as well as the PRODUCTLINE.
-Deletes the relevant records in the STG_SALES_DATA table.
-</note>
-      <xloc>256</xloc>
-      <yloc>336</yloc>
-      <width>401</width>
-      <heigth>73</heigth>
-      <fontname>Segoe UI</fontname>
-      <fontsize>9</fontsize>
-      <fontbold>N</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>192</bordercolorred>
-      <bordercolorgreen>192</bordercolorgreen>
-      <bordercolorblue>192</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
-    <notepad>
-      <note>Lab 6: Delete</note>
-      <xloc>96</xloc>
+      <note>tr_delete - deletes the STG_SALES_DATA rows at or under a quantity, per product line.
+Uses MySQL:sampledata and STG_SALES_DATA as tr_write_database loads it (2,823 rows).
+Parameter (default): MIN_QUANTITYORDERED = 50.
+
+1. productlines list: CSV file input, header row, one String field, PRODUCTLINE,
+   from ${Internal.Entry.Current.Directory}/productline.txt (7 product lines).
+2. getting min_quantityordered: Get variables, MIN_QUANTITYORDERED from
+   ${MIN_QUANTITYORDERED}, as a Number.
+3. delete min quantity ordered: Delete on STG_SALES_DATA, commit 100, one DELETE
+   per row: QUANTITYORDERED &lt;= MIN_QUANTITYORDERED AND PRODUCTLINE = PRODUCTLINE.
+
+A delete cannot be undone: run tr_write_database again to reload the 2,823 rows.
+Shipped data: 7 DELETEs, one per product line; STG_SALES_DATA keeps 54 rows, all over 50.
+With MIN_QUANTITYORDERED = 70, 6 rows remain.</note>
+      <xloc>128</xloc>
       <yloc>32</yloc>
-      <width>102</width>
-      <heigth>30</heigth>
+      <width>592</width>
+      <heigth>260</heigth>
       <fontname>Segoe UI</fontname>
-      <fontsize>11</fontsize>
-      <fontbold>Y</fontbold>
+      <fontsize>10</fontsize>
+      <fontbold>N</fontbold>
       <fontitalic>N</fontitalic>
       <fontcolorred>0</fontcolorred>
       <fontcolorgreen>0</fontcolorgreen>
       <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>255</bordercolorred>
-      <bordercolorgreen>255</bordercolorgreen>
-      <bordercolorblue>255</bordercolorblue>
+      <backgroundcolorred>167</backgroundcolorred>
+      <backgroundcolorgreen>224</backgroundcolorgreen>
+      <backgroundcolorblue>245</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
       <drawshadow>Y</drawshadow>
     </notepad>
   </notepads>
@@ -627,7 +573,7 @@ Deletes the relevant records in the STG_SALES_DATA table.
     <commit>100</commit>
     <lookup>
       <schema/>
-      <table>stg_sales_data</table>
+      <table>STG_SALES_DATA</table>
       <key>
         <name>MIN_QUANTITYORDERED</name>
         <field>QUANTITYORDERED</field>
@@ -651,7 +597,7 @@ Deletes the relevant records in the STG_SALES_DATA table.
     </remotesteps>
     <GUI>
       <xloc>128</xloc>
-      <yloc>336</yloc>
+      <yloc>564</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -690,7 +636,7 @@ Deletes the relevant records in the STG_SALES_DATA table.
     </remotesteps>
     <GUI>
       <xloc>128</xloc>
-      <yloc>224</yloc>
+      <yloc>452</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -724,7 +670,7 @@ Deletes the relevant records in the STG_SALES_DATA table.
         <name>PRODUCTLINE</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <length>16</length>
@@ -742,7 +688,7 @@ Deletes the relevant records in the STG_SALES_DATA table.
     </remotesteps>
     <GUI>
       <xloc>128</xloc>
-      <yloc>112</yloc>
+      <yloc>340</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

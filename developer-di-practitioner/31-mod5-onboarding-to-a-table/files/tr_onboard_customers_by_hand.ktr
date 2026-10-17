@@ -435,24 +435,36 @@
   </info>
   <notepads>
     <notepad>
-      <note>Transformation to create Metadata_Injection_Cutomers database table.</note>
+      <note>tr_onboard_customers_by_hand - loads customers.txt into a table the ordinary way.
+Needs the MySQL:sampledata connection and the METADATA_INJECTION_CUSTOMERS table
+(create_metadata_injection_customers.sql).
+
+1. csvi-customers: CSV file input, ${Internal.Entry.Current.Directory}/data/customers.txt,
+   delimiter ;, header row, 10 fields: id, zip and housenr Integer (format " #"),
+   birthdate Date (yyyy/MM/dd), the rest String.
+2. sv-customers: Select values renames id to key_id, removes stateCode, and passes
+   the rest (Include unspecified fields, ordered by name).
+3. to-customers: Table output into METADATA_INJECTION_CUSTOMERS, truncated every run.
+
+metadata_inject_step loads the same table through metadata_inject_template.
+Shipped data: 100 rows; customer 1 is jwcdf-name, fsj-firstname, oem-city, ALASKA.</note>
       <xloc>224</xloc>
-      <yloc>80</yloc>
-      <width>383</width>
-      <heigth>26</heigth>
+      <yloc>32</yloc>
+      <width>552</width>
+      <heigth>242</heigth>
       <fontname>Segoe UI</fontname>
-      <fontsize>9</fontsize>
+      <fontsize>10</fontsize>
       <fontbold>N</fontbold>
       <fontitalic>N</fontitalic>
       <fontcolorred>0</fontcolorred>
       <fontcolorgreen>0</fontcolorgreen>
       <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>255</bordercolorred>
-      <bordercolorgreen>255</bordercolorgreen>
-      <bordercolorblue>255</bordercolorblue>
+      <backgroundcolorred>167</backgroundcolorred>
+      <backgroundcolorgreen>224</backgroundcolorgreen>
+      <backgroundcolorblue>245</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
       <drawshadow>Y</drawshadow>
     </notepad>
   </notepads>
@@ -572,7 +584,7 @@
     </remotesteps>
     <GUI>
       <xloc>304</xloc>
-      <yloc>144</yloc>
+      <yloc>322</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -606,7 +618,7 @@
         <name>id</name>
         <type>Integer</type>
         <format> #</format>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <length>15</length>
@@ -617,7 +629,7 @@
         <name>name</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <length>10</length>
@@ -628,7 +640,7 @@
         <name>firstname</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <length>13</length>
@@ -639,7 +651,7 @@
         <name>zip</name>
         <type>Integer</type>
         <format> #</format>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <length>15</length>
@@ -650,7 +662,7 @@
         <name>city</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <length>8</length>
@@ -661,7 +673,7 @@
         <name>birthdate</name>
         <type>Date</type>
         <format>yyyy/MM/dd</format>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <length>-1</length>
@@ -672,7 +684,7 @@
         <name>street</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <length>11</length>
@@ -683,7 +695,7 @@
         <name>housenr</name>
         <type>Integer</type>
         <format> #</format>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <length>15</length>
@@ -694,7 +706,7 @@
         <name>stateCode</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <length>9</length>
@@ -705,7 +717,7 @@
         <name>state</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <length>30</length>
@@ -723,7 +735,7 @@
     </remotesteps>
     <GUI>
       <xloc>224</xloc>
-      <yloc>144</yloc>
+      <yloc>322</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -767,7 +779,7 @@
     </remotesteps>
     <GUI>
       <xloc>384</xloc>
-      <yloc>144</yloc>
+      <yloc>322</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

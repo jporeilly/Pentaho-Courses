@@ -436,26 +436,54 @@
   </info>
   <notepads>
     <notepad>
-      <note>In Part2: the data is enriched with lookups to resolve customer and product ids. A margin is
-calculated with the resulting dataset is OUTER merge joined to ensure each region is correctly assigned. </note>
-      <xloc>224</xloc>
-      <yloc>48</yloc>
-      <width>620</width>
-      <heigth>46</heigth>
+      <note>enrich_sales - adds customer, product and region to the sales and computes a margin.
+Reads sales_20260101.csv and customers.json from the .ktr's own folder, and products.csv
+and regions.csv from C:/Workshop/pdi-2hr/03-make-it-yours/03-enrich-and-join.
+
+1. Read sales: sales_20260101.csv, header, comma, 7 fields (order_date yyyy-MM-dd).
+2. Keys present?: Filter rows, customer_id IS NOT NULL AND product_id IS NOT NULL;
+   rows that pass go to Valid rows, rows that fail to Rejects for source team.
+3. Valid rows: Dummy (do nothing); the good rows go on to + customer.
+4. Rejects for source team: Text file output to
+   C:/Workshop/pdi-2hr/out/rejects.txt, separator ;.
+5. Read customers: JSON input, customers.json; customer_id, customer_name and region_code
+   from $.customers[*].id, .name and .region_code.
+6. + customer: Stream lookup in Read customers on customer_id = customer_id,
+   adds customer_name and region_code.
+7. Read products: products.csv, header, comma; id, name, category, cost (BigNumber).
+8. + products: Stream lookup in Read products on product_id = id, adds name as
+   product_name, category as product_category, and cost.
+9. Compute margin: Calculator, all Number:
+   gross = unit_price x qty
+   net = gross - gross x discount_pct / 100
+   cost_total = cost x qty
+   margin = net - cost_total
+10. Sort by regions: Sort rows on region_code.
+11. Read regions: regions.csv, header, comma; code, region_name, manager_email.
+12. Sort regions: Sort rows on code.
+13. + region: Merge join, LEFT OUTER, Sort by regions (region_code) = Sort regions (code),
+    adds region_name and manager_email; a sale with no region match still comes through.
+14. Enriched rows: a Dummy (do nothing) step that ends the enriched rows; writes nothing.
+
+Output: C:/Workshop/pdi-2hr/out/rejects.txt; the enriched rows end at Enriched rows.</note>
+      <xloc>96</xloc>
+      <yloc>32</yloc>
+      <width>561</width>
+      <heigth>548</heigth>
       <fontname>Segoe UI</fontname>
       <fontsize>10</fontsize>
       <fontbold>N</fontbold>
       <fontitalic>N</fontitalic>
-      <fontcolorred>14</fontcolorred>
-      <fontcolorgreen>58</fontcolorgreen>
-      <fontcolorblue>90</fontcolorblue>
-      <backgroundcolorred>201</backgroundcolorred>
-      <backgroundcolorgreen>232</backgroundcolorgreen>
-      <backgroundcolorblue>251</backgroundcolorblue>
-      <bordercolorred>14</bordercolorred>
-      <bordercolorgreen>58</bordercolorgreen>
-      <bordercolorblue>90</bordercolorblue>
-      <drawshadow>N</drawshadow>
+      <fontcolorred>0</fontcolorred>
+      <fontcolorgreen>0</fontcolorgreen>
+      <fontcolorblue>0</fontcolorblue>
+      <backgroundcolorred>167</backgroundcolorred>
+      <backgroundcolorgreen>224</backgroundcolorgreen>
+      <backgroundcolorblue>245</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
+      <drawshadow>Y</drawshadow>
     </notepad>
   </notepads>
   <order>
@@ -511,7 +539,12 @@ calculated with the resulting dataset is OUTER merge joined to ensure each regio
     </hop>
     <hop>
       <from>Keys present?</from>
-      <to>Read customers</to>
+      <to>Valid rows</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Valid rows</from>
+      <to>+ customer</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
@@ -564,7 +597,7 @@ calculated with the resulting dataset is OUTER merge joined to ensure each regio
     </remotesteps>
     <GUI>
       <xloc>384</xloc>
-      <yloc>272</yloc>
+      <yloc>756</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -618,7 +651,7 @@ calculated with the resulting dataset is OUTER merge joined to ensure each regio
     </remotesteps>
     <GUI>
       <xloc>528</xloc>
-      <yloc>272</yloc>
+      <yloc>756</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -652,7 +685,7 @@ calculated with the resulting dataset is OUTER merge joined to ensure each regio
     </remotesteps>
     <GUI>
       <xloc>848</xloc>
-      <yloc>272</yloc>
+      <yloc>756</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -738,7 +771,7 @@ calculated with the resulting dataset is OUTER merge joined to ensure each regio
     </remotesteps>
     <GUI>
       <xloc>528</xloc>
-      <yloc>400</yloc>
+      <yloc>884</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -763,7 +796,32 @@ calculated with the resulting dataset is OUTER merge joined to ensure each regio
     </remotesteps>
     <GUI>
       <xloc>976</xloc>
-      <yloc>272</yloc>
+      <yloc>756</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Valid rows</name>
+    <type>Dummy</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>240</xloc>
+      <yloc>756</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -778,7 +836,7 @@ calculated with the resulting dataset is OUTER merge joined to ensure each regio
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <send_true_to>Read customers</send_true_to>
+    <send_true_to>Valid rows</send_true_to>
     <send_false_to>Rejects for source team</send_false_to>
     <compare>
       <condition>
@@ -810,7 +868,7 @@ calculated with the resulting dataset is OUTER merge joined to ensure each regio
     </remotesteps>
     <GUI>
       <xloc>240</xloc>
-      <yloc>144</yloc>
+      <yloc>628</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -912,7 +970,7 @@ calculated with the resulting dataset is OUTER merge joined to ensure each regio
     </remotesteps>
     <GUI>
       <xloc>384</xloc>
-      <yloc>144</yloc>
+      <yloc>628</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -970,7 +1028,7 @@ calculated with the resulting dataset is OUTER merge joined to ensure each regio
         <name>id</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -985,7 +1043,7 @@ calculated with the resulting dataset is OUTER merge joined to ensure each regio
         <name>name</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -1000,7 +1058,7 @@ calculated with the resulting dataset is OUTER merge joined to ensure each regio
         <name>category</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -1015,7 +1073,7 @@ calculated with the resulting dataset is OUTER merge joined to ensure each regio
         <name>cost</name>
         <type>BigNumber</type>
         <format>#.##</format>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -1062,7 +1120,7 @@ calculated with the resulting dataset is OUTER merge joined to ensure each regio
     </remotesteps>
     <GUI>
       <xloc>528</xloc>
-      <yloc>144</yloc>
+      <yloc>628</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1120,7 +1178,7 @@ calculated with the resulting dataset is OUTER merge joined to ensure each regio
         <name>code</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -1135,7 +1193,7 @@ calculated with the resulting dataset is OUTER merge joined to ensure each regio
         <name>region_name</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -1150,7 +1208,7 @@ calculated with the resulting dataset is OUTER merge joined to ensure each regio
         <name>manager_email</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -1197,7 +1255,7 @@ calculated with the resulting dataset is OUTER merge joined to ensure each regio
     </remotesteps>
     <GUI>
       <xloc>688</xloc>
-      <yloc>144</yloc>
+      <yloc>628</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1392,7 +1450,7 @@ calculated with the resulting dataset is OUTER merge joined to ensure each regio
     </remotesteps>
     <GUI>
       <xloc>96</xloc>
-      <yloc>144</yloc>
+      <yloc>628</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1448,8 +1506,8 @@ calculated with the resulting dataset is OUTER merge joined to ensure each regio
       </output>
     </remotesteps>
     <GUI>
-      <xloc>240</xloc>
-      <yloc>272</yloc>
+      <xloc>96</xloc>
+      <yloc>756</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1491,7 +1549,7 @@ calculated with the resulting dataset is OUTER merge joined to ensure each regio
     </remotesteps>
     <GUI>
       <xloc>688</xloc>
-      <yloc>400</yloc>
+      <yloc>884</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1533,7 +1591,7 @@ calculated with the resulting dataset is OUTER merge joined to ensure each regio
     </remotesteps>
     <GUI>
       <xloc>688</xloc>
-      <yloc>272</yloc>
+      <yloc>756</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

@@ -436,28 +436,33 @@
   </info>
   <notepads>
     <notepad>
-      <note>Runs ONCE PER FEED - the driver job executes this for every control.csv
-row ("Execute for every input row"), and "Get rows from result" receives
-that row. The ETL metadata injection step pushes the filename and
-separator into the template and executes it.</note>
-      <xloc>96</xloc>
-      <yloc>48</yloc>
-      <width>429</width>
-      <heigth>82</heigth>
+      <note>mi_inject - fills one feed's filename and separator into the template, then runs it.
+Runs once per feed: mi_driver.kjb runs it for every control.csv row.
+
+1. File config: Get rows from result, receives that row: filename and separator (String).
+2. Inject and run template: ETL metadata injection into mi_template.ktr in the same
+   folder. Sets Read feed's FILENAME from filename and SEPARATOR from separator,
+   then runs the filled-in template.
+
+Output: the template appends the feed's rows to C:/Workshop/pdi-2hr/out/all_feeds.csv.</note>
+      <xloc>160</xloc>
+      <yloc>32</yloc>
+      <width>525</width>
+      <heigth>170</heigth>
       <fontname>Segoe UI</fontname>
       <fontsize>10</fontsize>
       <fontbold>N</fontbold>
       <fontitalic>N</fontitalic>
-      <fontcolorred>14</fontcolorred>
-      <fontcolorgreen>58</fontcolorgreen>
-      <fontcolorblue>90</fontcolorblue>
-      <backgroundcolorred>201</backgroundcolorred>
-      <backgroundcolorgreen>232</backgroundcolorgreen>
-      <backgroundcolorblue>251</backgroundcolorblue>
-      <bordercolorred>14</bordercolorred>
-      <bordercolorgreen>58</bordercolorgreen>
-      <bordercolorblue>90</bordercolorblue>
-      <drawshadow>N</drawshadow>
+      <fontcolorred>0</fontcolorred>
+      <fontcolorgreen>0</fontcolorgreen>
+      <fontcolorblue>0</fontcolorblue>
+      <backgroundcolorred>167</backgroundcolorred>
+      <backgroundcolorgreen>224</backgroundcolorgreen>
+      <backgroundcolorblue>245</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
+      <drawshadow>Y</drawshadow>
     </notepad>
   </notepads>
   <order>
@@ -502,7 +507,7 @@ separator into the template and executes it.</note>
     </remotesteps>
     <GUI>
       <xloc>160</xloc>
-      <yloc>176</yloc>
+      <yloc>250</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -554,7 +559,7 @@ separator into the template and executes it.</note>
     </remotesteps>
     <GUI>
       <xloc>416</xloc>
-      <yloc>176</yloc>
+      <yloc>250</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

@@ -20,7 +20,11 @@ Make pipelines configurable without editing them. Parameters are passed in at ru
 >
 > At run time a parameter becomes a variable too, so steps read both the same way, as `${NAME}`. When a parameter and a variable share a name, the parameter wins.
 
-<div class="pcm-embed-card" data-href="https://www.loom.com/share/6f73339cdead464f8ee2a5bebd233e99?hideEmbedTopBar=true&amp;hide_owner=true&amp;hide_share=true&amp;hide_title=true" data-title="Dynamic Configuration of Variables and Parameters in Transformations" data-description="In this demonstration, I showed you how to recognize configuration properties that allow the use of parameters and variables in our transformations. We focused on using variables to control the output file's extension and delimiter, and I demonstrated how to override a variable with a parameter. You saw how to access the Run Options dialog to view and modify in-memory values without changing the Kettle.Properties file. I encourage you to practice using these techniques to dynamically change the execution of your transformations. Remember, testing various values for parameters and variables can enhance your workflow without altering definitions or property files." data-thumb="../_assets/embeds/2d94cd73b9b2.png"></div>
+<figure>
+
+<figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
+
+</figure>
 
 #### Workshops
 

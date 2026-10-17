@@ -2,10 +2,10 @@
 
 > **Warning:**
 >
-> #### Workshop — Enrich and Join
+> #### Workshop - Enrich and Join
 >
 > Real pipelines mix formats: your sales arrive as CSV, the customer
-> master is JSON from an API export, the product catalogue and the
+> master is JSON from an API export, the product catalog and the
 > region reference are CSVs. You'll bring all four together on
 > one canvas — two ways, because PDI gives you two tools for it — and
 > compute a margin, with no staging tables and no format wrangling.
@@ -20,13 +20,11 @@
 > **Prerequisites:** 
 > * [Build the Pipeline Yourself](../02-build-the-pipeline/guide.md) — you'll be extending the pipeline.
 >
-> **Estimated Time:** 20 minutes
+> **Estimated time:** 20 minutes
 
 <figure>
 
-![Walkthrough](https://vimeo.com/placeholder)
-
-<figcaption class="pcm-video-caption">Watch: Enrich and Join</figcaption>
+<figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
 
 </figure>
 
@@ -40,7 +38,7 @@ C:\Workshop\pdi-2hr\03-make-it-yours\03-enrich-and-join\
 
 <figure>
 
-![Part 2 target canvas: Read sales and Keys present? feed the + customer and + products stream lookups, Compute margin, Sort by regions and the + region merge join into Enriched rows, with Read customers, Read products and Read regions supplying the lookups](../_assets/images/1789472862690.png)
+![Part 2 target canvas: Read sales, Keys present? and Valid rows feed the + customer and + products stream lookups, Compute margin, Sort by regions and the + region merge join into Enriched rows, with Read customers, Read products and Read regions supplying the lookups](../_assets/images/1789472862690.png)
 
 <div align="center">
 <figcaption><em>Part 2: Enrich and Join data</em></figcaption>
@@ -52,14 +50,14 @@ C:\Workshop\pdi-2hr\03-make-it-yours\03-enrich-and-join\
 >
 > **JSON input** step is used to parse and "flatten" semi-structured JSON data into a standard row-based stream. By using **JSONPath** expressions, you can navigate nested objects and extract specific fields into individual columns. This step is essential for normalizing data early in the pipeline, allowing you to join JSON-based data with other sources (like CSVs or SQL tables) as if they were all in the same format..
 
-1. Open your Lab 2 transformation and save it as `enrich_sales.ktr` (**File -> Save as**).
-2. From **Input**, drag **JSON input** onto an empty part of the canvas.
-3. Double-click it. Name it `Read customers`. On the **File** tab, browse to:
+1. Select **File > Open** (`Ctrl+O`) and open your Lab 2 transformation, `C:\Workshop\pdi-2hr\02-see-it-work\02-build-the-pipeline\check_keys.ktr`. Select **File > Save as** and save it as `enrich_sales.ktr` in `C:\Workshop\pdi-2hr\03-make-it-yours\03-enrich-and-join`.
+2. On the **Design** tab, open the **Input** folder and drag **JSON input** onto an empty part of the canvas.
+3. Double-click **JSON input**. Set **Step name** to `Read customers`. On the **File** tab, browse to:
 
 ```text
 C:\Workshop\pdi-2hr\03-make-it-yours\03-enrich-and-join\customers.json
 ```
-4. and **Add** it.
+4. Select **Add**.
 <figure>
 
 ![JSON input dialog, File tab: Read customers pointing at ${Internal.Entry.Current.Directory}/customers.json](../_assets/images/1788276989272.png)
@@ -69,7 +67,7 @@ C:\Workshop\pdi-2hr\03-make-it-yours\03-enrich-and-join\customers.json
 </div>
 </figure>
 
-5. On the **Fields** tab, add rows — one per field. **Path** uses JSONPath, relative to the array of customer objects:
+5. Open the **Fields** tab and fill the **Fields** grid, one row per field. **Path** uses JSONPath, relative to the array of customer objects:
 
 | Name          | Path                       | Type   |
 | ------------- | -------------------------- | ------ |
@@ -86,7 +84,7 @@ C:\Workshop\pdi-2hr\03-make-it-yours\03-enrich-and-join\customers.json
 </div>
 </figure>
 
-6. Click **Preview rows** — 20 customers. The nested JSON is now
+6. Select **Preview rows** — 20 customers. The nested JSON is now
    just another stream of rows, identical in kind to the CSV stream.
 <div align="center">
 <figure>
@@ -97,9 +95,9 @@ C:\Workshop\pdi-2hr\03-make-it-yours\03-enrich-and-join\customers.json
 </figure>
 </div>
 
-## Read the product catalogue
+## Read the product catalog
 
-1. Drag another **Text file input** on. Name it `Read products`.
+1. On the **Design** tab, open the **Input** folder and drag another **Text file input** onto the canvas. Double-click it and set **Step name** to `Read products`.
 2. Point it at:
 
 ```text
@@ -114,9 +112,9 @@ C:\Workshop\pdi-2hr\03-make-it-yours\03-enrich-and-join\products.csv
 </div>
 </figure>
 
-3. Click the Content tab: 
+3. Open the **Content** tab and set: 
    -   **Separator:** comma
-   -   **Header:** ticked - Number of header lines 1
+   -   **Header:** selected - Number of header lines 1
    -   **Format:** mixed
    -   **Encoding:** UTF8
 <figure>
@@ -128,8 +126,7 @@ C:\Workshop\pdi-2hr\03-make-it-yours\03-enrich-and-join\products.csv
 </div>
 </figure>
 
-4. Click on the Fields tab:
-   **Get Fields**
+4. Open the **Fields** tab and select **Get Fields**.
 <figure>
 
 ![Text file input dialog, Fields tab for Read products: id, name and category as String, cost as BigNumber](../_assets/images/1788340033314.png)
@@ -146,14 +143,14 @@ C:\Workshop\pdi-2hr\03-make-it-yours\03-enrich-and-join\products.csv
 > **Stream lookup** enriches a main stream with fields fetched from a
 > second stream. It loads the lookup stream into memory once, then
 > matches each main row by key — perfect for small reference sets like
-> a customer master or a product catalogue. It is *not* a join: one
+> a customer master or a product catalog. It is *not* a join: one
 > match per row, and the whole lookup set must fit in memory.
 
-1. From **Lookup**, drag **Stream lookup** on. Name it
-   `+ customer`.
-2. Hop from `Valid rows` (your Lab 2 TRUE branch) into it, and a
-   second hop from `Read customers` into it.
-3. Double-click it: 
+1. On the **Design** tab, open the **Lookup** folder and drag **Stream lookup** onto the canvas.
+2. Create a hop from **Valid rows** (your Lab 2 TRUE branch) to **Stream lookup**: hold `Shift` and
+   drag from one step to the other. Create a second hop from **Read customers** to **Stream lookup**.
+3. Double-click **Stream lookup**: 
+   - set **Step name** to `+ customer`
    - set **Lookup step** to `Read customers` 
    - in *keys to look up*, match `customer_id` = `customer_id`
    - in *fields to retrieve*, add `customer_name` and `region_code`
@@ -168,8 +165,8 @@ C:\Workshop\pdi-2hr\03-make-it-yours\03-enrich-and-join\products.csv
 </figure>
 
 4. Repeat the pattern: 
-   - another **Stream lookup** named `+ product`
-   - fed by `+ customer` and `Read products`, matching `product_id`= id`
+   - another **Stream lookup** named `+ products`
+   - fed by `+ customer` and `Read products`, matching `product_id` = `id`
       retrieving `name` (rename to `product_name`),`category` and `cost`.
 <figure>
 <div align="center">
@@ -210,9 +207,9 @@ C:\Workshop\pdi-2hr\03-make-it-yours\03-enrich-and-join\products.csv
 >
 > **Calculator** step is used to perform arithmetic and basic calculations on your data stream. In this lab, it provides an efficient way to compute the `margin` by subtracting cost from revenue. Because it uses native Java code rather than an interpreted script, it is significantly faster and more performant than the "Modified JavaScript Value" step for simple calculations..
 
-1. From **Transform**, drag **Calculator** on, hopped from
-   `+ product`.
-2. Add four calculations (each row can use an earlier row's result):
+1. On the **Design** tab, open the **Transform** folder and drag **Calculator** onto the canvas.
+   Create a hop from **+ products** to **Calculator**.
+2. Double-click **Calculator**. Set **Step name** to `Compute margin` and add four calculations (each row can use an earlier row's result):
 <figure>
 
 ![Calculator dialog Compute margin: gross = unit_price × qty, net = gross − gross × discount_pct / 100, cost_total = cost × qty, margin = net − cost_total](../_assets/images/1788351746093.png)
@@ -236,9 +233,10 @@ C:\Workshop\pdi-2hr\03-make-it-yours\03-enrich-and-join\products.csv
 > the **Formula** step accepts spreadsheet-style expressions like
 > `[net]-[cost]*[qty]`.
 
-3. Preview the Calculator step: every sale now carries the customer,
+3. Select **OK**. Select **Compute margin** on the canvas, press `F10` (**Action > Preview**),
+   and select **Quick Launch**: every sale now carries the customer,
    region code, product, category — and a margin figure that never
-   existed in any source file.
+   existed in any source file. Select **Close**.
 
 ## Join the region reference (a merge join)
 > **Note:**
@@ -249,11 +247,11 @@ Each sale now has a `region_code`, and `regions.csv` says what that
 code means — its name and the manager who owns the number. Time for
 an actual join.
 >
-1. Drag another **Text file input** on. 
-   - Name it `Read regions` 
-   - point it at `regions.csv` in this lab's folder, header ticked, 
-   - and on **Fields** tab add three String fields
-   - ***Get fields***: `code`, 'region_name` (rename from 'name'),`manager_email`.
+1. On the **Design** tab, open the **Input** folder and drag another **Text file input** onto the canvas. 
+   - Double-click it and set **Step name** to `Read regions` 
+   - point it at `regions.csv` in this lab's folder, with **Header** selected, 
+   - and on the **Fields** tab add three String fields
+   - select **Get Fields**: `code`, `region_name` (rename from `name`), `manager_email`.
 <figure>
 
 ![Text file input dialog, Fields tab for Read regions: code, region_name and manager_email as String](../_assets/images/1788428448148.png)
@@ -263,8 +261,8 @@ an actual join.
 </div>
 </figure>
 
-2. From **Transform**, drag on two **Sort rows** steps:
-   * `Sort regions` — hopped from `Read regions`, sorting on `code`.
+2. On the **Design** tab, open the **Transform** folder and drag two **Sort rows** steps onto the canvas:
+   * Set **Step name** to `Sort regions`, create a hop from **Read regions** to it, and sort on `code`.
 <figure>
 <div align="center">
 
@@ -274,7 +272,7 @@ an actual join.
 </figure>
 </div>
 
-   * `Sort by region` — hopped from `Compute margin`, sorting on `region_code`.
+   * Set **Step name** to `Sort by regions`, create a hop from **Compute margin** to it, and sort on `region_code`.
    
 <div align="center">
 <figure>
@@ -285,9 +283,9 @@ an actual join.
 </figure>
 </div>
 
-3. From **Joins**, drag on **Merge join**. Name it `+ region`. Hop
-   both sort steps into it, then double-click it:
-   * **First step:** `Sort by region`
+3. On the **Design** tab, open the **Joins** folder and drag **Merge join** onto the canvas. Create a hop
+   from each sort step to **Merge join**. Double-click **Merge join**, set **Step name** to `+ region`, and set:
+   * **First step:** `Sort by regions`
    * **Second step:** `Sort regions`
    * **Join type:** `LEFT OUTER`
    * **Keys for 1st step:** `region_code`
@@ -301,7 +299,15 @@ an actual join.
 </figure>
 </div>
 
-4. Preview `+ region`: every sale now also carries `region_name` and `manager_email`.
+> **Note:** **Why LEFT OUTER?** A sale whose region code has no entry
+> in `regions.csv` must still reach the warehouse — with the region
+> columns empty — rather than silently vanish. INNER would drop it.
+> That choice is the whole difference between "some sales went
+> missing" and "some sales need a region added"; make it
+> deliberately, every time.
+
+4. Select **OK**. Select **+ region** on the canvas, press `F10` (**Action > Preview**), and select
+   **Quick Launch**: every sale now also carries `region_name` and `manager_email`. Select **Close**.
 
 > **Under the hood:**
 >
@@ -315,7 +321,7 @@ an actual join.
 > output a match, move on whichever side is behind. It only ever holds
 > the current rows, which is exactly why neither input has to fit in
 > memory, and exactly why both must already be in key order. Hand it
-> unsorted rows and it does not complain; it simply walks past matches
+> unsorted rows and it does not complain; it walks past matches
 > it can no longer see.
 >
 > That is the trade the two techniques on your canvas represent.
@@ -327,13 +333,6 @@ an actual join.
 > **Why it matters:** this is a relational join (inner, left,
 > right or full) done on rows in flight, against sources that were a
 > CSV, a JSON export and another CSV a few minutes ago.
-
-> **Note:** **Why LEFT OUTER?** A sale whose region code has no entry
-> in `regions.csv` must still reach the warehouse — with the region
-> columns empty — rather than silently vanish. INNER would drop it.
-> That choice is the whole difference between "some sales went
-> missing" and "some sales need a region added"; make it
-> deliberately, every time.
 
 ## Lookup or join? <!-- no-step -->
 
@@ -348,8 +347,8 @@ screenshot; they are not.
 | Memory            | The whole lookup stream is held in RAM                                                       | Streams both sides; neither has to fit                                                    |
 | Rows out          | Never more than you put in                                                                   | Can **multiply** rows — one left row × N matches                                          |
 | No match          | Row continues, fields null (or your default)                                                 | Depends on join type: dropped (INNER) or kept (OUTER)                                     |
-| Join types        | One behaviour only                                                                           | INNER, LEFT / RIGHT / FULL OUTER                                                          |
-| Reach for it when | The reference set is small and stable — a customer master, a product catalogue, a code table | Either side is large, you need outer semantics, or a key can legitimately match many rows |
+| Join types        | One behavior only                                                                            | INNER, LEFT / RIGHT / FULL OUTER                                                          |
+| Reach for it when | The reference set is small and stable — a customer master, a product catalog, a code table   | Either side is large, you need outer semantics, or a key can legitimately match many rows |
 
 Three practical consequences worth carrying home:
 
@@ -365,7 +364,7 @@ Three practical consequences worth carrying home:
   instead. Pick per case, not per habit.
 
 > **Note:** PDI has more joining steps than just Merge — **Database join** (a
-> parameterised query per row), **Merge rows (diff)** for change
+> parameterized query per row), **Merge rows (diff)** for change
 > detection, and **Join rows** for a deliberate Cartesian product.
 > The Merge Join and the Join rows are the ones you'll reach for most.
 
@@ -385,16 +384,18 @@ Three practical consequences worth carrying home:
 >
 > **Dummy** step performs no operations on the data stream; it is a "no-op" (no operation) step. It is primarily used for organizational purposes, such as grouping related logic into distinct sections, providing a clear visual milestone in a long transformation, or creating a junction point where multiple streams meet before being joined or merged..
 
-1. Draw a hop from the + region step to the Dummy step - Enriched rows.
-2. Save your transformation.
+1. On the **Design** tab, open the **Flow** folder and drag **Dummy (do nothing)** onto the canvas.
+   Double-click it and set **Step name** to `Enriched rows`.
+2. Create a hop from **+ region** to **Enriched rows**.
+3. Save the transformation (`Ctrl+S`).
 
 ## Run it
 > **Note:**
 >
-> **Run options** define how the transformation engine executes your steps. The most common setting is **Number of copies**, which allows PDI to run multiple instances of a step in parallel to speed up processing for large datasets.
+> The **Run Options** dialog decides where and how this run happens: the **Run configuration** (**Pentaho local** runs it on this machine), the **Log level**, and values for any parameters. Running several copies of one step in parallel is a setting of the step, not of the run: right-click the step and select **Change Number of Copies to Start...**.
 
-1. Click **Run** (the ▶ in the canvas toolbar or F9), then **Run** again in
-   the dialog.
+1. Press `F9` (**Action > Run**, or the ▶ in the canvas toolbar), and select
+   **Run** in the **Run Options** dialog.
 
 <figure>
 
@@ -405,34 +406,34 @@ Three practical consequences worth carrying home:
 </div>
 </figure>
 
-2. Watch the **Step Metrics** tab fill in: 40 rows read, 37 valid,
-   3 written to the reject file.
+2. In **Execution Results**, open the **Step Metrics** tab and watch it
+   fill in: 40 rows read, 37 valid, 3 written to the reject file.
 
 <figure>
 
-![1790331308352.png](../_assets/images/1790331780148.png)
+![Step Metrics after the run: Read sales writes 40, Keys present? passes 40, Rejects for source team takes 3, and Enriched rows reads 37](../_assets/images/1790331780148.png)
 
 <div align="center">
 <figcaption><em>Step Metrics</em></figcaption>
 </div>
 </figure>
 
-3. Highlight the Enriched rows step and click on the Preview tab.
+3. Select **Enriched rows** on the canvas and open the **Preview data** tab.
 
 <figure>
 
-![1790331916891.png](../_assets/images/1790331916891.png)
+![Preview data for Enriched rows: 37 orders, each with its customer name, region code, product name and product category](../_assets/images/1790331916891.png)
 
 <div align="center">
 <figcaption><em>Preview data</em></figcaption>
 </div>
 </figure>
 
-4. Open `C:\Workshop\pdi-2hr\out\rejects.csv` — there are your three
+4. Open `C:\Workshop\pdi-2hr\out\rejects.txt` — there are your three
    bad rows, ready to send back to the source system's owner.
    * [ ] 40 rows read from the sales file.
    * [ ] 3 rows in the reject output.
-   * [ ] Run finishes with no errors (all steps green-ticked).
+   * [ ] Run finishes with no errors (every step shows a green check mark).
 
 
 ### Troubleshooting <!-- no-step -->

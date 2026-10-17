@@ -21,11 +21,15 @@
 > 
 > **Estimated time:** 35 minutes
 
-<div class="pcm-embed-card" data-href="https://www.loom.com/share/ebcc69cd2a9347f8bec1620259952df7?hideEmbedTopBar=true&amp;hide_owner=true&amp;hide_share=true&amp;hide_title=true" data-title="Loading Sales Data into a Database Table 📊" data-description="In this video, I walk you through the process of loading sales data from a delimited text file into a new database table using Spoon. We connect to our repository, create a transformation, and configure the CSV file input step to read the sales data. After setting up the table output step and executing the transformation, we successfully inserted 2,823 records into the new table. I also demonstrate how to verify the data loaded correctly by checking the row count in the table. Please ensure to follow along with the steps to replicate this process effectively." data-thumb="../_assets/embeds/2d94cd73b9b2.png"></div>
+<figure>
+
+<figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
+
+</figure>
 
 <figure>
 
-![The finished transformation: a CSV file input step (labeled CSV Input in this screenshot) hopped to stg_sales_data, and orders hopped to stg_orders_merged](../_assets/images/create-db.png)
+![The finished transformation: csvi-sales_data, a CSV file input step, hopped to stg_sales_data, and orders hopped to stg_orders_merged](../_assets/images/create-db.png)
 
 <div align="center">
 <figcaption><em>What you build: two independent loads in one transformation</em></figcaption>
@@ -42,7 +46,7 @@
 > 
 > Load `sales_data.csv`, 2,823 order lines, into a new table, `STG_SALES_DATA`.
 
-<figure><img src="../_assets/images/load-sales-data.png" alt="The CSV file input step, labeled CSV Input in this screenshot, hopped to the stg_sales_data Table output step" width="277"><figcaption><p>Workflow 1</p></figcaption></figure>
+<figure><img src="../_assets/images/load-sales-data.png" alt="csvi-sales_data, a CSV file input step, hopped to the stg_sales_data Table output step" width="277"><figcaption><p>Workflow 1</p></figcaption></figure>
 
 :::: tabs
 
@@ -54,25 +58,12 @@
 > 
 > **CSV file input** reads a delimited file fast, with fewer options than **Text file input**.
 
-1. Start Spoon with the **Start PDI** button below, or from a terminal:
-
-::: tabs
-
-### Windows (PowerShell)
+1. Start Spoon with the **Start PDI** button below, or from PowerShell:
 
 ```powershell
 Set-Location C:\Pentaho\design-tools\data-integration
 .\spoon.bat
 ```
-
-### macOS / Linux
-
-```bash
-cd ~/Pentaho/design-tools/data-integration
-./spoon.sh
-```
-
-:::
 
 <button data-launch="spoon" data-path="">Start PDI</button>
 
@@ -116,7 +107,7 @@ cd ~/Pentaho/design-tools/data-integration
 | `CONTACTLASTNAME` | String | | **`15`** (11) | |
 | `CONTACTFIRSTNAME` | String | | **`15`** (10) | |
 
-<figure><img src="../_assets/images/csv-sales.png" alt="CSV file input with sales_data.csv, comma delimiter, header row and 24 fields; this screenshot shows the step name CSV Input, Lazy conversion selected and length 20 or more for most fields"><figcaption><p>sales_data.csv, 24 fields</p></figcaption></figure>
+<figure><img src="../_assets/images/csv-sales.png" alt="CSV file input csvi-sales_data with sales_data.csv, comma delimiter, header row, Lazy conversion cleared and the 24 fields Get Fields detects"><figcaption><p>sales_data.csv, 24 fields</p></figcaption></figure>
 
 > **Note:** The screenshot is from an earlier version of the step: its name is `CSV Input`, **Lazy conversion?** is selected, and most lengths are `20` or more. Use the settings in the steps and the table above. The fields' **Currency** column shows the symbol for your computer's locale.
 
@@ -153,7 +144,7 @@ cd ~/Pentaho/design-tools/data-integration
 
 10. Select **SQL**. The table doesn't exist yet, so the **Simple SQL editor** opens with a `CREATE TABLE STG_SALES_DATA` statement built from the stream's fields.
 
-<figure><img src="../_assets/images/sales-sql.png" alt="Simple SQL editor with a generated CREATE TABLE STG_SALES_DATA statement, from an earlier version with length 20 fields" width="375"><figcaption><p>The generated CREATE TABLE</p></figcaption></figure>
+<figure><img src="../_assets/images/sales-sql.png" alt="Simple SQL editor with the generated CREATE TABLE STG_SALES_DATA statement: BIGINT, DOUBLE, DATETIME and VARCHAR columns sized from the fields" width="375"><figcaption><p>The generated CREATE TABLE</p></figcaption></figure>
 
 11. Select **Execute**. In **Results of the SQL statements**, select **OK**, then select **Close** in the **Simple SQL editor**.
 12. Select **SQL** again.

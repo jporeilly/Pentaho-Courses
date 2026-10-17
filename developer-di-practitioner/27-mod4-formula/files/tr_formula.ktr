@@ -436,96 +436,36 @@
   </info>
   <notepads>
     <notepad>
-      <note>Simple calculation</note>
-      <xloc>432</xloc>
-      <yloc>304</yloc>
-      <width>133</width>
-      <heigth>30</heigth>
-      <fontname>Segoe UI</fontname>
-      <fontsize>9</fontsize>
-      <fontbold>N</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>192</bordercolorred>
-      <bordercolorgreen>192</bordercolorgreen>
-      <bordercolorblue>192</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
-    <notepad>
-      <note>Applying Rules:
-  IF( Logical Condition [ ; [ Any IfTrue ] [ ; [ Any IfFalse ] ] ] )</note>
-      <xloc>432</xloc>
-      <yloc>416</yloc>
-      <width>394</width>
-      <heigth>50</heigth>
-      <fontname>Segoe UI</fontname>
-      <fontsize>9</fontsize>
-      <fontbold>N</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>192</bordercolorred>
-      <bordercolorgreen>192</bordercolorgreen>
-      <bordercolorblue>192</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
-    <notepad>
-      <note>Lab 1: Formula</note>
-      <xloc>112</xloc>
+      <note>tr_formula - adds fields with the Formula step: a sum, and an IF.
+Fields go in square brackets and arguments are separated by semicolons:
+IF(condition; value if true; value if false).
+The hop into IF Formula b-a is disabled, so a run shows the sum; enable it for the IF.
+
+1. Generate Rows: limit 1, a = 1 and b = 2 (Integer).
+2. Formula [a]+[b]: result = [a]+[b], a Number.
+3. Generate Rows 2: limit 1, a = 1, b = 2 and booking_type = R.
+4. IF Formula b-a: result = IF([booking_type]="R";[b]-[a]), a Number. It has no
+   third argument, so a booking_type other than R fails the step.
+
+Shipped data: result 3 from Formula [a]+[b]; with the hop enabled, result 1
+from IF Formula b-a.</note>
+      <xloc>160</xloc>
       <yloc>32</yloc>
-      <width>115</width>
-      <heigth>30</heigth>
+      <width>500</width>
+      <heigth>242</heigth>
       <fontname>Segoe UI</fontname>
-      <fontsize>11</fontsize>
-      <fontbold>Y</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>255</bordercolorred>
-      <bordercolorgreen>255</bordercolorgreen>
-      <bordercolorblue>255</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
-    <notepad>
-      <note>The Formula step isnt really scripting, but does allow you to
-define complex formulae around:
-  - Operators
-  - Date / Time
-  - Information
-  - Logical
-  - Mathematical
-  - Text 
-functions.</note>
-      <xloc>128</xloc>
-      <yloc>80</yloc>
-      <width>324</width>
-      <heigth>154</heigth>
-      <fontname>Segoe UI</fontname>
-      <fontsize>9</fontsize>
+      <fontsize>10</fontsize>
       <fontbold>N</fontbold>
       <fontitalic>N</fontitalic>
       <fontcolorred>0</fontcolorred>
       <fontcolorgreen>0</fontcolorgreen>
       <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>255</bordercolorred>
-      <bordercolorgreen>255</bordercolorgreen>
-      <bordercolorblue>255</bordercolorblue>
+      <backgroundcolorred>167</backgroundcolorred>
+      <backgroundcolorgreen>224</backgroundcolorgreen>
+      <backgroundcolorblue>245</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
       <drawshadow>Y</drawshadow>
     </notepad>
   </notepads>
@@ -570,7 +510,7 @@ functions.</note>
     </remotesteps>
     <GUI>
       <xloc>320</xloc>
-      <yloc>304</yloc>
+      <yloc>322</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -626,7 +566,7 @@ functions.</note>
     </remotesteps>
     <GUI>
       <xloc>160</xloc>
-      <yloc>304</yloc>
+      <yloc>322</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -694,7 +634,7 @@ functions.</note>
     </remotesteps>
     <GUI>
       <xloc>160</xloc>
-      <yloc>416</yloc>
+      <yloc>434</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -727,7 +667,7 @@ functions.</note>
     </remotesteps>
     <GUI>
       <xloc>320</xloc>
-      <yloc>416</yloc>
+      <yloc>434</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

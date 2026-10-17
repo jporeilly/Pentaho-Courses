@@ -389,7 +389,7 @@
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>272</xloc>
-      <yloc>160</yloc>
+      <yloc>322</yloc>
       <attributes_kjc/>
     </entry>
     <entry>
@@ -401,7 +401,7 @@
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>672</xloc>
-      <yloc>160</yloc>
+      <yloc>322</yloc>
       <attributes_kjc/>
     </entry>
     <entry>
@@ -439,7 +439,7 @@
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>272</xloc>
-      <yloc>304</yloc>
+      <yloc>466</yloc>
       <attributes_kjc/>
     </entry>
     <entry>
@@ -477,7 +477,7 @@
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>480</xloc>
-      <yloc>160</yloc>
+      <yloc>322</yloc>
       <attributes_kjc/>
     </entry>
     <entry>
@@ -499,7 +499,7 @@
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>128</xloc>
-      <yloc>208</yloc>
+      <yloc>370</yloc>
       <attributes_kjc/>
     </entry>
   </entries>
@@ -543,46 +543,36 @@
   </hops>
   <notepads>
     <notepad>
-      <note>Lab 2a: Order of Execution</note>
-      <xloc>112</xloc>
+      <note>kjb_hello_world_parallel - the same job, with its two branches run at the same time.
+Every Transformation entry runs tr_hello_world.ktr from the job's own folder.
+
+1. Start: Run Next Entries in Parallel is on, so both its hops (dashed) start at once,
+   each branch on its own thread.
+2. Transformation A: starts at about the same time as Transformation B.
+3. Transformation B: runs alongside the A, C, Success branch, not after it.
+4. Transformation C: still waits for A; runs when A succeeds (a Result is TRUE hop).
+5. Success: still waits for C; runs when C succeeds.
+
+PDI does no concurrency checking between parallel branches: two branches writing
+the same file or table can interfere.
+Shipped data: A and B start in either order; C always starts after A, Success after C.</note>
+      <xloc>128</xloc>
       <yloc>32</yloc>
-      <width>196</width>
-      <heigth>30</heigth>
+      <width>494</width>
+      <heigth>242</heigth>
       <fontname>Segoe UI</fontname>
-      <fontsize>11</fontsize>
-      <fontbold>Y</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>255</bordercolorred>
-      <bordercolorgreen>255</bordercolorgreen>
-      <bordercolorblue>255</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
-    <notepad>
-      <note>Concurrency checking is disabled as the Job entreies for
-Transforamtion A and Transformation B are executed in parallel.</note>
-      <xloc>112</xloc>
-      <yloc>80</yloc>
-      <width>344</width>
-      <heigth>42</heigth>
-      <fontname>Segoe UI</fontname>
-      <fontsize>9</fontsize>
+      <fontsize>10</fontsize>
       <fontbold>N</fontbold>
       <fontitalic>N</fontitalic>
       <fontcolorred>0</fontcolorred>
       <fontcolorgreen>0</fontcolorgreen>
       <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>255</bordercolorred>
-      <bordercolorgreen>255</bordercolorgreen>
-      <bordercolorblue>255</bordercolorblue>
+      <backgroundcolorred>167</backgroundcolorred>
+      <backgroundcolorgreen>224</backgroundcolorgreen>
+      <backgroundcolorblue>245</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
       <drawshadow>Y</drawshadow>
     </notepad>
   </notepads>

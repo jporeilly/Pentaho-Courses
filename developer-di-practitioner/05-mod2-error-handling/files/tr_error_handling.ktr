@@ -435,6 +435,36 @@
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
+    <notepad>
+      <note>tr_error_handling - reads customers; rows that fail to convert go to an error stream.
+
+1. CSV file input: ${Internal.Entry.Current.Directory}/customers-100-with-errors.txt,
+   semicolon delimiter, header, UTF-8, lazy conversion off. id, zip and housenr are
+   Integer, birthdate is Date yyyy/MM/dd, the other six fields String.
+2. Dummy (do nothing): receives the rows that convert.
+3. Errors: a Dummy step; rows that fail go here down the error hop, with errorCount,
+   errorDescriptions, errorFields and errorCodes added.
+
+Shipped data: 97 rows to Dummy (do nothing), 3 to Errors (ids 3, #18 and 66 in the file).</note>
+      <xloc>220</xloc>
+      <yloc>32</yloc>
+      <width>524</width>
+      <heigth>188</heigth>
+      <fontname>Segoe UI</fontname>
+      <fontsize>10</fontsize>
+      <fontbold>N</fontbold>
+      <fontitalic>N</fontitalic>
+      <fontcolorred>0</fontcolorred>
+      <fontcolorgreen>0</fontcolorgreen>
+      <fontcolorblue>0</fontcolorblue>
+      <backgroundcolorred>167</backgroundcolorred>
+      <backgroundcolorgreen>224</backgroundcolorgreen>
+      <backgroundcolorblue>245</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
+      <drawshadow>Y</drawshadow>
+    </notepad>
   </notepads>
   <order>
     <hop>
@@ -477,7 +507,7 @@
         <name>id</name>
         <type>Integer</type>
         <format/>
-        <currency>&#x20ac;</currency>
+        <currency>$</currency>
         <decimal>,</decimal>
         <group>.</group>
         <length>3</length>
@@ -510,7 +540,7 @@
         <name>zip</name>
         <type>Integer</type>
         <format/>
-        <currency>&#x20ac;</currency>
+        <currency>$</currency>
         <decimal>,</decimal>
         <group>.</group>
         <length>5</length>
@@ -532,7 +562,7 @@
         <name>birthdate</name>
         <type>Date</type>
         <format>yyyy&#x2f;MM&#x2f;dd</format>
-        <currency>&#x20ac;</currency>
+        <currency>$</currency>
         <decimal>,</decimal>
         <group>.</group>
         <length>10</length>
@@ -554,7 +584,7 @@
         <name>housenr</name>
         <type>Integer</type>
         <format/>
-        <currency>&#x20ac;</currency>
+        <currency>$</currency>
         <decimal>,</decimal>
         <group>.</group>
         <length>3</length>
@@ -593,7 +623,7 @@
     </remotesteps>
     <GUI>
       <xloc>220</xloc>
-      <yloc>100</yloc>
+      <yloc>268</yloc>
       <draw>Y</draw>
     </GUI>
     </step>
@@ -618,7 +648,7 @@
     </remotesteps>
     <GUI>
       <xloc>460</xloc>
-      <yloc>100</yloc>
+      <yloc>268</yloc>
       <draw>Y</draw>
     </GUI>
     </step>
@@ -643,7 +673,7 @@
     </remotesteps>
     <GUI>
       <xloc>300</xloc>
-      <yloc>250</yloc>
+      <yloc>418</yloc>
       <draw>Y</draw>
     </GUI>
     </step>

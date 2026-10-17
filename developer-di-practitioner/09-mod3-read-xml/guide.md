@@ -18,7 +18,11 @@
 > 
 > **Estimated time:** 35 minutes
 
-<div class="pcm-embed-card" data-href="https://www.loom.com/share/85ad9973848041b9b8447ed45cffc09c?hideEmbedTopBar=true&amp;hide_owner=true&amp;hide_share=true&amp;hide_title=true" data-title="Getting Started with the Get Data from XML Step in PDI" data-description="In this demonstration, I walk you through the process of using the &amp;#34;get data from XML&amp;#34; step to read an existing XML file containing breakfast and dinner menus. I show how to configure the step in Spoon, including selecting the file, defining the loop X-Path for the breakfast menu, and specifying the elements to read as fields. We also verify the configuration by previewing the data, ensuring everything is set up correctly. Please make sure to follow along and replicate these steps in your own environment. This will enhance your ability to work with XML data effectively." data-thumb="../_assets/embeds/2d94cd73b9b2.png"></div>
+<figure>
+
+<figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
+
+</figure>
 
 <figure>
 
@@ -53,25 +57,12 @@
 > 
 > **Get data from XML** reads any XML document. A **Loop XPath** picks the nodes that become rows, and each field's XPath picks a value from its node.
 
-1. Start Spoon with the **Start PDI** button below, or from a terminal:
-
-::: tabs
-
-### Windows (PowerShell)
+1. Start Spoon with the **Start PDI** button below, or from PowerShell:
 
 ```powershell
 Set-Location C:\Pentaho\design-tools\data-integration
 .\spoon.bat
 ```
-
-### macOS / Linux
-
-```bash
-cd ~/Pentaho/design-tools/data-integration
-./spoon.sh
-```
-
-:::
 
 <button data-launch="spoon" data-path="">Start PDI</button>
 

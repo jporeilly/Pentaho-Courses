@@ -38,25 +38,12 @@
 > 
 > **Data grid** holds rows typed into the step itself: handy for tests, reference values and demonstrations. Here each row is one search.
 
-1. Start Spoon with the **Start PDI** button below, or from a terminal:
-
-::: tabs
-
-### Windows (PowerShell)
+1. Start Spoon with the **Start PDI** button below, or from PowerShell:
 
 ```powershell
 Set-Location C:\Pentaho\design-tools\data-integration
 .\spoon.bat
 ```
-
-### macOS / Linux
-
-```bash
-cd ~/Pentaho/design-tools/data-integration
-./spoon.sh
-```
-
-:::
 
 <button data-launch="spoon" data-path="">Start PDI</button>
 
@@ -121,8 +108,6 @@ cd ~/Pentaho/design-tools/data-integration
 
 <figure><img src="../_assets/images/database-join-step.png" alt="Database join with the SELECT on PRODUCTS, Outer join selected and the parameters prod and max_price" width="563"><figcaption><p>Two markers, two parameters, in order</p></figcaption></figure>
 
-The screenshot names the connection `Sampledata`; yours is `MySQL:sampledata`.
-
 > **Note:** **What each row runs**
 > 
 > For the first row, the query becomes `... WHERE PRODUCTNAME LIKE concat('%','Aston Martin','%') AND BUYPRICE < 90`. The other two rows run the same query with their own values. **LIKE** with `%` on both sides matches the name anywhere in `PRODUCTNAME`.
@@ -168,7 +153,7 @@ The screenshot names the connection `Sampledata`; yours is `MySQL:sampledata`.
 
 <figure><img src="../_assets/images/results-1.png" alt="Preview data: Aston Martin with one product, Ford Falcon with nulls, and Corvette products"><figcaption><p>One search row can return several rows</p></figcaption></figure>
 
-> **Success:** Checkpoint: 5 rows from 3 searches. The screenshot shows two Corvettes: it was taken against an older copy of the data. In the lab database the 1957 Corvette Convertible's buy price, 69.93, is also under 70.
+> **Success:** Checkpoint: 5 rows from 3 searches: Aston Martin finds one product, Ford Falcon none (an outer join keeps it, with nulls), and Corvette three. The 1957 Corvette Convertible's buy price, 69.93, is just under 70.
 >
 > | prod           | max_price | PRODUCTNAME                          | PRODUCTSCALE | BUYPRICE |
 > | -------------- | --------- | ------------------------------------ | ------------ | -------- |

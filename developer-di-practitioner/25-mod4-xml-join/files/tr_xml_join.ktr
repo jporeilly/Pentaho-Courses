@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>XML Join - Create a multilayer XML file</name>
+    <name>tr_xml_join</name>
     <description/>
     <extended_description/>
     <trans_version/>
@@ -436,25 +436,53 @@
   </info>
   <notepads>
     <notepad>
-      <note>This example produces a multi level XML document from one Excel source.&#xa;&#xa;&#xa;The sample  is a redesign of the old sample in Kettle&#x27;s sample folder and makes use &#xa;of the new XML Join Step which allows to add XML structures into an existing XML structure.&#xa;&#xa;The redesign uses 21 steps instead of the 35 of the orirginal sample.&#xa;</note>
-      <xloc>7</xloc>
-      <yloc>2</yloc>
-      <width>573</width>
-      <heigth>138</heigth>
-      <fontname/>
-      <fontsize>-1</fontsize>
+      <note>tr_xml_join - builds one nested XML document, XMLOrders.xml, from six Excel sheets.
+Reads xml_orders_source.xls in the same folder as this file; all XML is ISO-8859-1.
+
+1. OrderList: Excel input, sheet OrderList: source, timestamp, businessUnitId, plantId.
+2. Placeholder: Add constants, an empty OrderHeaders field for the headers to go in.
+3. xmlOrderList: Add XML, root OrderList into xmlOrderLists, keeps the XML header.
+4. OrderHeaders: Excel input, sheet OrderHeaders, one row per order.
+5. Placeholder 2: Add constants, empty OrderLines and OrderHeaderComments fields.
+6. xmlOrderHeaders: Add XML, one OrderHeader element per order.
+7. XML Join Step: puts the headers into the list at //OrderHeaders (xmloutput1).
+8. OrderHeaderComments: Excel input, sheet OrderHeaderComments.
+9. xmlOrderHeaderComments: Add XML, one OrderHeaderComment element per comment.
+10. XML Join Step 2: complex join on orderNumber, into OrderHeaderComments (xmloutput2).
+11. OrderLines: Excel input, sheet OrderLines.
+12. Placeholder 3x: Add constants, empty OrderSubLines and OrderLineComments fields.
+13. xmlOrderLines: Add XML, one OrderLine element per line.
+14. XML Join Step 3: complex join on orderNumber, into OrderLines (xmloutput3).
+15. OrderLineComments: Excel input, sheet OrderLineComments.
+16. Create XPath: Modified JavaScript value, xPathStatement to the line's comments.
+17. xmlOrderLineComments: Add XML, root OrderLineComments.
+18. XML Join Step 4: complex join, XPath ? = the row's xPathStatement (xmloutput4).
+19. OrderSubLines: Excel input, sheet OrderSubLines.
+20. Create XPath 2: Modified JavaScript value, xPathStatement to the line's sub-lines.
+21. xmlOrderSubLines: Add XML, one OrderSubLine element per sub-line.
+22. XML Join Step 5: complex join on xPathStatement, keeps the XML header (xmlOutput).
+23. XML File output: Text file output, only xmlOutput, no header, to XMLOrders.xml.
+
+Shipped data: XMLOrders.xml, one OrderList holding orders 4711 and 4712, each with
+2 order lines; every XML join step writes 1 row.</note>
+      <xloc>36</xloc>
+      <yloc>32</yloc>
+      <width>563</width>
+      <heigth>530</heigth>
+      <fontname>Segoe UI</fontname>
+      <fontsize>10</fontsize>
       <fontbold>N</fontbold>
       <fontitalic>N</fontitalic>
       <fontcolorred>0</fontcolorred>
       <fontcolorgreen>0</fontcolorgreen>
       <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>205</backgroundcolorgreen>
-      <backgroundcolorblue>112</backgroundcolorblue>
+      <backgroundcolorred>167</backgroundcolorred>
+      <backgroundcolorgreen>224</backgroundcolorgreen>
+      <backgroundcolorblue>245</backgroundcolorblue>
       <bordercolorred>100</bordercolorred>
       <bordercolorgreen>100</bordercolorgreen>
       <bordercolorblue>100</bordercolorblue>
-      <drawshadow>N</drawshadow>
+      <drawshadow>Y</drawshadow>
     </notepad>
   </notepads>
   <order>
@@ -600,7 +628,7 @@
     </remotesteps>
     <GUI>
       <xloc>171</xloc>
-      <yloc>492</yloc>
+      <yloc>955</yloc>
       <draw>Y</draw>
     </GUI>
     </step>
@@ -636,7 +664,7 @@
     </remotesteps>
     <GUI>
       <xloc>171</xloc>
-      <yloc>582</yloc>
+      <yloc>1045</yloc>
       <draw>Y</draw>
     </GUI>
     </step>
@@ -746,7 +774,7 @@
     </remotesteps>
     <GUI>
       <xloc>36</xloc>
-      <yloc>317</yloc>
+      <yloc>780</yloc>
       <draw>Y</draw>
     </GUI>
     </step>
@@ -880,7 +908,7 @@
     </remotesteps>
     <GUI>
       <xloc>36</xloc>
-      <yloc>233</yloc>
+      <yloc>696</yloc>
       <draw>Y</draw>
     </GUI>
     </step>
@@ -1002,7 +1030,7 @@
     </remotesteps>
     <GUI>
       <xloc>36</xloc>
-      <yloc>491</yloc>
+      <yloc>954</yloc>
       <draw>Y</draw>
     </GUI>
     </step>
@@ -1160,7 +1188,7 @@
     </remotesteps>
     <GUI>
       <xloc>36</xloc>
-      <yloc>400</yloc>
+      <yloc>863</yloc>
       <draw>Y</draw>
     </GUI>
     </step>
@@ -1282,7 +1310,7 @@
     </remotesteps>
     <GUI>
       <xloc>36</xloc>
-      <yloc>147</yloc>
+      <yloc>610</yloc>
       <draw>Y</draw>
     </GUI>
     </step>
@@ -1428,7 +1456,7 @@
     </remotesteps>
     <GUI>
       <xloc>36</xloc>
-      <yloc>581</yloc>
+      <yloc>1044</yloc>
       <draw>Y</draw>
     </GUI>
     </step>
@@ -1467,7 +1495,7 @@
     </remotesteps>
     <GUI>
       <xloc>171</xloc>
-      <yloc>147</yloc>
+      <yloc>610</yloc>
       <draw>Y</draw>
     </GUI>
     </step>
@@ -1518,7 +1546,7 @@
     </remotesteps>
     <GUI>
       <xloc>171</xloc>
-      <yloc>234</yloc>
+      <yloc>697</yloc>
       <draw>Y</draw>
     </GUI>
     </step>
@@ -1569,7 +1597,7 @@
     </remotesteps>
     <GUI>
       <xloc>171</xloc>
-      <yloc>402</yloc>
+      <yloc>865</yloc>
       <draw>Y</draw>
     </GUI>
     </step>
@@ -1639,7 +1667,7 @@
     </remotesteps>
     <GUI>
       <xloc>429</xloc>
-      <yloc>671</yloc>
+      <yloc>1134</yloc>
       <draw>Y</draw>
     </GUI>
     </step>
@@ -1675,7 +1703,7 @@
     </remotesteps>
     <GUI>
       <xloc>429</xloc>
-      <yloc>233</yloc>
+      <yloc>696</yloc>
       <draw>Y</draw>
     </GUI>
     </step>
@@ -1711,7 +1739,7 @@
     </remotesteps>
     <GUI>
       <xloc>429</xloc>
-      <yloc>317</yloc>
+      <yloc>780</yloc>
       <draw>Y</draw>
     </GUI>
     </step>
@@ -1747,7 +1775,7 @@
     </remotesteps>
     <GUI>
       <xloc>429</xloc>
-      <yloc>405</yloc>
+      <yloc>868</yloc>
       <draw>Y</draw>
     </GUI>
     </step>
@@ -1783,7 +1811,7 @@
     </remotesteps>
     <GUI>
       <xloc>429</xloc>
-      <yloc>491</yloc>
+      <yloc>954</yloc>
       <draw>Y</draw>
     </GUI>
     </step>
@@ -1819,7 +1847,7 @@
     </remotesteps>
     <GUI>
       <xloc>429</xloc>
-      <yloc>581</yloc>
+      <yloc>1044</yloc>
       <draw>Y</draw>
     </GUI>
     </step>
@@ -1881,7 +1909,7 @@
     </remotesteps>
     <GUI>
       <xloc>295</xloc>
-      <yloc>317</yloc>
+      <yloc>780</yloc>
       <draw>Y</draw>
     </GUI>
     </step>
@@ -2013,7 +2041,7 @@
     </remotesteps>
     <GUI>
       <xloc>295</xloc>
-      <yloc>233</yloc>
+      <yloc>696</yloc>
       <draw>Y</draw>
     </GUI>
     </step>
@@ -2075,7 +2103,7 @@
     </remotesteps>
     <GUI>
       <xloc>295</xloc>
-      <yloc>491</yloc>
+      <yloc>954</yloc>
       <draw>Y</draw>
     </GUI>
     </step>
@@ -2221,7 +2249,7 @@
     </remotesteps>
     <GUI>
       <xloc>295</xloc>
-      <yloc>405</yloc>
+      <yloc>868</yloc>
       <draw>Y</draw>
     </GUI>
     </step>
@@ -2325,7 +2353,7 @@
     </remotesteps>
     <GUI>
       <xloc>429</xloc>
-      <yloc>147</yloc>
+      <yloc>610</yloc>
       <draw>Y</draw>
     </GUI>
     </step>
@@ -2415,7 +2443,7 @@
     </remotesteps>
     <GUI>
       <xloc>295</xloc>
-      <yloc>581</yloc>
+      <yloc>1044</yloc>
       <draw>Y</draw>
     </GUI>
     </step>

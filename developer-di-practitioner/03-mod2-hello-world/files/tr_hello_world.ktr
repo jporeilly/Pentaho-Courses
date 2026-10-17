@@ -437,57 +437,29 @@
   </info>
   <notepads>
     <notepad>
-      <note>This transformation generates rows, 'hello world'.  Illustrates some of the key features:
-  
-Step1: Generate Rows
-   Limit: 10 rows
+      <note>tr_hello_world - generates 10 rows with the message hello world.
 
-   Name: message     
-   Type: String     
-   Value: hello world        
+1. gr_hello-world: Generate Rows, limit 10, one field message (String) = hello world.
+2. Dummy (do nothing): receives the rows and passes them on.
 
-  click: Preview 
-
-Step2: Dummy
-</note>
-      <xloc>96</xloc>
-      <yloc>64</yloc>
-      <width>625</width>
-      <heigth>296</heigth>
-      <fontname>Calibri Light</fontname>
-      <fontsize>11</fontsize>
+Shipped data: 10 rows, each with message hello world.</note>
+      <xloc>304</xloc>
+      <yloc>32</yloc>
+      <width>497</width>
+      <heigth>116</heigth>
+      <fontname>Segoe UI</fontname>
+      <fontsize>10</fontsize>
       <fontbold>N</fontbold>
       <fontitalic>N</fontitalic>
       <fontcolorred>0</fontcolorred>
       <fontcolorgreen>0</fontcolorgreen>
       <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>255</bordercolorred>
-      <bordercolorgreen>255</bordercolorgreen>
-      <bordercolorblue>255</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
-    <notepad>
-      <note>Lab1: Hello World</note>
-      <xloc>96</xloc>
-      <yloc>16</yloc>
-      <width>136</width>
-      <heigth>30</heigth>
-      <fontname>Segoe UI</fontname>
-      <fontsize>11</fontsize>
-      <fontbold>Y</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>255</bordercolorred>
-      <bordercolorgreen>255</bordercolorgreen>
-      <bordercolorblue>255</bordercolorblue>
+      <backgroundcolorred>167</backgroundcolorred>
+      <backgroundcolorgreen>224</backgroundcolorgreen>
+      <backgroundcolorblue>245</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
       <drawshadow>Y</drawshadow>
     </notepad>
   </notepads>
@@ -519,7 +491,7 @@ Step2: Dummy
     </remotesteps>
     <GUI>
       <xloc>304</xloc>
-      <yloc>240</yloc>
+      <yloc>324</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -563,7 +535,7 @@ Step2: Dummy
     </remotesteps>
     <GUI>
       <xloc>304</xloc>
-      <yloc>112</yloc>
+      <yloc>196</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

@@ -2,7 +2,7 @@
   "title": "Parameters",
   "description": "",
   "order": 49,
-  "stepCount": 8,
+  "stepCount": 4,
   "estimatedMinutes": 20,
-  "hasVideo": true
+  "hasVideo": false
 }

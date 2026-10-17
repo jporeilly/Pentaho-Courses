@@ -436,56 +436,44 @@
   </info>
   <notepads>
     <notepad>
-      <note>Lab 2: Merge Join</note>
-      <xloc>208</xloc>
+      <note>tr_merge_join_overview - joins two small grids on id with Merge join.
+
+1. A B C D: Data grid, id 1 to 4 with value A to D.
+2. Red Blue Yellow: Data grid, id 1, 3 and 5 with value_2 Red, Blue and Yellow.
+3. Merge Join: first step A B C D, second step Red Blue Yellow, key id on both,
+   join type FULL OUTER. Both grids are already sorted on id, as Merge join needs.
+4. Dummy (do nothing): shows the joined rows (id, value, id_1, value_2).
+
+Change Join Type and run again to compare: INNER 2 rows, LEFT OUTER 4, RIGHT OUTER 3.
+Shipped data: 5 rows, ids 1 to 5, with nulls where either side has no match.</note>
+      <xloc>240</xloc>
       <yloc>32</yloc>
-      <width>135</width>
-      <heigth>30</heigth>
+      <width>549</width>
+      <heigth>188</heigth>
       <fontname>Segoe UI</fontname>
-      <fontsize>11</fontsize>
-      <fontbold>Y</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>255</bordercolorred>
-      <bordercolorgreen>255</bordercolorgreen>
-      <bordercolorblue>255</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
-    <notepad>
-      <note>Simple merge join demonstration.</note>
-      <xloc>208</xloc>
-      <yloc>80</yloc>
-      <width>252</width>
-      <heigth>32</heigth>
-      <fontname>Calibri Light</fontname>
-      <fontsize>11</fontsize>
+      <fontsize>10</fontsize>
       <fontbold>N</fontbold>
       <fontitalic>N</fontitalic>
       <fontcolorred>0</fontcolorred>
       <fontcolorgreen>0</fontcolorgreen>
       <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>255</bordercolorred>
-      <bordercolorgreen>255</bordercolorgreen>
-      <bordercolorblue>255</bordercolorblue>
+      <backgroundcolorred>167</backgroundcolorred>
+      <backgroundcolorgreen>224</backgroundcolorgreen>
+      <backgroundcolorblue>245</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
       <drawshadow>Y</drawshadow>
     </notepad>
   </notepads>
   <order>
     <hop>
-      <from>A B C D </from>
+      <from>A B C D</from>
       <to>Merge Join</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Red  Blue  Yellow</from>
+      <from>Red Blue Yellow</from>
       <to>Merge Join</to>
       <enabled>Y</enabled>
     </hop>
@@ -496,7 +484,7 @@
     </hop>
   </order>
   <step>
-    <name>A B C D </name>
+    <name>A B C D</name>
     <type>DataGrid</type>
     <description/>
     <distribute>Y</distribute>
@@ -558,7 +546,7 @@
     </remotesteps>
     <GUI>
       <xloc>240</xloc>
-      <yloc>144</yloc>
+      <yloc>268</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -583,7 +571,7 @@
     </remotesteps>
     <GUI>
       <xloc>576</xloc>
-      <yloc>240</yloc>
+      <yloc>364</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -599,8 +587,8 @@
       <schema_name/>
     </partitioning>
     <join_type>FULL OUTER</join_type>
-    <step1>A B C D </step1>
-    <step2>Red  Blue  Yellow</step2>
+    <step1>A B C D</step1>
+    <step2>Red Blue Yellow</step2>
     <keys_1>
       <key>id</key>
     </keys_1>
@@ -617,12 +605,12 @@
     </remotesteps>
     <GUI>
       <xloc>416</xloc>
-      <yloc>240</yloc>
+      <yloc>364</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Red  Blue  Yellow</name>
+    <name>Red Blue Yellow</name>
     <type>DataGrid</type>
     <description/>
     <distribute>Y</distribute>
@@ -680,7 +668,7 @@
     </remotesteps>
     <GUI>
       <xloc>240</xloc>
-      <yloc>336</yloc>
+      <yloc>460</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

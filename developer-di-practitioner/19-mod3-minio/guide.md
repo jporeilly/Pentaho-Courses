@@ -4,56 +4,42 @@
 >
 > #### Workshop - MinIO
 >
-> Six transformations that read from and write to **MinIO**, an S3-compatible object store, through a PDI **VFS connection**.\
-> They get harder as you go: CSV lookups first, then XML and JSON parsing, reconciliation, log analysis, scoring and multi-format ingestion.
+> Six workshops that read from and write to **MinIO**, an S3-compatible object store, through a PDI **VFS connection**. Choose one of them and build it; each stands on its own.\
+> They get harder down the list: CSV lookups first, then XML and JSON parsing, reconciliation, log analysis, scoring and multi-format ingestion.
 >
 > **What you’ll do**
 >
 > * Connect PDI to MinIO with a VFS connection
 > * Read and write objects with `pvfs://MinIO/...` paths
-> * Enrich and join streams with lookups and merge joins
-> * Parse XML, JSON and log lines, and shape the results for a curated layer
+> * Build the workshop you choose: enrich rows with lookups and joins, or parse XML, JSON or log lines, and shape the results for a curated layer
 >
 > **Prerequisites:** MinIO running and seeded (see [Before You Start](../00-before-you-start/guide.md)); [Review Storage](../topic-mod3-storage-review/guide.md); joins and aggregations at the level of the earlier workshops
 >
-> **Estimated time:** 4 to 6 hours in all; each workshop takes 20 to 60 minutes
+> **Estimated time:** about 30 minutes: 5 minutes for the connection, then 15 to 35 minutes for the workshop you choose (see the table)
 
-| Workshop                 | Key skills                                  |
-| ------------------------ | ------------------------------------------- |
-| Sales Dashboard          | VFS input, stream lookups, calculations     |
-| Inventory Reconciliation | XML parsing, full outer join, variance      |
-| Customer 360             | JSON lines, aggregation, merge joins        |
-| Log Parsing              | regular expressions, rolling averages       |
-| Fraud Detection          | lookups and joins, rule-based scoring       |
-| Data Lake Ingestion      | three formats, one schema                   |
+| Workshop                 | Key skills                                  | Time   |
+| ------------------------ | ------------------------------------------- | ------ |
+| Sales Dashboard          | VFS input, stream lookups, calculations     | 20 min |
+| Inventory Reconciliation | XML parsing, full outer join, variance      | 35 min |
+| Customer 360             | JSON lines, aggregation, merge joins        | 25 min |
+| Log Parsing              | regular expressions, rolling averages       | 25 min |
+| Fraud Detection          | lookups and joins, rule-based scoring       | 15 min |
+| Data Lake Ingestion      | three formats, one schema                   | 25 min |
 
 ## Connect PDI to MinIO
 
-> **Warning:** Every path in these workshops starts `pvfs://MinIO/`, which means "the VFS connection named **MinIO**". Create it once, before the first workshop. Connection names are case-sensitive: `pvfs://minio/...` doesn't find a connection named `MinIO`.
+> **Warning:** Every path in these workshops starts `pvfs://MinIO/`, which means "the VFS connection named **MinIO**". Create it before you start your workshop. Connection names are case-sensitive: `pvfs://minio/...` doesn't find a connection named `MinIO`.
 
-1. Start Spoon with the **Start PDI** button below, or from a terminal:
-
-::: tabs
-
-### Windows (PowerShell)
+1. Start Spoon with the **Start PDI** button below, or from PowerShell:
 
 ```powershell
 Set-Location C:\Pentaho\design-tools\data-integration
 .\spoon.bat
 ```
 
-### macOS / Linux
-
-```bash
-cd ~/Pentaho/design-tools/data-integration
-./spoon.sh
-```
-
-:::
-
 <button data-launch="spoon" data-path="">Start PDI</button>
 
-2. Check that MinIO is running and seeded: open the MinIO console at **http://127.0.0.1:9099** and sign in as `minioadmin` / `minioadmin`. The **raw-data** bucket holds `csv/`, `json/`, `xml/` and `finance/` folders, and the **logs** bucket holds `app/`, `web/` and `error/`.
+2. Check that MinIO is running and seeded: open the MinIO console at **http://127.0.0.1:9099** and sign in as `minioadmin` / `minioadmin`. The first time, the console shows MinIO's license notice: read it and select **Acknowledge**. The **raw-data** bucket holds `csv/`, `json/`, `xml/` and `finance/` folders, and the **logs** bucket holds `app/`, `web/` and `error/`.
 
    ```powershell
    # Or check the S3 API from PowerShell
@@ -70,11 +56,12 @@ cd ~/Pentaho/design-tools/data-integration
 | **Access Key**         | `minioadmin`            |
 | **Secret Key**         | `minioadmin`            |
 | **Endpoint**           | `http://127.0.0.1:9000` |
+| **Signature Version**  | `AWSS3V4SignerType`     |
 | **PathStyle Access**   | selected                |
 
 4. Select **Test**.
 
-> **Success:** Checkpoint: Spoon reports `Connection was successfully established.`
+> **Success:** Checkpoint: Spoon reports `Connection was successfully established.` With **Signature Version** empty, the test fails with `unknown signer type: aws.endpoint`.
 
 5. Select **OK**. The connection is saved for every transformation on this machine, so you create it once.
 
@@ -93,9 +80,9 @@ cd ~/Pentaho/design-tools/data-integration
 > **Why it matters:** credentials stay out of `.ktr` files, and moving
 > between environments is one connection, not every path.
 
-## The Workshops <!-- no-step -->
+## Choose One Workshop <!-- no-step -->
 
-Save each transformation in the lab folder, `C:\Workshop-DI-Practitioner\03-data-sources\03-storage\19-mod3-minio`.
+Choose one workshop from the tabs below and build it. Save the transformation in the lab folder, `C:\Workshop-DI-Practitioner\03-data-sources\03-storage\19-mod3-minio`.
 
 ::::: tabs
 
@@ -135,7 +122,7 @@ Save each transformation in the lab folder, `C:\Workshop-DI-Practitioner\03-data
 2. Select **File > Save as** and save it as `sales_dashboard_etl.ktr` in `C:\Workshop-DI-Practitioner\03-data-sources\03-storage\19-mod3-minio`.
 3. On the **Design** tab, open the **Input** folder and drag **Text file input** onto the canvas three times.
 4. Double-click each **Text file input** in turn and set **Step name** to `Sales`, `Products` and `Customers`.
-5. In each, on the **File** tab, enter the file in **File or directory** and select **Add**. Or select **Browse** and pick it from the MinIO connection:
+5. In each, on the **File** tab, enter the file in **File or directory** and select **Add**. Or select **Browse**, set **File type** to `*.csv`, and pick it under **VFS Connections > MinIO**:
 
 | Step        | File                                      |
 | ----------- | ----------------------------------------- |
@@ -198,8 +185,6 @@ Save each transformation in the lab folder, `C:\Workshop-DI-Practitioner\03-data
 
 <figure><img src="../_assets/images/customers-lookup.png" alt="Customers lookup: lookup step Customers, key customer_id, retrieving names, email, country and status"><figcaption><p>Customers lookup</p></figcaption></figure>
 
-> **Note:** The screenshot leaves **New name** empty for `country` and `status`. Use the table: the later steps look for `customer_country` and `customer_status`.
-
 7. Select **OK** and save the transformation (`Ctrl+S`).
 8. Select **Customers lookup** on the canvas, press `F10` (**Action > Preview**), and select **Quick Launch**.
 
@@ -243,8 +228,6 @@ Save each transformation in the lab folder, `C:\Workshop-DI-Practitioner\03-data
 > **Warning:** Put `unit_price` in **Field A**. Calculator works in Field A's type, so with the Integer `quantity` first, `unit_price` is cut to a whole number before the multiplication: 1299.99 × 1 comes out as 1299.
 
 <figure><img src="../_assets/images/calculator-2.png" alt="Calculator with two calculations, line_total and a second field"><figcaption><p>Calculator</p></figcaption></figure>
-
-> **Note:** The screenshot shows an earlier version: `quantity` as Field A, and the second field named `profit_margin`. Use the table above.
 
 3. Select **OK**.
 4. On the **Design** tab, open the **Scripting** folder and drag **Formula** onto the canvas. Create a hop from **Calculator** to **Formula**.
@@ -370,7 +353,7 @@ Save each transformation in the lab folder, `C:\Workshop-DI-Practitioner\03-data
 
 <figure><img src="../_assets/images/remap-field-names-x26-preview-data.png" alt="Fields tab with the renamed warehouse fields, and a preview of the items"><figcaption><p>Renamed fields and the preview</p></figcaption></figure>
 
-> **Success:** Checkpoint: 17 rows, in file order. The first is `P001`, `Laptop Pro 15`, `Electronics`, `45`, `A-12-3`, `2024-01-20`; the last is `P099`, `Legacy Tablet (Discontinued)`. The screenshot is older: its second field name has a stray space after `warehouse_`, and its preview comes from an earlier copy of the file, so trust the table and this checkpoint.
+> **Success:** Checkpoint: 17 rows, in file order. The first is `P001`, `Laptop Pro 15`, `Electronics`, `45`, `A-12-3`, `2024-01-20`; the last is `P099`, `Legacy Tablet (Discontinued)`.
 
 10. Select **Close**, then **OK**.
 
@@ -768,7 +751,7 @@ What the script decides, row by row:
 
 9. Select **Close**, then **OK**.
 10. On the **Design** tab, open the **Transform** folder and drag **Sort rows** onto the canvas. Create a hop from **Read Customers** to it.
-11. Double-click **Sort rows** and keep its name, `Sort rows`. Fill the **Fields** grid with one row: **Fieldname** `customer_id`, **Ascending** `Y`, **Case sensitive compare?** `N`. Select **OK**.
+11. Double-click **Sort rows** and set **Step name** to `Sort Customers`. Fill the **Fields** grid with one row: **Fieldname** `customer_id`, **Ascending** `Y`, **Case sensitive compare?** `N`. Select **OK**.
 
 ### 2. Summarize the Sales
 
@@ -776,18 +759,18 @@ What the script decides, row by row:
 >
 > #### Memory group by
 >
-> **Memory group by** reduces the 15 sales to one row per customer. Watch the names of the two sorts: `Sort rows` (tab 1) sorts the customers, and `Sort Customers` (here) sorts the *sales*. They are named as in the solution file, so your transformation matches it.
+> **Memory group by** reduces the 15 sales to one row per customer. It needs the sales sorted by customer, so this tab adds a second sort, `Sort Sales`, beside tab 1's `Sort Customers`.
 
 1. On the **Design** tab, open the **Input** folder and drag **Text file input** onto the canvas. Double-click it and set **Step name** to `Read Sales`.
-2. On the **File** tab, enter `pvfs://MinIO/raw-data/csv/sales.csv` in **File or directory** and select **Add**, or select **Browse** and pick it from the MinIO connection.
+2. On the **File** tab, enter `pvfs://MinIO/raw-data/csv/sales.csv` in **File or directory** and select **Add**, or select **Browse**, set **File type** to `*.csv`, and pick it under **VFS Connections > MinIO**.
 
 <figure><img src="../_assets/images/select-sales-csv-from-vfs-connections.png" alt="Browsing the MinIO connection's raw-data bucket to pick csv/sales.csv"><figcaption><p>Browse the bucket through the connection</p></figcaption></figure>
 
 3. On the **Content** tab, set **Separator** to `,` and **Format** to `mixed`, and keep **Header** selected.
 4. On the **Fields** tab, select **Get Fields**, select **OK** at **Number of sample lines**, and close the **Scan results**. Check the types: `customer_id` and `quantity` Integer (`#`); `sale_date` Date (`yyyy-MM-dd`); `sale_amount` BigNumber (`#.##`); `sale_id`, `product_id`, `payment_method` and `status` String. Select **OK**.
 5. On the **Design** tab, open the **Transform** folder and drag **Sort rows** onto the canvas. Create a hop from **Read Sales** to it.
-6. Double-click the new **Sort rows** and set **Step name** to `Sort Customers`. Fill the **Fields** grid with one row: **Fieldname** `customer_id`, **Ascending** `Y`, **Case sensitive compare?** `N`. Select **OK**.
-7. On the **Design** tab, open the **Statistics** folder and drag **Memory group by** onto the canvas. Create a hop from **Sort Customers** to it.
+6. Double-click the new **Sort rows** and set **Step name** to `Sort Sales`. Fill the **Fields** grid with one row: **Fieldname** `customer_id`, **Ascending** `Y`, **Case sensitive compare?** `N`. Select **OK**.
+7. On the **Design** tab, open the **Statistics** folder and drag **Memory group by** onto the canvas. Create a hop from **Sort Sales** to it.
 8. Double-click **Memory group by** and keep its name. Enter `customer_id` in **The fields that make up the group**, and fill the **Aggregates** grid:
 
 | Name              | Subject       | Type                 |
@@ -906,11 +889,11 @@ var is_product_view = (event_type == "product_view") ? 1 : 0;
    * **Second Step**: `Final User Sort`
    * **Join Type**: `INNER`
 3. Enter `customer_id` in **Keys for 1st step** and `user_id` in **Keys for 2nd step**. Select **OK**.
-4. Drag a second **Merge join** onto the canvas. Create a hop from **Sales & Events** to it, and one from **Sort rows** to it.
+4. Drag a second **Merge join** onto the canvas. Create a hop from **Sales & Events** to it, and one from **Sort Customers** to it.
 5. Double-click it and set:
    * **Step name**: `Customers + Sales + Events`
    * **First Step**: `Sales & Events`
-   * **Second Step**: `Sort rows`
+   * **Second Step**: `Sort Customers`
    * **Join Type**: `LEFT OUTER`
 6. Enter `customer_id` in **Keys for 1st step** and in **Keys for 2nd step**. Select **OK**.
 7. Save the transformation (`Ctrl+S`).
@@ -1719,7 +1702,7 @@ The workshops read their data from MinIO. The three finance files that the Fraud
 
 ### Solution <!-- no-step -->
 
-One finished transformation per workshop in the series. Open them alongside your own to compare, or run to see the expected result.
+One finished transformation per workshop. Open the one for your workshop alongside your own to compare, or run it to see the expected result.
 
 Also on disk at `C:\Workshop-DI-Practitioner\03-data-sources\03-storage\19-mod3-minio\solution`.
 

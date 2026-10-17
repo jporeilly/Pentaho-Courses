@@ -36,25 +36,12 @@
 > 
 > **Generate rows** outputs a set number of rows, each with the same fixed values. It is mostly for tests, or for one row that starts a flow, such as a row of parameters for a query.
 
-1. Start Spoon with the **Start PDI** button below, or from a terminal:
-
-::: tabs
-
-### Windows (PowerShell)
+1. Start Spoon with the **Start PDI** button below, or from PowerShell:
 
 ```powershell
 Set-Location C:\Pentaho\design-tools\data-integration
 .\spoon.bat
 ```
-
-### macOS / Linux
-
-```bash
-cd ~/Pentaho/design-tools/data-integration
-./spoon.sh
-```
-
-:::
 
 <button data-launch="spoon" data-path="">Start PDI</button>
 
@@ -132,8 +119,6 @@ cd ~/Pentaho/design-tools/data-integration
 6. Select **OK**.
 
 <figure><img src="../_assets/images/formula-2.png" alt="Formula step: result = IF([booking_type]=&quot;R&quot;;[b]-[a]), Number"><figcaption><p>A conditional formula</p></figcaption></figure>
-
-The screenshot shows `[b]+[a]`; type `[b]-[a]`, as the step's name says.
 
 > **Under the hood:**
 >

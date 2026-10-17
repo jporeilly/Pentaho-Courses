@@ -436,74 +436,37 @@
   </info>
   <notepads>
     <notepad>
-      <note>Lab 2: Merge Streams (diff)</note>
-      <xloc>128</xloc>
-      <yloc>48</yloc>
-      <width>204</width>
-      <heigth>30</heigth>
+      <note>tr_merge_streams_diff - compares the products file with its update and flags each row.
+
+1. orders: Text file input, orders.txt (separator ;, header, format mixed),
+   six String fields PRODUCTCODE to PRODUCTDESCRIPTION: the existing data.
+2. Sort orders: Sort rows on PRODUCTCODE, ascending.
+3. orders updates: Text file input, orders_update.txt, same six fields: the new data.
+4. Sort updates: Sort rows on PRODUCTCODE, ascending.
+5. merge and find diff: Merge rows (diff), reference Sort orders, compare
+   Sort updates, key PRODUCTCODE, compares all six fields and writes FLAG:
+   identical, changed, new (only in the update) or deleted (only in orders.txt).
+   Both inputs must be sorted on the key.
+
+Shipped data: 9 rows: 5 identical, S10_4698 changed, S10_1949 and S12_1108 new,
+S10_4757 deleted.</note>
+      <xloc>160</xloc>
+      <yloc>32</yloc>
+      <width>514</width>
+      <heigth>260</heigth>
       <fontname>Segoe UI</fontname>
-      <fontsize>11</fontsize>
-      <fontbold>Y</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>255</bordercolorred>
-      <bordercolorgreen>255</bordercolorgreen>
-      <bordercolorblue>255</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
-    <notepad>
-      <note>The streams are mergred and the difference 'flagged' as:
- </note>
-      <xloc>128</xloc>
-      <yloc>96</yloc>
-      <width>411</width>
-      <heigth>54</heigth>
-      <fontname>Calibri Light</fontname>
-      <fontsize>11</fontsize>
+      <fontsize>10</fontsize>
       <fontbold>N</fontbold>
       <fontitalic>N</fontitalic>
       <fontcolorred>0</fontcolorred>
       <fontcolorgreen>0</fontcolorgreen>
       <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>255</bordercolorred>
-      <bordercolorgreen>255</bordercolorgreen>
-      <bordercolorblue>255</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
-    <notepad>
-      <note>The two  sets of records, an original stream (the existing data) and the new stream (the new data), are compared and merged. 
-Only the last version of a record is passed to the next steps each time. The row is marked as follows:
-  "identical" - The key was found in both streams and the values in both fields are identical;
-  "changed" - The key was found in both streams but one or more values are different;
-  "new" - The key was not found in the original stream;
-  "deleted" - The key was not found in the new stream.
-The records coming from the new stream are passed on to the next steps, except when it is "deleted".
-Both streams must be sorted on the specified key(s).</note>
-      <xloc>144</xloc>
-      <yloc>144</yloc>
-      <width>845</width>
-      <heigth>170</heigth>
-      <fontname>Segoe UI</fontname>
-      <fontsize>9</fontsize>
-      <fontbold>N</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>192</bordercolorred>
-      <bordercolorgreen>192</bordercolorgreen>
-      <bordercolorblue>192</bordercolorblue>
+      <backgroundcolorred>167</backgroundcolorred>
+      <backgroundcolorgreen>224</backgroundcolorgreen>
+      <backgroundcolorblue>245</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
       <drawshadow>Y</drawshadow>
     </notepad>
   </notepads>
@@ -515,7 +478,7 @@ Both streams must be sorted on the specified key(s).</note>
     </hop>
     <hop>
       <from>Sort updates</from>
-      <to>merge and find diff.</to>
+      <to>merge and find diff</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
@@ -525,7 +488,7 @@ Both streams must be sorted on the specified key(s).</note>
     </hop>
     <hop>
       <from>Sort orders</from>
-      <to>merge and find diff.</to>
+      <to>merge and find diff</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -614,7 +577,7 @@ Both streams must be sorted on the specified key(s).</note>
     </GUI>
   </step>
   <step>
-    <name>merge and find diff.</name>
+    <name>merge and find diff</name>
     <type>MergeRows</type>
     <description/>
     <distribute>Y</distribute>
@@ -708,7 +671,7 @@ Both streams must be sorted on the specified key(s).</note>
         <name>PRODUCTCODE</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -723,7 +686,7 @@ Both streams must be sorted on the specified key(s).</note>
         <name>PRODUCTNAME</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -738,7 +701,7 @@ Both streams must be sorted on the specified key(s).</note>
         <name>PRODUCTLINE</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -753,7 +716,7 @@ Both streams must be sorted on the specified key(s).</note>
         <name>PRODUCTSCALE</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -768,7 +731,7 @@ Both streams must be sorted on the specified key(s).</note>
         <name>PRODUCTVENDOR</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -783,7 +746,7 @@ Both streams must be sorted on the specified key(s).</note>
         <name>PRODUCTDESCRIPTION</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -888,7 +851,7 @@ Both streams must be sorted on the specified key(s).</note>
         <name>PRODUCTCODE</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -903,7 +866,7 @@ Both streams must be sorted on the specified key(s).</note>
         <name>PRODUCTNAME</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -918,7 +881,7 @@ Both streams must be sorted on the specified key(s).</note>
         <name>PRODUCTLINE</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -933,7 +896,7 @@ Both streams must be sorted on the specified key(s).</note>
         <name>PRODUCTSCALE</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -948,7 +911,7 @@ Both streams must be sorted on the specified key(s).</note>
         <name>PRODUCTVENDOR</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -963,7 +926,7 @@ Both streams must be sorted on the specified key(s).</note>
         <name>PRODUCTDESCRIPTION</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>

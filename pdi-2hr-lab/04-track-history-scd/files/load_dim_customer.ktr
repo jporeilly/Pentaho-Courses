@@ -436,28 +436,38 @@
   </info>
   <notepads>
     <notepad>
-      <note>When a customer moves region, yesterday's reports must still show
-the old region and today's the new one. That's a Type 2 Slowly
-Changing Dimension — normally a page of carefully-ordered MERGE
-SQL. In PDI it's one step: **Dimension lookup/update**.</note>
-      <xloc>48</xloc>
-      <yloc>80</yloc>
-      <width>414</width>
-      <heigth>82</heigth>
+      <note>load_dim_customer - loads the customer dimension, keeping each change as a new version.
+Needs the warehouse connection (MySQL, localhost:3306, database sampledata)
+and the dim_customer table.
+
+1. Read customers: JSON input,
+   C:/Workshop/pdi-2hr/03-make-it-yours/04-track-history/customers.json;
+   customer_id, customer_name and region_code from $.customers[*].
+2. Load dim_customer: Dimension lookup/update into dim_customer (warehouse),
+   Update the dimension selected. Key customer_id; technical key customer_tk
+   (table maximum + 1); version field version; date range date_from to date_to.
+   customer_name and region_code have update type Insert, so a change closes
+   the current version and adds a new one (Type 2).
+
+Output: dim_customer in sampledata, one row per customer version.</note>
+      <xloc>160</xloc>
+      <yloc>32</yloc>
+      <width>545</width>
+      <heigth>260</heigth>
       <fontname>Segoe UI</fontname>
       <fontsize>10</fontsize>
       <fontbold>N</fontbold>
       <fontitalic>N</fontitalic>
-      <fontcolorred>14</fontcolorred>
-      <fontcolorgreen>58</fontcolorgreen>
-      <fontcolorblue>90</fontcolorblue>
-      <backgroundcolorred>201</backgroundcolorred>
-      <backgroundcolorgreen>232</backgroundcolorgreen>
-      <backgroundcolorblue>251</backgroundcolorblue>
-      <bordercolorred>14</bordercolorred>
-      <bordercolorgreen>58</bordercolorgreen>
-      <bordercolorblue>90</bordercolorblue>
-      <drawshadow>N</drawshadow>
+      <fontcolorred>0</fontcolorred>
+      <fontcolorgreen>0</fontcolorgreen>
+      <fontcolorblue>0</fontcolorblue>
+      <backgroundcolorred>167</backgroundcolorred>
+      <backgroundcolorgreen>224</backgroundcolorgreen>
+      <backgroundcolorblue>245</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
+      <drawshadow>Y</drawshadow>
     </notepad>
   </notepads>
   <connection>
@@ -605,7 +615,7 @@ SQL. In PDI it's one step: **Dimension lookup/update**.</note>
     </remotesteps>
     <GUI>
       <xloc>320</xloc>
-      <yloc>192</yloc>
+      <yloc>340</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -702,7 +712,7 @@ SQL. In PDI it's one step: **Dimension lookup/update**.</note>
     </remotesteps>
     <GUI>
       <xloc>160</xloc>
-      <yloc>192</yloc>
+      <yloc>340</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

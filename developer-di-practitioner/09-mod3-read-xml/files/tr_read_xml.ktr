@@ -436,66 +436,39 @@
   </info>
   <notepads>
     <notepad>
-      <note>Lab 4: Read XML</note>
-      <xloc>64</xloc>
+      <note>tr_read_xml - reads orders from an XML file and, in a second branch, plants from a URL.
+The URL branch's hops ship disabled, so a run reads the file. To read the URL, enable
+them and disable the hop to Dummy (do nothing); the URL branch needs internet access.
+
+1. Get data from XML: ${Internal.Entry.Current.Directory}/orders.xml, UTF-8,
+   loop XPath /document/order, fields productline, customer, status, date (String)
+   and value (Number), each read from the element of the same name.
+2. Dummy (do nothing): receives the orders; it is the step you preview.
+3. Pass URL: Generate Rows, 1 row, xmlUrl = the raw.githubusercontent.com address
+   of plant_catalog.xml.
+4. Read Url: Get data from XML, source in the field xmlUrl read as a URL, loop XPath
+   /CATALOG/PLANT, fields COMMON, BOTANICAL, ZONE, LIGHT, PRICE (String) and
+   AVAILABILITY (Integer). ZONE is String: some zones are text, such as Annual.
+5. Dummy: receives the plants; it is the step you preview.
+
+Shipped data: 7 orders from the file; with the URL branch enabled, 36 plants.</note>
+      <xloc>96</xloc>
       <yloc>32</yloc>
-      <width>127</width>
-      <heigth>30</heigth>
+      <width>528</width>
+      <heigth>296</heigth>
       <fontname>Segoe UI</fontname>
-      <fontsize>11</fontsize>
-      <fontbold>Y</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>255</bordercolorred>
-      <bordercolorgreen>255</bordercolorgreen>
-      <bordercolorblue>255</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
-    <notepad>
-      <note>A simple example of reading an xml file</note>
-      <xloc>64</xloc>
-      <yloc>96</yloc>
-      <width>302</width>
-      <heigth>29</heigth>
-      <fontname>Calibri Light</fontname>
-      <fontsize>11</fontsize>
+      <fontsize>10</fontsize>
       <fontbold>N</fontbold>
       <fontitalic>N</fontitalic>
       <fontcolorred>0</fontcolorred>
       <fontcolorgreen>0</fontcolorgreen>
       <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>255</bordercolorred>
-      <bordercolorgreen>255</bordercolorgreen>
-      <bordercolorblue>255</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
-    <notepad>
-      <note>Reading xml from a URL</note>
-      <xloc>64</xloc>
-      <yloc>256</yloc>
-      <width>188</width>
-      <heigth>29</heigth>
-      <fontname>Calibri Light</fontname>
-      <fontsize>11</fontsize>
-      <fontbold>N</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>255</bordercolorred>
-      <bordercolorgreen>255</bordercolorgreen>
-      <bordercolorblue>255</bordercolorblue>
+      <backgroundcolorred>167</backgroundcolorred>
+      <backgroundcolorgreen>224</backgroundcolorgreen>
+      <backgroundcolorblue>245</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
       <drawshadow>Y</drawshadow>
     </notepad>
   </notepads>
@@ -537,7 +510,7 @@
     </remotesteps>
     <GUI>
       <xloc>432</xloc>
-      <yloc>304</yloc>
+      <yloc>536</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -562,7 +535,7 @@
     </remotesteps>
     <GUI>
       <xloc>256</xloc>
-      <yloc>144</yloc>
+      <yloc>376</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -698,7 +671,7 @@
     </remotesteps>
     <GUI>
       <xloc>96</xloc>
-      <yloc>144</yloc>
+      <yloc>376</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -742,7 +715,7 @@
     </remotesteps>
     <GUI>
       <xloc>96</xloc>
-      <yloc>304</yloc>
+      <yloc>536</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -893,7 +866,7 @@
     </remotesteps>
     <GUI>
       <xloc>256</xloc>
-      <yloc>304</yloc>
+      <yloc>536</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

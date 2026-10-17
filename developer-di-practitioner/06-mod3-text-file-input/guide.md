@@ -20,7 +20,11 @@
 > 
 > **Estimated time:** 30 minutes
 
-<div class="pcm-embed-card" data-href="https://www.loom.com/share/0646ed96c4734d16b6721c902f9c7e0e?hideEmbedTopBar=true&amp;hide_owner=true&amp;hide_share=true&amp;hide_title=true" data-title="String Operations for Data Cleaning and Transformation" data-description="In this video, I demonstrate how to use the string operation step to modify string values effectively. We focus on cleaning up the product code field by removing trailing spaces and retaining only numeric characters, while also addressing the country field by trimming spaces and converting all characters to uppercase. I guide you through configuring the step, including naming conventions and the specific operations required for each field. Please ensure you follow along and replicate these steps in your own work to achieve similar results. Thank you for watching!" data-thumb="../_assets/embeds/2d94cd73b9b2.png"></div>
+<figure>
+
+<figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
+
+</figure>
 
 <figure>
 
@@ -69,25 +73,12 @@ Look at the input file first; it decides the parsing approach.
 > 
 > Use **Text file input** to read the raw lines from `orders.txt`. Treat each line as a single string field for now.
 
-1. Start Spoon with the **Start PDI** button below, or from a terminal:
-
-::: tabs
-
-### Windows (PowerShell)
+1. Start Spoon with the **Start PDI** button below, or from PowerShell:
 
 ```powershell
 Set-Location C:\Pentaho\design-tools\data-integration
 .\spoon.bat
 ```
-
-### macOS / Linux
-
-```bash
-cd ~/Pentaho/design-tools/data-integration
-./spoon.sh
-```
-
-:::
 
 <button data-launch="spoon" data-path="">Start PDI</button>
 

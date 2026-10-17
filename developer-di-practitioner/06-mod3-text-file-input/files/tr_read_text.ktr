@@ -442,116 +442,38 @@ Repeating text is removed from the order_value stream field, before the order_va
   </info>
   <notepads>
     <notepad>
-      <note>This guided demonstration illustrates the options available in the Text File Input step.  The data in the text file
- is flattened, parsed to capture groups, before the price is defined with the data type: Number. 
+      <note>tr_read_text - turns the four-line order records in orders.txt into one typed row each.
 
-</note>
-      <xloc>128</xloc>
-      <yloc>80</yloc>
-      <width>658</width>
-      <heigth>84</heigth>
-      <fontname>Calibri Light</fontname>
-      <fontsize>11</fontsize>
-      <fontbold>N</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>255</bordercolorred>
-      <bordercolorgreen>255</bordercolorgreen>
-      <bordercolorblue>255</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
-    <notepad>
-      <note>Lab 1: Text File Input </note>
-      <xloc>128</xloc>
+1. read order list: Text file input, ${Internal.Entry.Current.Directory}/orders.txt,
+   a tab as separator (the file has none, so each line is one field, Field1),
+   no header, No empty rows, format mixed.
+2. flatten rows: Row flattener on Field1; every four lines become productline,
+   customers, status and order_value.
+3. parse status: Regex evaluation of status with (Delivered|Returned):(.+), capture
+   groups order_status and order_date (both trimmed); the match flag goes to result.
+4. discard texts: Replace in string removes "Order Value: $" from order_value,
+   "Productline: " from productline and "Customer: " from customers.
+5. change order_value metadata: Select values removes result and status, sets
+   order_value to Number (#.00) and order_date to Date (MMM yyyy).
+
+Shipped data: 28 lines read, 7 orders; the first is Classic Cars, Christine Loomis, 21.99.</note>
+      <xloc>160</xloc>
       <yloc>32</yloc>
-      <width>161</width>
-      <heigth>30</heigth>
+      <width>508</width>
+      <heigth>278</heigth>
       <fontname>Segoe UI</fontname>
-      <fontsize>11</fontsize>
-      <fontbold>Y</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>255</bordercolorred>
-      <bordercolorgreen>255</bordercolorgreen>
-      <bordercolorblue>255</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
-    <notepad>
-      <note> - read a list of orders.
-</note>
-      <xloc>224</xloc>
-      <yloc>208</yloc>
-      <width>124</width>
-      <heigth>41</heigth>
-      <fontname>Segoe UI</fontname>
-      <fontsize>9</fontsize>
+      <fontsize>10</fontsize>
       <fontbold>N</fontbold>
       <fontitalic>N</fontitalic>
       <fontcolorred>0</fontcolorred>
       <fontcolorgreen>0</fontcolorgreen>
       <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>192</bordercolorred>
-      <bordercolorgreen>192</bordercolorgreen>
-      <bordercolorblue>192</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
-    <notepad>
-      <note>The RegEx expression creates 2 capture groups:
-  order_status: (Delivered | Returned)
-  order_date: (.+)</note>
-      <xloc>288</xloc>
-      <yloc>400</yloc>
-      <width>258</width>
-      <heigth>58</heigth>
-      <fontname>Segoe UI</fontname>
-      <fontsize>9</fontsize>
-      <fontbold>N</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>192</bordercolorred>
-      <bordercolorgreen>192</bordercolorgreen>
-      <bordercolorblue>192</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
-    <notepad>
-      <note>General Guidelines:
- - separator: TAB
- - there's a white space after Order Value:</note>
-      <xloc>416</xloc>
-      <yloc>208</yloc>
-      <width>224</width>
-      <heigth>58</heigth>
-      <fontname>Segoe UI</fontname>
-      <fontsize>9</fontsize>
-      <fontbold>N</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>192</bordercolorred>
-      <bordercolorgreen>192</bordercolorgreen>
-      <bordercolorblue>192</bordercolorblue>
+      <backgroundcolorred>167</backgroundcolorred>
+      <backgroundcolorgreen>224</backgroundcolorgreen>
+      <backgroundcolorblue>245</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
       <drawshadow>Y</drawshadow>
     </notepad>
   </notepads>
@@ -641,7 +563,7 @@ Repeating text is removed from the order_value stream field, before the order_va
     </remotesteps>
     <GUI>
       <xloc>576</xloc>
-      <yloc>320</yloc>
+      <yloc>518</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -704,7 +626,7 @@ Repeating text is removed from the order_value stream field, before the order_va
     </remotesteps>
     <GUI>
       <xloc>432</xloc>
-      <yloc>320</yloc>
+      <yloc>518</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -744,7 +666,7 @@ Repeating text is removed from the order_value stream field, before the order_va
     </remotesteps>
     <GUI>
       <xloc>160</xloc>
-      <yloc>320</yloc>
+      <yloc>518</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -810,7 +732,7 @@ Repeating text is removed from the order_value stream field, before the order_va
     </remotesteps>
     <GUI>
       <xloc>288</xloc>
-      <yloc>320</yloc>
+      <yloc>518</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -868,7 +790,7 @@ Repeating text is removed from the order_value stream field, before the order_va
         <name>Field1</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -915,7 +837,7 @@ Repeating text is removed from the order_value stream field, before the order_va
     </remotesteps>
     <GUI>
       <xloc>160</xloc>
-      <yloc>160</yloc>
+      <yloc>358</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

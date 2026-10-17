@@ -2,7 +2,7 @@
   "title": "Writing to a Database",
   "description": "",
   "order": 20,
-  "stepCount": 10,
+  "stepCount": 8,
   "estimatedMinutes": 35,
-  "hasVideo": true
+  "hasVideo": false
 }

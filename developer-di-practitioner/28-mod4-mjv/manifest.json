@@ -1,8 +1,8 @@
 {
-  "title": "MJV",
+  "title": "Modified JavaScript Value",
   "description": "",
   "order": 41,
-  "stepCount": 4,
+  "stepCount": 2,
   "estimatedMinutes": 20,
   "hasVideo": false
 }

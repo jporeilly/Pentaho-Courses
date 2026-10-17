@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>tr_join_rows</name>
+    <name>tr_join_rows_names</name>
     <description/>
     <extended_description/>
     <trans_version/>
@@ -446,89 +446,43 @@
   </info>
   <notepads>
     <notepad>
-      <note>Lab 1: Name Creator</note>
-      <xloc>80</xloc>
-      <yloc>80</yloc>
-      <width>154</width>
-      <heigth>30</heigth>
+      <note>tr_join_rows_names - pairs first and middle names, adds a surname and picks five.
+Parameters (defaults): SEED = 23, surname = Smith (Family Surname).
+
+1. first name: Data grid, ten values of first_name.
+2. middle name: Data grid, ten values of middle_name.
+3. all possible first and middle name combinations: Join rows (cartesian product),
+   no condition, so every pair: 10 x 10 = 100 rows.
+4. name_initials: User defined Java expression, adds first_middle_name and initials
+   (the first letter of each name).
+5. get ${surname}: Get variables, the surname parameter as the field surname.
+6. join surname: Join rows, main step name_initials, adds surname to every row and
+   keeps a row only when initials is NOT IN LIST AA;DD;PP;TT;OO;RR;WW.
+7. Select values: keeps first_name, middle_name, surname and initials.
+8. name +surname: User defined Java expression, adds baby_initials and baby_name.
+9. Select a name: Reservoir sampling, sample size 5, random seed ${SEED}.
+
+Preview Select a name to see the five names; another SEED draws another five.
+Shipped data: 100 pairs, 98 after join surname, 5 names. With the defaults:
+Noah Andrew Smith, Oliver John Smith, Thomas Alexander Smith, Jack Robert Smith
+and Oscar Thomas Smith.</note>
+      <xloc>96</xloc>
+      <yloc>32</yloc>
+      <width>506</width>
+      <heigth>368</heigth>
       <fontname>Segoe UI</fontname>
-      <fontsize>11</fontsize>
-      <fontbold>Y</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>255</bordercolorred>
-      <bordercolorgreen>255</bordercolorgreen>
-      <bordercolorblue>255</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
-    <notepad>
-      <note>Your instructor will take you through the various steps.  Notes are also in the manual.</note>
-      <xloc>80</xloc>
-      <yloc>128</yloc>
-      <width>456</width>
-      <heigth>26</heigth>
-      <fontname>Segoe UI</fontname>
-      <fontsize>9</fontsize>
+      <fontsize>10</fontsize>
       <fontbold>N</fontbold>
       <fontitalic>N</fontitalic>
       <fontcolorred>0</fontcolorred>
       <fontcolorgreen>0</fontcolorgreen>
       <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>255</bordercolorred>
-      <bordercolorgreen>255</bordercolorgreen>
-      <bordercolorblue>255</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
-    <notepad>
-      <note>Join rows = Cartesian product</note>
-      <xloc>80</xloc>
-      <yloc>240</yloc>
-      <width>168</width>
-      <heigth>26</heigth>
-      <fontname>Segoe UI</fontname>
-      <fontsize>9</fontsize>
-      <fontbold>N</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>192</bordercolorred>
-      <bordercolorgreen>192</bordercolorgreen>
-      <bordercolorblue>192</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
-    <notepad>
-      <note>Reservoir Sampling
-Allows you set return a number of records when the size
-of the dataset is unknown.</note>
-      <xloc>544</xloc>
-      <yloc>288</yloc>
-      <width>306</width>
-      <heigth>58</heigth>
-      <fontname>Segoe UI</fontname>
-      <fontsize>9</fontsize>
-      <fontbold>N</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>192</bordercolorred>
-      <bordercolorgreen>192</bordercolorgreen>
-      <bordercolorblue>192</bordercolorblue>
+      <backgroundcolorred>167</backgroundcolorred>
+      <backgroundcolorgreen>224</backgroundcolorgreen>
+      <backgroundcolorblue>245</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
       <drawshadow>Y</drawshadow>
     </notepad>
   </notepads>
@@ -599,7 +553,7 @@ of the dataset is unknown.</note>
     </remotesteps>
     <GUI>
       <xloc>832</xloc>
-      <yloc>384</yloc>
+      <yloc>656</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -639,7 +593,7 @@ of the dataset is unknown.</note>
     </remotesteps>
     <GUI>
       <xloc>544</xloc>
-      <yloc>384</yloc>
+      <yloc>656</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -676,7 +630,7 @@ of the dataset is unknown.</note>
     </remotesteps>
     <GUI>
       <xloc>288</xloc>
-      <yloc>176</yloc>
+      <yloc>448</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -746,7 +700,7 @@ of the dataset is unknown.</note>
     </remotesteps>
     <GUI>
       <xloc>96</xloc>
-      <yloc>176</yloc>
+      <yloc>448</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -785,7 +739,7 @@ of the dataset is unknown.</note>
     </remotesteps>
     <GUI>
       <xloc>432</xloc>
-      <yloc>288</yloc>
+      <yloc>560</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -831,7 +785,7 @@ of the dataset is unknown.</note>
     </remotesteps>
     <GUI>
       <xloc>432</xloc>
-      <yloc>384</yloc>
+      <yloc>656</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -901,7 +855,7 @@ of the dataset is unknown.</note>
     </remotesteps>
     <GUI>
       <xloc>496</xloc>
-      <yloc>176</yloc>
+      <yloc>448</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -942,7 +896,7 @@ of the dataset is unknown.</note>
     </remotesteps>
     <GUI>
       <xloc>672</xloc>
-      <yloc>384</yloc>
+      <yloc>656</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -983,7 +937,7 @@ of the dataset is unknown.</note>
     </remotesteps>
     <GUI>
       <xloc>288</xloc>
-      <yloc>384</yloc>
+      <yloc>656</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

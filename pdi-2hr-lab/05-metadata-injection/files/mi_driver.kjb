@@ -306,7 +306,7 @@
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>160</xloc>
-      <yloc>224</yloc>
+      <yloc>268</yloc>
       <attributes_kjc/>
     </entry>
     <entry>
@@ -345,7 +345,7 @@
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>336</xloc>
-      <yloc>224</yloc>
+      <yloc>268</yloc>
       <attributes_kjc/>
     </entry>
     <entry>
@@ -384,7 +384,7 @@
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>528</xloc>
-      <yloc>224</yloc>
+      <yloc>268</yloc>
       <attributes_kjc/>
     </entry>
     <entry>
@@ -396,7 +396,7 @@
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>688</xloc>
-      <yloc>224</yloc>
+      <yloc>268</yloc>
       <attributes_kjc/>
     </entry>
   </entries>
@@ -431,31 +431,34 @@
   </hops>
   <notepads>
     <notepad>
-      <note>In the driver job, the entry that runs this transformation is followed by the entry that runs mi_inject.ktr with Execute for every input row ticked. 
-Because the rows were copied to the result, the job runs the injector three times, once per row, and each row lands in the injector's Get rows 
-from result step as the filename and separator to inject into the template. Adding a fourth feed is one more line in control.csv; this 
-transformation never changes.
+      <note>mi_driver - the driver job: runs the injector once per feed in control.csv. Run this one.
 
-Two details worth knowing: the path is hard-coded to the workshop folder, so if you save the files elsewhere must repoint the File tab; and 
-the transformation declares no parameters.</note>
-      <xloc>64</xloc>
-      <yloc>48</yloc>
-      <width>834</width>
-      <heigth>135</heigth>
+1. START: runs the job once (no schedule); its hop to Read control file is unconditional.
+2. Read control file: runs read_control.ktr from the job's own folder, which copies
+   the control.csv rows to the result; earlier result rows are cleared first.
+3. Inject per feed: on success, runs mi_inject.ktr from the same folder once for
+   every input row (Execute every input row selected), so once per feed.
+4. Success: on success, ends the job.
+
+Output: each feed's rows appended to C:/Workshop/pdi-2hr/out/all_feeds.csv.</note>
+      <xloc>160</xloc>
+      <yloc>32</yloc>
+      <width>513</width>
+      <heigth>188</heigth>
       <fontname>Segoe UI</fontname>
       <fontsize>10</fontsize>
       <fontbold>N</fontbold>
       <fontitalic>N</fontitalic>
-      <fontcolorred>14</fontcolorred>
-      <fontcolorgreen>58</fontcolorgreen>
-      <fontcolorblue>90</fontcolorblue>
-      <backgroundcolorred>201</backgroundcolorred>
-      <backgroundcolorgreen>232</backgroundcolorgreen>
-      <backgroundcolorblue>251</backgroundcolorblue>
-      <bordercolorred>14</bordercolorred>
-      <bordercolorgreen>58</bordercolorgreen>
-      <bordercolorblue>90</bordercolorblue>
-      <drawshadow>N</drawshadow>
+      <fontcolorred>0</fontcolorred>
+      <fontcolorgreen>0</fontcolorgreen>
+      <fontcolorblue>0</fontcolorblue>
+      <backgroundcolorred>167</backgroundcolorred>
+      <backgroundcolorgreen>224</backgroundcolorgreen>
+      <backgroundcolorblue>245</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
+      <drawshadow>Y</drawshadow>
     </notepad>
   </notepads>
   <attributes/>

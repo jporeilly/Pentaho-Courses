@@ -433,6 +433,48 @@
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
+    <notepad>
+      <note>sales_dashboard_etl - builds one sales fact file for a dashboard from three CSV files.
+Reads and writes through the VFS connection named MinIO (pvfs://MinIO/...).
+
+1. Sales: Text file input, pvfs://MinIO/raw-data/csv/sales.csv, the main stream.
+2. Products: Text file input, pvfs://MinIO/raw-data/csv/products.csv.
+3. Customers: Text file input, pvfs://MinIO/raw-data/csv/customers.csv.
+4. Product lookup: Stream lookup in Products on product_id, returns product_name,
+   category as product_category and price as unit_price.
+5. Customers lookup: Stream lookup in Customers on customer_id, returns first_name,
+   last_name, email, country as customer_country and status as customer_status.
+6. Calculator: line_total = unit_price x quantity and
+   discount_amount = line_total - sale_amount, both BigNumber.
+7. Formula: customer_full_name = CONCATENATE([first_name];" ";[last_name]),
+   is_high_value = IF([sale_amount]&gt;500;"Yes";"No").
+8. Add constants: data_source = minio_workshop (String).
+9. Get system info: etl_timestamp = system date (variable).
+10. Select values: the 19 output fields in order, status renamed sale_status.
+11. Write to staging: Text file output to pvfs://MinIO/staging/dashboard/sales_fact,
+    extension csv, date and time in the file name, so each run adds a new file.
+
+Shipped data: 15 sales, 18 products, 12 customers; 15 rows in sales_fact_&lt;date&gt;_&lt;time&gt;.csv.
+discount_amount is 0 on every row (every sale is at list price); 5 are is_high_value Yes.</note>
+      <xloc>144</xloc>
+      <yloc>32</yloc>
+      <width>551</width>
+      <heigth>404</heigth>
+      <fontname>Segoe UI</fontname>
+      <fontsize>10</fontsize>
+      <fontbold>N</fontbold>
+      <fontitalic>N</fontitalic>
+      <fontcolorred>0</fontcolorred>
+      <fontcolorgreen>0</fontcolorgreen>
+      <fontcolorblue>0</fontcolorblue>
+      <backgroundcolorred>167</backgroundcolorred>
+      <backgroundcolorgreen>224</backgroundcolorgreen>
+      <backgroundcolorblue>245</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
+      <drawshadow>Y</drawshadow>
+    </notepad>
   </notepads>
   <order>
     <hop>
@@ -521,7 +563,7 @@
     </remotesteps>
     <GUI>
       <xloc>768</xloc>
-      <yloc>176</yloc>
+      <yloc>580</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -577,7 +619,7 @@
     </remotesteps>
     <GUI>
       <xloc>544</xloc>
-      <yloc>176</yloc>
+      <yloc>580</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -635,7 +677,7 @@
         <name>customer_id</name>
         <type>Integer</type>
         <format>#</format>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -650,7 +692,7 @@
         <name>first_name</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -665,7 +707,7 @@
         <name>last_name</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -680,7 +722,7 @@
         <name>email</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -695,7 +737,7 @@
         <name>phone</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -710,7 +752,7 @@
         <name>country</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -725,7 +767,7 @@
         <name>registration_date</name>
         <type>Date</type>
         <format>yyyy-MM-dd</format>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -740,7 +782,7 @@
         <name>status</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -787,7 +829,7 @@
     </remotesteps>
     <GUI>
       <xloc>416</xloc>
-      <yloc>80</yloc>
+      <yloc>484</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -853,7 +895,7 @@
     </remotesteps>
     <GUI>
       <xloc>416</xloc>
-      <yloc>176</yloc>
+      <yloc>580</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -894,7 +936,7 @@
     </remotesteps>
     <GUI>
       <xloc>656</xloc>
-      <yloc>176</yloc>
+      <yloc>580</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -925,7 +967,7 @@
     </remotesteps>
     <GUI>
       <xloc>768</xloc>
-      <yloc>288</yloc>
+      <yloc>692</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -979,7 +1021,7 @@
     </remotesteps>
     <GUI>
       <xloc>272</xloc>
-      <yloc>176</yloc>
+      <yloc>580</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1037,7 +1079,7 @@
         <name>product_id</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -1052,7 +1094,7 @@
         <name>product_name</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -1067,7 +1109,7 @@
         <name>category</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -1082,7 +1124,7 @@
         <name>price</name>
         <type>BigNumber</type>
         <format>#.##</format>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -1097,7 +1139,7 @@
         <name>stock_quantity</name>
         <type>Integer</type>
         <format>#</format>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -1112,7 +1154,7 @@
         <name>supplier</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -1127,7 +1169,7 @@
         <name>last_updated</name>
         <type>Date</type>
         <format>yyyy-MM-dd</format>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -1174,7 +1216,7 @@
     </remotesteps>
     <GUI>
       <xloc>272</xloc>
-      <yloc>80</yloc>
+      <yloc>484</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1237,7 +1279,7 @@
         <name>sale_id</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -1252,7 +1294,7 @@
         <name>customer_id</name>
         <type>Integer</type>
         <format>#</format>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -1267,7 +1309,7 @@
         <name>product_id</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -1282,7 +1324,7 @@
         <name>quantity</name>
         <type>Integer</type>
         <format>#</format>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -1297,7 +1339,7 @@
         <name>sale_date</name>
         <type>Date</type>
         <format>yyyy-MM-dd</format>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -1312,7 +1354,7 @@
         <name>sale_amount</name>
         <type>BigNumber</type>
         <format>#.##</format>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -1327,7 +1369,7 @@
         <name>payment_method</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -1342,7 +1384,7 @@
         <name>status</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -1389,7 +1431,7 @@
     </remotesteps>
     <GUI>
       <xloc>144</xloc>
-      <yloc>176</yloc>
+      <yloc>580</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1493,7 +1535,7 @@
     </remotesteps>
     <GUI>
       <xloc>656</xloc>
-      <yloc>288</yloc>
+      <yloc>692</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1567,7 +1609,7 @@
         <name>customer_id</name>
         <type>Integer</type>
         <format>#</format>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif/>
@@ -1651,7 +1693,7 @@
         <name>quantity</name>
         <type>Integer</type>
         <format>#</format>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif/>
@@ -1663,7 +1705,7 @@
         <name>unit_price</name>
         <type>BigNumber</type>
         <format>#.##</format>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif/>
@@ -1675,7 +1717,7 @@
         <name>sale_amount</name>
         <type>BigNumber</type>
         <format>#.##</format>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif/>
@@ -1778,7 +1820,7 @@
     </remotesteps>
     <GUI>
       <xloc>544</xloc>
-      <yloc>288</yloc>
+      <yloc>692</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

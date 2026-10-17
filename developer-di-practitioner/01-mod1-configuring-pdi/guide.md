@@ -27,25 +27,12 @@
 
 ## 1. Start Spoon and read the Welcome page
 
-1. Start Pentaho Data Integration with the button below, or from a terminal:
-
-::: tabs
-
-### Windows (PowerShell)
+1. Start Pentaho Data Integration with the button below, or from PowerShell:
 
 ```powershell
 Set-Location C:\Pentaho\design-tools\data-integration
 .\spoon.bat
 ```
-
-### macOS / Linux
-
-```bash
-cd ~/Pentaho/design-tools/data-integration
-./spoon.sh
-```
-
-:::
 
 <button data-launch="spoon" data-path="">Start: Pentaho Data Integration</button>
 
@@ -101,7 +88,7 @@ cd ~/Pentaho/design-tools/data-integration
 1. Still in **Kettle Options**, open the **Look & Feel** tab.
 2. Select **Show Canvas Grid**.
 3. Check that **Canvas Grid Size** is `16`. Steps you place on the canvas snap to this grid, so they line up.
-4. Leave **Canvas anti-aliasing** selected and **Preferred Language** as **English (US)**.
+4. Leave **Canvas anti-aliasing** selected and the other options as they are.
 5. Select **OK** to save the options and close the dialog.
 
 <figure>

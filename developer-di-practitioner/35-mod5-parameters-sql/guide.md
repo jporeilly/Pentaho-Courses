@@ -38,25 +38,12 @@
 > 
 > A **Table input** with a fixed `SELECT` needs nothing else. When the query needs values from the stream, the step reads them from the step named in **Insert data from step** and puts them in place of the `?` markers. Here one row carries both values, in the same order as the markers: product line first, then scale.
 
-1. Start Spoon with the **Start PDI** button below, or from a terminal:
-
-::: tabs
-
-### Windows (PowerShell)
+1. Start Spoon with the **Start PDI** button below, or from PowerShell:
 
 ```powershell
 Set-Location C:\Pentaho\design-tools\data-integration
 .\spoon.bat
 ```
-
-### macOS / Linux
-
-```bash
-cd ~/Pentaho/design-tools/data-integration
-./spoon.sh
-```
-
-:::
 
 <button data-launch="spoon" data-path="">Start PDI</button>
 

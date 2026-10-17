@@ -40,25 +40,12 @@
 >
 > Read the feed from `employees_insert_update.txt`: a header line and four employees. It has the same columns as the Table Update file.
 
-1. Start Spoon with the **Start PDI** button below, or from a terminal:
-
-::: tabs
-
-### Windows (PowerShell)
+1. Start Spoon with the **Start PDI** button below, or from PowerShell:
 
 ```powershell
 Set-Location C:\Pentaho\design-tools\data-integration
 .\spoon.bat
 ```
-
-### macOS / Linux
-
-```bash
-cd ~/Pentaho/design-tools/data-integration
-./spoon.sh
-```
-
-:::
 
 <button data-launch="spoon" data-path="">Start PDI</button>
 
@@ -70,8 +57,6 @@ cd ~/Pentaho/design-tools/data-integration
 7. On the **File** tab, enter `${Internal.Entry.Current.Directory}/employees_insert_update.txt` in **File or directory** and select **Add**. The path moves to **Selected files**.
 
 <figure><img src="../_assets/images/insert-update-1.png" alt="Text file input File tab with employees_insert_update.txt in the selected files"><figcaption><p>The file</p></figcaption></figure>
-
-> **Note:** The screenshot has a backslash before the file name. Type the forward slash, `/`: it works on Windows, macOS and Linux.
 
 8. On the **Content** tab, set **Separator** to `,` and **Format** to `mixed`. Leave **Header** selected, with **Number of header lines** `1`.
 

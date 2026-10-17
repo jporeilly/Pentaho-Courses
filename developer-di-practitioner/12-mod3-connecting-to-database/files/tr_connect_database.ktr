@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>tr_database_connection</name>
+    <name>tr_connect_database</name>
     <description>Database Connection</description>
     <extended_description/>
     <trans_version/>
@@ -436,60 +436,37 @@
   </info>
   <notepads>
     <notepad>
-      <note>Lab 1: Database Connection</note>
-      <xloc>64</xloc>
+      <note>tr_connect_database - holds the MySQL:sampledata connection; it has no steps.
+The Steel Wheels sampledata database on MySQL, embedded so the file works on its own.
+
+MySQL:sampledata: MySQL, Native (JDBC), localhost, port 3306, database sampledata,
+user pentaho_admin (the password is in the file, encrypted).
+Options: defaultFetchSize 500, useCursorFetch true, useSSL false,
+allowPublicKeyRetrieval true.
+Needs the MySQL driver, mysql-connector-j, in PDI's lib folder: PDI 11 does not ship it.
+
+In the View tab, under Database connections, the connection's menu offers Edit (then
+Test), Explore (tables, previews, SQL) and Move to System, which shares it with every
+file you open. Steps such as Table input and Table output select it by name.
+Shipped data: Test reads "Connection to MySQL:sampledata was successful."
+CUSTOMERS holds 122 customers; the first is 103, Atelier graphique.</note>
+      <xloc>32</xloc>
       <yloc>32</yloc>
-      <width>205</width>
-      <heigth>30</heigth>
+      <width>540</width>
+      <heigth>260</heigth>
       <fontname>Segoe UI</fontname>
-      <fontsize>11</fontsize>
-      <fontbold>Y</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>255</bordercolorred>
-      <bordercolorgreen>255</bordercolorgreen>
-      <bordercolorblue>255</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
-    <notepad>
-      <note>Connection to the Steel Wheels sample database (MySQL container).
-
-      Connection name:  MySQL:sampledata
-      Connection type:  MySQL
-      Access:  Native (JDBC)
-      Host name:  localhost
-      Database name:  sampledata
-      Port number:  3306
-      User name:  pentaho_admin
-      Password:  password
-
-      1. Select the View tab.
-      2. Expand: Database connections.
-      3. Right-click MySQL:sampledata.
-      4. Select Share.
-</note>
-      <xloc>64</xloc>
-      <yloc>80</yloc>
-      <width>375</width>
-      <heigth>350</heigth>
-      <fontname>Calibri Light</fontname>
-      <fontsize>11</fontsize>
+      <fontsize>10</fontsize>
       <fontbold>N</fontbold>
       <fontitalic>N</fontitalic>
       <fontcolorred>0</fontcolorred>
       <fontcolorgreen>0</fontcolorgreen>
       <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>255</bordercolorred>
-      <bordercolorgreen>255</bordercolorgreen>
-      <bordercolorblue>255</bordercolorblue>
+      <backgroundcolorred>167</backgroundcolorred>
+      <backgroundcolorgreen>224</backgroundcolorgreen>
+      <backgroundcolorblue>245</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
       <drawshadow>Y</drawshadow>
     </notepad>
   </notepads>

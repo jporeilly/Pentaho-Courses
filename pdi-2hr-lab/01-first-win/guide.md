@@ -2,7 +2,7 @@
 
 > **Warning:**
 >
-> #### Workshop — Your First Win
+> #### Workshop - Your First Win
 >
 > Before any theory, see the product do something. You'll open a
 > finished pipeline, run it, and watch it separate good data from bad
@@ -18,32 +18,30 @@
 >
 > * [Before You Start](../00-before-you-start/guide.md) completed.
 >
-> **Estimated Time:** 10 minutes
+> **Estimated time:** 10 minutes
+
+<figure>
+
+<figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
+
+</figure>
 
 > **Note:** **The scenario for the next two hours.** You're the data
 > engineer at a small retailer. Every morning, yesterday's sales must
 > be validated, joined with customer and product master data, and
 > loaded into the warehouse — with history tracked — by 9am. Today
 > you build that pipeline. This workshop shows you the finished first
-> stage so you get an idea of how a pipeline is created..
-
-<figure>
-
-![Walkthrough](https://vimeo.com/placeholder)
-
-<figcaption class="pcm-video-caption">Watch: Your First Win</figcaption>
-
-</figure>
+> stage so you get an idea of how a pipeline is created.
 
 ## Open the pipeline
 
-Click the button below — PDI opens with the transformation loaded.
+Select **Open in Pentaho Data Integration** below — PDI opens with the transformation loaded.
 (If PDI is already running, the file path is copied to your
-clipboard: switch to PDI, press `Ctrl+O`, `Ctrl+V`, `Enter`.)
+clipboard: switch to PDI and press `Ctrl+O`, `Ctrl+V`, `Enter`.)
 
 <button data-launch="spoon" data-path="files/win_preview.ktr">Open in Pentaho Data Integration</button>
 
-1. If the pipeline - win_preview.ktr - has not displayed in PDI, then: **File -> Open** and browse:
+1. If the pipeline - `win_preview.ktr` - has not displayed in PDI, select **File > Open** (`Ctrl+O`) and open:
 
 Path to Transformation:
 
@@ -65,8 +63,8 @@ filter, and two end points — one for valid rows, one for rejects.
 
 ## Preview the valid rows
 
-1. **Right-click** the step named **Valid rows**.
-2. Choose **Preview**, then **Quick Launch**.
+1. Right-click **Valid rows** and select **Preview**.
+2. Select **Quick Launch**.
 
 <figure>
 
@@ -93,7 +91,7 @@ anything is written anywhere.
 > drop rows, write a file. The arrows are **Hops**, and a hop carries
 > rows from one step to the next.
 >
-> When you clicked Preview, PDI did not show you a cached sample or a
+> When you selected **Preview**, PDI did not show you a cached sample or a
 > guess made at design time. It started the transformation,
 > ran every step over the sales data file, and stopped once it had enough
 > rows to show you, writing nothing anywhere.
@@ -110,8 +108,8 @@ anything is written anywhere.
 
 ## Preview the rejects
 
-1. Close the preview.
-2. **Right-click**: **Rejected rows** → **Preview** → **Quick Launch**.
+1. Select **Close**.
+2. Right-click **Rejected rows**, select **Preview**, then select **Quick Launch**.
 
 Three rows. Two are missing their `customer_id`, one its
 `product_id` — they were planted in the file, and the filter caught
@@ -123,7 +121,7 @@ can inspect.
 >
 > #### Two hops mean two real streams
 >
-> The filter step does not simply tag rows as "good" or "bad" within a single list. Instead, it creates two distinct outgoing hops; each is a separate stream of rows with its own buffer and downstream worker. Valid rows are routed one way, rejected rows the other, and both branches run simultaneously.
+> The filter step does not tag rows as "good" or "bad" within a single list. Instead, it creates two distinct outgoing hops; each is a separate stream of rows with its own buffer and downstream worker. Valid rows are routed one way, rejected rows the other, and both branches run simultaneously.
 >
 > This is what "Preview on Rejected rows" just demonstrated: the rejected branch contains real data you can inspect independently, rather than just a line in a log file.
 >
@@ -136,12 +134,10 @@ can inspect.
    **Fields** tab, every column with its type and format. No code was
    generated; this *is* the pipeline.
 
-2. Close the dialog with **Cancel** (so nothing changes).
-3. Double-click **Keys present?*.
+2. Select **Cancel** to close the dialog (so nothing changes).
+3. Double-click **Keys present?**.
    The Filter Rows step allows you to filter rows based on conditions and comparisons.
    In this example we're filtering for rows where the ids / keys are not null.
-
-4. Close the dialog with **Cancel** (so nothing changes).
 
 > **Under the hood:**
 >
@@ -153,6 +149,8 @@ can inspect.
 >
 > * Because it is plain text, a transformation can live in version control alongside your code, and two people's changes to it can be compared and merged.
 > * Because the same file is what a server runs later, the thing you tested is literally the thing that ships.
+
+4. Select **Cancel** to close the dialog (so nothing changes).
 
 > **Note:**
 >
@@ -167,7 +165,7 @@ can inspect.
 
 ## See the flow as a diagram
 
-The same file, rendered by this guide's built-in viewer — click any
+The same file, rendered by this guide's built-in viewer — select any
 step to see its configuration:
 
 <button data-graph="files/win_preview.ktr">View graph</button>
@@ -184,8 +182,8 @@ step to see its configuration:
 Try out the other AI options:
 
 - **Summary:** summarized in a few sentences.
-- **Walkthrough:** Steep-by-step walkthrough of the transformation.
-- **Explain this Step:** Click on a Step to view its properties and 'Explanation'.
+- **Walkthrough:** Step-by-step walkthrough of the transformation.
+- **Explain this Step:** Select a step to view its properties and 'Explanation'.
 
 ## Troubleshooting
 

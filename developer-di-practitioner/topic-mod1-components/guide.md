@@ -13,7 +13,7 @@ Pentaho Data Integration operates on a **client-server architecture** that separ
 
 * **Enterprise Components**: The server-side infrastructure that handles execution, security, content management, and scheduling
 * **Client Tools**: The desktop applications used to design, test, and deploy your data integration solutions
-* **Configuration Framework**: The KETTLE configuration files that control system behavior and store critical settings
+* **Configuration Framework**: The Kettle configuration files that control system behavior and store critical settings
 * **Repository Management**: How PDI manages versioning, collaboration, and content organization
 * **Database Connectivity**: The process of integrating JDBC drivers to connect to various data sources
 <figure>
@@ -116,7 +116,7 @@ The primary functions of the Pentaho Server are:
 
 > **Note:** **What Carte gives you**
 >
-> * **A small footprint** - one Java process, started with `carte.bat` or `carte.sh`, with no application server around it.
+> * **A small footprint** - one Java process, started with `carte.bat`, with no application server around it.
 > * **Remote execution** - run a transformation or job on the machine that holds the data, from Spoon's **Run Options** or from Kitchen.
 > * **The same steps everywhere** - Carte runs the PDI engine, so every step and connection that works in Spoon works there too.
 > * **Scale-out** - deploy several Carte servers (on VMs, in Docker or on Kubernetes) and spread work across them as a cluster.
@@ -129,22 +129,22 @@ The primary functions of the Pentaho Server are:
 >
 > #### **Command line tools and REST APIs**
 >
-> Pan and Kitchen run transformations and jobs from the command line, outside Spoon - typically from a script or a scheduler such as cron or Windows Task Scheduler. Carte and the Pentaho Server also expose REST APIs for starting and monitoring work remotely.
+> Pan and Kitchen run transformations and jobs from the command line, outside Spoon - typically from a script or a scheduler such as Windows Task Scheduler. Carte and the Pentaho Server also expose REST APIs for starting and monitoring work remotely.
 >
 > **Pan**
 >
 > Runs a transformation (`.ktr`) from the command line, with the same engine Spoon uses.
 >
-> ```bash
-> ./pan.sh -file=/home/pentaho/transformations/example.ktr -level=Basic
+> ```powershell
+> .\pan.bat --% "-file=C:\Pentaho\transformations\example.ktr" -level=Basic
 > ```
 >
 > **Kitchen**
 >
 > Runs a job (`.kjb`) from the command line, from a file or a repository. Jobs are usually scheduled to run in batch at regular intervals.
 >
-> ```bash
-> ./kitchen.sh -file=/home/pentaho/jobs/example.kjb -level=Basic
+> ```powershell
+> .\kitchen.bat --% "-file=C:\Pentaho\jobs\example.kjb" -level=Basic
 > ```
 
 <div class="pcm-embed-card" data-href="https://docs.pentaho.com/pdia-data-integration/loading-data-from-pdi#run-transformations-and-jobs-from-the-command-line" data-title="Run transformations and jobs from the command line | Pentaho Documentation"></div>
@@ -169,11 +169,11 @@ The primary functions of the Pentaho Server are:
 
 > **Note:** There are a few different ways to start PDI. The method that you should use depends on the way you installed Pentaho Data Integration (PDI).
 
-| OS: Windows / Unix       | Action                           |
-| ------------------------ | -------------------------------- |
-| spoon.bat / spoon.sh     | Starts Spoon                     |
-| kitchen.bat / kitchen.sh | Command Line for Jobs            |
-| pan.bat / pan.sh         | Command Line for Transformations |
+| File        | Action                           |
+| ----------- | -------------------------------- |
+| spoon.bat   | Starts Spoon                     |
+| kitchen.bat | Command Line for Jobs            |
+| pan.bat     | Command Line for Transformations |
 
 **Launch Data Integration**
 
@@ -188,8 +188,7 @@ Start-Process "C:\Pentaho\design-tools\data-integration\spoon.bat"
 >
 > The PDI home directory is the `.kettle` folder in the user's home directory. It holds the main PDI configuration files.
 >
-> * **Windows:** `C:\Users\<username>\.kettle`
-> * **Linux:** `$HOME/.kettle`
+> * `C:\Users\<username>\.kettle`
 >
 > Because the folder belongs to the user who is signed in, two users can see different settings for the same transformations and jobs. The same applies when PDI runs inside the Pentaho Server.
 >
@@ -211,8 +210,7 @@ Start-Process "C:\Pentaho\design-tools\data-integration\spoon.bat"
 >
 > `kettle.properties` holds the global variables for PDI. Every transformation and job can use them - for example a database host, a folder path, or a value you pass as a parameter.
 >
-> * **Windows:** `C:\Users\<username>\.kettle\kettle.properties`
-> * **Linux:** `$HOME/.kettle/kettle.properties`
+> * `C:\Users\<username>\.kettle\kettle.properties`
 >
 
 Edit `kettle.properties` in a text editor, or in Spoon select **Edit > Edit the kettle.properties file**:
@@ -229,10 +227,10 @@ Edit `kettle.properties` in a text editor, or in Spoon select **Edit > Edit the 
 **Kettle Variables**
 <figure>
 
-![Kettle.properties file](../_assets/images/1789748200086.png)
+![The Kettle properties dialog: each variable with its value and a description](../_assets/images/1789748200086.png)
 
 <div align="center">
-<figcaption><em>kettle.properties file</em></figcaption>
+<figcaption><em>Edit > Edit the kettle.properties file</em></figcaption>
 </div>
 </figure>
 
@@ -241,8 +239,7 @@ Edit `kettle.properties` in a text editor, or in Spoon select **Edit > Edit the 
 >
 > Objects you share are stored in a shared objects file on the local machine. The default location is:
 >
-> * **Windows:** `C:\Users\<username>\.kettle\shared.xml`
-> * **Linux:** `$HOME/.kettle/shared.xml`
+> * `C:\Users\<username>\.kettle\shared.xml`
 >
 > Objects that can be shared using this method include:
 >
@@ -254,7 +251,7 @@ Edit `kettle.properties` in a text editor, or in Spoon select **Edit > Edit the 
 >
 > You can point a transformation at a different shared objects file on the **Miscellaneous** tab of its **Transformation properties**.
 
-1. To share an object, right-click it in the **View** tab and select **Share**.
+1. To share an object, right-click it in the **View** tab and select **Move to System** (or **Copy to System**, which keeps the file's own copy).
 
 <div align="center">
 <figure>
@@ -269,15 +266,14 @@ Edit `kettle.properties` in a text editor, or in Spoon select **Edit > Edit the 
 
 
 
-> **Note:** A shared object is shown in **bold** in the **View** tab.
+> **Note:** The **View** tab labels each object with where it lives: `[File]` for one stored in the open file, `[System]` for a shared one.
 
 ### 3. repositories.xml
 > **Note:** **repositories.xml**
 >
 > Lists the repositories Spoon can connect to, such as the Pentaho Repository on a Pentaho Server. The default location is:
 >
-> * **Windows:** `C:\Users\<username>\.kettle\repositories.xml`
-> * **Linux:** `$HOME/.kettle/repositories.xml`
+> * `C:\Users\<username>\.kettle\repositories.xml`
 
 ```xml
 <repositories>
@@ -303,8 +299,7 @@ Edit `kettle.properties` in a text editor, or in Spoon select **Edit > Edit the 
 >
 > The default location is:
 >
-> * **Windows:** `C:\Users\<username>\.kettle\.spoonrc`
-> * **Linux:** `$HOME/.kettle/.spoonrc`
+> * `C:\Users\<username>\.kettle\.spoonrc`
 
 ```properties
 #Kettle Properties file
@@ -373,21 +368,9 @@ FontDefaultStyle=0
 2. Stop the Pentaho Server.
 3. Open `repository.spring.properties` in the server's `pentaho-solutions\system` folder.
 
-::: tabs
-
-### Windows (PowerShell)
-
 ```powershell
 notepad C:\Pentaho\server\pentaho-server\pentaho-solutions\system\repository.spring.properties
 ```
-
-### macOS / Linux
-
-```bash
-nano ~/Pentaho/server/pentaho-server/pentaho-solutions/system/repository.spring.properties
-```
-
-:::
 
 4. Set `versioningEnabled` and `versionCommentsEnabled` to `true`, save the file, and start the Pentaho Server again:
 

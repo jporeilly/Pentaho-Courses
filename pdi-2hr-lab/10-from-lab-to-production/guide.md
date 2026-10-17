@@ -16,7 +16,7 @@
 > * Understand what the licensed platform adds to what you used today.
 > * Tell us where your data landscape hurts — and take the next step.
 >
-> **Estimated Time:** 10 minutes
+> **Estimated time:** 10 minutes
 
 ## What you built today, honestly assessed
 
@@ -34,9 +34,9 @@ everything *around* a 2am run, that's Enterprise:
   already lives on.
 * **Governance** — who changed which pipeline, lineage from source
   to report, and a catalog that knows what `dim_customer` means.
-* **A licence for production** — Developer Edition's BSL 1.1 terms
+* **A license for production** — Developer Edition's BSL 1.1 terms
   cover evaluation and development; production use needs a
-  commercial licence, which is also where support, security
+  commercial license, which is also where support, security
   patches, and certified connectors live.
 
 ## Watch: the production shape
@@ -63,7 +63,7 @@ The honest questions:
 
 **`[ ]`** I have data sources this would need to connect to that I have not tested today.
 
-If you ticked any of these, the conversation is worth fifteen
+If you selected any of these, the conversation is worth fifteen
 minutes:
 
 <button data-launch="contact">Talk to us about production</button>
@@ -75,7 +75,7 @@ catalog — on your own data?
 
 ## Before you go
 
-Two minutes, two favours:
+Two minutes, two favors:
 
 1. **The wrap-up check** — the short quiz in the sidebar recaps the four big ideas. 
    It is anonymous: your answers stay on this machine and no score is sent anywhere. 
@@ -87,5 +87,5 @@ Two minutes, two favours:
 
 ---
 
-> **Tip: Everything you built today is yours and the pipelines you sketched against your own data
-> in - Bring Your Own Data - are the start of your real proof of concept. Feel free to export.
+> **Tip:** Everything you built today is yours, and the pipelines you sketched against your own data
+> in Bring Your Own Data are the start of your real proof of concept. Feel free to export them.

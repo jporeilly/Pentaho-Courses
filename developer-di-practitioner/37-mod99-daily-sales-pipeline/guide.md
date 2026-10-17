@@ -178,25 +178,10 @@ parameters. On Windows the launcher batch files split arguments at `=`,
 so the arguments must reach them in quotes; in PowerShell, `--%` passes
 the rest of the line through untouched:
 
-::: tabs
-
-### Windows (PowerShell)
-
 ```powershell
 Set-Location C:\Pentaho\design-tools\data-integration
 .\Kitchen.bat --% "-file=C:\Workshop-DI-Practitioner\capstone\solution\daily_sales_pipeline.kjb" "-param:SALES_DATE=20260101" -level=Basic
 ```
-
-### macOS / Linux
-
-The capstone folder is your own here: set the shell variable `WORKSHOP_HOME` to it (the folder that holds `data` and `solution`) before you run:
-
-```bash
-cd ~/Pentaho/design-tools/data-integration
-./kitchen.sh -file="$WORKSHOP_HOME/solution/daily_sales_pipeline.kjb" "-param:WORKSHOP_HOME=$WORKSHOP_HOME" "-param:SALES_DATE=20260101" -level=Basic
-```
-
-:::
 
 ---
 

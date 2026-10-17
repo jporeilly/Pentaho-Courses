@@ -39,25 +39,12 @@
 >
 > Read the changes from `employees_update.txt`: a header line and two employees.
 
-1. Start Spoon with the **Start PDI** button below, or from a terminal:
-
-::: tabs
-
-### Windows (PowerShell)
+1. Start Spoon with the **Start PDI** button below, or from PowerShell:
 
 ```powershell
 Set-Location C:\Pentaho\design-tools\data-integration
 .\spoon.bat
 ```
-
-### macOS / Linux
-
-```bash
-cd ~/Pentaho/design-tools/data-integration
-./spoon.sh
-```
-
-:::
 
 <button data-launch="spoon" data-path="">Start PDI</button>
 
@@ -133,8 +120,6 @@ Four names differ from the table's columns: `EXT` is `EXTENSION`, `OFFICE` is `O
 
 <figure><img src="../_assets/images/update-options.png" alt="Update step with target table EMPLOYEES, the EMPLOYEENUMBER key and the update fields" width="563"><figcaption><p>Key and update fields</p></figcaption></figure>
 
-> **Note:** The screenshot still lists `EMPLOYEENUMBER` as the first update field, and shows the connection under an older name, `MySQL - sampledata`. The extra field does no harm, since it sets the key to its own value, but leave it out, and select `MySQL:sampledata`.
-
 10. Select **OK**.
 
 ### 3. Run and validate
@@ -161,9 +146,9 @@ Four names differ from the table's columns: `EXT` is `EXTENSION`, `OFFICE` is `O
    WHERE EMPLOYEENUMBER IN (1002, 1102);
    ```
 
-<figure><img src="../_assets/images/update-db.png" alt="The two updated EMPLOYEES rows in DBeaver"><figcaption><p>The updated employees (an older run: REPORTSTO 1000)</p></figcaption></figure>
+<figure><img src="../_assets/images/update-db.png" alt="The two updated EMPLOYEES rows in DBeaver"><figcaption><p>The updated employees</p></figcaption></figure>
 
-> **Success:** Checkpoint: these values changed. Every other column already matched the file, so it stayed as it was, and `REPORTSTO` is still `NULL` for `1002`. (The screenshot comes from an older copy of the file, which set it to `1000`.)
+> **Success:** Checkpoint: these values changed. Every other column already matched the file, so it stayed as it was, and `REPORTSTO` is still `NULL` for `1002`.
 >
 > | `EMPLOYEENUMBER` | Column      | Before                | After                               |
 > | ---------------- | ----------- | --------------------- | ----------------------------------- |

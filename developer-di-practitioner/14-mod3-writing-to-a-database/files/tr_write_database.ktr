@@ -436,66 +436,38 @@
   </info>
   <notepads>
     <notepad>
-      <note>Lab 2: Write to a Database</note>
+      <note>tr_write_database - loads two files into two staging tables, side by side.
+Uses MySQL:sampledata. On a new database, create each table first with its
+Table output's SQL button (it writes the CREATE TABLE from the stream's fields).
+
+1. csvi-sales_data: CSV file input, ${Internal.Entry.Current.Directory}/sales_data.csv,
+   comma, header row, 24 fields, lazy conversion off; the String lengths cover the
+   longest value in the file.
+2. stg_sales_data: Table output into STG_SALES_DATA, commit 1000, truncate table,
+   batch updates off.
+3. orders: Text file input, ${Internal.Entry.Current.Directory}/orders.txt,
+   ; separator, one header line, 6 String fields, PRODUCTCODE to PRODUCTDESCRIPTION.
+4. stg_orders_merged: Table output into STG_ORDERS_MERGED, commit 1000, truncate table,
+   batch updates on. Merge Rows (diff) in Module 4 compares this table.
+
+Shipped data: STG_SALES_DATA holds 2,823 rows and STG_ORDERS_MERGED 7 products.</note>
       <xloc>128</xloc>
-      <yloc>64</yloc>
-      <width>196</width>
-      <heigth>30</heigth>
+      <yloc>32</yloc>
+      <width>554</width>
+      <heigth>278</heigth>
       <fontname>Segoe UI</fontname>
-      <fontsize>11</fontsize>
-      <fontbold>Y</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>255</bordercolorred>
-      <bordercolorgreen>255</bordercolorgreen>
-      <bordercolorblue>255</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
-    <notepad>
-      <note>Simple transformation that writes the sales_data.csv to a table</note>
-      <xloc>128</xloc>
-      <yloc>112</yloc>
-      <width>421</width>
-      <heigth>27</heigth>
-      <fontname>Calibri Light</fontname>
       <fontsize>10</fontsize>
       <fontbold>N</fontbold>
       <fontitalic>N</fontitalic>
       <fontcolorred>0</fontcolorred>
       <fontcolorgreen>0</fontcolorgreen>
       <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>255</bordercolorred>
-      <bordercolorgreen>255</bordercolorgreen>
-      <bordercolorblue>255</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
-    <notepad>
-      <note>Required for Merged Rows (diff) Database Lab</note>
-      <xloc>128</xloc>
-      <yloc>352</yloc>
-      <width>253</width>
-      <heigth>26</heigth>
-      <fontname>Segoe UI</fontname>
-      <fontsize>9</fontsize>
-      <fontbold>N</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>192</bordercolorred>
-      <bordercolorgreen>192</bordercolorgreen>
-      <bordercolorblue>192</bordercolorblue>
+      <backgroundcolorred>167</backgroundcolorred>
+      <backgroundcolorgreen>224</backgroundcolorgreen>
+      <backgroundcolorblue>245</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
       <drawshadow>Y</drawshadow>
     </notepad>
   </notepads>
@@ -612,7 +584,7 @@
         <name>ORDERNUMBER</name>
         <type>Integer</type>
         <format>#</format>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <length>15</length>
@@ -623,7 +595,7 @@
         <name>QUANTITYORDERED</name>
         <type>Integer</type>
         <format>#</format>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <length>15</length>
@@ -634,7 +606,7 @@
         <name>PRICEEACH</name>
         <type>Number</type>
         <format>#.#</format>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <length>10</length>
@@ -645,7 +617,7 @@
         <name>ORDERLINENUMBER</name>
         <type>Integer</type>
         <format>#</format>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <length>15</length>
@@ -656,7 +628,7 @@
         <name>SALES</name>
         <type>Number</type>
         <format>#.#</format>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <length>15</length>
@@ -667,7 +639,7 @@
         <name>ORDERDATE</name>
         <type>Date</type>
         <format>MM/dd/yyyy</format>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <length>-1</length>
@@ -678,7 +650,7 @@
         <name>STATUS</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <length>10</length>
@@ -689,7 +661,7 @@
         <name>QTR_ID</name>
         <type>Integer</type>
         <format>#</format>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <length>15</length>
@@ -700,7 +672,7 @@
         <name>MONTH_ID</name>
         <type>Integer</type>
         <format>#</format>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <length>15</length>
@@ -711,7 +683,7 @@
         <name>YEAR_ID</name>
         <type>Integer</type>
         <format>#</format>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <length>15</length>
@@ -722,7 +694,7 @@
         <name>PRODUCTLINE</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <length>20</length>
@@ -733,7 +705,7 @@
         <name>MSRP</name>
         <type>Integer</type>
         <format>#</format>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <length>15</length>
@@ -744,7 +716,7 @@
         <name>PRODUCTCODE</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <length>10</length>
@@ -755,7 +727,7 @@
         <name>CUSTOMERNAME</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <length>40</length>
@@ -766,7 +738,7 @@
         <name>PHONE</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <length>20</length>
@@ -777,7 +749,7 @@
         <name>ADDRESSLINE1</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <length>50</length>
@@ -788,7 +760,7 @@
         <name>ADDRESSLINE2</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <length>15</length>
@@ -799,7 +771,7 @@
         <name>CITY</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <length>20</length>
@@ -810,7 +782,7 @@
         <name>STATE</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <length>20</length>
@@ -821,7 +793,7 @@
         <name>POSTALCODE</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <length>15</length>
@@ -832,7 +804,7 @@
         <name>COUNTRY</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <length>20</length>
@@ -843,7 +815,7 @@
         <name>TERRITORY</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <length>10</length>
@@ -854,7 +826,7 @@
         <name>CONTACTLASTNAME</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <length>15</length>
@@ -865,7 +837,7 @@
         <name>CONTACTFIRSTNAME</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <length>15</length>
@@ -883,7 +855,7 @@
     </remotesteps>
     <GUI>
       <xloc>128</xloc>
-      <yloc>160</yloc>
+      <yloc>358</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -941,7 +913,7 @@
         <name>PRODUCTCODE</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -956,7 +928,7 @@
         <name>PRODUCTNAME</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -971,7 +943,7 @@
         <name>PRODUCTLINE</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -986,7 +958,7 @@
         <name>PRODUCTSCALE</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -1001,7 +973,7 @@
         <name>PRODUCTVENDOR</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -1016,7 +988,7 @@
         <name>PRODUCTDESCRIPTION</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -1063,7 +1035,7 @@
     </remotesteps>
     <GUI>
       <xloc>128</xloc>
-      <yloc>272</yloc>
+      <yloc>470</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1131,7 +1103,7 @@
     </remotesteps>
     <GUI>
       <xloc>368</xloc>
-      <yloc>272</yloc>
+      <yloc>470</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1271,7 +1243,7 @@
     </remotesteps>
     <GUI>
       <xloc>368</xloc>
-      <yloc>160</yloc>
+      <yloc>358</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

@@ -2,7 +2,7 @@
   "title": "Overview of PUC",
   "order": 3,
   "kind": "page",
-  "hasVideo": true,
+  "hasVideo": false,
   "stepCount": 5,
   "estimatedMinutes": 10
 }

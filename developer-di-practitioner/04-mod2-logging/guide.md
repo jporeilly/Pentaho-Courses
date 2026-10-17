@@ -18,7 +18,11 @@
 >
 > **Estimated time:** 20 minutes
 
-<div class="pcm-embed-card" data-href="https://www.loom.com/share/868c1e73bdeb464e9ef5c2dd3c220d61?hideEmbedTopBar=true&amp;hide_owner=true&amp;hide_share=true&amp;hide_title=true" data-title="Mastering Spoon's Logging Tab for Effective Error Tracking 🛠️" data-description="In this video, I demonstrate how to effectively use Spoon's Logging tab to troubleshoot execution errors in transformations. We explore the log's contents, including how to identify error messages and their associated steps, and I show you how to filter for error lines to simplify the debugging process. I also highlight the importance of checking data types, as we encountered an unexpected conversion error due to a mismatch between defined field types and entered data. After correcting the configuration, I ran the transformation successfully and compared the logging levels. I encourage you to practice these techniques in your PDI test environment by intentionally misconfiguring transformations and analyzing the logs to track down errors." data-thumb="../_assets/embeds/2d94cd73b9b2.png"></div>
+<figure>
+
+<figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
+
+</figure>
 
 <figure>
 
@@ -39,30 +43,17 @@
 >
 > Start from the transformation you built in [Hello World](../03-mod2-hello-world/guide.md). **Generate rows** makes test data, which makes it a quick way to try out logging and error handling. To create an error, you declare `message` as an Integer while its value stays `hello world`, which is not a number.
 
-1. Start Spoon with the **Start PDI** button below, or from a terminal:
-
-::: tabs
-
-### Windows (PowerShell)
+1. Start Spoon with the **Start PDI** button below, or from PowerShell:
 
 ```powershell
 Set-Location C:\Pentaho\design-tools\data-integration
 .\spoon.bat
 ```
 
-### macOS / Linux
-
-```bash
-cd ~/Pentaho/design-tools/data-integration
-./spoon.sh
-```
-
-:::
-
 <button data-launch="spoon" data-path="">Start PDI</button>
 
 2. Select **File > Open** (`Ctrl+O`) and open `tr_hello_world.ktr` in `C:\Workshop-DI-Practitioner\02-components-concepts\02-key-concepts\03-mod2-hello-world`. If you don't have your own, open the Hello World solution in that folder's `solution` subfolder.
-3. Select **File > Save as** and save it as `tr_logging.ktr` in `C:\Workshop-DI-Practitioner\02-components-concepts\02-key-concepts\03-mod2-hello-world`. Your Hello World transformation stays as it was.
+3. Select **File > Save as** and save it as `tr_logging.ktr` in `C:\Workshop-DI-Practitioner\02-components-concepts\02-key-concepts\04-mod2-logging`. Your Hello World transformation stays as it was.
 4. Double-click **gr_hello-world**.
 5. In the **Fields** grid, select **Integer** in the **Type** cell of `message`.
 
@@ -141,23 +132,11 @@ cd ~/Pentaho/design-tools/data-integration
 
 1. In PowerShell, run:
 
-::: tabs
-
-### Windows (PowerShell)
-
 ```powershell
 Select-String -Path C:\Pentaho\design-tools\data-integration\logs\pdi.log -Pattern "Couldn't parse Integer"
 ```
 
-### macOS / Linux
-
-```bash
-grep "Couldn't parse Integer" ~/Pentaho/design-tools/data-integration/logs/pdi.log
-```
-
-:::
-
-<figure><img src="../_assets/images/pdi-log-linux.png" alt="pdi.log open in a Linux terminal, showing the same conversion error"><figcaption><p>pdi.log on Linux</p></figcaption></figure>
+<figure><img src="../_assets/images/pdi-log.png" alt="PowerShell: Select-String finds the Couldn't parse Integer line in pdi.log, once for each failed run"><figcaption><p>pdi.log, searched in PowerShell</p></figcaption></figure>
 
 > **Success:** Checkpoint: a line for each failed run of `tr_logging.ktr` today (two, after the **Basic** and **Row Level** runs). Each one has `ERROR`, then `<init of gr_hello-world.0` and a thread name, the path of your `tr_logging.ktr`, and `Couldn't parse Integer field [message] with value [hello world]`.
 
@@ -184,4 +163,12 @@ Next: [Error Handling](../05-mod2-error-handling/guide.md) - keep the rows that 
 
 ## Lab Files
 
-_No bundled files for this lab._
+Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches PDI with the file loaded. If PDI is already running, the path is copied to your clipboard — switch to PDI and press `Ctrl+O`, `Ctrl+V`, `Enter`.
+
+### Solution <!-- no-step -->
+
+The finished transformation for this lab, as the last step leaves it: `message` is a String again, so it runs and writes 10 rows. To see the error the lab reads in the log, set the **Type** of `message` to Integer in **gr_hello-world**.
+
+Also on disk at `C:\Workshop-DI-Practitioner\02-components-concepts\02-key-concepts\04-mod2-logging\solution`.
+
+[tr_logging.ktr](./files/tr_logging.ktr) <button data-launch="spoon" data-path="files/tr_logging.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/tr_logging.ktr">View graph</button>

@@ -436,109 +436,44 @@
   </info>
   <notepads>
     <notepad>
-      <note>Lab 3: Write Excel File</note>
-      <xloc>96</xloc>
-      <yloc>64</yloc>
-      <width>163</width>
-      <heigth>30</heigth>
+      <note>tr_write_excel - fills a copy of template.xlsx with the year, the sales and the expenses.
+All three writers write the SourceData sheet of Sales_and_Expenses_2023.xlsx in the
+transformation's folder: no header, overwrite cells, force formula recalculation, leave
+existing styles unchanged. Close the workbook first: PDI can't replace an open file.
+
+1. Generate Year: Generate Rows, 1 row, year (Date, format yyyy) = 2023.
+2. Write Year: Microsoft Excel writer, a new file from template.xlsx each run, year in B1.
+3. Read Sales: Text file input, sales.txt, comma, header, productline and six Number
+   months m_january to m_june (#.#; m_june trimmed both).
+4. Wait For Year: Block this step until steps finish, holds the sales rows until
+   Write Year has finished.
+5. Write Sales: uses the existing file, waits for the first row, the six months
+   from B5 (productline is not written).
+6. Read Expenses: Text file input, expenses.txt, comma, header, expense_type and
+   the same six months.
+7. Wait For Sales: holds the expense rows until Write Sales has finished.
+8. Write Expenses: uses the existing file, waits for the first row, the six months
+   from B13 (expense_type is not written).
+
+Shipped data: Write Year writes 1 row, Write Sales 4, Write Expenses 6; in the workbook,
+B1 shows 2023, H5 (Classic Cars total) $132,463.11 and B21 (January profit) $23,386.74.</note>
+      <xloc>128</xloc>
+      <yloc>32</yloc>
+      <width>525</width>
+      <heigth>386</heigth>
       <fontname>Segoe UI</fontname>
-      <fontsize>11</fontsize>
-      <fontbold>Y</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>255</bordercolorred>
-      <bordercolorgreen>255</bordercolorgreen>
-      <bordercolorblue>255</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
-    <notepad>
-      <note>This guided demonstration creates an Excel workbook based on a template that is populated 
-from several Excel spreadsheets, with text files as their datasource.</note>
-      <xloc>96</xloc>
-      <yloc>96</yloc>
-      <width>699</width>
-      <heigth>48</heigth>
-      <fontname>Calibri Light</fontname>
-      <fontsize>11</fontsize>
+      <fontsize>10</fontsize>
       <fontbold>N</fontbold>
       <fontitalic>N</fontitalic>
       <fontcolorred>0</fontcolorred>
       <fontcolorgreen>0</fontcolorgreen>
       <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>255</bordercolorred>
-      <bordercolorgreen>255</bordercolorgreen>
-      <bordercolorblue>255</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
-    <notepad>
-      <note>Adds Year to SourceData sheet, in the template.xlsx</note>
-      <xloc>480</xloc>
-      <yloc>176</yloc>
-      <width>279</width>
-      <heigth>26</heigth>
-      <fontname>Segoe UI</fontname>
-      <fontsize>9</fontsize>
-      <fontbold>N</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>192</bordercolorred>
-      <bordercolorgreen>192</bordercolorgreen>
-      <bordercolorblue>192</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
-    <notepad>
-      <note>Adds Sales Data to SourceData sheet</note>
-      <xloc>480</xloc>
-      <yloc>272</yloc>
-      <width>202</width>
-      <heigth>26</heigth>
-      <fontname>Segoe UI</fontname>
-      <fontsize>9</fontsize>
-      <fontbold>N</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>192</bordercolorred>
-      <bordercolorgreen>192</bordercolorgreen>
-      <bordercolorblue>192</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
-    <notepad>
-      <note>Adds expenses to SourceData sheet</note>
-      <xloc>480</xloc>
-      <yloc>368</yloc>
-      <width>197</width>
-      <heigth>26</heigth>
-      <fontname>Segoe UI</fontname>
-      <fontsize>9</fontsize>
-      <fontbold>N</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>192</bordercolorred>
-      <bordercolorgreen>192</bordercolorgreen>
-      <bordercolorblue>192</bordercolorblue>
+      <backgroundcolorred>167</backgroundcolorred>
+      <backgroundcolorgreen>224</backgroundcolorgreen>
+      <backgroundcolorblue>245</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
       <drawshadow>Y</drawshadow>
     </notepad>
   </notepads>
@@ -609,7 +544,7 @@ from several Excel spreadsheets, with text files as their datasource.</note>
     </remotesteps>
     <GUI>
       <xloc>128</xloc>
-      <yloc>176</yloc>
+      <yloc>466</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -667,7 +602,7 @@ from several Excel spreadsheets, with text files as their datasource.</note>
         <name>expense_type</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -682,7 +617,7 @@ from several Excel spreadsheets, with text files as their datasource.</note>
         <name>m_january</name>
         <type>Number</type>
         <format>#.#</format>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -697,7 +632,7 @@ from several Excel spreadsheets, with text files as their datasource.</note>
         <name>m_february</name>
         <type>Number</type>
         <format>#.#</format>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -712,7 +647,7 @@ from several Excel spreadsheets, with text files as their datasource.</note>
         <name>m_march</name>
         <type>Number</type>
         <format>#.#</format>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -727,7 +662,7 @@ from several Excel spreadsheets, with text files as their datasource.</note>
         <name>m_april</name>
         <type>Number</type>
         <format>#.#</format>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -742,7 +677,7 @@ from several Excel spreadsheets, with text files as their datasource.</note>
         <name>m_may</name>
         <type>Number</type>
         <format>#.#</format>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -757,7 +692,7 @@ from several Excel spreadsheets, with text files as their datasource.</note>
         <name>m_june</name>
         <type>Number</type>
         <format>#.#</format>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -804,7 +739,7 @@ from several Excel spreadsheets, with text files as their datasource.</note>
     </remotesteps>
     <GUI>
       <xloc>128</xloc>
-      <yloc>368</yloc>
+      <yloc>658</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -862,7 +797,7 @@ from several Excel spreadsheets, with text files as their datasource.</note>
         <name>productline</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -877,7 +812,7 @@ from several Excel spreadsheets, with text files as their datasource.</note>
         <name>m_january</name>
         <type>Number</type>
         <format>#.#</format>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -892,7 +827,7 @@ from several Excel spreadsheets, with text files as their datasource.</note>
         <name>m_february</name>
         <type>Number</type>
         <format>#.#</format>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -907,7 +842,7 @@ from several Excel spreadsheets, with text files as their datasource.</note>
         <name>m_march</name>
         <type>Number</type>
         <format>#.#</format>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -922,7 +857,7 @@ from several Excel spreadsheets, with text files as their datasource.</note>
         <name>m_april</name>
         <type>Number</type>
         <format>#.#</format>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -937,7 +872,7 @@ from several Excel spreadsheets, with text files as their datasource.</note>
         <name>m_may</name>
         <type>Number</type>
         <format>#.#</format>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -952,7 +887,7 @@ from several Excel spreadsheets, with text files as their datasource.</note>
         <name>m_june</name>
         <type>Number</type>
         <format>#.#</format>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -999,7 +934,7 @@ from several Excel spreadsheets, with text files as their datasource.</note>
     </remotesteps>
     <GUI>
       <xloc>128</xloc>
-      <yloc>272</yloc>
+      <yloc>562</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1030,7 +965,7 @@ from several Excel spreadsheets, with text files as their datasource.</note>
     </remotesteps>
     <GUI>
       <xloc>256</xloc>
-      <yloc>368</yloc>
+      <yloc>658</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1061,7 +996,7 @@ from several Excel spreadsheets, with text files as their datasource.</note>
     </remotesteps>
     <GUI>
       <xloc>256</xloc>
-      <yloc>272</yloc>
+      <yloc>562</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1154,7 +1089,7 @@ from several Excel spreadsheets, with text files as their datasource.</note>
       <field>
         <name>m_april</name>
         <type>Number</type>
-        <format>00000.00</format>
+        <format>000000.00</format>
         <title>m_april</title>
         <titleStyleCell/>
         <styleCell/>
@@ -1166,7 +1101,7 @@ from several Excel spreadsheets, with text files as their datasource.</note>
       <field>
         <name>m_may</name>
         <type>Number</type>
-        <format>00000.00</format>
+        <format>000000.00</format>
         <title>m_may</title>
         <titleStyleCell/>
         <styleCell/>
@@ -1198,7 +1133,7 @@ from several Excel spreadsheets, with text files as their datasource.</note>
     </remotesteps>
     <GUI>
       <xloc>400</xloc>
-      <yloc>368</yloc>
+      <yloc>658</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1335,7 +1270,7 @@ from several Excel spreadsheets, with text files as their datasource.</note>
     </remotesteps>
     <GUI>
       <xloc>400</xloc>
-      <yloc>272</yloc>
+      <yloc>562</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1412,7 +1347,7 @@ from several Excel spreadsheets, with text files as their datasource.</note>
     </remotesteps>
     <GUI>
       <xloc>256</xloc>
-      <yloc>176</yloc>
+      <yloc>466</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

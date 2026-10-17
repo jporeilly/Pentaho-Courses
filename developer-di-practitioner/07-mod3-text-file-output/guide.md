@@ -39,27 +39,18 @@
 > 
 > Use **Get system info** to read a value passed in at run time. Here that value is the customer's name.
 
-<div class="pcm-embed-card" data-href="https://www.loom.com/share/de06920fdcd84bc2b1fe63454afc8df8?hideEmbedTopBar=true&amp;hide_owner=true&amp;hide_share=true&amp;hide_title=true" data-title="Using the Get System Info Step in Pentaho Data Integration" data-description="In this demonstration, I showcased two scenarios using the Get System Info step in Pentaho Data Integration (PDI). First, I retrieved a single row of system data, including the current date and JVM memory statistics, which can be useful for monitoring system health. In the second scenario, I illustrated how to append the current date and time to each row of order data coming from a CSV file input step. I encourage you to practice using the Get System Info step in your own Pentaho environment and experiment with retrieving various information types. This will enhance your transformations and provide valuable insights for auditing and batch processing." data-thumb="../_assets/embeds/2d94cd73b9b2.png"></div>
+<figure>
 
-1. Start Spoon with the **Start PDI** button below, or from a terminal:
+<figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
 
-::: tabs
+</figure>
 
-### Windows (PowerShell)
+1. Start Spoon with the **Start PDI** button below, or from PowerShell:
 
 ```powershell
 Set-Location C:\Pentaho\design-tools\data-integration
 .\spoon.bat
 ```
-
-### macOS / Linux
-
-```bash
-cd ~/Pentaho/design-tools/data-integration
-./spoon.sh
-```
-
-:::
 
 <button data-launch="spoon" data-path="">Start PDI</button>
 
@@ -366,7 +357,7 @@ cd ~/Pentaho/design-tools/data-integration
 > row, and the field you configured as *command line argument 1* was
 > filled from the run dialog's **Arguments (legacy)** box. The engine
 > treats that box as a stand-in for what a scheduler would pass on the
-> command line — `pan.sh -file=tr_write_output.ktr "Acme Ltd"` — so
+> command line — `pan.bat --% "-file=tr_write_output.ktr" "Acme Ltd"` — so
 > the transformation is already runnable unattended, unchanged.
 >
 > Arguments are positional and, as the label says, legacy; modern

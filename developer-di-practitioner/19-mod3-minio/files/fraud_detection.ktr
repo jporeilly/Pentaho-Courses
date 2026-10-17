@@ -433,6 +433,51 @@
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
+    <notepad>
+      <note>fraud_detection - scores card transactions for fraud risk from six rule flags.
+Reads through the VFS connection named MinIO (pvfs://MinIO/...); it writes no file.
+
+1. Read Transactions: Text file input, pvfs://MinIO/raw-data/finance/transactions.csv.
+2. Read Accounts: Text file input, pvfs://MinIO/raw-data/finance/accounts.csv.
+3. Lookup Accounts: Stream lookup in Read Accounts on account_id, returns customer_name,
+   account_type, balance, credit_limit, open_date and risk_rating.
+4. Sort by Merchants: the transactions, by merchant_id.
+5. Read Merchants: Text file input, pvfs://MinIO/raw-data/finance/merchants.csv.
+6. Sort Merchants: by merchant_id.
+7. Join Merchants: Merge join LEFT OUTER on merchant_id (Sort by Merchants first),
+   adds merchant_name, merchant_category, country and risk_level.
+8. Metrics + Flags: Formula, days_since_account_open, balance_after_transaction,
+   credit_utilization, amount_usd, and six 0/1 flags: high_amount_flag (amount &gt; 1000),
+   overlimit_flag (CREDIT account below 0), high_risk_merchant_flag (risk_level HIGH),
+   velocity_flag (status DECLINED), new_account_flag (open under 30 days),
+   high_utilization_flag (credit_utilization over 80).
+9. Calculate Fraud Score: Formula, fraud_risk_score = the flags weighted 20, 30, 25,
+   15, 5 and 15, in that order, and added up.
+10. risk_category: Formula, CRITICAL from 80, HIGH from 50, MEDIUM from 20,
+    else APPROVE.
+
+No output step: preview risk_category to see the scored rows.
+Shipped data: 63 transactions, 13 accounts, 18 merchants; 63 scored rows:
+45 APPROVE, 6 MEDIUM, 5 HIGH and 7 CRITICAL (TXN-2024-015 scores 105).</note>
+      <xloc>272</xloc>
+      <yloc>32</yloc>
+      <width>549</width>
+      <heigth>458</heigth>
+      <fontname>Segoe UI</fontname>
+      <fontsize>10</fontsize>
+      <fontbold>N</fontbold>
+      <fontitalic>N</fontitalic>
+      <fontcolorred>0</fontcolorred>
+      <fontcolorgreen>0</fontcolorgreen>
+      <fontcolorblue>0</fontcolorblue>
+      <backgroundcolorred>167</backgroundcolorred>
+      <backgroundcolorgreen>224</backgroundcolorgreen>
+      <backgroundcolorblue>245</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
+      <drawshadow>Y</drawshadow>
+    </notepad>
   </notepads>
   <order>
     <hop>
@@ -515,7 +560,7 @@
     </remotesteps>
     <GUI>
       <xloc>784</xloc>
-      <yloc>304</yloc>
+      <yloc>810</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -549,7 +594,7 @@
     </remotesteps>
     <GUI>
       <xloc>656</xloc>
-      <yloc>224</yloc>
+      <yloc>730</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -621,7 +666,7 @@
     </remotesteps>
     <GUI>
       <xloc>432</xloc>
-      <yloc>160</yloc>
+      <yloc>666</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -646,7 +691,7 @@
     </formula>
     <formula>
       <field_name>balance_after_transaction</field_name>
-      <formula_string> IF([account_type]="CREDIT"; [balance] - [amount]; [balance] - [amount])</formula_string>
+      <formula_string>[balance] - [amount]</formula_string>
       <value_type>Number</value_type>
       <value_length>-1</value_length>
       <value_precision>-1</value_precision>
@@ -726,7 +771,7 @@
     </remotesteps>
     <GUI>
       <xloc>784</xloc>
-      <yloc>224</yloc>
+      <yloc>730</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -784,7 +829,7 @@
         <name>account_id</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -799,7 +844,7 @@
         <name>customer_name</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -814,7 +859,7 @@
         <name>account_type</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -829,7 +874,7 @@
         <name>balance</name>
         <type>BigNumber</type>
         <format>#.##</format>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -844,7 +889,7 @@
         <name>credit_limit</name>
         <type>BigNumber</type>
         <format>#.##</format>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -859,7 +904,7 @@
         <name>open_date</name>
         <type>Date</type>
         <format>yyyy-MM-dd</format>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -874,7 +919,7 @@
         <name>risk_rating</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -921,7 +966,7 @@
     </remotesteps>
     <GUI>
       <xloc>432</xloc>
-      <yloc>32</yloc>
+      <yloc>538</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -979,7 +1024,7 @@
         <name>merchant_id</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -994,7 +1039,7 @@
         <name>merchant_name</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -1009,7 +1054,7 @@
         <name>merchant_category</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -1024,7 +1069,7 @@
         <name>country</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -1039,7 +1084,7 @@
         <name>risk_level</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -1086,7 +1131,7 @@
     </remotesteps>
     <GUI>
       <xloc>432</xloc>
-      <yloc>304</yloc>
+      <yloc>810</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1144,7 +1189,7 @@
         <name>transaction_id</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -1159,7 +1204,7 @@
         <name>account_id</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -1174,7 +1219,7 @@
         <name>merchant_id</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -1189,7 +1234,7 @@
         <name>amount</name>
         <type>BigNumber</type>
         <format>#.##</format>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -1204,7 +1249,7 @@
         <name>currency</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -1218,8 +1263,8 @@
       <field>
         <name>transaction_date</name>
         <type>Date</type>
-        <format>yyyy-MM-dd</format>
-        <currency>£</currency>
+        <format>yyyy-MM-dd HH:mm:ss</format>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -1234,7 +1279,7 @@
         <name>status</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -1281,7 +1326,7 @@
     </remotesteps>
     <GUI>
       <xloc>272</xloc>
-      <yloc>160</yloc>
+      <yloc>666</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1323,7 +1368,7 @@
     </remotesteps>
     <GUI>
       <xloc>560</xloc>
-      <yloc>304</yloc>
+      <yloc>810</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1365,7 +1410,7 @@
     </remotesteps>
     <GUI>
       <xloc>560</xloc>
-      <yloc>160</yloc>
+      <yloc>666</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1398,7 +1443,7 @@
     </remotesteps>
     <GUI>
       <xloc>784</xloc>
-      <yloc>384</yloc>
+      <yloc>890</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

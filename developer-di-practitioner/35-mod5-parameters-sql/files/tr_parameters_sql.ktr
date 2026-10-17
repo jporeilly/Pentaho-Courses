@@ -436,46 +436,43 @@
   </info>
   <notepads>
     <notepad>
-      <note>Lab 2: Variables &amp; Parameters</note>
-      <xloc>128</xloc>
+      <note>tr_parameters_sql - three ways to fill a query's ? markers from a Data grid.
+Each Table input runs the same query on MySQL:sampledata:
+SELECT PRODUCTLINE, PRODUCTSCALE, PRODUCTCODE, PRODUCTNAME FROM PRODUCTS
+WHERE PRODUCTLINE = ? AND PRODUCTSCALE = ?
+Insert data from step names the Data grid; its values fill the ? markers in field order.
+
+1. Parameters (1 row): Data grid, one row: productline_par Classic Cars,
+   productscale_par 1:10.
+2. Steel Wheels Products 1: Table input from Parameters (1 row); one execution.
+3. Parameters (several rows): Data grid, productline_var and productscale_var, 3 rows:
+   Classic Cars 1:10, Motorcycles 1:10, Motorcycles 1:12.
+4. Steel Wheels Products 2: Table input from Parameters (several rows), with Execute
+   for each row? on: the query runs once per row.
+5. Parameters (1 by row): Data grid, one field, variable, 2 rows: Classic Cars, then 1:10.
+6. Steel Wheels Products 3: Table input from Parameters (1 by row), Execute for each
+   row? off: it reads both rows; the first value fills the first ?, the second the second.
+
+Run it, then select a Steel Wheels Products step and open Preview data in Execution Results.
+Shipped data: Steel Wheels Products 1 and 3: the same 3 products, the Classic Cars in 1:10;
+Steel Wheels Products 2: 7 (3 Classic Cars in 1:10, 3 Motorcycles in 1:10, 1 in 1:12).</note>
+      <xloc>192</xloc>
       <yloc>32</yloc>
-      <width>220</width>
-      <heigth>30</heigth>
+      <width>551</width>
+      <heigth>368</heigth>
       <fontname>Segoe UI</fontname>
-      <fontsize>11</fontsize>
-      <fontbold>Y</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>255</bordercolorred>
-      <bordercolorgreen>255</bordercolorgreen>
-      <bordercolorblue>255</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
-    <notepad>
-      <note>This demonstration illustrates the different options for passing parameters.
-</note>
-      <xloc>128</xloc>
-      <yloc>80</yloc>
-      <width>459</width>
-      <heigth>47</heigth>
-      <fontname>Calibri Light</fontname>
-      <fontsize>11</fontsize>
+      <fontsize>10</fontsize>
       <fontbold>N</fontbold>
       <fontitalic>N</fontitalic>
       <fontcolorred>0</fontcolorred>
       <fontcolorgreen>0</fontcolorgreen>
       <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>255</bordercolorred>
-      <bordercolorgreen>255</bordercolorgreen>
-      <bordercolorblue>255</bordercolorblue>
+      <backgroundcolorred>167</backgroundcolorred>
+      <backgroundcolorgreen>224</backgroundcolorgreen>
+      <backgroundcolorblue>245</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
       <drawshadow>Y</drawshadow>
     </notepad>
   </notepads>
@@ -609,7 +606,7 @@
     </remotesteps>
     <GUI>
       <xloc>192</xloc>
-      <yloc>384</yloc>
+      <yloc>672</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -664,7 +661,7 @@
     </remotesteps>
     <GUI>
       <xloc>192</xloc>
-      <yloc>160</yloc>
+      <yloc>448</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -727,7 +724,7 @@
     </remotesteps>
     <GUI>
       <xloc>192</xloc>
-      <yloc>272</yloc>
+      <yloc>560</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -765,7 +762,7 @@ AND    PRODUCTSCALE = ?</sql>
     </remotesteps>
     <GUI>
       <xloc>464</xloc>
-      <yloc>160</yloc>
+      <yloc>448</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -803,7 +800,7 @@ AND    PRODUCTSCALE = ?</sql>
     </remotesteps>
     <GUI>
       <xloc>464</xloc>
-      <yloc>272</yloc>
+      <yloc>560</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -841,7 +838,7 @@ AND    PRODUCTSCALE = ?</sql>
     </remotesteps>
     <GUI>
       <xloc>464</xloc>
-      <yloc>384</yloc>
+      <yloc>672</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

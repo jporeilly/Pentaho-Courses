@@ -1,5 +1,5 @@
 -- DIM_SCD for the Slowly Changing Dimensions workshop (MySQL sampledata).
--- The same statement as step 2 of the guide; run it in DBeaver as pentaho_admin.
+-- The same statement as the guide's DIM_SCD table step; run it in DBeaver as pentaho_admin.
 
 CREATE TABLE `DIM_SCD` (
   `TK` bigint(10) NOT NULL,

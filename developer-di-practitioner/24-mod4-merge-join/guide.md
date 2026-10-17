@@ -17,7 +17,11 @@
 > 
 > **Estimated time:** 20 minutes
 
-<div class="pcm-embed-card" data-href="https://www.loom.com/share/cdbbff783c7549e09cf9fddef5ccefde" data-title="Optimizing Data Integration with Merge Join in Sales Analysis" data-description="In this video, I walk you through the process of loading our fact sales table at Steel Wheels, highlighting the importance of merging data from our fact inventory table to track item fulfillment schedules. We utilize a merge join step to correlate inventory counts with sales data, ensuring both datasets are sorted by item ID and date ID for accuracy. I demonstrate the configuration of the merge join, emphasizing that we are using an inner join for this scenario. Additionally, I explain how we calculate remaining inventory and add a primary key before inserting the data into our new fact sales table. Please ensure you have your incoming data sorted on the specified keys as we move forward with this process." data-thumb="../_assets/embeds/2d94cd73b9b2.png"></div>
+<figure>
+
+<figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
+
+</figure>
 
 <figure>
 
@@ -38,25 +42,12 @@
 > 
 > **Data grid** holds rows typed into the step itself. Its **Meta** tab defines the fields and their types; its **Data** tab holds the values, typed as text and converted to those types.
 
-1. Start Spoon with the **Start PDI** button below, or from a terminal:
-
-::: tabs
-
-### Windows (PowerShell)
+1. Start Spoon with the **Start PDI** button below, or from PowerShell:
 
 ```powershell
 Set-Location C:\Pentaho\design-tools\data-integration
 .\spoon.bat
 ```
-
-### macOS / Linux
-
-```bash
-cd ~/Pentaho/design-tools/data-integration
-./spoon.sh
-```
-
-:::
 
 <button data-launch="spoon" data-path="">Start PDI</button>
 
@@ -123,8 +114,6 @@ Both grids are already in `id` order, as **Merge join** needs.
 6. Select **OK**. If a **Notice** about sorted input appears, select **Close**.
 
 <figure><img src="../_assets/images/merge-join-2.png" alt="Merge join: first step A B C D, second step Red Blue Yellow, keys id and id" width="375"><figcaption><p>Keys from each side</p></figcaption></figure>
-
-The screenshot shows **Join Type** `FULL OUTER`, the last of the four types you try in the next part.
 
 7. On the **Design** tab, open the **Flow** folder and drag **Dummy (do nothing)** onto the canvas.
 8. Create a hop from **Merge Join** to **Dummy (do nothing)**. It gives you a step to look at the joined rows.

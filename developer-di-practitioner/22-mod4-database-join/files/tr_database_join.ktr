@@ -436,102 +436,35 @@
   </info>
   <notepads>
     <notepad>
-      <note>Lab 3: Database Joins</note>
-      <xloc>128</xloc>
-      <yloc>48</yloc>
-      <width>161</width>
-      <heigth>30</heigth>
+      <note>tr_database_join - queries PRODUCTS once per incoming row and adds every row it finds.
+Uses the MySQL:sampledata connection.
+
+1. some conditions: Data grid, prod (String) and max_price (Integer), the parameters:
+   prod: Aston Martin, Ford Falcon, Corvette; max_price: 90, 70, 70.
+2. Database join: SELECT PRODUCTNAME, PRODUCTSCALE, BUYPRICE FROM PRODUCTS
+   WHERE PRODUCTNAME LIKE concat('%',?,'%') AND BUYPRICE &lt; ?
+   The two ? take prod and max_price, in that order. Outer join? is selected,
+   number of rows to return 0 (all).
+
+Shipped data: 5 rows from 3 searches: Aston Martin finds 1 product, Corvette 3,
+and Ford Falcon none under 70, so Outer join? keeps it with nulls.</note>
+      <xloc>160</xloc>
+      <yloc>32</yloc>
+      <width>534</width>
+      <heigth>224</heigth>
       <fontname>Segoe UI</fontname>
-      <fontsize>11</fontsize>
-      <fontbold>Y</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>255</bordercolorred>
-      <bordercolorgreen>255</bordercolorgreen>
-      <bordercolorblue>255</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
-    <notepad>
-      <note>A Database Join enables a query to be run against the table based on the fields.  </note>
-      <xloc>128</xloc>
-      <yloc>96</yloc>
-      <width>580</width>
-      <heigth>32</heigth>
-      <fontname>Calibri Light</fontname>
-      <fontsize>11</fontsize>
+      <fontsize>10</fontsize>
       <fontbold>N</fontbold>
       <fontitalic>N</fontitalic>
       <fontcolorred>0</fontcolorred>
       <fontcolorgreen>0</fontcolorgreen>
       <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>255</bordercolorred>
-      <bordercolorgreen>255</bordercolorgreen>
-      <bordercolorblue>255</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
-    <notepad>
-      <note>Parameters:
-
- Prod: Aston Martin
-            Ford Falcon
-            Corvette
-
- max_price: 90,70,70</note>
-      <xloc>80</xloc>
-      <yloc>240</yloc>
-      <width>116</width>
-      <heigth>120</heigth>
-      <fontname>Segoe UI</fontname>
-      <fontsize>9</fontsize>
-      <fontbold>N</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>192</bordercolorred>
-      <bordercolorgreen>192</bordercolorgreen>
-      <bordercolorblue>192</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
-    <notepad>
-      <note>Condition
-   BUYPRICE was less than 90 and the column PRODUCTNAME contained %Aston Martin%
-   returns values for: PRODUCTNAME, PRODUCTSCALE
-
-   BUYPRICE was less than 70 and the column PRODUCTNAME contained %Ford Falcon%
-   returns null values for: PRODUCTNAME, PRODUCTSCALE
-
-   BUYPRICE was less than 70 and the column PRODUCTNAME contained %Corvette%
-   returns values for: PRODUCTNAME, PRODUCTSCALE
-</note>
-      <xloc>320</xloc>
-      <yloc>240</yloc>
-      <width>485</width>
-      <heigth>167</heigth>
-      <fontname>Segoe UI</fontname>
-      <fontsize>9</fontsize>
-      <fontbold>N</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>192</bordercolorred>
-      <bordercolorgreen>192</bordercolorgreen>
-      <bordercolorblue>192</bordercolorblue>
+      <backgroundcolorred>167</backgroundcolorred>
+      <backgroundcolorgreen>224</backgroundcolorgreen>
+      <backgroundcolorblue>245</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
       <drawshadow>Y</drawshadow>
     </notepad>
   </notepads>
@@ -655,7 +588,7 @@ AND    BUYPRICE &lt; ?
     </remotesteps>
     <GUI>
       <xloc>320</xloc>
-      <yloc>160</yloc>
+      <yloc>304</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -718,7 +651,7 @@ AND    BUYPRICE &lt; ?
     </remotesteps>
     <GUI>
       <xloc>160</xloc>
-      <yloc>160</yloc>
+      <yloc>304</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

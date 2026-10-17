@@ -2,8 +2,8 @@
   "title": "Daily Sales Pipeline",
   "description": "",
   "order": 53,
-  "stepCount": 28,
-  "estimatedMinutes": 60,
+  "stepCount": 26,
+  "estimatedMinutes": 120,
   "hasVideo": false,
   "checks": [
     {

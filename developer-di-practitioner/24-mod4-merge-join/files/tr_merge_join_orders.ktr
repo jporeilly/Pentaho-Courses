@@ -436,46 +436,37 @@
   </info>
   <notepads>
     <notepad>
-      <note>Lab 2a: Merge Join</note>
-      <xloc>208</xloc>
+      <note>tr_merge_join_orders - joins the products and descriptions files on PRODUCTCODE.
+Unlike merging streams, a join does not need both inputs to have the same layout.
+
+1. orders: Text file input, orders.txt (separator ;, header, format mixed),
+   five String fields PRODUCTCODE to PRODUCTVENDOR.
+2. description: Text file input, description.txt, PRODUCTCODE and PRODUCTDESCRIPTION.
+3. Merge Join: INNER, first step orders, second step description, key PRODUCTCODE
+   on both. Both files are already sorted on PRODUCTCODE.
+4. tidy up: Select values keeps the six fields PRODUCTCODE to PRODUCTDESCRIPTION,
+   so the second key, PRODUCTCODE_1, is dropped.
+5. Text file output: merged_orders.txt next to this file, separator ;, header.
+
+Shipped data: merged_orders.txt, a header and 9 products, each with its name, line,
+scale, vendor and description.</note>
+      <xloc>240</xloc>
       <yloc>32</yloc>
-      <width>143</width>
-      <heigth>30</heigth>
+      <width>532</width>
+      <heigth>260</heigth>
       <fontname>Segoe UI</fontname>
-      <fontsize>11</fontsize>
-      <fontbold>Y</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>255</bordercolorred>
-      <bordercolorgreen>255</bordercolorgreen>
-      <bordercolorblue>255</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
-    <notepad>
-      <note>Solves the problem of merge rows.. GD4-1-1
-With a 'join' you dont have to ensure that each data stream has the same structure / layout. </note>
-      <xloc>208</xloc>
-      <yloc>80</yloc>
-      <width>668</width>
-      <heigth>54</heigth>
-      <fontname>Calibri Light</fontname>
-      <fontsize>11</fontsize>
+      <fontsize>10</fontsize>
       <fontbold>N</fontbold>
       <fontitalic>N</fontitalic>
       <fontcolorred>0</fontcolorred>
       <fontcolorgreen>0</fontcolorgreen>
       <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>255</bordercolorred>
-      <bordercolorgreen>255</bordercolorgreen>
-      <bordercolorblue>255</bordercolorblue>
+      <backgroundcolorred>167</backgroundcolorred>
+      <backgroundcolorgreen>224</backgroundcolorgreen>
+      <backgroundcolorblue>245</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
       <drawshadow>Y</drawshadow>
     </notepad>
   </notepads>
@@ -531,7 +522,7 @@ With a 'join' you dont have to ensure that each data stream has the same structu
     </remotesteps>
     <GUI>
       <xloc>416</xloc>
-      <yloc>240</yloc>
+      <yloc>420</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -660,7 +651,7 @@ With a 'join' you dont have to ensure that each data stream has the same structu
     </remotesteps>
     <GUI>
       <xloc>688</xloc>
-      <yloc>240</yloc>
+      <yloc>420</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -718,7 +709,7 @@ With a 'join' you dont have to ensure that each data stream has the same structu
         <name>PRODUCTCODE</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -733,7 +724,7 @@ With a 'join' you dont have to ensure that each data stream has the same structu
         <name>PRODUCTDESCRIPTION</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -780,7 +771,7 @@ With a 'join' you dont have to ensure that each data stream has the same structu
     </remotesteps>
     <GUI>
       <xloc>240</xloc>
-      <yloc>336</yloc>
+      <yloc>516</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -838,7 +829,7 @@ With a 'join' you dont have to ensure that each data stream has the same structu
         <name>PRODUCTCODE</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -853,7 +844,7 @@ With a 'join' you dont have to ensure that each data stream has the same structu
         <name>PRODUCTNAME</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -868,7 +859,7 @@ With a 'join' you dont have to ensure that each data stream has the same structu
         <name>PRODUCTLINE</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -883,7 +874,7 @@ With a 'join' you dont have to ensure that each data stream has the same structu
         <name>PRODUCTSCALE</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -898,7 +889,7 @@ With a 'join' you dont have to ensure that each data stream has the same structu
         <name>PRODUCTVENDOR</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -945,7 +936,7 @@ With a 'join' you dont have to ensure that each data stream has the same structu
     </remotesteps>
     <GUI>
       <xloc>240</xloc>
-      <yloc>160</yloc>
+      <yloc>340</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -991,7 +982,7 @@ With a 'join' you dont have to ensure that each data stream has the same structu
     </remotesteps>
     <GUI>
       <xloc>544</xloc>
-      <yloc>240</yloc>
+      <yloc>420</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

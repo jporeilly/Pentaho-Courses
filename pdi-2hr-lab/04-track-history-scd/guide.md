@@ -2,7 +2,7 @@
 
 > **Warning:**
 >
-> #### Workshop — Track History
+> #### Workshop - Track History
 >
 > When a customer moves region, yesterday's reports must still show
 > the old region and today's the new one. That's a Type 2 Slowly
@@ -17,13 +17,11 @@
 >
 > **Prerequisites:** [Enrich and Join](../03-enrich-and-join/guide.md); the workshop MySQL running (green in [Before You Start](../00-before-you-start/guide.md)).
 >
-> **Estimated Time:** 15 minutes
+> **Estimated time:** 15 minutes
 
 <figure>
 
-![Walkthrough](https://vimeo.com/placeholder)
-
-<figcaption class="pcm-video-caption">Watch: Track History</figcaption>
+<figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
 
 </figure>
 
@@ -37,15 +35,20 @@
 </div>
 
 ## Connect to the database
-1. Create a new transformation and Save as: `load_dim_customer.ktr`.
-2. Drag a **JSON input** on, and configure exactly as in the previous workshop -
-   `Read customers` (same three fields — copy/paste the step between
+1. Select **File > New > Transformation** (`Ctrl+N`). Select **File > Save as** and save it as `load_dim_customer.ktr` in `C:\Workshop\pdi-2hr\03-make-it-yours\04-track-history`.
+2. On the **Design** tab, open the **Input** folder and drag **JSON input** onto the canvas.
+   Double-click it, set **Step name** to `Read customers`, and configure it exactly as in the
+   previous workshop (same three fields — copy/paste the step between
    transformations with `Ctrl+C`/`Ctrl+V` if you like), but pointed
    at **this lab's own copy** of the file:
 
 ```text
 C:\Workshop\pdi-2hr\03-make-it-yours\04-track-history\customers.json
 ```
+
+> **Tip:**
+>
+> You could copy and paste the step from the previous enrich_sales.ktr.
 
 <figure>
 
@@ -56,7 +59,7 @@ C:\Workshop\pdi-2hr\03-make-it-yours\04-track-history\customers.json
 </div>
 </figure>
 
-3. On the **Fields** tab, add rows — one per field. **Path** uses
+3. Open the **Fields** tab and fill the **Fields** grid, one row per field. **Path** uses
    JSONPath, relative to the array of customer objects:
 
 | Name          | Path                       | Type   |
@@ -74,15 +77,11 @@ C:\Workshop\pdi-2hr\03-make-it-yours\04-track-history\customers.json
 </div>
 </figure>
 
-> **Tip:**
->
-> You could just copy and paste the step from the previous enrich_sales.ktr.
-
 > **Note:**
 >
-> In PDI, a **Database Connection** is a reusable configuration profile that defines how the tool communicates with an external database. It encapsulates essential metadata—such as the database type (MySQL, PostgreSQL, etc.), host address, port, and authentication credentials—using JDBC drivers to bridge the gap between PDI and the data source. By defining a connection once in the repository, you can reuse it across any number of steps and transformations, ensuring consistency and making it easy to update connection details across your entire project.
+> In PDI, a **Database Connection** is a reusable configuration profile that defines how the tool communicates with an external database. It encapsulates essential metadata—such as the database type (MySQL, PostgreSQL, etc.), host address, port, and authentication credentials—using JDBC drivers to bridge the gap between PDI and the data source. By defining a connection once in the repository, you can reuse it across any number of steps and transformations, ensuring consistency and letting you update connection details across your entire project in one place.
 
-3. In the **View** tab (left panel), right-click **Database connections > New**:
+4. Open the **View** tab (left panel), right-click **Database connections** and select **New**:
    - **Connection name:** `warehouse`
    - **Connection type:** MySQL
    - **Host name:** `localhost` · **Port:** `3306`
@@ -98,7 +97,7 @@ C:\Workshop\pdi-2hr\03-make-it-yours\04-track-history\customers.json
 </figure>
 </div>
 
-4. Click **Test** — you should see *Connection ... is OK*.
+5. Select **Test** — you should see *Connection ... is OK*.
 
 <div align="center">
 <figure>
@@ -117,19 +116,20 @@ C:\Workshop\pdi-2hr\03-make-it-yours\04-track-history\customers.json
 >
 > **Dimension lookup/update** step is the standard PDI solution for managing Slowly Changing Dimensions (SCD). While standard "Insert/Update" steps only overwrite existing data, this step can distinguish between different types of changes: it can perform a Type 1 update (overwriting a value) or a Type 2 update (creating a new record with a version number and updated date range). By handling technical metadata like surrogate keys and effective dates automatically, it replaces several manual steps with one specialized configuration.
 
-1. From **Data Warehouse**, drag **Dimension lookup/update** onto
-   the canvas and hop `Read customers` into it.
-2. Double-click it:
+1. On the **Design** tab, open the **Data Warehouse** folder and drag **Dimension lookup/update** onto
+   the canvas. Create a hop from **Read customers** to **Dimension lookup/update**: hold `Shift` and
+   drag from one step to the other.
+2. Double-click **Dimension lookup/update**:
 <div align="center">
 <figure>
 
-![Dimension lookup/update dialog: Load dim_customer with Update the dimension ticked, connection warehouse, target table dim_customer, key customer_id, technical key customer_tk, version field version, date range date_from to date_to](../_assets/images/1788777390992.png)
+![Dimension lookup/update dialog: Load dim_customer with Update the dimension selected, connection warehouse, target table dim_customer, key customer_id, technical key customer_tk, version field version, date range date_from to date_to](../_assets/images/1788777390992.png)
 
 <figcaption><em>Dimension / Lookup step</em></figcaption>
 </figure>
 </div>
 
-* Tick **Update the dimension?** (top checkbox) — we're loading, not
+* Select **Update the dimension?** (top check box) — we're loading, not
   just looking up.
   - **Connection:** `warehouse` · **Target table:** `dim_customer`
   - **Technical key field:** `customer_tk` · **Version field:** `version`
@@ -140,8 +140,8 @@ C:\Workshop\pdi-2hr\03-make-it-yours\04-track-history\customers.json
     with update type **Insert** (that's what makes changes create a new
     version instead of overwriting).
 
-3. Click **SQL** at the bottom. PDI writes the `CREATE TABLE` (keys,
-   version, date range, indexes) for you — click **Execute**, then
+3. Select **SQL** at the bottom. PDI writes the `CREATE TABLE` (keys,
+   version, date range, indexes) for you — select **Execute**, then
    close.
 <div align="center">
 <figure>
@@ -168,7 +168,7 @@ C:\Workshop\pdi-2hr\03-make-it-yours\04-track-history\customers.json
 </figure>
 </div>
 
-4. Copy and paste to replace the existing script. Execute
+4. Copy and paste the following to replace the existing script, then select **Execute**:
 
 ```sql
 DROP TABLE IF EXISTS dim_customer;
@@ -189,11 +189,11 @@ CREATE INDEX idx_dim_customer_tk ON dim_customer (customer_tk);
 > entire Type 2 apparatus — surrogate key, version counter, validity window.
 
 ## First load
-1. Run the transformation. 20 rows in, 20 dimension rows written.
+1. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog. 20 rows in, 20 dimension rows written.
 2. Verify from any MySQL client - DBeaver:
-3. Double click on thee DBeaver icon to open the tool.
-4. Expand: **sampledata** database > Tables > dim_customer.
-5. Click in the SQL Editor option in the top nav bar and select New script.
+3. Double-click the DBeaver icon to open the tool.
+4. Expand **sampledata > Tables > dim_customer**.
+5. Select **SQL Editor > New script** in the top menu bar.
 6. Copy and paste the following script:
 ```sql
 SELECT customer_tk, customer_id, customer_name, region_code,
@@ -201,7 +201,7 @@ SELECT customer_tk, customer_id, customer_name, region_code,
 FROM   sampledata.dim_customer
 ORDER  BY customer_id, version;
 ```
-7. Click the play button (Run).
+7. Select the play button (Run).
 
 <figure>
 
@@ -238,7 +238,7 @@ in a text editor.
 </div>
 </figure>
 
-3. Run the transformation again.
+3. Run the transformation again: press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
 4. Re-run the SQL above.
 
 <figure>
@@ -289,7 +289,7 @@ report today's and they're in the North East — both correct.
 > reproduce.
 >
 > **Why it matters:** history is a *setting* here, not something you
-> implement. Ticking "Insert" on a field is the difference between
+> implement. Selecting **Insert** for a field is the difference between
 > overwriting the past and keeping it, and that decision is visible in
 > a dialog anybody can audit, rather than buried in SQL only its author
 > understands.
@@ -316,7 +316,7 @@ bundle every vendor's driver for licensing reasons — one jar, once.
 
 <summary>Connection test fails: Public Key Retrieval is not allowed</summary>
 
-In the connection dialog, open **Options** and add parameter
+In the connection dialog, open the **Options** tab and add parameter
 `allowPublicKeyRetrieval` = `true`.
 
 </details>
@@ -330,12 +330,14 @@ In the connection dialog, open **Options** and add parameter
 
 ## Lab Files
 
-[customers.json](./files/customers.json) — download into this lab's workshop folder: `C:\Workshop\pdi-2hr\03-make-it-yours\04-track-history\`.
+Download `customers.json` into this lab's workshop folder, `C:\Workshop\pdi-2hr\03-make-it-yours\04-track-history\`:
+
+[customers.json](./files/customers.json)
 
 ### Solution <!-- no-step -->
 
 The complete transformation, with the `warehouse` connection
 already defined (localhost MySQL, `pentaho_admin`). On first use,
-open the dimension step and click **SQL** to create the table.
+double-click the dimension step and select **SQL** to create the table.
 
 [load_dim_customer.ktr](./files/load_dim_customer.ktr) <button data-launch="spoon" data-path="files/load_dim_customer.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/load_dim_customer.ktr">View graph</button>

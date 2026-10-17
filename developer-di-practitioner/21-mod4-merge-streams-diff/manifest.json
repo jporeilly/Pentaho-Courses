@@ -1,8 +1,8 @@
 {
-  "title": "Merge Streams (diff)",
+  "title": "Merge Rows (diff)",
   "description": "",
   "order": 31,
-  "stepCount": 7,
+  "stepCount": 5,
   "estimatedMinutes": 20,
-  "hasVideo": true
+  "hasVideo": false
 }

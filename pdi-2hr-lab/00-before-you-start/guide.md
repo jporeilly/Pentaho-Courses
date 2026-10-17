@@ -20,21 +20,8 @@
 > - Familiarity with the basics of data integration
 > - Familiarity with database management tool - DBeaver Community Edition
 >
-> **Estimated Time:** 5 minutes — before the session.
+> **Estimated time:** 5 minutes — before the session.
 
-> **Note:** **About the software you're using.** Pentaho Data
-> Integration **Developer Edition** is free for evaluation,
-> development, and learning under the Business Source License 1.1 —
-> production use requires a commercial license.
-> 
-> **Version:** 11.0.0.2-294
-
-> **Note:** **A word on analytics.** This guide reports anonymous
-> usage events (pages opened, steps completed, tools launched, using [G4 measurement protocol](https://developers.google.com/analytics/devguides/collection/protocol/ga4)) so we
-> can see where the workshop flows well and where it doesn't. No names, no
-> email addresses, and nothing you type is ever sent - only kept in-session memory.
-
-> 
 ## Getting Started
 
 The installer's **Workshop lab files** component lays this course's
@@ -46,8 +33,20 @@ C:\Workshop\pdi-2hr
 
 Pentaho Data Integration itself is expected where the Pentaho 11
 installer puts it, `C:\Pentaho\design-tools\data-integration`. The
-**Start Pentaho Data Integration** button below and the machine check
+**Start PDI** button below and the machine check
 look there first, then elsewhere on this machine.
+
+> **Note:** **About the software you're using.** Pentaho Data
+> Integration **Developer Edition** is free for evaluation,
+> development, and learning under the Business Source License 1.1 —
+> production use requires a commercial license.
+> 
+> **Version:** 11.0.0.2-294
+>
+> **A word on analytics.** This guide reports anonymous
+> usage events (pages opened, steps completed, tools launched, using [G4 measurement protocol](https://developers.google.com/analytics/devguides/collection/protocol/ga4)) so we
+> can see where the workshop flows well and where it doesn't. No names, no
+> email addresses, and nothing you type is ever sent - only kept in-session memory.
 
 ## Check your environment
 
@@ -65,10 +64,10 @@ The one that matters most is **MySQL** — Lab 4 loads a table into it.
 
 ## Start Pentaho Data Integration
 
-Click the button below to launch Pentaho Data Integration. First launch
+Start Spoon with the **Start PDI** button below. The first launch
 can take a minute.
 
-<button data-launch="spoon">Start Pentaho Data Integration</button>
+<button data-launch="spoon">Start PDI</button>
 
 You should see the **Spoon** welcome screen with an empty canvas.
 Leave it open — Lab 1 starts here.
@@ -135,8 +134,7 @@ You don't need to provide the connection details for workshop - Track History wi
 PDI needs a Java runtime. Pentaho 11 bundles Java 21 in
 `C:\Pentaho\java` and finds it by itself; if you installed PDI
 elsewhere, ensure `PENTAHO_JAVA_HOME` points at a Java 21 JDK and
-start it via **Spoon.bat** (Windows) or **spoon.sh** (Linux/macOS),
-not the jar directly.
+start it via **Spoon.bat**, not the jar directly.
 
 </details>
 
@@ -160,13 +158,13 @@ under `%LOCALAPPDATA%\Programs\Pentaho Content Manager\provisioning`):
 & "C:\Program Files\Pentaho Content Manager\provisioning\setup-services.ps1"
 ```
 
-Wait for it to report that MySQL is answering, then click
+Wait for it to report that MySQL is answering, then select
 **Re-check** in the panel above. A **Podman machine** row that says
 *rootless* is fine: every port this course uses is above 1024.
 
 **Test the Database Connection**
 
-To verify the database connection, open a terminal and run:
+To verify the database connection, in PowerShell, run:
 ```powershell
 mysql -h localhost -P 3306 -u pentaho_admin -ppassword -e "SELECT 1;"
 ```
@@ -187,7 +185,7 @@ the driver step on its own:
 & "C:\Program Files\Pentaho Content Manager\provisioning\install-pdi-driver.ps1"
 ```
 
-Restart Spoon if it is open, then click **Re-check**.
+Restart Spoon if it is open, then select **Re-check**.
 
 **Note**
 For the workshop step "Track History with One Step," you don't need any pre-seeded sample data — the lab creates its own tables as needed.

@@ -68,25 +68,12 @@
 >
 > Build the ordinary version, so you know what the template has to become.
 
-1. Start Spoon with the **Start PDI** button below, or from a terminal:
-
-::: tabs
-
-### Windows (PowerShell)
+1. Start Spoon with the **Start PDI** button below, or from PowerShell:
 
 ```powershell
 Set-Location C:\Pentaho\design-tools\data-integration
 .\spoon.bat
 ```
-
-### macOS / Linux
-
-```bash
-cd ~/Pentaho/design-tools/data-integration
-./spoon.sh
-```
-
-:::
 
 <button data-launch="spoon" data-path="">Start PDI</button>
 
@@ -118,7 +105,7 @@ cd ~/Pentaho/design-tools/data-integration
 | `stateCode` | String  |              | 9      |           | none      |
 | `state`     | String  |              | 30     |           | none      |
 
-   The format of the three Integer fields is a space followed by `#`: the file has a space before each number (` 13520`). The solution's fields also carry **Currency** `£`, **Decimal** `.` and **Group** `,`. Your **Currency** may show another symbol; none of these formats uses it.
+   The format of the three Integer fields is a space followed by `#`: the file has a space before each number (` 13520`). The solution's fields also carry **Currency** `$`, **Decimal** `.` and **Group** `,`. Your **Currency** may show another symbol; none of these formats uses it.
 
 11. Select **Preview**, enter `100` rows, and select **OK**.
 
@@ -221,20 +208,20 @@ The template can no longer run on its own: it has no file and no fields. It is a
 2. Select **File > Save as** and save it as `metadata_inject_step.ktr` in `C:\Workshop-DI-Practitioner\05-enterprise-solution\02-metadata-injection\31-mod5-onboarding-to-a-table`.
 3. On the **Design** tab, open the **Input** folder and drag **Data grid** onto the canvas.
 4. Double-click **Data grid**.
-5. Set **Step name** to `dg-metadata _fields` (with a space before `_fields`, as in the solution).
+5. Set **Step name** to `dg-metadata_fields`.
 6. On the **Meta** tab, fill the grid with nine fields, all of **Type** String: `name`, `type`, `format`, `length`, `precision`, `currency`, `decimal`, `group` and `trimtype`, in that order.
 7. Open the **Data** tab and fill it with one row per column of the file. Leave the empty cells empty:
 
 | name        | type   | format       | length | precision | currency | decimal | group | trimtype |
 | ----------- | ------ | ------------ | ------ | --------- | -------- | ------- | ----- | -------- |
-| `id`        | String |              | 3      | 0         | `€`      | `,`     | `.`   | `left`   |
+| `id`        | String |              | 3      | 0         | `$`      | `,`     | `.`   | `left`   |
 | `name`      | String |              | 10     |           |          |         |       | `none`   |
 | `firstname` | String |              | 13     |           |          |         |       | `none`   |
-| `zip`       | String |              | 5      | 0         | `€`      | `,`     | `.`   | `left`   |
+| `zip`       | String |              | 5      | 0         | `$`      | `,`     | `.`   | `left`   |
 | `city`      | String |              | 8      |           |          |         |       | `none`   |
-| `birthdate` | Date   | `yyyy/MM/dd` | 10     |           | `€`      | `,`     | `.`   | `none`   |
+| `birthdate` | Date   | `yyyy/MM/dd` | 10     |           | `$`      | `,`     | `.`   | `none`   |
 | `street`    | String |              | 11     |           |          |         |       | `none`   |
-| `housenr`   | String |              | 3      | 0         | `€`      | `,`     | `.`   | `left`   |
+| `housenr`   | String |              | 3      | 0         | `$`      | `,`     | `.`   | `left`   |
 | `stateCode` | String |              | 9      |           |          |         |       | `none`   |
 | `state`     | String |              | 30     |           |          |         |       | `none`   |
 
@@ -282,9 +269,9 @@ The template can no longer run on its own: it has no file and no fields. It is a
 > **ETL metadata injection** reads the rows from the four sources, writes them into the template's settings, and runs the result.
 
 1. On the **Design** tab, open the **Flow** folder and drag **ETL metadata injection** onto the canvas.
-2. Create a hop from each of the four sources to **ETL metadata injection**: from **dg-metadata _fields**, **dg-rename**, **dg_remove_name** and **sfvc-path_filename**.
+2. Create a hop from each of the four sources to **ETL metadata injection**: from **dg-metadata_fields**, **dg-rename**, **dg_remove_name** and **sfvc-path_filename**.
 3. Double-click **ETL metadata injection**.
-4. Set **Step name** to `emi-onboading_csv` (spelled as in the solution).
+4. Set **Step name** to `emi-onboarding_csv` (spelled as in the solution).
 5. Set **Transformation** to:
 
    ```text
@@ -297,15 +284,15 @@ The template can no longer run on its own: it has no file and no fields. It is a
 | Target step | Target injection step key | Source step           | Source field  |
 | ----------- | ------------------------- | --------------------- | ------------- |
 | `csvi-mdi`  | `FILENAME`                | `sfvc-path_filename`  | `filename`    |
-| `csvi-mdi`  | `FIELD_NAME`              | `dg-metadata _fields` | `name`        |
-| `csvi-mdi`  | `FIELD_TYPE`              | `dg-metadata _fields` | `type`        |
-| `csvi-mdi`  | `FIELD_FORMAT`            | `dg-metadata _fields` | `format`      |
-| `csvi-mdi`  | `FIELD_LENGTH`            | `dg-metadata _fields` | `length`      |
-| `csvi-mdi`  | `FIELD_PRECISION`         | `dg-metadata _fields` | `precision`   |
-| `csvi-mdi`  | `FIELD_CURRENCY`          | `dg-metadata _fields` | `currency`    |
-| `csvi-mdi`  | `FIELD_DECIMAL`           | `dg-metadata _fields` | `decimal`     |
-| `csvi-mdi`  | `FIELD_GROUP`             | `dg-metadata _fields` | `group`       |
-| `csvi-mdi`  | `FIELD_TRIM_TYPE`         | `dg-metadata _fields` | `trimtype`    |
+| `csvi-mdi`  | `FIELD_NAME`              | `dg-metadata_fields` | `name`        |
+| `csvi-mdi`  | `FIELD_TYPE`              | `dg-metadata_fields` | `type`        |
+| `csvi-mdi`  | `FIELD_FORMAT`            | `dg-metadata_fields` | `format`      |
+| `csvi-mdi`  | `FIELD_LENGTH`            | `dg-metadata_fields` | `length`      |
+| `csvi-mdi`  | `FIELD_PRECISION`         | `dg-metadata_fields` | `precision`   |
+| `csvi-mdi`  | `FIELD_CURRENCY`          | `dg-metadata_fields` | `currency`    |
+| `csvi-mdi`  | `FIELD_DECIMAL`           | `dg-metadata_fields` | `decimal`     |
+| `csvi-mdi`  | `FIELD_GROUP`             | `dg-metadata_fields` | `group`       |
+| `csvi-mdi`  | `FIELD_TRIM_TYPE`         | `dg-metadata_fields` | `trimtype`    |
 | `sv-mdi`    | `META_NAME`               | `dg-rename`           | `name`        |
 | `sv-mdi`    | `META_RENAME`             | `dg-rename`           | `rename`      |
 | `sv-mdi`    | `REMOVE_NAME`             | `dg_remove_name`      | `remove_name` |
@@ -320,7 +307,7 @@ The template can no longer run on its own: it has no file and no fields. It is a
 ![metadata_inject_step.ktr on the Spoon canvas: every step of the solution and the hops between them](../_assets/images/canvas-31-metadata-inject-step.png)
 
 <div align="center">
-<figcaption><em>The metadata transformation: three Data grids and the file name feed emi-onboading_csv</em></figcaption>
+<figcaption><em>The metadata transformation: three Data grids and the file name feed emi-onboarding_csv</em></figcaption>
 </div>
 </figure>
 
@@ -352,7 +339,7 @@ The template can no longer run on its own: it has no file and no fields. It is a
 >
 > ETL metadata injection waits for all its source steps to finish,
 > loads the template, and writes the incoming values into the template
-> steps' settings: each `dg-metadata _fields` row becomes one field of
+> steps' settings: each `dg-metadata_fields` row becomes one field of
 > the CSV file input, the single `filename` row becomes its file name,
 > and so on. Then it runs that modified copy. The template file on
 > disk is never changed, as step 14 showed.

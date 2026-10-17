@@ -110,21 +110,9 @@ where COUNTRY = 'USA' and CITY = 'NYC';
 
 1. Download the MySQL driver, `mysql-connector-j-8.4.0.jar`, from Maven Central straight into PDI's `lib` folder. In PowerShell, run:
 
-::: tabs
-
-### Windows (PowerShell)
-
 ```powershell
 Invoke-WebRequest https://repo1.maven.org/maven2/com/mysql/mysql-connector-j/8.4.0/mysql-connector-j-8.4.0.jar -OutFile C:\Pentaho\design-tools\data-integration\lib\mysql-connector-j-8.4.0.jar
 ```
-
-### macOS / Linux
-
-```bash
-curl -L -o ~/Pentaho/design-tools/data-integration/lib/mysql-connector-j-8.4.0.jar https://repo1.maven.org/maven2/com/mysql/mysql-connector-j/8.4.0/mysql-connector-j-8.4.0.jar
-```
-
-:::
 
 For another database, find its driver here:
 
@@ -132,35 +120,13 @@ For another database, find its driver here:
 
 2. If you downloaded the driver some other way, from <https://repo1.maven.org/maven2/com/mysql/mysql-connector-j/8.4.0/mysql-connector-j-8.4.0.jar> for example, copy the JAR into your PDI install's `lib` folder:
 
-::: tabs
-
-### Windows
-
 `C:\Pentaho\design-tools\data-integration\lib\`
 
-### macOS / Linux
-
-`~/Pentaho/design-tools/data-integration/lib/`
-
-:::
-
 3. Check that the driver is in place. In PowerShell, run:
-
-::: tabs
-
-### Windows (PowerShell)
 
 ```powershell
 Get-ChildItem C:\Pentaho\design-tools\data-integration\lib\mysql-connector-j-*.jar
 ```
-
-### macOS / Linux
-
-```bash
-ls ~/Pentaho/design-tools/data-integration/lib/mysql-connector-j-*.jar
-```
-
-:::
 
 > **Success:** Checkpoint: the command lists `mysql-connector-j-8.4.0.jar`.
 
@@ -177,25 +143,12 @@ ls ~/Pentaho/design-tools/data-integration/lib/mysql-connector-j-*.jar
 > 
 > In this lab, you connect to the Steel Wheels `sampledata` database (MySQL).
 
-1. Start Spoon with the **Start PDI** button below, or from a terminal:
-
-::: tabs
-
-### Windows (PowerShell)
+1. Start Spoon with the **Start PDI** button below, or from PowerShell:
 
 ```powershell
 Set-Location C:\Pentaho\design-tools\data-integration
 .\spoon.bat
 ```
-
-### macOS / Linux
-
-```bash
-cd ~/Pentaho/design-tools/data-integration
-./spoon.sh
-```
-
-:::
 
 <button data-launch="spoon" data-path="">Start PDI</button>
 
@@ -279,7 +232,7 @@ cd ~/Pentaho/design-tools/data-integration
 
 1. In the **View** tab, expand **Database connections**, right-click `MySQL:sampledata`, and select **Move to System**.
 
-<figure><img src="../_assets/images/share-database-connection.png" alt="Spoon's View tab with a connection's right-click menu open; this earlier PDI version shows Share where PDI 11 shows Move to System"><figcaption><p>The connection's right-click menu (earlier PDI version)</p></figcaption></figure>
+<figure><img src="../_assets/images/share-database-connection.png" alt="Spoon's View tab with the right-click menu of MySQL:sampledata [File] open: Edit, Move to System, Copy to System, Delete, SQL Editor, Clear DB Cache and Explore"><figcaption><p>The connection's right-click menu (earlier PDI version)</p></figcaption></figure>
 
 2. Select **File > New > Transformation** (`Ctrl+N`), and in the **View** tab expand **Database connections** under the new transformation.
 
@@ -337,7 +290,7 @@ cd ~/Pentaho/design-tools/data-integration
 | **Truncate Table** | Deletes every row in the table |
 | **Data Profile** | Profiles the table's columns |
 
-<figure><img src="../_assets/images/db-explorer.png" alt="The Database Explorer with the Tables folder expanded, listing CUSTOMERS, EMPLOYEES, ORDERS, PRODUCTS and the other sampledata tables, and the Actions button at the top right" width="375"><figcaption><p>The sampledata tables</p></figcaption></figure>
+<figure><img src="../_assets/images/db-explorer.png" alt="The Database Explorer with the Tables folder expanded, listing customers, employees, orders, products and the other sampledata tables, and the Actions button at the top right" width="375"><figcaption><p>The sampledata tables</p></figcaption></figure>
 
 4. Right-click `CUSTOMERS` and select **Preview first 100**. The rows show in **Examine preview data**.
 

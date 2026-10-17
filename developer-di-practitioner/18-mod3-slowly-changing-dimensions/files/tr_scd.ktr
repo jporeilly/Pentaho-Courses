@@ -507,52 +507,37 @@
   </connection>
   <notepads>
     <notepad>
-      <note>Lab 7: Dimension Lookup / Update (Type II)</note>
-      <xloc>96</xloc>
+      <note>tr_scd - maintains the DIM_SCD city dimension with Dimension lookup/update.
+Uses MySQL:sampledata. Create DIM_SCD first with dim_scd script.txt.
+
+1. Data Grid: one row, id 1 (Integer), city London (String).
+2. Get System Info: LAST_UPDATE = system date (variable), the date of each change.
+3. Dimension lookup/update: updates DIM_SCD, commit 100, cache off.
+   Key id = id; technical key TK (table maximum + 1); version field version;
+   Stream Datefield LAST_UPDATE, valid from date_from to date_to, years 1900 to 2199.
+   city is Insert: a change closes the current version and adds a new one (type 2).
+   LAST_UPDATE is Update: overwritten on the current version (type 1).
+
+The workshop edits the grid and the field types between runs; to start over,
+empty the table with TRUNCATE TABLE DIM_SCD.
+Shipped data: on an empty DIM_SCD, 2 rows: TK 0 (unknown keys) and TK 1, London.</note>
+      <xloc>128</xloc>
       <yloc>32</yloc>
-      <width>316</width>
-      <heigth>30</heigth>
+      <width>516</width>
+      <heigth>260</heigth>
       <fontname>Segoe UI</fontname>
-      <fontsize>11</fontsize>
-      <fontbold>Y</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>255</bordercolorred>
-      <bordercolorgreen>255</bordercolorgreen>
-      <bordercolorblue>255</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
-    <notepad>
-      <note>This demonstration illustrates the behaviour of the 2 step modes:
-
-     Dimension Update / Insert - records are updated or inserted into the table (Type I)
-     Dimension Lookup  - current records are llooked up and compared with stream field.  If the record exists in the stream field,
-     but not in the database table, then its held in cache and assigned TK0. (Type I)
-
-     For Type II SCDs the table inserts a record (notes a change in the Stream Datefield), version, updating the records with required
-     date range.</note>
-      <xloc>96</xloc>
-      <yloc>96</yloc>
-      <width>980</width>
-      <heigth>186</heigth>
-      <fontname>Calibri Light</fontname>
-      <fontsize>11</fontsize>
+      <fontsize>10</fontsize>
       <fontbold>N</fontbold>
       <fontitalic>N</fontitalic>
       <fontcolorred>0</fontcolorred>
       <fontcolorgreen>0</fontcolorgreen>
       <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>255</bordercolorred>
-      <bordercolorgreen>255</bordercolorgreen>
-      <bordercolorblue>255</bordercolorblue>
+      <backgroundcolorred>167</backgroundcolorred>
+      <backgroundcolorgreen>224</backgroundcolorgreen>
+      <backgroundcolorblue>245</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
       <drawshadow>Y</drawshadow>
     </notepad>
   </notepads>
@@ -621,7 +606,7 @@
     </remotesteps>
     <GUI>
       <xloc>128</xloc>
-      <yloc>320</yloc>
+      <yloc>340</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -688,7 +673,7 @@
     </remotesteps>
     <GUI>
       <xloc>448</xloc>
-      <yloc>320</yloc>
+      <yloc>340</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -719,7 +704,7 @@
     </remotesteps>
     <GUI>
       <xloc>288</xloc>
-      <yloc>320</yloc>
+      <yloc>340</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

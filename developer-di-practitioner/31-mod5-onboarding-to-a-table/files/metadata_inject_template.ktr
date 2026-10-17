@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>tr_metadata_inject_template</name>
+    <name>metadata_inject_template</name>
     <description/>
     <extended_description/>
     <trans_version/>
@@ -436,88 +436,35 @@
   </info>
   <notepads>
     <notepad>
-      <note>Inject metadata here!</note>
+      <note>metadata_inject_template - the customers load with no file and no fields of its own.
+metadata_inject_step injects the metadata into a copy in memory and runs that copy;
+this file never changes, and on its own it has nothing to read.
+
+1. csvi-mdi: CSV file input, delimiter ;, header row, UTF-8. No filename and no
+   fields here; both injected by metadata_inject_step.
+2. sv-mdi: Select values with no fields of its own. The rename (id to key_id) and
+   the removal (stateCode) are injected by metadata_inject_step.
+3. to-metadata_injection_customers: Table output into METADATA_INJECTION_CUSTOMERS
+   on MySQL:sampledata, truncated every run. Nothing is injected here.
+
+Shipped data: run by metadata_inject_step, 100 rows in METADATA_INJECTION_CUSTOMERS.</note>
       <xloc>160</xloc>
-      <yloc>256</yloc>
-      <width>124</width>
-      <heigth>26</heigth>
-      <fontname>Segoe UI</fontname>
-      <fontsize>9</fontsize>
-      <fontbold>N</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>192</bordercolorred>
-      <bordercolorgreen>192</bordercolorgreen>
-      <bordercolorblue>192</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
-    <notepad>
-      <note>And here!</note>
-      <xloc>320</xloc>
-      <yloc>128</yloc>
-      <width>63</width>
-      <heigth>26</heigth>
-      <fontname>Segoe UI</fontname>
-      <fontsize>9</fontsize>
-      <fontbold>N</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>192</bordercolorred>
-      <bordercolorgreen>192</bordercolorgreen>
-      <bordercolorblue>192</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
-    <notepad>
-      <note>Store the data in a DB table for example.
-Can be configurable using ${variables}</note>
-      <xloc>480</xloc>
-      <yloc>256</yloc>
-      <width>227</width>
-      <heigth>42</heigth>
-      <fontname>Segoe UI</fontname>
-      <fontsize>9</fontsize>
-      <fontbold>N</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>192</bordercolorred>
-      <bordercolorgreen>192</bordercolorgreen>
-      <bordercolorblue>192</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
-    <notepad>
-      <note>Use Case: Onboarding data</note>
-      <xloc>272</xloc>
-      <yloc>64</yloc>
-      <width>183</width>
-      <heigth>28</heigth>
+      <yloc>32</yloc>
+      <width>551</width>
+      <heigth>224</heigth>
       <fontname>Segoe UI</fontname>
       <fontsize>10</fontsize>
-      <fontbold>Y</fontbold>
+      <fontbold>N</fontbold>
       <fontitalic>N</fontitalic>
       <fontcolorred>0</fontcolorred>
       <fontcolorgreen>0</fontcolorgreen>
       <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>255</bordercolorred>
-      <bordercolorgreen>255</bordercolorgreen>
-      <bordercolorblue>255</bordercolorblue>
+      <backgroundcolorred>167</backgroundcolorred>
+      <backgroundcolorgreen>224</backgroundcolorgreen>
+      <backgroundcolorblue>245</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
       <drawshadow>Y</drawshadow>
     </notepad>
   </notepads>
@@ -641,7 +588,7 @@ Can be configurable using ${variables}</note>
     </remotesteps>
     <GUI>
       <xloc>160</xloc>
-      <yloc>176</yloc>
+      <yloc>304</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -669,7 +616,7 @@ Can be configurable using ${variables}</note>
     </remotesteps>
     <GUI>
       <xloc>320</xloc>
-      <yloc>176</yloc>
+      <yloc>304</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -749,7 +696,7 @@ Can be configurable using ${variables}</note>
     </remotesteps>
     <GUI>
       <xloc>480</xloc>
-      <yloc>176</yloc>
+      <yloc>304</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

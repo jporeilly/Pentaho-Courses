@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>tr_etl_meta_inject</name>
+    <name>metadata_inject_step</name>
     <description/>
     <extended_description/>
     <trans_version/>
@@ -436,63 +436,57 @@
   </info>
   <notepads>
     <notepad>
-      <note>Use Case: Onboarding data</note>
-      <xloc>320</xloc>
-      <yloc>80</yloc>
-      <width>217</width>
-      <heigth>28</heigth>
+      <note>metadata_inject_step - fills in metadata_inject_template from data, then runs it.
+Run this one: it loads METADATA_INJECTION_CUSTOMERS through the template.
+
+1. dg-metadata_fields: Data grid, one row per field of customers.txt (10 rows), with
+   name, type, format, length, precision, currency, decimal, group and trimtype.
+2. dg-rename: Data grid, one row: name id, rename key_id.
+3. dg_remove_name: Data grid, one row: remove_name stateCode.
+4. gr-filename: Generate rows, 1 row with an empty String field, filename.
+5. sfvc-path_filename: Set field value to a constant, with Use variable in constant:
+   filename = ${Internal.Entry.Current.Directory}/data/customers.txt.
+6. emi-onboarding_csv: ETL metadata injection; fills in metadata_inject_template.ktr
+   (in this folder) and runs it. It maps 13 template settings to stream fields:
+   csvi-mdi FILENAME from sfvc-path_filename's filename;
+   csvi-mdi FIELD_NAME to FIELD_TRIM_TYPE (9 keys) from the dg-metadata_fields columns;
+   sv-mdi META_NAME and META_RENAME from dg-rename, REMOVE_NAME from dg_remove_name.
+
+Shipped data: 100 rows in METADATA_INJECTION_CUSTOMERS, the same as the by-hand load.</note>
+      <xloc>224</xloc>
+      <yloc>32</yloc>
+      <width>605</width>
+      <heigth>314</heigth>
       <fontname>Segoe UI</fontname>
       <fontsize>10</fontsize>
-      <fontbold>Y</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>255</bordercolorred>
-      <bordercolorgreen>255</bordercolorgreen>
-      <bordercolorblue>255</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
-    <notepad>
-      <note>Maps metadata properties to stream fields
-in template steps.</note>
-      <xloc>368</xloc>
-      <yloc>304</yloc>
-      <width>266</width>
-      <heigth>42</heigth>
-      <fontname>Segoe UI</fontname>
-      <fontsize>9</fontsize>
       <fontbold>N</fontbold>
       <fontitalic>N</fontitalic>
       <fontcolorred>0</fontcolorred>
       <fontcolorgreen>0</fontcolorgreen>
       <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>0</bordercolorred>
-      <bordercolorgreen>128</bordercolorgreen>
-      <bordercolorblue>0</bordercolorblue>
+      <backgroundcolorred>167</backgroundcolorred>
+      <backgroundcolorgreen>224</backgroundcolorgreen>
+      <backgroundcolorblue>245</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
       <drawshadow>Y</drawshadow>
     </notepad>
   </notepads>
   <order>
     <hop>
-      <from>dg-metadata _fields</from>
-      <to>emi-onboading_csv</to>
+      <from>dg-metadata_fields</from>
+      <to>emi-onboarding_csv</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>dg-rename</from>
-      <to>emi-onboading_csv</to>
+      <to>emi-onboarding_csv</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>dg_remove_name</from>
-      <to>emi-onboading_csv</to>
+      <to>emi-onboarding_csv</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
@@ -502,12 +496,12 @@ in template steps.</note>
     </hop>
     <hop>
       <from>sfvc-path_filename</from>
-      <to>emi-onboading_csv</to>
+      <to>emi-onboarding_csv</to>
       <enabled>Y</enabled>
     </hop>
   </order>
   <step>
-    <name>dg-metadata _fields</name>
+    <name>dg-metadata_fields</name>
     <type>DataGrid</type>
     <description/>
     <distribute>Y</distribute>
@@ -634,7 +628,7 @@ in template steps.</note>
         <item/>
         <item>3</item>
         <item>0</item>
-        <item>€</item>
+        <item>$</item>
         <item>,</item>
         <item>.</item>
         <item>left</item>
@@ -667,7 +661,7 @@ in template steps.</note>
         <item/>
         <item>5</item>
         <item>0</item>
-        <item>€</item>
+        <item>$</item>
         <item>,</item>
         <item>.</item>
         <item>left</item>
@@ -689,7 +683,7 @@ in template steps.</note>
         <item>yyyy/MM/dd</item>
         <item>10</item>
         <item/>
-        <item>€</item>
+        <item>$</item>
         <item>,</item>
         <item>.</item>
         <item>none</item>
@@ -711,7 +705,7 @@ in template steps.</note>
         <item/>
         <item>3</item>
         <item>0</item>
-        <item>€</item>
+        <item>$</item>
         <item>,</item>
         <item>.</item>
         <item>left</item>
@@ -749,7 +743,7 @@ in template steps.</note>
     </remotesteps>
     <GUI>
       <xloc>224</xloc>
-      <yloc>224</yloc>
+      <yloc>490</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -806,7 +800,7 @@ in template steps.</note>
     </remotesteps>
     <GUI>
       <xloc>368</xloc>
-      <yloc>128</yloc>
+      <yloc>394</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -850,12 +844,12 @@ in template steps.</note>
     </remotesteps>
     <GUI>
       <xloc>512</xloc>
-      <yloc>224</yloc>
+      <yloc>490</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>emi-onboading_csv</name>
+    <name>emi-onboarding_csv</name>
     <type>MetaInject</type>
     <description/>
     <distribute>Y</distribute>
@@ -881,7 +875,7 @@ in template steps.</note>
         <target_step_name>csvi-mdi</target_step_name>
         <target_attribute_key>FIELD_TYPE</target_attribute_key>
         <target_detail>Y</target_detail>
-        <source_step>dg-metadata _fields</source_step>
+        <source_step>dg-metadata_fields</source_step>
         <source_field>type</source_field>
       </mapping>
       <mapping>
@@ -895,7 +889,7 @@ in template steps.</note>
         <target_step_name>csvi-mdi</target_step_name>
         <target_attribute_key>FIELD_CURRENCY</target_attribute_key>
         <target_detail>Y</target_detail>
-        <source_step>dg-metadata _fields</source_step>
+        <source_step>dg-metadata_fields</source_step>
         <source_field>currency</source_field>
       </mapping>
       <mapping>
@@ -916,14 +910,14 @@ in template steps.</note>
         <target_step_name>csvi-mdi</target_step_name>
         <target_attribute_key>FIELD_NAME</target_attribute_key>
         <target_detail>Y</target_detail>
-        <source_step>dg-metadata _fields</source_step>
+        <source_step>dg-metadata_fields</source_step>
         <source_field>name</source_field>
       </mapping>
       <mapping>
         <target_step_name>csvi-mdi</target_step_name>
         <target_attribute_key>FIELD_TRIM_TYPE</target_attribute_key>
         <target_detail>Y</target_detail>
-        <source_step>dg-metadata _fields</source_step>
+        <source_step>dg-metadata_fields</source_step>
         <source_field>trimtype</source_field>
       </mapping>
       <mapping>
@@ -937,35 +931,35 @@ in template steps.</note>
         <target_step_name>csvi-mdi</target_step_name>
         <target_attribute_key>FIELD_GROUP</target_attribute_key>
         <target_detail>Y</target_detail>
-        <source_step>dg-metadata _fields</source_step>
+        <source_step>dg-metadata_fields</source_step>
         <source_field>group</source_field>
       </mapping>
       <mapping>
         <target_step_name>csvi-mdi</target_step_name>
         <target_attribute_key>FIELD_PRECISION</target_attribute_key>
         <target_detail>Y</target_detail>
-        <source_step>dg-metadata _fields</source_step>
+        <source_step>dg-metadata_fields</source_step>
         <source_field>precision</source_field>
       </mapping>
       <mapping>
         <target_step_name>csvi-mdi</target_step_name>
         <target_attribute_key>FIELD_FORMAT</target_attribute_key>
         <target_detail>Y</target_detail>
-        <source_step>dg-metadata _fields</source_step>
+        <source_step>dg-metadata_fields</source_step>
         <source_field>format</source_field>
       </mapping>
       <mapping>
         <target_step_name>csvi-mdi</target_step_name>
         <target_attribute_key>FIELD_DECIMAL</target_attribute_key>
         <target_detail>Y</target_detail>
-        <source_step>dg-metadata _fields</source_step>
+        <source_step>dg-metadata_fields</source_step>
         <source_field>decimal</source_field>
       </mapping>
       <mapping>
         <target_step_name>csvi-mdi</target_step_name>
         <target_attribute_key>FIELD_LENGTH</target_attribute_key>
         <target_detail>Y</target_detail>
-        <source_step>dg-metadata _fields</source_step>
+        <source_step>dg-metadata_fields</source_step>
         <source_field>length</source_field>
       </mapping>
     </mappings>
@@ -979,7 +973,7 @@ in template steps.</note>
     </remotesteps>
     <GUI>
       <xloc>368</xloc>
-      <yloc>224</yloc>
+      <yloc>490</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1023,7 +1017,7 @@ in template steps.</note>
     </remotesteps>
     <GUI>
       <xloc>240</xloc>
-      <yloc>464</yloc>
+      <yloc>730</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1057,7 +1051,7 @@ in template steps.</note>
     </remotesteps>
     <GUI>
       <xloc>240</xloc>
-      <yloc>336</yloc>
+      <yloc>602</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

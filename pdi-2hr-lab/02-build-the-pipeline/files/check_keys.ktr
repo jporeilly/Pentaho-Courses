@@ -435,15 +435,21 @@
   </info>
   <notepads>
     <notepad>
-      <note>In Part1: we're going to onboard the sales data and filter for records 
-where customer / product key (id) is missing . 
+      <note>check_keys - reads the day's sales and writes the rows missing a key to a file.
 
-These records are streamed to a Dummy step - in Part2: an output text file for the source team
-to resolve.  </note>
-      <xloc>80</xloc>
+1. Read sales: ${Internal.Entry.Current.Directory}/sales_20260101.csv, UTF-8,
+   header, comma, 7 fields; order_date is a Date (yyyy-MM-dd).
+2. Keys present?: Filter rows, customer_id IS NOT NULL AND product_id IS NOT NULL.
+   Rows that pass go to Valid rows, rows that fail to Rejects for source team.
+3. Valid rows: Dummy (do nothing); ends the good rows, nothing is written.
+4. Rejects for source team: Text file output to C:/Workshop/pdi-2hr/out/rejects.txt,
+   separator ;, header, every incoming field; creates the out folder if it is missing.
+
+Output: C:/Workshop/pdi-2hr/out/rejects.txt, the rows missing a key.</note>
+      <xloc>128</xloc>
       <yloc>32</yloc>
-      <width>565</width>
-      <heigth>99</heigth>
+      <width>509</width>
+      <heigth>206</heigth>
       <fontname>Segoe UI</fontname>
       <fontsize>10</fontsize>
       <fontbold>N</fontbold>
@@ -451,9 +457,9 @@ to resolve.  </note>
       <fontcolorred>0</fontcolorred>
       <fontcolorgreen>0</fontcolorgreen>
       <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>202</backgroundcolorred>
-      <backgroundcolorgreen>233</backgroundcolorgreen>
-      <backgroundcolorblue>251</backgroundcolorblue>
+      <backgroundcolorred>167</backgroundcolorred>
+      <backgroundcolorgreen>224</backgroundcolorgreen>
+      <backgroundcolorblue>245</backgroundcolorblue>
       <bordercolorred>100</bordercolorred>
       <bordercolorgreen>100</bordercolorgreen>
       <bordercolorblue>100</bordercolorblue>
@@ -473,7 +479,7 @@ to resolve.  </note>
     </hop>
     <hop>
       <from>Keys present?</from>
-      <to>Dummy (do nothing)</to>
+      <to>Valid rows</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -488,7 +494,7 @@ to resolve.  </note>
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <send_true_to>Dummy (do nothing)</send_true_to>
+    <send_true_to>Valid rows</send_true_to>
     <send_false_to>Rejects for source team</send_false_to>
     <compare>
       <condition>
@@ -520,7 +526,7 @@ to resolve.  </note>
     </remotesteps>
     <GUI>
       <xloc>272</xloc>
-      <yloc>192</yloc>
+      <yloc>286</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -715,7 +721,7 @@ to resolve.  </note>
     </remotesteps>
     <GUI>
       <xloc>128</xloc>
-      <yloc>192</yloc>
+      <yloc>286</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -772,12 +778,12 @@ to resolve.  </note>
     </remotesteps>
     <GUI>
       <xloc>272</xloc>
-      <yloc>304</yloc>
+      <yloc>398</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Dummy (do nothing)</name>
+    <name>Valid rows</name>
     <type>Dummy</type>
     <description/>
     <distribute>Y</distribute>
@@ -797,7 +803,7 @@ to resolve.  </note>
     </remotesteps>
     <GUI>
       <xloc>416</xloc>
-      <yloc>192</yloc>
+      <yloc>286</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

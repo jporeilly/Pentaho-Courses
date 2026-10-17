@@ -373,7 +373,7 @@
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>96</xloc>
-      <yloc>144</yloc>
+      <yloc>250</yloc>
       <attributes_kjc/>
     </entry>
     <entry>
@@ -411,7 +411,7 @@
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>240</xloc>
-      <yloc>144</yloc>
+      <yloc>250</yloc>
       <attributes_kjc/>
     </entry>
     <entry>
@@ -423,7 +423,7 @@
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>384</xloc>
-      <yloc>144</yloc>
+      <yloc>250</yloc>
       <attributes_kjc/>
     </entry>
   </entries>
@@ -449,66 +449,32 @@
   </hops>
   <notepads>
     <notepad>
-      <note>Lab 1: Hello World (Job)</note>
-      <xloc>80</xloc>
+      <note>kjb_hello_world - runs the Hello World transformation, then ends in success.
+
+1. START: where the job begins; its hop to Transformation A is unconditional (a lock).
+2. Transformation A: runs ${Internal.Entry.Current.Directory}/tr_hello_world.ktr,
+   the transformation in the job's own folder (run configuration Pentaho local).
+3. Success: reached only when Transformation A succeeds (a green Result is TRUE hop).
+
+Shipped data: Transformation A's Hello World step writes 10 rows (message hello world);
+START, Transformation A and Success each end with Result Success, in that order.</note>
+      <xloc>96</xloc>
       <yloc>32</yloc>
-      <width>180</width>
-      <heigth>30</heigth>
+      <width>532</width>
+      <heigth>170</heigth>
       <fontname>Segoe UI</fontname>
-      <fontsize>11</fontsize>
-      <fontbold>Y</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>255</bordercolorred>
-      <bordercolorgreen>255</bordercolorgreen>
-      <bordercolorblue>255</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
-    <notepad>
-      <note>A simple Job that runs the Hello World Transformation.</note>
-      <xloc>80</xloc>
-      <yloc>80</yloc>
-      <width>299</width>
-      <heigth>26</heigth>
-      <fontname>Segoe UI</fontname>
-      <fontsize>9</fontsize>
+      <fontsize>10</fontsize>
       <fontbold>N</fontbold>
       <fontitalic>N</fontitalic>
       <fontcolorred>0</fontcolorred>
       <fontcolorgreen>0</fontcolorgreen>
       <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>255</bordercolorred>
-      <bordercolorgreen>255</bordercolorgreen>
-      <bordercolorblue>255</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
-    <notepad>
-      <note>Transformation A: tr_hello_world.ktr</note>
-      <xloc>240</xloc>
-      <yloc>224</yloc>
-      <width>199</width>
-      <heigth>26</heigth>
-      <fontname>Segoe UI</fontname>
-      <fontsize>9</fontsize>
-      <fontbold>N</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>192</bordercolorred>
-      <bordercolorgreen>192</bordercolorgreen>
-      <bordercolorblue>192</bordercolorblue>
+      <backgroundcolorred>167</backgroundcolorred>
+      <backgroundcolorgreen>224</backgroundcolorgreen>
+      <backgroundcolorblue>245</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
       <drawshadow>Y</drawshadow>
     </notepad>
   </notepads>

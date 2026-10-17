@@ -11,7 +11,7 @@
 <!-- topic-page: topic-mod1-components -->
 
 * [Configuring PDI](01-mod1-configuring-pdi/guide.md)
-* [KETTLE Variables](02-mod1-kettle-variables/guide.md)
+* [Kettle Variables](02-mod1-kettle-variables/guide.md)
 
 ### Key Concepts
 
@@ -64,7 +64,7 @@
 <!-- topic-page: topic-mod4-merge-review -->
 
 * [Merge Streams](20-mod4-merge-streams/guide.md)
-* [Merge Streams (diff)](21-mod4-merge-streams-diff/guide.md)
+* [Merge Rows (diff)](21-mod4-merge-streams-diff/guide.md)
 
 ### Joins
 
@@ -86,7 +86,7 @@
 <!-- topic-page: topic-mod4-scripting-review -->
 
 * [Formula](27-mod4-formula/guide.md)
-* [MJV](28-mod4-mjv/guide.md)
+* [Modified JavaScript Value](28-mod4-mjv/guide.md)
 
 ## Enterprise Solution
 

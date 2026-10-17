@@ -436,161 +436,36 @@
   </info>
   <notepads>
     <notepad>
-      <note>Lab 3: Reading from a Database</note>
-      <xloc>112</xloc>
-      <yloc>16</yloc>
-      <width>234</width>
-      <heigth>30</heigth>
-      <fontname>Segoe UI</fontname>
-      <fontsize>11</fontsize>
-      <fontbold>Y</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>255</bordercolorred>
-      <bordercolorgreen>255</bordercolorgreen>
-      <bordercolorblue>255</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
-    <notepad>
-      <note>Steel Wheels wish to produce a report, tracking the delivery status of each order.
+      <note>tr_reading_database_warehouse - labels each shipped order by how early it shipped.
+Uses the MySQL:sampledata connection.
 
-  
-   </note>
+1. Table input: MySQL:sampledata, the seven ORDERS columns WHERE STATUS = 'Shipped'.
+2. Calculator: diff_days = REQUIREDDATE - SHIPPEDDATE, in days (Integer).
+3. Number range: diff_days into delivery: 0 to 3 On Time, 3 to 4 10%, 4 to 5 20%,
+   5 and over Action; each range includes its lower bound only.
+   Anything else (a late shipment) gets the default, unknown.
+4. Sort rows: diff_days, ascending.
+5. Select values: keeps delivery, ORDERNUMBER, REQUIREDDATE, SHIPPEDDATE and
+   CUSTOMERNUMBER; the two dates as Date, format MM/dd/yyyy.
+
+Shipped data: 303 shipped orders: 54 On Time, 54 10%, 42 20%, 153 Action, none unknown.</note>
       <xloc>112</xloc>
-      <yloc>48</yloc>
-      <width>430</width>
-      <heigth>73</heigth>
-      <fontname>Calibri Light</fontname>
+      <yloc>32</yloc>
+      <width>546</width>
+      <heigth>242</heigth>
+      <fontname>Segoe UI</fontname>
       <fontsize>10</fontsize>
       <fontbold>N</fontbold>
       <fontitalic>N</fontitalic>
       <fontcolorred>0</fontcolorred>
       <fontcolorgreen>0</fontcolorgreen>
       <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>255</bordercolorred>
-      <bordercolorgreen>255</bordercolorgreen>
-      <bordercolorblue>255</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
-    <notepad>
-      <note>Connect to the ORDERS table and return just those orders that have shipped.</note>
-      <xloc>192</xloc>
-      <yloc>112</yloc>
-      <width>412</width>
-      <heigth>26</heigth>
-      <fontname>Segoe UI</fontname>
-      <fontsize>9</fontsize>
-      <fontbold>N</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>192</bordercolorred>
-      <bordercolorgreen>192</bordercolorgreen>
-      <bordercolorblue>192</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
-    <notepad>
-      <note>Calculate the 'delivery time' = 'Required date' - 'Shipped date'.</note>
-      <xloc>192</xloc>
-      <yloc>224</yloc>
-      <width>338</width>
-      <heigth>26</heigth>
-      <fontname>Segoe UI</fontname>
-      <fontsize>9</fontsize>
-      <fontbold>N</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>192</bordercolorred>
-      <bordercolorgreen>192</bordercolorgreen>
-      <bordercolorblue>192</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
-    <notepad>
-      <note>Set the delivery criteria:
-  On Time = shipped within 2 days of the 'Required date'.
-  10% = shipped 1 day late
-  20% = shipped 2 days late
-  Late = shipped later than 4 days</note>
-      <xloc>192</xloc>
-      <yloc>352</yloc>
-      <width>309</width>
-      <heigth>90</heigth>
-      <fontname>Segoe UI</fontname>
-      <fontsize>9</fontsize>
-      <fontbold>N</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>192</bordercolorred>
-      <bordercolorgreen>192</bordercolorgreen>
-      <bordercolorblue>192</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
-    <notepad>
-      <note>Sort the 'delivery status'.</note>
-      <xloc>192</xloc>
-      <yloc>464</yloc>
-      <width>138</width>
-      <heigth>26</heigth>
-      <fontname>Segoe UI</fontname>
-      <fontsize>9</fontsize>
-      <fontbold>N</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>192</bordercolorred>
-      <bordercolorgreen>192</bordercolorgreen>
-      <bordercolorblue>192</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
-    <notepad>
-      <note>Select the following fields:
-  Delivery
-  Ordernumber
-  Required Date (Format MM/dd/yyyy)
-  Shipped Date (Format MM/dd/yyyy)</note>
-      <xloc>192</xloc>
-      <yloc>576</yloc>
-      <width>212</width>
-      <heigth>90</heigth>
-      <fontname>Segoe UI</fontname>
-      <fontsize>9</fontsize>
-      <fontbold>N</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>192</bordercolorred>
-      <bordercolorgreen>192</bordercolorgreen>
-      <bordercolorblue>192</bordercolorblue>
+      <backgroundcolorred>167</backgroundcolorred>
+      <backgroundcolorgreen>224</backgroundcolorgreen>
+      <backgroundcolorblue>245</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
       <drawshadow>Y</drawshadow>
     </notepad>
   </notepads>
@@ -724,7 +599,7 @@
     </remotesteps>
     <GUI>
       <xloc>112</xloc>
-      <yloc>224</yloc>
+      <yloc>434</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -774,7 +649,7 @@
     </remotesteps>
     <GUI>
       <xloc>112</xloc>
-      <yloc>352</yloc>
+      <yloc>562</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -851,7 +726,7 @@
     </remotesteps>
     <GUI>
       <xloc>112</xloc>
-      <yloc>576</yloc>
+      <yloc>786</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -893,7 +768,7 @@
     </remotesteps>
     <GUI>
       <xloc>112</xloc>
-      <yloc>464</yloc>
+      <yloc>674</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -935,7 +810,7 @@ WHERE STATUS = 'Shipped'
     </remotesteps>
     <GUI>
       <xloc>112</xloc>
-      <yloc>112</yloc>
+      <yloc>322</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

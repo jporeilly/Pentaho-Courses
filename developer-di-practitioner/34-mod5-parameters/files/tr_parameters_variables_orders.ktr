@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>tr_parameters_orders_variables</name>
+    <name>tr_parameters_variables_orders</name>
     <description/>
     <extended_description/>
     <trans_version/>
@@ -12,7 +12,7 @@
       <parameter>
         <name>STATUS</name>
         <default_value>Cancelled</default_value>
-        <description/>
+        <description>Order status to read</description>
       </parameter>
     </parameters>
     <log>
@@ -441,50 +441,41 @@
   </info>
   <notepads>
     <notepad>
-      <note>Lab 1: Variables &amp; Parameters</note>
-      <xloc>112</xloc>
-      <yloc>16</yloc>
-      <width>220</width>
-      <heigth>30</heigth>
-      <fontname>Segoe UI</fontname>
-      <fontsize>11</fontsize>
-      <fontbold>Y</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>255</bordercolorred>
-      <bordercolorgreen>255</bordercolorgreen>
-      <bordercolorblue>255</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
-    <notepad>
-      <note>Steel Wheels wish to produce a report, tracking the delivery status of each order.
+      <note>tr_parameters_variables_orders - reads the orders with one status and rates each delivery.
+Parameter (default): STATUS = Cancelled, "Order status to read" (Transformation
+properties &gt; Parameters). Needs the MySQL:sampledata connection.
 
-The SQL script has been modifed: ${STATUS} variable is set to 'Shipped' in the Transformation Properties / Parameters tab. 
+1. Table input: ORDERS on MySQL:sampledata, WHERE STATUS='${STATUS}', with Replace
+   variables in script? on. The quotes are in the SQL: ${STATUS} is replaced as text.
+2. Calculator: diff_days = REQUIREDDATE - SHIPPEDDATE in days, an Integer.
+3. Number range: delivery from diff_days: under 0 Late, 0 to under 2 On Time,
+   2 and over Early, otherwise unknown.
+4. Sort rows: by REQUIREDDATE, ascending.
+5. Select values: keeps delivery, ORDERNUMBER, REQUIREDDATE and SHIPPEDDATE, both
+   dates as Date with format MM/dd/yyyy.
 
-  
-   </note>
-      <xloc>112</xloc>
-      <yloc>48</yloc>
-      <width>649</width>
-      <heigth>104</heigth>
+Another value: Run Options (F8), Parameters tab. Or Pan (one command, in
+PowerShell, from the folder that holds this file):
+C:\Pentaho\design-tools\data-integration\pan.bat --%
+"-file=tr_parameters_variables_orders.ktr" "-param:STATUS=Resolved" -level=Basic
+Shipped data: Cancelled (the default) 6 orders; On Hold 4; Resolved 4.</note>
+      <xloc>128</xloc>
+      <yloc>32</yloc>
+      <width>536</width>
+      <heigth>332</heigth>
       <fontname>Segoe UI</fontname>
-      <fontsize>9</fontsize>
+      <fontsize>10</fontsize>
       <fontbold>N</fontbold>
       <fontitalic>N</fontitalic>
       <fontcolorred>0</fontcolorred>
       <fontcolorgreen>0</fontcolorgreen>
       <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>255</bordercolorred>
-      <bordercolorgreen>255</bordercolorgreen>
-      <bordercolorblue>255</bordercolorblue>
+      <backgroundcolorred>167</backgroundcolorred>
+      <backgroundcolorgreen>224</backgroundcolorgreen>
+      <backgroundcolorblue>245</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
       <drawshadow>Y</drawshadow>
     </notepad>
   </notepads>
@@ -618,7 +609,7 @@ The SQL script has been modifed: ${STATUS} variable is set to 'Shipped' in the T
     </remotesteps>
     <GUI>
       <xloc>240</xloc>
-      <yloc>160</yloc>
+      <yloc>430</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -663,7 +654,7 @@ The SQL script has been modifed: ${STATUS} variable is set to 'Shipped' in the T
     </remotesteps>
     <GUI>
       <xloc>352</xloc>
-      <yloc>160</yloc>
+      <yloc>430</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -737,7 +728,7 @@ The SQL script has been modifed: ${STATUS} variable is set to 'Shipped' in the T
     </remotesteps>
     <GUI>
       <xloc>576</xloc>
-      <yloc>160</yloc>
+      <yloc>430</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -779,7 +770,7 @@ The SQL script has been modifed: ${STATUS} variable is set to 'Shipped' in the T
     </remotesteps>
     <GUI>
       <xloc>464</xloc>
-      <yloc>160</yloc>
+      <yloc>430</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -822,7 +813,7 @@ WHERE STATUS='${STATUS}'
     </remotesteps>
     <GUI>
       <xloc>128</xloc>
-      <yloc>160</yloc>
+      <yloc>430</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

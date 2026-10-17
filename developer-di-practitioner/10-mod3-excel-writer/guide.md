@@ -20,7 +20,11 @@
 > 
 > **Estimated time:** 45 minutes
 
-<div class="pcm-embed-card" data-href="https://www.loom.com/share/770dd4bae75049eeab247bec2bf6fbcc?hideEmbedTopBar=true&amp;hide_owner=true&amp;hide_share=true&amp;hide_title=true" data-title="Advanced Excel File Creation with Microsoft Excel Writer Step 📊" data-description="In this video, I demonstrate the advanced features of the Microsoft Excel Writer Step, focusing on how to create a formatted Excel file using a template, comments, hyperlinks, and formulas. We will be generating a fictional report that includes a logo, a hyperlink to documentation, and arbitrary numbers to illustrate how to insert formulas, specifically a running total. I guide you through the transformation process, including configuring the necessary steps and fields. I encourage you to follow along and replicate this process in your own projects. By the end, you'll see how the final Excel file matches our template design and includes all the required elements." data-thumb="../_assets/embeds/2d94cd73b9b2.png"></div>
+<figure>
+
+<figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
+
+</figure>
 
 <figure>
 
@@ -50,7 +54,7 @@
 
 <figure><img src="../_assets/images/blank-sourcedata.png" alt="The SourceData sheet: labels, formulas and empty data cells"><figcaption><p>SourceData: labels and formulas, no numbers yet</p></figcaption></figure>
 
-> **Success:** Checkpoint: on **SourceData**, the data cells are empty, so for each product line and expense the **6-MONTH TOTAL** column shows `0.00€` and the **MEAN** column shows `#DIV/0!`.
+> **Success:** Checkpoint: on **SourceData**, the data cells are empty, so for each product line and expense the **6-MONTH TOTAL** column shows `$0.00` and the **MEAN** column shows `#DIV/0!`.
 
 2. Close `template.xlsx` without saving it.
 
@@ -76,25 +80,12 @@
 > 
 > **Generate rows** outputs a fixed number of rows. Here it outputs one row holding the report year.
 
-1. Start Spoon with the **Start PDI** button below, or from a terminal:
-
-::: tabs
-
-### Windows (PowerShell)
+1. Start Spoon with the **Start PDI** button below, or from PowerShell:
 
 ```powershell
 Set-Location C:\Pentaho\design-tools\data-integration
 .\spoon.bat
 ```
-
-### macOS / Linux
-
-```bash
-cd ~/Pentaho/design-tools/data-integration
-./spoon.sh
-```
-
-:::
 
 <button data-launch="spoon" data-path="">Start PDI</button>
 
@@ -465,11 +456,11 @@ cd ~/Pentaho/design-tools/data-integration
 >
 > | Cell | Holds | Value |
 > | --- | --- | --- |
-> | `B5` | Classic Cars, January | `23,455.22€` |
-> | `H5` | Classic Cars, 6-month total | `132,463.11€` |
-> | `B10` | Total Sales, January | `36,886.84€` |
-> | `B19` | Total Expenses, January | `13,500.10€` |
-> | `B21` | Profit, January | `23,386.74€` |
+> | `B5` | Classic Cars, January | `$23,455.22` |
+> | `H5` | Classic Cars, 6-month total | `$132,463.11` |
+> | `B10` | Total Sales, January | `$36,886.84` |
+> | `B19` | Total Expenses, January | `$13,500.10` |
+> | `B21` | Profit, January | `$23,386.74` |
 >
 > The **Sales Chart** sheet draws the four product lines for the six months.
 

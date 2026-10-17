@@ -39,25 +39,12 @@
 > 
 > The same three searches as [Database Join](../22-mod4-database-join/guide.md): a product name and a maximum buy price.
 
-1. Start Spoon with the **Start PDI** button below, or from a terminal:
-
-::: tabs
-
-### Windows (PowerShell)
+1. Start Spoon with the **Start PDI** button below, or from PowerShell:
 
 ```powershell
 Set-Location C:\Pentaho\design-tools\data-integration
 .\spoon.bat
 ```
-
-### macOS / Linux
-
-```bash
-cd ~/Pentaho/design-tools/data-integration
-./spoon.sh
-```
-
-:::
 
 <button data-launch="spoon" data-path="">Start PDI</button>
 
@@ -149,8 +136,6 @@ cd ~/Pentaho/design-tools/data-integration
 7. Select **OK**.
 
 <figure><img src="../_assets/images/databse-lookup-simple.png" alt="Database lookup (simple): lookup table PRODUCTS, keys BUYPRICE less than max_price and PRODUCTNAME LIKE like_statement, three return values"><figcaption><p>Two key conditions, three return values</p></figcaption></figure>
-
-The screenshot shows an older connection name, `Sampledata`; yours is `MySQL:sampledata`.
 
 > **Under the hood:**
 >

@@ -33,8 +33,9 @@ Two ways to make PDI go faster: Carte clusters, which share a transformation's w
 >
 > A Carte server is a small embedded web server, started with the `Carte` script in your PDI folder, with at least a host name or IP address and a port:
 >
-> * Windows: `Carte.bat localhost 8081`
-> * macOS / Linux: `./carte.sh localhost 8081`
+> ```powershell
+> .\carte.bat localhost 8081
+> ```
 >
 > In Spoon, you register each server under **Slave server** in the **View** tab, then send transformations and jobs to it with a run configuration.
 >
@@ -54,8 +55,8 @@ Two ways to make PDI go faster: Carte clusters, which share a transformation's w
 1. Copy the JDBC drivers and PDI plugins your transformations need from your development PDI to each Carte machine.
 2. On each machine, start Carte with that machine's address and a port:
 
-   ```bash
-   ./carte.sh <IP address> <port>
+   ```powershell
+   .\carte.bat <IP address> <port>
    ```
 
 3. If the transformations come from a Pentaho Repository, copy `repositories.xml` from the `.kettle` folder on your workstation to the same place on each Carte machine; without it, Carte can't read the repository.

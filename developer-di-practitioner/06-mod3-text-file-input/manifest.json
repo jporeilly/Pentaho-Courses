@@ -2,7 +2,7 @@
   "title": "Text File Input",
   "description": "",
   "order": 11,
-  "stepCount": 8,
+  "stepCount": 6,
   "estimatedMinutes": 30,
-  "hasVideo": true
+  "hasVideo": false
 }

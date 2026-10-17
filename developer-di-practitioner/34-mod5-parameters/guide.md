@@ -17,7 +17,11 @@
 > 
 > **Estimated time:** 20 minutes
 
-<div class="pcm-embed-card" data-href="https://www.loom.com/share/6b3348c091764d08806280206bd53434?hideEmbedTopBar=true&amp;hide_owner=true&amp;hide_share=true&amp;hide_title=true" data-title="Defining Parameters in Transformations for Effective Data Management 📊" data-description="In this video, I demonstrate how to define parameters within a transformation using Spoon, highlighting their role as local variables compared to global variables. I walk you through viewing the current parameters and variables in memory, and I create two parameters: one for the delimiter character and another for the output file's extension. It's crucial to provide default values and descriptions for these parameters to avoid potential issues. I also explain how a parameter can override a variable if they share the same name. Please pay attention to these concepts, as they will be applied in the next demonstration video." data-thumb="../_assets/embeds/2d94cd73b9b2.png"></div>
+<figure>
+
+<figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
+
+</figure>
 
 :::: tabs
 
@@ -29,25 +33,12 @@
 > 
 > A named parameter belongs to the transformation: it has a name, a default value and a description, and whoever runs the transformation can give it a different value for that run.
 
-1. Start Spoon with the **Start PDI** button below, or from a terminal:
-
-::: tabs
-
-### Windows (PowerShell)
+1. Start Spoon with the **Start PDI** button below, or from PowerShell:
 
 ```powershell
 Set-Location C:\Pentaho\design-tools\data-integration
 .\spoon.bat
 ```
-
-### macOS / Linux
-
-```bash
-cd ~/Pentaho/design-tools/data-integration
-./spoon.sh
-```
-
-:::
 
 <button data-launch="spoon" data-path="">Start PDI</button>
 
@@ -67,7 +58,7 @@ cd ~/Pentaho/design-tools/data-integration
 7. Select **OK**.
 8. Save the transformation (`Ctrl+S`).
 
-<figure><img src="../_assets/images/param.png" alt="Transformation properties, Parameters tab"><figcaption><p>The Parameters tab (shown with the Deleting Records parameter; yours holds STATUS)</p></figcaption></figure>
+<figure><img src="../_assets/images/param-status.png" alt="Transformation properties Parameters tab: STATUS, default Cancelled, description Order status to read"><figcaption><p>The STATUS parameter</p></figcaption></figure>
 
 > **Under the hood:**
 >
@@ -168,25 +159,12 @@ Leave the **Value** empty and the run uses the default again (6 rows). The other
 >
 > Pan, the command-line runner for transformations, takes the value with `-param`. On Windows the launcher batch files split arguments at `=`, so the parameter must reach them in quotes; in PowerShell, `--%` passes the rest of the line through untouched.
 
-1. In PowerShell, run the solution with `STATUS` set to `Resolved`. On macOS or Linux, the command assumes you copied the workshop folder to your home folder as `~/Workshop-DI-Practitioner`.
-
-::: tabs
-
-### Windows (PowerShell)
+1. In PowerShell, run the solution with `STATUS` set to `Resolved`.
 
 ```powershell
 Set-Location C:\Pentaho\design-tools\data-integration
 .\pan.bat --% "-file=C:\Workshop-DI-Practitioner\05-enterprise-solution\03-parameters\34-mod5-parameters\solution\tr_parameters_variables_orders.ktr" "-param:STATUS=Resolved" -level=Basic
 ```
-
-### macOS / Linux
-
-```bash
-cd ~/Pentaho/design-tools/data-integration
-./pan.sh -file=$HOME/Workshop-DI-Practitioner/05-enterprise-solution/03-parameters/34-mod5-parameters/solution/tr_parameters_variables_orders.ktr "-param:STATUS=Resolved" -level=Basic
-```
-
-:::
 
 > **Success:** Checkpoint: the log ends with `Table input.0 - Finished processing (I=4, O=0, R=0, W=4, U=0, E=0)`: the four resolved orders.
 

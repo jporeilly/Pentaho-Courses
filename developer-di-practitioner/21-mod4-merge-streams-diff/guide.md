@@ -18,7 +18,11 @@
 > 
 > **Estimated time:** 20 minutes
 
-<div class="pcm-embed-card" data-href="https://www.loom.com/share/cd56088673de462998803583425d0488?hideEmbedTopBar=true&amp;hide_owner=true&amp;hide_share=true&amp;hide_title=true" data-title="Data Change Capture and Synchronization Process Demonstration" data-description="In this video, I walk you through a data change capture scenario where we manage product data in a database alongside changes from a text file. We utilize the merge rows diff step to identify new, deleted, and changed products, followed by the synchronize after merge step to update our records accordingly. I demonstrate how to configure these steps, including setting up the flag field for operations like inserts, updates, and deletes. Please ensure that your data is sorted by the specified keys before running the transformation. By the end of this process, our product data will be fully synchronized and up to date in the database." data-thumb="../_assets/embeds/2d94cd73b9b2.png"></div>
+<figure>
+
+<figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
+
+</figure>
 
 <figure>
 
@@ -57,25 +61,12 @@
 </div>
 </figure>
 
-1. Start Spoon with the **Start PDI** button below, or from a terminal:
-
-::: tabs
-
-### Windows (PowerShell)
+1. Start Spoon with the **Start PDI** button below, or from PowerShell:
 
 ```powershell
 Set-Location C:\Pentaho\design-tools\data-integration
 .\spoon.bat
 ```
-
-### macOS / Linux
-
-```bash
-cd ~/Pentaho/design-tools/data-integration
-./spoon.sh
-```
-
-:::
 
 <button data-launch="spoon" data-path="">Start PDI</button>
 
@@ -265,8 +256,6 @@ cd ~/Pentaho/design-tools/data-integration
    As with **Insert / update**, the key stays in the list so that inserts include it, but an update never changes it.
 
 <figure><img src="../_assets/images/sync-after-merge.png" alt="Synchronize after merge General tab: target table STG_ORDERS_MERGED, key PRODUCTCODE, six update fields with PRODUCTCODE set to N" width="563"><figcaption><p>General tab</p></figcaption></figure>
-
-The screenshot names the connection `MySQL - sampledata` and sets **Target schema** to `sampledata`. Use `MySQL:sampledata` and leave **Target schema** empty: the connection already points at that database.
 
 8. Open the **Advanced** tab and set:
    * **Operation fieldname**: `FLAG`

@@ -2,7 +2,7 @@
   "title": "Text File Output",
   "description": "",
   "order": 12,
-  "stepCount": 12,
+  "stepCount": 10,
   "estimatedMinutes": 35,
-  "hasVideo": true
+  "hasVideo": false
 }

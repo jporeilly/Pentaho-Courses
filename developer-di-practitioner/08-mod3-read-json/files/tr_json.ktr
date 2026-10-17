@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>tr_ json</name>
+    <name>tr_json</name>
     <description/>
     <extended_description/>
     <trans_version/>
@@ -436,45 +436,31 @@
   </info>
   <notepads>
     <notepad>
-      <note>Read Json file and extract portions data out of structure.</note>
-      <xloc>112</xloc>
-      <yloc>80</yloc>
-      <width>346</width>
-      <heigth>29</heigth>
-      <fontname>Calibri Light</fontname>
-      <fontsize>11</fontsize>
+      <note>tr_json - reads the orders in jsonfile.js into one row per order.
+
+1. Json input: ${Internal.Entry.Current.Directory}/jsonfile.js, fields productline,
+   customer, status, date (String) and value (Number), each read with $..&lt;field&gt;.
+   Default path leaf to null is on, so a missing key gives a null.
+2. Dummy: receives the rows; it is the step you preview.
+
+Shipped data: 7 rows, one per order; the first is Classic Cars, Christine Loomis, 21.99.</note>
+      <xloc>128</xloc>
+      <yloc>32</yloc>
+      <width>505</width>
+      <heigth>152</heigth>
+      <fontname>Segoe UI</fontname>
+      <fontsize>10</fontsize>
       <fontbold>N</fontbold>
       <fontitalic>N</fontitalic>
       <fontcolorred>0</fontcolorred>
       <fontcolorgreen>0</fontcolorgreen>
       <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>255</bordercolorred>
-      <bordercolorgreen>255</bordercolorgreen>
-      <bordercolorblue>255</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
-    <notepad>
-      <note>Lab 5: Read JSON</note>
-      <xloc>112</xloc>
-      <yloc>32</yloc>
-      <width>133</width>
-      <heigth>30</heigth>
-      <fontname>Segoe UI</fontname>
-      <fontsize>11</fontsize>
-      <fontbold>Y</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>255</bordercolorred>
-      <bordercolorgreen>255</bordercolorgreen>
-      <bordercolorblue>255</bordercolorblue>
+      <backgroundcolorred>167</backgroundcolorred>
+      <backgroundcolorgreen>224</backgroundcolorgreen>
+      <backgroundcolorblue>245</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
       <drawshadow>Y</drawshadow>
     </notepad>
   </notepads>
@@ -506,7 +492,7 @@
     </remotesteps>
     <GUI>
       <xloc>352</xloc>
-      <yloc>128</yloc>
+      <yloc>232</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -628,7 +614,7 @@
     </remotesteps>
     <GUI>
       <xloc>128</xloc>
-      <yloc>128</yloc>
+      <yloc>232</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

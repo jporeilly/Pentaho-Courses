@@ -2,7 +2,7 @@
 
 <div class="pcm-intro">
 
-When you have two streams that should become one. Merge Streams stacks rows; Merge Streams (diff) reconciles changes between two snapshots: the building block for change-data-capture patterns.
+When you have two streams that should become one. Merge Streams stacks rows; Merge Rows (diff) reconciles changes between two snapshots: the building block for change-data-capture patterns.
 
 </div>
 

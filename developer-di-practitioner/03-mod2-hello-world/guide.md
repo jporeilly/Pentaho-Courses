@@ -19,7 +19,11 @@
 >
 > **Estimated time:** 25 minutes
 
-<div class="pcm-embed-card" data-href="https://www.loom.com/share/cb9fa033ddcf46c6b7d17c532c16ac66?hideEmbedTopBar=true&amp;hide_owner=true&amp;hide_share=true&amp;hide_title=true" data-title="Introduction to Data Transformation with PDI" data-description="In this demonstration, I introduced you to your first transformation, showcasing its execution and results. We explored a CSV file input step that reads sales territory data, filtering records based on the EMEA territory for separate database table outputs. After executing the transformation, we verified that the data was inserted correctly into the respective tables. I encourage you to familiarize yourself with the Spoon Log and Step Metrics as we progress through the course. This overview sets the stage for deeper learning about PDI and its components in future lessons." data-thumb="../_assets/embeds/2d94cd73b9b2.png"></div>
+<figure>
+
+<figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
+
+</figure>
 
 <figure>
 
@@ -42,25 +46,12 @@
 >
 > **Generate rows** is also useful as a one-row "starter" step.
 
-1. Start Spoon with the **Start PDI** button below, or from a terminal:
-
-::: tabs
-
-### Windows (PowerShell)
+1. Start Spoon with the **Start PDI** button below, or from PowerShell:
 
 ```powershell
 Set-Location C:\Pentaho\design-tools\data-integration
 .\spoon.bat
 ```
-
-### macOS / Linux
-
-```bash
-cd ~/Pentaho/design-tools/data-integration
-./spoon.sh
-```
-
-:::
 
 <button data-launch="spoon" data-path="">Start PDI</button>
 
@@ -154,26 +145,22 @@ cd ~/Pentaho/design-tools/data-integration
 > holding only what is in flight.
 
 2. Right-click an empty part of the canvas and select **New Note...**. The **Notes** dialog opens.
-3. On the **Note** tab, enter `Lab1: Hello World`.
-4. Optional: to match the solution's title note, open the dialog's second tab, select **Font bold**, set **Font name** to `Segoe UI`, and set **Font size** to `11`.
-5. Select **OK**.
-6. Drag the note above the two steps.
-7. Optional: add a second note the same way, recording the settings you used. The solution's second note reads:
+3. On the **Note** tab, enter the note in the form every solution in this course uses: the file name and what it does, a numbered line for each step, then what a run gives you:
 
    ```text
-   This transformation generates rows, 'hello world'.  Illustrates some of the key features:
+   tr_hello_world - generates 10 rows with the message hello world.
 
-   Step1: Generate Rows
-      Limit: 10 rows
+   1. gr_hello-world: Generate Rows, limit 10, one field message (String) = hello world.
+   2. Dummy (do nothing): receives the rows and passes them on.
 
-      Name: message
-      Type: String
-      Value: hello world
-
-     click: Preview
-
-   Step2: Dummy
+   Shipped data: 10 rows, each with message hello world.
    ```
+
+4. Optional: to give the note the course's look, open the **Font style** tab. Set **Font name** to `Segoe UI` and **Font size** to `10`, set **Background color** to red `167`, green `224`, blue `245`, and **Border color** to red, green and blue `100`.
+5. Select **OK**.
+6. Drag the note above the two steps.
+
+> **Tip:** Every solution in this course carries one note like this, above its steps. Open a solution, and its note tells you what each step does and what the run should give you before you run it.
 
 <div align="left"><figure><img src="../_assets/images/note.png" alt="The Notes dialog on the Note tab, with the note text typed in"><figcaption><p>Notes - the Note tab</p></figcaption></figure> <figure><img src="../_assets/images/note2.png" alt="The Notes dialog on its font and style tab: Font name, Font size, Font bold, Font italic, Font color and Background color"><figcaption><p>Notes - font and style</p></figcaption></figure></div>
 
@@ -264,11 +251,11 @@ In the screenshot the whole run took 30 ms, and `gr_hello-world` and `Dummy (do 
 
 > **Success:** Checkpoint: 10 rows, each with `message` `hello world`.
 
-8. Select the **View** tab, at the top left beside **Design**. The tree shows the structure of the open transformation: its run configurations, connections, steps and hops.
+8. Select the **View** tab, at the top left beside **Design**. Under **Configurations**, it lists what a transformation can use besides its steps: database connections, cluster and partition schemas, run configurations, slave servers and VFS connections. The steps themselves are on the canvas.
 
-<div align="center"><figure><img src="../_assets/images/view.png" alt="The View tab: the transformation's tree with Run configurations, Database connections, Steps and Hops, next to the canvas"><figcaption><p>View</p></figcaption></figure></div>
+<div align="center"><figure><img src="../_assets/images/view.png" alt="The View tab: Configurations with Database connections, Kettle cluster schemas, Partition schemas, Run configurations, Slave server and VFS Connections"><figcaption><p>View</p></figcaption></figure></div>
 
-> **Success:** Checkpoint: under **Steps**, the tree lists `gr_hello-world` and `Dummy (do nothing)`.
+> **Success:** Checkpoint: under **Configurations**, the tree lists **Database connections**, **Run configurations**, **Slave server** and **VFS Connections**, among others.
 
 ::::
 

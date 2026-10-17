@@ -3,74 +3,63 @@
 > **Warning:**
 >
 > #### Workshop - Product Performance
-> 
-> Content linking connects multiple Dashboard Designer panels so a selection in one component dynamically filters and updates the others.
-> 
-> In this workshop, you build a three-panel dashboard in the Pentaho User Console that connects an analysis report, a pie chart, and a bar chart through parameter passing, creating cascading filters where clicking a product updates a territory sales chart and clicking a territory refines an order status summary.
-> 
+>
+> Content linking connects Dashboard Designer panels, so a selection in one panel filters and updates the others.
+>
+> In this workshop, you build a three-panel dashboard in the Pentaho User Console that connects an analysis report, a pie chart, and a bar chart through parameters: selecting a product updates a territory sales chart, and selecting a territory refines an order status summary.
+>
 > **What you'll do**
-> 
-> * Select and configure the 1 and 2 dashboard layout template with Ruby theme
-> * Set dashboard properties including page title (Product Performance Dashboard)
-> * Add the Product Sales by Year analysis report to the primary panel with a custom title (Product Sales Analysis)
-> * Enable content linking on the Product field to allow user selections to drive other components
-> * Create a pie chart component by building a metadata query against the Orders data source
-> * Implement parameterized filtering by adding a Product Name condition using the {PRODUCT} parameter with a default value
-> * Configure the pie chart to display Territory sales totals with appropriate chart properties
-> * Add dynamic parameter references to panel titles to show current selections
-> * Map parameters between components by linking the chart's PRODUCT parameter to the analysis report's Product output
-> * Enable content linking on the Territory field in the pie chart to drive downstream filtering
-> * Build a bar chart showing order status distribution using COUNT\_DISTINCT aggregation on Order Number
-> * Implement multi-parameter filtering with both {PRODUCT} and {TERRITORY} parameters with appropriate defaults
-> * Create cascading parameter mappings where the bar chart receives PRODUCT from the analysis report and TERRITORY from the pie chart
-> * Test the complete interactive experience by clicking through product selections and territory segments
-> 
-> **Prerequisites:** Pentaho Business Analytics Server with Orders data source, Steel Wheels Widget Library containing Product Sales by Year analysis report
-> 
+>
+> * Select the 1 and 2 layout template and the Ruby theme, and title the dashboard
+> * Add the Product Sales by Year analysis, and enable content linking on its Product field
+> * Build a pie chart of sales by territory from a metadata query with a `{PRODUCT}` parameter
+> * Build a bar chart of order status that counts distinct orders, filtered by `{PRODUCT}` and `{TERRITORY}`
+> * Map each chart's parameters to the panel that publishes them, and put them in the panel titles
+> * Save the dashboard and test the cascade by selecting a product and a territory
+>
+> **Prerequisites:** [Vendor Sales](../13-dashboard-designer-vendor-sales/guide.md) and [Inventory](../14-dashboard-designer-inventory/guide.md), and the Product Sales by Year analysis in **Public > Steel Wheels > Widget Library > Analysis Views**
+>
 > **Estimated time:** 45 minutes
 
-<figure><img src="../_assets/images/dd_product_content_linking.png" alt=""><figcaption><p>Content Linking</p></figcaption></figure>
+<figure><img src="../_assets/images/dd_product_content_linking.png" alt="Product Performance Dashboard with the Product Sales Analysis table, a Territory Sales Mix pie and an Order Status bar chart for the 1900s Vintage Tri-Plane"><figcaption><p>Content Linking</p></figcaption></figure>
 
 ::: tabs
 
-### Template & Reports
+### 1. Template & Reports
 
 > **Note:**
 >
 > #### Dashboard Templates
-> 
-> Creating a dashboard in Dashboard Designer is as simple as choosing a layout template, theme, and the content you want to display.
+>
+> Creating a dashboard in Dashboard Designer starts with choosing a layout template, a theme, and the content you want to display.
 
-<figure><img src="../_assets/images/dd_product_template_1_and_2.png" alt=""><figcaption><p>Template - 1 and 2</p></figcaption></figure>
+<figure><img src="../_assets/images/dd_product_template_1_and_2.png" alt="Dashboard Designer with the 1 and 2 layout, a tall Untitled 1 beside Untitled 2 and 3, and the Properties tab Page Title set to Product Performance Dashboard"><figcaption><p>Template - 1 and 2</p></figcaption></figure>
 
-1. From the User Console Home Perspective, click Create New -> Dashboard.
-2. Select the 1 and 2 template, on the Templates tab, click 1 and 2.
-3. To view the available themes, click the Themes tab.
-4. Select: Ruby theme.
-5. Click the Properties tab, and in the Page Title text box, type: Product Performance Dashboard.
+1. Select the perspective drop-down and select **Home**, then select **Create New > Dashboard**.
+2. On the **Templates** tab, select **1 and 2**.
+3. Open the **Themes** tab, and select **Ruby**.
+4. Open the **Properties** tab, and set **Page Title** to `Product Performance Dashboard`.
+
+> **Success:** Checkpoint: the canvas shows a tall **Untitled 1** panel beside **Untitled 2** and **Untitled 3**.
 
 ***
 
-Product Sales by Year
+**Product Sales by Year**
 
-<figure><img src="../_assets/images/dd_product_product_sales_analysis.png" alt=""><figcaption><p>Product Sales Analysis</p></figcaption></figure>
+<figure><img src="../_assets/images/dd_product_product_sales_analysis.png" alt="Dashboard Designer with Product Sales by Year from the Widget Library Analysis Views folder in a panel titled Product Sales Analysis, showing 2003 to 2005 sales by product"><figcaption><p>Product Sales Analysis</p></figcaption></figure>
 
-1. To add the Product Sales by Year report to the dashboard, from the Browse pane:
-2. Expand the Steel Wheels -> Widget Library -> Analysis Views folder.
-3. From the Files pane, drag: 'Product Sales by Year' to the Untitled 1 panel on the dashboard (or click the Insert Content icon on the Untitled 1 panel, click File, and double-click Product Sales by Year in Public > Steel Wheels > Widget Library > Analysis Views).
-4. To add a panel title, in the Title text box, type: 'Product Sales Analysis'.
+5. In the **Folders** pane of the browse panel, expand **Public > Steel Wheels > Widget Library > Analysis Views**.
+6. Drag **Product Sales by Year** from the **Files** pane onto the **Untitled 1** panel. (Or select the **Insert Content** icon on the **Untitled 1** panel, select **File**, and double-click **Product Sales by Year** in **Public > Steel Wheels > Widget Library > Analysis Views**.)
 
-> **Note:** To enable dashboard viewers to click a Product Name in the report and have the chart on the right update with the values associated with that product, you must enable content linking.
+> **Success:** Checkpoint: the panel shows Product Sales by Year, with sales by product for 2003 to 2005.
 
-5. To enable content linking for the Product Name field:
+7. Set **Title** to `Product Sales Analysis`.
 
-&#x20;      • In the bottom pane, click the Content Linking tab.
+To let dashboard viewers select a product in the report and have the chart on the right update with that product's values, enable content linking.
 
-&#x20;      • Click the Enabled checkbox for Product.
+8. In the bottom pane, open the **Content Linking** tab, select **Enabled** for **Product**, and select **Apply**.
 
-&#x20;      • Click Apply.
-
-<figure><img src="../_assets/images/dd_product_content_linking_product.png" alt=""><figcaption><p>Content Linking - Product</p></figcaption></figure>
+<figure><img src="../_assets/images/dd_product_content_linking_product.png" alt="Product Sales Analysis panel Content Linking tab with Product checked and Years cleared, its content being Product Sales by Year"><figcaption><p>Content Linking - Product</p></figcaption></figure>
 
 > **Under the hood:**
 >
@@ -86,75 +75,48 @@ Product Sales by Year
 > is exactly what lets you wire any panel to any other later without
 > touching the report.
 
-### Content Linking
+### 2. Content Linking
 
-#### Territory Sales Mix
+> **Note:**
+>
+> #### Territory Sales Mix
+>
+> Add a pie chart of sales by territory for the product a viewer selects in Product Sales Analysis, and make its territories selectable in turn.
 
-> **Note:** To allow dashboard users click a 'Product Name' in the report and have the chart on the right update with the values associated with that product, enable content linking.
+<figure><img src="../_assets/images/dd_product.png" alt="Query Editor with Territory and SUM of Total selected and a Product Name exactly matches condition whose truncated Value and Default hold the PRODUCT parameter and a schooner default"><figcaption><p>The Territory Sales Mix query</p></figcaption></figure>
 
-<figure><img src="../_assets/images/dd_product.png" alt=""><figcaption></figcaption></figure>
+1. Select the **Insert Content** icon at the top right of the **Untitled 2** panel, and select **Chart**.
+2. In the **Select Data Source** dialog, select **Orders**, and select **OK**.
+3. In the **Categories / Columns** list, select **Customer > Territory**, and select the top arrow to move it to **Selected Columns**. Select **Orders > Total**, and move it the same way. Set the **Aggregation** of **Total** to **SUM**, if it is not already.
+4. Add a condition on Product Name: select **Products > Product Name** in the **Categories / Columns** list, and select the middle arrow (the one beside **Switch to Advanced...**) to move it to **Conditions**. The bottom arrow adds it to **Order By** instead. Keep **Comparison** at **exactly matches**, enter `{PRODUCT}` in **Value** and `18th century schooner` in **Default**, and select **OK**.
+5. Fill in the **Chart Designer** fields, and select **OK**:
 
-1. Click the Insert Content icon at the top right of the Untitled 2 panel, and then click Chart.
-2. From the Select Data Source dialog, click Orders, and then click OK.
-3. Add columns to the Selected Columns:
+<figure><img src="../_assets/images/dd_product_pie_chart_territory_sales.png" alt="Chart Designer pie chart with Series Territory, Values Total and title Click on a Product name to update, previewing APAC, EMEA, Japan and NA slices"><figcaption><p>Pie Chart - Territory Sales</p></figcaption></figure>
 
-&#x20;      • From the Categories/Columns click Customer > Territory.
+| Field         | Entry                                |
+| ------------- | ------------------------------------ |
+| Chart Type    | **Pie Chart**                        |
+| Theme         | **Legacy**                           |
+| Series Column | Territory                            |
+| Values Column | Total                                |
+| Chart Title   | `Click on a Product Name to update:` |
 
-&#x20;      • Click the top arrow to move Territory to the Selected Columns area.
+> **Success:** Checkpoint: the pie shows the sales of the default product, 18th century schooner, split into APAC, EMEA, Japan and NA.
 
-&#x20;      • From the Categories/Columns click Orders -> Total.
+6. Set **Title** to `Territory Sales Mix for`, and select the **Add parameters to title** icon beside it. The icon adds `{PRODUCT}` to the end of the title.
 
-&#x20;      • Click the top arrow to move Total to the Selected Columns area.
+<figure><img src="../_assets/images/dd_product_add_product_param_to_title_and_pickup_for_pie_cha.png" alt="Untitled 2 panel properties with a Title of Territory Sales Mix for plus the PRODUCT parameter, and the PRODUCT Source list offering Product Sales Analysis - Product"><figcaption><p>Add {PRODUCT} param to Title &#x26; pickup for Pie Chart.</p></figcaption></figure>
 
-4. Add a condition for Product Name:
+7. Take the product from the Product Sales Analysis report: in the bottom pane, open the **Parameters** tab, and set the **Source** of **PRODUCT** to **Product Sales Analysis - Product**.
+8. Open the **Content Linking** tab, select **Enabled** for **Territory**, and select **Apply**.
 
-&#x20;      • From the Categories / Columns list, click Products > Product Name.
-
-&#x20;      • Click the middle arrow (the one beside Switch to Advanced...) to move Product Name to the Conditions area. The bottom arrow adds it to Order By instead.
-
-&#x20;      • In the Value field, type {PRODUCT}.
-
-&#x20;      • In the Default field, type: 18th century schooner.
-
-&#x20;      • Click OK.
-
-5. To create the pie chart, complete the following fields in the Chart Designer window, and then click OK.
-
-<figure><img src="../_assets/images/dd_product_pie_chart_territory_sales.png" alt=""><figcaption><p>Pie Chart - Territory Sales</p></figcaption></figure>
-
-| Field         | Entry                              |
-| ------------- | ---------------------------------- |
-| Chart Type    | Pie Chart                          |
-| Theme         | Legacy                             |
-| Series Column | Territory                          |
-| Values Column | Total                              |
-| Chart Title   | Click on a Product Name to update: |
-
-6. To add a panel title with the parameter, in the **Title** text box, type **Territory Sales Mix for**, and then click the **Add parameters to title** icon beside it. The icon adds **{PRODUCT}** to the end of the title.
-
-<figure><img src="../_assets/images/dd_product_add_product_param_to_title_and_pickup_for_pie_cha.png" alt=""><figcaption><p>Add {PRODUCT} param to Title &#x26; pickup for Pie Chart.</p></figcaption></figure>
-
-7. To create a parameter that obtains the Product Name from the Product Sales Analysis report:
-
-&#x20;      • In the bottom pane, click the **Parameters** tab.
-
-&#x20;      • From the **Source** drop-down list, select **Product Sales Analysis - Product**.
-
-8. To enable content linking for the Territory field:
-
-&#x20;      • In the bottom pane, click the **Content Linking** tab.
-
-&#x20;      • Click the **Enabled** checkbox for **Territory**.
-
-&#x20;      • Click **Apply**.
-
-<figure><img src="../_assets/images/dd_product_pass_product_and_content_link_territory.png" alt=""><figcaption><p>Pass {PRODUCT} and content link {TERRITORY}</p></figcaption></figure>
+<figure><img src="../_assets/images/dd_product_pass_product_and_content_link_territory.png" alt="Dashboard Designer with the Territory Sales Mix for {PRODUCT} pie beside Product Sales Analysis, its PRODUCT parameter sourced from Product Sales Analysis - Product"><figcaption><p>Pass {PRODUCT} and content link {TERRITORY}</p></figcaption></figure>
 
 > **Under the hood:**
 >
 > #### {PRODUCT} is substituted before the query runs
 >
-> The condition Product Name = `{PRODUCT}` is a parameterised
+> The condition Product Name = `{PRODUCT}` is a parameterized
 > constraint; the default (18th century schooner) fills it when the
 > dashboard opens. Mapping the chart's PRODUCT source to *Product Sales
 > Analysis – Product* subscribes the panel to the report's output: each
@@ -168,75 +130,43 @@ Product Sales by Year
 
 ***
 
-#### Bar Chart
+**Bar Chart**
 
-> **Note:** Finally .. create a bar chart showing the number of orders for the product selected on the Product Sales by Year report and the Territory.&#x20;
+Last, add a bar chart of the number of orders for the product selected in Product Sales by Year and the territory selected in the pie.
 
-1. Click the **Insert Content** icon at the top right of the **Untitled 3** panel, and then click **Chart**.
-2. From the **Select Data Source** dialog, click **Orders**, and then click **OK**.
+9. Select the **Insert Content** icon at the top right of the **Untitled 3** panel, and select **Chart**.
+10. In the **Select Data Source** dialog, select **Orders**, and select **OK**.
 
-<figure><img src="../_assets/images/dd_product_query_order_status.png" alt=""><figcaption><p>Query - Order Status</p></figcaption></figure>
+<figure><img src="../_assets/images/dd_product_query_order_status.png" alt="Query Editor with Status, Product Name and COUNT_DISTINCT Order Number selected, and conditions on Product Name and Territory using the PRODUCT and TERRITORY parameters"><figcaption><p>Query - Order Status</p></figcaption></figure>
 
-3. Add columns to the Selected Columns:
+11. In the **Categories / Columns** list, select **Orders > Status** and select the top arrow to move it to **Selected Columns**. Move **Products > Product Name** and **Orders > Order Number** to **Selected Columns** the same way.
+12. To count distinct orders, set the **Aggregation** of **Order Number** to **COUNT_DISTINCT**.
+13. Add two conditions: select each column in the **Categories / Columns** list and select the middle arrow (the one beside **Switch to Advanced...**) to move it to **Conditions**, then fill in its row. Select **OK**.
 
-&#x20;      • From the **Categories / Columns** click **Orders -> Status**.
+| Column                  | Comparison          | Value         | Default                 |
+| ----------------------- | ------------------- | ------------- | ----------------------- |
+| Products > Product Name | **exactly matches** | `{PRODUCT}`   | `18th century schooner` |
+| Customer > Territory    | **exactly matches** | `{TERRITORY}` | `NA`                    |
 
-&#x20;      • Click the **top arrow** to move **Status** to the **Selected Columns** area.
+14. Fill in the **Chart Designer** fields, and select **OK**:
 
-&#x20;      • From the **Categories / Columns** click **Products > Product Name**.
+<figure><img src="../_assets/images/dd_product_2.png" alt="Chart Designer bar chart with Legacy theme, Series Status, Category Product Name, Values Order Number COUNT_DISTINCT and title Click on a Territory in the report above"><figcaption><p>The Order Status bar chart in the Chart Designer</p></figcaption></figure>
 
-&#x20;      • Click the **top arrow** to move **Product Name** to the **Selected Columns** area.
+| Field           | Entry                                       |
+| --------------- | ------------------------------------------- |
+| Chart Type      | **Bar Chart**                               |
+| Theme           | **Legacy**                                  |
+| Series Column   | Status                                      |
+| Category Column | Product Name                                |
+| Values Column   | Order Number (COUNT\_DISTINCT)              |
+| Chart Title     | `Click on a Territory in the report above:` |
 
-&#x20;      • From the **Categories/Columns** click **Orders > Order Number**.
+> **Success:** Checkpoint: with the defaults, 18th century schooner in NA, the bar chart shows 7 `Shipped` orders, 1 `On Hold` and 1 `Cancelled`.
 
-&#x20;      • Click the **top arrow** to move **Order Number** to the **Selected Columns** area.
+<figure><img src="../_assets/images/dd_product_3.png" alt="Dashboard with an Order Status bar chart for 18th century schooner titled with the PRODUCT and TERRITORY parameters, its TERRITORY source set to the Territory Sales Mix panel"><figcaption><p>The Order Status panel and its parameters</p></figcaption></figure>
 
-4. To count the number of distinct orders, from the **Aggregation** drop-down list for **Order Number**, select **COUNT\_DISTINCT**.
-5. Add conditions for Product Name and Territory:
-
-&#x20;      • From the **Categories / Columns** list, click **Products -> Product Name**.
-
-&#x20;      • Click the **middle arrow** (the one beside Switch to Advanced...) to move **Product Name** to the **Conditions** area.
-
-&#x20;      • In the **Value** field, type **{PRODUCT}**.
-
-&#x20;      • In the **Default** field, type **18th century schooner**.
-
-&#x20;      • From the **Categories/Columns** list, click **Customer -> Territory**.
-
-&#x20;      • Click the **middle arrow** to move **Territory** to the **Conditions** area.
-
-&#x20;      • In the Value field, type **{TERRITORY}**.
-
-&#x20;      • In the **Default** field, type **NA**.
-
-&#x20;      • Click **OK**.
-
-6. Complete the following fields in the **Chart Designer** window, and then click **OK**.
-
-<figure><img src="../_assets/images/dd_product_2.png" alt=""><figcaption></figcaption></figure>
-
-| Field           | Entry                                     |
-| --------------- | ----------------------------------------- |
-| Chart Type      | Bar Chart                                 |
-| Theme           | Legacy                                    |
-| Series Column   | Status                                    |
-| Category Column | Product Name                              |
-| Values Column   | Order Number (COUNT\_DISTINCT)            |
-| Chart Title     | Click on a Territory in the report above: |
-
-<figure><img src="../_assets/images/dd_product_3.png" alt=""><figcaption></figcaption></figure>
-
-7. In the **Title** text box, type **Order Status for**, and then click the **Add parameters to title** icon. The icon adds **{PRODUCT} & {TERRITORY}**.
-8. To create parameters that obtain the Product Name from the Product Sales Analysis report and the Territory from the Territory Sales Mix chart:
-
-&#x20;      • In the bottom pane, click the **Parameters** tab.
-
-&#x20;      • From the **Source** drop-down list for **PRODUCT**, select **Product Sales Analysis - Product**.
-
-&#x20;      • From the **Source** drop-down list for **TERRITORY**, select **Territory Sales Mix for {PRODUCT} - Territory**.
-
-&#x20;      • Click **Apply**.
+15. Set **Title** to `Order Status for`, and select the **Add parameters to title** icon. The icon adds `{PRODUCT} & {TERRITORY}`.
+16. Take both parameters from the other panels: on the **Parameters** tab, set the **Source** of **PRODUCT** to **Product Sales Analysis - Product**, and the **Source** of **TERRITORY** to **Territory Sales Mix for {PRODUCT} - Territory**. Select **Apply**.
 
 > **Under the hood:**
 >
@@ -245,31 +175,32 @@ Product Sales by Year
 > Choosing an aggregation on Order Number changed that MQL selection's
 > aggregation from NONE to COUNT_DISTINCT, and the metadata layer
 > emitted a `SELECT` of status and product name with
-> `COUNT(DISTINCT ordernumber)`, both parameterised constraints in the
+> `COUNT(DISTINCT ordernumber)`, both parameterized constraints in the
 > WHERE clause, and a `GROUP BY` on the non-aggregated columns. The two
 > parameters come from two different publishers, so a click on the
 > report re-runs the pie and then the bar; a click on the pie re-runs
 > only the bar.
 >
 > **Why it matters:** three panels, one distinct count in the right
-> place (the database), and a cascade you can trace just by reading
-> which panel publishes what.
+> place (the database), and a cascade you can trace by reading which
+> panel publishes what.
 
 ***
 
-9. To save the dashboard, on the toolbar click the **Save** icon. Click the **Up One Level** icon twice, double-click **Public** and then **Training**, type **Product Performance Dashboard** in the **Filename** field, and click **Save**.
+17. On the toolbar, select the **Save** icon. Select the **Up One Level** icon twice, double-click **Public** and then **Training**, set **Filename** to `Product Performance Dashboard`, and select **Save**.
 
-> **Note:** Content linking only works once the dashboard is saved. To try it:
->
-> On the main toolbar, click the **Edit Content** button to leave edit mode.
->
-> From the Product Sales Analysis report, click **1900s Vintage Tri-Plane**.
->
-> From the **Territory Sales Mix** chart, click **NA**.
+Content linking works only once the dashboard is saved. Try it:
 
-> **Tip:** Until you click, the two chart titles read **&lt;default&gt;** where the parameters go, and the charts use the defaults (18th century schooner, NA). After the two clicks, the pie shows EMEA 47% and NA 34% for 1900s Vintage Tri-Plane, and the bar chart shows 8 Shipped orders and 1 On Hold, as in the picture below.
+18. On the main toolbar, select **Edit Content** to leave edit mode.
 
-<figure><img src="../_assets/images/dd_product_content_linking.png" alt=""><figcaption></figcaption></figure>
+> **Success:** Checkpoint: until you click, the two chart titles read **&lt;default&gt;** where the parameters go, and the charts use the defaults (18th century schooner, NA).
+
+19. In the Product Sales Analysis report, select **1900s Vintage Tri-Plane**.
+20. In the **Territory Sales Mix** chart, select **NA**.
+
+> **Success:** Checkpoint: after the two clicks, the pie shows EMEA 47% and NA 34% for 1900s Vintage Tri-Plane, and the bar chart shows 8 Shipped orders and 1 On Hold, as in the picture below.
+
+<figure><img src="../_assets/images/dd_product_content_linking.png" alt="Product Performance Dashboard after both clicks, with the pie for 1900s Vintage Tri-Plane and the Order Status chart for Tri-Plane and NA showing Shipped and On Hold bars"><figcaption><p>The dashboard after selecting a product and a territory</p></figcaption></figure>
 
 :::
 
@@ -290,5 +221,6 @@ Also on disk at `C:\Workshop-BA-Practitioner\05-dashboard-designer\15-dashboard-
 To open it in the User Console:
 
 1. In **Browse Files**, select your own folder under **Home** (Home > admin, say), so the solution sits apart from your own dashboard in Public > Training.
-2. In the **Folder Actions** pane, click **Upload...**, click **Browse...** and choose the `.xdash` file, and then click **OK**.
-3. Double-click **Product Performance Dashboard** to run it, click a product and then a territory, and click **Edit** on the toolbar to see each panel's parameters and content linking.
+2. In the **Folder Actions** pane, select **Upload...**, select **Browse...** and choose the `.xdash` file, and then select **OK**.
+3. If the file is not listed under **Files** yet, select the **Refresh** icon (the circular arrow beside **Folders**).
+4. Double-click **Product Performance Dashboard** to run it, select a product and then a territory, and select **Edit** on the toolbar to see each panel's parameters and content linking.

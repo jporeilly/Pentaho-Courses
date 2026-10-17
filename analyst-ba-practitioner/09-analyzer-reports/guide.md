@@ -4,15 +4,19 @@
 >
 > #### Introduction
 > 
-> Pentaho Analyzer is an interactive analysis tool that provides you with a rich Web-based, drag-and-drop user interface, which makes it easy for you to create reports based on your exploration of your data.&#x20;
+> Pentaho Analyzer is an interactive analysis tool that provides you with a rich Web-based, drag-and-drop user interface for creating reports as you explore your data.&#x20;
 > 
 > You can also display Pentaho Analyzer reports in a dashboard. Unlike standard reports which tend to be static or minimally interactive after they are created, Pentaho Analyzer reports allow you to explore your data dynamically and to drill down into the data to discover previously hidden details.
 
-**🎥 Embed:** [Analyzer](<https://www.loom.com/share/c6a12105d1bc486dbc60849a6bb30dd5?hideEmbedTopBar=true&hide_owner=true&hide_share=true&hide_title=true>)
+<figure>
+
+<figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
+
+</figure>
 
 > **Note:** Pentaho Analyzer presents data multi-dimensionally and lets you select what dimensions and measures you want to explore. Use Analyzer to drill, slice, dice, pivot, filter, chart data and create calculated fields. Users of Analyzer reports can query the data in a database without having to understand how the database is structured.
 
-<figure><img src="../_assets/images/az_schema_workbench_steelwheels.png" alt=""><figcaption><p>Schema Workbench - SteelWheels</p></figcaption></figure>
+<figure><img src="../_assets/images/az_schema_workbench_steelwheels.png" alt="Schema Workbench with the SteelWheels schema open and the Territory level of the Markets dimension selected, showing column TERRITORY and type String in the Level for Hierarchy panel"><figcaption><p>Schema Workbench - SteelWheels</p></figcaption></figure>
 
 > **Note:** Before you can create an Analyzer Report you must have access to a data source, (relational database table(s) or a CSV file) provided by an administrator or a user with create data source permission. The data source used for an Analyzer Report is based on a Mondrian schema (also referred to as an Analysis Model).&#x20;
 > 

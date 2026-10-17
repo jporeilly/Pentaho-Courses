@@ -3,81 +3,63 @@
 > **Warning:**
 >
 > #### Workshop - Inventory
-> 
-> Query-based dashboards in Dashboard Designer let you build data tables and charts directly from a data source, without pre-existing reports — ideal for custom data views or rapid prototyping.
-> 
-> In this workshop, you build a query-based Inventory dashboard in the Pentaho User Console, connecting to the Inventory data source and constructing metadata queries that you turn into a data table and a chart.
-> 
+>
+> Query-based dashboards in Dashboard Designer build data tables and charts directly from a data source, without existing reports: useful for custom data views or rapid prototyping.
+>
+> In this workshop, you build a query-based Inventory dashboard in the Pentaho User Console, writing metadata queries on the Inventory data source and turning them into a data table and a chart.
+>
 > **What you'll do**
-> 
-> * Select and configure dashboard layout templates (2 Column) and themes (Crystal) for visual presentation
-> * Set dashboard properties including title (Inventory Dashboard)
-> * Connect to the Inventory data source using the metadata layer
-> * Build a data table component by constructing a metadata query that selects Product Line, Product Name, Quantity In Stock, and MSRP
-> * Apply sorting (ascending by Product Line) to organize tabular data logically
-> * Configure data table properties and apply custom titles (Inventory Table)
-> * Create a chart component using the same Inventory data source with a new query
-> * Implement query filters by adding conditions (Product Line begins with "M") to focus on specific data subsets
-> * Design a chart using the Chart Designer by mapping columns to chart elements (Series, Category, Values)
-> * Configure chart properties including chart title, axis labels, and visual presentation
-> 
-> **Prerequisites:** Pentaho Business Analytics Server with Inventory metadata data source configured
-> 
+>
+> * Select the 2 Column layout template and the Crystal theme, and title the dashboard
+> * Build a data table from a metadata query on the Inventory data source: Product Line, Product Name, Quantity In Stock, and MSRP, sorted by Product Line
+> * Build a chart from a second query, with a condition that keeps the product lines beginning with M
+> * Map the query's columns onto the chart in the Chart Designer, and title the chart and its axes
+> * Save the dashboard to Public > Training
+>
+> **Prerequisites:** [Vendor Sales](../13-dashboard-designer-vendor-sales/guide.md), and the Steel Wheels Inventory data source on the Pentaho Server
+>
 > **Estimated time:** 30 minutes
 
-<figure><img src="../_assets/images/dd_inventory_inventory_dashboard.png" alt=""><figcaption><p>Inventory Dashboard</p></figcaption></figure>
+<figure><img src="../_assets/images/dd_inventory_inventory_dashboard.png" alt="Inventory Dashboard with an Inventory Table of Product Line, Product Name, Quantity In Stock and MSRP beside an Inventory bar chart of MSRP by Qty for Motorcycles"><figcaption><p>Inventory Dashboard</p></figcaption></figure>
 
 ::: tabs
 
-### Template & Data Source
+### 1. Template & Data Source
 
 > **Note:**
 >
 > #### Dashboard Templates
-> 
-> Creating a dashboard in Dashboard Designer is as simple as choosing a layout template, theme, and the content you want to display.
+>
+> Creating a dashboard in Dashboard Designer starts with choosing a layout template, a theme, and the content you want to display.
 
-<figure><img src="../_assets/images/dd_inventory_template_2_column.png" alt=""><figcaption><p>Template - 2 column</p></figcaption></figure>
+<figure><img src="../_assets/images/dd_inventory_template_2_column.png" alt="Dashboard Designer with the two-column Inventory Dashboard layout of Untitled 1 and Untitled 2, and the Untitled 1 Insert Content menu open on Data Table"><figcaption><p>Template - 2 column</p></figcaption></figure>
 
-1. From the User Console Home Perspective, click Create New -> Dashboard.
-2. On the Templates tab, click 2 Column.
-3. On the Themes tab, select Crystal.
-4. Click the Properties tab, and in the Page Title box type Inventory Dashboard.
-5. Click the Insert Content icon at the top right of the Untitled 1 panel, and then click Data Table.
-6. From the Select Data Source dialog, click Inventory, and then click OK.
+1. Select the perspective drop-down and select **Home**, then select **Create New > Dashboard**.
+2. On the **Templates** tab, select **2 Column**.
+3. On the **Themes** tab, select **Crystal**.
+4. Open the **Properties** tab, and set **Page Title** to `Inventory Dashboard`.
+5. Select the **Insert Content** icon at the top right of the **Untitled 1** panel, and select **Data Table**.
+6. In the **Select Data Source** dialog, select **Inventory**, and select **OK**.
 
-<figure><img src="../_assets/images/dd_inventory_inventory_data_source.png" alt=""><figcaption><p>Inventory - data source</p></figcaption></figure>
+<figure><img src="../_assets/images/dd_inventory_inventory_data_source.png" alt="Select Data Source dialog with Inventory highlighted in the list of data sources, above OK and Cancel buttons"><figcaption><p>Inventory - data source</p></figcaption></figure>
 
-### Content
+> **Success:** Checkpoint: the **Query Editor** opens on the Inventory data source, with its categories in the **Categories / Columns** list.
 
-> **Note:** 
+### 2. Content
 
-#### Data Table
+> **Note:**
+>
+> #### Data Table and Chart
+>
+> Build the left panel's data table and the right panel's chart, each from its own metadata query on the Inventory data source.
 
-<figure><img src="../_assets/images/dd_inventory_product_queries.png" alt=""><figcaption><p>Product Queries</p></figcaption></figure>
+**Data Table**
 
-1. Add Product Line to the Selected Columns:
+<figure><img src="../_assets/images/dd_inventory_product_queries.png" alt="Query Editor with Product Line, Product Name, Quantity In Stock and MSRP selected and Order By Product Line, its Order list open on ASC and DESC"><figcaption><p>Product Queries</p></figcaption></figure>
 
-&#x20;      • From the Categories/Columns list, expand Products.
-
-&#x20;      • Click Product Line.
-
-&#x20;      • Click the top arrow to move Product Line to the Selected Columns area.
-
-2. Repeat the previous step to add Products -> Product Name, Inventory and Cost > Quantity In Stock, and Inventory and Cost -> MSRP to the Selected Columns area.
-3. To ASC Sort by Product Line and create the table:
-
-&#x20;      • From the Categories/Columns list, click Product Line.
-
-&#x20;      • Click the bottom arrow to move Product Line to the Order By area.
-
-&#x20;      • In the Order By area, from the Order drop-down list, select ASC (the Query Editor adds an order as DESC).
-
-&#x20;      • Click OK.
-
-4. In the Title text box, type Inventory Table, and then click Apply.
-
-<figure><img src="../_assets/images/dd_inventory_inventory_table.png" alt=""><figcaption><p>Inventory Table</p></figcaption></figure>
+1. In the **Categories / Columns** list, expand **Products**, select **Product Line**, and select the top arrow to move it to **Selected Columns**.
+2. Add **Products > Product Name**, **Inventory and Cost > Quantity In Stock**, and **Inventory and Cost > MSRP** to **Selected Columns** the same way.
+3. Sort the table by Product Line: select **Product Line** in the **Categories / Columns** list, and select the bottom arrow to move it to **Order By**. In the **Order By** area, set **Order** to **ASC** (the Query Editor adds an order as **DESC**). Select **OK**.
 
 > **Under the hood:**
 >
@@ -92,64 +74,44 @@
 > **Why it matters:** a business user joined two tables correctly by
 > clicking, because the join was decided once, by the model's author.
 
+4. Set **Title** to `Inventory Table`, and select **Apply**.
+
+<figure><img src="../_assets/images/dd_inventory_inventory_table.png" alt="Inventory Table data table with Product Line, Product Name, Quantity In Stock and MSRP columns, Classic Cars rows first, on page 1 of 6 of 110 rows"><figcaption><p>Inventory Table</p></figcaption></figure>
+
+> **Success:** Checkpoint: the Inventory Table opens on Classic Cars (Vintage Cars come last) and reads Displaying 1 - 20 of 110.
+
 ***
 
-#### Chart
+**Chart**
 
-> **Note:** 
+5. Select the **Insert Content** icon at the top right of the **Untitled 2** panel, and select **Chart**.
+6. In the **Select Data Source** dialog, select **Inventory**, and select **OK**.
 
-1. Click the Insert Content icon at the top right of the Untitled 2 panel, and then click Chart.
-2. From the Select Data Source dialog, click Inventory, and then click OK.
+<figure><img src="../_assets/images/dd_inventory_condition_product_line_begins_with_m.png" alt="Query Editor with Product Line, Quantity In Stock and MSRP selected and the condition Product Line begins with M"><figcaption><p>Condition: Product Line begins with M</p></figcaption></figure>
 
-<figure><img src="../_assets/images/dd_inventory_condition_product_line_begins_with_m.png" alt=""><figcaption><p>Condition: Product Line begins with M</p></figcaption></figure>
+7. In the **Categories / Columns** list, expand **Products**, select **Product Line**, and select the top arrow to move it to **Selected Columns**. Expand **Inventory and Cost**, and move **Quantity In Stock** and then **MSRP** to **Selected Columns** the same way.
+8. Add a condition on Product Line: select **Product Line** in the **Categories / Columns** list, and select the middle arrow (the one beside **Switch to Advanced...**) to move it to **Conditions**. The bottom arrow adds it to **Order By** instead. Set **Comparison** to **begins with**, and enter `M` in **Value**.
+9. Select **OK**. The **Chart Designer** opens.
+10. Fill in the **Chart Designer** fields, and select **OK**:
 
-3. Add columns to the Selected Columns:
-
-&#x20;      • From the Categories/Columns list expand Products.
-
-&#x20;      • Click Product Line.
-
-&#x20;      • Click the top arrow to move Product Line to the Selected Columns area.
-
-&#x20;      • Expand Inventory and Cost.
-
-&#x20;      • Click Quantity In Stock.
-
-&#x20;      • Click the top arrow to move Quantity In Stock to the Selected Columns area.
-
-&#x20;      • Click MSRP.
-
-&#x20;      • Click the top arrow to move MSRP to the Selected Columns area.
-
-4. Add a condition for Product Line and open the Chart Designer:
-
-&#x20;      • From the Categories/Columns list, click Product Line.
-
-&#x20;      • Click the middle arrow (the one beside Switch to Advanced...) to move Product Line to the Conditions area. The bottom arrow adds it to Order By instead.
-
-&#x20;      • From the Comparison drop-down list, select begins with.
-
-&#x20;      • In the Value column, type M.
-
-&#x20;      • Click OK. The Chart Designer opens.
-
-5. To create the chart, complete the following fields in the Chart Designer window, and then click OK:
-
-<figure><img src="../_assets/images/dd_inventory_chart.png" alt=""><figcaption><p>Chart</p></figcaption></figure>
+<figure><img src="../_assets/images/dd_inventory_chart.png" alt="Chart Designer bar chart with Series Product Line, Category Quantity In Stock, Values MSRP, title Inventory, X axis Qty and Y axis MSRP, previewing Motorcycles"><figcaption><p>Chart</p></figcaption></figure>
 
 | Field           | Entry             |
 | --------------- | ----------------- |
+| Chart Type      | **Bar Chart**     |
+| Theme           | **Default**       |
 | Series Column   | Product Line      |
 | Category Column | Quantity In Stock |
 | Values Column   | MSRP              |
-| Chart Title     | Inventory         |
-| X Axis Title    | Qty               |
-| Y Axis Title    | MSRP              |
+| Chart Title     | `Inventory`       |
+| X Axis Title    | `Qty`             |
+| Y Axis Title    | `MSRP`            |
 
-6. In the Title text box, type Inventory, and then click Apply.
-7. To save the dashboard, on the toolbar click the Save icon. Click the Up One Level icon twice, double-click Public and then Training, type Inventory Dashboard in the Filename field, and click Save.
+11. Set **Title** to `Inventory`, and select **Apply**.
 
-> **Tip:** Check your dashboard: the Inventory Table opens on Classic Cars (Vintage Cars come last) and reads Displaying 1 - 20 of 110, and the Inventory chart has a single series, Motorcycles, the only product line that begins with M.
+> **Success:** Checkpoint: the Inventory chart has a single series, Motorcycles, the only product line that begins with M.
+
+12. On the toolbar, select the **Save** icon. Select the **Up One Level** icon twice, double-click **Public** and then **Training**, set **Filename** to `Inventory Dashboard`, and select **Save**.
 
 > **Under the hood:**
 >
@@ -184,5 +146,6 @@ Also on disk at `C:\Workshop-BA-Practitioner\05-dashboard-designer\14-dashboard-
 To open it in the User Console:
 
 1. In **Browse Files**, select your own folder under **Home** (Home > admin, say), so the solution sits apart from your own dashboard in Public > Training.
-2. In the **Folder Actions** pane, click **Upload...**, click **Browse...** and choose the `.xdash` file, and then click **OK**.
-3. Double-click **Inventory Dashboard** to run it, and click **Edit** on the toolbar to see each panel's query.
+2. In the **Folder Actions** pane, select **Upload...**, select **Browse...** and choose the `.xdash` file, and then select **OK**.
+3. If the file is not listed under **Files** yet, select the **Refresh** icon (the circular arrow beside **Folders**).
+4. Double-click **Inventory Dashboard** to run it, and select **Edit** on the toolbar to see each panel's query.

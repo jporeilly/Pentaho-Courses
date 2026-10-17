@@ -25,7 +25,7 @@ This panel stays beside your tools for the whole workshop:
 
 - **Float or dock** — drag the title bar to move the window anywhere
   (any monitor), or use the dock button to pin it to the right edge of
-  the screen so maximised apps make room for it.
+  the screen so maximized apps make room for it.
 - **The sidebar** lists every section and lab. A <span data-icon="video"></span> badge means the lab
   includes a video; the `~15 min` tag is a time estimate.
 - Use the **font-size** and **reading-mode** controls in the toolbar if
@@ -34,14 +34,14 @@ This panel stays beside your tools for the whole workshop:
 ## Track your progress
 
 In every workshop lab, each numbered heading is a **step** with a
-checkbox — tick it when you're done. Progress is saved on this machine
+checkbox — select it when you're done. Progress is saved on this machine
 and survives restarts, so you can pick up exactly where you left off.
 (This orientation page doesn't track steps — the checkboxes start in
 the first workshop.)
 
 ## Copy code with one click
 
-Every code block has a **copy button** — hover over the block and click
+Every code block has a **copy button** — hover over the block and select
 it, then paste into your tool. Try it:
 
 ```sql
@@ -69,7 +69,7 @@ Pentaho Server starts by itself with it.
 > **Note:** **Give the Pentaho Server time to load.** It starts its
 > repository database first and then needs **3 to 5 minutes** to finish,
 > so it will not answer the moment you sign in. **Check your
-> environment**, just below these tabs, shows **Starting up** while it
+> environment**, directly below these tabs, shows **Starting up** while it
 > loads and turns green by itself. **Please don't click anything or
 > restart anything while it says so**: that only makes the server start
 > again from the beginning.
@@ -93,7 +93,7 @@ logins, for when you come back to it later.
 ### 1. Start the Pentaho Server
 
 The server ships with Pentaho, so there is nothing to install — you
-just start it. It brings up the User Console, the sample data and the
+start it. It brings up the User Console, the sample data and the
 reporting plugins together.
 
 1. Open PowerShell and run the start script from your Pentaho install:
@@ -185,7 +185,7 @@ Solution section gives the steps.
 <summary>The folder isn't there</summary>
 
 It is an optional component, so a **Minimal (app only)** install, or
-an unticked **Workshop lab files** box, skips it. Lay it down at any
+clearing the **Workshop lab files** box, skips it. Lay it down at any
 time from your install's `provisioning` folder:
 
 ```powershell
@@ -219,7 +219,7 @@ sources.
 
 :::
 
-When the last tab is done, **Check your environment** just below these
+When the last tab is done, **Check your environment** directly below these
 tabs should be all green. Nothing else is required.
 
 ::::
@@ -274,7 +274,7 @@ Every `solution` folder holds the **finished, working** answer to its
 workshop. Your own work never lives here: you build it in the User
 Console and save it to **Public > Training** on the server.
 
-**Confirm the files are there**, not just the folder: open
+**Confirm the files are there**, not only the folder: open
 `03-interactive-reports\06-interactive-reports-sales-territory\solution`
 and check you can see `Sales Territory Report - Demo.prpti`. An empty
 folder is the one thing worth catching now rather than in the middle
@@ -287,7 +287,7 @@ grounded in the official docs — ask it anything from "what does this
 step do?" to "why did my transformation fail?". It runs on a local
 model, so it works even when the VM is offline.
 
-## How this course is organised
+## How this course is organized
 
 Each section starts with an **overview page** (<span data-icon="page"></span> — background reading,
 no checkboxes) followed by **hands-on workshops** (<span data-icon="workshop"></span> — tracked steps).

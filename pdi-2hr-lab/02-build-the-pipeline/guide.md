@@ -2,7 +2,7 @@
 
 > **Warning:**
 >
-> #### Workshop — Build the Pipeline Yourself
+> #### Workshop - Build the Pipeline Yourself
 >
 > Now you build what you just ran: read the sales file, validate it,
 > and write the rejects to a file for the source team.
@@ -16,13 +16,11 @@
 > **Prerequisites:** 
 > * [Your First Win](../01-first-win/guide.md) pipeline completed.
 >
-> **Estimated Time:** 15 minutes
+> **Estimated time:** 15 minutes
 
 <figure>
 
-![Walkthrough](https://vimeo.com/placeholder)
-
-<figcaption class="pcm-video-caption">Watch: Build the Pipeline</figcaption>
+<figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
 
 </figure>
 
@@ -43,10 +41,10 @@ C:\Workshop\pdi-2hr\02-see-it-work\02-build-the-pipeline\
 
 ## Create a new transformation
 
-In PDI: **File > New > Transformation** (or `Ctrl+N`). You get an
+Select **File > New > Transformation** (`Ctrl+N`). You get an
 empty canvas and, on the left, the **Design** palette — every
-capability of the engine, organised by category. familiarize yourself with some of the Steps.
-Save the file/transformation (.ktr) as: 
+capability of the engine, organized by category. Familiarize yourself with some of the steps.
+Select **File > Save as** and save it as: 
 
 ```text
 C:\Workshop\pdi-2hr\02-see-it-work\02-build-the-pipeline\check_keys.ktr
@@ -55,22 +53,22 @@ C:\Workshop\pdi-2hr\02-see-it-work\02-build-the-pipeline\check_keys.ktr
 ## Read the file
 > **Note:**
 >
-> The **Text file input** step loads the product information from the `products.csv` file. It parses the comma-separated values (CSV) and identifies the header row, converting the raw text file into a structured data stream that PDI can process.
+> The **Text file input** step loads the day's sales orders from `sales_20260101.csv`. It parses the comma-separated values (CSV) and identifies the header row, converting the raw text file into a structured data stream that PDI can process.
 
-1. In the Design palette, open **Input** folder and drag **Text file input**
+1. On the **Design** tab, open the **Input** folder and drag **Text file input**
    onto the canvas.
 
 > **Tip:**
 >
-> This is a steep learning curve, so use the '**Search**' box to narrow down the hunt for the Step.
+> This is a steep learning curve, so use the **Search** box to narrow down the hunt for the Step.
 
-2. Double-click it. Name it `Read sales`.
-3. On the **File** tab, click **Browse**, pick:
+2. Double-click **Text file input**. Set **Step name** to `Read sales`.
+3. On the **File** tab, select **Browse** and pick:
 
 ```text
 C:\Workshop\pdi-2hr\02-see-it-work\02-build-the-pipeline\sales_20260101.csv
 ```
-4. then click **Add** so it appears in the *Selected files* grid.
+4. Select **Add** so it appears in the **Selected files** grid.
 <figure>
 
 ![Text file input dialog, File tab: Read sales with sales_20260101.csv listed under Selected files](../_assets/images/1788426433666.png)
@@ -80,21 +78,21 @@ C:\Workshop\pdi-2hr\02-see-it-work\02-build-the-pipeline\sales_20260101.csv
 </div>
 </figure>
 
-5. On the **Content** tab set:
+5. On the **Content** tab, set:
    -   **Separator** to: comma and make sure 
-   -   **Header** is ticked with 1 header line
+   -   **Header** is selected with 1 header line
    -   **Format** is: mixed
    -   **Encoding** is: UTF8
 <figure>
 
-![Text file input dialog, Content tab: separator comma, header ticked with 1 header line, format mixed, encoding UTF-8](../_assets/images/1788365622451.png)
+![Text file input dialog, Content tab: separator comma, header selected with 1 header line, format mixed, encoding UTF-8](../_assets/images/1788365622451.png)
 
 <div align="center">
 <figcaption><em>Content tab</em></figcaption>
 </div>
 </figure>
 
-6. On the **Fields** tab click **Get Fields** — PDI reads the file and detects every column and type for you. Accept the defaults.
+6. Open the **Fields** tab and select **Get Fields** — PDI reads the file and detects every column and type for you. Accept the defaults.
 <figure>
 
 ![Text file input dialog, Fields tab after Get Fields: seven detected columns, order_date typed as Date with format yyyy-MM-dd](../_assets/images/1788365750951.png)
@@ -109,7 +107,7 @@ C:\Workshop\pdi-2hr\02-see-it-work\02-build-the-pipeline\sales_20260101.csv
 > you'll point this same pipeline at *your own* file, and this
 > button is why that works.
 
-7. Click **Preview rows** at the bottom of the dialog — the same
+7. Select **Preview rows** at the bottom of the dialog — the same
    habit as Lab 1, available while you're still configuring.
 <figure>
 
@@ -120,7 +118,7 @@ C:\Workshop\pdi-2hr\02-see-it-work\02-build-the-pipeline\sales_20260101.csv
 </div>
 </figure>
 
-8. Click **OK**.
+8. Select **OK**.
 
 > **Under the hood:**
 >
@@ -153,15 +151,16 @@ C:\Workshop\pdi-2hr\02-see-it-work\02-build-the-pipeline\sales_20260101.csv
 >
 > Think of the **Filter rows** step as a fork in the road. It evaluates a condition and decides where each row should go next. In this lab, we use it to split the stream: valid records continue forward, while records that fail the validation (like a missing key) are diverted to a separate "rejects" file..
 
-1. From **Flow**, drag **Filter rows** onto the canvas.
-2. Draw a hop: hover over `Read sales`, drag from the output
-   connector to the filter (or hold `Shift` and drag between steps).
-3. Double-click the filter. Name it `Keys present?`.
+1. On the **Design** tab, open the **Flow** folder and drag **Filter rows** onto the canvas.
+2. Create a hop from **Read sales** to **Filter rows**: hold `Shift` and
+   drag from one step to the other (or hover over **Read sales** and drag
+   from its output connector to the filter).
+3. Double-click **Filter rows**. Set **Step name** to `Keys present?`.
 
 <div align="center">
 <figure>
 
-![Filter rows dialog: customer_id IS NOT NULL AND product_id IS NOT NULL, true rows to Dummy (do nothing), false rows to Rejects for source team](../_assets/images/1788366135657.png)
+![Filter rows dialog: customer_id IS NOT NULL AND product_id IS NOT NULL, true rows to Valid rows, false rows to Rejects for source team](../_assets/images/1788366135657.png)
 
 <figcaption><em>Filter keys</em></figcaption>
 </figure>
@@ -169,33 +168,33 @@ C:\Workshop\pdi-2hr\02-see-it-work\02-build-the-pipeline\sales_20260101.csv
 
 4. Build the condition: click the left field and pick
    `customer_id`, set the function to `IS NOT NULL`.
-5. Click **Add condition** (the + icon), set the second clause to
+5. Select **Add condition** (the + icon), set the second clause to
    `product_id IS NOT NULL`, joined with **AND**.
-6. Click **OK**.
+6. Select **OK**.
 
 ## Send the rejects to a file
 
-1. From **Output**, drag **Text file output** onto the canvas.
-2. Hop from `Keys present?` to it — when asked, choose the
-   **FALSE** (result is false) branch.
-3. Double-click it. Name it `Rejects for source team`. 
+1. On the **Design** tab, open the **Output** folder and drag **Text file output** onto the canvas.
+2. Create a hop from **Keys present?** to **Text file output**. When Spoon
+   asks, select the **FALSE** (result is false) branch.
+3. Double-click **Text file output**. Set **Step name** to `Rejects for source team`. 
 4. Set the **Filename** to: 
 
 ```text
 C:\Workshop\pdi-2hr\out\rejects
 ```
-PDI adds`.txt`; switch **Extension** to `csv` if you prefer.
+PDI adds the **Extension**, `txt`.
 
 <figure>
 
-![Text file output dialog, File tab: Rejects for source team writing to C:/Workshop/pdi-2hr/out/rejects with extension csv, Create parent folder and Do not create file at start ticked](../_assets/images/1788788198393.png)
+![Text file output dialog, File tab: Rejects for source team writing to C:/Workshop/pdi-2hr/out/rejects with extension txt and Create Parent folder selected](../_assets/images/1788788198393.png)
 
 <div align="center">
 <figcaption><em>Output File</em></figcaption>
 </div>
 </figure>
 
-4. On its **Fields** tab, click **Get Fields**, then **OK**.
+5. Open its **Fields** tab, select **Get Fields**, then select **OK**.
 
 <figure>
 
@@ -206,16 +205,18 @@ PDI adds`.txt`; switch **Extension** to `csv` if you prefer.
 </div>
 </figure>
 
-5. From **Flow**, drag a **Dummy (do nothing)** step on, and hop the
-   **TRUE** branch of the filter to it. Name it `Valid rows`.
+6. On the **Design** tab, open the **Flow** folder and drag **Dummy (do nothing)**
+   onto the canvas. Create a hop from **Keys present?** to **Dummy (do nothing)**
+   and select the **TRUE** branch. Double-click **Dummy (do nothing)** and set
+   **Step name** to `Valid rows`.
 
 ## Run it
 > **Note:**
 >
-> **Run options** define how the transformation engine executes your steps. The most common setting is **Number of copies**, which allows PDI to run multiple instances of a step in parallel to speed up processing for large datasets.
+> The **Run Options** dialog decides where and how this run happens: the **Run configuration** (**Pentaho local** runs it on this machine), the **Log level**, and values for any parameters. Running several copies of one step in parallel is a setting of the step, not of the run: right-click the step and select **Change Number of Copies to Start...**.
 
-1. Click **Run** (the ▶ in the canvas toolbar or F9), then **Run** again in
-   the dialog.
+1. Press `F9` (**Action > Run**, or the ▶ in the canvas toolbar), and select
+   **Run** in the **Run Options** dialog.
 
 <div align="center">
 <figure>
@@ -226,23 +227,23 @@ PDI adds`.txt`; switch **Extension** to `csv` if you prefer.
 </figure>
 </div>
 
-2. Watch the **Step Metrics** tab fill in: 40 rows read, 37 valid,
-   3 written to the reject file.
+2. In **Execution Results**, open the **Step Metrics** tab and watch it
+   fill in: 40 rows read, 37 valid, 3 written to the reject file.
 
 <figure>
 
-![Execution Results, Step Metrics tab: rows read, written and rejected for every step, all Finished](../_assets/images/1788367282631.png)
+![Execution Results, Step Metrics tab: Read sales writes 40, Valid rows reads 37 and Rejects for source team 3, all Finished](../_assets/images/1788367282631.png)
 
 <div align="center">
 <figcaption><em>Step metrics</em></figcaption>
 </div>
 </figure>
 
-3. Open `C:\Workshop\pdi-2hr\out\rejects.csv` — there are your three
+3. Open `C:\Workshop\pdi-2hr\out\rejects.txt` — there are your three
    bad rows, ready to send back to the source system's owner.
    * [ ] 40 rows read from the sales file.
    * [ ] 3 rows in the reject output.
-   * [ ] Run finishes with no errors (all steps green-ticked).
+   * [ ] Run finishes with no errors (every step shows a green check mark).
 
 > **Under the hood:**
 >
@@ -273,7 +274,7 @@ PDI adds`.txt`; switch **Extension** to `csv` if you prefer.
 <summary>The hop dialog didn't ask TRUE or FALSE</summary>
 
 Right-click the hop between the filter and the output step and
-choose which result to send down it — or right-click the filter step
+select which result to send down it — or right-click the filter step
 and set **Define error/result targets**. TRUE and FALSE hops are also
 editable inside the Filter rows dialog (the two "Send ... rows to"
 dropdowns at the top).

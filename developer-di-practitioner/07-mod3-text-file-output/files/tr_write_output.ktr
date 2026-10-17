@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>tr_ write_text</name>
+    <name>tr_write_output</name>
     <description>creates a survey</description>
     <extended_description>This trasformation shows how to generate a file.
 </extended_description>
@@ -437,57 +437,40 @@
   </info>
   <notepads>
     <notepad>
-      <note>Lab 2: Write Text File Output</note>
-      <xloc>112</xloc>
+      <note>tr_write_output - writes a customer survey file from a header and a question list.
+Needs the customer name as argument 1: Run Options &gt; Arguments (legacy), 01 = James.
+
+1. name: Get system info, text = command line argument 1.
+2. text +name: User defined Java expression, text = "Customer name: " + text.
+3. instructions: Data grid, three rows of text: 52 hyphens,
+   "Please answer the questions below:" and an empty row.
+4. Append streams: head text +name, tail instructions.
+5. survey questions: Text file input, ${Internal.Entry.Current.Directory}/questions.txt,
+   tab separator, no header, one field text, row number in question_num.
+6. question seq: User defined Java expression, text = question_num + ". " + text.
+7. select questions: Select values removes question_num.
+8. Append body: head Append streams, tail select questions.
+9. TFO - survey: Text file output to ${Internal.Entry.Current.Directory}/survey.txt,
+   no header, the file is created when the first row arrives.
+
+Shipped data: 7 lines in survey.txt: the customer line, 3 header lines, 3 questions.</note>
+      <xloc>256</xloc>
       <yloc>32</yloc>
-      <width>211</width>
-      <heigth>30</heigth>
+      <width>537</width>
+      <heigth>314</heigth>
       <fontname>Segoe UI</fontname>
-      <fontsize>11</fontsize>
-      <fontbold>Y</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>255</bordercolorred>
-      <bordercolorgreen>255</bordercolorgreen>
-      <bordercolorblue>255</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
-    <notepad>
-      <note>This guided demonstration illustrates how to write a file.  
-The first part of the transformation, defines the 'head':
-
-
-   Customer name:
-   ------------------------------------
-    Please answer the questions below:
-
-Which is then apended to the 'body', which adds the questions..
-
-    1. How many employees currently in your organisation?
-    2. Which ETL tool do you currently use?
-    3. What would you do if you had a magic wand?</note>
-      <xloc>112</xloc>
-      <yloc>80</yloc>
-      <width>567</width>
-      <heigth>361</heigth>
-      <fontname>Calibri Light</fontname>
-      <fontsize>11</fontsize>
+      <fontsize>10</fontsize>
       <fontbold>N</fontbold>
       <fontitalic>N</fontitalic>
       <fontcolorred>0</fontcolorred>
       <fontcolorgreen>0</fontcolorgreen>
       <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>255</bordercolorred>
-      <bordercolorgreen>255</bordercolorgreen>
-      <bordercolorblue>255</bordercolorblue>
+      <backgroundcolorred>167</backgroundcolorred>
+      <backgroundcolorgreen>224</backgroundcolorgreen>
+      <backgroundcolorblue>245</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
       <drawshadow>Y</drawshadow>
     </notepad>
   </notepads>
@@ -556,7 +539,7 @@ Which is then apended to the 'body', which adds the questions..
     </remotesteps>
     <GUI>
       <xloc>672</xloc>
-      <yloc>432</yloc>
+      <yloc>650</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -583,7 +566,7 @@ Which is then apended to the 'body', which adds the questions..
     </remotesteps>
     <GUI>
       <xloc>672</xloc>
-      <yloc>304</yloc>
+      <yloc>522</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -652,7 +635,7 @@ Which is then apended to the 'body', which adds the questions..
     </remotesteps>
     <GUI>
       <xloc>816</xloc>
-      <yloc>432</yloc>
+      <yloc>650</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -701,7 +684,7 @@ Which is then apended to the 'body', which adds the questions..
     </remotesteps>
     <GUI>
       <xloc>512</xloc>
-      <yloc>304</yloc>
+      <yloc>522</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -732,7 +715,7 @@ Which is then apended to the 'body', which adds the questions..
     </remotesteps>
     <GUI>
       <xloc>512</xloc>
-      <yloc>176</yloc>
+      <yloc>394</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -765,7 +748,7 @@ Which is then apended to the 'body', which adds the questions..
     </remotesteps>
     <GUI>
       <xloc>384</xloc>
-      <yloc>432</yloc>
+      <yloc>650</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -796,7 +779,7 @@ Which is then apended to the 'body', which adds the questions..
     </remotesteps>
     <GUI>
       <xloc>512</xloc>
-      <yloc>432</yloc>
+      <yloc>650</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -854,7 +837,7 @@ Which is then apended to the 'body', which adds the questions..
         <name>text</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -901,7 +884,7 @@ Which is then apended to the 'body', which adds the questions..
     </remotesteps>
     <GUI>
       <xloc>256</xloc>
-      <yloc>432</yloc>
+      <yloc>650</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -934,7 +917,7 @@ Which is then apended to the 'body', which adds the questions..
     </remotesteps>
     <GUI>
       <xloc>672</xloc>
-      <yloc>176</yloc>
+      <yloc>394</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

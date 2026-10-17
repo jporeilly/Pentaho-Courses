@@ -433,6 +433,56 @@
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
+    <notepad>
+      <note>log_analysis_anomaly - counts errors per hour in an application log and flags spikes.
+Reads and writes through the VFS connection named MinIO (pvfs://MinIO/...).
+
+1. Read App Log: Text file input, pvfs://MinIO/logs/app/application.log, each line
+   whole into log_line (separator ||||, no enclosure, no header).
+2. Regex evaluation: matches log_line; its capture groups become timestamp_str,
+   log_level, component and message, each trimmed.
+3. Select values: Meta-data only, timestamp_str to timestamp
+   (Timestamp, yyyy-MM-dd HH:mm:ss); every other field passes.
+4. Calculator: log_hour = hour of day of timestamp (Integer).
+5. Filter Errors: log_level CONTAINS ERROR OR log_level = WARN; rows that match go
+   to Sort rows, the rest go to All others.
+6. All others: Dummy (do nothing); the rows that fail the filter end here.
+7. Sort rows: by log_hour.
+8. Group by Hour: per log_hour, error_count (count of log_hour) and error_messages
+   (the messages, separated by commas).
+9. MJV - Rolling Avg: rolling_avg_errors = the average error_count of this hour
+   and up to two hours before it.
+10. Anomaly Detection: Formula, is_anomaly YES above 1.2 x rolling_avg_errors;
+    anomaly_severity CRITICAL above 1.5 x, WARNING above 1.2 x, else NORMAL.
+11. Switch / case: on anomaly_severity (String): CRITICAL to Output - Critical,
+    WARNING to Warning, NORMAL to Normal; the default is Output - Critical.
+12. Output - Critical: Text file output, pvfs://MinIO/logs/alerts/critical_alerts,
+    extension csv, date and time in the file name.
+13. Warning: Dummy (do nothing), ends the WARNING hours.
+14. Normal: Dummy (do nothing), ends the NORMAL hours.
+
+Shipped data: 123 log lines; 58 pass the filter and 65 go to All others.
+4 hours: 8 has 2 errors, 9 has 5, 10 has 50, 11 has 1. Hour 10 (average 19) is the one
+CRITICAL row in critical_alerts_&lt;date&gt;_&lt;time&gt;.csv; Warning gets 1 row and Normal 2.</note>
+      <xloc>96</xloc>
+      <yloc>32</yloc>
+      <width>512</width>
+      <heigth>548</heigth>
+      <fontname>Segoe UI</fontname>
+      <fontsize>10</fontsize>
+      <fontbold>N</fontbold>
+      <fontitalic>N</fontitalic>
+      <fontcolorred>0</fontcolorred>
+      <fontcolorgreen>0</fontcolorgreen>
+      <fontcolorblue>0</fontcolorblue>
+      <backgroundcolorred>167</backgroundcolorred>
+      <backgroundcolorgreen>224</backgroundcolorgreen>
+      <backgroundcolorblue>245</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
+      <drawshadow>Y</drawshadow>
+    </notepad>
   </notepads>
   <order>
     <hop>
@@ -522,7 +572,7 @@
     </remotesteps>
     <GUI>
       <xloc>608</xloc>
-      <yloc>208</yloc>
+      <yloc>740</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -563,7 +613,7 @@
     </remotesteps>
     <GUI>
       <xloc>608</xloc>
-      <yloc>336</yloc>
+      <yloc>868</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -604,7 +654,7 @@
     </remotesteps>
     <GUI>
       <xloc>480</xloc>
-      <yloc>96</yloc>
+      <yloc>628</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -669,7 +719,7 @@
     </remotesteps>
     <GUI>
       <xloc>608</xloc>
-      <yloc>96</yloc>
+      <yloc>628</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -721,7 +771,7 @@
     </remotesteps>
     <GUI>
       <xloc>752</xloc>
-      <yloc>208</yloc>
+      <yloc>740</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -750,7 +800,7 @@ if (typeof prev_error_1 == 'undefined') {
     prev_error_2 = 0;
 }
 
-if (rowNum == 1) {        // CHANGED: was rowNum == 0
+if (rowNum == 1) {
     // First row: no history, use current value
     rolling_avg_errors = error_count;
     prev_error_1 = error_count;
@@ -790,7 +840,7 @@ if (rowNum == 1) {        // CHANGED: was rowNum == 0
     </remotesteps>
     <GUI>
       <xloc>752</xloc>
-      <yloc>336</yloc>
+      <yloc>868</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -895,7 +945,7 @@ if (rowNum == 1) {        // CHANGED: was rowNum == 0
     </remotesteps>
     <GUI>
       <xloc>96</xloc>
-      <yloc>96</yloc>
+      <yloc>628</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -987,7 +1037,7 @@ if (rowNum == 1) {        // CHANGED: was rowNum == 0
     </remotesteps>
     <GUI>
       <xloc>224</xloc>
-      <yloc>96</yloc>
+      <yloc>628</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1032,7 +1082,7 @@ if (rowNum == 1) {        // CHANGED: was rowNum == 0
     </remotesteps>
     <GUI>
       <xloc>352</xloc>
-      <yloc>96</yloc>
+      <yloc>628</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1074,7 +1124,7 @@ if (rowNum == 1) {        // CHANGED: was rowNum == 0
     </remotesteps>
     <GUI>
       <xloc>752</xloc>
-      <yloc>96</yloc>
+      <yloc>628</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1120,7 +1170,7 @@ if (rowNum == 1) {        // CHANGED: was rowNum == 0
     </remotesteps>
     <GUI>
       <xloc>480</xloc>
-      <yloc>336</yloc>
+      <yloc>868</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1145,7 +1195,7 @@ if (rowNum == 1) {        // CHANGED: was rowNum == 0
     </remotesteps>
     <GUI>
       <xloc>480</xloc>
-      <yloc>208</yloc>
+      <yloc>740</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1170,7 +1220,7 @@ if (rowNum == 1) {        // CHANGED: was rowNum == 0
     </remotesteps>
     <GUI>
       <xloc>480</xloc>
-      <yloc>464</yloc>
+      <yloc>996</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1299,7 +1349,7 @@ if (rowNum == 1) {        // CHANGED: was rowNum == 0
     </remotesteps>
     <GUI>
       <xloc>352</xloc>
-      <yloc>336</yloc>
+      <yloc>868</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

@@ -433,6 +433,51 @@
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
+    <notepad>
+      <note>data_lake_ingestion - brings products from CSV, JSON and XML into one schema.
+Reads through the VFS connection named MinIO (pvfs://MinIO/...); it writes no file.
+
+1. Read Products - CSV: Text file input, pvfs://MinIO/raw-data/csv/products.csv.
+2. Add Metadata: source_system = csv.
+3. Ingestion Timestamp: ingestion_time = system date (variable).
+4. Map to Schema - CSV: Select values, product_id, product_name, category, price,
+   stock_quantity as quantity, source_system, ingestion_time; price to Number (0.00).
+5. Read Products - JSON: JSON input, pvfs://MinIO/raw-data/json/api_response.json,
+   product_id, name, quantity and unit_price at $.data.orders[*].items[*].
+6. Add Metadata 2: source_system = json, category = E-commerce.
+7. Ingestion Timestamp 2: ingestion_time = system date (variable).
+8. Map to Schema - JSON: Select values, the same seven fields in the same order,
+   name as product_name and unit_price as price.
+9. Read Products - XML: Get data from XML, pvfs://MinIO/raw-data/xml/inventory.xml,
+   loop /inventory/items/item; sku, name, category, quantity.
+10. Add Metadata 3: source_system = xml, price (Number) with no value, so null.
+11. Ingestion Timestamp 3: ingestion_time = system date (variable).
+12. Map to Schema - XML: Select values, the same seven fields in the same order,
+    sku as product_id and name as product_name.
+13. Combine All Products: Dummy (do nothing); all three branches hop into it,
+    like a SQL UNION ALL.
+
+Run it with Enable safe mode (Run Options) to stop on rows with a different layout.
+Shipped data: 37 rows in Combine All Products (18 CSV, 2 JSON, 17 XML).</note>
+      <xloc>96</xloc>
+      <yloc>32</yloc>
+      <width>512</width>
+      <heigth>458</heigth>
+      <fontname>Segoe UI</fontname>
+      <fontsize>10</fontsize>
+      <fontbold>N</fontbold>
+      <fontitalic>N</fontitalic>
+      <fontcolorred>0</fontcolorred>
+      <fontcolorgreen>0</fontcolorgreen>
+      <fontcolorblue>0</fontcolorblue>
+      <backgroundcolorred>167</backgroundcolorred>
+      <backgroundcolorgreen>224</backgroundcolorgreen>
+      <backgroundcolorblue>245</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
+      <drawshadow>Y</drawshadow>
+    </notepad>
   </notepads>
   <order>
     <hop>
@@ -687,7 +732,7 @@
     </remotesteps>
     <GUI>
       <xloc>96</xloc>
-      <yloc>80</yloc>
+      <yloc>538</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -774,7 +819,7 @@
     </remotesteps>
     <GUI>
       <xloc>528</xloc>
-      <yloc>80</yloc>
+      <yloc>538</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -813,7 +858,7 @@
     </remotesteps>
     <GUI>
       <xloc>256</xloc>
-      <yloc>80</yloc>
+      <yloc>538</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -844,7 +889,7 @@
     </remotesteps>
     <GUI>
       <xloc>384</xloc>
-      <yloc>80</yloc>
+      <yloc>538</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -954,7 +999,7 @@
     </remotesteps>
     <GUI>
       <xloc>96</xloc>
-      <yloc>192</yloc>
+      <yloc>650</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1024,7 +1069,7 @@
     </remotesteps>
     <GUI>
       <xloc>528</xloc>
-      <yloc>192</yloc>
+      <yloc>650</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1075,7 +1120,7 @@
     </remotesteps>
     <GUI>
       <xloc>256</xloc>
-      <yloc>192</yloc>
+      <yloc>650</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1106,7 +1151,7 @@
     </remotesteps>
     <GUI>
       <xloc>384</xloc>
-      <yloc>192</yloc>
+      <yloc>650</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1227,7 +1272,7 @@
     </remotesteps>
     <GUI>
       <xloc>96</xloc>
-      <yloc>304</yloc>
+      <yloc>762</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1297,7 +1342,7 @@
     </remotesteps>
     <GUI>
       <xloc>528</xloc>
-      <yloc>304</yloc>
+      <yloc>762</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1348,7 +1393,7 @@
     </remotesteps>
     <GUI>
       <xloc>256</xloc>
-      <yloc>304</yloc>
+      <yloc>762</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1379,7 +1424,7 @@
     </remotesteps>
     <GUI>
       <xloc>384</xloc>
-      <yloc>304</yloc>
+      <yloc>762</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1404,7 +1449,7 @@
     </remotesteps>
     <GUI>
       <xloc>736</xloc>
-      <yloc>192</yloc>
+      <yloc>650</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

@@ -4,7 +4,7 @@
   "order": 48,
   "kind": "page",
   "stepCount": 3,
-  "hasVideo": true,
+  "hasVideo": false,
   "estimatedMinutes": 15,
   "navSection": true
 }

@@ -2,6 +2,6 @@
   "title": "Sales Territory",
   "order": 6,
   "stepCount": 9,
-  "estimatedMinutes": 15,
-  "hasVideo": true
+  "estimatedMinutes": 20,
+  "hasVideo": false
 }

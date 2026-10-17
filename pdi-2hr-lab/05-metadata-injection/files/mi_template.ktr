@@ -436,37 +436,45 @@
   </info>
   <notepads>
     <notepad>
-      <note>TEMPLATE - do not run directly. "Read feed" has no filename and a
-placeholder separator; mi_inject.ktr fills both in at runtime.
-Columns are positional (store, date, amount) - Standardise renames them.</note>
-      <xloc>128</xloc>
-      <yloc>64</yloc>
-      <width>442</width>
-      <heigth>64</heigth>
+      <note>mi_template - reads one feed, renames its columns and appends them to all_feeds.csv.
+TEMPLATE - do not run directly. mi_inject.ktr fills in Read feed's filename and separator.
+
+1. Read feed: Text file input with no filename and a placeholder separator (,), header;
+   3 String fields, read by position and trimmed: col_store, col_date, col_amount.
+2. Standardize: Select values renames col_store to store, col_date to sale_date
+   and col_amount to amount.
+3. Append to all_feeds: Text file output to C:/Workshop/pdi-2hr/out/all_feeds.csv,
+   append, no header; fields store, sale_date, amount.
+
+Output: C:/Workshop/pdi-2hr/out/all_feeds.csv, one feed's rows added per run.</note>
+      <xloc>144</xloc>
+      <yloc>32</yloc>
+      <width>519</width>
+      <heigth>206</heigth>
       <fontname>Segoe UI</fontname>
       <fontsize>10</fontsize>
       <fontbold>N</fontbold>
       <fontitalic>N</fontitalic>
-      <fontcolorred>14</fontcolorred>
-      <fontcolorgreen>58</fontcolorgreen>
-      <fontcolorblue>90</fontcolorblue>
-      <backgroundcolorred>201</backgroundcolorred>
-      <backgroundcolorgreen>232</backgroundcolorgreen>
-      <backgroundcolorblue>251</backgroundcolorblue>
-      <bordercolorred>14</bordercolorred>
-      <bordercolorgreen>58</bordercolorgreen>
-      <bordercolorblue>90</bordercolorblue>
-      <drawshadow>N</drawshadow>
+      <fontcolorred>0</fontcolorred>
+      <fontcolorgreen>0</fontcolorgreen>
+      <fontcolorblue>0</fontcolorblue>
+      <backgroundcolorred>167</backgroundcolorred>
+      <backgroundcolorgreen>224</backgroundcolorgreen>
+      <backgroundcolorblue>245</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
+      <drawshadow>Y</drawshadow>
     </notepad>
   </notepads>
   <order>
     <hop>
       <from>Read feed</from>
-      <to>Standardise</to>
+      <to>Standardize</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Standardise</from>
+      <from>Standardize</from>
       <to>Append to all_feeds</to>
       <enabled>Y</enabled>
     </hop>
@@ -560,7 +568,7 @@ Columns are positional (store, date, amount) - Standardise renames them.</note>
     </remotesteps>
     <GUI>
       <xloc>560</xloc>
-      <yloc>176</yloc>
+      <yloc>286</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -695,12 +703,12 @@ Columns are positional (store, date, amount) - Standardise renames them.</note>
     </remotesteps>
     <GUI>
       <xloc>144</xloc>
-      <yloc>176</yloc>
+      <yloc>286</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Standardise</name>
+    <name>Standardize</name>
     <type>SelectValues</type>
     <description/>
     <distribute>Y</distribute>
@@ -735,7 +743,7 @@ Columns are positional (store, date, amount) - Standardise renames them.</note>
     </remotesteps>
     <GUI>
       <xloc>352</xloc>
-      <yloc>176</yloc>
+      <yloc>286</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

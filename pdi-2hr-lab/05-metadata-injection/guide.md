@@ -2,7 +2,7 @@
 
 > **Warning:**
 >
-> #### Workshop — One Pipeline, Many Files
+> #### Workshop - One Pipeline, Many Files
 >
 > Your regions all send daily sales — but the north sends
 > comma-separated CSV, the south pipe-delimited text, and the EU
@@ -20,13 +20,11 @@
 >
 > **Prerequisites:** [Enrich and Join](../03-enrich-and-join/guide.md).
 >
-> **Estimated Time:** 20 minutes
+> **Estimated time:** 20 minutes
 
 <figure>
 
-![Walkthrough](https://vimeo.com/placehoder)
-
-<figcaption class="pcm-video-caption">Watch: Metadata Injection</figcaption>
+<figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
 
 </figure>
 
@@ -72,7 +70,7 @@
 <div align="center">
 <figure>
 
-![1790332827139.png](../_assets/images/1790332827139.png)
+![control.csv open in a spreadsheet: three rows, each a file path under 05-one-pipeline-many-files and its separator: a comma for stores_north.csv, a pipe for stores_south.txt, a semicolon for partners_eu.csv](../_assets/images/1790332827139.png)
 
 <figcaption><em>control.csv</em></figcaption>
 </figure>
@@ -108,22 +106,22 @@
 <div align="center">
 <figure>
 
-![The template canvas: Read feed, Standardise and Append to all_feeds in a line, with a note saying the template is not run directly and its reader has no filename](../_assets/images/1788798204415.png)
+![The template canvas: Read feed, Standardize and Append to all_feeds in a line, with a note saying the template is not run directly and its reader has no filename](../_assets/images/1788798204415.png)
 
 <figcaption><em>Template - Injects filename and delimiter</em></figcaption>
 </figure>
 </div>
 
-1. New transformation, saved as:
+1. Select **File > New > Transformation** (`Ctrl+N`). Select **File > Save as** and save it as:
 
 ```text
 C:\Workshop\pdi-2hr\04-see-it-scale\05-one-pipeline-many-files\mi_template.ktr
 ```
-2. Drag on a **Text file input**. Name it `Read feed`. 
-   - On **Fields**, add three **String** fields by hand: `col_store`,
+2. On the **Design** tab, open the **Input** folder and drag **Text file input** onto the canvas. Double-click **Text file input**. Set **Step name** to `Read feed`. 
+   - On the **Fields** tab, add three **String** fields by hand: `col_store`,
    `col_date`, `col_amount` (the feeds all share this column
    *order*, whatever the columns are called). 
-   - On **Content**, make sure **Header** is ticked. Select **No empty rows** — that's
+   - On the **Content** tab, make sure **Header** is selected. Select **No empty rows** — that's
    injected at runtime.
 <div align="center">
 <figure>
@@ -138,14 +136,15 @@ C:\Workshop\pdi-2hr\04-see-it-scale\05-one-pipeline-many-files\mi_template.ktr
 >
 > The **Select Values** step is used to standardize and clean the data stream. It allows you to rename fields, change data types (e.g., converting a String to a Number), and remove unnecessary columns. In a metadata injection workflow, this step is critical for ensuring that different source files—each with unique headers and formats—are transformed into a single, unified schema before they hit the core processing logic.
 
-3. Drag on a **Select values** step, hopped from `Read feed`. Name
-   it `Standardise`. On **Select & Alter**, rename
+3. On the **Design** tab, open the **Transform** folder and drag **Select values** onto the canvas.
+   Create a hop from **Read feed** to **Select values**: hold `Shift` and drag from one step to the other.
+   Double-click **Select values**. Set **Step name** to `Standardize`. On the **Select & Alter** tab, rename
    `col_store → store`, `col_date → sale_date`,
    `col_amount → amount`.
 <div align="center">
 <figure>
 
-![Select values dialog Standardise, Select and Alter tab: col_store renamed to store, col_date to sale_date and col_amount to amount](../_assets/images/1788854261690.png)
+![Select values dialog Standardize, Select and Alter tab: col_store renamed to store, col_date to sale_date and col_amount to amount](../_assets/images/1788854261690.png)
 
 <figcaption><em>Rename fields</em></figcaption>
 </div>
@@ -155,7 +154,8 @@ C:\Workshop\pdi-2hr\04-see-it-scale\05-one-pipeline-many-files\mi_template.ktr
 >
 > **Text file output** step is used to write processed data to a plain text file, supporting various formats such as CSV, tab-separated, or fixed-width. In this specific workflow, it serves as the final destination for the transformed data. Because the metadata injection process standardizes the differing fields from the North, South, and EU feeds into a single schema, this one output step can successfully capture data from all sources, providing a unified landing zone for your integrated records.
 
-4. Drag on a **Text file output**, hopped from `Standardise`.
+4. On the **Design** tab, open the **Output** folder and drag **Text file output** onto the canvas.
+   Create a hop from **Standardize** to **Text file output**, then double-click **Text file output**.
    - **Filename:** `C:\Workshop\pdi-2hr\out\all_feeds`, extension `csv`.
 <figure>
 
@@ -166,7 +166,7 @@ C:\Workshop\pdi-2hr\04-see-it-scale\05-one-pipeline-many-files\mi_template.ktr
 </div>
 </figure>
 
-   - **Content**: tick **Append**, untick **Header**. 
+   - On the **Content** tab, select **Append** and clear **Header**. 
    - **Fields**: add `store`, `sale_date`, `amount`.
 <figure>
 
@@ -177,9 +177,9 @@ C:\Workshop\pdi-2hr\04-see-it-scale\05-one-pipeline-many-files\mi_template.ktr
 </div>
 </figure>
 
-5. Save. This transformation can't run on its own — as it requires the injected metadata properties.
+5. Save the transformation (`Ctrl+S`). This transformation can't run on its own — as it requires the injected metadata properties.
 
-<a class="pcm-btn" href="#tab-2-the-injector">**Click to open next tab: The injector**</a>
+<a class="pcm-btn" href="#tab-2-the-injector">**Open the next tab: The injector**</a>
 
 ### 2. The injector
 > **Note:**
@@ -195,7 +195,7 @@ C:\Workshop\pdi-2hr\04-see-it-scale\05-one-pipeline-many-files\mi_template.ktr
 </div>
 </figure>
 
-1. New transformation, saved as `mi_inject.ktr` in the same folder.
+1. Select **File > New > Transformation** (`Ctrl+N`). Select **File > Save as** and save it as `mi_inject.ktr` in `C:\Workshop\pdi-2hr\04-see-it-scale\05-one-pipeline-many-files`.
 <div align="center">
 <figure>
 
@@ -209,8 +209,8 @@ C:\Workshop\pdi-2hr\04-see-it-scale\05-one-pipeline-many-files\mi_template.ktr
 >
 > The **Get rows from result** step acts as the bridge between your configuration source and the injection process. In a metadata injection workflow, it captures the rows (containing your file paths, delimiters, and field mappings) from a previous step or transformation and feeds them into the **Metadata Injection** step. This allows the system to dynamically "plug in" the specific requirements for each file at runtime, transforming a static template into a flexible, multi-format processor.
 
-2. Drag on **Get rows from result** (from *Job*). 
-   - Name it: `File config`. 
+2. On the **Design** tab, open the **Job** folder and drag **Get rows from result** onto the canvas. 
+   - Double-click it and set **Step name** to `File config`. 
    - Add its two fields: `filename` and `separator`, both String. 
    When the driver job executes this transformation
    once per control row, *this step is where that row arrives*.
@@ -228,8 +228,8 @@ C:\Workshop\pdi-2hr\04-see-it-scale\05-one-pipeline-many-files\mi_template.ktr
 >
 > **Metadata Injection** decouples the transformation logic from the source configuration. Instead of hard-coding details like delimiters, field names, or file paths, you create a "template" pipeline that remains agnostic to the specific source. At runtime, the **injection step** pulls these configurations from a control file and "injects" them into the template, allowing a single pipeline to process multiple diverse files dynamically.
 
-3. From **Flow**, drag on **ETL metadata injection**, hopped from
-   `File config`. 
+3. On the **Design** tab, open the **Flow** folder and drag **ETL metadata injection** onto the canvas.
+   Create a hop from **File config** to **ETL metadata injection**. 
    - Double-click it and browse to `mi_template.ktr` —
    the dialog shows every injectable property of every template
    step, as a tree.
@@ -258,11 +258,11 @@ C:\Workshop\pdi-2hr\04-see-it-scale\05-one-pipeline-many-files\mi_template.ktr
 
 > **Tip:**
 >
-> If you accidentally select the wrong property, then highlight and click Cancel to remove.
+> If you accidentally select the wrong property, then highlight it and select **Cancel** to remove it.
 
-5. Save.
+6. Save the transformation (`Ctrl+S`).
 
-<a class="pcm-btn" href="#tab-3-the-driver-job">**Click to next tab: The driver job**</a>
+<a class="pcm-btn" href="#tab-3-the-driver-job">**Open the next tab: The driver job**</a>
 
 ### 3. The driver job
 > **Note:**
@@ -278,13 +278,13 @@ C:\Workshop\pdi-2hr\04-see-it-scale\05-one-pipeline-many-files\mi_template.ktr
 </div>
 </figure>
 
-1. **File > New > Job**, saved as `mi_driver.kjb` in the same
-   folder.
-2. Drag on **START**, then two **Transformation** entries, then
-   **Success**; hop them into a line.
+1. Select **File > New > Job** (`Ctrl+Alt+N`). Select **File > Save as** and save it as `mi_driver.kjb` in
+   `C:\Workshop\pdi-2hr\04-see-it-scale\05-one-pipeline-many-files`.
+2. On the **Design** tab, open the **General** folder and drag **START**, then two **Transformation** entries, then
+   **Success** onto the canvas; hop them into a line.
 <figure>
 
-![Transformation job entry dialog for Read control file, Options tab: solution_read_control.ktr with Execute every input row unticked and Clear results rows before execution ticked](../_assets/images/1788856458602.png)
+![Transformation job entry dialog for Read control file, Options tab: solution_read_control.ktr with Execute every input row cleared and Clear results rows before execution selected](../_assets/images/1788856458602.png)
 
 <div align="center">
 <figcaption><em>Read the control file</em></figcaption>
@@ -296,15 +296,15 @@ C:\Workshop\pdi-2hr\04-see-it-scale\05-one-pipeline-many-files\mi_template.ktr
    rows to result** (from *Job*).
 <figure>
 
-![Transformation job entry dialog for Inject per feed, Options tab: solution_mi_inject.ktr with Execute every input row ticked](../_assets/images/1788856780725.png)
+![Transformation job entry dialog for Inject per feed, Options tab: solution_mi_inject.ktr with Execute every input row selected](../_assets/images/1788856780725.png)
 
 <div align="center">
 <figcaption><em>Inject metadata ..</em></figcaption>
 </div>
 </figure>
 
-4. Second transformation entry → `mi_inject.ktr`. On its
-   **Options** tab tick **Execute every input row** — each
+4. Second transformation entry → `mi_inject.ktr`. Open its
+   **Options** tab and select **Execute every input row** — each
    control row becomes one execution, delivered to the injector's
    `Get rows from result` step.
 
@@ -335,16 +335,16 @@ C:\Workshop\pdi-2hr\04-see-it-scale\05-one-pipeline-many-files\mi_template.ktr
 > Every scheduled pipeline you will ever run in PDI is a job wrapped
 > around transformations, which is exactly what Lab 7 is about.
 
-<a class="pcm-btn" href="#tab-4-run-and-extend">**Click to open next tab: Run and extend***</a>
+<a class="pcm-btn" href="#tab-4-run-and-extend">**Open the next tab: Run and extend**</a>
 
 ### 4. Run and extend
 > **Note:**
 >
 > In this workshop, you moved from a "hard-coded" development model to a **configuration-driven architecture**. By implementing Metadata Injection, you decoupled the transformation logic from the source file specifics. Instead of maintaining multiple transformations for different delimiters and file paths, you created a single, agnostic **Template** that can handle any file defined in your control source.
 >
-> This architecture ensures that when a new data source is added, you no longer need to modify PDI code; you simply update a row in your control file. This is the gold standard for scaling PDI projects to handle high-volume, varied data feeds.
+> This architecture ensures that when a new data source is added, you no longer need to modify PDI code; you update a row in your control file. This is the gold standard for scaling PDI projects to handle high-volume, varied data feeds.
 
-1. Run the **job**. Watch the log: the injector executes three times, once per control row.
+1. Run the **job**: press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog. In **Execution Results**, open the **Logging** tab: the injector executes three times, once per control row.
 <figure>
 
 ![Execution Results, Logging tab: the driver job's log showing Inject per feed dispatched three times, once each for stores_north.csv, stores_south.txt and partners_eu.csv](../_assets/images/1788857063686.png)
@@ -370,7 +370,7 @@ Now the punchline:
 3. Copy `stores_north.csv` to `stores_scotland.csv`, change the
    store names, and **add one line to `control.csv`** with its path
    and separator.
-4. Run the job again. Four feeds. You did not open a pipeline.
+4. Run the job again: press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog. Four feeds. You did not open a pipeline.
 
 > **Under the hood:**
 >
@@ -423,8 +423,8 @@ re-reads the template.
 
 <summary>The job runs but all_feeds.csv has rows from only one feed</summary>
 
-The second transformation entry isn't iterating — check **Execute
-every input row** is ticked on its Options tab, and that
+The second transformation entry isn't iterating — check that **Execute
+every input row** is selected on its **Options** tab, and that
 `read_control.ktr` ends in **Copy rows to result**.
 
 </details>

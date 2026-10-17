@@ -436,95 +436,41 @@
   </info>
   <notepads>
     <notepad>
-      <note>Lab 2a: Merge Streams (diff) Database</note>
-      <xloc>112</xloc>
-      <yloc>48</yloc>
-      <width>282</width>
-      <heigth>30</heigth>
-      <fontname>Segoe UI</fontname>
-      <fontsize>11</fontsize>
-      <fontbold>Y</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>255</bordercolorred>
-      <bordercolorgreen>255</bordercolorgreen>
-      <bordercolorblue>255</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
-    <notepad>
-      <note>If the Merge rows (diff) step is used in conjunction with the Synchronize after merge, 
-then based on the value of the flag, the database can be updated.</note>
-      <xloc>112</xloc>
-      <yloc>112</yloc>
-      <width>618</width>
-      <heigth>54</heigth>
-      <fontname>Calibri Light</fontname>
-      <fontsize>11</fontsize>
-      <fontbold>N</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>255</bordercolorred>
-      <bordercolorgreen>255</bordercolorgreen>
-      <bordercolorblue>255</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
-    <notepad>
-      <note>Set the database operations in the Advanced tab:</note>
-      <xloc>448</xloc>
-      <yloc>288</yloc>
-      <width>337</width>
-      <heigth>30</heigth>
-      <fontname>Segoe UI</fontname>
-      <fontsize>9</fontsize>
-      <fontbold>N</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>192</bordercolorred>
-      <bordercolorgreen>192</bordercolorgreen>
-      <bordercolorblue>192</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
-    <notepad>
-      <note>The two  sets of records, an original stream (the existing data) and the new stream (the new data), are compared and merged. 
-Only the last version of a record is passed to the next steps each time. The row is marked as follows:
-  "identical" - The key was found in both streams and the values in both fields are identical;
-  "changed" - The key was found in both streams but one or more values are different;
-  "new" - The key was not found in the original stream;
-  "deleted" - The key was not found in the new stream.
-The records coming from the new stream are passed on to the next steps, except when it is "deleted".
-Both streams must be sorted on the specified key(s).</note>
+      <note>tr_merge_streams_database_diff - syncs table STG_ORDERS_MERGED with orders_update.txt.
+Uses the MySQL:sampledata connection and the 7 products Writing to a Database loads;
+run that transformation again to start over.
+
+1. STG_ORDERS_MERGED: Table input, the six product fields of STG_ORDERS_MERGED,
+   ORDER BY PRODUCTCODE, so the database sorts this side: the existing data.
+2. orders updates: Text file input, orders_update.txt (separator ;, header),
+   six String fields PRODUCTCODE to PRODUCTDESCRIPTION: the new data.
+3. Sort updates: Sort rows on PRODUCTCODE, ascending.
+4. Merge Rows (diff): reference STG_ORDERS_MERGED, compare Sort updates,
+   key PRODUCTCODE, flag FLAG. It compares PRODUCTCODE to PRODUCTVENDOR, not
+   PRODUCTDESCRIPTION (the table's descriptions end in trailing spaces).
+5. Synchronize after merge: table STG_ORDERS_MERGED, key PRODUCTCODE, commit 100.
+   FLAG new inserts, changed updates the five fields after PRODUCTCODE,
+   deleted deletes; identical rows are skipped.
+
+Shipped data: 9 rows flagged; 2 inserts, 1 update and 1 delete leave 8 products.
+A second run flags all 8 identical and writes nothing.</note>
       <xloc>176</xloc>
-      <yloc>400</yloc>
-      <width>672</width>
-      <heigth>138</heigth>
+      <yloc>32</yloc>
+      <width>547</width>
+      <heigth>332</heigth>
       <fontname>Segoe UI</fontname>
-      <fontsize>9</fontsize>
+      <fontsize>10</fontsize>
       <fontbold>N</fontbold>
       <fontitalic>N</fontitalic>
       <fontcolorred>0</fontcolorred>
       <fontcolorgreen>0</fontcolorgreen>
       <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>192</bordercolorred>
-      <bordercolorgreen>192</bordercolorgreen>
-      <bordercolorblue>192</bordercolorblue>
+      <backgroundcolorred>167</backgroundcolorred>
+      <backgroundcolorgreen>224</backgroundcolorgreen>
+      <backgroundcolorblue>245</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
       <drawshadow>Y</drawshadow>
     </notepad>
   </notepads>
@@ -657,7 +603,7 @@ Both streams must be sorted on the specified key(s).</note>
     </remotesteps>
     <GUI>
       <xloc>368</xloc>
-      <yloc>208</yloc>
+      <yloc>412</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -698,7 +644,7 @@ ORDER BY PRODUCTCODE
     </remotesteps>
     <GUI>
       <xloc>176</xloc>
-      <yloc>208</yloc>
+      <yloc>412</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -740,7 +686,7 @@ ORDER BY PRODUCTCODE
     </remotesteps>
     <GUI>
       <xloc>368</xloc>
-      <yloc>320</yloc>
+      <yloc>524</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -767,7 +713,7 @@ ORDER BY PRODUCTCODE
     <order_delete>deleted</order_delete>
     <lookup>
       <schema/>
-      <table>stg_orders_merged</table>
+      <table>STG_ORDERS_MERGED</table>
       <key>
         <name>PRODUCTCODE</name>
         <field>PRODUCTCODE</field>
@@ -815,7 +761,7 @@ ORDER BY PRODUCTCODE
     </remotesteps>
     <GUI>
       <xloc>560</xloc>
-      <yloc>208</yloc>
+      <yloc>412</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -873,7 +819,7 @@ ORDER BY PRODUCTCODE
         <name>PRODUCTCODE</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -888,7 +834,7 @@ ORDER BY PRODUCTCODE
         <name>PRODUCTNAME</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -903,7 +849,7 @@ ORDER BY PRODUCTCODE
         <name>PRODUCTLINE</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -918,7 +864,7 @@ ORDER BY PRODUCTCODE
         <name>PRODUCTSCALE</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -933,7 +879,7 @@ ORDER BY PRODUCTCODE
         <name>PRODUCTVENDOR</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -948,7 +894,7 @@ ORDER BY PRODUCTCODE
         <name>PRODUCTDESCRIPTION</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -995,7 +941,7 @@ ORDER BY PRODUCTCODE
     </remotesteps>
     <GUI>
       <xloc>176</xloc>
-      <yloc>320</yloc>
+      <yloc>524</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

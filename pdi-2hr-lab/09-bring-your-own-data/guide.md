@@ -15,13 +15,13 @@
 > * Let **Get Fields** discover the structure.
 > * Profile it: row counts, groupings, and a data-quality filter — in minutes.
 >
-> **Prerequisites:** [Build the Pipeline Yourself](../02-build-the-pipeline/guide.md). A data file of your own — an > export from a spreadsheet, a system extract, a log. 
-
-> **Critical:**
+> **Prerequisites:** [Build the Pipeline Yourself](../02-build-the-pipeline/guide.md). A data file of your own — an export from a spreadsheet, a system extract, a log. 
 >
-> Please **No customer PII**.
+> **No customer PII:** use a file with no personal customer data in it.
+>
+> **Estimated time:** 15 minutes
 
-> **Estimated Time:** 15 minutes
+## Read your file
 
 > **Note:** **Getting your file onto a lab VM.** Use your cloud file
 > share: open OneDrive, SharePoint, Google Drive, or Dropbox in the
@@ -40,16 +40,14 @@ C:\Workshop\pdi-2hr\04-see-it-scale\06-your-data\
 > other VFS locations) in the same Input steps — worth knowing when
 > you test this against your real systems after the session.
 
-## Read your file
-
-1. New transformation: `my_data.ktr`.
-2. **Text file input** (or **JSON input** if that's what you have) —
-   browse to your file.
-3. On **Content**, set the separator to match (comma, tab `\t`,
-   semicolon...). Tick **Header** if there is one.
-4. **Fields > Get Fields**. Look at what came back: names, types,
+1. Select **File > New > Transformation** (`Ctrl+N`). Select **File > Save as** and save it as `my_data.ktr` in `C:\Workshop\pdi-2hr\04-see-it-scale\06-your-data`.
+2. On the **Design** tab, open the **Input** folder and drag **Text file input** (or **JSON input** if that's what you have)
+   onto the canvas. Double-click it and browse to your file.
+3. On the **Content** tab, set **Separator** to match (comma, tab `\t`,
+   semicolon...). Select **Header** if there is one.
+4. Open the **Fields** tab and select **Get Fields**. Look at what came back: names, types,
    lengths — inferred from your data.
-5. **Preview rows.** There's your file, as a typed stream.
+5. Select **Preview rows**. There's your file, as a typed stream.
 
 Fix anything Get Fields guessed wrong — a date format here, a
 numeric column read as string there. This grid *is* the schema
@@ -105,8 +103,8 @@ same pattern: pick the file, pick the sheet, Get Fields, preview.
 
 <summary>Get Fields mangled the encoding (accented characters look wrong)</summary>
 
-On the **Content** tab set **Encoding** to `UTF-8` (or your file's
-actual encoding) and Get Fields again.
+On the **Content** tab, set **Encoding** to `UTF-8` (or your file's
+actual encoding) and select **Get Fields** again.
 
 </details>
 

@@ -433,6 +433,60 @@
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
+    <notepad>
+      <note>inventory_reconciliation - reconciles the warehouse XML feed with the ERP product catalog.
+Reads and writes through the VFS connection named MinIO (pvfs://MinIO/...).
+
+1. Read Warehouse XML: Get data from XML, pvfs://MinIO/raw-data/xml/inventory.xml,
+   loop /inventory/items/item; sku, warehouse_item_name, category, warehouse_quantity,
+   warehouse_location, last_physical_count.
+2. Read Product Catalog: Text file input, pvfs://MinIO/raw-data/csv/products.csv.
+3. Map Warehouse: Select values, sku to product_id, warehouse_item_name to
+   warehouse_product_name.
+4. Map Product Catalog: Select values, product_name to erp_product_name,
+   stock_quantity to erp_quantity.
+5. Sort Warehouse: by product_id.
+6. Sort ERP: by product_id.
+7. Full Outer Join: Merge join FULL OUTER on product_id (Sort Warehouse first);
+   the ERP's key and category come through as product_id_1 and category_1.
+8. Calculator: quantity_variance = warehouse_quantity - erp_quantity,
+   abs_variance = ABS(quantity_variance), both Integer.
+9. Modified JavaScript value: sets discrepancy_type (MATCH within 2, OVERSTOCK,
+   UNDERSTOCK, MISSING_IN_WAREHOUSE, MISSING_IN_CATALOG), severity_level,
+   priority_rank (1 HIGH, 2 MEDIUM, 3 the rest), recommended_action and cost estimates.
+   Every row is copied to both Priority and Sort rows.
+10. Priority: Switch / case on priority_rank (Number): 1 to High Priority,
+    2 to Medium Priority, 3 to Low Priority; the default is Medium Priority.
+11. High Priority: Text file output, pvfs://MinIO/staging/reconciliation/urgent_actions,
+    extension csv, date and time in the file name.
+12. Medium Priority: the same, to .../reconciliation/review_queue.
+13. Low Priority: the same, to .../reconciliation/low_priority.csv, no date or time.
+14. Sort rows: by discrepancy_type.
+15. Group by: per discrepancy_type, the sums of financial_impact, excess_carrying_cost
+    and lost_sales_risk, and the distinct count of product_id.
+
+Shipped data: 17 warehouse items and 18 ERP products give 19 joined rows.
+High Priority writes 6 rows, Medium Priority 9 and Low Priority 4 (the matches).
+Group by gives 5 rows, one per discrepancy type: see its Preview data tab.</note>
+      <xloc>160</xloc>
+      <yloc>32</yloc>
+      <width>540</width>
+      <heigth>620</heigth>
+      <fontname>Segoe UI</fontname>
+      <fontsize>10</fontsize>
+      <fontbold>N</fontbold>
+      <fontitalic>N</fontitalic>
+      <fontcolorred>0</fontcolorred>
+      <fontcolorgreen>0</fontcolorgreen>
+      <fontcolorblue>0</fontcolorblue>
+      <backgroundcolorred>167</backgroundcolorred>
+      <backgroundcolorgreen>224</backgroundcolorgreen>
+      <backgroundcolorblue>245</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
+      <drawshadow>Y</drawshadow>
+    </notepad>
   </notepads>
   <order>
     <hop>
@@ -653,7 +707,7 @@
     </remotesteps>
     <GUI>
       <xloc>160</xloc>
-      <yloc>80</yloc>
+      <yloc>700</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -711,7 +765,7 @@
         <name>product_id</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -726,7 +780,7 @@
         <name>product_name</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -741,7 +795,7 @@
         <name>category</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -756,7 +810,7 @@
         <name>price</name>
         <type>BigNumber</type>
         <format>#.##</format>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -771,7 +825,7 @@
         <name>stock_quantity</name>
         <type>Integer</type>
         <format>#</format>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -786,7 +840,7 @@
         <name>supplier</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -801,7 +855,7 @@
         <name>last_updated</name>
         <type>Date</type>
         <format>yyyy-MM-dd</format>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -848,7 +902,7 @@
     </remotesteps>
     <GUI>
       <xloc>160</xloc>
-      <yloc>208</yloc>
+      <yloc>828</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -900,7 +954,7 @@
     </remotesteps>
     <GUI>
       <xloc>336</xloc>
-      <yloc>80</yloc>
+      <yloc>700</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -956,7 +1010,7 @@
     </remotesteps>
     <GUI>
       <xloc>336</xloc>
-      <yloc>208</yloc>
+      <yloc>828</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -998,7 +1052,7 @@
     </remotesteps>
     <GUI>
       <xloc>464</xloc>
-      <yloc>80</yloc>
+      <yloc>700</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1040,7 +1094,7 @@
     </remotesteps>
     <GUI>
       <xloc>464</xloc>
-      <yloc>208</yloc>
+      <yloc>828</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1074,7 +1128,7 @@
     </remotesteps>
     <GUI>
       <xloc>608</xloc>
-      <yloc>144</yloc>
+      <yloc>764</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1130,7 +1184,7 @@
     </remotesteps>
     <GUI>
       <xloc>736</xloc>
-      <yloc>144</yloc>
+      <yloc>764</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1349,7 +1403,7 @@ var data_source_erp = "ERP-CSV-Extract";
     </remotesteps>
     <GUI>
       <xloc>736</xloc>
-      <yloc>320</yloc>
+      <yloc>940</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1395,7 +1449,7 @@ var data_source_erp = "ERP-CSV-Extract";
     </remotesteps>
     <GUI>
       <xloc>608</xloc>
-      <yloc>320</yloc>
+      <yloc>940</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1514,7 +1568,31 @@ var data_source_erp = "ERP-CSV-Extract";
         <precision>-1</precision>
       </field>
       <field>
+        <name>product_id_1</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>none</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
         <name>erp_product_name</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>none</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>category_1</name>
         <type>String</type>
         <format/>
         <currency/>
@@ -1529,7 +1607,7 @@ var data_source_erp = "ERP-CSV-Extract";
         <name>price</name>
         <type>BigNumber</type>
         <format>#.##</format>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif/>
@@ -1541,7 +1619,7 @@ var data_source_erp = "ERP-CSV-Extract";
         <name>erp_quantity</name>
         <type>Integer</type>
         <format>#</format>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif/>
@@ -1636,7 +1714,7 @@ var data_source_erp = "ERP-CSV-Extract";
       <field>
         <name>variance_percentage</name>
         <type>Number</type>
-        <format>#</format>
+        <format>####0.0#########;-####0.0#########</format>
         <currency/>
         <decimal>.</decimal>
         <group>,</group>
@@ -1648,7 +1726,7 @@ var data_source_erp = "ERP-CSV-Extract";
       <field>
         <name>priority_rank</name>
         <type>Integer</type>
-        <format>#</format>
+        <format>####0;-####0</format>
         <currency/>
         <decimal>.</decimal>
         <group>,</group>
@@ -1660,7 +1738,7 @@ var data_source_erp = "ERP-CSV-Extract";
       <field>
         <name>financial_impact</name>
         <type>Number</type>
-        <format>#</format>
+        <format>####0.0#########;-####0.0#########</format>
         <currency/>
         <decimal>.</decimal>
         <group>,</group>
@@ -1672,7 +1750,7 @@ var data_source_erp = "ERP-CSV-Extract";
       <field>
         <name>excess_carrying_cost</name>
         <type>Number</type>
-        <format>#</format>
+        <format>####0.0#########;-####0.0#########</format>
         <currency/>
         <decimal>.</decimal>
         <group>,</group>
@@ -1684,7 +1762,7 @@ var data_source_erp = "ERP-CSV-Extract";
       <field>
         <name>lost_sales_risk</name>
         <type>Number</type>
-        <format>#</format>
+        <format>####0.0#########;-####0.0#########</format>
         <currency/>
         <decimal>.</decimal>
         <group>,</group>
@@ -1720,7 +1798,7 @@ var data_source_erp = "ERP-CSV-Extract";
       <field>
         <name>tolerance_threshold</name>
         <type>Integer</type>
-        <format>#</format>
+        <format>####0;-####0</format>
         <currency/>
         <decimal>.</decimal>
         <group>,</group>
@@ -1764,7 +1842,7 @@ var data_source_erp = "ERP-CSV-Extract";
     </remotesteps>
     <GUI>
       <xloc>608</xloc>
-      <yloc>208</yloc>
+      <yloc>828</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1922,7 +2000,7 @@ var data_source_erp = "ERP-CSV-Extract";
         <name>price</name>
         <type>BigNumber</type>
         <format>#.##</format>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif/>
@@ -1934,7 +2012,7 @@ var data_source_erp = "ERP-CSV-Extract";
         <name>erp_quantity</name>
         <type>Integer</type>
         <format>#</format>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif/>
@@ -2157,7 +2235,7 @@ var data_source_erp = "ERP-CSV-Extract";
     </remotesteps>
     <GUI>
       <xloc>464</xloc>
-      <yloc>320</yloc>
+      <yloc>940</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -2264,7 +2342,43 @@ var data_source_erp = "ERP-CSV-Extract";
         <precision>-1</precision>
       </field>
       <field>
+        <name>last_physical_count</name>
+        <type>Date</type>
+        <format>yyyy-MM-dd</format>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>none</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>product_id_1</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>none</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
         <name>erp_product_name</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>none</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>category_1</name>
         <type>String</type>
         <format/>
         <currency/>
@@ -2279,7 +2393,7 @@ var data_source_erp = "ERP-CSV-Extract";
         <name>price</name>
         <type>BigNumber</type>
         <format>#.##</format>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif/>
@@ -2291,7 +2405,7 @@ var data_source_erp = "ERP-CSV-Extract";
         <name>erp_quantity</name>
         <type>Integer</type>
         <format>#</format>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif/>
@@ -2386,7 +2500,7 @@ var data_source_erp = "ERP-CSV-Extract";
       <field>
         <name>variance_percentage</name>
         <type>Number</type>
-        <format>#</format>
+        <format>####0.0#########;-####0.0#########</format>
         <currency/>
         <decimal>.</decimal>
         <group>,</group>
@@ -2398,7 +2512,7 @@ var data_source_erp = "ERP-CSV-Extract";
       <field>
         <name>priority_rank</name>
         <type>Integer</type>
-        <format>#</format>
+        <format>####0;-####0</format>
         <currency/>
         <decimal>.</decimal>
         <group>,</group>
@@ -2410,7 +2524,7 @@ var data_source_erp = "ERP-CSV-Extract";
       <field>
         <name>financial_impact</name>
         <type>Number</type>
-        <format>#</format>
+        <format>####0.0#########;-####0.0#########</format>
         <currency/>
         <decimal>.</decimal>
         <group>,</group>
@@ -2422,7 +2536,7 @@ var data_source_erp = "ERP-CSV-Extract";
       <field>
         <name>excess_carrying_cost</name>
         <type>Number</type>
-        <format>#</format>
+        <format>####0.0#########;-####0.0#########</format>
         <currency/>
         <decimal>.</decimal>
         <group>,</group>
@@ -2434,7 +2548,7 @@ var data_source_erp = "ERP-CSV-Extract";
       <field>
         <name>lost_sales_risk</name>
         <type>Number</type>
-        <format>#</format>
+        <format>####0.0#########;-####0.0#########</format>
         <currency/>
         <decimal>.</decimal>
         <group>,</group>
@@ -2470,7 +2584,7 @@ var data_source_erp = "ERP-CSV-Extract";
       <field>
         <name>tolerance_threshold</name>
         <type>Integer</type>
-        <format>#</format>
+        <format>####0;-####0</format>
         <currency/>
         <decimal>.</decimal>
         <group>,</group>
@@ -2514,7 +2628,7 @@ var data_source_erp = "ERP-CSV-Extract";
     </remotesteps>
     <GUI>
       <xloc>608</xloc>
-      <yloc>448</yloc>
+      <yloc>1068</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -2556,7 +2670,7 @@ var data_source_erp = "ERP-CSV-Extract";
     </remotesteps>
     <GUI>
       <xloc>736</xloc>
-      <yloc>448</yloc>
+      <yloc>1068</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -2620,7 +2734,7 @@ var data_source_erp = "ERP-CSV-Extract";
     </remotesteps>
     <GUI>
       <xloc>880</xloc>
-      <yloc>448</yloc>
+      <yloc>1068</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

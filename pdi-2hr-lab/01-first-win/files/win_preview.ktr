@@ -13,27 +13,36 @@
   </info>
   <notepads>
     <notepad>
-      <note>Welcome! Right-click "Valid rows" and choose Preview to see the clean data.
-Preview "Rejected rows" to see the two rows with missing keys.
+      <note>win_preview - reads yesterday's sales and catches the rows with a missing key.
+
+1. Read yesterday's sales: ${Internal.Entry.Current.Directory}/sales_20260101.csv,
+   header, comma, 7 fields; order_date is a Date (yyyy-MM-dd).
+2. Keys present?: Filter rows, customer_id IS NOT NULL AND product_id IS NOT NULL.
+   Rows that pass go to Valid rows, rows that fail go to Rejected rows.
+3. Valid rows: a Dummy (do nothing) step that ends the good rows; nothing is written.
+4. Rejected rows: a Dummy (do nothing) step that ends the rejects; nothing is written.
+
+Select Valid rows on the canvas, press F10 and select Quick Launch.
+Do the same on Rejected rows to see the rows the filter caught.
 Double-click any step to see how it is configured.</note>
-      <xloc>48</xloc>
+      <xloc>128</xloc>
       <yloc>32</yloc>
-      <width>360</width>
-      <heigth>70</heigth>
+      <width>510</width>
+      <heigth>224</heigth>
       <fontname>Segoe UI</fontname>
       <fontsize>10</fontsize>
       <fontbold>N</fontbold>
       <fontitalic>N</fontitalic>
-      <fontcolorred>14</fontcolorred>
-      <fontcolorgreen>58</fontcolorgreen>
-      <fontcolorblue>90</fontcolorblue>
-      <backgroundcolorred>201</backgroundcolorred>
-      <backgroundcolorgreen>232</backgroundcolorgreen>
-      <backgroundcolorblue>251</backgroundcolorblue>
-      <bordercolorred>14</bordercolorred>
-      <bordercolorgreen>58</bordercolorgreen>
-      <bordercolorblue>90</bordercolorblue>
-      <drawshadow>N</drawshadow>
+      <fontcolorred>0</fontcolorred>
+      <fontcolorgreen>0</fontcolorgreen>
+      <fontcolorblue>0</fontcolorblue>
+      <backgroundcolorred>167</backgroundcolorred>
+      <backgroundcolorgreen>224</backgroundcolorgreen>
+      <backgroundcolorblue>245</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
+      <drawshadow>Y</drawshadow>
     </notepad>
   </notepads>
   <order>
@@ -244,7 +253,7 @@ Double-click any step to see how it is configured.</note>
     </remotesteps>
     <GUI>
       <xloc>128</xloc>
-      <yloc>176</yloc>
+      <yloc>368</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -291,7 +300,7 @@ Double-click any step to see how it is configured.</note>
     </remotesteps>
     <GUI>
       <xloc>336</xloc>
-      <yloc>176</yloc>
+      <yloc>368</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -316,7 +325,7 @@ Double-click any step to see how it is configured.</note>
     </remotesteps>
     <GUI>
       <xloc>544</xloc>
-      <yloc>112</yloc>
+      <yloc>304</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -341,7 +350,7 @@ Double-click any step to see how it is configured.</note>
     </remotesteps>
     <GUI>
       <xloc>544</xloc>
-      <yloc>240</yloc>
+      <yloc>432</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

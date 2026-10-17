@@ -437,24 +437,30 @@
   </info>
   <notepads>
     <notepad>
-      <note>Lab 1: Hello World</note>
-      <xloc>96</xloc>
-      <yloc>16</yloc>
-      <width>140</width>
-      <heigth>30</heigth>
+      <note>tr_hello_world - generates 10 rows with the message hello world.
+Transformation A of the job kjb_hello_world: the job runs it.
+
+1. Hello World: Generate Rows, limit 10, one field message (String) = hello world.
+2. Dummy (do nothing): receives the rows and passes them on.
+
+Shipped data: 10 rows, each with message hello world.</note>
+      <xloc>112</xloc>
+      <yloc>32</yloc>
+      <width>483</width>
+      <heigth>134</heigth>
       <fontname>Segoe UI</fontname>
-      <fontsize>11</fontsize>
-      <fontbold>Y</fontbold>
+      <fontsize>10</fontsize>
+      <fontbold>N</fontbold>
       <fontitalic>N</fontitalic>
       <fontcolorred>0</fontcolorred>
       <fontcolorgreen>0</fontcolorgreen>
       <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>255</bordercolorred>
-      <bordercolorgreen>255</bordercolorgreen>
-      <bordercolorblue>255</bordercolorblue>
+      <backgroundcolorred>167</backgroundcolorred>
+      <backgroundcolorgreen>224</backgroundcolorgreen>
+      <backgroundcolorblue>245</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
       <drawshadow>Y</drawshadow>
     </notepad>
   </notepads>
@@ -486,7 +492,7 @@
     </remotesteps>
     <GUI>
       <xloc>304</xloc>
-      <yloc>80</yloc>
+      <yloc>214</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -530,7 +536,7 @@
     </remotesteps>
     <GUI>
       <xloc>112</xloc>
-      <yloc>80</yloc>
+      <yloc>214</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

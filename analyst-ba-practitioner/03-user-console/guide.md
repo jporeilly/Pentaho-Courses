@@ -6,7 +6,7 @@
 > 
 > Pentaho Business Analytics (BA) platform is comprised of a server, design tools, and plugins that use your data to provide valuable insight into business trends and performance. BA components are divided into three categories:
 > 
-> &#x20; • BA Server and User Console
+> &#x20; • Pentaho Server and User Console
 > 
 > &#x20; • Web-Based Tools and Plugins
 > 
@@ -14,7 +14,7 @@
 > 
 > The Pentaho Server, which is the heart of the Pentaho BA Suite, processes reporting, analysis, and dashboard content. The Pentaho Server hosts the centralized Repository for secure sharing of all data solutions. It also provides scheduling and audit functionality. The Pentaho server is managed through its web-based tool, the User Console. Use the User Console to create business analytics content, display and schedule reports, and manage Pentaho security.
 
-<figure><img src="../_assets/images/getting_started_pentaho_architecture.png" alt=""><figcaption><p>Pentaho Architecture</p></figcaption></figure>
+<figure><img src="../_assets/images/getting_started_pentaho_architecture.png" alt="A Pentaho architecture diagram: Data Integration, Schema Workbench, Metadata Editor and Report Designer feed the Data Integration and Analytics servers, a data source and the repository"><figcaption><p>Pentaho Architecture</p></figcaption></figure>
 
 ***
 
@@ -32,7 +32,7 @@
 
 **Pentaho 11**
 
-<figure><img src="../_assets/images/user_console_new_pentaho_user_login.png" alt=""><figcaption><p>NEW - Pentaho User Login</p></figcaption></figure>
+<figure><img src="../_assets/images/user_console_new_pentaho_user_login.png" alt="The new Pentaho 11 User Console login page, with Welcome to Pentaho on the left and Username and Password fields, a Log In button and Login as Evaluator on the right"><figcaption><p>NEW - Pentaho User Login</p></figcaption></figure>
 
 ***
 
@@ -56,7 +56,7 @@ course — it is described here so you can place it alongside the rest.
 > 
 > Pentaho Analyzer works with multiple data sources and supports both relational and multidimensional (OLAP) data models, making it a versatile tool for business intelligence and data analysis needs.
 
-<figure><img src="../_assets/images/getting_started_product_line_quantity_by_territory_waterfall.png" alt=""><figcaption><p>Product Line Quantity by Territory (Waterfall)</p></figcaption></figure>
+<figure><img src="../_assets/images/getting_started_product_line_quantity_by_territory_waterfall.png" alt="An Analyzer waterfall chart of quantity by product line from Classic Cars to Vintage Cars, stacked by territory APAC, EMEA, Japan and NA, ending in an All total column"><figcaption><p>Product Line Quantity by Territory (Waterfall)</p></figcaption></figure>
 
 ### Interactive Reports
 
@@ -70,7 +70,7 @@ course — it is described here so you can place it alongside the rest.
 > 
 > The platform emphasizes self-service reporting, allowing business users to generate and modify reports independently while maintaining data governance and security protocols.
 
-<figure><img src="../_assets/images/getting_started_vendor_sales_report.png" alt=""><figcaption><p>Vendor Sales Report</p></figcaption></figure>
+<figure><img src="../_assets/images/getting_started_vendor_sales_report.png" alt="The Vendor Sales Report - Classic Cars interactive report, grouped by territory APAC and product vendor, with Product Name, Scale, Items Sold and Sales columns and vendor subtotals"><figcaption><p>Vendor Sales Report</p></figcaption></figure>
 
 ### Dashboard Designer
 
@@ -82,7 +82,7 @@ course — it is described here so you can place it alongside the rest.
 > 
 > The tool provides drag-and-drop functionality for building dashboards that can integrate multiple data sources, including databases, spreadsheets, and OLAP cubes. Users can incorporate various visualization components like charts, tables, and metrics, and add interactive elements such as filters and drill-down capabilities.&#x20;
 
-<figure><img src="../_assets/images/getting_started_regional_product_mix.png" alt=""><figcaption><p>Regional Product Mix</p></figcaption></figure>
+<figure><img src="../_assets/images/getting_started_regional_product_mix.png" alt="The Regional Product Mix dashboard with Territory, Country and Product Line prompts above a Product Line Sales Trend chart, a Product Heat Grid and a Latest Product Standings table"><figcaption><p>Regional Product Mix</p></figcaption></figure>
 
 ### Report Designer
 
@@ -90,11 +90,9 @@ course — it is described here so you can place it alongside the rest.
 >
 > #### Report Designer
 > 
-> Pentaho Report Designer (PRD) is a powerful open-source business intelligence tool that enables users to create sophisticated, data-driven reports. As part of the larger Pentaho Pro suite, this desktop application provides a visual, drag-and-drop interface for designing both simple and complex reports from various data sources including databases, spreadsheets, and XML files.&#x20;
+> Pentaho Report Designer (PRD) is a desktop application for designing data-driven reports. It provides a visual, drag-and-drop interface for designing both simple and complex reports from data sources including databases, spreadsheets, and XML files.
 > 
-> It offers advanced features such as parameterized reporting, sub-reports, cross-tabs, charts, and conditional formatting. The tool supports multiple output formats including PDF, Excel, HTML, and CSV, making it versatile for different business needs. What sets Pentaho Report Designer apart is its ability to handle large datasets efficiently, integrate with different data sources seamlessly, and provide pixel-perfect reporting capabilities while maintaining the flexibility of an open-source solution.&#x20;
-> 
-> Its enterprise-grade features, combined with its cost-effectiveness, make it particularly attractive for organizations looking to implement robust reporting solutions without significant licensing costs.
+> It offers parameterized reporting, sub-reports, cross-tabs, charts, and conditional formatting, and outputs PDF, Excel, HTML, and CSV, among other formats. Every element of a report sits exactly where the designer placed it, which suits printed and pixel-perfect output.
 
 Report Designer has its own workshop — **Pentaho BI Developer - RD
 Associate** — which covers it hands-on.
@@ -103,4 +101,8 @@ Associate** — which covers it hands-on.
 
 ***
 
-**🎥 Embed:** [Pentaho 10 User Console](<https://www.loom.com/share/31b64ef6661c42f99c2dcdbd6328266a?hideEmbedTopBar=true&hide_owner=true&hide_share=true&hide_title=true>)
+<figure>
+
+<figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
+
+</figure>

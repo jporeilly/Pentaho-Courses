@@ -436,89 +436,36 @@
   </info>
   <notepads>
     <notepad>
-      <note>Lab 1: Merge Streams</note>
-      <xloc>128</xloc>
-      <yloc>32</yloc>
-      <width>162</width>
-      <heigth>30</heigth>
-      <fontname>Segoe UI</fontname>
-      <fontsize>11</fontsize>
-      <fontbold>Y</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>255</bordercolorred>
-      <bordercolorgreen>255</bordercolorgreen>
-      <bordercolorblue>255</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
-    <notepad>
-      <note>When you merge rows, its essential that the two streams have the same structure and layout.
-</note>
-      <xloc>128</xloc>
-      <yloc>96</yloc>
-      <width>679</width>
-      <heigth>54</heigth>
-      <fontname>Calibri Light</fontname>
-      <fontsize>11</fontsize>
-      <fontbold>N</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>255</bordercolorred>
-      <bordercolorgreen>255</bordercolorgreen>
-      <bordercolorblue>255</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
-    <notepad>
-      <note>Add PRODUCTDESCRIPTION field to the stream.</note>
-      <xloc>320</xloc>
-      <yloc>176</yloc>
-      <width>329</width>
-      <heigth>30</heigth>
-      <fontname>Segoe UI</fontname>
-      <fontsize>9</fontsize>
-      <fontbold>N</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>192</bordercolorred>
-      <bordercolorgreen>192</bordercolorgreen>
-      <bordercolorblue>192</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
-    <notepad>
-      <note>The text file has to have the same layout as
- orders to ensure the merge is successful.</note>
+      <note>tr_merge_streams - merges a products stream and a descriptions stream into one stream.
+Both must reach the merge with the same fields, in the same order, of the same type.
+
+1. orders: Text file input, orders.txt next to this file (separator ;, header,
+   format mixed), five String fields PRODUCTCODE to PRODUCTVENDOR.
+2. Add description: Add constants adds PRODUCTDESCRIPTION (String, no value).
+3. Select Orders: Select values, the six fields PRODUCTCODE to PRODUCTDESCRIPTION.
+4. description: Text file input, description.txt, same settings, six String fields.
+5. Select Description: Select values, the same six fields in the same order.
+6. Dummy (do nothing): both Select values steps feed it, so the two streams
+   come out as one.
+
+Shipped data: 18 rows, 9 from each file, so each product appears twice.</note>
       <xloc>144</xloc>
-      <yloc>416</yloc>
-      <width>295</width>
-      <heigth>50</heigth>
+      <yloc>32</yloc>
+      <width>536</width>
+      <heigth>242</heigth>
       <fontname>Segoe UI</fontname>
-      <fontsize>9</fontsize>
+      <fontsize>10</fontsize>
       <fontbold>N</fontbold>
       <fontitalic>N</fontitalic>
       <fontcolorred>0</fontcolorred>
       <fontcolorgreen>0</fontcolorgreen>
       <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>192</bordercolorred>
-      <bordercolorgreen>192</bordercolorgreen>
-      <bordercolorblue>192</bordercolorblue>
+      <backgroundcolorred>167</backgroundcolorred>
+      <backgroundcolorgreen>224</backgroundcolorgreen>
+      <backgroundcolorblue>245</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
       <drawshadow>Y</drawshadow>
     </notepad>
   </notepads>
@@ -584,7 +531,7 @@
     </remotesteps>
     <GUI>
       <xloc>320</xloc>
-      <yloc>240</yloc>
+      <yloc>322</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -609,7 +556,7 @@
     </remotesteps>
     <GUI>
       <xloc>608</xloc>
-      <yloc>288</yloc>
+      <yloc>370</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -655,7 +602,7 @@
     </remotesteps>
     <GUI>
       <xloc>480</xloc>
-      <yloc>352</yloc>
+      <yloc>434</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -701,7 +648,7 @@
     </remotesteps>
     <GUI>
       <xloc>480</xloc>
-      <yloc>240</yloc>
+      <yloc>322</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -759,7 +706,7 @@
         <name>PRODUCTCODE</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -774,7 +721,7 @@
         <name>PRODUCTNAME</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -789,7 +736,7 @@
         <name>PRODUCTLINE</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -804,7 +751,7 @@
         <name>PRODUCTSCALE</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -819,7 +766,7 @@
         <name>PRODUCTVENDOR</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -834,7 +781,7 @@
         <name>PRODUCTDESCRIPTION</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -881,7 +828,7 @@
     </remotesteps>
     <GUI>
       <xloc>144</xloc>
-      <yloc>352</yloc>
+      <yloc>434</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -939,7 +886,7 @@
         <name>PRODUCTCODE</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -954,7 +901,7 @@
         <name>PRODUCTNAME</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -969,7 +916,7 @@
         <name>PRODUCTLINE</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -984,7 +931,7 @@
         <name>PRODUCTSCALE</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -999,7 +946,7 @@
         <name>PRODUCTVENDOR</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -1046,7 +993,7 @@
     </remotesteps>
     <GUI>
       <xloc>144</xloc>
-      <yloc>240</yloc>
+      <yloc>322</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

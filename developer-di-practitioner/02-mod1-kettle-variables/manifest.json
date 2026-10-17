@@ -1,8 +1,8 @@
 {
-  "title": "KETTLE Variables",
+  "title": "Kettle Variables",
   "description": "",
   "order": 4,
-  "stepCount": 10,
+  "stepCount": 4,
   "estimatedMinutes": 25,
   "checks": [
     {
@@ -13,5 +13,5 @@
       "text": "DIR_SAMPLES"
     }
   ],
-  "hasVideo": true
+  "hasVideo": false
 }

@@ -43,15 +43,14 @@
 1. In DBeaver, run:
 
    ```sql
-   SELECT COUNT(*) FROM STG_SALES_DATA;
-
-   SELECT COUNT(*) FROM STG_SALES_DATA
-   WHERE QUANTITYORDERED > 50;
+   SELECT COUNT(*) AS ALL_ROWS,
+          COUNT(CASE WHEN QUANTITYORDERED > 50 THEN 1 END) AS OVER_50
+   FROM STG_SALES_DATA;
    ```
 
-<figure><img src="../_assets/images/stg-sales-data-data.png" alt="STG_SALES_DATA rows in DBeaver"><figcaption><p>STG_SALES_DATA</p></figcaption></figure>
+<figure><img src="../_assets/images/stg-sales-data-data.png" alt="DBeaver: ALL_ROWS 2,823 and OVER_50 54 for STG_SALES_DATA"><figcaption><p>The baseline counts</p></figcaption></figure>
 
-> **Success:** Checkpoint: 2,823 rows, of which 54 have `QUANTITYORDERED` over 50.
+> **Success:** Checkpoint: `ALL_ROWS` is 2,823, and `OVER_50` is 54: the rows with `QUANTITYORDERED` over 50.
 
 2. List the rows that will survive. In DBeaver, run:
 
@@ -72,25 +71,12 @@
 >
 > Read `productline.txt`: a header and one `PRODUCTLINE` value per line, seven in all.
 
-1. Start Spoon with the **Start PDI** button below, or from a terminal:
-
-::: tabs
-
-### Windows (PowerShell)
+1. Start Spoon with the **Start PDI** button below, or from PowerShell:
 
 ```powershell
 Set-Location C:\Pentaho\design-tools\data-integration
 .\spoon.bat
 ```
-
-### macOS / Linux
-
-```bash
-cd ~/Pentaho/design-tools/data-integration
-./spoon.sh
-```
-
-:::
 
 <button data-launch="spoon" data-path="">Start PDI</button>
 
@@ -193,8 +179,6 @@ cd ~/Pentaho/design-tools/data-integration
 
 <figure><img src="../_assets/images/delete-options.png" alt="Delete step with target table STG_SALES_DATA and the two key rows" width="563"><figcaption><p>Delete where QUANTITYORDERED &lt;= 50 and the product line matches</p></figcaption></figure>
 
-> **Note:** The screenshot also has **Target schema** set to `sampledata`, and shows the connection under an older name, `MySQL - sampledata`. The connection already points at the `sampledata` database, so leave **Target schema** empty.
-
 7. Select **OK**.
 
 > **Danger:** The comparators decide what is deleted, and a delete can't be undone: look at each key row again before you run. Here the table is a staging copy: to get it back, run the Writing to a Database transformation again, which truncates and reloads all 2,823 rows. On a real table, back it up or take a snapshot first.
@@ -238,15 +222,14 @@ cd ~/Pentaho/design-tools/data-integration
 4. Repeat the counts from the first tab. In DBeaver, run:
 
    ```sql
-   SELECT COUNT(*) FROM STG_SALES_DATA;
-
-   SELECT COUNT(*) FROM STG_SALES_DATA
-   WHERE QUANTITYORDERED > 50;
+   SELECT COUNT(*) AS ALL_ROWS,
+          COUNT(CASE WHEN QUANTITYORDERED > 50 THEN 1 END) AS OVER_50
+   FROM STG_SALES_DATA;
    ```
 
-<figure><img src="../_assets/images/delete-data.png" alt="STG_SALES_DATA after the delete in DBeaver"><figcaption><p>STG_SALES_DATA after the delete</p></figcaption></figure>
+<figure><img src="../_assets/images/delete-data.png" alt="DBeaver after the delete: ALL_ROWS 54 and OVER_50 54"><figcaption><p>The counts after the delete</p></figcaption></figure>
 
-> **Success:** Checkpoint: both counts are 54. `STG_SALES_DATA` holds 54 rows, every one with `QUANTITYORDERED` over 50.
+> **Success:** Checkpoint: `ALL_ROWS` and `OVER_50` are both 54. `STG_SALES_DATA` holds 54 rows, every one with `QUANTITYORDERED` over 50.
 
 5. Run it again with a higher threshold: press `F9` (**Action > Run**). In the **Run Options** dialog, on the **Parameters** tab, set **Value** for `MIN_QUANTITYORDERED` to `70`. Select **Run**.
 6. In DBeaver, run:

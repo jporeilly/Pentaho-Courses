@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>tr_databse_lookup</name>
-    <description>databse lookup</description>
+    <name>tr_database_lookup</name>
+    <description>database lookup</description>
     <extended_description/>
     <trans_version>1.0</trans_version>
     <trans_type>Normal</trans_type>
@@ -436,70 +436,43 @@
   </info>
   <notepads>
     <notepad>
-      <note>Lab 1: Database Lookup</note>
-      <xloc>112</xloc>
-      <yloc>48</yloc>
-      <width>178</width>
-      <heigth>30</heigth>
-      <fontname>Segoe UI</fontname>
-      <fontsize>11</fontsize>
-      <fontbold>Y</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>255</bordercolorred>
-      <bordercolorgreen>255</bordercolorgreen>
-      <bordercolorblue>255</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
-    <notepad>
-      <note>Parameters:
+      <note>tr_database_lookup - looks up one PRODUCTS row per search row, in three ways.
+Uses the MySQL:sampledata connection. The hops into the other two lookups and the
+error hop to Write to log are disabled; enable a lookup's hops to try it.
 
- Prod: Aston Martin   max_price: 90
-            Ford Falcon    max_price: 70
-            Corvette          max_price: 70</note>
-      <xloc>944</xloc>
-      <yloc>192</yloc>
-      <width>195</width>
-      <heigth>89</heigth>
+1. some conditions: Data grid, prod (String) and max_price (Integer), the parameters:
+   prod: Aston Martin, Ford Falcon, Corvette; max_price: 90, 70, 70.
+2. like_statement: User defined Java expression, like_statement = "%"+prod+"%".
+   It copies every row to each lookup.
+3. Database lookup (simple): table PRODUCTS, BUYPRICE &lt; max_price and PRODUCTNAME
+   LIKE like_statement; returns PRODUCTNAME (default not available), PRODUCTSCALE
+   and BUYPRICE. Enable cache? is off.
+4. Database lookup (with error handling): the same lookup; rows it does not find
+   go to Write to log, with err_num, err_descrip, err_fieldname and err_code.
+5. Write to log: logs "no productname matches that price" with prod, max_price
+   and like_statement.
+6. Database lookup (do not pass): the same lookup with no default; rows it does
+   not find are dropped.
+
+Shipped data: Database lookup (simple) gives 3 rows: Ford Falcon gets not available,
+Corvette the first of its three matches the database returns.</note>
+      <xloc>160</xloc>
+      <yloc>32</yloc>
+      <width>541</width>
+      <heigth>368</heigth>
       <fontname>Segoe UI</fontname>
-      <fontsize>9</fontsize>
+      <fontsize>10</fontsize>
       <fontbold>N</fontbold>
       <fontitalic>N</fontitalic>
       <fontcolorred>0</fontcolorred>
       <fontcolorgreen>0</fontcolorgreen>
       <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>192</bordercolorred>
-      <bordercolorgreen>192</bordercolorgreen>
-      <bordercolorblue>192</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
-    <notepad>
-      <note>The Database lookup step allows you to look for values in a database table.</note>
-      <xloc>112</xloc>
-      <yloc>112</yloc>
-      <width>664</width>
-      <heigth>37</heigth>
-      <fontname>Calibri Light</fontname>
-      <fontsize>11</fontsize>
-      <fontbold>N</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>255</bordercolorred>
-      <bordercolorgreen>255</bordercolorgreen>
-      <bordercolorblue>255</bordercolorblue>
+      <backgroundcolorred>167</backgroundcolorred>
+      <backgroundcolorgreen>224</backgroundcolorgreen>
+      <backgroundcolorblue>245</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
       <drawshadow>Y</drawshadow>
     </notepad>
   </notepads>
@@ -663,7 +636,7 @@
     </remotesteps>
     <GUI>
       <xloc>448</xloc>
-      <yloc>480</yloc>
+      <yloc>736</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -729,7 +702,7 @@
     </remotesteps>
     <GUI>
       <xloc>448</xloc>
-      <yloc>192</yloc>
+      <yloc>448</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -795,7 +768,7 @@
     </remotesteps>
     <GUI>
       <xloc>560</xloc>
-      <yloc>336</yloc>
+      <yloc>592</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -839,7 +812,7 @@ no productname matches that price
     </remotesteps>
     <GUI>
       <xloc>784</xloc>
-      <yloc>336</yloc>
+      <yloc>592</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -872,7 +845,7 @@ no productname matches that price
     </remotesteps>
     <GUI>
       <xloc>320</xloc>
-      <yloc>336</yloc>
+      <yloc>592</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -935,7 +908,7 @@ no productname matches that price
     </remotesteps>
     <GUI>
       <xloc>160</xloc>
-      <yloc>336</yloc>
+      <yloc>592</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

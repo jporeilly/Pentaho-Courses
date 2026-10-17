@@ -436,71 +436,35 @@
   </info>
   <notepads>
     <notepad>
-      <note>Lab 5: Employee Insert / Update</note>
-      <xloc>144</xloc>
+      <note>tr_employee_insert_update - upserts four employees into EMPLOYEES with one step.
+Uses MySQL:sampledata. employee_table_backup.sql (Table Update lab) puts EMPLOYEES back.
+
+1. Text File Input: ${Internal.Entry.Current.Directory}/employees_insert_update.txt,
+   comma, one header line, 8 fields, EMPLOYEE_NUMBER to TITLE.
+2. Insert / Update Employees: EMPLOYEES, key EMPLOYEENUMBER = EMPLOYEE_NUMBER,
+   commit 100. Updates a row it finds, inserts one it does not.
+   EXTENSION = EXT, OFFICECODE = OFFICE, REPORTSTO = REPORTS, JOBTITLE = TITLE.
+   EMPLOYEENUMBER is listed with Update N: written on insert, never updated.
+
+Shipped data: 2 inserted (1810, 1811) and 2 updated (1188, 1619); EMPLOYEES holds 25.
+A second run reads 4 and changes nothing.</note>
+      <xloc>224</xloc>
       <yloc>32</yloc>
-      <width>236</width>
-      <heigth>30</heigth>
+      <width>569</width>
+      <heigth>224</heigth>
       <fontname>Segoe UI</fontname>
-      <fontsize>11</fontsize>
-      <fontbold>Y</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>255</bordercolorred>
-      <bordercolorgreen>255</bordercolorgreen>
-      <bordercolorblue>255</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
-    <notepad>
-      <note>In this demonstration the EMPLOYEE table is updated and new records are inserted.  
-
-    Inspect the EMPLOYEE Table and compare the records against the employee.txt</note>
-      <xloc>144</xloc>
-      <yloc>80</yloc>
-      <width>638</width>
-      <heigth>76</heigth>
-      <fontname>Calibri Light</fontname>
-      <fontsize>11</fontsize>
+      <fontsize>10</fontsize>
       <fontbold>N</fontbold>
       <fontitalic>N</fontitalic>
       <fontcolorred>0</fontcolorred>
       <fontcolorgreen>0</fontcolorgreen>
       <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>255</bordercolorred>
-      <bordercolorgreen>255</bordercolorgreen>
-      <bordercolorblue>255</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
-    <notepad>
-      <note>The stream fields are mapped to the database table by ensuring:
-EMPLOYEE_NUMBER = EMPLOYEENUMBER
-
-Ensure all the Field mappings are correct</note>
-      <xloc>160</xloc>
-      <yloc>272</yloc>
-      <width>346</width>
-      <heigth>73</heigth>
-      <fontname>Segoe UI</fontname>
-      <fontsize>9</fontsize>
-      <fontbold>N</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>192</bordercolorred>
-      <bordercolorgreen>192</bordercolorgreen>
-      <bordercolorblue>192</bordercolorblue>
+      <backgroundcolorred>167</backgroundcolorred>
+      <backgroundcolorgreen>224</backgroundcolorgreen>
+      <backgroundcolorblue>245</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
       <drawshadow>Y</drawshadow>
     </notepad>
   </notepads>
@@ -656,7 +620,7 @@ Ensure all the Field mappings are correct</note>
     </remotesteps>
     <GUI>
       <xloc>416</xloc>
-      <yloc>192</yloc>
+      <yloc>304</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -714,7 +678,7 @@ Ensure all the Field mappings are correct</note>
         <name>EMPLOYEE_NUMBER</name>
         <type>Integer</type>
         <format>#</format>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -729,7 +693,7 @@ Ensure all the Field mappings are correct</note>
         <name>LASTNAME</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -744,7 +708,7 @@ Ensure all the Field mappings are correct</note>
         <name>FIRSTNAME</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -759,7 +723,7 @@ Ensure all the Field mappings are correct</note>
         <name>EXT</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -774,7 +738,7 @@ Ensure all the Field mappings are correct</note>
         <name>EMAIL</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -789,7 +753,7 @@ Ensure all the Field mappings are correct</note>
         <name>OFFICE</name>
         <type>Integer</type>
         <format>#</format>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -804,7 +768,7 @@ Ensure all the Field mappings are correct</note>
         <name>REPORTS</name>
         <type>Integer</type>
         <format>#</format>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -819,7 +783,7 @@ Ensure all the Field mappings are correct</note>
         <name>TITLE</name>
         <type>String</type>
         <format/>
-        <currency>£</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif>-</nullif>
@@ -866,7 +830,7 @@ Ensure all the Field mappings are correct</note>
     </remotesteps>
     <GUI>
       <xloc>224</xloc>
-      <yloc>192</yloc>
+      <yloc>304</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
