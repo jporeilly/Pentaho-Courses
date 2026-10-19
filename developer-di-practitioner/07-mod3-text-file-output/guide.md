@@ -26,6 +26,8 @@
 
 </figure>
 
+---
+
 <div align="center">
 <figure>
 <img src="../_assets/images/survey-text-file-output.png" alt="The finished transformation: name and text +name appended with instructions, then with the numbered questions, and written by TFO - survey" width="720">
@@ -495,3 +497,9 @@ The finished transformation for this lab. Open it alongside your own to compare,
 Also on disk at `C:\Workshop-DI-Practitioner\03-data-sources\01-flat-files\07-mod3-text-file-output\solution`.
 
 [tr_write_output.ktr](./files/tr_write_output.ktr) <button data-launch="spoon" data-path="files/tr_write_output.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/tr_write_output.ktr">View graph</button>
+
+---
+
+
+---
+

@@ -26,6 +26,8 @@
 
 </figure>
 
+---
+
 <div align="center">
 <figure>
 <img src="../_assets/images/txt-file-input.png" alt="The finished transformation: read order list, flatten rows, parse status, discard texts and change order_value metadata, hopped in a line" width="602">
