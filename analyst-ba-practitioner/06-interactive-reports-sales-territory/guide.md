@@ -22,7 +22,12 @@
 >
 > **Estimated time:** 20 minutes
 
-<figure><img src="../_assets/images/ir_sales_territory_sales_territory_report.png" alt="The finished Sales Territory Report with the Steel Wheels, Inc. header, grouped by Territory NA and Country Canada, with Customer Name, City, Order Number, Order Date, Revenue and Tax columns"><figcaption><p>Sales Territory Report</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/ir_sales_territory_sales_territory_report.png" alt="The finished Sales Territory Report with the Steel Wheels, Inc. header, grouped by Territory NA and Country Canada, with Customer Name, City, Order Number, Order Date, Revenue and Tax columns" width="800">
+<figcaption>Sales Territory Report</figcaption>
+</figure>
+</div>
 
 ***
 
@@ -40,38 +45,32 @@
 
 1. Select **Browse Files**. In the **Folders** pane, select **Public > Steel Wheels**, and in the **Files** pane, double-click **Vendor Sales Report (interactive report)**.
 
-<figure>
-
-![The Vendor Sales Report - Classic Cars in its own console tab, grouped by Territory APAC and Product Vendor, with Product Name, Scale, Items Sold and Sales and a subtotal per vendor](../_assets/images/ir-vendor-sales-report.png)
-
 <div align="center">
-<figcaption><em>The Vendor Sales Report</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/ir-vendor-sales-report.png" alt="The Vendor Sales Report - Classic Cars in its own console tab, grouped by Territory APAC and Product Vendor, with Product Name, Scale, Items Sold and Sales and a subtotal per vendor" width="800">
+<figcaption>The Vendor Sales Report</figcaption>
 </figure>
+</div>
 
 > **Success:** Checkpoint: the report opens in its own tab, grouped by Territory and Product Vendor, with a subtotal for each vendor.
 
 The **Interactive Toolbar** above the report has buttons to undo or redo changes, export the report, show the **Filters** or **Layout** panels, create prompts, and move through the report pages.
 
-<figure>
-
-![The Interactive Toolbar of the Vendor Sales Report: undo, redo, Export, Filters, Layout and Prompts buttons, page 1 of 3, and Row Limit set to Maximum 100000](../_assets/images/ir-interactive-toolbar.png)
-
 <div align="center">
-<figcaption><em>The Interactive Toolbar</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/ir-interactive-toolbar.png" alt="The Interactive Toolbar of the Vendor Sales Report: undo, redo, Export, Filters, Layout and Prompts buttons, page 1 of 3, and Row Limit set to Maximum 100000" width="800">
+<figcaption>The Interactive Toolbar</figcaption>
 </figure>
+</div>
 
 2. On the main toolbar, select **Edit Content** to see the fields the report is built from.
 
-<figure>
-
-![The Vendor Sales Report in edit mode, with the Data tab listing Available Fields For Orders, Group Sorting and Field Sorting, and the Show tips on startup and Hide Tips controls](../_assets/images/ir-edit-content.png)
-
 <div align="center">
-<figcaption><em>Edit mode</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/ir-edit-content.png" alt="The Vendor Sales Report in edit mode, with the Data tab listing Available Fields For Orders, Group Sorting and Field Sorting, and the Show tips on startup and Hide Tips controls" width="800">
+<figcaption>Edit mode</figcaption>
 </figure>
+</div>
 
 > **Success:** Checkpoint: the report switches to edit mode, and the **Data** tab on the left lists the fields available from the **Orders** data source, with the report's grouping and sorting below them.
 
@@ -79,47 +78,39 @@ The pane on the left also has a **Formatting** tab for individual report element
 
 3. On the Interactive Toolbar, select the drop-down arrow beside **Export** to see the formats the report exports to.
 
-<figure>
-
-![The Interactive Toolbar with the Export button and its drop-down arrow outlined in red](../_assets/images/ir-export-formats.gif)
-
 <div align="center">
-<figcaption><em>Export formats</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/ir-export-formats.gif" alt="The Interactive Toolbar with the Export button and its drop-down arrow outlined in red" width="447">
+<figcaption>The Export button and its drop-down arrow</figcaption>
 </figure>
+</div>
 
 4. On the Interactive Toolbar, select **Filters** to show the **Filters** panel.
 
-<figure>
-
-![The Interactive Toolbar with the Filters button outlined in red, its badge showing 2 active filters](../_assets/images/ir-filters-button.gif)
-
 <div align="center">
-<figcaption><em>The Filters button</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/ir-filters-button.gif" alt="The Interactive Toolbar with the Filters button outlined in red, its badge showing 2 active filters" width="447">
+<figcaption>The Filters button</figcaption>
 </figure>
+</div>
 
 5. On the Interactive Toolbar, select **Layout** to show the **Layout** panel.
 
-<figure>
-
-![The Interactive Toolbar with the Layout button outlined in red, between the Filters and Prompts buttons](../_assets/images/ir-layout-button.gif)
-
 <div align="center">
-<figcaption><em>The Layout button</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/ir-layout-button.gif" alt="The Interactive Toolbar with the Layout button outlined in red, between the Filters and Prompts buttons" width="447">
+<figcaption>The Layout button</figcaption>
 </figure>
+</div>
 
 The toolbar also holds **Row Limit**: **Maximum**, or **No more than** a number of rows that you enter.
 
-<figure>
-
-![The Row Limit control on the Interactive Toolbar set to No more than, with 500 in the row count box](../_assets/images/ir-row-limit.png)
-
 <div align="center">
-<figcaption><em>Row Limit</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/ir-row-limit.png" alt="The Row Limit control on the Interactive Toolbar set to No more than, with 500 in the row count box" width="350">
+<figcaption>Row Limit</figcaption>
 </figure>
+</div>
 
 ### 2. Sales Territory Report
 
@@ -129,7 +120,12 @@ The toolbar also holds **Row Limit**: **Maximum**, or **No more than** a number 
 >
 > One of the standard corporate reports is a breakdown of the total customer revenue by sales territory. This tab builds it, one part per tab below.
 
-<figure><img src="../_assets/images/ir_sales_territory_workflow_interactive_report.png" alt="Workflow - Interactive report" width="563"><figcaption><p>The Interactive Report workflow</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/ir_sales_territory_workflow_interactive_report.png" alt="Workflow - Interactive report" width="563">
+<figcaption>The Interactive Report workflow</figcaption>
+</figure>
+</div>
 
 ::: tabs
 
@@ -153,7 +149,12 @@ The toolbar also holds **Row Limit**: **Maximum**, or **No more than** a number 
 
 1. Select the perspective drop-down and select **Home**, then select **Create New > Interactive Report**.
 
-<figure><img src="../_assets/images/ir_sales_territory_orders_data_source.png" alt="The Select Data Source dialog listing the available data sources, with the pointer on Orders between Inventory and PDI_Operations_Mart"><figcaption><p>Orders - Data Source</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/ir_sales_territory_orders_data_source.png" alt="The Select Data Source dialog listing the available data sources, with the pointer on Orders between Inventory and PDI_Operations_Mart" width="734">
+<figcaption>Orders - Data Source</figcaption>
+</figure>
+</div>
 
 2. In the **Select Data Source** dialog, select **Orders**, and select **OK**.
 
@@ -181,13 +182,28 @@ The toolbar also holds **Row Limit**: **Maximum**, or **No more than** a number 
 
 4. Next to **Template**, select **Select...**.
 
-<figure><img src="../_assets/images/ir_sales_territory_select_report_template.png" alt="The Interactive Report editor with the General tab open, showing the Left Aligned - Grid - Crystal template preview and the Select and Page Setup buttons"><figcaption><p>Select - Report Template</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/ir_sales_territory_select_report_template.png" alt="The Interactive Report editor with the General tab open, showing the Left Aligned - Grid - Crystal template preview and the Select and Page Setup buttons" width="800">
+<figcaption>Select - Report Template</figcaption>
+</figure>
+</div>
 
 5. Use the left and right arrows to scroll through the templates, and select **Left Aligned - Grid - Nickel**.
 
-<figure><img src="../_assets/images/ir_sales_territory_report_templates.png" alt="The template gallery showing Left Aligned, Indented and Dashboard templates in Nickel and Grid - Nickel variants, including Left Aligned - Grid - Nickel"><figcaption><p>Report Templates</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/ir_sales_territory_report_templates.png" alt="The template gallery showing Left Aligned, Indented and Dashboard templates in Nickel and Grid - Nickel variants, including Left Aligned - Grid - Nickel" width="488">
+<figcaption>Report Templates</figcaption>
+</figure>
+</div>
 
-<figure><img src="../_assets/images/ir_sales_territory_left_aligned_grid_nickel.png" alt="The General tab now showing the Left Aligned - Grid - Nickel template, with the empty report canvas restyled with a brown Nickel header band"><figcaption><p>Left Aligned - Grid - Nickel</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/ir_sales_territory_left_aligned_grid_nickel.png" alt="The General tab now showing the Left Aligned - Grid - Nickel template, with the empty report canvas restyled with a brown Nickel header band" width="800">
+<figcaption>Left Aligned - Grid - Nickel</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: the **General** tab shows **Left Aligned - Grid - Nickel**, and the empty report takes on its brown header band.
 
@@ -218,25 +234,50 @@ The toolbar also holds **Row Limit**: **Maximum**, or **No more than** a number 
 
 1. Open the **Data** tab.
 
-<figure><img src="../_assets/images/ir_sales_territory_data_fields.png" alt="The Data tab listing Available Fields For Orders, with the Customer folder expanded to Territory, Credit Limit, Employee Number, Country, Postalcode, State and City" width="237"><figcaption><p>Data Fields</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/ir_sales_territory_data_fields.png" alt="The Data tab listing Available Fields For Orders, with the Customer folder expanded to Territory, Credit Limit, Employee Number, Country, Postalcode, State and City" width="237">
+<figcaption>Data Fields</figcaption>
+</figure>
+</div>
 
 2. Drag **Country** from the **Data** tab onto the report canvas. A blue vertical line shows where the column will be placed.
 
-<figure><img src="../_assets/images/ir_sales_territory_5.png" alt="The Untitled report canvas with a single Country column listing Australia, Austria, Belgium, Canada, Denmark and Finland" width="182"><figcaption><p>Country as the first column</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/ir_sales_territory_5.png" alt="The Untitled report canvas with a single Country column listing Australia, Austria, Belgium, Canada, Denmark and Finland" width="182">
+<figcaption>Country as the first column</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: the report has a single **Country** column.
 
 3. Remove **Country** again: drag the **Country** column header to the trash can in the lower-right corner of the canvas, and drop it there.
 
-<figure><img src="../_assets/images/ir_sales_territory_delete_country.png" alt="The Country column header being dragged onto the trash can in the lower right corner of the report canvas" width="110"><figcaption><p>Delete Country</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/ir_sales_territory_delete_country.png" alt="The Country column header being dragged onto the trash can in the lower right corner of the report canvas" width="110">
+<figcaption>Delete Country</figcaption>
+</figure>
+</div>
 
 4. On the Interactive Toolbar, select **Layout** to show the **Layout** panel.
 
-<figure><img src="../_assets/images/ir_sales_territory_interactive_toolbar.png" alt="The Interactive Toolbar with the Layout button outlined in red; the report shows page 1 of 1"><figcaption><p>Interactive Toolbar</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/ir_sales_territory_interactive_toolbar.png" alt="The Interactive Toolbar with the Layout button outlined in red; the report shows page 1 of 1" width="459">
+<figcaption>Interactive Toolbar</figcaption>
+</figure>
+</div>
 
 5. Drag **Country** from the **Data** tab to the **Columns** line of the **Layout** panel.
 
-<figure><img src="../_assets/images/ir_sales_territory_layout_panel.png" alt="The Layout panel with an empty Groups line and Country placed on the Columns line" width="380"><figcaption><p>Layout Panel</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/ir_sales_territory_layout_panel.png" alt="The Layout panel with an empty Groups line and Country placed on the Columns line" width="380">
+<figcaption>Layout Panel</figcaption>
+</figure>
+</div>
 
 6. Drag **City** from the **Data** tab onto the report canvas, and drop it to the *right* of **Country**. The blue line shows whether the field will be a column or a group.
 7. On the **Data** tab, double-click **Customer Name**.
@@ -246,17 +287,32 @@ The toolbar also holds **Row Limit**: **Maximum**, or **No more than** a number 
 
 9. On the **Columns** line of the **Layout** panel, drag **Customer Name** *between* **Country** and **City**.
 
-<figure><img src="../_assets/images/ir_sales_territory_rearrange_fields_in_layout.png" alt="The Layout panel Columns line with Country, City, Customer Name, Order Date, Order Number and Total, and an arrow dragging Customer Name between Country and City"><figcaption><p>Rearrange Fields in Layout</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/ir_sales_territory_rearrange_fields_in_layout.png" alt="The Layout panel Columns line with Country, City, Customer Name, Order Date, Order Number and Total, and an arrow dragging Customer Name between Country and City" width="582">
+<figcaption>Rearrange Fields in Layout</figcaption>
+</figure>
+</div>
 
 10. On the report canvas, drag the **Order Number** column header *between* **City** and **Order Date**.
 
-<figure><img src="../_assets/images/ir_sales_territory_rearrange_fields_on_canvas.png" alt="The report canvas with Country, Customer Name, City, Order Date, Order Number and Total columns, and an arrow dragging Order Number between City and Order Date"><figcaption><p>Rearrange Fields on Canvas</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/ir_sales_territory_rearrange_fields_on_canvas.png" alt="The report canvas with Country, Customer Name, City, Order Date, Order Number and Total columns, and an arrow dragging Order Number between City and Order Date" width="578">
+<figcaption>Rearrange Fields on Canvas</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: the columns read **Country**, **Customer Name**, **City**, **Order Number**, **Order Date** and **Total**.
 
 11. Widen **Customer Name**: drag the resize bar *between* the **Customer Name** and **City** column headers to the right.
 
-<figure><img src="../_assets/images/ir_sales_territory_resize_columns.png" alt="The report canvas with the resize pointer outlined in red between the Customer Name and City headers and an arrow pointing right to widen Customer Name"><figcaption><p>Resize columns</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/ir_sales_territory_resize_columns.png" alt="The report canvas with the resize pointer outlined in red between the Customer Name and City headers and an arrow pointing right to widen Customer Name" width="574">
+<figcaption>Resize columns</figcaption>
+</figure>
+</div>
 
 12. Drag the resize bars of the **Order Number** and **Order Date** columns to make them narrower.
 
@@ -302,17 +358,32 @@ The toolbar also holds **Row Limit**: **Maximum**, or **No more than** a number 
 
 1. Drag **Territory** from the **Data** tab to the **Groups** line of the **Layout** panel.
 
-<figure><img src="../_assets/images/ir_sales_territory_grouping.png" alt="The Layout panel with Territory on the Groups line and Country, Customer Name, City, Order Number, Order Date and Total on the Columns line"><figcaption><p>Grouping</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/ir_sales_territory_grouping.png" alt="The Layout panel with Territory on the Groups line and Country, Customer Name, City, Order Number, Order Date and Total on the Columns line" width="592">
+<figcaption>Grouping</figcaption>
+</figure>
+</div>
 
 2. On the report canvas, drag the **Country** column header *below* the **Territory** group heading.
 
-<figure><img src="../_assets/images/ir_sales_territory_country_sub_group.png" alt="The report grouped by Territory APAC, with the Country column header being dragged below the Territory group heading to create a subgroup"><figcaption><p>Country sub-group</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/ir_sales_territory_country_sub_group.png" alt="The report grouped by Territory APAC, with the Country column header being dragged below the Territory group heading to create a subgroup" width="800">
+<figcaption>Country sub-group</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: the report is grouped by Territory and then Country, starting with **APAC** and **Australia**. **Territory** and **Country** are on the **Groups** line of the **Layout** panel and under **Group Sorting** at the bottom of the **Data** tab, both **Ascending**.
 
 3. Under **Group Sorting** at the bottom of the **Data** tab, set **Territory** to **Descending**.
 
-<figure><img src="../_assets/images/ir_sales_territory_descending_sort_on_territory.png" alt="The report with Territory NA listed first, showing Country Canada and Country USA subgroups with Customer Name, City, Order Number, Order Date and Total columns"><figcaption><p>Descending sort on Territory</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/ir_sales_territory_descending_sort_on_territory.png" alt="The report with Territory NA listed first, showing Country Canada and Country USA subgroups with Customer Name, City, Order Number, Order Date and Total columns" width="800">
+<figcaption>Descending sort on Territory</figcaption>
+</figure>
+</div>
 
 > **Under the hood:**
 >
@@ -334,11 +405,21 @@ The toolbar also holds **Row Limit**: **Maximum**, or **No more than** a number 
 
 4. Select the drop-down arrow on the **Customer Name** column header, and select **Sort > Descending**.
 
-<figure><img src="../_assets/images/ir_sales_territory_descending_sort_on_customer_name.png" alt="The Customer Name column drop-down menu open with Sort selected and its submenu showing Ascending, Descending and None, with Descending under the pointer"><figcaption><p>Descending sort on Customer Name</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/ir_sales_territory_descending_sort_on_customer_name.png" alt="The Customer Name column drop-down menu open with Sort selected and its submenu showing Ascending, Descending and None, with Descending under the pointer" width="800">
+<figcaption>Descending sort on Customer Name</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: **NA** is now the first territory, with **Canada** and then **USA**, and under **Field Sorting** the **Data** tab shows **Customer Name** sorted **Descending**, with an **X** that removes the sort.
 
-<figure><img src="../_assets/images/ir_sales_territory_data_tab_sorting.png" alt="The Group Sorting section with Territory Descending and Country Ascending, and Field Sorting showing Customer Name Descending with an X to remove it"><figcaption><p>Data tab - sorting</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/ir_sales_territory_data_tab_sorting.png" alt="The Group Sorting section with Territory Descending and Country Ascending, and Field Sorting showing Customer Name Descending with an X to remove it" width="259">
+<figcaption>Data tab - sorting</figcaption>
+</figure>
+</div>
 
 ### 4. Filters & Prompts
 
@@ -356,34 +437,69 @@ The toolbar also holds **Row Limit**: **Maximum**, or **No more than** a number 
 
 1. Make the layout match the picture below, with no groups: on the **Layout** panel, drag **Territory** and **Country** from the **Groups** line to the start of the **Columns** line.
 
-<figure><img src="../_assets/images/ir_sales_territory_report_layout_3.png" alt="The Layout panel with an empty Groups line and Territory, Country, Customer Name, City, Order Number, Order Date and Total on the Columns line"><figcaption><p>Report layout</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/ir_sales_territory_report_layout_3.png" alt="The Layout panel with an empty Groups line and Territory, Country, Customer Name, City, Order Number, Order Date and Total on the Columns line" width="597">
+<figcaption>Report layout</figcaption>
+</figure>
+</div>
 
 2. On the Interactive Toolbar, select **Filters**.
 
-<figure><img src="../_assets/images/ir_sales_territory_filter.png" alt="The Interactive Toolbar with the Filters button outlined in red; the report shows page 1 of 12"><figcaption><p>Filter</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/ir_sales_territory_filter.png" alt="The Interactive Toolbar with the Filters button outlined in red; the report shows page 1 of 12" width="481">
+<figcaption>Filter</figcaption>
+</figure>
+</div>
 
 3. Drag **Territory** from the **Data** tab to the **Filters** panel.
 
-<figure><img src="../_assets/images/ir_sales_territory_filter_panel.png" alt="The empty Filters panel below the toolbar, reading To add a new filter, drag a field from Available Fields to this area, with an Apply Filter button"><figcaption><p>Filter Panel</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/ir_sales_territory_filter_panel.png" alt="The empty Filters panel below the toolbar, reading To add a new filter, drag a field from Available Fields to this area, with an Apply Filter button" width="592">
+<figcaption>Filter Panel</figcaption>
+</figure>
+</div>
 
 4. In the **Filter on Territory** dialog, select **Select from a list**, select **NA** in the list of values, select the right arrow to move it to the **Currently Included** list, and select **OK**.
 
-<figure><img src="../_assets/images/ir_sales_territory_filter_on_territory.png" alt="The Filter on Territory dialog with Select from a list chosen, NA highlighted in the values list and NA moved to the Currently Included list"><figcaption><p>Filter on Territory</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/ir_sales_territory_filter_on_territory.png" alt="The Filter on Territory dialog with Select from a list chosen, NA highlighted in the values list and NA moved to the Currently Included list" width="800">
+<figcaption>Filter on Territory</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: the **Filters** panel shows **Territory Exactly matches NA**, and the report lists only customers in Canada and the USA.
 
 The filter dialog's **Parameter Name** field turns a filter into a parameter. Dashboard Designer lists the parameter on its **Parameters** tab when you use the report in a dashboard, and Report Designer shows it and lets you edit it.
 
-<figure><img src="../_assets/images/ir_sales_territory_filter_panel_2.png" alt="The Filters panel showing one filter, Territory Exactly matches NA, joined by AND, with the Filters button badge showing 1" width="280"><figcaption><p>Filter Panel</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/ir_sales_territory_filter_panel_2.png" alt="The Filters panel showing one filter, Territory Exactly matches NA, joined by AND, with the Filters button badge showing 1" width="280">
+<figcaption>Filter Panel</figcaption>
+</figure>
+</div>
 
 5. Drag the **Country** column header to the **Filters** panel.
 6. In the **Filter on Country** dialog, select **Specify a condition**, select **Begins with** in the constraint list, enter `US` in the text box, and select **OK**.
 
-<figure><img src="../_assets/images/ir_sales_territory_4.png" alt="The Filter on Country dialog with Specify a condition selected, the Begins with constraint chosen and US typed in the text box"><figcaption><p>Filter on Country</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/ir_sales_territory_4.png" alt="The Filter on Country dialog with Specify a condition selected, the Begins with constraint chosen and US typed in the text box" width="672">
+<figcaption>Filter on Country</figcaption>
+</figure>
+</div>
 
 7. Drag the **Order Date** column header to the **Filters** panel.
 
-<figure><img src="../_assets/images/ir_sales_territory_filter_on_order_date.png" alt="The Filter on Order Date dialog with Specify a condition, the date 2004-01-01, and the constraint list open with On or after selected"><figcaption><p>Filter on Order Date</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/ir_sales_territory_filter_on_order_date.png" alt="The Filter on Order Date dialog with Specify a condition, the date 2004-01-01, and the constraint list open with On or after selected" width="673">
+<figcaption>Filter on Order Date</figcaption>
+</figure>
+</div>
 
 8. In the **Filter on Order Date** dialog, select **On or after** in the constraint list, enter `2004-01-01` in the date box (or select January 1, 2004 from the calendar), and select **OK**.
 
@@ -398,7 +514,12 @@ Filters are combined with the operator shown at the left of the **Filters** pane
 
 A filter icon appears beside each filtered field on the **Data** tab.
 
-<figure><img src="../_assets/images/ir_sales_territory_2.png" alt="The Data tab for Orders with filter icons beside the Territory and Country fields in the Customer folder" width="266"><figcaption><p>Filter icons on the Data tab</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/ir_sales_territory_2.png" alt="The Data tab for Orders with filter icons beside the Territory and Country fields in the Customer folder" width="266">
+<figcaption>Filter icons on the Data tab</figcaption>
+</figure>
+</div>
 
 > **Under the hood:**
 >
@@ -425,19 +546,39 @@ A filter icon appears beside each filtered field on the **Data** tab.
 
 A prompt filters a report interactively: whoever runs the report picks the value. Create a prompt for Territory, keeping the layout as it is.
 
-<figure><img src="../_assets/images/ir_sales_territory_report_layout_2.png" alt="The Layout panel with an empty Groups line and Territory, Country, Customer Name, City, Order Number, Order Date and Total on the Columns line"><figcaption><p>Report Layout</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/ir_sales_territory_report_layout_2.png" alt="The Layout panel with an empty Groups line and Territory, Country, Customer Name, City, Order Number, Order Date and Total on the Columns line" width="592">
+<figcaption>Report Layout</figcaption>
+</figure>
+</div>
 
 9. Delete the **Territory** filter and the **Country** filter, and keep **Order Date**: select the drop-down arrow on each filter, and select **Delete**.
 
-<figure><img src="../_assets/images/ir_sales_territory_delete_filters.png" alt="The Filters panel with Territory Exactly matches NA, Country Begins with US and Order Date On or after 2004-01-01, and a filter menu open with Delete highlighted" width="390"><figcaption><p>Delete Filters</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/ir_sales_territory_delete_filters.png" alt="The Filters panel with Territory Exactly matches NA, Country Begins with US and Order Date On or after 2004-01-01, and a filter menu open with Delete highlighted" width="390">
+<figcaption>Delete Filters</figcaption>
+</figure>
+</div>
 
 10. On the Interactive Toolbar, select **Prompts** to show the **Prompts** panel.
 
-<figure><img src="../_assets/images/ir_sales_territory_prompts.png" alt="The Interactive Toolbar with the Prompts button outlined in red; the report shows page 1 of 14" width="529"><figcaption><p>Prompts</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/ir_sales_territory_prompts.png" alt="The Interactive Toolbar with the Prompts button outlined in red; the report shows page 1 of 14" width="529">
+<figcaption>Prompts</figcaption>
+</figure>
+</div>
 
 11. Drag **Territory** from the **Data** tab to the **Prompts** panel. The prompt is a drop-down list by default.
 
-<figure><img src="../_assets/images/ir_sales_territory_prompts_panel.png" alt="The Prompts panel below the toolbar with the Territory field being dropped onto it, reading To add a new prompt, drag a field from Available Fields to this area"><figcaption><p>Prompts Panel</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/ir_sales_territory_prompts_panel.png" alt="The Prompts panel below the toolbar with the Territory field being dropped onto it, reading To add a new prompt, drag a field from Available Fields to this area" width="584">
+<figcaption>Prompts Panel</figcaption>
+</figure>
+</div>
 
 > **Under the hood:**
 >
@@ -460,7 +601,12 @@ A prompt filters a report interactively: whoever runs the report picks the value
 
 12. In the **Territory** prompt's drop-down list, select **NA**.
 
-<figure><img src="../_assets/images/ir_sales_territory_select_territory_na.png" alt="The mandatory Territory prompt with its drop-down list open showing null, APAC, EMEA, Japan and NA, with NA under the pointer" width="375"><figcaption><p>Select Territory = NA</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/ir_sales_territory_select_territory_na.png" alt="The mandatory Territory prompt with its drop-down list open showing null, APAC, EMEA, Japan and NA, with NA under the pointer" width="375">
+<figcaption>Select Territory = NA</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: the report lists only customers in Canada and the USA, with orders from January 1, 2004 on.
 
@@ -476,17 +622,32 @@ A prompt filters a report interactively: whoever runs the report picks the value
 
 1. In the **Filters** panel, delete both filters: select the drop-down arrow on each, and select **Delete**. Deleting the **Territory** filter also removes its prompt, after you confirm.
 
-<figure><img src="../_assets/images/ir_sales_territory_remove_all_filters.png" alt="The Filters panel with Territory Exactly matches value of Prompt Territory and Order Date On or after 2004-01-01, and a filter menu open with Delete highlighted" width="365"><figcaption><p>Remove all Filters</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/ir_sales_territory_remove_all_filters.png" alt="The Filters panel with Territory Exactly matches value of Prompt Territory and Order Date On or after 2004-01-01, and a filter menu open with Delete highlighted" width="365">
+<figcaption>Remove all Filters</figcaption>
+</figure>
+</div>
 
 2. Group the report again: on the **Layout** panel, drag **Territory** and then **Country** from the **Columns** line to the **Groups** line.
 
-<figure><img src="../_assets/images/ir_sales_territory_report_layout.png" alt="The Layout panel with Territory and Country on the Groups line and Customer Name, City, Order Number, Order Date and Total on the Columns line"><figcaption><p>Report layout</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/ir_sales_territory_report_layout.png" alt="The Layout panel with Territory and Country on the Groups line and Customer Name, City, Order Number, Order Date and Total on the Columns line" width="575">
+<figcaption>Report layout</figcaption>
+</figure>
+</div>
 
 3. Under **Group Sorting** at the bottom of the **Data** tab, check that **Territory** is still **Descending**, and set it again if it is not.
 4. On the Interactive Toolbar, select **Filters** to hide the **Filters** panel.
 5. Select the drop-down arrow on the **Total** column header, and select **Summary > Sum**.
 
-<figure><img src="../_assets/images/ir_sales_territory_add_totals.png" alt="The Total column drop-down menu with Summary open, listing None, Average, Count, Count Distinct, Maximum, Minimum and Sum, with Sum under the pointer" width="236"><figcaption><p>Add Totals</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/ir_sales_territory_add_totals.png" alt="The Total column drop-down menu with Summary open, listing None, Average, Count, Count Distinct, Maximum, Minimum and Sum, with Sum under the pointer" width="236">
+<figcaption>Add Totals</figcaption>
+</figure>
+</div>
 
 > **Under the hood:**
 >
@@ -509,7 +670,12 @@ A prompt filters a report interactively: whoever runs the report picks the value
 
 6. Label the country subtotals: double-click the empty cell to the left of the first **Country** subtotal (Canada's), enter `Country Subtotal`, and press `Enter`.
 
-<figure><img src="../_assets/images/ir_sales_territory_add_caption.png" alt="The inline edit box beside a group subtotal of $630,525.00, with Country Subtotal typed as the label" width="258"><figcaption><p>Add caption</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/ir_sales_territory_add_caption.png" alt="The inline edit box beside a group subtotal of $630,525.00, with Country Subtotal typed as the label" width="258">
+<figcaption>Add caption</figcaption>
+</figure>
+</div>
 
 7. Label the territory subtotals the same way with `Territory Subtotal`, and the grand total on the last page with `Grand Total`.
 
@@ -523,12 +689,22 @@ You can create calculated fields from the fields of the data source and from oth
 
 8. Scroll to the bottom of the **Data** tab, to the **Calculated Fields** entry.
 
-<figure><img src="../_assets/images/ir_sales_territory_calculated_fields.png" alt="The bottom of the Data tab for Orders, below the Payments fields, with the Calculated Fields entry and its plus sign outlined in red" width="254"><figcaption><p>Calculated Fields</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/ir_sales_territory_calculated_fields.png" alt="The bottom of the Data tab for Orders, below the Payments fields, with the Calculated Fields entry and its plus sign outlined in red" width="254">
+<figcaption>Calculated Fields</figcaption>
+</figure>
+</div>
 
 9. Select the **+** beside **Calculated Fields**.
 10. In the **Create Calculated Field** dialog, set **Display Name** to `Tax`, enter `=[BC_ORDERDETAILS_TOTAL]*0.15` in **Formula**, and set **Data Format** to **Numeric** (the dialog does not close without a data format). Select **OK**.
 
-<figure><img src="../_assets/images/ir_sales_territory_calculated_measure_tax.png" alt="The Edit Calculated Field dialog with Display Name Tax, a formula multiplying BC_ORDERDETAILS_TOTAL by 0.15, and Data Format set to Numeric"><figcaption><p>Calculated Measure - Tax</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/ir_sales_territory_calculated_measure_tax.png" alt="The Edit Calculated Field dialog with Display Name Tax, a formula multiplying BC_ORDERDETAILS_TOTAL by 0.15, and Data Format set to Numeric" width="800">
+<figcaption>Calculated Measure - Tax</figcaption>
+</figure>
+</div>
 
 > **Under the hood:**
 >
@@ -577,20 +753,40 @@ You can create calculated fields from the fields of the data source and from oth
 
 1. Double-click **Untitled** in the title area, enter `Sales Territory Report`, and press `Enter`.
 
-<figure><img src="../_assets/images/ir_sales_territory_add_a_report_title.png" alt="The Untitled report title with its inline edit box open and Sales Territory Report typed in it" width="203"><figcaption><p>Add a Report Title</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/ir_sales_territory_add_a_report_title.png" alt="The Untitled report title with its inline edit box open and Sales Territory Report typed in it" width="203">
+<figcaption>Add a Report Title</figcaption>
+</figure>
+</div>
 
 2. With the title selected, open the **Formatting** tab, and select **Align Center**.
 
-<figure><img src="../_assets/images/ir_sales_territory_fomatting_options.png" alt="The Formatting tab with Arial font, 18pt size and the Align Center icon outlined in red" width="297"><figcaption><p>Formatting options</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/ir_sales_territory_fomatting_options.png" alt="The Formatting tab with Arial font, 18pt size and the Align Center icon outlined in red" width="297">
+<figcaption>Formatting options</figcaption>
+</figure>
+</div>
 
 3. Double-click the *left* side of the header area, enter `Steel Wheels, Inc.`, and press `Enter`.
 
-<figure><img src="../_assets/images/ir_sales_territory_report_title.png" alt="The inline edit box in the report header area with Steel Wheels Inc typed in it" width="287"><figcaption><p>Report Title</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/ir_sales_territory_report_title.png" alt="The inline edit box in the report header area with Steel Wheels Inc typed in it" width="287">
+<figcaption>Report Title</figcaption>
+</figure>
+</div>
 
 4. Select the **City** column header, and on the **Formatting** tab, select **Bold** and then **Align Center**.
 5. Select a cell in the **City** column, and select **Align Center**.
 
-<figure><img src="../_assets/images/ir_sales_territory.png" alt="The Formatting tab with Arial 9pt, the Align Center icon and the Copy and Paste formatting icons outlined in red, and Column Width (%) at 16.876" width="296"><figcaption><p>Copy and paste formatting</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/ir_sales_territory.png" alt="The Formatting tab with Arial 9pt, the Align Center icon and the Copy and Paste formatting icons outlined in red, and Column Width (%) at 16.876" width="296">
+<figcaption>Copy and paste formatting</figcaption>
+</figure>
+</div>
 
 6. Copy the **City** header's formatting to the **Order Number** header: select the **City** column header, select **Copy formatting**, select the **Order Number** column header, and select **Paste formatting**.
 7. Select a cell in the **Total** column, and set **Numeric Format** to **$#,###**.
@@ -598,7 +794,12 @@ You can create calculated fields from the fields of the data source and from oth
 9. Double-click the **Total** column header, enter `Revenue`, and press `Enter`.
 10. Open the **General** tab, select **Page Setup...**, select **Landscape**, and select **OK**.
 
-<figure><img src="../_assets/images/ir_sales_territory_page_setup.png" alt="The Page Setup dialog with the LETTER page format, Portrait and Landscape orientation options, and margins in inches" width="563"><figcaption><p>Page setup</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/ir_sales_territory_page_setup.png" alt="The Page Setup dialog with the LETTER page format, Portrait and Landscape orientation options, and margins in inches" width="563">
+<figcaption>Page setup</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: the centered title reads **Sales Territory Report**, the header reads **Steel Wheels, Inc.**, the **Revenue** column shows whole dollars and **Tax** shows cents, and the page is landscape.
 
@@ -608,11 +809,21 @@ You save a report with the **Save** or **Save As** toolbar icons, or with **File
 
 11. On the toolbar, select the **Save** icon.
 
-<figure><img src="../_assets/images/ir_sales_territory_3.png" alt="The User Console toolbar with the Save and Save As icons outlined in red"><figcaption><p>The Save and Save As icons</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/ir_sales_territory_3.png" alt="The User Console toolbar with the Save and Save As icons outlined in red" width="550">
+<figcaption>The Save and Save As icons</figcaption>
+</figure>
+</div>
 
 12. In the **Save As** dialog, set **Filename** to `Sales Territory Report - Demo`. Select the **Up One Level** icon twice, double-click **Public**, double-click **Training**, and select **Save**.
 
-<figure><img src="../_assets/images/ir_sales_territory_save_report.png" alt="The Save As dialog with Filename Sales Territory Report - Demo and Location /public/Training, with Save and Cancel buttons"><figcaption><p>Save Report</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/ir_sales_territory_save_report.png" alt="The Save As dialog with Filename Sales Territory Report - Demo and Location /public/Training, with Save and Cancel buttons" width="591">
+<figcaption>Save Report</figcaption>
+</figure>
+</div>
 
 > **Under the hood:**
 >

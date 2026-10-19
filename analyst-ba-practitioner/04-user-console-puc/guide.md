@@ -41,7 +41,12 @@ Select the Pentaho User Console version:
 >
 > The Modern Design of the Pentaho User Console (PUC) offers an improved user experience that is intuitive, responsive, and secure.
 
-<figure><img src="../_assets/images/puc_puc_modern_design.png" alt="The Pentaho User Console modern design Home page with the expanded left menu and Quick Access cards for Data Sources, Browse Files, Semantic Model Editor and Pipeline Designer"><figcaption><p>PUC - Modern Design</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/puc_puc_modern_design.png" alt="The Pentaho User Console modern design Home page with the expanded left menu and Quick Access cards for Data Sources, Browse Files, Semantic Model Editor and Pipeline Designer" width="800">
+<figcaption>PUC - Modern Design</figcaption>
+</figure>
+</div>
 
 1. Open the Modern Design sign-in page from the card below, and sign in as `admin` (the Power User `suzy` works too):
 
@@ -70,7 +75,12 @@ Select a menu option:
 
 1. In the menu on the left, select **Home**.
 
-<figure><img src="../_assets/images/puc_pentaho_user_console_modern_design.png" alt="The modern User Console Home page with a collapsed icon menu, four Quick Access cards and a Recently opened list showing two .ktr transformations, one marked as a favorite"><figcaption><p>Pentaho User Console - Modern Design</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/puc_pentaho_user_console_modern_design.png" alt="The modern User Console Home page with a collapsed icon menu, four Quick Access cards and a Recently opened list showing two .ktr transformations, one marked as a favorite" width="800">
+<figcaption>Pentaho User Console - Modern Design</figcaption>
+</figure>
+</div>
 
 ### Browse Files
 
@@ -82,7 +92,12 @@ Select a menu option:
 
 1. In the menu on the left, select **Browse Files**.
 
-<figure><img src="../_assets/images/puc_browse_files_3.png" alt="The modern Browse Files page with the Folders tree open at Public, Data Pipelines and three .ktr transformations listed with Type, Favorite, Last Modified and Owner columns"><figcaption><p>Browse Files</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/puc_browse_files_3.png" alt="The modern Browse Files page with the Folders tree open at Public, Data Pipelines and three .ktr transformations listed with Type, Favorite, Last Modified and Owner columns" width="800">
+<figcaption>Browse Files</figcaption>
+</figure>
+</div>
 
 | Menu option     | Description                                                                                                                                                                                                                      |
 | --------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -107,7 +122,12 @@ Select a menu option:
 
 1. In the menu on the left, select **Plugin Manager**.
 
-<figure><img src="../_assets/images/puc_plugin_manager.png" alt="The modern User Console Plugin Manager listing plugins by type and version, with Install buttons for the KETTLE plugins and View Details for the installed SERVER plugins"><figcaption><p>Plugin Manager</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/puc_plugin_manager.png" alt="The modern User Console Plugin Manager listing plugins by type and version, with Install buttons for the KETTLE plugins and View Details for the installed SERVER plugins" width="800">
+<figcaption>Plugin Manager</figcaption>
+</figure>
+</div>
 
 ### Scheduler
 
@@ -119,7 +139,12 @@ Select a menu option:
 
 1. In the menu on the left, select **Scheduler**.
 
-<figure><img src="../_assets/images/puc_sheduler.png" alt="The modern User Console Scheduler page on the Schedules tab listing UpdateAuditData and FillAuditMartTime, both paused and set to run every day at 10:20"><figcaption><p>Scheduler</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/puc_sheduler.png" alt="The modern User Console Scheduler page on the Schedules tab listing UpdateAuditData and FillAuditMartTime, both paused and set to run every day at 10:20" width="800">
+<figcaption>Scheduler</figcaption>
+</figure>
+</div>
 
 :::
 
@@ -145,7 +170,12 @@ Select a menu option:
 
 > **Note:** The Home perspective gives quick access to common actions, recently viewed content, and your favorite content. The **Getting Started** section at the top is a good place for new users to browse samples of Pentaho reports, analysis views, and dashboards, or to learn how to create your own content through a series of short 3-5-minute video tutorials.
 
-<figure><img src="../_assets/images/puc_pentaho_user_console_puc.png" alt="The classic User Console Home perspective with callouts 1 to 9 on the perspective menu, Getting Started, user menu, the four action buttons, Recents and Favorites"><figcaption><p>Pentaho User Console - PUC</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/puc_pentaho_user_console_puc.png" alt="The classic User Console Home perspective with callouts 1 to 9 on the perspective menu, Getting Started, user menu, the four action buttons, Recents and Favorites" width="800">
+<figcaption>Pentaho User Console - PUC</figcaption>
+</figure>
+</div>
 
 <table><thead><tr><th width="82">Item</th><th width="180">Name</th><th>Function</th></tr></thead><tbody><tr><td>1</td><td>Home indicator</td><td>Indicates the current User Console perspective that you are using. The Home menu lets you move from page to page, or return to your Home page.</td></tr><tr><td>2</td><td>Getting Started</td><td>Displays some resources to help you get familiar with the User Console. The Welcome tab shows an introductory video about Pentaho products. The Samples tab holds a variety of small sample reports and dashboards that you can use to get familiar with the software. The Tutorials tab contains a number of tutorial videos that give you a visual guide to the software.</td></tr><tr><td>3</td><td>Current User</td><td>Shows the name of the person currently logged in to the User Console. Select the arrow next to the name to log out of the User Console.</td></tr><tr><td>4</td><td>Browse Files</td><td>Brings you to the Browse Files perspective, where you can locate your files using the Folders and Files panes, and manage them using the Actions pane.</td></tr><tr><td>5</td><td>Create New</td><td>Gives you the option to create a new report in <a href="https://docs.hitachivantara.com/r/IWGVG8qV~XMn3ekqEIpjTw/DMmWA4vfu43ddn~aj9PJUA">Pentaho Interactive Reports</a>, <a href="https://docs.hitachivantara.com/r/IWGVG8qV~XMn3ekqEIpjTw/peN6X2OgzB_40iLFljBFeA">Pentaho Analyzer</a>, or <a href="https://docs.hitachivantara.com/r/IWGVG8qV~XMn3ekqEIpjTw/z1sO8VcaROLgS_EgylsScA">Pentaho Dashboard Designer</a>. If you have permissions to work with data sources, this button also gives you the option to create a new data source.</td></tr><tr><td>6</td><td>Manage Data Sources</td><td>Opens the Manage Data Sources dialog, where users with the Manage Data Sources permission view, create, edit and delete data sources.</td></tr><tr><td>7</td><td>Documentation</td><td>Documentation for Pentaho products.</td></tr><tr><td>8</td><td>Recents</td><td>Shows a list of your most recently opened files. Select the star icon next to a recently opened file to add it to your Favorites list.</td></tr><tr><td>9</td><td>Favorites</td><td>Shows a list of your favorite files for quick access.</td></tr></tbody></table>
 
@@ -155,13 +185,23 @@ Select a menu option:
 
 1. Select the perspective drop-down at the top left (it reads **Home**), and select **Browse Files**.
 
-<figure><img src="../_assets/images/puc_browse_files.png" alt="The classic User Console perspective drop-down opened from Home, listing Home, Opened, Browse Files, Schedules and Administration"><figcaption><p>Browse Files</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/puc_browse_files.png" alt="The classic User Console perspective drop-down opened from Home, listing Home, Opened, Browse Files, Schedules and Administration" width="328">
+<figcaption>Browse Files</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: the **Browse Files** perspective opens, with the **Folders** pane, the **Files** pane and the **Folder Actions** pane side by side.
 
 2. In the **Folders** pane, select **Public > Steel Wheels** to see the sample content this course uses.
 
-<figure><img src="../_assets/images/puc_browse_files_2.png" alt="The classic Browse Files perspective with Steel Wheels selected under Public in the Folders pane, its reports in the Files pane and the Folder Actions list on the right"><figcaption><p>Browse Files</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/puc_browse_files_2.png" alt="The classic Browse Files perspective with Steel Wheels selected under Public in the Folders pane, its reports in the Files pane and the Folder Actions list on the right" width="800">
+<figcaption>Browse Files</figcaption>
+</figure>
+</div>
 
 ***
 
@@ -172,11 +212,21 @@ Create a folder named `Training` under **Public**. Every report, analysis and da
 3. In the **Folders** pane, select **Public**.
 4. In the **Folder Actions** pane, select **New Folder...**.
 
-<figure><img src="../_assets/images/puc-new-folder.png" alt="The classic Browse Files perspective with Public selected in the Folders pane, an empty Files pane and the pointer on New Folder in the Folder Actions pane"><figcaption><p>New Folder in the Folder Actions pane</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/puc-new-folder.png" alt="The classic Browse Files perspective with Public selected in the Folders pane, an empty Files pane and the pointer on New Folder in the Folder Actions pane" width="800">
+<figcaption>New Folder in the Folder Actions pane</figcaption>
+</figure>
+</div>
 
 5. In the **New Folder** dialog, set **Name** to `Training`, and select **OK**.
 
-<figure><img src="../_assets/images/puc-new-folder-training.png" alt="The New Folder dialog with Training typed in the Name field and the OK and Cancel buttons"><figcaption><p>The New Folder dialog</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/puc-new-folder-training.png" alt="The New Folder dialog with Training typed in the Name field and the OK and Cancel buttons" width="412">
+<figcaption>The New Folder dialog</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: **Training** appears under **Public** in the **Folders** pane.
 
@@ -194,7 +244,12 @@ Create a folder named `Training` under **Public**. Every report, analysis and da
 
 > **Note:** The Schedules perspective is where you view and manage all scheduled activities. Its **Manage Schedules** table shows what is scheduled and when, where the content generated by each schedule is placed, the last time a schedule ran, and when it runs next. Selecting the output link for a schedule takes you to the Browse Files perspective, so you can open any documents the schedule generated.
 
-<figure><img src="../_assets/images/puc_schedules.png" alt="The classic User Console perspective drop-down opened from Home, with the pointer on Schedules"><figcaption><p>Schedules</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/puc_schedules.png" alt="The classic User Console perspective drop-down opened from Home, with the pointer on Schedules" width="312">
+<figcaption>Schedules</figcaption>
+</figure>
+</div>
 
 1. Select the perspective drop-down, select **Browse Files**, and in the **Folders** pane select **Public > Steel Wheels**.
 2. In the **Files** pane, select **Vendor Sales Report (interactive report)**, and in the **File Actions** pane select **Schedule...**.
@@ -205,26 +260,46 @@ The first page of the **New Schedule** dialog names the schedule and its output.
 * Save it in another **Generated Content Location**, and overwrite files with the same name
 * Change the report **Owner**
 
-<figure><img src="../_assets/images/puc_schedule_options.png" alt="The New Schedule dialog with the schedule name Vendor Sales Report (interactive report), the Append timestamp and Overwrite options, location /home/admin and owner admin"><figcaption><p>Schedule options</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/puc_schedule_options.png" alt="The New Schedule dialog with the schedule name Vendor Sales Report (interactive report), the Append timestamp and Overwrite options, location /home/admin and owner admin" width="672">
+<figcaption>Schedule options</figcaption>
+</figure>
+</div>
 
 3. Keep the defaults and select **Next**.
 
 The second page sets when and how often the schedule runs, and the performance metrics and logging level of each run.
 
-<figure><img src="../_assets/images/puc.png" alt="The New Schedule recurrence page with Run Once selected, a 12:00 AM start time in the Europe/London time zone, a start date and the Enable safe mode option"><figcaption><p>Schedule recurrence</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/puc.png" alt="The New Schedule recurrence page with Run Once selected, a 12:00 AM start time in the Europe/London time zone, a start date and the Enable safe mode option" width="672">
+<figcaption>Schedule recurrence</figcaption>
+</figure>
+</div>
 
 4. Keep the defaults and select **Next**.
 
 The last page sets the report's own parameters. **Product Line** takes one value at a time.
 
-<figure><img src="../_assets/images/puc_set_parameter_classic_cars.png" alt="The New Schedule parameters page with the Product Line drop-down open and Classic Cars highlighted among the product lines"><figcaption><p>Set Parameter - Classic Cars</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/puc_set_parameter_classic_cars.png" alt="The New Schedule parameters page with the Product Line drop-down open and Classic Cars highlighted among the product lines" width="672">
+<figcaption>Set Parameter - Classic Cars</figcaption>
+</figure>
+</div>
 
 5. Keep **Classic Cars** and select **Finish**.
 6. Select the perspective drop-down and select **Schedules**.
 
 > **Success:** Checkpoint: the **Manage Schedules** table lists the new **Vendor Sales Report (interactive report)** schedule, with its recurrence, its next run and its output location.
 
-<figure><img src="../_assets/images/puc_schedule_perspective.png" alt="The classic Schedules perspective Manage Schedules table with the new Vendor Sales Report schedule highlighted as a Run Once report saved to /home/admin, above an empty Blockout Times section"><figcaption><p>Schedule Perspective</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/puc_schedule_perspective.png" alt="The classic Schedules perspective Manage Schedules table with the new Vendor Sales Report schedule highlighted as a Run Once report saved to /home/admin, above an empty Blockout Times section" width="800">
+<figcaption>Schedule Perspective</figcaption>
+</figure>
+</div>
 
 ### 4. Administration
 
@@ -237,7 +312,12 @@ The last page sets the report's own parameters. **Product Line** takes one value
 
 1. Select the perspective drop-down and select **Administration**.
 
-<figure><img src="../_assets/images/puc_2.png" alt="The classic User Console perspective drop-down with Administration highlighted, over the Administration menu items Licenses, VFS Connections, Settings and Email Groups"><figcaption><p>The Administration perspective</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/puc_2.png" alt="The classic User Console perspective drop-down with Administration highlighted, over the Administration menu items Licenses, VFS Connections, Settings and Email Groups" width="316">
+<figcaption>The Administration perspective</figcaption>
+</figure>
+</div>
 
 ::: tabs
 
@@ -252,7 +332,12 @@ The last page sets the report's own parameters. **Product Line** takes one value
 1. In the Administration perspective, select **Users & Roles**.
 2. On the **Manage Users** tab, select `admin` in the users list. The roles available to it, and the roles it holds, show beside the list.
 
-<figure><img src="../_assets/images/puc_users_and_roles.png" alt="The Administration perspective Users / Roles page on the Manage Users tab, with admin selected, a masked password and Administrator in the Selected roles list"><figcaption><p>Users &#x26; Roles</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/puc_users_and_roles.png" alt="The Administration perspective Users / Roles page on the Manage Users tab, with admin selected, a masked password and Administrator in the Selected roles list" width="800">
+<figcaption>Users &#x26; Roles</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: `admin` holds the **Administrator** role.
 
@@ -262,7 +347,12 @@ You can use the following sample users as templates for adding your own users:
 
 3. Open the **Manage Roles** tab and select **Administrator**.
 
-<figure><img src="../_assets/images/puc_manage_roles.png" alt="The Users / Roles Manage Roles tab with Administrator selected, its eight Operation Permissions checked and admin in the Selected users list"><figcaption><p>Manage Roles</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/puc_manage_roles.png" alt="The Users / Roles Manage Roles tab with Administrator selected, its eight Operation Permissions checked and admin in the Selected users list" width="800">
+<figcaption>Manage Roles</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: all eight operation permissions are selected for **Administrator**, the same eight the table above lists for `admin`.
 

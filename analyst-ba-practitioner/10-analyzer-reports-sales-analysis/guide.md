@@ -21,7 +21,12 @@
 >
 > **Estimated time:** 30 minutes
 
-<figure><img src="../_assets/images/az_sales_analyzer_reports.png" alt="A new Analyzer Analysis Report on SteelWheelsSales with empty Rows, Columns and Measures drop zones and the chart type list open beside View As"><figcaption><p>Analyzer Reports</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/az_sales_analyzer_reports.png" alt="A new Analyzer Analysis Report on SteelWheelsSales with empty Rows, Columns and Measures drop zones and the chart type list open beside View As" width="800">
+<figcaption>Analyzer Reports</figcaption>
+</figure>
+</div>
 
 ***
 
@@ -39,7 +44,12 @@
 
 1. Select **Browse Files**. In the **Folders** pane, select **Public > Steel Wheels**, and in the **Files** pane, double-click **Leading Product Lines (pivot table)**.
 
-<figure><img src="../_assets/images/az_sales_leading_product_lines.png" alt="The Leading Product Lines pivot table showing Sales, Quantity data bars and color-scaled Unit Sales by Territory and Line for each year, with territory totals"><figcaption><p>Leading Product Lines</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/az_sales_leading_product_lines.png" alt="The Leading Product Lines pivot table showing Sales, Quantity data bars and color-scaled Unit Sales by Territory and Line for each year, with territory totals" width="650">
+<figcaption>Leading Product Lines</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: the analysis opens in its own tab, with Sales, Quantity data bars, and color-scaled Unit Sales by Territory and Line for each year.
 
@@ -47,29 +57,54 @@ The interactive toolbar has toggle buttons to add more fields to the report, rea
 
 2. On the toolbar, select **Add more fields onto the report** (`Ctrl+Alt+F`).
 
-<div align="center"><figure><img src="../_assets/images/az_sales_available_fields.png" alt="The Analyzer interactive toolbar with the Add more fields onto the report button outlined in red" width="340"><figcaption><p>Available fields</p></figcaption></figure></div>
+<div align="center">
+<figure>
+<img src="../_assets/images/az_sales_available_fields.png" alt="The Analyzer interactive toolbar with the Add more fields onto the report button outlined in red" width="340">
+<figcaption>Available fields</figcaption>
+</figure>
+</div>
 
 The **Available Fields** pane shows the data source and its fields, listed by category. Its **View** drop-down lists them by type (**Measure - Level - Time**) or by **Schema** instead.
 
 3. On the toolbar, select **Rearrange fields on the report** (`Ctrl+Alt+Y`).
 
-<figure><img src="../_assets/images/az_sales_layout.png" alt="The Analyzer interactive toolbar with the Rearrange fields on the report button outlined in red" width="340"><figcaption><p>Layout</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/az_sales_layout.png" alt="The Analyzer interactive toolbar with the Rearrange fields on the report button outlined in red" width="340">
+<figcaption>Layout</figcaption>
+</figure>
+</div>
 
 The **Layout** panel shows the rows, columns, and measures of the report, with **Report Options...** at the bottom.
 
 4. On the canvas, right-click the **2003** column header and select **Keep Only 2003**.
 
-<figure><img src="../_assets/images/az_sales_filter_2003.png" alt="Right-click menu on the 2003 column header offering Exclude 2003, Keep Only 2003 (highlighted) and Keep Only 2003 And Show Quarters" width="475"><figcaption><p>Filter - 2003</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/az_sales_filter_2003.png" alt="Right-click menu on the 2003 column header offering Exclude 2003, Keep Only 2003 (highlighted) and Keep Only 2003 And Show Quarters" width="475">
+<figcaption>Filter - 2003</figcaption>
+</figure>
+</div>
 
 5. Double-click the **2003** column header to drill down to the quarters.
 
-<figure><img src="../_assets/images/az_sales_drill_down_quarters.png" alt="The pivot table with the pointer on the 2003 column header and a tooltip reading 2003 - Double-click to show Quarters" width="450"><figcaption><p>Drill down - Quarters</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/az_sales_drill_down_quarters.png" alt="The pivot table with the pointer on the 2003 column header and a tooltip reading 2003 - Double-click to show Quarters" width="450">
+<figcaption>Drill down - Quarters</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: only 2003 is left, and its columns are now **QTR1** to **QTR4**.
 
 6. Beside **View As**, open the chart drop-down and select **Column**.
 
-<figure><img src="../_assets/images/az_sales_chart_options.png" alt="The View As chart drop-down open, listing Column, Stacked Column, 100% Stacked Column and Column-Line Combo, with Column highlighted" width="242"><figcaption><p>Chart options</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/az_sales_chart_options.png" alt="The View As chart drop-down open, listing Column, Stacked Column, 100% Stacked Column and Column-Line Combo, with Column highlighted" width="242">
+<figcaption>Chart options</figcaption>
+</figure>
+</div>
 
 > **Under the hood:**
 >
@@ -92,7 +127,12 @@ The **Layout** panel shows the rows, columns, and measures of the report, with *
 
 7. Beside **View As**, select **Switch to table format** (`Ctrl+Alt+C`).
 
-<figure><img src="../_assets/images/az_sales_switch_to_table_format.png" alt="The View As buttons with the Switch to table format button outlined in red" width="163"><figcaption><p>Switch to Table format</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/az_sales_switch_to_table_format.png" alt="The View As buttons with the Switch to table format button outlined in red" width="163">
+<figcaption>Switch to Table format</figcaption>
+</figure>
+</div>
 
 ***
 
@@ -104,59 +144,114 @@ The **Layout** panel shows the rows, columns, and measures of the report, with *
 
 8. On the main toolbar, select **Open**.
 
-<figure><img src="../_assets/images/az_sales.png" alt="The User Console main toolbar with the Open button outlined in red and its Open tooltip showing" width="563"><figcaption><p>The Open button</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/az_sales.png" alt="The User Console main toolbar with the Open button outlined in red and its Open tooltip showing" width="563">
+<figcaption>The Open button</figcaption>
+</figure>
+</div>
 
 9. In the **Open** dialog, select the **Up One Level** icon twice, and double-click **Public**.
 10. Double-click **Steel Wheels**, select **Country Performance (heat grid)**, and select **Open**.
 
-<figure><img src="../_assets/images/az_sales_report_list.png" alt="The Open dialog at /Public/Steel Wheels with Country Performance (heat grid) selected and filled in as the file name, the pointer on Open"><figcaption><p>Report List</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/az_sales_report_list.png" alt="The Open dialog at /Public/Steel Wheels with Country Performance (heat grid) selected and filled in as the file name, the pointer on Open" width="800">
+<figcaption>Report List</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: the **Country Performance** heat grid opens, with Sales by year and quarter for each country, each square colored from red through yellow to green.
 
-<figure><img src="../_assets/images/az_sales_heat_grid_country_performance.png" alt="The Country Performance heat grid with countries across the bottom and years and quarters down the side, each square colored from red through yellow to green by sales"><figcaption><p>Heat Grid - Country Performance</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/az_sales_heat_grid_country_performance.png" alt="The Country Performance heat grid with countries across the bottom and years and quarters down the side, each square colored from red through yellow to green by sales" width="650">
+<figcaption>Heat Grid - Country Performance</figcaption>
+</figure>
+</div>
 
 The colors tell the story at a glance: Belgium's sales have been consistently low and France's fair, France had a good fourth quarter in 2004, and Spain has had several good quarters.
 
 11. Hover over the red square for Belgium, 2003, QTR2 to see its details.
 
-<figure><img src="../_assets/images/az_sales_belgium_2003_qtr2.png" alt="Heat grid tooltip on the red Belgium square showing Years 2003, Quarters QTR2, Country Belgium, Sales 1,711 and Double-click to show Months" width="563"><figcaption><p>Belgium - 2003 - QTR2</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/az_sales_belgium_2003_qtr2.png" alt="Heat grid tooltip on the red Belgium square showing Years 2003, Quarters QTR2, Country Belgium, Sales 1,711 and Double-click to show Months" width="563">
+<figcaption>Belgium - 2003 - QTR2</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: the tooltip reads Years 2003, Quarters QTR2, Country Belgium, and Sales 1,711.
 
 12. Select the **Spain** label.
 
-<figure><img src="../_assets/images/az_sales_spain_data.png" alt="The Country Performance heat grid with the Spain column selected in color and the other countries dimmed, under Keep Only, Exclude and Clear Selections buttons"><figcaption><p>Spain data</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/az_sales_spain_data.png" alt="The Country Performance heat grid with the Spain column selected in color and the other countries dimmed, under Keep Only, Exclude and Clear Selections buttons" width="800">
+<figcaption>Spain data</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: Spain's squares stay in color and the rest of the chart is dimmed. **Keep Only**, **Exclude** and **Clear Selections** appear at the top of the heat grid, to include or exclude the selected data.
 
 13. At the top of the heat grid, select **Keep Only**.
 14. On the toolbar, select **Add more fields onto the report** and **Rearrange fields on the report**.
 
-<figure><img src="../_assets/images/az_sales_fields_and_layout.png" alt="The Analyzer interactive toolbar with the Add more fields and Rearrange fields buttons outlined together in red" width="332"><figcaption><p>Fields &#x26; Layout</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/az_sales_fields_and_layout.png" alt="The Analyzer interactive toolbar with the Add more fields and Rearrange fields buttons outlined together in red" width="332">
+<figcaption>Fields &#x26; Layout</figcaption>
+</figure>
+</div>
 
 15. To see Spain's sales by product line, drag **Line** from **Available Fields** to the **X-axis** area of the **Layout** panel.
 
-<figure><img src="../_assets/images/az_sales_add_line.png" alt="Line being dragged from Available Fields into the Layout X-axis zone below Country, with Years and Quarters on the Y-axis" width="407"><figcaption><p>Add Line</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/az_sales_add_line.png" alt="Line being dragged from Available Fields into the Layout X-axis zone below Country, with Years and Quarters on the Y-axis" width="407">
+<figcaption>Add Line</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: Spain's heat grid splits by product line. Sales of Classic Cars were best in 2005 QTR1, and began to improve in 2004 QTR4.
 
-<figure><img src="../_assets/images/az_sales_6.png" alt="The Spain heat grid split by product line, Classic Cars through Vintage Cars across the top and years and quarters down the side, Classic Cars greenest in 2005 QTR1"><figcaption><p>Spain by product line</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/az_sales_6.png" alt="The Spain heat grid split by product line, Classic Cars through Vintage Cars across the top and years and quarters down the side, Classic Cars greenest in 2005 QTR1" width="650">
+<figcaption>Spain by product line</figcaption>
+</figure>
+</div>
 
 16. Double-click the green square for Classic Cars, 2004, QTR4 to drill down to the months.
 
-<figure><img src="../_assets/images/az_sales_drill_down_into_classic_cars_2004_qtr4.png" alt="Heat grid drilled to the months of 2004 QTR4 for Spain Classic Cars, with Dec green, Nov red and Oct yellow-green"><figcaption><p>Drill down into Classic Cars, 2004, QTR4</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/az_sales_drill_down_into_classic_cars_2004_qtr4.png" alt="Heat grid drilled to the months of 2004 QTR4 for Spain Classic Cars, with Dec green, Nov red and Oct yellow-green" width="415">
+<figcaption>Drill down into Classic Cars, 2004, QTR4</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: December was the best month of the quarter.
 
 17. Double-click the green square for December to drill down to the vendors.
 
-<figure><img src="../_assets/images/az_sales_drill_down_into_december_for_vendor.png" alt="Heat grid drilled to the vendors of Spain Classic Cars for December 2004, with Classic Metal Creations dark green and the other vendors yellow to red"><figcaption><p>Drill down into December for Vendor</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/az_sales_drill_down_into_december_for_vendor.png" alt="Heat grid drilled to the vendors of Spain Classic Cars for December 2004, with Classic Metal Creations dark green and the other vendors yellow to red" width="650">
+<figcaption>Drill down into December for Vendor</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: Classic Metal Creations was the highest-performing vendor.
 
 18. You could keep drilling down, but a table suits exporting the sales data: beside **View As**, select **Switch to table format**.
 
-<figure><img src="../_assets/images/az_sales_table.png" alt="The report in table view listing vendor Classic Metal Creations and its three products, with Sales of 5,303, 4,204 and 2,671" width="490"><figcaption><p>Table</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/az_sales_table.png" alt="The report in table view listing vendor Classic Metal Creations and its three products, with Sales of 5,303, 4,204 and 2,671" width="490">
+<figcaption>Table</figcaption>
+</figure>
+</div>
 
 > **Under the hood:**
 >
@@ -178,7 +273,12 @@ The colors tell the story at a glance: Belgium's sales have been consistently lo
 
 19. On the toolbar, select **More actions and options**, then **Export > To PDF...**. In the **Export to PDF** dialog, select **Export**.
 
-<figure><img src="../_assets/images/az_sales_export_as_pdf.png" alt="The More actions and options menu with Export expanded to To PDF, To CSV and To Excel Workbook, the pointer on To PDF, over a table with 7 filters"><figcaption><p>Export as PDF</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/az_sales_export_as_pdf.png" alt="The More actions and options menu with Export expanded to To PDF, To CSV and To Excel Workbook, the pointer on To PDF, over a table with 7 filters" width="592">
+<figcaption>Export as PDF</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: the PDF opens in a new browser window, where you can save or print it. The table lists Classic Metal Creations' three products, with Sales of 5,303, 4,204 and 2,671.
 
@@ -193,7 +293,12 @@ The colors tell the story at a glance: Belgium's sales have been consistently lo
 >
 > Build your own analysis: Sales Revenue by Territory and Product Line, over time.
 
-<figure><img src="../_assets/images/az_sales_final_table_emea_revenue_by_product_line_yr2003.png" alt="Finished EMEA table with Territory and Product Line rows and 2003 Revenue by quarter in dollars, Classic Cars highest at $407,683 in QTR4"><figcaption><p>Final Table - EMEA: Revenue by Product Line Yr2003</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/az_sales_final_table_emea_revenue_by_product_line_yr2003.png" alt="Finished EMEA table with Territory and Product Line rows and 2003 Revenue by quarter in dollars, Classic Cars highest at $407,683 in QTR4" width="680">
+<figcaption>Final Table - EMEA: Revenue by Product Line Yr2003</figcaption>
+</figure>
+</div>
 
 ::: tabs
 
@@ -212,32 +317,62 @@ The colors tell the story at a glance: Belgium's sales have been consistently lo
 1. Select the perspective drop-down and select **Home**, then select **Create New > Analysis Report**.
 2. In the **Select Data Source** dialog, select **SteelWheels: SteelWheelsSales**, and select **OK**.
 
-<figure><img src="../_assets/images/az_sales_steelwheels_steelwheelssales.png" alt="The Select Data Source dialog with SteelWheels: SteelWheelsSales selected in the Data Sources list and Auto Refresh Report checked" width="563"><figcaption><p>SteelWheels: SteelWheelsSales</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/az_sales_steelwheels_steelwheelssales.png" alt="The Select Data Source dialog with SteelWheels: SteelWheelsSales selected in the Data Sources list and Auto Refresh Report checked" width="563">
+<figcaption>SteelWheels: SteelWheelsSales</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: a new, empty analysis opens, with the SteelWheelsSales fields in **Available Fields** and empty **Rows**, **Columns** and **Measures** drop zones.
 
-<figure><img src="../_assets/images/az_sales_3.png" alt="A new Analysis Report with the Available Fields View drop-down open, showing by Category, Measure - Level - Time, A to Z and Schema (checked)"><figcaption><p>The View drop-down of Available Fields</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/az_sales_3.png" alt="A new Analysis Report with the Available Fields View drop-down open, showing by Category, Measure - Level - Time, A to Z and Schema (checked)" width="800">
+<figcaption>The View drop-down of Available Fields</figcaption>
+</figure>
+</div>
 
 > **Tip:** Right-click a field and select **Add to Report** to place it without dragging: a level goes to **Rows** (or to **Columns**, under a level of the same hierarchy that is already there) and a measure goes to **Measures**. Moving a level onto **Columns** the first time still needs a drag, to the **Columns** drop zone or onto the column headers.
 
 3. Drag **Country** from the **Available Fields** panel to the **Rows** drop zone of the **Layout** panel.
 
-<figure><img src="../_assets/images/az_sales_add_country_field.png" alt="Country being dragged from the Markets group in Available Fields to the Rows drop zone of the Layout panel, shown by a red arrow" width="435"><figcaption><p>Add Country field</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/az_sales_add_country_field.png" alt="Country being dragged from the Markets group in Available Fields to the Rows drop zone of the Layout panel, shown by a red arrow" width="435">
+<figcaption>Add Country field</figcaption>
+</figure>
+</div>
 
 4. Remove **Country** again: drag the **Country** header to the trash can in the lower-right corner of the canvas, and drop it there.
 
-<figure><img src="../_assets/images/az_sales_5.png" alt="The Analyzer trash can at the corner of the canvas with the Country field being dropped onto it" width="125"><figcaption><p>The trash can</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/az_sales_5.png" alt="The Analyzer trash can at the corner of the canvas with the Country field being dropped onto it" width="125">
+<figcaption>The trash can</figcaption>
+</figure>
+</div>
 
 5. Drag **Sales** to the **Measures** drop zone of the **Layout** panel.
 6. In the **Available Fields** panel, double-click **Territory**.
 7. Drag **Years** to the **Columns** drop zone of the **Layout** panel.
 8. Drag **Quarters** to the **Columns** drop zone, and drop it *below* **Years**.
 
-<figure><img src="../_assets/images/az_sales_2.png" alt="Layout panel with Territory in Rows, Sales in Measures and Quarters being dropped below Years in the Columns zone" width="269"><figcaption><p>Quarters below Years</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/az_sales_2.png" alt="Layout panel with Territory in Rows, Sales in Measures and Quarters being dropped below Years in the Columns zone" width="269">
+<figcaption>Quarters below Years</figcaption>
+</figure>
+</div>
 
 9. Drag **Line** to the **Rows** drop zone, and drop it *above* **Territory**.
 
-<figure><img src="../_assets/images/az_sales_7.png" alt="The Rows drop zone with Line being dropped above Territory, marked by a blue insertion line" width="265"><figcaption><p>Line above Territory</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/az_sales_7.png" alt="The Rows drop zone with Line being dropped above Territory, marked by a blue insertion line" width="265">
+<figcaption>Line above Territory</figcaption>
+</figure>
+</div>
 
 > **Under the hood:**
 >
@@ -259,7 +394,12 @@ The colors tell the story at a glance: Belgium's sales have been consistently lo
 
 10. On the **Layout** panel, drag **Territory** *above* **Line**.
 
-<figure><img src="../_assets/images/az_sales_report_territory_sales_analysis.png" alt="Analyzer report with Territory and Line in Rows, Years and Quarters in Columns and Sales in Measures, showing 2003 quarterly sales for APAC and EMEA"><figcaption><p>Report - Territory Sales Analysis</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/az_sales_report_territory_sales_analysis.png" alt="Analyzer report with Territory and Line in Rows, Years and Quarters in Columns and Sales in Measures, showing 2003 quarterly sales for APAC and EMEA" width="800">
+<figcaption>Report - Territory Sales Analysis</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: **Rows** holds **Territory** and then **Line**, **Columns** holds **Years** and **Quarters**, and **Measures** holds **Sales**. Analyzer aggregates Sales to each combination as you add fields.
 
@@ -273,37 +413,77 @@ The colors tell the story at a glance: Belgium's sales have been consistently lo
 
 1. On the toolbar, select **Show all filters in use and add new filters** (`Ctrl+Alt+T`).
 
-<figure><img src="../_assets/images/ir_sales_territory_filter.png" alt="An Interactive Reports toolbar with the Filter button outlined in red, beside the page navigator showing page 1 of 12"><figcaption><p>Filter option</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/ir_sales_territory_filter.png" alt="An Interactive Reports toolbar with the Filter button outlined in red, beside the page navigator showing page 1 of 12" width="481">
+<figcaption>Filter option</figcaption>
+</figure>
+</div>
 
 2. Drag **Territory** from the **Available Fields** panel to the **Filters** panel.
 
-<figure><img src="../_assets/images/az_sales_filter_panel.png" alt="The open Filter panel reading To add a new filter, drag a field from Available Fields to this area, with Territory being dragged in"><figcaption><p>Filter Panel</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/az_sales_filter_panel.png" alt="The open Filter panel reading To add a new filter, drag a field from Available Fields to this area, with Territory being dragged in" width="596">
+<figcaption>Filter Panel</figcaption>
+</figure>
+</div>
 
 3. In the **Filter on Territory** dialog, select **Select from a list**, select **EMEA**, select the right arrow to move it to the **Currently Included** list, and select **OK**.
 
-<figure><img src="../_assets/images/az_sales_filter_emea.png" alt="The Filter on Territory dialog with Select from a list chosen, EMEA highlighted and EMEA in the Currently Included list"><figcaption><p>Filter - EMEA</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/az_sales_filter_emea.png" alt="The Filter on Territory dialog with Select from a list chosen, EMEA highlighted and EMEA in the Currently Included list" width="800">
+<figcaption>Filter - EMEA</figcaption>
+</figure>
+</div>
 
 The filter dialog's **Parameter Name** field turns the filter into a prompt.
 
 4. In the **Available Fields** panel, right-click **Years** and select **Filter...**.
 
-<figure><img src="../_assets/images/az_sales_filter_years.png" alt="Right-click menu on Years in Available Fields with Add to Report, Filter (highlighted), Set Hidden and Properties" width="258"><figcaption><p>Filter - Years</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/az_sales_filter_years.png" alt="Right-click menu on Years in Available Fields with Add to Report, Filter (highlighted), Set Hidden and Properties" width="258">
+<figcaption>Filter - Years</figcaption>
+</figure>
+</div>
 
 5. In the **Filter on Years** dialog, select **Select from a list**, select **2003**, select the right arrow to move it to the **Currently Included** list, and select **OK**.
 
-<figure><img src="../_assets/images/az_sales_filter_2003_2.png" alt="The Filter on Years dialog with Select from a list chosen, 2003 highlighted and 2003 in the Currently Included list"><figcaption><p>Filter - 2003</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/az_sales_filter_2003_2.png" alt="The Filter on Years dialog with Select from a list chosen, 2003 highlighted and 2003 in the Currently Included list" width="800">
+<figcaption>Filter - 2003</figcaption>
+</figure>
+</div>
 
 6. On the canvas, right-click the **Quarters** header and select **Filter...**.
 
-<figure><img src="../_assets/images/az_sales_filter_quarters.png" alt="Right-click menu on the Quarters header in the canvas with Edit, Also Show, Hyperlink, Filter (highlighted) and Top 10" width="335"><figcaption><p>Filter - Quarters</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/az_sales_filter_quarters.png" alt="Right-click menu on the Quarters header in the canvas with Edit, Also Show, Hyperlink, Filter (highlighted) and Top 10" width="335">
+<figcaption>Filter - Quarters</figcaption>
+</figure>
+</div>
 
 7. In the **Filter on Quarters** dialog, select **Select from a list**.
 
-<figure><img src="../_assets/images/az_sales_filter_qtr_2.png" alt="The Filter on Quarters dialog with Select from a list chosen, QTR2 highlighted and QTR2 in the Currently Included list"><figcaption><p>Filter - QTR 2</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/az_sales_filter_qtr_2.png" alt="The Filter on Quarters dialog with Select from a list chosen, QTR2 highlighted and QTR2 in the Currently Included list" width="800">
+<figcaption>Filter - QTR 2</figcaption>
+</figure>
+</div>
 
 8. Select **QTR2**, select the right arrow to move it to the **Currently Included** list, and select **OK**.
 
-<figure><img src="../_assets/images/az_sales_filters.png" alt="Three filters, Years includes 2003, Quarters includes QTR2 and Territory includes EMEA, above the EMEA sales by line for 2003 QTR2" width="563"><figcaption><p>Filters</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/az_sales_filters.png" alt="Three filters, Years includes 2003, Quarters includes QTR2 and Territory includes EMEA, above the EMEA sales by line for 2003 QTR2" width="563">
+<figcaption>Filters</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: the **Filters** panel shows Years includes 2003, Quarters includes QTR2, and Territory includes EMEA, and the table shows EMEA's sales by line for 2003 QTR2.
 
@@ -317,15 +497,30 @@ The filter dialog's **Parameter Name** field turns the filter into a prompt.
 
 Select **OK**.
 
-<figure><img src="../_assets/images/az_sales_numeric_filter_top_5_lines_by_sales.png" alt="The Numeric Filter dialog filtering on Line, with Sales Greater Than 10000 and Top 5 Line by Sales both checked"><figcaption><p>Numeric Filter - Top 5 Lines by Sales</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/az_sales_numeric_filter_top_5_lines_by_sales.png" alt="The Numeric Filter dialog filtering on Line, with Sales Greater Than 10000 and Top 5 Line by Sales both checked" width="800">
+<figcaption>Numeric Filter - Top 5 Lines by Sales</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: five lines are left, Classic Cars first at 108,588, then Vintage Cars, Trucks and Buses, Ships, and Planes.
 
-<figure><img src="../_assets/images/az_sales_emea_top_5_product_lines_by_sales_2003_qtr2.png" alt="Four filters including Sales greater than 10000 and Top 5 Line by Sales, above the five EMEA product lines for 2003 QTR2, Classic Cars first" width="375"><figcaption><p>EMEA: Top 5 Product Lines by Sales 2003 QTR2</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/az_sales_emea_top_5_product_lines_by_sales_2003_qtr2.png" alt="Four filters including Sales greater than 10000 and Top 5 Line by Sales, above the five EMEA product lines for 2003 QTR2, Classic Cars first" width="375">
+<figcaption>EMEA: Top 5 Product Lines by Sales 2003 QTR2</figcaption>
+</figure>
+</div>
 
 11. On the canvas, right-click the **QTR2** header and select **Show All Quarters**.
 
-<figure><img src="../_assets/images/az_sales_emea_top_5_product_line_by_sales_for_2003.png" alt="Layout and table after Show All Quarters, with three filters left and the top five EMEA product lines shown for all four 2003 quarters"><figcaption><p>EMEA: Top 5 Product Line by Sales for 2003</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/az_sales_emea_top_5_product_line_by_sales_for_2003.png" alt="Layout and table after Show All Quarters, with three filters left and the top five EMEA product lines shown for all four 2003 quarters" width="800">
+<figcaption>EMEA: Top 5 Product Line by Sales for 2003</figcaption>
+</figure>
+</div>
 
 > **Under the hood:**
 >
@@ -355,9 +550,19 @@ Select **OK**.
 
 12. Right-click one of the **Sales** headers, and select **Conditional Formatting > Color Scale: Green-Yellow-Red**.
 
-<figure><img src="../_assets/images/az_sales_apply_conditional_formatting.png" alt="Sales header right-click menu with Conditional Formatting expanded and Color Scale: Green-Yellow-Red highlighted among four color scales" width="563"><figcaption><p>Apply Conditional Formatting</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/az_sales_apply_conditional_formatting.png" alt="Sales header right-click menu with Conditional Formatting expanded and Color Scale: Green-Yellow-Red highlighted among four color scales" width="563">
+<figcaption>Apply Conditional Formatting</figcaption>
+</figure>
+</div>
 
-<figure><img src="../_assets/images/az_sales_conditional_formatting.png" alt="EMEA 2003 sales table with a Green-Yellow-Red color scale, Classic Cars QTR4 at 407,683 in green and the lowest values in red"><figcaption><p>Conditional Formatting</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/az_sales_conditional_formatting.png" alt="EMEA 2003 sales table with a Green-Yellow-Red color scale, Classic Cars QTR4 at 407,683 in green and the lowest values in red" width="800">
+<figcaption>Conditional Formatting</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: the Sales cells are colored from red to green, and Classic Cars in QTR4 (407,683) is the greenest.
 
@@ -374,28 +579,58 @@ Select **OK**.
 1. Remove all the filters: on the **Filters** panel, remove each filter with its **Remove filter** button.
 2. Right-click one of the **Sales** headers, and select **Subtotals (Sums, Averages, etc.)**.
 
-<figure><img src="../_assets/images/az_sales_subtotals.png" alt="Sales header right-click menu with the sort options and Subtotals (Sums, Averages, etc.) highlighted at the bottom" width="398"><figcaption><p>Subtotals</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/az_sales_subtotals.png" alt="Sales header right-click menu with the sort options and Subtotals (Sums, Averages, etc.) highlighted at the bottom" width="398">
+<figcaption>Subtotals</figcaption>
+</figure>
+</div>
 
 3. In the **Average, Max, Min, etc.** dialog, select **Average** (keep **Sum** selected), and select **OK**.
 
-<figure><img src="../_assets/images/az_sales_calculations.png" alt="The Average, Max, Min, etc. dialog for Sales with Sum and Average checked and Aggregate, Max and Min cleared" width="375"><figcaption><p>Calculations</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/az_sales_calculations.png" alt="The Average, Max, Min, etc. dialog for Sales with Sum and Average checked and Aggregate, Max and Min cleared" width="375">
+<figcaption>Calculations</figcaption>
+</figure>
+</div>
 
 4. Right-click the **Territory** header, and select **Show Subtotals**.
 
-<figure><img src="../_assets/images/az_sales_show_subtotals.png" alt="Territory header right-click menu with Show Subtotals highlighted between the sort options and Tell me about" width="253"><figcaption><p>Show Subtotals</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/az_sales_show_subtotals.png" alt="Territory header right-click menu with Show Subtotals highlighted between the sort options and Tell me about" width="253">
+<figcaption>Show Subtotals</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: a Sum row and an Average row follow each territory. Subtotals appear only once a level shows them.
 
-<figure><img src="../_assets/images/az_sales_subtotals_and_averages.png" alt="Unfiltered table with Sum and Average subtotal rows for APAC and EMEA under their product lines, across the 2003 and 2004 quarters"><figcaption><p>Subtotals &#x26; Averages</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/az_sales_subtotals_and_averages.png" alt="Unfiltered table with Sum and Average subtotal rows for APAC and EMEA under their product lines, across the 2003 and 2004 quarters" width="800">
+<figcaption>Subtotals &#x26; Averages</figcaption>
+</figure>
+</div>
 
 5. On the **Layout** panel, select **Report Options...**.
 6. In the **Report Options** dialog, select **Grand Totals for Rows** and **Grand Totals for Columns**.
 
-<figure><img src="../_assets/images/az_sales_grand_totals_rows_and_columns.png" alt="The Report Options dialog with Grand Totals for Rows and Grand Totals for Columns checked and Column headers and Row labels frozen" width="375"><figcaption><p>Grand Totals - Rows &#x26; Columns</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/az_sales_grand_totals_rows_and_columns.png" alt="The Report Options dialog with Grand Totals for Rows and Grand Totals for Columns checked and Column headers and Row labels frozen" width="375">
+<figcaption>Grand Totals - Rows &#x26; Columns</figcaption>
+</figure>
+</div>
 
 7. Select **OK**.
 
-<figure><img src="../_assets/images/az_sales_grand_totals_for_rows_and_columns.png" alt="Table with Sum and Average rows for each territory plus Grand Sum and Grand Average rows and columns, the Grand Sum totaling 10,645,949"><figcaption><p>Grand Totals for Rows &#x26; Columns</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/az_sales_grand_totals_for_rows_and_columns.png" alt="Table with Sum and Average rows for each territory plus Grand Sum and Grand Average rows and columns, the Grand Sum totaling 10,645,949" width="800">
+<figcaption>Grand Totals for Rows &#x26; Columns</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: grand total rows and columns appear, and the Grand Sum of all sales is 10,645,949.
 
@@ -430,23 +665,48 @@ Analyzer creates three types of measure inside an analysis: % of, rank, running 
 9. Filter the analysis again to **Territory** EMEA and **Years** 2003, as in steps 2 to 5 of the previous tab.
 10. Right-click one of the **Sales** headers, and select **User Defined Measure > % of, Rank, Running Sum...**.
 
-<figure><img src="../_assets/images/az_sales_user_defined_measure.png" alt="Sales header right-click menu with User Defined Measure expanded to % of, Rank, Running Sum (highlighted), Create Calculated Measure and Trend Measure" width="563"><figcaption><p>User Defined Measure</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/az_sales_user_defined_measure.png" alt="Sales header right-click menu with User Defined Measure expanded to % of, Rank, Running Sum (highlighted), Create Calculated Measure and Trend Measure" width="563">
+<figcaption>User Defined Measure</figcaption>
+</figure>
+</div>
 
 11. In the **New % of, Rank, Running Sum, etc.** dialog, select **% of Sales**, and select **Next**.
 
-<figure><img src="../_assets/images/az_sales_of_sales_3.png" alt="The New % of, Rank, Running Sum, etc. dialog with % of Sales selected above Rank, Running Sum and % of Running Sum of Sales" width="375"><figcaption><p>% of Sales</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/az_sales_of_sales_3.png" alt="The New % of, Rank, Running Sum, etc. dialog with % of Sales selected above Rank, Running Sum and % of Running Sum of Sales" width="375">
+<figcaption>% of Sales</figcaption>
+</figure>
+</div>
 
 12. Set **Decimal Places** to `0`, and select **Done**.
 
-<figure><img src="../_assets/images/az_sales_of_sales_2.png" alt="Second page of the dialog with Display Name % of Sales, Format Percentage, Decimal Places 0 and Column (Grand Total Column is 100%) selected" width="375"><figcaption><p>% of Sales</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/az_sales_of_sales_2.png" alt="Second page of the dialog with Display Name % of Sales, Format Percentage, Decimal Places 0 and Column (Grand Total Column is 100%) selected" width="375">
+<figcaption>% of Sales</figcaption>
+</figure>
+</div>
 
-<figure><img src="../_assets/images/az_sales_of_sales.png" alt="EMEA 2003 table with a % of Sales column beside Sales for each quarter, Classic Cars at 33.74% in QTR1, under Years and Territory filters"><figcaption><p>% of Sales</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/az_sales_of_sales.png" alt="EMEA 2003 table with a % of Sales column beside Sales for each quarter, Classic Cars at 33.74% in QTR1, under Years and Territory filters" width="800">
+<figcaption>% of Sales</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: a **% of Sales** column follows each **Sales** column, and Classic Cars has 34% of EMEA's sales in QTR1.
 
 13. Right-click one of the **Sales** headers, and select **User Defined Measure > Create Calculated Measure...**.
 
-<figure><img src="../_assets/images/az_sales_calculated_measure.png" alt="Sales header menu with User Defined Measure expanded and Create Calculated Measure highlighted, % of Sales columns visible behind" width="563"><figcaption><p>Calculated Measure</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/az_sales_calculated_measure.png" alt="Sales header menu with User Defined Measure expanded and Create Calculated Measure highlighted, % of Sales columns visible behind" width="563">
+<figcaption>Calculated Measure</figcaption>
+</figure>
+</div>
 
 The panel on the left lists the measures you can use in the calculation; the formula pane is where you write the MDX expression for the new measure.
 
@@ -459,7 +719,12 @@ The panel on the left lists the measures you can use in the calculation; the for
 | **Decimal Places** | `0`                                                             |
 | Formula            | Click in the formula pane to the right of `[Measures].[Sales]`, and enter `* 1.06` |
 
-<figure><img src="../_assets/images/az_sales_calculated_measure_6_tax.png" alt="The Create Calculated Measure dialog with Display Name Sales Tax 6%, Format Currency, Decimal Places 2 and a formula multiplying Sales by 1.06"><figcaption><p>Calculated Measure - 6% Tax</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/az_sales_calculated_measure_6_tax.png" alt="The Create Calculated Measure dialog with Display Name Sales Tax 6%, Format Currency, Decimal Places 2 and a formula multiplying Sales by 1.06" width="600">
+<figcaption>Calculated Measure - 6% Tax</figcaption>
+</figure>
+</div>
 
 > **Under the hood:**
 >
@@ -478,7 +743,12 @@ The panel on the left lists the measures you can use in the calculation; the for
 > right as the layout changes — the exact failure mode of a spreadsheet
 > formula that breaks when a row moves.
 
-<figure><img src="../_assets/images/az_sales_sales_6_tax.png" alt="EMEA 2003 table with a Sales + Tax 6% currency column between Sales and % of Sales, Classic Cars QTR1 at $102,478.87"><figcaption><p>Sales + 6% Tax</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/az_sales_sales_6_tax.png" alt="EMEA 2003 table with a Sales + Tax 6% currency column between Sales and % of Sales, Classic Cars QTR1 at $102,478.87" width="800">
+<figcaption>Sales + 6% Tax</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: a **Sales + 6% Tax** column appears, and Classic Cars shows $102,479 in QTR1.
 
@@ -491,11 +761,21 @@ Drill-through links turn every non-calculated measure into a link. Selecting a v
 15. Remove the **Sales + 6% Tax** and **% of Sales** columns: drag each header to the trash can in the lower-right corner of the canvas.
 16. On the **Layout** panel, select **Report Options...**, select **Drill-through links on measures**, and select **OK**.
 
-<figure><img src="../_assets/images/az_sales_drill_through_on_measures.png" alt="The Report Options dialog with Drill-through links on measures checked and outlined in red, above the Select drill-through columns link" width="375"><figcaption><p>Drill-through on measures</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/az_sales_drill_through_on_measures.png" alt="The Report Options dialog with Drill-through links on measures checked and outlined in red, above the Select drill-through columns link" width="375">
+<figcaption>Drill-through on measures</figcaption>
+</figure>
+</div>
 
 17. Select the value for EMEA, Classic Cars, 2003, QTR1 (96,678).
 
-<figure><img src="../_assets/images/az_sales_drill_through_classic_cars.png" alt="A Pentaho Analyzer Drill-Through window for 2003 QTR1 EMEA Classic Cars listing Territory, Country and City rows, opened from the 96,678 value"><figcaption><p>Drill-through - Classic Cars</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/az_sales_drill_through_classic_cars.png" alt="A Pentaho Analyzer Drill-Through window for 2003 QTR1 EMEA Classic Cars listing Territory, Country and City rows, opened from the 96,678 value" width="800">
+<figcaption>Drill-through - Classic Cars</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: a **Drill-Through** window opens, listing the detail rows behind EMEA, Classic Cars, 2003, QTR1.
 
@@ -530,15 +810,30 @@ Drill-through links turn every non-calculated measure into a link. Selecting a v
 
 1. Right-click the **Line** column header, and select **Edit...**.
 
-<figure><img src="../_assets/images/az_sales_4.png" alt="Right-click menu on the Line column header with Edit highlighted above Also Show" width="272"><figcaption><p>Edit the Line header</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/az_sales_4.png" alt="Right-click menu on the Line column header with Edit highlighted above Also Show" width="272">
+<figcaption>Edit the Line header</figcaption>
+</figure>
+</div>
 
 2. Set **Display Name** to `Product Line`, and select **OK**.
 
-<figure><img src="../_assets/images/az_sales_edit_header_cells.png" alt="EMEA table with the Line header renamed to Product Line, showing QTR1 Sales for each product line" width="375"><figcaption><p>Edit header cells</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/az_sales_edit_header_cells.png" alt="EMEA table with the Line header renamed to Product Line, showing QTR1 Sales for each product line" width="303">
+<figcaption>Edit header cells</figcaption>
+</figure>
+</div>
 
 3. Right-click one of the **Sales** headers, and select **Column Name and Format...**.
 
-<figure><img src="../_assets/images/az_sales_format_column.png" alt="Sales header right-click menu with Column Name and Format highlighted, over the EMEA table with the Product Line header" width="563"><figcaption><p>Format Column</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/az_sales_format_column.png" alt="Sales header right-click menu with Column Name and Format highlighted, over the EMEA table with the Product Line header" width="563">
+<figcaption>Format Column</figcaption>
+</figure>
+</div>
 
 4. Fill in the settings, and select **OK**:
 
@@ -549,9 +844,19 @@ Drill-through links turn every non-calculated measure into a link. Selecting a v
 | **Decimal Places** | `0`          |
 | **Symbol**         | `$`          |
 
-<figure><img src="../_assets/images/az_sales_8.png" alt="The Edit Column dialog with Display Name Revenue, Original Name Sales, Format Currency, Decimal Places 0, Symbol $ and Units None"><figcaption><p>Revenue as currency</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/az_sales_8.png" alt="The Edit Column dialog with Display Name Revenue, Original Name Sales, Format Currency, Decimal Places 0, Symbol $ and Units None" width="800">
+<figcaption>Revenue as currency</figcaption>
+</figure>
+</div>
 
-<figure><img src="../_assets/images/az_sales_final_table_emea_revenue_by_product_line_yr2003.png" alt="The finished EMEA table with Revenue headers and whole-dollar currency values for each product line across the four 2003 quarters"><figcaption><p>Formatting</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/az_sales_final_table_emea_revenue_by_product_line_yr2003.png" alt="The finished EMEA table with Revenue headers and whole-dollar currency values for each product line across the four 2003 quarters" width="680">
+<figcaption>Formatting</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: with the EMEA and 2003 filters, Classic Cars shows $96,678 in QTR1 and $407,683 in QTR4, and Motorcycles has no QTR1 sales (a dash).
 
@@ -565,7 +870,12 @@ An analysis shows one format at a time, and the buttons beside **View As** switc
 
 6. Beside **View As**, select **Switch to chart format**, and select **Pie** from the chart list.
 
-<figure><img src="../_assets/images/az_sales_pie_charts_for_each_product_line.png" alt="Six pie charts, one per product line from Classic Cars to Trucks and Buses, splitting EMEA sales across 2003, 2004 and 2005 with dollar and percent labels"><figcaption><p>Pie Charts for each Product Line</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/az_sales_pie_charts_for_each_product_line.png" alt="Six pie charts, one per product line from Classic Cars to Trucks and Buses, splitting EMEA sales across 2003, 2004 and 2005 with dollar and percent labels" width="800">
+<figcaption>Pie Charts for each Product Line</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: the analysis is drawn as pie charts instead of a table.
 
@@ -581,7 +891,12 @@ An analysis shows one format at a time, and the buttons beside **View As** switc
 >
 > **More actions and options**, the gear button on the toolbar, holds the export formats, the report and chart options, the administration tools, and reset.
 
-<figure><img src="../_assets/images/az_sales_actions_and_options.png" alt="The Analyzer interactive toolbar with the More actions and options gear button outlined in red" width="323"><figcaption><p>Actions &#x26; Options</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/az_sales_actions_and_options.png" alt="The Analyzer interactive toolbar with the More actions and options gear button outlined in red" width="323">
+<figcaption>Actions &#x26; Options</figcaption>
+</figure>
+</div>
 
 ::: tabs
 
@@ -597,7 +912,12 @@ An analysis shows one format at a time, and the buttons beside **View As** switc
 
 1. On the toolbar, select **More actions and options**, then **Export**.
 
-<figure><img src="../_assets/images/az_sales_export_options.png" alt="The More actions and options menu with Export expanded to To PDF, To CSV and To Excel Workbook, over the EMEA table"><figcaption><p>Export options</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/az_sales_export_options.png" alt="The More actions and options menu with Export expanded to To PDF, To CSV and To Excel Workbook, over the EMEA table" width="634">
+<figcaption>Export options</figcaption>
+</figure>
+</div>
 
 ### Report Options
 
@@ -612,7 +932,12 @@ An analysis shows one format at a time, and the buttons beside **View As** switc
 1. On the toolbar, select **More actions and options**.
 2. Select **Report Options...**.
 
-<figure><img src="../_assets/images/az_sales_report_options.png" alt="The Report Options dialog with blank measures shown as a dash, Drill-through links on measures checked and both grand totals cleared"><figcaption><p>Report Options</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/az_sales_report_options.png" alt="The Report Options dialog with blank measures shown as a dash, Drill-through links on measures checked and both grand totals cleared" width="448">
+<figcaption>Report Options</figcaption>
+</figure>
+</div>
 
 ### Chart Options
 
@@ -627,7 +952,12 @@ An analysis shows one format at a time, and the buttons beside **View As** switc
 1. On the toolbar, select **More actions and options**.
 2. Select **Chart Options...**.
 
-<figure><img src="../_assets/images/az_sales_chart_options_2.png" alt="The Chart Options dialog on the General tab with Background, Labels and Domain Limit settings, and Set as default and Reset to default outlined"><figcaption><p>Chart Options</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/az_sales_chart_options_2.png" alt="The Chart Options dialog on the General tab with Background, Labels and Domain Limit settings, and Set as default and Reset to default outlined" width="672">
+<figcaption>Chart Options</figcaption>
+</figure>
+</div>
 
 ### Administration
 
@@ -640,7 +970,12 @@ An analysis shows one format at a time, and the buttons beside **View As** switc
 1. On the toolbar, select **More actions and options**.
 2. Select **Administration**.
 
-<figure><img src="../_assets/images/az_sales_administration_options.png" alt="The More actions and options menu with Administration expanded to XML, Log, MDX and Clear Cache"><figcaption><p>Administration options</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/az_sales_administration_options.png" alt="The More actions and options menu with Administration expanded to XML, Log, MDX and Clear Cache" width="594">
+<figcaption>Administration options</figcaption>
+</figure>
+</div>
 
 ***
 
@@ -654,7 +989,12 @@ Administrators can set the default value of non-standard properties of the curre
 
 3. Select **More actions and options > Administration > XML**.
 
-<figure><img src="../_assets/images/az_sales_9.png" alt="The Report Definition dialog with the SteelWheels report XML in the upper box and an empty visualization state JSON box below"><figcaption><p>The Report Definition dialog</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/az_sales_9.png" alt="The Report Definition dialog with the SteelWheels report XML in the upper box and an empty visualization state JSON box below" width="800">
+<figcaption>The Report Definition dialog</figcaption>
+</figure>
+</div>
 
 ***
 
@@ -664,7 +1004,12 @@ The log helps you troubleshoot and tune Analyzer reports. Its first half shows t
 
 4. Select **More actions and options > Administration > Log**.
 
-<figure><img src="../_assets/images/az_sales_log.png" alt="The Analyzer log showing timed RUN_REPORT entries and the generated MDX query, with elapsed times for setup, parsing, execution and rendering"><figcaption><p>Log</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/az_sales_log.png" alt="The Analyzer log showing timed RUN_REPORT entries and the generated MDX query, with elapsed times for setup, parsing, execution and rendering" width="800">
+<figcaption>Log</figcaption>
+</figure>
+</div>
 
 ***
 
@@ -675,11 +1020,21 @@ The MDX page opens the log file, clears the cache, checks AnalyzerDateFormat, an
 5. Select **More actions and options > Administration > MDX**. The page opens with an empty query box.
 6. In the log from step 4, copy the report's MDX query, the block that starts with `WITH`, and paste it into the box.
 
-<figure><img src="../_assets/images/az_sales_mdx.png" alt="The Administration MDX page with Open Log, Clear Cache and Check AnalyzerDateFormat links, the report's MDX query pasted into the box, Profile checked and Execute MDX"><figcaption><p>MDX</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/az_sales_mdx.png" alt="The Administration MDX page with Open Log, Clear Cache and Check AnalyzerDateFormat links, the report's MDX query pasted into the box, Profile checked and Execute MDX" width="800">
+<figcaption>MDX</figcaption>
+</figure>
+</div>
 
 7. Select **Execute MDX** to run the report's query. The result opens in a new tab.
 
-<figure><img src="../_assets/images/az_sales_mdx_output.png" alt="MDX output grid of EMEA sales by product line for each 2003 quarter, above the profiling log of the query timings"><figcaption><p>MDX - output</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/az_sales_mdx_output.png" alt="MDX output grid of EMEA sales by product line for each 2003 quarter, above the profiling log of the query timings" width="800">
+<figcaption>MDX - output</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: the query's result grid appears, above the log of how long each stage of the query took.
 

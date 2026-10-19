@@ -19,7 +19,12 @@
 >
 > **Estimated time:** 25 minutes
 
-<figure><img src="../_assets/images/az_emea_emea_quantity_sold_by_territoryyr004_tree_map.png" alt="Analyzer tree map titled EMEA Quantity Sold by Territory Yr2004 with 2 filters applied, sizing 2004 country blocks such as Spain, France, UK, Italy and Norway"><figcaption><p>EMEA: Quantity Sold by Territory Yr2004 - Tree Map</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/az_emea_emea_quantity_sold_by_territoryyr004_tree_map.png" alt="Analyzer tree map titled EMEA Quantity Sold by Territory Yr2004 with 2 filters applied, sizing 2004 country blocks such as Spain, France, UK, Italy and Norway" width="800">
+<figcaption>EMEA: Quantity Sold by Territory Yr2004 - Tree Map</figcaption>
+</figure>
+</div>
 
 ***
 

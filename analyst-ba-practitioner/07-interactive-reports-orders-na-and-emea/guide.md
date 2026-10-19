@@ -21,7 +21,12 @@
 >
 > **Estimated time:** 20 minutes
 
-<figure><img src="../_assets/images/ir_orders_orders_shipped.png" alt="The finished Orders Shipped from Jan 1st 2005 report, grouped by Territory EMEA and Product Line Classic Cars, with order date, order number, status, quantity and total columns"><figcaption><p>Orders Shipped</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/ir_orders_orders_shipped.png" alt="The finished Orders Shipped from Jan 1st 2005 report, grouped by Territory EMEA and Product Line Classic Cars, with order date, order number, status, quantity and total columns" width="800">
+<figcaption>Orders Shipped</figcaption>
+</figure>
+</div>
 
 ***
 
@@ -56,7 +61,12 @@ Next, add Product Name, Order Number, Order Date, Status, Quantity Ordered, and 
 10. On the Interactive Toolbar, select **Layout**.
 11. On the **Columns** line of the **Layout** panel, drag **Order Date** *between* **Product Name** and **Order Number**.
 
-<figure><img src="../_assets/images/ir_orders_report_layout.png" alt="The Interactive Report layout panel with an empty Groups row and the Product Name, Order Number, Order Date, Status, Quantity Ordered and Total columns"><figcaption><p>Report layout</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/ir_orders_report_layout.png" alt="The Interactive Report layout panel with an empty Groups row and the Product Name, Order Number, Order Date, Status, Quantity Ordered and Total columns" width="650">
+<figcaption>Report layout</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: the columns read **Product Name**, **Order Date**, **Order Number**, **Status**, **Quantity Ordered** and **Total**.
 
@@ -71,13 +81,23 @@ Next, add Product Name, Order Number, Order Date, Status, Quantity Ordered, and 
 1. Drag **Territory** from the **Data** tab onto the report canvas, and drop it *above* the column headers.
 2. Drag **Product Line** from the **Data** tab onto the canvas, and drop it *below* the **Territory** group.
 
-<figure><img src="../_assets/images/ir_orders_group_territory_and_product_line.png" alt="The Interactive Report layout panel with Territory and Product Line in the Groups row above the Product Name, Order Number, Order Date, Status, Quantity Ordered and Total columns"><figcaption><p>Group - Territory &#x26; Product Line</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/ir_orders_group_territory_and_product_line.png" alt="The Interactive Report layout panel with Territory and Product Line in the Groups row above the Product Name, Order Number, Order Date, Status, Quantity Ordered and Total columns" width="650">
+<figcaption>Group - Territory &#x26; Product Line</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: the report is grouped by Territory and then Product Line, starting with **APAC** and **Classic Cars**.
 
 3. Select the drop-down arrow on the **Order Date** column header, and select **Sort > Ascending**.
 
-<figure><img src="../_assets/images/ir_orders_sort_ascending_on_order_date.png" alt="The Order Date column header menu with Sort expanded and the pointer on Ascending, beside the Filter, Prompt, Move and Aggregation options" width="355"><figcaption><p>Sort - Ascending on Order Date</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/ir_orders_sort_ascending_on_order_date.png" alt="The Order Date column header menu with Sort expanded and the pointer on Ascending, beside the Filter, Prompt, Move and Aggregation options" width="355">
+<figcaption>Sort - Ascending on Order Date</figcaption>
+</figure>
+</div>
 
 4. On the Interactive Toolbar, select **Filters**.
 5. Drag **Territory** from the **Data** tab to the **Filters** panel.
@@ -87,7 +107,12 @@ Next, add Product Name, Order Number, Order Date, Status, Quantity Ordered, and 
 9. Drag the **Order Date** column header to the **Filters** panel.
 10. In the **Filter on Order Date** dialog, select **On or after** in the constraint list, and enter `2005-01-01` in the date box (the calendar button opens at today's month, so typing is quicker than paging back to January 2005). Select **OK**.
 
-<figure><img src="../_assets/images/ir_orders_filters.png" alt="The Interactive Report filter panel with Territory Includes EMEA, NA, Status Includes Shipped and Order Date On or after 2005-01-01 joined by AND, above the filtered report"><figcaption><p>Filters</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/ir_orders_filters.png" alt="The Interactive Report filter panel with Territory Includes EMEA, NA, Status Includes Shipped and Order Date On or after 2005-01-01 joined by AND, above the filtered report" width="800">
+<figcaption>Filters</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: the **Filters** panel lists the Territory, Status and Order Date filters, joined by **AND**, and the report now starts with **EMEA**.
 
@@ -101,7 +126,12 @@ Next, add Product Name, Order Number, Order Date, Status, Quantity Ordered, and 
 
 1. Select the drop-down arrow on the **Total** column header, and select **Summary > Sum**.
 
-<figure><img src="../_assets/images/ir_orders_sum_totals.png" alt="The Total column header menu with Summary expanded and the pointer on Sum, below the Filter, Prompt, Sort, Move and Aggregation options" width="334"><figcaption><p>Sum - Totals</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/ir_orders_sum_totals.png" alt="The Total column header menu with Summary expanded and the pointer on Sum, below the Filter, Prompt, Sort, Move and Aggregation options" width="334">
+<figcaption>Sum - Totals</figcaption>
+</figure>
+</div>
 
 2. On the Interactive Toolbar, set **Row Limit** to **Maximum**. The filtered report has 316 rows, so at 100 the later groups and the grand total are missing.
 
@@ -126,7 +156,12 @@ Next, add Product Name, Order Number, Order Date, Status, Quantity Ordered, and 
 
 > **Success:** Checkpoint: the first Line subtotal (EMEA > Classic Cars) is $324,125.00, the NA Territory Total is $460,810.00 and the Grand Total is $1,191,419.00, so EMEA comes to $730,609.00.
 
-<figure><img src="../_assets/images/ir_orders_totals.png" alt="The last page of the report with a Line subtotal row, the Territory Total of $460,810.00 and the Grand Total of $1,191,419.00" width="375"><figcaption><p>Totals</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/ir_orders_totals.png" alt="The last page of the report with a Line subtotal row, the Territory Total of $460,810.00 and the Grand Total of $1,191,419.00" width="375">
+<figcaption>Totals</figcaption>
+</figure>
+</div>
 
 ### 4. Refine Report & Save
 
@@ -140,7 +175,12 @@ Next, add Product Name, Order Number, Order Date, Status, Quantity Ordered, and 
 2. With the title selected, open the **Formatting** tab, and select **Align Center**.
 3. Double-click the *left* side of the header area, enter `Steel Wheels, Inc.`, and press `Enter`.
 
-<figure><img src="../_assets/images/ir_orders_title.png" alt="The report header Steel Wheels Inc above the title Orders Shipped from Jan 1st 2005" width="312"><figcaption><p>Title</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/ir_orders_title.png" alt="The report header Steel Wheels Inc above the title Orders Shipped from Jan 1st 2005" width="312">
+<figcaption>Title</figcaption>
+</figure>
+</div>
 
 4. Select the **Product Name** column header, and on the **Formatting** tab set **Column Width (%)** to `25`, so product names fit on one line. Then select the **Order Number** column header and set **Column Width (%)** to `12`.
 5. Select each column header in turn, and select **Align Center**.
@@ -153,7 +193,12 @@ Next, add Product Name, Order Number, Order Date, Status, Quantity Ordered, and 
 9. In the **Save As** dialog, set **Filename** to `Shipped Orders Activity - Jan 1st 2005`. Select the **Up One Level** icon twice, double-click **Public**, double-click **Training**, and select **Save**.
 10. Select the perspective drop-down, select **Browse Files**, and in the **Folders** pane select **Public > Training**.
 
-<figure><img src="../_assets/images/ir_orders_reports.png" alt="The classic Browse Files perspective with Public, Training selected, holding Sales Territory Report - Demo and Shipped Orders Activity - Jan 1st 2005"><figcaption><p>Reports</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/ir_orders_reports.png" alt="The classic Browse Files perspective with Public, Training selected, holding Sales Territory Report - Demo and Shipped Orders Activity - Jan 1st 2005" width="800">
+<figcaption>Reports</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: **Public > Training** holds **Sales Territory Report - Demo** and **Shipped Orders Activity - Jan 1st 2005**.
 

@@ -14,7 +14,12 @@
 > 
 > The Pentaho Server, which is the heart of the Pentaho BA Suite, processes reporting, analysis, and dashboard content. The Pentaho Server hosts the centralized Repository for secure sharing of all data solutions. It also provides scheduling and audit functionality. The Pentaho server is managed through its web-based tool, the User Console. Use the User Console to create business analytics content, display and schedule reports, and manage Pentaho security.
 
-<figure><img src="../_assets/images/getting_started_pentaho_architecture.png" alt="A Pentaho architecture diagram: Data Integration, Schema Workbench, Metadata Editor and Report Designer feed the Data Integration and Analytics servers, a data source and the repository"><figcaption><p>Pentaho Architecture</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/getting_started_pentaho_architecture.png" alt="A Pentaho architecture diagram: Data Integration, Schema Workbench, Metadata Editor and Report Designer feed the Data Integration and Analytics servers, a data source and the repository" width="800">
+<figcaption>Pentaho Architecture</figcaption>
+</figure>
+</div>
 
 ***
 
@@ -32,7 +37,12 @@
 
 **Pentaho 11**
 
-<figure><img src="../_assets/images/user_console_new_pentaho_user_login.png" alt="The new Pentaho 11 User Console login page, with Welcome to Pentaho on the left and Username and Password fields, a Log In button and Login as Evaluator on the right"><figcaption><p>NEW - Pentaho User Login</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/user_console_new_pentaho_user_login.png" alt="The new Pentaho 11 User Console login page, with Welcome to Pentaho on the left and Username and Password fields, a Log In button and Login as Evaluator on the right" width="800">
+<figcaption>NEW - Pentaho User Login</figcaption>
+</figure>
+</div>
 
 ***
 
@@ -56,7 +66,12 @@ course — it is described here so you can place it alongside the rest.
 > 
 > Pentaho Analyzer works with multiple data sources and supports both relational and multidimensional (OLAP) data models, making it a versatile tool for business intelligence and data analysis needs.
 
-<figure><img src="../_assets/images/getting_started_product_line_quantity_by_territory_waterfall.png" alt="An Analyzer waterfall chart of quantity by product line from Classic Cars to Vintage Cars, stacked by territory APAC, EMEA, Japan and NA, ending in an All total column"><figcaption><p>Product Line Quantity by Territory (Waterfall)</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/getting_started_product_line_quantity_by_territory_waterfall.png" alt="An Analyzer waterfall chart of quantity by product line from Classic Cars to Vintage Cars, stacked by territory APAC, EMEA, Japan and NA, ending in an All total column" width="800">
+<figcaption>Product Line Quantity by Territory (Waterfall)</figcaption>
+</figure>
+</div>
 
 ### Interactive Reports
 
@@ -70,7 +85,12 @@ course — it is described here so you can place it alongside the rest.
 > 
 > The platform emphasizes self-service reporting, allowing business users to generate and modify reports independently while maintaining data governance and security protocols.
 
-<figure><img src="../_assets/images/getting_started_vendor_sales_report.png" alt="The Vendor Sales Report - Classic Cars interactive report, grouped by territory APAC and product vendor, with Product Name, Scale, Items Sold and Sales columns and vendor subtotals"><figcaption><p>Vendor Sales Report</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/getting_started_vendor_sales_report.png" alt="The Vendor Sales Report - Classic Cars interactive report, grouped by territory APAC and product vendor, with Product Name, Scale, Items Sold and Sales columns and vendor subtotals" width="800">
+<figcaption>Vendor Sales Report</figcaption>
+</figure>
+</div>
 
 ### Dashboard Designer
 
@@ -82,7 +102,12 @@ course — it is described here so you can place it alongside the rest.
 > 
 > The tool provides drag-and-drop functionality for building dashboards that can integrate multiple data sources, including databases, spreadsheets, and OLAP cubes. Users can incorporate various visualization components like charts, tables, and metrics, and add interactive elements such as filters and drill-down capabilities.&#x20;
 
-<figure><img src="../_assets/images/getting_started_regional_product_mix.png" alt="The Regional Product Mix dashboard with Territory, Country and Product Line prompts above a Product Line Sales Trend chart, a Product Heat Grid and a Latest Product Standings table"><figcaption><p>Regional Product Mix</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/getting_started_regional_product_mix.png" alt="The Regional Product Mix dashboard with Territory, Country and Product Line prompts above a Product Line Sales Trend chart, a Product Heat Grid and a Latest Product Standings table" width="800">
+<figcaption>Regional Product Mix</figcaption>
+</figure>
+</div>
 
 ### Report Designer
 

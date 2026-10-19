@@ -21,7 +21,12 @@
 >
 > **Estimated time:** 20 minutes
 
-<figure><img src="../_assets/images/ir_ships_trains_report_ships_and_trains.png" alt="The finished Customer Report: Ships and Trains Ordered, grouped by Territory APAC and Product Line Ships, with customer name, order date, status and quantity columns and a line subtotal"><figcaption><p>Report - Ships &#x26; Trains</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/ir_ships_trains_report_ships_and_trains.png" alt="The finished Customer Report: Ships and Trains Ordered, grouped by Territory APAC and Product Line Ships, with customer name, order date, status and quantity columns and a line subtotal" width="800">
+<figcaption>Report - Ships &#x26; Trains</figcaption>
+</figure>
+</div>
 
 > **Note:**
 >

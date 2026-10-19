@@ -16,7 +16,12 @@
 
 > **Note:** Pentaho Analyzer presents data multi-dimensionally and lets you select what dimensions and measures you want to explore. Use Analyzer to drill, slice, dice, pivot, filter, chart data and create calculated fields. Users of Analyzer reports can query the data in a database without having to understand how the database is structured.
 
-<figure><img src="../_assets/images/az_schema_workbench_steelwheels.png" alt="Schema Workbench with the SteelWheels schema open and the Territory level of the Markets dimension selected, showing column TERRITORY and type String in the Level for Hierarchy panel"><figcaption><p>Schema Workbench - SteelWheels</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/az_schema_workbench_steelwheels.png" alt="Schema Workbench with the SteelWheels schema open and the Territory level of the Markets dimension selected, showing column TERRITORY and type String in the Level for Hierarchy panel" width="800">
+<figcaption>Schema Workbench - SteelWheels</figcaption>
+</figure>
+</div>
 
 > **Note:** Before you can create an Analyzer Report you must have access to a data source, (relational database table(s) or a CSV file) provided by an administrator or a user with create data source permission. The data source used for an Analyzer Report is based on a Mondrian schema (also referred to as an Analysis Model).&#x20;
 > 

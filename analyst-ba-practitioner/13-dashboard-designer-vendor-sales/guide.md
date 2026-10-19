@@ -19,7 +19,12 @@
 >
 > **Estimated time:** 35 minutes
 
-<figure><img src="../_assets/images/dd_vendor_sales_vendor_sales_prompts.png" alt="The finished Training Demo Dashboard with territory and product line prompt buttons, EMEA and Classic Cars selected, above the European Sales map, Vendor Sales and Inventory List panels"><figcaption><p>Vendor Sales - prompts</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/dd_vendor_sales_vendor_sales_prompts.png" alt="The finished Training Demo Dashboard with territory and product line prompt buttons, EMEA and Classic Cars selected, above the European Sales map, Vendor Sales and Inventory List panels" width="800">
+<figcaption>Vendor Sales - prompts</figcaption>
+</figure>
+</div>
 
 ::: tabs
 
@@ -33,20 +38,40 @@
 
 1. Select the perspective drop-down and select **Home**, then select **Create New > Dashboard**.
 
-<figure><img src="../_assets/images/dd_vendor_sales_dashboard_designer.png" alt="User Console Home with the Create New menu expanded and the pointer on Dashboard, below Analysis Report and Interactive Report and above Data Source" width="353"><figcaption><p>Dashboard Designer</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/dd_vendor_sales_dashboard_designer.png" alt="User Console Home with the Create New menu expanded and the pointer on Dashboard, below Analysis Report and Interactive Report and above Data Source" width="353">
+<figcaption>Dashboard Designer</figcaption>
+</figure>
+</div>
 
 2. On the **Templates** tab, select **2 over 1**.
 
-<figure><img src="../_assets/images/dd_vendor_sales_dashboard_templates.png" alt="Dashboard Designer Templates tab with the 2 over 1 layout outlined as selected beside 2 by 2, 2 and 1 and 1 and 2, and Untitled 1 to 3 in the Objects list" width="563"><figcaption><p>Dashboard Templates</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/dd_vendor_sales_dashboard_templates.png" alt="Dashboard Designer Templates tab with the 2 over 1 layout outlined as selected beside 2 by 2, 2 and 1 and 1 and 2, and Untitled 1 to 3 in the Objects list" width="563">
+<figcaption>Dashboard Templates</figcaption>
+</figure>
+</div>
 
 3. Open the **Themes** tab to see the available themes.
 
-<figure><img src="../_assets/images/dd_vendor_sales_themes.png" alt="Dashboard Designer Themes tab with the Ruby theme outlined as selected beside the Sapphire and Crystal theme previews" width="563"><figcaption><p>Themes</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/dd_vendor_sales_themes.png" alt="Dashboard Designer Themes tab with the Ruby theme outlined as selected beside the Sapphire and Crystal theme previews" width="563">
+<figcaption>Themes</figcaption>
+</figure>
+</div>
 
 4. Keep the default **Ruby** theme.
 5. Open the **Properties** tab, and set **Page Title** to `Training Demo Dashboard`.
 
-<figure><img src="../_assets/images/dd_vendor_sales_dashboard_properties.png" alt="Dashboard Designer Properties tab with Page Title set to Training Demo Dashboard, an empty Refresh Interval box and the Resize Panels button"><figcaption><p>Dashboard Properties</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/dd_vendor_sales_dashboard_properties.png" alt="Dashboard Designer Properties tab with Page Title set to Training Demo Dashboard, an empty Refresh Interval box and the Resize Panels button" width="589">
+<figcaption>Dashboard Properties</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: the canvas shows three panels, **Untitled 1** and **Untitled 2** side by side over **Untitled 3**, under the title **Training Demo Dashboard**.
 
@@ -56,7 +81,12 @@ The **Properties** tab also has **Resize Panels** and **Refresh Interval (sec)**
 7. Drag the vertical bar about an inch to the left, to make the **Untitled 1** panel smaller.
 8. In the lower-right corner of the canvas, select **Close**.
 
-<figure><img src="../_assets/images/dd_vendor_sales_resize_dashboard.png" alt="Training Demo Dashboard canvas in resize mode, with blue vertical and horizontal bars between the Untitled 1, Untitled 2 and Untitled 3 panels and a Close button at lower right" width="531"><figcaption><p>Resize Dashboard</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/dd_vendor_sales_resize_dashboard.png" alt="Training Demo Dashboard canvas in resize mode, with blue vertical and horizontal bars between the Untitled 1, Untitled 2 and Untitled 3 panels and a Close button at lower right" width="531">
+<figcaption>Resize Dashboard</figcaption>
+</figure>
+</div>
 
 ### 2. Content
 
@@ -69,27 +99,52 @@ The **Properties** tab also has **Resize Panels** and **Refresh Interval (sec)**
 1. Select the **Untitled 1** panel.
 2. Select the **Insert Content** icon at the top right of the panel, and select **File**.
 
-<figure><img src="../_assets/images/dd_vendor_sales_add_content_from_repository.png" alt="The Untitled 1 panel with its Insert Content menu open, listing Chart, Data Table, URL and File" width="392"><figcaption><p>Add content from Repository</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/dd_vendor_sales_add_content_from_repository.png" alt="The Untitled 1 panel with its Insert Content menu open, listing Chart, Data Table, URL and File" width="392">
+<figcaption>Add content from Repository</figcaption>
+</figure>
+</div>
 
 3. In the **Select** dialog, go to **Public > Steel Wheels**, and double-click **European Sales (geo map)**.
 
-<figure><img src="../_assets/images/dd_vendor_sales_add_european_sales_geomap.png" alt="The Select dialog at /public/Steel Wheels with European Sales (geo map) highlighted in the file list and entered in the Filename box" width="563"><figcaption><p>Add European Sales (geomap)</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/dd_vendor_sales_add_european_sales_geomap.png" alt="The Select dialog at /public/Steel Wheels with European Sales (geo map) highlighted in the file list and entered in the Filename box" width="563">
+<figcaption>Add European Sales (geomap)</figcaption>
+</figure>
+</div>
 
 4. Set **Title** to `European Sales`, and select **Apply**.
 
-<figure><img src="../_assets/images/dd_vendor_sales_title.png" alt="Panel properties for Untitled 1 with Title European Sales, Content European Sales (geo map), an empty Parameters tab and the Apply button"><figcaption><p>Title</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/dd_vendor_sales_title.png" alt="Panel properties for Untitled 1 with Title European Sales, Content European Sales (geo map), an empty Parameters tab and the Apply button" width="800">
+<figcaption>Title</figcaption>
+</figure>
+</div>
 
 5. In the **Folders** pane of the browse panel, select **Public > Steel Wheels**. Drag **Vendor Sales Report (interactive report)** from the **Files** pane onto the **Untitled 2** panel (or select **Insert Content > File** on that panel, as for **Untitled 1**).
 6. Set **Title** to `Vendor Sales`, and select **Apply**.
 
-<figure><img src="../_assets/images/dd_vendor_sales_vendor_sales.png" alt="Dashboard Designer with the European Sales map and the Vendor Sales Report - Classic Cars in a panel titled Vendor Sales, its region, Product Line and output-target parameters below"><figcaption><p>Vendor Sales</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/dd_vendor_sales_vendor_sales.png" alt="Dashboard Designer with the European Sales map and the Vendor Sales Report - Classic Cars in a panel titled Vendor Sales, its region, Product Line and output-target parameters below" width="800">
+<figcaption>Vendor Sales</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: the **Vendor Sales** panel shows the Vendor Sales Report, and the pane below lists its parameters, including **region** and **Product Line**. You use those parameters with dashboard prompts later.
 
 7. Drag **Inventory List (report)** from the **Files** pane onto the **Untitled 3** panel (or select **Insert Content > File**).
 8. Set **Title** to `Inventory List`, and select **Apply**. The Inventory List report fills the bottom panel.
 
-<figure><img src="../_assets/images/dd_vendor_sales_training_demo_dashboard.png" alt="Training Demo Dashboard with the European Sales geo map and Vendor Sales report on top and the Steel Wheels Inventory List report in the bottom panel"><figcaption><p>Training Demo Dashboard</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/dd_vendor_sales_training_demo_dashboard.png" alt="Training Demo Dashboard with the European Sales geo map and Vendor Sales report on top and the Steel Wheels Inventory List report in the bottom panel" width="800">
+<figcaption>Training Demo Dashboard</figcaption>
+</figure>
+</div>
 
 > **Under the hood:**
 >
@@ -119,7 +174,12 @@ The **Properties** tab also has **Resize Panels** and **Refresh Interval (sec)**
 
 1. In the **Objects** list in the bottom pane, select **Prompts**, and select **Show Prompt Toolbar**.
 
-<figure><img src="../_assets/images/dd_vendor_sales_2.png" alt="Dashboard Designer with Prompts selected in the Objects list, Show Prompt Toolbar checked and an empty Prompts toolbar now shown at the top of the dashboard"><figcaption><p>Show Prompt Toolbar</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/dd_vendor_sales_2.png" alt="Dashboard Designer with Prompts selected in the Objects list, Show Prompt Toolbar checked and an empty Prompts toolbar now shown at the top of the dashboard" width="800">
+<figcaption>Show Prompt Toolbar</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: an empty **Prompts** toolbar appears at the top of the dashboard. Its height is set on the **Properties** tab of **General Settings**.
 
@@ -127,24 +187,44 @@ The **Properties** tab also has **Resize Panels** and **Refresh Interval (sec)**
 
 The **Prompt** dialog opens. **Name** is what the Prompts toolbar shows, so a prompt such as `Select one or more Territories:` makes a good name. The **Control** area shows the types of prompt: drop-down, list, radio buttons, check box, buttons, text field, and date picker. The **Data** area sets where the prompt's values come from: a static list you type, a SQL query against a database connection, or a metadata list from a defined data source. **Control Properties** shows options for the selected type of prompt.
 
-<figure><img src="../_assets/images/dd_vendor_sales_orders_metadata_list.png" alt="Prompt dialog named Select one or more Territories with the Buttons control selected and the Data Type list open on Static List, SQL List and Metadata List"><figcaption><p>Orders - Metadata List</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/dd_vendor_sales_orders_metadata_list.png" alt="Prompt dialog named Select one or more Territories with the Buttons control selected and the Data Type list open on Static List, SQL List and Metadata List" width="546">
+<figcaption>Orders - Metadata List</figcaption>
+</figure>
+</div>
 
 3. Set **Name** to `Select one or more Territories:`.
 4. In the **Control** area, select the **Buttons** icon.
 5. In the **Data** area, set **Type** to **Metadata List**, and select **Select...**.
 6. In the **Select Data Source** dialog, select **Orders**, and select **OK**.
 
-<figure><img src="../_assets/images/dd_vendor_sales.png" alt="Select Data Source dialog with Orders highlighted, open over the Prompt dialog whose Data Type is now Metadata List"><figcaption><p>Select the Orders data source</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/dd_vendor_sales.png" alt="Select Data Source dialog with Orders highlighted, open over the Prompt dialog whose Data Type is now Metadata List" width="603">
+<figcaption>Select the Orders data source</figcaption>
+</figure>
+</div>
 
 The **Query Editor** opens. (If it does not, select **Edit MQL Query**, the pencil beside **Selected Items**.) Build a query that lists the territories from the Customer table, leaving out null values.
 
-<figure><img src="../_assets/images/dd_vendor_sales_metadata_query_territory.png" alt="Query Editor with Customer Territory as the selected column and as a condition, the Comparison list open with the pointer on is not null"><figcaption><p>Metadata Query - Territory</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/dd_vendor_sales_metadata_query_territory.png" alt="Query Editor with Customer Territory as the selected column and as a condition, the Comparison list open with the pointer on is not null" width="800">
+<figcaption>Metadata Query - Territory</figcaption>
+</figure>
+</div>
 
 7. In the **Categories / Columns** list, select the plus sign beside **Customer**, select **Territory**, and select the `>` arrow to move it to **Selected Columns**.
 8. Add a condition that keeps the territories that are not null: with **Territory** still selected, select the middle arrow (the one beside **Switch to Advanced...**) to move it to **Conditions**, and set **Comparison** to **is not null**. The bottom arrow adds a column to **Order By** instead.
 9. Select **Preview**, and check the list.
 
-<figure><img src="../_assets/images/dd_vendor_sales_preview_list.png" alt="Preview dialog listing the Territory values APAC, EMEA, Japan and NA, with a Limit of 10 and Update and Close buttons"><figcaption><p>Preview List</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/dd_vendor_sales_preview_list.png" alt="Preview dialog listing the Territory values APAC, EMEA, Japan and NA, with a Limit of 10 and Update and Close buttons" width="442">
+<figcaption>Preview List</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: the preview lists **APAC**, **EMEA**, **Japan** and **NA**.
 
@@ -163,7 +243,12 @@ The two prompts this lab builds, side by side:
 | **Allow multiple selections** | Selected                                           | Cleared                                              |
 | Vendor Sales parameter        | **region**                                         | **Product Line**                                     |
 
-<figure><img src="../_assets/images/dd_vendor_sales_associate_the_prompt_with_vendor_sales_repor.png" alt="Vendor Sales panel Parameters tab with the region Source list open, offering the Select one or more Territories prompt in place of APAC"><figcaption><p>Associate the prompt with Vendor Sales report.</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/dd_vendor_sales_associate_the_prompt_with_vendor_sales_repor.png" alt="Vendor Sales panel Parameters tab with the region Source list open, offering the Select one or more Territories prompt in place of APAC" width="800">
+<figcaption>Associate the prompt with Vendor Sales report.</figcaption>
+</figure>
+</div>
 
 12. Apply the Territory prompt to the Vendor Sales Report: in the **Objects** list in the bottom pane, select **Vendor Sales Report**. On the **Parameters** tab, set the **Source** of **region** to **Select one or more Territories:**, and select **Apply**.
 
@@ -192,7 +277,12 @@ The two prompts this lab builds, side by side:
 15. Select **Classic Cars** in the new row of buttons, and view the result in the **Vendor Sales** panel.
 16. On the toolbar, select the **Save** icon. Select the **Up One Level** icon twice, double-click **Public** and then **Training**, set **Filename** to `Training Demo Dashboard`, and select **Save**.
 
-<figure><img src="../_assets/images/dd_vendor_sales_vendor_sales_prompts.png" alt="Training Demo Dashboard with EMEA and Classic Cars selected in the prompt buttons and the Vendor Sales report showing Classic Cars for Territory EMEA"><figcaption><p>Vendor Sales</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/dd_vendor_sales_vendor_sales_prompts.png" alt="Training Demo Dashboard with EMEA and Classic Cars selected in the prompt buttons and the Vendor Sales report showing Classic Cars for Territory EMEA" width="800">
+<figcaption>Vendor Sales</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: the Territory buttons are APAC, EMEA, Japan and NA, the Product Line buttons run from Classic Cars to Vintage Cars, and with EMEA and Classic Cars selected the Vendor Sales panel shows Territory: EMEA.
 

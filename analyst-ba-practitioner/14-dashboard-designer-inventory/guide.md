@@ -20,7 +20,12 @@
 >
 > **Estimated time:** 30 minutes
 
-<figure><img src="../_assets/images/dd_inventory_inventory_dashboard.png" alt="Inventory Dashboard with an Inventory Table of Product Line, Product Name, Quantity In Stock and MSRP beside an Inventory bar chart of MSRP by Qty for Motorcycles"><figcaption><p>Inventory Dashboard</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/dd_inventory_inventory_dashboard.png" alt="Inventory Dashboard with an Inventory Table of Product Line, Product Name, Quantity In Stock and MSRP beside an Inventory bar chart of MSRP by Qty for Motorcycles" width="800">
+<figcaption>Inventory Dashboard</figcaption>
+</figure>
+</div>
 
 ::: tabs
 
@@ -32,7 +37,12 @@
 >
 > Creating a dashboard in Dashboard Designer starts with choosing a layout template, a theme, and the content you want to display.
 
-<figure><img src="../_assets/images/dd_inventory_template_2_column.png" alt="Dashboard Designer with the two-column Inventory Dashboard layout of Untitled 1 and Untitled 2, and the Untitled 1 Insert Content menu open on Data Table"><figcaption><p>Template - 2 column</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/dd_inventory_template_2_column.png" alt="Dashboard Designer with the two-column Inventory Dashboard layout of Untitled 1 and Untitled 2, and the Untitled 1 Insert Content menu open on Data Table" width="800">
+<figcaption>Template - 2 column</figcaption>
+</figure>
+</div>
 
 1. Select the perspective drop-down and select **Home**, then select **Create New > Dashboard**.
 2. On the **Templates** tab, select **2 Column**.
@@ -41,7 +51,12 @@
 5. Select the **Insert Content** icon at the top right of the **Untitled 1** panel, and select **Data Table**.
 6. In the **Select Data Source** dialog, select **Inventory**, and select **OK**.
 
-<figure><img src="../_assets/images/dd_inventory_inventory_data_source.png" alt="Select Data Source dialog with Inventory highlighted in the list of data sources, above OK and Cancel buttons"><figcaption><p>Inventory - data source</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/dd_inventory_inventory_data_source.png" alt="Select Data Source dialog with Inventory highlighted in the list of data sources, above OK and Cancel buttons" width="320">
+<figcaption>Inventory - data source</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: the **Query Editor** opens on the Inventory data source, with its categories in the **Categories / Columns** list.
 
@@ -55,7 +70,12 @@
 
 **Data Table**
 
-<figure><img src="../_assets/images/dd_inventory_product_queries.png" alt="Query Editor with Product Line, Product Name, Quantity In Stock and MSRP selected and Order By Product Line, its Order list open on ASC and DESC"><figcaption><p>Product Queries</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/dd_inventory_product_queries.png" alt="Query Editor with Product Line, Product Name, Quantity In Stock and MSRP selected and Order By Product Line, its Order list open on ASC and DESC" width="648">
+<figcaption>Product Queries</figcaption>
+</figure>
+</div>
 
 1. In the **Categories / Columns** list, expand **Products**, select **Product Line**, and select the top arrow to move it to **Selected Columns**.
 2. Add **Products > Product Name**, **Inventory and Cost > Quantity In Stock**, and **Inventory and Cost > MSRP** to **Selected Columns** the same way.
@@ -76,7 +96,12 @@
 
 4. Set **Title** to `Inventory Table`, and select **Apply**.
 
-<figure><img src="../_assets/images/dd_inventory_inventory_table.png" alt="Inventory Table data table with Product Line, Product Name, Quantity In Stock and MSRP columns, Classic Cars rows first, on page 1 of 6 of 110 rows"><figcaption><p>Inventory Table</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/dd_inventory_inventory_table.png" alt="Inventory Table data table with Product Line, Product Name, Quantity In Stock and MSRP columns, Classic Cars rows first, on page 1 of 6 of 110 rows" width="382">
+<figcaption>Inventory Table</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: the Inventory Table opens on Classic Cars (Vintage Cars come last) and reads Displaying 1 - 20 of 110.
 
@@ -87,14 +112,24 @@
 5. Select the **Insert Content** icon at the top right of the **Untitled 2** panel, and select **Chart**.
 6. In the **Select Data Source** dialog, select **Inventory**, and select **OK**.
 
-<figure><img src="../_assets/images/dd_inventory_condition_product_line_begins_with_m.png" alt="Query Editor with Product Line, Quantity In Stock and MSRP selected and the condition Product Line begins with M"><figcaption><p>Condition: Product Line begins with M</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/dd_inventory_condition_product_line_begins_with_m.png" alt="Query Editor with Product Line, Quantity In Stock and MSRP selected and the condition Product Line begins with M" width="650">
+<figcaption>Condition: Product Line begins with M</figcaption>
+</figure>
+</div>
 
 7. In the **Categories / Columns** list, expand **Products**, select **Product Line**, and select the top arrow to move it to **Selected Columns**. Expand **Inventory and Cost**, and move **Quantity In Stock** and then **MSRP** to **Selected Columns** the same way.
 8. Add a condition on Product Line: select **Product Line** in the **Categories / Columns** list, and select the middle arrow (the one beside **Switch to Advanced...**) to move it to **Conditions**. The bottom arrow adds it to **Order By** instead. Set **Comparison** to **begins with**, and enter `M` in **Value**.
 9. Select **OK**. The **Chart Designer** opens.
 10. Fill in the **Chart Designer** fields, and select **OK**:
 
-<figure><img src="../_assets/images/dd_inventory_chart.png" alt="Chart Designer bar chart with Series Product Line, Category Quantity In Stock, Values MSRP, title Inventory, X axis Qty and Y axis MSRP, previewing Motorcycles"><figcaption><p>Chart</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/dd_inventory_chart.png" alt="Chart Designer bar chart with Series Product Line, Category Quantity In Stock, Values MSRP, title Inventory, X axis Qty and Y axis MSRP, previewing Motorcycles" width="800">
+<figcaption>Chart</figcaption>
+</figure>
+</div>
 
 | Field           | Entry             |
 | --------------- | ----------------- |
