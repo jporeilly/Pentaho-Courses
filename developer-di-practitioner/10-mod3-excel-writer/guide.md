@@ -26,6 +26,8 @@
 
 </figure>
 
+---
+
 <div align="center">
 <figure>
 <img src="../_assets/images/excel.png" alt="The finished transformation: three branches - year, sales and expenses - each writing to the same workbook" width="619">

@@ -27,6 +27,8 @@
 
 </figure>
 
+---
+
 <div align="center">
 <figure>
 <img src="../_assets/images/dim-scd-trans.png" alt="The finished transformation: Data Grid, Get System Info and Dimension lookup/update in a line" width="610">
