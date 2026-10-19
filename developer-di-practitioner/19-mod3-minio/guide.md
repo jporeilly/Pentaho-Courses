@@ -30,14 +30,14 @@
 
 > **Warning:** Every path in these workshops starts `pvfs://MinIO/`, which means "the VFS connection named **MinIO**". Create it before you start your workshop. Connection names are case-sensitive: `pvfs://minio/...` doesn't find a connection named `MinIO`.
 
-1. Start Spoon with the **Start PDI** button below, or from PowerShell:
+1. Start Spoon with the **Start Pentaho Data Integration** button below, or from PowerShell:
 
 ```powershell
 Set-Location C:\Pentaho\design-tools\data-integration
 .\spoon.bat
 ```
 
-<button data-launch="spoon" data-path="">Start PDI</button>
+<button data-launch="spoon" data-path="">Start Pentaho Data Integration</button>
 
 2. Check that MinIO is running and seeded: open the MinIO console at **http://127.0.0.1:9099** and sign in as `minioadmin` / `minioadmin`. The first time, the console shows MinIO's license notice: read it and select **Acknowledge**. The **raw-data** bucket holds `csv/`, `json/`, `xml/` and `finance/` folders, and the **logs** bucket holds `app/`, `web/` and `error/`.
 
@@ -112,6 +112,12 @@ Choose one workshop from the tabs below and build it. Save the transformation in
 > * `pvfs://MinIO/raw-data/csv/customers.csv` (12 customers)
 >
 > Output: `pvfs://MinIO/staging/dashboard/sales_fact_<date>_<time>.csv`
+
+<figure>
+
+<figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
+
+</figure>
 
 ::: tabs
 
@@ -370,6 +376,12 @@ Choose one workshop from the tabs below and build it. Save the transformation in
 > * `pvfs://MinIO/raw-data/csv/products.csv` (18 products)
 >
 > Outputs, in `pvfs://MinIO/staging/reconciliation/`: `urgent_actions_<date>_<time>.csv`, `review_queue_<date>_<time>.csv` and `low_priority.csv`
+
+<figure>
+
+<figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
+
+</figure>
 
 ::: tabs
 
@@ -798,6 +810,12 @@ What the script decides, row by row:
 >
 > Output: `pvfs://MinIO/curated/customer/customer_360_<date>_<time>.csv`
 
+<figure>
+
+<figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
+
+</figure>
+
 ::: tabs
 
 ### 1. Read the Customers
@@ -1074,6 +1092,12 @@ if (total_spent == null || total_spent == 0) {
 >
 > Input: `pvfs://MinIO/logs/app/application.log` (123 lines over four hours). Output: `pvfs://MinIO/logs/alerts/critical_alerts_<date>_<time>.csv`.
 
+<figure>
+
+<figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
+
+</figure>
+
 ::: tabs
 
 ### 1. Read the Log
@@ -1347,6 +1371,12 @@ if (rowNum == 1) {
 > * `pvfs://MinIO/raw-data/finance/accounts.csv` (13 accounts)
 > * `pvfs://MinIO/raw-data/finance/merchants.csv` (18 merchants)
 
+<figure>
+
+<figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
+
+</figure>
+
 ::: tabs
 
 ### 1. Read the Finance Files
@@ -1532,6 +1562,12 @@ if (rowNum == 1) {
 > * `pvfs://MinIO/raw-data/csv/products.csv` (18 products)
 > * `pvfs://MinIO/raw-data/json/api_response.json` (2 orders, one item each)
 > * `pvfs://MinIO/raw-data/xml/inventory.xml` (17 items)
+
+<figure>
+
+<figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
+
+</figure>
 
 :::: tabs
 
