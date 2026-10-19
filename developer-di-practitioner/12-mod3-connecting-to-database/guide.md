@@ -173,14 +173,14 @@ Get-ChildItem C:\Pentaho\design-tools\data-integration\lib\mysql-connector-j-*.j
 > 
 > In this lab, you connect to the Steel Wheels `sampledata` database (MySQL).
 
-1. Start Spoon with the **Start PDI** button below, or from PowerShell:
+1. Start Spoon with the **Start Pentaho Data Integration** button below, or from PowerShell:
 
 ```powershell
 Set-Location C:\Pentaho\design-tools\data-integration
 .\spoon.bat
 ```
 
-<button data-launch="spoon" data-path="">Start PDI</button>
+<button data-launch="spoon" data-path="">Start Pentaho Data Integration</button>
 
 2. Select **File > New > Transformation** (`Ctrl+N`).
 3. Select **File > New > Database Connection**. The **Database Connection** dialog opens on **General**.
@@ -194,16 +194,16 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 4. On **General**, enter these settings. Select **MySQL** in the **Connection type** list and **Native (JDBC)** in the **Access** list:
 
-   | Setting | Value |
-   | --- | --- |
-   | **Connection name** | `MySQL:sampledata` |
-   | **Connection type** | **MySQL** |
-   | **Access** | **Native (JDBC)** |
-   | **Host Name** | `localhost` |
-   | **Database Name** | `sampledata` |
-   | **Port Number** | `3306` |
-   | **Username** | `pentaho_admin` |
-   | **Password** | `password` |
+| Setting             | Value              |
+| ------------------- | ------------------ |
+| **Connection name** | `MySQL:sampledata` |
+| **Connection type** | **MySQL**          |
+| **Access**          | **Native (JDBC)**  |
+| **Host Name**       | `localhost`        |
+| **Database Name**   | `sampledata`       |
+| **Port Number**     | `3306`             |
+| **Username**        | `pentaho_admin`    |
+| **Password**        | `password`         |
 
 <div align="center">
 <figure>
@@ -217,12 +217,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
 5. In the list on the left, select **Options**. The **Parameters** grid already lists `defaultFetchSize` and `useCursorFetch`, PDI's defaults for MySQL.
 6. Fill the **Parameters** grid so it holds these four rows. Add the two that are missing, `useSSL` and `allowPublicKeyRetrieval`, on the empty rows:
 
-   | Parameter | Value |
-   | --- | --- |
-   | `defaultFetchSize` | `500` |
-   | `useCursorFetch` | `true` |
-   | `useSSL` | `false` |
-   | `allowPublicKeyRetrieval` | `true` |
+| Parameter                 | Value   |
+| ------------------------- | ------- |
+| `defaultFetchSize`        | `500`   |
+| `useCursorFetch`          | `true`  |
+| `useSSL`                  | `false` |
+| `allowPublicKeyRetrieval` | `true`  |
 
    `useSSL=false` connects without TLS to the lab's local MySQL server, and `allowPublicKeyRetrieval=true` lets the driver fetch the server's public key to sign in `pentaho_admin`. These are the options the solution's connection carries.
 
