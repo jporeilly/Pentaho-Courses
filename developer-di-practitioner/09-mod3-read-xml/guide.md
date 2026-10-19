@@ -24,6 +24,8 @@
 
 </figure>
 
+---
+
 <div align="center">
 <figure>
 <img src="../_assets/images/xml.png" alt="The finished transformation: a file branch and a URL branch, each ending in a Dummy step" width="622">
