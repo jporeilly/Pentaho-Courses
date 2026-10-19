@@ -64,13 +64,13 @@ The one that matters most is **MySQL** — Lab 4 loads a table into it.
 
 ## Start Pentaho Data Integration
 
-Start Spoon with the **Start PDI** button below. The first launch
+Start Spoon with the **Start Pentaho Data Integration** button below. The first launch
 can take a minute.
 
-<button data-launch="spoon">Start PDI</button>
+<button data-launch="spoon">Start Pentaho Data Integration</button>
 
 You should see the **Spoon** welcome screen with an empty canvas.
-Leave it open — Lab 1 starts here.
+Leave it open — Workshop: Your First Win.
 <div align="center">
 <figure>
 <img src="../_assets/images/1788267733090.png" alt="Welcome Screen" width="800">
