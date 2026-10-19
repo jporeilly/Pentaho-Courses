@@ -17,6 +17,12 @@
 > 
 > **Estimated time:** 25 minutes
 
+<figure>
+
+<figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
+
+</figure>
+
 :::: tabs
 
 ### 1. Build the Job
