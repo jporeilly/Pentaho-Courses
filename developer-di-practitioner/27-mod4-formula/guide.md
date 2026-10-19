@@ -19,8 +19,8 @@
 
 <div align="center">
 <figure>
-<img src="../_assets/images/formula.png" alt="The finished transformation: Generate Rows into Formula [a]+[b], and Generate Rows 2 into IF Formula b-a" width="765">
-<figcaption>What you build: two small flows</figcaption>
+<img src="../_assets/images/formula.png" alt="The finished transformation: Generate Rows into Formula [a]+[b], and Generate Rows 2 into IF Formula b-a, the second hop grey because it is disabled" width="765">
+<figcaption>What you build: two small flows (the solution's second hop is disabled; yours is not)</figcaption>
 </figure>
 </div>
 

@@ -200,7 +200,7 @@ A Carte server started with only a host and a port accepts the user `cluster` wi
 
 <div align="center">
 <figure>
-<img src="../_assets/images/run-master.png" alt="The Run Options dialog with the Run configuration list open on Pentaho local and Master" width="663">
+<img src="../_assets/images/run-master.png" alt="The Run Options dialog with Master chosen in the Run configuration list, which offers Pentaho local, Clustered and Master" width="663">
 <figcaption>Run configuration - Master</figcaption>
 </figure>
 </div>

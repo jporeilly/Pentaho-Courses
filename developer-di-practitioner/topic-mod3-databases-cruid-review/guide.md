@@ -18,7 +18,7 @@
 
 <div align="center">
 <figure>
-<img src="../_assets/images/cruid.png" alt="The CRUID operations and the PDI steps that perform them" width="800">
-<figcaption>CRUID in PDI</figcaption>
+<img src="../_assets/images/cruid.png" alt="Create, Read, Update and Delete shown on a list of items: a Create button adds a new item, Read lists them, an edit box updates one, a bin deletes one" width="800">
+<figcaption>The four basic operations on a list of records</figcaption>
 </figure>
 </div>

@@ -36,14 +36,12 @@
 C:\Workshop\pdi-2hr\03-make-it-yours\03-enrich-and-join\
 ```
 
-<figure>
-
-![Part 2 target canvas: Read sales, Keys present? and Valid rows feed the + customer and + products stream lookups, Compute margin, Sort by regions and the + region merge join into Enriched rows, with Read customers, Read products and Read regions supplying the lookups](../_assets/images/1789472862690.png)
-
 <div align="center">
-<figcaption><em>Part 2: Enrich and Join data</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/1789472862690.png" alt="Part 2 target canvas: Read sales, Keys present? and Valid rows feed the + customer and + products stream lookups, Compute margin, Sort by regions and the + region merge join into Enriched rows, with Read customers, Read products and Read regions supplying the lookups" width="800">
+<figcaption>Part 2: Enrich and Join data</figcaption>
 </figure>
+</div>
 
 ## Read the customer master (JSON)
 > **Note:**
@@ -57,15 +55,15 @@ C:\Workshop\pdi-2hr\03-make-it-yours\03-enrich-and-join\
 ```text
 C:\Workshop\pdi-2hr\03-make-it-yours\03-enrich-and-join\customers.json
 ```
-4. Select **Add**.
-<figure>
-
-![JSON input dialog, File tab: Read customers pointing at ${Internal.Entry.Current.Directory}/customers.json](../_assets/images/1788276989272.png)
 
 <div align="center">
-<figcaption><em>customers.json</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/1788276989272.png" alt="JSON input dialog, File tab: Read customers, with File or directory filled in as ${Internal.Entry.Current.Directory}/customers.json by Browse, before Add" width="800">
+<figcaption>customers.json, as Browse fills it in</figcaption>
 </figure>
+</div>
+
+4. Select **Add**. The path is added to **Selected files**.
 
 5. Open the **Fields** tab and fill the **Fields** grid, one row per field. **Path** uses JSONPath, relative to the array of customer objects:
 
@@ -75,23 +73,19 @@ C:\Workshop\pdi-2hr\03-make-it-yours\03-enrich-and-join\customers.json
 | customer_name | $.customers[*].name        | String |
 | region_code   | $.customers[*].region_code | String |
 
-<figure>
-
-![JSON input dialog, Fields tab: customer_id, customer_name and region_code mapped from $.customers[*] paths, all String](../_assets/images/1788277506117.png)
-
 <div align="center">
-<figcaption><em>Fields - customers.json</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/1788277506117.png" alt="JSON input dialog, Fields tab: customer_id, customer_name and region_code mapped from $.customers[*] paths, all String" width="738">
+<figcaption>Fields - customers.json</figcaption>
 </figure>
+</div>
 
 6. Select **Preview rows** — 20 customers. The nested JSON is now
    just another stream of rows, identical in kind to the CSV stream.
 <div align="center">
 <figure>
-
-![Examine preview data: 20 customers with customer_id, customer_name and region_code](../_assets/images/1788277571868.png#w=420)
-
-<figcaption><em>Preview - customers.json</em></figcaption>
+<img src="../_assets/images/1788277571868.png" alt="Examine preview data: 20 customers with customer_id, customer_name and region_code" width="420">
+<figcaption>Preview - customers.json</figcaption>
 </figure>
 </div>
 
@@ -103,38 +97,32 @@ C:\Workshop\pdi-2hr\03-make-it-yours\03-enrich-and-join\customers.json
 ```text
 C:\Workshop\pdi-2hr\03-make-it-yours\03-enrich-and-join\products.csv
 ```
-<figure>
-
-![Text file input dialog, File tab: Read products with products.csv under Selected files](../_assets/images/1788339439671.png)
-
 <div align="center">
-<figcaption><em>products.csv</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/1788339439671.png" alt="Text file input dialog, File tab: Read products with products.csv under Selected files" width="800">
+<figcaption>products.csv</figcaption>
 </figure>
+</div>
 
 3. Open the **Content** tab and set: 
    -   **Separator:** comma
    -   **Header:** selected - Number of header lines 1
    -   **Format:** mixed
    -   **Encoding:** UTF8
-<figure>
-
-![Text file input dialog, Content tab for Read products: separator comma, header 1 line, format mixed, encoding UTF-8](../_assets/images/1788339859409.png)
-
 <div align="center">
-<figcaption><em>Content - products.csv</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/1788339859409.png" alt="Text file input dialog, Content tab for Read products: separator comma, header 1 line, format mixed, encoding UTF-8" width="800">
+<figcaption>Content - products.csv</figcaption>
 </figure>
+</div>
 
 4. Open the **Fields** tab and select **Get Fields**.
-<figure>
-
-![Text file input dialog, Fields tab for Read products: id, name and category as String, cost as BigNumber](../_assets/images/1788340033314.png)
-
 <div align="center">
-<figcaption><em>Fields - products.csv</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/1788340033314.png" alt="Text file input dialog, Fields tab for Read products: id, name and category as String, cost as BigNumber" width="800">
+<figcaption>Fields - products.csv</figcaption>
 </figure>
+</div>
 
 ## Enrich with two lookups
 
@@ -155,27 +143,23 @@ C:\Workshop\pdi-2hr\03-make-it-yours\03-enrich-and-join\products.csv
    - in *keys to look up*, match `customer_id` = `customer_id`
    - in *fields to retrieve*, add `customer_name` and `region_code`
 
-<figure>
 <div align="center">
-
-![Stream lookup dialog + customer: key customer_id matched to customer_id from Read customers, retrieving customer_name and region_code](../_assets/images/1788350927645.png)
-
-<figcaption><em>Lookup + customers</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/1788350927645.png" alt="Stream lookup dialog + customer: key customer_id matched to customer_id from Read customers, retrieving customer_name and region_code" width="660">
+<figcaption>Lookup + customers</figcaption>
 </figure>
+</div>
 
 4. Repeat the pattern: 
    - another **Stream lookup** named `+ products`
    - fed by `+ customer` and `Read products`, matching `product_id` = `id`
-      retrieving `name` (rename to `product_name`),`category` and `cost`.
-<figure>
+      retrieving `name` (rename to `product_name`), `category` (rename to `product_category`) and `cost`.
 <div align="center">
-
-![Stream lookup dialog + products: key product_id matched to id from Read products, retrieving name, category and cost as product_name, product_category and cost](../_assets/images/1788351021033.png)
-
-<figcaption><em>Lookup + products</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/1788351021033.png" alt="Stream lookup dialog + products: key product_id matched to id from Read products, retrieving name, category and cost as product_name, product_category and cost" width="660">
+<figcaption>Lookup + products</figcaption>
 </figure>
+</div>
 
 > **Under the hood:**
 >
@@ -210,14 +194,12 @@ C:\Workshop\pdi-2hr\03-make-it-yours\03-enrich-and-join\products.csv
 1. On the **Design** tab, open the **Transform** folder and drag **Calculator** onto the canvas.
    Create a hop from **+ products** to **Calculator**.
 2. Double-click **Calculator**. Set **Step name** to `Compute margin` and add four calculations (each row can use an earlier row's result):
-<figure>
-
-![Calculator dialog Compute margin: gross = unit_price × qty, net = gross − gross × discount_pct / 100, cost_total = cost × qty, margin = net − cost_total](../_assets/images/1788351746093.png)
-
 <div align="center">
-<figcaption><em>Compute margin</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/1788351746093.png" alt="Calculator dialog Compute margin: gross = unit_price × qty, net = gross − gross × discount_pct / 100, cost_total = cost × qty, margin = net − cost_total" width="692">
+<figcaption>Compute margin</figcaption>
 </figure>
+</div>
 
 | New field | Calculation | Field A | Field B | Type |
 | --- | --- | --- | --- | --- |
@@ -252,23 +234,19 @@ an actual join.
    - point it at `regions.csv` in this lab's folder, with **Header** selected, 
    - and on the **Fields** tab add three String fields
    - select **Get Fields**: `code`, `region_name` (rename from `name`), `manager_email`.
-<figure>
-
-![Text file input dialog, Fields tab for Read regions: code, region_name and manager_email as String](../_assets/images/1788428448148.png)
-
 <div align="center">
-<figcaption><em>Fields - Read regions</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/1788428448148.png" alt="Text file input dialog, Fields tab for Read regions: code, region_name and manager_email as String" width="779">
+<figcaption>Fields - Read regions</figcaption>
 </figure>
+</div>
 
 2. On the **Design** tab, open the **Transform** folder and drag two **Sort rows** steps onto the canvas:
    * Set **Step name** to `Sort regions`, create a hop from **Read regions** to it, and sort on `code`.
-<figure>
 <div align="center">
-
-![Sort rows dialog Sort regions: sorted by code, ascending](../_assets/images/1788428664906.png#w=550)
-
-<figcaption><em>Sort rows - code</em></figcaption>
+<figure>
+<img src="../_assets/images/1788428664906.png" alt="Sort rows dialog Sort regions: sorted by code, ascending" width="550">
+<figcaption>Sort rows - code</figcaption>
 </figure>
 </div>
 
@@ -276,10 +254,8 @@ an actual join.
    
 <div align="center">
 <figure>
-
-![Sort rows dialog Sort by regions: sorted by region_code, ascending](../_assets/images/1788428856220.png#w=550)
-
-<figcaption><em>Sort rows - by regions</em></figcaption>
+<img src="../_assets/images/1788428856220.png" alt="Sort rows dialog Sort by regions: sorted by region_code, ascending" width="550">
+<figcaption>Sort rows - by regions</figcaption>
 </figure>
 </div>
 
@@ -292,10 +268,8 @@ an actual join.
    * **Keys for 2nd step:** `code`
 <div align="center">
 <figure>
-
-![Merge join dialog + region: first step Sort by regions, second step Sort regions, join type LEFT OUTER, keys region_code and code](../_assets/images/1788354823498.png)
-
-<figcaption><em>Merge Join + region</em></figcaption>
+<img src="../_assets/images/1788354823498.png" alt="Merge join dialog + region: first step Sort by regions, second step Sort regions, join type LEFT OUTER, keys region_code and code" width="534">
+<figcaption>Merge Join + region</figcaption>
 </figure>
 </div>
 
@@ -397,37 +371,31 @@ Three practical consequences worth carrying home:
 1. Press `F9` (**Action > Run**, or the ▶ in the canvas toolbar), and select
    **Run** in the **Run Options** dialog.
 
-<figure>
-
-![Execution Results: every step Finished, with the per-step row counts in the log - Read sales 40 written, Rejects for source team 3](../_assets/images/1790331669715.png)
-
 <div align="center">
-<figcaption><em>The run finished, every step green</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/1790331669715.png" alt="Execution Results: every step Finished, with the per-step row counts in the log - Read sales 40 written, Rejects for source team 3" width="800">
+<figcaption>The run finished, every step green</figcaption>
 </figure>
+</div>
 
 2. In **Execution Results**, open the **Step Metrics** tab and watch it
    fill in: 40 rows read, 37 valid, 3 written to the reject file.
 
-<figure>
-
-![Step Metrics after the run: Read sales writes 40, Keys present? passes 40, Rejects for source team takes 3, and Enriched rows reads 37](../_assets/images/1790331780148.png)
-
 <div align="center">
-<figcaption><em>Step Metrics</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/1790331780148.png" alt="Step Metrics after the run: Read sales writes 40, Keys present? passes 40, Rejects for source team takes 3, and Enriched rows reads 37" width="800">
+<figcaption>Step Metrics</figcaption>
 </figure>
+</div>
 
 3. Select **Enriched rows** on the canvas and open the **Preview data** tab.
 
-<figure>
-
-![Preview data for Enriched rows: 37 orders, each with its customer name, region code, product name and product category](../_assets/images/1790331916891.png)
-
 <div align="center">
-<figcaption><em>Preview data</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/1790331916891.png" alt="Preview data for Enriched rows: 37 orders, each with its customer name, region code, product name and product category" width="800">
+<figcaption>Preview data</figcaption>
 </figure>
+</div>
 
 4. Open `C:\Workshop\pdi-2hr\out\rejects.txt` — there are your three
    bad rows, ready to send back to the source system's owner.

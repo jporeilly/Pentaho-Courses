@@ -86,7 +86,7 @@ Use this page to find your way, then open the section you need.
 
 <div align="center">
 <figure>
-<img src="../_assets/images/database-connection.png" alt="PDI connecting through JDBC drivers to several relational databases" width="800">
+<img src="../_assets/images/database-connection.png" alt="The Database Connection dialog on its General page: the connection types with Oracle selected, and its Native (JDBC), OCI and JNDI access methods" width="800">
 <figcaption>Database connections</figcaption>
 </figure>
 </div>
@@ -118,7 +118,7 @@ Use this page to find your way, then open the section you need.
 
 <div align="center">
 <figure>
-<img src="../_assets/images/types-of-big-data.png" alt="Types of big data platforms" width="720">
+<img src="../_assets/images/types-of-big-data.png" alt="Types of big data: structured, unstructured, semi-structured, geospatial, machine or operational logging, and open-source data" width="720">
 <figcaption>Types of big data</figcaption>
 </figure>
 </div>

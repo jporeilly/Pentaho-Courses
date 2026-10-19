@@ -20,16 +20,16 @@
     },
     {
       "id": "job-file",
-      "kind": "file-exists",
-      "label": "Orchestrating job saved (daily_sales_pipeline.kjb)",
-      "path": "C:/Workshop-DI-Practitioner/capstone/solution/daily_sales_pipeline.kjb"
+      "kind": "file-contains",
+      "label": "Your job runs your transformations (daily_sales_pipeline.kjb has a Transformation entry)",
+      "path": "C:/Workshop-DI-Practitioner/capstone/solution/daily_sales_pipeline.kjb",
+      "text": "<type>TRANS</type>"
     },
     {
-      "id": "deliverables-folder",
-      "kind": "dir-not-empty",
-      "label": "solution/ folder has your transformations and README",
-      "path": "C:/Workshop-DI-Practitioner/capstone/solution",
-      "min": 3
+      "id": "readme-file",
+      "kind": "file-exists",
+      "label": "Your README.md in solution/ (how to run your job)",
+      "path": "C:/Workshop-DI-Practitioner/capstone/solution/README.md"
     }
   ]
 }

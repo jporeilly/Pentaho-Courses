@@ -24,8 +24,8 @@ The bread and butter of any pipeline. You'll cover the four formats you'll see m
 
 <div align="center">
 <figure>
-<img src="../_assets/images/flat-files.png" alt="Flat file kinds: structured, semi-structured and unstructured, with examples" width="800">
-<figcaption>The kinds of flat file</figcaption>
+<img src="../_assets/images/flat-files.png" alt="Icons for common flat-file formats: CSV, TSV, PSV, JSON, TXT, XML, .ENV and YAML" width="800">
+<figcaption>Common flat-file formats</figcaption>
 </figure>
 </div>
 

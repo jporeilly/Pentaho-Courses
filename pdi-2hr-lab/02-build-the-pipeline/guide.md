@@ -32,10 +32,8 @@ C:\Workshop\pdi-2hr\02-see-it-work\02-build-the-pipeline\
 ```
 <div align="center">
 <figure>
-
-![Part 1 overview: onboard the sales data and filter out rows with missing keys](../_assets/images/1789477304148.png)
-
-<figcaption><em>Part 1: Onboard and filter sales data</em></figcaption>
+<img src="../_assets/images/1789477304148.png" alt="Part 1 overview: onboard the sales data and filter out rows with missing keys" width="603">
+<figcaption>Part 1: Onboard and filter sales data</figcaption>
 </figure>
 </div>
 
@@ -69,38 +67,32 @@ C:\Workshop\pdi-2hr\02-see-it-work\02-build-the-pipeline\check_keys.ktr
 C:\Workshop\pdi-2hr\02-see-it-work\02-build-the-pipeline\sales_20260101.csv
 ```
 4. Select **Add** so it appears in the **Selected files** grid.
-<figure>
-
-![Text file input dialog, File tab: Read sales with sales_20260101.csv listed under Selected files](../_assets/images/1788426433666.png)
-
 <div align="center">
-<figcaption><em>Add - sales data</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/1788426433666.png" alt="Text file input dialog, File tab: Read sales with sales_20260101.csv listed under Selected files" width="800">
+<figcaption>Add - sales data</figcaption>
 </figure>
+</div>
 
 5. On the **Content** tab, set:
    -   **Separator** to: comma and make sure 
    -   **Header** is selected with 1 header line
    -   **Format** is: mixed
    -   **Encoding** is: UTF8
-<figure>
-
-![Text file input dialog, Content tab: separator comma, header selected with 1 header line, format mixed, encoding UTF-8](../_assets/images/1788365622451.png)
-
 <div align="center">
-<figcaption><em>Content tab</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/1788365622451.png" alt="Text file input dialog, Content tab: separator comma, header selected with 1 header line, format mixed, encoding UTF-8" width="800">
+<figcaption>Content tab</figcaption>
 </figure>
+</div>
 
 6. Open the **Fields** tab and select **Get Fields** — PDI reads the file and detects every column and type for you. Accept the defaults.
-<figure>
-
-![Text file input dialog, Fields tab after Get Fields: seven detected columns, order_date typed as Date with format yyyy-MM-dd](../_assets/images/1788365750951.png)
-
 <div align="center">
-<figcaption><em>Fields tab after Get Fields</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/1788365750951.png" alt="Text file input dialog, Fields tab after Get Fields: seven detected columns, order_date typed as Date with format yyyy-MM-dd" width="800">
+<figcaption>Fields tab after Get Fields</figcaption>
 </figure>
+</div>
 
 > **Note:** **Get Fields matters more than it looks.** You didn't
 > declare a schema — the tool read the data and proposed one. In workshop - Bring Your Own Data -
@@ -109,14 +101,12 @@ C:\Workshop\pdi-2hr\02-see-it-work\02-build-the-pipeline\sales_20260101.csv
 
 7. Select **Preview rows** at the bottom of the dialog — the same
    habit as Lab 1, available while you're still configuring.
-<figure>
-
-![Examine preview data: the 37 valid rows with typed columns order_id, order_date, customer_id, product_id, qty, unit_price and discount_pct](../_assets/images/1788269454987.png)
-
 <div align="center">
-<figcaption><em>Preview rows</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/1788269454987.png" alt="Examine preview data for Read sales: all 40 rows of sales_20260101.csv with typed columns order_id, order_date, customer_id, product_id, qty, unit_price and discount_pct; three rows have a missing key (null)" width="688">
+<figcaption>Preview rows</figcaption>
 </figure>
+</div>
 
 8. Select **OK**.
 
@@ -159,10 +149,8 @@ C:\Workshop\pdi-2hr\02-see-it-work\02-build-the-pipeline\sales_20260101.csv
 
 <div align="center">
 <figure>
-
-![Filter rows dialog: customer_id IS NOT NULL AND product_id IS NOT NULL, true rows to Valid rows, false rows to Rejects for source team](../_assets/images/1788366135657.png)
-
-<figcaption><em>Filter keys</em></figcaption>
+<img src="../_assets/images/1788366135657.png" alt="Filter rows dialog: customer_id IS NOT NULL AND product_id IS NOT NULL, true rows to Valid rows, false rows to Rejects for source team" width="800">
+<figcaption>Filter keys</figcaption>
 </figure>
 </div>
 
@@ -185,25 +173,21 @@ C:\Workshop\pdi-2hr\out\rejects
 ```
 PDI adds the **Extension**, `txt`.
 
-<figure>
-
-![Text file output dialog, File tab: Rejects for source team writing to C:/Workshop/pdi-2hr/out/rejects with extension txt and Create Parent folder selected](../_assets/images/1788788198393.png)
-
 <div align="center">
-<figcaption><em>Output File</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/1788788198393.png" alt="Text file output dialog, File tab: Rejects for source team writing to C:/Workshop/pdi-2hr/out/rejects with extension txt and Create Parent folder selected" width="800">
+<figcaption>Output File</figcaption>
 </figure>
+</div>
 
 5. Open its **Fields** tab, select **Get Fields**, then select **OK**.
 
-<figure>
-
-![Text file output dialog, Fields tab after Get Fields: the seven sales columns with their types, order_date as Date yyyy-MM-dd and unit_price as Number with two decimals](../_assets/images/1788788271180.png)
-
 <div align="center">
-<figcaption><em>Get Fields</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/1788788271180.png" alt="Text file output dialog, Fields tab after Get Fields: the seven sales columns with their types, order_date as Date yyyy-MM-dd and unit_price as Number with two decimals" width="800">
+<figcaption>Get Fields</figcaption>
 </figure>
+</div>
 
 6. On the **Design** tab, open the **Flow** folder and drag **Dummy (do nothing)**
    onto the canvas. Create a hop from **Keys present?** to **Dummy (do nothing)**
@@ -220,24 +204,20 @@ PDI adds the **Extension**, `txt`.
 
 <div align="center">
 <figure>
-
-![Run Options dialog with the Pentaho local run configuration selected and the Run button](../_assets/images/1788367182360.png)
-
-<figcaption><em>Run</em></figcaption>
+<img src="../_assets/images/1788367182360.png" alt="Run Options dialog with the Pentaho local run configuration selected and the Run button" width="663">
+<figcaption>Run</figcaption>
 </figure>
 </div>
 
 2. In **Execution Results**, open the **Step Metrics** tab and watch it
    fill in: 40 rows read, 37 valid, 3 written to the reject file.
 
-<figure>
-
-![Execution Results, Step Metrics tab: Read sales writes 40, Valid rows reads 37 and Rejects for source team 3, all Finished](../_assets/images/1788367282631.png)
-
 <div align="center">
-<figcaption><em>Step metrics</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/1788367282631.png" alt="Execution Results, Step Metrics tab: Read sales writes 40, Valid rows reads 37 and Rejects for source team 3, all Finished" width="800">
+<figcaption>Step metrics</figcaption>
 </figure>
+</div>
 
 3. Open `C:\Workshop\pdi-2hr\out\rejects.txt` — there are your three
    bad rows, ready to send back to the source system's owner.

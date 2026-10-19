@@ -34,14 +34,18 @@ scheduling, and scaling.
 > | --- | --- | --- |
 > | 1 | Your fact output, `fact_sales.csv` | `C:\Workshop-DI-Practitioner\capstone\out\` |
 > | 2 | Your summary workbook, `sales_summary_20260101.xlsx` | `C:\Workshop-DI-Practitioner\capstone\out\` |
-> | 3 | Your job, `daily_sales_pipeline.kjb` | `C:\Workshop-DI-Practitioner\capstone\solution\` |
-> | 4 | Your transformations and a `README.md` (at least three files) | `C:\Workshop-DI-Practitioner\capstone\solution\` |
+> | 3 | Your job, `daily_sales_pipeline.kjb`, running your transformations | `C:\Workshop-DI-Practitioner\capstone\solution\` |
+> | 4 | Your `README.md`: how to run your job | `C:\Workshop-DI-Practitioner\capstone\solution\` |
 >
 > Files 1 and 2 are written by your job when it runs with
 > `WORKSHOP_HOME` set to `C:/Workshop-DI-Practitioner/capstone`.
 > Anywhere else, the checks cannot find your work and no accreditation
 > is issued. Select **Run checks** under **Verification checks** to see
 > where you stand.
+>
+> Your `solution\` folder starts with a **blank** transformation or job
+> for each file below, already named: build each one in place and save
+> it there (`Ctrl+S`). A blank file passes no check.
 
 ## Inputs
 
@@ -187,6 +191,11 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 ## Suggested architecture
 
+Every `.ktr` and `.kjb` here is waiting for you in `solution\` as a
+blank file, with no steps, parameters or connections: the names are
+given, what goes in them is yours. `kettle.properties` and `README.md`
+you create.
+
 ```text
 solution/
 ├── daily_sales_pipeline.kjb      ← the orchestrator
@@ -217,8 +226,9 @@ solution/
 ## Lab Files
 
 Click a file to download. Put all four in `${WORKSHOP_HOME}/data/`
-before you start — nothing else in the capstone is supplied, the
-pipeline itself is yours to build.
+before you start. Beyond these and the blank files in `solution\`,
+nothing in the capstone is supplied: the pipeline itself is yours to
+build.
 
 [sales_20260101.csv](./files/sales_20260101.csv)
 
@@ -234,17 +244,18 @@ pipeline itself is yours to build.
 
 > **Warning:** These four checks decide your course accreditation, and
 > they look only in `C:\Workshop-DI-Practitioner\capstone\`: your
-> `fact_sales.csv` and `sales_summary_20260101.xlsx` in `out\`, your
-> `daily_sales_pipeline.kjb` in `solution\`, and at least three files
-> (your transformations and a `README.md`) in `solution\`. Save or copy
-> your work there before you take the exam.
+> `fact_sales.csv` and `sales_summary_20260101.xlsx` in `out\`, and in
+> `solution\` your `daily_sales_pipeline.kjb`, running at least one
+> transformation, and your `README.md`. Save or copy your work there
+> before you take the exam.
 
 After running your job, select **Run checks** below to confirm each
 output landed where expected. The checks assume these paths
 (`WORKSHOP_HOME=C:/Workshop-DI-Practitioner/capstone`, outputs under
 `${WORKSHOP_HOME}/out`). Use exactly these paths, or the checks (and the accreditation) cannot find your work.
 
-The checks confirm the files exist. Check the numbers yourself: with
+The checks confirm that the two outputs and your README exist and that
+your job runs a transformation. Check the numbers yourself: with
 the shipped data, a correct run reads 40 sales rows, rejects 3 for a
 missing customer or product key, and writes 37 rows to
 `fact_sales.csv`. The summary workbook holds these totals:
@@ -262,8 +273,11 @@ missing customer or product key, and writes 37 rows to
 
 ## Deliverables
 
-Save your work in a `solution/` folder under your workshop root —
-`${WORKSHOP_HOME}/solution/`, e.g. `C:/Workshop-DI-Practitioner/capstone/solution/`.
+Save your work in the `solution/` folder under your workshop root —
+`${WORKSHOP_HOME}/solution/`, e.g. `C:/Workshop-DI-Practitioner/capstone/solution/`,
+where the blank files are. Reinstalling or upgrading the course never
+replaces a file you have saved there; it only puts back a blank file
+you have deleted.
 
 > **Warning:** Don't save it inside the course folder itself. Course
 > content is refreshed from the repository on every launch, so
@@ -285,7 +299,8 @@ This becomes a portfolio piece — keep it tidy, name things clearly, and docume
 One section per file, in the order you build them. Each says what the
 file must do, what it reads and writes, which requirement it meets, and
 what a correct run shows. The hints name a step or a technique; the
-settings are yours to work out.
+settings are yours to work out. Each file starts blank in `solution\`:
+open it in Spoon (**File > Open**), build it, and save it (`Ctrl+S`).
 
 **One design decision first: how the staging transformations hand their
 rows to the fact build.** A job holds a single "rows to result" set, so

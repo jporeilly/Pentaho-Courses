@@ -71,14 +71,12 @@ can take a minute.
 
 You should see the **Spoon** welcome screen with an empty canvas.
 Leave it open — Lab 1 starts here.
-<figure>
-
-![Welcome Screen](../_assets/images/1788267733090.png)
-
 <div align="center">
-<figcaption><em>Pentaho Developers Edition</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/1788267733090.png" alt="Welcome Screen" width="800">
+<figcaption>Pentaho Developers Edition</figcaption>
 </figure>
+</div>
 
 ## Check the working folders
 

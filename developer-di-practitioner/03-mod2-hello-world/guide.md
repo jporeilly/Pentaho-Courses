@@ -246,7 +246,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 <div align="center">
 <figure>
-<img src="../_assets/images/ex-trans.png" alt="The canvas after the run: gr_hello-world and Dummy (do nothing) each with a green check mark" width="591">
+<img src="../_assets/images/ex-trans.png" alt="The canvas after the run: gr_hello-world and Dummy (do nothing) each with a green check mark" width="172">
 <figcaption>Green check marks indicate successful execution</figcaption>
 </figure>
 </div>
@@ -306,7 +306,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 </figure>
 </div>
 
-In the screenshot the whole run took 30 ms, and `gr_hello-world` and `Dummy (do nothing)` initialize at the same moment: each step runs in its own thread, in parallel. On a slow run, these bars help you find the bottleneck.
+In the screenshot the whole run took 48 ms, 30 of them initializing the transformation, and `gr_hello-world` and `Dummy (do nothing)` initialize at the same moment: each step runs in its own thread, in parallel. On a slow run, these bars help you find the bottleneck.
 
 7. Select **Dummy (do nothing)** on the canvas and open the **Preview data** tab. It shows the rows of the step selected on the canvas.
 

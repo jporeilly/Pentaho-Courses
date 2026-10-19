@@ -39,51 +39,41 @@
 
 1. Before we build anything, let's also take a look at the store files:
 
-<div style="display:flex; flex-wrap:wrap; gap:16px; align-items:flex-start">
-<figure style="flex:0 1 auto; margin:0">
-
-![stores_north.csv: store, sale_date, amount, comma-separated](../_assets/images/1788793912717.png#w=200)
-
 <div align="center">
-<figcaption><em>stores_north.csv</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/1788793912717.png" alt="stores_north.csv: store, sale_date, amount, comma-separated" width="200">
+<figcaption>stores_north.csv</figcaption>
 </figure>
-<figure style="flex:0 1 auto; margin:0">
-
-![stores_south.txt: location, trading_date, takings, pipe-separated](../_assets/images/1788794060798.png#w=250)
+</div>
 
 <div align="center">
-<figcaption><em>stores_south.txt</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/1788794060798.png" alt="stores_south.txt: location, trading_date, takings, pipe-separated" width="250">
+<figcaption>stores_south.txt</figcaption>
 </figure>
-<figure style="flex:0 1 auto; margin:0">
-
-![partners_eu.csv: outlet, dt, revenue_eur, semicolon-separated](../_assets/images/1788794172804.png#w=170)
+</div>
 
 <div align="center">
-<figcaption><em>partners_eu.csv</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/1788794172804.png" alt="partners_eu.csv: outlet, dt, revenue_eur, semicolon-separated" width="170">
+<figcaption>partners_eu.csv</figcaption>
 </figure>
 </div>
 
 2. So all we need to do is pick up the filename, its associated delimiter and standardize the header - <em>control.csv</em>:
 <div align="center">
 <figure>
-
-![control.csv open in a spreadsheet: three rows, each a file path under 05-one-pipeline-many-files and its separator: a comma for stores_north.csv, a pipe for stores_south.txt, a semicolon for partners_eu.csv](../_assets/images/1790332827139.png)
-
-<figcaption><em>control.csv</em></figcaption>
+<img src="../_assets/images/1790332827139.png" alt="control.csv open in a spreadsheet: three rows, each a file path under 05-one-pipeline-many-files and its separator: a comma for stores_north.csv, a pipe for stores_south.txt, a semicolon for partners_eu.csv" width="601">
+<figcaption>control.csv</figcaption>
 </figure>
 </div>
-
-<figure>
-
-![Text file input dialog, File tab: Read control with control.csv from the lab folder listed under Selected files](../_assets/images/1788797924142.png)
 
 <div align="center">
-<figcaption><em>Path to - control.csv</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/1788797924142.png" alt="Text file input dialog, File tab: Read control with control.csv from the lab folder listed under Selected files" width="800">
+<figcaption>Path to - control.csv</figcaption>
 </figure>
+</div>
 
 > **Note:** 
 >
@@ -105,10 +95,8 @@
 
 <div align="center">
 <figure>
-
-![The template canvas: Read feed, Standardize and Append to all_feeds in a line, with a note saying the template is not run directly and its reader has no filename](../_assets/images/1788798204415.png)
-
-<figcaption><em>Template - Injects filename and delimiter</em></figcaption>
+<img src="../_assets/images/1788798204415.png" alt="The template canvas: Read feed, Standardize and Append to all_feeds in a line, with a note saying the template is not run directly and its reader has no filename" width="613">
+<figcaption>Template - Injects filename and delimiter</figcaption>
 </figure>
 </div>
 
@@ -125,12 +113,10 @@ C:\Workshop\pdi-2hr\04-see-it-scale\05-one-pipeline-many-files\mi_template.ktr
    injected at runtime.
 <div align="center">
 <figure>
-
-![Text file input dialog for Read feed, Fields tab: col_store, col_date and col_amount typed by hand as String, with no file selected](../_assets/images/1788853669370.png)
-
-<figcaption><em>Edit the column headers</em></figcaption>
-</div>
+<img src="../_assets/images/1788853669370.png" alt="Text file input dialog for Read feed, Fields tab: col_store, col_date and col_amount typed by hand as String, with no file selected" width="800">
+<figcaption>Edit the column headers</figcaption>
 </figure>
+</div>
 
 > **Note:**
 >
@@ -143,12 +129,10 @@ C:\Workshop\pdi-2hr\04-see-it-scale\05-one-pipeline-many-files\mi_template.ktr
    `col_amount → amount`.
 <div align="center">
 <figure>
-
-![Select values dialog Standardize, Select and Alter tab: col_store renamed to store, col_date to sale_date and col_amount to amount](../_assets/images/1788854261690.png)
-
-<figcaption><em>Rename fields</em></figcaption>
-</div>
+<img src="../_assets/images/1788854261690.png" alt="Select values dialog Standardize, Select and Alter tab: col_store renamed to store, col_date to sale_date and col_amount to amount" width="800">
+<figcaption>Rename fields</figcaption>
 </figure>
+</div>
 
 > **Note:**
 >
@@ -157,25 +141,21 @@ C:\Workshop\pdi-2hr\04-see-it-scale\05-one-pipeline-many-files\mi_template.ktr
 4. On the **Design** tab, open the **Output** folder and drag **Text file output** onto the canvas.
    Create a hop from **Standardize** to **Text file output**, then double-click **Text file output**.
    - **Filename:** `C:\Workshop\pdi-2hr\out\all_feeds`, extension `csv`.
-<figure>
-
-![Text file output dialog Append to all_feeds, File tab: filename C:/Workshop/pdi-2hr/out/all_feeds with extension csv](../_assets/images/1788854419767.png)
-
 <div align="center">
-<figcaption><em>Output path</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/1788854419767.png" alt="Text file output dialog Append to all_feeds, File tab: filename C:/Workshop/pdi-2hr/out/all_feeds with extension csv" width="800">
+<figcaption>Output path</figcaption>
 </figure>
+</div>
 
    - On the **Content** tab, select **Append** and clear **Header**. 
    - **Fields**: add `store`, `sale_date`, `amount`.
-<figure>
-
-![Text file output dialog Append to all_feeds, Fields tab: store, sale_date and amount as String](../_assets/images/1788854498452.png)
-
 <div align="center">
-<figcaption><em>Get fields</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/1788854498452.png" alt="Text file output dialog Append to all_feeds, Fields tab: store, sale_date and amount as String" width="800">
+<figcaption>Get fields</figcaption>
 </figure>
+</div>
 
 5. Save the transformation (`Ctrl+S`). This transformation can't run on its own — as it requires the injected metadata properties.
 
@@ -188,22 +168,18 @@ C:\Workshop\pdi-2hr\04-see-it-scale\05-one-pipeline-many-files\mi_template.ktr
 
 <div align="center">
 <figure>
-
-![The injector canvas: File config hopped to Inject and run template, with a note saying it runs once per feed](../_assets/images/1788854678779.png#w=520)
-
-<figcaption><em>Metadata Injector</em></figcaption>
-</div>
+<img src="../_assets/images/1788854678779.png" alt="The injector canvas: File config hopped to Inject and run template, with a note saying it runs once per feed" width="520">
+<figcaption>Metadata Injector</figcaption>
 </figure>
+</div>
 
 1. Select **File > New > Transformation** (`Ctrl+N`). Select **File > Save as** and save it as `mi_inject.ktr` in `C:\Workshop\pdi-2hr\04-see-it-scale\05-one-pipeline-many-files`.
 <div align="center">
 <figure>
-
-![Get rows from result dialog File config: two String fields, filename and separator](../_assets/images/1788854882672.png#w=420)
-
-<figcaption><em>Add data stream fields for filename and separator</em></figcaption>
-</div>
+<img src="../_assets/images/1788854882672.png" alt="Get rows from result dialog File config: two String fields, filename and separator" width="420">
+<figcaption>Add data stream fields for filename and separator</figcaption>
 </figure>
+</div>
 
 > **Note:**
 >
@@ -215,14 +191,12 @@ C:\Workshop\pdi-2hr\04-see-it-scale\05-one-pipeline-many-files\mi_template.ktr
    When the driver job executes this transformation
    once per control row, *this step is where that row arrives*.
 
-<figure>
-
-![ETL metadata injection dialog Inject and run template, pointing at solution_mi_template.ktr, with the Inject Metadata tree listing every property of the template's steps](../_assets/images/1788855363944.png)
-
 <div align="center">
-<figcaption><em>Template metadata properties</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/1788855363944.png" alt="ETL metadata injection dialog Inject and run template, pointing at mi_template.ktr, with the Inject Metadata tree listing every property of the template's steps" width="800">
+<figcaption>Template metadata properties</figcaption>
 </figure>
+</div>
 
 > **Note:**
 >
@@ -236,25 +210,21 @@ C:\Workshop\pdi-2hr\04-see-it-scale\05-one-pipeline-many-files\mi_template.ktr
 4. Wire two injections on the `Read feed` step: **FILENAME** ←
    `File config` / `filename` (it's under the file *list*, so it
    accepts one entry per row), 
-<figure>
-
-![ETL metadata injection dialog: the Read feed step's SEPARATOR row mapped to the separator field of File config, with the Source field picker open](../_assets/images/1788855637160.png)
-
 <div align="center">
-<figcaption><em>Inject the separator from the File config step</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/1788855818060.png" alt="ETL metadata injection dialog: under FILENAME_LINES, the FILENAME row mapped to the filename field of File config, with the Source field picker open" width="800">
+<figcaption>Inject the filename from the File config step</figcaption>
 </figure>
+</div>
 
 5. and **SEPARATOR** ← `File config` / `separator`. Leave everything else alone.
 
-<figure>
-
-![ETL metadata injection dialog: under FILENAME_LINES, the FILENAME row mapped to the filename field of File config, with the Source field picker open](../_assets/images/1788855818060.png)
-
 <div align="center">
-<figcaption><em>Inject the filename from the File config step</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/1788855637160.png" alt="ETL metadata injection dialog: the Read feed step's SEPARATOR row mapped to the separator field of File config, with the Source field picker open" width="800">
+<figcaption>Inject the separator from the File config step</figcaption>
 </figure>
+</div>
 
 > **Tip:**
 >
@@ -269,39 +239,33 @@ C:\Workshop\pdi-2hr\04-see-it-scale\05-one-pipeline-many-files\mi_template.ktr
 >
 > **Driver job** acts as the orchestration layer for the entire workflow. It reads the `control.csv` file and iterates through each row, triggering the injection process for every file listed. By looping the injection transformation, the job ensures that every unique file configuration is processed automatically, allowing you to scale from three files to hundreds without ever changing the underlying pipeline.
 
-<figure>
-
-![The driver job canvas: START, Read control file, Inject per feed and Success in a line, an unconditional hop after START and success hops after each transformation, with a note explaining the loop](../_assets/images/1788856253833.png)
-
 <div align="center">
-<figcaption><em>Job - mi_driver.kjb</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/1788856253833.png" alt="The driver job canvas: START, Read control file, Inject per feed and Success in a line, an unconditional hop after START and success hops after each transformation, with a note explaining the loop" width="688">
+<figcaption>Job - mi_driver.kjb</figcaption>
 </figure>
+</div>
 
 1. Select **File > New > Job** (`Ctrl+Alt+N`). Select **File > Save as** and save it as `mi_driver.kjb` in
    `C:\Workshop\pdi-2hr\04-see-it-scale\05-one-pipeline-many-files`.
 2. On the **Design** tab, open the **General** folder and drag **START**, then two **Transformation** entries, then
    **Success** onto the canvas; hop them into a line.
-<figure>
-
-![Transformation job entry dialog for Read control file, Options tab: solution_read_control.ktr with Execute every input row cleared and Clear results rows before execution selected](../_assets/images/1788856458602.png)
-
 <div align="center">
-<figcaption><em>Read the control file</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/1788856458602.png" alt="Transformation job entry dialog for Read control file, Options tab: read_control.ktr with Execute every input row cleared and Clear results rows before execution selected" width="736">
+<figcaption>Read the control file</figcaption>
 </figure>
+</div>
 
 3. First transformation entry → `read_control.ktr`: **Text file input** reading
    `control.csv` (fields `filename`, `separator`) hopped to **Copy
    rows to result** (from *Job*).
-<figure>
-
-![Transformation job entry dialog for Inject per feed, Options tab: solution_mi_inject.ktr with Execute every input row selected](../_assets/images/1788856780725.png)
-
 <div align="center">
-<figcaption><em>Inject metadata ..</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/1788856780725.png" alt="Transformation job entry dialog for Inject per feed, Options tab: mi_inject.ktr with Execute every input row selected" width="736">
+<figcaption>Inject metadata ..</figcaption>
 </figure>
+</div>
 
 4. Second transformation entry → `mi_inject.ktr`. Open its
    **Options** tab and select **Execute every input row** — each
@@ -345,25 +309,21 @@ C:\Workshop\pdi-2hr\04-see-it-scale\05-one-pipeline-many-files\mi_template.ktr
 > This architecture ensures that when a new data source is added, you no longer need to modify PDI code; you update a row in your control file. This is the gold standard for scaling PDI projects to handle high-volume, varied data feeds.
 
 1. Run the **job**: press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog. In **Execution Results**, open the **Logging** tab: the injector executes three times, once per control row.
-<figure>
-
-![Execution Results, Logging tab: the driver job's log showing Inject per feed dispatched three times, once each for stores_north.csv, stores_south.txt and partners_eu.csv](../_assets/images/1788857063686.png)
-
 <div align="center">
-<figcaption><em>Notice its executed for each record</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/1788857063686.png" alt="Execution Results, Logging tab: the driver job's log showing Inject per feed dispatched three times, once each for stores_north.csv, stores_south.txt and partners_eu.csv" width="800">
+<figcaption>Notice its executed for each record</figcaption>
 </figure>
+</div>
 
 2. Open `all_feeds.csv`: **18 rows** — north, south, and EU feeds,
    three shapes, one standard output.
-<figure>
-
-![all_feeds.csv opened in a spreadsheet: eighteen rows of store, date and amount from all three feeds, with no header row](../_assets/images/1788857159836.png)
-
 <div align="center">
-<figcaption><em>Output - records are appended</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/1788857159836.png" alt="all_feeds.csv opened in a spreadsheet: eighteen rows of store, date and amount from all three feeds, with no header row" width="230">
+<figcaption>Output - records are appended</figcaption>
 </figure>
+</div>
 
 Now the punchline:
 

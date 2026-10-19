@@ -454,7 +454,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 </figure>
 </div>
 
-> **Success:** Checkpoint: 7 rows of `text`: `Customer name: James`, the hyphens, `Please answer the questions below:`, `<null>` (the empty row), then the three numbered questions. (The screenshot was taken with an older `questions.txt`, so its first question reads differently.)
+> **Success:** Checkpoint: 7 rows of `text`: `Customer name: James`, the hyphens, `Please answer the questions below:`, `<null>` (the empty row), then the three numbered questions.
 
 7. Open `survey.txt` in the lab folder in a text editor. With `James` as the argument it reads:
 

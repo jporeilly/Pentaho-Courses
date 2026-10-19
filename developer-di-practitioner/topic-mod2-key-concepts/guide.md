@@ -38,12 +38,12 @@ Now that PDI is configured, build something with it. You'll create a 'Hello Worl
 > 
 > **Hops**
 > 
-> A hop carries rows from one step to the next. Each hop is a row buffer between one step's output and the next step's input. In the transformation below, rows flow from **Text file input** to **Filter rows**, then **Sort rows**, and finally **Table output**.
+> A hop carries rows from one step to the next. Each hop is a row buffer between one step's output and the next step's input. In the transformation below, every arrow is a hop: **10 rows** feeds **seq**, which **Join Rows** joins with **Input data**; from there rows go on to **Group**, and through **rnd** and **Sort rows** to **Memory Group**.
 
 <div class="pcm-embed-card" data-href="https://docs.pentaho.com/pdia-data-integration/transforming-data-with-pdi" data-title="Transforming data with PDI | Pentaho Documentation"></div>
 <div align="center">
 <figure>
-<img src="../_assets/images/steps.png" alt="Steps &amp; Hops = Transformation" width="500">
+<img src="../_assets/images/steps.png" alt="A transformation with its steps (10 rows, seq, Input data, Join Rows, Group, rnd, Sort rows, Memory Group) and the hops between them labelled" width="500">
 <figcaption>Steps &#x26; Hops = Transformation</figcaption>
 </figure>
 </div>
@@ -110,7 +110,7 @@ As well as steps and hops, a transformation can hold **notes**, which document i
 
 <div align="center">
 <figure>
-<img src="../_assets/images/buffer-rows.png" alt="Changing buffer row set" width="563">
+<img src="../_assets/images/buffer-rows.png" alt="Transformation properties, Miscellaneous tab: Nr of rows in rowset set to 10000" width="800">
 <figcaption>Changing buffer row set</figcaption>
 </figure>
 </div>

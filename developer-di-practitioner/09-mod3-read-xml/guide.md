@@ -224,7 +224,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 </figure>
 </div>
 
-> **Warning:** The screenshot shows the original w3schools address. That site now refuses PDI's HTTP client (HTTP 403), so use the copy of the same file above.
+> **Note:** The file's original w3schools address now refuses PDI's HTTP client (HTTP 403), which is why the course serves a copy of the same file from GitHub.
 
 ### 2. Get data from XML - Read URL
 
@@ -383,7 +383,7 @@ ZONE String : couldn't convert String to number : non-numeric character found at
 </figure>
 </div>
 
-> **Success:** Checkpoint: the first row is `Bloodroot`, `Sanguinaria canadensis`, zone `4`, `Mostly Shady`, `$2.44`. `xmlUrl` comes first: the step passes the incoming field through. The screenshot shows the old w3schools address in `xmlUrl`; yours shows the raw.githubusercontent.com URL.
+> **Success:** Checkpoint: the first row is `Bloodroot`, `Sanguinaria canadensis`, zone `4`, `Mostly Shady`, `$2.44`. `xmlUrl` comes first: the step passes the incoming field through.
 
 :::
 

@@ -52,28 +52,24 @@ C:\Workshop\pdi-2hr\02-see-it-work\01-your-first-win\win_preview.ktr
 You should see three connected steps on the canvas: a file reader, a
 filter, and two end points — one for valid rows, one for rejects.
 
-<figure>
-
-![win_preview open in Spoon: Read yesterday's sales flows into the Keys present? filter, which splits into Valid rows and Rejected rows](../_assets/images/1788268810024.png)
-
 <div align="center">
-<figcaption><em>win_preview.ktr</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/1788268810024.png" alt="win_preview open in Spoon: Read yesterday's sales flows into the Keys present? filter, which splits into Valid rows and Rejected rows" width="800">
+<figcaption>win_preview.ktr</figcaption>
 </figure>
+</div>
 
 ## Preview the valid rows
 
 1. Right-click **Valid rows** and select **Preview**.
 2. Select **Quick Launch**.
 
-<figure>
-
-![Transformation debug dialog opened from right-click Preview on Valid rows, with Quick Launch highlighted](../_assets/images/1788269301694.png)
-
 <div align="center">
-<figcaption><em>Preview → Quick Launch</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/1788269301694.png" alt="Transformation debug dialog opened from right-click Preview on Valid rows, with Quick Launch highlighted" width="800">
+<figcaption>Preview → Quick Launch</figcaption>
 </figure>
+</div>
 
 A grid appears with 37 of yesterday's orders — typed columns, formatted
 dates, all clean rows. This habit helps debug and validate your pipelines:
@@ -170,14 +166,12 @@ step to see its configuration:
 
 <button data-graph="files/win_preview.ktr">View graph</button>
 
-<figure>
-
-![The guide's Graph tab rendering win_preview as a flowchart of four steps and three hops, with Summary and Walkthrough buttons](../_assets/images/1788270238088.png)
-
 <div align="center">
-<figcaption><em>Graph</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/1788270238088.png" alt="The guide's Graph tab rendering win_preview as a flowchart of four steps and three hops, with Summary and Walkthrough buttons" width="800">
+<figcaption>Graph</figcaption>
 </figure>
+</div>
 
 Try out the other AI options:
 

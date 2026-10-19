@@ -263,8 +263,6 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 4. Select **Select values** on the canvas and open the **Preview data** tab.
 
-> **Note:** The screenshot was taken against an older copy of the data, in which order 10165 shipped late and so sorts first, as `unknown`. In the lab database it shipped five days early, so it is labeled `Action`, and your first rows are `On Time`.
-
 <div align="center">
 <figure>
 <img src="../_assets/images/status-of-shipped-orders.png" alt="Preview data: delivery label, order number, required and shipped dates, customer number" width="800">

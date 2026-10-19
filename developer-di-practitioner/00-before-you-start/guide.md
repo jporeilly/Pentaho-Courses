@@ -121,7 +121,7 @@ Once the **2. Start the services** tab is done, the Containers page is what you 
 
 <div align="center">
 <figure>
-<img src="../_assets/images/podman-desktop-containers.png" alt="Podman Desktop showing the workshop-services containers" width="800">
+<img src="../_assets/images/podman-desktop-containers.png" alt="Podman Desktop's Containers page: pcm-minio (ports 9000 and 9099), sampledata-adminer (8050) and sampledata-mysql (3306), all running" width="800">
 <figcaption>The workshop services in Podman Desktop</figcaption>
 </figure>
 </div>

@@ -117,7 +117,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 </figure>
 </div>
 
-> **Note:** The screenshot is from an earlier version of the step: its name is `CSV Input`, **Lazy conversion?** is selected, and most lengths are `20` or more. Use the settings in the steps and the table above. The fields' **Currency** column shows the symbol for your computer's locale.
+> **Note:** The fields' **Currency** column shows the symbol for your computer's locale.
 
 11. Select **Preview**, enter `100` rows, and select **OK**. The rows show in **Examine preview data**.
 
@@ -148,8 +148,6 @@ Set-Location C:\Pentaho\design-tools\data-integration
 <figcaption>Main options</figcaption>
 </figure>
 </div>
-
-> **Note:** The screenshot shows an older connection name, `Sampledata`, and **Truncate table** cleared. Use `MySQL:sampledata` and select **Truncate table**.
 
 9. On the **Database fields** tab, select **Get fields**. Each stream field is mapped to a table column of the same name: every **Table field** on the left matches its **Stream field** on the right.
 
@@ -188,8 +186,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 > Numbers became `BIGINT`, `DOUBLE` or `DECIMAL` depending on their
 > length and precision: with the lengths in the table, the length-15
 > Integers become `BIGINT` and `PRICEEACH` and `SALES` become
-> `DOUBLE`, while the screenshot's length-20 fields became
-> `DECIMAL(20)`. Point the same step at PostgreSQL and the same click
+> `DOUBLE`, as the screenshot shows. Point the same step at PostgreSQL and the same click
 > writes `TIMESTAMP` and `DOUBLE PRECISION` instead.
 >
 > That is why the **Warning** above matters. **Get Fields** sampled
@@ -225,7 +222,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 <div align="center">
 <figure>
-<img src="../_assets/images/sales-data.png" alt="STG_SALES_DATA rows in DBeaver" width="800">
+<img src="../_assets/images/sales-data.png" alt="DBeaver: SELECT COUNT(*) FROM STG_SALES_DATA and its result, 2,823" width="800">
 <figcaption>STG_SALES_DATA</figcaption>
 </figure>
 </div>
@@ -351,8 +348,6 @@ Set-Location C:\Pentaho\design-tools\data-integration
 <figcaption>Main options</figcaption>
 </figure>
 </div>
-
-> **Note:** The screenshot shows an older connection name, `MySQL - sampledata`, and **Truncate table** cleared. Use `MySQL:sampledata` and select **Truncate table**.
 
 8. On the **Database fields** tab, select **Get fields**.
 

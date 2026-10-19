@@ -353,8 +353,6 @@ Set-Location C:\Pentaho\design-tools\data-integration
 </figure>
 </div>
 
-> **Note:** The screenshots of **Write Sales** and **Write Expenses** show `${Internal.Transformation.Filename.Directory}` in **Filename**. When you run a saved transformation from Spoon, it names the same folder, but use `${Internal.Entry.Current.Directory}`, as the table shows, in all three writers.
-
 5. Open the **Content** tab and enter these settings:
 
    | Setting | Value |
@@ -543,13 +541,6 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 4. Open `Sales_and_Expenses_2023.xlsx` from the lab folder in your spreadsheet application, and open the **SourceData** sheet.
 
-<div align="center">
-<figure>
-<img src="../_assets/images/excel-template.jpg" alt="The finished workbook with the chart drawn from the written figures" width="800">
-<figcaption>The finished report</figcaption>
-</figure>
-</div>
-
 > **Success:** Checkpoint: `B1` shows `2023`, the sales fill `B5:G8` and the expenses `B13:G18`, and the totals are computed:
 >
 > | Cell | Holds | Value |
@@ -561,6 +552,13 @@ Set-Location C:\Pentaho\design-tools\data-integration
 > | `B21` | Profit, January | `$23,386.74` |
 >
 > The **Sales Chart** sheet draws the four product lines for the six months.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/excel-template.jpg" alt="The Sales Chart sheet: the six-month sales of the four product lines, drawn from the figures the transformation wrote" width="800">
+<figcaption>The Sales Chart sheet</figcaption>
+</figure>
+</div>
 
 5. Close the workbook before you run the transformation again: while your spreadsheet application has the file open, PDI can't replace it.
 

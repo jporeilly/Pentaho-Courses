@@ -216,7 +216,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 <div align="center">
 <figure>
-<img src="../_assets/images/merge-diff-step.png" alt="Merge rows (diff): reference STG_ORDERS_MERGED, compare Sort updates, flag FLAG, key PRODUCTCODE and five value fields" width="706">
+<img src="../_assets/images/merge-diff-step.png" alt="Merge rows (diff): reference STG_ORDERS_MERGED, compare Sort updates, flag FLAG, key PRODUCTCODE and five value fields" width="800">
 <figcaption>Reference: the table; compare: the file</figcaption>
 </figure>
 </div>

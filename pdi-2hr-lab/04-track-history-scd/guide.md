@@ -27,10 +27,8 @@
 
 <div align="center">
 <figure>
-
-![Slowly Changing Dimension Type 2](../_assets/images/1788776135144.png#w=520)
-
-<figcaption><em>Type2 - Slowly Changing Dimension</em></figcaption>
+<img src="../_assets/images/1788776135144.png" alt="Slowly Changing Dimension Type 2" width="520">
+<figcaption>Type2 - Slowly Changing Dimension</figcaption>
 </figure>
 </div>
 
@@ -50,14 +48,12 @@ C:\Workshop\pdi-2hr\03-make-it-yours\04-track-history\customers.json
 >
 > You could copy and paste the step from the previous enrich_sales.ktr.
 
-<figure>
-
-![JSON input dialog, File tab: Read customers with this lab's customers.json listed under Selected files](../_assets/images/1788776468295.png)
-
 <div align="center">
-<figcaption><em>Add - customers.json</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/1788776468295.png" alt="JSON input dialog, File tab: Read customers with this lab's customers.json listed under Selected files" width="800">
+<figcaption>Add - customers.json</figcaption>
 </figure>
+</div>
 
 3. Open the **Fields** tab and fill the **Fields** grid, one row per field. **Path** uses
    JSONPath, relative to the array of customer objects:
@@ -68,14 +64,12 @@ C:\Workshop\pdi-2hr\03-make-it-yours\04-track-history\customers.json
 | customer_name | $.customers[*].name        | String |
 | region_code   | $.customers[*].region_code | String |
 
-<figure>
-
-![JSON input dialog, Fields tab: customer_id, customer_name and region_code mapped from $.customers[*] paths, all String](../_assets/images/1788277506117.png)
-
 <div align="center">
-<figcaption><em>Fields - customers.json</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/1788277506117.png" alt="JSON input dialog, Fields tab: customer_id, customer_name and region_code mapped from $.customers[*] paths, all String" width="738">
+<figcaption>Fields - customers.json</figcaption>
 </figure>
+</div>
 
 > **Note:**
 >
@@ -90,10 +84,8 @@ C:\Workshop\pdi-2hr\03-make-it-yours\04-track-history\customers.json
 
 <div align="center">
 <figure>
-
-![Database connection - warehouse](../_assets/images/1788777000503.png)
-
-<figcaption><em>Enter connection details</em></figcaption>
+<img src="../_assets/images/1788777000503.png" alt="Database connection - warehouse" width="800">
+<figcaption>Enter connection details</figcaption>
 </figure>
 </div>
 
@@ -101,10 +93,8 @@ C:\Workshop\pdi-2hr\03-make-it-yours\04-track-history\customers.json
 
 <div align="center">
 <figure>
-
-![Test Connection](../_assets/images/1788777081402.png#w=320)
-
-<figcaption><em>Test connection</em></figcaption>
+<img src="../_assets/images/1788777081402.png" alt="Test Connection" width="320">
+<figcaption>Test connection</figcaption>
 </figure>
 </div>
 
@@ -122,10 +112,8 @@ C:\Workshop\pdi-2hr\03-make-it-yours\04-track-history\customers.json
 2. Double-click **Dimension lookup/update**:
 <div align="center">
 <figure>
-
-![Dimension lookup/update dialog: Load dim_customer with Update the dimension selected, connection warehouse, target table dim_customer, key customer_id, technical key customer_tk, version field version, date range date_from to date_to](../_assets/images/1788777390992.png)
-
-<figcaption><em>Dimension / Lookup step</em></figcaption>
+<img src="../_assets/images/1788777390992.png" alt="Dimension lookup/update dialog: Load dim_customer with Update the dimension selected, connection warehouse, target table dim_customer, key customer_id, technical key customer_tk, version field version, date range date_from to date_to" width="647">
+<figcaption>Dimension / Lookup step</figcaption>
 </figure>
 </div>
 
@@ -145,10 +133,8 @@ C:\Workshop\pdi-2hr\03-make-it-yours\04-track-history\customers.json
    close.
 <div align="center">
 <figure>
-
-![Simple SQL editor showing the CREATE TABLE dim_customer statement PDI generated, followed by the two CREATE INDEX statements](../_assets/images/1788435500408.png)
-
-<figcaption><em>Generate SQL</em></figcaption>
+<img src="../_assets/images/1788435500408.png" alt="Simple SQL editor showing the CREATE TABLE dim_customer statement PDI generated, followed by the two CREATE INDEX statements" width="593">
+<figcaption>Generate SQL</figcaption>
 </figure>
 </div>
 
@@ -161,10 +147,8 @@ C:\Workshop\pdi-2hr\03-make-it-yours\04-track-history\customers.json
 > This can cause data loss or a broken environment.
 <div align="center">
 <figure>
-
-![Error executing SQL: BLOB/TEXT column customer_id used in key specification without a key length](../_assets/images/1788436628184.png)
-
-<figcaption><em>No VARCHAR length defined</em></figcaption>
+<img src="../_assets/images/1788436628184.png" alt="Error executing SQL: BLOB/TEXT column customer_id used in key specification without a key length" width="544">
+<figcaption>No VARCHAR length defined</figcaption>
 </figure>
 </div>
 
@@ -203,14 +187,12 @@ ORDER  BY customer_id, version;
 ```
 7. Select the play button (Run).
 
-<figure>
-
-![Original region_code NW](../_assets/images/1788783628056.png)
-
 <div align="center">
-<figcaption><em>Aiden Marsh - region code NW</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/1788783628056.png" alt="Original region_code NW" width="800">
+<figcaption>Aiden Marsh - region code NW</figcaption>
 </figure>
+</div>
 
 Every customer: version 1, open-ended validity — **21 rows in
 total**: your 20 customers plus a technical "unknown" row
@@ -229,26 +211,22 @@ in a text editor.
 2. Find **C001 (Aiden Marsh)** and change `"region_code": "NW"` to
    `"region_code": "NE"`. Save.
 
-<figure>
-
-![region_code to NE ](../_assets/images/1788783085693.png)
-
 <div align="center">
-<figcaption><em>Change region_code to: NE</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/1788783085693.png" alt="region_code to NE " width="800">
+<figcaption>Change region_code to: NE</figcaption>
 </figure>
+</div>
 
 3. Run the transformation again: press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
 4. Re-run the SQL above.
 
-<figure>
-
-![Track change to NE](../_assets/images/1788783746338.png)
-
 <div align="center">
-<figcaption><em>Track the change in region code</em></figcaption>
-</div>
+<figure>
+<img src="../_assets/images/1788783746338.png" alt="Track change to NE" width="800">
+<figcaption>Track the change in region code</figcaption>
 </figure>
+</div>
 
 C001 now has **two rows**: version 1 (NW) with its validity window
 closed, and version 2 (NE) open-ended. Every other customer is
