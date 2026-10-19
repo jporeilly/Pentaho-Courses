@@ -40,14 +40,14 @@
 > **Table input** runs a SQL query over a database connection and outputs one row per result row.\
 > Here the query keeps only the orders with `STATUS = 'Shipped'`.
 
-1. Start Spoon with the **Start PDI** button below, or from PowerShell:
+1. Start Spoon with the **Start Pentaho Data Integration** button below, or from PowerShell:
 
 ```powershell
 Set-Location C:\Pentaho\design-tools\data-integration
 .\spoon.bat
 ```
 
-<button data-launch="spoon" data-path="">Start PDI</button>
+<button data-launch="spoon" data-path="">Start Pentaho Data Integration</button>
 
 2. Select **File > New > Transformation** (`Ctrl+N`).
 3. Select **File > Save as** and save it as `tr_reading_database_warehouse.ktr` in `C:\Workshop-DI-Practitioner\03-data-sources\02-databases\13-mod3-reading-from-a-database`.
