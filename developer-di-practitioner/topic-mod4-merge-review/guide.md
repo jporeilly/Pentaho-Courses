@@ -18,49 +18,25 @@ When you have two streams that should become one. Merge Streams stacks rows; Mer
 
 **Append**
 
-**Append streams** outputs every row of its first input (the *head*), then every row of its second (the *tail*). Several hops into any one step stack the rows too, but in arrival order rather than head first.
+**Append streams** outputs every row of its first input (the *head*), then every row of its second (the *tail*). Several hops into any one step stack the rows too, but in arrival order rather than head first. In both pictures, a blue row comes from the first input and an amber row from the second.
 
-| Head: A | B | C | D |
-| --- | --- | --- | --- |
-| 1 | 2 | 3 | 4 |
-| 1 | 2 | 3 | 4 |
-
-| Tail: A | B | C | D |
-| --- | --- | --- | --- |
-| 5 | 6 | 7 | 8 |
-| 5 | 6 | 7 | 8 |
-
-| Appended: A | B | C | D |
-| --- | --- | --- | --- |
-| 1 | 2 | 3 | 4 |
-| 1 | 2 | 3 | 4 |
-| **5** | **6** | **7** | **8** |
-| **5** | **6** | **7** | **8** |
+<div align="center">
+<figure>
+<img src="../_assets/images/merge-append.png" alt="Append streams: the first input (head) holds ids 1 and 4, the second (tail) ids 2 and 3; the output is 1, 4, 2, 3, every head row and then every tail row" width="608">
+<figcaption>Append streams: every head row, then every tail row</figcaption>
+</figure>
+</div>
 
 **Sorted merge**
 
 **Sorted merge** interleaves two inputs that are both already sorted on the same key, so the output stays sorted. It doesn't sort; it relies on its inputs being sorted.
 
-| Input 1 (sorted on A): A | B |
-| --- | --- |
-| 3 | 4 |
-| 6 | 2 |
-| 7 | 2 |
-
-| Input 2 (sorted on A): A | B |
-| --- | --- |
-| 1 | 6 |
-| 2 | 4 |
-| 4 | 2 |
-
-| Merged, still sorted: A | B |
-| --- | --- |
-| **1** | **6** |
-| **2** | **4** |
-| 3 | 4 |
-| **4** | **2** |
-| 6 | 2 |
-| 7 | 2 |
+<div align="center">
+<figure>
+<img src="../_assets/images/merge-sorted.png" alt="Sorted merge on id: the same two inputs, each sorted on id, come out as 1, 2, 3, 4, the rows of both inputs interleaved in id order" width="677">
+<figcaption>Sorted merge: the same rows, interleaved in id order</figcaption>
+</figure>
+</div>
 
 ::: tabs
 
@@ -81,7 +57,7 @@ When you have two streams that should become one. Merge Streams stacks rows; Mer
 
 > **Note:** **Merge Rows (diff)**
 >
-> **Merge rows (diff)** compares a *reference* stream with a *compare* stream, matched on key fields, and adds a flag to every row: `identical`, `changed`, `new` or `deleted`. **Synchronize after merge** then turns the flags into inserts, updates and deletes on a table. Together they find and apply what changed between two snapshots: change data capture without database triggers.
+> **Merge rows (diff)** compares a *reference* stream with a *compare* stream, matched on key fields that both streams are sorted on, and adds a flag to every row: `identical`, `changed`, `new` or `deleted`. **Synchronize after merge** then turns the flags into inserts, updates and deletes on a table. Together they find and apply what changed between two snapshots: change data capture without database triggers.
 >
 > In the [Merge Rows (diff)](../21-mod4-merge-streams-diff/guide.md) workshop you compare two files, then a file with a table.
 

@@ -1,2 +1,9 @@
 /* Font for course diagrams rendered with mmdc -C (see README.md here). */
 * { font-family: 'Segoe UI', Helvetica, Arial, sans-serif !important; }
+
+/* Row tables inside a node (merge-append, merge-sorted): the colour says
+   which input a row came from - blue the first, amber the second. Sizes
+   (padding, borders) are inline in the .mmd: Mermaid lays the node out
+   before this file applies, and drops an inline background. */
+table.rows tr.a td { background: #dbeafe; color: #1e3a8a; }
+table.rows tr.b td { background: #fef3c7; color: #78350f; }

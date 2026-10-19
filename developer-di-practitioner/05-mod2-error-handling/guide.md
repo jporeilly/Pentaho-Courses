@@ -18,6 +18,14 @@
 >
 > **Estimated time:** 15 minutes
 
+<figure>
+
+<figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
+
+</figure>
+
+---
+
 <div align="center">
 <figure>
 <img src="../_assets/images/error-handling.png" alt="The finished transformation: CSV file input with a normal hop to Dummy (do nothing) and an error hop to Errors" width="618">
