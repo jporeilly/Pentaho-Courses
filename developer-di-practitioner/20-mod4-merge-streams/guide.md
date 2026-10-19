@@ -24,6 +24,8 @@
 
 </figure>
 
+---
+
 <div align="center">
 <figure>
 <img src="../_assets/images/merge-streams-2.png" alt="The finished transformation: orders and description inputs, Add description, two Select values steps, and a Dummy step they both feed" width="630">

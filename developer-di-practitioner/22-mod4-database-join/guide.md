@@ -17,17 +17,18 @@
 > 
 > **Estimated time:** 20 minutes
 
+<figure>
+
+<figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
+
+</figure>
+
+---
+
 <div align="center">
 <figure>
 <img src="../_assets/images/database-join-2.png" alt="The finished transformation: the Data grid &quot;some conditions&quot; hopped to Database join" width="628">
 <figcaption>What you build</figcaption>
-</figure>
-</div>
-
-<div align="center">
-<figure>
-<img src="../_assets/images/database-join.png" alt="Pentaho Data Integration title card: Database Join" width="800">
-<figcaption>Database Join</figcaption>
 </figure>
 </div>
 

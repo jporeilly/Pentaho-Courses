@@ -24,6 +24,8 @@
 
 </figure>
 
+---
+
 <div align="center">
 <figure>
 <img src="../_assets/images/merge-rows-diff.png" alt="The database version: STG_ORDERS_MERGED and the sorted orders updates feed Merge Rows (diff), which feeds Synchronize after merge" width="641">

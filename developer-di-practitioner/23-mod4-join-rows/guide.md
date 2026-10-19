@@ -17,6 +17,14 @@
 > 
 > **Estimated time:** 20 minutes
 
+<figure>
+
+<figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
+
+</figure>
+
+---
+
 <div align="center">
 <figure>
 <img src="../_assets/images/cross-join-2.png" alt="The finished transformation in Spoon: first name and middle name into Join rows, then name_initials, join surname with get ${surname}, Select values, name +surname and Select a name" width="800">

@@ -23,6 +23,8 @@
 
 </figure>
 
+---
+
 <div align="center">
 <figure>
 <img src="../_assets/images/merge-join.png" alt="The overview transformation: the Data grids &quot;A B C D&quot; and &quot;Red Blue Yellow&quot; into Merge Join, then a Dummy step" width="643">

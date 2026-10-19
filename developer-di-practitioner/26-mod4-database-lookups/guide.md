@@ -18,6 +18,14 @@
 > 
 > **Estimated time:** 30 minutes
 
+<figure>
+
+<figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
+
+</figure>
+
+---
+
 <div align="center">
 <figure>
 <img src="../_assets/images/database-lookup.png" alt="The finished transformation: some conditions, like_statement, and three Database lookup steps, one with an error hop to Write to log" width="784">
