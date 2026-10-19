@@ -18,17 +18,16 @@
 > 
 > **Estimated time:** 25 minutes
 
+<figure>
+
+<figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
+
+</figure>
+
 <div align="center">
 <figure>
 <img src="../_assets/images/merge-streams-2.png" alt="The finished transformation: orders and description inputs, Add description, two Select values steps, and a Dummy step they both feed" width="630">
 <figcaption>What you build</figcaption>
-</figure>
-</div>
-
-<div align="center">
-<figure>
-<img src="../_assets/images/merge-streams-3.png" alt="Pentaho Data Integration title card: Merge Streams" width="800">
-<figcaption>Merge Streams</figcaption>
 </figure>
 </div>
 
@@ -42,14 +41,14 @@
 > 
 > Read the two files, each into its own stream. Look at them first: `orders.txt` has five product fields, and `description.txt` has the same five plus `PRODUCTDESCRIPTION`, with only the code and the description filled in.
 
-1. Start Spoon with the **Start PDI** button below, or from PowerShell:
+1. Start Spoon with the **Start Pentaho Data Integration** button below, or from PowerShell:
 
 ```powershell
 Set-Location C:\Pentaho\design-tools\data-integration
 .\spoon.bat
 ```
 
-<button data-launch="spoon" data-path="">Start PDI</button>
+<button data-launch="spoon" data-path="">Start Pentaho Data Integration</button>
 
 2. Select **File > New > Transformation** (`Ctrl+N`).
 3. Select **File > Save as** and save it as `tr_merge_streams.ktr` in `C:\Workshop-DI-Practitioner\04-enriching-the-dataset\01-merge\20-mod4-merge-streams`, next to `orders.txt` and `description.txt`.
