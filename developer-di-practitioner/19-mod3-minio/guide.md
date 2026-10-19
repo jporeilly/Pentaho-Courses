@@ -26,6 +26,14 @@
 | Fraud Detection          | lookups and joins, rule-based scoring       | 15 min |
 | Data Lake Ingestion      | three formats, one schema                   | 25 min |
 
+<figure>
+
+<figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
+
+</figure>
+
+---
+
 ## Connect PDI to MinIO
 
 > **Warning:** Every path in these workshops starts `pvfs://MinIO/`, which means "the VFS connection named **MinIO**". Create it before you start your workshop. Connection names are case-sensitive: `pvfs://minio/...` doesn't find a connection named `MinIO`.
