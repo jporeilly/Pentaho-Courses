@@ -33,13 +33,6 @@
 </figure>
 </div>
 
-<div align="center">
-<figure>
-<img src="../_assets/images/database-lookup-2.png" alt="Pentaho Data Integration title card: Database Lookup" width="800">
-<figcaption>Database Lookup</figcaption>
-</figure>
-</div>
-
 :::: tabs
 
 ### 1. Data grid

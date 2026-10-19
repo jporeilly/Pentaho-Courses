@@ -22,6 +22,14 @@
 > 
 > **Estimated time:** 30 minutes
 
+<figure>
+
+<figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
+
+</figure>
+
+---
+
 <div align="center">
 <figure>
 <img src="../_assets/images/read-database.png" alt="The finished transformation: Table input, Calculator, Number range, Sort rows and Select values in a line" width="640">
