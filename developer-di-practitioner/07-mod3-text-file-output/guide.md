@@ -20,6 +20,12 @@
 > 
 > **Estimated time:** 35 minutes
 
+<figure>
+
+<figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
+
+</figure>
+
 <div align="center">
 <figure>
 <img src="../_assets/images/survey-text-file-output.png" alt="The finished transformation: name and text +name appended with instructions, then with the numbered questions, and written by TFO - survey" width="720">
