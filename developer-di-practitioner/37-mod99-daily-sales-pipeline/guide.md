@@ -14,7 +14,7 @@ scheduling, and scaling.
 
 > **Objectives:**
 >
-> - Build a parameterized PDI **job** that ingests three data sources, validates them, enriches with master data, and loads a fact + dimension table.
+> - Build a parameterized Pentaho Data Integration **job** that ingests three data sources, validates them, enriches with master data, and loads a fact + dimension table.
 > - Demonstrate **production-readiness**: error handling, logging, parameters, scheduled execution.
 > - Produce a complete artifact you can show in interviews ("I built this for my Practitioner course accreditation").
 >
