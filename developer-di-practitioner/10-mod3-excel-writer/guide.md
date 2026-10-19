@@ -93,7 +93,7 @@
 > 
 > **Generate rows** outputs a fixed number of rows. Here it outputs one row holding the report year.
 
-1. Start Spoon with the **Start PDI** button below, or from PowerShell:
+1. Start Spoon with the **Start Pentaho Data Integration** button below, or from PowerShell:
 
 ```powershell
 Set-Location C:\Pentaho\design-tools\data-integration
@@ -257,15 +257,15 @@ Set-Location C:\Pentaho\design-tools\data-integration
 6. Open the **Fields** tab and select **Get Fields**. In the **Sample data** dialog, keep `100` in **Number of lines to sample** and select **OK**. Close the **Scan results** window if it opens.
 7. Check the grid against this table. The names come from the file's header line:
 
-   | Name | Type | Format | Length | Precision | Trim type |
-   | --- | --- | --- | --- | --- | --- |
-   | `productline` | String | | `12` | | none |
-   | `m_january` | Number | `#.#` | `8` | `2` | none |
-   | `m_february` | Number | `#.#` | `8` | `2` | none |
-   | `m_march` | Number | `#.#` | `8` | `2` | none |
-   | `m_april` | Number | `#.#` | `8` | `2` | none |
-   | `m_may` | Number | `#.#` | `8` | `2` | none |
-   | `m_june` | Number | `#.#` | `8` | `2` | **both** |
+| Name          | Type   | Format | Length | Precision | Trim type |
+| ------------- | ------ | ------ | ------ | --------- | --------- |
+| `productline` | String |        | `12`   |           | none      |
+| `m_january`   | Number | `#.#`  | `8`    | `2`       | none      |
+| `m_february`  | Number | `#.#`  | `8`    | `2`       | none      |
+| `m_march`     | Number | `#.#`  | `8`    | `2`       | none      |
+| `m_april`     | Number | `#.#`  | `8`    | `2`       | none      |
+| `m_may`       | Number | `#.#`  | `8`    | `2`       | none      |
+| `m_june`      | Number | `#.#`  | `8`    | `2`       | **both**  |
 
 8. In the `m_june` row, set **Trim type** to `both` if it shows `none`. The last line of `sales.txt` ends with a space after `667.49`, and no line break; trimming removes the space before PDI converts the text to a Number.
 9. Select **Preview rows**, enter `100` rows, and select **OK**. The rows show in **Examine preview data**.
@@ -332,17 +332,17 @@ Set-Location C:\Pentaho\design-tools\data-integration
 3. Double-click **Microsoft Excel writer**. Set **Step name** to `Write Sales`.
 4. On the **File & Sheet** tab, enter these settings:
 
-   | Setting | Value |
-   | --- | --- |
-   | **Filename** | `${Internal.Entry.Current.Directory}/Sales_and_Expenses_2023` (the same file) |
-   | **Extension** | **xlsx [Excel 2007 and above]** |
-   | **If output file exists** | **Use existing file for writing** |
-   | **Wait for first row before creating file** | selected |
-   | **Add filenames to result** | selected (the default) |
-   | **Sheet name** | `SourceData` |
-   | **Make this the active sheet** | cleared |
-   | **If sheet exists in output file** | **write to existing sheet** |
-   | **Use template when creating new files** | cleared (the default) |
+| Setting                                     | Value                                                                         |
+| ------------------------------------------- | ----------------------------------------------------------------------------- |
+| **Filename**                                | `${Internal.Entry.Current.Directory}/Sales_and_Expenses_2023` (the same file) |
+| **Extension**                               | **xlsx [Excel 2007 and above]**                                               |
+| **If output file exists**                   | **Use existing file for writing**                                             |
+| **Wait for first row before creating file** | selected                                                                      |
+| **Add filenames to result**                 | selected (the default)                                                        |
+| **Sheet name**                              | `SourceData`                                                                  |
+| **Make this the active sheet**              | cleared                                                                       |
+| **If sheet exists in output file**          | **write to existing sheet**                                                   |
+| **Use template when creating new files**    | cleared (the default)                                                         |
 
    **Wait for first row before creating file** makes the step open the workbook only when its first row arrives, and **Wait For Year** holds that row back until **Write Year** has created the file.
 
@@ -355,13 +355,13 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 5. Open the **Content** tab and enter these settings:
 
-   | Setting | Value |
-   | --- | --- |
-   | **Start writing at cell** | `B5` |
-   | **When writing rows** | **overwrite existing cells** (the default) |
-   | **Write Header** | cleared |
-   | **Force formula recalculation** | selected |
-   | **Leave styles of existing cells unchanged** | selected |
+| Setting                                      | Value                                      |
+| -------------------------------------------- | ------------------------------------------ |
+| **Start writing at cell**                    | `B5`                                       |
+| **When writing rows**                        | **overwrite existing cells** (the default) |
+| **Write Header**                             | cleared                                    |
+| **Force formula recalculation**              | selected                                   |
+| **Leave styles of existing cells unchanged** | selected                                   |
 
 <div align="center">
 <figure>
@@ -425,15 +425,15 @@ Set-Location C:\Pentaho\design-tools\data-integration
 6. Open the **Fields** tab and select **Get Fields**. In the **Sample data** dialog, keep `100` in **Number of lines to sample** and select **OK**. Close the **Scan results** window if it opens.
 7. Check the grid against this table. Every **Trim type** is `none`:
 
-   | Name | Type | Format | Length | Precision |
-   | --- | --- | --- | --- | --- |
-   | `expense_type` | String | | `13` | |
-   | `m_january` | Number | `#.#` | `8` | `2` |
-   | `m_february` | Number | `#.#` | `8` | `2` |
-   | `m_march` | Number | `#.#` | `8` | `2` |
-   | `m_april` | Number | `#.#` | `7` | `2` |
-   | `m_may` | Number | `#.#` | `7` | `2` |
-   | `m_june` | Number | `#.#` | `8` | `2` |
+| Name           | Type   | Format | Length | Precision |
+| -------------- | ------ | ------ | ------ | --------- |
+| `expense_type` | String |        | `13`   |           |
+| `m_january`    | Number | `#.#`  | `8`    | `2`       |
+| `m_february`   | Number | `#.#`  | `8`    | `2`       |
+| `m_march`      | Number | `#.#`  | `8`    | `2`       |
+| `m_april`      | Number | `#.#`  | `7`    | `2`       |
+| `m_may`        | Number | `#.#`  | `7`    | `2`       |
+| `m_june`       | Number | `#.#`  | `8`    | `2`       |
 
 <div align="center">
 <figure>
@@ -483,17 +483,17 @@ Set-Location C:\Pentaho\design-tools\data-integration
 3. Double-click **Microsoft Excel writer**. Set **Step name** to `Write Expenses`.
 4. On the **File & Sheet** tab, enter these settings. They are the same as **Write Sales**, except **Add filenames to result**:
 
-   | Setting | Value |
-   | --- | --- |
-   | **Filename** | `${Internal.Entry.Current.Directory}/Sales_and_Expenses_2023` (the same file) |
-   | **Extension** | **xlsx [Excel 2007 and above]** |
-   | **If output file exists** | **Use existing file for writing** |
-   | **Wait for first row before creating file** | selected |
-   | **Add filenames to result** | cleared |
-   | **Sheet name** | `SourceData` |
-   | **Make this the active sheet** | cleared |
-   | **If sheet exists in output file** | **write to existing sheet** |
-   | **Use template when creating new files** | cleared (the default) |
+| Setting                                     | Value                                                                         |
+| ------------------------------------------- | ----------------------------------------------------------------------------- |
+| **Filename**                                | `${Internal.Entry.Current.Directory}/Sales_and_Expenses_2023` (the same file) |
+| **Extension**                               | **xlsx [Excel 2007 and above]**                                               |
+| **If output file exists**                   | **Use existing file for writing**                                             |
+| **Wait for first row before creating file** | selected                                                                      |
+| **Add filenames to result**                 | cleared                                                                       |
+| **Sheet name**                              | `SourceData`                                                                  |
+| **Make this the active sheet**              | cleared                                                                       |
+| **If sheet exists in output file**          | **write to existing sheet**                                                   |
+| **Use template when creating new files**    | cleared (the default)                                                         |
 
 <div align="center">
 <figure>
@@ -504,13 +504,13 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 5. Open the **Content** tab and enter these settings:
 
-   | Setting | Value |
-   | --- | --- |
-   | **Start writing at cell** | `B13` |
-   | **When writing rows** | **overwrite existing cells** (the default) |
-   | **Write Header** | cleared |
-   | **Force formula recalculation** | selected |
-   | **Leave styles of existing cells unchanged** | selected |
+| Setting                                      | Value                                      |
+| -------------------------------------------- | ------------------------------------------ |
+| **Start writing at cell**                    | `B13`                                      |
+| **When writing rows**                        | **overwrite existing cells** (the default) |
+| **Write Header**                             | cleared                                    |
+| **Force formula recalculation**              | selected                                   |
+| **Leave styles of existing cells unchanged** | selected                                   |
 
 6. Under **Fields**, select **Get Fields**, then delete the `expense_type` row: select it, right-click, and select **Delete selected lines**. The six months go into `B13:G18`.
 
