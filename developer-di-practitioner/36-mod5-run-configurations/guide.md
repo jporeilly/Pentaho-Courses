@@ -18,6 +18,14 @@
 > 
 > **Estimated time:** 20 minutes
 
+<figure>
+
+<figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
+
+</figure>
+
+---
+
 <div align="center">
 <figure>
 <img src="../_assets/images/hello-world-tr-2.png" alt="The finished transformation: gr_hello-world, clustered (Cx2), hopped to Dummy (do nothing), with its note" width="682">
