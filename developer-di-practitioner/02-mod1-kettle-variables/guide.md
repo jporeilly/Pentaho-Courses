@@ -38,7 +38,9 @@
 > A setting that accepts variables shows a small `$` icon at its right. Press `Ctrl+Space` in that setting to pick from the variables PDI knows.
 
 
-## 1. Add a variable from Spoon
+:::: tabs
+
+### 1. Add a variable from Spoon
 
 1. Start Pentaho Data Integration with the button below, or from PowerShell:
 
@@ -70,7 +72,7 @@ C:/Temp
 
 Variable names are case-sensitive: `${DIR_SAMPLES}` and `${dir_samples}` are two different variables. Use one style, such as capitals with underscores, everywhere.
 
-## 2. Use the variable in a step
+### 2. Use the variable in a step
 
 1. Select **File > New > Transformation** (`Ctrl+N`).
 2. On the **Design** tab, open the **Input** folder and drag **CSV file input** onto the canvas.
@@ -103,7 +105,7 @@ Variable names are case-sensitive: `${DIR_SAMPLES}` and `${dir_samples}` are two
 >
 > **Why it matters:** a `.ktr` with no literal paths in it can be committed to git, copied to a server and handed to a colleague, and it runs in all three places. The environment is configuration, not code.
 
-## 3. Write the Windows-style format
+### 3. Write the Windows-style format
 
 1. Double-click **CSV file input** again.
 2. Change **Filename** to `%%DIR_SAMPLES%%/sales.csv`.
@@ -116,7 +118,7 @@ Variable names are case-sensitive: `${DIR_SAMPLES}` and `${dir_samples}` are two
 
 > **Note:** The courses use `${...}` throughout, because it is the form PDI writes when you insert a variable with `Ctrl+Space`. You may meet `%%...%%` in older transformations.
 
-## 4. Edit kettle.properties in a text editor
+### 4. Edit kettle.properties in a text editor
 
 `kettle.properties` is a plain text file, one `name=value` line per variable, so you can also edit it outside Spoon: on a server with no Spoon, for example.
 
@@ -143,6 +145,8 @@ notepad $env:USERPROFILE\.kettle\kettle.properties
 > Spoon and the PDI engine read `kettle.properties` when they start. A value you add in Spoon's editor (step 1) takes effect at once, because Spoon also applies it to every open file. A value you change in a text editor takes effect only after you restart Spoon, or in the next Pan or Kitchen run.
 
 <div class="pcm-embed-card" data-href="https://docs.pentaho.com/pdia-data-integration/data-integration-perspective-in-the-pdi-client/advanced-topics-pdi-perspective/pdi-run-modifiers/variables/kettle-variables" data-title="Kettle Variables | Pentaho" data-thumb="../_assets/embeds/267325a87400.png"></div>
+
+::::
 
 ## Lab Files
 

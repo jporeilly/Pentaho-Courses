@@ -25,7 +25,9 @@
 >
 > **Tools > Options** opens the **Kettle Options** dialog, where Spoon keeps its own settings. Its two tabs are **General** (how Spoon behaves) and **Look & Feel** (how the canvas looks). The settings are saved for your user, so they apply to every transformation and job you open.
 
-## 1. Start Spoon and read the Welcome page
+:::: tabs
+
+### 1. Start Spoon and read the Welcome page
 
 1. Start Pentaho Data Integration with the button below, or from PowerShell:
 
@@ -54,7 +56,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 > **Success:** Checkpoint: the title bar reads **Spoon - Welcome!**, and the left side has two tabs, **View** and **Design**.
 
-## 2. Change the General options
+### 2. Change the General options
 
 1. Select **Tools > Options**. The **Kettle Options** dialog opens on the **General** tab.
 2. Clear **Show welcome page at startup**. **Help > Welcome Screen** brings the page back whenever you want it.
@@ -79,7 +81,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 >
 > **Why it matters:** when a step "can't see" a column you just added, the cache is the first suspect. Right-click the connection in the **View** tab and select **Clear DB Cache**; no restart needed.
 
-## 3. Turn on the canvas grid
+### 3. Turn on the canvas grid
 
 1. Still in **Kettle Options**, open the **Look & Feel** tab.
 2. Select **Show Canvas Grid**.
@@ -100,7 +102,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 <div class="pcm-embed-card" data-href="https://docs.pentaho.com/pdia-data-integration/customizing-pdi" data-title="Customizing PDI | Pentaho Documentation"></div>
 
-## 4. Switch perspectives
+### 4. Switch perspectives
 
 A perspective is a whole-window layout for one kind of work. You design transformations and jobs in **Data Integration**, and schedule them in **Scheduler**.
 
@@ -119,12 +121,14 @@ A perspective is a whole-window layout for one kind of work. You design transfor
 
 <div class="pcm-embed-card" data-href="https://docs.pentaho.com/pdia-data-integration/use-the-pdi-client-perspectives" data-title="Use the PDI client perspectives | Pentaho Documentation"></div>
 
-## 5. Restart Spoon
+### 5. Restart Spoon
 
 1. Close Spoon (**File > Exit**). It closes without asking, because **Ask user when exiting** is cleared.
 2. Start Spoon again.
 
 > **Success:** Checkpoint: Spoon opens on an empty workspace with no **Welcome!** tab, and no repository dialog appears.
+
+::::
 
 ## Lab Files
 
