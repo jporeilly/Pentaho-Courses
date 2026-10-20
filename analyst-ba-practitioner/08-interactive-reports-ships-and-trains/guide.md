@@ -42,7 +42,9 @@
 
 Everything here was done in the last two workshops: a Product Line filter (**Select from a list**: Ships and Trains), Territory and Product Line groups, **Sort > Ascending** on Order Date, **Summary > Sum** on Quantity Ordered, and a double-click to label each total.
 
-## Start the Report
+:::: tabs
+
+### 1. Start the Report
 
 1. Select the perspective drop-down and select **Home**, then select **Create New > Interactive Report**.
 2. In the **Select Data Source** dialog, select **Orders**, and select **OK**.
@@ -51,7 +53,7 @@ Everything here was done in the last two workshops: a Product Line filter (**Sel
 
 > **Success:** Checkpoint: the report has four columns: **Customer Name**, **Order Date**, **Status** and **Quantity Ordered**.
 
-## Filter, Group and Sort
+### 2. Filter, Group and Sort
 
 1. On the Interactive Toolbar, select **Filters**, and drag **Product Line** from the **Data** tab to the **Filters** panel.
 2. In the **Filter on Product Line** dialog, select **Select from a list**. Hold `Ctrl` and select **Ships** and **Trains**, select the right arrow to move them to the **Currently Included** list, and select **OK**.
@@ -60,7 +62,7 @@ Everything here was done in the last two workshops: a Product Line filter (**Sel
 
 > **Success:** Checkpoint: the report is grouped by Territory and then Product Line, starting with **APAC** and **Ships**, and the only product lines are Ships and Trains.
 
-## Add the Totals
+### 3. Add the Totals
 
 1. On the Interactive Toolbar, set **Row Limit** to **Maximum**, so no group is cut short.
 2. Select the drop-down arrow on the **Quantity Ordered** column header, and select **Summary > Sum**.
@@ -86,7 +88,7 @@ Everything here was done in the last two workshops: a Product Line filter (**Sel
 
 > **Success:** Checkpoint: APAC's Ships subtotal is 428, the first Territory subtotal (APAC) is 567, and the grand total on the last page is 11,317.
 
-## Format and Save
+### 4. Format and Save
 
 1. Double-click **Untitled** in the title area, enter `Customer Report: Ships and Trains Ordered`, and press `Enter`.
 2. Double-click the *left* side of the page header, enter `Steel Wheels, Inc.`, and press `Enter`.
@@ -105,6 +107,8 @@ Everything here was done in the last two workshops: a Product Line filter (**Sel
 > **Success:** Checkpoint: the report's pages carry **Steel Wheels, Inc.** at the top and **Prepared for the Sales Manager** at the bottom, and **Ships and Trains Ordered** is saved in **Public > Training**.
 
 ---
+
+::::
 
 ## Lab Files
 

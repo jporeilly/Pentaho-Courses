@@ -7,11 +7,11 @@
 > When a customer moves region, yesterday's reports must still show
 > the old region and today's the new one. That's a Type 2 Slowly
 > Changing Dimension — normally a page of carefully-ordered MERGE
-> SQL. In PDI it's one step: **Dimension lookup/update**.
+> SQL. In Pentaho Data Integration it's one step: **Dimension lookup/update**.
 >
 > **What you'll do**
 >
-> * Create a customer dimension table in MySQL — from inside PDI.
+> * Create a customer dimension table in MySQL — from inside Pentaho Data Integration.
 > * Load it with **Dimension lookup/update** (Type 2 SCD).
 > * Change a customer's region, reload, and see history preserved.
 >
@@ -32,7 +32,9 @@
 </figure>
 </div>
 
-## Connect to the database
+:::: tabs
+
+### 1. Connect to the database
 1. Select **File > New > Transformation** (`Ctrl+N`). Select **File > Save as** and save it as `load_dim_customer.ktr` in `C:\Workshop\pdi-2hr\03-make-it-yours\04-track-history`.
 2. On the **Design** tab, open the **Input** folder and drag **JSON input** onto the canvas.
    Double-click it, set **Step name** to `Read customers`, and configure it exactly as in the
@@ -73,7 +75,7 @@ C:\Workshop\pdi-2hr\03-make-it-yours\04-track-history\customers.json
 
 > **Note:**
 >
-> In PDI, a **Database Connection** is a reusable configuration profile that defines how the tool communicates with an external database. It encapsulates essential metadata—such as the database type (MySQL, PostgreSQL, etc.), host address, port, and authentication credentials—using JDBC drivers to bridge the gap between PDI and the data source. By defining a connection once in the repository, you can reuse it across any number of steps and transformations, ensuring consistency and letting you update connection details across your entire project in one place.
+> In Pentaho Data Integration, a **Database Connection** is a reusable configuration profile that defines how the tool communicates with an external database. It encapsulates essential metadata—such as the database type (MySQL, PostgreSQL, etc.), host address, port, and authentication credentials—using JDBC drivers to bridge the gap between Pentaho Data Integration and the data source. By defining a connection once in the repository, you can reuse it across any number of steps and transformations, ensuring consistency and letting you update connection details across your entire project in one place.
 
 4. Open the **View** tab (left panel), right-click **Database connections** and select **New**:
    - **Connection name:** `warehouse`
@@ -101,10 +103,10 @@ C:\Workshop\pdi-2hr\03-make-it-yours\04-track-history\customers.json
 > **Note:** If the test complains about a missing driver or public
 > key retrieval, see Troubleshooting below — it's a one-time fix.
 
-## Configure the dimension step
+### 2. Configure the dimension step
 > **Note:**
 >
-> **Dimension lookup/update** step is the standard PDI solution for managing Slowly Changing Dimensions (SCD). While standard "Insert/Update" steps only overwrite existing data, this step can distinguish between different types of changes: it can perform a Type 1 update (overwriting a value) or a Type 2 update (creating a new record with a version number and updated date range). By handling technical metadata like surrogate keys and effective dates automatically, it replaces several manual steps with one specialized configuration.
+> **Dimension lookup/update** step is the standard Pentaho Data Integration solution for managing Slowly Changing Dimensions (SCD). While standard "Insert/Update" steps only overwrite existing data, this step can distinguish between different types of changes: it can perform a Type 1 update (overwriting a value) or a Type 2 update (creating a new record with a version number and updated date range). By handling technical metadata like surrogate keys and effective dates automatically, it replaces several manual steps with one specialized configuration.
 
 1. On the **Design** tab, open the **Data Warehouse** folder and drag **Dimension lookup/update** onto
    the canvas. Create a hop from **Read customers** to **Dimension lookup/update**: hold `Shift` and
@@ -128,21 +130,21 @@ C:\Workshop\pdi-2hr\03-make-it-yours\04-track-history\customers.json
     with update type **Insert** (that's what makes changes create a new
     version instead of overwriting).
 
-3. Select **SQL** at the bottom. PDI writes the `CREATE TABLE` (keys,
+3. Select **SQL** at the bottom. Pentaho Data Integration writes the `CREATE TABLE` (keys,
    version, date range, indexes) for you — select **Execute**, then
    close.
 <div align="center">
 <figure>
-<img src="../_assets/images/1788435500408.png" alt="Simple SQL editor showing the CREATE TABLE dim_customer statement PDI generated, followed by the two CREATE INDEX statements" width="593">
+<img src="../_assets/images/1788435500408.png" alt="Simple SQL editor showing the CREATE TABLE dim_customer statement Pentaho Data Integration generated, followed by the two CREATE INDEX statements" width="593">
 <figcaption>Generate SQL</figcaption>
 </figure>
 </div>
 
 > **Critical:** Not everything executes perfectly first time. 
-> Expect issues to occur: The error comes from the DDL PDI generated: 
+> Expect issues to occur: The error comes from the DDL Pentaho Data Integration generated: 
 > the three string columns came out as TINYTEXT, and MySQL refuses to 
 > index a TEXT column without a key length (its a .json file). 
-> PDI maps a String field with no length to TINYTEXT.
+> Pentaho Data Integration maps a String field with no length to TINYTEXT.
 >
 > This can cause data loss or a broken environment.
 <div align="center">
@@ -172,7 +174,7 @@ CREATE INDEX idx_dim_customer_tk ON dim_customer (customer_tk);
 > **Note:** Read that generated DDL before you close it. That is the
 > entire Type 2 apparatus — surrogate key, version counter, validity window.
 
-## First load
+### 3. First load
 1. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog. 20 rows in, 20 dimension rows written.
 2. Verify from any MySQL client - DBeaver:
 3. Double-click the DBeaver icon to open the tool.
@@ -199,7 +201,7 @@ total**: your 20 customers plus a technical "unknown" row
 (`customer_tk` 0) the step inserts automatically, so later fact
 loads can point failed lookups somewhere instead of dropping rows.
 
-## Now change history
+### 4. Now change history
 
 1. Open:
 
@@ -257,7 +259,7 @@ report today's and they're in the North East — both correct.
 >    same instant, so the two validity windows meet exactly, with no
 >    gap and no overlap.
 > 4. Gave the new version its own number in `customer_tk`, the
->    *technical key* (also called a surrogate key): a key PDI allocates
+>    *technical key* (also called a surrogate key): a key Pentaho Data Integration allocates
 >    itself, so the warehouse's identifier never depends on the source
 >    system's.
 >
@@ -278,14 +280,16 @@ report today's and they're in the North East — both correct.
 **`[ ]`** After the edit and second run: 22 rows, C001 at version 2 with
       version 1's validity window closed.
 
-### Troubleshooting <!-- no-step -->
+::::
+
+## Troubleshooting <!-- no-step -->
 
 <details>
 
 <summary>Connection test fails: driver not found</summary>
 
 Download the MySQL Connector/J jar and drop it into
-`data-integration\lib\`, then restart PDI. Developer Edition doesn't
+`data-integration\lib\`, then restart Pentaho Data Integration. Developer Edition doesn't
 bundle every vendor's driver for licensing reasons — one jar, once.
 
 </details>

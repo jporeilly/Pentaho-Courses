@@ -9,7 +9,7 @@
 >
 > **What you'll do**
 >
-> * Read a CSV with **Text file input** (and let PDI detect the columns).
+> * Read a CSV with **Text file input** (and let Pentaho Data Integration detect the columns).
 > * Route rows with missing keys to a reject stream with **Filter rows**.
 > * Write the rejects to a CSV with **Text file output**.
 >
@@ -37,7 +37,9 @@ C:\Workshop\pdi-2hr\02-see-it-work\02-build-the-pipeline\
 </figure>
 </div>
 
-## Create a new transformation
+:::: tabs
+
+### 1. Create a new transformation
 
 Select **File > New > Transformation** (`Ctrl+N`). You get an
 empty canvas and, on the left, the **Design** palette — every
@@ -48,10 +50,10 @@ Select **File > Save as** and save it as:
 C:\Workshop\pdi-2hr\02-see-it-work\02-build-the-pipeline\check_keys.ktr
 ```
 
-## Read the file
+### 2. Read the file
 > **Note:**
 >
-> The **Text file input** step loads the day's sales orders from `sales_20260101.csv`. It parses the comma-separated values (CSV) and identifies the header row, converting the raw text file into a structured data stream that PDI can process.
+> The **Text file input** step loads the day's sales orders from `sales_20260101.csv`. It parses the comma-separated values (CSV) and identifies the header row, converting the raw text file into a structured data stream that Pentaho Data Integration can process.
 
 1. On the **Design** tab, open the **Input** folder and drag **Text file input**
    onto the canvas.
@@ -86,7 +88,7 @@ C:\Workshop\pdi-2hr\02-see-it-work\02-build-the-pipeline\sales_20260101.csv
 </figure>
 </div>
 
-6. Open the **Fields** tab and select **Get Fields** — PDI reads the file and detects every column and type for you. Accept the defaults.
+6. Open the **Fields** tab and select **Get Fields** — Pentaho Data Integration reads the file and detects every column and type for you. Accept the defaults.
 <div align="center">
 <figure>
 <img src="../_assets/images/1788365750951.png" alt="Text file input dialog, Fields tab after Get Fields: seven detected columns, order_date typed as Date with format yyyy-MM-dd" width="800">
@@ -116,7 +118,7 @@ C:\Workshop\pdi-2hr\02-see-it-work\02-build-the-pipeline\sales_20260101.csv
 >
 > Every row that flows through a transformation has a shape: the column names
 > , the data type of each one (text, whole number, decimal,
-> date), and the format, its dates and numbers are written in. PDI calls
+> date), and the format, its dates and numbers are written in. Pentaho Data Integration calls
 > that shape the row's **metadata**, and it travels along the hops
 > ahead of the data itself, so every step knows what is coming before
 > the first row arrives.
@@ -133,10 +135,10 @@ C:\Workshop\pdi-2hr\02-see-it-work\02-build-the-pipeline\sales_20260101.csv
 >
 > **Why it matters:** you got a typed description of a plain CSV in one
 > click, without writing a database table definition or a parser. Lab
-> 6 points this same step at a file PDI has never seen, and it works
+> 6 points this same step at a file Pentaho Data Integration has never seen, and it works
 > for exactly this reason.
 
-## Validate the keys
+### 3. Validate the keys
 > **Note:**
 >
 > Think of the **Filter rows** step as a fork in the road. It evaluates a condition and decides where each row should go next. In this lab, we use it to split the stream: valid records continue forward, while records that fail the validation (like a missing key) are diverted to a separate "rejects" file..
@@ -160,7 +162,7 @@ C:\Workshop\pdi-2hr\02-see-it-work\02-build-the-pipeline\sales_20260101.csv
    `product_id IS NOT NULL`, joined with **AND**.
 6. Select **OK**.
 
-## Send the rejects to a file
+### 4. Send the rejects to a file
 
 1. On the **Design** tab, open the **Output** folder and drag **Text file output** onto the canvas.
 2. Create a hop from **Keys present?** to **Text file output**. When Spoon
@@ -171,7 +173,7 @@ C:\Workshop\pdi-2hr\02-see-it-work\02-build-the-pipeline\sales_20260101.csv
 ```text
 C:\Workshop\pdi-2hr\out\rejects
 ```
-PDI adds the **Extension**, `txt`.
+Pentaho Data Integration adds the **Extension**, `txt`.
 
 <div align="center">
 <figure>
@@ -194,7 +196,7 @@ PDI adds the **Extension**, `txt`.
    and select the **TRUE** branch. Double-click **Dummy (do nothing)** and set
    **Step name** to `Valid rows`.
 
-## Run it
+### 5. Run it
 > **Note:**
 >
 > The **Run Options** dialog decides where and how this run happens: the **Run configuration** (**Pentaho local** runs it on this machine), the **Log level**, and values for any parameters. Running several copies of one step in parallel is a setting of the step, not of the run: right-click the step and select **Change Number of Copies to Start...**.
@@ -236,7 +238,7 @@ PDI adds the **Extension**, `txt`.
 > in micro batches: the filter was already deciding about row 1 while
 > the reader was still parsing row 20.
 >
-> This is why PDI copes with files far larger than the machine's
+> This is why Pentaho Data Integration copes with files far larger than the machine's
 > memory: only the rows in flight are held at any moment, never the
 > whole file. The transformation you just ran on 40 rows would run
 > unchanged on 40 million. You would wait longer, but nothing about
@@ -248,7 +250,10 @@ PDI adds the **Extension**, `txt`.
 > into a pipeline where everything works at once.
 
 >
-### Troubleshooting <!-- no-step -->
+
+::::
+
+## Troubleshooting <!-- no-step -->
 <details>
 
 <summary>The hop dialog didn't ask TRUE or FALSE</summary>

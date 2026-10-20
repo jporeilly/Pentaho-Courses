@@ -28,7 +28,9 @@
 
 ***
 
-## Data Source
+:::: tabs
+
+### 1. Data Source
 
 1. Select the perspective drop-down and select **Home**, then select **Create New > Analysis Report**. With other reports open, the same choices are under the **File** menu on the menu bar.
 2. In the **Select Data Source** dialog, select **SteelWheels: SteelWheelsSales**, and select **OK**.
@@ -36,7 +38,7 @@
 
 > **Success:** Checkpoint: a new, empty analysis opens, with **Available Fields** listed by the schema's dimensions.
 
-## Add Data Columns and Rows to the Analysis
+### 2. Add Data Columns and Rows to the Analysis
 
 Add Quantity, Territory, Country, and Years to the analysis.
 
@@ -49,7 +51,7 @@ Add Quantity, Territory, Country, and Years to the analysis.
 
 > **Success:** Checkpoint: the table shows Quantity by Territory and Country, with a column for each year.
 
-## Filter the Analysis Data
+### 3. Filter the Analysis Data
 
 Filter the analysis to EMEA and 2004.
 
@@ -61,13 +63,13 @@ Filter the analysis to EMEA and 2004.
 
 > **Success:** Checkpoint: the **Filters** panel shows the two filters, and the table shows only EMEA countries, in a single 2004 column.
 
-## Apply Conditional Formatting
+### 4. Apply Conditional Formatting
 
 1. Right-click the **Quantity** header, and select **Conditional Formatting > Data Bar: Green**.
 
 > **Success:** Checkpoint: each Quantity cell carries a green bar sized by its value.
 
-## Rank
+### 5. Rank
 
 Add a column with each country's rank by Quantity.
 
@@ -88,21 +90,21 @@ Add a column with each country's rank by Quantity.
 > **Why it matters:** a ranking that follows the filters for free is
 > the difference between an analysis tool and a spreadsheet export.
 
-## Add Totals
+### 6. Add Totals
 
 1. On the **Layout** panel, select **Report Options...**.
 2. In the **Report Options** dialog, select **Grand Totals for Columns**, and select **OK**.
 
 > **Success:** Checkpoint: in the table view, France has the most units (5,632, rank 1), Spain is second (4,962), and the Grand Total for EMEA in 2004 is 23,630.
 
-## Switch to Chart Format
+### 7. Switch to Chart Format
 
 1. Beside **View As**, select **Switch to chart format**.
 2. Select the arrow next to it, and select a chart type. Try a few; the picture at the top of this page is a **Treemap**, which needs no extra fields.
 
 > **Success:** Checkpoint: the chart shows the 2004 EMEA countries, sized by Quantity.
 
-## Save the Report
+### 8. Save the Report
 
 Analyzer has no separate title field: the title shown above the chart is the report's name, so saving gives the report its title, `EMEA Quantity Sold by Territory Yr2004`.
 
@@ -112,6 +114,8 @@ Analyzer has no separate title field: the title shown above the chart is the rep
 > **Success:** Checkpoint: the chart's title reads **EMEA Quantity Sold by Territory Yr2004**.
 
 ***
+
+::::
 
 ## Lab Files
 

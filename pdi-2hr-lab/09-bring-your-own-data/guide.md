@@ -6,7 +6,7 @@
 >
 > Everything so far ran on our sample retailer. This lab runs on
 > **your** data: any CSV, tab-delimited, or JSON file you have to
-> hand. The claim under test: *how quickly does PDI make sense of a
+> hand. The claim under test: *how quickly does Pentaho Data Integration make sense of a
 > file it has never seen?*
 >
 > **What you'll do**
@@ -36,7 +36,7 @@ C:\Workshop\pdi-2hr\04-see-it-scale\06-your-data\
 > Excel with **File > Save as > CSV** and use that. The lab works
 > with anything tabular.
 >
-> PDI can also read straight from cloud storage (S3, HTTP, and
+> Pentaho Data Integration can also read straight from cloud storage (S3, HTTP, and
 > other VFS locations) in the same Input steps — worth knowing when
 > you test this against your real systems after the session.
 

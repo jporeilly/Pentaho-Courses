@@ -10,7 +10,7 @@
   },
   "title": "PDI in 2 Hours",
   "description": "A hands-on try-it lab: build a real pipeline with Pentaho Data Integration Developer Edition — from first preview to change history and metadata injection — in one two-hour sitting.",
-  "version": "0.1.24",
+  "version": "0.1.25",
   "kind": "workshop",
   "platform": "windows11",
   "mode": "free",
@@ -66,7 +66,7 @@
   "moduleSummaries": [
     {
       "title": "Get Ready",
-      "summary": "Ten minutes before the clock starts: check your machine, start the sample database, and confirm PDI opens. Nothing in the two hours is spent on setup."
+      "summary": "Ten minutes before the clock starts: check your machine, start the sample database, and confirm Pentaho Data Integration opens. Nothing in the two hours is spent on setup."
     },
     {
       "title": "See It Work",

@@ -10,7 +10,7 @@
 >
 > **What you'll do**
 >
-> * Open a prepared transformation in PDI.
+> * Open a prepared transformation in Pentaho Data Integration.
 > * Preview live data at any point in the flow.
 > * See two bad rows get caught automatically.
 >
@@ -33,15 +33,17 @@
 > you build that pipeline. This workshop shows you the finished first
 > stage so you get an idea of how a pipeline is created.
 
-## Open the pipeline
+:::: tabs
 
-Select **Open in Pentaho Data Integration** below — PDI opens with the transformation loaded.
-(If PDI is already running, the file path is copied to your
-clipboard: switch to PDI and press `Ctrl+O`, `Ctrl+V`, `Enter`.)
+### 1. Open the pipeline
+
+Select **Open in Pentaho Data Integration** below — Pentaho Data Integration opens with the transformation loaded.
+(If Pentaho Data Integration is already running, the file path is copied to your
+clipboard: switch to Pentaho Data Integration and press `Ctrl+O`, `Ctrl+V`, `Enter`.)
 
 <button data-launch="spoon" data-path="files/win_preview.ktr">Open in Pentaho Data Integration</button>
 
-1. If the pipeline - `win_preview.ktr` - has not displayed in PDI, select **File > Open** (`Ctrl+O`) and open:
+1. If the pipeline - `win_preview.ktr` - has not displayed in Pentaho Data Integration, select **File > Open** (`Ctrl+O`) and open:
 
 Path to Transformation:
 
@@ -59,7 +61,7 @@ filter, and two end points — one for valid rows, one for rejects.
 </figure>
 </div>
 
-## Preview the valid rows
+### 2. Preview the valid rows
 
 1. Right-click **Valid rows** and select **Preview**.
 2. Select **Quick Launch**.
@@ -81,13 +83,13 @@ anything is written anywhere.
 > #### Preview is the real engine, not a simulation
 >
 > Three words first, because you will see them everywhere. The picture
-> on the canvas is a **Transformation**: PDI's name for a pipeline that
+> on the canvas is a **Transformation**: Pentaho Data Integration's name for a pipeline that
 > reads rows - **Extract**, changes them - **Transform** and writes them somewhere - **Loads**. Each box is a
 > **Step**, one thing the data passes through: read a file, keep or
 > drop rows, write a file. The arrows are **Hops**, and a hop carries
 > rows from one step to the next.
 >
-> When you selected **Preview**, PDI did not show you a cached sample or a
+> When you selected **Preview**, Pentaho Data Integration did not show you a cached sample or a
 > guess made at design time. It started the transformation,
 > ran every step over the sales data file, and stopped once it had enough
 > rows to show you, writing nothing anywhere.
@@ -99,10 +101,10 @@ anything is written anywhere.
 >
 > **Why it matters:** there is no build-then-deploy-then-check loop.
 > You look at real data at any point in the flow while you are still
-> designing, which is why work in PDI tends to converge in minutes
+> designing, which is why work in Pentaho Data Integration tends to converge in minutes
 > rather than in rounds of "add a log line, redeploy, look again".
 
-## Preview the rejects
+### 3. Preview the rejects
 
 1. Select **Close**.
 2. Right-click **Rejected rows**, select **Preview**, then select **Quick Launch**.
@@ -123,7 +125,7 @@ can inspect.
 >
 > **Why it matters:** The question of "what do we do with the rejected data?" is no longer a piece of error-handling code buried deep inside a program. Instead, it becomes a visible path on the canvas—one that anyone can point to during a review and one you can preview independently, just as you just did.
 
-## Look inside a step
+### 4. Look inside a step
 
 1. Double-click **Read yesterday's sales**. This is the entire
    configuration for parsing the file — delimiter, header, and on the
@@ -139,7 +141,7 @@ can inspect.
 >
 > #### The Dialog is the Source Code
 >
-> Nothing was generated from what you just looked at. The file you opened, `win_preview.ktr`, is PDI's transformation file, with the extension standing for "Kettle transformation," derived from the engine's original name. Inside it is plain text in XML: a list of steps, each step's settings, and the hops between them. The dialog you opened reads that text and writes it back, and the engine runs the same text. There is no build step, and no generated program that can drift away from what you see on the canvas.
+> Nothing was generated from what you just looked at. The file you opened, `win_preview.ktr`, is Pentaho Data Integration's transformation file, with the extension standing for "Kettle transformation," derived from the engine's original name. Inside it is plain text in XML: a list of steps, each step's settings, and the hops between them. The dialog you opened reads that text and writes it back, and the engine runs the same text. There is no build step, and no generated program that can drift away from what you see on the canvas.
 >
 > Two consequences worth noting are:
 >
@@ -159,7 +161,7 @@ can inspect.
 > * The transformation file can be version-controlled and changes can be compared and merged.
 > * The file is also what the server runs, making it the actual deployed version.
 
-## See the flow as a diagram
+### 5. See the flow as a diagram
 
 The same file, rendered by this guide's built-in viewer — select any
 step to see its configuration:
@@ -179,7 +181,9 @@ Try out the other AI options:
 - **Walkthrough:** Step-by-step walkthrough of the transformation.
 - **Explain this Step:** Select a step to view its properties and 'Explanation'.
 
-## Troubleshooting
+::::
+
+## Troubleshooting <!-- no-step -->
 
 <details>
 

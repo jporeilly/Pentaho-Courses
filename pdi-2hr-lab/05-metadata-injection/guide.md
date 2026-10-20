@@ -7,7 +7,7 @@
 > Your regions all send daily sales — but the north sends
 > comma-separated CSV, the south pipe-delimited text, and the EU
 > partner semicolons. The usual answer is one pipeline per feed,
-> maintained forever. PDI's answer is **metadata injection**: one
+> maintained forever. Pentaho Data Integration's answer is **metadata injection**: one
 > *template* pipeline whose configuration is filled in at runtime
 > from a control file.
 >
@@ -278,7 +278,7 @@ C:\Workshop\pdi-2hr\04-see-it-scale\05-one-pipeline-many-files\mi_template.ktr
 >
 > Everything you have built so far was a transformation: rows flow
 > through steps, and all the steps run at once. A **job** is the other
-> kind of thing PDI runs, and it works differently. A job is a list of
+> kind of thing Pentaho Data Integration runs, and it works differently. A job is a list of
 > things to do one after another: run this transformation, then that
 > one, then send an email if something failed. Its boxes are called
 > **entries** rather than steps, and its hops carry no rows; they say
@@ -296,7 +296,7 @@ C:\Workshop\pdi-2hr\04-see-it-scale\05-one-pipeline-many-files\mi_template.ktr
 >
 > **Why it matters:** transformations move data; jobs decide the
 > order, the repetition, and what happens when something goes wrong.
-> Every scheduled pipeline you will ever run in PDI is a job wrapped
+> Every scheduled pipeline you will ever run in Pentaho Data Integration is a job wrapped
 > around transformations, which is exactly what Lab 7 is about.
 
 <a class="pcm-btn" href="#tab-4-run-and-extend">**Open the next tab: Run and extend**</a>
@@ -306,7 +306,7 @@ C:\Workshop\pdi-2hr\04-see-it-scale\05-one-pipeline-many-files\mi_template.ktr
 >
 > In this workshop, you moved from a "hard-coded" development model to a **configuration-driven architecture**. By implementing Metadata Injection, you decoupled the transformation logic from the source file specifics. Instead of maintaining multiple transformations for different delimiters and file paths, you created a single, agnostic **Template** that can handle any file defined in your control source.
 >
-> This architecture ensures that when a new data source is added, you no longer need to modify PDI code; you update a row in your control file. This is the gold standard for scaling PDI projects to handle high-volume, varied data feeds.
+> This architecture ensures that when a new data source is added, you no longer need to modify Pentaho Data Integration code; you update a row in your control file. This is the gold standard for scaling Pentaho Data Integration projects to handle high-volume, varied data feeds.
 
 1. Run the **job**: press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog. In **Execution Results**, open the **Logging** tab: the injector executes three times, once per control row.
 <div align="center">

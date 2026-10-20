@@ -386,7 +386,7 @@ You can alter or remove these roles, and create roles based on need. Each defaul
 > written back into the repository.
 >
 > **Why it matters:** the console is one client among many — Report
-> Designer, PDI and scripts hit the same API — so a permission set here
+> Designer, Pentaho Data Integration and scripts hit the same API — so a permission set here
 > is the permission everywhere.
 
 ## Lab Files

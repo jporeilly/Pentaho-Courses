@@ -7,7 +7,7 @@
 > Real pipelines mix formats: your sales arrive as CSV, the customer
 > master is JSON from an API export, the product catalog and the
 > region reference are CSVs. You'll bring all four together on
-> one canvas — two ways, because PDI gives you two tools for it — and
+> one canvas — two ways, because Pentaho Data Integration gives you two tools for it — and
 > compute a margin, with no staging tables and no format wrangling.
 >
 > **What you'll do**
@@ -43,7 +43,9 @@ C:\Workshop\pdi-2hr\03-make-it-yours\03-enrich-and-join\
 </figure>
 </div>
 
-## Read the customer master (JSON)
+:::: tabs
+
+### 1. Read the customer master (JSON)
 > **Note:**
 >
 > **JSON input** step is used to parse and "flatten" semi-structured JSON data into a standard row-based stream. By using **JSONPath** expressions, you can navigate nested objects and extract specific fields into individual columns. This step is essential for normalizing data early in the pipeline, allowing you to join JSON-based data with other sources (like CSVs or SQL tables) as if they were all in the same format..
@@ -89,7 +91,7 @@ C:\Workshop\pdi-2hr\03-make-it-yours\03-enrich-and-join\customers.json
 </figure>
 </div>
 
-## Read the product catalog
+### 2. Read the product catalog
 
 1. On the **Design** tab, open the **Input** folder and drag another **Text file input** onto the canvas. Double-click it and set **Step name** to `Read products`.
 2. Point it at:
@@ -124,7 +126,7 @@ C:\Workshop\pdi-2hr\03-make-it-yours\03-enrich-and-join\products.csv
 </figure>
 </div>
 
-## Enrich with two lookups
+### 3. Enrich with two lookups
 
 > **Note:**
 >
@@ -185,7 +187,7 @@ C:\Workshop\pdi-2hr\03-make-it-yours\03-enrich-and-join\products.csv
 > engine's own memory, for the few seconds the run lasts: no staging
 > tables, no round trip, and one canvas that tells the whole story.
 
-## Compute revenue and margin
+### 4. Compute revenue and margin
 
 > **Note:**
 >
@@ -220,7 +222,7 @@ C:\Workshop\pdi-2hr\03-make-it-yours\03-enrich-and-join\products.csv
    region code, product, category — and a margin figure that never
    existed in any source file. Select **Close**.
 
-## Join the region reference (a merge join)
+### 5. Join the region reference (a merge join)
 > **Note:**
 >
 > **Merge join** step combines two data streams into one based on a common key, mirroring the behavior of a SQL Join. Unlike the **Stream lookup**—which loads a reference set into memory—**Merge join** processes data as it flows through the pipeline, making it highly efficient for large datasets. Because it relies on sequential processing, both input streams **must** be sorted by the join key (typically using a **Sort rows** step) before reaching the join. It supports Inner, Left Outer, Right Outer, and Full Outer join types.
@@ -301,14 +303,14 @@ an actual join.
 > That is the trade the two techniques on your canvas represent.
 > Stream lookup buys speed by holding one side in memory; Merge join
 > buys unlimited size by insisting on order. **Sorting is the price of
-> scale**, and PDI makes you pay it openly, with two Sort rows steps,
+> scale**, and Pentaho Data Integration makes you pay it openly, with two Sort rows steps,
 > rather than hiding a memory cliff behind a friendlier step.
 >
 > **Why it matters:** this is a relational join (inner, left,
 > right or full) done on rows in flight, against sources that were a
 > CSV, a JSON export and another CSV a few minutes ago.
 
-## Lookup or join? <!-- no-step -->
+#### Lookup or join?
 
 Your canvas now has both, side by side, on the same data — so this is
 the moment the difference sticks. They look interchangeable in a
@@ -337,7 +339,7 @@ Three practical consequences worth carrying home:
   why the customer and product enrichments upstream use lookups
   instead. Pick per case, not per habit.
 
-> **Note:** PDI has more joining steps than just Merge — **Database join** (a
+> **Note:** Pentaho Data Integration has more joining steps than just Merge — **Database join** (a
 > parameterized query per row), **Merge rows (diff)** for change
 > detection, and **Join rows** for a deliberate Cartesian product.
 > The Merge Join and the Join rows are the ones you'll reach for most.
@@ -352,7 +354,7 @@ Three practical consequences worth carrying home:
 
 >
 
-## Dummy Step
+### 6. Dummy Step
 
 > **Note:**
 >
@@ -363,7 +365,7 @@ Three practical consequences worth carrying home:
 2. Create a hop from **+ region** to **Enriched rows**.
 3. Save the transformation (`Ctrl+S`).
 
-## Run it
+### 7. Run it
 > **Note:**
 >
 > The **Run Options** dialog decides where and how this run happens: the **Run configuration** (**Pentaho local** runs it on this machine), the **Log level**, and values for any parameters. Running several copies of one step in parallel is a setting of the step, not of the run: right-click the step and select **Change Number of Copies to Start...**.
@@ -403,8 +405,9 @@ Three practical consequences worth carrying home:
    * [ ] 3 rows in the reject output.
    * [ ] Run finishes with no errors (every step shows a green check mark).
 
+::::
 
-### Troubleshooting <!-- no-step -->
+## Troubleshooting <!-- no-step -->
 <details>
 
 <summary>Stream lookup returns nulls for every row</summary>

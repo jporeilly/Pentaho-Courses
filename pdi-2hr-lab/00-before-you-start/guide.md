@@ -33,7 +33,7 @@ C:\Workshop\pdi-2hr
 
 Pentaho Data Integration itself is expected where the Pentaho 11
 installer puts it, `C:\Pentaho\design-tools\data-integration`. The
-**Start PDI** button below and the machine check
+**Start Pentaho Data Integration** button below and the machine check
 look there first, then elsewhere on this machine.
 
 > **Note:** **About the software you're using.** Pentaho Data
@@ -50,7 +50,7 @@ look there first, then elsewhere on this machine.
 
 ## Check your environment
 
-This panel probes the machine live — PDI, the MySQL container, and
+This panel probes the machine live — Pentaho Data Integration, the MySQL container, and
 the container tooling that runs it. Each row reports one of four states:
 
 * **<span class="pcm-c-ok">Green</span>** — the check passed; that piece is present and answering.
@@ -129,8 +129,8 @@ You don't need to provide the connection details for workshop - Track History wi
 
 <summary>Spoon doesn't start / closes immediately</summary>
 
-PDI needs a Java runtime. Pentaho 11 bundles Java 21 in
-`C:\Pentaho\java` and finds it by itself; if you installed PDI
+Pentaho Data Integration needs a Java runtime. Pentaho 11 bundles Java 21 in
+`C:\Pentaho\java` and finds it by itself; if you installed Pentaho Data Integration
 elsewhere, ensure `PENTAHO_JAVA_HOME` points at a Java 21 JDK and
 start it via **Spoon.bat**, not the jar directly.
 
@@ -143,7 +143,7 @@ start it via **Spoon.bat**, not the jar directly.
 The MySQL database runs in a container, and the container does not
 start itself after a reboot. The setup script starts the Podman
 machine, brings MySQL up and waits until it answers; it also puts the
-MySQL JDBC driver into PDI if it is missing. It is safe to run at any
+MySQL JDBC driver into Pentaho Data Integration if it is missing. It is safe to run at any
 time.
 
 **Start (or recreate) the container**
@@ -173,9 +173,9 @@ mysql -h localhost -P 3306 -u pentaho_admin -ppassword -e "SELECT 1;"
 
 <summary>The environment panel shows the MySQL JDBC driver red</summary>
 
-PDI 11 does not ship a MySQL driver, and Lab 4 cannot connect without
-one. The installer downloads it from Maven Central into PDI's `lib`
-folder when PDI is already installed; if you installed PDI afterwards,
+Pentaho Data Integration 11 does not ship a MySQL driver, and Lab 4 cannot connect without
+one. The installer downloads it from Maven Central into Pentaho Data Integration's `lib`
+folder when Pentaho Data Integration is already installed; if you installed Pentaho Data Integration afterwards,
 the setup script above does the same the next time it runs, or run
 the driver step on its own:
 
