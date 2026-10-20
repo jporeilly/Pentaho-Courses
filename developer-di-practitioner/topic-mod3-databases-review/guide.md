@@ -2,7 +2,7 @@
 
 <div class="pcm-intro">
 
-Relational databases are what PDI works with most. This topic covers the full CRUID set - Create, Read, Update, Insert-Update and Delete - plus slowly changing dimensions for loading a data warehouse.
+Relational databases are what Pentaho Data Integration works with most. This topic covers the full CRUID set - Create, Read, Update, Insert-Update and Delete - plus slowly changing dimensions for loading a data warehouse.
 
 </div>
 

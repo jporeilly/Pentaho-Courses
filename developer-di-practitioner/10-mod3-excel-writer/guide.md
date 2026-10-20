@@ -269,7 +269,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 | `m_may`       | Number | `#.#`  | `8`    | `2`       | none      |
 | `m_june`      | Number | `#.#`  | `8`    | `2`       | **both**  |
 
-8. In the `m_june` row, set **Trim type** to `both` if it shows `none`. The last line of `sales.txt` ends with a space after `667.49`, and no line break; trimming removes the space before PDI converts the text to a Number.
+8. In the `m_june` row, set **Trim type** to `both` if it shows `none`. The last line of `sales.txt` ends with a space after `667.49`, and no line break; trimming removes the space before Pentaho Data Integration converts the text to a Number.
 9. Select **Preview rows**, enter `100` rows, and select **OK**. The rows show in **Examine preview data**.
 
 > **Success:** Checkpoint: 4 rows, `Classic Cars`, `Motorcycles`, `Trains` and `Planes`, each with six monthly figures.
@@ -562,13 +562,13 @@ Set-Location C:\Pentaho\design-tools\data-integration
 </figure>
 </div>
 
-5. Close the workbook before you run the transformation again: while your spreadsheet application has the file open, PDI can't replace it.
+5. Close the workbook before you run the transformation again: while your spreadsheet application has the file open, Pentaho Data Integration can't replace it.
 
 :::::
 
 ## Lab Files
 
-Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches PDI with the file loaded. If PDI is already running, the path is copied to your clipboard — switch to PDI and press `Ctrl+O`, `Ctrl+V`, `Enter`.
+Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches Pentaho Data Integration with the file loaded. If Pentaho Data Integration is already running, the path is copied to your clipboard — switch to Pentaho Data Integration and press `Ctrl+O`, `Ctrl+V`, `Enter`.
 
 [expenses.txt](./files/expenses.txt)
 

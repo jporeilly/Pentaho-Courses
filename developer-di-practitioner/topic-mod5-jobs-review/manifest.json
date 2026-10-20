@@ -1,6 +1,6 @@
 {
   "title": "Review Jobs",
-  "description": "Jobs in PDI — orchestrating transformations and other jobs with control-flow, conditional hops, and order of execution.",
+  "description": "Jobs in Pentaho Data Integration — orchestrating transformations and other jobs with control-flow, conditional hops, and order of execution.",
   "order": 43,
   "kind": "page",
   "stepCount": 3,

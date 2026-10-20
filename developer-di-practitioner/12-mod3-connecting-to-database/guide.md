@@ -9,12 +9,12 @@
 > **What you’ll do**
 > 
 > * Check the database is reachable (optional: Adminer on a lab VM, or DBeaver)
-> * Install the MySQL JDBC driver, if PDI doesn't have it yet
-> * Create, test, share and explore a PDI database connection
+> * Install the MySQL JDBC driver, if Pentaho Data Integration doesn't have it yet
+> * Create, test, share and explore a Pentaho Data Integration database connection
 > 
 > **Prerequisites**
 > 
-> * PDI (Spoon) installed and working
+> * Pentaho Data Integration (Spoon) installed and working
 > * A running **MySQL** `sampledata` database on port `3306` - on a lab
 >   VM the course's lab kit starts it at sign-in. **Not** the
 >   HSQLDB/Hypersonic `sampledata` bundled with Pentaho, which is
@@ -31,7 +31,7 @@
 >
 > #### Check the Database First
 > 
-> This part is optional. Confirming the database answers, outside PDI, means a failed **Test** later is a PDI setting, not the database.
+> This part is optional. Confirming the database answers, outside Pentaho Data Integration, means a failed **Test** later is a Pentaho Data Integration setting, not the database.
 >
 > Use the course's MySQL `sampledata`, not Pentaho's bundled sample database, which has no writable user. On a lab VM it is already running: the guide's lab kit started it at sign-in, and the environment panel on [Before You Start](../00-before-you-start/guide.md) shows it. On your own machine, Before You Start's setup tabs bring it up on `3306`, with Steel Wheels loaded and the `pentaho_admin` login used below.
 
@@ -130,7 +130,7 @@ where COUNTRY = 'USA' and CITY = 'NYC';
 >
 > #### Install the JDBC Driver
 > 
-> PDI does not ship all JDBC drivers, and **PDI 11 does not include the
+> Pentaho Data Integration does not ship all JDBC drivers, and **Pentaho Data Integration 11 does not include the
 > MySQL driver this course needs**. Without it, the **Test** in the next
 > part fails. On a workshop VM it may already be there: look for
 > `mysql-connector-j-*.jar` in the folder below, or look at the **MySQL
@@ -138,7 +138,7 @@ where COUNTRY = 'USA' and CITY = 'NYC';
 
 <div class="pcm-embed-card" data-href="https://docs.pentaho.com/install/jdbc-drivers-reference" data-title="JDBC drivers reference | Pentaho" data-thumb="../_assets/embeds/1c4d9f7d98fc.png"></div>
 
-1. Download the MySQL driver, `mysql-connector-j-8.4.0.jar`, from Maven Central straight into PDI's `lib` folder. In PowerShell, run:
+1. Download the MySQL driver, `mysql-connector-j-8.4.0.jar`, from Maven Central straight into Pentaho Data Integration's `lib` folder. In PowerShell, run:
 
 ```powershell
 Invoke-WebRequest https://repo1.maven.org/maven2/com/mysql/mysql-connector-j/8.4.0/mysql-connector-j-8.4.0.jar -OutFile C:\Pentaho\design-tools\data-integration\lib\mysql-connector-j-8.4.0.jar
@@ -148,7 +148,7 @@ For another database, find its driver here:
 
 <div class="pcm-embed-card" data-href="https://dbschema.com/databases.html" data-title="DbSchema Supported Databases" data-description="Explore all SQL and NoSQL databases supported by DbSchema. Visually design schemas, create ER diagrams, synchronize changes, and document your database — for any database engine." data-thumb="../_assets/embeds/6c6ef7a1bcc8.png"></div>
 
-2. If you downloaded the driver some other way, from <https://repo1.maven.org/maven2/com/mysql/mysql-connector-j/8.4.0/mysql-connector-j-8.4.0.jar> for example, copy the JAR into your PDI install's `lib` folder:
+2. If you downloaded the driver some other way, from <https://repo1.maven.org/maven2/com/mysql/mysql-connector-j/8.4.0/mysql-connector-j-8.4.0.jar> for example, copy the JAR into your Pentaho Data Integration install's `lib` folder:
 
 `C:\Pentaho\design-tools\data-integration\lib\`
 
@@ -166,7 +166,7 @@ Get-ChildItem C:\Pentaho\design-tools\data-integration\lib\mysql-connector-j-*.j
 
 > **Note:**
 >
-> #### Define the Connection in PDI
+> #### Define the Connection in Pentaho Data Integration
 > 
 > Create the connection once.\
 > Reuse it in steps like **Table input**, **Table output**, and **Database lookup**.
@@ -214,7 +214,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 > **Warning:** Use the MySQL driver. A MariaDB driver newer than 2.7.x can fail with a **fetch size** error against this database.
 
-5. In the list on the left, select **Options**. The **Parameters** grid already lists `defaultFetchSize` and `useCursorFetch`, PDI's defaults for MySQL.
+5. In the list on the left, select **Options**. The **Parameters** grid already lists `defaultFetchSize` and `useCursorFetch`, Pentaho Data Integration's defaults for MySQL.
 6. Fill the **Parameters** grid so it holds these four rows. Add the two that are missing, `useSSL` and `allowPublicKeyRetrieval`, on the empty rows:
 
 | Parameter                 | Value   |
@@ -275,7 +275,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 <div align="center">
 <figure>
 <img src="../_assets/images/share-database-connection.png" alt="Spoon's View tab with the right-click menu of MySQL:sampledata [File] open: Edit, Move to System, Copy to System, Delete, SQL Editor, Clear DB Cache and Explore" width="468">
-<figcaption>The connection's right-click menu (earlier PDI version)</figcaption>
+<figcaption>The connection's right-click menu (earlier Pentaho Data Integration version)</figcaption>
 </figure>
 </div>
 
@@ -381,7 +381,7 @@ where COUNTRY = 'USA' and CITY = 'NYC';
 
 ## Lab Files
 
-Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches PDI with the file loaded. If PDI is already running, the path is copied to your clipboard — switch to PDI and press `Ctrl+O`, `Ctrl+V`, `Enter`.
+Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches Pentaho Data Integration with the file loaded. If Pentaho Data Integration is already running, the path is copied to your clipboard — switch to Pentaho Data Integration and press `Ctrl+O`, `Ctrl+V`, `Enter`.
 
 ### Solution <!-- no-step -->
 

@@ -10,7 +10,7 @@ Object storage as a first-class data source. Read from and write to MinIO over t
 
 * The three ways storage is presented: block, file and object
 * Why object storage suits data pipelines, and the products you'll meet: MinIO, Amazon S3, Hitachi Content Platform
-* How PDI reaches object storage: a **VFS connection** and a `pvfs://` path, used by ordinary file steps
+* How Pentaho Data Integration reaches object storage: a **VFS connection** and a `pvfs://` path, used by ordinary file steps
 
 > **Note:**
 >
@@ -39,8 +39,8 @@ Object storage as a first-class data source. Read from and write to MinIO over t
 
 Because all three speak the S3 API, a transformation built against MinIO in the lab works against S3 or HCP once the connection points there.
 
-**How PDI reaches it**
+**How Pentaho Data Integration reaches it**
 
-PDI talks to object storage through its virtual file system (VFS). You define a **VFS connection** once, with its endpoint and credentials. Steps then address files in it with a `pvfs://<connection>/<bucket>/<path>` address, so ordinary file steps such as **Text file input** read from a bucket as if it were a folder. The [MinIO](../19-mod3-minio/guide.md) workshop sets one up.
+Pentaho Data Integration talks to object storage through its virtual file system (VFS). You define a **VFS connection** once, with its endpoint and credentials. Steps then address files in it with a `pvfs://<connection>/<bucket>/<path>` address, so ordinary file steps such as **Text file input** read from a bucket as if it were a folder. The [MinIO](../19-mod3-minio/guide.md) workshop sets one up.
 
 <div class="pcm-embed-card" data-href="https://docs.pentaho.com/pdia-data-integration/extracting-data-into-pdi/virtual-file-system-browser" data-title="Connecting to Virtual File Systems | Pentaho"></div>

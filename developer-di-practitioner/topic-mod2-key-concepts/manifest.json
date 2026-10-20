@@ -1,6 +1,6 @@
 {
   "title": "Key Concepts",
-  "description": "Core PDI concepts and terminology — transformations, jobs, steps, hops, rows, and the run/preview cycle. The vocabulary every lab assumes.",
+  "description": "Core Pentaho Data Integration concepts and terminology — transformations, jobs, steps, hops, rows, and the run/preview cycle. The vocabulary every lab assumes.",
   "order": 5,
   "kind": "page",
   "stepCount": 5,

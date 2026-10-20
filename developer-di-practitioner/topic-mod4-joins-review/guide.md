@@ -8,13 +8,13 @@ Bringing two streams together by key. Database joins, join rows (cartesian-style
 
 **What You'll Learn**
 
-* The four join steps in PDI, and what each needs from its inputs
+* The four join steps in Pentaho Data Integration, and what each needs from its inputs
 * The four join types (inner, left outer, right outer, full outer)
 * How to choose a join by the size and shape of your data
 
 > **Note:** **Introduction**
 >
-> A join combines rows from two sources into one row, matched on a key or a condition. In PDI the join happens in the transformation, between streams, so the sources can be files, tables, web services or anything else a step can read. Each join step suits a different situation:
+> A join combines rows from two sources into one row, matched on a key or a condition. In Pentaho Data Integration the join happens in the transformation, between streams, so the sources can be files, tables, web services or anything else a step can read. Each join step suits a different situation:
 >
 > | Step | Joins | Needs | Use it when |
 > | --- | --- | --- | --- |

@@ -35,14 +35,14 @@
 > 
 > **Start** is where a job begins. Every job has exactly one, and the hops leaving it are always unconditional. Its settings include a simple repeat schedule, but that only lasts while Spoon or Kitchen keeps running; schedule production jobs with the Pentaho Server instead.
 
-1. Start Spoon with the **Start PDI** button below, or from PowerShell:
+1. Start Spoon with the **Start Pentaho Data Integration** button below, or from PowerShell:
 
 ```powershell
 Set-Location C:\Pentaho\design-tools\data-integration
 .\spoon.bat
 ```
 
-<button data-launch="spoon" data-path="">Start PDI</button>
+<button data-launch="spoon" data-path="">Start Pentaho Data Integration</button>
 
 2. Copy `tr_hello_world.ktr` from the lab's `solution` folder, `C:\Workshop-DI-Practitioner\05-enterprise-solution\01-jobs\29-mod5-hello-world-job\solution`, into the lab folder, `C:\Workshop-DI-Practitioner\05-enterprise-solution\01-jobs\29-mod5-hello-world-job`. The job you build looks for the transformation in its own folder.
 
@@ -154,7 +154,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 > engine inside the job, waited for it to finish, and turned its outcome
 > into the entry's result. **Success** then ended the job as successful.
 >
-> **Why it matters:** this split is PDI's design rule. Rows and data
+> **Why it matters:** this split is Pentaho Data Integration's design rule. Rows and data
 > logic belong in transformations; order, conditions, retries and
 > notifications belong in jobs. Keep them apart and each stays simple.
 
@@ -162,7 +162,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 ## Lab Files
 
-Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches PDI with the file loaded. If PDI is already running, the path is copied to your clipboard — switch to PDI and press `Ctrl+O`, `Ctrl+V`, `Enter`.
+Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches Pentaho Data Integration with the file loaded. If Pentaho Data Integration is already running, the path is copied to your clipboard — switch to Pentaho Data Integration and press `Ctrl+O`, `Ctrl+V`, `Enter`.
 
 ### Solution <!-- no-step -->
 

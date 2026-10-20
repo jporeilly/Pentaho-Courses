@@ -61,14 +61,14 @@
 > 
 > **CSV file input** reads a delimited file fast, with fewer options than **Text file input**.
 
-1. Start Spoon with the **Start PDI** button below, or from PowerShell:
+1. Start Spoon with the **Start Pentaho Data Integration** button below, or from PowerShell:
 
 ```powershell
 Set-Location C:\Pentaho\design-tools\data-integration
 .\spoon.bat
 ```
 
-<button data-launch="spoon" data-path="">Start PDI</button>
+<button data-launch="spoon" data-path="">Start Pentaho Data Integration</button>
 
 2. Select **File > New > Transformation** (`Ctrl+N`).
 3. Select **File > Save as** and save it as `tr_write_database.ktr` in `C:\Workshop-DI-Practitioner\03-data-sources\02-databases\14-mod3-writing-to-a-database`, next to `sales_data.csv` and `orders.txt`.
@@ -192,7 +192,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 > That is why the **Warning** above matters. **Get Fields** sampled
 > the start of the file to guess lengths, and the DDL inherits the
 > guess. A longer value in row 50,000 is rejected by the database, not
-> by PDI.
+> by Pentaho Data Integration.
 >
 > **Why it matters:** the stream's shape and the table's shape came
 > from one definition, so they can't disagree today. Set lengths
@@ -449,7 +449,7 @@ Select **Get fields** on the **Database fields** tab first.
 
 ## Lab Files
 
-Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches PDI with the file loaded. If PDI is already running, the path is copied to your clipboard — switch to PDI and press `Ctrl+O`, `Ctrl+V`, `Enter`.
+Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches Pentaho Data Integration with the file loaded. If Pentaho Data Integration is already running, the path is copied to your clipboard — switch to Pentaho Data Integration and press `Ctrl+O`, `Ctrl+V`, `Enter`.
 
 [orders.txt](./files/orders.txt)
 

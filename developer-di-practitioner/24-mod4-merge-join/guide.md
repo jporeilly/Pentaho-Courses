@@ -42,14 +42,14 @@
 > 
 > **Data grid** holds rows typed into the step itself. Its **Meta** tab defines the fields and their types; its **Data** tab holds the values, typed as text and converted to those types.
 
-1. Start Spoon with the **Start PDI** button below, or from PowerShell:
+1. Start Spoon with the **Start Pentaho Data Integration** button below, or from PowerShell:
 
 ```powershell
 Set-Location C:\Pentaho\design-tools\data-integration
 .\spoon.bat
 ```
 
-<button data-launch="spoon" data-path="">Start PDI</button>
+<button data-launch="spoon" data-path="">Start Pentaho Data Integration</button>
 
 2. Select **File > New > Transformation** (`Ctrl+N`).
 3. Select **File > Save as** and save it as `tr_merge_join_overview.ktr` in `C:\Workshop-DI-Practitioner\04-enriching-the-dataset\02-joins\24-mod4-merge-join`.
@@ -156,7 +156,7 @@ Both grids are already in `id` order, as **Merge join** needs.
 </figure>
 </div>
 
-> **Success:** Checkpoint: 2 rows, ids `1` and `3`, the ids in both grids. The output has both sides' fields, `id`, `value`, `id_1` and `value_2`: PDI adds `_1` to a second-step field whose name is already taken.
+> **Success:** Checkpoint: 2 rows, ids `1` and `3`, the ids in both grids. The output has both sides' fields, `id`, `value`, `id_1` and `value_2`: Pentaho Data Integration adds `_1` to a second-step field whose name is already taken.
 
 4. Double-click **Merge Join**, set **Join Type** to `LEFT OUTER`, and select **OK**. Then run again and open the **Preview data** tab of **Dummy (do nothing)**.
 5. Repeat action 4 with `RIGHT OUTER`, then with `FULL OUTER`.
@@ -322,7 +322,7 @@ Text file output pads to the field lengths. Select **Minimal width** on its **Fi
 
 ## Lab Files
 
-Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches PDI with the file loaded. If PDI is already running, the path is copied to your clipboard — switch to PDI and press `Ctrl+O`, `Ctrl+V`, `Enter`.
+Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches Pentaho Data Integration with the file loaded. If Pentaho Data Integration is already running, the path is copied to your clipboard — switch to Pentaho Data Integration and press `Ctrl+O`, `Ctrl+V`, `Enter`.
 
 [description.txt](./files/description.txt)
 

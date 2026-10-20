@@ -33,14 +33,14 @@
 >
 > Two branches leave **Start**: one runs **Transformation A**, then **Transformation C**, then **Success**; the other runs **Transformation B** alone. All three entries run the same Hello World transformation.
 
-1. Start Spoon with the **Start PDI** button below, or from PowerShell:
+1. Start Spoon with the **Start Pentaho Data Integration** button below, or from PowerShell:
 
 ```powershell
 Set-Location C:\Pentaho\design-tools\data-integration
 .\spoon.bat
 ```
 
-<button data-launch="spoon" data-path="">Start PDI</button>
+<button data-launch="spoon" data-path="">Start Pentaho Data Integration</button>
 
 2. Copy `tr_hello_world.ktr` from the lab's `solution` folder, `C:\Workshop-DI-Practitioner\05-enterprise-solution\01-jobs\30-mod5-order-of-execution\solution`, into the lab folder, `C:\Workshop-DI-Practitioner\05-enterprise-solution\01-jobs\30-mod5-order-of-execution`.
 3. Select **File > New > Job** (`Ctrl+Alt+N`).
@@ -151,7 +151,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 > To go back to running one entry at a time after a parallel split,
 > put the parallel part in a sub-job.
 >
-> The warning is serious: PDI does no concurrency checking between
+> The warning is serious: Pentaho Data Integration does no concurrency checking between
 > parallel branches. Two branches writing the same file or table can
 > interfere.
 >
@@ -163,7 +163,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 ## Lab Files
 
-Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches PDI with the file loaded. If PDI is already running, the path is copied to your clipboard — switch to PDI and press `Ctrl+O`, `Ctrl+V`, `Enter`.
+Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches Pentaho Data Integration with the file loaded. If Pentaho Data Integration is already running, the path is copied to your clipboard — switch to Pentaho Data Integration and press `Ctrl+O`, `Ctrl+V`, `Enter`.
 
 ### Solution <!-- no-step -->
 

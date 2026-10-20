@@ -19,7 +19,7 @@ Reading and writing is rarely enough. Most pipelines need to transform data in f
 >
 > *Enrichment* adds to each row what it doesn't carry itself: a product's name next to its code, a customer's region next to an order, a flag that says whether a value changed since yesterday. The data comes from another stream, a database table or a calculation.
 >
-> This module covers the four ways PDI does it:
+> This module covers the four ways Pentaho Data Integration does it:
 >
 > | Topic | Steps | What they do |
 > | --- | --- | --- |

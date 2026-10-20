@@ -15,7 +15,7 @@
 > * Preview data from a step
 > * Run the transformation and review the results
 >
-> **Prerequisites:** Pentaho Data Integration installed and configured (see [Configuring PDI](../01-mod1-configuring-pdi/guide.md))
+> **Prerequisites:** Pentaho Data Integration installed and configured (see [Configuring Pentaho Data Integration](../01-mod1-configuring-pdi/guide.md))
 >
 > **Estimated time:** 25 minutes
 
@@ -42,7 +42,7 @@
 >
 > **Generate rows** is also useful as a one-row "starter" step.
 
-1. Start Spoon with the **Start PDI** button below, or from PowerShell:
+1. Start Spoon with the **Start Pentaho Data Integration** button below, or from PowerShell:
 
 ```powershell
 Set-Location C:\Pentaho\design-tools\data-integration
@@ -137,7 +137,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 >
 > #### Hops and Notes
 >
-> Hops define row flow between steps. PDI buffers rows between steps as the transformation runs. A note is text on the canvas that documents the flow for the next person who opens the file.
+> Hops define row flow between steps. Pentaho Data Integration buffers rows between steps as the transformation runs. A note is text on the canvas that documents the flow for the next person who opens the file.
 
 1. Create a hop from **gr_hello-world** to **Dummy (do nothing)**: hold `Shift` and drag from one step to the other. An arrow now joins the two steps.
 
@@ -334,7 +334,7 @@ In the screenshot the whole run took 48 ms, 30 of them initializing the transfor
 
 ## Lab Files
 
-Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches PDI with the file loaded. If PDI is already running, the path is copied to your clipboard — switch to PDI and press `Ctrl+O`, `Ctrl+V`, `Enter`.
+Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches Pentaho Data Integration with the file loaded. If Pentaho Data Integration is already running, the path is copied to your clipboard — switch to Pentaho Data Integration and press `Ctrl+O`, `Ctrl+V`, `Enter`.
 
 ### Solution <!-- no-step -->
 

@@ -202,7 +202,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 >
 > Normally nothing checks this. Rows of a different shape flow on, and
 > the first symptom is a wrong value or an error far downstream. Select
-> **Enable safe mode** in **Run Options** and PDI compares every row
+> **Enable safe mode** in **Run Options** and Pentaho Data Integration compares every row
 > with the first one it saw, stopping with an error such as "you're
 > mixing rows with different layout" at the step where the streams
 > meet.
@@ -219,7 +219,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 ## Lab Files
 
-Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches PDI with the file loaded. If PDI is already running, the path is copied to your clipboard — switch to PDI and press `Ctrl+O`, `Ctrl+V`, `Enter`.
+Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches Pentaho Data Integration with the file loaded. If Pentaho Data Integration is already running, the path is copied to your clipboard — switch to Pentaho Data Integration and press `Ctrl+O`, `Ctrl+V`, `Enter`.
 
 [description.txt](./files/description.txt)
 

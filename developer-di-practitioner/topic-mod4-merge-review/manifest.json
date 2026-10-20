@@ -1,6 +1,6 @@
 {
   "title": "Review Merge",
-  "description": "Merging two streams in PDI — Merge Streams for combining sorted inputs row-by-row and Merge Streams (diff) for change detection.",
+  "description": "Merging two streams in Pentaho Data Integration — Merge Streams for combining sorted inputs row-by-row and Merge Streams (diff) for change detection.",
   "order": 29,
   "kind": "page",
   "stepCount": 2,

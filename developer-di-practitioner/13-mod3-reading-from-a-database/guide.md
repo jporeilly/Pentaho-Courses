@@ -112,7 +112,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 > **Why it matters:** push filters, joins and aggregations into the
 > SQL and the database does that work with its indexes, while the
 > transformation only sees the rows that matter. It is the biggest
-> single performance lever in PDI, and it costs nothing to use.
+> single performance lever in Pentaho Data Integration, and it costs nothing to use.
 
 ### 2. Calculator
 
@@ -312,13 +312,13 @@ Fix the types on the **Meta-data** tab of **Select values**, then run again.
 
 <summary>Out of memory during the sort</summary>
 
-Lower **Sort size (rows in memory)** in **Sort rows**, or give PDI more memory. PDI then writes sorted chunks to temporary files and merges them.
+Lower **Sort size (rows in memory)** in **Sort rows**, or give Pentaho Data Integration more memory. Pentaho Data Integration then writes sorted chunks to temporary files and merges them.
 
 </details>
 
 ## Lab Files
 
-Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches PDI with the file loaded. If PDI is already running, the path is copied to your clipboard — switch to PDI and press `Ctrl+O`, `Ctrl+V`, `Enter`.
+Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches Pentaho Data Integration with the file loaded. If Pentaho Data Integration is already running, the path is copied to your clipboard — switch to Pentaho Data Integration and press `Ctrl+O`, `Ctrl+V`, `Enter`.
 
 ### Solution <!-- no-step -->
 

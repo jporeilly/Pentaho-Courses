@@ -14,7 +14,7 @@ When the visual steps don't quite fit. Formula handles spreadsheet-style express
 
 > **Note:** **Introduction**
 >
-> Most calculations need no code at all. PDI offers a ladder of steps, and the rule of thumb is to use the lowest rung that does the job: the higher you go, the more you can express, and the harder the transformation is for the next person to read.
+> Most calculations need no code at all. Pentaho Data Integration offers a ladder of steps, and the rule of thumb is to use the lowest rung that does the job: the higher you go, the more you can express, and the harder the transformation is for the next person to read.
 >
 > | Step | You write | Good for |
 > | --- | --- | --- |
@@ -35,7 +35,7 @@ When the visual steps don't quite fit. Formula handles spreadsheet-style express
 > * `[a]+[b]`
 > * `IF([booking_type]="R";[b]-[a];0)`
 > * `CONCATENATE([first_name];" ";[last_name])`
-> * `INT([amount]*100+0.5)/100`, rounding to the cent (PDI 11's Formula has no `ROUND`)
+> * `INT([amount]*100+0.5)/100`, rounding to the cent (Pentaho Data Integration 11's Formula has no `ROUND`)
 >
 > Each formula creates a new field, or replaces one with **Replace value**.
 >
@@ -67,7 +67,7 @@ When the visual steps don't quite fit. Formula handles spreadsheet-style express
 
 > **Note:** **User defined Java class**
 >
-> **User defined Java class** lets you write the logic of a whole step in Java: you define the methods that process each row, and PDI compiles the class when the transformation starts, with the [Janino](https://janino-compiler.github.io/janino/) compiler. It is for logic that is too large for an expression, not for building full plugins inside a step.
+> **User defined Java class** lets you write the logic of a whole step in Java: you define the methods that process each row, and Pentaho Data Integration compiles the class when the transformation starts, with the [Janino](https://janino-compiler.github.io/janino/) compiler. It is for logic that is too large for an expression, not for building full plugins inside a step.
 
 <div align="center">
 <figure>

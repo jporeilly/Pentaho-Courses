@@ -41,7 +41,7 @@
 >
 > Start from the transformation you built in [Hello World](../03-mod2-hello-world/guide.md). **Generate rows** makes test data, which makes it a quick way to try out logging and error handling. To create an error, you declare `message` as an Integer while its value stays `hello world`, which is not a number.
 
-1. Start Spoon with the **Start PDI** button below, or from PowerShell:
+1. Start Spoon with the **Start Pentaho Data Integration** button below, or from PowerShell:
 
 ```powershell
 Set-Location C:\Pentaho\design-tools\data-integration
@@ -146,7 +146,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 >
 > #### pdi.log
 >
-> Spoon also writes the log of every run to `pdi.log`, in PDI's `logs` folder. A run started by Pan or Kitchen writes there too, so the file is where you look when no Spoon window was open. Each day starts a new `pdi.log`; the previous day's is kept as `pdi.<date>.log`.
+> Spoon also writes the log of every run to `pdi.log`, in Pentaho Data Integration's `logs` folder. A run started by Pan or Kitchen writes there too, so the file is where you look when no Spoon window was open. Each day starts a new `pdi.log`; the previous day's is kept as `pdi.<date>.log`.
 
 1. In PowerShell, run:
 
@@ -186,7 +186,7 @@ Next: [Error Handling](../05-mod2-error-handling/guide.md) - keep the rows that 
 
 ## Lab Files
 
-Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches PDI with the file loaded. If PDI is already running, the path is copied to your clipboard — switch to PDI and press `Ctrl+O`, `Ctrl+V`, `Enter`.
+Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches Pentaho Data Integration with the file loaded. If Pentaho Data Integration is already running, the path is copied to your clipboard — switch to Pentaho Data Integration and press `Ctrl+O`, `Ctrl+V`, `Enter`.
 
 ### Solution <!-- no-step -->
 

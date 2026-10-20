@@ -45,14 +45,14 @@
 >
 > Read the changes from `employees_update.txt`: a header line and two employees.
 
-1. Start Spoon with the **Start PDI** button below, or from PowerShell:
+1. Start Spoon with the **Start Pentaho Data Integration** button below, or from PowerShell:
 
 ```powershell
 Set-Location C:\Pentaho\design-tools\data-integration
 .\spoon.bat
 ```
 
-<button data-launch="spoon" data-path="">Start PDI</button>
+<button data-launch="spoon" data-path="">Start Pentaho Data Integration</button>
 
 2. Select **File > New > Transformation** (`Ctrl+N`).
 3. Select **File > Save as** and save it as `tr_employee_update.ktr` in `C:\Workshop-DI-Practitioner\03-data-sources\02-databases\15-mod3-table-update`, the folder that holds `employees_update.txt`.
@@ -253,7 +253,7 @@ A **Table field** in **Update fields** still has a stream name, such as `EXT` or
 
 ## Lab Files
 
-Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches PDI with the file loaded. If PDI is already running, the path is copied to your clipboard — switch to PDI and press `Ctrl+O`, `Ctrl+V`, `Enter`.
+Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches Pentaho Data Integration with the file loaded. If Pentaho Data Integration is already running, the path is copied to your clipboard — switch to Pentaho Data Integration and press `Ctrl+O`, `Ctrl+V`, `Enter`.
 
 `employee_table_backup.sql` puts `EMPLOYEES` back as it shipped (23 rows). Run it in your database tool (Adminer or DBeaver) to repeat this workshop or the next one.
 

@@ -1,10 +1,10 @@
-# Configuring PDI
+# Configuring Pentaho Data Integration
 
 > **Warning:**
 >
-> #### Workshop - Configuring PDI
+> #### Workshop - Configuring Pentaho Data Integration
 >
-> Set up Spoon, the PDI designer, before you build anything in it: a few defaults that save time every day, and a look round the workspace you will use in every workshop.
+> Set up Spoon, the Pentaho Data Integration designer, before you build anything in it: a few defaults that save time every day, and a look round the workspace you will use in every workshop.
 >
 > **What you'll do**
 >
@@ -100,7 +100,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 > **Success:** Checkpoint: the new transformation's canvas shows a grid of dots. Close the empty transformation without saving it.
 
-<div class="pcm-embed-card" data-href="https://docs.pentaho.com/pdia-data-integration/customizing-pdi" data-title="Customizing PDI | Pentaho Documentation"></div>
+<div class="pcm-embed-card" data-href="https://docs.pentaho.com/pdia-data-integration/customizing-pdi" data-title="Customizing Pentaho Data Integration | Pentaho Documentation"></div>
 
 ### 4. Switch perspectives
 
@@ -119,7 +119,7 @@ A perspective is a whole-window layout for one kind of work. You design transfor
 
 > **Success:** Checkpoint: **Data Integration** has a check mark, and **Scheduler** can't be selected.
 
-<div class="pcm-embed-card" data-href="https://docs.pentaho.com/pdia-data-integration/use-the-pdi-client-perspectives" data-title="Use the PDI client perspectives | Pentaho Documentation"></div>
+<div class="pcm-embed-card" data-href="https://docs.pentaho.com/pdia-data-integration/use-the-pdi-client-perspectives" data-title="Use the Pentaho Data Integration client perspectives | Pentaho Documentation"></div>
 
 ### 5. Restart Spoon
 

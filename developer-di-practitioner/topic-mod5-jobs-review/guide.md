@@ -65,7 +65,7 @@ Transformations move rows; jobs orchestrate transformations. You'll build a Hell
 
 > **Note:** **Parallel branches**
 >
-> **Run Next Entries in Parallel**, on an entry's right-click menu, starts its outgoing branches at the same time, each on its own thread. It saves time when the branches are independent; PDI does no locking between them, so branches that write the same file or table must stay in sequence.
+> **Run Next Entries in Parallel**, on an entry's right-click menu, starts its outgoing branches at the same time, each on its own thread. It saves time when the branches are independent; Pentaho Data Integration does no locking between them, so branches that write the same file or table must stay in sequence.
 >
 > Workshop: [Order of Execution](../30-mod5-order-of-execution/guide.md), part 3.
 

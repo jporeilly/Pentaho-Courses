@@ -84,14 +84,14 @@
 >
 > **Data grid** holds a few rows typed into the step itself: handy for tests and demonstrations. Here it is the source data, and you edit it between runs.
 
-1. Start Spoon with the **Start PDI** button below, or from PowerShell:
+1. Start Spoon with the **Start Pentaho Data Integration** button below, or from PowerShell:
 
 ```powershell
 Set-Location C:\Pentaho\design-tools\data-integration
 .\spoon.bat
 ```
 
-<button data-launch="spoon" data-path="">Start PDI</button>
+<button data-launch="spoon" data-path="">Start Pentaho Data Integration</button>
 
 2. Select **File > New > Transformation** (`Ctrl+N`).
 3. Select **File > Save as** and save it as `tr_scd.ktr` in `C:\Workshop-DI-Practitioner\03-data-sources\02-databases\18-mod3-slowly-changing-dimensions`.
@@ -133,7 +133,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 >
 > #### Get system info
 >
-> **Get system info** adds values from the PDI environment, such as the current date, to each row. The dimension step uses it as the date of each change.
+> **Get system info** adds values from the Pentaho Data Integration environment, such as the current date, to each row. The dimension step uses it as the date of each change.
 
 1. On the **Design** tab, open the **Input** folder and drag **Get system info** onto the canvas.
 2. Create a hop from **Data Grid** to **Get system info**: hold `Shift` and drag from one step to the other.
@@ -568,7 +568,7 @@ The stream date falls outside every version's `date_from` to `date_to` range, or
 
 ## Lab Files
 
-Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches PDI with the file loaded. If PDI is already running, the path is copied to your clipboard — switch to PDI and press `Ctrl+O`, `Ctrl+V`, `Enter`.
+Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches Pentaho Data Integration with the file loaded. If Pentaho Data Integration is already running, the path is copied to your clipboard — switch to Pentaho Data Integration and press `Ctrl+O`, `Ctrl+V`, `Enter`.
 
 The `CREATE TABLE DIM_SCD` statement from the Build tab, for MySQL:
 

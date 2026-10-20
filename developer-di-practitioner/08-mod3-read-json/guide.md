@@ -72,14 +72,14 @@ Look at the input first. `jsonfile.js` is JSON, despite the `.js` extension: one
 > 
 > **JSON input** reads JSON and outputs rows. Each field has its own JSONPath; the step evaluates every path against the document and lines the results up into rows. It has no loop path: each field's own **Path** selects one value per order.
 
-1. Start Spoon with the **Start PDI** button below, or from PowerShell:
+1. Start Spoon with the **Start Pentaho Data Integration** button below, or from PowerShell:
 
 ```powershell
 Set-Location C:\Pentaho\design-tools\data-integration
 .\spoon.bat
 ```
 
-<button data-launch="spoon" data-path="">Start PDI</button>
+<button data-launch="spoon" data-path="">Start Pentaho Data Integration</button>
 
 2. Select **File > New > Transformation** (`Ctrl+N`).
 3. Select **File > Save as** and save it as `tr_json.ktr` in `C:\Workshop-DI-Practitioner\03-data-sources\01-flat-files\08-mod3-read-json`, next to `jsonfile.js`.
@@ -150,7 +150,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 > **Default path leaf to null** off, an order with no `customer` key
 > makes the step stop with "The data structure is not the same inside
 > the resource" rather than hand you rows whose values have slid out
-> of line. In PDI 11 that option is on by default, and the solution
+> of line. In Pentaho Data Integration 11 that option is on by default, and the solution
 > keeps it on, so a missing key becomes a null instead.
 >
 > **Why it matters:** memory is bounded by the *file* size, not the
@@ -225,7 +225,7 @@ Use **Select fields** as a starting point, then set each type yourself. Here `va
 
 ## Lab Files
 
-Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches PDI with the file loaded. If PDI is already running, the path is copied to your clipboard — switch to PDI and press `Ctrl+O`, `Ctrl+V`, `Enter`.
+Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches Pentaho Data Integration with the file loaded. If Pentaho Data Integration is already running, the path is copied to your clipboard — switch to Pentaho Data Integration and press `Ctrl+O`, `Ctrl+V`, `Enter`.
 
 [jsonfile.js](./files/jsonfile.js)
 

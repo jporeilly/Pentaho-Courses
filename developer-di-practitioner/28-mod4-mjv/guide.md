@@ -12,7 +12,7 @@
 > * Generate a test row with **Generate rows**
 > * Write a script in **Modified JavaScript value**
 > * Return script variables as new fields
-> * Compare JavaScript's `replace` with PDI's own `replace()` function
+> * Compare JavaScript's `replace` with Pentaho Data Integration's own `replace()` function
 > 
 > **Prerequisites:** [Review Scripting](../topic-mod4-scripting-review/guide.md); a little JavaScript
 > 
@@ -35,14 +35,14 @@
 > 
 > One row with two messy strings to clean.
 
-1. Start Spoon with the **Start PDI** button below, or from PowerShell:
+1. Start Spoon with the **Start Pentaho Data Integration** button below, or from PowerShell:
 
 ```powershell
 Set-Location C:\Pentaho\design-tools\data-integration
 .\spoon.bat
 ```
 
-<button data-launch="spoon" data-path="">Start PDI</button>
+<button data-launch="spoon" data-path="">Start Pentaho Data Integration</button>
 
 2. Select **File > New > Transformation** (`Ctrl+N`).
 3. Select **File > Save as** and save it as `tr_mjv.ktr` in `C:\Workshop-DI-Practitioner\04-enriching-the-dataset\04-scripting\28-mod4-mjv`.
@@ -107,7 +107,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 > **Modified JavaScript value** embeds Mozilla Rhino, a JavaScript
 > engine written in Java. When the step starts, it compiles your script
 > once. For each row it then exposes the input fields as JavaScript
-> variables (wrapping PDI's typed values), runs the compiled script,
+> variables (wrapping Pentaho Data Integration's typed values), runs the compiled script,
 > and reads back the variables listed in the **Fields** grid into output
 > fields; that is why a variable's name is the field's name.
 >
@@ -135,13 +135,13 @@ Set-Location C:\Pentaho\design-tools\data-integration
 >
 > `result` lost its `\`, `/`, `-` and `!`. `resultfieldsame` lost both `/` and both `-`, but kept its `!`, which isn't in its list.
 >
-> The two `replace`s differ. JavaScript's `string.replace("-", "")` replaces only the *first* match; it works on `field` because each character appears once there. PDI's `replace(value, search, replacement, ...)` replaces *every* match, and takes several search-replacement pairs in one call.
+> The two `replace`s differ. JavaScript's `string.replace("-", "")` replaces only the *first* match; it works on `field` because each character appears once there. Pentaho Data Integration's `replace(value, search, replacement, ...)` replaces *every* match, and takes several search-replacement pairs in one call.
 
 ::::
 
 ## Lab Files
 
-Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches PDI with the file loaded. If PDI is already running, the path is copied to your clipboard — switch to PDI and press `Ctrl+O`, `Ctrl+V`, `Enter`.
+Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches Pentaho Data Integration with the file loaded. If Pentaho Data Integration is already running, the path is copied to your clipboard — switch to Pentaho Data Integration and press `Ctrl+O`, `Ctrl+V`, `Enter`.
 
 ### Solution <!-- no-step -->
 

@@ -15,7 +15,7 @@
 > * **Type 4** - keep history in a separate table
 > * **Type 6** - combine types 1, 2 and 3 (1 + 2 + 3 = 6)
 > 
-> PDI's **Dimension lookup/update** step, in the next workshop, handles types 1 and 2, chosen field by field: **Update** and **Punch through** overwrite (type 1), and **Insert** adds a version (type 2).
+> Pentaho Data Integration's **Dimension lookup/update** step, in the next workshop, handles types 1 and 2, chosen field by field: **Update** and **Punch through** overwrite (type 1), and **Insert** adds a version (type 2).
 
 Every tab uses the same example. Customer `1`, `Cust_1`, has been a `Corporate` customer since 2010-07-22. On 2012-05-17 they become a `Retail` customer. Each type records that change differently; values that change are in **bold**.
 

@@ -45,7 +45,7 @@
 >
 > Its **Delimiter** defaults to a comma (`,`). This lab's file, `customers-100-with-errors.txt`, uses semicolons: a header line, then 100 customers.
 
-1. Start Spoon with the **Start PDI** button below, or from PowerShell:
+1. Start Spoon with the **Start Pentaho Data Integration** button below, or from PowerShell:
 
 ```powershell
 Set-Location C:\Pentaho\design-tools\data-integration
@@ -108,7 +108,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 2. Right-click **CSV file input** and select **Error Handling...**. The **Step error handling settings** dialog opens.
 3. Check that **Target step** is `Errors` and that **Enable the error handling?** is selected. Spoon set both when you selected **Error handling of step**.
 
-Next, name the four fields that PDI adds to every failed row. The names are yours to choose; these are the solution's.
+Next, name the four fields that Pentaho Data Integration adds to every failed row. The names are yours to choose; these are the solution's.
 
 4. Set **Nr of errors fieldname** to `errorCount`: the number of errors in the row.
 5. Set **Error descriptions fieldname** to `errorDescriptions`: the error messages.
@@ -199,9 +199,9 @@ Don't change the mask to make customer 3 pass: it is right for the other 99 birt
 
 ## Lab Files
 
-Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches PDI with the file loaded. If PDI is already running, the path is copied to your clipboard — switch to PDI and press `Ctrl+O`, `Ctrl+V`, `Enter`.
+Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches Pentaho Data Integration with the file loaded. If Pentaho Data Integration is already running, the path is copied to your clipboard — switch to Pentaho Data Integration and press `Ctrl+O`, `Ctrl+V`, `Enter`.
 
-[customers-100-with-errors.txt](./files/customers-100-with-errors.txt) (PDI's own sample, from `data-integration\samples\transformations\files`)
+[customers-100-with-errors.txt](./files/customers-100-with-errors.txt) (Pentaho Data Integration's own sample, from `data-integration\samples\transformations\files`)
 
 ### Solution <!-- no-step -->
 

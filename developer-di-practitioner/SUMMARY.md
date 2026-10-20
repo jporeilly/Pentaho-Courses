@@ -10,7 +10,7 @@
 
 <!-- topic-page: topic-mod1-components -->
 
-* [Configuring PDI](01-mod1-configuring-pdi/guide.md)
+* [Configuring Pentaho Data Integration](01-mod1-configuring-pdi/guide.md)
 * [Kettle Variables](02-mod1-kettle-variables/guide.md)
 
 ### Key Concepts

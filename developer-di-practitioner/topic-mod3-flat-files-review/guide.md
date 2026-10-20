@@ -12,7 +12,7 @@ The bread and butter of any pipeline. You'll cover the four formats you'll see m
 >
 > A flat file holds data as text in a single file, with no database around it. Flat files come in four kinds.
 
-* **Structured** - a consistent, predictable layout with defined fields and delimiters. The most common in data integration, and the easiest for PDI: each row maps to a record and each column to a field.
+* **Structured** - a consistent, predictable layout with defined fields and delimiters. The most common in data integration, and the easiest for Pentaho Data Integration: each row maps to a record and each column to a field.
   * **CSV** (comma-separated values), e.g. `CustomerID,Name,Email,Purchase_Date`
   * **TSV** (tab-separated values)
   * **Fixed-width**, where each field takes a set number of characters - common in legacy mainframe systems
@@ -31,7 +31,7 @@ The bread and butter of any pipeline. You'll cover the four formats you'll see m
 
 > **Under the hood:**
 >
-> #### PDI reads the metadata first
+> #### Pentaho Data Integration reads the metadata first
 >
 > Before a file step reads a single row, it settles each field's name, type and format - from a header row, from **Get Fields** (which samples the file and guesses), or from what you type in. Every value is then converted as it is read, so a date that doesn't match its format fails in the input step, where the log names it, rather than three steps later.
 >

@@ -2,7 +2,7 @@
 
 <div class="pcm-intro">
 
-Every PDI pipeline starts and ends at a data source. This module's workshops cover the ones you'll meet most: flat files (text, JSON, XML and Excel), relational databases (create, read, update, insert and delete, plus slowly changing dimensions) and object storage (MinIO, which speaks the Amazon S3 protocol). The last two tabs below introduce big-data platforms and notebooks, which PDI also works with.
+Every Pentaho Data Integration pipeline starts and ends at a data source. This module's workshops cover the ones you'll meet most: flat files (text, JSON, XML and Excel), relational databases (create, read, update, insert and delete, plus slowly changing dimensions) and object storage (MinIO, which speaks the Amazon S3 protocol). The last two tabs below introduce big-data platforms and notebooks, which Pentaho Data Integration also works with.
 
 </div>
 
@@ -12,7 +12,7 @@ Use this page to find your way, then open the section you need.
 
 > **Note:**
 >
-> #### What “data source” means in PDI
+> #### What “data source” means in Pentaho Data Integration
 > 
 > In practice, a data source is either:
 > 
@@ -80,7 +80,7 @@ Use this page to find your way, then open the section you need.
 >
 > #### Databases
 > 
-> PDI connects to relational databases through JDBC drivers, one for each kind of database.
+> Pentaho Data Integration connects to relational databases through JDBC drivers, one for each kind of database.
 > 
 > Start here: [Databases](../topic-mod3-databases-review/guide.md).
 
@@ -97,13 +97,13 @@ Use this page to find your way, then open the section you need.
 >
 > #### Storage
 > 
-> Storage sources are cloud or network file stores, such as Amazon S3, Azure Blob Storage and Google Cloud Storage. PDI reaches them through a VFS (virtual file system) connection, so the same steps read and write files on any of them.
+> Storage sources are cloud or network file stores, such as Amazon S3, Azure Blob Storage and Google Cloud Storage. Pentaho Data Integration reaches them through a VFS (virtual file system) connection, so the same steps read and write files on any of them.
 > 
 > Start here: [Storage](../topic-mod3-storage-review/guide.md).
 
 <div align="center">
 <figure>
-<img src="../_assets/images/storage-types-overview.png" alt="Storage types PDI can reach through VFS connections" width="800">
+<img src="../_assets/images/storage-types-overview.png" alt="Storage types Pentaho Data Integration can reach through VFS connections" width="800">
 <figcaption>Storage types</figcaption>
 </figure>
 </div>
@@ -114,7 +114,7 @@ Use this page to find your way, then open the section you need.
 >
 > #### Big Data
 > 
-> Big data sources need distributed compute: Hadoop (HDFS, Hive, HBase), Spark, NoSQL stores and Kafka. PDI has dedicated steps and adapters for these platforms, so it can transform data where it lives. This course has no workshop on them; the Pentaho documentation covers each one.
+> Big data sources need distributed compute: Hadoop (HDFS, Hive, HBase), Spark, NoSQL stores and Kafka. Pentaho Data Integration has dedicated steps and adapters for these platforms, so it can transform data where it lives. This course has no workshop on them; the Pentaho documentation covers each one.
 
 <div align="center">
 <figure>
@@ -129,7 +129,7 @@ Use this page to find your way, then open the section you need.
 >
 > #### Jupyter Notebook
 > 
-> Jupyter is a web-based notebook that mixes code, charts and narrative text, which suits exploratory analysis and prototyping. In a typical setup the notebook does the advanced analysis and PDI runs the production pipelines and schedules around it.
+> Jupyter is a web-based notebook that mixes code, charts and narrative text, which suits exploratory analysis and prototyping. In a typical setup the notebook does the advanced analysis and Pentaho Data Integration runs the production pipelines and schedules around it.
 
 <div align="center">
 <figure>

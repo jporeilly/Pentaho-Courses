@@ -33,14 +33,14 @@
 > 
 > A named parameter belongs to the transformation: it has a name, a default value and a description, and whoever runs the transformation can give it a different value for that run.
 
-1. Start Spoon with the **Start PDI** button below, or from PowerShell:
+1. Start Spoon with the **Start Pentaho Data Integration** button below, or from PowerShell:
 
 ```powershell
 Set-Location C:\Pentaho\design-tools\data-integration
 .\spoon.bat
 ```
 
-<button data-launch="spoon" data-path="">Start PDI</button>
+<button data-launch="spoon" data-path="">Start Pentaho Data Integration</button>
 
 2. Select **File > New > Transformation** (`Ctrl+N`).
 3. Select **File > Save as** and save it as `tr_parameters_variables_orders.ktr` in `C:\Workshop-DI-Practitioner\05-enterprise-solution\03-parameters\34-mod5-parameters`.
@@ -69,7 +69,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 >
 > #### A parameter is a variable the transformation declares
 >
-> At run time PDI turns every named parameter into an ordinary
+> At run time Pentaho Data Integration turns every named parameter into an ordinary
 > variable, scoped to this transformation: the value the run was given,
 > or the default if it was given none. Everything that reads variables
 > (`${...}` in a step setting, **Get Variables**) sees it the same way.
@@ -179,7 +179,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 ## Lab Files
 
-Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches PDI with the file loaded. If PDI is already running, the path is copied to your clipboard — switch to PDI and press `Ctrl+O`, `Ctrl+V`, `Enter`.
+Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches Pentaho Data Integration with the file loaded. If Pentaho Data Integration is already running, the path is copied to your clipboard — switch to Pentaho Data Integration and press `Ctrl+O`, `Ctrl+V`, `Enter`.
 
 ### Solution <!-- no-step -->
 

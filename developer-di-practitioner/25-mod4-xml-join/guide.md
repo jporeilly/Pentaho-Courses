@@ -63,14 +63,14 @@
 > 
 > The workbook `xml_orders_source.xls` holds one sheet per level of the order hierarchy, plus a `Remark` sheet you don't read. `OrderList` is the root level. `OrderHeaders` are the orders, each with `OrderHeaderComments` and `OrderLines`; each line has `OrderLineComments` and `OrderSubLines`. Read each of the six sheets with its own **Microsoft Excel input** step.
 
-1. Start Spoon with the **Start PDI** button below, or from PowerShell:
+1. Start Spoon with the **Start Pentaho Data Integration** button below, or from PowerShell:
 
 ```powershell
 Set-Location C:\Pentaho\design-tools\data-integration
 .\spoon.bat
 ```
 
-<button data-launch="spoon" data-path="">Start PDI</button>
+<button data-launch="spoon" data-path="">Start Pentaho Data Integration</button>
 
 2. Select **File > New > Transformation** (`Ctrl+N`).
 3. Select **File > Save as** and save it as `tr_xml_join.ktr` in `C:\Workshop-DI-Practitioner\04-enriching-the-dataset\02-joins\25-mod4-xml-join`, the folder that holds `xml_orders_source.xls`.
@@ -448,7 +448,7 @@ With **Complex join?** selected, the step replaces the `?` in **XPath Statement*
 
 ## Lab Files
 
-Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches PDI with the file loaded. If PDI is already running, the path is copied to your clipboard — switch to PDI and press `Ctrl+O`, `Ctrl+V`, `Enter`.
+Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches Pentaho Data Integration with the file loaded. If Pentaho Data Integration is already running, the path is copied to your clipboard — switch to Pentaho Data Integration and press `Ctrl+O`, `Ctrl+V`, `Enter`.
 
 Keep `tr_xml_join.ktr` and `xml_orders_source.xls` in the **same folder** so the workbook path resolves when you run it.
 

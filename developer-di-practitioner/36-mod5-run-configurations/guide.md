@@ -89,14 +89,14 @@ Set-Location C:\Pentaho\design-tools\data-integration
 >
 > Spoon reaches a Carte server through a slave server entry: its address, port and login. You add one for each of the three servers, in the transformation you will run.
 
-1. Start Spoon with the **Start PDI** button below, or from PowerShell:
+1. Start Spoon with the **Start Pentaho Data Integration** button below, or from PowerShell:
 
 ```powershell
 Set-Location C:\Pentaho\design-tools\data-integration
 .\spoon.bat
 ```
 
-<button data-launch="spoon" data-path="">Start PDI</button>
+<button data-launch="spoon" data-path="">Start Pentaho Data Integration</button>
 
 2. Select **File > Open** (`Ctrl+O`) and open `tr_hello_world.ktr`, the transformation you built in [Hello World](../03-mod2-hello-world/guide.md). If you don't have it, open the solution copy, `C:\Workshop-DI-Practitioner\02-components-concepts\02-key-concepts\03-mod2-hello-world\solution\tr_hello_world.ktr`.
 3. Select **File > Save as** and save it as `tr_hello_world.ktr` in `C:\Workshop-DI-Practitioner\05-enterprise-solution\04-scalability\36-mod5-run-configurations`. Everything you add in this workshop goes into this copy; your Hello World stays as it was.
@@ -113,7 +113,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 6. Fill the **Service** tab with the **Master** column of the table below, and select **OK**. Leave the **Proxy** tab as it is.
 7. Repeat steps 5 and 6 for **Slave A** and for **Slave B**, with their columns.
 
-A Carte server started with only a host and a port accepts the user `cluster` with the password `cluster`: they are in `pwd\kettle.pwd` in the PDI folder.
+A Carte server started with only a host and a port accepts the user `cluster` with the password `cluster`: they are in `pwd\kettle.pwd` in the Pentaho Data Integration folder.
 
 | Setting | Master | Slave A | Slave B |
 | --- | --- | --- | --- |
@@ -410,7 +410,7 @@ A Carte server started with only a host and a port accepts the user `cluster` wi
 
 ## Lab Files
 
-Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches PDI with the file loaded. If PDI is already running, the path is copied to your clipboard — switch to PDI and press `Ctrl+O`, `Ctrl+V`, `Enter`.
+Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches Pentaho Data Integration with the file loaded. If Pentaho Data Integration is already running, the path is copied to your clipboard — switch to Pentaho Data Integration and press `Ctrl+O`, `Ctrl+V`, `Enter`.
 
 ### Solution <!-- no-step -->
 

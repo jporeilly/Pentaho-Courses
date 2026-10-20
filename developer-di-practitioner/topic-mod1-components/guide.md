@@ -1,11 +1,11 @@
 # Components
 <div class="pcm-intro">
 
-Before you build anything in Pentaho Data Integration (PDI), you need to know your way around Spoon. This module gets you set up: perspectives, options, and the kettle.properties file that drives variables across every transformation. By the time you finish, you'll feel at home in the design tool.
+Before you build anything in Pentaho Data Integration, you need to know your way around Spoon. This module gets you set up: perspectives, options, and the kettle.properties file that drives variables across every transformation. By the time you finish, you'll feel at home in the design tool.
 
 </div>
 
-Understanding the architecture and components of Pentaho Data Integration (PDI) is fundamental to becoming an effective Pentaho developer and administrator. This section will familiarize you with the building blocks that make up the Pentaho Data Integration ecosystem and how they work together to deliver enterprise-grade data integration capabilities.
+Understanding the architecture and components of Pentaho Data Integration is fundamental to becoming an effective Pentaho developer and administrator. This section will familiarize you with the building blocks that make up the Pentaho Data Integration ecosystem and how they work together to deliver enterprise-grade data integration capabilities.
 
 **What You'll Learn**
 
@@ -14,7 +14,7 @@ Pentaho Data Integration operates on a **client-server architecture** that separ
 * **Enterprise Components**: The server-side infrastructure that handles execution, security, content management, and scheduling
 * **Client Tools**: The desktop applications used to design, test, and deploy your data integration solutions
 * **Configuration Framework**: The Kettle configuration files that control system behavior and store critical settings
-* **Repository Management**: How PDI manages versioning, collaboration, and content organization
+* **Repository Management**: How Pentaho Data Integration manages versioning, collaboration, and content organization
 * **Database Connectivity**: The process of integrating JDBC drivers to connect to various data sources
 <div align="center">
 <figure>
@@ -81,7 +81,7 @@ Browse to learn about the components:
 >
 > #### **Pentaho Server**
 >
-> The Pentaho Server hosts Pentaho-created and user-created content. It is a core component for executing data integration transformations and jobs using the Pentaho Data Integration (PDI) Engine. It allows you to manage users and roles (default security) or integrate security to your existing security provider such as LDAP or Active Directory.
+> The Pentaho Server hosts Pentaho-created and user-created content. It is a core component for executing data integration transformations and jobs using the Pentaho Data Integration Engine. It allows you to manage users and roles (default security) or integrate security to your existing security provider such as LDAP or Active Directory.
 
 The primary functions of the Pentaho Server are:
 
@@ -112,7 +112,7 @@ The primary functions of the Pentaho Server are:
 >
 > * **A small footprint** - one Java process, started with `carte.bat`, with no application server around it.
 > * **Remote execution** - run a transformation or job on the machine that holds the data, from Spoon's **Run Options** or from Kitchen.
-> * **The same steps everywhere** - Carte runs the PDI engine, so every step and connection that works in Spoon works there too.
+> * **The same steps everywhere** - Carte runs the Pentaho Data Integration engine, so every step and connection that works in Spoon works there too.
 > * **Scale-out** - deploy several Carte servers (on VMs, in Docker or on Kubernetes) and spread work across them as a cluster.
 > * **A status page** - a browser view of the transformations and jobs running on the server, with their status and logs.
 
@@ -145,7 +145,7 @@ The primary functions of the Pentaho Server are:
 
 :::
 
-### 2. PDI UI
+### 2. Pentaho Data Integration UI
 > **Note:** **User Interface**
 >
 > Within the UI, you can author, edit, run, and debug transformations and jobs. You can also enter license keys, add data connections, and define security (default options - Pentaho or LDAP).
@@ -159,7 +159,7 @@ The primary functions of the Pentaho Server are:
 </figure>
 </div>
 
-> **Note:** There are a few different ways to start PDI. The method that you should use depends on the way you installed Pentaho Data Integration (PDI).
+> **Note:** There are a few different ways to start Pentaho Data Integration. The method that you should use depends on the way you installed Pentaho Data Integration.
 
 | File        | Action                           |
 | ----------- | -------------------------------- |
@@ -178,11 +178,11 @@ Start-Process "C:\Pentaho\design-tools\data-integration\spoon.bat"
 ### 3. Configuration Files
 > **Note:** **Configuration Files**
 >
-> The PDI home directory is the `.kettle` folder in the user's home directory. It holds the main PDI configuration files.
+> The Pentaho Data Integration home directory is the `.kettle` folder in the user's home directory. It holds the main Pentaho Data Integration configuration files.
 >
 > * `C:\Users\<username>\.kettle`
 >
-> Because the folder belongs to the user who is signed in, two users can see different settings for the same transformations and jobs. The same applies when PDI runs inside the Pentaho Server.
+> Because the folder belongs to the user who is signed in, two users can see different settings for the same transformations and jobs. The same applies when Pentaho Data Integration runs inside the Pentaho Server.
 >
 > Set the `KETTLE_HOME` environment variable to point every user (and the server) at one `.kettle` folder, so the configuration no longer depends on who is signed in.
 
@@ -200,7 +200,7 @@ Start-Process "C:\Pentaho\design-tools\data-integration\spoon.bat"
 ### 1. kettle.properties
 > **Note:** **kettle.properties**
 >
-> `kettle.properties` holds the global variables for PDI. Every transformation and job can use them - for example a database host, a folder path, or a value you pass as a parameter.
+> `kettle.properties` holds the global variables for Pentaho Data Integration. Every transformation and job can use them - for example a database host, a folder path, or a value you pass as a parameter.
 >
 > * `C:\Users\<username>\.kettle\kettle.properties`
 >
@@ -314,12 +314,12 @@ FontDefaultStyle=0
 ### 4. JDBC
 > **Note:** **Adding JDBC Drivers**
 >
-> PDI and the Pentaho Server need a JDBC driver for each kind of database they connect to. Your database administrator can usually provide it; otherwise download it from the database vendor's website.
+> Pentaho Data Integration and the Pentaho Server need a JDBC driver for each kind of database they connect to. Your database administrator can usually provide it; otherwise download it from the database vendor's website.
 >
 > Copy the driver `.jar` to:
 >
 > * **Pentaho Server:** /pentaho/server/pentaho-server/tomcat/lib/
-> * **PDI client:**     /data-integration/lib
+> * **Pentaho Data Integration client:**     /data-integration/lib
 
 <div class="pcm-embed-card" data-href="https://docs.pentaho.com/pdia-try-pdia/jdbc-drivers-reference" data-title="JDBC Drivers"></div>
 
@@ -346,7 +346,7 @@ FontDefaultStyle=0
 
 > **Note:** **Versioning & Comments (Dev only)**
 >
-> Pentaho Data Integration (PDI) can track versions and comments for jobs, transformations, and connection information when you save them. You can turn version control and comment tracking on or off by modifying their related statements in the repository.spring.properties text file.
+> Pentaho Data Integration can track versions and comments for jobs, transformations, and connection information when you save them. You can turn version control and comment tracking on or off by modifying their related statements in the repository.spring.properties text file.
 >
 > By default, version control and comment tracking are disabled (set to `false`). Best practice: keep your transformations and jobs in a version-control system such as Git, and upload only the production version to the repository.
 

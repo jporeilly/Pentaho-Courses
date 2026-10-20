@@ -2,7 +2,7 @@
 
 <div class="pcm-intro">
 
-Two ways to make PDI go faster: Carte clusters, which share a transformation's work across machines, and partitioning, which splits a stream into parallel pipelines. When one transformation isn't enough.
+Two ways to make Pentaho Data Integration go faster: Carte clusters, which share a transformation's work across machines, and partitioning, which splits a stream into parallel pipelines. When one transformation isn't enough.
 
 </div>
 
@@ -29,7 +29,7 @@ Two ways to make PDI go faster: Carte clusters, which share a transformation's w
 
 > **Note:** **Carte servers**
 >
-> A Carte server is a small embedded web server, started with the `Carte` script in your PDI folder, with at least a host name or IP address and a port:
+> A Carte server is a small embedded web server, started with the `Carte` script in your Pentaho Data Integration folder, with at least a host name or IP address and a port:
 >
 > ```powershell
 > .\carte.bat localhost 8081
@@ -50,7 +50,7 @@ Two ways to make PDI go faster: Carte clusters, which share a transformation's w
 
 **Set up a static Carte cluster**
 
-1. Copy the JDBC drivers and PDI plugins your transformations need from your development PDI to each Carte machine.
+1. Copy the JDBC drivers and Pentaho Data Integration plugins your transformations need from your development Pentaho Data Integration to each Carte machine.
 2. On each machine, start Carte with that machine's address and a port:
 
    ```powershell

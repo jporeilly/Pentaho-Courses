@@ -2,7 +2,7 @@
 
 <div class="pcm-intro">
 
-Now that PDI is configured, build something with it. You'll create a 'Hello World' transformation — the simplest pipeline possible — and pick up the vocabulary the rest of the course leans on: steps, hops, rows, and the run/preview cycle.
+Now that Pentaho Data Integration is configured, build something with it. You'll create a 'Hello World' transformation — the simplest pipeline possible — and pick up the vocabulary the rest of the course leans on: steps, hops, rows, and the run/preview cycle.
 
 </div>
 
@@ -40,7 +40,7 @@ Now that PDI is configured, build something with it. You'll create a 'Hello Worl
 > 
 > A hop carries rows from one step to the next. Each hop is a row buffer between one step's output and the next step's input. In the transformation below, every arrow is a hop: **10 rows** feeds **seq**, which **Join Rows** joins with **Input data**; from there rows go on to **Group**, and through **rnd** and **Sort rows** to **Memory Group**.
 
-<div class="pcm-embed-card" data-href="https://docs.pentaho.com/pdia-data-integration/transforming-data-with-pdi" data-title="Transforming data with PDI | Pentaho Documentation"></div>
+<div class="pcm-embed-card" data-href="https://docs.pentaho.com/pdia-data-integration/transforming-data-with-pdi" data-title="Transforming data with Pentaho Data Integration | Pentaho Documentation"></div>
 <div align="center">
 <figure>
 <img src="../_assets/images/steps.png" alt="A transformation with its steps (10 rows, seq, Input data, Join Rows, Group, rnd, Sort rows, Memory Group) and the hops between them labelled" width="500">
@@ -121,11 +121,11 @@ As well as steps and hops, a transformation can hold **notes**, which document i
 >
 > #### **Data Types**
 > 
-> Each PDI data type maps to a Java type, so the field, parameter or variable behaves the way that Java type does.
+> Each Pentaho Data Integration data type maps to a Java type, so the field, parameter or variable behaves the way that Java type does.
 
 The following table describes these mappings:
 
-<table><thead><tr><th width="176.66666666666666">PDI Data Type</th><th width="149">Java Data Type</th><th>Description</th><th>Example</th></tr></thead><tbody><tr><td>BigNumber</td><td>BigDecimal</td><td>An arbitrary unlimited precision number.</td><td>3.141592653589793238462643383279502884197169399375105820974944</td></tr><tr><td>Binary</td><td>Byte[]</td><td>An array of bytes that contain any type of binary data.</td><td>An image file or a compressed file can be stored as Binary data</td></tr><tr><td>Boolean</td><td>Boolean</td><td>A boolean value <code>true</code> or <code>false.</code></td><td>A boolean value true or false</td></tr><tr><td>Date</td><td>Date</td><td>A date-time value with millisecond precision.</td><td>2023-10-20T10:48:51.123</td></tr><tr><td><p>Hierarchical</p><p>EE Plugin 9.5+</p></td><td>BinaryTree</td><td>Data items that are related to each other by hierarchical relationships</td><td>A family tree</td></tr><tr><td>Integer</td><td>Long</td><td>A signed long 64-bit integer.</td><td>42</td></tr><tr><td>Internet Address</td><td>InetAddress</td><td>An Internet Protocol (IP) address.</td><td>192.168.0.1</td></tr><tr><td>Number</td><td>Double</td><td>A double precision floating point value (64bits).</td><td>2.7182818284590452353602874713526624977572470936999</td></tr><tr><td>String</td><td>String</td><td>A variable unlimited length text encoded in UTF-8 (Unicode).</td><td>“Hello world!”</td></tr><tr><td>Timestamp</td><td>Timestamp</td><td>Allows the specification of fractional seconds to a precision of nanoseconds.</td><td>2023-10-20T10:48:51.123456789</td></tr></tbody></table>
+<table><thead><tr><th width="176.66666666666666">Pentaho Data Integration Data Type</th><th width="149">Java Data Type</th><th>Description</th><th>Example</th></tr></thead><tbody><tr><td>BigNumber</td><td>BigDecimal</td><td>An arbitrary unlimited precision number.</td><td>3.141592653589793238462643383279502884197169399375105820974944</td></tr><tr><td>Binary</td><td>Byte[]</td><td>An array of bytes that contain any type of binary data.</td><td>An image file or a compressed file can be stored as Binary data</td></tr><tr><td>Boolean</td><td>Boolean</td><td>A boolean value <code>true</code> or <code>false.</code></td><td>A boolean value true or false</td></tr><tr><td>Date</td><td>Date</td><td>A date-time value with millisecond precision.</td><td>2023-10-20T10:48:51.123</td></tr><tr><td><p>Hierarchical</p><p>EE Plugin 9.5+</p></td><td>BinaryTree</td><td>Data items that are related to each other by hierarchical relationships</td><td>A family tree</td></tr><tr><td>Integer</td><td>Long</td><td>A signed long 64-bit integer.</td><td>42</td></tr><tr><td>Internet Address</td><td>InetAddress</td><td>An Internet Protocol (IP) address.</td><td>192.168.0.1</td></tr><tr><td>Number</td><td>Double</td><td>A double precision floating point value (64bits).</td><td>2.7182818284590452353602874713526624977572470936999</td></tr><tr><td>String</td><td>String</td><td>A variable unlimited length text encoded in UTF-8 (Unicode).</td><td>“Hello world!”</td></tr><tr><td>Timestamp</td><td>Timestamp</td><td>Allows the specification of fractional seconds to a precision of nanoseconds.</td><td>2023-10-20T10:48:51.123456789</td></tr></tbody></table>
 
 ### 4. Jobs
 

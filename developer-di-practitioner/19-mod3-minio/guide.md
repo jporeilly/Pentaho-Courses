@@ -4,12 +4,12 @@
 >
 > #### Workshop - MinIO
 >
-> Six workshops that read from and write to **MinIO**, an S3-compatible object store, through a PDI **VFS connection**. Choose one of them and build it; each stands on its own.\
+> Six workshops that read from and write to **MinIO**, an S3-compatible object store, through a Pentaho Data Integration **VFS connection**. Choose one of them and build it; each stands on its own.\
 > They get harder down the list: CSV lookups first, then XML and JSON parsing, reconciliation, log analysis, scoring and multi-format ingestion.
 >
 > **What you’ll do**
 >
-> * Connect PDI to MinIO with a VFS connection
+> * Connect Pentaho Data Integration to MinIO with a VFS connection
 > * Read and write objects with `pvfs://MinIO/...` paths
 > * Build the workshop you choose: enrich rows with lookups and joins, or parse XML, JSON or log lines, and shape the results for a curated layer
 >
@@ -34,7 +34,7 @@
 
 ---
 
-## Connect PDI to MinIO
+## Connect Pentaho Data Integration to MinIO
 
 > **Warning:** Every path in these workshops starts `pvfs://MinIO/`, which means "the VFS connection named **MinIO**". Create it before you start your workshop. Connection names are case-sensitive: `pvfs://minio/...` doesn't find a connection named `MinIO`.
 
@@ -77,7 +77,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 >
 > #### `pvfs://` is a name, not an address
 >
-> PDI reads `pvfs://MinIO/raw-data/csv/sales.csv` as "bucket `raw-data`,
+> Pentaho Data Integration reads `pvfs://MinIO/raw-data/csv/sales.csv` as "bucket `raw-data`,
 > object `csv/sales.csv`, through the connection called MinIO". The
 > endpoint and keys live in the connection, not in the transformation.
 > Point the same connection at Amazon S3 and every transformation in
@@ -349,7 +349,7 @@ Choose one workshop from the tabs below and build it. Save the transformation in
 
 > **Note:** **Workshop files**
 >
-> Download the files for this workshop. For `.ktr` files, **Open in Pentaho Data Integration** launches PDI with the transformation loaded; if PDI is already running, the path is copied to your clipboard (press `Ctrl+O`, `Ctrl+V`, `Enter`).
+> Download the files for this workshop. For `.ktr` files, **Open in Pentaho Data Integration** launches Pentaho Data Integration with the transformation loaded; if Pentaho Data Integration is already running, the path is copied to your clipboard (press `Ctrl+O`, `Ctrl+V`, `Enter`).
 
 [sales_dashboard_etl.ktr](./files/sales_dashboard_etl.ktr) <button data-launch="spoon" data-path="files/sales_dashboard_etl.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/sales_dashboard_etl.ktr">View graph</button>
 
@@ -787,7 +787,7 @@ What the script decides, row by row:
 
 > **Note:** **Workshop files**
 >
-> Download the files for this workshop. For `.ktr` files, **Open in Pentaho Data Integration** launches PDI with the transformation loaded; if PDI is already running, the path is copied to your clipboard (press `Ctrl+O`, `Ctrl+V`, `Enter`).
+> Download the files for this workshop. For `.ktr` files, **Open in Pentaho Data Integration** launches Pentaho Data Integration with the transformation loaded; if Pentaho Data Integration is already running, the path is copied to your clipboard (press `Ctrl+O`, `Ctrl+V`, `Enter`).
 
 [inventory_reconciliation.ktr](./files/inventory_reconciliation.ktr) <button data-launch="spoon" data-path="files/inventory_reconciliation.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/inventory_reconciliation.ktr">View graph</button>
 
@@ -925,7 +925,7 @@ What the script decides, row by row:
 6. Select **Close**, then **OK**.
 7. On the **Design** tab, open the **Input** folder and drag **JSON input** onto the canvas. Create a hop from **Read User Events** to it, and keep its name, `JSON input`.
 8. Double-click **JSON input**. On the **File** tab, select **Source is from a previous step**, and set **Select field** to `json_line`.
-9. On the **Content** tab, keep **Ignore missing path** and **Default path leaf to null** selected, as PDI 11 sets them for a new step: not every event has a `product_id` or a `rating`.
+9. On the **Content** tab, keep **Ignore missing path** and **Default path leaf to null** selected, as Pentaho Data Integration 11 sets them for a new step: not every event has a `product_id` or a `rating`.
 10. On the **Fields** tab, fill the grid:
 
 | Name         | Path           | Type    |
@@ -1075,7 +1075,7 @@ if (total_spent == null || total_spent == 0) {
 
 > **Note:** **Workshop files**
 >
-> Download the files for this workshop. For `.ktr` files, **Open in Pentaho Data Integration** launches PDI with the transformation loaded; if PDI is already running, the path is copied to your clipboard (press `Ctrl+O`, `Ctrl+V`, `Enter`).
+> Download the files for this workshop. For `.ktr` files, **Open in Pentaho Data Integration** launches Pentaho Data Integration with the transformation loaded; if Pentaho Data Integration is already running, the path is copied to your clipboard (press `Ctrl+O`, `Ctrl+V`, `Enter`).
 
 [customer_360.ktr](./files/customer_360.ktr) <button data-launch="spoon" data-path="files/customer_360.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/customer_360.ktr">View graph</button>
 
@@ -1348,7 +1348,7 @@ if (rowNum == 1) {
 
 > **Note:** **Workshop files**
 >
-> Download the files for this workshop. For `.ktr` files, **Open in Pentaho Data Integration** launches PDI with the transformation loaded; if PDI is already running, the path is copied to your clipboard (press `Ctrl+O`, `Ctrl+V`, `Enter`).
+> Download the files for this workshop. For `.ktr` files, **Open in Pentaho Data Integration** launches Pentaho Data Integration with the transformation loaded; if Pentaho Data Integration is already running, the path is copied to your clipboard (press `Ctrl+O`, `Ctrl+V`, `Enter`).
 
 [log_analysis_anomaly.ktr](./files/log_analysis_anomaly.ktr) <button data-launch="spoon" data-path="files/log_analysis_anomaly.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/log_analysis_anomaly.ktr">View graph</button>
 
@@ -1536,7 +1536,7 @@ if (rowNum == 1) {
 
 > **Note:** **Workshop files**
 >
-> Download the files for this workshop. For `.ktr` files, **Open in Pentaho Data Integration** launches PDI with the transformation loaded; if PDI is already running, the path is copied to your clipboard (press `Ctrl+O`, `Ctrl+V`, `Enter`).
+> Download the files for this workshop. For `.ktr` files, **Open in Pentaho Data Integration** launches Pentaho Data Integration with the transformation loaded; if Pentaho Data Integration is already running, the path is copied to your clipboard (press `Ctrl+O`, `Ctrl+V`, `Enter`).
 
 [fraud_detection.ktr](./files/fraud_detection.ktr) <button data-launch="spoon" data-path="files/fraud_detection.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/fraud_detection.ktr">View graph</button>
 
@@ -1728,7 +1728,7 @@ Open `xml/inventory.xml`. Items sit under `/inventory/items/item`:
 >
 > #### Three hops into one step
 >
-> **Append streams** takes only two inputs, a head and a tail. To stack three, hop them all into one step: PDI passes on every row that arrives on any of its input hops, like a SQL `UNION ALL`.
+> **Append streams** takes only two inputs, a head and a tail. To stack three, hop them all into one step: Pentaho Data Integration passes on every row that arrives on any of its input hops, like a SQL `UNION ALL`.
 
 1. On the **Design** tab, open the **Flow** folder and drag **Dummy (do nothing)** onto the canvas. Double-click it, set **Step name** to `Combine All Products`, and select **OK**.
 2. Create a hop from each **Map to Schema** step to **Combine All Products**.
@@ -1746,7 +1746,7 @@ Open `xml/inventory.xml`. Items sit under `/inventory/items/item`:
 > where the CSV rows have `category`. Nothing fails; the data is
 > wrong.
 >
-> **Enable safe mode** makes PDI compare every row with the first and
+> **Enable safe mode** makes Pentaho Data Integration compare every row with the first and
 > stop at the first difference, with a message such as "you're mixing
 > rows with different layout. Field [category String] does not have
 > the same name as field [quantity Integer]".
@@ -1802,7 +1802,7 @@ P001        Laptop Pro 15   Electronics           45        xml    <- again, and
 
 > **Note:** **Workshop files**
 >
-> Download the files for this workshop. For `.ktr` files, **Open in Pentaho Data Integration** launches PDI with the transformation loaded; if PDI is already running, the path is copied to your clipboard (press `Ctrl+O`, `Ctrl+V`, `Enter`).
+> Download the files for this workshop. For `.ktr` files, **Open in Pentaho Data Integration** launches Pentaho Data Integration with the transformation loaded; if Pentaho Data Integration is already running, the path is copied to your clipboard (press `Ctrl+O`, `Ctrl+V`, `Enter`).
 
 [data_lake_ingestion.ktr](./files/data_lake_ingestion.ktr) <button data-launch="spoon" data-path="files/data_lake_ingestion.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/data_lake_ingestion.ktr">View graph</button>
 
@@ -1810,7 +1810,7 @@ P001        Laptop Pro 15   Electronics           45        xml    <- again, and
 
 ## Lab Files
 
-Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches PDI with the file loaded. If PDI is already running, the path is copied to your clipboard — switch to PDI and press `Ctrl+O`, `Ctrl+V`, `Enter`.
+Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches Pentaho Data Integration with the file loaded. If Pentaho Data Integration is already running, the path is copied to your clipboard — switch to Pentaho Data Integration and press `Ctrl+O`, `Ctrl+V`, `Enter`.
 
 The workshops read their data from MinIO. The three finance files that the Fraud workshop reads are also here, in `data/`:
 

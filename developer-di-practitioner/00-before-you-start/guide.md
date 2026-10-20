@@ -235,10 +235,10 @@ course requires you to remove it.
 
    > **Success:** Checkpoint: `sampledata-mysql` (and `sampledata-adminer`) and `pcm-minio` are **RUNNING**.
 
-5. Check PDI has the MySQL driver. PDI 11 doesn't include it, and
+5. Check Pentaho Data Integration has the MySQL driver. Pentaho Data Integration 11 doesn't include it, and
    every database lab needs it. The installer already downloaded it
-   into the `lib` folder of the PDI it found, and the script in step 2
-   does the same if you installed PDI after the course. If the
+   into the `lib` folder of the Pentaho Data Integration it found, and the script in step 2
+   does the same if you installed Pentaho Data Integration after the course. If the
    **MySQL JDBC driver** row in the panel below is still red, run the
    driver step on its own from the same folder:
 
@@ -344,7 +344,7 @@ When everything is green you are ready to start Module 1.
 | Compose provider         | Optional — without one the services start with `podman run` (an amber row, not a red one) |
 | Podman machine           | The Linux VM the containers run in           |
 | MySQL `sampledata`       | Labs 12–18 and several later labs read and write it |
-| MySQL JDBC driver (PDI)  | PDI 11 doesn't ship one; without it no lab can connect |
+| MySQL JDBC driver (Pentaho Data Integration)  | Pentaho Data Integration 11 doesn't ship one; without it no lab can connect |
 | MinIO                    | The `pvfs://` object-storage labs            |
 | Pentaho Data Integration | The tool the whole course teaches. Looked for in `C:\Pentaho\design-tools\data-integration` first, then elsewhere on the machine |
 | Java (for Spoon)         | Pentaho's bundled Java 21 in `C:\Pentaho\java`, or `PENTAHO_JAVA_HOME` |
@@ -356,7 +356,7 @@ When everything is green you are ready to start Module 1.
 
 The installer has already laid this course's lab files out under
 **`C:\Workshop-DI-Practitioner`**, one folder per module, so you can
-open a transformation in PDI directly instead of downloading it from
+open a transformation in Pentaho Data Integration directly instead of downloading it from
 the guide first. Every lab's **Solution** section quotes its path.
 
 The capstone is the one folder with a shape of its own:
@@ -427,7 +427,7 @@ the drivers these workshops need.
    > **Success:** Checkpoint: the Steel Wheels tables are listed — `customers`, `products`, `orders` and the rest, in lower case. The server compares table names case-insensitively, so `ORDERS` and `orders` are the same table, which the later labs rely on.
 
 These are the same database, user and password the labs use in their
-PDI database connections, so what you see in DBeaver is exactly what
+Pentaho Data Integration database connections, so what you see in DBeaver is exactly what
 your transformations see.
 
 **MinIO**, for the `pvfs://` labs, has a web console at
@@ -481,7 +481,7 @@ tabs should be all green.
 
 ## Check your environment
 
-This panel probes the machine live — PDI, the MySQL and MinIO
+This panel probes the machine live — Pentaho Data Integration, the MySQL and MinIO
 containers, and the container tooling that runs them — whichever tab
 above you chose. Each row reports one of four states:
 
@@ -537,7 +537,7 @@ C:\Workshop-DI-Practitioner
 
 Every `solution` folder holds a **complete, working** solution: the
 transformations and jobs plus their own copy of the data they read.
-Open one in PDI and run it to see the expected result; your own work
+Open one in Pentaho Data Integration and run it to see the expected result; your own work
 at the lab root is never touched.
 
 **Confirm the files are there**, not only the folder: open

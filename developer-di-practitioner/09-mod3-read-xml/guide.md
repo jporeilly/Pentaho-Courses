@@ -67,14 +67,14 @@
 > 
 > **Get data from XML** reads any XML document. A **Loop XPath** picks the nodes that become rows, and each field's XPath picks a value from its node.
 
-1. Start Spoon with the **Start PDI** button below, or from PowerShell:
+1. Start Spoon with the **Start Pentaho Data Integration** button below, or from PowerShell:
 
 ```powershell
 Set-Location C:\Pentaho\design-tools\data-integration
 .\spoon.bat
 ```
 
-<button data-launch="spoon" data-path="">Start PDI</button>
+<button data-launch="spoon" data-path="">Start Pentaho Data Integration</button>
 
 2. Select **File > New > Transformation** (`Ctrl+N`).
 3. Select **File > Save as** and save it as `tr_read_xml.ktr` in `C:\Workshop-DI-Practitioner\03-data-sources\01-flat-files\09-mod3-read-xml`, next to `orders.xml`.
@@ -226,7 +226,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 </figure>
 </div>
 
-> **Note:** The file's original w3schools address now refuses PDI's HTTP client (HTTP 403), which is why the course serves a copy of the same file from GitHub.
+> **Note:** The file's original w3schools address now refuses Pentaho Data Integration's HTTP client (HTTP 403), which is why the course serves a copy of the same file from GitHub.
 
 ### 2. Get data from XML - Read URL
 
@@ -289,7 +289,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 > #### A URL is another file path
 >
 > Nothing in the step changed to fetch from the web. Every file access
-> in PDI goes through Apache Commons VFS, a virtual file system layer
+> in Pentaho Data Integration goes through Apache Commons VFS, a virtual file system layer
 > that turns a string into a stream: `C:/data/x.xml`,
 > `http://.../plant_catalog.xml`, `sftp://host/feed.xml`,
 > `zip:file:///archive.zip!/x.xml` and, as the MinIO lab shows,
@@ -301,7 +301,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 > **Generate rows** with three URLs, or a table of endpoints, drives
 > three fetches with no change to the step.
 >
-> **Why it matters:** anywhere PDI asks for a filename, a URL will do.
+> **Why it matters:** anywhere Pentaho Data Integration asks for a filename, a URL will do.
 > There is no separate "web input" to learn, and a transformation
 > written against local files moves to S3 or SFTP by editing a string.
 
@@ -393,7 +393,7 @@ ZONE String : couldn't convert String to number : non-numeric character found at
 
 ## Lab Files
 
-Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches PDI with the file loaded. If PDI is already running, the path is copied to your clipboard — switch to PDI and press `Ctrl+O`, `Ctrl+V`, `Enter`.
+Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches Pentaho Data Integration with the file loaded. If Pentaho Data Integration is already running, the path is copied to your clipboard — switch to Pentaho Data Integration and press `Ctrl+O`, `Ctrl+V`, `Enter`.
 
 [orders.xml](./files/orders.xml)
 

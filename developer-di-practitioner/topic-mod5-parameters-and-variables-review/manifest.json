@@ -1,6 +1,6 @@
 {
   "title": "Review Parameters",
-  "description": "Parameter- and variable-driven PDI pipelines — passing values in at runtime, scoping them, and using them inside SQL.",
+  "description": "Parameter- and variable-driven Pentaho Data Integration pipelines — passing values in at runtime, scoping them, and using them inside SQL.",
   "order": 48,
   "kind": "page",
   "stepCount": 3,

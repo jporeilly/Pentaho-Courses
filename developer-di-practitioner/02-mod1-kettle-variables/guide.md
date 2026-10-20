@@ -14,7 +14,7 @@
 > * Write the same reference in both formats, `${VAR}` and `%%VAR%%`
 > * Edit `kettle.properties` in a text editor, and know when Spoon reads it
 >
-> **Prerequisites:** [Configuring PDI](../01-mod1-configuring-pdi/guide.md)
+> **Prerequisites:** [Configuring Pentaho Data Integration](../01-mod1-configuring-pdi/guide.md)
 >
 > **Estimated time:** 25 minutes
 
@@ -35,7 +35,7 @@
 > * `${VARIABLE}`, the Unix style
 > * `%%VARIABLE%%`, the Windows style
 >
-> A setting that accepts variables shows a small `$` icon at its right. Press `Ctrl+Space` in that setting to pick from the variables PDI knows.
+> A setting that accepts variables shows a small `$` icon at its right. Press `Ctrl+Space` in that setting to pick from the variables Pentaho Data Integration knows.
 
 
 :::: tabs
@@ -49,9 +49,9 @@ Set-Location C:\Pentaho\design-tools\data-integration
 .\spoon.bat
 ```
 
-<button data-launch="spoon" data-path="">Start PDI</button>
+<button data-launch="spoon" data-path="">Start Pentaho Data Integration</button>
 
-2. Select **Edit > Edit the kettle.properties file** (`Ctrl+Alt+P`). The **Kettle properties** dialog opens, with the columns **Variable name**, **Value** and **Description**. It lists PDI's own variables (most of their names start with `KETTLE_`) and any variables already in the file.
+2. Select **Edit > Edit the kettle.properties file** (`Ctrl+Alt+P`). The **Kettle properties** dialog opens, with the columns **Variable name**, **Value** and **Description**. It lists Pentaho Data Integration's own variables (most of their names start with `KETTLE_`) and any variables already in the file.
 3. Right-click the first row and select **Insert before this row**.
 4. In the new row, set **Variable name** to `DIR_SAMPLES`, and **Value** to the folder for your operating system:
 
@@ -112,11 +112,11 @@ Variable names are case-sensitive: `${DIR_SAMPLES}` and `${dir_samples}` are two
 3. Select **OK**.
 4. Select **Edit > Show Used Environment Variables** (`Ctrl+L`) again.
 
-> **Success:** Checkpoint: `DIR_SAMPLES` is still listed with the same value. PDI reads `${DIR_SAMPLES}` and `%%DIR_SAMPLES%%` as the same variable.
+> **Success:** Checkpoint: `DIR_SAMPLES` is still listed with the same value. Pentaho Data Integration reads `${DIR_SAMPLES}` and `%%DIR_SAMPLES%%` as the same variable.
 
 5. Close the transformation without saving it.
 
-> **Note:** The courses use `${...}` throughout, because it is the form PDI writes when you insert a variable with `Ctrl+Space`. You may meet `%%...%%` in older transformations.
+> **Note:** The courses use `${...}` throughout, because it is the form Pentaho Data Integration writes when you insert a variable with `Ctrl+Space`. You may meet `%%...%%` in older transformations.
 
 ### 4. Edit kettle.properties in a text editor
 
@@ -140,9 +140,9 @@ notepad $env:USERPROFILE\.kettle\kettle.properties
 
 3. Close the editor without changing anything.
 
-> **Warning:** Spoon's editor rewrites the whole file each time you select **OK**: comments you typed by hand are lost, and those of PDI's own variables that have a default value are written out with it. Keep notes about your variables somewhere else, such as a README beside your project.
+> **Warning:** Spoon's editor rewrites the whole file each time you select **OK**: comments you typed by hand are lost, and those of Pentaho Data Integration's own variables that have a default value are written out with it. Keep notes about your variables somewhere else, such as a README beside your project.
 >
-> Spoon and the PDI engine read `kettle.properties` when they start. A value you add in Spoon's editor (step 1) takes effect at once, because Spoon also applies it to every open file. A value you change in a text editor takes effect only after you restart Spoon, or in the next Pan or Kitchen run.
+> Spoon and the Pentaho Data Integration engine read `kettle.properties` when they start. A value you add in Spoon's editor (step 1) takes effect at once, because Spoon also applies it to every open file. A value you change in a text editor takes effect only after you restart Spoon, or in the next Pan or Kitchen run.
 
 <div class="pcm-embed-card" data-href="https://docs.pentaho.com/pdia-data-integration/data-integration-perspective-in-the-pdi-client/advanced-topics-pdi-perspective/pdi-run-modifiers/variables/kettle-variables" data-title="Kettle Variables | Pentaho" data-thumb="../_assets/embeds/267325a87400.png"></div>
 
@@ -150,7 +150,7 @@ notepad $env:USERPROFILE\.kettle\kettle.properties
 
 ## Lab Files
 
-Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches PDI with the file loaded. If PDI is already running, the path is copied to your clipboard — switch to PDI and press `Ctrl+O`, `Ctrl+V`, `Enter`.
+Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches Pentaho Data Integration with the file loaded. If Pentaho Data Integration is already running, the path is copied to your clipboard — switch to Pentaho Data Integration and press `Ctrl+O`, `Ctrl+V`, `Enter`.
 
 ### Solution <!-- no-step -->
 

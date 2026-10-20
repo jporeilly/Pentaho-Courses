@@ -405,7 +405,7 @@ Requirements 4, 5, 7 and 9.
 <summary>Hints</summary>
 
 - **Stream lookup** for the customers; **Merge join** for the products, with both inputs sorted on the join key. A **Table input** can sort in its query.
-- PDI 11's **Formula** step has no ROUND function. To round each row's revenue half-up to the cent, scale it, truncate with `INT`, and scale back, in a **BigNumber** result. Then the CSV, the table and the summary agree to the cent.
+- Pentaho Data Integration 11's **Formula** step has no ROUND function. To round each row's revenue half-up to the cent, scale it, truncate with `INT`, and scale back, in a **BigNumber** result. Then the CSV, the table and the summary agree to the cent.
 - The region key comes from `dim_region`: **Dimension lookup/update** with **Update the dimension?** cleared only looks rows up, and the order date picks the version that was current then.
 
 </details>
