@@ -21,6 +21,14 @@
 >
 > **Estimated time:** 45 minutes
 
+<figure>
+
+<figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
+
+</figure>
+
+---
+
 <div align="center">
 <figure>
 <img src="../_assets/images/dd_product_content_linking.png" alt="Product Performance Dashboard with the Product Sales Analysis table, a Territory Sales Mix pie and an Order Status bar chart for the 1900s Vintage Tri-Plane" width="800">
