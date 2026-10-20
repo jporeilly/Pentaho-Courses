@@ -23,6 +23,8 @@
 
 </figure>
 
+---
+
 :::: tabs
 
 ### 1. Define the Parameter

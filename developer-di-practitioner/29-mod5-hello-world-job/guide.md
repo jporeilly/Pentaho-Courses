@@ -18,6 +18,14 @@
 > 
 > **Estimated time:** 20 minutes
 
+<figure>
+
+<figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
+
+</figure>
+
+---
+
 <div align="center">
 <figure>
 <img src="../_assets/images/job.png" alt="The finished job: START, then Transformation A, then Success" width="626">

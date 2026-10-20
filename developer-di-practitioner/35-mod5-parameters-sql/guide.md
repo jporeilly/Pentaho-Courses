@@ -25,6 +25,8 @@
 
 </figure>
 
+---
+
 <div align="center">
 <figure>
 <img src="../_assets/images/param-database.png" alt="The finished transformation: three Data grids, each feeding its own Table input" width="645">

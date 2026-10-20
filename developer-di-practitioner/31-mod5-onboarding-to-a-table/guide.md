@@ -17,6 +17,14 @@
 > 
 > **Estimated time:** 25 minutes
 
+<figure>
+
+<figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
+
+</figure>
+
+---
+
 <div align="center">
 <figure>
 <img src="../_assets/images/metadata-injection-onboarding.png" alt="Two transformations: metadata_inject_step.ktr's Data grids and file name feed ETL metadata injection, which fills in and runs metadata_inject_template.ktr, a CSV file input, Select values and Table output with no fields of their own" width="800">
