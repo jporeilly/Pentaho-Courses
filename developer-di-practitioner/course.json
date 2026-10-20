@@ -13,7 +13,7 @@
   },
   "title": "Pentaho Developer - DI Practitioner",
   "description": "Self-paced, hands-on workshop for the Pentaho Data Integration Practitioner.",
-  "version": "0.1.23",
+  "version": "0.1.24",
   "kind": "workshop",
   "platform": "windows11",
   "level": { "number": 1, "name": "Practitioner" },
