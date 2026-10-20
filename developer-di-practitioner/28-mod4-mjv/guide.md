@@ -18,6 +18,14 @@
 > 
 > **Estimated time:** 20 minutes
 
+<figure>
+
+<figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
+
+</figure>
+
+---
+
 <div align="center">
 <figure>
 <img src="../_assets/images/mjv.png" alt="The finished transformation: Generate Rows hopped to the Modified JavaScript value step" width="608">

@@ -21,6 +21,14 @@
 >
 > **Estimated time:** 30 minutes
 
+<figure>
+
+<figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
+
+</figure>
+
+---
+
 <div align="center">
 <figure>
 <img src="../_assets/images/delete-1.png" alt="The finished transformation: productlines list, getting min_quantityordered and delete min quantity ordered in a line" width="686">

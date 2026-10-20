@@ -23,6 +23,14 @@
 > 
 > **Estimated time:** 30 minutes
 
+<figure>
+
+<figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
+
+</figure>
+
+---
+
 :::: tabs
 
 ### 1. Check the Database

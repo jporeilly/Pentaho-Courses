@@ -21,6 +21,14 @@
 >
 > **Estimated time:** 25 minutes
 
+<figure>
+
+<figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
+
+</figure>
+
+---
+
 <div align="center">
 <figure>
 <img src="../_assets/images/insert-update-2.png" alt="The finished transformation: Text File Input hopped to Insert / Update Employees" width="663">
