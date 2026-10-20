@@ -1,0 +1,37 @@
+{
+  "title": "APAC Sales Pack",
+  "description": "Capstone: an Interactive Report with prompts and totals, an Analyzer report with a calculated measure, and a dashboard that links them, for the APAC regional director. Built in the User Console and downloaded for the accreditation checks.",
+  "order": 16,
+  "kind": "workshop",
+  "stepCount": 18,
+  "hasVideo": false,
+  "estimatedMinutes": 120,
+  "checks": [
+    {
+      "id": "orders-report",
+      "kind": "file-exists",
+      "label": "Your Interactive Report, APAC-Orders-by-Country.prpti, downloaded into solution\\APAC\\",
+      "path": "C:/Workshop-BA-Practitioner/capstone/solution/APAC/APAC-Orders-by-Country.prpti"
+    },
+    {
+      "id": "orders-pdf",
+      "kind": "file-exists",
+      "label": "Your report exported to PDF (APAC-Orders-by-Country.pdf in out\\)",
+      "path": "C:/Workshop-BA-Practitioner/capstone/out/APAC-Orders-by-Country.pdf"
+    },
+    {
+      "id": "analysis-apac",
+      "kind": "file-contains",
+      "label": "Your analysis, APAC-Product-Line-Sales.xanalyzer, filtered to the APAC territory",
+      "path": "C:/Workshop-BA-Practitioner/capstone/solution/APAC/APAC-Product-Line-Sales.xanalyzer",
+      "text": "[Markets].[APAC]"
+    },
+    {
+      "id": "dashboard-analysis",
+      "kind": "file-contains",
+      "label": "Your dashboard, APAC-Sales-Pack.xdash, showing your own analysis",
+      "path": "C:/Workshop-BA-Practitioner/capstone/solution/APAC/APAC-Sales-Pack.xdash",
+      "text": "APAC-Product-Line-Sales.xanalyzer"
+    }
+  ]
+}

@@ -28,3 +28,7 @@
 * [Vendor Sales](13-dashboard-designer-vendor-sales/guide.md)
 * [Inventory](14-dashboard-designer-inventory/guide.md)
 * [Product Performance](15-dashboard-designer-product-performance/guide.md)
+
+## Capstone Project
+
+* [APAC Sales Pack](16-capstone-apac-sales-pack/guide.md)

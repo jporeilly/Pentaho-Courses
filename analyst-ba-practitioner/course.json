@@ -13,7 +13,7 @@
   },
   "title": "Pentaho Analyst - BA Practitioner",
   "description": "Hands-on workshop for the Pentaho Business Analytics Practitioner. Pentaho User Console, Interactive Reports, Analyzer Reports and Dashboard Designer.",
-  "version": "0.1.16",
+  "version": "0.1.17",
   "kind": "workshop",
   "platform": "windows11",
   "level": { "number": 1, "name": "Practitioner" },
@@ -60,8 +60,32 @@
     {
       "title": "Dashboard Designer",
       "summary": "Assemble interactive dashboards combining reports, charts, and filters. Three exercises: Vendor Sales, Inventory, and Product Performance."
+    },
+    {
+      "title": "Capstone Project",
+      "summary": "Bring it all together for the APAC regional director: an Interactive Report with prompts and totals, an Analyzer report with a calculated measure, and a dashboard that links them. Its checks decide your course accreditation."
     }
   ],
+  "completionCertificate": {
+    "title": "Pentaho Business Analytics Analyst - Practitioner Level",
+    "topics": [
+      "The Pentaho User Console",
+      "Interactive Reports",
+      "Analyzer reports",
+      "Dashboard Designer",
+      "End-to-end reporting delivery"
+    ],
+    "capstone": "Completed a capstone project: an APAC sales pack of an Interactive Report with prompts and totals, an Analyzer report with a calculated measure, and a dashboard that links them, built in the Pentaho User Console.",
+    "validYears": 2,
+    "signatory": {
+      "name": "Jason Allaway",
+      "title": "President Pentaho - A Leo Software Group Company"
+    },
+    "watermark": "PENTAHO",
+    "requires": {
+      "labChecks": ["16-capstone-apac-sales-pack"]
+    }
+  },
   "launchers": {
     "puc": {
       "label": "Pentaho User Console",
