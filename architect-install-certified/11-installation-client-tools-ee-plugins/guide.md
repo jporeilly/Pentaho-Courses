@@ -1,39 +1,115 @@
 # Kettle Plugins
 
-Enterprise plugins add steps and job entries to PDI. In 11.0 they are installed, updated and removed through the Plugin Manager, in both the PDI client and the Pentaho User Console.
+> **Warning:**
+>
+> #### Workshop - Kettle Plugins
+>
+> Enterprise plugins add steps and job entries to Pentaho Data Integration (PDI). In 11.0 you install, update and remove them with the Plugin Manager, in the PDI client and in the Pentaho User Console.
+>
+> **What you'll do**
+>
+> * Open the Plugin Manager in Spoon
+> * Find a plugin and install its latest version, or an earlier one
+> * Restart Spoon and check the installed version
+> * See where the Plugin Manager records what it installed
+>
+> **Prerequisites:**
+>
+> * Spoon, from [Client Plugins](../10-installation-client-tools/guide.md)
+> * Outbound HTTPS to `download.pentaho.com`, where the Plugin Manager downloads plugins
+>
+> **Estimated time:** 15 minutes
 
-::: tabs
-
-### NEW - PDI Plugin Manager
+---
 
 > **Note:**
 >
 > #### PDI Plugin Manager
-> 
-> Pentaho Data Integration (PDI) can be extended with plugins that add new steps, job entries, and other functionality. The best way to manage these plugins is through the Plugin Manager, which you'll find in both the PDI client and Pentaho User Console (PUC).
-> 
-> The Plugin Manager handles all your plugin needs: installing new ones, updating existing ones to their latest versions, and removing plugins you no longer use.
-> 
-> While you can install plugins manually, this approach isn't recommended. Manually installed plugins won't show up in the Plugin Manager, which means you'll have to handle all future updates and removals yourself.
+>
+> Plugins extend PDI with new steps, job entries and other functionality. Manage them with the Plugin Manager, in both the PDI client and the Pentaho User Console (PUC): it installs new plugins, updates installed ones to their latest versions, and removes the ones you no longer use.
+>
+> You can install a plugin by hand, but it isn't recommended: a plugin installed by hand doesn't show up in the Plugin Manager, so you handle its updates and removal yourself. A plugin installed in Spoon is for the PDI client; the server's own PDI engine, which runs Pipeline Designer and scheduled work, gets its Kettle plugins from the User Console's Plugin Manager, which lists the same plugins with the type `KETTLE`.
 
-1. In the top toolbar Select: Tools > Plugin Manager.
+:::: tabs
 
-<figure><img src="../_assets/images/pdi_plugin_manager.png" alt=""><figcaption><p>PDI Plugin Manager</p></figcaption></figure>
+### 1. Install a Plugin
 
-**Installing a Plugin:** Find the plugin you want to install by searching or browsing the available options.
+1. Start Spoon from a terminal:
 
-**For the latest version:** Simply click Install.
+::: tabs
 
-<figure><img src="../_assets/images/pdi_plugin_manager_step.png" alt=""><figcaption></figcaption></figure>
+### Windows (PowerShell)
 
-**For an earlier version:** Click on the plugin's table row to open the Plugin name dialog box. Select your desired version from the dropdown list and click Install. Confirm the installation if prompted.
+```powershell
+Set-Location C:\Pentaho\design-tools\data-integration
+.\spoon.bat
+```
 
-**Restart to activate:** After installation, restart both Pentaho Server & PDI client. This step is essential - newly installed plugins won't work until you restart.
+### macOS / Linux
 
-**Verify the installation:** Log into the PDI client and navigate to Tools > Plugin Manager. Search for or browse to your newly installed plugin. Check the Installed Version column to confirm the correct version is listed.
-
-### Plugin Matrix
-
-<table><thead><tr><th width="225">Plugin</th><th>Description</th></tr></thead><tbody><tr><td>Databricks</td><td>The Bulk load into Databricks entry loads large volumes of data from cloud storage files directly into Databricks tables. <strong>How it works:</strong> It accomplishes this by using Databricks' <a href="https://docs.databricks.com/aws/en/sql/language-manual/delta-copy-into">COPY INTO</a> command behind the scenes.</td></tr><tr><td>Salesforce Bulk Operation</td><td><p>The Salesforce bulk operation step performs large-scale data operations (insert, update, upsert, and delete) on Salesforce objects using the Salesforce Bulk API 2.0.</p><p><strong>How it works:</strong> The step reads data from an input stream, creates a CSV file of the changes, and executes the bulk job against Salesforce. After the job completes, you can optionally route three types of results to separate output streams: successful records, unprocessed records, and failed records.</p><p><strong>Requirements:</strong> You must have a Salesforce Client ID and Client Secret to use this step.</p></td></tr><tr><td>Google Analytics v4</td><td><p>The Google Analytics v4 step retrieves data from your Google Analytics account for reporting or data warehousing purposes.</p><p><strong>How it works:</strong> The step queries Google Analytics properties through the <a href="https://developers.google.com/analytics/devguides/reporting/data/v1">Google Analytics API v4</a> and sends the resulting dimension and metric values to the output stream.</p></td></tr><tr><td><strong>Hierarchical Data Type</strong></td><td><p>Pentaho supports a hierarchical data type (HDT) through the Pentaho EE Marketplace plugin. This plugin adds the HDT data type and includes five specialized steps for working with it.</p><p><strong>What it does:</strong> These steps simplify working with complex, nested data structures. They can convert between HDT fields and formatted strings, and let you directly access or modify nested array indices and keys.</p><p><strong>Performance benefits:</strong> The steps significantly improve performance compared to handling hierarchical data as plain strings.</p><p><strong>Data structure:</strong> HDT can store nested or complex data built from objects and arrays, as well as single elements. It's compatible with any PDI step that processes hierarchical data.</p></td></tr></tbody></table>
+```bash
+cd ~/Pentaho/design-tools/data-integration
+./spoon.sh
+```
 
 :::
+
+2. Select **Tools > Plugin Manager**. (On the **Welcome!** page, **Plugin Manager** under **EXTEND** opens it too.)
+
+<div align="center">
+<figure>
+<img src="../_assets/images/pdi_plugin_manager.png" alt="Spoon with the Tools menu open on Plugin Manager, and the Plugin Manager tab listing Databricks and Salesforce Bulk Operation with Install buttons, and Google Analytics v4, Hierarchical Data Type and Kafka Job as Installed" width="800">
+<figcaption>Tools > Plugin Manager in Spoon</figcaption>
+</figure>
+</div>
+
+> **Success:** Checkpoint: a **Plugin Manager** tab opens. Each plugin shows its **Type**, **Installed Version** and **Latest Version**, and an **Install** button, or **Installed** if it is already there.
+
+3. Find the plugin you want: type its name in **Search...**, or change **View All** to **Not Installed**.
+4. To install the latest version, select the plugin's **Install** button.
+5. To install an earlier version instead, select the plugin's name. In its details window, select the version in the version list, then select **Install**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/pdi_plugin_manager_step.png" alt="The Hierarchical Data Type details window: latest and installed version 11.0.0.0-237, type Kettle, developer Pentaho, the description of its steps, and This version has already been installed beside a disabled Install button" width="800">
+<figcaption>A plugin's details: version, description, Install and Uninstall</figcaption>
+</figure>
+</div>
+
+6. When Spoon asks **Do you want to install?**, confirm.
+
+> **Success:** Checkpoint: a **Successful installation** message says that the plugin *is now installed*, and asks you to *restart PDI to use the plugin*.
+
+7. Restart Spoon: select **File > Exit**, then start Spoon again from the terminal.
+8. Select **Tools > Plugin Manager**, and find the plugin again.
+
+> **Success:** Checkpoint: the plugin shows **Installed**, and its **Installed Version** is the version you chose, for example `11.0.0.0-237`.
+
+9. In a terminal, look at the Plugin Manager's record of the plugins it installed:
+
+```bash
+cat ~/Pentaho/design-tools/data-integration/plugins/plugin-manifest.json
+```
+
+> **Under the hood:**
+>
+> #### The Plugin Manager keeps its own record of what it installed
+>
+> PDI's plugins live in `data-integration/plugins`. The Plugin Manager installs a plugin there, and records its name, plugin ID and version in `plugins/plugin-manifest.json`, whose `containerType` is `KETTLE`. The Plugin Manager is itself the first entry, `Plugin Manager - PDI`. A plugin copied into `plugins` by hand has no entry in that file, and it doesn't show up in the Plugin Manager.
+>
+> **Why it matters:** the manifest is your list of what to reinstall after an upgrade (see [Pentaho Upgrade & Patches](../09-installation-upgrade-and-patches/guide.md)), and the reason to install through the Plugin Manager: a plugin it doesn't know about is one you update and remove by hand.
+
+::::
+
+## Plugin Matrix <!-- no-step -->
+
+| Plugin | Adds | What it does |
+| --- | --- | --- |
+| Databricks | A job entry, **Bulk load into Databricks** | Loads large volumes of data from cloud storage files into Databricks tables, with Databricks' [COPY INTO](https://docs.databricks.com/aws/en/sql/language-manual/delta-copy-into) command. |
+| Salesforce Bulk Operation | A step, **Salesforce bulk operation** | Inserts, updates, upserts and deletes Salesforce objects at scale through the Salesforce Bulk API 2.0. It reads the input stream, writes a CSV file of the changes and runs the bulk job; afterwards it can send the successful, unprocessed and failed records to separate output streams. It needs a Salesforce Client ID and Client Secret. |
+| Google Analytics v4 | A step, **Google Analytics v4** | Retrieves data from your Google Analytics account for reporting or data warehousing: it queries Google Analytics properties through the [Google Analytics API](https://developers.google.com/analytics/devguides/reporting/data/v1) and sends the dimension and metric values to the output stream. |
+| Hierarchical Data Type | A data type and five steps | Adds the hierarchical data type (HDT), for nested data built from objects and arrays, and five steps for it: **Hierarchical JSON Input**, **Extract to Rows**, **Modify Values from a Single Row**, **Modify Values from Grouped Rows** and **Hierarchical JSON Output**. They convert between HDT fields and formatted strings and reach nested array indices and keys directly, which performs better than handling hierarchical data as plain strings. |
+
+## Lab Files
+
+_No bundled files for this lab._

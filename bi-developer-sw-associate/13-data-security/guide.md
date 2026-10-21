@@ -2,11 +2,16 @@
 
 <div class="pcm-intro">
 
-Publishing OLAP cubes for organisational use means more than building good dimensional models — you must ensure users see only the data their role permits. **Mondrian uses a role-based security model (RBAC)**: users are assigned to roles, and each role defines what data it can see within the cube. This lets a single analytics database serve many user types while showing each only their authorised data.
+Publishing OLAP cubes for organizational use means more than building good dimensional models — you must ensure users see only the data their role permits. **Mondrian uses a role-based security model (RBAC)**: users are assigned to roles, and each role defines what data it can see within the cube. This lets a single analytics database serve many user types while showing each only their authorized data.
 
 </div>
 
-<figure><img src="../_assets/images/security_rbac.png" alt=""><figcaption><p>RBAC</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/security_rbac.png" alt="Role-based access control model diagram linking users to roles, roles to operations and operations to objects, with users and roles feeding a session" width="800">
+<figcaption>RBAC</figcaption>
+</figure>
+</div>
 
 > **Note:**
 >
@@ -40,8 +45,8 @@ Publishing OLAP cubes for organisational use means more than building good dimen
 > - **File:** `pentahoObjects.spring.xml`
 > - **Path:** `pentaho-solutions/system`
 > - **Bean ID:** `Mondrian-UserRoleMapper`
-
-> **Danger:** **Security warning** — without a configured role mapper, Mondrian defaults to **unrestricted access**: every user can see all data regardless of their Pentaho roles. Always configure a role mapper.
+>
+> **Security warning:** without a configured role mapper, Mondrian defaults to **unrestricted access**: every user can see all data regardless of their Pentaho roles. Always configure a role mapper.
 
 Pentaho ships three built-in role-mapper types:
 
@@ -56,7 +61,7 @@ Pentaho ships three built-in role-mapper types:
 > The simplest approach — it passes Pentaho roles to Mondrian **unchanged**. A user with the "Sales Manager" role in Pentaho gives Mondrian the exact same "Sales Manager" role. Widely used because it needs no separate role names or mapping logic.
 >
 > **`failOnEmptyRoleList`** — controls what happens when a user has no matching Mondrian role:
-> - **Default (recommended):** throws an exception, preventing unauthorised access.
+> - **Default (recommended):** throws an exception, preventing unauthorized access.
 > - **If `false`:** users without a matching role get full access to everything — effectively no security. Avoid in production.
 
 ```xml
@@ -114,7 +119,12 @@ Pentaho ships three built-in role-mapper types:
 >
 > Mondrian security grants are a set of **filters** on the data — a role sees only what its filters let through. At each level of the schema you can explicitly restrict or show data. Grants nest from the schema down to individual members.
 
-<figure><img src="../_assets/images/security.png" alt="" width="478"><figcaption></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/security.png" alt="Diagram of grant levels on an Adventure Works schema: SchemaGrant on the schema, CubeGrant on two cubes, and DimensionGrant, HierarchyGrant and MemberGrant inside them" width="478">
+<figcaption>Where each grant applies</figcaption>
+</figure>
+</div>
 
 | Level | Scope | Purpose |
 | --- | --- | --- |
@@ -149,7 +159,7 @@ Pentaho ships three built-in role-mapper types:
 >
 > #### CubeGrant
 >
-> Takes a cube `name` and `access` (`all` or `none`). With schema `access="none"`, a `CubeGrant access="all"` exposes just that cube (and, implicitly, the parent schema). With schema `access="all"`, a `CubeGrant access="none"` hides one cube while leaving the rest visible.
+> Takes a cube `name` and `access` (`all` or `none`). With schema `access="none"`, a `CubeGrant access="all"` exposes only that cube (and, implicitly, the parent schema). With schema `access="all"`, a `CubeGrant access="none"` hides one cube while leaving the rest visible.
 
 ```xml
 <Role name="Product Manager">
@@ -176,7 +186,12 @@ Pentaho ships three built-in role-mapper types:
 </HierarchyGrant>
 ```
 
-<figure><img src="../_assets/images/security_top_and_bottom.png" alt=""><figcaption><p>Top &#x26; Bottom</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/security_top_and_bottom.png" alt="Hierarchy level restriction example: Country, State and City stay visible, while Territory above topLevel and Store below bottomLevel are hidden" width="712">
+<figcaption>Top &#x26; Bottom</figcaption>
+</figure>
+</div>
 
 ### 4. MemberGrant
 

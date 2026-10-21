@@ -140,8 +140,11 @@ C:\Workshop-BA-Practitioner\capstone\    (your machine)
 └── out\APAC-Orders-by-Country.pdf       the report's PDF export
 ```
 
-The installer made `capstone\solution\` and `capstone\out\` for you,
-empty. The repository folder is yours to create.
+The installer makes `capstone\solution\` and `capstone\out\` for you,
+empty. If `C:\Workshop-BA-Practitioner\` has no `capstone` folder (the
+course was installed before the capstone was added), create
+`capstone\solution\` and `capstone\out\` there yourself. The repository
+folder is yours to create.
 
 ---
 

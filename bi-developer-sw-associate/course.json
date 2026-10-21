@@ -13,9 +13,9 @@
   },
   "title": "Pentaho BI Developer - SW Associate",
   "description": "Hands-on workshop for the OLAP / Mondrian schema BI Developer. Build, extend, and publish Mondrian schemas with Pentaho Schema Workbench — cubes, dimensions, hierarchies, levels, measures, calculated members, named sets — and query them with MDX.",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "kind": "workshop",
-  "level": { "number": 1, "name": "Associate" },
+  "level": { "number": 2, "name": "Associate" },
   "mode": "sequential",
   "theme": {
     "accent": "#2e7d32"
@@ -83,5 +83,9 @@
       "url": "http://localhost:8080"
     }
   },
-  "role": "bi-developer"
+  "role": "bi-developer",
+  "install": {
+    "code": "SW",
+    "getReady": true
+  }
 }

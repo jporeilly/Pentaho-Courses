@@ -10,7 +10,7 @@ Pentaho Analyzer gives business users a drag-and-drop interface — but schema d
 >
 > #### Why learn MDX?
 >
-> Rather than waiting for users to discover issues in production reports, you can proactively **validate** your schema designs, **test** calculated members, and **verify** query behaviour using direct MDX queries. This transforms you from a passive schema builder into an active analyst who can interrogate cubes and understand exactly how your model responds to different query patterns.
+> Rather than waiting for users to discover issues in production reports, you can proactively **validate** your schema designs, **test** calculated members, and **verify** query behavior using direct MDX queries. This transforms you from a passive schema builder into an active analyst who can interrogate cubes and understand exactly how your model responds to different query patterns.
 
 ## MDX at a glance
 

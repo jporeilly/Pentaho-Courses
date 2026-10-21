@@ -11,7 +11,7 @@ This panel stays beside your tools for the whole workshop:
 
 - **Float or dock** — drag the title bar to move the window anywhere
   (any monitor), or use the dock button to pin it to the right edge of
-  the screen so maximised apps make room for it.
+  the screen so maximized apps make room for it.
 - **The sidebar** lists every section and lab. A <span data-icon="video"></span> badge means the lab
   includes a video; the `~15 min` tag is a time estimate.
 - Use the **font-size** and **reading-mode** controls in the toolbar if
@@ -20,7 +20,7 @@ This panel stays beside your tools for the whole workshop:
 ## Track your progress
 
 In every workshop lab, each numbered heading is a **step** with a
-checkbox — tick it when you're done. Progress is saved on this machine
+checkbox — select it when you're done. Progress is saved on this machine
 and survives restarts, so you can pick up exactly where you left off.
 (This orientation page doesn't track steps — the checkboxes start in
 the first workshop.)
@@ -72,8 +72,8 @@ logins, for when you come back to it later.
 
 ### 1. Start the Pentaho Server
 
-The server ships with Pentaho, so there is nothing to install — you
-just start it. It brings up the User Console, the sample data and the
+The server ships with Pentaho, so there is nothing to install: you
+start it. It brings up the User Console, the sample data and the
 publish target for your metadata domains.
 
 1. Open PowerShell and run the start script from your Pentaho install:
@@ -188,7 +188,7 @@ grounded in the official docs — ask it anything from "what does this
 step do?" to "why did my transformation fail?". It runs on a local
 model, so it works even when the VM is offline.
 
-## How this course is organised
+## How this course is organized
 
 Each section starts with an **overview page** (<span data-icon="page"></span> — background reading,
 no checkboxes) followed by **hands-on workshops** (<span data-icon="workshop"></span> — tracked steps).

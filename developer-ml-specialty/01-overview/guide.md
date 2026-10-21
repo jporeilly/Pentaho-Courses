@@ -1,4 +1,4 @@
-# Machine Learning
+# Overview
 
 > **Note:**
 >
@@ -6,13 +6,11 @@
 > 
 > The machine learning use case in Pentaho Data Integration addresses credit card fraud detection, a critical business challenge where organizations typically lose about 5% of their yearly revenue to fraudulent activities\*.
 > 
-> This hands-on lab demonstrates three powerful approaches to fraud detection:
+> The workshops take two approaches to fraud detection:
 > 
-> First, it teaches how to use H2O (AutoML) to automatically discover well-performing machine learning models without extensive manual tuning.&#x20;
+> First, H2O AutoML trains and ranks several machine learning models, so you find a well-performing algorithm without extensive manual tuning.
 > 
-> Second, it covers supervised learning algorithms that can detect fraudulent behavior by learning patterns from historical fraud cases.&#x20;
-> 
-> Third, it explores unsupervised learning methods to identify new, previously unseen types of fraud activities.
+> Second, a supervised learning algorithm, a Gradient Boosting Machine trained in R, learns the patterns of historical fraud cases and scores new transactions with a fraud probability.
 > 
 > A key focus of this use case is handling imbalanced datasets, which is essential since fraudulent transactions are rare compared to legitimate ones. The use case provides practical techniques for properly classifying data when dealing with this common real-world challenge, ensuring that machine learning models can effectively identify fraud without being overwhelmed by the volume of normal transactions.
 > 

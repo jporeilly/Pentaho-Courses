@@ -10,9 +10,14 @@ When you build a metadata domain, you're creating a framework that lets end user
 >
 > #### What is a Concept?
 >
-> A **concept** is a bundle of metadata properties you attach to business objects (such as database tables or columns). Instead of defining properties individually each time, you package them together as reusable concepts — currency formats, number formats, text formats, and so on. Concepts can be organised in a **hierarchy where child concepts inherit properties from parents**, so you define metadata once at a higher level and have it apply automatically to everything below — avoiding repetition and ensuring consistency.
+> A **concept** is a bundle of metadata properties you attach to business objects (such as database tables or columns). Instead of defining properties individually each time, you package them together as reusable concepts — currency formats, number formats, text formats, and so on. Concepts can be organized in a **hierarchy where child concepts inherit properties from parents**, so you define metadata once at a higher level and have it apply automatically to everything below — avoiding repetition and ensuring consistency.
 
-<figure><img src="../_assets/images/concept_editor_concept_editor.png" alt=""><figcaption></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/concept_editor_concept_editor.png" alt="The Concept Editor: the concept tree Base, Number, USCurrency, ID, Hidden and Date, with Number selected and its Text Alignment Right and mask #,##0 in Settings" width="800">
+<figcaption>A concept hierarchy in the Concept Editor</figcaption>
+</figure>
+</div>
 
 ## The Base Concept
 
@@ -38,7 +43,7 @@ Together these create a flexible, reusable system for managing metadata across y
 >
 > #### Concept Editor
 >
-> **Parent concepts** are independent hierarchies of concepts that can be assigned to one or more business objects through the navigation tree. Before you can assign a parent concept, you must first create one. The **Concept Editor** lets you build concepts to use as parent concepts — isolating them, naming them, then associating the named concept with one or more business objects for flexibility and good concept management. You can also define concepts that **build upon other concepts**: by nesting concepts this way, you minimise the number of properties you repeatedly define and create a clean inheritance hierarchy.
+> **Parent concepts** are independent hierarchies of concepts that can be assigned to one or more business objects through the navigation tree. Before you can assign a parent concept, you must first create one. The **Concept Editor** lets you build concepts to use as parent concepts — isolating them, naming them, then associating the named concept with one or more business objects for flexibility and good concept management. You can also define concepts that **build upon other concepts**: by nesting concepts this way, you minimize the number of properties you repeatedly define and create a clean inheritance hierarchy.
 
 ### Default Concept
 

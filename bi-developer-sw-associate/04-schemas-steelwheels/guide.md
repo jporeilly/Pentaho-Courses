@@ -2,76 +2,30 @@
 
 > **Warning:**
 >
-> #### Workshop - Overview of SteelWheels Schema
+> #### Workshop - SteelWheels
 >
-> While relational databases excel at storing transactional data, analyzing that data across multiple dimensions—such as sales by product, by region, by time period—requires a different approach. OLAP (Online Analytical Processing) enables multidimensional analysis by organizing data into cubes with dimensions, hierarchies, and measures. Pentaho's Schema Workbench allows you to create Mondrian schemas that map your relational database structures into powerful OLAP cubes, transforming row-and-column data into intuitive, business-friendly analytical models.
+> OLAP (Online Analytical Processing) organizes data into cubes with dimensions, hierarchies and measures, so sales can be analyzed by product, region and time at once. A Mondrian schema maps the tables of a relational database onto those cubes.
 >
-> In this guided demonstration workshop, you'll explore the SteelWheels Mondrian schema—a comprehensive example built on the SampleData database that represents a typical sales analytics scenario. Using both JDBC Explorer and Schema Workbench, you'll examine how transactional sales data is transformed into a multidimensional cube with geographic hierarchies, customer dimensions, product categorizations, and time-based analysis. This hands-on exploration provides the foundation you need to understand dimensional modeling concepts before building your own schemas.
+> In this workshop you connect Schema Workbench to the SampleData database, browse its tables in JDBC Explorer, and then walk through the SteelWheels schema: one cube, five dimensions and two measures built on the `ORDERFACT` fact table.
 >
 > **What you'll do**
 >
-> * Configure JDBC connections in Schema Workbench to access relational databases
-> * Use JDBC Explorer to navigate physical database tables, columns, and relationships
-> * Open and examine an existing Mondrian schema (SteelWheels.xml)
-> * Explore the Sales_2003_2005 cube structure and its ORDERFACT fact table
-> * Examine the Markets dimension with its four-level geographic hierarchy
-> * Review the Customers dimension including member properties for rich attributes
-> * Understand the Products and Time dimensions for product and temporal analysis
-> * Identify degenerate dimensions like Order Status that exist within fact tables
-> * Explore measures including Quantity and Sales with their aggregators and format strings
-> * Review annotations that provide enhanced functionality and metadata
+> * Connect Schema Workbench to the SampleData database
+> * Browse the physical tables and columns in JDBC Explorer
+> * Open the SteelWheels schema and explore the `Sales_2003_2005` cube and its `ORDERFACT` fact table
+> * Examine a geographic hierarchy with annotations, a level with member properties and a time dimension
+> * See how a degenerate dimension and the measures are defined
 >
-> **Prerequisites:** Schema Workbench installed and configured; Pentaho Server running with SampleData database accessible; Basic understanding of relational database concepts and dimensional modeling principles
+> **Prerequisites:** Schema Workbench installed and the Pentaho Server running, which hosts the SampleData database (see [Before You Start](../00-before-you-start/guide.md)); a basic understanding of relational tables
 >
 > **Estimated time:** 45 minutes
 
-#### Lab Files
-
-Open these in Schema Workbench via **File ▸ Open** (copy them out of the guide's content folder first if you plan to edit):
-
-[steelwheels-original.xml](./files/steelwheels-original.xml)
-[steelwheels.xml](./files/steelwheels.xml)
-
-
-<figure><img src="../_assets/images/schema_schema_element.png" alt=""><figcaption><p>SteelWheels Schema</p></figcaption></figure>
-
-***
-
-1. Start Schema Workbench:
-
-> **Note:**
->
-> #### Windows (PowerShell):
->
-> ```powershell
-> cd \
-> cd Pentaho/design-tools/schema-workbench/
-> ./workbench.bat
-> ```
-
-> **Note:**
->
-> #### Linux:
->
-> ```bash
-> cd
-> cd Pentaho/design-tools/schema-workbench/
-> ./workbench.sh
-> ```
-
-2. Ensure Pentaho Server is running:
-
-> **Danger:** **Ensure that the Pentaho Server is up and running (automatically started in Pentaho Lab):**
->
-> ```bash
-> cd
-> cd /opt/pentaho/server/pentaho-server
-> sudo ./start-pentaho.sh
-> ```
-
-<button data-launch="schema-workbench">Open Schema Workbench</button>
-
-Follow the guide below to understand how a **Schema** is defined:
+<div align="center">
+<figure>
+<img src="../_assets/images/schema_schema_element.png" alt="Schema Workbench with the root Schema node selected, showing the schema name SteelWheels and its empty description, measuresCaption and defaultRole" width="710">
+<figcaption>The SteelWheels schema in Schema Workbench</figcaption>
+</figure>
+</div>
 
 :::: tabs
 
@@ -81,55 +35,87 @@ Follow the guide below to understand how a **Schema** is defined:
 >
 > #### JDBC Connection
 >
-> Before creating any schema components, you must configure a database connection by selecting **Options > Connection** from the menu and providing essential connection parameters including the connection name, database type (such as Hypersonic, MySQL, Oracle, or PostgreSQL), access method (Native JDBC), host name, database name, port number, and authentication credentials.
+> Schema Workbench reads tables and columns through its own JDBC connection, set under **Options > Connection**: a connection name, a connection type such as Hypersonic, MySQL, Oracle or PostgreSQL, the access method, and the host, database, port and credentials.
 >
-> Schema Workbench supports a vast range of relational databases through JDBC drivers, allowing you to connect to most common database systems.
-
-> **Danger:** **If you're using the Pentaho Lab then the driver has already been copied to the /lib directory.**
->
-> To create a JDBC connection you will need to copy the JDBC driver for your database into the PSW install directory ...\schema-workbench\lib.
->
-> Restart the Pentaho Schema Workbench, to register the driver.
+> The SampleData database is HSQLDB (Hypersonic), and Schema Workbench ships its driver in `schema-workbench\drivers`, so this connection needs nothing extra. For another database, copy its JDBC driver into that `drivers` folder and restart Schema Workbench.
 
 <div class="pcm-embed-card" data-href="https://www.loom.com/share/5d8aeb46632048b491c3a26eeaeb936f?hideEmbedTopBar=true&amp;hide_owner=true&amp;hide_share=true&amp;hide_title=true" data-title="Connecting to the Steel Wheels Sample Database in Schema Workbench" data-description="In this video, I demonstrate how to connect to the Steel Wheels sample database using Schema Workbench. I walk through the steps to set up the database connection, including specifying the connection name, type, hostname, database name, port, username, and password. I also emphasize the importance of testing the connection to ensure everything is set up correctly, which I successfully did. Now that the connection is established, I am ready to build the schema in the next demonstration. Please follow along as I create the schema in the upcoming video." data-thumb="../_assets/embeds/2631a0493553.png"></div>
-1. To connect to the sampledata database, from the menu select Options > Connection.
 
-<figure><img src="../_assets/images/sw_jdbc_connection.png" alt=""><figcaption><p>JDBC Connection</p></figcaption></figure>
+1. Start Schema Workbench with the **Start Schema Workbench** button below, or from a terminal:
 
-2. In the Database Connection dialog, type or choose the following:
+::: tabs
+
+### Windows (PowerShell)
+
+```powershell
+Set-Location C:\Pentaho\design-tools\schema-workbench
+.\workbench.bat
+```
+
+### macOS / Linux
+
+```bash
+cd ~/Pentaho/design-tools/schema-workbench
+./workbench.sh
+```
+
+:::
+
+<button data-launch="schema-workbench">Start Schema Workbench</button>
+
+2. Make sure the Pentaho Server is running: it hosts the SampleData database on port `9001`. On a lab VM it starts with the machine. On your own machine, start it and wait until **http://localhost:8080/pentaho** shows the sign-in page:
+
+::: tabs
+
+### Windows (PowerShell)
+
+```powershell
+C:\Pentaho\server\pentaho-server\start-pentaho.bat
+```
+
+### macOS / Linux
+
+```bash
+cd ~/Pentaho/server/pentaho-server
+./start-pentaho.sh
+```
+
+:::
+
+3. Select **Options > Connection**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/sw_jdbc_connection.png" alt="Schema Workbench Options menu open with the pointer on Connection, above the Require Schema option" width="262">
+<figcaption>Options > Connection</figcaption>
+</figure>
+</div>
+
+4. In the **Database Connection** dialog, set these fields. The connection name can't contain reserved characters.
 
 | Field | Value |
 | --- | --- |
-| Connection name | hsqldb_sampledata (you cannot use reserved characters in the connection name) |
-| Connection type | Hypersonic |
-| Host Name | localhost |
-| Database Name | sampledata |
-| Port Number | 9001 |
-| Username | pentaho_admin |
-| Password | password |
+| **Connection name** | `hsqldb_sampledata` |
+| **Connection type** | Hypersonic |
+| **Access** | Native (JDBC) |
+| **Host Name** | `localhost` |
+| **Database Name** | `sampledata` |
+| **Port Number** | `9001` |
+| **Username** | `pentaho_admin` |
+| **Password** | `password` |
 
-3. Click Test.
+5. Select **Test**.
 
-<figure><img src="../_assets/images/classic_jdbc_connection_hsqldb_sampledata.png" alt=""><figcaption><p>JDBC Connection - hsqldb:sampledata</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/classic_jdbc_connection_hsqldb_sampledata.png" alt="Schema Workbench Database Connection dialog for hsqldb_sampledata as a Hypersonic native JDBC connection, with a message box confirming the connection succeeded" width="785">
+<figcaption>The test succeeds</figcaption>
+</figure>
+</div>
 
-4. Click OK to dismiss the Message Box dialog and click OK to close the Database Connection dialog.
+> **Success:** Checkpoint: a **Message Box** reports that the connection to `hsqldb_sampledata` was successful, with the host name `localhost`, port `9001` and database name `sampledata`.
 
-***
-
-> **Note:**
->
-> #### JDBC Explorer
-
-1. To view the SampleData database in JDBC Explorer, from the menu select File > New > JDBC Explorer.
-
-<figure><img src="../_assets/images/sw_jdbc_explorer.png" alt=""><figcaption><p>JDBC Explorer</p></figcaption></figure>
-
-2. To view the physical tables, expand PUBLIC.
-3. To view the columns in the CUSTOMER_W_TER table, expand CUSTOMER_W_TER.
-
-<figure><img src="../_assets/images/sw_jdbc_explorer_sampledata.png" alt=""><figcaption><p>JDBC Explorer - sampledata</p></figcaption></figure>
-
-4. To close JDBC Explorer, in the top-right corner of the JDBC Explorer window, click the X icon.
+6. Select **OK** to close the message, then select **OK** to close **Database Connection**.
 
 > **Under the hood:**
 >
@@ -143,82 +129,136 @@ Follow the guide below to understand how a **Schema** is defined:
 > It points at the SampleData database the Pentaho Server hosts. Port
 > 9001 is HSQLDB's network listener, and the database's own script
 > creates `pentaho_admin` with administrator rights and `pentaho_user`
-> with read-only access to the sample tables, both with the password
-> `password`.
+> with read-only access to the sample tables.
 >
-> Because the schema carries no connection, the same file can be
-> published against test data today and production tomorrow without an
-> edit. Workshop 05 shows where the binding happens on the server.
+> **Why it matters:** because the schema carries no connection, the same
+> file can be published against test data today and production tomorrow
+> without an edit. Workshop 05 shows where the binding happens on the
+> server.
 
-
-### 2. SteelWheels Schema
+### 2. JDBC Explorer
 
 > **Note:**
 >
-> #### Steel Wheels Schema
+> #### JDBC Explorer
 >
-> The **SteelWheels** schema is a comprehensive Mondrian analysis schema built on the SampleData database that demonstrates enterprise-level dimensional modeling for sales analytics. The schema centers around the **Sales_2003_2005** cube, which uses the **ORDERFACT** fact table containing transactional sales data spanning three years.
+> JDBC Explorer lists the schemas, tables and columns the connection can see: the same names the schema editor offers in its drop-down lists.
+
+1. Select **File > New > JDBC Explorer**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/sw_jdbc_explorer.png" alt="Schema Workbench File menu with New expanded and the pointer on JDBC Explorer, beside the Schema and MDX Query options" width="263">
+<figcaption>File > New > JDBC Explorer</figcaption>
+</figure>
+</div>
+
+2. Expand **PUBLIC**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/sw_jdbc_explorer_sampledata.png" alt="JDBC Explorer window listing the PUBLIC schema's tables, including CUSTOMERS, CUSTOMER_W_TER, DIM_TIME, ORDERFACT and PRODUCTS" width="347">
+<figcaption>JDBC Explorer: the SampleData tables</figcaption>
+</figure>
+</div>
+
+> **Success:** Checkpoint: **PUBLIC** lists 14 tables, from `CUSTOMERS` to `TRIAL_BALANCE`. The schemas in this course use four of them: `ORDERFACT`, `CUSTOMER_W_TER`, `PRODUCTS` and `DIM_TIME`.
+
+3. Expand **CUSTOMER_W_TER**.
+
+> **Success:** Checkpoint: 15 columns, among them `CUSTOMERNUMBER`, `CUSTOMERNAME`, `TERRITORY`, `COUNTRY`, `STATE` and `CITY`: the columns the Markets and Customers dimensions read.
+
+4. Close JDBC Explorer: select the **X** in the top-right corner of its window.
+
+### 3. SteelWheels Schema
+
+> **Note:**
 >
-> It features five well-designed dimensions:
+> #### SteelWheels Schema
 >
-> **Markets** dimension with a four-level geographic hierarchy (Territory, Country, State/Province, City) for location-based analysis;
+> The SteelWheels schema is built on the SampleData database. Its one cube, `Sales_2003_2005`, reads the `ORDERFACT` fact table, which holds the order lines of three years, and has five dimensions:
 >
-> **Customers** dimension with customer-level details and six member properties providing rich customer attributes;
+> * **MARKETS**: a four-level geographic hierarchy, Territory, Country, State Province and City
+> * **CUSTOMERS**: one level, Customer, with six member properties
+> * **PRODUCT**: product line and vendor
+> * **TIME**: years, quarters and months
+> * **ORDERSTATUS**: a degenerate dimension, which lives in the fact table and has no table of its own
 >
-> **Products** dimension for product categorization and analysis;
->
-> **Time** dimension enabling temporal analysis across years, quarters, and months;
->
-> **Order Status** dimension, which serves as an example of a degenerate dimension existing within the fact table without a separate dimension table.
->
-> The schema includes multiple measures such as **Quantity** and **Sales** with appropriate aggregators and format strings, making it an ideal reference model for understanding how complex business requirements are translated into functional OLAP cubes that support interactive reporting and analysis in Pentaho Analyzer.
+> Its two measures, **Quantity** and **Sales**, each have an aggregator and a format string.
 
-1. From the menu, select File > Open.
-2. Navigate to your copy of `steelwheels.xml` from this lab's files (see **Lab Files** above).
+1. Select **File > Open** and open `steelwheels.xml`, which you downloaded from **Lab Files** below.
 
-<figure><img src="../_assets/images/sw_steel_wheels_schema.png" alt=""><figcaption><p>Steel Wheels Schema</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/sw_steel_wheels_schema.png" alt="Open dialog browsing a folder of Mondrian schema files, with SteelWheels.xml selected and entered as the file name" width="502">
+<figcaption>Open the SteelWheels schema</figcaption>
+</figure>
+</div>
 
-3. Select: `steelwheels.xml`.
-4. Click: Open.
-5. To view the schema, in the left pane, expand Sales_2003_2005.
+2. In the left pane, expand **Sales_2003_2005**.
 
-<figure><img src="../_assets/images/sw.png" alt=""><figcaption></figcaption></figure>
+> **Success:** Checkpoint: the cube holds **Table: ORDERFACT**, the dimensions **MARKETS**, **CUSTOMERS**, **PRODUCT**, **TIME** and **ORDERSTATUS**, and the measures **Quantity** and **Sales**.
 
-> **Note:** Notice the fact table, dimensions, and measures.
+3. Select **Table: ORDERFACT**.
 
-6. To view the fact table, in the left pane, click Table: ORDERFACT.
-7. In the left pane, expand Markets.
+<div align="center">
+<figure>
+<img src="../_assets/images/sw.png" alt="Schema Workbench with the cube's ORDERFACT table selected, showing schema PUBLIC and name ORDERFACT in the property grid" width="786">
+<figcaption>The cube's fact table</figcaption>
+</figure>
+</div>
 
-<figure><img src="../_assets/images/sw_dimensions.png" alt=""><figcaption><p>Dimensions</p></figcaption></figure>
+> **Success:** Checkpoint: the property grid shows **schema** `PUBLIC` and **name** `ORDERFACT`. Every measure in the cube is computed from this table.
 
-> **Note:** The Markets dimension consists of a hierarchy with four levels with the CUSTOMER_W_TER table.
+4. Select **MARKETS** and expand it, then expand its **Markets** hierarchy.
 
-8. To view the annotations for the Country level, in the left pane, expand Markets and click Data.Role.
+<div align="center">
+<figure>
+<img src="../_assets/images/sw_dimensions.png" alt="Schema Workbench with the MARKETS dimension selected and expanded to the Markets hierarchy's four levels, showing the CUSTOMERNUMBER foreign key" width="785">
+<figcaption>The MARKETS dimension</figcaption>
+</figure>
+</div>
 
-<figure><img src="../_assets/images/sw_annotations.png" alt=""><figcaption><p>Annotations</p></figcaption></figure>
+> **Success:** Checkpoint: **MARKETS** joins the fact table on **foreignKey** `CUSTOMERNUMBER`. Its **Markets** hierarchy has four levels, **Territory**, **Country**, **State Province** and **City**, over **Table: CUSTOMER_W_TER**.
 
-9. In the left pane, expand Customers.
+5. Expand **Country**, expand its **Annotations**, and select **Data.Role**.
 
-<figure><img src="../_assets/images/sw_dimensions_and_members.png" alt=""><figcaption><p>Dimensions &#x26; Members</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/sw_annotations.png" alt="Schema Workbench with the Data.Role annotation selected under the Country level of the Markets hierarchy, its cdata set to Geography" width="785">
+<figcaption>Annotations on the Country level</figcaption>
+</figure>
+</div>
 
-> **Note:** The Customers dimension consists of a hierarchy with one level (Customer) and six member properties.
+> **Success:** Checkpoint: **name** `Data.Role`, **cdata** `Geography`. Country also has a **Geo.Role** annotation, `Country`; State Province and City add **Geo.RequiredParents**. Analyzer reads these to draw the levels on a map.
 
-10. View the Product Dimension.
-11. Expand the Time Dimension.
+6. Expand **CUSTOMERS** and its **Customers** hierarchy, and select the **Customer** level.
 
-> **Note:** Date dimensions are among the most important dimensions of many Mondrian cubes. The usefulness of a cube often depends on the way the date dimension has been modelled. This section shows how to create a basic date dimension and how it can be augmented with properties to suit specific analysis needs.
->
-> Time dimensions based on: year/quarter/month/week/day are coded differently in the schema due to MDX time-related functions.
->
-> Time dimensions are identified with type=TimeDimension. The role of a level in a time dimension is indicated by the levelType attribute:
->
-> * TimeYears
-> * TimeQuarters
-> * TimeMonths
-> * TimeWeeks
-> * TimeDays
+<div align="center">
+<figure>
+<img src="../_assets/images/sw_dimensions_and_members.png" alt="Schema Workbench with the Customer level of the Customers hierarchy selected, mapped to the CUSTOMERNAME column, with its six properties listed" width="786">
+<figcaption>A level with member properties</figcaption>
+</figure>
+</div>
 
-<figure><img src="../_assets/images/sw_time_dimension.png" alt=""><figcaption><p>TIME Dimension</p></figcaption></figure>
+> **Success:** Checkpoint: **Customer** reads **column** `CUSTOMERNAME` and has six properties: **Customer Number**, **Contact First Name**, **Contact Last Name**, **Phone**, **Address** and **Credit Limit**.
+
+7. Expand **PRODUCT** and its **Products** hierarchy.
+
+> **Success:** Checkpoint: two levels, **Line** on `PRODUCTLINE` and **Vendor** on `PRODUCTVENDOR`, over **Table: PRODUCTS**.
+
+8. Expand **TIME** and its **Time** hierarchy, and select **Years**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/sw_time_dimension.png" alt="Schema Workbench with the Years level of the Time hierarchy selected and its levelType list open, showing TimeYears among the time level types" width="591">
+<figcaption>The levelType of a time level</figcaption>
+</figure>
+</div>
+
+> **Success:** Checkpoint: **TIME** is a `TimeDimension` on **Table: DIM_TIME**. **Years** reads **column** `YEAR_ID` with **levelType** `TimeYears`. The **levelType** list also offers `TimeQuarters`, `TimeMonths`, `TimeWeeks` and `TimeDays`.
+
+9. Select **Quarters**, then **Months**.
 
 > **Under the hood:**
 >
@@ -236,18 +276,24 @@ Follow the guide below to understand how a **Schema** is defined:
 > The type binds the other way too: give a level in a TimeDimension a
 > non-time levelType and the schema won't load ("Level
 > '[TIME.Time].[Months]' belongs to a time hierarchy, so its level-type
-> must be 'Years', 'Quarters', 'Months', 'Weeks' or 'Days'"). The level
-> names (Years, Quarters, Months) are for people; the levelType is for
-> the engine.
-
-
-12. In the left pane, expand Order Status.
-
-<figure><img src="../_assets/images/sw_degenerate_dimensions.png" alt=""><figcaption><p>Degenerate Dimensions</p></figcaption></figure>
-
-> **Note:** Whereas a star dimension has one dimension table, and a snowflake dimension has two or more, a degenerate dimension has none. All of the columns that describe the dimension live in the fact table.
+> must be 'Years', 'Quarters', 'Months', 'Weeks' or 'Days'").
 >
-> For example, a degenerate dimension could be created for Order Status because there are only a few values in the Order Status column. Creating a dimension table is unnecessary because it only has a few values, adds no additional information, and incurs the cost of an additional join.
+> **Why it matters:** the level names (Years, Quarters, Months) are for
+> people; the levelType is for the engine, and the time functions only
+> work when it is set.
+
+10. Expand **ORDERSTATUS** and select its **Status** hierarchy.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/sw_degenerate_dimensions.png" alt="Schema Workbench with the Status hierarchy of the ORDERSTATUS dimension selected, showing All Status Types as the all member and STATUS as primary key" width="783">
+<figcaption>A degenerate dimension has no table</figcaption>
+</figure>
+</div>
+
+> **Success:** Checkpoint: **allMemberName** `All Status Types` and **primaryKey** `STATUS`, and no **Table** node under the hierarchy: a star dimension has one dimension table and a snowflake two or more, but a degenerate dimension has none. Its one level, **Status**, reads `STATUS` from the fact table.
+
+11. Select the **Status** level.
 
 > **Under the hood:**
 >
@@ -256,20 +302,34 @@ Follow the guide below to understand how a **Schema** is defined:
 > Its hierarchy names no table, so Mondrian reads the level's column,
 > STATUS, straight from the cube's fact table. Against SampleData the
 > member query is a plain `select STATUS from ORDERFACT group by STATUS`
-> (six values, from Cancelled to Shipped), and the cell query sums both
+> (six values, from `Cancelled` to `Shipped`), and the cell query sums both
 > measures from ORDERFACT in one statement with no other table in it.
 >
 > The cost moves to the member query: every lookup of this dimension's
 > members scans the fact table, 2,996 rows here and many millions in a
-> real warehouse. That is why the video asks you to agree degenerate
-> dimensions with the data warehouse team.
+> real warehouse.
+>
+> **Why it matters:** a degenerate dimension saves a table and a join for
+> a column with a handful of values, but agree it with the data
+> warehouse team, because it puts the member lookups on the largest
+> table.
 
+12. Select the **Quantity** measure.
 
-13. To view the Quantity measure, in the left pane, click Quantity.
+<div align="center">
+<figure>
+<img src="../_assets/images/sw_measures.png" alt="Schema Workbench with the Quantity measure selected, showing a sum aggregator on the QUANTITYORDERED column with format string #,###" width="785">
+<figcaption>The Quantity measure</figcaption>
+</figure>
+</div>
 
-<figure><img src="../_assets/images/sw_measures.png" alt=""><figcaption><p>Measures</p></figcaption></figure>
+> **Success:** Checkpoint: **aggregator** `sum`, **column** `QUANTITYORDERED`, **formatString** `#,###`.
 
-> **Note:** Notice the aggregator, column, and formatString.
+13. Select the **Sales** measure.
+
+> **Success:** Checkpoint: the same **aggregator** and **formatString**, on **column** `TOTALPRICE`.
+
+14. Close the schema: select the **X** in the top-right corner of the schema window.
 
 > **Under the hood:**
 >
@@ -279,22 +339,25 @@ Follow the guide below to understand how a **Schema** is defined:
 > `sum("ORDERFACT"."QUANTITYORDERED")` in the SQL Mondrian writes,
 > grouped by whatever levels the query asks for, so the database does
 > the adding. `formatString="#,###"` is applied by Mondrian to the
-> number that comes back (49,417 units ordered in 2004), which is why
-> changing a format never changes a query.
+> number that comes back (49,417 units ordered in 2004).
 >
 > Every cube also gets one measure you didn't define: Fact Count, a
 > `count(*)` of fact rows that Mondrian loads in the same statement.
 > Workshop 11's first query shows it.
-
-
-14. (Optional) View the Sales measure.
-15. To close the schema, in the top-right corner of the schema window, click the X icon.
+>
+> **Why it matters:** changing a format never changes a query, while
+> changing an aggregator changes the SQL and every number it returns.
 
 ::::
 
 ## Lab Files
 
-Download the reference files for this lab:
+Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches PDI with the file loaded. If PDI is already running, the path is copied to your clipboard — switch to PDI and press `Ctrl+O`, `Ctrl+V`, `Enter`.
 
-* [SteelWheels Schema](../_assets/data/steelwheels.xml)
-* [SteelWheels.xml](../_assets/data/steelwheels-original.xml)
+The schema this workshop explores. Open it in Schema Workbench with **File > Open**:
+
+[steelwheels.xml](./files/steelwheels.xml)
+
+An earlier version of the same schema, with the cube named `SteelWheelsSales` and no annotations, for comparison:
+
+[steelwheels-original.xml](./files/steelwheels-original.xml)

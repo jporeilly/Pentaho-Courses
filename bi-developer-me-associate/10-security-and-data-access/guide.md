@@ -2,7 +2,7 @@
 
 <div class="pcm-intro">
 
-Publishing a metadata domain for organisational use means more than building a friendly semantic layer — you must ensure that sensitive data stays protected and that users only access information appropriate to their role. **Pentaho's metadata model carries its own security** so that table-, column-, and row-level authorisation is enforced automatically in the metadata layer, without database views or per-report security logic.
+Publishing a metadata domain for organizational use means more than building a friendly semantic layer — you must ensure that sensitive data stays protected and that users only access information appropriate to their role. **Pentaho's metadata model carries its own security** so that table-, column-, and row-level authorization is enforced automatically in the metadata layer, without database views or per-report security logic.
 
 </div>
 
@@ -21,7 +21,7 @@ The metadata security framework provides three complementary layers of protectio
 | Layer | Scope | Purpose |
 | --- | --- | --- |
 | **Model-level security** | Entire metadata domain / business model | Controls which roles can use a domain at all. |
-| **Column-level security** | Individual fields | Hides sensitive columns (e.g. Credit Limit) from unauthorised roles. |
+| **Column-level security** | Individual fields | Hides sensitive columns (e.g. Credit Limit) from unauthorized roles. |
 | **Row-level security** | Rows within a table | Filters which rows a user sees, based on their role. |
 
 :::: tabs

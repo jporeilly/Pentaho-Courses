@@ -4,40 +4,21 @@
 >
 > #### Workshop - Mondrian Security
 >
-> Publishing OLAP cubes for organizational use requires more than just creating sophisticated dimensional models—you must ensure that users only access data appropriate to their roles and responsibilities. While relational database security can restrict table-level access, OLAP security must operate at multiple granularities: entire schemas, specific cubes, individual dimensions and hierarchies, and even particular members within those hierarchies. Mondrian's role-based access control (RBAC) framework provides comprehensive security mechanisms that enable you to implement precise, multi-layered data protection policies directly within your schema definitions.
->
-> In this comprehensive hands-on workshop, you'll implement enterprise-grade security for the Miniature Models schema by creating four distinct roles with progressively restrictive access patterns. You'll configure role mappers to bridge Pentaho platform roles with Mondrian schema roles, then systematically apply SchemaGrant, CubeGrant, HierarchyGrant, and MemberGrant security constraints that control exactly what data each role can access. Additionally, you'll explore rollup policies—a sophisticated feature that determines how aggregated totals behave when users have restricted access to underlying detail members—ensuring that security doesn't inadvertently expose restricted information through aggregate values.
+> A published cube must show each user only the data their role allows. Mondrian's role-based security works at several levels, the schema, a cube, a hierarchy and single members, and it decides what aggregated totals reveal. In this workshop you secure the Miniature Models schema with four roles, each more restrictive than the last.
 >
 > **What you'll do**
 >
-> * Create platform users (exec_user, sales_mgr, region_mgr, analyst) and assign Pentaho permissions
-> * Configure the Lookup Map role mapper in pentahoObjects.spring.xml to connect platform roles to Mondrian roles
-> * Implement SchemaGrant with "all" access for Executive Role providing unrestricted schema access
-> * Implement SchemaGrant with "none" access plus CubeGrant for Sales Manager Role restricting to specific cubes
-> * Add levels (State, City) to the CUSTOMERS dimension hierarchy for granular security testing
-> * Implement HierarchyGrant with topLevel and bottomLevel restrictions for Analyst Role limiting drill-down depth
-> * Create MemberGrant security for Regional Manager Role restricting access to specific states (NJ, NY, PA)
-> * Understand security inheritance and how granting child access implicitly grants parent access
-> * Configure rollup policies (full, partial, hidden) to control aggregate behavior with restricted access
-> * Test and validate each security configuration by logging in as different users
-> * Refresh Mondrian Schema Cache to apply security changes
+> * Create four platform users and roles in the User Console
+> * Map platform roles to Mondrian roles with the Lookup Map role mapper
+> * Grant schema and cube access with SchemaGrant and CubeGrant
+> * Limit the levels a role can see with a HierarchyGrant's topLevel and bottomLevel
+> * Restrict a role to three states with MemberGrants, and compare the rollup policies
 >
-> **Prerequisites:** Completion of [Miniature Models](../06-schemas-standard-model/guide.md) workshop; Schema Workbench and Pentaho Server installed with administrative access; Understanding of dimension hierarchies and member navigation; Familiarity with XML editing and Pentaho user management
+> **Prerequisites:** Complete [Standard Model](../06-schemas-standard-model/guide.md); the Pentaho Server running, with administrator access to the User Console and to the server's files
 >
 > **Estimated time:** 120 minutes
 
-#### Lab Files
-
-Open these in Schema Workbench via **File ▸ Open** (copy them out of the guide's content folder first if you plan to edit):
-
-[miniaturemodels-original.xml](./files/miniaturemodels-original.xml)
-[miniaturemodels-security.xml](./files/miniaturemodels-security.xml)
-[classicmodels-security.xml](./files/classicmodels-security.xml) — the same role grants worked on the Classic Models schema, for reference
-
-
-***
-
-> **Note:** The completed secured schema for reference:
+The finished roles, for reference:
 
 ```xml
 <Schema name="Miniature Models">
@@ -116,15 +97,11 @@ Open these in Schema Workbench via **File ▸ Open** (copy them out of the guide
 </Schema>
 ```
 
-***
-
 > **Note:**
 >
-> #### Overview Security Concepts
+> #### Security Concepts
 >
-> Before implementing security, it's important to understand the hierarchy of security grants in Mondrian:
-
-> **Danger:** Important: Granting access to a child element implicitly grants access to its parent. For example, granting access to a cube implicitly grants access to the schema.
+> Mondrian's grants form a hierarchy, from the whole schema down to single members. **Granting access to a child element implicitly grants access to its parent**: a grant on a cube also grants access to the schema.
 
 | Grant Type | Description |
 | --- | --- |
@@ -134,112 +111,93 @@ Open these in Schema Workbench via **File ▸ Open** (copy them out of the guide
 | HierarchyGrant | Controls access to hierarchies and can restrict by level (topLevel, bottomLevel) |
 | MemberGrant | Controls access to specific members within a hierarchy |
 
-***
-
-1. Start Schema Workbench:
-
-> **Note:**
->
-> #### Windows (PowerShell)
->
-> ```powershell
-> cd \
-> cd Pentaho/design-tools/schema-workbench/
-> ./workbench.bat
-> ```
-
-> **Note:**
->
-> #### Linux
->
-> ```bash
-> cd
-> cd Pentaho/design-tools/schema-workbench/
-> ./workbench.sh
-> ```
-
-2. Ensure Pentaho Server is running:
-
-> **Danger:** Ensure that the Pentaho Server is up and running (automatically started in Pentaho Lab):
->
-> ```bash
-> cd
-> cd /opt/pentaho/server/pentaho-server
-> sudo ./start-pentaho.sh
-> ```
-
-<button data-launch="schema-workbench">Open Schema Workbench</button>
-
 :::: tabs
 
-### 1. Setup — Users, Roles & Role Mapper
+### 1. Setup: Users, Roles and Role Mapper
 
 > **Note:**
 >
-> #### Setup
+> #### Users, Roles and the Role Mapper
 >
-> Let's drill down even further ..!
->
-> The Regional Manager should only see data for the Eastern USA region: New Jersey, New York and Pennsylvania.
-
-<button data-launch="puc">Open Pentaho User Console</button>
-
-#### Users & Roles
-
-> **Note:**
->
-> #### Users & Roles
->
-> We will create several test users to demonstrate different security scenarios:
+> Each test user gets one platform role in the User Console. The role mapper then turns each platform role into a Mondrian role, which the schema defines in the next tabs.
 
 | Username | Role | Purpose |
 | --- | --- | --- |
-| exec_user | Executive | Full access to all data |
-| sales_mgr | Sales Manager | Access to sales cube only |
-| region_mgr | Regional Manager | Limited to specific regions only |
-| analyst | Analyst | Summary data only, no detailed records |
+| `exec_user` | Executive | Full access to all data |
+| `sales_mgr` | Sales Manager | Access to the sales cube only |
+| `region_mgr` | Regional Manager | Limited to three states |
+| `analyst` | Analyst | Summary levels only, no individual customers |
 
-1. Log into Pentaho User Console as Administrator.
+1. Make sure the Pentaho Server is running. On a lab VM it starts with the machine. On your own machine, start it and wait until **http://localhost:8080/pentaho** shows the sign-in page:
 
-   * Username: admin
-   * Password: password
+::: tabs
 
-2. Navigate to Administration Perspective from the drop-down menu.
-3. Select **Users & Roles > Manage Users**.
-4. Click on the **+** sign to create each user from the table above with password: `password`
+### Windows (PowerShell)
 
-<figure><img src="../_assets/images/mondrian_sec_add_users.png" alt=""><figcaption><p>Add Users</p></figcaption></figure>
-
-5. Navigate to **Users & Roles > Manage Roles**.
-6. Assign the following Roles / Permissions to the User:
-
-| Role | Permissions | User |
-| --- | --- | --- |
-| Executive | All the permissions | exec_user |
-| Sales Manager | Schedule Content, Read Content, Publish Content, Create Content, Execute | sales_mgr |
-| Regional Manager | Schedule Content, Read Content, Publish Content, Create Content, Execute | region_mgr |
-| Analyst | Publish Content, Create Content | analyst |
-
-<figure><img src="../_assets/images/mondrian_sec_assign_roles_and_permissions_to_user.png" alt=""><figcaption><p>Assign Roles / Permissions to User</p></figcaption></figure>
-
-#### Role Mapper
-
-> **Note:**
->
-> #### Role Mapper
->
-> The role mapper connects Pentaho user roles to Mondrian schema roles. We will use the Lookup Map role mapper to demonstrate flexible role mapping.
-
-1. Open the file - pentahoObjects.spring.xml:
-
-```bash
-cd
-cd /opt/pentaho/server/pentaho-server/pentaho-solutions/system
-sudo nano pentahoObjects.spring.xml
+```powershell
+C:\Pentaho\server\pentaho-server\start-pentaho.bat
 ```
 
-2. Locate the Mondrian-UserRoleMapper section (approximately line 295).
-3. Comment out the default One-to-One mapper if it's active:
+### macOS / Linux
+
+```bash
+cd ~/Pentaho/server/pentaho-server
+./start-pentaho.sh
+```
+
+:::
+
+<button data-launch="puc">Open Pentaho User Console</button>
+
+2. Sign in to the User Console as `admin`.
+3. In the perspective list, which shows **Home**, select **Administration**.
+4. Select **Users & Roles** and open the **Manage Users** tab.
+5. For each user in the table above, select **+**, set **User Name** to the user name, set **Password** and **Confirm Password** to `password`, and select **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/mondrian_sec_add_users.png" alt="User Console Administration, Users and Roles, Manage Users tab, with user analyst selected and assigned the Analyst role" width="800">
+<figcaption>Add the users</figcaption>
+</figure>
+</div>
+
+6. Open the **Manage Roles** tab. For each role in this table, select **+** and create the role, then, with the role selected, select its **Operation Permissions** and move its user to **Selected**:
+
+| Role | Operation Permissions | User |
+| --- | --- | --- |
+| `Executive` | All the permissions | `exec_user` |
+| `Sales Manager` | Schedule Content, Read Content, Publish Content, Create Content, Execute | `sales_mgr` |
+| `Regional Manager` | Schedule Content, Read Content, Publish Content, Create Content, Execute | `region_mgr` |
+| `Analyst` | Publish Content, Create Content | `analyst` |
+
+<div align="center">
+<figure>
+<img src="../_assets/images/mondrian_sec_assign_roles_and_permissions_to_user.png" alt="User Console Manage Roles tab with the Analyst role selected, its operation permissions, and user analyst assigned" width="800">
+<figcaption>Assign permissions and users to the roles</figcaption>
+</figure>
+</div>
+
+> **Success:** Checkpoint: **Manage Roles** lists **Analyst**, **Executive**, **Regional Manager** and **Sales Manager**, each with its one user under **Selected**.
+
+7. On the server, open `pentahoObjects.spring.xml` in a text editor:
+
+::: tabs
+
+### Windows (PowerShell)
+
+```powershell
+notepad C:\Pentaho\server\pentaho-server\pentaho-solutions\system\pentahoObjects.spring.xml
+```
+
+### macOS / Linux
+
+```bash
+nano ~/Pentaho/server/pentaho-server/pentaho-solutions/system/pentahoObjects.spring.xml
+```
+
+:::
+
+8. Find the `Mondrian-UserRoleMapper` beans, at about line 282 in Pentaho 11. The One-To-One mapper is the active one; comment it out:
 
 ```xml
 <!-- Disabled for workshop
@@ -250,7 +208,7 @@ sudo nano pentahoObjects.spring.xml
 -->
 ```
 
-4. Uncomment and configure the Lookup Map role mapper:
+9. Below it, the Lookup Map mapper sits inside a comment with sample entries. Add this active bean in its place. Each `key` is a Pentaho role name and each `value` the Mondrian role name the schema defines:
 
 ```xml
 <bean id="Mondrian-UserRoleMapper"
@@ -268,26 +226,7 @@ sudo nano pentahoObjects.spring.xml
 </bean>
 ```
 
-5. Save the file.
-6. Restart the Pentaho server for changes to take effect:
-
-> **Note:**
->
-> #### Linux
->
-> ```bash
-> cd
-> cd /opt/pentaho/server/pentaho-server
-> sudo ./stop-pentaho.sh
-> ```
->
-> ```bash
-> cd
-> cd /opt/pentaho/server/pentaho-server
-> sudo ./start-pentaho.sh
-> ```
-
-> **Note:** The key represents the Pentaho role name, and the value represents the Mondrian role name that will be defined in the schema.
+10. Save the file.
 
 > **Under the hood:**
 >
@@ -300,9 +239,31 @@ sudo nano pentahoObjects.spring.xml
 > for a role the schema doesn't define, Mondrian refuses the connection:
 > `Role 'No Such Role' not found`.
 >
-> "Sales Manager Role" in the map and in the schema must therefore match
-> character for character, the word "Role" included.
+> **Why it matters:** "Sales Manager Role" in the map and in the schema
+> must match character for character, the word "Role" included.
 
+11. Restart the Pentaho Server: stop it, and start it again when it has stopped.
+
+::: tabs
+
+### Windows (PowerShell)
+
+```powershell
+C:\Pentaho\server\pentaho-server\stop-pentaho.bat
+C:\Pentaho\server\pentaho-server\start-pentaho.bat
+```
+
+### macOS / Linux
+
+```bash
+cd ~/Pentaho/server/pentaho-server
+./stop-pentaho.sh
+./start-pentaho.sh
+```
+
+:::
+
+> **Success:** Checkpoint: **http://localhost:8080/pentaho** shows the sign-in page again.
 
 ### 2. SchemaGrant (Executive & Sales Manager)
 
@@ -310,59 +271,81 @@ sudo nano pentahoObjects.spring.xml
 >
 > #### SchemaGrant
 >
-> SchemaGrant controls access to the Miniature Models schema. We'll implement two scenarios:
+> A SchemaGrant sets a role's access to the whole Miniature Models schema. The Executive Role gets `all`. The Sales Manager Role gets `none`, which blocks every cube, and then a CubeGrant opens the `Sales_FY2003_2005` cube, which implicitly grants the schema too.
 >
-> full access:
->
-> no access:
+> After every save and publish in this workshop, refresh the Mondrian schema cache in the User Console, so the server reads the new roles.
 
-> **Danger:**
->
-> #### Refresh the Mondrian Schema Cache
->
-> Please remember to refresh the Mondrian Schema Cache every time you edit and save the miniaturemodels-security.xml schema ..
+1. Start Schema Workbench with the **Start Schema Workbench** button below, or from a terminal:
 
-1. Log in as Administrator.
+::: tabs
 
-   * Password: password
+### Windows (PowerShell)
 
-<figure><img src="../_assets/images/mondrian_sec_refresh_the_mondrian_cache.png" alt=""><figcaption><p>Refresh the Mondrian Cache </p></figcaption></figure>
+```powershell
+Set-Location C:\Pentaho\design-tools\schema-workbench
+.\workbench.bat
+```
 
-***
+### macOS / Linux
 
-Follow the steps below to understand the difference between Full & No access:
+```bash
+cd ~/Pentaho/design-tools/schema-workbench
+./workbench.sh
+```
 
-#### Full Access — Executive Role
+:::
 
-> **Note:**
->
-> #### Full Access - Executive Role
->
-> The Executive role should have unrestricted access to all cubes and dimensions in the schema. The easiest method to apply the SchemaGrant is by editing.
+<button data-launch="schema-workbench">Start Schema Workbench</button>
 
-1. Open the miniaturemodels-original.xml schema.
-2. Save as: Miniature Models - security.
+2. Select **File > Open** and open `miniaturemodels-original.xml`, which you downloaded from **Lab Files** below.
+3. Select **File > Save As** and save it as `miniaturemodels-security.xml`.
 
-<figure><img src="../_assets/images/mondrian_sec_miniature_models_security_xml.png" alt=""><figcaption><p>miniaturemodels-security.xml</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/mondrian_sec_miniature_models_security_xml.png" alt="Schema Workbench Save dialog in a folder of schema files, with the file name set to Miniature Models - security.xml" width="500">
+<figcaption>Save the security schema</figcaption>
+</figure>
+</div>
 
-3. Highlight Schema and Click on the 'User shadow+'.
-4. Enter: **Executive Role** & tab to set the value.
-5. Right-mouse on Executive Role & Select: Add Schema Grant.
+4. Right-click **Schema** and select **Add Role**.
+5. Set **name** to `Executive Role` and press `Tab`.
+6. Right-click **Executive Role** and select **Add Schema Grant**.
 
-<figure><img src="../_assets/images/mondrian_sec_set_executive_role.png" alt=""><figcaption><p>Set Executive Role</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/mondrian_sec_set_executive_role.png" alt="Schema Workbench context menu on the new Executive Role node, with Add Schema Grant highlighted and the role name shown" width="800">
+<figcaption>The Executive Role</figcaption>
+</figure>
+</div>
 
-6. Select: **all** & tab to set the value.
+7. Set **access** to `all` and press `Tab`.
 
-<figure><img src="../_assets/images/mondrian_sec_schema_grant_access_all.png" alt=""><figcaption><p>Schema Grant access = all</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/mondrian_sec_schema_grant_access_all.png" alt="Schema Workbench with the Executive Role's Schema Grant selected and the access list open, with all highlighted" width="800">
+<figcaption>Schema Grant access = all</figcaption>
+</figure>
+</div>
 
-7. Right-mouse click on the Schema Grant and Add Cube Grant.
+8. Right-click **Schema Grant** and select **Add Cube Grant**.
 
-<figure><img src="../_assets/images/mondrian_sec_add_cube_grant.png" alt=""><figcaption><p>Add Cube Grant</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/mondrian_sec_add_cube_grant.png" alt="Schema Workbench context menu on the Executive Role's Schema Grant node, with Add Cube Grant highlighted" width="800">
+<figcaption>Add Cube Grant</figcaption>
+</figure>
+</div>
 
-8. Set access: **all**
-9. From the cube drop-down, select: Sales_FY2003_2005.
+9. Set **access** to `all` and **cube** to `Sales_FY2003_2005`.
 
-<figure><img src="../_assets/images/mondrian_sec_cube_grant_to_sales_fy2003_2005_cube_only.png" alt=""><figcaption><p>Cube Grant to Sales_FY2003_2005 cube only</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/mondrian_sec_cube_grant_to_sales_fy2003_2005_cube_only.png" alt="Schema Workbench with the Executive Role's Cube Grant selected and the cube list offering only Sales_FY2003_2005" width="800">
+<figcaption>Cube Grant to the Sales_FY2003_2005 cube</figcaption>
+</figure>
+</div>
+
+The role in the XML:
 
 ```xml
 <Role name="Executive Role">
@@ -373,39 +356,61 @@ Follow the steps below to understand the difference between Full & No access:
 </Role>
 ```
 
-10. Click Save & Publish.
+10. Select **File > Save**, then **File > Publish**, with the **Publish Schema** values from [Basic Model](../05-schemas-basic-model/guide.md). If Schema Workbench asks whether to overwrite the Miniature Models schema, select **Yes**.
 
-> **Note:** Currently only Executive Role users have access to the Miniature Models - security schema / Sales_FY2003_2005 cube as a data source ..
+> **Success:** Checkpoint: a **Publish** message reads `Publish Successful`.
 
-To test login as: exec_user
+11. Select **OK**. In the User Console, signed in as `admin`, select **Tools > Refresh > Mondrian Schema Cache**.
 
-<figure><img src="../_assets/images/mondrian_sec_executive_role_data_sources.png" alt=""><figcaption><p>Executive Role Data Sources</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/mondrian_sec_refresh_the_mondrian_cache.png" alt="User Console Tools menu with the Refresh submenu open and Mondrian Schema Cache highlighted" width="569">
+<figcaption>Refresh the Mondrian schema cache</figcaption>
+</figure>
+</div>
 
-To test log in as: analyst — no Miniature Models..!
+12. Select **Log Out**, sign in as `exec_user`, and select **Create New > Analysis Report**.
 
-<figure><img src="../_assets/images/mondrian_sec_analyst_data_sources_no_miniature_models.png" alt=""><figcaption><p>Analyst Data Sources - no Miniature Models..!</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/mondrian_sec_executive_role_data_sources.png" alt="Analyzer Select Data Source dialog listing six data sources, including Miniature Models: Sales_FY2003_2005" width="611">
+<figcaption>exec_user's data sources</figcaption>
+</figure>
+</div>
 
-#### No Schema Access — Sales Manager Role
+> **Success:** Checkpoint: **Select Data Source** lists **Miniature Models: Sales_FY2003_2005**.
 
-> **Note:**
->
-> #### Sales Manager
->
-> So far only the Executive Role users have access to the Miniature Models - security schema as a data source. Next step is to set access to the Sales_FY2003_2005 cube only for the Sales Manager Role users.
+13. Select **Cancel**, select **Log Out**, sign in as `analyst`, and select **Create New > Analysis Report**.
 
-1. Open the miniaturemodels-security.xml schema.
-2. Highlight Schema and Click on the 'User shadow+'.
-3. Enter: Sales Manager Role & tab to set the value.
-4. Right-mouse on Sales Manager Role & Select: Add Schema Grant.
-5. Select: none & tab to set the value.
+<div align="center">
+<figure>
+<img src="../_assets/images/mondrian_sec_analyst_data_sources_no_miniature_models.png" alt="Analyzer Select Data Source dialog for user analyst, listing five data sources with no Miniature Models entry" width="800">
+<figcaption>analyst's data sources: no Miniature Models</figcaption>
+</figure>
+</div>
 
-<figure><img src="../_assets/images/mondrian_sec_schema_grant_access_none.png" alt=""><figcaption><p>Schema Grant access = none</p></figcaption></figure>
+> **Success:** Checkpoint: no Miniature Models in the list. So far only the Executive Role has access to the schema.
 
-6. Right-mouse click on the Schema Grant and Add Cube Grant.
-7. Set the access: **all** & tab to set the value.
-8. From the cube drop-down, select cube: Sales_FY2003_2005 & tab.
+14. Select **Cancel**. In Schema Workbench, right-click **Schema**, select **Add Role**, and set **name** to `Sales Manager Role`.
+15. Right-click **Sales Manager Role**, select **Add Schema Grant**, and set **access** to `none`.
 
-<figure><img src="../_assets/images/mondrian_sec.png" alt=""><figcaption></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/mondrian_sec_schema_grant_access_none.png" alt="Schema Workbench with the Sales Manager Role's Schema Grant selected and access set to none" width="800">
+<figcaption>Schema Grant access = none</figcaption>
+</figure>
+</div>
+
+16. Right-click the Sales Manager Role's **Schema Grant**, select **Add Cube Grant**, and set **access** to `all` and **cube** to `Sales_FY2003_2005`.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/mondrian_sec.png" alt="Schema Workbench with the Sales Manager Role's Cube Grant selected and the cube list open, offering Sales_FY2003_2005" width="800">
+<figcaption>The Sales Manager Role's Cube Grant</figcaption>
+</figure>
+</div>
+
+The role in the XML:
 
 ```xml
 <Role name="Sales Manager Role">
@@ -416,14 +421,19 @@ To test log in as: analyst — no Miniature Models..!
 </Role>
 ```
 
-9. Click Save & Publish.
-10. To test login in as: sales_mgr
+17. Save and publish the schema, and refresh the Mondrian schema cache, as in steps 10 and 11.
+18. Sign in as `sales_mgr` and select **Create New > Analysis Report**.
 
-<figure><img src="../_assets/images/mondrian_sec_sales_mgr.png" alt=""><figcaption><p>sales_mgr</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/mondrian_sec_sales_mgr.png" alt="Analyzer Select Data Source dialog for user sales_mgr, with Miniature Models: Sales_FY2003_2005 selected" width="800">
+<figcaption>sales_mgr's data sources</figcaption>
+</figure>
+</div>
 
-> **Note:** Setting access='none' at the SchemaGrant level blocks all cubes by default. The CubeGrant then selectively grants access to the Sales_FY2003_2005 cube, implicitly granting access to the parent schema as well.
->
-> Remember to refresh the Mondrian Schema Cache ..
+> **Success:** Checkpoint: **Select Data Source** lists **Miniature Models: Sales_FY2003_2005**: the cube grant opened the cube, and with it the schema.
+
+19. Select **Cancel**.
 
 ### 3. HierarchyGrant (Analyst)
 
@@ -431,92 +441,72 @@ To test log in as: analyst — no Miniature Models..!
 >
 > #### HierarchyGrant
 >
-> HierarchyGrant allows fine-grained control over which levels of a hierarchy users can access. We'll use topLevel and bottomLevel attributes to restrict the Analyst role's view.
->
-> The Analyst role should see summarized data only, without access to the most granular details. We'll restrict their view to show data from Country level down to City level, but not individual customers.
->
-> So we're going to have to add some Levels to our Schema:
->
-> All > Territory > Country > State > City > Customer Name
+> A HierarchyGrant controls which levels of a hierarchy a role can reach, with its topLevel and bottomLevel attributes. The Analyst Role sees summaries only: Country down to City, without individual customers. That takes more levels in the Customers hierarchy: All, Territory, Country, State, City, Customer Name.
 
-> **Danger:**
->
-> #### Refresh the Mondrian Schema Cache
->
-> Please remember to refresh the Mondrian Schema Cache every time you edit and save the miniaturemodels-security.xml schema ..
-
-1. Log in as Administrator.
-
-   * Password: password
-
-<figure><img src="../_assets/images/mondrian_sec_refresh_the_mondrian_cache.png" alt=""><figcaption><p>Refresh the Mondrian Cache </p></figcaption></figure>
-
-***
-
-1. To add another level, in the left pane, right-click the Customers (hierarchy) under CUSTOMERS and select Add Level.
-2. To define the State level, type or choose:
+1. Right-click the **Customers** hierarchy under **CUSTOMERS**, select **Add Level**, and set the level's attributes:
 
 | Attribute | Value |
 | --- | --- |
-| name | State |
-| column | STATE |
-| type | String |
-| levelType | Regular |
-| hideMemberIf | Never |
+| **name** | `State` |
+| **table** | `CUSTOMER_W_TER` |
+| **column** | `STATE` |
+| **type** | String |
+| **uniqueMembers** | cleared |
+| **levelType** | Regular |
+| **hideMemberIf** | Never |
 
-3. To define the City level, type or choose:
+2. Right-click **State** and select **Move Level Up** until it sits directly below **Country**.
+3. Add a `City` level the same way, with **column** `CITY` and the other attributes as for State, and move it up until it sits directly below **State**.
 
-| Attribute | Value |
-| --- | --- |
-| name | City |
-| column | CITY |
-| type | String |
-| levelType | Regular |
-| hideMemberIf | Never |
+> **Success:** Checkpoint: **Customers** holds **Territory**, **Country**, **State**, **City** and **Customer Name**, in that order.
 
-***
+4. Right-click **Schema**, select **Add Role**, and set **name** to `Analyst Role`.
+5. Right-click **Analyst Role**, select **Add Schema Grant**, and set **access** to `none`.
+6. Right-click its **Schema Grant**, select **Add Cube Grant**, and set **access** to `all` and **cube** to `Sales_FY2003_2005`.
+7. Right-click the **Cube Grant** and select **Add Hierarchy Grant**.
 
-1. Open the miniaturemodels-security.xml schema.
-2. Highlight Schema and Click on the 'User shadow+'.
-3. Enter: Analyst Role & tab to set the value.
-4. Right-mouse on Analyst Role & Select: Add Schema Grant.
-5. Select: none & tab to set the value.
-6. Right-mouse click on the Schema Grant and Add Cube Grant.
-7. Set the access: **all** & tab to set the value.
-8. From the cube drop-down, select cube: Sales_FY2003_2005 & tab.
-9. Right-mouse click on the Cube Grant and Add Hierarchy Grant.
+<div align="center">
+<figure>
+<img src="../_assets/images/mondrian_sec_add_hierarchy_grant_customers_customers.png" alt="Schema Workbench context menu on the Analyst Role's Cube Grant node, with Add Hierarchy Grant highlighted" width="800">
+<figcaption>Add Hierarchy Grant - CUSTOMERS.Customers</figcaption>
+</figure>
+</div>
 
-<figure><img src="../_assets/images/mondrian_sec_add_hierarchy_grant_customers_customers.png" alt=""><figcaption><p>Add Hierarchy Grant - CUSTOMERS.Customers</p></figcaption></figure>
-
-10. From the drop-down options select the following:
+8. Set the hierarchy grant's attributes, selecting each value from its list:
 
 | Attribute | Value |
 | --- | --- |
-| access | custom |
-| hierarchy | [CUSTOMERS.Customers] |
-| topLevel | [CUSTOMERS.Customers].[Country] |
-| bottomLevel | [CUSTOMERS.Customers].[City] |
+| **access** | custom |
+| **hierarchy** | `[CUSTOMERS.Customers]` |
+| **topLevel** | `[CUSTOMERS.Customers].[Country]` |
+| **bottomLevel** | `[CUSTOMERS.Customers].[City]` |
 
-<figure><img src="../_assets/images/mondrian_sec_set_hierarchy_customers_customers_toplevel_and.png" alt=""><figcaption><p>Set hierarchy [CUSTOMERS.Customers]  topLevel &#x26; bottomLevel</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/mondrian_sec_set_hierarchy_customers_customers_toplevel_and.png" alt="Schema Workbench Hierarchy Grant for the Analyst Role, with custom access on Customers from Country down to City" width="800">
+<figcaption>topLevel and bottomLevel on [CUSTOMERS.Customers]</figcaption>
+</figure>
+</div>
 
 > **Note:**
 >
-> #### Top & Bottom Level
+> #### Top and Bottom Level
 >
-> * **topLevel**: The highest (most aggregated) level the user can see. Setting it to Country means the user cannot see the All level.
-> * **bottomLevel**: The lowest (most detailed) level the user can see. Setting it to City means the user cannot see individual customers (the Customer Name level).
+> * **topLevel**: the highest, most aggregated level the role can see. Set to Country, the role can't see Territory or the All level.
+> * **bottomLevel**: the lowest, most detailed level the role can see. Set to City, the role can't see individual customers, the Customer Name level.
 >
-> **Result**: The Analyst can see data from Country > State > City, but not Territory or Customer Name.
+> **Result:** the Analyst can see Country, State and City, but not Territory or Customer Name.
 
-11. Right-mouse click on the Cube Grant and Add Hierarchy Grant.
-12. From the drop-down options select the following:
+9. Right-click the **Cube Grant**, select **Add Hierarchy Grant**, and set **access** to `all` and **hierarchy** to `[PRODUCTS.Products]`.
 
-| Attribute | Value |
-| --- | --- |
-| access | all |
-| hierarchy | [PRODUCTS.Products] |
+<div align="center">
+<figure>
+<img src="../_assets/images/mondrian_sec_set_hierarchy_products_products_2.png" alt="Schema Workbench second Hierarchy Grant for the Analyst Role, with the hierarchy list open and PRODUCTS.Products highlighted" width="800">
+<figcaption>Hierarchy Grant on [PRODUCTS.Products]</figcaption>
+</figure>
+</div>
 
-<figure><img src="../_assets/images/mondrian_sec_set_hierarchy_products_products_2.png" alt=""><figcaption><p>Set hierarchy [PRODUCTS.Products]</p></figcaption></figure>
+The role in the XML:
 
 ```xml
 <Role name="Analyst Role">
@@ -534,15 +524,27 @@ To test log in as: analyst — no Miniature Models..!
 </Role>
 ```
 
-13. Click Save & Publish.
+10. Save and publish the schema. In the User Console, signed in as `admin`, select **Tools > Refresh > Mondrian Schema Cache**.
 
-***
+<div align="center">
+<figure>
+<img src="../_assets/images/mondrian_sec_refresh_the_mondrian_cache.png" alt="User Console Tools menu with the Refresh submenu open and Mondrian Schema Cache highlighted" width="569">
+<figcaption>Refresh the Mondrian schema cache</figcaption>
+</figure>
+</div>
 
-To test login in as: analyst
+11. Sign in as `analyst`, select **Create New > Analysis Report**, select **Miniature Models: Sales_FY2003_2005**, and select **OK**.
 
-<figure><img src="../_assets/images/mondrian_sec_analyst.png" alt=""><figcaption><p>Analyst</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/mondrian_sec_analyst.png" alt="Empty Analyzer report for user analyst, listing seven Sales_FY2003_2005 fields, including Country, State and City but no Territory or Customer Name" width="800">
+<figcaption>What analyst can see</figcaption>
+</figure>
+</div>
 
-> **Note:** Notice: The scope of the Customers Hierarchy has been restricted - no Territory & Customer Name
+> **Success:** Checkpoint: the field list offers 7 fields: **Country**, **State** and **City** under Customers, **Line**, **Vendor** and **Name** under Products, and **Sales**. There is no **Territory** and no **Customer Name**.
+
+12. Drag **Sales** to the **Measures** drop zone and **Country** to the **Rows** drop zone.
 
 > **Under the hood:**
 >
@@ -555,79 +557,63 @@ To test login in as: analyst
 > Analyst gets all 33 Country members and 45 State members, and no rows
 > at all for Territory or Customer Name.
 >
-> The number behind a report that doesn't break down by customer is
-> still the company total, 10,645,949.18. Hiding levels restricts where
-> a user can navigate, not what the totals contain.
+> **Why it matters:** the number behind a report that doesn't break down
+> by customer is still the company total, 10,645,949.18. Hiding levels
+> restricts where a user can navigate, not what the totals contain.
 
+13. Close the report without saving it.
 
 ### 4. MemberGrant (Regional Manager)
 
 > **Note:**
 >
-> #### Member Grant
+> #### MemberGrant
 >
-> Let's dive a bit deeper..!
->
-> The Regional Manager Role should only see data for the Eastern USA region, which include: New York, New Jersey, and Pennsylvania.
+> MemberGrants restrict a role to single members. The Regional Manager Role sees only the Eastern USA region: New Jersey, New York and Pennsylvania.
 
-> **Danger:**
->
-> #### Refresh the Mondrian Schema Cache
->
-> Please remember to refresh the Mondrian Schema Cache every time you edit and save the miniaturemodels-security.xml schema ..
-
-1. Log in as Administrator.
-
-   * Password: password
-
-<figure><img src="../_assets/images/mondrian_sec_refresh_the_mondrian_cache.png" alt=""><figcaption><p>Refresh the Mondrian Cache </p></figcaption></figure>
-
-***
-
-1. Open the miniaturemodels-security.xml schema.
-2. Highlight Schema and Click on the 'User shadow+'.
-3. Enter: Regional Manager Role & tab to set the value.
-4. Right-mouse on Regional Manager Role & Select: Add Schema Grant.
-5. Select: none & tab to set the value.
-6. Right-mouse click on the Schema Grant and Add Cube Grant.
-7. Set the access: **all** & tab to set the value.
-8. From the cube drop-down, select cube: Sales_FY2003_2005 & tab.
-9. Right-mouse click on the Cube Grant and Add Hierarchy Grant.
-10. From the drop-down options select the following:
+1. In Schema Workbench, right-click **Schema**, select **Add Role**, and set **name** to `Regional Manager Role`.
+2. Right-click **Regional Manager Role**, select **Add Schema Grant**, and set **access** to `none`.
+3. Right-click its **Schema Grant**, select **Add Cube Grant**, and set **access** to `all` and **cube** to `Sales_FY2003_2005`.
+4. Right-click the **Cube Grant**, select **Add Hierarchy Grant**, and set its attributes:
 
 | Attribute | Value |
 | --- | --- |
-| access | custom |
-| hierarchy | [CUSTOMERS.Customers] |
-| topLevel | [CUSTOMERS.Customers].[State] |
+| **access** | custom |
+| **hierarchy** | `[CUSTOMERS.Customers]` |
+| **topLevel** | `[CUSTOMERS.Customers].[State]` |
 
-<figure><img src="../_assets/images/mondrian_sec_set_hierarchy_customers_customers_toplevel.png" alt=""><figcaption><p>Set hierarchy [CUSTOMERS.Customers]  topLevel</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/mondrian_sec_set_hierarchy_customers_customers_toplevel.png" alt="Schema Workbench Hierarchy Grant for the Regional Manager Role, with custom access on Customers and the top level set to State" width="800">
+<figcaption>topLevel on [CUSTOMERS.Customers]</figcaption>
+</figure>
+</div>
 
-11. Right-mouse click on Hierarchy Grant to Add a Member Grant.
+5. For each state, right-click the **Hierarchy Grant**, select **Add Member Grant**, and set **access** to `all` and **member** to the state's member:
 
-> **Note:** Add the Member constraints for each State: [NJ] [NY] [PA]
-
-12. Repeat the workflow to add the following Member Grants:
-
-| Attribute | Value |
+| access | member |
 | --- | --- |
-| access | all |
-| member | [CUSTOMERS.Customers].[NA].[USA].[NJ] |
-| | [CUSTOMERS.Customers].[NA].[USA].[NY] |
-| | [CUSTOMERS.Customers].[NA].[USA].[PA] |
+| all | `[CUSTOMERS.Customers].[NA].[USA].[NJ]` |
+| all | `[CUSTOMERS.Customers].[NA].[USA].[NY]` |
+| all | `[CUSTOMERS.Customers].[NA].[USA].[PA]` |
 
-<figure><img src="../_assets/images/mondrian_sec_set_member_customers_customers_na_usa_nj.png" alt=""><figcaption><p>Set member [CUSTOMERS.Customers].[NA].[USA].[NJ]</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/mondrian_sec_set_member_customers_customers_na_usa_nj.png" alt="Schema Workbench Member Grant for the Regional Manager Role, granting full access to the NJ member under NA and USA" width="743">
+<figcaption>Member Grant [CUSTOMERS.Customers].[NA].[USA].[NJ]</figcaption>
+</figure>
+</div>
 
-13. Finally add the PRODUCTS.Products hierarchy:
+6. Right-click the **Cube Grant**, select **Add Hierarchy Grant**, and set **access** to `all` and **hierarchy** to `[PRODUCTS.Products]`.
 
-| Attribute | Value |
-| --- | --- |
-| access | all |
-| hierarchy | [PRODUCTS.Products] |
+<div align="center">
+<figure>
+<img src="../_assets/images/mondrian_sec_set_hierarchy_products_products.png" alt="Schema Workbench second Hierarchy Grant for the Regional Manager Role, giving full access to the Products hierarchy" width="744">
+<figcaption>Hierarchy Grant on [PRODUCTS.Products]</figcaption>
+</figure>
+</div>
 
-<figure><img src="../_assets/images/mondrian_sec_set_hierarchy_products_products.png" alt=""><figcaption><p>Set hierarchy [PRODUCTS.Products]</p></figcaption></figure>
-
-14. Finally Save & Publish.
+The role in the XML:
 
 ```xml
 <Role name="Regional Manager Role">
@@ -649,15 +635,30 @@ To test login in as: analyst
 </Role>
 ```
 
-> **Note:** With `access="custom"`, Mondrian denies everything by default and only allows what you explicitly grant. By only granting access to NJ, NY, and PA, those are the only states that will be visible.
+> **Note:** With `access="custom"`, Mondrian denies every member by default and allows only what you grant. Granting NJ, NY and PA makes them the only states the role sees.
 
-***
+7. Save and publish the schema. In the User Console, signed in as `admin`, select **Tools > Refresh > Mondrian Schema Cache**.
 
-To test login in as: region_mgr
+<div align="center">
+<figure>
+<img src="../_assets/images/mondrian_sec_refresh_the_mondrian_cache.png" alt="User Console Tools menu with the Refresh submenu open and Mondrian Schema Cache highlighted" width="569">
+<figcaption>Refresh the Mondrian schema cache</figcaption>
+</figure>
+</div>
 
-<figure><img src="../_assets/images/mondrian_sec_2.png" alt=""><figcaption></figcaption></figure>
+8. Sign in as `region_mgr`, select **Create New > Analysis Report**, select **Miniature Models: Sales_FY2003_2005**, and select **OK**.
+9. Drag **Sales** to the **Measures** drop zone, and **State**, then **Line**, to the **Rows** drop zone.
 
-> **Note:** Notice topLevel: State. Only NJ, NY and PA are listed, but a HierarchyGrant without a rollupPolicy uses **full**: a report of Sales without the Customers hierarchy still shows region_mgr the company-wide total. Add `rollupPolicy="partial"` to this HierarchyGrant to limit it to the three states (see Rollup Policies, the next tab).
+<div align="center">
+<figure>
+<img src="../_assets/images/mondrian_sec_2.png" alt="Analyzer report for region_mgr showing Sales by State and product Line, limited to NJ, NY and PA" width="800">
+<figcaption>What region_mgr can see</figcaption>
+</figure>
+</div>
+
+> **Success:** Checkpoint: 18 rows, for NJ, NY and PA only: 4 product lines in NJ and 7 in each of the others. The first is NJ, Motorcycles, £32,979.68.
+
+10. Close the report without saving it.
 
 > **Under the hood:**
 >
@@ -672,9 +673,10 @@ To test login in as: region_mgr
 > policy is full, so a report of Sales with no Customers hierarchy on it
 > shows region_mgr 10,645,949.18, the whole company. With
 > `rollupPolicy="partial"` on this HierarchyGrant the same report shows
-> 1,002,899.22, the three states. Hiding members and hiding their share
-> of the totals are separate decisions.
-
+> 1,002,899.22, the three states (see the next tab).
+>
+> **Why it matters:** hiding members and hiding their share of the
+> totals are separate decisions.
 
 ### 5. Rollup Policies
 
@@ -682,26 +684,22 @@ To test login in as: region_mgr
 >
 > #### Rollup Policies
 >
-> Rollup policies control **how measures are aggregated when role-based security restricts access to certain members** in a dimension hierarchy. This becomes critical when you have hierarchies with restricted access - topLevel & bottomLevel will restrict the aggregation.
->
-> When a role restricts access to certain dimension members, what should happen to the totals at higher levels? Should they be included the restricted data or not?
+> A rollup policy decides how measures aggregate when a role can't see some members of a hierarchy: should the totals above them include the hidden data or not? Set it in the HierarchyGrant's **rollupPolicy** attribute.
 
-| Policy | Behaviour |
+| Policy | Behavior |
 | --- | --- |
 | full | The default when a HierarchyGrant has no rollupPolicy. Shows the complete total including hidden members. Users see true totals, and can work out what the hidden members add up to by subtracting the visible ones. |
-| partial | Shows total of only visible members. User sees accurate subtotals for their authorized data. Useful when users should only see their scope. |
-| hidden | Hides the total completely if any children are not accessible. Most restrictive option, prevents any inference of hidden data. |
+| partial | Shows the total of the visible members only. Users see accurate subtotals for the data they may see. Useful when users should see only their scope. |
+| hidden | Hides a total completely if any of its children is hidden. The most restrictive option: no hidden data can be inferred. |
 
 | Role Type | Recommended Policy | Reason |
 | --- | --- | --- |
-| Executive / VP | full | Need complete picture, restricted drill-down |
-| Regional Manager | partial | Should only see their region's totals |
+| Executive / VP | full | Needs the complete picture, with restricted drill-down |
+| Regional Manager | partial | Should see only the region's totals |
 | Contributor | partial or hidden | Limited scope, no need for aggregates |
-| Analyst (restricted data) | full | Need context of full data while working with subset |
+| Analyst (restricted data) | full | Needs the context of the full data while working with a subset |
 
-> **Note:** Remember the aggregation level is determined by the access restrictions. So .. If Regional Manager needs to see "complete totals but limited drill-down":
->
-> **Use top-down grant with denials**:
+The aggregation follows the access restrictions. If the Regional Manager needs complete totals but limited drill-down, use a top-down grant with denials:
 
 ```xml
 <HierarchyGrant hierarchy="[CUSTOMERS.Customers]"
@@ -719,7 +717,6 @@ To test login in as: region_mgr
 </HierarchyGrant>
 ```
 
-
 > **Under the hood:**
 >
 > #### What each policy did with the same grant
@@ -730,8 +727,26 @@ To test login in as: region_mgr
 > 3,627,982.83. partial: All Customers, NA and USA each 1,002,899.22.
 > hidden: all three empty.
 >
-> full is the one to think about. USA minus the three visible states is
-> 2,625,083.61, so a user with full totals can work out exactly what the
-> states they can't see add up to.
+> **Why it matters:** full is the one to think about. USA minus the three
+> visible states is 2,625,083.61, so a user with full totals can work
+> out exactly what the states they can't see add up to.
 
 ::::
+
+## Lab Files
+
+Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches PDI with the file loaded. If PDI is already running, the path is copied to your clipboard — switch to PDI and press `Ctrl+O`, `Ctrl+V`, `Enter`.
+
+The Miniature Models schema from [Standard Model](../06-schemas-standard-model/guide.md), the starting point for this workshop:
+
+[miniaturemodels-original.xml](./files/miniaturemodels-original.xml)
+
+### Solution <!-- no-step -->
+
+The secured schema with all four roles. Open it in Schema Workbench (**File > Open**) alongside your own to compare:
+
+[miniaturemodels-security.xml](./files/miniaturemodels-security.xml)
+
+For comparison, a Classic Models schema with two roles, Administrator and Power User:
+
+[classicmodels-security.xml](./files/classicmodels-security.xml)

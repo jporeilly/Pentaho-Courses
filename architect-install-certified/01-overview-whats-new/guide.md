@@ -1,134 +1,151 @@
 # What's New
 
-Pentaho Data Integration (PDI) 11.0 and Pentaho Business Analytics (PBA) 11.0 deliver major updates. This release focuses on a modern UI, stronger security, and simpler deployments.
+<div class="pcm-intro">
+
+Pentaho Data Integration (PDI) 11.0 and Pentaho Business Analytics (PBA) 11.0 are a major release: a modern user interface, stronger security and simpler deployments. Several of these changes shape the install you do in this course, from Java 21 and Tomcat 10 to the Plugin Manager that installs the server plugins.
+
+</div>
+
+**What You'll Learn**
+
+* **Pipeline Designer** - author ETL pipelines, PDI transformations and jobs, in a web browser.
+* **Projects** - organize and deploy ETL assets with project-based lifecycle management.
+* **The modern User Console** - the redesigned Pentaho User Console (PUC), in preview.
+* **Semantic Model Editor (SME)** - build Mondrian models in the browser.
+* **Security** - single sign-on (SSO) with built-in OpenID Connect (OIDC) and OAuth 2.0, and more granular permissions.
+* **Platform** - Java 21, Tomcat 10, standardized prebuilt container images, and features managed as plugins with the Plugin Manager.
+* **Observability** - monitor ETL runs with OpenTelemetry.
 
 11.0 is a long-term support (LTS) release. For service pack and update schedules, see the [Pentaho Support Lifecycle page](https://support.pentaho.com/hc/en-us/articles/205789159-Pentaho-Product-Lifecycle-Overview).
 
-For the full change list, see the [11.0 release notes](https://docs.pentaho.com/whats-new/release-notes-11.0).
+<div class="pcm-embed-card" data-href="https://docs.pentaho.com/whats-new/release-notes-11.0" data-title="Release notes 11.0 | Pentaho Documentation"></div>
 
-### Highlights
+## Pipeline Designer
 
-* Author ETL pipelines in a browser with Pipeline Designer.
-* Organize and deploy ETL assets with project-based lifecycle management.
-* Preview the redesigned Pentaho User Console (PUC).
-* Build Mondrian models in the browser with Semantic Model Editor (SME).
-* Enable SSO with built-in OpenID Connect (OIDC) and OAuth 2.0.
-* Simplify container deployments with standardized, prebuilt images.
-* Run on Java 21 and Tomcat 10.
-* Manage features as plugins with Plugin Manager.
-* Monitor ETL runs with OpenTelemetry-based observability.
+Pipeline Designer is a browser-based UI for authoring ETL pipelines: you build PDI transformations and jobs in a web browser. It works like Spoon, on a modern framework, and stays compatible with transformations and jobs created in Spoon. Spoon remains available for legacy tooling.
 
-### Pipeline Designer
+<div align="center">
+<figure>
+<img src="../_assets/images/whatsnew-01.png" alt="Pipeline Designer in the browser: two flows on the canvas, with the Design panel of steps on the left and the Run toolbar above" width="739">
+<figcaption>Pipeline Designer: transformations and jobs in the browser</figcaption>
+</figure>
+</div>
 
-Pipeline Designer is a browser-based UI for authoring ETL pipelines. Build PDI transformations and jobs in a web browser. Use Spoon only for legacy tooling.
+<div class="pcm-embed-card" data-href="https://docs.pentaho.com/pba/11.0-pba/pipeline-designer" data-title="Pipeline Designer | Pentaho Documentation"></div>
 
-![Pipeline Designer in the browser](../_assets/images/whatsnew-01.png)
+## Project-based lifecycle management
 
-It is similar to Spoon. The UI uses a modern framework. It remains compatible with transformations and jobs created in Spoon.
+Before 11.0, PDI had no defined structure for organizing transformations, jobs and configuration. That made collaboration and promotion between environments harder for ETL and DevOps teams, and configuration could resolve inconsistently. Projects address these gaps.
 
-Learn more about [Pipeline Designer](https://docs.pentaho.com/pba/11.0-pba/pipeline-designer).
+<div align="center">
+<figure>
+<img src="../_assets/images/whatsnew-02.png" alt="Spoon with the DW Pipelines project selected: Project Files lists folders of pipelines, and Configurations shows connections marked System or Project" width="584">
+<figcaption>A project in Spoon: its files and its configuration in one place</figcaption>
+</figure>
+</div>
 
-### Project-based lifecycle management
+<div class="pcm-embed-card" data-href="https://docs.pentaho.com/pdia-data-integration/pdia-11.0-data-integration/organizing-etl-with-projects#manageability" data-title="Organizing ETL with projects | Pentaho Documentation"></div>
 
-Before 11.0, PDI had no defined structure for organizing transformations, jobs, and configuration. That made collaboration and environment promotion harder for ETL and DevOps teams.
+## Modern Pentaho User Console (preview)
 
-Configuration resolution could also feel inconsistent.
-
-![Project-based organization for ETL assets](../_assets/images/whatsnew-02.png)
-
-Project-based lifecycle management addresses these gaps.
-
-Learn more about [configuring ETL with Projects](https://docs.pentaho.com/pdia-data-integration/pdia-11.0-data-integration/organizing-etl-with-projects#manageability).
-
-### Modern Pentaho User Console (preview)
+11.0 introduces a redesigned user experience (UX) for the Pentaho User Console (PUC). It aligns PUC with the rest of the Pentaho platform and addresses pain points in PUC 10.2 and earlier. The existing PUC stays available until the two reach feature parity.
 
 > **Note:** This feature is in preview. Behavior and UI might change in later updates.
 
-11.0 introduces a redesigned user experience (UX) for Pentaho User Console (PUC). It aligns with the broader Pentaho platform UX. It addresses pain points in PUC 10.2 and earlier.
+<div align="center">
+<figure>
+<img src="../_assets/images/whatsnew-03.png" alt="The modern User Console: the new login page, the Browse Files view of the repository, and the Home page with its Quick Access cards" width="800">
+<figcaption>The modern User Console: login, Browse Files and Home</figcaption>
+</figure>
+</div>
 
-![Modern Pentaho User Console](../_assets/images/whatsnew-03.png)
+<div class="pcm-embed-card" data-href="https://docs.pentaho.com/pba/11.0-pba/pentaho-user-console/modern-design" data-title="Modern design | Pentaho Documentation"></div>
 
-The existing PUC stays available until feature parity.
+## Semantic Model Editor (SME)
 
-Learn more about [Modern PUC](https://docs.pentaho.com/pba/11.0-pba/pentaho-user-console/modern-design).
+Semantic Model Editor (SME) is a new tool for building and managing Mondrian data models. Previously you used Schema Workbench or the Data Source Wizard; SME provides a web-based workflow for new and advanced users. It improves modeling for PBA, Analyzer in particular, opens existing Mondrian models and adds new capabilities.
 
-### Semantic Model Editor (SME)
+<div align="center">
+<figure>
+<img src="../_assets/images/whatsnew-04.png" alt="Semantic Model Editor: the SteelWheels model canvas with its fact table, measures and dimensions, a Dimension Editor and a Create with SQL measure dialog" width="763">
+<figcaption>Semantic Model Editor: a model canvas and its editors</figcaption>
+</figure>
+</div>
 
-11.0 introduces a new tool for building and managing Mondrian data models. Previously, customers used Schema Workbench or Data Source Wizard. Semantic Model Editor (SME) provides a modern, web-based workflow.
+<div class="pcm-embed-card" data-href="https://docs.pentaho.com/pba/11.0-pba/semantic-model-editor" data-title="Semantic Model Editor | Pentaho Documentation"></div>
 
-SME works for both new and advanced users. It improves the modeling experience in PBA, especially Analyzer. It supports existing Mondrian models and adds new capabilities.
+## Built-in OIDC and OAuth 2.0
 
-![Semantic Model Editor](../_assets/images/whatsnew-04.png)
+11.0 supports OpenID Connect (OIDC) and OAuth 2.0 authentication for the Pentaho Server. This enables single sign-on (SSO) with identity providers such as Google, Okta and Azure, and with any OIDC-compliant identity provider (IdP).
 
-Learn more about [Semantic Model Editor](https://docs.pentaho.com/pba/11.0-pba/semantic-model-editor).
+<div align="center">
+<figure>
+<img src="../_assets/images/whatsnew-05.png" alt="The new login page with Sign in with azure, Sign in with keycloak and Sign in with okta buttons under the Log In button" width="800">
+<figcaption>Identity providers on the login page</figcaption>
+</figure>
+</div>
 
-### Built-in OIDC and OAuth 2.0
+<div class="pcm-embed-card" data-href="https://docs.pentaho.com/pdia-admin/pdia-11.0-admin/administer/secure-the-pentaho-system/user-security/advanced-security-providers/oidc-oauth-2.0" data-title="OIDC and OAuth 2.0 | Pentaho Documentation"></div>
 
-11.0 supports OpenID Connect (OIDC) and OAuth 2.0 authentication for Pentaho Server. This enables single sign-on (SSO) with identity providers such as Google, Okta, and Azure. It supports any OIDC-compliant identity provider (IdP).
+## Granular permissions for Pentaho Server
 
-![OIDC/OAuth authentication options](../_assets/images/whatsnew-05.png)
+11.0 adds more granular access control across the platform. It addresses long-standing limits:
 
-Learn more about [OIDC and OAuth 2.0](https://docs.pentaho.com/pdia-admin/pdia-11.0-admin/administer/secure-the-pentaho-system/user-security/advanced-security-providers/oidc-oauth-2.0).
-
-### Granular permissions for Pentaho Server
-
-11.0 adds more granular and flexible access control across the platform. This addresses long-standing challenges:
-
-* Permissions were not fine-grained enough. For example, **Read Content** lets users see content from any plugin. File and folder permissions can still block access.
+* Permissions were not fine-grained enough. For example, **Read Content** lets users see content from any plugin; file and folder permissions can still block access.
 * Permissions could not cleanly allow or block individual plugins.
 * Permissions were too broad for data sources and similar assets.
 * Execute permissions were too broad.
 
-![Granular permission management](../_assets/images/whatsnew-06.png)
+Combined with OIDC and OAuth 2.0, this gives the Pentaho Server a stronger authentication and authorization model.
 
-11.0 addresses these issues in Pentaho Server. Combined with OIDC and OAuth 2.0, it provides a stronger authentication and authorization model.
+<div align="center">
+<figure>
+<img src="../_assets/images/whatsnew-06.png" alt="Manage Roles listing roles such as Administrator and Authenticated, with the Administrator role's system permissions switched on and a Plugin Permissions section below" width="787">
+<figcaption>System and plugin permissions for a role</figcaption>
+</figure>
+</div>
 
-Learn more about [granular permissions](https://docs.pentaho.com/pba/11.0-pba/semantic-model-editor/sharing-a-semantic-model/permissions-for-semantic-models).
+<div class="pcm-embed-card" data-href="https://docs.pentaho.com/pba/11.0-pba/semantic-model-editor/sharing-a-semantic-model/permissions-for-semantic-models" data-title="Permissions for semantic models | Pentaho Documentation"></div>
 
-### Simplified container deployment
+## Simplified container deployment
 
-11.0 simplifies Docker-based deployments. It introduces optimized, prebuilt images for on-premises deployments and major Kubernetes platforms.
+11.0 introduces optimized, prebuilt images for on-premises Docker deployments and the major Kubernetes platforms: plain Docker, Kubernetes, EKS, AKS and GKE. The images use standardized installation paths and variables, and their entrypoint scripts accept runtime overrides for configuration files and licenses.
 
-This includes plain Docker, Kubernetes, EKS, AKS, and GKE. Images use standardized installation paths and variables. Entrypoint scripts support runtime overrides for configuration files and licenses.
+<div class="pcm-embed-card" data-href="https://docs.pentaho.com/install/pdia-11.0-installation/pentaho-installation-overview-cp/docker-container-deployment-of-pentaho-installation-cp" data-title="Docker container deployment | Pentaho Documentation"></div>
 
-Learn more about [Docker deployment](https://docs.pentaho.com/install/pdia-11.0-installation/pentaho-installation-overview-cp/docker-container-deployment-of-pentaho-installation-cp).
+## Java 21 and Tomcat 10 support
 
-### Java 21 and Tomcat 10 support
+11.0 supports Java 21: Oracle JDK, OpenJDK or another supported JVM. The Pentaho Server 11.0 ships with Tomcat 10, which addresses vulnerabilities and defects associated with Tomcat 9.
 
-Java 21 is supported in 11.0. You can use Oracle JDK, OpenJDK, or other supported JVMs.
+<div class="pcm-embed-card" data-href="https://docs.pentaho.com/install/pdia-11.0-installation/components-reference" data-title="Components reference | Pentaho Documentation"></div>
 
-Pentaho Server 11.0 ships with Tomcat 10. This addresses vulnerabilities and defects associated with Tomcat 9.
+## Plugin Manager
 
-Learn more in the [Components reference](https://docs.pentaho.com/install/pdia-11.0-installation/components-reference).
+11.0 introduces a Plugin Manager for both PDI and PBA plugins. Pentaho will ship more functionality as plugins over time, and the Plugin Manager is where you find, deploy and update them.
 
-### Plugin Manager
+<div align="center">
+<figure>
+<img src="../_assets/images/whatsnew-07.png" alt="The Plugin Manager listing plugins with their type, installed and latest versions, and a Databricks detail dialog with a plugin version list and Install button" width="468">
+<figcaption>The Plugin Manager and a plugin's details</figcaption>
+</figure>
+</div>
 
-11.0 introduces a Plugin Manager for both PDI and PBA plugins. Pentaho will ship more functionality as plugins over time. This makes it easier to identify, deploy, and update plugins.
+<div class="pcm-embed-card" data-href="https://docs.pentaho.com/pba/11.0-pba/pentaho-user-console/modern-design/plugin-manager" data-title="Plugin Manager | Pentaho Documentation"></div>
 
-![Plugin Manager](../_assets/images/whatsnew-07.png)
+## Karaf and OSGi removed, big data plugins delivered separately
 
-Learn more about [Plugin Manager](https://docs.pentaho.com/pba/11.0-pba/pentaho-user-console/modern-design/plugin-manager).
+In 11.0, Karaf and OSGi are removed from PDI, and big data components are delivered as plugins. There is no separate PDI distribution for big data add-ons: you deploy big data components the same way as other PDI plugins. This reduces the size of both the PDI client and the Pentaho Server deployment by more than 1 GB.
 
-### Karaf and OSGi removed, big data plugins delivered separately
+## OpenTelemetry-based observability
 
-In 11.0, Karaf and OSGi are removed from PDI. Big data components are now delivered as plugins. There is no separate PDI distribution for big data add-ons. Deploy big data components the same way as other PDI plugins.
+[OpenTelemetry](https://opentelemetry.io/docs/languages/java/) (OTel) is an open standard for sharing telemetry data such as traces, metrics and logs. Many tools consume OpenTelemetry data, including Datadog, Splunk, Elastic, Amazon CloudWatch and Azure Monitor.
 
-This reduces both the PDI client and Pentaho Server deployment size by more than 1 GB.
+With the OTel plugin you can monitor Pentaho ETL processes with:
 
-Learn more about [Plugin Manager](https://docs.pentaho.com/pba/11.0-pba/pentaho-user-console/modern-design/plugin-manager).
+* Logs, consolidated in a single place and represented hierarchically
+* Traces, to view task timing, execution hierarchy and variables during execution
+* Metrics, to track data flow trends at specified points of interest
 
-### OpenTelemetry-based observability
+## Other enhancements
 
-[OpenTelemetry](https://opentelemetry.io/docs/languages/java/) (OTel) is an open standard for sharing telemetry data such as traces, metrics, and logs. Many tools can consume OpenTelemetry data, including Datadog, Splunk, Elastic, Amazon CloudWatch, and Azure Monitor.
-
-With the OTel plugin, you can monitor Pentaho ETL processes with:
-
-* Logs that are consolidated in a single place and represented hierarchically
-* Traces to view task timing, execution hierarchy, and variables during execution
-* Metrics to track data flow trends at specified points of interest
-
-Learn more about [Plugin Manager](https://docs.pentaho.com/pba/11.0-pba/pentaho-user-console/modern-design/plugin-manager).
-
-### Other enhancements
-
-11.0 also includes smaller enhancements and defect fixes. See the [11.0 release notes](https://docs.pentaho.com/whats-new/release-notes-11.0) for details.
+11.0 also includes smaller enhancements and defect fixes. See the 11.0 release notes, linked at the top of this page, for details.

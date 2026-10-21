@@ -2,33 +2,31 @@
 
 > **Warning:**
 >
-> #### Workshop - Overview of SteelWheels Domain
+> #### Workshop - SteelWheels
 >
-> Creating effective business intelligence solutions requires more than just connecting to databases—it demands a semantic layer that translates technical database structures into business-friendly concepts that analysts and report builders can understand. Pentaho Metadata Editor enables you to build this critical abstraction layer, organizing raw tables and columns into logical business models with meaningful names, relationships, and categories that mirror how your organization thinks about data.
->
-> In this hands-on workshop, you'll explore the SteelWheels domain - a comprehensive metadata model built on Pentaho's sample database that represents a fictional toy company's complete operations. By examining this fully-realized example spanning customers, products, orders, employees, and financial data across 13 interconnected tables, you'll learn the fundamental architecture of metadata domains and how each layer builds upon the previous one to create an intuitive, business-focused data access layer.
->
-> By the end of this workshop, you'll understand how Pentaho Metadata Editor transforms raw database schemas into organized, documented, business-aligned data models. You'll see how physical tables become business tables with friendly names, how relationships enable cross-table analysis, and how categories group related fields into logical collections that match business thinking. This foundational knowledge prepares you to build your own metadata domains that empower business users to create reports and analyses without needing to understand underlying database complexity.
+> Explore SteelWheels, the metadata domain that ships with the Metadata Editor, before you build your own. It models Pentaho's SampleData database: 13 physical tables, three business models, and the relationships and categories that turn them into fields a report builder can use.
 >
 > **What you'll do**
 >
-> * Import and explore an existing metadata domain using the XMI file format
-> * Examine the Physical Layer including database connections, tables, and column definitions
-> * Navigate Business Models and understand how they organize tables for specific analytical purposes
-> * Explore Business Tables and Business Columns with their enhanced metadata properties
-> * Understand Relationships and how they define connections between tables for accurate query generation
-> * Discover Business Views and Categories that expose the semantic layer to end users
-> * Learn the complete metadata architecture from physical structures to business-friendly presentations
+> * Import the SteelWheels domain from its XMI file
+> * Examine the physical layer: the connection, its 13 tables and their columns
+> * Read a calculated physical column, **Total**, and its formula
+> * Follow the **Orders** business model from its business tables to its relationships
+> * See how the business view's categories group columns for report users
 >
-> **Prerequisites:** Basic understanding of relational database concepts (tables, columns, relationships); Pentaho Metadata Editor installed and configured; Access to SteelWheels sample database
+> **Prerequisites:**
+>
+> * Pentaho Metadata Editor installed in `C:\Pentaho\design-tools\metadata-editor`
+> * The layers described in [Overview of Domains & Models](../02-domains-and-models/guide.md)
 >
 > **Estimated time:** 45 minutes
 
-<figure><img src="../_assets/images/dm_steelwheels_steelwheels_domain.png" alt=""><figcaption><p>SteelWheels Domain</p></figcaption></figure>
-
-***
-
-Follow the guide below to understand how a **Domain** is defined:
+<div align="center">
+<figure>
+<img src="../_assets/images/dm_steelwheels_steelwheels_domain.png" alt="The Metadata Editor with the SteelWheels domain open: the tree lists the SampleData connection's 13 tables and the Orders business model with its business tables, relationships and business view, and the graphical view draws Customer W Ter, Orders, Orderdetails, Products and Payments" width="800">
+<figcaption>What you explore: the SteelWheels domain, with the Orders model expanded</figcaption>
+</figure>
+</div>
 
 :::: tabs
 
@@ -36,66 +34,51 @@ Follow the guide below to understand how a **Domain** is defined:
 
 > **Note:**
 >
-> #### SteelWheels Domain
+> #### Import the SteelWheels Domain
 >
-> The following steps show you how to use an example metadata model in Pentaho Metadata Editor to create an Interactive Reports.
+> The Metadata Editor saves domains in its own repository. An XMI file is the exchange format: importing one loads the domain into the editor, and you then save it under a name of your choice.
 
-<figure><img src="../_assets/images/dm_steelwheels_orders_business_model.png" alt=""><figcaption><p>Orders Business Model</p></figcaption></figure>
+1. Start the Metadata Editor with the **Open Metadata Editor** button below, or from a terminal:
 
-***
+::: tabs
 
-1. Start Metadata Editor:
+### Windows (PowerShell)
 
-> **Note:**
->
-> #### Windows (PowerShell)
->
-> ```powershell
-> cd \
-> cd Pentaho/design-tools/metadata-editor/
-> ./metadata-editor.bat
-> ```
+```powershell
+Set-Location C:\Pentaho\design-tools\metadata-editor
+.\metadata-editor.bat
+```
 
-> **Note:**
->
-> #### Linux
->
-> ```bash
-> cd
-> cd Pentaho/design-tools/metadata-editor/
-> ./metadata-editor.sh
-> ```
+### macOS / Linux
+
+```bash
+cd ~/Pentaho/design-tools/metadata-editor
+./metadata-editor.sh
+```
+
+:::
 
 <button data-launch="metadata-editor">Open Metadata Editor</button>
 
-2. Import (open) an existing metadata domain.
-3. From the menu, select: **File > Import from XMI File**.
+<div align="center">
+<figure>
+<img src="../_assets/images/dm_steelwheels_pme_ui.png" alt="The Metadata Editor with no domain open: the tree shows only Connections and Business Models, and the graphical view says there are no business models defined" width="800">
+<figcaption>The Metadata Editor before you import a domain</figcaption>
+</figure>
+</div>
 
-<figure><img src="../_assets/images/dm_steelwheels_pme_ui.png" alt=""><figcaption><p>PME UI</p></figcaption></figure>
+2. Select **File > Import from XMI File** (`Ctrl+I`).
+3. Open `steel-wheels.xmi` from the Metadata Editor's `samples` folder: `C:\Pentaho\design-tools\metadata-editor\samples` (macOS / Linux: `~/Pentaho/design-tools/metadata-editor/samples`). The same file is under **Lab Files** below.
+4. In the **Save Model** dialog, enter `SteelWheels` and select **OK**.
 
-4. Navigate to:
+<div align="center">
+<figure>
+<img src="../_assets/images/dm_steelwheels_orders_business_model.png" alt="The SteelWheels domain after import: Connections holds SampleData, and Business Models lists Human Resources, Inventory and Orders, each followed by SampleData" width="797">
+<figcaption>One connection, three business models</figcaption>
+</figure>
+</div>
 
-> **Note:**
->
-> #### Windows (PowerShell)
->
-> ```powershell
-> C:\Pentaho\design-tools\metadata-editor\samples
-> ```
-
-> **Note:**
->
-> #### Linux
->
-> ```bash
-> ~/Pentaho/design-tools/metadata-editor/samples
-> ```
-
-5. Double-click: **steel-wheels.xmi**.
-6. In the Save Model dialog, type: **SteelWheels**.
-7. Click **OK**.
-
-> **Danger:** A domain can hold several database connections, but each business model uses exactly one: you cannot mix tables from two connections in the same model.
+> **Success:** Checkpoint: the title bar reads **Pentaho Metadata Editor - SteelWheels**. **Connections** holds one connection, **SampleData**, and **Business Models** lists three models: **Human Resources**, **Inventory** and **Orders**, each followed by its connection, **(SampleData)**.
 
 ### 2. Physical Layer
 
@@ -103,61 +86,81 @@ Follow the guide below to understand how a **Domain** is defined:
 >
 > #### Physical Layer
 >
-> The physical layer of a Pentaho domain encompasses connections, physical tables and physical columns. These objects represent the database(s) you are trying to model and enrich with metadata. The physical layer is not considered part of the business model, because not all connections defined in the physical layer will be used in every business model.
+> The physical layer holds the connections, the physical tables and the physical columns: the database as the domain sees it. It is not part of any business model, because a model uses only the tables it needs. A domain can hold several connections, but each business model uses exactly one, so a model never mixes tables from two connections.
+
+1. In the tree, expand **Connections > SampleData**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/dm_steelwheels_physical_layer.png" alt="The SampleData connection expanded: Trial Balance, Time, Quadrant Actuals, Products, Payments, Orders, Orderfact, Orderdetails, Offices, Employees, Department Managers, Customer W Ter and Customers" width="223">
+<figcaption>The physical layer: 13 tables from one connection</figcaption>
+</figure>
+</div>
+
+> **Success:** Checkpoint: 13 physical tables, from **Trial Balance** to **Customers**. Each shows the name its **Name** property gives it, such as **Customer W Ter** for the `CUSTOMER_W_TER` table.
+
+2. Expand **Products**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/dm_steelwheels_products_table.png" alt="The Products physical table expanded to its nine columns, from MSRP to Product Code, with Product Line highlighted" width="205">
+<figcaption>The Products table and its columns</figcaption>
+</figure>
+</div>
+
+3. Double-click **Product Line**. The **Physical Table Properties** dialog opens with **Product Line** selected in the **Subject** pane.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/dm_steelwheels_product_line_base_metadata_properties.png" alt="Physical Table Properties for Products with Product Line selected: ID PRODUCTLINE, the Available pane grouped into General, Formatting, Model Descriptors, Calculation and Miscellaneous, and Settings showing the Name Product Line" width="800">
+<figcaption>A physical column's properties</figcaption>
+</figure>
+</div>
+
+> **Success:** Checkpoint: **ID** is `PRODUCTLINE`, the column's name in the database, and the **Name** under **General** is `Product Line`. The **Available** pane groups the properties under **General**, **Formatting**, **Model Descriptors**, **Calculation** and **Miscellaneous**; select one to scroll **Settings** to it.
+
+Every object in a domain has an ID, and the IDs follow a pattern you meet in every workshop:
+
+| ID | Object | Example |
+| --- | --- | --- |
+| `PT_` + table | Physical table | `PT_PRODUCTS` |
+| The column name | Imported physical column | `PRODUCTLINE` |
+| The ID you type | Physical column you add | `PC_TOTAL` |
+| `BT_` + table + table | Business table | `BT_ORDERDETAILS_ORDERDETAILS` |
+| `BC_` + table + column | Business column | `BC_ORDERDETAILS_PRICEEACH` |
+| The ID you type | Category | `CAT_ORDERS` here; `CT_ORDERS` in the domains you build |
+
+4. Select **Cancel**. The tree's **Parent Concept** column shows **Base** for every Products column: the concept a physical column starts from, and the one the business columns built on it inherit until they set their own.
+5. Expand **Orderdetails** and double-click **Total**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/dm_steelwheels_pc_total.png" alt="Physical Table Properties for Orderdetails with Total selected: ID PC_TOTAL, Name Total, and under Model Descriptors the Default Aggregation Sum" width="800">
+<figcaption>Total is a column the domain adds to the table</figcaption>
+</figure>
+</div>
+
+6. In the **Available** pane, select **Calculation > Formula** and read the settings above it in **Settings**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/dm_steelwheels_total_settings.png" alt="The Settings pane for Total scrolled to Optional Aggregations, with Sum, Average, Minimum and Maximum selected, Data Type Unknown, Field Type Fact, and the formula [QUANTITYORDERED]*[PRICEEACH]" width="800">
+<figcaption>Total's aggregations, type and formula</figcaption>
+</figure>
+</div>
+
+> **Success:** Checkpoint: **Total** (ID `PC_TOTAL`) has no column in the database. Its settings:
 >
-> Once imported you will see that:
->
-> * Physical Layer includes 13 tables.
+> | Property | Value |
+> | --- | --- |
+> | **Default Aggregation** | Sum |
+> | **Optional Aggregations** | Sum, Average, Minimum, Maximum |
+> | **Data Type** | Unknown |
+> | **Field Type** | Fact |
+> | **Formula** | `[QUANTITYORDERED]*[PRICEEACH]` |
+> | **Is the Formula Exact?** | Selected |
 
-<figure><img src="../_assets/images/dm_steelwheels_physical_layer.png" alt="" width="261"><figcaption><p>Physical Layer</p></figcaption></figure>
-
-1. In the left pane, expand **Connections > SampleData**.
-2. Expand **Products** and notice the list of columns.
-
-<figure><img src="../_assets/images/dm_steelwheels_products_table.png" alt="" width="240"><figcaption><p>Products Table</p></figcaption></figure>
-
-3. Double-click on **Product Line**.
-
-> **Note:**
->
-> A Properties Editor opens, which displays the metadata properties for each object (prefix):
->
-> PT - Physical Table
->
-> PC - Physical Column
->
-> BT - Business Tables
->
-> BC - Business Columns
->
-> CT - Categories
-
-<figure><img src="../_assets/images/dm_steelwheels_product_line_base_metadata_properties.png" alt=""><figcaption><p>Product Line Base Metadata Properties</p></figcaption></figure>
-
-4. Scroll through the Base settings - Parent Concepts.
-
-> **Note:** Notice most of the Base metadata settings can be overridden. The property - Parent Concept - will be inherited in the Business Models and Business Views Layers.
-
-5. Expand **Orderdetails** table.
-6. Double-click on **Total**.
-
-<figure><img src="../_assets/images/dm_steelwheels_pc_total.png" alt=""><figcaption><p>PC_TOTAL</p></figcaption></figure>
-
-> **Note:** If you have a requirement to create dimensions / measures for Interactive Reports that doesn't exist in the Physical tables, then you can easily create the column based on existing columns.
-
-7. Scroll through the Base settings.
-
-<figure><img src="../_assets/images/dm_steelwheels_total_settings.png" alt=""><figcaption><p>TOTAL - settings</p></figcaption></figure>
-
-> **Note:**
->
-> Notice the column is based on the calculation:
->
-> [QUANTITYORDERED]*[PRICEEACH]
->
-> The columns are referenced with [COLUMN]
->
-> This can be aggregated to: Sum, Average, Minimum & Maximum.
+7. Select **Cancel**.
 
 > **Under the hood:**
 >
@@ -173,7 +176,10 @@ Follow the guide below to understand how a **Domain** is defined:
 >
 > Sum is the default; Average, Minimum and Maximum are the alternatives
 > a report can switch to.
-
+>
+> **Why it matters:** a measure the database does not store is defined
+> once, in the domain, and every report built on it computes it the same
+> way.
 
 ### 3. Business Models
 
@@ -181,34 +187,52 @@ Follow the guide below to understand how a **Domain** is defined:
 >
 > #### Business Models
 >
-> There are three Business Models within this metadata domain. Each model uses one or more tables from the physical layer.
+> The domain holds three business models. Each one uses the tables of the physical layer that it needs, through business tables, and the business tables are where you override what the physical columns pass down.
 
-1. Collapse **Connections** and expand: **Business Models**.
-2. Expand: **Orders Business Model**.
+1. Collapse **Connections**, then expand **Business Models > Orders (SampleData) > Business Tables**.
 
-<figure><img src="../_assets/images/dm_steelwheels_business_models.png" alt=""><figcaption><p>Business Models</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/dm_steelwheels_business_models.png" alt="The Orders business model expanded to its five business tables: Payments, Products, Orderdetails, Orders and Customer W Ter, with the graphical view drawing the same five" width="800">
+<figcaption>The Orders model's business tables</figcaption>
+</figure>
+</div>
 
-> **Note:**
+> **Success:** Checkpoint: five business tables: **Payments**, **Products**, **Orderdetails**, **Orders** and **Customer W Ter**. The **Graphical View** tab draws the same five, joined by lines.
+
+2. Expand **Orderdetails**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/dm_steelwheels_orderdetails_business_table.png" alt="The Orderdetails business table expanded: Orderlinenumber Base, Total US_Currency, Price Sold US_Currency, Quantity Ordered Number, Productcode Base and Ordernumber Base" width="800">
+<figcaption>Business columns and their parent concepts</figcaption>
+</figure>
+</div>
+
+> **Success:** Checkpoint: six business columns, each with its parent concept:
 >
-> The Orders Business Model includes five Business Tables:
->
-> * Customer W Ter
-> * Orders
-> * Orderdetails
-> * Products
-> * Payments
->
-> The Business Model Layer is where you override and set the Parent Concept to be inherited in the Business View Layer.
+> | Business column | Parent Concept |
+> | --- | --- |
+> | Orderlinenumber | Base |
+> | Total | US_Currency |
+> | Price Sold | US_Currency |
+> | Quantity Ordered | Number |
+> | Productcode | Base |
+> | Ordernumber | Base |
 
-3. Expand: **Orderdetails** Business Table.
+3. Double-click **Price Sold**. The **Business Table Properties** dialog opens.
+4. In the **Available** pane, select **Miscellaneous > Mask for Number or Date**.
 
-<figure><img src="../_assets/images/dm_steelwheels_orderdetails_business_table.png" alt=""><figcaption><p>Orderdetails Business Table</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/dm_steelwheels_price_sold_properties.png" alt="Business Table Properties for Orderdetails with Price Sold selected: ID BC_ORDERDETAILS_PRICEEACH, and in Settings the formula PRICEEACH and the mask $#,##0.00;($#,##0.00), both grayed out" width="800">
+<figcaption>Price Sold's mask comes from its parent concept</figcaption>
+</figure>
+</div>
 
-4. Double-click: **Price Sold**.
+> **Success:** Checkpoint: **ID** is `BC_ORDERDETAILS_PRICEEACH`. The **Mask for Number or Date** value, `$#,##0.00;($#,##0.00)`, is grayed out: Price Sold doesn't set it. It inherits it from its parent concept, **US_Currency**, and the business view shows Price Sold with it.
 
-<figure><img src="../_assets/images/dm_steelwheels_price_sold_properties.png" alt=""><figcaption><p>Price Sold - Properties</p></figcaption></figure>
-
-> **Note:** Notice a 'Mask for Number or Date' has been added and the value set as a Parent Concept. The Mask - $#,##0.00 format - will be inherited in the Business View Layer.
+5. Select **Cancel**.
 
 > **Under the hood:**
 >
@@ -224,7 +248,9 @@ Follow the guide below to understand how a **Domain** is defined:
 > concept's own parents'), then its own overrides, each layer winning
 > over the one before. That is how a mask set once on a concept reaches
 > every column below it.
-
+>
+> **Why it matters:** change the concept and every currency column in
+> the domain changes with it, with no column to edit one by one.
 
 ### 4. Relationships
 
@@ -232,39 +258,48 @@ Follow the guide below to understand how a **Domain** is defined:
 >
 > #### Relationships
 >
-> Once you have all your Business Tables created, you will need to create relationships between the tables, so that the query generators and SQL generators that work with Pentaho metadata can create the data queries correctly.
->
-> This is very much like drawing a relational diagram to show primary and foreign key relationships. Although relational links are not the only relationships that can be modelled. You can create a relationship between any two tables, link any two columns between them and dictate what the relationship is (one to many, many to many, etc.).
->
-> The important pieces of information to know before you try to create a relationship is:
->
-> * what two Business Tables would you like to associate with this relationship?
-> * what columns in the business tables identify the relationship?
-> * and what kind of relationship is it - one to one, one to many, many to one, etc?
+> Relationships tell the query generator how to join the business tables, much as a relational diagram shows primary and foreign keys. A relationship can join any two business tables on any two columns, and it states its kind: one to one, one to many, and so on. Before you create one, know the two business tables, the columns that link them, and the kind of relationship.
 
-<figure><img src="../_assets/images/dm_steelwheels_relationships.png" alt=""><figcaption><p>Relationships</p></figcaption></figure>
+1. Expand **Business Models > Orders (SampleData) > Relationships**.
 
-1. Expand: **Business Models > Orders > Relationships**.
-2. Double-click:
+<div align="center">
+<figure>
+<img src="../_assets/images/dm_steelwheels_relationships.png" alt="The Orders model's Relationships node expanded to four relationships, each named after its from table and column" width="800">
+<figcaption>The Orders model's four relationships</figcaption>
+</figure>
+</div>
 
-```
+> **Success:** Checkpoint: four relationships. Each is named after its **From Table / Field**, then its **To Table / Field**:
+>
+> | From Table / Field | To Table / Field | Relationship |
+> | --- | --- | --- |
+> | `BT_ORDERS_ORDERS` / `BC_ORDERS_CUSTOMERNUMBER` | `BT_CUSTOMER_W_TER_CUSTOMER_W_TER` / `BC_CUSTOMER_W_TER_CUSTOMERNUMBER` | 1:N |
+> | `BT_ORDERS_ORDERS` / `BC_ORDERS_ORDERNUMBER` | `BT_ORDERDETAILS_ORDERDETAILS` / `BC_ORDERDETAILS_ORDERNUMBER` | 1:N |
+> | `BT_ORDERDETAILS_ORDERDETAILS` / `BC_ORDERDETAILS_PRODUCTCODE` | `BT_PRODUCTS_PRODUCTS` / `BC_PRODUCTS_PRODUCTCODE` | N:N |
+> | `BT_ORDERS_ORDERS` / `BC_ORDERS_CUSTOMERNUMBER` | `BT_PAYMENTS_PAYMENTS` / `BC_PAYMENTS_CUSTOMERNUMBER` | 1:1 |
+
+2. Double-click the relationship from Orders to Payments:
+
+```text
 BT_ORDERS_ORDERS.BC_ORDERS_CUSTOMERNUMBER - BT_PAYMENTS_PAYMENTS.BC_PAYMENTS_CUSTOMERNUMBER
 ```
 
-<figure><img src="../_assets/images/dm_steelwheels_relationship_properties.png" alt=""><figcaption><p>Relationship Properties</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/dm_steelwheels_relationship_properties.png" alt="Relationship Properties: From Table / Field BT_ORDERS_ORDERS and BC_ORDERS_CUSTOMERNUMBER, To Table / Field BT_PAYMENTS_PAYMENTS and BC_PAYMENTS_CUSTOMERNUMBER, Relationship 1:1 and Join type Inner" width="800">
+<figcaption>An inner join on the customer number, declared 1:1</figcaption>
+</figure>
+</div>
 
-> **Note:**
->
-> The relationship defines an inner join on the customer number and declares it 1:1: one order, one payment.
->
-> Wherever metadata writes a formula (a complex join, a calculated
-> column), it names a business column by its business table and column
-> IDs, inside one pair of brackets:
->
-> ```
-> [BT_ORDERS_ORDERS.BC_ORDERS_CUSTOMERNUMBER]
-> ```
+> **Success:** Checkpoint: **Relationship Properties** shows **Relationship** `1:1` and **Join type** `Inner`, and **Complex Join?** is cleared: the join is on the two customer number columns alone.
 
+3. Select **Cancel**.
+
+Wherever metadata writes a formula, such as a complex join or a calculated column, it names a business column by its business table ID and business column ID inside one pair of brackets:
+
+```text
+[BT_ORDERS_ORDERS.BC_ORDERS_CUSTOMERNUMBER]
+```
 
 > **Under the hood:**
 >
@@ -281,24 +316,51 @@ BT_ORDERS_ORDERS.BC_ORDERS_CUSTOMERNUMBER - BT_PAYMENTS_PAYMENTS.BC_PAYMENTS_CUS
 > Number with Check Number returns 1,289 rows for 326 orders and 272
 > payments, and summing payment amounts across the join gives 58,077,218
 > instead of 9,777,415.
+>
+> **Why it matters:** a wrong relationship never raises an error. It
+> shows up as totals that are too large, so check each relationship
+> against the data before you publish a model.
 
-### 5. Business Views
+### 5. Business View
 
 > **Note:**
 >
-> #### Business Views
+> #### Business View
 >
-> Business Views acts as 'buckets - categories' that enable you to define the semantic layer that is exposed to the end user. Each Category can contain any column(s) that have been defined in the Business tables.
+> The business view is what report users see: categories, each holding business columns from any of the model's business tables.
 
-<figure><img src="../_assets/images/dm_steelwheels_business_view_orders_category.png" alt=""><figcaption><p>Business View - Orders category</p></figcaption></figure>
+1. Expand **Business View > Orders**.
 
-1. Expand: **Business View > Orders**.
-2. Highlight **Orders** category.
-3. Right-mouse click and select the option: **Manage Categories**.
+<div align="center">
+<figure>
+<img src="../_assets/images/dm_steelwheels_business_view_orders_category.png" alt="The Orders category expanded to nine columns with their parent concepts: Order Number with ID; Order Date, Required Date and Shipped Date with Date; Status and Comments with Base; Quantity Ordered with Number; Price Sold and Total with US_Currency" width="800">
+<figcaption>The Orders category and its columns' parent concepts</figcaption>
+</figure>
+</div>
 
-<figure><img src="../_assets/images/dm_steelwheels_categories.png" alt=""><figcaption><p>Categories</p></figcaption></figure>
+> **Success:** Checkpoint: the **Business View** holds four categories, **Customer**, **Orders**, **Products** and **Payments**. **Orders** holds nine columns, from **Order Number** (parent concept **ID**) to **Total** (**US_Currency**).
 
-4. The Panel enables you to associate the Business Column(s) with the Category.
+2. Right-click **Orders** and select **Manage Categories**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/dm_steelwheels_categories.png" alt="The Orders category's context menu with New Category, Manage Categories, Edit, Delete, Move Up, Move Down, Set Parent Concept and Clear Parent Concept" width="800">
+<figcaption>Manage Categories, on a category's context menu</figcaption>
+</figure>
+</div>
+
+3. In the **Manage Categories** dialog, expand **Orders** under **Available Business Tables** and **Orders** under **Business View Categories**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/dm_steelwheels_manage_categories.png" alt="Manage Categories: Available Business Tables on the left with the Orders business table expanded, the add arrows in the middle, and Business View Categories on the right with the Orders category's nine columns" width="661">
+<figcaption>Business tables on the left, categories on the right</figcaption>
+</figure>
+</div>
+
+> **Success:** Checkpoint: the **Orders** category's nine columns come from two business tables. Six are from **Orders** (Order Number, Order Date, Required Date, Shipped Date, Status, Comments) and three from **Orderdetails** (Quantity Ordered, Price Sold, Total).
+
+4. Select **Close**.
 
 > **Under the hood:**
 >
@@ -314,16 +376,18 @@ BT_ORDERS_ORDERS.BC_ORDERS_CUSTOMERNUMBER - BT_PAYMENTS_PAYMENTS.BC_PAYMENTS_CUS
 > naming each column's category and id, such as
 > <view>CAT_ORDERS</view><column>BC_ORDERS_ORDERNUMBER</column>, and the
 > engine works out the tables and joins from there.
-
-
-<figure><img src="../_assets/images/dm_steelwheels_manage_categories.png" alt=""><figcaption><p>Manage Categories</p></figcaption></figure>
+>
+> **Why it matters:** you can reorganize what report users see without
+> touching a business table, a relationship or the database.
 
 ::::
 
-<button data-launch="puc">Open Pentaho User Console</button>
-
 ## Lab Files
 
-Download the reference files for this lab:
+Click a file to download it.
 
-* [steel-wheels.xmi](../_assets/files/steel-wheels.xmi)
+### Solution <!-- no-step -->
+
+The SteelWheels domain this workshop explores, the same file as the Metadata Editor's own `samples\steel-wheels.xmi`. Load it with **File > Import from XMI File**.
+
+[steel-wheels.xmi](../_assets/files/steel-wheels.xmi)

@@ -12,7 +12,12 @@ A schema defines a multidimensional **star / snowflake** database. It contains a
 >
 > The logical model consists of the constructs used to write queries in MDX: **cubes, dimensions, hierarchies, levels, and members**. The physical model is the source of the data presented through the logical model — typically a **star schema**, a set of tables in a relational database.
 
-<figure><img src="../_assets/images/schema_mondrian_3_schema.png" alt=""><figcaption><p>Mondrian 3 Schema</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/schema_mondrian_3_schema.png" alt="Mind map of the Mondrian 3 schema structure, branching from Schema into Cube, Virtual Cube and Roles, with Dimension, Hierarchy, Level, Property and Measure under Cube" width="800">
+<figcaption>Mondrian 3 Schema</figcaption>
+</figure>
+</div>
 
 <div class="pcm-embed-card" data-href="https://mondrian.pentaho.com/documentation/schema.php" data-title="Pentaho Mondrian Documentation"></div>
 This page is your **reference** for the building blocks. The three labs that follow — **SteelWheels**, **Basic Model**, and **Standard Model** — put them to work.
@@ -41,7 +46,12 @@ This page is your **reference** for the building blocks. The three labs that fol
         missingLink="warning">
 ```
 
-<figure><img src="../_assets/images/schema_schema_element.png" alt=""><figcaption><p>Schema Element</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/schema_schema_element.png" alt="Schema Workbench with the root Schema node selected, showing the schema name SteelWheels and its empty description, measuresCaption and defaultRole" width="710">
+<figcaption>Schema Element</figcaption>
+</figure>
+</div>
 
 > **Warning:** In Mondrian v3 the parser is **order-sensitive**. If child elements appear in the wrong order (for example, a cube after a role), Mondrian silently ignores them.
 
@@ -51,7 +61,7 @@ This page is your **reference** for the building blocks. The three labs that fol
 >
 > #### Cube element
 >
-> A **cube** is the context for a report or interactive analysis session. It represents a collection of events describing a business process over the lifetime of the data mart. A cube is a complete set of **Dimensions, Hierarchies, Levels, and Measures** for analysing those events — collected in one place, ready for querying.
+> A **cube** is the context for a report or interactive analysis session. It represents a collection of events describing a business process over the lifetime of the data mart. A cube is a complete set of **Dimensions, Hierarchies, Levels, and Measures** for analyzing those events — collected in one place, ready for querying.
 
 ```xml
 <Cube name="Sales 2003 to 2005">
@@ -61,7 +71,12 @@ This page is your **reference** for the building blocks. The three labs that fol
 </Cube>
 ```
 
-<figure><img src="../_assets/images/schema_cube_element.png" alt=""><figcaption><p>Cube Element</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/schema_cube_element.png" alt="Schema Workbench with the Sales_2003_2005 cube selected, showing its name and the selected cache, enabled and visible attributes" width="710">
+<figcaption>Cube Element</figcaption>
+</figure>
+</div>
 
 | Attribute | Description |
 | --- | --- |
@@ -80,7 +95,12 @@ This page is your **reference** for the building blocks. The three labs that fol
 >
 > A **Dimension** is a structural attribute of a cube — a list of related **Members** belonging to a similar category in the user's perception of the data. For example, months and quarters make up a Time dimension; cities, regions, and countries make up a Region dimension. A dimension acts as an index for identifying values in a multidimensional array, and is the business parameter you normally see in the rows and columns of a report.
 
-<figure><img src="../_assets/images/schema_dimension_element.png" alt=""><figcaption><p>Dimension Element</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/schema_dimension_element.png" alt="Schema Workbench with the MARKETS dimension selected, showing its description and the CUSTOMERNUMBER foreign key" width="710">
+<figcaption>Dimension Element</figcaption>
+</figure>
+</div>
 
 | Attribute | Description |
 | --- | --- |
@@ -98,7 +118,12 @@ This page is your **reference** for the building blocks. The three labs that fol
 >
 > A **hierarchy** organizes data at different levels of aggregation. Analysts use hierarchies to spot trends at one level, **drill down** to lower levels to find reasons, and **roll up** to higher levels to see broader effects. Each level must have a strict **one-to-many** relationship with the next: in `[Markets]`, each Country belongs to one Territory, each City to one State/Province.
 
-<figure><img src="../_assets/images/schema_hierarchy_element.png" alt=""><figcaption><p>Hierarchy Element</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/schema_hierarchy_element.png" alt="Schema Workbench with the Markets hierarchy selected, showing hasAll selected, All Markets as the all member name and CUSTOMERNUMBER as primary key" width="710">
+<figcaption>Hierarchy Element</figcaption>
+</figure>
+</div>
 
 | Attribute | Description |
 | --- | --- |
@@ -123,7 +148,12 @@ This page is your **reference** for the building blocks. The three labs that fol
 >
 > A **Level** represents a column in a table — a collection of members the same distance from the root of the hierarchy.
 
-<figure><img src="../_assets/images/schema_level_element.png" alt=""><figcaption><p>Level Element</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/schema_level_element.png" alt="Schema Workbench with the Territory level of the Markets hierarchy selected, mapped to the TERRITORY column with String type" width="710">
+<figcaption>Level Element</figcaption>
+</figure>
+</div>
 
 | Attribute | Description |
 | --- | --- |
@@ -145,7 +175,12 @@ This page is your **reference** for the building blocks. The three labs that fol
 >
 > Many dimensions (such as Customer) are large, so it is useful to **subset** them for viewing — by first/last name, address, income level, education, or marital status — before drilling into the data. Member **Properties** attach these extra attributes to a level without adding hierarchy levels.
 
-<figure><img src="../_assets/images/schema_properties.png" alt=""><figcaption><p>Properties</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/schema_properties.png" alt="Schema Workbench with the Customer Number property selected under the Customer level, mapped to the numeric CUSTOMERNUMBER column" width="800">
+<figcaption>Properties</figcaption>
+</figure>
+</div>
 
 | Attribute | Description |
 | --- | --- |
@@ -168,7 +203,12 @@ This page is your **reference** for the building blocks. The three labs that fol
 <Measure name="Sales Count" aggregator="count" />
 ```
 
-<figure><img src="../_assets/images/schema_measures.png" alt=""><figcaption><p>Measures</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/schema_measures.png" alt="Schema Workbench with the Sales measure selected, showing a sum aggregator on the TOTALPRICE column with format string #,###" width="710">
+<figcaption>Measures</figcaption>
+</figure>
+</div>
 
 | Aggregator | Description |
 | --- | --- |
@@ -186,7 +226,12 @@ This page is your **reference** for the building blocks. The three labs that fol
 >
 > Most element types (schema, cube, dimension, hierarchy, level, measure, calculated member) support **annotations** — user-defined properties that let tools attach metadata **without extending** the official Mondrian schema. Pentaho Analyzer uses several.
 
-<figure><img src="../_assets/images/schema_annotations.png" alt=""><figcaption><p>Annotations</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/schema_annotations.png" alt="Schema Workbench with an AnalyzerDateFormat annotation selected under the Years level of the Time hierarchy, its cdata set to [yyyy]" width="800">
+<figcaption>Annotations</figcaption>
+</figure>
+</div>
 
 ```xml
 <Cube name="Sales 2003 to 2005">

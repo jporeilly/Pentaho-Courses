@@ -2,7 +2,7 @@
   "title": "Named Sets",
   "description": "Add a reusable Named Set (\"Top 3 Territories\" via TopCount) to the Miniature Models schema, testing it first with a WITH SET MDX query.",
   "order": 12,
-  "stepCount": 2,
+  "stepCount": 6,
   "estimatedMinutes": 30,
   "hasVideo": false,
   "kind": "workshop"

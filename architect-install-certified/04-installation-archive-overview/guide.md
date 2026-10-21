@@ -1,100 +1,59 @@
-# Archive Installation
+# Overview
 
-#### Overview
+<div class="pcm-intro">
 
-Choose the Archive installation when you:
+An archive installation unpacks the Pentaho Server, already deployed in Tomcat 10, onto a Linux machine you prepare yourself. This module takes you through it end to end: the machine, the repository database, the server, its plugins and the client tools, then hardening and upgrades.
 
-* Don’t already run Tomcat and want an opinionated, faster setup.
+</div>
+
+**What You'll Learn**
+
+* **When to choose an archive installation** - and who it suits.
+* **What you end up with** - a licensed Pentaho Server on Tomcat 10, with its repository on PostgreSQL 17.
+* **The plan** - six steps, each one a lab in this module or the next.
+
+## Why an Archive Installation
+
+Choose the archive installation when you:
+
+* Don't already run Tomcat and want an opinionated, faster setup.
 * Need a straightforward path to migrate content from an existing Pentaho environment.
 
-> **Note:** Archive installation ships Pentaho v11 on Tomcat 10 as a snapshot, speeding setup versus a manual app‑server install.
+> **Note:** The archive ships Pentaho 11 already deployed in Tomcat 10, which makes setup faster than deploying Pentaho into an application server yourself.
 
-#### What you’ll achieve
+## What You'll Achieve
 
-* Pentaho Server running on Tomcat 10
-* A configured Pentaho Repository (database) - PostgreSQL 17
-* Server plugins installed
-* Client tools installed
+* The Pentaho Server running on Tomcat 10
+* The Pentaho Repository configured on PostgreSQL 17
+* The server plugins installed
+* The client tools installed
 * Licenses applied and validated
 
-#### Who is this for?
+## Who Is This For
 
-* Admins who want a quick, supported Tomcat + Pentaho setup
-* Teams migrating content from previous Pentaho versions or evaluation installs
+* Administrators who want a quick, supported Tomcat and Pentaho setup
+* Teams migrating content from earlier Pentaho versions or from evaluation installs
 
-#### Prerequisites
+## Prerequisites
 
-* Ubuntu 24.04 LTS with sudo access
+* Ubuntu 24.04 LTS, with `sudo` access
 * Java 21 (OpenJDK) installed and `PENTAHO_JAVA_HOME` set
-* Access to a supported database for the Pentaho Repository (PostgreSQL recommended)
-* Verify supported versions: [Components Reference](https://docs.pentaho.com/install/pdia-11.0-installation/components-reference)
+* A supported database for the Pentaho Repository (PostgreSQL recommended)
+* The supported versions, checked in the Components Reference:
 
-> **Danger:** Uninstall any evaluation versions of Pentaho before proceeding.
+<div class="pcm-embed-card" data-href="https://docs.pentaho.com/install/pdia-11.0-installation/components-reference" data-title="Components reference | Pentaho Documentation"></div>
 
-**Step 1.** **Prepare your environment**
+> **Danger:** Uninstall any evaluation version of Pentaho before you start.
 
-* Create a dedicated installation user `pentaho` and directory layout.
-* Install and validate Java 21; set `PENTAHO_JAVA_HOME`.
-* Install and configure your Pentaho Repository database (PostgreSQL recommended).
+## The Plan
 
-Go to: **Prepare Environment** (next in the sidebar)
+| Step | What you do | Lab |
+| --- | --- | --- |
+| 1. Prepare your environment | Create the `pentaho` installation user and the directory layout. Install Java 21 and set `PENTAHO_JAVA_HOME`. Install and configure PostgreSQL for the Pentaho Repository. | [Prepare Environment](../05-installation-archive-prepare-environment/guide.md) |
+| 2. Install the Pentaho Server | Unpack the archive under `/opt/pentaho`. Create the repository databases and check the server's connections to them. Start the server and check its logs. | [Install Pentaho Server](../06-installation-archive-pentaho-server/guide.md) |
+| 3. Install the server plugins | Add the reporting and visualization plugins your users need, Semantic Model Editor (SME) for data modeling, and Pipeline Designer, Scheduler and Carte for building and running pipelines. Restart and check each one. | [Server Plugins](../07-installation-archive-server-plugins/guide.md) |
+| 4. Install the client tools | Install PDI, Report Designer (PRD), Metadata Editor (PME), Schema Workbench (PSW) or the other client tools your team uses. | [Client Plugins](../10-installation-client-tools/guide.md) |
+| 5. Start the server and apply licenses | Start the Pentaho Server, open the User Console (PUC), check that it works, and apply your licenses in the License Manager. | [Install Pentaho Server](../06-installation-archive-pentaho-server/guide.md), its **Start Server** and **License Manager** tabs |
+| 6. Harden the installation (recommended) | Secure credentials, restrict access and tune performance for production. | [Post Installation Tasks](../08-installation-post-installation/guide.md) |
 
-
-
-
-
-**Step 2.** **Install Pentaho Server (Archive)**
-
-* Download and unpack the archive under `/opt/pentaho`.
-* Configure Repository connectivity and Tomcat.
-* Start the server and verify logs.
-
-Go to: **Install Pentaho Server**
-
-
-
-
-
-**Step 3.** **Install server plugins**
-
-* Add reporting/visualization plugins required by your use cases.
-* Add Semantic Model Editor (SME) for data modeling.
-* Add Pipeline Designer (PPD), Scheduler and Carte for creating and deploying automated data pipelines.
-* Restart and validate.
-
-Go to: **Server Plugins**
-
-
-
-
-
-**Step 4.** **Install client tools**
-
-* Install PDI, PRD, PME, PSW or other client tools used by your team.
-
-Go to: **Install Client Tools**
-
-
-
-
-
-**Step 5.** **Start the Pentaho Server and apply licenses**
-
-* Start Pentaho, access PUC, and validate basic functionality.
-* Apply licenses via the License Manager.
-
-See: “Start Server” and “License Manager” in **Install Pentaho Server**
-
-
-
-
-
-**Step 6.** **Post‑installation hardening (recommended)**
-
-* Secure credentials, restrict access, and tune performance for production.
-
-Go to: **Post Installation** (later in this course)
-
-> **Note:** Migrating content? Plan your repository upgrade/restore and test before opening the system to end users.
-
-***
+> **Note:** Migrating content? Plan your repository upgrade or restore, and test it, before you open the system to users.

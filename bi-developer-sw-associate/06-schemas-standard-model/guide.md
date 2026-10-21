@@ -2,66 +2,28 @@
 
 > **Warning:**
 >
-> #### Workshop - Miniature Model
+> #### Workshop - Standard Model
 >
-> Guided demonstrations provide valuable instruction, but true competency comes from independent practice where you apply learned concepts without step-by-step handholding. The transition from following instructions to creating schemas autonomously is critical for developing the confidence and problem-solving skills needed to tackle real-world dimensional modeling challenges. This workshop represents that crucial bridge—an opportunity to prove you've internalized the fundamentals while working with increased complexity.
->
-> In this hands-on exercise, you'll independently build the Miniature Models schema, demonstrating your mastery of Mondrian schema development by creating a more sophisticated analytical model than the Classic Models example. Working at your own pace with structured instructions but without detailed guidance, you'll construct a Sales_FY2003_2005 cube featuring three-level hierarchies in both dimensions—adding an intermediate tier that mirrors the multi-level drill-down paths commonly found in production business intelligence environments where users navigate from continental regions through countries to specific customers, or from product categories through vendors to individual SKUs.
+> Now build a schema on your own. The Miniature Models schema has a `Sales_FY2003_2005` cube whose two dimensions each have three levels, the drill paths users expect in production: from territory through country to customer, and from product line through vendor to product.
 >
 > **What you'll do**
 >
-> * Create the Miniature Models schema with proper naming and initial configuration
-> * Build the Sales_FY2003_2005 cube targeting fiscal year 2003-2005 sales analysis
-> * Configure the ORDERFACT fact table as your source of transactional measures
-> * Define the Sales measure with sum aggregation and currency formatting
-> * Create the Quantity Ordered measure with distinct-count aggregation
-> * Build a three-level CUSTOMERS dimension hierarchy (Territory → Country → Customer Name)
-> * Construct a three-level PRODUCTS dimension hierarchy (Line → Vendor → Product Name)
-> * Configure foreign keys, primary keys, and all required level properties independently
-> * Understand the difference between two-level and three-level dimensional navigation
-> * Publish your completed schema to Pentaho BA Server
-> * Validate your work by creating an Analysis Report in Pentaho Analyzer
+> * Create the Miniature Models schema and the `Sales_FY2003_2005` cube on the `ORDERFACT` fact table
+> * Build a three-level CUSTOMERS hierarchy: Territory, Country, Customer Name
+> * Build a three-level PRODUCTS hierarchy: Line, Vendor, Name
+> * Define a Sales measure and a distinct-count Quantity Ordered measure
+> * Publish the schema and test it in an Analyzer report
 >
-> **Prerequisites:** Completion of [Classic Models](../05-schemas-basic-model/guide.md) workshop; Schema Workbench and Pentaho Server installed and configured; Access to SampleData database; Solid understanding of cubes, dimensions, hierarchies, levels, and measures
+> **Prerequisites:** Complete [Basic Model](../05-schemas-basic-model/guide.md), which also creates the server connection `hsqldb_sampledata`; the Pentaho Server running
 >
 > **Estimated time:** 75 minutes
 
-#### Lab Files
-
-Open these in Schema Workbench via **File ▸ Open** (copy them out of the guide's content folder first if you plan to edit):
-
-[miniaturemodels-original.xml](./files/miniaturemodels-original.xml)
-
-
-<figure><img src="../_assets/images/miniature_schema_miniature_models.png" alt=""><figcaption><p>Schema - Miniature Models</p></figcaption></figure>
-
-> **Note:** Start Schema Workbench.
->
-> #### Windows (PowerShell)
->
-> ```powershell
-> cd \
-> cd Pentaho/design-tools/schema-workbench/
-> ./workbench.bat
-> ```
->
-> #### Linux
->
-> ```bash
-> cd
-> cd Pentaho/design-tools/schema-workbench/
-> ./workbench.sh
-> ```
-
-> **Danger:** Ensure that the Pentaho Server is up and running (automatically started in Pentaho Lab):
->
-> ```bash
-> cd
-> cd /opt/pentaho/server/pentaho-server
-> sudo ./start-pentaho.sh
-> ```
-
-<button data-launch="schema-workbench">Open Schema Workbench</button>
+<div align="center">
+<figure>
+<img src="../_assets/images/miniature_schema_miniature_models.png" alt="Schema Workbench with the Miniature Models schema: cube Sales_FY2003_2005 with its ORDERFACT table, CUSTOMERS and PRODUCTS dimensions and the Sales measure" width="800">
+<figcaption>Schema - Miniature Models</figcaption>
+</figure>
+</div>
 
 :::: tabs
 
@@ -69,117 +31,173 @@ Open these in Schema Workbench via **File ▸ Open** (copy them out of the guide
 
 > **Note:**
 >
-> #### Data Source (Reference)
+> #### Data Source
 >
-> Schema Workbench reads table and column metadata directly from the database connection. Configure the `hsqldb_sampledata` connection first so the schema editor can resolve the ORDERFACT, CUSTOMER_W_TER, and PRODUCTS tables.
+> Schema Workbench reads table and column metadata through its database connection. Check the `hsqldb_sampledata` connection first, so the schema editor can list the `ORDERFACT`, `CUSTOMER_W_TER` and `PRODUCTS` tables.
 
-1. To create a new connection, from the menu select **Options** > **Connection**.
-2. Enter the following details and **Test** the connection:
+1. Start Schema Workbench with the **Start Schema Workbench** button below, or from a terminal:
+
+::: tabs
+
+### Windows (PowerShell)
+
+```powershell
+Set-Location C:\Pentaho\design-tools\schema-workbench
+.\workbench.bat
+```
+
+### macOS / Linux
+
+```bash
+cd ~/Pentaho/design-tools/schema-workbench
+./workbench.sh
+```
+
+:::
+
+<button data-launch="schema-workbench">Start Schema Workbench</button>
+
+2. Make sure the Pentaho Server is running: it hosts the SampleData database on port `9001`. On a lab VM it starts with the machine. On your own machine, start it and wait until **http://localhost:8080/pentaho** shows the sign-in page:
+
+::: tabs
+
+### Windows (PowerShell)
+
+```powershell
+C:\Pentaho\server\pentaho-server\start-pentaho.bat
+```
+
+### macOS / Linux
+
+```bash
+cd ~/Pentaho/server/pentaho-server
+./start-pentaho.sh
+```
+
+:::
+
+3. Select **Options > Connection**.
+4. In the **Database Connection** dialog, make sure the fields hold these values:
 
 | Field | Value |
 | ----- | ----- |
-| Connection name | hsqldb_sampledata |
-| Connection type | Hypersonic |
-| Host Name | localhost |
-| Database Name | sampledata |
-| Port Number | 9001 |
-| Username | pentaho_admin |
-| Password | password |
+| **Connection name** | `hsqldb_sampledata` |
+| **Connection type** | Hypersonic |
+| **Access** | Native (JDBC) |
+| **Host Name** | `localhost` |
+| **Database Name** | `sampledata` |
+| **Port Number** | `9001` |
+| **Username** | `pentaho_admin` |
+| **Password** | `password` |
+
+5. Select **Test**.
+
+> **Success:** Checkpoint: a **Message Box** reports that the connection to `hsqldb_sampledata` was successful.
+
+6. Select **OK** to close the message, then select **OK** to close **Database Connection**.
 
 ### 2. Schema & Cube
 
 > **Note:**
 >
-> #### Create Schema & add Cube
+> #### Create the Schema and Add the Cube
 >
-> A schema is the top-level container; the cube binds a fact table to its measures and dimensions. Press **Tab** after entering each value so Schema Workbench commits the change.
+> A schema is the top-level container; the cube binds a fact table to its measures and dimensions. Press `Tab` after entering each value, so Schema Workbench keeps it.
 
-1. From the menu choose **File** > **New** > **Schema**. Alternatively, from the toolbar, click the **New** button, and click **Schema**.
-2. In the name field, replace the existing value by typing: `Miniature Models`, and then press **Tab**.
+1. Select **File > New > Schema**.
+2. In the left pane, select **Schema**, set **name** to `Miniature Models` and press `Tab`.
+3. Right-click **Schema** and select **Add cube**.
+4. Set **name** to `Sales_FY2003_2005` and press `Tab`. Leave **cache**, **enabled** and **visible** selected.
+5. Select **File > Save As** and save the schema as `MiniatureModels.xml` in a folder of your own.
 
-> **Note:** Remember to press **Tab** after entering a new value.
-
-3. On the schema toolbar, click **Add cube**.
-4. In the name field, replace the existing value by typing: `Sales_FY2003_2005`, and then press **Tab**.
-5. To save the schema, from the menu select **File** > **Save**.
-6. In the Save dialog, type `MiniatureModels.xml`, and then click **Save**.
+> **Success:** Checkpoint: the tree shows **Schema** and **Sales_FY2003_2005**, both with a red cross until the cube has a fact table, dimensions and a measure.
 
 ### 3. ORDERFACT
 
 > **Note:**
 >
-> #### Add ORDERFACT Table
+> #### Add the ORDERFACT Table
 >
-> The fact table holds the transactional rows the cube aggregates. ORDERFACT lives in the PUBLIC schema of the SampleData database.
+> The fact table holds the transactional rows the cube aggregates. `ORDERFACT` lives in the `PUBLIC` schema of the SampleData database.
 
-1. To add the ORDERFACT table, in the left pane, right-click the **Sales_FY2003_2005** cube, and click **Add Table**.
-2. Click in the **Value** for schema, select `PUBLIC`, and press **Tab**.
-3. Click in the **Value** for name, select `ORDERFACT`, and press **Tab**.
-4. To save the schema, on the toolbar, click **Save**.
+1. Right-click **Sales_FY2003_2005** and select **Add Table**.
+2. Set the table's attributes: click in each **Value** cell and select from the list.
+
+| Attribute | Value |
+| --------- | ----- |
+| **schema** | `PUBLIC` |
+| **name** | `ORDERFACT` |
+
+3. Select **File > Save**.
+
+> **Success:** Checkpoint: **Table: ORDERFACT** appears under the cube.
 
 ### 4. CUSTOMERS Dimension
 
 > **Note:**
 >
-> #### Customers Dimension, Hierarchy & Levels
+> #### CUSTOMERS Dimension, Hierarchy and Levels
 >
-> This is a three-level hierarchy: Territory → Country → Customer Name. The dimension joins ORDERFACT on `CUSTOMERNUMBER`, and the hierarchy reads from the CUSTOMER_W_TER table.
+> A three-level hierarchy: Territory, Country, Customer Name. The dimension joins `ORDERFACT` on `CUSTOMERNUMBER`, and the hierarchy reads the `CUSTOMER_W_TER` table.
 
-1. To add a CUSTOMERS dimension, in the left pane, right-click the **Sales_FY2003_2005** cube, and click **Add Dimension**.
-2. To create the CUSTOMERS dimension, type or choose:
-
-| Attribute | Value |
-| --------- | ----- |
-| name | CUSTOMERS |
-| foreignKey | CUSTOMERNUMBER |
-
-3. To add the CUSTOMER_W_TER table, right-click **New Hierarchy 0**, and click **Add Table**.
-4. Click in the **Value** for schema, select `PUBLIC` and press **Tab**.
-5. Click in the **Value** for name, select `CUSTOMER_W_TER`, and press **Tab**.
-6. To name the hierarchy and set the primary key, click **New Hierarchy 0**.
-7. To define the Customers hierarchy, type or choose:
+1. Right-click **Sales_FY2003_2005** and select **Add Dimension**.
+2. Set the dimension's attributes:
 
 | Attribute | Value |
 | --------- | ----- |
-| name | Customers |
-| allMemberName | All Customers |
-| primaryKey | CUSTOMERNUMBER |
+| **name** | `CUSTOMERS` |
+| **foreignKey** | `CUSTOMERNUMBER` |
+| **type** | StandardDimension |
 
-8. To add a level, in the left pane, right-click the **Customers** hierarchy, and select **Add Level**.
-9. To create the Territory level, type or choose:
-
-| Attribute | Value |
-| --------- | ----- |
-| name | Territory |
-| column | TERRITORY |
-| type | String |
-| uniqueMembers | Selected |
-| levelType | Regular |
-| hideMemberIf | Never |
-
-10. To add another level, in the left pane, right-click the **Customers** hierarchy, and select **Add Level**.
-11. To create the Country level, type or choose:
+3. Expand **CUSTOMERS**, right-click **New Hierarchy 0** and select **Add Table**.
+4. Set the table's attributes:
 
 | Attribute | Value |
 | --------- | ----- |
-| name | Country |
-| column | COUNTRY |
-| type | String |
-| levelType | Regular |
-| hideMemberIf | Never |
+| **schema** | `PUBLIC` |
+| **name** | `CUSTOMER_W_TER` |
 
-12. To add another level, in the left pane, right-click the **Customers** hierarchy, and select **Add Level**.
-13. To create the Customer level, type or choose:
+5. Select **New Hierarchy 0** and set its attributes:
 
 | Attribute | Value |
 | --------- | ----- |
-| name | Customer Name |
-| column | CUSTOMERNAME |
-| type | String |
-| levelType | Regular |
-| hideMemberIf | Never |
+| **name** | `Customers` |
+| **hasAll** | selected |
+| **allMemberName** | `All Customers` |
+| **primaryKey** | `CUSTOMERNUMBER` |
 
-14. To save the schema, on the toolbar, click **Save**.
+6. Right-click **Customers**, select **Add Level**, and set the level's attributes:
+
+| Attribute | Value |
+| --------- | ----- |
+| **name** | `Territory` |
+| **column** | `TERRITORY` |
+| **type** | String |
+| **uniqueMembers** | selected |
+| **levelType** | Regular |
+| **hideMemberIf** | Never |
+
+7. Right-click **Customers**, select **Add Level**, and set the level's attributes:
+
+| Attribute | Value |
+| --------- | ----- |
+| **name** | `Country` |
+| **column** | `COUNTRY` |
+| **type** | String |
+| **uniqueMembers** | cleared |
+| **levelType** | Regular |
+| **hideMemberIf** | Never |
+
+8. Right-click **Customers**, select **Add Level**, and set the level's attributes:
+
+| Attribute | Value |
+| --------- | ----- |
+| **name** | `Customer Name` |
+| **column** | `CUSTOMERNAME` |
+| **type** | String |
+| **uniqueMembers** | cleared |
+| **levelType** | Regular |
+| **hideMemberIf** | Never |
 
 > **Under the hood:**
 >
@@ -194,105 +212,114 @@ Open these in Schema Workbench via **File ▸ Open** (copy them out of the guide
 > That path keeps repeated values apart. Singapore has customers in both
 > APAC and Japan, and the two Singapores are different members because
 > their territories differ; with uniqueMembers left off for Country, as
-> in this lab, each shows its own sales. It is also the name you will
-> write in MDX in workshop 12 and in security grants in workshop 14.
+> in this lab, each shows its own sales.
+>
+> **Why it matters:** this is also the name you write in MDX in workshop
+> 12 and in security grants in workshop 14.
 
+9. Select **File > Save**.
+
+> **Success:** Checkpoint: **CUSTOMERS** shows no red cross, and **Customers** holds **Territory**, **Country**, **Customer Name** and **Table: CUSTOMER_W_TER**.
 
 ### 5. PRODUCTS Dimension
 
 > **Note:**
 >
-> #### Products Dimension, Hierarchy & Levels
+> #### PRODUCTS Dimension, Hierarchy and Levels
 >
-> A second three-level hierarchy: Line → Vendor → Product Name. The dimension joins ORDERFACT on `PRODUCTCODE`, and the hierarchy reads from the PRODUCTS table.
+> A second three-level hierarchy: Line, Vendor, Name. The dimension joins `ORDERFACT` on `PRODUCTCODE`, and the hierarchy reads the `PRODUCTS` table.
 
-1. To add another dimension, in the left pane, right-click the **Sales_FY2003_2005** cube, and click **Add Dimension**.
-2. To create the PRODUCTS dimension, type or choose:
-
-| Attribute | Value |
-| --------- | ----- |
-| name | PRODUCTS |
-| foreignKey | PRODUCTCODE |
-
-3. To view the hierarchy, in the left pane, expand **PRODUCTS**, and then click **New Hierarchy 0**.
-4. To add the PRODUCTS table, right-click **New Hierarchy 0**, and click **Add Table**.
-5. Click in the **Value** for schema, select `PUBLIC`, and press **Tab**.
-6. Click in the **Value** for name, select `PRODUCTS`, and press **Tab**.
-7. To name the hierarchy and set the primary key, click **New Hierarchy 0**.
-8. To define the Product hierarchy, type or choose:
+1. Right-click **Sales_FY2003_2005** and select **Add Dimension**.
+2. Set the dimension's attributes:
 
 | Attribute | Value |
 | --------- | ----- |
-| name | Products |
-| allMemberName | All Products |
-| primaryKey | PRODUCTCODE |
+| **name** | `PRODUCTS` |
+| **foreignKey** | `PRODUCTCODE` |
+| **type** | StandardDimension |
 
-9. To add a level, in the left pane, right-click the **Products** hierarchy, and select **Add Level**.
-10. To create the Line level, type or choose:
-
-| Attribute | Value |
-| --------- | ----- |
-| name | Line |
-| column | PRODUCTLINE |
-| type | String |
-| uniqueMembers | Selected |
-| levelType | Regular |
-| hideMemberIf | Never |
-
-11. To add another level, in the left pane, right-click the **Products** hierarchy, and select **Add Level**.
-12. To create the Vendor level, type or choose:
+3. Expand **PRODUCTS**, right-click **New Hierarchy 0** and select **Add Table**.
+4. Set the table's attributes:
 
 | Attribute | Value |
 | --------- | ----- |
-| name | Vendor |
-| column | PRODUCTVENDOR |
-| type | String |
-| levelType | Regular |
-| hideMemberIf | Never |
+| **schema** | `PUBLIC` |
+| **name** | `PRODUCTS` |
 
-13. To add another level, in the left pane, right-click the **Products** hierarchy, and select **Add Level**.
-14. To create the Product Name level, type or choose:
+5. Select **New Hierarchy 0** and set its attributes:
 
 | Attribute | Value |
 | --------- | ----- |
-| name | Product Name |
-| column | PRODUCTNAME |
-| type | String |
-| levelType | Regular |
-| hideMemberIf | Never |
+| **name** | `Products` |
+| **hasAll** | selected |
+| **allMemberName** | `All Products` |
+| **primaryKey** | `PRODUCTCODE` |
 
-15. To save the schema, on the toolbar, click **Save**.
+6. Right-click **Products**, select **Add Level**, and set the level's attributes:
+
+| Attribute | Value |
+| --------- | ----- |
+| **name** | `Line` |
+| **column** | `PRODUCTLINE` |
+| **type** | String |
+| **uniqueMembers** | selected |
+| **levelType** | Regular |
+| **hideMemberIf** | Never |
+
+7. Right-click **Products**, select **Add Level**, and set the level's attributes:
+
+| Attribute | Value |
+| --------- | ----- |
+| **name** | `Vendor` |
+| **column** | `PRODUCTVENDOR` |
+| **type** | String |
+| **uniqueMembers** | cleared |
+| **levelType** | Regular |
+| **hideMemberIf** | Never |
+
+8. Right-click **Products**, select **Add Level**, and set the level's attributes. Later workshops refer to this level as **Name**.
+
+| Attribute | Value |
+| --------- | ----- |
+| **name** | `Name` |
+| **column** | `PRODUCTNAME` |
+| **type** | String |
+| **uniqueMembers** | cleared |
+| **levelType** | Regular |
+| **hideMemberIf** | Never |
+
+9. Select **File > Save**.
+
+> **Success:** Checkpoint: **PRODUCTS** shows no red cross, and **Products** holds **Line**, **Vendor**, **Name** and **Table: PRODUCTS**.
 
 ### 6. Measures
 
 > **Note:**
 >
-> #### Add Sales & Quantity Ordered Measures
+> #### Add the Sales and Quantity Ordered Measures
 >
-> Measures are the aggregated numeric values the cube exposes. Sales sums `TOTALPRICE` as currency; Quantity Ordered counts distinct `QUANTITYORDERED` values.
+> Measures are the aggregated numbers the cube exposes. Sales sums `TOTALPRICE` as currency; Quantity Ordered counts the distinct values of `QUANTITYORDERED`.
 
-1. To add a measure for Sales, in the left pane, right-click the **Sales_FY2003_2005** cube, and click **Add Measure**.
-2. To create the Sales measure, type or choose:
-
-| Attribute | Value |
-| --------- | ----- |
-| name | Sales |
-| aggregator | sum |
-| column | TOTALPRICE |
-| formatString | $#,###.00 |
-| datatype | Numeric |
-
-3. Repeat to add the Quantity Ordered measure:
+1. Right-click **Sales_FY2003_2005** and select **Add Measure**.
+2. Set the measure's attributes. The format string shows Sales in pounds, as the solution file and the later screenshots do.
 
 | Attribute | Value |
 | --------- | ----- |
-| name | Quantity Ordered |
-| aggregator | distinct-count |
-| column | QUANTITYORDERED |
-| formatString | # |
-| datatype | Integer |
+| **name** | `Sales` |
+| **aggregator** | sum |
+| **column** | `TOTALPRICE` |
+| **formatString** | `£#,###.00` |
+| **datatype** | Numeric |
 
-4. To save the schema, on the toolbar, click **Save**.
+3. Right-click **Sales_FY2003_2005**, select **Add Measure**, and set the measure's attributes:
+
+| Attribute | Value |
+| --------- | ----- |
+| **name** | `Quantity Ordered` |
+| **aggregator** | distinct-count |
+| **column** | `QUANTITYORDERED` |
+| **formatString** | `#` |
+| **datatype** | Integer |
 
 > **Under the hood:**
 >
@@ -310,48 +337,57 @@ Open these in Schema Workbench via **File ▸ Open** (copy them out of the guide
 > aggregator for distinct-count isn't implemented), so each level's
 > figure comes from its own `count(distinct ...)` query.
 >
-> Name a measure for what it computes. For units ordered you want `sum`,
-> which is exactly the Quantity measure workshop 08 adds.
+> **Why it matters:** name a measure for what it computes. For units
+> ordered you want `sum`, which is exactly the Quantity measure workshop
+> 08 adds.
 
+4. Select **File > Save**.
+
+> **Success:** Checkpoint: no red cross anywhere in the schema. The cube holds **Table: ORDERFACT**, **CUSTOMERS**, **PRODUCTS**, **Sales** and **Quantity Ordered**.
 
 ### 7. Publish & Test
 
 > **Note:**
 >
-> #### Publish the Schema
+> #### Publish the Schema and Test It
 >
-> Publishing pushes the schema to the Pentaho BA Server so it becomes available as an Analyzer data source.
+> Publishing sends the schema to the Pentaho Server, where it becomes an Analyzer data source. A quick report then shows the three-level hierarchies at work.
 
-1. To publish the schema, from the menu, select **File** > **Publish**.
-2. To publish the schema, in the:
-   * **User** field, type: `admin`.
-   * **Password** field, type: `password`.
-   * Click **Publish**.
-3. To dismiss the Schema dialog, click **OK**.
+1. Select **File > Publish**.
+2. In the **Publish Schema** dialog, make sure the fields hold the values from [Basic Model](../05-schemas-basic-model/guide.md): **Server URL** `http://localhost:8080/pentaho/`, **User** `admin`, **Password** `password` and **Pentaho or JNDI Data Source** `hsqldb_sampledata`.
+3. Select **Publish**.
 
-> **Note:**
->
-> #### Create a Report in Analyzer
->
-> Validate the published schema by building a quick Analysis Report. The three-level hierarchies let you drill from Territory and Line downward.
+> **Success:** Checkpoint: a **Publish** message reads `Publish Successful`.
+
+4. Select **OK**.
 
 <button data-launch="puc">Open Pentaho User Console</button>
 
-1. Return to the User Console.
-2. From the User Console Home Perspective, click **Create New** > **Analysis Report**.
-3. In the Select Data Source dialog, click **Miniature Models: Sales_FY2003_2005**.
-4. Drag **Sales** to the Measure drop zone.
-5. Drag **Territory** and **Line** to the Rows drop zone.
-6. Minimize the User Console and return to Schema Workbench.
+5. In the User Console, signed in as `admin`, select **Tools > Refresh > Mondrian Schema Cache**.
+6. On the **Home** perspective, select **Create New > Analysis Report**.
+7. In the **Select Data Source** dialog, select **Miniature Models: Sales_FY2003_2005** and select **OK**.
+8. Drag **Sales** to the **Measures** drop zone.
+9. Drag **Territory**, then **Line**, to the **Rows** drop zone.
 
-<figure><img src="../_assets/images/miniature.png" alt=""><figcaption></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/miniature.png" alt="Analyzer table of Sales by Territory and product Line for the Sales_FY2003_2005 cube, in pounds" width="800">
+<figcaption>Sales by Territory and Line</figcaption>
+</figure>
+</div>
 
-> **Success:** The Miniature Models schema is published and the Sales_FY2003_2005 cube returns Sales aggregated by Territory and Line in Analyzer. You have built both three-level hierarchies independently.
+> **Success:** Checkpoint: 28 rows, the 7 lines for each of the 4 territories. The first is APAC, Classic Cars, £411,956.30. You built both three-level hierarchies on your own.
+
+10. Close the report without saving it.
 
 ::::
 
 ## Lab Files
 
-Download the reference files for this lab:
+Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches PDI with the file loaded. If PDI is already running, the path is copied to your clipboard — switch to PDI and press `Ctrl+O`, `Ctrl+V`, `Enter`.
 
-* [MiniatureModels.xml](../_assets/data/miniaturemodels-original.xml)
+### Solution <!-- no-step -->
+
+The finished schema for this lab. Open it in Schema Workbench (**File > Open**) alongside your own to compare:
+
+[miniaturemodels-original.xml](./files/miniaturemodels-original.xml)

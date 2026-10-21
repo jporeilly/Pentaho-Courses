@@ -4,36 +4,20 @@
 >
 > #### Workshop - Named Sets
 >
-> While calculated members enable you to define new metrics by combining or transforming measures, business users often need to work with specific, reusable collections of dimensional members - such as top-performing territories, strategic customer segments, or key product categories. Creating these groupings ad-hoc in individual reports is inefficient and inconsistent. Named Sets in Mondrian schemas solve this problem by defining reusable collections of dimension members using MDX expressions, creating dynamic "bookmarks" that automatically update based on current data and remain consistently available across all reports and analyses.
->
-> In this workshop, you'll create and deploy Named Sets that identify and group important subsets of your dimensional data. You'll start by testing Named Set logic using the WITH SET clause in MDX queries, validating that your TopCount formula correctly identifies the three highest-performing territories by sales. Then you'll permanently embed this Named Set into your Miniature Models schema, making it available as a reusable filter that report builders can leverage without understanding the underlying MDX complexity or needing to recreate the ranking logic.
+> Users often work with the same collections of members: the top territories, the key accounts, the focus products. A named set defines such a collection once, in the schema, with an MDX expression that is evaluated against the current data every time a query uses it.
 >
 > **What you'll do**
 >
-> * Understand the difference between Named Sets (collections of members) and Calculated Members (single values)
-> * Use MDX Query mode to test Named Set formulas before embedding them in schemas
-> * Write WITH SET clauses to create temporary named sets for query testing
-> * Apply the TopCount function to rank and filter dimensional members by measure values
-> * Add Named Sets directly to Mondrian cube definitions using Schema Workbench
-> * Configure Named Set properties including name and formula specifications
-> * Publish schemas containing Named Sets to Pentaho BA Server
-> * Understand when Named Sets provide better solutions than report-level filters
-> * Create dynamic collections that automatically update as data changes
+> * Tell named sets (collections of members) from calculated members (single values)
+> * Test a named set with a WITH SET clause in the MDX Query window
+> * Rank territories by Sales with the TopCount function
+> * Add the Top 3 Territories named set to the Miniature Models cube and publish it
 >
-> **Prerequisites:** Completion of [Miniature Models](../06-schemas-standard-model/guide.md) and [MDX Query](../11-mdx-query-mdx-query/guide.md) workshops; Schema Workbench and Pentaho Server installed and configured; Understanding of MDX syntax and TopCount function; Familiarity with dimension hierarchies and member navigation
+> **Prerequisites:** Complete [Standard Model](../06-schemas-standard-model/guide.md) and [MDX Query](../11-mdx-query-mdx-query/guide.md); the Pentaho Server running
 >
 > **Estimated time:** 30 minutes
 
-#### Lab Files
-
-Open these in Schema Workbench via **File ▸ Open** (copy them out of the guide's content folder first if you plan to edit):
-
-[miniaturemodels-original.xml](./files/miniaturemodels-original.xml)
-
-
-#### Named Sets vs. Calculated Members
-
-Understanding the difference between Named Sets and Calculated Members is crucial:
+## Named Sets vs. Calculated Members <!-- no-step -->
 
 | Aspect | Named Sets | Calculated Members |
 | --- | --- | --- |
@@ -42,15 +26,15 @@ Understanding the difference between Named Sets and Calculated Members is crucia
 | **Definition** | WITH SET clause | WITH MEMBER clause |
 | **Example** | Top 3 Territories by Sales | Profit (Sales - Cost) |
 
-> **Note:** Named Sets are particularly useful for:
->
-> * Top/Bottom N analysis: Top 10 Products, Bottom 3 Territories
-> * Strategic groupings: Key Accounts, Focus Markets, Priority Products
-> * Complex member selections: Members meeting multiple criteria
-> * Report simplification: Reducing complexity in frequently used queries
-> * Consistency: Ensuring the same business logic is applied across all reports
+Named sets are useful for:
 
-The Named Set you add to the Miniature Models schema looks like this:
+* Top or bottom N analysis: Top 10 Products, Bottom 3 Territories
+* Strategic groupings: Key Accounts, Focus Markets, Priority Products
+* Complex member selections: members meeting several criteria
+* Simpler reports: less repeated MDX in frequently used queries
+* Consistency: the same business logic in every report
+
+The named set you add to the Miniature Models schema looks like this in the XML:
 
 ```xml
 <!-- ============================================ -->
@@ -63,45 +47,76 @@ The Named Set you add to the Miniature Models schema looks like this:
 <!-- Calculated Members go BEFORE Named Sets, never after them -->
 ```
 
-> **Note:** Start Schema Workbench
->
-> Open a terminal and launch Schema Workbench.
->
-> ```bat
-> cd \
-> cd Pentaho/design-tools/schema-workbench/
-> ./workbench.bat
-> ```
->
-> On Linux / macOS:
->
-> ```bash
-> cd ~/Pentaho/design-tools/schema-workbench/
-> ./workbench.sh
-> ```
-
-> **Danger:** Ensure the Pentaho Server is running before you Save and Publish the schema.
-
-<button data-launch="schema-workbench">Open Schema Workbench</button>
-
-Follow the guide below to add a Named Set to the Miniature Models Schema:
-
 :::: tabs
 
 ### 1. Test the Named Set in MDX Query
 
 > **Note:**
 >
-> #### MDX Query
+> #### Test in MDX Query
+>
+> A `WITH SET` clause defines a named set that lasts for one query. Test the formula that way first, then add it to the schema.
 
-1. Open the `miniaturemodels-original.xml` schema.
-2. To access MDX Query mode, from the menu select **File** > **New** > **MDX Query**.
+1. Start Schema Workbench with the **Start Schema Workbench** button below, or from a terminal:
 
-<figure><img src="../_assets/images/named_sets_mdx_query.png" alt=""><figcaption><p>MDX Query</p></figcaption></figure>
+::: tabs
 
-3. Click **Ok** to connect, and enter the following query into the top pane:
+### Windows (PowerShell)
 
-<figure><img src="../_assets/images/named_sets_copy_and_paste_formula.png" alt=""><figcaption><p>Copy &#x26; paste formula</p></figcaption></figure>
+```powershell
+Set-Location C:\Pentaho\design-tools\schema-workbench
+.\workbench.bat
+```
+
+### macOS / Linux
+
+```bash
+cd ~/Pentaho/design-tools/schema-workbench
+./workbench.sh
+```
+
+:::
+
+<button data-launch="schema-workbench">Start Schema Workbench</button>
+
+2. Make sure the Pentaho Server is running: it hosts the SampleData database on port `9001`. On a lab VM it starts with the machine. On your own machine, start it and wait until **http://localhost:8080/pentaho** shows the sign-in page:
+
+::: tabs
+
+### Windows (PowerShell)
+
+```powershell
+C:\Pentaho\server\pentaho-server\start-pentaho.bat
+```
+
+### macOS / Linux
+
+```bash
+cd ~/Pentaho/server/pentaho-server
+./start-pentaho.sh
+```
+
+:::
+
+3. Select **File > Open** and open `miniaturemodels-original.xml`, which you downloaded from **Lab Files** below.
+4. Select **File > New > MDX Query**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/named_sets_mdx_query.png" alt="Schema Workbench File menu with New expanded and MDX Query highlighted" width="538">
+<figcaption>File > New > MDX Query</figcaption>
+</figure>
+</div>
+
+5. If the window title doesn't read **MDX Query - connected to miniaturemodels-original.xml**, select the schema in the **Schema** list and select **Connect**. When Schema Workbench reports `Mondrian connection Successful.`, select **OK**.
+6. Enter this query in the top pane. To paste it, press `Ctrl+V`, or right-click the pane and select **paste-from-clipboard**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/named_sets_copy_and_paste_formula.png" alt="The MDX Query window's empty query area with its right-click menu open and paste-from-clipboard highlighted" width="499">
+<figcaption>Paste the query</figcaption>
+</figure>
+</div>
 
 ```mdx
 WITH SET [Top 3 Territories] AS
@@ -117,9 +132,18 @@ SELECT
 FROM [Sales_FY2003_2005]
 ```
 
-4. Click **Execute**.
+7. Select **Execute**.
 
-<figure><img src="../_assets/images/named_sets_named_set_mdx_query_top_3_territories.png" alt=""><figcaption><p>Named Set MDX Query - Top 3 Territories</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/named_sets_named_set_mdx_query_top_3_territories.png" alt="Schema Workbench MDX Query using the Top 3 Territories named set, returning Sales and Quantity Ordered for EMEA, NA and APAC" width="800">
+<figcaption>Named set query - Top 3 Territories</figcaption>
+</figure>
+</div>
+
+> **Success:** Checkpoint: three rows, highest Sales first. EMEA: £5,008,224.32 and 48. NA: £3,852,061.39 and 48. APAC: £1,281,705.89 and 50.
+
+8. Close the MDX Query window.
 
 > **Under the hood:**
 >
@@ -133,21 +157,19 @@ FROM [Sales_FY2003_2005]
 >
 > Quantity Ordered is still workshop 06's distinct count (48, 48 and 50
 > different quantities), not units.
+>
+> **Why it matters:** a ranking over thousands of members costs one
+> sorted query, not a transfer of every member to the server.
 
-
-***
-
-**WITH SET** clause (Named Set definition)
+**The WITH SET clause** defines the named set:
 
 ```mdx
 WITH SET [Top 3 Territories] AS
 ```
 
-This creates a **temporary named set** called `[Top 3 Territories]` that exists only for this query.
+It creates a temporary named set, `[Top 3 Territories]`, that exists only for this query.
 
-***
-
-**TopCount** function
+**The TopCount function** fills it:
 
 ```mdx
 TopCount(
@@ -157,38 +179,42 @@ TopCount(
 )
 ```
 
-**Breaks down as:**
-
 | Component | Explanation |
 | --- | --- |
 | `TopCount()` | MDX function that returns the top N items from a set |
-| `[CUSTOMERS.Customers].[Territory].Members` | Gets ALL territory members from the Customers hierarchy |
-| `3` | Returns the TOP 3 items |
-| `[Measures].[Sales]` | Ranks territories by Sales (highest to lowest) |
+| `[CUSTOMERS.Customers].[Territory].Members` | Every territory member of the Customers hierarchy |
+| `3` | Returns the top 3 items |
+| `[Measures].[Sales]` | Ranks territories by Sales, highest first |
 
-**What it does:** Finds all territories, sorts them by Sales amount (descending), and returns the top 3.
+It finds all territories, sorts them by Sales, highest first, and returns the first 3.
 
 ### 2. Add the Named Set to the Schema
 
 > **Note:**
 >
-> #### Add NS to Schema
+> #### Add the Named Set to the Schema
+>
+> A named set in the schema is available to every query and report on the cube. Schema Workbench gives each new named set a **Formula** node for its expression.
 
-1. Open the `miniaturemodels-original.xml` schema.
-2. Right-click on the `Sales_FY2003_2005` cube and select **Add Named Set**.
+1. Right-click **Sales_FY2003_2005** and select **Add Named Set**.
 
-<figure><img src="../_assets/images/named_sets_add_named_set_top_3_territories.png" alt=""><figcaption><p>Add Named Set - Top 3 Territories</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/named_sets_add_named_set_top_3_territories.png" alt="Schema Workbench context menu on the Sales_FY2003_2005 cube, with Add Named Set highlighted" width="800">
+<figcaption>Add Named Set</figcaption>
+</figure>
+</div>
 
-3. Expand the Named Set and enter the following details:
+2. Set **name** to `Top 3 Territories` and press `Tab`.
 
-| Attribute | Value |
-| --- | --- |
-| name | Top 3 Territories |
-| formula | `TopCount([CUSTOMERS.Customers].[Territory].Members, 3, [Measures].[Sales])` |
+<div align="center">
+<figure>
+<img src="../_assets/images/named_sets_named_set_top_3_territories.png" alt="Schema Workbench named set properties for the Sales_FY2003_2005 cube, with the name set to Top 3 Territories" width="800">
+<figcaption>Named set - Top 3 Territories</figcaption>
+</figure>
+</div>
 
-<figure><img src="../_assets/images/named_sets_named_set_top_3_territories.png" alt=""><figcaption><p>Named Set - Top 3 Territories</p></figcaption></figure>
-
-4. Select **Formula** and copy / paste the formula:
+3. Expand **Top 3 Territories**, select its **Formula** node, and set **cdata** to this formula:
 
 ```mdx
 TopCount(
@@ -198,9 +224,22 @@ TopCount(
   )
 ```
 
-<figure><img src="../_assets/images/named_sets_enter_formula.png" alt=""><figcaption><p>Enter Formula</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/named_sets_enter_formula.png" alt="Schema Workbench Formula node of the Top 3 Territories named set, holding a TopCount expression over Territory members by Sales" width="800">
+<figcaption>Enter the formula</figcaption>
+</figure>
+</div>
 
-5. Click **Save and Publish**.
+4. Select **File > Save**.
+
+> **Success:** Checkpoint: no red cross in the schema, and the cube lists the named set **Top 3 Territories** after its measures.
+
+5. Select **File > Publish**, make sure the **Publish Schema** fields hold the values from [Basic Model](../05-schemas-basic-model/guide.md), and select **Publish**. If Schema Workbench asks whether to overwrite the Miniature Models schema, select **Yes**.
+
+> **Success:** Checkpoint: a **Publish** message reads `Publish Successful`. The schema now holds the reusable `Top 3 Territories` named set, for every report on the Miniature Models cube.
+
+6. Select **OK**.
 
 > **Under the hood:**
 >
@@ -215,10 +254,17 @@ TopCount(
 > children in a fixed order (measures, then calculated members, then
 > named sets) and skips an element that is out of order without an
 > error. Put this named set above a calculated member and the calculated
-> member silently vanishes from the cube. Schema Workbench writes the
-> elements in order for you; it matters when you edit the XML by hand.
-
-
-> **Success:** Your schema now contains the reusable `Top 3 Territories` Named Set, available to every report and analysis built on the Miniature Models cube.
+> member silently vanishes from the cube.
+>
+> **Why it matters:** Schema Workbench writes the elements in order for
+> you; it matters when you edit the XML by hand.
 
 ::::
+
+## Lab Files
+
+Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches PDI with the file loaded. If PDI is already running, the path is copied to your clipboard — switch to PDI and press `Ctrl+O`, `Ctrl+V`, `Enter`.
+
+The Miniature Models schema from [Standard Model](../06-schemas-standard-model/guide.md), the starting point for this workshop:
+
+[miniaturemodels-original.xml](./files/miniaturemodels-original.xml)

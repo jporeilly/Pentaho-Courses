@@ -10,7 +10,7 @@ The Pentaho **Metadata Editor (PME)** bridges the gap between raw database struc
 >
 > #### Metadata Editor
 >
-> The Pentaho Metadata Editor (PME) is a powerful tool that bridges the gap between raw database structures and business-friendly data models. At its core, PME helps organizations create metadata domains that transform complex database architectures into intuitive business models.
+> The Pentaho Metadata Editor (PME) is a tool that bridges the gap between raw database structures and business-friendly data models. At its core, PME helps organizations create metadata domains that transform complex database architectures into intuitive business models.
 >
 > When you create a metadata model in PME, you're essentially building a logical map of your database that speaks the language of business. This model is stored in a central repository, giving administrators several valuable capabilities:
 >
@@ -18,7 +18,12 @@ The Pentaho **Metadata Editor (PME)** bridges the gap between raw database struc
 >
 > Second, when database changes occur at the technical level, the metadata layer acts as a buffer, minimizing disruption to business users and reducing maintenance costs.
 
-<figure><img src="../_assets/images/components.png" alt=""><figcaption></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/components.png" alt="The Metadata Editor with the SteelWheels domain open: the tree shows the SampleData connection and its tables, then the Human Resources, Inventory and Orders business models, and the graphical view draws the Orders model's five tables" width="800">
+<figcaption>A domain in the Metadata Editor: the physical layer above, the business models below</figcaption>
+</figure>
+</div>
 
 > **Note:**
 >

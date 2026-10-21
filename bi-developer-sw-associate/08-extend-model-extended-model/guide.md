@@ -2,76 +2,28 @@
 
 > **Warning:**
 >
-> #### Workshop - Building a Multidimensional Data Model
+> #### Workshop - Extended Model
 >
-> Creating basic cubes with simple dimensions establishes foundational skills, but production-grade OLAP schemas require advanced capabilities that transform analytical models from functional to powerful. Real-world business intelligence demands sophisticated dimensional features including shared dimensions for consistency across cubes, time intelligence for trend analysis, geographic annotations for mapping visualizations, member properties for rich context, and degenerate dimensions for transaction-level details - all working together to create analytical environments that answer complex business questions with ease and flexibility.
->
-> In this hands-on workshop, you'll enhance the Miniature Models schema by adding enterprise-level dimensional capabilities that mirror professional business intelligence implementations. Building upon your foundation of cubes, dimensions, and hierarchies, you'll implement shared TIME dimensions that ensure consistent temporal analysis across multiple fact tables, add geographic annotations that enable map-based visualizations, enrich dimensions with member properties that provide business users with filtering and contextual information, and create degenerate dimensions that capture transaction identifiers without the overhead of separate dimension tables.
+> A production schema needs more than one cube with two dimensions. In this workshop you extend the Miniature Models schema with a geographic MARKETS dimension that Analyzer can draw on a map, member properties, a shared TIME dimension, a degenerate ORDER STATUS dimension and a Quantity measure.
 >
 > **What you'll do**
 >
-> * Create a four-level MARKETS dimension with Territory, Country, State/Province, and City hierarchies
-> * Add geographic annotations (Data.Role, Geo.Role, Geo.RequiredParents) for map visualization support
-> * Refactor the CUSTOMERS dimension and add member properties (Number, Contact Names, Phone, Address, Credit Limit)
-> * Enhance the PRODUCTS dimension with member properties (Description, Code, Vendor)
-> * Build a shared TIME dimension that can be reused across multiple cubes
-> * Configure time-based levels (Years, Quarters, Months) with appropriate level types
-> * Add AnalyzerDateFormat annotations for intelligent time-based calculations
-> * Implement DimensionUsage to reference shared dimensions from within cubes
-> * Create a degenerate dimension (ORDERSTATUS) using fact table columns without a separate dimension table
-> * Add a Quantity measure to enable calculated measure creation
-> * Publish and validate your enhanced schema in Pentaho Analyzer
+> * Add a four-level MARKETS dimension with geographic annotations for map visualizations
+> * Replace levels with member properties in the CUSTOMERS and PRODUCTS dimensions
+> * Build a shared TIME dimension with time level types and AnalyzerDateFormat annotations, and use it in the cube
+> * Create the degenerate ORDER STATUS dimension from a fact table column
+> * Add a Quantity measure, publish the schema, and test it in Analyzer
 >
-> By the end of this workshop, you'll understand how advanced dimensional features transform basic OLAP cubes into sophisticated analytical platforms. You'll see how shared dimensions eliminate redundancy and ensure consistency, how annotations enable smart features like geographic mapping and time intelligence, how member properties provide rich context without cluttering dimension hierarchies, and how degenerate dimensions efficiently handle low-cardinality attributes. These production-grade techniques - gained through hands-on implementation - prepare you to build enterprise-quality schemas that meet demanding business intelligence requirements including year-over-year trending, geographic drill-downs, customer segmentation, and multi-dimensional analysis across complex organizational structures.
->
-> **Prerequisites:** Completion of [Miniature Model](../06-schemas-standard-model/guide.md) workshop; Schema Workbench and Pentaho Server installed and configured; Access to SampleData database with DIM_TIME table; Strong understanding of dimensions, hierarchies, levels, and measures
+> **Prerequisites:** Complete [Standard Model](../06-schemas-standard-model/guide.md); the Pentaho Server running
 >
 > **Estimated time:** 90 minutes
 
-#### Lab Files
-
-Open these in Schema Workbench via **File ▸ Open** (copy them out of the guide's content folder first if you plan to edit):
-
-[miniaturemodels-extended.xml](./files/miniaturemodels-extended.xml)
-
-
-<figure><img src="../_assets/images/extended_extended_schema_miniature_models.png" alt=""><figcaption><p>Extended Schema - Miniature Models</p></figcaption></figure>
-
-1. Start Schema Workbench:
-
-> **Note:**
->
-> #### Windows (PowerShell)
->
-> ```powershell
-> cd \
-> cd Pentaho/design-tools/schema-workbench/
-> ./workbench.bat
-> ```
-
-> **Note:**
->
-> #### Linux
->
-> ```bash
-> cd
-> cd Pentaho/design-tools/schema-workbench/
-> ./workbench.sh
-> ```
-
-<button data-launch="schema-workbench">Open Schema Workbench</button>
-
-2. Ensure Pentaho Server is running:
-
-> **Danger:** Ensure that the Pentaho Server is up and running (automatically started in Pentaho Lab):
->
-> ```bash
-> cd
-> cd /opt/pentaho/server/pentaho-server
-> sudo ./start-pentaho.sh
-> ```
-
-Follow the guide below to extend the Miniature Models Schema:
+<div align="center">
+<figure>
+<img src="../_assets/images/extended_extended_schema_miniature_models.png" alt="Schema Workbench with the extended Miniature Models schema: the Sales_FY2003_2005 cube with MARKETS, CUSTOMERS, PRODUCTS, ORDER STATUS and a shared TIME dimension" width="800">
+<figcaption>What you build: the extended Miniature Models schema</figcaption>
+</figure>
+</div>
 
 :::: tabs
 
@@ -79,129 +31,131 @@ Follow the guide below to extend the Miniature Models Schema:
 
 > **Note:**
 >
-> #### Markets Dimension
+> #### MARKETS Dimension
 >
-> We're going to extend the model by adding a MARKETS dimension that will enable users to drill down into the data by geo.
+> The MARKETS dimension lets users drill into the data by geography: Territory, Country, State Province and City, all read from the `CUSTOMER_W_TER` table.
 
-1. To add a MARKETS dimension, in the left pane, right-click Sales Cube, and click Add Dimension.
+1. Start Schema Workbench with the **Start Schema Workbench** button below, or from a terminal:
 
-<figure><img src="../_assets/images/extended_add_dimension_markets.png" alt=""><figcaption><p>Add Dimension - MARKETS</p></figcaption></figure>
+::: tabs
 
-2. To create the MARKETS dimension, type or choose:
+### Windows (PowerShell)
+
+```powershell
+Set-Location C:\Pentaho\design-tools\schema-workbench
+.\workbench.bat
+```
+
+### macOS / Linux
+
+```bash
+cd ~/Pentaho/design-tools/schema-workbench
+./workbench.sh
+```
+
+:::
+
+<button data-launch="schema-workbench">Start Schema Workbench</button>
+
+2. Make sure the Pentaho Server is running: it hosts the SampleData database on port `9001`. On a lab VM it starts with the machine. On your own machine, start it and wait until **http://localhost:8080/pentaho** shows the sign-in page:
+
+::: tabs
+
+### Windows (PowerShell)
+
+```powershell
+C:\Pentaho\server\pentaho-server\start-pentaho.bat
+```
+
+### macOS / Linux
+
+```bash
+cd ~/Pentaho/server/pentaho-server
+./start-pentaho.sh
+```
+
+:::
+
+3. Select **File > Open** and open `MiniatureModels.xml`, your schema from [Standard Model](../06-schemas-standard-model/guide.md).
+4. Select **File > Save As** and save it as `MiniatureModels-extended.xml`, so your Standard Model schema stays as it was.
+5. Right-click **Sales_FY2003_2005** and select **Add Dimension**.
+6. Set the dimension's attributes:
 
 | Attribute  | Value          |
 | ---------- | -------------- |
-| name       | MARKETS        |
-| ForeignKey | CUSTOMERNUMBER |
+| **name** | `MARKETS` |
+| **foreignKey** | `CUSTOMERNUMBER` |
+| **type** | StandardDimension |
 
-3. To view the hierarchy, in the left pane, expand MARKETS, and then click New Hierarchy 0.
-4. To add the CUSTOMER_W_TER table, right-click New Hierarchy 0, and click Add Table.
-5. Click in the Value for schema and select PUBLIC.
-6. Click in the Value for name and select CUSTOMER_W_TER, and press Tab.
-7. To name the hierarchy and set the primary key, click New Hierarchy 0.
-8. To create the Markets hierarchy, type or choose:
+7. Expand **MARKETS**, right-click **New Hierarchy 0** and select **Add Table**.
+8. Set the table's attributes:
+
+| Attribute | Value |
+| --------- | ----- |
+| **schema** | `PUBLIC` |
+| **name** | `CUSTOMER_W_TER` |
+
+9. Select **New Hierarchy 0** and set its attributes:
 
 | Attribute     | Value          |
 | ------------- | -------------- |
-| name          | Markets        |
-| allMemberName | All Markets    |
-| primaryKey    | CUSTOMERNUMBER |
+| **name** | `Markets` |
+| **hasAll** | selected |
+| **allMemberName** | `All Markets` |
+| **primaryKey** | `CUSTOMERNUMBER` |
 
-9. To add a level, in the left pane, right-click the Markets (hierarchy) under MARKETS and select Add Level.
-10. To define the Territory level, type or choose:
+10. For each row of this table, in order, right-click **Markets**, select **Add Level**, and set the level's attributes. Each level is **type** String, **levelType** Regular and **hideMemberIf** Never.
 
-| Attribute     | Value     |
-| ------------- | --------- |
-| name          | Territory |
-| column        | TERRITORY |
-| type          | String    |
-| uniqueMembers | Selected  |
-| levelType     | Regular   |
-| hideMemberIf  | Never     |
+| name | column | uniqueMembers |
+| ---- | ------ | ------------- |
+| `Territory` | `TERRITORY` | selected |
+| `Country` | `COUNTRY` | cleared |
+| `State Province` | `STATE` | cleared |
+| `City` | `CITY` | cleared |
 
-11. To add another level, in the left pane, right-click the Markets (hierarchy) under MARKETS and select Add Level.
-12. To define the Country level, type or choose:
+<div align="center">
+<figure>
+<img src="../_assets/images/extended_add_dimension_markets.png" alt="Schema Workbench tree for the MARKETS dimension, with the Markets hierarchy's Territory, Country, State Province and City levels over the CUSTOMER_W_TER table" width="253">
+<figcaption>The MARKETS dimension</figcaption>
+</figure>
+</div>
 
-| Attribute    | Value   |
-| ------------ | ------- |
-| name         | Country |
-| column       | COUNTRY |
-| type         | String  |
-| levelType    | Regular |
-| hideMemberIf | Never   |
+11. Select **File > Save**.
 
-13. To add another level, in the left pane, right-click the Markets (hierarchy) under MARKETS and select Add Level.
-14. To define the State level, type or choose:
-
-| Attribute    | Value          |
-| ------------ | -------------- |
-| name         | State Province |
-| column       | STATE          |
-| type         | String         |
-| levelType    | Regular        |
-| hideMemberIf | Never          |
-
-15. To add another level, in the left pane, right-click the Markets (hierarchy) under MARKETS and select Add Level.
-16. To define the City level, type or choose:
-
-| Attribute    | Value   |
-| ------------ | ------- |
-| name         | City    |
-| column       | CITY    |
-| type         | String  |
-| levelType    | Regular |
-| hideMemberIf | Never   |
+> **Success:** Checkpoint: **MARKETS** shows no red cross, and **Markets** holds **Territory**, **Country**, **State Province**, **City** and **Table: CUSTOMER_W_TER**.
 
 ### 2. Annotations
 
 > **Note:**
 >
-> #### Annotations
+> #### Geographic Annotations
 >
-> Geo annotations will overlay the results via OpenStreetMap REST API calls when displaying the data as a Geo Map.
+> Annotations mark Country, State Province and City as geography, so Analyzer can place them on a Geo Map, which draws its map tiles from OpenStreetMap. Each level takes an **Annotations** node, and one **Annotation** under it per name.
 
 <div class="pcm-embed-card" data-href="https://www.loom.com/share/477584be32574fae8570a1219e2b38bd?hideEmbedTopBar=true&amp;hide_owner=true&amp;hide_share=true&amp;hide_title=true" data-title="Enabling Geography Levels for GeoMap Visualization in Analyzer" data-description="In this video, I demonstrate how to add annotations to enable the city level to be displayed in an Analyzer geomap visualization. I walk through the process of specifying geography levels, including setting the data.roll annotation to indicate it's a geography level and defining the Geo.Roll as city. Additionally, I explain the importance of establishing the hierarchy with the Geo.RequiredParents annotation for country and state. This setup allows users to leverage Analyzer's geomapping capabilities effectively. Please ensure you follow these steps to enhance your data visualization." data-thumb="../_assets/embeds/2631a0493553.png"></div>
-1. In the left pane, right-click Country, and select Add Annotations. This adds the annotation folder. You must now add the individual annotations as sub-folders.
 
-<figure><img src="../_assets/images/extended_markets_annotations.png" alt=""><figcaption><p>MARKETS - Annotations</p></figcaption></figure>
+1. Right-click **Country** and select **Add Annotations**.
+2. Right-click the new **Annotations** node and select **Add Annotation**. Set **name** to `Data.Role` and **cdata** to `Geography`.
+3. Right-click **Annotations** again, select **Add Annotation**, and set **name** to `Geo.Role` and **cdata** to `country`.
+4. Add an **Annotations** node to **State Province** and **City** the same way, with these annotations:
 
-2. Under the Country level, right-click Annotations, and select Add Annotation.
-3. To create the Data.Role & Geo.Role annotations, type:
+| Level | name | cdata |
+| ----- | ---- | ----- |
+| **State Province** | `Data.Role` | `Geography` |
+| **State Province** | `Geo.Role` | `state` |
+| **State Province** | `Geo.RequiredParents` | `country` |
+| **City** | `Data.Role` | `Geography` |
+| **City** | `Geo.Role` | `city` |
+| **City** | `Geo.RequiredParents` | `country,state` |
 
-| Attribute | Value     |
-| --------- | --------- |
-| name      | Data.Role |
-| cdata     | Geography |
-| name      | Geo.Role  |
-| cdata     | Country   |
+<div align="center">
+<figure>
+<img src="../_assets/images/extended_markets_annotations.png" alt="Schema Workbench MARKETS tree with Annotations under Country holding Data.Role and Geo.Role, and under State Province and City adding Geo.RequiredParents" width="268">
+<figcaption>MARKETS - Annotations</figcaption>
+</figure>
+</div>
 
-4. Under State Province level, right-click Annotations, and select Add Annotation.
-5. Create the following annotations:
-
-| Attribute | Value               |
-| --------- | ------------------- |
-| name      | Data.Role           |
-| cdata     | Geography           |
-| name      | Geo.Role            |
-| cdata     | State               |
-| name      | Geo.RequiredParents |
-| cdata     | Country             |
-
-6. Under City level, right-click Annotations, and select Add Annotation.
-7. Create the following annotations:
-
-| Attribute | Value               |
-| --------- | ------------------- |
-| name      | Data.Role           |
-| cdata     | Geography           |
-| name      | Geo.Role            |
-| cdata     | City                |
-| name      | Geo.RequiredParents |
-| cdata     | Country,State       |
-
-8. Save the Schema.
-
-<figure><img src="../_assets/images/extended_geo_map_geo_annotations.png" alt=""><figcaption><p>Geo Map - Geo annotations</p></figcaption></figure>
+5. Select **File > Save**.
 
 > **Under the hood:**
 >
@@ -215,9 +169,10 @@ Follow the guide below to extend the Miniature Models Schema:
 >
 > RequiredParents earns its place in this data: Glendale is a city in
 > both California and Connecticut, so "Glendale" alone locates nothing,
-> while USA, CA, Glendale does. Annotations add behaviour to a client
-> without changing a single query.
-
+> while USA, CA, Glendale does.
+>
+> **Why it matters:** annotations add behavior to a client without
+> changing a single query.
 
 ### 3. CUSTOMERS
 
@@ -225,47 +180,37 @@ Follow the guide below to extend the Miniature Models Schema:
 >
 > #### CUSTOMERS Dimension
 >
-> To clarify the analysis, we're going to delete the current Territory & Country Levels in the CUSTOMERS dimension and add some Properties to the Customer Name.
+> Territory and Country now live in MARKETS, so the CUSTOMERS dimension keeps only the Customer Name level, and gains member properties: details that describe each customer without adding levels to drill through.
 
-1. Delete the following Levels from the CUSTOMERS dimension:
-
-* Territory
-* Country
-
-2. In the left pane, right-click the Customer Name level under Customers (Hierarchy), and select: Add Property.
-
-<figure><img src="../_assets/images/extended_properties_customers.png" alt=""><figcaption><p>Properties - Customers</p></figcaption></figure>
-
-3. To create the Customer Number property, type or choose:
+1. Under **CUSTOMERS > Customers**, right-click **Territory** and select **Delete**.
+2. Right-click **Country** and select **Delete**.
+3. Right-click **Customer Name** and select **Add Property**. Type each **column** name: the property grid doesn't offer a list for it.
+4. Set the property's attributes:
 
 | Attribute | Value          |
 | --------- | -------------- |
-| name      | Number         |
-| column    | CUSTOMERNUMBER |
-| type      | String         |
+| **name** | `Customer Number` |
+| **column** | `CUSTOMERNUMBER` |
+| **type** | String |
 
-> **Note:** When adding properties, you must type the column name.
+5. Add three more properties to **Customer Name** the same way, each **type** String:
 
-4. In the left pane, right-click the Customer level under Customers, and select Add Property.
-5. To create the Contact First Name property, type or choose:
+| name | column |
+| ---- | ------ |
+| `Contact First Name` | `CONTACTFIRSTNAME` |
+| `Contact Last Name` | `CONTACTLASTNAME` |
+| `Phone` | `PHONE` |
 
-| Attribute | Value              |
-| --------- | ------------------ |
-| name      | Contact First Name |
-| column    | CONTACTFIRSTNAME   |
-| type      | String             |
+<div align="center">
+<figure>
+<img src="../_assets/images/extended_properties_customers.png" alt="Schema Workbench CUSTOMERS tree where the Customer Name level holds the Customer Number, Contact First Name, Contact Last Name and Phone properties" width="257">
+<figcaption>Properties - Customers</figcaption>
+</figure>
+</div>
 
-6. In the left pane, right-click the Customer level under Customers, and select Add Property.
-7. To create the Contact Last Name property, type or choose:
+6. Select **File > Save**.
 
-| Attribute | Value             |
-| --------- | ----------------- |
-| name      | Contact Last Name |
-| column    | CONTACTLASTNAME   |
-| type      | String            |
-
-8. (Optional) Add additional member properties for Phone (PHONE), Address (ADDRESSLINE1), and Credit Limit (CREDITLIMIT).
-9. Save the Schema.
+> **Success:** Checkpoint: **Customers** holds only **Customer Name** and **Table: CUSTOMER_W_TER**, and **Customer Name** holds the four properties.
 
 ### 4. PRODUCTS
 
@@ -273,42 +218,30 @@ Follow the guide below to extend the Miniature Models Schema:
 >
 > #### PRODUCTS Dimension
 >
-> Every property in this tab goes on the Name level: a property must have exactly one value per member, and descriptions, codes and vendors belong to products, not to product lines.
+> Every property in this tab goes on the **Name** level: a property must have exactly one value per member, and descriptions, codes and vendors belong to products, not to product lines.
 
-1. Delete the following Levels from the PRODUCTS dimension:
-
-* Vendor
-
-2. In the left pane, right-click the (Products) Name level under Products (Hierarchy), and select Add Property.
-
-<figure><img src="../_assets/images/extended.png" alt=""><figcaption><p>PRODUCTS properties (the screenshot shows Description on Line; add it to Name)</p></figcaption></figure>
-
-3. To create the Description property, type or choose:
+1. Under **PRODUCTS > Products**, right-click **Vendor** and select **Delete**.
+2. Right-click **Name**, select **Add Property**, and set the property's attributes:
 
 | Attribute | Value              |
 | --------- | ------------------ |
-| name      | Description        |
-| column    | PRODUCTDESCRIPTION |
-| type      | String             |
+| **name** | `Description` |
+| **column** | `PRODUCTDESCRIPTION` |
+| **type** | String |
 
-4. In the left pane, right-click the (Products) Name level under Products (Hierarchy), and select Add Property.
-5. To create the Code property, type or choose:
+3. Add two more properties to **Name** the same way, each **type** String:
 
-| Attribute | Value       |
-| --------- | ----------- |
-| name      | Code        |
-| column    | PRODUCTCODE |
-| type      | String      |
+| name | column |
+| ---- | ------ |
+| `Code` | `PRODUCTCODE` |
+| `Vendor` | `PRODUCTVENDOR` |
 
-6. To create the Vendor property, type or choose:
-
-| Attribute | Value         |
-| --------- | ------------- |
-| name      | Vendor        |
-| column    | PRODUCTVENDOR |
-| type      | String        |
-
-7. Save the Schema.
+<div align="center">
+<figure>
+<img src="../_assets/images/extended.png" alt="Schema Workbench tree for the PRODUCTS dimension, with a Description property on the Line level and the Code and Vendor properties on the Name level" width="227">
+<figcaption>PRODUCTS properties (the screenshot shows Description on Line; add it to Name)</figcaption>
+</figure>
+</div>
 
 > **Under the hood:**
 >
@@ -323,21 +256,23 @@ Follow the guide below to extend the Miniature Models Schema:
 > Put PRODUCTDESCRIPTION on the Line level and every description becomes
 > a member of its own: the 7 product lines turn into 94 rows of "Classic
 > Cars", "Motorcycles" and so on, each carrying its whole line's total.
-> On the Name level each product has one description, so the 7 lines
-> stay 7.
+>
+> **Why it matters:** on the Name level each product has one
+> description, so the 7 lines stay 7.
 
+4. Select **File > Save**.
+
+> **Success:** Checkpoint: **Products** holds **Line**, **Name** and **Table: PRODUCTS**, and **Name** holds **Description**, **Code** and **Vendor**.
 
 ### 5. TIME
 
 > **Note:**
 >
-> #### TIME - A Shared Dimension
+> #### TIME, a Shared Dimension
 >
-> Some dimensions (such as Time or Date) may be used across multiple cubes. These dimensions are known as Shared Dimensions.
->
-> Because Shared Dimensions don't belong to a cube, you must declare an explicit table (or other data source). When you use them in a cube, you need to specify the foreign key.
->
-> This example shows the CUSTOMERS dimension being joined to the Classic Models cube using the ORDERFACT.CUSTOMERNUMBER foreign key, and to the Warehouse cube using the WAREHOUSE.WAREHOUSE_CUSTOMERNUMBER foreign key:
+> Some dimensions, such as Time, are used by several cubes. A shared dimension is defined once, at schema level. Because it belongs to no cube, it names its own table; each cube that uses it adds a **Dimension Usage** with the foreign key of its own fact table. When the hierarchy's relation is a join, the usage must also say which table in the join holds that key, usually the first.
+
+This example shares a CUSTOMERS dimension between two cubes, joined through `ORDERFACT.CUSTOMERNUMBER` in one and `WAREHOUSEFACT.WAREHOUSE_CUSTOMERNUMBER` in the other:
 
 ```xml
 <Dimension name="CUSTOMERS">
@@ -360,117 +295,70 @@ Follow the guide below to extend the Miniature Models Schema:
 </Cube>
 ```
 
-> **Note:** When generating the SQL for a join, Mondrian needs to know which column to join to. If you are joining to a join, then you need to tell it which of the tables in the join that column belongs to (usually it will be the first table in the join).
-
 <div class="pcm-embed-card" data-href="https://www.loom.com/share/cc5f940551384a40a326537009003dcb?hideEmbedTopBar=true&amp;hide_owner=true&amp;hide_share=true&amp;hide_title=true" data-title="Creating a Time Period Dimension in Data Cubes" data-description="In this video, I demonstrate how to create a time period dimension for our Steel Wheel Sales Training Cube. I walk through the steps of adding levels for years, quarters, and months, ensuring to set the appropriate attributes such as Time ID and level types. I emphasize the importance of using uppercase letters for dimension names and the need to specify an all-member name for the hierarchy. Additionally, I highlight the need for further annotations to enhance filtering capabilities for Analyzer. Please pay attention to these details as we move forward with our data analysis." data-thumb="../_assets/embeds/2631a0493553.png"></div>
-1. In the left pane, right-click Schema, and click Add Dimension.
-2. To create the TIME dimension, type or choose:
+
+1. Right-click **Schema** and select **Add Dimension**.
+2. Set the dimension's attributes. A shared dimension has no **foreignKey**: each cube supplies its own.
 
 | Attribute | Value         |
 | --------- | ------------- |
-| name      | TIME          |
-| type      | TimeDimension |
+| **name** | `TIME` |
+| **type** | TimeDimension |
 
-3. In the left pane, expand TIME, and then click New Hierarchy 0.
-4. To add the DIM_TIME table, right-click New Hierarchy 0, and click Add Table.
-5. Click in the Value for schema, select PUBLIC, and press Tab.
-6. Click in the Value for name, select DIM_TIME, and press Tab.
-7. To name the hierarchy and set the primary key, click New Hierarchy 0.
-8. To define the Time hierarchy, type or choose:
+3. Expand **TIME**, right-click **New Hierarchy 0** and select **Add Table**.
+4. Set the table's attributes:
 
-| Attribute     | Value     |
-| ------------- | --------- |
-| name          | Time      |
-| allMemberName | All Years |
-| primaryKey    | TIME_ID   |
+| Attribute | Value |
+| --------- | ----- |
+| **schema** | `PUBLIC` |
+| **name** | `DIM_TIME` |
 
-9. In the left pane, right-click the Time hierarchy under TIME, and select Add Level.
-10. To create the Years level, type or choose:
+5. Select **New Hierarchy 0** and set its attributes:
 
 | Attribute     | Value     |
 | ------------- | --------- |
-| name          | Years     |
-| column        | YEAR_ID   |
-| type          | String    |
-| uniqueMembers | Selected  |
-| levelType     | TimeYears |
-| hideMemberIf  | Never     |
+| **name** | `Time` |
+| **hasAll** | selected |
+| **allMemberName** | `All Years` |
+| **primaryKey** | `TIME_ID` |
 
-11. Save and Publish the Schema.
+6. For each row of this table, in order, right-click **Time**, select **Add Level**, and set the level's attributes. Each level is **type** String and **hideMemberIf** Never.
 
-<figure><img src="../_assets/images/extended_time_shared_dimension.png" alt=""><figcaption><p>TIME - Shared Dimension</p></figcaption></figure>
+| name | column | ordinalColumn | uniqueMembers | levelType |
+| ---- | ------ | ------------- | ------------- | --------- |
+| `Years` | `YEAR_ID` | | selected | TimeYears |
+| `Quarters` | `QTR_NAME` | `QTR_ID` | cleared | TimeQuarters |
+| `Months` | `MONTH_NAME` | `MONTH_ID` | cleared | TimeMonths |
 
-12. Check that you can access Schema as a Data Source.
+7. Add an **Annotations** node to each level and, under it, one **Annotation** with **name** `AnalyzerDateFormat` and this **cdata**:
 
-**Time Annotations**
+| Level | cdata |
+| ----- | ----- |
+| **Years** | `[yyyy]` |
+| **Quarters** | `[yyyy].['QTR'q]` |
+| **Months** | `[yyyy].['QTR'q].[MMM]` |
 
-1. In the left pane, right-click Years, and select Add Annotations.
-2. Under the Years level, right-click Annotations, and select Add Annotation.
-3. To create the AnalyzerDateFormat annotation, type:
-
-| Attribute | Value              |
-| --------- | ------------------ |
-| name      | AnalyzerDateFormat |
-| cdata     | [yyyy]             |
-
-4. In the left pane, right-click the Time hierarchy under TIME, and select Add Level.
-5. To create the Quarters level, type or choose:
-
-| Attribute     | Value         |
-| ------------- | ------------- |
-| name          | Quarters      |
-| column        | QTR_NAME      |
-| ordinalColumn | QTR_ID        |
-| type          | String        |
-| levelType     | TimeQuarters  |
-| hideMemberIf  | Never         |
-
-6. In the left pane, right-click Quarters, and select Add Annotations.
-7. Under the Quarters level, right-click Annotations, and select Add Annotation.
-8. To create the AnalyzerDateFormat annotation, type:
-
-| Attribute | Value             |
-| --------- | ----------------- |
-| name      | AnalyzerDateFormat |
-| cdata     | [yyyy].['QTR'q]   |
-
-9. To add another level, in the left pane, right-click the Time hierarchy under TIME, and select Add Level.
-10. To create the Months level, type or choose:
-
-| Attribute     | Value       |
-| ------------- | ----------- |
-| name          | Months      |
-| column        | MONTH_NAME  |
-| ordinalColumn | MONTH_ID    |
-| type          | String      |
-| levelType     | TimeMonths  |
-| hideMemberIf  | Never       |
-
-11. In the left pane, right-click Months, and select Add Annotations.
-12. Under the Months level, right-click Annotations, and select Add Annotation.
-13. To create the AnalyzerDateFormat annotation, type:
-
-| Attribute | Value                  |
-| --------- | ---------------------- |
-| name      | AnalyzerDateFormat     |
-| cdata     | [yyyy].['QTR'q].[MMM]  |
-
-14. Save the schema.
-
-The next step is to refer to the TIME dimension from within the SALES cube.
-
-**Dimension Usage**
-
-1. Right mouse click on the Cube and select: Add Dimension Usage. Notice the different icon to indicate that this is a Shared Dimension.
-2. To create the TIME Dimension, type or choose:
+8. Right-click **Sales_FY2003_2005** and select **Add Dimension Usage**. Its icon differs from a dimension's: it points at a shared dimension.
+9. Set the usage's attributes:
 
 | Attribute  | Value   |
 | ---------- | ------- |
-| name       | TIME    |
-| foreignKey | TIME_ID |
-| source     | TIME    |
+| **name** | `TIME` |
+| **foreignKey** | `TIME_ID` |
+| **source** | `TIME` |
 
-3. Check the Schema and view the xml.
+<div align="center">
+<figure>
+<img src="../_assets/images/extended_time_shared_dimension.png" alt="Schema Workbench with the TIME dimension usage selected in the Sales_FY2003_2005 cube, showing foreignKey TIME_ID and source TIME" width="800">
+<figcaption>TIME - the cube's dimension usage</figcaption>
+</figure>
+</div>
+
+10. Select **File > Save**.
+
+> **Success:** Checkpoint: **TIME** sits at schema level with **Years**, **Quarters**, **Months** and **Table: DIM_TIME**, and the cube holds a **TIME** dimension usage with **foreignKey** `TIME_ID` and **source** `TIME`.
+
+11. Select **View > View XML**, check the `<DimensionUsage source="TIME" ...>` element inside the cube, and select **View > View XML** again to hide it.
 
 > **Under the hood:**
 >
@@ -485,115 +373,143 @@ The next step is to refer to the TIME dimension from within the SALES cube.
 >
 > A second cube over another fact table reuses the same definition with
 > its own foreign key, so every cube agrees on what a year and a quarter
-> are, and a fix to TIME is a fix everywhere.
-
+> are.
+>
+> **Why it matters:** a fix to TIME is a fix everywhere.
 
 ### 6. Degenerate
 
 > **Note:**
 >
-> #### Order Status Degenerate Dimension
+> #### ORDER STATUS, a Degenerate Dimension
 >
-> Whereas a star dimension has one-dimension table, and a snowflake dimension has two or more, a degenerate dimension has none. All of the columns that describe the dimension live in the fact table.
->
-> For example, a degenerate dimension could be created for Order Status because there are only a few values in the Order Status column. Creating a dimension table is unnecessary because it only has a few values, adds no additional information, and incurs the cost of an additional join.
+> A star dimension has one dimension table and a snowflake dimension two or more; a degenerate dimension has none. All the columns that describe it live in the fact table. Order status suits it: a handful of values, nothing more to describe them, and a dimension table would only add a join.
 
 <div class="pcm-embed-card" data-href="https://www.loom.com/share/f93673283a184b31ae57261b9086cd84?hideEmbedTopBar=true&amp;hide_owner=true&amp;hide_share=true&amp;hide_title=true" data-title="Adding a Degenerate Dimension to the Steel Wheel Sales Training Cube" data-description="In this video, I demonstrate how to add a degenerate dimension, specifically the order status dimension, to the Steel Wheel Sales Training Cube. I explain that degenerate dimensions do not have their own tables, which can impact performance, so it's essential to discuss this with the data warehouse team before implementation. I walk through the steps of creating the dimension, naming it in uppercase, and adding a hierarchy and level without needing a foreign key. I also highlight the importance of careful navigation when using the toolbar to add levels. Please ensure to follow these steps accurately as we move forward with our cube development." data-thumb="../_assets/embeds/2631a0493553.png"></div>
-1. In the left pane, right-click Sales_FY2003_2005 cube and click Add Dimension.
-2. To create the ORDERSTATUS dimension, type or choose:
+
+1. Right-click **Sales_FY2003_2005** and select **Add Dimension**.
+2. Set the dimension's attributes. It has no **foreignKey**: its column is in the fact table itself.
 
 | Attribute  | Value       |
 | ---------- | ----------- |
-| name       | ORDERSTATUS |
-| foreignKey | STATUS      |
+| **name** | `ORDER STATUS` |
+| **type** | StandardDimension |
 
-3. In the left pane, expand Order Status, and then click New Hierarchy 0.
-4. To name the hierarchy and set the primary key, click New Hierarchy 0.
-5. To define the Order Status hierarchy, type or choose:
+3. Expand **ORDER STATUS**, select **New Hierarchy 0**, and set its attributes. It gets no table.
 
 | Attribute     | Value            |
 | ------------- | ---------------- |
-| name          | Status           |
-| allMemberName | All Status Types |
-| primaryKey    | STATUS           |
+| **name** | `Status` |
+| **hasAll** | selected |
+| **allMemberName** | `All Status` |
 
-> **Note:** When there is no hierarchy name, Mondrian uses the dimension name as the hierarchy name.
+4. With **Status** selected, select **Add Level** on the toolbar. The right-click menu keeps **Add Level** unavailable for a hierarchy without a table.
 
-6. In the left pane, right-click the default hierarchy under Order Status, then on the toolbar click Add Level.
+<div align="center">
+<figure>
+<img src="../_assets/images/extended_order_status_degenerate_dimension.png" alt="Schema Workbench toolbar with the Add Level button outlined in red, between the Add Measure and Add Property buttons" width="449">
+<figcaption>Add Level on the toolbar</figcaption>
+</figure>
+</div>
 
-<figure><img src="../_assets/images/extended_order_status_degenerate_dimension.png" alt="" width="449"><figcaption><p>Order Status - Degenerate Dimension</p></figcaption></figure>
-
-7. To create the Type level, type or choose:
+5. Set the level's attributes:
 
 | Attribute     | Value    |
 | ------------- | -------- |
-| name          | Type     |
-| column        | STATUS   |
-| type          | String   |
-| uniqueMembers | Selected |
-| levelType     | Regular  |
-| hideMemberIf  | Never    |
+| **name** | `Type` |
+| **column** | `STATUS` |
+| **type** | String |
+| **uniqueMembers** | selected |
+| **levelType** | Regular |
+| **hideMemberIf** | Never |
 
-8. Save the Schema.
+6. Select **File > Save**.
+
+> **Success:** Checkpoint: **ORDER STATUS** shows no red cross, and its **Status** hierarchy holds the **Type** level and no **Table** node.
 
 ### 7. Measures
 
 > **Note:**
 >
-> #### Add Quantity Measure
+> #### Add the Quantity Measure
 >
-> Adding a Quantity extends the model as the measure can be used in Calculated Measures.
+> Quantity sums the units ordered, which the distinct-count Quantity Ordered measure from Standard Model doesn't. Workshop 09 divides Sales by it in a calculated member.
 
-1. To add a measure for Quantity, in the left pane, right-click Sales Cube, and click Add Measure.
-2. To create the Quantity measure, type or choose:
+1. Right-click **Quantity Ordered** and select **Delete**.
+2. Right-click **Sales_FY2003_2005**, select **Add Measure**, and set the measure's attributes:
 
 | Attribute    | Value           |
 | ------------ | --------------- |
-| name         | Quantity        |
-| aggregator   | sum             |
-| column       | QUANTITYORDERED |
-| formatString | #,###           |
-| datatype     | Numeric         |
+| **name** | `Quantity` |
+| **aggregator** | sum |
+| **column** | `QUANTITYORDERED` |
+| **formatString** | `#,###` |
+| **datatype** | Numeric |
 
-### 8. Publish
+3. Select **File > Save**.
+
+> **Success:** Checkpoint: no red cross anywhere in the schema. The cube holds **Table: ORDERFACT**, **MARKETS**, **CUSTOMERS**, **PRODUCTS**, **ORDER STATUS**, **TIME**, **Sales** and **Quantity**.
+
+### 8. Publish & Test
 
 > **Note:**
 >
-> #### Publish the Schema
+> #### Publish the Schema and Test It
 >
-> Before you make changes to your model .. Save .. this will help with Model lifecycle management and troubleshooting any issues.
+> Save before every change you publish: a saved file per version keeps the schema's history and helps you trace a problem to the change that caused it.
 
-1. To publish the schema, from the menu, select File > Publish.
-2. To publish the schema:
+1. Select **File > Publish**.
+2. In the **Publish Schema** dialog, make sure the fields hold the values from [Basic Model](../05-schemas-basic-model/guide.md): **Server URL** `http://localhost:8080/pentaho/`, **User** `admin`, **Password** `password` and **Pentaho or JNDI Data Source** `hsqldb_sampledata`.
+3. Select **Publish**. If Schema Workbench asks whether to overwrite the Miniature Models schema you published in Standard Model, select **Yes**.
 
-* In the User field, type admin.
-* In the Password field, type password.
-* Click Publish.
-* To dismiss the Schema Publish dialog, click OK.
+> **Success:** Checkpoint: a **Publish** message reads `Publish Successful`.
+
+4. Select **OK**.
 
 <button data-launch="puc">Open Pentaho User Console</button>
 
-**Create an Analyzer Report**
+5. In the User Console, signed in as `admin`, select **Tools > Refresh > Mondrian Schema Cache**.
+6. On the **Home** perspective, select **Create New > Analysis Report**.
+7. In the **Select Data Source** dialog, select **Miniature Models: Sales_FY2003_2005** and select **OK**.
+8. Drag **Sales** to the **Measures** drop zone.
+9. Drag **Territory**, then **Line**, to the **Rows** drop zone.
+10. Drag **Years** to the **Columns** drop zone.
 
-1. From the User Console Home Perspective, click Create New > Analysis Report.
-2. In the Select Data Source dialog, click Miniature Models: Sales.
-3. Drag Sales to the Measure drop zone.
-4. Drag Territory and Line to the Rows drop zone.
-5. Drag Years to the Columns drop zone.
-6. Close the Star Schema Training Exercise report.
+<div align="center">
+<figure>
+<img src="../_assets/images/extended_analyzer_report.png" alt="Analyzer table on the Sales_FY2003_2005 cube showing Sales by Territory and product Line in rows, with one column per year" width="654">
+<figcaption>Sales by Territory, Line and Year</figcaption>
+</figure>
+</div>
 
-<figure><img src="../_assets/images/extended_analyzer_report.png" alt=""><figcaption><p>Analyzer Report</p></figcaption></figure>
+> **Success:** Checkpoint: 28 rows and 3 columns, one per year. The first row is APAC, Classic Cars: £115,010.77 in 2003, £199,371.69 in 2004 and £97,573.84 in 2005.
 
-> **Note:** If you're connected to the internet .. try creating a Geo Map report.
+11. Optionally, if the machine is connected to the internet, try a Geo Map: change the report to a Geo Map chart, with **Territory** in **Geography** and **Sales** in **Color By**.
 
-<figure><img src="../_assets/images/extended_geo_map.png" alt=""><figcaption><p>Geo map</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/extended_geo_map_geo_annotations.png" alt="Analyzer world Geo Map with one marker per territory colored by Sales, and a tooltip showing EMEA sales for 2003, 2004 and 2005" width="800">
+<figcaption>Geo Map by Territory</figcaption>
+</figure>
+</div>
 
-> **Success:** Your enhanced schema is published and validated. The MARKETS, CUSTOMERS, PRODUCTS, shared TIME, and degenerate ORDERSTATUS dimensions—along with the new Quantity measure—are now available for multidimensional analysis in Pentaho Analyzer.
+<div align="center">
+<figure>
+<img src="../_assets/images/extended_geo_map.png" alt="Analyzer Geo Map of Europe colored by Sales, drilled to countries, with a tooltip over Belgium showing 2005 sales by product line" width="800">
+<figcaption>Drilled to Country</figcaption>
+</figure>
+</div>
+
+12. Close the report without saving it.
 
 ::::
 
 ## Lab Files
 
-Download the reference files for this lab:
+Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches PDI with the file loaded. If PDI is already running, the path is copied to your clipboard — switch to PDI and press `Ctrl+O`, `Ctrl+V`, `Enter`.
 
-* [Extended Schema XML](../_assets/data/miniaturemodels-extended.xml)
+### Solution <!-- no-step -->
+
+The extended schema. Open it in Schema Workbench (**File > Open**) alongside your own to compare. It also holds the Unit Price calculated member that workshop 09 adds:
+
+[miniaturemodels-extended.xml](./files/miniaturemodels-extended.xml)

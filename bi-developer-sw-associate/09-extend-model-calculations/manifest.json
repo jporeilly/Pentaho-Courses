@@ -2,7 +2,7 @@
   "title": "Calculations",
   "description": "Add calculated members to Mondrian schemas: a UnitPrice derived measure and a Top 10 Customers MDX aggregation.",
   "order": 9,
-  "stepCount": 2,
+  "stepCount": 6,
   "estimatedMinutes": 30,
   "hasVideo": true,
   "kind": "workshop"

@@ -2,80 +2,31 @@
 
 > **Warning:**
 >
-> #### Workshop - Concepts
+> #### Workshop - Concept Editor
 >
-> Building a metadata domain that merely connects to databases and defines relationships is only half the battle. To create truly business-friendly semantic layers, you need to apply consistent formatting, aggregation rules, and display properties across your fields. Pentaho's Concept framework provides a powerful inheritance mechanism that lets you define these metadata properties once in reusable templates, then apply them consistently across hundreds or thousands of columns—ensuring that currency values always display with proper formatting, dates follow organizational standards, and numeric fields aggregate correctly.
->
-> In this hands-on workshop, you'll enhance the OrdersStarCustomer domain by creating and applying metadata concepts that standardize how data appears to end users. You'll build a hierarchy of concepts including Number, Currency, ID, Date, and Hidden—each bundling specific formatting rules and behaviors. Then you'll apply these concepts to business columns throughout your domain, instantly inheriting their properties and ensuring consistency. Finally, you'll validate your work by creating an Interactive Report that demonstrates how concepts transform raw data into properly formatted, business-ready information.
+> Define formatting once and reuse it. You create five concepts in the Concept Editor, a hierarchy of number, currency, ID, hidden and date formats, apply them to the OrderStarCustomer business columns, publish the domain, and check the result in an Interactive Report.
 >
 > **What you'll do**
 >
-> * Launch the Concept Editor and understand the concept hierarchy structure
-> * Create a Number concept with custom formatting masks and text alignment
-> * Build a USCurrency concept that inherits from Number with currency-specific formatting
-> * Define an ID concept for unique identifiers with simplified numeric display
-> * Create a Hidden concept that excludes technical fields from user visibility
-> * Apply a Date concept with standardized date formatting patterns
-> * Assign parent concepts to business columns using the Set Parent Concept feature
-> * Publish your enhanced metadata domain to Pentaho Server
-> * Validate concept application through Interactive Report creation
-> * Understand inheritance behaviour and how concepts propagate properties
+> * Create the concepts Number, USCurrency, ID, Hidden and Date, each inheriting from its parent
+> * Give them masks, a text alignment and the **Hidden For the User?** flag
+> * Set the parent concept of business columns in the Orders, Customers and Products categories
+> * Publish the domain to the Pentaho Server
+> * Check the formatting, and the hidden column, in an Interactive Report
 >
-> **Prerequisites:** Completion of the [OrderStarCustomer](../07-properties-orderstarcustomer/guide.md) workshop or the OrderStarCustomer.xmi domain (Lab Files); Pentaho Metadata Editor and Pentaho Server installed and configured; Understanding of metadata domain structure
+> **Prerequisites:**
+>
+> * The [OrderStarCustomer](../07-properties-orderstarcustomer/guide.md) workshop, or `OrderStarCustomer.xmi` from **Lab Files** below
+> * The Pentaho Server running (see [Before You Start](../00-before-you-start/guide.md))
 >
 > **Estimated time:** 60 minutes
 
-<figure><img src="../_assets/images/concept_editor_concept_editor.png" alt=""><figcaption><p>Concept Editor</p></figcaption></figure>
-
-***
-
-1. Start Metadata Editor:
-
-> **Note:**
->
-> #### Windows (PowerShell)
->
-> ```powershell
-> cd \
-> cd Pentaho/design-tools/metadata-editor/
-> ./metadata-editor.bat
-> ```
-
-> **Note:**
->
-> #### Linux
->
-> ```bash
-> cd
-> cd Pentaho/design-tools/metadata-editor/
-> ./metadata-editor.sh
-> ```
-
-2. Start the Pentaho Server (not required if using Pentaho Labs):
-
-> **Note:**
->
-> #### Windows (PowerShell)
->
-> ```powershell
-> cd \
-> cd Pentaho/server/pentaho-server
-> ./start-pentaho.bat
-> ```
-
-> **Danger:**
->
-> #### Linux
->
-> ```bash
-> cd
-> cd /opt/pentaho/server/pentaho-server
-> sudo ./start-pentaho.sh
-> ```
-
-<button data-launch="metadata-editor">Open Metadata Editor</button>
-
-Follow the guide to define and apply Concepts:
+<div align="center">
+<figure>
+<img src="../_assets/images/concept_editor_concept_editor.png" alt="The Concept Editor with the concept tree Base, Number, USCurrency, ID, Hidden and Date; Number is selected, with Text Alignment Right and the mask #,##0" width="800">
+<figcaption>What you build: five concepts below Base</figcaption>
+</figure>
+</div>
 
 :::: tabs
 
@@ -85,98 +36,135 @@ Follow the guide to define and apply Concepts:
 >
 > #### Define Concepts
 >
-> In the OrderStarCustomer workshop, Concepts are reusable bundles of metadata properties that standardize how data is formatted and displayed across the metadata domain without requiring repetitive property configuration for each individual column.
->
-> This inheritance-based approach ensures consistent formatting across all reports generated from the metadata domain, automatically applying currency symbols, decimal places, thousand separators, and date formats whenever users create reports, while minimizing redundant property definitions and ensuring organizational standards are maintained throughout the BI environment.
+> A concept is a reusable bundle of properties. A concept starts from its parent's properties and adds or overrides its own, and every business column whose parent concept it is takes them all. A new concept's parent is the concept selected when you create it.
 
 <div class="pcm-embed-card" data-href="https://www.loom.com/share/c53a49ad5f204a29818000b69e47f7c8?hideEmbedTopBar=true&amp;hide_share=true&amp;hide_title=true&amp;sid=c43fa08d-06b6-4b14-8658-993775337ca4?hide_owner=true" data-title="Creating and Applying Metadata Concepts for Business Objects 💻" data-description="In this video, I demonstrate how to create and apply metadata concepts for formatting business columns, specifically for numbers, currency, and dates. I walk you through accessing the Concept Editor, where I start by modifying the base concept to create a number concept with right alignment and comma formatting. Next, I create a currency concept inheriting from the number concept, adding a dollar sign and two decimal places. Finally, I establish a date concept with a specific Java date format. Please be prepared to apply these concepts to the business columns in the next demonstration." data-thumb="../_assets/embeds/125979ecbc12.png"></div>
-1. Choose File > Open from the menu options, choose **OrderStarCustomer** (the name you saved it under in the OrderStarCustomer workshop) in the Select a Domain dialog and click OK. Starting from the Lab Files instead? Choose File > Import from XMI File, open **OrderStarCustomer.xmi**, and in the Save Model dialog type **OrderStarCustomer**.
-2. From the menu options, choose Tools > Concept Editor.
-3. Click Base.
-4. Click Add Concept button.
 
-#### Numeric
+1. Start the Metadata Editor with the **Open Metadata Editor** button below, or from a terminal:
 
-> **Note:**
+::: tabs
+
+### Windows (PowerShell)
+
+```powershell
+Set-Location C:\Pentaho\design-tools\metadata-editor
+.\metadata-editor.bat
+```
+
+### macOS / Linux
+
+```bash
+cd ~/Pentaho/design-tools/metadata-editor
+./metadata-editor.sh
+```
+
+:::
+
+<button data-launch="metadata-editor">Open Metadata Editor</button>
+
+2. Make sure the Pentaho Server is running: you publish to it in part 3. On a lab VM it is already running. On your own machine, start it:
+
+::: tabs
+
+### Windows (PowerShell)
+
+```powershell
+Set-Location C:\Pentaho\server\pentaho-server
+.\start-pentaho.bat
+```
+
+### macOS / Linux
+
+```bash
+cd ~/Pentaho/server/pentaho-server
+./start-pentaho.sh
+```
+
+:::
+
+3. Select **File > Open** (`Ctrl+O`), select **OrderStarCustomer** in the **Select a Domain** dialog, and select **OK**. Starting from the Lab Files instead? Select **File > Import from XMI File** (`Ctrl+I`), open `OrderStarCustomer.xmi`, and in the **Save Model** dialog enter `OrderStarCustomer` and select **OK**.
+4. Select **Tools > Concept Editor**.
+5. Under **Concepts**, select **Base**, then select the green plus icon above the tree, ![The green plus icon](../_assets/images/add-concept-button.png).
+6. In the **New Concept** dialog, enter `Number` and select **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/concept_editor_new_concept.png" alt="The New Concept dialog: Enter the name of the new concept. The parent concept of the new concept will be the concept currently selected. The name Number is entered" width="549">
+<figcaption>The new concept's parent is the selected one</figcaption>
+</figure>
+</div>
+
+7. Select **Number**. To the right of **Available**, select the green plus icon. The **Add New Property** dialog opens.
+8. Keep **Add a pre-defined property** selected, select **Miscellaneous > Mask for Number or Date**, and select **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/concept_editor_add_mask_property.png" alt="The Add New Property dialog with Add a pre-defined property selected and Mask for Number or Date highlighted under Miscellaneous" width="501">
+<figcaption>Add the mask property to the concept</figcaption>
+</figure>
+</div>
+
+9. In the **Available** pane, select **Formatting > Text Alignment**. In **Settings**, select the **Override** icon to the right of **Text Alignment** and set **Alignment Type** to `Right`.
+10. Select **Miscellaneous > Mask for Number or Date** and set **Value** to `#,##0`.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/concept_editor_set_text_alignment_and_mask.png" alt="The Number concept in the Concept Editor: Text Alignment with Alignment Type Right, and Mask for Number or Date with the value #,##0" width="800">
+<figcaption>Number: right-aligned, with a thousands separator</figcaption>
+</figure>
+</div>
+
+11. Select **Number** and select the green plus icon above **Concepts**. In **New Concept**, enter `USCurrency` and select **OK**.
+12. Select **USCurrency**, then select **Miscellaneous > Mask for Number or Date**. The mask it inherited from Number is grayed out.
+13. Select the **Override** icon to the right of **Mask for Number or Date** and set **Value** to `$#,##0.00;($#,##0.00)`.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/concept_editor_set_currency_mask.png" alt="The USCurrency concept under Number: the inherited Text Alignment Right is grayed out, and the overridden Mask for Number or Date is $#,##0.00;($#,##0.00)" width="800">
+<figcaption>USCurrency overrides only the mask</figcaption>
+</figure>
+</div>
+
+14. Select **Number**, create the concept `ID` the same way, override its **Mask for Number or Date**, and set **Value** to `#`.
+15. Select **ID** and create the concept `Hidden`.
+16. Select **Hidden** and the green plus icon to the right of **Available**. In **Add New Property**, select **Miscellaneous > Hidden For the User?** and select **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/concept_editor.png" alt="The Add New Property dialog with Hidden For the User? highlighted under Miscellaneous" width="500">
+<figcaption>Add Hidden For the User? to the Hidden concept</figcaption>
+</figure>
+</div>
+
+17. Select **Miscellaneous > Hidden For the User?** and select the **Hidden For the User?** check box in **Settings**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/concept_editor_set_number_mask_and_hidden.png" alt="The Hidden concept under ID with the Hidden For the User? check box selected and the inherited mask # grayed out" width="800">
+<figcaption>Hidden: inherits the ID mask and hides the column</figcaption>
+</figure>
+</div>
+
+18. Select **Base** and create the concept `Date`. Add **Miscellaneous > Mask for Number or Date** to it, as in step 8, and set **Value** to `MM-dd-yyyy`.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/concept_editor_set_mask_for_date.png" alt="The Date concept directly under Base, with the inherited Text Alignment Left grayed out and the Mask for Number or Date MM-dd-yyyy" width="800">
+<figcaption>Date: a child of Base, not of Number</figcaption>
+</figure>
+</div>
+
+> **Success:** Checkpoint: the **Concepts** tree reads **Base**, with **Number** and **Date** below it; **USCurrency** and **ID** below **Number**; and **Hidden** below **ID**. Their own settings:
 >
-> #### Numeric
->
-> Using the Concept Editor, a hierarchy of parent concepts including Number (with mask #,##0 and right alignment).
+> | Concept | Parent | Own settings |
+> | --- | --- | --- |
+> | Number | Base | **Text Alignment** `Right`, **Mask for Number or Date** `#,##0` |
+> | USCurrency | Number | **Mask for Number or Date** `$#,##0.00;($#,##0.00)` |
+> | ID | Number | **Mask for Number or Date** `#` |
+> | Hidden | ID | **Hidden For the User?** selected |
+> | Date | Base | **Mask for Number or Date** `MM-dd-yyyy` |
 
-1. In the New Concept dialog, type Number and click OK.
-
-<figure><img src="../_assets/images/concept_editor_new_concept.png" alt=""><figcaption><p>New Concept</p></figcaption></figure>
-
-2. In the Concepts pane, click Number.
-3. In the Properties section, for Available, click the Add Properties button. ![](../_assets/images/add-concept-button.png)
-4. In the Add a defined property pane, scroll to Miscellaneous and select Mask for Number or Date.
-
-<figure><img src="../_assets/images/concept_editor_add_mask_property.png" alt=""><figcaption><p>Add Mask Property</p></figcaption></figure>
-
-5. Click OK.
-6. In the Available pane, select Miscellaneous > Mask for Number or Date.
-
-<figure><img src="../_assets/images/concept_editor_set_text_alignment_and_mask.png" alt=""><figcaption><p>Set Text Alignment &#x26; Mask</p></figcaption></figure>
-
-7. For Text Alignment, for Alignment Type, click the Override icon, and then choose Right. For Mask for Number or Date, in the Value field, type: #,##0
-
-#### Currency
-
-> **Note:**
->
-> #### Currency
->
-> Using the Concept Editor, a hierarchy of parent concepts including USCurrency (inheriting from Number with mask $#,##0.00;($#,##0.00)).
-
-1. Expand Concepts > Base and click Number.
-2. Click Add Concept button. ![](../_assets/images/add-concept-button.png)
-3. In the New Concept dialog, type USCurrency and click OK.
-4. In the Concepts pane, click USCurrency.
-5. In the Available pane, select Mask for Number or Date.
-6. In the Miscellaneous section, for Mask for Number or Date, click the Override button.
-7. Change the Value to: $#,##0.00;($#,##0.00).
-
-<figure><img src="../_assets/images/concept_editor_set_currency_mask.png" alt=""><figcaption><p>Set Currency Mask</p></figcaption></figure>
-
-#### ID
-
-> **Note:**
->
-> #### ID
->
-> Using the Concept Editor, a hierarchy of parent concepts including ID (with mask # and no decimal places) & Hidden (marking fields as hidden from users).
-
-<figure><img src="../_assets/images/concept_editor_set_number_mask_and_hidden.png" alt=""><figcaption><p>Set Number mask &#x26; Hidden</p></figcaption></figure>
-
-1. Expand Concepts > Base and click **Number**.
-2. Click Add Concept button. ![](../_assets/images/add-concept-button.png)
-3. In the New Concept dialog, type ID and click OK.
-4. In the Concepts pane, click ID.
-5. In the Available pane, click Miscellaneous > Mask for Number or Date.
-6. In the Settings pane, in the Miscellaneous section, click the Override icon.
-7. For Mask for Number or Date, in the Value field, type #.
-8. In the Concepts pane, select ID and click New Concept. ![](../_assets/images/add-concept-button.png)
-9. In the New Concept dialog, type Hidden and click OK.
-10. In the Concepts pane, select Hidden.
-11. In the Available pane, click Add New Property button. ![](../_assets/images/add-concept-button.png)
-12. In the Add New Property dialog, scroll to Miscellaneous and select Hidden For the User?
-
-<figure><img src="../_assets/images/concept_editor.png" alt=""><figcaption></figcaption></figure>
-
-13. Click OK.
-14. In the Available pane, click Miscellaneous > Hidden For the User?
-15. In the Settings pane, check Hidden For the User?
-
-> **Note:**
->
-> You now have four concepts below Base that can be used anywhere in your business model:
->
-> * Number for numeric columns (#,##0, right-aligned),
-> * USCurrency for currency amounts,
-> * ID for identifier columns (mask #), and
-> * Hidden for identifiers that are hidden from the user.
->
-> Base itself stays the default for generic columns.
+19. Select **OK** to close the Concept Editor, then save the domain (`Ctrl+S`).
 
 > **Under the hood:**
 >
@@ -192,29 +180,10 @@ Follow the guide to define and apply Concepts:
 > A column's own overrides still win over anything a concept supplies,
 > and a concept's properties win over what the column inherits from its
 > physical column.
-
-
-#### Date
-
-> **Note:**
 >
-> #### Date
->
-> Using the Concept Editor, a hierarchy of parent concepts including Date (with mask MM-dd-yyyy).
-
-<figure><img src="../_assets/images/concept_editor_set_mask_for_date.png" alt=""><figcaption><p>Set Mask for Date</p></figcaption></figure>
-
-1. From the menu options, choose Tools > Concept Editor.
-2. In the Concepts pane, click **Base**.
-3. Click Add Concept button. ![](../_assets/images/add-concept-button.png)
-4. In the New Concept dialog, type Date and click OK.
-5. In the Concepts pane, select Date.
-6. In the Properties section, for Available, click the Add Properties button.
-7. In the Add a defined property pane, scroll to Miscellaneous and select Mask for Number or Date.
-8. Click OK.
-9. In the Available pane, click Mask for Number or Date.
-10. In the Settings pane, for Mask for Number or Date, type: MM-dd-yyyy.
-11. Click OK and save your work.
+> **Why it matters:** change a mask on Number and every column under
+> Number, USCurrency, ID and Hidden follows, unless it overrides that
+> property itself.
 
 ### 2. Apply Concepts
 
@@ -222,160 +191,138 @@ Follow the guide to define and apply Concepts:
 >
 > #### Apply Concepts
 >
-> These concepts are then applied to business columns in the Business View by right-clicking columns and selecting "Set Parent Concept"- for example, assigning the USCurrency concept to Price Sold and Total columns, the Number concept to Quantity Ordered, the Date concept to Order Date, Shipped Date, and Required Date, and the ID concept to Order Number.
+> Set a business column's parent concept from the business view: right-click the column and select **Set Parent Concept**. The column then shows its concept in the tree's **Parent Concept** column.
 
 <div class="pcm-embed-card" data-href="https://www.loom.com/share/c076e434bfad4b5e9c63e7bf2dca9ca2?hideEmbedTopBar=true&amp;hide_share=true&amp;hide_title=true&amp;sid=a323e4f4-9cf0-4441-8e64-2ed8174abbbe?hide_owner=true" data-title="Applying Concepts to Business Columns in Data Management" data-description="In this demonstration, I applied concepts for numbers, currency, and dates to various business columns. I assigned the number concept to the quantity ordered, the currency concept to the price sold and total price columns, and the date concept to the order date. I also applied the currency concept to the total column. The remaining columns utilize the base concept, and I am now finished with applying concepts. In the next demonstration, I will use the query editor to test this metadata domain, so please stay tuned for that." data-thumb="../_assets/embeds/125979ecbc12.png"></div>
-***
 
-Follow the guide to set and apply the Concepts:
+1. Expand **Business Models > OrderStarCustomer > Business View > Orders**.
+2. Right-click **Order Number** and select **Set Parent Concept**.
 
-#### Orders
+<div align="center">
+<figure>
+<img src="../_assets/images/concept_editor_set_parent_concept_id.png" alt="The context menu of the Order Number column with Edit, Move Up, Move Down, Set Parent Concept and Clear Parent Concept" width="473">
+<figcaption>Set Parent Concept, on a column's context menu</figcaption>
+</figure>
+</div>
 
-> **Note:**
->
-> #### Orders
->
-> In the Orders category of the OrderStarCustomer metadata domain, parent concepts are systematically assigned to each column to ensure consistent formatting and display behavior across all reports.
->
-> The ID concept is applied to Order Number to format it as a whole number identifier without decimal places. Quantity Ordered receives the Number concept, which applies right-aligned formatting with thousand separators (#,##0).
->
-> Financial columns Price Sold, Total Price, and Total are assigned the USCurrency concept, ensuring they display with dollar signs, two decimal places, and proper formatting for negative values ($#,##0.00;($#,##0.00)).
->
-> The three date columns—Order Date, Required Date, and Shipped Date—are assigned the Date concept to standardize their display format as MM-dd-yyyy.
->
-> This systematic application of parent concepts eliminates the need to configure formatting properties individually for each column and ensures that whenever users create reports using the OrderStarCustomer data source, all numeric values display with thousand separators, currency values show proper dollar formatting, dates appear in consistent MM-dd-yyyy format, and identifiers display as whole numbers without decimals.
+3. In the **Select a Parent Concept** dialog, select **ID** and select **OK**.
 
-<figure><img src="../_assets/images/concept_editor_set_orders_concepts.png" alt=""><figcaption><p>Set Orders Concepts</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/concept_editor_select_id_concept.png" alt="The Select a Parent Concept dialog listing Base, Date, Hidden, ID, Number and USCurrency, with ID selected" width="263">
+<figcaption>Pick the concept</figcaption>
+</figure>
+</div>
 
-1. In Metadata Editor, expand Business Models > OrderStarCustomer > Business View > Orders.
-2. Right-click Order Number and choose Set Parent Concept.
+4. Set the parent concept of these columns the same way:
 
-<figure><img src="../_assets/images/concept_editor_set_parent_concept_id.png" alt=""><figcaption><p>Set Parent Concept - ID</p></figcaption></figure>
+| Category | Column | Parent concept |
+| --- | --- | --- |
+| Orders | Quantity Ordered | Number |
+| Orders | Price Sold | USCurrency |
+| Orders | Total Price | USCurrency |
+| Orders | Order Date | Date |
+| Orders | Required Date | Date |
+| Orders | Shipped Date | Date |
+| Orders | Total | USCurrency |
+| Customers | Employee Number | Hidden |
+| Products | Buy Price | USCurrency |
+| Products | MSRP | USCurrency |
 
-3. In the Select a Parent Concept dialog, choose ID and click OK.
+Every other column keeps **Base**.
 
-<figure><img src="../_assets/images/concept_editor_select_id_concept.png" alt=""><figcaption><p>Select ID Concept</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/concept_editor_set_orders_concepts.png" alt="The Orders category with its parent concepts: Order Number on ID; Quantity Ordered on Number; Price Sold, Total Price and Total on USCurrency; the three dates on Date; Status and Comments on Base" width="438">
+<figcaption>The Orders category's concepts</figcaption>
+</figure>
+</div>
 
-***
+> **Success:** Checkpoint: in **Orders**, only **Status** and **Comments** still show **Base**. In **Customers**, **Employee Number** shows **Hidden**; in **Products**, **Buy Price** and **MSRP** show **USCurrency**.
 
-1. Right-click Quantity Ordered and choose Set Parent Concept.
-2. In the Select a Parent Concept dialog, select Number.
-3. Click OK.
+<div align="center">
+<figure>
+<img src="../_assets/images/concept_editor_hidden_concept.png" alt="The Customers category with every column on Base except Employee Number, on Hidden" width="436">
+<figcaption>Customers: Employee Number is hidden</figcaption>
+</figure>
+</div>
 
-***
+<div align="center">
+<figure>
+<img src="../_assets/images/concept_editor_2.png" alt="The Products category with Buy Price and MSRP on USCurrency and the descriptive columns on Base" width="435">
+<figcaption>Products: the two prices are currency</figcaption>
+</figure>
+</div>
 
-1. Right-click Price Sold and choose Set Parent Concept.
-2. In the Select a Parent Concept dialog, select USCurrency and click OK.
-3. Right-click Total Price and choose Set Parent Concept.
-4. In the Select a Parent Concept dialog, select USCurrency and click OK.
-
-***
-
-1. Right-click Order Date and choose Set Parent Concept.
-2. In the Select a Parent Concept dialog, choose Date and click OK.
-3. Right-click Required Date and choose Set Parent Concept.
-4. In the Select a Parent Concept dialog, choose Date and click OK.
-5. Right-click Shipped Date and choose Set Parent Concept.
-6. In the Select a Parent Concept dialog, choose Date and click OK.
-
-***
-
-1. Right-click Total and choose Set Parent Concept.
-2. In the Select a Parent Concept dialog, choose USCurrency and click OK.
-
-#### Customers
-
-> **Note:**
->
-> #### Customers
->
-> The majority of customer attributes—including Customer Name, Phone, all address fields (Address Line 1, Address Line 2, City, State, Postal Code, Country), Credit Limit, Territory, and Contact Name—are assigned the Base concept, which provides default metadata properties without specialized formatting masks.
->
-> The notable exception is Employee Number (Sales Rep Employee Number), which is assigned the Hidden concept, a child of the ID concept that not only formats the value as a whole number identifier but also marks the field as "Hidden For the User," preventing it from being visible in standard report interfaces.
->
-> This approach reflects that customer dimension data consists primarily of text fields that require standard display formatting, with only the sales representative employee identifier needing special handling to hide internal reference numbers from end users while maintaining proper numeric formatting when the field is accessed programmatically.
-
-<figure><img src="../_assets/images/concept_editor_hidden_concept.png" alt=""><figcaption><p>Hidden Concept</p></figcaption></figure>
-
-1. In the Business View, expand Customers.
-2. Right-click Employee Number and choose Set Parent Concept.
-3. In the Select a Parent Concept dialog, choose Hidden and click OK.
-4. Verify your work and save your changes.
-
-#### Products
-
-> **Note:**
->
-> #### Products
->
-> The majority of product attributes—Product Name, Product Line, Product Scale, Product Vendor, and Product Description—are assigned the Base concept, providing standard metadata properties without specialized formatting since these are descriptive text fields.
->
-> The two pricing fields are assigned the USCurrency concept: Buy Price (wholesale or cost basis) and MSRP (Manufacturer's Suggested Retail Price) both receive currency-specific formatting with dollar signs, two decimal places, and proper negative value handling ($#,##0.00;($#,##0.00)).
->
-> This approach ensures that product dimension data displays with appropriate formatting for financial analysis and pricing strategy while maintaining simple text display for descriptive product attributes, allowing users to perform margin analysis and pricing comparisons with consistent, professionally formatted currency values across all reports.
-
-<figure><img src="../_assets/images/concept_editor_2.png" alt=""><figcaption></figcaption></figure>
-
-1. In the Business View, expand Products.
-2. Right-click Buy Price and choose Set Parent Concept.
-3. Select USCurrency and click OK.
-4. Right-click MSRP and choose Set Parent Concept.
-5. Select USCurrency and click OK.
-6. Verify your work and save your changes.
+5. Save the domain (`Ctrl+S`).
 
 ### 3. Publish
 
 > **Note:**
 >
-> #### Publish OrdersStarCustomer Model
+> #### Publish the Domain
 >
-> The final step is to publish the metadata domain to the BI server for use as a data source in the reporting tools.
+> Publish the domain so that Interactive Reports can use the concepts. The server must be running.
 
-<figure><img src="../_assets/images/concept_editor_publish_ordersstarcustomer.png" alt=""><figcaption><p>Publish - OrdersStarCustomer</p></figcaption></figure>
+1. Select **File > Publish To Server**.
+2. In the **Publish To Server** dialog, set:
 
-1. Save the metadata domain by choose File > Save from the menu options or by clicking the Save icon.
-2. From the menu, choose File > Publish To Server.
-3. In the Publish To Server dialog, type or choose the following, and then click OK.
-
-| Field | Value |
+| Setting | Value |
 | --- | --- |
-| Web Publish URL | http://localhost:8080/pentaho/plugin/data-access/api/metadata/import |
-| Server UserID | admin |
-| Server Password | password |
-| Domain Name | OrdersStarCustomer |
+| **Web Publish URL** | `http://localhost:8080/pentaho/plugin/data-access/api/metadata/import` |
+| **Server Userid** | `admin` |
+| **Server Password** | `password` |
+| **Domain Name** | `OrdersStarCustomer` |
+
+3. Select **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/concept_editor_publish_ordersstarcustomer.png" alt="The Action Successful message over the Publish To Server dialog: File - OrdersStarCustomer: Successfully saved to the server" width="800">
+<figcaption>Published as OrdersStarCustomer</figcaption>
+</figure>
+</div>
+
+> **Success:** Checkpoint: an **Action Successful** message reads `File - OrdersStarCustomer: Successfully saved to the server`.
+
+4. Select **OK**.
 
 ### 4. Interactive Report
 
 > **Note:**
 >
-> #### Interactive Report
+> #### Check the Concepts in a Report
 >
-> The final test is to create a test Interactive Report and check the Concepts have been successfully applied.
+> Interactive Reports applies a column's mask, alignment and **Hidden For the User?** flag as it lists and shows the fields.
+
+1. Open the Pentaho User Console with the button below and log in as `admin` (password `password`).
 
 <button data-launch="puc">Open Pentaho User Console</button>
 
-1. Maximize the User Console browser window.
-2. From the Home Perspective, click Create New > Interactive Report.
-3. In the Select Data Source dialog, choose **OrderStarCustomer** and click OK. The list shows business model names, so the domain you published as OrdersStarCustomer appears under its model's name.
+2. On the **Home** perspective, select **Create New > Interactive Report**.
+3. In the **Select Data Source** dialog, select **OrderStarCustomer** and select **OK**.
 
-<figure><img src="../_assets/images/concept_editor_data_source_ordersstarcustomer.png" alt=""><figcaption><p>Data Source - OrdersStarCustomer</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/concept_editor_data_source_ordersstarcustomer.png" alt="The Select Data Source dialog with OrderStarCustomer selected, between Inventory and Orders" width="734">
+<figcaption>The data source carries the model's name</figcaption>
+</figure>
+</div>
 
-***
+> **Success:** Checkpoint: the list shows **OrderStarCustomer**, not **OrdersStarCustomer**: **Select Data Source** lists business models, and the domain you published holds a model named OrderStarCustomer. On the **Data** tab, the **Customers** category doesn't list **Employee Number**: its parent concept, Hidden, hides it.
 
-Create Interactive Report:
+4. On the **Data** tab, double-click **Contact Name**, **Order Date**, **Quantity Ordered**, **Price Sold** and **Total**, in that order. Each one becomes a column of the report.
 
-<figure><img src="../_assets/images/concept_editor_test_interactive_report.png" alt=""><figcaption><p>Test Interactive Report</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/concept_editor_test_interactive_report.png" alt="An Interactive Report on OrderStarCustomer with the columns Contact Name, Order Date, Quantity Ordered, Price Sold and Total; the Customers category on the Data tab lists no Employee Number, and Price Sold and Total show dollar amounts such as $325.87 and $9,450.23" width="800">
+<figcaption>The concepts at work in a report</figcaption>
+</figure>
+</div>
 
-> **Note:**
->
-> The Categories and Columns created during the workshop are reflected in the layout.
-> Employee Number does not appear in the Customers category - applied Hidden concept.
+> **Success:** Checkpoint: **Price Sold** and **Total** show as dollar amounts with two decimals, such as `$325.87`, and the numbers are right-aligned. **Contact Name** reads last name, then first name, such as `Ferguson, Peter`.
 
-1. To add Quantity Ordered, on the Data tab, double-click Quantity Ordered. Quantity Ordered is formatted using the Number concept.
-2. To add Price Sold, on the Data tab, double-click Price Sold. Price Sold is formatted using the USCurrency concept.
-3. To add Total, on the Data tab, double-click Total. Confirm the calculation of the Total column (Quantity Ordered * Price Sold).
-4. To add Order Date, on the Data tab, double-click Order Date. Order Date is formatted using the Date concept.
-5. To add Required Date, on the Data tab, double-click Required Date. Required Date is not formatted using the Date concept. This is because we did not change the Data Type for the Required Date (as for Order Date), so it is still being treated as a string. The Mask for Number or Date property can only be applied to numeric or date data types.
+5. Double-click **Required Date** and compare it with **Order Date**.
 
 > **Under the hood:**
 >
@@ -386,15 +333,25 @@ Create Interactive Report:
 > Order Date's data type is Date and Required Date's is String, so the
 > Date concept's mask finds a date in one and only text in the other.
 > The SQL is the same either way.
+>
+> **Why it matters:** a concept can only format what the data type lets
+> it. When a mask seems to do nothing, check the column's **Data Type**
+> before the mask.
 
-6. To add Contact Name, on the Data tab, double-click Contact Name. Verify the formula for the Contact Name.
-7. Close the Interactive Report tab. It is not necessary to save.
-
-> **Success:** Your Concepts have been applied successfully. The Interactive Report displays each column with the formatting inherited from its parent Concept—Number, USCurrency, ID, and Date—and the Employee Number field is hidden via the Hidden concept.
+6. Close the **Interactive Report** tab. You don't need to save the report.
 
 ::::
 
 ## Lab Files
 
-- [OrderStarCustomer.xmi](../_assets/files/OrderStarCustomer.xmi) - the starting domain (the OrderStarCustomer workshop's result)
-- [OrderStarCustomer-concepts.xmi](../_assets/files/OrderStarCustomer-concepts.xmi) - the finished domain, with this workshop's concepts applied
+Click a file to download it.
+
+The starting domain, the result of the [OrderStarCustomer](../07-properties-orderstarcustomer/guide.md) workshop:
+
+[OrderStarCustomer.xmi](../_assets/files/OrderStarCustomer.xmi)
+
+### Solution <!-- no-step -->
+
+The finished domain, with this workshop's concepts applied. Load it with **File > Import from XMI File**.
+
+[OrderStarCustomer-concepts.xmi](../_assets/files/OrderStarCustomer-concepts.xmi)

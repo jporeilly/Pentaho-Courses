@@ -11,7 +11,7 @@ This panel stays beside your tools for the whole workshop:
 
 - **Float or dock** — drag the title bar to move the window anywhere
   (any monitor), or use the dock button to pin it to the right edge of
-  the screen so maximised apps make room for it.
+  the screen so maximized apps make room for it.
 - **The sidebar** lists every section and lab. A <span data-icon="video"></span> badge means the lab
   includes a video; the `~15 min` tag is a time estimate.
 - Use the **font-size** and **reading-mode** controls in the toolbar if
@@ -20,14 +20,14 @@ This panel stays beside your tools for the whole workshop:
 ## Track your progress
 
 In every workshop lab, each numbered heading is a **step** with a
-checkbox — tick it when you're done. Progress is saved on this machine
+checkbox — select it when you're done. Progress is saved on this machine
 and survives restarts, so you can pick up exactly where you left off.
 (This orientation page doesn't track steps — the checkboxes start in
 the first workshop.)
 
 ## Copy code with one click
 
-Every code block has a **copy button** — hover over the block and click
+Every code block has a **copy button** — hover over the block and select
 it, then paste into your tool. Try it:
 
 ```sql
@@ -71,7 +71,7 @@ logins, for when you come back to it later.
 ### 1. Start the Pentaho Server
 
 The server ships with Pentaho, so there is nothing to install — you
-just start it. It brings up the User Console, the sample data and the
+start it. It brings up the User Console, the sample data and the
 publish target for your Mondrian schemas.
 
 1. Open PowerShell and run the start script from your Pentaho install:
@@ -118,7 +118,7 @@ expects.
 2. Start it from the button at the top of this page and let it finish
    loading.
 
-3. Set the JDBC connection the labs use (Options ▸ Connection):
+3. Set the JDBC connection the labs use (**Options > Connection**):
    `jdbc:hsqldb:hsql://localhost/sampledata` as `pentaho_user` /
    `password` — the **server must be running**, because it hosts the
    HSQLDB the schemas model against.
@@ -127,7 +127,7 @@ expects.
    **http://localhost:8080/pentaho** as `admin` / `password`.
 
 Each workshop's schemas ship in its **Lab Files** — open them via
-**File ▸ Open** (copy them out of the guide's content folder first if
+**File > Open** (copy them out of the guide's content folder first if
 you plan to edit).
 
 <details>
@@ -189,7 +189,7 @@ grounded in the official docs — ask it anything from "what does this
 step do?" to "why did my transformation fail?". It runs on a local
 model, so it works even when the VM is offline.
 
-## How this course is organised
+## How this course is organized
 
 Each section starts with an **overview page** (<span data-icon="page"></span> — background reading,
 no checkboxes) followed by **hands-on workshops** (<span data-icon="workshop"></span> — tracked steps).

@@ -4,179 +4,164 @@
 >
 > #### Workshop - OrdersME
 >
-> While exploring pre-built metadata domains helps you understand the architecture, the real learning comes from building one yourself from the ground up. Creating a metadata domain requires understanding how each layer - from physical database connections through business models to semantic categories - works together to transform raw database schemas into business-friendly data access layers that empower non-technical users to create their own reports and analyses.
->
-> In this hands-on workshop, you'll construct a complete metadata domain called OrdersME from scratch using the Steel Wheels sampledata database. Starting with a blank canvas, you'll establish database connectivity, import physical tables, design a star schema business model, define relationships that enable accurate query generation, and create an intuitive business view organized into logical categories. Finally, you'll publish your completed domain to the Pentaho Server and validate it by building an Interactive Report - experiencing the full lifecycle from metadata design to end-user consumption.
+> Build a metadata domain from an empty editor: OrdersME, a star-schema model of Steel Wheels orders. You connect to the sample data, import the tables, model them, group the columns for report users, publish the domain, and report on it in Interactive Reports.
 >
 > **What you'll do**
 >
-> * Install JDBC drivers and establish database connections in Pentaho Metadata Editor
-> * Import physical tables and columns from a database into your metadata domain
-> * Create a business model based on star schema design principles
-> * Define business tables and map them to physical tables with enhanced metadata
-> * Create relationships between tables using both one-to-many and many-to-one cardinalities
-> * Build business views with logically organized categories that reflect business terminology
-> * Use multiple techniques (Tree Navigator and Editor Graph) to create relationships
-> * Understand complex join scenarios for multi-column relationships
-> * Publish your metadata domain to the Pentaho Server as an XMI file
-> * Test your domain by creating an Interactive Report that leverages your semantic layer
+> * Create a domain and a database connection
+> * Import physical tables from the sample data
+> * Build a business model whose three relationships join a fact table to its dimensions
+> * Group business columns into three categories
+> * Publish the domain to the Pentaho Server and test it with an Interactive Report
 >
-> **Prerequisites:** Pentaho Metadata Editor installed; Access to SteelWheels sampledata database; JDBC driver for your database; Basic understanding of relational database concepts and star schema design
+> **Prerequisites:**
+>
+> * The [SteelWheels](../03-domains-and-models-steelwheels/guide.md) workshop
+> * The Pentaho Server, running (see [Before You Start](../00-before-you-start/guide.md))
 >
 > **Estimated time:** 90 minutes
 
-<figure><img src="../_assets/images/dm_ordersme_ordersme_domain.png" alt=""><figcaption><p>OrdersME Domain</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/dm_ordersme_ordersme_domain.png" alt="The finished OrdersME domain: a connection with ORDERFACT, PRODUCTS, ORDERS and DIM TIME, and the OrdersME business model with four business tables, three relationships and the Orders, Products and Measures categories; the graphical view draws ORDERFACT joined to DIM TIME, PRODUCTS and ORDERS" width="800">
+<figcaption>What you build: the OrdersME domain</figcaption>
+</figure>
+</div>
 
-***
+<div align="center">
+<figure>
+<img src="../_assets/images/dm_ordersme_creating_a_pentaho_metadata_domain.png" alt="A curved arrow through the six stages of building a domain: connect to a data source, import physical tables and columns, define the business model, define relationships, build business views, publish to Pentaho Server" width="345">
+<figcaption>The stages of building a domain, one part each below</figcaption>
+</figure>
+</div>
 
-1. Start Metadata Editor:
+:::: tabs
 
-> **Note:**
->
-> #### Windows (PowerShell)
->
-> ```powershell
-> cd \
-> cd Pentaho/design-tools/metadata-editor/
-> ./metadata-editor.bat
-> ```
-
-> **Note:**
->
-> #### Linux
->
-> ```bash
-> cd
-> cd Pentaho/design-tools/metadata-editor/
-> ./metadata-editor.sh
-> ```
-
-2. Start the Pentaho Server (not required if using Pentaho Labs):
+### 1. Connection
 
 > **Note:**
 >
-> #### Windows (PowerShell)
+> #### Define a Domain and a Connection
 >
-> ```powershell
-> cd \
-> cd Pentaho/server/pentaho-server
-> ./start-pentaho.bat
-> ```
+> A connection describes one database. It is the parent of every physical table and physical column you import from that database, so you create it first. Pentaho metadata reaches relational databases through JDBC.
 
-> **Danger:** Ensure that the Pentaho Server is up and running (automatically started in Pentaho Lab):
->
-> ```bash
-> cd
-> cd /opt/pentaho/server/pentaho-server
-> sudo ./start-pentaho.sh
-> ```
+<div class="pcm-embed-card" data-href="https://www.loom.com/share/b5057eb6659e4a0691745914aa9e5403?hideEmbedTopBar=true&amp;hide_share=true&amp;hide_title=true&amp;sid=b4432731-d471-426d-92ec-874768a7a1be?hide_owner=true" data-title="Creating a Metadata Domain with SteelWheels Database" data-description="In this video, I demonstrate how to create a metadata domain by connecting to the SteelWheels sample database. I walk you through the initial steps, including launching the Metadata Editor and creating a new domain file. You'll see how to add a database connection by right-clicking and selecting the appropriate options. I specifically name the connection &amp;#34;SampleData&amp;#34; to keep things organized. I encourage you to follow along and practice these steps to familiarize yourself with the process." data-thumb="../_assets/embeds/125979ecbc12.png"></div>
+
+1. Start the Metadata Editor with the **Open Metadata Editor** button below, or from a terminal:
+
+::: tabs
+
+### Windows (PowerShell)
+
+```powershell
+Set-Location C:\Pentaho\design-tools\metadata-editor
+.\metadata-editor.bat
+```
+
+### macOS / Linux
+
+```bash
+cd ~/Pentaho/design-tools/metadata-editor
+./metadata-editor.sh
+```
+
+:::
 
 <button data-launch="metadata-editor">Open Metadata Editor</button>
 
-<figure><img src="../_assets/images/dm_ordersme_creating_a_pentaho_metadata_domain.png" alt="" width="404"><figcaption><p>Creating a Pentaho Metadata Domain</p></figcaption></figure>
+2. Make sure the Pentaho Server is running: you publish to it in part 6, and the HSQLDB sample data runs with it. On a lab VM it is already running. On your own machine, start it:
 
-Follow the guide below to create your OrdersME domain:
+::: tabs
 
-:::: tabs
+### Windows (PowerShell)
 
-### 1. JDBC Connection
-
-> **Note:**
->
-> #### Connect to the Database
->
-> A connection represents connection information of a specific database, and acts as the parent in the hierarchy for all physical tables and physical columns that are defined for that database.
->
-> Pentaho metadata models can connect to most common relational databases using JDBC. The Pentaho Metadata Editor (and the Pentaho Metadata Architecture) supports a vast and rich set of data sources. Before you begin defining your business model, you must first describe the database or data source that you would like to model. You do this by defining one or more connections in the editor.
-
-> **Danger:** If you're using the Pentaho Lab then the driver has already been copied to the `/lib` directory.
->
-> To create a JDBC connection you will need to copy the JDBC driver for your database into the PME install directory `...\metadata-editor\lib`.
->
-> To resolve MariaDB issues, it is advised to use the **MySQL** JDBC driver.
->
-> Restart the Pentaho Metadata Editor, to register the driver.
-
-<div class="pcm-embed-card" data-href="https://www.loom.com/share/b5057eb6659e4a0691745914aa9e5403?hideEmbedTopBar=true&amp;hide_share=true&amp;hide_title=true&amp;sid=b4432731-d471-426d-92ec-874768a7a1be?hide_owner=true" data-title="Creating a Metadata Domain with SteelWheels Database" data-description="In this video, I demonstrate how to create a metadata domain by connecting to the SteelWheels sample database. I walk you through the initial steps, including launching the Metadata Editor and creating a new domain file. You'll see how to add a database connection by right-clicking and selecting the appropriate options. I specifically name the connection &amp;#34;SampleData&amp;#34; to keep things organized. I encourage you to follow along and practice these steps to familiarize yourself with the process." data-thumb="../_assets/embeds/125979ecbc12.png"></div>
-***
-
-> **Note:**
->
-> #### Define a Domain & JDBC Connection
->
-> Before you begin defining your business model, you must first describe the database or data source that you would like to model.
-
-1. To define a new domain, select: **File > New > Domain File** from the main menu.
-
-<figure><img src="../_assets/images/dm_ordersme_new_domain_ordersme.png" alt=""><figcaption><p>New Domain - OrdersME</p></figcaption></figure>
-
-2. Right-mouse click on **Connections** or: **File > New > Connection**
-
-<figure><img src="../_assets/images/dm_ordersme_new_database_connection.png" alt=""><figcaption><p>New Database Connection</p></figcaption></figure>
-
-3. Select the installation environment and enter the connection settings:
-
-:::: tabs
-
-#### Windows: Enterprise Edition
-
-> **Note:**
->
-> #### Enterprise Edition
->
-> If you've downloaded & installed the on-prem Windows 30-day Enterprise Edition then configure the connection with the following settings:
-
-| Field | Parameter |
-| --- | --- |
-| Connection name | hsqldb:sampledata |
-| Connection Type | Hypersonic |
-| Access | JNDI |
-| JNDI name | SampleData |
-
-> **Note:** JNDI (Java Naming and Directory Interface) is a Java API that allows applications to look up and access resources - like databases, message queues, or LDAP directories - from a central naming or directory service. Instead of hardcoding resource details into your application, you reference a JNDI name (like `java:/comp/env/jdbc/MyDB`), and the application server manages the actual connection details, making applications more portable and flexible.
-
-<figure><img src="../_assets/images/dm_ordersme_jndi_connection.png" alt=""><figcaption><p>JNDI Connection</p></figcaption></figure>
-
-#### Linux: Pentaho Lab
-
-> **Note:**
->
-> #### Pentaho Lab
->
-> If you're using the Pentaho Lab, enter the following settings:
-
-| Field | Parameter |
-| --- | --- |
-| Connection name | mysql:sampledata |
-| Connection Type | **MySQL** |
-| Access | Native (JDBC) |
-| Host name | localhost |
-| Database Name | sampledata |
-| Port Number | 3306 |
-| User Name | pentaho_admin |
-| Password | password |
-
-<figure><img src="../_assets/images/dm_ordersme_database_connection.png" alt=""><figcaption><p>Database Connection</p></figcaption></figure>
-
-::::
-
-***
-
-> **Note:**
->
-> #### Adding JDBC driver
->
-> Before you can connect to a data source in any Pentaho server or client tool, you must first install the appropriate database driver.
->
-> Before copying a new JDBC driver, ensure that there is not a different version of the same JAR in the destination directory. If there is, you must remove the old JAR to avoid version conflicts.
-
-1. Copy the JDBC driver to:
-
-```
-~/Pentaho/design-tools/metadata-editor/libext/JDBC/
+```powershell
+Set-Location C:\Pentaho\server\pentaho-server
+.\start-pentaho.bat
 ```
 
-2. Once the driver JAR is in place, you must restart the server or client tool.
+### macOS / Linux
+
+```bash
+cd ~/Pentaho/server/pentaho-server
+./start-pentaho.sh
+```
+
+:::
+
+3. Select **File > New > Domain File**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/dm_ordersme_new_domain_ordersme.png" alt="The File menu open at New, with the submenu listing Domain File, Connection, Physical Table, Business Table, Business Model, Relationship and Category" width="438">
+<figcaption>File > New > Domain File</figcaption>
+</figure>
+</div>
+
+4. Right-click **Connections** and select **New Connection**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/dm_ordersme_new_database_connection.png" alt="The Connections node's context menu with New Connection and Clear complete DB Cache" width="425">
+<figcaption>New Connection, on the Connections node</figcaption>
+</figure>
+</div>
+
+5. In the **Database Connection** dialog, enter the settings for the sample data you use. The HSQLDB copy runs with the Pentaho Server and is what the solution uses; the MySQL copy is in the lab's sampledata MySQL container.
+
+::: tabs
+
+### HSQLDB (Pentaho Server)
+
+| Setting | Value |
+| --- | --- |
+| **Connection name** | `hsqldb:sampledata` |
+| **Connection type** | Hypersonic |
+| **Access** | Native (JDBC) |
+| **Host Name** | `localhost` |
+| **Database Name** | `sampledata` |
+| **Port Number** | `9001` |
+| **Username** | `pentaho_admin` |
+| **Password** | `password` |
+
+The same data can also be reached by name, as the SteelWheels domain does: set **Access** to **JNDI** and **JNDI Name** to `SampleData`. The Metadata Editor and the Pentaho Server each resolve `SampleData` to their own copy of the sample data.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/dm_ordersme_jndi_connection.png" alt="The Database Connection dialog for a JNDI connection: Connection name SampleData, Connection type Hypersonic, Access JNDI and JNDI Name SampleData" width="800">
+<figcaption>The JNDI alternative</figcaption>
+</figure>
+</div>
+
+### MySQL (sampledata container)
+
+| Setting | Value |
+| --- | --- |
+| **Connection name** | `mysql:sampledata` |
+| **Connection type** | MySQL |
+| **Access** | Native (JDBC) |
+| **Host Name** | `localhost` |
+| **Database Name** | `sampledata` |
+| **Port Number** | `3306` |
+| **Username** | `pentaho_admin` |
+| **Password** | `password` |
+
+Neither the Metadata Editor nor the Pentaho Server ships a MySQL driver. Copy the MySQL Connector/J jar (`mysql-connector-j-*.jar`) into `C:\Pentaho\design-tools\metadata-editor\libext\JDBC` and `C:\Pentaho\server\pentaho-server\tomcat\lib`, then restart both: each loads drivers only when it starts. Remove any older copy of the same driver first. The [Capstone](../12-capstone-trailhead-outfitters/guide.md)'s first stage has a PowerShell snippet that does both copies.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/dm_ordersme_database_connection.png" alt="The Database Connection dialog for mysql:sampledata, with the Connection tested successfully message: Connection to mysql:sampledata was successful, Hostname localhost, Port 3306, Database name sampledata" width="800">
+<figcaption>A MySQL connection, tested</figcaption>
+</figure>
+</div>
+
+:::
+
+6. Select **Test**.
+
+> **Success:** Checkpoint: a message says the connection to your connection name was successful, followed by its host name, port and database name.
+
+7. Select **OK** to close the message, then select **OK** to close **Database Connection**. The **Import Tables** dialog opens: leave it open for part 2.
 
 ### 2. Import Tables
 
@@ -184,199 +169,212 @@ Follow the guide below to create your OrdersME domain:
 >
 > #### Import Tables
 >
-> Fortunately, when you import a physical table, all the table's columns come with it, so the import is a one-step exercise instead of two. You can later remove those columns that you do not want in the connection or the model.
+> Importing a physical table brings all its columns with it. OrdersME is a star schema: a central fact table of order lines, `ORDERFACT`, surrounded by dimension tables that describe each line: its product, its order and its date.
 
-<div class="pcm-embed-card" data-href="https://www.loom.com/share/8d79403521b24e9493d61f3269b2ce46?hideEmbedTopBar=true&amp;hide_share=true&amp;hide_title=true&amp;sid=3ccd5701-5ff6-4f5a-9bf1-414a6fa30296?hide_owner=true" data-title="Creating the Physical Layer in Data Modeling 📊" data-description="In this video, I demonstrate how to import tables to create the physical layer for our project. I specifically import the Order Fact, Products, and Orders tables, highlighting the process of selecting multiple tables using the Control key. It's important to note that we are importing metadata, not the actual tables, and I show the columns in the Products table, which are currently labeled in all upper case. I also explain the concept of base columns and their significance in our data model. There is no specific action requested from viewers in this segment, but I encourage you to familiarize yourself with the concepts as we move forward to creating the abstract business layer in the next demonstration." data-thumb="../_assets/embeds/125979ecbc12.png"></div>
-***
+<div class="pcm-embed-card" data-href="https://www.loom.com/share/8d79403521b24e9493d61f3269b2ce46?hideEmbedTopBar=true&amp;hide_share=true&amp;hide_title=true&amp;sid=3ccd5701-5ff6-4f5a-9bf1-414a6fa30296?hide_owner=true" data-title="Creating the Physical Layer in Data Modeling 📊" data-description="In this video, I demonstrate how to import tables to create the physical layer for our project. I specifically import the Order Fact, Products, and Orders tables, highlighting the process of selecting multiple tables using the Control key. It's important to note that we are importing metadata, not the actual tables, and I show the columns in the Products table, which are currently labeled in all upper case. I also explain the concept of base columns and their significance in our data model. There is no specific action requested from viewers in this segment, but I encourage you to follow along as we move forward to creating the abstract business layer in the next demonstration." data-thumb="../_assets/embeds/125979ecbc12.png"></div>
 
-> **Note:**
->
-> #### Schema
->
-> In this workshop we're going to model a Star Schema - a [database design pattern](https://www.geeksforgeeks.org/dbms/database-schemas/) used in data warehousing where a central fact table containing quantitative business metrics (like sales amounts or quantities) is surrounded by dimension tables that provide descriptive context such as customers, products, time, and geography.
+1. If **Import Tables** isn't open, right-click your connection under **Connections** and select **Import Tables**.
+2. Hold `Ctrl` and select these five tables:
 
-1. Hold down the **Ctrl** key and use the mouse to select the following:
+| Table | Rows | What it holds |
+| --- | --- | --- |
+| `ORDERFACT` | 2,996 | The fact table: one row per order line, with its order, product, customer and time keys |
+| `PRODUCTS` | 110 | The product catalog: product line, vendor, code, name, scale, description, quantity in stock, buy price and MSRP |
+| `ORDERS` | 326 | One row per customer order: order, required and shipped dates, status and comments |
+| `ORDERDETAILS` | 2,996 | The order lines again. The OrdersME model doesn't use it: `ORDERFACT` already carries the lines |
+| `DIM_TIME` | 265 | The time dimension: one row per order date, rolled up to month, quarter and year |
 
-<figure><img src="../_assets/images/dm_ordersme_import_tables.png" alt=""><figcaption><p>Import tables</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/dm_ordersme_import_tables.png" alt="The Import Tables dialog listing the sampledata tables, with ORDERFACT, PRODUCTS, ORDERS, ORDERDETAILS and DIM_TIME selected" width="800">
+<figcaption>Five tables selected</figcaption>
+</figure>
+</div>
 
-| Table | Description |
-| --- | --- |
-| ORDERFACT | (2,996 rows) - A fact table for OLAP analysis containing order transaction data linked to customers and other dimensional tables |
-| PRODUCTS | (110 rows) - Contains product catalog information including product line, vendor, code, name, scale, description, quantity in stock, buy price, and MSRP |
-| ORDERS | (326 rows) - Records customer orders placed with the company, containing order-level information like order dates and customer references. |
-| ORDERDETAILS | (2,996 rows) - Stores line-item details for each order, breaking down individual products and quantities within each order. The OrdersME model below does not use it; ORDERFACT already carries the order lines. |
-| DIM_TIME | (265 rows) - A time dimension table for temporal analysis, supporting date-based reporting and analytics. |
+3. Select **OK**.
+4. Under **Connections**, expand your connection, then **ORDERFACT**.
 
-***
+<div align="center">
+<figure>
+<img src="../_assets/images/dm_ordersme_pt_tables.png" alt="The connection expanded to ORDERFACT, PRODUCTS, ORDERS, ORDERDETAILS and DIM TIME, with ORDERFACT's 16 columns from ORDERNUMBER to YEAR ID, each with the parent concept Base" width="800">
+<figcaption>The physical layer after the import</figcaption>
+</figure>
+</div>
 
-To remove extraneous columns from your physical tables:
+> **Success:** Checkpoint: five physical tables, **ORDERFACT**, **PRODUCTS**, **ORDERS**, **ORDERDETAILS** and **DIM TIME**. **ORDERFACT** holds 16 columns, from **ORDERNUMBER** to **YEAR ID**, and each has the parent concept **Base**, which the business columns you build on them inherit until they override it.
 
-1. Right-click (or `<CTRL+click>`) on the physical table node you wish to edit in the Tree Navigator. Select the **Edit** option from the popup menu.
+This workshop keeps every column. To remove one you don't want, double-click its table (or right-click it and select **Edit**), select the column in the **Subject** pane of **Physical Table Properties**, select the red delete icon to the right of **Subject**, and select **OK**.
 
-> **Note:** You can also get to the Physical Table Properties dialog by double-clicking the physical table node.
-
-2. The Physical Table Properties dialog displays. In the dialog's Tree Navigator, select a column you wish to remove.
-
-<figure><img src="../_assets/images/dm_ordersme_delete_columns.png" alt=""><figcaption><p>Delete Columns</p></figcaption></figure>
-
-3. Click the delete icon (the one with the red circle), to the right of the word **Subject** above the dialog's Tree Navigator.
-4. Repeat with any remaining columns that you want to remove. Click **OK** when you are done.
-
-<figure><img src="../_assets/images/dm_ordersme_pt_tables.png" alt=""><figcaption><p>PT_Tables</p></figcaption></figure>
-
-> **Note:** Each table / column has a Base set of Parent Concepts, which will be inherited - unless explicitly broken - by the defined Business Models.
+<div align="center">
+<figure>
+<img src="../_assets/images/dm_ordersme_delete_columns.png" alt="Physical Table Properties for ORDERFACT with COMMENTS selected in the Subject pane; the add and delete icons sit to the right of the Subject label" width="800">
+<figcaption>Removing a column: select it, then the red delete icon</figcaption>
+</figure>
+</div>
 
 ### 3. Business Model
 
 > **Note:**
 >
-> #### Business Models
+> #### Business Model and Business Tables
 >
-> Metadata in Pentaho is based on relational data modeling, which maps the physical structure of your database into a logical business model. The goal of the relational data modeling in Pentaho is to simplify the experience of business users when they are creating reports.
-
-Follow the guide to define: OrdersME Business Model
-
-#### 1. Business Model
-
-> **Note:**
->
-> #### Business Model
->
-> We're basically going to define a Product Order business model.
+> The business model maps the physical tables into the logical model report users work with. It uses one connection, and it starts with three empty nodes: **Business Tables**, **Relationships** and **Business View**.
 
 <div class="pcm-embed-card" data-href="https://www.loom.com/share/ac0b3d9fe136405ba8dbc5aab3874e33?hideEmbedTopBar=true&amp;hide_share=true&amp;hide_title=true&amp;sid=2f51b6d5-f11d-49a1-a5e5-427e29f2580d?hide_owner=true" data-title="Building the Abstract Business Layer for Data Models 📊" data-description="In this video, I walk you through the process of building the abstract business layer after establishing the physical layer. I demonstrate how to create a new business model, including setting its properties such as name and description. I specifically name this model &amp;#34;Orders Me for Metadata Editor&amp;#34; to differentiate it from an existing model. I also note that I skipped setting a database connection, which we will address shortly. There are no specific action requests from viewers in this segment, but I encourage you to follow along as we add tables and define relationships in the next steps." data-thumb="../_assets/embeds/125979ecbc12.png"></div>
-***
 
-Create Business Model:
+1. Right-click **Business Models** and select **New Business Model**.
 
-1. Right-mouse click the **Business Models** node in the Tree Navigator.
-2. Select **New Business Model**.
+<div align="center">
+<figure>
+<img src="../_assets/images/dm_ordersme_new_business_model.png" alt="The Business Models node's context menu with New Business Model" width="800">
+<figcaption>New Business Model</figcaption>
+</figure>
+</div>
 
-<figure><img src="../_assets/images/dm_ordersme_new_business_model.png" alt=""><figcaption><p>New Business Model</p></figcaption></figure>
+2. In the **Business Model Properties** dialog, keep the **ID** the editor proposes, `BV_MODEL_1`. It must be unique among the domain's models.
+3. Under **Settings**, click in the **String** cell of the `en_US` row under **Name** and enter `OrdersME`.
+4. Click in the **String** cell of the `en_US` row under **Description** and enter `test sampledata orders domain`.
+5. Set **Connection** to your connection, `hsqldb:sampledata` or `mysql:sampledata`.
 
-> **Note:** The Business Model Properties dialog displays.
->
-> At the top of the dialog, there is an ID text field, pre-populated with a value. We recommend you accept the pre-populated value as this value MUST be unique across all models that you define.
+<div align="center">
+<figure>
+<img src="../_assets/images/dm_ordersme_ordersme_business_model.png" alt="Business Model Properties with ID BV_MODEL_1, the Connection list open on mysql:sampledata, the Name OrdersME and a description" width="800">
+<figcaption>Name, description and connection</figcaption>
+</figure>
+</div>
 
-3. To name your new model, enter: **OrdersME** in the Name property text box on the right.
+6. Select **OK**.
+7. Save the domain (`Ctrl+S`). In the **Save Domain** dialog, enter `OrdersME` and select **OK**.
 
-<figure><img src="../_assets/images/dm_ordersme_ordersme_business_model.png" alt=""><figcaption><p>OrdersME - Business Model</p></figcaption></figure>
-
-4. From the Connection drop-down box, select the connection you created in step 1: **hsqldb:sampledata** (Windows Enterprise Edition) or **mysql:sampledata** (Pentaho Lab).
-5. Click the **OK** button to close the dialog.
-
-> **Note:** Your business model will show up in the Navigator Tree. All business models by default are created with a place to hold business tables, relationships and a business view. These are the next items you will want to define.
-
-#### 2. Business Tables
-
-> **Note:**
->
-> #### Business Tables
->
-> After creating the business model, the next step is to add the business tables and business columns, then create the relationships between our business tables.
+> **Success:** Checkpoint: **Business Models** shows **OrdersME** followed by its connection, with three empty nodes: **Business Tables**, **Relationships** and **Business View**. The **Graphical View** shows the model's name and description.
 
 <div class="pcm-embed-card" data-href="https://www.loom.com/share/4fa2959893424879b8720be246d37235?hideEmbedTopBar=true&amp;hide_owner=true&amp;hide_share=true&amp;hide_title=true" data-title="Building an Abstract Business Layer: Adding Tables and Defining Relationships" data-description="In this video, I demonstrate how to add tables from the physical layer to the abstract business layer of our model, specifically focusing on the orders ME model. I show you how to drag and drop the order fact table, products, and orders tables into the business tables folder, and I rearrange the icons in the graphical view for clarity. We will define the relationships between these tables in the next demonstration, so please pay attention to the steps I've outlined here. No changes to the table properties are necessary at this stage; just ensure you follow along as we build our model." data-thumb="../_assets/embeds/125979ecbc12.png"></div>
-***
 
-Select Tables:
+8. Right-click **Business Tables** and select **New Business Table**.
 
-1. Right-click (or ALT-click) on the **Business Tables** branch in the Navigator Tree.
-2. Select: **New Business Table**.
+<div align="center">
+<figure>
+<img src="../_assets/images/dm_ordersme_2.png" alt="The Business Tables node's context menu with New Business Table" width="800">
+<figcaption>New Business Table</figcaption>
+</figure>
+</div>
 
-<figure><img src="../_assets/images/dm_ordersme_2.png" alt=""><figcaption></figcaption></figure>
+9. In the **Make Selection** dialog, select `PT_ORDERFACT` and select **OK**. If the **Business Table Properties** dialog opens, select **OK**.
 
-3. Select the physical table you want to associate with this new business table.
+<div align="center">
+<figure>
+<img src="../_assets/images/dm_ordersme_add_tables.png" alt="The Make Selection dialog asking for the physical table to associate with the business table, listing PT_ORDERFACT, PT_PRODUCTS, PT_ORDERS and PT_DIM_TIME" width="400">
+<figcaption>Each business table points at one physical table</figcaption>
+</figure>
+</div>
 
-<figure><img src="../_assets/images/dm_ordersme_add_tables.png" alt=""><figcaption><p>Add tables</p></figcaption></figure>
+10. Repeat steps 8 and 9 for `PT_PRODUCTS`, `PT_ORDERS` and `PT_DIM_TIME`. Leave `PT_ORDERDETAILS` out. You can also drag a physical table from **Connections** onto **Business Tables**.
 
-> **Note:** Another method is to drag and drop the required tables onto the canvas.
->
-> * Drag & drop PT_PRODUCTS
-> * Drag & drop PT_ORDERS
-> * Drag & drop PT_DIM_TIME
-> * Drag & drop PT_ORDERFACT
+<div align="center">
+<figure>
+<img src="../_assets/images/dm_ordersme_business_tables_ordersme.png" alt="The OrdersME model with four business tables, DIM TIME, ORDERS, PRODUCTS and ORDERFACT, drawn on the graphical view without relationships" width="800">
+<figcaption>Four business tables, not yet related</figcaption>
+</figure>
+</div>
 
-<figure><img src="../_assets/images/dm_ordersme_business_tables_ordersme.png" alt=""><figcaption><p>Business tables - OrdersME</p></figcaption></figure>
+> **Success:** Checkpoint: four business tables, **DIM TIME**, **ORDERS**, **PRODUCTS** and **ORDERFACT**, drawn on the **Graphical View** with no lines between them yet. Their IDs are `BT_DIM_TIME_DIM_TIME`, `BT_ORDERS_ORDERS`, `BT_PRODUCTS_PRODUCTS` and `BT_ORDERFACT_ORDERFACT`.
 
-#### 3. Relationships
+11. Save the domain (`Ctrl+S`).
+
+### 4. Relationships
 
 > **Note:**
 >
 > #### Relationships
 >
-> Once you have all your business tables created, you will need to define the relationships between the tables, so that the query generators and SQL generators that work with Pentaho metadata can create the data queries correctly.
->
-> This is very much like drawing a relational diagram to show primary and foreign key relationships. Although relational links are not the only relationships that can be modelled. You can create a relationship between any two tables, link any two columns between them and dictate what the relationship is (one to many, many to many, etc.).
->
-> The important pieces of information to know before you try to create a relationship is:
->
-> * what two business tables would you like to associate with this relationship
-> * what columns in the business tables identify the relationship
-> * and what kind of relationship is it - one to one, one to many, many to one, etc.
+> Relationships tell the query generator how to join the business tables. For each one you need the two business tables, the column in each that links them, and the kind of relationship. You create the first in the tree and the next two on the **Graphical View**, which fills in the two tables you selected.
 
 <div class="pcm-embed-card" data-href="https://www.loom.com/share/a4f250cd10f24e2fb9bd4eaa742781e0?hideEmbedTopBar=true&amp;hide_share=true&amp;hide_title=true&amp;sid=d2e5c9f9-854f-4027-936c-0717b20d234b?hide_owner=true" data-title="Building Relationships in the Abstract Business Layer" data-description="In this video, I demonstrate how to define relationships between tables in the abstract business layer, specifically joining the orders table to the order fact table using the order number column. I explain the importance of being deliberate when defining these relationships, as they significantly impact the queries created based on this model. I also highlight the one-to-many relationship type we are using and the default inner join. Finally, I encourage viewers to consult with their data warehouse team if they are uncertain about how to join tables. Please follow along as we will repeat similar steps to join the order fact table to the products table in the next demonstration." data-thumb="../_assets/embeds/125979ecbc12.png"></div>
-***
 
-Follow the guide to create the required Relationships:
+1. Under **OrdersME**, right-click **Relationships** and select **New Relationship**.
+2. In the **Relationship Properties** dialog, set:
 
-> **Note:**
->
-> #### Define Relationships
->
-> To create a new relationship between business tables using the Tree Navigator, first make sure that the model you want to add this relationship to is selected, and the Relationships node is visible (lives under the business model name node).
-
-1. Right-click (or ALT-click) on the **Relationships** branch in the Navigator Tree.
-2. Select the **New Relationship...** option from the popup menu. The 'Relationship Properties' dialog displays.
-3. Select from the: From Table / Field list the business table that you would like to start the relationship from:
-
-| From Table / Field | To Table / Field |
+| Setting | Value |
 | --- | --- |
-| BT_DIM_TIME_DIM_TIME / BC_DIM_TIME_TIME_ID | BT_ORDERFACT_ORDERFACT / BC_ORDERFACT_TIME_ID |
+| **From Table / Field** | `BT_DIM_TIME_DIM_TIME`, `BC_DIM_TIME_TIME_ID` |
+| **To Table / Field** | `BT_ORDERFACT_ORDERFACT`, `BC_ORDERFACT_TIME_ID` |
+| **Relationship** | 1:N |
+| **Join type** | Inner |
 
-> **Note:** In the Relationship Properties dialog, in From Table / Field, choose BT_DIM_TIME_DIM_TIME as the source table and BC_DIM_TIME_TIME_ID as the source field.
+When the two columns share a name, **Guess Matching Fields** fills in both fields for you.
 
-4. Select the To Table / Field list the business table that you would like the relationship to go to:
+<div align="center">
+<figure>
+<img src="../_assets/images/dm_ordersme_relationship_properties.png" alt="Relationship Properties from BT_DIM_TIME_DIM_TIME and BC_DIM_TIME_TIME_ID to BT_ORDERFACT_ORDERFACT and BC_ORDERFACT_TIME_ID, Relationship 1:N, Join type Inner" width="717">
+<figcaption>DIM TIME to ORDERFACT, one to many</figcaption>
+</figure>
+</div>
 
-> **Note:** In To Table / Field, choose BT_ORDERFACT_ORDERFACT as the destination table and BC_ORDERFACT_TIME_ID as the destination field.
+3. Select **OK**.
 
-<figure><img src="../_assets/images/dm_ordersme_relationship_properties.png" alt=""><figcaption><p>Relationship Properties</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/dm_ordersme_dim_time_relationship.png" alt="The graphical view with a line from DIM TIME to ORDERFACT, the many end at ORDERFACT" width="521">
+<figcaption>The first relationship</figcaption>
+</figure>
+</div>
 
-> **Note:** You must also specify the business columns (from the adjacent lists) from each business table that identify this relationship. An alternative, if the business column names are similar, is to click the **Guess Matching Fields** button, and let the dialog attempt to determine the columns for you.
+> **Success:** Checkpoint: a line joins **DIM TIME** to **ORDERFACT** on the **Graphical View**, with the many end at **ORDERFACT**, and **Relationships** lists the new relationship.
 
-5. Next step, define the relationship from the Relationship drop down list. For Relationship, choose **1:N** (1 to many).
-6. If the relationship requires a complex join, tick **Complex Join?** and enter a Metadata Formula in the **Complex Join Metadata Formula** box (see *Complex Joins* below). None of this model's joins needs one.
-7. Click **OK**.
+4. On the **Graphical View**, select **ORDERFACT** and **PRODUCTS**: drag a rectangle around both, or hold `Ctrl+Shift` and select each.
+5. Right-click one of the selected tables and select **Add Relationship**.
 
-> **Note:** You should see a new relationship line drawn between the two tables on the Editor Graph, and the relationship represented in the tree.
+<div align="center">
+<figure>
+<img src="../_assets/images/dm_ordersme_add_relationship.png" alt="ORDERFACT and PRODUCTS selected on the graphical view, with a context menu offering Add Relationship and Align / Distribute" width="569">
+<figcaption>Add Relationship, on two selected tables</figcaption>
+</figure>
+</div>
 
-<figure><img src="../_assets/images/dm_ordersme_dim_time_relationship.png" alt=""><figcaption><p>DIM_TIME Relationship</p></figcaption></figure>
+6. In **Relationship Properties**, set:
 
-> **Note:**
->
-> #### Editor Graph
->
-> In the Editor Graph, creating a new relationship is simplified a bit, because you select the two business tables on the canvas, and the Relationship Properties dialog is pre-populated with your selections.
+| Setting | Value |
+| --- | --- |
+| **From Table / Field** | `BT_ORDERFACT_ORDERFACT`, `BC_ORDERFACT_PRODUCTCODE` |
+| **To Table / Field** | `BT_PRODUCTS_PRODUCTS`, `BC_PRODUCTS_PRODUCTCODE` |
+| **Relationship** | N:1 |
+| **Join type** | Inner |
 
-1. Select the two business tables you want to include in the new relationship, either by click and dragging a marquee around the tables, or by holding the SHIFT+CTRL keys, then clicking on the tables.
-2. Once your business tables are selected in the Graph, right-click (or CTRL-click) on the selection.
-3. Click: **Add Relationship**.
+<div align="center">
+<figure>
+<img src="../_assets/images/dm_ordersme_relation_properties.png" alt="Relationship Properties from BT_ORDERFACT_ORDERFACT and BC_ORDERFACT_PRODUCTCODE to BT_PRODUCTS_PRODUCTS and BC_PRODUCTS_PRODUCTCODE, Relationship N:1, Join type Inner" width="752">
+<figcaption>ORDERFACT to PRODUCTS, many to one</figcaption>
+</figure>
+</div>
 
-<figure><img src="../_assets/images/dm_ordersme_add_relationship.png" alt=""><figcaption><p>Add Relationship</p></figcaption></figure>
+7. Select **OK**. N:1 from **ORDERFACT** is the same join as 1:N from **PRODUCTS**; the solution stores it the second way.
 
-4. In the Relationship Properties dialog, in From Table / Field, choose BT_ORDERFACT_ORDERFACT as the source table and BC_ORDERFACT_PRODUCTCODE as the source field.
-5. In To Table / Field, choose BT_PRODUCTS_PRODUCTS as the destination table and BC_PRODUCTS_PRODUCTCODE as the destination field.
+<div align="center">
+<figure>
+<img src="../_assets/images/dm_ordersme_relationship_orderfact_n_product_1.png" alt="The graphical view with PRODUCTS joined to ORDERFACT and DIM TIME joined to ORDERFACT; ORDERS is not joined yet" width="569">
+<figcaption>Two relationships</figcaption>
+</figure>
+</div>
 
-<figure><img src="../_assets/images/dm_ordersme_relation_properties.png" alt=""><figcaption><p>Relation Properties</p></figcaption></figure>
+8. Create the third relationship the same way, between **ORDERS** and **ORDERFACT**:
 
-6. For Relationship, choose **N:1** (many to 1) and then click **OK**.
+| Setting | Value |
+| --- | --- |
+| **From Table / Field** | `BT_ORDERS_ORDERS`, `BC_ORDERS_ORDERNUMBER` |
+| **To Table / Field** | `BT_ORDERFACT_ORDERFACT`, `BC_ORDERFACT_ORDERNUMBER` |
+| **Relationship** | 1:N |
+| **Join type** | Inner |
 
-<figure><img src="../_assets/images/dm_ordersme_relationship_orderfact_n_product_1.png" alt=""><figcaption><p>Relationship - OrderFact (N) Product (1)</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/dm_ordersme.png" alt="The graphical view with ORDERFACT in the middle, joined to DIM TIME above it, PRODUCTS on its left and ORDERS on its right" width="569">
+<figcaption>The star: every dimension one relationship from the fact table</figcaption>
+</figure>
+</div>
 
-7. Repeat the workflow for Orders.
+> **Success:** Checkpoint: **Relationships** lists three relationships, and every one joins **ORDERFACT** to a dimension: **DIM TIME** on the time ID, **PRODUCTS** on the product code and **ORDERS** on the order number.
 
-<figure><img src="../_assets/images/dm_ordersme.png" alt=""><figcaption></figcaption></figure>
-
-> **Note:** Quick recap: The OrdersME model is a Star schema. ORDERFACT is the FACT Table with a N:1 relationship with the Dimension tables: TIME, PRODUCTS & ORDERS.
+9. Save the domain (`Ctrl+S`).
 
 > **Under the hood:**
 >
@@ -392,187 +390,194 @@ Follow the guide to create the required Relationships:
 > The fact table in the middle is what makes this simple: every
 > dimension is one relationship away from it, so any combination of
 > dimensions has a direct path.
+>
+> **Why it matters:** report users pick columns, never joins. The joins
+> they get are the ones you declared here, so a missing or wrong
+> relationship is a modeling fix, made once.
 
+#### Complex joins
 
-> **Note:**
->
-> #### Complex Joins
->
-> Complex joins appear in the `WHERE` clause of the SQL statement, so currently any joining that takes place in the `FROM` clause of the SQL statement is not supported.
->
-> An example of a complex join might be `AND([BT_TABLE_A.BC_COL_A]=[BT_TABLE_B.BC_COL_A]; [BT_TABLE_A.BC_COL_B]=[BT_TABLE_B.BC_COL_B])`.
->
-> This represents a join of two tables based on two key columns versus a single join column. The expression is a **Metadata Formula**: it names each column by its business table ID and business column ID inside one pair of brackets, and `AND(...; ...)` joins the conditions. In this model, ORDERS and ORDERFACT share both ORDERNUMBER and CUSTOMERNUMBER, so a two-column join between them would read:
->
-> `AND([BT_ORDERS_ORDERS.BC_ORDERS_ORDERNUMBER]=[BT_ORDERFACT_ORDERFACT.BC_ORDERFACT_ORDERNUMBER]; [BT_ORDERS_ORDERS.BC_ORDERS_CUSTOMERNUMBER]=[BT_ORDERFACT_ORDERFACT.BC_ORDERFACT_CUSTOMERNUMBER])`
->
-> Do not write SQL with physical table names (`ORDERS.ORDERNUMBER=ORDERFACT.ORDERNUMBER`). The Metadata Editor pastes a SQL expression into the query unchanged, the generated SQL calls each table by its business table ID, and the database answers *object not found*.
+None of this model's joins needs one, but a relationship can join on more than one column. Select **Complex Join?** in **Relationship Properties** and enter a Metadata Formula in **Complex Join Metadata Formula**. Complex joins appear in the `WHERE` clause of the SQL statement, so a join that needs the `FROM` clause is not supported.
 
-> **Note:**
->
-> #### Relationship Reference
->
-> The following table describes the possible table relationships:
+A Metadata Formula names each column by its business table ID and business column ID inside one pair of brackets, and `AND(...; ...)` joins the conditions. ORDERS and ORDERFACT share both ORDERNUMBER and CUSTOMERNUMBER, so a two-column join between them would read:
+
+```text
+AND([BT_ORDERS_ORDERS.BC_ORDERS_ORDERNUMBER]=[BT_ORDERFACT_ORDERFACT.BC_ORDERFACT_ORDERNUMBER]; [BT_ORDERS_ORDERS.BC_ORDERS_CUSTOMERNUMBER]=[BT_ORDERFACT_ORDERFACT.BC_ORDERFACT_CUSTOMERNUMBER])
+```
+
+Don't write SQL with physical table names (`ORDERS.ORDERNUMBER=ORDERFACT.ORDERNUMBER`). The Metadata Editor pastes a SQL expression into the query unchanged, the generated SQL calls each table by its business table ID, and the database answers *object not found*.
+
+#### Relationship reference
 
 | Relationship | Description |
 | --- | --- |
-| 1:N | A one-to-many mandatory relationship is the most common relationship in databases. The primary key table contains only one record that relates to none, one, or many records in the related table. This relationship is similar to the one between you and one of your parents. You have one mother, but your mother may have several children. |
-| N:1 | A many-to-one is opposite of one to many (1:N) relationship. |
-| 1:1 | In a one-to-one relationship, both tables are limited to one record only on either side of the relationship. Each primary key value relates to a single record, or no record, in the associated table. They are like spouses — you may be married, or not; however, if you are married, both you and your spouse can have only one partner. Most one-to-one relationships are forced by business rules. If you do not have a business rule, you can, in most cases, combine both tables into one table without breaking normalization rules. |
-| 0:N | A zero to many optional relationship indicates that a person may have no phone, one phone, or many phones, and that the phone may not be "owned," but can only be owned by a maximum of one person. |
-| N:0 | Opposite of a zero to many relationship |
-| 0:1 | A zero to one relationship might indicate that a person may be a programmer, but a programmer must be a person. It is assumed that the mandatory side of the relationship is the dominant. |
-| 1:0 | Opposite of a zero to one relationship |
-| N:N | In a many to many relationship each record in both tables can relate to an unlimited number of records (or no records) in the other table. For example, if you have many siblings, your siblings also have many siblings. Many-to-many relationships must have a third table, referred to as an associate or linking table, because relational systems cannot accommodate the relationship directly. |
-| 0:0 | A zero to zero optional relationship indicates that a person may occupy one parking space, but that a person is not necessary to have a space and a space does not need to have a person. |
+| 1:N | One to many, the most common relationship: one row in the first table relates to none, one or many rows in the second. One customer, many orders. |
+| N:1 | Many to one: 1:N seen from the other table. |
+| 1:1 | One to one: each row on either side relates to one row, or none, on the other. Most come from business rules; without one, the two tables can usually be combined into one. |
+| 0:N | Zero to many, optional: a person may have no phone, one or many, and a phone belongs to at most one person. |
+| N:0 | Zero to many, seen from the other table. |
+| 0:1 | Zero to one: a person may be a programmer, but a programmer must be a person. The mandatory side is the dominant one. |
+| 1:0 | Zero to one, seen from the other table. |
+| N:N | Many to many: each row on either side relates to any number of rows on the other. A relational database needs a third, linking table to hold it. |
+| 0:0 | Zero to zero, optional on both sides: a person may have a parking space, and a space may have no person. |
 
-#### 4. Views
-
-> **Note:**
->
-> #### Building Business Views
->
-> The Business View is a collection of business categories that represents the "view" of your model, typically consumed by your end users. Each model can have one and only one business view. Business Views are made up of a logically (logically relevant to your organization or end-users) organized business categories and business columns.
-
-<div class="pcm-embed-card" data-href="https://www.loom.com/share/1a17c64882d04dd8a3aae0a4e5d9a4b4?hideEmbedTopBar=true&amp;hide_share=true&amp;hide_title=true&amp;sid=826e3356-bc75-40c3-9feb-6e8396645a0f?hide_owner=true" data-title="Building a Business View with Abstract Layers 📊" data-description="In this video, I demonstrate how to build a business view by adding columns from the abstract business layer into the Orders category. I start by selecting columns from the order fact table, including quantity ordered, price sold, total price, order date, and total, and then move them to the right. I also add product-related columns from the products table and a comments column from the orders table. While I focus on a single category for this example, I mention that additional categories can be created if needed. Please take note of the steps I outlined, as I will be applying metadata concepts to format these columns in the next demonstrations." data-thumb="../_assets/embeds/125979ecbc12.png"></div>
-***
-
-Follow the guide to create the required Business Views:
+### 5. Business View
 
 > **Note:**
 >
 > #### Categories
 >
-> A business category is just a named bucket for you to group and re-group your business columns in. They can mimic your business table names or be based on business terminology. Categories carry only a name, a description and Metadata Security (workshop 11 sets it), have no tie back to any business table (although our Editor will give you the impression this relationship exists - don't be fooled), and have the simple purpose of allowing you to bucket the business columns in your model as intuitively as possibly for your data consumers.
->
-> Today, categories are a single level entity. We hope in the future to support nested categories.
->
-> Building a business view consists of creating your categories, then moving your business columns from the business tables into the categories. You can move columns from different business tables into the same category, and even duplicate the same business column into two different categories.
->
-> The Editor Graph only represents the business tables portion of the business model, so we use the Tree Navigator and the Manage Categories dialog to create a business view.
+> The business view is the part of the model report users see: one business view per model, made of categories that hold business columns. A category carries only a name, a description and **Metadata Security**, and has no tie to a business table: one category can hold columns from several tables, and one column can sit in several categories. Categories are one level deep. The **Graphical View** shows only business tables, so you build the view in the tree and in the **Manage Categories** dialog.
 
-1. Right-click (or ALT-click) on the **Business View** branch in the Navigator Tree.
-2. Select the **New Category...** option from the popup menu.
+<div class="pcm-embed-card" data-href="https://www.loom.com/share/1a17c64882d04dd8a3aae0a4e5d9a4b4?hideEmbedTopBar=true&amp;hide_share=true&amp;hide_title=true&amp;sid=826e3356-bc75-40c3-9feb-6e8396645a0f?hide_owner=true" data-title="Building a Business View with Abstract Layers 📊" data-description="In this video, I demonstrate how to build a business view by adding columns from the abstract business layer into the Orders category. I start by selecting columns from the order fact table, including quantity ordered, price sold, total price, order date, and total, and then move them to the right. I also add product-related columns from the products table and a comments column from the orders table. While I focus on a single category for this example, I mention that additional categories can be created if needed. Please take note of the steps I outlined, as I will be applying metadata concepts to format these columns in the next demonstrations." data-thumb="../_assets/embeds/125979ecbc12.png"></div>
 
-<figure><img src="../_assets/images/dm_ordersme_new_category.png" alt=""><figcaption><p>New Category</p></figcaption></figure>
+1. Under **OrdersME**, right-click **Business View** and select **New Category**.
 
-3. In the Business Category Properties dialog, in the ID field, type: **CT_ORDERS**.
-4. In the General section, for Name, type: **Orders** in the String column, and then click **OK**.
+<div align="center">
+<figure>
+<img src="../_assets/images/dm_ordersme_new_category.png" alt="The Business View node's context menu with New Category, Manage Categories, Set Parent Concept and Clear Parent Concept" width="800">
+<figcaption>New Category, on the Business View node</figcaption>
+</figure>
+</div>
 
-<figure><img src="../_assets/images/dm_ordersme_ct_orders_properties.png" alt=""><figcaption><p>CT_ORDERS Properties</p></figcaption></figure>
+2. In the **Business Category Properties** dialog, set **ID** to `CT_ORDERS`.
+3. Click in the **String** cell of the `en_US` row under **Name** and enter `Orders`. Under **Description**, enter `steel wheels orders` the same way.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/dm_ordersme_ct_orders_properties.png" alt="Business Category Properties with ID CT_ORDERS, the Name Orders, an empty Description and an empty Metadata Security list" width="800">
+<figcaption>The Orders category</figcaption>
+</figure>
+</div>
+
+4. Select **OK**.
+5. Right-click **Business View** and select **Manage Categories**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/dm_ordersme_manage_categories.png" alt="Manage Categories with the ORDERS business table expanded under Available Business Tables and the empty Orders category under Business View Categories" width="662">
+<figcaption>Manage Categories, before you add columns</figcaption>
+</figure>
+</div>
+
+6. Under **Available Business Tables**, expand **ORDERS**. Hold `Ctrl` and select **ORDERNUMBER**, **ORDERDATE**, **REQUIREDDATE**, **STATUS** and **COMMENTS**.
+7. Under **Business View Categories**, select **Orders**, then select **Add** (the single arrow between the panes). A column and a category must both be selected before **Add** does anything.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/dm_ordersme_add_columns.png" alt="Manage Categories with five ORDERS columns selected and the Add arrow's tooltip showing; the Orders category now holds ORDERNUMBER, ORDERDATE, REQUIREDDATE, STATUS and COMMENTS" width="663">
+<figcaption>Five columns added to Orders</figcaption>
+</figure>
+</div>
+
+8. Select **Add New Category** (the green plus icon above **Business View Categories**). Create the category `CT_PRODUCTS` with the name `Products` and the description `steel wheels products`, and select **OK**.
+9. Create `CT_MEASURES` the same way, with the name `Measures` and the description `steel wheels metrics`.
+10. Add the rest of the columns, so the three categories match this table:
+
+| Category | From business table | Columns |
+| --- | --- | --- |
+| Orders | ORDERS | ORDERNUMBER, ORDERDATE, REQUIREDDATE, STATUS, COMMENTS |
+| Products | PRODUCTS | PRODUCTNAME, PRODUCTLINE, PRODUCTVENDOR, PRODUCTDESCRIPTION |
+| Measures | PRODUCTS | QUANTITYINSTOCK |
+| Measures | ORDERFACT | QUANTITYORDERED, PRICEEACH, TOTALPRICE |
+
+<div align="center">
+<figure>
+<img src="../_assets/images/dm_ordersme_populate_categories.png" alt="Manage Categories with three populated categories: Orders with five columns, Products with PRODUCTNAME, PRODUCTLINE, PRODUCTVENDOR and PRODUCTDESCRIPTION, and Measures with QUANTITYINSTOCK, QUANTITYORDERED, PRICEEACH and TOTALPRICE" width="662">
+<figcaption>The finished business view</figcaption>
+</figure>
+</div>
+
+> **Success:** Checkpoint: **Orders** holds 5 columns, **Products** 4 and **Measures** 4. **Measures** mixes two business tables: **QUANTITYINSTOCK** from **PRODUCTS** and the other three from **ORDERFACT**.
+
+11. Select **Close**, then save the domain (`Ctrl+S`).
+
+You can also add a column without the dialog: expand a business table in the tree and drag one of its columns onto a category.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/dm_ordersme_orders_table_and_columns.png" alt="The tree with the ORDERS business table expanded to its seven columns, each with the parent concept Base, above the Business View node and its Orders category" width="800">
+<figcaption>A business table's columns, ready to drag onto a category</figcaption>
+</figure>
+</div>
+
+### 6. Publish
 
 > **Note:**
 >
-> #### Manage Categories
+> #### Publish the Domain
 >
-> Arranging Business Columns in Categories. Now that you have a category, let's add some business columns to that category.
-
-1. In the Navigator Tree, make sure that the business tables branch, and the business view branch of your model are both expanded.
-2. Under Business Tables, expand the table whose columns you want to move.
-
-<figure><img src="../_assets/images/dm_ordersme_orders_table_and_columns.png" alt=""><figcaption><p>ORDERS Table & Columns</p></figcaption></figure>
-
-3. Click on a column under the Business Table and drag it to the category branch where you want it to reside.
-
-***
-
-1. Either double-click on the **Business View** branch in the Navigator Tree or choose the **Manage Categories** option from either the main menu or the main toolbar.
-2. The Manage Categories dialog displays.
-
-<figure><img src="../_assets/images/dm_ordersme_manage_categories.png" alt=""><figcaption><p>Manage Categories</p></figcaption></figure>
-
-3. In the Manage Categories dialog, in the Available Business Tables pane, expand **ORDERS**.
-4. In the Available Business Tables pane, select the **ORDERNUMBER** column, then in the Business View Categories pane, click **Orders**, and then click the **Add** button.
-
-<figure><img src="../_assets/images/dm_ordersme_add_columns.png" alt=""><figcaption><p>Add Columns</p></figcaption></figure>
-
-> **Note:** An item in the Available Business Tables and Business View Categories panes must be selected before clicking Add.
-
-5. Repeat the previous step to add the following columns from the ORDERS table to the Orders category:
-
-> **Note:**
-> ORDERDATE
-> REQUIREDDATE
-> STATUS
-> COMMENTS
-
-6. Create the other two categories: click the green **+** (*Add New Category...*) above the Business View Categories pane, and in the Business Category Properties dialog enter ID **CT_PRODUCTS**, Name **Products**. Do the same for ID **CT_MEASURES**, Name **Measures**.
-7. Repeat the previous steps to add the following columns from the PRODUCTS table to the Products category:
-
-> **Note:**
-> PRODUCTNAME
-> PRODUCTLINE
-> PRODUCTVENDOR
-> PRODUCTDESCRIPTION
-
-8. Repeat the previous steps to add the following columns from the ORDERFACT table to the Measures category, then click **Close**:
-
-> **Note:**
-> QUANTITYINSTOCK – located in PRODUCTS
-> QUANTITYORDERED
-> TOTALPRICE
-> PRICEEACH
-
-<figure><img src="../_assets/images/dm_ordersme_populate_categories.png" alt=""><figcaption><p>Populate Categories</p></figcaption></figure>
-
-### 4. Publish Model
-
-> **Note:**
->
-> #### Publish Model
->
-> The final step is to publish the metadata domain to the BI server for use as a data source in the reporting tools.
+> Publishing uploads the domain to the Pentaho Server, where the reporting tools offer its business model as a data source. The server must be running.
 
 <div class="pcm-embed-card" data-href="https://www.loom.com/share/e727cdebd0d745bbae38cdcde0327e30?hideEmbedTopBar=true&amp;hide_share=true&amp;hide_title=true&amp;sid=57f9ea8d-bec6-49a3-a3f5-13f3b90ff54e?hide_owner=true" data-title="Publishing a Domain File to the Pentaho Server" data-description="In this video, I walk you through the process of publishing a meta-data domain file to the Pentaho server, which is essential for using it as a data source in various tools like Interactive Reports and Report Designer. After creating the domain file, I demonstrate how to save it within the Metadata Editor and publish it by navigating to the File menu and selecting &amp;#34;Publish to Server.&amp;#34; I also highlight the importance of using the correct web publish URL and server credentials, which in this example are admin and password. While I chose not to rename the domain file during publication, I advise you to ensure that the stored domain name matches the published name if you decide to change it. Please follow these steps to successfully make your domain file available for use in Pentaho tools." data-thumb="../_assets/embeds/125979ecbc12.png"></div>
-***
 
-> **Danger:** Before you publish, ensure the Pentaho Server is up and running ..!
+1. Save the domain (`Ctrl+S`).
+2. Select **File > Publish To Server**.
+3. In the **Publish To Server** dialog, set:
 
-1. Save the metadata domain by choose **File > Save** from the menu options or by clicking the Save icon.
-2. In the Save Domain dialog, type **OrdersME** and click **OK**.
-3. From the menu, choose **File > Publish To Server**.
-
-<figure><img src="../_assets/images/dm_ordersme_publish_to_pentaho_server.png" alt=""><figcaption><p>Publish to Pentaho Server</p></figcaption></figure>
-
-4. In the Publish To Server dialog, type or choose the following, and then click **OK**.
-
-| Field | Value |
+| Setting | Value |
 | --- | --- |
-| Web Publish URL | http://localhost:8080/pentaho/plugin/data-access/api/metadata/import |
-| Server UserID | admin |
-| Server Password | password |
-| Domain Name | OrdersME |
+| **Web Publish URL** | `http://localhost:8080/pentaho/plugin/data-access/api/metadata/import` |
+| **Server Userid** | `admin` |
+| **Server Password** | `password` |
+| **Domain Name** | `OrdersME` |
 
-<figure><img src="../_assets/images/dm_ordersme_publish_ordersme.png" alt=""><figcaption><p>Publish - OrdersME</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/dm_ordersme_publish_to_pentaho_server.png" alt="The File menu with Publish To Server selected, and the Publish To Server dialog with the Web Publish URL, Server Userid admin, a masked Server Password and the Domain Name OrdersME" width="800">
+<figcaption>Publish To Server</figcaption>
+</figure>
+</div>
 
-> **Warning:** You may have to wait a short while as the API request is satisfied ..
+4. Select **OK**. The server can take a few seconds to answer.
 
-### 5. Test
+<div align="center">
+<figure>
+<img src="../_assets/images/dm_ordersme_publish_ordersme.png" alt="The Action Successful message over the Publish To Server dialog: File - OrdersME: Successfully saved to the server" width="800">
+<figcaption>The domain is on the server</figcaption>
+</figure>
+</div>
+
+> **Success:** Checkpoint: an **Action Successful** message reads `File - OrdersME: Successfully saved to the server`.
+
+5. Select **OK**.
+
+### 7. Test
 
 > **Note:**
 >
-> #### Test - Interactive Report
+> #### Test with an Interactive Report
 >
-> Finally, we will use the published metadata domain as a data source to create a report using Interactive Reporting.
+> Report on the published domain in Interactive Reports, as a report user would.
 
 <div class="pcm-embed-card" data-href="https://www.loom.com/share/47071741b2d649d08081fd3c07016049?hideEmbedTopBar=true&amp;hide_share=true&amp;hide_title=true&amp;sid=4a71737b-378d-486c-ad2f-7b252600ceee?hide_owner=true" data-title="Testing Business Models with Interactive Reports 📊" data-description="In this video, I walk you through the process of testing our newly published metadata domain within the Orders ME data model. I demonstrate how to create an interactive report, ensuring that all calculated columns, formatting, and aggregations are functioning correctly. I specifically verify the total column's calculations using quantity ordered and price sold, and I check the relationships between the order fact table, products table, and orders table. Please make sure to replicate these steps and confirm that everything is working as expected in your reports. Thank you!" data-thumb="../_assets/embeds/125979ecbc12.png"></div>
-***
+
+1. Open the Pentaho User Console with the button below and log in as `admin` (password `password`).
 
 <button data-launch="puc">Open Pentaho User Console</button>
 
-1. Log into the Pentaho User Console.
-2. From the Home Perspective, click **Create New > Interactive Report**.
-3. In the Select Data Source dialog, choose **OrdersME** and click **OK**.
+2. On the **Home** perspective, select **Create New > Interactive Report**.
+3. In the **Select Data Source** dialog, select **OrdersME** and select **OK**.
 
-<figure><img src="../_assets/images/dm_ordersme_data_source_ordersme.png" alt=""><figcaption><p>Data Source - OrdersME</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/dm_ordersme_data_source_ordersme.png" alt="The Select Data Source dialog listing the server's data sources, with OrdersME selected between Orders and PDI_Operations_Mart" width="734">
+<figcaption>Your business model, listed as a data source</figcaption>
+</figure>
+</div>
 
-4. Create the following report: drag **PRODUCTLINE** to Groups, and **PRODUCTNAME**, **ORDERNUMBER** and **TOTALPRICE** to Columns.
+4. On the **Data** tab, drag **PRODUCTLINE** (under **Products**) to **Groups**, then drag **PRODUCTNAME** (**Products**), **ORDERNUMBER** (**Orders**) and **TOTALPRICE** (**Measures**) to **Columns**.
 
-<figure><img src="../_assets/images/dm_ordersme_test_interactive_report.png" alt=""><figcaption><p>Test Interactive Report</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/dm_ordersme_test_interactive_report.png" alt="An Interactive Report on OrdersME: the Data tab lists the Orders, Products and Measures categories, PRODUCTLINE is in Groups, PRODUCTNAME, ORDERNUMBER and TOTALPRICE are in Columns, and the report starts with the Classic Cars group under a row-limit message" width="800">
+<figcaption>The test report, grouped by product line</figcaption>
+</figure>
+</div>
 
-5. From the menu, choose **File > Save**.
+> **Success:** Checkpoint: the **Data** tab lists your three categories, **Orders**, **Products** and **Measures**, with your columns. The report groups the rows by **PRODUCTLINE**, starting with **Classic Cars**, under the message *The row limit has been reached, however you can keep working with this subset of data.* **Row Limit** is **No more than** `500`.
 
-> **Success:** You have built the OrdersME metadata domain from scratch, published it to the Pentaho Server as an XMI file, and validated it by creating an Interactive Report against your semantic layer.
+5. Close the **Interactive Report** tab. You don't need to save the report.
 
 > **Under the hood:**
 >
@@ -590,12 +595,19 @@ Follow the guide to create the required Business Views:
 > harmless here, where order number and product make every row unique,
 > but worth remembering when a report leaves out the column that tells
 > rows apart.
-
+>
+> **Why it matters:** the row-limit message is a design-time limit, not
+> lost data, and DISTINCT is the engine's choice, not yours: knowing both
+> lets you tell a model fault from a report setting.
 
 ::::
 
 ## Lab Files
 
-Download the reference files for this lab:
+Click a file to download it.
 
-- [OrdersME Domain](../_assets/files/OrdersME.xmi)
+### Solution <!-- no-step -->
+
+The finished OrdersME domain. Its connection, `Sampledata`, is the HSQLDB connection of part 1 under another name. Load it with **File > Import from XMI File**.
+
+[OrdersME.xmi](../_assets/files/OrdersME.xmi)

@@ -20,4 +20,9 @@ In the Pentaho Metadata Editor, **properties** are the descriptive metadata atta
 >
 > A property consists of two parts: an identifier (a key) and a value. Together, these form a collection — essentially a map of attributes assigned to specific business objects like business columns or business tables.
 
-<figure><img src="../_assets/images/props_property_editor.png" alt=""><figcaption><p>Property Editor</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/props_property_editor.png" alt="Physical Table Properties for CUSTOMER W TER with CUSTOMERNAME selected: the Available pane groups the properties under General, Formatting, Model Descriptors, Calculation and Miscellaneous, and Settings shows the Name CUSTOMERNAME" width="800">
+<figcaption>Property Editor</figcaption>
+</figure>
+</div>

@@ -2,7 +2,7 @@
   "title": "Post Installation Tasks",
   "description": "",
   "order": 8,
-  "stepCount": 0,
+  "stepCount": 4,
   "estimatedMinutes": 10,
   "hasVideo": false
 }

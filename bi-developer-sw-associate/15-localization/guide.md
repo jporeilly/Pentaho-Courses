@@ -2,7 +2,7 @@
 
 <div class="pcm-intro">
 
-Global organisations need analytics that speak their users' language — presenting cubes, dimensions, and measures in familiar terms across linguistic and cultural boundaries. Mondrian supports this through **dynamic schema processing**: a single schema definition is **tokenized**, and tokens are replaced at runtime with translated text drawn from Java property files, based on each user's locale.
+Global organizations need analytics that speak their users' language — presenting cubes, dimensions, and measures in familiar terms across linguistic and cultural boundaries. Mondrian supports this through **dynamic schema processing**: a single schema definition is **tokenized**, and tokens are replaced at runtime with translated text drawn from Java property files, based on each user's locale.
 
 </div>
 

@@ -3,7 +3,7 @@
   "description": "",
   "order": 17,
   "kind": "workshop",
-  "stepCount": 4,
+  "stepCount": 6,
   "hasVideo": false,
-  "estimatedMinutes": 20
+  "estimatedMinutes": 45
 }

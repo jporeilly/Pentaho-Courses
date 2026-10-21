@@ -19,7 +19,7 @@ to look back.
 > - Model a second database, on MySQL, from an empty domain to a published data source.
 > - Join a fact table to a dimension on two columns with a complex join.
 > - Add calculated columns, including one that MySQL needs written its own way.
-> - Format with concepts, organise with categories, and secure the model, its columns and its rows.
+> - Format with concepts, organize with categories, and secure the model, its columns and its rows.
 > - Prove it: three users, three different answers from the same report.
 >
 > **Prerequisites:** Workshops 03 to 11; Pentaho Metadata Editor and Pentaho Server installed; the sampledata MySQL container (the MySQL lab kit in `C:\MySQL`).
@@ -43,7 +43,9 @@ to look back.
 > therefore names its store with **two** columns, `region_code` and
 > `store_no`. Keep that in mind at stage 4.
 
-## 1. Get ready
+:::: tabs
+
+### 1. Get ready
 
 1. Check that the `trailhead` database is there. In PowerShell:
 
@@ -88,7 +90,7 @@ Copy-Item $jar.FullName "C:\Pentaho\server\pentaho-server\tomcat\lib\"
 > opens its own connection for every report built on it. Each program
 > loads drivers from its own folder, and only when it starts.
 
-## 2. Domain, connection and tables *(OrdersME)*
+### 2. Domain, connection and tables (OrdersME)
 
 1. **File > New > Domain File**.
 2. Right-click **Connections** and create this connection:
@@ -104,9 +106,9 @@ Copy-Item $jar.FullName "C:\Pentaho\server\pentaho-server\tomcat\lib\"
 | User Name | pentaho_admin |
 | Password | password |
 
-3. Click **Test**, then **OK**. Import Tables opens: select the five
+3. Select **Test**, then **OK**. **Import Tables** opens: select the five
    `trailhead` tables (`calendar`, `customers`, `products`, `sales`,
-   `stores`) and click **OK**.
+   `stores`) and select **OK**.
 
 > **Under the hood:**
 >
@@ -124,18 +126,18 @@ Copy-Item $jar.FullName "C:\Pentaho\server\pentaho-server\tomcat\lib\"
 > has no case for and records as **String**: that is why the
 > OrderStarCustomer workshop had to set Order Date's data type by hand.
 
-## 3. Calculated columns *(OrderStarCustomer)*
+### 3. Calculated columns (OrderStarCustomer)
 
 Add three columns in the physical layer, before you build the business
 model, so they come along when you drag the tables in. For each one:
 right-click the physical table, **Edit**, **Add New Column**, type the
 ID, then set the properties.
 
-| Table | ID | Formula | Is the formula exact? | Default Aggregation | Data Type |
+| Table | ID | Formula | Is the Formula Exact? | Default Aggregation | Data Type |
 | --- | --- | --- | --- | --- | --- |
-| `PT_SALES` | `PC_NET_SALES` | `[quantity]*[unit_price]*(1-[discount_pct])` | ticked | Sum | Numeric |
-| `PT_SALES` | `PC_ORDERS` | `order_no` | **not** ticked | Distinct Count | Numeric |
-| `PT_CUSTOMERS` | `PC_CUSTOMER_NAME` | `CONCAT(last_name, ', ', first_name)` | ticked | None | String |
+| `PT_SALES` | `PC_NET_SALES` | `[quantity]*[unit_price]*(1-[discount_pct])` | Selected | Sum | Numeric |
+| `PT_SALES` | `PC_ORDERS` | `order_no` | **Cleared** | Distinct Count | Numeric |
+| `PT_CUSTOMERS` | `PC_CUSTOMER_NAME` | `CONCAT(last_name, ', ', first_name)` | Selected | None | String |
 
 The Metadata Editor names each one from its ID: **Net Sales**,
 **Orders**, **Customer Name**.
@@ -163,7 +165,7 @@ The Metadata Editor names each one from its ID: **Net Sales**,
 > the query shares: `last_name` and `first_name` are only in
 > `customers`, but `city` would be ambiguous.
 
-## 4. Business model and relationships *(OrdersME)*
+### 4. Business model and relationships (OrdersME)
 
 1. Right-click **Business Models**, **New Business Model**: Name
    **Trailhead Sales**, Connection **mysql:trailhead**.
@@ -179,7 +181,7 @@ The Metadata Editor names each one from its ID: **Net Sales**,
 | BT_SALES_SALES / BC_SALES_SALE_DATE | BT_CALENDAR_CALENDAR / BC_CALENDAR_DATE_KEY |
 | BT_SALES_SALES / BC_SALES_REGION_CODE | BT_STORES_STORES / BC_STORES_REGION_CODE |
 
-4. The Stores relationship needs both key columns. Tick
+4. The Stores relationship needs both key columns. Select
    **Complex Join?** and enter this in **Complex Join Metadata Formula**:
 
 ```
@@ -198,7 +200,7 @@ AND([BT_SALES_SALES.BC_SALES_REGION_CODE]=[BT_STORES_STORES.BC_STORES_REGION_COD
 > is valid, just wrong. With both columns each sale matches exactly one
 > store, and the regions add up to the company total.
 
-## 5. Names and aggregations *(OrderStarCustomer)*
+### 5. Names and aggregations (OrderStarCustomer)
 
 Override these names (Business Table Properties, **General > Name**):
 
@@ -228,7 +230,7 @@ Then set **Default Aggregation** on three Sales columns: Quantity
 **Sum**, Unit Price **Average**, Discount **Average**. (Net Sales and
 Orders already have theirs from the physical layer.)
 
-## 6. Concepts *(Concept Editor)*
+### 6. Concepts (Concept Editor)
 
 Create these concepts (**Tools > Concept Editor**), then set the parent
 concepts:
@@ -258,7 +260,7 @@ concepts:
 > TIMESTAMP had come in as a String. `0.0%` multiplies by 100, so a
 > stored 0.25 shows as 25.0%.
 
-## 7. Business view *(OrdersME, OrderStarCustomer)*
+### 7. Business view (OrdersME, OrderStarCustomer)
 
 Create five categories and add the columns, in this order:
 
@@ -270,7 +272,7 @@ Create five categories and add the columns, in this order:
 | CT_CUSTOMERS | Customers | Customer Name, Email, Phone, Customer City, Customer State, Loyalty Tier |
 | CT_CALENDAR | Calendar | Year, Quarter, Month Number, Month, Season, Weekend |
 
-## 8. Security *(Row-Level Security)*
+### 8. Security (Row-Level Security)
 
 1. Point the editor at the server's security service
    (**Tools > Security**, `http://localhost:8080/pentaho/api/userrolelist`,
@@ -309,7 +311,7 @@ Create five categories and add the columns, in this order:
 > that selects only Products and Sales columns: her Net Sales by
 > Category totals are West Coast totals too.
 
-## 9. Test, save and publish *(Query Builder, OrdersME)*
+### 9. Test, save and publish (Query Builder, OrdersME)
 
 1. Open the **Query Editor** and run **Region**, **Net Sales** and
    **Orders**. You should get four rows that match admin's figures in
@@ -321,7 +323,7 @@ Create five categories and add the columns, in this order:
 4. In the User Console, as admin: **Tools > Refresh > Reporting
    Metadata**.
 
-## 10. Prove it in Interactive Reports
+### 10. Prove it in Interactive Reports
 
 Create an Interactive Report on the **Trailhead Sales** data source with
 **Region**, **Net Sales** and **Orders**, then sign in as each user in
@@ -344,6 +346,8 @@ turn.
 
 For a second check, as admin: Net Sales by **Year** is $327,121.25 for
 2024 (1,137 orders) and $363,003.60 for 2025 (1,273 orders).
+
+::::
 
 ## Deliverables
 
