@@ -4,17 +4,17 @@
 >
 > #### Workshop - Prerequisite Tasks
 >
-> Set up the tools the machine learning workshops run on: a Google Colab account, Python with the H2O library, and R with rJava, wired into Pentaho Data Integration (PDI) so the **R script executor** step can start R. The commands are for Ubuntu or Debian Linux, which install software with `apt`.
+> Set up the tools the machine learning workshops run on: a Google Colab account, Python with the H2O library, and R with rJava, wired into Pentaho Data Integration so the **R script executor** step can start R. The commands are for Ubuntu or Debian Linux, which install software with `apt`.
 >
 > **What you'll do**
 >
 > * Sign in to Google Colab
 > * Install Python and the machine learning libraries in a virtual environment
 > * Install R and rJava
-> * Point PDI at R
+> * Point Pentaho Data Integration at R
 > * Prove the setup with a one-step R transformation
 >
-> **Prerequisites:** PDI 11 in `~/Pentaho/design-tools/data-integration`, a Google account, and `sudo` rights on the machine
+> **Prerequisites:** Pentaho Data Integration 11 in `~/Pentaho/design-tools/data-integration`, a Google account, and `sudo` rights on the machine
 >
 > **Estimated time:** 15 minutes
 
@@ -182,11 +182,11 @@ sudo apt install -f ./rstudio-*.deb
 
 </details>
 
-### 4. Configure PDI for R
+### 4. Configure Pentaho Data Integration for R
 
 > **Note:**
 >
-> #### Configure PDI for R
+> #### Configure Pentaho Data Integration for R
 >
 > Spoon needs to know where R is: two environment variables, `R_HOME` and `R_LIBS_USER`, and R's `bin` folder on `PATH`. It also needs JRI's native library in its own native library folder.
 
@@ -233,7 +233,7 @@ sudo apt install -f ./rstudio-*.deb
 >
 > A one-step transformation proves that Spoon can start R: its script loads R's built-in `iris` data set and returns it as rows.
 
-1. Start Spoon with the **Start PDI** button below, or from a terminal:
+1. Start Spoon with the **Start Pentaho Data Integration** button below, or from a terminal:
 
 ::: tabs
 
@@ -253,7 +253,7 @@ cd ~/Pentaho/design-tools/data-integration
 
 :::
 
-<button data-launch="spoon" data-path="">Start PDI</button>
+<button data-launch="spoon" data-path="">Start Pentaho Data Integration</button>
 
 2. Select **File > New > Transformation** (`Ctrl+N`).
 3. On the **Design** tab, open the **Statistics** folder and drag **R script executor** onto the canvas.
@@ -291,7 +291,7 @@ cd ~/Pentaho/design-tools/data-integration
 >
 > #### Spoon loaded JRI from its own library path and started R inside its process
 >
-> `spoon.sh` starts Java with `-Djava.library.path` set to PDI's
+> `spoon.sh` starts Java with `-Djava.library.path` set to Pentaho Data Integration's
 > `libswt/linux/x86_64` and `native-lib/linux/x86_64` folders (on 64-bit
 > Linux). The **R script executor** step talks to R through JRI: its Java
 > half ships with the step, in `plugins/pentaho-r-plugin/lib`, and its

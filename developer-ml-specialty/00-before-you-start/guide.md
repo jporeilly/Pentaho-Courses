@@ -65,7 +65,7 @@ This course also needs:
 - **Python 3.11+** plus the notebook dependencies listed in the labs.
 - Either a **Google Colab** account (simplest) or a local **Jupyter** notebook.
 - **H2O** for the AutoML labs.
-- **rJava configured against your PDI install** for the R-backed steps - this is the fiddliest part; follow the lab steps exactly.
+- **rJava configured against your Pentaho Data Integration install** for the R-backed steps - this is the fiddliest part; follow the lab steps exactly.
 
 :::
 

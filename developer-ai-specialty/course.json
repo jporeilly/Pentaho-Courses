@@ -13,7 +13,7 @@
   },
   "title": "Pentaho Developer - AI Specialty",
   "description": "AI-augmented data pipelines with Pentaho Data Integration. GenAI fundamentals, LLM integration patterns, structured extraction, and agent-as-a-service.",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "kind": "workshop",
   "level": { "number": 2, "name": "Specialty" },
   "mode": "sequential",
@@ -32,19 +32,19 @@
     "ladder": ["gemma4:12b", "qwen2.5:7b"],
     "subject": "AI-augmented PDI pipelines (prompts, local LLMs via Ollama, structured extraction with LangExtract, and agent services)",
     "suggestions": [
-      "How do I call a local LLM from a PDI transformation?",
+      "How do I call a local LLM from a Pentaho Data Integration transformation?",
       "What makes a good extraction prompt with few-shot examples?",
       "When should I use LangExtract instead of a plain LLM call?",
-      "How does the PDI-to-agent pattern split the work in the final module?"
+      "How does the Pentaho Data Integration-to-agent pattern split the work in the final module?"
     ]
   },
   "moduleSummaries": [
     {
       "title": "Getting Started",
-      "summary": "How to get the most out of this guide, and how to set your machine up — PDI, a local Ollama model, Python, and the two lab services you will start later in the course."
+      "summary": "How to get the most out of this guide, and how to set your machine up — Pentaho Data Integration, a local Ollama model, Python, and the two lab services you will start later in the course."
     },
     {
-      "title": "PDI AI Pipelines",
+      "title": "Pentaho Data Integration AI Pipelines",
       "summary": "Key concepts behind LLM-powered pipelines — prompts, tokenization, embedding, semantic search, and transformer architecture. Foundational reading before the hands-on workshops."
     },
     {
@@ -53,7 +53,7 @@
     },
     {
       "title": "LLM Integration",
-      "summary": "PDI as the orchestration layer with a locally-hosted LLM via Ollama. Sentiment analysis, data quality, enrichment, named entity recognition, summarisation, and multi-staged pipelines."
+      "summary": "Pentaho Data Integration as the orchestration layer with a locally-hosted LLM via Ollama. Sentiment analysis, data quality, enrichment, named entity recognition, summarisation, and multi-staged pipelines."
     },
     {
       "title": "LangExtract",
@@ -61,7 +61,7 @@
     },
     {
       "title": "Agent-as-a-Service",
-      "summary": "Move beyond direct LLM calls to genuine AI agents that reason over intermediate output. Deploy a Python agent that PDI orchestrates for cross-text pattern recognition no ETL step can replicate."
+      "summary": "Move beyond direct LLM calls to genuine AI agents that reason over intermediate output. Deploy a Python agent that Pentaho Data Integration orchestrates for cross-text pattern recognition no ETL step can replicate."
     }
   ],
   "launchers": {
@@ -72,5 +72,11 @@
       "macos": "~/Pentaho/design-tools/data-integration/spoon.sh",
       "fileArg": "-file="
     }
+  },
+  "install": {
+    "code": "AI",
+    "envCheck": true,
+    "workshop": true,
+    "ollama": "required"
   }
 }

@@ -2,9 +2,9 @@
 
 > **Note:**
 >
-> Charts summarise, sub-reports compose, and drill-downs connect them. This section introduces all three.
+> Charts summarize, sub-reports compose, and drill-downs connect them. This section introduces all three.
 
-A chart can be the most important graphical element in your report; it shows the report data visually so that readers can more easily see how the numbers compare. It's easy to add a simple chart in Report Designer, but it will take some time to tweak it to your exact specifications.
+A chart can be the most important graphical element in your report; it shows the report data visually so that readers can see at a glance how the numbers compare. Adding a basic chart in Report Designer takes a few steps; tuning it to your exact specifications takes longer.
 
 There are two types of charts in Report Designer: Traditional JFreeChart elements, and sparkline charts.
 

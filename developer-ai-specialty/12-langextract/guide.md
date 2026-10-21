@@ -1,52 +1,36 @@
-# LangExtract
+# Overview
 
-> **Success:** LangExtract lets PDI turn free-form text into structured rows.
-> 
-> Use it when regex rules are too brittle and full model training is too heavy.
-> 
-> Each extraction includes source offsets, so you can trace values back to the original text.
+> **Note:**
+>
+> #### LangExtract
+>
+> LangExtract turns free-form text into structured rows for Pentaho Data Integration. Use it when regular expressions are too brittle and training a model is too heavy. Each extraction comes back with its source offsets, so you can trace every value to the text it came from.
 
-![Pipeline architecture](../_assets/images/langextract-pipeline-architecture.png)
+<div align="center">
+<figure>
+<img src="../_assets/images/langextract-pipeline-architecture.png" alt="Architecture in three panels: Pentaho Data Integration steps (an input step, a JavaScript step that builds the JSON request, an HTTP call to localhost:8765/extract, JSON Input, transform steps and a Table Output to PostgreSQL); the LangExtract service (FastAPI /extract on uvicorn port 8765, lx.extract() with chunking, source grounding with character offsets, and the JSON response); and the backend (Ollama, prompt and few-shot examples, controlled generation, and a PostgreSQL staging schema)" width="800">
+<figcaption>Pentaho Data Integration calls the LangExtract service, which calls the local Ollama</figcaption>
+</figure>
+</div>
 
-**Before you start**
+**This page assumes:**
 
-Complete the **Start the LangExtract service** section further down this page.
+* the LangExtract service is running on `http://localhost:8765` (see **Start the LangExtract Service** below)
+* Ollama is running locally with the course model
+* the endpoint is `POST /extract`
 
-This page assumes:
+**Choose an integration pattern:** use one pattern per transformation.
 
-* the LangExtract API is running on `http://localhost:8765`
-* Ollama is available locally
-* the API endpoint is `POST /extract`
+| Pattern | When to use it | Flow |
+| --- | --- | --- |
+| REST service (recommended) | Reusable, production-ready pipelines | Pentaho Data Integration input, **REST client**, **JSON input**, transform, output |
+| Shell step | Quick local experiments, when you do not need a shared service | Pentaho Data Integration runs a script that calls LangExtract |
 
-**Choose an integration pattern**
+The bundled service uses your local Ollama as its backend, so data stays on the machine. This module uses the REST service pattern throughout.
 
-Use one pattern per transformation.
+**API contract**
 
-**Recommended: REST service**
-
-Best for reusable and production-ready pipelines.
-
-Flow:
-
-`PDI input → REST Client → JSON Input → transform → output`
-
-**Optional: Shell step**
-
-Best for quick local experiments.
-
-Use it only when you do not need a shared service.
-
-**Local Ollama backend**
-
-Use this when data must stay on-premises.
-
-This is already covered - the bundled service you start below uses your local Ollama.
-
-> **Note:** This page uses the REST service pattern throughout.
-
-**API contract**&#x20;
-
-**Request**
+The request (`model_id`, `max_char_buffer`, `overlap` and `extraction_passes` are optional):
 
 ```json
 {
@@ -63,14 +47,14 @@ This is already covered - the bundled service you start below uses your local Ol
       ]
     }
   ],
-  "model_id": "llama3.1:8b",
+  "model_id": "llama3.2:3b",
   "max_char_buffer": 1200,
   "overlap": 100,
   "extraction_passes": 2
 }
 ```
 
-**Response**
+The response:
 
 ```json
 {
@@ -85,64 +69,87 @@ This is already covered - the bundled service you start below uses your local Ol
 }
 ```
 
-> **Warning:** The endpoint is `POST /extract`.
-> 
-> Parse response fields as `class`, `text`, `start`, and `end`.
+> **Warning:** Post to `/extract`, and read the response fields as `class`, `text`, `start` and `end`, not as the request's `extraction_class` and `extraction_text`.
 
 ***
 
-## Start the LangExtract service
+## Start the LangExtract Service <!-- no-step -->
 
-The service ships with this lab: [app.py](./files/langextract-service/app.py) [requirements.txt](./files/langextract-service/requirements.txt)
+The service ships with this page:
 
-It wraps Google's `langextract` library behind the REST contract above, using your **local Ollama** as the backend - lab data never leaves the machine.
+[app.py](./files/langextract-service/app.py)
 
-**One-time setup** - copy it out of the guide's content folder (course updates re-sync that folder, so run from your own copy):
+[requirements.txt](./files/langextract-service/requirements.txt)
 
-**Windows (PowerShell)**
+It wraps Google's `langextract` library behind the contract above and uses your local Ollama as the backend, so lab data never leaves the machine. On a Windows machine set up by the course installer, it is already in `C:\Workshop-AI-Specialty\05-langextract\12-langextract\langextract-service`.
+
+1. Create the service's Python environment, once. In PowerShell, run:
+
+::: tabs
+
+### Windows (PowerShell)
 
 ```powershell
-Copy-Item "$env:APPDATA\com.pentaho.content-manager\content\12-langextract\files\langextract-service" "$env:USERPROFILE\langextract-service" -Recurse
-cd $env:USERPROFILE\langextract-service
+Set-Location C:\Workshop-AI-Specialty\05-langextract\12-langextract\langextract-service
 python -m venv .venv
 .\.venv\Scripts\pip install -r requirements.txt
 ```
 
-**macOS / Linux** (lab VMs have the service pre-installed)
+### macOS / Linux
+
+In the folder you downloaded `app.py` and `requirements.txt` to, run:
 
 ```bash
-cp -r ~/.local/share/com.pentaho.content-manager/content/12-langextract/files/langextract-service ~/langextract-service
-cd ~/langextract-service
-python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
+python3 -m venv .venv
+.venv/bin/pip install -r requirements.txt
 ```
 
-**Start it** (keep this terminal open while you work through the module):
+:::
 
-**Windows (PowerShell)**
+2. Start the service, and keep this terminal open while you work through the module. In PowerShell, run:
+
+::: tabs
+
+### Windows (PowerShell)
 
 ```powershell
-cd $env:USERPROFILE\langextract-service
+Set-Location C:\Workshop-AI-Specialty\05-langextract\12-langextract\langextract-service
 .\.venv\Scripts\python -m uvicorn app:app --host 0.0.0.0 --port 8765
 ```
 
-**macOS / Linux**
+### macOS / Linux
 
 ```bash
-cd ~/langextract-service
 .venv/bin/python -m uvicorn app:app --host 0.0.0.0 --port 8765
 ```
 
-**Verify** (the first start takes ~15 seconds while the libraries load - retry if it refuses straight away):
+:::
+
+3. Check that it answers. The first start can take a few seconds while the libraries load; if the connection is refused, wait and try again. In a second terminal, run:
+
+::: tabs
+
+### Windows (PowerShell)
+
+```powershell
+Invoke-RestMethod http://localhost:8765/health
+```
+
+### macOS / Linux
 
 ```bash
 curl http://localhost:8765/health
 ```
 
-> **Note:** Ollama must be running with the course model pulled (the environment panel on the first page checks both). The service reads `LX_MODEL_URL` and `LX_DEFAULT_MODEL` if you need to point it elsewhere.
+:::
+
+> **Success:** Checkpoint: the service answers with `status` `ok`, `model` `llama3.2:3b` and `model_url` `http://localhost:11434`.
+
+The service reads two environment variables when it starts: `LX_DEFAULT_MODEL` (the model when a request names none, `llama3.2:3b` by default) and `LX_MODEL_URL` (the Ollama address, `http://localhost:11434` by default). Ollama must be running with that model pulled; the environment panel on the Before You Start page checks both.
 
 ***
 
-## Workshops
+## Workshops <!-- no-step -->
 
 * **Support Tickets** — extract structured fields from free-form support tickets.
 * **Clinical Notes** — extract entities from unstructured clinical notes.
@@ -152,15 +159,37 @@ curl http://localhost:8765/health
 
 ## Troubleshooting <!-- no-step -->
 
-> **Warning:** Common issues:
->
-> * **Connection refused on `8765`**\
->   Start the LangExtract API and verify `curl http://localhost:8765/docs`.
-> * **Empty extractions**\
->   Tighten the prompt and improve few-shot examples.
-> * **Wrong JSON paths**\
->   Parse `class`, `text`, `start`, and `end`.
-> * **Weak long-document recall**\
->   Increase `extraction_passes` or add `overlap`.
-> * **Too many duplicates**\
->   Deduplicate before final load.
+<details>
+<summary>Connection refused on 8765</summary>
+
+The service is not running: start it as in **Start the LangExtract Service**, and check `http://localhost:8765/docs` in a browser.
+
+</details>
+
+<details>
+<summary>Empty extractions</summary>
+
+Tighten the prompt and improve the few-shot examples.
+
+</details>
+
+<details>
+<summary>Wrong JSON paths</summary>
+
+Parse `class`, `text`, `start` and `end`.
+
+</details>
+
+<details>
+<summary>Long documents miss values</summary>
+
+Increase `extraction_passes` or add `overlap`.
+
+</details>
+
+<details>
+<summary>Too many duplicates</summary>
+
+Deduplicate before the final load.
+
+</details>

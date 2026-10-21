@@ -6,7 +6,12 @@
 
 If you have little or no experience with Report Designer, then you will need to learn how to navigate the user interface before you can move on to more complex tasks. The content in this section provides a comprehensive yet brief introduction to all of Report Designer's user interface components.
 
-![1785158080470.png](../_assets/images/1785158080470.png)
+<div align="center">
+<figure>
+<img src="../_assets/images/1785158080470.png" alt="A finished Steel Wheels invoice report: logo and company address, a To block and an INVOICE banner, four product rows totaling $10,640.29, a Payment History table and a yellow remittance box" width="741">
+<figcaption>A finished Report Designer report: header, detail rows, a sub-table and a highlighted box</figcaption>
+</figure>
+</div>
 
 
 

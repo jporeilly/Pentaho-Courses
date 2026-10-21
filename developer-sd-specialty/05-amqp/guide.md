@@ -1,6 +1,11 @@
-# AMQP
+# Overview
 
-<figure><img src="../_assets/images/amqp-model.png" alt=""><figcaption><p>AMQP Model</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/amqp-model.png" alt="The AMQP model: a producing service sends a message with a routing key to an exchange inside a virtual host on the AMQP broker; bindings connect the exchange to three queues, and a consuming service reads from them" width="604">
+<figcaption>AMQP model: exchange, bindings, queues</figcaption>
+</figure>
+</div>
 
 > **Note:** **Advanced Message Queuing Protocol**
 >
@@ -27,7 +32,12 @@ Messages are not published directly to a queue; instead, the producer sends mess
 
 Exchanges, connections, and queues can be configured as *durable* (survive a restart), *temporary* (last until the broker is shut down), or *auto-delete* (removed once the last bound object is unbound). RabbitMQ provides four exchange types: **direct**, **fanout**, **topic** and **headers**. Its built-in **default exchange** - the one with no name, used when no exchange is named - is a **direct** exchange: every queue is bound to it automatically, with the queue's own name as the routing key. A **fanout** exchange, by contrast, broadcasts every message it receives to all bound queues, ignoring routing keys.
 
-<figure><img src="../_assets/images/amqp-exchanges.png" alt=""><figcaption><p>Exchanges</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/amqp-exchanges.png" alt="RabbitMQ exchange types: a direct exchange routes to Queue 1 by binding key, a topic exchange routes to Queue 2 and Q3 by routing patterns such as eu.de.* and us.#, and a fanout exchange copies to Q4, Q5 and Q6" width="720">
+<figcaption>Direct, topic and fanout exchanges</figcaption>
+</figure>
+</div>
 
 ### Queues
 
@@ -41,7 +51,12 @@ Queues have several important characteristics:
 
 Messages are typically consumed FIFO (first in, first out), though RabbitMQ supports other dispatching strategies.
 
-<figure><img src="../_assets/images/amqp-queues.png" alt=""><figcaption><p>Queues</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/amqp-queues.png" alt="A producer sends messages into a queue, and a consumer takes them out the other end" width="443">
+<figcaption>A queue between producer and consumer</figcaption>
+</figure>
+</div>
 
 :::
 

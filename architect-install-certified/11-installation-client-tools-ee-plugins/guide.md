@@ -4,7 +4,7 @@
 >
 > #### Workshop - Kettle Plugins
 >
-> Enterprise plugins add steps and job entries to Pentaho Data Integration (PDI). In 11.0 you install, update and remove them with the Plugin Manager, in the PDI client and in the Pentaho User Console.
+> Enterprise plugins add steps and job entries to Pentaho Data Integration. In 11.0 you install, update and remove them with the Plugin Manager, in the Pentaho Data Integration client and in the Pentaho User Console.
 >
 > **What you'll do**
 >
@@ -24,11 +24,11 @@
 
 > **Note:**
 >
-> #### PDI Plugin Manager
+> #### Pentaho Data Integration Plugin Manager
 >
-> Plugins extend PDI with new steps, job entries and other functionality. Manage them with the Plugin Manager, in both the PDI client and the Pentaho User Console (PUC): it installs new plugins, updates installed ones to their latest versions, and removes the ones you no longer use.
+> Plugins extend Pentaho Data Integration with new steps, job entries and other functionality. Manage them with the Plugin Manager, in both the Pentaho Data Integration client and the Pentaho User Console (PUC): it installs new plugins, updates installed ones to their latest versions, and removes the ones you no longer use.
 >
-> You can install a plugin by hand, but it isn't recommended: a plugin installed by hand doesn't show up in the Plugin Manager, so you handle its updates and removal yourself. A plugin installed in Spoon is for the PDI client; the server's own PDI engine, which runs Pipeline Designer and scheduled work, gets its Kettle plugins from the User Console's Plugin Manager, which lists the same plugins with the type `KETTLE`.
+> You can install a plugin by hand, but it isn't recommended: a plugin installed by hand doesn't show up in the Plugin Manager, so you handle its updates and removal yourself. A plugin installed in Spoon is for the Pentaho Data Integration client; the server's own Pentaho Data Integration engine, which runs Pipeline Designer and scheduled work, gets its Kettle plugins from the User Console's Plugin Manager, which lists the same plugins with the type `KETTLE`.
 
 :::: tabs
 
@@ -78,7 +78,7 @@ cd ~/Pentaho/design-tools/data-integration
 
 6. When Spoon asks **Do you want to install?**, confirm.
 
-> **Success:** Checkpoint: a **Successful installation** message says that the plugin *is now installed*, and asks you to *restart PDI to use the plugin*.
+> **Success:** Checkpoint: a **Successful installation** message says that the plugin *is now installed*, and asks you to *restart Pentaho Data Integration to use the plugin*.
 
 7. Restart Spoon: select **File > Exit**, then start Spoon again from the terminal.
 8. Select **Tools > Plugin Manager**, and find the plugin again.
@@ -95,7 +95,7 @@ cat ~/Pentaho/design-tools/data-integration/plugins/plugin-manifest.json
 >
 > #### The Plugin Manager keeps its own record of what it installed
 >
-> PDI's plugins live in `data-integration/plugins`. The Plugin Manager installs a plugin there, and records its name, plugin ID and version in `plugins/plugin-manifest.json`, whose `containerType` is `KETTLE`. The Plugin Manager is itself the first entry, `Plugin Manager - PDI`. A plugin copied into `plugins` by hand has no entry in that file, and it doesn't show up in the Plugin Manager.
+> Pentaho Data Integration's plugins live in `data-integration/plugins`. The Plugin Manager installs a plugin there, and records its name, plugin ID and version in `plugins/plugin-manifest.json`, whose `containerType` is `KETTLE`. The Plugin Manager is itself the first entry, `Plugin Manager - PDI`. A plugin copied into `plugins` by hand has no entry in that file, and it doesn't show up in the Plugin Manager.
 >
 > **Why it matters:** the manifest is your list of what to reinstall after an upgrade (see [Pentaho Upgrade & Patches](../09-installation-upgrade-and-patches/guide.md)), and the reason to install through the Plugin Manager: a plugin it doesn't know about is one you update and remove by hand.
 

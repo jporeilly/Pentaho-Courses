@@ -4,121 +4,177 @@
 >
 > #### Workshop - Hyperlinks
 >
-> Link report elements to other reports and URLs.
+> Make each product code in the report a link: selecting it opens a detail report on the Pentaho Server for that product, in a new window.
 >
 > **What you'll do**
 >
-> * Link report elements to other reports and URLs.
-> * Test the links in the published output.
+> * Preview and publish the detail report, `Inventory List - drill-to`
+> * Add a hyperlink to the `PRODUCTCODE` field
+> * Pass the row's product code to the detail report's parameter
+> * Test the links in HTML preview
 >
-> **Prerequisites:** Report Designer running, with the Pentaho sample data (HSQLDB) started
+> **Prerequisites:** [Publishing Reports](../26-mod9-publishing/guide.md), with a `Training` folder in `/public` on the server; `Demo - formatting.prpt` from [Formatting the Report](../15-mod6-formatting-report/guide.md)
 >
-> **Estimated Time:** 15 minutes
+> **Estimated time:** 15 minutes
 
----
+:::: tabs
+
+### 1. The detail report
 
 > **Note:**
 >
-> #### **Hyperlinks**
+> #### The drill target
 >
-> Link report elements to other reports and URLs.
+> `Inventory List - drill-to.prpt`, in **Lab Files** below, shows the product code, name, line, vendor and scale of the products you choose in its `ProdCodeParameter` prompt. Publish it, so the link has a target on the server.
 
-## Hyperlinks
+1. Start Report Designer with the **Start Pentaho Report Designer** button below, or from a terminal:
 
-By adding a parameter to the report you enable the person viewing the report to select which data displays in the report.
+::: tabs
 
-1. Open the \pentahotraining\BA2000\reports\Inventory Report.
-2. To open the report we are going to drill to:
-3. From the Menu bar select File > Open.
-4. Navigate to \pentahotraining\BA2000\reports.
-5. Click Inventory List – drill to.prpt.
-6. Click Open.
-This report displays Product Code, Product Name, Product Line, Product Vendor, and Scale. It includes a parameter (ProdCodeParameter) which requires the user to select the Product Code.
+### Windows (PowerShell)
 
-7. Preview the report.
-8. Select the productcode S10_1678, in the prompt.
+```powershell
+Set-Location C:\Pentaho\design-tools\report-designer
+.\report-designer.bat
+```
 
-![Hyperlinks](../_assets/images/mod9-09.png)
+### macOS / Linux
 
-The goal of this demonstration is to include a hyperlink in the Inventory Report that links to these details when the user clicks on the Product Code.
+```bash
+cd ~/Pentaho/design-tools/report-designer
+./report-designer.sh
+```
 
-9. To publish the Inventory List – drill to report to the Training folder:
-10. From the Menu bar, select File > Publish
-11. In the Login dialog, click OK.
-12. Complete the following fields, and then click OK.
-13. When the Launch the published report? dialog displays, click No.
+:::
 
-![Hyperlinks](../_assets/images/mod9-06.png)
+<button data-launch="prd" data-path="">Start Pentaho Report Designer</button>
 
-Now you can return to the original Inventory Report and create the hyperlink.
+2. Open `Inventory List - drill-to.prpt` with its **Open in Pentaho Report Designer** button in **Lab Files** below.
+3. Select **Preview**, and in the **Select the productcode** prompt select `S10_1678`.
 
-## Define Hyperlink
+<div align="center">
+<figure>
+<img src="../_assets/images/mod9-09.png" alt="The Inventory List - drill-to tab in preview, with the Select the productcode list open at S10_1678" width="309">
+<figcaption>The detail report's product code prompt</figcaption>
+</figure>
+</div>
 
-If Inventory Report includes any parameters you created earlier, delete the WHERE clause in the query.
+> **Success:** Checkpoint: the report shows one product, `S10_1678`, the `1969 Harley Davidson Ultimate Chopper`, a `Motorcycles` product by `Min Lin Diecast` at scale `1:10`.
 
-1. In the Data Pane, double-click on Query1 and remove the parameters from the WHERE clause.
+4. Select **Design**, then select **File > Publish** (`Ctrl+Shift+P`) and sign in.
+5. In the **Publish To Server** dialog, set **File Name** to `Inventory List - drill-to.prpt` and **Title** to `Inventory List - drill-to`, open `/public/Training` under **Location**, and select **OK**.
+6. In the **Launch the published report?** dialog, select **No**.
 
-![Define Hyperlink](../_assets/images/mod9-11.png)
+<div align="center">
+<figure>
+<img src="../_assets/images/mod9-06.png" alt="The Launch the published report? dialog with Yes and No" width="437">
+<figcaption>Published</figcaption>
+</figure>
+</div>
 
-2. Delete the prod_var parameter.
-3. Open the Inventory Report.
-4. To create the hyperlink for the Product Code, in the Details band, right-click PRODUCTCODE, and select Hyperlink.
+### 2. The hyperlink
 
-![Define Hyperlink](../_assets/images/mod9-12.png)
+> **Note:**
+>
+> #### Hyperlink on a field
+>
+> A hyperlink on the `PRODUCTCODE` field opens the detail report and passes it the code of the row the reader selects.
 
-5. To set the Inventory List – drill-to report in the Path field:
-6. Click the Browse button.
-7. In the Server login dialog, click OK.
-8. Navigate to /steel-wheels/Training.
-9. Click Inventory List – Drill To Report.
-10. Click OK.
-11. From the Value drop-down list, select =[PRODUCTCODE], and then click OK.
+1. Select **File > Open** (`Ctrl+O`) and open `Demo - formatting.prpt` from your workshop folder, `Documents\RD-Workshop`.
+2. Select **File > Save As** and save it as `Demo - hyperlinks.prpt`.
+3. On the **Data** tab, double-click the data source and select `Query 1`. Check that it has no `WHERE` clause: the hyperlink report shows every product line. Select **OK**.
 
-![Define Hyperlink](../_assets/images/mod9-13.png)
+<div align="center">
+<figure>
+<img src="../_assets/images/mod9-11.png" alt="Query 1 with FROM, the joins and ORDER BY, and no WHERE clause" width="407">
+<figcaption>Query 1 without a WHERE clause</figcaption>
+</figure>
+</div>
 
-## Preview the Report
+4. In the **Details** band, right-click `PRODUCTCODE` and select **Hyperlink**.
 
-1. From the Menu bar select File > Preview > HTML.
-2. Click on the product code for S18_1589, in the report results, click S24_4620.
+<div align="center">
+<figure>
+<img src="../_assets/images/mod9-12.png" alt="The context menu of PRODUCTCODE in the Details band, with Hyperlink at the bottom" width="439">
+<figcaption>Right-click > Hyperlink</figcaption>
+</figure>
+</div>
 
-![Preview the Report](../_assets/images/mod9-14.png)
+5. In the **Hyperlink** dialog, set **Location** to `Pentaho Repository (Legacy)`, and check that **Server URL** is `http://localhost:8080/pentaho`.
+6. Select **Browse**, sign in if asked, open `/public/Training`, select **Inventory List - drill-to**, and select **OK**. **Path** now reads `/public/Training/Inventory List - drill-to.prpt`.
+7. Set **Target** to `_BLANK`, so the detail opens in a new window, and **Tooltip** to `Click for more details...`.
+8. On the **Report Parameters** tab, open the **Value** list of `ProdCodeParameter` and select `=[PRODUCTCODE]`.
 
-3. Close and save the report: Demo – hyperlinks.prpt
-The configuration of our Hyperlink has been saved in:
+<div align="center">
+<figure>
+<img src="../_assets/images/mod9-13.png" alt="The Hyperlink dialog: Location Pentaho Repository (Legacy), Server URL localhost:8080/pentaho, Path /public/Training/Inventory List - drill-to.prpt, Target _BLANK, Tooltip Click for more details, and =[PRODUCTCODE] being selected for ProdCodeParameter" width="462">
+<figcaption>The target report, the window, the tooltip and the parameter</figcaption>
+</figure>
+</div>
 
-4. Style.url
-5. Style.url-tooltip
-6. Style.url-window-target.
+9. Select **OK**, and save the report (`Ctrl+S`).
 
-![Preview the Report](../_assets/images/mod9-15.png)
+> **Success:** Checkpoint: with `PRODUCTCODE` selected, the **links** group of the **Style** tab shows a pencil in the **Expr** column of **url** and **url-tooltip**, and **url-window-target** reads `_BLANK`.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/mod9-15.png" alt="The Style tab's links group: url and url-tooltip with pencils in the Expr column, and url-window-target BLANK" width="285">
+<figcaption>The hyperlink is stored as styles</figcaption>
+</figure>
+</div>
+
+10. Select **File > Preview > HTML**. The report opens in your web browser.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/mod9-14.png" alt="The report in HTML preview, with the pointer as a hand over the product code S18_1589" width="800">
+<figcaption>Each product code is a link</figcaption>
+</figure>
+</div>
+
+11. Rest the pointer on a product code, and select it.
+
+> **Success:** Checkpoint: the pointer becomes a hand and shows **Click for more details...**; selecting the code opens the `Inventory List - drill-to` report in a new window, after you sign in to the server, showing that product only.
+
+12. Close the browser windows.
 
 > **Under the hood:**
 >
 > #### A hyperlink is a style expression on href-target
 >
 > The dialog saved a formula, not a link: `href-target` (shown as
-> `url` in the Style pane) now carries `=DRILLDOWN("local-sugar";
-> NA(); {"::pentaho-path"; "...Inventory List - drill-to.prpt" |
-> "ProdCodeParameter"; [PRODUCTCODE]})`, and `href-title` holds the
-> tooltip. Because it is a style expression it is evaluated for every
-> row, so each product code links to a URL carrying its own value as
-> the target report's parameter. The HTML exporter writes it as
-> `<a href>`, the PDF exporter as a link annotation, and Excel as a
-> cell hyperlink.
+> `url` on the **Style** tab) now carries:
+>
+> ```text
+> =DRILLDOWN("local-sugar"; NA(); {"::pentaho-path"; "/public/Training/Inventory List - drill-to.prpt" | "ProdCodeParameter"; [PRODUCTCODE]})
+> ```
+>
+> and `href-title` (**url-tooltip**) holds the tooltip. Because it is a
+> style expression it is evaluated for every row, so each product code
+> links to a URL carrying its own value as the target report's
+> parameter. The HTML exporter writes it as `<a href>`, the PDF
+> exporter as a link annotation, and Excel as a cell hyperlink.
 >
 > **Why it matters:** report-to-report navigation is a formula on a
 > field. Change the target, add a parameter or make the link
 > conditional, and it applies to every row without touching the data.
 
-Note: You may need to switch to Pentaho Repository and add the PRODUCTCODE parameter:
+::::
 
-=DRILLDOWN("local-sugar"; NA(); {"ProdCodeParameter"; [PRODUCTCODE] | "::pentaho-path"; "/public/Training/Inventory List - drill-to.prpt"})
+## Lab Files
 
-## Lab files
+Click a file to download. For `.prpt` files, **Open in Pentaho Report Designer** starts Report Designer with the report loaded.
 
-<button data-launch="prd" data-path="files/Training Guided Demo Report 9-1 hyperlinks.prpt">Open: Solution: hyperlinks</button>
+The detail report the hyperlinks open:
 
-<button data-launch="prd" data-path="files/Inventory List HyperLink Report.prpt">Open: Sample: hyperlink report</button>
+[Inventory List - drill-to.prpt](./files/Inventory%20List%20-%20drill-to.prpt) <button data-launch="prd" data-path="files/Inventory List - drill-to.prpt">Open in Pentaho Report Designer</button>
 
-<button data-launch="prd" data-path="files/Inventory List - drill-to.prpt">Open: Sample: drill-to report</button>
+If you don't have `Demo - formatting.prpt`, start from this report instead: the same Steel Wheels report, with no hyperlink yet:
 
+[Inventory List HyperLink Report.prpt](./files/Inventory%20List%20HyperLink%20Report.prpt) <button data-launch="prd" data-path="files/Inventory List HyperLink Report.prpt">Open in Pentaho Report Designer</button>
+
+### Solution <!-- no-step -->
+
+The finished report for this lab. Open it alongside your own to compare.
+
+[Training Guided Demo Report 9-1 hyperlinks.prpt](./files/Training%20Guided%20Demo%20Report%209-1%20hyperlinks.prpt) <button data-launch="prd" data-path="files/Training Guided Demo Report 9-1 hyperlinks.prpt">Open in Pentaho Report Designer</button>

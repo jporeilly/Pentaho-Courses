@@ -1,13 +1,27 @@
-# Getting Started
+# Before You Start
 
 > **Note:**
 >
-> ### Welcome!
- 
-> This page highlights how to get the best user experience using this lab guide specifically designed for working with Pentaho Report Designer.
-> Taking five minutes here will make every subsequent lab smoother.
+> #### Get Ready — Before You Start
+>
+> Before the first workshop, check that the Pentaho Server and Report
+> Designer start, and learn how this guide works. Every report in the
+> course reads the Steel Wheels sample data the server supplies, and
+> **none of the lab time should go on setup**: this page does it in
+> advance.
+>
+> **What you'll do:**
+>
+> * Learn how the guide works: progress, copy buttons, the assistant.
+> * Start the Pentaho Server and confirm the User Console answers.
+> * Start Pentaho Report Designer from the guide.
+>
+> **Prerequisites:** Pentaho Report Designer and the Pentaho Server installed in `C:\Pentaho` (a lab VM has both).
+>
+> **Estimated time:** 5 minutes on a lab VM; about 20 minutes the first
+> time on your own machine.
 
-## Meet your Lab Guide
+## Meet Your Lab Guide
 
 This panel will stay beside Pentaho Report Designer throughout the workshop:
 
@@ -20,7 +34,7 @@ Every numbered heading, such as this one, represents a **step** with an associat
 
 ## Copy Code with One Click
 
-Each code block includes a **copy button** — hover over the block and click it to copy the content, then paste it into Pentaho Report Designer. Try this out:
+Each code block includes a **copy button**: hover over the block and select it to copy the content, then paste it into Pentaho Report Designer. Try this out:
 
 ```sql
 SELECT 'hello from the lab guide' AS greeting;
@@ -131,15 +145,16 @@ the server, not Report Designer — see the previous tab.
 ### 3. Publishing (Module 9)
 
 Module 9 publishes finished reports to the Pentaho Server. Nothing
-extra to install — you just need the server running from tab 1, and
+extra to install: you need the server running from tab 1, and
 the credentials below.
 
-1. In Report Designer choose **File → Publish**, or the **Publish**
-   icon in the main toolbar.
+1. In Report Designer, select **File > Publish** (`Ctrl+Shift+P`), or
+   the **Publish** icon on the main toolbar.
 
 2. Sign in as **`admin`** with the password **`password`**.
 
-3. Published reports land under **Public > Training**, and you can
+3. Published reports land under **Public > Training** (Publishing Reports
+   creates the folder), and you can
    open them in the User Console at
    **http://localhost:8080/pentaho**.
 
@@ -189,5 +204,3 @@ Each section begins with an **overview page** (<span data-icon="page"></span>) p
 ---
 
 > **Tip:** You can revisit this lab guide anytime from the sidebar.
-Insert
-Copy

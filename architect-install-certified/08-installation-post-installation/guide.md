@@ -389,7 +389,7 @@ sudo systemctl restart pentaho-server
 
 <summary>Increase Karaf's startup wait time</summary>
 
-Karaf was removed from the PDI client in 11.0, but the 11.0 Pentaho Server still ships and starts it (`pentaho-solutions/system/karaf`; `tomcat/logs/karaf.log`). `server.properties` already contains the setting, commented out, at its default of `120000` (2 minutes). If the server's startup times out while Karaf installs features, raise it.
+Karaf was removed from the Pentaho Data Integration client in 11.0, but the 11.0 Pentaho Server still ships and starts it (`pentaho-solutions/system/karaf`; `tomcat/logs/karaf.log`). `server.properties` already contains the setting, commented out, at its default of `120000` (2 minutes). If the server's startup times out while Karaf installs features, raise it.
 
 1. Stop the server:
 

@@ -10,7 +10,7 @@
 >
 > #### Understanding CDA for dashboard data integration
 >
-> Community Data Access (CDA) is a powerful Pentaho plugin that simplifies dashboard data management. While Pentaho offers multiple data access methods — including XMLA and Kettle transformations exposed as web services — CDA stands out for its ease of use and flexibility.
+> Community Data Access (CDA) is a Pentaho plugin that simplifies dashboard data management. While Pentaho offers multiple data access methods — including XMLA and Kettle transformations exposed as web services — CDA stands out for its ease of use and flexibility.
 
 ## Key features and capabilities
 
@@ -33,7 +33,7 @@
 >
 > CDA accommodates both code-free and programmatic implementations. While you can create data sources without writing code, understanding the underlying XML structure and coding principles provides deeper insight into CDA's functionality.
 
-The beauty of CDA lies in its simplicity — whether you prefer visual tools or hands-on coding, you can effectively:
+Whether you prefer visual tools or hands-on coding, CDA lets you:
 
 - Configure data sources
 - Design custom queries

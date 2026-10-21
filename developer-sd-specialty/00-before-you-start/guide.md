@@ -11,7 +11,7 @@ This panel stays beside your tools for the whole workshop:
 
 - **Float or dock** — drag the title bar to move the window anywhere
   (any monitor), or use the dock button to pin it to the right edge of
-  the screen so maximised apps make room for it.
+  the screen so maximized apps make room for it.
 - **The sidebar** lists every section and lab. A <span data-icon="video"></span> badge means the lab
   includes a video; the `~15 min` tag is a time estimate.
 - Use the **font-size** and **reading-mode** controls in the toolbar if
@@ -20,7 +20,7 @@ This panel stays beside your tools for the whole workshop:
 ## Track your progress
 
 In every workshop lab, each numbered heading is a **step** with a
-checkbox — tick it when you're done. Progress is saved on this machine
+checkbox — select it when you're done. Progress is saved on this machine
 and survives restarts, so you can pick up exactly where you left off.
 (This orientation page doesn't track steps — the checkboxes start in
 the first workshop.)
@@ -94,7 +94,7 @@ it.
 <details>
 <summary>Troubleshooting</summary>
 
-**`podman` is not recognised.** PATH updates only reach new terminals —
+**`podman` is not recognized.** PATH updates only reach new terminals —
 close and reopen PowerShell.
 
 **The machine won't start.** Podman machines run inside WSL 2 — run
@@ -109,7 +109,7 @@ run `podman machine start`.
 
 ### 2. Start the brokers
 
-One command brings up HiveMQ (MQTT), RabbitMQ (AMQP) **and** Kafka,
+One command brings up HiveMQ and EMQX (MQTT), RabbitMQ (AMQP) **and** Kafka,
 from the app's install folder:
 
 ```powershell
@@ -171,8 +171,9 @@ script (`sensor.py`, `sensor_tv_room.py`, `produce_users.py`).
    python --version
    ```
 
-Each lab's **Lab Files** section copies its script out and installs
-its one dependency with `pip install -r requirements.txt`.
+Each lab installs its script's one dependency with
+`pip install -r requirements.txt`, run in the lab's folder under
+`C:\Workshop-SD-Specialty`.
 
 <details>
 <summary>Troubleshooting</summary>
@@ -185,15 +186,15 @@ App execution aliases → turn off the two `python` entries.
 
 ### 4. Pentaho Data Integration
 
-1. Install PDI to `C:\Pentaho`, so Spoon lives at:
+1. Install Pentaho Data Integration to `C:\Pentaho`, so Spoon lives at:
 
    ```
    C:\Pentaho\design-tools\data-integration\spoon.bat
    ```
 
-2. The Kafka labs use the **Kafka Consumer/Producer** steps from the
-   Enterprise Edition plugin — install it into PDI if your build does
-   not already show them in the Design palette.
+2. The Kafka lab uses the **Kafka consumer** step, from the Kafka
+   Streaming plugin. Install the plugin into Pentaho Data Integration if the **Streaming**
+   folder of the **Design** tab does not list the step.
 
 3. Start Spoon once from the button at the top of this page.
 
@@ -237,7 +238,7 @@ grounded in the official docs — ask it anything from "what does this
 step do?" to "why did my transformation fail?". It runs on a local
 model, so it works even when the VM is offline.
 
-## How this course is organised
+## How this course is organized
 
 Each section starts with an **overview page** (<span data-icon="page"></span> — background reading,
 no checkboxes) followed by **hands-on workshops** (<span data-icon="workshop"></span> — tracked steps).

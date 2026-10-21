@@ -2,13 +2,13 @@
 
 <div class="pcm-intro">
 
-Pentaho Data Integration (PDI) 11.0 and Pentaho Business Analytics (PBA) 11.0 are a major release: a modern user interface, stronger security and simpler deployments. Several of these changes shape the install you do in this course, from Java 21 and Tomcat 10 to the Plugin Manager that installs the server plugins.
+Pentaho Data Integration 11.0 and Pentaho Business Analytics (PBA) 11.0 are a major release: a modern user interface, stronger security and simpler deployments. Several of these changes shape the install you do in this course, from Java 21 and Tomcat 10 to the Plugin Manager that installs the server plugins.
 
 </div>
 
 **What You'll Learn**
 
-* **Pipeline Designer** - author ETL pipelines, PDI transformations and jobs, in a web browser.
+* **Pipeline Designer** - author ETL pipelines, Pentaho Data Integration transformations and jobs, in a web browser.
 * **Projects** - organize and deploy ETL assets with project-based lifecycle management.
 * **The modern User Console** - the redesigned Pentaho User Console (PUC), in preview.
 * **Semantic Model Editor (SME)** - build Mondrian models in the browser.
@@ -22,7 +22,7 @@ Pentaho Data Integration (PDI) 11.0 and Pentaho Business Analytics (PBA) 11.0 ar
 
 ## Pipeline Designer
 
-Pipeline Designer is a browser-based UI for authoring ETL pipelines: you build PDI transformations and jobs in a web browser. It works like Spoon, on a modern framework, and stays compatible with transformations and jobs created in Spoon. Spoon remains available for legacy tooling.
+Pipeline Designer is a browser-based UI for authoring ETL pipelines: you build Pentaho Data Integration transformations and jobs in a web browser. It works like Spoon, on a modern framework, and stays compatible with transformations and jobs created in Spoon. Spoon remains available for legacy tooling.
 
 <div align="center">
 <figure>
@@ -35,7 +35,7 @@ Pipeline Designer is a browser-based UI for authoring ETL pipelines: you build P
 
 ## Project-based lifecycle management
 
-Before 11.0, PDI had no defined structure for organizing transformations, jobs and configuration. That made collaboration and promotion between environments harder for ETL and DevOps teams, and configuration could resolve inconsistently. Projects address these gaps.
+Before 11.0, Pentaho Data Integration had no defined structure for organizing transformations, jobs and configuration. That made collaboration and promotion between environments harder for ETL and DevOps teams, and configuration could resolve inconsistently. Projects address these gaps.
 
 <div align="center">
 <figure>
@@ -121,7 +121,7 @@ Combined with OIDC and OAuth 2.0, this gives the Pentaho Server a stronger authe
 
 ## Plugin Manager
 
-11.0 introduces a Plugin Manager for both PDI and PBA plugins. Pentaho will ship more functionality as plugins over time, and the Plugin Manager is where you find, deploy and update them.
+11.0 introduces a Plugin Manager for both Pentaho Data Integration and PBA plugins. Pentaho will ship more functionality as plugins over time, and the Plugin Manager is where you find, deploy and update them.
 
 <div align="center">
 <figure>
@@ -134,7 +134,7 @@ Combined with OIDC and OAuth 2.0, this gives the Pentaho Server a stronger authe
 
 ## Karaf and OSGi removed, big data plugins delivered separately
 
-In 11.0, Karaf and OSGi are removed from PDI, and big data components are delivered as plugins. There is no separate PDI distribution for big data add-ons: you deploy big data components the same way as other PDI plugins. This reduces the size of both the PDI client and the Pentaho Server deployment by more than 1 GB.
+In 11.0, Karaf and OSGi are removed from Pentaho Data Integration, and big data components are delivered as plugins. There is no separate Pentaho Data Integration distribution for big data add-ons: you deploy big data components the same way as other Pentaho Data Integration plugins. This reduces the size of both the Pentaho Data Integration client and the Pentaho Server deployment by more than 1 GB.
 
 ## OpenTelemetry-based observability
 

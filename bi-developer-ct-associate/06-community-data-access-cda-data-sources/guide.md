@@ -4,90 +4,68 @@
 >
 > #### Workshop - CDA Data Sources
 >
-> Data access is the foundation of every effective dashboard and analytical application, requiring a robust abstraction layer that separates business logic from underlying data sources while providing performance optimization and query management. In this workshop you'll work with Community Data Access (CDA) — XML-based configuration files that define data sources, manage query execution, implement caching strategies, and expose data through RESTful APIs.
->
-> Using the SteelWheels sample dataset, you'll review a pre-built CDA file, study its MDX queries against the Mondrian OLAP cube, preview results, call CDA's API endpoints, and enable query caching with scheduled cache warming.
+> Work with a CDA file of MDX queries on the SteelWheels cube: create it, preview each query, get its API call, edit it in the CDA editor, and cache a query on a schedule. The later workshops use these queries in dashboards.
 >
 > **What you'll do**
 >
-> * Navigate to and explore pre-built CDA sample files in the Pentaho repository
-> * Understand the structure and purpose of CDA XML configuration files
-> * Review MDX queries that retrieve unique members from OLAP dimension hierarchies
-> * Analyse queries that filter geographical hierarchies (territories, countries, cities)
-> * Examine top-N analytical queries that return ranked customer sales data
-> * Configure query parameters for dynamic filtering using `${parameterName}` syntax
-> * Preview query results using CDA's web-based data access interface
-> * Access CDA queries through RESTful API endpoints with proper URL construction
-> * Launch the CDA file editor (`editFile`) and use its three-button interface
-> * Enable query caching with `cache="true"` and `cacheDuration`
-> * Schedule automated cache refreshes and access the CDA Cache Manager
+> * Create `sampledata-queries.cda`, with four MDX queries on the SteelWheels cube, and upload it
+> * Preview each query in the CDA previewer
+> * Get a query's API call with **Query URL**, and open the file in the CDA editor
+> * Turn on caching for a query, schedule it, and check it in the CDA Cache Manager
 >
-> **Prerequisites:** Pentaho Business Analytics Server with CTools and the CDA plugin installed; SteelWheels sample data and Mondrian schema configured; administrative access to Pentaho User Console
+> **Prerequisites:** A running Pentaho Server with the CTools plugins; [Creating a CDA](../05-community-data-access-creating-a-cda/guide.md), which creates the `CTools-Dashboard/CDA` folder; a text editor
 >
 > **Estimated time:** 25 minutes
 
-<figure><img src="../_assets/images/cda_sources_cda_dashboard_top_50_customers.png" alt=""><figcaption><p>CDA Dashboard - Top 50 customers</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/cda_sources_cda_dashboard_top_50_customers.png" alt="CDA previewer for sampledata-queries.cda with the top50Customers query selected, marketQueryParam set to [Markets].[All Markets], and a table of customers with their sales totals" width="800">
+<figcaption>CDA Dashboard - Top 50 customers</figcaption>
+</figure>
+</div>
 
 ***
-
-> **Note:**
->
-> #### Start Pentaho Server
->
-> The CDA samples are served from the Pentaho Business Analytics Server. Make sure the server is running before you begin.
-
-> **Note:**
->
-> #### Windows (PowerShell)
->
-> ```powershell
-> cd \
-> cd Pentaho/server/pentaho-server/
-> ./start-pentaho.bat
-> ```
-
-> **Note:**
->
-> #### Linux
->
-> ```bash
-> cd
-> cd Pentaho/server/pentaho-server/
-> ./start-pentaho.sh
-> ```
-
-<button data-launch="puc">Open Pentaho User Console</button>
-
-***
-
-Follow the guide below to review and work with **CDA Data Sources**:
 
 :::: tabs
 
 ### 1. CDA
 
-> **Note:** Before we begin our CTools journey, let's review some CDA samples.
+> **Note:**
+>
+> #### The CDA folder
+>
+> The CDA files for these workshops live in **Public > CTools-Dashboard > CDA** in the Pentaho repository.
 
-1. Log into Pentaho User Console as Administrator.
+1. Make sure the Pentaho Server is running. On a lab VM it already is; on your own machine start it as in [Before You Start](../00-before-you-start/guide.md):
 
-<div class="pcm-embed-card" data-href="http://localhost:8080/pentaho/Home" data-title="Link to Pentaho Repository."></div>
+```powershell
+C:\Pentaho\server\pentaho-server\start-pentaho.bat
+```
+
+It takes a few minutes; the console is ready when http://localhost:8080/pentaho opens the login page.
+
+2. Open the Pentaho User Console (PUC) with the button below and sign in as `admin`.
+
 <button data-launch="puc">Open Pentaho User Console</button>
 
-2. Select **Browse Files**.
-3. Navigate to: **Public - CTools Dashboard - CDA** folder.
-4. Highlight the **CDA** folder.
+3. Select **Browse Files**. Under **Folders**, expand **Public > CTools-Dashboard** and select **CDA**.
 
-<figure><img src="../_assets/images/cda_sources_cda_samples.png" alt=""><figcaption><p>CDA samples</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/cda_sources_cda_samples.png" alt="Pentaho User Console Browse Files view with the Public, CTools-Dashboard, CDA folder highlighted and its sample CDA files listed in the Files pane" width="800">
+<figcaption>CDA samples</figcaption>
+</figure>
+</div>
+
+> **Success:** Checkpoint: **Files** lists **sql-jndi**, the file from [Creating a CDA](../05-community-data-access-creating-a-cda/guide.md). The picture shows the folder on a server where the CDA sample files were copied into it too.
 
 ### 2. CDA - sampledata
 
 > **Note:**
 >
-> We are defining a data source that points to the sample data source created during the Pentaho installation.
+> #### sampledata-queries.cda
 >
-> We also have four MDX queries: in the first three the MDX query returns unique members for territories, countries and cities - filtering out undesired values. The order of the columns is changed from 0, 1 to 1, 0.
->
-> The last MDX query returns the top 50 customers based on Sales across all the geographical markets. The query passes a parameter - `${marketQueryParam}` - which returns All Markets, but could be used to filter for a specific Market.
+> This file defines one connection, to the SteelWheels cube on the SampleData database that ships with the server, and four MDX queries. The first three return the unique members of the territories, the countries and the cities, and reorder the columns from 0, 1 to 1, 0. The last returns the top 50 customers by Sales across the markets. It takes a parameter, `${marketQueryParam}`, whose default is all markets, and which could filter for one market.
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -164,20 +142,45 @@ Follow the guide below to review and work with **CDA Data Sources**:
 </CDADescriptor>
 ```
 
-> **Note:** This example will be used in some samples during the next set of workshops. Don't forget to preview the results and confirm that you are able to return the results for both queries.
+This file is not installed on your server: create it from the listing. The dashboard workshops use queries like these.
+
+1. In a text editor, paste the listing above and save it as `sampledata-queries.cda`.
+2. In the PUC, select the **CDA** folder. Under **Folder Actions**, select **Upload...**. Select **Browse...**, choose `sampledata-queries.cda`, and select **OK**.
+3. If the file is not listed under **Files** yet, select the **Refresh** icon beside **Folders**.
 
 ***
 
 #### Preview Results
 
-1. Highlight the **sampledata-queries.cda**.
-2. Under **File Actions** click on **Open**.
+4. Under **Files**, select **sampledata-queries**, and under **File Actions** select **Open**. The CDA previewer opens in a new tab.
 
-<figure><img src="../_assets/images/cda_sources_sampledata_cda.png" alt=""><figcaption><p>sampledata.cda</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/cda_sources_sampledata_cda.png" alt="Browse Files view of the CDA folder with the sampledata file highlighted and Open at the top of the File Actions list" width="800">
+<figcaption>Open under File Actions</figcaption>
+</figure>
+</div>
 
-3. Select a Data Access ID in the CDA dashboard.
+5. In the **Data Access** list, select **territories**.
 
-<figure><img src="../_assets/images/cda_sources_sampledata_cda_cities_query.png" alt=""><figcaption><p>sampledata.cda - cities query</p></figcaption></figure>
+> **Success:** Checkpoint: two columns, **UID** first: each row holds a member's unique name, such as `[Markets].[All Markets]`, and its name. There is one row for All Markets and one for each territory.
+
+6. Select **cities** in the **Data Access** list. The previewer shows the **marketQueryParam** parameter with its default, `[Markets].[All Markets]`.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/cda_sources_sampledata_cda_cities_query.png" alt="CDA previewer for sampledata-queries.cda with the cities query selected, returning a UID and Markets table of German cities such as Aachen and Berlin" width="800">
+<figcaption>sampledata-queries.cda - cities query</figcaption>
+</figure>
+</div>
+
+> **Success:** Checkpoint: one row per city, plus All Markets, with each city's unique name in **UID** and its name beside it. The previewer shows 10 rows per page.
+
+7. Select **top50Customers** in the **Data Access** list.
+
+> **Success:** Checkpoint: 50 rows of customers with their **Sales**, 10 per page. Of the 98 customers with orders in SampleData, the query keeps the 50 with the highest sales.
+
+8. Select **countries** in the **Data Access** list, set **marketQueryParam** to `[Markets].[EMEA]`, and select the refresh button to the right of the **Data Access** list. Only All Markets and the countries of the EMEA territory remain.
 
 > **Under the hood:**
 >
@@ -195,71 +198,69 @@ Follow the guide below to review and work with **CDA Data Sources**:
 > then a unique name such as [Markets].[EMEA], which CDA writes into
 > DESCENDANTS(${marketQueryParam}, [Markets].[Country]) in the next
 > query.
-
+>
+> **Why it matters:** one query feeds a selector with ready-made values,
+> and the value the user picks drops straight into the next query's MDX.
+> The dashboard needs no code to translate between the two.
 
 ***
 
 #### Previewer
 
-> **Note:** Let's test a few of the APIs.
+9. Select **Query URL**.
 
-1. Click on the **Query URL** to retrieve the API call.
+<div align="center">
+<figure>
+<img src="../_assets/images/cda_sources.png" alt="Query Execution URL dialog showing the selected doQuery API URL for a file in the CTools-Dashboard CDA folder, with a Close button" width="800">
+<figcaption>Query Execution URL for the selected query</figcaption>
+</figure>
+</div>
 
-<figure><img src="../_assets/images/cda_sources.png" alt=""><figcaption></figcaption></figure>
+> **Success:** Checkpoint: **Query Execution URL** shows the `doQuery` call for the selected query, with its `path`, `dataAccessId` and parameter values.
 
-2. Copy & edit the URL to access the previewer - `editFile`:
+10. Select **Close**.
+11. In a new browser tab, open the CDA editor for the file with this URL:
 
-```
+```text
 http://localhost:8080/pentaho/plugin/cda/api/editFile?path=/public/CTools-Dashboard/CDA/sampledata-queries.cda
 ```
 
-<figure><img src="../_assets/images/cda_sources_previewer.png" alt=""><figcaption><p>Previewer</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/cda_sources_previewer.png" alt="CDA file editor for sampledata-queries.cda showing the XML descriptor with a SampleData mondrian.jndi connection and the territories and countries MDX data accesses, plus Preview, Reload and Save buttons" width="800">
+<figcaption>CDA editor</figcaption>
+</figure>
+</div>
 
-> **Note:**
+> **Success:** Checkpoint: the editor shows the file's XML. Above it on the right are three buttons:
 >
-> #### The Editor Interface
->
-> The interface consists of a central editor pane with three action buttons positioned above it on the right side:
->
-> **Save** - Preserves any changes made to the XML file
->
-> **Reload** - Refreshes the file content to its latest saved state
->
-> **Preview** - Opens a preview window to view data source execution results
+> * **Save** - saves your changes to the file
+> * **Reload** - reloads the file as last saved
+> * **Preview** - opens the CDA previewer for the file
+
+12. Leave the editor open for the next tab.
 
 ### 3. CDA - Cache
 
 > **Note:**
 >
-> We're going to come back to this topic — Optimization.
+> #### CDA - Cache
 >
-> CDA is able to cache the queries that have been executed. Every query that runs will be cached or not, by the time defined in the Cache property element when defining the Data Access.
->
-> You can also set the interval of time to grab results from the cache, avoiding new requests to the server.
+> CDA can cache the results of the queries it runs, for the time the data access defines, so that the next request with the same parameter values doesn't go to the database. The Optimization topics return to this.
 
-1. If you still have your Query open, then click the **Cache this** button.
-
-<figure><img src="../_assets/images/cda_sources_2.png" alt=""><figcaption></figcaption></figure>
-
-To enable caching for a query in your CDA file, add cache-related settings to your `DataAccess` element. Here are the key cache parameters:
+Caching is set on the `DataAccess` element:
 
 ```xml
 <DataAccess id="your_query_id" cache="true" cacheDuration="3600">
 ```
 
-> **Note:**
->
-> The main cache parameters are:
->
-> `cache="true"` - Enables caching
->
-> `cacheDuration="3600"` - Sets cache duration in seconds (3600 = 1 hour)
->
-> A `<Cache>` element inside the DataAccess overrides both attributes, `<Cache enabled="true" duration="3600"/>`, and can carry extra cache keys, `<Key name="..." value="..."/>`, that become part of the cache key.
->
-> Two related names are not DataAccess attributes: `executeAtStart`, which runs cached queries when the server starts, is a server-wide property (`pt.webdetails.cda.cache.executeAtStart` in `cda.properties`, `false` by default), and `outputIndexId` is a doQuery URL parameter that picks which `<Output>` element shapes the result.
+* `cache="true"` turns caching on. Without it, or a `<Cache>` element, a query is not cached.
+* `cacheDuration="3600"` sets how long a result stays cached, in seconds (3600 is 1 hour).
+* A `<Cache>` element inside the data access overrides both attributes, `<Cache enabled="true" duration="3600"/>`, and can carry extra cache keys, `<Key name="..." value="..."/>`, that become part of the cache key.
 
-Example of a complete cached query configuration:
+Two related names are not DataAccess attributes: `executeAtStart`, which runs cached queries when the server starts, is a server-wide property (`pt.webdetails.cda.cache.executeAtStart` in `cda.properties`, `false` by default), and `outputIndexId` is a `doQuery` URL parameter that picks which `<Output>` element shapes the result.
+
+A complete cached query looks like this:
 
 ```xml
 <CDADescriptor>
@@ -276,21 +277,72 @@ Example of a complete cached query configuration:
 </CDADescriptor>
 ```
 
-2. Set your schedule.
+The queries in `sampledata-queries.cda` have no cache attribute, so CDA doesn't cache them. Turn caching on for **cities**.
 
-<figure><img src="../_assets/images/cda_sources_set_a_schedule.png" alt=""><figcaption><p>Set a schedule</p></figcaption></figure>
+1. In the CDA editor, change the `cities` data access's first line to:
 
-> **Note:** If you prefer to use CRON, click on the **(advanced)** link (top right).
+```xml
+<DataAccess id="cities" connection="SampleData" type="mdx" access="public" cache="true" cacheDuration="3600">
+```
 
-<figure><img src="../_assets/images/cda_sources_cron.png" alt=""><figcaption><p>CRON</p></figcaption></figure>
+2. Select **Save**, then **Preview**. The previewer opens for the file.
+3. In the **Data Access** list, select **cities**. CDA runs the query and caches the result.
+4. Select **Cache this**.
 
-<figure><img src="../_assets/images/cda_sources_cache_manager.png" alt=""><figcaption><p>Cache Manager</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/cda_sources_2.png" alt="CDA previewer for sampledata.cda with the cities query selected and the pointer on the Cache this button, above a table of 101 city rows" width="800">
+<figcaption>Cache this button for the cities query</figcaption>
+</figure>
+</div>
 
-3. Click **Cached Queries**.
+5. CDA asks what schedule this query should run on. Select **every week**, enter `1` in the field after **on the** (the day of the week, from 1 to 7), and select **Ok**.
 
-<figure><img src="../_assets/images/cda_sources_cached_queries.png" alt=""><figcaption><p>Cached Queries</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/cda_sources_set_a_schedule.png" alt="CDA schedule dialog asking what schedule the query should run on, with the frequency list open showing every week, every day, every hour and every minute" width="611">
+<figcaption>Set a schedule</figcaption>
+</figure>
+</div>
 
-> **Note:** Notice all the Queries are executed / cached.
+To enter a cron expression instead, select **(advanced)** at the top right of the dialog and enter it in **Cron Expression**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/cda_sources_cron.png" alt="Advanced view of the CDA schedule dialog with a Cron Expression field showing 0 */10 * * * ? and Ok and Cancel buttons" width="600">
+<figcaption>CRON</figcaption>
+</figure>
+</div>
+
+6. Open the CDA Cache Manager with this URL:
+
+```text
+http://localhost:8080/pentaho/plugin/cda/api/manageCache
+```
+
+7. Select **Scheduled Queries**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/cda_sources_cache_manager.png" alt="CDA Cache Manager on the Scheduled Queries tab listing the cities query from sampledata.cda with cron 0 0 0 ? * 1 * and status Success" width="800">
+<figcaption>Cache Manager</figcaption>
+</figure>
+</div>
+
+> **Success:** Checkpoint: a row for the **cities** query of `sampledata-queries.cda`, with its parameter, its cron expression and its next execution.
+
+8. Select **Cached Queries**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/cda_sources_cached_queries.png" alt="CDA Cache Manager on the Cached Queries tab listing three cached sampledata.cda queries, Years_SalesQuery, Total_SalesQuery and Line_SalesQuery, with a Clear Cache button" width="800">
+<figcaption>Cached Queries</figcaption>
+</figure>
+</div>
+
+> **Success:** Checkpoint: **Queries in cache** has a row for `sampledata-queries.cda` with the **Data Access ID** `cities`. The picture shows the cached queries of another file.
+
+9. Select the row. The cache entries for **cities** open below it, with their **Parameters**, **Rows**, **Mem.Size** and **# Hits**.
 
 > **Under the hood:**
 >
@@ -310,15 +362,25 @@ Example of a complete cached query configuration:
 >
 > Cache this schedules the query to run on your cron and refill the
 > cache, so the first user of the day doesn't wait for the database.
-
+>
+> **Why it matters:** caching makes repeat requests free, but only for
+> queries whose results are the same for everyone who shares a key.
 
 ***
 
-> **Note:** Click on the link below to access the Cache Manager.
+**Clear Cache** removes cached entries. When the cache is empty, **Queries in cache** says so:
 
-<div class="pcm-embed-card" data-href="http://localhost:8080/pentaho/plugin/cda/api/manageCache" data-title="Cache Manager"></div>
-<figure><img src="../_assets/images/cda_sources_schedule_queries_and_cache_manager.png" alt=""><figcaption><p>Schedule Queries &#x26; Cache Manager</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/cda_sources_schedule_queries_and_cache_manager.png" alt="CDA Cache Manager on the Cached Queries tab with the Queries in cache table reporting that the cache is empty" width="800">
+<figcaption>Cache Manager with an empty cache</figcaption>
+</figure>
+</div>
 
 ::::
 
 <button data-launch="puc">Open Pentaho User Console</button>
+
+## Lab Files
+
+_No bundled files for this lab._

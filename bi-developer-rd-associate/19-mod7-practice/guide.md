@@ -4,61 +4,116 @@
 >
 > #### Workshop - Practice: Parameters
 >
-> Build a parameterised report on your own.
+> Add a territory prompt to the exercise report, on your own: a query for the choices, a parameter, and a condition in the main query.
 >
 > **What you'll do**
 >
-> * Build a parameterised report on your own.
-> * Confirm the prompt filters the data correctly.
+> * Add a `territory_list` query to the data source
+> * Add a `territory_var` drop-down parameter
+> * Filter `Query 1` with it
+> * Confirm the prompt filters the data
 >
-> **Prerequisites:** Complete this section's guided demonstrations first
+> **Prerequisites:** [Practice: Formatting](../16-mod6-practice/guide.md) and its report, `Exercise - formatting.prpt`; [Report Parameters](../18-mod7-parameters/guide.md)
 >
-> **Estimated Time:** 20 minutes
+> **Estimated time:** 20 minutes
 
----
+:::: tabs
+
+### 1. The territory prompt
 
 > **Note:**
 >
-> #### **Practice: Parameters**
+> #### A query, a parameter, a condition
 >
-> Build a parameterised report on your own.
+> The same three pieces as in the guided workshop, for the territory.
 
-## Report Parameters
+1. Start Report Designer with the **Start Pentaho Report Designer** button below, or from a terminal:
 
-To add a parameter for Territory:
+::: tabs
 
-**Open** `Exercise - formatting.prpt`
+### Windows (PowerShell)
 
-From the Data pane, double-click JDBC: SampleData (Hypersonic)
+```powershell
+Set-Location C:\Pentaho\design-tools\report-designer
+.\report-designer.bat
+```
 
-Click the Add Query icon to the right of Available Queries.
+### macOS / Linux
 
-In the Query Name field, type territory_list.
+```bash
+cd ~/Pentaho/design-tools/report-designer
+./report-designer.sh
+```
 
-To write the query, in the Query pane, type:
+:::
 
-## SELECT DISTINCT territory FROM customer_w_ter
+<button data-launch="prd" data-path="">Start Pentaho Report Designer</button>
 
-Click OK.
+2. Select **File > Open** (`Ctrl+O`) and open `Exercise - formatting.prpt` from your workshop folder, `Documents\RD-Workshop`.
+3. Select **File > Save As** and save it as `Exercise - parameters.prpt`.
+4. On the **Data** tab, double-click **JDBC: SampleData (Hypersonic)**, select the green plus (**Add Query**), set **Query Name** to `territory_list`, and enter:
 
-From the Data pane, right-click Parameters, and then click Add Parameter.
+```sql
+select distinct territory from customer_w_ter
+```
 
-Complete or verify the following fields in the Add Parameter window, and then click OK.
+5. Select **Preview**.
 
-From the Data pane, double-click JDBC: SampleData (Hypersonic).
+> **Success:** Checkpoint: 5 rows: the four territories `APAC`, `EMEA`, `Japan` and `NA`, and one row with no value, for the 22 customers that have no territory.
 
-From the Available Queries, click Query 1.
+6. Close the preview window, and select **OK**.
+7. On the **Data** tab, right-click **Parameters** and select **Add Parameter**. Under **DataSources**, select `territory_list`, set the fields as in this table, and select **OK**:
 
-To add the WHERE clause, in the Query above the ORDER BY line:
+| Field | Value |
+| --- | --- |
+| **Name** | `territory_var` |
+| **Label** | `Select a Territory:` |
+| **Value Type** | `String` |
+| **Default Value** | `APAC` |
+| **Display Type** | `Drop Down` |
+| **Query** | `territory_list` |
+| **Value** | `TERRITORY` |
+| **Display Name** | `TERRITORY` |
+| **Validate Values** | Selected |
 
-## Type: WHERE territory IN (${territory_var})
+8. Double-click the data source, select `Query 1`, and add this line above `ORDER BY`:
 
-Click OK.
+```sql
+WHERE territory IN (${territory_var})
+```
 
-Click the Preview button.
+9. Select **OK**, then select **Preview**.
 
-To select EMEA, from the Select a Territory: prompt, select EMEA.
+<div align="center">
+<figure>
+<img src="../_assets/images/mod7-13.png" alt="The preview with the Select a Territory prompt set to APAC: the report header, Territory: APAC, Country: Australia, and the first order lines of Anna's Decorations, Ltd" width="800">
+<figcaption>The exercise report filtered to APAC</figcaption>
+</figure>
+</div>
 
-Preview and Save the report: Exercise – parameters.prpt
+> **Success:** Checkpoint: the prompt **Select a Territory:** shows `APAC`, and the report opens with `Territory: APAC` and `Country: Australia`.
 
-![Type: WHERE territory IN (${territory_var})](../_assets/images/mod7-13.png)
+10. In the prompt, select `EMEA`.
+
+> **Success:** Checkpoint: the report starts with `Territory: EMEA` and `Country: Austria`, and its last page ends with **Total for: EMEA** and **Grand Total:** both 5,008,224.32.
+
+11. Select **Design**, and save the report (`Ctrl+S`).
+
+> **Under the hood:**
+>
+> #### A filtered query makes the totals follow the prompt
+>
+> The territory filter is in the SQL, so the database returns only
+> the chosen territory's rows. Every function in the report works on
+> what the query returned, which is why the grand total now equals the
+> EMEA total: the other territories never reached the engine.
+>
+> **Why it matters:** filter in the query, not in the layout. Hiding
+> rows in the report would leave them in every total, and would still
+> fetch them from the database.
+
+::::
+
+## Lab Files
+
+_No bundled files for this lab._

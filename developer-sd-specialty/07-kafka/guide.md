@@ -1,14 +1,19 @@
-# Kafka
+# Overview
 
-<figure><img src="../_assets/images/kafka-architecture.png" alt=""><figcaption><p>Kafka Architecture</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/kafka-architecture.png" alt="ZooKeeper mode beside KRaft mode: on the left, three ZooKeeper nodes, one the leader, control four brokers; on the right, three KRaft controllers, one the metadata leader, control four brokers without ZooKeeper" width="800">
+<figcaption>ZooKeeper mode and KRaft mode</figcaption>
+</figure>
+</div>
 
 > **Note:** **Apache Kafka**
 >
-> Apache Kafka is a distributed streaming platform that enables users to publish, subscribe to, store, and process streams of records in real time. It is designed to handle high volumes of data efficiently, making it an excellent choice for large-scale message processing tasks. Kafka is built around the concept of a distributed commit log, providing fault tolerance, durability, and high throughput for both publishing and subscribing by leveraging cluster nodes.
+> Apache Kafka is a distributed streaming platform for publishing, subscribing to, storing and processing streams of records in real time. It is designed to handle high volumes of data, which suits it to large-scale message processing. Kafka is built around the concept of a distributed commit log, providing fault tolerance, durability, and high throughput for both publishing and subscribing by leveraging cluster nodes.
 >
 > It supports producers sending messages to topics, from which consumers can read and process these messages. This makes Kafka suitable for a variety of applications, including real-time analytics, event sourcing, log aggregation, and more.
 
-> **Note:** Apache Kafka in **KRaft (Kafka Raft metadata) mode** simplifies Kafka's operational model by eliminating the need for an external ZooKeeper cluster. Below are the key components of a Kafka cluster running in KRaft mode.
+Apache Kafka in **KRaft (Kafka Raft metadata) mode** needs no external ZooKeeper cluster, which makes it simpler to run. These are the key components of a Kafka cluster in KRaft mode.
 
 ::: tabs
 
@@ -20,7 +25,12 @@ Manages the state of the cluster and is responsible for administrative tasks suc
 
 A server in the Kafka cluster that stores data and serves client requests. In KRaft mode, brokers can handle both standard client requests and participate in cluster management operations.
 
-<figure><img src="../_assets/images/kafka-cluster.png" alt=""><figcaption><p>Kafka Cluster</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/kafka-cluster.png" alt="Three producers spread messages over many partitions in a Kafka cluster of many machines; two standalone consumers and a consumer group of two consumers read them, the group sharing the partitions between its members" width="800">
+<figcaption>Producers, partitions and a consumer group</figcaption>
+</figure>
+</div>
 
 ### KRaft Mode
 

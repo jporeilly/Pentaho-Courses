@@ -1,9 +1,9 @@
 {
   "title": "Text Summarization",
-  "description": "Hands-on: condense long free-text fields into concise one-line summaries with a local LLM, ready to store alongside the source records.",
+  "description": "Hands-on: condense long documents into a summary, key points, takeaways and action items with a local LLM, stored alongside each source record.",
   "order": 11,
   "kind": "workshop",
-  "stepCount": 4,
+  "stepCount": 11,
   "hasVideo": false,
-  "estimatedMinutes": 20
+  "estimatedMinutes": 30
 }

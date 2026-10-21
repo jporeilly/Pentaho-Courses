@@ -2,7 +2,7 @@
   "title": "Overview",
   "order": 1,
   "kind": "page",
-  "description": "Credit-card fraud detection with PDI — H2O AutoML, supervised and unsupervised learning, and imbalanced datasets.",
+  "description": "Credit-card fraud detection with Pentaho Data Integration — H2O AutoML, supervised and unsupervised learning, and imbalanced datasets.",
   "hasVideo": true,
   "stepCount": 0,
   "estimatedMinutes": 10

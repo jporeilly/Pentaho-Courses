@@ -4,58 +4,33 @@
 >
 > #### Workshop - Carrier Dashboard
 >
-> Enterprise dashboards demand sophisticated analytical capabilities that seamlessly integrate multidimensional data analysis with intuitive user interfaces, enabling business users to explore complex telecommunications metrics through interactive visualizations and dynamic filtering. In this comprehensive workshop, you'll build a complete Wireless Carrier analytics dashboard from the ground up — first constructing the **Layout** (rows, columns, headers, KPIs, charts, tables, CSS styling, and CDA data sources), then adding the **Components** (tables, CCC charts, parameters, listeners, selectors, click actions, exports, and expandable rows) that make it interactive.
->
-> Working with a real-world telecommunications dataset, you'll transform raw call traffic data into a polished, production-ready dashboard that tracks regional calling patterns, platform usage metrics, and month-over-month performance trends across multiple analytical dimensions. You'll master critical techniques including crafting MDX queries with `WITH` clauses that define calculated members for month-over-month comparisons, implementing parameter substitution using `${parameterName}` syntax for dynamic filtering, configuring output column ordering and renaming, handling null values with `IIf(IsEmpty())` logic, building responsive nested layouts, applying external CSS stylesheets, and structuring CDA data sources that support interactive component behavior.
+> Build the Wireless Carrier dashboard in the Community Dashboard Editor (CDE): first the **Layout** (CSS styling and the CDA data sources), then the **Components** that make it interactive. It tracks call traffic by region, platform and plan, month over month, from MDX queries on a Mondrian cube.
 >
 > **What you'll do**
 >
-> * Review the `baseline_demo` PostgreSQL star schema and the Wireless Carrier Mondrian schema in Schema Workbench
-> * Define a JDBC connection and import the Mondrian analysis schema in the Pentaho User Console
-> * Build a multi-level CDE layout (rows, columns, headers, KPI panels, chart and table containers)
-> * Apply an external `dashstyle.css` stylesheet via the Add Resource option
-> * Create CDA MDX data sources (`sourceSelectorQuery`, `tableQuery`, `lineChartQuery`) with parameters and column configuration
-> * Add a Table Component (`mainTable`) with trend arrows, data bars, sprintf formatting, and sort order
-> * Create CCC Pie, Line, and Bar charts with colors, extension points, and a custom `bulletLegend` resource
-> * Wire interactivity with parameters, listeners, Filter selectors, and a pie-chart `clickAction`
-> * Add Export Button and Export Popup components for CSV/PNG output
-> * Enable expandable table rows that reveal a Calls by Platform bar chart
+> * Connect the server to the `baseline_demo` PostgreSQL database and import the Wireless Carrier Mondrian schema
+> * Style the dashboard layout with an external CSS file
+> * Create MDX data sources with parameters, output columns and column names
+> * Add a Table Component and CCC pie, line and bar charts, with colors and extension points
+> * Make the dashboard interactive with parameters, listeners, Filter selectors and a pie chart click action
+> * Add exports and expandable table rows
 >
-> **Prerequisites:** Pentaho Business Analytics Server with CTools and CDA plugins installed; PostgreSQL with the `baseline_demo` database configured; Schema Workbench with the PostgreSQL JDBC driver; the Wireless Carrier Mondrian schema XML available; administrative access to the Pentaho User Console; familiarity with JavaScript for pre-execution and click-action functions.
+> **Prerequisites:**
 >
-> **Estimated time:** ~90 minutes
+> * [My First Dashboard](../03-getting-started-my-first-dashboard/guide.md) and [CDA Data Sources](../06-community-data-access-cda-data-sources/guide.md)
+> * The `baseline_demo` PostgreSQL database, the schema file `Wireless Carrier.mondrian.xml`, the stylesheet `dashstyle.css`, and the starting dashboards in **Public > CTools-Dashboard** (`Carrier-Dashboard-Layout`, `Carrier-Dashboard-CDA`). This course does not install them.
+> * Schema Workbench, which ships with Pentaho; some JavaScript for the functions
+>
+> **Estimated time:** 90 minutes
 
-<figure><img src="../_assets/images/cde_carrier_wireless_carrier_dashboard.png" alt=""><figcaption><p>Wireless Carrier Dashboard</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_wireless_carrier_dashboard.png" alt="Completed Wireless Carrier dashboard for January with KPIs of 323,556 calls and 3.62 min average duration, platform and plan charts, daily calls versus users line chart and summary table" width="800">
+<figcaption>Wireless Carrier Dashboard</figcaption>
+</figure>
+</div>
 
 ***
-
-Start the Pentaho Server (not required if using Pentaho Labs):
-
-> **Note:**
->
-> #### Windows (PowerShell)
->
-> ```powershell
-> cd \
-> cd Pentaho/server/pentaho-server
-> ./start-pentaho.bat
-> ```
-
-> **Danger:**
->
-> #### Linux
->
-> ```bash
-> cd
-> cd /opt/pentaho/server/pentaho-server
-> sudo ./start-pentaho.sh
-> ```
-
-Community Dashboard Editor (CDE) runs inside the Pentaho User Console (PUC):
-
-<button data-launch="puc">Open Pentaho User Console</button>
-
-Follow the guide to build the Carrier Dashboard:
 
 :::: tabs
 
@@ -63,55 +38,73 @@ Follow the guide to build the Carrier Dashboard:
 
 > **Note:**
 >
-> Before we begin our dashboard journey, we need to understand our OLAP Mondrian datasource, configure it on the Pentaho Server, then construct the layout and apply CSS styling.
+> #### Layout
+>
+> Before you build the dashboard, look at its data: the `baseline_demo` database and the Mondrian schema on top of it. Then configure both on the Pentaho Server, and style the layout.
 
 #### Prerequisites
 
-> **Note:**
->
-> Before we begin our dashboard journey, we need to understand our OLAP Mondrian datasource.
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_baseline_demo_database.png" alt="DBeaver showing the dim_customers table in the public schema of the baseline_demo PostgreSQL database, with customer number, name and contact columns and 122 rows fetched" width="800">
+<figcaption>baseline_demo database</figcaption>
+</figure>
+</div>
 
-<figure><img src="../_assets/images/cde_carrier_baseline_demo_database.png" alt=""><figcaption><p>baseline_demo database</p></figcaption></figure>
+1. Make sure the Pentaho Server is running. On a lab VM it already is; on your own machine start it as in [Before You Start](../00-before-you-start/guide.md):
 
-1. Log into the Postgres baseline\_demo database.
+```powershell
+C:\Pentaho\server\pentaho-server\start-pentaho.bat
+```
 
-> **Note:**
->
-> The baseline\_demo database has a number of key features:
->
-> * Centralized Fact Tables
-> * Dimension Tables (sometimes called lookup tables)
-> * Simple Join Paths
-> * Denormalized Structure
-> * Query Optimization Features
->
-> These tables have been 'mapped' using Pentaho Schema Workbench.
+It takes a few minutes; the console is ready when http://localhost:8080/pentaho opens the login page.
 
-> **Warning:**
->
-> You will need to copy over the Postgres database driver to: /schema-workbench/lib
+2. In DBeaver, or another SQL client, open the `baseline_demo` PostgreSQL database and look at its tables.
 
-2. Start Schema Workbench.
+The `baseline_demo` database has central fact tables, dimension tables (sometimes called lookup tables), simple join paths and a denormalized structure. Pentaho Schema Workbench maps these tables into the Wireless Carrier schema.
+
+3. Schema Workbench loads JDBC drivers from its `drivers` folder. Copy the PostgreSQL driver there from the Pentaho Server. In PowerShell, run:
+
+```powershell
+Copy-Item C:\Pentaho\server\pentaho-server\tomcat\lib\postgresql-*.jar C:\Pentaho\design-tools\schema-workbench\drivers\
+```
+
+4. Start Schema Workbench:
+
+::: tabs
+
+### Windows (PowerShell)
+
+```powershell
+Set-Location C:\Pentaho\design-tools\schema-workbench
+.\workbench.bat
+```
+
+### macOS / Linux
 
 ```bash
-cd
-cd /Pentaho/design-tools/schema-workbench
+cd ~/Pentaho/design-tools/schema-workbench
 ./workbench.sh
 ```
 
-3. Open: Workshop--Ctools/Carrier/schema/Wireless carrier.mondrian.xml
-4. Expand: Retail Sales & Call Corridor cubes - our datasources.
+:::
 
-<figure><img src="../_assets/images/cde_carrier_wireless_carrier_mondrian_schema.png" alt=""><figcaption><p>Wireless Carrier Mondrian Schema</p></figcaption></figure>
+5. Select **File > Open...** and open `Wireless Carrier.mondrian.xml`.
+6. Expand the **Retail Sales** and **Call Corridor** cubes: the dashboard's data comes from them.
 
-> **Note:**
->
-> You can test your MDX queries that will be used to populate the dashboard.
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_wireless_carrier_mondrian_schema.png" alt="Schema Workbench with the Wireless Carrier schema open, showing the Retail Sales and Call Corridor cubes, and the Call Corridor cube selected with cache, enabled and visible checked" width="799">
+<figcaption>Wireless Carrier Mondrian Schema</figcaption>
+</figure>
+</div>
 
-5. Open the MDX query panel: File -> New -> MDX Query
-6. Copy & paste the following MDX query. Execute.
+You can test the MDX queries that will populate the dashboard before you use them.
 
-```
+7. Select **File > New > MDX Query**.
+8. Paste this query and select **Execute**:
+
+```text
 WITH 
  MEMBER [Measures].[Source Member Name] AS [Call Source].currentmember.uniquename
 SELECT 
@@ -121,76 +114,114 @@ FROM
  [Call Corridor]
 ```
 
-<figure><img src="../_assets/images/cde_carrier_mdx_query_all_call_regions.png" alt=""><figcaption><p>MDX query - All Call Regions</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_mdx_query_all_call_regions.png" alt="Schema Workbench MDX Query window running the Source Member Name query against the Call Corridor cube, returning All plus seven source regions from Africa to Unknown" width="499">
+<figcaption>MDX query - All Call Regions</figcaption>
+</figure>
+</div>
+
+> **Success:** Checkpoint: one row for the **All** member and one for each source region, each with its unique name in **Source Member Name**.
+
+9. Close Schema Workbench.
 
 ***
 
-> **Note:**
->
-> The last step is to, from the Pentaho Server - PUC:
->
-> * define a connection to the baseline\_demo database
-> * upload the Wireless carrier Mondrian Schema
+#### Server Connection and Schema
 
-1. In the PUC select: Manage Data Sources.
-2. Click on the cog wheel & select: New Connection.
+On the Pentaho Server, define a connection to the `baseline_demo` database and upload the Wireless Carrier schema. The dashboard's MDX data sources name both.
 
-<figure><img src="../_assets/images/cde_carrier_new_jdbc_connection.png" alt=""><figcaption><p>New JDBC connection</p></figcaption></figure>
+1. In the Pentaho User Console (PUC), sign in as `admin`, open **Home**, and select **Manage Data Sources**.
 
-3. Select Postgres and enter the following details:
+<button data-launch="puc">Open Pentaho User Console</button>
 
-<figure><img src="../_assets/images/cde_carrier_baseline_demo_connection_details.png" alt=""><figcaption><p>baseline_demo connection details</p></figcaption></figure>
+2. Select the cog wheel and select **New Connection...**.
 
-4. The Manage Data Sources also has the option to: Import Analysis
-5. Browse to: Workshop--CTools/schemas/Wireless Carrier.Mondian.xml and associate with baseline\_demo datasource.
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_new_jdbc_connection.png" alt="Manage Data Sources dialog with the cog menu open and New Connection highlighted, beside a datasource list including AgileBI, Audit, ba-pom and BaselineDemo" width="448">
+<figcaption>New JDBC connection</figcaption>
+</figure>
+</div>
 
-<figure><img src="../_assets/images/cde_carrier_4.png" alt=""><figcaption></figcaption></figure>
+3. In **Database Connection**, set these values. **Port Number**, **User Name** and **Password** are those of your `baseline_demo` database; the pictures use port `5433`.
 
-6. Click: Import & check the xml schema has been successfully imported.
+| Setting | Value |
+| --- | --- |
+| **Connection Name** | `BaselineDemo` |
+| **Database Type** | **PostgreSQL** |
+| **Access** | **Native (JDBC)** |
+| **Host Name** | `localhost` |
+| **Database Name** | `baseline_demo` |
+| **Port Number** | your database's port |
+| **User Name** and **Password** | a user that can read `baseline_demo` |
 
-<figure><img src="../_assets/images/cde_carrier_wireless_carrier_schema.png" alt=""><figcaption><p>Wireless Carrier schema</p></figcaption></figure>
+4. Select **Test**.
 
-> **Note:**
->
-> The schema can now be referenced to create the dashboard mdx.mondrian.jndi queries.
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_baseline_demo_connection_details.png" alt="Database Connection dialog for baseline_demo using PostgreSQL with Native (JDBC) access, host localhost, port 5433, user admin, and a Test Connection message reporting success" width="800">
+<figcaption>baseline_demo connection details</figcaption>
+</figure>
+</div>
+
+> **Success:** Checkpoint: **Test Connection** reports that the connection to database `baseline_demo` succeeded.
+
+5. Close the message and select **OK**.
+6. Select the cog wheel and select **Import Analysis...**.
+7. In **Import Analysis**, select the **...** button beside **Mondrian File** and choose `Wireless Carrier.mondrian.xml`. Select **Select from available data sources.**, set **Data Source** to `BaselineDemo`, and select **Import**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_4.png" alt="Import Analysis dialog with Wireless Carrier.mondrian.xml chosen as the Mondrian file and BaselineDemo selected as the data source, ready to Import" width="448">
+<figcaption>Import Analysis with the Wireless Carrier schema file</figcaption>
+</figure>
+</div>
+
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_wireless_carrier_schema.png" alt="Manage Data Sources list after import, with the new Wireless Carrier Analysis data source highlighted below SampleData, steel-wheels and SteelWheels entries" width="448">
+<figcaption>Wireless Carrier schema</figcaption>
+</figure>
+</div>
+
+> **Success:** Checkpoint: **Manage Data Sources** lists **Wireless Carrier** with the type **Analysis**. The dashboard's `mdx over mondrianJndi` data sources can now use it.
+
+8. Close **Manage Data Sources**.
+
+***
 
 #### Layout & Style
 
-> **Note:**
->
-> We're going to make a few assumptions here:
->
-> * connections tested
-> * the layout has been confirmed
-> * chart content & types agreed
-> * dashboard functions included - export graphs & tables
+The starting dashboard assumes the groundwork from [First Steps](../02-getting-started-first-steps/guide.md) is done: the connections are tested, the layout is agreed, the chart content and types are agreed, and the dashboard's functions are listed, here exporting charts and tables.
 
-<figure><img src="../_assets/images/cde_carrier_dashboard_layout.png" alt=""><figcaption><p>Dashboard layout</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_dashboard_layout.png" alt="Wireframe of the dashboard layout: a header row with an image and three filters, four titled panels in two rows, and two full-width titled panels each with a button" width="800">
+<figcaption>Dashboard layout</figcaption>
+</figure>
+</div>
 
-> **Note:**
->
-> There are five "main" rows:
->
-> The first row contains four columns: one with the logo, and three with the selectors.
->
-> The second row contains two columns with the main KPIs: Number of Calls and Average Call Duration. Each column contains two rows: one for the header, and another for the data.
->
-> The third row has two columns, each with two rows.
->
-> The fourth and fifth rows have one column which contains two rows, but notice that the first row is split into two columns because there is a title and an Export button.
+The layout has five main rows:
 
-1. Highlight: /Public/CTools-Dashboard/Carrier-Dashboard-Layout/Layout.
-2. Select: Edit from the Folder Actions.
+* The first row has four columns: one with the logo, and three with the selectors.
+* The second row has two columns with the main KPIs: Number of Calls and Average Call Duration. Each column holds two rows, one for the header and one for the data.
+* The third row has two columns, each with two rows.
+* The fourth and fifth rows have one column holding two rows. The first of those rows is split into two columns: a title and an Export button.
 
-<figure><img src="../_assets/images/cde_carrier_7.png" alt=""><figcaption></figcaption></figure>
+1. In the PUC, select **Browse Files**. Under **Folders**, expand **Public > CTools-Dashboard** and select **Carrier-Dashboard-Layout**.
+2. Under **Files**, select **Layout**, and under **File Actions** select **Edit**. The dashboard opens in CDE.
 
-> **Note:**
->
-> Keep the Layout dashboard open in its own tab.
->
-> You will need to refer to each Layout entity to apply the Property Values.
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_7.png" alt="CDE Layout perspective for the Layout dashboard showing the Layout Structure tree of named rows and spaces, with layoutRow selected and its properties listed" width="800">
+<figcaption>Layout Structure of the Layout dashboard</figcaption>
+</figure>
+</div>
 
-```
+Keep this dashboard open in its own tab: it shows each layout element's properties. Its structure, with each element's name and span:
+
+```text
 Root Container
 │
 └── Layout Row (id: layoutRow)
@@ -242,102 +273,108 @@ Root Container
                    └── Main Table Obj Column (id: mainTableObj span:12)
 ```
 
-3. Create a Layout folder in the PUC .. give it a go ..!
+> **Tip:** For practice, build this structure yourself in a new CDE dashboard in a folder of your own: use **Add Row** and **Add Columns** in the **Layout Structure** toolbar, and give each element the name and span in the tree.
 
-***
+Most layouts today are styled with Cascading Style Sheets (CSS). Add the dashboard's stylesheet as a resource.
 
-> **Note:**
->
-> Most modern day layouts are controlled by Cascading Style Sheets (CSS).
+3. In the **Layout Structure** toolbar, select the **Add Resource** icon.
 
-<figure><img src="../_assets/images/cde_carrier_add_a_resource_css.png" alt=""><figcaption><p>Add a Resource - CSS</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_add_resource.png" alt="CDE Layout Structure toolbar with the pointer on the Add Resource icon and its tooltip showing, above the single layoutRow row" width="605">
+<figcaption>Add Resource</figcaption>
+</figure>
+</div>
 
-1. Click on the Add Resource option in the Layout Structure toolbar.
+4. In **Add Resource**, set **Resource Type** to **Css** and **Resource Source** to **External File**, and select **Ok**.
 
-<figure><img src="../_assets/images/cde_carrier_add_resource.png" alt=""><figcaption><p>Add Resource</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_css_external_file.png" alt="Add Resource dialog with Css chosen as the Resource Type and External File chosen as the Resource Source" width="513">
+<figcaption>CSS External File</figcaption>
+</figure>
+</div>
 
-2. Enter the following options:
+5. Select the **^** button in the **Resource file** value. Browse to **Carrier-Dashboard-Layout > resources > css**, select `dashstyle.css`, and select **Ok**.
 
-<figure><img src="../_assets/images/cde_carrier_css_external_file.png" alt=""><figcaption><p>CSS External File</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_add_dashstyle_css.png" alt="CDE Properties panel for a Css resource with the Resource file path to dashstyle.css and its ^ browse button outlined in red" width="587">
+<figcaption>Add dashstyle.css</figcaption>
+</figure>
+</div>
 
-3. Click on the ^ button and browse for the file.
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_dashstyle_css.png" alt="File chooser showing the Carrier-Dashboard-Layout folder expanded to resources, css, with the dashstyle.css file selected" width="409">
+<figcaption>dashstyle.css</figcaption>
+</figure>
+</div>
 
-<figure><img src="../_assets/images/cde_carrier_add_dashstyle_css.png" alt=""><figcaption><p>Add dashstyle.css</p></figcaption></figure>
+6. In **Properties**, set **Name** to `Style`.
 
-<figure><img src="../_assets/images/cde_carrier_dashstyle_css.png" alt=""><figcaption><p>dashstyle.css</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_add_a_resource_css.png" alt="CDE Layout Structure with a Style resource selected, whose properties show the resource file ${solution:../css/dashstyle.css} and type Css" width="800">
+<figcaption>Add a Resource - CSS</figcaption>
+</figure>
+</div>
 
-4. Finally check the CSS has been applied.
-5. Save & Preview the dashboard.
+> **Success:** Checkpoint: **Layout Structure** lists a **Resource** named **Style**, whose **Type** is **Css** and whose **Resource file** points at `dashstyle.css`.
 
-<figure><img src="../_assets/images/cde_carrier_layout.png" alt=""><figcaption><p>Layout</p></figcaption></figure>
+7. Select **Save**, then **Preview your Dashboard**.
 
-> **Note:**
->
-> The completed workshop:
->
-> /Public/CTools-Dashboard/Carrier-Dashboard-Layout/Layout
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_layout.png" alt="Dashboard preview with the CSS applied, showing the C*TOOLS TRAINING logo and empty styled panels headed Number of Calls, Average Call Duration, Calls by Platform and others" width="800">
+<figcaption>Layout</figcaption>
+</figure>
+</div>
+
+> **Success:** Checkpoint: the layout styled by `dashstyle.css`: the logo and the panel headers, with no data in the panels yet.
+
+8. Close the preview.
+
+A finished version of this part is **Layout** in **Public > CTools-Dashboard > Carrier-Dashboard-Layout**.
 
 #### CDA - sourceSelectorQuery
 
-> **Note:**
->
-> Now that the Layout is complete, time to turn our attention to CDA data sources.
->
-> All the data in this dashboard comes from ten MDX queries.
->
-> The three selectors:
->
-> * Source Region
-> * Destination Region
-> * Month
->
-> are all populated via MDX queries, as are each of the tables and charts in the dashboard.
->
-> We're going to add two MDX queries to the dashboard.
->
-> * First query returns the values for the Source Selector.
-> * Second query returns the results for the main dashboard table that includes several defined parameters.
+All the data in this dashboard comes from ten MDX queries. The three selectors, Source Region, Destination Region and Month, are filled by MDX queries, as are the tables and charts. Here you add the first queries: one returns the values for the Source Region selector, the next the rows of the main table, with several parameters.
 
-<figure><img src="../_assets/images/cde_carrier_mdx_data_sources.png" alt=""><figcaption><p>MDX Data Sources</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_mdx_data_sources.png" alt="CDE Data Sources perspective for Layout CDA, listing ten mdx over mondrianJndi queries in the MDX Queries group, from sourceSelectorQuery to tableQuery" width="800">
+<figcaption>MDX Data Sources</figcaption>
+</figure>
+</div>
 
-> **Note:**
->
-> Let's start with the MDX query that retrieves the list of Regions. Start with the Layout dashboard.
+Start with the MDX query that returns the list of regions.
 
-1. Browse to: /Public/CTools Dashboard/Carrier-Dashboard-CDA/Layout
-2. Click Edit under File Actions.
+1. In **Browse Files**, select **Public > CTools-Dashboard > Carrier-Dashboard-CDA**. Under **Files**, select **Layout**, and under **File Actions** select **Edit**.
 
-<figure><img src="../_assets/images/cde_carrier_layout_dashboard.png" alt=""><figcaption><p>Layout Dashboard</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_layout_dashboard.png" alt="Browse Files view of the Carrier-Dashboard-CDA folder with the Layout dashboard highlighted and the pointer on Edit in File Actions" width="800">
+<figcaption>Layout Dashboard</figcaption>
+</figure>
+</div>
 
-3. On the CDE Perspectives Toolbar, click the Data Sources Panel icon.
+2. Select **Datasources Panel**, the perspective icon at the top right.
+3. In the list on the left, expand **MDX Queries** and select **mdx over mondrianJndi**.
 
-<figure><img src="../_assets/images/cde_carrier_mdx_over_mondrianjndi.png" alt=""><figcaption><p>mdx over mondrianjndi</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_mdx_over_mondrianjndi.png" alt="CDE Data Sources perspective with the MDX Queries palette group expanded and the pointer on mdx over mondrianJndi, next to an empty MDX Queries group" width="800">
+<figcaption>mdx over mondrianjndi</figcaption>
+</figure>
+</div>
 
-4. From the Data Source list, expand MDX Queries, and then click mdx over mondrianjndi.
-5. To name this data source, in the Properties pane:
-   * Click in the Value for the Name property.
-   * Type sourceSelectorQuery.
-   * Press Tab or Enter.
+4. In **Properties**, set **Name** to `sourceSelectorQuery`. Ending a data source's name with `Query` is good practice.
+5. Click in the **Jndi** value and select `BaselineDemo` from its list.
+6. Click in the **Mondrian schema** value and select `Wireless Carrier`.
+7. Select the **...** button in the **Query** value. In **MDX Editor**, enter this query and select **Ok**:
 
-> **Note:**
->
-> Its BP to add the suffix "Query" to the data source name.
-
-6. In the Properties pane:
-   * Click in the Value for the Jndi property.
-   * On the keyboard, press the down arrow.
-   * Select the BaselineDemo connection.
-
-7. In the Properties pane:
-   * Click in the Value for the Mondrian schema property.
-   * On the keyboard, press the down arrow.
-   * Select the Wireless Carrier schema.
-
-8. To enter the MDX query:
-   * In the Properties pane, click the ellipsis icon to the right of the Query property.
-   * In the MDX Editor window, enter the following MDX query, and then click OK:
-
-```xml
+```text
 WITH 
  MEMBER [Measures].[Source Member Name] AS [Call Source].currentmember.uniquename
 SELECT 
@@ -347,42 +384,54 @@ FROM
  [Call Corridor]
 ```
 
-> **Note:**
->
-> The query creates a calculated member (Source Member Name) and obtains the list of Source Regions from the Call Source dimension.
+The query creates a calculated member, Source Member Name, and returns the list of source regions from the Call Source dimension.
 
-<figure><img src="../_assets/images/cde_carrier_sourceselectorquery.png" alt=""><figcaption><p>sourceSelectorQuery</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_sourceselectorquery.png" alt="CDE Data Sources perspective with the sourceSelectorQuery mdx over mondrianJndi data source selected and its properties, including Jndi BaselineDemo and Mondrian schema Wireless Carrier" width="800">
+<figcaption>sourceSelectorQuery</figcaption>
+</figure>
+</div>
 
-9. Save & Test the Layout.cda
+8. Select **Save**. CDE writes the data sources to `layout.cda`, beside the dashboard.
+9. In **Browse Files**, select `layout.cda` in **Carrier-Dashboard-CDA** and select **Open** under **File Actions**. In the CDA previewer, select **sourceSelectorQuery** in the **Data Access** list.
 
-<figure><img src="../_assets/images/cde_carrier_layout_cda.png" alt=""><figcaption><p>Layout.cda</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_layout_cda.png" alt="CDA previewer for layout.cda running sourceSelectorQuery, listing eight source regions with the Call Source.Source Geography column before the Source Member Name column" width="800">
+<figcaption>Layout.cda</figcaption>
+</figure>
+</div>
 
-> **Warning:**
->
-> OOOOps the columns are the wrong way around ..
+> **Success:** Checkpoint: one row per source region plus All, with the region's name in the first column and its unique name, **Source Member Name**, in the second. That is the wrong way round for a selector.
 
-10. To change the order of the columns:
-    * In the Properties pane, click in the Value for the Output Columns property.
-    * In the new window, click the Add button once to add another field.
-    * In the first Index field, type 1.
-    * In the second Index field, type 0.
-    * Click OK.
+10. Return to the editor tab. Click in the **Output Columns** value. In **Output Columns**, select **Add** until there are two rows, enter `1` in the first and `0` in the second, and select **Ok**.
 
-<figure><img src="../_assets/images/cde_carrier_change_the_column_order.png" alt=""><figcaption><p>Change the column order</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_change_the_column_order.png" alt="Output Columns dialog with two index entries, 1 and 0, to swap the order of the query columns" width="502">
+<figcaption>Change the column order</figcaption>
+</figure>
+</div>
 
-11. Save the dashboard and try again .. Refresh the layout.cda
+11. Select **Save**. In the `layout.cda` tab, select the refresh button to the right of the **Data Access** list.
 
-<figure><img src="../_assets/images/cde_carrier_refresh_cda_dashboard.png" alt=""><figcaption><p>Refresh CDA Dashboard</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_refresh_cda_dashboard.png" alt="CDA previewer for layout.cda with the refresh button outlined in red, showing sourceSelectorQuery results with Source Member Name now the first column" width="800">
+<figcaption>Refresh CDA Dashboard</figcaption>
+</figure>
+</div>
 
-> **Warning:**
->
-> Notice the Query has also returned an 'Unknown' Geography value .. This indicates that the Geography table in the baseline\_demo database contains errors.
+> **Success:** Checkpoint: **Source Member Name** is now the first column. If the list includes an `Unknown` region, the geography data in `baseline_demo` has rows with no region.
+
+12. Return to the editor tab.
 
 > **Under the hood:**
 >
 > #### Save rebuilds the .cda; selectors read column 0
 >
-> Every save writes the Data Sources panel out as Layout.cda beside the
+> Every save writes the Data Sources panel out as layout.cda beside the
 > dashboard, and that file is what the CDA previewer opens, which is why
 > the column swap only shows after saving and refreshing. Output Columns
 > 1,0 becomes <Output indexes="1,0"/> in it.
@@ -392,25 +441,36 @@ FROM
 > After the swap the value is the member's unique name, which the
 > dashboard passes into the other queries' MDX, and the label is the
 > readable region name.
-
+>
+> **Why it matters:** the `.cda` is generated, never edited by hand
+> here: change the data source in CDE and save, or your edit is lost at
+> the next save.
 
 #### CDA - tableQuery
 
-> **Note:**
->
-> Next MDX query populates the main dashboard table. This query is a bit trickier as it includes parameters.
+The next MDX query fills the main dashboard table. It has parameters.
 
-1. Duplicate the sourceSelectorQuery and change the name to tableQuery.
+1. Select **sourceSelectorQuery** in the **Datasources** list and select the **Duplicate datasource** icon. Set the copy's **Name** to `tableQuery`.
 
-<figure><img src="../_assets/images/cde_carrier_duplicate_query.png" alt=""><figcaption><p>Duplicate Query</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_duplicate_query.png" alt="CDE Datasources panel with sourceSelectorQuery selected and the pointer on the Duplicate datasource toolbar icon" width="800">
+<figcaption>Duplicate Query</figcaption>
+</figure>
+</div>
 
-2. Delete the Output columns.
+2. Click in the **Output Columns** value, remove both rows, and select **Ok**.
 
-<figure><img src="../_assets/images/cde_carrier_delete_output_columns.png" alt=""><figcaption><p>Delete Output Columns</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_delete_output_columns.png" alt="Output Columns dialog in remove mode, with both index entries, 1 and 0, marked in red and a Remove button" width="505">
+<figcaption>Delete Output Columns</figcaption>
+</figure>
+</div>
 
-3. Add the MDX Query.
+3. Select the **...** button in the **Query** value. In **MDX Editor**, replace the query with this one and select **Ok**:
 
-```
+```text
 WITH
  MEMBER [Measures].[usersCurrentMonth] AS '([Measures].[Users], ${monthParameter})'
  MEMBER [Measures].[usersLastMonth] AS '([Measures].[Users], ${monthParameter}.Lag(1))'
@@ -429,148 +489,101 @@ FROM
  [Call Corridor]
 ```
 
-> **Note:**
->
-> It's out of scope to explain how MDX queries work, however, let's break this Query down into the various parts to help explain what's happening behind the scenes.
->
-> **Calculated Members Definition**: The query starts by defining several calculated members in three groups (users, calls, and time), each following the same pattern.
+Explaining MDX is outside this workshop's scope, but here is what the query's parts do.
 
-#### Users:
+**Calculated members.** The query defines three groups of calculated members, users, calls and time, each following the same pattern:
 
-```
-- [usersCurrentMonth]: Gets the Users measure for the current month (specified by monthParameter)
-- [usersLastMonth]: Gets the Users measure for the previous month using LAG(1)
-- [usersDifference]: Calculates the percentage change between current and last month ((current/last - 1) * 100)
-```
+| Group | Current month | Last month | Difference |
+| --- | --- | --- | --- |
+| Users | `usersCurrentMonth`: the Users measure for the month in `monthParameter` | `usersLastMonth`: the month before, with `LAG(1)` | `usersDifference`: the percentage change, `((current / last) - 1) * 100` |
+| Calls | `callsCurrentMonth` | `callsLastMonth` | `callsDifference` |
+| Duration | `timeCurrentMonth`: Duration in Minutes | `timeLastMonth` | `timeDifference` |
 
-#### Calls:
+**The IIf logic.** Each difference uses `IIf(IsEmpty())`, so it returns NULL when the current month has no data instead of dividing by an empty value:
 
-```
-- [callsCurrentMonth]: Gets the Calls measure for current month
-- [callsLastMonth]: Gets the Calls measure for previous month
-- [callsDifference]: Calculates percentage change in calls
-```
-
-#### Duration:
-
-```
-- [timeCurrentMonth]: Gets Duration in Minutes for current month
-- [timeLastMonth]: Gets Duration for previous month
-- [timeDifference]: Calculates percentage change in duration
-```
-
-> **Note:**
->
-> **The IIf Logic**: Each "difference" measure uses `IIf(IsEmpty())` to handle null cases. This prevents division by zero errors and returns NULL if current month data is empty.
-
-```
+```text
 IIf(IsEmpty([Measures].[currentMonth]), NULL, (([currentMonth] / [lastMonth])-1)*100)
 ```
 
-> **Note:**
->
-> **SELECT Statement**:
->
-> On COLUMNS: Shows the current values and their percentage differences for users, calls, and duration
->
-> On ROWS: Uses CROSSJOIN to combine two dimensions:
->
-> ${sourceCallParameter}${sourceChildren} (likely source locations/departments)
->
-> ${destinationCallParameter}${destinationChildren} (likely destination locations/departments)
+**SELECT.** The columns axis has the current values and their percentage changes for users, calls and duration. The rows axis uses `CROSSJOIN` to combine the source regions, `${sourceCallParameter}${sourceChildren}`, with the destination regions, `${destinationCallParameter}${destinationChildren}`.
 
-> **Note:**
->
-> **Template Parameters**: The query uses several parameters (denoted by ${...}):
->
-> ${monthParameter}: Specifies the current month
->
-> ${sourceCallParameter}: Source dimension
->
-> ${sourceChildren}: Additional source hierarchy members
->
-> ${destinationCallParameter}: Destination dimension
->
-> ${destinationChildren}: Additional destination hierarchy members
+**Parameters.** `${monthParameter}` is the current month; `${sourceCallParameter}` and `${destinationCallParameter}` are the source and destination members; `${sourceChildren}` and `${destinationChildren}` add `.Children` to them, or nothing.
 
-> **Note:**
->
-> **From Clause**: The data comes from a cube named [Call Corridor], which tracks call metrics between different locations.
+**FROM.** The data comes from the `[Call Corridor]` cube, which tracks call metrics between locations.
 
-> **Note:**
->
-> The query is designed to display month-over-month comparisons of:
->
-> * Number of users
-> * Number of calls
-> * Total call duration
->
-> Each with their corresponding percentage changes, broken down by source and destination locations.
+The query returns month-over-month comparisons of users, calls and total call duration, each with its percentage change, broken down by source and destination.
 
-4. To specify default values for the parameters:
-   * In the Properties pane, click in the Value column for the Parameters property.
-   * In the new window, click the Add button four times.
-   * In the Name and Value columns, type the following:
+4. Click in the **Parameters** value. In **Parameters**, select **Add** five times, fill in **Name** and **Value** as below, and select **Ok**:
 
-| Parameter | MDX |
+| Name | Value |
 | --- | --- |
-| destinationCallParameter | [Call Destination.Destination Geography].[All] |
-| sourceCallParameter | [Call Source.Source Geography].[All] |
-| monthParameter | [Time.Standard Time].[2011].[Q1 2011].[January] |
-| sourceChildren | .Children |
-| destinationChildren | .Children |
+| `destinationCallParameter` | `[Call Destination.Destination Geography].[All]` |
+| `sourceCallParameter` | `[Call Source.Source Geography].[All]` |
+| `monthParameter` | `[Time.Standard Time].[2011].[Q1 2011].[January]` |
+| `sourceChildren` | `.Children` |
+| `destinationChildren` | `.Children` |
 
-> **Note:**
->
-> .Children returns all the direct child members of a given member in a hierarchy. When used with crossjoined tables, it returns the immediate descendants of the specified level or member.
+`.Children` returns the direct children of a member. With the defaults, the CROSSJOIN pairs every source region with every destination region.
 
-5. To see the new results in CDA:
-   * From the Opened perspective, click the layout.cda tab.
-   * Right-click the layout.cda tab.
-   * From the menu, select Reload Tab.
-   * In the Confirm Reload dialog, click Yes.
+5. Select **Save**. In the PUC's **Opened** view, right-click the `layout.cda` tab and select **Reload Tab**. In **Confirm Reload**, select **Yes**.
+6. In the **Data Access** list, select **tableQuery**.
 
-<figure><img src="../_assets/images/cde_carrier_tablequery.png" alt=""><figcaption><p>tableQuery</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_tablequery.png" alt="CDA previewer for layout.cda running tableQuery with its five parameters, returning users, calls and call time with month-over-month differences for the Africa source rows" width="800">
+<figcaption>tableQuery</figcaption>
+</figure>
+</div>
 
-> **Note:**
->
-> The column names and data formats are not ideal. We will improve the appearance of the data when we create the table later. For now let's modify the column names for the tableQuery.
+> **Success:** Checkpoint: the previewer shows the five parameters with their defaults, and one row per pair of source and destination regions, in eight columns: the two regions, then `usersCurrentMonth`, `usersDifference`, `callsCurrentMonth`, `callsDifference`, `timeCurrentMonth` and `timeDifference`.
 
-6. To specify column names for the query output:
-   * In the Properties pane, click in the Value column for the Columns property.
-   * In the new window, click the Add button seven times.
-   * In the Index and Name columns type the following, and then press OK.
+The column names and number formats are not ideal. The table component improves the formats later; rename the columns now.
+
+7. Return to the editor tab. Click in the **Columns** value. In **Columns**, select **Add** eight times, fill in **Index** and **Name** as below, and select **Ok**:
 
 | Index | Name |
 | --- | --- |
-| 0 | Source Call |
-| 1 | Destination Call |
-| 2 | Users |
-| 3 | m/m-1 |
-| 4 | Calls |
-| 5 | m/m-1 |
-| 6 | Duration |
-| 7 | m/m-1 |
+| 0 | `Source Call` |
+| 1 | `Destination Call` |
+| 2 | `Users` |
+| 3 | `m/m-1` |
+| 4 | `Calls` |
+| 5 | `m/m-1` |
+| 6 | `Duration` |
+| 7 | `m/m-1` |
 
-<figure><img src="../_assets/images/cde_carrier_rename_columns.png" alt=""><figcaption><p>Rename Columns</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_rename_columns.png" alt="Columns dialog renaming query columns by index, from 0 Source Call and 1 Destination Call through Users, Calls and Duration, each followed by m/m-1" width="704">
+<figcaption>Rename Columns</figcaption>
+</figure>
+</div>
 
-7. Save and again check in CDA dashboard.
+8. Select **Save**, and refresh the `layout.cda` tab.
 
-<figure><img src="../_assets/images/cde_carrier_column_names.png" alt=""><figcaption><p>Column Names</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_column_names.png" alt="CDA previewer for layout.cda running tableQuery with the renamed column headers, Source Call through m/m-1, outlined in red above the result rows" width="800">
+<figcaption>Column Names</figcaption>
+</figure>
+</div>
+
+> **Success:** Checkpoint: the headers read **Source Call**, **Destination Call**, **Users**, **m/m-1**, **Calls**, **m/m-1**, **Duration** and **m/m-1**.
 
 #### CDA - lineChartQuery
 
-> **Note:**
->
-> The lineChartQuery.
+1. Return to the editor tab. Select **tableQuery**, select the **Duplicate datasource** icon, and set the copy's **Name** to `lineChartQuery`.
 
-1. Duplicate the tableQuery and rename to: lineChartQuery.
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_linechartquery.png" alt="CDE Datasources panel with lineChartQuery selected under MDX Queries, its Properties showing Jndi BaselineDemo, the Wireless Carrier schema, and the Columns property highlighted" width="800">
+<figcaption>lineChartQuery</figcaption>
+</figure>
+</div>
 
-<figure><img src="../_assets/images/cde_carrier_linechartquery.png" alt=""><figcaption><p>lineChartQuery</p></figcaption></figure>
+2. Replace the query in **MDX Editor** with this one and select **Ok**:
 
-2. Replace the existing MDX query:
-
-```
+```text
 WITH 
  SET DAYS AS DESCENDANTS(${monthParameter}, 1) 
 SELECT
@@ -582,128 +595,163 @@ WHERE
  (${sourceCallParameter}, ${destinationCallParameter})
 ```
 
-3. To edit/delete the column names:
-   * Click in the Value column for the Columns property.
-   * To the left of Index 0, click the delete icon.
-   * Click Remove.
-   * Change Index 1 to Number of Calls.
-   * Change Index 2 to Number of Users.
-   * Delete the remaining column names.
-   * Click OK.
+3. Click in the **Columns** value. Remove the rows so that only these two remain, and select **Ok**:
 
-<figure><img src="../_assets/images/cde_carrier_change_column_names.png" alt=""><figcaption><p>Change column names</p></figcaption></figure>
+| Index | Name |
+| --- | --- |
+| 1 | `Number of Calls` |
+| 2 | `Number of Users` |
 
-4. Save and view in CDA Dashboard.
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_change_column_names.png" alt="CDE Columns dialog with two rows, index 1 named Number of Calls and index 2 named Number of Users, with Ok and Cancel buttons" width="703">
+<figcaption>Change column names</figcaption>
+</figure>
+</div>
 
-<figure><img src="../_assets/images/cde_carrier_linechartquery_2.png" alt=""><figcaption><p>lineChartQuery</p></figcaption></figure>
+4. Select **Save**, refresh the `layout.cda` tab, and select **lineChartQuery** in the **Data Access** list.
 
-> **Note:**
->
-> The completed workshop:
->
-> /Public/CTools-Dashboard/Carrier-Dashboard-Layout/Layout CDA
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_linechartquery_2.png" alt="Community Data Access preview of layout.cda with lineChartQuery selected, showing a table of daily Number of Calls and Number of Users for January 2011" width="800">
+<figcaption>lineChartQuery</figcaption>
+</figure>
+</div>
+
+> **Success:** Checkpoint: one row per day of the month in **monthParameter**, January 2011 by default, with the columns **Number of Calls** and **Number of Users**.
+
+A finished version of this part is **Layout CDA** in **Public > CTools-Dashboard > Carrier-Dashboard-Layout**.
 
 ### 2. Components
 
 > **Note:**
 >
-> Interactive dashboard components are the bridge between raw data and actionable business insights. In this section you'll add the Table, Charts, Interactions (parameters, listeners, selectors, click actions), Exports, and Expandable rows that transform the static layout into a fully interactive analytical application.
+> #### Components
+>
+> Components turn the layout and its data into a dashboard. Here you add the table, the charts, the interactions (parameters, listeners, selectors and a click action), the exports and the expandable rows.
 
-<figure><img src="../_assets/images/cde_carrier_wireless_carrier_dashboard.png" alt=""><figcaption><p>Wireless Carrier Dashboard</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_wireless_carrier_dashboard.png" alt="Completed Wireless Carrier dashboard for January with KPIs of 323,556 calls and 3.62 min average duration, platform and plan charts, daily calls versus users line chart and summary table" width="800">
+<figcaption>Wireless Carrier Dashboard</figcaption>
+</figure>
+</div>
 
 #### Table - mainTable
 
-> **Note:**
->
-> Let's start by adding the Table components to the dashboard.
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_maintable.png" alt="Formatted Calls Summary table listing source and destination regions, with Users, Calls and Duration as data bars and month-over-month percentages beside red and green trend arrows" width="800">
+<figcaption>mainTable, as it looks at the end of this section</figcaption>
+</figure>
+</div>
 
-<figure><img src="../_assets/images/cde_carrier_maintable.png" alt=""><figcaption><p>mainTable</p></figcaption></figure>
+1. In **Browse Files**, select **Public > CTools-Dashboard > Carrier-Dashboard-CDA**. Under **Files**, select **Layout**, and under **File Actions** select **Edit**.
 
-1. Browse to: /Public/CTools Dashboard/Carrier-Dashboard-CDA/Layout
-2. Click Edit under File Actions.
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_layout_dashboard.png" alt="Browse Files view of the Carrier-Dashboard-CDA folder with the Layout dashboard highlighted and the pointer on Edit in File Actions" width="800">
+<figcaption>Select the Layout file and Edit under File Actions</figcaption>
+</figure>
+</div>
 
-<figure><img src="../_assets/images/cde_carrier_3.png" alt=""><figcaption></figcaption></figure>
+2. Select **Components Panel**, the perspective icon at the top right.
+3. In the list on the left, expand **Standard** and select **Table Component**.
+4. In **Properties**, set **Name** to `mainTable`.
+5. Click in the **Datasource** value and select `tableQuery`.
 
-3. Click the Components Panel icon.
-4. From the Components list, expand Standard, and then click Table Component.
-5. Name this table component, in the Properties pane:
-   * Click in the Value for the Name property.
-   * Enter: mainTable.
-   * Press Tab or Enter.
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_select_tablequery_as_datasource.png" alt="CDE Components panel with the mainTable Table Component selected and the Datasource property dropdown open, with tableQuery highlighted among the available queries" width="800">
+<figcaption>Select tableQuery as Datasource</figcaption>
+</figure>
+</div>
 
-6. Specify the data source, in the Properties pane:
-   * Click in the Value for the Datasource property.
-   * On the keyboard, press the down arrow.
-   * Select: tableQuery.
+6. Click in the **HtmlObject** value and select `mainTableObj`.
 
-<figure><img src="../_assets/images/cde_carrier_select_tablequery_as_datasource.png" alt=""><figcaption><p>Select tableQuery as Datasource</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_select_maintableobj.png" alt="CDE Properties pane for mainTable with Datasource set to tableQuery and the HtmlObject dropdown open, with mainTableObj highlighted at the bottom of the list" width="800">
+<figcaption>Select mainTableObj</figcaption>
+</figure>
+</div>
 
-7. Specify the HTML object, in the Properties pane:
-   * Click in the Value for the HtmlObject property.
-   * On the keyboard, press the down arrow.
-   * Select: mainTableObj.
+7. Select **Save**, then **Preview your Dashboard**.
 
-<figure><img src="../_assets/images/cde_carrier_select_maintableobj.png" alt=""><figcaption><p>Select mainTableObj</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_save_and_preview.png" alt="Dashboard preview with empty chart panels for calls, call duration, platform and plans, above an unformatted Calls Summary table showing raw counts and long decimal percentages" width="800">
+<figcaption>Save &#x26; Preview</figcaption>
+</figure>
+</div>
 
-8. Save & Preview the dashboard.
+> **Success:** Checkpoint: the **Calls Summary** table, with raw numbers and long decimal percentages, 10 rows per page. The other panels are still empty.
 
-<figure><img src="../_assets/images/cde_carrier_save_and_preview.png" alt=""><figcaption><p>Save &#x26; Preview</p></figcaption></figure>
-
-> **Note:**
->
-> The table doesn't look exactly like the one in the sample dashboard. In the next several steps we will specify some of the display options, set the page length, add trend arrows and data bars, and format the columns.
+8. Close the preview.
 
 ***
 
 #### Advanced Properties
 
-> **Note:**
->
-> Advanced Properties extend the functionality of the component with features, such as:
->
-> * dynamic parameter passing between components
-> * custom JavaScript functions for complex calculations
-> * cross-component communication through PostExecution functions
-> * parameterized queries using variables and JavaScript expressions
+The table doesn't look like the one in the finished dashboard yet. Its advanced properties set the display options, the page length, the trend arrows and data bars, and the column formats. Advanced properties also extend a component in other ways: parameters passed between components, JavaScript functions for calculations, functions that run after the component executes, and queries parameterized with variables and JavaScript expressions.
 
-1. To view the advanced properties, in the Properties pane, click Advanced Properties.
+1. In **Properties**, select **Advanced Properties**.
 
-<figure><img src="../_assets/images/cde_carrier_advanced_properties_2.png" alt=""><figcaption><p>Advanced Properties</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_advanced_properties_2.png" alt="CDE Properties pane for mainTable showing Datasource tableQuery and HtmlObject mainTableObj, with the pointer on the Advanced Properties link at the top" width="551">
+<figcaption>Advanced Properties</figcaption>
+</figure>
+</div>
 
-2. Change or set the following properties:
+2. Set these properties:
 
 | Property | Value |
 | --- | --- |
-| Show Filter | False |
-| Info Filter | False |
-| Page Length | 7 |
-| Length Change | False |
-| Pagination Type | Simple |
+| **Show Filter** | `False` |
+| **Info Filter** | `False` |
+| **Page Length** | `7` |
+| **Length Change** | `False` |
+| **Pagination Type** | `Simple` |
 
-<figure><img src="../_assets/images/cde_carrier_advanced_properties_3.png" alt=""><figcaption><p>Advanced Properties</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_advanced_properties_3.png" alt="CDE Advanced Properties list for mainTable, including Page Length 7, Show Filter, Info Filter and Length Change set to False, and Pagination Type Simple" width="537">
+<figcaption>Advanced Properties</figcaption>
+</figure>
+</div>
 
-3. Specify the data types for the columns:
-   * In the Properties pane, click in the Value column for the Column Types property.
-   * In the new window, click the Add button seven times.
-   * In the Value columns, enter the following:
+3. Click in the **Column Types** value. In **Column Types**, select **Add** six times, enter these types in order, and select **Ok**. Type the first few letters of each, and CDE offers the name.
 
-<figure><img src="../_assets/images/cde_carrier_5.png" alt=""><figcaption></figcaption></figure>
+| Row | Type |
+| --- | --- |
+| 1 | `string` |
+| 2 | `string` |
+| 3 | `dataBar` |
+| 4 | `trendArrow` |
+| 5 | `dataBar` |
+| 6 | `trendArrow` |
 
-> **Note:**
->
-> When entering the values just type the first few letters ..
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_5.png" alt="CDE Column Types dialog listing six entries in order: string, string, dataBar, trendArrow, dataBar, trendArrow" width="504">
+<figcaption>Column types entered for the summary table columns</figcaption>
+</figure>
+</div>
 
-4. Save & Preview the dashboard.
+4. Select **Save**, then **Preview your Dashboard**.
 
-<figure><img src="../_assets/images/cde_carrier_summary_table_would_be_nice_to_have_values_next.png" alt=""><figcaption><p>Summary table - would be nice to have values next to Bar Chart ..</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_summary_table_would_be_nice_to_have_values_next.png" alt="Calls Summary table preview where Users and Calls show small blue data bars without values and the m/m-1 columns show only red or green arrows" width="800">
+<figcaption>Summary table - would be nice to have values next to Bar Chart ..</figcaption>
+</figure>
+</div>
 
-> **Note:**
->
-> The data bar and trend arrow columns do not show the data values. We must add pre-execution code to display these values.
+> **Success:** Checkpoint: **Users** and **Calls** show data bars and their **m/m-1** columns show trend arrows, but without their values.
 
-5. Add pre-execution code to display the data values next to the data bars:
-   * In the Properties pane, click the ellipsis icon to the right of the Pre-Execution property.
-   * In the Javascript Wizard window, enter the following code, and then click OK:
+5. Close the preview.
+6. To show the values next to the data bars and arrows, select the **...** button in the **Pre Execution** value. In **Javascript Wizard**, enter this code and select **Ok**:
 
 ```javascript
 function f() {
@@ -724,30 +772,59 @@ function f() {
 }
 ```
 
-<figure><img src="../_assets/images/cde_carrier_javascript.png" alt=""><figcaption><p>Javascript</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_javascript.png" alt="CDE Javascript Wizard opened from the table's Pre Execution property, holding a function that sets trendArrow and dataBar add-in options for the colType columns" width="800">
+<figcaption>Javascript</figcaption>
+</figure>
+</div>
 
-6. Save & Preview the dashboard.
+7. Select **Save**, then **Preview your Dashboard**.
 
-<figure><img src="../_assets/images/cde_carrier_bar_chart_data.png" alt=""><figcaption><p>Bar Chart data</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_bar_chart_data.png" alt="Calls Summary table preview with dark data bars and values for Users and Calls, and one-decimal percentages beside red and green trend arrows" width="800">
+<figcaption>Bar Chart data</figcaption>
+</figure>
+</div>
 
-> **Note:**
->
-> Great .. the data is now displayed .. however, it does need to be formatted. Also take a look at Africa .. may wish to address unknown values.
+> **Success:** Checkpoint: the data bars and trend arrows now show their values, still unformatted. Rows with an `Unknown` region are a data quality question for `baseline_demo`.
 
-7. Specify the column formats using sprintf functions:
-   * In the Properties pane, click in the Value column for the Column Formats property.
-   * In the new window, click the Add button seven times.
-   * In the text fields, enter the following:
+8. Close the preview.
+9. Click in the **Column Formats** value. In **Column Formats**, select **Add** eight times, enter these sprintf formats in order, and select **Ok**:
 
-<figure><img src="../_assets/images/cde_carrier_format_columns.png" alt=""><figcaption><p>Format Columns</p></figcaption></figure>
+| Row | Format |
+| --- | --- |
+| 1 | `%s` |
+| 2 | `%s` |
+| 3 | `%.0f` |
+| 4 | `%.2f%` |
+| 5 | `%.0f` |
+| 6 | `%.2f%` |
+| 7 | `%.0f` |
+| 8 | `%.2f%` |
 
-8. Specify the sort order:
-   * In the Properties pane, click in the Value column for the Sort by property.
-   * In the Index and Order fields, type the following, and then click OK:
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_format_columns.png" alt="CDE Column Formats dialog with eight sprintf entries: %s twice, then %.0f and %.2f% alternating for the count and percentage columns" width="504">
+<figcaption>Format Columns</figcaption>
+</figure>
+</div>
 
-<figure><img src="../_assets/images/cde_carrier_sort_by.png" alt=""><figcaption><p>Sort By</p></figcaption></figure>
+10. Click in the **Sort by** value. In **Sort By**, select **Add**, set **Index** to `2` and **Order** to `desc`, and select **Ok**.
 
-9. Save & Preview the dashboard.
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_sort_by.png" alt="CDE Sort By dialog with a single row setting Index 2 and Order desc" width="704">
+<figcaption>Sort By</figcaption>
+</figure>
+</div>
+
+11. Select **Save**, then **Preview your Dashboard**.
+
+> **Success:** Checkpoint: the table at the top of this section: whole numbers, percentages with two decimals, and the rows sorted by **Users**, largest first.
+
+12. Close the preview.
 
 > **Under the hood:**
 >
@@ -759,99 +836,76 @@ function f() {
 > query returned.
 >
 > Sort Order is not applied in the browser at first: CDF turns it into
-> CDA's sortBy option, a column index plus A or D, and CDA sorts the
-> result on the server, through Kettle by default, before sending it.
-
-
-<figure><img src="../_assets/images/cde_carrier_maintable.png" alt=""><figcaption><p>Numbers - Formatted</p></figcaption></figure>
+> CDA's sortBy option, a column index plus A or D (desc on column 2
+> becomes 2D), and CDA sorts the result on the server, through Kettle by
+> default, before sending it.
+>
+> **Why it matters:** the same query can feed a table, a chart and an
+> export unchanged; each component formats what it shows.
 
 #### Charts - Pie Chart
 
-> **Note:**
->
-> Time for some Charts ..
->
-> * connections tested
-> * the layout has been confirmed
-> * chart content & types agreed
-> * dashboard functions included - export graphs & tables, buttons, downloads, etc ..
+Time for the charts, starting with the pie chart.
 
-> **Note:**
->
-> Let's start with the Pie Chart.
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier.png" alt="Number of Calls by Plans donut chart with a bullet legend: Nationwide 98.76 percent, Pay As You Go 1.20 percent, Prepaid $50 0.04 percent" width="490">
+<figcaption>Finished pie chart with its bullet legend</figcaption>
+</figure>
+</div>
 
-<figure><img src="../_assets/images/cde_carrier.png" alt=""><figcaption></figcaption></figure>
+1. In the list on the left, expand **Charts** and select **CCC Pie Chart**.
+2. In **Properties**, set these properties. For **Datasource** and **HtmlObject**, click in the value and select from the list:
 
-1. From the Components list, expand Charts, and then click CCC Pie Chart.
-2. To name the pie chart, in the Properties pane:
-   * Click in the Value for the Name property.
-   * Type pieChart.
-   * Press Tab or Enter.
+| Property | Value |
+| --- | --- |
+| **Name** | `pieChart` |
+| **Datasource** | `pieChartQuery` |
+| **HtmlObject** | `pieChartObj` |
+| **Width** | `140` |
+| **Height** | `140` |
+| **Compatibility Version** | `2` |
 
-3. To specify the data source, in the Properties pane:
-   * Click in the Value for the Datasource property.
-   * On the keyboard, press the down arrow.
-   * Select pieChartQuery.
+The **Compatibility Version** must be set because the latest version of CCC has a different set of default properties.
 
-4. To specify the HTML object, in the Properties pane:
-   * Click in the Value for the HtmlObject property.
-   * On the keyboard, press the down arrow.
-   * Select pieChartObj.
+3. Select **Advanced Properties**.
+4. Click in the **colors** value. In **String Array**, select **Add** until there are three rows, enter these colors, and select **Ok**:
 
-5. To specify the width and height for the pie chart, in the Properties pane:
-   * Click in the Value for the Width property.
-   * Type 140 and press Enter.
-   * Click in the Value for the Height property.
-   * Type 140 and press Enter.
-
-6. Specify the CCC version, in the Properties pane:
-   * Click in the Value for the Compatibility version property.
-   * Type 2.
-   * Press Tab or Enter.
-
-> **Note:**
->
-> The Compatibility version must be set because the latest version of CCC includes a different set of default properties.
-
-7. Click on Advanced Properties
-8. To specify the colors for the pie chart:
-   * In the Properties pane, click in the Value column for the colors property.
-   * In the new window, click the Add button two times.
-   * In the text fields, type the following and then click OK:
-
-```
+```text
 #176ad6
 #de3700
 #191b1e
 ```
 
-<figure><img src="../_assets/images/cde_carrier_pie_chart_colours.png" alt="" width="378"><figcaption><p>Pie Chart colours</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_pie_chart_colours.png" alt="CDE String Array dialog with three color codes for the pie chart slices: #176ad6, #de3700 and #191b1e" width="378">
+<figcaption>Pie Chart colors</figcaption>
+</figure>
+</div>
 
-9. To hide the values, in the Properties pane:
-   * Click in the Value for the valuesVisible property.
-   * On the keyboard, press the down arrow.
-   * Click False.
+5. Set **Values Visible** to `False`.
 
 ***
 
 #### Extension Points
 
-> **Note:**
->
-> Extension points in Pentaho CTools are predefined locations in the CTools framework where developers can add custom functionality without modifying the core code. They act as hooks that allow you to extend and customize dashboards and components.
->
-> In a CCC chart, the Extension Points property reaches inside the chart: each Arg names one of the chart's marks and a property of that mark, and its Value overrides what CCC would otherwise set.
+Extension points are hooks in the CTools framework where you add your own behavior without changing the framework's code. In a CCC chart, the **Extension points** property reaches inside the chart: each **Arg** names one of the chart's marks and a property of that mark, and its **Value** overrides what CCC would otherwise set.
 
-1. Customize the pie chart with extension points:
-   * In the Properties pane, click in the Value column for the Extension Points property.
-   * In the new window, click the Add button.
-   * Complete the Arg and Value columns with the following, and then click OK:
+6. Click in the **Extension points** value. In **Extension Points**, select **Add**, set **Arg** to `slice_innerRadiusEx` and **Value** to `30%`, and select **Ok**.
 
-<figure><img src="../_assets/images/cde_carrier_slice_pie_chart_donut.png" alt=""><figcaption><p>Slice Pie Chart - Donut</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_slice_pie_chart_donut.png" alt="CDE Extension Points dialog with one row, Arg slice_innerRadiusEx set to Value 30%, which turns the pie into a donut" width="704">
+<figcaption>Slice Pie Chart - Donut</figcaption>
+</figure>
+</div>
 
-| Property | Value |
-| --- | --- |
-| slice\_innerRadiusEx | 30% |
+7. Select **Save**, then **Preview your Dashboard**.
+
+> **Success:** Checkpoint: the plans chart is a donut in three colors, with no values on the slices.
+
+8. Close the preview.
 
 > **Under the hood:**
 >
@@ -867,20 +921,19 @@ function f() {
 > and xAxisRule_ on the line chart below), and a value can be a function
 > of the data instead of a constant, as the xAxisLabel_text function
 > shows.
-
+>
+> **Why it matters:** anything CCC draws can be restyled from the
+> dashboard, with no change to the chart library.
 
 ***
 
 #### Resources
 
-> **Note:**
->
-> Finally we need to add a script that picks up the chart colors and adds them before the Legend.
+Finally, add a script that draws a colored bullet before each value in the plans table beside the pie chart, so the table works as the chart's legend.
 
-1. To add a bulletLegend script, click Resources.
-2. In the Properties pane, enter: bulletLegend.
-3. Copy & paste the following script.
-4. Save & Reload the dashboard.
+9. Select **Layout Panel**. In the **Layout Structure** toolbar, select the **Add Resource** icon.
+10. In **Add Resource**, set **Resource Type** to **Javascript** and **Resource Source** to **Code Snippet**, and select **Ok**.
+11. Set **Name** to `bulletLegend`. Select the **...** button in the **Resource code** value, paste this script, and select **Ok**:
 
 ```javascript
  require([
@@ -915,107 +968,104 @@ function f() {
 });
 ```
 
-> **Note:**
->
-> The function calls inbuilt CDF libraries to add the bulletLegend in a \<div> container. If you have changed the default table colors then you will need to update.
+The script uses CDF's own modules to register a table add-in, `bulletLegend`, which puts each value in a `div` container after a colored bullet. If you change the chart's colors, change the table's colors to match.
 
-5. Preview the dashboard.
+12. Select **Save**, then **Reload**.
+13. Select **Preview your Dashboard**.
 
-<figure><img src="../_assets/images/cde_carrier.png" alt=""><figcaption><p>Bullet Legend added</p></figcaption></figure>
+> **Success:** Checkpoint: the picture at the top of this section: a colored bullet before each plan in the table beside the donut.
+
+14. Close the preview.
 
 #### Charts - Line Chart
 
-<figure><img src="../_assets/images/cde_carrier_line_chart_with_extensions.png" alt=""><figcaption><p>Line Chart with extensions</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_line_chart_with_extensions.png" alt="Number of Calls vs Number of Users line chart for January 2011 with hollow dot markers, day-number axis labels and a tooltip showing 11,338 calls on 2011-01-14" width="800">
+<figcaption>Line chart, as it looks at the end of this section</figcaption>
+</figure>
+</div>
 
-1. From the Components list, expand Charts, and then click CCC Line Chart.
-2. Name the line chart, in the Properties pane:
-   * Click in the Value for the Name property.
-   * Enter: lineChart.
-   * Press Tab or Enter.
+1. Select **Components Panel**. In the list on the left, expand **Charts** and select **CCC Line Chart**.
+2. Set these properties:
 
-3. Specify the data source, in the Properties pane:
-   * Click in the Value for the Datasource property.
-   * On the keyboard, press the down arrow.
-   * Select: lineChartQuery.
+| Property | Value |
+| --- | --- |
+| **Name** | `lineChart` |
+| **Datasource** | `lineChartQuery` |
+| **HtmlObject** | `lineChartObj` |
+| **Height** | `220` |
+| **Width** | empty: delete the value and press `Enter` |
+| **Compatibility Version** | `2` |
 
-4. Specify the HTML object, in the Properties pane:
-   * Click in the Value for the HtmlObject property.
-   * On the keyboard, press the down arrow.
-   * Select: lineChartObj.
+Deleting the width doesn't change the chart on the dashboard, but it does change other renderings of it.
 
-5. Specify the height for the line chart, in the Properties pane:
-   * Click in the Value for the Height property.
-   * Type 220 and press Enter.
+3. Select **Save**, then **Preview your Dashboard**.
 
-6. Delete the width for the line chart, in the Properties pane:
-   * Click in the Value for the Width property.
-   * Delete the value and press Enter.
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_line_chart.png" alt="Default Number of Calls vs Number of Users line chart for January 2011, with blue and orange lines, full date axis labels and no legend" width="800">
+<figcaption>Line Chart</figcaption>
+</figure>
+</div>
 
-> **Note:**
->
-> Deleting the width does not affect the chart on the dashboard, but it does affect other renderings of it.
+> **Success:** Checkpoint: a line chart with one line for calls and one for users, with the full date on each axis label.
 
-7. Specify the CCC version, in the Properties pane:
-   * Click in the Value for the Compatibility version property.
-   * Type 2 and press Tab or Enter.
+4. Close the preview.
+5. Select **Advanced Properties**. Click in the **colors** value, enter these two colors in **String Array**, and select **Ok**:
 
-8. Save & Preview the dashboard.
-
-<figure><img src="../_assets/images/cde_carrier_line_chart.png" alt=""><figcaption><p>Line Chart</p></figcaption></figure>
-
-9. Click on Advanced Properties.
-10. Specify the colors for the line chart:
-    * In the Properties pane, click in the Value column for the colors property.
-    * In the new window, click the Add button.
-    * In the text fields, type the following and then click OK:
-
-```
+```text
 #176ad6
 #191b1e
 ```
 
-<figure><img src="../_assets/images/cde_carrier_line_chart_colours.png" alt="" width="375"><figcaption><p>Line Chart colours</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_line_chart_colours.png" alt="CDE String Array dialog with two color codes for the line chart series: #176ad6 and #191b1e" width="375">
+<figcaption>Line Chart colors</figcaption>
+</figure>
+</div>
 
-11. Change or set the following advanced properties:
+6. Set these advanced properties:
 
 | Property | Value |
 | --- | --- |
-| dotsVisible | True |
-| legend | True |
-| legendAlign | Right |
-| legendPosition | Top |
-| plotFrameVisible | False |
+| **Dots Visible** | `True` |
+| **Legend** | `True` |
+| **Legend Align** | `Right` |
+| **Legend Position** | `Top` |
+| **Plot Frame Visible** | `False` |
 
-12. Save & Preview the dashboard.
+7. Select **Save**, then **Preview your Dashboard**.
 
-<figure><img src="../_assets/images/cde_carrier_advanced_properties.png" alt=""><figcaption><p>Advanced Properties</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_advanced_properties.png" alt="Number of Calls vs Number of Users line chart with blue and black series, solid dot markers, no plot frame, and the legend at the top right" width="800">
+<figcaption>Line chart with the advanced properties set</figcaption>
+</figure>
+</div>
+
+> **Success:** Checkpoint: blue and black lines with a dot on each value, the legend at the top right, and no frame around the plot.
+
+8. Close the preview.
 
 ***
 
 #### Extension Point
 
-> **Note:**
->
-> Extension points in Pentaho CTools are predefined locations in the CTools framework where developers can add custom functionality without modifying the core code. They act as hooks that allow you to extend and customize dashboards and components.
-
-1. Customize the line chart with extension points:
-   * In the Properties pane, click in the Value column for the Extension Points property.
-   * In the new window, click the Add button six times.
-   * Complete the Arg and Value columns with the following, and then click OK:
-
-<figure><img src="../_assets/images/cde_carrier_call_out_box.png" alt=""><figcaption><p>Call-out box</p></figcaption></figure>
+9. Click in the **Extension points** value. In **Extension Points**, select **Add** seven times, fill in **Arg** and **Value** as below, and select **Ok**:
 
 | Arg | Value |
 | --- | --- |
-| dot\_fillStyle | #fff |
-| dot\_shapeRadius | 4 |
-| xAxisLabel\_text | see code block below .. |
-| line\_lineWidth | 2 |
-| dot\_lineWidth | 2 |
-| yAxisRule\_strokeStyle | rgba(0,0,0,0) |
-| xAxisRule\_strokeStyle | rgba(0,0,0,0) |
+| `dot_fillStyle` | `#fff` |
+| `dot_shapeRadius` | `4` |
+| `xAxisLabel_text` | the function below |
+| `line_lineWidth` | `2` |
+| `dot_lineWidth` | `2` |
+| `yAxisRule_strokeStyle` | `rgba(0,0,0,0)` |
+| `xAxisRule_strokeStyle` | `rgba(0,0,0,0)` |
 
-```
+```javascript
 function(d) {
     var fin = pv.Format.date('%y-%m-%d'), 
         fout = pv.Format.date('%d');
@@ -1024,137 +1074,138 @@ function(d) {
 }
 ```
 
-2. Save & Preview the dashboard.
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_call_out_box.png" alt="CDE Extension Points dialog with seven rows styling the line chart: dot fill and radius, an x-axis label function, line widths and transparent axis rules" width="704">
+<figcaption>Extension Points for the line chart</figcaption>
+</figure>
+</div>
 
-<figure><img src="../_assets/images/cde_carrier_line_chart_with_extensions.png" alt=""><figcaption><p>Line Chart with extensions</p></figcaption></figure>
+10. Select **Save**, then **Preview your Dashboard**.
+
+> **Success:** Checkpoint: the chart at the top of this section: hollow dots, thicker lines, the day of the month as each axis label, and no axis rules.
+
+11. Close the preview.
 
 #### Interactions - Parameters & Listeners
 
-> **Note:**
->
-> Our dashboard is a bit static ..
->
-> Users need to be able to perform drill-downs, select parameter-driven filters, and perform real-time data updates.
->
-> Let's say we have a list of Regions that when selected updates the table data based on the Region selected. In CDF language, a parameter which holds the Region values is passed to a Component listener - in this case for a Table Component - which is then updated.
+The dashboard is static so far. Users need to filter it, drill down and see it update. Say a list of regions should update the table when a user picks one. In CDF terms, a parameter holds the selected region, and a component that lists the parameter in its **Listeners** property, here the table, is updated whenever the parameter changes. A component can listen to several parameters, and several components can listen to one parameter.
 
-> **Note:**
->
-> A component can have more than one parameter in the Listeners property, and a Parameter can be listened by more than one component. Every time the parameter changes, all components that listen to it are updated.
+Here you add parameter components, set the parameters and listeners of the dashboard's components, and add Filter components as selectors. Start with the parameters of the `pieChartQuery` data source.
 
-> **Note:**
->
-> So we're going to:
->
-> * Add parameter components to a dashboard.
-> * Specify the parameters and listeners for dashboard components.
-> * Add select (filter) components to a dashboard.
+1. Select **Datasources Panel**. In the **Datasources** list, expand **MDX Queries** and select **pieChartQuery**.
 
-> **Note:**
->
-> Let's add some parameters to: pieChartQuery datasource.
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_piechartquery.png" alt="CDE Datasources panel listing ten MDX queries with pieChartQuery selected, and its Properties pane highlighting the Parameters property" width="800">
+<figcaption>pieChartQuery</figcaption>
+</figure>
+</div>
 
-1. Click on the Datasources Panel perspective.
-2. Expand the MDX Queries group & select: pieChartQuery.
+2. Click in the **Parameters** value, note its three parameters, `destinationCallParameter`, `sourceCallParameter` and `monthParameter`, and select **Cancel**.
 
-<figure><img src="../_assets/images/cde_carrier_piechartquery.png" alt=""><figcaption><p>pieChartQuery</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_piechartquery_parameters.png" alt="CDE Parameters dialog for pieChartQuery listing three StringArray parameters for destination call, source call and month, with their names and values truncated" width="800">
+<figcaption>pieChartQuery - parameters</figcaption>
+</figure>
+</div>
 
-3. View the parameters used in the pieChartQuery, in the Properties pane:
-   * Click in the Value for the Parameters property.
-   * Take note of the three parameters.
-   * Click OK.
+3. Select **Components Panel**. In the list on the left, expand **Parameters** and select **Custom Parameter**.
 
-<figure><img src="../_assets/images/cde_carrier_piechartquery_parameters.png" alt=""><figcaption><p>pieChartQuery - parameters</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_6.png" alt="CDE Components panel with a Custom Parameter named sourceCallParameter selected in the Parameters group, its Javascript code property holding a Call Source member value" width="800">
+<figcaption>Custom Parameter sourceCallParameter added to the Parameters group</figcaption>
+</figure>
+</div>
 
-4. Add the sourceCallParameter:
-   * From the Components list, expand Parameters.
-   * Click: Custom Parameter.
+4. Set **Name** to `sourceCallParameter`. Select the **...** button in the **Javascript code** value, enter the default value below in **Javascript Wizard**, and select **Ok**:
 
-<figure><img src="../_assets/images/cde_carrier_6.png" alt=""><figcaption></figcaption></figure>
-
-5. To set the default value, in the Properties pane:
-   * Click in the JavaScript for the Property value property.
-   * Type the following.
-   * Press Tab or Enter.
-
-```
+```text
 ["[Call Source.Source Geography].[All]"] 
 ```
 
-<figure><img src="../_assets/images/cde_carrier_8.png" alt=""><figcaption></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_8.png" alt="CDE Javascript Wizard containing one line, an array holding the [Call Source.Source Geography].[All] member as the default value" width="800">
+<figcaption>Default value for sourceCallParameter in the Javascript Wizard</figcaption>
+</figure>
+</div>
 
-6. Add the destinationCallParameter and monthParameter, repeat the previous steps using the following values:
+5. Add two more Custom Parameters the same way:
 
-destinationCallParameter
+| Name | Javascript code |
+| --- | --- |
+| `destinationCallParameter` | `["[Call Destination.Destination Geography].[All]"]` |
+| `monthParameter` | `["[Time.Standard Time].[2011].[Q1 2011].[January]"]` |
 
-```
-["[Call Destination.Destination Geography].[All]"] 
-```
-
-monthParameter
-
-```
-["[Time.Standard Time].[2011].[Q1 2011].[January]"] 
-```
+6. In the list on the left, expand **Parameters** and select **Simple Parameter**. Set **Name** to `sourceChildren` and **Property value** to `.Children`.
+7. Add a second Simple Parameter, `destinationChildren`, with the **Property value** `.Children`. The selectors set these two parameters, and `tableQuery` reads them.
 
 ***
 
 #### Listener
 
-> **Note:**
->
-> Set the parameters and listeners for the pieChart component ..
+Set the parameters and listeners for the dashboard's components, starting with the pie chart.
 
-1. In the Components pane, click to expand the Charts group
-2. Click: pieChart.
+1. In the components grid, expand **Charts** and select **pieChart**.
 
-<figure><img src="../_assets/images/cde_carrier_add_parameters_to_piechart_component.png" alt=""><figcaption><p>Add parameters to pieChart component</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_add_parameters_to_piechart_component.png" alt="CDE Components perspective with the CCC Pie Chart named pieChart selected in the Charts group and its Parameters property highlighted, still empty, in the Properties pane" width="800">
+<figcaption>Add parameters to pieChart component</figcaption>
+</figure>
+</div>
 
-3. To specify the parameters for the pieChart:
-   * In the Properties pane, click in the Value column for the Parameters property.
-   * In the new window, click the Add button twice.
-   * In the first Arg columns, enter: monthParameter.
-   * Enter the first few letters to select monthParameter.
-   * Repeat the steps to add the destinationCallParameter and sourceCallParameter, and then click OK.
+2. Click in the **Parameters** value. In **Parameters**, select **Add** three times. In each row, enter the parameter's name in **Arg**, and in **Value** type its first few letters and select it:
 
-4. Specify the listeners for the pieChart:
-   * In the Properties pane, click in the Value column for the Listeners property.
-   * Click the drop-down arrow.
-   * Click to select the Select All checkbox.
-   * Click OK.
+| Arg | Value |
+| --- | --- |
+| `monthParameter` | `monthParameter` |
+| `destinationCallParameter` | `destinationCallParameter` |
+| `sourceCallParameter` | `sourceCallParameter` |
 
-<figure><img src="../_assets/images/cde_carrier_add_listeners.png" alt=""><figcaption><p>Add Listeners</p></figcaption></figure>
+3. Select **Ok**.
+4. Click in the **Listeners** value, select the drop-down arrow, select **Select All**, and select **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_add_listeners.png" alt="CDE Components perspective with pieChart selected and the Listeners drop-down open, showing Select All, sourceCallParameter, destinationCallParameter and monthParameter all checked beside an OK button" width="800">
+<figcaption>Add Listeners</figcaption>
+</figure>
+</div>
+
+5. Select **lineChart** and set the same three **Parameters** and **Listeners**.
+6. In the components grid, select **mainTable**. Set its **Parameters** and **Listeners** to the five parameters of `tableQuery`: `monthParameter`, `sourceCallParameter`, `destinationCallParameter`, `sourceChildren` and `destinationChildren`.
 
 #### Interactions - Selectors
 
-> **Note:**
->
-> CTools selectors are interactive UI components that allow users to filter and manipulate dashboard data dynamically. They act as user input controls (like dropdown menus, checkboxes, or radio buttons) that can be connected to other dashboard components through parameter bindings.
->
-> When a user interacts with a selector, it triggers updates in connected charts, tables, or other visualizations based on the selected values. This provides a way to create interactive, drill-down capable dashboards where users can explore data through different dimensions and filters.
->
-> A selector can be a simple textbox where a user type free text, or more elaborated as a select list, a radio button or a date picker.
+CTools selectors are input components, such as drop-down lists, check boxes and radio buttons, that users filter the dashboard with. A selector stores the user's choice in a parameter, and every component that listens to the parameter updates. A selector can be a text box for free text, or a select list, radio buttons or a date picker.
 
-<figure><img src="../_assets/images/cde_carrier_selectors.png" alt=""><figcaption><p>Selectors</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_selectors.png" alt="CTools Training carrier dashboard with the Source Region drop-down open listing All, Africa, Asia-Pac, Europe, Latin America, Middle East, North America and Unknown, with Asia-Pac highlighted" width="800">
+<figcaption>Selectors</figcaption>
+</figure>
+</div>
 
-1. Add the sourceSelector, from the Components list, expand Selects, and then click Filter Component.
-2. Customize the Selector with the following Advanced Properties:
+1. In the list on the left, expand **Selects** and select **Filter Component**.
+2. Set these properties of the source selector; most are under **Advanced Properties**:
 
 | Property | Value |
 | --- | --- |
-| Name | sourceSelector |
-| Title | Source Region: |
-| Parameter | sourceCallParameter |
-| Value as ID | False |
-| Datasource | sourceSelectorQuery |
-| Show Icons | False |
-| Show "Only" Button | False |
-| Show Search Filter | False |
-| HtmlObject | sourceObj |
-| Execute at Start | True |
-| Pre Change | see code block below .. |
-
-sourceSelector
+| **Name** | `sourceSelector` |
+| **Title** | `Source Region:` |
+| **Parameter** | `sourceCallParameter` |
+| **Value as id** | `False` |
+| **Datasource** | `sourceSelectorQuery` |
+| **Show Icons** | `False` |
+| **Show "Only" Button** | `False` |
+| **Show Search Filter** | `False` |
+| **HtmlObject** | `sourceObj` |
+| **Execute at start** | `True` |
+| **Pre Change** | the function below |
 
 ```javascript
  function f(selectedItem) {
@@ -1166,7 +1217,16 @@ sourceSelector
 }
 ```
 
-destinationSelector
+3. Add a second **Filter Component** for the destination, with the same settings except these:
+
+| Property | Value |
+| --- | --- |
+| **Name** | `destinationSelector` |
+| **Title** | `Destination Region:` |
+| **Parameter** | `destinationCallParameter` |
+| **Datasource** | `destinationSelectorQuery` |
+| **HtmlObject** | `destinationObj` |
+| **Pre Change** | the function below |
 
 ```javascript
 function f(selectedItem) {
@@ -1177,52 +1237,57 @@ function f(selectedItem) {
 }
 ```
 
-Month
+4. Add a third **Filter Component** for the month:
 
 | Property | Value |
 | --- | --- |
-| Name | monthSelector |
-| Title | Select Month: |
-| Datasource | monthSelectorQuery |
-| HtmlObject | monthObj |
+| **Name** | `monthSelector` |
+| **Title** | `Select Month:` |
+| **Parameter** | `monthParameter` |
+| **Datasource** | `monthSelectorQuery` |
+| **HtmlObject** | `monthObj` |
 
-3. Save & Preview dashboard.
+5. Select **Save**, then **Preview your Dashboard**.
 
-<figure><img src="../_assets/images/cde_carrier_selectors_2.png" alt=""><figcaption><p>Selectors</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_selectors_2.png" alt="CTools Training carrier dashboard with all three selector drop-downs open, the pointer over Asia-Pac in Source Region, Middle East in Destination Region and June in Select Month" width="800">
+<figcaption>Selectors</figcaption>
+</figure>
+</div>
+
+> **Success:** Checkpoint: three selectors at the top, **Source Region:**, **Destination Region:** and **Select Month:**. Picking a region or a month updates the pie chart, the line chart and the table.
+
+6. Close the preview.
 
 #### Interactions - clickAction
 
-> **Note:**
->
-> We're going to use the clickAction function on the pieChart to set the value of one parameter (planTypeParameter), to trigger the update of another component (lineChart).
+Next, use the pie chart's **Click Action** to set one parameter, `planTypeParameter`, which triggers an update of another component, `lineChart`.
 
-<figure><img src="../_assets/images/cde_carrier_click_piechart_to_update_linechart.png" alt=""><figcaption><p>Click pieChart to update lineChart</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_click_piechart_to_update_linechart.png" alt="Carrier dashboard with the pointer on the Pay As You Go pie slice, its tooltip showing 3,875 calls, above the Number of Calls vs Number of Users line chart" width="800">
+<figcaption>Click pieChart to update lineChart</figcaption>
+</figure>
+</div>
 
-1. From the Components list, expand the Generic group, and then click Simple Parameter.
-2. Name the parameter, in the Properties panel:
-   * Click in the Value field for the Name property.
-   * Enter: planTypeParameter.
-   * Press Tab or Enter.
+1. In the list on the left, expand **Parameters** and select **Simple Parameter**.
+2. Set **Name** to `planTypeParameter` and **Property value** to `All`.
+3. Select **Save**.
 
-3. To set the default value, in the Properties panel:
-   * Click in the Value field for the Property value property.
-   * Type: All.
-   * Press Tab or Enter.
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_add_plantypeparameter.png" alt="CDE Components perspective with a new Simple Parameter named planTypeParameter selected in the Parameters group, its Property value set to All" width="800">
+<figcaption>Add planTypeParameter</figcaption>
+</figure>
+</div>
 
-4. Save the dashboard.
+Now add the parameter to `lineChartQuery`.
 
-<figure><img src="../_assets/images/cde_carrier_add_plantypeparameter.png" alt=""><figcaption><p>Add planTypeParameter</p></figcaption></figure>
+4. Select **Datasources Panel**. In the **Datasources** list, expand **MDX Queries** and select **lineChartQuery**.
+5. Select the **...** button in the **Query** value. In **MDX Editor**, replace the query with this one and select **Ok**:
 
-> **Note:**
->
-> Now we need to add the parameter - PlanTypeParameter - to the lineChartQuery.
-
-5. In the Datasources pane, expand the MDX Queries group, and then click to select the lineChartQuery.
-6. To change the MDX query:
-   * In the Properties pane, click the ellipsis icon to the right of the Query property.
-   * In the Sql Editor window, replace the existing text with the following MDX query, and then click Ok.
-
-```sql
+```text
 WITH 
  SET DAYS AS DESCENDANTS(${monthParameter}, 1) 
 MEMBER [Calling Plan].[Selected Plan Type] as Aggregate( [Calling Plan].[${planTypeParameter}] )
@@ -1235,34 +1300,21 @@ WHERE
 (${sourceCallParameter}, ${destinationCallParameter}, [Calling Plan].[Selected Plan Type])
 ```
 
-> **Note:**
->
-> Last few steps:
->
-> Add the planTypeParameter to the datasource
->
-> Enable - True - Clickable in pieChart component
->
-> Add listener
+6. Click in the **Parameters** value. In **Parameters**, select **Add**, set **Name** to `planTypeParameter` and **Value** to `All`, and select **Ok**.
 
-7. Add the new parameter and specify its default value:
-   * In the Properties pane, click in the Value field for the Parameters property.
-   * In the new window, click the Add button once.
-   * In the Name column, enter: planTypeParameter.
-   * In the Value column, enter: All.
-   * Click Ok.
+Three steps remain: make the pie chart clickable, give it a click action, and make the line chart listen to the new parameter.
 
-8. In the Components pane, expand the Charts group, and then click to select the pieChart component.
-9. Enable the clickable functionality, in the Properties pane:
-   * Click in the Value field for the clickable property.
-   * On the keyboard, press the down arrow.
-   * Select True.
+7. Select **Components Panel**. In the components grid, expand **Charts** and select **pieChart**.
+8. Set **Clickable** to `True`.
 
-<figure><img src="../_assets/images/cde_carrier_clickable.png" alt=""><figcaption><p>Clickable</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_clickable.png" alt="CDE Components perspective with pieChart selected and its Clickable property set to True in the Properties pane, with listeners and parameters already filled in" width="800">
+<figcaption>Clickable</figcaption>
+</figure>
+</div>
 
-10. To specify the clickAction function that will trigger the update:
-    * Click the ellipsis icon to the right of the clickAction property.
-    * In the Javascript Wizard window, enter the following code, and then click OK:
+9. Select the **...** button in the **Click Action** value. In **Javascript Wizard**, enter this code and select **Ok**:
 
 ```javascript
 function f(scene) {
@@ -1274,31 +1326,38 @@ function f(scene) {
 }
 ```
 
-> **Note:**
->
-> Inside the clickAction function we call dashboard.fireChange (param, value) with the name of the parameter to change and the new value for that parameter.
->
-> When a user clicks on a mark (a slice of pie, in this case), the above function is triggered (which triggers the update of all the components that listen to that parameter).
+The click action calls `dashboard.fireChange(param, value)` with the name of the parameter to change and its new value. When a user clicks a mark, here a slice of the pie, the function runs, and every component that listens to that parameter updates.
 
-11. In the Components pane, expand the Charts group, and then click to select the lineChart component.
-12. Add the extra listener for the lineChart:
-    * In the Properties pane, click in the Value column for the Listeners property.
-    * Click the drop-down arrow.
-    * Click to select the planTypeParameter checkbox.
-    * Click OK.
+10. In the components grid, select **lineChart**. Click in the **Listeners** value, select the drop-down arrow, select **planTypeParameter** as well, and select **OK**.
 
-<figure><img src="../_assets/images/cde_carrier_add_plantypeparameter_listener.png" alt=""><figcaption><p>Add planTypeParameter listener.</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_add_plantypeparameter_listener.png" alt="CDE Components perspective with lineChart selected and its Listeners drop-down open, with monthParameter, sourceCallParameter, destinationCallParameter and planTypeParameter all checked" width="800">
+<figcaption>Add planTypeParameter listener</figcaption>
+</figure>
+</div>
 
-13. Select the extra parameter for the lineChart:
-    * In the Properties pane, click in the Value for the Parameters property.
-    * In the new window, click the Add button once.
-    * In the Arg column, type planTypeParameter.
-    * Click the ellipsis, and then from the Choose Parameter window, click to select planTypeParameter.
-    * Click Ok.
+11. Click in the **Parameters** value. In **Parameters**, select **Add**, enter `planTypeParameter` in **Arg** and select `planTypeParameter` in **Value**, and select **Ok**.
 
-<figure><img src="../_assets/images/cde_carrier_add_plantypeparameter_to_linechart.png" alt=""><figcaption><p>Add planTypeParameter to lineChart</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_add_plantypeparameter_to_linechart.png" alt="CDE Parameters dialog listing four Arg and Value pairs, monthParameter, sourceCallParameter, destinationCallParameter and planTypeParameter, each mapped to the parameter of the same name" width="704">
+<figcaption>Add planTypeParameter to lineChart</figcaption>
+</figure>
+</div>
 
-14. Save & preview the dashboard.
+12. Select **Save**, then **Preview your Dashboard**, and select a slice of the pie chart.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_interactive_piechart.png" alt="Carrier dashboard filtered to Europe, Latin America and March: 6,602 calls, 4.26 min average duration, platform bars, a plans pie chart and a calls versus users line chart" width="800">
+<figcaption>Interactive pieChart</figcaption>
+</figure>
+</div>
+
+> **Success:** Checkpoint: the line chart redraws with the calls and users of the plan you selected.
+
+13. Close the preview.
 
 > **Under the hood:**
 >
@@ -1315,119 +1374,109 @@ function f(scene) {
 > when it writes the dashboard, with planTypeParameter here, or with an
 > alias-prefixed name when the dashboard runs as a widget inside
 > another, so the click keeps working either way.
-
-
-<figure><img src="../_assets/images/cde_carrier_interactive_piechart.png" alt=""><figcaption><p>Interactive pieChart</p></figcaption></figure>
+>
+> **Why it matters:** a component that updates but shows the old data
+> is missing its Parameters entry; one that never updates is missing its
+> listener.
 
 #### Export - Button & Popup
 
-> **Note:**
->
-> The final part is to leverage CDE export functionality to export charts and the main table.
->
-> The data can be exported in several formats, like CSV, XLS, XML and JSON (through CDA API calls done in the background).
->
-> If we have CDE/CCC chart components on our dashboard, we can also export the charts as PNG and SVG files (through CGG).
->
-> There's two components to add:
->
-> * Export Button Component – use this when you only need to export the data in one specific format (CSV, XLS, XML or JSON).
-> * Export Popup Component – use this when you need to export chart images (PNG and/or SVG format) or when you want to export the data in more than one format (CSV, XLS, XML and/or JSON).
+The last part uses CDE's export components to export the charts and the main table. Data can be exported as CSV, XLS, XML or JSON, through CDA calls made in the background. CCC charts can also be exported as PNG or SVG images, through the Community Graphics Generator (CGG). There are two components:
 
-<figure><img src="../_assets/images/cde_carrier_export_options.png" alt=""><figcaption><p>Export Options</p></figcaption></figure>
+* **Export Button Component** - exports the data of one component in one format (CSV, XLS, XML or JSON).
+* **Export Popup Component** - exports chart images (PNG or SVG), or data in more than one format.
 
-1. To add the exportTableButton, from the Components list, expand Standard.
-2. Select: Export Button Component.
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_export_options.png" alt="Calls Summary table on the carrier dashboard with an Export button in its title bar, listing source and destination regions with Users, Calls and Duration bars and m/m-1 percentage changes" width="800">
+<figcaption>The Calls Summary table with its Export button</figcaption>
+</figure>
+</div>
 
-<figure><img src="../_assets/images/cde_carrier_export_button_component.png" alt=""><figcaption><p>Export Button Component</p></figcaption></figure>
+1. In the list on the left, expand **Standard** and select **Export Button Component**.
 
-3. Name the export button, in the Properties pane:
-   * Click in the Value for the Name property.
-   * Enter: exportTableButton.
-   * Press Tab or Enter.
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_export_button_component.png" alt="CDE Components perspective with the Export Button Component exportTableButton selected, exporting mainTable as csv, with HtmlObject exportTableButtonObj" width="800">
+<figcaption>Export Button Component</figcaption>
+</figure>
+</div>
 
-4. To set the label of the export button, in the Properties pane:
-   * Click in the Value for the Label property.
-   * Enter: Export.
-   * Press Tab or Enter.
-
-5. To define from which component we want to export the data, in the Properties pane:
-   * Click in the Value for the Component Name property.
-   * Enter: mainTable.
-   * Press Tab or Enter.
-
-6. To select the HTML object, in the Properties pane:
-   * Click in the Value for the HTML Object property.
-   * On the keyboard, press the down arrow.
-   * Select: exportTableButtonObj.
-
-7. Save & preview the dashboard.
-
-<figure><img src="../_assets/images/cde_carrier_export_options.png" alt=""><figcaption><p>Export table - CSV</p></figcaption></figure>
-
-***
-
-Export Popup
-
-> **Note:**
->
-> In the final part of this workshop we're going to add an ExportPopupComponent to export the Number of Calls vs Number of Users chart (lineChart) data in CSV and PNG.
-
-1. To add the exportChartPopup, from the Components list, expand Standard.
-2. Select: ExportPopupComponent.
-
-<figure><img src="../_assets/images/cde_carrier_exportchartpopup_component.png" alt=""><figcaption><p>exportChartPopup Component</p></figcaption></figure>
-
-3. To name the export button, in the Properties pane:
-   * Click in the Value for the Name property.
-   * Enter: exportChartPopup.
-   * Press Tab or Enter.
-
-4. Set the label of the export button, in the Properties pane:
-   * Click in the Value for the Title property.
-   * Enter: Export.
-   * Press Tab or Enter.
-
-5. Define from which chart component we want to export the image, in the Properties pane:
-   * Click in the Value for the Chart Component to Export property.
-   * Enter: lineChart.
-   * Press Tab or Enter.
-
-6. Define from which component we want to export the data, in the Properties pane:
-   * Click in the Value for the Data Component to Export property.
-   * Enter: lineChart.
-   * Press Tab or Enter.
-
-7. Select the HTML object, in the Properties pane:
-   * Click in the Value for the HTML Object property.
-   * On the keyboard, press the down arrow.
-   * Select exportChartButtonObj.
-
-8. Save the dashboard.
-
-> **Note:**
->
-> To use the export popup, we must view the dashboard (not Preview).
-
-9. Open the dashboard, from the Browse Files perspective - Carrier-Dashboard-Export
-
-<figure><img src="../_assets/images/cde_carrier_export_chart_or_table.png" alt=""><figcaption><p>Export - Chart or Table</p></figcaption></figure>
-
-<figure><img src="../_assets/images/cde_carrier_export_chart.png" alt=""><figcaption><p>Export Chart</p></figcaption></figure>
-
-> **Note:**
->
-> The Table is currently being exported as .xls. Let's change this to .csv
-
-10. Change or set the following advanced properties:
+2. Set these properties:
 
 | Property | Value |
 | --- | --- |
-| Chart Export Label | Export PNG |
-| Data Export Type | csv |
-| Data Export Label | Export CSV |
-| Name for Data Export attachment | NrofCallsVsUsers |
-| Post Execution | see code block below |
+| **Name** | `exportTableButton` |
+| **Label** | `Export` |
+| **Component Name** | `mainTable` |
+| **HtmlObject** | `exportTableButtonObj` |
+
+**Output Type** keeps its default, `csv`.
+
+3. Select **Save**, then **Preview your Dashboard**.
+
+> **Success:** Checkpoint: an **Export** button in the **Calls Summary** title bar. Selecting it downloads the table's data as a CSV file.
+
+4. Close the preview.
+
+***
+
+**Export Popup**
+
+Now add an Export Popup Component that exports the Number of Calls vs Number of Users chart, `lineChart`, as an image and its data as a file.
+
+5. In the list on the left, expand **Standard** and select **Export Popup Component**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_exportchartpopup_component.png" alt="CDE Components perspective with the Export Popup Component exportChartPopup selected, titled Export, exporting lineChart as both chart and data, with HtmlObject exportChartButtonObj" width="800">
+<figcaption>exportChartPopup Component</figcaption>
+</figure>
+</div>
+
+6. Set these properties:
+
+| Property | Value |
+| --- | --- |
+| **Name** | `exportChartPopup` |
+| **Title** | `Export` |
+| **Chart Component to Export** | `lineChart` |
+| **Data Component to Export** | `lineChart` |
+| **HtmlObject** | `exportChartButtonObj` |
+
+7. Select **Save**.
+
+The export popup works when you open the dashboard itself, not in Preview.
+
+8. In **Browse Files**, double-click the dashboard to open it. Select **Export** above the line chart.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_export_chart_or_table.png" alt="Number of Calls vs Number of Users line chart with its Export popup open, offering Export Chart and Export Table, the pointer on Export Chart" width="800">
+<figcaption>Export - Chart or Table</figcaption>
+</figure>
+</div>
+
+> **Success:** Checkpoint: the popup offers **Export Chart** and **Export Table**, the default labels. **Export Chart** opens **Export Options**, with the sizes **Small**, **Medium**, **Large** and **Custom**, **Width** and **Height**, and an **Export** button.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_export_chart.png" alt="Export Options dialog over the dashboard with Large selected, Width 450 and Height 106.68, and an Export button above a preview of the calls versus users line chart" width="800">
+<figcaption>Export Chart</figcaption>
+</figure>
+</div>
+
+The table data is exported as `.xls` by default. Change it to `.csv`, and give the options clearer labels.
+
+9. Close the dashboard's tab and return to the editor. Select **exportChartPopup**, select **Advanced Properties**, and set:
+
+| Property | Value |
+| --- | --- |
+| **Chart Export Label** | `Export PNG` |
+| **Data Export Type** | `csv` |
+| **Data Export Label** | `Export CSV` |
+| **Name for Data Export attachment** | `NrofCallsVsUsers` |
+| **Post Execution** | the function below |
 
 ```javascript
 function f() {
@@ -1436,7 +1485,18 @@ $('.popupComponent div.arrow').remove();
 }
 ```
 
-11. Save and open dashboard in Browser.
+10. Select **Save**, and open the dashboard from **Browse Files** again. Select **Export** above the line chart.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_export_png_and_csv.png" alt="Number of Calls vs Number of Users line chart with its Export popup open, offering Export PNG and Export CSV, the pointer on Export PNG" width="800">
+<figcaption>Export - PNG &#x26; CSV</figcaption>
+</figure>
+</div>
+
+> **Success:** Checkpoint: the popup offers **Export PNG** and **Export CSV**. **Export CSV** downloads the chart's data as a CSV file named after `NrofCallsVsUsers`.
+
+11. Close the dashboard's tab.
 
 > **Under the hood:**
 >
@@ -1453,76 +1513,51 @@ $('.popupComponent div.arrow').remove();
 > data source. Export PNG asks CGG to run that script on the server,
 > passing the chart's parameter values as param<name>; workshop 14
 > builds on that.
-
-
-<figure><img src="../_assets/images/cde_carrier_export_png_and_csv.png" alt=""><figcaption><p>Export - PNG &#x26; CSV</p></figcaption></figure>
+>
+> **Why it matters:** an export always matches what the user filtered,
+> because it re-runs the same query with the same parameter values.
 
 #### Expand - Expandable Rows
 
-> **Note:**
->
-> One of the neat features that can be added is .. expanding rows.
->
-> So if you click on a row in the mainTable, the record will expand and display a barChart - Calls by Platform.
->
-> The barChart has 3 parameters & listeners - monthParameter, tableSourceParameter, tableDestinationParameter.
+A table row can expand to show more content. Here, clicking a row in `mainTable` opens it to show a bar chart, Calls by Platform, for that row's source and destination. The bar chart has three parameters and listeners: `monthParameter`, `tableSourceParameter` and `tableDestinationParameter`.
 
-<figure><img src="../_assets/images/cde_carrier_expand_a_record.png" alt=""><figcaption><p>Expand a record</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_expand_a_record.png" alt="Calls Summary table with the North America to North America row expanded, revealing a Calls by Platform bar chart for Apple iOS, Google Android, Nokia Symbian and RIM Blackberry" width="800">
+<figcaption>Expand a record</figcaption>
+</figure>
+</div>
 
-1. To add a main row that will encapsulate the content to be displayed on the expanded row, in the Layout Structure panel:
-   * Select the layoutColumn column under the layoutRow row.
-   * Click in the Add Row icon.
+1. Select **Layout Panel**. In **Layout Structure**, select the **layoutColumn** column under the **layoutRow** row, and select the **Add Row** icon. This row holds the content of the expanded row.
+2. Set **Name** to `expandedContent` and **Css Class** to `WDhidden expandedContent`.
 
-2. Name the row, in the Properties panel:
-   * Click in the Value field for the Name property.
-   * Enter: expandedContent.
-   * Press Tab or Enter.
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_add_row_expandedcontent.png" alt="CDE Layout perspective with a new Row named expandedContent selected at the bottom of Layout Structure, its Css Class set to WDhidden expandedContent" width="800">
+<figcaption>Add row - expandedContent</figcaption>
+</figure>
+</div>
 
-<figure><img src="../_assets/images/cde_carrier_add_row_expandedcontent.png" alt=""><figcaption><p>Add row - expandedContent</p></figcaption></figure>
-
-3. Assign CSS classes to the expandedContent row, in the Properties panel:
-   * Click in the Value field for the Css Class property.
-   * Enter: WDhidden expandedContent.
-   * Press Tab or Enter.
-
-4. Add a column for the displayed bar chart, with the expandedContent row selected, click the Add Columns icon.
-5. Name the column, in the Properties panel:
-   * Click in the Value field for the Name property.
-   * Enter: barChartObj.
-   * Press Tab or Enter.
+3. With **expandedContent** selected, select the **Add Columns** icon, and set the new column's **Name** to `barChartObj`.
 
 ***
 
 #### Data Source
 
-> **Note:**
->
-> Need to create a barChartQuery to populate the barChart ..
+Create `barChartQuery`, the data source of the bar chart.
 
-<figure><img src="../_assets/images/cde_carrier_barchartquery.png" alt=""><figcaption><p>barChartQuery</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_barchartquery.png" alt="CDE Datasources perspective with barChartQuery, an mdx over mondrianJndi query, selected, using Jndi BaselineDemo and the Wireless Carrier Mondrian schema" width="800">
+<figcaption>barChartQuery</figcaption>
+</figure>
+</div>
 
-1. Click the Datasources Panel icon.
-2. Expand MDX Queries, and select: mdx over mondrianJndi.
-3. Name this data source, in the Properties pane:
-   * Click in the Value for the Name property.
-   * Enter: barChartQuery.
-   * Press Tab or Enter.
+1. Select **Datasources Panel**. In the list on the left, expand **MDX Queries** and select **mdx over mondrianJndi**.
+2. Set **Name** to `barChartQuery`, **Jndi** to `BaselineDemo` and **Mondrian schema** to `Wireless Carrier`.
+3. Select the **...** button in the **Query** value. In **MDX Editor**, enter this query and select **Ok**:
 
-4. Select the BaselineDemo jndi connection, in the Properties pane:
-   * Click in the Value for the Jndi property.
-   * On the keyboard, press the down arrow.
-   * Select: BaselineDemo connection.
-
-5. Select the Wireless Carrier Mondrian schema, in the Properties pane:
-   * Click in the Value for the Mondrian schema property.
-   * On the keyboard, press the down arrow.
-   * Select: Wireless Carrier schema.
-
-6. Enter the MDX query:
-   * In the Properties pane, click the ellipsis icon to the right of the Query property.
-   * In the MDX Editor window, enter the following MDX query, and then click Ok.
-
-```
+```text
 SELECT
 	Measures.[Calls] on 0, 
 	[Platform].[Platform].members on 1  
@@ -1535,174 +1570,147 @@ ${monthParameter},
 )
 ```
 
-7. Save the dashboard.
+4. Click in the **Parameters** value. In **Parameters**, select **Add** three times, fill in the rows as below, and select **Ok**. The parameters filter the chart by source, destination and month.
+
+| Name | Value | Type |
+| --- | --- | --- |
+| `tableSourceParameter` | `All` | `String` |
+| `tableDestinationParameter` | `All` | `String` |
+| `monthParameter` | `[Time.Standard Time].[2011].[Q1 2011].[January]` | `StringArray` |
+
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_parameters_barchart.png" alt="CDE Parameters dialog with three rows: tableSourceParameter and tableDestinationParameter set to All as String, and monthParameter set to a Time.Standard Time member as StringArray" width="800">
+<figcaption>Parameters - barChart</figcaption>
+</figure>
+</div>
+
+5. Select **Save**.
 
 ***
 
-Parameters
+#### Parameters
 
-> **Note:**
->
-> Finally we need to pass some parameters - filters - based on:
->
-> Source
->
-> Destination
->
-> Month
+1. Select **Components Panel**. In the list on the left, expand **Parameters** and select **Simple Parameter**.
+2. Set **Name** to `tableSourceParameter` and **Property value** to `All`.
+3. Add a second **Simple Parameter**, `tableDestinationParameter`, with the **Property value** `All`.
+4. Select **Save**.
 
-1. Add the parameters and specify default values:
-   * In the Properties pane, click in the Value column for the Parameters property.
-   * In the new window, click the Add button twice.
-   * In the Name and Value columns, type the following, and then click Ok.
-
-<figure><img src="../_assets/images/cde_carrier_parameters_barchart.png" alt=""><figcaption><p>Parameters - barChart</p></figcaption></figure>
-
-| Name | Value |
-| --- | --- |
-| tableSourceParameter | All |
-| tableDestinationParameter | All |
-| monthParameter | [Time.Standard Time]. [2011].[Q1 2011].[January] |
-
-2. From the Components list, expand Parameters, and then click Simple Parameter.
-
-<figure><img src="../_assets/images/cde_carrier_listeners.png" alt=""><figcaption><p>Listeners</p></figcaption></figure>
-
-3. Name the parameter, in the Properties pane:
-   * Click in the Value for the Name property.
-   * Enter: tableSourceParameter.
-   * Press Tab or Enter.
-
-4. Set the default value, in the Properties pane:
-   * Click in the Value for the Property value property.
-   * Enter: All.
-   * Press Tab or Enter.
-
-5. Repeat the previous three steps to add: tableDestinationParameter and set the default value to All.
-6. Save the dashboard.
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_listeners.png" alt="CDE Components perspective with the Parameters group selected, holding two Simple Parameters, tableSourceParameter and tableDestinationParameter, and a CCC Bar Chart named barChart in the Charts group" width="800">
+<figcaption>The two table parameters</figcaption>
+</figure>
+</div>
 
 ***
 
 #### Chart
 
-> **Note:**
->
-> Finally .. configure the Chart & Listener components.
+Configure the chart, its parameters and its listeners.
 
-1. Click the Components Panel icon.
-2. From the Components list, expand Charts, and then click CCC Bar Chart.
+1. In the list on the left, expand **Charts** and select **CCC Bar Chart**.
+2. Set these properties:
 
-<figure><img src="../_assets/images/cde_carrier_add_listeners_3.png" alt=""><figcaption><p>Add Listeners</p></figcaption></figure>
+| Property | Value |
+| --- | --- |
+| **Name** | `barChart` |
+| **Title** | `Calls by Platform` |
+| **Datasource** | `barChartQuery` |
+| **Height** | `200` |
+| **Width** | `500` |
+| **Compatibility Version** | `2` |
+| **HtmlObject** | `barChartObj` |
+| **Legend** | `False` |
 
-3. Name the bar chart, in the Properties pane:
-   * Click in the Value for the Name property.
-   * Enter: barChart.
-   * Press Tab or Enter.
+3. Click in the **Listeners** value, select the drop-down arrow, select **monthParameter**, **tableSourceParameter** and **tableDestinationParameter**, and select **OK**.
 
-4. Add a title for the bar chart, in the Properties pane:
-   * Click in the Value for the Title property.
-   * Type Calls by Platform.
-   * Press Tab or Enter.
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_add_listeners_2.png" alt="CDE Components perspective with barChart, titled Calls by Platform, selected and its Listeners drop-down open, with tableSourceParameter and tableDestinationParameter checked and destinationCallParameter unchecked" width="800">
+<figcaption>Add Listeners</figcaption>
+</figure>
+</div>
 
-<figure><img src="../_assets/images/cde_carrier_add_listeners_2.png" alt=""><figcaption><p>Add Listeners</p></figcaption></figure>
+4. Click in the **Parameters** value. In **Parameters**, select **Add** three times, map each parameter to itself as below, and select **Ok**:
 
-5. Specify the listeners for the barChart:
-   * In the Properties pane, click in the Value column for the Listeners property.
-   * Click the drop-down arrow.
-   * Click to select: monthParameter, tableSourceParameter, and tableDestinationParameter checkboxes.
-   * Click OK.
+| Arg | Value |
+| --- | --- |
+| `monthParameter` | `monthParameter` |
+| `tableSourceParameter` | `tableSourceParameter` |
+| `tableDestinationParameter` | `tableDestinationParameter` |
 
-6. Specify the parameters for the barChart:
-   * In the Properties pane, click in the Value column for the Parameters property.
-   * In the new window, click the Add button twice.
-   * In the first Arg columns, type monthParameter.
-   * Enter the first few letters of monthParameter.
-   * Repeat the steps to add the tableSourceParameter and tableDestinationParameter, and then click OK.
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_parameters_to_pass_to_datasource.png" alt="CDE Parameters dialog with three Arg and Value pairs, monthParameter, tableSourceParameter and tableDestinationParameter, each mapped to the parameter of the same name" width="704">
+<figcaption>Parameters to pass to datasource</figcaption>
+</figure>
+</div>
 
-<figure><img src="../_assets/images/cde_carrier_parameters_to_pass_to_datasource.png" alt=""><figcaption><p>Parameters to pass to datasource</p></figcaption></figure>
-
-7. Specify the data source, in the Properties pane:
-   * Click in the Value for the Datasource property.
-   * On the keyboard, press the down arrow.
-   * Select: barChartQuery.
-
-8. Specify the width and height for the bar chart, in the Properties pane:
-   * Click in the Value for the Height property.
-   * Type: 200 and press Enter.
-   * Click in the Value for the Width property.
-   * Type: 500 and press Enter.
-
-9. Specify the CCC version, in the Properties pane:
-   * Click in the Value for the Compatibility version property.
-   * Type: 2.
-   * Press Tab or Enter.
-
-10. Specify the HTML object, in the Properties pane:
-    * Click in the Value for the HtmlObject property.
-    * On the keyboard, press the down arrow.
-    * Select: barChartObj.
-
-11. Disable the legend, in the Properties pane:
-    * Click in the Value for the Legend property.
-    * On the keyboard, press the down arrow.
-    * Select: False.
-
-<figure><img src="../_assets/images/cde_carrier_properties.png" alt=""><figcaption><p>Properties</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_properties.png" alt="CDE Components perspective with barChart selected, showing its configured properties: title Calls by Platform, datasource barChartQuery, height 200, width 500, HtmlObject barChartObj and Legend False" width="800">
+<figcaption>Properties</figcaption>
+</figure>
+</div>
 
 ***
 
 #### Advanced Properties
 
-1. Click Advanced Properties.
-2. Set the execute at start flag, in the Properties pane:
-   * Click in the Value for the Execute at start property.
-   * On the keyboard, press the down arrow.
-   * Select: False.
+5. Select **Advanced Properties** and set **Execute at start** to `False`.
 
-> **Note:**
->
-> When a dashboard is loaded all its components are instantiated. The Execute at start property determines for each component if it should be executed or not at that moment. If the Execute at start flag of a component is False, the component will not be rendered.
+When a dashboard loads, all its components are created, and **Execute at start** decides whether each one runs then. A component with **Execute at start** set to `False` doesn't render until a parameter it listens to changes.
 
-3. Save the dashboard.
+6. Select **Save**.
 
 ***
 
 #### Enable mainTable
 
-> **Note:**
->
-> Finally .. enable the Expand option in the mainTable.
+Finally, turn on row expansion in `mainTable`.
 
-<figure><img src="../_assets/images/cde_carrier_enable_maintable.png" alt=""><figcaption><p>Enable mainTable</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_enable_maintable.png" alt="CDE Components perspective with the Table Component mainTable selected on Advanced Properties, Expand On Click set to True and Expand container Object set to expandedContent" width="800">
+<figcaption>Enable mainTable</figcaption>
+</figure>
+</div>
 
-1. From the Components list, expand Others, and then click the mainTable component.
-2. In the Properties pane, click Advanced Properties.
-3. Set the expand on click property, in the Properties pane:
-   * Click in the Value for the Expand on Click property.
-   * On the keyboard, press the down arrow.
-   * Select: True.
+1. In the components grid, expand **Others** and select **mainTable**.
+2. Select **Advanced Properties** and set:
 
-4. Specify the object that encapsulates the content on the expand row, in the Properties pane:
-   * Click in the Value for: Expand container Object property.
-   * Enter: expandedContent.
-   * Press Tab or Enter.
+| Property | Value |
+| --- | --- |
+| **Expand On Click** | `True` |
+| **Expand container Object** | `expandedContent` |
 
-5. Specify the parameters that will carry the column values to be passed to the expanded content:
-   * In the Properties pane, click in the Value column for the Expand Parameters property.
-   * In the new window, click the Add button.
-   * In the first Arg column, type 0.
-   * Enter the first few letters to select: tableSourceParameter.
-   * In the second Arg column, type 1.
-   * Enter the first few letters to select: tableDestinationParameter.
-   * Click OK.
+3. Click in the **Expand Parameters** value. In **Parameters**, select **Add** twice, fill in **Arg** and **Value** as below, and select **Ok**. **Arg** is a column index, and **Value** is the parameter that receives that column's value.
 
-<figure><img src="../_assets/images/cde_carrier_2.png" alt=""><figcaption></figcaption></figure>
+| Arg | Value |
+| --- | --- |
+| `0` | `tableSourceParameter` |
+| `1` | `tableDestinationParameter` |
 
-> **Note:**
->
-> The Arg column contains the column index and the Value column refers to the name of the parameter that stores its values.
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_2.png" alt="CDE Parameters dialog with two Arg and Value pairs, Arg 0 mapped to tableSourceParameter and Arg 1 mapped to tableDestinationParameter" width="704">
+<figcaption>Expand parameters: Arg 0 sets tableSourceParameter, Arg 1 sets tableDestinationParameter</figcaption>
+</figure>
+</div>
 
-6. Save & Preview the dashboard.
+4. Select **Save**, then **Preview your Dashboard**, and select a row of the **Calls Summary** table.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_calls_by_platform.png" alt="Calls Summary table with the Europe to Asia-Pac row expanded into a Calls by Platform bar chart, where Google Android is the tallest bar among five platforms" width="800">
+<figcaption>Calls by Platform</figcaption>
+</figure>
+</div>
+
+> **Success:** Checkpoint: the row opens, and the **Calls by Platform** bar chart inside it shows the calls of that source and destination by platform.
+
+5. Close the preview.
 
 > **Under the hood:**
 >
@@ -1717,35 +1725,42 @@ Parameters
 >
 > Each time the table itself renders, it resets the expand parameters to
 > empty.
-
-
-<figure><img src="../_assets/images/cde_carrier_calls_by_platform.png" alt=""><figcaption><p>Calls by Platform</p></figcaption></figure>
+>
+> **Why it matters:** the detail chart costs nothing until a user asks
+> for it: its query runs only for the row that was clicked.
 
 ### 3. Preview
 
 > **Note:**
 >
-> With the layout built, CDA data sources wired, all components configured, and interactivity in place, open the completed dashboard to confirm everything works end to end.
-
-<figure><img src="../_assets/images/cde_carrier_wireless_carrier_dashboard.png" alt=""><figcaption><p>Wireless Carrier Dashboard</p></figcaption></figure>
-
-> **Note:**
+> #### Preview
 >
-> Validate the finished Carrier Dashboard:
+> With the layout built, the CDA data sources defined, the components configured and the interactions in place, open the finished dashboard and check it end to end.
+
+1. In **Browse Files**, double-click the dashboard to open it.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_carrier_wireless_carrier_dashboard.png" alt="Completed Wireless Carrier dashboard for January with KPIs of 323,556 calls and 3.62 min average duration, platform and plan charts, daily calls versus users line chart and summary table" width="800">
+<figcaption>Wireless Carrier Dashboard</figcaption>
+</figure>
+</div>
+
+> **Success:** Checkpoint: the finished Carrier Dashboard:
 >
-> * The three selectors (Source Region, Destination Region, Month) filter the data dynamically.
+> * The three selectors, Source Region, Destination Region and Month, filter the data.
 > * The KPI panels show Number of Calls and Average Call Duration.
-> * The Pie Chart (donut) is clickable and drives the Line Chart via planTypeParameter.
-> * The Line Chart shows Number of Calls vs Number of Users with the styled extension points.
-> * The mainTable shows trend arrows and data bars; clicking a row expands it to reveal the Calls by Platform bar chart.
-> * The Export Button exports the table as CSV; the Export Popup exports the line chart as PNG and its data as CSV.
+> * The donut chart is clickable, and a click redraws the line chart through `planTypeParameter`.
+> * The line chart shows Number of Calls vs Number of Users, styled by its extension points.
+> * `mainTable` shows trend arrows and data bars, and clicking a row opens the Calls by Platform bar chart.
+> * The Export button exports the table as CSV; the Export popup exports the line chart as PNG and its data as CSV.
 
-> **Note:**
->
-> The completed workshop:
->
-> /Public/CTools-Dashboard/Carrier-Dashboard-Export
+2. Close the dashboard's tab.
 
-> **Success:** You've built the complete Wireless Carrier dashboard in CDE — layout and CSS, CDA MDX data sources, interactive CCC charts, selectors, click actions, exports, and expandable rows — all rendering and filtering end to end in the Pentaho User Console.
+A finished version of the whole workshop is in **Public > CTools-Dashboard > Carrier-Dashboard-Export**.
 
 ::::
+
+## Lab Files
+
+_No bundled files for this lab._

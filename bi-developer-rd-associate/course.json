@@ -13,9 +13,9 @@
   },
   "title": "Pentaho BI Developer - RD Associate",
   "description": "Hands-on workshop for Pentaho Report Designer: data sources, report elements and groups, calculations, formatting, parameters, charts, sub-reports, and publishing to the BA repository.",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "kind": "workshop",
-  "level": { "number": 1, "name": "Associate" },
+  "level": { "number": 2, "name": "Associate" },
   "mode": "sequential",
   "theme": {
     "accent": "#2e7d32"
@@ -91,5 +91,9 @@
       "title": "Reference",
       "summary": "Appendices from the course manual: data sources, chart types, environment variables, and report templates."
     }
-  ]
+  ],
+  "install": {
+    "code": "RD",
+    "getReady": true
+  }
 }

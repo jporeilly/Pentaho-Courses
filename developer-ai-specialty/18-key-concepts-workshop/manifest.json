@@ -3,7 +3,7 @@
   "description": "Run the prompt, tokenization, embedding, search and transformer scripts against a local Ollama - the hands-on side of Overview of a Prompt.",
   "order": 2,
   "kind": "workshop",
-  "stepCount": 18,
+  "stepCount": 30,
   "hasVideo": false,
   "estimatedMinutes": 45
 }

@@ -13,9 +13,9 @@
   },
   "title": "Pentaho BI Developer - CTools Associate",
   "description": "Hands-on workshop for the dashboard BI Developer. Build interactive Pentaho Community Tools (CTools) dashboards in the Pentaho User Console — Community Data Access (CDA), the Community Dashboard Framework (CDF), the Community Dashboard Editor (CDE) with CCC charts, and the Community Graphics Generator (CGG).",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "kind": "workshop",
-  "level": { "number": 1, "name": "Associate" },
+  "level": { "number": 2, "name": "Associate" },
   "mode": "sequential",
   "theme": {
     "accent": "#2e7d32"
@@ -69,5 +69,9 @@
       "url": "http://localhost:8080"
     }
   },
-  "role": "bi-developer"
+  "role": "bi-developer",
+  "install": {
+    "code": "CT",
+    "getReady": true
+  }
 }

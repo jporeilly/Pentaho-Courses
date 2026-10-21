@@ -68,7 +68,7 @@ cat "$PENTAHO_SERVER/pentaho-solutions/system/plugin-manifest.json"
 >
 > #### Plugins live inside the product folders an upgrade replaces
 >
-> The Plugin Manager unpacks each server plugin into its own folder under `pentaho-solutions/system`, and each PDI client plugin under `data-integration/plugins`, and lists what it installed in a `plugin-manifest.json` in each place. Both folders are part of the installation that the upgrade replaces, and the upgrade does not keep your plugins.
+> The Plugin Manager unpacks each server plugin into its own folder under `pentaho-solutions/system`, and each Pentaho Data Integration client plugin under `data-integration/plugins`, and lists what it installed in a `plugin-manifest.json` in each place. Both folders are part of the installation that the upgrade replaces, and the upgrade does not keep your plugins.
 >
 > **Why it matters:** the two manifests are your list of what to reinstall, with the versions you had. Keep a copy with your backup, then reinstall the plugins from the Plugin Manager after the upgrade.
 

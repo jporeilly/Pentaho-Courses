@@ -1,31 +1,51 @@
-# Agent-as-a-Service
+# Overview
 
-> **Success:**
+<div class="pcm-intro">
+
+This module draws the line between LLM-enriched ETL and an AI agent. The earlier workshops called a Large Language Model (LLM) directly from a Pentaho Data Integration **REST client** step: one prompt in, one JSON answer out, a pure function of one row. Here, Pentaho Data Integration retrieves an asset's maintenance history and calls a deployed Python agent, which reads the current entry and every history entry together, in one LLM call, and judges whether this is a recurrence of a known fault, a new fault, or normal variation.
+
+</div>
+
+**What You'll Learn**
+
+* What separates an agent from a direct LLM call or an extraction service
+* Why the history is retrieved by Pentaho Data Integration, and the reasoning left to the agent
+* The maintenance scenario the next workshop builds
+
+The test for whether something needs an agent: can Pentaho Data Integration produce the same result by adding more steps to the canvas? No standard step reads several free-text entries as a whole and judges what they mean together; that judgement is what the agent owns.
+
+**The three approaches in this course:**
+
+| | Direct LLM call / multi-stage | LangExtract | Agent as a service |
+| --- | --- | --- | --- |
+| What it does | Sends one prompt per row, returns structured JSON for that row | Extracts named values with character offsets from one text; returns one row per value | Reads the current entry and its retrieved history, reasons across all of them, returns one assessment |
+| Input to the service | One text field from the row | One text field, a prompt and few-shot examples | The current log text and N history entries, retrieved by Pentaho Data Integration before the call |
+| Output shape | One row in, one enriched row out | One row in, N extraction rows out, pivoted by **Row denormaliser** | One row in, one assessment row out |
+| LLM calls per row | 1 (or a fixed number of stages) | 1 per extraction pass over the chunked text | 1: all the texts in a single context |
+| Needs other records? | No: each row on its own | No: each document on its own | Yes: the history Pentaho Data Integration retrieves with **Database join** is essential |
+| Decision grounded in | The current text | The current text, traced back by character offsets | The current text and the verified history in the database |
+| Can Pentaho Data Integration steps replicate it? | Yes: the multi-stage script and REST client pattern | Partly: rules cover known formats; LangExtract handles variable ones | Not with standard steps: the cross-text reasoning is the agent's |
+| Use when | Classifying, enriching or summarizing individual records | Extracting typed fields from free text where rules are too brittle | The assessment depends on what earlier records say, not only the current one |
+
+> **Note:**
 >
-> #### Overview
-> 
-> This workshop introduces the architectural boundary between LLM-enriched ETL and a genuine AI agent. Previous workshops in this series called an LLM directly from a PDI REST Client step - one prompt in, one JSON response out. That is a pure function of one row: no external state, nothing beyond the text in front of it.
-> 
-> This workshop is different. PDI retrieves an asset's history and calls a deployed Python agent, which reads the current entry and every history entry together, in one LLM call, and reasons across them: is this a recurrence of a known fault, a new fault, or normal variation? PDI cannot replicate this on the transformation canvas - no step can read several free-text entries as a whole and judge what they mean together, so that judgement is what the agent owns.
+> #### The Scenario
+>
+> A maintenance team logs fault observations as free-text entries against industrial assets: one paragraph per entry, written by an engineer in the field, with no fixed schema or controlled vocabulary. Pentaho Data Integration reads these entries from a database table and must produce a priority assessment for each one. A complete assessment answers three questions:
+>
+> * What fault does this entry describe? (classification)
+> * What has happened to this asset before? (history retrieval)
+> * Is the current entry a new fault, an acceleration of a known pattern, or normal variation, given that history? (pattern reasoning)
 
-The test for whether something is an agent is simple: can PDI replicate the behaviour by adding more steps to the canvas? &#x20;
-
-Here's summary of the different approaches:
-
-<table data-full-width="false"><thead><tr><th width="204" valign="top"></th><th width="279" valign="top">Direct LLM Call / Multi-Stage</th><th width="269" valign="top">LangExtract</th><th width="388" valign="top">Agent as a Service</th></tr></thead><tbody><tr><td valign="top">What it does</td><td valign="top">Sends one prompt per row, returns structured JSON for that row</td><td valign="top">Extracts named entities with char offsets from a single text; returns one row per entity</td><td valign="top">Reads current entry plus retrieved history, reasons across all texts, returns one assessment</td></tr><tr><td valign="top">Input to the service</td><td valign="top">Single text field from the PDI row</td><td valign="top">Single text field + prompt + few-shot examples</td><td valign="top">Current log text + N history entries (retrieved by PDI before calling the agent)</td></tr><tr><td valign="top">Output shape</td><td valign="top">One row in, one enriched row out</td><td valign="top">One row in, N entity rows out (one per extraction); pivoted by Row Denormaliser</td><td valign="top">One row in, one assessment row out</td></tr><tr><td valign="top">LLM calls per row</td><td valign="top">1 (or N fixed stages)</td><td valign="top">1 per extraction pass (typically 2 passes over chunked text)</td><td valign="top">1 - reads all texts together in a single context</td></tr><tr><td valign="top">Requires history from other records?</td><td valign="top">No - processes each row in isolation</td><td valign="top">No - processes each document in isolation</td><td valign="top">Yes - history retrieved by PDI via Database Join is essential to the assessment</td></tr><tr><td valign="top">Decision grounded in</td><td valign="top">LLM inference on current text only</td><td valign="top">LLM extraction from current text only; char offsets trace back to source</td><td valign="top">LLM reasoning across current text AND verified historical records from the database</td></tr><tr><td valign="top">Can PDI replicate it?</td><td valign="top">Yes - multi-stage MJV + REST Client pattern</td><td valign="top">Partially - regex/rules cover known entity formats; LangExtract handles novel/variable ones</td><td valign="top">No - cross-text pattern reasoning is not encodable as PDI steps</td></tr><tr><td valign="top">Use when</td><td valign="top">Classifying, enriching, or summarising individual records</td><td valign="top">Extracting typed fields from free-form text where regex rules are too brittle</td><td valign="top">Assessment depends on what previous records say, not just the current one</td></tr></tbody></table>
-
-> **Success:** A maintenance team logs fault observations as free-text entries against industrial assets. Each entry is a single paragraph written by an engineer in the field — no fixed schema, no controlled vocabulary. PDI reads these entries from a database table and must produce a structured priority assessment for each one.
-> 
-> A complete assessment requires three things:
-> 
-> * What fault is being described in this entry? (classification)
-> * What has happened to this asset previously? (history retrieval)
-> * Does the current entry represent a new fault, an acceleration of a known pattern, or normal operating variation - given what has happened before? (pattern reasoning)&#x20;
-
-<figure><img src="../_assets/images/maintenance_assessment_agent.png" alt=""><figcaption><p>maintenance assessment agent</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/maintenance_assessment_agent.png" alt="The maintenance assessment transformation: Read Log Entries (spelt Enteries on this earlier canvas), Get Asset History, Sort rows, Remove Duplicates, Aggregate History, Group by, Build Agent Payload, Call Assessment Agent, Check HTTP status with a failure branch to Dummy (do nothing), Parse Agent Response, and a Switch / case to four outputs, CRITICAL, HIGH, MEDIUM and LOW" width="800">
+<figcaption>An earlier build of the transformation the next workshop builds: Pentaho Data Integration retrieves the history, the agent reasons over it. Your step names follow the workshop</figcaption>
+</figure>
+</div>
 
 ***
 
-## Workshops
+## Workshops <!-- no-step -->
 
-* **Deploy & Run the Agent** — start the agent service, wire it into a PDI transformation, run it, and review performance.
+* **Deploy & Run the Agent** — start the agent service, wire it into a Pentaho Data Integration transformation, run it, and review performance.

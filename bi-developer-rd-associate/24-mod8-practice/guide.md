@@ -4,193 +4,238 @@
 >
 > #### Workshop - Practice: Charts & Sub Reports
 >
-> Four exercises covering charts, sub-reports, multiple sub-reports, and drillable charts.
+> Four exercises on your own: a multi-pie chart, a grouped sub-report, two summary sub-reports, and a 3-D chart with a parameter and a drill link.
 >
 > **What you'll do**
 >
-> * Add a chart to a report on your own.
-> * Embed one, then several, sub-reports.
-> * Make a chart drillable.
+> * Add a multi-pie chart to a landscape report
+> * Add a grouped sub-report in the **Report Footer** band
+> * Add two summary sub-reports to the multiple sub-reports report
+> * Make a chart 3-D, filter it with a parameter, and add a JavaScript drill link
 >
-> **Prerequisites:** Complete this section's guided demonstrations first
+> **Prerequisites:** [Charts & Sub Reports](../21-mod8-charts-sub-reports/guide.md), [Drilldown Charts](../22-mod8-drilldown-charts/guide.md) and [Multiple Sub Reports](../23-mod8-multiple-sub-reports/guide.md), with its report `Demo - multiple sub reports.prpt`
 >
-> **Estimated Time:** 30 minutes
+> **Estimated time:** 30 minutes
 
----
+:::: tabs
+
+### 1. Multi-pie chart
 
 > **Note:**
 >
-> #### **Practice: Charts & Sub Reports**
+> #### Product line mix by year
 >
-> Four exercises covering charts, sub-reports, multiple sub-reports, and drillable charts.
+> A multi-pie chart draws one pie per series value. Here each year gets a pie of sales by product line. The starting report, `Sub Report Activity.prpt`, is in the **Lab Files** of [Multiple Sub Reports](../23-mod8-multiple-sub-reports/guide.md): download it into your workshop folder first.
 
-## Chart
+1. Start Report Designer with the **Start Pentaho Report Designer** button below, or from a terminal:
 
-To add a multi-pie chart showing sales by year and product line:
+::: tabs
 
-1. To open the Sub Report Activity chart report:
-2. From the Menu bar select File > Open.
-3. Navigate to \pentahotraining\BA2000\reports.
-4. Click Sub Report Activity.prpt.
-5. Click Open.
-6. To review the query, from the Data pane, expand Data Sets, and then double-click Query 1.
-7. After reviewing the query, click OK.
-8. To change the page orientation to landscape and adjust the page margins:
-9. From the Menu, select File > Page Setup.
-10. Click the Landscape checkbox.
-11. Change each margin to 18.
-12. Click OK.
-13. In the Resize Report Elements dialog, ensure Do not change the layout is selected, and then click OK.
-14. On the canvas, click the divider line at the bottom of the Report Header band and drag it down to approximately 7.0” below the Page Header.
-15. Drag a Chart element to the Report Header band, and resize the element to fill the entire Report Header band.
-16. In the Report Header band, double-click the Chart element.
-17. To change the chart to a multi pie chart.
-18. To select Product Line for the category-column, from the Value drop-down list, select PRODUCTLINE.
-19. To select Sales for the value-columns:
-20. For value-columns, click in the Value field.
-21. Click the … icon.
-22. In the Edit Array window, from the Available Items, click SALES.
-23. Click in the arrow to move SALES to the Selected Items list.
-24. Click OK.
-25. To select YEAR_ID for the series-by field:
-26. For series-by-field, click in the Value field.
-27. Click the … icon.
-28. In the Edit Array window, from the Available Items, click YEAR_ID.
-29. Click in the arrow to move YEAR_ID to the Selected Items.
-30. Click OK.
-31. In the chart-title field, type Product Line Mix.
-32. To create the chart, in the Edit Chart window, click OK.
-33. Preview and Save the report: Training Exercise Report 8-1 charts.
+### Windows (PowerShell)
 
-![Chart](../_assets/images/mod8-29.png)
+```powershell
+Set-Location C:\Pentaho\design-tools\report-designer
+.\report-designer.bat
+```
 
-## Sub Report
+### macOS / Linux
 
-To add a sub-report showing Volume for each year grouped by Product Line:
+```bash
+cd ~/Pentaho/design-tools/report-designer
+./report-designer.sh
+```
 
-Open the report: Training Exercise Report 8-1 charts.
+:::
 
-To add a Sub-report:
+<button data-launch="prd" data-path="">Start Pentaho Report Designer</button>
 
-Drag a Sub-report element to the right side of the Report Footer band.
+2. Select **File > Open** (`Ctrl+O`) and open `Sub Report Activity.prpt` from your workshop folder, `Documents\RD-Workshop`.
+3. Select **File > Save As** and save it as `Exercise - charts.prpt`.
+4. On the **Data** tab, double-click `Query 1` to read the query: `SALES` and `VOLUME` by product line and year. Select **OK**.
+5. Select **File > Page Setup**, select **Landscape**, and set the four margins to `18`. Select **OK**, then select **Do not change the layout** and **OK**.
+6. Drag the bottom of the **Report Header** band down to about 7 inches, drag a **chart** onto it, and resize the chart to fill the band.
+7. Double-click the chart, select the **Multi Pie Chart** button, and set:
 
-In the Insert Sub report dialog, click Inline.
+| Property | Value |
+| --- | --- |
+| **chart-title** | `Product Line Mix` |
+| **category-column** | `PRODUCTLINE` |
+| **value-columns** | `SALES` |
+| **series-by-field** | `YEAR_ID` |
 
-In the Select Data Source Window, select Query 1, and click OK.
+8. Select **OK**, then select **Preview**.
 
-To reposition and resize the Sub-report element:
+<div align="center">
+<figure>
+<img src="../_assets/images/mod8-29.png" alt="Product Line Mix: three pies, for 2003, 2004 and 2005, each split into the seven product lines with percentage labels, and one legend" width="800">
+<figcaption>One pie per year</figcaption>
+</figure>
+</div>
 
-From the open reports tabs, click the Sub Report Activity tab.
+> **Success:** Checkpoint: **Product Line Mix** shows three pies, labeled `2003`, `2004` and `2005`, each split into the seven product lines, with Classic Cars the largest slice in each.
 
-Resize the Report Footer to be 3.0” below the Details band.
+9. Select **Design**, and save the report (`Ctrl+S`).
 
-Reposition and resize the Sub report element to fill the entire Report Footer band.
+### 2. A grouped sub-report
 
-To return to the Sub report, from the open reports tabs, click the <Untitled Subreport> tab.
+> **Note:**
+>
+> #### Volume by year, for each product line
+>
+> A sub-report in the **Report Footer** band, grouped by product line, lists the volume of each year.
 
-To create the Sub-report, drag YEAR_ID and VOLUME to the Details band.
+1. From the palette, drag a **sub-report** onto the **Report Footer** band. Select **Inline**, select `Query 1` in **Select Data Source**, and select **OK**.
+2. On the master report's tab, drag the bottom of the **Report Footer** band down to about 3 inches, and resize the sub-report element to fill the band.
+3. On the sub-report's tab, drag `YEAR_ID` and `VOLUME` onto the **Details** band.
+4. Show the **Details Header** band (**hide-on-canvas** `False`), and add the labels `Year` and `Volume` and a **horizontal-line** under them.
+5. Add a group on `PRODUCTLINE` (**Add Group**), and a **message** element `Product Line: $(PRODUCTLINE)` in its **Group Header** band.
+6. Select `YEAR_ID` in the **Details** band and select **Format > Morph > text-field**, so that the year prints without a thousands separator.
 
-To create column headings, turn on the Details Header band and add Label elements and a Horizontal Line element to the Details Header band.
+<div align="center">
+<figure>
+<img src="../_assets/images/mod8-30.png" alt="The sub-report in design mode: Product Line: $(PRODUCTLINE) in the Group Header, the Year and Volume labels with a line under them, and the YEAR_ID and VOLUME fields" width="787">
+<figcaption>The grouped sub-report</figcaption>
+</figure>
+</div>
 
-To group the sub-report by Product Line, use your knowledge to add a group for PRODUCTLINE, and add a message element to the Group Header band to identify the Product Line.
+7. Select the master report's tab, and select **Preview**. Go to the last page.
 
-To change the YEAR_ID to a string field, on the Report Details band, click YEAR_ID, and then from the menu, select Format > Morph > text-field.
+<div align="center">
+<figure>
+<img src="../_assets/images/mod8-31.png" alt="The sub-report in preview: Product Line: Classic Cars with 2003 12,762, 2004 16,085 and 2005 6,705, then Motorcycles with 4,031, 5,906 and 2,771" width="539">
+<figcaption>Volume by year, grouped by product line</figcaption>
+</figure>
+</div>
 
-To return to the Sub Report Activity report, from the open reports tabs, click the Sub Report Activity tab.
+> **Success:** Checkpoint: after the chart, the sub-report starts with **Product Line: Classic Cars**: 12,762 in 2003, 16,085 in 2004 and 6,705 in 2005. Motorcycles follows with 4,031, 5,906 and 2,771.
 
-Preview and save the Report: Training Exercise 8-1 sub report
+8. Select **Design**, and save the report (`Ctrl+S`).
 
-![Sub Report](../_assets/images/mod8-30.png)
+### 3. Summary sub-reports
 
-![Sub Report](../_assets/images/mod8-31.png)
+> **Note:**
+>
+> #### Totals beside the charts
+>
+> Add two small tables under the pie charts of `Demo - multiple sub reports.prpt`: the total sales of each territory, and of each North American country. Each table is a sub-report with a summary query.
 
-## Multiple Sub Reports
+1. Select **File > Open** (`Ctrl+O`), open `Demo - multiple sub reports.prpt`, and save it as `Exercise - multiple sub reports.prpt`.
+2. Double-click the data source on the **Data** tab and add two queries:
 
-To add additional sub-reports to the existing report:
+`By Territory`:
 
-1. Open the Training Guided Demo 8-2 – multiple sub reports.
-2. To resize the Report Header band, on the Canvas, click the divider line at the bottom of the Report Header band and drag it down to approximately 4” on the vertical ruler.
-3. To add a sub-report summarizing the territory data:
-4. From the Elements Palette, drag a Sub-report element to the bottom left side of the Report Header band.
-5. In the Insert Subreport dialog, click Inline.
-6. In the Select Data Source window, select By Country, and click OK.
-7. Click the Training Demo 8-2 – multiple sub reports tab, and then reposition and resize the Sub-report element below the Total Sales for North America chart Sub-report, as illustrated below.
-8. To return to the Sub-report, from the open reports tabs, click the <Untitled Subreport> tab.
-9. To create the report:
-10. From the Data tab, expand Data Sets > JDBC SampleData > By Territory, and drag Territory to the top left corner of the Details band.
-11. From the Data tab, drag Total to the Details band and drop it to the right of Territory.
-12. From the Elements palette, drag two label elements to the Report Header band and create labels for the Territory and Total columns.
-13. Preview the report.
-14. Optionally, reposition and format the report elements.
-15. To return to the main report, from the open reports tabs, close the Untitled Subreport tab.
-16. Repeat the above steps to add a sub-report for the country data.
-17. Preview and Save the report: Training Exercise 8-2
-## Sub Report
+```sql
+SELECT
+     "CUSTOMER_W_TER"."TERRITORY",
+     sum("ORDERFACT"."TOTALPRICE") AS TOTAL
+FROM
+     "ORDERFACT" INNER JOIN "CUSTOMER_W_TER" ON "ORDERFACT"."CUSTOMERNUMBER" = "CUSTOMER_W_TER"."CUSTOMERNUMBER"
+GROUP BY
+     "CUSTOMER_W_TER"."TERRITORY"
+ORDER BY
+     "CUSTOMER_W_TER"."TERRITORY" ASC
+```
 
-To add a sub-report showing Volume for each year grouped by Product Line:
+`By Country`:
 
-1. To open the report that has already been started for you:
-2. From the Menu bar select File > Open.
-3. Navigate to \pentahotraining\BA2000\reports.
-4. Click Chart Drillable.prpt.
-5. Click Open.
-Notice that the report already has a query defined, and the Report Header section has been enlarged.
+```sql
+SELECT
+     "CUSTOMER_W_TER"."COUNTRY",
+     sum("ORDERFACT"."TOTALPRICE") AS TOTAL
+FROM
+     "ORDERFACT" INNER JOIN "CUSTOMER_W_TER" ON "ORDERFACT"."CUSTOMERNUMBER" = "CUSTOMER_W_TER"."CUSTOMERNUMBER"
+WHERE
+     "CUSTOMER_W_TER"."TERRITORY" = 'NA'
+GROUP BY
+     "CUSTOMER_W_TER"."COUNTRY"
+ORDER BY
+     "CUSTOMER_W_TER"."COUNTRY" ASC
+```
 
-## Chart
+3. Drag the bottom of the **Report Header** band down to about 4 inches.
+4. Drag a **sub-report** onto the band below the territory chart. Select **Inline** and the `By Territory` query.
+5. On the sub-report's tab, drag `TERRITORY` and `TOTAL` onto the **Details** band, and add the labels `Territory` and `Total` above them, in the sub-report's **Report Header** band.
+6. On the master report's tab, add a second sub-report below the North America chart, with the `By Country` query, `COUNTRY` and `TOTAL`, and the labels `Country` and `Total`.
+7. Select **Preview**.
 
-1. Drag a Chart element to the Report Header band.
-2. Resize the Chart element to fill the Report Header band.
-3. Double-click the Chart element.
-4. On the Primary Data Source tab, for category-column, click in the Value field, and then from the drop-down list, select PRODUCTLINE.
-5. To select the value column:
-6. For value-columns, click in the Value field.
-7. Click the … icon.
-8. In the Edit Array window, from the Available Items, click QUANTITY.
-9. Click in the arrow to move QUANTITY to the Selected Items list.
-10. Click OK
-11. To select the series-by-field column:
-12. For series-by-field, click in the Value field.
-13. Click the … icon.
-14. In the Edit Array window, from the Available Items, click CITY.
-15. Click in the arrow to move CITY to the Selected Items list.
-16. Click OK
-17. In the Edit Chart window, click OK.
-18. Preview and Save the report.
-## 3D Chart
+> **Success:** Checkpoint: under the territory pie, `APAC` 1,281,705.89, `EMEA` 5,008,224.32, `Japan` 503,957.58 and `NA` 3,852,061.39; under the North America pie, `Canada` 224,078.56 and `USA` 3,627,982.83.
 
-To enhance the chart by making it 3D and changing the x-axis label rotation:
+8. Select **Design**, and save the report (`Ctrl+S`).
 
-1. In the Report Header band, double-click the Chart element.
-2. From the properties list, for General > 3D, click in the Value column, and then from the drop-down list, select True.
-3. For X-Axis > x-axis-label-rotation, double-click in the Value column, and then type 45.
-4. In the Edit Chart window, click OK.
-5. Preview and Save the report: Training Exercise Demo 8-3
-## Parameter
+### 4. A drillable 3-D chart
 
-1. To create a parameter for the state:
-2. Complete the following fields in the Add Parameter window, and then click OK.
-3. To modify the original query, from the Data tab, double-click JDBC: SampleData (Hypersonic)
-4. To select Query 1, from the Available Queries, click Query 1.
-5. To modify the WHERE clause for CUSTOMER_W_TER.STATE:
-6. Change the value from ‘NY’ to ${State} - remember to remove single quotes
-7. Click OK.
-8. Preview the chart and test the parameterization by entering the following values for the state parameter: NY, CA, and NJ.
-9. Preview and Save the report.
-## Drill Link
+> **Note:**
+>
+> #### Quantity by product line and city
+>
+> The last exercise starts from `chart drillable.prpt`, in the **Lab Files** of [Drilldown Charts](../22-mod8-drilldown-charts/guide.md): its query reads the quantity ordered by product line and city for the state of New York, and its **Report Header** band is already tall. Download it into your workshop folder first.
 
-1. Double-click the Chart element.
-2. To open the formula editor, for Values > url-formula, click in the Value column, and then click the … icon.
-3. In the Formula pane, type the following formula on one line:
-`=”javascript:alert('" & ["chart::series-key"] & "')"`
+1. Select **File > Open** (`Ctrl+O`), open `chart drillable.prpt`, and save it as `Exercise - drillable chart.prpt`.
+2. Drag a **chart** onto the **Report Header** band and resize it to fill the band.
+3. Double-click the chart, keep the bar chart, and set **category-column** to `PRODUCTLINE`, **value-columns** to `QUANTITY` and **series-by-field** to `CITY`.
+4. Set **3-D** (in **General**) to `True`, and **x-axis-label-rotation** (in **X-Axis**) to `45`. Select **OK**.
+5. Select **Preview**.
 
-Click OK.
+> **Success:** Checkpoint: a 3-D bar chart with the product lines along the x-axis at an angle, and one bar per New York city in each: `NYC` and `White Plains`.
 
-1. To create the chart, in the Edit Chart window, click OK.
-2. From the Menu bar select File > Preview > HTML.
-3. In the state parameter, type NJ, and then click OK.
-4. To drill down to show the cities, on the chart, click each data bar.
-5. To close the pop-up window.
-6. Close the browser preview tab.
-7. Close and Save the report: Training Exercise 8-3.
+6. Select **Design**. On the **Data** tab, right-click **Parameters** and select **Add Parameter**. Set the fields as in this table, and select **OK**:
 
-![=”javascript:alert('" & ["chart::series-key"] & "')"](../_assets/images/mod8-32.png)
+| Field | Value |
+| --- | --- |
+| **Name** | `State` |
+| **Label** | `State:` |
+| **Value Type** | `String` |
+| **Default Value** | `NY` |
+| **Mandatory** | Selected |
+| **Display Type** | `Text Box` |
+
+7. Double-click the data source, select `Query 1`, and in its `WHERE` clause change `'NY'` to `${State}`, without the quotation marks:
+
+```sql
+	 AND CUSTOMER_W_TER.STATE = ${State}
+```
+
+8. Select **OK**, then select **Preview**. Enter `CA`, then `NJ`, in **State:**.
+
+> **Success:** Checkpoint: the chart changes with the state: ten cities in the legend for `CA`, and one, `Newark`, for `NJ`.
+
+9. Select **Design**, and double-click the chart. Select the **...** button of **url-formula** (in **Values**), and enter this formula on one line:
+
+```text
+="javascript:alert('" & ["chart::series-key"] & "')"
+```
+
+10. Select **OK**, then select **OK** to close **Edit Chart**.
+11. Select **File > Preview > HTML**. In the browser, keep `NY` for the state, and select a bar.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/mod8-32.png" alt="The 3-D bar chart for NY, with NYC and White Plains bars for each product line, and an alert box reading NYC over the chart" width="630">
+<figcaption>A bar's alert shows its city</figcaption>
+</figure>
+</div>
+
+> **Success:** Checkpoint: selecting a bar opens an alert box with the name of the bar's city. Select **OK** to close it.
+
+12. Close the browser tab, and save the report (`Ctrl+S`).
+
+> **Under the hood:**
+>
+> #### url-formula can return any URL, including JavaScript
+>
+> The HTML output writes each bar as an image-map area whose link is
+> the result of **url-formula**, evaluated for that bar with the
+> `chart::` fields bound to it. `["chart::series-key"]` is the bar's
+> series, here the city. A `javascript:` URL runs in the browser
+> instead of opening a page, which makes it a quick way to see what a
+> drill link would pass before you point it at a real report.
+>
+> **Why it matters:** test the values first, then swap the `alert`
+> for a `DRILLDOWN` to a report, with the same `chart::` field as its
+> parameter.
+
+::::
+
+## Lab Files
+
+_No bundled files for this lab._ The starting reports are in the **Lab Files** of [Drilldown Charts](../22-mod8-drilldown-charts/guide.md) and [Multiple Sub Reports](../23-mod8-multiple-sub-reports/guide.md).

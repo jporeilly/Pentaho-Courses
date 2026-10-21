@@ -22,12 +22,8 @@ The **Community Dashboard Framework (CDF)** is a **code-first** dashboard framew
 >   - Language localization
 >   - Regional number formatting
 >   - Date formatting based on user settings
-
-> **Note:**
 >
-> #### By the end of this workshop
->
-> You will understand:
+> By the end of this topic you will understand:
 >
 > - The complete dashboard lifecycle
 > - Available CDF API methods and their usage
@@ -35,7 +31,7 @@ The **Community Dashboard Framework (CDF)** is a **code-first** dashboard framew
 
 ## Why CDF
 
-CDF lets BA developers quickly and easily create dynamic dashboards. Users can explore and understand large amounts of data using a variety of charts, tables, and other components, and then **drill down** to the exact data they want. The framework creates dashboards leveraging web technologies such as **JavaScript, CSS, and HTML**, allowing the dashboard designer to control the whole dashboard lifecycle without resorting to Java coding.
+CDF lets BA developers create dynamic dashboards quickly. Users can explore and understand large amounts of data using a variety of charts, tables, and other components, and then **drill down** to the exact data they want. The framework creates dashboards leveraging web technologies such as **JavaScript, CSS, and HTML**, allowing the dashboard designer to control the whole dashboard lifecycle without resorting to Java coding.
 
 CDF has five main advantages:
 

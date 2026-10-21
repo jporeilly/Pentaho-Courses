@@ -1,9 +1,9 @@
 {
   "title": "Deploy & Run the Agent",
-  "description": "Hands-on: start the Python agent service, set its boundary argument, wire it into a PDI transformation, run it, and review performance — orchestrating a reasoning agent from PDI.",
+  "description": "Hands-on: start the Python agent service, set its boundary argument, wire it into a Pentaho Data Integration transformation, run it, and review performance — orchestrating a reasoning agent from Pentaho Data Integration.",
   "order": 18,
   "kind": "workshop",
-  "stepCount": 6,
+  "stepCount": 26,
   "hasVideo": false,
-  "estimatedMinutes": 20
+  "estimatedMinutes": 90
 }

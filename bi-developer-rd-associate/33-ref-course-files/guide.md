@@ -30,7 +30,7 @@
 
 <button data-launch="prd" data-path="files/guided-demonstrations/Training Demo Report 8-1 drilldown charts.prpt">Open: Training Demo Report 8-1 drilldown charts.prpt</button>
 
-<button data-launch="prd" data-path="files/guided-demonstrations/Training Guided Demo Report 10 PDI.prpt">Open: Training Guided Demo Report 10 PDI.prpt</button>
+<button data-launch="prd" data-path="files/guided-demonstrations/Training Guided Demo Report 10 PDI.prpt">Open: Training Guided Demo Report 10 Pentaho Data Integration.prpt</button>
 
 <button data-launch="prd" data-path="files/guided-demonstrations/Training Guided Demo Report 10-1 CSS.prpt">Open: Training Guided Demo Report 10-1 CSS.prpt</button>
 

@@ -4,55 +4,136 @@
 >
 > #### Workshop - Report Parameters
 >
-> Add a parameter, wire it into the query, and prompt the user at run time.
+> Let the reader choose what the report shows: a drop-down of product lines, filled by a query, that filters the report's main query. Then add a second prompt, for the country.
 >
 > **What you'll do**
 >
-> * Add a parameter and wire it into the query.
-> * Prompt the user for values at run time.
-> * Preview the report with different parameter values.
+> * Add a query that lists the valid choices
+> * Add a parameter that prompts with that list
+> * Use the parameter in the main query's `WHERE` clause
+> * Add a second parameter and preview with different values
 >
-> **Prerequisites:** Report Designer running, with the Pentaho sample data (HSQLDB) started
+> **Prerequisites:** [Formatting the Report](../15-mod6-formatting-report/guide.md) and its report, `Demo - formatting.prpt`
 >
-> **Estimated Time:** 15 minutes
+> **Estimated time:** 15 minutes
 
----
+:::: tabs
+
+### 1. A list of product lines
 
 > **Note:**
 >
-> #### **Report Parameters**
+> #### A query for the choices
 >
-> Add a parameter, wire it into the query, and prompt the user at run time.
+> A drop-down prompt takes its choices from a query. Add one to the report's data source that returns each product line once.
 
-## Parameters
+1. Start Report Designer with the **Start Pentaho Report Designer** button below, or from a terminal:
 
-By adding a parameter to the report you enable the person viewing the report to select which data displays in the report.
+::: tabs
 
-1. Open the Demo – formatting.prpt
-2. To create a query that produces a list of valid Product Lines, from the Data pane, double-click JDBC: SampleData.
+### Windows (PowerShell)
 
-![Parameters](../_assets/images/mod7-01.png)
+```powershell
+Set-Location C:\Pentaho\design-tools\report-designer
+.\report-designer.bat
+```
 
-![Parameters](../_assets/images/mod7-02.png)
+### macOS / Linux
 
-To add a query, in the JDBC Data Source window, click the Add Query icon to the right of Available Queries.
+```bash
+cd ~/Pentaho/design-tools/report-designer
+./report-designer.sh
+```
 
-3. By default, the new query is named Query 2. For this demonstration, you will name the query prod_list. You will need to use the exact query name later.
-4. To write the query, in the Query pane, type:
-SELECT DISTINCT PRODUCTLINE FROM PRODUCTS
+:::
 
-5. Preview and then click OK.
+<button data-launch="prd" data-path="">Start Pentaho Report Designer</button>
 
-![Parameters](../_assets/images/mod7-03.png)
+2. Select **File > Open** (`Ctrl+O`) and open `Demo - formatting.prpt` from your workshop folder, `Documents\RD-Workshop`.
+3. Select **File > Save As** and save it as `Demo - parameters.prpt` in the same folder.
+4. On the **Data** tab, under **Data Sets**, double-click **JDBC: SampleData (Hypersonic)**. The **JDBC Data Source** dialog opens.
 
-6. From the Data pane, right-click Parameters, and then click Add Parameter.
+<div align="center">
+<figure>
+<img src="../_assets/images/mod7-01.png" alt="The Data tab with the data source JDBC: SampleData (Hypersonic) selected under Data Sets, and three functions below" width="219">
+<figcaption>Double-click the data source to edit it</figcaption>
+</figure>
+</div>
 
-![Parameters](../_assets/images/mod7-04.png)
+5. To the right of **Available Queries**, select the green plus (**Add Query**), and set **Query Name** to `prod_list`. The parameter refers to the query by this name.
 
-7. In the DataSources pane, click prod_list.
-Complete or verify the following fields in the Add Parameter window, and then click OK.
+<div align="center">
+<figure>
+<img src="../_assets/images/mod7-02.png" alt="The JDBC Data Source dialog with the add query icon highlighted, and prod_list added under Query 1 and in Query Name" width="600">
+<figcaption>A second query, prod_list</figcaption>
+</figure>
+</div>
 
-![Parameters](../_assets/images/mod7-05.png)
+6. In the **Query** box, enter:
+
+```sql
+select distinct productline from products
+```
+
+7. Select **Preview**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/mod7-03.png" alt="The prod_list query with select distinct productline from products in the Query box" width="716">
+<figcaption>The prod_list query</figcaption>
+</figure>
+</div>
+
+> **Success:** Checkpoint: 7 rows, one for each product line, from `Classic Cars` to `Vintage Cars`.
+
+8. Close the preview window, and select **OK**.
+
+### 2. The parameter
+
+> **Note:**
+>
+> #### Add Parameter
+>
+> A *parameter* is a named value the reader supplies before the report runs. Its prompt can be a drop-down, a list, buttons, a text box or a date picker.
+
+1. On the **Data** tab, right-click **Parameters** and select **Add Parameter**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/mod7-04.png" alt="The Data tab with Parameters right-clicked and Add Parameter selected" width="264">
+<figcaption>Add Parameter</figcaption>
+</figure>
+</div>
+
+2. In the **Add Parameter** dialog, under **DataSources**, select `prod_list`.
+3. Set the fields as in this table, then select **OK**:
+
+| Field | Value |
+| --- | --- |
+| **Name** | `product_var` |
+| **Label** | `Select a Product Line:` |
+| **Value Type** | `String` |
+| **Default Value** | `Classic Cars` |
+| **Mandatory** | Cleared |
+| **Hidden** | Cleared |
+| **Display Type** | `Drop Down` |
+| **Query** | `prod_list` |
+| **Value** | `PRODUCTLINE` |
+| **Display Name** | `PRODUCTLINE` |
+| **Validate Values** | Selected |
+| **Reset to default value on invalid selections** | Selected |
+| **Use first value if default value formula results in NA.** | Selected |
+
+<div align="center">
+<figure>
+<img src="../_assets/images/mod7-05.png" alt="The Add Parameter dialog with prod_list selected: Name product_var, Label Select a Product Line:, Value Type String, Display Type Drop Down, Query prod_list, Value and Display Name PRODUCTLINE, Validate Values selected" width="776">
+<figcaption>The parameter; set the default value and the last two options as the table says</figcaption>
+</figure>
+</div>
+
+> **Success:** Checkpoint: **Parameters** on the **Data** tab lists `product_var`.
+
+4. Select `product_var` on the **Data** tab and select **Data > Edit Parameter**. Check the values against the table, then select **OK**.
 
 > **Under the hood:**
 >
@@ -61,30 +142,52 @@ Complete or verify the following fields in the Add Parameter window, and then cl
 > The dialog wrote a `list-parameter` into the bundle's
 > `datadefinition.xml`: its name, type, the query that supplies the
 > choices (`prod_list`), which column is the key and which the label,
-> a default, and `strict-values`. Before the engine runs the main
-> query it evaluates that definition — runs `prod_list`, builds the
-> prompt, and with strict values on, rejects any value that isn't in
-> the list. Report Designer's preview and the server's viewer both
-> render the prompt from the same definition.
+> a default, and `strict-values` (**Validate Values**). Before the
+> engine runs the main query it evaluates that definition: runs
+> `prod_list`, builds the prompt, and with strict values on, rejects
+> any value that isn't in the list. Report Designer's preview and the
+> server's viewer both render the prompt from the same definition.
 >
 > **Why it matters:** the prompt is part of the report, not of the
 > tool showing it. Publish, schedule or link to the report and the
 > same validated choices appear everywhere.
 
-Now you must add a WHERE clause to the original query to use the value from the prompt.
+### 3. Filter the main query
 
-8. To modify the original query, from the Data pane, double-click JDBC: SampleData.
-9. From the Available Queries, click Query 1.
-10. To add the WHERE clause, in the Query, above ORDER BY:
-11. Press Return.
-12. Type: WHERE productline IN (${product_var})
-13. Click OK.
+> **Note:**
+>
+> #### Use the parameter
+>
+> A parameter does nothing until a query uses it. Reference it in `Query 1` as `${product_var}`.
 
-![Parameters](../_assets/images/mod7-06.png)
+1. On the **Data** tab, double-click the data source, and under **Available Queries** select `Query 1`.
+2. In the **Query** box, click at the start of the `ORDER BY` line, press `Enter`, and enter this line above `ORDER BY`:
 
-14. Preview and Save the report.
+```sql
+WHERE productline IN (${product_var})
+```
 
-![Parameters](../_assets/images/mod7-07.png)
+<div align="center">
+<figure>
+<img src="../_assets/images/mod7-06.png" alt="Query 1 with the line WHERE productline IN (${product_var}) added above ORDER BY" width="410">
+<figcaption>The WHERE clause, above ORDER BY</figcaption>
+</figure>
+</div>
+
+3. Select **OK**.
+4. Select **Preview**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/mod7-07.png" alt="The preview with the Select a Product Line prompt open, listing the seven product lines, and the report showing Classic Cars" width="800">
+<figcaption>The prompt above the report</figcaption>
+</figure>
+</div>
+
+> **Success:** Checkpoint: the prompt **Select a Product Line:** shows `Classic Cars`, and the report holds Classic Cars only: **Total for Product Line: Classic Cars** and **Grand Total** both read 5,844,033.
+
+5. In the prompt, select `Ships`. **Auto-Update on selection** is selected, so the report runs again with Ships only.
+6. Select **Design**, and save the report (`Ctrl+S`).
 
 > **Under the hood:**
 >
@@ -99,66 +202,128 @@ Now you must add a WHERE clause to the original query to use the value from the 
 > `?, ?, ?` so `IN (...)` works with any number of choices.
 >
 > **Why it matters:** parameters are type-safe and injection-proof by
-> construction — and the database can cache the prepared statement
+> construction, and the database can cache the prepared statement
 > across runs, because only the values change.
 
-## Nested Prompts
+### 4. A second prompt
 
-1. To create a query that produces a list of distinct Countries, from the Data pane, double-click JDBC: SampleData.
+> **Note:**
+>
+> #### Country
+>
+> Add a country prompt the same way: a query for the choices, a parameter, and a second condition in `Query 1`.
 
-![Nested Prompts](../_assets/images/mod7-01.png)
+1. Select **File > Save As** and save the report as `Demo - parameters prod & country.prpt`.
+2. On the **Data** tab, double-click **JDBC: SampleData (Hypersonic)**.
 
-2. To add a query, in the JDBC Data Source window, click the Add Query icon to the right of Available Queries.
-3. To write the query, country_list, in the Query pane, type:
-## SELECT DISTINCT country FROM customer_w_ter
+<div align="center">
+<figure>
+<img src="../_assets/images/mod7-01.png" alt="The Data tab with the data source JDBC: SampleData (Hypersonic) selected under Data Sets" width="219">
+<figcaption>The same data source holds every query</figcaption>
+</figure>
+</div>
 
-1. Preview and then click OK.
+3. Select the green plus (**Add Query**), set **Query Name** to `country_list`, and enter:
 
-![SELECT DISTINCT country FROM customer_w_ter](../_assets/images/mod7-09.png)
+```sql
+select distinct country from customer_w_ter
+```
 
-2. From the Data pane, right-click Parameters, and then click Add Parameter.
-3. In the DataSources pane, click country_list.
-4. Complete or verify the following fields in the Add Parameter window, and then click OK.
+<div align="center">
+<figure>
+<img src="../_assets/images/mod7-09.png" alt="The country_list query with select distinct country from customer_w_ter in the Query box" width="724">
+<figcaption>The country_list query</figcaption>
+</figure>
+</div>
 
-![SELECT DISTINCT country FROM customer_w_ter](../_assets/images/mod7-10.png)
+4. Select **Preview**.
 
-5. Now you must modify the WHERE clause to the original query to use the value from the prompt.
-6. To modify the original query, from the Data pane, double-click JDBC: SampleData.
-7. To modify the WHERE clause, in the Query, above ORDER BY:
-8. Press Return.
-9. Type: WHERE productline IN (${product_var})
-10. Click OK.
+> **Success:** Checkpoint: 27 rows, one for each country in `CUSTOMER_W_TER`.
 
-![SELECT DISTINCT country FROM customer_w_ter](../_assets/images/mod7-11.png)
+5. Close the preview window, and select **OK**.
+6. On the **Data** tab, right-click **Parameters** and select **Add Parameter**. Under **DataSources**, select `country_list`, set the fields as in this table, and select **OK**:
 
-11. Preview and Save the Report: Demo - parameters prod & country.prpt
-12. If you have time Group by Country and add a Message to the report.
+| Field | Value |
+| --- | --- |
+| **Name** | `country_var` |
+| **Label** | `Select a Country:` |
+| **Value Type** | `String` |
+| **Default Value** | `Australia` |
+| **Mandatory** | Cleared |
+| **Hidden** | Cleared |
+| **Display Type** | `Drop Down` |
+| **Query** | `country_list` |
+| **Value** | `COUNTRY` |
+| **Display Name** | `COUNTRY` |
+| **Validate Values** | Selected |
+| **Reset to default value on invalid selections** | Cleared |
+| **Use first value if default value formula results in NA.** | Cleared |
 
-![SELECT DISTINCT country FROM customer_w_ter](../_assets/images/mod7-12.png)
+<div align="center">
+<figure>
+<img src="../_assets/images/mod7-10.png" alt="The Add Parameter dialog with country_list selected: Name country_var, Label Select a Country:, Query country_list, Value and Display Name COUNTRY" width="776">
+<figcaption>The country parameter; set the default value as the table says</figcaption>
+</figure>
+</div>
+
+7. Double-click the data source, select `Query 1`, and change the `WHERE` line to:
+
+```sql
+WHERE productline IN (${product_var}) AND country IN (${country_var})
+```
+
+<div align="center">
+<figure>
+<img src="../_assets/images/mod7-11.png" alt="Query 1 with the condition AND country IN (${country_var}) added to the WHERE clause" width="546">
+<figcaption>The second condition; the screenshot's first parameter is named prod_var, yours product_var</figcaption>
+</figure>
+</div>
+
+8. Select **OK**, then select **Preview**. You may need to widen the prompt panel to see both prompts.
+
+> **Success:** Checkpoint: with the defaults, Classic Cars and Australia, the report has 53 rows and a total of 310,536.
+
+9. Select `Ships` in the first prompt and `Finland` in the second.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/mod7-12.png" alt="The preview for Ships and Finland: nine rows, with Total for Ships and Grand Total both 31,958; this report also has a Country group" width="800">
+<figcaption>Ships in Finland; the screenshot's report also groups by country</figcaption>
+</figure>
+</div>
+
+> **Success:** Checkpoint: 9 rows, and **Total for Product Line: Ships** and **Grand Total** both read 31,958.
+
+10. Select **Design**, and save the report (`Ctrl+S`).
 
 > **Under the hood:**
 >
-> #### Cascading prompts are just queries with parameters
+> #### Each prompt is a query, and a query can depend on another parameter
 >
-> Each list parameter has its own query, and those queries may
-> reference other parameters. If `country_list` mentions
-> `${product_var}` — restricting countries to those with orders in the
-> chosen product line — the parameter framework records the
-> dependency: whenever the product line changes it re-runs the country
-> query, rebuilds that prompt, and drops a selection that is no longer
-> valid. The main query then constrains on both, adding `AND country
-> IN (${country_var})`, and each reference is bound the same way as
-> before.
+> Each list parameter has its own query. Here the two are independent:
+> `country_list` returns all 27 countries whatever the product line.
+> If `country_list` mentioned `${product_var}` (countries with orders
+> in the chosen line, say), the parameter framework would record the
+> dependency: whenever the product line changed it would re-run the
+> country query, rebuild that prompt, and drop a selection that is no
+> longer valid. That is a *cascading* prompt.
 >
 > **Why it matters:** cascading filters are ordinary SQL plus a
 > naming convention. There is no wiring diagram to maintain, only the
 > parameter names the queries mention.
 
-You may need to resize the filter panel to view the options.
+11. Optional: group the report by `COUNTRY`, outside the product line group, with a `Country: $(COUNTRY)` message in its header, as in the screenshot above.
 
-## Lab files
+::::
 
-<button data-launch="prd" data-path="files/Training Demo Report 7 parameters.prpt">Open: Solution: parameters</button>
+## Lab Files
 
-<button data-launch="prd" data-path="files/Training Demo Report 7 parameters prod & country.prpt">Open: Solution: cascading parameters</button>
+Click a file to download. For `.prpt` files, **Open in Pentaho Report Designer** starts Report Designer with the report loaded.
 
+### Solution <!-- no-step -->
+
+The finished reports for this lab: the product line prompt, then both prompts. Open them alongside your own to compare, or preview them to see the expected result.
+
+[Training Demo Report 7 parameters.prpt](./files/Training%20Demo%20Report%207%20parameters.prpt) <button data-launch="prd" data-path="files/Training Demo Report 7 parameters.prpt">Open in Pentaho Report Designer</button>
+
+[Training Demo Report 7 parameters prod & country.prpt](./files/Training%20Demo%20Report%207%20parameters%20prod%20%26%20country.prpt) <button data-launch="prd" data-path="files/Training Demo Report 7 parameters prod & country.prpt">Open in Pentaho Report Designer</button>

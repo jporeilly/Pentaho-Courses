@@ -13,8 +13,8 @@
 
 ## The Add Parameter dialog
 
-Every pattern starts at **Data pane → right-click Parameters → Add
-Parameter…**:
+Every pattern starts in the **Data** pane: right-click **Parameters** and
+select **Add Parameter...**:
 
 | Field | Purpose |
 | --- | --- |
@@ -47,7 +47,8 @@ ORDER BY
 
 The "nuclear option" — parameterize the **structure** itself with a
 JDBC (Custom) data source and a query formula on the Master Report
-(Structure pane → Master Report → Attributes → Query → **+**):
+(in the **Structure** pane, select **Master Report**; on the **Attributes**
+tab, select the **+** next to **Query**):
 
 ```text
 ="SELECT DISTINCT " & [paramexample] & " AS COL1 FROM PRODUCTS"
@@ -93,7 +94,7 @@ Server-side (published reports only): force `autoSubmit` for all
 reports via the reporting plugin's configuration —
 `/pentaho/server/biserver-ee/pentaho-solutions/system/reporting/plugin.xml`,
 add `autoSubmit=false` (or `true`) to the RUN operation's command URL,
-restarting the BI Server around the edit:
+restarting the Pentaho Server around the edit:
 
 ```xml
 <operation>

@@ -10,31 +10,41 @@ There is much you can do with multiple data-driven elements in Report Designer. 
 
 When adding conditional formatting or other constraints on data-driven report elements, you have the option of using a built-in Formula Editor to help you build an expression with a graphical interface. All element properties in Report Designer can have formulas. You can type in your own formula by hand, but it's much easier to use the built-in Formula Editor to build an expression.
 
-The Formula Editor provides you with basic math and comparison operators so that you don't have to enter them manually. Also provided are concatenate and percent functions. Click the (Field Selector) to select fields in the report.
+The Formula Editor provides you with basic math and comparison operators so that you don't have to enter them manually. Also provided are concatenate and percent functions. Select the field selector icon next to an option field to pick fields in the report.
 
 ## Formula Editor
 
-1. Click on the element you want to add a condition or constraint to.
-2. In the Style pane, select the property you want to add a constraint to, then click the round green + icon on the right side of the field.
-3. Click the ... button.
+1. Select the element you want to add a condition or constraint to.
+2. In the **Style** pane, select the property you want to add a constraint to, then select the round green **+** icon on the right side of the field.
+3. Select the **...** button.
 The Formula Editor window appears.
 
-![Formula Editor](../_assets/images/mod5-01.png)
+<div align="center">
+<figure>
+<img src="../_assets/images/mod5-01.png" alt="Edit Expression dialog, Formula tab: Selected Expression Open Formula (Common), Category All, the Function list with AVERAGE highlighted, and a formula box that holds only an equals sign" width="307">
+<figcaption>The Formula Editor opens as the Edit Expression dialog, on its Formula tab</figcaption>
+</figure>
+</div>
 
 4. Select a function category from the drop-down box.
 The default category is All.
 
 5. Select a function from the Functions list.
-If you click on a function, a description of what it does will appear in the tan-coloured field at the bottom of the window.
+When you select a function, a description of what it does appears next to **Description** at the bottom of the window.
 
 6. Double-click on a function to bring up the option fields.
 
-![Formula Editor](../_assets/images/mod5-02.png)
+<div align="center">
+<figure>
+<img src="../_assets/images/mod5-02.png" alt="Edit Expression dialog with AVERAGE selected: three number option fields at the top right, each with a field selector icon, and =AVERAGE() in the formula box" width="307">
+<figcaption>Double-clicking AVERAGE adds its option fields and starts the formula</figcaption>
+</figure>
+</div>
 
-7. Erase the default values in the option fields, and replace them with your own settings. If you need to associate a column with a function, click the Select Field button to the right of the field, then select the data or function you want to use.
+7. Erase the default values in the option fields, and replace them with your own settings. If you need to associate a column with a function, select the **Select Field** icon to the right of the field, then select the data or function you want to use.
 Follow proper SQL syntax in your options; all values must be in quotes, and all column names must be in uppercase letters and enclosed in square brackets.
 
-8. When you're done, click OK, then click Close.
+8. When you're done, select **OK**, then select **Close**.
 You have applied a formula to a report element.
 
 If you need more information on formula functions, conditions, and operators, refer to the OASIS OpenFormula reference:

@@ -4,76 +4,134 @@
 >
 > #### Workshop - Practice: Calculations
 >
-> Two exercises: apply conditional formatting, then add totals — on your own this time.
+> Two exercises on the report from the last practice: color the total price by its value, then add totals for each country, each territory and the whole report.
 >
 > **What you'll do**
 >
-> * Apply conditional formatting on your own.
-> * Add group and report totals.
-> * Compare your output with the expected result.
+> * Write a nested `IF` formula for a text color
+> * Add three **Sum** functions, each reset at a different group
+> * Place the totals in the group footers and the report footer
+> * Compare your result with the expected totals
 >
-> **Prerequisites:** Complete this section's guided demonstrations first
+> **Prerequisites:** [Practice: Data Elements and Report Groups](../08-mod4-practice/guide.md) and its report, `Exercise - data elements.prpt`; [Conditional Formatting](../10-mod5-conditional-formatting/guide.md) and [Totals](../11-mod5-totals/guide.md)
 >
-> **Estimated Time:** 20 minutes
+> **Estimated time:** 20 minutes
 
----
+:::: tabs
+
+### 1. Conditional formatting
 
 > **Note:**
 >
-> #### **Practice: Calculations**
+> #### Color the total price
 >
-> Two exercises: apply conditional formatting, then add totals — on your own this time.
+> Show `TOTALPRICE` in red below 3,000, in green above 6,000, and in black otherwise.
 
-## Conditional Formatting
+1. Start Report Designer with the **Start Pentaho Report Designer** button below, or from a terminal:
 
-In this exercise you will use the Formula Editor to change the text color of the Total Price depending on the value of the field
+::: tabs
 
-**Open the** `Exercise – data elements.prpt`
+### Windows (PowerShell)
 
-Select TOTALPRICE, in the Details band.
+```powershell
+Set-Location C:\Pentaho\design-tools\report-designer
+.\report-designer.bat
+```
 
-To access the Formula Editor for the text color, on the Style pane, click the round green + icon to the right of text > text-color.
+### macOS / Linux
 
-From the Category drop-down list, select Logical.
+```bash
+cd ~/Pentaho/design-tools/report-designer
+./report-designer.sh
+```
 
-Double-click on the IF statement and add the following Formula:
+:::
 
+<button data-launch="prd" data-path="">Start Pentaho Report Designer</button>
+
+2. Select **File > Open** (`Ctrl+O`) and open `Exercise - data elements.prpt` from your workshop folder, `Documents\RD-Workshop`.
+3. Select **File > Save As** and save it as `Exercise - conditional formatting.prpt`.
+4. In the **Details** band, select `TOTALPRICE`.
+5. On the **Style** tab, select the green plus in the **Expr** column of **text-color**.
+6. On the **Formula** tab, set **Category** to `Logical` and double-click `IF`, or enter the formula in the **Formula** box directly:
+
+```text
 =IF([TOTALPRICE]<3000;"RED";IF([TOTALPRICE]>6000;"GREEN";"BLACK"))
+```
 
-Preview and Save the report: Exercise – conditional formatting.prpt
+7. Select **OK**, then select **Preview**.
 
-## Report & Group Totals
+> **Success:** Checkpoint: each total price is red below 3,000, green above 6,000, and black in between.
 
-To create totals for country and territory, and a grand total for the report:
+8. Select **Design**, and save the report (`Ctrl+S`).
 
-1. Open the Exercise – conditional formatting.prpt
-2. In the Data pane, right-click Functions, and then click Add Functions.
-3. Add the following Sum function:  TotalGroupSumFunction0.
-4. Rename to: TotalforCountry
-5. Click in the Value column, and then from the drop-down list, select TOTALPRICE
-6. Reset on Group Name, click in the Value column, and then from the drop-down list, select COUNTRY.
-7. Add another Sum function: TotalforTerritory
-8. Click in the Value column, and then from the drop-down list, select TOTALPRICE
-9. Reset on Group Name, click in the Value column, and then from the drop-down list, select TERRITORY
-10. Add another Sum function: TotalforReport
-11. Click in the Value column, and then from the drop-down list, select TOTALPRICE
-## Add Totals to Report
+### 2. Three totals
 
-1. From the Data pane, select Sum:TotalforCountry, and drag it to the Country Group Footer band (the first Group Footer band), directly below TOTALPRICE.
-2. Drag a message element to the canvas, and drop it in the Country Group Footer band directly below ORDERNUMBER.
-3. Replace the Message text with Total for $(COUNTRY).
-4. Format the Total for $(COUNTRY)
-5. Font Size 12, Bold
-6. From the Data pane, select Sum:TotalforTerritory, and drag it to the Territory Group Footer band, directly below Sum: TotalforCountry
-7. Drop a Message Element in the Territory Group Footer band, directly below Total for $(COUNTRY).
-8. Replace the Message text with Total for $(TERRITORY).
-9. Format: Total for $(TERRITORY)
-10. Font Size 12, Bold, Blue
-11. From the Data pane, select Sum:TotalforReport, and drag it to the Report Footer band, directly below Sum:TotalforTerritory.
-12. Drop a Label Element in the Report Footer band directly below Total for $(TERRITORY).
-13. Replace the Label text with Grand Total.
-14. Format Grand total:
-15. Font Size 12, Bold, Blue
-16. Preview and Save the report: Exercise – totals.prpt
+> **Note:**
+>
+> #### Sum functions
+>
+> One **Sum** function for each level: country, territory and the whole report. **Reset on Group Name** decides the level.
 
-![Add Totals to Report](../_assets/images/mod5-18.png)
+1. Select **File > Save As** and save the report as `Exercise - totals.prpt`.
+2. On the **Data** tab, right-click **Functions**, select **Add Functions**, and add three **Sum** functions from the **Summary** folder. Set them as in this table:
+
+| Function Name | Field Name | Reset on Group Name |
+| --- | --- | --- |
+| `TotalforCountry` | `TOTALPRICE` | `Country` |
+| `TotalforTerritory` | `TOTALPRICE` | `Territory` |
+| `TotalforReport` | `TOTALPRICE` | (empty) |
+
+> **Success:** Checkpoint: **Functions** lists **Sum: TotalforCountry**, **Sum: TotalforTerritory** and **Sum: TotalforReport**.
+
+3. Select `TotalforCountry` on the **Data** tab and check its **Reset on Group Name** once more: it names the group, `Country`, not the field `COUNTRY`.
+
+> **Under the hood:**
+>
+> #### A function resets on a group, not on a field
+>
+> **Reset on Group Name** takes the name you gave a group in
+> **Edit Group**. Each time that group starts, the function sets its
+> sum back to zero; a group nested inside it resets more often, a
+> group outside it less often. With no group named, the sum is never
+> reset, which makes it the report's grand total.
+>
+> **Why it matters:** one function type gives you every level of total
+> the report needs. The level is a property, so moving a total from
+> country to territory is a change of one value.
+
+### 3. Place the totals
+
+> **Note:**
+>
+> #### Footers
+>
+> The country group is inside the territory group, so its **Group Footer** band is the upper of the two.
+
+1. Drag **Sum: TotalforCountry** onto the country group's **Group Footer** band, directly below `TOTALPRICE`.
+2. Drag a **message** element onto the same band, below `ORDERNUMBER`, and set its **value** to `Total for: $(COUNTRY)`.
+3. Select the message and the total, select **Bold**, and set the font size to `12`.
+4. Drag **Sum: TotalforTerritory** onto the territory group's **Group Footer** band, below the country total.
+5. Drag a **message** element onto the same band, below the country message, and set its **value** to `Total for: $(TERRITORY)`.
+6. Select the message and the total, select **Bold**, set the font size to `12` and the font color to `blue`.
+7. Drag **Sum: TotalforReport** onto the **Report Footer** band, below the territory total.
+8. Drag a **label** onto the **Report Footer** band, below the territory message, and set its **value** to `Grand Total:`.
+9. Select the label and the total, select **Bold**, set the font size to `12` and the font color to `blue`.
+10. Select **Preview**, and select the last-page arrow.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/mod5-18.png" alt="The last page of the preview: West Coast Collectables Co. order lines, then Total for: USA 3,627,982.83 in black, Total for: NA 3,852,061.39 in blue, and Grand Total: 10,645,949.18 in blue" width="800">
+<figcaption>The end of the report: the last country, territory and grand totals</figcaption>
+</figure>
+</div>
+
+> **Success:** Checkpoint: the last page ends with **Total for: USA** 3,627,982.83, **Total for: NA** 3,852,061.39 and **Grand Total:** 10,645,949.18.
+
+11. Select **Design**, and save the report (`Ctrl+S`).
+
+::::
+
+## Lab Files
+
+_No bundled files for this lab._

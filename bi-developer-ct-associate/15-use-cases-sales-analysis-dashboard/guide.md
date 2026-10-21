@@ -4,68 +4,33 @@
 >
 > #### Workshop - Sales Analysis Dashboard
 >
-> With all the building blocks now in place, it's time to bring everything together in an end-to-end workshop that builds on the concepts learnt in 'My First Dashboard'. In this hands-on use case you'll assemble a complete Retail Sales analysis dashboard, combining a CDA data source, a CDE Bootstrap layout, and CCC chart components into a single, interactive solution.
->
-> You'll work through the full dashboard development lifecycle - mapping a signed-off mock-up onto a CDE layout, wiring up an SQL-backed CDA data source against the sampledata database, and laying out the rows and columns that hold your filters, charts, and data table. Along the way you'll see how the Layout, Data Sources, and Components perspectives combine to produce a cohesive dashboard whose components auto-update as filters change.
+> With the building blocks in place, bring them together in an end-to-end use case that builds on [My First Dashboard](../03-getting-started-my-first-dashboard/guide.md): a Retail Sales analysis dashboard that combines a CDA data source, a CDE Bootstrap layout and CCC chart components. You map a signed-off mock-up onto a CDE layout, define a SQL data source on the sampledata database, and lay out the rows and columns for the filters, charts and table.
 >
 > **What you'll do**
 >
-> * In the Layout tab, create the row and column structure and name your HTML objects
-> * In the Data Sources tab, create your SQL queries and test them to ensure they work
-> * In the Components tab, add and configure all components, link them to HTML objects, and set up listeners
-> * Build interactive date range, product line, and country filters
-> * Add a trend analysis chart, a product distribution pie chart, and a paginated data table
-> * Preview and test the dashboard - exercising all filters and verifying chart interactions
+> * In the Layout perspective, create the row and column structure and name the HTML objects
+> * In the Data Sources perspective, create the SQL queries and test them
+> * In the Components perspective, add and configure the components, link them to the HTML objects, and set up the listeners
+> * Build date range, product line and country filters, a trend chart, a product distribution pie chart and a paginated table
+> * Preview the dashboard, test every filter and check the chart interactions
 >
-> **Prerequisites:** Pentaho Business Analytics Server with CTools installed; completion of the [My First Dashboard](../03-getting-started-my-first-dashboard/guide.md) workshop; the sampledata database available via MariaDB JDBC; basic familiarity with SQL and the CDE Layout, Data Sources, and Components perspectives
+> **Prerequisites:** [My First Dashboard](../03-getting-started-my-first-dashboard/guide.md); a running Pentaho Server with the CTools plugins; the sampledata database on MariaDB, reachable over JDBC; SQL and the CDE Layout, Data Sources and Components perspectives
 >
 > **Estimated time:** 45 minutes
 
-> **Note:**
->
-> So we have the building blocks in place .. time to start bringing it all together with a Workshop that builds on the concepts learnt in 'My First Dashboard'.
->
-> * In Layout tab:
->   * Create the row and column structure
->   * Name your HTML objects
-> * In Data Sources tab:
->   * Create your SQL queries
->   * Test them to ensure they work
-> * In Components tab:
->   * Add all components
->   * Configure their properties
->   * Link to HTML objects
->   * Set up listeners
-> * Preview and test:
->   * Use the preview button
->   * Test all filters
->   * Verify chart interactions
+<div align="center">
+<figure>
+<img src="../_assets/images/uc_sales_sales_analysis_dashboard_mock_up.png" alt="Sales Analysis Dashboard mock-up with date, product and territory filters, a Sales Trend line chart, a Product Distribution pie chart and an empty Sales Details table" width="800">
+<figcaption>Sales Analysis Dashboard - mock-up</figcaption>
+</figure>
+</div>
 
-***
+The work follows CDE's three perspectives, then a test:
 
-Before you begin, start the Pentaho Server and open the Pentaho User Console.
-
-> **Note:**
->
-> #### Windows (PowerShell)
->
-> ```powershell
-> cd \
-> cd Pentaho/server/pentaho-server/
-> ./start-pentaho.bat
-> ```
-
-> **Note:**
->
-> #### Linux
->
-> ```bash
-> cd
-> cd Pentaho/server/pentaho-server/
-> ./start-pentaho.sh
-> ```
-
-<button data-launch="puc">Open Pentaho User Console</button>
+* **Layout:** create the row and column structure, and name the HTML objects.
+* **Data Sources:** create the SQL queries, and test that they work.
+* **Components:** add every component, configure its properties, link it to its HTML object, and set up its listeners.
+* **Preview and test:** use **Preview your Dashboard**, test every filter, and check the chart interactions.
 
 ***
 
@@ -77,40 +42,75 @@ Before you begin, start the Pentaho Server and open the Pentaho User Console.
 >
 > #### Mock-up
 >
-> We're going to assume that the discovery phase has been completed and after iteration the initial dashboard design has been completed and signed off.
+> Assume the discovery phase is complete: after a few iterations, the dashboard design is agreed and signed off. Its key features:
 >
-> Key Features:
->
-> * Interactive date range selection
-> * Multi-select product line and country filters
-> * Trend analysis chart
-> * Product distribution pie chart
-> * Detailed data table with pagination
-> * Auto-updating components when filters change
+> * Date range selection
+> * Product line and country filters that take several values
+> * A trend analysis chart
+> * A product distribution pie chart
+> * A detailed data table with pagination
+> * Components that update when the filters change
 
-<figure><img src="../_assets/images/uc_sales_sales_analysis_dashboard_mock_up.png" alt=""><figcaption><p>Sales Analysis Dashboard - mock-up</p></figcaption></figure>
+1. Make sure the Pentaho Server is running. On a lab VM it already is; on your own machine start it as in [Before You Start](../00-before-you-start/guide.md):
 
-1. Log into the Pentaho Server.
-2. Select: Browse Files.
-3. Create the following folders.
+```powershell
+C:\Pentaho\server\pentaho-server\start-pentaho.bat
+```
 
-<figure><img src="../_assets/images/uc_sales_sales_analysis_dashboard_folders.png" alt=""><figcaption><p>Sales Analysis Dashboard - Folders</p></figcaption></figure>
+It takes a few minutes; the console is ready when http://localhost:8080/pentaho opens the login page.
 
-4. In the Pentaho User Console (PUC) select from the menu: **File -> New -> CDE Dashboard**.
-5. Click on the Template option.
-6. Select: **Empty Sample**.
+2. Open the Pentaho User Console (PUC) with the button below and sign in as `admin`.
 
-<figure><img src="../_assets/images/uc_sales_empty_sample.png" alt=""><figcaption><p>Empty sample</p></figcaption></figure>
+<button data-launch="puc">Open Pentaho User Console</button>
 
-7. Click on: **Settings** and enter the following details:
+3. Select **Browse Files**. Under **Folders**, expand **Public** and select **CTools-Dashboard**.
+4. Create these folders with **New Folder...** under **Folder Actions**, selecting each parent first: `Sales-Analysis-Dashboard` in **CTools-Dashboard**, `resources` in **Sales-Analysis-Dashboard**, and `css` in **resources**.
 
-<figure><img src="../_assets/images/uc_sales.png" alt=""><figcaption></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/uc_sales_sales_analysis_dashboard_folders.png" alt="Browse Files view with the new Sales-Analysis-Dashboard folder highlighted under CTools-Dashboard, containing a resources folder with a css subfolder" width="800">
+<figcaption>Sales Analysis Dashboard - Folders</figcaption>
+</figure>
+</div>
 
-8. Enter the following details:
+5. Select **File > New > CDE Dashboard**.
+6. In the **Layout Structure** toolbar, select the **Apply Template** icon.
+7. In **Apply Template**, select **Empty Sample** and select **Ok**. When CDE asks whether you are sure you want to load the template, select **Ok**.
 
-<figure><img src="../_assets/images/uc_sales_2.png" alt=""><figcaption></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/uc_sales_empty_sample.png" alt="CDE Apply Template dialog with Empty Sample highlighted among the column and filter layout templates" width="669">
+<figcaption>Empty sample</figcaption>
+</figure>
+</div>
 
-9. Click **Ok**.
+8. On the CDE toolbar, select **Settings**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/uc_sales.png" alt="New CDE dashboard in the editor with the Settings menu item outlined in red on the CDE toolbar" width="800">
+<figcaption>Settings on the CDE toolbar</figcaption>
+</figure>
+</div>
+
+9. In **Settings**, set these values:
+
+| Setting | Value |
+| --- | --- |
+| **Title** | `sales_analysis` |
+| **Description** | `Steel Wheels sales analysis` |
+| **Style** | **Clean** |
+| **Dashboard Type** | **bootstrap** |
+| **RequireJS Support** | selected |
+
+<div align="center">
+<figure>
+<img src="../_assets/images/uc_sales_2.png" alt="CDE Settings dialog with Title sales_analysis, description Steel Wheels sales analysis, Style Clean, Dashboard Type bootstrap and RequireJS Support checked" width="504">
+<figcaption>Dashboard settings for sales_analysis</figcaption>
+</figure>
+</div>
+
+10. Select **Ok**.
 
 ### 2. Layout
 
@@ -118,11 +118,9 @@ Before you begin, start the Pentaho Server and open the Pentaho User Console.
 >
 > #### Layout
 >
-> The mock-up now needs to be 'mapped' to CDE Layout.
->
-> We'll be using the 'Bootstrap' template.
+> Map the mock-up onto a CDE layout, using Bootstrap columns: the spans in each row add up to 12.
 
-```
+```text
 Root Container
 │
 ├── Filter Row (id: filterRow)
@@ -144,16 +142,14 @@ Root Container
 >
 > #### Data Source
 >
-> Following the CDA structure for a datasource type = sql.jdbc
+> The data source follows the CDA structure for a connection of type `sql.jdbc`, on the sampledata database.
 
-1. Define the CDA connection to: sampledata database.
+The connection uses the sampledata database's user:
 
 ```xml
 <User>pentaho_admin</User>
 <Pass>password</Pass>
 ```
-
-2. Upload the sampledata.cda file to: /Public/CTools-Dashboards/5min-Dashboard directory on the Pentaho Server.
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -199,7 +195,10 @@ Root Container
 </CDADescriptor>
 ```
 
-> **Note:** Further details on the SQL Query.
+1. In a text editor, paste the listing, replace `your_username` and `your_password` with the database user above, and save it as `sampledata.cda`.
+2. In the PUC, select **Public > CTools-Dashboard > Sales-Analysis-Dashboard**. Under **Folder Actions**, select **Upload...**. Select **Browse...**, choose `sampledata.cda`, and select **OK**.
+
+Here is the SQL query in detail.
 
 ```sql
 SELECT 
@@ -228,7 +227,7 @@ SELECT
     (od.QUANTITYORDERED * od.PRICEEACH) as TOTAL_AMOUNT  -- Calculated total for line item
 ```
 
-**FROM and JOIN Clauses**:
+**FROM and JOIN clauses:**
 
 ```sql
 FROM 
@@ -241,29 +240,16 @@ FROM
         ON o.CUSTOMERNUMBER = c.CUSTOMERNUMBER  -- Links orders to customer info
 ```
 
-**Table Relationships**:
+**Table relationships:**
 
-> **Note:**
->
-> * `ORDERS` (o): Main table containing order headers
->   * Primary Key: ORDERNUMBER
->   * Contains: ORDERDATE, STATUS, CUSTOMERNUMBER
-> * `ORDERDETAILS` (od): Contains individual line items
->   * Composite Key: ORDERNUMBER, PRODUCTCODE
->   * Contains: QUANTITYORDERED, PRICEEACH
-> * `PRODUCTS` (p): Product catalog
->   * Primary Key: PRODUCTCODE
->   * Contains: PRODUCTNAME, PRODUCTLINE
-> * `CUSTOMERS` (c): Customer information
->   * Primary Key: CUSTOMERNUMBER
->   * Contains: CUSTOMERNAME, COUNTRY
+| Table | Key | Contains |
+| --- | --- | --- |
+| `ORDERS` (o) - the order headers | Primary key `ORDERNUMBER` | `ORDERDATE`, `STATUS`, `CUSTOMERNUMBER` |
+| `ORDERDETAILS` (od) - the order lines | Composite key `ORDERNUMBER`, `PRODUCTCODE` | `QUANTITYORDERED`, `PRICEEACH` |
+| `PRODUCTS` (p) - the product catalog | Primary key `PRODUCTCODE` | `PRODUCTNAME`, `PRODUCTLINE` |
+| `CUSTOMERS` (c) - the customers | Primary key `CUSTOMERNUMBER` | `CUSTOMERNAME`, `COUNTRY` |
 
-**Ordering**:
-
-> **Note:**
->
-> * Sorts results first by date
-> * Then by order number for orders on the same date
+**Ordering:** the results are sorted by order date, then by order number for orders on the same date.
 
 ```sql
 ORDER BY 
@@ -272,7 +258,13 @@ ORDER BY
 
 ***
 
-> **Note:** And finally .. test the sampledata.cda connection.
+Finally, test the `sampledata.cda` connection.
+
+3. Under **Files**, select **sampledata**, and under **File Actions** select **Open**. In the CDA previewer, select **Sales Data All Years** in the **Data Access** list.
+
+> **Success:** Checkpoint: one row per order line, from the first order date onward, with the 14 columns of the query from `YEAR` to `TOTAL_AMOUNT`.
+
+4. Close the previewer tab.
 
 > **Under the hood:**
 >
@@ -280,7 +272,7 @@ ORDER BY
 >
 > Against SampleData this join returns 2,996 order lines: every line of
 > every order from 2003 to 2005. It has no parameters, so its cache key
-> is just the connection and the query text. With cache="true" the first
+> is only the connection and the query text. With cache="true" the first
 > request runs the four-table join, and every request after it, from any
 > user, gets the same rows from memory for the next 3,600 seconds.
 >
@@ -289,8 +281,15 @@ ORDER BY
 > as parameters go to the database instead, with a cache entry for each
 > combination of values. Which suits a dashboard depends on how large
 > the unfiltered result is.
+>
+> **Why it matters:** where the filtering happens decides both the
+> database load and what each browser downloads; choose it per
+> dashboard, before you build the filters.
 
-
-> **Success:** With the layout mapped, the SQL-backed CDA data source defined, and the sampledata.cda connection tested, your Sales Analysis Dashboard is ready to assemble in the Pentaho User Console.
+With the layout mapped and the SQL data source defined and tested, the Sales Analysis Dashboard is ready to assemble in the Pentaho User Console.
 
 ::::
+
+## Lab Files
+
+_No bundled files for this lab._

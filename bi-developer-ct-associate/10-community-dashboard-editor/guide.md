@@ -26,4 +26,9 @@ This chapter focuses on:
 
 Through CDE, you'll significantly reduce development time while maintaining full control over your dashboard's functionality. The visual approach makes dashboard creation more accessible without sacrificing the power and flexibility of the underlying framework.
 
-<figure><img src="../_assets/images/cde_dashboard_lifecycle.png" alt=""><figcaption><p>Dashboard Lifecycle</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_dashboard_lifecycle.png" alt="Flowchart of a dashboard from creation and save to server, through initial loading, browser processing and component rendering, to a user interaction loop of refreshes and new queries" width="690">
+<figcaption>Dashboard Lifecycle</figcaption>
+</figure>
+</div>

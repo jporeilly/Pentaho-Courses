@@ -13,7 +13,7 @@
   },
   "title": "Pentaho Solution Architect - Certified",
   "description": "Pentaho 11 installation, configuration, upgrade, and post-install tasks. Archive deployment on Linux, server + client tools, plugins.",
-  "version": "0.1.11",
+  "version": "0.1.12",
   "kind": "workshop",
   "level": { "number": 3, "name": "Certified" },
   "mode": "sequential",
@@ -52,7 +52,7 @@
     },
     {
       "title": "Install Client Tools",
-      "summary": "Install the Pentaho design tools and their enterprise add-ons — the client plugins for the desktop tools and the EE Kettle (PDI) plugins — so practitioners can connect to and work against the server you deployed."
+      "summary": "Install the Pentaho design tools and their enterprise add-ons — the client plugins for the desktop tools and the EE Kettle (Pentaho Data Integration) plugins — so practitioners can connect to and work against the server you deployed."
     }
   ],
   "tier": "certified",

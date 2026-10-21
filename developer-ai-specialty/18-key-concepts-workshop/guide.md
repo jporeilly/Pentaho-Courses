@@ -1,55 +1,83 @@
 # Key Concepts Workshop
 
-Hands-on with the four ideas every LLM pipeline is built on - run
-each concept's script against your local Ollama and read the output.
-
 > **Warning:**
 >
-> #### Workshops - Key Concepts
+> #### Workshop - Key Concepts Workshop
 >
-> To understand how to start building out your Chatbot, there's a couple of key concepts to get up to speed on..
+> Run one short Python script for each idea an LLM pipeline is built on (prompts, tokenization, embeddings, search and transformers) against your local Ollama, and read what each one prints and draws. These ideas sit behind every AI step you build in Pentaho Data Integration later in the course.
 >
-> * Prompts
-> * Tokenization
-> * Embedding
-> * Transformers
-
-#### One-time setup
-
-The scripts for this workshop ship with this lab - see the files list
-below. Copy them out of the guide's content folder and install their
-dependencies once:
-
-```powershell
-Copy-Item "$env:APPDATA\com.pentaho.content-manager\content\18-key-concepts-workshop\files" "$env:USERPROFILE\key-concepts" -Recurse
-cd $env:USERPROFILE\key-concepts
-python -m venv .venv
-.\.venv\Scripts\pip install -r requirements.txt
-ollama pull nomic-embed-text
-```
-
-[prompt.py](./files/prompt.py) [tokenization.py](./files/tokenization.py) [embedding.py](./files/embedding.py) [search.py](./files/search.py) [transformers.py](./files/transformers.py) [requirements.txt](./files/requirements.txt)
-
-> **Note:** Ollama must be running - the scripts talk to it on
-> `localhost:11434` - with `nomic-embed-text` pulled (the last line
-> above). The scripts use it because a chat model such as `llama3.2`
-> cannot produce embeddings on current Ollama releases.
+> **What you'll do**
+>
+> * Set up a Python environment for the scripts and pull the `nomic-embed-text` embedding model
+> * Turn a prompt into an embedding and compare prompts by cosine similarity
+> * Split text into tokens with `tiktoken` and compare three encodings
+> * Cluster questions by topic and rank sentences with a semantic search
+> * Compare keyword search with vector search on the same documents
+> * Follow a prompt through the stages of a transformer
+>
+> **Prerequisites:**
+>
+> * [Overview of a Prompt](../01-overview/guide.md)
+> * Python 3.12, installed in [Before You Start](../00-before-you-start/guide.md)
+> * Ollama running on `http://localhost:11434`
+>
+> **Estimated time:** 45 minutes
 
 :::: tabs
 
-### Prompt
+### 1. Set Up the Scripts
+
+> **Note:**
+>
+> #### Set Up the Scripts
+>
+> The five scripts ship with this lab, in `C:\Workshop-AI-Specialty\02-pdi-ai-pipelines\18-key-concepts-workshop`. Give them their own Python environment there, once, and make sure Ollama has the embedding model they call.
+
+1. In PowerShell, run these commands to create the environment in the lab folder and install the libraries listed in `requirements.txt`. On macOS / Linux, open a terminal in the folder you downloaded the lab files to and run the **macOS / Linux** commands.
+
+::: tabs
+
+### Windows (PowerShell)
+
+```powershell
+Set-Location C:\Workshop-AI-Specialty\02-pdi-ai-pipelines\18-key-concepts-workshop
+python -m venv .venv
+.\.venv\Scripts\pip install -r requirements.txt
+```
+
+### macOS / Linux
+
+```bash
+python3 -m venv .venv
+.venv/bin/pip install -r requirements.txt
+```
+
+:::
+
+> **Success:** Checkpoint: pip prints a `Successfully installed` line that names `matplotlib`, `numpy`, `ollama`, `openai`, `scikit-learn`, `seaborn` and `tiktoken`, with the libraries they depend on, such as `pandas`.
+
+2. In PowerShell, run:
+
+```powershell
+ollama pull nomic-embed-text
+ollama list
+```
+
+> **Success:** Checkpoint: `ollama pull` ends with `success`, and `ollama list` includes `nomic-embed-text:latest`.
+
+The scripts call `nomic-embed-text`, not the course's chat model `llama3.2:3b`: an embedding model returns numbers rather than text, and on current Ollama releases a chat model such as `llama3.2` cannot produce embeddings. The course installer pulls `nomic-embed-text` when it sets up Ollama, so on a lab machine the pull only confirms that the model is there.
+
+Run every script from the lab folder: each one writes its output folder, such as `embedding_visualizations`, into the folder you run it from. Every script except `tokenization.py` starts by asking whether to use a different Ollama server; press `Enter` to keep `http://localhost:11434`.
+
+### 2. Prompt
 
 > **Note:**
 >
 > #### Prompt
-> 
-> When a user inputs a prompt, an embedding model processes the text, converting into a numerical vectors.&#x20;
-> 
-> The vector is then passed through the transformer architecture, which generates a probability distribution over the possible words or phrases that could follow the input.&#x20;
-> 
-> Finally, based on a bunch of stats - semantic similarity, entropy metrics, perplexity, etc - the model then generates a response.
+>
+> When you send a prompt, the model first turns the text into numbers: a vector called an embedding. The transformer turns that vector into a probability for every token that could come next, and the model builds its response from those probabilities, one token at a time. `prompt.py` shows the first step: it turns a question into an embedding and compares it with three other questions.
 
-1. Take a look at the Python script below.
+1. Read `prompt.py`:
 
 ```python
 import numpy as np  # For numerical operations and array handling
@@ -383,30 +411,36 @@ if __name__ == "__main__":
     main()
 ```
 
-> **Note:** When you run this script, it will:
-> 
-> 1. The user is prompted to connect to the Ollama server - N (local Ollama server)
-> 2. A text prompt "What is the capital of France?" is defined.
-> 3. An embedding for the given text prompt is created using the `create_embedding(text, client)` function and Ollama's `nomic-embed-text` embedding model.
-> 4. The shape (dimensions) and first 10 dimensions of the resulting embedding vector are printed to provide an overview.
-> 5. Basic statistics about the embedding vector such as mean, standard deviation, minimum value, and maximum value are calculated and visualized using a histogram plot, line plot, and text summary in a single figure. The visualization is saved as a timestamped PNG file.
-> 6. A comparison of different text prompts' embeddings is made to demonstrate how similar or dissimilar the text inputs are based on their vector representations. This comparison results in a cosine similarity matrix, which is then visualized with text annotations and saved as another PNG file.
+When you run it, the script:
 
-***
+* asks whether to connect to a different Ollama server;
+* creates an embedding of `What is the capital of France?` with the `create_embedding(text, client)` function and Ollama's `nomic-embed-text` model;
+* prints the shape of the vector and its first 10 numbers;
+* draws a histogram, a line plot of the first 50 dimensions and a statistical summary (mean, standard deviation, minimum and maximum) of the vector in one figure, and saves it as a timestamped PNG file in `embedding_visualizations`;
+* embeds four questions, calculates the cosine similarity of every pair, and saves the 4 × 4 similarity matrix, with each value written in its cell, as a second PNG file.
 
-#### Run Python script - prompt.py
+2. Run the script. In PowerShell, run:
 
-1. Open a terminal in your copy of the scripts (from the one-time setup above).
+::: tabs
 
-```powershell
-cd $env:USERPROFILE\key-concepts
-```
-
-2. Run the script.
+### Windows (PowerShell)
 
 ```powershell
+Set-Location C:\Workshop-AI-Specialty\02-pdi-ai-pipelines\18-key-concepts-workshop
 .\.venv\Scripts\python prompt.py
 ```
+
+### macOS / Linux
+
+```bash
+.venv/bin/python prompt.py
+```
+
+:::
+
+3. When the script asks `Connect to a different Ollama server? (y/N):`, press `Enter`.
+
+One run printed this:
 
 ```text
 Embedding Visualization with Ollama and nomic-embed-text
@@ -442,73 +476,92 @@ All visualizations completed successfully!
 Check the 'embedding_visualizations' directory for output files.
 ```
 
-> **Note:** So what does this all mean ..?
-> 
-> So we're starting in the deep end .. basically we're taking a prompt - text input in this case - and creating a bunch of vectors (embedding) - a mathematical representation of the prompt. This is then compared with similar texts - vectors - to get an idea of how text can be generated based&#x20;
-> 
-> A prompt is a way of providing guidelines to how the model responds. The context of the prompt is achieved by splitting the prompt into a number of words that are in a specific structure and format.&#x20;
+> **Success:** Checkpoint: the script prints `Using default Ollama server at http://localhost:11434`, then `Embedding shape: (768,)` and `Number of dimensions: 768`, and 10 numbers under `First 10 dimensions of the embedding vector:`. Two `Saved visualization to:` lines name `embedding_stats_<timestamp>.png` and `similarity_matrix_<timestamp>.png` in `embedding_visualizations`, and the last line is `Check the 'embedding_visualizations' directory for output files.` The 10 numbers come from the model, so yours may differ from the sample.
+
+4. Open the `embedding_visualizations` folder inside the lab folder.
+
+> **Under the hood:**
+>
+> #### One call to Ollama turned the whole question into one list of 768 numbers
+>
+> `create_embedding` sends the text and the model name to Ollama's `/api/embeddings` endpoint through `client.embeddings(...)`. Ollama runs `nomic-embed-text` over all the tokens of the question and answers with JSON whose `embedding` key holds a single vector of 768 numbers, which the script turns into a NumPy array. Nothing is generated: an embedding model returns numbers, never text. The similarity scores are then arithmetic in the script, the cosine of the angle between two vectors (`np.dot(a, b)` divided by the product of their lengths), so Ollama is asked only for the vectors.
+>
+> **Why it matters:** a pipeline that searches or groups text by meaning makes this same call once per text and keeps the vector. Comparing the vectors afterwards needs no model, so it is cheap enough to run on every row.
+
+5. Open the two PNG files, one tab below for each.
 
 ::: tabs
 
 ### Embedding Stats
 
-Take a look at the embedding\_stats graphs:
+<div align="center">
+<figure>
+<img src="../_assets/images/embedding_stats.png" alt="Three panels for the embedding of What is the capital of France?: a bell-shaped histogram of the vector's values, a line plot of its first 50 dimensions, and its statistics ending Dimensions: 768" width="800">
+<figcaption>Embedding stats: most values sit near zero, and the vector has 768 dimensions</figcaption>
+</figure>
+</div>
 
-<figure><img src="../_assets/images/embedding_stats.png" alt=""><figcaption><p>Embedding Stats</p></figcaption></figure>
+> **Success:** Checkpoint: `embedding_stats_<timestamp>.png` has three panels, **Distribution of Vector Values**, **First 50 Dimensions** and **Vector Statistics**. **Vector Statistics** lists the mean, standard deviation, minimum and maximum, and `Dimensions: 768`.
 
-> **Note:** The embedding of the prompt "What is the capital of France?" is a 768-dimensional vector: the question turned into a list of 768 numbers the model can compare.
-> 
-> The distribution plot (left graph) shows most values clustered around zero in a rough bell shape, spread from about -3.5 to +3. `nomic-embed-text` returns its vectors raw, without scaling them to length 1, which is why the values are larger than the -1 to 1 range you may see from other embedding models.
-> 
-> The First 50 dimensions (middle graph) gives a closer view of how the information is encoded. The values swing between roughly -3.5 and +3, with a few strong peaks: different aspects of the question - perhaps the interrogative nature ("what is"), the concept of a capital city, and the specific country (France) - are spread across many dimensions rather than held in any single one.
-> 
-> The statistical summary (right) shows a mean very close to zero (0.0034) and a standard deviation of 0.82, with values from -3.48 to 2.91. Similarity is measured by cosine - the angle between two vectors, not their length - so the raw scale makes no difference to the comparisons that follow. Your figures may differ slightly on different hardware.
+The embedding of the prompt `What is the capital of France?` is a 768-dimensional vector: the question turned into a list of 768 numbers the model can compare.
+
+The distribution plot (left) shows most values clustered around zero in a rough bell shape; in the run shown they spread from about -3.5 to +3. `nomic-embed-text` returns its vectors raw, without scaling them to length 1, which is why the values are larger than the -1 to 1 range you may see from other embedding models.
+
+**First 50 Dimensions** (middle) gives a closer view of how the information is encoded. The values swing between roughly -3.5 and +3, with a few strong peaks: different aspects of the question, perhaps the interrogative nature ("what is"), the concept of a capital city and the specific country (France), are spread across many dimensions rather than held in any single one.
+
+In the run shown, the statistical summary (right) gives a mean very close to zero (0.0034) and a standard deviation of 0.82, with values from -3.48 to 2.91. Similarity is measured by cosine, the angle between two vectors and not their length, so the raw scale makes no difference to the comparisons that follow. Your figures may differ slightly on different hardware.
 
 ### Similarity Matrix
 
-Take a look at the similarity\_matrix:
+<div align="center">
+<figure>
+<img src="../_assets/images/prompt_similarity_matrix.png" alt="Cosine Similarity Between Different Prompts: a 4 by 4 heatmap of the four questions, 1.000 down the diagonal, 0.939 between the two France capital questions, and 0.611 at the lowest, between the Paris and Germany questions" width="800">
+<figcaption>The two ways of asking for France's capital score highest</figcaption>
+</figure>
+</div>
 
-<figure><img src="../_assets/images/prompt_similarity_matrix.png" alt=""><figcaption><p>similarity matrix of the different prompts</p></figcaption></figure>
+> **Success:** Checkpoint: `similarity_matrix_<timestamp>.png`, **Cosine Similarity Between Different Prompts**, is a 4 × 4 grid with the four questions on both axes and `1.000` down the diagonal, where each question meets itself. The two questions that ask for the capital of France score highest with each other.
 
-> **Note:** This similarity matrix provides insights into how the embedding model understands and relates different questions about capital cities. Let's break down what the cosine similarity scores indicate:
-> 
-> The first two questions ("What is the capital of France?" and "Tell me France's capital city") show an extremely high similarity (0.939), which makes perfect sense as they're asking the same thing in slightly different ways. This demonstrates that the embedding model understands semantic equivalence even when the syntax differs.
-> 
-> The third question ("Paris is located in which country?") shows clearly lower similarity with the France-related questions (0.739 and 0.719) than they share with each other. This makes sense because while it involves the same entities (Paris and France), it reverses the relationship being asked about - instead of asking what the capital is, it's asking which country contains Paris.
-> 
-> Perhaps most interesting is how the model handles "What is the capital of Germany?" It scores 0.767 with the first France question - higher than the Paris question manages, despite being about a different country - so the model recognizes the shared shape of a capital-city question. But that is well below the 0.939 of a true paraphrase, so it still keeps the two countries apart. The lowest score in the matrix (0.611) is with the Paris question, which makes sense: a different country, and the relationship asked the other way round.
-> 
-> The color gradient in the heatmap effectively visualizes these relationships, with the darkest reds showing perfect self-similarity (1.000) along the diagonal, bright reds for near-equivalent questions, and progressively lighter colors for questions that share less semantic content.
+This similarity matrix shows how the embedding model relates the questions about capital cities. In the run shown:
+
+* The first two questions, "What is the capital of France?" and "Tell me France's capital city", score 0.939. They ask the same thing in different words: the embedding model recognizes semantic equivalence even when the syntax differs.
+* "Paris is located in which country?" scores clearly lower with the two France questions (0.739 and 0.719) than they score with each other. It involves the same entities, Paris and France, but reverses the relationship: instead of asking what the capital is, it asks which country contains Paris.
+* "What is the capital of Germany?" scores 0.767 with the first France question, higher than the Paris question manages despite being about a different country, so the model recognizes the shared shape of a capital-city question. That is still well below the 0.939 of a true paraphrase, so the model keeps the two countries apart. The lowest score in the matrix, 0.611, is between the Germany question and the Paris question: a different country, and the relationship asked the other way around.
+
+The color gradient shows these relationships: the darkest red for perfect self-similarity (1.000) along the diagonal, bright red for near-equivalent questions, and progressively lighter colors for questions that share less meaning.
 
 :::
 
-x
-
-### Tokenization
+### 3. Tokenization
 
 > **Note:**
 >
 > #### Tokenization
-> 
-> We've jumped ahead a bit with our prompt: the model, called through Ollama's API, handled the important first step of Tokenization for us.
-> 
-> So .. it all begins begins with tokenization - essentially the model's way of breaking down text into manageable pieces. Think of it like cutting a sentence into puzzle pieces that the model can understand. Some tokenizers work at the word level, while others might split words into subwords or even individual characters.
-> 
-> These tokens then need to be converted into a format that the model can mathematically process. This is where embeddings come in. Each token is transformed into a vector - essentially a long list of numbers - that represents its meaning in a high-dimensional space.
-> 
-> The embedding process captures semantic relationships between tokens. Words with similar meanings will have similar vector representations. For instance, "cat" and "kitten" would have embeddings that are closer together in this vector space than "cat" and "automobile."
-> 
-> The quality of embeddings significantly impacts model performance. Good embeddings preserve meaningful relationships between concepts and allow the model to make relevant connections. Poor embeddings might lose important semantic distinctions or create misleading relationships between unrelated concepts.
-> 
-> Modern language models often learn their embeddings during pre-training. This allows them to develop nuanced representations that capture both obvious relationships and subtle distinctions in meaning. The embedding space becomes a rich semantic landscape where similar concepts cluster together and related ideas can be found in proximity to each other.
-> 
-> The interaction between tokenization and embedding is crucial. A token that's too large (like a whole phrase) might lose important nuances in its embedding. Conversely, tokens that are too small (like individual letters) might fail to capture meaningful semantic units. Finding the right balance is key to effective language model performance.
-> 
-> Context windows in language models are typically measured in tokens, not raw text. This means that both tokenization and embedding strategies directly impact how much information can be processed in a single prompt. Efficient tokenization can help maximize the effective use of this context window.
+>
+> In the **Prompt** part, Ollama tokenized the question for you before the model embedded it. Tokenization is the model's way of breaking text into manageable pieces, called tokens: some tokenizers work at the word level, while others split words into subwords or even single characters. `tokenization.py` shows that step with `tiktoken`, OpenAI's open-source tokenizer library.
 
-<figure><img src="../_assets/images/tokenization_diagram.png" alt=""><figcaption><p>Tokenization</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/tokenization_diagram.png" alt="Diagram: the raw text LLMs are cool. is split into the tokens LLM, #s, are, cool and the period, each found in a vocabulary, and a token embedding layer turns each token into a vector" width="800">
+<figcaption>Text becomes tokens from a vocabulary, and each token becomes a vector</figcaption>
+</figure>
+</div>
 
-1. Take a look at the Python script below:
+Think of tokens as puzzle pieces the model can understand. The tokens then need to be converted into a format the model can process mathematically, and this is where embeddings come in: each token is transformed into a vector, a long list of numbers, that represents its meaning in a high-dimensional space.
+
+The embedding process captures semantic relationships between tokens. Words with similar meanings have similar vectors: "cat" and "kitten" sit closer together in this vector space than "cat" and "automobile".
+
+The quality of the embeddings shapes how well a model performs. Good embeddings preserve meaningful relationships between concepts and let the model make relevant connections. Poor embeddings can lose important distinctions in meaning, or relate concepts that have nothing in common.
+
+Modern language models learn their embeddings during pre-training. That lets them capture both obvious relationships and subtle distinctions in meaning: the embedding space becomes a map of meaning, where similar concepts cluster together and related ideas sit near each other.
+
+Tokenization and embedding work together. A token that is too large, such as a whole phrase, can lose nuance in its embedding; tokens that are too small, such as single letters, can fail to capture meaningful units.
+
+Context windows in language models are measured in tokens, not in characters or words, so tokenization decides how much text fits into a single prompt. Efficient tokenization makes the most of that window.
+
+`tokenization.py` runs entirely on your machine and makes no API calls: you need no OpenAI key, and the script does not use Ollama. The first time it runs, `tiktoken` downloads the vocabulary files of the three encodings it compares and caches them, so that first run needs an internet connection.
+
+1. Read `tokenization.py`:
 
 ```python
 import numpy as np
@@ -539,6 +592,9 @@ def explore_vocabulary(output_dir, encoding_name="cl100k_base", n_samples=20):
     """Explore and visualize the tokenizer vocabulary."""
     enc = tiktoken.get_encoding(encoding_name)
     
+    print(f"\nSample of {encoding_name} vocabulary:")
+    print("-" * 50)
+    
     # Get the vocabulary dictionary
     vocab_dict = {}
     for i in range(100000):  # Sample a range of token IDs
@@ -546,6 +602,8 @@ def explore_vocabulary(output_dir, encoding_name="cl100k_base", n_samples=20):
             token_bytes = enc.decode_single_token_bytes(i)
             token_text = token_bytes.decode('utf-8', errors='replace')
             vocab_dict[i] = token_text
+            if len(vocab_dict) < n_samples:
+                print(f"Token ID: {i:5d} | Token Text: '{token_text}'")
         except:
             continue
         if len(vocab_dict) >= n_samples:
@@ -558,16 +616,34 @@ def explore_vocabulary(output_dir, encoding_name="cl100k_base", n_samples=20):
         f.write("-" * 50 + "\n")
         for token_id, token_text in list(vocab_dict.items())[:n_samples]:
             f.write(f"Token ID: {token_id:5d} | Token Text: '{token_text}'\n")
-    
-    print(f"Vocabulary sample saved to: {vocab_file}")
 
 def analyze_token_mapping(text, output_dir, encoding_name="cl100k_base"):
     """Analyze how text is mapped to tokens and back."""
     enc = tiktoken.get_encoding(encoding_name)
     tokens = enc.encode(text)
     
-    # Save analysis to a text file
-    analysis_file = os.path.join(output_dir, f"token_mapping_{text[:20]}.txt")
+    print(f"\nToken mapping analysis for: '{text}'")
+    print("-" * 50)
+    
+    # Print to console
+    print("Step 1: Text to Tokens")
+    print(f"Original text: {text}")
+    print(f"Token IDs: {tokens}\n")
+    
+    print("Step 2: Individual Token Analysis")
+    for i, token in enumerate(tokens):
+        token_text = enc.decode([token])
+        print(f"Position {i+1}: Token ID {token:5d} → '{token_text}'")
+    
+    print("\nStep 3: Reconstruction")
+    reconstructed = enc.decode(tokens)
+    print(f"Reconstructed text: {reconstructed}")
+    print(f"Matches original: {text == reconstructed}")
+    
+    # Save to file
+    safe_filename = "".join(c if c.isalnum() else "_" for c in text[:20])
+    analysis_file = os.path.join(output_dir, f"token_mapping_{safe_filename}.txt")
+    
     with open(analysis_file, 'w', encoding='utf-8') as f:
         f.write(f"Token mapping analysis for: '{text}'\n")
         f.write("-" * 50 + "\n")
@@ -581,66 +657,8 @@ def analyze_token_mapping(text, output_dir, encoding_name="cl100k_base"):
             f.write(f"Position {i+1}: Token ID {token:5d} → '{token_text}'\n")
         
         f.write("\nStep 3: Reconstruction\n")
-        reconstructed = enc.decode(tokens)
         f.write(f"Reconstructed text: {reconstructed}\n")
         f.write(f"Matches original: {text == reconstructed}\n")
-    
-    print(f"Token mapping analysis saved to: {analysis_file}")
-
-def visualize_tokenization(text, output_dir, filename):
-    """Visualize how the text is broken down into tokens."""
-    enc = tiktoken.get_encoding("cl100k_base")
-    tokens = enc.encode(text)
-    token_texts = [enc.decode([token]) for token in tokens]
-    
-    plt.figure(figsize=(15, 4))
-    for i, (token, text) in enumerate(zip(tokens, token_texts)):
-        plt.plot([i, i+1, i+1, i, i], [0, 0, 1, 1, 0], 'b-')
-        plt.text(i + 0.5, 0.5, f'"{text}"', ha='center', va='center')
-        plt.text(i + 0.5, -0.2, str(token), ha='center', va='center', color='red')
-    
-    plt.xlim(-0.2, len(tokens) + 0.2)
-    plt.ylim(-0.5, 1.5)
-    plt.title('Text Tokenization Visualization')
-    plt.axis('off')
-    plt.tight_layout()
-    save_plot(plt, output_dir, filename)
-
-def compare_tokenization_variations(texts, output_dir, filename):
-    """Compare tokenization of similar texts."""
-    enc = tiktoken.get_encoding("cl100k_base")
-    plt.figure(figsize=(15, len(texts) * 2))
-    
-    for idx, text in enumerate(texts):
-        tokens = enc.encode(text)
-        token_texts = [enc.decode([token]) for token in tokens]
-        
-        for i, (token, token_text) in enumerate(zip(tokens, token_texts)):
-            plt.plot([i, i+1, i+1, i, i], 
-                    [idx, idx, idx+1, idx+1, idx], 'b-')
-            plt.text(i + 0.5, idx + 0.5, f'"{token_text}"', 
-                    ha='center', va='center', fontsize=8)
-            plt.text(i + 0.5, idx + 0.2, str(token), 
-                    ha='center', va='center', color='red', fontsize=6)
-    
-    plt.yticks(np.arange(len(texts)) + 0.5, texts)
-    plt.title('Comparison of Tokenization Across Similar Texts')
-    plt.axis('off')
-    plt.tight_layout()
-    save_plot(plt, output_dir, filename)
-
-def analyze_token_stats(texts, output_dir, filename):
-    """Analyze and visualize tokenization statistics."""
-    enc = tiktoken.get_encoding("cl100k_base")
-    token_counts = [len(enc.encode(text)) for text in texts]
-    
-    plt.figure(figsize=(10, 5))
-    plt.bar(range(len(texts)), token_counts)
-    plt.xticks(range(len(texts)), [textwrap.fill(t, 20) for t in texts], rotation=45)
-    plt.ylabel('Number of Tokens')
-    plt.title('Token Count Comparison')
-    plt.tight_layout()
-    save_plot(plt, output_dir, filename)
 
 def compare_encodings(output_dir):
     """Compare different tiktoken encodings."""
@@ -651,21 +669,32 @@ def compare_encodings(output_dir):
         "r50k_base"     # Earlier models
     ]
     
-    # Save comparison to a text file
+    print("\nComparing different encodings:")
+    print("-" * 50)
+    
+    # Print to console and save to file
     comparison_file = os.path.join(output_dir, "encoding_comparison.txt")
     with open(comparison_file, 'w', encoding='utf-8') as f:
         f.write("Comparing different encodings:\n")
         f.write("-" * 50 + "\n")
+        
         for encoding_name in encodings:
             enc = tiktoken.get_encoding(encoding_name)
             tokens = enc.encode(sample_text)
+            
+            # Print to console
+            print(f"\n{encoding_name}:")
+            print(f"Number of tokens: {len(tokens)}")
+            print("Token breakdown:")
+            for token in tokens:
+                print(f"  {token:5d} → '{enc.decode([token])}'")
+            
+            # Write to file
             f.write(f"\n{encoding_name}:\n")
             f.write(f"Number of tokens: {len(tokens)}\n")
             f.write("Token breakdown:\n")
             for token in tokens:
                 f.write(f"  {token:5d} → '{enc.decode([token])}'\n")
-    
-    print(f"Encoding comparison saved to: {comparison_file}")
 
 def main():
     # Create output directory with timestamp
@@ -689,24 +718,6 @@ def main():
     for example in examples:
         analyze_token_mapping(example, output_dir)
     
-    # Create visualizations
-    print("\nGenerating visualizations...")
-    
-    # Basic text examples
-    texts = [
-        "What is the capital of France?",
-        "Tell me France's capital city",
-        "Paris is located in which country?",
-        "What is the capital of Germany?"
-    ]
-    
-    visualize_tokenization(texts[0], output_dir, "single_text_tokenization.png")
-    compare_tokenization_variations(texts, output_dir, "text_comparison.png")
-    analyze_token_stats(texts, output_dir, "token_stats.png")
-    
-    # Special cases visualization
-    compare_tokenization_variations(examples, output_dir, "special_cases.png")
-    
     # Compare different encodings
     compare_encodings(output_dir)
     
@@ -716,97 +727,120 @@ if __name__ == "__main__":
     main()
 ```
 
-> **Note:**
->
-> #### Script Walkthrough
-> 
-> When you run this script, it will:
-> 
-> 1. Explore and analyze the tokenizer's vocabulary by saving information about the vocabulary to a text file in the output directory.
-> 2. Analyze individual texts for their token mapping by printing the token-to-text mappings for each input text.
-> 3. Visualize how text is broken down into tokens by generating plots that show the tokenization process and saving these plots as images in the output directory.
-> 4. Compare tokenization of similar texts to identify any differences or patterns in tokenization behavior. These comparisons are saved as plots in the output directory.
-> 5. Analyze token statistics for a list of example texts by calculating statistics such as the number of tokens, average token length, and standard deviation of token length. The results of this analysis are saved as a plot in the output directory.
-> 6. Compare different encodings available in tiktoken to identify any differences or patterns in encoding behavior. This comparison is saved as a text file in the output directory.
+When you run it, the script:
 
-***
+* prints the first token IDs of the `cl100k_base` vocabulary, and saves the first 20 to `vocabulary_sample.txt`;
+* for each of five example texts, prints the token IDs, the text of each token and the text rebuilt from the IDs, and saves the same analysis to a `token_mapping_<text>.txt` file;
+* encodes `OpenAI develops GPT-4, an advanced AI model!` with three encodings, `cl100k_base`, `p50k_base` and `r50k_base` (labeled ChatGPT, GPT-3 and earlier models in the script's comments), prints each breakdown, and saves them to `encoding_comparison.txt`.
 
-> **Warning:**
->
-> #### Run Python script - tokenization.py
-> 
-> You do not need an OpenAI key to RUN the script.
-> 
-> The `tiktoken` library is a standalone tokenizer that can be installed and used independently. It's primarily used to count tokens and understand how text will be tokenized by OpenAI based models, but it doesn't make any API calls.
+All the files go to a new folder, `tokenization_analysis\analysis_<timestamp>`.
 
-1. Open a terminal in your copy of the scripts (from the one-time setup above).
+2. Run the script. In PowerShell, run:
+
+::: tabs
+
+### Windows (PowerShell)
 
 ```powershell
-cd $env:USERPROFILE\key-concepts
-```
-
-2. Run the script.
-
-```powershell
+Set-Location C:\Workshop-AI-Specialty\02-pdi-ai-pipelines\18-key-concepts-workshop
 .\.venv\Scripts\python tokenization.py
 ```
 
-<figure><img src="../_assets/images/tokenization_py_output.png" alt=""><figcaption><p>output - tokenization</p></figcaption></figure>
+### macOS / Linux
+
+```bash
+.venv/bin/python tokenization.py
+```
+
+:::
+
+<div align="center">
+<figure>
+<img src="../_assets/images/tokenization_py_output.png" alt="Terminal output of tokenization.py: the cl100k_base vocabulary sample from token ID 0 to 18, the token mapping of the five example texts, each ending Matches original: True, and the three encodings, each giving 13 tokens" width="800">
+<figcaption>The whole output: vocabulary sample, five token mappings, three encodings</figcaption>
+</figure>
+</div>
+
+> **Success:** Checkpoint: under `Sample of cl100k_base vocabulary:` the script lists token IDs `0` to `18`: the punctuation marks `!` to `/` and the digits `0` to `3`. Each of the five token mapping analyses ends `Matches original: True`, and under `Comparing different encodings:` all three encodings show `Number of tokens: 13`.
+
+3. Compare your token IDs with this table. `tiktoken` always splits a text the same way, so yours match exactly. A token can start with a space: ` learning` and ` world` carry the space in front of the word.
+
+| Text | Tokens | Token IDs |
+| --- | --- | --- |
+| `OpenAI` | `Open`, `AI` | `[5109, 15836]` |
+| `machine learning` | `machine`, ` learning` | `[33156, 6975]` |
+| `https://example.com` | `https`, `://`, `example`, `.com` | `[2485, 1129, 8858, 916]` |
+| `Python3.9` | `Python`, `3`, `.`, `9` | `[31380, 18, 13, 24]` |
+| `Hello, world!` | `Hello`, `,`, ` world`, `!` | `[9906, 11, 1917, 0]` |
+
+The vocabulary sample starts with the most basic tokens, punctuation marks and digits: the level at which the tokenizer can break down any text.
+
+`OpenAI` is split into two tokens, `Open` and `AI`: the tokenizer handles a compound word by breaking it into pieces it knows. `machine learning` is also two tokens, one per word. Keeping frequent words whole keeps their meaning in one piece while the vocabulary stays a manageable size.
+
+The URL becomes four tokens, `https`, `://`, `example` and `.com`, so a model can recognize the common parts of URLs. `Python3.9` also becomes four, `Python`, `3`, `.` and `9`: numbers, dots and text become separate tokens.
+
+The encoding comparison is the most telling part. All three encodings split `OpenAI develops GPT-4, an advanced AI model!` into the same 13 pieces, including ` G` and `PT` for `GPT`, but `cl100k_base` gives them different IDs from the other two: `Open` is `5109` in `cl100k_base` and `11505` in `p50k_base` and `r50k_base`, which give identical IDs here. Different encodings can represent the same text differently, and each still rebuilds the original exactly.
+
+That is what `Matches original: True` confirms for every example: tokenization is reversible, so the tokens decode back to the original text, which keeps text intact on its way through a language model.
+
+> **Under the hood:**
+>
+> #### tiktoken looked each piece up in a fixed vocabulary; no model ran
+>
+> `tiktoken` is a byte-pair encoding (BPE) tokenizer: it splits text into pieces its vocabulary holds and replaces each piece with that piece's fixed ID, so the same text gives the same IDs on any machine. Decoding is the reverse lookup, which is why every example rebuilds its original text exactly. Each model family has its own vocabulary: `cl100k_base` and `p50k_base` gave `Open` different IDs, and the models you run in Ollama, `llama3.2:3b` and `nomic-embed-text`, use their own tokenizers again.
+>
+> **Why it matters:** context windows and prompt limits are counted in the tokens of the model's own tokenizer, so a count from `tiktoken` is only an estimate for a model in Ollama. Ollama reports the real count for each request as `prompt_eval_count` in its response.
+
+4. Open the folder the script named in its last line, `All analysis results have been saved to:`.
+
+> **Success:** Checkpoint: the folder holds 7 text files: `vocabulary_sample.txt`, `encoding_comparison.txt` and the five token mapping files, `token_mapping_OpenAI.txt`, `token_mapping_machine_learning.txt`, `token_mapping_https___example_com.txt`, `token_mapping_Python3_9.txt` and `token_mapping_Hello__world_.txt`.
+
+`tokenization.py` writes text files only. The three figures below show the four questions from the **Prompt** part tokenized with `cl100k_base`, drawn as token boxes with each token's ID in red underneath. They are the same pieces as the token list `transformers.py` uses in the last part: `What`, `is`, `the`, `capital`, `of`, `France` and `?`.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/prompt_tokenization.png" alt="Text Tokenization Visualization: What is the capital of France? as seven boxes, What, is, the, capital, of, France and ?, with the token IDs 3923, 374, 279, 6864, 315, 9822 and 30" width="800">
+<figcaption>What is the capital of France? as 7 tokens</figcaption>
+</figure>
+</div>
+
+<div align="center">
+<figure>
+<img src="../_assets/images/tokenization_comparison.png" alt="Comparison of Tokenization Across Similar Texts: the four questions as rows of token boxes with their IDs; the France and Germany questions differ only in the France and Germany tokens, and Tell me France's capital city has six tokens" width="800">
+<figcaption>The France and Germany questions share six of their seven tokens</figcaption>
+</figure>
+</div>
+
+<div align="center">
+<figure>
+<img src="../_assets/images/tokenization_token_counts.png" alt="Token Count Comparison bar chart: 7 tokens for What is the capital of France?, 6 for Tell me France's capital city, 7 for Paris is located in which country? and 7 for What is the capital of Germany?" width="800">
+<figcaption>Token counts per question</figcaption>
+</figure>
+</div>
+
+### 4. Embedding
 
 > **Note:**
 >
-> #### What does it mean?
-> 
-> Ok ..  there's a lot going on here ..  but its pretty simple ..!!
-> 
-> The first section shows a sample of the base vocabulary from the cl100k\_base tokenizer, displaying basic tokens like punctuation marks and common characters. This demonstrates how the tokenizer breaks down text at its most fundamental level.
-> 
-> The analysis then examines several test cases, starting with "OpenAI". Interestingly, "OpenAI" is split into two tokens: "Open" (token ID 5169) and "AI" (token ID 16836). This shows how the tokenizer handles compound words by breaking them into meaningful subcomponents.
-> 
-> For "machine learning", the tokenizer also splits it into two tokens (IDs 13156 and 6972). This is a common pattern where frequently occurring compound phrases are tokenized as separate words, which helps maintain semantic meaning while keeping the vocabulary size manageable.
-> 
-> The URL example "<https://example.com>" demonstrates how the tokenizer handles special strings. It breaks the URL into four distinct tokens: "https", "://", "example", and ".com". This granular breakdown allows the model to recognize common URL patterns and components.
-> 
-> "Python3.9" is tokenized into four pieces: "Python", "3", ".", and "9". This shows how the tokenizer handles version numbers and technical strings by separating numbers, dots, and text into individual tokens.
-> 
-> The final comparison of different encodings (cl100k\_base, p50k\_base, and r50k\_base) is particularly interesting. While they all produced 13 tokens for the test phrase, they use different token IDs for the same components. This highlights how different encoding schemes can represent the same text differently while maintaining the ability to reconstruct the original input accurately.
-> 
-> What's particularly notable is that in all test cases, the "Matches original: True" confirmation shows that the tokenization process is reversible - the tokens can be correctly decoded back into the original text, which is crucial for maintaining text integrity in language models.
-
-> **Note:**
+> #### Embedding
 >
-> #### Tokenization Directory
-> 
-> Finally take a look at the output in the /tokenization\_plot directory. Here you'll find the tokenization of our prompt: "What is the capital of France?"
+> With the text split into token IDs, the model can create embedding vectors. An embedding is a numerical representation of a piece of text, such as a word, a sentence or a paragraph. `embedding.py` uses `nomic-embed-text` to measure similarity, cluster questions by topic, analyze one vector and run a small semantic search.
 
-<figure><img src="../_assets/images/prompt_tokenization.png" alt=""><figcaption><p>Prompt tokenization</p></figcaption></figure>
+Why is embedding so important? An embedding maps the text to a point in a high-dimensional vector space, and you can think of each **dimension** as some feature or attribute of the text.
 
-<figure><img src="../_assets/images/tokenization_comparison.png" alt=""><figcaption><p>Comparison of the tokenization of the different prompts</p></figcaption></figure>
+For example, to create an embedding for the word "orange", the model places the word in a space whose dimensions reflect characteristics such as its size, its color, whether it is a noun or a verb, its position in the sentence and its locale: in short, its context. The context decides which "orange" is meant:
 
-<figure><img src="../_assets/images/tokenization_token_counts.png" alt=""><figcaption><p>Prompts - token counts</p></figcaption></figure>
+* Fruit: in a discussion about fruit, "orange" likely refers to the citrus fruit that is round and typically orange in color.
+* Color: in a discussion about color, "orange" might refer to the color between red and yellow, like the color of the fruit.
+* Juice: in a discussion about drinks, "orange" might refer to orange juice, made by squeezing oranges.
+* Clothing: in a discussion about clothing, "orange" might refer to a garment or accessory colored orange.
 
-### Embedding
-
-> **Note:** Based on the TokenIDs we're now ready to create the embedding vectors - mathematically representations.
-> 
-> Why is embedding so important ..?
-> 
-> Its creating a numerical representation of a piece of text, such as a word, sentence, or paragraph. It is created by mapping the text to a high-dimensional vector space, where each **dimension** corresponds to a specific feature or attribute of the text.
-> 
-> For example, suppose we want to create an embedding for the word "orange". We might represent the word as a vector in a high-dimensional space, where each dimension represents a characteristic of the word, such as its size, color, or whether it is a noun or a verb, its position in the sentence, the localization, and so on .. its context ..
-> 
-> * Fruit: In the context of a discussion about fruit, "orange" would likely refer to the citrus fruit that is round and typically orange in color.
-> * Color: In the context of discussing color, "orange" might refer to the color that is a mix of red and yellow, similar to the color of an orange fruit.
-> * Juice: In the context of discussing beverages, "orange" might refer to orange juice, which is a popular drink made from squeezing the juice from oranges.
-> * Clothing: In the context of discussing clothing, "orange" might refer to a garment or accessory that is colored orange.
-> 
-> By training a machine learning model on a large corpus of text, the model can learn to map words to vectors in such a way that words with similar meanings or contexts are mapped to similar vectors.
+By training on a large corpus of text, a model learns to map words to vectors so that words with similar meanings or contexts get similar vectors.
 
 <div class="pcm-embed-card" data-href="https://platform.openai.com/docs/guides/embeddings/what-are-embeddings" data-title="platform.openai.com"></div>
 
-1. Take a look at the Python script below:
+1. Read `embedding.py`:
 
-````python
 ```python
 import numpy as np  # For numerical operations and array handling
 from typing import List, Dict, Tuple  # Type hints for better code documentation
@@ -1237,27 +1271,36 @@ if __name__ == "__main__":
     # This ensures the script only runs when executed directly, not when imported
     demonstrate_embeddings()
 ```
-````
 
-> **Note:** * define the EmbeddingAnalyzer class that encapsulates embedding operations
-> * set up the Ollama client with either default or custom host URL
-> * analyze the results to calculate similarities
+The `EmbeddingAnalyzer` class holds the Ollama client and a cache, so a text that appears twice is embedded only once. When you run it, the script works through four examples and saves everything to a new folder, `embedding_analysis\analysis_<timestamp>`:
 
-***
+* Example 1, **Basic Semantic Similarity**: compares five questions about France and saves a similarity heatmap as `similarity_heatmap.png`.
+* Example 2, **Topic Clustering**: embeds nine questions, three each about tech, sports and cooking, reduces their vectors to two dimensions with t-SNE, and saves the scatter plot as `embedding_clusters.png`.
+* Example 3, **Analyzing Embedding Properties**: embeds one sample sentence, saves the histogram of its values as `embedding_distribution.png`, and records its dimensionality, mean, standard deviation and magnitude.
+* Example 4, **Semantic Search Demo**: ranks five sentences by their similarity to the query `A fox jumping over a dog`, and writes the ranking, with the Example 3 statistics, to `analysis_results.txt`.
 
-#### Run Python script - embedding.py
+2. Run the script. In PowerShell, run:
 
-1. Open a terminal in your copy of the scripts (from the one-time setup above).
+::: tabs
 
-```powershell
-cd $env:USERPROFILE\key-concepts
-```
-
-2. Run the script.
+### Windows (PowerShell)
 
 ```powershell
+Set-Location C:\Workshop-AI-Specialty\02-pdi-ai-pipelines\18-key-concepts-workshop
 .\.venv\Scripts\python embedding.py
 ```
+
+### macOS / Linux
+
+```bash
+.venv/bin/python embedding.py
+```
+
+:::
+
+3. When the script asks `Use a different Ollama server? (y/N):`, press `Enter`.
+
+One run printed this:
 
 ```text
 Analysis results will be saved to: embedding_analysis\analysis_20261005_094747
@@ -1283,104 +1326,115 @@ Analysis results saved to: embedding_analysis\analysis_20261005_094747\analysis_
 Analysis complete! All visualizations and results have been saved.
 ```
 
-> **Note:** So what does this all mean ?
-> 
-> Jumping ahead a bit you can see how the heatmap - Semantic Similarity - adds context. It defines the semantic relationship between the words in the prompts.&#x20;
-> 
-> This becomes clearer with topic clustering - each topic is clearly separated - which helps pinpoint the vector cluster in the model that will help generate a response.
+> **Success:** Checkpoint: the four `Example` headings appear in order. Three `Saved visualization to:` lines name `similarity_heatmap.png`, `embedding_clusters.png` and `embedding_distribution.png`, `Analysis results saved to:` names `analysis_results.txt`, and the last line is `Analysis complete! All visualizations and results have been saved.`
+
+The heatmap shows the semantic relationship between the questions, and the topic clustering shows how the vectors of related questions group together. Those groups are what let a model find related content, and what search builds on in the next part.
+
+4. Open the folder the script named in its first line, `Analysis results will be saved to:`, and look at its four files, one tab below for each example.
 
 ::: tabs
 
 ### Semantic Similarity
 
-Take a look at the similarity\_heatmap graph:
+`similarity_heatmap.png` labels the five questions `Text 1` to `Text 5`:
 
-```
-Text 1: "What is the capital of France?",
-Text 2: "Tell me the capital city of France",
-Text 3: "Which city serves as France's capital?",
-Text 4: "What's the largest city in France?",
-Text 5: "What's the weather like in Paris?"
-```
+| Label | Question |
+| --- | --- |
+| `Text 1` | What is the capital of France? |
+| `Text 2` | Tell me the capital city of France |
+| `Text 3` | Which city serves as France's capital? |
+| `Text 4` | What's the largest city in France? |
+| `Text 5` | What's the weather like in Paris? |
 
-<figure><img src="../_assets/images/embedding_similarity_matrix.png" alt=""><figcaption><p>Similarity matrix</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/embedding_similarity_matrix.png" alt="Semantic Similarity Heatmap of Text 1 to Text 5: dark red scores of 0.92 to 0.94 among Texts 1 to 3, orange scores of 0.77 to 0.78 for Text 4, and pale yellow scores of 0.55 to 0.62 for Text 5" width="800">
+<figcaption>Texts 1 to 3 ask the same question; Text 5 asks about the weather</figcaption>
+</figure>
+</div>
 
-> **Note:** Basically the same as discussed in the 'Prompt' section ..
-> 
-> This heatmap visualizes how similar different phrases are to each other, using embeddings from `nomic-embed-text`. The darkness and numbers in each square show how closely related two pieces of text are - with darker reds showing stronger relationships (closer to 1.0) and lighter yellows showing weaker relationships (around 0.55-0.6).
-> 
-> Looking at the pattern, we can see that the first three texts are very closely related (showing dark red with scores of 0.92-0.94), suggesting they're asking similar questions. The fourth text ("largest city") is related but clearly less so (0.77-0.78): a different question about the same country. The fifth text stands out as being the most different from all others, showing consistently lighter colors (scores of 0.55-0.62) across its row and column.
-> 
-> This kind of visualization is particularly useful for understanding how language models group similar concepts together and distinguish between different topics, even when they share some common elements or words.
+> **Success:** Checkpoint: **Semantic Similarity Heatmap** is a 5 × 5 grid labeled `Text 1` to `Text 5`, with `1.00` on the diagonal. Texts 1 to 3, the three ways of asking for the capital, score highest with each other, and `Text 5`, the weather question, scores lowest with every other text.
+
+This heatmap, of embeddings from `nomic-embed-text`, shows how similar the questions are to each other, as in the **Prompt** part. The color and number in each square show how closely two texts are related: darker reds for stronger relationships, closer to 1.0, and lighter yellows for weaker ones.
+
+In the run shown, the first three texts are very closely related, with dark red scores of 0.92 to 0.94: they ask the same question. The fourth text ("largest city") is related but clearly less so (0.77 to 0.78): a different question about the same country. The fifth text stands out as the most different from all the others, with consistently lighter colors (0.55 to 0.62) across its row and column.
+
+This kind of view shows how a language model groups similar concepts together and tells different topics apart, even when they share some words.
 
 ### Topic Clustering
 
-Take a look at the embedding\_clusters graph:
+<div align="center">
+<figure>
+<img src="../_assets/images/topic_clustering.png" alt="2D Visualization of Text Embeddings: nine points, three each for Tech (blue dots), Sports (orange crosses) and Cooking (green squares); the cooking points sit along the top left, and the tech and sports points are mixed together" width="800">
+<figcaption>Nine questions in two dimensions: cooking sits apart, tech and sports mix</figcaption>
+</figure>
+</div>
 
-> **Note:** This visualization shows how different topics cluster together when their text embeddings are reduced to 2D space using t-SNE (as implemented in the code's visualize\_embedding\_clusters method). Each point represents a question or statement, color-coded into three categories: Tech (blue dots), Sports (orange X's), and Cooking (green squares).
-> 
-> With only three questions per topic, the picture is rough. The cooking questions sit apart on the left, but the tech and sports questions are interleaved on the right. t-SNE, which squeezes 768 dimensions into two, has very little to work with at nine points, and its layout changes from run to run; the similarity scores, as in the heatmap above, are the more reliable view of what the model groups together.
-> 
-> From the code, we can see these points represent questions like "How do computers process information?" (Tech), "Who won the last World Cup?" (Sports), and "What's the best way to cook pasta?" (Cooking).
-> 
-> Try adding a few more questions per topic to the texts in `visualize_embedding_clusters` and run the script again: with more points, t-SNE has more to work with when it lays the topics out.
+> **Success:** Checkpoint: `embedding_clusters.png`, **2D Visualization of Text Embeddings**, shows 9 points with a legend of `Tech`, `Sports` and `Cooking`, 3 points each. Where the points land depends on the vectors, so compare the layout with the figure, not the coordinates.
 
-<figure><img src="../_assets/images/topic_clustering.png" alt=""><figcaption><p>Topic clustering</p></figcaption></figure>
+This plot shows how the topics group when their embeddings are reduced to two dimensions with t-SNE, in the script's `visualize_embedding_clusters` method. Each point is one question, colored and shaped by its category: Tech (blue dots), Sports (orange crosses) and Cooking (green squares). The questions include "How do computers process information?" (Tech), "Who won the last World Cup?" (Sports) and "What's the best way to cook pasta?" (Cooking).
+
+With only three questions per topic, the picture is rough. In the run shown, the cooking questions sit apart along the top left, while the tech and sports questions are interleaved. t-SNE, which squeezes 768 dimensions into two, has very little to work with at nine points, and a small change in the vectors can rearrange its layout; the similarity scores, as in the heatmap, are the more reliable view of what the model groups together.
+
+Try adding a few more questions per topic to `mixed_topics` in `demonstrate_embeddings`, with a matching label for each in `topic_labels`, and run the script again: with more points, t-SNE has more to work with when it lays the topics out.
 
 ### Analysis
 
-Take a look at the embedding\_distribution graph:
+<div align="center">
+<figure>
+<img src="../_assets/images/vector_distribution.png" alt="Distribution of Embedding Values: a histogram of the sample sentence's 768 values, bell-shaped and centered slightly above zero, with most values between -1 and 1 and the extremes near -3.2 and 2.8" width="800">
+<figcaption>The values of the sample sentence's embedding</figcaption>
+</figure>
+</div>
 
-```
+> **Success:** Checkpoint: `embedding_distribution.png` is a histogram titled **Distribution of Embedding Values**. `analysis_results.txt` starts `Embedding Analysis Results` and lists `Dimensionality: 768 dimensions`, with the mean value, standard deviation and vector magnitude of the sample sentence's embedding.
+
+In the run shown, the statistics read:
+
+```text
 Embedding Statistics:
-Dimensionality: 768 dimensions
-Mean value: 0.0041
-Standard deviation: 0.7362
-Vector magnitude: 20.4033
+- Dimensionality: 768 dimensions
+- Mean value: 0.0041
+- Standard deviation: 0.7362
+- Vector magnitude: 20.4033
 ```
 
-<figure><img src="../_assets/images/vector_distribution.png" alt=""><figcaption><p>Distribution of vectors</p></figcaption></figure>
+But what is a dimension? A text embedding with 768 dimensions means that each piece of text is converted into a list of 768 numbers. Think of it as a detailed fingerprint of the text, where each number captures a different aspect of its meaning. We picture things in 2 or 3 dimensions (length, width and height); an embedding uses many more to capture the complexity of language.
 
-> **Note:** Again this was discussed in the prompt section ..
-> 
-> But what is a dimension ..?
-> 
-> A text embedding with 768 dimensions means that each piece of text is converted into a list of 768 different numbers. Think of it like a very detailed fingerprint of the text, where each number captures a different aspect of its meaning. While we can easily picture things in 2 or 3 dimensions (like length, width, and height), this embedding uses many more dimensions to capture the rich complexity of language.
-> 
-> These 768 numbers work together to represent subtle patterns in the text - everything from the topic and tone to the structure and style. When we want to compare two pieces of text, we can compare their 768-dimensional fingerprints to see how similar they are, as we saw in the earlier heatmap. (The vector magnitude above, about 20, is the vector's length: `nomic-embed-text` does not scale its vectors to length 1, and cosine similarity ignores length anyway.) The high number of dimensions allows the model to be very precise in distinguishing between different types of text while recognizing similarities.
-> 
-> Since humans can't visualize 768 dimensions, we use techniques to reduce it down to 2 dimensions for visualization - topic cluster plot. This is similar to taking a complex 3D object and drawing its shadow on a flat surface - you lose some detail, but you can still see the basic relationships between different points.
+The 768 numbers work together to represent patterns in the text, from the topic and tone to its structure and style. To compare two pieces of text, you compare their 768-dimensional fingerprints, as the heatmap did. The vector magnitude, about 20 in the run shown, is the vector's length: `nomic-embed-text` does not scale its vectors to length 1, and cosine similarity ignores length anyway. The high number of dimensions lets the model tell different kinds of text apart precisely while still recognizing similarities.
+
+Since nobody can picture 768 dimensions, the topic cluster plot reduces them to two. It is like drawing the shadow of a 3D object on a flat surface: you lose some detail, but you can still see the basic relationships between the points.
 
 ### Semantic Search
 
-> **Note:** This digs a little deeper than our prompt example.  The model when being trained that there's a relationship between fox and canine - less of a relationship between fox and cat ..  less of a relationship between jumping, leaping, chasing and pursuing ..  and so on ..
-> 
-> The results of our semantic search is:
-> 
-> "The quick brown fox jumps over the lazy dog" is the closest semantic match to our query ..&#x20;
+This digs a little deeper than the **Prompt** example. In training, the model learns that there is a strong relationship between fox and canine and less of one between fox and cat, and that jumping, leaping, chasing and pursuing are related actions.
 
-Here's our query:
+The query is:
 
-```
+```python
 query = "A fox jumping over a dog"
 ```
 
-Here's our documents:
+The documents are:
 
-```
-    documents = [
-        "The quick brown fox jumps over the lazy dog",
-        "A fast auburn canine leaps across a sleepy hound",
-        "The cat chases the mouse in the garden",
-        "A feline pursues a rodent through the flowers",
-        "The weather is sunny and warm today",
-    ]
+```python
+documents = [
+    "The quick brown fox jumps over the lazy dog",
+    "A fast auburn canine leaps across a sleepy hound",
+    "The cat chases the mouse in the garden",
+    "A feline pursues a rodent through the flowers",
+    "The weather is sunny and warm today",
+]
 ```
 
-The semantic search results:
+> **Success:** Checkpoint: at the end of `analysis_results.txt`, `Semantic Search Results:` gives the query `'A fox jumping over a dog'` and lists the 5 documents with their scores, highest first. The fox and canine sentences rank at the top and the weather sentence at the bottom.
 
-```
+In the run shown, the semantic search results were:
+
+```text
 Semantic Search Results:
+Query: 'A fox jumping over a dog'
+
 Score: 0.9186 | Document: The quick brown fox jumps over the lazy dog
 Score: 0.8975 | Document: A fast auburn canine leaps across a sleepy hound
 Score: 0.8602 | Document: The cat chases the mouse in the garden
@@ -1388,23 +1442,32 @@ Score: 0.8511 | Document: A feline pursues a rodent through the flowers
 Score: 0.7778 | Document: The weather is sunny and warm today
 ```
 
-> **Note:** This semantic search example demonstrates how embedding-based search works by comparing a query ("A fox jumping over a dog") with five different documents. The results are ranked by their similarity scores, showing how well the embedding model understands semantic relationships beyond simple keyword matching.
-> 
-> The first two results score highest (0.9186 and 0.8975) because they're direct variations of the same concept - a fox/canine jumping/leaping over a dog/hound. The next two results score lower but still relatively high (0.8602 and 0.8511) because they share the concept of one animal chasing/pursuing another, even though they use different animals (cat/mouse and feline/rodent). The last result scores much lower (0.7778) because it's about weather, a completely unrelated topic.
-> 
-> This demonstrates how embeddings can capture meaning rather than just matching exact words. The model understands that "fox" and "canine" are related, that "jumps," "leaps," and even "chases" share similar action concepts, and that weather is a distinctly different topic, regardless of any shared words.
+This example shows how embedding-based search works: it compares a query with five documents and ranks them by similarity score, which reflects meaning rather than shared keywords. "The quick brown fox jumps over the lazy dog" is the closest match to the query.
+
+The first two results score highest (0.9186 and 0.8975 in the run shown) because they are variations of the same idea: a fox or canine jumping or leaping over a dog or hound. The next two score lower but still fairly high (0.8602 and 0.8511): they share the idea of one animal chasing another, with different animals (cat and mouse, feline and rodent). The last result scores much lower (0.7778), because it is about the weather, an unrelated topic.
+
+The model treats "fox" and "canine" as related, "jumps", "leaps" and even "chases" as similar actions, and the weather as a different topic, whatever words the sentences share.
 
 :::
 
-### Search
+### 5. Search
 
-> **Note:** We covered the concept of Semantic search in the Embedding section. The basic idea behind semantic search is to use the numerical representations (embeddings) of words and phrases to find other text data that has similar or related meanings. This is done by first tokenizing the text data into individual words or phrases, and then representing each token using its embedding. Once we have the embeddings for the tokens, we can compare them to find similar or related text data. However, that type of search is limiting.&#x20;
-> 
-> Modern Large Language Models employ several more sophisticated search approaches.
+> **Note:**
+>
+> #### Search
+>
+> The **Embedding** part ranked sentences by the similarity of their embeddings: semantic search. `search.py` sets that against traditional keyword search, which counts the words a document shares with the query, on the same 8 documents and 4 queries.
 
-<figure><img src="../_assets/images/semantic_search_diagram.png" alt=""><figcaption><p>Semantic search</p></figcaption></figure>
+The idea behind semantic search is to use embeddings to find text with similar or related meanings: the model turns each text into a vector, and texts are compared by their vectors. Retrieval for a Large Language Model (LLM) builds on the same idea, as the diagram shows: your documents are split into chunks, each chunk is embedded and kept in a vector store, the user's query is embedded the same way, and the chunks closest to it are passed to the LLM with the query, within its token limit.
 
-1. Take a look at the Python script below:
+<div align="center">
+<figure>
+<img src="../_assets/images/semantic_search_diagram.png" alt="Diagram: your data (PDF, doc, text) is split into chunks, each chunk is embedded into a vector store; the user query is embedded, the relevant data chunks are found and passed with the query, within the token limit, to an LLM that writes the response" width="800">
+<figcaption>Semantic search: the query's embedding finds the relevant chunks for the LLM</figcaption>
+</figure>
+</div>
+
+1. Read `search.py`:
 
 ```python
 import numpy as np  # For numerical operations and array handling
@@ -1961,21 +2024,35 @@ if __name__ == "__main__":
     demonstrate_search_comparison()
 ```
 
-***
+When you run it, the script:
 
-#### Run Python script - search.py
+* lists the 8 test documents as `Doc 0` to `Doc 7`;
+* runs 4 queries, each a different kind of search: a direct phrase match, a semantic concept match, a mixed concept match and a thematic match;
+* for each query, ranks the documents twice: by keyword search, which adds up how often each query word appears in a document, and by vector search, which ranks them by the cosine similarity of their embeddings to the query's;
+* prints the top 3 of each ranking, and saves the full rankings, a bar chart comparing the two methods, and a two-dimensional t-SNE map of the query and the documents.
 
-1. Open a terminal in your copy of the scripts (from the one-time setup above).
+2. Run the script. In PowerShell, run:
+
+::: tabs
+
+### Windows (PowerShell)
 
 ```powershell
-cd $env:USERPROFILE\key-concepts
-```
-
-2. Run the script.
-
-```powershell
+Set-Location C:\Workshop-AI-Specialty\02-pdi-ai-pipelines\18-key-concepts-workshop
 .\.venv\Scripts\python search.py
 ```
+
+### macOS / Linux
+
+```bash
+.venv/bin/python search.py
+```
+
+:::
+
+3. When the script asks `Use a different Ollama server? (y/N):`, press `Enter`.
+
+The output looks like this; the vector scores come from one run:
 
 ```text
 Search Comparison Demo: Keyword vs. Vector Search using Ollama
@@ -1989,7 +2066,7 @@ Results will be saved to: search_analysis\analysis_20261005_094838
 Ollama Configuration
 ===================
 Default Ollama server: http://localhost:11434
-Use a different Ollama server? (y/N): 
+Use a different Ollama server? (y/N):
 Initializing SearchComparator with Ollama (model: nomic-embed-text)
 
 Preparing test documents...
@@ -2009,6 +2086,8 @@ Running search comparisons...
 ----------------------------------------
 Processing query: 'A fox jumping over a dog'
 
+Analyzing search results for query: 'A fox jumping over a dog'
+
 Keyword Search Results:
 Score: 3.0000 | The rapid brown fox jumps over the lazy dog in the forest
 Score: 2.0000 | A quick auburn canine leaps across a sleepy hound in the woods
@@ -2019,8 +2098,15 @@ Score: 0.8355 | The rapid brown fox jumps over the lazy dog in the forest
 Score: 0.6854 | A quick auburn canine leaps across a sleepy hound in the woods
 Score: 0.6092 | The fox hunts for food in the dense woodland
 
+Generating visualizations...
+Generating embeddings for visualization...
+Reducing dimensionality with t-SNE...
+Visualizations saved as 'direct_phrase_match_comparison.png' and 'direct_phrase_match_embedding_space.png'
+
 ----------------------------------------
 Processing query: 'Canines in natural habitats'
+
+Analyzing search results for query: 'Canines in natural habitats'
 
 Keyword Search Results:
 Score: 2.0000 | Dogs and other canines play together in the park
@@ -2032,8 +2118,15 @@ Score: 0.7151 | Dogs and other canines play together in the park
 Score: 0.6779 | Wild animals roaming through the forest at night
 Score: 0.6412 | A quick auburn canine leaps across a sleepy hound in the woods
 
+Generating visualizations...
+Generating embeddings for visualization...
+Reducing dimensionality with t-SNE...
+Visualizations saved as 'semantic_concept_match_comparison.png' and 'semantic_concept_match_embedding_space.png'
+
 ----------------------------------------
 Processing query: 'Sleeping animals outdoors'
+
+Analyzing search results for query: 'Sleeping animals outdoors'
 
 Keyword Search Results:
 Score: 1.0000 | A lazy afternoon in the garden with sleeping pets
@@ -2045,8 +2138,15 @@ Score: 0.7679 | Wild animals roaming through the forest at night
 Score: 0.7211 | A lazy afternoon in the garden with sleeping pets
 Score: 0.6970 | A quick auburn canine leaps across a sleepy hound in the woods
 
+Generating visualizations...
+Generating embeddings for visualization...
+Reducing dimensionality with t-SNE...
+Visualizations saved as 'mixed_concept_match_comparison.png' and 'mixed_concept_match_embedding_space.png'
+
 ----------------------------------------
 Processing query: 'Forest wildlife activity'
+
+Analyzing search results for query: 'Forest wildlife activity'
 
 Keyword Search Results:
 Score: 1.0000 | The rapid brown fox jumps over the lazy dog in the forest
@@ -2058,160 +2158,201 @@ Score: 0.7771 | Wild animals roaming through the forest at night
 Score: 0.7053 | Forest creatures gather near the stream at dusk
 Score: 0.6808 | The rapid brown fox jumps over the lazy dog in the forest
 
+Generating visualizations...
+Generating embeddings for visualization...
+Reducing dimensionality with t-SNE...
+Visualizations saved as 'thematic_match_comparison.png' and 'thematic_match_embedding_space.png'
+
 All comparisons complete! Results saved to search_analysis\analysis_20261005_094838
 ```
 
-> **Note:** The results illustrate the different types of searches that can be performed by the model on the corpus of text.&#x20;
-> 
-> ```
-> # Example corpus with various phrasings and concepts
->     documents = [
->         "The rapid brown fox jumps over the lazy dog in the forest",
->         "A quick auburn canine leaps across a sleepy hound in the woods",
->         "The fox hunts for food in the dense woodland",
->         "Dogs and other canines play together in the park",
->         "A lazy afternoon in the garden with sleeping pets",
->         "Wild animals roaming through the forest at night",
->         "The weather is perfect for outdoor activities today",
->         "Forest creatures gather near the stream at dusk"
->     ]
-> ```
+> **Success:** Checkpoint: the script lists `Doc 0` to `Doc 7`, then for each of the 4 queries prints three `Keyword Search Results:` lines, three `Vector Search Results:` lines and a `Visualizations saved as` line with two PNG names. The keyword scores depend only on the words, so yours match this table exactly; the vector scores come from the model.
+>
+> | Query | Keyword first | Keyword second | Keyword third |
+> | --- | --- | --- | --- |
+> | `A fox jumping over a dog` | `Doc 0`, `3.0000` | `Doc 1`, `2.0000` | `Doc 2`, `1.0000` |
+> | `Canines in natural habitats` | `Doc 3`, `2.0000` | `Doc 0`, `1.0000` | `Doc 1`, `1.0000` |
+> | `Sleeping animals outdoors` | `Doc 4`, `1.0000` | `Doc 5`, `1.0000` | `Doc 0`, `0.0000` |
+> | `Forest wildlife activity` | `Doc 0`, `1.0000` | `Doc 5`, `1.0000` | `Doc 7`, `1.0000` |
 
-> **Note:** These advanced search capabilities are made possible through vector embeddings that capture nuanced meanings and relationships in text. By transforming words and phrases into mathematical representations, LLMs can understand context, recognize related concepts, and make thematic connections that go far beyond simple keyword matching or basic semantic similarity.
+4. Open the folder the script named in `Results will be saved to:`.
+
+> **Success:** Checkpoint: the folder holds 12 files, three per query: `<type>_results.txt`, `<type>_comparison.png` and `<type>_embedding_space.png`, where `<type>` is `direct_phrase_match`, `semantic_concept_match`, `mixed_concept_match` or `thematic_match`.
+
+5. Open `direct_phrase_match_results.txt` and compare its **Keyword Search Results** with the query, `A fox jumping over a dog`.
+
+> **Under the hood:**
+>
+> #### Keyword search counted exact words; vector search compared meanings
+>
+> `keyword_search` lowercases the query and each document, splits them into words with the regular expression `\w+`, and adds up how often each query word occurs in the document. Only exact words count: `jumps` does not match `jumping` and `Dogs` does not match `dog`, while the word `a` does, which is why `Doc 1` scores 2 for this query without mentioning a fox or a dog. `vector_search` embeds the query and each document once, keeps the vectors in a cache, and ranks the documents by cosine similarity, so a document that shares no word with the query can still rank high.
+>
+> **Why it matters:** keyword search is exact and explainable but misses synonyms and other forms of a word; vector search matches meaning but gives every document some score. Retrieval pipelines often run both and combine the rankings.
+
+These search capabilities come from vector embeddings: by turning words and phrases into vectors, a model can recognize context, related concepts and themes that keyword matching misses.
+
+6. Open each query's `_comparison.png` and `_embedding_space.png` files, one tab below for each query.
 
 ::: tabs
 
 ### Direct Phrase
 
-> **Note:** **Direct Phrase Matching** combines both traditional keyword matching and vector similarity. While keyword search looks for exact matches (like finding "fox" and "dog" in a text), vector-based matching can understand slight variations in phrasing, making it more flexible and natural. This allows the system to recognize that "a quick auburn canine leaps" is semantically similar to "a fox jumping."
+**Direct phrase matching** combines keyword matching and vector similarity. Keyword search looks for exact words, such as `fox` and `dog`; vector matching also recognizes variations in phrasing, so it can see that "a quick auburn canine leaps" is close in meaning to "a fox jumping".
 
-> **Note:** The keyword search found exact matches with "fox," "jump," and "dog," scoring highest (3.0) for direct matches. Vector search showed similar results but with more nuanced scoring, recognizing related phrases like "canine leaps" as semantically similar.
+Keyword search gave `Doc 0` the top score, 3, for `fox`, `over` and `dog`; `jumps` did not count, because it is not `jumping`. In the run shown, vector search ranked the same documents first with more graded scores, recognizing related phrases such as "canine leaps".
 
-<figure><img src="../_assets/images/direct_phrase_search.png" alt=""><figcaption><p>Keyword v Vector search - A fox jumping over a dog</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/direct_phrase_search.png" alt="Comparison of Search Methods for A fox jumping over a dog: normalized keyword scores of 1.00, 0.67, 0.33, 0.00, 0.33, 0.00, 0.00 and 0.00 for Doc 0 to Doc 7, and vector similarity scores from 0.84 for Doc 0 down to 0.43 for Doc 6" width="800">
+<figcaption>Keyword and vector scores for A fox jumping over a dog</figcaption>
+</figure>
+</div>
 
-<figure><img src="../_assets/images/direct_phrase_results.png" alt=""><figcaption></figcaption></figure>
+> **Success:** Checkpoint: in `direct_phrase_match_comparison.png`, the **Keyword Search Results** bars read `1.00`, `0.67`, `0.33`, `0.00`, `0.33`, `0.00`, `0.00` and `0.00` for `Doc 0` to `Doc 7`: each keyword score divided by the top score, 3. Every **Vector Search Results** bar is above zero, and `Doc 0` is the highest.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/direct_phrase_results.png" alt="2D Visualization of Query and Documents in Embedding Space for A fox jumping over a dog: the query as a red dot and Doc 0 to Doc 7 as blue crosses spread across the plot" width="800">
+<figcaption>The query and documents after t-SNE: distances on this map are only a rough guide</figcaption>
+</figure>
+</div>
 
 ### Semantic Concept
 
-> **Note:** **Semantic Concept Matching** goes beyond direct matching by understanding related concepts. Instead of just finding exact word matches, it can recognize that "canines in natural habitats" is conceptually related to both "dogs in the park" and "wild animals in the forest." This demonstrates the system's ability to bridge vocabulary differences while maintaining meaning.
+**Semantic concept matching** goes beyond direct matching by understanding related concepts. It can recognize that `Canines in natural habitats` is related both to dogs in a park and to wild animals in a forest, bridging differences in vocabulary while keeping the meaning.
 
-> **Note:** Vector search demonstrated superior understanding by connecting "canines" with both domestic settings ("park") and natural habitats ("forest"), while keyword search only found direct word matches for "canines." This showed vector search's ability to understand context beyond exact words.
+Keyword search gave `Doc 3` the top score because it holds `canines` and `in`, and gave 1 to every other document that contains `in`. In the run shown, vector search ranked `Doc 3` first and the wild animals in the forest (`Doc 5`) second, connecting canines with both a domestic setting (the park) and a natural habitat (the forest).
 
-<figure><img src="../_assets/images/semantic_concept_search.png" alt=""><figcaption><p>Keyword v Vector search - Canines in natural habitats</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/semantic_concept_search.png" alt="Comparison of Search Methods for Canines in natural habitats: keyword scores of 1.00 for Doc 3 and 0.50 for Docs 0, 1, 2 and 4, and vector scores from 0.51 to 0.72, the highest for Doc 3 and the next for Doc 5" width="800">
+<figcaption>Keyword and vector scores for Canines in natural habitats</figcaption>
+</figure>
+</div>
 
-<figure><img src="../_assets/images/semantic_concept_results.png" alt=""><figcaption></figcaption></figure>
+> **Success:** Checkpoint: in `semantic_concept_match_comparison.png`, the keyword bars read `0.50` for `Doc 0`, `Doc 1`, `Doc 2` and `Doc 4`, `1.00` for `Doc 3`, and `0.00` for `Doc 5` to `Doc 7`.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/semantic_concept_results.png" alt="2D Visualization of Query and Documents in Embedding Space for Canines in natural habitats: the query as a red dot at the left edge and the eight documents as blue crosses" width="800">
+<figcaption>The query and documents for Canines in natural habitats, after t-SNE</figcaption>
+</figure>
+</div>
 
 ### Mixed Concept
 
-> **Note:** **Mixed Concept Matching** combines multiple related ideas that might not typically appear together. For instance, when searching for "sleeping animals outdoors," the system can connect concepts like "lazy afternoon," "sleeping pets," and "animals roaming at night," even though these phrases use different words to express related ideas.
+**Mixed concept matching** combines several related ideas that don't usually appear together. For `Sleeping animals outdoors`, a search can connect ideas such as "lazy afternoon", "sleeping pets" and "animals roaming at night", though they use different words.
 
-> **Note:** The vector search successfully connected "sleeping animals" with both direct matches ("sleeping pets") and related concepts ("animals roaming at night"). Keyword search struggled, only finding exact word matches and missing conceptual connections.
+Keyword search found only the exact words, `sleeping` in `Doc 4` and `animals` in `Doc 5`, and scored every other document 0, including `Doc 6`, which says `outdoor`, not `outdoors`. In the run shown, vector search ranked the same two documents first and gave every document a score, connecting "sleeping animals" with both a direct match ("sleeping pets") and a related idea ("animals roaming at night").
 
-<figure><img src="../_assets/images/mixed_concept_search.png" alt=""><figcaption><p>Keyword v Vector search - Sleeping animals outdoors</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/mixed_concept_search.png" alt="Comparison of Search Methods for Sleeping animals outdoors: keyword scores of 1.00 for Doc 4 and Doc 5 and 0.00 for the rest, and vector scores from 0.53 to 0.77, the highest for Doc 5" width="800">
+<figcaption>Keyword and vector scores for Sleeping animals outdoors</figcaption>
+</figure>
+</div>
 
-<figure><img src="../_assets/images/mixed_concept_results.png" alt=""><figcaption></figcaption></figure>
+> **Success:** Checkpoint: in `mixed_concept_match_comparison.png`, the keyword bars read `1.00` for `Doc 4` and `Doc 5`, and `0.00` for every other document.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/mixed_concept_results.png" alt="2D Visualization of Query and Documents in Embedding Space for Sleeping animals outdoors: the query as a red dot at the bottom left and the eight documents as blue crosses" width="800">
+<figcaption>The query and documents for Sleeping animals outdoors, after t-SNE</figcaption>
+</figure>
+</div>
 
 ### Thematic
 
-> **Note:** **Thematic Matching** represents the most sophisticated search approach, where the system understands broader themes and contexts. When searching for "forest wildlife activity," it can recognize various related concepts like "creatures gathering," "animals roaming," and a fox in the forest as thematically relevant, even when the specific words don't match.
+**Thematic matching** recognizes broader themes and contexts. For `Forest wildlife activity`, it can treat "creatures gathering", "animals roaming" and a fox in the forest as relevant, even when the words don't match.
 
-> **Note:** For forest wildlife activity, vector search recognized various forms of animal behavior in forest settings, while keyword search could only match the word "forest" - no document says "wildlife" - and so scored all three forest documents the same. This demonstrated vector search's ability to understand thematic relationships rather than just matching words.
+Keyword search could match only `forest`: no document says `wildlife`, and `Doc 6` says `activities`, not `activity`. So it scored the three forest documents, `Doc 0`, `Doc 5` and `Doc 7`, the same. In the run shown, vector search put the wild animals roaming the forest (`Doc 5`) first and the forest creatures (`Doc 7`) second, recognizing animal behavior in forest settings rather than matching words.
 
-<figure><img src="../_assets/images/thematic_search.png" alt=""><figcaption><p>Keyword v Vector search - Forest wildlife activity</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/thematic_search.png" alt="Comparison of Search Methods for Forest wildlife activity: keyword scores of 1.00 for Doc 0, Doc 5 and Doc 7 and 0.00 for the rest, and vector scores from 0.53 to 0.78, the highest for Doc 5 and the next for Doc 7" width="800">
+<figcaption>Keyword and vector scores for Forest wildlife activity</figcaption>
+</figure>
+</div>
 
-<figure><img src="../_assets/images/thematic_doc_distribution.png" alt=""><figcaption><p>Distribution of docs</p></figcaption></figure>
+> **Success:** Checkpoint: in `thematic_match_comparison.png`, the keyword bars read `1.00` for `Doc 0`, `Doc 5` and `Doc 7`, and `0.00` for every other document.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/thematic_doc_distribution.png" alt="2D Visualization of Query and Documents in Embedding Space for Forest wildlife activity: the query as a red dot at the upper right and the eight documents as blue crosses" width="800">
+<figcaption>The query and documents for Forest wildlife activity, after t-SNE</figcaption>
+</figure>
+</div>
 
 :::
 
-### Transformers
+### 6. Transformers
 
-> **Note:** Everything is now in place for the LLM to deal with our prompt ..
-> 
-> So let's dive into the heart of the LLM - Transformers..!
+> **Note:**
+>
+> #### Transformers
+>
+> Everything is now in place for the model to deal with the prompt, in the heart of the LLM: the transformer. The diagram shows the original transformer architecture, an encoder (green) and a decoder (blue); chat models such as `llama3.2` use only the decoder half.
 
-<figure><img src="../_assets/images/transformer_architecture.png" alt=""><figcaption><p>Transformer</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/transformer_architecture.png" alt="The transformer architecture: the encoder on the left (inputs, input embeddings plus positional encodings, then multi-head attention and feed forward, each followed by Add and Norm, repeated N times) and the decoder on the right (outputs, masked multi-head attention, multi-head attention over the encoder's output, feed forward, then Linear and Softmax to output probabilities)" width="612">
+<figcaption>The transformer: encoder in green, decoder in blue</figcaption>
+</figure>
+</div>
 
 ::: tabs
 
 ### Encoder
 
-> **Note:** **Understanding the Encoder Structure** Looking at the green section (ENCODER) in the diagram, we can see how an input sequence gets processed. The encoder starts with raw "Inputs" at the bottom and transforms them through several stages.
-> 
-> **Input Processing Path** The diagram shows how inputs first become "Input Embeddings" (yellow box), which combine with "Positional Encodings" through an addition operation (+). This combination ensures the model knows both what the words mean and where they appear in the sequence.
-> 
-> **Positional Understanding** At the bottom of the encoder section, we see "Positional Encodings" being added to the input embeddings, showing how the model maintains awareness of word order throughout processing.
-> 
-> **The Main Processing Block (Nx)** The diagram shows a green block labeled "Nx" which means this section repeats N times. Inside this block, we see two main components:
-> 
-> 1. "Multi-Head Attention" (handling self-attention)
-> 2. "Feed Forward" (processing individual positions) Each component is followed by "Add & Norm" boxes, representing residual connections and layer normalization.
-> 
-> **Multi-Head Attention Layer** In the diagram, we see the "Multi-Head Attention" box with multiple arrows pointing in, showing how it allows each position to attend to all positions. This creates context-aware representations by letting each word "look at" all other words in the input.
-> 
-> **Feed Forward Processing** After attention, the diagram shows a "Feed Forward" box. This is an independent processing step that works on each position separately, transforming the attention-processed information further.
-> 
-> **Add & Norm Operations** The diagram shows "Add & Norm" boxes after both the attention and feed-forward components. These represent:
-> 
-> * Addition operations for residual connections
-> * Normalization to keep values in a manageable range
-> 
-> **Final Output** The processed information from the encoder (after going through Nx blocks) connects to the decoder (blue section), showing how the encoder's output becomes input for the next stage of processing.
-> 
-> This architectural design creates a powerful system for understanding input sequences, with each component playing a crucial role in transforming raw inputs into rich, context-aware representations.
+**The encoder structure.** The green section (ENCODER) of the diagram shows how an input sequence is processed. The encoder starts with the raw **Inputs** at the bottom and transforms them through several stages.
+
+**Input processing.** The inputs first become **Input Embeddings** (the yellow box), which are combined with **Positional Encodings** by an addition (+). This combination gives the model both what the words mean and where they appear in the sequence.
+
+**Positional understanding.** The positional encodings added at the bottom of the encoder keep the model aware of word order throughout the processing.
+
+**The main processing block (Nx).** The green block labeled **Nx** repeats N times. It holds two main components, **Multi-Head Attention**, which handles self-attention, and **Feed Forward**, which processes each position on its own. Each is followed by an **Add & Norm** box, for a residual connection and layer normalization.
+
+**Multi-head attention.** The **Multi-Head Attention** box has several arrows pointing in: every position can attend to every position. Letting each word "look at" all the other words in the input creates context-aware representations.
+
+**Feed forward.** After attention, the **Feed Forward** box works on each position separately, transforming the information that attention gathered.
+
+**Add & Norm.** The **Add & Norm** boxes after the attention and feed-forward components stand for:
+
+* an addition, for the residual connection;
+* normalization, to keep the values in a manageable range.
+
+**Final output.** The output of the encoder, after the Nx blocks, connects to the decoder (the blue section), where it becomes an input to the next stage of processing.
+
+Together, these components turn raw inputs into rich, context-aware representations of the input sequence.
 
 ### Decoder
 
-> **Note:** The decoder's fundamental purpose is to transform encoded representations into meaningful outputs through a sophisticated multi-layer architecture. Let's break down each component in detail:
-> 
-> **Initial Input Processing** The decoder begins at the bottom with output embeddings, which are combined with positional encodings using an addition operation (shown by the + symbol in the diagram). This combination ensures the model understands both the content and the sequential position of each element in the output sequence.
-> 
-> **Core Processing Blocks (Nx Times)** The blue section marked with "Nx" indicates that this entire stack of layers repeats N times. Each repetition contains three distinct processing blocks:
-> 
-> **Masked Multi-Head Attention Block**
-> 
-> This first attention layer is specifically marked as "Masked" in the diagram
-> 
-> The masking prevents the decoder from looking at future positions during training
-> 
-> The output passes through an Add & Norm layer (shown in purple)
-> 
-> This normalization helps maintain stable training by controlling the scale of values
-> 
-> **Cross-Attention Mechanism**
-> 
-> The regular "Multi-Head Attention" block connects to both:
-> 
-> * The output of the previous masked attention layer
-> * The encoder's output (shown by the horizontal line from the encoder)
-> 
-> This allows the decoder to reference the entire input sequence while generating each output element
-> 
-> Another Add & Norm layer follows this attention mechanism
-> 
-> **Feed-Forward Processing**
-> 
-> The final block in each layer is the "Feed Forward" network (shown in orange)
-> 
-> Like the previous components, it's followed by an Add & Norm layer
-> 
-> This feed-forward network processes each position independently, applying the same transformations to each element
-> 
-> **Output Generation** After passing through all Nx layers, the decoder's final stages are:
-> 
-> * A Linear transformation layer that projects the representations into the desired output dimension
-> * A Softmax layer that converts these values into probability distributions over the possible output tokens
-> 
-> **Residual Connections** Throughout the architecture, residual connections (represented by the addition symbols) allow information to flow directly from lower layers to higher ones, helping prevent information loss and enabling better gradient flow during training.
-> 
-> The entire structure is designed to work in concert with the encoder (shown in green on the left), creating a complete system that can handle complex sequence-to-sequence tasks like translation, summarization, or question-answering. The careful balance of attention mechanisms, normalization, and feed-forward processing enables the model to generate contextually appropriate and coherent outputs while maintaining awareness of both the input sequence and the previously generated outputs.
-> 
-> This architecture reflects key insights about sequence processing: the importance of position awareness, the need for both local and global context through different types of attention, and the value of repeated processing through identical layers to extract increasingly sophisticated patterns from the data.
+The decoder turns encoded representations into outputs through several layers.
+
+**Input processing.** The decoder starts at the bottom with the **Output Embeddings**, combined with **Positional Encodings** by an addition (the + in the diagram). This gives the model both the content and the position of each element of the output sequence.
+
+**Core processing blocks (Nx).** The blue section marked **Nx** repeats N times. Each repetition contains three blocks:
+
+* **Masked Multi-Head Attention**: the first attention layer is marked "Masked": the mask keeps the decoder from looking at future positions during training. Its output passes through an **Add & Norm** layer (purple in the diagram), which keeps training stable by controlling the scale of the values.
+* **Multi-Head Attention** (cross-attention): this block takes both the output of the masked attention layer and the encoder's output (the horizontal line from the encoder), so the decoder can refer to the whole input sequence while it generates each output element. Another **Add & Norm** layer follows.
+* **Feed Forward** (orange in the diagram): the last block in each layer, again followed by **Add & Norm**. It processes each position on its own, applying the same transformation to each element.
+
+**Output generation.** After all the Nx layers, the decoder ends with:
+
+* a **Linear** layer that projects the representations to the size of the output vocabulary;
+* a **Softmax** layer that turns those values into a probability for every possible output token.
+
+**Residual connections.** Throughout the architecture, residual connections (the arrows that bypass each block into an **Add & Norm**) let information flow directly from lower layers to higher ones, which prevents information loss and helps the gradients flow during training.
+
+The decoder works with the encoder (in green on the left) to handle sequence-to-sequence tasks such as translation, summarization and question answering. Its balance of attention, normalization and feed-forward processing lets the model generate coherent output that takes account of both the input sequence and the output it has generated so far.
+
+The architecture reflects a few lessons about processing sequences: position matters, the model needs both local and global context through different kinds of attention, and repeating identical layers extracts more and more complex patterns from the data.
 
 :::
 
 <div class="pcm-embed-card" data-href="https://poloclub.github.io/transformer-explainer/" data-title="poloclub.github.io"></div>
 
-1. Take a look at the Python script below.
+1. Read `transformers.py`:
 
 ```python
 import numpy as np  # For numerical operations and array handling
@@ -2643,21 +2784,36 @@ if __name__ == "__main__":
     demonstrate_full_process()
 ```
 
-***
+When you run it, the script:
 
-#### Run Python script - transformers.py
+* embeds each of the 7 tokens of `What is the capital of France?` separately: `What`, `is`, `the`, `capital`, `of`, `France` and `?`;
+* compares every pair of token vectors and saves the result as a 7 × 7 heatmap, `token_attention.png`;
+* draws the six processing stages of a transformer as `transformer_stages.png`;
+* embeds the prompt and the response `Paris`, compares the two, and draws them as `response_generation.png`;
+* writes the figures behind each step to `analysis_results.txt`.
 
-1. Open a terminal in your copy of the scripts (from the one-time setup above).
+2. Run the script. In PowerShell, run:
+
+::: tabs
+
+### Windows (PowerShell)
 
 ```powershell
-cd $env:USERPROFILE\key-concepts
-```
-
-2. Run the script.
-
-```powershell
+Set-Location C:\Workshop-AI-Specialty\02-pdi-ai-pipelines\18-key-concepts-workshop
 .\.venv\Scripts\python transformers.py
 ```
+
+### macOS / Linux
+
+```bash
+.venv/bin/python transformers.py
+```
+
+:::
+
+3. When the script asks `Use a different Ollama server? (y/N):`, press `Enter`.
+
+One run printed this:
 
 ```text
 Transformer Visualization Demo using Ollama
@@ -2699,27 +2855,101 @@ Generated files:
 4. analysis_results.txt - Detailed analysis data and metrics
 ```
 
-::: tabs
+> **Success:** Checkpoint: three `Saved visualization to:` lines name `token_attention.png`, `transformer_stages.png` and `response_generation.png`, and the script ends with the 4 `Generated files:`, the last `4. analysis_results.txt - Detailed analysis data and metrics`.
 
-### Transformer Stages
+4. Open the folder the script named in `Analysis results will be saved to:`, and open `token_attention.png`.
 
-> **Note:** The transformer architecture consists of six key sequential processing stages, as shown in the diagram.
+> **Success:** Checkpoint: **Token Self-Attention Weights** is a 7 × 7 heatmap with the tokens `What` to `?` on both axes: **Query Tokens** down the side and **Context Tokens (Keys)** along the bottom. The values in each row add up to 1, give or take the rounding to two decimals.
 
-<figure><img src="../_assets/images/transformer_stages.png" alt=""><figcaption><p>Transformer stages</p></figcaption></figure>
+5. Open `response_generation.png`.
 
-> **Note:** **Input Embedding** forms the foundation of the process. Here, each token (like "What", "is", etc.) is converted into a dense vector representation. These embeddings capture semantic meaning by mapping similar words to similar vector spaces. In your code, this is simulated by retrieving embeddings from the nomic-embed-text model via the Ollama API.
-> 
-> **Positional Encoding** addresses a critical limitation of the basic transformer architecture—lack of sequence awareness. Since transformers process all tokens simultaneously rather than sequentially, positional encodings are added to the token embeddings to provide information about token position within the sequence. This helps the model distinguish between different arrangements of the same words.
-> 
-> **Self-Attention** is perhaps the most innovative aspect of transformers. In this stage, each token looks at all other tokens in the sequence (including itself) and computes attention weights indicating relevance. Your token attention matrix visualizes exactly this—how each token in "What is the capital of France?" attends to other tokens in the sequence.
-> 
-> **Feed Forward** networks follow the attention mechanism. After tokens gather contextual information via self-attention, each token's representation passes through a fully-connected neural network. This consists of linear transformations with non-linear activation functions that process each token independently, allowing the model to transform the contextualized representations further.
-> 
-> **Layer Normalization** stabilizes the learning process. This statistical normalization technique standardizes the activations, making training more efficient and preventing internal covariate shift. In transformers, layer normalization is typically applied both after the self-attention and after the feed-forward networks.
-> 
-> **Final Representation** emerges after these processing stages. The output is a set of contextualized token representations that capture both the semantic meaning of each token and its relationship to other tokens in the sequence. These final representations can then be used for various tasks, like predicting the next token ("Paris" in response to "What is the capital of France?").
+> **Success:** Checkpoint: **Transformer Input/Output Process** has two panels: **Input Processing**, with the prompt `What is the capital of France?`, and **Output Generation**, with `Paris`.
 
-:::
+6. Open `analysis_results.txt`.
+
+> **Success:** Checkpoint: after the `Transformer Analysis Results` header, the file has five sections: `Configuration`, `Token Embeddings` (one line per token, each with `Shape (768,)`), `Token Attention` (49 lines, one per pair of tokens), `Processing Stages` (the six stages) and `Response Generation` (the prompt, `Paris`, and the cosine similarity between them).
+
+7. Open `transformer_stages.png`.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/transformer_stages.png" alt="Transformer Processing Stages: six stacked bars joined by upward arrows, from Input Embedding at the bottom through Positional Encoding, Self-Attention, Feed Forward and Layer Normalization to Final Representation at the top" width="800">
+<figcaption>Six stages, from Input Embedding at the bottom to Final Representation at the top</figcaption>
+</figure>
+</div>
+
+> **Success:** Checkpoint: **Transformer Processing Stages** stacks six stages from the bottom up: `Input Embedding`, `Positional Encoding`, `Self-Attention`, `Feed Forward`, `Layer Normalization` and `Final Representation`.
+
+The diagram shows six stages a transformer processes a prompt through, in order:
+
+**Input Embedding** is the foundation. Each token, such as `What` or `is`, is converted into a dense vector that captures its meaning, with similar words mapped to similar vectors. The script imitates this stage by getting an embedding for each token from `nomic-embed-text` through the Ollama API.
+
+**Positional Encoding** fixes a limit of the basic architecture: a transformer processes all tokens at once rather than in order, so it has no sense of sequence by itself. Positional encodings added to the token embeddings tell the model where each token sits, so it can tell apart different arrangements of the same words.
+
+**Self-Attention** is the key idea of transformers. Each token looks at every token in the sequence, itself included, and computes attention weights that say how relevant each one is. The script's `token_attention.png` imitates this for "What is the capital of France?" with embedding similarity (see **Under the hood** below).
+
+**Feed Forward** networks follow attention. Once the tokens have gathered context through self-attention, each token's representation passes through a fully connected neural network, linear transformations with a non-linear activation, which processes each token on its own and transforms its representation further.
+
+**Layer Normalization** keeps the values in a stable range, which makes training more efficient. In the original transformer it is applied after the self-attention and after the feed-forward networks, in the **Add & Norm** boxes of the architecture diagram.
+
+**Final Representation** is the result of these stages: a set of contextualized token representations that capture both the meaning of each token and its relationship to the others in the sequence. These final representations can then be used for tasks such as predicting the next token ("Paris" in response to "What is the capital of France?").
+
+> **Under the hood:**
+>
+> #### The script imitated attention with embeddings; no transformer ran on the prompt
+>
+> `transformers.py` never sends the prompt to a chat model: the 7 tokens are a fixed list in the script, and so is the response, `Paris`. Its "attention" is the cosine similarity between the separate embeddings of each pair of tokens, with each row divided by its sum so that it adds up to 1, a stand-in for the softmax a real transformer applies to its query-key scores. In a real model, attention weights come from learned query and key projections, in every layer and every head, and they change with each token's context.
+>
+> **Why it matters:** the heatmap shows how related the tokens are on their own, not what a model such as `llama3.2:3b` attends to. Ollama's API does not return a model's attention weights, so reading a real model's attention needs a library that exposes them.
 
 ::::
 
+## Troubleshooting <!-- no-step -->
+
+<details>
+<summary>The script prints Error: and Troubleshooting steps:</summary>
+
+The scripts that call Ollama catch any error, print `Error:` and `Troubleshooting steps:`, and end with the error's type and message. Confirm that Ollama answers on `http://localhost:11434` and that `ollama list` shows `nomic-embed-text:latest`; if it doesn't, run `ollama pull nomic-embed-text`.
+
+</details>
+
+<details>
+<summary>ModuleNotFoundError: No module named 'ollama'</summary>
+
+The script ran with a Python outside the lab's environment. Run it with the environment's Python, `.\.venv\Scripts\python` (Windows) or `.venv/bin/python` (macOS / Linux), from the lab folder, as the steps show. If the `.venv` folder is missing, repeat **1. Set Up the Scripts**.
+
+</details>
+
+<details>
+<summary>tokenization.py fails on its first run</summary>
+
+`tiktoken` downloads the vocabulary files of `cl100k_base`, `p50k_base` and `r50k_base` the first time they are used. Run the script once on a machine with an internet connection; later runs use the cached files.
+
+</details>
+
+<details>
+<summary>python is not recognized</summary>
+
+Python is not installed, or the terminal was opened before it was. Install Python 3.12 as [Before You Start](../00-before-you-start/guide.md) shows, then open a new terminal.
+
+</details>
+
+## Lab Files
+
+Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches Pentaho Data Integration with the file loaded. If Pentaho Data Integration is already running, the path is copied to your clipboard — switch to Pentaho Data Integration and press `Ctrl+O`, `Ctrl+V`, `Enter`.
+
+The five scripts this workshop runs, in the order of its parts, and the list of libraries they need:
+
+[prompt.py](./files/prompt.py)
+
+[tokenization.py](./files/tokenization.py)
+
+[embedding.py](./files/embedding.py)
+
+[search.py](./files/search.py)
+
+[transformers.py](./files/transformers.py)
+
+[requirements.txt](./files/requirements.txt)
+
+Also on disk at `C:\Workshop-AI-Specialty\02-pdi-ai-pipelines\18-key-concepts-workshop`.

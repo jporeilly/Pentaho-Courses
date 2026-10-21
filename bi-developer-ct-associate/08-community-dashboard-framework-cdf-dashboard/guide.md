@@ -4,80 +4,33 @@
 >
 > #### Workshop - CDF Dashboard
 >
-> The Community Dashboard Framework (CDF) is a code-first framework: you build dashboards directly with HTML, CSS, and JavaScript while CDF manages the dashboard and component lifecycles for you. Every CDF dashboard starts from two mandatory files — an XCDF descriptor that registers the dashboard inside Pentaho, and an HTML template where the components are rendered.
->
-> This hands-on workshop builds on that foundation. You'll author the XCDF root descriptor, point it at an HTML template, and see how CDF uses Asynchronous Module Definition (AMD) through RequireJS to load modular, namespace-protected code. This is the foundation that the Community Dashboard Editor (CDE) builds on, so the concepts you learn here apply whether you hand-code dashboards or design them visually.
->
-> In this workshop, you create your first CDF dashboard from scratch and view it in the Pentaho User Console.
+> The Community Dashboard Framework (CDF) is a code-first framework: you build dashboards with HTML, CSS and JavaScript, and CDF manages the dashboard and component lifecycles. Every CDF dashboard starts from two files, an XCDF descriptor that registers the dashboard in Pentaho and an HTML template that the components render into. In this workshop you author both, upload them, and open your first CDF dashboard in the Pentaho User Console.
 >
 > **What you'll do**
 >
-> * Understand the two mandatory files every CDF dashboard needs — XCDF and HTML
 > * Author an XCDF descriptor and learn what each of its elements does
 > * Create the HTML template that the dashboard renders into
-> * Understand how CDF uses AMD and RequireJS for modular dashboard code
-> * Open and view your dashboard in the Pentaho User Console (PUC)
+> * Upload both files to the Pentaho repository
+> * Open the dashboard in the Pentaho User Console (PUC)
 >
-> **Prerequisites:** Basic HTML, CSS, and JavaScript; completion of the *[Overview of Community Dashboard Framework](../07-community-dashboard-framework/guide.md)* lab; a running Pentaho Server with access to the Pentaho User Console
+> **Prerequisites:** [Overview of Community Dashboard Framework](../07-community-dashboard-framework/guide.md); basic HTML, CSS and JavaScript; a text editor; a running Pentaho Server
 >
 > **Estimated time:** 30 minutes
 
-> **Note:**
->
-> #### Asynchronous Module Definition (AMD)
->
-> Asynchronous Module Definition (AMD) has modernized CDF's functionality. AMD is a JavaScript specification that provides an API for creating modular code with managed dependencies. Its key benefits include:
->
-> 1. Asynchronous loading of interdependent modules
-> 2. Logical organization of code into smaller, focused files
-> 3. Better code structure and maintainability
->
-> CDF implements AMD through RequireJS, a JavaScript module loader that offers several advantages:
->
-> * **Namespace Protection**: By isolating code into modules, RequireJS prevents global namespace pollution, reducing the risk of function or variable name conflicts
-> * **Organized Code Structure**: Developers can arrange code across multiple folders and files
-> * **Smart Loading**: RequireJS handles asynchronous loading of dependencies while maintaining proper execution order
->
-> These workshops demonstrate RequireJS integration with CDF. While this approach also simplifies dashboard embedding in third-party applications (covered later), our current focus is on basic dashboard creation.
+A CDF dashboard needs two files:
 
-> **Note:**
->
-> #### The two mandatory files
->
-> To build a CDF dashboard, you need to create two main files that are mandatory:
->
-> * **XCDF**: This is the main file that identifies the dashboard as a CDF dashboard type inside Pentaho, and where the general settings are. For instance, we can set the name, template, and style for our dashboards. This file is written using the XML syntax.
-> * **HTML**: This is the template file with HTML content where the components will be rendered.
+* **XCDF** - the main file. It identifies the dashboard as a CDF dashboard inside Pentaho and holds its general settings, such as the title, the template and the style. It is written in XML.
+* **HTML** - the template file, with the HTML content that the components render into.
+
+CDF loads its code with Asynchronous Module Definition (AMD), a JavaScript specification for modular code with managed dependencies. AMD loads interdependent modules asynchronously and organizes code into smaller, focused files. CDF implements AMD through RequireJS, a JavaScript module loader that:
+
+* keeps each module's code out of the global namespace, so function and variable names don't collide;
+* lets you arrange the code across several folders and files;
+* loads the dependencies asynchronously, in the right order.
+
+The same approach makes a dashboard easier to embed in another application, which a later topic covers. This workshop builds the dashboard itself.
 
 ***
-
-Before you start, make sure the Pentaho Server is running:
-
-> **Note:**
->
-> #### Windows (PowerShell)
->
-> ```powershell
-> cd \
-> cd Pentaho/server/pentaho-server/
-> ./start-pentaho.bat
-> ```
-
-> **Note:**
->
-> #### Linux
->
-> ```bash
-> cd
-> cd Pentaho/server/pentaho-server/
-> ./start-pentaho.sh
-> ```
-
-<button data-launch="puc">Open Pentaho User Console</button>
-
-***
-
-Follow the guide below to author the two mandatory files for your first dashboard:
 
 :::: tabs
 
@@ -85,7 +38,9 @@ Follow the guide below to author the two mandatory files for your first dashboar
 
 > **Note:**
 >
-> XCDF is the main file, where the root element and the following child elements are defined:
+> #### The XCDF descriptor
+>
+> The XCDF file is the main file. Its root element is `cdf`, with these child elements:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -102,15 +57,15 @@ Follow the guide below to author the two mandatory files for your first dashboar
 
 | Element | Description |
 | --- | --- |
-| `<title>` | This corresponds to the title displayed in the Pentaho User Console (PUC). |
-| `<author>` | This is the author of the file that will be displayed inside the user console. |
-| `<description>` | This is the description displayed in the PUC and on the browser. |
-| `<icon>` | This is the icon to be displayed. |
+| `<title>` | The title displayed in the Pentaho User Console (PUC). |
+| `<author>` | The author of the file, displayed in the PUC. |
+| `<description>` | The description displayed in the PUC and in the browser. |
+| `<icon>` | The icon to display. |
 | `<template>` | The HTML template file the components render into. |
-| `<style>` | The dashboard style (e.g. `clean`). |
-| `<require>` | Whether the dashboard uses RequireJS / AMD module loading. |
+| `<style>` | The dashboard style, for example `clean`. |
+| `<require>` | Whether the dashboard uses RequireJS (AMD) module loading. `true` opts the dashboard into the approach described above. |
 
-> **Note:** Setting `<require>true</require>` opts the dashboard into the RequireJS / AMD approach described above.
+1. In a text editor, paste the listing above and save it as `myFirstDashboard.xcdf`.
 
 > **Under the hood:**
 >
@@ -126,21 +81,27 @@ Follow the guide below to author the two mandatory files for your first dashboar
 > gets only webcontext.js and a requirejs.config call that carries the
 > dashboard's context; a legacy one gets a script and stylesheet tag for
 > each kind of component CDF finds in your HTML.
-
+>
+> **Why it matters:** the XCDF is a small set of switches. Changing the
+> style or turning require on changes the whole page around your
+> template without touching the template itself.
 
 ### 2. HTML
 
 > **Note:**
 >
-> The HTML file is the template referenced by the `<template>` element in the XCDF. It holds the HTML content into which the dashboard's components are rendered.
+> #### The HTML template
+>
+> The HTML file is the template that the `<template>` element names. It holds the HTML that the dashboard's components render into.
 
-Create a file named `myFirstDashboard.html` containing an element for each component to render into:
+1. In the same folder as `myFirstDashboard.xcdf`, create `myFirstDashboard.html` with a heading and one element for a component to render into:
 
 ```html
+<h2>My first dashboard!</h2>
 <div id="myFirstComponent"></div>
 ```
 
-> **Note:** The `id` of each element is the anchor that a CDF component's `htmlObject` property targets. The dashboard's JavaScript binds components to these placeholders when the dashboard's lifecycle runs.
+The `id` of each element is the anchor that a CDF component's `htmlObject` property targets. The dashboard's JavaScript binds the components to these placeholders when the dashboard's lifecycle runs.
 
 > **Under the hood:**
 >
@@ -150,15 +111,44 @@ Create a file named `myFirstDashboard.html` containing an element for each compo
 > htmlObject and draws inside it: a table, an SVG chart, a select box.
 > Nothing else in the template is CDF-specific, which is what lets the
 > page's design and the components that fill it be worked on separately.
+>
+> **Why it matters:** a web designer can own the template while a
+> developer owns the components; the element ids are the only contract
+> between them.
 
+### 3. Upload and Open
 
-::::
+> **Note:**
+>
+> #### Upload and open the dashboard
+>
+> Upload both files to the same folder of the Pentaho repository and let CDF render the dashboard.
 
-***
+1. Make sure the Pentaho Server is running. On a lab VM it already is; on your own machine start it as in [Before You Start](../00-before-you-start/guide.md):
+
+```powershell
+C:\Pentaho\server\pentaho-server\start-pentaho.bat
+```
+
+It takes a few minutes; the console is ready when http://localhost:8080/pentaho opens the login page.
+
+2. Open the Pentaho User Console (PUC) with the button below and sign in as `admin`.
 
 <button data-launch="puc">Open Pentaho User Console</button>
 
-With both files saved into the same folder of the Pentaho repository, open the **Pentaho User Console** and browse to the dashboard's `.xcdf` file. Double-click it to render your first CDF dashboard.
+3. Select **Browse Files**. Under **Folders**, expand **Public** and select **CTools-Dashboard**. If it isn't there, select **Public**, select **New Folder...** under **Folder Actions**, and create it.
+4. Under **Folder Actions**, select **New Folder...**, enter `CDF` and select **OK**.
+5. Select **CDF**. Under **Folder Actions**, select **Upload...**. Select **Browse...**, choose `myFirstDashboard.xcdf`, and select **OK**.
+6. Upload `myFirstDashboard.html` to the same folder the same way.
+7. If the files are not listed under **Files** yet, select the **Refresh** icon beside **Folders**.
+8. Under **Files**, double-click **myFirstDashboard**, the XCDF file, not the HTML template.
 
-> **Success:** Your first CDF dashboard renders in the Pentaho User Console from the two mandatory files — the XCDF descriptor and the HTML template.
+> **Success:** Checkpoint: the dashboard opens in a new tab and shows the heading **My first dashboard!**. The `myFirstComponent` element is empty: no component renders into it yet.
 
+9. Close the dashboard's tab.
+
+::::
+
+## Lab Files
+
+_No bundled files for this lab._

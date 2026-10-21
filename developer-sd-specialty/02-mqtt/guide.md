@@ -1,6 +1,11 @@
-# MQTT
+# Overview
 
-<figure><img src="../_assets/images/mqtt-pub-sub.webp" alt=""><figcaption><p>MQTT - Publish / Subscribe</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/mqtt-pub-sub.webp" alt="Publish and subscribe through an MQTT broker: a phone app, the requesting client, and a smart house, the responding client, both publish to and subscribe at the broker in the middle" width="800">
+<figcaption>MQTT publish / subscribe: clients talk only to the broker</figcaption>
+</figure>
+</div>
 
 > **Note:** **Message Queuing Telemetry Transport**
 >
@@ -10,11 +15,11 @@
 >
 > IoT devices like smart temperature sensors regularly transmit information over the internet, but before you can deduce any meaningful information from that measurement, you need to store it in an adequate database. Smart sensor measurements are not complex, but they are highly dependent on the time constant — when the measurement was taken — and as a result, time-series databases, like InfluxDB, offer an efficient option to store and manipulate that kind of data.
 
-MQTT works on a **publish/subscribe** model. Devices (publishers) send messages to a **topic** on a **broker**; any number of subscribers can register interest in that topic and receive messages in near real-time. PDI subscribes as a consumer through the **MQTT Consumer** step.
+MQTT works on a **publish/subscribe** model. Devices (publishers) send messages to a **topic** on a **broker**; any number of subscribers can register interest in that topic and receive messages in near real-time. Pentaho Data Integration subscribes as a consumer through the **MQTT Consumer** step.
 
 ## MQTT essentials
 
-A handful of protocol features shape how the workshops behave. You configure several of these directly on the MQTT Consumer/Producer steps in PDI.
+A handful of protocol features shape how the workshops behave. You configure several of these directly on the MQTT Consumer/Producer steps in Pentaho Data Integration.
 
 ::: tabs
 
@@ -35,7 +40,7 @@ A **topic** is a hierarchical UTF-8 string with levels separated by `/`, e.g. `i
 * `+` — single level: `industrial/+/sensor` matches `industrial/robot/sensor` and `industrial/arm/sensor`.
 * `#` — multi level (last character only): `industrial/#` matches everything under `industrial/`.
 
-**Best practices:** keep topics short and specific, use only ASCII, avoid spaces and a leading `/`, and don't subscribe a client to a broad `#` in production — let the broker (or PDI) handle the volume instead.
+**Best practices:** keep topics short and specific, use only ASCII, avoid spaces and a leading `/`, and don't subscribe a client to a broad `#` in production — let the broker (or Pentaho Data Integration) handle the volume instead.
 
 ### Sessions
 

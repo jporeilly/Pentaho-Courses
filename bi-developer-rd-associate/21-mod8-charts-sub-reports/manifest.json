@@ -3,7 +3,7 @@
   "description": "Add a chart to a report and embed a sub-report beside it.",
   "order": 21,
   "kind": "workshop",
-  "stepCount": 3,
+  "stepCount": 5,
   "hasVideo": false,
   "estimatedMinutes": 15
 }

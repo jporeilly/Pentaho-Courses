@@ -2,18 +2,28 @@
 
 <div class="pcm-intro">
 
-The **Community Dashboard Editor** (CDE) is a web-based dashboard design tool that's part of the Pentaho CTools family. It lets you build interactive, data-driven dashboards without extensive programming, though some familiarity with web technologies (HTML, CSS, JavaScript) helps. CDE follows a **layout → components → data sources** architecture: the **layout** defines structure and appearance with HTML and CSS, **components** are the interactive elements (charts, tables, filters) that display data and react to the user, and **data sources** define how data is retrieved. You can mix pre-built CTools components (CCC charts, selects, filters) with custom ones, pass parameters between components, and drive complex behaviour through the JavaScript API.
+The **Community Dashboard Editor** (CDE) is a web-based dashboard design tool that's part of the Pentaho CTools family. It lets you build interactive, data-driven dashboards without extensive programming, though some familiarity with web technologies (HTML, CSS, JavaScript) helps. CDE follows a **layout → components → data sources** architecture: the **layout** defines structure and appearance with HTML and CSS, **components** are the interactive elements (charts, tables, filters) that display data and react to the user, and **data sources** define how data is retrieved. You can mix pre-built CTools components (CCC charts, selects, filters) with custom ones, pass parameters between components, and drive complex behavior through the JavaScript API.
 
 </div>
 
 ## Create a new dashboard
 
 1. Log into the Pentaho Server.
-2. In the Pentaho User Console (PUC), select from the menu: **File → New → CDE Dashboard**.
+2. In the Pentaho User Console (PUC), select **File > New > CDE Dashboard**, or select **Create New > CDE Dashboard** on the **Home** page.
 
-<figure><img src="../_assets/images/cde_ui_create_a_new_cde_dashboard.png" alt=""><figcaption><p>Create a New CDE Dashboard</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_ui_create_a_new_cde_dashboard.png" alt="Pentaho User Console Home page with the Create New menu open and the pointer on the highlighted CDE Dashboard option" width="535">
+<figcaption>Create a New CDE Dashboard</figcaption>
+</figure>
+</div>
 
-<figure><img src="../_assets/images/cde_ui_community_dashboard_editor.png" alt=""><figcaption><p>Community Dashboard Editor</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_ui_community_dashboard_editor.png" alt="Empty Community Dashboard Editor for a new dashboard in the Layout perspective, with the CDE toolbar, perspective icons at top right and blank Layout Structure and Properties panels" width="800">
+<figcaption>Community Dashboard Editor</figcaption>
+</figure>
+</div>
 
 ## The menu
 
@@ -23,7 +33,7 @@ The **Community Dashboard Editor** (CDE) is a web-based dashboard design tool th
 | Save | Save the CDE dashboard you are currently editing. It is recommended you continuously save your work. If you have not previously saved this dashboard, the **Save as** dialog box displays — choose a location and enter a file name. |
 | Save as | Save the current CDE dashboard in a new location and/or rename it. You can also modify the title and description. When clicked, the **Save as** dialog box displays. You can choose to save as a **Dashboard** or as a **Widget**; for now keep the default option of Dashboard. |
 | Reload | Refresh the CDE interface to the last saved state. Useful when changes aren't immediately reflected after saving, or to discard your most recent changes and return to the last saved state. |
-| Settings | Define dashboard settings such as metadata, HTML templates, and dashboard type. You can: add/modify the **Title** and **Description**; set the **Author**; select the **Style** (HTML template — *Clean* by default); select the **Dashboard Type** (*Bootstrap* by default); and tick the **RequireJS Support** check box (cleared by default). |
+| Settings | Define dashboard settings such as metadata, HTML templates, and dashboard type. You can: add/modify the **Title** and **Description**; set the **Author**; select the **Style** (HTML template — *Clean* by default); select the **Dashboard Type** (*Bootstrap* by default); and select the **RequireJS Support** check box (cleared by default). |
 
 ## The Perspectives toolbar
 
@@ -31,10 +41,10 @@ The **Community Dashboard Editor** (CDE) is a web-based dashboard design tool th
 
 | Icon | Name | Description |
 | --- | --- | --- |
-| <figure><img src="../_assets/images/cde_ui_no_caption_2.png" alt=""></figure> | Layout | Design the layout of your dashboard from scratch or from a CDE template. While defining the layout you can apply styles and add HTML elements as text or images. |
-| <figure><img src="../_assets/images/cde_ui_no_caption_4.png" alt=""></figure> | Components | Add and set up the components that make up your dashboard. Components are the central elements — they link the layout elements with the data sources. |
-| <figure><img src="../_assets/images/cde_ui_no_caption.png" alt=""></figure> | Data Sources | Find the various types of data sources you can employ in a dashboard. These let you access the data you want to display. |
-| <figure><img src="../_assets/images/cde_ui_no_caption_3.png" alt=""></figure> | Preview | Test the look, feel, and behaviour of your dashboard as you work. When selected, your dashboard opens in the Preview window. |
+| <figure><img src="../_assets/images/cde_ui_no_caption_2.png" alt="Layout perspective icon, a square divided into a top band, a narrow left column and a larger right area"><figcaption><p>Layout</p></figcaption></figure> | Layout | Design the layout of your dashboard from scratch or from a CDE template. While defining the layout you can apply styles and add HTML elements as text or images. |
+| <figure><img src="../_assets/images/cde_ui_no_caption_4.png" alt="Components perspective icon, a triangle of three connected nodes"><figcaption><p>Components</p></figcaption></figure> | Components | Add and set up the components that make up your dashboard. Components are the central elements — they link the layout elements with the data sources. |
+| <figure><img src="../_assets/images/cde_ui_no_caption.png" alt="Data Sources perspective icon, a stack of rectangular data layers with a sheet behind them"><figcaption><p>Data Sources</p></figcaption></figure> | Data Sources | Find the various types of data sources you can employ in a dashboard. These let you access the data you want to display. |
+| <figure><img src="../_assets/images/cde_ui_no_caption_3.png" alt="Preview icon, a screen outline with an eye at its lower right corner"><figcaption><p>Preview</p></figcaption></figure> | Preview | Test the look, feel, and behavior of your dashboard as you work. When selected, your dashboard opens in the Preview window. |
 
 ## The perspectives
 
@@ -80,9 +90,9 @@ Parameters represent values shared by the components. These are essential for th
 
 #### Scripts
 
-Pieces of JavaScript code that let you customize the look and feel or behaviour of other components.
+Pieces of JavaScript code that let you customize the look and feel or behavior of other components.
 
-> **Note:** A component is a simple JavaScript object that encapsulates all the object's properties and behaviours, allowing fine control of the dashboard. For example, a component can adjust its behaviour when reacting to changes in dashboard parameters that affect it. These adjustments can be defined **before, during, and after** the component's execution, which lets components interact with each other.
+> **Note:** A component is a simple JavaScript object that encapsulates all the object's properties and behaviors, allowing fine control of the dashboard. For example, a component can adjust its behavior when reacting to changes in dashboard parameters that affect it. These adjustments can be defined **before, during, and after** the component's execution, which lets components interact with each other.
 
 **Component property reference**
 
@@ -122,7 +132,7 @@ The standard library of visual and data components — text boxes, tables, OLAP 
 
 #### Charts
 
-CCC stands for **Community Charting Components**, the CTools charting library, built on top of **Protovis** — a powerful, free, open-source visualization toolkit. CCC was updated to provide a larger set of out-of-the-box properties for direct customization, and is now referred to as **CCC2**. CCC2 charts look great, are flexible, allow interaction, and expose roughly **200 advanced properties**, with further customization via extension points.
+CCC stands for **Community Charting Components**, the CTools charting library, built on top of **Protovis** — a free, open-source visualization toolkit. CCC was updated to provide a larger set of out-of-the-box properties for direct customization, and is now referred to as **CCC2**. CCC2 charts look great, are flexible, allow interaction, and expose roughly **200 advanced properties**, with further customization via extension points.
 
 CCC2 charts are added via the Components perspective and all begin with the prefix **CCC**. All other charts are legacy and are not supported. About Protovis:
 
@@ -143,7 +153,7 @@ Additional specialized components that don't fall into the categories above.
 JavaScript code segments that enhance dashboard functionality:
 
 - Customize component appearance.
-- Modify component behaviour.
+- Modify component behavior.
 - Execute custom logic at specific times — pre-dashboard execution and post-dashboard execution.
 - Enable advanced customization and automation.
 
@@ -154,8 +164,8 @@ JavaScript code segments that enhance dashboard functionality:
 | Data Source | Description |
 | --- | --- |
 | Wizards | A setup assistant to guide you through the steps of creating an OLAP selector or chart. |
-| Community Data Access (CDA) | CDA allows data to be retrieved from multiple data sources and combined in a single output that can easily be passed on to dashboard components. |
-| Legacy Datasources | Legacy data sources include PDI/Kettle transformations, OLAP MDX queries, SQL queries, and Xaction result sets. |
+| Community Data Access (CDA) | CDA allows data to be retrieved from multiple data sources and combined in a single output that dashboard components can use. |
+| Legacy Datasources | Legacy data sources include Pentaho Data Integration/Kettle transformations, OLAP MDX queries, SQL queries, and Xaction result sets. |
 | MDX Queries | Retrieve data from a Mondrian cube via an [MDX](http://mondrian.pentaho.org/documentation/mdx.php) query. |
 | OLAP4J Queries | Execute queries using the olap4j specification. |
 | Compound Queries | Combine the result of two distinct queries. Compound queries can be either JOIN or UNION. |
@@ -167,7 +177,7 @@ JavaScript code segments that enhance dashboard functionality:
 
 ### Preview
 
-> **Note:** Select **Preview** to test the look, feel, and behaviour of your dashboard as you work. When selected, your dashboard opens in the Preview window so you can validate the layout, the wiring between components and data sources, and parameter interactions before saving and publishing.
+> **Note:** Select **Preview** to test the look, feel, and behavior of your dashboard as you work. When selected, your dashboard opens in the Preview window so you can validate the layout, the wiring between components and data sources, and parameter interactions before saving and publishing.
 
 Use Preview iteratively: build a slice of the layout, add the components that bind to it, then preview to confirm the data flows and the parameters react as expected.
 
@@ -175,4 +185,9 @@ Use Preview iteratively: build a slice of the layout, add the components that bi
 
 > **Note:** When you have the layout of the dashboard and the queries ready to get data using parameters, it's time to set the components.
 
-<figure><img src="../_assets/images/cde_ui_ctools_components.png" alt=""><figcaption><p>CTools Components</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/cde_ui_ctools_components.png" alt="CDE Components perspective with the component category list outlined in red: Parameters, Selects, Standard, Charts, Others, Legacy, Scripts and Community Contributions" width="800">
+<figcaption>CTools Components</figcaption>
+</figure>
+</div>

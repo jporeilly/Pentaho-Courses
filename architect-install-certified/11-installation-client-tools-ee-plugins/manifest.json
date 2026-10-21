@@ -1,6 +1,6 @@
 {
   "title": "Kettle Plugins",
-  "description": "Install, update and remove EE PDI plugins with the PDI Plugin Manager.",
+  "description": "Install, update and remove EE Pentaho Data Integration plugins with the Pentaho Data Integration Plugin Manager.",
   "order": 11,
   "stepCount": 3,
   "estimatedMinutes": 15,

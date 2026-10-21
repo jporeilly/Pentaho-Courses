@@ -38,7 +38,7 @@ The ports an installed system uses:
 >
 > #### Pentaho Client Tools
 >
-> The client tools are the desktop applications for designing data integration and analytics content. Pentaho Data Integration (PDI) builds extract, transform and load (ETL) processes in Spoon; Metadata Editor and Schema Workbench build the models that reports and analysis read; Aggregation Designer builds aggregate tables that speed up analysis.
+> The client tools are the desktop applications for designing data integration and analytics content. Pentaho Data Integration builds extract, transform and load (ETL) processes in Spoon; Metadata Editor and Schema Workbench build the models that reports and analysis read; Aggregation Designer builds aggregate tables that speed up analysis.
 
 ::: tabs
 
@@ -48,7 +48,7 @@ The ports an installed system uses:
 >
 > #### Data Integration
 >
-> Pentaho Data Integration (PDI), also known as Kettle, extracts, transforms and loads (ETL) data into databases, data warehouses and business applications. It reads a wide range of sources, from relational databases to unstructured formats and cloud storage. Several components work together in it.
+> Pentaho Data Integration, also known as Kettle, extracts, transforms and loads (ETL) data into databases, data warehouses and business applications. It reads a wide range of sources, from relational databases to unstructured formats and cloud storage. Several components work together in it.
 
 <div align="center">
 <figure>
@@ -59,10 +59,10 @@ The ports an installed system uses:
 
 | Component | What it does |
 | --- | --- |
-| **Spoon** | The graphical client for designing and testing PDI transformations and jobs, visually, without writing code. |
+| **Spoon** | The graphical client for designing and testing Pentaho Data Integration transformations and jobs, visually, without writing code. |
 | **Designer** | Builds pipelines and workflows by dragging steps onto a canvas. |
 | **Scheduler** | Connects to the Quartz scheduler on the server. Transformations and jobs must be uploaded to the repository first. |
-| **Repository Browser** | Manages the repository: the central store for PDI transformations, jobs and database connections, shared by a team. The repository is an Apache Jackrabbit content repository on a supported database: PostgreSQL, MSSQL Server, Oracle, MySQL or MariaDB. |
+| **Repository Browser** | Manages the repository: the central store for Pentaho Data Integration transformations, jobs and database connections, shared by a team. The repository is an Apache Jackrabbit content repository on a supported database: PostgreSQL, MSSQL Server, Oracle, MySQL or MariaDB. |
 | **DB Explorer** | Database Explorer, for basic database operations. |
 
 ### Metadata Editor
@@ -201,7 +201,7 @@ The ports an installed system uses:
 >
 > #### Pipeline Designer
 >
-> Pipeline Designer, new in 11.0, builds PDI transformations and jobs in a web browser. It works like Spoon on a modern interface and stays compatible with transformations and jobs created in Spoon, so teams can design ETL without installing a desktop client. It is installed as a server plugin.
+> Pipeline Designer, new in 11.0, builds Pentaho Data Integration transformations and jobs in a web browser. It works like Spoon on a modern interface and stays compatible with transformations and jobs created in Spoon, so teams can design ETL without installing a desktop client. It is installed as a server plugin.
 
 <div align="center">
 <figure>
@@ -226,7 +226,7 @@ The ports an installed system uses:
 >
 > #### Carte Server
 >
-> Carte is a lightweight web server for running and monitoring PDI transformations and jobs remotely.
+> Carte is a lightweight web server for running and monitoring Pentaho Data Integration transformations and jobs remotely.
 >
 > It runs on Java with an embedded Jetty web server, reads an XML configuration file, and exposes its functions through a REST API, with a simple browser page for monitoring.
 >
@@ -247,7 +247,7 @@ The ports an installed system uses:
 >
 > #### Kitchen, Pan and the REST API
 >
-> **Kitchen** runs PDI jobs from the command line, and **Pan** runs transformations. Both suit batch processing and automated workflows: shell scripts and schedulers. The Pentaho Server also exposes a REST API, documented below.
+> **Kitchen** runs Pentaho Data Integration jobs from the command line, and **Pan** runs transformations. Both suit batch processing and automated workflows: shell scripts and schedulers. The Pentaho Server also exposes a REST API, documented below.
 
 From the `data-integration` folder, Kitchen runs a job (these paths are examples):
 

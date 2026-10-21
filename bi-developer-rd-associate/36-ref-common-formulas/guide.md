@@ -8,17 +8,17 @@
 > Guide: conditional formatting, calculated dates, date parameters,
 > page numbering, and group summaries. Every element property in
 > Report Designer can carry a formula — build them with the **Formula
-> Editor** (Style/Attributes pane → green **+** → **…**).
+> Editor** (in the **Style** or **Attributes** pane, select the green **+**, then **...**).
 
 ***
 
 ## Using the Formula Editor
 
-1. Click the element, select the property in the **Style** pane, and click the round green **+** icon, then the **…** button.
+1. Select the element, select the property in the **Style** pane, and select the round green **+** icon, then the **...** button.
 2. Pick a function category and double-click a function to open its option fields.
 3. Follow OpenFormula syntax: values in quotes, column names in UPPERCASE inside `[square brackets]`.
 
-The full function catalogue is on the **Report Functions Reference**
+The full function catalog is on the **Report Functions Reference**
 page; the OpenFormula spec (OASIS) documents the underlying functions.
 
 ## Conditional formatting
@@ -36,7 +36,7 @@ Multiple conditions with OR:
 =IF(OR([STATUS]="Cancelled";[STATUS]="Disputed");"#FF0000";"#00CC00")
 ```
 
-Colour values can be hex (`#FF0000`) or HTML names (`red`, `green`) —
+Color values can be hex (`#FF0000`) or HTML names (`red`, `green`) —
 always in quotes.
 
 ## Calculated dates
@@ -67,7 +67,7 @@ Yesterday's date
 
 Give report users a date picker:
 
-1. **Data pane → Master Report Parameter**, name the parameter.
+1. In the **Data** pane, add a **Master Report Parameter** and name it.
 2. **Value Type**: `Date`; **Display Type**: `Date Picker`.
 3. Default Value Formula: `=NOW()`, or e.g. the start of the current week:
 
@@ -79,7 +79,7 @@ For time-of-day values use the `Time` Value Type and set the Timezone option.
 
 ## Page numbering
 
-1. **Data pane → right-click Functions → Add Functions… → Common → Page of Pages**.
+1. In the **Data** pane, right-click **Functions**, select **Add Functions...**, open **Common** and select **Page of Pages**.
 2. Drag a text-field element into the Page Header or Page Footer band.
 3. In the element's `field` attribute, select the Page of Pages function.
 
@@ -90,8 +90,8 @@ Use **Page** or **Total Page Count** instead when you need the pieces separately
 The pattern behind every grouped total:
 
 1. Order the query by the grouping fields (same columns in `SELECT` and `ORDER BY`, same order).
-2. **Structure pane → right-click Groups → Add Group**, and move the grouping fields into Selected Fields.
-3. **Data pane → Add Function → Sum** (or any Summary function).
+2. In the **Structure** pane, right-click **Groups** and select **Add Group**, then move the grouping fields into **Selected Fields**.
+3. In the **Data** pane, select **Add Functions...** and add **Sum** (or any Summary function).
 4. On the function, set **Reset on Group Name** to your group — the total restarts with each group.
 
 ```sql

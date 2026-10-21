@@ -2,7 +2,7 @@
 
 ## Before You Start
 
-* [Please watch video...!](01-mod1-getting-started/guide.md)
+* [Before You Start](01-mod1-getting-started/guide.md)
 
 ## Navigating Report Designer
 

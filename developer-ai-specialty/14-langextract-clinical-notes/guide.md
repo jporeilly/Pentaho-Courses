@@ -3,38 +3,84 @@
 > **Warning:**
 >
 > #### Workshop - Clinical Notes
-> 
-> Use LangExtract to turn narrative clinical notes into structured medical facts. This helps with coding, reconciliation, and downstream review workflows.
-> 
-> In this workshop, you build a PDI transformation that reads narrative notes, calls LangExtract, and writes structured medical facts to a staging table.
-> 
+>
+> Use LangExtract to turn narrative clinical notes into structured medical facts, for coding, reconciliation and downstream review. You build a transformation that reads note files, calls the LangExtract service, and writes one staging row per fact.
+>
 > **What you'll do**
-> 
-> * Read clinical note files with Get File Names and Text File Input
-> * Build a LangExtract request with Modified JavaScript Value
-> * Call LangExtract through the REST Client step
-> * Parse extraction rows with JSON Input
-> * Validate classes with Filter Rows and load Table Output
-> 
-> **Prerequisites:** Understanding of basic transformation concepts (steps, hops, preview). A running LangExtract service at `http://localhost:8765/extract`.
-> 
+>
+> * Read clinical note files with **Get file names** and **Text file input**
+> * Build a LangExtract request with **Modified JavaScript value**
+> * Call LangExtract through **REST client** and parse the extractions with **JSON input**
+> * Keep the expected classes with **Filter rows** and load them with **Table output**
+>
+> **Prerequisites:**
+>
+> * [Support Tickets](../13-langextract-support-tickets/guide.md): the same request, call and parse, built step by step, and the LangExtract service started in its part 1
+> * Ollama with `llama3.1:8b`, the model the request names
+> * A PostgreSQL database for the staging table, with a Pentaho Data Integration connection to it (such as `PG:Helpdesk` from Support Tickets) and DBeaver (or `psql`)
+>
 > **Estimated time:** 35 minutes
 
-![clinical notes](../_assets/images/rt0m9.png)
+<div align="center">
+<figure>
+<img src="../_assets/images/rt0m9.png" alt="Architecture diagram in three bands: Get File Names scanning /data/clinical_notes and Text File Input; Modified Java Script, HTTP Client posting to the LangExtract service, JSON Input, a second Modified Java Script and Filter Rows keeping valid classes; a Switch / Case routing medication, symptom, diagnosis and allergy rows to four Table Output steps" width="800">
+<figcaption>The extraction flow; this page loads all four classes into one staging table, where the diagram splits them</figcaption>
+</figure>
+</div>
 
 > **Note:**
 >
-> ### Business case
-> 
-> Northbridge NHS Foundation Trust runs eight hospitals and 34 outpatient clinics.
-> 
-> Clinical staff produce about 3,200 encounter notes per day.
-> 
-> Key facts such as medications, diagnoses, symptoms, and allergies are buried in narrative text.
+> #### Business Case
+>
+> Northbridge NHS Foundation Trust runs eight hospitals and 34 outpatient clinics. Clinical staff produce about 3,200 encounter notes per day, and key facts such as medications, diagnoses, symptoms and allergies are buried in the narrative text.
 
-**Sample clinical note**
+This workshop ships no files and no solution. You build the transformation from the design and the settings on this page, and read your own copy of the sample note. The transformation is `clinical_notes.ktr`:
 
+| # | Step | Does |
+| --- | --- | --- |
+| 1 | **Get file names** | Lists every note file in the notes folder (the design uses `/data/clinical_notes/`) |
+| 2 | **Text file input** | Reads each file into `note_text` |
+| 3 | **Modified JavaScript value** | Builds `patient_id` and `request_json` |
+| 4 | **REST client** | Calls LangExtract |
+| 5 | **JSON input** | Parses one row per extraction |
+| 6 | **Filter rows** | Drops unknown classes |
+| 7 | **Table output** | Writes to `staging.patient_extractions` |
+
+The original design adds a second **Modified JavaScript value** between **JSON input** and **Filter rows**, for `patient_id` and validation flags. This page leaves it out: `patient_id` comes from the first script, and **Filter rows** checks the class itself.
+
+:::: tabs
+
+### 1. Prepare
+
+> **Note:**
+>
+> #### Prepare
+>
+> The transformation needs the LangExtract service and the model its request names, a note file to read, and the staging table it loads.
+
+1. Start the LangExtract service and pull `llama3.1:8b`, as [Support Tickets](../13-langextract-support-tickets/guide.md) shows in part 1, steps 1 to 4. Then ask the service for its health:
+
+::: tabs
+
+### Windows (PowerShell)
+
+```powershell
+Invoke-RestMethod http://localhost:8765/health
 ```
+
+### macOS / Linux
+
+```bash
+curl http://localhost:8765/health
+```
+
+:::
+
+> **Success:** Checkpoint: `status` is `ok`, and `model_url` is `http://localhost:11434`.
+
+2. Create a folder for the notes, and save this sample note in it as `NB-004821.txt`. The transformation reads every `.txt` file in the folder and takes the patient ID from the file name:
+
+```text
 Patient: Mary Johnson   DOB: 12/03/1965   MRN: NB-004821
 Visit Date: 15/11/2024   Attending: Dr. Samuel Lee, Internal Medicine
 
@@ -56,54 +102,80 @@ Atorvastatin 40mg at bedtime.
 Aspirin 81mg once daily.
 ```
 
-**Target output**
+3. Create the staging table. In DBeaver (or `psql`), connected to your PostgreSQL database, run:
 
-Write one row per extraction to `staging.patient_extractions`.
+```sql
+CREATE SCHEMA IF NOT EXISTS staging;
 
-Expected columns:
+CREATE TABLE staging.patient_extractions (
+  id SERIAL PRIMARY KEY,
+  patient_id VARCHAR(20),
+  class VARCHAR(30),
+  text TEXT,
+  start INT,
+  "end" INT,
+  extracted_at TIMESTAMP DEFAULT NOW()
+);
+```
 
-* `patient_id`
-* `class`
-* `text`
-* `start`
-* `end`
-* `extracted_at`
+`end` is a reserved word in PostgreSQL, so the column name is in double quotes.
 
-Common classes:
+> **Success:** Checkpoint: the `staging` schema holds an empty `patient_extractions` table with the seven columns from `id` to `extracted_at`.
 
-* `medication`
-* `symptom`
-* `diagnosis`
-* `allergy`
+### 2. Read the Notes
 
-***
+> **Note:**
+>
+> #### Read the Notes
+>
+> **Get file names** lists the note files, and **Text file input** reads each one into a field, `note_text`, for the request.
 
-**Transformation design**
+1. Start Spoon with the **Start Pentaho Data Integration** button below, or from a terminal:
 
-Build `clinical_notes.ktr`.
+::: tabs
 
-1. **Get File Names**\
-   Read all note files from `/data/clinical_notes/`.
-2. **Text File Input**\
-   Read each file into `note_text`.
-3. **Modified JavaScript Value**\
-   Build `request_json`.
-4. **REST Client**\
-   Call LangExtract.
-5. **JSON Input**\
-   Parse extraction rows.
-6. **Modified JavaScript Value**\
-   Add `patient_id` and validation flags.
-7. **Filter Rows**\
-   Drop unknown classes.
-8. **Table Output**\
-   Write to `staging.patient_extractions`.
+### Windows (PowerShell)
 
-**Step 1: Get file names**
+```powershell
+Set-Location C:\Pentaho\design-tools\data-integration
+.\spoon.bat
+```
 
-**Step 2: Text file input**
+### macOS / Linux
 
-**Step 3: Build** `request_json`
+```bash
+cd ~/Pentaho/design-tools/data-integration
+./spoon.sh
+```
+
+:::
+
+<button data-launch="spoon" data-path="">Start Pentaho Data Integration</button>
+
+2. Select **File > New > Transformation** (`Ctrl+N`).
+3. Select **File > Save as** and save it as `clinical_notes.ktr` in a folder of your own, such as the one that holds your notes folder.
+4. On the **Design** tab, open the **Input** folder and drag **Get file names** onto the canvas.
+5. Double-click **Get file names**. On the **File** tab, enter the path of your notes folder in **File or directory**, set **Regular Expression** to `.*\.txt`, and select **Add**.
+6. Select **OK**.
+7. On the **Design** tab, open the **Input** folder and drag **Text file input** onto the canvas.
+8. Create a hop from **Get file names** to **Text file input**: hold `Shift` and drag from one step to the other.
+9. Double-click **Text file input**. Set it to read the files that **Get file names** lists, into one String field named `note_text`, and to pass the incoming `short_filename` field on: the next step builds `patient_id` from it.
+
+> **Warning:** **Text file input** reads a file line by line, so a note of several lines arrives as several rows, and the service would get one line per request. To send each whole note in one request, read the files with **Load file content in memory** (in the **Input** folder), which reads each file into one row. This page defines no settings for either step; a run decides which one the design needs.
+
+10. Select **OK**.
+
+### 3. Build and Send the Request
+
+> **Note:**
+>
+> #### Build and Send the Request
+>
+> **Modified JavaScript value** builds one request per note, **REST client** sends it to the service, and **JSON input** turns each reply into one row per extracted fact.
+
+1. On the **Design** tab, open the **Scripting** folder and drag **Modified JavaScript value** onto the canvas.
+2. Create a hop from **Text file input** to **Modified JavaScript value**.
+3. Double-click **Modified JavaScript value**. Replace `//Script here` on the **Script 1** tab with this script:
 
 ```javascript
 var patient_id = (short_filename + '').replace('.txt', '');
@@ -128,57 +200,95 @@ var request_json = JSON.stringify({
 });
 ```
 
-**Step 4: REST Client settings**
+4. Fill the **Fields** grid:
 
-Set:
+| Fieldname | Type |
+| --- | --- |
+| `patient_id` | String |
+| `request_json` | String |
 
-* **URL:** `http://localhost:8765/extract`
-* **Method:** `POST`
-* **Body field:** `request_json`
-* **Result field:** `response_json`
-* **Content-Type:** `application/json`
-* **Connection timeout:** `30000`
-* **Socket timeout:** `120000`
+5. Select **OK**.
+6. On the **Design** tab, open the **Lookup** folder and drag **REST client** onto the canvas.
+7. Create a hop from **Modified JavaScript value** to **REST client**.
+8. Double-click **REST client**. On the **General** tab, enter these settings:
 
-**Step 5: JSON Input paths**
+| Setting | Value |
+| --- | --- |
+| **Application type** | `JSON` |
+| **HTTP method** | `POST` |
+| **URL** | `http://localhost:8765/extract` |
+| **Body field** | `request_json` |
+| **Result field name** | `response_json` |
 
-Parse from `response_json`:
+The design also gives a connection timeout of `30000` ms and a socket timeout of `120000` ms. **REST client** in Pentaho Data Integration 11 has no timeout settings: **Connection timeout** and **Socket timeout** belong to the **HTTP post** step.
 
-* `$.extractions[*].class` → `class`
-* `$.extractions[*].text` → `text`
-* `$.extractions[*].start` → `start`
-* `$.extractions[*].end` → `end`
+9. Select **OK**.
+10. On the **Design** tab, open the **Input** folder and drag **JSON input** onto the canvas.
+11. Create a hop from **REST client** to **JSON input**.
+12. Double-click **JSON input**. On the **File** tab, select **Source is from a previous step**, and set **Select field** to `response_json`.
+13. On the **Fields** tab, fill the **Fields** grid. `start` and `end` are Integer because the staging table's columns are:
 
-**Step 6:**&#x20;
+| Name | Path | Type |
+| --- | --- | --- |
+| `class` | `$.extractions[*].class` | String |
+| `text` | `$.extractions[*].text` | String |
+| `start` | `$.extractions[*].start` | Integer |
+| `end` | `$.extractions[*].end` | Integer |
 
-**Step 7: Validate classes**
+14. Select **OK**.
 
-After parsing, keep only expected classes:
+> **Under the hood:**
+>
+> #### JSON input turns one reply into one row per extraction
+>
+> With **Source is from a previous step**, **JSON input** reads `response_json` from each incoming row and evaluates every path on it separately: `$.extractions[*].class` returns the class of every extraction, `$.extractions[*].text` every text, and so on. It pairs the lists by position into one row per extraction, and copies the incoming row's fields, `patient_id` among them, onto each. The lists must be the same length, or the step fails with a message that the data structure is not the same. The service returns all four keys for every extraction, with `start` and `end` as `null` when it has no offsets, so the lists line up.
+>
+> **Why it matters:** one request per note becomes one row per fact, and each fact still knows its patient, without a lookup or a join.
 
-* `medication`
-* `symptom`
-* `diagnosis`
-* `allergy`
+### 4. Validate and Load
 
-Use a **Filter Rows** step to discard anything else or route it to review.
+> **Note:**
+>
+> #### Validate and Load
+>
+> Keep only the four expected classes, then write each fact to `staging.patient_extractions`.
 
-### Example load table
+1. On the **Design** tab, open the **Flow** folder and drag **Filter rows** onto the canvas.
+2. Create a hop from **JSON input** to **Filter rows**.
+3. Double-click **Filter rows**. In **The condition**, select `<field>` on the left and select `class`.
+4. Select the function in the middle of the condition (it shows `=`), then select `IN LIST`.
+5. Select `<value>`. In the **Enter value** dialog, set **Type** to `String` and **Value** to `medication;symptom;diagnosis;allergy`, then select **OK**.
+6. Select **OK**.
+7. On the **Design** tab, open the **Output** folder and drag **Table output** onto the canvas.
+8. Create a hop from **Filter rows** to **Table output** and select **Result is TRUE**. Rows of any other class have no step to go to, so **Filter rows** discards them.
+9. Double-click **Table output**. Set **Connection** to your PostgreSQL connection, **Target schema** to `staging` and **Target table** to `patient_extractions`.
+10. Select **Specify database fields**. On the **Database fields** tab, fill the grid. `id` and `extracted_at` are left to the table's defaults:
 
-Use a staging table like this:
+| Table field | Stream field |
+| --- | --- |
+| `patient_id` | `patient_id` |
+| `class` | `class` |
+| `text` | `text` |
+| `start` | `start` |
+| `end` | `end` |
 
-```sql
-CREATE TABLE staging.patient_extractions (
-  id SERIAL PRIMARY KEY,
-  patient_id VARCHAR(20),
-  class VARCHAR(30),
-  text TEXT,
-  start INT,
-  end INT,
-  extracted_at TIMESTAMP DEFAULT NOW()
-);
-```
+11. Select **OK**.
 
-### Quick validation
+### 5. Run and Validate
+
+> **Note:**
+>
+> #### Run and Validate
+>
+> Run the transformation with the service running, then read the facts back from the staging table. The run waits on the model for every request.
+
+1. Save the transformation (`Ctrl+S`).
+2. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
+3. In **Execution Results**, open the **Step Metrics** tab.
+
+> **Success:** Checkpoint: **Get file names** writes 1 row, one per note file. **JSON input** writes one row per extraction, and **Table output** one row for each that passed **Filter rows**; how many depends on the model.
+
+4. In DBeaver, run:
 
 ```sql
 SELECT patient_id, class, text
@@ -186,6 +296,23 @@ FROM staging.patient_extractions
 ORDER BY patient_id, class;
 ```
 
-> **Warning:** Clinical notes often contain repeated facts.
-> 
-> If you see duplicates, deduplicate on `patient_id + class + text + start + end`.
+> **Success:** Checkpoint: rows for `NB-004821` only, each with a `class` of `allergy`, `diagnosis`, `medication` or `symptom` and a `text` taken from the note, such as a medication with its dose. Which facts the model finds varies from run to run.
+
+5. Clinical notes often repeat a fact. Look for duplicates; deduplicate on `patient_id`, `class`, `text`, `start` and `end`. In DBeaver, run:
+
+```sql
+SELECT patient_id, class, text, start, "end", COUNT(*)
+FROM staging.patient_extractions
+GROUP BY patient_id, class, text, start, "end"
+HAVING COUNT(*) > 1;
+```
+
+> **Success:** Checkpoint: one row for each fact stored more than once, with its count; no rows means no duplicates.
+
+::::
+
+## Lab Files
+
+Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches Pentaho Data Integration with the file loaded. If Pentaho Data Integration is already running, the path is copied to your clipboard — switch to Pentaho Data Integration and press `Ctrl+O`, `Ctrl+V`, `Enter`.
+
+_No bundled files for this lab._

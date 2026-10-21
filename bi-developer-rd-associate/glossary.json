@@ -14,5 +14,5 @@
   "BA repository": "The Pentaho Server's content store. Published reports live here and run in the Pentaho User Console.",
   "publish": "Uploading a finished .prpt from Report Designer to the Pentaho Server so users can run it in the browser.",
   "PUC": "Pentaho User Console - the Pentaho Server's browser UI where published reports are browsed, run, and scheduled.",
-  "transformation": "A data flow you design in PDI (Spoon): steps connected by hops that read, transform, and write data."
+  "transformation": "A data flow you design in Pentaho Data Integration (Spoon): steps connected by hops that read, transform, and write data."
 }

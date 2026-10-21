@@ -492,7 +492,7 @@ cd "$PENTAHO_SERVER"
 >
 > The Pentaho Carte server runs and monitors transformations and jobs. Its status page lists every running and finished transformation and job with its status, times and ID; a transformation's page shows each step's metrics (rows read and written, speed, errors), a preview of its canvas, and its log; and the configuration details show the log and object lifetime settings.
 
-1. Check that the Carte API plugin is there. It ships in the 11.0 server archive, under the server's PDI plugins rather than in `system`:
+1. Check that the Carte API plugin is there. It ships in the 11.0 server archive, under the server's Pentaho Data Integration plugins rather than in `system`:
 
 ```bash
 [ -d "$PENTAHO_SERVER/pentaho-solutions/system/kettle/plugins/webttle-carte-api-plugin" ] && echo OK || echo "Carte API plugin directory missing"
@@ -501,18 +501,18 @@ cd "$PENTAHO_SERVER"
 > **Success:** Checkpoint: `OK`.
 
 2. If the check printed the "missing" message instead, install **Pipeline Designer Carte API Plugin** from the Plugin Manager and restart the server.
-3. Open the PDI status page:
+3. Open the Pentaho Data Integration status page:
 
-<div class="pcm-embed-card" data-href="http://localhost:8080/pentaho/kettle/status" data-title="PDI Status"></div>
+<div class="pcm-embed-card" data-href="http://localhost:8080/pentaho/kettle/status" data-title="Pentaho Data Integration Status"></div>
 
 <div align="center">
 <figure>
-<img src="../_assets/images/carte_status.png" alt="The PDI Status page at localhost:8080/pentaho/kettle/status: a finished transformation under Transformations, an empty Jobs table, and the configuration details naming slave-server-config.xml" width="800">
-<figcaption>PDI Status</figcaption>
+<img src="../_assets/images/carte_status.png" alt="The Pentaho Data Integration Status page at localhost:8080/pentaho/kettle/status: a finished transformation under Transformations, an empty Jobs table, and the configuration details naming slave-server-config.xml" width="800">
+<figcaption>Pentaho Data Integration Status</figcaption>
 </figure>
 </div>
 
-> **Success:** Checkpoint: **PDI Status** lists the transformation you ran in the **Pipeline Designer** tab under **Transformations**, with **Status** `Finished`.
+> **Success:** Checkpoint: **Pentaho Data Integration Status** lists the transformation you ran in the **Pipeline Designer** tab under **Transformations**, with **Status** `Finished`.
 
 4. Open the `transStatus` link that the first line of Pipeline Designer's **Logging** tab shows, `http://localhost:8080/pentaho/kettle/transStatus?name=...`.
 
@@ -531,9 +531,9 @@ cd "$PENTAHO_SERVER"
 >
 > #### Pipeline Designer runs on the server's own Carte
 >
-> Pipeline Designer does not run a transformation in your browser. It hands it to the Carte service inside the Pentaho Server, at `/pentaho/kettle`, which the Carte API plugin connects it to: that is why the **Logging** tab starts with a `kettle/transStatus` link, and why **PDI Status** lists the run. The service's settings, such as how long it keeps log lines and finished objects, are in `pentaho-solutions/system/kettle/slave-server-config.xml`, as the bottom of the status page says.
+> Pipeline Designer does not run a transformation in your browser. It hands it to the Carte service inside the Pentaho Server, at `/pentaho/kettle`, which the Carte API plugin connects it to: that is why the **Logging** tab starts with a `kettle/transStatus` link, and why **Pentaho Data Integration Status** lists the run. The service's settings, such as how long it keeps log lines and finished objects, are in `pentaho-solutions/system/kettle/slave-server-config.xml`, as the bottom of the status page says.
 >
-> **Why it matters:** a pipeline run from the browser uses the server's Java, memory, JDBC drivers and PDI plugins, not your desktop's. When a step works in Spoon but fails in Pipeline Designer, check the server's drivers and plugins first.
+> **Why it matters:** a pipeline run from the browser uses the server's Java, memory, JDBC drivers and Pentaho Data Integration plugins, not your desktop's. When a step works in Spoon but fails in Pipeline Designer, check the server's drivers and plugins first.
 
 :::
 
@@ -613,7 +613,7 @@ cd "$PENTAHO_SERVER"
 | Analyzer | `paz-plugin` | Interactive OLAP analysis: drill, slice, pivot and chart Mondrian cubes in the browser. |
 | Interactive Reporting | `pir-plugin` | Ad hoc tabular reports built from metadata models, exported to HTML, PDF, CSV or Excel. |
 | Dashboard Designer | `pdd-plugin` | Dashboards of reports, analyses and charts, filtered together by shared prompts and content linking. |
-| Pipeline Designer | `webttle-plugin` | Builds PDI transformations and jobs in the browser; compatible with those made in Spoon. |
+| Pipeline Designer | `webttle-plugin` | Builds Pentaho Data Integration transformations and jobs in the browser; compatible with those made in Spoon. |
 | Pipeline Designer Carte | `webttle-carte-api-plugin` | Runs and monitors the transformations and jobs launched from Pipeline Designer. |
 | Semantic Model Editor | | Builds and manages Mondrian models in the browser, including existing ones. |
 | Scheduler | `pas-scheduler` | Manages schedules: run now, pause and resume, and blockout times. |

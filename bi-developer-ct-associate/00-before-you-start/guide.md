@@ -20,7 +20,7 @@ This panel stays beside your tools for the whole workshop:
 ## Track your progress
 
 In every workshop lab, each numbered heading is a **step** with a
-checkbox — tick it when you're done. Progress is saved on this machine
+checkbox — select it when you're done. Progress is saved on this machine
 and survives restarts, so you can pick up exactly where you left off.
 (This orientation page doesn't track steps — the checkboxes start in
 the first workshop.)
@@ -173,7 +173,7 @@ grounded in the official docs — ask it anything from "what does this
 step do?" to "why did my transformation fail?". It runs on a local
 model, so it works even when the VM is offline.
 
-## How this course is organised
+## How this course is organized
 
 Each section starts with an **overview page** (<span data-icon="page"></span> — background reading,
 no checkboxes) followed by **hands-on workshops** (<span data-icon="workshop"></span> — tracked steps).

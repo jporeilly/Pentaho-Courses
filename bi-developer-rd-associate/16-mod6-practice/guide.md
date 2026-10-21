@@ -4,76 +4,94 @@
 >
 > #### Workshop - Practice: Formatting
 >
-> Format a report end-to-end on your own.
+> Give the exercise report the same header as the guided report: the logo, a title, the run date and a rule under them.
 >
 > **What you'll do**
 >
-> * Format a report end-to-end on your own.
-> * Style the headers, footers, and details band.
-> * Check the result page by page in preview.
+> * Embed the Steel Wheels logo in the **Report Header** band
+> * Add a right-aligned title and run date
+> * Draw a horizontal line across the band
+> * Check the result in preview
 >
-> **Prerequisites:** Complete this section's guided demonstrations first
+> **Prerequisites:** [Practice: Calculations](../12-mod5-practice/guide.md) and its report, `Exercise - totals.prpt`; [Formatting Report Headers & Footers](../14-mod6-headers-footers/guide.md)
 >
-> **Estimated Time:** 10 minutes
+> **Estimated time:** 10 minutes
 
----
+:::: tabs
+
+### 1. Logo
 
 > **Note:**
 >
-> #### **Practice: Formatting**
+> #### The logo
 >
-> Format a report end-to-end on your own.
+> Embed the logo, as in the guided workshop, so the report carries it wherever it goes.
 
-## Format Report Header & Footer
+1. Start Report Designer with the **Start Pentaho Report Designer** button below, or from a terminal:
 
-To create totals for country and territory, and a grand total for the report:
+::: tabs
 
-1. Open the Exercise – totals.prpt
-2. From the Elements Palette, click the image icon, and then drag it to the Report Header band.
-You will resize and position the image later.
+### Windows (PowerShell)
 
-3. To edit the image contents, on the canvas, double-click the image icon.
-4. To select the Steel Wheels logo, in the Edit Content dialog:
-5. Click the … button (browse).
-6. Navigate to:
-C:\Pentaho-Training\BA-2000\images\sw_logo.jpg.
+```powershell
+Set-Location C:\Pentaho\design-tools\report-designer
+.\report-designer.bat
+```
 
-7. Click Open
-8. Select Embed in Report.
-9. Click OK.
-10. To resize and position the Steel Wheels logo, in the Report Header band:
-11. Click in the center of the Steel Wheels logo to select the image.
-12. Drag the top left handle to the top left corner of the Report Header band.
-13. Drag the bottom right handle toward the center of the Report Header band and drop it at approximately 1.0” on the vertical ruler and 3.5” on the horizontal ruler.
-14. From the Elements Palette, click the Label icon, and then drag it to the upper right corner of the Report Header.
-15. To edit the label element:
-16. Double-click in the center of the label element to select it.
-17. Click the … button to open the editor.
-18. Replace the Label text with Steel Wheels Sales Report.
-19. Click OK.
-20. To resize and position the label element, in the Report Header band:
-21. Click in the center of the label element to select the field.
-22. Position the element in the top right corner of the Report Header band.
-23. Drag the left handle to the left and drop it at approximately 4.0” on the horizontal ruler.
-24. From the Elements Palette, click the message icon, and then drag it to the upper right corner of the Report Header band and drop it just below the Steel Wheels Sales Report label.
-25. To edit the message field:
-26. Double-click in the center of the message field to select it.
-27. Click the … button to open the editor.
-28. Replace the Message text with As of $(report.date, date, MM-dd-yyyy).
-29. Click OK.
-30. To resize and position the message field in the Report Header band:
-31. Click in the center of the message field to select the field.
-32. Position the element in the top right corner of the Report Header band, immediately below the label element.
-33. Drag the left handle to the left and drop it at approximately 4.0” on the horizontal ruler
-34. To right-justify the content in the label element and message fields:
-35. Click in the center of the label element to select the field.
-36. On the formatting toolbar, click the Right aligns the element button.
-37. Click in the center of the message field to select the field.
-38. On the formatting toolbar, click Right aligns the element.
-39. From the Elements Palette, click the horizontal-line icon, then drag it to the Report Header band and drop it below the Steel Wheels logo image.
-40. To resize and position the horizontal-line, in the Report Header band:
-41. Click the horizontal-line to select the line.
-42. Drag the right handle to the far right of the Report Header band.
-43. Drag the left handle to the far left of the Report Header band.
-44. Drag the center handle up or down and drop the line at approximately 0.75” on the vertical ruler.
-45. Preview and Save the report: Exercise - formatting.prpt
+### macOS / Linux
+
+```bash
+cd ~/Pentaho/design-tools/report-designer
+./report-designer.sh
+```
+
+:::
+
+<button data-launch="prd" data-path="">Start Pentaho Report Designer</button>
+
+2. Select **File > Open** (`Ctrl+O`) and open `Exercise - totals.prpt` from your workshop folder, `Documents\RD-Workshop`.
+3. Select **File > Save As** and save it as `Exercise - formatting.prpt`.
+4. From the palette, drag an **image** element onto the **Report Header** band, and double-click it.
+5. In the **Edit Content** dialog, select the browse button, open `C:\Pentaho\server\pentaho-server\tomcat\webapps\sw-style\active\sw_logo.jpg`, select **Embed in Report**, and select **OK**.
+6. Drag the image's top left handle to the top left corner of the band, and its bottom right handle to about 3.5 inches across and 1 inch down.
+
+> **Success:** Checkpoint: the logo fills the top left of the **Report Header** band.
+
+### 2. Title, date and line
+
+> **Note:**
+>
+> #### Title and date
+>
+> The title and the date sit at the right of the band, right-aligned, from 4 inches to the right edge.
+
+1. Drag a **label** onto the upper right corner of the **Report Header** band, set its **value** to `Steel Wheels Sales Report`, and drag its left handle to about 4 inches on the top ruler.
+2. Drag a **message** element directly below the label, set its **value** to `As of $(report.date, date, MM-dd-yyyy)`, and drag its left handle to about 4 inches.
+3. Select the label and the message, and on the formatting toolbar select **Align Right**.
+4. Drag a **horizontal-line** onto the band, below the logo. Drag its ends to the left and right edges of the band, and its middle handle to about 0.75 inch on the left ruler.
+5. Select **Preview**.
+
+> **Success:** Checkpoint: the first page opens with the logo on the left, **Steel Wheels Sales Report** and **As of** with today's date on the right, and a line across the page, above `Territory: APAC`.
+
+6. Select **Design**, and save the report (`Ctrl+S`).
+
+> **Under the hood:**
+>
+> #### The Report Header prints once; the Page Header prints on every page
+>
+> You put the logo and the title in the **Report Header** band, so
+> they print once, at the top of the first page. Moved to the **Page
+> Header** band, the same elements would print at the top of every
+> page, above the report header on page one. The engine decides which
+> band prints where during pagination; the elements themselves don't
+> change.
+>
+> **Why it matters:** choose the band by how often the content should
+> appear: a cover title once, a running header on every page, a
+> heading once per group.
+
+::::
+
+## Lab Files
+
+_No bundled files for this lab._

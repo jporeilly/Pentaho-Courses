@@ -234,7 +234,7 @@ The scripts connect as each user they create, so psql asks for that user's passw
 >
 > #### Each script creates a database and its owner, then works as that owner
 >
-> `create_jcr_postgresql.sql` creates the `jackrabbit` database and its owner `jcr_user`; `create_quartz_postgresql.sql` creates `quartz`, owned by `pentaho_user`, and connects as that user to create the 11 `qrtz6_` tables; `create_repository_postgresql.sql` creates `hibernate`, owned by `hibuser`. The Operations Mart and PDI logging scripts start with `\connect hibernate hibuser` and create their tables in two schemas of `hibernate`, `pentaho_operations_mart` and `pentaho_dilogs`, not in databases of their own.
+> `create_jcr_postgresql.sql` creates the `jackrabbit` database and its owner `jcr_user`; `create_quartz_postgresql.sql` creates `quartz`, owned by `pentaho_user`, and connects as that user to create the 11 `qrtz6_` tables; `create_repository_postgresql.sql` creates `hibernate`, owned by `hibuser`. The Operations Mart and Pentaho Data Integration logging scripts start with `\connect hibernate hibuser` and create their tables in two schemas of `hibernate`, `pentaho_operations_mart` and `pentaho_dilogs`, not in databases of their own.
 >
 > **Why it matters:** these three users are the ones the server logs in as, through the JNDI resources in Tomcat's `context.xml` (the **Tomcat** tab). Change a password in PostgreSQL and you change it in `context.xml` too, or the server can't reach its repository.
 
@@ -611,11 +611,11 @@ sudo systemctl stop pentaho-server
 >
 > #### Licensing
 >
-> Pentaho 11 uses a License Manager, in the cloud or local, to manage the PDI and Business Analytics entitlements and to verify the EE plugins.
+> Pentaho 11 uses a License Manager, in the cloud or local, to manage the Pentaho Data Integration and Business Analytics entitlements and to verify the EE plugins.
 
 <div align="center">
 <figure>
-<img src="../_assets/images/licenses.png" alt="The Administration perspective's Licenses page: the Status, Product Name, Version, Begin Date and Exp. Date table lists products such as PDI-EE, BISERVER-EE and ANALYSIS-EE, each with a green check mark" width="800">
+<img src="../_assets/images/licenses.png" alt="The Administration perspective's Licenses page: the Status, Product Name, Version, Begin Date and Exp. Date table lists products such as Pentaho Data Integration-EE, BISERVER-EE and ANALYSIS-EE, each with a green check mark" width="800">
 <figcaption>Licenses in the Administration perspective</figcaption>
 </figure>
 </div>

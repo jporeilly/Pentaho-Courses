@@ -3,7 +3,7 @@
   "description": "Build a grouped report on your own — this exercise mirrors the guided demonstration without the step-by-step help.",
   "order": 8,
   "kind": "workshop",
-  "stepCount": 4,
+  "stepCount": 6,
   "hasVideo": false,
   "estimatedMinutes": 20
 }

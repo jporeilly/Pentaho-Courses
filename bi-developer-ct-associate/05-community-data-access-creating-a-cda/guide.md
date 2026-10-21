@@ -4,79 +4,46 @@
 >
 > #### Workshop - Creating a CDA
 >
-> CDA (Community Data Access) is a CTools component that provides data abstraction for diverse data sources through web services. While it was initially developed to serve as a bridge between data connections and the Community Dashboard Framework (CDF), its functionality has expanded. Now, it can also be integrated with Report Designer to incorporate data into third-party applications.
->
-> In this hands-on workshop, you'll learn how a CDA file is structured, how to author one by hand, and how to wire up each of the supported data source types - from SQL and Mondrian through to Kettle transformations, scripting, XPath and compound queries. You'll then make your queries dynamic with parameters and learn how to call them directly over the CDA Web API, so that any external application can consume the data without CDF or CDE.
->
-> By the end of this workshop, you'll understand the anatomy of a `.cda` descriptor, the mandatory connection and data access attributes, how caching and output ordering work, and how to expose your queries as web service endpoints.
+> Community Data Access (CDA) is the CTools data layer: a `.cda` file defines connections and queries, and the server runs them for dashboards and for any application that calls CDA's web API. In this workshop you learn the anatomy of a `.cda` file, author one by hand, preview its query, and call it over the API.
 >
 > **What you'll do**
 >
-> * Understand the CDA data flow and its supported data sources
-> * Author a `.cda` file by hand, defining connections and data access blocks
-> * Configure SQL (JDBC/JNDI), Mondrian, Metadata, Kettle, Scripting, XPath and Compound queries
-> * Parameterise queries with the `${parameter}` syntax and the available parameter types
-> * Call CDA queries over the Web API (`doQuery`, `listQueries`, `listParameters`, and more)
+> * Learn how a `.cda` file is structured: connections, data accesses and their attributes
+> * Author a `.cda` file by hand, upload it and preview its query
+> * Compare the connection types: SQL, MDX, metadata, Kettle, scripting, XPath and compound queries
+> * Make a query dynamic with `${parameter}` and the parameter types
+> * Call the query over the CDA web API (`listQueries`, `listParameters`, `doQuery`)
 >
-> **Prerequisites:** A running Pentaho Server with the CTools plugins installed; basic familiarity with SQL/MDX; access to the SampleData / SteelWheels sample database.
+> **Prerequisites:** A running Pentaho Server with the CTools plugins; [My First Dashboard](../03-getting-started-my-first-dashboard/guide.md), which creates the `CTools-Dashboard` folder; a text editor; basic SQL and MDX
 >
 > **Estimated time:** 45 minutes
 
-<figure><img src="../_assets/images/cda_create_community_data_access.png" alt=""><figcaption><p>Community Data Access</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/cda_create_community_data_access.png" alt="Architecture diagram placing Community Data Access between CDF and CDE dashboards and the data sources, with a CDA Cache over SQL, MDX, MQL, Kettle, scripting, XPath and compound queries" width="800">
+<figcaption>Community Data Access</figcaption>
+</figure>
+</div>
 
 > **Note:**
 >
-> CDA's data flow works as follows. When a dashboard (CDF/CDE) or external application requests data through CDA's endpoints:
+> #### How CDA serves data
 >
-> * CDA first checks if caching is enabled.
-> * If enabled, it verifies whether results for this specific query and parameters exist in cache, whether cached results are still valid (not expired), and if cache keys match.
-> * Only if no valid cached data is found does CDA query the underlying data sources.
+> When a dashboard (CDF or CDE) or an external application requests data through CDA's endpoints, CDA first checks whether the query is cached. If it is, and the cached result for that query and those parameter values is still valid, CDA returns it. Only when no valid cached result exists does CDA query the data source.
 >
-> This architecture makes CDA an efficient middleware layer that minimizes unnecessary database queries while providing flexible data access to various front-end applications.
+> The data sources CDA can query are:
+>
+> * SQL over JDBC or JNDI
+> * MDX queries over Mondrian or olap4j
+> * MQL queries over a Pentaho metadata connection
+> * Kettle transformations
+> * Scripting (Beanshell and JavaScript)
+> * XPath over XML files
+> * Compound queries, which join or union other queries
 
-> **Note:**
->
-> As we can see in the diagram, the available data sources for CDA are:
->
-> * SQL over JDBC or JNDI.
-> * MDX queries over Mondrian or olap4j.
-> * MQL queries over a Pentaho metadata connection.
-> * Kettle transformations.
-> * Scripting (only Beanshell and JavaScript are currently supported).
-> * XPath over XML files.
-> * Compound queries.
->
-> CDA examples: **/public/CTools-Dashboard/CDA**
-
-> **Note:** There are multiple ways to create CDA data sources. One way is to use CDE, where no code or XML is needed - we cover this later in the CDE workshop. There is another way, the hard way, which is editing the file by hand.
-
-> **Note:**
->
-> #### Start Pentaho Server
->
-> Make sure the Pentaho Server is running before you preview or edit CDA files.
->
-> #### Windows (PowerShell)
->
-> ```powershell
-> cd \
-> cd Pentaho/server/pentaho-server/
-> ./start-pentaho.bat
-> ```
->
-> #### Linux
->
-> ```bash
-> cd
-> cd Pentaho/server/pentaho-server/
-> ./start-pentaho.sh
-> ```
-
-<button data-launch="puc">Open Pentaho User Console</button>
+There are two ways to create CDA data sources. In CDE you create them in the Data Sources perspective, with no XML to write; the CDE workshops do that. The other way is to edit the `.cda` file by hand, which is what this workshop does.
 
 ***
-
-Follow the guide below to author and use a **CDA** file:
 
 :::: tabs
 
@@ -86,7 +53,7 @@ Follow the guide below to author and use a **CDA** file:
 >
 > #### Create the CDA
 >
-> The CDA files are XML files with a `.cda` extension. This way, Pentaho will recognize the file extension and will provide the capability to preview the results or edit the file. The main structure of a CDA file is the following:
+> A CDA file is an XML file with a `.cda` extension. Pentaho recognizes the extension, so the User Console can open the file in the CDA previewer. The main structure of a CDA file is:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -98,38 +65,16 @@ Follow the guide below to author and use a **CDA** file:
 </CDADescriptor>
 ```
 
-> **Note:**
->
-> `xml` files begin with an XML declaration, followed by structured elements that define connections and data access configurations. The primary element is `CDADescriptor`, which contains data source definitions that can be shared across multiple queries.
->
-> Rather than repeatedly defining database connections within individual queries, we centralize connection settings in the data source element. This makes sense since multiple queries often use the same connection parameters.
->
-> Each data access definition requires specific attributes to be set:
->
-> * XML declaration at the top
-> * `CDADescriptor` as the root element
-> * Data source elements containing shared connection settings
-> * Individual data access configurations with their required attributes
+The file starts with an XML declaration. The root element is `CDADescriptor`. Its `DataSources` element holds the connections, so that several queries can share one connection instead of each defining its own. After it come the data accesses: the queries, each with its required attributes.
 
 #### Mandatory Connection Attributes
 
-> **Note:**
->
-> **ID**
->
-> * Defines a unique identifier
-> * Used to reference specific connections in queries
-> * Must be unique across all connections
->
-> **Type**
->
-> * Specifies the connection type
-> * Determines required internal elements
-> * In CDE: Automatically configured based on selected data source
+* **id** - a unique identifier, which the data accesses use to refer to the connection.
+* **type** - the connection type, which determines the elements inside the connection. In CDE it is set for you from the data source you choose.
 
 #### Creating Data Access
 
-Once connections are established, proceed to create data access queries. Each query should follow this structure:
+With the connections defined, create the data accesses. Each one follows this structure:
 
 ```xml
 <DataAccess id="1" connection="1" type="sql" access="private"
@@ -140,14 +85,14 @@ Once connections are established, proceed to create data access queries. Each qu
 
 | Attribute | Description |
 | --- | --- |
-| id | This is used to define the data access identifier that will be used in the components. |
-| connection | This is the identifier of the connection created previously. Different DataAccess id can share the same connection id. |
-| access | This defines whether the data access is visible. Here we can have one of two values: private or public. Private will say that the data access will not be visible, and public says the opposite. You may want to define that a data source is private when it is just to be used inside compound queries to create unions or joins between queries. |
-| cache | This defines whether the results of the query will be cached. Possible values are true and false. You should set it to true if you want your query to be cached. The default value is false: without this attribute or a `<Cache>` element, the query is not cached. |
-| cacheDuration | This defines the cache duration in seconds. The query will be executed again after the specified seconds have passed, and the results cached again. This attribute will be ignored when the cache is set to false. The default value is 3600, the same as one hour expressed in seconds. |
-| type | We have the same goal when defining a connection and a Data Access, but they have different purposes, so we also need to specify the query type. |
+| id | The data access identifier that components use. |
+| connection | The id of a connection defined in `DataSources`. Several data accesses can share one connection. |
+| access | Whether the data access is visible: `public` or `private`. A private data access is used only inside compound queries, for joins and unions. |
+| cache | Whether the query's results are cached: `true` or `false`. The default is `false`: without this attribute or a `<Cache>` element, the query is not cached. |
+| cacheDuration | How long, in seconds, a cached result is kept before the query runs again. Ignored when `cache` is `false`. The default is `3600`, one hour. |
+| type | The query type, which must suit the connection's type. |
 
-Here's an outline of a connection and data access using a JSON query:
+Here is a connection and a data access for a JSON query:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -178,21 +123,19 @@ Here's an outline of a connection and data access using a JSON query:
 
 > **Note:**
 >
-> SQL databases. You can use this type of connection to get data from any source that uses Structured Query Language (SQL) and that can be reached using a JNDI connection or a JDBC driver.
+> #### SQL connections
 >
-> You can use one of these two kinds:
+> Use a SQL connection to get data from any source that speaks Structured Query Language (SQL) and that the server reaches through a JNDI connection or a JDBC driver. There are two types:
 >
-> * `sql.jdbc`: To be utilized when using SQL over JDBC
-> * `sql.jndi`: To be utilized when using SQL over JNDI
-
-> **Note:**
+> * `sql.jdbc` - SQL over JDBC
+> * `sql.jndi` - SQL over JNDI
 >
-> When creating a connection of the `sql.jdbc` type, we should also specify the following properties:
+> A `sql.jdbc` connection also needs:
 >
-> * Driver: The Java class name to use (for example, org.postgresql.Driver)
-> * URL: The URL to connect to (for example, jdbc:postgresql://localhost:5432/database)
-> * User: The username to use
-> * Pass: The user's password
+> * **Driver** - the Java class name of the driver, for example `org.postgresql.Driver`
+> * **URL** - the URL to connect to, for example `jdbc:postgresql://localhost:5432/database`
+> * **User** - the user name
+> * **Pass** - the user's password
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -236,7 +179,7 @@ Here's an outline of a connection and data access using a JSON query:
 </CDADescriptor>
 ```
 
-> **Note:** When defining the connection for a `sql.jndi` connection, you would need to set the following property: `jndi` - the connection's name as defined in the context.xml file.
+A `sql.jndi` connection needs one property, **Jndi**: the connection's name as the server defines it (in `context.xml`). This is the file you build next:
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -279,6 +222,31 @@ Here's an outline of a connection and data access using a JSON query:
 </CDADescriptor>
 ```
 
+#### Build and Preview sql-jndi.cda
+
+1. Make sure the Pentaho Server is running. On a lab VM it already is; on your own machine start it as in [Before You Start](../00-before-you-start/guide.md):
+
+```powershell
+C:\Pentaho\server\pentaho-server\start-pentaho.bat
+```
+
+It takes a few minutes; the console is ready when http://localhost:8080/pentaho opens the login page.
+
+2. Open the Pentaho User Console (PUC) with the button below and sign in as `admin`.
+
+<button data-launch="puc">Open Pentaho User Console</button>
+
+3. Select **Browse Files**. Under **Folders**, expand **Public** and select **CTools-Dashboard**. If it isn't there, select **Public**, select **New Folder...** under **Folder Actions**, and create it.
+4. Under **Folder Actions**, select **New Folder...**, enter `CDA` and select **OK**.
+5. In a text editor, paste the `sql.jndi` listing above and save it as `sql-jndi.cda`.
+6. In the PUC, select the **CDA** folder. Under **Folder Actions**, select **Upload...**. Select **Browse...**, choose `sql-jndi.cda`, and select **OK**.
+7. If the file is not listed under **Files** yet, select the **Refresh** icon beside **Folders**.
+8. Under **Files**, select **sql-jndi**, and under **File Actions** select **Open**. The CDA previewer opens in a new tab.
+9. In the **Data Access** list, select **Sql Query on SampleData - Jndi**. The previewer shows the query's parameters, `status` and `orderDate`, with their defaults, and runs the query.
+
+> **Success:** Checkpoint: 2 rows, both `Shipped`: one for 2004 and one for 2005. The columns come in the order `<Output indexes="1,0,2,3"/>` sets: the status, `Year`, the price total and `PriceInK`. The 2004 total is about 4.11 million and the 2005 total about 1.51 million, so `PriceInK` is about 4.11 and 1.51.
+
+10. Select **Query URL**. The **Query Execution URL** dialog shows the `doQuery` call the previewer made. Select **Close**.
 
 > **Under the hood:**
 >
@@ -295,26 +263,26 @@ Here's an outline of a connection and data access using a JSON query:
 > in Report Designer) add new ones, and Output picks and orders what is
 > returned, so indexes 1,0,2,3 puts STATUS first. With no cache
 > attribute and no Cache element, CDA does not cache the result at all.
+>
+> **Why it matters:** the query, the column names and the column order
+> are set once, in the file, for every dashboard and application that
+> uses it. Changing the order is an Output line, not a new query.
 
 #### Mondrian
 
-> **Note:**
->
-> When specifying the type for an MDX connection, we have the following available types:
->
-> * `mondrian.jdbc`: To be utilized when using MDX over JDBC
-> * `mondrian.jndi`: To be utilized when using MDX over JNDI
-> * `olap4j.defaultolap4j`: To be utilized when using MDX over olap4j
+When you set the type of an MDX connection, these types are available:
 
-> **Note:**
->
-> To set a connection of a `mondrian.jdbc` type, the following properties must be defined:
->
-> * Driver: The Java class name to use (for example, org.postgresql.Driver)
-> * URL: The URL to connect to (for example, jdbc:postgresql://localhost:5432/database)
-> * User: The username to use
-> * Pass: The user's password
-> * Catalog: The Mondrian schema to use
+* `mondrian.jdbc` - MDX over JDBC
+* `mondrian.jndi` - MDX over JNDI
+* `olap4j.defaultolap4j` - MDX over olap4j
+
+A `mondrian.jdbc` connection needs:
+
+* **Driver** - the Java class name of the driver, for example `org.postgresql.Driver`
+* **URL** - the URL to connect to, for example `jdbc:postgresql://localhost:5432/database`
+* **User** - the user name
+* **Pass** - the user's password
+* **Catalog** - the Mondrian schema to use
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -344,12 +312,10 @@ Here's an outline of a connection and data access using a JSON query:
 </CDADescriptor>
 ```
 
-> **Note:**
->
-> When creating a connection of the `mondrian.jndi` type, use the following properties:
->
-> * jndi: The jndi identifier
-> * Catalog: The Mondrian schema to use
+A `mondrian.jndi` connection needs:
+
+* **Jndi** - the JNDI name of the connection
+* **Catalog** - the Mondrian schema to use
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -388,32 +354,24 @@ Here's an outline of a connection and data access using a JSON query:
 </CDADescriptor>
 ```
 
-> **Note:**
->
-> When creating a connection of the `olap4j.defaultolap4j` type, you should use:
->
-> * Driver: The Java class name to use (for example, mondrian.olap4j.MondrianOlap4jDriver)
-> * URL: The URL used to call the driver class (for example, jdbc:mondrian:)
-> * JDBCUser: The username for the connection to the database (for example, pentaho_user)
-> * JDBCPassword: The password to verify authentication on the database (for example, password)
-> * JDBCDriver: The driver for the connection to the database (for example, org.hsqldb.jdbcDriver)
-> * JDBC: The URL to connect to the database (for example, jdbc:hsqldb:hsql://localhost:9001/Sampledata)
-> * Catalog: The path to the Mondrian schema (for example, mondrian:/SteelWheels)
+An `olap4j.defaultolap4j` connection uses:
+
+* **Driver** - the Java class name of the driver, for example `mondrian.olap4j.MondrianOlap4jDriver`
+* **URL** - the URL used to call the driver class, for example `jdbc:mondrian:`
+* **JDBCUser** - the user name for the database, for example `pentaho_user`
+* **JDBCPassword** - the password for the database user
+* **JDBCDriver** - the database's JDBC driver, for example `org.hsqldb.jdbcDriver`
+* **JDBC** - the URL of the database, for example `jdbc:hsqldb:hsql://localhost:9001/Sampledata`
+* **Catalog** - the path to the Mondrian schema, for example `mondrian:/SteelWheels`
 
 #### Metadata
 
-> **Note:**
->
-> The Pentaho metadata data sources are used when acquiring data using a Pentaho Metadata Schema. When specifying a metadata query, we need to set the `metadata.metadata` type. This allows Pentaho metadata to be accessed from a dashboard through an MQL query.
->
-> When defining the connection, we should provide the following properties:
->
-> * DomainId: The domain used when creating the metadata schema
-> * XmiFile: The path and name of the file of the metadata schema
->
-> When creating the Data Access, we also need to specify:
->
-> * Query: A valid metadata query to be used to get data to the dashboard
+A Pentaho metadata data source gets its data through a Pentaho Metadata model, with an MQL query, so a dashboard can use the same business model as the reporting tools. Its connection type is `metadata.metadata`, with these properties:
+
+* **DomainId** - the domain of the metadata model
+* **XmiFile** - the path and name of the metadata model's file
+
+The data access needs a **Query**: a valid MQL query.
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -468,13 +426,7 @@ Here's an outline of a connection and data access using a JSON query:
 
 #### Transformations
 
-> **Note:**
->
-> Kettle transformations serve as a versatile ETL (Extract, Transform, and Load) data source tool that simplifies working with complex data ecosystems. Through its coding-free GUI interface, users can easily connect and transform data from multiple sources, run jobs within transformations, and even incorporate predictive analytics.
->
-> The system, which uses the `kettle.TransFromFile` attribute type, requires only two main properties - KtrFile for specifying transformation paths and Variables for parameter mapping between Kettle and dashboards.
->
-> This flexibility allows seamless integration with various tools like MongoDB, Weka, and R, while maintaining ease of use through its graphical interface and parameter customization capabilities.
+A Kettle transformation is a data source too: it can read and combine data from many sources, and its last step's rows become the query's result. The connection type is `kettle.TransFromFile`, with two properties: **KtrFile**, the path to the transformation, and **variables**, which map dashboard parameters to the transformation's own parameters.
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -499,11 +451,7 @@ Here's an outline of a connection and data access using a JSON query:
 
 #### Scripting
 
-> **Note:**
->
-> Scriptable data sources provide a valuable solution for dashboard development when actual queries aren't yet available, which often happens in team environments where front-end and back-end development occurs simultaneously. In cases where MDX queries are planned but require time-consuming prerequisites like Mondrian schemas, data warehouses, and ETL processes, these scriptable sources allow development to begin with dummy data.
->
-> CDA supports scriptable queries through a connection configuration that requires setting the attribute type to `scripting.scripting` and specifying either `beanshell` or `JavaScript` as the language. This flexibility enables developers to start building and testing dashboards while waiting for the actual data infrastructure to be completed.
+A scriptable data source returns rows from a script instead of a database. It lets dashboard work start before the real queries exist, which is common when front-end and back-end development run side by side: an MDX query, for example, may wait on a Mondrian schema, a data warehouse and its ETL. The connection type is `scripting.scripting`, with the language `beanshell` or `JavaScript`.
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -548,15 +496,11 @@ return model;
 
 > **Warning:**
 >
-> Scripting data sources should be used cautiously for two key reasons.
->
-> First, they execute extremely quickly, which can mask potential performance issues in your dashboard that would be apparent with real data sources. This could lead to overlooking important optimization opportunities.
->
-> Second, scripting data sources typically return static results, unlike real queries that respond dynamically to parameter changes. This makes it difficult to test how your dashboard will behave with varying data conditions. Therefore, it's recommended to primarily work with real data sources to ensure your dashboards are properly optimized and functioning as intended.
+> Use scripting data sources with care, for two reasons. They return instantly, which hides the performance problems a real query would show. And they return static results that don't respond to parameters the way a real query does, so they can't show how the dashboard behaves as the data changes. Move to the real data sources as early as you can.
 
 #### XPath
 
-> **Note:** Another type of data source is XPath over XML. This will allow you to grab specific nodes from a specified XML file. When defining the connection, the type should be `xpath.xPath`.
+An XPath data source reads nodes from an XML file. Its connection type is `xpath.xPath`.
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -578,15 +522,11 @@ return model;
 
 #### Compound Queries
 
-> **Note:**
->
-> Compound queries allow you to combine results from multiple queries through either joins or unions. When using compound queries, you don't need to create new database connections since they utilize existing Data Access definitions. Since these data sources are specifically created for use within compound queries, they can be set with private access attributes. This means they won't be visible in the previewer but remain accessible within the compound queries themselves.
->
-> When creating a Data Access, you must specify either a `join` or `union` type. A join needs Left and Right, each naming a data access id and its key columns, and takes an optional JoinType element: `INNER`, `LEFT_OUTER`, `RIGHT_OUTER` or `FULL_OUTER` (the default when it is left out).
->
-> For unions, you need to specify two properties: Top (the query for the top part) and Bottom (the query for the bottom part). When using unions, both queries must have the same number of columns.
->
-> You also have the option to use Kettle (Pentaho Data Integration) transformations for more complex operations with data from multiple sources before returning the results to CDA.
+A compound query combines the results of other data accesses with a join or a union. It needs no connection of its own. The data accesses it combines are often `private`: they don't show in the previewer, but the compound query can use them.
+
+The compound data access's type is `join` or `union`. A join needs **Left** and **Right**, each naming a data access id and its key columns, and takes an optional **JoinType** element: `INNER`, `LEFT_OUTER`, `RIGHT_OUTER` or `FULL_OUTER` (the default when it is left out). A union needs **Top** and **Bottom**, the queries for the top and bottom parts, and both must return the same number of columns.
+
+For more complex combinations, use a Kettle transformation that reads the sources and combines them before it returns the rows to CDA.
 
 **Compound Join**
 
@@ -651,7 +591,6 @@ return model;
 </CDADescriptor>
 ```
 
-
 > **Under the hood:**
 >
 > #### A compound join is a small Kettle transformation
@@ -665,6 +604,10 @@ return model;
 > Because the join happens after both queries have run, the two sides
 > can come from different connections, or from different kinds of source
 > altogether.
+>
+> **Why it matters:** a dashboard can combine figures from two systems,
+> a SQL database and an OLAP cube for example, without a data warehouse
+> that holds both.
 
 **Compound Union**
 
@@ -730,13 +673,11 @@ return model;
 
 #### Common Properties
 
-> **Note:**
->
-> There are some common properties that should or can be used when defining a Data Access:
->
-> * **Cache**: The cache can also be defined as an element when defining a Data Access. When defining the cache as an element, we should specify the two attributes, duration and enabled. The first is used to define the time that the query will be cached since the last execution. The enabled attribute is set to true or false depending on whether you want to enable or disable it.
-> * **Name**: This is the friendly name of the data access being defined.
-> * **Columns**: This element can create a different output by changing the name of a column or by adding new ones using calculated columns. To change the name of columns, specify the columns' idx, starting from 0, and the desired name.
+These elements can be used in any data access:
+
+* **Cache** - the cache defined as an element, with two attributes: `duration`, how long the result stays cached after the query last ran, and `enabled`, `true` or `false`.
+* **Name** - the data access's friendly name, which the previewer lists.
+* **Columns** - renames columns or adds calculated ones. To rename a column, give its index, starting from 0, and the new name:
 
 ```xml
 <Column idx="0">
@@ -750,7 +691,7 @@ return model;
 </Column>
 ```
 
-> **Note:** To create a calculated column, we need to specify the name of the new column and the formula to be used. The formulas should match the open formula specification.
+A calculated column has a name and a formula, written in OpenFormula:
 
 ```xml
 <CalculatedColumn idx="0">
@@ -759,10 +700,8 @@ return model;
 </CalculatedColumn>
 ```
 
-> **Note:**
->
-> * **Query**: Almost all Data Access makes use of this element. Refer to each of the data source types referred to earlier to get more information.
-> * **Parameters**: These are the parameters to be sent/used in the query. This element lets us define a different output other than the one defined in the queries.
+* **Query** - the query itself; almost every data access type has one. Each data source type above shows its own.
+* **Parameters** - the parameters the query uses, with their types and defaults. The next tab covers them.
 
 ### 2. Parameters
 
@@ -770,22 +709,7 @@ return model;
 >
 > #### Parameters
 >
-> Dynamic queries are essential for flexible data retrieval. By using variable criteria instead of hard-coded values, you can filter records differently each time without modifying the query structure. This makes your queries more reusable and adaptable to changing requirements.
-
-#### SQL
-
-```sql
-select {[Measures].[Sales], [Measures].[Quantity]} ON COLUMNS,
-NON EMPTY [Time].Children ON ROWS
-from [SteelWheelsSales]
-where ([Order Status].[${status}])
-```
-
-> **Note:**
->
-> A parameter acts as a dynamic variable in your queries, allowing you to change values without modifying the query structure itself.
->
-> Instead of using fixed values in your queries, you can use parameters that change based on user input or other conditions. Parameters use the syntax: `${parameterName}`.
+> A parameter is a variable in a query: instead of a hard-coded value, the query takes a value each time it runs, so one query serves many filters without changing its structure. Parameters use the syntax `${parameterName}`.
 
 ```sql
 -- Static query
@@ -795,7 +719,9 @@ select * from customers where country in ('USA');
 select * from customers where country in (${country});
 ```
 
-> **Note:** In CDA, parameters are defined using XML syntax under a Parameters element:
+#### SQL
+
+In a CDA file, the parameters are defined in a `Parameters` element:
 
 ```xml
 <Parameters>
@@ -803,7 +729,7 @@ select * from customers where country in (${country});
 </Parameters>
 ```
 
-> **Note:** When defined in the CDA, the Query attribute needs to match the name in the parameter:
+The parameter's `name` must match the name in the query:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -824,37 +750,28 @@ select * from customers where country in (${country});
 </CDADescriptor>
 ```
 
-> **Note:**
->
-> Prepared statements in SQL are a security and performance feature where query parameters are replaced by placeholders. When the JDBC driver supports it, these queries are precompiled in the database during preparation; otherwise, precompilation happens at execution time.
->
-> The key benefits are twofold. First, the database can reuse the access plan for similar queries, making execution significantly faster than regular statement objects. Second, prepared statements automatically protect against SQL injection attacks by properly escaping and handling input parameters.
+For SQL, CDA uses prepared statements: each parameter is replaced by a placeholder, and the value travels separately. Where the JDBC driver supports it, the database precompiles the statement when it is prepared, and can reuse the access plan for later runs. And because a value never becomes part of the SQL text, a prepared statement protects against SQL injection.
 
 ##### Defining Multiple Parameters in a Query
 
-> **Note:**
->
-> You can define several parameters within a single query using the `Parameters` tag. Each parameter needs its own `Parameter` element with three key attributes:
->
-> * Name - Must match the parameter reference in your query
-> * Default Value - Used when no specific value is provided
-> * Type - Determines what kind of data the parameter accepts
->
-> **Available Parameter Types:**
->
-> Single Value Types:
->
-> * `String`: Text values
-> * `Integer`: Whole numbers only (e.g., 10, 365)
-> * `Numeric`: Numbers with decimals (e.g., 15.39)
-> * `Date`: Date values
->
-> Array Types (for IN conditions):
->
-> * `StringArray`: Multiple text values
-> * `IntegerArray`: Multiple whole numbers
-> * `NumericArray`: Multiple decimal numbers
-> * `DateArray`: Multiple date values
+A query can use several parameters, each with its own `Parameter` element and three key attributes:
+
+* **name** - must match the reference in the query
+* **default** - the value used when no other value is passed
+* **type** - the kind of value the parameter accepts
+
+| Single value types | Array types, for `IN` conditions |
+| --- | --- |
+| `String` - text | `StringArray` - several text values |
+| `Integer` - whole numbers, for example 10 or 365 | `IntegerArray` - several whole numbers |
+| `Numeric` - numbers with decimals, for example 15.39 | `NumericArray` - several decimal numbers |
+| `Date` - dates | `DateArray` - several dates |
+
+1. In the CDA previewer tab from the first tab, set **status** to `Cancelled` and select the refresh button to the right of the **Data Access** list. If you closed the tab, open **sql-jndi** again from **Browse Files** and select **Sql Query on SampleData - Jndi** first.
+
+> **Success:** Checkpoint: 1 row: `Cancelled` for 2004, with a total of about 187,195. No order in 2005 is `Cancelled`.
+
+2. Set **status** back to `Shipped` and select the refresh button.
 
 #### MDX
 
@@ -865,11 +782,9 @@ NON EMPTY {[Markets].[${markets}].Members} ON ROWS
 FROM [SteelWheelsSales]
 ```
 
-> **Note:**
->
-> MDX parameterization works differently from SQL. CDA can't bind an MDX parameter as a placeholder, so it writes the value into the query text before Mondrian parses it. A parameter can therefore stand for any part of the query, or for the entire query.
->
-> What keeps that safe is MDX itself and Mondrian's security: MDX can only read, and Mondrian applies the schema's roles to every query it runs, so a role-restricted user gets only what their role allows. A schema with no roles restricts nothing, and then a crafted query can read the whole cube.
+MDX parameterization works differently from SQL. CDA can't bind an MDX parameter as a placeholder, so it writes the value into the query text before Mondrian parses it. A parameter can therefore stand for any part of the query, or for the entire query.
+
+What keeps that safe is MDX itself and Mondrian's security: MDX can only read, and Mondrian applies the schema's roles to every query it runs, so a role-restricted user gets only what their role allows. A schema with no roles restricts nothing, and then a crafted query can read the whole cube.
 
 ```xml
 <Parameters>
@@ -885,15 +800,9 @@ FROM [SteelWheelsSales]
 </CDADescriptor>
 ```
 
-> **Note:**
->
-> The MDX query is configured with a parameter named "markets" (default value: "Territory"). The query structure retrieves:
->
-> * Quantity measures on the COLUMNS axis
-> * Market members based on the parameter value on the ROWS axis
-> * Data is sourced from the "SteelWheelsSales" cube
->
-> The parameterization is particularly powerful because the "markets" parameter can be dynamically set to different geographic levels (Territory, Country, State, Province, or City), allowing the same query to provide different levels of detail without requiring separate query definitions.
+This query has one parameter, `markets`, with the default `Territory`. It returns the Quantity measure on the columns axis and the members of one level of the Markets dimension on the rows, from the `SteelWheelsSales` cube. Set `markets` to `Country`, `State Province` or `City` and the same query returns a different level of detail, with no second query to maintain.
+
+A parameter can even be the entire query:
 
 ```xml
 <DataAccess access="public" connection="mk" id="mk" type="mdx">
@@ -907,11 +816,9 @@ FROM [SteelWheelsSales]
 </DataAccess>
 ```
 
-> **Note:** The query system uses parameters to control data aggregation levels. By default, it shows sales quantities by Territory, but you can change this parameter to view data by Country, State, Province, or City instead. Parameters are flexible and can be placed anywhere within a query, or the entire query itself can be parameterized.
-
 #### Kettle
 
-> **Note:** When working with Kettle queries in CDA, you don't need to define a query explicitly for CDA, though you may need one within the transformation itself. Instead, you can pass parameters directly to the Kettle transformation.
+A Kettle query needs no query in the CDA file, though the transformation may run one of its own. Instead, CDA passes parameters to the transformation:
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -934,19 +841,11 @@ FROM [SteelWheelsSales]
 </CDADescriptor>
 ```
 
-> **Note:**
->
-> The key feature is parameter mapping between CDA and Kettle transformations. When parameter names differ between CDA and the Kettle transformation, you must map them using the `datarow-name` and `variable-name` attributes in the connection definition. If parameter names are identical in both CDA and Kettle, no mapping is needed - CDA will pass these parameters directly to the transformation.
->
-> For example, if a Kettle transformation uses a parameter named `myZip` but your CDA component refers to it as `ZipCode`, you would map them in the XML configuration using `<variables datarow-name="ZipCode" variable-name="myZip"/>`. Both parameter definitions must also be included in the DataAccess section of the CDA descriptor.
+When a parameter has the same name in CDA and in the transformation, CDA passes it straight through. When the names differ, map them in the connection with `datarow-name` (the CDA name) and `variable-name` (the transformation's name). Here the transformation's parameter `myZip` is `ZipCode` in CDA: `<variables datarow-name="ZipCode" variable-name="myZip"/>`. Both parameters must also be defined in the data access.
 
 #### Private
 
-> **Note:**
->
-> Private parameters in SQL queries are server-side values that cannot be overridden by client-side inputs. This is particularly useful for security purposes, especially when handling sensitive data like user identities. For example, when using `${[security:principalName]}` as a private parameter, the system will automatically use the logged-in user's username, regardless of any attempts to modify this value from the client side.
->
-> This prevents potential security breaches where a user might try to impersonate another user by manipulating parameter values. The parameter is defined with `access="private"` in the XML configuration, ensuring that only the server-side value is used in the SQL query.
+A private parameter is a server-side value that a client can't override. That matters for security, for example with the logged-in user's name: with `${[security:principalName]}` as a private parameter's default, the query always gets the logged-in user's name, whatever value a request sends. Nobody can query as someone else by changing a parameter. The parameter is defined with `access="private"`:
 
 ```xml
 <Parameters>
@@ -954,7 +853,6 @@ FROM [SteelWheelsSales]
 </Parameters>
 <Query>SELECT * from Employee where id=${username}</Query>
 ```
-
 
 > **Under the hood:**
 >
@@ -974,6 +872,10 @@ FROM [SteelWheelsSales]
 > A private parameter is never read from the request. CDA takes a passed
 > value only for a public parameter, so a private
 > ${[security:principalName]} is always the logged-in user.
+>
+> **Why it matters:** in SQL a parameter can't be used for injection; in
+> MDX it can rewrite the query, so a cube that holds data some users
+> must not see needs Mondrian roles, not trust in the dashboard.
 
 ### 3. CDA API
 
@@ -981,96 +883,79 @@ FROM [SteelWheelsSales]
 >
 > #### CDA API
 >
-> Understanding the API allows you to leverage CDA (Community Data Access) to integrate data with external applications. This capability is particularly valuable when you're not using CDE (Community Dashboard Editor) or CDF (Community Dashboard Framework) for dashboard development.
->
-> The API integration with CTools provides enhanced functionality through CDA's Web API interface. To make requests, use this base URL structure:
+> CDA's web API lets any application use the queries in a `.cda` file, with or without CDE and CDF. Requests go to this base URL, where `$BASE_URL` is the protocol, host name and port, and `$WEBAPP` is the web application's name (`pentaho` by default):
 
-```
+```text
 $BASE_URL/$WEBAPP/plugin/cda/api/
 ```
 
-> **Note:**
->
-> Where:
->
-> * `$BASE_URL` represents the protocol, hostname, and port
-> * `$WEBAPP` is the Apache Tomcat web application name (default is 'pentaho')
-
-> **Note:** Here's a sample URL demonstrating a query to the pentaho webapp:
-
-<div class="pcm-embed-card" data-href="http://localhost:8080/pentaho/plugin/cda/api/doQuery?dataAccessId=top50Customers&amp;path=/public/CTools-Dashboard/CDA/sampledata-queries.cda" data-title="doQuery sample"></div>
-<button data-launch="puc">Open Pentaho User Console</button>
-
-***
+Open each URL below in the browser where you are signed in to the PUC. The examples use the file you built in the first tab, whose data access id is `1`.
 
 #### getCdaList
 
-> **Note:** The getCdaList endpoint will get a list of all the CDA files available inside the repository. There is no need to specify the parameters for this endpoint.
+`getCdaList` lists every CDA file in the repository. It takes no parameters.
 
-<div class="pcm-embed-card" data-href="http://localhost:8080/pentaho/plugin/cda/api/getCdaList" data-title="getCdaList"></div>
+1. Open:
+
+```text
+http://localhost:8080/pentaho/plugin/cda/api/getCdaList
+```
+
+> **Success:** Checkpoint: a list of the CDA files in the repository; `sql-jndi.cda` in `CTools-Dashboard/CDA` is among them.
+
 #### listQueries
 
-> **Note:**
->
-> To retrieve all available queries from a CDA file, use the listQueries endpoint.
->
-> Parameters:
->
-> `path` (required): Specifies the location of the CDA file to analyze
->
-> `outputType` (optional): Sets the response format - Default: `json`, Alternative: `xml`
+`listQueries` lists the queries in a CDA file. It takes `path` (required), the file's location, and `outputType` (optional): `json`, the default, or `xml`.
 
-```url
-http://localhost:8080/pentaho/plugin/cda/api/listQueries?path=/public/CTools-Dashboard/CDA/sampledata-queries.cda
+2. Open:
+
+```text
+http://localhost:8080/pentaho/plugin/cda/api/listQueries?path=/public/CTools-Dashboard/CDA/sql-jndi.cda
 ```
+
+> **Success:** Checkpoint: one query, with the id `1` and the name `Sql Query on SampleData - Jndi`.
 
 #### listParameters
 
-> **Note:**
->
-> This endpoint retrieves all parameters defined within a specified query.
->
-> Required Parameters:
->
-> `path`: The location of the CDA file containing the query definitions
->
-> `dataAccessId`: The identifier of the specific query to examine
->
-> Optional Parameters:
->
-> `outputType`: The desired format for the response - Default: `json`, Alternative: `xml`
+`listParameters` lists the parameters of one query. It takes `path` and `dataAccessId` (both required), and `outputType` (optional): `json`, the default, or `xml`.
 
-<div class="pcm-embed-card" data-href="http://localhost:8080/pentaho/plugin/cda/api/listParameters?dataAccessId=top50Customers&amp;path=/public/CTools-Dashboard/CDA/sampledata-queries.cda" data-title="listParameters"></div>
+3. Open:
+
+```text
+http://localhost:8080/pentaho/plugin/cda/api/listParameters?path=/public/CTools-Dashboard/CDA/sql-jndi.cda&dataAccessId=1
+```
+
+> **Success:** Checkpoint: two parameters, `status` with the default `Shipped` and `orderDate` with the default `2004-03-01`.
+
 #### doQuery
 
-> **Note:**
->
-> The method executes a query and returns its results. It requires two mandatory parameters:
->
-> `path`: Specifies which file contains both the connection settings and the query to be executed.
->
-> `dataAccessId`: Identifies which data access definition from the CDA file should be used. This definition links to a connection that was previously configured.
->
-> When using parameters in your query, include them in the URL as `paramParameter`, where "Parameter" is replaced with the actual parameter name.
->
-> Optional Parameters:
->
-> `outputType`: Controls the format of the returned results - Default: `json`, Other formats: `xml`, `csv`, `xls`, `html`
+`doQuery` runs a query and returns its results. It needs `path`, the file with the connection and the query, and `dataAccessId`, the data access to run. Pass each parameter as `param` followed by the parameter's name, for example `paramstatus=Cancelled`. The optional `outputType` sets the format: `json`, the default, `xml`, `csv`, `xls` or `html`.
 
-> **Note:**
->
-> **Query Pagination and Parameters in CDA**
->
-> Basic Pagination - to implement pagination in your queries, use these parameters:
->
-> * `paginateQuery` (Boolean): Enable/disable pagination
-> * `pageStart`: Starting row number
-> * `pageSize`: Number of rows per page
->
-> Additional Query Parameters:
->
-> * `bypassCache` (Boolean): When set to true, forces a fresh database request instead of using cached data
-> * `sortBy`: Specify column(s) for sorting results
+For pagination and sorting, `doQuery` also takes:
+
+* `paginateQuery` (true or false) - turns pagination on or off
+* `pageStart` - the first row to return
+* `pageSize` - the number of rows per page
+* `bypassCache` (true or false) - with `true`, runs the query against the database instead of using a cached result
+* `sortBy` - the column or columns to sort the results by
+
+4. Open:
+
+```text
+http://localhost:8080/pentaho/plugin/cda/api/doQuery?path=/public/CTools-Dashboard/CDA/sql-jndi.cda&dataAccessId=1
+```
+
+> **Success:** Checkpoint: JSON with a `metadata` list, one entry per column, and a `resultset` of 2 rows: `Shipped` for 2004 and for 2005, the same rows as the previewer.
+
+5. Open it again with a parameter value:
+
+```text
+http://localhost:8080/pentaho/plugin/cda/api/doQuery?path=/public/CTools-Dashboard/CDA/sql-jndi.cda&dataAccessId=1&paramstatus=Cancelled
+```
+
+> **Success:** Checkpoint: a `resultset` of 1 row: `Cancelled` for 2004, the row the previewer showed for the same value.
+
+6. In the same URL, replace `paramstatus=Cancelled` with `outputType=xml` and open it. The 2 `Shipped` rows come back as XML instead of JSON.
 
 > **Under the hood:**
 >
@@ -1087,21 +972,48 @@ http://localhost:8080/pentaho/plugin/cda/api/listQueries?path=/public/CTools-Das
 > (pt.webdetails.cda.SortingType in cda.properties), and any query that
 > takes longer than 10 seconds is written to the server log
 > (pt.webdetails.cda.QueryTimeThreshold).
-
+>
+> **Why it matters:** what a dashboard does, any application can do with
+> one HTTP request, and a slow dashboard query shows up in the server
+> log by name.
 
 #### previewQuery
 
-> **Note:** This method will open the CDA previewer.
+`previewQuery` opens the CDA previewer for a file.
 
-<div class="pcm-embed-card" data-href="http://localhost:8080/pentaho/plugin/cda/api/previewQuery?dataAccessId=top50Customers&amp;path=/public/CTools-Dashboard/CDA/sampledata-queries.cda" data-title="previewQuery"></div>
+7. Open:
+
+```text
+http://localhost:8080/pentaho/plugin/cda/api/previewQuery?path=/public/CTools-Dashboard/CDA/sql-jndi.cda
+```
+
+> **Success:** Checkpoint: the previewer you opened from **Browse Files**, with the **Data Access** list.
+
 #### editFile
 
-> **Note:** This method will open the CDA editor for a particular query. We should define a parameter with the path to the CDA file. The parameter is `path`.
+`editFile` opens the CDA file editor. It takes `path`, the location of the CDA file.
 
-<div class="pcm-embed-card" data-href="http://localhost:8080/pentaho/plugin/cda/api/editFile?path=/public/CTools-Dashboard/CDA/sampledata-queries.cda" data-title="editFile"></div>
-<figure><img src="../_assets/images/cda_create_edit_cda.png" alt=""><figcaption><p>Edit CDA</p></figcaption></figure>
+8. Open:
+
+```text
+http://localhost:8080/pentaho/plugin/cda/api/editFile?path=/public/CTools-Dashboard/CDA/sql-jndi.cda
+```
+
+<div align="center">
+<figure>
+<img src="../_assets/images/cda_create_edit_cda.png" alt="CDA editor showing a CDA file's XML, with a SampleData mondrian.jndi connection and MDX data access queries named territories and countries, plus Preview, Reload and Save buttons" width="800">
+<figcaption>Edit CDA</figcaption>
+</figure>
+</div>
+
+> **Success:** Checkpoint: the editor shows the XML of `sql-jndi.cda`, with **Save**, **Reload** and **Preview** above it. The picture shows a different file in the same editor.
+
+9. Close the editor tab without saving.
 
 ::::
 
 <button data-launch="puc">Open Pentaho User Console</button>
 
+## Lab Files
+
+_No bundled files for this lab._

@@ -4,7 +4,7 @@
 
 * [Before You Start](00-before-you-start/guide.md)
 
-## PDI AI Pipelines
+## Pentaho Data Integration AI Pipelines
 
 * [Overview of a Prompt](01-overview/guide.md)
 * [Key Concepts Workshop](18-key-concepts-workshop/guide.md)

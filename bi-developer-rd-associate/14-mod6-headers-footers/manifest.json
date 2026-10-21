@@ -3,7 +3,7 @@
   "description": "Add and style the report header and footer bands.",
   "order": 14,
   "kind": "workshop",
-  "stepCount": 2,
+  "stepCount": 5,
   "hasVideo": false,
   "estimatedMinutes": 15
 }

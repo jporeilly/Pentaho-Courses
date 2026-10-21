@@ -4,140 +4,179 @@
 >
 > #### Workshop - Navigating Report Designer
 >
-> Launch Report Designer and explore the workspace using the Inventory List sample report.
+> Start Report Designer and find your way round its workspace with the **Inventory List** sample report: the toolbars, the report bands, and the four panes you use in every later workshop.
 >
 > **What you'll do**
 >
-> * Launch Report Designer and tour the Welcome screen.
-> * Open the Inventory List sample report.
-> * Explore the main and formatting toolbars, tabs, and preferences.
-> * Preview a report and navigate its output.
+> * Start Report Designer and read its **Welcome** tab
+> * Open the **Inventory List** sample and preview it
+> * Identify each report band and what it prints
+> * Explore the **Structure**, **Data**, **Style** and **Attributes** panes
+> * Look inside three more samples: a chart, a buyer report and an invoice
 >
-> **Prerequisites:** Report Designer running, with the Pentaho sample data (HSQLDB) started
+> **Prerequisites:** Report Designer and the Pentaho Server running (see [Before You Start](../01-mod1-getting-started/guide.md)): the samples query the server's Steel Wheels sample data
 >
-> **Estimated Time:** 15 minutes
+> **Estimated time:** 60 minutes
 
----
+:::: tabs
+
+### 1. Start Report Designer
 
 > **Note:**
 >
-> #### **Navigating Report Designer**
+> #### The Welcome tab
 >
-> Launch Report Designer and explore the workspace using the Inventory List sample report.
+> Report Designer opens on its **Welcome** tab: two ways to start a report on the left, and the bundled sample reports on the right. The samples read the Steel Wheels sample data, so they only open with data while the Pentaho Server is running.
 
-## Launching Report Designer
-
-For launching PRD (Pentaho Report designer), depending on your operating system:
+1. Start Report Designer with the **Start Pentaho Report Designer** button below, or from a terminal:
 
 ::: tabs
-### Windows
 
-Windows steps:
+### Windows (PowerShell)
 
-```bash
-cd C:\Pentaho\design-tools\report-designer
-report-designer.bat
+```powershell
+Set-Location C:\Pentaho\design-tools\report-designer
+.\report-designer.bat
 ```
 
-<button data-launch="prd" data-path="files/Inventory List.prpt">Open in Pentaho Report Designer</button>
-
 ### macOS / Linux
-
-Unix steps:
 
 ```bash
 cd ~/Pentaho/design-tools/report-designer
 ./report-designer.sh
 ```
+
 :::
 
+<button data-launch="prd" data-path="">Start Pentaho Report Designer</button>
 
-1. Click on the Report Designer icon on your Desktop:
+On a lab VM you can also double-click the Report Designer icon on the desktop.
 
-![Launching Report Designer](../_assets/images/mod2-01.png)
+<div align="center">
+<figure>
+<img src="../_assets/images/mod2-01.png" alt="The Pentaho Report Designer desktop icon: a red square with a white report page and pencil" width="47">
+<figcaption>The Report Designer desktop icon</figcaption>
+</figure>
+</div>
 
-## Welcome Screen
+2. Wait for Report Designer to open. It is a Java application, so the first start takes longer than later ones.
 
-The Welcome screen's primary purpose is to provide new a quick, four-step process that walks you through creating a new report through the Report Design Wizard. This is the default view when you start Report Designer, but if you close it, you can make it reappear at any time by going to the Help menu and selecting Welcome.
+<div align="center">
+<figure>
+<img src="../_assets/images/mod2-02.png" alt="The Welcome tab: Report Wizard and New Report buttons on the left, the Samples tree with Operational Reports expanded on the right, and Show at startup selected" width="692">
+<figcaption>The Welcome tab, with the Samples tree on the right</figcaption>
+</figure>
+</div>
 
-In addition to the new report creation buttons, the Welcome screen also shows a list of sample reports. You might find these useful if you're looking for inspiration, or if you can't figure out how to use a certain Report Designer feature. In order to display the samples, you must have the Pentaho sample data HSQLDB database installed and running.
+> **Success:** Checkpoint: the **Welcome** tab shows **Report Wizard** and **New Report** on the left, and the **Samples** tree on the right, with folders such as **Charts**, **Operational Reports** and **Production Reports**.
 
-If you do not want to see the Welcome screen at start-up, you can un-check the Show at start-up option in the lower right corner of the window.
+The parts of the **Welcome** tab:
 
-![Welcome Screen](../_assets/images/mod2-02.png)
+| Part | What it does |
+| --- | --- |
+| **Report Wizard** | Builds a new report in four steps: a look and feel, a data source and query, a layout, and formatting |
+| **New Report** | Opens an empty report that you design yourself, as every workshop in this course does |
+| **Samples** | The sample reports that ship with Report Designer; double-click one to open it |
+| **Resources** | A link to the community **Forums** |
+| **Show at startup** | Clear it to start Report Designer without the **Welcome** tab |
 
-Report  Wizard: It  provides an  easy – to – use four  steps  process  that  walk  you  through creating a new Report.
+To bring the **Welcome** tab back after you close it, select **Help > Welcome**.
 
-New Report: If you choose this option, then you can create customized reports based on your requirement.
+### 2. The Inventory List
 
-## Inventory List Report
+> **Note:**
+>
+> #### Open a sample and read the toolbars
+>
+> **Inventory List** is a grouped product report with conditional colors, a table of contents and parameters. It is the report you take apart in the rest of this workshop.
 
-To open the Inventory List sample report:
+1. In the **Samples** tree, open the **Operational Reports** folder and double-click **Inventory List**. The report opens in a tab of its own, named **Inventory List**.
 
-1. From the Samples pane, expand Operational Reports, and then double-click Inventory List.
+<div align="center">
+<figure>
+<img src="../_assets/images/mod2-03.png" alt="Report Designer with the Inventory List sample open: the report bands on the canvas, the Structure tab on the right, and the toolbars above" width="800">
+<figcaption>The Inventory List sample in design mode</figcaption>
+</figure>
+</div>
 
-![Inventory List Report](../_assets/images/mod2-03.png)
+> **Success:** Checkpoint: the canvas shows the **Report Header**, **Group Header**, **Details Header** and **Details** bands down its left edge, and the **Structure** tab on the right lists **Master Report** with its bands.
 
-## Main Toolbar
+2. Hover over each icon of the main toolbar, below the menu bar, to read its tooltip. Every icon is a shortcut to a menu item: **New**, **Open**, **Save**, **Publish**, **Add DataSources**, **Run**, **Select Objects**, **Undo**, **Redo**, **Cut**, **Copy**, **Paste**, **Delete** and **Field Selector**.
 
-The toolbar at the top of the Report Designer window is for file, data, publishing, and cut-and-paste operations. The toolbar makes some of the most frequently used features more accessible to users who have not yet learned keyboard shortcuts for them. There are no unique data, publishing, or file operations in the toolbar; every icon represents a feature that is also available through one of the panes or menus in Report Designer.
+<div align="center">
+<figure>
+<img src="../_assets/images/mod2-04.png" alt="The main toolbar: icons for new, open, save, publish, add data source, run, select objects, undo, redo, cut, copy, paste, delete and the field selector" width="376">
+<figcaption>The main toolbar</figcaption>
+</figure>
+</div>
 
-To discover what each icon does, mouse over it to see a tooltip description.
+3. Look at the row of tabs above the canvas. Each report and each sub-report opens in its own tab; the open report's tab is highlighted. To close a report, select the **X** on its tab, or right-click the tab for more close options.
+4. Look at the formatting toolbar below the tabs. The eye icon on its left switches to preview; the rest are font, size, bold, italic, underline, color and alignment controls for the selected element.
 
-![Main Toolbar](../_assets/images/mod2-04.png)
+<div align="center">
+<figure>
+<img src="../_assets/images/mod2-05.png" alt="The formatting toolbar under the Inventory List tab: the preview eye, font and size lists, bold, italic, underline, color and alignment buttons, and the 150% zoom box" width="635">
+<figcaption>The formatting toolbar, with the preview eye on the left</figcaption>
+</figure>
+</div>
 
-## Defining Preferences
+5. Select **Edit > Preferences**. The **Settings** dialog holds the date and time formats, the look and feel, the network settings, external tools and storage locations. One option worth knowing is **Display the index columns in the Report-Designer's field selectors**, which lets you refer to a data field by its column position as well as its name.
+6. Select **Cancel** to close **Settings** without changing anything.
 
-To edit preferences associated with date and time format, look-and-feel, browsers, networks, external tools and locations go to Edit > Preferences. Enable Display the index columns in the Report Designer's field selectors...  to refer to data fields by name or column position.
+### 3. Preview the report
 
-## Tabbed Views
+> **Note:**
+>
+> #### Preview
+>
+> Preview runs the report on real data inside Report Designer. **Inventory List** asks for its parameters first.
 
-Each report and sub report is opened in its own tab in Report Designer, much like in modern Web browsers and text editors. The currently selected report's tab will always be highlighted in blue, as shown in the graphic below. Click the X in the corner of a tab to close the open report it represents, or right-click the tab to see a context menu that offers more advanced close operations.
+1. On the formatting toolbar, select the eye icon (**Preview**).
 
-## Formatting Toolbar
+<div align="center">
+<figure>
+<img src="../_assets/images/mod2-06.png" alt="The formatting toolbar with the eye icon, which switches to preview, highlighted" width="375">
+<figcaption>The Preview button</figcaption>
+</figure>
+</div>
 
-The toolbar below the tab area provides formatting and preview options.
+> **Success:** Checkpoint: the report appears in preview, below its prompts: a product line list (several lines are selected by default), whether to show the bar section, and whether to show the notes.
 
-The eye icon switches to preview mode, which shows you approximately how the report, as currently arranged, will display when published. When you are in preview mode, the eye turns into a pencil icon, which you can click to return to design mode.
+2. On the preview toolbar, select the next-page arrow to move to the next page. The arrows page through the report; the magnifying glasses and the percentage box zoom.
 
-The rest of the functions on this toolbar are standard font controls found in most text and word processors.
+<div align="center">
+<figure>
+<img src="../_assets/images/mod2-07.png" alt="The preview toolbar with the four page navigation arrows highlighted, next to the zoom buttons and the 200% zoom box" width="358">
+<figcaption>The page navigation buttons</figcaption>
+</figure>
+</div>
 
-![Formatting Toolbar](../_assets/images/mod2-05.png)
+3. Page through the report and find each of these features. You build a report with the same features later in this course:
 
-## Preview Reports
+| Feature | Where it is |
+| --- | --- |
+| A graphic image and the date | The top of each product line |
+| One section per product line | The **PRODUCTLINE** group |
+| A background color on **On Hand** that follows the quantity: green, yellow or red | The `QUANTITYINSTOCK` field in the **Details** band |
+| A bar under each product that shows the units in stock | The bar section in the **Details** band |
+| The page number and the number of pages | The **Page Footer** |
 
-To preview the report results:
+4. On the preview toolbar, select the pencil icon (**Design**) to go back to design mode.
 
-1. On the Formatting toolbar, click the Preview button.
-
-![Preview Reports](../_assets/images/mod2-06.png)
-
-The Preview toolbar includes buttons to print, navigate and zoom the report results. Also notice that the Inventory List report provides prompts allowing the user to select the product line, and to show or hide the bar section and report notes.
-
-2. To view the first page of results, on the Preview toolbar, click the Switch to the next page button.
-
-![Preview Reports](../_assets/images/mod2-07.png)
-
-The following features in the Inventory List report:
-
-3. The report header includes a graphic image and the current date.
-4. The data is grouped by Product Line.
-5. The On Hand column uses a colour coded background colour based on the data.
-6. Each line of the report is followed by a Bar Section with a graphical representation of the number of units.
-7. The page footer includes the current page number and number of pages.
-You will create a report with these features later on this course.
-
-8. To close the report preview and return to design mode, on the Preview toolbar, click the Design button.
-
-![Preview Reports](../_assets/images/mod2-08.png)
+<div align="center">
+<figure>
+<img src="../_assets/images/mod2-08.png" alt="The preview toolbar with the pencil icon, which returns to design mode, highlighted" width="358">
+<figcaption>The Design button</figcaption>
+</figure>
+</div>
 
 > **Under the hood:**
 >
 > #### Preview ran the report through the engine, twice
 >
 > Preview isn't a mock-up of the design. Report Designer handed the
-> report to the Pentaho Reporting engine — the same code the server
-> runs — which executed the query, then processed the rows in two
+> report to the Pentaho Reporting engine, the same code the server
+> runs, which executed the query, then processed the rows in two
 > passes. The first, the *pagination* pass, lays everything out to
 > discover where pages break and what the group and report totals will
 > be; the second prints the pages you paged through. That is how the
@@ -148,166 +187,169 @@ You will create a report with these features later on this course.
 > rendered by the same parameter framework the User Console uses.
 >
 > **Why it matters:** what you preview is what publishes. There is no
-> separate rendering path on the server to surprise you later — only
+> separate rendering path on the server to surprise you later, only
 > a different output format.
 
-## Report Workspace
-
-The report workspace is dominated by the layout bands, which define each individual portion of the report. The currently selected band’s label is highlighted in grey.
-
-![Report Workspace](../_assets/images/mod2-09.png)
-
-## Report Bands
-
-The following describes the various report bands:
-
-## Page Header
-
-The Page Header band represents the top of each report page. On the first page of a multi-page report, the page header is the absolute top, above the report header.
+### 4. Report bands
 
 > **Note:**
 >
-> The Inventory List report does not have a Page Header band.
+> #### The bands
+>
+> The canvas is divided into *bands*, each printing at a different moment: once per report, once per page, once per group, or once per row. The band names run down the left edge of the canvas, and the selected band's name is highlighted.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/mod2-09.png" alt="The canvas with the Group Header, Details Header and Details bands named down the left edge, and the Details band selected" width="800">
+<figcaption>Band names run down the left edge of the canvas</figcaption>
+</figure>
+</div>
+
+1. Select each band name on the left edge of the canvas in turn, and compare it with this table:
+
+| Band | When it prints | In Inventory List |
+| --- | --- | --- |
+| **Page Header** | At the top of every page; on the first page, above the report header | Empty, with a height of 0 |
+| **Report Header** | Once, at the start of the report | A table of contents, built by a report function |
+| **Group Header** | At the start of each group | The logo, the title, and `LINE: $(PRODUCTLINE)` on a gold band |
+| **Details Header** | Above the details of each group | The column labels: Vendor, Bar Code, SKU, Name, Scale, On Hand, Cost, MSRP |
+| **Details** | Once for every row of data | The data fields, a description and the bar section |
+| **Report Footer** | Once, at the end of the report | The notes and an index |
+| **Page Footer** | At the bottom of every page | The page number and the number of pages |
+
+<div align="center">
+<figure>
+<img src="../_assets/images/mod2-11.png" alt="The Report Header band: the Steel Wheels logo and a group-value-0 table of contents line" width="678">
+<figcaption>Report Header: the table of contents</figcaption>
+</figure>
+</div>
+
+<div align="center">
+<figure>
+<img src="../_assets/images/mod2-12.png" alt="The Group Header band: the Steel Wheels logo above a gold bar reading LINE: $(PRODUCTLINE)" width="651">
+<figcaption>Group Header: one per product line</figcaption>
+</figure>
+</div>
+
+<div align="center">
+<figure>
+<img src="../_assets/images/mod2-13.png" alt="The Details band: PRODUCTVENDOR, a barcode, the product description and the QUANTITYINSTOCK bar" width="581">
+<figcaption>Details: printed once for each product</figcaption>
+</figure>
+</div>
+
+<div align="center">
+<figure>
+<img src="../_assets/images/mod2-14.png" alt="The Report Footer band: a yellow Notes box listing what the report demonstrates, then an INDEX heading" width="596">
+<figcaption>Report Footer: the notes and the index</figcaption>
+</figure>
+</div>
+
+<div align="center">
+<figure>
+<img src="../_assets/images/mod2-15.png" alt="The Page Footer band with the PageOfPagesFunction0 field centered" width="452">
+<figcaption>Page Footer: the page count function</figcaption>
+</figure>
+</div>
+
+To resize a band, drag the divider line at its bottom edge. An element can't be dragged from one band to another: cut it (`Ctrl+X`) in the first band and paste it (`Ctrl+V`) in the second.
+
+2. Drag the zoom percentage in the top left corner of the canvas toward the bottom right corner to zoom in, and toward the top left to zoom out. Zooming changes only your view, not the published report.
+3. Double-click the zoom percentage to reset it to 100%.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/mod2-16.png" alt="The zoom percentage box, showing 150%, in the top left corner of the canvas" width="345">
+<figcaption>The zoom percentage: drag to zoom, double-click to reset</figcaption>
+</figure>
+</div>
+
+### 5. Structure and Data
+
+> **Note:**
+>
+> #### The Structure and Data panes
+>
+> The top right of the window has two tabs. **Structure** shows every element of the report as a tree; **Data** shows where the data comes from: the data sets, the functions, the environment fields and the parameters.
+
+1. Open the **Structure** tab and expand **Master Report**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/mod2-17.png" alt="The Structure tab: Master Report expanded to Page Header, Report Header, Group: productLine with its Group Header and Details Body, and the elements of the Details band" width="280">
+<figcaption>The Structure tab: every element, by band</figcaption>
+</figure>
+</div>
+
+> **Success:** Checkpoint: under **Master Report** the tree lists **Page Header**, **Report Header**, **Group: productLine**, **Report Footer**, **Page Footer** and **Watermark**. Inside the group are its **Group Header** and the **Details Body**, which holds **Details Header**, **Details**, **No Data** and **Details Footer**.
+
+What each part of the tree holds:
+
+| Node | What it holds |
+| --- | --- |
+| **Master Report** | The top level; every band is listed under it |
+| **Page Header**, **Report Header**, **Report Footer**, **Page Footer** | The elements of that band |
+| **Group** | Each group you define, with its **Group Header** and **Group Footer**; the details are part of the innermost group |
+| **Details Body** | **Details Header**, **Details**, **No Data** and **Details Footer** |
+| **No Data** | What the report prints when the query returns no rows |
+| **Watermark** | Content printed behind every page |
+
+A band that is hidden on the canvas, such as **No Data** or **Watermark**, appears when you select it in the **Structure** tab and set its **hide-on-canvas** attribute to `false` on the **Attributes** tab. To add an element from the tree, right-click a band and select **Add Element**. To delete one, select it and press `Delete`, or right-click it and select **Delete**.
 
+2. Open the **Data** tab and expand **Data Sets**, **Functions**, **Environment** and **Parameters**.
 
-## Report Header
+<div align="center">
+<figure>
+<img src="../_assets/images/mod2-18.png" alt="The Data tab: the JDBC SampleData data set with its fields, a Table data set, three functions, the env fields and three parameters, with the add data source, add function and add parameter icons at the top" width="246">
+<figcaption>The Data tab: data sets, functions, environment and parameters</figcaption>
+</figure>
+</div>
 
-The Report Header band contains report elements just below the page header, but only on the first page of the report. The Report Header band only appears once per report.
+> **Success:** Checkpoint: **Data Sets** holds **JDBC: SampleData**, whose query lists fields such as `PRODUCTLINE` and `QUANTITYINSTOCK`; **Parameters** holds `line`, `HideBarSection` and `showNotes`.
 
-![Report Header](../_assets/images/mod2-11.png)
+The three icons at the top of the **Data** tab add a data source, a function and a parameter, in that order. What each section holds:
 
-The Inventory List uses a report function to generate a Table of Contents for the report. We will discuss report functions later in this course.
+| Section | What it holds |
+| --- | --- |
+| **Data Sets** | Every data source and its queries. To add a query to a data source, right-click it and select **Edit Datasource** |
+| **Functions** | The calculations the report adds to its data: totals, page numbers, formulas |
+| **Environment** | Values the Pentaho Server supplies when the report runs there, such as `env::username` and `env::roles` |
+| **Parameters** | The prompts the reader answers before the report runs |
 
-## Group Header
+To delete a data source, a function or a parameter, select it and press `Delete`, or right-click it and select **Delete**.
 
-You can choose to display the Group Header band if you have selected to group the report details displayed in the Details band.
+### 6. Style and Attributes
 
-![Group Header](../_assets/images/mod2-12.png)
+> **Note:**
+>
+> #### The Style and Attributes panes
+>
+> The bottom right of the window shows the properties of the element selected in the **Structure** tab. **Style** holds how it looks: size and position, font, text, borders, page behavior. **Attributes** holds what it is and does: its field, its format, its links.
 
-The Inventory List is grouped by Product Line, so the Group Header identifies the Product Line within a gold coloured band. It also includes a message field which identifies all the product lines included in the report. We will discuss message fields and formula expressions later in this course.
+1. Open the **Structure** tab. Under **Details**, select the `number-field` whose field is `QUANTITYINSTOCK`. Its properties appear on the **Style** tab.
 
-## Details Band
+<div align="center">
+<figure>
+<img src="../_assets/images/mod2-19.png" alt="The Style tab, grouped by category: size &amp; position, font, text, text-spacing and object, with an Inh column and a green plus in the Expr column of each row" width="389">
+<figcaption>The Style tab, grouped by category</figcaption>
+</figure>
+</div>
 
-The Details band contains middle-of-the-page report elements. This is where most of your report data should go, and usually represents the largest portion of your report pages.
+The style groups are **size & position**, **font**, **text**, **text-spacing**, **object**, **padding**, **border**, **page-behavior**, **links**, **rotation** and **excel**. Some style properties, such as the font family and size, are also on the formatting toolbar.
 
-The report may also include additional Details-specific bands, such as the Details Header and Details Footer.
+2. At the top of the **Style** tab, select the **A-Z** sort button to list the properties alphabetically.
+3. Find **bg-color (text)**. Its **Expr** column shows a pencil instead of a green plus: a formula sets the value. Select the pencil to open the formula.
 
-![Details Band](../_assets/images/mod2-13.png)
+<div align="center">
+<figure>
+<img src="../_assets/images/mod2-21.png" alt="The Style tab sorted A to Z, with the pencil icon in the Expr column of bg-color (text) highlighted" width="388">
+<figcaption>A pencil means a formula sets the property</figcaption>
+</figure>
+</div>
 
-The Inventory List report includes a Details Header band with column labels. The Details band includes a number of data elements, and utilizes functions and expressions to enhance the appearance of the data.
+> **Success:** Checkpoint: the formula sets the background color from `QUANTITYINSTOCK`: green above 1,000, yellow above 500, and red above 0.
 
-## Report Footer
-
-The Report Footer appears at the bottom of the last page of the report, just above the page footer.
-
-![Report Footer](../_assets/images/mod2-14.png)
-
-In Report Footer for the Inventory List includes several notes about the content in the report and a report index.
-
-## Page Footer
-
-The Page Footer appears at the absolute bottom of every page in the report.
-
-![Page Footer](../_assets/images/mod2-15.png)
-
-The Inventory List uses a function to display the page number and number of pages in the Page Footer.
-
-All of the report bands can be resized by dragging their resize handles, or by moving report elements down past the bottom border. For this reason, report elements cannot be dragged from one band to another; they must be cut from the first band and pasted into the second.
-
-To change the size of the report canvas to provide more work area (without changing the dimensions of the published report), click and drag the zoom percentage number in the top left corner of the workspace. By default, it is 100%, but if you click and drag it diagonally toward the bottom right or top left corners, the canvas will zoom in or out. If you want to reset the canvas to 100%, double-click the zoom percentage in the upper left corner.
-
-![Page Footer](../_assets/images/mod2-16.png)
-
-## Structure Pane
-
-The Structure pane shows the exact hierarchy of every element included in the report. If you add an element to the workspace, it appears in the Structure pane. When you select an element in the Structure pane, all of its fine-grain details can be viewed and modified through the Style and Attributes panes in the bottom right section of the window.
-
-![Structure Pane](../_assets/images/mod2-17.png)
-
-In addition to the standard drag-and-drop method using the Elements Palette and the workspace, you can also add elements to a report by right-clicking on any of the report sections in the Structure pane, then selecting Add Element from the context menu. You can delete any element in the list by clicking on it, then pressing the Delete key, or by right-clicking it and selecting Delete from the context menu.
-
-## Master Report
-
-This is the top-level section under which all other report bands are listed.
-
-## Page Header
-
-All of the elements shown in the Page Header band are listed in this section.
-
-## Report Header
-
-All of the elements shown in the Report Header band are listed in this section.
-
-## Group
-
-If you’ve created any groups for your report elements, they will appear here. The Details band is considered part of a group, and is explained below.
-
-## Details
-
-Elements placed in the Details band appear in the Details heading under the Group section. There are also Details-specific Header and Body bands which are available in the Structure pane. To enable these bands in your workspace, select them in the Structure pane, and then select either false for hide-on-canvas in the Attributes pane.
-
-## No Data
-
-In the event your query does not return any data, whatever content you put in the No Data band will appear in your report. To add a No Data band to your workspace, select No Data in the Structure pane, and then select false for hide-on-canvas in the Attributes pane.
-
-## Report Footer
-
-All of the elements shown in the Report Footer band are listed in this category.
-
-## Page Footer
-
-All of the elements shown in the Page Footer band are listed in this category.
-
-## Watermark
-
-To add a watermark to your report, select Watermark in the Structure pane, and then either right-click it and add via the Structure pane, or by select false for hide-on-canvas in the Attributes pane.
-
-## Data Pane
-
-The Data pane enables you to add data sources and view the individual queries, functions, and parameters in each report. The three buttons at the top of the pane will add a new data source, function, or parameter when clicked, respectively.
-
-![Data Pane](../_assets/images/mod2-18.png)
-
-## Data Sets
-
-All of the data sources and queries you have defined for the current report will be listed here. If you want to add a new data source, click the leftmost icon (the yellow cylinder) and select the data source type from the ensuing drop-down menu. To add a new query to an established data source, right-click the data source and then select Edit DataSource from the context menu. To delete a data source, select it, then press the Delete key, or right-click it and select Delete from the context menu.
-
-## Functions
-
-All of the mathematical functions and conditional elements that you add to a report will be listed in this category. Click the fx button in the upper left corner of the pane to add a new function. You can delete a function by clicking it, then pressing the Delete key, or by right-clicking it and selecting Delete from the context menu.
-
-## Parameters
-
-If your query is properly formed, you can add a parameter to your report, which enables report readers to customize the content of the output. To add a new parameter, click the rightmost icon in the upper left corner of the pane. You can delete parameters by selecting the parameter you want to eliminate and pressing the Delete key, or by right-clicking the parameter and selecting Delete from the context menu.
-
-## Environment Variables
-
-If you are publishing your report to the Pentaho Server, you can use certain environment variables in your report:
-
-## Style Pane
-
-The Style pane displays all of the visual and positional style options for a report element in the Structure pane. When you click on an element in the Structure pane, the Style pane adjusts to show all of the available style properties for that element.
-
-![Style Pane](../_assets/images/mod2-19.png)
-
-By default, the available styles are listed by group; however, you can sort the list alphabetically in ascending or descending order.
-
-The style groups include:
-
-![Style Pane](../_assets/images/mod2-20.png)
-
-You cannot edit any Style or Attribute option for any selected report element in the workspace while the Data pane has focus. Click the Structure pane to see the Style and Attributes panes for selected elements.
-
-## View QUANTITYINSTOCK Report Element
-
-1. To view the Style pane for the Quantity in Stock report element, in the right pane, click the Structure tab, and then in the Details section, click number-field: QUANTITYINSTOCK.
-2. Scroll through the various style properties that can be set for the Quantity in Stock element. Some of these properties (such as the font family and font size) can be set either on the Style pane or on the Formatting toolbar.
-3. To sort the properties in ascending order, on the Attributes pane, click the A-Z sort button.
-4. To view the formula expression for the background colour, on the Style pane, click the pencil icon for text > bg-color.
-
-![View QUANTITYINSTOCK Report Element](../_assets/images/mod2-21.png)
-
-This formula expression sets the background colour according to the value of QUANTITYINSTOCK.
+4. Select **Cancel** to close the formula without changing it.
 
 > **Under the hood:**
 >
@@ -315,12 +357,12 @@ This formula expression sets the background colour according to the value of QUA
 >
 > The pencil icon means the style key has a *formula* attached instead
 > of a fixed value. Every time the engine lays out this element for a
-> row of data it evaluates the expression — `[QUANTITYINSTOCK]` reads
-> the current row — and uses the result as that instance's background
-> colour. The formula is OpenFormula, run by LibFormula, the same
-> library behind Analyzer's and Interactive Reporting's calculations.
+> row of data it evaluates the expression (`[QUANTITYINSTOCK]` reads
+> the current row) and uses the result as that instance's background
+> color. The formula is OpenFormula, evaluated by Pentaho's LibFormula
+> library.
 >
-> Any style key can carry one: colour, font, visibility, height. The
+> Any style key can carry one: color, font, visibility, height. The
 > Structure pane shows *what* the report contains; the Style pane
 > shows how each piece decides to look.
 >
@@ -328,41 +370,60 @@ This formula expression sets the background colour according to the value of QUA
 > bolted on. Every visual property is a value or a formula, so
 > anything you can compute from the row, you can style by.
 
-## Attributes Pane
+5. Open the **Attributes** tab. It lists the low-level properties of the selected element, grouped the same way and sortable the same way. Not every attribute applies to every element.
 
-The Attributes pane displays all of the low-level properties, and input and output options for any report element in the Structure pane. When you click on an element in the Structure pane, the Attributes pane adjusts to show all of the available attribute properties for that element.
+<div align="center">
+<figure>
+<img src="../_assets/images/mod2-22.png" alt="The Attributes tab for the report header, grouped into common, table, query-metadata and wizard, with hide-on-canvas at the top" width="387">
+<figcaption>The Attributes tab; hide-on-canvas is in the common group</figcaption>
+</figure>
+</div>
 
-![Attributes Pane](../_assets/images/mod2-22.png)
+You can't edit the **Style** or **Attributes** of a selected element while the **Data** tab has the focus. Open the **Structure** tab to see them again.
 
-By default, the available attributes are listed by group; however, you can sort the list alphabetically in ascending or descending order. Not all attribute settings apply to every report element.
-
-## Elements Palette
-
-The Elements Palette contains all of the elements you can use to build a report. To add an element, click on a layout band to select it, then drag and drop an element from the Elements Palette to the selected band.
-
-Product Line Sales Trend – Help > Sample Reports > Charts > Bar Chart
-
-The Bar sample report contains a basic bar chart, the Product Line Sales Trend chart, showing the total sales by product line for 2003-2005.
-
-![Elements Palette](../_assets/images/mod2-23.png)
-
-1. To preview the report, on the formatting toolbar, click the Preview button.
+### 7. More samples
 
 > **Note:**
 >
-> Notice the following characteristics on the Product Line Sales Trend chart:
-> 1. Chart title
-> 2. Bar colors
-> 3. Data values
-> 4. Legend
-
-2. To view the query, from the Data pane, expand Data Sets > JDBC: SampleData, and then double-click Query 1.
-
-> **Note:**
+> #### Three more samples
 >
-> Notice the following in the query:
-> - The query uses fields from the PRODUCTS and ORDERFACT tables, which are joined by PRODUCTCODE.
-> - The sum function is used for TOTALPRICE and QUANTITYORDERED, and the fields are renamed.The GROUP BY statement is necessary when using the sum function.
+> Three samples show features you build later in this course: a chart, nested groups with a sparkline, and an invoice with a sub-report. Each opens from **Help > Sample Reports**.
+
+**A bar chart**
+
+1. Select **Help > Sample Reports > Charts > Bar**. The report holds one bar chart, **Product Line Sales Trend**: the sales of each product line for 2003, 2004 and 2005.
+2. On the formatting toolbar, select the eye icon (**Preview**).
+
+<div align="center">
+<figure>
+<img src="../_assets/images/mod2-23.png" alt="The Product Line Sales Trend bar chart: sales by product line for 2003, 2004 and 2005, with a value on each bar and a legend of the seven product lines" width="798">
+<figcaption>The Bar sample in preview</figcaption>
+</figure>
+</div>
+
+> **Success:** Checkpoint: a chart titled **Product Line Sales Trend**, with a bar for each of the seven product lines in each of the three years, a value on each bar, and a legend.
+
+3. Select the pencil icon (**Design**). On the **Data** tab, expand **Data Sets** and the **JDBC: SampleData** data source, and double-click **Query 1**.
+
+The query reads the `PRODUCTS` and `ORDERFACT` tables, joined on `PRODUCTCODE`. It sums `TOTALPRICE` and `QUANTITYORDERED` and renames them `SALES` and `VOLUME`, and its `GROUP BY` returns one row per product line and year:
+
+```sql
+SELECT
+     PRODUCTS.PRODUCTLINE,
+     ORDERFACT.YEAR_ID,
+     sum(ORDERFACT.TOTALPRICE) AS SALES,
+     sum(ORDERFACT.QUANTITYORDERED) AS VOLUME
+FROM
+     PRODUCTS INNER JOIN ORDERFACT ON PRODUCTS.PRODUCTCODE = ORDERFACT.PRODUCTCODE
+GROUP BY
+     PRODUCTS.PRODUCTLINE,
+     ORDERFACT.YEAR_ID
+ORDER BY
+     PRODUCTS.PRODUCTLINE ASC,
+     ORDERFACT.YEAR_ID ASC
+```
+
+4. Select **Cancel** to close the data source without changing it.
 
 > **Under the hood:**
 >
@@ -371,53 +432,72 @@ The Bar sample report contains a basic bar chart, the Product Line Sales Trend c
 > A chart element is a *chart expression* fed by a data-collector
 > function. During the pagination pass the collector walks every row
 > the query returned and builds a JFreeChart dataset from the columns
-> you nominate — category, value, series. Only when the Report Header
-> band is printed does the chart expression draw that dataset. That is
-> why a chart can sit at the top of the report and still summarise
-> data the engine hasn't "reached" yet: by the time the header prints,
-> it has.
+> you nominate: category, value, series. Only when the band that holds
+> the chart is printed does the chart expression draw that dataset.
+> That is why a chart can sit at the top of a report and still
+> summarize data the engine hasn't "reached" yet: by the time the
+> header prints, it has.
 >
 > The `SUM` and `GROUP BY` in the query mean the database did the
 > aggregation and the chart received one row per product line and
-> year. The engine could have summed detail rows itself, but three
-> rows per line is far cheaper to ship than three thousand.
+> year: 21 rows instead of 2,996 order lines.
 >
 > **Why it matters:** aggregate in SQL when you can, and trust the
-> two-pass engine to put summaries wherever the layout needs them —
+> two-pass engine to put summaries wherever the layout needs them:
 > header, footer or group band.
 
-Buyer Report – Help > Sample Reports > Operational Reports > Buyer’s Report
+**The Buyer Report**
 
-The Buyer Report shows product facts grouped by product line and vendor.
+5. Select **Help > Sample Reports > Operational Reports > Buyer Report**. It shows product facts grouped by product line and then by vendor.
+6. Select the eye icon (**Preview**).
 
-![Elements Palette](../_assets/images/mod2-24.png)
+<div align="center">
+<figure>
+<img src="../_assets/images/mod2-24.png" alt="The Buyer's Product Status Report in preview: a Choose a Line prompt set to Classic Cars, the Steel Wheels logo, and products grouped under Autoart Studio Design and Carousel DieCast Legends, each with a sparkline in the History column" width="800">
+<figcaption>The Buyer Report: grouped by line, then by vendor</figcaption>
+</figure>
+</div>
 
-1. To preview the report, on the formatting toolbar, click the Preview button.
-
-> **Note:**
+> **Success:** Checkpoint: the **Buyer's Product Status Report**, with a **Choose a Line** prompt above it. Notice:
 >
-> Notice the following characteristics of the Buyer’s Product Status Report:
-> - There is a parameter to specify the product line.
-> - The page header includes a label and date.
-> - The report header includes a title and image.
-> - The report details are grouped by product line and vendor.
-> - The History column displays a sparkline chart.
-> - There is a watermark image.
-> - The page footer includes the report author’s name and page number.
+> * The page header holds a label and the date; the report header, a title and an image.
+> * The details are grouped by product line, then by vendor.
+> * The **History** column is a sparkline chart.
+> * A watermark image sits behind the page.
+> * The page footer holds the author's name and the page number.
 
-2. To view various report specifications, select elements on the Structure pane, and then view the details on the Style and Attributes panes.
+7. Select the pencil icon (**Design**). Select elements in the **Structure** tab and read their settings on the **Style** and **Attributes** tabs. The sparkline is in the **Details** band.
 
-![Elements Palette](../_assets/images/mod2-25.png)
+<div align="center">
+<figure>
+<img src="../_assets/images/mod2-25.png" alt="The Buyer Report's Details band: a small bar sparkline, PRODUCTCODE and PRODUCTNAME, above PRODUCTDESCRIPTION on a pink background" width="497">
+<figcaption>The sparkline in the Details band</figcaption>
+</figure>
+</div>
 
-Invoice - Help > Sample Reports > Production Reports > Invoice
+**The invoice**
 
-![Elements Palette](../_assets/images/mod2-26.png)
+8. Select **Help > Sample Reports > Production Reports > Invoice**. It prints one invoice per page, and the reader picks the customer.
+9. Select the eye icon (**Preview**).
 
-This report shows all the invoices that have been issued to customers. Each invoice is presented on a separate page, and the end user has the ability to select the client they want to analyze.
+<div align="center">
+<figure>
+<img src="../_assets/images/mod2-26.png" alt="An invoice from Steel Wheels to Australian Gift Network, Co: four order lines with prices and a total, a Payment History table, and a Send Payment box" width="741">
+<figcaption>The Invoice sample: one invoice per page</figcaption>
+</figure>
+</div>
 
-To view the specifications for the Sub-Report, in the Details band, double-click the Payment History (Sub-report) element.
+> **Success:** Checkpoint: each page is one invoice, with the order lines and their total, a **Payment History** table, and a remittance box.
 
-## Lab files
+10. Select the pencil icon (**Design**). The **Payment History** table is a sub-report: a report with its own query, placed inside this one. In the **Details** band, double-click the sub-report element to open it in a tab of its own.
+11. Close the sample reports without saving them: right-click a report's tab and select **Close all tabs**.
 
-<button data-launch="prd" data-path="files/Inventory List.prpt">Open: The sample report this lab tours</button>
+::::
 
+## Lab Files
+
+Click a file to download. For `.prpt` files, **Open in Pentaho Report Designer** starts Report Designer with the report loaded.
+
+This workshop tours the **Inventory List** sample from the **Welcome** tab. `Inventory List.prpt` below is not that sample: it is a Steel Wheels product report grouped by product line, of the kind you build in Modules 3 to 6.
+
+[Inventory List.prpt](./files/Inventory%20List.prpt) <button data-launch="prd" data-path="files/Inventory List.prpt">Open in Pentaho Report Designer</button>

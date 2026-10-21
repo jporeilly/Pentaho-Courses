@@ -1,6 +1,6 @@
 {
   "title": "What's New",
-  "description": "Pentaho Data Integration (PDI) 11.0 and Pentaho Business Analytics (PBA) 11.0 deliver major updates. This release focuses on a modern UI, stronger security, and simpler deployments.",
+  "description": "Pentaho Data Integration 11.0 and Pentaho Business Analytics (PBA) 11.0 deliver major updates. This release focuses on a modern UI, stronger security, and simpler deployments.",
   "order": 1,
   "kind": "page",
   "stepCount": 12,

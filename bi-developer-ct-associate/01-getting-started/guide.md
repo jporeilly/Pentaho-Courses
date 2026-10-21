@@ -8,7 +8,12 @@ Pentaho **Community Tools (CTools)** are a stack of open-source tools installed 
 
 > **Note:** Pentaho Community Tools is a stack of open-source tools, installed on top of the Pentaho Server and are commonly referred to as CTools.
 
-<figure><img src="../_assets/images/gs_component_breakdown_of_a_pentaho_ctools_dashboard.png" alt=""><figcaption><p>Component breakdown of a Pentaho CTools dashboard.</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/gs_component_breakdown_of_a_pentaho_ctools_dashboard.png" alt="Sample CTools dashboard with red row and blue column labels marking its layout grid, holding a year selector, a sales-by-zone donut chart and a product sales bar chart" width="706">
+<figcaption>Component breakdown of a Pentaho CTools dashboard.</figcaption>
+</figure>
+</div>
 
 ## Components
 
@@ -28,7 +33,12 @@ Pentaho **Community Tools (CTools)** are a stack of open-source tools installed 
 > - Ensure security while accessing the data (avoiding, for instance, SQL injection problems)
 > - Ease data exports
 
-<figure><img src="../_assets/images/gs_cda_data_sources.png" alt=""><figcaption><p>CDA data sources</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/gs_cda_data_sources.png" alt="CDE Data Sources perspective listing data source types on the left and an expanded MDX Queries group of mdx over mondrianJndi queries such as totalCallsQuery and pieChartQuery" width="800">
+<figcaption>CDA data sources</figcaption>
+</figure>
+</div>
 
 ### CDF
 
@@ -36,7 +46,7 @@ Pentaho **Community Tools (CTools)** are a stack of open-source tools installed 
 >
 > [**Community Dashboard Framework (CDF)**](/pentaho-ctools/c-tools/community-dashboard-framework)
 >
-> Allows BA developers to quickly and easily create dynamic dashboards. Users can explore and understand large amounts of data using a variety of charts, tables, and other components and then "drill down" to the exact data they want.
+> Allows BA developers to create dynamic dashboards quickly. Users can explore and understand large amounts of data using a variety of charts, tables, and other components and then "drill down" to the exact data they want.
 >
 > The framework creates dashboards leveraging web technologies such as JavaScript, CSS, and HTML; allowing the dashboard designer to control the dashboard's whole lifecycle without resorting to Java coding.
 >
@@ -73,7 +83,12 @@ Pentaho **Community Tools (CTools)** are a stack of open-source tools installed 
 >
 > This tool uses a grid for the layout which enables users to create their own dashboards without needing a lot of JavaScript or HTML expertise. CDE aims to simplify the creation and addition of CTools dashboards.
 
-<figure><img src="../_assets/images/gs_layout_structure.png" alt=""><figcaption><p>Layout Structure</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/gs_layout_structure.png" alt="CDE Layout perspective showing the Layout Structure tree of a dashboard, with layoutRow selected and nested rows such as headerRow, kpiRow and callsByRow separated by spaces" width="800">
+<figcaption>Layout Structure</figcaption>
+</figure>
+</div>
 
 ### CCC
 
@@ -81,11 +96,16 @@ Pentaho **Community Tools (CTools)** are a stack of open-source tools installed 
 >
 > [Community Chart Components (CCC)](/pentaho-ctools/c-tools/community-dashboard-editor)
 >
-> Allows dashboard designers to create powerful and custom charts for their dashboards. Essentially, it is a visualization library built on top of [Protovis](http://mbostock.github.com/protovis), a powerful open source data visualization library based in scalable vector graphics (SVG).
+> Allows dashboard designers to create custom charts for their dashboards. Essentially, it is a visualization library built on top of [Protovis](http://mbostock.github.com/protovis), an open source data visualization library based in scalable vector graphics (SVG).
 >
 > The included default options can be bolstered with features in CDE, or an advanced user can pass extension points via Protovis commands to enhance chart components in dashboards.
 
-<figure><img src="../_assets/images/gs_chart_components.png" alt=""><figcaption><p>Chart Components</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/gs_chart_components.png" alt="CDE Components perspective with the Charts group expanded, listing a CCC Pie Chart named pieChart and a CCC Line Chart named lineChart" width="800">
+<figcaption>Chart Components</figcaption>
+</figure>
+</div>
 
 ### CGG
 
@@ -101,7 +121,12 @@ Pentaho **Community Tools (CTools)** are a stack of open-source tools installed 
 > - Rendering charts via a URL
 > - Running SVG-based charts and then converting them into images
 
-<figure><img src="../_assets/images/cgg_carrier_export_chart.png" alt=""><figcaption><p>CCG</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/cgg_carrier_export_chart.png" alt="Export Options popup over a dashboard, set to width 928 and height 220, previewing a line chart of daily Number of Calls against Number of Users" width="800">
+<figcaption>CGG export of a line chart</figcaption>
+</figure>
+</div>
 
 ### Enable CDE & CDA
 
@@ -193,11 +218,16 @@ sudo ./start-pentaho.sh
 To verify CDE is activated, do the following.
 
 1. Log on to the [Pentaho User Console](https://help.pentaho.com/Documentation/8.0/Setup/Evaluation/Tutorials/0D0/020).
-2. From the Home page, click the **Create New** button.
-3. From the menu that displays, select the **New CDE Dashboard** option. You can now begin creating your first CDE dashboard.
+2. On the **Home** page, select **Create New**.
+3. In the menu, select **CDE Dashboard**. The Community Dashboard Editor opens with a new dashboard.
 
 <button data-launch="puc">Open Pentaho User Console</button>
 
-<figure><img src="../_assets/images/gs_cde_dashboard_option.png" alt="" width="375"><figcaption><p>CDE Dashboard option</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/gs_cde_dashboard_option.png" alt="Pentaho User Console Home page with the Create New menu open and the pointer on the CDE Dashboard option, below Analysis Report, Interactive Report and Dashboard" width="375">
+<figcaption>CDE Dashboard option</figcaption>
+</figure>
+</div>
 
 ::::

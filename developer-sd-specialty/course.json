@@ -12,8 +12,8 @@
     "sendLabel": "Send"
   },
   "title": "Pentaho Developer - SD Specialty",
-  "description": "Real-time streaming data integration with Pentaho Data Integration. Consume and process unbounded event streams over MQTT, AMQP, and Apache Kafka — IoT sensor telemetry, message-queue pipelines, and real-time user-activity streams using PDI's parent/child streaming pattern.",
-  "version": "0.1.7",
+  "description": "Real-time streaming data integration with Pentaho Data Integration. Consume and process unbounded event streams over MQTT, AMQP, and Apache Kafka — IoT sensor telemetry, message-queue pipelines, and real-time user-activity streams using Pentaho Data Integration's parent/child streaming pattern.",
+  "version": "0.1.8",
   "kind": "workshop",
   "level": { "number": 2, "name": "Specialty" },
   "mode": "sequential",
@@ -34,7 +34,7 @@
       "What is the difference between MQTT, AMQP and Kafka?",
       "How does the MQTT Consumer step hand records to a child transformation?",
       "Why does my consumer step need a batch size or duration?",
-      "How do I check what a broker received without PDI?"
+      "How do I check what a broker received without Pentaho Data Integration?"
     ]
   },
   "moduleSummaries": [
@@ -44,7 +44,7 @@
     },
     {
       "title": "Streaming Data",
-      "summary": "Process unbounded, real-time event streams with PDI's streaming steps. Batch vs. streaming, the parent/child transformation pattern, and the 'Get records from stream' step that underpins every streaming source."
+      "summary": "Process unbounded, real-time event streams with Pentaho Data Integration's streaming steps. Batch vs. streaming, the parent/child transformation pattern, and the 'Get records from stream' step that underpins every streaming source."
     },
     {
       "title": "MQTT",
@@ -67,5 +67,11 @@
       "macos": "~/Pentaho/design-tools/data-integration/spoon.sh",
       "fileArg": "-file="
     }
+  },
+  "install": {
+    "code": "SD",
+    "services": true,
+    "pdiDriver": true,
+    "workshop": true
   }
 }

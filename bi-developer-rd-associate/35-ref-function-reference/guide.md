@@ -5,8 +5,8 @@
 > #### Introduction
 >
 > Every function available from the Data pane's **Functions** section,
-> by category. Add one with **Data pane → right-click Functions → Add
-> Functions…**, then bind it to an element's `field` attribute. From
+> by category. To add one, right-click **Functions** in the **Data** pane
+> and select **Add Functions...**, then bind it to an element's `field` attribute. From
 > the official Report Designer User Guide.
 
 ***
@@ -29,7 +29,7 @@ Functions that modify the layout of the rendered report.
 | Function | Purpose |
 | --- | --- |
 | Is Export Type | Tests whether the given export type is selected for this report. |
-| Row Banding | Alternates the background colour of each item band in a group. |
+| Row Banding | Alternates the background color of each item band in a group. |
 | Hide Repeating | Hides equal values in a group — only the first changed value prints. |
 | Hide Page Header & Footer | Hides the page header/footer bands when the output type is not pageable. |
 | Show Page Footer | Shows the page footer only on the last rendered page. |

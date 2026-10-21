@@ -12,9 +12,14 @@ The **Community Graphics Generator (CGG)** renders CCC charts **server-side** as
 >
 > CGG generates static images from charts and visualizations. It's primarily used when you need a static snapshot of a dashboard visualization — particularly useful for **email reports, PDF exports, or scheduled report generation**.
 >
-> CGG works by rendering charts **server-side**, supporting output formats including **PNG, JPG, and SVG**. It integrates seamlessly with other Pentaho components like **CDA** for data access and **CDE** for dashboard integration. You can trigger CGG through **URL parameters**, making it flexible for different use cases such as scheduled reports or on-demand generation.
+> CGG works by rendering charts **server-side**, supporting output formats including **PNG, JPG, and SVG**. It works with other Pentaho components such as **CDA** for data access and **CDE** for dashboard integration. You can trigger CGG through **URL parameters**, making it flexible for different use cases such as scheduled reports or on-demand generation.
 
-<figure><img src="../_assets/images/cgg_url_for_tablequery.png" alt=""><figcaption><p>URL for tableQuery</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/cgg_url_for_tablequery.png" alt="Query Execution URL dialog showing a highlighted CDA doQuery address on localhost:8080 whose path, under CTools-Dashboard/Carrier-Dashboard, is cut off at the right edge" width="600">
+<figcaption>The CDA doQuery URL behind a dashboard query</figcaption>
+</figure>
+</div>
 
 > **Note:**
 >

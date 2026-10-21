@@ -13,7 +13,7 @@
   },
   "title": "Pentaho Developer - ML Specialty",
   "description": "Machine learning with Pentaho Data Integration. A credit-card fraud-detection use case covering H2O AutoML, supervised and unsupervised learning, and handling imbalanced datasets.",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "kind": "workshop",
   "level": { "number": 2, "name": "Specialty" },
   "mode": "sequential",
@@ -33,18 +33,18 @@
     "suggestions": [
       "How does the AutoML transformation hand data to H2O?",
       "Where does the training step save the model, and how does predict find it?",
-      "What does rJava need to line up with my PDI install?",
+      "What does rJava need to line up with my Pentaho Data Integration install?",
       "Why did my R Script Executor step fail to load the model file?"
     ]
   },
   "moduleSummaries": [
     {
       "title": "Getting Started",
-      "summary": "How to get the most out of this guide, and the honest prerequisite list - Python and Jupyter or Colab, H2O for AutoML, and rJava wired against your PDI install for the R-backed steps."
+      "summary": "How to get the most out of this guide, and the honest prerequisite list - Python and Jupyter or Colab, H2O for AutoML, and rJava wired against your Pentaho Data Integration install for the R-backed steps."
     },
     {
       "title": "Machine Learning",
-      "summary": "Detect credit-card fraud with PDI: discover models automatically with H2O AutoML, learn fraud patterns with supervised algorithms, surface novel fraud with unsupervised methods, and handle the imbalanced datasets that make fraud detection hard."
+      "summary": "Detect credit-card fraud with Pentaho Data Integration: discover models automatically with H2O AutoML, learn fraud patterns with supervised algorithms, surface novel fraud with unsupervised methods, and handle the imbalanced datasets that make fraud detection hard."
     }
   ],
   "launchers": {

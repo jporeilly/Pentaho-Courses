@@ -94,13 +94,13 @@ When you finish this lab, it holds one folder per tool:
 
 > **Note:**
 >
-> #### Pentaho Data Integration (PDI)
+> #### Pentaho Data Integration
 >
-> Pentaho Data Integration (PDI) provides extract, transform and load (ETL) capabilities for capturing, cleansing and transforming data.
+> Pentaho Data Integration provides extract, transform and load (ETL) capabilities for capturing, cleansing and transforming data.
 >
 > Some legacy UI components in Spoon may need GTK or WebKit libraries that vary by desktop flavor. If Spoon reports missing GTK or WebKit modules on Ubuntu 24.04, see **Missing GTK/WebKit modules** under Troubleshooting, below.
 
-1. Find the PDI client archive:
+1. Find the Pentaho Data Integration client archive:
 
 ```bash
 ls -1 ~/Downloads/'Client Tools'/'PDI (Spoon)'
@@ -130,7 +130,7 @@ ls ~/Pentaho/design-tools
 
 > **Success:** Checkpoint: `data-integration`, `jdbc-distribution` and `license-installer`.
 
-5. Start PDI (Spoon):
+5. Start Pentaho Data Integration (Spoon):
 
 ```bash
 cd ~/Pentaho/design-tools/data-integration
@@ -182,7 +182,7 @@ find . -iname "*.sh" -exec chmod +x {} \;
 ls ~/Pentaho/design-tools
 ```
 
-> **Success:** Checkpoint: `metadata-editor` beside the PDI folders, `data-integration`, `jdbc-distribution` and `license-installer`.
+> **Success:** Checkpoint: `metadata-editor` beside the Pentaho Data Integration folders, `data-integration`, `jdbc-distribution` and `license-installer`.
 
 5. Start the Metadata Editor:
 
@@ -412,7 +412,7 @@ sudo apt-get install -qq libwebkitgtk-1.0-0
 sudo apt-get install libcanberra-gtk-module
 ```
 
-5. Start PDI:
+5. Start Pentaho Data Integration:
 
 ```bash
 cd ~/Pentaho/design-tools/data-integration

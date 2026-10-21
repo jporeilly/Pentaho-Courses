@@ -1,9 +1,9 @@
 {
   "title": "Overview",
-  "description": "Move beyond direct LLM calls to a genuine AI agent that reasons over intermediate output. What agent-as-a-service is and why PDI orchestrates it, ahead of the deploy-and-run workshop.",
+  "description": "Move beyond direct LLM calls to a genuine AI agent that reasons over intermediate output. What agent-as-a-service is and why Pentaho Data Integration orchestrates it, ahead of the deploy-and-run workshop.",
   "order": 17,
   "kind": "page",
-  "stepCount": 1,
+  "stepCount": 0,
   "hasVideo": false,
   "estimatedMinutes": 10
 }

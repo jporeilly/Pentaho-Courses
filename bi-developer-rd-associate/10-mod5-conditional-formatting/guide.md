@@ -4,92 +4,153 @@
 >
 > #### Workshop - Conditional Formatting
 >
-> Use a formula to change an element's formatting based on the data it displays.
+> Color the quantity in stock by its value: red when stock is low, green when it is high, blue in between. A formula on the element's text color does it, row by row.
 >
 > **What you'll do**
 >
-> * Write a formula that reacts to the data in each row.
-> * Drive an element's style from that formula.
-> * Preview the report and watch the formatting change with the data.
+> * Open the **Edit Expression** dialog for a style property
+> * Build an `IF` formula with the function list
+> * Nest a second `IF` for a third color
+> * Preview the colors change with the data
 >
-> **Prerequisites:** Report Designer running, with the Pentaho sample data (HSQLDB) started
+> **Prerequisites:** [Adding Data Elements and Report Groups](../07-mod4-adding-elements-groups/guide.md) and its report, `Demo - data elements.prpt`
 >
-> **Estimated Time:** 15 minutes
+> **Estimated time:** 15 minutes
 
----
+:::: tabs
+
+### 1. A formula for the text color
 
 > **Note:**
 >
-> #### **Conditional Formatting**
+> #### Style expressions
 >
-> Use a formula to change an element's formatting based on the data it displays.
+> Every property on the **Style** tab can take a formula instead of a fixed value. The formula runs for every row, so the property can follow the data.
 
-## Conditional Formatting
+1. Start Report Designer with the **Start Pentaho Report Designer** button below, or from a terminal:
 
-In this demonstration you will use the Formula Editor to change the text colour of the Quantity in Stock depending on the value of the field.
+::: tabs
 
-1. To select QUANTITYINSTOCK, on the canvas, in the Details band, click QUANTITYINSTOCK
+### Windows (PowerShell)
 
-![Conditional Formatting](../_assets/images/mod5-03.png)
+```powershell
+Set-Location C:\Pentaho\design-tools\report-designer
+.\report-designer.bat
+```
 
-2. To access the Formula Editor for the text colour, on the Style pane, click the round green + icon to the right of text > text-color.
+### macOS / Linux
 
-![Conditional Formatting](../_assets/images/mod5-04.png)
+```bash
+cd ~/Pentaho/design-tools/report-designer
+./report-designer.sh
+```
 
-The Formula Editor provides a list of built-in functions to help you build a formula expression. Alternatively, you can type the formula directly in the Formula pane. For this example, you are using an If statement to format the text colour.
+:::
 
-3. To narrow the list of functions, from the Category drop-down list, select Logical.
+<button data-launch="prd" data-path="">Start Pentaho Report Designer</button>
 
-![Conditional Formatting](../_assets/images/mod5-05.png)
+2. Select **File > Open** (`Ctrl+O`) and open `Demo - data elements.prpt` from your workshop folder, `Documents\RD-Workshop`.
+3. Select **File > Save As** and save it as `Demo - conditional formatting.prpt` in the same folder.
+4. On the canvas, in the **Details** band, select `QUANTITYINSTOCK`.
 
-4. To begin composing an If statement, from the Function list, double-click on IF.
+<div align="center">
+<figure>
+<img src="../_assets/images/mod5-03.png" alt="The canvas with QUANTITYINSTOCK selected in the Details band, below the Quantity in Stock label" width="800">
+<figcaption>QUANTITYINSTOCK selected</figcaption>
+</figure>
+</div>
 
-![Conditional Formatting](../_assets/images/mod5-06.png)
+5. On the **Style** tab, in the **text** group, select the green plus in the **Expr** column of **text-color**. The **Edit Expression** dialog opens, with **Open Formula (Common)** as the **Selected Expression**.
 
-5. To select Quantity in Stock, in the Formula Editor dialog:
-6. Click the Select Field icon to the right of the Test field.
-7. In the Select Field dialog, click QUANTITYINSTOCK.
-8. Click OK.
-9. To change the text colour to red if the Quantity in Stock is less than 1000:
-10. For Test, after [QUANTITYINSTOCK] type <1000.
-11. For Then value, type “RED” (including the quotation marks).
-12. For Otherwise value, type “BLACK” (including the quotation marks).
-`=IF([QUANTITYINSTOCK]<1000;"RED";"BLACK")`
+<div align="center">
+<figure>
+<img src="../_assets/images/mod5-04.png" alt="The Style tab's text group with the green plus in the Expr column of text-color highlighted" width="324">
+<figcaption>The Expr column of text-color</figcaption>
+</figure>
+</div>
 
-![=IF([QUANTITYINSTOCK]<1000;"RED";"BLACK")](../_assets/images/mod5-07.png)
+6. On the **Formula** tab, set **Category** to `Logical`. The **Function** list now holds only the logical functions.
 
-If there is an error in the text of the formula, text will appear to warn us. Otherwise, the formula editor will try to show us the result that our formula will return. When it is not possible to visualize the result that a formula will return, this is usually because the values used are calculated during the execution of the report.
+<div align="center">
+<figure>
+<img src="../_assets/images/mod5-05.png" alt="The Edit Expression dialog's Formula tab with the Category list open and Logical selected" width="326">
+<figcaption>The Logical category</figcaption>
+</figure>
+</div>
+
+7. In **Function**, double-click `IF`. The fields **Test**, **Then_value** and **Otherwise_value** appear, and the **Formula** box shows `=IF(Logical;Any;Any)`.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/mod5-06.png" alt="The IF function selected, with Test, Then_value and Otherwise_value fields and =IF(Logical;Any;Any) in the Formula box" width="396">
+<figcaption>IF and its three arguments</figcaption>
+</figure>
+</div>
+
+8. Select the field icon to the right of **Test**. In the **Select Field** dialog, select `QUANTITYINSTOCK` and select **OK**. **Test** now holds `[QUANTITYINSTOCK]`.
+9. Click in **Test** after `[QUANTITYINSTOCK]` and enter `<1000`.
+10. Set **Then_value** to `"RED"` and **Otherwise_value** to `"BLACK"`, with the quotation marks.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/mod5-07.png" alt="The IF arguments filled in: Test [QUANTITYINSTOCK]&lt;1000, Then_value &quot;RED&quot;, Otherwise_value &quot;BLACK&quot;, and the resulting formula" width="421">
+<figcaption>The formula, built from the three fields</figcaption>
+</figure>
+</div>
+
+> **Success:** Checkpoint: the **Formula** box shows `=IF([QUANTITYINSTOCK]<1000;"RED";"BLACK")`, and the line above it says **Not enough data for computation.**: the formula is valid, but its result depends on a field the dialog has no value for.
+
+11. Replace the text in the **Formula** box with a second `IF` in place of `"BLACK"`, so that quantities above 5,000 show green and the rest blue:
+
+```text
+=IF([QUANTITYINSTOCK]<1000;"RED";IF([QUANTITYINSTOCK]>5000;"GREEN";"BLUE"))
+```
+
+12. Select **OK**. The **Expr** column of **text-color** now shows a pencil.
 
 > **Under the hood:**
 >
 > #### The formula is attached to a style key and evaluated for every row
 >
 > What you saved is a *style expression*: the bundle stores it as
-> `style-key="paint"` (the engine's name for text colour) with your
+> `style-key="paint"` (the engine's name for text color) with your
 > `=IF(...)` as the formula. During layout, each time the Details band
 > prints a row, LibFormula evaluates the expression with
-> `[QUANTITYINSTOCK]` bound to that row and hands back `"RED"` or
-> `"BLACK"`; the engine converts the string to a colour and paints the
-> element. The editor's live preview does the same thing against the
-> first data row, which is why it can show a result at all — and why
-> it can't when the value depends on a running total.
+> `[QUANTITYINSTOCK]` bound to that row and hands back `"RED"`,
+> `"GREEN"` or `"BLUE"`; the engine converts the string to a color and
+> paints the element. The dialog can't show a result because it has no
+> row to evaluate against.
 >
 > Expressions like this are *stateless*: each evaluation sees one row.
-> The functions you'll add next are the stateful kind — they remember
+> The functions you'll add next are the stateful kind: they remember
 > what they saw on earlier rows.
 >
 > **Why it matters:** anything computable from the row can drive any
 > visual property, with no code and no second pass over the data.
 
-1. Close all windows.
-2. Preview and Save the report: Demo - conditional formatting.prpt
-Functions
+13. Select **Preview**.
 
-Functions have access to the data row and can access other functions or expressions or the data source. Functions are stateful, meaning they maintain their state during the report generation.
+> **Success:** Checkpoint: each quantity in stock is red below 1,000, green above 5,000 and blue in between. The other columns stay black.
 
-![=IF([QUANTITYINSTOCK]<1000;"RED";"BLACK")](../_assets/images/mod5-08.png)
+14. Select **Design**, and save the report (`Ctrl+S`).
 
-## Lab files
+The next workshop adds *functions*. Unlike the formula you wrote, a function keeps its state while the report runs, so it can total, count or number rows. Functions are added from the **Add Function** dialog:
 
-<button data-launch="prd" data-path="files/Training Demo Report 5 conditional formatting.prpt">Open: Solution: conditional formatting</button>
+<div align="center">
+<figure>
+<img src="../_assets/images/mod5-08.png" alt="The Add Function dialog: the Common, Report and Summary folders expanded, Summary holding Sum, Count, Minimum, Maximum and more" width="205">
+<figcaption>The Add Function dialog, used in the next workshop</figcaption>
+</figure>
+</div>
 
+::::
+
+## Lab Files
+
+Click a file to download. For `.prpt` files, **Open in Pentaho Report Designer** starts Report Designer with the report loaded.
+
+### Solution <!-- no-step -->
+
+The finished report for this lab. Open it alongside your own to compare, or preview it to see the expected result.
+
+[Training Demo Report 5 conditional formatting.prpt](./files/Training%20Demo%20Report%205%20conditional%20formatting.prpt) <button data-launch="prd" data-path="files/Training Demo Report 5 conditional formatting.prpt">Open in Pentaho Report Designer</button>

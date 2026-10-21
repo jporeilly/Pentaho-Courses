@@ -1,237 +1,236 @@
 # Deploy & Run the Agent
 
+> **Warning:**
+>
+> #### Workshop - Deploy & Run the Agent
+>
+> Start the maintenance assessment agent, a small Python service, and build a Pentaho Data Integration transformation that sends it each maintenance log entry together with the asset's history. Pentaho Data Integration reads, joins and routes the rows; the agent does the one task no rule can do: reason across several free-text entries at once.
+>
+> **What you'll do**
+>
+> * Set up the agent and start it on `localhost:8000`
+> * Test the agent with one request, outside Pentaho Data Integration
+> * Read the log entries and each asset's history from two SQLite databases
+> * Build one request per log entry and send it to the agent with **REST client**
+> * Route each assessment by priority into the `assessed_log` table
+> * Compare your run with the performance figures
+>
+> **Prerequisites:**
+>
+> * The Agent-as-a-Service [Overview](../16-agent-as-a-service/guide.md)
+> * Python 3.11 or later, and Ollama with `llama3.2:3b`, as set up in [Before You Start](../00-before-you-start/guide.md)
+> * **REST client** and **Modified JavaScript value**, as used in [Sentiment Analysis](../06-llm-sentiment-analysis/guide.md)
+>
+> **Estimated time:** 90 minutes
+
+:::: tabs
+
+### 1. Start the Agent
+
+> **Note:**
+>
+> #### Start the Agent
+>
+> The agent is a FastAPI service, `agent.py`, with one endpoint: `POST /assess`. Set it up once in its own Python environment, then start it and leave its terminal open while you work through this workshop.
+
+On Windows, the lab's files are in `C:\Workshop-AI-Specialty\06-agent-as-a-service\17-agent-deploy\agent-maintenance`. On macOS / Linux, download the files from **Lab Files** below into a folder named `agent-maintenance`, keeping its `agent`, `data` and `scripts` subfolders.
+
+1. In PowerShell, run the following (on macOS / Linux, run the `bash` commands in a terminal in the `agent-maintenance` folder you downloaded the lab files to):
+
 ::: tabs
 
-### Start Agent
-
-**One-time setup** - the agent ships with this lab ([agent.py](./files/agent-maintenance/agent/agent.py), [requirements.txt](./files/agent-maintenance/requirements.txt), sample SQLite data in `data/`). Copy it out of the guide's content folder and install its dependencies:
-
-**Windows (PowerShell)**
+### Windows (PowerShell)
 
 ```powershell
-Copy-Item "$env:APPDATA\com.pentaho.content-manager\content\17-agent-deploy\files\agent-maintenance" "$env:USERPROFILE\agent-maintenance" -Recurse
-cd $env:USERPROFILE\agent-maintenance
+Set-Location C:\Workshop-AI-Specialty\06-agent-as-a-service\17-agent-deploy\agent-maintenance
+Test-Path data\maintenance_log.db, data\asset_history.db
+```
+
+### macOS / Linux
+
+```bash
+ls data/maintenance_log.db data/asset_history.db
+```
+
+:::
+
+> **Success:** Checkpoint: PowerShell prints `True` twice; on macOS / Linux, `ls` lists both files.
+
+2. Create the agent's Python environment and install its four packages, `fastapi`, `uvicorn`, `httpx` and `pydantic`:
+
+::: tabs
+
+### Windows (PowerShell)
+
+```powershell
 python -m venv .venv
-.\.venv\Scripts\pip install -r requirements.txt
+.\.venv\Scripts\python -m pip install -r requirements.txt
 ```
 
-**macOS / Linux** (lab VMs have the agent pre-installed at `/opt/agent-maintenance`)
+### macOS / Linux
 
 ```bash
-cp -r ~/.local/share/com.pentaho.content-manager/content/17-agent-deploy/files/agent-maintenance ~/agent-maintenance
-cd ~/agent-maintenance
-python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
+python3 -m venv .venv
+.venv/bin/python -m pip install -r requirements.txt
 ```
 
-***
+:::
 
-**Start the agent**
+> **Success:** Checkpoint: pip ends with a line that starts `Successfully installed` and names `fastapi`, `uvicorn`, `httpx` and `pydantic`, among the packages they depend on.
 
-**Windows (PowerShell)**
+3. Check that Ollama answers and that the course model is pulled:
+
+::: tabs
+
+### Windows (PowerShell)
 
 ```powershell
-cd $env:USERPROFILE\agent-maintenance
-.\.venv\Scripts\Activate.ps1
+Invoke-RestMethod http://localhost:11434
+ollama list
 ```
 
-```powershell
-# Keep this terminal open
-uvicorn agent.agent:app --host 0.0.0.0 --port 8000
-```
-
-**macOS / Linux**
+### macOS / Linux
 
 ```bash
-cd ~/agent-maintenance   # lab VM: /opt/agent-maintenance
-source .venv/bin/activate   # lab VM: source agent-venv/bin/activate
-```
-
-```bash
-# Keep this terminal open
-uvicorn agent.agent:app --host 0.0.0.0 --port 8000
-```
-
-```
-Expected output:
-INFO:     Started server process [xxxxx]
-INFO:     Waiting for application startup.
-INFO:     Application startup complete.
-INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
-...
-```
-
-> **Note:** Leave this terminal open while running the PDI pipeline. The agent process must remain running to serve assessment requests.
-
-**Verify the setup**
-
-Run the checks that match your platform.
-
-**Windows (PowerShell)**
-
-```powershell
-Test-Path .\data\asset_history.db
-curl.exe http://localhost:11434
-curl.exe http://localhost:8000/docs
-```
-
-**macOS / Linux**
-
-```bash
-test -f data/asset_history.db && echo "Database OK"
 curl http://localhost:11434
-curl http://localhost:8000/docs
+ollama list
 ```
 
-Success means:
+:::
 
-* `data/asset_history.db` exists
-* Ollama responds on `localhost:11434`
-* The agent starts without import errors
-* FastAPI responds on port `8000`
+> **Success:** Checkpoint: Ollama answers `Ollama is running`, and `ollama list` includes `llama3.2:3b`.
 
-```
-Windows PowerShell
-Copyright (C) Microsoft Corporation. All rights reserved.
+4. Start the agent. `agent.py` asks Ollama for `llama3.1:8b` unless the `AGENT_MODEL_NAME` environment variable names another model, so the first line points it at the course model. (To use the agent's own default instead, run `ollama pull llama3.1:8b` and leave out the first line.)
 
-Install the latest PowerShell for new features and improvements! https://aka.ms/PSWindows
+::: tabs
 
-PS C:\Users\jpore> curl http://localhost:8000/health
+### Windows (PowerShell)
 
-Security Warning: Script Execution Risk
-Invoke-WebRequest parses the content of the web page. Script code in the web page might be run when the page is
-parsed.
-      RECOMMENDED ACTION:
-      Use the -UseBasicParsing switch to avoid script code execution.
-
-      Do you want to continue?
-
-[Y] Yes  [A] Yes to All  [N] No  [L] No to All  [S] Suspend  [?] Help (default is "N"): Y
-
-StatusCode        : 200
-StatusDescription : OK
-Content           : {"status":"ok","model":"llama3.1:8b"}
-RawContent        : HTTP/1.1 200 OK
-                    Content-Length: 37
-                    Content-Type: application/json
-                    Date: Wed, 08 Apr 2026 13:52:08 GMT
-                    Server: uvicorn
-
-                    {"status":"ok","model":"llama3.1:8b"}
-Forms             : {}
-Headers           : {[Content-Length, 37], [Content-Type, application/json], [Date, Wed, 08 Apr 2026 13:52:08 GMT],
-                    [Server, uvicorn]}
-Images            : {}
-InputFields       : {}
-Links             : {}
-ParsedHtml        : mshtml.HTMLDocumentClass
-RawContentLength  : 37
-
-PS C:\Users\jpore>
+```powershell
+$env:AGENT_MODEL_NAME = "llama3.2:3b"
+.\.venv\Scripts\python -m uvicorn agent.agent:app --host 0.0.0.0 --port 8000
 ```
 
-### Boundary Argument
+### macOS / Linux
 
-> **Note:**
->
-> #### Boundary Argument
-> 
-> PDI handles the complexity of structured data with remarkable flexibility. There are steps that mimic the actions of an AI agent - RegEx, Fuzzy matching, Rule Executor and so on. Together these provide a powerful framework that provides similarity but not semantic equivalence - inference - on unstructured data.&#x20;
-
-<table><thead><tr><th valign="top">Task</th><th valign="top">PDI Step(s)</th><th valign="top">Capability</th><th valign="top">Verdict</th></tr></thead><tbody><tr><td valign="top">Extract structured asset ID (e.g. ASSET-0042)</td><td valign="top">Regex Evaluation</td><td valign="top">Extracts fixed-format patterns reliably</td><td valign="top">PDI handles this</td></tr><tr><td valign="top">Look up asset history rows by asset_id</td><td valign="top">Database Lookup Database Join</td><td valign="top">Exact key match, returns all history rows</td><td valign="top">PDI handles this</td></tr><tr><td valign="top">Classify fault type from known keywords ("bearing", "temperature")</td><td valign="top">Rule Executor (Drools) Regex Evaluation + MJV</td><td valign="top">IF/THEN rules on keyword presence</td><td valign="top">PDI handles known, enumerated faults</td></tr><tr><td valign="top">Fuzzy-match current description against a known fault library</td><td valign="top">Fuzzy Match step</td><td valign="top">Levenshtein / Jaro-Winkler on string pairs</td><td valign="top">PDI handles surface similarity; not semantic equivalence</td></tr><tr><td valign="top">Assign final priority once fault type is known</td><td valign="top">Filter Rows Switch/Case MJV</td><td valign="top">Pure deterministic routing on field values</td><td valign="top">PDI handles this completely</td></tr></tbody></table>
-
-> **Note:**
->
-> #### Why Regex fails
-> 
-> "bearing noise getting worse" and "intermittent vibration on startup since maintenance" both indicate bearing degradation. They share no common n-gram, no common keyword sequence, and no pattern a regex can match. The semantic equivalence exists at the meaning level, not the surface level. Regex operates only on surface form.
-
-> **Note:**
->
-> #### Why Rule Executor (Drools) fails
-> 
-> A rule can fire on the keyword "bearing" in the current entry. But the rule cannot say: "this entry, combined with two previous entries that mention vibration and one bearing replacement 18 months ago, indicates recurrence of the same root cause rather than a new fault." That conclusion requires reading and integrating four separate natural-language texts. A Drools rule operates on field values in the current row - it does not read and synthesise multiple text fields from a joined history set.
-> 
-> You could try to flatten the history into a single concatenated field and write a rule against that. But the rule would still operate on keyword presence, not meaning. "No unusual noise but slight vibration" contains the word "vibration" - a keyword rule would flag it identically to "severe vibration on every startup". The negation and qualifier ("slight", "no unusual") change the meaning completely. Rules cannot parse that.
-
-> **Note:**
->
-> #### Why Fuzzy Match fails
-> 
-> The Fuzzy Match step finds strings with high character-level similarity. "Bearing noise" and "audible roughness in drive shaft" have low character similarity but identical diagnostic meaning. Conversely, "bearing temperature normal" and "bearing temperature elevated" have very high character similarity but opposite meanings. Fuzzy matching on maintenance log text produces both false positives and false negatives at an unacceptable rate for safety-relevant prioritisation.
-
-> **Note:**
->
-> #### Why MJV (JavaScript) fails
-> 
-> MJV can implement any algorithm expressible in JavaScript. A skilled developer could write a JavaScript function that: (1) concatenates history entries, (2) counts keyword occurrences, (3) applies weighted scoring. This is a rules system with extra steps. It fails on the same cases rules fail on - novel descriptions, combined symptoms, qualified negations, and cross-entry pattern inference. It does not understand language; it manipulates strings.
-
-***
-
-Given these four history entries for asset PUMP-017:
-
+```bash
+export AGENT_MODEL_NAME=llama3.2:3b
+.venv/bin/python -m uvicorn agent.agent:app --host 0.0.0.0 --port 8000
 ```
+
+:::
+
+> **Success:** Checkpoint: the terminal shows `Application startup complete.`, then `Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)`.
+
+5. Leave this terminal open: the agent answers Pentaho Data Integration's requests from it. Open a second PowerShell window (on macOS / Linux, a second terminal in the `agent-maintenance` folder) and run:
+
+::: tabs
+
+### Windows (PowerShell)
+
+```powershell
+Set-Location C:\Workshop-AI-Specialty\06-agent-as-a-service\17-agent-deploy\agent-maintenance
+Invoke-RestMethod http://localhost:8000/health
+```
+
+### macOS / Linux
+
+```bash
+curl http://localhost:8000/health
+```
+
+:::
+
+> **Success:** Checkpoint: the agent answers with `status` `ok` and `model` `llama3.2:3b`. `curl` shows it as `{"status":"ok","model":"llama3.2:3b"}`.
+
+6. Open `http://localhost:8000/docs` in a web browser.
+
+> **Success:** Checkpoint: the page is headed **Maintenance Assessment Agent**, version `1.0.0`, and lists two endpoints: `GET /health` and `POST /assess`.
+
+### 2. The Boundary Argument
+
+> **Note:**
+>
+> #### The Boundary Argument
+>
+> Pentaho Data Integration handles structured data with a wide range of steps, and some of them imitate parts of what an agent does: **Regex evaluation**, **Fuzzy match**, **Rules executor**. They find text that looks similar, not text that means the same thing. This part shows where that line falls for this workshop's data.
+
+| Task | Pentaho Data Integration steps | Capability | Verdict |
+| --- | --- | --- | --- |
+| Extract a structured asset ID (for example `ASSET-0042`) | **Regex evaluation** | Extracts fixed-format patterns reliably | Pentaho Data Integration handles this |
+| Look up an asset's history rows by `asset_id` | **Database lookup**, **Database join** | Exact key match; **Database join** returns every matching row | Pentaho Data Integration handles this |
+| Classify the fault type from known keywords (`bearing`, `temperature`) | **Rules executor**; **Regex evaluation** with **Modified JavaScript value** | IF/THEN rules on keyword presence | Pentaho Data Integration handles known, listed faults |
+| Fuzzy-match the current description against a library of known faults | **Fuzzy match** | Levenshtein or Jaro-Winkler distance between two strings | Pentaho Data Integration handles surface similarity, not meaning |
+| Assign the final priority once the fault type is known | **Filter rows**, **Switch / case**, **Modified JavaScript value** | Deterministic routing on field values | Pentaho Data Integration handles this completely |
+
+**Why Regex evaluation falls short.** "bearing noise getting worse" and "intermittent vibration on startup since maintenance" both point to bearing degradation. They share no keyword, no common word sequence and no pattern a regular expression can match. What they share is meaning, and a regular expression sees only the surface form of the text.
+
+**Why Rules executor falls short.** A rule can fire on the keyword `bearing` in the current entry. It cannot conclude that this entry, read with two earlier entries about vibration and a bearing replacement 18 months ago, is a recurrence of the same root cause rather than a new fault. That conclusion means reading and combining four separate texts, and a rule tests the field values of the current row.
+
+You could concatenate the history into one field and write a rule against that, but the rule still tests for keywords, not meaning. "No unusual noise but slight vibration" contains `vibration`, so a keyword rule treats it like "severe vibration on every startup". The negation and the qualifiers ("slight", "no unusual") change the meaning completely, and a rule cannot read them.
+
+**Why Fuzzy match falls short.** **Fuzzy match** scores how alike two strings are, character by character. "Bearing noise" and "audible roughness in drive shaft" score low but mean the same thing; "bearing temperature normal" and "bearing temperature elevated" score high but mean the opposite. On maintenance text it produces false positives and false negatives at a rate that is not acceptable for safety-relevant prioritization.
+
+**Why Modified JavaScript value falls short.** **Modified JavaScript value** can run any algorithm you can write in JavaScript: concatenate the history entries, count keywords, apply weighted scores. That is a rules system with extra steps, and it fails where rules fail: new descriptions, combined symptoms, qualified negations and patterns across entries. It manipulates strings; it does not understand language.
+
+Take these four history entries for asset `PUMP-017`:
+
+```text
 2025-09-12: slight rumble on startup, clears after 2 minutes, logged for monitoring
 2025-11-03: intermittent vibration under load, no temperature anomaly, bearing checked ok
 2026-01-18: bearing replaced (scheduled maintenance)
 2026-03-29: rougher than usual on startup, louder than before the January maintenance
 ```
 
-> **Note:** The correct assessment is: RECURRENCE - bearing degradation has restarted 10 weeks post-replacement, which is abnormally fast and indicates either incorrect installation or an underlying cause not addressed in the January maintenance. Priority: HIGH.
-> 
-> No PDI step produces this assessment.&#x20;
-> 
-> The Database Lookup returns the four history rows as data. MJV can concatenate them. No step can read them together and conclude that the current entry matches the pre-January pattern and that pattern recurrence within 10 weeks of a replacement is abnormal.
+> **Note:** Read together, the four entries say: RECURRENCE. Bearing symptoms have returned 10 weeks after the bearing was replaced, which is abnormally fast and points either to an incorrect installation or to a cause the January maintenance did not address. Priority: HIGH.
+>
+> None of the rule-based steps above produces this assessment. **Database join** returns the four history entries as rows, and **Modified JavaScript value** can concatenate them, but no rule-based step reads them together and concludes that the current entry matches the pattern from before January, and that its return within 10 weeks of a replacement is abnormal.
+>
+> That is the task the agent owns: read several unstructured history entries alongside a new one, and judge whether together they describe a known degradation pattern, a recurrence or a new fault. Pentaho Data Integration retrieves the history as structured rows; the agent reads the text and reasons about what it means. Everything else in the pipeline is Pentaho Data Integration.
 
-> **Success:** This cannot be replicated by any combination of PDI transformation steps.
-> 
-> Read multiple unstructured natural-language history entries alongside a new unstructured entry and reason about whether they collectively describe a known degradation pattern, a recurrence, or a new fault mode.
-> 
-> This is the task the agent owns. PDI retrieves the history as structured rows. The agent reads the history text and the current entry together and reasons about what they collectively indicate. PDI cannot do this. The agent can.
-> 
-> That is the boundary. Everything else in the pipeline is PDI.
-
-### Pipeline Test
+### 3. Test the Agent
 
 > **Note:**
 >
-> #### Pipeline Overview
-> 
-> The scenario uses one LLM call - and that is intentional. Here, PDI already knows the asset\_id and retrieves the history as structured rows before calling the agent.&#x20;
-> 
-> The agent receives everything it needs in one payload. One call is cleaner, faster, and easier to reason about. The single call is also the hardest part - reading multiple texts and synthesising a cross-entry assessment is more genuinely difficult than two sequential single-task calls.
+> #### Test the Agent
+>
+> Pentaho Data Integration already knows each entry's `asset_id`, so it retrieves the history before it calls the agent, and the agent gets everything it needs in one request: one LLM call per log entry. Send it one request by hand first, so you know what Pentaho Data Integration gets back.
 
-```
-PDI Transformation
-  [Table Input: maintenance_log]
-       |
-  [Regex Evaluation]  ← PDI extracts asset_id from log_text
-       |
-  [Database Join: asset_history]  ← PDI retrieves history rows
-       |
-  [MJV: Build agent payload]  ← PDI assembles request
-       |
-  [REST Client  POST /assess]  ───────────────────────────────┐
-       |                                                      │
-  [MJV: Parse response]       Agent (FastAPI / venv)          │
-       |                        POST /assess                  │
-  [Switch/Case: priority]       ├─ Read log_text + history    │
-       |                        ├─ [LLM] Reason across texts  │
-  CRITICAL → alerts_table       └─ Return assessment JSON  ◄──┘
-  HIGH     → priority_queue
-  MEDIUM   → standard_queue
-  LOW      → log_archive
+The pipeline you build in parts 4 to 6:
+
+```text
+PDI transformation                                    Agent (FastAPI, port 8000)
+
+Table input                  read maintenance_log
+Database join                fetch each asset's history rows
+Sort rows, Unique rows,
+Modified JavaScript value,
+Group by                     one row per log entry, history as a JSON array
+Modified JavaScript value    build the request body
+REST client                  POST /assess  ------------>  read log_text and history
+                                                          one LLM call to Ollama
+Filter rows                  HTTP 200?     <------------  the assessment as JSON
+Modified JavaScript value    parse the answer
+Switch / case                route on priority
+Table output (4 steps)       insert into assessed_log
 ```
 
-<table><thead><tr><th width="180" valign="top"></th><th valign="top">PDI Transformation</th><th valign="top">Maintenance Assessment Agent</th></tr></thead><tbody><tr><td valign="top">Owns</td><td valign="top">All data flow, retrieval, routing, and persistence</td><td valign="top">Language understanding and cross-text reasoning</td></tr><tr><td valign="top">Reads</td><td valign="top">Structured rows from maintenance_log and asset_history tables</td><td valign="top">Unstructured text: current log entry + N history entries as text</td></tr><tr><td valign="top">Produces</td><td valign="top">Structured rows with priority, fault_type, assessment fields</td><td valign="top">A single structured JSON assessment per request</td></tr><tr><td valign="top">Uses</td><td valign="top">Regex, Database Join, MJV, REST Client, Switch/Case</td><td valign="top">One LLM call with history context; no tool calls needed</td></tr><tr><td valign="top">Can be replaced by rules?</td><td valign="top">Yes - all PDI logic is deterministic</td><td valign="top">No - language reasoning is not encodable as rules</td></tr></tbody></table>
+|  | Pentaho Data Integration transformation | Maintenance assessment agent |
+| --- | --- | --- |
+| Owns | All data flow: retrieval, routing and persistence | Language understanding and reasoning across texts |
+| Reads | Structured rows from the `maintenance_log` and `asset_history` tables | Unstructured text: the current log entry and its history entries |
+| Produces | Structured rows with `priority`, `fault_type`, `pattern` and `assessment` fields | One structured JSON assessment per request |
+| Uses | **Table input**, **Database join**, **Modified JavaScript value**, **REST client**, **Switch / case**, **Table output** | One LLM call with the history in the prompt; no tools |
+| Can rules replace it? | Yes: all the Pentaho Data Integration logic is deterministic | No: reasoning about language does not reduce to rules |
 
-***
+1. In the second terminal, send the agent a test request for `PUMP-017` with three history entries. On a CPU, the answer can take 15 to 30 seconds or more.
 
-Let's run some tests:
+::: tabs
 
-**Windows (Powershell)**
+### Windows (PowerShell)
 
 ```powershell
-@"
+$body = @'
 {
   "log_id": "TEST-001",
   "asset_id": "PUMP-017",
@@ -242,16 +241,13 @@ Let's run some tests:
     {"logged_at": "2026-01-18", "log_text": "bearing replaced, WO-4412"}
   ]
 }
-"@ | Out-File -Encoding utf8 test.json
-
-curl.exe -s -X POST http://localhost:8000/assess `
-  -H "Content-Type: application/json" `
-  -d "@test.json"
+'@
+Invoke-RestMethod -Uri http://localhost:8000/assess -Method Post -ContentType "application/json" -Body $body
 ```
 
-**Linux / macOS**
+### macOS / Linux
 
-```json
+```bash
 curl -s -X POST http://localhost:8000/assess \
   -H "Content-Type: application/json" \
   -d '{
@@ -266,133 +262,145 @@ curl -s -X POST http://localhost:8000/assess \
   }'
 ```
 
-Response:
+:::
 
-```json
-{
-  "log_id":     "TEST-001",
-  "asset_id":   "PUMP-017",
-  "priority":   "HIGH",
-  "fault_type": "intermittent_vibration_under_load",
-  "pattern":    "RECURRENCE",
-  "assessment": "The pump's performance has worsened since the last maintenance, 
-                 indicating a potential issue with the replacement bearing.",
-  "confidence": 80
-}
-```
+> **Success:** Checkpoint: the agent answers with seven keys: `log_id` `TEST-001`, `asset_id` `PUMP-017`, then `priority`, `fault_type`, `pattern`, `assessment` and `confidence`. In the agent's terminal, `Assessing TEST-001 for PUMP-017 (3 history entries)` is followed by `"POST /assess HTTP/1.1" 200 OK`.
 
-> **Note:** The agent is working correctly:
-> 
-> * **priority: HIGH** - the model recognises this needs same-day attention, which is correct given the history
-> * **fault\_type: intermittent\_vibration\_under\_load** - picked up the dominant symptom from the history
-> * **pattern: RECURRENCE** - correctly identified that this has happened before (pre-January bearing issues)
-> * **assessment** - the model has read the history and connected the dots: bearing was replaced in January and symptoms are returning
-> * **confidence: 80** - reasonably high, consistent with a clear pattern in the history
+2. Compare the answer with the history you sent. The values are the model's, so they vary from run to run; this is what each key holds:
 
-### Transformation
+| Key | What it holds |
+| --- | --- |
+| `priority` | `CRITICAL`, `HIGH`, `MEDIUM` or `LOW`. The prompt asks for `HIGH` when the current symptom is the same type as an earlier one, especially after a repair: here, roughness on startup after the bearing replacement |
+| `fault_type` | A short `snake_case` label the model chooses, such as `bearing_degradation` |
+| `pattern` | `RECURRENCE`, `ESCALATION`, `NEW_FAULT` or `NORMAL_VARIATION`. The prompt's rules point to `RECURRENCE` for this history |
+| `assessment` | One or two sentences of the model's reasoning, which should connect the January bearing replacement with the returning symptoms |
+| `confidence` | A whole number from 0 to 100 |
+
+> **Under the hood:**
+>
+> #### The agent validated the request, then asked Ollama once
+>
+> FastAPI checked the body against the request model in `agent.py` before any LLM call: a missing key, or a body not sent as `application/json`, gets HTTP 422. `build_prompt` then wrote one prompt (the priority and pattern rules, the history oldest first, the current entry last), and `call_llm` sent it to Ollama's `/api/generate` with `"format": "json"`, a temperature of `0.1` and at most 300 tokens of answer. An answer that is not valid JSON gets a retry with a stricter instruction, up to 3 attempts before the agent answers 500; an unreachable Ollama, or a model Ollama does not have, gets 502. Last, the agent forces `priority` and `pattern` into their allowed values (anything else becomes `MEDIUM` and `NEW_FAULT`) and keeps `confidence` between 0 and 100.
+>
+> **Why it matters:** whatever the model writes, Pentaho Data Integration gets the same seven keys and one of four priorities back, so a **Switch / case** with four cases routes every row.
+
+### 4. Read Logs and History
 
 > **Note:**
 >
-> #### Maintenance Agent
-> 
-> The maintenance\_assessment.ktr has all the steps in a single pipeline to illustrate the workflow. The MJV approach works for this workshop because the dataset is small and runs single-copy. In production with thousands of rows and STEP\_COPIES > 1, the accumulator pattern would break and you would need the sub-transformation approach instead.
-> 
-> So, a cleaner alternative that avoids the MJV accumulator entirely is to use a **sub-transformation via Transformation Executor**. For each log entry, a child transformation queries the history database and builds the JSON array, returning one row with the complete payload. This is stateless, parallelism-safe, and easier to reason about.
+> #### Read Logs and History
+>
+> Start the transformation: read the unprocessed log entries, fetch each asset's history, and collapse that history into one JSON array per entry. Both databases are SQLite files in the agent's `data` folder.
 
-**Sample Maintenance Logs**
+The `maintenance_log` table in `maintenance_log.db` holds five entries, all with `processed` `0`:
 
+| `log_id` | `asset_id` | `logged_at` | `engineer` | `log_text` |
+| --- | --- | --- | --- | --- |
+| `L-1001` | `PUMP-017` | `2026-04-07 08:14:00` | J.Walsh | Rougher than usual on startup, louder than before the January maintenance. Vibration settling after ~3 minutes. |
+| `L-1002` | `COMP-004` | `2026-04-07 09:02:00` | S.Okafor | High temperature alarm triggered at 09:00. Reading: 94C. Limit is 85C. No prior warnings this shift. |
+| `L-1003` | `FAN-011` | `2026-04-07 10:31:00` | T.Marsh | Fan running normally. Slight hum noted but within normal range. No action. |
+| `L-1004` | `PUMP-017` | `2026-04-07 11:45:00` | J.Walsh | Vibration increased since this morning. Getting worse through the shift. |
+| `L-1005` | `VALVE-022` | `2026-04-07 13:10:00` | R.Nkosi | Valve sticking on close. Takes 3-4 attempts. Never seen this before. |
+
+The `asset_history` table in `asset_history.db` holds these eight entries, each one stored twice (16 rows). `FAN-011` has no history:
+
+| `asset_id` | `logged_at` | `log_text` |
+| --- | --- | --- |
+| `PUMP-017` | `2025-09-12` | slight rumble on startup, clears after 2 minutes |
+| `PUMP-017` | `2025-11-03` | intermittent vibration under load, bearing checked ok |
+| `PUMP-017` | `2026-01-18` | bearing replaced, work order WO-4412 |
+| `COMP-004` | `2025-10-05` | temperature running slightly high 82C, within tolerance |
+| `COMP-004` | `2025-12-14` | cooling fan filter cleaned, temperature normal |
+| `COMP-004` | `2026-02-28` | temperature normal, no issues |
+| `VALVE-022` | `2025-08-20` | valve serviced, seals replaced |
+| `VALVE-022` | `2026-01-09` | operating normally, no issues |
+
+The finished transformation, `maintenance_assessment.ktr`, has these steps. You build the first six in this part:
+
+| Step name | Step type | What Pentaho Data Integration does here |
+| --- | --- | --- |
+| `Read Log Entries` | **Table input** | Selects the unprocessed rows from `maintenance_log` |
+| `Get Asset History` | **Database join** | Fetches the asset's rows from `asset_history`: one output row per history entry |
+| `Sort rows` | **Sort rows** | Orders the rows by log entry, then by date |
+| `Remove Duplicates` | **Unique rows** | Drops the second copy of each history entry |
+| `Aggregate History` | **Modified JavaScript value** | Gathers each entry's history rows into a JSON array |
+| `Group by` | **Group by** | Keeps one row per log entry, with the complete array |
+| `Build Agent Payload` | **Modified JavaScript value** | Builds the request body for `POST /assess` |
+| `Call Assessment Agent` | **REST client** | Posts the body to `${AGENT_URL}/assess` |
+| `Check HTTP Status` | **Filter rows** | Sends HTTP 200 answers on, and the rest to the error file |
+| `Parse Agent Response` | **Modified JavaScript value** | Reads `priority`, `fault_type`, `pattern`, `assessment` and `confidence` from the answer |
+| `Route by Priority` | **Switch / case** | Sends each row on by its `priority` |
+| `Write CRITICAL`, `Write HIGH`, `Write MEDIUM`, `Write LOW` | **Table output** | Insert the assessed rows into `assessed_log` |
+| `Write HTTP Errors` | **Text file output** | Keeps the failed calls for investigation |
+
+<div align="center">
+<figure>
+<img src="../_assets/images/maintenance_assessment_agent.png" alt="The transformation on the Spoon canvas: a row of steps from Read Log Entries through Group by to Build Agent Payload, then Call Assessment Agent and Check HTTP status, which feeds Parse Agent Response and a Switch / case with four outputs, or a Dummy (do nothing) step" width="800">
+<figcaption>An earlier build of the transformation: Dummy steps stand where you add the four Table output steps and Write HTTP Errors, and three steps carry older names (Read Log Enteries, Check HTTP status, Switch / case for Read Log Entries, Check HTTP Status, Route by Priority)</figcaption>
+</figure>
+</div>
+
+1. Start Spoon with the **Start Pentaho Data Integration** button below, or from a terminal:
+
+::: tabs
+
+### Windows (PowerShell)
+
+```powershell
+Set-Location C:\Pentaho\design-tools\data-integration
+.\spoon.bat
 ```
-log_id | asset_id  | logged_at           | engineer | log_text
--------|-----------|---------------------|----------|------------------------------------------
-L-1001 | PUMP-017  | 2026-04-07 08:14:00 | J.Walsh  | Rougher than usual on startup, louder
-       |           |                     |          | than before the January maintenance.
-       |           |                     |          | Vibration settling after ~3 minutes.
-L-1002 | COMP-004  | 2026-04-07 09:02:00 | S.Okafor | High temperature alarm triggered at
-       |           |                     |          | 09:00. Reading: 94C. Limit is 85C.
-       |           |                     |          | No prior warnings this shift.
-L-1003 | FAN-011   | 2026-04-07 10:31:00 | T.Marsh  | Fan running normally. Slight hum noted
-       |           |                     |          | but within normal range. No action.
-L-1004 | PUMP-017  | 2026-04-07 11:45:00 | J.Walsh  | Vibration increased since this morning.
-       |           |                     |          | Getting worse through the shift.
-L-1005 | VALVE-022 | 2026-04-07 13:10:00 | R.Nkosi  | Valve sticking on close. Takes 3-4
-       |           |                     |          | attempts. Never seen this before.
+
+### macOS / Linux
+
+```bash
+cd ~/Pentaho/design-tools/data-integration
+./spoon.sh
 ```
 
-**Asset History**
+:::
 
-```
-PUMP-017 history:
-  2025-09-12: slight rumble on startup, clears after 2 minutes, logged for monitoring
-  2025-11-03: intermittent vibration under load, no temperature anomaly, bearing checked ok
-  2026-01-18: bearing replaced (scheduled maintenance, work order WO-4412)
+<button data-launch="spoon" data-path="">Start Pentaho Data Integration</button>
 
-COMP-004 history:
-  2025-10-05: temperature running slightly high (82C) on hot days, within tolerance
-  2025-12-14: cooling fan filter cleaned, temperature returned to normal range
-  2026-02-28: temperature normal, no issues logged
+2. Select **File > New > Transformation** (`Ctrl+N`).
+3. Select **File > Save as** and save it as `maintenance_assessment.ktr` in `C:\Workshop-AI-Specialty\06-agent-as-a-service\17-agent-deploy\agent-maintenance`, the folder that holds `data`. On macOS / Linux, save it in the `agent-maintenance` folder you downloaded the lab files to.
+4. Double-click an empty part of the canvas. **Transformation properties** opens.
+5. On the **Parameters** tab, fill the grid:
 
-FAN-011 history:
-  (no entries in last 12 months)
+| Parameter | Default Value | Description |
+| --- | --- | --- |
+| `AGENT_URL` | `http://localhost:8000` | Base URL of the assessment agent |
+| `STEP_COPIES` | `2` | Copies of **Call Assessment Agent** that run in parallel |
 
-VALVE-022 history:
-  2025-08-20: valve serviced, seals replaced
-  2026-01-09: operating normally, no issues
+6. Select **OK**.
+7. Select **File > New > Database Connection**. The **Database Connection** dialog opens on **General**.
+8. On **General**, enter these settings. Select **SQLite** in the **Connection type** list and **Native (JDBC)** in the **Access** list:
 
-```
+| Setting | Value |
+| --- | --- |
+| **Connection name** | `maintenance_log_db` |
+| **Connection type** | **SQLite** |
+| **Access** | **Native (JDBC)** |
+| **Database Name** | `C:\Workshop-AI-Specialty\06-agent-as-a-service\17-agent-deploy\agent-maintenance\data\maintenance_log.db` |
 
-***
+Leave the other settings as they are: SQLite opens the file named in **Database Name** and ignores the host and port. On macOS / Linux, enter the full path to `data/maintenance_log.db` in the folder you downloaded the lab files to.
 
-**Transformation design**
+9. Select **Test**.
 
-<figure><img src="../_assets/images/maintenance_assessment_agent.png" alt=""><figcaption></figcaption></figure>
+> **Success:** Checkpoint: Spoon shows **Connection tested successfully**, with the message `Connection to maintenance_log_db was successful.`
 
-<table><thead><tr><th width="212" valign="top">Step Name</th><th width="212" valign="top">Type</th><th valign="top">What PDI does here</th></tr></thead><tbody><tr><td valign="top">Read Log Entries</td><td valign="top">Table Input</td><td valign="top">SELECT unprocessed rows from maintenance_log</td></tr><tr><td valign="top">Retrieve Asset History</td><td valign="top">Database Join</td><td valign="top">LEFT JOIN asset_history ON asset_id, concat history rows into JSON array field</td></tr><tr><td valign="top">Sort rows</td><td valign="top">Sort rows</td><td valign="top">Keeps the rows in chronological order</td></tr><tr><td valign="top">Remove duplicates</td><td valign="top">Unique rows</td><td valign="top">Just in case ..</td></tr><tr><td valign="top">Aggregate History</td><td valign="top">Modified JavaScript Value</td><td valign="top">PDI stream is row based, need to  aggregate all the records for asset.</td></tr><tr><td valign="top"></td><td valign="top">Group by</td><td valign="top"></td></tr><tr><td valign="top">Build Agent Payload</td><td valign="top">Modified JavaScript Value</td><td valign="top">JSON.stringify the full request including history array</td></tr><tr><td valign="top">Call Assessment Agent</td><td valign="top">REST Client</td><td valign="top">POST ${AGENT_URL}/assess — socket timeout 180000ms</td></tr><tr><td valign="top">Check HTTP Status</td><td valign="top">Filter Rows</td><td valign="top">Route non-200 to error log</td></tr><tr><td valign="top">Parse Agent Response</td><td valign="top">Modified JavaScript Value</td><td valign="top">Extract priority, fault_type, pattern, assessment, confidence</td></tr><tr><td valign="top">Route by Priority</td><td valign="top">Switch / Case</td><td valign="top">Fan out on priority field</td></tr><tr><td valign="top">Write CRITICAL</td><td valign="top">Table Output</td><td valign="top">assessed_log with alert flag set</td></tr><tr><td valign="top">Write HIGH</td><td valign="top">Table Output</td><td valign="top">assessed_log</td></tr><tr><td valign="top">Write MEDIUM</td><td valign="top">Table Output</td><td valign="top">assessed_log</td></tr><tr><td valign="top">Write LOW</td><td valign="top">Table Output</td><td valign="top">assessed_log</td></tr><tr><td valign="top">Write Errors</td><td valign="top">Text File Output</td><td valign="top">HTTP failures for investigation</td></tr></tbody></table>
+10. Select **OK** to close the message.
 
-This section walks through building maintenance\_assessment.ktr step by step in Spoon. Every dialog tab, field name, and script is given in full. Build the steps in order — each one depends on output fields from the previous.
+> **Warning:** **Test** also succeeds when the file name is wrong: SQLite creates an empty database file for a name it cannot find. A wrong path shows up later, as `no such table` when the transformation runs.
 
-**Step 1: Set transformation properties**
+11. Select **OK** to save the connection and close the **Database Connection** dialog.
+12. Repeat steps 7 to 11 for the history database: set **Connection name** to `asset_history_db` and **Database Name** to `C:\Workshop-AI-Specialty\06-agent-as-a-service\17-agent-deploy\agent-maintenance\data\asset_history.db`.
 
-Double-click anywhere on the empty canvas to open Transformation Properties. Click the Parameters tab.
+> **Success:** Checkpoint: in the **View** tab, **Database connections** under your transformation lists `asset_history_db` and `maintenance_log_db`.
 
-<table><thead><tr><th width="205" valign="top">Parameter</th><th width="213" valign="top">Default Value</th><th valign="top">Description</th></tr></thead><tbody><tr><td valign="top">AGENT_URL</td><td valign="top">http://localhost:8000</td><td valign="top">Base URL of the assessment agent</td></tr><tr><td valign="top">DB_CONNECTION</td><td valign="top">path to / maintenance_log</td><td valign="top">Set path to maintenance_log.db</td></tr><tr><td valign="top">STEP_COPIES</td><td valign="top">2</td><td valign="top">Parallel REST Client copies</td></tr><tr><td valign="top">HISTORY_LIMIT</td><td valign="top">10</td><td valign="top">Max history rows per asset</td></tr></tbody></table>
-
-> **Note:** Add each parameter using the + button. Enter the parameter name in the first column and the default value in the third column (Default value).
-> 
-> Click OK to save. Parameters are accessible as ${PARAM\_NAME} in step configuration fields and via getVariable("PARAM\_NAME","default") in MJV scripts.
-
-**Step 2: Create a database connection**
-
-The Table Input and Database Join steps both need a named connection to the SQLite database. Create it once and both steps will share it.
-
-&#x20;1\.    View > Connections > New
-
-2\.    Connection name: maintenance\_log\_db
-
-3\.    Connection type: SQLite
-
-4\.    Database name (file path): browse to `agent-maintenance\data\maintenance_log.db` in your home folder (`/opt/agent-maintenance/data/maintenance_log.db` on the lab VM)
-
-5\.    Click Test — should return "Connection to database \[MAINTENANCE\_DB] is OK"
-
-6\.    Click OK
-
-> **Note:** SQLite stores the entire database in a single file. The Database Join step will query asset\_history from the same file if you ATTACH it, or you can create a second connection named HISTORY\_DB pointing to data/asset\_history.db.
-> 
-> For this workshop, use separate connection objects for clarity.
-
-**Step 3: Table Input: Read Log Entries**
-
-**Add the step**
-
-1. In the Design pane, expand the Input category
-2. Drag Table Input onto the canvas
-3. Double-click the step to open configuration
-
-&#x20;**Configuration**
-
-<table><thead><tr><th width="236" valign="top">Field</th><th valign="top">Value</th></tr></thead><tbody><tr><td valign="top">Step name</td><td valign="top">Read Log Entries</td></tr><tr><td valign="top">Connection</td><td valign="top">maintenanace_log_db</td></tr><tr><td valign="top">SQL</td><td valign="top">See query below</td></tr><tr><td valign="top">Enable lazy conversion</td><td valign="top">No (unchecked)</td></tr><tr><td valign="top">Replace variables</td><td valign="top">Yes (checked) - required for ${HISTORY_LIMIT}</td></tr></tbody></table>
-
-&#x20;**SQL query**
+13. On the **Design** tab, open the **Input** folder and drag **Table input** onto the canvas.
+14. Double-click **Table input**. Set **Step name** to `Read Log Entries` and **Connection** to `maintenance_log_db`.
+15. Enter this query in **SQL**. Leave **Enable lazy conversion** and **Replace variables in script?** cleared.
 
 ```sql
 SELECT
@@ -406,25 +414,18 @@ WHERE processed = 0
 ORDER BY logged_at ASC
 ```
 
-> **Note:** The processed = 0 filter ensures each log entry is only assessed once.
-> 
-> After a successful run, update processed = 1 in a downstream Table Output
-> 
-> step or via a post-processing Execute SQL Script step in a wrapping Job.
+16. Select **Preview**, enter `100` rows, and select **OK**.
 
-**Step 4: Database Join: Retrieve Asset History**
+> **Success:** Checkpoint: **Examine preview data** shows 5 rows, `L-1001` to `L-1005`, for `PUMP-017`, `COMP-004`, `FAN-011`, `PUMP-017` and `VALVE-022`.
 
-The Database Join step executes a parameterised SQL query once per input row, using the asset\_id field from the stream as the ? parameter.
+17. Select **Close**, then select **OK** to close **Read Log Entries**.
 
-It appends all matching history rows to the stream - one output row per history entry. The subsequent MJV step then aggregates those rows back into a single JSON array field.
+`WHERE processed = 0` reads only entries that have not been assessed. This transformation does not set `processed`; a production version would set it to `1` after a successful run, for example from a job that runs after the transformation.
 
-**Configuration**
-
-> **Warning:** You will need to define a connection to the assets\_history.db located in the ../data folder.
-
-<table><thead><tr><th width="245" valign="top">Field</th><th valign="top">Value</th></tr></thead><tbody><tr><td valign="top">Step name</td><td valign="top">Get Asset History</td></tr><tr><td valign="top">Connection</td><td valign="top">asset_history_db</td></tr><tr><td valign="top">SQL</td><td valign="top">See query below</td></tr><tr><td valign="top">Outer join</td><td valign="top">Yes (checked) - ensures assets with no history still produce a row</td></tr><tr><td valign="top">Number of rows to return</td><td valign="top">${HISTORY_LIMIT}  (resolves to 10)</td></tr><tr><td valign="top">Use variable substitution</td><td valign="top">Yes (checked)</td></tr></tbody></table>
-
-&#x20;**SQL query**
+18. On the **Design** tab, open the **Lookup** folder and drag **Database join** onto the canvas.
+19. Create a hop from **Read Log Entries** to **Database join**: hold `Shift` and drag from one step to the other. If Spoon shows a menu of hop types, select **Main output of step** (here and for every hop in this workshop that has no other instruction).
+20. Double-click **Database join**. Set **Step name** to `Get Asset History` and **Connection** to `asset_history_db`.
+21. Enter this query in **SQL**:
 
 ```sql
 SELECT
@@ -435,69 +436,76 @@ WHERE asset_id = ?
 ORDER BY logged_at ASC
 ```
 
-**Parameters tab**
+22. Set **Number of rows to return** to `10`, and select **Outer join?**. The field takes a number, not a variable.
+23. Fill **The parameters to use** with one row, for the `?` in the query:
 
-Click the Parameters tab. Add one row to bind the ? placeholder to the stream field:&#x20;
+| Parameter fieldname | Parameter Type |
+| --- | --- |
+| `asset_id` | `String` |
 
-<table><thead><tr><th valign="top">Field (from stream)</th><th valign="top">Type</th></tr></thead><tbody><tr><td valign="top">asset_id</td><td valign="top">String</td></tr></tbody></table>
+24. Select **OK**.
 
-> **Warning:** Outer join = Yes is critical. Without it, assets with no history rows (like FAN-011) would be silently dropped from the stream.
-> 
-> With Outer join enabled, the step outputs one row with NULL values for hist\_logged\_at and  hist\_log\_text when no history exists. The next MJV step handles the NULL case by defaulting history\_json to "\[]".
+**Outer join?** keeps an entry whose asset has no history, `FAN-011`, as one row with nulls in `hist_logged_at` and `hist_log_text`. Without it, that entry would leave the stream without a trace.
 
-> **Note:** The Database Join step produces one output row per history entry matched.
-> 
-> For PUMP-017 (3 history rows), it produces 3 output rows — all carrying the original log entry fields (log\_id, asset\_id, log\_text, etc.).
-> 
-> Step (Aggregate History) collapses those back to one row per log entry.
+25. On the **Design** tab, open the **Transform** folder and drag **Sort rows** onto the canvas. Create a hop from **Get Asset History** to **Sort rows**.
+26. Double-click **Sort rows**, keep its name, and fill the **Fields** grid:
 
-**Step 5: Aggregate History into JSON Array**
+| Fieldname | Ascending | Case sensitive compare? |
+| --- | --- | --- |
+| `log_id` | `Y` | `N` |
+| `hist_logged_at` | `Y` | `N` |
 
-The Database Join expanded each log entry into N rows (one per history entry). This MJV step runs after a Group By step to collapse them back into one row per log entry, with the history encoded as a JSON array string in a new field history\_json.
+27. Select **OK**.
+28. From the **Transform** folder, drag **Unique rows** onto the canvas. Create a hop from **Sort rows** to **Unique rows**.
+29. Double-click **Unique rows** and set **Step name** to `Remove Duplicates`. Leave the **Fields to compare on** grid empty, so the step compares complete rows.
+30. Select **OK**. If Spoon shows a **Notice** about sorted input, select **Close**.
+31. Select **Remove Duplicates** on the canvas, press `F10` (**Action > Preview**), and select **Quick Launch**.
 
-**Sort rows**
+> **Success:** Checkpoint: **Examine preview data** shows 12 rows: 3 history rows each for `L-1001`, `L-1002` and `L-1004`, 2 for `L-1005`, and 1 for `L-1003` (`FAN-011`) with `<null>` in `hist_logged_at` and `hist_log_text`. Every row carries its entry's `log_id`, `asset_id`, `logged_at`, `engineer` and `log_text`.
 
-Sort on two fields:&#x20;
+32. Select **Close**.
 
-<table><thead><tr><th valign="top">Field name</th><th valign="top">Ascending</th><th valign="top">Case sensitive</th></tr></thead><tbody><tr><td valign="top">log_id</td><td valign="top">Yes</td><td valign="top">No</td></tr><tr><td valign="top">hist_logged_at</td><td valign="top">Yes</td><td valign="top">No</td></tr></tbody></table>
+> **Under the hood:**
+>
+> #### Database join ran its query once per log entry, and every history row came back twice
+>
+> **Database join** bound each entry's `asset_id` to the `?` and ran the query, once per log entry, adding each result row to a copy of the entry. `asset_history.db` stores each of its 8 history entries twice, so the join wrote 23 rows: 6 for each of the two `PUMP-017` entries and for `COMP-004`, 4 for `VALVE-022`, and 1 for `FAN-011`, the outer-join row with nulls. **Sort rows** put each pair of copies side by side, and **Unique rows**, comparing complete rows, kept the first of each pair: 12 rows.
+>
+> **Why it matters:** a lookup can multiply rows without raising any error. Counting the rows at each step, as you do in **Step Metrics** after the run, is how you catch it.
 
-**Modified JavaScript Value**
-
-Step name: Aggregate History
-
-Copy & Paste the following script into the script editor:
+33. On the **Design** tab, open the **Scripting** folder and drag **Modified JavaScript value** onto the canvas. Create a hop from **Remove Duplicates** to it.
+34. Double-click **Modified JavaScript value** and set **Step name** to `Aggregate History`. Replace the text on the **Script 1** tab with this script:
 
 ```javascript
 // ==========================================================================
 // AGGREGATE HISTORY ROWS INTO A JSON ARRAY
 // ==========================================================================
-// The Database Join produced N rows per log entry (one per history record).
-// This script accumulates those rows and — on the last row for each log_id —
-// emits a single row with the full history encoded as a JSON array string.
+// The Database join produced N rows per log entry (one per history record).
+// On each row, history_json holds the history read so far for that log_id,
+// so the LAST row of each log_id carries the complete JSON array.
+// The Group by step after this one keeps that last value.
 //
-// PDI runs all step instances in parallel threads. Because Sort Rows has
-// sorted by log_id ASC, all rows for the same log_id are contiguous.
-// We use a static accumulator array to collect them.
+// Sort rows has sorted the rows by log_id, so all rows for the same
+// log_id arrive one after another.
 //
-// Static variables (declared with var in the first script block) persist
-// across rows within a single step execution.
+// Variables declared with var keep their values from one row to the next
+// within one copy of this step.
 // ==========================================================================
 
-// Initialise accumulators on first row
+// Initialize the accumulators on the first row
 if (typeof history_buffer === "undefined") {
     var history_buffer = [];
     var current_log_id = null;
 }
 
-// If this is a new log_id, flush the previous buffer first
+// A new log_id starts a new buffer
 if (current_log_id !== null && current_log_id !== log_id + "") {
-    // This should not happen after Sort Rows — included as a safety guard
     history_buffer = [];
 }
 
 current_log_id = log_id + "";
 
-// Accumulate this history row (skip NULL entries from Outer Join)
+// Add this history row (skip the NULL row from the outer join)
 if (hist_logged_at !== null && hist_log_text !== null) {
     history_buffer.push({
         "logged_at": hist_logged_at + "",
@@ -505,53 +513,77 @@ if (hist_logged_at !== null && hist_log_text !== null) {
     });
 }
 
-// Use a Group By step downstream to get the final row per log_id.
-// Set history_json as the output field from this script.
+// The output field: the history so far, as a JSON array string
 var history_json = JSON.stringify(history_buffer);
 ```
 
-**Add output fields in the Fields tab**
+35. Fill the **Fields** grid with one row:
 
-In the Fields tab at the bottom of the MJV dialog, click Get variables and then add:
+| Fieldname | Type |
+| --- | --- |
+| `history_json` | `String` |
 
-<table><thead><tr><th width="140" valign="top">Fieldname</th><th width="131" valign="top">Type</th><th valign="top">Notes</th></tr></thead><tbody><tr><td valign="top">history_json</td><td valign="top">String</td><td valign="top">JSON array of history objects, or "[]" if no history</td></tr></tbody></table>
+36. Select **OK**.
+37. On the **Design** tab, open the **Statistics** folder and drag **Group by** onto the canvas. Create a hop from **Aggregate History** to **Group by**.
+38. Double-click **Group by** and keep its name. Fill **The fields that make up the group** grid:
 
-**Group By step to keep only the last row per log\_id**
+| Group field |
+| --- |
+| `log_id` |
+| `asset_id` |
+| `logged_at` |
+| `engineer` |
+| `log_text` |
 
-Group field:&#x20;
+39. Fill the **Aggregates** grid with one row:
 
-<table><thead><tr><th width="290" valign="top">Group by field</th><th valign="top">Notes</th></tr></thead><tbody><tr><td valign="top">log_id</td><td valign="top">Primary key — one output row per log entry</td></tr><tr><td valign="top">asset_id</td><td valign="top">Carry-through field</td></tr><tr><td valign="top">logged_at</td><td valign="top">Carry-through field</td></tr><tr><td valign="top">engineer</td><td valign="top">Carry-through field</td></tr><tr><td valign="top">log_text</td><td valign="top">Carry-through field</td></tr></tbody></table>
+| Name | Subject | Type |
+| --- | --- | --- |
+| `history_json` | `history_json` | **Last non-null value** |
 
-&#x20;Aggregation (to retain the last history\_json value per group):&#x20;
+40. Select **OK**. If Spoon shows a **Notice** about sorted input, select **Close**.
 
-<table><thead><tr><th valign="top">Name</th><th valign="top">Subject</th><th valign="top">Type</th></tr></thead><tbody><tr><td valign="top">history_json</td><td valign="top">history_json</td><td valign="top">Last non-null value</td></tr></tbody></table>
+`log_id` identifies the entry; the other four group fields carry its columns through. **Last non-null value** keeps the `history_json` of each entry's last row, the one whose array holds every history entry.
 
-> **Note:** The LAST aggregation type returns the last non-NULL value for history\_json within the group. Because the MJV accumulates entries into the buffer as rows arrive, and Sort Rows guarantees chronological order within each log\_id, the LAST row for each log\_id carries the complete history array.
+41. Select **Group by** on the canvas, press `F10` (**Action > Preview**), and select **Quick Launch**.
 
-**Step 6: MJV: Build Agent Payload**
+> **Success:** Checkpoint: 5 rows, one per log entry. `history_json` holds 3 entries for `L-1001`, `L-1002` and `L-1004`, 2 for `L-1005`, and `[]` for `L-1003`. For `L-1001` it reads `[{"logged_at":"2025-09-12","log_text":"slight rumble on startup, clears after 2 minutes"},{"logged_at":"2025-11-03","log_text":"intermittent vibration under load, bearing checked ok"},{"logged_at":"2026-01-18","log_text":"bearing replaced, work order WO-4412"}]`.
 
-Step name: Build Agent Payload
+42. Select **Close**, and save the transformation (`Ctrl+S`).
+
+> **Tip:** **Aggregate History** works here because it runs as one copy and sees each entry's rows in order. For large volumes, or to run more copies, build the array in a sub-transformation with **Transformation executor** instead: for each log entry, a child transformation queries the history and returns one row with the complete array. It keeps no state between rows, so it is safe to run in parallel.
+
+### 5. Call the Agent
+
+> **Note:**
+>
+> #### Call the Agent
+>
+> Build the request body for each log entry, post it to the agent, and read the answer back into fields. A row whose call fails goes to a file instead.
+
+1. On the **Design** tab, open the **Scripting** folder and drag **Modified JavaScript value** onto the canvas. Create a hop from **Group by** to it.
+2. Double-click the new **Modified JavaScript value** and set **Step name** to `Build Agent Payload`. Replace the text on the **Script 1** tab with this script:
 
 ```javascript
 // ==========================================================================
 // BUILD THE AGENT REQUEST PAYLOAD
 // ==========================================================================
-// This step takes the accumulated history_json array string produced by
-// the Aggregate History step and constructs the complete JSON payload
+// This step takes the history_json array string produced by
+// Aggregate History and Group by, and builds the complete JSON body
 // for a POST request to the agent's /assess endpoint.
 //
 // Input fields expected from the stream:
-//   log_id       — unique identifier for this log entry
-//   asset_id     — asset identifier extracted by Regex Evaluation
-//   log_text     — the raw engineer observation text
-//   history_json — JSON array string from Aggregate History + Group By
+//   log_id       - unique identifier for this log entry
+//   asset_id     - asset identifier from maintenance_log
+//   log_text     - the raw engineer observation text
+//   history_json - JSON array string from Aggregate History + Group by
 //
 // Output field:
-//   agent_payload — serialised JSON string ready for the REST Client body
+//   agent_payload - serialized JSON string, the REST client body
 // ==========================================================================
 
-// 1. Sanitise log_text to prevent JSON serialisation errors.
-//    Engineers enter free text — quotes and newlines are common.
+// 1. Clean log_text.
+//    Engineers enter free text - quotes and newlines are common.
 var safe_text = (log_text + "")
     .replace(/\\/g, "\\\\")   // escape backslashes first
     .replace(/"/g,  '\\"')      // escape double quotes
@@ -559,9 +591,9 @@ var safe_text = (log_text + "")
     .replace(/\r/g, "");         // remove carriage returns
 
 // 2. Parse the history JSON array.
-//    history_json arrives as a string: '[{"logged_at":"...","log_text":"..."}]' 
-//    It may be "[]" for assets with no history (FAN-011).
-//    It may be null if the Group By produced no value — handle defensively.
+//    history_json arrives as a string: '[{"logged_at":"...","log_text":"..."}]'
+//    It is "[]" for assets with no history (FAN-011).
+//    It may be null if Group by produced no value - handle defensively.
 var history_arr = [];
 try {
     var raw = history_json + "";
@@ -569,100 +601,88 @@ try {
         history_arr = JSON.parse(raw);
     }
 } catch(e) {
-    history_arr = [];  // default to empty — agent handles gracefully
+    history_arr = [];  // default to empty - the agent handles it
 }
 
-// 3. Build the complete request object and serialise it.
+// 3. Build the complete request object and serialize it.
 var agent_payload = JSON.stringify({
     "log_id":   log_id   + "",
     "asset_id": asset_id + "",
     "log_text": safe_text,
     "history":  history_arr
 });
-
 ```
 
-**Fields tab - output fields**&#x20;
+3. Fill the **Fields** grid with one row:
 
-<table><thead><tr><th width="169" valign="top">Fieldname</th><th width="134" valign="top">Type</th><th valign="top">Notes</th></tr></thead><tbody><tr><td valign="top">agent_payload</td><td valign="top">String</td><td valign="top">Complete JSON payload for POST /assess</td></tr></tbody></table>
+| Fieldname | Type |
+| --- | --- |
+| `agent_payload` | `String` |
 
-**Verify the payload**
+4. Select **OK**.
+5. Select **Build Agent Payload** on the canvas, press `F10` (**Action > Preview**), and select **Quick Launch**.
 
-Before connecting the REST Client, preview the output of this step and verify the agent\_payload field contains valid JSON with the correct structure:&#x20;
+> **Success:** Checkpoint: 5 rows, each with `agent_payload` as one line of JSON. For `L-1001` it starts `{"log_id":"L-1001","asset_id":"PUMP-017","log_text":"Rougher than usual on startup` and holds the three history entries; for `L-1003` it ends `"history":[]}`.
 
-```
-// Expected agent_payload for PUMP-017:
+6. Select **Close**.
+
+These are the payloads for `L-1001` and `L-1003` (`FAN-011`, no history), laid out on several lines for reading:
+
+```json
 {
-  "log_id":   "L-1001",
+  "log_id": "L-1001",
   "asset_id": "PUMP-017",
-  "log_text": "Rougher than usual on startup, louder than before the January maintenance.",
+  "log_text": "Rougher than usual on startup, louder than before the January maintenance. Vibration settling after ~3 minutes.",
   "history": [
-    {"logged_at": "2025-09-12", "log_text": "slight rumble on startup"},
-    {"logged_at": "2025-11-03", "log_text": "intermittent vibration under load"},
-    {"logged_at": "2026-01-18", "log_text": "bearing replaced, WO-4412"}
+    {"logged_at": "2025-09-12", "log_text": "slight rumble on startup, clears after 2 minutes"},
+    {"logged_at": "2025-11-03", "log_text": "intermittent vibration under load, bearing checked ok"},
+    {"logged_at": "2026-01-18", "log_text": "bearing replaced, work order WO-4412"}
   ]
 }
- 
-// Expected agent_payload for FAN-011 (no history):
+
 {
-  "log_id":   "L-1003",
+  "log_id": "L-1003",
   "asset_id": "FAN-011",
-  "log_text": "Fan running normally. Slight hum noted but within normal range.",
+  "log_text": "Fan running normally. Slight hum noted but within normal range. No action.",
   "history": []
 }
 ```
 
-**Step 7: REST Client: Call the Assessment Agent**
+7. On the **Design** tab, open the **Lookup** folder and drag **REST client** onto the canvas. Create a hop from **Build Agent Payload** to **REST client**.
+8. Double-click **REST client** and set **Step name** to `Call Assessment Agent`.
+9. On the **General** tab, enter these settings:
 
-Step name: Call Assessment Agent
+| Setting | Value |
+| --- | --- |
+| **URL** | `${AGENT_URL}/assess` |
+| **HTTP method** | `POST` |
+| **Body field** | `agent_payload` |
+| **Application type** | `JSON` |
+| **Result field name** | `agent_response` |
+| **HTTP status code field name** | `response_code` |
+| **Response time (milliseconds) field name** | `response_time_ms` |
 
-**General tab**&#x20;
+Leave the **Headers** tab empty. **Application type** `JSON` sends the body as `application/json`, the only content type the agent reads as JSON; with `TEXT PLAIN`, the agent answers 422.
 
-<table><thead><tr><th valign="top">Field</th><th valign="top">Value</th></tr></thead><tbody><tr><td valign="top">HTTP method</td><td valign="top">POST</td></tr><tr><td valign="top">URL</td><td valign="top">${AGENT_URL}/assess</td></tr><tr><td valign="top">Body field</td><td valign="top">agent_payload</td></tr><tr><td valign="top">Application type</td><td valign="top">TEXT PLAIN</td></tr><tr><td valign="top">Result field name</td><td valign="top">agent_response</td></tr><tr><td valign="top">HTTP status code field</td><td valign="top">response_code</td></tr><tr><td valign="top">Response time field</td><td valign="top">response_time_ms</td></tr></tbody></table>
+10. Select **OK**.
+11. Right-click **Call Assessment Agent** and select **Change Number of Copies to Start...**. In the **Nr of copies of step...** dialog, enter `${STEP_COPIES}` and select **OK**.
 
-&#x20;**Headers:** (leave empty - REST Client auto-adds Content-Type)
+The **REST client** dialog has no timeout setting. The agent allows each Ollama call 120 seconds (`AGENT_TIMEOUT`), and answers 502 when Ollama fails or does not answer in time.
 
-> **Note:** The actual timeout behaviour is controlled at the JVM level via `kettle.properties`, not per-step.
-
-**Step 8: Filter Rows: Check HTTP Status**
-
-Step name: Check HTTP Status
-
-&#x20;**Condition**
-
-Click inside the condition area and build the following filter:
-
-&#x20;`response_code  =  200`
-
-> **Note:** The Write HTTP Errors step should capture: log\_id, asset\_id, response\_code,
-> 
-> agent\_payload (so you can see what was sent), and response\_time\_ms.
-> 
-> Common non-200 codes:&#x20;
-> 
-> 422 = malformed payload
-> 
-> 502 = Ollama not running
-> 
-> 500 = agent parse failure (LLM returned malformed JSON after retries).
-
-**Output hops**
-
-Right-click the Filter Rows step. You need two output hops:
-
-TRUE path → draw a hop to the next step (Parse Agent Response)
-
-FALSE path → draw a hop to a Text File Output step named Write HTTP Errors
-
-**Step 8:  MJV: Parse Agent Response**
-
-Step name: Parse Agent Response
+12. On the **Design** tab, open the **Flow** folder and drag **Filter rows** onto the canvas. Create a hop from **Call Assessment Agent** to **Filter rows**.
+13. On the **Design** tab, open the **Scripting** folder and drag **Modified JavaScript value** onto the canvas, to the right of **Filter rows**. Double-click it, set **Step name** to `Parse Agent Response`, and select **OK**.
+14. On the **Design** tab, open the **Output** folder and drag **Text file output** onto the canvas, below **Filter rows**. Double-click it, set **Step name** to `Write HTTP Errors`, and select **OK**.
+15. Create a hop from **Filter rows** to **Parse Agent Response** and select **Result is TRUE**. Create a hop from **Filter rows** to **Write HTTP Errors** and select **Result is FALSE**.
+16. Double-click **Filter rows** and set **Step name** to `Check HTTP Status`. **Send 'true' data to step** reads `Parse Agent Response`, and **Send 'false' data to step** reads `Write HTTP Errors`.
+17. In **The condition**, select `<field>` on the left and select `response_code`. Keep the function `=`. Select `<value>`. In the **Enter value** dialog, set **Type** to `Integer` and **Value** to `200`, then select **OK**. The condition reads `response_code = 200`.
+18. Select **OK**.
+19. Double-click **Parse Agent Response**. Replace the text on the **Script 1** tab with this script:
 
 ```javascript
 // ==========================================================================
 // PARSE THE AGENT RESPONSE
 // ==========================================================================
-// The agent returns a clean JSON object — no Ollama wrapper envelope.
+// The agent returns a clean JSON object - no Ollama wrapper envelope.
 // The agent_response field contains the raw HTTP response body as a string.
 //
 // Expected response schema:
@@ -677,7 +697,7 @@ Step name: Parse Agent Response
 // }
 //
 // Error handling: if parsing fails, priority defaults to MEDIUM so the
-// row is routed to the standard_queue rather than being lost.
+// row is routed to the standard queue rather than being lost.
 // parse_error = "Y" flags it for manual review.
 // ==========================================================================
 
@@ -698,140 +718,264 @@ try {
     assessment = d.assessment ? (d.assessment + "")               : "";
     confidence = d.confidence ? parseInt(d.confidence, 10)        : 50;
 
-    // Clamp confidence to valid range
+    // Clamp confidence to the valid range
     if (confidence < 0)   confidence = 0;
     if (confidence > 100) confidence = 100;
 
 } catch(e) {
     parse_error     = "Y";
     parse_error_msg = e.message ? e.message + "" : "JSON parse error";
-    // All output fields retain their safe defaults above.
+    // All output fields keep their safe defaults above.
     // The row continues downstream with priority = MEDIUM.
 }
 ```
 
-**Fields tab - output fields**&#x20;
+20. Fill the **Fields** grid:
 
-<table><thead><tr><th width="196" valign="top">Fieldname</th><th width="120" valign="top">Type</th><th valign="top">Notes</th></tr></thead><tbody><tr><td valign="top">priority</td><td valign="top">String</td><td valign="top">CRITICAL | HIGH | MEDIUM | LOW</td></tr><tr><td valign="top">fault_type</td><td valign="top">String</td><td valign="top">Short snake_case label from agent</td></tr><tr><td valign="top">pattern</td><td valign="top">String</td><td valign="top">RECURRENCE | ESCALATION | NEW_FAULT | NORMAL_VARIATION</td></tr><tr><td valign="top">assessment</td><td valign="top">String</td><td valign="top">One-to-two sentence explanation</td></tr><tr><td valign="top">confidence</td><td valign="top">Integer</td><td valign="top">0–100</td></tr><tr><td valign="top">parse_error</td><td valign="top">String</td><td valign="top">Y or N</td></tr><tr><td valign="top">parse_error_msg</td><td valign="top">String</td><td valign="top">Exception message if parse_error = Y</td></tr></tbody></table>
+| Fieldname | Type | Holds |
+| --- | --- | --- |
+| `priority` | `String` | `CRITICAL`, `HIGH`, `MEDIUM` or `LOW` |
+| `fault_type` | `String` | A short `snake_case` label from the agent |
+| `pattern` | `String` | `RECURRENCE`, `ESCALATION`, `NEW_FAULT` or `NORMAL_VARIATION` |
+| `assessment` | `String` | One or two sentences of explanation |
+| `confidence` | `Integer` | 0 to 100 |
+| `parse_error` | `String` | `Y` or `N` |
+| `parse_error_msg` | `String` | The exception message when `parse_error` is `Y` |
 
-&#x20;**Step 9: Switch / Case: Route by Priority**
+21. Select **OK**.
+22. Double-click **Write HTTP Errors**. On the **File** tab, set **Filename** to `${Internal.Entry.Current.Directory}/http_errors` and keep **Extension** `txt`.
+23. On the **Fields** tab, select **Get Fields**, then **Minimal width**. The file keeps every field of a failed call, including `response_code`, `agent_payload` (what was sent) and `agent_response` (the agent's error detail).
+24. Select **OK**, and save the transformation (`Ctrl+S`).
 
-Add four Table Output steps (Output category), one for each priority path. They all write to the same assessed\_log table but can be separate tables if your schema requires it. Connect each from the corresponding Switch / Case output hop.
+A call that fails at the HTTP level reaches **Write HTTP Errors** with its code: `422` for a request body the agent rejects, `502` when Ollama is not running or does not have the model, and `500` when the model's answer is still not valid JSON after 3 attempts.
 
-x
-
-x
-
-### RUN
+### 6. Route and Write
 
 > **Note:**
 >
-> #### RUN Transformation
+> #### Route and Write
+>
+> Send each assessed row to one of four **Table output** steps by its priority. All four insert into the `assessed_log` table in `maintenance_log.db`; separate steps keep each priority's path visible on the canvas, ready for its own handling.
 
-**Step 1: Start the agent**
+1. On the **Design** tab, open the **Flow** folder and drag **Switch / case** onto the canvas. Create a hop from **Parse Agent Response** to **Switch / case**.
+2. Double-click **Switch / case**, set **Step name** to `Route by Priority`, and select **OK**.
+3. On the **Design** tab, open the **Output** folder and drag **Table output** onto the canvas. Double-click it and set **Step name** to `Write CRITICAL`.
+4. Set **Connection** to `maintenance_log_db` and **Target table** to `assessed_log`, and select **Specify database fields**.
+5. Open the **Database fields** tab and fill the grid. `assessed_at` is not in it: the table fills that column with the time of the insert.
 
-**Windows (PowerShell)**
+| Table field | Stream field |
+| --- | --- |
+| `log_id` | `log_id` |
+| `asset_id` | `asset_id` |
+| `logged_at` | `logged_at` |
+| `log_text` | `log_text` |
+| `priority` | `priority` |
+| `fault_type` | `fault_type` |
+| `pattern` | `pattern` |
+| `assessment` | `assessment` |
+| `confidence` | `confidence` |
+| `parse_error` | `parse_error` |
+| `response_time_ms` | `response_time_ms` |
+
+6. Select **OK**.
+7. Repeat steps 3 to 6 three times, with **Step name** `Write HIGH`, `Write MEDIUM` and `Write LOW`.
+8. Create a hop from **Route by Priority** to each of the four **Table output** steps. In the menu Spoon shows for each hop, select **Create a new target case for this step**.
+9. Double-click **Route by Priority**. Set **Field name to switch** to `priority`, keep **Case value data type** `String`, and set **Default target step** to `Write MEDIUM`.
+10. Fill the **Case values** grid:
+
+| Value | Target step |
+| --- | --- |
+| `CRITICAL` | `Write CRITICAL` |
+| `HIGH` | `Write HIGH` |
+| `MEDIUM` | `Write MEDIUM` |
+| `LOW` | `Write LOW` |
+
+11. Select **OK**, and save the transformation (`Ctrl+S`).
+
+**Default target step** catches any value outside the four, the same safe default **Parse Agent Response** uses, so no row is dropped.
+
+### 7. Run
+
+> **Note:**
+>
+> #### Run the Transformation
+>
+> Run the transformation while the agent is running, then check the row counts at each step, the agent's log and the rows in `assessed_log`.
+
+1. Check that the agent's terminal from **1. Start the Agent** still shows `Uvicorn running on http://0.0.0.0:8000`. If you closed it, open PowerShell and repeat steps 1 and 4 of that part.
+2. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
+3. Watch the agent's terminal while the transformation runs.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/agent_check_logs.png" alt="A PowerShell window running the agent with uvicorn: for each entry from L-1001 to L-1005 it logs the asset and its number of history entries (3, 3, 0, 3 and 2), the call to Ollama's api/generate, and POST /assess 200 OK" width="800">
+<figcaption>The agent's log during the run: one Assessing line and one 200 OK per entry (from an older folder and environment name)</figcaption>
+</figure>
+</div>
+
+> **Success:** Checkpoint: the agent logs one `Assessing` line per log entry, each followed by its call to `http://localhost:11434/api/generate` and by `"POST /assess HTTP/1.1" 200 OK`. With two copies of **Call Assessment Agent**, the order can differ from this list:
+>
+> * `Assessing L-1001 for PUMP-017 (3 history entries)`
+> * `Assessing L-1002 for COMP-004 (3 history entries)`
+> * `Assessing L-1003 for FAN-011 (0 history entries)`
+> * `Assessing L-1004 for PUMP-017 (3 history entries)`
+> * `Assessing L-1005 for VALVE-022 (2 history entries)`
+
+4. When the run ends, in **Execution Results**, open the **Step Metrics** tab.
+
+> **Success:** Checkpoint: in **Written**, **Read Log Entries** shows 5, **Get Asset History** 23, **Sort rows** 23, **Remove Duplicates** 12, **Aggregate History** 12, **Group by** 5 and **Build Agent Payload** 5. **Call Assessment Agent** has one line per copy (**Copynr** `0` and `1`), 5 rows between them. The four **Write** steps share the 5 rows by the priorities the model chose, and **Write HTTP Errors** shows 0 when every call returned 200.
+
+5. Select **Write HIGH** on the canvas (or any **Write** step that received rows) and open the **Preview data** tab.
+
+> **Success:** Checkpoint: the rows the step inserted, with every field of the stream: the log entry, `history_json`, `agent_payload`, `agent_response`, `response_code` `200` and `response_time_ms`, then the parsed `priority`, `fault_type`, `pattern`, `assessment`, `confidence`, and `parse_error` `N`. Which entries arrive here is the model's call.
+
+6. List what the transformation wrote to `assessed_log`. In the second terminal, in the `agent-maintenance` folder, run:
+
+::: tabs
+
+### Windows (PowerShell)
 
 ```powershell
-cd $env:USERPROFILE\agent-maintenance
-.\.venv\Scripts\Activate.ps1
+.\.venv\Scripts\python -c "import sqlite3; con = sqlite3.connect('data/maintenance_log.db'); [print(r) for r in con.execute('SELECT log_id, asset_id, priority, pattern, confidence FROM assessed_log ORDER BY log_id')]"
 ```
+
+### macOS / Linux
+
+```bash
+.venv/bin/python -c "import sqlite3; con = sqlite3.connect('data/maintenance_log.db'); [print(r) for r in con.execute('SELECT log_id, asset_id, priority, pattern, confidence FROM assessed_log ORDER BY log_id')]"
+```
+
+:::
+
+> **Success:** Checkpoint: 5 rows, `L-1001` to `L-1005`, each with the `priority`, `pattern` and `confidence` the agent returned.
+
+Compare your rows with the answers the prompt's rules in `agent.py` point to. The model can disagree with a rule; for any row that differs, read its `assessment` to see why.
+
+| `log_id` | What the entry says | The rule that applies | `priority` | `pattern` |
+| --- | --- | --- | --- | --- |
+| `L-1001` | Rougher on startup, after the January bearing replacement | The same symptom type as the history, after a repair | `HIGH` | `RECURRENCE` |
+| `L-1002` | Alarm triggered; 94C against a limit of 85C | A reading over its stated limit, and an alarm; high temperature is in the history | `CRITICAL` | `RECURRENCE` |
+| `L-1003` | Running normally, within normal range, no action | The engineer states it is normal | `LOW` | `NORMAL_VARIATION` |
+| `L-1004` | Vibration getting worse through the shift | Worse during the current shift | `CRITICAL` | `ESCALATION` |
+| `L-1005` | Valve sticking, never seen before | No history entry of the same symptom type | `MEDIUM` | `NEW_FAULT` |
+
+7. Before you run the transformation again, empty `assessed_log`: `log_id` is its primary key, and this transformation reads the same five entries every time, so a second run would stop on duplicate keys. In the second terminal, run:
+
+::: tabs
+
+### Windows (PowerShell)
 
 ```powershell
-# Keep this terminal open
-uvicorn agent.agent:app --host 0.0.0.0 --port 8000
+.\.venv\Scripts\python -c "import sqlite3; con = sqlite3.connect('data/maintenance_log.db'); con.execute('DELETE FROM assessed_log'); con.commit()"
 ```
 
-**macOS / Linux**
+### macOS / Linux
 
 ```bash
-cd ~/agent-maintenance   # lab VM: /opt/agent-maintenance
-source .venv/bin/activate   # lab VM: source agent-venv/bin/activate
+.venv/bin/python -c "import sqlite3; con = sqlite3.connect('data/maintenance_log.db'); con.execute('DELETE FROM assessed_log'); con.commit()"
 ```
 
-```bash
-# Keep this terminal open
-uvicorn agent.agent:app --host 0.0.0.0 --port 8000
-```
+:::
 
-**Step 2: RUN**
+**Key points**
 
-1. Select Run options — leave defaults
-2. Click Run
+* **The boundary is precise.** Pentaho Data Integration steps handle extraction, lookup, rules and routing. No rule-based step reads several unstructured entries together and judges whether they describe a known pattern; that is the one task the agent owns.
+* **Pentaho Data Integration does more of the work than the agent.** **Table input** reads the entries, **Database join** retrieves the history, two **Modified JavaScript value** steps build the request and parse the answer, and **Switch / case** routes the result. The agent does one thing: reason across text.
+* **One LLM call, grounded in retrieved data, is the clean pattern.** Pentaho Data Integration retrieves the history as rows and passes it in one request, so the agent needs no tools of its own.
+* **Confidence surfaces the model's uncertainty for human review.** Entries with little history or ambiguous text can go to a review queue, whatever their priority.
+* **The test for any agent pattern is: can Pentaho Data Integration replicate it?** If steps can do it, use steps: they are faster, simpler and deterministic. If not, that is where an agent earns its place.
 
-<figure><img src="../_assets/images/agent_check_logs.png" alt=""><figcaption><p>Check logs</p></figcaption></figure>
-
-> **Note:** The Preview panel opens with the Logging tab active. Watch for:
-> 
-> * Read Log Entries: should show 5 rows read (one per sample log entry)
-> * Get Asset History: row count will be higher than 5 — this is expected (one row per history match)
-> * Group By: should collapse back to 5 rows
-> * Call Assessment Agent: 5 rows sent; watch response\_time\_ms
-> * Route by Priority: rows distributed across CRITICAL (1), HIGH (1), MEDIUM (2), LOW (1)
-
-CRITICAL
-
-<table><thead><tr><th width="185">Field</th><th>Value</th></tr></thead><tbody><tr><td><strong>log_id</strong></td><td>L-1002</td></tr><tr><td><strong>asset_id</strong></td><td>COMP-004</td></tr><tr><td><strong>logged_at</strong></td><td>2026-04-07 09:02:00</td></tr><tr><td><strong>engineer</strong></td><td>S.Okafor</td></tr><tr><td><strong>log_text</strong></td><td>High temperature alarm triggered at 09:00. Reading: 94C. Limit is 85C. No prior warnings this shift.</td></tr><tr><td><strong>history_json</strong></td><td><code>[{"logged_at":"2025-10-05","log_text":"temperature running slightly high 82C, within tolerance"},{"logged_at":"2025-12-14","log_text":"cooling fan filter cleaned, temperature normal"},{"logged_at":"2026-02-28","log_text":"temperature normal, no issues"}]</code></td></tr><tr><td><strong>agent_payload</strong></td><td><code>{"log_id":"L-1002","asset_id":"COMP-004","log_text":"High temperature alarm triggered...","history":[...3 entries...]}</code></td></tr><tr><td><strong>agent_response</strong></td><td><code>{"log_id":"L-1002","asset_id":"COMP-004","priority":"CRITICAL","fault_type":"high_temperature_alarm","pattern":"RECURRENCE","assessment":"High temperature alarm triggered at 09:00 with a reading of 94C, exceeding the limit of 85C.","confidence":100}</code></td></tr><tr><td><strong>response_code</strong></td><td>200</td></tr><tr><td><strong>response_time_ms</strong></td><td>5094</td></tr><tr><td><strong>priority</strong></td><td><strong>CRITICAL</strong> ✅</td></tr><tr><td><strong>fault_type</strong></td><td><code>high_temperature_alarm</code> ✅</td></tr><tr><td><strong>pattern</strong></td><td><code>RECURRENCE</code> ✅</td></tr><tr><td><strong>assessment</strong></td><td>High temperature alarm triggered at 09:00 with a reading of 94C, exceeding the limit of 85C.</td></tr><tr><td><strong>confidence</strong></td><td>100</td></tr><tr><td><strong>parse_error</strong></td><td>N</td></tr><tr><td><strong>parse_error_msg</strong></td><td><em>(blank)</em></td></tr></tbody></table>
-
-<table><thead><tr><th width="103">log_id</th><th width="116">priority</th><th width="220">fault_type</th><th>pattern</th></tr></thead><tbody><tr><td>L-1001</td><td>HIGH</td><td>bearing_degradation / vibration_recurrence</td><td>RECURRENCE</td></tr><tr><td>L-1002</td><td>CRITICAL</td><td>high_temperature_alarm</td><td>RECURRENCE</td></tr><tr><td>L-1003</td><td>LOW</td><td>normal_variation</td><td>NORMAL_VARIATION</td></tr><tr><td>L-1004</td><td>CRITICAL</td><td>increased_vibration / vibration_escalation</td><td>ESCALATION</td></tr><tr><td>L-1005</td><td>MEDIUM</td><td>valve_sticking</td><td>NEW_FAULT</td></tr></tbody></table>
-
-> **Note:** KEY POINTS
-> 
-> 1\. The boundary is precise and provable.
-> 
-> &#x20;  PDI steps handle extraction, lookup, rules, and routing.
-> 
-> &#x20;  No PDI step reads multiple unstructured text entries together and
-> 
-> &#x20;  reasons about whether they collectively indicate a known pattern.
-> 
-> &#x20;  That is the exact and only task the agent owns.
-> 
-> &#x20;
-> 
-> 2\. PDI does more work than the agent in this pipeline.
-> 
-> &#x20;  Regex extracts the asset ID. Database Join retrieves the history.
-> 
-> &#x20;  MJV builds the payload. Switch/Case routes the result.
-> 
-> &#x20;  The agent does one thing: language reasoning across text.
-> 
-> &#x20;
-> 
-> 3\. One LLM call, grounded in retrieved data, is the clean pattern.
-> 
-> &#x20;  The history context is retrieved by PDI as structured rows,
-> 
-> &#x20;  formatted by MJV, and passed to the agent in a single payload.
-> 
-> &#x20;  The agent does not need tools because PDI already did the lookup.
-> 
-> &#x20;
-> 
-> 4\. Confidence scores surface model uncertainty for human review.
-> 
-> &#x20;  Entries with low history or ambiguous text should route to a
-> 
-> &#x20;  review queue regardless of the priority label.
-> 
-> &#x20;
-> 
-> 5\. The test for any agent pattern is: can PDI replicate it?
-> 
-> &#x20;  If yes with steps — use steps. Faster, simpler, deterministic.
-> 
-> &#x20;  If no — that is where the agent earns its place.
-
-### Performance
+### 8. Performance
 
 > **Note:**
 >
 > #### Performance
+>
+> Each call carries the agent's instructions, the asset's history and the current entry, so its prompt is longer than in the earlier workshops, and the time per call grows with the history.
 
-History context increases prompt length compared to earlier workshops. A typical prompt for this workshop is 300–600 tokens (system instructions + up to 10 history entries + current entry). At llama3.1:8b on the 3080 12GB, expect 4–8 seconds per assessment.&#x20;
+With the course model, `llama3.2:3b`, on a CPU, expect 15 to 30 seconds or more per call (see [Before You Start](../00-before-you-start/guide.md)). These times for the 5 entries were measured with `llama3.1:8b`, the agent's default model, on an NVIDIA RTX 3080 12 GB GPU:
 
-<table><thead><tr><th width="207" valign="top">Configuration</th><th width="141" valign="top">Step Copies</th><th width="160" valign="top">5 entries</th><th valign="top">Notes</th></tr></thead><tbody><tr><td valign="top">llama3.1:8b, RTX 3080 12GB, no history</td><td valign="top">1</td><td valign="top">~15-25 sec</td><td valign="top">~3-5 sec/call, short prompt</td></tr><tr><td valign="top">llama3.1:8b, RTX 3080 12GB, 5 history entries</td><td valign="top">1</td><td valign="top">~25-40 sec</td><td valign="top">~5-8 sec/call, longer prompt</td></tr><tr><td valign="top">llama3.1:8b, RTX 3080 12GB, 10 history entries</td><td valign="top">1</td><td valign="top">~30-50 sec</td><td valign="top">~6-10 sec/call</td></tr><tr><td valign="top">llama3.1:8b, RTX 3080 12GB, 10 history entries</td><td valign="top">2</td><td valign="top">~18-30 sec</td><td valign="top">Recommended starting point</td></tr><tr><td valign="top">llama3.1:8b, RTX 3080 12GB, 10 history entries</td><td valign="top">4</td><td valign="top">~14-24 sec</td><td valign="top">Try this; 7GB KV headroom supports it</td></tr></tbody></table>
+| Configuration (`llama3.1:8b`, RTX 3080 12 GB) | Step copies | 5 entries | Notes |
+| --- | --- | --- | --- |
+| No history | 1 | about 15 to 25 s | About 3 to 5 s per call, short prompt |
+| 5 history entries | 1 | about 25 to 40 s | About 5 to 8 s per call, longer prompt |
+| 10 history entries | 1 | about 30 to 50 s | About 6 to 10 s per call |
+| 10 history entries | 2 | about 18 to 30 s | Recommended starting point |
+| 10 history entries | 4 | about 14 to 24 s | Try this on a 12 GB GPU |
 
-:::
+1. Empty `assessed_log`, as in step 7 of **7. Run**.
+2. Press `F9` (**Action > Run**). In the **Run Options** dialog, open the **Parameters** tab, set the **Value** of `STEP_COPIES` to `1`, and select **Run**.
+3. When the run ends, in **Execution Results**, open the **Step Metrics** tab.
 
+> **Success:** Checkpoint: **Call Assessment Agent** has one line, with 5 in **Written**, and its **Time** column shows how long the five calls took one after another.
+
+4. Compare that **Time** with the run you made with two copies.
+
+> **Under the hood:**
+>
+> #### Each copy of REST client waits for its answer before it sends the next row
+>
+> A **REST client** copy sends one request and waits for the answer before it reads its next row, so with one copy the five calls run one after another. With `STEP_COPIES` at `2`, Pentaho Data Integration starts two copies and deals the rows out between them, so two requests are in flight at once. The agent's `assess` endpoint is asynchronous and accepts both; whether Ollama then answers them side by side or one after the other is Ollama's setting, not Pentaho Data Integration's.
+>
+> **Why it matters:** more copies only help while the model server has capacity to spare. Measure on the hardware you deploy to before you raise the number of copies.
+
+::::
+
+## Troubleshooting <!-- no-step -->
+
+<details>
+<summary>The agent answers 502 Bad Gateway</summary>
+
+Ollama is not running, or does not have the model the agent asks for. Check that `ollama list` shows `llama3.2:3b`, and that you set `AGENT_MODEL_NAME` in the agent's terminal before you started it: `http://localhost:8000/health` shows the model the agent uses. Ollama errors also show in the agent's terminal.
+
+</details>
+
+<details>
+<summary>Every row goes to Write HTTP Errors with response_code 422</summary>
+
+The agent rejected the request body. Check that **Application type** in **Call Assessment Agent** is `JSON`: with `TEXT PLAIN`, the agent does not read the body as JSON. Then preview **Build Agent Payload** and check that `agent_payload` holds `log_id`, `asset_id`, `log_text` and `history`.
+
+</details>
+
+<details>
+<summary>Uvicorn says Could not import module "agent.agent"</summary>
+
+Run the start command from the `agent-maintenance` folder, the one that holds the `agent` folder, not from inside `agent`.
+
+</details>
+
+<details>
+<summary>A step fails with no such table</summary>
+
+The connection's **Database Name** points to the wrong file, and SQLite created an empty database there. Correct the path in the connection (in the **View** tab, expand **Database connections**, right-click the connection and select **Edit...**), and delete the empty file it created.
+
+</details>
+
+<details>
+<summary>A second run fails with UNIQUE constraint failed: assessed_log.log_id</summary>
+
+The first run's rows are still in `assessed_log`. Empty the table, as in step 7 of **7. Run**, then run the transformation again.
+
+</details>
+
+## Lab Files
+
+Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches Pentaho Data Integration with the file loaded. If Pentaho Data Integration is already running, the path is copied to your clipboard — switch to Pentaho Data Integration and press `Ctrl+O`, `Ctrl+V`, `Enter`.
+
+The agent and its data form one folder, `agent-maintenance`. Keep its layout when you download the files: `agent.py` in `agent`, `requirements.txt` at the top, and the two databases in `data`:
+
+[agent.py](./files/agent-maintenance/agent/agent.py)
+
+[requirements.txt](./files/agent-maintenance/requirements.txt)
+
+[maintenance_log.db](./files/agent-maintenance/data/maintenance_log.db)
+
+[asset_history.db](./files/agent-maintenance/data/asset_history.db)
+
+The two scripts in `scripts` build the databases from scratch, in a `data` folder under the folder you run them from. Running `create_assets_history_db.py` against an existing `asset_history.db` appends another copy of every history entry:
+
+[create_maintenance_db.py](./files/agent-maintenance/scripts/create_maintenance_db.py)
+
+[create_assets_history_db.py](./files/agent-maintenance/scripts/create_assets_history_db.py)
+
+Also on disk at `C:\Workshop-AI-Specialty\06-agent-as-a-service\17-agent-deploy\agent-maintenance`.

@@ -4,27 +4,27 @@
 >
 > #### Workshop - First Steps
 >
-> Before diving into dashboard development, several preparatory steps are essential. Begin by gathering comprehensive requirements from stakeholders. Next, analyze which visualization methods will most effectively communicate the data. Then, create detailed mockups to establish the dashboard's design. Following this, break down the necessary components and identify relevant data sources.
->
-> Only after completing these preliminary phases should you proceed with the actual dashboard development. This workshop walks you through that groundwork - requirements gathering, mock-up design, and functional breakdown - so you build exactly what stakeholders need before writing a single line of dashboard code.
+> Before you build a dashboard, gather the requirements, choose the visualizations, sketch a mock-up and break the design down into components, queries and parameters. This workshop walks you through that groundwork, so that what you build in CDE is what the stakeholders need.
 >
 > **What you'll do**
 >
-> * Gather comprehensive requirements from stakeholders and identify their pain points
-> * Understand how different stakeholder groups require different levels of information
-> * Evaluate data visualization options and select the right charts for the story
-> * Create wireframes and mock-ups that preview the final dashboard
-> * Produce a functional breakdown document detailing components, queries, and parameters
+> * Identify the stakeholder groups and the information each one needs
+> * Review existing reports and agree the design rules: content, detail, filters and visualizations
+> * Sketch a mock-up that previews the finished dashboard
+> * Produce a functional breakdown that lists components, queries and parameters
 >
-> **Prerequisites:** Access to the Pentaho User Console; a modern web browser; basic familiarity with dashboards and business reporting concepts
+> **Prerequisites:** Access to the Pentaho User Console; a web browser; familiarity with dashboards and business reporting
 >
 > **Estimated time:** 30 minutes
 
-<figure><img src="../_assets/images/gs_first_steps.png" alt=""><figcaption></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/gs_first_steps.png" alt="Illustration of hands interacting with a business dashboard showing revenue, profit, customer and order totals, a sales and profit area chart, a donut chart and monthly bars" width="800">
+<figcaption>A dashboard puts key figures and trends on one interactive screen</figcaption>
+</figure>
+</div>
 
 ***
-
-Follow the guide below to work through the preparatory steps before building a dashboard:
 
 :::: tabs
 
@@ -32,44 +32,36 @@ Follow the guide below to work through the preparatory steps before building a d
 
 > **Note:**
 >
-> Building an effective dashboard starts with a strong foundation. First, sit down with stakeholders to understand their exact needs and pain points. Then, carefully evaluate your data visualization options - whether charts, graphs, or other displays will tell the story best.
+> #### Requirements
 >
-> Create wireframes and mockups to give everyone a concrete preview of the final product. Map out the technical architecture by defining your components and confirming your data sources are reliable and accessible. With this thorough groundwork in place, you can confidently move forward with development, knowing you're building exactly what's needed.
+> An effective dashboard starts with the people who will use it. Sit down with the stakeholders to understand their needs and pain points, then decide which displays tell their story best.
 
-Consider the following points:
+Work through these points with your stakeholders.
 
 #### Target Audience
 
-> **Note:**
->
-> Different stakeholders require different levels of information:
->
-> * **Executives**: Need high-level metrics and trend analysis for quick decision-making
-> * **Department Managers**: Want both company-wide insights and detailed data for their specific areas
-> * **Technical Staff**: Require granular, detailed information for operational tasks
+Different stakeholders need different levels of information:
+
+* **Executives** need high-level metrics and trends for quick decisions.
+* **Department managers** want company-wide figures and the detail for their own area.
+* **Technical staff** need granular, detailed information for operational tasks.
 
 #### User Expectations
 
-> **Note:**
->
-> Success depends on delivering the right information to the right people. Key questions to consider:
->
-> * What specific metrics matter most to each user group?
-> * How will they use this information in their daily work?
-> * What format and level of detail best serves their needs?
+Deliver the right information to the right people. Ask:
+
+* Which metrics matter most to each user group?
+* How will they use this information in their daily work?
+* Which format and level of detail serves them best?
 
 #### Existing Systems
 
-> **Note:**
->
-> #### Existing Systems
->
-> When replacing current reporting tools:
->
-> * Obtain copies of existing reports and dashboards
-> * Analyze their format, content, and usage patterns
-> * Identify opportunities for improvement
-> * Use current reports as a baseline for understanding data requirements
+When the dashboard replaces current reporting tools:
+
+* Obtain copies of the existing reports and dashboards.
+* Analyze their format, content and usage.
+* Identify opportunities for improvement.
+* Use the current reports as a baseline for the data requirements.
 
 #### Dashboard Design
 
@@ -77,57 +69,88 @@ Consider the following points:
 >
 > #### Key Dashboard Design Considerations
 >
-> * **UI Consistency** - Adhere to existing company UI guidelines for colours, fonts, and layouts when possible. This approach maintains visual consistency and allows users to focus on data rather than adjusting to new design elements, while still following fundamental UI design principles.
-> * **Content Strategy** - Prioritize displaying essential KPIs, insights, and trends that enable quick information access. The dashboard should serve as an efficient overview of critical metrics while maintaining clarity and purpose.
-> * **Data Granularity and Interaction**
->   * Determine appropriate levels of data detail
->   * Enable drill-down capabilities for deeper analysis (e.g., investigating declining sales)
->   * Consider performance implications when deciding detail levels
->   * Implement intuitive click-through functionality for accessing additional information
-> * **Filtering Framework**
->   * Implement dashboard-wide filters for consistent data views
->   * Create section-specific filters where necessary
->   * Include essential time range controls (e.g., last hour, 7 days, 30 days)
->   * Ensure filters align with available data granularity
-> * **Visualization Selection** - Choose visualizations based on:
->   * Data volume and complexity
->   * Intended message and insights
->   * User comprehension speed
->   * Information density requirements
->   * Data to be displayed to users with different roles
+> * **UI consistency** - follow the company's UI guidelines for colors, fonts and layout where they exist, so users focus on the data rather than on a new design.
+> * **Content strategy** - show the essential KPIs, insights and trends first. The dashboard is an overview of the critical metrics.
+> * **Data granularity and interaction**
+>   * Decide the level of detail each section shows.
+>   * Offer drill-down for deeper analysis, for example to investigate declining sales.
+>   * Weigh the performance cost of each level of detail.
+>   * Make click-through to more information intuitive.
+> * **Filtering framework**
+>   * Dashboard-wide filters for consistent views of the data.
+>   * Section-specific filters where needed.
+>   * Time range controls, for example the last hour, 7 days or 30 days.
+>   * Filters that match the granularity of the data.
+> * **Visualization selection** - choose each chart for the data volume and complexity, the message, how quickly users must read it, the information density, and the roles of the people who see it.
+>
+> Aim for an interface users understand and act on without training.
 
-> **Note:** The key is creating an intuitive interface where users can quickly understand and act on the presented data without requiring extensive training or explanation.
+1. List the stakeholder groups for the dashboard you plan to build, and for each one the three metrics it needs most.
+2. Collect the reports the dashboard replaces, and note which of their figures it must show.
 
 ### 2. Mock-up
 
 > **Note:**
 >
-> Dashboard mockups are visual representations of how a data dashboard will look and function before actual development begins. They help stakeholders visualize the final product, arrange UI elements effectively, and iterate on design decisions without investing development resources.
+> #### Mock-up
 >
-> A good dashboard mockup considers data visualization placement, user workflow, information hierarchy, and interactive elements while maintaining clean, intuitive design principles.
+> A dashboard mock-up shows how the dashboard will look and behave before development begins. It lets stakeholders see the result, arrange the elements and iterate on the design without spending development time. A good mock-up places each visualization, follows the user's workflow, sets the information hierarchy and marks the interactive elements.
 
-<figure><img src="../_assets/images/gs_first_steps_dashboard_mock_up.png" alt=""><figcaption><p>Dashboard - Mock up</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/gs_first_steps_dashboard_mock_up.png" alt="Hand-drawn dashboard sketch beside its finished digital version, both showing Avg Daily Users, a channel breakdown, a Monthly Trend stacked bar chart and a channel performance summary table" width="800">
+<figcaption>Dashboard - Mock up</figcaption>
+</figure>
+</div>
 
-Popular tools for creating dashboard mockups include:
+Tools for dashboard mock-ups include:
 
-* [Figma](https://www.figma.com/) - Industry-standard design tool with real-time collaboration
-* [PowerMockup](https://www.powermockup.com/) - PowerPoint add-in
-* [Balsamiq](https://balsamiq.com/) - Great for quick, low-fidelity wireframes
+* [Figma](https://www.figma.com/) - a design tool with real-time collaboration
+* [PowerMockup](https://www.powermockup.com/) - a PowerPoint add-in
+* [Balsamiq](https://balsamiq.com/) - quick, low-fidelity wireframes
 
-There are also quite a few AI tools emerging.
+1. Sketch a mock-up of your dashboard, on paper or in one of these tools: the filters, the KPIs, each chart and table, and where each one sits.
+2. Review the mock-up with the stakeholders and agree it before you build anything.
 
 ### 3. Functional Breakdown
 
 > **Note:**
 >
-> After completing the dashboard design, the next step is creating a functional breakdown document. This document details each dashboard section's components, queries, and parameters, along with estimated development time for each task.
+> #### Functional Breakdown
 >
-> The functional breakdown serves multiple purposes: it helps track planned versus completed work, provides a comprehensive overview of technical requirements, and specifies query structures including column names and data types. While creating this documentation requires initial investment, it streamlines development by clarifying requirements, identifying potential issues early, and surfacing important questions.
->
-> This approach is particularly valuable for team projects, as it provides clear direction and ensures all team members understand their responsibilities and implementation requirements.
+> With the design agreed, write a functional breakdown: for each section of the dashboard, its components, queries and parameters, with an estimated development time for each task. It tracks planned against completed work, specifies each query's columns and data types, and surfaces questions early. On a team project it tells everyone what they build.
 
-<figure><img src="../_assets/images/gs_first_steps_functional_breakdown.png" alt=""><figcaption><p>Functional breakdown</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/gs_first_steps_functional_breakdown.png" alt="Wireframe dashboard layout with a Dashboard Title and Company Logo header, five Filter boxes down the left, five Scorecard boxes across the top and four empty chart panels" width="800">
+<figcaption>Functional breakdown</figcaption>
+</figure>
+</div>
+
+1. For each element of your mock-up, write one line in the breakdown: the component (a chart, a table, a selector), the query that feeds it with its columns and data types, the parameters it reads or sets, and an estimate in hours.
+
+> **Under the hood:**
+>
+> #### Every line of the breakdown becomes a CTools object
+>
+> The breakdown maps one to one onto what you build in the Community
+> Dashboard Editor (CDE). Each query becomes a data source in the Data
+> Sources perspective, which CDE writes into the dashboard's `.cda`
+> file; each component becomes an entry in the Components perspective,
+> saved in the `.cdfde` file with its HtmlObject, Datasource and
+> Listeners; each parameter becomes a parameter component that other
+> components list as listeners. A query's column list and data types
+> are what a chart or table expects to receive.
+>
+> **Why it matters:** a breakdown written this way is the build list
+> for the editor. A component with no query, or a query whose columns
+> don't match the chart, shows up on paper instead of in a broken
+> dashboard.
 
 ::::
 
 <button data-launch="puc">Open Pentaho User Console</button>
+
+## Lab Files
+
+_No bundled files for this lab._

@@ -3,7 +3,7 @@
   "description": "Apply fonts, colours, and spacing across the report body.",
   "order": 15,
   "kind": "workshop",
-  "stepCount": 2,
+  "stepCount": 5,
   "hasVideo": false,
   "estimatedMinutes": 15
 }

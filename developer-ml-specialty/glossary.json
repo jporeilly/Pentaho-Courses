@@ -1,9 +1,9 @@
 {
   "Machine learning": "Teaching a model to find patterns in historical data so it can make predictions on new data. In this course the model learns to tell fraudulent credit-card transactions apart from legitimate ones.",
   "PDI": "Pentaho Data Integration — the ETL platform used throughout the course to orchestrate the machine-learning workflow: preparing data, calling H2O and R, training models, and scoring new transactions.",
-  "Spoon": "The desktop design tool for building and running PDI transformations and jobs. You use it to run autoML.ktr, train the model, and predict fraud.",
-  "Transformation": "A PDI data-flow made of steps connected by hops, saved as a .ktr file. The labs use transformations such as autoML.ktr, tr_train_model_fraud.ktr, and tr_predict_fraud.ktr.",
-  "Job": "A PDI orchestration unit (.kjb) that sequences transformations and other tasks. jb_fraud_main_job.kjb ties the training and prediction transformations together.",
+  "Spoon": "The desktop design tool for building and running Pentaho Data Integration transformations and jobs. You use it to run autoML.ktr, train the model, and predict fraud.",
+  "Transformation": "A Pentaho Data Integration data-flow made of steps connected by hops, saved as a .ktr file. The labs use transformations such as autoML.ktr, tr_train_model_fraud.ktr, and tr_predict_fraud.ktr.",
+  "Job": "A Pentaho Data Integration orchestration unit (.kjb) that sequences transformations and other tasks. jb_fraud_main_job.kjb ties the training and prediction transformations together.",
   "Fraud detection": "The course's central use case — identifying credit-card transactions that are fraudulent, a problem where losses are high and genuine fraud is rare compared with normal activity.",
   "H2O": "An open-source machine-learning platform whose AutoML feature is used to automatically search for well-performing models without extensive manual tuning.",
   "AutoML": "Automated machine learning — letting H2O try many algorithms and settings, then rank them, so you can shortlist strong candidate models instead of hand-building each one.",
@@ -36,7 +36,7 @@
   "AUC": "Area Under the ROC Curve — a single number measuring how well the model ranks fraud above legitimate transactions. Useful as a sanity check, but it can look good even when precision is poor at usable thresholds.",
   "AUCPR": "Area Under the Precision-Recall Curve — the best single-number metric for highly imbalanced classification like fraud, used to compare candidate models before tuning thresholds.",
   "Decision threshold": "The probability cut-off above which a scored transaction is labelled fraud. Lowering it catches more fraud but raises more false alarms; you tune it to balance precision and recall for the business.",
-  "Google Colab": "A free service that runs Jupyter notebooks in the browser with preconfigured ML runtimes. You upload the H2O.csv produced by PDI and run the AutoML model search there.",
-  "rJava": "An R package providing a bridge between R and Java, required so PDI can run R steps. Setup involves configuring R with javareconf and copying libjri into Spoon's native library folder.",
-  "R Script Executor": "A PDI step that runs R code inside a transformation, used in the prerequisites to validate the R integration and in the credit-card lab to train and apply the GBM model."
+  "Google Colab": "A free service that runs Jupyter notebooks in the browser with preconfigured ML runtimes. You upload the H2O.csv produced by Pentaho Data Integration and run the AutoML model search there.",
+  "rJava": "An R package providing a bridge between R and Java, required so Pentaho Data Integration can run R steps. Setup involves configuring R with javareconf and copying libjri into Spoon's native library folder.",
+  "R Script Executor": "A Pentaho Data Integration step that runs R code inside a transformation, used in the prerequisites to validate the R integration and in the credit-card lab to train and apply the GBM model."
 }

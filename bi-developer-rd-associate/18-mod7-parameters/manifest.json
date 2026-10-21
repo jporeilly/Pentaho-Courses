@@ -3,7 +3,7 @@
   "description": "Add a parameter, wire it into the query, and prompt the user at run time.",
   "order": 18,
   "kind": "workshop",
-  "stepCount": 3,
+  "stepCount": 6,
   "hasVideo": false,
   "estimatedMinutes": 15
 }

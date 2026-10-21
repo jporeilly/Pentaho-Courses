@@ -3,681 +3,518 @@
 > **Warning:**
 >
 > #### Workshop - Data Quality
-> 
-> Large Language Models (LLMs) can automatically clean, standardize, and enhance data quality in your ETL pipelines. This workshop uses Ollama with Pentaho Data Integration (PDI) to fix common data quality issues like inconsistent formatting, invalid data, and missing information.
-> 
-> Common data quality problems include inconsistent name formatting (john smith vs JOHN SMITH vs John Smith), invalid or malformed email addresses, multiple phone number formats (+1-555-123-4567 vs 555.123.4567 vs (555) 123-4567), incomplete or inconsistent addresses, and company name variations (ACME CORP vs Acme Corp vs acme corp).
-> 
-> In this workshop, you build a transformation that calls a local LLM to clean and standardize messy customer records and return structured JSON.
-> 
+>
+> Build a Pentaho Data Integration transformation that sends ten messy customer records, one at a time, to a local Large Language Model (LLM) served by Ollama, and writes back cleaned names, emails, phone numbers, addresses and company names.
+>
 > **What you'll do**
-> 
-> * Verify Ollama is installed and responding
-> * Read messy customer records into a transformation
-> * Call a local LLM to clean and standardize name, email, phone, and address fields
-> * Return the cleaned data as structured JSON
-> * Build `data_quality_optimized.ktr`
-> 
-> **Prerequisites:** Ollama running locally and Pentaho Data Integration (PDI) installed.
-> 
+>
+> * Find the quality problems in the raw customer file
+> * Build a compact cleaning prompt and an Ollama request in two **Modified JavaScript value** steps
+> * Call Ollama from parallel copies of **REST client**
+> * Parse the answer with a fallback to the original values, and filter out the rows that failed
+> * Write the cleaned records to a CSV file
+>
+> **Prerequisites:**
+>
+> * [Sentiment Analysis](../06-llm-sentiment-analysis/guide.md): the REST client and parallel-copies pattern this workshop reuses
+> * Ollama running on `http://localhost:11434` with `llama3.2:3b` pulled
+>
 > **Estimated time:** 35 minutes
 
-**Traditional Solutions vs LLM Approach:**
-
-| Approach               | Pros                                      | Cons                               |
-| ---------------------- | ----------------------------------------- | ---------------------------------- |
-| **Regex/Rules**        | Fast, deterministic                       | Brittle, requires constant updates |
-| **Data Quality Tools** | Comprehensive                             | Expensive, complex setup           |
-| **Manual Cleaning**    | Accurate                                  | Doesn't scale                      |
-| **LLM Approach**       | Flexible, intelligent, handles edge cases | Requires LLM infrastructure        |
-
-**Workflow**
-
-<figure><img src="../_assets/images/data_quality_optimized.png" alt=""><figcaption><p>data_quailty_optimized</p></figcaption></figure>
-
-1. Verify Ollama Installation
-
-```bash
-# Check if Ollama is responding
-curl http://localhost:11434/api/tags
-```
-
-2. Run through the following steps to build `data_quality_optimized.ktr`:
+<div align="center">
+<figure>
+<img src="../_assets/images/data_quality.png" alt="The finished transformation: Read Customer Data, Build Optimized Prompt, Build JSON Request, Call Ollama API (Parallel) marked x${STEP_COPIES}, then Parse JSON Response, Error Handling and Write Enhanced Data" width="800">
+<figcaption>What you build: seven steps, with a filter before the output</figcaption>
+</figure>
+</div>
 
 :::: tabs
 
 ### 1. Data Quality
 
-**Understanding Data Quality Challenges**
+> **Note:**
+>
+> #### Data Quality Problems
+>
+> The same customer can arrive as `john smith`, `JOHN SMITH` or `John Smith`, with a phone number written four different ways. An LLM can apply a target format to each field from a short instruction, where a rule-based cleanup needs a rule for every variation.
 
-Step 1: Examine the Raw Data
+**How the approaches compare:**
 
-Review the sample data, which ships with this lab:
+| Approach | Strengths | Weaknesses |
+| --- | --- | --- |
+| Regex and rules | Fast, deterministic | Brittle: every new variation needs a new rule |
+| Data quality tools | Broad features | Licensing cost and setup effort |
+| Manual cleaning | Accurate | Doesn't scale |
+| LLM | Flexible: handles variations it was never shown | Needs LLM infrastructure; slower per record, and its output must be checked |
 
-[data_quality_customers.csv](./files/data_quality_customers.csv)
+**The data:** `data_quality_customers.csv` holds ten customers, `1001` to `1010`. The first five:
 
-**Sample Records:**
-
-```csv
+```text
 customer_id,name,email,phone,address,company_name
-1001,john smith,JSMITH@GMAIL.COM,555.123.4567,"123 main st apt 5, new york, ny","acme corp"
+1001,john smith,JSMITH@GMAIL.COM,555.123.4567,"123 main st apt 5, new york, ny",acme corp
 1002,SARAH JOHNSON,sarah.j@company,+1-555-987-6543,"456 oak avenue, los angeles, ca 90001",TechStart Inc
+1003,Bob O'Brien,bob.obrien@email.com,(555) 111-2222,"789 Pine Rd, Chicago IL",DataSys LLC
+1004,maria garcia,m.garcia@test.co.uk,5551234567,"321 Elm Street, Houston, Texas 77001",global solutions ltd
 1005,JAMES WILSON,james@,555-999-8888,"PO Box 456, Seattle WA 98101","Cloud Services, Inc."
-1010,Bob O'Brien,bob.obrien@tech.co,(555) 111-2222,"789 pine street suite 100, san francisco, ca 94102","AI Solutions LLC"
 ```
 
-**Data Quality Issues Identified:**
+**The problems in four of them:**
 
-| Customer | Name Issue | Email Issue       | Phone Issue    | Address Issue            | Company Issue |
-| -------- | ---------- | ----------------- | -------------- | ------------------------ | ------------- |
-| 1001     | Lowercase  | Mixed case        | Dots separator | Lowercase, abbreviations | Lowercase     |
-| 1002     | All caps   | Incomplete domain | Valid format   | Good                     | Mixed case    |
-| 1005     | Good       | Missing domain    | Dashes         | Abbreviations            | Good          |
-| 1010     | Good       | Valid             | Parentheses    | Lowercase                | Good          |
+| Customer | Name | Email | Phone | Address | Company |
+| --- | --- | --- | --- | --- | --- |
+| 1001 | Lowercase | Uppercase | Dots | Lowercase, abbreviations | Lowercase |
+| 1002 | All caps | No top-level domain (`@company`) | Already in the target format | Lowercase | Good |
+| 1005 | All caps | No domain (`james@`) | No country code | No comma before the state | Good |
+| 1009 | Lowercase | Good | Parentheses, no space | No comma before the state | All caps |
 
-Step 2: Define Quality Standards
+**What the prompt asks for:** the transformation's prompt shows the model one example value per field.
 
-Our target output standards:
+| Field | Format in the prompt | 1001 cleaned to that format |
+| --- | --- | --- |
+| `name` | `Title Case` | `John Smith` |
+| `email` | `valid@format` | `jsmith@gmail.com` |
+| `phone` | `+1-555-123-4567` | `+1-555-123-4567` |
+| `address` | `St,City,ST ZIP` | `123 Main St Apt 5, New York, NY` |
+| `company_name` | `Proper Name` | `Acme Corp` |
 
-| Field       | Standard Format                     | Example                           |
-| ----------- | ----------------------------------- | --------------------------------- |
-| **Name**    | Title Case                          | `John Smith`                      |
-| **Email**   | <lowercase@domain.com> or `INVALID` | `jsmith@gmail.com`                |
-| **Phone**   | +1-555-123-4567                     | `+1-555-123-4567`                 |
-| **Address** | Street, City, State ZIP             | `123 Main St Apt 5, New York, NY` |
-| **Company** | Proper Business Name                | `Acme Corp`                       |
+The prompt does not say what to do with an email that cannot be fixed, such as `james@`: check what the model returns for 1002, 1005 and 1008.
 
-Step 3: Traditional vs LLM Approach
+<div align="center">
+<figure>
+<img src="../_assets/images/data_quality_optimized.png" alt="A text diagram of seven boxes: Read Customer Data, Build Optimized Prompt, Build JSON Request, Call Ollama API with 4 parallel copies, Parse JSON Response with error handling, Error Handling with Filter Rows, and Write Enhanced Data" width="710">
+<figcaption>The pipeline, one box per step</figcaption>
+</figure>
+</div>
 
-> **Note:** **Common Data Quality Problems:**
-> 
-> * Inconsistent name formatting (john smith vs JOHN SMITH vs John Smith)
-> * Invalid or malformed email addresses
-> * Multiple phone number formats (+1-555-123-4567 vs 555.123.4567 vs (555) 123-4567)
-> * Incomplete or inconsistent addresses
-> * Company name variations (ACME CORP vs Acme Corp vs acme corp)
-
-**Solution Comparison:**
-
-| Approach               | Pros                                      | Cons                                              | Example                                |
-| ---------------------- | ----------------------------------------- | ------------------------------------------------- | -------------------------------------- |
-| **Regex/Rules**        | Fast, deterministic                       | Brittle, requires constant updates for edge cases | `phone.replace(/[^\d]/g, '')`          |
-| **Data Quality Tools** | Comprehensive features                    | Expensive ($20K-$50K+), complex setup (weeks)     | Informatica, Talend DQ                 |
-| **Manual Cleaning**    | 100% accurate                             | Doesn't scale, labor intensive                    | Excel find/replace                     |
-| **LLM Approach**       | Flexible, intelligent, handles edge cases | Requires LLM infrastructure                       | `"Clean and standardize this data..."` |
-|
-
-### 2. API Endpoint
+### 2. Ollama API
 
 > **Note:**
 >
 > #### Ollama API Endpoint
-> 
-> Ollama provides a REST API at `http://localhost:11434`
-> 
-> **Key Endpoint:** `/api/generate`
-> 
-> **Sample Request Format**
-> 
-> ```json
-> {
->   "model": "llama3.2:3b",
->   "prompt": "Clean this data. Return JSON: {\"name\":\"Title Case\",\"email\":\"valid@format\",\"phone\":\"+1-555-123-4567\",\"address\":\"St,City,ST ZIP\",\"company_name\":\"Proper Name\"}\nName:john smith\nEmail:JSMITH@GMAIL.COM\nPhone:555.123.4567\nAddr:123 main st apt 5, new york, ny\nCo:acme corp",
->   "stream": false,
->   "keep_alive": "5m",
->   "options": {
->     "temperature": 0.1,
->     "num_predict": 300
->   }
-> }
-> ```
-> 
-> **Key Parameters:**
-> 
-> * `model`: `llama3.2:3b` - Smaller, faster model optimized for structured tasks
-> * `prompt`: Compact instructions with example format
-> * `stream`: `false` - Get complete response at once
-> * `keep_alive`: `"5m"` - Keep model loaded for 5 minutes (faster subsequent requests)
-> * `temperature`: `0.1` - Low randomness for consistent formatting
-> * `num_predict`: `300` - Limit output tokens
-> 
-> **Sample Response Format**
-> 
-> ```json
-> {
->   "model": "llama3.2:3b",
->   "created_at": "2026-02-27T14:00:00.000Z",
->   "response": "{\"name\":\"John Smith\",\"email\":\"jsmith@gmail.com\",\"phone\":\"+1-555-123-4567\",\"address\":\"123 Main St Apt 5, New York, NY\",\"company_name\":\"Acme Corp\"}",
->   "done": true,
->   "total_duration": 1500000000,
->   "load_duration": 100000000,
->   "prompt_eval_count": 85,
->   "prompt_eval_duration": 200000000,
->   "eval_count": 45,
->   "eval_duration": 1200000000
-> }
-> ```
-> 
-> **Response Fields:**
-> 
-> * `response`: Contains the cleaned JSON data (as a string)
-> * `done`: `true` when generation is complete
-> * `prompt_eval_count`: Input tokens processed (85 tokens)
-> * `eval_count`: Output tokens generated (45 tokens)
-> * Total tokens: 130 tokens per record
+>
+> The transformation sends one `POST` to `http://localhost:11434/api/generate` per customer. Unlike the Sentiment Analysis request, this one has no `"format": "json"`, so the model can wrap its JSON in other text; the parsing step later allows for that.
 
-1. Test the API manually, enter this command:
+1. Send customer 1002 to the model with the transformation's prompt and options. In PowerShell, run:
+
+::: tabs
+
+### Windows (PowerShell)
+
+```powershell
+$prompt = @'
+Clean this data. Return JSON: {"name":"Title Case","email":"valid@format","phone":"+1-555-123-4567","address":"St,City,ST ZIP","company_name":"Proper Name"}
+Name:SARAH JOHNSON
+Email:sarah.j@company
+Phone:+1-555-987-6543
+Addr:456 oak avenue, los angeles, ca 90001
+Co:TechStart Inc
+'@
+$body = @{
+  model      = "llama3.2:3b"
+  prompt     = $prompt
+  stream     = $false
+  keep_alive = "5m"
+  options    = @{ temperature = 0.1; num_predict = 300 }
+} | ConvertTo-Json
+(Invoke-RestMethod -Uri http://localhost:11434/api/generate -Method Post -ContentType "application/json" -Body $body).response
+```
+
+### macOS / Linux
 
 ```bash
 curl http://localhost:11434/api/generate -d '{
   "model": "llama3.2:3b",
   "prompt": "Clean this data. Return JSON: {\"name\":\"Title Case\",\"email\":\"valid@format\",\"phone\":\"+1-555-123-4567\",\"address\":\"St,City,ST ZIP\",\"company_name\":\"Proper Name\"}\nName:SARAH JOHNSON\nEmail:sarah.j@company\nPhone:+1-555-987-6543\nAddr:456 oak avenue, los angeles, ca 90001\nCo:TechStart Inc",
-  "stream": false
+  "stream": false,
+  "keep_alive": "5m",
+  "options": {"temperature": 0.1, "num_predict": 300}
 }'
 ```
 
-**Expected Response:**
+:::
 
-```json
-{
-  "response": "{\"name\":\"Sarah Johnson\",\"email\":\"INVALID\",\"phone\":\"+1-555-987-6543\",\"address\":\"456 Oak Avenue, Los Angeles, CA 90001\",\"company_name\":\"TechStart Inc\"}"
-}
-```
+> **Success:** Checkpoint: the model's answer contains a JSON object with the keys `name`, `email`, `phone`, `address` and `company_name`, possibly with text around it. The values are the model's: `SARAH JOHNSON` should come back in Title Case, and the phone is already in the target format.
 
-> **Note:** Notice:
-> 
-> * Name converted to Title Case
-> * Email marked as `INVALID` (incomplete domain `@company`)
-> * Phone already in correct format
-> * Address capitalized and formatted
-> * Company name preserved (already correct)
+What the request asks of Ollama:
 
-### 3. Transformation
+| Key | Value | Why |
+| --- | --- | --- |
+| `model` | `llama3.2:3b` | A small model that runs on a CPU |
+| `prompt` | The compact prompt | One example value per field, short labels (`Addr`, `Co`): fewer tokens to process per record |
+| `stream` | `false` | One complete answer per row |
+| `keep_alive` | `5m` | Keeps the model loaded for 5 minutes after the last request |
+| `options.temperature` | `0.1` | Low randomness, so the same record gets nearly the same answer every run |
+| `options.num_predict` | `300` | At most 300 tokens per answer: room for the JSON, and a stop for a runaway answer |
+
+In the answer, `prompt_eval_count` is the number of tokens in your prompt and `eval_count` the number the model generated; the time per record grows with both.
+
+### 3. Read the Customers
 
 > **Note:**
 >
-> #### PDI Transformation
+> #### Read the Customers
+>
+> Create the transformation and its parameters, and read `data_quality_customers.csv` with every field as a string: the values are text to be cleaned, not numbers.
 
-<figure><img src="../_assets/images/data_quality.png" alt=""><figcaption><p>data_quality</p></figcaption></figure>
-
-[data_quality_customers.csv](./files/data_quality_customers.csv)
-
-[data_quality_enhancement.ktr](./files/data_quality_enhancement.ktr) <button data-launch="spoon" data-path="files/data_quality_enhancement.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/data_quality_enhancement.ktr">View graph</button>
-
-[data_quality_enhancement_optimized.ktr](./files/data_quality_enhancement_optimized.ktr) <button data-launch="spoon" data-path="files/data_quality_enhancement_optimized.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/data_quality_enhancement_optimized.ktr">View graph</button>
-
-***
-
-Run through the following steps to build `data_quality_optimized.ktr`:
+1. Start Spoon with the **Start Pentaho Data Integration** button below, or from a terminal:
 
 ::: tabs
 
-### 1. Read Customer
+### Windows (PowerShell)
+
+```powershell
+Set-Location C:\Pentaho\design-tools\data-integration
+.\spoon.bat
+```
+
+### macOS / Linux
+
+```bash
+cd ~/Pentaho/design-tools/data-integration
+./spoon.sh
+```
+
+:::
+
+<button data-launch="spoon" data-path="">Start Pentaho Data Integration</button>
+
+2. Select **File > New > Transformation** (`Ctrl+N`).
+3. Select **File > Save as** and save it as `data_quality_enhancement_optimized.ktr` in `C:\Workshop-AI-Specialty\04-llm-integration\07-llm-data-quality`, next to `data_quality_customers.csv`. (On your own machine, download the file from **Lab Files** below into the folder you save in.)
+4. Double-click an empty part of the canvas. **Transformation properties** opens.
+5. Open the **Parameters** tab and fill the grid:
+
+| Parameter | Default Value | Description |
+| --- | --- | --- |
+| `INPUT_FILE` | `${Internal.Transformation.Filename.Directory}/data_quality_customers.csv` | Input CSV file with raw customer data |
+| `MODEL_NAME` | `llama3.2:3b` | Ollama model to use (3b recommended for quality) |
+| `OLLAMA_URL` | `http://localhost:11434` | Ollama API endpoint |
+| `STEP_COPIES` | `4` | Number of parallel API call copies (4-8 recommended) |
+
+6. Select **OK**.
+7. On the **Design** tab, open the **Input** folder and drag **CSV file input** onto the canvas.
+8. Double-click **CSV file input**.
+9. Set **Step name** to `Read Customer Data`.
+10. Set **Filename** to `${INPUT_FILE}`.
+11. Keep **Delimiter** `,` and **Enclosure** `"`, and keep **Header row present?** selected. Clear **Lazy conversion?**.
+12. Set **Format** to `mixed` and **File encoding** to `UTF-8`.
+13. Fill the **Fields** grid. Every field is a String, with no length:
+
+| Name | Type |
+| --- | --- |
+| `customer_id` | String |
+| `name` | String |
+| `email` | String |
+| `phone` | String |
+| `address` | String |
+| `company_name` | String |
+
+14. Select **OK**.
+15. Save the transformation (`Ctrl+S`).
+16. Select **Read Customer Data** on the canvas, press `F10` (**Action > Preview**), and select **Quick Launch**.
+
+> **Success:** Checkpoint: **Examine preview data** shows 10 rows, `customer_id` `1001` to `1010`. The first is `john smith`, `JSMITH@GMAIL.COM`, `555.123.4567`; the address `123 main st apt 5, new york, ny` arrives as one field, because the file encloses it in quotes.
+
+17. Select **Close**.
+
+### 4. Build the Prompt
 
 > **Note:**
 >
-> #### CSV file input
-
-x
-
-x
-
-x
-
-x
-
-### 2. Build prompt
-
-> **Note:**
+> #### Build Optimized Prompt
 >
-> #### JSON input
-> 
-> Creates the LLM prompt from input data
-> 
-> **Input**: Raw customer fields (name, email, phone, address, company\_name)\
-> **Outpu**t: llm\_prompt (string)
+> A **Modified JavaScript value** step turns the five raw fields into one prompt, `llm_prompt`.
 
-x
-
-x
-
-**Build Optimized Prompt (Modified Java Script Value)**
-
-JavaScript code:
+1. On the **Design** tab, open the **Scripting** folder and drag **Modified JavaScript value** onto the canvas.
+2. Create a hop from **Read Customer Data** to **Modified JavaScript value**: hold `Shift` and drag from one step to the other.
+3. Double-click **Modified JavaScript value**.
+4. Set **Step name** to `Build Optimized Prompt`.
+5. Replace the text in the **Script 1** tab with:
 
 ```javascript
-// Optimized short prompt - 50% shorter than basic version
+// Optimized short prompt - 50% shorter
 var llm_prompt = "Clean this data. Return JSON: {\"name\":\"Title Case\",\"email\":\"valid@format\",\"phone\":\"+1-555-123-4567\",\"address\":\"St,City,ST ZIP\",\"company_name\":\"Proper Name\"}\nName:" + name + "\nEmail:" + email + "\nPhone:" + phone + "\nAddr:" + address + "\nCo:" + company_name;
 ```
 
-> **Note:** **Prompt Optimization Techniques:**
-> 
-> ❌ Removed: Verbose explanations ("Clean and standardize this customer record...")
-> 
-> ❌ Removed: Detailed field descriptions ("Full Name in Title Case")
-> 
-> ✅ Kept: Clear format example in JSON
-> 
-> ✅ Kept: Abbreviated field labels to reduce tokens
-> 
-> **Result**: 50% shorter → 50% faster processing
+6. Fill the **Fields** grid with one row: **Fieldname** `llm_prompt`, **Type** String, **Replace value 'Fieldname' or 'Rename to'** `N`. (**Get variables** adds it for you.)
+7. Select **OK**.
+8. Select **Build Optimized Prompt** on the canvas, press `F10` (**Action > Preview**), and select **Quick Launch**.
 
-x
+> **Success:** Checkpoint: 10 rows with a new `llm_prompt` field. The first starts `Clean this data. Return JSON:` and ends `Co:acme corp`.
 
-x
+9. Select **Close**.
 
-x
+The prompt is short on purpose. The transformation's basic version (in **Lab Files**) spells each instruction out ("Full Name in Title Case", "valid@email.com or INVALID if cannot be fixed"); this one keeps the example values and abbreviates the labels, so each request has fewer tokens for the model to read.
 
-### 3. Build request
+### 5. Build the Request
 
 > **Note:**
 >
-> #### Modifed JavaScript value
-> 
-> Wraps the prompt into Ollama API request format.
-> 
-> **Input**: llm\_prompt (from Step 2) + transformation parameters
-> 
-> **Output**: request\_body (JSON string ready for API)
-> 
-> Why separate? Handles API-specific configuration (model, temperature, keep\_alive). Separates prompt logic from API plumbing.
+> #### Build JSON Request
+>
+> A second **Modified JavaScript value** step wraps `llm_prompt` in the request body Ollama expects. Keeping the prompt and the request apart means you can change the wording without touching the model settings, and the other way round.
 
-1. Double-click on the MJV - Build JSON prompt - to review the settimgs:
-
-<figure><img src="../_assets/images/data_quality_build_request.png" alt=""><figcaption><p>Build API request</p></figcaption></figure>
-
-**Build JSON Request (Modified Java Script Value)**
-
-**Use `getVariable()` for Parameters**
+1. Drag another **Modified JavaScript value** from the **Scripting** folder onto the canvas.
+2. Create a hop from **Build Optimized Prompt** to the new step.
+3. Double-click the new step.
+4. Set **Step name** to `Build JSON Request`.
+5. Replace the text in the **Script 1** tab with:
 
 ```javascript
-// =============================================================================
-// OLLAMA API REQUEST BUILDER FOR PENTAHO DATA INTEGRATION (PDI)
-// =============================================================================
-// This script constructs a JSON request payload for Ollama's /api/generate
-// endpoint, intended to run inside a PDI "Modified JavaScript" step.
-//
-// It takes an LLM prompt (built in a previous step or script block and stored
-// in the `llm_prompt` variable) and wraps it in a properly configured API
-// request body. The configuration is tuned for deterministic, concise LLM
-// output — ideal for structured ETL tasks like classification, extraction,
-// or summarization where consistency matters more than creativity.
-//
-// Key design decisions:
-//   - Model and keep_alive are externalized as PDI variables so they can be
-//     changed at the job/transformation level without editing this script.
-//   - keep_alive keeps the model loaded in Ollama's memory between rows,
-//     avoiding the costly model reload (~10-30s) on every request during
-//     batch processing.
-//   - Low temperature (0.1) ensures near-deterministic output, so the same
-//     input produces the same result across runs — critical for reproducible
-//     ETL pipelines.
-//   - num_predict caps output length to prevent runaway generation, which
-//     protects both processing time and memory usage.
-//
-// Prerequisites:
-//   - `llm_prompt` must be defined in an earlier script block or mapped from
-//     an incoming row field. It contains the fully constructed prompt with
-//     any row-level data already interpolated.
-//   - Ollama must be running and accessible from the PDI server (typically
-//     at http://localhost:11434).
-//   - The specified model must be pulled in Ollama (e.g., `ollama pull llama3.2:3b`).
-//
-// Output:
-//   - `request_body`: A JSON string ready to be passed to a REST Client or
-//     HTTP Post step targeting Ollama's /api/generate endpoint.
-// =============================================================================
-
-// ---------------------------------------------------------------------------
-// RESOLVE PDI VARIABLES FOR MODEL CONFIGURATION
-// ---------------------------------------------------------------------------
-// getVariable() reads Kettle variables that can be set via:
-//   - kettle.properties file
-//   - A "Set Variables" step earlier in the transformation
-//   - Command-line arguments (-param:MODEL_NAME=mistral:7b)
-//   - Environment-level configuration in the Pentaho Server
-//
-// This externalization means the same transformation can target different
-// models in dev vs. production without any code changes.
-
-// MODEL_NAME: The Ollama model identifier to use for inference.
-// Default: "llama3.2:3b" — a lightweight 3B parameter model that offers
-// a good balance of speed and quality for structured tasks on CPU hardware.
-// Can be overridden to larger models (e.g., "llama3.1:8b") for more complex
-// tasks where accuracy is prioritized over throughput.
+// Build JSON request body with keep_alive
 var model_name = getVariable("MODEL_NAME", "llama3.2:3b");
-
-// KEEP_ALIVE: Duration Ollama keeps the model loaded in memory after each
-// request. This is the most impactful performance setting for batch ETL —
-// without it, Ollama unloads the model 5 minutes after the last request
-// (its own default), and reloading takes ~10-30 seconds depending on model
-// size and disk speed.
-// Default: "5m" (5 minutes) — sufficient for steady row-by-row processing.
-// Increase to "30m" or higher for transformations with variable pacing or
-// if rows arrive in bursts with gaps between them.
-// Set to "0" to unload immediately after each request (saves memory but
-// dramatically slows batch processing).
 var keep_alive = getVariable("KEEP_ALIVE", "5m");
 
-// ---------------------------------------------------------------------------
-// BUILD THE OLLAMA API REQUEST OBJECT
-// ---------------------------------------------------------------------------
-// Constructs a JavaScript object matching the Ollama /api/generate schema.
-// Each property controls a specific aspect of the inference request.
 var requestObj = {
-
-    // "model": Which Ollama model to invoke. Must match an installed model
-    // name exactly (run `ollama list` to see available models).
     "model": model_name,
-
-    // "prompt": The full prompt string to send to the model. This variable
-    // should already contain the complete, formatted prompt with any
-    // row-level data (e.g., review text, product names) interpolated in.
-    // It is built in a prior step or script block in the transformation.
     "prompt": llm_prompt,
-
-    // "stream": false — Returns the complete response as a single JSON
-    // object rather than streaming tokens incrementally. Streaming is
-    // useful for real-time chat UIs but unsuitable for PDI, which needs
-    // the full response in one row field for downstream parsing.
     "stream": false,
-
-    // "keep_alive": Passed directly to Ollama to control model residency
-    // in memory. See variable definition above for detailed explanation.
     "keep_alive": keep_alive,
-
-    // "options": Fine-grained inference parameters that control the model's
-    // generation behavior. These are passed through to the underlying
-    // llama.cpp engine that powers Ollama.
     "options": {
-
-        // "temperature": 0.1 — Controls randomness in token selection.
-        //   - 0.0 = fully deterministic (greedy decoding, always picks
-        //           the highest-probability token)
-        //   - 0.1 = near-deterministic with minimal variation — the sweet
-        //           spot for structured ETL tasks where you want consistent,
-        //           predictable output but allow the model slight flexibility
-        //           to avoid degenerate repetition loops
-        //   - 0.7-1.0 = creative/conversational (too unpredictable for ETL)
-        //
-        // For classification, extraction, and structured JSON output, keep
-        // this at 0.1 or below to ensure reproducible results across runs.
         "temperature": 0.1,
-
-        // "num_predict": 300 — Maximum number of tokens the model will
-        // generate in its response. This acts as a safety cap to prevent:
-        //   - Runaway generation (model gets stuck in loops)
-        //   - Excessive processing time on long, unnecessary output
-        //   - Memory bloat from unexpectedly large responses
-        //
-        // 300 tokens is approximately 200-250 words — sufficient for most
-        // structured outputs like JSON sentiment results, classifications,
-        // or short summaries. If responses are being truncated (check for
-        // incomplete JSON), increase this value. If processing is slower
-        // than needed, decrease it to match your actual output size.
         "num_predict": 300
     }
 };
 
-// ---------------------------------------------------------------------------
-// SERIALIZE TO JSON STRING
-// ---------------------------------------------------------------------------
-// Converts the JavaScript object to a JSON string so it can be passed as
-// the HTTP request body in a subsequent PDI "REST Client" step.
-// The REST Client step should be configured with:
-//   - URL: http://localhost:11434/api/generate
-//   - HTTP Method: POST
-//   - Body field: request_body
-//   - Content-Type: application/json
 var request_body = JSON.stringify(requestObj);
 ```
 
-> **Note:** **Why `getVariable()`?**
-> 
-> * `"${MODEL_NAME}"` → **DOES NOT WORK** in JavaScript strings (stays literal)
-> * `getVariable("MODEL_NAME", "llama3.2:3b")` → **WORKS** (resolves to actual value)
+6. Fill the **Fields** grid with one row: **Fieldname** `request_body`, **Type** String, **Replace value 'Fieldname' or 'Rename to'** `N`. (**Get variables** also adds `model_name`, `keep_alive` and `requestObj`; delete them if you use it.)
 
-### 4. Ollama API
+<div align="center">
+<figure>
+<img src="../_assets/images/data_quality_build_request.png" alt="The Modified JavaScript value dialog for Build JSON Request: the script that builds requestObj, and request_body as the only output field" width="800">
+<figcaption>Build JSON Request: request_body is the only output field</figcaption>
+</figure>
+</div>
+
+7. Select **OK**.
+
+> **Under the hood:**
+>
+> #### KEEP_ALIVE fell back to 5m, because the transformation does not define it
+>
+> `getVariable("KEEP_ALIVE", "5m")` returns the variable when something sets it (a parameter, `kettle.properties`, or the command line) and the second argument when nothing does. This transformation has no `KEEP_ALIVE` parameter, so unless `kettle.properties` sets one, every request asks Ollama to keep the model loaded for 5 minutes after it answers. `MODEL_NAME` is a parameter, so its default, `llama3.2:3b`, applies unless you change it when you run.
+>
+> **Why it matters:** a default in the script keeps the step working when a variable is missing, but it also hides that it is missing; to change the value, add the parameter, don't edit the script.
+
+### 6. Call Ollama
 
 > **Note:**
 >
 > #### REST Client
-> 
-> The REST client transformation step enables you to consume RESTful services.
-> 
-> Representational State Transfer (REST) is a key design idiom that embraces a stateless client-server architecture in which web services are viewed as resources and can be identified by their URLs.
-> 
-> You can escape input field data by using the Calculator step and the Mask XML content from string A or Escape HTML content function.
+>
+> The same call as in Sentiment Analysis, with this transformation's field names: the body is `request_body` and the answer goes to `api_response`.
 
-1. Double-click on the REST client step to review settings:
+1. On the **Design** tab, open the **Lookup** folder and drag **REST client** onto the canvas.
+2. Create a hop from **Build JSON Request** to **REST client**.
+3. Double-click **REST client**.
+4. Set **Step name** to `Call Ollama API (Parallel)`.
+5. On the **General** tab, set **URL** to `${OLLAMA_URL}/api/generate`, **HTTP method** to `POST` and **Body field** to `request_body`. Keep **Application type** `TEXT PLAIN`.
+6. Under **Output fields**, set **Result field name** to `api_response`, **HTTP status code field name** to `result_code` and **Response time (milliseconds) field name** to `response_time`. Leave the **Headers** tab empty.
 
-<figure><img src="../_assets/images/data_quality_ollama_api.png" alt=""><figcaption><p>Call Ollama API</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/data_quality_ollama_api.png" alt="The REST client dialog for Call Ollama API (Parallel), General tab: URL ${OLLAMA_URL}/api/generate, POST, body field request_body, TEXT PLAIN, result field api_response, status code field result_code, response time field response_time" width="800">
+<figcaption>Call Ollama API (Parallel): the body is request_body</figcaption>
+</figure>
+</div>
 
-**Call Ollama API (Parallel) - REST Client**
+7. Select **OK**.
+8. Right-click **Call Ollama API (Parallel)** and select **Change Number of Copies to Start...**.
+9. In **Nr of copies of step...**, enter `${STEP_COPIES}` and select **OK**.
 
-Configuration:
-
-* **Step Type**: `REST Client` (Rest)
-* **Method**: `POST`
-* **URL**: `${OLLAMA_URL}/api/generate`
-* **Body Field**: `request_body`
-* **Application type:** `TEXT PLAIN`
-* **Result Fields**:
-  * Name: `api_response`
-  * Code: `result_code`
-  * Response time: `response_time`
-* **Headers**: *(leave empty - REST Client auto-adds Content-Type)*
-* **Step Copies**: `${STEP_COPIES}` → Default: 4 (parallel processing)
-
-**Step 7: Write Enhanced Data (Text File Output)**
-
-Configuration:
-
-* **Filename**: `../data/customer_data_enhanced_optimized`
-* **Extension**: `.csv`
-* **Add date**: `Y` (adds `_20260227`)
-* **Add time**: `Y` (adds `_134529`)
-* **Result**: `customer_data_enhanced_optimized_20260227_134529.csv`
-* **Fields**: `customer_id`, `enhanced_name`, `enhanced_email`, `enhanced_phone`, `enhanced_address`, `enhanced_company`
-
-#### Transformation Parameters
-
-**Basic Transformation (`data_quality_enhancement.ktr`)**
-
-| Parameter   | Default Value                    | Description                    |
-| ----------- | -------------------------------- | ------------------------------ |
-| OLLAMA\_URL | <http://localhost:11434>         | Ollama API endpoint            |
-| MODEL\_NAME | llama3.2:3b                      | Model to use for data cleaning |
-| INPUT\_FILE | ../data/customer\_data\_raw\.csv | Input data path                |
-
-**Optimized Transformation (`data_quality_enhancement_optimized.ktr`)**
-
-| Parameter        | Default Value                    | Description                                   |
-| ---------------- | -------------------------------- | --------------------------------------------- |
-| OLLAMA\_URL      | <http://localhost:11434>         | Ollama API endpoint                           |
-| MODEL\_NAME      | llama3.2:3b                      | Model to use (llama3.2:3b recommended)        |
-| INPUT\_FILE      | ../data/customer\_data\_raw\.csv | Input data path                               |
-| **KEEP\_ALIVE**  | **5m**                           | **Keep model in memory (5m/15m/30m/60m)**     |
-| **STEP\_COPIES** | **4**                            | **Parallel API calls (set to CPU cores - 1)** |
-
-**Parameter Tuning Guide:**
-
-| CPU Cores | STEP\_COPIES | Expected Throughput |
-| --------- | ------------ | ------------------- |
-| 4 cores   | 4            | 1.0-1.2 rec/sec     |
-| 8 cores   | 6-8          | 1.5-2.0 rec/sec     |
-| 16 cores  | 12-14        | 2.5-3.5 rec/sec     |
-
-#### Tested Configuration (Verified Working ✅)
-
-**Test Environment:**
-
-* OS: Ubuntu 22.04 Linux
-* PDI: 11.0.0.0-237
-* Ollama: Latest
-* Model: llama3.2:3b
-* CPU: 4 cores
-* RAM: 16GB
-
-**Verified Parameters:**
-
-```bash
-OLLAMA_URL=http://localhost:11434
-MODEL_NAME=llama3.2:3b
-STEP_COPIES=4
-KEEP_ALIVE=5m
-INPUT_FILE=../data/customer_data_raw.csv
-```
-
-x
-
-x
-
-### 5. Response
+### 7. Parse the Response
 
 > **Note:**
 >
-> #### Modified JavaScript Value
+> #### Parse JSON Response
+>
+> A third script takes the cleaned values out of the answer. Each output field starts as the original value and is replaced only when the answer parses, and a flag, `parsing_error`, records whether it did.
 
-x
+1. Drag a **Modified JavaScript value** from the **Scripting** folder onto the canvas.
+2. Create a hop from **Call Ollama API (Parallel)** to the new step.
+3. Double-click the new step.
+4. Set **Step name** to `Parse JSON Response`.
+5. Replace the text in the **Script 1** tab with:
 
-**Parse JSON Response (Modified Java Script Value)**
-
-````javascript
-// ============================================================
-// OLLAMA API RESPONSE PARSER
-// Purpose: Extracts AI-enhanced contact fields from the raw
-// Ollama API response, falling back to original values if
-// parsing fails at any stage.
-// ============================================================
-
-// --- Initialize output variables with original (fallback) values ---
-// These ensure downstream steps always receive valid data even if
-// parsing fails. The enhanced_* variables will be overwritten only
-// if valid AI-enhanced values are successfully extracted.
-var enhanced_name    = name;          // Fallback: original name field from stream
-var enhanced_email   = email;         // Fallback: original email field from stream
-var enhanced_phone   = phone;         // Fallback: original phone field from stream
-var enhanced_address = address;       // Fallback: original address field from stream
-var enhanced_company = company_name;  // Fallback: original company_name field from stream
-
-// --- Initialize error tracking variables ---
-// parsing_error acts as a Y/N flag for downstream error routing steps
-// error_message captures the specific failure reason for logging/debugging
-var parsing_error = "N";   // Default: assume success until a failure is caught
-var error_message = "";    // Default: empty; populated only on failure
+```javascript
+// Parse the Ollama response with robust error handling
+var enhanced_name = name;
+var enhanced_email = email;
+var enhanced_phone = phone;
+var enhanced_address = address;
+var enhanced_company = company_name;
+var parsing_error = "N";
+var error_message = "";
 
 try {
-    // --- Stage 1: Parse the outer Ollama API response envelope ---
-    // The raw api_response field is a JSON string returned by the Ollama REST API.
-    // Its structure is: { "model": "...", "response": "<model output>", ... }
-    // We parse it first to extract the inner "response" string produced by the LLM.
     var response = JSON.parse(api_response);
-
-    // The "response" property contains the raw text generated by the LLM.
-    // This may include prose, markdown, code fences, or other formatting
-    // in addition to the JSON payload we actually need.
     var fullResponse = response.response;
 
-    // --- Stage 2: Locate the embedded JSON object within the LLM output ---
-    // LLMs often wrap JSON in explanatory text (e.g. "Here is the result: {...}"),
-    // markdown code fences (```json ... ```), or other surrounding content.
-    // To handle this robustly, we scan for the first "{" and last "}" rather
-    // than assuming the entire response string is valid JSON.
-    var jsonStart = fullResponse.indexOf("{");           // Position of opening brace
-    var jsonEnd   = fullResponse.lastIndexOf("}") + 1;  // Position after closing brace
+    // Extract JSON from response (handles various formats)
+    var jsonStart = fullResponse.indexOf("{");
+    var jsonEnd = fullResponse.lastIndexOf("}") + 1;
 
-    // --- Stage 3: Extract and parse the embedded JSON if found ---
     if (jsonStart >= 0 && jsonEnd > jsonStart) {
-        // Slice out only the JSON substring, discarding any surrounding text.
-        // Example: "Sure! Here you go: {\"name\":\"...\"} Hope that helps!"
-        //           becomes → {"name":"..."}
         var jsonStr = fullResponse.substring(jsonStart, jsonEnd);
-
-        // Parse the extracted JSON string into a JavaScript object.
-        // If the LLM produced malformed JSON this will throw and be caught below.
         var data = JSON.parse(jsonStr);
 
-        // --- Stage 4: Map parsed fields to output variables ---
-        // Use the AI-enhanced value if present and non-empty; otherwise keep
-        // the original field value as the fallback (|| operator handles null,
-        // undefined, and empty string cases from the parsed object).
-        enhanced_name    = data.name         || name;
-        enhanced_email   = data.email        || email;
-        enhanced_phone   = data.phone        || phone;
-        enhanced_address = data.address      || address;
+        enhanced_name = data.name || name;
+        enhanced_email = data.email || email;
+        enhanced_phone = data.phone || phone;
+        enhanced_address = data.address || address;
         enhanced_company = data.company_name || company_name;
-
     } else {
-        // --- Failure path: No JSON object detected in the LLM output ---
-        // The model may have returned a plain-text response, an apology,
-        // or a refusal. Flag the error and preserve the original fallback values.
         parsing_error = "Y";
         error_message = "No JSON found in response";
     }
-
 } catch(e) {
-    // --- Failure path: A JSON.parse() call threw a SyntaxError ---
-    // This catches two possible failure points:
-    //   1. The outer Ollama envelope was malformed (Stage 1 failure)
-    //   2. The extracted JSON substring was malformed (Stage 3 failure)
-    // In both cases we fall back to the original field values initialized above.
     parsing_error = "Y";
-    error_message = e.message || "Parse error";  // Use exception message if available
+    error_message = e.message || "Parse error";
 }
-````
+```
 
-> **Note:** **Error Handling Strategy:**
-> 
-> * Start with original values as fallback
-> * Try to parse Ollama JSON response
-> * Extract JSON object from response text (handles markdown code blocks)
-> * Parse individual fields with fallback to original
-> * Set `parsing_error = "Y"` if anything fails
-> * Keep original values on error
+6. Fill the **Fields** grid. (**Get variables** adds every variable in the script; keep only these.)
 
-x
+| Fieldname | Type | Replace value 'Fieldname' or 'Rename to' |
+| --- | --- | --- |
+| `enhanced_name` | String | N |
+| `enhanced_email` | String | N |
+| `enhanced_phone` | String | N |
+| `enhanced_address` | String | N |
+| `enhanced_company` | String | N |
+| `parsing_error` | String | N |
+| `error_message` | String | N |
 
-x
+7. Select **OK**.
 
-x
+> **Under the hood:**
+>
+> #### A bad answer kept the original values instead of failing the row
+>
+> The script parses twice: `JSON.parse(api_response)` reads Ollama's envelope, and the model's text is in its `response` field. Without `"format": "json"` the model may write "Here is the cleaned record:" before the JSON, so the script cuts from the first `{` to the last `}` and parses only that. Any failure lands in `catch`, which sets `parsing_error` to `Y` and the reason in `error_message`, while the `enhanced_*` fields still hold the originals they started with. `data.name || name` also keeps the original when the model leaves a key out or empty.
+>
+> **Why it matters:** one malformed answer out of thousands does not stop the load, and the flag says exactly which rows to look at.
 
-### 6. Error
+### 8. Filter and Write
 
 > **Note:**
 >
-> #### Filter rows
+> #### Error Handling and Output
+>
+> A **Filter rows** step passes only the rows that parsed to a **Text file output** step. The rows with `parsing_error` `Y` have no target, so they are dropped.
 
-x
+1. On the **Design** tab, open the **Flow** folder and drag **Filter rows** onto the canvas.
+2. Create a hop from **Parse JSON Response** to **Filter rows**.
+3. Double-click **Filter rows**.
+4. Set **Step name** to `Error Handling`.
+5. Under **The condition**, select `<field>` and select `parsing_error` in the list. Keep the function `=`.
+6. Select `<value>`. In **Enter value**, set **Type** to `String` and **Value** to `N`, and select **OK**.
+7. Select **OK**.
+8. On the **Design** tab, open the **Output** folder and drag **Text file output** onto the canvas.
+9. Create a hop from **Error Handling** to **Text file output**. When Spoon asks, select **Result is TRUE**.
+10. Double-click **Text file output**.
+11. Set **Step name** to `Write Enhanced Data`.
+12. On the **File** tab, set **Filename** to `${Internal.Transformation.Filename.Directory}/customer_data_enhanced_optimized` and **Extension** to `csv`.
+13. Select **Create Parent folder**, **Include date in filename?** and **Include time in filename?**. Keep **Add filenames to result** selected.
+14. On the **Content** tab, keep **Separator** `,` and **Enclosure** `"`, keep **Header** selected, and set **Format** to `DOS` and **Encoding** to `UTF-8`.
+15. On the **Fields** tab, fill the grid. Every field is a String:
 
-x
+| Name | Type |
+| --- | --- |
+| `customer_id` | String |
+| `enhanced_name` | String |
+| `enhanced_email` | String |
+| `enhanced_phone` | String |
+| `enhanced_address` | String |
+| `enhanced_company` | String |
 
-**Error Handling (Filter Rows)**
+16. Select **OK**.
+17. Double-click **Error Handling** and check that **Send 'true' data to step** is `Write Enhanced Data` and **Send 'false' data to step** is empty. Select **OK**.
+18. Save the transformation (`Ctrl+S`).
 
-Filter condition: `parsing_error = "N"`
+### 9. Run
 
-* **Send TRUE to**: "Write Enhanced Data" (successfully cleaned records)
-* **Send FALSE to**: *(nowhere - discard failed records or log separately)*
+> **Note:**
+>
+> #### Run the Transformation
+>
+> Ten records are ten LLM calls. On a CPU-only machine each takes about 15 to 30 seconds; the four parallel copies overlap them as far as Ollama allows.
 
-x
+1. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
+2. In **Execution Results**, open the **Step Metrics** tab.
 
-x
+> **Success:** Checkpoint: **Read Customer Data** shows 10 under **Written**, and the four copies of **Call Ollama API (Parallel)** read 10 rows between them. **Write Enhanced Data** shows one row for each record whose answer parsed: 10 when every answer parsed, fewer when some did not.
+
+3. Select **Parse JSON Response** on the canvas and open the **Preview data** tab.
+
+> **Success:** Checkpoint: 10 rows. Where `parsing_error` is `N`, the `enhanced_*` fields hold the model's cleaned values, such as `john smith` as `John Smith`; where it is `Y`, `error_message` says why and the `enhanced_*` fields repeat the originals. Which rows parse, and the exact values, depend on the model's answers.
+
+4. Find the results file. In PowerShell, run:
+
+::: tabs
+
+### Windows (PowerShell)
+
+```powershell
+Get-ChildItem C:\Workshop-AI-Specialty\04-llm-integration\07-llm-data-quality\customer_data_enhanced_optimized_*.csv
+```
+
+### macOS / Linux
+
+```bash
+ls customer_data_enhanced_optimized_*.csv
+```
+
+Run it in the folder you saved the transformation in.
 
 :::
 
-### 4. RUN
+> **Success:** Checkpoint: a file named `customer_data_enhanced_optimized_<yyyyMMdd>_<HHmmss>.csv`. Its first line is `customer_id,enhanced_name,enhanced_email,enhanced_phone,enhanced_address,enhanced_company`.
 
-x
-
-x
-
-x
-
-x
-
-x
-
-x
+5. Compare the cleaned file with `data_quality_customers.csv`. Check the three emails that cannot be valid as given (`sarah.j@company`, `james@`, `lisa_anderson@email`): the prompt gives the model no rule for them.
 
 ::::
 
+## Troubleshooting <!-- no-step -->
+
+<details>
+<summary>Every row has parsing_error Y</summary>
+
+Preview **Call Ollama API (Parallel)** and read `result_code` and `api_response`. A code other than `200` means Ollama refused the request: check that it is running and that `MODEL_NAME` names a model `ollama list` shows.
+
+</details>
+
+<details>
+<summary>Answers are cut off mid-JSON</summary>
+
+The answer reached `num_predict` (300 tokens) before the closing `}`. Raise `num_predict` in **Build JSON Request**.
+
+</details>
+
+<details>
+<summary>The run is slow</summary>
+
+Set `STEP_COPIES` in the **Run Options** dialog to the number of CPU cores minus 1, and keep the model loaded between runs by adding a `KEEP_ALIVE` parameter (for example `30m`) to the transformation.
+
+</details>
+
+## Lab Files
+
+Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches Pentaho Data Integration with the file loaded. If Pentaho Data Integration is already running, the path is copied to your clipboard — switch to Pentaho Data Integration and press `Ctrl+O`, `Ctrl+V`, `Enter`.
+
+The ten raw customer records:
+
+[data_quality_customers.csv](./files/data_quality_customers.csv)
+
+### Solution <!-- no-step -->
+
+The finished transformation for this lab. Open it alongside your own to compare, or run it to see the expected result.
+
+Also on disk at `C:\Workshop-AI-Specialty\04-llm-integration\07-llm-data-quality\solution`.
+
+[data_quality_enhancement_optimized.ktr](./files/data_quality_enhancement_optimized.ktr) <button data-launch="spoon" data-path="files/data_quality_enhancement_optimized.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/data_quality_enhancement_optimized.ktr">View graph</button>
+
+The basic version, to compare its longer prompt with the optimized one:
+
+[data_quality_enhancement.ktr](./files/data_quality_enhancement.ktr) <button data-launch="spoon" data-path="files/data_quality_enhancement.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/data_quality_enhancement.ktr">View graph</button>

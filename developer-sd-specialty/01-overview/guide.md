@@ -1,6 +1,11 @@
 # Overview
 
-<figure><img src="../_assets/images/streaming-data.png" alt=""><figcaption><p>Streaming Data</p></figcaption></figure>
+<div align="center">
+<figure>
+<img src="../_assets/images/streaming-data.png" alt="Streaming data sources (app activity, server logs, IoT sensors, online advertising, clickstream) flow through a CDC streaming tool into a stream processing tool, then to a streaming SQL engine or a relational store, and on to BI tools, real-time applications, data science and machine learning" width="800">
+<figcaption>From streaming sources to the tools that use the data</figcaption>
+</figure>
+</div>
 
 > **Note:** **Streaming Data**
 >
@@ -8,9 +13,9 @@
 >
 > This real-time nature presents unique challenges in data processing, storage, and analysis, but also enables organizations to gain immediate insights and respond to changing conditions as they happen.
 >
-> Pentaho Data Integration (PDI) offers robust capabilities for handling streaming data through its stream processing components. It provides a visual, drag-and-drop interface that simplifies the creation and management of streaming data pipelines. With PDI's streaming steps, organizations can easily consume data from various streaming sources, apply transformations in real-time, and load the processed data into target systems.
+> Pentaho Data Integration handles streaming data with its streaming steps. You build a streaming pipeline on the same canvas as a batch one: consume data from a streaming source, transform it as it arrives, and load it into a target system.
 >
-> The platform supports key streaming protocols and formats, including MQTT, JMS, and Kafka, allowing seamless integration with existing streaming infrastructure. PDI's ability to combine both batch and streaming processing in a single workflow makes it particularly valuable for organizations transitioning from traditional batch processing to more real-time data integration scenarios.
+> Pentaho Data Integration has consumer steps for MQTT, AMQP, JMS and Kafka, among other sources, so it connects to the streaming infrastructure you already run. Batch and streaming transformations are built the same way, so a team moving from batch to real-time integration keeps the skills it has.
 
 ***
 
@@ -26,15 +31,15 @@ The fundamental shift from batch to streaming is the move from a **bounded** dat
 | **Completion** | The job ends when the data is exhausted | The transformation stays running, waiting for the next event |
 | **Typical use** | Nightly warehouse loads, reports | Sensor telemetry, fraud alerts, live dashboards |
 
-## The PDI streaming pattern
+## The Pentaho Data Integration streaming pattern
 
-Every streaming source in PDI — MQTT, Kafka, AMQP, JMS, Kinesis — follows the same **parent/child transformation** pattern:
+Every streaming source in Pentaho Data Integration — MQTT, Kafka, AMQP, JMS, Kinesis — follows the same **parent/child transformation** pattern:
 
 * A **parent transformation** holds the streaming **consumer** step (for example *MQTT Consumer*, *Kafka Consumer*, *AMQP Consumer*). The consumer subscribes to the stream and collects incoming messages into **batches**.
 * A **batch** is flushed to the child transformation whenever the first of two thresholds is reached:
   * **Duration (ms)** — a time window, or
   * **Number of records** — a message count.
-* A **child transformation** processes each batch. It **must** start with the **Get records from stream** step, which surfaces the batched messages as rows. From there you parse, transform, and load the records like any other PDI stream.
+* A **child transformation** processes each batch. It **must** start with the **Get records from stream** step, which surfaces the batched messages as rows. From there you parse, transform, and load the records like any other Pentaho Data Integration stream.
 
 This pattern means the same skills — JSON Input, Select values, Formula, Table output — apply to every protocol. Only the consumer step at the front changes.
 

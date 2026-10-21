@@ -4,91 +4,164 @@
 >
 > #### Workshop - Publishing Reports
 >
-> Publish a report to the BA repository and run it from the Pentaho User Console.
+> Publish a finished report from Report Designer to the Pentaho Server, run it in the Pentaho User Console (PUC), and find the URL that opens it on its own.
 >
 > **What you'll do**
 >
-> * Publish a finished report to the BA repository.
-> * Run the published report from the Pentaho User Console.
+> * Publish a report to the server's repository
+> * Create a folder for it on the way
+> * Open the published report in the User Console
+> * Open it in a window of its own and read its URL
 >
-> **Prerequisites:** Report Designer running, with the Pentaho sample data (HSQLDB) started
+> **Prerequisites:** [Formatting the Report](../15-mod6-formatting-report/guide.md) and its report, `Demo - formatting.prpt`; the Pentaho Server running, and its administrator sign-in from [Before You Start](../01-mod1-getting-started/guide.md)
 >
-> **Estimated Time:** 20 minutes
+> **Estimated time:** 20 minutes
 
----
+:::: tabs
+
+### 1. Publish
 
 > **Note:**
 >
-> #### **Publishing Reports**
+> #### File > Publish
 >
-> Publish a report to the BA repository and run it from the Pentaho User Console.
+> **Publish** uploads the report to the server's repository, where anyone with access to the folder can run it from the User Console.
 
-## Publish Report
+1. Start Report Designer with the **Start Pentaho Report Designer** button below, or from a terminal:
 
-1. Open the ..\reports\Inventory Report (Training Demo Report 5-2 – totals).
-2. To login to the BA server, from the Menu, select File > Publish.
+::: tabs
 
-![Publish Report](../_assets/images/mod9-02.png)
+### Windows (PowerShell)
 
-**Or**
+```powershell
+Set-Location C:\Pentaho\design-tools\report-designer
+.\report-designer.bat
+```
 
-Click the **Publish** icon in the main toolbar.
+### macOS / Linux
 
-![Or](../_assets/images/mod9-03.png)
+```bash
+cd ~/Pentaho/design-tools/report-designer
+./report-designer.sh
+```
 
-1. Enter the BA server credentials:
+:::
 
-![Or](../_assets/images/mod9-04.png)
+<button data-launch="prd" data-path="">Start Pentaho Report Designer</button>
 
-Sign in as **`admin`** with the password **`password`**.
+2. Select **File > Open** (`Ctrl+O`) and open `Demo - formatting.prpt` from your workshop folder, `Documents\RD-Workshop`.
+3. Select **File > Publish** (`Ctrl+Shift+P`).
 
-1. To publish the report:
-2. File Name field: Inventory Report.
-3. Title field: Inventory Report.
-4. Location field: Public > Training.
-5. Click OK.
+<div align="center">
+<figure>
+<img src="../_assets/images/mod9-02.png" alt="The File menu with Publish highlighted and its keyboard shortcut beside it" width="300">
+<figcaption>File > Publish</figcaption>
+</figure>
+</div>
 
-![Password: password](../_assets/images/mod9-05.png)
+The **Publish** icon on the main toolbar does the same.
 
-6. When the Launch the published report? dialog displays, click No.
+<div align="center">
+<figure>
+<img src="../_assets/images/mod9-03.png" alt="The main toolbar with the Publish icon, a globe, highlighted" width="358">
+<figcaption>The Publish icon</figcaption>
+</figure>
+</div>
 
-![Password: password](../_assets/images/mod9-06.png)
+4. In the **Login** dialog, check that **URL** is `http://localhost:8080/pentaho`, enter the administrator user and password from [Before You Start](../01-mod1-getting-started/guide.md), and select **OK**.
 
-7. To view the report in the User Console:
-8. Sign on to the User Console.
-9. Browse to the Public > Training folder.
-10. From the Files list, double-click Inventory Report.
+<div align="center">
+<figure>
+<img src="../_assets/images/mod9-04.png" alt="The Login dialog: URL http://localhost:8080/pentaho, timeout 30, user admin, a masked password, and Remember These Settings selected" width="280">
+<figcaption>Sign in to the server</figcaption>
+</figure>
+</div>
 
-![Password: password](../_assets/images/mod9-07.png)
+5. In the **Publish To Server** dialog, set **File Name** to `Inventory Report.prpt`, **Title** to `Inventory Report` and **Report Description** to `Inventory Report`.
+6. Under **Location**, open `/public`. If it has no `Training` folder, select the new-folder icon, the rightmost, and create one named `Training`.
+7. Double-click `Training`, so that **Location** reads `/public/Training`, and select **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/mod9-05.png" alt="The Publish To Server dialog: File Name Inventory Report.prpt, Title and Report Description Inventory Report, Location /public with the Training folder selected" width="401">
+<figcaption>The name, title and folder on the server</figcaption>
+</figure>
+</div>
+
+> **Success:** Checkpoint: the **Launch the published report?** dialog says the report was published successfully.
+
+8. Select **No**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/mod9-06.png" alt="The Launch the published report? dialog: The report was published successfully. Do you want to launch it now? with Yes and No" width="437">
+<figcaption>Published</figcaption>
+</figure>
+</div>
 
 > **Under the hood:**
 >
-> #### Publish uploaded the bundle; the server ran the same engine
+> #### Publish uploaded the bundle; the server runs the same engine
 >
 > Publish posted the `.prpt` over HTTP to the server's repository,
-> where it became a node under Public/Training with that folder's
-> permissions. When you opened it, the server's reporting plugin
-> unpacked the bundle, built the prompt panel from
-> `datadefinition.xml`, and ran the report with the reporting engine —
-> the same library as Report Designer — using the connection stored in
+> where it became a file under `/public/Training` with that folder's
+> permissions. When someone opens it, the server's reporting plugin
+> unpacks the bundle, builds the prompt panel from
+> `datadefinition.xml`, and runs the report with the reporting engine,
+> the same library as Report Designer, using the connection stored in
 > `datasources/sql-ds.xml`. For a driver-based connection that means
 > the JDBC driver must be on the server too; a JNDI connection would
 > resolve the name against the server's own data sources instead.
 >
 > **Why it matters:** publishing is a file upload, not a deployment.
 > Republish and the next viewer gets the new version; nothing is
-> compiled, cached or installed.
+> compiled or installed.
 
-## Report Viewer
+### 2. Run it in the User Console
 
-1. Browse to the Inventory Report in the User Console.
-2. Select the option Open in a new window.
+> **Note:**
+>
+> #### Browse Files
+>
+> The published report is a file in the repository: open it from **Browse Files** in the User Console.
 
-![Report Viewer](../_assets/images/mod9-08.png)
+1. Open `http://localhost:8080/pentaho` in your web browser and sign in with the same user.
+2. Select **Browse Files**, and in **Folders** open **Public > Training**.
+3. In **Files**, double-click **Inventory Report**.
 
-A new web browser window will open as shown in the preceding screenshot, showing only the report, without the PUC UI. What we should do is copy the URL and send it to the corresponding user. Refer to the following example:
+<div align="center">
+<figure>
+<img src="../_assets/images/mod9-07.png" alt="The User Console's Browse Files: Public &gt; Training selected in Folders, and Inventory Report in Files" width="692">
+<figcaption>The report in Public > Training</figcaption>
+</figure>
+</div>
 
-http://localhost:8080/pentaho/api/repos/%3Apublic%3ATraining%3AInventory%20Report.prpt/viewer
+> **Success:** Checkpoint: the report opens in a tab of the User Console, with the same header, groups and totals as in Report Designer's preview.
+
+### 3. A URL for the report
+
+> **Note:**
+>
+> #### Open in a new window
+>
+> A published report has a URL of its own, which opens it without the rest of the User Console: a link you can send to its readers.
+
+1. In **Browse Files**, select **Inventory Report**, and under **File Actions** select **Open in a new window**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/mod9-08.png" alt="Browse Files with Inventory Report selected and the File Actions list: Open, Open in a new window, Run in background, Cut, Copy" width="800">
+<figcaption>Open in a new window</figcaption>
+</figure>
+</div>
+
+> **Success:** Checkpoint: a new browser window shows the report alone, at this URL:
+>
+> ```text
+> http://localhost:8080/pentaho/api/repos/%3Apublic%3ATraining%3AInventory%20Report.prpt/viewer
+> ```
+
+2. Copy the URL from the address bar: it is the link to send to the report's readers.
 
 > **Under the hood:**
 >
@@ -100,33 +173,28 @@ http://localhost:8080/pentaho/api/repos/%3Apublic%3ATraining%3AInventory%20Repor
 > `/viewer` suffix asks the reporting plugin for the page with the
 > prompt panel; parameter values can be appended as ordinary query
 > string arguments, and an `output-target` such as `pageable/pdf`
-> selects the exporter. This is exactly the URL shape the `DRILLDOWN`
+> selects the exporter. This is the URL shape the `DRILLDOWN`
 > formula generates.
 >
 > **Why it matters:** every published report is an addressable URL
 > with parameters. Email it, embed it in a dashboard, bookmark a
-> specific parameter set — no portal navigation required.
+> specific parameter set: no portal navigation required.
 
-## Hyperlinks
+**Next: hyperlinks**
 
-A Hyperlink lets us access an external resource, which could mean opening a website or a report, downloading a file from the Internet, and so on. It also lets us navigate internally; that is, go to specific positions within a web page, report, and so on.
+A hyperlink has two parts: the *link*, the element the reader selects, and the *target*, what it opens: a web page, a file, another report, or a place in the same report. Report Designer can send values to the target report's parameters, which turns a link into a drill-down, and can put links on parts of a chart, as in [Drilldown Charts](../22-mod8-drilldown-charts/guide.md). Its link types:
 
-A Hyperlink has two well-differentiated parts:
+| Link type | What it targets |
+| --- | --- |
+| **Self** | The current report, with new values for its parameters |
+| **URL** | An external resource, such as a web site, an image or a file |
+| **Pentaho Repository** | A report or another file in the Pentaho Server's repository; the server must be running, as it renders the target |
+| **Manual Linking** | A link you write yourself, for example to an HTML anchor in the same report |
 
-The link, which is the element that will contain the Hyperlink. Usually, when we hover over the link, the pointer changes to a hand, and if the link is a text, it will be blue and underlined.
+The next workshop, [Hyperlinks](../27-mod9-hyperlinks/guide.md), builds them.
 
-The target, which is the element the Hyperlink will point to.
+::::
 
-In PRD, Hyperlinks work similarly. For example, we can select an object (link) and use it to create a Hyperlink whose target is another report. But it doesn't stop there. PRD lets us send values to that report's Parameters, that is, we can obtain detailed information from the link we click on, and by doing so, simulate the drill down typical of an OLAP analysis.
+## Lab Files
 
-PRD lets us create Hyperlinks in parts of our graphics, that is, we can take a pie chart and configure a Hyperlink so that when we click on a portion of the pie, a report opens with more information about the selected item.
-
-PRD includes the following options for creating Hyperlinks:
-
-Self: Lets us give values to the Parameters of the current report.
-
-URL: Lets us access an external resource, such as a website, image, or file.
-
-Pentaho Repository: Lets us link reports, xactions, and so on from the Pentaho repository. The Pentaho BA    Server must be running, as it will render the reports, xactions, and so on.
-
-Manual Linking: Lets us configure a Hyperlink manually and navigate within the report using HTML anchors.
+_No bundled files for this lab._

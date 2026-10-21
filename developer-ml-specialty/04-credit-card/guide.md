@@ -4,7 +4,7 @@
 >
 > #### Workshop - Credit Card
 >
-> The H2O results in [AutoML](../03-automl/guide.md) point to a Gradient Boosting Machine (GBM). Put that choice into practice in Pentaho Data Integration (PDI): one transformation trains a GBM model in R with the `gbm` package and saves it, a second loads the model and scores every transaction with a fraud probability, and a job runs the two in order.
+> The H2O results in [AutoML](../03-automl/guide.md) point to a Gradient Boosting Machine (GBM). Put that choice into practice in Pentaho Data Integration: one transformation trains a GBM model in R with the `gbm` package and saves it, a second loads the model and scores every transaction with a fraud probability, and a job runs the two in order.
 >
 > **What you'll do**
 >
@@ -36,7 +36,7 @@
 >
 > The job and both transformations find their files through the folder they are saved in: the job through `${Internal.Entry.Current.Directory}`, the transformations through `${Internal.Transformation.Filename.Directory}`. Keep the data, the job and the transformations in one folder, and give the model a folder to be saved in.
 
-1. Start Spoon with the **Start PDI** button below, or from a terminal:
+1. Start Spoon with the **Start Pentaho Data Integration** button below, or from a terminal:
 
 ::: tabs
 
@@ -56,7 +56,7 @@ cd ~/Pentaho/design-tools/data-integration
 
 :::
 
-<button data-launch="spoon" data-path="">Start PDI</button>
+<button data-launch="spoon" data-path="">Start Pentaho Data Integration</button>
 
 2. Copy `transaction_fraud_report.csv` from the AutoML lab's folder, `C:\Workshop-ML-Specialty\02-machine-learning\03-automl`, into this lab's folder, `C:\Workshop-ML-Specialty\02-machine-learning\04-credit-card`. The training transformation reads it, and this lab doesn't ship it. (On your own machine, download this lab's files from **Lab Files** below, and `transaction_fraud_report.csv` from the AutoML lab's, into one folder.)
 3. In the same folder, create a folder named `train_model_output`. The training script saves the model there, and R doesn't create the folder for you.
@@ -95,7 +95,7 @@ The steps before the R step prepare the data:
 | **frmla-billing=shipping** | Formula | Sets `billing_shipping_zip_equal` to `[customer_billing_zip] = [ship_to_zip]`, a Boolean |
 | **sv-convert_booleans_to_numbers** | Select values | Keeps the eight features and `reported_as_fraud_historic`, and turns the four Boolean flags into Numbers |
 
-> **Warning:** The transformation also holds two steps with no hops: **input - customer_billing**, a **Table input** on the PostgreSQL connection `postgres_demo`, and **input - transaction_details**, a **MongoDB input**. PDI starts every step in a transformation, hopped or not, so both try to reach a database server on `localhost`. Delete them unless you have both servers with the lab's data.
+> **Warning:** The transformation also holds two steps with no hops: **input - customer_billing**, a **Table input** on the PostgreSQL connection `postgres_demo`, and **input - transaction_details**, a **MongoDB input**. Pentaho Data Integration starts every step in a transformation, hopped or not, so both try to reach a database server on `localhost`. Delete them unless you have both servers with the lab's data.
 
 2. Right-click **input - customer_billing** and select **Delete**.
 3. Right-click **input - transaction_details** and select **Delete**.
@@ -411,7 +411,7 @@ The steps **input - customer_billing** and **input - transaction_details** are s
 
 ## Lab Files
 
-Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches PDI with the file loaded. If PDI is already running, the path is copied to your clipboard — switch to PDI and press `Ctrl+O`, `Ctrl+V`, `Enter`.
+Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches Pentaho Data Integration with the file loaded. If Pentaho Data Integration is already running, the path is copied to your clipboard — switch to Pentaho Data Integration and press `Ctrl+O`, `Ctrl+V`, `Enter`.
 
 The data, the same files as the AutoML lab's, 100,000 rows each. The training transformation also reads `transaction_fraud_report.csv`, from the **Lab Files** of [AutoML](../03-automl/guide.md):
 

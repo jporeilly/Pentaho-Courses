@@ -4,67 +4,32 @@
 >
 > #### Workshop - Carrier Dashboard CGG Charts
 >
-> Professional business intelligence applications require more than interactive dashboard displays—they demand the ability to export high-quality chart visualizations optimized for presentations, reports, and executive distribution where formatting requirements differ from on-screen display. In this focused workshop, you'll master Community Graphics Generator (CGG), learning how to create dual-rendering chart components that display one way in interactive dashboards while exporting with different formatting optimized for static image distribution.
->
-> Working with the completed Wireless Carrier dashboard from previous workshops, you'll implement advanced postFetch functions that detect the rendering context, apply conditional formatting logic, and customize chart properties including dimensions, titles, legends, padding, and axis labels specifically for PNG and SVG exports that maintain professional presentation standards.
->
-> In this hands-on workshop, you'll experience the complete CGG customization workflow, beginning with understanding the CGG context detection mechanism that distinguishes between dashboard rendering and export generation, progressing through postFetch function implementation that applies conditional formatting rules, and culminating in the creation of export-optimized chart configurations that deliver publication-ready visualizations. You'll learn how to leverage the CGG object to detect export context using typeof checks, implement conditional code blocks that execute only during dashboard display versus export generation, and configure chart definition properties that override dashboard settings to produce properly formatted export images.
->
-> As you work through the exercises, you'll master critical techniques including passing CDE parameters to CGG exports through query parameter syntax, accessing parameter values in postFetch functions using params.get() method for dynamic content customization, and configuring chart properties like width for optimal page layout, title and titlePaddings for clear labeling, legendAlign and legendPosition for effective legend placement, and baseAxisOverlappedLabelsMode for proper axis label rendering in exported formats.
->
-> In this workshop, you add a postFetch script to the Carrier Dashboard's lineChart so it renders one way on screen and exports with different, presentation-optimized formatting through CGG.
+> Exported charts often need different formatting from the dashboard: a title, a wider layout, the legend in another place. In this workshop you add a Post Fetch function to the Carrier Dashboard's `lineChart` so that it renders one way on screen and exports through the Community Graphics Generator (CGG) with its own formatting.
 >
 > **What you'll do**
 >
-> * Understand CGG context detection — use `typeof cgg` checks to tell dashboard rendering apart from CGG export generation
-> * Implement postFetch functions for dual rendering — apply different chart definitions per context from a single component definition
-> * Pass CDE parameters to CGG exports — use the underscore-prefixed query parameter convention and `params.get()`
-> * Customize export chart properties — width, title and titlePaddings, legend alignment and padding, and baseAxisOverlappedLabelsMode
-> * Validate the export customization — generate a PNG preview and compare it with the dashboard rendering
+> * Tell dashboard rendering apart from CGG export with a `typeof cgg` check
+> * Write a Post Fetch function that changes the chart definition only for the export
+> * Pass dashboard parameters to an export with the `params.get()` convention
+> * Set export-only chart properties: width, title and padding, legend alignment and position, and axis label mode
+> * Export the chart as PNG and compare it with the dashboard
 >
-> By the end of this workshop, you'll have mastered CGG's dual-rendering capabilities that enable dashboard components to serve both interactive exploration and professional distribution requirements. You'll understand how to architect chart components that optimize user experience in web dashboards while generating publication-ready exports for presentations, reports, and executive briefings.
->
-> **Prerequisites:** Completion of [Carrier Dashboard](../12-community-dashboard-editor-carrier-dashboard/guide.md) Layout, CDA, and Components workshops with working dashboard including lineChart component and Export Popup functionality; understanding of JavaScript and CCC chart properties; Pentaho Business Analytics Server with CTools and CGG installed
+> **Prerequisites:** [Carrier Dashboard](../12-community-dashboard-editor-carrier-dashboard/guide.md) completed, including `lineChart` and its Export Popup; JavaScript and CCC chart properties; a running Pentaho Server with CTools and CGG
 >
 > **Estimated time:** 20 minutes
 
-***
-
-> **Note:**
->
-> #### Start Pentaho Server
->
-> Before you begin, make sure the Pentaho Server is running so you can open the Pentaho User Console.
-
-> **Note:**
->
-> #### Windows (PowerShell)
->
-> ```powershell
-> cd \
-> cd Pentaho/server/pentaho-server/
-> ./start-pentaho.bat
-> ```
-
-> **Note:**
->
-> #### Linux
->
-> ```bash
-> cd
-> cd /opt/pentaho/server/pentaho-server
-> sudo ./start-pentaho.sh
-> ```
-
-<button data-launch="puc">Open Pentaho User Console</button>
+<div align="center">
+<figure>
+<img src="../_assets/images/cgg_carrier_export_chart.png" alt="Export Options popup over a dashboard, set to width 928 and height 220, previewing a line chart of daily Number of Calls against Number of Users" width="800">
+<figcaption>Export lineChart</figcaption>
+</figure>
+</div>
 
 ***
 
-> **Note:**
->
-> #### Dashboard vs. Export Visualization:
->
-> You can create different versions of chart visualizations for dashboard display versus export by using conditional code blocks in the postFetch function. The code checks for the presence of the CGG object to determine the context - if CGG is undefined, the code runs in the dashboard, otherwise it runs during export.
+## Dashboard vs. Export Visualization <!-- no-step -->
+
+A chart can look different in the dashboard and in its export. The Post Fetch function runs in both places, so a conditional block in it can tell them apart: when the `cgg` object is undefined, the code is running in the dashboard; otherwise it is running in the export.
 
 ```javascript
 if ( typeof cgg == 'undefined' ){
@@ -80,17 +45,11 @@ if ( typeof cgg == 'undefined' ){
 // ... This block runs everywhere ... 
 ```
 
-> **Note:**
->
-> #### Handling Parameters in Exports:
->
-> Since CGG export scripts can't directly access CDE parameters or CDF functions like Dashboards.getParameterValue, you can pass these values through query parameters. This allows you to maintain rendering options based on parameter values during export. To implement this, add the parameter to the component parameters by either setting the 'arg' and 'value' properties directly, or by configuring them in the preExecution function.
->
-> For example, to append a date parameter value to a chart title, you would set:
->
-> arg: '\_date' value: 'dateParam'
->
-> in the component Parameters property, or by doing the same but in preExecution function, using the following code:
+## Handling Parameters in Exports <!-- no-step -->
+
+A CGG export script can't read CDE parameters or call CDF functions such as `Dashboards.getParameterValue`. To render with a parameter's value in the export, pass it as a query parameter: add it to the component's **Parameters** property, or add it in the **Pre Execution** function.
+
+For example, to append a date parameter's value to the chart title, set **Arg** `_date` and **Value** `dateParam` in the component's **Parameters** property, or do the same in **Pre Execution**:
 
 ```javascript
 var objParams = Dashboards.propertiesArrayToObject( this.parameters );
@@ -100,9 +59,7 @@ objParams['_date'] = 'dateParam';
 this.parameters = Dashboards.objectToPropertiesArray( objParams ); 
 ```
 
-> **Note:** Note we used the syntax \_date (with an underscore prefix) to denote a query parameter that will not actually be used by the query, but that's just a personal preference.
->
-> After that we need to change the title in postFetch using the parameter value:
+The underscore in `_date` marks a parameter that the query itself doesn't use; it is a naming convention, not a requirement. Then change the title in Post Fetch, using the parameter's value:
 
 ```javascript
 var titleDate = ( typeof cgg == 'undefined' ) ?
@@ -111,7 +68,7 @@ Dashboards.getParameterValue('dateParam') : params.get('_date');
 this.chartDefinition.title = "Chart rendered on " + titleDate; 
 ```
 
-> **Note:** Its obvious, the date value rendered in the export will be the one stored as a parameter when the component was executed and will not reflect any changes made to dateParam in the meantime.
+The date in the export is the value the parameter had when the component last executed, not any later change to `dateParam`.
 
 :::: tabs
 
@@ -121,25 +78,24 @@ this.chartDefinition.title = "Chart rendered on " + titleDate;
 >
 > #### lineChart
 >
-> Let's give this a go ..
->
-> So .. we're going to add a postFetch script to lineChart when exported. The Chart definitions ensure the Chart correctly renders:
->
-> * width
-> * title
-> * legend alignment
-> * padding
+> Add a Post Fetch function to `lineChart` that changes the chart definition only when CGG exports it: the width, a title, the legend's alignment and position, the padding and the axis labels.
 
-<figure><img src="../_assets/images/cgg_carrier_export_chart.png" alt=""><figcaption><p>Export lineChart</p></figcaption></figure>
+1. Make sure the Pentaho Server is running. On a lab VM it already is; on your own machine start it as in [Before You Start](../00-before-you-start/guide.md):
 
-1. Edit: /Public/CTools Dashboard/Carrier-Dashboard-Expand/Layout ( providing you've completed all the workshops..!)
-2. In the Components pane, click to expand the Charts group, and then click to select the lineChart.
-3. Click Advanced Properties.
-4. Specify the postFetch function
+```powershell
+C:\Pentaho\server\pentaho-server\start-pentaho.bat
+```
 
-   • Click the ellipsis icon to the right of the postFetch property.
+It takes a few minutes; the console is ready when http://localhost:8080/pentaho opens the login page.
 
-5. Copy & paste the following:
+2. Open the Pentaho User Console (PUC) with the button below and sign in as `admin`.
+
+<button data-launch="puc">Open Pentaho User Console</button>
+
+3. In **Browse Files**, open the Carrier Dashboard you finished in [Carrier Dashboard](../12-community-dashboard-editor-carrier-dashboard/guide.md) for editing: select it, and under **File Actions** select **Edit**. The workshop's version is **Layout** in **Public > CTools-Dashboard > Carrier-Dashboard-Expand**.
+4. Select **Components Panel**. In the components grid, expand **Charts** and select **lineChart**.
+5. Select **Advanced Properties**.
+6. Select the **...** button in the **Post Fetch** value. In **Javascript Wizard**, enter this function and select **Ok**:
 
 ```javascript
 function f(data){
@@ -164,24 +120,20 @@ function f(data){
 }
 ```
 
-6. Save the dashboard.
-7. Check the visualization differences between the lineChart component displayed in the dashboard and the exported chart image:
+7. Select **Save**.
+8. In **Browse Files**, double-click the dashboard to open it. The Export Popup works in the dashboard itself, not in Preview.
+9. Select **Export** above the Number of Calls vs Number of Users chart, and select **Export PNG**.
 
-   • Click on the Number of Calls vs Number of Users Export link.
+<div align="center">
+<figure>
+<img src="../_assets/images/cgg_carrier_export_chart.png" alt="Export Options popup over a dashboard, set to width 928 and height 220, previewing a line chart of daily Number of Calls against Number of Users" width="800">
+<figcaption>Export Chart</figcaption>
+</figure>
+</div>
 
-   • Click on the Export PNG popup option.
+> **Success:** Checkpoint: **Export Options** shows the CGG rendering of the chart, which differs from the dashboard: a title at the top, the legend at the bottom and centered, and the base axis labels all shown.
 
-   • Check the preview of the lineChart export
-
-> **Note:**
->
-> Notice the layout differences:
->
-> − there is a title on the top
->
-> − the legend is now bottom & centred
->
-> − the baseAxis labels are visible.
+10. Select **Export** in **Export Options** to download the PNG, and close the dashboard's tab.
 
 > **Under the hood:**
 >
@@ -200,12 +152,15 @@ function f(data){
 > sends each of the chart's parameters with its current value as
 > param<name>, and params.get reads them back, which is why the export
 > shows the values the chart had when you clicked.
-
-
-<figure><img src="../_assets/images/cgg_carrier_export_chart.png" alt=""><figcaption><p>Export Chart</p></figcaption></figure>
-
-> **Success:** The lineChart now renders one way in the dashboard and exports through CGG with its own title, bottom-centred legend, and visible base-axis labels.
+>
+> **Why it matters:** one component definition serves the screen and
+> the export, so the two never drift apart; only the switch in Post
+> Fetch differs.
 
 ::::
 
 <button data-launch="puc">Open Pentaho User Console</button>
+
+## Lab Files
+
+_No bundled files for this lab._

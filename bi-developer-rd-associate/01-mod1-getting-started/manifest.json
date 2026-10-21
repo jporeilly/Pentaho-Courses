@@ -1,6 +1,6 @@
 {
-  "title": "Please watch video...!",
-  "description": "Welcome to the Pentaho Report Designer associate course. This first lab introduces the Pentaho Business Analytics platform and how Report",
+  "title": "Before You Start",
+  "description": "Orient yourself: progress tracking, code copy, launchers, and the AI assistant.",
   "order": 1,
   "kind": "workshop",
   "stepCount": 13,

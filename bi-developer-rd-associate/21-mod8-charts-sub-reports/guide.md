@@ -4,97 +4,178 @@
 >
 > #### Workshop - Charts & Sub Reports
 >
-> Add a chart to a report and embed a sub-report beside it.
+> Build a landscape report whose header holds a radar chart of list prices by vendor and product line and, beside it, a sub-report that lists the same figures as a table.
 >
 > **What you'll do**
 >
-> * Add a chart that summarises the report data.
-> * Embed a sub-report with its own query.
-> * Preview the combined layout.
+> * Set up a report on a summary query, in landscape
+> * Add a chart and make it a radar chart
+> * Feed the chart a category, a value and a series
+> * Add an inline sub-report beside the chart, with its own layout
 >
-> **Prerequisites:** Report Designer running, with the Pentaho sample data (HSQLDB) started
+> **Prerequisites:** [Connect to a JDBC Data Source](../05-mod3-connect-jdbc/guide.md) and [Adding Data Elements and Report Groups](../07-mod4-adding-elements-groups/guide.md)
 >
-> **Estimated Time:** 15 minutes
+> **Estimated time:** 15 minutes
 
----
+:::: tabs
+
+### 1. The report and its query
 
 > **Note:**
 >
-> #### **Charts & Sub Reports**
+> #### A summary query
 >
-> Add a chart to a report and embed a sub-report beside it.
+> The chart and the sub-report read one query: the total list price (`MSRP`) of each vendor's products in each product line. `Sub Chart Demo Report.prpt` on the [Course Files](../33-ref-course-files/guide.md) page already holds it; these steps build the same report.
 
-## Add Parameter
+1. Start Report Designer with the **Start Pentaho Report Designer** button below, or from a terminal:
 
-By adding a parameter to the report, you can select the required data view.
+::: tabs
 
-1. To open the Sub Chart Demo Report:
-2. From the Menu bar select File > Open.
-3. Navigate to:
-C\Pentaho-Training\BA-2000\reports\Sub Demo Report.prpt.
+### Windows (PowerShell)
 
-4. Click Open.
-At this point, the Sub Demo Report already contains a query to return three fields from the Product table.
+```powershell
+Set-Location C:\Pentaho\design-tools\report-designer
+.\report-designer.bat
+```
 
-5. To review the query, from the Data pane, expand Data Sets, and then double-click Query 1.
+### macOS / Linux
 
-![Add Parameter](../_assets/images/mod8-01.png)
+```bash
+cd ~/Pentaho/design-tools/report-designer
+./report-designer.sh
+```
 
-6. To change the page orientation to landscape:
-7. From the Menu, select File > Page Setup.
-8. Click the Landscape checkbox.
-9. Click OK.
-10. In the Resize Report Elements dialog, ensure Do not change the layout is selected, and then click OK.
+:::
 
-![Add Parameter](../_assets/images/mod8-02.png)
+<button data-launch="prd" data-path="">Start Pentaho Report Designer</button>
 
-The default chart type is a Bar Chart. You can select a different chart type and specify the chart properties in the Edit Chart window.
+2. Select **File > New** (`Ctrl+N`).
+3. Select **Data > Add Datasource > JDBC**, select **SampleData (Hypersonic)**, select the green plus (**Add Query**), keep the name `Query 1`, and enter in the **Query** box:
 
-![Add Parameter](../_assets/images/mod8-03.png)
+```sql
+SELECT
+     "PRODUCTS"."PRODUCTLINE",
+     "PRODUCTS"."PRODUCTVENDOR",
+     sum("PRODUCTS"."MSRP") AS MSRP
+FROM
+     "PRODUCTS"
+GROUP BY
+     "PRODUCTS"."PRODUCTVENDOR",
+     "PRODUCTS"."PRODUCTLINE"
+ORDER BY
+     "PRODUCTS"."PRODUCTVENDOR" ASC,
+     "PRODUCTS"."PRODUCTLINE" ASC
+```
 
-11. To edit the chart, in the Report Header band, double-click the Chart element.
+4. Select **Preview**.
 
-![Add Parameter](../_assets/images/mod8-04.png)
+> **Success:** Checkpoint: 65 rows, one for each vendor and product line; the first is `Autoart Studio Design`, `Classic Cars`, `195`.
 
-The properties available in the Edit Chart window are based on the type of chart selected.
+5. Close the preview window, and select **OK**.
+6. Select **File > Save As** and save the report as `Demo - charts.prpt` in your workshop folder, `Documents\RD-Workshop`.
+7. On the **Data** tab, expand the data source and `Query 1`. It has three fields: `PRODUCTLINE`, `PRODUCTVENDOR` and `MSRP`.
 
-12. To change the chart to a radar chart, click the Radar Chart button.
+<div align="center">
+<figure>
+<img src="../_assets/images/mod8-01.png" alt="The Data tab with Query 1 expanded to PRODUCTLINE (String), PRODUCTVENDOR (String) and MSRP (BigDecimal)" width="227">
+<figcaption>The three fields of the query</figcaption>
+</figure>
+</div>
 
-![Add Parameter](../_assets/images/mod8-05.png)
+8. Select **File > Page Setup**. Under **Orientation**, select **Landscape**, and select **OK**.
+9. In the **Resize Report Elements** dialog, select **Do not change the layout**, and select **OK**.
 
-To create a basic radar chart, you specify category and value columns, and then specify the series-by value and series-by field on the Primary Data Source pane.
+<div align="center">
+<figure>
+<img src="../_assets/images/mod8-02.png" alt="The Page Setup dialog with Landscape selected under Orientation, LETTER page size and 72-point margins" width="450">
+<figcaption>Landscape orientation</figcaption>
+</figure>
+</div>
 
-Notice the list of properties in the left pane for customizing the chart.
+### 2. A radar chart
 
-13. On the Primary Data Source pane, for category-column, click in the Value field, and then from the drop-down list, select PRODUCTVENDOR.
+> **Note:**
+>
+> #### The chart element
+>
+> A **chart** starts as a bar chart with sample data. The **Edit Chart** dialog sets its type and, on the **Primary DataSource** tab, the fields it reads: the category, the values and the series.
 
-![Add Parameter](../_assets/images/mod8-06.png)
+1. From the palette, drag a **chart** onto the **Report Header** band.
 
-14. To select MSRP for the value column:
-15. For value-columns, click in the Value field.
-16. Click the … icon.
-17. In the Edit Array window, from the Available Items, click MSRP.
-18. Click in the arrow to move MSRP to the Selected Items list.
-19. Click OK.
+<div align="center">
+<figure>
+<img src="../_assets/images/mod8-03.png" alt="The chart icon on the palette and an arrow to a sample Bar Chart dropped in the Report Header band" width="659">
+<figcaption>A new chart is a bar chart with sample data</figcaption>
+</figure>
+</div>
 
-![Add Parameter](../_assets/images/mod8-07.png)
+2. Double-click the chart. The **Edit Chart** dialog opens: the chart types across the top, the chart's own properties on the left, and the data it reads on the right.
 
-20. To select Product Line for the series-by field:
-21. For series-by-field, click in the Value field.
-22. Click the … icon.
-23. In the Edit Array window, from the Available Items, click PRODUCTLINE.
-24. Click the arrow to move PRODUCTLINE to the Selected Items list.
-25. Click OK.
+<div align="center">
+<figure>
+<img src="../_assets/images/mod8-04.png" alt="The Edit Chart dialog: a row of chart type buttons, the Bar Chart properties on the left, and the Primary DataSource tab with the CategorySet Data Collector on the right" width="800">
+<figcaption>The Edit Chart dialog</figcaption>
+</figure>
+</div>
 
-![Add Parameter](../_assets/images/mod8-08.png)
+3. Select the **Radar Chart** button.
 
-26. To create the chart, in the Edit Chart window, click OK.
+<div align="center">
+<figure>
+<img src="../_assets/images/mod8-05.png" alt="The chart type buttons with the Radar Chart button highlighted" width="283">
+<figcaption>The Radar Chart button</figcaption>
+</figure>
+</div>
 
-![Add Parameter](../_assets/images/mod8-09.png)
+4. On the **Primary DataSource** tab, set **category-column** to `PRODUCTVENDOR`.
 
-27. Preview the report.
+<div align="center">
+<figure>
+<img src="../_assets/images/mod8-06.png" alt="The category-column list open with PRODUCTVENDOR selected" width="595">
+<figcaption>The category: one spoke per vendor</figcaption>
+</figure>
+</div>
 
-![Add Parameter](../_assets/images/mod8-10.png)
+5. Select the **...** button of **value-columns**. In the **Edit Array** dialog, select `MSRP` under **Available Items**, select the right arrow to move it to **Selected Items**, and select **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/mod8-07.png" alt="The Edit Array dialog with MSRP moved to Selected Items" width="411">
+<figcaption>The value: MSRP</figcaption>
+</figure>
+</div>
+
+6. Set **series-by-field** to `PRODUCTLINE` the same way.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/mod8-08.png" alt="The CategorySet Data Collector properties: category-column PRODUCTVENDOR, value-columns [MSRP] and series-by-field [PRODUCTLINE]" width="595">
+<figcaption>Category, value and series set</figcaption>
+</figure>
+</div>
+
+7. Select **OK**. The chart on the canvas is now a radar chart, still with sample data.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/mod8-09.png" alt="A Radar Chart placeholder with sample categories and series in the Report Header band" width="622">
+<figcaption>The canvas shows sample data; preview shows yours</figcaption>
+</figure>
+</div>
+
+8. Drag the chart's handles so that it sits in the top left of the band, about 4.25 inches wide and 2.5 inches high.
+9. Select **Preview**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/mod8-10.png" alt="The previewed radar chart: one spoke per vendor, from Autoart Studio Design round to Welly Diecast Productions, and a line per product line" width="513">
+<figcaption>The radar chart on real data</figcaption>
+</figure>
+</div>
+
+> **Success:** Checkpoint: a radar chart with 13 spokes, one for each vendor, and a colored line for each of the seven product lines, named in the legend.
+
+10. Select **Design**, and save the report (`Ctrl+S`).
 
 > **Under the hood:**
 >
@@ -109,39 +190,77 @@ Notice the list of properties in the left pane for customizing the chart.
 > completed dataset. Change the chart type and only the expression
 > changes; the collected data is the same.
 >
-> **Why it matters:** a chart summarising the whole report can sit
-> above the detail it summarises, with no extra query, because the
+> **Why it matters:** a chart summarizing the whole report can sit
+> above the detail it summarizes, with no extra query, because the
 > engine had already read every row by the time it drew the header.
 
-## Add Sub Report
+### 3. A sub-report
 
-1. To add a Sub-report:
-2. From the Elements Palette, drag a Sub-report element to the right side of the Report Header band.
-3. In the Insert Subreport dialog, click Inline.
+> **Note:**
+>
+> #### Sub-reports
+>
+> A **sub-report** is a report inside a report, with its own bands and its own query. Placed in the **Report Header**, it runs once.
 
-![Add Sub Report](../_assets/images/mod8-11.png)
+1. From the palette, drag a **sub-report** onto the right side of the **Report Header** band. In the **Insert Subreport** dialog, select **Inline**.
 
-4. In the Select Data Source window, select Query 1, and click OK.
+<div align="center">
+<figure>
+<img src="../_assets/images/mod8-11.png" alt="The Insert Subreport dialog asking whether to insert the subreport as inline or banded, with Inline, Banded and Cancel buttons" width="446">
+<figcaption>Inline or banded</figcaption>
+</figure>
+</div>
 
-![Add Sub Report](../_assets/images/mod8-12.png)
+2. In the **Select Data Source** dialog, select `Query 1`, and select **OK**. The sub-report opens in a tab of its own.
 
-5. To reposition and resize the Sub-report element, from the open reports tabs, click the Sub Report Demo tab, and then reposition and resize the Sub-report element as shown below.
+<div align="center">
+<figure>
+<img src="../_assets/images/mod8-12.png" alt="The Select Data Source dialog with Query 1 selected under JDBC (SampleData)" width="158">
+<figcaption>The sub-report reuses Query 1</figcaption>
+</figure>
+</div>
 
-![Add Sub Report](../_assets/images/mod8-13.png)
+3. Select the master report's tab, `Demo - charts`. Drag the sub-report element's handles so that it starts at 4.5 inches on the top ruler, reaches the right edge of the band, and is as high as the chart.
 
-6. To return to the Sub-report, from the open reports tabs, click the <Untitled Subreport> tab.
-7. To create the Sub-report, from the Data pane, drag PRODUCTVENDOR, PRODUCTLINE, and MSRP to the Details band as shown below.
+<div align="center">
+<figure>
+<img src="../_assets/images/mod8-13.png" alt="The top ruler from 4.5 to 8.5 inches with the sub-report element spanning between guides at 4.5 and 8.4 inches" width="569">
+<figcaption>The sub-report from 4.5 inches to the right edge</figcaption>
+</figure>
+</div>
 
-![Add Sub Report](../_assets/images/mod8-14.png)
+4. Select the sub-report's tab. From the **Data** tab, drag `PRODUCTVENDOR`, `PRODUCTLINE` and `MSRP` onto its **Details** band, side by side.
 
-8. To create column headings, add Label elements and a Horizontal Line element to the Details Header band as shown. (You will need to enable the Band)
+<div align="center">
+<figure>
+<img src="../_assets/images/mod8-14.png" alt="The sub-report's Details band with PRODUCTVENDOR, PRODUCTLINE and MSRP in a row" width="488">
+<figcaption>The sub-report's fields</figcaption>
+</figure>
+</div>
 
-![Add Sub Report](../_assets/images/mod8-15.png)
+5. In the sub-report's **Structure** tab, select **Details Header**, and on the **Attributes** tab set **hide-on-canvas** to `False`.
+6. Drag three **label** elements onto the **Details Header** band, one above each field, with the text `Product Vendor`, `Product Line` and `MSRP`. Drag a **horizontal-line** under them.
 
-9. Adjust the height of the Bands.
-10. Preview and Save the report: Demo – charts.prpt
+<div align="center">
+<figure>
+<img src="../_assets/images/mod8-15.png" alt="The sub-report's Details Header with the labels Product Vendor, Product Line and MSRP above the matching fields" width="489">
+<figcaption>The sub-report's column labels</figcaption>
+</figure>
+</div>
 
-![Add Sub Report](../_assets/images/mod8-16.png)
+7. Drag the dividers of the sub-report's bands up, so that each band is only as high as its elements.
+8. Select the master report's tab, and select **Preview**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/mod8-16.png" alt="The preview: the radar chart on the left and, on the right, the sub-report's table of vendors, product lines and MSRP, starting with Autoart Studio Design, Classic Cars, 195" width="800">
+<figcaption>The chart and the sub-report side by side</figcaption>
+</figure>
+</div>
+
+> **Success:** Checkpoint: the radar chart on the left and, to its right, the sub-report's table under **Product Vendor**, **Product Line** and **MSRP**, starting with `Autoart Studio Design`, `Classic Cars`, `195`.
+
+9. Select **Design**, and save the report (`Ctrl+S`).
 
 > **Under the hood:**
 >
@@ -150,36 +269,44 @@ Notice the list of properties in the left pane for customizing the chart.
 > The zip gained a `subreport/` folder with its own `layout.xml` and
 > data definition, referenced from the master as `<sub-report
 > href="/subreport/content.xml">`. It has its own bands, functions and
-> — here, by reuse — the parent's data source and Query 1. The engine
+> (here, by reuse) the parent's data source and Query 1. The engine
 > executes it each time the containing band is processed: once for a
 > Report Header, but once *per group* if you put it in a Group Header,
 > and once per row in the Details band.
 >
-> Inline means it occupies a rectangle at the element's x/y within
-> the parent band; banded means it stacks at the parent's left edge
-> like another band.
->
 > **Why it matters:** anything that needs a second query, a different
 > grouping or a different orientation can be composed in rather than
-> forced into one query — and the "runs once per band instance" rule
+> forced into one query, and the "runs once per band instance" rule
 > is what turns a sub-report in a group header into a master-detail
 > report.
 
-## Inline v Banded
+**Inline or banded**
 
-Every master-report and sub-report prints its sections on a position relative to its original location on paper. For a master-report, the location is always the upper left corner of the first page (x=0, y=0). Therefore, all sections of that report will be printed on the left edge of the paper (x=0).
+Every report prints its bands relative to its own position on the page. A master report starts at the top left corner of the first page, so all its bands print from the left edge.
 
-When you add sub-reports to a report, that sub-report can be located on any x-position on the paper. For banded sub-reports, usually that position is the same left-edge as the parent-report's location.
+* A **banded** sub-report prints at the left edge of its parent, like another band.
+* An **inline** sub-report prints where its element sits in the parent band, at the element's x and y position, so it can sit beside other elements, as this one sits beside the chart. A sub-report inside it is offset by both positions.
 
-Inline sub-reports can be placed more freely on reports. The sub-report's left edge corresponds with the sub-report element's x- and y- position within its parent report. They can be at a position that is different from their parent report's left-edge position. When you add a new inner sub-report to such this sub-report, the inner sub-report's effective position is the offset of this report in its parent sub-report and all their offsets within their respective parents.
+The dark gray area at the left of an inline sub-report's canvas is the space to the left of its element in the parent. You can't place elements there; move the sub-report element in the parent instead.
 
-The dark-grey area on the left-hand side of your sub-report is not usable for elements contained in your sub-report. If you want to place elements there, you will have to re-position your sub-report within its parent report.
+::::
 
-## Lab files
+## Lab Files
 
-<button data-launch="prd" data-path="files/Training Demo Report 8 charts.prpt">Open: Solution: charts</button>
+Click a file to download. For `.prpt` files, **Open in Pentaho Report Designer** starts Report Designer with the report loaded.
 
-<button data-launch="prd" data-path="files/chart report.prpt">Open: Sample: chart report</button>
+### Solution <!-- no-step -->
 
-<button data-launch="prd" data-path="files/Order Details - sub report.prpt">Open: Sample: sub-report</button>
+The finished report for this lab. Open it alongside your own to compare, or preview it to see the expected result. It puts the column labels in the master report's **Page Header** band instead of the sub-report.
 
+[Training Demo Report 8 charts.prpt](./files/Training%20Demo%20Report%208%20charts.prpt) <button data-launch="prd" data-path="files/Training Demo Report 8 charts.prpt">Open in Pentaho Report Designer</button>
+
+### More examples <!-- no-step -->
+
+A chart report from the course's samples:
+
+[chart report.prpt](./files/chart%20report.prpt) <button data-launch="prd" data-path="files/chart report.prpt">Open in Pentaho Report Designer</button>
+
+A report with a sub-report that lists the lines of each order:
+
+[Order Details - sub report.prpt](./files/Order%20Details%20-%20sub%20report.prpt) <button data-launch="prd" data-path="files/Order Details - sub report.prpt">Open in Pentaho Report Designer</button>

@@ -3,7 +3,7 @@
   "description": "Add running and aggregate totals at group and report level.",
   "order": 11,
   "kind": "workshop",
-  "stepCount": 1,
+  "stepCount": 5,
   "hasVideo": false,
   "estimatedMinutes": 10
 }

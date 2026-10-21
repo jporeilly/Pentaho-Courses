@@ -4,7 +4,7 @@
 >
 > #### Workshop - AutoML
 >
-> A direct retailer takes orders by phone and on its website and ships the goods to the customer. It keeps its customers' details and their orders in a database, and a CSV report of past orders that turned out to be fraudulent. To reduce its losses from orders paid with stolen credit cards, it wants a model that flags likely fraud. Blend its files into one training set in Pentaho Data Integration (PDI), then let H2O AutoML train several algorithms and rank them.
+> A direct retailer takes orders by phone and on its website and ships the goods to the customer. It keeps its customers' details and their orders in a database, and a CSV report of past orders that turned out to be fraudulent. To reduce its losses from orders paid with stolen credit cards, it wants a model that flags likely fraud. Blend its files into one training set in Pentaho Data Integration, then let H2O AutoML train several algorithms and rank them.
 >
 > **What you'll do**
 >
@@ -37,7 +37,7 @@
 >
 > The retailer's data is in four files of 100,000 rows each. `customer.csv` holds each customer's name and billing zip code; `customer_billing.csv` names the transaction and card each customer used; `transaction_details.csv` describes each order (shipping address, amount, number of items, the customer's age, whether it was a web order, the customer's transactions to date and the hour of day); and `transaction_fraud_report.csv` says whether each transaction was reported as fraud. Join them into one row per transaction.
 
-1. Start Spoon with the **Start PDI** button below, or from a terminal:
+1. Start Spoon with the **Start Pentaho Data Integration** button below, or from a terminal:
 
 ::: tabs
 
@@ -57,7 +57,7 @@ cd ~/Pentaho/design-tools/data-integration
 
 :::
 
-<button data-launch="spoon" data-path="">Start PDI</button>
+<button data-launch="spoon" data-path="">Start Pentaho Data Integration</button>
 
 2. Select **File > New > Transformation** (`Ctrl+N`).
 3. Select **File > Save as** and save it as `autoML.ktr` in `C:\Workshop-ML-Specialty\02-machine-learning\03-automl`, the folder that holds the four CSV files. Saving first gives `${Internal.Entry.Current.Directory}` a value. (On your own machine, download the four files from **Lab Files** below into the folder you save in.)
@@ -334,19 +334,19 @@ cd ~/Pentaho/design-tools/data-integration
 
 7. Select **OK**, and save the transformation (`Ctrl+S`).
 
-### 4. AutoML in PDI
+### 4. AutoML in Pentaho Data Integration
 
 > **Note:**
 >
 > #### Python Executor
 >
-> The **Python Executor** step runs Python code inside a transformation, so PDI can do the connecting, joining and filtering while Python does the analytics. It hands the data to Python in one of two ways: **Row by row**, where each incoming row's fields become Python variables and the script runs once per row, or **All rows**, where the whole stream arrives at once as a pandas data frame, a NumPy array or a Python list of dictionaries. It supports the CPython runtime only. This step runs H2O AutoML on the same nine fields the file gets, and returns one row that describes the best model.
+> The **Python Executor** step runs Python code inside a transformation, so Pentaho Data Integration can do the connecting, joining and filtering while Python does the analytics. It hands the data to Python in one of two ways: **Row by row**, where each incoming row's fields become Python variables and the script runs once per row, or **All rows**, where the whole stream arrives at once as a pandas data frame, a NumPy array or a Python list of dictionaries. It supports the CPython runtime only. This step runs H2O AutoML on the same nine fields the file gets, and returns one row that describes the best model.
 
 1. On the **Design** tab, open the **Scripting** folder and drag **Python Executor** onto the canvas.
 2. Create a hop from **sv-change_to_numbers** to **Python Executor**. When Spoon asks, select **Copy**: both **tfo-H2O** and the new step need every row.
 3. Double-click **Python Executor**. Set **Step name** to `auto machine learning`.
 4. On the **Script** tab, under **Source**, select **Embed**. Select **Use a Python virtual environment**, and enter the full path of the virtual environment you created in [Prerequisite Tasks](../02-prerequisite-tasks/guide.md), such as `/home/pentaho/h2o-env`.
-5. Enter this script in **Manual Python script**. It reads the rows from the `dataset` variable, runs AutoML with up to five models and 15 minutes (`max_runtime_secs=900`), saves the best model under `/tmp/h2o_models`, and leaves ten one-item lists behind for PDI:
+5. Enter this script in **Manual Python script**. It reads the rows from the `dataset` variable, runs AutoML with up to five models and 15 minutes (`max_runtime_secs=900`), saves the best model under `/tmp/h2o_models`, and leaves ten one-item lists behind for Pentaho Data Integration:
 
    ```python
    # H2O AutoML for PDI - COMPLETE WORKING VERSION
@@ -524,7 +524,7 @@ cd ~/Pentaho/design-tools/data-integration
 7. Under **Available variables**, add a variable with the plus sign button. Set **Variable name** to `dataset`, **Step** to `sv-change_to_numbers` and **Data structure** to `Pandas dataframe`.
 8. Fill the **Mapping** grid so it matches this table:
 
-| Data structure field         | Data structure type | PDI field                    | PDI data type |
+| Data structure field         | Data structure type | Pentaho Data Integration field                    | Pentaho Data Integration data type |
 | ---------------------------- | ------------------- | ---------------------------- | ------------- |
 | `first_time_customer`        | `float64`           | `first_time_customer`        | Number        |
 | `order_dollar_amount`        | `float64`           | `order_dollar_amount`        | Number        |
@@ -537,9 +537,9 @@ cd ~/Pentaho/design-tools/data-integration
 | `reported_as_fraud_historic` | `float64`           | `reported_as_fraud_historic` | Number        |
 
 9. Open the **Output** tab and, under **Output processing**, select **Variables to fields**.
-10. Fill the **Mapping** grid with the ten variables the script leaves behind. Each is a `list` in Python and a String in PDI:
+10. Fill the **Mapping** grid with the ten variables the script leaves behind. Each is a `list` in Python and a String in Pentaho Data Integration:
 
-| Variable                | Python data type | PDI field               | PDI data type |
+| Variable                | Python data type | Pentaho Data Integration field               | Pentaho Data Integration data type |
 | ----------------------- | ---------------- | ----------------------- | ------------- |
 | `best_model_id`         | `list`           | `best_model_id`         | String        |
 | `best_algorithm`        | `list`           | `best_algorithm`        | String        |
@@ -570,7 +570,7 @@ cd ~/Pentaho/design-tools/data-integration
 > with one item, so the step returns one row. Meanwhile the **Copy** hop
 > sends the same rows to **tfo-H2O**.
 >
-> **Why it matters:** PDI does the joins and conversions, Python does the
+> **Why it matters:** Pentaho Data Integration does the joins and conversions, Python does the
 > modeling, and the result comes back as an ordinary row. A later step
 > could write it to a table of experiments or check `best_auc` against a
 > threshold, which turns a notebook experiment into a scheduled job.
@@ -672,7 +672,7 @@ cd ~/Pentaho/design-tools/data-integration
 
 > **Success:** Checkpoint: the cell prints `Saving H2O.csv to H2O.csv`.
 
-7. In the next cell, load the file and name its columns. The file has no header and uses `;` as its separator, and the target, `reported_as_fraud_historic` in PDI, is named `fraud` here and converted to text, which H2O treats as classes. Run it:
+7. In the next cell, load the file and name its columns. The file has no header and uses `;` as its separator, and the target, `reported_as_fraud_historic` in Pentaho Data Integration, is named `fraud` here and converted to text, which H2O treats as classes. Run it:
 
    ```python
    # Load data
@@ -957,7 +957,7 @@ Feature importance explains what drives the predictions, shows where more featur
 
 > **Success:** Checkpoint: the summary prints, your browser downloads `fraud_summary.txt`, and the cell ends with `Summary downloaded.`
 
-A summary like this serves model tracking, reports to stakeholders, comparisons between experiments and audit trails. Once the notebook gives you the answers you need, move the logic into PDI, as the **auto machine learning** step does, and use the leaderboard to decide which algorithm to put into production.
+A summary like this serves model tracking, reports to stakeholders, comparisons between experiments and audit trails. Once the notebook gives you the answers you need, move the logic into Pentaho Data Integration, as the **auto machine learning** step does, and use the leaderboard to decide which algorithm to put into production.
 
 ### 6. GBM
 
@@ -1045,7 +1045,7 @@ If fraud is 1% of transactions, a model that predicts "legitimate" for every row
 
 ## Lab Files
 
-Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches PDI with the file loaded. If PDI is already running, the path is copied to your clipboard — switch to PDI and press `Ctrl+O`, `Ctrl+V`, `Enter`.
+Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches Pentaho Data Integration with the file loaded. If Pentaho Data Integration is already running, the path is copied to your clipboard — switch to Pentaho Data Integration and press `Ctrl+O`, `Ctrl+V`, `Enter`.
 
 The four source files, 100,000 rows each:
 

@@ -5,10 +5,10 @@
   "Publish/subscribe": "A messaging pattern where producers (publishers) send messages to a named destination and any number of consumers (subscribers) register interest and receive them. Producers and consumers are decoupled — neither needs to know about the other.",
   "Broker": "The server that receives messages from producers and delivers them to subscribed consumers. HiveMQ, EMQX, and RabbitMQ are brokers; Kafka brokers play the same role in a cluster.",
   "Topic": "A named channel on a broker that messages are published to and consumed from. Subscribers express interest in a topic to receive its messages.",
-  "Producer": "A client that publishes messages to a broker (for example a sensor script, or PDI's MQTT Producer step).",
-  "Consumer": "A client that subscribes to a stream and reads messages from it. In PDI the consumer steps are MQTT Consumer, Kafka Consumer, and AMQP Consumer.",
-  "Parent/child transformation": "The PDI streaming pattern. The parent transformation holds the consumer step, which collects incoming messages into batches; each batch is handed to a child transformation that processes the records. The same pattern is used for every streaming protocol.",
-  "Get records from stream": "The PDI step that surfaces a batch of streamed messages as rows. It produces rows, so it must be the first step in the child transformation; you cannot place it mid-stream.",
+  "Producer": "A client that publishes messages to a broker (for example a sensor script, or Pentaho Data Integration's MQTT Producer step).",
+  "Consumer": "A client that subscribes to a stream and reads messages from it. In Pentaho Data Integration the consumer steps are MQTT Consumer, Kafka Consumer, and AMQP Consumer.",
+  "Parent/child transformation": "The Pentaho Data Integration streaming pattern. The parent transformation holds the consumer step, which collects incoming messages into batches; each batch is handed to a child transformation that processes the records. The same pattern is used for every streaming protocol.",
+  "Get records from stream": "The Pentaho Data Integration step that surfaces a batch of streamed messages as rows. It produces rows, so it must be the first step in the child transformation; you cannot place it mid-stream.",
   "Batch (streaming)": "A group of messages the consumer collects before invoking the child transformation. It is flushed when the first threshold is met — either a Duration (ms) time window or a Number of records count.",
   "MQTT": "Message Queuing Telemetry Transport — a lightweight publish/subscribe protocol designed for the Internet of Things. Minimal overhead makes it ideal for constrained devices and sensor networks.",
   "QoS": "Quality of Service in MQTT, controlling delivery guarantees: 0 (at most once, lowest latency, can lose messages), 1 (at least once, may duplicate), 2 (exactly once, highest overhead).",
@@ -32,6 +32,6 @@
   "Fanout": "The default RabbitMQ exchange type. It broadcasts every message it receives to all bound queues, ignoring routing keys.",
   "Queue": "In AMQP, the structure that stores messages until a consumer retrieves them. Queues can be durable (survive restarts), exclusive (one connection), or auto-delete (removed when the last consumer disconnects).",
   "Durable": "A broker object (queue or exchange) configured to be saved to disk so it survives a broker restart, as opposed to a transient object that is lost.",
-  "MQTT Producer": "The PDI step that publishes a message field to an MQTT broker on a given topic, with configurable QoS and client ID.",
-  "Backpressure": "Controls that prevent a fast stream from overwhelming the consumer — for example the message prefetch limit (how many messages PDI queues in memory) and the maximum concurrent batches."
+  "MQTT Producer": "The Pentaho Data Integration step that publishes a message field to an MQTT broker on a given topic, with configurable QoS and client ID.",
+  "Backpressure": "Controls that prevent a fast stream from overwhelming the consumer — for example the message prefetch limit (how many messages Pentaho Data Integration queues in memory) and the maximum concurrent batches."
 }

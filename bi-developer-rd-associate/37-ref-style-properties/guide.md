@@ -5,8 +5,8 @@
 > #### Introduction
 >
 > Every style property available on the **Style** tab (lower-right
-> pane), by group, from the official User Guide. For colour
-> properties, values are HTML colour names (`red`, `green`) or hex
+> pane), by group, from the official User Guide. For color
+> properties, values are HTML color names (`red`, `green`) or hex
 > (`#CCFF00`).
 
 ***
@@ -28,7 +28,7 @@
 | h-align / v-align | Selection | Horizontal / vertical alignment within the element. |
 | v-align-in-band | Selection | Fine control of inline-text alignment within a line. |
 | text-wrap | Boolean | Wrap text at end of line. |
-| text-color / bg-color | Selection | Foreground / background colour — the conditional-formatting targets. |
+| text-color / bg-color | Selection | Foreground / background color — the conditional-formatting targets. |
 | line-height | Integer | Height of one text line (≥ font size). |
 | overflow-text | String | Quote printed when text doesn't fit the element bounds. |
 | trim / trim-whitespace | Boolean / Selection | Whitespace handling. |
@@ -49,7 +49,7 @@
 
 | Property | Type | Purpose |
 | --- | --- | --- |
-| fill / fill-color | Boolean / Selection | Fill the shape; alternative fill colour. |
+| fill / fill-color | Boolean / Selection | Fill the shape; alternative fill color. |
 | draw-outline / stroke | Boolean / Selection | Outline flag; pen type and width. |
 | anti-alias | Boolean | Anti-aliased drawing. |
 | aspect-ratio / scale | Boolean | Preserve ratio; scale content to element bounds. |
@@ -86,7 +86,7 @@
 ## Sparkline Styles
 
 `low-color`, `medium-color`, `high-color` (pie), `last-color` (bar's
-last value / line colour) — the sparkline palette.
+last value / line color) — the sparkline palette.
 
 ## Page Behavior Styles
 
