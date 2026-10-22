@@ -28,6 +28,8 @@
 
 </figure>
 
+---
+
 > **Note:** **Get the files first.** Download the three feed files
 > and `control.csv` from **Lab Files** below into
 > this module's workshop folder:

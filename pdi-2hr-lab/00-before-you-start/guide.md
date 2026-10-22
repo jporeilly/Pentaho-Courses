@@ -22,6 +22,14 @@
 >
 > **Estimated time:** 5 minutes — before the session.
 
+<figure>
+
+<figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
+
+</figure>
+
+---
+
 ## Getting Started
 
 The installer's **Workshop lab files** component lays this course's
