@@ -21,7 +21,7 @@
 > * Outbound internet access, for the Ubuntu, PostgreSQL and pgAdmin package repositories
 > * The plan in [Overview](../04-installation-archive-overview/guide.md)
 >
-> **Estimated time:** 15 minutes
+> **Estimated time:** 25 minutes
 
 ---
 

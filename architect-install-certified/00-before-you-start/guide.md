@@ -35,11 +35,12 @@ This panel stays beside your tools for the whole workshop:
 
 ## Track your progress
 
-In every workshop lab, each numbered heading is a **step** with a
-checkbox — select it when you're done. Progress is saved on this machine
-and survives restarts, so you can pick up exactly where you left off.
-(This orientation page doesn't track steps — the checkboxes start in
-the first workshop.)
+Each workshop's steps sit in a numbered row at the top of the lab, one
+dot per step. Work through them in order: the button at the end of a
+step names the next one, and moving on puts a check mark on the step
+you leave. Your progress is saved on this machine and survives
+restarts, so you can pick up exactly where you left off. (This page has
+no steps: tracking starts in the first workshop.)
 
 ## Copy code with one click
 
