@@ -125,7 +125,18 @@ As well as steps and hops, a transformation can hold **notes**, which document i
 
 The following table describes these mappings:
 
-<table><thead><tr><th width="176.66666666666666">Pentaho Data Integration Data Type</th><th width="149">Java Data Type</th><th>Description</th><th>Example</th></tr></thead><tbody><tr><td>BigNumber</td><td>BigDecimal</td><td>An arbitrary unlimited precision number.</td><td>3.141592653589793238462643383279502884197169399375105820974944</td></tr><tr><td>Binary</td><td>Byte[]</td><td>An array of bytes that contain any type of binary data.</td><td>An image file or a compressed file can be stored as Binary data</td></tr><tr><td>Boolean</td><td>Boolean</td><td>A boolean value <code>true</code> or <code>false.</code></td><td>A boolean value true or false</td></tr><tr><td>Date</td><td>Date</td><td>A date-time value with millisecond precision.</td><td>2023-10-20T10:48:51.123</td></tr><tr><td><p>Hierarchical</p><p>EE Plugin 9.5+</p></td><td>BinaryTree</td><td>Data items that are related to each other by hierarchical relationships</td><td>A family tree</td></tr><tr><td>Integer</td><td>Long</td><td>A signed long 64-bit integer.</td><td>42</td></tr><tr><td>Internet Address</td><td>InetAddress</td><td>An Internet Protocol (IP) address.</td><td>192.168.0.1</td></tr><tr><td>Number</td><td>Double</td><td>A double precision floating point value (64bits).</td><td>2.7182818284590452353602874713526624977572470936999</td></tr><tr><td>String</td><td>String</td><td>A variable unlimited length text encoded in UTF-8 (Unicode).</td><td>“Hello world!”</td></tr><tr><td>Timestamp</td><td>Timestamp</td><td>Allows the specification of fractional seconds to a precision of nanoseconds.</td><td>2023-10-20T10:48:51.123456789</td></tr></tbody></table>
+| PDI Data Type | Java Data Type | Description | Example |
+| --- | --- | --- | --- |
+| BigNumber | BigDecimal | An arbitrary unlimited precision number. | 3.141592653589793238462643383279502884197169399375105820974944 |
+| Binary | Byte[] | An array of bytes that contain any type of binary data. | An image file or a compressed file can be stored as Binary data |
+| Boolean | Boolean | A boolean value `true` or `false`. | A boolean value true or false |
+| Date | Date | A date-time value with millisecond precision. | 2023-10-20T10:48:51.123 |
+| Hierarchical<br>EE Plugin 9.5+ | BinaryTree | Data items that are related to each other by hierarchical relationships | A family tree |
+| Integer | Long | A signed long 64-bit integer. | 42 |
+| Internet Address | InetAddress | An Internet Protocol (IP) address. | 192.168.0.1 |
+| Number | Double | A double precision floating point value (64bits). | 2.7182818284590452353602874713526624977572470936999 |
+| String | String | A variable unlimited length text encoded in UTF-8 (Unicode). | “Hello world!” |
+| Timestamp | Timestamp | Allows the specification of fractional seconds to a precision of nanoseconds. | 2023-10-20T10:48:51.123456789 |
 
 ### 4. Jobs
 

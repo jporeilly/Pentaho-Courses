@@ -248,10 +248,6 @@ Edit `kettle.properties` in a text editor, or in Spoon select **Edit > Edit the 
 </figure>
 </div>
 
-
-
-
-
 > **Note:** The **View** tab labels each object with where it lives: `[File]` for one stored in the open file, `[System]` for a shared one.
 
 ### 3. repositories.xml
