@@ -18,7 +18,7 @@
 > * The `MySQL:sampledata` connection from [Connecting to Database](../12-mod3-connecting-to-database/guide.md)
 > * DBeaver (or Adminer on a lab VM), connected to `sampledata` as `pentaho_admin`
 >
-> **Estimated time:** 25 minutes
+> **Estimated time:** 10 minutes
 
 <figure>
 

@@ -19,7 +19,7 @@
 > * The `MySQL:sampledata` connection from [Connecting to Database](../12-mod3-connecting-to-database/guide.md)
 > * Basic understanding of tables and SQL data types
 > 
-> **Estimated time:** 35 minutes
+> **Estimated time:** 20 minutes
 
 <figure>
 
