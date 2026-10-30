@@ -18,7 +18,7 @@ Pentaho Data Integration operates on a **client-server architecture** that separ
 * **Database Connectivity**: The process of integrating JDBC drivers to connect to various data sources
 <div align="center">
 <figure>
-<img src="../_assets/images/pentaho-ecosystem.png" alt="The Pentaho ecosystem in four columns. Data sources: flat files, relational databases, data lake or lakehouse, object stores and APIs feed the staging layer. Data engineering with Pentaho Data Integration: the staging layer feeds the transformation layer. Modelling: the transformation layer feeds a Pentaho OLAP cube and an enterprise data mart. Visualization: the cube feeds Pentaho Analyzer, Report Designer and CTools, and the data mart feeds Report Designer and CTools. Underneath every layer, the Pentaho DI and BA Server provides scheduling, logging, security and the repository" width="800">
+<img src="../_assets/images/pentaho-ecosystem.png" alt="The Pentaho ecosystem in four columns: flat files, databases, data lakes, object stores and APIs feed the staging and transformation layers of Pentaho Data Integration; these feed an OLAP cube and a data mart, which feed Analyzer, Report Designer and CTools. The Pentaho DI and BA Server runs underneath: scheduling, logging, security, repository" width="800">
 <figcaption>The Pentaho ecosystem, layer by layer</figcaption>
 </figure>
 </div>

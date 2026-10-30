@@ -16,7 +16,7 @@
 >
 > **Prerequisites:** Complete the **[Hello World](../03-mod2-hello-world/guide.md)** workshop
 >
-> **Estimated time:** 20 minutes
+> **Estimated time:** 10 minutes
 
 <figure>
 
