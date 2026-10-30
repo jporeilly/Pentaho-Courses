@@ -18,8 +18,7 @@
 >
 > **Prerequisites:** Familiarity with the basics of data integration.
 >
-> **Estimated time:** 5 minutes on a lab VM; about 20 minutes the first
-> time on your own machine.
+> **Estimated time:** 5 minutes
 
 ## Meet your lab guide
 

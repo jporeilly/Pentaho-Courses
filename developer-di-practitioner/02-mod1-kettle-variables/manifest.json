@@ -3,7 +3,7 @@
   "description": "",
   "order": 4,
   "stepCount": 4,
-  "estimatedMinutes": 25,
+  "estimatedMinutes": 10,
   "checks": [
     {
       "id": "kettle-properties",
