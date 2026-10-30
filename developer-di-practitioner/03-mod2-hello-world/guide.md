@@ -17,7 +17,7 @@
 >
 > **Prerequisites:** Pentaho Data Integration installed and configured (see [Configuring Pentaho Data Integration](../01-mod1-configuring-pdi/guide.md))
 >
-> **Estimated time:** 25 minutes
+> **Estimated time:** 15 minutes
 
 <figure>
 <figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
