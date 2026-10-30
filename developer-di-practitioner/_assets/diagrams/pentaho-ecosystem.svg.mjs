@@ -4,10 +4,10 @@
 // Run: node pentaho-ecosystem.svg.mjs   (then render, see README.md)
 import fs from 'node:fs';
 
-const W = 944, H = 528;
-const BOX_W = 186, BOX_H = 62;
-const PANEL_W = 200, PANEL_TOP = 12, PANEL_BOTTOM = 440;
-const COLS = [12, 252, 492, 732];
+const W = 988, H = 528;
+const BOX_W = 200, BOX_H = 62;
+const PANEL_W = 214, PANEL_TOP = 12, PANEL_BOTTOM = 440;
+const COLS = [12, 262, 512, 762];
 const ROW = (r) => 74 + r * 74; // top of a box in row r (0-4)
 
 const ROLE = {

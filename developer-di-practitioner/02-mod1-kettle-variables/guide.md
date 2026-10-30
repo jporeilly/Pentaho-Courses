@@ -16,7 +16,7 @@
 >
 > **Prerequisites:** [Configuring Pentaho Data Integration](../01-mod1-configuring-pdi/guide.md)
 >
-> **Estimated time:** 25 minutes
+> **Estimated time:** 10 minutes
 
 <figure>
 

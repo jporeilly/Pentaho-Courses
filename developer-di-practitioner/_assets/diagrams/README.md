@@ -20,3 +20,8 @@ applies and drops an inline `background`, so each cell's padding and
 borders are inline in the `.mmd`, and the row colours come from
 `diagram.css` (`table.rows tr.a` blue for the first input, `tr.b` amber
 for the second).
+
+`pentaho-ecosystem.svg` (Components) is hand-laid, not Mermaid, so every box is the
+same size in four columns. Edit `pentaho-ecosystem.svg.mjs`, run it with
+`node`, and render the SVG at 2x (any headless browser screenshot at
+988x528 with device scale factor 2) to `../images/pentaho-ecosystem.png`.
