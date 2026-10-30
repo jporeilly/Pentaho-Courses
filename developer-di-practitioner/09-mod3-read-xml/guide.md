@@ -89,7 +89,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 </figure>
 </div>
 
-7. Open the **Content** tab and set **Loop XPath** to `/document/order`: one row per `order` element. Set **Encoding** to `UTF-8`.
+7. Open the **Content** tab and set **Loop XPath** to `/document/order`: one row per `order` element. Set **Encoding** to `UTF-8`, and select **Do not raise an error if no files**.
 
 <div align="center">
 <figure>
