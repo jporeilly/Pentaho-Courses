@@ -19,7 +19,7 @@
 > * The `MySQL:sampledata` connection from [Connecting to Database](../12-mod3-connecting-to-database/guide.md)
 > * DBeaver (or Adminer on a lab VM), connected to `sampledata` as `pentaho_admin`
 >
-> **Estimated time:** 40 minutes
+> **Estimated time:** 20 minutes
 
 <figure>
 
@@ -331,7 +331,7 @@ In the tables below, `(run N)` stands for the date and time of run N.
 > | TK | version | id | city   | date_from           | date_to             | last_update |
 > | -- | ------- | -- | ------ | ------------------- | ------------------- | ----------- |
 > | 0  | 1       | 0  | NULL   | NULL                | NULL                | NULL        |
-> | 1  | 1       | 1  | London | 1900-01-01 00:00:00 | 2200-01-01 00:00:00 | (run 2)     |
+> | 1  | 1       | 1  | London | 1900-01-01 00:00:00 | 2200-01-01 00:00:00 | (time run 2)     |
 >
 > A key's first version is valid from the start of **Min. year** to the end of **Max. year**, so a lookup at any date finds it. The step writes the end as 2199-12-31 23:59:59.999; MySQL's `DATETIME` rounds that to `2200-01-01 00:00:00`.
 
@@ -366,8 +366,8 @@ In the tables below, `(run N)` stands for the date and time of run N.
 > | TK | version | id | city       | date_from           | date_to             | last_update   |
 > | -- | ------- | -- | ---------- | ------------------- | ------------------- | ------------- |
 > | 0  | 1       | 0  | NULL       | NULL                | NULL                | NULL          |
-> | 1  | 1       | 1  | London     | 1900-01-01 00:00:00 | 2200-01-01 00:00:00 | **(run 3)**   |
-> | **2** | **1** | **2** | **Madrid** | 1900-01-01 00:00:00 | 2200-01-01 00:00:00 | **(run 3)** |
+> | 1  | 1       | 1  | London     | 1900-01-01 00:00:00 | 2200-01-01 00:00:00 | **(time run 3)**   |
+> | **2** | **1** | **2** | **Madrid** | 1900-01-01 00:00:00 | 2200-01-01 00:00:00 | **(time run 3)** |
 
 ### 4. Type 2
 
@@ -404,9 +404,9 @@ In the tables below, `(run N)` stands for the date and time of run N.
 > | TK | version | id | city       | date_from           | date_to             | last_update |
 > | -- | ------- | -- | ---------- | ------------------- | ------------------- | ----------- |
 > | 0  | 1       | 0  | NULL       | NULL                | NULL                | NULL        |
-> | 1  | 1       | 1  | London     | 1900-01-01 00:00:00 | 2200-01-01 00:00:00 | **(run 4)** |
-> | 2  | 1       | 2  | Madrid     | 1900-01-01 00:00:00 | 2200-01-01 00:00:00 | **(run 4)** |
-> | **3** | **1** | **3** | **Pariss** | 1900-01-01 00:00:00 | 2200-01-01 00:00:00 | **(run 4)** |
+> | 1  | 1       | 1  | London     | 1900-01-01 00:00:00 | 2200-01-01 00:00:00 | **(time run 4)** |
+> | 2  | 1       | 2  | Madrid     | 1900-01-01 00:00:00 | 2200-01-01 00:00:00 | **(time run 4)** |
+> | **3** | **1** | **3** | **Pariss** | 1900-01-01 00:00:00 | 2200-01-01 00:00:00 | **(time run 4)** |
 
 6. Double-click **Data Grid** and, on the **Data** tab, correct `Pariss` to `Paris`.
 
@@ -470,10 +470,10 @@ In the tables below, `(run N)` stands for the date and time of run N.
 > | TK | version | id | city      | date_from           | date_to             | last_update |
 > | -- | ------- | -- | --------- | ------------------- | ------------------- | ----------- |
 > | 0  | 1       | 0  | NULL      | NULL                | NULL                | NULL        |
-> | 1  | 1       | 1  | London    | 1900-01-01 00:00:00 | 2200-01-01 00:00:00 | **(run 5)** |
-> | 2  | 1       | 2  | Madrid    | 1900-01-01 00:00:00 | 2200-01-01 00:00:00 | **(run 5)** |
-> | 3  | 1       | 3  | Pariss    | 1900-01-01 00:00:00 | **(run 5)**         | (run 4)     |
-> | **4** | **2** | 3 | **Paris** | **(run 5)**       | 2200-01-01 00:00:00 | **(run 5)** |
+> | 1  | 1       | 1  | London    | 1900-01-01 00:00:00 | 2200-01-01 00:00:00 | **(time run 5)** |
+> | 2  | 1       | 2  | Madrid    | 1900-01-01 00:00:00 | 2200-01-01 00:00:00 | **(time run 5)** |
+> | 3  | 1       | 3  | Pariss    | 1900-01-01 00:00:00 | **(time run 5)**         | (time run 4)     |
+> | **4** | **2** | 3 | **Paris** | **(time run 5)**       | 2200-01-01 00:00:00 | **(time run 5)** |
 
 ### 5. Punch through
 
@@ -529,10 +529,10 @@ In the tables below, `(run N)` stands for the date and time of run N.
 > | TK | version | id | city      | date_from           | date_to             | last_update |
 > | -- | ------- | -- | --------- | ------------------- | ------------------- | ----------- |
 > | 0  | 1       | 0  | NULL      | NULL                | NULL                | NULL        |
-> | 1  | 1       | 1  | London    | 1900-01-01 00:00:00 | 2200-01-01 00:00:00 | **(run 6)** |
-> | 2  | 1       | 2  | Madrid    | 1900-01-01 00:00:00 | 2200-01-01 00:00:00 | **(run 6)** |
-> | 3  | 1       | 3  | **Paris** | 1900-01-01 00:00:00 | (run 5)             | **(run 6)** |
-> | 4  | 2       | 3  | Paris     | (run 5)             | 2200-01-01 00:00:00 | **(run 6)** |
+> | 1  | 1       | 1  | London    | 1900-01-01 00:00:00 | 2200-01-01 00:00:00 | **(time run 6)** |
+> | 2  | 1       | 2  | Madrid    | 1900-01-01 00:00:00 | 2200-01-01 00:00:00 | **(time run 6)** |
+> | 3  | 1       | 3  | **Paris** | 1900-01-01 00:00:00 | (run 5)             | **(time run 6)** |
+> | 4  | 2       | 3  | Paris     | (run 5)             | 2200-01-01 00:00:00 | **(time run 6)** |
 
 :::::
 
