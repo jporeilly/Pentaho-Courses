@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="944" height="528" viewBox="0 0 944 528" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+<filter id="shadow" x="-10%" y="-10%" width="120%" height="140%"><feDropShadow dx="0" dy="1" stdDeviation="1.2" flood-color="#0f172a" flood-opacity="0.10"/></filter></defs>
+<rect width="944" height="528" fill="#ffffff"/>
+<rect x="12" y="12" width="200" height="428" rx="10" fill="#eff6ff" stroke="#dbeafe" stroke-width="1.5"/>
+<path d="M12 22a10 10 0 0 1 10-10h180a10 10 0 0 1 10 10v38h-200z" fill="#1d4ed8"/>
+<text x="112" y="34" text-anchor="middle" font-size="14" font-weight="700" fill="#ffffff">Data sources</text>
+<text x="112" y="51" text-anchor="middle" font-size="11" fill="#ffffff" opacity="0.9">where the data lives</text>
+<rect x="252" y="12" width="200" height="428" rx="10" fill="#f5f3ff" stroke="#ede9fe" stroke-width="1.5"/>
+<path d="M252 22a10 10 0 0 1 10-10h180a10 10 0 0 1 10 10v38h-200z" fill="#6d28d9"/>
+<text x="352" y="34" text-anchor="middle" font-size="14" font-weight="700" fill="#ffffff">Data engineering</text>
+<text x="352" y="51" text-anchor="middle" font-size="11" fill="#ffffff" opacity="0.9">IT: Pentaho Data Integration</text>
+<rect x="492" y="12" width="200" height="428" rx="10" fill="#f0fdfa" stroke="#ccfbf1" stroke-width="1.5"/>
+<path d="M492 22a10 10 0 0 1 10-10h180a10 10 0 0 1 10 10v38h-200z" fill="#0f766e"/>
+<text x="592" y="34" text-anchor="middle" font-size="14" font-weight="700" fill="#ffffff">Modelling</text>
+<text x="592" y="51" text-anchor="middle" font-size="11" fill="#ffffff" opacity="0.9">data modellers</text>
+<rect x="732" y="12" width="200" height="428" rx="10" fill="#f0fdf4" stroke="#dcfce7" stroke-width="1.5"/>
+<path d="M732 22a10 10 0 0 1 10-10h180a10 10 0 0 1 10 10v38h-200z" fill="#15803d"/>
+<text x="832" y="34" text-anchor="middle" font-size="14" font-weight="700" fill="#ffffff">Visualization</text>
+<text x="832" y="51" text-anchor="middle" font-size="11" fill="#ffffff" opacity="0.9">business users</text>
+<path d="M205 105C231 105 231 179 257 179" fill="none" stroke="#64748b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<path d="M205 179C231 179 231 179 257 179" fill="none" stroke="#64748b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<path d="M205 253C231 253 231 179 257 179" fill="none" stroke="#64748b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<path d="M205 327C231 327 231 179 257 179" fill="none" stroke="#64748b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<path d="M205 401C231 401 231 179 257 179" fill="none" stroke="#64748b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<path d="M352 210V294" fill="none" stroke="#64748b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<path d="M445 327C471 327 471 179 497 179" fill="none" stroke="#64748b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<path d="M445 327C471 327 471 327 497 327" fill="none" stroke="#64748b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<path d="M685 179C711 179 711 179 737 179" fill="none" stroke="#64748b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<path d="M685 189C711 189 711 243 737 243" fill="none" stroke="#64748b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<path d="M685 199C711 199 711 315 737 315" fill="none" stroke="#64748b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<path d="M685 307C711 307 711 263 737 263" fill="none" stroke="#64748b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<path d="M685 327C711 327 711 327 737 327" fill="none" stroke="#64748b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="19" y="74" width="186" height="62" rx="8" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.4" filter="url(#shadow)"/>
+<circle cx="41" cy="105" r="14" fill="#ffffff" stroke="#1d4ed8" stroke-width="1"/>
+<g transform="translate(32 96) scale(0.75)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></g>
+<text x="63" y="101" font-size="12.5" font-weight="700" fill="#1e3a8a">Flat files</text>
+<text x="63" y="116" font-size="11" fill="#1e3a8a">CSV, TXT, JSON, XML</text>
+<rect x="19" y="148" width="186" height="62" rx="8" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.4" filter="url(#shadow)"/>
+<circle cx="41" cy="179" r="14" fill="#ffffff" stroke="#1d4ed8" stroke-width="1"/>
+<g transform="translate(32 170) scale(0.75)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></g>
+<text x="63" y="175" font-size="12.5" font-weight="700" fill="#1e3a8a">Relational databases</text>
+<text x="63" y="190" font-size="11" fill="#1e3a8a">Oracle, PostgreSQL, MySQL</text>
+<rect x="19" y="222" width="186" height="62" rx="8" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.4" filter="url(#shadow)"/>
+<circle cx="41" cy="253" r="14" fill="#ffffff" stroke="#1d4ed8" stroke-width="1"/>
+<g transform="translate(32 244) scale(0.75)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6c.6.5 1.2 1 2.5 1C7 7 7 5 9.5 5c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 12c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 18c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/></g>
+<text x="63" y="249" font-size="12.5" font-weight="700" fill="#1e3a8a">Data lake / lakehouse</text>
+<text x="63" y="264" font-size="11" fill="#1e3a8a">Redshift, BigQuery</text>
+<rect x="19" y="296" width="186" height="62" rx="8" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.4" filter="url(#shadow)"/>
+<circle cx="41" cy="327" r="14" fill="#ffffff" stroke="#1d4ed8" stroke-width="1"/>
+<g transform="translate(32 318) scale(0.75)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></g>
+<text x="63" y="323" font-size="12.5" font-weight="700" fill="#1e3a8a">Object stores</text>
+<text x="63" y="338" font-size="11" fill="#1e3a8a">S3, GCS</text>
+<rect x="19" y="370" width="186" height="62" rx="8" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.4" filter="url(#shadow)"/>
+<circle cx="41" cy="401" r="14" fill="#ffffff" stroke="#1d4ed8" stroke-width="1"/>
+<g transform="translate(32 392) scale(0.75)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22v-5"/><path d="M9 8V2"/><path d="M15 8V2"/><path d="M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8Z"/></g>
+<text x="63" y="405" font-size="12.5" font-weight="700" fill="#1e3a8a">APIs</text>
+<rect x="259" y="148" width="186" height="62" rx="8" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.4" filter="url(#shadow)"/>
+<circle cx="281" cy="179" r="14" fill="#ffffff" stroke="#6d28d9" stroke-width="1"/>
+<g transform="translate(272 170) scale(0.75)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/></g>
+<text x="303" y="175" font-size="12.5" font-weight="700" fill="#3b0764">Staging layer</text>
+<text x="303" y="190" font-size="11" fill="#3b0764">raw data, landed as is</text>
+<rect x="259" y="296" width="186" height="62" rx="8" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.4" filter="url(#shadow)"/>
+<circle cx="281" cy="327" r="14" fill="#ffffff" stroke="#6d28d9" stroke-width="1"/>
+<g transform="translate(272 318) scale(0.75)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 14 4 4-4 4"/><path d="m18 2 4 4-4 4"/><path d="M2 18h1.973a4 4 0 0 0 3.3-1.7l5.454-7.6a4 4 0 0 1 3.3-1.7H22"/><path d="M2 6h1.972a4 4 0 0 1 3.6 2.2"/><path d="M22 18h-6.041a4 4 0 0 1-3.3-1.8l-.359-.45"/></g>
+<text x="303" y="323" font-size="12.5" font-weight="700" fill="#3b0764">Transformation layer</text>
+<text x="303" y="338" font-size="11" fill="#3b0764">cleaned, joined, enriched</text>
+<rect x="499" y="148" width="186" height="62" rx="8" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.4" filter="url(#shadow)"/>
+<circle cx="521" cy="179" r="14" fill="#ffffff" stroke="#0f766e" stroke-width="1"/>
+<g transform="translate(512 170) scale(0.75)" fill="none" stroke="#0f766e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></g>
+<text x="543" y="175" font-size="12.5" font-weight="700" fill="#134e4a">Pentaho OLAP cube</text>
+<text x="543" y="190" font-size="11" fill="#134e4a">dimensional modelling</text>
+<rect x="499" y="296" width="186" height="62" rx="8" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.4" filter="url(#shadow)"/>
+<circle cx="521" cy="327" r="14" fill="#ffffff" stroke="#0f766e" stroke-width="1"/>
+<g transform="translate(512 318) scale(0.75)" fill="none" stroke="#0f766e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 8.35V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8.35A2 2 0 0 1 3.26 6.5l8-3.2a2 2 0 0 1 1.48 0l8 3.2A2 2 0 0 1 22 8.35Z"/><path d="M6 18h12"/><path d="M6 14h12"/><rect width="12" height="12" x="6" y="10"/></g>
+<text x="543" y="323" font-size="12.5" font-weight="700" fill="#134e4a">Enterprise data mart</text>
+<text x="543" y="338" font-size="11" fill="#134e4a">data lake, lakehouse</text>
+<rect x="739" y="148" width="186" height="62" rx="8" fill="#dcfce7" stroke="#15803d" stroke-width="1.4" filter="url(#shadow)"/>
+<circle cx="761" cy="179" r="14" fill="#ffffff" stroke="#15803d" stroke-width="1"/>
+<g transform="translate(752 170) scale(0.75)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></g>
+<text x="783" y="175" font-size="12.5" font-weight="700" fill="#14532d">Pentaho Analyzer</text>
+<text x="783" y="190" font-size="11" fill="#14532d">self-service analysis</text>
+<rect x="739" y="222" width="186" height="62" rx="8" fill="#dcfce7" stroke="#15803d" stroke-width="1.4" filter="url(#shadow)"/>
+<circle cx="761" cy="253" r="14" fill="#ffffff" stroke="#15803d" stroke-width="1"/>
+<g transform="translate(752 244) scale(0.75)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M8 18v-2"/><path d="M12 18v-6"/><path d="M16 18v-4"/></g>
+<text x="783" y="242" font-size="12.5" font-weight="700" fill="#14532d">Pentaho Report Designer</text>
+<text x="783" y="257" font-size="11" fill="#14532d">traditional and</text>
+<text x="783" y="270" font-size="11" fill="#14532d">interactive reports</text>
+<rect x="739" y="296" width="186" height="62" rx="8" fill="#dcfce7" stroke="#15803d" stroke-width="1.4" filter="url(#shadow)"/>
+<circle cx="761" cy="327" r="14" fill="#ffffff" stroke="#15803d" stroke-width="1"/>
+<g transform="translate(752 318) scale(0.75)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></g>
+<text x="783" y="316" font-size="12.5" font-weight="700" fill="#14532d">Pentaho CTools</text>
+<text x="783" y="331" font-size="11" fill="#14532d">custom reports and</text>
+<text x="783" y="344" font-size="11" fill="#14532d">dashboards</text>
+<rect x="12" y="456" width="920" height="58" rx="10" fill="#f1f5f9" stroke="#475569" stroke-width="1.4" filter="url(#shadow)"/>
+<circle cx="42" cy="485" r="16" fill="#ffffff" stroke="#475569" stroke-width="1"/>
+<g transform="translate(31 474) scale(0.9166666666666666)" fill="none" stroke="#475569" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="8" x="2" y="2" rx="2"/><rect width="20" height="8" x="2" y="14" rx="2"/><path d="M6 6h.01"/><path d="M6 18h.01"/></g>
+<text x="70" y="481" font-size="13.5" font-weight="700" fill="#0f172a">Pentaho DI and BA Server: underneath every layer</text>
+<text x="70" y="499" font-size="11.5" fill="#334155">scheduling, logging, security, and the repository for ETL, reports and models</text>
+</svg>

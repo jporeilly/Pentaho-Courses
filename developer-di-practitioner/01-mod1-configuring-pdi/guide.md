@@ -15,7 +15,7 @@
 >
 > **Prerequisites:** Pentaho Data Integration installed (see [Before You Start](../00-before-you-start/guide.md))
 >
-> **Estimated time:** 20 minutes
+> **Estimated time:** 10 minutes
 
 <figure>
 
