@@ -1,0 +1,12 @@
+%%{init: {"theme":"base","themeVariables":{"fontFamily":"Segoe UI, Helvetica, Arial, sans-serif","fontSize":"13px","lineColor":"#64748b","clusterBkg":"#fafaf9","clusterBorder":"#d6d3d1","edgeLabelBackground":"#ffffff"},"flowchart":{"curve":"basis","nodeSpacing":22,"rankSpacing":50,"padding":10,"htmlLabels":true}}}%%
+flowchart LR
+  classDef input fill:#dbeafe,stroke:#1d4ed8,color:#1e3a8a,text-align:left,rx:6,ry:6
+  classDef output fill:#dcfce7,stroke:#15803d,color:#14532d,text-align:left,rx:6,ry:6
+  classDef reject fill:#fee2e2,stroke:#b91c1c,color:#7f1d1d,text-align:left,rx:6,ry:6
+  F["<b>customers-100-with-errors.txt</b>&nbsp;&nbsp;<br/>header line + 100 customers&nbsp;&nbsp;"]:::input
+  C["<b>CSV file input</b>&nbsp;&nbsp;<br/>converts each field to its type&nbsp;&nbsp;"]:::input
+  D["<b>Dummy (do nothing)</b>&nbsp;&nbsp;<br/>97 valid rows&nbsp;&nbsp;"]:::output
+  E["<b>Errors</b>&nbsp;&nbsp;<br/>3 rejected rows, each with&nbsp;&nbsp;<br/>errorCount, errorDescriptions,&nbsp;&nbsp;<br/>errorFields, errorCodes&nbsp;&nbsp;"]:::reject
+  F --> C
+  C -->|"rows that convert"| D
+  C -.->|"error hop: rows that fail"| E

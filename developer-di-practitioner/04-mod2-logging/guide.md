@@ -77,7 +77,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 <div align="center">
 <figure>
-<img src="../_assets/images/log-step.png" alt="The gr_hello-world step marked with an error icon on the canvas" width="631">
+<img src="../_assets/images/log-step.png" alt="gr_hello-world marked with a red error icon, hopped to Dummy (do nothing)" width="150">
 <figcaption>The failing step is marked</figcaption>
 </figure>
 </div>
@@ -173,6 +173,14 @@ Select-String -Path C:\Pentaho\design-tools\data-integration\logs\pdi.log -Patte
 
 1. Double-click **gr_hello-world**.
 2. In the **Fields** grid, select **String** in the **Type** cell of `message`.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/logging-gr-hello-world-fixed.png" alt="Generate rows: step name gr_hello-world, limit 10, one field message of type String with value hello world" width="800">
+<figcaption>gr_hello-world: message is a String again</figcaption>
+</figure>
+</div>
+
 3. Select **OK**.
 4. Save the transformation (`Ctrl+S`).
 5. Press `F9` (**Action > Run**). In the **Run Options** dialog, select **Basic** in **Log level**, and select **Run**.
@@ -190,7 +198,7 @@ Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data In
 
 ### Solution <!-- no-step -->
 
-The finished transformation for this lab, as the last step leaves it: `message` is a String again, so it runs and writes 10 rows. To see the error the lab reads in the log, set the **Type** of `message` to Integer in **gr_hello-world**.
+The finished transformation for this lab, as the last tab leaves it: `message` is a String again, so it runs and writes 10 rows. To see the error the lab reads in the log, set the **Type** of `message` to Integer in **gr_hello-world**.
 
 Also on disk at `C:\Workshop-DI-Practitioner\02-components-concepts\02-key-concepts\04-mod2-logging\solution`.
 

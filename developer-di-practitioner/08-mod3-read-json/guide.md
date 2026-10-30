@@ -154,8 +154,8 @@ Set-Location C:\Pentaho\design-tools\data-integration
 > keeps it on, so a missing key becomes a null instead.
 >
 > **Why it matters:** memory is bounded by the *file* size, not the
-> row count, so very large JSON is better split, or read one record per
-> field. And a structure error is the engine refusing to hand you a row
+> row count, so very large JSON is better split into smaller files
+> first. And a structure error is the engine refusing to hand you a row
 > whose values have slid one column to the left.
 
 ### 2. Dummy
@@ -169,8 +169,24 @@ Set-Location C:\Pentaho\design-tools\data-integration
 1. On the **Design** tab, open the **Flow** folder and drag **Dummy (do nothing)** onto the canvas.
 2. Double-click **Dummy (do nothing)**.
 3. Set **Step name** to `Dummy`.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/read-json-dummy.png" alt="Dummy (do nothing): step name Dummy" width="406">
+<figcaption>Dummy: a name is all it takes</figcaption>
+</figure>
+</div>
+
 4. Select **OK**.
 5. Create a hop from **Json input** to **Dummy**: hold `Shift` and drag from one step to the other.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-08-tr-json-s1.png" alt="tr_json.ktr on the Spoon canvas after this tab: Dummy and Json input, with the hop between them" width="364">
+<figcaption>The canvas after Dummy</figcaption>
+</figure>
+</div>
+
 
 ### 3. Run
 

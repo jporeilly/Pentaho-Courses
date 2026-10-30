@@ -1,0 +1,15 @@
+%%{init: {"theme":"base","themeVariables":{"fontFamily":"Segoe UI, Helvetica, Arial, sans-serif","fontSize":"14px","lineColor":"#64748b","clusterBkg":"#fafaf9","clusterBorder":"#d6d3d1","edgeLabelBackground":"#ffffff"},"flowchart":{"curve":"basis","nodeSpacing":20,"rankSpacing":70,"padding":12,"htmlLabels":true}}}%%
+flowchart LR
+  classDef client fill:#dbeafe,stroke:#1d4ed8,color:#1e3a8a,text-align:left,rx:6,ry:6
+  classDef server fill:#ede9fe,stroke:#6d28d9,color:#3b0764,text-align:left,rx:6,ry:6
+  classDef store fill:#dcfce7,stroke:#15803d,color:#14532d,text-align:left,rx:6,ry:6
+  subgraph LEFT["Pentaho Data Integration&nbsp;&nbsp;"]
+    direction TB
+    SP["<b>Client tool: Spoon</b>&nbsp;&nbsp;<br/>Designer, Engine, Scheduler,&nbsp;&nbsp;<br/>Repository Browser, DB Explorer&nbsp;&nbsp;"]:::client
+    PK["<b>Standalone: Pan, Kitchen, Carte</b>&nbsp;&nbsp;<br/>run work without the server&nbsp;&nbsp;"]:::client
+    SP ~~~ PK
+  end
+  SV["<b>Pentaho Server</b>&nbsp;&nbsp;<br/>Data Integration topology:&nbsp;&nbsp;<br/>engine, repository,&nbsp;&nbsp;<br/>Quartz scheduler,&nbsp;&nbsp;<br/>security, monitoring&nbsp;&nbsp;"]:::server
+  DB[("System database&nbsp;&nbsp;")]:::store
+  SP -->|".ktr, .kjb"| SV
+  SV --> DB

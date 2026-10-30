@@ -714,7 +714,7 @@ A second run reads 4 and changes nothing.</note>
         <nullif>-</nullif>
         <ifnull/>
         <position>-1</position>
-        <length>5</length>
+        <length>8</length>
         <precision>-1</precision>
         <trim_type>none</trim_type>
         <repeat>N</repeat>

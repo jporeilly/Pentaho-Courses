@@ -3,7 +3,7 @@
   <info>
     <name>tr_write_output</name>
     <description>creates a survey</description>
-    <extended_description>This trasformation shows how to generate a file.
+    <extended_description>This transformation shows how to generate a file.
 </extended_description>
     <trans_version/>
     <trans_type>Normal</trans_type>

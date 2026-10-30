@@ -1,0 +1,20 @@
+%%{init: {"theme":"base","themeVariables":{"fontFamily":"Segoe UI, Helvetica, Arial, sans-serif","fontSize":"14px","lineColor":"#64748b","clusterBkg":"#fafaf9","clusterBorder":"#d6d3d1","edgeLabelBackground":"#ffffff"},"flowchart":{"curve":"basis","nodeSpacing":18,"rankSpacing":50,"padding":12,"htmlLabels":true}}}%%
+flowchart LR
+  classDef input fill:#dbeafe,stroke:#1d4ed8,color:#1e3a8a,text-align:left,rx:6,ry:6
+  classDef enrich fill:#ede9fe,stroke:#6d28d9,color:#3b0764,text-align:left,rx:6,ry:6
+  classDef join fill:#ccfbf1,stroke:#0f766e,color:#134e4a,text-align:left,rx:6,ry:6
+  classDef output fill:#dcfce7,stroke:#15803d,color:#14532d,text-align:left,rx:6,ry:6
+  classDef check fill:#fef3c7,stroke:#b45309,color:#78350f,text-align:left,rx:6,ry:6
+  classDef reject fill:#fee2e2,stroke:#b91c1c,color:#7f1d1d,text-align:left,rx:6,ry:6
+  classDef off fill:#f5f5f4,stroke:#a8a29e,color:#78716c,text-align:left,rx:6,ry:6
+    C["<b>Create</b>&nbsp;&nbsp;<br/>SQL INSERT&nbsp;&nbsp;<br/>step: Table output&nbsp;&nbsp;"]:::output
+    R["<b>Read</b>&nbsp;&nbsp;<br/>SQL SELECT&nbsp;&nbsp;<br/>step: Table input&nbsp;&nbsp;"]:::input
+    U["<b>Update</b>&nbsp;&nbsp;<br/>SQL UPDATE&nbsp;&nbsp;<br/>step: Update&nbsp;&nbsp;"]:::enrich
+    I["<b>Insert-update</b>&nbsp;&nbsp;<br/>UPDATE when the key exists,&nbsp;&nbsp;<br/>INSERT when it doesn't&nbsp;&nbsp;<br/>step: Insert / update&nbsp;&nbsp;"]:::join
+    D["<b>Delete</b>&nbsp;&nbsp;<br/>SQL DELETE&nbsp;&nbsp;<br/>step: Delete&nbsp;&nbsp;"]:::reject
+  T[("Table")]:::off
+  C --> T
+  T -->|"read"| R
+  U --> T
+  I --> T
+  D --> T

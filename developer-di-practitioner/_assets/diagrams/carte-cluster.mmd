@@ -1,0 +1,28 @@
+%%{init: {"theme":"base","themeVariables":{"fontFamily":"Segoe UI, Helvetica, Arial, sans-serif","fontSize":"14px","lineColor":"#64748b","clusterBkg":"#fafaf9","clusterBorder":"#d6d3d1","edgeLabelBackground":"#ffffff"},"flowchart":{"curve":"basis","nodeSpacing":18,"rankSpacing":50,"padding":12,"htmlLabels":true}}}%%
+flowchart TB
+  classDef input fill:#dbeafe,stroke:#1d4ed8,color:#1e3a8a,text-align:left,rx:6,ry:6
+  classDef enrich fill:#ede9fe,stroke:#6d28d9,color:#3b0764,text-align:left,rx:6,ry:6
+  classDef join fill:#ccfbf1,stroke:#0f766e,color:#134e4a,text-align:left,rx:6,ry:6
+  classDef output fill:#dcfce7,stroke:#15803d,color:#14532d,text-align:left,rx:6,ry:6
+  classDef check fill:#fef3c7,stroke:#b45309,color:#78350f,text-align:left,rx:6,ry:6
+  classDef reject fill:#fee2e2,stroke:#b91c1c,color:#7f1d1d,text-align:left,rx:6,ry:6
+  classDef off fill:#f5f5f4,stroke:#a8a29e,color:#78716c,text-align:left,rx:6,ry:6
+  SRC["<b>Source data</b>&nbsp;&nbsp;<br/>flat files, applications, databases&nbsp;&nbsp;"]:::input
+  M["<b>Master</b>&nbsp;&nbsp;<br/>splits the transformation,&nbsp;&nbsp;<br/>sends each slave its part,&nbsp;&nbsp;<br/>tracks progress&nbsp;&nbsp;"]:::check
+  subgraph SL["Slaves: parallel worker nodes&nbsp;&nbsp;"]
+    direction LR
+    S1["Slave 1&nbsp;&nbsp;"]:::enrich
+    S2["Slave 2&nbsp;&nbsp;"]:::enrich
+    S3["Slave 3&nbsp;&nbsp;"]:::enrich
+    S4["Slave 4&nbsp;&nbsp;"]:::enrich
+  end
+  T[("Target database")]:::output
+  SRC --> S1
+  SRC --> S2
+  SRC --> S3
+  SRC --> S4
+  M -.- SL
+  S1 --> T
+  S2 --> T
+  S3 --> T
+  S4 --> T

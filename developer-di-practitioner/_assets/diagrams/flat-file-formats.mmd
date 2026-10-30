@@ -1,0 +1,24 @@
+%%{init: {"theme":"base","themeVariables":{"fontFamily":"Segoe UI, Helvetica, Arial, sans-serif","fontSize":"14px","lineColor":"#64748b","clusterBkg":"#fafaf9","clusterBorder":"#d6d3d1","edgeLabelBackground":"#ffffff"},"flowchart":{"curve":"basis","nodeSpacing":18,"rankSpacing":50,"padding":12,"htmlLabels":true}}}%%
+flowchart LR
+  classDef input fill:#dbeafe,stroke:#1d4ed8,color:#1e3a8a,text-align:left,rx:6,ry:6
+  classDef enrich fill:#ede9fe,stroke:#6d28d9,color:#3b0764,text-align:left,rx:6,ry:6
+  classDef join fill:#ccfbf1,stroke:#0f766e,color:#134e4a,text-align:left,rx:6,ry:6
+  classDef output fill:#dcfce7,stroke:#15803d,color:#14532d,text-align:left,rx:6,ry:6
+  classDef check fill:#fef3c7,stroke:#b45309,color:#78350f,text-align:left,rx:6,ry:6
+  classDef reject fill:#fee2e2,stroke:#b91c1c,color:#7f1d1d,text-align:left,rx:6,ry:6
+  classDef off fill:#f5f5f4,stroke:#a8a29e,color:#78716c,text-align:left,rx:6,ry:6
+  subgraph DEL["Delimited text&nbsp;&nbsp;"]
+    direction TB
+    A1["<b>CSV</b>&nbsp;&nbsp;<br/>comma-separated&nbsp;&nbsp;"]:::input
+    A2["<b>TSV</b>&nbsp;&nbsp;<br/>tab-separated&nbsp;&nbsp;"]:::input
+    A3["<b>PSV</b>&nbsp;&nbsp;<br/>pipe-separated&nbsp;&nbsp;"]:::input
+    A4["<b>TXT</b>&nbsp;&nbsp;<br/>plain text&nbsp;&nbsp;"]:::input
+  end
+  subgraph STR["Structured text&nbsp;&nbsp;"]
+    direction TB
+    B1["<b>JSON</b>&nbsp;&nbsp;"]:::enrich
+    B2["<b>XML</b>&nbsp;&nbsp;"]:::enrich
+    B3["<b>YAML</b>&nbsp;&nbsp;"]:::enrich
+    B4["<b>.ENV</b>&nbsp;&nbsp;<br/>key=value settings&nbsp;&nbsp;"]:::enrich
+  end
+  DEL ~~~ STR

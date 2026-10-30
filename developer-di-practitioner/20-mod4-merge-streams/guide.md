@@ -35,7 +35,7 @@
 
 :::: tabs
 
-### 1. Text file input
+### 1. orders
 
 > **Note:**
 >
@@ -69,30 +69,101 @@ Set-Location C:\Pentaho\design-tools\data-integration
    ${Internal.Entry.Current.Directory}/orders.txt
    ```
 
+<div align="center">
+<figure>
+<img src="../_assets/images/merge-streams-orders-file.png" alt="Text file input File tab: step name orders, selected file ${Internal.Entry.Current.Directory}/orders.txt" width="800">
+<figcaption>File tab: orders.txt in the selected files</figcaption>
+</figure>
+</div>
+
 8. On the **Content** tab, set **Separator** to `;`, keep **Header** selected, and set **Format** to `mixed`.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/merge-streams-orders-content.png" alt="Text file input Content tab: filetype CSV, separator semicolon, header with 1 header line, format mixed" width="800">
+<figcaption>Content tab: separator ;, header line, format mixed</figcaption>
+</figure>
+</div>
+
 9. On the **Fields** tab, select **Get Fields**, select **OK** at the number of sample lines, and close the **Scan results**. The grid lists five String fields, `PRODUCTCODE` to `PRODUCTVENDOR`.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/merge-streams-orders-fields.png" alt="Text file input Fields tab for orders: five String fields PRODUCTCODE, PRODUCTNAME, PRODUCTLINE, PRODUCTSCALE and PRODUCTVENDOR" width="800">
+<figcaption>Fields tab: five String fields, no description</figcaption>
+</figure>
+</div>
+
 10. Select **Preview rows**, enter `100` rows, and select **OK**.
 
 > **Success:** Checkpoint: **Examine preview data** shows 9 rows, `S10_1678` to `S12_1666`, each with a name, line, scale and vendor.
 
 11. Select **Close**, then **OK**.
-12. Drag a second **Text file input** onto the canvas.
-13. Double-click it. Set **Step name** to `description`.
-14. On the **File** tab, enter this path in **File or directory**, then select **Add**:
+
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-20-tr-merge-streams-s1.png" alt="tr_merge_streams.ktr on the Spoon canvas after this tab: orders" width="140">
+<figcaption>The canvas after orders</figcaption>
+</figure>
+</div>
+
+
+### 2. description
+
+> **Note:**
+>
+> #### description
+>
+> Add and set up **Text file input**.
+
+1. Drag a second **Text file input** onto the canvas.
+2. Double-click it. Set **Step name** to `description`.
+3. On the **File** tab, enter this path in **File or directory**, then select **Add**:
 
     ```text
     ${Internal.Entry.Current.Directory}/description.txt
     ```
 
-15. On the **Content** tab, set **Separator** to `;`, keep **Header** selected, and set **Format** to `mixed`.
-16. On the **Fields** tab, select **Get Fields**, select **OK** at the number of sample lines, and close the **Scan results**. The grid lists six String fields, `PRODUCTCODE` to `PRODUCTDESCRIPTION`.
-17. Select **Preview rows**, enter `100` rows, and select **OK**.
+<div align="center">
+<figure>
+<img src="../_assets/images/merge-streams-description-file.png" alt="Text file input File tab: step name description, selected file ${Internal.Entry.Current.Directory}/description.txt" width="800">
+<figcaption>File tab: description.txt in the selected files</figcaption>
+</figure>
+</div>
+
+4. On the **Content** tab, set **Separator** to `;`, keep **Header** selected, and set **Format** to `mixed`.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/merge-streams-description-content.png" alt="Text file input Content tab for description: filetype CSV, separator semicolon, header with 1 header line, format mixed" width="800">
+<figcaption>Content tab: the same settings as orders</figcaption>
+</figure>
+</div>
+
+5. On the **Fields** tab, select **Get Fields**, select **OK** at the number of sample lines, and close the **Scan results**. The grid lists six String fields, `PRODUCTCODE` to `PRODUCTDESCRIPTION`.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/merge-streams-description-fields.png" alt="Text file input Fields tab for description: six String fields PRODUCTCODE to PRODUCTDESCRIPTION" width="800">
+<figcaption>Fields tab: six String fields, PRODUCTCODE to PRODUCTDESCRIPTION</figcaption>
+</figure>
+</div>
+
+6. Select **Preview rows**, enter `100` rows, and select **OK**.
 
 > **Success:** Checkpoint: 9 rows with the same product codes. Only `PRODUCTCODE` and `PRODUCTDESCRIPTION` have values; the four fields between them are empty.
 
-18. Select **Close**, then **OK**.
+7. Select **Close**, then **OK**.
 
-### 2. Add constants
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-20-tr-merge-streams-s2.png" alt="tr_merge_streams.ktr on the Spoon canvas after this tab: description and orders" width="140">
+<figcaption>The canvas after description</figcaption>
+</figure>
+</div>
+
+
+### 3. Add constants
 
 > **Note:**
 >
@@ -109,6 +180,13 @@ Set-Location C:\Pentaho\design-tools\data-integration
 | -------------------- | -------- | ----- |
 | `PRODUCTDESCRIPTION` | `String` |       |
 
+<div align="center">
+<figure>
+<img src="../_assets/images/merge-streams-add-description.png" alt="Add constants: step name Add description, one field PRODUCTDESCRIPTION of type String with no value" width="800">
+<figcaption>Add description: PRODUCTDESCRIPTION, String, no value</figcaption>
+</figure>
+</div>
+
 5. Select **OK**.
 6. Select **Add description** on the canvas, press `F10` (**Action > Preview**), and select **Quick Launch**.
 
@@ -116,7 +194,15 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 7. Select **Close**.
 
-### 3. Select values
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-20-tr-merge-streams-s3.png" alt="tr_merge_streams.ktr on the Spoon canvas after this tab: Add description, description and orders, with the hop between them" width="316">
+<figcaption>The canvas after Add description</figcaption>
+</figure>
+</div>
+
+
+### 4. Select values
 
 > **Note:**
 >
@@ -147,21 +233,61 @@ Set-Location C:\Pentaho\design-tools\data-integration
 <div align="center">
 <figure>
 <img src="../_assets/images/merge-streams-select.png" alt="Select Orders: the six product fields in order on the Select and Alter tab" width="800">
-<figcaption>The same six fields, in the same order, in both</figcaption>
+<figcaption>Select Orders: the six fields, in order</figcaption>
 </figure>
 </div>
 
-6. Drag a second **Select values** onto the canvas, and create a hop from **description** to it.
-7. Double-click it. Set **Step name** to `Select Description`.
-8. On the **Select & Alter** tab, select **Get fields to select**. Check that the grid lists the same six fields, in the same order as the table above.
-9. Select **OK**.
+### 5. Select Description
+
+> **Note:**
+>
+> #### Select Description
+>
+> Add and set up **Select values**.
+
+1. Drag a second **Select values** onto the canvas, and create a hop from **description** to it.
+2. Double-click it. Set **Step name** to `Select Description`.
+3. On the **Select & Alter** tab, select **Get fields to select**. Check that the grid lists the same six fields, in the same order as in **Select Orders**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/merge-streams-select-description.png" alt="Select values Select and Alter tab: step name Select Description, six fields PRODUCTCODE to PRODUCTDESCRIPTION in order" width="698">
+<figcaption>Select Description: the same six fields, in the same order</figcaption>
+</figure>
+</div>
+
+4. Select **OK**.
 
    Both streams already arrive with their fields in this order. Listing them fixes the layout: a field added to either file later is dropped here, instead of shifting the columns of the merge.
 
-10. On the **Design** tab, open the **Flow** folder and drag **Dummy (do nothing)** onto the canvas.
-11. Create a hop from **Select Orders** to **Dummy (do nothing)**, and another from **Select Description** to **Dummy (do nothing)**.
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-20-tr-merge-streams-s4.png" alt="tr_merge_streams.ktr on the Spoon canvas after this tab: Add description, Select Description, Select Orders, description and orders, with the 3 hops between them" width="476">
+<figcaption>The canvas after Select Description</figcaption>
+</figure>
+</div>
 
-### 4. Run
+
+### 6. Dummy (do nothing)
+
+> **Note:**
+>
+> #### Dummy (do nothing)
+>
+> Add and set up **Dummy (do nothing)**.
+
+1. On the **Design** tab, open the **Flow** folder and drag **Dummy (do nothing)** onto the canvas.
+2. Create a hop from **Select Orders** to **Dummy (do nothing)**, and another from **Select Description** to **Dummy (do nothing)**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-20-tr-merge-streams-s5.png" alt="tr_merge_streams.ktr on the Spoon canvas after this tab: Add description, Dummy (do nothing), Select Description, Select Orders, description and orders, with the 5 hops between them" width="604">
+<figcaption>The canvas after Dummy (do nothing)</figcaption>
+</figure>
+</div>
+
+
+### 7. Run
 
 > **Note:**
 >

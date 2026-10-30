@@ -6,7 +6,7 @@ flowchart LR
   classDef output fill:#dcfce7,stroke:#15803d,color:#14532d,text-align:left,rx:6,ry:6
   subgraph injector ["metadata_inject_step.ktr: the metadata"]
     direction LR
-    A["<b>Data grid</b><br/>dg-metadata _fields<br/>one row per field of customers.txt"]:::input
+    A["<b>Data grid</b><br/>dg-metadata_fields<br/>one row per field of customers.txt"]:::input
     B["<b>Data grid</b><br/>dg-rename<br/>id to key_id"]:::input
     C["<b>Data grid</b><br/>dg_remove_name<br/>stateCode"]:::input
     D["<b>Generate rows</b><br/>gr-filename"]:::input

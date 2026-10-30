@@ -8,8 +8,8 @@
  - customer
  - status
  - order_value
-Further stream fields are added based onthe capture group constructs that resolve order_status &amp; order_date.  
-Repeating text is removed from the order_value stream field, before the order_value is formatted: $#.00</extended_description>
+Further stream fields are added based on the capture group constructs that resolve order_status &amp; order_date.  
+Repeating text is removed from the order_value stream field, before the order_value is formatted: #.00</extended_description>
     <trans_version>1.0</trans_version>
     <trans_type>Normal</trans_type>
     <trans_status>2</trans_status>

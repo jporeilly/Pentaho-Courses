@@ -114,8 +114,8 @@ downstream.
 ### 4. Enrich *(Module 4)*
 
 - **Stream lookup** — bring in customer name + region_code from the staged customers
-- **Merge join** (sort both sides on `product_id` first) — bring in product name + cost
-- **Stream lookup** — bring in region name from `regions.csv`
+- **Merge join** (sort both sides on the product key first: `product_id` in the orders, `id` in `products.csv`) — bring in product name + cost
+- **Stream lookup** — bring in region name from `regions.csv` (or look it up in `dim_region`, with its surrogate key, as the hints below do: either is fine)
 
 ### 5. Calculate *(Module 4)*
 
@@ -435,7 +435,7 @@ as a whole if any one fails. Requirement 8.
 <details>
 <summary>Hints</summary>
 
-- Right-click the START entry and select **Run Next Entries in Parallel**.
+- Right-click the **Start** entry and select **Run Next Entries in Parallel**.
 - Give each **Transformation** entry a failure hop to **Abort job**. The parent job's **Job** entry waits for the sub-job to finish, so the next stage starts once, after all three.
 
 </details>
@@ -475,7 +475,7 @@ and on any failure notify ops and abort. Requirements 8 and 10.
 
 <div align="center">
 <figure>
-<img src="../_assets/images/capstone-canvas-stage-orders.png" alt="stage_orders.ktr on the Spoon canvas: a text file input, a filter that splits valid rows from rejects, a table output, a rejects file, and a count written to the log" width="714">
+<img src="../_assets/images/capstone-canvas-stage-orders.png" alt="stage_orders.ktr on the Spoon canvas: a text file input, a filter that splits valid rows from rejects, a table output, a rejects file, and both counts (valid and rejected) written to the log" width="714">
 <figcaption>stage_orders.ktr</figcaption>
 </figure>
 </div>

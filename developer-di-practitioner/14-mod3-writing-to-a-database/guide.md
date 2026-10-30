@@ -7,14 +7,14 @@
 > Load a CSV file into a table that doesn't exist yet: **Table output** writes the `CREATE TABLE` for you, from the stream's own fields.\
 > Then load a second file the same way. A later workshop uses that table.
 > 
-> **What you’ll do**
+> **What you'll do**
 > 
 > * Read a delimited file with **CSV file input**
 > * Map stream fields to table columns in **Table output**
 > * Generate and run the `CREATE TABLE` with the **SQL** button
 > * Insert rows, with the commit size, truncate and batch settings
 > 
-> **Prerequisites**
+> **Prerequisites:**
 > 
 > * The `MySQL:sampledata` connection from [Connecting to Database](../12-mod3-connecting-to-database/guide.md)
 > * Basic understanding of tables and SQL data types
@@ -79,7 +79,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 8. Clear **Lazy conversion?**.
 9. Select **Get Fields**. In the **Sample data** dialog, keep `100` in **Number of lines to sample** and select **OK**. Close the **Scan results** window if it opens.
 
-> **Warning:** **Get Fields** sets each String field's **Length** from the lines it sampled, and the `CREATE TABLE` you generate in the next tab copies those lengths. In `sales_data.csv`, ten String fields have longer values after the first 100 lines: `CUSTOMERNAME`, `PHONE`, `ADDRESSLINE1`, `ADDRESSLINE2`, `CITY`, `STATE`, `POSTALCODE`, `COUNTRY`, `CONTACTLASTNAME` and `CONTACTFIRSTNAME`. Set their lengths in the next step, or the table is created too narrow and MySQL rejects those rows when the load reaches them.
+> **Warning:** **Get Fields** sets each String field's **Length** from the lines it sampled, and the `CREATE TABLE` you generate in the next tab copies those lengths. In `sales_data.csv`, ten String fields have longer values after the first 100 lines: `CUSTOMERNAME`, `PHONE`, `ADDRESSLINE1`, `ADDRESSLINE2`, `CITY`, `STATE`, `POSTALCODE`, `COUNTRY`, `CONTACTLASTNAME` and `CONTACTFIRSTNAME`. Set their lengths in action 10 below, or the table is created too narrow and MySQL rejects those rows when the load reaches them.
 
 10. Correct the fields grid so it matches this table. The bold lengths are the ten that the sample sets too short; the longest value in the file is in brackets.
 
@@ -189,7 +189,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 > `DOUBLE`, as the screenshot shows. Point the same step at PostgreSQL and the same click
 > writes `TIMESTAMP` and `DOUBLE PRECISION` instead.
 >
-> That is why the **Warning** above matters. **Get Fields** sampled
+> That is why the **Warning** in the previous tab matters. **Get Fields** sampled
 > the start of the file to guess lengths, and the DDL inherits the
 > guess. A longer value in row 50,000 is rejected by the database, not
 > by Pentaho Data Integration.
@@ -394,7 +394,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 <div align="center">
 <figure>
-<img src="../_assets/images/stg-orders-merged-2.png" alt="The seven STG_ORDERS_MERGED rows in DBeaver" width="800">
+<img src="../_assets/images/stg-orders-merged-2.png" alt="DBeaver's SQL editor with SELECT * FROM STG_ORDERS_MERGED; and the seven rows it returns, S10_1678 to S12_1666" width="800">
 <figcaption>STG_ORDERS_MERGED</figcaption>
 </figure>
 </div>

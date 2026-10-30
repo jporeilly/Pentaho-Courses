@@ -24,7 +24,7 @@ The bread and butter of any pipeline. You'll cover the four formats you'll see m
 
 <div align="center">
 <figure>
-<img src="../_assets/images/flat-files.png" alt="Icons for common flat-file formats: CSV, TSV, PSV, JSON, TXT, XML, .ENV and YAML" width="800">
+<img src="../_assets/images/flat-file-formats.png" alt="Common flat-file formats: delimited text (CSV, TSV, PSV, TXT) and structured text (JSON, XML, YAML, .ENV)" width="784">
 <figcaption>Common flat-file formats</figcaption>
 </figure>
 </div>

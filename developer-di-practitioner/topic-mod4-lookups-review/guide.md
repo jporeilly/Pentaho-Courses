@@ -23,7 +23,7 @@ Enriching one stream with values from another. Database Lookup is the most commo
 
 <div align="center">
 <figure>
-<img src="../_assets/images/lookups.jpg" alt="An entity-relationship diagram: Customers and Orders, each pointing at small lookup tables such as Countries, States, Order_Status and Order_Priorities" width="604">
+<img src="../_assets/images/lookup-tables.png" alt="An entity-relationship diagram: Customers references the Countries and States lookup tables; Orders references Customers and the Order_Status and Order_Priorities lookup tables" width="784">
 <figcaption>Reference (lookup) tables around a sales schema</figcaption>
 </figure>
 </div>

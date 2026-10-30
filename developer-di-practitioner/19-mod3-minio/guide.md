@@ -15,7 +15,7 @@
 >
 > **Prerequisites:** MinIO running and seeded (see [Before You Start](../00-before-you-start/guide.md)); [Review Storage](../topic-mod3-storage-review/guide.md); joins and aggregations at the level of the earlier workshops
 >
-> **Estimated time:** about 30 minutes: 5 minutes for the connection, then 15 to 35 minutes for the workshop you choose (see the table)
+> **Estimated time:** 20 to 40 minutes: 5 minutes for the connection, then 15 to 35 minutes for the workshop you choose (see the table)
 
 | Workshop                 | Key skills                                  | Time   |
 | ------------------------ | ------------------------------------------- | ------ |
@@ -278,7 +278,7 @@ Choose one workshop from the tabs below and build it. Save the transformation in
 
 <div align="center">
 <figure>
-<img src="../_assets/images/calculator-2.png" alt="Calculator with two calculations, line_total and a second field" width="800">
+<img src="../_assets/images/calculator-2.png" alt="Calculator with two calculations: line_total, and discount_amount as line_total minus sale_amount" width="800">
 <figcaption>Calculator</figcaption>
 </figure>
 </div>
@@ -308,14 +308,49 @@ Choose one workshop from the tabs below and build it. Save the transformation in
 
 ### 4. Add Audit Fields
 
+> **Note:**
+>
+> #### Add Audit Fields
+>
+> Two fields that record where each row came from and when it was loaded.
+
 1. On the **Design** tab, open the **Transform** folder and drag **Add constants** onto the canvas. Create a hop from **Formula** to **Add constants**.
 2. Double-click **Add constants** and fill the **Fields** grid with one row: **Name** `data_source`, **Type** String, **Value** `minio_workshop`. Select **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-sales-add-constants.png" alt="Add constants: one field data_source of type String with value minio_workshop" width="800">
+<figcaption>Add constants: data_source = minio_workshop</figcaption>
+</figure>
+</div>
+
 3. On the **Design** tab, open the **Input** folder and drag **Get system info** onto the canvas. Create a hop from **Add constants** to **Get system info**.
 4. Double-click **Get system info** and fill the **Fields** grid with one row: **Name** `etl_timestamp`, **Type** `system date (variable)`. Select **OK**.
 
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-sales-get-system-info.png" alt="Get system info: one field etl_timestamp of type system date (variable)" width="486">
+<figcaption>Get system info: etl_timestamp</figcaption>
+</figure>
+</div>
+
 > **Note:** `data_source` and `etl_timestamp` say where each row came from and when it was loaded, the two questions asked first when a number in a dashboard looks wrong.
 
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-19-sales-dashboard-etl-s1.png" alt="sales_dashboard_etl.ktr on the Spoon canvas after this tab: Add constants, Calculator, Customers, Customers lookup, Formula, Get system info, Product lookup, Products and Sales, with the 8 hops between them" width="764">
+<figcaption>The canvas after Add constants, Get system info</figcaption>
+</figure>
+</div>
+
+
 ### 5. Select and Write
+
+> **Note:**
+>
+> #### Select and Write
+>
+> Pick the fields in their final order, then write the result to the `staging` bucket in MinIO and run.
 
 1. On the **Design** tab, open the **Transform** folder and drag **Select values** onto the canvas. Create a hop from **Get system info** to **Select values**.
 2. Double-click **Select values**. On the **Select & Alter** tab, list these fields in this order, and set **Rename to** `sale_status` on the `status` row:
@@ -433,7 +468,7 @@ Choose one workshop from the tabs below and build it. Save the transformation in
 
 <div align="center">
 <figure>
-<img src="../_assets/images/remap-field-names-x26-preview-data.png" alt="Fields tab with the renamed warehouse fields, and a preview of the items" width="800">
+<img src="../_assets/images/remap-field-names-x26-preview-data.png" alt="Preview of Read Warehouse XML: 17 items with the renamed fields" width="800">
 <figcaption>Renamed fields and the preview</figcaption>
 </figure>
 </div>
@@ -453,7 +488,23 @@ Choose one workshop from the tabs below and build it. Save the transformation in
 1. On the **Design** tab, open the **Input** folder and drag **Text file input** onto the canvas.
 2. Double-click **Text file input** and set **Step name** to `Read Product Catalog`.
 3. On the **File** tab, enter `pvfs://MinIO/raw-data/csv/products.csv` in **File or directory** and select **Add**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-inventory-catalog-file.png" alt="Text file input File tab: step name Read Product Catalog, selected file pvfs://MinIO/raw-data/csv/products.csv" width="800">
+<figcaption>Read Product Catalog, File tab: products.csv on MinIO</figcaption>
+</figure>
+</div>
+
 4. On the **Content** tab, set **Separator** to `,` and **Format** to `mixed`, keep **Enclosure** `"`, and keep **Header** selected.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-inventory-catalog-content.png" alt="Text file input Content tab: separator comma, enclosure double quote, header with 1 header line, format mixed" width="800">
+<figcaption>Content tab: separator , and format mixed</figcaption>
+</figure>
+</div>
+
 5. On the **Fields** tab, select **Get Fields**, select **OK** at **Number of sample lines**, and close the **Scan results**. Check the types:
 
 | Name             | Type      | Format       |
@@ -466,19 +517,34 @@ Choose one workshop from the tabs below and build it. Save the transformation in
 | `supplier`       | String    |              |
 | `last_updated`   | Date      | `yyyy-MM-dd` |
 
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-inventory-catalog-fields.png" alt="Text file input Fields tab for Read Product Catalog: product_id, product_name, category, price, stock_quantity, supplier and last_updated with their types" width="800">
+<figcaption>Fields tab: the catalog's seven fields</figcaption>
+</figure>
+</div>
+
 6. Select **Preview rows**, enter `100` rows, and select **OK**.
 
 > **Success:** Checkpoint: 18 rows, from `P001` (`Laptop Pro 15`, price `1299.99`, stock `45`) to `P018` (`Laptop Stand`).
 
 7. Select **Close**, then **OK**.
 
-### 3. Join the Two Systems
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-19-inventory-reconciliation-s2.png" alt="inventory_reconciliation.ktr on the Spoon canvas after this tab: Read Warehouse XML and Read Product Catalog" width="140">
+<figcaption>The canvas after Read Product Catalog</figcaption>
+</figure>
+</div>
+
+
+### 3. Map Warehouse
 
 > **Note:**
 >
-> #### Full outer join on the product id
+> #### Map Warehouse
 >
-> Rename both sides to one key, sort, then join so that items missing from *either* system still come through.
+> Rename the warehouse fields so both sides share the key `product_id`.
 
 1. On the **Design** tab, open the **Transform** folder and drag **Select values** onto the canvas. Create a hop from **Read Warehouse XML** to it.
 2. Double-click **Select values** and set **Step name** to `Map Warehouse`. On the **Select & Alter** tab, fill the **Fields** grid:
@@ -492,8 +558,32 @@ Choose one workshop from the tabs below and build it. Save the transformation in
 | `warehouse_location`  |                          |
 | `last_physical_count` |                          |
 
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-inventory-map-warehouse.png" alt="Select values Select and Alter tab: step name Map Warehouse, sku renamed to product_id, warehouse_item_name renamed to warehouse_product_name, then category, warehouse_quantity, warehouse_location and last_physical_count" width="698">
+<figcaption>Map Warehouse: sku becomes product_id</figcaption>
+</figure>
+</div>
+
 3. Select **OK**.
-4. Drag a second **Select values** onto the canvas and create a hop from **Read Product Catalog** to it. Double-click it and set **Step name** to `Map Product Catalog`. On the **Select & Alter** tab, fill the **Fields** grid:
+
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-19-inventory-reconciliation-s3.png" alt="inventory_reconciliation.ktr on the Spoon canvas after this tab: Read Warehouse XML, Read Product Catalog and Map Warehouse, with the hop between them" width="316">
+<figcaption>The canvas after Map Warehouse</figcaption>
+</figure>
+</div>
+
+
+### 4. Map Product Catalog
+
+> **Note:**
+>
+> #### Map Product Catalog
+>
+> Add and set up **Select values**.
+
+1. Drag a second **Select values** onto the canvas and create a hop from **Read Product Catalog** to it. Double-click it and set **Step name** to `Map Product Catalog`. On the **Select & Alter** tab, fill the **Fields** grid:
 
 | Fieldname        | Rename to          |
 | ---------------- | ------------------ |
@@ -505,22 +595,85 @@ Choose one workshop from the tabs below and build it. Save the transformation in
 | `supplier`       |                    |
 | `last_updated`   |                    |
 
-5. Select **OK**.
-6. From the **Transform** folder, drag **Sort rows** onto the canvas twice. Create a hop from **Map Warehouse** to the first and from **Map Product Catalog** to the second.
-7. Double-click each **Sort rows** in turn. Set **Step name** to `Sort Warehouse` and `Sort ERP`, and in each fill the **Fields** grid with one row: **Fieldname** `product_id`, **Ascending** `Y`, **Case sensitive compare?** `N`. Select **OK**.
-8. On the **Design** tab, open the **Joins** folder and drag **Merge join** onto the canvas. Create a hop from **Sort Warehouse** to **Merge join**, and one from **Sort ERP** to **Merge join**.
-9. Double-click **Merge join** and set:
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-inventory-map-catalog.png" alt="Select values Select and Alter tab: step name Map Product Catalog, product_name renamed to erp_product_name and stock_quantity renamed to erp_quantity" width="698">
+<figcaption>Map Product Catalog: the ERP names</figcaption>
+</figure>
+</div>
+
+2. Select **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-19-inventory-reconciliation-s4.png" alt="inventory_reconciliation.ktr on the Spoon canvas after this tab: Read Warehouse XML, Read Product Catalog, Map Warehouse and Map Product Catalog, with the 2 hops between them" width="316">
+<figcaption>The canvas after Map Product Catalog</figcaption>
+</figure>
+</div>
+
+
+### 5. Sort Both Sides
+
+> **Note:**
+>
+> #### Sort Both Sides
+>
+> **Merge join** needs both inputs sorted on the key: add one **Sort rows** for each side.
+
+1. From the **Transform** folder, drag **Sort rows** onto the canvas twice. Create a hop from **Map Warehouse** to the first and from **Map Product Catalog** to the second.
+2. Double-click each **Sort rows** in turn. Set **Step name** to `Sort Warehouse` and `Sort ERP`, and in each fill the **Fields** grid with one row: **Fieldname** `product_id`, **Ascending** `Y`, **Case sensitive compare?** `N`. Select **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-inventory-sort-warehouse.png" alt="Sort rows: step name Sort Warehouse, one field product_id ascending, not case sensitive" width="800">
+<figcaption>Sort Warehouse: product_id, ascending</figcaption>
+</figure>
+</div>
+
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-inventory-sort-erp.png" alt="Sort rows: step name Sort ERP, one field product_id ascending, not case sensitive" width="800">
+<figcaption>Sort ERP: the same sort</figcaption>
+</figure>
+</div>
+
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-19-inventory-reconciliation-s5.png" alt="inventory_reconciliation.ktr on the Spoon canvas after this tab: Read Warehouse XML, Read Product Catalog, Map Warehouse, Map Product Catalog, Sort Warehouse and Sort ERP, with the 4 hops between them" width="444">
+<figcaption>The canvas after Sort Warehouse, Sort ERP</figcaption>
+</figure>
+</div>
+
+
+### 6. Full Outer Join
+
+> **Note:**
+>
+> #### Full outer join on the product id
+>
+> Join the two sorted sides on `product_id`, so that items missing from *either* system still come through.
+
+1. On the **Design** tab, open the **Joins** folder and drag **Merge join** onto the canvas. Create a hop from **Sort Warehouse** to **Merge join**, and one from **Sort ERP** to **Merge join**.
+2. Double-click **Merge join** and set:
    * **Step name**: `Full Outer Join`
    * **First Step**: `Sort Warehouse`
    * **Second Step**: `Sort ERP`
    * **Join Type**: `FULL OUTER`
-10. Enter `product_id` in **Keys for 1st step** and in **Keys for 2nd step**. Select **OK**.
-11. Save the transformation (`Ctrl+S`).
-12. Select **Full Outer Join** on the canvas, press `F10` (**Action > Preview**), and select **Quick Launch**.
+3. Enter `product_id` in **Keys for 1st step** and in **Keys for 2nd step**. Select **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-inventory-full-outer-join.png" alt="Merge join: step name Full Outer Join, first step Sort Warehouse, second step Sort ERP, join type FULL OUTER, key product_id on both sides" width="546">
+<figcaption>Full Outer Join: every product from either side</figcaption>
+</figure>
+</div>
+
+4. Save the transformation (`Ctrl+S`).
+5. Select **Full Outer Join** on the canvas, press `F10` (**Action > Preview**), and select **Quick Launch**.
 
 > **Success:** Checkpoint: 19 rows: the 17 warehouse items plus `P011` and `P012`, which only the ERP knows. On those two rows `product_id` and the warehouse fields are empty, and the ERP's id is in `product_id_1`. `P099` has a warehouse quantity of 12 and empty ERP fields.
 
-13. Select **Close**.
+6. Select **Close**.
 
 > **Under the hood:**
 >
@@ -537,7 +690,15 @@ Choose one workshop from the tabs below and build it. Save the transformation in
 > match. An inner join would drop exactly the three products that need
 > someone's attention first.
 
-### 4. Calculate the Variance
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-19-inventory-reconciliation-s6.png" alt="inventory_reconciliation.ktr on the Spoon canvas after this tab: Read Warehouse XML, Read Product Catalog, Map Warehouse, Map Product Catalog, Sort Warehouse, Sort ERP and Full Outer Join, with the 6 hops between them" width="588">
+<figcaption>The canvas after Full Outer Join</figcaption>
+</figure>
+</div>
+
+
+### 7. Calculate the Variance
 
 > **Note:**
 >
@@ -553,6 +714,13 @@ Choose one workshop from the tabs below and build it. Save the transformation in
 | `quantity_variance` | A - B                   | `warehouse_quantity` | `erp_quantity` | Integer    | `#,##0`         |
 | `abs_variance`      | Absolute value ABS( A ) | `quantity_variance`  |                | Integer    | `#,##0`         |
 
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-inventory-calculator.png" alt="Calculator: quantity_variance = warehouse_quantity - erp_quantity and abs_variance = ABS(quantity_variance), both Integer" width="800">
+<figcaption>Calculator: the variance and its absolute value</figcaption>
+</figure>
+</div>
+
 3. Select **OK** and save the transformation (`Ctrl+S`).
 4. Select **Calculator** on the canvas, press `F10` (**Action > Preview**), and select **Quick Launch**.
 
@@ -560,7 +728,15 @@ Choose one workshop from the tabs below and build it. Save the transformation in
 
 5. Select **Close**.
 
-### 5. Classify Each Row
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-19-inventory-reconciliation-s7.png" alt="inventory_reconciliation.ktr on the Spoon canvas after this tab: Read Warehouse XML, Read Product Catalog, Map Warehouse, Map Product Catalog, Sort Warehouse, Sort ERP, Full Outer Join and Calculator, with the 7 hops between them" width="716">
+<figcaption>The canvas after Calculator</figcaption>
+</figure>
+</div>
+
+
+### 8. Classify Each Row
 
 > **Note:**
 >
@@ -670,6 +846,13 @@ var data_source_erp = "ERP-CSV-Extract";
 | `data_source_warehouse`    |                       | String  |        |           |
 | `data_source_erp`          |                       | String  |        |           |
 
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-inventory-classify-script.png" alt="Modified JavaScript value: the classification script, and the Fields grid with match_status renamed to discrepancy_type, severity to severity_level, action_required to recommended_action, variance_pct to variance_percentage, priority to priority_rank, plus financial_impact, excess_carrying_cost, lost_sales_risk and reconciliation_timestamp" width="800">
+<figcaption>Modified JavaScript value: the script and its output fields</figcaption>
+</figure>
+</div>
+
 4. Select **OK**.
 
 What the script decides, row by row:
@@ -703,7 +886,15 @@ What the script decides, row by row:
 > output gets clear, typed fields, and the grid is the one place that
 > says what the step adds to the stream.
 
-### 6. Route to the Work Queues
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-19-inventory-reconciliation-s8.png" alt="inventory_reconciliation.ktr on the Spoon canvas after this tab: Read Warehouse XML, Read Product Catalog, Map Warehouse, Map Product Catalog, Sort Warehouse, Sort ERP, Full Outer Join, Calculator and Modified JavaScript value, with the 8 hops between them" width="716">
+<figcaption>The canvas after Modified JavaScript value</figcaption>
+</figure>
+</div>
+
+
+### 9. Route to the Work Queues
 
 > **Note:**
 >
@@ -727,10 +918,41 @@ What the script decides, row by row:
 | `2`   | `Medium Priority` |
 | `3`   | `Low Priority`    |
 
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-inventory-priority-switch.png" alt="Switch / case: step name Priority, switch on priority_rank, data type Number, cases 1 High Priority, 2 Medium Priority, 3 Low Priority, default Medium Priority" width="497">
+<figcaption>Priority: one target per priority_rank</figcaption>
+</figure>
+</div>
+
 6. Select **OK**.
 7. Double-click **High Priority**. On the **File** tab, set **Filename** to `pvfs://MinIO/staging/reconciliation/urgent_actions` and **Extension** to `csv`, and select **Include date in filename?** and **Include time in filename?**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-inventory-high-priority-file.png" alt="Text file output File tab: step name High Priority, filename pvfs://MinIO/staging/reconciliation/urgent_actions, extension csv, date and time in the filename" width="800">
+<figcaption>High Priority, File tab: urgent_actions, with date and time</figcaption>
+</figure>
+</div>
+
 8. On the **Content** tab, set **Separator** to `,` and **Encoding** to `UTF-8`, and keep **Header** selected.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-inventory-high-priority-content.png" alt="Text file output Content tab: separator comma, header selected, encoding UTF-8" width="800">
+<figcaption>Content tab: separator , and UTF-8</figcaption>
+</figure>
+</div>
+
 9. On the **Fields** tab, select **Get Fields**, then **Minimal width**. Select **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-inventory-high-priority-fields.png" alt="Text file output Fields tab for High Priority: the stream's fields after Get Fields and Minimal width" width="800">
+<figcaption>Fields tab: every field, minimal width</figcaption>
+</figure>
+</div>
+
 10. Set up **Medium Priority** and **Low Priority** the same way, with these files:
 
 | Step              | Filename                                           | Include date and time in filename? |
@@ -740,7 +962,15 @@ What the script decides, row by row:
 
 > **Note:** **Get Fields** also lists `product_id_1` and `category_1`, the ERP's copies of the key and the category. Keep them: on the two products missing in the warehouse, `product_id_1` holds the only product id.
 
-### 7. Summarize and Run
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-19-inventory-reconciliation-s9.png" alt="inventory_reconciliation.ktr on the Spoon canvas after this tab: Read Warehouse XML, Read Product Catalog, Map Warehouse, Map Product Catalog, Sort Warehouse, Sort ERP, Full Outer Join, Calculator, Modified JavaScript value, Priority, High Priority, Medium Priority and Low Priority, with the 12 hops between them" width="716">
+<figcaption>The canvas after this tab adds 4 steps</figcaption>
+</figure>
+</div>
+
+
+### 10. Summarize and Run
 
 > **Note:**
 >
@@ -750,6 +980,14 @@ What the script decides, row by row:
 
 1. On the **Design** tab, open the **Transform** folder and drag **Sort rows** onto the canvas. Create a hop from **Modified JavaScript value** to it. When Spoon asks, select **Copy**: **Distribute** would send each row to only one of the two steps, so neither would see all 19.
 2. Double-click **Sort rows**, keep its name, and fill the **Fields** grid with one row: **Fieldname** `discrepancy_type`, **Ascending** `Y`, **Case sensitive compare?** `N`. Select **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-inventory-sort-rows.png" alt="Sort rows: one field discrepancy_type ascending, not case sensitive" width="800">
+<figcaption>Sort rows: by discrepancy_type</figcaption>
+</figure>
+</div>
+
 3. On the **Design** tab, open the **Statistics** folder and drag **Group by** onto the canvas. Create a hop from **Sort rows** to **Group by**.
 4. Double-click **Group by**, keep its name, and enter `discrepancy_type` in **The fields that make up the group**.
 5. Fill the **Aggregates** grid:
@@ -760,6 +998,13 @@ What the script decides, row by row:
 | `Sum of excess_carrying_cost` | `excess_carrying_cost` | Sum                           |
 | `Sum of lost_sales_risk`      | `lost_sales_risk`      | Sum                           |
 | `Count of product_id`         | `product_id`           | Number of Distinct Values (N) |
+
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-inventory-group-by.png" alt="Group by: group field discrepancy_type; aggregates Sum of financial_impact, Sum of excess_carrying_cost, Sum of lost_sales_risk, and Count of product_id as Number of Distinct Values" width="746">
+<figcaption>Group by: three sums and a distinct count</figcaption>
+</figure>
+</div>
 
 6. Select **OK** and save the transformation (`Ctrl+S`).
 7. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
@@ -780,6 +1025,14 @@ What the script decides, row by row:
 10. In Spoon, select **Group by** on the canvas and open the **Preview data** tab.
 
 > **Success:** Checkpoint: 5 rows, one per discrepancy type, in order: `MATCH`, `MISSING_IN_CATALOG`, `MISSING_IN_WAREHOUSE`, `OVERSTOCK`, `UNDERSTOCK`.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-19-inventory-reconciliation-s10.png" alt="inventory_reconciliation.ktr on the Spoon canvas after this tab: Read Warehouse XML, Read Product Catalog, Map Warehouse, Map Product Catalog, Sort Warehouse, Sort ERP, Full Outer Join, Calculator, Modified JavaScript value, Priority, High Priority, Medium Priority, Low Priority, Sort rows and Group by, with the 14 hops between them" width="800">
+<figcaption>The canvas after Sort rows, Group by</figcaption>
+</figure>
+</div>
+
 
 :::
 
@@ -826,7 +1079,7 @@ What the script decides, row by row:
 
 ::: tabs
 
-### 1. Read the Customers
+### 1. Read Customers
 
 > **Note:**
 >
@@ -836,26 +1089,83 @@ What the script decides, row by row:
 
 1. Select **File > New > Transformation** (`Ctrl+N`).
 2. Select **File > Save as** and save it as `customer_360.ktr` in `C:\Workshop-DI-Practitioner\03-data-sources\03-storage\19-mod3-minio`.
+
 3. On the **Design** tab, open the **Input** folder and drag **Text file input** onto the canvas.
 4. Double-click **Text file input** and set **Step name** to `Read Customers`.
 5. On the **File** tab, enter `pvfs://MinIO/raw-data/csv/customers.csv` in **File or directory** and select **Add**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-c360-read-customers-file.png" alt="Text file input File tab: step name Read Customers, selected file pvfs://MinIO/raw-data/csv/customers.csv" width="800">
+<figcaption>Read Customers, File tab: customers.csv on MinIO</figcaption>
+</figure>
+</div>
+
 6. On the **Content** tab, set **Separator** to `,` and **Format** to `mixed`, and keep **Header** selected.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-c360-read-customers-content.png" alt="Text file input Content tab: separator comma, header with 1 header line, format mixed" width="800">
+<figcaption>Content tab: separator , and format mixed</figcaption>
+</figure>
+</div>
+
 7. On the **Fields** tab, select **Get Fields**, select **OK** at **Number of sample lines**, and close the **Scan results**. Check the types: `customer_id` Integer (`#`); `registration_date` Date (`yyyy-MM-dd`); `first_name`, `last_name`, `email`, `phone`, `country` and `status` String.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-c360-read-customers-fields.png" alt="Text file input Fields tab for Read Customers: customer_id Integer, the name, email, phone, country and status fields as String, registration_date as Date yyyy-MM-dd" width="800">
+<figcaption>Fields tab: customer_id Integer, registration_date Date</figcaption>
+</figure>
+</div>
+
 8. Select **Preview rows**, enter `100` rows, and select **OK**.
 
 > **Success:** Checkpoint: 12 rows, from `1001` (`John`, `Smith`, `USA`) to `1012` (`Jean`, `Dupont`, `France`).
 
 9. Select **Close**, then **OK**.
-10. On the **Design** tab, open the **Transform** folder and drag **Sort rows** onto the canvas. Create a hop from **Read Customers** to it.
-11. Double-click **Sort rows** and set **Step name** to `Sort Customers`. Fill the **Fields** grid with one row: **Fieldname** `customer_id`, **Ascending** `Y`, **Case sensitive compare?** `N`. Select **OK**.
 
-### 2. Summarize the Sales
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-19-customer-360-s11.png" alt="customer_360.ktr on the Spoon canvas after this tab: Read Customers" width="140">
+<figcaption>The canvas after Read Customers</figcaption>
+</figure>
+</div>
+
+
+### 2. Sort Customers
 
 > **Note:**
 >
-> #### Memory group by
+> #### Sort Customers
 >
-> **Memory group by** reduces the 15 sales to one row per customer. It needs the sales sorted by customer, so this tab adds a second sort, `Sort Sales`, beside tab 1's `Sort Customers`.
+> Add and set up **Sort rows**.
+
+1. On the **Design** tab, open the **Transform** folder and drag **Sort rows** onto the canvas. Create a hop from **Read Customers** to it.
+2. Double-click **Sort rows** and set **Step name** to `Sort Customers`. Fill the **Fields** grid with one row: **Fieldname** `customer_id`, **Ascending** `Y`, **Case sensitive compare?** `N`. Select **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-c360-sort-customers.png" alt="Sort rows: step name Sort Customers, one field customer_id ascending, not case sensitive" width="800">
+<figcaption>Sort Customers: customer_id, ascending</figcaption>
+</figure>
+</div>
+
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-19-customer-360-s12.png" alt="customer_360.ktr on the Spoon canvas after this tab: Read Customers and Sort Customers, with the hop between them" width="252">
+<figcaption>The canvas after Sort Customers</figcaption>
+</figure>
+</div>
+
+
+### 3. Read the Sales
+
+> **Note:**
+>
+> #### Read the Sales
+>
+> Read `sales.csv` from the `raw-data` bucket through the MinIO connection.
 
 1. On the **Design** tab, open the **Input** folder and drag **Text file input** onto the canvas. Double-click it and set **Step name** to `Read Sales`.
 2. On the **File** tab, enter `pvfs://MinIO/raw-data/csv/sales.csv` in **File or directory** and select **Add**, or select **Browse**, set **File type** to `*.csv`, and pick it under **VFS Connections > MinIO**.
@@ -869,10 +1179,43 @@ What the script decides, row by row:
 
 3. On the **Content** tab, set **Separator** to `,` and **Format** to `mixed`, and keep **Header** selected.
 4. On the **Fields** tab, select **Get Fields**, select **OK** at **Number of sample lines**, and close the **Scan results**. Check the types: `customer_id` and `quantity` Integer (`#`); `sale_date` Date (`yyyy-MM-dd`); `sale_amount` BigNumber (`#.##`); `sale_id`, `product_id`, `payment_method` and `status` String. Select **OK**.
-5. On the **Design** tab, open the **Transform** folder and drag **Sort rows** onto the canvas. Create a hop from **Read Sales** to it.
-6. Double-click the new **Sort rows** and set **Step name** to `Sort Sales`. Fill the **Fields** grid with one row: **Fieldname** `customer_id`, **Ascending** `Y`, **Case sensitive compare?** `N`. Select **OK**.
-7. On the **Design** tab, open the **Statistics** folder and drag **Memory group by** onto the canvas. Create a hop from **Sort Sales** to it.
-8. Double-click **Memory group by** and keep its name. Enter `customer_id` in **The fields that make up the group**, and fill the **Aggregates** grid:
+
+### 4. Sort Sales
+
+> **Note:**
+>
+> #### Sort Sales
+>
+> Add and set up **Sort rows**.
+
+1. On the **Design** tab, open the **Transform** folder and drag **Sort rows** onto the canvas. Create a hop from **Read Sales** to it.
+2. Double-click the new **Sort rows** and set **Step name** to `Sort Sales`. Fill the **Fields** grid with one row: **Fieldname** `customer_id`, **Ascending** `Y`, **Case sensitive compare?** `N`. Select **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-c360-sort-sales.png" alt="Sort rows: step name Sort Sales, one field customer_id ascending, not case sensitive" width="800">
+<figcaption>Sort Sales: customer_id, ascending</figcaption>
+</figure>
+</div>
+
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-19-customer-360-s13.png" alt="customer_360.ktr on the Spoon canvas after this tab: Sort Sales, Read Customers, Read Sales and Sort Customers, with the 2 hops between them" width="252">
+<figcaption>The canvas after Sort Sales</figcaption>
+</figure>
+</div>
+
+
+### 5. Memory group by
+
+> **Note:**
+>
+> #### Memory group by
+>
+> **Memory group by** reduces the 15 sales to one row per customer. It doesn't need sorted input (see **Under the hood** in tab 6), but the solution sorts the sales first anyway, in tab 4.
+
+1. On the **Design** tab, open the **Statistics** folder and drag **Memory group by** onto the canvas. Create a hop from **Sort Sales** to it.
+2. Double-click **Memory group by** and keep its name. Enter `customer_id` in **The fields that make up the group**, and fill the **Aggregates** grid:
 
 | Name              | Subject       | Type                 |
 | ----------------- | ------------- | -------------------- |
@@ -882,14 +1225,38 @@ What the script decides, row by row:
 | `last_purchase`   | `sale_date`   | Maximum              |
 | `avg_order_value` | `sale_amount` | Average (Mean)       |
 
-9. Select **OK**.
-10. From the **Transform** folder, drag **Sort rows** onto the canvas. Create a hop from **Memory group by** to it, double-click it and set **Step name** to `Final Customer Sort`. Fill the **Fields** grid with one row: **Fieldname** `customer_id`, **Ascending** `Y`, **Case sensitive compare?** `N`. Select **OK**.
-11. Save the transformation (`Ctrl+S`).
-12. Select **Final Customer Sort** on the canvas, press `F10` (**Action > Preview**), and select **Quick Launch**.
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-c360-memory-group-by.png" alt="Memory group by: group field customer_id; aggregates total_orders Number of Values of sale_id, total_spent Sum of sale_amount, first_purchase Minimum and last_purchase Maximum of sale_date, avg_order_value Average of sale_amount" width="686">
+<figcaption>Memory group by: five aggregates per customer</figcaption>
+</figure>
+</div>
+
+3. Select **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-19-customer-360-s14.png" alt="customer_360.ktr on the Spoon canvas after this tab: Sort Sales, Memory group by, Read Customers, Read Sales and Sort Customers, with the 3 hops between them" width="380">
+<figcaption>The canvas after Memory group by</figcaption>
+</figure>
+</div>
+
+
+### 6. Final Customer Sort
+
+> **Note:**
+>
+> #### Final Customer Sort
+>
+> Add and set up **Sort rows**.
+
+1. From the **Transform** folder, drag **Sort rows** onto the canvas. Create a hop from **Memory group by** to it, double-click it and set **Step name** to `Final Customer Sort`. Fill the **Fields** grid with one row: **Fieldname** `customer_id`, **Ascending** `Y`, **Case sensitive compare?** `N`. Select **OK**.
+2. Save the transformation (`Ctrl+S`).
+3. Select **Final Customer Sort** on the canvas, press `F10` (**Action > Preview**), and select **Quick Launch**.
 
 > **Success:** Checkpoint: 12 rows, one per customer, `1001` to `1012`. `1001` has `total_orders` `2`, `total_spent` `1759.98`, `avg_order_value` `879.99`, `first_purchase` `2025-11-15` and `last_purchase` `2026-01-28`.
 
-13. Select **Close**.
+4. Select **Close**.
 
 > **Under the hood:**
 >
@@ -900,13 +1267,21 @@ What the script decides, row by row:
 > the input ends, it writes the entries out, in no particular key order.
 > That is why the sort before it is not needed, and the sort after it,
 > `Final Customer Sort`, is: **Merge join** needs its input sorted.
-> **Group by**, in the next tab, works the other way: it needs sorted
+> **Group by**, in tab 11, works the other way: it needs sorted
 > input and writes each group as soon as the key changes.
 >
 > **Why it matters:** **Memory group by** suits a modest number of
 > groups; **Group by** handles any number, provided the input is sorted.
 
-### 3. Count the Events
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-19-customer-360-s15.png" alt="customer_360.ktr on the Spoon canvas after this tab: Sort Sales, Final Customer Sort, Memory group by, Read Customers, Read Sales and Sort Customers, with the 4 hops between them" width="524">
+<figcaption>The canvas after Final Customer Sort</figcaption>
+</figure>
+</div>
+
+
+### 7. Read the Events
 
 > **Note:**
 >
@@ -916,17 +1291,74 @@ What the script decides, row by row:
 
 1. On the **Design** tab, open the **Input** folder and drag **Text file input** onto the canvas. Double-click it and set **Step name** to `Read User Events`.
 2. On the **File** tab, enter `pvfs://MinIO/raw-data/json/user_events.json` in **File or directory** and select **Add**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-c360-read-events-file.png" alt="Text file input File tab: step name Read User Events, selected file pvfs://MinIO/raw-data/json/user_events.json" width="800">
+<figcaption>Read User Events, File tab: user_events.json</figcaption>
+</figure>
+</div>
+
 3. On the **Content** tab, set **Separator** to `|||DELIM|||`, delete the `"` from **Enclosure**, clear **Header**, and set **Format** to `Unix`. The separator never occurs in the data, so each line arrives whole.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-c360-read-events-content.png" alt="Text file input Content tab: separator |||DELIM|||, enclosure empty, header cleared, format Unix" width="800">
+<figcaption>Content tab: a separator the data never contains</figcaption>
+</figure>
+</div>
+
 4. On the **Fields** tab, fill the grid with one row: **Name** `json_line`, **Type** `String`.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-c360-read-events-fields.png" alt="Text file input Fields tab for Read User Events: one field json_line of type String" width="800">
+<figcaption>Fields tab: the whole line as json_line</figcaption>
+</figure>
+</div>
+
 5. Select **Preview rows**, enter `100` rows, and select **OK**.
 
 > **Success:** Checkpoint: 46 rows, each one whole JSON object. The first starts `{"event_id":"evt_001","user_id":1001,"event_type":"page_view"`.
 
 6. Select **Close**, then **OK**.
-7. On the **Design** tab, open the **Input** folder and drag **JSON input** onto the canvas. Create a hop from **Read User Events** to it, and keep its name, `JSON input`.
-8. Double-click **JSON input**. On the **File** tab, select **Source is from a previous step**, and set **Select field** to `json_line`.
-9. On the **Content** tab, keep **Ignore missing path** and **Default path leaf to null** selected, as Pentaho Data Integration 11 sets them for a new step: not every event has a `product_id` or a `rating`.
-10. On the **Fields** tab, fill the grid:
+
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-19-customer-360-s16.png" alt="customer_360.ktr on the Spoon canvas after this tab: Sort Sales, Final Customer Sort, Memory group by, Read Customers, Read Sales, Read User Events and Sort Customers, with the 4 hops between them" width="524">
+<figcaption>The canvas after Read User Events</figcaption>
+</figure>
+</div>
+
+
+### 8. JSON input
+
+> **Note:**
+>
+> #### JSON input
+>
+> Add and set up **JSON input**.
+
+1. On the **Design** tab, open the **Input** folder and drag **JSON input** onto the canvas. Create a hop from **Read User Events** to it, and keep its name, `JSON input`.
+2. Double-click **JSON input**. On the **File** tab, select **Source is from a previous step**, and set **Select field** to `json_line`.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-c360-json-input-file.png" alt="JSON input File tab: Source is from a previous step selected, select field json_line" width="800">
+<figcaption>JSON input, File tab: the source is json_line</figcaption>
+</figure>
+</div>
+
+3. On the **Content** tab, keep **Ignore missing path** and **Default path leaf to null** selected, as Pentaho Data Integration 11 sets them for a new step: not every event has a `product_id` or a `rating`.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-c360-json-input-content.png" alt="JSON input Content tab: Ignore missing path and Default path leaf to null selected" width="800">
+<figcaption>Content tab: missing keys give nulls</figcaption>
+</figure>
+</div>
+
+4. On the **Fields** tab, fill the grid:
 
 | Name         | Path           | Type    |
 | ------------ | -------------- | ------- |
@@ -937,9 +1369,33 @@ What the script decides, row by row:
 | `rating`     | `$.rating`     | Integer |
 | `timestamp`  | `$.timestamp`  | String  |
 
-11. Select **OK**.
-12. On the **Design** tab, open the **Scripting** folder and drag **Modified JavaScript value** onto the canvas. Create a hop from **JSON input** to it.
-13. Double-click **Modified JavaScript value** and set **Step name** to `MJV - Define Events`. Replace the text on the **Script 1** tab with this script:
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-c360-json-input-fields.png" alt="JSON input Fields tab: event_id, user_id (Integer), event_type, product_id, rating (Integer) and timestamp, each read from the JSON path of the same name, such as $.event_id" width="800">
+<figcaption>Fields tab: six fields, each from its JSON path</figcaption>
+</figure>
+</div>
+
+5. Select **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-19-customer-360-s17.png" alt="customer_360.ktr on the Spoon canvas after this tab: Sort Sales, Final Customer Sort, JSON input, Memory group by, Read Customers, Read Sales, Read User Events and Sort Customers, with the 5 hops between them" width="524">
+<figcaption>The canvas after JSON input</figcaption>
+</figure>
+</div>
+
+
+### 9. MJV - Define Events
+
+> **Note:**
+>
+> #### MJV - Define Events
+>
+> Add and set up **Modified JavaScript value**.
+
+1. On the **Design** tab, open the **Scripting** folder and drag **Modified JavaScript value** onto the canvas. Create a hop from **JSON input** to it.
+2. Double-click **Modified JavaScript value** and set **Step name** to `MJV - Define Events`. Replace the text on the **Script 1** tab with this script:
 
 ```javascript
 // Initialize counters (these will accumulate per row, so we'll aggregate later)
@@ -951,10 +1407,51 @@ var is_search = (event_type == "search") ? 1 : 0;
 var is_product_view = (event_type == "product_view") ? 1 : 0;
 ```
 
-14. Fill the **Fields** grid under the script with six rows, each with **Type** `Number`: `is_page_view`, `is_add_to_cart`, `is_purchase`, `is_checkout`, `is_search` and `is_product_view`. Select **OK**.
-15. On the **Design** tab, open the **Transform** folder and drag **Sort rows** onto the canvas. Create a hop from **MJV - Define Events** to it, double-click it and set **Step name** to `Sort Events`. Fill the **Fields** grid with one row: **Fieldname** `user_id`, **Ascending** `Y`, **Case sensitive compare?** `N`. Select **OK**.
-16. On the **Design** tab, open the **Statistics** folder and drag **Group by** onto the canvas. Create a hop from **Sort Events** to it.
-17. Double-click **Group by** and set **Step name** to `Group by User`. Enter `user_id` in **The fields that make up the group**, and fill the **Aggregates** grid:
+3. Fill the **Fields** grid under the script with six rows, each with **Type** `Number`: `is_page_view`, `is_add_to_cart`, `is_purchase`, `is_checkout`, `is_search` and `is_product_view`. Select **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-c360-mjv-define-events.png" alt="Modified JavaScript value: step name MJV - Define Events, a script setting six 0 or 1 flags from event_type, and six Number output fields is_page_view to is_product_view" width="800">
+<figcaption>MJV - Define Events: one 0/1 flag per event type</figcaption>
+</figure>
+</div>
+
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-19-customer-360-s18.png" alt="customer_360.ktr on the Spoon canvas after this tab: Sort Sales, Final Customer Sort, JSON input, MJV - Define Events, Memory group by, Read Customers, Read Sales, Read User Events and Sort Customers, with the 6 hops between them" width="524">
+<figcaption>The canvas after MJV - Define Events</figcaption>
+</figure>
+</div>
+
+
+### 10. Sort Events
+
+> **Note:**
+>
+> #### Sort Events
+>
+> Add and set up **Sort rows**.
+
+1. On the **Design** tab, open the **Transform** folder and drag **Sort rows** onto the canvas. Create a hop from **MJV - Define Events** to it, double-click it and set **Step name** to `Sort Events`. Fill the **Fields** grid with one row: **Fieldname** `user_id`, **Ascending** `Y`, **Case sensitive compare?** `N`. Select **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-19-customer-360-s19.png" alt="customer_360.ktr on the Spoon canvas after this tab: Sort Sales, Final Customer Sort, JSON input, MJV - Define Events, Memory group by, Read Customers, Read Sales, Read User Events, Sort Events and Sort Customers, with the 7 hops between them" width="524">
+<figcaption>The canvas after Sort Events</figcaption>
+</figure>
+</div>
+
+
+### 11. Group by User
+
+> **Note:**
+>
+> #### Group by User
+>
+> Add and set up **Group by**.
+
+1. On the **Design** tab, open the **Statistics** folder and drag **Group by** onto the canvas. Create a hop from **Sort Events** to it.
+2. Double-click **Group by** and set **Step name** to `Group by User`. Enter `user_id` in **The fields that make up the group**, and fill the **Aggregates** grid:
 
 | Name             | Subject           | Type                          |
 | ---------------- | ----------------- | ----------------------------- |
@@ -966,16 +1463,48 @@ var is_product_view = (event_type == "product_view") ? 1 : 0;
 | `searches`       | `is_search`       | Sum                           |
 | `product_views`  | `is_product_view` | Sum                           |
 
-18. Select **OK**.
-19. From the **Transform** folder, drag **Sort rows** onto the canvas. Create a hop from **Group by User** to it, double-click it and set **Step name** to `Final User Sort`. Fill the **Fields** grid with one row: **Fieldname** `user_id`, **Ascending** `Y`, **Case sensitive compare?** `N`. Select **OK**.
-20. Save the transformation (`Ctrl+S`).
-21. Select **Final User Sort** on the canvas, press `F10` (**Action > Preview**), and select **Quick Launch**.
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-c360-group-by-user.png" alt="Group by: step name Group by User, group field user_id, aggregates counting events and summing the event flags" width="746">
+<figcaption>Group by User: the event counts per user</figcaption>
+</figure>
+</div>
+
+3. Select **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-19-customer-360-s20.png" alt="customer_360.ktr on the Spoon canvas after this tab: Sort Sales, Final Customer Sort, Group by User, JSON input, MJV - Define Events, Memory group by, Read Customers, Read Sales, Read User Events, Sort Events and Sort Customers, with the 8 hops between them" width="668">
+<figcaption>The canvas after Group by User</figcaption>
+</figure>
+</div>
+
+
+### 12. Final User Sort
+
+> **Note:**
+>
+> #### Final User Sort
+>
+> Add and set up **Sort rows**.
+
+1. From the **Transform** folder, drag **Sort rows** onto the canvas. Create a hop from **Group by User** to it, double-click it and set **Step name** to `Final User Sort`. Fill the **Fields** grid with one row: **Fieldname** `user_id`, **Ascending** `Y`, **Case sensitive compare?** `N`. Select **OK**.
+2. Save the transformation (`Ctrl+S`).
+3. Select **Final User Sort** on the canvas, press `F10` (**Action > Preview**), and select **Quick Launch**.
 
 > **Success:** Checkpoint: 12 rows, users `1001` to `1012`. `1001` has 8 events, 3 page views and 1 cart addition; `1003` has 4 events and no page views.
 
-22. Select **Close**.
+4. Select **Close**.
 
-### 4. Join the Three Streams
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-19-customer-360-s21.png" alt="customer_360.ktr on the Spoon canvas after this tab: Sort Sales, Final Customer Sort, Final User Sort, Group by User, JSON input, MJV - Define Events, Memory group by, Read Customers, Read Sales, Read User Events, Sort Events and Sort Customers, with the 9 hops between them" width="668">
+<figcaption>The canvas after Final User Sort</figcaption>
+</figure>
+</div>
+
+
+### 13. Join the Three Streams
 
 > **Note:**
 >
@@ -990,6 +1519,14 @@ var is_product_view = (event_type == "product_view") ? 1 : 0;
    * **Second Step**: `Final User Sort`
    * **Join Type**: `INNER`
 3. Enter `customer_id` in **Keys for 1st step** and `user_id` in **Keys for 2nd step**. Select **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-c360-sales-and-events.png" alt="Merge join: step name Sales &amp; Events, first step Final Customer Sort, second step Final User Sort, join type INNER, keys customer_id and user_id" width="546">
+<figcaption>Sales &amp; Events: INNER on customer_id = user_id</figcaption>
+</figure>
+</div>
+
 4. Drag a second **Merge join** onto the canvas. Create a hop from **Sales & Events** to it, and one from **Sort Customers** to it.
 5. Double-click it and set:
    * **Step name**: `Customers + Sales + Events`
@@ -997,6 +1534,14 @@ var is_product_view = (event_type == "product_view") ? 1 : 0;
    * **Second Step**: `Sort Customers`
    * **Join Type**: `LEFT OUTER`
 6. Enter `customer_id` in **Keys for 1st step** and in **Keys for 2nd step**. Select **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-c360-customers-sales-events.png" alt="Merge join: step name Customers + Sales + Events, first step Sales &amp; Events, second step Sort Customers, join type LEFT OUTER, key customer_id on both sides" width="546">
+<figcaption>Customers + Sales + Events: LEFT OUTER on customer_id</figcaption>
+</figure>
+</div>
+
 7. Save the transformation (`Ctrl+S`).
 8. Select **Customers + Sales + Events** on the canvas, press `F10` (**Action > Preview**), and select **Quick Launch**.
 
@@ -1004,29 +1549,109 @@ var is_product_view = (event_type == "product_view") ? 1 : 0;
 
 9. Select **Close**.
 
-### 5. Score and Segment
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-19-customer-360-s22.png" alt="customer_360.ktr on the Spoon canvas after this tab: Sort Sales, Customers + Sales + Events, Final Customer Sort, Final User Sort, Group by User, JSON input, MJV - Define Events, Memory group by, Read Customers, Read Sales, Read User Events, Sales &amp; Events, Sort Events and Sort Customers, with the 13 hops between them" width="668">
+<figcaption>The canvas after Customers + Sales + Events, Sales &amp; Events</figcaption>
+</figure>
+</div>
+
+
+### 14. Get Today's Date
 
 > **Note:**
 >
-> #### Calculator, Formula and a script
+> #### Get Today's Date
 >
-> Three derived fields: how many days since each customer's last purchase, an engagement score from the counts, and a segment from the total spend.
+> **Get system info** adds `todays_date`. The next three tabs derive three fields from it and the counts: days since each customer's last purchase, an engagement score, and a segment from the total spend.
 
 1. On the **Design** tab, open the **Input** folder and drag **Get system info** onto the canvas. Create a hop from **Customers + Sales + Events** to it.
 2. Double-click **Get system info**, keep its name, and fill the **Fields** grid with one row: **Name** `todays_date`, **Type** `system date (variable)`. Select **OK**.
-3. On the **Design** tab, open the **Transform** folder and drag **Calculator** onto the canvas. Create a hop from **Get system info** to it.
-4. Double-click **Calculator** and fill the **Fields** grid:
+
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-c360-get-system-info.png" alt="Get system info: one field todays_date of type system date (variable)" width="486">
+<figcaption>Get system info: todays_date</figcaption>
+</figure>
+</div>
+
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-19-customer-360-s23.png" alt="customer_360.ktr on the Spoon canvas after this tab: Sort Sales, Customers + Sales + Events, Final Customer Sort, Final User Sort, Get system info, Group by User, JSON input, MJV - Define Events, Memory group by, Read Customers, Read Sales, Read User Events, Sales &amp; Events, Sort Events and Sort Customers, with the 14 hops between them" width="668">
+<figcaption>The canvas after Get system info</figcaption>
+</figure>
+</div>
+
+
+### 15. Calculator
+
+> **Note:**
+>
+> #### Calculator
+>
+> Add and set up **Calculator**.
+
+1. On the **Design** tab, open the **Transform** folder and drag **Calculator** onto the canvas. Create a hop from **Get system info** to it.
+2. Double-click **Calculator** and fill the **Fields** grid:
 
 | New field                  | Calculation               | Field A         | Field B          | Value type |
 | -------------------------- | ------------------------- | --------------- | ---------------- | ---------- |
 | `days_since_last_purchase` | Date A - Date B (in days) | `todays_date`   | `last_purchase`  | Integer    |
 | `days_as_customer`         | Date A - Date B (in days) | `last_purchase` | `first_purchase` | Integer    |
 
-5. Select **OK**.
-6. On the **Design** tab, open the **Scripting** folder and drag **Formula** onto the canvas. Create a hop from **Calculator** to it.
-7. Double-click **Formula** and set **Step name** to `Engagement`. Fill the **Fields** grid with one row: **New field** `engagement_score`, **Formula** `[total_events]*0.3 + [cart_additions]*0.5 + [total_orders]*0.2`, **Value type** Number. Select **OK**.
-8. On the **Design** tab, open the **Scripting** folder and drag **Modified JavaScript value** onto the canvas. Create a hop from **Engagement** to it.
-9. Double-click **Modified JavaScript value** and set **Step name** to `MJV - Customer Segment`. Replace the text on the **Script 1** tab with this script:
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-c360-calculator.png" alt="Calculator: days_since_last_purchase = todays_date - last_purchase and days_as_customer = last_purchase - first_purchase, Date A - Date B (in days), both Integer" width="800">
+<figcaption>Calculator: two day counts</figcaption>
+</figure>
+</div>
+
+3. Select **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-19-customer-360-s24.png" alt="customer_360.ktr on the Spoon canvas after this tab: Sort Sales, Calculator, Customers + Sales + Events, Final Customer Sort, Final User Sort, Get system info, Group by User, JSON input, MJV - Define Events, Memory group by, Read Customers, Read Sales, Read User Events, Sales &amp; Events, Sort Events and Sort Customers, with the 15 hops between them" width="668">
+<figcaption>The canvas after Calculator</figcaption>
+</figure>
+</div>
+
+
+### 16. Engagement
+
+> **Note:**
+>
+> #### Engagement
+>
+> Add and set up **Formula**.
+
+1. On the **Design** tab, open the **Scripting** folder and drag **Formula** onto the canvas. Create a hop from **Calculator** to it.
+2. Double-click **Formula** and set **Step name** to `Engagement`. Fill the **Fields** grid with one row: **New field** `engagement_score`, **Formula** `[total_events]*0.3 + [cart_additions]*0.5 + [total_orders]*0.2`, **Value type** Number. Select **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-c360-engagement.png" alt="Formula: step name Engagement, engagement_score = [total_events]*0.3 + [cart_additions]*0.5 + [total_orders]*0.2, Number" width="800">
+<figcaption>Engagement: a weighted score</figcaption>
+</figure>
+</div>
+
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-19-customer-360-s25.png" alt="customer_360.ktr on the Spoon canvas after this tab: Sort Sales, Calculator, Customers + Sales + Events, Engagement, Final Customer Sort, Final User Sort, Get system info, Group by User, JSON input, MJV - Define Events, Memory group by, Read Customers, Read Sales, Read User Events, Sales &amp; Events, Sort Events and Sort Customers, with the 16 hops between them" width="668">
+<figcaption>The canvas after Engagement</figcaption>
+</figure>
+</div>
+
+
+### 17. MJV - Customer Segment
+
+> **Note:**
+>
+> #### MJV - Customer Segment
+>
+> Add and set up **Modified JavaScript value**.
+
+1. On the **Design** tab, open the **Scripting** folder and drag **Modified JavaScript value** onto the canvas. Create a hop from **Engagement** to it.
+2. Double-click **Modified JavaScript value** and set **Step name** to `MJV - Customer Segment`. Replace the text on the **Script 1** tab with this script:
 
 ```javascript
 // Classify customer based on total lifetime spend
@@ -1043,31 +1668,92 @@ if (total_spent == null || total_spent == 0) {
 }
 ```
 
-10. Fill the **Fields** grid with one row: **Fieldname** `customer_segment`, **Type** `String`. Select **OK**.
-11. Save the transformation (`Ctrl+S`).
-12. Select **MJV - Customer Segment** on the canvas, press `F10` (**Action > Preview**), and select **Quick Launch**.
+3. Fill the **Fields** grid with one row: **Fieldname** `customer_segment`, **Type** `String`. Select **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-c360-mjv-customer-segment.png" alt="Modified JavaScript value: step name MJV - Customer Segment, a script setting customer_segment to Prospect, High Value, Medium Value or Low Value from total_spent, and one String output field customer_segment" width="800">
+<figcaption>MJV - Customer Segment: four segments from total_spent</figcaption>
+</figure>
+</div>
+
+4. Save the transformation (`Ctrl+S`).
+5. Select **MJV - Customer Segment** on the canvas, press `F10` (**Action > Preview**), and select **Quick Launch**.
 
 > **Success:** Checkpoint: 12 rows. `customer_segment` is `High Value` for `1001` and `1003` (1,759.98 and 1,329.98 spent), `Medium Value` for `1002`, `1007` and `1011`, and `Low Value` for the other 7. `days_since_last_purchase` depends on today's date.
 
-13. Select **Close**.
+6. Select **Close**.
 
-### 6. Select and Write
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-19-customer-360-s26.png" alt="customer_360.ktr on the Spoon canvas after this tab: Sort Sales, Calculator, MJV - Customer Segment, Customers + Sales + Events, Engagement, Final Customer Sort, Final User Sort, Get system info, Group by User, JSON input, MJV - Define Events, Memory group by, Read Customers, Read Sales, Read User Events, Sales &amp; Events, Sort Events and Sort Customers, with the 17 hops between them" width="668">
+<figcaption>The canvas after MJV - Customer Segment</figcaption>
+</figure>
+</div>
+
+
+### 18. Select and Write
+
+> **Note:**
+>
+> #### Select and Write
+>
+> Pick the 17 fields in their final order, then write the result to the `curated` bucket in MinIO and run.
 
 1. On the **Design** tab, open the **Transform** folder and drag **Select values** onto the canvas. Create a hop from **MJV - Customer Segment** to it, and keep its name, `Select values`.
 2. Double-click **Select values**. On the **Select & Alter** tab, list these 17 fields in this order:
 
    `customer_id`, `first_name`, `last_name`, `email`, `country`, `registration_date`, `total_orders`, `total_spent`, `avg_order_value`, `first_purchase`, `last_purchase`, `days_since_last_purchase`, `total_events`, `page_views`, `cart_additions`, `engagement_score`, `customer_segment`
 
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-c360-select-values.png" alt="Select values Select and Alter tab: 17 fields in order from customer_id to customer_segment" width="686">
+<figcaption>Select values: the 17 output fields, in order</figcaption>
+</figure>
+</div>
+
 3. Select **OK**.
 4. On the **Design** tab, open the **Output** folder and drag **Text file output** onto the canvas. Create a hop from **Select values** to it, double-click it and set **Step name** to `Output - Customer 360`.
 5. On the **File** tab, set **Filename** to `pvfs://MinIO/curated/customer/customer_360` and **Extension** to `csv`, and select **Include date in filename?** and **Include time in filename?**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-c360-output-file.png" alt="Text file output File tab: step name Output - Customer 360, filename pvfs://MinIO/curated/customer/customer_360, extension csv, date and time in the filename" width="800">
+<figcaption>Output - Customer 360, File tab</figcaption>
+</figure>
+</div>
+
 6. On the **Content** tab, set **Separator** to `,` and **Encoding** to `UTF-8`, and keep **Header** selected.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-c360-output-content.png" alt="Text file output Content tab: separator comma, header selected, encoding UTF-8" width="800">
+<figcaption>Content tab: separator , and UTF-8</figcaption>
+</figure>
+</div>
+
 7. On the **Fields** tab, select **Get Fields**, then **Minimal width**. Select **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-c360-output-fields.png" alt="Text file output Fields tab for Output - Customer 360: the 17 fields after Get Fields and Minimal width" width="800">
+<figcaption>Fields tab: the 17 fields, minimal width</figcaption>
+</figure>
+</div>
+
 8. Save the transformation (`Ctrl+S`).
 9. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
 10. In the MinIO console, open **curated** > `customer/`.
 
 > **Success:** Checkpoint: `customer_360_<date>_<time>.csv` holds a header with the 17 fields and 12 rows, one per customer: 2 `High Value`, 3 `Medium Value` and 7 `Low Value`.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-19-customer-360-s27.png" alt="customer_360.ktr on the Spoon canvas after this tab: Sort Sales, Calculator, MJV - Customer Segment, Customers + Sales + Events, Engagement, Final Customer Sort, Final User Sort, Get system info, Group by User, JSON input, MJV - Define Events, Memory group by, Output - Customer 360, Read Customers, Read Sales, Read User Events, Sales &amp; Events, Select values, Sort Events and Sort Customers, with the 19 hops between them" width="800">
+<figcaption>The canvas after Output - Customer 360, Select values</figcaption>
+</figure>
+</div>
+
 
 :::
 
@@ -1121,13 +1807,45 @@ if (total_spent == null || total_spent == 0) {
 3. On the **Design** tab, open the **Input** folder and drag **Text file input** onto the canvas.
 4. Double-click **Text file input** and set **Step name** to `Read App Log`.
 5. On the **File** tab, enter `pvfs://MinIO/logs/app/application.log` in **File or directory** and select **Add**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-log-read-file.png" alt="Text file input File tab: step name Read App Log, selected file pvfs://MinIO/logs/app/application.log" width="800">
+<figcaption>Read App Log, File tab: application.log on MinIO</figcaption>
+</figure>
+</div>
+
 6. On the **Content** tab, set **Separator** to `||||`, delete the `"` from **Enclosure**, clear **Header**, and set **Format** to `mixed`.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-log-read-content.png" alt="Text file input Content tab: separator ||||, enclosure empty, header cleared, format mixed" width="800">
+<figcaption>Content tab: each line arrives whole</figcaption>
+</figure>
+</div>
+
 7. On the **Fields** tab, fill the grid with one row: **Name** `log_line`, **Type** `String`.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-log-read-fields.png" alt="Text file input Fields tab for Read App Log: one field log_line of type String" width="800">
+<figcaption>Fields tab: log_line</figcaption>
+</figure>
+</div>
+
 8. Select **Preview rows**, enter `100` rows, and select **OK**.
 
 > **Success:** Checkpoint: 100 rows, one whole log line each. The first is `2024-01-23 08:00:01 INFO  [main] Application started successfully`.
 
 9. Select **Close**, then **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-19-log-analysis-anomaly-s28.png" alt="log_analysis_anomaly.ktr on the Spoon canvas after this tab: Read App Log" width="140">
+<figcaption>The canvas after Read App Log</figcaption>
+</figure>
+</div>
+
 
 ### 2. Parse Each Line
 
@@ -1154,6 +1872,13 @@ if (total_spent == null || total_spent == 0) {
 | `component`     | String | both |
 | `message`       | String | both |
 
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-log-regex-evaluation.png" alt="Regex evaluation Settings tab: field to evaluate log_line, result field result, Create fields for capture groups selected, the regular expression, and four capture group fields timestamp_str, log_level, component and message, all String" width="800">
+<figcaption>Regex evaluation: four capture groups become four fields</figcaption>
+</figure>
+</div>
+
 5. Select **OK**.
 
 The four groups, read against the first line:
@@ -1165,24 +1890,80 @@ The four groups, read against the first line:
 | 3     | the text inside the square brackets         | `component`     | `main`                  |
 | 4     | the rest of the line                        | `message`       | `Application started successfully` |
 
-6. On the **Design** tab, open the **Transform** folder and drag **Select values** onto the canvas. Create a hop from **Regex evaluation** to it, and keep its name, `Select values`.
-7. Double-click **Select values**. Leave the **Select & Alter** tab empty, so every field passes. On the **Meta-data** tab, fill the grid with one row:
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-19-log-analysis-anomaly-s29.png" alt="log_analysis_anomaly.ktr on the Spoon canvas after this tab: Read App Log and Regex evaluation, with the hop between them" width="268">
+<figcaption>The canvas after Regex evaluation</figcaption>
+</figure>
+</div>
+
+
+### 3. Select values
+
+> **Note:**
+>
+> #### Select values
+>
+> Add and set up **Select values**.
+
+1. On the **Design** tab, open the **Transform** folder and drag **Select values** onto the canvas. Create a hop from **Regex evaluation** to it, and keep its name, `Select values`.
+2. Double-click **Select values**. Leave the **Select & Alter** tab empty, so every field passes. On the **Meta-data** tab, fill the grid with one row:
 
 | Fieldname       | Rename to   | Type      | Format                |
 | --------------- | ----------- | --------- | --------------------- |
 | `timestamp_str` | `timestamp` | Timestamp | `yyyy-MM-dd HH:mm:ss` |
 
-8. Select **OK**.
-9. On the **Design** tab, open the **Transform** folder and drag **Calculator** onto the canvas. Create a hop from **Select values** to it.
-10. Double-click **Calculator** and fill the **Fields** grid with one row: **New field** `log_hour`, **Calculation** `Hour of Day of Date A`, **Field A** `timestamp`, **Value type** Integer. Select **OK**.
-11. Save the transformation (`Ctrl+S`).
-12. Select **Calculator** on the canvas, press `F10` (**Action > Preview**), and select **Quick Launch**.
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-log-select-values-meta.png" alt="Select values Meta-data tab: timestamp_str renamed to timestamp, type Timestamp, format yyyy-MM-dd HH:mm:ss" width="800">
+<figcaption>Select values, Meta-data: timestamp_str becomes a Timestamp</figcaption>
+</figure>
+</div>
+
+3. Select **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-19-log-analysis-anomaly-s30.png" alt="log_analysis_anomaly.ktr on the Spoon canvas after this tab: Read App Log, Regex evaluation and Select values, with the 2 hops between them" width="396">
+<figcaption>The canvas after Select values</figcaption>
+</figure>
+</div>
+
+
+### 4. Calculator
+
+> **Note:**
+>
+> #### Calculator
+>
+> Add and set up **Calculator**.
+
+1. On the **Design** tab, open the **Transform** folder and drag **Calculator** onto the canvas. Create a hop from **Select values** to it.
+2. Double-click **Calculator** and fill the **Fields** grid with one row: **New field** `log_hour`, **Calculation** `Hour of Day of Date A`, **Field A** `timestamp`, **Value type** Integer. Select **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-log-calculator.png" alt="Calculator: log_hour = Hour of Day of Date A, field A timestamp, value type Integer" width="800">
+<figcaption>Calculator: the hour of each line</figcaption>
+</figure>
+</div>
+
+3. Save the transformation (`Ctrl+S`).
+4. Select **Calculator** on the canvas, press `F10` (**Action > Preview**), and select **Quick Launch**.
 
 > **Success:** Checkpoint: 123 rows. The first has `log_level` `INFO`, `component` `main`, `message` `Application started successfully` and `log_hour` `8`.
 
-13. Select **Close**.
+5. Select **Close**.
 
-### 3. Keep Errors and Warnings
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-19-log-analysis-anomaly-s31.png" alt="log_analysis_anomaly.ktr on the Spoon canvas after this tab: Calculator, Read App Log, Regex evaluation and Select values, with the 3 hops between them" width="524">
+<figcaption>The canvas after Calculator</figcaption>
+</figure>
+</div>
+
+
+### 5. Keep Errors and Warnings
 
 > **Note:**
 >
@@ -1191,7 +1972,16 @@ The four groups, read against the first line:
 > **Filter rows** sends each row to one of two steps, by a condition. Here `ERROR` and `WARN` lines go on; the `INFO` lines go to a **Dummy (do nothing)** step, which discards them.
 
 1. On the **Design** tab, open the **Flow** folder and drag **Filter rows** onto the canvas. Create a hop from **Calculator** to it.
+
 2. From the **Flow** folder, drag **Dummy (do nothing)** onto the canvas. Double-click it, set **Step name** to `All others`, and select **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-log-all-others.png" alt="Dummy (do nothing): step name All others" width="406">
+<figcaption>All others: where the INFO lines end</figcaption>
+</figure>
+</div>
+
 3. On the **Design** tab, open the **Transform** folder and drag **Sort rows** onto the canvas.
 4. Create a hop from **Filter rows** to **Sort rows** and select **Result is TRUE**. Create a hop from **Filter rows** to **All others** and select **Result is FALSE**.
 5. Double-click **Filter rows** and set **Step name** to `Filter Errors`. **Send 'true' data to step** reads `Sort rows`, and **Send 'false' data to step** reads `All others`.
@@ -1203,10 +1993,32 @@ The four groups, read against the first line:
    OR log_level = WARN
    ```
 
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-log-filter-errors.png" alt="Filter rows: step name Filter Errors, true data to Sort rows, false data to All others, condition log_level CONTAINS ERROR OR log_level = WARN" width="731">
+<figcaption>Filter Errors: ERROR or WARN to Sort rows</figcaption>
+</figure>
+</div>
+
 8. Select **OK**.
 9. Double-click **Sort rows**, keep its name, and fill the **Fields** grid with one row: **Fieldname** `log_hour`, **Ascending** `Y`, **Case sensitive compare?** `N`. Select **OK**.
 
-### 4. Count per Hour
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-log-sort-rows.png" alt="Sort rows: one field log_hour ascending, not case sensitive" width="800">
+<figcaption>Sort rows: by log_hour</figcaption>
+</figure>
+</div>
+
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-19-log-analysis-anomaly-s33.png" alt="log_analysis_anomaly.ktr on the Spoon canvas after this tab: All others, Calculator, Filter Errors, Read App Log, Regex evaluation, Select values and Sort rows, with the 6 hops between them" width="796">
+<figcaption>The canvas after All others, Filter Errors, Sort rows</figcaption>
+</figure>
+</div>
+
+
+### 8. Count per Hour
 
 > **Note:**
 >
@@ -1223,6 +2035,13 @@ The four groups, read against the first line:
 | `error_count`    | `log_hour` | Number of Values (N)               |
 | `error_messages` | `message`  | Concatenate strings separated by , |
 
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-log-group-by-hour.png" alt="Group by: step name Group by Hour, group field log_hour, aggregates error_count Number of Values of log_hour and error_messages Concatenate strings separated by comma of message" width="746">
+<figcaption>Group by Hour: a count and the messages</figcaption>
+</figure>
+</div>
+
 4. Select **OK** and save the transformation (`Ctrl+S`).
 5. Select **Group by Hour** on the canvas, press `F10` (**Action > Preview**), and select **Quick Launch**.
 
@@ -1230,7 +2049,15 @@ The four groups, read against the first line:
 
 6. Select **Close**.
 
-### 5. Compare with the Rolling Average
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-19-log-analysis-anomaly-s34.png" alt="log_analysis_anomaly.ktr on the Spoon canvas after this tab: All others, Calculator, Filter Errors, Group by Hour, Read App Log, Regex evaluation, Select values and Sort rows, with the 7 hops between them" width="796">
+<figcaption>The canvas after Group by Hour</figcaption>
+</figure>
+</div>
+
+
+### 9. Compare with the Rolling Average
 
 > **Note:**
 >
@@ -1269,6 +2096,14 @@ if (rowNum == 1) {
 ```
 
 3. Fill the **Fields** grid with one row: **Fieldname** `rolling_avg_errors`, **Type** `Number`. Select **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-log-mjv-rolling-avg.png" alt="Modified JavaScript value: step name MJV - Rolling Avg, a script averaging error_count over the current and two previous hours, and one Number output field rolling_avg_errors" width="800">
+<figcaption>MJV - Rolling Avg: the three-hour average</figcaption>
+</figure>
+</div>
+
 4. On the **Design** tab, open the **Scripting** folder and drag **Formula** onto the canvas. Create a hop from **MJV - Rolling Avg** to it.
 5. Double-click **Formula** and set **Step name** to `Anomaly Detection`. Fill the **Fields** grid with two rows, both with **Value type** String:
 
@@ -1276,6 +2111,13 @@ if (rowNum == 1) {
 | ------------------ | -------------------------------------------------------------------------------------------------------------------------------- |
 | `is_anomaly`       | `IF([error_count] > ([rolling_avg_errors] * 1.2); "YES"; "NO")`                                                                   |
 | `anomaly_severity` | `IF([error_count] > ([rolling_avg_errors] * 1.5); "CRITICAL"; IF([error_count] > ([rolling_avg_errors] * 1.2); "WARNING"; "NORMAL"))` |
+
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-log-anomaly-detection.png" alt="Formula: step name Anomaly Detection, is_anomaly YES when error_count is above 1.2 times rolling_avg_errors, anomaly_severity CRITICAL above 1.5 times, WARNING above 1.2 times, else NORMAL, both String" width="800">
+<figcaption>Anomaly Detection: is_anomaly and anomaly_severity</figcaption>
+</figure>
+</div>
 
 6. Select **OK** and save the transformation (`Ctrl+S`).
 7. Select **Anomaly Detection** on the canvas, press `F10` (**Action > Preview**), and select **Quick Launch**.
@@ -1304,23 +2146,72 @@ if (rowNum == 1) {
 > **Why it matters:** "compared with recent history" is the core of
 > most anomaly checks, and the order of the rows is part of the logic.
 
-### 6. Route and Write the Alerts
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-19-log-analysis-anomaly-s35.png" alt="log_analysis_anomaly.ktr on the Spoon canvas after this tab: All others, Anomaly Detection, Calculator, Filter Errors, Group by Hour, MJV - Rolling Avg, Read App Log, Regex evaluation, Select values and Sort rows, with the 9 hops between them" width="796">
+<figcaption>The canvas after Anomaly Detection, MJV - Rolling Avg</figcaption>
+</figure>
+</div>
+
+
+### 10. Output - Critical
+
+> **Note:**
+>
+> #### Output - Critical
+>
+> Add the **Text file output** that writes the critical hours to MinIO.
+
+1. On the **Design** tab, open the **Output** folder and drag **Text file output** onto the canvas. Double-click it, set **Step name** to `Output - Critical`, and select **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-19-log-analysis-anomaly-s36.png" alt="log_analysis_anomaly.ktr on the Spoon canvas after this tab: All others, Anomaly Detection, Calculator, Filter Errors, Group by Hour, MJV - Rolling Avg, Read App Log, Regex evaluation, Select values, Sort rows and Output - Critical, with the 9 hops between them" width="796">
+<figcaption>The canvas after Output - Critical</figcaption>
+</figure>
+</div>
+
+
+### 11. Warning and Normal
+
+> **Note:**
+>
+> #### Warning and Normal
+>
+> Add two **Dummy (do nothing)** steps, `Warning` and `Normal`.
+
+1. On the **Design** tab, open the **Flow** folder and drag **Dummy (do nothing)** onto the canvas twice. Double-click each in turn, set **Step name** to `Warning` and `Normal`, and select **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-log-warning.png" alt="Dummy (do nothing): step name Warning" width="406">
+<figcaption>Warning; Normal is set up the same way</figcaption>
+</figure>
+</div>
+
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-19-log-analysis-anomaly-s37.png" alt="log_analysis_anomaly.ktr on the Spoon canvas after this tab: All others, Anomaly Detection, Calculator, Filter Errors, Group by Hour, MJV - Rolling Avg, Read App Log, Regex evaluation, Select values, Sort rows, Warning, Normal and Output - Critical, with the 9 hops between them" width="796">
+<figcaption>The canvas after Warning, Normal</figcaption>
+</figure>
+</div>
+
+
+### 12. Switch / case
 
 > **Note:**
 >
 > #### Switch / case
 >
-> Each hour goes to one step by its `anomaly_severity`: critical hours to a file in MinIO, the others to two **Dummy (do nothing)** steps.
+> Each hour goes to one step by its `anomaly_severity`: critical hours to the file in MinIO, the others to the two **Dummy (do nothing)** steps.
 
-1. On the **Design** tab, open the **Output** folder and drag **Text file output** onto the canvas. Double-click it, set **Step name** to `Output - Critical`, and select **OK**.
-2. On the **Design** tab, open the **Flow** folder and drag **Dummy (do nothing)** onto the canvas twice. Double-click each in turn, set **Step name** to `Warning` and `Normal`, and select **OK**.
-3. From the **Flow** folder, drag **Switch / case** onto the canvas. Create a hop from **Anomaly Detection** to it, and keep its name, `Switch / case`.
-4. Create a hop from **Switch / case** to **Output - Critical**, to **Warning** and to **Normal**. In the menu Spoon shows for each hop, select **Create a new target case for this step**.
-5. Double-click **Switch / case** and set:
+1. From the **Flow** folder, drag **Switch / case** onto the canvas. Create a hop from **Anomaly Detection** to it, and keep its name, `Switch / case`.
+2. Create a hop from **Switch / case** to **Output - Critical**, to **Warning** and to **Normal**. In the menu Spoon shows for each hop, select **Create a new target case for this step**.
+3. Double-click **Switch / case** and set:
    * **Field name to switch**: `anomaly_severity`
    * **Case value data type**: `String`
    * **Default target step**: `Output - Critical`
-6. Fill the **Case values** grid:
+4. Fill the **Case values** grid:
 
 | Value      | Target step         |
 | ---------- | ------------------- |
@@ -1328,19 +2219,58 @@ if (rowNum == 1) {
 | `WARNING`  | `Warning`           |
 | `NORMAL`   | `Normal`            |
 
-7. Select **OK**.
-8. Double-click **Output - Critical**. On the **File** tab, set **Filename** to `pvfs://MinIO/logs/alerts/critical_alerts` and **Extension** to `csv`, and select **Include date in filename?** and **Include time in filename?**.
-9. On the **Content** tab, set **Separator** to `,` and **Encoding** to `UTF-8`, and keep **Header** selected.
-10. On the **Fields** tab, select **Get Fields**, then **Minimal width**. Select **OK**.
-11. Save the transformation (`Ctrl+S`).
-12. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
-13. In **Execution Results**, open the **Step Metrics** tab.
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-log-switch-case.png" alt="Switch / case: switch on anomaly_severity, data type String, cases CRITICAL to Output - Critical, WARNING to Warning, NORMAL to Normal, default Output - Critical" width="497">
+<figcaption>Switch / case: one target per severity</figcaption>
+</figure>
+</div>
+
+5. Select **OK**.
+6. Double-click **Output - Critical**. On the **File** tab, set **Filename** to `pvfs://MinIO/logs/alerts/critical_alerts` and **Extension** to `csv`, and select **Include date in filename?** and **Include time in filename?**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-log-output-critical-file.png" alt="Text file output File tab: step name Output - Critical, filename pvfs://MinIO/logs/alerts/critical_alerts, extension csv, date and time in the filename" width="800">
+<figcaption>Output - Critical, File tab</figcaption>
+</figure>
+</div>
+
+7. On the **Content** tab, set **Separator** to `,` and **Encoding** to `UTF-8`, and keep **Header** selected.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-log-output-critical-content.png" alt="Text file output Content tab: separator comma, header selected, encoding UTF-8" width="800">
+<figcaption>Content tab: separator , and UTF-8</figcaption>
+</figure>
+</div>
+
+8. On the **Fields** tab, select **Get Fields**, then **Minimal width**. Select **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-log-output-critical-fields.png" alt="Text file output Fields tab for Output - Critical: the stream's fields after Get Fields and Minimal width" width="800">
+<figcaption>Fields tab: every field, minimal width</figcaption>
+</figure>
+</div>
+
+9. Save the transformation (`Ctrl+S`).
+10. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
+11. In **Execution Results**, open the **Step Metrics** tab.
 
 > **Success:** Checkpoint: **Filter Errors** reads 123 rows, and **All others** reads 65 and **Sort rows** 58 of them. **Group by Hour** writes 4 rows. **Output - Critical** and **Warning** read 1 row each, and **Normal** 2.
 
-14. In the MinIO console, open **logs** > `alerts/`.
+12. In the MinIO console, open **logs** > `alerts/`.
 
 > **Success:** Checkpoint: `critical_alerts_<date>_<time>.csv` holds a header and one row: `log_hour` `10`, `error_count` `50`, that hour's messages, `rolling_avg_errors` 19, `YES` and `CRITICAL`. Each run adds a new file, because the date and time are in the name.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-19-log-analysis-anomaly-s38.png" alt="log_analysis_anomaly.ktr on the Spoon canvas after this tab: All others, Anomaly Detection, Calculator, Filter Errors, Group by Hour, MJV - Rolling Avg, Read App Log, Regex evaluation, Select values, Sort rows, Switch / case, Warning, Normal and Output - Critical, with the 13 hops between them" width="796">
+<figcaption>The canvas after Switch / case</figcaption>
+</figure>
+</div>
+
 
 :::
 
@@ -1352,7 +2282,7 @@ if (rowNum == 1) {
 
 [log_analysis_anomaly.ktr](./files/log_analysis_anomaly.ktr) <button data-launch="spoon" data-path="files/log_analysis_anomaly.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/log_analysis_anomaly.ktr">View graph</button>
 
-### Fraud
+### Fraud Detection
 
 > **Warning:**
 >
@@ -1407,7 +2337,22 @@ if (rowNum == 1) {
 | `Read Accounts`     | `pvfs://MinIO/raw-data/finance/accounts.csv`      |
 | `Read Merchants`    | `pvfs://MinIO/raw-data/finance/merchants.csv`     |
 
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-fraud-read-transactions-file.png" alt="Text file input File tab: step name Read Transactions, selected file pvfs://MinIO/raw-data/finance/transactions.csv" width="800">
+<figcaption>Read Transactions, File tab; the other two read accounts.csv and merchants.csv</figcaption>
+</figure>
+</div>
+
 6. On each **Content** tab, set **Separator** to `,` and **Format** to `mixed`, and keep **Header** selected.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-fraud-read-transactions-content.png" alt="Text file input Content tab for Read Transactions: separator comma, header with 1 header line, format mixed" width="800">
+<figcaption>Content tab: separator , and format mixed</figcaption>
+</figure>
+</div>
+
 7. On each **Fields** tab, select **Get Fields**, select **OK** at **Number of sample lines**, and close the **Scan results**. Check the types:
 
 | Step                | Types to check                                                                                                         |
@@ -1416,11 +2361,26 @@ if (rowNum == 1) {
 | `Read Accounts`     | `balance`, `credit_limit` BigNumber (`#.##`); `open_date` Date (`yyyy-MM-dd`); `account_id`, `customer_name`, `account_type`, `risk_rating` String |
 | `Read Merchants`    | all five String: `merchant_id`, `merchant_name`, `merchant_category`, `country`, `risk_level`                          |
 
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-fraud-read-transactions-fields.png" alt="Text file input Fields tab for Read Transactions: transaction_id, account_id, merchant_id, amount, currency, transaction_date and status with their types" width="800">
+<figcaption>Read Transactions, Fields tab</figcaption>
+</figure>
+</div>
+
 8. In each, select **Preview rows**, enter `100` rows, and select **OK**.
 
 > **Success:** Checkpoint: 63 transactions (`TXN-2024-001` to `TXN-2024-063`), 13 accounts (`ACC-1001` to `ACC-1013`) and 18 merchants (`MER-5001` to `MER-5018`).
 
 9. Select **Close**, then **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-19-fraud-detection-s39.png" alt="fraud_detection.ktr on the Spoon canvas after this tab: Read Accounts, Read Merchants and Read Transactions" width="300">
+<figcaption>The canvas after Read Accounts, Read Merchants, Read Transactions</figcaption>
+</figure>
+</div>
+
 
 ### 2. Add the Account Details
 
@@ -1435,7 +2395,23 @@ if (rowNum == 1) {
 3. Double-click **Stream lookup**, set **Step name** to `Lookup Accounts` and **Lookup step** to `Read Accounts`.
 4. In **The key(s) to look up the value(s)**, set **Field** to `account_id` and **LookupField** to `account_id`.
 5. Fill **Specify the fields to retrieve** with six rows: `customer_name`, `account_type`, `balance`, `credit_limit`, `open_date` and `risk_rating`. Or select **Get lookup fields** and delete the `account_id` row.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-fraud-lookup-accounts.png" alt="Stream lookup: step name Lookup Accounts, lookup step Read Accounts, key account_id = account_id, retrieving customer_name, account_type, balance, credit_limit, open_date and risk_rating" width="660">
+<figcaption>Lookup Accounts: six account fields by account_id</figcaption>
+</figure>
+</div>
+
 6. Select **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-19-fraud-detection-s40.png" alt="fraud_detection.ktr on the Spoon canvas after this tab: Lookup Accounts, Read Accounts, Read Merchants and Read Transactions, with the 2 hops between them" width="300">
+<figcaption>The canvas after Lookup Accounts</figcaption>
+</figure>
+</div>
+
 
 ### 3. Add the Merchant Details
 
@@ -1447,6 +2423,14 @@ if (rowNum == 1) {
 
 1. On the **Design** tab, open the **Transform** folder and drag **Sort rows** onto the canvas twice. Create a hop from **Lookup Accounts** to the first, and from **Read Merchants** to the second.
 2. Double-click each **Sort rows** in turn. Set **Step name** to `Sort by Merchants` (after **Lookup Accounts**) and `Sort Merchants` (after **Read Merchants**), and in each fill the **Fields** grid with one row: **Fieldname** `merchant_id`, **Ascending** `Y`, **Case sensitive compare?** `N`. Select **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-fraud-sort-by-merchants.png" alt="Sort rows: step name Sort by Merchants, one field merchant_id ascending, not case sensitive" width="800">
+<figcaption>Sort by Merchants: merchant_id; Sort Merchants is the same</figcaption>
+</figure>
+</div>
+
 3. On the **Design** tab, open the **Joins** folder and drag **Merge join** onto the canvas. Create a hop from **Sort by Merchants** to it, and one from **Sort Merchants** to it.
 4. Double-click **Merge join** and set:
    * **Step name**: `Join Merchants`
@@ -1454,12 +2438,28 @@ if (rowNum == 1) {
    * **Second Step**: `Sort Merchants`
    * **Join Type**: `LEFT OUTER`
 5. Enter `merchant_id` in **Keys for 1st step** and in **Keys for 2nd step**. Select **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-fraud-join-merchants.png" alt="Merge join: step name Join Merchants, first step Sort by Merchants, second step Sort Merchants, join type LEFT OUTER, key merchant_id on both sides" width="546">
+<figcaption>Join Merchants: LEFT OUTER on merchant_id</figcaption>
+</figure>
+</div>
+
 6. Save the transformation (`Ctrl+S`).
 7. Select **Join Merchants** on the canvas, press `F10` (**Action > Preview**), and select **Quick Launch**.
 
 > **Success:** Checkpoint: 63 rows, in `merchant_id` order. Every account and every merchant is found, so each row has its `customer_name`, `balance`, `merchant_name` and `risk_level` filled.
 
 8. Select **Close**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-19-fraud-detection-s41.png" alt="fraud_detection.ktr on the Spoon canvas after this tab: Join Merchants, Lookup Accounts, Read Accounts, Read Merchants, Read Transactions, Sort Merchants and Sort by Merchants, with the 6 hops between them" width="524">
+<figcaption>The canvas after Join Merchants, Sort Merchants, Sort by Merchants</figcaption>
+</figure>
+</div>
+
 
 ### 4. Calculate Metrics and Flags
 
@@ -1485,7 +2485,22 @@ if (rowNum == 1) {
 | `new_account_flag`          | `IF([days_since_account_open] < 30; 1; 0)`                              | Integer    |        |           |
 | `high_utilization_flag`     | `IF([credit_utilization] > 80; 1; 0)`                                   | Integer    |        |           |
 
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-fraud-metrics-flags.png" alt="Formula: step name Metrics + Flags, ten fields from days_since_account_open to high_utilization_flag with their formulas and value types" width="800">
+<figcaption>Metrics + Flags: four metrics and six 0/1 flags</figcaption>
+</figure>
+</div>
+
 3. Select **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-19-fraud-detection-s42.png" alt="fraud_detection.ktr on the Spoon canvas after this tab: Join Merchants, Lookup Accounts, Metrics + Flags, Read Accounts, Read Merchants, Read Transactions, Sort Merchants and Sort by Merchants, with the 7 hops between them" width="652">
+<figcaption>The canvas after Metrics + Flags</figcaption>
+</figure>
+</div>
+
 
 ### 5. Score and Categorize
 
@@ -1502,6 +2517,13 @@ if (rowNum == 1) {
    ([high_amount_flag] * 20) + ([overlimit_flag] * 30) + ([high_risk_merchant_flag] * 25) + ([velocity_flag] * 15) + ([new_account_flag] * 5) + ([high_utilization_flag] * 15)
    ```
 
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-fraud-calculate-score.png" alt="Formula: step name Calculate Fraud Score, fraud_risk_score = the six flags weighted 20, 30, 25, 15, 5 and 15 and added, Integer" width="800">
+<figcaption>Calculate Fraud Score: the weighted flags</figcaption>
+</figure>
+</div>
+
 3. Select **OK**.
 4. Drag another **Formula** onto the canvas. Create a hop from **Calculate Fraud Score** to it.
 5. Double-click it and set **Step name** to `risk_category`. Fill the **Fields** grid with one row: **New field** `risk_category`, **Value type** String, and this **Formula**:
@@ -1509,6 +2531,13 @@ if (rowNum == 1) {
    ```text
    IF([fraud_risk_score] >= 80; "CRITICAL"; IF([fraud_risk_score] >= 50; "HIGH"; IF([fraud_risk_score] >= 20; "MEDIUM"; "APPROVE")))
    ```
+
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-fraud-risk-category.png" alt="Formula: step name risk_category, CRITICAL from 80, HIGH from 50, MEDIUM from 20, else APPROVE, String" width="800">
+<figcaption>risk_category: four bands from the score</figcaption>
+</figure>
+</div>
 
 6. Select **OK** and save the transformation (`Ctrl+S`).
 7. Select **risk_category** on the canvas, press `F10` (**Action > Preview**), and select **Quick Launch**.
@@ -1529,6 +2558,14 @@ if (rowNum == 1) {
 >
 > **Why it matters:** the score is plain arithmetic over flags, so every
 > rating can be explained: a CRITICAL is a sum of named reasons.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-19-fraud-detection-s43.png" alt="fraud_detection.ktr on the Spoon canvas after this tab: Calculate Fraud Score, Join Merchants, Lookup Accounts, Metrics + Flags, Read Accounts, Read Merchants, Read Transactions, Sort Merchants, Sort by Merchants and risk_category, with the 9 hops between them" width="652">
+<figcaption>The canvas after Calculate Fraud Score, risk_category</figcaption>
+</figure>
+</div>
+
 
 :::
 
@@ -1661,7 +2698,7 @@ Open `xml/inventory.xml`. Items sit under `/inventory/items/item`:
 * `source_system` and `ingestion_time` record where each row came from and when.
 * The same product can arrive from all three sources. `P001` comes from the CSV (price 1299.99, stock 45, Electronics), the JSON (price 1299.99, quantity 1, E-commerce) and the XML (no price, stock 45, Electronics). This workshop keeps all three rows; a later step could keep one per product, preferring the CSV, then the JSON, then the XML.
 
-### 2. Ingest the Sources
+### 2. Read Products - CSV
 
 > **Note:**
 >
@@ -1676,17 +2713,141 @@ Open `xml/inventory.xml`. Items sit under `/inventory/items/item`:
 
 3. On the **Design** tab, open the **Input** folder and drag **Text file input** onto the canvas. Double-click it and set **Step name** to `Read Products - CSV`.
 4. On the **File** tab, enter `pvfs://MinIO/raw-data/csv/products.csv` in **File or directory** and select **Add**. On the **Content** tab, set **Separator** to `,` and **Format** to `mixed`, and keep **Header** selected.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-lake-csv-file.png" alt="Text file input File tab: step name Read Products - CSV, selected file pvfs://MinIO/raw-data/csv/products.csv" width="800">
+<figcaption>Read Products - CSV, File tab</figcaption>
+</figure>
+</div>
+
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-lake-csv-content.png" alt="Text file input Content tab: separator comma, header with 1 header line, format mixed" width="800">
+<figcaption>Content tab: separator , and format mixed</figcaption>
+</figure>
+</div>
+
 5. On the **Fields** tab, select **Get Fields**, select **OK** at **Number of sample lines**, and close the **Scan results**. Check that `price` is BigNumber and `stock_quantity` Integer. Select **OK**.
-6. On the **Design** tab, open the **Transform** folder and drag **Add constants** onto the canvas. Create a hop from **Read Products - CSV** to it. Double-click it, set **Step name** to `Add Metadata`, and fill the **Fields** grid with one row: **Name** `source_system`, **Type** String, **Value** `csv`. Select **OK**.
-7. On the **Design** tab, open the **Input** folder and drag **Get system info** onto the canvas. Create a hop from **Add Metadata** to it. Double-click it, set **Step name** to `Ingestion Timestamp`, and fill the **Fields** grid with one row: **Name** `ingestion_time`, **Type** `system date (variable)`. Select **OK**.
-8. On the **Design** tab, open the **Transform** folder and drag **Select values** onto the canvas. Create a hop from **Ingestion Timestamp** to it, double-click it and set **Step name** to `Map to Schema - CSV`.
-9. On the **Select & Alter** tab, list `product_id`, `product_name`, `category`, `price`, `stock_quantity` (with **Rename to** `quantity`), `source_system` and `ingestion_time`, in that order.
-10. On the **Meta-data** tab, fill the grid with one row: **Fieldname** `price`, **Type** Number, **Length** `15`, **Precision** `2`, **Format** `0.00`. Select **OK**.
 
-**JSON branch**
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-lake-csv-fields.png" alt="Text file input Fields tab for Read Products - CSV: product_id, product_name, category, price (BigNumber), stock_quantity (Integer), supplier and last_updated" width="800">
+<figcaption>Fields tab: price BigNumber, stock_quantity Integer</figcaption>
+</figure>
+</div>
 
-11. On the **Design** tab, open the **Input** folder and drag **JSON input** onto the canvas. Double-click it and set **Step name** to `Read Products - JSON`. On the **File** tab, enter `pvfs://MinIO/raw-data/json/api_response.json` in **File or directory** and select **Add**.
-12. On the **Fields** tab, fill the grid, and select **OK**:
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-19-data-lake-ingestion-s44.png" alt="data_lake_ingestion.ktr on the Spoon canvas after this tab: Read Products - CSV" width="140">
+<figcaption>The canvas after Read Products - CSV</figcaption>
+</figure>
+</div>
+
+
+### 3. Add Metadata
+
+> **Note:**
+>
+> #### Add Metadata
+>
+> Add and set up **Add constants**.
+
+1. On the **Design** tab, open the **Transform** folder and drag **Add constants** onto the canvas. Create a hop from **Read Products - CSV** to it. Double-click it, set **Step name** to `Add Metadata`, and fill the **Fields** grid with one row: **Name** `source_system`, **Type** String, **Value** `csv`. Select **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-lake-add-metadata.png" alt="Add constants: step name Add Metadata, one field source_system of type String with value csv" width="800">
+<figcaption>Add Metadata: source_system = csv</figcaption>
+</figure>
+</div>
+
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-19-data-lake-ingestion-s45.png" alt="data_lake_ingestion.ktr on the Spoon canvas after this tab: Read Products - CSV and Add Metadata, with the hop between them" width="300">
+<figcaption>The canvas after Add Metadata</figcaption>
+</figure>
+</div>
+
+
+### 4. Ingestion Timestamp
+
+> **Note:**
+>
+> #### Ingestion Timestamp
+>
+> Add and set up **Get system info**.
+
+1. On the **Design** tab, open the **Input** folder and drag **Get system info** onto the canvas. Create a hop from **Add Metadata** to it. Double-click it, set **Step name** to `Ingestion Timestamp`, and fill the **Fields** grid with one row: **Name** `ingestion_time`, **Type** `system date (variable)`. Select **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-lake-ingestion-timestamp.png" alt="Get system info: step name Ingestion Timestamp, one field ingestion_time of type system date (variable)" width="486">
+<figcaption>Ingestion Timestamp: ingestion_time</figcaption>
+</figure>
+</div>
+
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-19-data-lake-ingestion-s46.png" alt="data_lake_ingestion.ktr on the Spoon canvas after this tab: Read Products - CSV, Add Metadata and Ingestion Timestamp, with the 2 hops between them" width="428">
+<figcaption>The canvas after Ingestion Timestamp</figcaption>
+</figure>
+</div>
+
+
+### 5. Map to Schema - CSV
+
+> **Note:**
+>
+> #### Map to Schema - CSV
+>
+> Add and set up **Select values**.
+
+1. On the **Design** tab, open the **Transform** folder and drag **Select values** onto the canvas. Create a hop from **Ingestion Timestamp** to it, double-click it and set **Step name** to `Map to Schema - CSV`.
+2. On the **Select & Alter** tab, list `product_id`, `product_name`, `category`, `price`, `stock_quantity` (with **Rename to** `quantity`), `source_system` and `ingestion_time`, in that order.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-lake-map-csv-select.png" alt="Select values Select and Alter tab: step name Map to Schema - CSV, product_id, product_name, category, price, stock_quantity renamed to quantity, source_system and ingestion_time" width="800">
+<figcaption>Map to Schema - CSV: the seven schema fields</figcaption>
+</figure>
+</div>
+
+3. On the **Meta-data** tab, fill the grid with one row: **Fieldname** `price`, **Type** Number, **Length** `15`, **Precision** `2`, **Format** `0.00`. Select **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-lake-map-csv-meta.png" alt="Select values Meta-data tab: price as Number, length 15, precision 2, format 0.00" width="800">
+<figcaption>Meta-data: price as Number, 0.00</figcaption>
+</figure>
+</div>
+
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-19-data-lake-ingestion-s47.png" alt="data_lake_ingestion.ktr on the Spoon canvas after this tab: Read Products - CSV, Map to Schema - CSV, Add Metadata and Ingestion Timestamp, with the 3 hops between them" width="572">
+<figcaption>The canvas after Map to Schema - CSV</figcaption>
+</figure>
+</div>
+
+
+### 6. Read Products - JSON
+
+> **Note:**
+>
+> #### Read Products - JSON
+>
+> **JSON branch:** read `api_response.json` with **JSON input**.
+
+1. On the **Design** tab, open the **Input** folder and drag **JSON input** onto the canvas. Double-click it and set **Step name** to `Read Products - JSON`. On the **File** tab, enter `pvfs://MinIO/raw-data/json/api_response.json` in **File or directory** and select **Add**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-lake-json-file.png" alt="JSON input File tab: step name Read Products - JSON, selected file pvfs://MinIO/raw-data/json/api_response.json" width="800">
+<figcaption>Read Products - JSON, File tab</figcaption>
+</figure>
+</div>
+
+2. On the **Fields** tab, fill the grid, and select **OK**:
 
 | Name         | Path                                   | Type    | Length | Precision |
 | ------------ | -------------------------------------- | ------- | ------ | --------- |
@@ -1695,15 +2856,123 @@ Open `xml/inventory.xml`. Items sit under `/inventory/items/item`:
 | `quantity`   | `$.data.orders[*].items[*].quantity`   | Integer | 10     |           |
 | `unit_price` | `$.data.orders[*].items[*].unit_price` | Number  | 15     | 2         |
 
-13. From the **Transform** folder, drag **Add constants** onto the canvas. Create a hop from **Read Products - JSON** to it. Double-click it, set **Step name** to `Add Metadata 2`, and fill the **Fields** grid with two rows: `source_system`, String, `json`; and `category`, String, `E-commerce`. Select **OK**.
-14. From the **Input** folder, drag **Get system info** onto the canvas. Create a hop from **Add Metadata 2** to it. Double-click it, set **Step name** to `Ingestion Timestamp 2`, and fill the **Fields** grid with one row: **Name** `ingestion_time`, **Type** `system date (variable)`. Select **OK**.
-15. From the **Transform** folder, drag **Select values** onto the canvas. Create a hop from **Ingestion Timestamp 2** to it, double-click it and set **Step name** to `Map to Schema - JSON`. On the **Select & Alter** tab, list `product_id`, `name` (renamed `product_name`), `category`, `unit_price` (renamed `price`), `quantity`, `source_system` and `ingestion_time`. Select **OK**.
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-lake-json-fields.png" alt="JSON input Fields tab: product_id, name, quantity (Integer) and unit_price (Number), each from $.data.orders[*].items[*]" width="800">
+<figcaption>Fields tab: four fields from every order item</figcaption>
+</figure>
+</div>
 
-**XML branch**
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-19-data-lake-ingestion-s48.png" alt="data_lake_ingestion.ktr on the Spoon canvas after this tab: Read Products - CSV, Map to Schema - CSV, Add Metadata, Ingestion Timestamp and Read Products - JSON, with the 3 hops between them" width="572">
+<figcaption>The canvas after Read Products - JSON</figcaption>
+</figure>
+</div>
 
-16. On the **Design** tab, open the **Input** folder and drag **Get data from XML** onto the canvas. Double-click it and set **Step name** to `Read Products - XML`. On the **File** tab, enter `pvfs://MinIO/raw-data/xml/inventory.xml` in **File or directory** and select **Add**.
-17. On the **Content** tab, set **Loop XPath** to `/inventory/items/item` and **Encoding** to `UTF-8`.
-18. On the **Fields** tab, fill the grid (each **XPath** is the field's own name), and select **OK**:
+
+### 7. Add Metadata 2
+
+> **Note:**
+>
+> #### Add Metadata 2
+>
+> Add and set up **Add constants**.
+
+1. From the **Transform** folder, drag **Add constants** onto the canvas. Create a hop from **Read Products - JSON** to it. Double-click it, set **Step name** to `Add Metadata 2`, and fill the **Fields** grid with two rows: `source_system`, String, `json`; and `category`, String, `E-commerce`. Select **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-lake-add-metadata-2.png" alt="Add constants: step name Add Metadata 2, source_system String json and category String E-commerce" width="800">
+<figcaption>Add Metadata 2: source_system and category</figcaption>
+</figure>
+</div>
+
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-19-data-lake-ingestion-s49.png" alt="data_lake_ingestion.ktr on the Spoon canvas after this tab: Read Products - CSV, Map to Schema - CSV, Add Metadata, Ingestion Timestamp, Read Products - JSON and Add Metadata 2, with the 4 hops between them" width="572">
+<figcaption>The canvas after Add Metadata 2</figcaption>
+</figure>
+</div>
+
+
+### 8. Ingestion Timestamp 2
+
+> **Note:**
+>
+> #### Ingestion Timestamp 2
+>
+> Add and set up **Get system info**.
+
+1. From the **Input** folder, drag **Get system info** onto the canvas. Create a hop from **Add Metadata 2** to it. Double-click it, set **Step name** to `Ingestion Timestamp 2`, and fill the **Fields** grid with one row: **Name** `ingestion_time`, **Type** `system date (variable)`. Select **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-lake-ingestion-timestamp-2.png" alt="Get system info: step name Ingestion Timestamp 2, one field ingestion_time of type system date (variable)" width="486">
+<figcaption>Ingestion Timestamp 2</figcaption>
+</figure>
+</div>
+
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-19-data-lake-ingestion-s50.png" alt="data_lake_ingestion.ktr on the Spoon canvas after this tab: Read Products - CSV, Map to Schema - CSV, Add Metadata, Ingestion Timestamp, Read Products - JSON, Add Metadata 2 and Ingestion Timestamp 2, with the 5 hops between them" width="572">
+<figcaption>The canvas after Ingestion Timestamp 2</figcaption>
+</figure>
+</div>
+
+
+### 9. Map to Schema - JSON
+
+> **Note:**
+>
+> #### Map to Schema - JSON
+>
+> Add and set up **Select values**.
+
+1. From the **Transform** folder, drag **Select values** onto the canvas. Create a hop from **Ingestion Timestamp 2** to it, double-click it and set **Step name** to `Map to Schema - JSON`. On the **Select & Alter** tab, list `product_id`, `name` (renamed `product_name`), `category`, `unit_price` (renamed `price`), `quantity`, `source_system` and `ingestion_time`. Select **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-lake-map-json.png" alt="Select values Select and Alter tab: step name Map to Schema - JSON, product_id, name renamed to product_name, category, unit_price renamed to price, quantity, source_system and ingestion_time" width="800">
+<figcaption>Map to Schema - JSON: the same seven fields</figcaption>
+</figure>
+</div>
+
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-19-data-lake-ingestion-s51.png" alt="data_lake_ingestion.ktr on the Spoon canvas after this tab: Read Products - CSV, Map to Schema - CSV, Add Metadata, Ingestion Timestamp, Read Products - JSON, Map to Schema - JSON, Add Metadata 2 and Ingestion Timestamp 2, with the 6 hops between them" width="572">
+<figcaption>The canvas after Map to Schema - JSON</figcaption>
+</figure>
+</div>
+
+
+### 10. Read Products - XML
+
+> **Note:**
+>
+> #### Read Products - XML
+>
+> **XML branch:** read `inventory.xml` with **Get data from XML**.
+
+1. On the **Design** tab, open the **Input** folder and drag **Get data from XML** onto the canvas. Double-click it and set **Step name** to `Read Products - XML`. On the **File** tab, enter `pvfs://MinIO/raw-data/xml/inventory.xml` in **File or directory** and select **Add**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-lake-xml-file.png" alt="Get data from XML File tab: step name Read Products - XML, selected file pvfs://MinIO/raw-data/xml/inventory.xml" width="800">
+<figcaption>Read Products - XML, File tab</figcaption>
+</figure>
+</div>
+
+2. On the **Content** tab, set **Loop XPath** to `/inventory/items/item` and **Encoding** to `UTF-8`.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-lake-xml-content.png" alt="Get data from XML Content tab: loop XPath /inventory/items/item, encoding UTF-8" width="800">
+<figcaption>Content tab: one row per item</figcaption>
+</figure>
+</div>
+
+3. On the **Fields** tab, fill the grid (each **XPath** is the field's own name), and select **OK**:
 
 | Name       | XPath      | Type    | Format | Length |
 | ---------- | ---------- | ------- | ------ | ------ |
@@ -1712,17 +2981,104 @@ Open `xml/inventory.xml`. Items sit under `/inventory/items/item`:
 | `category` | `category` | String  |        | 100    |
 | `quantity` | `quantity` | Integer | `#`    | 10     |
 
-19. From the **Transform** folder, drag **Add constants** onto the canvas. Create a hop from **Read Products - XML** to it. Double-click it, set **Step name** to `Add Metadata 3`, and fill the **Fields** grid with two rows: `source_system`, String, `xml`; and `price`, Number, **Format** `0.00`, with no value (null). Select **OK**.
-20. From the **Input** folder, drag **Get system info** onto the canvas. Create a hop from **Add Metadata 3** to it. Double-click it, set **Step name** to `Ingestion Timestamp 3`, and fill the **Fields** grid with one row: **Name** `ingestion_time`, **Type** `system date (variable)`. Select **OK**.
-21. From the **Transform** folder, drag **Select values** onto the canvas. Create a hop from **Ingestion Timestamp 3** to it, double-click it and set **Step name** to `Map to Schema - XML`. On the **Select & Alter** tab, list `sku` (renamed `product_id`), `name` (renamed `product_name`), `category`, `price`, `quantity`, `source_system` and `ingestion_time`. Select **OK**.
-22. Save the transformation (`Ctrl+S`).
-23. Select each **Map to Schema** step on the canvas in turn, press `F10` (**Action > Preview**), and select **Quick Launch**.
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-lake-xml-fields.png" alt="Get data from XML Fields tab: sku, name, category (String) and quantity (Integer), each XPath the field's own name" width="800">
+<figcaption>Fields tab: four fields</figcaption>
+</figure>
+</div>
+
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-19-data-lake-ingestion-s52.png" alt="data_lake_ingestion.ktr on the Spoon canvas after this tab: Read Products - CSV, Map to Schema - CSV, Add Metadata, Ingestion Timestamp, Read Products - JSON, Map to Schema - JSON, Add Metadata 2, Ingestion Timestamp 2 and Read Products - XML, with the 6 hops between them" width="572">
+<figcaption>The canvas after Read Products - XML</figcaption>
+</figure>
+</div>
+
+
+### 11. Add Metadata 3
+
+> **Note:**
+>
+> #### Add Metadata 3
+>
+> Add and set up **Add constants**.
+
+1. From the **Transform** folder, drag **Add constants** onto the canvas. Create a hop from **Read Products - XML** to it. Double-click it, set **Step name** to `Add Metadata 3`, and fill the **Fields** grid with two rows: `source_system`, String, `xml`; and `price`, Number, **Format** `0.00`, with no value (null). Select **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-lake-add-metadata-3.png" alt="Add constants: step name Add Metadata 3, source_system String xml, and price Number with format 0.00 and no value" width="800">
+<figcaption>Add Metadata 3: source_system, and an empty price</figcaption>
+</figure>
+</div>
+
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-19-data-lake-ingestion-s53.png" alt="data_lake_ingestion.ktr on the Spoon canvas after this tab: Read Products - CSV, Map to Schema - CSV, Add Metadata, Ingestion Timestamp, Read Products - JSON, Map to Schema - JSON, Add Metadata 2, Ingestion Timestamp 2, Read Products - XML and Add Metadata 3, with the 7 hops between them" width="572">
+<figcaption>The canvas after Add Metadata 3</figcaption>
+</figure>
+</div>
+
+
+### 12. Ingestion Timestamp 3
+
+> **Note:**
+>
+> #### Ingestion Timestamp 3
+>
+> Add and set up **Get system info**.
+
+1. From the **Input** folder, drag **Get system info** onto the canvas. Create a hop from **Add Metadata 3** to it. Double-click it, set **Step name** to `Ingestion Timestamp 3`, and fill the **Fields** grid with one row: **Name** `ingestion_time`, **Type** `system date (variable)`. Select **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-lake-ingestion-timestamp-3.png" alt="Get system info: step name Ingestion Timestamp 3, one field ingestion_time of type system date (variable)" width="486">
+<figcaption>Ingestion Timestamp 3</figcaption>
+</figure>
+</div>
+
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-19-data-lake-ingestion-s54.png" alt="data_lake_ingestion.ktr on the Spoon canvas after this tab: Read Products - CSV, Map to Schema - CSV, Add Metadata, Ingestion Timestamp, Read Products - JSON, Map to Schema - JSON, Add Metadata 2, Ingestion Timestamp 2, Read Products - XML, Add Metadata 3 and Ingestion Timestamp 3, with the 8 hops between them" width="572">
+<figcaption>The canvas after Ingestion Timestamp 3</figcaption>
+</figure>
+</div>
+
+
+### 13. Map to Schema - XML
+
+> **Note:**
+>
+> #### Map to Schema - XML
+>
+> Add and set up **Select values**.
+
+1. From the **Transform** folder, drag **Select values** onto the canvas. Create a hop from **Ingestion Timestamp 3** to it, double-click it and set **Step name** to `Map to Schema - XML`. On the **Select & Alter** tab, list `sku` (renamed `product_id`), `name` (renamed `product_name`), `category`, `price`, `quantity`, `source_system` and `ingestion_time`. Select **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-lake-map-xml.png" alt="Select values Select and Alter tab: step name Map to Schema - XML, sku renamed to product_id, name renamed to product_name, category, price, quantity, source_system and ingestion_time" width="800">
+<figcaption>Map to Schema - XML: the same seven fields</figcaption>
+</figure>
+</div>
+
+2. Save the transformation (`Ctrl+S`).
+3. Select each **Map to Schema** step on the canvas in turn, press `F10` (**Action > Preview**), and select **Quick Launch**.
 
 > **Success:** Checkpoint: the CSV gives 18 rows, the JSON 2 and the XML 17, each with the same seven columns in the same order.
 
-24. Select **Close**.
+4. Select **Close**.
 
-### 3. Combine
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-19-data-lake-ingestion-s55.png" alt="data_lake_ingestion.ktr on the Spoon canvas after this tab: Read Products - CSV, Map to Schema - CSV, Add Metadata, Ingestion Timestamp, Read Products - JSON, Map to Schema - JSON, Add Metadata 2, Ingestion Timestamp 2, Read Products - XML, Map to Schema - XML, Add Metadata 3 and Ingestion Timestamp 3, with the 9 hops between them" width="572">
+<figcaption>The canvas after Map to Schema - XML</figcaption>
+</figure>
+</div>
+
+
+### 14. Combine
 
 > **Note:**
 >
@@ -1731,6 +3087,14 @@ Open `xml/inventory.xml`. Items sit under `/inventory/items/item`:
 > **Append streams** takes only two inputs, a head and a tail. To stack three, hop them all into one step: Pentaho Data Integration passes on every row that arrives on any of its input hops, like a SQL `UNION ALL`.
 
 1. On the **Design** tab, open the **Flow** folder and drag **Dummy (do nothing)** onto the canvas. Double-click it, set **Step name** to `Combine All Products`, and select **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-lake-combine.png" alt="Dummy (do nothing): step name Combine All Products" width="406">
+<figcaption>Combine All Products: three hops in, one stream out</figcaption>
+</figure>
+</div>
+
 2. Create a hop from each **Map to Schema** step to **Combine All Products**.
 3. Save the transformation (`Ctrl+S`).
 4. Press `F9` (**Action > Run**). In the **Run Options** dialog, select **Enable safe mode**, then select **Run**.
@@ -1767,7 +3131,15 @@ P001        Laptop Pro 15   Electronics           45        xml    <- again, and
 
 > **Success:** Checkpoint: 37 rows (18 CSV, 2 JSON, 17 XML), no errors in safe mode, and every value in its own column.
 
-### 4. Validate (Extension)
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-19-data-lake-ingestion-s56.png" alt="data_lake_ingestion.ktr on the Spoon canvas after this tab: Read Products - CSV, Map to Schema - CSV, Add Metadata, Ingestion Timestamp, Read Products - JSON, Map to Schema - JSON, Add Metadata 2, Ingestion Timestamp 2, Read Products - XML, Map to Schema - XML, Add Metadata 3, Ingestion Timestamp 3 and Combine All Products, with the 12 hops between them" width="780">
+<figcaption>The canvas after Combine All Products</figcaption>
+</figure>
+</div>
+
+
+### 15. Validate (Extension)
 
 > **Note:**
 >
@@ -1781,18 +3153,27 @@ P001        Laptop Pro 15   Electronics           45        xml    <- again, and
 4. Select **New validation**, enter `product_name required`, and select **OK**. Set **Name of field to validate** to `product_name`, and clear **Null allowed?**.
 5. Select **New validation**, enter `price not negative`, and select **OK**. Set **Name of field to validate** to `price`, keep **Null allowed?** selected (the XML feed has no price), set **Data type** to `Number` and **Minimum value** to `0`.
 6. Select **OK**.
-7. On the **Design** tab, open the **Output** folder and drag **Text file output** onto the canvas twice. Double-click each in turn, set **Step name** to `Write Valid Products` and `Write Error Records`, and select **OK**.
-8. Create a hop from **Validate Product Data** to **Write Valid Products** and select **Main output of step**.
-9. Create a hop from **Validate Product Data** to **Write Error Records** and select **Error handling of step**.
-10. Right-click **Validate Product Data** and select **Error Handling...**. In the **Step error handling settings** dialog, set **Error descriptions fieldname** to `validation_errors`, and select **OK**.
+
+### 16. Write Valid Products
+
+> **Note:**
+>
+> #### Write Valid Products
+>
+> Add and set up **Text file output**.
+
+1. On the **Design** tab, open the **Output** folder and drag **Text file output** onto the canvas twice. Double-click each in turn, set **Step name** to `Write Valid Products` and `Write Error Records`, and select **OK**.
+2. Create a hop from **Validate Product Data** to **Write Valid Products** and select **Main output of step**.
+3. Create a hop from **Validate Product Data** to **Write Error Records** and select **Error handling of step**.
+4. Right-click **Validate Product Data** and select **Error Handling...**. In the **Step error handling settings** dialog, set **Error descriptions fieldname** to `validation_errors`, and select **OK**.
 
 > **Note:** **Data validator** routes failing rows through its error hop; there is no "validation result" field on the good rows to filter on.
 
-11. Double-click **Write Valid Products**. On the **File** tab, set **Filename** to `pvfs://MinIO/curated/products/products` and **Extension** to `csv`, and select **Include date in filename?**. On the **Content** tab, set **Separator** to `,`. On the **Fields** tab, select **Get Fields**, then **Minimal width**. Select **OK**.
-12. Set up **Write Error Records** the same way, with **Filename** `pvfs://MinIO/curated/products/errors/validation_errors`. Its **Get Fields** adds `validation_errors` after the product fields.
-13. Save the transformation (`Ctrl+S`).
-14. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
-15. In **Execution Results**, open the **Step Metrics** tab.
+5. Double-click **Write Valid Products**. On the **File** tab, set **Filename** to `pvfs://MinIO/curated/products/products` and **Extension** to `csv`, and select **Include date in filename?**. On the **Content** tab, set **Separator** to `,`. On the **Fields** tab, select **Get Fields**, then **Minimal width**. Select **OK**.
+6. Set up **Write Error Records** the same way, with **Filename** `pvfs://MinIO/curated/products/errors/validation_errors`. Its **Get Fields** adds `validation_errors` after the product fields.
+7. Save the transformation (`Ctrl+S`).
+8. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
+9. In **Execution Results**, open the **Step Metrics** tab.
 
 > **Success:** Checkpoint: **Validate Product Data** reads 37 rows, **Write Valid Products** writes 37 and **Write Error Records** writes 0. Every row has a `product_id` and a `product_name`, and every price is 0 or more, or empty.
 

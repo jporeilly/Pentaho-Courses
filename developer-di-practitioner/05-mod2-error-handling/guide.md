@@ -56,6 +56,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 2. Select **File > New > Transformation** (`Ctrl+N`).
 3. Select **File > Save as** and save it as `tr_error_handling.ktr` in `C:\Workshop-DI-Practitioner\02-components-concepts\02-key-concepts\05-mod2-error-handling`, next to `customers-100-with-errors.txt`. Saving first gives `${Internal.Entry.Current.Directory}` a value. (On your own machine, download the file from **Lab Files** below into the folder you save in.)
+
 4. On the **Design** tab, open the **Input** folder and drag **CSV file input** onto the canvas.
 5. Double-click **CSV file input**. Keep its step name, `CSV file input`.
 6. Set **Filename** to `${Internal.Entry.Current.Directory}/customers-100-with-errors.txt`.
@@ -82,27 +83,76 @@ Set-Location C:\Pentaho\design-tools\data-integration
 <div align="center">
 <figure>
 <img src="../_assets/images/csv-file-input.png" alt="The CSV file input dialog with the file name, the semicolon delimiter and the fields from Get Fields" width="800">
-<figcaption>CSV file input after Get Fields; set id, zip and housenr as the table shows</figcaption>
+<figcaption>CSV file input with the fields set as the table shows</figcaption>
 </figure>
 </div>
 
 > **Warning:** Keep these types and the `yyyy/MM/dd` format. 99 of the 100 birthdates use that format, and all but one `id` and all but one `housenr` are whole numbers. The few values that don't fit are what send rows to the error stream. Customer 87's `zip` is written `18,00`; with these settings it converts, so customer 87 is not an error row.
 
 13. Select **OK**.
-14. On the **Design** tab, open the **Flow** folder and drag **Dummy (do nothing)** onto the canvas, to the right of **CSV file input**.
-15. Create a hop from **CSV file input** to **Dummy (do nothing)**: hold `Shift` and drag from one step to the other. When Spoon asks, select **Main output of step**.
-16. From the **Flow** folder, drag a second **Dummy (do nothing)** onto the canvas, below **CSV file input**.
-17. Double-click the new step.
-18. Set **Step name** to `Errors`.
-19. Select **OK**.
 
-### 2. Error hop
+### 2. Dummy (do nothing)
+
+> **Note:**
+>
+> #### Dummy (do nothing)
+>
+> **Dummy (do nothing)** receives the rows that convert. Keep its default name.
+
+1. On the **Design** tab, open the **Flow** folder and drag **Dummy (do nothing)** onto the canvas, to the right of **CSV file input**.
+2. Create a hop from **CSV file input** to **Dummy (do nothing)**: hold `Shift` and drag from one step to the other. When Spoon asks, select **Main output of step**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-05-tr-error-handling-s1.png" alt="tr_error_handling.ktr on the Spoon canvas after this tab: CSV file input and Dummy (do nothing), with the hop between them" width="380">
+<figcaption>The canvas after Dummy (do nothing)</figcaption>
+</figure>
+</div>
+
+
+### 3. Errors
+
+> **Note:**
+>
+> #### Errors
+>
+> Add a second **Dummy (do nothing)** and name it `Errors`: the rows that fail to convert will arrive here.
+
+1. From the **Flow** folder, drag a second **Dummy (do nothing)** onto the canvas, below **CSV file input**.
+2. Double-click the new step.
+3. Set **Step name** to `Errors`.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/error-handling-errors-dummy.png" alt="Dummy (do nothing): step name Errors" width="406">
+<figcaption>Errors: the step the failed rows go to</figcaption>
+</figure>
+</div>
+
+4. Select **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-05-tr-error-handling-s2.png" alt="tr_error_handling.ktr on the Spoon canvas after this tab: CSV file input, Dummy (do nothing) and Errors, with the hop between them" width="380">
+<figcaption>The canvas after Errors</figcaption>
+</figure>
+</div>
+
+
+### 4. Error hop
 
 > **Note:**
 >
 > #### Error hop
 >
 > An error hop sends the rows that fail in a step to a separate step, so the valid rows keep flowing. Each failed row arrives with extra fields that say why it failed.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/error-hop-split.png" alt="CSV file input reads customers-100-with-errors.txt; the 97 rows that convert go to Dummy (do nothing), and the 3 rows that fail go down the error hop to Errors with errorCount, errorDescriptions, errorFields and errorCodes" width="784">
+<figcaption>Valid rows flow on; failed rows take the error hop</figcaption>
+</figure>
+</div>
 
 1. Create a hop from **CSV file input** to **Errors** and select **Error handling of step**. Spoon draws the hop red and dashed, with an error icon at the **CSV file input** end.
 2. Right-click **CSV file input** and select **Error Handling...**. The **Step error handling settings** dialog opens.
@@ -126,7 +176,7 @@ Next, name the four fields that Pentaho Data Integration adds to every failed ro
 9. Select **OK**.
 10. Save the transformation (`Ctrl+S`).
 
-### 3. Run
+### 5. Run
 
 > **Note:**
 >
@@ -154,7 +204,7 @@ Next, name the four fields that Pentaho Data Integration adds to every failed ro
 
 <div align="center">
 <figure>
-<img src="../_assets/images/errors-for-incorrectly-formatted-birthdates.png" alt="Preview data of the Errors step: a rejected row with its error count, description, field and code" width="800">
+<img src="../_assets/images/errors-for-incorrectly-formatted-birthdates.png" alt="Preview data of the Errors step: the three rejected rows, each with its error count, description, field and code" width="800">
 <figcaption>The rejected rows and their error fields</figcaption>
 </figure>
 </div>

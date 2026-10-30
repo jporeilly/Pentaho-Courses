@@ -711,7 +711,7 @@ Shipped data: 2 rows updated: 1002 FIRSTNAME Diana and JOBTITLE CEO,
         <nullif>-</nullif>
         <ifnull/>
         <position>-1</position>
-        <length>20</length>
+        <length>29</length>
         <precision>-1</precision>
         <trim_type>none</trim_type>
         <repeat>N</repeat>

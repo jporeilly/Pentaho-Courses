@@ -42,14 +42,16 @@ Set-Location C:\Pentaho\design-tools\data-integration
 .\spoon.bat
 ```
 
-<button data-launch="spoon" data-path="">Start: Pentaho Data Integration</button>
+<button data-launch="spoon" data-path="">Start Pentaho Data Integration</button>
 
 2. Wait for Spoon to open. It loads all its plugins first, so it takes longer to start than most applications.
 3. Look at the **Welcome!** tab. It has four panels:
-   * **OPEN**: **Files**, to open a transformation or job you already have.
-   * **CREATE**: **Transformation** and **Job**, the same as **File > New**.
+   * **OPEN**: **Files**, to open a transformation or job you already have, and **Project**.
+   * **CREATE**: **Project**, **Transformation** and **Job**. **Transformation** and **Job** are the same as **File > New**.
    * **LEARN**: **Documentation**, **Watch tutorials** and **Release notes**.
-   * **EXTEND**: **Build plugins**, for developers who write their own steps.
+   * **EXTEND**: **Plugin Manager** and **Build plugins**, for adding plugins to Spoon.
+
+   This course doesn't use projects: leave the **Projects** list above the **View** and **Design** tabs at `<No Project>`.
 
    Below them are links to the community and the forums.
 
@@ -68,7 +70,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 2. Clear **Show welcome page at startup**. **Help > Welcome Screen** brings the page back whenever you want it.
 3. Clear **Use database cache**.
 4. Check that **Show repository dialog at startup** and **Ask user when exiting** are cleared. They are cleared by default; if either is selected, clear it.
-5. Leave every other option as it is, and stay in the dialog for the next step.
+5. Leave every other option as it is, and stay in the dialog for the next tab.
 
 <div align="center">
 <figure>

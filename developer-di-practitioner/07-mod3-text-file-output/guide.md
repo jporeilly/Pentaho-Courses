@@ -45,12 +45,6 @@
 > 
 > Use **Get system info** to read a value passed in at run time. Here that value is the customer's name.
 
-<figure>
-
-<figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
-
-</figure>
-
 1. Start Spoon with the **Start Pentaho Data Integration** button below, or from PowerShell:
 
 ```powershell
@@ -124,7 +118,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 3. Set **Step name** to `instructions`.
 4. On the **Meta** tab, fill the grid with one row: **Name** `text`, **Type** `String`.
 5. Open the **Data** tab and enter three rows in the `text` column:
-   1. A line of exactly 52 hyphens:
+   1. A line of ~50 hyphens:
 
       ```text
       ----------------------------------------------------
@@ -451,7 +445,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 5. In **Execution Results**, open the **Step Metrics** tab.
 
-> **Success:** Checkpoint: **TFO - survey** shows `7` in **Written**: 1 customer line, 3 header lines and 3 questions. **Append streams** shows `4` and **select questions** `3`.
+> **Success:** Checkpoint: **TFO - survey** shows `7` in **Written**: 1 customer line, 3 header lines and 3 questions. **Append streams** shows `4` in **Written** and **select questions** `3`.
 
 6. Select **TFO - survey** on the canvas and open the **Preview data** tab.
 
@@ -497,9 +491,3 @@ The finished transformation for this lab. Open it alongside your own to compare,
 Also on disk at `C:\Workshop-DI-Practitioner\03-data-sources\01-flat-files\07-mod3-text-file-output\solution`.
 
 [tr_write_output.ktr](./files/tr_write_output.ktr) <button data-launch="spoon" data-path="files/tr_write_output.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/tr_write_output.ktr">View graph</button>
-
----
-
-
----
-

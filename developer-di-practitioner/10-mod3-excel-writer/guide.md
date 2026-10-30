@@ -30,7 +30,7 @@
 
 <div align="center">
 <figure>
-<img src="../_assets/images/excel.png" alt="The finished transformation: three branches - year, sales and expenses - each writing to the same workbook" width="619">
+<img src="../_assets/images/excel.png" alt="The finished transformation: three branches - year, sales and expenses - each writing to the same workbook" width="598">
 <figcaption>What you build</figcaption>
 </figure>
 </div>
@@ -175,7 +175,9 @@ Set-Location C:\Pentaho\design-tools\data-integration
    | **Force formula recalculation** | selected |
    | **Leave styles of existing cells unchanged** | selected |
 
-   **Force formula recalculation** makes the step evaluate every formula in the workbook before it saves the file, so the totals hold values computed from your numbers instead of the template's cached `0` and `#DIV/0!`. **Leave styles of existing cells unchanged** keeps the template's cell formats, such as `yyyy` on `B1` and the euro format on the data cells.
+   **Force formula recalculation** makes the step evaluate every formula in the workbook before it saves the file, so the totals hold values computed from your numbers instead of the template's cached `0` and `#DIV/0!`. **Leave styles of existing cells unchanged** keeps the template's cell formats, such as `yyyy` on `B1` and the dollar format (`"$"#,##0.00`) on the data cells.
+
+6. Under **Fields**, select **Get Fields**. The grid lists one field, `year`, a Date.
 
 <div align="center">
 <figure>
@@ -184,7 +186,6 @@ Set-Location C:\Pentaho\design-tools\data-integration
 </figure>
 </div>
 
-6. Under **Fields**, select **Get Fields**. The grid lists one field, `year`, a Date.
 7. Select **OK**.
 
 > **Under the hood:**
@@ -276,7 +277,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 10. Select **Close**, then select **OK** to close **Read Sales**.
 
-### 2. Block until Step Finish - Wait Year
+### 2. Block until Steps Finish - Wait for Year
 
 > **Note:**
 >
@@ -365,6 +366,9 @@ Set-Location C:\Pentaho\design-tools\data-integration
 | **Force formula recalculation**              | selected                                   |
 | **Leave styles of existing cells unchanged** | selected                                   |
 
+6. Under **Fields**, select **Get Fields**. The grid lists `productline` and the six months, each with a **Format** such as `000000.00`.
+7. Delete the `productline` row: select it, right-click, and select **Delete selected lines**. The template already has the product line names in column A, so you write only the six months, into `B5:G8`.
+
 <div align="center">
 <figure>
 <img src="../_assets/images/excel-writer-content-1.png" alt="Excel writer Content tab starting at cell B5, with the six monthly fields in the Fields grid" width="800">
@@ -372,8 +376,6 @@ Set-Location C:\Pentaho\design-tools\data-integration
 </figure>
 </div>
 
-6. Under **Fields**, select **Get Fields**. The grid lists `productline` and the six months, each with a **Format** such as `000000.00`.
-7. Delete the `productline` row: select it, right-click, and select **Delete selected lines**. The template already has the product line names in column A, so you write only the six months, into `B5:G8`.
 8. Select **OK**.
 
 :::
@@ -395,7 +397,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 ::: tabs
 
-### 1.  Text File Input - Read Expenses
+### 1. Text File Input - Read Expenses
 
 > **Note:**
 >
@@ -450,7 +452,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 9. Select **Close**, then select **OK** to close **Read Expenses**.
 
-### 2. Block until Step finish - Sales
+### 2. Block until Steps Finish - Wait for Sales
 
 > **Note:**
 >

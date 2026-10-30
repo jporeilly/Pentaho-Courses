@@ -34,9 +34,16 @@
 </figure>
 </div>
 
+<div align="center">
+<figure>
+<img src="../_assets/images/sql-bind-parameters.png" alt="Three ways to fill the ? markers: one row with two fields runs the query once; three rows with Execute for each row? selected run it three times; two rows of one field with Execute for each row? cleared are flattened in arrival order and run it once" width="784">
+<figcaption>How each Data grid fills the ? markers</figcaption>
+</figure>
+</div>
+
 :::: tabs
 
-### 1. Parameters (1 Row)
+### 1. Parameters (1 row)
 
 > **Note:**
 >
@@ -55,6 +62,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 2. Select **File > New > Transformation** (`Ctrl+N`).
 3. Select **File > Save as** and save it as `tr_parameters_sql.ktr` in `C:\Workshop-DI-Practitioner\05-enterprise-solution\03-parameters\35-mod5-parameters-sql`.
+
 4. On the **Design** tab, open the **Input** folder and drag **Data grid** onto the canvas.
 5. Double-click **Data grid**.
 6. Set **Step name** to `Parameters (1 row)`.
@@ -80,12 +88,20 @@ Set-Location C:\Pentaho\design-tools\data-integration
 </figure>
 </div>
 
-10. On the **Design** tab, open the **Input** folder and drag **Table input** onto the canvas.
-11. Create a hop from **Parameters (1 row)** to **Table input**: hold `Shift` and drag from one step to the other.
-12. Double-click **Table input**.
-13. Set **Step name** to `Steel Wheels Products 1`.
-14. Set **Connection** to `MySQL:sampledata`.
-15. Enter the query in **SQL**:
+### 2. Steel Wheels Products 1
+
+> **Note:**
+>
+> #### Steel Wheels Products 1
+>
+> Add and set up **Table input**.
+
+1. On the **Design** tab, open the **Input** folder and drag **Table input** onto the canvas.
+2. Create a hop from **Parameters (1 row)** to **Table input**: hold `Shift` and drag from one step to the other.
+3. Double-click **Table input**.
+4. Set **Step name** to `Steel Wheels Products 1`.
+5. Set **Connection** to `MySQL:sampledata`.
+6. Enter the query in **SQL**:
 
 ```sql
 SELECT PRODUCTLINE
@@ -97,9 +113,9 @@ WHERE  PRODUCTLINE  = ?
 AND    PRODUCTSCALE = ?
 ```
 
-16. Select **Replace variables in script?**, as the solution has it. This query has no `${}`, so it changes nothing here.
-17. Set **Insert data from step** to `Parameters (1 row)`.
-18. Leave **Execute for each row?** cleared, and select **OK**.
+7. Select **Replace variables in script?**, as the solution has it. This query has no `${}`, so it changes nothing here.
+8. Set **Insert data from step** to `Parameters (1 row)`.
+9. Leave **Execute for each row?** cleared, and select **OK**.
 
 <div align="center">
 <figure>
@@ -114,9 +130,9 @@ AND    PRODUCTSCALE = ?
 > * The incoming values are used up by the query; they don't continue in the stream.
 > * A `?` can only stand where a value can. Table names, column names and keywords can't be `?` markers; use `${VARIABLE}` substitution for those, as in [Parameters](../34-mod5-parameters/guide.md).
 
-19. Save the transformation (`Ctrl+S`).
-20. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog. The Data grid runs with the transformation and feeds the query. (The **Preview** button in the **Table input** dialog is not available once **Insert data from step** is set.)
-21. Select **Steel Wheels Products 1** on the canvas and open the **Preview data** tab in **Execution Results**.
+10. Save the transformation (`Ctrl+S`).
+11. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog. The Data grid runs with the transformation and feeds the query. (The **Preview** button in the **Table input** dialog is not available once **Insert data from step** is set.)
+12. Select **Steel Wheels Products 1** on the canvas and open the **Preview data** tab in **Execution Results**.
 
 > **Success:** Checkpoint: 3 products, the Classic Cars in 1:10 scale: `1952 Alpine Renault 1300`, `1972 Alfa Romeo GTA` and `1962 LanciaA Delta 16V`.
 
@@ -149,7 +165,7 @@ AND    PRODUCTSCALE = ?
 > **Why it matters:** values by `?`, identifiers by `${}`. Keep the
 > rule and your queries stay both safe and portable.
 
-### 2. Parameters (Several Rows)
+### 3. Parameters (Several Rows)
 
 > **Note:**
 >
@@ -184,14 +200,22 @@ AND    PRODUCTSCALE = ?
 </figure>
 </div>
 
-7. From the **Input** folder, drag a second **Table input** onto the canvas.
-8. Create a hop from **Parameters (several rows)** to the new **Table input**.
-9. Double-click the new **Table input**.
-10. Set **Step name** to `Steel Wheels Products 2`.
-11. Set **Connection** to `MySQL:sampledata`, and enter the same query as **Steel Wheels Products 1** in **SQL**.
-12. Select **Replace variables in script?**.
-13. Set **Insert data from step** to `Parameters (several rows)`.
-14. Select **Execute for each row?**, and select **OK**.
+### 4. Steel Wheels Products 2
+
+> **Note:**
+>
+> #### Steel Wheels Products 2
+>
+> Add and set up **Table input**.
+
+1. From the **Input** folder, drag a second **Table input** onto the canvas.
+2. Create a hop from **Parameters (several rows)** to the new **Table input**.
+3. Double-click the new **Table input**.
+4. Set **Step name** to `Steel Wheels Products 2`.
+5. Set **Connection** to `MySQL:sampledata`, and enter the same query as **Steel Wheels Products 1** in **SQL**.
+6. Select **Replace variables in script?**.
+7. Set **Insert data from step** to `Parameters (several rows)`.
+8. Select **Execute for each row?**, and select **OK**.
 
 <div align="center">
 <figure>
@@ -200,11 +224,11 @@ AND    PRODUCTSCALE = ?
 </figure>
 </div>
 
-15. Save the transformation (`Ctrl+S`).
-16. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
-17. Select **Steel Wheels Products 2** on the canvas and open the **Preview data** tab in **Execution Results**.
+9. Save the transformation (`Ctrl+S`).
+10. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
+11. Select **Steel Wheels Products 2** on the canvas and open the **Preview data** tab in **Execution Results**.
 
-> **Success:** Checkpoint: 7 products, 3 Classic Cars in 1:10, 3 Motorcycles in 1:10 and 1 Motorcycle in 1:12, from three executions of the one query. The markers are filled as in tab 1: in field order, values only.
+> **Success:** Checkpoint: 7 products, 3 Classic Cars in 1:10, 3 Motorcycles in 1:10 and 1 Motorcycle in 1:12, from three executions of the one query. The markers are filled as in tab 2: in field order, values only.
 
 <div align="center">
 <figure>
@@ -217,13 +241,13 @@ AND    PRODUCTSCALE = ?
 >
 > #### Three rows in: the query runs three times
 >
-> The difference between this tab and the last is a single check box on
+> The difference between this Table input and **Steel Wheels Products 1** (tab 2) is a single check box on
 > the Table input step: **Execute for each row?** With it selected, the
 > step runs the query once for every row the data grid sends, binding
 > that row's values to the markers: three rows, three executions, one
 > result set after another flowing into the same output stream.
 >
-> With it cleared (as in the next tab, *1 by row*), the step instead reads
+> With it cleared (as in tab 6, *1 by row*), the step instead reads
 > *all* incoming rows before running anything, flattens their values
 > into one list in arrival order, and fills the `?` markers from that
 > list in a single execution. Same query, same markers, two very
@@ -235,7 +259,7 @@ AND    PRODUCTSCALE = ?
 > million, the loop is a million queries, and a join in SQL beats it
 > every time.
 
-### 3. Parameters (1 by Row)
+### 5. Parameters (1 by Row)
 
 > **Note:**
 >
@@ -263,14 +287,22 @@ AND    PRODUCTSCALE = ?
 </figure>
 </div>
 
-7. From the **Input** folder, drag a third **Table input** onto the canvas.
-8. Create a hop from **Parameters (1 by row)** to the new **Table input**.
-9. Double-click the new **Table input**.
-10. Set **Step name** to `Steel Wheels Products 3`.
-11. Set **Connection** to `MySQL:sampledata`, and enter the same query in **SQL**.
-12. Select **Replace variables in script?**.
-13. Set **Insert data from step** to `Parameters (1 by row)`.
-14. Leave **Execute for each row?** cleared, and select **OK**.
+### 6. Steel Wheels Products 3
+
+> **Note:**
+>
+> #### Steel Wheels Products 3
+>
+> Add and set up **Table input**.
+
+1. From the **Input** folder, drag a third **Table input** onto the canvas.
+2. Create a hop from **Parameters (1 by row)** to the new **Table input**.
+3. Double-click the new **Table input**.
+4. Set **Step name** to `Steel Wheels Products 3`.
+5. Set **Connection** to `MySQL:sampledata`, and enter the same query in **SQL**.
+6. Select **Replace variables in script?**.
+7. Set **Insert data from step** to `Parameters (1 by row)`.
+8. Leave **Execute for each row?** cleared, and select **OK**.
 
 <div align="center">
 <figure>
@@ -279,11 +311,11 @@ AND    PRODUCTSCALE = ?
 </figure>
 </div>
 
-15. Save the transformation (`Ctrl+S`).
-16. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
-17. Select **Steel Wheels Products 3** on the canvas and open the **Preview data** tab in **Execution Results**.
+9. Save the transformation (`Ctrl+S`).
+10. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
+11. Select **Steel Wheels Products 3** on the canvas and open the **Preview data** tab in **Execution Results**.
 
-> **Success:** Checkpoint: the same 3 products as tab 1. The first row's value fills the first `?`, the second row's value the second.
+> **Success:** Checkpoint: the same 3 products as tab 2. The first row's value fills the first `?`, the second row's value the second.
 
 <div align="center">
 <figure>

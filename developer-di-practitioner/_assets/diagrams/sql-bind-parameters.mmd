@@ -1,0 +1,26 @@
+%%{init: {"theme":"base","themeVariables":{"fontFamily":"Segoe UI, Helvetica, Arial, sans-serif","fontSize":"13px","lineColor":"#64748b","clusterBkg":"#fafaf9","clusterBorder":"#d6d3d1","edgeLabelBackground":"#ffffff"},"flowchart":{"curve":"basis","nodeSpacing":18,"rankSpacing":40,"padding":10,"htmlLabels":true}}}%%
+flowchart LR
+  classDef input fill:#dbeafe,stroke:#1d4ed8,color:#1e3a8a,text-align:left,rx:6,ry:6
+  classDef query fill:#ede9fe,stroke:#6d28d9,color:#3b0764,text-align:left,rx:6,ry:6
+  classDef output fill:#dcfce7,stroke:#15803d,color:#14532d,text-align:left,rx:6,ry:6
+  subgraph BYROW["1 by row: Execute for each row? cleared&nbsp;&nbsp;"]
+    direction LR
+    G3["<b>Data grid</b>&nbsp;&nbsp;<br/>two rows: one field each&nbsp;&nbsp;"]:::input
+    Q3["<b>Table input</b>&nbsp;&nbsp;<br/>reads all rows, flattens&nbsp;&nbsp;<br/>their values in arrival order,&nbsp;&nbsp;<br/>fills the ? markers&nbsp;&nbsp;"]:::query
+    O3["one execution&nbsp;&nbsp;"]:::output
+    G3 --> Q3 --> O3
+  end
+  subgraph MANY["Several rows: Execute for each row? selected&nbsp;&nbsp;"]
+    direction LR
+    G2["<b>Data grid</b>&nbsp;&nbsp;<br/>three rows: two fields each&nbsp;&nbsp;"]:::input
+    Q2["<b>Table input</b>&nbsp;&nbsp;<br/>binds each row to the ? markers&nbsp;&nbsp;"]:::query
+    O2["three executions,&nbsp;&nbsp;<br/>one result set after another&nbsp;&nbsp;"]:::output
+    G2 --> Q2 --> O2
+  end
+  subgraph ONE["1 row: one row, one field per ?&nbsp;&nbsp;"]
+    direction LR
+    G1["<b>Data grid</b>&nbsp;&nbsp;<br/>one row: two fields&nbsp;&nbsp;"]:::input
+    Q1["<b>Table input</b>&nbsp;&nbsp;<br/>first field to first ?,&nbsp;&nbsp;<br/>second field to second ?&nbsp;&nbsp;"]:::query
+    O1["one execution&nbsp;&nbsp;"]:::output
+    G1 --> Q1 --> O1
+  end

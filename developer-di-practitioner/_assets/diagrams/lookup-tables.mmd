@@ -1,0 +1,43 @@
+%%{init: {"theme":"base","themeVariables":{"fontFamily":"Segoe UI, Helvetica, Arial, sans-serif","fontSize":"14px","lineColor":"#64748b","primaryColor":"#dbeafe","primaryBorderColor":"#1d4ed8","primaryTextColor":"#1e3a8a","tertiaryColor":"#ffffff"}}}%%
+erDiagram
+  Countries {
+    char(3) country_id PK
+    nvarchar(50) description
+  }
+  States {
+    char(2) state_id PK
+    nvarchar(50) description
+  }
+  Customers {
+    int customer_id PK
+    varchar(100) name
+    varchar(50) address
+    char(5) ZIP
+    nvarchar(50) city
+    char(2) state_id FK
+    char(3) country_id FK
+  }
+  Order_Status {
+    char(2) status_id PK
+    nvarchar(50) status_description
+  }
+  Order_Priorities {
+    tinyint priority_id PK
+    nvarchar(50) priority_description
+  }
+  Orders {
+    int order_id PK
+    datetime order_date
+    int customer_id FK
+    char(2) status_id FK
+    tinyint priority_id FK
+  }
+  Customers }o--|| Countries : "country_id"
+  Customers }o--|| States : "state_id"
+  Orders }o--|| Customers : "customer_id"
+  Orders }o--|| Order_Status : "status_id"
+  Orders }o--|| Order_Priorities : "priority_id"
+  style Countries fill:#fef3c7,stroke:#b45309
+  style States fill:#fef3c7,stroke:#b45309
+  style Order_Status fill:#fef3c7,stroke:#b45309
+  style Order_Priorities fill:#fef3c7,stroke:#b45309

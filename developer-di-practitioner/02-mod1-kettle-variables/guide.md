@@ -53,7 +53,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 2. Select **Edit > Edit the kettle.properties file** (`Ctrl+Alt+P`). The **Kettle properties** dialog opens, with the columns **Variable name**, **Value** and **Description**. It lists Pentaho Data Integration's own variables (most of their names start with `KETTLE_`) and any variables already in the file.
 3. Right-click the first row and select **Insert before this row**.
-4. In the new row, set **Variable name** to `DIR_SAMPLES`, and **Value** to the folder for your operating system:
+4. In the new row, set **Variable name** to `DIR_SAMPLES`, and **Value** to this folder:
 
 ```properties
 C:/Temp
@@ -109,6 +109,14 @@ Variable names are case-sensitive: `${DIR_SAMPLES}` and `${dir_samples}` are two
 
 1. Double-click **CSV file input** again.
 2. Change **Filename** to `%%DIR_SAMPLES%%/sales.csv`.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/kettle-variables-windows-style.png" alt="CSV file input with Filename %%DIR_SAMPLES%%/sales.csv" width="746">
+<figcaption>The same variable, written the Windows way</figcaption>
+</figure>
+</div>
+
 3. Select **OK**.
 4. Select **Edit > Show Used Environment Variables** (`Ctrl+L`) again.
 
@@ -128,10 +136,11 @@ Variable names are case-sensitive: `${DIR_SAMPLES}` and `${dir_samples}` are two
 notepad $env:USERPROFILE\.kettle\kettle.properties
 ```
 
-2. Find the `DIR_SAMPLES` line that Spoon wrote in step 1. It reads `DIR_SAMPLES=C\:/Temp`: Spoon saves the file in Java's properties format, which escapes a colon with a backslash. `C\:/Temp` and `C:/Temp` mean the same value, so either works when you type a line yourself.
+2. Find the `DIR_SAMPLES` line that Spoon wrote in tab 1. It reads `DIR_SAMPLES=C\:/Temp`: Spoon saves the file in Java's properties format, which escapes a colon with a backslash. `C\:/Temp` and `C:/Temp` mean the same value, so either works when you type a line yourself.
+
 <div align="center">
 <figure>
-<img src="../_assets/images/kettle.png" alt="kettle.properties open in Notepad: the comment header Spoon writes, then DIR_SAMPLES=C:/Temp and the KETTLE_ variables" width="800">
+<img src="../_assets/images/kettle.png" alt="kettle.properties open in Notepad: the comment header Spoon writes, then DIR_SAMPLES=C\:/Temp and the KETTLE_ variables" width="800">
 <figcaption>The same file in Notepad</figcaption>
 </figure>
 </div>
@@ -142,7 +151,7 @@ notepad $env:USERPROFILE\.kettle\kettle.properties
 
 > **Warning:** Spoon's editor rewrites the whole file each time you select **OK**: comments you typed by hand are lost, and those of Pentaho Data Integration's own variables that have a default value are written out with it. Keep notes about your variables somewhere else, such as a README beside your project.
 >
-> Spoon and the Pentaho Data Integration engine read `kettle.properties` when they start. A value you add in Spoon's editor (step 1) takes effect at once, because Spoon also applies it to every open file. A value you change in a text editor takes effect only after you restart Spoon, or in the next Pan or Kitchen run.
+> Spoon and the Pentaho Data Integration engine read `kettle.properties` when they start. A value you add in Spoon's editor (tab 1) takes effect at once, because Spoon also applies it to every open file. A value you change in a text editor takes effect only after you restart Spoon, or in the next Pan or Kitchen run.
 
 <div class="pcm-embed-card" data-href="https://docs.pentaho.com/pdia-data-integration/data-integration-perspective-in-the-pdi-client/advanced-topics-pdi-perspective/pdi-run-modifiers/variables/kettle-variables" data-title="Kettle Variables | Pentaho" data-thumb="../_assets/embeds/267325a87400.png"></div>
 

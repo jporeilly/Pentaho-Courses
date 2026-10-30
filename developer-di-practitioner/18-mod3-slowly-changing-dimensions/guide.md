@@ -296,7 +296,7 @@ MySQL column names are not case-sensitive, so the dimension field `LAST_UPDATE` 
 
 <div align="center">
 <figure>
-<img src="../_assets/images/update-fields.png" alt="Fields tab: city and last_update both set to Update" width="800">
+<img src="../_assets/images/update-fields.png" alt="Fields tab: city and LAST_UPDATE both set to Update" width="800">
 <figcaption>Both fields: Update (type 1)</figcaption>
 </figure>
 </div>
@@ -487,7 +487,7 @@ In the tables below, `(run N)` stands for the date and time of run N.
 
 <div align="center">
 <figure>
-<img src="../_assets/images/punch-through-strategy.png" alt="Fields tab: city and last_update both set to Punch through" width="800">
+<img src="../_assets/images/punch-through-strategy.png" alt="Fields tab: city and LAST_UPDATE both set to Punch through" width="800">
 <figcaption>Both fields: Punch through</figcaption>
 </figure>
 </div>

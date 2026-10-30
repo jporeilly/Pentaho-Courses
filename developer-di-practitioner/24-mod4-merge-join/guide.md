@@ -34,7 +34,7 @@
 
 :::: tabs
 
-### 1. Data grids
+### 1. A B C D
 
 > **Note:**
 >
@@ -53,6 +53,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 2. Select **File > New > Transformation** (`Ctrl+N`).
 3. Select **File > Save as** and save it as `tr_merge_join_overview.ktr` in `C:\Workshop-DI-Practitioner\04-enriching-the-dataset\02-joins\24-mod4-merge-join`.
+
 4. On the **Design** tab, open the **Input** folder and drag **Data grid** onto the canvas.
 5. Double-click **Data grid**. Set **Step name** to `A B C D`.
 6. On the **Meta** tab, fill the grid with two fields:
@@ -61,6 +62,13 @@ Set-Location C:\Pentaho\design-tools\data-integration
 | ------- | --------- |
 | `id`    | `Integer` |
 | `value` | `String`  |
+
+<div align="center">
+<figure>
+<img src="../_assets/images/merge-join-abcd-meta.png" alt="Data grid Meta tab: step name A B C D, two fields, id of type Integer and value of type String" width="800">
+<figcaption>Meta tab: id (Integer) and value (String)</figcaption>
+</figure>
+</div>
 
 7. Open the **Data** tab and enter four rows:
 
@@ -72,25 +80,6 @@ Set-Location C:\Pentaho\design-tools\data-integration
 | `4` | `D`   |
 
 8. Select **OK**.
-9. Drag a second **Data grid** onto the canvas. Double-click it and set **Step name** to `Red Blue Yellow`.
-10. On the **Meta** tab, fill the grid with two fields:
-
-| Name      | Type      |
-| --------- | --------- |
-| `id`      | `Integer` |
-| `value_2` | `String`  |
-
-11. Open the **Data** tab and enter three rows:
-
-| id  | value_2  |
-| --- | -------- |
-| `1` | `Red`    |
-| `3` | `Blue`   |
-| `5` | `Yellow` |
-
-12. Select **OK**.
-
-Both grids are already in `id` order, as **Merge join** needs.
 
 <div align="center">
 <figure>
@@ -101,12 +90,48 @@ Both grids are already in `id` order, as **Merge join** needs.
 
 <div align="center">
 <figure>
+<img src="../_assets/images/canvas-24-tr-merge-join-overview-s1.png" alt="tr_merge_join_overview.ktr on the Spoon canvas after this tab: A B C D" width="140">
+<figcaption>The canvas after A B C D</figcaption>
+</figure>
+</div>
+
+
+### 2. Red Blue Yellow
+
+> **Note:**
+>
+> #### Red Blue Yellow
+>
+> Add and set up **Data grid**.
+
+1. Drag a second **Data grid** onto the canvas. Double-click it and set **Step name** to `Red Blue Yellow`.
+2. On the **Meta** tab, fill the grid with two fields:
+
+| Name      | Type      |
+| --------- | --------- |
+| `id`      | `Integer` |
+| `value_2` | `String`  |
+
+3. Open the **Data** tab and enter three rows:
+
+| id  | value_2  |
+| --- | -------- |
+| `1` | `Red`    |
+| `3` | `Blue`   |
+| `5` | `Yellow` |
+
+4. Select **OK**.
+
+Both grids are already in `id` order, as **Merge join** needs.
+
+<div align="center">
+<figure>
 <img src="../_assets/images/red-dg.png" alt="The Red Blue Yellow Data grid: ids 1, 3 and 5 with Red, Blue and Yellow" width="626">
 <figcaption>Red Blue Yellow</figcaption>
 </figure>
 </div>
 
-### 2. Merge join
+### 3. Merge join
 
 > **Note:**
 >
@@ -137,7 +162,7 @@ Both grids are already in `id` order, as **Merge join** needs.
 
 > **Warning:** Both inputs must be sorted on the key, and when a key repeats on both sides, every pair is joined, so the rows multiply.
 
-### 3. Compare the join types
+### 4. Compare the join types
 
 > **Note:**
 >
@@ -215,7 +240,7 @@ Both grids are already in `id` order, as **Merge join** needs.
 > fits in memory. Sort both inputs (or `ORDER BY` in the source) and it
 > joins two very large files in constant memory.
 
-### 4. Join two files
+### 5. Join two files
 
 > **Note:**
 >
@@ -232,39 +257,155 @@ Both grids are already in `id` order, as **Merge join** needs.
 
 1. Select **File > New > Transformation** (`Ctrl+N`).
 2. Select **File > Save as** and save it as `tr_merge_join_orders.ktr` in `C:\Workshop-DI-Practitioner\04-enriching-the-dataset\02-joins\24-mod4-merge-join`.
-3. On the **Design** tab, open the **Input** folder and drag **Text file input** onto the canvas.
-4. Double-click **Text file input**. Set **Step name** to `orders`.
-5. On the **File** tab, enter `${Internal.Entry.Current.Directory}/orders.txt` in **File or directory**, then select **Add**.
-6. On the **Content** tab, set **Separator** to `;`, keep **Header** selected, and set **Format** to `mixed`.
-7. On the **Fields** tab, select **Get Fields**, select **OK** at the number of sample lines, and close the **Scan results**. The grid lists five String fields, `PRODUCTCODE` to `PRODUCTVENDOR`.
-8. Select **Preview rows**, enter `100` rows, and select **OK**.
+
+### 6. orders
+
+> **Note:**
+>
+> #### orders
+>
+> Add and set up **Text file input**.
+
+1. On the **Design** tab, open the **Input** folder and drag **Text file input** onto the canvas.
+2. Double-click **Text file input**. Set **Step name** to `orders`.
+3. On the **File** tab, enter `${Internal.Entry.Current.Directory}/orders.txt` in **File or directory**, then select **Add**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/merge-join-orders-file.png" alt="Text file input File tab: step name orders, selected file ${Internal.Entry.Current.Directory}/orders.txt" width="800">
+<figcaption>File tab: orders.txt in the selected files</figcaption>
+</figure>
+</div>
+
+4. On the **Content** tab, set **Separator** to `;`, keep **Header** selected, and set **Format** to `mixed`.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/merge-join-orders-content.png" alt="Text file input Content tab: filetype CSV, separator semicolon, header with 1 header line, format mixed" width="800">
+<figcaption>Content tab: separator ;, header line, format mixed</figcaption>
+</figure>
+</div>
+
+5. On the **Fields** tab, select **Get Fields**, select **OK** at the number of sample lines, and close the **Scan results**. The grid lists five String fields, `PRODUCTCODE` to `PRODUCTVENDOR`.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/merge-join-orders-fields.png" alt="Text file input Fields tab for orders: five String fields PRODUCTCODE, PRODUCTNAME, PRODUCTLINE, PRODUCTSCALE and PRODUCTVENDOR" width="800">
+<figcaption>Fields tab: five String fields</figcaption>
+</figure>
+</div>
+
+6. Select **Preview rows**, enter `100` rows, and select **OK**.
 
 > **Success:** Checkpoint: 9 rows, `S10_1678` to `S12_1666`, in `PRODUCTCODE` order.
 
-9. Select **Close**, then **OK**.
-10. Drag a second **Text file input** onto the canvas. Double-click it and set **Step name** to `description`.
-11. On the **File** tab, enter `${Internal.Entry.Current.Directory}/description.txt` in **File or directory**, then select **Add**.
-12. On the **Content** tab, set **Separator** to `;`, keep **Header** selected, and set **Format** to `mixed`.
-13. On the **Fields** tab, select **Get Fields**, select **OK** at the number of sample lines, and close the **Scan results**. The grid lists two String fields, `PRODUCTCODE` and `PRODUCTDESCRIPTION`.
-14. Select **Preview rows**, enter `100` rows, and select **OK**.
+7. Select **Close**, then **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-24-tr-merge-join-orders-s2.png" alt="tr_merge_join_orders.ktr on the Spoon canvas after this tab: orders" width="140">
+<figcaption>The canvas after orders</figcaption>
+</figure>
+</div>
+
+
+### 7. description
+
+> **Note:**
+>
+> #### description
+>
+> Add and set up **Text file input**.
+
+1. Drag a second **Text file input** onto the canvas. Double-click it and set **Step name** to `description`.
+2. On the **File** tab, enter `${Internal.Entry.Current.Directory}/description.txt` in **File or directory**, then select **Add**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/merge-join-description-file.png" alt="Text file input File tab: step name description, selected file ${Internal.Entry.Current.Directory}/description.txt" width="800">
+<figcaption>File tab: description.txt in the selected files</figcaption>
+</figure>
+</div>
+
+3. On the **Content** tab, set **Separator** to `;`, keep **Header** selected, and set **Format** to `mixed`.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/merge-join-description-content.png" alt="Text file input Content tab for description: filetype CSV, separator semicolon, header with 1 header line, format mixed" width="800">
+<figcaption>Content tab: the same settings as orders</figcaption>
+</figure>
+</div>
+
+4. On the **Fields** tab, select **Get Fields**, select **OK** at the number of sample lines, and close the **Scan results**. The grid lists two String fields, `PRODUCTCODE` and `PRODUCTDESCRIPTION`.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/merge-join-description-fields.png" alt="Text file input Fields tab for description: two String fields, PRODUCTCODE and PRODUCTDESCRIPTION" width="800">
+<figcaption>Fields tab: PRODUCTCODE and PRODUCTDESCRIPTION</figcaption>
+</figure>
+</div>
+
+5. Select **Preview rows**, enter `100` rows, and select **OK**.
 
 > **Success:** Checkpoint: 9 rows with the same product codes, in the same order, each with its description. Both files are already sorted on `PRODUCTCODE`; for unsorted files you would add a **Sort rows** on each side before the join.
 
-15. Select **Close**, then **OK**.
-16. On the **Design** tab, open the **Joins** folder and drag **Merge join** onto the canvas.
-17. Create a hop from **orders** to **Merge join**, and another from **description** to **Merge join**.
-18. Double-click **Merge join** and set:
+6. Select **Close**, then **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-24-tr-merge-join-orders-s3.png" alt="tr_merge_join_orders.ktr on the Spoon canvas after this tab: description and orders" width="140">
+<figcaption>The canvas after description</figcaption>
+</figure>
+</div>
+
+
+### 8. Merge Join
+
+> **Note:**
+>
+> #### Merge Join
+>
+> Add and set up **Merge join**.
+
+1. On the **Design** tab, open the **Joins** folder and drag **Merge join** onto the canvas.
+2. Create a hop from **orders** to **Merge join**, and another from **description** to **Merge join**.
+3. Double-click **Merge join** and set:
     * **Step name**: `Merge Join`
     * **First Step**: `orders`
     * **Second Step**: `description`
     * **Join Type**: `INNER`
-19. Enter `PRODUCTCODE` in the **Key field** column of **Keys for 1st step**, and `PRODUCTCODE` in the **Key field** column of **Keys for 2nd step**.
-20. Select **OK**. If a **Notice** about sorted input appears, select **Close**.
-21. On the **Design** tab, open the **Transform** folder and drag **Select values** onto the canvas.
-22. Create a hop from **Merge Join** to **Select values**.
-23. Double-click **Select values**. Set **Step name** to `tidy up`.
-24. On the **Select & Alter** tab, select **Get fields to select**. The join brings both files' fields: the grid lists `PRODUCTCODE`, `PRODUCTNAME`, `PRODUCTLINE`, `PRODUCTSCALE`, `PRODUCTVENDOR`, `PRODUCTCODE_1` and `PRODUCTDESCRIPTION`.
-25. Right-click the `PRODUCTCODE_1` row and select **Delete selected lines**. These six remain:
+4. Enter `PRODUCTCODE` in the **Key field** column of **Keys for 1st step**, and `PRODUCTCODE` in the **Key field** column of **Keys for 2nd step**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/merge-join-orders-merge-join.png" alt="Merge join: step name Merge Join, first step orders, second step description, join type INNER, key PRODUCTCODE on both sides" width="546">
+<figcaption>Merge Join: PRODUCTCODE on both sides, INNER</figcaption>
+</figure>
+</div>
+
+5. Select **OK**. If a **Notice** about sorted input appears, select **Close**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-24-tr-merge-join-orders-s4.png" alt="tr_merge_join_orders.ktr on the Spoon canvas after this tab: Merge Join, description and orders, with the 2 hops between them" width="316">
+<figcaption>The canvas after Merge Join</figcaption>
+</figure>
+</div>
+
+
+### 9. tidy up
+
+> **Note:**
+>
+> #### tidy up
+>
+> Add and set up **Select values**.
+
+1. On the **Design** tab, open the **Transform** folder and drag **Select values** onto the canvas.
+2. Create a hop from **Merge Join** to **Select values**.
+3. Double-click **Select values**. Set **Step name** to `tidy up`.
+4. On the **Select & Alter** tab, select **Get fields to select**. The join brings both files' fields: the grid lists `PRODUCTCODE`, `PRODUCTNAME`, `PRODUCTLINE`, `PRODUCTSCALE`, `PRODUCTVENDOR`, `PRODUCTCODE_1` and `PRODUCTDESCRIPTION`.
+5. Right-click the `PRODUCTCODE_1` row and select **Delete selected lines**. These six remain:
 
 | #   | Fieldname            |
 | --- | -------------------- |
@@ -275,22 +416,78 @@ Both grids are already in `id` order, as **Merge join** needs.
 | 5   | `PRODUCTVENDOR`      |
 | 6   | `PRODUCTDESCRIPTION` |
 
-26. Select **OK**.
-27. On the **Design** tab, open the **Output** folder and drag **Text file output** onto the canvas.
-28. Create a hop from **tidy up** to **Text file output**.
-29. Double-click **Text file output**. On the **File** tab, set **Filename** to `${Internal.Entry.Current.Directory}/merged_orders`, and keep **Extension** at `txt`.
-30. On the **Content** tab, keep **Separator** at `;` and **Header** selected.
-31. On the **Fields** tab, select **Get Fields**, then **Minimal width**.
-32. Select **OK**.
-33. Save the transformation (`Ctrl+S`).
-34. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
-35. In **Execution Results**, open the **Step Metrics** tab.
+<div align="center">
+<figure>
+<img src="../_assets/images/merge-join-tidy-up.png" alt="Select values Select and Alter tab: step name tidy up, six fields PRODUCTCODE, PRODUCTNAME, PRODUCTLINE, PRODUCTSCALE, PRODUCTVENDOR and PRODUCTDESCRIPTION" width="698">
+<figcaption>tidy up: six fields, PRODUCTCODE_1 deleted</figcaption>
+</figure>
+</div>
+
+6. Select **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-24-tr-merge-join-orders-s5.png" alt="tr_merge_join_orders.ktr on the Spoon canvas after this tab: Merge Join, description, orders and tidy up, with the 3 hops between them" width="444">
+<figcaption>The canvas after tidy up</figcaption>
+</figure>
+</div>
+
+
+### 10. Text file output
+
+> **Note:**
+>
+> #### Text file output
+>
+> Add and set up **Text file output**.
+
+1. On the **Design** tab, open the **Output** folder and drag **Text file output** onto the canvas.
+2. Create a hop from **tidy up** to **Text file output**.
+3. Double-click **Text file output**. On the **File** tab, set **Filename** to `${Internal.Entry.Current.Directory}/merged_orders`, and keep **Extension** at `txt`.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/merge-join-output-file.png" alt="Text file output File tab: filename ${Internal.Entry.Current.Directory}/merged_orders, extension txt" width="800">
+<figcaption>File tab: merged_orders, extension txt</figcaption>
+</figure>
+</div>
+
+4. On the **Content** tab, keep **Separator** at `;` and **Header** selected.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/merge-join-output-content.png" alt="Text file output Content tab: separator semicolon, header selected, format CR+LF terminated (Windows, DOS)" width="800">
+<figcaption>Content tab: separator ;, header selected</figcaption>
+</figure>
+</div>
+
+5. On the **Fields** tab, select **Get Fields**, then **Minimal width**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/merge-join-output-fields.png" alt="Text file output Fields tab: six String fields PRODUCTCODE to PRODUCTDESCRIPTION with no format or length after Minimal width" width="800">
+<figcaption>Fields tab: six fields, minimal width</figcaption>
+</figure>
+</div>
+
+6. Select **OK**.
+7. Save the transformation (`Ctrl+S`).
+8. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
+9. In **Execution Results**, open the **Step Metrics** tab.
 
 > **Success:** Checkpoint: **Merge Join** shows 18 in **Read** and 9 in **Written**, and **Text file output** shows 9 in **Read** and 10 in **Output**: the header line and 9 products.
 
-36. Open `merged_orders.txt` in the lab folder in a text editor.
+10. Open `merged_orders.txt` in the lab folder in a text editor.
 
 > **Success:** Checkpoint: `merged_orders.txt` holds a header and 9 products, each with its name, line, scale, vendor and description, and no padded values. It matches `solution\merged_orders.txt`, the reference copy in the lab's `solution` folder.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-24-tr-merge-join-orders-s6.png" alt="tr_merge_join_orders.ktr on the Spoon canvas after this tab: Merge Join, Text file output, description, orders and tidy up, with the 4 hops between them" width="588">
+<figcaption>The canvas after Text file output</figcaption>
+</figure>
+</div>
+
 
 ::::
 

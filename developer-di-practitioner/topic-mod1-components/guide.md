@@ -18,8 +18,8 @@ Pentaho Data Integration operates on a **client-server architecture** that separ
 * **Database Connectivity**: The process of integrating JDBC drivers to connect to various data sources
 <div align="center">
 <figure>
-<img src="../_assets/images/psi-workflow-2.svg" alt="Pentaho Ecosystem" width="800">
-<figcaption>Pentaho Ecosystem</figcaption>
+<img src="../_assets/images/pentaho-ecosystem.png" alt="The Pentaho ecosystem: flat files, relational databases, data lakes, object stores and APIs feed a staging layer and a transformation layer built with Pentaho Data Integration; these feed an OLAP cube and an enterprise data mart, which feed Pentaho Analyzer, Report Designer and CTools; the Pentaho DI and BA Server provides scheduling, logging, security and the repository" width="784">
+<figcaption>The Pentaho ecosystem, layer by layer</figcaption>
 </figure>
 </div>
 
@@ -32,8 +32,8 @@ Browse to learn about the components:
 ### 1. Components
 <div align="center">
 <figure>
-<img src="../_assets/images/architecture.png" alt="Pentaho Architecture - Client / Server" width="800">
-<figcaption>Pentaho Architecture - Client / Server</figcaption>
+<img src="../_assets/images/pentaho-architecture.png" alt="Spoon, with its Designer, Engine, Scheduler, Repository Browser and DB Explorer, sends .ktr and .kjb files to the Pentaho Server, whose engine, repository, Quartz scheduler, security and monitoring use a system database; Pan, Kitchen and Carte run standalone" width="784">
+<figcaption>Client tools and the Pentaho Server</figcaption>
 </figure>
 </div>
 

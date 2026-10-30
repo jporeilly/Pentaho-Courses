@@ -66,7 +66,7 @@
 
 > **Success:** Checkpoint: the result has the nine columns `key_id`, `name`, `firstname`, `zip`, `city`, `birthdate`, `street`, `housenr` and `state`, and no rows. (If you ran this workshop before, it holds that run's 100 rows: the loads below empty it first.)
 
-### 2. Load It by Hand First
+### 2. csvi-customers
 
 > **Note:**
 >
@@ -85,6 +85,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 2. Select **File > New > Transformation** (`Ctrl+N`).
 3. Select **File > Save as** and save it as `tr_onboard_customers_by_hand.ktr` in `C:\Workshop-DI-Practitioner\05-enterprise-solution\02-metadata-injection\31-mod5-onboarding-to-a-table`, next to the `data` folder.
+
 4. On the **Design** tab, open the **Input** folder and drag **CSV file input** onto the canvas.
 5. Double-click **CSV file input**.
 6. Set **Step name** to `csvi-customers`.
@@ -113,32 +114,97 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
    The format of the three Integer fields is a space followed by `#`: the file has a space before each number (` 13520`). The solution's fields also carry **Currency** `$`, **Decimal** `.` and **Group** `,`. Your **Currency** may show another symbol; none of these formats uses it.
 
+<div align="center">
+<figure>
+<img src="../_assets/images/onboarding-csvi-customers.png" alt="CSV file input: step name csvi-customers, filename ${Internal.Entry.Current.Directory}/data/customers.txt, delimiter semicolon, lazy conversion and header row selected, ten fields id to state with id, zip and housenr Integer format # and birthdate Date yyyy/MM/dd" width="800">
+<figcaption>csvi-customers: the file, the delimiter and ten fields</figcaption>
+</figure>
+</div>
+
 11. Select **Preview**, enter `100` rows, and select **OK**.
 
 > **Success:** Checkpoint: **Examine preview data** shows 100 rows, the whole file. The first is customer `1`: `jwcdf-name`, `fsj-firstname`, from `oem-city`, state `AK`, `ALASKA`.
 
 12. Select **Close**, then **OK**.
-13. On the **Design** tab, open the **Transform** folder and drag **Select values** onto the canvas.
-14. Create a hop from **csvi-customers** to **Select values**: hold `Shift` and drag from one step to the other.
-15. Double-click **Select values**.
-16. Set **Step name** to `sv-customers`.
-17. On the **Select & Alter** tab, fill the **Fields** grid with one row:
+
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-31-tr-onboard-customers-by-hand-s1.png" alt="tr_onboard_customers_by_hand.ktr on the Spoon canvas after this tab: csvi-customers" width="140">
+<figcaption>The canvas after csvi-customers</figcaption>
+</figure>
+</div>
+
+
+### 3. sv-customers
+
+> **Note:**
+>
+> #### sv-customers
+>
+> Add and set up **Select values**.
+
+1. On the **Design** tab, open the **Transform** folder and drag **Select values** onto the canvas.
+2. Create a hop from **csvi-customers** to **Select values**: hold `Shift` and drag from one step to the other.
+3. Double-click **Select values**.
+4. Set **Step name** to `sv-customers`.
+5. On the **Select & Alter** tab, fill the **Fields** grid with one row:
 
 | Fieldname | Rename to |
 | --------- | --------- |
 | `id`      | `key_id`  |
 
-18. Select **Include unspecified fields, ordered by name**, so the other fields pass through too.
-19. Open the **Remove** tab and fill the grid with one row: **Fieldname** `stateCode`.
-20. Select **OK**.
-21. On the **Design** tab, open the **Output** folder and drag **Table output** onto the canvas.
-22. Create a hop from **sv-customers** to **Table output**.
-23. Double-click **Table output**.
-24. Set **Step name** to `to-customers`.
-25. Set **Connection** to `MySQL:sampledata`.
-26. Set **Target table** to `METADATA_INJECTION_CUSTOMERS`.
-27. Select **Truncate table**, so every run starts from an empty table. Leave **Commit size** `1000` and **Use batch update for inserts** selected.
-28. Select **OK**.
+6. Select **Include unspecified fields, ordered by name**, so the other fields pass through too.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/onboarding-sv-customers-select.png" alt="Select values Select and Alter tab: step name sv-customers, id renamed to key_id, Include unspecified fields ordered by name selected" width="686">
+<figcaption>sv-customers, Select &amp; Alter: id becomes key_id</figcaption>
+</figure>
+</div>
+
+7. Open the **Remove** tab and fill the grid with one row: **Fieldname** `stateCode`.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/onboarding-sv-customers-remove.png" alt="Select values Remove tab: step name sv-customers, one field to remove, stateCode" width="686">
+<figcaption>sv-customers, Remove: stateCode</figcaption>
+</figure>
+</div>
+
+8. Select **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-31-tr-onboard-customers-by-hand-s2.png" alt="tr_onboard_customers_by_hand.ktr on the Spoon canvas after this tab: sv-customers and csvi-customers, with the hop between them" width="220">
+<figcaption>The canvas after sv-customers</figcaption>
+</figure>
+</div>
+
+
+### 4. to-customers
+
+> **Note:**
+>
+> #### to-customers
+>
+> Add **Table output**, then run the load and check the table.
+
+1. On the **Design** tab, open the **Output** folder and drag **Table output** onto the canvas.
+2. Create a hop from **sv-customers** to **Table output**.
+3. Double-click **Table output**.
+4. Set **Step name** to `to-customers`.
+5. Set **Connection** to `MySQL:sampledata`.
+6. Set **Target table** to `METADATA_INJECTION_CUSTOMERS`.
+7. Select **Truncate table**, so every run starts from an empty table. Leave **Commit size** `1000` and **Use batch update for inserts** selected.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/onboarding-to-customers.png" alt="Table output: step name to-customers, connection MySQL:sampledata, target table METADATA_INJECTION_CUSTOMERS, commit size 1000, Truncate table selected, Use batch update for inserts selected" width="672">
+<figcaption>to-customers: truncate, then load METADATA_INJECTION_CUSTOMERS</figcaption>
+</figure>
+</div>
+
+8. Select **OK**.
 
 <div align="center">
 <figure>
@@ -147,13 +213,13 @@ Set-Location C:\Pentaho\design-tools\data-integration
 </figure>
 </div>
 
-29. Save the transformation (`Ctrl+S`).
-30. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
-31. In **Execution Results**, open the **Step Metrics** tab.
+9. Save the transformation (`Ctrl+S`).
+10. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
+11. In **Execution Results**, open the **Step Metrics** tab.
 
 > **Success:** Checkpoint: **to-customers** shows 100 in **Output**: one row per customer.
 
-32. In DBeaver, run:
+12. In DBeaver, run:
 
    ```sql
    SELECT COUNT(*) FROM METADATA_INJECTION_CUSTOMERS;
@@ -167,7 +233,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 Every one of those settings is metadata: a file name, ten field definitions, one rename, one removal. That list is what injection supplies.
 
-### 3. Make the Template
+### 5. Make the Template
 
 > **Note:**
 >
@@ -183,16 +249,40 @@ Every one of those settings is metadata: a file name, ten field definitions, one
 6. Select **New line possible in fields?**.
 7. Set **File encoding** to `UTF-8`.
 8. Right-click the **Fields** grid and select **Clear all**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/onboarding-template-csvi-mdi.png" alt="CSV file input: step name csvi-mdi, filename empty, delimiter semicolon, lazy conversion cleared, header row selected, new line possible in fields selected, file encoding UTF-8, empty Fields grid" width="800">
+<figcaption>csvi-mdi: no file and no fields, waiting for metadata</figcaption>
+</figure>
+</div>
+
 9. Select **OK**.
 10. Double-click **sv-customers**.
 11. Set **Step name** to `sv-mdi`.
 12. On the **Select & Alter** tab, select the `id` row, right-click it, and select **Delete selected lines**.
 13. Clear **Include unspecified fields, ordered by name**.
 14. Open the **Remove** tab, select the `stateCode` row, right-click it, and select **Delete selected lines**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/onboarding-template-sv-mdi.png" alt="Select values Select and Alter tab: step name sv-mdi, empty Fields grid, Include unspecified fields ordered by name cleared" width="686">
+<figcaption>sv-mdi: empty, its Remove tab too</figcaption>
+</figure>
+</div>
+
 15. Select **OK**.
 16. Double-click **to-customers**.
 17. Set **Step name** to `to-metadata_injection_customers`.
 18. Clear **Use batch update for inserts**, as the solution's template has it. Leave the connection, **Target table** and **Truncate table** as they are.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/onboarding-template-to-mdi.png" alt="Table output: step name to-metadata_injection_customers, connection MySQL:sampledata, target table METADATA_INJECTION_CUSTOMERS, Truncate table selected, Use batch update for inserts cleared" width="672">
+<figcaption>to-metadata_injection_customers: batch update cleared</figcaption>
+</figure>
+</div>
+
 19. Select **OK**.
 20. Save the transformation (`Ctrl+S`).
 
@@ -200,7 +290,15 @@ Every one of those settings is metadata: a file name, ten field definitions, one
 
 The template can no longer run on its own: it has no file and no fields. It is a shape waiting for metadata.
 
-### 4. Describe the Metadata in Data Grids
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-31-metadata-inject-template-s3.png" alt="metadata_inject_template.ktr on the Spoon canvas after this tab: csvi-mdi, sv-mdi and to-metadata_injection_customers, with the 2 hops between them" width="460">
+<figcaption>The canvas after csvi-mdi, sv-mdi, to-metadata_injection_customers</figcaption>
+</figure>
+</div>
+
+
+### 6. dg-metadata_fields
 
 > **Note:**
 >
@@ -210,10 +308,19 @@ The template can no longer run on its own: it has no file and no fields. It is a
 
 1. Select **File > New > Transformation** (`Ctrl+N`).
 2. Select **File > Save as** and save it as `metadata_inject_step.ktr` in `C:\Workshop-DI-Practitioner\05-enterprise-solution\02-metadata-injection\31-mod5-onboarding-to-a-table`.
+
 3. On the **Design** tab, open the **Input** folder and drag **Data grid** onto the canvas.
 4. Double-click **Data grid**.
 5. Set **Step name** to `dg-metadata_fields`.
 6. On the **Meta** tab, fill the grid with nine fields, all of **Type** String: `name`, `type`, `format`, `length`, `precision`, `currency`, `decimal`, `group` and `trimtype`, in that order.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/onboarding-dg-metadata-fields-meta.png" alt="Data grid Meta tab: step name dg-metadata_fields, nine String fields name, type, format, length, precision, currency, decimal, group and trimtype" width="800">
+<figcaption>dg-metadata_fields, Meta tab: nine String fields</figcaption>
+</figure>
+</div>
+
 7. Open the **Data** tab and fill it with one row per column of the file. Leave the empty cells empty:
 
 | name        | type   | format       | length | precision | currency | decimal | group | trimtype |
@@ -229,6 +336,13 @@ The template can no longer run on its own: it has no file and no fields. It is a
 | `stateCode` | String |              | 9      |           |          |         |       | `none`   |
 | `state`     | String |              | 30     |           |          |         |       | `none`   |
 
+<div align="center">
+<figure>
+<img src="../_assets/images/onboarding-dg-metadata-fields-data.png" alt="Data grid Data tab for dg-metadata_fields: ten rows id to state with their type, format, length, precision, currency, decimal, group and trimtype" width="800">
+<figcaption>dg-metadata_fields, Data tab: one row per column of the file</figcaption>
+</figure>
+</div>
+
 8. Select **Preview**, enter `100` rows, and select **OK**.
 
 > **Success:** Checkpoint: **Examine preview data** shows 10 rows, from `id` to `state`, with the values you entered.
@@ -237,34 +351,124 @@ The template can no longer run on its own: it has no file and no fields. It is a
 
 > **Note:** `trimtype` `left` strips the leading space the file has before numbers (` 13520`). Here `id`, `zip` and `housenr` are read as String, not Integer as in tab 2: the table's columns are `VARCHAR`, so the trimmed text is what they store. The currency, decimal and group symbols have no effect on these fields: the String fields are read as text, and `birthdate` with its format.
 
-10. On the **Design** tab, open the **Input** folder and drag a second **Data grid** onto the canvas, then double-click it.
-11. Set **Step name** to `dg-rename`.
-12. On the **Meta** tab, add two String fields, `name` and `rename`.
-13. On the **Data** tab, enter one row: `id`, `key_id`. Select **OK**.
-14. On the **Design** tab, open the **Input** folder and drag a third **Data grid** onto the canvas, then double-click it.
-15. Set **Step name** to `dg_remove_name`.
-16. On the **Meta** tab, add one String field, `remove_name`.
-17. On the **Data** tab, enter one row: `stateCode`. Select **OK**.
-18. On the **Design** tab, open the **Input** folder and drag **Generate rows** onto the canvas.
-19. Double-click **Generate rows**.
-20. Set **Step name** to `gr-filename`.
-21. Set **Limit** to `1`.
-22. Fill the **Fields** grid with one row: **Name** `filename`, **Type** String, and no **Value**. Select **OK**.
-23. On the **Design** tab, open the **Transform** folder and drag **Set field value to a constant** onto the canvas.
-24. Create a hop from **gr-filename** to **Set field value to a constant**.
-25. Double-click **Set field value to a constant**.
-26. Set **Step name** to `sfvc-path_filename`.
-27. Select **Use variable in constant**, so the variable in the value is replaced.
-28. Fill the **Fields** grid with one row: **Field** `filename`, **Replace by value** `${Internal.Entry.Current.Directory}/data/customers.txt`.
-29. Select **OK**.
-30. Save the transformation (`Ctrl+S`).
-31. Select **sfvc-path_filename** on the canvas, press `F10` (**Action > Preview**), and select **Quick Launch**.
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-31-metadata-inject-step-s4.png" alt="metadata_inject_step.ktr on the Spoon canvas after this tab: dg-metadata_fields" width="140">
+<figcaption>The canvas after dg-metadata_fields</figcaption>
+</figure>
+</div>
+
+
+### 7. dg-rename
+
+> **Note:**
+>
+> #### dg-rename
+>
+> Add and set up **Data grid**.
+
+1. On the **Design** tab, open the **Input** folder and drag a second **Data grid** onto the canvas, then double-click it.
+2. Set **Step name** to `dg-rename`.
+3. On the **Meta** tab, add two String fields, `name` and `rename`.
+4. On the **Data** tab, enter one row: `id`, `key_id`. Select **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-31-metadata-inject-step-s5.png" alt="metadata_inject_step.ktr on the Spoon canvas after this tab: dg-metadata_fields and dg-rename" width="284">
+<figcaption>The canvas after dg-rename</figcaption>
+</figure>
+</div>
+
+
+### 8. dg_remove_name
+
+> **Note:**
+>
+> #### dg_remove_name
+>
+> Add and set up **Data grid**.
+
+1. On the **Design** tab, open the **Input** folder and drag a third **Data grid** onto the canvas, then double-click it.
+2. Set **Step name** to `dg_remove_name`.
+3. On the **Meta** tab, add one String field, `remove_name`.
+4. On the **Data** tab, enter one row: `stateCode`. Select **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-31-metadata-inject-step-s6.png" alt="metadata_inject_step.ktr on the Spoon canvas after this tab: dg-metadata_fields, dg-rename and dg_remove_name" width="428">
+<figcaption>The canvas after dg_remove_name</figcaption>
+</figure>
+</div>
+
+
+### 9. gr-filename
+
+> **Note:**
+>
+> #### gr-filename
+>
+> Add and set up **Generate rows**.
+
+1. On the **Design** tab, open the **Input** folder and drag **Generate rows** onto the canvas.
+2. Double-click **Generate rows**.
+3. Set **Step name** to `gr-filename`.
+4. Set **Limit** to `1`.
+5. Fill the **Fields** grid with one row: **Name** `filename`, **Type** String, and no **Value**. Select **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/onboarding-gr-filename.png" alt="Generate rows: step name gr-filename, limit 1, one field filename of type String with no value" width="800">
+<figcaption>gr-filename: one row, one empty field</figcaption>
+</figure>
+</div>
+
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-31-metadata-inject-step-s7.png" alt="metadata_inject_step.ktr on the Spoon canvas after this tab: dg-metadata_fields, dg-rename, dg_remove_name and gr-filename" width="428">
+<figcaption>The canvas after gr-filename</figcaption>
+</figure>
+</div>
+
+
+### 10. sfvc-path_filename
+
+> **Note:**
+>
+> #### sfvc-path_filename
+>
+> Add and set up **Set field value to a constant**.
+
+1. On the **Design** tab, open the **Transform** folder and drag **Set field value to a constant** onto the canvas.
+2. Create a hop from **gr-filename** to **Set field value to a constant**.
+3. Double-click **Set field value to a constant**.
+4. Set **Step name** to `sfvc-path_filename`.
+5. Select **Use variable in constant**, so the variable in the value is replaced.
+6. Fill the **Fields** grid with one row: **Field** `filename`, **Replace by value** `${Internal.Entry.Current.Directory}/data/customers.txt`.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/onboarding-sfvc-path-filename.png" alt="Set field value to a constant: step name sfvc-path_filename, Use variable in constant selected, field filename replaced by ${Internal.Entry.Current.Directory}/data/customers.txt" width="706">
+<figcaption>sfvc-path_filename: the path, with its variable resolved</figcaption>
+</figure>
+</div>
+
+7. Select **OK**.
+8. Save the transformation (`Ctrl+S`).
+9. Select **sfvc-path_filename** on the canvas, press `F10` (**Action > Preview**), and select **Quick Launch**.
 
 > **Success:** Checkpoint: **Examine preview data** shows 1 row. Its `filename` is the full path of your lab folder followed by `/data/customers.txt`: the variable has been replaced.
 
-32. Select **Close**.
+10. Select **Close**.
 
-### 5. Inject and Run
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-31-metadata-inject-step-s8.png" alt="metadata_inject_step.ktr on the Spoon canvas after this tab: dg-metadata_fields, dg-rename, dg_remove_name, gr-filename and sfvc-path_filename, with the hop between them" width="428">
+<figcaption>The canvas after sfvc-path_filename</figcaption>
+</figure>
+</div>
+
+
+### 11. Inject and Run
 
 > **Note:**
 >
@@ -303,6 +507,13 @@ The template can no longer run on its own: it has no file and no fields. It is a
 
    `META_NAME` and `META_RENAME` (**Target description** **Fieldname** and **Rename to**) fill the **Meta-data** tab of **sv-mdi**, not **Select & Alter**. With **Select & Alter** empty, every field passes through: `REMOVE_NAME` drops `stateCode`, and the **Meta-data** row renames `id` to `key_id`.
 
+<div align="center">
+<figure>
+<img src="../_assets/images/onboarding-emi-inject-metadata.png" alt="ETL metadata injection Inject Metadata tab: step name emi-onboarding_csv, transformation metadata_inject_template.ktr; csvi-mdi FILENAME from sfvc-path_filename filename, FIELD_NAME to FIELD_TRIM_TYPE from dg-metadata_fields, sv-mdi REMOVE_NAME from dg_remove_name, META_NAME and META_RENAME from dg-rename" width="800">
+<figcaption>emi-onboarding_csv: the 13 mappings</figcaption>
+</figure>
+</div>
+
 8. Open the **Options** tab and leave **Run resulting transformation** selected.
 9. Select **OK**.
 
@@ -321,7 +532,7 @@ The template can no longer run on its own: it has no file and no fields. It is a
    ```
 
 12. In Spoon, press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
-13. In DBeaver, run the two queries from tab 2 again:
+13. In DBeaver, run the two queries from tab 4 again:
 
    ```sql
    SELECT COUNT(*) FROM METADATA_INJECTION_CUSTOMERS;

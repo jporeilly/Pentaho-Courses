@@ -52,7 +52,7 @@ Bringing two streams together by key. Database joins, join rows (cartesian-style
 
 <div align="center">
 <figure>
-<img src="../_assets/images/joins.png" alt="Venn diagrams of the inner, left, right and full join, each with a sentence on which records it selects" width="644">
+<img src="../_assets/images/join-types.png" alt="Which rows each join keeps: inner keeps rows in A and B; left outer adds rows only in A; right outer adds rows only in B; full outer keeps all three" width="741">
 <figcaption>The four join types</figcaption>
 </figure>
 </div>

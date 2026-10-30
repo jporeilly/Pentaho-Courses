@@ -6,13 +6,13 @@
 > 
 > Create a reusable MySQL connection to the Steel Wheels `sampledata` database.
 > 
-> **What you’ll do**
+> **What you'll do**
 > 
 > * Check the database is reachable (optional: Adminer on a lab VM, or DBeaver)
 > * Install the MySQL JDBC driver, if Pentaho Data Integration doesn't have it yet
 > * Create, test, share and explore a Pentaho Data Integration database connection
 > 
-> **Prerequisites**
+> **Prerequisites:**
 > 
 > * Pentaho Data Integration (Spoon) installed and working
 > * A running **MySQL** `sampledata` database on port `3306` - on a lab
@@ -77,8 +77,8 @@ DBeaver Community Edition ships with most drivers, which makes it a quick connec
 
 <div align="center">
 <figure>
-<img src="../_assets/images/configure-x26-test-mysql-connection-sampledata.png" alt="DBeaver's connection settings on the Main tab: Server Host localhost, Port 3306, Database sampledata, with the Username and Password fields below and Test Connection at the bottom left" width="686">
-<figcaption>The Main tab (the screenshot shows a different username)</figcaption>
+<img src="../_assets/images/configure-x26-test-mysql-connection-sampledata.png" alt="DBeaver's New Connection wizard for MySQL on the Main tab: Server Host localhost, Port 3306, Database sampledata, Username pentaho_admin, the Password field below it, and Test Connection at the bottom left" width="627">
+<figcaption>The Main tab of the new connection</figcaption>
 </figure>
 </div>
 
@@ -283,7 +283,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 <div align="center">
 <figure>
 <img src="../_assets/images/share-database-connection.png" alt="Spoon's View tab with the right-click menu of MySQL:sampledata [File] open: Edit, Move to System, Copy to System, Delete, SQL Editor, Clear DB Cache and Explore" width="468">
-<figcaption>The connection's right-click menu (earlier Pentaho Data Integration version)</figcaption>
+<figcaption>The connection's right-click menu</figcaption>
 </figure>
 </div>
 

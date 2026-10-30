@@ -7,7 +7,7 @@
 > Build a transformation that reads the `ORDERS` table from the Steel Wheels database.\
 > Keep the shipped orders, calculate how many days before the required date each one shipped, and label the result.
 > 
-> **What you’ll do**
+> **What you'll do**
 > 
 > * Read rows with **Table input**
 > * Generate the SQL with **Get SQL select statement**
@@ -15,7 +15,7 @@
 > * Label values with **Number range**
 > * Sort and format the output with **Sort rows** and **Select values**
 > 
-> **Prerequisites**
+> **Prerequisites:**
 > 
 > * The `MySQL:sampledata` connection from [Connecting to Database](../12-mod3-connecting-to-database/guide.md)
 > * Basic SQL: `SELECT` and `WHERE`
@@ -242,6 +242,13 @@ Set-Location C:\Pentaho\design-tools\data-integration
 | `SHIPPEDDATE`    |
 | `CUSTOMERNUMBER` |
 
+<div align="center">
+<figure>
+<img src="../_assets/images/reading-database-select-values-fields.png" alt="Select values Select and Alter tab: five fields in order, delivery, ORDERNUMBER, REQUIREDDATE, SHIPPEDDATE and CUSTOMERNUMBER" width="686">
+<figcaption>Select &amp; Alter: delivery first, five fields</figcaption>
+</figure>
+</div>
+
 6. On the **Meta-data** tab, fill the grid for the two date fields:
 
 | Fieldname      | Type | Format       |
@@ -249,11 +256,26 @@ Set-Location C:\Pentaho\design-tools\data-integration
 | `REQUIREDDATE` | Date | `MM/dd/yyyy` |
 | `SHIPPEDDATE`  | Date | `MM/dd/yyyy` |
 
+<div align="center">
+<figure>
+<img src="../_assets/images/reading-database-select-values-meta.png" alt="Select values Meta-data tab: REQUIREDDATE and SHIPPEDDATE as Date with format MM/dd/yyyy" width="800">
+<figcaption>Meta-data: both dates as Date, MM/dd/yyyy</figcaption>
+</figure>
+</div>
+
 7. Select **OK**.
 
 > **Note:** The format makes `REQUIREDDATE` and `SHIPPEDDATE` display as
 > plain dates, with no time. `diff_days` isn't in the list, so it
 > leaves the stream here: it has done its job.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-13-tr-reading-database-warehouse-s1.png" alt="tr_reading_database_warehouse.ktr on the Spoon canvas after this tab: Calculator, Number range, Select values, Sort rows and Table input, with the 4 hops between them" width="140">
+<figcaption>The canvas after Select values</figcaption>
+</figure>
+</div>
+
 
 ### 6. Run
 

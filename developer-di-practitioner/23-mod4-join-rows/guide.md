@@ -34,7 +34,7 @@
 
 :::: tabs
 
-### 1. Parameters
+### 1. Parameters and two lists
 
 > **Note:**
 >
@@ -61,9 +61,15 @@ Set-Location C:\Pentaho\design-tools\data-integration
 | `SEED`    | `23`          |                  |
 | `surname` | `Smith`       | `Family Surname` |
 
+<div align="center">
+<figure>
+<img src="../_assets/images/join-rows-parameters.png" alt="Transformation properties Parameters tab: SEED with default value 23, and surname with default value Smith and description Family Surname" width="800">
+<figcaption>Parameters: SEED 23, surname Smith</figcaption>
+</figure>
+</div>
+
 6. Select **OK**, and save the transformation (`Ctrl+S`).
 
-### 2. Two lists
 
 > **Note:**
 >
@@ -71,13 +77,37 @@ Set-Location C:\Pentaho\design-tools\data-integration
 > 
 > Two **Data grid** steps hold the lists to combine: ten first names and ten middle names.
 
-1. On the **Design** tab, open the **Input** folder and drag **Data grid** onto the canvas.
-2. Double-click **Data grid**. Set **Step name** to `first name`.
-3. On the **Meta** tab, add one field: **Name** `first_name`, **Type** `String`.
-4. Open the **Data** tab and enter the ten first names from the table below, one per row, in that order. Select **OK**.
-5. Drag a second **Data grid** onto the canvas. Double-click it and set **Step name** to `middle name`.
-6. On the **Meta** tab, add one field: **Name** `middle_name`, **Type** `String`.
-7. Open the **Data** tab and enter the ten middle names from the table below, one per row, in that order. Select **OK**.
+7. On the **Design** tab, open the **Input** folder and drag **Data grid** onto the canvas.
+8. Double-click **Data grid**. Set **Step name** to `first name`.
+9. On the **Meta** tab, add one field: **Name** `first_name`, **Type** `String`.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/join-rows-first-name-meta.png" alt="Data grid Meta tab: step name first name, one field first_name of type String" width="800">
+<figcaption>first name, Meta tab: first_name, String</figcaption>
+</figure>
+</div>
+
+10. Open the **Data** tab and enter the ten first names from the table below, one per row, in that order. Select **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/join-rows-first-name-data.png" alt="Data grid Data tab for first name: Oliver, Jack, Harry, George, Jacob, Charlie, Noah, William, Thomas and Oscar" width="800">
+<figcaption>first name, Data tab: ten first names</figcaption>
+</figure>
+</div>
+
+11. Drag a second **Data grid** onto the canvas. Double-click it and set **Step name** to `middle name`.
+12. On the **Meta** tab, add one field: **Name** `middle_name`, **Type** `String`.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/join-rows-middle-name-meta.png" alt="Data grid Meta tab: step name middle name, one field middle_name of type String" width="800">
+<figcaption>middle name, Meta tab: middle_name, String</figcaption>
+</figure>
+</div>
+
+13. Open the **Data** tab and enter the ten middle names from the table below, one per row, in that order. Select **OK**.
 
 | Row | `first_name` (first name) | `middle_name` (middle name) |
 | --- | ------------------------- | --------------------------- |
@@ -92,7 +122,22 @@ Set-Location C:\Pentaho\design-tools\data-integration
 | 9   | `Thomas`                  | `Andrew`                    |
 | 10  | `Oscar`                   | `Peter`                     |
 
-### 3. Every combination
+<div align="center">
+<figure>
+<img src="../_assets/images/join-rows-middle-name-data.png" alt="Data grid Data tab for middle name: James, John, William, Thomas, Alexander, Robert, Michael, David, Andrew and Peter" width="800">
+<figcaption>middle name, Data tab: ten middle names</figcaption>
+</figure>
+</div>
+
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-23-tr-join-rows-names-s1.png" alt="tr_join_rows_names.ktr on the Spoon canvas after this tab: first name and middle name" width="540">
+<figcaption>The canvas after first name, middle name</figcaption>
+</figure>
+</div>
+
+
+### 2. Every combination
 
 > **Note:**
 >
@@ -105,6 +150,14 @@ Set-Location C:\Pentaho\design-tools\data-integration
 3. Create a hop from **middle name** to **Join rows (cartesian product)**.
 4. Double-click **Join rows (cartesian product)**. Set **Step name** to `all possible first and middle name combinations`.
 5. Leave **Main step to read from** and **The condition** empty, keep the other settings as they are, and select **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/join-rows-all-combinations.png" alt="Join rows (cartesian product): step name all possible first and middle name combinations, main step empty, empty condition" width="586">
+<figcaption>No main step and no condition: every pair</figcaption>
+</figure>
+</div>
+
 6. Select **all possible first and middle name combinations** on the canvas, press `F10` (**Action > Preview**), and select **Quick Launch**.
 
 > **Success:** Checkpoint: 100 rows, every first name with every middle name, in two fields: `first_name` and `middle_name`.
@@ -122,13 +175,22 @@ Set-Location C:\Pentaho\design-tools\data-integration
 > cached row. Ten first names times ten middle names is 100 rows.
 >
 > With a condition, it emits only the combinations that pass it, which
-> is how the next part drops some pairs without a separate Filter rows.
+> is how **join surname**, in tab 5, drops some pairs without a separate
+> Filter rows.
 >
 > **Why it matters:** the output is the product of the input sizes.
 > Ten by ten is harmless; a thousand by a million is a billion rows, so
 > keep the cached side small and filter early.
 
-### 4. Initials
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-23-tr-join-rows-names-s2.png" alt="tr_join_rows_names.ktr on the Spoon canvas after this tab: all possible first and middle name combinations, first name and middle name, with the 2 hops between them" width="540">
+<figcaption>The canvas after all possible first and middle name combinations</figcaption>
+</figure>
+</div>
+
+
+### 3. Initials
 
 > **Note:**
 >
@@ -146,6 +208,13 @@ Set-Location C:\Pentaho\design-tools\data-integration
 | `first_middle_name` | `first_name+" "+middle_name`                              | `String`   |
 | `initials`          | `first_name.substring(0,1)+middle_name.substring(0,1)`    | `String`   |
 
+<div align="center">
+<figure>
+<img src="../_assets/images/join-rows-name-initials.png" alt="User defined Java expression: step name name_initials, first_middle_name = first_name+&quot; &quot;+middle_name and initials = first_name.substring(0,1)+middle_name.substring(0,1), both String" width="800">
+<figcaption>name_initials: two String expressions</figcaption>
+</figure>
+</div>
+
 5. Select **OK**.
 6. Select **name_initials** on the canvas, press `F10` (**Action > Preview**), and select **Quick Launch**.
 
@@ -153,13 +222,21 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 7. Select **Close**.
 
-### 5. Add the surname
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-23-tr-join-rows-names-s3.png" alt="tr_join_rows_names.ktr on the Spoon canvas after this tab: all possible first and middle name combinations, first name, middle name and name_initials, with the 3 hops between them" width="540">
+<figcaption>The canvas after name_initials</figcaption>
+</figure>
+</div>
+
+
+### 4. Add the surname
 
 > **Note:**
 >
-> #### Get variables and a second Join rows
+> #### Get variables
 > 
-> **Get variables** turns the `surname` parameter into a field on one row. A second **Join rows (cartesian product)** adds that row to every name, and its condition drops the pairs whose initials are on a list.
+> **Get variables** turns the `surname` parameter into a field on one row.
 
 1. On the **Design** tab, open the **Job** folder and drag **Get variables** onto the canvas.
 2. Double-click **Get variables**. Set **Step name** to `get ${surname}`.
@@ -169,20 +246,60 @@ Set-Location C:\Pentaho\design-tools\data-integration
 | --------- | ------------ | -------- |
 | `surname` | `${surname}` | `String` |
 
+<div align="center">
+<figure>
+<img src="../_assets/images/join-rows-get-surname.png" alt="Get variables: step name get ${surname}, one field surname from variable ${surname}, type String" width="800">
+<figcaption>get ${surname}: the surname parameter as a field</figcaption>
+</figure>
+</div>
+
 4. Select **OK**.
-5. On the **Design** tab, open the **Joins** folder and drag **Join rows (cartesian product)** onto the canvas.
-6. Create a hop from **name_initials** to **Join rows (cartesian product)**, and another from **get ${surname}** to **Join rows (cartesian product)**.
-7. Double-click **Join rows (cartesian product)**. Set **Step name** to `join surname`, and set **Main step to read from** to `name_initials`.
-8. In **The condition**, select `<field>` on the left, then select `initials` in the list.
-9. Select the function in the middle of the condition (it shows `=`), then select `IN LIST`.
-10. Select `<value>`. In the **Enter value** dialog, set **Type** to `String` and **Value** to `AA;DD;PP;TT;OO;RR;WW`, then select **OK**.
-11. Select **NOT** at the top left of the condition, to negate it: the step now keeps the rows whose initials are **not** in the list.
-12. Select **OK**.
-13. Select **join surname** on the canvas, press `F10` (**Action > Preview**), and select **Quick Launch**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-23-tr-join-rows-names-s4.png" alt="tr_join_rows_names.ktr on the Spoon canvas after this tab: all possible first and middle name combinations, first name, get ${surname}, middle name and name_initials, with the 3 hops between them" width="540">
+<figcaption>The canvas after get ${surname}</figcaption>
+</figure>
+</div>
+
+
+### 5. join surname
+
+> **Note:**
+>
+> #### join surname
+>
+> A second **Join rows (cartesian product)** adds the surname row to every name, and its condition drops the pairs whose initials are on a list.
+
+1. On the **Design** tab, open the **Joins** folder and drag **Join rows (cartesian product)** onto the canvas.
+2. Create a hop from **name_initials** to **Join rows (cartesian product)**, and another from **get ${surname}** to **Join rows (cartesian product)**.
+3. Double-click **Join rows (cartesian product)**. Set **Step name** to `join surname`, and set **Main step to read from** to `name_initials`.
+4. In **The condition**, select `<field>` on the left, then select `initials` in the list.
+5. Select the function in the middle of the condition (it shows `=`), then select `IN LIST`.
+6. Select `<value>`. In the **Enter value** dialog, set **Type** to `String` and **Value** to `AA;DD;PP;TT;OO;RR;WW`, then select **OK**.
+7. Select **NOT** at the top left of the condition, to negate it: the step now keeps the rows whose initials are **not** in the list.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/join-rows-join-surname.png" alt="Join rows (cartesian product): step name join surname, main step name_initials, condition NOT initials IN LIST AA;DD;PP;TT;OO;RR;WW (String)" width="626">
+<figcaption>join surname: NOT initials IN LIST</figcaption>
+</figure>
+</div>
+
+8. Select **OK**.
+9. Select **join surname** on the canvas, press `F10` (**Action > Preview**), and select **Quick Launch**.
 
 > **Success:** Checkpoint: 98 rows, each with `surname` `Smith`. The condition dropped `Thomas Thomas` (`TT`) and `William William` (`WW`), the only two pairs whose initials are in the list.
 
-14. Select **Close**.
+10. Select **Close**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-23-tr-join-rows-names-s5.png" alt="tr_join_rows_names.ktr on the Spoon canvas after this tab: all possible first and middle name combinations, first name, get ${surname}, join surname, middle name and name_initials, with the 5 hops between them" width="540">
+<figcaption>The canvas after join surname</figcaption>
+</figure>
+</div>
+
 
 ### 6. Build the name
 
@@ -204,6 +321,13 @@ Set-Location C:\Pentaho\design-tools\data-integration
 | 3   | `surname`     |
 | 4   | `initials`    |
 
+<div align="center">
+<figure>
+<img src="../_assets/images/join-rows-select-values.png" alt="Select values Select and Alter tab: four fields in order, first_name, middle_name, surname and initials" width="698">
+<figcaption>Select values: four fields, in this order</figcaption>
+</figure>
+</div>
+
 5. Select **OK**.
 6. On the **Design** tab, open the **Scripting** folder and drag **User defined Java expression** onto the canvas.
 7. Create a hop from **Select values** to **User defined Java expression**.
@@ -215,12 +339,27 @@ Set-Location C:\Pentaho\design-tools\data-integration
 | `baby_initials` | `first_name.substring(0,1)+middle_name.substring(0,1)+surname.substring(0,1)`      | `String`   |
 | `baby_name`     | `first_name+" "+middle_name+" "+surname`                                           | `String`   |
 
+<div align="center">
+<figure>
+<img src="../_assets/images/join-rows-name-surname.png" alt="User defined Java expression: step name name +surname, baby_initials = first_name.substring(0,1)+middle_name.substring(0,1)+surname.substring(0,1) and baby_name = first_name+&quot; &quot;+middle_name+&quot; &quot;+surname, both String" width="800">
+<figcaption>name +surname: baby_initials and baby_name</figcaption>
+</figure>
+</div>
+
 10. Select **OK**.
 11. Select **name +surname** on the canvas, press `F10` (**Action > Preview**), and select **Quick Launch**.
 
 > **Success:** Checkpoint: 98 rows with six fields: `first_name`, `middle_name`, `surname`, `initials`, `baby_initials` and `baby_name`. `Oliver`, `James` and `Smith`, for example, give `OJS` and `Oliver James Smith`.
 
 12. Select **Close**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-23-tr-join-rows-names-s6.png" alt="tr_join_rows_names.ktr on the Spoon canvas after this tab: Select values, all possible first and middle name combinations, first name, get ${surname}, join surname, middle name, name +surname and name_initials, with the 7 hops between them" width="716">
+<figcaption>The canvas after Select values, name +surname</figcaption>
+</figure>
+</div>
+
 
 ### 7. Pick five
 
@@ -236,6 +375,14 @@ Set-Location C:\Pentaho\design-tools\data-integration
    * **Step name**: `Select a name`
    * **Sample size (rows)**: `5`
    * **Random seed**: `${SEED}`
+
+<div align="center">
+<figure>
+<img src="../_assets/images/join-rows-select-a-name.png" alt="Reservoir sampling: step name Select a name, sample size 5, random seed ${SEED}" width="406">
+<figcaption>Select a name: 5 rows, seed ${SEED}</figcaption>
+</figure>
+</div>
+
 4. Select **OK**.
 5. Save the transformation (`Ctrl+S`).
 6. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
@@ -267,6 +414,14 @@ Set-Location C:\Pentaho\design-tools\data-integration
 9. Select **Select a name** on the canvas and open the **Preview data** tab.
 
 > **Success:** Checkpoint: 5 rows: `Charlie Robert Smith`, `Thomas Michael Smith`, `William Michael Smith`, `Jacob John Smith` and `George Andrew Smith`. The same seed always draws the same names; a different seed draws a different five.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-23-tr-join-rows-names-s7.png" alt="tr_join_rows_names.ktr on the Spoon canvas after this tab: Select a name, Select values, all possible first and middle name combinations, first name, get ${surname}, join surname, middle name, name +surname and name_initials, with the 8 hops between them" width="800">
+<figcaption>The canvas after Select a name</figcaption>
+</figure>
+</div>
+
 
 ::::
 

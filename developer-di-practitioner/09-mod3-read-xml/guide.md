@@ -129,6 +129,14 @@ Set-Location C:\Pentaho\design-tools\data-integration
 1. On the **Design** tab, open the **Flow** folder and drag **Dummy (do nothing)** onto the canvas. Keep its default step name, `Dummy (do nothing)`.
 2. Create a hop from **Get data from XML** to **Dummy (do nothing)**: hold `Shift` and drag from one step to the other.
 
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-09-tr-read-xml-s1.png" alt="tr_read_xml.ktr on the Spoon canvas after this tab: Dummy (do nothing) and Get data from XML, with the hop between them" width="300">
+<figcaption>The canvas after Dummy (do nothing)</figcaption>
+</figure>
+</div>
+
+
 ### 3. Run
 
 > **Note:**
@@ -143,7 +151,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 <div align="center">
 <figure>
-<img src="../_assets/images/preview-xml-filepng.png" alt="Preview data: seven orders read from orders.xml" width="760">
+<img src="../_assets/images/preview-xml-file.png" alt="Preview data: seven orders read from orders.xml" width="760">
 <figcaption>Seven orders from the file</figcaption>
 </figure>
 </div>
@@ -175,17 +183,17 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 ::::
 
-### 2. XML - URI
+### 2. XML - URL
 
 > **Note:**
 >
-> #### XML - URI
+> #### XML - URL
 >
 > In this branch the XML comes from a **URL**, passed to the step in a field, and XPath picks out the rows and fields as before. You build it in the same transformation, below the file branch.
 
 <div align="center">
 <figure>
-<img src="../_assets/images/xml-url.png" alt="The URL branch: Generate rows passing the URL to Get data from XML, then Dummy" width="512">
+<img src="../_assets/images/xml-url.png" alt="The URL branch with both hops enabled: Pass URL into Read Url, then Dummy" width="421">
 <figcaption>The URL branch</figcaption>
 </figure>
 </div>
@@ -305,7 +313,6 @@ Set-Location C:\Pentaho\design-tools\data-integration
 > There is no separate "web input" to learn, and a transformation
 > written against local files moves to S3 or SFTP by editing a string.
 
-Next: open the **Dummy** tab.
 
 ### 3. Dummy
 
@@ -318,8 +325,24 @@ Next: open the **Dummy** tab.
 1. On the **Design** tab, open the **Flow** folder and drag **Dummy (do nothing)** onto the canvas.
 2. Double-click the new **Dummy (do nothing)**.
 3. Set **Step name** to `Dummy`.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/read-xml-dummy.png" alt="Dummy (do nothing): step name Dummy" width="406">
+<figcaption>Dummy: the step to preview on the URL branch</figcaption>
+</figure>
+</div>
+
 4. Select **OK**.
 5. Create a hop from **Read Url** to **Dummy**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-09-tr-read-xml-s2.png" alt="tr_read_xml.ktr on the Spoon canvas after this tab: Dummy, Dummy (do nothing), Get data from XML, Pass URL and Read Url, with the 3 hops between them" width="476">
+<figcaption>The canvas after Dummy</figcaption>
+</figure>
+</div>
+
 
 ### 4. Run
 
@@ -342,7 +365,7 @@ Next: open the **Dummy** tab.
 </figure>
 </div>
 
-6. In **Execution Results**, open the **Logging** tab and find the first error for **Read Url**:
+6. In **Execution Results**, open the **Logging** tab and find the error for **Read Url** that names the value:
 
 ```text
 ZONE String : couldn't convert String to number : non-numeric character found at position 1 for value [Annual]

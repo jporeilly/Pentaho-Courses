@@ -1,0 +1,29 @@
+%%{init: {"theme":"base","themeVariables":{"fontFamily":"Segoe UI, Helvetica, Arial, sans-serif","fontSize":"13px","lineColor":"#64748b","clusterBkg":"#fafaf9","clusterBorder":"#d6d3d1","edgeLabelBackground":"#ffffff"},"flowchart":{"curve":"basis","nodeSpacing":18,"rankSpacing":50,"padding":10,"htmlLabels":true}}}%%
+flowchart LR
+  classDef input fill:#dbeafe,stroke:#1d4ed8,color:#1e3a8a,text-align:left,rx:6,ry:6
+  classDef join fill:#ccfbf1,stroke:#0f766e,color:#134e4a,text-align:left,rx:6,ry:6
+  classDef output fill:#dcfce7,stroke:#15803d,color:#14532d,text-align:left,rx:6,ry:6
+  classDef check fill:#fef3c7,stroke:#b45309,color:#78350f,text-align:left,rx:6,ry:6
+  R["<b>Reference</b>&nbsp;&nbsp;<br/>STG_ORDERS_MERGED&nbsp;&nbsp;<br/>ORDER BY PRODUCTCODE&nbsp;&nbsp;"]:::input
+  N["<b>Compare</b>&nbsp;&nbsp;<br/>orders_update.txt&nbsp;&nbsp;<br/>sorted on PRODUCTCODE&nbsp;&nbsp;"]:::input
+  M["<b>Merge rows (diff)</b>&nbsp;&nbsp;<br/>adds FLAG to every row&nbsp;&nbsp;"]:::join
+  I["identical&nbsp;&nbsp;"]:::check
+  CH["changed&nbsp;&nbsp;"]:::check
+  NW["new&nbsp;&nbsp;"]:::check
+  DL["deleted&nbsp;&nbsp;"]:::check
+  S0["skipped: nothing written&nbsp;&nbsp;"]:::output
+  S1["UPDATE ... WHERE&nbsp;&nbsp;<br/>PRODUCTCODE = ?&nbsp;&nbsp;"]:::output
+  S2["INSERT&nbsp;&nbsp;"]:::output
+  S3["DELETE ... WHERE&nbsp;&nbsp;<br/>PRODUCTCODE = ?&nbsp;&nbsp;"]:::output
+  R --> M
+  N --> M
+  M --> I --> S0
+  M --> CH --> S1
+  M --> NW --> S2
+  M --> DL --> S3
+  subgraph SY["Synchronize after merge &nbsp;&nbsp;"]
+    S0
+    S1
+    S2
+    S3
+  end

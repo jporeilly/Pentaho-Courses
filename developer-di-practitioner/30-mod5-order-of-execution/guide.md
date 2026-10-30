@@ -27,7 +27,7 @@
 
 :::: tabs
 
-### 1. Build the Job
+### 1. Start
 
 > **Note:**
 >
@@ -47,19 +47,46 @@ Set-Location C:\Pentaho\design-tools\data-integration
 2. Copy `tr_hello_world.ktr` from the lab's `solution` folder, `C:\Workshop-DI-Practitioner\05-enterprise-solution\01-jobs\30-mod5-order-of-execution\solution`, into the lab folder, `C:\Workshop-DI-Practitioner\05-enterprise-solution\01-jobs\30-mod5-order-of-execution`.
 3. Select **File > New > Job** (`Ctrl+Alt+N`).
 4. Select **File > Save as** and save it as `kjb_hello_world_backward.kjb` in `C:\Workshop-DI-Practitioner\05-enterprise-solution\01-jobs\30-mod5-order-of-execution`.
+
 5. On the **Design** tab, open the **General** folder and drag **Start** onto the canvas.
-6. From the **General** folder, drag **Transformation** onto the canvas.
-7. Double-click the new **Transformation** entry.
-8. Set **Entry Name** to `Transformation A`.
-9. Set **Transformation** to `${Internal.Entry.Current.Directory}/tr_hello_world.ktr`, and select **OK**. The label under the entry now reads **Transformation A**.
-10. Repeat steps 6 to 9 twice more, with the same **Transformation** setting: set **Entry Name** to `Transformation B` the first time and `Transformation C` the second. Check that each label on the canvas shows its new name.
-11. From the **General** folder, drag **Success** onto the canvas.
-12. Create the hops in this order. The order matters: tab 2 shows why.
+
+### 2. Transformation
+
+> **Note:**
+>
+> #### Transformation
+>
+> Add three **Transformation** entries, A, B and C, that all run the same Hello World transformation.
+
+1. From the **General** folder, drag **Transformation** onto the canvas.
+2. Double-click the new **Transformation** entry.
+3. Set **Entry Name** to `Transformation A`.
+4. Set **Transformation** to `${Internal.Entry.Current.Directory}/tr_hello_world.ktr`, and select **OK**. The label under the entry now reads **Transformation A**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/order-of-execution-transformation-a.png" alt="Transformation job entry: entry name Transformation A, transformation ${Internal.Entry.Current.Directory}/tr_hello_world.ktr, run configuration Pentaho local" width="736">
+<figcaption>Transformation A: runs tr_hello_world.ktr from the job's folder</figcaption>
+</figure>
+</div>
+
+5. Repeat steps 1 to 4 twice more, with the same **Transformation** setting: set **Entry Name** to `Transformation B` the first time and `Transformation C` the second. Check that each label on the canvas shows its new name.
+
+### 3. Success
+
+> **Note:**
+>
+> #### Success
+>
+> Add **Success**, then draw the four hops in the order that decides how the job runs.
+
+1. From the **General** folder, drag **Success** onto the canvas.
+2. Create the hops in this order. The order matters: tab 4 shows why.
     * Create a hop from **Start** to **Transformation A**: hold `Shift` and drag from one entry to the other. It is an unconditional hop: it shows a lock.
     * Create a hop from **Start** to **Transformation B**. It is unconditional too.
     * Create a hop from **Transformation A** to **Transformation C**. Spoon makes it a **Result is TRUE** hop: green, with a check mark.
     * Create a hop from **Transformation C** to **Success**, also a **Result is TRUE** hop.
-13. Save the job (`Ctrl+S`).
+3. Save the job (`Ctrl+S`).
 
 <div align="center">
 <figure>
@@ -70,7 +97,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 > **Success:** Checkpoint: your canvas matches the figure. The two hops from **Start** show a lock; the hops from **Transformation A** and **Transformation C** are green. (The solution and the figure name the first entry `START`; Spoon names a new one `Start`. The name makes no difference.)
 
-### 2. Run It and Read the Order
+### 4. Run It and Read the Order
 
 > **Note:**
 >
@@ -113,7 +140,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 > must happen in sequence. If B needs A's output, put B *after* A on
 > the same branch.
 
-### 3. Run the Branches in Parallel
+### 5. Run the Branches in Parallel
 
 > **Note:**
 >
@@ -160,6 +187,13 @@ Set-Location C:\Pentaho\design-tools\data-integration
 > **Why it matters:** parallel branches save time when the work is
 > independent, such as loading three unrelated staging tables. When
 > one branch needs another's result, keep them serial.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/job-order-of-execution.png" alt="By default the job runs Transformation A, C and Success on one thread, then Transformation B; with Run Next Entries in Parallel on Start, A and B start together on two threads, and C still waits for A and Success for C" width="784">
+<figcaption>One branch at a time, or both branches at once</figcaption>
+</figure>
+</div>
 
 ::::
 

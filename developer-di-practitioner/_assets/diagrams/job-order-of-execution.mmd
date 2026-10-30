@@ -1,0 +1,25 @@
+%%{init: {"theme":"base","themeVariables":{"fontFamily":"Segoe UI, Helvetica, Arial, sans-serif","fontSize":"13px","lineColor":"#64748b","clusterBkg":"#fafaf9","clusterBorder":"#d6d3d1","edgeLabelBackground":"#ffffff"},"flowchart":{"curve":"basis","nodeSpacing":18,"rankSpacing":36,"padding":10,"htmlLabels":true}}}%%
+flowchart LR
+  classDef start fill:#dbeafe,stroke:#1d4ed8,color:#1e3a8a,text-align:left,rx:6,ry:6
+  classDef entry fill:#ede9fe,stroke:#6d28d9,color:#3b0764,text-align:left,rx:6,ry:6
+  classDef done fill:#dcfce7,stroke:#15803d,color:#14532d,text-align:left,rx:6,ry:6
+  subgraph PAR["Run Next Entries in Parallel on Start&nbsp;&nbsp;"]
+    direction LR
+    S2["<b>Start</b>&nbsp;&nbsp;"]:::start
+    A2["Transformation A&nbsp;&nbsp;<br/>thread 1&nbsp;&nbsp;"]:::entry
+    C2["Transformation C&nbsp;&nbsp;<br/>waits for A&nbsp;&nbsp;"]:::entry
+    W2["Success&nbsp;&nbsp;<br/>waits for C&nbsp;&nbsp;"]:::done
+    B2["Transformation B&nbsp;&nbsp;<br/>thread 2, same time as A&nbsp;&nbsp;"]:::entry
+    S2 -.-> A2 --> C2 --> W2
+    S2 -.-> B2
+  end
+  subgraph SEQ["Default: one thread, depth-first&nbsp;&nbsp;"]
+    direction LR
+    S1["<b>Start</b>&nbsp;&nbsp;"]:::start
+    A1["<b>1</b> Transformation A&nbsp;&nbsp;"]:::entry
+    C1["<b>2</b> Transformation C&nbsp;&nbsp;"]:::entry
+    W1["<b>3</b> Success&nbsp;&nbsp;"]:::done
+    B1["<b>4</b> Transformation B&nbsp;&nbsp;"]:::entry
+    S1 -->|"first hop"| A1 --> C1 --> W1
+    S1 -->|"second hop, after the<br/>whole first branch"| B1
+  end

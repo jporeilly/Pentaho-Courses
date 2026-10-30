@@ -19,7 +19,7 @@
 
 <div align="center">
 <figure>
-<img src="../_assets/images/formula.png" alt="The finished transformation: Generate Rows into Formula [a]+[b], and Generate Rows 2 into IF Formula b-a, the second hop grey because it is disabled" width="765">
+<img src="../_assets/images/formula.png" alt="The solution on the Spoon canvas: its note, Generate Rows into Formula [a]+[b], and Generate Rows 2 into IF Formula b-a, the second hop grey because it is disabled" width="580">
 <figcaption>What you build: two small flows (the solution's second hop is disabled; yours is not)</figcaption>
 </figure>
 </div>
@@ -170,6 +170,14 @@ Set-Location C:\Pentaho\design-tools\data-integration
 > The formula has no third argument, so `IF` has no value to return for a row whose `booking_type` isn't `R`. The OpenFormula specification says it then returns FALSE, a Boolean, which the Number field `result` can't hold.
 
 1. Double-click **Generate Rows 2**. Set the **Value** of `booking_type` to `X`, then select **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/formula-generate-rows-2-x.png" alt="Generate rows: step name Generate Rows 2, limit 1, fields a Integer 1, b Integer 2, booking_type String X" width="800">
+<figcaption>Generate Rows 2 with booking_type X</figcaption>
+</figure>
+</div>
+
 2. Save the transformation (`Ctrl+S`).
 3. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
 4. In **Execution Results**, open the **Logging** tab.
@@ -177,13 +185,28 @@ Set-Location C:\Pentaho\design-tools\data-integration
 > **Success:** Checkpoint: the run fails on **IF Formula b-a**. The log shows `Please specify a Boolean type for field [result] as a result of formula [IF([booking_type]="R";[b]-[a])]`.
 
 5. Double-click **IF Formula b-a**. Change **Formula** to `IF([booking_type]="R";[b]-[a];0)`, then select **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/formula-if-three-arguments.png" alt="Formula: step name IF Formula b-a, new field result, formula IF([booking_type]=&quot;R&quot;;[b]-[a];0), value type Number" width="800">
+<figcaption>IF with its third argument, 0</figcaption>
+</figure>
+</div>
+
 6. Save the transformation (`Ctrl+S`).
 7. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
 8. Select **IF Formula b-a** on the canvas and open the **Preview data** tab.
 
 > **Success:** Checkpoint: the run succeeds, and `result` is 0: the condition is false, so `IF` returns its third argument.
 
-9. Double-click **Generate Rows 2**, set the **Value** of `booking_type` back to `R`, and select **OK**. A run now gives `result` 1 again. In your own formulas, give every `IF` its third argument.
+9. Double-click **Generate Rows 2**, set the **Value** of `booking_type` back to `R`, and select **OK**. A run now gives `result` 1 again. In your own formulas, give every `IF` its third argument. The solution file keeps the two-argument formula, so you can reproduce the error with it.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/formula-generate-rows-2-r.png" alt="Generate rows: step name Generate Rows 2, limit 1, fields a Integer 1, b Integer 2, booking_type String R" width="800">
+<figcaption>Generate Rows 2 back to booking_type R</figcaption>
+</figure>
+</div>
 
 <div class="pcm-embed-card" data-href="http://docs.oasis-open.org/office/v1.2/OpenDocument-v1.2-part2.html" data-title="OpenDocument formula specification (OASIS)"></div>
 

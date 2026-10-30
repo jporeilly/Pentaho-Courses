@@ -2,7 +2,7 @@
   "title": "Merge Join",
   "description": "",
   "order": 35,
-  "stepCount": 4,
+  "stepCount": 10,
   "estimatedMinutes": 20,
   "hasVideo": false
 }

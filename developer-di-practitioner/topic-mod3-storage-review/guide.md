@@ -22,12 +22,11 @@ Object storage as a first-class data source. Read from and write to MinIO over t
 > 
 > **Object storage** keeps each file as an *object* in a flat *bucket*, addressed by a key and reached over HTTP(S) with a REST API, usually the Amazon S3 API. It scales almost without limit, works across networks and clouds, and adds features such as versioning, lifecycle rules and replication. It suits data lakes, backups and analytics: the data a pipeline reads and writes.
 
-<div align="center">
-<figure>
-<img src="../_assets/images/storage-types-block-file-object.png" alt="Block, file and object storage compared: transport, interface and typical use for each" width="800">
-<figcaption>Block, file and object storage</figcaption>
-</figure>
-</div>
+| | Block | File | Object storage |
+| --- | --- | --- | --- |
+| **Transport** | FC or iSCSI | TCP/IP | TCP/IP |
+| **Interface** | Direct attached or SAN | NFS, SMB | HTTP, REST |
+| **Use case** | Low latency; best for structured data | Good performance; file sharing, global file locking | Easy scaling with no limits; accessible across LAN and WAN |
 
 **Object storage you'll meet**
 

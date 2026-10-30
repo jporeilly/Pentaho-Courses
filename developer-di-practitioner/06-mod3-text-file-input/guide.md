@@ -197,11 +197,11 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 9. Select **Close**.
 
-### 3. RegEx Evaluation
+### 3. Regex Evaluation
 
 > **Note:**
 >
-> #### RegEx Evaluation
+> #### Regex Evaluation
 > 
 > Use **Regex evaluation** to match a field against a regular expression and capture substrings into new fields.
 > 
@@ -235,7 +235,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 <div align="center">
 <figure>
-<img src="../_assets/images/regex.png" alt="The Regex evaluation dialog with the expression and the two capture fields" width="800">
+<img src="../_assets/images/regex.png" alt="Regex evaluation: step name parse status, field to evaluate status, the expression (Delivered|Returned):(.+), and capture fields order_status and order_date (format MMM yyyy), both with Trim both" width="800">
 <figcaption>Two capture groups, two fields</figcaption>
 </figure>
 </div>

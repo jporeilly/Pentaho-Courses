@@ -43,15 +43,8 @@
 > **XML join** adds an XML stream into another XML stream as a new level, based on an XPath that points at the target location. It takes exactly two inputs: a **target** stream (the document you are building up) and a **source** stream (the fragments to insert). The target carries a single row, the document, while the source may contain many.
 > 
 > By chaining several **XML join** steps, each one inserting the next level at a deeper XPath, you assemble a deeply nested document: here, order list, order, header comments, lines, line comments and sub-lines.
-
-<div align="center">
-<figure>
-<img src="../_assets/images/xml-join.png" alt="Pentaho Data Integration title card: XML Join" width="800">
-<figcaption>XML Join</figcaption>
-</figure>
-</div>
-
-> **Tip:** The finished transformation is installed in the lab's `solution` folder (see **Lab Files**). Open it in Spoon beside your own to compare the wiring as you work.
+>
+> The finished transformation is installed in the lab's `solution` folder (see **Lab Files**). Open it in Spoon beside your own to compare the wiring as you work.
 
 :::: tabs
 
@@ -83,9 +76,40 @@ Set-Location C:\Pentaho\design-tools\data-integration
    ${Internal.Transformation.Filename.Directory}/xml_orders_source.xls
    ```
 
+<div align="center">
+<figure>
+<img src="../_assets/images/xml-join-orderlist-files.png" alt="Microsoft Excel input Files tab: step name OrderList, engine Excel 97-2003 XLS (JXL), selected file ${Internal.Transformation.Filename.Directory}/xml_orders_source.xls" width="800">
+<figcaption>OrderList, Files tab: the JXL engine and xml_orders_source.xls</figcaption>
+</figure>
+</div>
+
 8. Open the **Sheets** tab. In **List of sheets to read**, set **Sheet name** to `OrderList`, **Start row** to `0` and **Start column** to `0`.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/xml-join-orderlist-sheets.png" alt="Microsoft Excel input Sheets tab: sheet name OrderList, start row 0, start column 0" width="800">
+<figcaption>Sheets tab: OrderList from row 0, column 0</figcaption>
+</figure>
+</div>
+
 9. Open the **Content** tab and check that **Header** and **No empty rows** are selected.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/xml-join-orderlist-content.png" alt="Microsoft Excel input Content tab: Header and No empty rows selected, limit 0" width="800">
+<figcaption>Content tab: Header and No empty rows selected</figcaption>
+</figure>
+</div>
+
 10. Open the **Fields** tab and select **Get fields from header row...**. Make the grid match the step's table below: set each **Type** and **Format** as listed, and delete any other row.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/xml-join-orderlist-fields.png" alt="Microsoft Excel input Fields tab for OrderList: source String, timestamp Date with format ddMMyyyy, businessUnitId String, plantId String" width="800">
+<figcaption>OrderList, Fields tab: timestamp is a Date, ddMMyyyy</figcaption>
+</figure>
+</div>
+
 11. Select **Preview rows**, then **OK** in **Enter preview size**. Compare the row count with the checkpoint below, then select **Close**.
 12. Select **OK**.
 13. Repeat steps 4 to 12 for the other five sheets, double-clicking each new step as you add it. Each step has its sheet's name: `OrderHeaders`, `OrderHeaderComments`, `OrderLines`, `OrderLineComments` and `OrderSubLines`.
@@ -162,6 +186,14 @@ Leave the other columns of each grid as they are.
 > | `OrderLineComments`   | 3    |
 > | `OrderSubLines`       | 5    |
 
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-25-tr-xml-join-s1.png" alt="tr_xml_join.ktr on the Spoon canvas after this tab: OrderHeaderComments, OrderHeaders, OrderLineComments, OrderLines, OrderList and OrderSubLines" width="140">
+<figcaption>The canvas after this tab adds 6 steps</figcaption>
+</figure>
+</div>
+
+
 ### 2. Add Constants
 
 > **Note:**
@@ -174,6 +206,14 @@ Leave the other columns of each grid as they are.
 2. Create a hop from **OrderList** to **Add constants**: hold `Shift` and drag from one step to the other.
 3. Double-click **Add constants**. Set **Step name** to `Placeholder`.
 4. Fill the **Fields** grid with the step's placeholder fields from the table below, in that order. For each, set **Type** to `String` and leave **Value** empty.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/xml-join-placeholder.png" alt="Add constants: step name Placeholder, one field OrderHeaders of type String with no value" width="800">
+<figcaption>Placeholder: OrderHeaders, String, no value</figcaption>
+</figure>
+</div>
+
 5. Select **OK**.
 6. Repeat steps 1 to 5 for `Placeholder 2` and `Placeholder 3x`, double-clicking each new step as you add it.
 
@@ -188,6 +228,14 @@ Leave the other columns of each grid as they are.
 > **Success:** Checkpoint: **Examine preview data** shows 2 rows, orders `4711` and `4712`, with the two new fields `OrderLines` and `OrderHeaderComments` empty.
 
 8. Select **Close**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-25-tr-xml-join-s2.png" alt="tr_xml_join.ktr on the Spoon canvas after this tab: OrderHeaderComments, OrderHeaders, OrderLineComments, OrderLines, OrderList, OrderSubLines, Placeholder, Placeholder 2 and Placeholder 3x, with the 3 hops between them" width="275">
+<figcaption>The canvas after Placeholder, Placeholder 2, Placeholder 3x</figcaption>
+</figure>
+</div>
+
 
 ### 3. Create XPath
 
@@ -217,6 +265,13 @@ Leave the other columns of each grid as they are.
    | ---------------- | ---------------- | ------ | ---------------------------------------- |
    | `xPathStatement` | `xPathStatement` | String | N                                        |
 
+<div align="center">
+<figure>
+<img src="../_assets/images/xml-join-create-xpath.png" alt="Modified JavaScript value: step name Create XPath, script building xPathStatement from orderNumber.getInteger() and orderLineNumber.getInteger(), Compatibility mode selected, output field xPathStatement of type String" width="800">
+<figcaption>Create XPath: the script, compatibility mode and xPathStatement</figcaption>
+</figure>
+</div>
+
 7. Select **OK**.
 8. Drag a second **Modified JavaScript value** onto the canvas and create a hop from **OrderSubLines** to it.
 9. Double-click the new step. Set **Step name** to `Create XPath 2`, select **Compatibility mode?**, and fill the **Fields** grid as in step 6.
@@ -237,6 +292,14 @@ Leave the other columns of each grid as they are.
 
 13. Select **Close**.
 
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-25-tr-xml-join-s3.png" alt="tr_xml_join.ktr on the Spoon canvas after this tab: Create XPath, Create XPath 2, OrderHeaderComments, OrderHeaders, OrderLineComments, OrderLines, OrderList, OrderSubLines, Placeholder, Placeholder 2 and Placeholder 3x, with the 5 hops between them" width="275">
+<figcaption>The canvas after Create XPath, Create XPath 2</figcaption>
+</figure>
+</div>
+
+
 ### 4. Add XML
 
 > **Note:**
@@ -250,7 +313,23 @@ Leave the other columns of each grid as they are.
 3. Double-click **Add XML**. Set **Step name** to `xmlOrderList`.
 4. On the **Content** tab, set **Encoding** to `ISO-8859-1`, **Output Value** to `xmlOrderLists` and **Root XML element** to `OrderList`.
 5. Clear **Omit XML header**. Leave **Omit null values from XML result** cleared.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/xml-join-xmlorderlist-content.png" alt="Add XML Content tab: step name xmlOrderList, encoding ISO-8859-1, output value xmlOrderLists, root XML element OrderList, Omit XML header cleared" width="800">
+<figcaption>xmlOrderList, Content tab</figcaption>
+</figure>
+</div>
+
 6. Open the **Fields** tab and select **Get Fields**. Make the grid match the step's table below: delete the rows it doesn't list, then set **Format** and **Attribute**. **Element name** keeps the field's name, as **Get Fields** fills it.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/xml-join-xmlorderlist-fields.png" alt="Add XML Fields tab for xmlOrderList: source, timestamp (Date, yyyyMMdd), businessUnitId and plantId as attributes, OrderHeaders as a child element" width="800">
+<figcaption>xmlOrderList, Fields tab: data fields are attributes</figcaption>
+</figure>
+</div>
+
 7. Select **OK**.
 8. Repeat steps 1 to 7 for the other five **Add XML** steps, double-clicking each new step as you add it. Use these settings:
 
@@ -331,6 +410,14 @@ The parent keys you deleted stay out of the XML but stay in the stream: **Add XM
 
 10. Select **Close**.
 
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-25-tr-xml-join-s4.png" alt="tr_xml_join.ktr on the Spoon canvas after this tab: Create XPath, Create XPath 2, OrderHeaderComments, OrderHeaders, OrderLineComments, OrderLines, OrderList, OrderSubLines, Placeholder, Placeholder 2, Placeholder 3x, xmlOrderHeaderComments, xmlOrderHeaders, xmlOrderLineComments, xmlOrderLines, xmlOrderList and xmlOrderSubLines, with the 11 hops between them" width="533">
+<figcaption>The canvas after this tab adds 6 steps</figcaption>
+</figure>
+</div>
+
+
 ### 5. XML Join
 
 > **Note:**
@@ -344,6 +431,14 @@ The parent keys you deleted stay out of the XML but stay in the stream: **Add XM
 3. Double-click **XML join**. Set **Step name** to `XML Join Step`.
 4. Set the streams and the join as in the first row of both tables below.
 5. Set **Encoding** to `ISO-8859-1`, and leave **Omit null values from XML result** cleared.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/xml-join-step-1.png" alt="XML join: step name XML Join Step, target xmlOrderList field xmlOrderLists, source xmlOrderHeaders field xmlOrderHeaders, XPath //OrderHeaders, complex join cleared, result field xmloutput1, encoding ISO-8859-1, Omit XML header selected" width="726">
+<figcaption>XML Join Step: a simple join on //OrderHeaders</figcaption>
+</figure>
+</div>
+
 6. Select **OK**.
 7. Repeat steps 1 to 6 for `XML Join Step 2` to `XML Join Step 5`, double-clicking each new step as you add it. Each one's two hops come from its **Target XML step** and its **Source XML step**.
 
@@ -363,7 +458,14 @@ The parent keys you deleted stay out of the XML but stay in the stream: **Add XM
 | `XML Join Step 4` | `?`                                                     | Selected      | `xPathStatement`      | `xmloutput4`     | Selected        |
 | `XML Join Step 5` | `?`                                                     | Selected      | `xPathStatement`      | `xmlOutput`      | Cleared         |
 
-With **Complex join?** selected, the step replaces the `?` in **XPath Statement** with the current source row's **Join comparison field**. In steps 4 and 5 the whole XPath is `?`, because `xPathStatement` already holds the complete path. Only the last step keeps its XML header, so the document gets one.
+With **Complex join?** selected, the step replaces the `?` in **XPath Statement** with the current source row's **Join comparison field**. In **XML Join Step 4** and **XML Join Step 5** the whole XPath is `?`, because `xPathStatement` already holds the complete path. Only the last step keeps its XML header, so the document gets one.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/xml-join-step-2.png" alt="XML join: step name XML Join Step 2, target XML Join Step field xmloutput1, source xmlOrderHeaderComments, XPath //OrderHeader[@orderNumber='?']/OrderHeaderComments, complex join selected, comparison field orderNumber, result field xmloutput2" width="726">
+<figcaption>XML Join Step 2: a complex join on orderNumber</figcaption>
+</figure>
+</div>
 
 > **Under the hood:**
 >
@@ -388,6 +490,14 @@ With **Complex join?** selected, the step replaces the `?` in **XPath Statement*
 > in memory as a tree, though: right for order feeds and API
 > payloads, not for gigabyte exports.
 
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-25-tr-xml-join-s5.png" alt="tr_xml_join.ktr on the Spoon canvas after this tab: Create XPath, Create XPath 2, OrderHeaderComments, OrderHeaders, OrderLineComments, OrderLines, OrderList, OrderSubLines, Placeholder, Placeholder 2, Placeholder 3x, XML Join Step, XML Join Step 2, XML Join Step 3, XML Join Step 4, XML Join Step 5, xmlOrderHeaderComments, xmlOrderHeaders, xmlOrderLineComments, xmlOrderLines, xmlOrderList and xmlOrderSubLines, with the 21 hops between them" width="533">
+<figcaption>The canvas after this tab adds 5 steps</figcaption>
+</figure>
+</div>
+
+
 ### 6. Text File Output
 
 > **Note:**
@@ -407,9 +517,32 @@ With **Complex join?** selected, the step replaces the `?` in **XPath Statement*
 
    Set **Extension** to `xml`.
 
+<div align="center">
+<figure>
+<img src="../_assets/images/xml-join-output-file.png" alt="Text file output File tab: step name XML File output, filename ${Internal.Transformation.Filename.Directory}/XMLOrders, extension xml" width="800">
+<figcaption>File tab: XMLOrders, extension xml</figcaption>
+</figure>
+</div>
+
 5. Open the **Content** tab. Delete the contents of **Separator** and **Enclosure**, so both are empty.
 6. Select **Disable the enclosure fix?**, clear **Header**, and set **Encoding** to `ISO-8859-1`.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/xml-join-output-content.png" alt="Text file output Content tab: separator and enclosure empty, Disable the enclosure fix selected, Header cleared, encoding ISO-8859-1" width="800">
+<figcaption>Content tab: no separator, no enclosure, no header</figcaption>
+</figure>
+</div>
+
 7. Open the **Fields** tab. In the first row, set **Name** to `xmlOutput` and **Type** to `String`. This is the only row: the other fields **XML Join Step 5** passes on stay out of the file.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/xml-join-output-fields.png" alt="Text file output Fields tab: one field, xmlOutput of type String" width="800">
+<figcaption>Fields tab: xmlOutput only</figcaption>
+</figure>
+</div>
+
 8. Select **OK**.
 9. Save the transformation (`Ctrl+S`).
 

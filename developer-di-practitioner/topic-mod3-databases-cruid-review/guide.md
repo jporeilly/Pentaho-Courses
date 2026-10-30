@@ -18,7 +18,7 @@
 
 <div align="center">
 <figure>
-<img src="../_assets/images/cruid.png" alt="Create, Read, Update and Delete shown on a list of items: a Create button adds a new item, Read lists them, an edit box updates one, a bin deletes one" width="800">
-<figcaption>The four basic operations on a list of records</figcaption>
+<img src="../_assets/images/cruid-operations.png" alt="The five CRUID operations on a table: Create (INSERT, Table output), Update (UPDATE, Update), Insert-update (Insert / update), Delete (DELETE, Delete) write to it; Read (SELECT, Table input) reads from it" width="590">
+<figcaption>The five operations, their SQL and their steps</figcaption>
 </figure>
 </div>

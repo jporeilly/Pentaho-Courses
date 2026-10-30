@@ -52,7 +52,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 <div align="center">
 <figure>
-<img src="../_assets/images/master-node.png" alt="A terminal running .\Carte.bat localhost 12000; the last line reads Created listener for webserver @ address : localhost:12000" width="800">
+<img src="../_assets/images/master-node.png" alt="A terminal running Carte on localhost port 12000; the last line reads Created listener for webserver @ address : localhost:12000" width="800">
 <figcaption>Master node - port 12000</figcaption>
 </figure>
 </div>
@@ -68,7 +68,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 <div align="center">
 <figure>
-<img src="../_assets/images/run-slave-a.png" alt="A second terminal running .\Carte.bat localhost 12100, listening on localhost:12100" width="800">
+<img src="../_assets/images/run-slave-a.png" alt="A second terminal running Carte on localhost port 12100, listening on localhost:12100" width="800">
 <figcaption>Slave node A - port 12100</figcaption>
 </figure>
 </div>
@@ -82,7 +82,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 <div align="center">
 <figure>
-<img src="../_assets/images/run-slave-b.png" alt="A third terminal running .\Carte.bat localhost 12200" width="800">
+<img src="../_assets/images/run-slave-b.png" alt="A third terminal running Carte on localhost port 12200" width="800">
 <figcaption>Slave node B - port 12200</figcaption>
 </figure>
 </div>
@@ -166,7 +166,11 @@ A Carte server started with only a host and a port accepts the user `cluster` wi
 
 ### 3. Run on the servers
 
-> **Note:** With three servers running, create run configurations that send the transformation to a particular server.
+> **Note:**
+>
+> #### Run on the servers
+>
+> With three servers running, create run configurations that send the transformation to a particular server.
 > 
 > Light work, such as loading a small file or filtering a few rows, runs well on your own machine with the default configuration, **Pentaho local**. Heavier work can run on a server dedicated to it, with the same Pentaho engine; that is what a run configuration pointing at a Carte server does.
 
@@ -181,7 +185,11 @@ A Carte server started with only a host and a port accepts the user `cluster` wi
 
 ### 3.1 Run on the master
 
-> **Note:** **Pentaho local** is the default run configuration. It runs transformations with the Pentaho engine on your local machine. You cannot edit this default configuration.
+> **Note:**
+>
+> #### Run on the master
+>
+> **Pentaho local** is the default run configuration. It runs transformations with the Pentaho engine on your local machine. You cannot edit this default configuration.
 
 1. In the **View** tab, right-click **Run configurations** and select **New...**.
 
@@ -208,7 +216,7 @@ A Carte server started with only a host and a port accepts the user `cluster` wi
 
 <div align="center">
 <figure>
-<img src="../_assets/images/run-master.png" alt="The Run Options dialog with Master chosen in the Run configuration list, which offers Pentaho local, Clustered and Master" width="663">
+<img src="../_assets/images/run-master.png" alt="The Run Options dialog with Master chosen in the Run configuration list, which offers Pentaho local and Master" width="663">
 <figcaption>Run configuration - Master</figcaption>
 </figure>
 </div>
@@ -269,7 +277,7 @@ A Carte server started with only a host and a port accepts the user `cluster` wi
 
 <div align="center">
 <figure>
-<img src="../_assets/images/kettle-schema.png" alt="The View tab tree with Kettle cluster schemas right-clicked and New... on the menu" width="344">
+<img src="../_assets/images/kettle-schema.png" alt="The View tab tree with Kettle cluster schemas right-clicked and New... on the menu; Run configurations lists Pentaho local and Master" width="334">
 <figcaption>Kettle cluster schema</figcaption>
 </figure>
 </div>
@@ -328,7 +336,6 @@ A Carte server started with only a host and a port accepts the user `cluster` wi
 </div>
 
 2. In the **Cluster schema** dialog, select `Pentaho`, and select **OK**.
-3. Save the transformation (`Ctrl+S`). Spoon runs a transformation on a cluster only once it is saved: unsaved, the run stops at `Please save your transformation first!`.
 
 <div align="center">
 <figure>
@@ -337,11 +344,13 @@ A Carte server started with only a host and a port accepts the user `cluster` wi
 </figure>
 </div>
 
+3. Save the transformation (`Ctrl+S`). Spoon runs a transformation on a cluster only once it is saved: unsaved, the run stops at `Please save your transformation first!`.
+
 > **Success:** Checkpoint: **gr_hello-world** shows `Cx2` above its icon: it runs on the two slaves that are not the master. **Dummy (do nothing)** has no mark: it runs on the master.
 
 <div align="center">
 <figure>
-<img src="../_assets/images/clustered-slave-nodes.png" alt="The canvas: the Generate Rows step marked Cx2, hopped to Dummy (do nothing)" width="682">
+<img src="../_assets/images/clustered-slave-nodes.png" alt="The canvas: gr_hello-world marked Cx2, hopped to Dummy (do nothing)" width="152">
 <figcaption>The step shows its slave-node count</figcaption>
 </figure>
 </div>

@@ -33,7 +33,7 @@ Use this page to find your way, then open the section you need.
 
 <div align="center">
 <figure>
-<img src="../_assets/images/flat-files-2.png" alt="Flat file types: structured, unstructured, semi-structured, and metadata" width="800">
+<img src="../_assets/images/kinds-of-file-data.png" alt="Four kinds of file data: structured (spreadsheets, tables), unstructured (text, images, video, audio), semi-structured (XML, JSON, sensor data) and metadata" width="784">
 <figcaption>Kinds of flat file</figcaption>
 </figure>
 </div>
@@ -101,12 +101,11 @@ Use this page to find your way, then open the section you need.
 > 
 > Start here: [Storage](../topic-mod3-storage-review/guide.md).
 
-<div align="center">
-<figure>
-<img src="../_assets/images/storage-types-overview.png" alt="Storage types Pentaho Data Integration can reach through VFS connections" width="800">
-<figcaption>Storage types</figcaption>
-</figure>
-</div>
+| | File storage | Block storage | Object storage |
+| --- | --- | --- | --- |
+| **How data is managed** | As files in a hierarchical structure | As blocks, arbitrarily organized | As objects, in a flat structure |
+| **Typical use** | Storing and handling data collaboratively, with shared access | Large volumes of structured data from different units | Large volumes of unstructured data, described by metadata |
+| **Access** | A simple interface to create, delete and organize files | From different operating systems | Through an API or a user interface |
 
 ### Big Data
 
@@ -118,7 +117,7 @@ Use this page to find your way, then open the section you need.
 
 <div align="center">
 <figure>
-<img src="../_assets/images/types-of-big-data.png" alt="Types of big data: structured, unstructured, semi-structured, geospatial, machine or operational logging, and open-source data" width="720">
+<img src="../_assets/images/types-of-big-data.png" alt="Types of big data: structured, unstructured, semi-structured, geospatial, machine or operational logging, and open-source data" width="636">
 <figcaption>Types of big data</figcaption>
 </figure>
 </div>

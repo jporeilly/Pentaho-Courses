@@ -47,7 +47,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 2. Select **File > New > Transformation** (`Ctrl+N`).
 3. Select **File > Save as** and save it as `tr_parameters_variables_orders.ktr` in `C:\Workshop-DI-Practitioner\05-enterprise-solution\03-parameters\34-mod5-parameters`.
 
-> **Tip:** The solution follows the query with a **Calculator**, **Number range**, **Sort rows** and **Select values**, the pattern from [Reading from a Database](../13-mod3-reading-from-a-database/guide.md). To work with that pipeline, open your `tr_reading_database.ktr` from that workshop instead, save it under this name, and in tab 2 change its **Table input** rather than adding a new one. This workshop's checkpoints read only the **Table input**.
+> **Tip:** The solution follows the query with a **Calculator**, **Number range**, **Sort rows** and **Select values**, the pattern from [Reading from a Database](../13-mod3-reading-from-a-database/guide.md). To work with that pipeline, open your `tr_reading_database_warehouse.ktr` from that workshop instead, save it under this name, and in tab 2 change its **Table input** rather than adding a new one. This workshop's checkpoints read only the **Table input**.
 
 4. Double-click an empty part of the canvas, or select **Edit > Settings...**. The **Transformation properties** dialog opens.
 5. Open the **Parameters** tab.
@@ -114,6 +114,14 @@ WHERE STATUS = '${STATUS}'
 > **Warning:** The quotes are yours. `${STATUS}` is replaced as plain text, so `'${STATUS}'` becomes `'Cancelled'`. Leave the quotes out and MySQL receives `WHERE STATUS = Cancelled`, a column name, and the query fails.
 
 5. Select **Replace variables in script?**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/parameters-table-input.png" alt="Table input: connection MySQL:sampledata, SQL selecting seven ORDERS columns WHERE STATUS='${STATUS}', Replace variables in script selected" width="563">
+<figcaption>Table input: '${STATUS}' in quotes, Replace variables in script? selected</figcaption>
+</figure>
+</div>
+
 6. Select **OK**.
 7. Select **Table input** on the canvas, press `F10` (**Action > Preview**), and select **Quick Launch**. The preview runs with the parameter's default value.
 
@@ -139,6 +147,14 @@ WHERE STATUS = '${STATUS}'
 > **Why it matters:** named parameters are for configuration you
 > control (a status, a date, a schema name); `?` markers are for values
 > that arrive in the data.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/canvas-34-tr-parameters-variables-orders-s1.png" alt="tr_parameters_variables_orders.ktr on the Spoon canvas after this tab: Table input" width="140">
+<figcaption>The canvas after Table input</figcaption>
+</figure>
+</div>
+
 
 ### 3. Run with Another Value
 
