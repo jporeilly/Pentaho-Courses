@@ -15,7 +15,7 @@
 > 
 > **Prerequisites:** [Text File Input](../06-mod3-text-file-input/guide.md), and basic JSON (objects and arrays).
 > 
-> **Estimated time:** 25 minutes
+> **Estimated time:** 15 minutes
 
 <figure>
 
@@ -179,13 +179,6 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 4. Select **OK**.
 5. Create a hop from **Json input** to **Dummy**: hold `Shift` and drag from one step to the other.
-
-<div align="center">
-<figure>
-<img src="../_assets/images/canvas-08-tr-json-s1.png" alt="tr_json.ktr on the Spoon canvas after this tab: Dummy and Json input, with the hop between them" width="364">
-<figcaption>The canvas after Dummy</figcaption>
-</figure>
-</div>
 
 
 ### 3. Run

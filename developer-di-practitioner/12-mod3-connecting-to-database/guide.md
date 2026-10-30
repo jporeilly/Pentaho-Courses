@@ -21,7 +21,7 @@
 >   read-only and can't serve the CRUID workshops that follow
 > * Basic understanding of schemas, tables and logins
 > 
-> **Estimated time:** 30 minutes
+> **Estimated time:** 15 minutes
 
 <figure>
 
