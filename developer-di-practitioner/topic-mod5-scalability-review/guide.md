@@ -18,7 +18,7 @@ Two ways to make Pentaho Data Integration go faster: Carte clusters, which share
 
 <div align="center">
 <figure>
-<img src="../_assets/images/carte-cluster.png" alt="A Carte cluster: source data from flat files, applications and databases goes to four slave servers working in parallel, a master splits the transformation and tracks progress, and the slaves load the target database" width="592">
+<img src="../_assets/images/1793615331085.png" alt="1793615331085.png width="800" alt="A Carte cluster: source data from flat files, applications and databases goes to four slave servers working in parallel, a master splits the transformation and tracks progress, and the slaves load the target database">
 <figcaption>A master and its slave servers</figcaption>
 </figure>
 </div>
