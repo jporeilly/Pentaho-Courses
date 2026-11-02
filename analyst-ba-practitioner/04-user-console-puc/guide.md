@@ -94,7 +94,7 @@ Select a menu option:
 
 <div align="center">
 <figure>
-<img src="../_assets/images/puc_browse_files_3.png" alt="The modern Browse Files page with the Folders tree open at Public, Data Pipelines and three .ktr transformations listed with Type, Favorite, Last Modified and Owner columns" width="800">
+<img src="../_assets/images/puc_browse_files_modern_public.png" alt="The modern Browse Files page with the Folders tree open at Public, Data Pipelines and three .ktr transformations listed with Type, Favorite, Last Modified and Owner columns" width="800">
 <figcaption>Browse Files</figcaption>
 </figure>
 </div>
@@ -198,7 +198,7 @@ Select a menu option:
 
 <div align="center">
 <figure>
-<img src="../_assets/images/puc_browse_files_2.png" alt="The classic Browse Files perspective with Steel Wheels selected under Public in the Folders pane, its reports in the Files pane and the Folder Actions list on the right" width="800">
+<img src="../_assets/images/puc_browse_files_classic_steel_wheels.png" alt="The classic Browse Files perspective with Steel Wheels selected under Public in the Folders pane, its reports in the Files pane and the Folder Actions list on the right" width="800">
 <figcaption>Browse Files</figcaption>
 </figure>
 </div>
@@ -273,7 +273,7 @@ The second page sets when and how often the schedule runs, and the performance m
 
 <div align="center">
 <figure>
-<img src="../_assets/images/puc.png" alt="The New Schedule recurrence page with Run Once selected, a 12:00 AM start time in the Europe/London time zone, a start date and the Enable safe mode option" width="672">
+<img src="../_assets/images/puc_classic_home_callouts.png" alt="The New Schedule recurrence page with Run Once selected, a 12:00 AM start time in the Europe/London time zone, a start date and the Enable safe mode option" width="672">
 <figcaption>Schedule recurrence</figcaption>
 </figure>
 </div>
@@ -314,7 +314,7 @@ The last page sets the report's own parameters. **Product Line** takes one value
 
 <div align="center">
 <figure>
-<img src="../_assets/images/puc_2.png" alt="The classic User Console perspective drop-down with Administration highlighted, over the Administration menu items Licenses, VFS Connections, Settings and Email Groups" width="316">
+<img src="../_assets/images/puc_administration_perspective.png" alt="The classic User Console perspective drop-down with Administration highlighted, over the Administration menu items Licenses, VFS Connections, Settings and Email Groups" width="316">
 <figcaption>The Administration perspective</figcaption>
 </figure>
 </div>

@@ -48,7 +48,23 @@ Everything here was done in the last two workshops: a Product Line filter (**Sel
 
 1. Select the perspective drop-down and select **Home**, then select **Create New > Interactive Report**.
 2. In the **Select Data Source** dialog, select **Orders**, and select **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/ir_ships_trains_select_data_source.png" alt="The Select Data Source dialog with Orders highlighted in the list of data sources, above the OK and Cancel buttons" width="742">
+<figcaption>Select Data Source</figcaption>
+</figure>
+</div>
+
 3. Open the **General** tab, and next to **Template**, select **Select...**. Scroll to **Left Aligned - Nickel**, and select it.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/ir_ships_trains_select_template.png" alt="The template picker showing Left Aligned - Nickel, Indented - Nickel and Dashboard - Nickel, each with a grid variant below" width="800">
+<figcaption>Select a template</figcaption>
+</figure>
+</div>
+
 4. Open the **Data** tab, and double-click **Customer Name**, **Order Date**, **Status**, and **Quantity Ordered**, in that order.
 
 > **Success:** Checkpoint: the report has four columns: **Customer Name**, **Order Date**, **Status** and **Quantity Ordered**.
@@ -57,6 +73,14 @@ Everything here was done in the last two workshops: a Product Line filter (**Sel
 
 1. On the Interactive Toolbar, select **Filters**, and drag **Product Line** from the **Data** tab to the **Filters** panel.
 2. In the **Filter on Product Line** dialog, select **Select from a list**. Hold `Ctrl` and select **Ships** and **Trains**, select the right arrow to move them to the **Currently Included** list, and select **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/ir_ships_trains_filter_product_line.png" alt="The Filter on Product Line dialog with Select from a list chosen, and Ships and Trains moved to the included list on the right" width="682">
+<figcaption>Filter on Product Line</figcaption>
+</figure>
+</div>
+
 3. Drag **Territory** from the **Data** tab onto the report canvas, and drop it *above* the column headers. Then drag **Product Line** from the **Data** tab, and drop it *below* the **Territory** group.
 4. Select the drop-down arrow on the **Order Date** column header, and select **Sort > Ascending**.
 
@@ -65,6 +89,14 @@ Everything here was done in the last two workshops: a Product Line filter (**Sel
 ### 3. Add the Totals
 
 1. On the Interactive Toolbar, set **Row Limit** to **Maximum**, so no group is cut short.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/ir_ships_trains_row_limit.png" alt="The Interactive Toolbar with the Row Limit list open, offering No more than and Maximum" width="800">
+<figcaption>Row Limit</figcaption>
+</figure>
+</div>
+
 2. Select the drop-down arrow on the **Quantity Ordered** column header, and select **Summary > Sum**.
 
 > **Under the hood:**
@@ -95,6 +127,14 @@ Everything here was done in the last two workshops: a Product Line filter (**Sel
 3. Double-click the *left* side of the page footer at the bottom of the page, enter `Prepared for the Sales Manager`, and press `Enter`.
 4. Size and align the columns as the solution does: select each column header, and on the **Formatting** tab set **Column Width (%)**, then select the header and a cell of the column and select the alignment:
 
+<div align="center">
+<figure>
+<img src="../_assets/images/ir_ships_trains_column_width.png" alt="The Formatting tab with the Customer Name column header selected, Column Width (%) set to 40 and Align Left chosen" width="800">
+<figcaption>Column width and alignment</figcaption>
+</figure>
+</div>
+
+
 | Column           | Column Width (%) | Header and cells |
 | ---------------- | ---------------- | ---------------- |
 | Customer Name    | `40`             | **Align Left**   |
@@ -103,6 +143,14 @@ Everything here was done in the last two workshops: a Product Line filter (**Sel
 | Quantity Ordered | `15`             | **Align Right**  |
 
 5. On the toolbar, select the **Save** icon. In the **Save As** dialog, set **Filename** to `Ships and Trains Ordered`. Select the **Up One Level** icon twice, double-click **Public**, double-click **Training**, and select **Save**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/ir_ships_trains_save_as.png" alt="The Save As dialog with Filename set to Ships and Trains Ordered and the location /public/Training" width="682">
+<figcaption>Save As</figcaption>
+</figure>
+</div>
+
 
 > **Success:** Checkpoint: the report's pages carry **Steel Wheels, Inc.** at the top and **Prepared for the Sales Manager** at the bottom, and **Ships and Trains Ordered** is saved in **Public > Training**.
 

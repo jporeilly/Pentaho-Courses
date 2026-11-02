@@ -34,6 +34,14 @@
 
 1. Select the perspective drop-down and select **Home**, then select **Create New > Analysis Report**. With other reports open, the same choices are under the **File** menu on the menu bar.
 2. In the **Select Data Source** dialog, select **SteelWheels: SteelWheelsSales**, and select **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/az_emea_quantity_select_data_source.png" alt="The Select Data Source dialog with SteelWheels: SteelWheelsSales highlighted in the list, Auto Refresh Report checked, above OK and Cancel" width="672">
+<figcaption>Select Data Source</figcaption>
+</figure>
+</div>
+
 3. From the **View** drop-down above **Available Fields**, select **Schema**.
 
 > **Success:** Checkpoint: a new, empty analysis opens, with **Available Fields** listed by the schema's dimensions.
@@ -49,6 +57,14 @@ Add Quantity, Territory, Country, and Years to the analysis.
 3. Drag **Country** to the **Rows** drop zone, and drop it *below* **Territory**.
 4. Drag **Years** to the **Columns** drop zone.
 
+<div align="center">
+<figure>
+<img src="../_assets/images/az_emea_quantity_layout_and_table.png" alt="The Layout panel with Territory and Country on Rows, Years on Columns and Quantity under Measures, beside the table of Quantity by country" width="664">
+<figcaption>Layout panel and table</figcaption>
+</figure>
+</div>
+
+
 > **Success:** Checkpoint: the table shows Quantity by Territory and Country, with a column for each year.
 
 ### 3. Filter the Analysis Data
@@ -58,14 +74,38 @@ Filter the analysis to EMEA and 2004.
 1. On the toolbar, select **Show all filters in use and add new filters** to show the **Filters** panel.
 2. Drag **Territory** from **Available Fields** to the **Filters** panel.
 3. In the **Filter on Territory** dialog, select **Select from a list**, select **EMEA**, select the right arrow to move it to the **Currently Included** list, and select **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/az_emea_quantity_filter_territory.png" alt="The Filter on Territory dialog with Select from a list chosen and EMEA in the included list on the right" width="682">
+<figcaption>Filter on Territory</figcaption>
+</figure>
+</div>
+
 4. Drag **Years** from **Available Fields** to the **Filters** panel.
 5. In the **Filter on Years** dialog, select **Select from a list**, select **2004**, select the right arrow to move it to the **Currently Included** list, and select **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/az_emea_quantity_filters_panel.png" alt="The Filters panel listing the two filters, Years includes 2004 and Territory includes EMEA" width="532">
+<figcaption>Filters panel</figcaption>
+</figure>
+</div>
+
 
 > **Success:** Checkpoint: the **Filters** panel shows the two filters, and the table shows only EMEA countries, in a single 2004 column.
 
 ### 4. Apply Conditional Formatting
 
 1. Right-click the **Quantity** header, and select **Conditional Formatting > Data Bar: Green**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/az_emea_quantity_conditional_formatting.png" alt="The Quantity header context menu with Conditional Formatting open, listing the color scales, the Data Bar choices with Green ticked and the trend arrows" width="675">
+<figcaption>Conditional Formatting</figcaption>
+</figure>
+</div>
+
 
 > **Success:** Checkpoint: each Quantity cell carries a green bar sized by its value.
 
@@ -74,7 +114,23 @@ Filter the analysis to EMEA and 2004.
 Add a column with each country's rank by Quantity.
 
 1. Right-click the **Quantity** header, and select **User Defined Measure > % of, Rank, Running Sum...**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/az_emea_quantity_user_defined_measure.png" alt="The User Defined Measure submenu offering % of, Rank, Running Sum, Create Calculated Measure and Trend Measure" width="413">
+<figcaption>User Defined Measure</figcaption>
+</figure>
+</div>
+
 2. In the **New % of, Rank, Running Sum, etc.** dialog, select **Rank by Quantity**, and select **Next**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/az_emea_quantity_rank_dialog.png" alt="The New % of, Rank, Running Sum dialog with Rank by Quantity selected and the Next button" width="438">
+<figcaption>Rank by Quantity</figcaption>
+</figure>
+</div>
+
 3. Select **Done**.
 
 > **Under the hood:**
@@ -95,6 +151,14 @@ Add a column with each country's rank by Quantity.
 1. On the **Layout** panel, select **Report Options...**.
 2. In the **Report Options** dialog, select **Grand Totals for Columns**, and select **OK**.
 
+<div align="center">
+<figure>
+<img src="../_assets/images/az_emea_quantity_report_options.png" alt="The Report Options dialog with the Totals section showing Grand Totals for Columns ticked" width="458">
+<figcaption>Report Options</figcaption>
+</figure>
+</div>
+
+
 > **Success:** Checkpoint: in the table view, France has the most units (5,632, rank 1), Spain is second (4,962), and the Grand Total for EMEA in 2004 is 23,630.
 
 ### 7. Switch to Chart Format
@@ -110,6 +174,14 @@ Analyzer has no separate title field: the title shown above the chart is the rep
 
 1. On the toolbar, select the **Save As** icon.
 2. In the **Save As** dialog, set **Filename** to `EMEA Quantity Sold by Territory Yr2004`. Select the **Up One Level** icon twice, double-click **Public**, double-click **Training**, and select **Save**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/az_emea_quantity_save_as.png" alt="The Save As dialog with Filename set to EMEA Quantity Sold by Territory Yr2004 and the location /public/Training" width="682">
+<figcaption>Save As</figcaption>
+</figure>
+</div>
+
 
 > **Success:** Checkpoint: the chart's title reads **EMEA Quantity Sold by Territory Yr2004**.
 

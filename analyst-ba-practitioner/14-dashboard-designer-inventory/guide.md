@@ -48,8 +48,10 @@
 2. On the **Templates** tab, select **2 Column**.
 3. On the **Themes** tab, select **Crystal**.
 4. Open the **Properties** tab, and set **Page Title** to `Inventory Dashboard`.
-5. Select the **Insert Content** icon at the top right of the **Untitled 1** panel, and select **Data Table**.
-6. In the **Select Data Source** dialog, select **Inventory**, and select **OK**.
+### 2. Data Table Source
+
+1. Select the **Insert Content** icon at the top right of the **Untitled 1** panel, and select **Data Table**.
+2. In the **Select Data Source** dialog, select **Inventory**, and select **OK**.
 
 <div align="center">
 <figure>
@@ -60,15 +62,13 @@
 
 > **Success:** Checkpoint: the **Query Editor** opens on the Inventory data source, with its categories in the **Categories / Columns** list.
 
-### 2. Content
+### 3. Inventory Table
 
 > **Note:**
 >
 > #### Data Table and Chart
 >
 > Build the left panel's data table and the right panel's chart, each from its own metadata query on the Inventory data source.
-
-**Data Table**
 
 <div align="center">
 <figure>
@@ -105,12 +105,10 @@
 
 > **Success:** Checkpoint: the Inventory Table opens on Classic Cars (Vintage Cars come last) and reads Displaying 1 - 20 of 110.
 
-***
+### 4. Inventory Chart
 
-**Chart**
-
-5. Select the **Insert Content** icon at the top right of the **Untitled 2** panel, and select **Chart**.
-6. In the **Select Data Source** dialog, select **Inventory**, and select **OK**.
+1. Select the **Insert Content** icon at the top right of the **Untitled 2** panel, and select **Chart**.
+2. In the **Select Data Source** dialog, select **Inventory**, and select **OK**.
 
 <div align="center">
 <figure>
@@ -119,10 +117,10 @@
 </figure>
 </div>
 
-7. In the **Categories / Columns** list, expand **Products**, select **Product Line**, and select the top arrow to move it to **Selected Columns**. Expand **Inventory and Cost**, and move **Quantity In Stock** and then **MSRP** to **Selected Columns** the same way.
-8. Add a condition on Product Line: select **Product Line** in the **Categories / Columns** list, and select the middle arrow (the one beside **Switch to Advanced...**) to move it to **Conditions**. The bottom arrow adds it to **Order By** instead. Set **Comparison** to **begins with**, and enter `M` in **Value**.
-9. Select **OK**. The **Chart Designer** opens.
-10. Fill in the **Chart Designer** fields, and select **OK**:
+3. In the **Categories / Columns** list, expand **Products**, select **Product Line**, and select the top arrow to move it to **Selected Columns**. Expand **Inventory and Cost**, and move **Quantity In Stock** and then **MSRP** to **Selected Columns** the same way.
+4. Add a condition on Product Line: select **Product Line** in the **Categories / Columns** list, and select the middle arrow (the one beside **Switch to Advanced...**) to move it to **Conditions**. The bottom arrow adds it to **Order By** instead. Set **Comparison** to **begins with**, and enter `M` in **Value**.
+5. Select **OK**. The **Chart Designer** opens.
+6. Fill in the **Chart Designer** fields, and select **OK**:
 
 <div align="center">
 <figure>
@@ -142,11 +140,13 @@
 | X Axis Title    | `Qty`             |
 | Y Axis Title    | `MSRP`            |
 
-11. Set **Title** to `Inventory`, and select **Apply**.
+7. Set **Title** to `Inventory`, and select **Apply**.
 
 > **Success:** Checkpoint: the Inventory chart has a single series, Motorcycles, the only product line that begins with M.
 
-12. On the toolbar, select the **Save** icon. Select the **Up One Level** icon twice, double-click **Public** and then **Training**, set **Filename** to `Inventory Dashboard`, and select **Save**.
+### 5. Save the Dashboard
+
+1. On the toolbar, select the **Save** icon. Select the **Up One Level** icon twice, double-click **Public** and then **Training**, set **Filename** to `Inventory Dashboard`, and select **Save**.
 
 > **Under the hood:**
 >

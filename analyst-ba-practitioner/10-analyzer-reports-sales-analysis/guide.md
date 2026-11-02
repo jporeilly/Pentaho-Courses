@@ -81,7 +81,7 @@ The **Layout** panel shows the rows, columns, and measures of the report, with *
 
 <div align="center">
 <figure>
-<img src="../_assets/images/az_sales_filter_2003.png" alt="Right-click menu on the 2003 column header offering Exclude 2003, Keep Only 2003 (highlighted) and Keep Only 2003 And Show Quarters" width="475">
+<img src="../_assets/images/az_sales_keep_only_2003_menu.png" alt="Right-click menu on the 2003 column header offering Exclude 2003, Keep Only 2003 (highlighted) and Keep Only 2003 And Show Quarters" width="475">
 <figcaption>Filter - 2003</figcaption>
 </figure>
 </div>
@@ -146,7 +146,7 @@ The **Layout** panel shows the rows, columns, and measures of the report, with *
 
 <div align="center">
 <figure>
-<img src="../_assets/images/az_sales.png" alt="The User Console main toolbar with the Open button outlined in red and its Open tooltip showing" width="563">
+<img src="../_assets/images/az_sales_open_button.png" alt="The User Console main toolbar with the Open button outlined in red and its Open tooltip showing" width="563">
 <figcaption>The Open button</figcaption>
 </figure>
 </div>
@@ -217,7 +217,7 @@ The colors tell the story at a glance: Belgium's sales have been consistently lo
 
 <div align="center">
 <figure>
-<img src="../_assets/images/az_sales_6.png" alt="The Spain heat grid split by product line, Classic Cars through Vintage Cars across the top and years and quarters down the side, Classic Cars greenest in 2005 QTR1" width="650">
+<img src="../_assets/images/az_sales_spain_by_product_line.png" alt="The Spain heat grid split by product line, Classic Cars through Vintage Cars across the top and years and quarters down the side, Classic Cars greenest in 2005 QTR1" width="650">
 <figcaption>Spain by product line</figcaption>
 </figure>
 </div>
@@ -328,7 +328,7 @@ The colors tell the story at a glance: Belgium's sales have been consistently lo
 
 <div align="center">
 <figure>
-<img src="../_assets/images/az_sales_3.png" alt="A new Analysis Report with the Available Fields View drop-down open, showing by Category, Measure - Level - Time, A to Z and Schema (checked)" width="800">
+<img src="../_assets/images/az_sales_view_dropdown_available_fields.png" alt="A new Analysis Report with the Available Fields View drop-down open, showing by Category, Measure - Level - Time, A to Z and Schema (checked)" width="800">
 <figcaption>The View drop-down of Available Fields</figcaption>
 </figure>
 </div>
@@ -348,7 +348,7 @@ The colors tell the story at a glance: Belgium's sales have been consistently lo
 
 <div align="center">
 <figure>
-<img src="../_assets/images/az_sales_5.png" alt="The Analyzer trash can at the corner of the canvas with the Country field being dropped onto it" width="125">
+<img src="../_assets/images/az_sales_trash_can.png" alt="The Analyzer trash can at the corner of the canvas with the Country field being dropped onto it" width="125">
 <figcaption>The trash can</figcaption>
 </figure>
 </div>
@@ -360,7 +360,7 @@ The colors tell the story at a glance: Belgium's sales have been consistently lo
 
 <div align="center">
 <figure>
-<img src="../_assets/images/az_sales_2.png" alt="Layout panel with Territory in Rows, Sales in Measures and Quarters being dropped below Years in the Columns zone" width="269">
+<img src="../_assets/images/az_sales_quarters_below_years.png" alt="Layout panel with Territory in Rows, Sales in Measures and Quarters being dropped below Years in the Columns zone" width="269">
 <figcaption>Quarters below Years</figcaption>
 </figure>
 </div>
@@ -369,7 +369,7 @@ The colors tell the story at a glance: Belgium's sales have been consistently lo
 
 <div align="center">
 <figure>
-<img src="../_assets/images/az_sales_7.png" alt="The Rows drop zone with Line being dropped above Territory, marked by a blue insertion line" width="265">
+<img src="../_assets/images/az_sales_line_above_territory.png" alt="The Rows drop zone with Line being dropped above Territory, marked by a blue insertion line" width="265">
 <figcaption>Line above Territory</figcaption>
 </figure>
 </div>
@@ -453,7 +453,7 @@ The filter dialog's **Parameter Name** field turns the filter into a prompt.
 
 <div align="center">
 <figure>
-<img src="../_assets/images/az_sales_filter_2003_2.png" alt="The Filter on Years dialog with Select from a list chosen, 2003 highlighted and 2003 in the Currently Included list" width="800">
+<img src="../_assets/images/az_sales_filter_on_years_dialog.png" alt="The Filter on Years dialog with Select from a list chosen, 2003 highlighted and 2003 in the Currently Included list" width="800">
 <figcaption>Filter - 2003</figcaption>
 </figure>
 </div>
@@ -471,7 +471,7 @@ The filter dialog's **Parameter Name** field turns the filter into a prompt.
 
 <div align="center">
 <figure>
-<img src="../_assets/images/az_sales_filter_qtr_2.png" alt="The Filter on Quarters dialog with Select from a list chosen, QTR2 highlighted and QTR2 in the Currently Included list" width="800">
+<img src="../_assets/images/az_sales_filter_on_quarters_dialog.png" alt="The Filter on Quarters dialog with Select from a list chosen, QTR2 highlighted and QTR2 in the Currently Included list" width="800">
 <figcaption>Filter - QTR 2</figcaption>
 </figure>
 </div>
@@ -676,7 +676,7 @@ Analyzer creates three types of measure inside an analysis: % of, rank, running 
 
 <div align="center">
 <figure>
-<img src="../_assets/images/az_sales_of_sales_3.png" alt="The New % of, Rank, Running Sum, etc. dialog with % of Sales selected above Rank, Running Sum and % of Running Sum of Sales" width="375">
+<img src="../_assets/images/az_sales_percent_of_sales_dialog.png" alt="The New % of, Rank, Running Sum, etc. dialog with % of Sales selected above Rank, Running Sum and % of Running Sum of Sales" width="375">
 <figcaption>% of Sales</figcaption>
 </figure>
 </div>
@@ -685,7 +685,7 @@ Analyzer creates three types of measure inside an analysis: % of, rank, running 
 
 <div align="center">
 <figure>
-<img src="../_assets/images/az_sales_of_sales_2.png" alt="Second page of the dialog with Display Name % of Sales, Format Percentage, Decimal Places 0 and Column (Grand Total Column is 100%) selected" width="375">
+<img src="../_assets/images/az_sales_percent_of_sales_second_page.png" alt="Second page of the dialog with Display Name % of Sales, Format Percentage, Decimal Places 0 and Column (Grand Total Column is 100%) selected" width="375">
 <figcaption>% of Sales</figcaption>
 </figure>
 </div>
@@ -812,7 +812,7 @@ Drill-through links turn every non-calculated measure into a link. Selecting a v
 
 <div align="center">
 <figure>
-<img src="../_assets/images/az_sales_4.png" alt="Right-click menu on the Line column header with Edit highlighted above Also Show" width="272">
+<img src="../_assets/images/az_sales_edit_line_header.png" alt="Right-click menu on the Line column header with Edit highlighted above Also Show" width="272">
 <figcaption>Edit the Line header</figcaption>
 </figure>
 </div>
@@ -846,7 +846,7 @@ Drill-through links turn every non-calculated measure into a link. Selecting a v
 
 <div align="center">
 <figure>
-<img src="../_assets/images/az_sales_8.png" alt="The Edit Column dialog with Display Name Revenue, Original Name Sales, Format Currency, Decimal Places 0, Symbol $ and Units None" width="800">
+<img src="../_assets/images/az_sales_edit_column_revenue_currency.png" alt="The Edit Column dialog with Display Name Revenue, Original Name Sales, Format Currency, Decimal Places 0, Symbol $ and Units None" width="800">
 <figcaption>Revenue as currency</figcaption>
 </figure>
 </div>
@@ -954,7 +954,7 @@ An analysis shows one format at a time, and the buttons beside **View As** switc
 
 <div align="center">
 <figure>
-<img src="../_assets/images/az_sales_chart_options_2.png" alt="The Chart Options dialog on the General tab with Background, Labels and Domain Limit settings, and Set as default and Reset to default outlined" width="672">
+<img src="../_assets/images/az_sales_chart_options_general_tab.png" alt="The Chart Options dialog on the General tab with Background, Labels and Domain Limit settings, and Set as default and Reset to default outlined" width="672">
 <figcaption>Chart Options</figcaption>
 </figure>
 </div>
@@ -991,7 +991,7 @@ Administrators can set the default value of non-standard properties of the curre
 
 <div align="center">
 <figure>
-<img src="../_assets/images/az_sales_9.png" alt="The Report Definition dialog with the SteelWheels report XML in the upper box and an empty visualization state JSON box below" width="800">
+<img src="../_assets/images/az_sales_report_definition_dialog.png" alt="The Report Definition dialog with the SteelWheels report XML in the upper box and an empty visualization state JSON box below" width="800">
 <figcaption>The Report Definition dialog</figcaption>
 </figure>
 </div>

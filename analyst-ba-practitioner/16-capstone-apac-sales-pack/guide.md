@@ -265,6 +265,8 @@ piece must do, which requirement it meets, and what a correct build
 shows. The hints name a dialog or a technique; the settings are yours
 to work out.
 
+:::: tabs
+
 ### 1. The APAC folder
 
 **Must do:** a folder named `APAC` under **Public > Training**.
@@ -363,6 +365,8 @@ stage 3 in `capstone\out\`. Requirement 5, and the four checks.
 - If a check fails, its message says which file it looked for and where. Rename or move, and **Run checks** again.
 
 </details>
+
+::::
 
 ---
 

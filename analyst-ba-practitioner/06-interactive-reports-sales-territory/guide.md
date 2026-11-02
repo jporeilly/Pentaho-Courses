@@ -245,7 +245,7 @@ The toolbar also holds **Row Limit**: **Maximum**, or **No more than** a number 
 
 <div align="center">
 <figure>
-<img src="../_assets/images/ir_sales_territory_5.png" alt="The Untitled report canvas with a single Country column listing Australia, Austria, Belgium, Canada, Denmark and Finland" width="182">
+<img src="../_assets/images/ir_sales_territory_country_first_column.png" alt="The Untitled report canvas with a single Country column listing Australia, Austria, Belgium, Canada, Denmark and Finland" width="182">
 <figcaption>Country as the first column</figcaption>
 </figure>
 </div>
@@ -439,7 +439,7 @@ The toolbar also holds **Row Limit**: **Maximum**, or **No more than** a number 
 
 <div align="center">
 <figure>
-<img src="../_assets/images/ir_sales_territory_report_layout_3.png" alt="The Layout panel with an empty Groups line and Territory, Country, Customer Name, City, Order Number, Order Date and Total on the Columns line" width="597">
+<img src="../_assets/images/ir_sales_territory_layout_no_groups_for_filters.png" alt="The Layout panel with an empty Groups line and Territory, Country, Customer Name, City, Order Number, Order Date and Total on the Columns line" width="597">
 <figcaption>Report layout</figcaption>
 </figure>
 </div>
@@ -477,7 +477,7 @@ The filter dialog's **Parameter Name** field turns a filter into a parameter. Da
 
 <div align="center">
 <figure>
-<img src="../_assets/images/ir_sales_territory_filter_panel_2.png" alt="The Filters panel showing one filter, Territory Exactly matches NA, joined by AND, with the Filters button badge showing 1" width="280">
+<img src="../_assets/images/ir_sales_territory_filter_panel_one_filter.png" alt="The Filters panel showing one filter, Territory Exactly matches NA, joined by AND, with the Filters button badge showing 1" width="280">
 <figcaption>Filter Panel</figcaption>
 </figure>
 </div>
@@ -487,7 +487,7 @@ The filter dialog's **Parameter Name** field turns a filter into a parameter. Da
 
 <div align="center">
 <figure>
-<img src="../_assets/images/ir_sales_territory_4.png" alt="The Filter on Country dialog with Specify a condition selected, the Begins with constraint chosen and US typed in the text box" width="672">
+<img src="../_assets/images/ir_sales_territory_filter_on_country.png" alt="The Filter on Country dialog with Specify a condition selected, the Begins with constraint chosen and US typed in the text box" width="672">
 <figcaption>Filter on Country</figcaption>
 </figure>
 </div>
@@ -516,7 +516,7 @@ A filter icon appears beside each filtered field on the **Data** tab.
 
 <div align="center">
 <figure>
-<img src="../_assets/images/ir_sales_territory_2.png" alt="The Data tab for Orders with filter icons beside the Territory and Country fields in the Customer folder" width="266">
+<img src="../_assets/images/ir_sales_territory_data_tab_filter_icons.png" alt="The Data tab for Orders with filter icons beside the Territory and Country fields in the Customer folder" width="266">
 <figcaption>Filter icons on the Data tab</figcaption>
 </figure>
 </div>
@@ -548,7 +548,7 @@ A prompt filters a report interactively: whoever runs the report picks the value
 
 <div align="center">
 <figure>
-<img src="../_assets/images/ir_sales_territory_report_layout_2.png" alt="The Layout panel with an empty Groups line and Territory, Country, Customer Name, City, Order Number, Order Date and Total on the Columns line" width="592">
+<img src="../_assets/images/ir_sales_territory_layout_no_groups.png" alt="The Layout panel with an empty Groups line and Territory, Country, Customer Name, City, Order Number, Order Date and Total on the Columns line" width="592">
 <figcaption>Report Layout</figcaption>
 </figure>
 </div>
@@ -783,7 +783,7 @@ You can create calculated fields from the fields of the data source and from oth
 
 <div align="center">
 <figure>
-<img src="../_assets/images/ir_sales_territory.png" alt="The Formatting tab with Arial 9pt, the Align Center icon and the Copy and Paste formatting icons outlined in red, and Column Width (%) at 16.876" width="296">
+<img src="../_assets/images/ir_sales_territory_copy_paste_formatting.png" alt="The Formatting tab with Arial 9pt, the Align Center icon and the Copy and Paste formatting icons outlined in red, and Column Width (%) at 16.876" width="296">
 <figcaption>Copy and paste formatting</figcaption>
 </figure>
 </div>
@@ -811,7 +811,7 @@ You save a report with the **Save** or **Save As** toolbar icons, or with **File
 
 <div align="center">
 <figure>
-<img src="../_assets/images/ir_sales_territory_3.png" alt="The User Console toolbar with the Save and Save As icons outlined in red" width="550">
+<img src="../_assets/images/ir_sales_territory_save_icons.png" alt="The User Console toolbar with the Save and Save As icons outlined in red" width="550">
 <figcaption>The Save and Save As icons</figcaption>
 </figure>
 </div>
@@ -870,6 +870,13 @@ You save a report with the **Save** or **Save As** toolbar icons, or with **File
 </figure>
 
 1. On the **Data** tab, select the small icon in the upper-right corner to open the **Query Settings** dialog.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/ir_sales_territory_query_settings.png" alt="The Query Settings box opened from the Data tab, with Select Distinct and Auto-Refresh checked and Query Timeout cleared" width="422">
+<figcaption>Query Settings</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: the **Query Settings** dialog opens, with **Select Distinct**, **Query Timeout** and **Auto-Refresh** among its settings.
 
