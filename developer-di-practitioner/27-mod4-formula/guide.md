@@ -15,7 +15,7 @@
 > 
 > **Prerequisites:** [Review Scripting](../topic-mod4-scripting-review/guide.md)
 > 
-> **Estimated time:** 20 minutes
+> **Estimated time:** 10 minutes
 
 <div align="center">
 <figure>

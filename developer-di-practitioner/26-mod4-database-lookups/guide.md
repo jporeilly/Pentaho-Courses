@@ -16,7 +16,7 @@
 > 
 > **Prerequisites:** [Review Lookups](../topic-mod4-lookups-review/guide.md); [Database Join](../22-mod4-database-join/guide.md), whose search rows this workshop reuses; the `MySQL:sampledata` connection from [Connecting to Database](../12-mod3-connecting-to-database/guide.md)
 > 
-> **Estimated time:** 30 minutes
+> **Estimated time:** 15 minutes
 
 <figure>
 
@@ -133,7 +133,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 ::: tabs
 
-### 3.1 Simple
+### 1 Simple
 
 1. On the **Design** tab, open the **Lookup** folder and drag **Database lookup** onto the canvas.
 2. Create a hop from **like_statement** to **Database lookup**.
@@ -200,7 +200,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 >
 > Ford Falcon has no product under 70 (the one Falcon in `PRODUCTS` costs 83.05), so it gets the default. Corvette has three, and the lookup returns the first the database sends back. `BUYPRICE` keeps its decimals although its **Type** is Integer: the value read from the table keeps the database column's type.
 
-### 3.2 Error handling
+### 2 Error handling
 
 1. Drag a second **Database lookup** onto the canvas and create a hop from **like_statement** to it. When Spoon asks, select **Copy**, so each lookup step gets every row rather than a share of them.
 2. Double-click the new step. Set **Step name** to `Database lookup (with error handling)` and configure it as in steps 4 to 6 of 3.1. Select **OK**.
@@ -251,7 +251,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 > **Success:** Checkpoint: 2 rows, Aston Martin and Corvette, with the values the simple lookup found. The Ford Falcon row went to **Write to log** instead.
 
-### 3.3 Do not pass
+### 3 Do not pass
 
 1. Drag a third **Database lookup** onto the canvas and create a hop from **like_statement** to it. If Spoon asks, select **Copy**.
 2. Double-click the new step. Set **Step name** to `Database lookup (do not pass)` and configure it as in steps 4 to 6 of 3.1, but leave **Default** empty for `PRODUCTNAME`.
@@ -263,7 +263,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 > **Success:** Checkpoint: 2 rows, Aston Martin and Corvette. The Ford Falcon row is dropped, silently: no default, no error.
 
-### 3.4 Several matches
+### 4 Several matches
 
 **Database lookup** is meant to find one row per input row. When the table has several (Corvette matches three products under 70), you choose what happens: fail, or decide which row comes first.
 
