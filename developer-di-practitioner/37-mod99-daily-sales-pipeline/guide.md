@@ -312,6 +312,8 @@ use: host `localhost`, port `3306`, database `sampledata`, user
 `pentaho_admin`, with the password from
 [Connecting to Database](../12-mod3-connecting-to-database/guide.md).
 
+:::: tabs
+
 ### 1. Parameters and the connection
 
 **Must do:** give every file the three variables of requirement 1, and
@@ -455,6 +457,8 @@ and on any failure notify ops and abort. Requirements 8 and 10.
 - Hop every entry's failure output to one **Mail** entry, and that to **Abort job**. The SMTP server can be a placeholder; the structure is what matters.
 
 </details>
+
+::::
 
 ---
 
