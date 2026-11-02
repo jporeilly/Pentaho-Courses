@@ -31,7 +31,7 @@
 
 <div align="center">
 <figure>
-<img src="../_assets/images/xml-join-orders.png" alt="The flow: six Excel sheets become XML fragments with Add XML, and five chained XML Join steps nest them into one document, written by Text file output" width="800">
+<img src="../_assets/images/1793613480802.png" alt="The flow: six Excel sheets become XML fragments with Add XML, and five chained XML Join steps nest them into one document, written by Text file output" width="800">
 <figcaption>What you build: each join takes the document so far as its target and adds one level</figcaption>
 </figure>
 </div>

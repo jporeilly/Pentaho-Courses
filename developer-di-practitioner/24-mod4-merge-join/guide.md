@@ -15,7 +15,7 @@
 > 
 > **Prerequisites:** [Review Joins](../topic-mod4-joins-review/guide.md)
 > 
-> **Estimated time:** 20 minutes
+> **Estimated time:** 10 minutes
 
 <figure>
 
@@ -87,14 +87,6 @@ Set-Location C:\Pentaho\design-tools\data-integration
 <figcaption>A B C D</figcaption>
 </figure>
 </div>
-
-<div align="center">
-<figure>
-<img src="../_assets/images/canvas-24-tr-merge-join-overview-s1.png" alt="tr_merge_join_overview.ktr on the Spoon canvas after this tab: A B C D" width="140">
-<figcaption>The canvas after A B C D</figcaption>
-</figure>
-</div>
-
 
 ### 2. Red Blue Yellow
 
