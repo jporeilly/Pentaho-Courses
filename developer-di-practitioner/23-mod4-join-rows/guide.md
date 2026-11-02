@@ -15,7 +15,7 @@
 > 
 > **Prerequisites:** [Review Joins](../topic-mod4-joins-review/guide.md). The lab uses two named parameters; [Parameters](../34-mod5-parameters/guide.md), in Module 5, explains them in full.
 > 
-> **Estimated time:** 20 minutes
+> **Estimated time:** 25 minutes
 
 <figure>
 
@@ -128,14 +128,6 @@ Set-Location C:\Pentaho\design-tools\data-integration
 <figcaption>middle name, Data tab: ten middle names</figcaption>
 </figure>
 </div>
-
-<div align="center">
-<figure>
-<img src="../_assets/images/canvas-23-tr-join-rows-names-s1.png" alt="tr_join_rows_names.ktr on the Spoon canvas after this tab: first name and middle name" width="540">
-<figcaption>The canvas after first name, middle name</figcaption>
-</figure>
-</div>
-
 
 ### 2. Every combination
 

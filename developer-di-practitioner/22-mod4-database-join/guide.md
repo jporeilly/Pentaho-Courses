@@ -15,7 +15,7 @@
 > 
 > **Prerequisites:** [Review Joins](../topic-mod4-joins-review/guide.md); the `MySQL:sampledata` connection from [Connecting to Database](../12-mod3-connecting-to-database/guide.md)
 > 
-> **Estimated time:** 20 minutes
+> **Estimated time:** 10 minutes
 
 <figure>
 
