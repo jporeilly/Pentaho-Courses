@@ -19,7 +19,7 @@
 >
 > **Prerequisites:** The Pentaho Server running, as set up in [Before You Start](../00-before-you-start/guide.md)
 >
-> **Estimated time:** 15 minutes
+> **Estimated time:** 10 minutes
 
 1. Make sure the Pentaho Server is running. On a lab VM it already is; on your own machine start it as in [Before You Start](../00-before-you-start/guide.md):
 

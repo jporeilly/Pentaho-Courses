@@ -13,15 +13,22 @@
 > &#x20; • Client-Based Design Tools
 > 
 > The Pentaho Server, which is the heart of the Pentaho BA Suite, processes reporting, analysis, and dashboard content. The Pentaho Server hosts the centralized Repository for secure sharing of all data solutions. It also provides scheduling and audit functionality. The Pentaho server is managed through its web-based tool, the User Console. Use the User Console to create business analytics content, display and schedule reports, and manage Pentaho security.
+>
+> **Estimated Time:** 10 minutes
 
 <div align="center">
 <figure>
-<img src="../_assets/images/getting_started_pentaho_architecture.png" alt="The Pentaho architecture: Data Integration sends .ktr and .kjb files to the Data Integration Server; Schema Workbench sends .mondrian.xml, Metadata Editor .xmi and Report Designer .prpt files to the Analytics Server; the Pentaho Server saves content in the Repository and runs pipelines and queries data in the data sources" width="800">
+<img src="../_assets/images/1793631012928.png" alt="The Pentaho architecture: Data Integration sends .ktr and .kjb files to the Data Integration Server; Schema Workbench sends .mondrian.xml, Metadata Editor .xmi and Report Designer .prpt files to the Analytics Server; the Pentaho Server saves content in the Repository and runs pipelines and queries data in the data sources" width="800">
 <figcaption>Pentaho Architecture</figcaption>
 </figure>
 </div>
 
-***
+<figure>
+
+<figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
+
+</figure>
+---
 
 > **Note:**
 >
@@ -44,7 +51,7 @@
 </figure>
 </div>
 
-***
+---
 
 ## The tools you will use
 
@@ -124,10 +131,4 @@ Associate** — which covers it hands-on.
 
 :::
 
-***
-
-<figure>
-
-<figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
-
-</figure>
+---
