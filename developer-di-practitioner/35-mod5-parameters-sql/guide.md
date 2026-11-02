@@ -17,7 +17,7 @@
 > 
 > **Prerequisites:** [Parameters](../34-mod5-parameters/guide.md) (named parameters and `${}` substitution) and the `MySQL:sampledata` connection from [Connecting to Database](../12-mod3-connecting-to-database/guide.md).
 > 
-> **Estimated time:** 20 minutes
+> **Estimated time:** 10 minutes
 
 <figure>
 
@@ -36,7 +36,7 @@
 
 <div align="center">
 <figure>
-<img src="../_assets/images/sql-bind-parameters.png" alt="Three ways to fill the ? markers: one row with two fields runs the query once; three rows with Execute for each row? selected run it three times; two rows of one field with Execute for each row? cleared are flattened in arrival order and run it once" width="784">
+<img src="../_assets/images/1793615101246.png" alt="Three ways to fill the ? markers: one row with two fields runs the query once; three rows with Execute for each row? selected run it three times; two rows of one field with Execute for each row? cleared are flattened in arrival order and run it once" width="784">
 <figcaption>How each Data grid fills the ? markers</figcaption>
 </figure>
 </div>
