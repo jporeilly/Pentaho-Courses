@@ -40,14 +40,16 @@ scheduling, and scaling.
 > Files 1 and 2 are written by your job when it runs with
 > `WORKSHOP_HOME` set to `C:/Workshop-DI-Practitioner/capstone`.
 > Anywhere else, the checks cannot find your work and no accreditation
-> is issued. Select **Run checks** under **Verification checks** to see
+> is issued. Select **Run checks** at the foot of this page to see
 > where you stand.
 >
 > Your `solution\` folder starts with a **blank** transformation or job
 > for each file below, already named: build each one in place and save
 > it there (`Ctrl+S`). A blank file passes no check.
 
-## Inputs
+::::: tabs
+
+### 1. Inputs
 
 Download the four files from **Lab Files** at the bottom of this
 page, and put them in a `data/` folder under the workshop root you
@@ -69,15 +71,14 @@ environment.
 Three of the sales rows have intentionally missing keys (two missing
 `customer_id`, one missing `product_id`) — they're there to give your
 validation step something real to catch.
-
----
-
-## Required behavior
+### 2. Required Behavior
 
 Build a job (`.kjb`) that runs the following stages, end to end.
 Each numbered stage maps to a module in the course — the capstone is
 explicit about which skills it's exercising so you can double-check
 yourself.
+
+:::: tabs
 
 ### 1. Parameterize the run *(Module 1)*
 
@@ -187,9 +188,9 @@ Set-Location C:\Pentaho\design-tools\data-integration
 .\Kitchen.bat --% "-file=C:\Workshop-DI-Practitioner\capstone\solution\daily_sales_pipeline.kjb" "-param:SALES_DATE=20260101" -level=Basic
 ```
 
----
+::::
 
-## Suggested architecture
+### 3. Suggested Architecture
 
 Every `.ktr` and `.kjb` here is waiting for you in `solution\` as a
 blank file, with no steps, parameters or connections: the names are
@@ -208,10 +209,7 @@ solution/
 ├── kettle.properties
 └── README.md                     ← invocation + assumptions
 ```
-
----
-
-## Hints for the tricky bits
+### 4. Hints for the Tricky Bits
 
 - **JSONPath**: **JSON input** has no loop path - give each field a full path that matches every customer, e.g. `$.customers[*].id`, `$.customers[*].name`, `$.customers[*].region_code`.
 - **Sorting before Merge join**: both inputs MUST be sorted on the join key. Add a **Sort rows** step on each side, or `ORDER BY` in the source query.
@@ -220,81 +218,7 @@ solution/
 - **SCD Type 2**: **Dimension lookup/update** manages the technical key + valid-from / valid-to dates automatically. Configure the surrogate key, version field, and date fields once; the step does the bookkeeping.
 - **Microsoft Excel writer**: **If output file exists** decides what a daily run does to yesterday's workbook. **replace with new output file** writes a fresh workbook on every run; **Use existing file for writing**, together with **Start writing at end of sheet (appending lines)**, keeps the file rolling.
 - **Two outputs, same rows**: a step with two outgoing hops distributes its rows between them (round robin) unless you select **Copy** when Spoon asks. Chaining the two outputs one after the other sends every row to both without that choice.
-
----
-
-## Lab Files
-
-Click a file to download. Put all four in `${WORKSHOP_HOME}/data/`
-before you start. Beyond these and the blank files in `solution\`,
-nothing in the capstone is supplied: the pipeline itself is yours to
-build.
-
-[sales_20260101.csv](./files/sales_20260101.csv)
-
-[customers.json](./files/customers.json)
-
-[products.csv](./files/products.csv)
-
-[regions.csv](./files/regions.csv)
-
----
-
-## Verification checks
-
-> **Warning:** These four checks decide your course accreditation, and
-> they look only in `C:\Workshop-DI-Practitioner\capstone\`: your
-> `fact_sales.csv` and `sales_summary_20260101.xlsx` in `out\`, and in
-> `solution\` your `daily_sales_pipeline.kjb`, running at least one
-> transformation, and your `README.md`. Save or copy your work there
-> before you take the exam.
-
-After running your job, select **Run checks** below to confirm each
-output landed where expected. The checks assume these paths
-(`WORKSHOP_HOME=C:/Workshop-DI-Practitioner/capstone`, outputs under
-`${WORKSHOP_HOME}/out`). Use exactly these paths, or the checks (and the accreditation) cannot find your work.
-
-The checks confirm that the two outputs and your README exist and that
-your job runs a transformation. Check the numbers yourself: with
-the shipped data, a correct run reads 40 sales rows, rejects 3 for a
-missing customer or product key, and writes 37 rows to
-`fact_sales.csv`. The summary workbook holds these totals:
-
-| Region | Revenue | Gross margin | Orders |
-| --- | ---: | ---: | ---: |
-| Midwest | 1619.31 | 613.81 | 7 |
-| North East | 1742.19 | 769.79 | 6 |
-| North West | 3426.14 | 1529.94 | 11 |
-| South East | 2655.46 | 1235.46 | 7 |
-| South West | 670.21 | 326.61 | 6 |
-| **Total** | **10113.31** | **4475.61** | **37** |
-
----
-
-## Deliverables
-
-Save your work in the `solution/` folder under your workshop root —
-`${WORKSHOP_HOME}/solution/`, e.g. `C:/Workshop-DI-Practitioner/capstone/solution/`,
-where the blank files are. Reinstalling or upgrading the course never
-replaces a file you have saved there; it only puts back a blank file
-you have deleted.
-
-> **Warning:** Don't save it inside the course folder itself. Course
-> content is refreshed from the repository on every launch, so
-> anything you leave there will be overwritten.
-
-Your `solution/` folder should contain:
-
-1. `daily_sales_pipeline.kjb` — the orchestrator
-2. `stage_*.ktr`, `build_fact.ktr`, `maintain_dim_region.ktr`, `write_summary.ktr`
-3. `kettle.properties` showing your variable values (with secrets replaced by placeholders)
-4. `README.md` describing how to invoke + any assumptions
-
-This becomes a portfolio piece — keep it tidy, name things clearly, and document your decisions.
-
----
-
-## Build outline and hints <!-- no-step -->
+### 5. Build Outline and Hints
 
 One section per file, in the order you build them. Each says what the
 file must do, what it reads and writes, which requirement it meets, and
@@ -460,9 +384,55 @@ and on any failure notify ops and abort. Requirements 8 and 10.
 
 ::::
 
----
+### 6. Verification Checks
 
-## Optional: Screenshots of One Solution
+> **Warning:** These four checks decide your course accreditation, and
+> they look only in `C:\Workshop-DI-Practitioner\capstone\`: your
+> `fact_sales.csv` and `sales_summary_20260101.xlsx` in `out\`, and in
+> `solution\` your `daily_sales_pipeline.kjb`, running at least one
+> transformation, and your `README.md`. Save or copy your work there
+> before you take the exam.
+
+After running your job, select **Run checks** at the foot of this page to confirm each
+output landed where expected. The checks assume these paths
+(`WORKSHOP_HOME=C:/Workshop-DI-Practitioner/capstone`, outputs under
+`${WORKSHOP_HOME}/out`). Use exactly these paths, or the checks (and the accreditation) cannot find your work.
+
+The checks confirm that the two outputs and your README exist and that
+your job runs a transformation. Check the numbers yourself: with
+the shipped data, a correct run reads 40 sales rows, rejects 3 for a
+missing customer or product key, and writes 37 rows to
+`fact_sales.csv`. The summary workbook holds these totals:
+
+| Region | Revenue | Gross margin | Orders |
+| --- | ---: | ---: | ---: |
+| Midwest | 1619.31 | 613.81 | 7 |
+| North East | 1742.19 | 769.79 | 6 |
+| North West | 3426.14 | 1529.94 | 11 |
+| South East | 2655.46 | 1235.46 | 7 |
+| South West | 670.21 | 326.61 | 6 |
+| **Total** | **10113.31** | **4475.61** | **37** |
+### 7. Deliverables
+
+Save your work in the `solution/` folder under your workshop root —
+`${WORKSHOP_HOME}/solution/`, e.g. `C:/Workshop-DI-Practitioner/capstone/solution/`,
+where the blank files are. Reinstalling or upgrading the course never
+replaces a file you have saved there; it only puts back a blank file
+you have deleted.
+
+> **Warning:** Don't save it inside the course folder itself. Course
+> content is refreshed from the repository on every launch, so
+> anything you leave there will be overwritten.
+
+Your `solution/` folder should contain:
+
+1. `daily_sales_pipeline.kjb` — the orchestrator
+2. `stage_*.ktr`, `build_fact.ktr`, `maintain_dim_region.ktr`, `write_summary.ktr`
+3. `kettle.properties` showing your variable values (with secrets replaced by placeholders)
+4. `README.md` describing how to invoke + any assumptions
+
+This becomes a portfolio piece — keep it tidy, name things clearly, and document your decisions.
+### 8. Screenshots of One Solution (Optional)
 
 > **Note:**
 >
@@ -534,3 +504,20 @@ and on any failure notify ops and abort. Requirements 8 and 10.
 </div>
 
 </details>
+
+:::::
+
+## Lab Files
+
+Click a file to download. Put all four in `${WORKSHOP_HOME}/data/`
+before you start. Beyond these and the blank files in `solution\`,
+nothing in the capstone is supplied: the pipeline itself is yours to
+build.
+
+[sales_20260101.csv](./files/sales_20260101.csv)
+
+[customers.json](./files/customers.json)
+
+[products.csv](./files/products.csv)
+
+[regions.csv](./files/regions.csv)
