@@ -9,6 +9,8 @@
 > Among other things, common formatting features such as font selection, column resizing, column sorting, column heading renaming, copy/paste formatting, and unlimited undo/redo capability are available from the Interactive Reports formatting menu and toolbar.&#x20;
 > 
 > The reports you create can be output as HTML, PDF, CSV or Excel files. Additionally, you can display your report in a dashboard.
+>
+> **Estimated time:** 10 minutes
 
 <figure>
 
