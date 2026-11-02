@@ -490,10 +490,10 @@ The filter dialog's **Parameter Name** field turns the filter into a prompt.
 9. On the canvas, drag the **Sales** header *up* to the **Filters** panel.
 10. Keep the five best product lines with sales over 10,000. In the **Numeric Filter** dialog:
 
-| Setting                                | Value                                 |
-| -------------------------------------- | ------------------------------------- |
-| **Greater / Less Than, Equal to, etc.** | Selected: **Greater Than** `10000`    |
-| **Top 10, etc.**                       | Selected: **Top** `5` Line by Sales  |
+| Setting                                 | Value                               |
+| --------------------------------------- | ----------------------------------- |
+| **Greater / Less Than, Equal to, etc.** | Selected: **Greater Than** `10000`  |
+| **Top 10, etc.**                        | Selected: **Top** `5` Line by Sales |
 
 Select **OK**.
 
@@ -712,11 +712,11 @@ The panel on the left lists the measures you can use in the calculation; the for
 
 14. In the **Create Calculated Measure** dialog, fill in the settings, and select **OK**:
 
-| Setting            | Value                                                           |
-| ------------------ | --------------------------------------------------------------- |
-| **Display Name**   | `Sales + 6% Tax`                                                |
-| **Format**         | **Currency**                                                    |
-| **Decimal Places** | `0`                                                             |
+| Setting            | Value                                                                              |
+| ------------------ | ---------------------------------------------------------------------------------- |
+| **Display Name**   | `Sales + 6% Tax`                                                                   |
+| **Format**         | **Currency**                                                                       |
+| **Decimal Places** | `0`                                                                                |
 | Formula            | Click in the formula pane to the right of `[Measures].[Sales]`, and enter `* 1.06` |
 
 <div align="center">

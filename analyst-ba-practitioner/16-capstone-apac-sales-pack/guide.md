@@ -51,11 +51,11 @@ Interactive Reports, Analyzer and Dashboard Designer.
 There is nothing to download. Every input is already on your Pentaho
 Server, where the course's workshops left it:
 
-| Source | What it is | Where you use it |
-| --- | --- | --- |
-| **Orders** | The Steel Wheels metadata model: customers, orders, order lines, products | The Interactive Report, the dashboard's prompt, and any Query Editor chart |
-| **SteelWheelsSales** | The Steel Wheels cube: Markets, Product and Time, with the Sales and Quantity measures | The Analyzer report |
-| **Public > Training** | The folder you made in [Pentaho User Console](../04-user-console-puc/guide.md) | Holds your `APAC` folder |
+| Source                | What it is                                                                             | Where you use it                                                           |
+| --------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| **Orders**            | The Steel Wheels metadata model: customers, orders, order lines, products              | The Interactive Report, the dashboard's prompt, and any Query Editor chart |
+| **SteelWheelsSales**  | The Steel Wheels cube: Markets, Product and Time, with the Sales and Quantity measures | The Analyzer report                                                        |
+| **Public > Training** | The folder you made in [Pentaho User Console](../04-user-console-puc/guide.md)         | Holds your `APAC` folder                                                   |
 
 The APAC territory holds three countries: Australia (5 customers), New
 Zealand (4) and Singapore (1), with orders from April 2003 to May 2005.
@@ -188,27 +188,27 @@ the numbers yourself: with all three countries and all seven product
 lines selected in its prompts, a correct report lists 38 orders and
 these totals, whichever template and formatting you chose:
 
-| Country | Orders | Quantity Ordered | Revenue |
-| --- | ---: | ---: | ---: |
-| Australia | 19 | 6,246 | $630,525 |
-| New Zealand | 15 | 5,396 | $535,481 |
-| Singapore | 4 | 1,236 | $115,426 |
-| **Total** | **38** | **12,878** | **$1,281,432** |
+| Country     | Orders | Quantity Ordered | Revenue        |
+| ----------- | -----: | ---------------: | -------------: |
+| Australia   | 19     | 6,246            | $630,525       |
+| New Zealand | 15     | 5,396            | $535,481       |
+| Singapore   | 4      | 1,236            | $115,426       |
+| **Total**   | **38** | **12,878**       | **$1,281,432** |
 
 The analysis shows these figures for the region. Its **Grand Total**
 column carries the three years' Sales together; the Quantity, Sales per
 Unit and Rank sit under each year:
 
-| Product line | Sales, all years | Sales 2003 | Sales 2004 | Sales 2005 |
-| --- | ---: | ---: | ---: | ---: |
-| Classic Cars | $411,956 | $115,011 | $199,372 | $97,574 |
-| Vintage Cars | $364,539 | $111,639 | $147,212 | $105,688 |
-| Motorcycles | $189,818 | $60,789 | $63,159 | $65,870 |
-| Trucks and Buses | $145,666 | $11,298 | $80,634 | $53,735 |
-| Planes | $121,426 | $42,663 | $67,681 | $11,082 |
-| Ships | $38,393 | - | $35,323 | $3,070 |
-| Trains | $9,907 | $1,681 | $8,226 | - |
-| **Grand Total** | **$1,281,706** | **$343,082** | **$601,606** | **$337,018** |
+| Product line     | Sales, all years | Sales 2003   | Sales 2004   | Sales 2005   |
+| ---------------- | ---------------: | -----------: | -----------: | -----------: |
+| Classic Cars     | $411,956         | $115,011     | $199,372     | $97,574      |
+| Vintage Cars     | $364,539         | $111,639     | $147,212     | $105,688     |
+| Motorcycles      | $189,818         | $60,789      | $63,159      | $65,870      |
+| Trucks and Buses | $145,666         | $11,298      | $80,634      | $53,735      |
+| Planes           | $121,426         | $42,663      | $67,681      | $11,082      |
+| Ships            | $38,393          | -            | $35,323      | $3,070       |
+| Trains           | $9,907           | $1,681       | $8,226       | -            |
+| **Grand Total**  | **$1,281,706**   | **$343,082** | **$601,606** | **$337,018** |
 
 The year totals for Quantity are 3,529, 5,938 and 3,411, so 12,878 units
 in all. Classic Cars ranks first by Sales in 2003 and 2004, and Vintage

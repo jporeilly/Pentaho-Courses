@@ -241,15 +241,15 @@ The **Query Editor** opens. (If it does not, select **Edit MQL Query**, the penc
 
 The two prompts this lab builds, side by side:
 
-| Setting                       | Territory prompt                                   | Product Line prompt                                  |
-| ----------------------------- | -------------------------------------------------- | ---------------------------------------------------- |
-| **Name**                      | `Select one or more Territories:`                  | `Select a Product Line:`                             |
-| Control                       | **Buttons**                                        | **Buttons**                                          |
-| **Type**                      | **Metadata List**, data source **Orders**          | **Metadata List**, data source **Orders**            |
+| Setting                       | Territory prompt                                    | Product Line prompt                                    |
+| ----------------------------- | --------------------------------------------------- | ------------------------------------------------------ |
+| **Name**                      | `Select one or more Territories:`                   | `Select a Product Line:`                               |
+| Control                       | **Buttons**                                         | **Buttons**                                            |
+| **Type**                      | **Metadata List**, data source **Orders**           | **Metadata List**, data source **Orders**              |
 | Query                         | **Customer > Territory**, condition **is not null** | **Products > Product Line**, condition **is not null** |
-| **Display**                   | **Horizontal**                                     | **Horizontal**                                       |
-| **Allow multiple selections** | Selected                                           | Cleared                                              |
-| Vendor Sales parameter        | **region**                                         | **Product Line**                                     |
+| **Display**                   | **Horizontal**                                      | **Horizontal**                                         |
+| **Allow multiple selections** | Selected                                            | Cleared                                                |
+| Vendor Sales parameter        | **region**                                          | **Product Line**                                       |
 
 <div align="center">
 <figure>

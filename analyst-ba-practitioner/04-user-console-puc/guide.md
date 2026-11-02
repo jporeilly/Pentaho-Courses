@@ -177,21 +177,17 @@ Select a menu option:
 </figure>
 </div>
 
-| Item | Name | Function |
-| --- | --- | --- |
-| 1 | Home indicator | Indicates the current User Console perspective that you are using. The Home menu lets you move from page to page, or return to your Home page. |
-| 2 | Getting Started | Displays some resources to help you get familiar with the User Console. The Welcome tab shows an introductory video about Pentaho products. The Samples tab holds a variety of small sample reports and dashboards that you can use to get familiar with the software. The Tutorials tab contains a number of tutorial videos that give you a visual guide to the software. |
-| 3 | Current User | Shows the name of the person currently logged in to the User Console. Select the arrow next to the name to log out of the User Console. |
-| 4 | Browse Files | Brings you to the Browse Files perspective, where you can locate your files using the Folders and Files panes, and manage them using the Actions pane. |
-| 5 | Create New | Gives you the option to create a new report in [Pentaho Interactive Reports](https://docs.hitachivantara.com/r/IWGVG8qV~XMn3ekqEIpjTw/DMmWA4vfu43ddn~aj9PJUA), [Pentaho Analyzer](https://docs.hitachivantara.com/r/IWGVG8qV~XMn3ekqEIpjTw/peN6X2OgzB_40iLFljBFeA), or [Pentaho Dashboard Designer](https://docs.hitachivantara.com/r/IWGVG8qV~XMn3ekqEIpjTw/z1sO8VcaROLgS_EgylsScA). If you have permissions to work with data sources, this button also gives you the option to create a new data source. |
-| 6 | Manage Data Sources | Opens the Manage Data Sources dialog, where users with the Manage Data Sources permission view, create, edit and delete data sources. |
-| 7 | Documentation | Documentation for Pentaho products. |
-| 8 | Recents | Shows a list of your most recently opened files. Select the star icon next to a recently opened file to add it to your Favorites list. |
-| 9 | Favorites | Shows a list of your favorite files for quick access. |
-
-The text is unchanged. The three product names in row 5 are links to the Hitachi Vantara docs, and I kept them. If you'd rather not link to that site from a course page, I can drop the links and leave plain text.
-
-I haven't put it into a guide. This looks like the key for the numbered callouts on the classic Home picture, `puc_classic_home_callouts.png`, in the Classic User Console tab of lab 04. Say if you want me to add it there.
+| Item | Name                | Function                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| ---- | ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1    | Home indicator      | Indicates the current User Console perspective that you are using. The Home menu lets you move from page to page, or return to your Home page.                                                                                                                                                                                                                                                                                                                                                              |
+| 2    | Getting Started     | Displays some resources to help you get familiar with the User Console. The Welcome tab shows an introductory video about Pentaho products. The Samples tab holds a variety of small sample reports and dashboards that you can use to get familiar with the software. The Tutorials tab contains a number of tutorial videos that give you a visual guide to the software.                                                                                                                                 |
+| 3    | Current User        | Shows the name of the person currently logged in to the User Console. Select the arrow next to the name to log out of the User Console.                                                                                                                                                                                                                                                                                                                                                                     |
+| 4    | Browse Files        | Brings you to the Browse Files perspective, where you can locate your files using the Folders and Files panes, and manage them using the Actions pane.                                                                                                                                                                                                                                                                                                                                                      |
+| 5    | Create New          | Gives you the option to create a new report in [Pentaho Interactive Reports](https://docs.hitachivantara.com/r/IWGVG8qV~XMn3ekqEIpjTw/DMmWA4vfu43ddn~aj9PJUA), [Pentaho Analyzer](https://docs.hitachivantara.com/r/IWGVG8qV~XMn3ekqEIpjTw/peN6X2OgzB_40iLFljBFeA), or [Pentaho Dashboard Designer](https://docs.hitachivantara.com/r/IWGVG8qV~XMn3ekqEIpjTw/z1sO8VcaROLgS_EgylsScA). If you have permissions to work with data sources, this button also gives you the option to create a new data source. |
+| 6    | Manage Data Sources | Opens the Manage Data Sources dialog, where users with the Manage Data Sources permission view, create, edit and delete data sources.                                                                                                                                                                                                                                                                                                                                                                       |
+| 7    | Documentation       | Documentation for Pentaho products.                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| 8    | Recents             | Shows a list of your most recently opened files. Select the star icon next to a recently opened file to add it to your Favorites list.                                                                                                                                                                                                                                                                                                                                                                      |
+| 9    | Favorites           | Shows a list of your favorite files for quick access.                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 
 ### Browse Files
 
@@ -357,17 +353,13 @@ The last page sets the report's own parameters. **Product Line** takes one value
 
 You can use the following sample users as templates for adding your own users:
 
-| Sample User | Default Role | Default Operation Permissions |
-| --- | --- | --- |
-| admin | Administrator | Administer Security, Schedule Content, Read Content, Execute Schedules, Publish Content, Create Content, Execute, Manage Data Sources |
-| bob | Schedule Power user | Read Content, Execute Schedules |
-| pat | Business Analyst | Publish Content |
-| suzy | Power User | Schedule Content, Read Content, Publish Content, Create Content, Execute |
-| tiffany | Report Author | Schedule Content, Publish Content |
-
-A markdown table can't hold a bulleted list in a cell, so each permission list is a comma-separated line. The permissions are in the same order as the original. If you'd rather keep them one per line, I can use `<br>` between them, but the course app may not render raw HTML in a table cell, so I'd check that first.
-
-I haven't put it into a guide. Tell me which page it belongs on, probably the Users & Roles tab in `04-user-console-puc`, and I'll add it there.
+| Sample User | Default Role        | Default Operation Permissions                                                                                                         |
+| ----------- | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| admin       | Administrator       | Administer Security, Schedule Content, Read Content, Execute Schedules, Publish Content, Create Content, Execute, Manage Data Sources |
+| bob         | Schedule Power user | Read Content, Execute Schedules                                                                                                       |
+| pat         | Business Analyst    | Publish Content                                                                                                                       |
+| suzy        | Power User          | Schedule Content, Read Content, Publish Content, Create Content, Execute                                                              |
+| tiffany     | Report Author       | Schedule Content, Publish Content                                                                                                     |
 
 3. Open the **Manage Roles** tab and select **Administrator**.
 

@@ -156,13 +156,13 @@ tools, so stick with `admin`.
 
 All five ship with the server, and all use the password `password`:
 
-| Role                | User    | Username   |
-| ------------------- | ------- | ---------- |
-| Administrator       | Admin   | `admin`    |
-| Power User          | Suzy    | `suzy`     |
-| Business Analyst    | Pat     | `pat`      |
-| Report Author       | Tiffany | `tiffany`  |
-| Schedule Power User | Bob     | `bob`      |
+| Role                | User    | Username  |
+| ------------------- | ------- | --------- |
+| Administrator       | Admin   | `admin`   |
+| Power User          | Suzy    | `suzy`    |
+| Business Analyst    | Pat     | `pat`     |
+| Report Author       | Tiffany | `tiffany` |
+| Schedule Power User | Bob     | `bob`     |
 
 They differ in what they may do — Business Analyst can only publish
 content, whereas Power User can also schedule, read, create and
@@ -203,11 +203,11 @@ it only ever adds and refreshes, and never deletes your work.
 Everything this course uses, in one place. All of it is local to your
 machine.
 
-| Service               | Address                                | Username       | Password   |
-| --------------------- | -------------------------------------- | -------------- | ---------- |
-| Pentaho User Console  | http://localhost:8080/pentaho          | `admin`        | `password` |
+| Service               | Address                                   | Username       | Password   |
+| --------------------- | ----------------------------------------- | -------------- | ---------- |
+| Pentaho User Console  | http://localhost:8080/pentaho             | `admin`        | `password` |
 | HSQLDB `sampledata`   | `jdbc:hsqldb:hsql://localhost/sampledata` | `pentaho_user` | `password` |
-| Ollama — the Chat tab | `127.0.0.1:11434`                      | *none*         | *none*     |
+| Ollama — the Chat tab | `127.0.0.1:11434`                         | *none*         | *none*     |
 
 The Steel Wheels sample data lives in the bundled HSQLDB and starts
 with the server — you will not normally connect to it directly, since
