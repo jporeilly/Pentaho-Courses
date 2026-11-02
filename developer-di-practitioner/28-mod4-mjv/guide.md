@@ -16,7 +16,7 @@
 > 
 > **Prerequisites:** [Review Scripting](../topic-mod4-scripting-review/guide.md); a little JavaScript
 > 
-> **Estimated time:** 20 minutes
+> **Estimated time:** 10 minutes
 
 <figure>
 

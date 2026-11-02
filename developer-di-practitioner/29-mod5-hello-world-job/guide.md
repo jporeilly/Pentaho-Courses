@@ -16,7 +16,7 @@
 > 
 > **Prerequisites:** [Review Jobs](../topic-mod5-jobs-review/guide.md); the `tr_hello_world.ktr` transformation from [Hello World](../03-mod2-hello-world/guide.md), also in this lab's **Lab Files**
 > 
-> **Estimated time:** 20 minutes
+> **Estimated time:** 10 minutes
 
 <figure>
 

@@ -15,7 +15,7 @@
 > 
 > **Prerequisites:** [Hello World (Job)](../29-mod5-hello-world-job/guide.md); this lab reuses its `tr_hello_world.ktr`, also in **Lab Files**.
 > 
-> **Estimated time:** 25 minutes
+> **Estimated time:** 15 minutes
 
 <figure>
 
