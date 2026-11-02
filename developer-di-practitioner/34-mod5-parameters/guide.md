@@ -15,7 +15,7 @@
 > 
 > **Prerequisites:** [Review Parameters](../topic-mod5-parameters-and-variables-review/guide.md); [Reading from a Database](../13-mod3-reading-from-a-database/guide.md) and the `MySQL:sampledata` connection from [Connecting to Database](../12-mod3-connecting-to-database/guide.md)
 > 
-> **Estimated time:** 20 minutes
+> **Estimated time:** 10 minutes
 
 <figure>
 
@@ -147,14 +147,6 @@ WHERE STATUS = '${STATUS}'
 > **Why it matters:** named parameters are for configuration you
 > control (a status, a date, a schema name); `?` markers are for values
 > that arrive in the data.
-
-<div align="center">
-<figure>
-<img src="../_assets/images/canvas-34-tr-parameters-variables-orders-s1.png" alt="tr_parameters_variables_orders.ktr on the Spoon canvas after this tab: Table input" width="140">
-<figcaption>The canvas after Table input</figcaption>
-</figure>
-</div>
-
 
 ### 3. Run with Another Value
 
