@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1010" height="524" viewBox="0 0 1010 524" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#475569"/></marker>
+<filter id="shadow" x="-10%" y="-10%" width="120%" height="140%"><feDropShadow dx="0" dy="1" stdDeviation="1.2" flood-color="#0f172a" flood-opacity="0.10"/></filter></defs>
+<rect width="1010" height="524" fill="#ffffff"/>
+<rect x="12" y="12" width="212" height="430" rx="10" fill="#f8fafc" stroke="#f1f5f9" stroke-width="1.5"/>
+<path d="M12 22a10 10 0 0 1 10-10h192a10 10 0 0 1 10 10v36h-212z" fill="#475569"/>
+<text x="118" y="31" text-anchor="middle" font-size="13.5" font-weight="700" fill="#ffffff">Client design tools</text>
+<text x="118" y="47" text-anchor="middle" font-size="11" fill="#ffffff" opacity="0.92">installed on the designer’s PC</text>
+<text x="118" y="84" text-anchor="middle" font-size="10" font-weight="600" fill="#334155">FOR DATA INTEGRATION</text>
+<rect x="24" y="96" width="188" height="62" rx="8" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.4" filter="url(#shadow)"/>
+<circle cx="46" cy="127" r="14" fill="#ffffff" stroke="#6d28d9" stroke-width="1"/>
+<g transform="translate(37 118) scale(0.75)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 14 4 4-4 4"/><path d="m18 2 4 4-4 4"/><path d="M2 18h1.973a4 4 0 0 0 3.3-1.7l5.454-7.6a4 4 0 0 1 3.3-1.7H22"/><path d="M2 6h1.972a4 4 0 0 1 3.6 2.2"/><path d="M22 18h-6.041a4 4 0 0 1-3.3-1.8l-.359-.45"/></g>
+<text x="68" y="124" font-size="12.5" font-weight="700" fill="#3b0764">Data Integration</text>
+<text x="68" y="139" font-size="11" fill="#3b0764">builds pipelines and jobs</text>
+<text x="118" y="220" text-anchor="middle" font-size="10" font-weight="600" fill="#334155">FOR ANALYTICS CONTENT</text>
+<rect x="24" y="232" width="188" height="56" rx="8" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.4" filter="url(#shadow)"/>
+<circle cx="46" cy="260" r="14" fill="#ffffff" stroke="#0f766e" stroke-width="1"/>
+<g transform="translate(37 251) scale(0.75)" fill="none" stroke="#0f766e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></g>
+<text x="68" y="257" font-size="12.5" font-weight="700" fill="#134e4a">Schema Workbench</text>
+<text x="68" y="272" font-size="11" fill="#134e4a">cube schemas</text>
+<rect x="24" y="298" width="188" height="56" rx="8" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.4" filter="url(#shadow)"/>
+<circle cx="46" cy="326" r="14" fill="#ffffff" stroke="#0f766e" stroke-width="1"/>
+<g transform="translate(37 317) scale(0.75)" fill="none" stroke="#0f766e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/></g>
+<text x="68" y="323" font-size="12.5" font-weight="700" fill="#134e4a">Metadata Editor</text>
+<text x="68" y="338" font-size="11" fill="#134e4a">business models</text>
+<rect x="24" y="364" width="188" height="56" rx="8" fill="#dcfce7" stroke="#15803d" stroke-width="1.4" filter="url(#shadow)"/>
+<circle cx="46" cy="392" r="14" fill="#ffffff" stroke="#15803d" stroke-width="1"/>
+<g transform="translate(37 383) scale(0.75)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M8 18v-2"/><path d="M12 18v-6"/><path d="M16 18v-4"/></g>
+<text x="68" y="389" font-size="12.5" font-weight="700" fill="#14532d">Report Designer</text>
+<text x="68" y="404" font-size="11" fill="#14532d">reports saved as .prpt</text>
+<rect x="334" y="12" width="396" height="430" rx="10" fill="#f8fafc" stroke="#f1f5f9" stroke-width="1.5"/>
+<path d="M334 22a10 10 0 0 1 10-10h376a10 10 0 0 1 10 10v36h-396z" fill="#475569"/>
+<text x="532" y="31" text-anchor="middle" font-size="13.5" font-weight="700" fill="#ffffff">Pentaho Server</text>
+<text x="532" y="47" text-anchor="middle" font-size="11" fill="#ffffff" opacity="0.92">the web server your users connect to</text>
+<rect x="348" y="66" width="368" height="142" rx="10" fill="#f5f3ff" stroke="#ede9fe" stroke-width="1.5"/>
+<path d="M348 76a10 10 0 0 1 10-10h348a10 10 0 0 1 10 10v36h-368z" fill="#6d28d9"/>
+<text x="532" y="85" text-anchor="middle" font-size="13.5" font-weight="700" fill="#ffffff">Data Integration Server</text>
+<text x="532" y="101" text-anchor="middle" font-size="11" fill="#ffffff" opacity="0.92">plugins</text>
+<rect x="360" y="128" width="166" height="32" rx="7" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<text x="443" y="148" text-anchor="middle" font-size="12" font-weight="600" fill="#3b0764">Pipeline Designer</text>
+<rect x="538" y="128" width="166" height="32" rx="7" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<text x="621" y="148" text-anchor="middle" font-size="12" font-weight="600" fill="#3b0764">Scheduler</text>
+<rect x="360" y="168" width="166" height="32" rx="7" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<text x="443" y="188" text-anchor="middle" font-size="12" font-weight="600" fill="#3b0764">Carte</text>
+<rect x="538" y="168" width="166" height="32" rx="7" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<text x="621" y="188" text-anchor="middle" font-size="12" font-weight="600" fill="#3b0764">Semantic Model Editor</text>
+<rect x="348" y="224" width="368" height="206" rx="10" fill="#f0fdf4" stroke="#dcfce7" stroke-width="1.5"/>
+<path d="M348 234a10 10 0 0 1 10-10h348a10 10 0 0 1 10 10v36h-368z" fill="#15803d"/>
+<text x="532" y="243" text-anchor="middle" font-size="13.5" font-weight="700" fill="#ffffff">Analytics Server</text>
+<text x="532" y="259" text-anchor="middle" font-size="11" fill="#ffffff" opacity="0.92">plugins</text>
+<rect x="360" y="286" width="166" height="32" rx="7" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<text x="443" y="306" text-anchor="middle" font-size="12" font-weight="600" fill="#14532d">Analyzer</text>
+<rect x="538" y="286" width="166" height="32" rx="7" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<text x="621" y="306" text-anchor="middle" font-size="12" font-weight="600" fill="#14532d">Interactive Reports</text>
+<rect x="360" y="326" width="166" height="32" rx="7" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<text x="443" y="346" text-anchor="middle" font-size="12" font-weight="600" fill="#14532d">Dashboard Designer</text>
+<rect x="538" y="326" width="166" height="32" rx="7" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<text x="621" y="346" text-anchor="middle" font-size="12" font-weight="600" fill="#14532d">CTools</text>
+<text x="532" y="384" text-anchor="middle" font-size="11" fill="#14532d">Report Designer reports (.prpt) are published here</text>
+<text x="532" y="400" text-anchor="middle" font-size="11" fill="#14532d">and run from the User Console</text>
+<path d="M224 127H332" fill="none" stroke="#475569" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="279" y="119" text-anchor="middle" font-size="11" font-weight="600" fill="#334155">.ktr  .kjb</text>
+<path d="M224 260H332" fill="none" stroke="#475569" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="279" y="252" text-anchor="middle" font-size="11" font-weight="600" fill="#334155">.mondrian.xml</text>
+<path d="M224 326H332" fill="none" stroke="#475569" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="279" y="318" text-anchor="middle" font-size="11" font-weight="600" fill="#334155">.xmi</text>
+<path d="M224 392H332" fill="none" stroke="#475569" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="279" y="384" text-anchor="middle" font-size="11" font-weight="600" fill="#334155">.prpt</text>
+<path d="M832 79v102a83 13 0 0 0 166 0v-102" fill="#f1f5f9" stroke="#475569" stroke-width="1.5" filter="url(#shadow)"/>
+<ellipse cx="915" cy="79" rx="83" ry="13" fill="#f8fafc" stroke="#475569" stroke-width="1.5"/>
+<text x="915" y="109" text-anchor="middle" font-size="13" font-weight="700" fill="#0f172a">Repository</text>
+<text x="915" y="126" text-anchor="middle" font-size="11" fill="#0f172a">reports, schemas,</text>
+<text x="915" y="140" text-anchor="middle" font-size="11" fill="#0f172a">dashboards, schedules,</text>
+<text x="915" y="154" text-anchor="middle" font-size="11" fill="#0f172a">users and roles</text>
+<path d="M832 271v102a83 13 0 0 0 166 0v-102" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<ellipse cx="915" cy="271" rx="83" ry="13" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+<text x="915" y="301" text-anchor="middle" font-size="13" font-weight="700" fill="#1e3a8a">Data sources</text>
+<text x="915" y="318" text-anchor="middle" font-size="11" fill="#1e3a8a">databases, files,</text>
+<text x="915" y="332" text-anchor="middle" font-size="11" fill="#1e3a8a">cloud storage</text>
+<path d="M730 130H830" fill="none" stroke="#475569" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="781" y="112" text-anchor="middle" font-size="10.5" font-weight="600" fill="#334155">saves and</text>
+<text x="781" y="124" text-anchor="middle" font-size="10.5" font-weight="600" fill="#334155">loads content</text>
+<path d="M730 322H830" fill="none" stroke="#475569" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="781" y="296" text-anchor="middle" font-size="10.5" font-weight="600" fill="#334155">runs pipelines</text>
+<text x="781" y="308" text-anchor="middle" font-size="10.5" font-weight="600" fill="#334155">and queries data</text>
+<path d="M118 442V506H915V388" fill="none" stroke="#475569" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#arrow)"/>
+<text x="516.5" y="498" text-anchor="middle" font-size="11" font-weight="600" fill="#334155">the design tools also connect straight to the data while you build</text>
+</svg>

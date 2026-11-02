@@ -16,7 +16,7 @@
 
 <div align="center">
 <figure>
-<img src="../_assets/images/getting_started_pentaho_architecture.png" alt="A Pentaho architecture diagram: Data Integration, Schema Workbench, Metadata Editor and Report Designer feed the Data Integration and Analytics servers, a data source and the repository" width="800">
+<img src="../_assets/images/getting_started_pentaho_architecture.png" alt="The Pentaho architecture: Data Integration sends .ktr and .kjb files to the Data Integration Server; Schema Workbench sends .mondrian.xml, Metadata Editor .xmi and Report Designer .prpt files to the Analytics Server; the Pentaho Server saves content in the Repository and runs pipelines and queries data in the data sources" width="800">
 <figcaption>Pentaho Architecture</figcaption>
 </figure>
 </div>
