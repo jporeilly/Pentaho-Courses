@@ -183,7 +183,7 @@ A Carte server started with only a host and a port accepts the user `cluster` wi
 
 ::: tabs
 
-### 3.1 Run on the master
+### 1. Run on the master
 
 > **Note:**
 >
@@ -265,7 +265,7 @@ A Carte server started with only a host and a port accepts the user `cluster` wi
 
 9. Optionally, create run configurations for Slave A and Slave B the same way, with **Location** set to `Slave A` and `Slave B`, and run the transformation on each.
 
-### 3.2 Define the cluster schema
+### 2. Define the cluster schema
 
 > **Note:**
 >
@@ -318,7 +318,7 @@ A Carte server started with only a host and a port accepts the user `cluster` wi
 </figure>
 </div>
 
-### 3.3 Run on the cluster
+### 3. Run on the cluster
 
 > **Note:**
 >
