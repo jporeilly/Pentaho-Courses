@@ -394,7 +394,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 <div align="center">
 <figure>
-<img src="../_assets/images/stg-orders-merged-2.png" alt="DBeaver's SQL editor with SELECT * FROM STG_ORDERS_MERGED; and the seven rows it returns, S10_1678 to S12_1666" width="800">
+<img src="../_assets/images/14-writing-database-stg-orders-merged.png" alt="DBeaver's SQL editor with SELECT * FROM STG_ORDERS_MERGED; and the seven rows it returns, S10_1678 to S12_1666" width="800">
 <figcaption>STG_ORDERS_MERGED</figcaption>
 </figure>
 </div>

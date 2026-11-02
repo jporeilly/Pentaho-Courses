@@ -278,7 +278,7 @@ Choose one workshop from the tabs below and build it. Save the transformation in
 
 <div align="center">
 <figure>
-<img src="../_assets/images/calculator-2.png" alt="Calculator with two calculations: line_total, and discount_amount as line_total minus sale_amount" width="800">
+<img src="../_assets/images/19-minio-calculator-two-calculations-line-total-discount.png" alt="Calculator with two calculations: line_total, and discount_amount as line_total minus sale_amount" width="800">
 <figcaption>Calculator</figcaption>
 </figure>
 </div>
@@ -294,7 +294,7 @@ Choose one workshop from the tabs below and build it. Save the transformation in
 
 <div align="center">
 <figure>
-<img src="../_assets/images/formula-step-2.png" alt="Formula step with customer_full_name and is_high_value" width="800">
+<img src="../_assets/images/19-minio-formula-step-customer-full-name-high.png" alt="Formula step with customer_full_name and is_high_value" width="800">
 <figcaption>Formula</figcaption>
 </figure>
 </div>
@@ -338,7 +338,7 @@ Choose one workshop from the tabs below and build it. Save the transformation in
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-19-sales-dashboard-etl-s1.png" alt="sales_dashboard_etl.ktr on the Spoon canvas after this tab: Add constants, Calculator, Customers, Customers lookup, Formula, Get system info, Product lookup, Products and Sales, with the 8 hops between them" width="764">
+<img src="../_assets/images/19-minio-canvas-add-audit-fields.png" alt="sales_dashboard_etl.ktr on the Spoon canvas after this tab: Add constants, Calculator, Customers, Customers lookup, Formula, Get system info, Product lookup, Products and Sales, with the 8 hops between them" width="764">
 <figcaption>The canvas after Add constants, Get system info</figcaption>
 </figure>
 </div>
@@ -532,7 +532,7 @@ Choose one workshop from the tabs below and build it. Save the transformation in
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-19-inventory-reconciliation-s2.png" alt="inventory_reconciliation.ktr on the Spoon canvas after this tab: Read Warehouse XML and Read Product Catalog" width="140">
+<img src="../_assets/images/19-minio-canvas-read-product-catalog.png" alt="inventory_reconciliation.ktr on the Spoon canvas after this tab: Read Warehouse XML and Read Product Catalog" width="140">
 <figcaption>The canvas after Read Product Catalog</figcaption>
 </figure>
 </div>
@@ -569,7 +569,7 @@ Choose one workshop from the tabs below and build it. Save the transformation in
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-19-inventory-reconciliation-s3.png" alt="inventory_reconciliation.ktr on the Spoon canvas after this tab: Read Warehouse XML, Read Product Catalog and Map Warehouse, with the hop between them" width="316">
+<img src="../_assets/images/19-minio-canvas-map-warehouse.png" alt="inventory_reconciliation.ktr on the Spoon canvas after this tab: Read Warehouse XML, Read Product Catalog and Map Warehouse, with the hop between them" width="316">
 <figcaption>The canvas after Map Warehouse</figcaption>
 </figure>
 </div>
@@ -606,7 +606,7 @@ Choose one workshop from the tabs below and build it. Save the transformation in
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-19-inventory-reconciliation-s4.png" alt="inventory_reconciliation.ktr on the Spoon canvas after this tab: Read Warehouse XML, Read Product Catalog, Map Warehouse and Map Product Catalog, with the 2 hops between them" width="316">
+<img src="../_assets/images/19-minio-canvas-map-product-catalog.png" alt="inventory_reconciliation.ktr on the Spoon canvas after this tab: Read Warehouse XML, Read Product Catalog, Map Warehouse and Map Product Catalog, with the 2 hops between them" width="316">
 <figcaption>The canvas after Map Product Catalog</figcaption>
 </figure>
 </div>
@@ -639,7 +639,7 @@ Choose one workshop from the tabs below and build it. Save the transformation in
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-19-inventory-reconciliation-s5.png" alt="inventory_reconciliation.ktr on the Spoon canvas after this tab: Read Warehouse XML, Read Product Catalog, Map Warehouse, Map Product Catalog, Sort Warehouse and Sort ERP, with the 4 hops between them" width="444">
+<img src="../_assets/images/19-minio-canvas-sort-both-sides.png" alt="inventory_reconciliation.ktr on the Spoon canvas after this tab: Read Warehouse XML, Read Product Catalog, Map Warehouse, Map Product Catalog, Sort Warehouse and Sort ERP, with the 4 hops between them" width="444">
 <figcaption>The canvas after Sort Warehouse, Sort ERP</figcaption>
 </figure>
 </div>
@@ -692,7 +692,7 @@ Choose one workshop from the tabs below and build it. Save the transformation in
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-19-inventory-reconciliation-s6.png" alt="inventory_reconciliation.ktr on the Spoon canvas after this tab: Read Warehouse XML, Read Product Catalog, Map Warehouse, Map Product Catalog, Sort Warehouse, Sort ERP and Full Outer Join, with the 6 hops between them" width="588">
+<img src="../_assets/images/19-minio-canvas-full-outer-join.png" alt="inventory_reconciliation.ktr on the Spoon canvas after this tab: Read Warehouse XML, Read Product Catalog, Map Warehouse, Map Product Catalog, Sort Warehouse, Sort ERP and Full Outer Join, with the 6 hops between them" width="588">
 <figcaption>The canvas after Full Outer Join</figcaption>
 </figure>
 </div>
@@ -730,7 +730,7 @@ Choose one workshop from the tabs below and build it. Save the transformation in
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-19-inventory-reconciliation-s7.png" alt="inventory_reconciliation.ktr on the Spoon canvas after this tab: Read Warehouse XML, Read Product Catalog, Map Warehouse, Map Product Catalog, Sort Warehouse, Sort ERP, Full Outer Join and Calculator, with the 7 hops between them" width="716">
+<img src="../_assets/images/19-minio-canvas-calculate-variance.png" alt="inventory_reconciliation.ktr on the Spoon canvas after this tab: Read Warehouse XML, Read Product Catalog, Map Warehouse, Map Product Catalog, Sort Warehouse, Sort ERP, Full Outer Join and Calculator, with the 7 hops between them" width="716">
 <figcaption>The canvas after Calculator</figcaption>
 </figure>
 </div>
@@ -888,7 +888,7 @@ What the script decides, row by row:
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-19-inventory-reconciliation-s8.png" alt="inventory_reconciliation.ktr on the Spoon canvas after this tab: Read Warehouse XML, Read Product Catalog, Map Warehouse, Map Product Catalog, Sort Warehouse, Sort ERP, Full Outer Join, Calculator and Modified JavaScript value, with the 8 hops between them" width="716">
+<img src="../_assets/images/19-minio-canvas-classify-each-row.png" alt="inventory_reconciliation.ktr on the Spoon canvas after this tab: Read Warehouse XML, Read Product Catalog, Map Warehouse, Map Product Catalog, Sort Warehouse, Sort ERP, Full Outer Join, Calculator and Modified JavaScript value, with the 8 hops between them" width="716">
 <figcaption>The canvas after Modified JavaScript value</figcaption>
 </figure>
 </div>
@@ -964,7 +964,7 @@ What the script decides, row by row:
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-19-inventory-reconciliation-s9.png" alt="inventory_reconciliation.ktr on the Spoon canvas after this tab: Read Warehouse XML, Read Product Catalog, Map Warehouse, Map Product Catalog, Sort Warehouse, Sort ERP, Full Outer Join, Calculator, Modified JavaScript value, Priority, High Priority, Medium Priority and Low Priority, with the 12 hops between them" width="716">
+<img src="../_assets/images/19-minio-canvas-route-work-queues.png" alt="inventory_reconciliation.ktr on the Spoon canvas after this tab: Read Warehouse XML, Read Product Catalog, Map Warehouse, Map Product Catalog, Sort Warehouse, Sort ERP, Full Outer Join, Calculator, Modified JavaScript value, Priority, High Priority, Medium Priority and Low Priority, with the 12 hops between them" width="716">
 <figcaption>The canvas after this tab adds 4 steps</figcaption>
 </figure>
 </div>
@@ -1028,7 +1028,7 @@ What the script decides, row by row:
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-19-inventory-reconciliation-s10.png" alt="inventory_reconciliation.ktr on the Spoon canvas after this tab: Read Warehouse XML, Read Product Catalog, Map Warehouse, Map Product Catalog, Sort Warehouse, Sort ERP, Full Outer Join, Calculator, Modified JavaScript value, Priority, High Priority, Medium Priority, Low Priority, Sort rows and Group by, with the 14 hops between them" width="800">
+<img src="../_assets/images/19-minio-canvas-summarize-run.png" alt="inventory_reconciliation.ktr on the Spoon canvas after this tab: Read Warehouse XML, Read Product Catalog, Map Warehouse, Map Product Catalog, Sort Warehouse, Sort ERP, Full Outer Join, Calculator, Modified JavaScript value, Priority, High Priority, Medium Priority, Low Priority, Sort rows and Group by, with the 14 hops between them" width="800">
 <figcaption>The canvas after Sort rows, Group by</figcaption>
 </figure>
 </div>
@@ -1056,7 +1056,7 @@ What the script decides, row by row:
 
 <div align="center">
 <figure>
-<img src="../_assets/images/customer-360.png" alt="The Customer 360 transformation: customers, sales and user events in three rows of steps, two merge joins, then Get system info, Calculator, Engagement, a segment script, Select values and the output" width="800">
+<img src="../_assets/images/19-minio-what-you-build.png" alt="The Customer 360 transformation: customers, sales and user events in three rows of steps, two merge joins, then Get system info, Calculator, Engagement, a segment script, Select values and the output" width="800">
 <figcaption>What you build</figcaption>
 </figure>
 </div>
@@ -1127,7 +1127,7 @@ What the script decides, row by row:
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-19-customer-360-s11.png" alt="customer_360.ktr on the Spoon canvas after this tab: Read Customers" width="140">
+<img src="../_assets/images/19-minio-canvas-read-customers.png" alt="customer_360.ktr on the Spoon canvas after this tab: Read Customers" width="140">
 <figcaption>The canvas after Read Customers</figcaption>
 </figure>
 </div>
@@ -1153,7 +1153,7 @@ What the script decides, row by row:
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-19-customer-360-s12.png" alt="customer_360.ktr on the Spoon canvas after this tab: Read Customers and Sort Customers, with the hop between them" width="252">
+<img src="../_assets/images/19-minio-canvas-sort-customers.png" alt="customer_360.ktr on the Spoon canvas after this tab: Read Customers and Sort Customers, with the hop between them" width="252">
 <figcaption>The canvas after Sort Customers</figcaption>
 </figure>
 </div>
@@ -1200,7 +1200,7 @@ What the script decides, row by row:
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-19-customer-360-s13.png" alt="customer_360.ktr on the Spoon canvas after this tab: Sort Sales, Read Customers, Read Sales and Sort Customers, with the 2 hops between them" width="252">
+<img src="../_assets/images/19-minio-canvas-sort-sales.png" alt="customer_360.ktr on the Spoon canvas after this tab: Sort Sales, Read Customers, Read Sales and Sort Customers, with the 2 hops between them" width="252">
 <figcaption>The canvas after Sort Sales</figcaption>
 </figure>
 </div>
@@ -1236,7 +1236,7 @@ What the script decides, row by row:
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-19-customer-360-s14.png" alt="customer_360.ktr on the Spoon canvas after this tab: Sort Sales, Memory group by, Read Customers, Read Sales and Sort Customers, with the 3 hops between them" width="380">
+<img src="../_assets/images/19-minio-canvas-memory-group-by.png" alt="customer_360.ktr on the Spoon canvas after this tab: Sort Sales, Memory group by, Read Customers, Read Sales and Sort Customers, with the 3 hops between them" width="380">
 <figcaption>The canvas after Memory group by</figcaption>
 </figure>
 </div>
@@ -1275,7 +1275,7 @@ What the script decides, row by row:
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-19-customer-360-s15.png" alt="customer_360.ktr on the Spoon canvas after this tab: Sort Sales, Final Customer Sort, Memory group by, Read Customers, Read Sales and Sort Customers, with the 4 hops between them" width="524">
+<img src="../_assets/images/19-minio-canvas-final-customer-sort.png" alt="customer_360.ktr on the Spoon canvas after this tab: Sort Sales, Final Customer Sort, Memory group by, Read Customers, Read Sales and Sort Customers, with the 4 hops between them" width="524">
 <figcaption>The canvas after Final Customer Sort</figcaption>
 </figure>
 </div>
@@ -1325,7 +1325,7 @@ What the script decides, row by row:
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-19-customer-360-s16.png" alt="customer_360.ktr on the Spoon canvas after this tab: Sort Sales, Final Customer Sort, Memory group by, Read Customers, Read Sales, Read User Events and Sort Customers, with the 4 hops between them" width="524">
+<img src="../_assets/images/19-minio-canvas-read-events.png" alt="customer_360.ktr on the Spoon canvas after this tab: Sort Sales, Final Customer Sort, Memory group by, Read Customers, Read Sales, Read User Events and Sort Customers, with the 4 hops between them" width="524">
 <figcaption>The canvas after Read User Events</figcaption>
 </figure>
 </div>
@@ -1380,7 +1380,7 @@ What the script decides, row by row:
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-19-customer-360-s17.png" alt="customer_360.ktr on the Spoon canvas after this tab: Sort Sales, Final Customer Sort, JSON input, Memory group by, Read Customers, Read Sales, Read User Events and Sort Customers, with the 5 hops between them" width="524">
+<img src="../_assets/images/19-minio-canvas-json-input.png" alt="customer_360.ktr on the Spoon canvas after this tab: Sort Sales, Final Customer Sort, JSON input, Memory group by, Read Customers, Read Sales, Read User Events and Sort Customers, with the 5 hops between them" width="524">
 <figcaption>The canvas after JSON input</figcaption>
 </figure>
 </div>
@@ -1418,7 +1418,7 @@ var is_product_view = (event_type == "product_view") ? 1 : 0;
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-19-customer-360-s18.png" alt="customer_360.ktr on the Spoon canvas after this tab: Sort Sales, Final Customer Sort, JSON input, MJV - Define Events, Memory group by, Read Customers, Read Sales, Read User Events and Sort Customers, with the 6 hops between them" width="524">
+<img src="../_assets/images/19-minio-canvas-mjv-define-events.png" alt="customer_360.ktr on the Spoon canvas after this tab: Sort Sales, Final Customer Sort, JSON input, MJV - Define Events, Memory group by, Read Customers, Read Sales, Read User Events and Sort Customers, with the 6 hops between them" width="524">
 <figcaption>The canvas after MJV - Define Events</figcaption>
 </figure>
 </div>
@@ -1436,7 +1436,7 @@ var is_product_view = (event_type == "product_view") ? 1 : 0;
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-19-customer-360-s19.png" alt="customer_360.ktr on the Spoon canvas after this tab: Sort Sales, Final Customer Sort, JSON input, MJV - Define Events, Memory group by, Read Customers, Read Sales, Read User Events, Sort Events and Sort Customers, with the 7 hops between them" width="524">
+<img src="../_assets/images/19-minio-canvas-sort-events.png" alt="customer_360.ktr on the Spoon canvas after this tab: Sort Sales, Final Customer Sort, JSON input, MJV - Define Events, Memory group by, Read Customers, Read Sales, Read User Events, Sort Events and Sort Customers, with the 7 hops between them" width="524">
 <figcaption>The canvas after Sort Events</figcaption>
 </figure>
 </div>
@@ -1474,7 +1474,7 @@ var is_product_view = (event_type == "product_view") ? 1 : 0;
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-19-customer-360-s20.png" alt="customer_360.ktr on the Spoon canvas after this tab: Sort Sales, Final Customer Sort, Group by User, JSON input, MJV - Define Events, Memory group by, Read Customers, Read Sales, Read User Events, Sort Events and Sort Customers, with the 8 hops between them" width="668">
+<img src="../_assets/images/19-minio-canvas-group-by-user.png" alt="customer_360.ktr on the Spoon canvas after this tab: Sort Sales, Final Customer Sort, Group by User, JSON input, MJV - Define Events, Memory group by, Read Customers, Read Sales, Read User Events, Sort Events and Sort Customers, with the 8 hops between them" width="668">
 <figcaption>The canvas after Group by User</figcaption>
 </figure>
 </div>
@@ -1498,7 +1498,7 @@ var is_product_view = (event_type == "product_view") ? 1 : 0;
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-19-customer-360-s21.png" alt="customer_360.ktr on the Spoon canvas after this tab: Sort Sales, Final Customer Sort, Final User Sort, Group by User, JSON input, MJV - Define Events, Memory group by, Read Customers, Read Sales, Read User Events, Sort Events and Sort Customers, with the 9 hops between them" width="668">
+<img src="../_assets/images/19-minio-canvas-final-user-sort.png" alt="customer_360.ktr on the Spoon canvas after this tab: Sort Sales, Final Customer Sort, Final User Sort, Group by User, JSON input, MJV - Define Events, Memory group by, Read Customers, Read Sales, Read User Events, Sort Events and Sort Customers, with the 9 hops between them" width="668">
 <figcaption>The canvas after Final User Sort</figcaption>
 </figure>
 </div>
@@ -1551,7 +1551,7 @@ var is_product_view = (event_type == "product_view") ? 1 : 0;
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-19-customer-360-s22.png" alt="customer_360.ktr on the Spoon canvas after this tab: Sort Sales, Customers + Sales + Events, Final Customer Sort, Final User Sort, Group by User, JSON input, MJV - Define Events, Memory group by, Read Customers, Read Sales, Read User Events, Sales &amp; Events, Sort Events and Sort Customers, with the 13 hops between them" width="668">
+<img src="../_assets/images/19-minio-canvas-join-three-streams.png" alt="customer_360.ktr on the Spoon canvas after this tab: Sort Sales, Customers + Sales + Events, Final Customer Sort, Final User Sort, Group by User, JSON input, MJV - Define Events, Memory group by, Read Customers, Read Sales, Read User Events, Sales &amp; Events, Sort Events and Sort Customers, with the 13 hops between them" width="668">
 <figcaption>The canvas after Customers + Sales + Events, Sales &amp; Events</figcaption>
 </figure>
 </div>
@@ -1577,7 +1577,7 @@ var is_product_view = (event_type == "product_view") ? 1 : 0;
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-19-customer-360-s23.png" alt="customer_360.ktr on the Spoon canvas after this tab: Sort Sales, Customers + Sales + Events, Final Customer Sort, Final User Sort, Get system info, Group by User, JSON input, MJV - Define Events, Memory group by, Read Customers, Read Sales, Read User Events, Sales &amp; Events, Sort Events and Sort Customers, with the 14 hops between them" width="668">
+<img src="../_assets/images/19-minio-canvas-get-today-s-date.png" alt="customer_360.ktr on the Spoon canvas after this tab: Sort Sales, Customers + Sales + Events, Final Customer Sort, Final User Sort, Get system info, Group by User, JSON input, MJV - Define Events, Memory group by, Read Customers, Read Sales, Read User Events, Sales &amp; Events, Sort Events and Sort Customers, with the 14 hops between them" width="668">
 <figcaption>The canvas after Get system info</figcaption>
 </figure>
 </div>
@@ -1610,7 +1610,7 @@ var is_product_view = (event_type == "product_view") ? 1 : 0;
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-19-customer-360-s24.png" alt="customer_360.ktr on the Spoon canvas after this tab: Sort Sales, Calculator, Customers + Sales + Events, Final Customer Sort, Final User Sort, Get system info, Group by User, JSON input, MJV - Define Events, Memory group by, Read Customers, Read Sales, Read User Events, Sales &amp; Events, Sort Events and Sort Customers, with the 15 hops between them" width="668">
+<img src="../_assets/images/19-minio-canvas-calculator.png" alt="customer_360.ktr on the Spoon canvas after this tab: Sort Sales, Calculator, Customers + Sales + Events, Final Customer Sort, Final User Sort, Get system info, Group by User, JSON input, MJV - Define Events, Memory group by, Read Customers, Read Sales, Read User Events, Sales &amp; Events, Sort Events and Sort Customers, with the 15 hops between them" width="668">
 <figcaption>The canvas after Calculator</figcaption>
 </figure>
 </div>
@@ -1636,7 +1636,7 @@ var is_product_view = (event_type == "product_view") ? 1 : 0;
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-19-customer-360-s25.png" alt="customer_360.ktr on the Spoon canvas after this tab: Sort Sales, Calculator, Customers + Sales + Events, Engagement, Final Customer Sort, Final User Sort, Get system info, Group by User, JSON input, MJV - Define Events, Memory group by, Read Customers, Read Sales, Read User Events, Sales &amp; Events, Sort Events and Sort Customers, with the 16 hops between them" width="668">
+<img src="../_assets/images/19-minio-canvas-engagement.png" alt="customer_360.ktr on the Spoon canvas after this tab: Sort Sales, Calculator, Customers + Sales + Events, Engagement, Final Customer Sort, Final User Sort, Get system info, Group by User, JSON input, MJV - Define Events, Memory group by, Read Customers, Read Sales, Read User Events, Sales &amp; Events, Sort Events and Sort Customers, with the 16 hops between them" width="668">
 <figcaption>The canvas after Engagement</figcaption>
 </figure>
 </div>
@@ -1686,7 +1686,7 @@ if (total_spent == null || total_spent == 0) {
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-19-customer-360-s26.png" alt="customer_360.ktr on the Spoon canvas after this tab: Sort Sales, Calculator, MJV - Customer Segment, Customers + Sales + Events, Engagement, Final Customer Sort, Final User Sort, Get system info, Group by User, JSON input, MJV - Define Events, Memory group by, Read Customers, Read Sales, Read User Events, Sales &amp; Events, Sort Events and Sort Customers, with the 17 hops between them" width="668">
+<img src="../_assets/images/19-minio-canvas-mjv-customer-segment.png" alt="customer_360.ktr on the Spoon canvas after this tab: Sort Sales, Calculator, MJV - Customer Segment, Customers + Sales + Events, Engagement, Final Customer Sort, Final User Sort, Get system info, Group by User, JSON input, MJV - Define Events, Memory group by, Read Customers, Read Sales, Read User Events, Sales &amp; Events, Sort Events and Sort Customers, with the 17 hops between them" width="668">
 <figcaption>The canvas after MJV - Customer Segment</figcaption>
 </figure>
 </div>
@@ -1749,7 +1749,7 @@ if (total_spent == null || total_spent == 0) {
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-19-customer-360-s27.png" alt="customer_360.ktr on the Spoon canvas after this tab: Sort Sales, Calculator, MJV - Customer Segment, Customers + Sales + Events, Engagement, Final Customer Sort, Final User Sort, Get system info, Group by User, JSON input, MJV - Define Events, Memory group by, Output - Customer 360, Read Customers, Read Sales, Read User Events, Sales &amp; Events, Select values, Sort Events and Sort Customers, with the 19 hops between them" width="800">
+<img src="../_assets/images/19-minio-canvas-select-write.png" alt="customer_360.ktr on the Spoon canvas after this tab: Sort Sales, Calculator, MJV - Customer Segment, Customers + Sales + Events, Engagement, Final Customer Sort, Final User Sort, Get system info, Group by User, JSON input, MJV - Define Events, Memory group by, Output - Customer 360, Read Customers, Read Sales, Read User Events, Sales &amp; Events, Select values, Sort Events and Sort Customers, with the 19 hops between them" width="800">
 <figcaption>The canvas after Output - Customer 360, Select values</figcaption>
 </figure>
 </div>
@@ -1841,7 +1841,7 @@ if (total_spent == null || total_spent == 0) {
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-19-log-analysis-anomaly-s28.png" alt="log_analysis_anomaly.ktr on the Spoon canvas after this tab: Read App Log" width="140">
+<img src="../_assets/images/19-minio-canvas-read-log.png" alt="log_analysis_anomaly.ktr on the Spoon canvas after this tab: Read App Log" width="140">
 <figcaption>The canvas after Read App Log</figcaption>
 </figure>
 </div>
@@ -1892,7 +1892,7 @@ The four groups, read against the first line:
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-19-log-analysis-anomaly-s29.png" alt="log_analysis_anomaly.ktr on the Spoon canvas after this tab: Read App Log and Regex evaluation, with the hop between them" width="268">
+<img src="../_assets/images/19-minio-canvas-parse-each-line.png" alt="log_analysis_anomaly.ktr on the Spoon canvas after this tab: Read App Log and Regex evaluation, with the hop between them" width="268">
 <figcaption>The canvas after Regex evaluation</figcaption>
 </figure>
 </div>
@@ -1924,7 +1924,7 @@ The four groups, read against the first line:
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-19-log-analysis-anomaly-s30.png" alt="log_analysis_anomaly.ktr on the Spoon canvas after this tab: Read App Log, Regex evaluation and Select values, with the 2 hops between them" width="396">
+<img src="../_assets/images/19-minio-canvas-select-values.png" alt="log_analysis_anomaly.ktr on the Spoon canvas after this tab: Read App Log, Regex evaluation and Select values, with the 2 hops between them" width="396">
 <figcaption>The canvas after Select values</figcaption>
 </figure>
 </div>
@@ -1957,7 +1957,7 @@ The four groups, read against the first line:
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-19-log-analysis-anomaly-s31.png" alt="log_analysis_anomaly.ktr on the Spoon canvas after this tab: Calculator, Read App Log, Regex evaluation and Select values, with the 3 hops between them" width="524">
+<img src="../_assets/images/19-minio-canvas-calculator-2.png" alt="log_analysis_anomaly.ktr on the Spoon canvas after this tab: Calculator, Read App Log, Regex evaluation and Select values, with the 3 hops between them" width="524">
 <figcaption>The canvas after Calculator</figcaption>
 </figure>
 </div>
@@ -2012,7 +2012,7 @@ The four groups, read against the first line:
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-19-log-analysis-anomaly-s33.png" alt="log_analysis_anomaly.ktr on the Spoon canvas after this tab: All others, Calculator, Filter Errors, Read App Log, Regex evaluation, Select values and Sort rows, with the 6 hops between them" width="796">
+<img src="../_assets/images/19-minio-canvas-keep-errors-warnings.png" alt="log_analysis_anomaly.ktr on the Spoon canvas after this tab: All others, Calculator, Filter Errors, Read App Log, Regex evaluation, Select values and Sort rows, with the 6 hops between them" width="796">
 <figcaption>The canvas after All others, Filter Errors, Sort rows</figcaption>
 </figure>
 </div>
@@ -2051,7 +2051,7 @@ The four groups, read against the first line:
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-19-log-analysis-anomaly-s34.png" alt="log_analysis_anomaly.ktr on the Spoon canvas after this tab: All others, Calculator, Filter Errors, Group by Hour, Read App Log, Regex evaluation, Select values and Sort rows, with the 7 hops between them" width="796">
+<img src="../_assets/images/19-minio-canvas-count-per-hour.png" alt="log_analysis_anomaly.ktr on the Spoon canvas after this tab: All others, Calculator, Filter Errors, Group by Hour, Read App Log, Regex evaluation, Select values and Sort rows, with the 7 hops between them" width="796">
 <figcaption>The canvas after Group by Hour</figcaption>
 </figure>
 </div>
@@ -2148,7 +2148,7 @@ if (rowNum == 1) {
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-19-log-analysis-anomaly-s35.png" alt="log_analysis_anomaly.ktr on the Spoon canvas after this tab: All others, Anomaly Detection, Calculator, Filter Errors, Group by Hour, MJV - Rolling Avg, Read App Log, Regex evaluation, Select values and Sort rows, with the 9 hops between them" width="796">
+<img src="../_assets/images/19-minio-canvas-compare-rolling-average.png" alt="log_analysis_anomaly.ktr on the Spoon canvas after this tab: All others, Anomaly Detection, Calculator, Filter Errors, Group by Hour, MJV - Rolling Avg, Read App Log, Regex evaluation, Select values and Sort rows, with the 9 hops between them" width="796">
 <figcaption>The canvas after Anomaly Detection, MJV - Rolling Avg</figcaption>
 </figure>
 </div>
@@ -2166,7 +2166,7 @@ if (rowNum == 1) {
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-19-log-analysis-anomaly-s36.png" alt="log_analysis_anomaly.ktr on the Spoon canvas after this tab: All others, Anomaly Detection, Calculator, Filter Errors, Group by Hour, MJV - Rolling Avg, Read App Log, Regex evaluation, Select values, Sort rows and Output - Critical, with the 9 hops between them" width="796">
+<img src="../_assets/images/19-minio-canvas-output-critical.png" alt="log_analysis_anomaly.ktr on the Spoon canvas after this tab: All others, Anomaly Detection, Calculator, Filter Errors, Group by Hour, MJV - Rolling Avg, Read App Log, Regex evaluation, Select values, Sort rows and Output - Critical, with the 9 hops between them" width="796">
 <figcaption>The canvas after Output - Critical</figcaption>
 </figure>
 </div>
@@ -2191,7 +2191,7 @@ if (rowNum == 1) {
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-19-log-analysis-anomaly-s37.png" alt="log_analysis_anomaly.ktr on the Spoon canvas after this tab: All others, Anomaly Detection, Calculator, Filter Errors, Group by Hour, MJV - Rolling Avg, Read App Log, Regex evaluation, Select values, Sort rows, Warning, Normal and Output - Critical, with the 9 hops between them" width="796">
+<img src="../_assets/images/19-minio-canvas-warning-normal.png" alt="log_analysis_anomaly.ktr on the Spoon canvas after this tab: All others, Anomaly Detection, Calculator, Filter Errors, Group by Hour, MJV - Rolling Avg, Read App Log, Regex evaluation, Select values, Sort rows, Warning, Normal and Output - Critical, with the 9 hops between them" width="796">
 <figcaption>The canvas after Warning, Normal</figcaption>
 </figure>
 </div>
@@ -2266,7 +2266,7 @@ if (rowNum == 1) {
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-19-log-analysis-anomaly-s38.png" alt="log_analysis_anomaly.ktr on the Spoon canvas after this tab: All others, Anomaly Detection, Calculator, Filter Errors, Group by Hour, MJV - Rolling Avg, Read App Log, Regex evaluation, Select values, Sort rows, Switch / case, Warning, Normal and Output - Critical, with the 13 hops between them" width="796">
+<img src="../_assets/images/19-minio-canvas-switch-case.png" alt="log_analysis_anomaly.ktr on the Spoon canvas after this tab: All others, Anomaly Detection, Calculator, Filter Errors, Group by Hour, MJV - Rolling Avg, Read App Log, Regex evaluation, Select values, Sort rows, Switch / case, Warning, Normal and Output - Critical, with the 13 hops between them" width="796">
 <figcaption>The canvas after Switch / case</figcaption>
 </figure>
 </div>
@@ -2376,7 +2376,7 @@ if (rowNum == 1) {
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-19-fraud-detection-s39.png" alt="fraud_detection.ktr on the Spoon canvas after this tab: Read Accounts, Read Merchants and Read Transactions" width="300">
+<img src="../_assets/images/19-minio-canvas-read-finance-files.png" alt="fraud_detection.ktr on the Spoon canvas after this tab: Read Accounts, Read Merchants and Read Transactions" width="300">
 <figcaption>The canvas after Read Accounts, Read Merchants, Read Transactions</figcaption>
 </figure>
 </div>
@@ -2407,7 +2407,7 @@ if (rowNum == 1) {
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-19-fraud-detection-s40.png" alt="fraud_detection.ktr on the Spoon canvas after this tab: Lookup Accounts, Read Accounts, Read Merchants and Read Transactions, with the 2 hops between them" width="300">
+<img src="../_assets/images/19-minio-canvas-add-account-details.png" alt="fraud_detection.ktr on the Spoon canvas after this tab: Lookup Accounts, Read Accounts, Read Merchants and Read Transactions, with the 2 hops between them" width="300">
 <figcaption>The canvas after Lookup Accounts</figcaption>
 </figure>
 </div>
@@ -2455,7 +2455,7 @@ if (rowNum == 1) {
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-19-fraud-detection-s41.png" alt="fraud_detection.ktr on the Spoon canvas after this tab: Join Merchants, Lookup Accounts, Read Accounts, Read Merchants, Read Transactions, Sort Merchants and Sort by Merchants, with the 6 hops between them" width="524">
+<img src="../_assets/images/19-minio-canvas-add-merchant-details.png" alt="fraud_detection.ktr on the Spoon canvas after this tab: Join Merchants, Lookup Accounts, Read Accounts, Read Merchants, Read Transactions, Sort Merchants and Sort by Merchants, with the 6 hops between them" width="524">
 <figcaption>The canvas after Join Merchants, Sort Merchants, Sort by Merchants</figcaption>
 </figure>
 </div>
@@ -2496,7 +2496,7 @@ if (rowNum == 1) {
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-19-fraud-detection-s42.png" alt="fraud_detection.ktr on the Spoon canvas after this tab: Join Merchants, Lookup Accounts, Metrics + Flags, Read Accounts, Read Merchants, Read Transactions, Sort Merchants and Sort by Merchants, with the 7 hops between them" width="652">
+<img src="../_assets/images/19-minio-canvas-calculate-metrics-flags.png" alt="fraud_detection.ktr on the Spoon canvas after this tab: Join Merchants, Lookup Accounts, Metrics + Flags, Read Accounts, Read Merchants, Read Transactions, Sort Merchants and Sort by Merchants, with the 7 hops between them" width="652">
 <figcaption>The canvas after Metrics + Flags</figcaption>
 </figure>
 </div>
@@ -2561,7 +2561,7 @@ if (rowNum == 1) {
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-19-fraud-detection-s43.png" alt="fraud_detection.ktr on the Spoon canvas after this tab: Calculate Fraud Score, Join Merchants, Lookup Accounts, Metrics + Flags, Read Accounts, Read Merchants, Read Transactions, Sort Merchants, Sort by Merchants and risk_category, with the 9 hops between them" width="652">
+<img src="../_assets/images/19-minio-canvas-score-categorize.png" alt="fraud_detection.ktr on the Spoon canvas after this tab: Calculate Fraud Score, Join Merchants, Lookup Accounts, Metrics + Flags, Read Accounts, Read Merchants, Read Transactions, Sort Merchants, Sort by Merchants and risk_category, with the 9 hops between them" width="652">
 <figcaption>The canvas after Calculate Fraud Score, risk_category</figcaption>
 </figure>
 </div>
@@ -2739,7 +2739,7 @@ Open `xml/inventory.xml`. Items sit under `/inventory/items/item`:
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-19-data-lake-ingestion-s44.png" alt="data_lake_ingestion.ktr on the Spoon canvas after this tab: Read Products - CSV" width="140">
+<img src="../_assets/images/19-minio-canvas-read-products-csv.png" alt="data_lake_ingestion.ktr on the Spoon canvas after this tab: Read Products - CSV" width="140">
 <figcaption>The canvas after Read Products - CSV</figcaption>
 </figure>
 </div>
@@ -2764,7 +2764,7 @@ Open `xml/inventory.xml`. Items sit under `/inventory/items/item`:
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-19-data-lake-ingestion-s45.png" alt="data_lake_ingestion.ktr on the Spoon canvas after this tab: Read Products - CSV and Add Metadata, with the hop between them" width="300">
+<img src="../_assets/images/19-minio-canvas-add-metadata.png" alt="data_lake_ingestion.ktr on the Spoon canvas after this tab: Read Products - CSV and Add Metadata, with the hop between them" width="300">
 <figcaption>The canvas after Add Metadata</figcaption>
 </figure>
 </div>
@@ -2789,7 +2789,7 @@ Open `xml/inventory.xml`. Items sit under `/inventory/items/item`:
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-19-data-lake-ingestion-s46.png" alt="data_lake_ingestion.ktr on the Spoon canvas after this tab: Read Products - CSV, Add Metadata and Ingestion Timestamp, with the 2 hops between them" width="428">
+<img src="../_assets/images/19-minio-canvas-ingestion-timestamp.png" alt="data_lake_ingestion.ktr on the Spoon canvas after this tab: Read Products - CSV, Add Metadata and Ingestion Timestamp, with the 2 hops between them" width="428">
 <figcaption>The canvas after Ingestion Timestamp</figcaption>
 </figure>
 </div>
@@ -2824,7 +2824,7 @@ Open `xml/inventory.xml`. Items sit under `/inventory/items/item`:
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-19-data-lake-ingestion-s47.png" alt="data_lake_ingestion.ktr on the Spoon canvas after this tab: Read Products - CSV, Map to Schema - CSV, Add Metadata and Ingestion Timestamp, with the 3 hops between them" width="572">
+<img src="../_assets/images/19-minio-canvas-map-schema-csv.png" alt="data_lake_ingestion.ktr on the Spoon canvas after this tab: Read Products - CSV, Map to Schema - CSV, Add Metadata and Ingestion Timestamp, with the 3 hops between them" width="572">
 <figcaption>The canvas after Map to Schema - CSV</figcaption>
 </figure>
 </div>
@@ -2865,7 +2865,7 @@ Open `xml/inventory.xml`. Items sit under `/inventory/items/item`:
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-19-data-lake-ingestion-s48.png" alt="data_lake_ingestion.ktr on the Spoon canvas after this tab: Read Products - CSV, Map to Schema - CSV, Add Metadata, Ingestion Timestamp and Read Products - JSON, with the 3 hops between them" width="572">
+<img src="../_assets/images/19-minio-canvas-read-products-json.png" alt="data_lake_ingestion.ktr on the Spoon canvas after this tab: Read Products - CSV, Map to Schema - CSV, Add Metadata, Ingestion Timestamp and Read Products - JSON, with the 3 hops between them" width="572">
 <figcaption>The canvas after Read Products - JSON</figcaption>
 </figure>
 </div>
@@ -2883,14 +2883,14 @@ Open `xml/inventory.xml`. Items sit under `/inventory/items/item`:
 
 <div align="center">
 <figure>
-<img src="../_assets/images/minio-lake-add-metadata-2.png" alt="Add constants: step name Add Metadata 2, source_system String json and category String E-commerce" width="800">
+<img src="../_assets/images/19-minio-add-metadata-2-source-system-category.png" alt="Add constants: step name Add Metadata 2, source_system String json and category String E-commerce" width="800">
 <figcaption>Add Metadata 2: source_system and category</figcaption>
 </figure>
 </div>
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-19-data-lake-ingestion-s49.png" alt="data_lake_ingestion.ktr on the Spoon canvas after this tab: Read Products - CSV, Map to Schema - CSV, Add Metadata, Ingestion Timestamp, Read Products - JSON and Add Metadata 2, with the 4 hops between them" width="572">
+<img src="../_assets/images/19-minio-canvas-add-metadata-2.png" alt="data_lake_ingestion.ktr on the Spoon canvas after this tab: Read Products - CSV, Map to Schema - CSV, Add Metadata, Ingestion Timestamp, Read Products - JSON and Add Metadata 2, with the 4 hops between them" width="572">
 <figcaption>The canvas after Add Metadata 2</figcaption>
 </figure>
 </div>
@@ -2908,14 +2908,14 @@ Open `xml/inventory.xml`. Items sit under `/inventory/items/item`:
 
 <div align="center">
 <figure>
-<img src="../_assets/images/minio-lake-ingestion-timestamp-2.png" alt="Get system info: step name Ingestion Timestamp 2, one field ingestion_time of type system date (variable)" width="486">
+<img src="../_assets/images/19-minio-ingestion-timestamp-2.png" alt="Get system info: step name Ingestion Timestamp 2, one field ingestion_time of type system date (variable)" width="486">
 <figcaption>Ingestion Timestamp 2</figcaption>
 </figure>
 </div>
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-19-data-lake-ingestion-s50.png" alt="data_lake_ingestion.ktr on the Spoon canvas after this tab: Read Products - CSV, Map to Schema - CSV, Add Metadata, Ingestion Timestamp, Read Products - JSON, Add Metadata 2 and Ingestion Timestamp 2, with the 5 hops between them" width="572">
+<img src="../_assets/images/19-minio-canvas-ingestion-timestamp-2.png" alt="data_lake_ingestion.ktr on the Spoon canvas after this tab: Read Products - CSV, Map to Schema - CSV, Add Metadata, Ingestion Timestamp, Read Products - JSON, Add Metadata 2 and Ingestion Timestamp 2, with the 5 hops between them" width="572">
 <figcaption>The canvas after Ingestion Timestamp 2</figcaption>
 </figure>
 </div>
@@ -2940,7 +2940,7 @@ Open `xml/inventory.xml`. Items sit under `/inventory/items/item`:
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-19-data-lake-ingestion-s51.png" alt="data_lake_ingestion.ktr on the Spoon canvas after this tab: Read Products - CSV, Map to Schema - CSV, Add Metadata, Ingestion Timestamp, Read Products - JSON, Map to Schema - JSON, Add Metadata 2 and Ingestion Timestamp 2, with the 6 hops between them" width="572">
+<img src="../_assets/images/19-minio-canvas-map-schema-json.png" alt="data_lake_ingestion.ktr on the Spoon canvas after this tab: Read Products - CSV, Map to Schema - CSV, Add Metadata, Ingestion Timestamp, Read Products - JSON, Map to Schema - JSON, Add Metadata 2 and Ingestion Timestamp 2, with the 6 hops between them" width="572">
 <figcaption>The canvas after Map to Schema - JSON</figcaption>
 </figure>
 </div>
@@ -2990,7 +2990,7 @@ Open `xml/inventory.xml`. Items sit under `/inventory/items/item`:
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-19-data-lake-ingestion-s52.png" alt="data_lake_ingestion.ktr on the Spoon canvas after this tab: Read Products - CSV, Map to Schema - CSV, Add Metadata, Ingestion Timestamp, Read Products - JSON, Map to Schema - JSON, Add Metadata 2, Ingestion Timestamp 2 and Read Products - XML, with the 6 hops between them" width="572">
+<img src="../_assets/images/19-minio-canvas-read-products-xml.png" alt="data_lake_ingestion.ktr on the Spoon canvas after this tab: Read Products - CSV, Map to Schema - CSV, Add Metadata, Ingestion Timestamp, Read Products - JSON, Map to Schema - JSON, Add Metadata 2, Ingestion Timestamp 2 and Read Products - XML, with the 6 hops between them" width="572">
 <figcaption>The canvas after Read Products - XML</figcaption>
 </figure>
 </div>
@@ -3008,14 +3008,14 @@ Open `xml/inventory.xml`. Items sit under `/inventory/items/item`:
 
 <div align="center">
 <figure>
-<img src="../_assets/images/minio-lake-add-metadata-3.png" alt="Add constants: step name Add Metadata 3, source_system String xml, and price Number with format 0.00 and no value" width="800">
+<img src="../_assets/images/19-minio-add-metadata-3-source-system-empty.png" alt="Add constants: step name Add Metadata 3, source_system String xml, and price Number with format 0.00 and no value" width="800">
 <figcaption>Add Metadata 3: source_system, and an empty price</figcaption>
 </figure>
 </div>
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-19-data-lake-ingestion-s53.png" alt="data_lake_ingestion.ktr on the Spoon canvas after this tab: Read Products - CSV, Map to Schema - CSV, Add Metadata, Ingestion Timestamp, Read Products - JSON, Map to Schema - JSON, Add Metadata 2, Ingestion Timestamp 2, Read Products - XML and Add Metadata 3, with the 7 hops between them" width="572">
+<img src="../_assets/images/19-minio-canvas-add-metadata-3.png" alt="data_lake_ingestion.ktr on the Spoon canvas after this tab: Read Products - CSV, Map to Schema - CSV, Add Metadata, Ingestion Timestamp, Read Products - JSON, Map to Schema - JSON, Add Metadata 2, Ingestion Timestamp 2, Read Products - XML and Add Metadata 3, with the 7 hops between them" width="572">
 <figcaption>The canvas after Add Metadata 3</figcaption>
 </figure>
 </div>
@@ -3033,14 +3033,14 @@ Open `xml/inventory.xml`. Items sit under `/inventory/items/item`:
 
 <div align="center">
 <figure>
-<img src="../_assets/images/minio-lake-ingestion-timestamp-3.png" alt="Get system info: step name Ingestion Timestamp 3, one field ingestion_time of type system date (variable)" width="486">
+<img src="../_assets/images/19-minio-ingestion-timestamp-3.png" alt="Get system info: step name Ingestion Timestamp 3, one field ingestion_time of type system date (variable)" width="486">
 <figcaption>Ingestion Timestamp 3</figcaption>
 </figure>
 </div>
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-19-data-lake-ingestion-s54.png" alt="data_lake_ingestion.ktr on the Spoon canvas after this tab: Read Products - CSV, Map to Schema - CSV, Add Metadata, Ingestion Timestamp, Read Products - JSON, Map to Schema - JSON, Add Metadata 2, Ingestion Timestamp 2, Read Products - XML, Add Metadata 3 and Ingestion Timestamp 3, with the 8 hops between them" width="572">
+<img src="../_assets/images/19-minio-canvas-ingestion-timestamp-3.png" alt="data_lake_ingestion.ktr on the Spoon canvas after this tab: Read Products - CSV, Map to Schema - CSV, Add Metadata, Ingestion Timestamp, Read Products - JSON, Map to Schema - JSON, Add Metadata 2, Ingestion Timestamp 2, Read Products - XML, Add Metadata 3 and Ingestion Timestamp 3, with the 8 hops between them" width="572">
 <figcaption>The canvas after Ingestion Timestamp 3</figcaption>
 </figure>
 </div>
@@ -3072,7 +3072,7 @@ Open `xml/inventory.xml`. Items sit under `/inventory/items/item`:
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-19-data-lake-ingestion-s55.png" alt="data_lake_ingestion.ktr on the Spoon canvas after this tab: Read Products - CSV, Map to Schema - CSV, Add Metadata, Ingestion Timestamp, Read Products - JSON, Map to Schema - JSON, Add Metadata 2, Ingestion Timestamp 2, Read Products - XML, Map to Schema - XML, Add Metadata 3 and Ingestion Timestamp 3, with the 9 hops between them" width="572">
+<img src="../_assets/images/19-minio-canvas-map-schema-xml.png" alt="data_lake_ingestion.ktr on the Spoon canvas after this tab: Read Products - CSV, Map to Schema - CSV, Add Metadata, Ingestion Timestamp, Read Products - JSON, Map to Schema - JSON, Add Metadata 2, Ingestion Timestamp 2, Read Products - XML, Map to Schema - XML, Add Metadata 3 and Ingestion Timestamp 3, with the 9 hops between them" width="572">
 <figcaption>The canvas after Map to Schema - XML</figcaption>
 </figure>
 </div>
@@ -3133,7 +3133,7 @@ P001        Laptop Pro 15   Electronics           45        xml    <- again, and
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-19-data-lake-ingestion-s56.png" alt="data_lake_ingestion.ktr on the Spoon canvas after this tab: Read Products - CSV, Map to Schema - CSV, Add Metadata, Ingestion Timestamp, Read Products - JSON, Map to Schema - JSON, Add Metadata 2, Ingestion Timestamp 2, Read Products - XML, Map to Schema - XML, Add Metadata 3, Ingestion Timestamp 3 and Combine All Products, with the 12 hops between them" width="780">
+<img src="../_assets/images/19-minio-canvas-combine.png" alt="data_lake_ingestion.ktr on the Spoon canvas after this tab: Read Products - CSV, Map to Schema - CSV, Add Metadata, Ingestion Timestamp, Read Products - JSON, Map to Schema - JSON, Add Metadata 2, Ingestion Timestamp 2, Read Products - XML, Map to Schema - XML, Add Metadata 3, Ingestion Timestamp 3 and Combine All Products, with the 12 hops between them" width="780">
 <figcaption>The canvas after Combine All Products</figcaption>
 </figure>
 </div>

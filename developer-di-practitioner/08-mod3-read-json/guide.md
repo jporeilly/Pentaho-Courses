@@ -27,7 +27,7 @@
 
 <div align="center">
 <figure>
-<img src="../_assets/images/json.png" alt="The finished transformation: Json input hopped to Dummy" width="599">
+<img src="../_assets/images/08-read-json-what-you-build.png" alt="The finished transformation: Json input hopped to Dummy" width="599">
 <figcaption>What you build</figcaption>
 </figure>
 </div>
@@ -195,7 +195,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 <div align="center">
 <figure>
-<img src="../_assets/images/json-1.png" alt="Preview data: one row per order with product line, customer, status, date and value" width="760">
+<img src="../_assets/images/08-read-json-one-row-per-order.png" alt="Preview data: one row per order with product line, customer, status, date and value" width="760">
 <figcaption>One row per order</figcaption>
 </figure>
 </div>

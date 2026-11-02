@@ -36,7 +36,7 @@
 
 <div align="center">
 <figure>
-<img src="../_assets/images/1793615101246.png" alt="Three ways to fill the ? markers: one row with two fields runs the query once; three rows with Execute for each row? selected run it three times; two rows of one field with Execute for each row? cleared are flattened in arrival order and run it once" width="784">
+<img src="../_assets/images/35-parameters-sql-how-each-data-grid-fills-markers.png" alt="Three ways to fill the ? markers: one row with two fields runs the query once; three rows with Execute for each row? selected run it three times; two rows of one field with Execute for each row? cleared are flattened in arrival order and run it once" width="784">
 <figcaption>How each Data grid fills the ? markers</figcaption>
 </figure>
 </div>

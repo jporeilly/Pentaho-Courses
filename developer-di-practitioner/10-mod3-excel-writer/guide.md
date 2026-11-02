@@ -371,7 +371,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 <div align="center">
 <figure>
-<img src="../_assets/images/excel-writer-content-1.png" alt="Excel writer Content tab starting at cell B5, with the six monthly fields in the Fields grid" width="800">
+<img src="../_assets/images/10-excel-writer-sales-start-at-b5.png" alt="Excel writer Content tab starting at cell B5, with the six monthly fields in the Fields grid" width="800">
 <figcaption>Sales start at B5</figcaption>
 </figure>
 </div>

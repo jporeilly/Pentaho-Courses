@@ -133,7 +133,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 <div align="center">
 <figure>
-<img src="../_assets/images/calc.png" alt="Calculator with diff_days = REQUIREDDATE minus SHIPPEDDATE in days" width="800">
+<img src="../_assets/images/13-reading-database-diff-days.png" alt="Calculator with diff_days = REQUIREDDATE minus SHIPPEDDATE in days" width="800">
 <figcaption>diff_days</figcaption>
 </figure>
 </div>
@@ -190,7 +190,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 <div align="center">
 <figure>
-<img src="../_assets/images/sort.png" alt="Sort rows with diff_days ascending" width="800">
+<img src="../_assets/images/13-reading-database-sort-diff-days.png" alt="Sort rows with diff_days ascending" width="800">
 <figcaption>Sort on diff_days</figcaption>
 </figure>
 </div>
@@ -271,7 +271,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-13-tr-reading-database-warehouse-s1.png" alt="tr_reading_database_warehouse.ktr on the Spoon canvas after this tab: Calculator, Number range, Select values, Sort rows and Table input, with the 4 hops between them" width="140">
+<img src="../_assets/images/13-reading-database-canvas-select-values.png" alt="tr_reading_database_warehouse.ktr on the Spoon canvas after this tab: Calculator, Number range, Select values, Sort rows and Table input, with the 4 hops between them" width="140">
 <figcaption>The canvas after Select values</figcaption>
 </figure>
 </div>

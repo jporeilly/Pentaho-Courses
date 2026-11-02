@@ -188,7 +188,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 <div align="center">
 <figure>
-<img src="../_assets/images/dim-scd-update-2.png" alt="Dimension lookup/update with Update the dimension selected, the cache cleared, the id key, TK, version, the LAST_UPDATE stream date and the date range fields" width="800">
+<img src="../_assets/images/18-slowly-changing-keys-type-2-columns.png" alt="Dimension lookup/update with Update the dimension selected, the cache cleared, the id key, TK, version, the LAST_UPDATE stream date and the date range fields" width="800">
 <figcaption>Keys and the type 2 columns</figcaption>
 </figure>
 </div>

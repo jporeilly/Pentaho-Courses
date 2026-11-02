@@ -114,7 +114,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 <div align="center">
 <figure>
-<img src="../_assets/images/tfi.png" alt="The Content tab of Text file input: a tab in Separator, Header cleared, No empty rows selected, Format mixed" width="800">
+<img src="../_assets/images/06-text-file-content-text-file-input-separator-header.png" alt="The Content tab of Text file input: a tab in Separator, Header cleared, No empty rows selected, Format mixed" width="800">
 <figcaption>The Content tab</figcaption>
 </figure>
 </div>
@@ -339,7 +339,7 @@ To learn or test regular expressions, regex101 is a good start:
 
 <div align="center">
 <figure>
-<img src="../_assets/images/sv-2.png" alt="The Meta-data tab of Select values: order_value as Number and order_date as Date" width="800">
+<img src="../_assets/images/06-text-file-typed-fields.png" alt="The Meta-data tab of Select values: order_value as Number and order_date as Date" width="800">
 <figcaption>Typed fields</figcaption>
 </figure>
 </div>
@@ -388,7 +388,7 @@ To learn or test regular expressions, regex101 is a good start:
 
 <div align="center">
 <figure>
-<img src="../_assets/images/results.png" alt="Preview data: seven orders with product line, customer, value, status and date" width="800">
+<img src="../_assets/images/06-text-file-seven-clean-orders.png" alt="Preview data: seven orders with product line, customer, value, status and date" width="800">
 <figcaption>Seven clean orders</figcaption>
 </figure>
 </div>

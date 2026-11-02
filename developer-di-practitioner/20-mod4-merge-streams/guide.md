@@ -28,7 +28,7 @@
 
 <div align="center">
 <figure>
-<img src="../_assets/images/merge-streams-2.png" alt="The finished transformation: orders and description inputs, Add description, two Select values steps, and a Dummy step they both feed" width="630">
+<img src="../_assets/images/20-merge-streams-what-you-build.png" alt="The finished transformation: orders and description inputs, Add description, two Select values steps, and a Dummy step they both feed" width="630">
 <figcaption>What you build</figcaption>
 </figure>
 </div>
@@ -102,7 +102,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-20-tr-merge-streams-s1.png" alt="tr_merge_streams.ktr on the Spoon canvas after this tab: orders" width="140">
+<img src="../_assets/images/20-merge-streams-canvas-orders.png" alt="tr_merge_streams.ktr on the Spoon canvas after this tab: orders" width="140">
 <figcaption>The canvas after orders</figcaption>
 </figure>
 </div>
@@ -157,7 +157,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-20-tr-merge-streams-s2.png" alt="tr_merge_streams.ktr on the Spoon canvas after this tab: description and orders" width="140">
+<img src="../_assets/images/20-merge-streams-canvas-description.png" alt="tr_merge_streams.ktr on the Spoon canvas after this tab: description and orders" width="140">
 <figcaption>The canvas after description</figcaption>
 </figure>
 </div>
@@ -196,7 +196,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-20-tr-merge-streams-s3.png" alt="tr_merge_streams.ktr on the Spoon canvas after this tab: Add description, description and orders, with the hop between them" width="316">
+<img src="../_assets/images/20-merge-streams-canvas-add-constants.png" alt="tr_merge_streams.ktr on the Spoon canvas after this tab: Add description, description and orders, with the hop between them" width="316">
 <figcaption>The canvas after Add description</figcaption>
 </figure>
 </div>
@@ -262,7 +262,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-20-tr-merge-streams-s4.png" alt="tr_merge_streams.ktr on the Spoon canvas after this tab: Add description, Select Description, Select Orders, description and orders, with the 3 hops between them" width="476">
+<img src="../_assets/images/20-merge-streams-canvas-select-description.png" alt="tr_merge_streams.ktr on the Spoon canvas after this tab: Add description, Select Description, Select Orders, description and orders, with the 3 hops between them" width="476">
 <figcaption>The canvas after Select Description</figcaption>
 </figure>
 </div>
@@ -281,7 +281,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-20-tr-merge-streams-s5.png" alt="tr_merge_streams.ktr on the Spoon canvas after this tab: Add description, Dummy (do nothing), Select Description, Select Orders, description and orders, with the 5 hops between them" width="604">
+<img src="../_assets/images/20-merge-streams-canvas-dummy-do-nothing.png" alt="tr_merge_streams.ktr on the Spoon canvas after this tab: Add description, Dummy (do nothing), Select Description, Select Orders, description and orders, with the 5 hops between them" width="604">
 <figcaption>The canvas after Dummy (do nothing)</figcaption>
 </figure>
 </div>

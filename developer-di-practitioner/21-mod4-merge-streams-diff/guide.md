@@ -117,7 +117,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-21-tr-merge-streams-diff-s1.png" alt="tr_merge_streams_diff.ktr on the Spoon canvas after this tab: orders" width="140">
+<img src="../_assets/images/21-merge-streams-canvas-orders.png" alt="tr_merge_streams_diff.ktr on the Spoon canvas after this tab: orders" width="140">
 <figcaption>The canvas after orders</figcaption>
 </figure>
 </div>
@@ -159,7 +159,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-21-tr-merge-streams-diff-s2.png" alt="tr_merge_streams_diff.ktr on the Spoon canvas after this tab: orders and orders updates" width="140">
+<img src="../_assets/images/21-merge-streams-canvas-orders-updates.png" alt="tr_merge_streams_diff.ktr on the Spoon canvas after this tab: orders and orders updates" width="140">
 <figcaption>The canvas after orders updates</figcaption>
 </figure>
 </div>
@@ -193,7 +193,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-21-tr-merge-streams-diff-s3.png" alt="tr_merge_streams_diff.ktr on the Spoon canvas after this tab: Sort orders, orders and orders updates, with the hop between them" width="284">
+<img src="../_assets/images/21-merge-streams-canvas-sort-orders.png" alt="tr_merge_streams_diff.ktr on the Spoon canvas after this tab: Sort orders, orders and orders updates, with the hop between them" width="284">
 <figcaption>The canvas after Sort orders</figcaption>
 </figure>
 </div>
@@ -221,7 +221,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-21-tr-merge-streams-diff-s4.png" alt="tr_merge_streams_diff.ktr on the Spoon canvas after this tab: Sort orders, Sort updates, orders and orders updates, with the 2 hops between them" width="284">
+<img src="../_assets/images/21-merge-streams-canvas-sort-updates.png" alt="tr_merge_streams_diff.ktr on the Spoon canvas after this tab: Sort orders, Sort updates, orders and orders updates, with the 2 hops between them" width="284">
 <figcaption>The canvas after Sort updates</figcaption>
 </figure>
 </div>
@@ -256,7 +256,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-21-tr-merge-streams-diff-s5.png" alt="tr_merge_streams_diff.ktr on the Spoon canvas after this tab: Sort orders, Sort updates, merge and find diff, orders and orders updates, with the 4 hops between them" width="444">
+<img src="../_assets/images/21-merge-streams-canvas-merge-rows-diff.png" alt="tr_merge_streams_diff.ktr on the Spoon canvas after this tab: Sort orders, Sort updates, merge and find diff, orders and orders updates, with the 4 hops between them" width="444">
 <figcaption>The canvas after merge and find diff</figcaption>
 </figure>
 </div>

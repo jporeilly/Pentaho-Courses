@@ -27,7 +27,7 @@
 
 <div align="center">
 <figure>
-<img src="../_assets/images/database-join-2.png" alt="The finished transformation: the Data grid &quot;some conditions&quot; hopped to Database join" width="628">
+<img src="../_assets/images/22-database-join-what-you-build.png" alt="The finished transformation: the Data grid &quot;some conditions&quot; hopped to Database join" width="628">
 <figcaption>What you build</figcaption>
 </figure>
 </div>
@@ -174,7 +174,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 <div align="center">
 <figure>
-<img src="../_assets/images/results-1.png" alt="Preview data: Aston Martin with one product, Ford Falcon with nulls, and Corvette products" width="800">
+<img src="../_assets/images/22-database-join-one-search-row-can-return-several.png" alt="Preview data: Aston Martin with one product, Ford Falcon with nulls, and Corvette products" width="800">
 <figcaption>One search row can return several rows</figcaption>
 </figure>
 </div>

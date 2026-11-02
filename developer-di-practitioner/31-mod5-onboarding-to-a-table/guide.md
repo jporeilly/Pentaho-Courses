@@ -27,7 +27,7 @@
 
 <div align="center">
 <figure>
-<img src="../_assets/images/1793614594179.png" alt="Two transformations: metadata_inject_step.ktr's Data grids and file name feed ETL metadata injection, which fills in and runs metadata_inject_template.ktr, a CSV file input, Select values and Table output with no fields of their own" width="800">
+<img src="../_assets/images/31-onboarding-table-what-you-build-metadata-left-fills.png" alt="Two transformations: metadata_inject_step.ktr's Data grids and file name feed ETL metadata injection, which fills in and runs metadata_inject_template.ktr, a CSV file input, Select values and Table output with no fields of their own" width="800">
 <figcaption>What you build: the metadata on the left fills the template on the right</figcaption>
 </figure>
 </div>
@@ -129,7 +129,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-31-tr-onboard-customers-by-hand-s1.png" alt="tr_onboard_customers_by_hand.ktr on the Spoon canvas after this tab: csvi-customers" width="140">
+<img src="../_assets/images/31-onboarding-table-canvas-csvi-customers.png" alt="tr_onboard_customers_by_hand.ktr on the Spoon canvas after this tab: csvi-customers" width="140">
 <figcaption>The canvas after csvi-customers</figcaption>
 </figure>
 </div>
@@ -175,7 +175,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-31-tr-onboard-customers-by-hand-s2.png" alt="tr_onboard_customers_by_hand.ktr on the Spoon canvas after this tab: sv-customers and csvi-customers, with the hop between them" width="220">
+<img src="../_assets/images/31-onboarding-table-canvas-sv-customers.png" alt="tr_onboard_customers_by_hand.ktr on the Spoon canvas after this tab: sv-customers and csvi-customers, with the hop between them" width="220">
 <figcaption>The canvas after sv-customers</figcaption>
 </figure>
 </div>
@@ -292,7 +292,7 @@ The template can no longer run on its own: it has no file and no fields. It is a
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-31-metadata-inject-template-s3.png" alt="metadata_inject_template.ktr on the Spoon canvas after this tab: csvi-mdi, sv-mdi and to-metadata_injection_customers, with the 2 hops between them" width="460">
+<img src="../_assets/images/31-onboarding-table-canvas-make-template.png" alt="metadata_inject_template.ktr on the Spoon canvas after this tab: csvi-mdi, sv-mdi and to-metadata_injection_customers, with the 2 hops between them" width="460">
 <figcaption>The canvas after csvi-mdi, sv-mdi, to-metadata_injection_customers</figcaption>
 </figure>
 </div>
@@ -353,7 +353,7 @@ The template can no longer run on its own: it has no file and no fields. It is a
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-31-metadata-inject-step-s4.png" alt="metadata_inject_step.ktr on the Spoon canvas after this tab: dg-metadata_fields" width="140">
+<img src="../_assets/images/31-onboarding-table-canvas-dg-metadata-fields.png" alt="metadata_inject_step.ktr on the Spoon canvas after this tab: dg-metadata_fields" width="140">
 <figcaption>The canvas after dg-metadata_fields</figcaption>
 </figure>
 </div>
@@ -374,7 +374,7 @@ The template can no longer run on its own: it has no file and no fields. It is a
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-31-metadata-inject-step-s5.png" alt="metadata_inject_step.ktr on the Spoon canvas after this tab: dg-metadata_fields and dg-rename" width="284">
+<img src="../_assets/images/31-onboarding-table-canvas-dg-rename.png" alt="metadata_inject_step.ktr on the Spoon canvas after this tab: dg-metadata_fields and dg-rename" width="284">
 <figcaption>The canvas after dg-rename</figcaption>
 </figure>
 </div>
@@ -395,7 +395,7 @@ The template can no longer run on its own: it has no file and no fields. It is a
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-31-metadata-inject-step-s6.png" alt="metadata_inject_step.ktr on the Spoon canvas after this tab: dg-metadata_fields, dg-rename and dg_remove_name" width="428">
+<img src="../_assets/images/31-onboarding-table-canvas-dg-remove-name.png" alt="metadata_inject_step.ktr on the Spoon canvas after this tab: dg-metadata_fields, dg-rename and dg_remove_name" width="428">
 <figcaption>The canvas after dg_remove_name</figcaption>
 </figure>
 </div>
@@ -424,7 +424,7 @@ The template can no longer run on its own: it has no file and no fields. It is a
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-31-metadata-inject-step-s7.png" alt="metadata_inject_step.ktr on the Spoon canvas after this tab: dg-metadata_fields, dg-rename, dg_remove_name and gr-filename" width="428">
+<img src="../_assets/images/31-onboarding-table-canvas-gr-filename.png" alt="metadata_inject_step.ktr on the Spoon canvas after this tab: dg-metadata_fields, dg-rename, dg_remove_name and gr-filename" width="428">
 <figcaption>The canvas after gr-filename</figcaption>
 </figure>
 </div>
@@ -462,7 +462,7 @@ The template can no longer run on its own: it has no file and no fields. It is a
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-31-metadata-inject-step-s8.png" alt="metadata_inject_step.ktr on the Spoon canvas after this tab: dg-metadata_fields, dg-rename, dg_remove_name, gr-filename and sfvc-path_filename, with the hop between them" width="428">
+<img src="../_assets/images/31-onboarding-table-canvas-sfvc-path-filename.png" alt="metadata_inject_step.ktr on the Spoon canvas after this tab: dg-metadata_fields, dg-rename, dg_remove_name, gr-filename and sfvc-path_filename, with the hop between them" width="428">
 <figcaption>The canvas after sfvc-path_filename</figcaption>
 </figure>
 </div>

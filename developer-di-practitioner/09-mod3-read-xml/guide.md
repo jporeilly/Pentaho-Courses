@@ -28,7 +28,7 @@
 
 <div align="center">
 <figure>
-<img src="../_assets/images/xml.png" alt="The finished transformation: a file branch and a URL branch, each ending in a Dummy step" width="622">
+<img src="../_assets/images/09-read-xml-what-you-build-two-ways.png" alt="The finished transformation: a file branch and a URL branch, each ending in a Dummy step" width="622">
 <figcaption>What you build: two ways in</figcaption>
 </figure>
 </div>
@@ -131,7 +131,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-09-tr-read-xml-s1.png" alt="tr_read_xml.ktr on the Spoon canvas after this tab: Dummy (do nothing) and Get data from XML, with the hop between them" width="300">
+<img src="../_assets/images/09-read-xml-canvas-dummy.png" alt="tr_read_xml.ktr on the Spoon canvas after this tab: Dummy (do nothing) and Get data from XML, with the hop between them" width="300">
 <figcaption>The canvas after Dummy (do nothing)</figcaption>
 </figure>
 </div>
@@ -338,7 +338,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-09-tr-read-xml-s2.png" alt="tr_read_xml.ktr on the Spoon canvas after this tab: Dummy, Dummy (do nothing), Get data from XML, Pass URL and Read Url, with the 3 hops between them" width="476">
+<img src="../_assets/images/09-read-xml-canvas-dummy-2.png" alt="tr_read_xml.ktr on the Spoon canvas after this tab: Dummy, Dummy (do nothing), Get data from XML, Pass URL and Read Url, with the 3 hops between them" width="476">
 <figcaption>The canvas after Dummy</figcaption>
 </figure>
 </div>

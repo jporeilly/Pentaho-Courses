@@ -75,7 +75,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 <div align="center">
 <figure>
-<img src="../_assets/images/hello-world-2.png" alt="The Generate rows dialog with Limit 10 and one field, message, of type String with the value hello world" width="800">
+<img src="../_assets/images/03-hello-world-generate-rows-settings-name-step-gr.png" alt="The Generate rows dialog with Limit 10 and one field, message, of type String with the value hello world" width="800">
 <figcaption>Generate rows settings; name the step gr_hello-world</figcaption>
 </figure>
 </div>
@@ -84,7 +84,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 <div align="center">
 <figure>
-<img src="../_assets/images/preview-1.png" alt="Examine preview data: 10 rows, each with message hello world" width="626">
+<img src="../_assets/images/03-hello-world-examine-preview-data.png" alt="Examine preview data: 10 rows, each with message hello world" width="626">
 <figcaption>Examine preview data</figcaption>
 </figure>
 </div>
@@ -126,7 +126,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 <div align="center">
 <figure>
-<img src="../_assets/images/dummy.png" alt="The Flow folder of the Design tab, with Dummy (do nothing)" width="352">
+<img src="../_assets/images/03-hello-world-dummy-do-nothing-flow-folder.png" alt="The Flow folder of the Design tab, with Dummy (do nothing)" width="352">
 <figcaption>Dummy (do nothing) in the Flow folder</figcaption>
 </figure>
 </div>
@@ -180,7 +180,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 <div align="center">
 <figure>
-<img src="../_assets/images/note.png" alt="The Notes dialog on the Note tab, with the note text typed in" width="543">
+<img src="../_assets/images/03-hello-world-notes-note.png" alt="The Notes dialog on the Note tab, with the note text typed in" width="543">
 <figcaption>Notes - the Note tab</figcaption>
 </figure>
 </div>
@@ -229,7 +229,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 <div align="center">
 <figure>
-<img src="../_assets/images/run.png" alt="The toolbar's Run menu open: Run (F9) and Run Options... (F8)" width="276">
+<img src="../_assets/images/03-hello-world-run-from-toolbar.png" alt="The toolbar's Run menu open: Run (F9) and Run Options... (F8)" width="276">
 <figcaption>Run from the toolbar</figcaption>
 </figure>
 </div>
@@ -323,7 +323,7 @@ In the screenshot the whole run took 48 ms, 30 of them initializing the transfor
 
 <div align="center">
 <figure>
-<img src="../_assets/images/view.png" alt="The View tab: Configurations with Database connections, Kettle cluster schemas, Partition schemas, Run configurations, Slave server and VFS Connections" width="760">
+<img src="../_assets/images/03-hello-world-view-configurations-database-connections-kettle-cluster.png" alt="The View tab: Configurations with Database connections, Kettle cluster schemas, Partition schemas, Run configurations, Slave server and VFS Connections" width="760">
 <figcaption>View</figcaption>
 </figure>
 </div>

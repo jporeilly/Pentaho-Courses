@@ -14,7 +14,7 @@ Relational databases are what Pentaho Data Integration works with most. This top
 
 <div align="center">
 <figure>
-<img src="../_assets/images/image-62.png" alt="The Steel Wheels sampledata database and the business units it serves" width="800">
+<img src="../_assets/images/topic-databases-review-steel-wheels-sampledata-erp-database.png" alt="The Steel Wheels sampledata database and the business units it serves" width="800">
 <figcaption>Steel Wheels: the sampledata ERP database</figcaption>
 </figure>
 </div>

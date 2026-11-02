@@ -19,7 +19,7 @@
 
 <div align="center">
 <figure>
-<img src="../_assets/images/formula.png" alt="The solution on the Spoon canvas: its note, Generate Rows into Formula [a]+[b], and Generate Rows 2 into IF Formula b-a, the second hop grey because it is disabled" width="580">
+<img src="../_assets/images/27-formula-what-you-build-two-small-flows.png" alt="The solution on the Spoon canvas: its note, Generate Rows into Formula [a]+[b], and Generate Rows 2 into IF Formula b-a, the second hop grey because it is disabled" width="580">
 <figcaption>What you build: two small flows (the solution's second hop is disabled; yours is not)</figcaption>
 </figure>
 </div>
@@ -88,7 +88,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 <div align="center">
 <figure>
-<img src="../_assets/images/formula-1.png" alt="Formula step: result = [a]+[b], Number" width="800">
+<img src="../_assets/images/27-formula-result-b.png" alt="Formula step: result = [a]+[b], Number" width="800">
 <figcaption>result = [a]+[b]</figcaption>
 </figure>
 </div>
@@ -128,7 +128,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 <div align="center">
 <figure>
-<img src="../_assets/images/formula-2.png" alt="Formula step: result = IF([booking_type]=&quot;R&quot;;[b]-[a]), Number" width="800">
+<img src="../_assets/images/27-formula-conditional-formula.png" alt="Formula step: result = IF([booking_type]=&quot;R&quot;;[b]-[a]), Number" width="800">
 <figcaption>A conditional formula</figcaption>
 </figure>
 </div>

@@ -48,7 +48,7 @@ When you have two streams that should become one. Merge Streams stacks rows; Mer
 
 <div align="center">
 <figure>
-<img src="../_assets/images/merge-streams-2.png" alt="The Merge Streams transformation: orders and description streams brought to one layout and merged in a Dummy step" width="630">
+<img src="../_assets/images/20-merge-streams-what-you-build.png" alt="The Merge Streams transformation: orders and description streams brought to one layout and merged in a Dummy step" width="630">
 <figcaption>Merge Streams</figcaption>
 </figure>
 </div>

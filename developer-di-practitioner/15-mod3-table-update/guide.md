@@ -30,7 +30,7 @@
 
 <div align="center">
 <figure>
-<img src="../_assets/images/update-1.png" alt="The finished transformation: Text File Input hopped to Update employees" width="667">
+<img src="../_assets/images/15-table-update-what-you-build.png" alt="The finished transformation: Text File Input hopped to Update employees" width="667">
 <figcaption>What you build</figcaption>
 </figure>
 </div>

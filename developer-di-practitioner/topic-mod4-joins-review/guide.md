@@ -37,7 +37,7 @@ Bringing two streams together by key. Database joins, join rows (cartesian-style
 
 <div align="center">
 <figure>
-<img src="../_assets/images/cross-join-2.png" alt="The Join Rows workshop's transformation: two Data grids into Join rows, and a second Join rows that adds the surname" width="800">
+<img src="../_assets/images/23-join-rows-what-you-build.png" alt="The Join Rows workshop's transformation: two Data grids into Join rows, and a second Join rows that adds the surname" width="800">
 <figcaption>Join rows in the Join Rows workshop</figcaption>
 </figure>
 </div>
@@ -67,7 +67,7 @@ Bringing two streams together by key. Database joins, join rows (cartesian-style
 
 <div align="center">
 <figure>
-<img src="../_assets/images/database-join-2.png" alt="A Data grid of search conditions hopped to Database join" width="628">
+<img src="../_assets/images/22-database-join-what-you-build.png" alt="A Data grid of search conditions hopped to Database join" width="628">
 <figcaption>Database join</figcaption>
 </figure>
 </div>

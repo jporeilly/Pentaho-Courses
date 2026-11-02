@@ -28,7 +28,7 @@
 
 <div align="center">
 <figure>
-<img src="../_assets/images/mjv.png" alt="The finished transformation: Generate Rows hopped to the Modified JavaScript value step" width="608">
+<img src="../_assets/images/28-mjv-what-you-build.png" alt="The finished transformation: Generate Rows hopped to the Modified JavaScript value step" width="608">
 <figcaption>What you build</figcaption>
 </figure>
 </div>

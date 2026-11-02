@@ -28,7 +28,7 @@
 
 <div align="center">
 <figure>
-<img src="../_assets/images/job.png" alt="The finished job: START, then Transformation A, then Success" width="626">
+<img src="../_assets/images/29-hello-world-what-you-build.png" alt="The finished job: START, then Transformation A, then Success" width="626">
 <figcaption>What you build</figcaption>
 </figure>
 </div>

@@ -31,7 +31,7 @@
 
 <div align="center">
 <figure>
-<img src="../_assets/images/insert-update-2.png" alt="The finished transformation: Text File Input hopped to Insert / Update Employees" width="663">
+<img src="../_assets/images/16-table-insert-what-you-build.png" alt="The finished transformation: Text File Input hopped to Insert / Update Employees" width="663">
 <figcaption>What you build</figcaption>
 </figure>
 </div>
@@ -64,7 +64,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 <div align="center">
 <figure>
-<img src="../_assets/images/insert-update-1.png" alt="Text file input File tab with employees_insert_update.txt in the selected files" width="800">
+<img src="../_assets/images/16-table-insert-text-file-input-file-employees-insert.png" alt="Text file input File tab with employees_insert_update.txt in the selected files" width="800">
 <figcaption>The file</figcaption>
 </figure>
 </div>

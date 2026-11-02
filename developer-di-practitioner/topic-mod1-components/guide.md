@@ -217,7 +217,7 @@ Edit `kettle.properties` in a text editor, or in Spoon select **Edit > Edit the 
 **Kettle Variables**
 <div align="center">
 <figure>
-<img src="../_assets/images/1789748200086.png" alt="The Kettle properties dialog: each variable with its value and a description" width="800">
+<img src="../_assets/images/topic-components-edit-kettle-properties-file.png" alt="The Kettle properties dialog: each variable with its value and a description" width="800">
 <figcaption>Edit > Edit the kettle.properties file</figcaption>
 </figure>
 </div>

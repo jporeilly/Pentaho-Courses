@@ -1,19 +1,25 @@
-%%{init: {"theme":"base","themeVariables":{"fontFamily":"Segoe UI, Helvetica, Arial, sans-serif","fontSize":"14px","lineColor":"#64748b","clusterBkg":"#fafaf9","clusterBorder":"#d6d3d1","edgeLabelBackground":"#ffffff"},"flowchart":{"curve":"linear","nodeSpacing":40,"rankSpacing":30,"padding":12,"htmlLabels":true}}}%%
-flowchart TB
+%%{init: {"theme":"base","themeVariables":{"fontFamily":"Segoe UI, Helvetica, Arial, sans-serif","fontSize":"14px","lineColor":"#64748b","clusterBkg":"#fafaf9","clusterBorder":"#d6d3d1","edgeLabelBackground":"#ffffff"},"flowchart":{"curve":"linear","nodeSpacing":26,"rankSpacing":46,"padding":12,"htmlLabels":true}}}%%
+flowchart LR
   classDef input fill:#dbeafe,stroke:#1d4ed8,color:#1e3a8a,text-align:left,rx:6,ry:6
   classDef enrich fill:#ede9fe,stroke:#6d28d9,color:#3b0764,text-align:left,rx:6,ry:6
   classDef output fill:#dcfce7,stroke:#15803d,color:#14532d,text-align:left,rx:6,ry:6
   classDef check fill:#fef3c7,stroke:#b45309,color:#78350f,text-align:left,rx:6,ry:6
-  SRC["<div style='width:220px'><b>Source data</b><br/>flat files, applications, databases</div>"]:::input
-  M["<div style='width:220px'><b>Master</b><br/>splits the transformation,<br/>sends each slave its part,<br/>tracks progress</div>"]:::check
+  M["<div style='width:200px'><b>Master</b><br/>splits the transformation,<br/>sends each slave its part,<br/>tracks progress</div>"]:::check
+  SRC["<div style='width:200px'><b>Source data</b><br/>flat files, applications,<br/>databases</div>"]:::input
   subgraph SL["Slaves: worker nodes, in parallel"]
-    direction LR
-    S1["<div style='width:90px'><b>Slave 1</b></div>"]:::enrich
-    S2["<div style='width:90px'><b>Slave 2</b></div>"]:::enrich
-    S3["<div style='width:90px'><b>Slave 3</b></div>"]:::enrich
-    S4["<div style='width:90px'><b>Slave 4</b></div>"]:::enrich
+    direction TB
+    S1["<div style='width:120px'><b>Slave 1</b></div>"]:::enrich
+    S2["<div style='width:120px'><b>Slave 2</b></div>"]:::enrich
+    S3["<div style='width:120px'><b>Slave 3</b></div>"]:::enrich
+    S4["<div style='width:120px'><b>Slave 4</b></div>"]:::enrich
   end
   T[("Target database")]:::output
-  SRC -->|"rows"| SL
-  M -.->|"each slave's part"| SL
-  SL -->|"rows"| T
+  M -.->|"its part"| SL
+  SRC --> S1
+  SRC --> S2
+  SRC --> S3
+  SRC --> S4
+  S1 --> T
+  S2 --> T
+  S3 --> T
+  S4 --> T

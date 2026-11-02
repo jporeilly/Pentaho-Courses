@@ -24,7 +24,7 @@ Build a transformation once and feed it its settings at run time. Metadata injec
 
 <div align="center">
 <figure>
-<img src="../_assets/images/mdi.png" alt="A metadata injection transformation: per-supplier metadata from a spreadsheet and the supplier's files are joined and passed to ETL Metadata Injection, which modifies and runs the template" width="716">
+<img src="../_assets/images/topic-metadata-injection-metadata-template-filled-template-run.png" alt="A metadata injection transformation: per-supplier metadata from a spreadsheet and the supplier's files are joined and passed to ETL Metadata Injection, which modifies and runs the template" width="716">
 <figcaption>Metadata in, template filled, template run</figcaption>
 </figure>
 </div>

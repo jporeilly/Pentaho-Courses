@@ -31,7 +31,7 @@
 
 <div align="center">
 <figure>
-<img src="../_assets/images/delete-1.png" alt="The finished transformation: productlines list, getting min_quantityordered and delete min quantity ordered in a line" width="686">
+<img src="../_assets/images/17-deleting-records-what-you-build.png" alt="The finished transformation: productlines list, getting min_quantityordered and delete min quantity ordered in a line" width="686">
 <figcaption>What you build</figcaption>
 </figure>
 </div>
@@ -161,7 +161,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 <div align="center">
 <figure>
-<img src="../_assets/images/get-variables-1.png" alt="Get variables with field MIN_QUANTITYORDERED from the variable ${MIN_QUANTITYORDERED}, type Number" width="800">
+<img src="../_assets/images/17-deleting-records-parameter-as-field.png" alt="Get variables with field MIN_QUANTITYORDERED from the variable ${MIN_QUANTITYORDERED}, type Number" width="800">
 <figcaption>The parameter, as a field</figcaption>
 </figure>
 </div>

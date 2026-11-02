@@ -22,7 +22,7 @@ Transformations move rows; jobs orchestrate transformations. You'll build a Hell
 
 <div align="center">
 <figure>
-<img src="../_assets/images/jobs.jpg" alt="A job's parts: START and the other entries, and the hops between them, with a lock on the unconditional hop, green success hops and a red failure hop to Mail" width="550">
+<img src="../_assets/images/topic-jobs-review-entries-hops.jpg" alt="A job's parts: START and the other entries, and the hops between them, with a lock on the unconditional hop, green success hops and a red failure hop to Mail" width="550">
 <figcaption>Entries and hops</figcaption>
 </figure>
 </div>

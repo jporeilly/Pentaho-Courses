@@ -31,7 +31,7 @@
 
 <div align="center">
 <figure>
-<img src="../_assets/images/1793613480802.png" alt="The flow: six Excel sheets become XML fragments with Add XML, and five chained XML Join steps nest them into one document, written by Text file output" width="800">
+<img src="../_assets/images/25-xml-join-what-you-build-each-join-takes.png" alt="The flow: six Excel sheets become XML fragments with Add XML, and five chained XML Join steps nest them into one document, written by Text file output" width="800">
 <figcaption>What you build: each join takes the document so far as its target and adds one level</figcaption>
 </figure>
 </div>
@@ -188,7 +188,7 @@ Leave the other columns of each grid as they are.
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-25-tr-xml-join-s1.png" alt="tr_xml_join.ktr on the Spoon canvas after this tab: OrderHeaderComments, OrderHeaders, OrderLineComments, OrderLines, OrderList and OrderSubLines" width="140">
+<img src="../_assets/images/25-xml-join-canvas-microsoft-excel-input.png" alt="tr_xml_join.ktr on the Spoon canvas after this tab: OrderHeaderComments, OrderHeaders, OrderLineComments, OrderLines, OrderList and OrderSubLines" width="140">
 <figcaption>The canvas after this tab adds 6 steps</figcaption>
 </figure>
 </div>
@@ -231,7 +231,7 @@ Leave the other columns of each grid as they are.
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-25-tr-xml-join-s2.png" alt="tr_xml_join.ktr on the Spoon canvas after this tab: OrderHeaderComments, OrderHeaders, OrderLineComments, OrderLines, OrderList, OrderSubLines, Placeholder, Placeholder 2 and Placeholder 3x, with the 3 hops between them" width="275">
+<img src="../_assets/images/25-xml-join-canvas-add-constants.png" alt="tr_xml_join.ktr on the Spoon canvas after this tab: OrderHeaderComments, OrderHeaders, OrderLineComments, OrderLines, OrderList, OrderSubLines, Placeholder, Placeholder 2 and Placeholder 3x, with the 3 hops between them" width="275">
 <figcaption>The canvas after Placeholder, Placeholder 2, Placeholder 3x</figcaption>
 </figure>
 </div>
@@ -294,7 +294,7 @@ Leave the other columns of each grid as they are.
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-25-tr-xml-join-s3.png" alt="tr_xml_join.ktr on the Spoon canvas after this tab: Create XPath, Create XPath 2, OrderHeaderComments, OrderHeaders, OrderLineComments, OrderLines, OrderList, OrderSubLines, Placeholder, Placeholder 2 and Placeholder 3x, with the 5 hops between them" width="275">
+<img src="../_assets/images/25-xml-join-canvas-create-xpath.png" alt="tr_xml_join.ktr on the Spoon canvas after this tab: Create XPath, Create XPath 2, OrderHeaderComments, OrderHeaders, OrderLineComments, OrderLines, OrderList, OrderSubLines, Placeholder, Placeholder 2 and Placeholder 3x, with the 5 hops between them" width="275">
 <figcaption>The canvas after Create XPath, Create XPath 2</figcaption>
 </figure>
 </div>
@@ -412,7 +412,7 @@ The parent keys you deleted stay out of the XML but stay in the stream: **Add XM
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-25-tr-xml-join-s4.png" alt="tr_xml_join.ktr on the Spoon canvas after this tab: Create XPath, Create XPath 2, OrderHeaderComments, OrderHeaders, OrderLineComments, OrderLines, OrderList, OrderSubLines, Placeholder, Placeholder 2, Placeholder 3x, xmlOrderHeaderComments, xmlOrderHeaders, xmlOrderLineComments, xmlOrderLines, xmlOrderList and xmlOrderSubLines, with the 11 hops between them" width="533">
+<img src="../_assets/images/25-xml-join-canvas-add-xml.png" alt="tr_xml_join.ktr on the Spoon canvas after this tab: Create XPath, Create XPath 2, OrderHeaderComments, OrderHeaders, OrderLineComments, OrderLines, OrderList, OrderSubLines, Placeholder, Placeholder 2, Placeholder 3x, xmlOrderHeaderComments, xmlOrderHeaders, xmlOrderLineComments, xmlOrderLines, xmlOrderList and xmlOrderSubLines, with the 11 hops between them" width="533">
 <figcaption>The canvas after this tab adds 6 steps</figcaption>
 </figure>
 </div>
@@ -434,7 +434,7 @@ The parent keys you deleted stay out of the XML but stay in the stream: **Add XM
 
 <div align="center">
 <figure>
-<img src="../_assets/images/xml-join-step-1.png" alt="XML join: step name XML Join Step, target xmlOrderList field xmlOrderLists, source xmlOrderHeaders field xmlOrderHeaders, XPath //OrderHeaders, complex join cleared, result field xmloutput1, encoding ISO-8859-1, Omit XML header selected" width="726">
+<img src="../_assets/images/25-xml-join-xml-join-step-simple-join-orderheaders.png" alt="XML join: step name XML Join Step, target xmlOrderList field xmlOrderLists, source xmlOrderHeaders field xmlOrderHeaders, XPath //OrderHeaders, complex join cleared, result field xmloutput1, encoding ISO-8859-1, Omit XML header selected" width="726">
 <figcaption>XML Join Step: a simple join on //OrderHeaders</figcaption>
 </figure>
 </div>
@@ -462,7 +462,7 @@ With **Complex join?** selected, the step replaces the `?` in **XPath Statement*
 
 <div align="center">
 <figure>
-<img src="../_assets/images/xml-join-step-2.png" alt="XML join: step name XML Join Step 2, target XML Join Step field xmloutput1, source xmlOrderHeaderComments, XPath //OrderHeader[@orderNumber='?']/OrderHeaderComments, complex join selected, comparison field orderNumber, result field xmloutput2" width="726">
+<img src="../_assets/images/25-xml-join-xml-join-step-2-complex-join.png" alt="XML join: step name XML Join Step 2, target XML Join Step field xmloutput1, source xmlOrderHeaderComments, XPath //OrderHeader[@orderNumber='?']/OrderHeaderComments, complex join selected, comparison field orderNumber, result field xmloutput2" width="726">
 <figcaption>XML Join Step 2: a complex join on orderNumber</figcaption>
 </figure>
 </div>
@@ -492,7 +492,7 @@ With **Complex join?** selected, the step replaces the `?` in **XPath Statement*
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-25-tr-xml-join-s5.png" alt="tr_xml_join.ktr on the Spoon canvas after this tab: Create XPath, Create XPath 2, OrderHeaderComments, OrderHeaders, OrderLineComments, OrderLines, OrderList, OrderSubLines, Placeholder, Placeholder 2, Placeholder 3x, XML Join Step, XML Join Step 2, XML Join Step 3, XML Join Step 4, XML Join Step 5, xmlOrderHeaderComments, xmlOrderHeaders, xmlOrderLineComments, xmlOrderLines, xmlOrderList and xmlOrderSubLines, with the 21 hops between them" width="533">
+<img src="../_assets/images/25-xml-join-canvas-xml-join.png" alt="tr_xml_join.ktr on the Spoon canvas after this tab: Create XPath, Create XPath 2, OrderHeaderComments, OrderHeaders, OrderLineComments, OrderLines, OrderList, OrderSubLines, Placeholder, Placeholder 2, Placeholder 3x, XML Join Step, XML Join Step 2, XML Join Step 3, XML Join Step 4, XML Join Step 5, xmlOrderHeaderComments, xmlOrderHeaders, xmlOrderLineComments, xmlOrderLines, xmlOrderList and xmlOrderSubLines, with the 21 hops between them" width="533">
 <figcaption>The canvas after this tab adds 5 steps</figcaption>
 </figure>
 </div>

@@ -104,7 +104,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-05-tr-error-handling-s1.png" alt="tr_error_handling.ktr on the Spoon canvas after this tab: CSV file input and Dummy (do nothing), with the hop between them" width="380">
+<img src="../_assets/images/05-error-handling-canvas-dummy-do-nothing.png" alt="tr_error_handling.ktr on the Spoon canvas after this tab: CSV file input and Dummy (do nothing), with the hop between them" width="380">
 <figcaption>The canvas after Dummy (do nothing)</figcaption>
 </figure>
 </div>
@@ -133,7 +133,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-05-tr-error-handling-s2.png" alt="tr_error_handling.ktr on the Spoon canvas after this tab: CSV file input, Dummy (do nothing) and Errors, with the hop between them" width="380">
+<img src="../_assets/images/05-error-handling-canvas-errors.png" alt="tr_error_handling.ktr on the Spoon canvas after this tab: CSV file input, Dummy (do nothing) and Errors, with the hop between them" width="380">
 <figcaption>The canvas after Errors</figcaption>
 </figure>
 </div>

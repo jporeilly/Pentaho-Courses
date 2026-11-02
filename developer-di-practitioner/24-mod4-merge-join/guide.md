@@ -144,7 +144,7 @@ Both grids are already in `id` order, as **Merge join** needs.
 
 <div align="center">
 <figure>
-<img src="../_assets/images/merge-join-2.png" alt="Merge join: first step A B C D, second step Red Blue Yellow, keys id and id" width="546">
+<img src="../_assets/images/24-merge-join-keys-from-each-side.png" alt="Merge join: first step A B C D, second step Red Blue Yellow, keys id and id" width="546">
 <figcaption>Keys from each side</figcaption>
 </figure>
 </div>
@@ -295,7 +295,7 @@ Both grids are already in `id` order, as **Merge join** needs.
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-24-tr-merge-join-orders-s2.png" alt="tr_merge_join_orders.ktr on the Spoon canvas after this tab: orders" width="140">
+<img src="../_assets/images/24-merge-join-canvas-orders.png" alt="tr_merge_join_orders.ktr on the Spoon canvas after this tab: orders" width="140">
 <figcaption>The canvas after orders</figcaption>
 </figure>
 </div>
@@ -345,7 +345,7 @@ Both grids are already in `id` order, as **Merge join** needs.
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-24-tr-merge-join-orders-s3.png" alt="tr_merge_join_orders.ktr on the Spoon canvas after this tab: description and orders" width="140">
+<img src="../_assets/images/24-merge-join-canvas-description.png" alt="tr_merge_join_orders.ktr on the Spoon canvas after this tab: description and orders" width="140">
 <figcaption>The canvas after description</figcaption>
 </figure>
 </div>
@@ -379,7 +379,7 @@ Both grids are already in `id` order, as **Merge join** needs.
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-24-tr-merge-join-orders-s4.png" alt="tr_merge_join_orders.ktr on the Spoon canvas after this tab: Merge Join, description and orders, with the 2 hops between them" width="316">
+<img src="../_assets/images/24-merge-join-canvas-merge-join.png" alt="tr_merge_join_orders.ktr on the Spoon canvas after this tab: Merge Join, description and orders, with the 2 hops between them" width="316">
 <figcaption>The canvas after Merge Join</figcaption>
 </figure>
 </div>
@@ -419,7 +419,7 @@ Both grids are already in `id` order, as **Merge join** needs.
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-24-tr-merge-join-orders-s5.png" alt="tr_merge_join_orders.ktr on the Spoon canvas after this tab: Merge Join, description, orders and tidy up, with the 3 hops between them" width="444">
+<img src="../_assets/images/24-merge-join-canvas-tidy-up.png" alt="tr_merge_join_orders.ktr on the Spoon canvas after this tab: Merge Join, description, orders and tidy up, with the 3 hops between them" width="444">
 <figcaption>The canvas after tidy up</figcaption>
 </figure>
 </div>
@@ -475,7 +475,7 @@ Both grids are already in `id` order, as **Merge join** needs.
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-24-tr-merge-join-orders-s6.png" alt="tr_merge_join_orders.ktr on the Spoon canvas after this tab: Merge Join, Text file output, description, orders and tidy up, with the 4 hops between them" width="588">
+<img src="../_assets/images/24-merge-join-canvas-text-file-output.png" alt="tr_merge_join_orders.ktr on the Spoon canvas after this tab: Merge Join, Text file output, description, orders and tidy up, with the 4 hops between them" width="588">
 <figcaption>The canvas after Text file output</figcaption>
 </figure>
 </div>

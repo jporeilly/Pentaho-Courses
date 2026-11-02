@@ -166,7 +166,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 <div align="center">
 <figure>
-<img src="../_assets/images/append-2.png" alt="Append streams with text +name as head and instructions as tail" width="406">
+<img src="../_assets/images/07-text-file-customer-line-comes-first.png" alt="Append streams with text +name as head and instructions as tail" width="406">
 <figcaption>The customer line comes first</figcaption>
 </figure>
 </div>
@@ -209,7 +209,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 <div align="center">
 <figure>
-<img src="../_assets/images/survey-2.png" alt="Text file input File tab with questions.txt selected" width="800">
+<img src="../_assets/images/07-text-file-question-list.png" alt="Text file input File tab with questions.txt selected" width="800">
 <figcaption>The question list</figcaption>
 </figure>
 </div>
@@ -298,7 +298,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 <div align="center">
 <figure>
-<img src="../_assets/images/sv-1-1.png" alt="Select values Remove tab with question_num listed" width="746">
+<img src="../_assets/images/07-text-file-remove-question-num.png" alt="Select values Remove tab with question_num listed" width="746">
 <figcaption>Remove question_num</figcaption>
 </figure>
 </div>
@@ -361,7 +361,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 <div align="center">
 <figure>
-<img src="../_assets/images/tfo-content-1.png" alt="Text file output Content tab: Header cleared and Disable the enclosure fix? selected" width="563">
+<img src="../_assets/images/07-text-file-text-file-output-content-header-cleared.png" alt="Text file output Content tab: Header cleared and Disable the enclosure fix? selected" width="563">
 <figcaption>The Content tab</figcaption>
 </figure>
 </div>

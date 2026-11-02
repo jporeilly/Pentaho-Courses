@@ -27,7 +27,7 @@
 
 <div align="center">
 <figure>
-<img src="../_assets/images/cross-join-2.png" alt="The finished transformation in Spoon: first name and middle name into Join rows, then name_initials, join surname with get ${surname}, Select values, name +surname and Select a name" width="800">
+<img src="../_assets/images/23-join-rows-what-you-build.png" alt="The finished transformation in Spoon: first name and middle name into Join rows, then name_initials, join surname with get ${surname}, Select values, name +surname and Select a name" width="800">
 <figcaption>What you build</figcaption>
 </figure>
 </div>
@@ -176,7 +176,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-23-tr-join-rows-names-s2.png" alt="tr_join_rows_names.ktr on the Spoon canvas after this tab: all possible first and middle name combinations, first name and middle name, with the 2 hops between them" width="540">
+<img src="../_assets/images/23-join-rows-canvas-every-combination.png" alt="tr_join_rows_names.ktr on the Spoon canvas after this tab: all possible first and middle name combinations, first name and middle name, with the 2 hops between them" width="540">
 <figcaption>The canvas after all possible first and middle name combinations</figcaption>
 </figure>
 </div>
@@ -216,7 +216,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-23-tr-join-rows-names-s3.png" alt="tr_join_rows_names.ktr on the Spoon canvas after this tab: all possible first and middle name combinations, first name, middle name and name_initials, with the 3 hops between them" width="540">
+<img src="../_assets/images/23-join-rows-canvas-initials.png" alt="tr_join_rows_names.ktr on the Spoon canvas after this tab: all possible first and middle name combinations, first name, middle name and name_initials, with the 3 hops between them" width="540">
 <figcaption>The canvas after name_initials</figcaption>
 </figure>
 </div>
@@ -249,7 +249,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-23-tr-join-rows-names-s4.png" alt="tr_join_rows_names.ktr on the Spoon canvas after this tab: all possible first and middle name combinations, first name, get ${surname}, middle name and name_initials, with the 3 hops between them" width="540">
+<img src="../_assets/images/23-join-rows-canvas-add-surname.png" alt="tr_join_rows_names.ktr on the Spoon canvas after this tab: all possible first and middle name combinations, first name, get ${surname}, middle name and name_initials, with the 3 hops between them" width="540">
 <figcaption>The canvas after get ${surname}</figcaption>
 </figure>
 </div>
@@ -287,7 +287,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-23-tr-join-rows-names-s5.png" alt="tr_join_rows_names.ktr on the Spoon canvas after this tab: all possible first and middle name combinations, first name, get ${surname}, join surname, middle name and name_initials, with the 5 hops between them" width="540">
+<img src="../_assets/images/23-join-rows-canvas-join-surname.png" alt="tr_join_rows_names.ktr on the Spoon canvas after this tab: all possible first and middle name combinations, first name, get ${surname}, join surname, middle name and name_initials, with the 5 hops between them" width="540">
 <figcaption>The canvas after join surname</figcaption>
 </figure>
 </div>
@@ -347,7 +347,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-23-tr-join-rows-names-s6.png" alt="tr_join_rows_names.ktr on the Spoon canvas after this tab: Select values, all possible first and middle name combinations, first name, get ${surname}, join surname, middle name, name +surname and name_initials, with the 7 hops between them" width="716">
+<img src="../_assets/images/23-join-rows-canvas-build-name.png" alt="tr_join_rows_names.ktr on the Spoon canvas after this tab: Select values, all possible first and middle name combinations, first name, get ${surname}, join surname, middle name, name +surname and name_initials, with the 7 hops between them" width="716">
 <figcaption>The canvas after Select values, name +surname</figcaption>
 </figure>
 </div>
@@ -409,7 +409,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 <div align="center">
 <figure>
-<img src="../_assets/images/canvas-23-tr-join-rows-names-s7.png" alt="tr_join_rows_names.ktr on the Spoon canvas after this tab: Select a name, Select values, all possible first and middle name combinations, first name, get ${surname}, join surname, middle name, name +surname and name_initials, with the 8 hops between them" width="800">
+<img src="../_assets/images/23-join-rows-canvas-pick-five.png" alt="tr_join_rows_names.ktr on the Spoon canvas after this tab: Select a name, Select values, all possible first and middle name combinations, first name, get ${surname}, join surname, middle name, name +surname and name_initials, with the 8 hops between them" width="800">
 <figcaption>The canvas after Select a name</figcaption>
 </figure>
 </div>

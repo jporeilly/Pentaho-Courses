@@ -28,7 +28,7 @@
 
 <div align="center">
 <figure>
-<img src="../_assets/images/hello-world-tr-2.png" alt="The finished transformation: gr_hello-world, clustered (Cx2), hopped to Dummy (do nothing), with its note" width="682">
+<img src="../_assets/images/36-run-configurations-transformation-you-run-servers.png" alt="The finished transformation: gr_hello-world, clustered (Cx2), hopped to Dummy (do nothing), with its note" width="682">
 <figcaption>The transformation you run on the servers</figcaption>
 </figure>
 </div>

@@ -87,14 +87,14 @@ DBeaver Community Edition ships with most drivers, which makes it a quick connec
 
 <div align="center">
 <figure>
-<img src="../_assets/images/image-56.png" alt="DBeaver's Driver properties tab with the allowPublicKeyRetrieval row selected and its value list open: TRUE, FALSE, YES, NO" width="611">
+<img src="../_assets/images/12-connecting-database-allowpublickeyretrieval-driver-properties.png" alt="DBeaver's Driver properties tab with the allowPublicKeyRetrieval row selected and its value list open: TRUE, FALSE, YES, NO" width="611">
 <figcaption>allowPublicKeyRetrieval on the Driver properties tab</figcaption>
 </figure>
 </div>
 
 <div align="center">
 <figure>
-<img src="../_assets/images/test-connection-2.png" alt="DBeaver's Connection test dialog reading Connected, with the MySQL server version and the Connector/J driver version" width="412">
+<img src="../_assets/images/12-connecting-database-successful-connection-test.png" alt="DBeaver's Connection test dialog reading Connected, with the MySQL server version and the Connector/J driver version" width="412">
 <figcaption>A successful connection test</figcaption>
 </figure>
 </div>
@@ -365,7 +365,7 @@ where COUNTRY = 'USA' and CITY = 'NYC';
 
 <div align="center">
 <figure>
-<img src="../_assets/images/sql.png" alt="The Simple SQL editor with a SELECT on CUSTOMERS filtered to Country USA and city NYC, and the Execute, Clear cache and Close buttons" width="626">
+<img src="../_assets/images/12-connecting-database-select-nyc-filter.png" alt="The Simple SQL editor with a SELECT on CUSTOMERS filtered to Country USA and city NYC, and the Execute, Clear cache and Close buttons" width="626">
 <figcaption>The SELECT with the NYC filter</figcaption>
 </figure>
 </div>
