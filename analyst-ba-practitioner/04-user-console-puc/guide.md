@@ -213,7 +213,7 @@ Select a menu option:
 </figure>
 </div>
 
-***
+---
 
 **Create a Training Folder**
 
