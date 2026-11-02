@@ -177,7 +177,21 @@ Select a menu option:
 </figure>
 </div>
 
-<table><thead><tr><th width="82">Item</th><th width="180">Name</th><th>Function</th></tr></thead><tbody><tr><td>1</td><td>Home indicator</td><td>Indicates the current User Console perspective that you are using. The Home menu lets you move from page to page, or return to your Home page.</td></tr><tr><td>2</td><td>Getting Started</td><td>Displays some resources to help you get familiar with the User Console. The Welcome tab shows an introductory video about Pentaho products. The Samples tab holds a variety of small sample reports and dashboards that you can use to get familiar with the software. The Tutorials tab contains a number of tutorial videos that give you a visual guide to the software.</td></tr><tr><td>3</td><td>Current User</td><td>Shows the name of the person currently logged in to the User Console. Select the arrow next to the name to log out of the User Console.</td></tr><tr><td>4</td><td>Browse Files</td><td>Brings you to the Browse Files perspective, where you can locate your files using the Folders and Files panes, and manage them using the Actions pane.</td></tr><tr><td>5</td><td>Create New</td><td>Gives you the option to create a new report in <a href="https://docs.hitachivantara.com/r/IWGVG8qV~XMn3ekqEIpjTw/DMmWA4vfu43ddn~aj9PJUA">Pentaho Interactive Reports</a>, <a href="https://docs.hitachivantara.com/r/IWGVG8qV~XMn3ekqEIpjTw/peN6X2OgzB_40iLFljBFeA">Pentaho Analyzer</a>, or <a href="https://docs.hitachivantara.com/r/IWGVG8qV~XMn3ekqEIpjTw/z1sO8VcaROLgS_EgylsScA">Pentaho Dashboard Designer</a>. If you have permissions to work with data sources, this button also gives you the option to create a new data source.</td></tr><tr><td>6</td><td>Manage Data Sources</td><td>Opens the Manage Data Sources dialog, where users with the Manage Data Sources permission view, create, edit and delete data sources.</td></tr><tr><td>7</td><td>Documentation</td><td>Documentation for Pentaho products.</td></tr><tr><td>8</td><td>Recents</td><td>Shows a list of your most recently opened files. Select the star icon next to a recently opened file to add it to your Favorites list.</td></tr><tr><td>9</td><td>Favorites</td><td>Shows a list of your favorite files for quick access.</td></tr></tbody></table>
+| Item | Name | Function |
+| --- | --- | --- |
+| 1 | Home indicator | Indicates the current User Console perspective that you are using. The Home menu lets you move from page to page, or return to your Home page. |
+| 2 | Getting Started | Displays some resources to help you get familiar with the User Console. The Welcome tab shows an introductory video about Pentaho products. The Samples tab holds a variety of small sample reports and dashboards that you can use to get familiar with the software. The Tutorials tab contains a number of tutorial videos that give you a visual guide to the software. |
+| 3 | Current User | Shows the name of the person currently logged in to the User Console. Select the arrow next to the name to log out of the User Console. |
+| 4 | Browse Files | Brings you to the Browse Files perspective, where you can locate your files using the Folders and Files panes, and manage them using the Actions pane. |
+| 5 | Create New | Gives you the option to create a new report in [Pentaho Interactive Reports](https://docs.hitachivantara.com/r/IWGVG8qV~XMn3ekqEIpjTw/DMmWA4vfu43ddn~aj9PJUA), [Pentaho Analyzer](https://docs.hitachivantara.com/r/IWGVG8qV~XMn3ekqEIpjTw/peN6X2OgzB_40iLFljBFeA), or [Pentaho Dashboard Designer](https://docs.hitachivantara.com/r/IWGVG8qV~XMn3ekqEIpjTw/z1sO8VcaROLgS_EgylsScA). If you have permissions to work with data sources, this button also gives you the option to create a new data source. |
+| 6 | Manage Data Sources | Opens the Manage Data Sources dialog, where users with the Manage Data Sources permission view, create, edit and delete data sources. |
+| 7 | Documentation | Documentation for Pentaho products. |
+| 8 | Recents | Shows a list of your most recently opened files. Select the star icon next to a recently opened file to add it to your Favorites list. |
+| 9 | Favorites | Shows a list of your favorite files for quick access. |
+
+The text is unchanged. The three product names in row 5 are links to the Hitachi Vantara docs, and I kept them. If you'd rather not link to that site from a course page, I can drop the links and leave plain text.
+
+I haven't put it into a guide. This looks like the key for the numbered callouts on the classic Home picture, `puc_classic_home_callouts.png`, in the Classic User Console tab of lab 04. Say if you want me to add it there.
 
 ### Browse Files
 
@@ -343,7 +357,17 @@ The last page sets the report's own parameters. **Product Line** takes one value
 
 You can use the following sample users as templates for adding your own users:
 
-<table><thead><tr><th width="147">Sample User</th><th width="196">Default Role</th><th>Default Operation Permissions</th></tr></thead><tbody><tr><td>admin</td><td>Administrator</td><td><ul><li>Administer Security</li><li>Schedule Content</li><li>Read Content</li><li>Execute Schedules</li><li>Publish Content</li><li>Create Content</li><li>Execute</li><li>Manage Data Sources</li></ul></td></tr><tr><td>bob</td><td>Schedule Power user</td><td><ul><li>Read Content</li><li>Execute Schedules</li></ul></td></tr><tr><td>pat</td><td>Business Analyst</td><td><ul><li>Publish Content</li></ul></td></tr><tr><td>suzy</td><td>Power User</td><td><ul><li>Schedule Content</li><li>Read Content</li><li>Publish Content</li><li>Create Content</li><li>Execute</li></ul></td></tr><tr><td>tiffany</td><td>Report Author</td><td><ul><li>Schedule Content</li><li>Publish Content</li></ul></td></tr></tbody></table>
+| Sample User | Default Role | Default Operation Permissions |
+| --- | --- | --- |
+| admin | Administrator | Administer Security, Schedule Content, Read Content, Execute Schedules, Publish Content, Create Content, Execute, Manage Data Sources |
+| bob | Schedule Power user | Read Content, Execute Schedules |
+| pat | Business Analyst | Publish Content |
+| suzy | Power User | Schedule Content, Read Content, Publish Content, Create Content, Execute |
+| tiffany | Report Author | Schedule Content, Publish Content |
+
+A markdown table can't hold a bulleted list in a cell, so each permission list is a comma-separated line. The permissions are in the same order as the original. If you'd rather keep them one per line, I can use `<br>` between them, but the course app may not render raw HTML in a table cell, so I'd check that first.
+
+I haven't put it into a guide. Tell me which page it belongs on, probably the Users & Roles tab in `04-user-console-puc`, and I'll add it there.
 
 3. Open the **Manage Roles** tab and select **Administrator**.
 
@@ -358,7 +382,65 @@ You can use the following sample users as templates for adding your own users:
 
 You can alter or remove these roles, and create roles based on need. Each default role and sample user comes with a standard set of permissions, which define a specific set of capabilities in the Pentaho tools and the Pentaho Server:
 
-<table><thead><tr><th width="213">Operation Permission</th><th>Definition</th></tr></thead><tbody><tr><td>Administer Security</td><td><p>The default Administrator role automatically conveys full operation permissions to users assigned to that role, even if the check box next to it is cleared. These permissions include the Read Content and Create Content permissions, which are required for accessing the Administration perspective.</p><p>This permission has the following capabilities:</p><ul><li>Access to the Administration perspective of PUC.</li><li>Access and manage all content in the Browse perspective.</li><li>View and work with all user schedules in the Schedules perspective.</li><li>Create server block out times in the Schedules perspective.</li></ul></td></tr><tr><td>Schedule Content</td><td><ul><li>Schedule reports and content.</li><li>View, edit, or delete their own schedules using the Schedules perspective.</li></ul></td></tr><tr><td>Read Content</td><td><ul><li>View content in the Browse perspective.</li><li>View content through the File > Open dialog box.</li></ul></td></tr><tr><td>Execute Schedules</td><td><ul><li>View all scheduled reports from all users.</li><li>Pause and resume all scheduled reports</li><li>Run scheduled reports and content if that user has access to data source material used for the reports.</li></ul></td></tr><tr><td>Publish Content</td><td><p>This permission includes the following capabilities for tools such as Report Designer, Schema Workbench, and Metadata Editor.</p><ul><li>Allows client tools to store reports or data models in the Pentaho Repository.</li><li>When held in conjunction with Write permission on the target folder, upload supported content types. See the <em>Administer Pentaho Data Integration and Analytics</em> document for details.</li></ul></td></tr><tr><td>Create Content</td><td><ul><li>Create, import, delete, and save reports to the repository.</li><li>See a list of data sources which are used to create reports or dashboards.</li></ul></td></tr><tr><td>Execute</td><td>Read and execute transformations and jobs.</td></tr><tr><td>Manage Data Sources</td><td><ul><li>Create, edit, or delete new data sources.</li><li>See a list of data sources that are used to create reports or dashboards.</li><li><p>Also includes the following capabilities while working with Analysis Reports:</p><ul><li>Make inline model editing changes including modifying existing (base) measures.</li><li>Add and edit calculated measures to the data model.</li><li>Hide and show fields.</li></ul></li></ul><p>Note: This operation permission does not include Metadata Editor data sources. </p></td></tr></tbody></table>
+A markdown table can't hold paragraphs and nested bullet lists in a cell, and this one has both. So I converted each row to a bold term followed by its definition. The wording is unchanged.
+
+**Administer Security**
+
+The default Administrator role automatically conveys full operation permissions to users assigned to that role, even if the check box next to it is cleared. These permissions include the Read Content and Create Content permissions, which are required for accessing the Administration perspective.
+
+This permission has the following capabilities:
+
+* Access to the Administration perspective of PUC.
+* Access and manage all content in the Browse perspective.
+* View and work with all user schedules in the Schedules perspective.
+* Create server block out times in the Schedules perspective.
+
+**Schedule Content**
+
+* Schedule reports and content.
+* View, edit, or delete their own schedules using the Schedules perspective.
+
+**Read Content**
+
+* View content in the Browse perspective.
+* View content through the File > Open dialog box.
+
+**Execute Schedules**
+
+* View all scheduled reports from all users.
+* Pause and resume all scheduled reports
+* Run scheduled reports and content if that user has access to data source material used for the reports.
+
+**Publish Content**
+
+This permission includes the following capabilities for tools such as Report Designer, Schema Workbench, and Metadata Editor.
+
+* Allows client tools to store reports or data models in the Pentaho Repository.
+* When held in conjunction with Write permission on the target folder, upload supported content types. See the *Administer Pentaho Data Integration and Analytics* document for details.
+
+**Create Content**
+
+* Create, import, delete, and save reports to the repository.
+* See a list of data sources which are used to create reports or dashboards.
+
+**Execute**
+
+Read and execute transformations and jobs.
+
+**Manage Data Sources**
+
+* Create, edit, or delete new data sources.
+* See a list of data sources that are used to create reports or dashboards.
+* Also includes the following capabilities while working with Analysis Reports:
+  * Make inline model editing changes including modifying existing (base) measures.
+  * Add and edit calculated measures to the data model.
+  * Hide and show fields.
+
+Note: This operation permission does not include Metadata Editor data sources.
+
+If you'd rather keep a two-column table (permission | definition), I can do it with each definition as one run-on paragraph, but the nested "Manage Data Sources" list would flatten and read worse.
+
+I haven't put this into a guide. Say where it belongs, most likely next to the users table on the Users & Roles tab in lab 04, and I'll add both there. I could also add the quick wording fixes: a missing full stop after "Pause and resume all scheduled reports", and "new data sources" in "Create, edit, or delete new data sources".
 
 :::
 
