@@ -53,7 +53,9 @@ Each tool comes as a ZIP archive that you unpack with `unzip`, which needs no fu
 | `pad-ee-11.0.0.0-237.zip` | Pentaho Aggregation Designer | `aggregation-designer` | `startaggregationdesigner.sh` |
 | `prd-ee-11.0.0.0-237.zip` | Pentaho Report Designer | `report-designer` | `report-designer.sh` |
 
-## 1. Prepare the Desktop
+:::: tabs
+
+### 1. Prepare the Desktop
 
 1. Install the full Java 21 runtime. The desktop tools need it as well as the headless one that **Prepare Environment** installed on the server:
 
@@ -92,7 +94,7 @@ When you finish this lab, it holds one folder per tool:
 └── report-designer
 ```
 
-## 2. Install the Client Tools
+### 2. Install the Client Tools
 
 ::: tabs
 
@@ -346,6 +348,8 @@ cd ~/Pentaho/design-tools/report-designer
 > **Success:** Checkpoint: the Pentaho Report Designer window opens.
 
 :::
+
+::::
 
 ## Troubleshooting <!-- no-step -->
 
