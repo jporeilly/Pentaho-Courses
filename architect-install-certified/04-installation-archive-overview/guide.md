@@ -12,7 +12,9 @@ An archive installation unpacks the Pentaho Server, already deployed in Tomcat 1
 * **What you end up with** - a licensed Pentaho Server on Tomcat 10, with its repository on PostgreSQL 17.
 * **The plan** - six steps, each one a lab in this module or the next.
 
-## Why an Archive Installation
+:::: tabs
+
+### 1. Why an Archive Installation
 
 Choose the archive installation when you:
 
@@ -21,7 +23,7 @@ Choose the archive installation when you:
 
 > **Note:** The archive ships Pentaho 11 already deployed in Tomcat 10, which makes setup faster than deploying Pentaho into an application server yourself.
 
-## What You'll Achieve
+### 2. What You'll Achieve
 
 * The Pentaho Server running on Tomcat 10
 * The Pentaho Repository configured on PostgreSQL 17
@@ -29,12 +31,12 @@ Choose the archive installation when you:
 * The client tools installed
 * Licenses applied and validated
 
-## Who Is This For
+### 3. Who Is This For
 
 * Administrators who want a quick, supported Tomcat and Pentaho setup
 * Teams migrating content from earlier Pentaho versions or from evaluation installs
 
-## Prerequisites
+### 4. Prerequisites
 
 * Ubuntu 24.04 LTS, with `sudo` access
 * Java 21 (OpenJDK) installed and `PENTAHO_JAVA_HOME` set
@@ -45,7 +47,7 @@ Choose the archive installation when you:
 
 > **Danger:** Uninstall any evaluation version of Pentaho before you start.
 
-## The Plan
+### 5. The Plan
 
 | Step | What you do | Lab |
 | --- | --- | --- |
@@ -53,7 +55,9 @@ Choose the archive installation when you:
 | 2. Install the Pentaho Server | Unpack the archive under `/opt/pentaho`. Create the repository databases and check the server's connections to them. Start the server and check its logs. | [Install Pentaho Server](../06-installation-archive-pentaho-server/guide.md) |
 | 3. Install the server plugins | Add the reporting and visualization plugins your users need, Semantic Model Editor (SME) for data modeling, and Pipeline Designer, Scheduler and Carte for building and running pipelines. Restart and check each one. | [Server Plugins](../07-installation-archive-server-plugins/guide.md) |
 | 4. Install the client tools | Install Pentaho Data Integration, Report Designer (PRD), Metadata Editor (PME), Schema Workbench (PSW) or the other client tools your team uses. | [Client Plugins](../10-installation-client-tools/guide.md) |
-| 5. Start the server and apply licenses | Start the Pentaho Server, open the User Console (PUC), check that it works, and apply your licenses in the License Manager. | [Install Pentaho Server](../06-installation-archive-pentaho-server/guide.md), its **Start Server** and **License Manager** tabs |
+| 5. Start the server and apply licenses | Start the Pentaho Server, open the User Console (PUC), check that it works, and apply your licenses in the License Manager. | [Install Pentaho Server](../06-installation-archive-pentaho-server/guide.md), its **Start Server** and **License Manager** steps |
 | 6. Harden the installation (recommended) | Secure credentials, restrict access and tune performance for production. | [Post Installation Tasks](../08-installation-post-installation/guide.md) |
 
 > **Note:** Migrating content? Plan your repository upgrade or restore, and test it, before you open the system to users.
+
+::::
