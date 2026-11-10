@@ -11,12 +11,13 @@
     "messagePlaceholder": "What would you like to know?",
     "sendLabel": "Send"
   },
-  "title": "Pentaho Solution Architect - Certified",
+  "title": "Pentaho Solution Architect - IN Certified",
   "description": "Pentaho 11 installation, configuration, upgrade, and post-install tasks. Archive deployment on Linux, server + client tools, plugins.",
   "version": "0.1.12",
   "kind": "workshop",
   "level": { "number": 3, "name": "Certified" },
   "mode": "sequential",
+  "welcome": { "caption": "Welcome Tour: coming soon" },
   "theme": {
     "accent": "#1d5fbf"
   },

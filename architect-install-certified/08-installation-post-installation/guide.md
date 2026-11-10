@@ -17,6 +17,12 @@
 >
 > **Estimated time:** 10 minutes
 
+<figure>
+
+<figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
+
+</figure>
+
 ---
 
 > **Note:**

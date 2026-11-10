@@ -16,7 +16,7 @@ Pentaho is a client/server suite. Desktop design tools build transformations, jo
 
 <div align="center">
 <figure>
-<img src="../_assets/images/pentaho_architecture.png" alt="Architecture diagram: the client design tools on the left send .ktr and .kjb files to the Data Integration Server and .mondrian.xml and .xmi files to the Analytics Server; both servers read the data source and store their content in the repository" width="800">
+<img src="../_assets/images/pentaho_architecture.png" alt="The Pentaho architecture: Data Integration sends .ktr and .kjb files to the Data Integration Server; Schema Workbench sends .mondrian.xml, Metadata Editor .xmi and Report Designer .prpt files to the Analytics Server; the Pentaho Server saves content in the Repository and runs pipelines and queries data in the data sources" width="800">
 <figcaption>Pentaho architecture: client design tools, server plugins, data source and repository</figcaption>
 </figure>
 </div>
@@ -52,7 +52,7 @@ The ports an installed system uses:
 
 <div align="center">
 <figure>
-<img src="../_assets/images/pentaho_client_server.png" alt="Diagram: Spoon (Designer, Engine, Scheduler, Repo Browser, DB Explorer) sends .ktr and .kjb files to the Pentaho Server's Data Integration topology (Engine, Repository, Quartz Scheduler, Security, Monitoring) backed by a system database; Pan, Kitchen and Carte run standalone" width="800">
+<img src="../_assets/images/1794309012312.png" alt="Diagram: Spoon (Designer, Engine, Scheduler, Repo Browser, DB Explorer) sends .ktr and .kjb files to the Pentaho Server's Data Integration topology (Engine, Repository, Quartz Scheduler, Security, Monitoring) backed by a system database; Pan, Kitchen and Carte run standalone" width="800">
 <figcaption>Pentaho client / server architecture for data integration</figcaption>
 </figure>
 </div>
@@ -236,7 +236,7 @@ The ports an installed system uses:
 
 <div align="center">
 <figure>
-<img src="../_assets/images/carte_cluster.png" alt="Carte cluster diagram: a master server distributes the workload from flat files, applications and databases to four slave servers working in parallel, which load a target database" width="475">
+<img src="../_assets/images/carte_cluster.png" alt="A Carte cluster: source data from flat files, applications and databases goes to four slave servers working in parallel, a master splits the transformation and tracks progress, and the slaves load the target database" width="728">
 <figcaption>A Carte cluster: one master, several slaves</figcaption>
 </figure>
 </div>

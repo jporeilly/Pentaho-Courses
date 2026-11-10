@@ -1,5 +1,5 @@
 {
-  "title": "Practitioner Exam",
+  "title": "Certified Exam",
   "description": "40 questions drawn at random from a pool of 60, covering Pentaho 11 installation, components, ports, prerequisites, post-install tasks, upgrades and client tools. Pass mark is 80%. Open-book — browse any module to refresh your memory or ask the AI assistant for help. Your answers are saved as you go, so leaving the page to look something up is fine. Explanations show after submission so you can learn from any answers you missed.",
   "passMark": 80,
   "questionsPerAttempt": 40,
