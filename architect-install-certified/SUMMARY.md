@@ -22,4 +22,4 @@
 ## Install Client Tools
 
 * [Client Plugins](10-installation-client-tools/guide.md)
-* [Kettle Plugins](11-installation-client-tools-ee-plugins/guide.md)
+* [Enterprise Plugins](11-installation-client-tools-ee-plugins/guide.md)

@@ -1,5 +1,5 @@
 {
-  "title": "Kettle Plugins",
+  "title": "Enterprise Plugins",
   "description": "Install, update and remove EE Pentaho Data Integration plugins with the Pentaho Data Integration Plugin Manager.",
   "order": 11,
   "stepCount": 3,

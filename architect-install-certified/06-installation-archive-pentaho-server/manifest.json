@@ -4,5 +4,19 @@
   "order": 6,
   "stepCount": 10,
   "estimatedMinutes": 20,
-  "hasVideo": false
+  "hasVideo": false,
+  "checks": [
+    {
+      "id": "server-unpacked",
+      "kind": "file-exists",
+      "label": "The Pentaho Server is unpacked in /opt/pentaho/server/pentaho-server",
+      "path": "/opt/pentaho/server/pentaho-server/start-pentaho.sh"
+    },
+    {
+      "id": "server-answers",
+      "kind": "http-ok",
+      "label": "The Pentaho Server is running: the User Console's login page answers on port 8080",
+      "url": "http://localhost:8080/pentaho/Login"
+    }
+  ]
 }

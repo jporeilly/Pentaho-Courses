@@ -2,7 +2,7 @@
 
 > **Warning:**
 >
-> #### Workshop - Kettle Plugins
+> #### Workshop - Enterprise Plugins
 >
 > Enterprise plugins add steps and job entries to Pentaho Data Integration. In 11.0 you install, update and remove them with the Plugin Manager, in the Pentaho Data Integration client and in the Pentaho User Console.
 >

@@ -1,5 +1,5 @@
 {
-  "title": "Certified Exam",
+  "title": "Practitioner Exam",
   "description": "40 questions drawn at random from a pool of 60, covering Pentaho 11 installation, components, ports, prerequisites, post-install tasks, upgrades and client tools. Pass mark is 80%. Open-book — browse any module to refresh your memory or ask the AI assistant for help. Your answers are saved as you go, so leaving the page to look something up is fine. Explanations show after submission so you can learn from any answers you missed.",
   "passMark": 80,
   "questionsPerAttempt": 40,
@@ -308,7 +308,7 @@
       ],
       "correct": 1,
       "explanation": "Because the plugin was not installed via the **Plugin Manager** interface, the application does not register it within the management system. While the plugin remains functional, it will not be listed for updates or removal through the standard UI.\n\nThis creates a situation where the plugin becomes a **manual management** task, as the system does not automatically adopt or track files placed in the directory outside of the official installation path.",
-      "source": "Pentaho Installation - Practitioner: Install Client Tools — Kettle Plugins"
+      "source": "Pentaho Installation - Practitioner: Install Client Tools — Enterprise Plugins"
     },
     {
       "id": "inst-m4-q4",
@@ -324,7 +324,7 @@
       ],
       "correct": 1,
       "explanation": "A newly installed plugin is not active until both the Pentaho Server and the PDI client are **restarted**. After that, its steps appear, and its version can be checked in **Tools > Plugin Manager**.",
-      "source": "Pentaho Installation - Practitioner: Install Client Tools — Kettle Plugins"
+      "source": "Pentaho Installation - Practitioner: Install Client Tools — Enterprise Plugins"
     },
     {
       "id": "inst-m2-q3",
@@ -932,7 +932,7 @@
       ],
       "correct": 3,
       "explanation": "The **Plugin Manager** installs a specific version of a plugin when that version is picked in the plugin's row, so the workstation matches production and the manager still handles later updates and removals.",
-      "source": "Pentaho Installation - Practitioner: Install Client Tools — Kettle Plugins"
+      "source": "Pentaho Installation - Practitioner: Install Client Tools — Enterprise Plugins"
     },
     {
       "id": "inst-m4-q9",
@@ -948,7 +948,7 @@
       ],
       "correct": 3,
       "explanation": "The **Salesforce Bulk Operation** step performs insert, update, upsert, and delete operations through the **Bulk API 2.0**. It is designed to handle large volumes of data and can route successful, unprocessed, and failed records to separate streams when provided with a Client ID and Secret.",
-      "source": "Pentaho Installation - Practitioner: Install Client Tools — Kettle Plugins"
+      "source": "Pentaho Installation - Practitioner: Install Client Tools — Enterprise Plugins"
     },
     {
       "id": "inst-m4-q10",

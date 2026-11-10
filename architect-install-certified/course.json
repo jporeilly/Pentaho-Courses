@@ -63,26 +63,44 @@
       "title": "Certified Solution Architect Learning Path",
       "steps": [
         {
-          "title": "Architecture & Installation",
-          "courseId": "architect-install-certified",
-          "current": true
-        },
-        {
-          "title": "Pentaho Developer",
+          "title": "DI Developer",
           "courseId": "developer-di-practitioner"
         },
         {
-          "title": "Specialty Courses"
+          "title": "Pentaho Installation",
+          "courseId": "architect-install-certified"
         },
         {
-          "title": "BI Developer — CTools Dashboards",
-          "courseId": "bi-developer-ct-associate"
+          "title": "Specialty course"
         },
         {
           "title": "Certified Solution Architect",
           "certified": true
         }
       ]
+    }
+  },
+  "completionCertificate": {
+    "title": "Pentaho Installation - Practitioner Level",
+    "topics": [
+      "Pentaho 11 components and architecture",
+      "Preparing an Ubuntu server",
+      "Pentaho Server archive installation",
+      "Server plugins and licensing",
+      "Post-installation tasks and upgrades",
+      "Client tools and Enterprise plugins"
+    ],
+    "validYears": 2,
+    "signatory": {
+      "name": "Jason Allaway",
+      "title": "President Pentaho - A Leo Software Group Company"
+    },
+    "watermark": "PENTAHO",
+    "requires": {
+      "labChecks": [
+        "06-installation-archive-pentaho-server"
+      ],
+      "beforeExam": true
     }
   },
   "install": {

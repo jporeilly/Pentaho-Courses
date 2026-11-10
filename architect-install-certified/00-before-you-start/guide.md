@@ -141,9 +141,9 @@ no check boxes) followed by **hands-on workshops** (<span data-icon="workshop"><
 Select a heading to open that section's page, or the chevron beside it to
 expand the workshops underneath.
 
-## The exam
+## The exam and your course accreditation
 
-When you have worked through the sections, the **Certified Exam** in
+When you have worked through the sections, the **Practitioner Exam** in
 the sidebar draws 40 questions from a larger pool. It is open-book — take
 your time, browse any module to refresh your memory, or ask the
 assistant. Your answers are saved as you go, so leaving the page to look
@@ -152,7 +152,15 @@ learn from anything you missed. The pass mark is **80%**.
 
 You are asked for your name, email and organization before you begin
 (and your Partner ID, if you are taking it as part of the Pentaho Partner
-Program).
+Program); those are what your accreditation is made out to.
+
+The exam opens once the Pentaho Server you installed is running on this
+machine: the guide checks that the server is unpacked and that its login
+page answers, and shows you what is outstanding if not. Pass the exam,
+and your **Pentaho Installation - Practitioner Level** course
+accreditation appears on the results screen to download. It is valid for
+two years, you can come back for it later from the same screen, and it
+counts towards becoming a Certified Solution Architect.
 
 Head to the first section whenever you're ready.
 
