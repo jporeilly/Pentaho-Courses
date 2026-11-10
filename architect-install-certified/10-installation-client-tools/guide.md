@@ -18,7 +18,7 @@
 > * The five client tool archives, from [Pentaho Support Portal](../02-installation-getting-started-pentaho-support-portal/guide.md)
 > * A desktop session on Ubuntu 24.04 LTS
 >
-> **Estimated time:** 20 minutes
+> **Estimated time:** 15 minutes
 
 <figure>
 

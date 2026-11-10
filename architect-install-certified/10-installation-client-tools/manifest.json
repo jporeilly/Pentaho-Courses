@@ -3,6 +3,6 @@
   "description": "Install the Pentaho design tools — Data Integration (Spoon), Metadata Editor, Schema Workbench, and Aggregation Designer.",
   "order": 10,
   "stepCount": 7,
-  "estimatedMinutes": 20,
+  "estimatedMinutes": 15,
   "hasVideo": false
 }
