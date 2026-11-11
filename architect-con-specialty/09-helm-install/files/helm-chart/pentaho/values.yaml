@@ -32,7 +32,10 @@ pentaho:
 
   # Image configuration
   image:
-    repository: pentaho/pentaho-server
+    # The local Podman build, imported into K3s's containerd by the K3s
+    # workshop: Podman names it localhost/..., and a bare pentaho/... would
+    # make Kubernetes look on Docker Hub instead
+    repository: localhost/pentaho/pentaho-server
     tag: 11.0.0.0-237
     pullPolicy: IfNotPresent
     # For private registries, create imagePullSecret:
@@ -111,7 +114,7 @@ pentaho:
   # Persistent storage configuration
   persistence:
     # NOTE: Volumes are disabled by default to avoid overwriting container files
-    # K8s empty PVCs overwrite directories, unlike Docker named volumes
+    # K8s empty PVCs overwrite directories, unlike Podman named volumes
     # For production: enable and use initContainer to populate PVCs
     data:
       enabled: false
@@ -128,7 +131,7 @@ pentaho:
   initContainer:
     enabled: true
     image:
-      repository: busybox
+      repository: docker.io/library/busybox
       tag: "1.36"
     resources:
       requests:
@@ -146,7 +149,7 @@ postgresql:
 
   # Image configuration
   image:
-    repository: postgres
+    repository: docker.io/library/postgres
     tag: "15"
     pullPolicy: IfNotPresent
 

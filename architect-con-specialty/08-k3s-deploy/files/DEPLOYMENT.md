@@ -47,7 +47,7 @@ Then access: **http://pentaho.local/pentaho**
 **Problem**: Original ConfigMap only created users and databases, but not the required tables and indexes.
 
 **Solution**:
-- Copied complete SQL scripts from working Docker Compose project
+- Copied complete SQL scripts from working Podman Compose project
 - Created new ConfigMap (`postgres-init-scripts.yaml`) with 5 SQL files:
   - `1_create_jcr_postgresql.sql` - JackRabbit user and database
   - `2_create_quartz_postgresql.sql` - Quartz user, database, 11 tables, 5 locks
@@ -60,10 +60,10 @@ Then access: **http://pentaho.local/pentaho**
 
 **Solution**:
 - Added `hostname: pentaho-server` to deployment spec
-- Matches Docker Compose configuration
+- Matches Podman Compose configuration
 
 ### 3. Persistent Volumes ✅
-**Problem**: Empty Kubernetes PVCs overwrite container directories, unlike Docker named volumes.
+**Problem**: Empty Kubernetes PVCs overwrite container directories, unlike Podman named volumes.
 
 **Solution**:
 - Commented out volume mounts for `pentaho-data` and `pentaho-solutions`
@@ -74,15 +74,15 @@ Then access: **http://pentaho.local/pentaho**
 **Problem**: Configuration files were mounted as ConfigMap (K8s approach) instead of being baked into image.
 
 **Solution**:
-- Copied softwareOverride directory into Docker image during build
-- Updated Dockerfile to `COPY softwareOverride /docker-entrypoint-init`
+- Copied softwareOverride directory into container image during build
+- Updated Containerfile to `COPY softwareOverride /docker-entrypoint-init`
 - Removed create-softwareoverride-configmap.sh script (no longer needed)
 
 ---
 
 ## Architecture
 
-### Docker Build Strategy
+### Image Build Strategy
 ```
 Pentaho Base Image (3.3GB)
 ├── Base installation from pentaho-server-ee-11.0.0.0-237.zip
@@ -152,18 +152,18 @@ Unified script that handles both image import and resource deployment.
 ```
 
 **Features**:
-- Pre-flight checks (Docker, kubectl, k3s, image, secrets)
+- Pre-flight checks (Podman, kubectl, k3s, image, secrets)
 - Colored output with progress indicators
 - Image import to K3s containerd
 - Sequential resource creation with error handling
 - Health check monitoring
 - Detailed access instructions
 
-### Docker Build Script: [docker-build/build.sh](docker-build/build.sh)
-Builds the Pentaho Docker image with configuration overlays.
+### Image Build Script: [pentaho-image/build.sh](pentaho-image/build.sh)
+Builds the Pentaho container image with configuration overlays.
 
 ```bash
-cd docker-build
+cd pentaho-image
 ./build.sh
 ```
 
@@ -198,16 +198,16 @@ Pentaho-K3s-PostgreSQL/
 ├── README.md                 # Project documentation
 ├── DEPLOYMENT-SUCCESS.md     # This file
 │
-├── docker-build/             # Docker image build
+├── pentaho-image/             # container image build
 │   ├── build.sh              # Build script
-│   ├── Dockerfile            # Multi-stage build definition
+│   ├── Containerfile            # Multi-stage build definition
 │   ├── docker-entrypoint.sh  # Container startup script
 │   ├── softwareOverride/     # Configuration overlays (baked into image)
 │   │   ├── 1_drivers/        # PostgreSQL JDBC driver
 │   │   ├── 2_repository/     # Database connection configs
 │   │   ├── 3_security/       # Empty (no Vault)
 │   │   └── 4_others/         # Modified Tomcat scripts
-│   └── test-compose.yml      # Local Docker testing environment
+│   └── test-compose.yml      # Local Podman Compose test environment
 │
 ├── db_init_postgres/         # SQL initialization scripts
 │   ├── 1_create_jcr_postgresql.sql
@@ -355,7 +355,7 @@ Add initContainer to populate PVCs on first run:
 ```yaml
 initContainers:
   - name: init-pentaho-solutions
-    image: pentaho/pentaho-server:11.0.0.0-237
+    image: localhost/pentaho/pentaho-server:11.0.0.0-237
     command: ["/bin/sh", "-c"]
     args:
       - |

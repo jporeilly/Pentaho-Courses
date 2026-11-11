@@ -98,7 +98,7 @@ data:
   #
   # PENTAHO_SERVER_PATH: Main Pentaho Server directory
   #   - Contains: tomcat/, data/, pentaho-solutions/
-  #   - Defined by Dockerfile during image build
+  #   - Defined by Containerfile during image build
   #   - Should match path in container image
   #
   # INSTALLATION_PATH: Parent installation directory

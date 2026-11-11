@@ -1,15 +1,13 @@
 # Overview of Pentaho HA
 
-> **Note:** Draft scaffold from the HA installation guide - the full
-> guide ships in this lab's files; the step-by-step prose is still
-> being authored against it.
-
-The HA architecture in this module comes from the Pentaho HA
-Installation Guide (bundled in the deploy lab): two Pentaho
-application nodes behind an HAProxy load-balancer pair with a
-Keepalived virtual IP, one shared PostgreSQL 14 repository, and Carte
-clustering for PDI execution - with Tray.io driving event-based ETL
-through the Carte REST API.
+The HA architecture in this section comes from the Pentaho HA
+Installation Guide, bundled in [Deploy Pentaho in HA](../11-ha-deploy/guide.md):
+two Pentaho application nodes behind an HAProxy load-balancer pair with a
+Keepalived virtual IP, one shared PostgreSQL repository, and Carte
+clustering for Pentaho Data Integration execution, with Tray.io driving
+event-based ETL through the Carte REST API. Unlike the earlier sections,
+it runs on virtual machines, one role per machine; the last page sketches
+the same principles on K3s.
 
 ## Server roles
 
@@ -17,9 +15,10 @@ through the Carte REST API.
 | ------ | ------------------------------------------------ |
 | lb-01  | HAProxy primary + Keepalived MASTER (holds the VIP) |
 | lb-02  | HAProxy secondary + Keepalived BACKUP             |
-| app-01 | Pentaho Server node 1 (+ Carte)                   |
-| app-02 | Pentaho Server node 2 (+ Carte)                   |
-| db-01  | PostgreSQL 14 - the five repository databases     |
+| pentaho-node-01 | Pentaho Server node 1                    |
+| pentaho-node-02 | Pentaho Server node 2                    |
+| db-01  | PostgreSQL 14 - the three repository databases    |
+| carte-master, carte-slave-01, carte-slave-02 | Carte master and slaves for Pentaho Data Integration execution |
 
 ## The rules that make it work
 

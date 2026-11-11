@@ -81,7 +81,7 @@ azure-pipelines.yml
 
 # Docker
 docker-compose*.yml
-.dockerignore
+.containerignore
 
 # Kubernetes
 *.yaml

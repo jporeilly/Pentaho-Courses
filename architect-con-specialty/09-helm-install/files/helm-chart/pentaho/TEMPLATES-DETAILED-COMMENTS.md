@@ -317,7 +317,7 @@ spec:
 ⚠️ **Important**: Kubernetes empty PVCs overwrite directory contents!
 
 ```yaml
-# Docker behavior (preserves existing files):
+# Podman named-volume behavior (preserves existing files):
 volumes:
   - pentaho-data:/opt/pentaho/data       ✅ Existing files remain
 
@@ -1335,7 +1335,7 @@ spec:
       {{- end }}
 
       # === Image Pull Secrets ===
-      # For private Docker registries
+      # For private container registries
       {{- with .Values.pentaho.image.pullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
@@ -1676,7 +1676,7 @@ kubectl port-forward -n kube-system deployment/traefik 9000:9000
 - [Helm Documentation](https://helm.sh/docs/)
 - [Traefik Ingress Documentation](https://doc.traefik.io/traefik/providers/kubernetes-ingress/)
 - [K3s Documentation](https://docs.k3s.io/)
-- [PostgreSQL Docker Image](https://hub.docker.com/_/postgres)
+- [PostgreSQL Container Image](https://hub.docker.com/_/postgres)
 - [Pentaho Documentation](https://help.hitachivantara.com/Documentation/Pentaho)
 
 ---

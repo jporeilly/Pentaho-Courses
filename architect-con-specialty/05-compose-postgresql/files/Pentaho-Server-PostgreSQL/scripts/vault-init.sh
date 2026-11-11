@@ -21,7 +21,7 @@
 # DEPLOYMENT FLOW:
 #   On a CLEAN deployment, this is the order of operations:
 #
-#   1. docker compose up -d
+#   1. podman compose up -d
 #   2. PostgreSQL container starts → runs db_init_postgres/*.sql scripts
 #      → Creates users with default password "password"
 #   3. Vault container starts → runs this script

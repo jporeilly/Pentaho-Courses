@@ -148,8 +148,8 @@ jdbc:postgresql://repository:5432/<database>
 2. Update `context.xml` with new passwords
 3. Recreate PostgreSQL volume and restart:
    ```bash
-   docker compose down -v
-   docker compose up -d
+   podman compose down -v
+   podman compose up -d
    ```
 
 ### Using Different Database
@@ -170,7 +170,7 @@ Communications link failure - Connection refused
 ```
 
 **Cause:** PostgreSQL not ready or incorrect hostname
-**Solution:** Verify PostgreSQL container is healthy: `docker compose ps`
+**Solution:** Verify PostgreSQL container is healthy: `podman compose ps`
 
 ### Unknown Database
 
@@ -179,7 +179,7 @@ FATAL: database "hibernate" does not exist
 ```
 
 **Cause:** Database initialization scripts didn't run
-**Solution:** Recreate PostgreSQL volume: `docker compose down -v && docker compose up -d`
+**Solution:** Recreate PostgreSQL volume: `podman compose down -v && podman compose up -d`
 
 ### Access Denied
 
@@ -201,8 +201,8 @@ Table "QRTZ6_LOCKS" not found
 
 ### Container Networking
 
-**Cause:** Pentaho and PostgreSQL not on the same Docker network
-**Solution:** Ensure both containers are defined in the same `docker-compose.yml`
+**Cause:** Pentaho and PostgreSQL not on the same Podman network
+**Solution:** Ensure both containers are defined in the same `compose.yaml`
 
 ## Related Documentation
 

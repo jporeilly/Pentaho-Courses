@@ -1,8 +1,9 @@
 #!/bin/bash
 # =============================================================================
-# Pentaho Docker Image Builder (with .env configuration)
+# Pentaho Server Image Builder for Podman (with .env configuration)
 # =============================================================================
-# This script builds a Pentaho Docker image using configuration from .env file
+# This script builds the Pentaho Server image with Podman, using the
+# configuration in the .env file
 #
 # Usage:
 #   ./build.sh [options]
@@ -13,7 +14,7 @@
 #   --help             Show this help message
 #
 # Prerequisites:
-#   1. Docker installed and running
+#   1. Podman installed (rootless is fine: nothing here needs root)
 #   2. Pentaho package in stagedArtifacts/
 #   3. .env file configured (copy from .env.example)
 #
@@ -108,7 +109,7 @@ done
 # Load Environment Configuration
 # -----------------------------------------------------------------------------
 
-print_header "Pentaho Docker Image Builder"
+print_header "Pentaho Server Image Builder (Podman)"
 
 if [ ! -f "$ENV_FILE" ]; then
     log_error "Configuration file not found: $ENV_FILE"
@@ -136,8 +137,8 @@ EDITION=${EDITION:-ee}
 INCLUDE_DEMO=${INCLUDE_DEMO:-0}
 IMAGE_TAG=${IMAGE_TAG:-pentaho/pentaho-server:${PENTAHO_VERSION}}
 INSTALLATION_PATH=${INSTALLATION_PATH:-/opt/pentaho}
-UNPACK_BUILD_IMAGE=${UNPACK_BUILD_IMAGE:-debian:trixie-slim}
-PACK_BUILD_IMAGE=${PACK_BUILD_IMAGE:-debian:trixie-slim}
+UNPACK_BUILD_IMAGE=${UNPACK_BUILD_IMAGE:-docker.io/library/debian:trixie-slim}
+PACK_BUILD_IMAGE=${PACK_BUILD_IMAGE:-docker.io/library/debian:trixie-slim}
 PUSH_TO_REGISTRY=${PUSH_TO_REGISTRY:-false}
 LOAD_INTO_K3S=${LOAD_INTO_K3S:-false}
 USE_BUILDKIT=${USE_BUILDKIT:-true}
@@ -146,6 +147,18 @@ VERBOSE=${VERBOSE:-false}
 RUN_TESTS=${RUN_TESTS:-true}
 DEBUG=${DEBUG:-false}
 BUILD_PLATFORM=${BUILD_PLATFORM:-linux/amd64}
+# Optional settings .env may leave unset or commented out. The script runs
+# with set -u, so each needs a default here, or reading it stops the build.
+IMAGE_TAG_LATEST=${IMAGE_TAG_LATEST:-}
+IMAGE_TAG_MAJOR=${IMAGE_TAG_MAJOR:-}
+LICENSE_URL=${LICENSE_URL:-}
+REGISTRY_URL=${REGISTRY_URL:-}
+REGISTRY_USERNAME=${REGISTRY_USERNAME:-}
+REGISTRY_PASSWORD=${REGISTRY_PASSWORD:-}
+K3S_NAMESPACE=${K3S_NAMESPACE:-}
+K3S_DEPLOYMENT=${K3S_DEPLOYMENT:-}
+SEND_NOTIFICATION=${SEND_NOTIFICATION:-false}
+NOTIFICATION_WEBHOOK_URL=${NOTIFICATION_WEBHOOK_URL:-}
 
 # -----------------------------------------------------------------------------
 # Display Configuration
@@ -182,7 +195,7 @@ if [ "$DRY_RUN" = true ]; then
     print_header "Dry Run Mode"
     echo "Would execute the following build command:"
     echo ""
-    echo "docker build \\"
+    echo "podman build \\"
     echo "  --build-arg PENTAHO_VERSION=$PENTAHO_VERSION \\"
     echo "  --build-arg PENTAHO_INSTALLER_NAME=pentaho-server-$EDITION \\"
     echo "  --build-arg IS_DEMO=$INCLUDE_DEMO \\"
@@ -202,14 +215,14 @@ fi
 
 log_info "Validating prerequisites..."
 
-# Check Docker
-if ! command -v docker &> /dev/null; then
-    log_error "Docker is not installed or not in PATH"
+# Check Podman
+if ! command -v podman &> /dev/null; then
+    log_error "Podman is not installed or not in PATH (sudo apt install podman)"
     exit 1
 fi
 
-DOCKER_VERSION=$(docker --version)
-log_success "Docker found: $DOCKER_VERSION"
+PODMAN_VERSION=$(podman --version)
+log_success "Podman found: $PODMAN_VERSION"
 
 # Check Pentaho package
 PENTAHO_PACKAGE="stagedArtifacts/pentaho-server-${EDITION}-${PENTAHO_VERSION}.zip"
@@ -245,10 +258,10 @@ fi
 echo ""
 
 # -----------------------------------------------------------------------------
-# Build Docker Image
+# Build the Image
 # -----------------------------------------------------------------------------
 
-print_header "Building Docker Image"
+print_header "Building the Image"
 
 # Prepare build arguments
 BUILD_ARGS=(
@@ -286,21 +299,14 @@ if [ "$NO_CACHE" = true ]; then
     BUILD_ARGS+=("--no-cache")
 fi
 
-# Progress output
-if [ "$VERBOSE" = true ]; then
-    BUILD_ARGS+=("--progress=plain")
-fi
-
-# Enable BuildKit if requested
-if [ "$USE_BUILDKIT" = true ]; then
-    export DOCKER_BUILDKIT=1
-    log_info "BuildKit enabled"
-fi
+# Podman builds with Buildah: it prints every step as it runs, and has no
+# BuildKit or --progress to set. VERBOSE and USE_BUILDKIT in .env are kept
+# for older configurations and change nothing.
 
 # Show build command in debug mode
 if [ "$DEBUG" = true ]; then
     log_info "Build command:"
-    echo "docker build ${BUILD_ARGS[*]} ."
+    echo "podman build ${BUILD_ARGS[*]} ."
     echo ""
 fi
 
@@ -308,7 +314,7 @@ log_info "Starting build..."
 START_TIME=$(date +%s)
 
 # Execute build
-if docker build "${BUILD_ARGS[@]}" .; then
+if podman build "${BUILD_ARGS[@]}" .; then
     END_TIME=$(date +%s)
     BUILD_DURATION=$((END_TIME - START_TIME))
 
@@ -325,8 +331,8 @@ fi
 
 print_header "Image Information"
 
-IMAGE_SIZE=$(docker images "$IMAGE_TAG" --format "{{.Size}}")
-IMAGE_ID=$(docker images "$IMAGE_TAG" --format "{{.ID}}")
+IMAGE_SIZE=$(podman images "$IMAGE_TAG" --format "{{.Size}}")
+IMAGE_ID=$(podman images "$IMAGE_TAG" --format "{{.ID}}")
 
 echo "  Tag:  $IMAGE_TAG"
 echo "  Size: $IMAGE_SIZE"
@@ -335,7 +341,7 @@ echo ""
 
 # Show all tags
 echo "All tags for this image:"
-docker images --format "table {{.Repository}}:{{.Tag}}\t{{.Size}}" | grep -E "$(echo $IMAGE_TAG | cut -d: -f1)" || true
+podman images --format "table {{.Repository}}:{{.Tag}}\t{{.Size}}" | grep -E "$(echo $IMAGE_TAG | cut -d: -f1)" || true
 echo ""
 
 # -----------------------------------------------------------------------------
@@ -349,9 +355,14 @@ if [ "$RUN_TESTS" = true ]; then
 
     # Test 1: Check Java version
     log_info "Test 1: Checking Java version..."
-    if docker run --rm "$IMAGE_TAG" java -version 2>&1 | head -5; then
+    # Capture first, then show: piping the run into head lets head close
+    # the pipe while the entrypoint is still printing, and pipefail then
+    # reports the closed pipe as a failed image.
+    if TEST_OUT=$(podman run --rm "$IMAGE_TAG" java -version 2>&1); then
+        printf '%s\n' "$TEST_OUT" | tail -n 3
         log_success "Java version check passed"
     else
+        printf '%s\n' "$TEST_OUT" | tail -n 10
         log_error "Java version check failed"
         exit 1
     fi
@@ -359,9 +370,11 @@ if [ "$RUN_TESTS" = true ]; then
 
     # Test 2: Verify Pentaho files exist
     log_info "Test 2: Verifying Pentaho installation..."
-    if docker run --rm "$IMAGE_TAG" ls -la /opt/pentaho/pentaho-server | head -10; then
+    if TEST_OUT=$(podman run --rm "$IMAGE_TAG" ls -la /opt/pentaho/pentaho-server 2>&1); then
+        printf '%s\n' "$TEST_OUT" | grep -E 'start-pentaho|tomcat|pentaho-solutions' || true
         log_success "Pentaho files verified"
     else
+        printf '%s\n' "$TEST_OUT" | tail -n 10
         log_error "Pentaho files verification failed"
         exit 1
     fi
@@ -381,11 +394,11 @@ if [ "$PUSH_TO_REGISTRY" = true ]; then
     # Login to registry if credentials provided
     if [ -n "$REGISTRY_URL" ] && [ -n "$REGISTRY_USERNAME" ] && [ -n "$REGISTRY_PASSWORD" ]; then
         log_info "Logging in to registry: $REGISTRY_URL"
-        echo "$REGISTRY_PASSWORD" | docker login "$REGISTRY_URL" -u "$REGISTRY_USERNAME" --password-stdin
+        echo "$REGISTRY_PASSWORD" | podman login "$REGISTRY_URL" -u "$REGISTRY_USERNAME" --password-stdin
     fi
 
     log_info "Pushing image: $IMAGE_TAG"
-    if docker push "$IMAGE_TAG"; then
+    if podman push "$IMAGE_TAG"; then
         log_success "Image pushed successfully"
     else
         log_error "Failed to push image"
@@ -395,11 +408,11 @@ if [ "$PUSH_TO_REGISTRY" = true ]; then
     # Push additional tags
     if [ -n "$IMAGE_TAG_LATEST" ]; then
         log_info "Pushing tag: $IMAGE_TAG_LATEST"
-        docker push "$IMAGE_TAG_LATEST"
+        podman push "$IMAGE_TAG_LATEST"
     fi
     if [ -n "$IMAGE_TAG_MAJOR" ]; then
         log_info "Pushing tag: $IMAGE_TAG_MAJOR"
-        docker push "$IMAGE_TAG_MAJOR"
+        podman push "$IMAGE_TAG_MAJOR"
     fi
 
     echo ""
@@ -413,7 +426,7 @@ if [ "$LOAD_INTO_K3S" = true ]; then
     print_header "Loading into K3s"
 
     log_info "Importing image into K3s..."
-    if docker save "$IMAGE_TAG" | sudo k3s ctr images import -; then
+    if podman save "$IMAGE_TAG" | sudo k3s ctr images import -; then
         log_success "Image imported into K3s successfully"
 
         # Verify import
@@ -458,13 +471,13 @@ if [ "$SEND_NOTIFICATION" = true ] && [ -n "$NOTIFICATION_WEBHOOK_URL" ]; then
 
     NOTIFICATION_PAYLOAD=$(cat <<EOF
 {
-    "text": "Pentaho Docker Build Completed",
+    "text": "Pentaho Server image build completed",
     "blocks": [
         {
             "type": "section",
             "text": {
                 "type": "mrkdwn",
-                "text": "*Pentaho Docker Build Completed* :white_check_mark:"
+                "text": "*Pentaho Server image build completed* :white_check_mark:"
             }
         },
         {
@@ -503,13 +516,13 @@ else
     echo "Next steps:"
     echo ""
     echo "1. Load image into K3s:"
-    echo "   docker save $IMAGE_TAG | sudo k3s ctr images import -"
+    echo "   podman save $IMAGE_TAG | sudo k3s ctr images import -"
     echo ""
 fi
 
 if [ "$PUSH_TO_REGISTRY" = false ]; then
     echo "2. Or push to registry:"
-    echo "   docker push $IMAGE_TAG"
+    echo "   podman push $IMAGE_TAG"
     echo ""
 fi
 

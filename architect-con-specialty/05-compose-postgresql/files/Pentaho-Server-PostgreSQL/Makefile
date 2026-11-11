@@ -5,8 +5,8 @@
 -include .env
 export
 
-# Docker Compose command
-COMPOSE := docker compose
+# Podman Compose command
+COMPOSE := podman compose
 PROJECT_NAME := pentaho-server-postgresql
 
 # Colors for output
@@ -110,9 +110,9 @@ clean-all: ## Remove containers AND volumes (DESTRUCTIVE!)
 	@$(COMPOSE) down -v
 	@echo "$(GREEN)✓ Complete cleanup done$(NC)"
 
-prune: ## Clean up Docker system (images, cache)
-	@echo "$(YELLOW)→ Pruning Docker system...$(NC)"
-	@docker system prune -f
+prune: ## Clean up Podman system (images, cache)
+	@echo "$(YELLOW)→ Pruning Podman system...$(NC)"
+	@podman system prune -f
 	@echo "$(GREEN)✓ System pruned$(NC)"
 
 validate: ## Run deployment validation
@@ -134,7 +134,7 @@ ps: ## List running containers (alias for status)
 	@$(COMPOSE) ps
 
 stats: ## Show resource usage stats
-	@docker stats --no-stream pentaho-server pentaho-postgres 2>/dev/null || echo "$(YELLOW)Containers not running$(NC)"
+	@podman stats --no-stream pentaho-server pentaho-postgres 2>/dev/null || echo "$(YELLOW)Containers not running$(NC)"
 
 ##@ Information
 

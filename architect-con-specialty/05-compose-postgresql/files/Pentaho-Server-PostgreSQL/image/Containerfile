@@ -1,10 +1,10 @@
 # =============================================================================
-# Pentaho Server 11 Docker Image
+# Pentaho Server 11 Container Image
 # =============================================================================
 #
-# Multi-stage Dockerfile for Pentaho Server 11.0.0.0-237 Enterprise Edition
+# Multi-stage Containerfile for Pentaho Server 11.0.0.0-237 Enterprise Edition
 #
-# Base Image: debian:trixie-slim (official Debian from Docker Hub)
+# Base Image: docker.io/library/debian:trixie-slim (official Debian from Docker Hub)
 # Java: OpenJDK 21 JRE (headless)
 # User: pentaho (UID 5000, non-root for security)
 #
@@ -29,14 +29,14 @@ ARG PENTAHO_SERVER_PATH=${INSTALLATION_PATH}/pentaho-server
 
 # Base image: Using official Debian Trixie Slim from Docker Hub
 # Previously used Hitachi Vantara registry, changed for public accessibility
-ARG UNPACK_BUILD_IMAGE=debian:trixie-slim
-ARG PACK_BUILD_IMAGE=debian:trixie-slim
+ARG UNPACK_BUILD_IMAGE=docker.io/library/debian:trixie-slim
+ARG PACK_BUILD_IMAGE=docker.io/library/debian:trixie-slim
 
 FROM ${UNPACK_BUILD_IMAGE} AS install_unpack
 
 LABEL maintainer="Hitachi Vantara"
 LABEL version="11.x"
-LABEL description="Dockerfile for Pentaho Server"
+LABEL description="Containerfile for Pentaho Server"
 
 WORKDIR /opt/pentaho-installer/
 
@@ -169,18 +169,13 @@ COPY --from=install_unpack --chown=${PENTAHO_USER}:${PENTAHO_USER} ${INSTALLATIO
 # =============================================================================
 # Entrypoint Configuration
 # =============================================================================
-# Copy entrypoint scripts from docker/entrypoint/ directory
+# Copy entrypoint scripts from image/entrypoint/ directory
 # The entrypoint script handles:
 #   - JVM configuration (memory, encoding)
 #   - Processing softwareOverride directories
 #   - License installation (if LICENSE_URL is set)
 #   - Starting Pentaho Server
 COPY ./entrypoint/ /
-
-# Copy softwareOverride directory (K3s-specific: baked into image)
-# Docker Compose mounts this as a volume, but for K3s we bake it in
-# Contains: database configs, JDBC drivers, modified startup.sh
-COPY --chown=${PENTAHO_USER}:${PENTAHO_USER} ./softwareOverride /docker-entrypoint-init
 
 # Set working directory to Pentaho Server root
 WORKDIR ${PENTAHO_SERVER_PATH}
@@ -204,7 +199,7 @@ EXPOSE 8443
 USER ${PENTAHO_USER}
 
 # Entrypoint processes configuration and starts Pentaho
-# See docker/entrypoint/docker-entrypoint.sh for details
+# See image/entrypoint/docker-entrypoint.sh for details
 ENTRYPOINT ["/docker-entrypoint.sh"]
 
 # Default command: Start Pentaho Server via Tomcat

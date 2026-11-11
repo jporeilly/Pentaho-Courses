@@ -2,11 +2,11 @@
 
 ## Overview
 
-This deployment uses Docker Compose to orchestrate Pentaho Server 11 with PostgreSQL 15.
+This deployment uses Podman Compose to orchestrate Pentaho Server 11 with PostgreSQL 15.
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                   Docker Host (Ubuntu 24.04)                │
+│                   Podman Host (Ubuntu 24.04)                │
 │                                                             │
 │  ┌───────────────────────────────────────────────────────┐  │
 │  │               pentaho-net (172.28.0.0/16)             │  │
@@ -60,7 +60,7 @@ Components:
 ## Volume Mapping
 
 ```
-Docker Volumes:
+Podman Volumes:
 ├── pentaho_postgres_data  → /var/lib/postgresql/data
 ├── pentaho_solutions      → /opt/pentaho/pentaho-server/pentaho-solutions
 └── pentaho_data           → /opt/pentaho/pentaho-server/data
@@ -139,11 +139,11 @@ hibernate.pentaho_operations_mart
 
 ## Network Architecture
 
-All containers communicate via Docker bridge network:
+All containers communicate via a Podman bridge network:
 
 - Network: `pentaho-net`
 - Subnet: `172.28.0.0/16`
-- Internal hostname resolution via Docker DNS
+- Internal hostname resolution via Podman's DNS (aardvark-dns)
 
 ## Health Checks
 

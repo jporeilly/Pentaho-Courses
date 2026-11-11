@@ -93,7 +93,7 @@ if kubectl exec -n $NAMESPACE deployment/postgres -- psql -U postgres -c "SELECT
 
     # Check specific databases
     for db in jackrabbit quartz hibernate; do
-        if kubectl exec -n $NAMESPACE deployment/postgres -- psql -U postgres -lqt | cut -d \| -f 1 | grep -qw $db; then
+        if kubectl exec -n $NAMESPACE deployment/postgres -- psql -U postgres -lqt | cut -d \| -f 1 | grep -w $db > /dev/null; then
             echo -e "${GREEN}✓ Database '$db' exists${NC}"
         else
             echo -e "${RED}✗ Database '$db' not found${NC}"
@@ -121,7 +121,7 @@ else
     # Wait for port-forward to be ready (with timeout)
     READY=false
     for i in {1..10}; do
-        if lsof -i ":${LOCAL_PORT}" &> /dev/null || netstat -tuln 2>/dev/null | grep -q ":${LOCAL_PORT} "; then
+        if lsof -i ":${LOCAL_PORT}" &> /dev/null || netstat -tuln 2>/dev/null | grep ":${LOCAL_PORT} " > /dev/null; then
             READY=true
             break
         fi

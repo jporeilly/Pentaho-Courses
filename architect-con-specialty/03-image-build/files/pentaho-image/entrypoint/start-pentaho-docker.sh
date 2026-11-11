@@ -1,13 +1,13 @@
 #!/bin/bash
 # =============================================================================
-# Pentaho Server Docker Start Script
+# Pentaho Server Container Start Script
 # =============================================================================
 #
 # This script is a Docker-compatible version of start-pentaho.sh that runs
 # Tomcat in the foreground instead of the background.
 #
 # The original start-pentaho.sh uses 'startup.sh' which runs Tomcat as a
-# daemon and exits, causing Docker containers to terminate. This script
+# daemon and exits, causing the container to stop. This script
 # uses 'catalina.sh run' to keep Tomcat in the foreground.
 #
 # =============================================================================
@@ -137,5 +137,5 @@ echo "CATALINA_OPTS=$CATALINA_OPTS"
 echo "JAVA_HOME=$JAVA_HOME"
 
 # Use 'catalina.sh run' instead of 'startup.sh' to keep Tomcat in foreground
-# This is essential for Docker containers to stay alive
+# This is essential for the container to stay alive
 exec sh catalina.sh run

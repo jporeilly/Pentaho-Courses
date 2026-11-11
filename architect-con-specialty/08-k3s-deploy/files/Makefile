@@ -4,7 +4,7 @@
 # Simplifies common deployment and management tasks
 #
 # Prerequisites:
-#   - Docker installed
+#   - Podman installed
 #   - K3s installed and running
 #   - kubectl configured
 #   - Secrets file at manifests/secrets/secrets.yaml
@@ -40,13 +40,13 @@ help: ## Display this help message
 
 ##@ Build & Deploy
 
-build: ## Build Pentaho Docker image
-	@echo -e "$(BLUE)Building Pentaho Docker image...$(NC)"
-	cd docker-build && ./build.sh
+build: ## Build Pentaho Podman image
+	@echo -e "$(BLUE)Building Pentaho Podman image...$(NC)"
+	cd pentaho-image && ./build.sh
 
-import: ## Import Docker image to K3s
+import: ## Import Podman image to K3s
 	@echo -e "$(BLUE)Importing image to K3s...$(NC)"
-	@docker save $(IMAGE_NAME):$(IMAGE_TAG) -o /tmp/pentaho.tar
+	@podman save $(IMAGE_NAME):$(IMAGE_TAG) -o /tmp/pentaho.tar
 	@echo "$(SUDO_PASSWORD)" | sudo -S k3s ctr images import /tmp/pentaho.tar
 	@rm /tmp/pentaho.tar
 	@echo -e "$(GREEN)✓ Image imported successfully$(NC)"
@@ -117,13 +117,13 @@ open: port-forward ## Alias for port-forward
 
 ##@ Testing
 
-test-local: ## Test Docker image locally with Docker Compose
+test-local: ## Test Podman image locally with Podman Compose
 	@echo -e "$(BLUE)Starting local test environment...$(NC)"
-	cd docker-build && docker compose -f test-compose.yml up
+	cd pentaho-image && podman compose -f test-compose.yml up
 
 test-local-down: ## Stop local test environment
 	@echo -e "$(YELLOW)Stopping local test environment...$(NC)"
-	cd docker-build && docker compose -f test-compose.yml down -v
+	cd pentaho-image && podman compose -f test-compose.yml down -v
 
 ##@ Development
 
@@ -182,7 +182,7 @@ info: ## Show deployment information
 
 version: ## Show versions
 	@echo -e "$(BLUE)Version Information:$(NC)"
-	@echo -n "Docker:     " && docker --version
+	@echo -n "Podman:     " && podman --version
 	@echo -n "kubectl:    " && kubectl version --client --short 2>/dev/null || kubectl version --client
 	@echo -n "K3s:        " && k3s --version | head -1
 	@echo ""

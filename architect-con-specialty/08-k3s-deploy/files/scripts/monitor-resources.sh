@@ -110,7 +110,7 @@ echo ""
 echo -e "${YELLOW}=== Recommendations ===${NC}"
 
 # Check for high memory usage
-if kubectl top pods -n $NAMESPACE 2>/dev/null | awk 'NR>1 {if (int($3) > 4096) print $1, $3}' | grep -q .; then
+if kubectl top pods -n $NAMESPACE 2>/dev/null | awk 'NR>1 {if (int($3) > 4096) print $1, $3}' | grep . > /dev/null; then
     echo -e "${RED}⚠ High memory usage detected${NC}"
     echo "  Consider increasing memory limits in deployment.yaml"
 else

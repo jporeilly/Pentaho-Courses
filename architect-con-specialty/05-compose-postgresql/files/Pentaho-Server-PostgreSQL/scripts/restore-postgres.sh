@@ -55,9 +55,9 @@ echo "Backup file: $BACKUP_FILE"
 echo ""
 
 # Check if container is running
-if ! docker ps --format '{{.Names}}' | grep -q "^${CONTAINER_NAME}$"; then
+if ! podman ps --format '{{.Names}}' | grep "^${CONTAINER_NAME}$" > /dev/null; then
     echo -e "${RED}✗ PostgreSQL container '${CONTAINER_NAME}' is not running${NC}"
-    echo "Start the container with: docker compose up -d postgres"
+    echo "Start the container with: podman compose up -d postgres"
     exit 1
 fi
 
@@ -83,7 +83,7 @@ fi
 
 # Perform restore
 echo "Restoring database..."
-if docker exec -i "$CONTAINER_NAME" psql -U postgres < "$RESTORE_FILE"; then
+if podman exec -i "$CONTAINER_NAME" psql -U postgres < "$RESTORE_FILE"; then
 
     echo -e "${GREEN}✓ Database restored successfully${NC}"
 else
@@ -97,4 +97,4 @@ fi
 
 echo ""
 echo -e "${YELLOW}⚠ Restart Pentaho Server to apply changes:${NC}"
-echo "  docker compose restart pentaho-server"
+echo "  podman compose restart pentaho-server"

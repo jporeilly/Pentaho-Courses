@@ -1,9 +1,7 @@
-version: '3.8'
-
 services:
   # PostgreSQL Database (same as K3s)
   postgres:
-    image: postgres:15
+    image: docker.io/library/postgres:15
     container_name: pentaho-k3s-postgresql
     environment:
       POSTGRES_PASSWORD: password
@@ -24,22 +22,39 @@ services:
 
   # Initialize PostgreSQL databases using SQL scripts from working project
   # Note: These scripts create users, databases, and all required tables including Quartz locks
+  #
+  # No depends_on here: the job waits for PostgreSQL itself, below. Podman 4.9
+  # (Ubuntu 24.04's) cannot start a container whose dependency has exited
+  # while that dependency's own dependency is still running, which is what
+  # pentaho-server -> postgres-init -> postgres would be once this job ends.
+  #
+  # And it does nothing when the databases exist: Podman starts every
+  # container a service depends on whenever that service starts, so this job
+  # runs again with each start of pentaho-server, and the first and third
+  # scripts begin with drop database.
   postgres-init:
-    image: postgres:15
-    depends_on:
-      postgres:
-        condition: service_healthy
+    image: docker.io/library/postgres:15
     environment:
       PGPASSWORD: password
     volumes:
-      # Mount the complete SQL init scripts from the working Docker Compose project
-      - /home/pentaho/Pentaho-Server-PostgreSQL/db_init_postgres:/docker-entrypoint-initdb.d:ro
+      # The five repository scripts from the Compose workshop, copied in
+      # beside this file
+      - ./db_init_postgres:/docker-entrypoint-initdb.d:ro
     networks:
       - pentaho-test
     entrypoint: ["/bin/bash", "-c"]
     command:
       - |
-        echo 'Running PostgreSQL initialization scripts from working project...'
+        until pg_isready -h postgres -U postgres -q; do
+          echo 'Waiting for PostgreSQL...'
+          sleep 2
+        done
+        found=$$(psql -h postgres -U postgres -tAc "select count(*) from pg_database where datname in ('hibernate','jackrabbit','quartz')")
+        if [ "$$found" = "3" ]; then
+          echo 'The repository databases exist already: nothing to do.'
+          exit 0
+        fi
+        echo 'Running the PostgreSQL repository scripts...'
         # Execute SQL files in order (already numbered: 1_, 2_, 3_, 4_, 5_)
         for sql_file in /docker-entrypoint-initdb.d/*.sql; do
           if [ -f "$$sql_file" ]; then

@@ -44,16 +44,16 @@ echo "→ Creating backup at: $BACKUP_PATH"
 echo ""
 
 # Check if Vault container is running
-if ! docker compose ps | grep -q "pentaho-vault.*Up"; then
+if ! [ "$(podman inspect --format "{{.State.Running}}" pentaho-vault 2>/dev/null)" = "true" ]; then
     echo -e "${RED}✗ Vault container is not running${NC}"
-    echo "  Start services first: docker compose up -d"
+    echo "  Start services first: podman compose up -d"
     exit 1
 fi
 
 # Backup vault-keys.json (contains unseal keys and root token)
 echo "→ Backing up Vault keys..."
-if docker exec pentaho-vault test -f /vault/data/vault-keys.json 2>/dev/null; then
-    docker cp pentaho-vault:/vault/data/vault-keys.json "$BACKUP_PATH/vault-keys.json"
+if podman exec pentaho-vault test -f /vault/data/vault-keys.json 2>/dev/null; then
+    podman cp pentaho-vault:/vault/data/vault-keys.json "$BACKUP_PATH/vault-keys.json"
     chmod 600 "$BACKUP_PATH/vault-keys.json"
     echo -e "${GREEN}✓ vault-keys.json backed up${NC}"
 else
@@ -62,8 +62,8 @@ fi
 
 # Backup approle-creds.json
 echo "→ Backing up AppRole credentials..."
-if docker exec pentaho-vault test -f /vault/data/approle-creds.json 2>/dev/null; then
-    docker cp pentaho-vault:/vault/data/approle-creds.json "$BACKUP_PATH/approle-creds.json"
+if podman exec pentaho-vault test -f /vault/data/approle-creds.json 2>/dev/null; then
+    podman cp pentaho-vault:/vault/data/approle-creds.json "$BACKUP_PATH/approle-creds.json"
     chmod 600 "$BACKUP_PATH/approle-creds.json"
     echo -e "${GREEN}✓ approle-creds.json backed up${NC}"
 else
@@ -72,8 +72,8 @@ fi
 
 # Backup generated-passwords.json
 echo "→ Backing up generated passwords..."
-if docker exec pentaho-vault test -f /vault/data/generated-passwords.json 2>/dev/null; then
-    docker cp pentaho-vault:/vault/data/generated-passwords.json "$BACKUP_PATH/generated-passwords.json"
+if podman exec pentaho-vault test -f /vault/data/generated-passwords.json 2>/dev/null; then
+    podman cp pentaho-vault:/vault/data/generated-passwords.json "$BACKUP_PATH/generated-passwords.json"
     chmod 600 "$BACKUP_PATH/generated-passwords.json"
     echo -e "${GREEN}✓ generated-passwords.json backed up${NC}"
 else

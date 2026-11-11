@@ -287,7 +287,7 @@ VERBOSE=true ./scripts/validate-deployment.sh
 ### Before
 ```bash
 # Silent failures possible
-docker save image | k3s ctr images import - | grep -v "unpacking"
+podman save image | k3s ctr images import - | grep -v "unpacking"
 ```
 
 ### After
@@ -296,7 +296,7 @@ docker save image | k3s ctr images import - | grep -v "unpacking"
 IMPORT_LOG=$(mktemp)
 trap "rm -f ${IMPORT_LOG}" EXIT
 
-if docker save image | k3s ctr images import - | tee "${IMPORT_LOG}" | grep -v "unpacking"; then
+if podman save image | k3s ctr images import - | tee "${IMPORT_LOG}" | grep -v "unpacking"; then
     if grep -qi "error" "${IMPORT_LOG}"; then
         print_error "Import failed"
         cat "${IMPORT_LOG}"

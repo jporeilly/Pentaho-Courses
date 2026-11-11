@@ -7,13 +7,13 @@
 ./scripts/validate-deployment.sh
 
 # View service status
-docker compose ps
+podman compose ps
 
 # View logs
-docker compose logs -f
+podman compose logs -f
 
 # Check resource usage
-docker stats
+podman stats
 ```
 
 ## Common Issues
@@ -24,7 +24,7 @@ docker stats
 
 **Check logs:**
 ```bash
-docker compose logs postgres
+podman compose logs postgres
 ```
 
 **Common causes:**
@@ -41,8 +41,8 @@ docker compose logs postgres
 2. **Permission issues on volumes**
    ```bash
    # Reset PostgreSQL data
-   docker compose down -v
-   docker compose up -d postgres
+   podman compose down -v
+   podman compose up -d postgres
    ```
 
 3. **Disk space**
@@ -56,7 +56,7 @@ docker compose logs postgres
 
 **Check logs:**
 ```bash
-docker compose logs pentaho-server
+podman compose logs pentaho-server
 ```
 
 **Common causes:**
@@ -64,8 +64,8 @@ docker compose logs pentaho-server
 1. **PostgreSQL not ready**
    ```bash
    # Verify PostgreSQL is healthy
-   docker compose ps postgres
-   docker exec pentaho-postgres pg_isready -U postgres
+   podman inspect --format '{{.State.Health.Status}}' pentaho-postgres
+   podman exec pentaho-postgres pg_isready -U postgres
    ```
 
 2. **Insufficient memory**
@@ -80,12 +80,12 @@ docker compose logs pentaho-server
 3. **Configuration errors**
    ```bash
    # Check context.xml syntax
-   docker compose logs pentaho-server | grep -i error
+   podman compose logs pentaho-server | grep -i error
    ```
 
 4. **Missing Pentaho package**
    ```bash
-   ls -la docker/stagedArtifacts/*.zip
+   ls -la image/stagedArtifacts/*.zip
    ```
 
 ### Database Connection Errors
@@ -95,10 +95,10 @@ docker compose logs pentaho-server
 **Verify connectivity:**
 ```bash
 # Test PostgreSQL connection
-docker exec pentaho-postgres psql -U postgres -c "SELECT 1"
+podman exec pentaho-postgres psql -U postgres -c "SELECT 1"
 
 # Check databases exist
-docker exec pentaho-postgres psql -U postgres -c "\l"
+podman exec pentaho-postgres psql -U postgres -c "\l"
 ```
 
 **Check JDBC configuration:**
@@ -114,13 +114,13 @@ grep -i "repository" softwareOverride/2_repository/tomcat/webapps/pentaho/META-I
 **Check Pentaho health:**
 ```bash
 # Is container running?
-docker compose ps pentaho-server
+podman ps --filter name=pentaho-server
 
 # Can you reach the port?
 curl -v http://localhost:8090/pentaho/Login
 
 # Check logs for startup completion
-docker compose logs pentaho-server | grep "Server startup"
+podman compose logs pentaho-server | grep "Server startup"
 ```
 
 **Firewall issues:**
@@ -135,7 +135,7 @@ sudo ufw status
 
 **Check Quartz tables:**
 ```bash
-docker exec pentaho-postgres psql -U pentaho_user -d quartz -c "\dt"
+podman exec pentaho-postgres psql -U pentaho_user -d quartz -c "\dt"
 ```
 
 **Verify quartz.properties:**
@@ -150,19 +150,19 @@ cat softwareOverride/2_repository/pentaho-solutions/system/scheduler-plugin/quar
 
 **Check Jackrabbit database:**
 ```bash
-docker exec pentaho-postgres psql -U jcr_user -d jackrabbit -c "\dt"
+podman exec pentaho-postgres psql -U jcr_user -d jackrabbit -c "\dt"
 ```
 
 **Reset repository (DESTRUCTIVE):**
 ```bash
 # Stop Pentaho
-docker compose stop pentaho-server
+podman compose stop pentaho-server
 
 # Clear Jackrabbit tables
-docker exec pentaho-postgres psql -U postgres -d jackrabbit -c "DROP SCHEMA public CASCADE; CREATE SCHEMA public;"
+podman exec pentaho-postgres psql -U postgres -d jackrabbit -c "DROP SCHEMA public CASCADE; CREATE SCHEMA public;"
 
 # Restart
-docker compose start pentaho-server
+podman compose start pentaho-server
 ```
 
 ### Performance Issues
@@ -171,7 +171,7 @@ docker compose start pentaho-server
 
 **Check resources:**
 ```bash
-docker stats --no-stream
+podman stats --no-stream
 ```
 
 **Increase JVM memory:**
@@ -181,20 +181,20 @@ PENTAHO_MIN_MEMORY=4096m
 PENTAHO_MAX_MEMORY=8192m
 
 # Restart
-docker compose restart pentaho-server
+podman compose restart pentaho-server
 ```
 
 **Check PostgreSQL performance:**
 ```bash
-docker exec pentaho-postgres psql -U postgres -c "SELECT * FROM pg_stat_activity WHERE state = 'active';"
+podman exec pentaho-postgres psql -U postgres -c "SELECT * FROM pg_stat_activity WHERE state = 'active';"
 ```
 
 ## Log Locations
 
 | Service | Location |
 |---------|----------|
-| PostgreSQL | `docker compose logs postgres` |
-| Pentaho | `docker compose logs pentaho-server` |
+| PostgreSQL | `podman compose logs postgres` |
+| Pentaho | `podman compose logs pentaho-server` |
 | Tomcat | Container: `/opt/pentaho/pentaho-server/tomcat/logs/` |
 
 ## Reset Procedures
@@ -202,27 +202,27 @@ docker exec pentaho-postgres psql -U postgres -c "SELECT * FROM pg_stat_activity
 ### Soft Reset (Keep Data)
 
 ```bash
-docker compose restart
+podman compose restart
 ```
 
 ### Hard Reset (Lose Configuration)
 
 ```bash
-docker compose down
-docker compose up -d
+podman compose down
+podman compose up -d
 ```
 
 ### Complete Reset (Lose Everything)
 
 ```bash
 # WARNING: Deletes all data!
-docker compose down -v
-docker compose up -d
+podman compose down -v
+podman compose up -d
 ```
 
 ## Getting Help
 
-1. Check logs: `docker compose logs -f`
+1. Check logs: `podman compose logs -f`
 2. Run validation: `./scripts/validate-deployment.sh`
 3. Review configuration: Compare with working MySQL version
 4. Check Pentaho documentation: https://help.hitachivantara.com/
@@ -235,5 +235,5 @@ Enable verbose logging:
 # Edit softwareOverride/4_others/tomcat/bin/startup.sh
 # Add: -Dlog4j.debug=true
 
-docker compose restart pentaho-server
+podman compose restart pentaho-server
 ```

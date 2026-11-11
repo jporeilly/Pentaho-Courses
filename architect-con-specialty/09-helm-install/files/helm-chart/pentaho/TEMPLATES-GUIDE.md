@@ -317,7 +317,7 @@ app: pentaho-server
 ```yaml
 pentaho:
   image:
-    repository: pentaho/pentaho-server
+    repository: localhost/pentaho/pentaho-server
     tag: 11.0.0.0-237
   replicas: 1
   hostname: pentaho-server

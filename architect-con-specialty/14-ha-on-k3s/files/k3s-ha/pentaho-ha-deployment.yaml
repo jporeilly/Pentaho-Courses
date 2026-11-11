@@ -1,7 +1,8 @@
-# Multi-replica Pentaho Server. Each pod passes its own name as the
-# Jackrabbit cluster id - the shared journal requires unique ids.
-# DRAFT: image/env names follow the course's K3s module; validate on a
-# live cluster.
+# Multi-replica Pentaho Server. DRAFT, NOT READY TO RUN: the shared
+# Jackrabbit journal needs a unique id per node, but the image's
+# repository.xml fixes <Cluster id="node1"> for every pod, and the
+# CATALINA_OPTS below is replaced by the archive's start-pentaho.sh. Both
+# have to be solved before two replicas can share a repository.
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -17,7 +18,7 @@ spec:
     spec:
       containers:
         - name: pentaho-server
-          image: pentaho-server:11.0.0.0-237
+          image: localhost/pentaho/pentaho-server:11.0.0.0-237
           ports: [{ containerPort: 8080 }]
           env:
             - name: POD_NAME

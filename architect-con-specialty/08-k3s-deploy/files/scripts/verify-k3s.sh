@@ -296,7 +296,7 @@ check_storage_class() {
         print_success "local-path storage class is available"
 
         # Check if it's the default
-        if echo "$sc_output" | grep "local-path" | grep -q "(default)"; then
+        if echo "$sc_output" | grep "local-path" | grep "(default)" > /dev/null; then
             print_info "local-path is set as default storage class"
         else
             print_warning "local-path is not the default storage class"
@@ -402,7 +402,7 @@ check_dns() {
     local dns_test_output
 
     # Try DNS resolution with a shorter timeout
-    if dns_test_output=$(timeout 15s kubectl run "$test_pod_name" --image=busybox:1.36 --restart=Never --rm -i -- nslookup kubernetes.default 2>&1); then
+    if dns_test_output=$(timeout 15s kubectl run "$test_pod_name" --image=docker.io/library/busybox:1.36 --restart=Never --rm -i -- nslookup kubernetes.default 2>&1); then
         if echo "$dns_test_output" | grep -q "Address"; then
             print_info "DNS resolution test passed"
             return 0

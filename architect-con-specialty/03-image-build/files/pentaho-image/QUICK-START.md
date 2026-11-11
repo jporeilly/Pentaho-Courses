@@ -1,13 +1,13 @@
-# Pentaho Docker Build - Quick Start Guide
+# Pentaho Image Build - Quick Start Guide
 
 ## Using .env Configuration (Recommended Method)
 
-This is the **recommended approach** for building Pentaho Docker images. It uses a single `.env` file to configure everything - similar to the Docker Compose deployment.
+This is the **recommended approach** for building Pentaho container images. It uses a single `.env` file to configure everything - similar to the Podman Compose deployment.
 
 ### 1. Setup Configuration
 
 ```bash
-cd docker-build
+cd pentaho-image
 
 # Copy template to create your .env
 cp .env.example .env
@@ -35,7 +35,7 @@ LICENSE_URL=https://company.com/licenses/pentaho-ee.lic
 
 # What to do after build
 LOAD_INTO_K3S=true             # Load into K3s automatically
-PUSH_TO_REGISTRY=false         # Push to Docker registry
+PUSH_TO_REGISTRY=false         # Push to container registry
 RUN_TESTS=true                 # Run validation tests
 ```
 
@@ -51,7 +51,7 @@ chmod +x build.sh
 
 The script will:
 - ✅ Validate prerequisites
-- ✅ Build Docker image
+- ✅ Build container image
 - ✅ Run tests
 - ✅ Load into K3s (if enabled)
 - ✅ Show next steps
@@ -74,7 +74,7 @@ kubectl get pods -n pentaho -w
 
 ## Build and Push to Registry
 
-To rebuild and push to a Docker registry:
+To rebuild and push to a container registry:
 
 ### 1. Configure Registry Settings
 
@@ -239,7 +239,7 @@ RUN_TESTS=true
 
 ```bash
 # Manually load
-docker save pentaho/pentaho-server:11.0.0.0-237 | sudo k3s ctr images import -
+podman save pentaho/pentaho-server:11.0.0.0-237 | sudo k3s ctr images import -
 
 # Or set in .env
 LOAD_INTO_K3S=true
@@ -249,7 +249,7 @@ LOAD_INTO_K3S=true
 
 ```bash
 # Login manually first
-docker login harbor.company.com
+podman login harbor.company.com
 
 # Then build
 ./build.sh
@@ -285,8 +285,8 @@ PENTAHO_DI_JAVA_OPTIONS="-Dfile.encoding=utf8 -Djava.awt.headless=true"
 ### Out of Memory During Build
 
 ```bash
-# Increase Docker memory
-# Docker Desktop: Settings → Resources → Memory → 8GB+
+# Increase container memory
+# WSL 2 host: set memory=8GB or more in %UserProfile%\.wslconfig, then wsl --shutdown
 
 # Or build without demo
 INCLUDE_DEMO=0 ./build.sh
@@ -299,8 +299,8 @@ INCLUDE_DEMO=0 ./build.sh
 Here's a complete example from scratch:
 
 ```bash
-# 1. Navigate to docker-build directory
-cd docker-build
+# 1. Navigate to pentaho-image directory
+cd pentaho-image
 
 # 2. Place Pentaho package
 cp ~/Downloads/pentaho-server-ee-11.0.0.0-237.zip stagedArtifacts/

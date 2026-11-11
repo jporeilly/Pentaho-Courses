@@ -5,7 +5,7 @@
 #
 # This unified script handles the complete deployment process for Pentaho
 # Server on K3s, including:
-#   - Docker image import into K3s container runtime
+#   - Podman image import into K3s container runtime
 #   - Kubernetes resource creation (namespace, secrets, configmaps, storage)
 #   - PostgreSQL database deployment
 #   - Pentaho Server deployment
@@ -20,7 +20,7 @@
 #
 # Prerequisites:
 #   - K3s installed and running
-#   - Docker image built: pentaho/pentaho-server:11.0.0.0-237
+#   - Podman image built: pentaho/pentaho-server:11.0.0.0-237
 #   - kubectl configured to access K3s cluster
 #   - sudo access for K3s containerd operations
 #
@@ -43,7 +43,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # Manifests directory containing all Kubernetes YAML files
 MANIFESTS_DIR="${SCRIPT_DIR}/manifests"
 
-# Docker image details
+# Podman image details
 IMAGE_NAME="pentaho/pentaho-server"
 IMAGE_TAG="11.0.0.0-237"
 FULL_IMAGE="${IMAGE_NAME}:${IMAGE_TAG}"
@@ -97,7 +97,7 @@ while [[ $# -gt 0 ]]; do
             echo "Usage: $0 [OPTIONS]"
             echo ""
             echo "Options:"
-            echo "  --skip-import    Skip Docker image import (use if image already in K3s)"
+            echo "  --skip-import    Skip Podman image import (use if image already in K3s)"
             echo "  --update-only    Only update existing deployment (don't create resources)"
             echo "  --clean          Remove old Pentaho images from K3s before deploying"
             echo "  --help, -h       Show this help message"
@@ -159,11 +159,11 @@ print_header "Pentaho K3s Deployment"
 
 print_step "Running pre-flight checks..."
 
-# Check if Docker is available (needed for image export)
-if ! command -v docker &> /dev/null; then
-    print_error "docker not found. Docker is required to export images."
+# Check if Podman is available (needed for image export)
+if ! command -v podman &> /dev/null; then
+    print_error "podman not found. Podman is required to export images."
 fi
-print_success "Docker found: $(docker --version | head -1)"
+print_success "Podman found: $(podman --version | head -1)"
 
 # Check if kubectl is available
 if ! command -v kubectl &> /dev/null; then
@@ -183,11 +183,11 @@ if ! kubectl cluster-info &> /dev/null; then
 fi
 print_success "Kubernetes cluster is accessible"
 
-# Check if Docker image exists locally
-if ! docker image inspect "${FULL_IMAGE}" &> /dev/null; then
-    print_error "Docker image '${FULL_IMAGE}' not found. Build it first with: cd docker-build && ./build.sh"
+# Check if Podman image exists locally
+if ! podman image inspect "${FULL_IMAGE}" &> /dev/null; then
+    print_error "Podman image '${FULL_IMAGE}' not found. Build it first with: cd pentaho-image && ./build.sh"
 fi
-print_success "Docker image '${FULL_IMAGE}' found"
+print_success "Podman image '${FULL_IMAGE}' found"
 
 # Check if secrets file exists, create from template if not
 if [ ! -f "${MANIFESTS_DIR}/secrets/secrets.yaml" ]; then
@@ -205,7 +205,7 @@ echo ""
 
 if [ "$UPDATE_ONLY" = false ]; then
     if [ "$SKIP_IMAGE_IMPORT" = false ]; then
-        print_header "Docker Image Import"
+        print_header "Podman Image Import"
 
         # Clean old images if requested
         if [ "$CLEAN_OLD_IMAGES" = true ]; then
@@ -213,7 +213,7 @@ if [ "$UPDATE_ONLY" = false ]; then
 
             # List old images and remove them
             # Note: This requires sudo as K3s containerd runs with elevated privileges
-            if sudo k3s ctr images ls -q 2>/dev/null | grep -q "${IMAGE_NAME}"; then
+            if sudo k3s ctr images ls -q 2>/dev/null | grep "${IMAGE_NAME}" > /dev/null; then
                 sudo k3s ctr images ls -q | grep "${IMAGE_NAME}" | while read img; do
                     echo "  Deleting: $img"
                     sudo k3s ctr images rm "$img" 2>/dev/null || true
@@ -228,7 +228,7 @@ if [ "$UPDATE_ONLY" = false ]; then
         print_step "Importing Pentaho image to K3s container runtime..."
         print_info "This will transfer ~1.3GB and may take 30-60 seconds..."
 
-        # Export Docker image and pipe directly to K3s containerd import
+        # Export Podman image and pipe directly to K3s containerd import
         # This is more efficient than saving to a tar file first
         # The 'sudo' is required because K3s containerd socket is owned by root
 
@@ -236,7 +236,11 @@ if [ "$UPDATE_ONLY" = false ]; then
         IMPORT_LOG=$(mktemp)
         trap "rm -f ${IMPORT_LOG}" EXIT
 
-        if docker save "${FULL_IMAGE}" | sudo k3s ctr images import - 2>&1 | tee "${IMPORT_LOG}" | grep -v "unpacking"; then
+        # The import's own exit status decides. (Filtering its output with
+        # grep inside the condition failed a good import whenever every line
+        # was an "unpacking" line: grep then exits 1.)
+        if podman save "${FULL_IMAGE}" | sudo k3s ctr images import - > "${IMPORT_LOG}" 2>&1; then
+            grep -v "unpacking" "${IMPORT_LOG}" || true
             # Check if there were any errors in the output
             if grep -qi "error\|failed" "${IMPORT_LOG}"; then
                 print_error "Failed to import image to K3s (errors detected)"
@@ -252,7 +256,7 @@ if [ "$UPDATE_ONLY" = false ]; then
 
         # Verify the image is now available in K3s
         print_step "Verifying image in K3s containerd..."
-        if sudo k3s ctr images ls | grep -q "${IMAGE_NAME}"; then
+        if sudo k3s ctr images ls | grep "${IMAGE_NAME}" > /dev/null; then
             sudo k3s ctr images ls | grep "${IMAGE_NAME}"
             print_success "Image verified in K3s"
         else

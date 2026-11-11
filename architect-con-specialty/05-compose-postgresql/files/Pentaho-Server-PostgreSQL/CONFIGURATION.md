@@ -114,7 +114,7 @@ PENTAHO_MAX_MEMORY=8192m
    ```
 
 2. **Restrict port exposure**
-   - Remove PostgreSQL port mapping from docker-compose.yml
+   - Remove PostgreSQL port mapping from compose.yaml
 
 3. **Enable HTTPS**
    - Configure SSL certificates in Tomcat

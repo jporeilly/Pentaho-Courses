@@ -1,7 +1,7 @@
 services:
   # HashiCorp Vault for Secrets Management
   vault:
-    image: hashicorp/vault:1.15
+    image: docker.io/hashicorp/vault:1.15
     container_name: pentaho-vault
     hostname: vault
     restart: unless-stopped
@@ -40,14 +40,17 @@ services:
         reservations:
           memory: 256M
 
-  # Vault Initialization (runs once)
+  # Vault Initialization: initializes Vault on the first run, unseals it on
+  # every later one. Podman starts it again with each start of pentaho-server.
+  #
+  # No depends_on here: vault-init.sh waits for Vault itself. Podman 4.9
+  # (Ubuntu 24.04's) cannot start a container whose dependency has exited
+  # while that dependency's own dependency is still running, which is what
+  # pentaho-server -> vault-init -> vault would be once this job ends.
   vault-init:
-    image: hashicorp/vault:1.15
+    image: docker.io/hashicorp/vault:1.15
     container_name: pentaho-vault-init
     user: root
-    depends_on:
-      vault:
-        condition: service_healthy
     environment:
       VAULT_ADDR: http://vault:8200
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-password}
@@ -63,7 +66,7 @@ services:
 
   # PostgreSQL Database with Pentaho Repository
   postgres:
-    image: postgres:15
+    image: docker.io/library/postgres:15
     container_name: pentaho-postgres
     hostname: repository
     restart: unless-stopped
@@ -109,8 +112,8 @@ services:
   # Pentaho Server
   pentaho-server:
     build:
-      context: ./docker
-      dockerfile: Dockerfile
+      context: ./image
+      dockerfile: Containerfile
       args:
         PENTAHO_VERSION: ${PENTAHO_VERSION:-11.0.0.0-237}
         PENTAHO_INSTALLER_NAME: pentaho-server-ee
@@ -120,6 +123,8 @@ services:
     restart: unless-stopped
     depends_on:
       postgres:
+        condition: service_healthy
+      vault:
         condition: service_healthy
       vault-init:
         condition: service_completed_successfully
@@ -137,9 +142,13 @@ services:
     volumes:
       # Configuration overrides (processed by entrypoint)
       - ./softwareOverride:/docker-entrypoint-init:ro
-      # User configuration directories
-      - ./config/.kettle:/home/pentaho/.kettle
-      - ./config/.pentaho:/home/pentaho/.pentaho
+      # User configuration directories. :U hands each folder to the user the
+      # server runs as (pentaho, UID 5000): rootless Podman shows a host folder
+      # as root inside the container, and the server could not write it, nor
+      # save a license to ~/.pentaho. On the host, the files then belong to
+      # that user's mapped ID; read or edit them with `podman unshare`.
+      - ./config/.kettle:/home/pentaho/.kettle:U
+      - ./config/.pentaho:/home/pentaho/.pentaho:U
       # Named volumes for data persistence
       - pentaho_solutions:/opt/pentaho/pentaho-server/pentaho-solutions
       - pentaho_data:/opt/pentaho/pentaho-server/data

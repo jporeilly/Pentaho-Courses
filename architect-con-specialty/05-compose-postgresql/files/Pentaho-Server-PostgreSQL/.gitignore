@@ -4,9 +4,9 @@
 .env.*.local
 
 # Pentaho Server ZIP (user must provide)
-docker/stagedArtifacts/*.zip
-docker/stagedArtifacts/*.tar
-docker/stagedArtifacts/*.tar.gz
+image/stagedArtifacts/*.zip
+image/stagedArtifacts/*.tar
+image/stagedArtifacts/*.tar.gz
 
 # Logs
 *.log

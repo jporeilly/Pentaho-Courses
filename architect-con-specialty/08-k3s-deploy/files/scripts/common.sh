@@ -313,7 +313,7 @@ trap run_cleanup EXIT INT TERM
 # Check if a port is in use
 port_is_available() {
     local port=$1
-    ! lsof -i ":$port" &> /dev/null && ! netstat -tuln 2>/dev/null | grep -q ":$port "
+    ! lsof -i ":$port" &> /dev/null && ! netstat -tuln 2>/dev/null | grep ":$port " > /dev/null
 }
 
 # Find an available port starting from a base port

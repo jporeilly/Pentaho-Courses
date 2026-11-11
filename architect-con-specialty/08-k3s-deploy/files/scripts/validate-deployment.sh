@@ -91,7 +91,7 @@ echo -e "\n${YELLOW}[2/6] Checking Pods${NC}"
 
 # PostgreSQL Pod
 # The PostgreSQL pod hosts all three Pentaho repository databases
-if kubectl get pod -l app=postgres -n ${NAMESPACE} -o jsonpath='{.items[0].status.phase}' 2>/dev/null | grep -q Running; then
+if kubectl get pod -l app=postgres -n ${NAMESPACE} -o jsonpath='{.items[0].status.phase}' 2>/dev/null | grep Running > /dev/null; then
     echo -e "${GREEN}✓${NC} PostgreSQL pod is running"
 else
     echo -e "${RED}✗${NC} PostgreSQL pod is NOT running"

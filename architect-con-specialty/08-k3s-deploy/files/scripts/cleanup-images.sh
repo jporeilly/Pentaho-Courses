@@ -1,12 +1,12 @@
 #!/bin/bash
 # =============================================================================
-# Docker and K3s Image Cleanup Script
+# Podman and K3s Image Cleanup Script
 # =============================================================================
-# Purges Docker images and K3s containerd cache
+# Purges Podman images and K3s containerd cache
 #
 # This script removes:
-#   - Docker images (Pentaho and/or all)
-#   - Docker build cache
+#   - Podman images (Pentaho and/or all)
+#   - Podman build cache
 #   - K3s containerd images
 #   - K3s containerd cache
 #   - Dangling/unused images
@@ -15,8 +15,8 @@
 #   ./scripts/cleanup-images.sh [OPTIONS]
 #
 # Options:
-#   --docker-only      Only clean Docker (skip K3s)
-#   --k3s-only         Only clean K3s (skip Docker)
+#   --podman-only      Only clean Podman (skip K3s)
+#   --k3s-only         Only clean K3s (skip Podman)
 #   --pentaho-only     Only remove Pentaho images (not all)
 #   --all              Remove all images (dangerous!)
 #   --prune            Deep clean - remove all unused images
@@ -42,7 +42,7 @@ source "${SCRIPT_DIR}/common.sh"
 # Configuration
 # =============================================================================
 
-DOCKER_ONLY=false
+PODMAN_ONLY=false
 K3S_ONLY=false
 PENTAHO_ONLY=false
 ALL_IMAGES=false
@@ -59,13 +59,13 @@ K3S_IMAGE_PATTERN="pentaho/pentaho-server"
 
 show_help() {
     cat << EOF
-Docker and K3s Image Cleanup Script
+Podman and K3s Image Cleanup Script
 
 Usage: $0 [OPTIONS]
 
 Options:
-  --docker-only      Only clean Docker (skip K3s)
-  --k3s-only         Only clean K3s (skip Docker)
+  --podman-only      Only clean Podman (skip K3s)
+  --k3s-only         Only clean K3s (skip Podman)
   --pentaho-only     Only remove Pentaho images (default)
   --all              Remove ALL images (use with caution!)
   --prune            Deep clean - remove all unused images and build cache
@@ -77,7 +77,7 @@ Examples:
   $0                           # Interactive, Pentaho only
   $0 --pentaho-only            # Remove only Pentaho images
   $0 --all --force             # Remove ALL images without confirmation
-  $0 --docker-only --prune     # Deep clean Docker only
+  $0 --podman-only --prune     # Deep clean Podman only
   $0 --dry-run                 # Preview what would be deleted
 
 Safety:
@@ -92,8 +92,8 @@ EOF
 
 while [[ $# -gt 0 ]]; do
     case $1 in
-        --docker-only)
-            DOCKER_ONLY=true
+        --podman-only|--docker-only)
+            PODMAN_ONLY=true
             shift
             ;;
         --k3s-only)
@@ -137,8 +137,8 @@ if [[ "${PENTAHO_ONLY}" == "false" ]] && [[ "${ALL_IMAGES}" == "false" ]]; then
 fi
 
 # Validate conflicting options
-if [[ "${DOCKER_ONLY}" == "true" ]] && [[ "${K3S_ONLY}" == "true" ]]; then
-    log_error "Cannot use both --docker-only and --k3s-only"
+if [[ "${PODMAN_ONLY}" == "true" ]] && [[ "${K3S_ONLY}" == "true" ]]; then
+    log_error "Cannot use both --podman-only and --k3s-only"
     exit 1
 fi
 
@@ -151,11 +151,11 @@ fi
 # Display Configuration
 # =============================================================================
 
-print_header "Docker and K3s Image Cleanup"
+print_header "Podman and K3s Image Cleanup"
 
 echo "Configuration:"
-echo "  Docker cleanup:    $([ "${DOCKER_ONLY}" = "true" ] || [ "${K3S_ONLY}" = "false" ] && echo "Yes" || echo "No")"
-echo "  K3s cleanup:       $([ "${K3S_ONLY}" = "true" ] || [ "${DOCKER_ONLY}" = "false" ] && echo "Yes" || echo "No")"
+echo "  Podman cleanup:    $([ "${PODMAN_ONLY}" = "true" ] || [ "${K3S_ONLY}" = "false" ] && echo "Yes" || echo "No")"
+echo "  K3s cleanup:       $([ "${K3S_ONLY}" = "true" ] || [ "${PODMAN_ONLY}" = "false" ] && echo "Yes" || echo "No")"
 echo "  Target:            $([ "${PENTAHO_ONLY}" = "true" ] && echo "Pentaho images only" || echo "ALL images")"
 echo "  Deep clean:        $([ "${PRUNE}" = "true" ] && echo "Yes" || echo "No")"
 echo "  Mode:              $([ "${DRY_RUN}" = "true" ] && echo "DRY RUN (no changes)" || echo "LIVE (will delete)")"
@@ -185,29 +185,29 @@ if [[ "${FORCE}" == "false" ]] && [[ "${DRY_RUN}" == "false" ]]; then
 fi
 
 # =============================================================================
-# Docker Cleanup
+# Podman Cleanup
 # =============================================================================
 
 if [[ "${K3S_ONLY}" == "false" ]]; then
-    print_header "Docker Cleanup"
+    print_header "Podman Cleanup"
 
-    # Check if Docker is available
-    if ! command_exists docker; then
-        log_warning "Docker not found - skipping Docker cleanup"
+    # Check if Podman is available
+    if ! command_exists podman; then
+        log_warning "Podman not found - skipping Podman cleanup"
     else
         # List current images
-        print_step "Current Docker images:"
-        docker images
+        print_step "Current Podman images:"
+        podman images
         echo ""
 
         # Remove Pentaho images
         if [[ "${PENTAHO_ONLY}" == "true" ]]; then
-            print_step "Removing Pentaho Docker images..."
+            print_step "Removing Pentaho Podman images..."
 
-            PENTAHO_IMAGES=$(docker images --format "{{.Repository}}:{{.Tag}}" | grep -i "${PENTAHO_IMAGE_PATTERN}" || true)
+            PENTAHO_IMAGES=$(podman images --format "{{.Repository}}:{{.Tag}}" | grep -i "${PENTAHO_IMAGE_PATTERN}" || true)
 
             if [[ -z "${PENTAHO_IMAGES}" ]]; then
-                print_info "No Pentaho images found in Docker"
+                print_info "No Pentaho images found in Podman"
             else
                 IMAGE_COUNT=$(echo "${PENTAHO_IMAGES}" | wc -l)
                 log_info "Found ${IMAGE_COUNT} Pentaho image(s)"
@@ -218,38 +218,38 @@ if [[ "${K3S_ONLY}" == "false" ]]; then
                 else
                     echo "${PENTAHO_IMAGES}" | while read -r image; do
                         log_info "Removing: ${image}"
-                        docker rmi "${image}" || log_warning "Failed to remove ${image}"
+                        podman rmi "${image}" || log_warning "Failed to remove ${image}"
                     done
-                    print_success "Pentaho images removed from Docker"
+                    print_success "Pentaho images removed from Podman"
                 fi
             fi
         fi
 
         # Remove ALL images
         if [[ "${ALL_IMAGES}" == "true" ]]; then
-            print_step "Removing ALL Docker images..."
+            print_step "Removing ALL Podman images..."
 
-            ALL_IMAGE_IDS=$(docker images -q)
+            ALL_IMAGE_IDS=$(podman images -q)
 
             if [[ -z "${ALL_IMAGE_IDS}" ]]; then
-                print_info "No Docker images found"
+                print_info "No Podman images found"
             else
                 IMAGE_COUNT=$(echo "${ALL_IMAGE_IDS}" | wc -l)
                 log_warning "Found ${IMAGE_COUNT} image(s) to remove"
 
                 if [[ "${DRY_RUN}" == "true" ]]; then
                     echo "Would remove all images:"
-                    docker images
+                    podman images
                 else
-                    docker rmi -f ${ALL_IMAGE_IDS} || log_warning "Some images could not be removed"
-                    print_success "All Docker images removed"
+                    podman rmi -f ${ALL_IMAGE_IDS} || log_warning "Some images could not be removed"
+                    print_success "All Podman images removed"
                 fi
             fi
         fi
 
         # Remove dangling images
-        print_step "Removing dangling Docker images..."
-        DANGLING=$(docker images -f "dangling=true" -q)
+        print_step "Removing dangling Podman images..."
+        DANGLING=$(podman images -f "dangling=true" -q)
 
         if [[ -z "${DANGLING}" ]]; then
             print_info "No dangling images found"
@@ -257,38 +257,38 @@ if [[ "${K3S_ONLY}" == "false" ]]; then
             if [[ "${DRY_RUN}" == "true" ]]; then
                 echo "Would remove $(echo "${DANGLING}" | wc -l) dangling image(s)"
             else
-                docker rmi ${DANGLING} || log_warning "Some dangling images could not be removed"
+                podman rmi ${DANGLING} || log_warning "Some dangling images could not be removed"
                 print_success "Dangling images removed"
             fi
         fi
 
-        # Prune Docker system
+        # Prune Podman system
         if [[ "${PRUNE}" == "true" ]]; then
-            print_step "Pruning Docker system (unused images, containers, networks, build cache)..."
+            print_step "Pruning Podman system (unused images, containers, networks, build cache)..."
 
             if [[ "${DRY_RUN}" == "true" ]]; then
-                docker system df
+                podman system df
                 echo ""
-                echo "Would run: docker system prune -a --volumes"
+                echo "Would run: podman system prune -a --volumes"
             else
                 if [[ "${FORCE}" == "true" ]]; then
-                    docker system prune -a --volumes -f
+                    podman system prune -a --volumes -f
                 else
-                    docker system prune -a --volumes
+                    podman system prune -a --volumes
                 fi
-                print_success "Docker system pruned"
+                print_success "Podman system pruned"
             fi
         fi
 
         # Show remaining images
         echo ""
-        print_step "Remaining Docker images:"
-        docker images
+        print_step "Remaining Podman images:"
+        podman images
         echo ""
 
         # Show disk usage
-        print_step "Docker disk usage:"
-        docker system df
+        print_step "Podman disk usage:"
+        podman system df
         echo ""
     fi
 fi
@@ -297,7 +297,7 @@ fi
 # K3s Cleanup
 # =============================================================================
 
-if [[ "${DOCKER_ONLY}" == "false" ]]; then
+if [[ "${PODMAN_ONLY}" == "false" ]]; then
     print_header "K3s Cleanup"
 
     # Check if K3s is available
@@ -430,10 +430,10 @@ echo "Next steps:"
 
 if [[ "${PENTAHO_ONLY}" == "true" ]]; then
     echo "  1. Rebuild Pentaho image:"
-    echo "     cd docker-build && ./build.sh"
+    echo "     cd pentaho-image && ./build.sh"
     echo ""
     echo "  2. Load into K3s:"
-    echo "     docker save pentaho/pentaho-server:11.0.0.0-237 | sudo k3s ctr images import -"
+    echo "     podman save pentaho/pentaho-server:11.0.0.0-237 | sudo k3s ctr images import -"
     echo ""
 fi
 
@@ -447,7 +447,7 @@ if [[ "${ALL_IMAGES}" == "true" ]] || [[ "${PRUNE}" == "true" ]]; then
 fi
 
 echo "  3. Check remaining disk usage:"
-echo "     docker system df"
+echo "     podman system df"
 echo "     sudo du -sh /var/lib/rancher/k3s/agent/containerd"
 echo ""
 

@@ -36,13 +36,13 @@ This chart includes comprehensive documentation:
 
 **For comprehensive deployment instructions, see [DEPLOYMENT-GUIDE.md](DEPLOYMENT-GUIDE.md)**
 
-### 1. Add the Pentaho Docker Image
+### 1. Add the Pentaho Container Image
 
-Build or import the Pentaho Docker image to your cluster:
+Build or import the Pentaho container image to your cluster:
 
 ```bash
 # If using K3s
-cd ../docker-build
+cd ../pentaho-image
 ./build.sh
 sudo k3s ctr images import pentaho-server-11.0.0.0-237.tar
 
@@ -92,7 +92,7 @@ Then open: http://localhost:8080/pentaho
 | `global.namespace` | Namespace to deploy into | `pentaho` |
 | `global.timezone` | Timezone for all components | `America/New_York` |
 | `global.storageClass` | Storage class for PVCs | `local-path` |
-| `pentaho.image.repository` | Pentaho image repository | `pentaho/pentaho-server` |
+| `pentaho.image.repository` | Pentaho image repository | `localhost/pentaho/pentaho-server` |
 | `pentaho.image.tag` | Pentaho image tag | `11.0.0.0-237` |
 | `pentaho.replicas` | Number of Pentaho replicas | `1` |
 | `pentaho.resources.requests.memory` | Pentaho minimum memory | `2Gi` |
@@ -187,7 +187,7 @@ global:
 pentaho:
   enabled: true
   image:
-    repository: pentaho/pentaho-server
+    repository: localhost/pentaho/pentaho-server
     tag: 11.0.0.0-237
     pullPolicy: IfNotPresent
   replicas: 1

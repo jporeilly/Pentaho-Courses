@@ -1,4 +1,4 @@
-# Building Pentaho Server Docker Image for K3s
+# Building Pentaho Server Container Image for K3s
 
 ## Table of Contents
 
@@ -6,7 +6,7 @@
 2. [Quick Start](#quick-start)
 3. [Directory Structure](#directory-structure)
 4. [Prerequisites](#prerequisites)
-5. [Dockerfile Features](#dockerfile-features)
+5. [Containerfile Features](#dockerfile-features)
 6. [Build Arguments](#build-arguments)
 7. [Environment Variables](#environment-variables)
 8. [Building the Image](#building-the-image)
@@ -24,7 +24,7 @@
 
 ## Introduction
 
-This directory contains a **production-ready Docker image build system** for Pentaho Business Analytics Server 11.0.0.0-237 (Enterprise Edition), designed specifically for K3s deployment.
+This directory contains a **production-ready container image build system** for Pentaho Business Analytics Server 11.0.0.0-237 (Enterprise Edition), designed specifically for K3s deployment.
 
 ### Why Build Your Own Image?
 
@@ -37,7 +37,7 @@ This directory contains a **production-ready Docker image build system** for Pen
 
 ### What's Included
 
-- 🐳 **Production Dockerfile**: Multi-stage build with security best practices
+- 🐳 **Production Containerfile**: Multi-stage build with security best practices
 - 🛠️ **Automated Build Script**: `build.sh` with validation and testing
 - 🚀 **Entrypoint Scripts**: Intelligent startup with configuration overlay
 - 📦 **Plugin Support**: Automatic detection and installation (PAZ, PIR, PDD)
@@ -48,7 +48,7 @@ This directory contains a **production-ready Docker image build system** for Pen
 ✅ **Security**: Non-root user (pentaho, UID 5000)
 ✅ **Performance**: Optimized multi-stage build (~2.0-2.2 GB)
 ✅ **Flexibility**: Support for CE/EE, with/without demo content
-✅ **Production-Ready**: Based on battle-tested Docker Compose implementation
+✅ **Production-Ready**: Based on battle-tested Podman Compose implementation
 ✅ **K3s Optimized**: Direct integration with project manifests
 
 ---
@@ -60,7 +60,7 @@ This directory contains a **production-ready Docker image build system** for Pen
 ### 1. Place Pentaho Package
 
 ```bash
-cd docker-build
+cd pentaho-image
 
 # Copy your Pentaho ZIP to stagedArtifacts/
 cp /path/to/pentaho-server-ee-11.0.0.0-237.zip stagedArtifacts/
@@ -97,22 +97,22 @@ chmod +x build.sh
 ./build.sh -v 11.0.0.0-237 -e ee
 ```
 
-**Option C: Direct Docker Build**
+**Option C: Direct Image Build**
 ```bash
-docker build -t pentaho/pentaho-server:11.0.0.0-237 .
+podman build -t pentaho/pentaho-server:11.0.0.0-237 .
 ```
 
 ### 3. Test the Image
 
 ```bash
 # Run test container
-docker run -d \
+podman run -d \
     --name pentaho-test \
     -p 8080:8080 \
     pentaho/pentaho-server:11.0.0.0-237
 
 # Watch logs (startup takes 3-5 minutes)
-docker logs -f pentaho-test
+podman logs -f pentaho-test
 
 # Access: http://localhost:8080/pentaho
 # Credentials: admin / password
@@ -122,11 +122,11 @@ docker logs -f pentaho-test
 
 ```bash
 # Option A: Load directly into K3s
-docker save pentaho/pentaho-server:11.0.0.0-237 | sudo k3s ctr images import -
+podman save pentaho/pentaho-server:11.0.0.0-237 | sudo k3s ctr images import -
 
 # Option B: Push to registry and update deployment
-docker tag pentaho/pentaho-server:11.0.0.0-237 registry.company.com/pentaho:11.0
-docker push registry.company.com/pentaho:11.0
+podman tag pentaho/pentaho-server:11.0.0.0-237 registry.company.com/pentaho:11.0
+podman push registry.company.com/pentaho:11.0
 
 kubectl set image deployment/pentaho-server \
     pentaho-server=registry.company.com/pentaho:11.0 \
@@ -138,10 +138,10 @@ kubectl set image deployment/pentaho-server \
 ## Directory Structure
 
 ```
-docker-build/
-├── Dockerfile                      # Production multi-stage Dockerfile
+pentaho-image/
+├── Containerfile                      # Production multi-stage Containerfile
 ├── build.sh                        # Automated build script with validation
-├── .dockerignore                   # Build context exclusions
+├── .containerignore                   # Build context exclusions
 ├── README.md                       # This comprehensive guide
 ├── entrypoint/
 │   └── docker-entrypoint.sh       # Container startup script
@@ -161,8 +161,8 @@ docker-build/
 
 | Software | Version | Purpose |
 |----------|---------|---------|
-| **Docker** | 20.x or higher | Building and running images |
-| **Docker Buildx** | Latest | Multi-platform builds (optional) |
+| **Podman** | 4.9 or higher (Ubuntu 24.04's) | Building and running images, rootless |
+| **podman-compose** | 1.0.6 or higher | `podman compose` for the smoke test |
 | **K3s** | 1.27+ | Kubernetes deployment (optional) |
 | **wget/curl** | Any | Downloading Pentaho (if needed) |
 | **unzip** | Any | Extracting archives locally (optional) |
@@ -175,24 +175,19 @@ docker-build/
 | **Disk Space** | 10 GB free | 20 GB free |
 | **CPU** | 2 cores | 4+ cores |
 
-### Install Docker
+### Install Podman
 
 ```bash
-# Ubuntu/Debian
+# Ubuntu 24.04
 sudo apt update
-sudo apt install -y docker.io
+sudo apt install -y podman podman-compose
 
-# Start and enable Docker
-sudo systemctl start docker
-sudo systemctl enable docker
-
-# Add user to docker group (no sudo required)
-sudo usermod -aG docker $USER
-newgrp docker
+# Podman has no daemon to start and no group to join: it runs
+# containers as your own user (rootless).
 
 # Verify installation
-docker --version
-docker run hello-world
+podman --version
+podman run --rm docker.io/library/hello-world
 ```
 
 ### Obtaining Pentaho Server
@@ -213,11 +208,11 @@ mv pentaho-server-ce-11.0.0.0-237.zip stagedArtifacts/
 
 ---
 
-## Dockerfile Features
+## Containerfile Features
 
 ### Multi-Stage Build Architecture
 
-The Dockerfile uses a **2-stage build** for optimal image size and security:
+The Containerfile uses a **2-stage build** for optimal image size and security:
 
 #### Stage 1: install_unpack
 **Purpose**: Extracts and prepares Pentaho Server
@@ -302,16 +297,16 @@ Control the build process with these arguments:
 
 ```bash
 # Specify version
-docker build --build-arg PENTAHO_VERSION=11.0.0.0-237 -t pentaho-server:11.0 .
+podman build --build-arg PENTAHO_VERSION=11.0.0.0-237 -t pentaho-server:11.0 .
 
 # Include demo content
-docker build --build-arg IS_DEMO=1 -t pentaho-server:demo .
+podman build --build-arg IS_DEMO=1 -t pentaho-server:demo .
 
 # Community Edition
-docker build --build-arg PENTAHO_INSTALLER_NAME=pentaho-server-ce -t pentaho-server-ce:11.0 .
+podman build --build-arg PENTAHO_INSTALLER_NAME=pentaho-server-ce -t pentaho-server-ce:11.0 .
 
 # Custom base image
-docker build \
+podman build \
     --build-arg UNPACK_BUILD_IMAGE=ubuntu:24.04 \
     --build-arg PACK_BUILD_IMAGE=ubuntu:24.04 \
     -t pentaho-server:ubuntu .
@@ -323,7 +318,7 @@ docker build \
 
 ### Overview
 
-The `.env` configuration file provides a **centralized way to manage all build and runtime settings**, similar to the Docker Compose deployment. This approach is recommended for:
+The `.env` configuration file provides a **centralized way to manage all build and runtime settings**, similar to the Podman Compose deployment. This approach is recommended for:
 
 - **Production environments**: Consistent builds across teams
 - **CI/CD pipelines**: Version-controlled configuration
@@ -420,8 +415,8 @@ RUN_TESTS=true
 
 The `build.sh` script reads the `.env` file and:
 
-1. ✅ **Validates prerequisites** (Docker, files)
-2. ✅ **Builds Docker image** with configured settings
+1. ✅ **Validates prerequisites** (Podman, files)
+2. ✅ **Builds container image** with configured settings
 3. ✅ **Runs tests** (if enabled)
 4. ✅ **Pushes to registry** (if enabled)
 5. ✅ **Loads into K3s** (if enabled)
@@ -461,7 +456,7 @@ nano .env  # Set LOAD_INTO_K3S=true, LICENSE_URL, etc.
 
 ### Security Notes
 
-⚠️ **Important**: The `.env` file is already in `.dockerignore` and should **NEVER** contain:
+⚠️ **Important**: The `.env` file is already in `.containerignore` and should **NEVER** contain:
 - Database passwords (use Kubernetes Secrets)
 - API keys
 - Private keys or certificates
@@ -474,7 +469,7 @@ Use `.env` for build-time configuration only. Runtime secrets go in Kubernetes S
 
 **Quick Reference** in `.env.example`:
 - Build platforms (amd64, arm64)
-- BuildKit settings
+- Build settings
 - Custom base images
 - Notification webhooks
 - CI/CD integration
@@ -540,9 +535,9 @@ LICENSE_URL=http://...                  # License file URL (EE only)
 
 ### Setting Variables at Runtime
 
-**Docker:**
+**Podman:**
 ```bash
-docker run -d \
+podman run -d \
     -e PENTAHO_MIN_MEMORY=4096m \
     -e PENTAHO_MAX_MEMORY=8192m \
     -e DB_HOST=postgres \
@@ -595,7 +590,7 @@ chmod +x build.sh
 ```
 
 **build.sh Features:**
-- ✅ Validates Docker installation
+- ✅ Validates the Podman installation
 - ✅ Checks for required files in stagedArtifacts/
 - ✅ Detects plugins automatically
 - ✅ Confirms build before proceeding
@@ -604,19 +599,16 @@ chmod +x build.sh
 - ✅ Optionally pushes to registry
 - ✅ Displays next steps
 
-### Method 2: Direct Docker Build
+### Method 2: Direct Image Build
 
-For more control, use `docker build` directly:
+For more control, use `podman build` directly:
 
 ```bash
 # Basic build
-docker build -t pentaho/pentaho-server:11.0.0.0-237 .
-
-# Build with progress output
-docker build --progress=plain -t pentaho/pentaho-server:11.0.0.0-237 .
+podman build -t pentaho/pentaho-server:11.0.0.0-237 .
 
 # With specific version and metadata
-docker build \
+podman build \
     --build-arg PENTAHO_VERSION=11.0.0.0-237 \
     --label version=11.0.0.0-237 \
     --label edition=ee \
@@ -624,21 +616,14 @@ docker build \
     -t pentaho/pentaho-server:11.0.0.0-237 \
     .
 
-# Multi-platform build
-docker buildx create --name multiplatform
-docker buildx use multiplatform
-
-docker buildx build \
+# Multi-platform build: Podman builds each platform into one manifest list
+# (cross-platform builds need qemu-user-static on the host)
+podman build \
     --platform linux/amd64,linux/arm64 \
-    -t pentaho/pentaho-server:11.0.0.0-237 \
-    --push \
+    --manifest pentaho/pentaho-server:11.0.0.0-237 \
     .
-
-# With BuildKit for better performance
-DOCKER_BUILDKIT=1 docker build \
-    --cache-from pentaho/pentaho-server:latest \
-    -t pentaho/pentaho-server:11.0.0.0-237 \
-    .
+podman manifest push pentaho/pentaho-server:11.0.0.0-237 \
+    docker://registry.example.com/pentaho/pentaho-server:11.0.0.0-237
 ```
 
 ### Building for Different Editions
@@ -646,7 +631,7 @@ DOCKER_BUILDKIT=1 docker build \
 #### Enterprise Edition (Default)
 
 ```bash
-docker build \
+podman build \
     --build-arg PENTAHO_VERSION=11.0.0.0-237 \
     --build-arg PENTAHO_INSTALLER_NAME=pentaho-server-ee \
     -t pentaho/pentaho-server-ee:11.0.0.0-237 \
@@ -656,7 +641,7 @@ docker build \
 #### Community Edition
 
 ```bash
-docker build \
+podman build \
     --build-arg PENTAHO_VERSION=11.0.0.0-237 \
     --build-arg PENTAHO_INSTALLER_NAME=pentaho-server-ce \
     -t pentaho/pentaho-server-ce:11.0.0.0-237 \
@@ -666,7 +651,7 @@ docker build \
 #### With Demo Content
 
 ```bash
-docker build \
+podman build \
     --build-arg IS_DEMO=1 \
     --build-arg PENTAHO_VERSION=11.0.0.0-237 \
     -t pentaho/pentaho-server:11.0.0.0-237-demo \
@@ -677,7 +662,7 @@ docker build \
 
 ## Plugin Support
 
-The Dockerfile automatically detects and installs optional Pentaho plugins placed in `stagedArtifacts/`.
+The Containerfile automatically detects and installs optional Pentaho plugins placed in `stagedArtifacts/`.
 
 ### Supported Plugins
 
@@ -705,7 +690,7 @@ cp /path/to/pdd-plugin-ee-11.0.0.0-237.zip .
 ls -lh
 ```
 
-**Auto-Detection**: During build, the Dockerfile automatically:
+**Auto-Detection**: During build, the Containerfile automatically:
 1. Detects presence of plugin ZIPs
 2. Extracts plugins to temporary directory
 3. Moves plugin files to Pentaho system directory
@@ -715,13 +700,13 @@ ls -lh
 **Manual Installation** (if needed after build):
 ```bash
 # Copy plugin to running container
-docker cp paz-plugin-ee-11.0.0.0-237.zip pentaho-test:/tmp/
+podman cp paz-plugin-ee-11.0.0.0-237.zip pentaho-test:/tmp/
 
 # Extract in container
-docker exec pentaho-test bash -c "cd /tmp && unzip paz-plugin-ee-11.0.0.0-237.zip -d /opt/pentaho/pentaho-server/pentaho-solutions/system/"
+podman exec pentaho-test bash -c "cd /tmp && unzip paz-plugin-ee-11.0.0.0-237.zip -d /opt/pentaho/pentaho-server/pentaho-solutions/system/"
 
 # Restart container
-docker restart pentaho-test
+podman restart pentaho-test
 ```
 
 ---
@@ -732,7 +717,7 @@ docker restart pentaho-test
 
 ```bash
 # Start container
-docker run -d \
+podman run -d \
     --name pentaho-test \
     -p 8080:8080 \
     -e PENTAHO_MIN_MEMORY=2048m \
@@ -740,7 +725,7 @@ docker run -d \
     pentaho/pentaho-server:11.0.0.0-237
 
 # Follow logs (startup takes 3-5 minutes)
-docker logs -f pentaho-test
+podman logs -f pentaho-test
 
 # Look for successful startup message:
 # "Server startup in [XXXXX] milliseconds"
@@ -754,8 +739,8 @@ xdg-open http://localhost:8080/pentaho
 # Or on Mac: open http://localhost:8080/pentaho
 
 # Cleanup
-docker stop pentaho-test
-docker rm pentaho-test
+podman stop pentaho-test
+podman rm pentaho-test
 ```
 
 **Default Credentials:**
@@ -766,7 +751,7 @@ docker rm pentaho-test
 
 ```bash
 # Start PostgreSQL
-docker run -d \
+podman run -d \
     --name postgres-test \
     -e POSTGRES_PASSWORD=password \
     -p 5432:5432 \
@@ -776,10 +761,10 @@ docker run -d \
 sleep 10
 
 # Initialize databases (run init scripts)
-docker exec -i postgres-test psql -U postgres < ../manifests/configmaps/postgres-init.yaml
+podman exec -i postgres-test psql -U postgres < ../manifests/configmaps/postgres-init.yaml
 
 # Start Pentaho linked to PostgreSQL
-docker run -d \
+podman run -d \
     --name pentaho-test \
     --link postgres-test:postgres \
     -p 8080:8080 \
@@ -789,43 +774,43 @@ docker run -d \
     pentaho/pentaho-server:11.0.0.0-237
 
 # Watch logs
-docker logs -f pentaho-test
+podman logs -f pentaho-test
 
 # Cleanup
-docker stop pentaho-test postgres-test
-docker rm pentaho-test postgres-test
+podman stop pentaho-test postgres-test
+podman rm pentaho-test postgres-test
 ```
 
 ### Test 3: Verify Internal Components
 
 ```bash
 # Check Java version
-docker exec pentaho-test java -version
+podman exec pentaho-test java -version
 
 # List Pentaho files
-docker exec pentaho-test ls -la /opt/pentaho/pentaho-server
+podman exec pentaho-test ls -la /opt/pentaho/pentaho-server
 
 # Check running processes
-docker exec pentaho-test ps aux | grep java
+podman exec pentaho-test ps aux | grep java
 
 # Check disk usage
-docker exec pentaho-test df -h
+podman exec pentaho-test df -h
 
 # Check memory
-docker exec pentaho-test free -h
+podman exec pentaho-test free -h
 
 # Check logs
-docker exec pentaho-test tail -100 /opt/pentaho/pentaho-server/tomcat/logs/catalina.out
+podman exec pentaho-test tail -100 /opt/pentaho/pentaho-server/tomcat/logs/catalina.out
 ```
 
 ### Test 4: Health Check
 
 ```bash
 # Check container health status
-docker inspect pentaho-test | grep -A5 Health
+podman inspect pentaho-test | grep -A5 Health
 
 # Manual health check
-docker exec pentaho-test curl -f http://localhost:8080/pentaho/Login
+podman exec pentaho-test curl -f http://localhost:8080/pentaho/Login
 
 # Expected: HTTP 200 OK
 ```
@@ -834,7 +819,7 @@ docker exec pentaho-test curl -f http://localhost:8080/pentaho/Login
 
 ```bash
 # Load image into K3s
-docker save pentaho/pentaho-server:11.0.0.0-237 | sudo k3s ctr images import -
+podman save pentaho/pentaho-server:11.0.0.0-237 | sudo k3s ctr images import -
 
 # Verify image is loaded
 sudo k3s ctr images ls | grep pentaho
@@ -862,29 +847,29 @@ kubectl logs -f deployment/pentaho-server -n pentaho
 
 ```bash
 # Login
-docker login
+podman login
 
 # Tag image
-docker tag pentaho/pentaho-server:11.0.0.0-237 your-username/pentaho-server:11.0.0.0-237
-docker tag pentaho/pentaho-server:11.0.0.0-237 your-username/pentaho-server:latest
+podman tag pentaho/pentaho-server:11.0.0.0-237 your-username/pentaho-server:11.0.0.0-237
+podman tag pentaho/pentaho-server:11.0.0.0-237 your-username/pentaho-server:latest
 
 # Push
-docker push your-username/pentaho-server:11.0.0.0-237
-docker push your-username/pentaho-server:latest
+podman push your-username/pentaho-server:11.0.0.0-237
+podman push your-username/pentaho-server:latest
 ```
 
 ### Private Harbor Registry
 
 ```bash
 # Login
-docker login harbor.company.com
+podman login harbor.company.com
 
 # Tag
-docker tag pentaho/pentaho-server:11.0.0.0-237 \
+podman tag pentaho/pentaho-server:11.0.0.0-237 \
     harbor.company.com/pentaho/pentaho-server:11.0.0.0-237
 
 # Push
-docker push harbor.company.com/pentaho/pentaho-server:11.0.0.0-237
+podman push harbor.company.com/pentaho/pentaho-server:11.0.0.0-237
 ```
 
 ### AWS ECR
@@ -895,7 +880,7 @@ sudo apt install awscli
 
 # Login to ECR
 aws ecr get-login-password --region us-east-1 | \
-    docker login --username AWS --password-stdin \
+    podman login --username AWS --password-stdin \
     123456789012.dkr.ecr.us-east-1.amazonaws.com
 
 # Create repository (if not exists)
@@ -904,25 +889,25 @@ aws ecr create-repository \
     --region us-east-1
 
 # Tag
-docker tag pentaho/pentaho-server:11.0.0.0-237 \
+podman tag pentaho/pentaho-server:11.0.0.0-237 \
     123456789012.dkr.ecr.us-east-1.amazonaws.com/pentaho/pentaho-server:11.0.0.0-237
 
 # Push
-docker push 123456789012.dkr.ecr.us-east-1.amazonaws.com/pentaho/pentaho-server:11.0.0.0-237
+podman push 123456789012.dkr.ecr.us-east-1.amazonaws.com/pentaho/pentaho-server:11.0.0.0-237
 ```
 
 ### Google Container Registry (GCR)
 
 ```bash
-# Configure Docker auth
-gcloud auth configure-docker
+# Sign Podman in to Google Container Registry
+gcloud auth print-access-token | podman login -u oauth2accesstoken --password-stdin gcr.io
 
 # Tag
-docker tag pentaho/pentaho-server:11.0.0.0-237 \
+podman tag pentaho/pentaho-server:11.0.0.0-237 \
     gcr.io/your-project-id/pentaho-server:11.0.0.0-237
 
 # Push
-docker push gcr.io/your-project-id/pentaho-server:11.0.0.0-237
+podman push gcr.io/your-project-id/pentaho-server:11.0.0.0-237
 ```
 
 ---
@@ -1000,7 +985,7 @@ spec:
 
 ```bash
 # Save image to tar file
-docker save pentaho/pentaho-server:11.0.0.0-237 -o pentaho-server.tar
+podman save pentaho/pentaho-server:11.0.0.0-237 -o pentaho-server.tar
 
 # Transfer to K3s node (if remote)
 scp pentaho-server.tar k3s-node:/tmp/
@@ -1047,15 +1032,15 @@ kubectl logs -f deployment/pentaho-server -n pentaho
 
 #### 1. Remove Unnecessary Files (Already Done)
 
-The Dockerfile already removes:
+The Containerfile already removes:
 - Demo content (when IS_DEMO=0)
 - Documentation files
 - Sample solutions
 - Temporary build files
 
-#### 2. Use .dockerignore
+#### 2. Use .containerignore
 
-The included `.dockerignore` excludes:
+The included `.containerignore` excludes:
 - Version control files (.git)
 - Documentation (*.md)
 - IDE files (.vscode, .idea)
@@ -1079,7 +1064,7 @@ RUN apt-get update && \
 
 #### 4. Remove Unnecessary Tomcat Webapps
 
-Add to Dockerfile stage 2 (after COPY):
+Add to Containerfile stage 2 (after COPY):
 
 ```dockerfile
 # Remove unnecessary Tomcat webapps
@@ -1092,16 +1077,16 @@ RUN rm -rf ${PENTAHO_SERVER_PATH}/tomcat/webapps/docs \
 ### Build Cache Optimization
 
 ```bash
-# Use BuildKit cache mounts
-DOCKER_BUILDKIT=1 docker build \
-    --cache-from pentaho/pentaho-server:latest \
-    --cache-to type=local,dest=/tmp/docker-cache \
-    --cache-from type=local,src=/tmp/docker-cache \
+# Reuse layers from a registry (Podman takes a repository for the cache)
+podman build \
+    --layers \
+    --cache-from registry.example.com/pentaho/cache \
+    --cache-to registry.example.com/pentaho/cache \
     -t pentaho/pentaho-server:11.0.0.0-237 \
     .
 
 # Use registry as cache
-docker buildx build \
+podman build \
     --cache-from type=registry,ref=your-registry/pentaho-cache \
     --cache-to type=registry,ref=your-registry/pentaho-cache,mode=max \
     -t pentaho/pentaho-server:11.0.0.0-237 \
@@ -1159,23 +1144,22 @@ ls -la stagedArtifacts/
 # Check version number matches PENTAHO_VERSION build arg
 ```
 
-### Issue 2: Permission Denied (Docker)
+### Issue 2: Podman Cannot Run Containers as Your User
 
 **Error:**
 ```
-permission denied while trying to connect to Docker daemon
+cannot find UID/GID for user ... : no subuid ranges found
 ```
 
 **Solution:**
 ```bash
-# Add user to docker group
-sudo usermod -aG docker $USER
-
-# Log out and back in, or:
-newgrp docker
+# Rootless Podman needs subordinate ID ranges for your user
+grep "^$USER:" /etc/subuid /etc/subgid || \
+    sudo usermod --add-subuids 100000-165535 --add-subgids 100000-165535 $USER
+podman system migrate
 
 # Verify
-docker ps
+podman info --format '{{.Host.Security.Rootless}}'
 ```
 
 ### Issue 3: Build Hangs at Unzip
@@ -1189,8 +1173,8 @@ docker ps
 # Be patient! Extraction can take 5-10 minutes
 
 # Monitor in another terminal
-docker ps
-docker stats
+podman ps
+podman stats
 
 # Check disk I/O
 iostat -x 1
@@ -1200,7 +1184,7 @@ iostat -x 1
 
 **Check logs:**
 ```bash
-docker logs pentaho-test
+podman logs pentaho-test
 ```
 
 **Common causes:**
@@ -1212,7 +1196,7 @@ docker logs pentaho-test
 **Debug:**
 ```bash
 # Start with shell
-docker run -it --rm \
+podman run -it --rm \
     --entrypoint /bin/bash \
     pentaho/pentaho-server:11.0.0.0-237
 
@@ -1233,7 +1217,7 @@ java.lang.OutOfMemoryError: Java heap space
 **Solution:**
 ```bash
 # Increase memory
-docker run -d \
+podman run -d \
     --name pentaho-test \
     --memory=8g \
     -p 8080:8080 \
@@ -1254,13 +1238,13 @@ resources:
 **Check:**
 ```bash
 # Container is running
-docker ps | grep pentaho
+podman ps | grep pentaho
 
 # Port is mapped
-docker port pentaho-test
+podman port pentaho-test
 
 # Tomcat started successfully
-docker logs pentaho-test | grep "Server startup"
+podman logs pentaho-test | grep "Server startup"
 
 # HTTP response
 curl -I http://localhost:8080/pentaho/Login
@@ -1278,10 +1262,10 @@ curl -I http://localhost:8080/pentaho/Login
 sudo netstat -tulpn | grep 8080
 
 # Check Tomcat logs
-docker exec pentaho-test tail -100 /opt/pentaho/pentaho-server/tomcat/logs/catalina.out
+podman exec pentaho-test tail -100 /opt/pentaho/pentaho-server/tomcat/logs/catalina.out
 
 # Try different port
-docker run -d -p 8090:8080 pentaho/pentaho-server:11.0
+podman run -d -p 8090:8080 pentaho/pentaho-server:11.0
 ```
 
 ### Issue 7: Out of Disk Space
@@ -1296,20 +1280,20 @@ no space left on device
 # Check disk space
 df -h
 
-# Clean up Docker
-docker system prune -a --volumes
+# Clean up Podman
+podman system prune -a --volumes
 
 # Remove unused images
-docker image prune -a
+podman image prune -a
 
 # Remove stopped containers
-docker container prune
+podman container prune
 
 # Remove unused volumes
-docker volume prune
+podman volume prune
 
 # Clean up build cache
-docker builder prune -a
+podman builder prune -a
 ```
 
 ### Issue 8: K3s Can't Pull Image
@@ -1336,7 +1320,7 @@ spec:
         - name: pentaho-registry
 
 # For local images: Load into K3s
-docker save pentaho/pentaho-server:11.0 | sudo k3s ctr images import -
+podman save pentaho/pentaho-server:11.0 | sudo k3s ctr images import -
 
 # Set imagePullPolicy
 spec:
@@ -1363,7 +1347,7 @@ spec:
    ENV DB_PASSWORD=secret123
 
    # Good: Use environment variables at runtime
-   docker run -e DB_PASSWORD=${DB_PASSWORD} ...
+   podman run -e DB_PASSWORD=${DB_PASSWORD} ...
 
    # Best: Use K8s Secrets
    valueFrom:
@@ -1383,9 +1367,10 @@ spec:
 
 4. **Scan for Vulnerabilities**
    ```bash
-   # Using Trivy
-   docker run --rm -v /var/run/docker.sock:/var/run/docker.sock \
-       aquasec/trivy:latest image pentaho/pentaho-server:11.0.0.0-237
+   # Using Trivy: save the image and scan the archive
+   podman save -o /tmp/pentaho.tar pentaho/pentaho-server:11.0.0.0-237
+   podman run --rm -v /tmp/pentaho.tar:/pentaho.tar:ro \
+       docker.io/aquasec/trivy:latest image --input /pentaho.tar
 
    # Using Snyk
    snyk container test pentaho/pentaho-server:11.0.0.0-237
@@ -1394,7 +1379,7 @@ spec:
 5. **Keep Base Image Updated**
    ```bash
    # Rebuild regularly to get security patches
-   docker build --no-cache -t pentaho-server:11.0 .
+   podman build --no-cache -t pentaho-server:11.0 .
    ```
 
 6. **Use Read-Only Root Filesystem** (Advanced)
@@ -1457,9 +1442,9 @@ spec:
 1. **Version All Images**
    ```bash
    # Tag with multiple versions
-   docker tag pentaho-server:11.0.0.0-237 pentaho-server:11.0.0
-   docker tag pentaho-server:11.0.0.0-237 pentaho-server:11.0
-   docker tag pentaho-server:11.0.0.0-237 pentaho-server:11
+   podman tag pentaho-server:11.0.0.0-237 pentaho-server:11.0.0
+   podman tag pentaho-server:11.0.0.0-237 pentaho-server:11.0
+   podman tag pentaho-server:11.0.0.0-237 pentaho-server:11
    ```
 
 2. **Document Changes**
@@ -1475,7 +1460,7 @@ spec:
 4. **Monitor Image Size**
    ```bash
    # Track image size over time
-   docker images pentaho-server --format "table {{.Repository}}\t{{.Tag}}\t{{.Size}}"
+   podman images pentaho-server --format "table {{.Repository}}\t{{.Tag}}\t{{.Size}}"
    ```
 
 ---
@@ -1502,7 +1487,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up Docker Buildx
+      - name: Set up Podman
         uses: docker/setup-buildx-action@v2
 
       - name: Login to Docker Hub
@@ -1518,12 +1503,12 @@ jobs:
       - name: Download Pentaho package
         run: |
           # Download from secure location (artifact storage, S3, etc.)
-          # Example: aws s3 cp s3://pentaho-artifacts/pentaho-server-ee-11.0.0.0-237.zip docker-build/stagedArtifacts/
+          # Example: aws s3 cp s3://pentaho-artifacts/pentaho-server-ee-11.0.0.0-237.zip pentaho-image/stagedArtifacts/
 
       - name: Build image
-        working-directory: docker-build
+        working-directory: pentaho-image
         run: |
-          docker build \
+          podman build \
             --build-arg PENTAHO_VERSION=${{ steps.version.outputs.VERSION }} \
             --label version=${{ steps.version.outputs.VERSION }} \
             --label build-date=$(date -u +'%Y-%m-%dT%H:%M:%SZ') \
@@ -1534,22 +1519,22 @@ jobs:
 
       - name: Test image
         run: |
-          docker run -d --name pentaho-test -p 8080:8080 \
+          podman run -d --name pentaho-test -p 8080:8080 \
             ${{ secrets.DOCKERHUB_USERNAME }}/pentaho-server:${{ steps.version.outputs.VERSION }}
           sleep 180
           curl -f http://localhost:8080/pentaho/Login || exit 1
-          docker stop pentaho-test
+          podman stop pentaho-test
 
       - name: Push to Docker Hub
         run: |
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/pentaho-server:${{ steps.version.outputs.VERSION }}
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/pentaho-server:latest
+          podman push ${{ secrets.DOCKERHUB_USERNAME }}/pentaho-server:${{ steps.version.outputs.VERSION }}
+          podman push ${{ secrets.DOCKERHUB_USERNAME }}/pentaho-server:latest
 
       - name: Scan for vulnerabilities
         run: |
-          docker run --rm -v /var/run/docker.sock:/var/run/docker.sock \
-            aquasec/trivy:latest image \
-            ${{ secrets.DOCKERHUB_USERNAME}}/pentaho-server:${{ steps.version.outputs.VERSION }}
+          podman save -o pentaho.tar ${{ secrets.DOCKERHUB_USERNAME }}/pentaho-server:${{ steps.version.outputs.VERSION }}
+          podman run --rm -v "$PWD/pentaho.tar:/pentaho.tar:ro" \
+            docker.io/aquasec/trivy:latest image --input /pentaho.tar
 ```
 
 ### GitLab CI Example
@@ -1568,24 +1553,24 @@ variables:
 
 build:
   stage: build
-  image: docker:latest
+  image: podman:latest
   services:
-    - docker:dind
+    - podman:dind
   before_script:
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - podman login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
   script:
-    - cd docker-build
-    - docker build -t $IMAGE_NAME:$CI_COMMIT_TAG -t $IMAGE_NAME:latest .
+    - cd pentaho-image
+    - podman build -t $IMAGE_NAME:$CI_COMMIT_TAG -t $IMAGE_NAME:latest .
   only:
     - tags
 
 test:
   stage: test
-  image: docker:latest
+  image: podman:latest
   services:
-    - docker:dind
+    - podman:dind
   script:
-    - docker run -d --name pentaho-test -p 8080:8080 $IMAGE_NAME:$CI_COMMIT_TAG
+    - podman run -d --name pentaho-test -p 8080:8080 $IMAGE_NAME:$CI_COMMIT_TAG
     - sleep 180
     - apk add --no-cache curl
     - curl -f http://localhost:8080/pentaho/Login
@@ -1594,14 +1579,14 @@ test:
 
 push:
   stage: push
-  image: docker:latest
+  image: podman:latest
   services:
-    - docker:dind
+    - podman:dind
   before_script:
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - podman login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
   script:
-    - docker push $IMAGE_NAME:$CI_COMMIT_TAG
-    - docker push $IMAGE_NAME:latest
+    - podman push $IMAGE_NAME:$CI_COMMIT_TAG
+    - podman push $IMAGE_NAME:latest
   only:
     - tags
 ```
@@ -1622,7 +1607,7 @@ push:
 ### External Resources
 
 - **Pentaho**: [Official Documentation](https://help.hitachivantara.com/Documentation/Pentaho)
-- **Docker**: [Best Practices](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/)
+- **Podman**: [Documentation](https://docs.podman.io/) - the Containerfile instructions are the Dockerfile ones, so [Docker's best practices](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/) apply too
 - **K3s**: [Official Docs](https://docs.k3s.io/)
 - **Kubernetes**: [Container Best Practices](https://kubernetes.io/docs/concepts/configuration/overview/)
 
@@ -1641,34 +1626,34 @@ push:
 
 ```bash
 # Build image
-docker build -t pentaho-server:11.0 .
+podman build -t pentaho-server:11.0 .
 
 # Run container
-docker run -d -p 8080:8080 pentaho-server:11.0
+podman run -d -p 8080:8080 pentaho-server:11.0
 
 # View logs
-docker logs -f container-name
+podman logs -f container-name
 
 # Execute commands
-docker exec -it container-name bash
+podman exec -it container-name bash
 
 # Inspect image
-docker inspect pentaho-server:11.0
+podman inspect pentaho-server:11.0
 
 # View history
-docker history pentaho-server:11.0
+podman history pentaho-server:11.0
 
 # Push to registry
-docker push registry/pentaho-server:11.0
+podman push registry/pentaho-server:11.0
 
 # Remove image
-docker rmi pentaho-server:11.0
+podman rmi pentaho-server:11.0
 
 # Prune unused images
-docker image prune -a
+podman image prune -a
 
 # Load into K3s
-docker save pentaho-server:11.0 | sudo k3s ctr images import -
+podman save pentaho-server:11.0 | sudo k3s ctr images import -
 ```
 
 ---
@@ -1678,25 +1663,25 @@ docker save pentaho-server:11.0 | sudo k3s ctr images import -
 | Version | Date | Changes |
 |---------|------|---------|
 | **2.0** | 2026-01-26 | Consolidated documentation from BUILD-PENTAHO-IMAGE.md and DOCKER-BUILD-SUMMARY.md |
-| 1.0 | 2026-01-26 | Initial version with production Dockerfile |
+| 1.0 | 2026-01-26 | Initial version with production Containerfile |
 
 ---
 
 ## Conclusion
 
-You now have everything needed to build, test, and deploy a production-ready Pentaho Server Docker image for K3s!
+You now have everything needed to build, test, and deploy a production-ready Pentaho Server container image for K3s!
 
 ### Quick Summary
 
 1. **Place Files**: Copy Pentaho ZIP (and optional plugins) to `stagedArtifacts/`
-2. **Build**: Run `./build.sh` or `docker build`
-3. **Test**: Verify locally with `docker run`
+2. **Build**: Run `./build.sh` or `podman build`
+3. **Test**: Verify locally with `podman run`
 4. **Deploy**: Push to registry or load into K3s
 
 ### Next Steps
 
 1. ✅ Build your first image using `./build.sh`
-2. ✅ Test locally with Docker
+2. ✅ Test locally with `podman compose -f test-compose.yml`
 3. ✅ Push to registry (optional)
 4. ✅ Deploy to K3s using workshops
 5. ✅ Monitor and optimize
@@ -1713,6 +1698,6 @@ You now have everything needed to build, test, and deploy a production-ready Pen
 
 **Document Version**: 2.0
 **Last Updated**: 2026-01-26
-**Tested With**: Pentaho 11.0.0.0-237, Docker 24.x, K3s 1.28+
+**Tested With**: Pentaho 11.0.0.0-237, Podman 4.9.3 and podman-compose 1.0.6 on Ubuntu 24.04
 
 **Ready to build?** Run: `./build.sh`

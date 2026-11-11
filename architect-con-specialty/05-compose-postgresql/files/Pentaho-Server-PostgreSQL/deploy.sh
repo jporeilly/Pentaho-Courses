@@ -1,6 +1,6 @@
 #!/bin/bash
 # =============================================================================
-# Pentaho Server 11 Docker Deployment Script (PostgreSQL)
+# Pentaho Server 11 Podman Deployment Script (PostgreSQL)
 # =============================================================================
 #
 # Automated deployment script for Pentaho Server 11 with PostgreSQL on Ubuntu 24.04
@@ -9,23 +9,23 @@
 #   ./deploy.sh
 #
 # Prerequisites:
-#   - Docker Engine 20.10+
-#   - Docker Compose 2.0+
-#   - pentaho-server-ee-11.0.0.0-237.zip in docker/stagedArtifacts/
+#   - Podman 4.9+ (Ubuntu 24.04: sudo apt install podman podman-compose)
+#   - podman-compose, the provider behind `podman compose`
+#   - pentaho-server-ee-11.0.0.0-237.zip in image/stagedArtifacts/
 #   - 10GB+ free disk space
 #   - Ports 8090, 5432 available
 #
 # What this script does:
 #   1. Pre-flight Checks
-#      - Validates Docker and Docker Compose installation
+#      - Validates Podman and Podman Compose installation
 #      - Verifies Pentaho package exists
 #      - Creates .env from template if missing
 #      - Checks disk space (10GB minimum)
 #      - Verifies required ports are available
 #
 #   2. Build Phase
-#      - Builds Pentaho Server Docker image
-#      - Image based on debian:trixie-slim with OpenJDK 21
+#      - Builds the Pentaho Server image
+#      - Image based on docker.io/library/debian:trixie-slim with OpenJDK 21
 #
 #   3. Startup Phase
 #      - Starts PostgreSQL container and waits for health
@@ -62,7 +62,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$SCRIPT_DIR"
 
 echo "=========================================="
-echo " Pentaho Server 11 Docker Deployment"
+echo " Pentaho Server 11 Podman Deployment"
 echo " (PostgreSQL Edition)"
 echo "=========================================="
 echo ""
@@ -73,36 +73,36 @@ echo ""
 
 echo -e "${BLUE}→ Running pre-flight checks...${NC}"
 
-# Check 1: Docker installed
-if ! command -v docker &> /dev/null; then
-    echo -e "${RED}✗ Docker is not installed${NC}"
-    echo "  Install Docker: https://docs.docker.com/engine/install/ubuntu/"
+# Check 1: Podman installed
+if ! command -v podman &> /dev/null; then
+    echo -e "${RED}✗ Podman is not installed${NC}"
+    echo "  Install Podman: sudo apt install podman podman-compose"
     exit 1
 fi
-echo -e "${GREEN}✓ Docker is installed${NC}"
+echo -e "${GREEN}✓ Podman is installed${NC}"
 
-# Check 2: Docker Compose installed
-if ! docker compose version &> /dev/null; then
-    echo -e "${RED}✗ Docker Compose is not installed${NC}"
-    echo "  Install Docker Compose: https://docs.docker.com/compose/install/"
+# Check 2: Podman Compose installed
+if ! podman compose version &> /dev/null; then
+    echo -e "${RED}✗ Podman Compose is not installed${NC}"
+    echo "  Install Podman Compose: sudo apt install podman-compose"
     exit 1
 fi
-echo -e "${GREEN}✓ Docker Compose is installed${NC}"
+echo -e "${GREEN}✓ Podman Compose is installed${NC}"
 
-# Check 3: Docker daemon running
-if ! docker info &> /dev/null; then
-    echo -e "${RED}✗ Docker daemon is not running${NC}"
-    echo "  Start Docker: sudo systemctl start docker"
+# Check 3: Podman can run containers (it has no daemon to start)
+if ! podman info &> /dev/null; then
+    echo -e "${RED}✗ Podman cannot run containers${NC}"
+    echo "  Run podman info: its error says why"
     exit 1
 fi
-echo -e "${GREEN}✓ Docker daemon is running${NC}"
+echo -e "${GREEN}✓ Podman can run containers${NC}"
 
 # Check 4: Pentaho package exists
-PENTAHO_PKG="docker/stagedArtifacts/pentaho-server-ee-11.0.0.0-237.zip"
+PENTAHO_PKG="image/stagedArtifacts/pentaho-server-ee-11.0.0.0-237.zip"
 if [ ! -f "$PENTAHO_PKG" ]; then
     echo -e "${RED}✗ Pentaho package not found: $PENTAHO_PKG${NC}"
     echo ""
-    echo "  Please place the Pentaho package in: docker/stagedArtifacts/"
+    echo "  Please place the Pentaho package in: image/stagedArtifacts/"
     echo "  Expected file: pentaho-server-ee-11.0.0.0-237.zip"
     exit 1
 fi
@@ -143,7 +143,7 @@ source .env
 check_port() {
     local port=$1
     local name=$2
-    if netstat -tuln 2>/dev/null | grep -q ":$port " || ss -tuln 2>/dev/null | grep -q ":$port "; then
+    if netstat -tuln 2>/dev/null | grep ":$port " > /dev/null || ss -tuln 2>/dev/null | grep ":$port " > /dev/null; then
         echo -e "${YELLOW}⚠ Warning: Port $port ($name) is already in use${NC}"
         return 1
     else
@@ -176,9 +176,9 @@ echo ""
 # ============================================
 
 # Build Pentaho Server image
-echo -e "${BLUE}→ Building Pentaho Server Docker image...${NC}"
+echo -e "${BLUE}→ Building the Pentaho Server image...${NC}"
 echo "  This may take 5-10 minutes..."
-if docker compose build --no-cache pentaho-server; then
+if podman compose build --no-cache pentaho-server; then
     echo -e "${GREEN}✓ Pentaho Server image built successfully${NC}"
 else
     echo -e "${RED}✗ Failed to build Pentaho Server image${NC}"
@@ -189,23 +189,24 @@ echo ""
 
 # Start PostgreSQL first
 echo -e "${BLUE}→ Starting PostgreSQL database...${NC}"
-if docker compose up -d postgres; then
+if podman compose up -d postgres; then
     echo -e "${GREEN}✓ PostgreSQL container started${NC}"
 else
     echo -e "${RED}✗ Failed to start PostgreSQL${NC}"
     exit 1
 fi
 
-# Wait for PostgreSQL to be healthy
+# Wait for PostgreSQL to be healthy. Ask Podman for the container's health
+# directly: podman-compose's ps takes no service name.
 echo -e "${BLUE}→ Waiting for PostgreSQL to be ready...${NC}"
 for i in {1..30}; do
-    if docker compose ps postgres | grep -q "healthy"; then
+    if [ "$(podman inspect --format '{{.State.Health.Status}}' pentaho-postgres 2>/dev/null)" = "healthy" ]; then
         echo -e "${GREEN}✓ PostgreSQL is ready${NC}"
         break
     fi
     if [ $i -eq 30 ]; then
         echo -e "${RED}✗ PostgreSQL failed to become healthy${NC}"
-        echo "  Check logs: docker compose logs postgres"
+        echo "  Check logs: podman compose logs postgres"
         exit 1
     fi
     echo -n "."
@@ -216,7 +217,7 @@ echo ""
 # Start Pentaho Server
 echo -e "${BLUE}→ Starting Pentaho Server...${NC}"
 echo "  This may take 2-3 minutes for first-time initialization..."
-if docker compose up -d pentaho-server; then
+if podman compose up -d pentaho-server; then
     echo -e "${GREEN}✓ Pentaho Server container started${NC}"
 else
     echo -e "${RED}✗ Failed to start Pentaho Server${NC}"
@@ -229,20 +230,22 @@ echo "  Watching logs for startup completion..."
 TIMEOUT=300
 ELAPSED=0
 while [ $ELAPSED -lt $TIMEOUT ]; do
-    if docker compose logs pentaho-server 2>&1 | grep -q "Server startup in"; then
+    # Count, don't grep -q: under pipefail, grep -q quitting at its first
+    # match fails the log writer with SIGPIPE, and the server never looks
+    # started.
+    if [ "$(podman logs pentaho-server 2>&1 | grep -c "Server startup in")" -gt 0 ]; then
         echo -e "${GREEN}✓ Pentaho Server is ready${NC}"
         break
-    fi
-    if [ $ELAPSED -eq $TIMEOUT ]; then
-        echo -e "${RED}✗ Pentaho Server startup timeout${NC}"
-        echo "  Check logs: docker compose logs -f pentaho-server"
-        exit 1
     fi
     sleep 5
     ELAPSED=$((ELAPSED + 5))
     echo -n "."
 done
 echo ""
+if [ $ELAPSED -ge $TIMEOUT ]; then
+    echo -e "${YELLOW}⚠ The server has not logged \"Server startup in\" after ${TIMEOUT}s.${NC}"
+    echo "  It may still be starting: follow it with podman logs -f pentaho-server"
+fi
 
 # ============================================
 # Deployment Complete
@@ -264,11 +267,11 @@ echo "    Host: localhost:${POSTGRES_PORT:-5432}"
 echo "    Login: postgres / ${POSTGRES_PASSWORD:-password}"
 echo ""
 echo "Useful commands:"
-echo "  View logs:        docker compose logs -f"
-echo "  Stop services:    docker compose stop"
-echo "  Start services:   docker compose start"
-echo "  Restart services: docker compose restart"
-echo "  Shutdown:         docker compose down"
+echo "  View logs:        podman compose logs -f"
+echo "  Stop services:    podman compose stop"
+echo "  Start services:   podman compose start"
+echo "  Restart services: podman compose restart"
+echo "  Shutdown:         podman compose down"
 echo ""
 echo "Helper scripts:"
 echo "  Backup database:  ./scripts/backup-postgres.sh"

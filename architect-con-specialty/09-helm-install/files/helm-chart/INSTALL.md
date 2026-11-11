@@ -22,7 +22,7 @@ If using a local K3s cluster, import the Pentaho image:
 
 ```bash
 # Build the image (if not already built)
-cd ../docker-build
+cd ../pentaho-image
 ./build.sh
 
 # Import to K3s

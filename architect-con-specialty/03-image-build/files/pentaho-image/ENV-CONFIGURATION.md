@@ -25,7 +25,7 @@
 
 ## Introduction
 
-The `.env` file provides a **centralized configuration system** for building Pentaho Docker images. Instead of passing multiple command-line arguments, you configure everything in one file.
+The `.env` file provides a **centralized configuration system** for building Pentaho container images. Instead of passing multiple command-line arguments, you configure everything in one file.
 
 ### Why Use .env?
 
@@ -33,7 +33,7 @@ The `.env` file provides a **centralized configuration system** for building Pen
 ✅ **Version Control Friendly** - Check `.env.example` into git, keep `.env` local
 ✅ **Consistent Builds** - Same configuration across team members
 ✅ **CI/CD Ready** - Easy integration with pipelines
-✅ **Familiar Pattern** - Same approach as Docker Compose project
+✅ **Familiar Pattern** - Same approach as Podman Compose project
 
 ### Quick Start
 
@@ -55,7 +55,7 @@ nano .env
 ### File Structure
 
 ```
-docker-build/
+pentaho-image/
 ├── .env.example     # Template with all options (check into git)
 ├── .env             # Your local configuration (DO NOT commit)
 └── build.sh         # Build script that reads .env
@@ -89,9 +89,9 @@ The `.env` file is organized into 12 logical categories:
 | **Runtime Configuration** | JVM memory, timezone | Yes |
 | **Database Configuration** | Database connection settings | Yes |
 | **Enterprise License** | EE license installation | Optional |
-| **Registry Configuration** | Docker registry push settings | Optional |
+| **Registry Configuration** | container registry push settings | Optional |
 | **K3s Integration** | K3s import and deployment | Optional |
-| **Build Options** | BuildKit, platforms, caching | Optional |
+| **Build Options** | Platforms, caching | Optional |
 | **Testing Options** | Test execution settings | Optional |
 | **Cleanup Options** | Post-build cleanup | Optional |
 | **Notification Options** | Webhook notifications | Optional |
@@ -102,7 +102,7 @@ The `.env` file is organized into 12 logical categories:
 
 ## Build Configuration
 
-Controls what gets built into the Docker image.
+Controls what gets built into the container image.
 
 ### PENTAHO_VERSION
 
@@ -172,7 +172,7 @@ INCLUDE_DEMO=0
 **Default**: `pentaho/pentaho-server:11.0.0.0-237`
 **Required**: Yes
 
-Docker image tag. For registries, include the registry URL.
+container image tag. For registries, include the registry URL.
 
 ```bash
 # Local image
@@ -513,7 +513,7 @@ LICENSE_URL=https://bucket.s3.amazonaws.com/pentaho.lic?X-Amz-Signature=...
 
 ## Registry Configuration
 
-Settings for pushing images to Docker registries.
+Settings for pushing images to container registries.
 
 ### PUSH_TO_REGISTRY
 
@@ -541,7 +541,7 @@ PUSH_TO_REGISTRY=true
 **Default**: (empty)
 **Required**: If PUSH_TO_REGISTRY=true
 
-Docker registry URL.
+container registry URL.
 
 ```bash
 # Docker Hub
@@ -630,7 +630,7 @@ LOAD_INTO_K3S=false
 
 **How it Works**:
 ```bash
-docker save IMAGE_TAG | sudo k3s ctr images import -
+podman save IMAGE_TAG | sudo k3s ctr images import -
 ```
 
 **When to Use**:
@@ -682,21 +682,11 @@ Advanced build configuration.
 **Default**: `true`
 **Required**: No
 
-Enable Docker BuildKit for better performance.
+Kept so that older `.env` files still work; it changes nothing. Podman builds with Buildah, which has no BuildKit: it caches every layer, and `podman build --jobs 2` builds independent stages in parallel.
 
 ```bash
 USE_BUILDKIT=true
 ```
-
-**Benefits**:
-- Parallel build stages
-- Better caching
-- Faster builds
-- Progress output
-
-**Disable if**:
-- Using older Docker versions
-- Compatibility issues
 
 ### BUILD_PLATFORM
 
@@ -721,7 +711,7 @@ BUILD_PLATFORM=linux/amd64,linux/arm64
 ```bash
 BUILD_PLATFORM=linux/amd64,linux/arm64
 ```
-Requires Docker Buildx with QEMU.
+Requires Podman with QEMU.
 
 ### NO_CACHE
 
@@ -759,7 +749,7 @@ VERBOSE=false
 VERBOSE=true
 ```
 
-Adds `--progress=plain` to docker build.
+Kept so that older `.env` files still work; it changes nothing. `podman build` always prints each step as it runs, and has no `--progress` option.
 
 ---
 
@@ -832,7 +822,7 @@ Remove all dangling images.
 CLEANUP_DANGLING=false
 ```
 
-Runs `docker image prune -f` after build.
+Runs `podman image prune -f` after build.
 
 ---
 
@@ -940,7 +930,7 @@ DEBUG=true
 ```
 
 **Shows**:
-- Full docker build command
+- Full podman build command
 - All build arguments
 - Environment variables
 - Detailed execution flow
@@ -989,7 +979,6 @@ RUN_TESTS=true
 K3S_NAMESPACE=pentaho
 K3S_DEPLOYMENT=pentaho-server
 
-USE_BUILDKIT=true
 NO_CACHE=false                    # Use cache
 DEBUG=false
 ```
@@ -1023,7 +1012,6 @@ REGISTRY_PASSWORD=${HARBOR_PASSWORD}  # From env var
 LOAD_INTO_K3S=false              # Pull from registry
 RUN_TESTS=true
 
-USE_BUILDKIT=true
 NO_CACHE=false
 SEND_NOTIFICATION=true
 NOTIFICATION_WEBHOOK_URL=${SLACK_WEBHOOK}
@@ -1056,7 +1044,6 @@ REGISTRY_PASSWORD=${REGISTRY_PASSWORD}
 LOAD_INTO_K3S=false
 RUN_TESTS=true
 
-USE_BUILDKIT=true
 NO_CACHE=true                    # Always clean build
 SEND_NOTIFICATION=true
 NOTIFICATION_WEBHOOK_URL=${SLACK_WEBHOOK}
@@ -1099,9 +1086,11 @@ NOTIFICATION_WEBHOOK_URL=${SLACK_WEBHOOK}
 
 ### Performance
 
-1. **Use BuildKit**
+1. **Rebuild rather than start over**
    ```bash
-   USE_BUILDKIT=true
+   # Each layer is cached: with the archive unchanged, a rebuild reuses
+   # the unpack stage and takes under a minute
+   ./build.sh
    ```
 
 2. **Enable Caching**
@@ -1152,7 +1141,7 @@ NOTIFICATION_WEBHOOK_URL=${SLACK_WEBHOOK}
 
 3. **Verify Registry Credentials**
    ```bash
-   docker login ${REGISTRY_URL}
+   podman login ${REGISTRY_URL}
    ```
 
 ---
@@ -1199,7 +1188,7 @@ push access denied, repository does not exist or may require authorization
 **Solutions**:
 1. Login manually first:
    ```bash
-   docker login ${REGISTRY_URL}
+   podman login ${REGISTRY_URL}
    ```
 
 2. Check credentials in .env
@@ -1218,7 +1207,7 @@ sudo: a password is required
 **Solutions**:
 1. Run import manually:
    ```bash
-   docker save IMAGE_TAG | sudo k3s ctr images import -
+   podman save IMAGE_TAG | sudo k3s ctr images import -
    ```
 
 2. Configure sudo without password:
@@ -1234,16 +1223,16 @@ sudo: a password is required
 ### Issue: Build Fails - Out of Memory
 
 **Solutions**:
-1. Increase Docker memory (Docker Desktop settings)
+1. Give the host more memory (on WSL 2, `memory=` in `%UserProfile%\.wslconfig`)
 
 2. Build without demo:
    ```bash
    INCLUDE_DEMO=0
    ```
 
-3. Clean up Docker:
+3. Clean up Podman:
    ```bash
-   docker system prune -a
+   podman system prune -a
    ```
 
 ### Issue: Wrong Image Built
@@ -1279,7 +1268,6 @@ LOAD_INTO_K3S=true
 RUN_TESTS=true
 K3S_NAMESPACE=pentaho
 K3S_DEPLOYMENT=pentaho-server
-USE_BUILDKIT=true
 ```
 
 ### Full .env Template

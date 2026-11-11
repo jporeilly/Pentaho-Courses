@@ -91,7 +91,7 @@ fi
 # -----------------------------------------------------------------------------
 # Checks that the PostgreSQL pod is in "Running" state
 # If the pod is not running, the restore cannot proceed
-if ! kubectl get pod -l app=postgres -n ${NAMESPACE} | grep -q Running; then
+if ! kubectl get pod -l app=postgres -n ${NAMESPACE} | grep Running > /dev/null; then
     echo -e "${RED}ERROR: PostgreSQL pod is not running${NC}"
     exit 1
 fi

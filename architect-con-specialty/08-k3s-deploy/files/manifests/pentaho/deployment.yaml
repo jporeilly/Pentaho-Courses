@@ -55,7 +55,7 @@ spec:
         app: pentaho-server
         app.kubernetes.io/name: pentaho
     spec:
-      # Set hostname to match Docker Compose deployment
+      # Set hostname to match the Compose deployment
       # Required for Pentaho application initialization
       hostname: pentaho-server
       # ---------------------------------------------------------------------
@@ -66,7 +66,7 @@ spec:
       initContainers:
         - name: wait-for-postgres
           # Lightweight image with networking utilities
-          image: busybox:1.36
+          image: docker.io/library/busybox:1.36
           command:
             - sh
             - -c
@@ -96,10 +96,12 @@ spec:
         - name: pentaho-server
           # Pentaho Server container image
           # Options for image source:
-          #   - Local build: pentaho/pentaho-server:11.0.0.0-237
+          #   - Local build: localhost/pentaho/pentaho-server:11.0.0.0-237, the
+          #     name Podman gives an image it built and the name `podman save`
+          #     hands to `k3s ctr images import`. A bare pentaho/... would make
+          #     Kubernetes look for docker.io/pentaho/... and never find it.
           #   - Private registry: your-registry.com/pentaho/pentaho-server:11.0.0.0-237
-          #   - Docker Hub: pentaho/pentaho-server:11.0.0.0-237
-          image: pentaho/pentaho-server:11.0.0.0-237
+          image: localhost/pentaho/pentaho-server:11.0.0.0-237
           imagePullPolicy: IfNotPresent  # Use cached image if available
 
           # Network ports exposed by the container
@@ -126,7 +128,7 @@ spec:
 
           # Persistent volume mounts
           # NOTE: Volumes are commented out to avoid overwriting container files
-          # K8s empty PVCs overwrite directories, unlike Docker named volumes
+          # K8s empty PVCs overwrite directories, unlike Podman named volumes
           # For production: use initContainer to populate PVCs on first run
           # volumeMounts:
           #   # Pentaho data directory - contains:

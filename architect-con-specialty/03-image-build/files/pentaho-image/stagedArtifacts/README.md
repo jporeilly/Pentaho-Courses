@@ -1,6 +1,6 @@
 # Pentaho Staged Artifacts
 
-Place your Pentaho Server package and optional plugins in this directory before building the Docker image.
+Place your Pentaho Server package and optional plugins in this directory before building the container image.
 
 ## Required Files
 
@@ -108,7 +108,7 @@ Ensure all components match the same version:
 
 ## Build Arguments
 
-The Dockerfile uses these build arguments:
+The Containerfile uses these build arguments:
 
 ```dockerfile
 # Main package name pattern
@@ -125,7 +125,7 @@ ARG FILE_PDD=pdd-plugin-ee-${PENTAHO_VERSION}.zip
 
 ```bash
 # Build with different version
-docker build \
+podman build \
     --build-arg PENTAHO_VERSION=11.0.0.0-xxx \
     -t pentaho-server:11.0.0.0-xxx \
     ..
@@ -197,7 +197,7 @@ ls -lh pentaho-server-ee-11.0.0.0-237.zip
 ## Additional Resources
 
 - [BUILD-PENTAHO-IMAGE.md](../../BUILD-PENTAHO-IMAGE.md) - Complete build guide
-- [Dockerfile](../Dockerfile) - Image build configuration
+- [Containerfile](../Containerfile) - Image build configuration
 - [Pentaho Documentation](https://help.hitachivantara.com/Documentation/Pentaho)
 
 ---
@@ -207,5 +207,5 @@ ls -lh pentaho-server-ee-11.0.0.0-237.zip
 Once files are in place:
 ```bash
 cd ..
-docker build -t pentaho/pentaho-server:11.0.0.0-237 .
+podman build -t pentaho/pentaho-server:11.0.0.0-237 .
 ```

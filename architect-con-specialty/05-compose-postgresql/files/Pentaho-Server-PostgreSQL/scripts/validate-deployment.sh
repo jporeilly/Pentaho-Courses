@@ -6,24 +6,24 @@
 #
 # PURPOSE:
 #   This script validates that all components of the Pentaho deployment are
-#   working correctly. It checks Docker containers, database connectivity,
+#   working correctly. It checks Podman containers, database connectivity,
 #   Vault status, and application endpoints.
 #
 # WHAT IT CHECKS:
-#   1. Docker Compose services are running
+#   1. Podman Compose services are running
 #   2. Vault is initialized and accessible
 #   3. Vault secrets are configured correctly
 #   4. PostgreSQL is responding and databases exist
 #   5. Pentaho repository tables are created
 #   6. Pentaho web endpoints are accessible
-#   7. Docker volumes exist
+#   7. Podman volumes exist
 #
 # USAGE:
 #   ./scripts/validate-deployment.sh
 #
 # RUN AFTER:
-#   - docker compose up -d (first deployment)
-#   - docker compose restart (after changes)
+#   - podman compose up -d (first deployment)
+#   - podman compose restart (after changes)
 #   - ./scripts/rotate-secrets.sh (after password rotation)
 #
 # SECURITY NOTE:
@@ -82,14 +82,14 @@ echo "============================================"
 echo ""
 
 # =============================================================================
-# Check 1: Docker Compose Services
+# Check 1: Podman Compose Services
 # =============================================================================
-echo -e "${BLUE}→ Checking Docker Compose services...${NC}"
+echo -e "${BLUE}→ Checking Podman Compose services...${NC}"
 
 cd "$PROJECT_DIR"
 
 # Check PostgreSQL container
-if docker compose ps 2>/dev/null | grep -q "pentaho-postgres.*Up"; then
+if [ "$(podman inspect --format "{{.State.Running}}" pentaho-postgres 2>/dev/null)" = "true" ]; then
     echo -e "${GREEN}✓ PostgreSQL container is running${NC}"
 else
     echo -e "${RED}✗ PostgreSQL container is not running${NC}"
@@ -97,7 +97,7 @@ else
 fi
 
 # Check Pentaho Server container
-if docker compose ps 2>/dev/null | grep -q "pentaho-server.*Up"; then
+if [ "$(podman inspect --format "{{.State.Running}}" pentaho-server 2>/dev/null)" = "true" ]; then
     echo -e "${GREEN}✓ Pentaho Server container is running${NC}"
 else
     echo -e "${RED}✗ Pentaho Server container is not running${NC}"
@@ -105,7 +105,7 @@ else
 fi
 
 # Check Vault container
-if docker compose ps 2>/dev/null | grep -q "pentaho-vault.*Up"; then
+if [ "$(podman inspect --format "{{.State.Running}}" pentaho-vault 2>/dev/null)" = "true" ]; then
     echo -e "${GREEN}✓ Vault container is running${NC}"
 else
     echo -e "${RED}✗ Vault container is not running${NC}"
@@ -128,7 +128,7 @@ if [ "$VAULT_INIT" = "true" ]; then
     echo -e "${GREEN}✓ Vault is initialized${NC}"
 else
     echo -e "${RED}✗ Vault is not initialized${NC}"
-    echo "  Run: docker compose up vault-init"
+    echo "  Run: podman compose up vault-init"
     VALIDATION_FAILED=1
 fi
 
@@ -137,7 +137,7 @@ if [ "$VAULT_SEALED" = "false" ]; then
 else
     echo -e "${YELLOW}⚠ Vault is sealed${NC}"
     echo "  Note: In production, Vault should remain sealed at rest."
-    echo "  Run 'docker compose up vault-init' to unseal when needed."
+    echo "  Run 'podman compose up vault-init' to unseal when needed."
 fi
 
 # =============================================================================
@@ -149,10 +149,10 @@ if [ "$VAULT_SEALED" = "false" ]; then
     echo -e "${BLUE}→ Checking Vault secrets and rotation status...${NC}"
 
     APPROLE_CREDS="/vault/data/approle-creds.json"
-    if docker exec pentaho-vault test -f "$APPROLE_CREDS" 2>/dev/null; then
+    if podman exec pentaho-vault test -f "$APPROLE_CREDS" 2>/dev/null; then
         # Extract AppRole credentials
-        ROLE_ID=$(docker exec pentaho-vault cat "$APPROLE_CREDS" 2>/dev/null | jq -r '.role_id // ""')
-        SECRET_ID=$(docker exec pentaho-vault cat "$APPROLE_CREDS" 2>/dev/null | jq -r '.secret_id // ""')
+        ROLE_ID=$(podman exec pentaho-vault cat "$APPROLE_CREDS" 2>/dev/null | jq -r '.role_id // ""')
+        SECRET_ID=$(podman exec pentaho-vault cat "$APPROLE_CREDS" 2>/dev/null | jq -r '.secret_id // ""')
 
         if [ -n "$ROLE_ID" ] && [ -n "$SECRET_ID" ]; then
             # Authenticate with AppRole
@@ -242,12 +242,12 @@ if [ "$VAULT_SEALED" = "false" ]; then
                     # Seal Vault after displaying secrets
                     echo ""
                     echo -e "${BLUE}→ Sealing Vault for security...${NC}"
-                    ROOT_TOKEN=$(docker exec pentaho-vault cat /vault/data/vault-keys.json 2>/dev/null | jq -r '.root_token // ""')
+                    ROOT_TOKEN=$(podman exec pentaho-vault cat /vault/data/vault-keys.json 2>/dev/null | jq -r '.root_token // ""')
                     if [ -n "$ROOT_TOKEN" ]; then
-                        if docker exec -e VAULT_TOKEN="$ROOT_TOKEN" pentaho-vault vault operator seal > /dev/null 2>&1; then
+                        if podman exec -e VAULT_TOKEN="$ROOT_TOKEN" pentaho-vault vault operator seal > /dev/null 2>&1; then
                             echo -e "${GREEN}✓ Vault sealed successfully${NC}"
                             echo "  Note: In production, Vault should remain sealed at rest."
-                            echo "  Run 'docker compose up vault-init' to unseal when needed."
+                            echo "  Run 'podman compose up vault-init' to unseal when needed."
                         else
                             echo -e "${YELLOW}⚠ Could not seal Vault automatically${NC}"
                         fi
@@ -276,7 +276,7 @@ echo ""
 # =============================================================================
 echo -e "${BLUE}→ Checking PostgreSQL health...${NC}"
 
-if docker exec pentaho-postgres pg_isready -U postgres > /dev/null 2>&1; then
+if podman exec pentaho-postgres pg_isready -U postgres > /dev/null 2>&1; then
     echo -e "${GREEN}✓ PostgreSQL is responding${NC}"
 else
     echo -e "${RED}✗ PostgreSQL is not responding${NC}"
@@ -290,7 +290,7 @@ echo ""
 # =============================================================================
 echo -e "${BLUE}→ Checking Pentaho repository databases...${NC}"
 
-DATABASES=$(docker exec -e PGPASSWORD="$POSTGRES_PASSWORD" pentaho-postgres psql -U postgres -c "SELECT datname FROM pg_database;" 2>/dev/null | grep -E "jackrabbit|quartz|hibernate" || true)
+DATABASES=$(podman exec -e PGPASSWORD="$POSTGRES_PASSWORD" pentaho-postgres psql -U postgres -c "SELECT datname FROM pg_database;" 2>/dev/null | grep -E "jackrabbit|quartz|hibernate" || true)
 
 if echo "$DATABASES" | grep -q "jackrabbit"; then
     echo -e "${GREEN}✓ jackrabbit database exists${NC}"
@@ -321,7 +321,7 @@ echo ""
 echo -e "${BLUE}→ Checking Pentaho repository tables...${NC}"
 
 # Note: Using default password for table check since we may have just rotated
-JACKRABBIT_TABLES=$(docker exec -e PGPASSWORD=password pentaho-postgres psql -U jcr_user -d jackrabbit -c "\dt" 2>/dev/null | wc -l | tr -d ' \n' || echo "0")
+JACKRABBIT_TABLES=$(podman exec -e PGPASSWORD=password pentaho-postgres psql -U jcr_user -d jackrabbit -c "\dt" 2>/dev/null | wc -l | tr -d ' \n' || echo "0")
 if [ "$JACKRABBIT_TABLES" -gt 2 ]; then
     echo -e "${GREEN}✓ Jackrabbit tables exist ($JACKRABBIT_TABLES entries)${NC}"
 else
@@ -329,7 +329,7 @@ else
     echo "  (Tables are created on first Pentaho startup)"
 fi
 
-QUARTZ_TABLES=$(docker exec -e PGPASSWORD=password pentaho-postgres psql -U pentaho_user -d quartz -c "\dt" 2>/dev/null | grep -c "qrtz" || echo "0")
+QUARTZ_TABLES=$(podman exec -e PGPASSWORD=password pentaho-postgres psql -U pentaho_user -d quartz -c "\dt" 2>/dev/null | grep -c "qrtz" || echo "0")
 if [ "$QUARTZ_TABLES" -gt 0 ]; then
     echo -e "${GREEN}✓ Quartz scheduler tables exist ($QUARTZ_TABLES tables)${NC}"
 else
@@ -365,11 +365,11 @@ fi
 echo ""
 
 # =============================================================================
-# Check 8: Docker Volumes
+# Check 8: Podman Volumes
 # =============================================================================
-echo -e "${BLUE}→ Checking Docker volumes...${NC}"
+echo -e "${BLUE}→ Checking Podman volumes...${NC}"
 
-VOLUMES=$(docker volume ls 2>/dev/null | grep -E "pentaho.*postgres_data|pentaho.*solutions|pentaho.*data|vault_data" || true)
+VOLUMES=$(podman volume ls 2>/dev/null | grep -E "pentaho.*postgres_data|pentaho.*solutions|pentaho.*data|vault_data" || true)
 
 if echo "$VOLUMES" | grep -q "postgres_data"; then
     echo -e "${GREEN}✓ PostgreSQL data volume exists${NC}"
@@ -406,7 +406,7 @@ if [ $VALIDATION_FAILED -eq 0 ]; then
     echo "  Password: password"
     echo ""
     echo "Vault Management:"
-    echo "  Unseal:   docker compose up vault-init"
+    echo "  Unseal:   podman compose up vault-init"
     echo "  Secrets:  ./scripts/validate-deployment.sh (shows & seals)"
     echo ""
     echo "Security:"
@@ -417,9 +417,9 @@ else
     echo -e "${RED}✗ Some validation checks failed${NC}"
     echo ""
     echo "Troubleshooting:"
-    echo "  View logs:       docker compose logs -f"
-    echo "  Check status:    docker compose ps"
-    echo "  Restart:         docker compose restart"
-    echo "  Full restart:    docker compose down && docker compose up -d"
+    echo "  View logs:       podman compose logs -f"
+    echo "  Check status:    podman compose ps"
+    echo "  Restart:         podman compose restart"
+    echo "  Full restart:    podman compose down && podman compose up -d"
     exit 1
 fi

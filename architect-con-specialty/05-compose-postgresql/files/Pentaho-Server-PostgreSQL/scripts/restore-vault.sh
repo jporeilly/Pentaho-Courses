@@ -56,9 +56,9 @@ fi
 echo ""
 
 # Check if Vault container is running
-if ! docker compose ps | grep -q "pentaho-vault.*Up"; then
+if ! [ "$(podman inspect --format "{{.State.Running}}" pentaho-vault 2>/dev/null)" = "true" ]; then
     echo -e "${RED}✗ Vault container is not running${NC}"
-    echo "  Start services first: docker compose up -d vault"
+    echo "  Start services first: podman compose up -d vault"
     exit 1
 fi
 
@@ -82,9 +82,9 @@ echo ""
 # Restore vault-keys.json
 echo "→ Restoring Vault keys..."
 if [ -f "$BACKUP_DIR/vault-keys.json" ]; then
-    docker cp "$BACKUP_DIR/vault-keys.json" pentaho-vault:/vault/data/vault-keys.json
-    docker exec pentaho-vault chmod 600 /vault/data/vault-keys.json
-    docker exec pentaho-vault chown vault:vault /vault/data/vault-keys.json 2>/dev/null || true
+    podman cp "$BACKUP_DIR/vault-keys.json" pentaho-vault:/vault/data/vault-keys.json
+    podman exec pentaho-vault chmod 600 /vault/data/vault-keys.json
+    podman exec pentaho-vault chown vault:vault /vault/data/vault-keys.json 2>/dev/null || true
     echo -e "${GREEN}✓ vault-keys.json restored${NC}"
 else
     echo -e "${YELLOW}⚠ vault-keys.json not in backup${NC}"
@@ -93,9 +93,9 @@ fi
 # Restore approle-creds.json
 echo "→ Restoring AppRole credentials..."
 if [ -f "$BACKUP_DIR/approle-creds.json" ]; then
-    docker cp "$BACKUP_DIR/approle-creds.json" pentaho-vault:/vault/data/approle-creds.json
-    docker exec pentaho-vault chmod 600 /vault/data/approle-creds.json
-    docker exec pentaho-vault chown vault:vault /vault/data/approle-creds.json 2>/dev/null || true
+    podman cp "$BACKUP_DIR/approle-creds.json" pentaho-vault:/vault/data/approle-creds.json
+    podman exec pentaho-vault chmod 600 /vault/data/approle-creds.json
+    podman exec pentaho-vault chown vault:vault /vault/data/approle-creds.json 2>/dev/null || true
     echo -e "${GREEN}✓ approle-creds.json restored${NC}"
 else
     echo -e "${YELLOW}⚠ approle-creds.json not in backup${NC}"
@@ -104,9 +104,9 @@ fi
 # Restore generated-passwords.json
 echo "→ Restoring generated passwords..."
 if [ -f "$BACKUP_DIR/generated-passwords.json" ]; then
-    docker cp "$BACKUP_DIR/generated-passwords.json" pentaho-vault:/vault/data/generated-passwords.json
-    docker exec pentaho-vault chmod 600 /vault/data/generated-passwords.json
-    docker exec pentaho-vault chown vault:vault /vault/data/generated-passwords.json 2>/dev/null || true
+    podman cp "$BACKUP_DIR/generated-passwords.json" pentaho-vault:/vault/data/generated-passwords.json
+    podman exec pentaho-vault chmod 600 /vault/data/generated-passwords.json
+    podman exec pentaho-vault chown vault:vault /vault/data/generated-passwords.json 2>/dev/null || true
     echo -e "${GREEN}✓ generated-passwords.json restored${NC}"
 else
     echo -e "${YELLOW}⚠ generated-passwords.json not in backup${NC}"
@@ -118,7 +118,7 @@ echo -e "${GREEN}✓ Restore complete!${NC}"
 echo "=========================================="
 echo ""
 echo "Next steps:"
-echo "  1. Restart Vault to apply changes: docker compose restart vault"
-echo "  2. Run vault-init to unseal: docker compose up vault-init"
+echo "  1. Restart Vault to apply changes: podman compose restart vault"
+echo "  2. Run vault-init to unseal: podman compose up vault-init"
 echo "  3. Validate deployment: ./scripts/validate-deployment.sh"
 echo "=========================================="

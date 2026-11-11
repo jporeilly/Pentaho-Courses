@@ -206,7 +206,7 @@ fi
 log_success "Source directory found"
 
 # Check if source looks like a Pentaho K3s project
-REQUIRED_FILES=("deploy.sh" "destroy.sh" "manifests" "docker-build")
+REQUIRED_FILES=("deploy.sh" "destroy.sh" "manifests" "pentaho-image")
 MISSING_FILES=()
 
 for file in "${REQUIRED_FILES[@]}"; do
@@ -442,8 +442,8 @@ else
     echo "2. Review the documentation:"
     echo "   cat README.md"
     echo ""
-    echo "3. Configure environment (if building Docker image):"
-    echo "   cd docker-build"
+    echo "3. Configure environment (if building Podman image):"
+    echo "   cd pentaho-image"
     echo "   cp .env.example .env"
     echo "   nano .env"
     echo ""

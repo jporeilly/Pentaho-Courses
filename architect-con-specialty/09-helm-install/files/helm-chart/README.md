@@ -65,7 +65,7 @@ helm-chart/
 
 - Kubernetes 1.19+ (K3s, EKS, GKE, AKS, etc.)
 - Helm 3.0+
-- Pentaho Docker image imported to cluster
+- Pentaho container image imported to cluster
 - At least 8Gi RAM and 4 CPU cores
 - 25Gi storage available
 

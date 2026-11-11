@@ -1,6 +1,6 @@
-# Pentaho Server 11 Docker Deployment (PostgreSQL)
+# Pentaho Server 11 Compose Deployment with Podman (PostgreSQL)
 
-Complete, standalone Docker Compose deployment for Pentaho Server 11.0.0.0-237 with PostgreSQL 15 repository on Ubuntu 24.04.
+Complete, standalone Podman Compose deployment for Pentaho Server 11.0.0.0-237 with PostgreSQL 15 repository on Ubuntu 24.04.
 
 ## Table of Contents
 
@@ -20,7 +20,7 @@ Complete, standalone Docker Compose deployment for Pentaho Server 11.0.0.0-237 w
 
 ## Overview
 
-This project provides a production-ready Docker Compose deployment for:
+This project provides a production-ready Podman Compose deployment for:
 
 - **Pentaho Server 11.0.0.0-237** (Enterprise Edition)
 - **PostgreSQL 15** with Pentaho repository databases
@@ -51,24 +51,21 @@ This project provides a production-ready Docker Compose deployment for:
 
 ### Software Requirements
 
-1. **Docker Engine** 20.10+
+1. **Podman** 4.9+ and **podman-compose** 1.0.6+ (Ubuntu 24.04's packages)
    ```bash
-   # Install Docker on Ubuntu
-   curl -fsSL https://get.docker.com -o get-docker.sh
-   sudo sh get-docker.sh
-   sudo usermod -aG docker $USER
-   # Log out and back in for group changes to take effect
+   sudo apt install -y podman podman-compose
+   # Rootless: no daemon to start and no group to join
    ```
 
-2. **Docker Compose** 2.0+
+2. **Podman Compose**, the `podman compose` command
    ```bash
    # Verify installation
-   docker compose version
+   podman compose version
    ```
 
 3. **Pentaho Package**
    - Obtain `pentaho-server-ee-11.0.0.0-237.zip` from Hitachi Vantara
-   - Place in `docker/stagedArtifacts/` directory
+   - Place in `image/stagedArtifacts/` directory
 
 ## Quick Start
 
@@ -76,7 +73,7 @@ This project provides a production-ready Docker Compose deployment for:
 
 ```bash
 # Place your Pentaho package in the staged artifacts directory
-cp /path/to/pentaho-server-ee-11.0.0.0-237.zip docker/stagedArtifacts/
+cp /path/to/pentaho-server-ee-11.0.0.0-237.zip image/stagedArtifacts/
 ```
 
 ### 2. Configure Environment (Optional)
@@ -125,27 +122,27 @@ cp .env.template .env
 ### 2. Build Pentaho Server Image
 
 ```bash
-docker compose build --no-cache pentaho-server
+podman compose build --no-cache pentaho-server
 ```
 
 ### 3. Start Services
 
 ```bash
 # Start PostgreSQL first
-docker compose up -d postgres
+podman compose up -d postgres
 
 # Wait for PostgreSQL to be ready (check logs)
-docker compose logs -f postgres
+podman compose logs -f postgres
 
 # Start Pentaho Server
-docker compose up -d pentaho-server
+podman compose up -d pentaho-server
 ```
 
 ### 4. Monitor Startup
 
 ```bash
 # Watch Pentaho Server logs
-docker compose logs -f pentaho-server
+podman compose logs -f pentaho-server
 
 # Wait for "Server startup in [X] milliseconds"
 ```
@@ -239,7 +236,7 @@ softwareOverride/
 
 ### Processing Order
 
-Directories are processed alphabetically during container startup by the entrypoint script (`docker/entrypoint/docker-entrypoint.sh`):
+Directories are processed alphabetically during container startup by the entrypoint script (`image/entrypoint/docker-entrypoint.sh`):
 
 1. **1_drivers** - First: Ensures JDBC drivers are available before database connections
 2. **2_repository** - Second: Database and persistence configuration
@@ -252,14 +249,14 @@ The PostgreSQL JDBC driver is included in the Pentaho distribution. If you need 
 
 1. Download from [Maven Central](https://repo1.maven.org/maven2/org/postgresql/postgresql/)
 2. Place in `softwareOverride/1_drivers/tomcat/lib/`
-3. Rebuild the container: `docker compose build --no-cache pentaho-server`
+3. Rebuild the container: `podman compose build --no-cache pentaho-server`
 
 ### Adding Custom Configurations
 
 1. Create matching directory structure under `softwareOverride/`
 2. Place files with paths matching the Pentaho installation structure
-3. Rebuild container: `docker compose build pentaho-server`
-4. Restart: `docker compose up -d pentaho-server`
+3. Rebuild container: `podman compose build pentaho-server`
+4. Restart: `podman compose up -d pentaho-server`
 
 ### Skipping Directories
 
@@ -300,7 +297,7 @@ Create a `.ignore` file in any directory to skip processing during startup.
 
 ### Data Persistence
 
-Named Docker volumes ensure data persists across container restarts:
+Named Podman volumes ensure data persists across container restarts:
 
 - `vault_data` - Vault data and unseal keys
 - `pentaho_postgres_data` - PostgreSQL databases
@@ -356,18 +353,18 @@ Database credentials are stored at `secret/data/pentaho/postgres`:
 
 ```bash
 # Get Vault status
-docker compose exec vault vault status
+podman compose exec vault vault status
 
 # View stored secrets (requires root token)
-docker compose exec vault vault kv get secret/pentaho/postgres
+podman compose exec vault vault kv get secret/pentaho/postgres
 
 # Get root token from vault-keys.json
-docker compose exec vault cat /vault/data/vault-keys.json | jq -r '.root_token'
+podman compose exec vault cat /vault/data/vault-keys.json | jq -r '.root_token'
 ```
 
-### Docker Secrets Integration
+### Compose Secrets Integration
 
-The deployment also uses Docker secrets for initial database passwords:
+The deployment also uses Compose secrets for initial database passwords:
 
 ```
 secrets/
@@ -437,7 +434,7 @@ Restore from a backup file:
 
 ```bash
 # PostgreSQL CLI (psql)
-docker exec -it pentaho-postgres psql -U postgres
+podman exec -it pentaho-postgres psql -U postgres
 
 # List databases
 \l
@@ -455,14 +452,14 @@ docker exec -it pentaho-postgres psql -U postgres
 
 ```bash
 # Check container status
-docker compose ps
+podman compose ps
 
 # View logs
-docker compose logs pentaho-server
-docker compose logs postgres
+podman compose logs pentaho-server
+podman compose logs postgres
 
 # Restart specific service
-docker compose restart pentaho-server
+podman compose restart pentaho-server
 ```
 
 ### Port Already in Use
@@ -481,26 +478,26 @@ sudo lsof -i :5432
 
 ```bash
 # Verify PostgreSQL is healthy
-docker compose ps postgres
+podman inspect --format '{{.State.Health.Status}}' pentaho-postgres
 
 # Check PostgreSQL logs
-docker compose logs postgres
+podman compose logs postgres
 
 # Test connection
-docker exec pentaho-postgres pg_isready -U postgres
+podman exec pentaho-postgres pg_isready -U postgres
 ```
 
 ### Out of Memory
 
 ```bash
 # Check container resource usage
-docker stats
+podman stats
 
 # Increase JVM memory in .env
 PENTAHO_MAX_MEMORY=6144m
 
 # Restart Pentaho
-docker compose restart pentaho-server
+podman compose restart pentaho-server
 ```
 
 ### Permission Issues
@@ -508,21 +505,21 @@ docker compose restart pentaho-server
 ```bash
 # Pentaho runs as UID/GID 5000
 # Check volume permissions
-docker compose exec pentaho-server ls -la /opt/pentaho/pentaho-server/
+podman compose exec pentaho-server ls -la /opt/pentaho/pentaho-server/
 
 # Reset permissions if needed
-docker compose exec pentaho-server chown -R pentaho:pentaho /opt/pentaho/pentaho-server/
+podman compose exec pentaho-server chown -R pentaho:pentaho /opt/pentaho/pentaho-server/
 ```
 
 ### Database Not Initialized
 
 ```bash
 # Check if initialization scripts ran
-docker compose logs postgres | grep "db_init_postgres"
+podman compose logs postgres | grep "db_init_postgres"
 
 # If databases are missing, recreate PostgreSQL volume
-docker compose down -v
-docker compose up -d postgres
+podman compose down -v
+podman compose up -d postgres
 ```
 
 ### Validate Deployment
@@ -541,7 +538,7 @@ Run comprehensive validation checks:
 - [ ] Restrict PostgreSQL port exposure (remove from ports section)
 - [ ] Configure firewall (UFW) for necessary ports only
 - [ ] Enable SSL/TLS for Pentaho Server
-- [ ] Use Docker secrets for sensitive data
+- [ ] Use Compose secrets for sensitive data
 - [ ] Set up regular automated backups
 - [ ] Configure log rotation
 - [ ] Update base images regularly
@@ -564,7 +561,7 @@ After first login, change via Pentaho web interface.
 
 ### Restrict PostgreSQL Port
 
-Edit `docker-compose.yml` - remove PostgreSQL port exposure:
+Edit `compose.yaml` - remove PostgreSQL port exposure:
 
 ```yaml
 postgres:
@@ -597,15 +594,18 @@ sudo ufw status
 4. Update `.env` with HTTPS port
 5. Configure redirect from HTTP to HTTPS
 
-### Docker Secrets (Swarm Mode)
+### Podman Secrets
 
-For production with Docker Swarm:
+For production, keep the password in Podman's secret store instead of a file:
 
 ```bash
-# Create secrets
-echo "strong_password" | docker secret create postgres_password -
+# Create the secret
+echo "strong_password" | podman secret create postgres_password -
 
-# Update docker-compose.yml to use secrets
+# Then mark it external in compose.yaml:
+#   secrets:
+#     postgres_password:
+#       external: true
 ```
 
 ## Backup and Recovery
@@ -629,9 +629,9 @@ crontab -e
 
 **Complete System Recovery:**
 
-1. Install Docker and Docker Compose on new system
+1. Install Podman and podman-compose on the new system
 2. Clone/copy this entire project directory
-3. Place Pentaho ZIP in `docker/stagedArtifacts/`
+3. Place Pentaho ZIP in `image/stagedArtifacts/`
 4. Restore .env file with original configuration
 5. Restore database from backup:
    ```bash
@@ -639,22 +639,22 @@ crontab -e
    ```
 6. Start services:
    ```bash
-   docker compose up -d
+   podman compose up -d
    ```
 
 ### Volume Backups
 
-Backup Docker volumes:
+Backup Podman volumes:
 
 ```bash
 # Backup PostgreSQL volume
-docker run --rm \
+podman run --rm \
   -v pentaho_postgres_data:/data \
   -v $(pwd)/backups:/backup \
   alpine tar czf /backup/postgres-volume-$(date +%Y%m%d).tar.gz -C /data .
 
 # Backup Pentaho solutions volume
-docker run --rm \
+podman run --rm \
   -v pentaho_solutions:/data \
   -v $(pwd)/backups:/backup \
   alpine tar czf /backup/solutions-volume-$(date +%Y%m%d).tar.gz -C /data .
@@ -666,66 +666,66 @@ docker run --rm \
 
 ```bash
 # Start all services
-docker compose up -d
+podman compose up -d
 
 # Stop all services
-docker compose stop
+podman compose stop
 
 # Restart specific service
-docker compose restart pentaho-server
+podman compose restart pentaho-server
 
 # View service status
-docker compose ps
+podman compose ps
 
 # Remove all containers (keeps volumes)
-docker compose down
+podman compose down
 
 # Remove all containers and volumes (DESTRUCTIVE!)
-docker compose down -v
+podman compose down -v
 ```
 
 ### Logs
 
 ```bash
 # View all logs
-docker compose logs
+podman compose logs
 
 # Follow logs in real-time
-docker compose logs -f
+podman compose logs -f
 
 # View specific service logs
-docker compose logs pentaho-server
-docker compose logs postgres
+podman compose logs pentaho-server
+podman compose logs postgres
 
 # Last 100 lines
-docker compose logs --tail=100 pentaho-server
+podman compose logs --tail=100 pentaho-server
 ```
 
 ### Shell Access
 
 ```bash
 # Pentaho Server shell
-docker compose exec pentaho-server bash
+podman compose exec pentaho-server bash
 
 # PostgreSQL shell
-docker compose exec postgres bash
+podman compose exec postgres bash
 
 # psql directly
-docker compose exec postgres psql -U postgres
+podman compose exec postgres psql -U postgres
 ```
 
 ### Resource Monitoring
 
 ```bash
 # Real-time resource usage
-docker stats
+podman stats
 
 # Disk usage
-docker system df
+podman system df
 
 # Volume details
-docker volume ls
-docker volume inspect pentaho_postgres_data
+podman volume ls
+podman volume inspect pentaho_postgres_data
 ```
 
 ## Support and Resources
@@ -733,16 +733,17 @@ docker volume inspect pentaho_postgres_data
 ### Documentation
 
 - [Pentaho Documentation](https://help.hitachivantara.com/Documentation/Pentaho)
-- [Docker Documentation](https://docs.docker.com/)
+- [Podman Documentation](https://docs.podman.io/)
+- [podman-compose](https://github.com/containers/podman-compose)
 - [PostgreSQL 15 Documentation](https://www.postgresql.org/docs/15/)
 
 ### Getting Help
 
-- Check logs: `docker compose logs -f`
+- Check logs: `podman compose logs -f`
 - Run validation: `./scripts/validate-deployment.sh`
 - Review this README's Troubleshooting section
 - Pentaho Community Forums
-- Docker Community
+- Podman community: https://podman.io/community
 
 ## License
 
@@ -765,14 +766,14 @@ Pentaho-Server-PostgreSQL/
 ├── QUICKSTART.md                # Quick start guide
 ├── CONFIGURATION.md             # Configuration reference guide
 ├── PROJECT_SUMMARY.md           # Project summary
-├── docker-compose.yml           # Docker Compose service definitions
+├── compose.yaml           # Podman Compose service definitions
 ├── Makefile                     # Convenience targets (make help)
 ├── deploy.sh                    # Automated deployment script
 ├── .env                         # Environment configuration (created from template)
 ├── .env.template                # Environment template with defaults
 │
-├── docker/                      # Docker build context
-│   ├── Dockerfile               # Multi-stage Pentaho Server image build
+├── image/                       # Image build context
+│   ├── Containerfile               # Multi-stage Pentaho Server image build
 │   ├── entrypoint/              # Container entrypoint scripts
 │   │   └── docker-entrypoint.sh # Startup script (processes softwareOverride)
 │   └── stagedArtifacts/         # Pentaho installation packages
@@ -812,9 +813,9 @@ Pentaho-Server-PostgreSQL/
 
 | File | Purpose |
 |------|---------|
-| `docker-compose.yml` | Defines all services (pentaho-server, postgres), networks, and volumes |
-| `docker/Dockerfile` | Multi-stage build using `debian:trixie-slim` with OpenJDK 21 |
-| `docker/entrypoint/docker-entrypoint.sh` | Processes softwareOverride directories at startup |
+| `compose.yaml` | Defines all services (pentaho-server, postgres), networks, and volumes |
+| `image/Containerfile` | Multi-stage build using `debian:trixie-slim` with OpenJDK 21 |
+| `image/entrypoint/docker-entrypoint.sh` | Processes softwareOverride directories at startup |
 | `.env` | Environment-specific configuration (ports, passwords, memory) |
 | `deploy.sh` | Automated deployment with pre-flight checks |
 | `Makefile` | Convenience commands (run `make help` for list) |
@@ -883,7 +884,7 @@ Pentaho-Server-PostgreSQL/
 - Added HashiCorp Vault integration for secrets management
 - Database credentials now stored in Vault instead of plain text
 - AppRole authentication for Pentaho to retrieve secrets
-- Docker secrets integration for PostgreSQL password
+- Compose secrets integration for PostgreSQL password
 
 **Container Hardening:**
 - PostgreSQL container now runs in read-only mode
@@ -904,13 +905,13 @@ Pentaho-Server-PostgreSQL/
 **New Files:**
 - `vault/config/vault.hcl` - Vault server configuration
 - `vault/policies/pentaho-policy.hcl` - Access policy
-- `secrets/postgres_password.txt` - Docker secrets file
+- `secrets/postgres_password.txt` - Compose secrets file
 - `scripts/vault-init.sh` - Vault initialization script
 - `scripts/fetch-secrets.sh` - Secret retrieval helper
 
 ### Version 1.0.0 (2026-01-13)
 
-**Docker Image Changes:**
+**Container Image Changes:**
 - Base image: `debian:trixie-slim` with OpenJDK 21 JRE
 - No dependency on private container registries
 
@@ -920,16 +921,16 @@ Pentaho-Server-PostgreSQL/
 - pg_dump for backup/restore operations
 
 **Accessing Logs:**
-Use Docker's native logging:
+Use Podman's logging:
 ```bash
 # View Pentaho Server logs
-docker compose logs -f pentaho-server
+podman compose logs -f pentaho-server
 
 # View PostgreSQL logs
-docker compose logs -f postgres
+podman compose logs -f postgres
 
 # View last 100 lines
-docker compose logs --tail=100 pentaho-server
+podman compose logs --tail=100 pentaho-server
 ```
 
 ---

@@ -387,8 +387,8 @@ Expected output: `local-path` or your cluster's default
 #### 1.3 Import Pentaho Image (K3s)
 
 ```bash
-# Navigate to docker build directory
-cd /home/pentaho/Pentaho-K3s-PostgreSQL/docker-build
+# Navigate to podman build directory
+cd /home/pentaho/Pentaho-K3s-PostgreSQL/pentaho-image
 
 # Build image (if not already built)
 ./build.sh
@@ -407,8 +407,8 @@ sudo k3s ctr images ls | grep pentaho
 For non-K3s clusters:
 ```bash
 # Push to registry
-docker tag pentaho/pentaho-server:11.0.0.0-237 registry.company.com/pentaho:11.0.0.0-237
-docker push registry.company.com/pentaho:11.0.0.0-237
+podman tag pentaho/pentaho-server:11.0.0.0-237 registry.company.com/pentaho:11.0.0.0-237
+podman push registry.company.com/pentaho:11.0.0.0-237
 
 # Update values.yaml
 pentaho:
@@ -1048,7 +1048,7 @@ pentaho:
 - ✓ User-uploaded files
 - ✓ Log file retention
 
-**Warning**: Empty PVCs overwrite container directories in Kubernetes (unlike Docker named volumes)
+**Warning**: Empty PVCs overwrite container directories in Kubernetes (unlike Podman named volumes)
 
 Solution: Use initContainer to populate PVCs on first run (not implemented by default)
 
@@ -1767,7 +1767,7 @@ kubectl describe pod -l app=pentaho-server -n pentaho | grep -A 5 "Events:"
 For K3s:
 ```bash
 # Import image
-cd ../docker-build
+cd ../pentaho-image
 sudo k3s ctr images import pentaho-server-11.0.0.0-237.tar
 
 # Verify

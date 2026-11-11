@@ -58,7 +58,7 @@
 #   3. You can manually re-run the failed step
 #   4. If Pentaho can't connect:
 #      - Check Vault secrets match PostgreSQL passwords
-#      - Restart Pentaho: docker compose restart pentaho-server
+#      - Restart Pentaho: podman compose restart pentaho-server
 #
 # FILES MODIFIED:
 #   /vault/data/generated-passwords.json  - Updated with new passwords
@@ -142,7 +142,7 @@ check_prerequisites() {
     echo -e "${BLUE}Checking prerequisites...${NC}"
 
     # Check PostgreSQL container
-    if ! docker exec pentaho-postgres psql -U postgres -c "SELECT 1" > /dev/null 2>&1; then
+    if ! podman exec pentaho-postgres psql -U postgres -c "SELECT 1" > /dev/null 2>&1; then
         echo -e "${RED}ERROR: PostgreSQL container is not responding${NC}"
         exit 1
     fi
@@ -153,7 +153,7 @@ check_prerequisites() {
     VAULT_SEALED=$(echo "$VAULT_STATUS" | jq -r 'if .sealed == null then "unknown" else .sealed | tostring end' 2>/dev/null)
 
     if [ "$VAULT_SEALED" = "true" ]; then
-        echo -e "${RED}ERROR: Vault is sealed. Run 'docker compose up vault-init' first${NC}"
+        echo -e "${RED}ERROR: Vault is sealed. Run 'podman compose up vault-init' first${NC}"
         exit 1
     elif [ "$VAULT_SEALED" = "unknown" ]; then
         echo -e "${RED}ERROR: Cannot connect to Vault${NC}"
@@ -162,7 +162,7 @@ check_prerequisites() {
     echo -e "${GREEN}✓ Vault is unsealed${NC}"
 
     # Check for vault-keys.json
-    if ! docker exec pentaho-vault test -f /vault/data/vault-keys.json 2>/dev/null; then
+    if ! podman exec pentaho-vault test -f /vault/data/vault-keys.json 2>/dev/null; then
         echo -e "${RED}ERROR: Vault keys not found${NC}"
         exit 1
     fi
@@ -171,7 +171,7 @@ check_prerequisites() {
 
 # Function to get Vault root token
 get_vault_token() {
-    docker exec pentaho-vault cat /vault/data/vault-keys.json 2>/dev/null | jq -r '.root_token'
+    podman exec pentaho-vault cat /vault/data/vault-keys.json 2>/dev/null | jq -r '.root_token'
 }
 
 # Function to update PostgreSQL user password
@@ -186,7 +186,7 @@ update_postgres_password() {
         return 0
     fi
 
-    docker exec pentaho-postgres psql -U postgres -c \
+    podman exec pentaho-postgres psql -U postgres -c \
         "ALTER USER $user WITH PASSWORD '$new_password';" 2>/dev/null
 
     if [ $? -eq 0 ]; then
@@ -262,7 +262,7 @@ update_passwords_file() {
         return 0
     fi
 
-    docker exec pentaho-vault sh -c "cat > /vault/data/generated-passwords.json << EOF
+    podman exec pentaho-vault sh -c "cat > /vault/data/generated-passwords.json << EOF
 {
     \"jcr_password\": \"$jcr_pass\",
     \"pentaho_password\": \"$pentaho_pass\",
@@ -286,7 +286,7 @@ restart_pentaho() {
     if [ "$NO_RESTART" = true ]; then
         echo -e "${YELLOW}Skipping Pentaho restart (--no-restart specified)${NC}"
         echo "You must restart Pentaho manually to apply new credentials:"
-        echo "  docker compose restart pentaho-server"
+        echo "  podman compose restart pentaho-server"
         return 0
     fi
 
@@ -298,7 +298,7 @@ restart_pentaho() {
     fi
 
     cd "$PROJECT_DIR"
-    docker compose restart pentaho-server
+    podman compose restart pentaho-server
 
     echo -e "${GREEN}✓ Pentaho server restarted${NC}"
     echo "Pentaho will fetch new credentials from Vault on startup"
@@ -439,7 +439,7 @@ main() {
     if [ "$DRY_RUN" = false ]; then
         echo ""
         echo "Next steps:"
-        echo "  1. Verify Pentaho is running: docker compose ps"
+        echo "  1. Verify Pentaho is running: podman compose ps"
         echo "  2. Test login at http://localhost:${PENTAHO_HTTP_PORT:-8090}/pentaho"
         echo "  3. Create a backup: ./scripts/backup-vault.sh"
     fi

@@ -42,14 +42,14 @@ echo "Backup file: $BACKUP_DIR/$BACKUP_FILE"
 echo ""
 
 # Check if container is running
-if ! docker ps --format '{{.Names}}' | grep -q "^${CONTAINER_NAME}$"; then
+if ! podman ps --format '{{.Names}}' | grep "^${CONTAINER_NAME}$" > /dev/null; then
     echo -e "${RED}✗ PostgreSQL container '${CONTAINER_NAME}' is not running${NC}"
     exit 1
 fi
 
 # Perform backup
 echo "Creating backup..."
-if docker exec -e PGPASSWORD="${POSTGRES_PASSWORD:-postgres}" "$CONTAINER_NAME" pg_dumpall -U postgres > "$BACKUP_DIR/$BACKUP_FILE"; then
+if podman exec -e PGPASSWORD="${POSTGRES_PASSWORD:-postgres}" "$CONTAINER_NAME" pg_dumpall -U postgres > "$BACKUP_DIR/$BACKUP_FILE"; then
 
     # Compress backup
     echo "Compressing backup..."

@@ -1,9 +1,9 @@
 #!/bin/bash
 # =============================================================================
-# Pentaho Server Docker Entrypoint Script
+# Pentaho Server Container Entrypoint Script
 # =============================================================================
 #
-# Location: docker/entrypoint/docker-entrypoint.sh
+# Location: image/entrypoint/docker-entrypoint.sh
 #
 # This script runs when the Pentaho Server container starts. It performs:
 #   1. JVM configuration via CATALINA_OPTS
@@ -13,9 +13,9 @@
 #   5. Starting the Pentaho Server
 #
 # Environment Variables:
-#   PENTAHO_VERSION     - Pentaho version (set in Dockerfile)
-#   PENTAHO_SERVER_PATH - Path to Pentaho installation (set in Dockerfile)
-#   INSTALLATION_PATH   - Root installation path (set in Dockerfile)
+#   PENTAHO_VERSION     - Pentaho version (set in Containerfile)
+#   PENTAHO_SERVER_PATH - Path to Pentaho installation (set in Containerfile)
+#   INSTALLATION_PATH   - Root installation path (set in Containerfile)
 #   LICENSE_URL         - Optional URL to download EE license file
 #
 # Configuration Overlay:

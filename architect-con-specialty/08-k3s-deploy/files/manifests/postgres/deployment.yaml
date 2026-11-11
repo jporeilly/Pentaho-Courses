@@ -52,7 +52,7 @@ spec:
       containers:
         - name: postgres
           # Official PostgreSQL 15 image from Docker Hub
-          image: postgres:15
+          image: docker.io/library/postgres:15
           imagePullPolicy: IfNotPresent  # Use cached image if available
 
           ports:
@@ -137,7 +137,7 @@ spec:
 
         # ConfigMap containing complete SQL initialization scripts
         # Scripts create databases, users, tables, and populate required data
-        # Sourced from working Docker Compose project
+        # Sourced from the Compose project (Pentaho Server + PostgreSQL)
         - name: postgres-init
           configMap:
             name: postgres-init-scripts
