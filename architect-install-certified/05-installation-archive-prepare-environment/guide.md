@@ -21,7 +21,7 @@
 > * Outbound internet access, for the Ubuntu, PostgreSQL and pgAdmin package repositories
 > * The plan in [Overview](../04-installation-archive-overview/guide.md)
 >
-> **Estimated time:** 30 minutes
+> **Estimated time:** 40 minutes
 
 <figure>
 
@@ -88,7 +88,7 @@ TOMCAT_HOME=/opt/pentaho/server/pentaho-server/tomcat
 sudo apt update -y && sudo apt upgrade -y
 ```
 
-2. Add the user. Enter a password for `pentaho` when asked; the other questions are optional, so press `Enter` to skip them.
+2. Add the user. If you already sign in as `pentaho` (`whoami` prints `pentaho`), the user exists and `adduser` says so: go on to step 3. Otherwise, enter a password for `pentaho` when asked; the other questions are optional, so press `Enter` to skip them.
 
 ```bash
 sudo adduser pentaho
@@ -108,7 +108,7 @@ groups
 sudo -v
 ```
 
-> **Success:** Checkpoint: `groups` prints `pentaho sudo users`, and `sudo -v` asks for the `pentaho` password, then returns to the prompt with no error.
+> **Success:** Checkpoint: the list `groups` prints includes `pentaho` and `sudo` (a new user shows `pentaho sudo users`; the user the machine was installed with shows more groups), and `sudo -v` asks for the `pentaho` password, then returns to the prompt with no error.
 
 Work as `pentaho` from here on: the rest of the course installs and runs everything as this user.
 

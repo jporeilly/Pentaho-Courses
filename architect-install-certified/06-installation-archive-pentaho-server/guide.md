@@ -19,7 +19,7 @@
 > * [Prepare Environment](../05-installation-archive-prepare-environment/guide.md): Ubuntu 24.04 LTS, Java 21 with `PENTAHO_JAVA_HOME` set, PostgreSQL 17 running, the `pentaho` user with `sudo`, and `unzip`
 > * `pentaho-server-ee-11.0.0.0-237.zip` from [Pentaho Support Portal](../02-installation-getting-started-pentaho-support-portal/guide.md), and the JDBC driver JARs your server needs
 >
-> **Estimated time:** 20 minutes
+> **Estimated time:** 60 minutes
 
 <figure>
 
@@ -391,18 +391,19 @@ ls -1 "$TOMCAT_HOME/lib" | grep -i postgresql || echo "PostgreSQL driver not fou
 
 > **Success:** Checkpoint: `postgresql-42.5.6.jar`, the driver the archive ships.
 
-2. If it is missing, download the PostgreSQL JDBC driver (for example `postgresql-42.7.8.jar`, from the card above) and copy it into Tomcat's `lib` folder:
+2. Only if it is missing: download the PostgreSQL JDBC driver into the staging folder and copy it into Tomcat's `lib` folder:
 
 ```bash
-sudo cp ~/Downloads/'Database Drivers'/postgresql-*.jar "$TOMCAT_HOME/lib/"
-sudo chown pentaho:pentaho "$TOMCAT_HOME"/lib/postgresql-*.jar
+cd /opt/pentaho/software/db-drivers
+sudo wget https://jdbc.postgresql.org/download/postgresql-42.7.8.jar
+sudo cp postgresql-42.7.8.jar "$TOMCAT_HOME/lib/" && sudo chown pentaho:pentaho "$TOMCAT_HOME"/lib/postgresql-*.jar
 ```
 
-3. Stage the other JDBC drivers you downloaded, and copy the ones the server needs (MySQL here) into Tomcat's `lib` folder:
+3. Optionally, add the driver for another database your data sources use. The repository needs only PostgreSQL, so skip this step if you have no other database. The example downloads the MySQL driver into the staging folder and copies it into Tomcat's `lib` folder:
 
 ```bash
-sudo cp ~/Downloads/'Database Drivers'/* /opt/pentaho/software/db-drivers
 cd /opt/pentaho/software/db-drivers
+sudo wget https://repo1.maven.org/maven2/com/mysql/mysql-connector-j/9.0.0/mysql-connector-j-9.0.0.jar
 sudo cp mysql-connector-j-9.0.0.jar "$TOMCAT_HOME/lib/" && sudo chown pentaho:pentaho "$TOMCAT_HOME/lib/mysql-connector-j-9.0.0.jar"
 ```
 
@@ -420,7 +421,7 @@ sudo cp mysql-connector-j-9.0.0.jar "$TOMCAT_HOME/lib/" && sudo chown pentaho:pe
 ls -1 "$TOMCAT_HOME/lib" | grep -Ei 'mysql|postgresql' || echo "Not found"
 ```
 
-> **Success:** Checkpoint: `mysql-connector-j-9.0.0.jar` and `postgresql-42.5.6.jar`.
+> **Success:** Checkpoint: `postgresql-42.5.6.jar`, and `mysql-connector-j-9.0.0.jar` if you added it in step 3.
 
 Tomcat reads its `lib` folder when it starts, so restart the server (and any client tool that uses the driver) after you add a driver. A full system reboot is not required.
 
@@ -484,6 +485,8 @@ tail -f "$TOMCAT_HOME/logs/catalina."*.log
 > **Success:** Checkpoint: the log reaches `Starting ProtocolHandler ["http-nio-8080"]` and then `Server startup in [...] milliseconds`, with the time it took in the brackets.
 
 3. Press `Ctrl+C` to stop following the log. The server keeps running.
+
+On this first start, before a license is installed, `tomcat/logs/pentaho.log` records a few `ERROR` lines (the scheduler's state and a geo `CsvReader`). They are expected: on the course's server they did not come back on the next start, once the license was in.
 4. Check that HTTP answers:
 
 ```bash
@@ -581,7 +584,8 @@ EnvironmentFile=-/etc/environment
 WorkingDirectory=/opt/pentaho/server/pentaho-server
 ExecStart=/opt/pentaho/server/pentaho-server/start-pentaho.sh
 ExecStop=/opt/pentaho/server/pentaho-server/stop-pentaho.sh
-TimeoutSec=500
+TimeoutStartSec=500
+TimeoutStopSec=120
 Restart=on-failure
 RestartSec=5
 SuccessExitStatus=5 6
@@ -610,6 +614,8 @@ sudo systemctl stop pentaho-server
 ```
 
 > **Success:** Checkpoint: `systemctl status pentaho-server` shows the service loaded from `/etc/systemd/system/pentaho-server.service`, enabled and active.
+
+From now on, stop, start and restart the server with `systemctl`, not with the scripts: a server started by hand is one the service does not know about. A stop usually takes a few seconds. Now and then the Java process does not exit after Tomcat has shut down; systemd then waits the unit's `TimeoutStopSec` (two minutes), ends the process, and `journalctl -u pentaho-server` records `Failed with result 'timeout'`. The next start is normal.
 
 ### 6. License Manager
 

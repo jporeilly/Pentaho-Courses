@@ -9,7 +9,7 @@
 > **What you'll do**
 >
 > * Open the Plugin Manager in Spoon
-> * Find a plugin and install its latest version, or an earlier one
+> * Find a plugin and install the version that matches your client
 > * Restart Spoon and check the installed version
 > * See where the Plugin Manager records what it installed
 >
@@ -42,25 +42,12 @@
 
 1. Start Spoon from a terminal:
 
-::: tabs
-
-### Windows (PowerShell)
-
-```powershell
-Set-Location C:\Pentaho\design-tools\data-integration
-.\spoon.bat
-```
-
-### macOS / Linux
-
 ```bash
 cd ~/Pentaho/design-tools/data-integration
 ./spoon.sh
 ```
 
-:::
-
-2. Select **Tools > Plugin Manager**. (On the **Welcome!** page, **Plugin Manager** under **EXTEND** opens it too.)
+2. Select **Tools > Plugin Manager**. (Where Spoon shows its **Welcome!** page, **Plugin Manager** under **EXTEND** opens it too; on Ubuntu 24.04 use the menu.)
 
 <div align="center">
 <figure>
@@ -69,11 +56,11 @@ cd ~/Pentaho/design-tools/data-integration
 </figure>
 </div>
 
-> **Success:** Checkpoint: a **Plugin Manager** tab opens. Each plugin shows its **Type**, **Installed Version** and **Latest Version**, and an **Install** button, or **Installed** if it is already there.
+> **Success:** Checkpoint: a **Plugin Manager** tab opens. Each plugin shows its **Type**, **Installed Version** and **Latest Version**, and an **Install** button, or **Installed** if it is already there. On a new client nothing is installed yet; the picture is of a client with three plugins.
 
 3. Find the plugin you want: type its name in **Search...**, or change **View All** to **Not Installed**.
-4. To install the latest version, select the plugin's **Install** button.
-5. To install an earlier version instead, select the plugin's name. In its details window, select the version in the version list, then select **Install**.
+4. Select the plugin's name, to open its details window.
+5. In the version list, select the version that matches your client, `11.0.0.0-237`, then select **Install**. The row's own **Install** button installs the **Latest Version** instead, which for most plugins is a newer build (such as `11.0.0.2-294`) than the client, and the details window warns you to match the platform version.
 
 <div align="center">
 <figure>
@@ -84,26 +71,31 @@ cd ~/Pentaho/design-tools/data-integration
 
 6. When Spoon asks **Do you want to install?**, confirm.
 
-> **Success:** Checkpoint: a **Successful installation** message says that the plugin *is now installed*, and asks you to *restart Pentaho Data Integration to use the plugin*.
+> **Success:** Checkpoint: a **Successful installation** message: *Hierarchical Data Type is now installed. Please restart PDI to use the plugin.* (with the name of the plugin you chose).
 
 7. Restart Spoon: select **File > Exit**, then start Spoon again from the terminal.
 8. Select **Tools > Plugin Manager**, and find the plugin again.
 
 > **Success:** Checkpoint: the plugin shows **Installed**, and its **Installed Version** is the version you chose, for example `11.0.0.0-237`.
 
-9. In a terminal, look at the Plugin Manager's record of the plugins it installed:
+9. In a terminal, look at the record the Plugin Manager left in each plugin folder it installed:
 
 ```bash
-cat ~/Pentaho/design-tools/data-integration/plugins/plugin-manifest.json
+cd ~/Pentaho/design-tools/data-integration/plugins
+for f in */pluginmeta.json; do echo "$f: $(cat "$f")"; done
 ```
+
+> **Success:** Checkpoint: one line for the Plugin Manager itself (`plugin-manager-di`) and one for each plugin you installed, in a folder named after the plugin and the time of the install, such as `hierarchical-datatype-plugin-2026-11-11-11-25-51-843537345/pluginmeta.json: {"pluginName":"Hierarchical Data Type","pluginId":10454,"releaseId":32560}`.
+
+That small file is the whole record: there is no central list of installed plugins.
 
 > **Under the hood:**
 >
 > #### The Plugin Manager keeps its own record of what it installed
 >
-> Pentaho Data Integration's plugins live in `data-integration/plugins`. The Plugin Manager installs a plugin there, and records its name, plugin ID and version in `plugins/plugin-manifest.json`, whose `containerType` is `KETTLE`. The Plugin Manager is itself the first entry, `Plugin Manager - PDI`. A plugin copied into `plugins` by hand has no entry in that file, and it doesn't show up in the Plugin Manager.
+> Pentaho Data Integration's plugins live in `data-integration/plugins`. The Plugin Manager unpacks a plugin into its own folder there and writes a `pluginmeta.json` in it, with the plugin's name and ID. The Plugin Manager is a plugin too, in `plugin-manager-di`. A plugin copied into `plugins` by hand has no `pluginmeta.json`, and it doesn't show up as installed in the Plugin Manager.
 >
-> **Why it matters:** the manifest is your list of what to reinstall after an upgrade (see [Pentaho Upgrade & Patches](../09-installation-upgrade-and-patches/guide.md)), and the reason to install through the Plugin Manager: a plugin it doesn't know about is one you update and remove by hand.
+> **Why it matters:** the folders that hold a `pluginmeta.json` are your list of what to reinstall after a service pack or an upgrade (see [Pentaho Upgrade & Patches](../09-installation-upgrade-and-patches/guide.md)), and the reason to install through the Plugin Manager: a plugin it doesn't know about is one you update and remove by hand.
 
 ::::
 

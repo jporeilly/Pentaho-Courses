@@ -1,8 +1,8 @@
 {
   "title": "Pentaho Upgrade & Patches",
-  "description": "",
+  "description": "Apply service pack 11.0.0.3-312 to the server and the client tools, and put back what it removes.",
   "order": 9,
-  "stepCount": 1,
-  "estimatedMinutes": 15,
+  "stepCount": 5,
+  "estimatedMinutes": 45,
   "hasVideo": false
 }

@@ -18,7 +18,7 @@
 > * The five client tool archives, from [Pentaho Support Portal](../02-installation-getting-started-pentaho-support-portal/guide.md)
 > * A desktop session on Ubuntu 24.04 LTS
 >
-> **Estimated time:** 15 minutes
+> **Estimated time:** 25 minutes
 
 <figure>
 
@@ -106,7 +106,7 @@ When you finish this lab, it holds one folder per tool:
 >
 > Pentaho Data Integration provides extract, transform and load (ETL) capabilities for capturing, cleansing and transforming data.
 >
-> Some legacy UI components in Spoon may need GTK or WebKit libraries that vary by desktop flavor. If Spoon reports missing GTK or WebKit modules on Ubuntu 24.04, see **Missing GTK/WebKit modules** under Troubleshooting, below.
+> Spoon's Welcome page is drawn by an old WebKit library, `libwebkitgtk-1.0`, which Ubuntu 24.04 no longer provides. Without it Spoon says so when it starts and opens with an empty main area. Everything else works: see **Spoon reports a missing libwebkitgtk package** under Troubleshooting, below.
 
 1. Find the Pentaho Data Integration client archive:
 
@@ -148,11 +148,11 @@ cd ~/Pentaho/design-tools/data-integration
 <div align="center">
 <figure>
 <img src="../_assets/images/spoon_ui.png" alt="The Spoon - Welcome! window: the View tab's Configurations tree on the left, and the Welcome to Pentaho Data Integration page with the OPEN, CREATE, LEARN and EXTEND panels" width="800">
-<figcaption>Spoon's Welcome page</figcaption>
+<figcaption>Spoon's Welcome page, on a desktop that has the old WebKit library</figcaption>
 </figure>
 </div>
 
-> **Success:** Checkpoint: the **Spoon - Welcome!** window opens on **Welcome to Pentaho Data Integration**, with the **OPEN**, **CREATE**, **LEARN** and **EXTEND** panels.
+> **Success:** Checkpoint: the Spoon window opens after about 15 seconds, with the **View** and **Design** tabs on the left and the menu bar on top. On Ubuntu 24.04 close the **Missing libwebkitgtk package** message first; the window is then titled **Spoon - [no name]**, its main area is empty, and the Welcome page may open in Firefox instead. On a desktop that has the old WebKit library, the window is **Spoon - Welcome!** with the **OPEN**, **CREATE**, **LEARN** and **EXTEND** panels, as pictured.
 
 ### 2. Metadata Editor
 
@@ -354,9 +354,9 @@ cd ~/Pentaho/design-tools/report-designer
 ## Troubleshooting <!-- no-step -->
 
 <details>
-<summary>Spoon fails to start, or shows GTK or WebKit errors</summary>
+<summary>Spoon fails to start</summary>
 
-Install the GTK and WebKit libraries (see **Missing GTK/WebKit modules**, below) and try again. If needed, start Spoon with additional SWT or GTK flags, or test on a different desktop flavor.
+Run `./spoon.sh` from a terminal and read what it prints: a missing Java (`sudo apt install openjdk-21-jre`) and a missing display are the usual causes. A message about `libwebkitgtk` does not stop Spoon: see **Spoon reports a missing libwebkitgtk package**, below.
 
 </details>
 
@@ -389,44 +389,18 @@ Raise `-Xms` and `-Xmx` in the tool's `*.ini` file or startup script.
 </details>
 
 <details>
-<summary>Missing GTK/WebKit modules</summary>
+<summary>Spoon reports a missing libwebkitgtk package</summary>
 
-Add the package from the Ubuntu 18.04 (bionic) archive.
+On Ubuntu 24.04 every start of Spoon shows a **Missing libwebkitgtk package** message, and the terminal prints `no libwebkitgtk-1.0 detected, some features will be unavailable`. Select **Close** and carry on.
 
-1. Install the package that manages repositories:
+What you lose is the Welcome page inside Spoon (it opens in your browser instead) and the other pages Spoon draws with its built-in browser. Transformations, jobs, the **Tools** menu and the Plugin Manager all work without it.
 
-```bash
-sudo apt-get install -qq software-properties-common
-```
+`libwebkitgtk-1.0` was last shipped in Ubuntu 18.04, which is out of support. Do not add that release's package archive to a current server to get it: it brings in a WebKit from 2018 with its known security faults.
 
-2. Add the repository entry:
-
-```bash
-sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 3B4FE6ACC0B21F32
-sudo add-apt-repository 'deb [trusted=yes] http://cz.archive.ubuntu.com/ubuntu bionic main universe'
-```
-
-3. Update the package lists:
-
-```bash
-sudo apt-get update
-```
-
-4. Install the packages:
-
-```bash
-sudo apt-get install -qq libwebkitgtk-1.0-0
-```
+To silence the separate `Failed to load module "canberra-gtk-module"` message, install the module from Ubuntu's own archive:
 
 ```bash
 sudo apt-get install libcanberra-gtk-module
-```
-
-5. Start Pentaho Data Integration:
-
-```bash
-cd ~/Pentaho/design-tools/data-integration
-./spoon.sh
 ```
 
 </details>

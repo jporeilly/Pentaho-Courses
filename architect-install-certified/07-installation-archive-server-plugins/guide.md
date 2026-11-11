@@ -19,7 +19,7 @@
 > * The server from [Install Pentaho Server](../06-installation-archive-pentaho-server/guide.md), running and licensed
 > * Outbound HTTPS from the server to `download.pentaho.com`, where the Plugin Manager downloads plugins
 >
-> **Estimated time:** 15 minutes
+> **Estimated time:** 45 minutes
 
 <figure>
 
@@ -43,7 +43,7 @@
 >
 > #### The modern User Console
 >
-> The left panel holds the main navigation: **Home**, **Browse Files**, **Plugin Manager**, **Scheduler**, **Data Connections** and **Settings**, then an entry for each plugin that adds one, such as **Semantic Model Editor** and **Pipeline Designer**. The **Home** page has a **Quick Access** section of cards and a list of recently opened files.
+> The left panel holds the main navigation: **Home**, **Browse Files**, **Plugin Manager**, **Scheduler**, **Data Connections** and **Pipeline Designer**, then an entry for each plugin that adds one, such as **Semantic Model Editor** once you install it. The **Home** page has a **Quick Access** section of cards and a list of recently opened files.
 
 1. Open the new login page, set **Username** to `admin` and **Password** to `password`, and select **Log In**:
 
@@ -84,7 +84,7 @@
 >
 > #### The Plugin Manager unpacks each plugin into pentaho-solutions/system
 >
-> When you install a plugin, the Plugin Manager downloads it from `download.pentaho.com`, unpacks it into its own folder under `pentaho-solutions/system` (the folder each tab below checks for), and records its name, plugin ID and version in `pentaho-solutions/system/plugin-manifest.json`. The server loads its plugins when it starts, so every install ends with a restart: the Plugin Manager's own message says *You must restart the server to complete the installation/update*.
+> When you install a plugin, the Plugin Manager downloads it from `download.pentaho.com`, unpacks it into its own folder under `pentaho-solutions/system` (the folder each tab below checks for), and writes a `pluginmeta.json` in that folder with the plugin's name and ID. The server loads its plugins when it starts, so every install ends with a restart: the Plugin Manager's own message says *You must restart the server to complete the installation/update*.
 >
 > **Why it matters:** the folder in `system` is the proof that a plugin is on disk, and the restart is what makes it appear in the console. A plugin whose folder exists but which the console doesn't show is a plugin the server hasn't loaded yet.
 
@@ -94,7 +94,7 @@
 >
 > #### Analytic Plugins
 >
-> Analyzer, Interactive Reporting and Dashboard Designer are not in the server archive. Install each one from the Plugin Manager, the recommended way to manage a plugin's lifecycle.
+> Analyzer, Interactive Reporting and Dashboard Designer are not in the server archive. Install each one from the Plugin Manager, the recommended way to manage a plugin's lifecycle. To save time, you can install all three first and restart the server once: a restart loads every plugin installed since the last one.
 
 ::: tabs
 
@@ -115,7 +115,7 @@
 </figure>
 </div>
 
-2. In the plugin's details, open **Select the plugin version** and select the latest version (`11.0.0.0-237` for the GA release).
+2. In the plugin's details, open **Select the plugin version** and select the version that matches your server, `11.0.0.0-237`. The list also offers newer builds, such as `11.0.0.2-294`, and the panel warns you to match the platform version: do not install a plugin newer than the server.
 
 <div align="center">
 <figure>
@@ -128,7 +128,7 @@
 
 > **Success:** Checkpoint: the Plugin Manager reports that the plugin *has been installed or updated successfully* and that *You must restart the server to complete the installation/update*.
 
-4. In a terminal, check that the plugin's folder exists:
+4. In a terminal, check that the plugin's folder exists. The Plugin Manager goes on unpacking for some seconds after its message, so if the check prints the "missing" message, wait half a minute and run it again:
 
 ```bash
 [ -d "$PENTAHO_SERVER/pentaho-solutions/system/analyzer" ] && echo OK || echo "Analyzer directory missing"
@@ -149,6 +149,8 @@ cd "$PENTAHO_SERVER"
 cd "$PENTAHO_SERVER"
 ./start-pentaho.sh
 ```
+
+If the server runs as the service you created in **Install Pentaho Server**, run `sudo systemctl restart pentaho-server` instead of these two commands.
 
 7. Log in to the modern User Console again and select **Plugin Manager**:
 
@@ -180,7 +182,7 @@ cd "$PENTAHO_SERVER"
 </figure>
 </div>
 
-2. In the plugin's details, open **Select the plugin version** and select the latest version.
+2. In the plugin's details, open **Select the plugin version** and select the version that matches your server, `11.0.0.0-237`.
 
 <div align="center">
 <figure>
@@ -193,7 +195,7 @@ cd "$PENTAHO_SERVER"
 
 > **Success:** Checkpoint: the Plugin Manager reports that the plugin *has been installed or updated successfully* and that you must restart the server.
 
-4. In a terminal, check that the plugin's folder exists:
+4. In a terminal, check that the plugin's folder exists. The Plugin Manager goes on unpacking for some seconds after its message, so if the check prints the "missing" message, wait half a minute and run it again:
 
 ```bash
 [ -d "$PENTAHO_SERVER/pentaho-solutions/system/pentaho-interactive-reporting" ] && echo OK || echo "Interactive Reporting directory missing"
@@ -214,6 +216,8 @@ cd "$PENTAHO_SERVER"
 cd "$PENTAHO_SERVER"
 ./start-pentaho.sh
 ```
+
+If the server runs as the service you created in **Install Pentaho Server**, run `sudo systemctl restart pentaho-server` instead of these two commands.
 
 7. Log in to the modern User Console again and select **Plugin Manager**:
 
@@ -244,7 +248,7 @@ cd "$PENTAHO_SERVER"
 </figure>
 </div>
 
-2. In the plugin's details, open **Select the plugin version** and select the latest version.
+2. In the plugin's details, open **Select the plugin version** and select the version that matches your server, `11.0.0.0-237`.
 
 <div align="center">
 <figure>
@@ -257,7 +261,7 @@ cd "$PENTAHO_SERVER"
 
 > **Success:** Checkpoint: the Plugin Manager reports that the plugin *has been installed or updated successfully* and that you must restart the server.
 
-4. In a terminal, check that the plugin's folder exists:
+4. In a terminal, check that the plugin's folder exists. The Plugin Manager goes on unpacking for some seconds after its message, so if the check prints the "missing" message, wait half a minute and run it again:
 
 ```bash
 [ -d "$PENTAHO_SERVER/pentaho-solutions/system/dashboards" ] && echo OK || echo "Dashboard Designer directory missing"
@@ -278,6 +282,8 @@ cd "$PENTAHO_SERVER"
 cd "$PENTAHO_SERVER"
 ./start-pentaho.sh
 ```
+
+If the server runs as the service you created in **Install Pentaho Server**, run `sudo systemctl restart pentaho-server` instead of these two commands.
 
 7. Log in to the modern User Console again and select **Plugin Manager**:
 
@@ -313,7 +319,7 @@ cd "$PENTAHO_SERVER"
 
 > **Success:** Checkpoint: `OK`: the 11.0 server archive ships Pipeline Designer (`pentaho-webttle`), so the Plugin Manager lists it with a version under **Installed Version** and a **View Details** button.
 
-2. If the check printed the "missing" message instead, install it the way you installed Analyzer: select the **Pipeline Designer** row, select the latest version in **Select the plugin version**, select **Install**, and restart the server.
+2. If the check printed the "missing" message instead, install it the way you installed Analyzer: select the **Pipeline Designer** row, select the version that matches your server in **Select the plugin version**, select **Install**, and restart the server.
 
 <div align="center">
 <figure>
@@ -344,7 +350,7 @@ cd "$PENTAHO_SERVER"
 5. In the **Design** panel, find **Generate rows** in the **Input** group (or type `Generate rows` in **Search for a node...**) and drag it onto the canvas.
 6. Find **Dummy (do nothing)** (type `Dummy` in **Search for a node...**) and drag it onto the canvas, to the right of **Generate rows**.
 7. Drag from the dot on the right edge of **Generate rows** to **Dummy (do nothing)**, to create a hop between them.
-8. Select **Save**, name the transformation `tr_hello_world`, and save it in a repository folder of your choice (the screenshots use `/public/Data Pipelines`).
+8. Select **Save**, name the transformation `tr_hello_world`, and save it in a repository folder of your choice (the screenshots use `/public/Data Pipelines`). If a **Save Changes** message asks you to confirm, select **Yes**.
 9. Select **Run**.
 
 <div align="center">
@@ -373,7 +379,7 @@ cd "$PENTAHO_SERVER"
 </figure>
 </div>
 
-2. In the plugin's details, open **Select the plugin version** and select the latest version.
+2. In the plugin's details, open **Select the plugin version** and select the version that matches your server, `11.0.0.0-237`.
 
 <div align="center">
 <figure>
@@ -405,6 +411,8 @@ cd "$PENTAHO_SERVER"
 cd "$PENTAHO_SERVER"
 ./start-pentaho.sh
 ```
+
+If the server runs as the service you created in **Install Pentaho Server**, run `sudo systemctl restart pentaho-server` instead of these two commands.
 
 7. Log in to the modern User Console again:
 
@@ -453,7 +461,7 @@ A model, once you add or import one, opens on a canvas of its fact table, measur
 </figure>
 </div>
 
-3. Select its row. In the details, open **Select the plugin version** and select the latest version.
+3. Select its row. In the details, open **Select the plugin version** and select the latest version (Semantic Model Editor has its own version numbers, such as `1.0.0`).
 4. Select **Install**.
 5. Check that the Scheduler's folder now exists:
 
@@ -474,6 +482,8 @@ cd "$PENTAHO_SERVER"
 cd "$PENTAHO_SERVER"
 ./start-pentaho.sh
 ```
+
+If the server runs as the service you created in **Install Pentaho Server**, run `sudo systemctl restart pentaho-server` instead of these two commands.
 
 7. Log in to the modern User Console:
 
@@ -514,11 +524,11 @@ cd "$PENTAHO_SERVER"
 <div align="center">
 <figure>
 <img src="../_assets/images/carte_status.png" alt="The Pentaho Data Integration Status page at localhost:8080/pentaho/kettle/status: a finished transformation under Transformations, an empty Jobs table, and the configuration details naming slave-server-config.xml" width="800">
-<figcaption>Pentaho Data Integration Status</figcaption>
+<figcaption>The PDI Status page</figcaption>
 </figure>
 </div>
 
-> **Success:** Checkpoint: **Pentaho Data Integration Status** lists the transformation you ran in the **Pipeline Designer** tab under **Transformations**, with **Status** `Finished`.
+> **Success:** Checkpoint: the page, headed **PDI Status**, lists the transformation you ran in the **Pipeline Designer** tab under **Transformations**, with **Status** `Finished`.
 
 4. Open the `transStatus` link that the first line of Pipeline Designer's **Logging** tab shows, `http://localhost:8080/pentaho/kettle/transStatus?name=...`.
 
@@ -537,7 +547,7 @@ cd "$PENTAHO_SERVER"
 >
 > #### Pipeline Designer runs on the server's own Carte
 >
-> Pipeline Designer does not run a transformation in your browser. It hands it to the Carte service inside the Pentaho Server, at `/pentaho/kettle`, which the Carte API plugin connects it to: that is why the **Logging** tab starts with a `kettle/transStatus` link, and why **Pentaho Data Integration Status** lists the run. The service's settings, such as how long it keeps log lines and finished objects, are in `pentaho-solutions/system/kettle/slave-server-config.xml`, as the bottom of the status page says.
+> Pipeline Designer does not run a transformation in your browser. It hands it to the Carte service inside the Pentaho Server, at `/pentaho/kettle`, which the Carte API plugin connects it to: that is why the **Logging** tab starts with a `kettle/transStatus` link, and why the **PDI Status** page lists the run. The service's settings, such as how long it keeps log lines and finished objects, are in `pentaho-solutions/system/kettle/slave-server-config.xml`, as the bottom of the status page says.
 >
 > **Why it matters:** a pipeline run from the browser uses the server's Java, memory, JDBC drivers and Pentaho Data Integration plugins, not your desktop's. When a step works in Spoon but fails in Pipeline Designer, check the server's drivers and plugins first.
 

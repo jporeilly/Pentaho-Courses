@@ -15,7 +15,7 @@
 >
 > **Prerequisites:** The server from [Install Pentaho Server](../06-installation-archive-pentaho-server/guide.md), and optionally its systemd service, `pentaho-server`
 >
-> **Estimated time:** 10 minutes
+> **Estimated time:** 40 minutes
 
 <figure>
 
@@ -29,9 +29,11 @@
 >
 > #### Post-installation Hardening and Tuning
 >
-> Each task below is independent: expand it to see its steps. Paths are the archive's, under `/opt/pentaho/server/pentaho-server`.
+> Each task below is independent: expand it to see its steps. One task with its restart takes about 5 minutes; all of them, about 40. Paths are the archive's, under `/opt/pentaho/server/pentaho-server`.
 >
 > Stop and start the server as the `pentaho` user (`sudo -u pentaho ./stop-pentaho.sh`), or with `systemctl` if you created the service in **Install Pentaho Server**. Started as root, it leaves root-owned files under `tomcat/logs`, `work` and `temp` that the `pentaho` user can no longer write.
+>
+> The exam and the course accreditation check that the login page answers at `http://localhost:8080/pentaho/Login`. If you try a task that changes the port, the context path or the scheme, put the address back before you take the exam.
 
 :::: tabs
 
@@ -101,7 +103,13 @@ grep '<Server ' /opt/pentaho/server/pentaho-server/tomcat/conf/server.xml
 
 > **Success:** Checkpoint: `<Server port="8005" shutdown="SHUTDOWN">` on the archive.
 
-2. Open `server.xml` and edit the `<Server>` element:
+2. Stop the Pentaho Server before you edit the file. The stop reads the port and the command from `server.xml`: change them while the server runs and the stop asks the new port, the running Tomcat still listens on the old one, and the service waits for its stop timeout.
+
+```bash
+sudo systemctl stop pentaho-server
+```
+
+3. Open `server.xml` and edit the `<Server>` element:
 
 ```bash
 sudo nano /opt/pentaho/server/pentaho-server/tomcat/conf/server.xml
@@ -127,10 +135,10 @@ Or a changed port and command:
 >
 > **Why it matters:** hardening must not break the way you stop the server. Prefer changing the port and the command; disable the port only if something else stops the server.
 
-3. Restart the Pentaho Server:
+4. Start the Pentaho Server:
 
 ```bash
-sudo systemctl restart pentaho-server
+sudo systemctl start pentaho-server
 ```
 
 </details>
@@ -236,7 +244,7 @@ grep -n 'autocomplete' /opt/pentaho/server/pentaho-server/tomcat/webapps/pentaho
 
 Change the context path if you don't want the application at `/pentaho`. The example moves it to `/company`.
 
-> **Warning:** Upgrades may overwrite deployed webapps. Reapply these changes after an upgrade, or map the path in a reverse proxy instead.
+> **Warning:** Upgrades may overwrite deployed webapps. Reapply these changes after an upgrade, or map the path in a reverse proxy instead. After the rename, every start also logs `cp: target '.../webapps/pentaho/WEB-INF/lib/': No such file or directory`: `start-pentaho.sh` still copies its license libraries to the old folder name. The server starts all the same.
 
 1. Stop the Pentaho Server:
 
@@ -563,7 +571,7 @@ Remove blocks like these:
 </filter>
 ```
 
-4. Optionally, remove the server's `data/` directory, if it only held sample content (check your environment before you delete it):
+4. Optionally, remove the server's `data/` directory. Look before you delete: besides the sample databases it holds the repository's SQL scripts for every database (`data/postgresql` and the others), which you need again to build a repository.
 
 ```bash
 sudo rm -rf /opt/pentaho/server/pentaho-server/data || true

@@ -3,7 +3,7 @@
   "description": "",
   "order": 6,
   "stepCount": 10,
-  "estimatedMinutes": 20,
+  "estimatedMinutes": 60,
   "hasVideo": false,
   "checks": [
     {
