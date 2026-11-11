@@ -15,7 +15,7 @@
 >
 > **Prerequisites:**
 >
-> * The [Overview of Pentaho HA](../10-ha-overview/guide.md)
+> * The [Overview of Pentaho HA](../01-ha-overview/guide.md)
 > * Five Ubuntu 22.04 LTS hosts on one subnet, with `sudo`, for the roles in part 1
 > * NTP or chrony running on every host
 > * `pentaho-server-ee-11.0.0.0-237.zip` in your home folder on `db-01` and on both Pentaho nodes
@@ -148,7 +148,7 @@
 >
 > Run every command in this part on `pentaho-node-01`. The 11.0 archive ships already set up for a PostgreSQL repository through Tomcat's JNDI data sources, so several of the guide's edits for 10.x shrink to one line.
 
-1. Install Java 21. Pentaho 11 runs on Java 21, the version the image in [Build the Pentaho Image](../03-image-build/guide.md) installs; the guide's JDK 11 is the 10.x requirement.
+1. Install Java 21. Pentaho 11 runs on Java 21; the guide's JDK 11 is the 10.x requirement.
 
    ```bash
    sudo apt update

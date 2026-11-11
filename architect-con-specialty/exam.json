@@ -1,6 +1,6 @@
 {
   "title": "Specialty Exam",
-  "description": "30 questions drawn at random from a pool of 40, covering container images, Podman Compose, K3s, Helm and Pentaho high availability. Pass mark is 80%. Open-book — browse any module to refresh your memory or ask the AI assistant for help. Your answers are saved as you go, so leaving the page to look something up is fine. Explanations show after submission so you can learn from any answers you missed.",
+  "description": "30 questions drawn at random from a pool of 35, covering container images, Podman Compose, K3s and Helm. Pass mark is 80%. Open-book — browse any module to refresh your memory or ask the AI assistant for help. Your answers are saved as you go, so leaving the page to look something up is fine. Explanations show after submission so you can learn from any answers you missed.",
   "passMark": 80,
   "questionsPerAttempt": 30,
   "shuffle": true,
@@ -565,86 +565,6 @@
       "correct": 3,
       "explanation": "The ConfigMap is updated, but **environment variables are read when a container starts**. With no pod template change, nothing restarts the server. Read what a value renders into before you upgrade a production release.",
       "source": "Pentaho Solution Architect - Containers Specialty: Helm — Install via Helm: Upgrade and Roll Back"
-    },
-    {
-      "id": "con-m6-q1",
-      "module": "High Availability",
-      "bloom": "Understand",
-      "scenario": "Two Pentaho Server nodes sit behind HAProxy. Pentaho doesn't copy sessions between nodes.",
-      "prompt": "What does HAProxy's `cookie JSESSIONID prefix nocache` do?",
-      "options": [
-        "Encrypts the session cookie between the browser and HAProxy",
-        "Sends each new request to whichever node has fewer sessions",
-        "Pins each session to one node through Tomcat's own cookie",
-        "Copies each session to both nodes, so either one can answer it"
-      ],
-      "correct": 2,
-      "explanation": "HAProxy puts the server's `cookie` value and a `~` **in front of `JSESSIONID`** on the way out, reads it on the way in to pick the node, and strips it before Tomcat sees it. When that node fails, `option redispatch` sends the user to the other node, where they sign in again.",
-      "source": "Pentaho Solution Architect - Containers Specialty: High Availability — Deploy Pentaho in HA: Verify the Cluster"
-    },
-    {
-      "id": "con-m6-q2",
-      "module": "High Availability",
-      "bloom": "Analyze",
-      "scenario": "Both Pentaho nodes in a cluster are configured with the same Jackrabbit cluster node ID.",
-      "prompt": "What goes wrong?",
-      "options": [
-        "HAProxy can no longer tell the two nodes apart in its cookies",
-        "Each node skips the other's changes, so their content drifts apart",
-        "Neither node starts, because Jackrabbit rejects a duplicate ID at boot",
-        "Quartz fires every schedule twice, once on each of the two nodes"
-      ],
-      "correct": 1,
-      "explanation": "Jackrabbit writes each change to a **journal shared through the `jackrabbit` database**, with the ID of the node that wrote it, and each node applies the records other nodes wrote. With one ID, each node skips the other's changes as its own, and its caches and search index drift.",
-      "source": "Pentaho Solution Architect - Containers Specialty: High Availability — Deploy Pentaho in HA: Pentaho Server on Node 1"
-    },
-    {
-      "id": "con-m6-q3",
-      "module": "High Availability",
-      "bloom": "Understand",
-      "scenario": "Two clustered Quartz nodes share the `qrtz6_` tables in one repository database.",
-      "prompt": "How does each schedule fire only once across the cluster?",
-      "options": [
-        "A node holds the `TRIGGER_ACCESS` row lock while it acquires triggers",
-        "HAProxy sends every scheduler request to the same one node",
-        "Only the node that holds the Keepalived VIP runs the scheduler",
-        "Each node fires only the triggers whose names hash to its own instance ID"
-      ],
-      "correct": 0,
-      "explanation": "To fire a trigger, a node first takes **the `TRIGGER_ACCESS` row with `SELECT ... FOR UPDATE`**, so only one node at a time acquires triggers. Check-ins every 20 seconds let a node recover a failed node's jobs, which is why the clocks must agree.",
-      "source": "Pentaho Solution Architect - Containers Specialty: High Availability — Deploy Pentaho in HA: Verify the Cluster"
-    },
-    {
-      "id": "con-m6-q4",
-      "module": "High Availability",
-      "bloom": "Apply",
-      "scenario": "A Tray.io workflow starts a one-hour job with Carte's `runJob`. Carte answers at once with the job's ID while the job is still running.",
-      "prompt": "How does the workflow learn that the job has ended?",
-      "options": [
-        "It keeps the `runJob` call open until Carte finally answers",
-        "Carte posts the job's result to the workflow's webhook",
-        "It reads the job's log file from the Carte host over SSH",
-        "It polls `jobStatus` with that ID until the job ends"
-      ],
-      "correct": 3,
-      "explanation": "`runJob` starts the job on its own thread and **returns its ID at once**, so no HTTP call is held open for an hour and no timeout can cut it off. The price is that the caller polls `jobStatus`, which is why the workflow loops on it.",
-      "source": "Pentaho Solution Architect - Containers Specialty: High Availability — Tray.io Integration with Pentaho Carte: Call Carte from the Command Line"
-    },
-    {
-      "id": "con-m6-q5",
-      "module": "High Availability",
-      "bloom": "Evaluate",
-      "scenario": "Tray.io calls Carte over `http://` with HTTP Basic authentication, the credentials kept in a Tray.io authentication.",
-      "prompt": "What is the risk, and what does the installation guide add against it?",
-      "options": [
-        "Carte rejects Basic authentication over `http://`: enable HTTPS on the Tray.io side only",
-        "The password is stored hashed but can be replayed: rotate it every hour",
-        "The header can be read in transit: add TLS and a firewall rule for the agent",
-        "Basic authentication locks the account after three failed calls: use a token instead"
-      ],
-      "correct": 2,
-      "explanation": "Basic authentication **only encodes `user:password` in Base64**, which anyone can reverse, so over `http://` it crosses every network readable. The guide's section 7.6 adds TLS on Carte, or a reverse proxy in front of it, and a firewall rule that admits only the agent's address.",
-      "source": "Pentaho Solution Architect - Containers Specialty: High Availability — Tray.io Integration with Pentaho Carte: Build the Scheduled Workflow"
     }
   ]
 }

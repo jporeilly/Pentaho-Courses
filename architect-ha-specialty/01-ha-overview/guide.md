@@ -1,12 +1,11 @@
 # Overview of Pentaho HA
 
-The HA architecture in this section comes from the Pentaho HA
-Installation Guide, bundled in [Deploy Pentaho in HA](../11-ha-deploy/guide.md):
+The HA architecture in this course comes from the Pentaho HA
+Installation Guide, bundled in [Deploy Pentaho in HA](../02-ha-deploy/guide.md):
 two Pentaho application nodes behind an HAProxy load-balancer pair with a
 Keepalived virtual IP, one shared PostgreSQL repository, and Carte
 clustering for Pentaho Data Integration execution, with Tray.io driving
-event-based ETL through the Carte REST API. Unlike the earlier sections,
-it runs on virtual machines, one role per machine; the last page sketches
+event-based ETL through the Carte REST API. It runs on virtual machines, one role per machine; the last page sketches
 the same principles on K3s.
 
 ## Server roles

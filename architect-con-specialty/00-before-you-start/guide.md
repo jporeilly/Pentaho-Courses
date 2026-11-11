@@ -56,9 +56,6 @@ from the guide to the host with one command, with a block for each
 case: the guide on the Linux host itself, or the guide on Windows with
 the host in WSL 2.
 
-The **High Availability** workshops are different: they build a cluster
-on separate virtual machines, and each one lists the hosts it needs.
-
 ## Set up your environment
 
 ### Do you need to set anything up?
@@ -301,8 +298,8 @@ section whenever you're ready.
 ## The exam
 
 When you have worked through the sections, the **Exam** in the sidebar
-checks what you have picked up: 30 questions drawn from a pool of 40,
-on the image, Compose, K3s, Helm and high availability. It is
+checks what you have picked up: 30 questions drawn from a pool of 35,
+on the image, Compose, K3s and Helm. It is
 open-book — take your time, browse any section to refresh your memory,
 or ask the assistant. Your answers are saved as you go, so leaving the
 page to look something up is fine, and the explanations show afterwards

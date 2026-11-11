@@ -27,11 +27,3 @@
 ## Helm
 
 * [Install via Helm](09-helm-install/guide.md)
-
-## High Availability
-
-* [Overview of Pentaho HA](10-ha-overview/guide.md)
-* [Deploy Pentaho in HA](11-ha-deploy/guide.md)
-* [Carte Cluster for Pentaho Data Integration Execution HA](12-carte-cluster/guide.md)
-* [Tray.io Integration with Pentaho Carte](13-trayio-integration/guide.md)
-* [Adaptation: HA on K3s](14-ha-on-k3s/guide.md)

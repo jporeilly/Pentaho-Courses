@@ -13,7 +13,7 @@
   },
   "title": "Pentaho Solution Architect - Containers Specialty",
   "description": "Deploy the Pentaho Server with containers and Kubernetes: build the EE image from a staged archive, run it with Podman Compose against PostgreSQL, then take the same deployment to K3s with raw manifests and Helm.",
-  "version": "0.1.5",
+  "version": "0.1.7",
   "kind": "workshop",
   "level": { "number": 2, "name": "Specialty" },
   "mode": "sequential",
@@ -91,12 +91,24 @@
     {
       "title": "Helm",
       "summary": "Package the K3s deployment as a Helm release - install, upgrade and roll back from one chart."
-    },
-    {
-      "title": "High Availability",
-      "summary": "Production HA from the installation guide: two Pentaho nodes behind an HAProxy pair with Keepalived VIP failover, a shared PostgreSQL 14 repository, the Jackrabbit cluster journal and Quartz clustering - plus Carte clustering for Pentaho Data Integration execution and Tray.io driving event-based ETL through the Carte REST API."
     }
   ],
+  "completionCertificate": {
+    "title": "Pentaho Containers Deployment - Specialty Level",
+    "topics": [
+      "Container runtimes and orchestration",
+      "Pentaho Server EE image builds",
+      "Podman Compose with PostgreSQL",
+      "Kubernetes (K3s) deployment",
+      "Helm releases"
+    ],
+    "validYears": 2,
+    "signatory": {
+      "name": "Jason Allaway",
+      "title": "President Pentaho - A Leo Software Group Company"
+    },
+    "watermark": "PENTAHO"
+  },
   "install": {
     "code": "CON"
   }

@@ -3,7 +3,6 @@ flowchart TB
   classDef input fill:#dbeafe,stroke:#1d4ed8,color:#1e3a8a,text-align:left,rx:6,ry:6
   classDef build fill:#ede9fe,stroke:#6d28d9,color:#3b0764,text-align:left,rx:6,ry:6
   classDef run fill:#ccfbf1,stroke:#0f766e,color:#134e4a,text-align:left,rx:6,ry:6
-  classDef cluster fill:#dcfce7,stroke:#15803d,color:#14532d,text-align:left,rx:6,ry:6
   subgraph build ["The image&nbsp;&nbsp;&nbsp;&nbsp;"]
     direction LR
     Z["<b>Licensed archive</b>&nbsp;&nbsp;<br/>pentaho-server-ee-11.0.0.0-237.zip&nbsp;&nbsp;"]:::input
@@ -17,14 +16,6 @@ flowchart TB
     H["<b>K3s, Helm chart</b>&nbsp;&nbsp;&nbsp;&nbsp;<br/>install, upgrade,&nbsp;&nbsp;<br/>roll back, uninstall"]:::run
     C --> K --> H
   end
-  subgraph vms ["Then a cluster, on virtual machines&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"]
-    direction LR
-    A["<b>Pentaho in HA</b>&nbsp;&nbsp;&nbsp;&nbsp;<br/>two server nodes, HAProxy&nbsp;&nbsp;<br/>and Keepalived, one repository&nbsp;&nbsp;"]:::cluster
-    T["<b>Carte cluster</b>&nbsp;&nbsp;&nbsp;&nbsp;<br/>a master and two slaves,&nbsp;&nbsp;<br/>driven by Tray.io"]:::cluster
-    A --> T
-  end
   build --> host
-  host -.-> vms
   style build fill:#fafaf9,stroke:#d6d3d1,color:#44403c
   style host fill:#fafaf9,stroke:#d6d3d1,color:#44403c
-  style vms fill:#fafaf9,stroke:#d6d3d1,color:#44403c

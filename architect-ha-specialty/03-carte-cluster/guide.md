@@ -16,7 +16,7 @@
 >
 > **Prerequisites:**
 >
-> * [Deploy Pentaho in HA](../11-ha-deploy/guide.md): the same subnet and conventions
+> * [Deploy Pentaho in HA](../02-ha-deploy/guide.md): the same subnet and conventions
 > * Three more Ubuntu 22.04 LTS hosts with `sudo`: `carte-master` (`10.0.1.40`), `carte-slave-01` (`10.0.1.41`) and `carte-slave-02` (`10.0.1.42`), the guide's reference addresses, with ports 9001 and 9002 open between them
 > * `pdi-ee-client-11.0.0.0-237.zip` in your home folder on each of the three hosts
 > * Spoon on a workstation that can reach the three hosts
@@ -267,7 +267,7 @@ Each Carte server then needs your `repositories.xml`: copy it from the `.kettle`
 
 Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches Pentaho Data Integration with the file loaded. If Pentaho Data Integration is already running, the path is copied to your clipboard — switch to Pentaho Data Integration and press `Ctrl+O`, `Ctrl+V`, `Enter`.
 
-_No bundled files for this lab._ It follows section 6 of the installation guide, `Pentaho-HA-Installation-Guide.md`, in the **Lab Files** of [Deploy Pentaho in HA](../11-ha-deploy/guide.md).
+_No bundled files for this lab._ It follows section 6 of the installation guide, `Pentaho-HA-Installation-Guide.md`, in the **Lab Files** of [Deploy Pentaho in HA](../02-ha-deploy/guide.md).
 
 ### Solution <!-- no-step -->
 

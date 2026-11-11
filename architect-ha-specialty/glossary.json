@@ -1,0 +1,12 @@
+{
+  "HA": "High availability: the service stays up when one machine fails, because another one takes over its work.",
+  "VIP": "Virtual IP: the one address clients use. Keepalived moves it from one load balancer to the other when the first fails.",
+  "HAProxy": "The load balancer in front of the Pentaho nodes. It checks each node's health and pins every client to one node with a cookie.",
+  "Keepalived": "The service that holds the virtual IP on one balancer and moves it to the other, using the VRRP protocol.",
+  "sticky session": "A client's requests always go to the same Pentaho node. Mandatory here: Pentaho sessions are not replicated between nodes.",
+  "cluster journal": "The table in the shared repository where each Jackrabbit node records its changes, so the other nodes can apply them.",
+  "Quartz": "The Pentaho Server's scheduler. Clustered through its shared tables, it fires each schedule once across the cluster.",
+  "Carte": "Pentaho Data Integration's lightweight server: it runs and monitors transformations and jobs, and answers a REST API.",
+  "PUC": "Pentaho User Console - the Pentaho Server's browser UI where published content is browsed, run, and scheduled.",
+  "PDI": "Pentaho Data Integration (Kettle) - the ETL side of the platform: Spoon designer, Kitchen/Pan runners, Carte server."
+}

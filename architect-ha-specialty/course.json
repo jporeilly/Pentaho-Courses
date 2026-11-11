@@ -1,0 +1,88 @@
+{
+  "id": "architect-ha-specialty",
+  "analytics": {
+    "measurementId": "G-TEGN8LQVRC"
+  },
+  "contact": {
+    "to": "academy@pentaho.com",
+    "webhookUrl": "",
+    "heading": "Contact Us",
+    "blurb": "Ask us anything about the course, or tell us what you would like to know about Pentaho products and services. This is separate from the exam.",
+    "messagePlaceholder": "What would you like to know?",
+    "sendLabel": "Send"
+  },
+  "title": "Pentaho Solution Architect - High Availability Specialty",
+  "description": "Deploy the Pentaho Server for high availability: two server nodes behind an HAProxy pair with a Keepalived virtual IP, one shared PostgreSQL repository, the Jackrabbit cluster journal and clustered Quartz, then Carte clustering for Pentaho Data Integration execution and Tray.io driving it through the Carte REST API.",
+  "version": "0.1.0",
+  "kind": "workshop",
+  "level": {
+    "number": 2,
+    "name": "Specialty"
+  },
+  "mode": "sequential",
+  "theme": {
+    "accent": "#1d5fbf"
+  },
+  "launchers": {
+    "puc": {
+      "name": "Pentaho User Console",
+      "url": "http://localhost:8080/pentaho"
+    }
+  },
+  "assistant": {
+    "ollamaURL": "http://localhost:11434",
+    "mcpURL": "https://docs.pentaho.com/~gitbook/mcp",
+    "defaultProfile": "cpu",
+    "models": {
+      "cpu": "llama3.2:3b",
+      "gpu": "gemma4:12b"
+    },
+    "ladder": [
+      "gemma4:12b",
+      "qwen2.5:7b"
+    ],
+    "subject": "deploying the Pentaho Server for high availability (HAProxy and Keepalived, the Jackrabbit cluster journal, clustered Quartz, Carte clustering and the Carte REST API)",
+    "suggestions": [
+      "Why are sticky sessions mandatory for a Pentaho cluster?",
+      "What does the Jackrabbit cluster journal do, and why does each node need its own id?",
+      "How do Carte slave servers register with the master?"
+    ]
+  },
+  "certification": {
+    "badge": "Certified Solution Architect",
+    "path": {
+      "title": "Certified Solution Architect Learning Path",
+      "steps": [
+        {
+          "title": "DI Developer",
+          "courseId": "developer-di-practitioner"
+        },
+        {
+          "title": "Pentaho Installation",
+          "courseId": "architect-install-certified"
+        },
+        {
+          "title": "Specialty course",
+          "current": true
+        },
+        {
+          "title": "Certified Solution Architect",
+          "certified": true
+        }
+      ]
+    }
+  },
+  "moduleSummaries": [
+    {
+      "title": "Getting Started",
+      "summary": "How to get the most out of this guide, and the hosts the cluster needs: eight Ubuntu machines on one subnet, the Pentaho Server and Pentaho Data Integration archives, and time kept in step on all of them."
+    },
+    {
+      "title": "High Availability",
+      "summary": "Production HA from the installation guide: two Pentaho nodes behind an HAProxy pair with Keepalived VIP failover, a shared PostgreSQL 14 repository, the Jackrabbit cluster journal and Quartz clustering - plus Carte clustering for Pentaho Data Integration execution and Tray.io driving event-based ETL through the Carte REST API."
+    }
+  ],
+  "install": {
+    "code": "HA"
+  }
+}

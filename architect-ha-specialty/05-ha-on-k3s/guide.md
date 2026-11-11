@@ -1,19 +1,20 @@
 # Adaptation: HA on K3s
 
-> **Note:** The HA section follows the installation guide's topology:
+> **Note:** This course follows the installation guide's topology:
 > virtual machines, HAProxy and Keepalived. This page sketches the same
-> principles on the K3s stack from the earlier sections, for comparison.
+> principles on the K3s stack of the Pentaho Solution Architect -
+> Containers Specialty course, for comparison.
 > It is not a workshop, and its draft files are not ready to run.
 
-The three rules from [Overview of Pentaho HA](../10-ha-overview/guide.md)
+The three rules from [Overview of Pentaho HA](../01-ha-overview/guide.md)
 carry straight over: one shared repository database, the Jackrabbit
 cluster journal with a unique ID per node, and sticky sessions at the
 load balancer.
 
 On K3s they map to:
 
-- **One shared repository:** the `postgres` Service from the K3s
-  workshop, which every replica connects to.
+- **One shared repository:** the `postgres` Service from that course's
+  K3s workshop, which every replica connects to.
 - **The servers:** a Deployment with more than one replica, each pod a
   Pentaho Server node.
 - **Sticky sessions:** Traefik's sticky cookie on the ingress, in place

@@ -16,7 +16,7 @@
 >
 > **Prerequisites:**
 >
-> * [Carte Cluster for Pentaho Data Integration Execution HA](../12-carte-cluster/guide.md): the Carte master on `10.0.1.40:9001`
+> * [Carte Cluster for Pentaho Data Integration Execution HA](../03-carte-cluster/guide.md): the Carte master on `10.0.1.40:9001`
 > * A Tray.io account, at `app.tray.io`
 > * A way for Tray.io to reach Carte: the Tray.io On-Premises Agent on a host that can reach the master, or an address published through your network edge (guide sections 7.5 and 7.6)
 > * A Pentaho Data Integration job for Carte to run. The guide's examples use `/ETL/LoadCustomer.kjb`, with the parameters `CUSTOMER_ID` and `LOAD_DATE`; wherever the steps show that path, name or those parameters, use your own job's.
@@ -174,7 +174,7 @@ Tray.io runs in the cloud and Carte on a private network. Route the call through
 
 Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches Pentaho Data Integration with the file loaded. If Pentaho Data Integration is already running, the path is copied to your clipboard — switch to Pentaho Data Integration and press `Ctrl+O`, `Ctrl+V`, `Enter`.
 
-_No bundled files for this lab._ It follows section 7 of the installation guide, `Pentaho-HA-Installation-Guide.md`, in the **Lab Files** of [Deploy Pentaho in HA](../11-ha-deploy/guide.md).
+_No bundled files for this lab._ It follows section 7 of the installation guide, `Pentaho-HA-Installation-Guide.md`, in the **Lab Files** of [Deploy Pentaho in HA](../02-ha-deploy/guide.md).
 
 ### Solution <!-- no-step -->
 

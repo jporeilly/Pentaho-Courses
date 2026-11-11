@@ -3,7 +3,7 @@
 The Mermaid sources of this course's diagrams. Each `<name>.mmd` renders
 to `../images/<name>.png`, in the style of the other courses' diagrams
 (color by role: blue inputs, violet the build, teal what runs on the one
-host, green the cluster on virtual machines).
+host).
 
 Render one from this folder with Mermaid CLI 11.16.0:
 

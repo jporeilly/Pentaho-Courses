@@ -1,0 +1,11 @@
+{
+  "title": "Before You Start",
+  "description": "Orient yourself: progress tracking, code copy, the hosts the cluster needs, and the AI assistant.",
+  "order": 0,
+  "kind": "page",
+  "stepCount": 8,
+  "hasVideo": false,
+  "estimatedMinutes": 5,
+  "checks": [],
+  "noProgress": true
+}
