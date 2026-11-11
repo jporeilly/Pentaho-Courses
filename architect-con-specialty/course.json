@@ -13,7 +13,7 @@
   },
   "title": "Pentaho Solution Architect - Containers Specialty",
   "description": "Deploy the Pentaho Server with containers and Kubernetes: build the EE image from a staged archive, run it with Podman Compose against PostgreSQL, then take the same deployment to K3s with raw manifests and Helm.",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "kind": "workshop",
   "level": { "number": 2, "name": "Specialty" },
   "mode": "sequential",
@@ -57,8 +57,12 @@
           "courseId": "architect-install-certified"
         },
         {
-          "title": "Specialty course",
-          "current": true
+          "title": "Containers",
+          "courseId": "architect-con-specialty"
+        },
+        {
+          "title": "High Availability",
+          "courseId": "architect-ha-specialty"
         },
         {
           "title": "Certified Solution Architect",
