@@ -4,20 +4,25 @@
     "measurementId": "G-8L92G6SL5P"
   },
   "contact": {
-    "to": "academy@pentaho.com",
     "webhookUrl": "",
+    "to": "academy@pentaho.com",
     "heading": "Contact Us",
     "blurb": "Ask us anything about the course, or tell us what you would like to know about Pentaho products and services. This is separate from the exam.",
     "messagePlaceholder": "What would you like to know?",
     "sendLabel": "Send"
   },
-  "title": "Pentaho Solution Architect - IN Certified",
+  "title": "Pentaho Solution Architect - Installation - Certified",
   "description": "Pentaho 11 installation, configuration, upgrade, and post-install tasks. Archive deployment on Linux, server + client tools, plugins.",
   "version": "0.1.12",
   "kind": "workshop",
-  "level": { "number": 3, "name": "Certified" },
+  "level": {
+    "number": 3,
+    "name": "Certified"
+  },
   "mode": "sequential",
-  "welcome": { "caption": "Welcome Tour: coming soon" },
+  "welcome": {
+    "caption": "Welcome Tour: coming soon"
+  },
   "theme": {
     "accent": "#1d5fbf"
   },
@@ -29,7 +34,10 @@
       "cpu": "llama3.2:3b",
       "gpu": "gemma4:12b"
     },
-    "ladder": ["gemma4:12b", "qwen2.5:7b"],
+    "ladder": [
+      "gemma4:12b",
+      "qwen2.5:7b"
+    ],
     "subject": "installing the Pentaho platform (archive installation on Linux, the Server, its PostgreSQL repository, plugins and client tools)",
     "suggestions": [
       "What's the difference between archive and installer deployments?",
@@ -81,6 +89,12 @@
     }
   },
   "completionCertificate": {
+    "requires": {
+      "labChecks": [
+        "06-installation-archive-pentaho-server"
+      ],
+      "beforeExam": true
+    },
     "title": "Pentaho Installation - Practitioner Level",
     "topics": [
       "Pentaho 11 components and architecture",
@@ -95,13 +109,7 @@
       "name": "Jason Allaway",
       "title": "President Pentaho - A Leo Software Group Company"
     },
-    "watermark": "PENTAHO",
-    "requires": {
-      "labChecks": [
-        "06-installation-archive-pentaho-server"
-      ],
-      "beforeExam": true
-    }
+    "watermark": "PENTAHO"
   },
   "install": {
     "code": "INST"
