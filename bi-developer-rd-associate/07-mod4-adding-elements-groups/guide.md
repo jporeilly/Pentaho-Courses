@@ -15,7 +15,7 @@
 >
 > **Prerequisites:** [Connect to a JDBC Data Source](../05-mod3-connect-jdbc/guide.md) and its report, `Demo - jdbc sql query.prpt`
 >
-> **Estimated time:** 20 minutes
+> **Estimated time:** 15 minutes
 
 <figure>
 

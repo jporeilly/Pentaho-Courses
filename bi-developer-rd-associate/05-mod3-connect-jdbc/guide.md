@@ -15,7 +15,7 @@
 >
 > **Prerequisites:** [Navigating Report Designer](../03-mod2-navigating-report-designer/guide.md); the Pentaho Server running, for its sample data
 >
-> **Estimated time:** 15 minutes
+> **Estimated time:** 10 minutes
 
 <figure>
 

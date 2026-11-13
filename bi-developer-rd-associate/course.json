@@ -16,7 +16,7 @@
   "version": "0.1.9",
   "kind": "workshop",
   "platform": "windows11",
-  "level": { "number": 1, "name": "Practitioner" },
+  "level": { "number": 2, "name": "Associate" },
   "mode": "sequential",
   "theme": {
     "accent": "#2e7d32"
