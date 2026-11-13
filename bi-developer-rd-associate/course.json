@@ -13,7 +13,7 @@
   },
   "title": "Pentaho BI Developer - RD Practitioner",
   "description": "Hands-on workshop for Pentaho Report Designer: data sources, report elements and groups, calculations, formatting, parameters, charts, sub-reports, and publishing to the BA repository.",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "kind": "workshop",
   "platform": "windows11",
   "level": { "number": 1, "name": "Practitioner" },
