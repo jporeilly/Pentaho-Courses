@@ -1,7 +1,7 @@
 {
   "title": "Common Formulas Reference",
   "description": "The formula recipes authors reach for most: conditional formatting, calculated dates, date parameters, page numbering, group summaries.",
-  "order": 36,
+  "order": 37,
   "kind": "page",
   "noProgress": true,
   "stepCount": 7,

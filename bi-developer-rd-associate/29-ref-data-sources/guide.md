@@ -146,8 +146,8 @@ Follow this procedure to add a Pentaho Analysis (Mondrian) data source.
 * Select **OLAP** from the drop-down menu, then select the following: **Pentaho Analysis (Denormalized)**.
 * The Mondrian Datasource Editor window will appear.
 * If you want to provide parameters that contain different Mondrian connection authentication credentials, select **Edit Security** in the upper left corner of the window, then type in the fields or variables that contain the user credentials you want to store as a parameter with this connection. The role, username, and password will be available as a security parameter when you are creating your report.
-* Select **Browse** and navigate to your Mondrian schema XML file:
-C:\Pentaho-Training\BA-2000\datasources\mondrian\ steelwheelssales.mondrian.xml
+* Select **Browse** and navigate to a Mondrian schema XML file, such as the Steel Wheels schema that ships with Report Designer:
+`C:\Pentaho\design-tools\report-designer\samples\steelwheels.mondrian.xml`
 
 * Select **Open**.
 * To configure a connection:
@@ -221,7 +221,7 @@ Select the yellow cylinder icon in the upper left part of the **Data** pane, or 
 Select **XML** from the drop-down menu. The XML Datasource Editor window will appear.
 
 * Select **Browse** and navigate to your XML file:
-**File:** `C:\Pentaho-Training\BA-2000\datasources\xml\orders.xml`
+**File:** `C:\Workshop-RD-Practitioner\11-reference\29-ref-data-sources\orders.xml`, or download [orders.xml](./files/orders.xml): SampleData's 326 orders, each an `<order>` element with its number, date, status and customer
 
 Select the round green **+** icon above the **Available Queries** field.
 
@@ -234,7 +234,7 @@ Enter: ‘orders’ into the **Query Name** field.
 </figure>
 </div>
 
-Enter the XQuery: document /order into the **Query** field, then select **Preview** to ensure that it is valid.
+Enter the XPath `/document/order` into the **Query** field, then select **Preview** to ensure that it is valid.
 
 Select **OK** when your query is in order.
 

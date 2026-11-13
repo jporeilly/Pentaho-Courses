@@ -1,0 +1,9 @@
+{
+  "title": "Report Bursting",
+  "description": "Burst a parameterized report by territory: a territory prompt in Report Designer, then one User Console schedule per regional manager, each emailing that territory's PDF through the server's mail settings to a test mail server.",
+  "order": 29,
+  "kind": "workshop",
+  "stepCount": 4,
+  "hasVideo": false,
+  "estimatedMinutes": 40
+}

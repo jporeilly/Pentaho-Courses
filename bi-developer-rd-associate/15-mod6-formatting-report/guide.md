@@ -18,6 +18,12 @@
 >
 > **Estimated time:** 15 minutes
 
+<figure>
+
+<figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
+
+</figure>
+
 :::: tabs
 
 ### 1. Title, date and line
@@ -28,29 +34,16 @@
 >
 > The **Style** tab lists every visual property of the selected element, by group: **font**, **text**, **border**, **object** and more. The formatting toolbar sets some of the same properties.
 
-1. Start Report Designer with the **Start Pentaho Report Designer** button below, or from a terminal:
-
-::: tabs
-
-### Windows (PowerShell)
+1. Start Report Designer with the **Start Pentaho Report Designer** button below, or from PowerShell:
 
 ```powershell
 Set-Location C:\Pentaho\design-tools\report-designer
 .\report-designer.bat
 ```
 
-### macOS / Linux
-
-```bash
-cd ~/Pentaho/design-tools/report-designer
-./report-designer.sh
-```
-
-:::
-
 <button data-launch="prd" data-path="">Start Pentaho Report Designer</button>
 
-2. Select **File > Open** (`Ctrl+O`) and open `Demo - header.prpt` from your workshop folder, `Documents\RD-Workshop`.
+2. Select **File > Open** (`Ctrl+O`) and open `Demo - header.prpt` from your reports folder, `Documents\RD-Workshop`.
 3. Select **File > Save As** and save it as `Demo - formatting.prpt` in the same folder.
 4. In the **Report Header** band, select the **Steel Wheels Product Report** label.
 5. On the **Style** tab, in the **font** group, double-click the **Value** of **font-size**, enter `12`, and press `Enter`.

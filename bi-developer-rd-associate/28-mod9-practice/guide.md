@@ -17,6 +17,12 @@
 >
 > **Estimated time:** 15 minutes
 
+<figure>
+
+<figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
+
+</figure>
+
 :::: tabs
 
 ### 1. Publish a report
@@ -27,29 +33,16 @@
 >
 > Publish the drillable chart report to the `Training` folder, and run it in the User Console.
 
-1. Start Report Designer with the **Start Pentaho Report Designer** button below, or from a terminal:
-
-::: tabs
-
-### Windows (PowerShell)
+1. Start Report Designer with the **Start Pentaho Report Designer** button below, or from PowerShell:
 
 ```powershell
 Set-Location C:\Pentaho\design-tools\report-designer
 .\report-designer.bat
 ```
 
-### macOS / Linux
-
-```bash
-cd ~/Pentaho/design-tools/report-designer
-./report-designer.sh
-```
-
-:::
-
 <button data-launch="prd" data-path="">Start Pentaho Report Designer</button>
 
-2. Select **File > Open** (`Ctrl+O`) and open `Exercise - drillable chart.prpt` from your workshop folder, `Documents\RD-Workshop`.
+2. Select **File > Open** (`Ctrl+O`) and open `Exercise - drillable chart.prpt` from your reports folder, `Documents\RD-Workshop`.
 3. Select **File > Publish** (`Ctrl+Shift+P`). In the **Login** dialog, check that **URL** is `http://localhost:8080/pentaho` and that you sign in as the administrator from [Before You Start](../01-mod1-getting-started/guide.md), and select **OK**.
 4. In the **Publish To Server** dialog, set **File Name** to `Training Exercise 8-3 Report.prpt` and **Title** to `Training Exercise 8-3 Report`, open `/public/Training` under **Location**, and select **OK**.
 5. In the **Launch the published report?** dialog, select **No**.

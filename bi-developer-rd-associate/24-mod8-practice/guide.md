@@ -17,6 +17,12 @@
 >
 > **Estimated time:** 30 minutes
 
+<figure>
+
+<figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
+
+</figure>
+
 :::: tabs
 
 ### 1. Multi-pie chart
@@ -27,29 +33,16 @@
 >
 > A multi-pie chart draws one pie per series value. Here each year gets a pie of sales by product line. The starting report, `Sub Report Activity.prpt`, is in the **Lab Files** of [Multiple Sub Reports](../23-mod8-multiple-sub-reports/guide.md): download it into your workshop folder first.
 
-1. Start Report Designer with the **Start Pentaho Report Designer** button below, or from a terminal:
-
-::: tabs
-
-### Windows (PowerShell)
+1. Start Report Designer with the **Start Pentaho Report Designer** button below, or from PowerShell:
 
 ```powershell
 Set-Location C:\Pentaho\design-tools\report-designer
 .\report-designer.bat
 ```
 
-### macOS / Linux
-
-```bash
-cd ~/Pentaho/design-tools/report-designer
-./report-designer.sh
-```
-
-:::
-
 <button data-launch="prd" data-path="">Start Pentaho Report Designer</button>
 
-2. Select **File > Open** (`Ctrl+O`) and open `Sub Report Activity.prpt` from your workshop folder, `Documents\RD-Workshop`.
+2. Select **File > Open** (`Ctrl+O`) and open `Sub Report Activity.prpt` from your reports folder, `Documents\RD-Workshop`.
 3. Select **File > Save As** and save it as `Exercise - charts.prpt`.
 4. On the **Data** tab, double-click `Query 1` to read the query: `SALES` and `VOLUME` by product line and year. Select **OK**.
 5. Select **File > Page Setup**, select **Landscape**, and set the four margins to `18`. Select **OK**, then select **Do not change the layout** and **OK**.

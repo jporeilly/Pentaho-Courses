@@ -17,6 +17,12 @@
 >
 > **Estimated time:** 15 minutes
 
+<figure>
+
+<figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
+
+</figure>
+
 :::: tabs
 
 ### 1. Connect to SampleData
@@ -27,25 +33,12 @@
 >
 > A report reads its data through a *data source*: a connection plus one or more named queries. Report Designer ships ready-made connections to the Steel Wheels sample database, so there is nothing to type.
 
-1. Start Report Designer with the **Start Pentaho Report Designer** button below, or from a terminal:
-
-::: tabs
-
-### Windows (PowerShell)
+1. Start Report Designer with the **Start Pentaho Report Designer** button below, or from PowerShell:
 
 ```powershell
 Set-Location C:\Pentaho\design-tools\report-designer
 .\report-designer.bat
 ```
-
-### macOS / Linux
-
-```bash
-cd ~/Pentaho/design-tools/report-designer
-./report-designer.sh
-```
-
-:::
 
 <button data-launch="prd" data-path="">Start Pentaho Report Designer</button>
 
@@ -314,18 +307,20 @@ To connect to other kinds of data source, see the [Data Sources Reference](../29
 
 ## Lab Files
 
-Click a file to download. For `.prpt` files, **Open in Pentaho Report Designer** starts Report Designer with the report loaded.
+Click a file to download. For `.prpt` files, **Open in Pentaho Report Designer** starts Report Designer with the report loaded. Every file is also on disk in this workshop's folder, `C:\Workshop-RD-Practitioner\03-data-sources-queries\05-mod3-connect-jdbc`.
 
 ### Solution <!-- no-step -->
 
 The finished report for this lab: the **SampleData (Hypersonic)** data source and `Query 1`, with no layout yet. Open it alongside your own to compare.
 
-[Training Demo Report 3 jdbc sql query.prpt](./files/Training%20Demo%20Report%203%20jdbc%20sql%20query.prpt) <button data-launch="prd" data-path="files/Training Demo Report 3 jdbc sql query.prpt">Open in Pentaho Report Designer</button>
+Also on disk at `C:\Workshop-RD-Practitioner\03-data-sources-queries\05-mod3-connect-jdbc\solution`.
+
+[Training Demo Report 3 jdbc sql query.prpt](./files/solution/Training%20Demo%20Report%203%20jdbc%20sql%20query.prpt) <button data-launch="prd" data-path="files/solution/Training Demo Report 3 jdbc sql query.prpt">Open in Pentaho Report Designer</button>
 
 The same query, with the `PRODUCTS` to `ORDERFACT` join written once:
 
-[Training Demo Report 3 sql query.prpt](./files/Training%20Demo%20Report%203%20sql%20query.prpt) <button data-launch="prd" data-path="files/Training Demo Report 3 sql query.prpt">Open in Pentaho Report Designer</button>
+[Training Demo Report 3 sql query.prpt](./files/solution/Training%20Demo%20Report%203%20sql%20query.prpt) <button data-launch="prd" data-path="files/solution/Training Demo Report 3 sql query.prpt">Open in Pentaho Report Designer</button>
 
 A query on a Metadata data source instead of SQL: the products of the `BV_INVENTORY` model in the sample `metadata.xmi`. The [Data Sources Reference](../29-ref-data-sources/guide.md) shows how to connect one:
 
-[Training Demo Report 3-1 metadata sql query.prpt](./files/Training%20Demo%20Report%203-1%20metadata%20sql%20query.prpt) <button data-launch="prd" data-path="files/Training Demo Report 3-1 metadata sql query.prpt">Open in Pentaho Report Designer</button>
+[Training Demo Report 3-1 metadata sql query.prpt](./files/solution/Training%20Demo%20Report%203-1%20metadata%20sql%20query.prpt) <button data-launch="prd" data-path="files/solution/Training Demo Report 3-1 metadata sql query.prpt">Open in Pentaho Report Designer</button>

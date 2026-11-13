@@ -18,6 +18,12 @@
 >
 > **Estimated time:** 60 minutes
 
+<figure>
+
+<figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
+
+</figure>
+
 :::: tabs
 
 ### 1. Start Report Designer
@@ -28,25 +34,12 @@
 >
 > Report Designer opens on its **Welcome** tab: two ways to start a report on the left, and the bundled sample reports on the right. The samples read the Steel Wheels sample data, so they only open with data while the Pentaho Server is running.
 
-1. Start Report Designer with the **Start Pentaho Report Designer** button below, or from a terminal:
-
-::: tabs
-
-### Windows (PowerShell)
+1. Start Report Designer with the **Start Pentaho Report Designer** button below, or from PowerShell:
 
 ```powershell
 Set-Location C:\Pentaho\design-tools\report-designer
 .\report-designer.bat
 ```
-
-### macOS / Linux
-
-```bash
-cd ~/Pentaho/design-tools/report-designer
-./report-designer.sh
-```
-
-:::
 
 <button data-launch="prd" data-path="">Start Pentaho Report Designer</button>
 
@@ -496,7 +489,7 @@ ORDER BY
 
 ## Lab Files
 
-Click a file to download. For `.prpt` files, **Open in Pentaho Report Designer** starts Report Designer with the report loaded.
+Click a file to download. For `.prpt` files, **Open in Pentaho Report Designer** starts Report Designer with the report loaded. Every file is also on disk in this workshop's folder, `C:\Workshop-RD-Practitioner\02-navigating-report-designer\03-mod2-navigating-report-designer`.
 
 This workshop tours the **Inventory List** sample from the **Welcome** tab. `Inventory List.prpt` below is not that sample: it is a Steel Wheels product report grouped by product line, of the kind you build in Modules 3 to 6.
 

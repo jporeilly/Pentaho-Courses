@@ -17,6 +17,12 @@
 >
 > **Estimated time:** 15 minutes
 
+<figure>
+
+<figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
+
+</figure>
+
 :::: tabs
 
 ### 1. A list of product lines
@@ -27,29 +33,16 @@
 >
 > A drop-down prompt takes its choices from a query. Add one to the report's data source that returns each product line once.
 
-1. Start Report Designer with the **Start Pentaho Report Designer** button below, or from a terminal:
-
-::: tabs
-
-### Windows (PowerShell)
+1. Start Report Designer with the **Start Pentaho Report Designer** button below, or from PowerShell:
 
 ```powershell
 Set-Location C:\Pentaho\design-tools\report-designer
 .\report-designer.bat
 ```
 
-### macOS / Linux
-
-```bash
-cd ~/Pentaho/design-tools/report-designer
-./report-designer.sh
-```
-
-:::
-
 <button data-launch="prd" data-path="">Start Pentaho Report Designer</button>
 
-2. Select **File > Open** (`Ctrl+O`) and open `Demo - formatting.prpt` from your workshop folder, `Documents\RD-Workshop`.
+2. Select **File > Open** (`Ctrl+O`) and open `Demo - formatting.prpt` from your reports folder, `Documents\RD-Workshop`.
 3. Select **File > Save As** and save it as `Demo - parameters.prpt` in the same folder.
 4. On the **Data** tab, under **Data Sets**, double-click **JDBC: SampleData (Hypersonic)**. The **JDBC Data Source** dialog opens.
 
@@ -318,12 +311,14 @@ WHERE productline IN (${product_var}) AND country IN (${country_var})
 
 ## Lab Files
 
-Click a file to download. For `.prpt` files, **Open in Pentaho Report Designer** starts Report Designer with the report loaded.
+Click a file to download. For `.prpt` files, **Open in Pentaho Report Designer** starts Report Designer with the report loaded. Every file is also on disk in this workshop's folder, `C:\Workshop-RD-Practitioner\07-report-parameters\18-mod7-parameters`.
 
 ### Solution <!-- no-step -->
 
 The finished reports for this lab: the product line prompt, then both prompts. Open them alongside your own to compare, or preview them to see the expected result.
 
-[Training Demo Report 7 parameters.prpt](./files/Training%20Demo%20Report%207%20parameters.prpt) <button data-launch="prd" data-path="files/Training Demo Report 7 parameters.prpt">Open in Pentaho Report Designer</button>
+Also on disk at `C:\Workshop-RD-Practitioner\07-report-parameters\18-mod7-parameters\solution`.
 
-[Training Demo Report 7 parameters prod & country.prpt](./files/Training%20Demo%20Report%207%20parameters%20prod%20%26%20country.prpt) <button data-launch="prd" data-path="files/Training Demo Report 7 parameters prod & country.prpt">Open in Pentaho Report Designer</button>
+[Training Demo Report 7 parameters.prpt](./files/solution/Training%20Demo%20Report%207%20parameters.prpt) <button data-launch="prd" data-path="files/solution/Training Demo Report 7 parameters.prpt">Open in Pentaho Report Designer</button>
+
+[Training Demo Report 7 parameters prod & country.prpt](./files/solution/Training%20Demo%20Report%207%20parameters%20prod%20%26%20country.prpt) <button data-launch="prd" data-path="files/solution/Training Demo Report 7 parameters prod & country.prpt">Open in Pentaho Report Designer</button>

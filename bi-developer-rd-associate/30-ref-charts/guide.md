@@ -109,7 +109,7 @@ If you do not want the areas to stack, there is a way to make the areas not cove
 * In plot-bg-color, choose a dark color, for example, dark gray
 If we want our report to show the value of each angle on the edge of each area, we configure the following:
 
-```bash
+```text
 show-item-labels = Show Labels
 ```
 

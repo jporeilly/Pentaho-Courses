@@ -54,6 +54,7 @@
 * [Publishing Reports](26-mod9-publishing/guide.md)
 * [Hyperlinks](27-mod9-hyperlinks/guide.md)
 * [Practice: Publishing](28-mod9-practice/guide.md)
+* [Report Bursting](39-mod9-report-bursting/guide.md)
 
 ## Capstone Project
 

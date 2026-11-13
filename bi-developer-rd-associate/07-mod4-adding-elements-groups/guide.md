@@ -17,6 +17,12 @@
 >
 > **Estimated time:** 20 minutes
 
+<figure>
+
+<figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
+
+</figure>
+
 :::: tabs
 
 ### 1. Data elements
@@ -27,29 +33,16 @@
 >
 > Drag a field from the **Data** tab onto the **Details** band and it becomes an element that prints once for every row: a text field for text, a number field for numbers. You add four: `PRODUCTCODE`, `PRODUCTNAME`, `QUANTITYINSTOCK` and `BUYPRICE`.
 
-1. Start Report Designer with the **Start Pentaho Report Designer** button below, or from a terminal:
-
-::: tabs
-
-### Windows (PowerShell)
+1. Start Report Designer with the **Start Pentaho Report Designer** button below, or from PowerShell:
 
 ```powershell
 Set-Location C:\Pentaho\design-tools\report-designer
 .\report-designer.bat
 ```
 
-### macOS / Linux
-
-```bash
-cd ~/Pentaho/design-tools/report-designer
-./report-designer.sh
-```
-
-:::
-
 <button data-launch="prd" data-path="">Start Pentaho Report Designer</button>
 
-2. Select **File > Open** (`Ctrl+O`) and open `Demo - jdbc sql query.prpt` from your workshop folder, `Documents\RD-Workshop`.
+2. Select **File > Open** (`Ctrl+O`) and open `Demo - jdbc sql query.prpt` from your reports folder, `Documents\RD-Workshop`.
 3. Select **File > Save As** and save it as `Demo - data elements.prpt` in the same folder, so the report from the last workshop stays as it was.
 4. Open the **Data** tab and expand **Data Sets**, the data source and `Query 1`.
 5. Drag `PRODUCTCODE` onto the top left corner of the **Details** band. Its exact place doesn't matter yet: you align the elements in the next part.
@@ -424,10 +417,12 @@ The rows aren't sorted by `PRODUCTLINE`. Double-click the data source on the **D
 
 ## Lab Files
 
-Click a file to download. For `.prpt` files, **Open in Pentaho Report Designer** starts Report Designer with the report loaded.
+Click a file to download. For `.prpt` files, **Open in Pentaho Report Designer** starts Report Designer with the report loaded. Every file is also on disk in this workshop's folder, `C:\Workshop-RD-Practitioner\04-report-elements-groups\07-mod4-adding-elements-groups`.
 
 ### Solution <!-- no-step -->
 
 The finished report for this lab. Open it alongside your own to compare, or preview it to see the expected result.
 
-[Training Demo Report 4 data elements.prpt](./files/Training%20Demo%20Report%204%20data%20elements.prpt) <button data-launch="prd" data-path="files/Training Demo Report 4 data elements.prpt">Open in Pentaho Report Designer</button>
+Also on disk at `C:\Workshop-RD-Practitioner\04-report-elements-groups\07-mod4-adding-elements-groups\solution`.
+
+[Training Demo Report 4 data elements.prpt](./files/solution/Training%20Demo%20Report%204%20data%20elements.prpt) <button data-launch="prd" data-path="files/solution/Training Demo Report 4 data elements.prpt">Open in Pentaho Report Designer</button>

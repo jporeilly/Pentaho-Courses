@@ -11,11 +11,12 @@
     "messagePlaceholder": "What would you like to know?",
     "sendLabel": "Send"
   },
-  "title": "Pentaho BI Developer - RD Associate",
+  "title": "Pentaho BI Developer - RD Practitioner",
   "description": "Hands-on workshop for Pentaho Report Designer: data sources, report elements and groups, calculations, formatting, parameters, charts, sub-reports, and publishing to the BA repository.",
   "version": "0.1.8",
   "kind": "workshop",
-  "level": { "number": 2, "name": "Associate" },
+  "platform": "windows11",
+  "level": { "number": 1, "name": "Practitioner" },
   "mode": "sequential",
   "theme": {
     "accent": "#2e7d32"
@@ -28,6 +29,11 @@
       "windows": "C:\\Pentaho\\design-tools\\report-designer\\report-designer.bat",
       "linux": "~/pentaho/design-tools/report-designer/report-designer.sh",
       "macos": "~/pentaho/design-tools/report-designer/report-designer.sh"
+    },
+    "mailpit": {
+      "label": "Mailpit",
+      "action": "Open",
+      "url": "http://localhost:8025"
     }
   },
   "assistant": {
@@ -45,6 +51,38 @@
       "How do I create a calculated field with the Formula Editor?",
       "How do I publish a report to the Pentaho Server?"
     ]
+  },
+  "certification": {
+    "badge": "Certified Solution Analyst",
+    "path": {
+      "title": "Certified Solution Analyst Learning Path",
+      "steps": [
+        {
+          "title": "BA Analyst",
+          "courseId": "analyst-ba-practitioner"
+        },
+        {
+          "title": "Schema Workbench",
+          "courseId": "bi-developer-sw-associate"
+        },
+        {
+          "title": "Metadata Editor",
+          "courseId": "bi-developer-me-associate"
+        },
+        {
+          "title": "Report Designer",
+          "courseId": "bi-developer-rd-associate"
+        },
+        {
+          "title": "CTools",
+          "courseId": "bi-developer-ct-associate"
+        },
+        {
+          "title": "Certified Solution Analyst",
+          "certified": true
+        }
+      ]
+    }
   },
   "moduleSummaries": [
     {
@@ -81,7 +119,7 @@
     },
     {
       "title": "Publishing Reports",
-      "summary": "Publish finished reports to the BA repository and link reports together with hyperlinks."
+      "summary": "Publish finished reports to the BA repository, link reports together with hyperlinks, and burst one report by territory: a schedule per regional manager, each emailing that territory's PDF."
     },
     {
       "title": "Capstone Project",
@@ -92,8 +130,32 @@
       "summary": "Appendices from the course manual: data sources, chart types, environment variables, and report templates."
     }
   ],
+  "completionCertificate": {
+    "title": "Pentaho Report Designer - Practitioner Level",
+    "topics": [
+      "Data sources and SQL queries",
+      "Report elements, groups and totals",
+      "Calculations and conditional formatting",
+      "Formatting, headers and footers",
+      "Report parameters and prompts",
+      "Charts, sub-reports and drill-down",
+      "Publishing reports to the Pentaho Server"
+    ],
+    "validYears": 2,
+    "signatory": {
+      "name": "Jason Allaway",
+      "title": "President Pentaho - A Leo Software Group Company"
+    },
+    "watermark": "PENTAHO",
+    "capstone": "Completed a capstone project: a parameterized regional sales report with groups, totals, conditional formatting, a chart and a sub-report, published to the Pentaho Server and emailed by schedule to each regional manager.",
+    "requires": {
+      "labChecks": ["34-mod99-regional-sales-report"]
+    }
+  },
   "install": {
     "code": "RD",
-    "getReady": true
+    "signIn": "server",
+    "kits": ["Mailpit"],
+    "workshop": true
   }
 }

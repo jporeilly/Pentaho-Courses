@@ -18,6 +18,12 @@
 >
 > **Estimated time:** 15 minutes
 
+<figure>
+
+<figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
+
+</figure>
+
 :::: tabs
 
 ### 1. The chart
@@ -28,25 +34,12 @@
 >
 > The chart reads one row per order status, leaving out `Shipped`. `Order Status Chart.prpt` on the [Course Files](../33-ref-course-files/guide.md) page already holds the query and a taller **Report Header**; these steps build the same report.
 
-1. Start Report Designer with the **Start Pentaho Report Designer** button below, or from a terminal:
-
-::: tabs
-
-### Windows (PowerShell)
+1. Start Report Designer with the **Start Pentaho Report Designer** button below, or from PowerShell:
 
 ```powershell
 Set-Location C:\Pentaho\design-tools\report-designer
 .\report-designer.bat
 ```
-
-### macOS / Linux
-
-```bash
-cd ~/Pentaho/design-tools/report-designer
-./report-designer.sh
-```
-
-:::
 
 <button data-launch="prd" data-path="">Start Pentaho Report Designer</button>
 
@@ -72,7 +65,7 @@ ORDER BY
 > **Success:** Checkpoint: 5 rows, one for each status other than `Shipped`: `Cancelled`, `Disputed`, `In Process`, `On Hold` and `Resolved`.
 
 5. Close the preview window, and select **OK**.
-6. Select **File > Save As** and save the report as `Demo - drilldown chart.prpt` in your workshop folder, `Documents\RD-Workshop`.
+6. Select **File > Save As** and save the report as `Demo - drilldown chart.prpt` in your reports folder, `Documents\RD-Workshop`.
 7. Drag the divider at the bottom of the **Report Header** band down to about 4 inches.
 8. From the palette, drag a **chart** onto the **Report Header** band, and drag its handles so that it fills the band: 6.5 inches wide and 4 inches high.
 9. Double-click the chart. In the **Edit Chart** dialog, keep the bar chart, and on the **Primary DataSource** tab set **category-column** to `STATUS` and **value-columns** to `SALES`: select the **...** button, move `SALES` to **Selected Items** in the **Edit Array** dialog, and select **OK**.
@@ -185,13 +178,15 @@ ORDER BY
 
 ## Lab Files
 
-Click a file to download. For `.prpt` files, **Open in Pentaho Report Designer** starts Report Designer with the report loaded.
+Click a file to download. For `.prpt` files, **Open in Pentaho Report Designer** starts Report Designer with the report loaded. Every file is also on disk in this workshop's folder, `C:\Workshop-RD-Practitioner\08-charts-sub-reports\22-mod8-drilldown-charts`.
 
 ### Solution <!-- no-step -->
 
 The finished report for this lab. Open it alongside your own to compare.
 
-[Training Demo Report 8-1 drilldown charts.prpt](./files/Training%20Demo%20Report%208-1%20drilldown%20charts.prpt) <button data-launch="prd" data-path="files/Training Demo Report 8-1 drilldown charts.prpt">Open in Pentaho Report Designer</button>
+Also on disk at `C:\Workshop-RD-Practitioner\08-charts-sub-reports\22-mod8-drilldown-charts\solution`.
+
+[Training Demo Report 8-1 drilldown charts.prpt](./files/solution/Training%20Demo%20Report%208-1%20drilldown%20charts.prpt) <button data-launch="prd" data-path="files/solution/Training Demo Report 8-1 drilldown charts.prpt">Open in Pentaho Report Designer</button>
 
 ### More examples <!-- no-step -->
 

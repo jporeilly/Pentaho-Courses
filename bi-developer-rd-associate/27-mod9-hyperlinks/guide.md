@@ -17,6 +17,12 @@
 >
 > **Estimated time:** 15 minutes
 
+<figure>
+
+<figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
+
+</figure>
+
 :::: tabs
 
 ### 1. The detail report
@@ -27,25 +33,12 @@
 >
 > `Inventory List - drill-to.prpt`, in **Lab Files** below, shows the product code, name, line, vendor and scale of the products you choose in its `ProdCodeParameter` prompt. Publish it, so the link has a target on the server.
 
-1. Start Report Designer with the **Start Pentaho Report Designer** button below, or from a terminal:
-
-::: tabs
-
-### Windows (PowerShell)
+1. Start Report Designer with the **Start Pentaho Report Designer** button below, or from PowerShell:
 
 ```powershell
 Set-Location C:\Pentaho\design-tools\report-designer
 .\report-designer.bat
 ```
-
-### macOS / Linux
-
-```bash
-cd ~/Pentaho/design-tools/report-designer
-./report-designer.sh
-```
-
-:::
 
 <button data-launch="prd" data-path="">Start Pentaho Report Designer</button>
 
@@ -80,7 +73,7 @@ cd ~/Pentaho/design-tools/report-designer
 >
 > A hyperlink on the `PRODUCTCODE` field opens the detail report and passes it the code of the row the reader selects.
 
-1. Select **File > Open** (`Ctrl+O`) and open `Demo - formatting.prpt` from your workshop folder, `Documents\RD-Workshop`.
+1. Select **File > Open** (`Ctrl+O`) and open `Demo - formatting.prpt` from your reports folder, `Documents\RD-Workshop`.
 2. Select **File > Save As** and save it as `Demo - hyperlinks.prpt`.
 3. On the **Data** tab, double-click the data source and select `Query 1`. Check that it has no `WHERE` clause: the hyperlink report shows every product line. Select **OK**.
 
@@ -163,7 +156,7 @@ cd ~/Pentaho/design-tools/report-designer
 
 ## Lab Files
 
-Click a file to download. For `.prpt` files, **Open in Pentaho Report Designer** starts Report Designer with the report loaded.
+Click a file to download. For `.prpt` files, **Open in Pentaho Report Designer** starts Report Designer with the report loaded. Every file is also on disk in this workshop's folder, `C:\Workshop-RD-Practitioner\09-publishing-reports\27-mod9-hyperlinks`.
 
 The detail report the hyperlinks open:
 
@@ -177,4 +170,6 @@ If you don't have `Demo - formatting.prpt`, start from this report instead: the 
 
 The finished report for this lab. Open it alongside your own to compare.
 
-[Training Guided Demo Report 9-1 hyperlinks.prpt](./files/Training%20Guided%20Demo%20Report%209-1%20hyperlinks.prpt) <button data-launch="prd" data-path="files/Training Guided Demo Report 9-1 hyperlinks.prpt">Open in Pentaho Report Designer</button>
+Also on disk at `C:\Workshop-RD-Practitioner\09-publishing-reports\27-mod9-hyperlinks\solution`.
+
+[Training Guided Demo Report 9-1 hyperlinks.prpt](./files/solution/Training%20Guided%20Demo%20Report%209-1%20hyperlinks.prpt) <button data-launch="prd" data-path="files/solution/Training Guided Demo Report 9-1 hyperlinks.prpt">Open in Pentaho Report Designer</button>

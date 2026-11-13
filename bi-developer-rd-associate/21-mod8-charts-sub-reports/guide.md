@@ -17,6 +17,12 @@
 >
 > **Estimated time:** 15 minutes
 
+<figure>
+
+<figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
+
+</figure>
+
 :::: tabs
 
 ### 1. The report and its query
@@ -27,25 +33,12 @@
 >
 > The chart and the sub-report read one query: the total list price (`MSRP`) of each vendor's products in each product line. `Sub Chart Demo Report.prpt` on the [Course Files](../33-ref-course-files/guide.md) page already holds it; these steps build the same report.
 
-1. Start Report Designer with the **Start Pentaho Report Designer** button below, or from a terminal:
-
-::: tabs
-
-### Windows (PowerShell)
+1. Start Report Designer with the **Start Pentaho Report Designer** button below, or from PowerShell:
 
 ```powershell
 Set-Location C:\Pentaho\design-tools\report-designer
 .\report-designer.bat
 ```
-
-### macOS / Linux
-
-```bash
-cd ~/Pentaho/design-tools/report-designer
-./report-designer.sh
-```
-
-:::
 
 <button data-launch="prd" data-path="">Start Pentaho Report Designer</button>
 
@@ -72,7 +65,7 @@ ORDER BY
 > **Success:** Checkpoint: 65 rows, one for each vendor and product line; the first is `Autoart Studio Design`, `Classic Cars`, `195`.
 
 5. Close the preview window, and select **OK**.
-6. Select **File > Save As** and save the report as `Demo - charts.prpt` in your workshop folder, `Documents\RD-Workshop`.
+6. Select **File > Save As** and save the report as `Demo - charts.prpt` in your reports folder, `Documents\RD-Workshop`.
 7. On the **Data** tab, expand the data source and `Query 1`. It has three fields: `PRODUCTLINE`, `PRODUCTVENDOR` and `MSRP`.
 
 <div align="center">
@@ -293,13 +286,15 @@ The dark gray area at the left of an inline sub-report's canvas is the space to 
 
 ## Lab Files
 
-Click a file to download. For `.prpt` files, **Open in Pentaho Report Designer** starts Report Designer with the report loaded.
+Click a file to download. For `.prpt` files, **Open in Pentaho Report Designer** starts Report Designer with the report loaded. Every file is also on disk in this workshop's folder, `C:\Workshop-RD-Practitioner\08-charts-sub-reports\21-mod8-charts-sub-reports`.
 
 ### Solution <!-- no-step -->
 
 The finished report for this lab. Open it alongside your own to compare, or preview it to see the expected result. It puts the column labels in the master report's **Page Header** band instead of the sub-report.
 
-[Training Demo Report 8 charts.prpt](./files/Training%20Demo%20Report%208%20charts.prpt) <button data-launch="prd" data-path="files/Training Demo Report 8 charts.prpt">Open in Pentaho Report Designer</button>
+Also on disk at `C:\Workshop-RD-Practitioner\08-charts-sub-reports\21-mod8-charts-sub-reports\solution`.
+
+[Training Demo Report 8 charts.prpt](./files/solution/Training%20Demo%20Report%208%20charts.prpt) <button data-launch="prd" data-path="files/solution/Training Demo Report 8 charts.prpt">Open in Pentaho Report Designer</button>
 
 ### More examples <!-- no-step -->
 

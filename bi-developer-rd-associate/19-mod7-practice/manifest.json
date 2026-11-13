@@ -3,7 +3,7 @@
   "description": "Build a parameterised report on your own.",
   "order": 19,
   "kind": "workshop",
-  "stepCount": 3,
+  "stepCount": 1,
   "hasVideo": false,
   "estimatedMinutes": 20
 }

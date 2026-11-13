@@ -17,6 +17,12 @@
 >
 > **Estimated time:** 20 minutes
 
+<figure>
+
+<figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
+
+</figure>
+
 :::: tabs
 
 ### 1. The exercise report
@@ -27,25 +33,12 @@
 >
 > The exercise reads customers and their order lines: one row for each order line, sorted by territory, country and customer, the order of the groups you add.
 
-1. Start Report Designer with the **Start Pentaho Report Designer** button below, or from a terminal:
-
-::: tabs
-
-### Windows (PowerShell)
+1. Start Report Designer with the **Start Pentaho Report Designer** button below, or from PowerShell:
 
 ```powershell
 Set-Location C:\Pentaho\design-tools\report-designer
 .\report-designer.bat
 ```
-
-### macOS / Linux
-
-```bash
-cd ~/Pentaho/design-tools/report-designer
-./report-designer.sh
-```
-
-:::
 
 <button data-launch="prd" data-path="">Start Pentaho Report Designer</button>
 
@@ -75,7 +68,7 @@ ORDER BY
 > **Success:** Checkpoint: one row for each of the 2,996 order lines, starting with territory `APAC` and country `Australia`.
 
 7. Close the preview window, and select **OK**.
-8. Select **File > Save As** and save the report as `Exercise - sql query.prpt` in your workshop folder, `Documents\RD-Workshop`.
+8. Select **File > Save As** and save the report as `Exercise - sql query.prpt` in your reports folder, `Documents\RD-Workshop`.
 
 ### 2. Data elements
 

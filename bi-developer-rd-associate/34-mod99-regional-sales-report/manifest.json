@@ -1,9 +1,41 @@
 {
   "title": "Regional Sales Report",
-  "description": "Capstone: build, chart, parameterise, and publish a management-ready sales report end to end.",
-  "order": 29,
+  "description": "Capstone: build, publish and burst a parameterized regional sales report: groups, totals, conditional formatting, prompts, a chart and a sub-report, published to the server and emailed by schedule to each territory's sales manager. Outline and hints; its checks decide the accreditation.",
+  "order": 30,
   "kind": "workshop",
-  "stepCount": 10,
+  "stepCount": 21,
   "hasVideo": false,
-  "estimatedMinutes": 30
+  "estimatedMinutes": 150,
+  "checks": [
+    {
+      "id": "report-file",
+      "kind": "file-exists",
+      "label": "Your report, regional-sales-report.prpt, in solution\\",
+      "path": "C:/Workshop-RD-Practitioner/capstone/solution/regional-sales-report.prpt"
+    },
+    {
+      "id": "mailed-apac",
+      "kind": "file-exists",
+      "label": "The APAC manager's emailed copy, saved from Mailpit as out\\burst\\APAC.pdf",
+      "path": "C:/Workshop-RD-Practitioner/capstone/out/burst/APAC.pdf"
+    },
+    {
+      "id": "mailed-emea",
+      "kind": "file-exists",
+      "label": "The EMEA manager's, out\\burst\\EMEA.pdf",
+      "path": "C:/Workshop-RD-Practitioner/capstone/out/burst/EMEA.pdf"
+    },
+    {
+      "id": "mailed-na",
+      "kind": "file-exists",
+      "label": "The NA manager's, out\\burst\\NA.pdf",
+      "path": "C:/Workshop-RD-Practitioner/capstone/out/burst/NA.pdf"
+    },
+    {
+      "id": "published-run",
+      "kind": "file-exists",
+      "label": "One run from the User Console, exported as regional-sales-report.pdf into out\\",
+      "path": "C:/Workshop-RD-Practitioner/capstone/out/regional-sales-report.pdf"
+    }
+  ]
 }

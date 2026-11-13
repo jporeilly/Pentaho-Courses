@@ -17,6 +17,12 @@
 >
 > **Estimated time:** 20 minutes
 
+<figure>
+
+<figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
+
+</figure>
+
 :::: tabs
 
 ### 1. The territory prompt
@@ -27,29 +33,16 @@
 >
 > The same three pieces as in the guided workshop, for the territory.
 
-1. Start Report Designer with the **Start Pentaho Report Designer** button below, or from a terminal:
-
-::: tabs
-
-### Windows (PowerShell)
+1. Start Report Designer with the **Start Pentaho Report Designer** button below, or from PowerShell:
 
 ```powershell
 Set-Location C:\Pentaho\design-tools\report-designer
 .\report-designer.bat
 ```
 
-### macOS / Linux
-
-```bash
-cd ~/Pentaho/design-tools/report-designer
-./report-designer.sh
-```
-
-:::
-
 <button data-launch="prd" data-path="">Start Pentaho Report Designer</button>
 
-2. Select **File > Open** (`Ctrl+O`) and open `Exercise - formatting.prpt` from your workshop folder, `Documents\RD-Workshop`.
+2. Select **File > Open** (`Ctrl+O`) and open `Exercise - formatting.prpt` from your reports folder, `Documents\RD-Workshop`.
 3. Select **File > Save As** and save it as `Exercise - parameters.prpt`.
 4. On the **Data** tab, double-click **JDBC: SampleData (Hypersonic)**, select the green plus (**Add Query**), set **Query Name** to `territory_list`, and enter:
 

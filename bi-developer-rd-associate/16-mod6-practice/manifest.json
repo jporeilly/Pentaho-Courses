@@ -3,7 +3,7 @@
   "description": "Format a report end-to-end on your own.",
   "order": 16,
   "kind": "workshop",
-  "stepCount": 4,
+  "stepCount": 2,
   "hasVideo": false,
   "estimatedMinutes": 10
 }

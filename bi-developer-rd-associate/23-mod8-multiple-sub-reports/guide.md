@@ -17,6 +17,12 @@
 >
 > **Estimated time:** 15 minutes
 
+<figure>
+
+<figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
+
+</figure>
+
 :::: tabs
 
 ### 1. Two queries
@@ -27,25 +33,12 @@
 >
 > Each chart reads its own query: territory and total price for every order line, and country and total price for the order lines of the `NA` territory. The pie chart adds up the prices itself, so neither query needs a `SUM`.
 
-1. Start Report Designer with the **Start Pentaho Report Designer** button below, or from a terminal:
-
-::: tabs
-
-### Windows (PowerShell)
+1. Start Report Designer with the **Start Pentaho Report Designer** button below, or from PowerShell:
 
 ```powershell
 Set-Location C:\Pentaho\design-tools\report-designer
 .\report-designer.bat
 ```
-
-### macOS / Linux
-
-```bash
-cd ~/Pentaho/design-tools/report-designer
-./report-designer.sh
-```
-
-:::
 
 <button data-launch="prd" data-path="">Start Pentaho Report Designer</button>
 
@@ -105,7 +98,7 @@ WHERE
 > **Success:** Checkpoint: the order lines of the `NA` territory only, `Canada` first and then `USA`.
 
 14. Close the preview window, and select **OK**.
-15. Select **File > Save As** and save the report as `Demo - multiple sub reports.prpt` in your workshop folder, `Documents\RD-Workshop`.
+15. Select **File > Save As** and save the report as `Demo - multiple sub reports.prpt` in your reports folder, `Documents\RD-Workshop`.
 
 ### 2. Two sub-reports
 
@@ -187,17 +180,19 @@ WHERE
 
 ## Lab Files
 
-Click a file to download. For `.prpt` files, **Open in Pentaho Report Designer** starts Report Designer with the report loaded.
+Click a file to download. For `.prpt` files, **Open in Pentaho Report Designer** starts Report Designer with the report loaded. Every file is also on disk in this workshop's folder, `C:\Workshop-RD-Practitioner\08-charts-sub-reports\23-mod8-multiple-sub-reports`.
 
 ### Solution <!-- no-step -->
 
 The finished report for this lab. Open it alongside your own to compare, or preview it to see the expected result.
 
-[Training Guided Demo Report 8-2 multiple sub.prpt](./files/Training%20Guided%20Demo%20Report%208-2%20multiple%20sub.prpt) <button data-launch="prd" data-path="files/Training Guided Demo Report 8-2 multiple sub.prpt">Open in Pentaho Report Designer</button>
+Also on disk at `C:\Workshop-RD-Practitioner\08-charts-sub-reports\23-mod8-multiple-sub-reports\solution`.
+
+[Training Guided Demo Report 8-2 multiple sub.prpt](./files/solution/Training%20Guided%20Demo%20Report%208-2%20multiple%20sub.prpt) <button data-launch="prd" data-path="files/solution/Training Guided Demo Report 8-2 multiple sub.prpt">Open in Pentaho Report Designer</button>
 
 The same report with a third sub-report in the **Details** band, which lists the North American order lines with their country and total price:
 
-[Training Guided Demo Report 8-2a multiple sub.prpt](./files/Training%20Guided%20Demo%20Report%208-2a%20multiple%20sub.prpt) <button data-launch="prd" data-path="files/Training Guided Demo Report 8-2a multiple sub.prpt">Open in Pentaho Report Designer</button>
+[Training Guided Demo Report 8-2a multiple sub.prpt](./files/solution/Training%20Guided%20Demo%20Report%208-2a%20multiple%20sub.prpt) <button data-launch="prd" data-path="files/solution/Training Guided Demo Report 8-2a multiple sub.prpt">Open in Pentaho Report Designer</button>
 
 ### More examples <!-- no-step -->
 

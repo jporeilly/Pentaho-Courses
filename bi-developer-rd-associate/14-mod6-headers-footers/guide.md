@@ -17,6 +17,12 @@
 >
 > **Estimated time:** 15 minutes
 
+<figure>
+
+<figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
+
+</figure>
+
 :::: tabs
 
 ### 1. The logo
@@ -27,29 +33,16 @@
 >
 > An **image** element shows a picture, either linked from a file or embedded in the report. The Steel Wheels logo ships with the Pentaho Server, in its `sw-style` web application.
 
-1. Start Report Designer with the **Start Pentaho Report Designer** button below, or from a terminal:
-
-::: tabs
-
-### Windows (PowerShell)
+1. Start Report Designer with the **Start Pentaho Report Designer** button below, or from PowerShell:
 
 ```powershell
 Set-Location C:\Pentaho\design-tools\report-designer
 .\report-designer.bat
 ```
 
-### macOS / Linux
-
-```bash
-cd ~/Pentaho/design-tools/report-designer
-./report-designer.sh
-```
-
-:::
-
 <button data-launch="prd" data-path="">Start Pentaho Report Designer</button>
 
-2. Select **File > Open** (`Ctrl+O`) and open `Demo - totals.prpt` from your workshop folder, `Documents\RD-Workshop`.
+2. Select **File > Open** (`Ctrl+O`) and open `Demo - totals.prpt` from your reports folder, `Documents\RD-Workshop`.
 3. Select **File > Save As** and save it as `Demo - header.prpt` in the same folder.
 4. From the palette, drag an **image** element onto the **Report Header** band. You resize and place it later.
 
@@ -209,10 +202,12 @@ cd ~/Pentaho/design-tools/report-designer
 
 ## Lab Files
 
-Click a file to download. For `.prpt` files, **Open in Pentaho Report Designer** starts Report Designer with the report loaded.
+Click a file to download. For `.prpt` files, **Open in Pentaho Report Designer** starts Report Designer with the report loaded. Every file is also on disk in this workshop's folder, `C:\Workshop-RD-Practitioner\06-formatting-the-report\14-mod6-headers-footers`.
 
 ### Solution <!-- no-step -->
 
 The finished report for this lab. Open it alongside your own to compare, or preview it to see the expected result. It also has the formatting of the next workshop, [Formatting the Report](../15-mod6-formatting-report/guide.md), and its title reads `Steel Wheels Sales Report`.
 
-[Training Demo Report 6-1 header.prpt](./files/Training%20Demo%20Report%206-1%20header.prpt) <button data-launch="prd" data-path="files/Training Demo Report 6-1 header.prpt">Open in Pentaho Report Designer</button>
+Also on disk at `C:\Workshop-RD-Practitioner\06-formatting-the-report\14-mod6-headers-footers\solution`.
+
+[Training Demo Report 6-1 header.prpt](./files/solution/Training%20Demo%20Report%206-1%20header.prpt) <button data-launch="prd" data-path="files/solution/Training Demo Report 6-1 header.prpt">Open in Pentaho Report Designer</button>
