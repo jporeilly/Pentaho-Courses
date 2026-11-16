@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1164" height="968" viewBox="0 0 1164 968" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+<filter id="shadow" x="-10%" y="-10%" width="120%" height="140%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#0f172a" flood-opacity="0.12"/></filter></defs>
+<rect width="1164" height="968" fill="#ffffff"/>
+<rect x="16" y="16" width="1132" height="364" rx="12" fill="#f8fafc" stroke="#f1f5f9" stroke-width="1.5"/>
+<path d="M16 28a12 12 0 0 1 12-12h1108a12 12 0 0 1 12 12v22h-1132z" fill="#475569"/>
+<g transform="translate(29 22) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5h10"/><path d="M11 12h10"/><path d="M11 19h10"/><path d="M4 4h1v5"/><path d="M4 9h2"/><path d="M6.5 20H3.4c0-1 2.6-1.925 2.6-3.5a1.5 1.5 0 0 0-2.6-1.02"/></g>
+<text x="56" y="39" font-size="14" font-weight="700" fill="#ffffff">mi_driver.kjb: the driver job</text>
+<rect x="16" y="428" width="1132" height="146" rx="12" fill="#f8fafc" stroke="#f1f5f9" stroke-width="1.5"/>
+<path d="M16 440a12 12 0 0 1 12-12h1108a12 12 0 0 1 12 12v22h-1132z" fill="#475569"/>
+<g transform="translate(29 434) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 8a1 1 0 0 1-1-1V2a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8z"/><path d="M20 8v12a2 2 0 0 1-2 2h-4.182"/><path d="m3.305 19.53.923-.382"/><path d="M4 10.592V4a2 2 0 0 1 2-2h8"/><path d="m4.228 16.852-.924-.383"/><path d="m5.852 15.228-.383-.923"/><path d="m5.852 20.772-.383.924"/><path d="m8.148 15.228.383-.923"/><path d="m8.53 21.696-.382-.924"/><path d="m9.773 16.852.922-.383"/><path d="m9.773 19.148.922.383"/><circle cx="7" cy="18" r="3"/></g>
+<text x="56" y="451" font-size="14" font-weight="700" fill="#ffffff">mi_inject.ktr: the injector, once per control row</text>
+<rect x="16" y="622" width="1132" height="330" rx="12" fill="#f8fafc" stroke="#f1f5f9" stroke-width="1.5"/>
+<path d="M16 634a12 12 0 0 1 12-12h1108a12 12 0 0 1 12 12v22h-1132z" fill="#475569"/>
+<g transform="translate(29 628) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 8a1 1 0 0 1-1-1V2a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8z"/><path d="M20 8v12a2 2 0 0 1-2 2h-4.182"/><path d="m3.305 19.53.923-.382"/><path d="M4 10.592V4a2 2 0 0 1 2-2h8"/><path d="m4.228 16.852-.924-.383"/><path d="m5.852 15.228-.383-.923"/><path d="m5.852 20.772-.383.924"/><path d="m8.148 15.228.383-.923"/><path d="m8.53 21.696-.382-.924"/><path d="m9.773 16.852.922-.383"/><path d="m9.773 19.148.922.383"/><circle cx="7" cy="18" r="3"/></g>
+<text x="56" y="645" font-size="14" font-weight="700" fill="#ffffff">mi_template.ktr: the template, filled in and run</text>
+<path d="M280 108C296.5 108 296.5 108 313 108" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M564 108C580.5 108 580.5 108 597 108" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M848 108C864.5 108 864.5 108 881 108" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M440 172L440 147" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M848 520C864.5 520 864.5 520 881 520" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M724 144L724 481" fill="none" stroke="#64748b" stroke-width="1.7" stroke-dasharray="5 4" marker-end="url(#arrow)"/>
+<path d="M280 714C296.5 714 296.5 788 313 788" fill="none" stroke="#64748b" stroke-width="1.7" stroke-dasharray="5 4" marker-end="url(#arrow)"/>
+<path d="M280 806C296.5 806 296.5 806 313 806" fill="none" stroke="#64748b" stroke-width="1.7" stroke-dasharray="5 4" marker-end="url(#arrow)"/>
+<path d="M280 898C296.5 898 296.5 824 313 824" fill="none" stroke="#64748b" stroke-width="1.7" stroke-dasharray="5 4" marker-end="url(#arrow)"/>
+<path d="M564 806C580.5 806 580.5 806 597 806" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M848 806C864.5 806 864.5 806 881 806" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M1008 556C1008 661.5 440 661.5 440 767" fill="none" stroke="#64748b" stroke-width="1.7" stroke-dasharray="5 4" marker-end="url(#arrow)"/>
+<rect x="32" y="72" width="248" height="72" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="108" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(50 96) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z"/></g>
+<text x="92" y="98.5" font-size="14" font-weight="700" fill="#1e3a8a">START</text>
+<text x="92" y="115.5" font-size="12" fill="#1e3a8a">the job begins</text>
+<rect x="316" y="72" width="248" height="72" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="346" cy="108" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(334 96) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 14 4 4-4 4"/><path d="m18 2 4 4-4 4"/><path d="M2 18h1.973a4 4 0 0 0 3.3-1.7l5.454-8.6a4 4 0 0 1 3.3-1.7H22"/><path d="M2 6h1.972a4 4 0 0 1 3.6 2.2"/><path d="M22 18h-6.041a4 4 0 0 1-3.3-1.8l-.359-.45"/></g>
+<text x="376" y="91" font-size="14" font-weight="700" fill="#3b0764">Read control file</text>
+<text x="376" y="108" font-size="12" fill="#3b0764">read_control.ktr: Copy</text>
+<text x="376" y="123" font-size="12" fill="#3b0764">rows to result</text>
+<rect x="600" y="72" width="248" height="72" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="630" cy="108" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(618 96) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m17 2 4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/></g>
+<text x="660" y="91" font-size="14" font-weight="700" fill="#3b0764">Inject per feed</text>
+<text x="660" y="108" font-size="12" fill="#3b0764">mi_inject.ktr, Execute</text>
+<text x="660" y="123" font-size="12" fill="#3b0764">every input row</text>
+<rect x="884" y="72" width="248" height="72" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="914" cy="108" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(902 96) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></g>
+<text x="944" y="98.5" font-size="14" font-weight="700" fill="#14532d">Success</text>
+<text x="944" y="115.5" font-size="12" fill="#14532d">every feed appended</text>
+<rect x="32" y="172" width="532" height="190" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="200" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(50 188) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></g>
+<text x="92" y="197" font-size="14" font-weight="700" fill="#1e3a8a">control.csv</text>
+<text x="92" y="214" font-size="12" fill="#1e3a8a">one row per feed: a new feed is a new row</text>
+<text x="173" y="244" text-anchor="middle" font-size="12" font-weight="600" fill="#1e3a8a">filename (the full path)</text>
+<text x="423" y="244" text-anchor="middle" font-size="12" font-weight="600" fill="#1e3a8a">separator</text>
+<line x1="48" y1="251" x2="548" y2="251" stroke="#94a3b8" stroke-width="1"/>
+<rect x="48" y="254" width="500" height="21" rx="4" fill="#dbeafe" stroke="#1d4ed8" stroke-width="0.8"/>
+<text x="173" y="269" text-anchor="middle" font-size="12" fill="#1e3a8a">…/stores_north.csv</text>
+<text x="423" y="269" text-anchor="middle" font-size="12" fill="#1e3a8a">, (comma)</text>
+<rect x="48" y="278" width="500" height="21" rx="4" fill="#dbeafe" stroke="#1d4ed8" stroke-width="0.8"/>
+<text x="173" y="293" text-anchor="middle" font-size="12" fill="#1e3a8a">…/stores_south.txt</text>
+<text x="423" y="293" text-anchor="middle" font-size="12" fill="#1e3a8a">| (pipe)</text>
+<rect x="48" y="302" width="500" height="21" rx="4" fill="#dbeafe" stroke="#1d4ed8" stroke-width="0.8"/>
+<text x="173" y="317" text-anchor="middle" font-size="12" fill="#1e3a8a">…/partners_eu.csv</text>
+<text x="423" y="317" text-anchor="middle" font-size="12" fill="#1e3a8a">; (semicolon)</text>
+<rect x="48" y="326" width="500" height="21" rx="4" fill="#dcfce7" stroke="#15803d" stroke-width="0.8"/>
+<text x="173" y="341" text-anchor="middle" font-size="12" fill="#14532d">+ …/stores_scotland.csv</text>
+<text x="423" y="341" text-anchor="middle" font-size="12" fill="#14532d">its separator</text>
+<rect x="600" y="484" width="248" height="72" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="630" cy="520" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(618 508) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></g>
+<text x="660" y="503" font-size="14" font-weight="700" fill="#1e3a8a">File config</text>
+<text x="660" y="520" font-size="12" fill="#1e3a8a">Get rows from result:</text>
+<text x="660" y="535" font-size="12" fill="#1e3a8a">filename, separator</text>
+<rect x="884" y="484" width="248" height="72" rx="10" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="914" cy="520" r="19" fill="#ffffff" stroke="#0f766e" stroke-width="1.2"/>
+<g transform="translate(902 508) scale(1)" fill="none" stroke="#0f766e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 2 4 4"/><path d="m17 7 3-3"/><path d="M19 9 8.7 19.3c-1 1-2.5 1-3.4 0l-.6-.6c-1-1-1-2.5 0-3.4L15 5"/><path d="m9 11 4 4"/><path d="m5 19-3 3"/><path d="m14 4 6 6"/></g>
+<text x="944" y="503" font-size="14" font-weight="700" fill="#134e4a">Inject and run template</text>
+<text x="944" y="520" font-size="12" fill="#134e4a">ETL metadata injection:</text>
+<text x="944" y="535" font-size="12" fill="#134e4a">FILENAME, SEPARATOR</text>
+<rect x="642.55" y="391.5" width="162.9" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="724" y="409.5" text-anchor="middle" font-size="12" fill="#334155">one control row per run</text>
+<rect x="32" y="678" width="248" height="72" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="714" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(50 702) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></g>
+<text x="92" y="697" font-size="14" font-weight="700" fill="#1e3a8a">stores_north.csv</text>
+<text x="92" y="714" font-size="12" fill="#1e3a8a">store, sale_date, amount</text>
+<text x="92" y="729" font-size="12" fill="#1e3a8a">comma separated</text>
+<rect x="32" y="770" width="248" height="72" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="806" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(50 794) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></g>
+<text x="92" y="789" font-size="14" font-weight="700" fill="#1e3a8a">stores_south.txt</text>
+<text x="92" y="806" font-size="12" fill="#1e3a8a">location, trading_date,</text>
+<text x="92" y="821" font-size="12" fill="#1e3a8a">takings: pipe separated</text>
+<rect x="32" y="862" width="248" height="72" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="898" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(50 886) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></g>
+<text x="92" y="881" font-size="14" font-weight="700" fill="#1e3a8a">partners_eu.csv</text>
+<text x="92" y="898" font-size="12" fill="#1e3a8a">outlet, dt, revenue_eur</text>
+<text x="92" y="913" font-size="12" fill="#1e3a8a">semicolon separated</text>
+<rect x="316" y="770" width="248" height="72" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="346" cy="806" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(334 794) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.706.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-1"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M2 15h10"/><path d="m9 18 3-3-3-3"/></g>
+<text x="376" y="789" font-size="14" font-weight="700" fill="#1e3a8a">Read feed</text>
+<text x="376" y="806" font-size="12" fill="#1e3a8a">Text file input: no file,</text>
+<text x="376" y="821" font-size="12" fill="#1e3a8a">no separator; 3 fields</text>
+<rect x="600" y="770" width="248" height="72" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="630" cy="806" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(618 794) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 5h20"/><path d="M6 12h12"/><path d="M9 19h6"/></g>
+<text x="660" y="789" font-size="14" font-weight="700" fill="#3b0764">Standardize</text>
+<text x="660" y="806" font-size="12" fill="#3b0764">Select values renames to</text>
+<text x="660" y="821" font-size="12" fill="#3b0764">store, sale_date, amount</text>
+<rect x="884" y="770" width="248" height="72" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="914" cy="806" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(902 794) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.226 20.925A2 2 0 0 0 6 22h12a2 2 0 0 0 2-2V8a2.4 2.4 0 0 0-.706-1.706l-3.588-3.588A2.4 2.4 0 0 0 14 2H6a2 2 0 0 0-2 2v3.127"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="m5 11-3 3"/><path d="m5 17-3-3h10"/></g>
+<text x="944" y="789" font-size="14" font-weight="700" fill="#14532d">Append to all_feeds</text>
+<text x="944" y="806" font-size="12" fill="#14532d">all_feeds.csv: 18 rows,</text>
+<text x="944" y="821" font-size="12" fill="#14532d">one standard shape</text>
+<rect x="772.05" y="585.5" width="351.9" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="948" y="603.5" text-anchor="middle" font-size="12" fill="#334155">fills in Read feed's file and separator, then runs it</text>
+</svg>

@@ -316,6 +316,21 @@ Your canvas now has both, side by side, on the same data — so this is
 the moment the difference sticks. They look interchangeable in a
 screenshot; they are not.
 
+Here are the two side by side, as this lab uses them.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/lookup-vs-merge-join.png" alt="Two panels on one grid. Stream lookup: Read customers is read to the end into an index in memory keyed on customer_id, and the 37 valid sales, in any order, are each looked up in it at + customer, giving 37 rows out with fields left null where nothing matches. Merge join: Read regions is sorted on code and the 37 sales from Compute margin on region_code, and + region joins them LEFT OUTER, keeping a sale with no matching region; INNER, RIGHT and FULL OUTER are the other join types." width="800">
+<figcaption>Stream lookup and Merge join in this lab</figcaption>
+</figure>
+</div>
+
+Stream lookup needs no sorting because it holds the small side in
+memory, which is why the lab uses it for the customers and the
+products. Merge join holds neither side, so both streams must arrive
+in key order: that is what the two **Sort rows** steps in front of
+**+ region** are for.
+
 |                   | **Stream lookup**                                                                            | **Merge join**                                                                            |
 | ----------------- | -------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
 | What it is        | An in-memory hash lookup                                                                     | A true SQL-style join                                                                     |

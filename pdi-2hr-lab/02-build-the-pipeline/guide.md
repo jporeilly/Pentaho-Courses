@@ -37,6 +37,17 @@ C:\Workshop\pdi-2hr\02-see-it-work\02-build-the-pipeline\
 </figure>
 </div>
 
+Here is the map of what you're about to build.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/build-the-pipeline.png" alt="The check_keys.ktr transformation you build, numbered in build order. 1: Read sales, a Text file input reading sales_20260101.csv, comma separated with 1 header line, and the seven fields Get Fields detects. 2: Keys present?, a Filter rows step checking customer_id IS NOT NULL AND product_id IS NOT NULL. 3: its false branch writes Rejects for source team to C:\Workshop\pdi-2hr\out\rejects.txt. 4: its true branch ends at Valid rows. 5: Step Metrics shows 40 read, 37 valid, 3 rejects." width="800">
+<figcaption>check_keys: what you build, step by step</figcaption>
+</figure>
+</div>
+
+Read the diagram by its numbers: they follow the order the steps below add each box. **Read sales** turns `sales_20260101.csv` into typed rows, **Keys present?** splits them, the dashed FALSE hop sends the rows missing a key to **Rejects for source team**, and the TRUE hop ends at **Valid rows**. The bottom panel is what you check after the run: 40 rows read, 37 valid and 3 in `rejects.txt`.
+
 :::: tabs
 
 ### 1. Create a new transformation
@@ -80,7 +91,7 @@ C:\Workshop\pdi-2hr\02-see-it-work\02-build-the-pipeline\sales_20260101.csv
    -   **Separator** to: comma and make sure 
    -   **Header** is selected with 1 header line
    -   **Format** is: mixed
-   -   **Encoding** is: UTF8
+   -   **Encoding** is: UTF-8
 <div align="center">
 <figure>
 <img src="../_assets/images/1788365622451.png" alt="Text file input dialog, Content tab: separator comma, header selected with 1 header line, format mixed, encoding UTF-8" width="800">
@@ -182,7 +193,8 @@ Pentaho Data Integration adds the **Extension**, `txt`.
 </figure>
 </div>
 
-5. Open its **Fields** tab, select **Get Fields**, then select **OK**.
+5. Open its **Content** tab and check that **Separator** is `;` (a semicolon, the step's default) and **Header** is selected, so `rejects.txt` starts with a header line and matches the solution.
+6. Open its **Fields** tab, select **Get Fields**, then select **OK**.
 
 <div align="center">
 <figure>
@@ -191,7 +203,7 @@ Pentaho Data Integration adds the **Extension**, `txt`.
 </figure>
 </div>
 
-6. On the **Design** tab, open the **Flow** folder and drag **Dummy (do nothing)**
+7. On the **Design** tab, open the **Flow** folder and drag **Dummy (do nothing)**
    onto the canvas. Create a hop from **Keys present?** to **Dummy (do nothing)**
    and select the **TRUE** branch. Double-click **Dummy (do nothing)** and set
    **Step name** to `Valid rows`.

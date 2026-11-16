@@ -8,13 +8,13 @@
       "id": "rejects-file",
       "kind": "file-exists",
       "label": "Reject file written",
-      "path": "C:\\Workshop\\pdi-2hr\\out\\rejects.csv"
+      "path": "C:\\Workshop\\pdi-2hr\\out\\rejects.txt"
     },
     {
       "id": "rejects-rows",
       "kind": "row-count",
       "label": "Reject file has the 3 bad rows (plus header)",
-      "path": "C:\\Workshop\\pdi-2hr\\out\\rejects.csv",
+      "path": "C:\\Workshop\\pdi-2hr\\out\\rejects.txt",
       "min": 4
     }
   ],

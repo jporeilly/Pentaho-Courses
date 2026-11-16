@@ -12,7 +12,7 @@
 >
 > * Open a prepared transformation in Pentaho Data Integration.
 > * Preview live data at any point in the flow.
-> * See two bad rows get caught automatically.
+> * See three bad rows get caught automatically.
 >
 > **Prerequisites:**
 >
@@ -33,6 +33,23 @@
 > you build that pipeline. This workshop shows you the finished first
 > stage so you get an idea of how a pipeline is created.
 
+Here is where the next two hours lead, with the lab that builds each piece.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/retailer-pipeline-target.png" alt="The workshop's target design in three parts. Labs 1 to 3: sales_20260101.csv goes through the Keys present? filter, which sends 3 rejects to a file, then two Stream lookups add customers.json and products.csv, Calculator computes the margin, and a LEFT OUTER Merge join adds regions.csv, giving 37 enriched rows. Lab 4: customers.json loads dim_customer in MySQL through Dimension lookup/update. Lab 5: control.csv drives one template over three store feeds into all_feeds.csv." width="800">
+<figcaption>The retailer pipeline, lab by lab</figcaption>
+</figure>
+</div>
+
+Read the top panel left to right. Yesterday's 40 orders go through **Keys present?**, which sends the 3 rows missing a key up to a rejects file for the source team. The valid rows pick up the customer's name and region and the product from two Stream lookups, get their margin computed, and are joined to `regions.csv`, giving 37 enriched rows. The badge on each box names the lab where you meet it.
+
+The top panel is the daily sales transformation: this lab runs its
+first stage, Lab 2 builds that stage yourself, and Lab 3 enriches the
+valid rows. Lab 4 is a separate transformation that keeps the customer
+dimension's history in MySQL, and Lab 5 shows one template taking in
+many differently shaped files.
+
 :::: tabs
 
 ### 1. Open the pipeline
@@ -51,7 +68,7 @@ Path to Transformation:
 C:\Workshop\pdi-2hr\02-see-it-work\01-your-first-win\win_preview.ktr
 ```
 
-You should see three connected steps on the canvas: a file reader, a
+You should see four connected steps on the canvas: a file reader, a
 filter, and two end points — one for valid rows, one for rejects.
 
 <div align="center">
@@ -62,6 +79,17 @@ filter, and two end points — one for valid rows, one for rejects.
 </div>
 
 ### 2. Preview the valid rows
+
+Before you run it, here is what you'll see at each point in `win_preview`.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/first-win-preview.png" alt="Close-up of win_preview.ktr. Read yesterday's sales, a Text file input reading 40 orders from sales_20260101.csv, flows into Keys present?, a Filter rows step that checks customer_id IS NOT NULL AND product_id IS NOT NULL. The true branch ends at Valid rows, whose preview shows 37 rows. The false branch ends at Rejected rows, whose preview shows orders 10011, 10016 and 10036, each missing a key. Nothing is written to any file." width="800">
+<figcaption>win_preview: what each preview shows</figcaption>
+</figure>
+</div>
+
+Read the diagram left to right. The 40 orders flow from **Read yesterday's sales** into **Keys present?**, which sends every row with both keys up the true hop to **Valid rows** and the 3 rows missing one down the dashed false hop to **Rejected rows**. The grids on the right are what **Preview** shows on each end step in steps 2 and 3. Both end steps are Dummy steps, so nothing is written anywhere. In step 4 you double-click the first two steps to see how they're set.
 
 1. Right-click **Valid rows** and select **Preview**.
 2. Select **Quick Launch**.

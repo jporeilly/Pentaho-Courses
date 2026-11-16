@@ -1,0 +1,142 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="984" height="736" viewBox="0 0 984 736" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+<filter id="shadow" x="-10%" y="-10%" width="120%" height="140%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#0f172a" flood-opacity="0.12"/></filter></defs>
+<rect width="984" height="736" fill="#ffffff"/>
+<rect x="16" y="16" width="952" height="290" rx="12" fill="#f8fafc" stroke="#f1f5f9" stroke-width="1.5"/>
+<path d="M16 28a12 12 0 0 1 12-12h928a12 12 0 0 1 12 12v32h-952z" fill="#475569"/>
+<g transform="translate(29 26) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></g>
+<text x="56" y="36" font-size="14" font-weight="700" fill="#ffffff">After the first run: 21 rows</text>
+<text x="56" y="52" font-size="11.5" fill="#ffffff" opacity="0.92">Every customer at version 1 with an open-ended window, plus the "unknown" row (customer_tk 0)</text>
+<rect x="16" y="370" width="952" height="314" rx="12" fill="#f8fafc" stroke="#f1f5f9" stroke-width="1.5"/>
+<path d="M16 382a12 12 0 0 1 12-12h928a12 12 0 0 1 12 12v32h-952z" fill="#475569"/>
+<g transform="translate(29 380) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l4 2"/></g>
+<text x="56" y="390" font-size="14" font-weight="700" fill="#ffffff">After the second run: 22 rows</text>
+<text x="56" y="406" font-size="11.5" fill="#ffffff" opacity="0.92">C001's version 1 is closed and version 2 is added; every other customer is untouched</text>
+<path d="M492 310L492 366" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="32" y="72" width="920" height="214" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="100" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(50 88) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></g>
+<text x="92" y="97" font-size="14" font-weight="700" fill="#14532d">dim_customer</text>
+<text x="92" y="114" font-size="12" fill="#14532d">ORDER BY customer_id, version</text>
+<text x="111.42857142857143" y="144" text-anchor="middle" font-size="12" font-weight="600" fill="#14532d">customer_tk</text>
+<text x="238.28571428571428" y="144" text-anchor="middle" font-size="12" font-weight="600" fill="#14532d">customer_id</text>
+<text x="365.14285714285717" y="144" text-anchor="middle" font-size="12" font-weight="600" fill="#14532d">customer_name</text>
+<text x="492" y="144" text-anchor="middle" font-size="12" font-weight="600" fill="#14532d">region_code</text>
+<text x="618.8571428571429" y="144" text-anchor="middle" font-size="12" font-weight="600" fill="#14532d">version</text>
+<text x="745.7142857142858" y="144" text-anchor="middle" font-size="12" font-weight="600" fill="#14532d">date_from</text>
+<text x="872.5714285714286" y="144" text-anchor="middle" font-size="12" font-weight="600" fill="#14532d">date_to</text>
+<line x1="48" y1="151" x2="936" y2="151" stroke="#94a3b8" stroke-width="1"/>
+<rect x="48" y="154" width="888" height="21" rx="4" fill="#f5f5f4" stroke="#a8a29e" stroke-width="0.8"/>
+<text x="111.42857142857143" y="169" text-anchor="middle" font-size="12" fill="#78716c">0</text>
+<text x="238.28571428571428" y="169" text-anchor="middle" font-size="12" fill="#78716c">(null)</text>
+<text x="365.14285714285717" y="169" text-anchor="middle" font-size="12" fill="#78716c">(null)</text>
+<text x="492" y="169" text-anchor="middle" font-size="12" fill="#78716c">(null)</text>
+<text x="618.8571428571429" y="169" text-anchor="middle" font-size="12" fill="#78716c"></text>
+<text x="745.7142857142858" y="169" text-anchor="middle" font-size="12" fill="#78716c"></text>
+<text x="872.5714285714286" y="169" text-anchor="middle" font-size="12" fill="#78716c"></text>
+<rect x="48" y="178" width="888" height="21" rx="4" fill="#dbeafe" stroke="#1d4ed8" stroke-width="0.8"/>
+<text x="111.42857142857143" y="193" text-anchor="middle" font-size="12" fill="#1e3a8a">1</text>
+<text x="238.28571428571428" y="193" text-anchor="middle" font-size="12" fill="#1e3a8a">C001</text>
+<text x="365.14285714285717" y="193" text-anchor="middle" font-size="12" fill="#1e3a8a">Aiden Marsh</text>
+<text x="492" y="193" text-anchor="middle" font-size="12" fill="#1e3a8a">NW</text>
+<text x="618.8571428571429" y="193" text-anchor="middle" font-size="12" fill="#1e3a8a">1</text>
+<text x="745.7142857142858" y="193" text-anchor="middle" font-size="12" fill="#1e3a8a">open</text>
+<text x="872.5714285714286" y="193" text-anchor="middle" font-size="12" fill="#1e3a8a">open</text>
+<rect x="48" y="202" width="888" height="21" rx="4" fill="#ffffff" stroke="#64748b" stroke-width="0.8"/>
+<text x="111.42857142857143" y="217" text-anchor="middle" font-size="12" fill="#0f172a">2</text>
+<text x="238.28571428571428" y="217" text-anchor="middle" font-size="12" fill="#0f172a">C002</text>
+<text x="365.14285714285717" y="217" text-anchor="middle" font-size="12" fill="#0f172a">Beatriz Olufemi</text>
+<text x="492" y="217" text-anchor="middle" font-size="12" fill="#0f172a">NW</text>
+<text x="618.8571428571429" y="217" text-anchor="middle" font-size="12" fill="#0f172a">1</text>
+<text x="745.7142857142858" y="217" text-anchor="middle" font-size="12" fill="#0f172a">open</text>
+<text x="872.5714285714286" y="217" text-anchor="middle" font-size="12" fill="#0f172a">open</text>
+<rect x="48" y="226" width="888" height="21" rx="4" fill="#ffffff" stroke="#64748b" stroke-width="0.8"/>
+<text x="111.42857142857143" y="241" text-anchor="middle" font-size="12" fill="#0f172a">3</text>
+<text x="238.28571428571428" y="241" text-anchor="middle" font-size="12" fill="#0f172a">C003</text>
+<text x="365.14285714285717" y="241" text-anchor="middle" font-size="12" fill="#0f172a">Carlos Reyes</text>
+<text x="492" y="241" text-anchor="middle" font-size="12" fill="#0f172a">NE</text>
+<text x="618.8571428571429" y="241" text-anchor="middle" font-size="12" fill="#0f172a">1</text>
+<text x="745.7142857142858" y="241" text-anchor="middle" font-size="12" fill="#0f172a">open</text>
+<text x="872.5714285714286" y="241" text-anchor="middle" font-size="12" fill="#0f172a">open</text>
+<rect x="48" y="250" width="888" height="21" rx="4" fill="#ffffff" stroke="#64748b" stroke-width="0.8"/>
+<text x="111.42857142857143" y="265" text-anchor="middle" font-size="12" fill="#0f172a">4 to 20</text>
+<text x="238.28571428571428" y="265" text-anchor="middle" font-size="12" fill="#0f172a">C004 to C020</text>
+<text x="365.14285714285717" y="265" text-anchor="middle" font-size="12" fill="#0f172a">17 more</text>
+<text x="492" y="265" text-anchor="middle" font-size="12" fill="#0f172a">…</text>
+<text x="618.8571428571429" y="265" text-anchor="middle" font-size="12" fill="#0f172a">1</text>
+<text x="745.7142857142858" y="265" text-anchor="middle" font-size="12" fill="#0f172a">open</text>
+<text x="872.5714285714286" y="265" text-anchor="middle" font-size="12" fill="#0f172a">open</text>
+<rect x="253.05" y="325.5" width="477.9" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="492" y="343.5" text-anchor="middle" font-size="12" fill="#334155">In customers.json, C001 moves from NW to NE; run the transformation again</text>
+<rect x="32" y="426" width="920" height="238" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="454" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(50 442) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></g>
+<text x="92" y="451" font-size="14" font-weight="700" fill="#14532d">dim_customer</text>
+<text x="92" y="468" font-size="12" fill="#14532d">ORDER BY customer_id, version</text>
+<text x="111.42857142857143" y="498" text-anchor="middle" font-size="12" font-weight="600" fill="#14532d">customer_tk</text>
+<text x="238.28571428571428" y="498" text-anchor="middle" font-size="12" font-weight="600" fill="#14532d">customer_id</text>
+<text x="365.14285714285717" y="498" text-anchor="middle" font-size="12" font-weight="600" fill="#14532d">customer_name</text>
+<text x="492" y="498" text-anchor="middle" font-size="12" font-weight="600" fill="#14532d">region_code</text>
+<text x="618.8571428571429" y="498" text-anchor="middle" font-size="12" font-weight="600" fill="#14532d">version</text>
+<text x="745.7142857142858" y="498" text-anchor="middle" font-size="12" font-weight="600" fill="#14532d">date_from</text>
+<text x="872.5714285714286" y="498" text-anchor="middle" font-size="12" font-weight="600" fill="#14532d">date_to</text>
+<line x1="48" y1="505" x2="936" y2="505" stroke="#94a3b8" stroke-width="1"/>
+<rect x="48" y="508" width="888" height="21" rx="4" fill="#f5f5f4" stroke="#a8a29e" stroke-width="0.8"/>
+<text x="111.42857142857143" y="523" text-anchor="middle" font-size="12" fill="#78716c">0</text>
+<text x="238.28571428571428" y="523" text-anchor="middle" font-size="12" fill="#78716c">(null)</text>
+<text x="365.14285714285717" y="523" text-anchor="middle" font-size="12" fill="#78716c">(null)</text>
+<text x="492" y="523" text-anchor="middle" font-size="12" fill="#78716c">(null)</text>
+<text x="618.8571428571429" y="523" text-anchor="middle" font-size="12" fill="#78716c"></text>
+<text x="745.7142857142858" y="523" text-anchor="middle" font-size="12" fill="#78716c"></text>
+<text x="872.5714285714286" y="523" text-anchor="middle" font-size="12" fill="#78716c"></text>
+<rect x="48" y="532" width="888" height="21" rx="4" fill="#fef3c7" stroke="#b45309" stroke-width="0.8"/>
+<text x="111.42857142857143" y="547" text-anchor="middle" font-size="12" fill="#78350f">1</text>
+<text x="238.28571428571428" y="547" text-anchor="middle" font-size="12" fill="#78350f">C001</text>
+<text x="365.14285714285717" y="547" text-anchor="middle" font-size="12" fill="#78350f">Aiden Marsh</text>
+<text x="492" y="547" text-anchor="middle" font-size="12" fill="#78350f">NW</text>
+<text x="618.8571428571429" y="547" text-anchor="middle" font-size="12" fill="#78350f">1</text>
+<text x="745.7142857142858" y="547" text-anchor="middle" font-size="12" fill="#78350f">open</text>
+<text x="872.5714285714286" y="547" text-anchor="middle" font-size="12" fill="#78350f">run 2</text>
+<rect x="48" y="556" width="888" height="21" rx="4" fill="#dcfce7" stroke="#15803d" stroke-width="0.8"/>
+<text x="111.42857142857143" y="571" text-anchor="middle" font-size="12" fill="#14532d">21</text>
+<text x="238.28571428571428" y="571" text-anchor="middle" font-size="12" fill="#14532d">C001</text>
+<text x="365.14285714285717" y="571" text-anchor="middle" font-size="12" fill="#14532d">Aiden Marsh</text>
+<text x="492" y="571" text-anchor="middle" font-size="12" fill="#14532d">NE</text>
+<text x="618.8571428571429" y="571" text-anchor="middle" font-size="12" fill="#14532d">2</text>
+<text x="745.7142857142858" y="571" text-anchor="middle" font-size="12" fill="#14532d">run 2</text>
+<text x="872.5714285714286" y="571" text-anchor="middle" font-size="12" fill="#14532d">open</text>
+<rect x="48" y="580" width="888" height="21" rx="4" fill="#ffffff" stroke="#64748b" stroke-width="0.8"/>
+<text x="111.42857142857143" y="595" text-anchor="middle" font-size="12" fill="#0f172a">2</text>
+<text x="238.28571428571428" y="595" text-anchor="middle" font-size="12" fill="#0f172a">C002</text>
+<text x="365.14285714285717" y="595" text-anchor="middle" font-size="12" fill="#0f172a">Beatriz Olufemi</text>
+<text x="492" y="595" text-anchor="middle" font-size="12" fill="#0f172a">NW</text>
+<text x="618.8571428571429" y="595" text-anchor="middle" font-size="12" fill="#0f172a">1</text>
+<text x="745.7142857142858" y="595" text-anchor="middle" font-size="12" fill="#0f172a">open</text>
+<text x="872.5714285714286" y="595" text-anchor="middle" font-size="12" fill="#0f172a">open</text>
+<rect x="48" y="604" width="888" height="21" rx="4" fill="#ffffff" stroke="#64748b" stroke-width="0.8"/>
+<text x="111.42857142857143" y="619" text-anchor="middle" font-size="12" fill="#0f172a">3</text>
+<text x="238.28571428571428" y="619" text-anchor="middle" font-size="12" fill="#0f172a">C003</text>
+<text x="365.14285714285717" y="619" text-anchor="middle" font-size="12" fill="#0f172a">Carlos Reyes</text>
+<text x="492" y="619" text-anchor="middle" font-size="12" fill="#0f172a">NE</text>
+<text x="618.8571428571429" y="619" text-anchor="middle" font-size="12" fill="#0f172a">1</text>
+<text x="745.7142857142858" y="619" text-anchor="middle" font-size="12" fill="#0f172a">open</text>
+<text x="872.5714285714286" y="619" text-anchor="middle" font-size="12" fill="#0f172a">open</text>
+<rect x="48" y="628" width="888" height="21" rx="4" fill="#ffffff" stroke="#64748b" stroke-width="0.8"/>
+<text x="111.42857142857143" y="643" text-anchor="middle" font-size="12" fill="#0f172a">4 to 20</text>
+<text x="238.28571428571428" y="643" text-anchor="middle" font-size="12" fill="#0f172a">C004 to C020</text>
+<text x="365.14285714285717" y="643" text-anchor="middle" font-size="12" fill="#0f172a">17 more</text>
+<text x="492" y="643" text-anchor="middle" font-size="12" fill="#0f172a">…</text>
+<text x="618.8571428571429" y="643" text-anchor="middle" font-size="12" fill="#0f172a">1</text>
+<text x="745.7142857142858" y="643" text-anchor="middle" font-size="12" fill="#0f172a">open</text>
+<text x="872.5714285714286" y="643" text-anchor="middle" font-size="12" fill="#0f172a">open</text>
+<rect x="32" y="702" width="22" height="16" rx="4" fill="#dbeafe" stroke="#1d4ed8" stroke-width="0.8"/>
+<text x="62" y="715" font-size="12" fill="#334155">C001 before the change</text>
+<rect x="224.2" y="702" width="22" height="16" rx="4" fill="#fef3c7" stroke="#b45309" stroke-width="0.8"/>
+<text x="254.2" y="715" font-size="12" fill="#334155">the old version, closed</text>
+<rect x="422.5" y="702" width="22" height="16" rx="4" fill="#dcfce7" stroke="#15803d" stroke-width="0.8"/>
+<text x="452.5" y="715" font-size="12" fill="#334155">the new version</text>
+<rect x="572" y="702" width="22" height="16" rx="4" fill="#ffffff" stroke="#64748b" stroke-width="0.8"/>
+<text x="602" y="715" font-size="12" fill="#334155">untouched</text>
+<rect x="684.9" y="702" width="22" height="16" rx="4" fill="#f5f5f4" stroke="#a8a29e" stroke-width="0.8"/>
+<text x="714.9" y="715" font-size="12" fill="#334155">the step's "unknown" row</text>
+</svg>

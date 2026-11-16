@@ -3,7 +3,7 @@
   <info>
     <name>win_preview</name>
     <description>First win: read yesterday's sales, catch the bad rows</description>
-    <extended_description>Reads sales_20260101.csv (which contains two rows with missing keys), routes rows missing customer_id or product_id to a reject stream, and passes the rest through. Preview either branch to see the data at that point in the flow.</extended_description>
+    <extended_description>Reads sales_20260101.csv (which contains three rows with missing keys), routes rows missing customer_id or product_id to a reject stream, and passes the rest through. Preview either branch to see the data at that point in the flow.</extended_description>
     <trans_version>1.0</trans_version>
     <trans_type>Normal</trans_type>
     <trans_status>0</trans_status>

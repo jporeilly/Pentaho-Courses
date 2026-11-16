@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1164" height="544" viewBox="0 0 1164 544" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+<filter id="shadow" x="-10%" y="-10%" width="120%" height="140%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#0f172a" flood-opacity="0.12"/></filter></defs>
+<rect width="1164" height="544" fill="#ffffff"/>
+<rect x="16" y="16" width="1132" height="248" rx="12" fill="#f8fafc" stroke="#f1f5f9" stroke-width="1.5"/>
+<path d="M16 28a12 12 0 0 1 12-12h1108a12 12 0 0 1 12 12v32h-1132z" fill="#475569"/>
+<g transform="translate(29 26) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m8 6 4-4 4 4"/><path d="M12 2v10.3a4 4 0 0 1-1.172 2.872L4 22"/><path d="m20 22-5-5"/></g>
+<text x="56" y="36" font-size="14" font-weight="700" fill="#ffffff">Stream lookup: hold the small side in memory</text>
+<text x="56" y="52" font-size="11.5" fill="#ffffff" opacity="0.92">Lab 3 uses it for + customer and + products: small reference sets</text>
+<rect x="16" y="280" width="1132" height="248" rx="12" fill="#f8fafc" stroke="#f1f5f9" stroke-width="1.5"/>
+<path d="M16 292a12 12 0 0 1 12-12h1108a12 12 0 0 1 12 12v32h-1132z" fill="#475569"/>
+<g transform="translate(29 290) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m8 6 4-4 4 4"/><path d="M12 2v10.3a4 4 0 0 1-1.172 2.872L4 22"/><path d="m20 22-5-5"/></g>
+<text x="56" y="300" font-size="14" font-weight="700" fill="#ffffff">Merge join: walk two sorted streams together</text>
+<text x="56" y="316" font-size="11.5" fill="#ffffff" opacity="0.92">Lab 3 uses it for + region: an SQL-style join, where neither side has to fit in memory</text>
+<path d="M280 118C296.5 118 296.5 118 313 118" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M564 118C580.5 118 580.5 152 597 152" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M280 210C438.5 210 438.5 176 597 176" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M848 164C864.5 164 864.5 164 881 164" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M280 382C296.5 382 296.5 382 313 382" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M280 474C296.5 474 296.5 474 313 474" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M564 382C580.5 382 580.5 416 597 416" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M564 474C580.5 474 580.5 440 597 440" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M848 428C864.5 428 864.5 428 881 428" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="32" y="82" width="248" height="72" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="118" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(50 106) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 12a1 1 0 0 0-1 1v1a1 1 0 0 1-1 1 1 1 0 0 1 1 1v1a1 1 0 0 0 1 1"/><path d="M14 18a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1 1 1 0 0 1-1-1v-1a1 1 0 0 0-1-1"/></g>
+<text x="92" y="101" font-size="14" font-weight="700" fill="#1e3a8a">Read customers</text>
+<text x="92" y="118" font-size="12" fill="#1e3a8a">customers.json: read to</text>
+<text x="92" y="133" font-size="12" fill="#1e3a8a">the end first, 20 rows</text>
+<rect x="316" y="82" width="248" height="72" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="346" cy="118" r="19" fill="#ffffff" stroke="#b45309" stroke-width="1.2"/>
+<g transform="translate(334 106) scale(1)" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></g>
+<text x="376" y="101" font-size="14" font-weight="700" fill="#78350f">Index in memory</text>
+<text x="376" y="118" font-size="12" fill="#78350f">built once, keyed on</text>
+<text x="376" y="133" font-size="12" fill="#78350f">customer_id</text>
+<rect x="32" y="174" width="248" height="72" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="210" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(50 198) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M21 9H3"/><path d="M21 15H3"/></g>
+<text x="92" y="193" font-size="14" font-weight="700" fill="#1e3a8a">Valid rows</text>
+<text x="92" y="210" font-size="12" fill="#1e3a8a">the 37 sales, in</text>
+<text x="92" y="225" font-size="12" fill="#1e3a8a">any order: no sorting</text>
+<rect x="600" y="128" width="248" height="72" rx="10" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="630" cy="164" r="19" fill="#ffffff" stroke="#0f766e" stroke-width="1.2"/>
+<g transform="translate(618 152) scale(1)" fill="none" stroke="#0f766e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m8 6 4-4 4 4"/><path d="M12 2v10.3a4 4 0 0 1-1.172 2.872L4 22"/><path d="m20 22-5-5"/></g>
+<text x="660" y="147" font-size="14" font-weight="700" fill="#134e4a">+ customer</text>
+<text x="660" y="164" font-size="12" fill="#134e4a">looks each sale up</text>
+<text x="660" y="179" font-size="12" fill="#134e4a">in the index</text>
+<rect x="884" y="128" width="248" height="72" rx="10" fill="#ffffff" stroke="#64748b" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="914" cy="164" r="19" fill="#ffffff" stroke="#64748b" stroke-width="1.2"/>
+<g transform="translate(902 152) scale(1)" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></g>
+<text x="944" y="147" font-size="14" font-weight="700" fill="#0f172a">37 rows out</text>
+<text x="944" y="164" font-size="12" fill="#0f172a">never more than in; no</text>
+<text x="944" y="179" font-size="12" fill="#0f172a">match: fields left null</text>
+<rect x="32" y="346" width="248" height="72" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="382" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(50 370) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></g>
+<text x="92" y="372.5" font-size="14" font-weight="700" fill="#1e3a8a">Read regions</text>
+<text x="92" y="389.5" font-size="12" fill="#1e3a8a">regions.csv</text>
+<rect x="316" y="346" width="248" height="72" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="346" cy="382" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(334 370) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 16 4 4 4-4"/><path d="M7 20V4"/><path d="M20 8h-5"/><path d="M15 10V6.5a2.5 2.5 0 0 1 5 0V10"/><path d="M15 14h5l-5 6h5"/></g>
+<text x="376" y="372.5" font-size="14" font-weight="700" fill="#3b0764">Sort regions</text>
+<text x="376" y="389.5" font-size="12" fill="#3b0764">Sort rows on code</text>
+<rect x="32" y="438" width="248" height="72" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="474" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(50 462) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="20" x="4" y="2" rx="2"/><line x1="8" x2="16" y1="6" y2="6"/><line x1="16" x2="16" y1="14" y2="18"/><path d="M16 10h.01"/><path d="M12 10h.01"/><path d="M8 10h.01"/><path d="M12 14h.01"/><path d="M8 14h.01"/><path d="M12 18h.01"/><path d="M8 18h.01"/></g>
+<text x="92" y="457" font-size="14" font-weight="700" fill="#1e3a8a">Compute margin</text>
+<text x="92" y="474" font-size="12" fill="#1e3a8a">the 37 sales, with</text>
+<text x="92" y="489" font-size="12" fill="#1e3a8a">region_code</text>
+<rect x="316" y="438" width="248" height="72" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="346" cy="474" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(334 462) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 16 4 4 4-4"/><path d="M7 20V4"/><path d="M20 8h-5"/><path d="M15 10V6.5a2.5 2.5 0 0 1 5 0V10"/><path d="M15 14h5l-5 6h5"/></g>
+<text x="376" y="464.5" font-size="14" font-weight="700" fill="#3b0764">Sort by regions</text>
+<text x="376" y="481.5" font-size="12" fill="#3b0764">Sort rows on region_code</text>
+<rect x="600" y="392" width="248" height="72" rx="10" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="630" cy="428" r="19" fill="#ffffff" stroke="#0f766e" stroke-width="1.2"/>
+<g transform="translate(618 416) scale(1)" fill="none" stroke="#0f766e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m8 6 4-4 4 4"/><path d="M12 2v10.3a4 4 0 0 1-1.172 2.872L4 22"/><path d="m20 22-5-5"/></g>
+<text x="660" y="411" font-size="14" font-weight="700" fill="#134e4a">+ region</text>
+<text x="660" y="428" font-size="12" fill="#134e4a">LEFT OUTER here; also</text>
+<text x="660" y="443" font-size="12" fill="#134e4a">INNER, RIGHT, FULL OUTER</text>
+<rect x="884" y="392" width="248" height="72" rx="10" fill="#ffffff" stroke="#64748b" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="914" cy="428" r="19" fill="#ffffff" stroke="#64748b" stroke-width="1.2"/>
+<g transform="translate(902 416) scale(1)" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></g>
+<text x="944" y="411" font-size="14" font-weight="700" fill="#0f172a">37 rows out</text>
+<text x="944" y="428" font-size="12" fill="#0f172a">LEFT OUTER keeps a sale</text>
+<text x="944" y="443" font-size="12" fill="#0f172a">with no matching region</text>
+</svg>

@@ -88,6 +88,22 @@
 > your first look at a job — the orchestration layer Lab 7 talks
 > about.
 
+The three pieces fit together like this.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/metadata-injection.png" alt="Metadata injection in three panels. The driver job, mi_driver.kjb, reads control.csv, one row per feed with its filename and separator, and runs mi_inject.ktr once per row. The injector gets the row from Get rows from result and fills in the FILENAME and SEPARATOR of the template's Read feed, then runs mi_template.ktr. The template reads stores_north.csv, stores_south.txt or partners_eu.csv, renames the columns in Standardize, and appends all 18 rows to all_feeds.csv." width="800">
+<figcaption>The driver job, the injector and the template</figcaption>
+</figure>
+</div>
+
+Each row of `control.csv` becomes one run of the injector, and each run
+fills in only the reader's file and separator before running the
+template. The template's own **Standardize** step gives every feed the
+same column names, so all three land in one file with one shape. A
+fourth feed is the green row: one more line in `control.csv`, and no
+pipeline changes.
+
 :::: tabs
 
 ### 1. The template
@@ -161,8 +177,6 @@ C:\Workshop\pdi-2hr\04-see-it-scale\05-one-pipeline-many-files\mi_template.ktr
 
 5. Save the transformation (`Ctrl+S`). This transformation can't run on its own — as it requires the injected metadata properties.
 
-<a class="pcm-btn" href="#tab-2-the-injector">**Open the next tab: The injector**</a>
-
 ### 2. The injector
 > **Note:**
 >
@@ -234,8 +248,6 @@ C:\Workshop\pdi-2hr\04-see-it-scale\05-one-pipeline-many-files\mi_template.ktr
 
 6. Save the transformation (`Ctrl+S`).
 
-<a class="pcm-btn" href="#tab-3-the-driver-job">**Open the next tab: The driver job**</a>
-
 ### 3. The driver job
 > **Note:**
 >
@@ -300,8 +312,6 @@ C:\Workshop\pdi-2hr\04-see-it-scale\05-one-pipeline-many-files\mi_template.ktr
 > order, the repetition, and what happens when something goes wrong.
 > Every scheduled pipeline you will ever run in Pentaho Data Integration is a job wrapped
 > around transformations, which is exactly what Lab 7 is about.
-
-<a class="pcm-btn" href="#tab-4-run-and-extend">**Open the next tab: Run and extend**</a>
 
 ### 4. Run and extend
 > **Note:**

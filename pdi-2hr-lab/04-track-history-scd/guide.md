@@ -32,6 +32,20 @@
 </figure>
 </div>
 
+This is what the lab does to `dim_customer` when one customer moves region.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/scd2-before-after.png" alt="Two snapshots of dim_customer, ordered by customer_id and version. After the first run, 21 rows: the unknown row with customer_tk 0 and every customer at version 1, open-ended, including customer_tk 1, C001 Aiden Marsh, NW. After C001 moves to NE in customers.json and the transformation runs again, 22 rows: version 1 (NW) has date_to set to the second run, and a new row, customer_tk 21, version 2 (NE), starts at that moment and is open-ended. C002, C003 and the rest are unchanged." width="800">
+<figcaption>One customer moves region: dim_customer before and after</figcaption>
+</figure>
+</div>
+
+Nothing is overwritten. C001's first row keeps its old region and only
+has its validity window closed, and a second row with a new
+`customer_tk` carries the new region from that same instant. You will
+see exactly these rows in DBeaver in steps 3 and 4.
+
 :::: tabs
 
 ### 1. Connect to the database
