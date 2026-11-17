@@ -54,6 +54,20 @@ Set-Location C:\Pentaho\design-tools\data-integration
    Invoke-WebRequest http://127.0.0.1:9000/minio/health/live -UseBasicParsing | Select-Object StatusCode
    ```
 
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-silo-sign-in.png" alt="The SILO console sign-in page at 127.0.0.1:9099: Username and Password fields and a Login button, beside the note that SILO is a community-maintained MinIO" width="800">
+<figcaption>The console sign-in page: SILO, a community build of MinIO</figcaption>
+</figure>
+</div>
+
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-silo-raw-data.png" alt="The console Object Browser on the raw-data bucket: the csv, finance, json and xml folders" width="800">
+<figcaption>After sign-in: the raw-data bucket and its folders</figcaption>
+</figure>
+</div>
+
 3. In Spoon, open the **View** tab, right-click **VFS Connections** and select **New...**. In the **New VFS Connection** dialog, set:
 
 | Setting                | Value                   |
@@ -67,9 +81,23 @@ Set-Location C:\Pentaho\design-tools\data-integration
 | **Signature Version**  | `AWSS3V4SignerType`     |
 | **PathStyle Access**   | selected                |
 
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-vfs-connection.png" alt="New VFS Connection: connection name MinIO, connection type Amazon S3/Minio/HCP, S3 connection type Minio/HCP, access key and secret key masked, endpoint http://127.0.0.1:9000, signature version AWSS3V4SignerType, PathStyle Access selected" width="706">
+<figcaption>The MinIO connection, filled in</figcaption>
+</figure>
+</div>
+
 4. Select **Test**.
 
 > **Success:** Checkpoint: Spoon reports `Connection was successfully established.` With **Signature Version** empty, the test fails with `unknown signer type: aws.endpoint`.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-vfs-connection-test.png" alt="Spoon's message after Test: Connection was successfully established" width="305">
+<figcaption>The test result</figcaption>
+</figure>
+</div>
 
 5. Select **OK**. The connection is saved for every transformation on this machine, so you create it once.
 
@@ -357,11 +385,41 @@ Choose one workshop from the tabs below and build it. Save the transformation in
 
    `sale_id`, `sale_date`, `customer_id`, `customer_full_name`, `customer_country`, `customer_status`, `product_id`, `product_name`, `product_category`, `quantity`, `unit_price`, `sale_amount`, `line_total`, `discount_amount`, `is_high_value`, `payment_method`, `status`, `etl_timestamp`, `data_source`
 
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-sales-select-values.png" alt="Select values, Select &amp; Alter tab: the 19 fields from sale_id to data_source in order, with status renamed to sale_status" width="686">
+<figcaption>Select values: the fields in order, status renamed to sale_status</figcaption>
+</figure>
+</div>
+
 3. Select **OK**.
 4. On the **Design** tab, open the **Output** folder and drag **Text file output** onto the canvas. Create a hop from **Select values** to it, double-click it and set **Step name** to `Write to staging`.
 5. On the **File** tab, set **Filename** to `pvfs://MinIO/staging/dashboard/sales_fact` and **Extension** to `csv`, and select **Include date in filename?** and **Include time in filename?**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-sales-write-staging-file.png" alt="Text file output, File tab: step name Write to staging, filename pvfs://MinIO/staging/dashboard/sales_fact, extension csv, date and time included in the filename" width="800">
+<figcaption>Write to staging: the File tab</figcaption>
+</figure>
+</div>
+
 6. On the **Content** tab, set **Separator** to `,` and keep **Header** selected.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-sales-write-staging-content.png" alt="Text file output, Content tab: separator comma, Header selected" width="800">
+<figcaption>Write to staging: the Content tab</figcaption>
+</figure>
+</div>
+
 7. On the **Fields** tab, select **Get Fields**, then **Minimal width**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-sales-write-staging-fields.png" alt="Text file output, Fields tab: the 19 fields from Get Fields, set to minimal width" width="800">
+<figcaption>Write to staging: the Fields tab after Minimal width</figcaption>
+</figure>
+</div>
 
 > **Warning:** Select **Minimal width**. Without it, Text file output pads every String to its declared length, and `USA` is written as `USA` followed by spaces.
 
@@ -371,7 +429,7 @@ Choose one workshop from the tabs below and build it. Save the transformation in
 
 <div align="center">
 <figure>
-<img src="../_assets/images/minio-dashboard-data.png" alt="MinIO console: the staging bucket's dashboard folder with the sales_fact CSV file" width="800">
+<img src="../_assets/images/minio-dashboard-data.png" alt="The console Object Browser on staging, dashboard folder: the sales_fact CSV files the transformation wrote, one per run" width="800">
 <figcaption>The output in MinIO</figcaption>
 </figure>
 </div>
@@ -1251,6 +1309,14 @@ What the script decides, row by row:
 > Add and set up **Sort rows**.
 
 1. From the **Transform** folder, drag **Sort rows** onto the canvas. Create a hop from **Memory group by** to it, double-click it and set **Step name** to `Final Customer Sort`. Fill the **Fields** grid with one row: **Fieldname** `customer_id`, **Ascending** `Y`, **Case sensitive compare?** `N`. Select **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-c360-final-customer-sort.png" alt="Sort rows: step name Final Customer Sort, one field customer_id ascending, not case sensitive" width="800">
+<figcaption>Final Customer Sort: customer_id, ascending</figcaption>
+</figure>
+</div>
+
 2. Save the transformation (`Ctrl+S`).
 3. Select **Final Customer Sort** on the canvas, press `F10` (**Action > Preview**), and select **Quick Launch**.
 
@@ -1436,6 +1502,13 @@ var is_product_view = (event_type == "product_view") ? 1 : 0;
 
 <div align="center">
 <figure>
+<img src="../_assets/images/minio-c360-sort-events.png" alt="Sort rows: step name Sort Events, one field user_id ascending, not case sensitive" width="800">
+<figcaption>Sort Events: user_id, ascending</figcaption>
+</figure>
+</div>
+
+<div align="center">
+<figure>
 <img src="../_assets/images/19-minio-canvas-sort-events.png" alt="customer_360.ktr on the Spoon canvas after this tab: Sort Sales, Final Customer Sort, JSON input, MJV - Define Events, Memory group by, Read Customers, Read Sales, Read User Events, Sort Events and Sort Customers, with the 7 hops between them" width="524">
 <figcaption>The canvas after Sort Events</figcaption>
 </figure>
@@ -1489,6 +1562,14 @@ var is_product_view = (event_type == "product_view") ? 1 : 0;
 > Add and set up **Sort rows**.
 
 1. From the **Transform** folder, drag **Sort rows** onto the canvas. Create a hop from **Group by User** to it, double-click it and set **Step name** to `Final User Sort`. Fill the **Fields** grid with one row: **Fieldname** `user_id`, **Ascending** `Y`, **Case sensitive compare?** `N`. Select **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-c360-final-user-sort.png" alt="Sort rows: step name Final User Sort, one field user_id ascending, not case sensitive" width="800">
+<figcaption>Final User Sort: user_id, ascending</figcaption>
+</figure>
+</div>
+
 2. Save the transformation (`Ctrl+S`).
 3. Select **Final User Sort** on the canvas, press `F10` (**Action > Preview**), and select **Quick Launch**.
 
@@ -3152,6 +3233,14 @@ P001        Laptop Pro 15   Electronics           45        xml    <- again, and
 3. Select **New validation**, enter `product_id required`, and select **OK**. Set **Name of field to validate** to `product_id`, and clear **Null allowed?**.
 4. Select **New validation**, enter `product_name required`, and select **OK**. Set **Name of field to validate** to `product_name`, and clear **Null allowed?**.
 5. Select **New validation**, enter `price not negative`, and select **OK**. Set **Name of field to validate** to `price`, keep **Null allowed?** selected (the XML feed has no price), set **Data type** to `Number` and **Minimum value** to `0`.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-lake-validate-product-data.png" alt="Data validator: step name Validate Product Data with three validations, product_id required, product_name required and price not negative; price not negative is selected, validating price as a Number with Null allowed and minimum value 0" width="800">
+<figcaption>Validate Product Data: the three validations, price not negative selected</figcaption>
+</figure>
+</div>
+
 6. Select **OK**.
 
 ### 16. Write Valid Products
@@ -3167,9 +3256,24 @@ P001        Laptop Pro 15   Electronics           45        xml    <- again, and
 3. Create a hop from **Validate Product Data** to **Write Error Records** and select **Error handling of step**.
 4. Right-click **Validate Product Data** and select **Error Handling...**. In the **Step error handling settings** dialog, set **Error descriptions fieldname** to `validation_errors`, and select **OK**.
 
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-lake-error-handling.png" alt="Step error handling settings: error handling step Validate Product Data, target step Write Error Records, error handling enabled, error descriptions fieldname validation_errors" width="763">
+<figcaption>Error handling: failing rows go to Write Error Records with validation_errors</figcaption>
+</figure>
+</div>
+
 > **Note:** **Data validator** routes failing rows through its error hop; there is no "validation result" field on the good rows to filter on.
 
 5. Double-click **Write Valid Products**. On the **File** tab, set **Filename** to `pvfs://MinIO/curated/products/products` and **Extension** to `csv`, and select **Include date in filename?**. On the **Content** tab, set **Separator** to `,`. On the **Fields** tab, select **Get Fields**, then **Minimal width**. Select **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-lake-write-valid-products-file.png" alt="Text file output, File tab: step name Write Valid Products, filename pvfs://MinIO/curated/products/products, extension csv, date included in the filename" width="800">
+<figcaption>Write Valid Products: the File tab</figcaption>
+</figure>
+</div>
+
 6. Set up **Write Error Records** the same way, with **Filename** `pvfs://MinIO/curated/products/errors/validation_errors`. Its **Get Fields** adds `validation_errors` after the product fields.
 7. Save the transformation (`Ctrl+S`).
 8. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.

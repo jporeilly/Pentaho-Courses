@@ -434,6 +434,13 @@ your transformations see.
 The lab runs a community build of MinIO (`pgsty/minio`), so its sign-in
 page is branded **SILO**; the console behind it is MinIO's.
 
+<div align="center">
+<figure>
+<img src="../_assets/images/minio-silo-sign-in.png" alt="The SILO console sign-in page at 127.0.0.1:9099: Username and Password fields and a Login button, beside the note that SILO is a community-maintained MinIO" width="800">
+<figcaption>The MinIO console sign-in page, branded SILO</figcaption>
+</figure>
+</div>
+
 <details>
 <summary>Troubleshooting</summary>
 
