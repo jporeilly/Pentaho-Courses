@@ -47,7 +47,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 <button data-launch="spoon" data-path="">Start Pentaho Data Integration</button>
 
-2. Check that MinIO is running and seeded: open the MinIO console at **http://127.0.0.1:9099** and sign in as `minioadmin` / `minioadmin`. The first time, the console shows MinIO's license notice: read it and select **Acknowledge**. The **raw-data** bucket holds `csv/`, `json/`, `xml/` and `finance/` folders, and the **logs** bucket holds `app/`, `web/` and `error/`.
+2. Check that MinIO is running and seeded: open the MinIO console at **http://127.0.0.1:9099** and sign in as `minioadmin` / `minioadmin`. The lab runs a community build of MinIO, so the sign-in page is branded **SILO**; after sign-in you are in MinIO's **Object Browser**, with the lab's five buckets listed. The **raw-data** bucket holds `csv/`, `json/`, `xml/` and `finance/` folders, and the **logs** bucket holds `app/`, `web/` and `error/`.
 
    ```powershell
    # Or check the S3 API from PowerShell

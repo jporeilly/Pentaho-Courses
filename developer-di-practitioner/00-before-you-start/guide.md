@@ -431,6 +431,8 @@ your transformations see.
 
 **MinIO**, for the `pvfs://` labs, has a web console at
 **http://127.0.0.1:9099** — sign in with `minioadmin` / `minioadmin`.
+The lab runs a community build of MinIO (`pgsty/minio`), so its sign-in
+page is branded **SILO**; the console behind it is MinIO's.
 
 <details>
 <summary>Troubleshooting</summary>
