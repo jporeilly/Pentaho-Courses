@@ -1,0 +1,169 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1150" height="888" viewBox="0 0 1150 888" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+<filter id="shadow" x="-10%" y="-10%" width="120%" height="140%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#0f172a" flood-opacity="0.12"/></filter></defs>
+<rect width="1150" height="888" fill="#ffffff"/>
+<path d="M226 60C244.5 60 244.5 60 263 60" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M506 60C524.5 60 524.5 60 543 60" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M226 188C244.5 188 244.5 188 263 188" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M506 188C524.5 188 524.5 188 543 188" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M226 316C384.5 316 384.5 316 543 316" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M226 444C244.5 444 244.5 444 263 444" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M506 444C524.5 444 524.5 444 543 444" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M226 572C244.5 572 244.5 572 263 572" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M506 572C524.5 572 524.5 572 543 572" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M226 700C244.5 700 244.5 700 263 700" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M506 700C524.5 700 524.5 700 543 700" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M776 60C995 60 995 60 995 141" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M776 188C814.5 188 814.5 188 853 188" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M995 232C995 250.5 995 250.5 995 269" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M776 316C814.5 316 814.5 316 853 316" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M995 360C995 378.5 995 378.5 995 397" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M776 444C814.5 444 814.5 444 853 444" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M995 488C995 506.5 995 506.5 995 525" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M776 572C814.5 572 814.5 572 853 572" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M995 616C995 634.5 995 634.5 995 653" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M776 700C814.5 700 814.5 700 853 700" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M995 744C995 762.5 995 762.5 995 781" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="16" y="16" width="210" height="88" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="46" cy="60" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(34 48) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><line x1="3" x2="21" y1="9" y2="9"/><line x1="3" x2="21" y1="15" y2="15"/><line x1="9" x2="9" y1="9" y2="21"/><line x1="15" x2="15" y1="9" y2="21"/></g>
+<text x="76" y="50.5" font-size="14" font-weight="700" fill="#1e3a8a">Excel input</text>
+<text x="76" y="67.5" font-size="12" fill="#1e3a8a">OrderList</text>
+<rect x="546" y="16" width="230" height="88" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="576" cy="60" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(564 48) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 12.5 8 15l2 2.5"/><path d="m14 12.5 2 2.5-2 2.5"/></g>
+<text x="606" y="50.5" font-size="14" font-weight="700" fill="#3b0764">Add XML</text>
+<text x="606" y="67.5" font-size="12" fill="#3b0764">xmlOrderList</text>
+<rect x="266" y="16" width="240" height="88" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="296" cy="60" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(284 48) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M8 12h8"/><path d="M12 8v8"/></g>
+<text x="326" y="43" font-size="14" font-weight="700" fill="#3b0764">Add constants</text>
+<text x="326" y="60" font-size="12" fill="#3b0764">Placeholder</text>
+<text x="326" y="75" font-size="12" fill="#3b0764">empty OrderHeaders</text>
+<rect x="16" y="144" width="210" height="88" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="46" cy="188" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(34 176) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><line x1="3" x2="21" y1="9" y2="9"/><line x1="3" x2="21" y1="15" y2="15"/><line x1="9" x2="9" y1="9" y2="21"/><line x1="15" x2="15" y1="9" y2="21"/></g>
+<text x="76" y="178.5" font-size="14" font-weight="700" fill="#1e3a8a">Excel input</text>
+<text x="76" y="195.5" font-size="12" fill="#1e3a8a">OrderHeaders</text>
+<rect x="546" y="144" width="230" height="88" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="576" cy="188" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(564 176) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 12.5 8 15l2 2.5"/><path d="m14 12.5 2 2.5-2 2.5"/></g>
+<text x="606" y="178.5" font-size="14" font-weight="700" fill="#3b0764">Add XML</text>
+<text x="606" y="195.5" font-size="12" fill="#3b0764">xmlOrderHeaders</text>
+<rect x="266" y="144" width="240" height="88" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="296" cy="188" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(284 176) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M8 12h8"/><path d="M12 8v8"/></g>
+<text x="326" y="163.5" font-size="14" font-weight="700" fill="#3b0764">Add constants</text>
+<text x="326" y="180.5" font-size="12" fill="#3b0764">Placeholder 2</text>
+<text x="326" y="195.5" font-size="12" fill="#3b0764">empty OrderLines,</text>
+<text x="326" y="210.5" font-size="12" fill="#3b0764">OrderHeaderComments</text>
+<rect x="16" y="272" width="210" height="88" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="46" cy="316" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(34 304) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><line x1="3" x2="21" y1="9" y2="9"/><line x1="3" x2="21" y1="15" y2="15"/><line x1="9" x2="9" y1="9" y2="21"/><line x1="15" x2="15" y1="9" y2="21"/></g>
+<text x="76" y="306.5" font-size="14" font-weight="700" fill="#1e3a8a">Excel input</text>
+<text x="76" y="323.5" font-size="12" fill="#1e3a8a">OrderHeaderComments</text>
+<rect x="546" y="272" width="230" height="88" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="576" cy="316" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(564 304) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 12.5 8 15l2 2.5"/><path d="m14 12.5 2 2.5-2 2.5"/></g>
+<text x="606" y="306.5" font-size="14" font-weight="700" fill="#3b0764">Add XML</text>
+<text x="606" y="323.5" font-size="12" fill="#3b0764">xmlOrderHeaderComments</text>
+<rect x="16" y="400" width="210" height="88" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="46" cy="444" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(34 432) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><line x1="3" x2="21" y1="9" y2="9"/><line x1="3" x2="21" y1="15" y2="15"/><line x1="9" x2="9" y1="9" y2="21"/><line x1="15" x2="15" y1="9" y2="21"/></g>
+<text x="76" y="434.5" font-size="14" font-weight="700" fill="#1e3a8a">Excel input</text>
+<text x="76" y="451.5" font-size="12" fill="#1e3a8a">OrderLines</text>
+<rect x="546" y="400" width="230" height="88" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="576" cy="444" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(564 432) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 12.5 8 15l2 2.5"/><path d="m14 12.5 2 2.5-2 2.5"/></g>
+<text x="606" y="434.5" font-size="14" font-weight="700" fill="#3b0764">Add XML</text>
+<text x="606" y="451.5" font-size="12" fill="#3b0764">xmlOrderLines</text>
+<rect x="266" y="400" width="240" height="88" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="296" cy="444" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(284 432) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M8 12h8"/><path d="M12 8v8"/></g>
+<text x="326" y="419.5" font-size="14" font-weight="700" fill="#3b0764">Add constants</text>
+<text x="326" y="436.5" font-size="12" fill="#3b0764">Placeholder 3x</text>
+<text x="326" y="451.5" font-size="12" fill="#3b0764">empty OrderSubLines,</text>
+<text x="326" y="466.5" font-size="12" fill="#3b0764">OrderLineComments</text>
+<rect x="16" y="528" width="210" height="88" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="46" cy="572" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(34 560) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><line x1="3" x2="21" y1="9" y2="9"/><line x1="3" x2="21" y1="15" y2="15"/><line x1="9" x2="9" y1="9" y2="21"/><line x1="15" x2="15" y1="9" y2="21"/></g>
+<text x="76" y="562.5" font-size="14" font-weight="700" fill="#1e3a8a">Excel input</text>
+<text x="76" y="579.5" font-size="12" fill="#1e3a8a">OrderLineComments</text>
+<rect x="546" y="528" width="230" height="88" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="576" cy="572" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(564 560) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 12.5 8 15l2 2.5"/><path d="m14 12.5 2 2.5-2 2.5"/></g>
+<text x="606" y="562.5" font-size="14" font-weight="700" fill="#3b0764">Add XML</text>
+<text x="606" y="579.5" font-size="12" fill="#3b0764">xmlOrderLineComments</text>
+<rect x="266" y="528" width="240" height="88" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="296" cy="572" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(284 560) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/></g>
+<text x="326" y="555" font-size="14" font-weight="700" fill="#3b0764">Modified JavaScript value</text>
+<text x="326" y="572" font-size="12" fill="#3b0764">Create XPath</text>
+<text x="326" y="587" font-size="12" fill="#3b0764">xPathStatement</text>
+<rect x="16" y="656" width="210" height="88" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="46" cy="700" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(34 688) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><line x1="3" x2="21" y1="9" y2="9"/><line x1="3" x2="21" y1="15" y2="15"/><line x1="9" x2="9" y1="9" y2="21"/><line x1="15" x2="15" y1="9" y2="21"/></g>
+<text x="76" y="690.5" font-size="14" font-weight="700" fill="#1e3a8a">Excel input</text>
+<text x="76" y="707.5" font-size="12" fill="#1e3a8a">OrderSubLines</text>
+<rect x="546" y="656" width="230" height="88" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="576" cy="700" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(564 688) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 12.5 8 15l2 2.5"/><path d="m14 12.5 2 2.5-2 2.5"/></g>
+<text x="606" y="690.5" font-size="14" font-weight="700" fill="#3b0764">Add XML</text>
+<text x="606" y="707.5" font-size="12" fill="#3b0764">xmlOrderSubLines</text>
+<rect x="266" y="656" width="240" height="88" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="296" cy="700" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(284 688) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/></g>
+<text x="326" y="683" font-size="14" font-weight="700" fill="#3b0764">Modified JavaScript value</text>
+<text x="326" y="700" font-size="12" fill="#3b0764">Create XPath 2</text>
+<text x="326" y="715" font-size="12" fill="#3b0764">xPathStatement</text>
+<rect x="856" y="144" width="278" height="88" rx="10" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="886" cy="188" r="19" fill="#ffffff" stroke="#0f766e" stroke-width="1.2"/>
+<g transform="translate(874 176) scale(1)" fill="none" stroke="#0f766e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1"/><path d="M19 3a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1"/><path d="m7 15 3 3"/><path d="m7 21 3-3H5a2 2 0 0 1-2-2v-2"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="3" width="7" height="7" rx="1"/></g>
+<text x="916" y="178.5" font-size="14" font-weight="700" fill="#134e4a">XML Join Step</text>
+<text x="916" y="195.5" font-size="12" fill="#134e4a">headers into //OrderHeaders</text>
+<rect x="967.1" y="69.5" width="55.8" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="995" y="87.5" text-anchor="middle" font-size="12" fill="#334155">target</text>
+<rect x="786.6" y="175.5" width="55.8" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="814.5" y="193.5" text-anchor="middle" font-size="12" fill="#334155">source</text>
+<rect x="856" y="272" width="278" height="88" rx="10" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="886" cy="316" r="19" fill="#ffffff" stroke="#0f766e" stroke-width="1.2"/>
+<g transform="translate(874 304) scale(1)" fill="none" stroke="#0f766e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1"/><path d="M19 3a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1"/><path d="m7 15 3 3"/><path d="m7 21 3-3H5a2 2 0 0 1-2-2v-2"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="3" width="7" height="7" rx="1"/></g>
+<text x="916" y="306.5" font-size="14" font-weight="700" fill="#134e4a">XML Join Step 2</text>
+<text x="916" y="323.5" font-size="12" fill="#134e4a">header comments, per orderNumber</text>
+<rect x="967.1" y="238" width="55.8" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="995" y="256" text-anchor="middle" font-size="12" fill="#334155">target</text>
+<rect x="786.6" y="303.5" width="55.8" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="814.5" y="321.5" text-anchor="middle" font-size="12" fill="#334155">source</text>
+<rect x="856" y="400" width="278" height="88" rx="10" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="886" cy="444" r="19" fill="#ffffff" stroke="#0f766e" stroke-width="1.2"/>
+<g transform="translate(874 432) scale(1)" fill="none" stroke="#0f766e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1"/><path d="M19 3a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1"/><path d="m7 15 3 3"/><path d="m7 21 3-3H5a2 2 0 0 1-2-2v-2"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="3" width="7" height="7" rx="1"/></g>
+<text x="916" y="434.5" font-size="14" font-weight="700" fill="#134e4a">XML Join Step 3</text>
+<text x="916" y="451.5" font-size="12" fill="#134e4a">lines, per orderNumber</text>
+<rect x="967.1" y="366" width="55.8" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="995" y="384" text-anchor="middle" font-size="12" fill="#334155">target</text>
+<rect x="786.6" y="431.5" width="55.8" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="814.5" y="449.5" text-anchor="middle" font-size="12" fill="#334155">source</text>
+<rect x="856" y="528" width="278" height="88" rx="10" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="886" cy="572" r="19" fill="#ffffff" stroke="#0f766e" stroke-width="1.2"/>
+<g transform="translate(874 560) scale(1)" fill="none" stroke="#0f766e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1"/><path d="M19 3a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1"/><path d="m7 15 3 3"/><path d="m7 21 3-3H5a2 2 0 0 1-2-2v-2"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="3" width="7" height="7" rx="1"/></g>
+<text x="916" y="562.5" font-size="14" font-weight="700" fill="#134e4a">XML Join Step 4</text>
+<text x="916" y="579.5" font-size="12" fill="#134e4a">line comments, per xPathStatement</text>
+<rect x="967.1" y="494" width="55.8" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="995" y="512" text-anchor="middle" font-size="12" fill="#334155">target</text>
+<rect x="786.6" y="559.5" width="55.8" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="814.5" y="577.5" text-anchor="middle" font-size="12" fill="#334155">source</text>
+<rect x="856" y="656" width="278" height="88" rx="10" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="886" cy="700" r="19" fill="#ffffff" stroke="#0f766e" stroke-width="1.2"/>
+<g transform="translate(874 688) scale(1)" fill="none" stroke="#0f766e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1"/><path d="M19 3a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1"/><path d="m7 15 3 3"/><path d="m7 21 3-3H5a2 2 0 0 1-2-2v-2"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="3" width="7" height="7" rx="1"/></g>
+<text x="916" y="690.5" font-size="14" font-weight="700" fill="#134e4a">XML Join Step 5</text>
+<text x="916" y="707.5" font-size="12" fill="#134e4a">sub-lines, per xPathStatement</text>
+<rect x="967.1" y="622" width="55.8" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="995" y="640" text-anchor="middle" font-size="12" fill="#334155">target</text>
+<rect x="786.6" y="687.5" width="55.8" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="814.5" y="705.5" text-anchor="middle" font-size="12" fill="#334155">source</text>
+<rect x="856" y="784" width="278" height="88" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="886" cy="828" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(874 816) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.226 20.925A2 2 0 0 0 6 22h12a2 2 0 0 0 2-2V8a2.4 2.4 0 0 0-.706-1.706l-3.588-3.588A2.4 2.4 0 0 0 14 2H6a2 2 0 0 0-2 2v3.127"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="m5 11-3 3"/><path d="m5 17-3-3h10"/></g>
+<text x="916" y="818.5" font-size="14" font-weight="700" fill="#14532d">Text file output</text>
+<text x="916" y="835.5" font-size="12" fill="#14532d">XMLOrders.xml</text>
+</svg>

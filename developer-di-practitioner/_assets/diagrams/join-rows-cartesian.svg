@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="500" viewBox="0 0 1000 500" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+<filter id="shadow" x="-10%" y="-10%" width="120%" height="140%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#0f172a" flood-opacity="0.12"/></filter></defs>
+<rect width="1000" height="500" fill="#ffffff"/>
+<rect x="12" y="12" width="976" height="476" rx="12" fill="#f0fdfa" stroke="#ccfbf1" stroke-width="1.5"/>
+<path d="M12 24a12 12 0 0 1 12-12h952a12 12 0 0 1 12 12v32h-976z" fill="#0f766e"/>
+<g transform="translate(25 22) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1"/><path d="M19 3a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1"/><path d="m7 15 3 3"/><path d="m7 21 3-3H5a2 2 0 0 1-2-2v-2"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="3" width="7" height="7" rx="1"/></g>
+<text x="52" y="32" font-size="14" font-weight="700" fill="#ffffff">Join rows (cartesian product)</text>
+<text x="52" y="48" font-size="11.5" fill="#ffffff" opacity="0.92">every row of one input meets every row of the other</text>
+<path d="M242 159C309.5 159 309.5 223 377 223" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M242 343C309.5 343 309.5 267 377 267" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M620 245C653.5 245 653.5 245 687 245" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="32" y="76" width="210" height="166" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="104" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(50 92) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M3 15h18"/><path d="M9 3v18"/><path d="M15 3v18"/></g>
+<text x="92" y="101" font-size="14" font-weight="700" fill="#1e3a8a">first name</text>
+<text x="92" y="118" font-size="12" fill="#1e3a8a">Data grid: 3 rows</text>
+<text x="137" y="148" text-anchor="middle" font-size="12" font-weight="600" fill="#1e3a8a">first_name</text>
+<line x1="48" y1="155" x2="226" y2="155" stroke="#94a3b8" stroke-width="1"/>
+<rect x="48" y="158" width="178" height="21" rx="4" fill="#dbeafe" stroke="#1d4ed8" stroke-width="0.8"/>
+<text x="137" y="173" text-anchor="middle" font-size="12" fill="#1e3a8a">Oliver</text>
+<rect x="48" y="182" width="178" height="21" rx="4" fill="#ccfbf1" stroke="#0f766e" stroke-width="0.8"/>
+<text x="137" y="197" text-anchor="middle" font-size="12" fill="#134e4a">Jack</text>
+<rect x="48" y="206" width="178" height="21" rx="4" fill="#dcfce7" stroke="#15803d" stroke-width="0.8"/>
+<text x="137" y="221" text-anchor="middle" font-size="12" fill="#14532d">Harry</text>
+<rect x="32" y="272" width="210" height="142" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="300" r="19" fill="#ffffff" stroke="#b45309" stroke-width="1.2"/>
+<g transform="translate(50 288) scale(1)" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M3 15h18"/><path d="M9 3v18"/><path d="M15 3v18"/></g>
+<text x="92" y="297" font-size="14" font-weight="700" fill="#78350f">middle name</text>
+<text x="92" y="314" font-size="12" fill="#78350f">Data grid: 2 rows</text>
+<text x="137" y="344" text-anchor="middle" font-size="12" font-weight="600" fill="#78350f">middle_name</text>
+<line x1="48" y1="351" x2="226" y2="351" stroke="#94a3b8" stroke-width="1"/>
+<rect x="48" y="354" width="178" height="21" rx="4" fill="#fef3c7" stroke="#b45309" stroke-width="0.8"/>
+<text x="137" y="369" text-anchor="middle" font-size="12" fill="#78350f">James</text>
+<rect x="48" y="378" width="178" height="21" rx="4" fill="#fef3c7" stroke="#b45309" stroke-width="0.8"/>
+<text x="137" y="393" text-anchor="middle" font-size="12" fill="#78350f">John</text>
+<rect x="380" y="185" width="240" height="120" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="410" cy="245" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(398 233) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1"/><path d="M19 3a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1"/><path d="m7 15 3 3"/><path d="m7 21 3-3H5a2 2 0 0 1-2-2v-2"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="3" width="7" height="7" rx="1"/></g>
+<text x="440" y="213" font-size="14" font-weight="700" fill="#3b0764">Join rows</text>
+<text x="440" y="230" font-size="12" fill="#3b0764">pairs each row of one input</text>
+<text x="440" y="245" font-size="12" fill="#3b0764">with every row of the other;</text>
+<text x="440" y="260" font-size="12" fill="#3b0764">a condition, if set, keeps</text>
+<text x="440" y="275" font-size="12" fill="#3b0764">only the pairs that pass</text>
+<rect x="690" y="126" width="278" height="238" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="720" cy="154" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(708 142) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M21 9H3"/><path d="M21 15H3"/></g>
+<text x="750" y="151" font-size="14" font-weight="700" fill="#14532d">Every pair</text>
+<text x="750" y="168" font-size="12" fill="#14532d">3 × 2 = 6 rows</text>
+<text x="767.5" y="198" text-anchor="middle" font-size="12" font-weight="600" fill="#14532d">first_name</text>
+<text x="890.5" y="198" text-anchor="middle" font-size="12" font-weight="600" fill="#14532d">middle_name</text>
+<line x1="706" y1="205" x2="952" y2="205" stroke="#94a3b8" stroke-width="1"/>
+<rect x="706" y="208" width="246" height="21" rx="4" fill="#dbeafe" stroke="#1d4ed8" stroke-width="0.8"/>
+<text x="767.5" y="223" text-anchor="middle" font-size="12" fill="#1e3a8a">Oliver</text>
+<text x="890.5" y="223" text-anchor="middle" font-size="12" fill="#1e3a8a">James</text>
+<rect x="706" y="232" width="246" height="21" rx="4" fill="#dbeafe" stroke="#1d4ed8" stroke-width="0.8"/>
+<text x="767.5" y="247" text-anchor="middle" font-size="12" fill="#1e3a8a">Oliver</text>
+<text x="890.5" y="247" text-anchor="middle" font-size="12" fill="#1e3a8a">John</text>
+<rect x="706" y="256" width="246" height="21" rx="4" fill="#ccfbf1" stroke="#0f766e" stroke-width="0.8"/>
+<text x="767.5" y="271" text-anchor="middle" font-size="12" fill="#134e4a">Jack</text>
+<text x="890.5" y="271" text-anchor="middle" font-size="12" fill="#134e4a">James</text>
+<rect x="706" y="280" width="246" height="21" rx="4" fill="#ccfbf1" stroke="#0f766e" stroke-width="0.8"/>
+<text x="767.5" y="295" text-anchor="middle" font-size="12" fill="#134e4a">Jack</text>
+<text x="890.5" y="295" text-anchor="middle" font-size="12" fill="#134e4a">John</text>
+<rect x="706" y="304" width="246" height="21" rx="4" fill="#dcfce7" stroke="#15803d" stroke-width="0.8"/>
+<text x="767.5" y="319" text-anchor="middle" font-size="12" fill="#14532d">Harry</text>
+<text x="890.5" y="319" text-anchor="middle" font-size="12" fill="#14532d">James</text>
+<rect x="706" y="328" width="246" height="21" rx="4" fill="#dcfce7" stroke="#15803d" stroke-width="0.8"/>
+<text x="767.5" y="343" text-anchor="middle" font-size="12" fill="#14532d">Harry</text>
+<text x="890.5" y="343" text-anchor="middle" font-size="12" fill="#14532d">John</text>
+<rect x="281.6" y="178.5" width="55.8" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="309.5" y="196.5" text-anchor="middle" font-size="12" fill="#334155">3 rows</text>
+<rect x="256.4" y="285" width="106.2" height="40" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="309.5" y="303" text-anchor="middle" font-size="12" fill="#334155">2 rows,</text>
+<text x="309.5" y="318" text-anchor="middle" font-size="12" fill="#334155">held in memory</text>
+<rect x="625.6" y="232.5" width="55.8" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="653.5" y="250.5" text-anchor="middle" font-size="12" fill="#334155">6 rows</text>
+<text x="32" y="446" font-size="12.5" fill="#334155">In the workshop, 10 first names × 10 middle names give 100 rows. The output is the product of the input sizes,</text>
+<text x="32" y="464" font-size="12.5" fill="#334155">so keep the side held in memory small and filter early.</text>
+</svg>

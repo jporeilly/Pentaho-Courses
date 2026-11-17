@@ -37,8 +37,8 @@ Bringing two streams together by key. Database joins, join rows (cartesian-style
 
 <div align="center">
 <figure>
-<img src="../_assets/images/23-join-rows-what-you-build.png" alt="The Join Rows workshop's transformation: two Data grids into Join rows, and a second Join rows that adds the surname" width="800">
-<figcaption>Join rows in the Join Rows workshop</figcaption>
+<img src="../_assets/images/join-rows-cartesian.png" alt="Join rows: a first name Data grid of Oliver, Jack and Harry and a middle name Data grid of James and John, held in memory, go into Join rows, which pairs every first name with every middle name: 3 × 2 = 6 rows" width="800">
+<figcaption>Every row of one input with every row of the other</figcaption>
 </figure>
 </div>
 
@@ -52,10 +52,12 @@ Bringing two streams together by key. Database joins, join rows (cartesian-style
 
 <div align="center">
 <figure>
-<img src="../_assets/images/join-types.png" alt="Which rows each join keeps: inner keeps rows in A and B; left outer adds rows only in A; right outer adds rows only in B; full outer keeps all three" width="741">
+<img src="../_assets/images/join-types.png" alt="Which rows each join keeps: inner keeps rows in A and B; left outer adds rows only in A; right outer adds rows only in B; full outer keeps all three" width="800">
 <figcaption>The four join types</figcaption>
 </figure>
 </div>
+
+Read the diagram one row per join type. The three boxes on the right of each row are the three kinds of row a join can meet: rows only in A, rows that match in both, and rows only in B; teal marks the ones that join keeps. Inner keeps only the matches, left outer adds the rows only in A, right outer the rows only in B, and full outer keeps all three, with nulls for the missing side's fields.
 
 ### Database join
 
@@ -67,8 +69,8 @@ Bringing two streams together by key. Database joins, join rows (cartesian-style
 
 <div align="center">
 <figure>
-<img src="../_assets/images/22-database-join-what-you-build.png" alt="A Data grid of search conditions hopped to Database join" width="628">
-<figcaption>Database join</figcaption>
+<img src="../_assets/images/database-join-per-row.png" alt="Database join: three search rows (Aston Martin 90, Ford Falcon 70, Corvette 70) each fill the query's ? markers against PRODUCTS; Aston Martin returns one product, Ford Falcon none and is kept with nulls, Corvette three: 3 rows in, 5 rows out" width="800">
+<figcaption>One query per row: 3 rows in, 5 rows out</figcaption>
 </figure>
 </div>
 
@@ -86,5 +88,7 @@ Bringing two streams together by key. Database joins, join rows (cartesian-style
 <figcaption>Five XML joins build one nested document</figcaption>
 </figure>
 </div>
+
+Read the diagram one row per Excel sheet, left to right. Each sheet becomes XML fragments in an **Add XML** step; on the way, **Add constants** gives the parent levels their empty placeholder elements to nest into, and **Modified JavaScript value** builds an `xPathStatement` for the two deepest levels, whose insert point depends on the current row. Down the right-hand column, each **XML Join** step takes the document so far as its *target* and one sheet's fragments as its *source*, adding one level, until the fifth writes `XMLOrders.xml`.
 
 :::

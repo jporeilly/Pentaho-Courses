@@ -18,7 +18,9 @@
 
 <div align="center">
 <figure>
-<img src="../_assets/images/cruid-operations.png" alt="The five CRUID operations on a table: Create (INSERT, Table output), Update (UPDATE, Update), Insert-update (Insert / update), Delete (DELETE, Delete) write to it; Read (SELECT, Table input) reads from it" width="590">
+<img src="../_assets/images/cruid-operations.png" alt="The five CRUID operations on a table: Create (INSERT, Table output), Update (UPDATE, Update), Insert-update (Insert / update), Delete (DELETE, Delete) write to it; Read (SELECT, Table input) reads from it" width="800">
 <figcaption>The five operations, their SQL and their steps</figcaption>
 </figure>
 </div>
+
+Read the diagram from the table out. The four operations on the left change the table, each with its SQL statement and the step that sends it: **Table output** inserts, **Update** updates, **Insert / update** does either by key, and **Delete** deletes. Read is the only one on the right, because it takes rows out of the table without changing it: **Table input** runs a `SELECT`.

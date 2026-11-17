@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="868" height="742" viewBox="0 0 868 742" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+<filter id="shadow" x="-10%" y="-10%" width="120%" height="140%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#0f172a" flood-opacity="0.12"/></filter></defs>
+<rect width="868" height="742" fill="#ffffff"/>
+<rect x="16" y="16" width="268" height="154" rx="12" fill="#f5f3ff" stroke="#ede9fe" stroke-width="1.5"/>
+<path d="M16 28a12 12 0 0 1 12-12h244a12 12 0 0 1 12 12v22h-268z" fill="#6d28d9"/>
+<g transform="translate(29 22) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z"/></g>
+<text x="56" y="39" font-size="14" font-weight="700" fill="#ffffff">General</text>
+<rect x="16" y="182" width="268" height="100" rx="12" fill="#f8fafc" stroke="#f1f5f9" stroke-width="1.5"/>
+<path d="M16 194a12 12 0 0 1 12-12h244a12 12 0 0 1 12 12v22h-268z" fill="#475569"/>
+<g transform="translate(29 188) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"/><rect x="2" y="4" width="20" height="16" rx="2"/></g>
+<text x="56" y="205" font-size="14" font-weight="700" fill="#ffffff">Mail</text>
+<rect x="16" y="294" width="268" height="370" rx="12" fill="#f0fdf4" stroke="#dcfce7" stroke-width="1.5"/>
+<path d="M16 306a12 12 0 0 1 12-12h244a12 12 0 0 1 12 12v22h-268z" fill="#15803d"/>
+<g transform="translate(29 300) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></g>
+<text x="56" y="317" font-size="14" font-weight="700" fill="#ffffff">File management</text>
+<rect x="300" y="16" width="268" height="262" rx="12" fill="#fffbeb" stroke="#fef3c7" stroke-width="1.5"/>
+<path d="M300 28a12 12 0 0 1 12-12h244a12 12 0 0 1 12 12v22h-268z" fill="#b45309"/>
+<g transform="translate(313 22) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></g>
+<text x="340" y="39" font-size="14" font-weight="700" fill="#ffffff">Conditions</text>
+<rect x="300" y="290" width="268" height="100" rx="12" fill="#f5f3ff" stroke="#ede9fe" stroke-width="1.5"/>
+<path d="M300 302a12 12 0 0 1 12-12h244a12 12 0 0 1 12 12v22h-268z" fill="#6d28d9"/>
+<g transform="translate(313 296) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/></g>
+<text x="340" y="313" font-size="14" font-weight="700" fill="#ffffff">Scripting</text>
+<rect x="300" y="402" width="268" height="100" rx="12" fill="#f0fdf4" stroke="#dcfce7" stroke-width="1.5"/>
+<path d="M300 414a12 12 0 0 1 12-12h244a12 12 0 0 1 12 12v22h-268z" fill="#15803d"/>
+<g transform="translate(313 408) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></g>
+<text x="340" y="425" font-size="14" font-weight="700" fill="#ffffff">Bulk loading</text>
+<rect x="300" y="514" width="268" height="82" rx="12" fill="#f5f3ff" stroke="#ede9fe" stroke-width="1.5"/>
+<path d="M300 526a12 12 0 0 1 12-12h244a12 12 0 0 1 12 12v22h-268z" fill="#6d28d9"/>
+<g transform="translate(313 520) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></g>
+<text x="340" y="537" font-size="14" font-weight="700" fill="#ffffff">Big Data</text>
+<rect x="300" y="608" width="268" height="118" rx="12" fill="#eff6ff" stroke="#dbeafe" stroke-width="1.5"/>
+<path d="M300 620a12 12 0 0 1 12-12h244a12 12 0 0 1 12 12v22h-268z" fill="#1d4ed8"/>
+<g transform="translate(313 614) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 12.5 8 15l2 2.5"/><path d="m14 12.5 2 2.5-2 2.5"/></g>
+<text x="340" y="631" font-size="14" font-weight="700" fill="#ffffff">XML</text>
+<rect x="584" y="16" width="268" height="262" rx="12" fill="#f8fafc" stroke="#f1f5f9" stroke-width="1.5"/>
+<path d="M584 28a12 12 0 0 1 12-12h244a12 12 0 0 1 12 12v22h-268z" fill="#475569"/>
+<g transform="translate(597 22) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.106-3.105c.32-.322.863-.22.983.218a6 6 0 0 1-8.259 7.057l-7.91 7.91a1 1 0 0 1-2.999-3l7.91-7.91a6 6 0 0 1 7.057-8.259c.438.12.54.662.219.984z"/></g>
+<text x="624" y="39" font-size="14" font-weight="700" fill="#ffffff">Utility</text>
+<rect x="584" y="290" width="268" height="82" rx="12" fill="#f0fdfa" stroke="#ccfbf1" stroke-width="1.5"/>
+<path d="M584 302a12 12 0 0 1 12-12h244a12 12 0 0 1 12 12v22h-268z" fill="#0f766e"/>
+<g transform="translate(597 296) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="5" x="2" y="3" rx="1"/><path d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8"/><path d="M10 12h4"/></g>
+<text x="624" y="313" font-size="14" font-weight="700" fill="#ffffff">Repository</text>
+<rect x="584" y="384" width="268" height="172" rx="12" fill="#eff6ff" stroke="#dbeafe" stroke-width="1.5"/>
+<path d="M584 396a12 12 0 0 1 12-12h244a12 12 0 0 1 12 12v22h-268z" fill="#1d4ed8"/>
+<g transform="translate(597 390) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3 4 7l4 4"/><path d="M4 7h16"/><path d="m16 21 4-4-4-4"/><path d="M20 17H4"/></g>
+<text x="624" y="407" font-size="14" font-weight="700" fill="#ffffff">File transfer</text>
+<rect x="584" y="568" width="268" height="100" rx="12" fill="#f8fafc" stroke="#f1f5f9" stroke-width="1.5"/>
+<path d="M584 580a12 12 0 0 1 12-12h244a12 12 0 0 1 12 12v22h-268z" fill="#475569"/>
+<g transform="translate(597 574) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></g>
+<text x="624" y="591" font-size="14" font-weight="700" fill="#ffffff">File encryption</text>
+<text x="32" y="65" font-size="12" font-weight="700" fill="#1e293b">Start</text>
+<text x="32" y="83" font-size="12" fill="#1e293b">Dummy</text>
+<text x="32" y="101" font-size="12" font-weight="700" fill="#1e293b">Job</text>
+<text x="32" y="119" font-size="12" fill="#1e293b">Set variables</text>
+<text x="32" y="137" font-size="12" font-weight="700" fill="#1e293b">Success</text>
+<text x="32" y="155" font-size="12" font-weight="700" fill="#1e293b">Transformation</text>
+<text x="32" y="231" font-size="12" fill="#1e293b">Get mails (POP3/IMAP)</text>
+<text x="32" y="249" font-size="12" fill="#1e293b">Mail</text>
+<text x="32" y="267" font-size="12" fill="#1e293b">Mail validator</text>
+<text x="32" y="343" font-size="12" fill="#1e293b">Add filenames to result</text>
+<text x="32" y="361" font-size="12" fill="#1e293b">Compare folders</text>
+<text x="32" y="379" font-size="12" fill="#1e293b">Convert file between Windows and Unix</text>
+<text x="32" y="397" font-size="12" fill="#1e293b">Copy files</text>
+<text x="32" y="415" font-size="12" fill="#1e293b">Create a folder</text>
+<text x="32" y="433" font-size="12" fill="#1e293b">Create file</text>
+<text x="32" y="451" font-size="12" fill="#1e293b">Delete file</text>
+<text x="32" y="469" font-size="12" fill="#1e293b">Delete filenames from result</text>
+<text x="32" y="487" font-size="12" fill="#1e293b">Delete files</text>
+<text x="32" y="505" font-size="12" fill="#1e293b">Delete folders</text>
+<text x="32" y="523" font-size="12" fill="#1e293b">File compare</text>
+<text x="32" y="541" font-size="12" fill="#1e293b">HTTP</text>
+<text x="32" y="559" font-size="12" fill="#1e293b">Move files</text>
+<text x="32" y="577" font-size="12" fill="#1e293b">Process result filenames</text>
+<text x="32" y="595" font-size="12" fill="#1e293b">Unzip file</text>
+<text x="32" y="613" font-size="12" fill="#1e293b">Wait for file</text>
+<text x="32" y="631" font-size="12" fill="#1e293b">Write to file</text>
+<text x="32" y="649" font-size="12" fill="#1e293b">Zip file</text>
+<text x="316" y="65" font-size="12" fill="#1e293b">Check DB connections</text>
+<text x="316" y="83" font-size="12" fill="#1e293b">Check files locked</text>
+<text x="316" y="101" font-size="12" fill="#1e293b">Check if a folder is empty</text>
+<text x="316" y="119" font-size="12" fill="#1e293b">Check webservice availability</text>
+<text x="316" y="137" font-size="12" fill="#1e293b">Checks if files exist</text>
+<text x="316" y="155" font-size="12" fill="#1e293b">Columns exist in a table</text>
+<text x="316" y="173" font-size="12" fill="#1e293b">Evaluate files metrics</text>
+<text x="316" y="191" font-size="12" fill="#1e293b">Evaluate rows number in a table</text>
+<text x="316" y="209" font-size="12" fill="#1e293b">File exists</text>
+<text x="316" y="227" font-size="12" fill="#1e293b">Simple evaluation</text>
+<text x="316" y="245" font-size="12" fill="#1e293b">Table exists</text>
+<text x="316" y="263" font-size="12" fill="#1e293b">Wait for</text>
+<text x="316" y="339" font-size="12" fill="#1e293b">JavaScript</text>
+<text x="316" y="357" font-size="12" fill="#1e293b">Shell</text>
+<text x="316" y="375" font-size="12" fill="#1e293b">SQL</text>
+<text x="316" y="451" font-size="12" fill="#1e293b">Bulk load from MySQL into file</text>
+<text x="316" y="469" font-size="12" fill="#1e293b">Bulk load into MSSQL</text>
+<text x="316" y="487" font-size="12" fill="#1e293b">Bulk load into MySQL</text>
+<text x="316" y="563" font-size="12" fill="#1e293b">Amazon EMR job executor</text>
+<text x="316" y="581" font-size="12" fill="#1e293b">Amazon Hive job executor</text>
+<text x="316" y="657" font-size="12" fill="#1e293b">Check if XML file is well formed</text>
+<text x="316" y="675" font-size="12" fill="#1e293b">DTD validator</text>
+<text x="316" y="693" font-size="12" fill="#1e293b">XSD validator</text>
+<text x="316" y="711" font-size="12" fill="#1e293b">XSL transformation</text>
+<text x="600" y="65" font-size="12" fill="#1e293b">Abort job</text>
+<text x="600" y="83" font-size="12" fill="#1e293b">Display msgbox info</text>
+<text x="600" y="101" font-size="12" fill="#1e293b">HL7 MLLP acknowledge</text>
+<text x="600" y="119" font-size="12" fill="#1e293b">HL7 MLLP input</text>
+<text x="600" y="137" font-size="12" fill="#1e293b">Ping a host</text>
+<text x="600" y="155" font-size="12" fill="#1e293b">Send information using syslog</text>
+<text x="600" y="173" font-size="12" fill="#1e293b">Send Nagios passive check</text>
+<text x="600" y="191" font-size="12" fill="#1e293b">Send SNMP trap</text>
+<text x="600" y="209" font-size="12" fill="#1e293b">Telnet a host</text>
+<text x="600" y="227" font-size="12" fill="#1e293b">Truncate tables</text>
+<text x="600" y="245" font-size="12" fill="#1e293b">Wait for SQL</text>
+<text x="600" y="263" font-size="12" fill="#1e293b">Write to log</text>
+<text x="600" y="339" font-size="12" fill="#1e293b">Check if connected to repository</text>
+<text x="600" y="357" font-size="12" fill="#1e293b">Export repository to XML file</text>
+<text x="600" y="433" font-size="12" fill="#1e293b">FTP delete</text>
+<text x="600" y="451" font-size="12" fill="#1e293b">Get a file with FTP</text>
+<text x="600" y="469" font-size="12" fill="#1e293b">Get a file with FTPS</text>
+<text x="600" y="487" font-size="12" fill="#1e293b">Get a file with SFTP</text>
+<text x="600" y="505" font-size="12" fill="#1e293b">Put a file with FTP</text>
+<text x="600" y="523" font-size="12" fill="#1e293b">Put a file with SFTP</text>
+<text x="600" y="541" font-size="12" fill="#1e293b">Upload files to FTPS</text>
+<text x="600" y="617" font-size="12" fill="#1e293b">Decrypt files with PGP</text>
+<text x="600" y="635" font-size="12" fill="#1e293b">Encrypt files with PGP</text>
+<text x="600" y="653" font-size="12" fill="#1e293b">Verify file signature with PGP</text>
+</svg>

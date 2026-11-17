@@ -62,6 +62,10 @@
           "courseId": "architect-ha-specialty"
         },
         {
+          "title": "Enterprise Security",
+          "courseId": "admin-auth-specialty"
+        },
+        {
           "title": "Certified Solution Architect",
           "certified": true
         }

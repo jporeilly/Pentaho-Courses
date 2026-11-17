@@ -315,6 +315,17 @@ MySQL column names are not case-sensitive, so the dimension field `LAST_UPDATE` 
 >
 > Mixing the types per field gives a hybrid dimension. The other types in the list (*Date of last insert or update*, *Date of last insert*, *Date of last update* and *Last version*, all "without stream field as source") let the step maintain a date or a current-version flag itself.
 
+The same decisions as a flow, with lookup mode below for comparison:
+
+<div align="center">
+<figure>
+<img src="../_assets/images/dimension-lookup-update.png" alt="Dimension lookup/update for each row. In update mode it looks up id in DIM_SCD at the stream date; a key not found is inserted as version 1 with a new technical key, and a found key is compared field by field: nothing differs, do nothing; an Update field overwrites the current version (type 1); a Punch through field overwrites every version; an Insert field closes the version and inserts a new one (type 2). In lookup mode a found key returns its TK and an unknown key TK 0." width="800">
+<figcaption>What the step decides for each row, in each mode</figcaption>
+</figure>
+</div>
+
+In lookup mode, as in run 1, the step only reads: a key it finds returns its technical key, and a key it does not find returns `TK` `0`, the key for unknown. In update mode a found key is compared with the version valid at the stream date, and the type set on each field decides what happens.
+
 3. Select **OK**.
 4. Save the transformation (`Ctrl+S`).
 5. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog (run 2).

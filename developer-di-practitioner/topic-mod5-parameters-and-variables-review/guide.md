@@ -20,6 +20,17 @@ Make pipelines configurable without editing them. Parameters are passed in at ru
 >
 > At run time a parameter becomes a variable too, so steps read both the same way, as `${NAME}`. When a parameter and a variable share a name, the parameter wins.
 
+The layers a `${NAME}` value can come from, narrowest on top:
+
+<div align="center">
+<figure>
+<img src="../_assets/images/variables-and-parameters.png" alt="Where the value of ${NAME} in a step comes from: a named parameter for one .ktr or .kjb, with its default or a value passed by Spoon, Pan, Kitchen or a job entry, which wins on a name clash; Set variables, for the rest of the job; and kettle.properties and the environment, for every run on the machine. A side note contrasts ${} text substitution with a ? marker the driver binds as a value." width="800">
+<figcaption>Where a value comes from, and how far it reaches</figcaption>
+</figure>
+</div>
+
+Each layer reaches less far than the one below it: the machine, the rest of a job, one file. The side note is the choice the tabs below explain: `${}` rewrites the text before the step runs, while a `?` marker is bound by the driver as a value.
+
 <figure>
 
 <figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>

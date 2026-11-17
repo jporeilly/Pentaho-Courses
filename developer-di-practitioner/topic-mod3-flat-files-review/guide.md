@@ -24,10 +24,12 @@ The bread and butter of any pipeline. You'll cover the four formats you'll see m
 
 <div align="center">
 <figure>
-<img src="../_assets/images/flat-file-formats.png" alt="Common flat-file formats: delimited text (CSV, TSV, PSV, TXT) and structured text (JSON, XML, YAML, .ENV)" width="784">
-<figcaption>Common flat-file formats</figcaption>
+<img src="../_assets/images/flat-file-formats.png" alt="The four kinds of flat file: structured (CSV, TSV, fixed-width), semi-structured (JSON, XML), unstructured (documents, email bodies, application logs) and metadata (header rows, schema definitions, notes on where a file came from)" width="800">
+<figcaption>The four kinds of flat file</figcaption>
 </figure>
 </div>
+
+The diagram draws the four kinds from the list above, one panel each. Structured files (blue) split every row into the same fields, either with a delimiter - a comma in CSV, a tab in TSV - or by giving each field a set number of characters. Semi-structured files (teal) name their own fields: JSON with keys and nested objects, XML with hierarchical tags. Unstructured text (violet) has no fields to map, and metadata (amber) is the information that describes the rest: header rows, schema definitions and notes on a file's source.
 
 > **Under the hood:**
 >

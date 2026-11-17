@@ -366,7 +366,6 @@ The capstone is the one folder with a shape of its own:
 | `capstone\data\`     | The source files the capstone reads — shipped    |
 | `capstone\solution\` | **Your** transformations and jobs                |
 | `capstone\out\`      | **Your** output — the accreditation checks look here |
-| `capstone\reference\` | A worked solution to compare with, once you have built yours — shipped, never checked |
 
 > **Note:** Upgrading the app refreshes the shipped lab files and never
 > touches `solution\` or `out\`. Your own work is safe, so you can
@@ -531,8 +530,7 @@ C:\Workshop-DI-Practitioner
 └── capstone
     ├── data                                what the capstone reads, shipped
     ├── solution                            your transformations and jobs
-    ├── out                                 your output, checked for your accreditation
-    └── reference                           a worked solution to compare with, shipped
+    └── out                                 your output, checked for your accreditation
 ```
 
 Every `solution` folder holds a **complete, working** solution: the
@@ -601,6 +599,18 @@ capstone project and pass the exam, and your **Pentaho Data Integration
 Developer - Practitioner Level** course accreditation appears on the
 results screen to download. It is valid for two years, and you can come
 back for it later from the same screen.
+
+The capstone is a pipeline of your own: a parameterized job that ingests
+CSV, JSON and master data, validates and enriches the rows, tracks
+historical changes with a slowly changing dimension, and loads a
+dimensional model.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/capstone-daily-sales-pipeline.png" alt="The capstone's target design. The job runs Start, stage_orders, stage_customers and stage_products, then maintain_dim_region, build_fact, write_summary and Success, and any entry's failure hop leads to Mail and then Abort job. Below, Filter rows sends the 3 sales rows with a missing key to the rejects; the valid orders get their customer, product and region key from dim_region, which regions.csv fills, then Formula, fact_sales.csv and the summary workbook." width="800">
+<figcaption>What you build: the job, and what its transformations do with the data</figcaption>
+</figure>
+</div>
 
 Head to the first section whenever you're ready.
 

@@ -16,7 +16,7 @@
 > 
 > **Prerequisites:** [Read JSON](../08-mod3-read-json/guide.md), basic XML (elements, attributes and hierarchy), and internet access for the URL branch.
 > 
-> **Estimated time:** 20 minutes
+> **Estimated time:** 10 minutes
 
 <figure>
 

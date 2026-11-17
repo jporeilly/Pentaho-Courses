@@ -22,7 +22,7 @@ When you have two streams that should become one. Merge Streams stacks rows; Mer
 
 <div align="center">
 <figure>
-<img src="../_assets/images/merge-append.png" alt="Append streams: the first input (head) holds ids 1 and 4, the second (tail) ids 2 and 3; the output is 1, 4, 2, 3, every head row and then every tail row" width="608">
+<img src="../_assets/images/merge-append.png" alt="Append streams: the first input (head) holds ids 1 and 4, the second (tail) ids 2 and 3; the output is 1, 4, 2, 3, every head row and then every tail row" width="800">
 <figcaption>Append streams: every head row, then every tail row</figcaption>
 </figure>
 </div>
@@ -33,7 +33,7 @@ When you have two streams that should become one. Merge Streams stacks rows; Mer
 
 <div align="center">
 <figure>
-<img src="../_assets/images/merge-sorted.png" alt="Sorted merge on id: the same two inputs, each sorted on id, come out as 1, 2, 3, 4, the rows of both inputs interleaved in id order" width="677">
+<img src="../_assets/images/merge-sorted.png" alt="Sorted merge on id: the same two inputs, each sorted on id, come out as 1, 2, 3, 4, the rows of both inputs interleaved in id order" width="800">
 <figcaption>Sorted merge: the same rows, interleaved in id order</figcaption>
 </figure>
 </div>

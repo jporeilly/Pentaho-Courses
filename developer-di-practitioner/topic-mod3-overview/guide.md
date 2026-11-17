@@ -33,7 +33,7 @@ Use this page to find your way, then open the section you need.
 
 <div align="center">
 <figure>
-<img src="../_assets/images/kinds-of-file-data.png" alt="Four kinds of file data: structured (spreadsheets, tables), unstructured (text, images, video, audio), semi-structured (XML, JSON, sensor data) and metadata" width="784">
+<img src="../_assets/images/kinds-of-file-data.png" alt="Four kinds of file data: structured (spreadsheets, tables), unstructured (text, images, video, audio), semi-structured (XML, JSON, sensor data) and metadata" width="800">
 <figcaption>Kinds of flat file</figcaption>
 </figure>
 </div>
@@ -117,10 +117,16 @@ Use this page to find your way, then open the section you need.
 
 <div align="center">
 <figure>
-<img src="../_assets/images/types-of-big-data.png" alt="Types of big data: structured, unstructured, semi-structured, geospatial, machine or operational logging, and open-source data" width="636">
+<img src="../_assets/images/types-of-big-data.png" alt="Types of big data: structured, unstructured, semi-structured, geospatial, machine or operational logging, and open-source data" width="680">
 <figcaption>Types of big data</figcaption>
 </figure>
 </div>
+
+The left column of the diagram is the same three kinds of data as the files above: structured, unstructured and semi-structured, now at a volume that needs distributed compute. The right column names three more, by what the data describes or where it comes from:
+
+* **Geospatial data** describes places: coordinates, addresses, boundaries and routes, from GPS devices, maps and location services. Every record carries a position, so it is filtered and joined by location as well as by key.
+* **Machine or operational logging** is what servers, applications, network devices and sensors write as they run: one timestamped event after another, all day, every day. The steady flow and the volume make it big data; it is usually semi-structured, a fixed set of fields followed by free text.
+* **Open-source data** is data published for anyone to use, such as government statistics, weather records and public reference lists. It comes from outside the organization, in whatever format the publisher chose, so check and conform it before it joins your own data.
 
 ### Jupyter Notebook
 

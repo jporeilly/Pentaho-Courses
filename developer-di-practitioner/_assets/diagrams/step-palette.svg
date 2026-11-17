@@ -1,0 +1,150 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1018" height="754" viewBox="0 0 1018 754" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+<filter id="shadow" x="-10%" y="-10%" width="120%" height="140%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#0f172a" flood-opacity="0.12"/></filter></defs>
+<rect width="1018" height="754" fill="#ffffff"/>
+<rect x="16" y="16" width="236" height="190" rx="12" fill="#eff6ff" stroke="#dbeafe" stroke-width="1.5"/>
+<path d="M16 28a12 12 0 0 1 12-12h212a12 12 0 0 1 12 12v22h-236z" fill="#1d4ed8"/>
+<g transform="translate(29 22) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.706.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-1"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M2 15h10"/><path d="m9 18 3-3-3-3"/></g>
+<text x="56" y="39" font-size="14" font-weight="700" fill="#ffffff">Input</text>
+<rect x="16" y="216" width="236" height="172" rx="12" fill="#f0fdf4" stroke="#dcfce7" stroke-width="1.5"/>
+<path d="M16 228a12 12 0 0 1 12-12h212a12 12 0 0 1 12 12v22h-236z" fill="#15803d"/>
+<g transform="translate(29 222) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></g>
+<text x="56" y="239" font-size="14" font-weight="700" fill="#ffffff">Output</text>
+<rect x="16" y="398" width="236" height="64" rx="12" fill="#eff6ff" stroke="#dbeafe" stroke-width="1.5"/>
+<path d="M16 410a12 12 0 0 1 12-12h212a12 12 0 0 1 12 12v22h-236z" fill="#1d4ed8"/>
+<g transform="translate(29 404) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.9 16.1C1 12.2 1 5.8 4.9 1.9"/><path d="M7.8 4.7a6.14 6.14 0 0 0-.8 7.5"/><circle cx="12" cy="9" r="2"/><path d="M16.2 4.8c2 2 2.26 5.11.8 7.47"/><path d="M19.1 1.9a9.96 9.96 0 0 1 0 14.1"/><path d="M9.5 18h5"/><path d="m8 22 4-11 4 11"/></g>
+<text x="56" y="421" font-size="14" font-weight="700" fill="#ffffff">Streaming</text>
+<rect x="16" y="472" width="236" height="118" rx="12" fill="#f8fafc" stroke="#f1f5f9" stroke-width="1.5"/>
+<path d="M16 484a12 12 0 0 1 12-12h212a12 12 0 0 1 12 12v22h-236z" fill="#475569"/>
+<g transform="translate(29 478) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></g>
+<text x="56" y="495" font-size="14" font-weight="700" fill="#ffffff">Job</text>
+<rect x="16" y="600" width="236" height="100" rx="12" fill="#f5f3ff" stroke="#ede9fe" stroke-width="1.5"/>
+<path d="M16 612a12 12 0 0 1 12-12h212a12 12 0 0 1 12 12v22h-236z" fill="#6d28d9"/>
+<g transform="translate(29 606) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"/><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"/><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"/></g>
+<text x="56" y="623" font-size="14" font-weight="700" fill="#ffffff">Mapping</text>
+<rect x="266" y="16" width="236" height="208" rx="12" fill="#f5f3ff" stroke="#ede9fe" stroke-width="1.5"/>
+<path d="M266 28a12 12 0 0 1 12-12h212a12 12 0 0 1 12 12v22h-236z" fill="#6d28d9"/>
+<g transform="translate(279 22) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 14 4 4-4 4"/><path d="m18 2 4 4-4 4"/><path d="M2 18h1.973a4 4 0 0 0 3.3-1.7l5.454-8.6a4 4 0 0 1 3.3-1.7H22"/><path d="M2 6h1.972a4 4 0 0 1 3.6 2.2"/><path d="M22 18h-6.041a4 4 0 0 1-3.3-1.8l-.359-.45"/></g>
+<text x="306" y="39" font-size="14" font-weight="700" fill="#ffffff">Transform</text>
+<rect x="266" y="234" width="236" height="154" rx="12" fill="#f5f3ff" stroke="#ede9fe" stroke-width="1.5"/>
+<path d="M266 246a12 12 0 0 1 12-12h212a12 12 0 0 1 12 12v22h-236z" fill="#6d28d9"/>
+<g transform="translate(279 240) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6a9 9 0 0 0-9 9V3"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/></g>
+<text x="306" y="257" font-size="14" font-weight="700" fill="#ffffff">Flow</text>
+<rect x="266" y="398" width="236" height="136" rx="12" fill="#f8fafc" stroke="#f1f5f9" stroke-width="1.5"/>
+<path d="M266 410a12 12 0 0 1 12-12h212a12 12 0 0 1 12 12v22h-236z" fill="#475569"/>
+<g transform="translate(279 404) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.106-3.105c.32-.322.863-.22.983.218a6 6 0 0 1-8.259 7.057l-7.91 7.91a1 1 0 0 1-2.999-3l7.91-7.91a6 6 0 0 1 7.057-8.259c.438.12.54.662.219.984z"/></g>
+<text x="306" y="421" font-size="14" font-weight="700" fill="#ffffff">Utility</text>
+<rect x="516" y="16" width="236" height="154" rx="12" fill="#fffbeb" stroke="#fef3c7" stroke-width="1.5"/>
+<path d="M516 28a12 12 0 0 1 12-12h212a12 12 0 0 1 12 12v22h-236z" fill="#b45309"/>
+<g transform="translate(529 22) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></g>
+<text x="556" y="39" font-size="14" font-weight="700" fill="#ffffff">Lookup</text>
+<rect x="516" y="180" width="236" height="154" rx="12" fill="#f0fdfa" stroke="#ccfbf1" stroke-width="1.5"/>
+<path d="M516 192a12 12 0 0 1 12-12h212a12 12 0 0 1 12 12v22h-236z" fill="#0f766e"/>
+<g transform="translate(529 186) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1"/><path d="M19 3a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1"/><path d="m7 15 3 3"/><path d="m7 21 3-3H5a2 2 0 0 1-2-2v-2"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="3" width="7" height="7" rx="1"/></g>
+<text x="556" y="203" font-size="14" font-weight="700" fill="#ffffff">Joins</text>
+<rect x="516" y="344" width="236" height="136" rx="12" fill="#f5f3ff" stroke="#ede9fe" stroke-width="1.5"/>
+<path d="M516 356a12 12 0 0 1 12-12h212a12 12 0 0 1 12 12v22h-236z" fill="#6d28d9"/>
+<g transform="translate(529 350) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/></g>
+<text x="556" y="367" font-size="14" font-weight="700" fill="#ffffff">Scripting</text>
+<rect x="516" y="490" width="236" height="82" rx="12" fill="#f0fdf4" stroke="#dcfce7" stroke-width="1.5"/>
+<path d="M516 502a12 12 0 0 1 12-12h212a12 12 0 0 1 12 12v22h-236z" fill="#15803d"/>
+<g transform="translate(529 496) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></g>
+<text x="556" y="513" font-size="14" font-weight="700" fill="#ffffff">Agile</text>
+<rect x="766" y="16" width="236" height="64" rx="12" fill="#f0fdfa" stroke="#ccfbf1" stroke-width="1.5"/>
+<path d="M766 28a12 12 0 0 1 12-12h212a12 12 0 0 1 12 12v22h-236z" fill="#0f766e"/>
+<g transform="translate(779 22) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.97 12.92A2 2 0 0 0 2 14.63v3.24a2 2 0 0 0 .97 1.71l3 1.8a2 2 0 0 0 2.06 0L12 19v-5.5l-5-3-4.03 2.42Z"/><path d="m7 16.5-4.74-2.85"/><path d="m7 16.5 5-3"/><path d="M7 16.5v5.17"/><path d="M12 13.5V19l3.97 2.38a2 2 0 0 0 2.06 0l3-1.8a2 2 0 0 0 .97-1.71v-3.24a2 2 0 0 0-.97-1.71L17 10.5l-5 3Z"/><path d="m17 16.5-5-3"/><path d="m17 16.5 4.74-2.85"/><path d="M17 16.5v5.17"/><path d="M7.97 4.42A2 2 0 0 0 7 6.13v4.37l5 3 5-3V6.13a2 2 0 0 0-.97-1.71l-3-1.8a2 2 0 0 0-2.06 0l-3 1.8Z"/><path d="M12 8 7.26 5.15"/><path d="m12 8 4.74-2.85"/><path d="M12 13.5V8"/></g>
+<text x="806" y="39" font-size="14" font-weight="700" fill="#ffffff">Data Warehouse</text>
+<rect x="766" y="90" width="236" height="100" rx="12" fill="#f0fdf4" stroke="#dcfce7" stroke-width="1.5"/>
+<path d="M766 102a12 12 0 0 1 12-12h212a12 12 0 0 1 12 12v22h-236z" fill="#15803d"/>
+<g transform="translate(779 96) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m17 8-5-5-5 5"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/></g>
+<text x="806" y="113" font-size="14" font-weight="700" fill="#ffffff">Bulk loading</text>
+<rect x="766" y="200" width="236" height="118" rx="12" fill="#f5f3ff" stroke="#ede9fe" stroke-width="1.5"/>
+<path d="M766 212a12 12 0 0 1 12-12h212a12 12 0 0 1 12 12v22h-236z" fill="#6d28d9"/>
+<g transform="translate(779 206) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></g>
+<text x="806" y="223" font-size="14" font-weight="700" fill="#ffffff">Big Data</text>
+<rect x="766" y="328" width="236" height="100" rx="12" fill="#f8fafc" stroke="#f1f5f9" stroke-width="1.5"/>
+<path d="M766 340a12 12 0 0 1 12-12h212a12 12 0 0 1 12 12v22h-236z" fill="#475569"/>
+<g transform="translate(779 334) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></g>
+<text x="806" y="351" font-size="14" font-weight="700" fill="#ffffff">Cryptography</text>
+<rect x="766" y="438" width="236" height="100" rx="12" fill="#f5f3ff" stroke="#ede9fe" stroke-width="1.5"/>
+<path d="M766 450a12 12 0 0 1 12-12h212a12 12 0 0 1 12 12v22h-236z" fill="#6d28d9"/>
+<g transform="translate(779 444) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="8" x="2" y="2" rx="2" ry="2"/><rect width="20" height="8" x="2" y="14" rx="2" ry="2"/><line x1="6" x2="6.01" y1="6" y2="6"/><line x1="6" x2="6.01" y1="18" y2="18"/></g>
+<text x="806" y="461" font-size="14" font-weight="700" fill="#ffffff">Pentaho Server</text>
+<text x="32" y="65" font-size="12" fill="#1e293b">CSV file input</text>
+<text x="32" y="83" font-size="12" fill="#1e293b">Data grid</text>
+<text x="32" y="101" font-size="12" fill="#1e293b">Generate rows</text>
+<text x="32" y="119" font-size="12" fill="#1e293b">Get data from XML</text>
+<text x="32" y="137" font-size="12" fill="#1e293b">JSON input</text>
+<text x="32" y="155" font-size="12" fill="#1e293b">Microsoft Excel input</text>
+<text x="32" y="173" font-size="12" fill="#1e293b">Table input</text>
+<text x="32" y="191" font-size="12" fill="#1e293b">Text file input</text>
+<text x="32" y="265" font-size="12" fill="#1e293b">Delete</text>
+<text x="32" y="283" font-size="12" fill="#1e293b">Insert / update</text>
+<text x="32" y="301" font-size="12" fill="#1e293b">Microsoft Excel writer</text>
+<text x="32" y="319" font-size="12" fill="#1e293b">Synchronize after merge</text>
+<text x="32" y="337" font-size="12" fill="#1e293b">Table output</text>
+<text x="32" y="355" font-size="12" fill="#1e293b">Text file output</text>
+<text x="32" y="373" font-size="12" fill="#1e293b">Update</text>
+<text x="32" y="447" font-size="12" fill="#1e293b">Get records from stream</text>
+<text x="32" y="521" font-size="12" fill="#1e293b">Copy rows to result</text>
+<text x="32" y="539" font-size="12" fill="#1e293b">Get rows from result</text>
+<text x="32" y="557" font-size="12" fill="#1e293b">Get variables</text>
+<text x="32" y="575" font-size="12" fill="#1e293b">Set variables</text>
+<text x="32" y="649" font-size="12" fill="#1e293b">Mapping (sub-transformation)</text>
+<text x="32" y="667" font-size="12" fill="#1e293b">Mapping input specification</text>
+<text x="32" y="685" font-size="12" fill="#1e293b">Mapping output specification</text>
+<text x="282" y="65" font-size="12" fill="#1e293b">Add constants</text>
+<text x="282" y="83" font-size="12" fill="#1e293b">Add sequence</text>
+<text x="282" y="101" font-size="12" fill="#1e293b">Calculator</text>
+<text x="282" y="119" font-size="12" fill="#1e293b">Select values</text>
+<text x="282" y="137" font-size="12" fill="#1e293b">Sort rows</text>
+<text x="282" y="155" font-size="12" fill="#1e293b">Split fields</text>
+<text x="282" y="173" font-size="12" fill="#1e293b">String operations</text>
+<text x="282" y="191" font-size="12" fill="#1e293b">Unique rows</text>
+<text x="282" y="209" font-size="12" fill="#1e293b">Value mapper</text>
+<text x="282" y="283" font-size="12" fill="#1e293b">Abort</text>
+<text x="282" y="301" font-size="12" fill="#1e293b">Append streams</text>
+<text x="282" y="319" font-size="12" fill="#1e293b">Block this step until steps finish</text>
+<text x="282" y="337" font-size="12" fill="#1e293b">Dummy (do nothing)</text>
+<text x="282" y="355" font-size="12" fill="#1e293b">Filter rows</text>
+<text x="282" y="373" font-size="12" fill="#1e293b">Job executor</text>
+<text x="282" y="447" font-size="12" fill="#1e293b">Clone row</text>
+<text x="282" y="465" font-size="12" fill="#1e293b">Delay row</text>
+<text x="282" y="483" font-size="12" fill="#1e293b">Execute a process</text>
+<text x="282" y="501" font-size="12" fill="#1e293b">Mail</text>
+<text x="282" y="519" font-size="12" fill="#1e293b">Null if</text>
+<text x="532" y="65" font-size="12" fill="#1e293b">Call DB procedure</text>
+<text x="532" y="83" font-size="12" fill="#1e293b">Database join</text>
+<text x="532" y="101" font-size="12" fill="#1e293b">Database lookup</text>
+<text x="532" y="119" font-size="12" fill="#1e293b">Fuzzy match</text>
+<text x="532" y="137" font-size="12" fill="#1e293b">REST client</text>
+<text x="532" y="155" font-size="12" fill="#1e293b">Stream lookup</text>
+<text x="532" y="229" font-size="12" fill="#1e293b">Join rows (cartesian product)</text>
+<text x="532" y="247" font-size="12" fill="#1e293b">Merge join</text>
+<text x="532" y="265" font-size="12" fill="#1e293b">Merge rows (diff)</text>
+<text x="532" y="283" font-size="12" fill="#1e293b">Multiway merge join</text>
+<text x="532" y="301" font-size="12" fill="#1e293b">Sorted merge</text>
+<text x="532" y="319" font-size="12" fill="#1e293b">XML join</text>
+<text x="532" y="393" font-size="12" fill="#1e293b">Execute SQL script</text>
+<text x="532" y="411" font-size="12" fill="#1e293b">Formula</text>
+<text x="532" y="429" font-size="12" fill="#1e293b">Modified JavaScript value</text>
+<text x="532" y="447" font-size="12" fill="#1e293b">Regex evaluation</text>
+<text x="532" y="465" font-size="12" fill="#1e293b">User defined Java expression</text>
+<text x="532" y="539" font-size="12" fill="#1e293b">MonetDB Agile Mart</text>
+<text x="532" y="557" font-size="12" fill="#1e293b">Table Agile Mart</text>
+<text x="782" y="65" font-size="12" fill="#1e293b">Combination lookup/update</text>
+<text x="782" y="139" font-size="12" fill="#1e293b">MySQL bulk loader</text>
+<text x="782" y="157" font-size="12" fill="#1e293b">Oracle bulk loader</text>
+<text x="782" y="175" font-size="12" fill="#1e293b">PostgreSQL bulk loader</text>
+<text x="782" y="249" font-size="12" fill="#1e293b">Cassandra input</text>
+<text x="782" y="267" font-size="12" fill="#1e293b">CouchDB input</text>
+<text x="782" y="285" font-size="12" fill="#1e293b">MongoDB input</text>
+<text x="782" y="303" font-size="12" fill="#1e293b">MongoDB output</text>
+<text x="782" y="377" font-size="12" fill="#1e293b">PGP decrypt stream</text>
+<text x="782" y="395" font-size="12" fill="#1e293b">PGP encrypt stream</text>
+<text x="782" y="413" font-size="12" fill="#1e293b">Symmetric cryptography</text>
+<text x="782" y="487" font-size="12" fill="#1e293b">Call endpoint</text>
+<text x="782" y="505" font-size="12" fill="#1e293b">Get session variables</text>
+<text x="782" y="523" font-size="12" fill="#1e293b">Set session variables</text>
+<text x="16" y="736" font-size="12.5" fill="#334155">Examples from each folder: the Design tab lists many more steps. To find one, type part of its name in the search box at the top of the Design tab.</text>
+</svg>

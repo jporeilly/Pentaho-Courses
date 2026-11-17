@@ -15,7 +15,7 @@
 > 
 > **Prerequisites:** [Review Metadata Injection](../topic-mod5-metadata-injection-review/guide.md); [Writing to a Database](../14-mod3-writing-to-a-database/guide.md) (Table output) and the `MySQL:sampledata` connection from [Connecting to Database](../12-mod3-connecting-to-database/guide.md)
 > 
-> **Estimated time:** 25 minutes
+> **Estimated time:** 20 minutes
 
 <figure>
 
@@ -27,10 +27,12 @@
 
 <div align="center">
 <figure>
-<img src="../_assets/images/31-onboarding-table-what-you-build-metadata-left-fills.png" alt="Two transformations: metadata_inject_step.ktr's Data grids and file name feed ETL metadata injection, which fills in and runs metadata_inject_template.ktr, a CSV file input, Select values and Table output with no fields of their own" width="800">
+<img src="../_assets/images/metadata-injection-onboarding.png" alt="Two transformations: metadata_inject_step.ktr's Data grids and file name feed ETL metadata injection, which fills in and runs metadata_inject_template.ktr, a CSV file input, Select values and Table output with no fields of their own" width="800">
 <figcaption>What you build: the metadata on the left fills the template on the right</figcaption>
 </figure>
 </div>
+
+Read the diagram from the bottom up. The bottom panel is the template, `metadata_inject_template.ktr`: a CSV file input, a Select values step and a Table output into `METADATA_INJECTION_CUSTOMERS`, with no file and no fields of their own. The top panel, `metadata_inject_step.ktr`, holds everything that belongs to `customers.txt`: one Data grid row per field of the file, the rename of `id` to `key_id`, the removal of `stateCode`, and the file name, built by **Generate rows** and **Set field value to a constant**. All four feed **ETL metadata injection**, which fills in the template's settings and then runs it.
 
 :::: tabs
 

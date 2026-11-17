@@ -15,7 +15,7 @@
 > 
 > **Prerequisites:** [Hello World (Job)](../29-mod5-hello-world-job/guide.md); this lab reuses its `tr_hello_world.ktr`, also in **Lab Files**.
 > 
-> **Estimated time:** 15 minutes
+> **Estimated time:** 10 minutes
 
 <figure>
 
@@ -190,7 +190,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 <div align="center">
 <figure>
-<img src="../_assets/images/30-order-execution-one-branch-at-time-or-both.png" alt="By default the job runs Transformation A, C and Success on one thread, then Transformation B; with Run Next Entries in Parallel on Start, A and B start together on two threads, and C still waits for A and Success for C" width="784">
+<img src="../_assets/images/job-order-of-execution.png" alt="By default the job runs Transformation A, C and Success on one thread, then Transformation B; with Run Next Entries in Parallel on Start, A and B start together on two threads, and C still waits for A and Success for C" width="800">
 <figcaption>One branch at a time, or both branches at once</figcaption>
 </figure>
 </div>

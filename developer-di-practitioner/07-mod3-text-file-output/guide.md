@@ -18,7 +18,7 @@
 > 
 > **Prerequisites:** [Text File Input](../06-mod3-text-file-input/guide.md).
 > 
-> **Estimated time:** 25 minutes
+> **Estimated time:** 15 minutes
 
 <figure>
 

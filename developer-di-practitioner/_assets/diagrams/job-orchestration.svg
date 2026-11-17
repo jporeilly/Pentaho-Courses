@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1036" height="404" viewBox="0 0 1036 404" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+<filter id="shadow" x="-10%" y="-10%" width="120%" height="140%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#0f172a" flood-opacity="0.12"/></filter></defs>
+<rect width="1036" height="404" fill="#ffffff"/>
+<rect x="12" y="12" width="1012" height="380" rx="12" fill="#f8fafc" stroke="#f1f5f9" stroke-width="1.5"/>
+<path d="M12 24a12 12 0 0 1 12-12h988a12 12 0 0 1 12 12v32h-1012z" fill="#475569"/>
+<g transform="translate(25 22) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></g>
+<text x="52" y="32" font-size="14" font-weight="700" fill="#ffffff">Job: the entries run one after another</text>
+<text x="52" y="48" font-size="11.5" fill="#ffffff" opacity="0.92">the job orchestrates the transformations; inside each one, its steps run in parallel</text>
+<path d="M192 138C233.5 138 233.5 138 275 138" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M482 138C523.5 138 523.5 138 565 138" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M772 138C813.5 138 813.5 138 855 138" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M380 180L380 257" fill="none" stroke="#64748b" stroke-width="1.7" stroke-dasharray="5 4" marker-end="url(#arrow)"/>
+<path d="M670 180L670 257" fill="none" stroke="#64748b" stroke-width="1.7" stroke-dasharray="5 4" marker-end="url(#arrow)"/>
+<rect x="36" y="96" width="156" height="84" rx="10" fill="#f1f5f9" stroke="#475569" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="66" cy="138" r="19" fill="#ffffff" stroke="#475569" stroke-width="1.2"/>
+<g transform="translate(54 126) scale(1)" fill="none" stroke="#475569" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z"/></g>
+<text x="96" y="121" font-size="14" font-weight="700" fill="#0f172a">Start</text>
+<text x="96" y="138" font-size="12" fill="#0f172a">entry 1:</text>
+<text x="96" y="153" font-size="12" fill="#0f172a">begins the job</text>
+<rect x="278" y="96" width="204" height="84" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="308" cy="138" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(296 126) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 14 4 4-4 4"/><path d="m18 2 4 4-4 4"/><path d="M2 18h1.973a4 4 0 0 0 3.3-1.7l5.454-8.6a4 4 0 0 1 3.3-1.7H22"/><path d="M2 6h1.972a4 4 0 0 1 3.6 2.2"/><path d="M22 18h-6.041a4 4 0 0 1-3.3-1.8l-.359-.45"/></g>
+<text x="338" y="121" font-size="14" font-weight="700" fill="#3b0764">Transformation A</text>
+<text x="338" y="138" font-size="12" fill="#3b0764">entry 2: stage the data</text>
+<text x="338" y="153" font-size="12" fill="#3b0764">its steps run in parallel</text>
+<rect x="568" y="96" width="204" height="84" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="598" cy="138" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(586 126) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 14 4 4-4 4"/><path d="m18 2 4 4-4 4"/><path d="M2 18h1.973a4 4 0 0 0 3.3-1.7l5.454-8.6a4 4 0 0 1 3.3-1.7H22"/><path d="M2 6h1.972a4 4 0 0 1 3.6 2.2"/><path d="M22 18h-6.041a4 4 0 0 1-3.3-1.8l-.359-.45"/></g>
+<text x="628" y="121" font-size="14" font-weight="700" fill="#3b0764">Transformation B</text>
+<text x="628" y="138" font-size="12" fill="#3b0764">entry 3: load the results</text>
+<text x="628" y="153" font-size="12" fill="#3b0764">its steps run in parallel</text>
+<rect x="858" y="96" width="156" height="84" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="888" cy="138" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(876 126) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></g>
+<text x="918" y="121" font-size="14" font-weight="700" fill="#14532d">Success</text>
+<text x="918" y="138" font-size="12" fill="#14532d">entry 4:</text>
+<text x="918" y="153" font-size="12" fill="#14532d">the job ends</text>
+<rect x="211.9" y="125.5" width="43.2" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="233.5" y="143.5" text-anchor="middle" font-size="12" fill="#334155">then</text>
+<rect x="489.3" y="118" width="68.4" height="40" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="523.5" y="136" text-anchor="middle" font-size="12" fill="#334155">when A</text>
+<text x="523.5" y="151" text-anchor="middle" font-size="12" fill="#334155">succeeds</text>
+<rect x="779.3" y="118" width="68.4" height="40" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="813.5" y="136" text-anchor="middle" font-size="12" fill="#334155">when B</text>
+<text x="813.5" y="151" text-anchor="middle" font-size="12" fill="#334155">succeeds</text>
+<rect x="278" y="260" width="494" height="64" rx="10" fill="#fee2e2" stroke="#b91c1c" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="310" cy="292" r="19" fill="#ffffff" stroke="#b91c1c" stroke-width="1.2"/>
+<g transform="translate(298 280) scale(1)" fill="none" stroke="#b91c1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"/><rect x="2" y="4" width="20" height="16" rx="2"/></g>
+<text x="340" y="289" font-size="14" font-weight="700" fill="#7f1d1d">On failure: Mail, then Abort job</text>
+<text x="340" y="307" font-size="12" fill="#7f1d1d">a failed entry takes its failure hop; the entries after it never run</text>
+<rect x="339.5" y="206" width="81" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="380" y="224" text-anchor="middle" font-size="12" fill="#334155">on failure</text>
+<rect x="629.5" y="206" width="81" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="670" y="224" text-anchor="middle" font-size="12" fill="#334155">on failure</text>
+<text x="36" y="358" font-size="12.5" fill="#334155">The hops set the order: Transformation B starts only after Transformation A has finished. Inside a transformation there is no order: all its steps start together.</text>
+</svg>

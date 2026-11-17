@@ -15,7 +15,7 @@
 > 
 > **Prerequisites:** [Text File Input](../06-mod3-text-file-input/guide.md), and basic JSON (objects and arrays).
 > 
-> **Estimated time:** 15 minutes
+> **Estimated time:** 10 minutes
 
 <figure>
 

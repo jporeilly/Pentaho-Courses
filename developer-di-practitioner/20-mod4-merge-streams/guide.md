@@ -16,7 +16,7 @@
 > 
 > **Prerequisites:** [Review Merge](../topic-mod4-merge-review/guide.md), and the steps from the earlier workshops: Text file input, Add constants, Select values.
 > 
-> **Estimated time:** 25 minutes
+> **Estimated time:** 20 minutes
 
 <figure>
 

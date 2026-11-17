@@ -144,21 +144,16 @@ maintained manually using a Combination Lookup-style pattern.
 
 ### 8. Job orchestration *(Module 5)*
 
-Wrap the transformations in a job:
+Wrap the transformations in a job, in this order:
 
-```text
-Start
-  → Set Variables          optional: read kettle.properties values into job variables
-  → stage_orders.ktr
-  → stage_customers.ktr
-  → stage_products.ktr
-  → maintain_dim_region.ktr
-  → build_fact.ktr
-  → write_summary.ktr
-  → Success
+<div align="center">
+<figure>
+<img src="../_assets/images/capstone-daily-sales-pipeline.png" alt="The capstone's target design. The job runs Start, stage_orders, stage_customers and stage_products, then maintain_dim_region, build_fact, write_summary and Success, and any entry's failure hop leads to Mail and then Abort job. Below, Filter rows sends the 3 sales rows with a missing key to the rejects; the valid orders get their customer, product and region key from dim_region, which regions.csv fills, then Formula, fact_sales.csv and the summary workbook." width="800">
+<figcaption>The job, and what its transformations do with the data</figcaption>
+</figure>
+</div>
 
-every entry's failure hop → Mail (notify ops) → Abort job
-```
+The top panel is the job: Start, then a **Set Variables** entry if you read `kettle.properties` values into job variables (optional), the three stage transformations, `maintain_dim_region.ktr`, `build_fact.ktr`, `write_summary.ktr` and Success, one after the other. Every entry also has a failure hop, and every failure hop leads to one **Mail** entry (notify ops) and then **Abort job**. The bottom panel shows what those transformations do with the four input files: the three sales rows with a missing key go to the rejects, and the valid orders pick up their customer, product and region key before **Formula** computes `revenue` and `gross_margin`. `build_fact.ktr` writes `fact_sales.csv`, and `write_summary.ktr` turns it into the summary workbook.
 
 > **Warning:** Want the three stage transformations to run in parallel? Put them in a **sub-job** whose START has **Run Next Entries in Parallel**, and call that sub-job where the three entries are above. The parent job moves on to `build_fact.ktr` only when the sub-job has finished. Don't run them in parallel in the main job and hop each one into `build_fact.ktr`: a job has no "wait for all" hop, so `build_fact.ktr` would run three times (see [Order of Execution](../30-mod5-order-of-execution/guide.md)).
 
@@ -209,6 +204,16 @@ solution/
 ├── kettle.properties
 └── README.md                     ← invocation + assumptions
 ```
+
+<div align="center">
+<figure>
+<img src="../_assets/images/capstone-data-model.png" alt="The capstone's data model. The four input files load stg_orders (37 orders, 3 rejected), stg_customers, stg_products and dim_region, a Type 2 dimension keyed by region_sk. fact_sales takes its order, customer and product columns from the staging tables, region_sk and region_name from dim_region, and revenue and gross_margin from Formula. Its 37 rows go to fact_sales.csv, and the summary workbook totals 5 regions, 10113.31 revenue, 4475.61 gross margin and 37 orders." width="800">
+<figcaption>The data model: the tables the job loads, and where each fact column comes from</figcaption>
+</figure>
+</div>
+
+Read the diagram from left to right. Each input file loads one table: the sales file loads `stg_orders` (its 3 rows with a missing key go to `rejected_20260101.csv` instead), `customers.json` loads `stg_customers`, `products.csv` loads `stg_products`, and `regions.csv` loads `dim_region`, a Type 2 dimension keyed by `region_sk` that adds a version when a region's `name` or `manager_email` changes and holds an "unknown" row besides the five regions. `build_fact.ktr` joins the customers on `customer_id` and the products on `product_id`, looks up `region_sk` and `region_name` in `dim_region` for the version valid at the order date, and adds `revenue` and `gross_margin` from **Formula**: the tag on each `fact_sales` column names where it comes from. The same 37 rows go to `out/fact_sales.csv`, and `write_summary.ktr` reads that file back into the summary workbook, one row per region: 5 regions, 10113.31 revenue, 4475.61 gross margin and 37 orders.
+
 ### 4. Hints for the Tricky Bits
 
 - **JSONPath**: **JSON input** has no loop path - give each field a full path that matches every customer, e.g. `$.customers[*].id`, `$.customers[*].name`, `$.customers[*].region_code`.

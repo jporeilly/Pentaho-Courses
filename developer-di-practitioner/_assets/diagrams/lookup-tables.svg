@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="662" height="526" viewBox="0 0 662 526" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+<filter id="shadow" x="-10%" y="-10%" width="120%" height="140%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#0f172a" flood-opacity="0.12"/></filter></defs>
+<rect width="662" height="526" fill="#ffffff"/>
+<rect x="16" y="16" width="250" height="88" rx="10" fill="#ffffff" stroke="#b45309" stroke-width="1.5" filter="url(#shadow)"/>
+<path d="M16 26a10 10 0 0 1 10-10h230a10 10 0 0 1 10 10v26h-250z" fill="#b45309"/>
+<g transform="translate(28 24) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></g>
+<text x="56" y="40" font-size="14" font-weight="700" fill="#ffffff">Order_Status</text>
+<text x="28" y="69" font-size="12" fill="#64748b">char(2)</text>
+<text x="120" y="69" font-size="12" fill="#78350f" font-weight="700">status_id</text>
+<rect x="228" y="57" width="28" height="15" rx="7.5" fill="#fef3c7" stroke="#b45309" stroke-width="0.8"/>
+<text x="242" y="68" text-anchor="middle" font-size="9.5" font-weight="700" fill="#78350f">PK</text>
+<rect x="17" y="76" width="248" height="22" fill="#fffbeb"/>
+<text x="28" y="91" font-size="12" fill="#64748b">nvarchar(50)</text>
+<text x="120" y="91" font-size="12" fill="#78350f">status_description</text>
+<rect x="396" y="16" width="250" height="88" rx="10" fill="#ffffff" stroke="#b45309" stroke-width="1.5" filter="url(#shadow)"/>
+<path d="M396 26a10 10 0 0 1 10-10h230a10 10 0 0 1 10 10v26h-250z" fill="#b45309"/>
+<g transform="translate(408 24) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></g>
+<text x="436" y="40" font-size="14" font-weight="700" fill="#ffffff">Countries</text>
+<text x="408" y="69" font-size="12" fill="#64748b">char(3)</text>
+<text x="500" y="69" font-size="12" fill="#78350f" font-weight="700">country_id</text>
+<rect x="608" y="57" width="28" height="15" rx="7.5" fill="#fef3c7" stroke="#b45309" stroke-width="0.8"/>
+<text x="622" y="68" text-anchor="middle" font-size="9.5" font-weight="700" fill="#78350f">PK</text>
+<rect x="397" y="76" width="248" height="22" fill="#fffbeb"/>
+<text x="408" y="91" font-size="12" fill="#64748b">nvarchar(50)</text>
+<text x="500" y="91" font-size="12" fill="#78350f">description</text>
+<rect x="396" y="164" width="250" height="198" rx="10" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<path d="M396 174a10 10 0 0 1 10-10h230a10 10 0 0 1 10 10v26h-250z" fill="#1d4ed8"/>
+<g transform="translate(408 172) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><path d="M16 3.128a4 4 0 0 1 0 7.744"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><circle cx="9" cy="7" r="4"/></g>
+<text x="436" y="188" font-size="14" font-weight="700" fill="#ffffff">Customers</text>
+<text x="408" y="217" font-size="12" fill="#64748b">int</text>
+<text x="500" y="217" font-size="12" fill="#1e3a8a" font-weight="700">customer_id</text>
+<rect x="608" y="205" width="28" height="15" rx="7.5" fill="#dbeafe" stroke="#1d4ed8" stroke-width="0.8"/>
+<text x="622" y="216" text-anchor="middle" font-size="9.5" font-weight="700" fill="#1e3a8a">PK</text>
+<rect x="397" y="224" width="248" height="22" fill="#eff6ff"/>
+<text x="408" y="239" font-size="12" fill="#64748b">varchar(100)</text>
+<text x="500" y="239" font-size="12" fill="#1e3a8a">name</text>
+<text x="408" y="261" font-size="12" fill="#64748b">varchar(50)</text>
+<text x="500" y="261" font-size="12" fill="#1e3a8a">address</text>
+<rect x="397" y="268" width="248" height="22" fill="#eff6ff"/>
+<text x="408" y="283" font-size="12" fill="#64748b">char(5)</text>
+<text x="500" y="283" font-size="12" fill="#1e3a8a">ZIP</text>
+<text x="408" y="305" font-size="12" fill="#64748b">nvarchar(50)</text>
+<text x="500" y="305" font-size="12" fill="#1e3a8a">city</text>
+<rect x="397" y="312" width="248" height="22" fill="#eff6ff"/>
+<text x="408" y="327" font-size="12" fill="#64748b">char(2)</text>
+<text x="500" y="327" font-size="12" fill="#1e3a8a">state_id</text>
+<rect x="608" y="315" width="28" height="15" rx="7.5" fill="#f1f5f9" stroke="#94a3b8" stroke-width="0.8"/>
+<text x="622" y="326" text-anchor="middle" font-size="9.5" font-weight="700" fill="#475569">FK</text>
+<text x="408" y="349" font-size="12" fill="#64748b">char(3)</text>
+<text x="500" y="349" font-size="12" fill="#1e3a8a">country_id</text>
+<rect x="608" y="337" width="28" height="15" rx="7.5" fill="#f1f5f9" stroke="#94a3b8" stroke-width="0.8"/>
+<text x="622" y="348" text-anchor="middle" font-size="9.5" font-weight="700" fill="#475569">FK</text>
+<rect x="16" y="186" width="250" height="154" rx="10" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<path d="M16 196a10 10 0 0 1 10-10h230a10 10 0 0 1 10 10v26h-250z" fill="#1d4ed8"/>
+<g transform="translate(28 194) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 17V7"/><path d="M16 8h-6a2 2 0 0 0 0 4h4a2 2 0 0 1 0 4H8"/><path d="M4 3a1 1 0 0 1 1-1 1.3 1.3 0 0 1 .7.2l.933.6a1.3 1.3 0 0 0 1.4 0l.934-.6a1.3 1.3 0 0 1 1.4 0l.933.6a1.3 1.3 0 0 0 1.4 0l.933-.6a1.3 1.3 0 0 1 1.4 0l.934.6a1.3 1.3 0 0 0 1.4 0l.933-.6A1.3 1.3 0 0 1 19 2a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1 1.3 1.3 0 0 1-.7-.2l-.933-.6a1.3 1.3 0 0 0-1.4 0l-.934.6a1.3 1.3 0 0 1-1.4 0l-.933-.6a1.3 1.3 0 0 0-1.4 0l-.933.6a1.3 1.3 0 0 1-1.4 0l-.934-.6a1.3 1.3 0 0 0-1.4 0l-.933.6a1.3 1.3 0 0 1-.7.2 1 1 0 0 1-1-1z"/></g>
+<text x="56" y="210" font-size="14" font-weight="700" fill="#ffffff">Orders</text>
+<text x="28" y="239" font-size="12" fill="#64748b">int</text>
+<text x="120" y="239" font-size="12" fill="#1e3a8a" font-weight="700">order_id</text>
+<rect x="228" y="227" width="28" height="15" rx="7.5" fill="#dbeafe" stroke="#1d4ed8" stroke-width="0.8"/>
+<text x="242" y="238" text-anchor="middle" font-size="9.5" font-weight="700" fill="#1e3a8a">PK</text>
+<rect x="17" y="246" width="248" height="22" fill="#eff6ff"/>
+<text x="28" y="261" font-size="12" fill="#64748b">datetime</text>
+<text x="120" y="261" font-size="12" fill="#1e3a8a">order_date</text>
+<text x="28" y="283" font-size="12" fill="#64748b">int</text>
+<text x="120" y="283" font-size="12" fill="#1e3a8a">customer_id</text>
+<rect x="228" y="271" width="28" height="15" rx="7.5" fill="#f1f5f9" stroke="#94a3b8" stroke-width="0.8"/>
+<text x="242" y="282" text-anchor="middle" font-size="9.5" font-weight="700" fill="#475569">FK</text>
+<rect x="17" y="290" width="248" height="22" fill="#eff6ff"/>
+<text x="28" y="305" font-size="12" fill="#64748b">char(2)</text>
+<text x="120" y="305" font-size="12" fill="#1e3a8a">status_id</text>
+<rect x="228" y="293" width="28" height="15" rx="7.5" fill="#f1f5f9" stroke="#94a3b8" stroke-width="0.8"/>
+<text x="242" y="304" text-anchor="middle" font-size="9.5" font-weight="700" fill="#475569">FK</text>
+<text x="28" y="327" font-size="12" fill="#64748b">tinyint</text>
+<text x="120" y="327" font-size="12" fill="#1e3a8a">priority_id</text>
+<rect x="228" y="315" width="28" height="15" rx="7.5" fill="#f1f5f9" stroke="#94a3b8" stroke-width="0.8"/>
+<text x="242" y="326" text-anchor="middle" font-size="9.5" font-weight="700" fill="#475569">FK</text>
+<rect x="16" y="422" width="250" height="88" rx="10" fill="#ffffff" stroke="#b45309" stroke-width="1.5" filter="url(#shadow)"/>
+<path d="M16 432a10 10 0 0 1 10-10h230a10 10 0 0 1 10 10v26h-250z" fill="#b45309"/>
+<g transform="translate(28 430) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></g>
+<text x="56" y="446" font-size="14" font-weight="700" fill="#ffffff">Order_Priorities</text>
+<text x="28" y="475" font-size="12" fill="#64748b">tinyint</text>
+<text x="120" y="475" font-size="12" fill="#78350f" font-weight="700">priority_id</text>
+<rect x="228" y="463" width="28" height="15" rx="7.5" fill="#fef3c7" stroke="#b45309" stroke-width="0.8"/>
+<text x="242" y="474" text-anchor="middle" font-size="9.5" font-weight="700" fill="#78350f">PK</text>
+<rect x="17" y="482" width="248" height="22" fill="#fffbeb"/>
+<text x="28" y="497" font-size="12" fill="#64748b">nvarchar(50)</text>
+<text x="120" y="497" font-size="12" fill="#78350f">priority_description</text>
+<rect x="396" y="422" width="250" height="88" rx="10" fill="#ffffff" stroke="#b45309" stroke-width="1.5" filter="url(#shadow)"/>
+<path d="M396 432a10 10 0 0 1 10-10h230a10 10 0 0 1 10 10v26h-250z" fill="#b45309"/>
+<g transform="translate(408 430) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></g>
+<text x="436" y="446" font-size="14" font-weight="700" fill="#ffffff">States</text>
+<text x="408" y="475" font-size="12" fill="#64748b">char(2)</text>
+<text x="500" y="475" font-size="12" fill="#78350f" font-weight="700">state_id</text>
+<rect x="608" y="463" width="28" height="15" rx="7.5" fill="#fef3c7" stroke="#b45309" stroke-width="0.8"/>
+<text x="622" y="474" text-anchor="middle" font-size="9.5" font-weight="700" fill="#78350f">PK</text>
+<rect x="397" y="482" width="248" height="22" fill="#fffbeb"/>
+<text x="408" y="497" font-size="12" fill="#64748b">nvarchar(50)</text>
+<text x="500" y="497" font-size="12" fill="#78350f">description</text>
+<path d="M141 186L141 104" stroke="#64748b" stroke-width="1.7" fill="none"/><path d="M133 186L141 172L149 186M141 186L141 172" stroke="#64748b" stroke-width="1.7" fill="none"/><circle cx="141" cy="166" r="4" fill="#ffffff" stroke="#64748b" stroke-width="1.5"/><path d="M134 112L148 112M134 117L148 117" stroke="#64748b" stroke-width="1.7" fill="none"/>
+<rect x="103.65" y="132.5" width="74.69999999999999" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="141" y="150.5" text-anchor="middle" font-size="12" fill="#334155">status_id</text>
+<path d="M141 340L141 422" stroke="#64748b" stroke-width="1.7" fill="none"/><path d="M149 340L141 354L133 340M141 340L141 354" stroke="#64748b" stroke-width="1.7" fill="none"/><circle cx="141" cy="360" r="4" fill="#ffffff" stroke="#64748b" stroke-width="1.5"/><path d="M148 414L134 414M148 409L134 409" stroke="#64748b" stroke-width="1.7" fill="none"/>
+<rect x="97.35" y="368.5" width="87.3" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="141" y="386.5" text-anchor="middle" font-size="12" fill="#334155">priority_id</text>
+<path d="M266 263L396 263" stroke="#64748b" stroke-width="1.7" fill="none"/><path d="M266 255L280 263L266 271M266 263L280 263" stroke="#64748b" stroke-width="1.7" fill="none"/><circle cx="286" cy="263" r="4" fill="#ffffff" stroke="#64748b" stroke-width="1.5"/><path d="M388 256L388 270M383 256L383 270" stroke="#64748b" stroke-width="1.7" fill="none"/>
+<rect x="287.35" y="250.5" width="87.3" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="331" y="268.5" text-anchor="middle" font-size="12" fill="#334155">customer_id</text>
+<path d="M521 164L521 104" stroke="#64748b" stroke-width="1.7" fill="none"/><path d="M513 164L521 150L529 164M521 164L521 150" stroke="#64748b" stroke-width="1.7" fill="none"/><circle cx="521" cy="144" r="4" fill="#ffffff" stroke="#64748b" stroke-width="1.5"/><path d="M514 112L528 112M514 117L528 117" stroke="#64748b" stroke-width="1.7" fill="none"/>
+<rect x="480.5" y="121.5" width="81" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="521" y="139.5" text-anchor="middle" font-size="12" fill="#334155">country_id</text>
+<path d="M521 362L521 422" stroke="#64748b" stroke-width="1.7" fill="none"/><path d="M529 362L521 376L513 362M521 362L521 376" stroke="#64748b" stroke-width="1.7" fill="none"/><circle cx="521" cy="382" r="4" fill="#ffffff" stroke="#64748b" stroke-width="1.5"/><path d="M528 414L514 414M528 409L514 409" stroke="#64748b" stroke-width="1.7" fill="none"/>
+<rect x="486.8" y="379.5" width="68.4" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="521" y="397.5" text-anchor="middle" font-size="12" fill="#334155">state_id</text>
+</svg>

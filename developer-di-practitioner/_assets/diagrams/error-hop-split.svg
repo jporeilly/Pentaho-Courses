@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1046" height="264" viewBox="0 0 1046 264" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+<filter id="shadow" x="-10%" y="-10%" width="120%" height="140%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#0f172a" flood-opacity="0.12"/></filter></defs>
+<rect width="1046" height="264" fill="#ffffff"/>
+<path d="M286 132C306.5 132 306.5 132 327 132" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M600 118C678.5 118 678.5 64 757 64" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M600 146C678.5 146 678.5 200 757 200" fill="none" stroke="#64748b" stroke-width="1.7" stroke-dasharray="5 4" marker-end="url(#arrow)"/>
+<rect x="760" y="16" width="270" height="96" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="790" cy="64" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(778 52) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.1 2.182a10 10 0 0 1 3.8 0"/><path d="M13.9 21.818a10 10 0 0 1-3.8 0"/><path d="M17.609 3.721a10 10 0 0 1 2.69 2.7"/><path d="M2.182 13.9a10 10 0 0 1 0-3.8"/><path d="M20.279 17.609a10 10 0 0 1-2.7 2.69"/><path d="M21.818 10.1a10 10 0 0 1 0 3.8"/><path d="M3.721 6.391a10 10 0 0 1 2.7-2.69"/><path d="M6.391 20.279a10 10 0 0 1-2.69-2.7"/></g>
+<text x="820" y="54.5" font-size="14" font-weight="700" fill="#14532d">Dummy (do nothing)</text>
+<text x="820" y="71.5" font-size="12" fill="#14532d">97 valid rows</text>
+<rect x="760" y="152" width="270" height="96" rx="10" fill="#fee2e2" stroke="#b91c1c" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="790" cy="200" r="19" fill="#ffffff" stroke="#b91c1c" stroke-width="1.2"/>
+<g transform="translate(778 188) scale(1)" fill="none" stroke="#b91c1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></g>
+<text x="820" y="175.5" font-size="14" font-weight="700" fill="#7f1d1d">Errors</text>
+<text x="820" y="192.5" font-size="12" fill="#7f1d1d">3 rejected rows, each with</text>
+<text x="820" y="207.5" font-size="12" fill="#7f1d1d">errorCount, errorDescriptions,</text>
+<text x="820" y="222.5" font-size="12" fill="#7f1d1d">errorFields, errorCodes</text>
+<rect x="16" y="84" width="270" height="96" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="46" cy="132" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(34 120) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></g>
+<text x="76" y="122.5" font-size="14" font-weight="700" fill="#1e3a8a">customers-100-with-errors.txt</text>
+<text x="76" y="139.5" font-size="12" fill="#1e3a8a">header line + 100 customers</text>
+<rect x="330" y="84" width="270" height="96" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="360" cy="132" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(348 120) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.706.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-1"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M2 15h10"/><path d="m9 18 3-3-3-3"/></g>
+<text x="390" y="122.5" font-size="14" font-weight="700" fill="#1e3a8a">CSV file input</text>
+<text x="390" y="139.5" font-size="12" fill="#1e3a8a">converts each field to its type</text>
+<rect x="641.15" y="71" width="74.69999999999999" height="40" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="678.5" y="89" text-anchor="middle" font-size="12" fill="#334155">rows that</text>
+<text x="678.5" y="104" text-anchor="middle" font-size="12" fill="#334155">convert</text>
+<rect x="625.4" y="153" width="106.2" height="40" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="678.5" y="171" text-anchor="middle" font-size="12" fill="#334155">error hop:</text>
+<text x="678.5" y="186" text-anchor="middle" font-size="12" fill="#334155">rows that fail</text>
+</svg>

@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1022" height="508" viewBox="0 0 1022 508" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+<filter id="shadow" x="-10%" y="-10%" width="120%" height="140%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#0f172a" flood-opacity="0.12"/></filter></defs>
+<rect width="1022" height="508" fill="#ffffff"/>
+<rect x="16" y="16" width="990" height="148" rx="12" fill="#f8fafc" stroke="#f1f5f9" stroke-width="1.5"/>
+<path d="M16 28a12 12 0 0 1 12-12h966a12 12 0 0 1 12 12v22h-990z" fill="#475569"/>
+<text x="32" y="39" font-size="14" font-weight="700" fill="#ffffff">1. One row</text>
+<rect x="16" y="180" width="990" height="148" rx="12" fill="#f8fafc" stroke="#f1f5f9" stroke-width="1.5"/>
+<path d="M16 192a12 12 0 0 1 12-12h966a12 12 0 0 1 12 12v22h-990z" fill="#475569"/>
+<text x="32" y="203" font-size="14" font-weight="700" fill="#ffffff">2. Several rows</text>
+<rect x="16" y="344" width="990" height="148" rx="12" fill="#f8fafc" stroke="#f1f5f9" stroke-width="1.5"/>
+<path d="M16 356a12 12 0 0 1 12-12h966a12 12 0 0 1 12 12v22h-990z" fill="#475569"/>
+<text x="32" y="367" font-size="14" font-weight="700" fill="#ffffff">3. One value per row</text>
+<path d="M322 110C342.5 110 342.5 110 363 110" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M656 110C676.5 110 676.5 110 697 110" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M322 274C342.5 274 342.5 274 363 274" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M656 274C676.5 274 676.5 274 697 274" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M322 438C342.5 438 342.5 438 363 438" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M656 438C676.5 438 676.5 438 697 438" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="32" y="72" width="290" height="76" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="110" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(50 98) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M3 15h18"/><path d="M9 3v18"/><path d="M15 3v18"/></g>
+<text x="92" y="93" font-size="14" font-weight="700" fill="#1e3a8a">Data grid</text>
+<text x="92" y="110" font-size="12" fill="#1e3a8a">one row,</text>
+<text x="92" y="125" font-size="12" fill="#1e3a8a">two fields</text>
+<rect x="366" y="72" width="290" height="76" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="396" cy="110" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(384 98) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.693V5"/><path d="m22 22-1.875-1.875"/><path d="M3 12a9 3 0 0 0 8.697 2.998"/><path d="M3 5v14a9 3 0 0 0 9.28 2.999"/><circle cx="18" cy="18" r="3"/><ellipse cx="12" cy="5" rx="9" ry="3"/></g>
+<text x="426" y="93" font-size="14" font-weight="700" fill="#3b0764">Table input</text>
+<text x="426" y="110" font-size="12" fill="#3b0764">first field to the first ?</text>
+<text x="426" y="125" font-size="12" fill="#3b0764">second field to the second ?</text>
+<rect x="700" y="72" width="290" height="76" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="730" cy="110" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(718 98) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 5h8"/><path d="M13 12h8"/><path d="M13 19h8"/><path d="m3 17 2 2 4-4"/><path d="m3 7 2 2 4-4"/></g>
+<text x="760" y="93" font-size="14" font-weight="700" fill="#14532d">Result</text>
+<text x="760" y="110" font-size="12" fill="#14532d">one execution</text>
+<text x="760" y="125" font-size="12" fill="#14532d">one result set</text>
+<rect x="32" y="236" width="290" height="76" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="274" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(50 262) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M3 15h18"/><path d="M9 3v18"/><path d="M15 3v18"/></g>
+<text x="92" y="257" font-size="14" font-weight="700" fill="#1e3a8a">Data grid</text>
+<text x="92" y="274" font-size="12" fill="#1e3a8a">three rows,</text>
+<text x="92" y="289" font-size="12" fill="#1e3a8a">two fields each</text>
+<rect x="366" y="236" width="290" height="76" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="396" cy="274" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(384 262) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.693V5"/><path d="m22 22-1.875-1.875"/><path d="M3 12a9 3 0 0 0 8.697 2.998"/><path d="M3 5v14a9 3 0 0 0 9.28 2.999"/><circle cx="18" cy="18" r="3"/><ellipse cx="12" cy="5" rx="9" ry="3"/></g>
+<text x="426" y="257" font-size="14" font-weight="700" fill="#3b0764">Table input</text>
+<text x="426" y="274" font-size="12" fill="#3b0764">Execute for each row? selected</text>
+<text x="426" y="289" font-size="12" fill="#3b0764">each row fills the ? markers in turn</text>
+<rect x="700" y="236" width="290" height="76" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="730" cy="274" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(718 262) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 5h8"/><path d="M13 12h8"/><path d="M13 19h8"/><path d="m3 17 2 2 4-4"/><path d="m3 7 2 2 4-4"/></g>
+<text x="760" y="257" font-size="14" font-weight="700" fill="#14532d">Result</text>
+<text x="760" y="274" font-size="12" fill="#14532d">three executions</text>
+<text x="760" y="289" font-size="12" fill="#14532d">one result set after another</text>
+<rect x="32" y="400" width="290" height="76" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="438" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(50 426) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M3 15h18"/><path d="M9 3v18"/><path d="M15 3v18"/></g>
+<text x="92" y="421" font-size="14" font-weight="700" fill="#1e3a8a">Data grid</text>
+<text x="92" y="438" font-size="12" fill="#1e3a8a">two rows,</text>
+<text x="92" y="453" font-size="12" fill="#1e3a8a">one field each</text>
+<rect x="366" y="400" width="290" height="76" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="396" cy="438" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(384 426) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.693V5"/><path d="m22 22-1.875-1.875"/><path d="M3 12a9 3 0 0 0 8.697 2.998"/><path d="M3 5v14a9 3 0 0 0 9.28 2.999"/><circle cx="18" cy="18" r="3"/><ellipse cx="12" cy="5" rx="9" ry="3"/></g>
+<text x="426" y="421" font-size="14" font-weight="700" fill="#3b0764">Table input</text>
+<text x="426" y="438" font-size="12" fill="#3b0764">Execute for each row? cleared</text>
+<text x="426" y="453" font-size="12" fill="#3b0764">the rows fill the ? markers in order</text>
+<rect x="700" y="400" width="290" height="76" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="730" cy="438" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(718 426) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 5h8"/><path d="M13 12h8"/><path d="M13 19h8"/><path d="m3 17 2 2 4-4"/><path d="m3 7 2 2 4-4"/></g>
+<text x="760" y="421" font-size="14" font-weight="700" fill="#14532d">Result</text>
+<text x="760" y="438" font-size="12" fill="#14532d">one execution</text>
+<text x="760" y="453" font-size="12" fill="#14532d">one result set</text>
+</svg>

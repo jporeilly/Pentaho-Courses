@@ -20,7 +20,7 @@
 > * The `MySQL:sampledata` connection from [Connecting to Database](../12-mod3-connecting-to-database/guide.md)
 > * Basic SQL: `SELECT` and `WHERE`
 > 
-> **Estimated time:** 30 minutes
+> **Estimated time:** 20 minutes
 
 <figure>
 

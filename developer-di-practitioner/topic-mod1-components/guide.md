@@ -23,6 +23,8 @@ Pentaho Data Integration operates on a **client-server architecture** that separ
 </figure>
 </div>
 
+Read the diagram left to right, the way the data moves. It starts in the sources: flat files, relational databases, data lakes, object stores and APIs. Pentaho Data Integration, the data engineering column this course is about, lands it in a staging layer as it is, then cleans, joins and enriches it in a transformation layer. Data modellers build an OLAP cube and an enterprise data mart on the result, and business users work with those in Analyzer, Report Designer and CTools. The server along the bottom sits under every layer, with the scheduling, logging, security and repository they share.
+
 ---
 
 Browse to learn about the components:
@@ -32,10 +34,12 @@ Browse to learn about the components:
 ### 1. Components
 <div align="center">
 <figure>
-<img src="../_assets/images/pentaho-architecture.png" alt="Spoon, with its Designer, Engine, Scheduler, Repository Browser and DB Explorer, sends .ktr and .kjb files to the Pentaho Server, whose engine, repository, Quartz scheduler, security and monitoring use a system database; Pan, Kitchen and Carte run standalone" width="784">
+<img src="../_assets/images/pentaho-architecture.png" alt="Spoon, with its Designer, Engine, Scheduler, Repository Browser and DB Explorer, sends .ktr and .kjb files to the Pentaho Server, whose engine, repository, Quartz scheduler, security and monitoring use a system database; Pan, Kitchen and Carte run standalone" width="736">
 <figcaption>Client tools and the Pentaho Server</figcaption>
 </figure>
 </div>
+
+Read the diagram left to right. On your machine, Spoon is where you design, run and schedule work, and it sends the `.ktr` and `.kjb` files to the Pentaho Server, which runs, stores, schedules and secures them and keeps its own records in a system database. Pan, Kitchen and Carte, below Spoon, run work without the server. The tabs below take each part in turn.
 
 ::: tabs
 

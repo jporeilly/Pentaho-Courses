@@ -15,7 +15,7 @@
 > 
 > **Prerequisites:** [Review Joins](../topic-mod4-joins-review/guide.md). The lab uses two named parameters; [Parameters](../34-mod5-parameters/guide.md), in Module 5, explains them in full.
 > 
-> **Estimated time:** 25 minutes
+> **Estimated time:** 20 minutes
 
 <figure>
 

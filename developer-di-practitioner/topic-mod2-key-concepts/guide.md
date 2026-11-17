@@ -43,8 +43,8 @@ Now that Pentaho Data Integration is configured, build something with it. You'll
 <div class="pcm-embed-card" data-href="https://docs.pentaho.com/pdia-data-integration/transforming-data-with-pdi" data-title="Transforming data with Pentaho Data Integration | Pentaho Documentation"></div>
 <div align="center">
 <figure>
-<img src="../_assets/images/steps.png" alt="A transformation with its steps (10 rows, seq, Input data, Join Rows, Group, rnd, Sort rows, Memory Group) and the hops between them labelled" width="500">
-<figcaption>Steps &#x26; Hops = Transformation</figcaption>
+<img src="../_assets/images/steps-and-hops.png" alt="Transformation = Steps + Hops: eight steps joined by hops. 10 rows (Generate rows) feeds seq (Add sequence), which Join Rows joins with Input data (Data grid); Join Rows copies its rows to Group (Group by) and to rnd (Random value), then Sort rows and Memory Group (Memory group by). A key: a step does one job; a hop carries rows from one step to the next, a buffer of rows between them" width="800">
+<figcaption>Transformation = Steps + Hops</figcaption>
 </figure>
 </div>
 
@@ -66,22 +66,22 @@ As well as steps and hops, a transformation can hold **notes**, which document i
 
 <div align="center">
 <figure>
-<img src="../_assets/images/copy-rows.png" alt="Copy rows" width="500">
-<figcaption>Copy rows</figcaption>
+<img src="../_assets/images/copy-rows.png" alt="Copy rows: Generate Rows writes rows 1 to 4, and each of its two hops carries every row, so both Dummy (do nothing) steps receive all 4 rows" width="720">
+<figcaption>Copy: every row goes down every hop</figcaption>
 </figure>
 </div>
 
 <div align="center">
 <figure>
-<img src="../_assets/images/distribute-rows.png" alt="Distribute rows" width="500">
-<figcaption>Distribute rows</figcaption>
+<img src="../_assets/images/distribute-rows.png" alt="Distribute rows: Generate Rows writes rows 1 to 4 and deals them out in turn, so the first Dummy (do nothing) step receives rows 1 and 3 and the second receives rows 2 and 4" width="720">
+<figcaption>Distribute: the rows are dealt out in turn</figcaption>
 </figure>
 </div>
 
 <div align="center">
 <figure>
-<img src="../_assets/images/transformations.jpeg" alt="Steps" width="800">
-<figcaption>Steps</figcaption>
+<img src="../_assets/images/step-palette.png" alt="The step folders in Spoon's Design tab, with examples from each: Input, Output, Streaming, Job, Mapping, Transform, Flow, Utility, Lookup, Joins, Scripting, Agile, Data Warehouse, Bulk loading, Big Data, Cryptography and Pentaho Server. The Design tab lists many more steps; its search box finds one by name" width="800">
+<figcaption>The step folders, with examples from each</figcaption>
 </figure>
 </div>
 
@@ -97,8 +97,8 @@ As well as steps and hops, a transformation can hold **notes**, which document i
 
 <div align="center">
 <figure>
-<img src="../_assets/images/parallelism.png" alt="Parallelism" width="500">
-<figcaption>parallelism</figcaption>
+<img src="../_assets/images/parallelism.png" alt="Parallelism: Products writes rows into a hop, a row buffer of up to 10,000 rows; Sort rows reads them from it and writes into the next hop, which Group by reads. All three steps start together, and no step waits for the one before it to finish" width="800">
+<figcaption>Every step runs at once; each hop is a row buffer</figcaption>
 </figure>
 </div>
 
@@ -122,6 +122,13 @@ As well as steps and hops, a transformation can hold **notes**, which document i
 > #### **Data Types**
 > 
 > Each Pentaho Data Integration data type maps to a Java type, so the field, parameter or variable behaves the way that Java type does.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/data-types.png" alt="The Pentaho Data Integration data types and the Java type each behaves as, in four families. Numbers: Integer to Long, Number to Double, BigNumber to BigDecimal. Text: String to String. Date and time: Date to Date, Timestamp to Timestamp. Other values: Boolean to Boolean, Binary to Byte[], Internet Address to InetAddress, Hierarchical to BinaryTree" width="800">
+<figcaption>Each data type and the Java type it behaves as</figcaption>
+</figure>
+</div>
 
 The following table describes these mappings:
 
@@ -154,8 +161,15 @@ The following table describes these mappings:
 
 <div align="center">
 <figure>
-<img src="../_assets/images/job-entries.jpeg" alt="Job Entries" width="800">
-<figcaption>Job Entries</figcaption>
+<img src="../_assets/images/job-orchestration.png" alt="A job runs its entries one after another: Start, then Transformation A, then Transformation B when A succeeds, then Success when B succeeds. Inside each transformation its steps run in parallel. If either transformation fails, its failure hop leads to Mail, then Abort job, and the entries after it never run" width="800">
+<figcaption>A job orchestrates transformations, one entry after another</figcaption>
+</figure>
+</div>
+
+<div align="center">
+<figure>
+<img src="../_assets/images/job-entry-palette.png" alt="The job entries Spoon offers, by folder: General (Start, Dummy, Job, Set variables, Success, Transformation), Mail, File management, Conditions, Scripting, Bulk loading, Big Data, XML, Utility, Repository, File transfer and File encryption, each listing its entries" width="800">
+<figcaption>The job entries, folder by folder</figcaption>
 </figure>
 </div>
 

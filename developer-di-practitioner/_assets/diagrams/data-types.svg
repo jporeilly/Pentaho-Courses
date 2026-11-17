@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="988" height="440" viewBox="0 0 988 440" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+<filter id="shadow" x="-10%" y="-10%" width="120%" height="140%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#0f172a" flood-opacity="0.12"/></filter></defs>
+<rect width="988" height="440" fill="#ffffff"/>
+<rect x="16" y="16" width="470" height="196" rx="12" fill="#f5f3ff" stroke="#ede9fe" stroke-width="1.5"/>
+<path d="M16 28a12 12 0 0 1 12-12h446a12 12 0 0 1 12 12v22h-470z" fill="#6d28d9"/>
+<g transform="translate(29 22) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="9" y2="9"/><line x1="4" x2="20" y1="15" y2="15"/><line x1="10" x2="8" y1="3" y2="21"/><line x1="16" x2="14" y1="3" y2="21"/></g>
+<text x="56" y="39" font-size="14" font-weight="700" fill="#ffffff">Numbers</text>
+<rect x="16" y="228" width="470" height="104" rx="12" fill="#eff6ff" stroke="#dbeafe" stroke-width="1.5"/>
+<path d="M16 240a12 12 0 0 1 12-12h446a12 12 0 0 1 12 12v22h-470z" fill="#1d4ed8"/>
+<g transform="translate(29 234) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v16"/><path d="M4 7V5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2"/><path d="M9 20h6"/></g>
+<text x="56" y="251" font-size="14" font-weight="700" fill="#ffffff">Text</text>
+<rect x="502" y="16" width="470" height="150" rx="12" fill="#fffbeb" stroke="#fef3c7" stroke-width="1.5"/>
+<path d="M502 28a12 12 0 0 1 12-12h446a12 12 0 0 1 12 12v22h-470z" fill="#b45309"/>
+<g transform="translate(515 22) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 14v2.2l1.6 1"/><path d="M16 2v4"/><path d="M21 7.5V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3.5"/><path d="M3 10h5"/><path d="M8 2v4"/><circle cx="16" cy="16" r="6"/></g>
+<text x="542" y="39" font-size="14" font-weight="700" fill="#ffffff">Date and time</text>
+<rect x="502" y="182" width="470" height="242" rx="12" fill="#f8fafc" stroke="#f1f5f9" stroke-width="1.5"/>
+<path d="M502 194a12 12 0 0 1 12-12h446a12 12 0 0 1 12 12v22h-470z" fill="#475569"/>
+<g transform="translate(515 188) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.97 12.92A2 2 0 0 0 2 14.63v3.24a2 2 0 0 0 .97 1.71l3 1.8a2 2 0 0 0 2.06 0L12 19v-5.5l-5-3-4.03 2.42Z"/><path d="m7 16.5-4.74-2.85"/><path d="m7 16.5 5-3"/><path d="M7 16.5v5.17"/><path d="M12 13.5V19l3.97 2.38a2 2 0 0 0 2.06 0l3-1.8a2 2 0 0 0 .97-1.71v-3.24a2 2 0 0 0-.97-1.71L17 10.5l-5 3Z"/><path d="m17 16.5-5-3"/><path d="m17 16.5 4.74-2.85"/><path d="M17 16.5v5.17"/><path d="M7.97 4.42A2 2 0 0 0 7 6.13v4.37l5 3 5-3V6.13a2 2 0 0 0-.97-1.71l-3-1.8a2 2 0 0 0-2.06 0l-3 1.8Z"/><path d="M12 8 7.26 5.15"/><path d="m12 8 4.74-2.85"/><path d="M12 13.5V8"/></g>
+<text x="542" y="205" font-size="14" font-weight="700" fill="#ffffff">Other values</text>
+<rect x="30" y="66" width="124" height="30" rx="8" fill="#ffffff" stroke="#64748b" stroke-width="1.2"/>
+<text x="92" y="86" text-anchor="middle" font-size="13" font-weight="700" fill="#0f172a">Integer</text>
+<line x1="158" y1="81" x2="176" y2="81" stroke="#64748b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="182" y="66" width="112" height="30" rx="8" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1"/>
+<text x="238" y="86" text-anchor="middle" font-size="12.5" font-family="Consolas, monospace" fill="#334155">Long</text>
+<text x="306" y="86" font-size="11.5" fill="#475569">signed 64-bit whole number</text>
+<rect x="30" y="112" width="124" height="30" rx="8" fill="#ffffff" stroke="#64748b" stroke-width="1.2"/>
+<text x="92" y="132" text-anchor="middle" font-size="13" font-weight="700" fill="#0f172a">Number</text>
+<line x1="158" y1="127" x2="176" y2="127" stroke="#64748b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="182" y="112" width="112" height="30" rx="8" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1"/>
+<text x="238" y="132" text-anchor="middle" font-size="12.5" font-family="Consolas, monospace" fill="#334155">Double</text>
+<text x="306" y="132" font-size="11.5" fill="#475569">64-bit floating point</text>
+<rect x="30" y="158" width="124" height="30" rx="8" fill="#ffffff" stroke="#64748b" stroke-width="1.2"/>
+<text x="92" y="178" text-anchor="middle" font-size="13" font-weight="700" fill="#0f172a">BigNumber</text>
+<line x1="158" y1="173" x2="176" y2="173" stroke="#64748b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="182" y="158" width="112" height="30" rx="8" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1"/>
+<text x="238" y="178" text-anchor="middle" font-size="12.5" font-family="Consolas, monospace" fill="#334155">BigDecimal</text>
+<text x="306" y="178" font-size="11.5" fill="#475569">unlimited precision</text>
+<rect x="30" y="278" width="124" height="30" rx="8" fill="#ffffff" stroke="#64748b" stroke-width="1.2"/>
+<text x="92" y="298" text-anchor="middle" font-size="13" font-weight="700" fill="#0f172a">String</text>
+<line x1="158" y1="293" x2="176" y2="293" stroke="#64748b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="182" y="278" width="112" height="30" rx="8" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1"/>
+<text x="238" y="298" text-anchor="middle" font-size="12.5" font-family="Consolas, monospace" fill="#334155">String</text>
+<text x="306" y="298" font-size="11.5" fill="#475569">any length, UTF-8</text>
+<rect x="516" y="66" width="124" height="30" rx="8" fill="#ffffff" stroke="#64748b" stroke-width="1.2"/>
+<text x="578" y="86" text-anchor="middle" font-size="13" font-weight="700" fill="#0f172a">Date</text>
+<line x1="644" y1="81" x2="662" y2="81" stroke="#64748b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="668" y="66" width="112" height="30" rx="8" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1"/>
+<text x="724" y="86" text-anchor="middle" font-size="12.5" font-family="Consolas, monospace" fill="#334155">Date</text>
+<text x="792" y="86" font-size="11.5" fill="#475569">to the millisecond</text>
+<rect x="516" y="112" width="124" height="30" rx="8" fill="#ffffff" stroke="#64748b" stroke-width="1.2"/>
+<text x="578" y="132" text-anchor="middle" font-size="13" font-weight="700" fill="#0f172a">Timestamp</text>
+<line x1="644" y1="127" x2="662" y2="127" stroke="#64748b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="668" y="112" width="112" height="30" rx="8" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1"/>
+<text x="724" y="132" text-anchor="middle" font-size="12.5" font-family="Consolas, monospace" fill="#334155">Timestamp</text>
+<text x="792" y="132" font-size="11.5" fill="#475569">to the nanosecond</text>
+<rect x="516" y="232" width="124" height="30" rx="8" fill="#ffffff" stroke="#64748b" stroke-width="1.2"/>
+<text x="578" y="252" text-anchor="middle" font-size="13" font-weight="700" fill="#0f172a">Boolean</text>
+<line x1="644" y1="247" x2="662" y2="247" stroke="#64748b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="668" y="232" width="112" height="30" rx="8" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1"/>
+<text x="724" y="252" text-anchor="middle" font-size="12.5" font-family="Consolas, monospace" fill="#334155">Boolean</text>
+<text x="792" y="252" font-size="11.5" fill="#475569">true or false</text>
+<rect x="516" y="278" width="124" height="30" rx="8" fill="#ffffff" stroke="#64748b" stroke-width="1.2"/>
+<text x="578" y="298" text-anchor="middle" font-size="13" font-weight="700" fill="#0f172a">Binary</text>
+<line x1="644" y1="293" x2="662" y2="293" stroke="#64748b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="668" y="278" width="112" height="30" rx="8" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1"/>
+<text x="724" y="298" text-anchor="middle" font-size="12.5" font-family="Consolas, monospace" fill="#334155">Byte[]</text>
+<text x="792" y="298" font-size="11.5" fill="#475569">any bytes: an image, a zip</text>
+<rect x="516" y="324" width="124" height="30" rx="8" fill="#ffffff" stroke="#64748b" stroke-width="1.2"/>
+<text x="578" y="344" text-anchor="middle" font-size="13" font-weight="700" fill="#0f172a">Internet Address</text>
+<line x1="644" y1="339" x2="662" y2="339" stroke="#64748b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="668" y="324" width="112" height="30" rx="8" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1"/>
+<text x="724" y="344" text-anchor="middle" font-size="12.5" font-family="Consolas, monospace" fill="#334155">InetAddress</text>
+<text x="792" y="344" font-size="11.5" fill="#475569">an IP address</text>
+<rect x="516" y="370" width="124" height="30" rx="8" fill="#ffffff" stroke="#64748b" stroke-width="1.2"/>
+<text x="578" y="390" text-anchor="middle" font-size="13" font-weight="700" fill="#0f172a">Hierarchical</text>
+<line x1="644" y1="385" x2="662" y2="385" stroke="#64748b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="668" y="370" width="112" height="30" rx="8" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1"/>
+<text x="724" y="390" text-anchor="middle" font-size="12.5" font-family="Consolas, monospace" fill="#334155">BinaryTree</text>
+<text x="792" y="390" font-size="11.5" fill="#475569">a tree of related items (EE)</text>
+<rect x="30" y="352" width="124" height="30" rx="8" fill="#ffffff" stroke="#64748b" stroke-width="1.2"/>
+<text x="92" y="372" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0f172a">PDI type</text>
+<line x1="158" y1="367" x2="176" y2="367" stroke="#64748b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="182" y="352" width="112" height="30" rx="8" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1"/>
+<text x="238" y="372" text-anchor="middle" font-size="12" font-family="Consolas, monospace" fill="#334155">Java type</text>
+<text x="30" y="404" font-size="12" fill="#334155">A field, parameter or variable behaves as its Java type.</text>
+</svg>

@@ -16,7 +16,7 @@
 > 
 > **Prerequisites:** [Review Scalability](../topic-mod5-scalability-review/guide.md); `tr_hello_world.ktr` from [Hello World](../03-mod2-hello-world/guide.md)
 > 
-> **Estimated time:** 20 minutes
+> **Estimated time:** 15 minutes
 
 <figure>
 
@@ -32,6 +32,17 @@
 <figcaption>The transformation you run on the servers</figcaption>
 </figure>
 </div>
+
+The lab runs three Carte servers on this machine and sends the transformation to them in two ways.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/carte-lab-setup.png" alt="Spoon and three Carte servers on localhost: Master on port 12000, Slave A on 12100 and Slave B on 12200, each started with Carte.bat. With run configuration Master, Spoon sends the whole transformation over HTTP to the master, and the slaves take no part. With Clustered and cluster schema Pentaho, Spoon sends gr_hello-world to each slave and Dummy to the master; each slave sends its 10 rows to the master over sockets from port 40000." width="800">
+<figcaption>Where each run configuration sends the transformation</figcaption>
+</figure>
+</div>
+
+With the **Master** run configuration, Spoon posts the whole transformation to the Carte server on port `12000`, and Slave A and Slave B take no part. With **Clustered**, Spoon reads the cluster schema `Pentaho` and splits the transformation itself: each slave gets the clustered **gr_hello-world** (`Cx2`), and the master gets **Dummy (do nothing)**. The slaves send their rows to the master over sockets on ports counted up from `40000`, so the master's Dummy reads 20 rows, 10 from each slave. [Review Scalability](../topic-mod5-scalability-review/guide.md) shows a cluster in general.
 
 :::: tabs
 

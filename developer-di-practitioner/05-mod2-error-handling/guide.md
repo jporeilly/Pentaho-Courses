@@ -16,7 +16,7 @@
 >
 > **Prerequisites:** Complete the **[Hello World](../03-mod2-hello-world/guide.md)** and **[Logging](../04-mod2-logging/guide.md)** workshops
 >
-> **Estimated time:** 15 minutes
+> **Estimated time:** 10 minutes
 
 <figure>
 
@@ -149,7 +149,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 <div align="center">
 <figure>
-<img src="../_assets/images/error-hop-split.png" alt="CSV file input reads customers-100-with-errors.txt; the 97 rows that convert go to Dummy (do nothing), and the 3 rows that fail go down the error hop to Errors with errorCount, errorDescriptions, errorFields and errorCodes" width="784">
+<img src="../_assets/images/error-hop-split.png" alt="CSV file input reads customers-100-with-errors.txt; the 97 rows that convert go to Dummy (do nothing), and the 3 rows that fail go down the error hop to Errors with errorCount, errorDescriptions, errorFields and errorCodes" width="800">
 <figcaption>Valid rows flow on; failed rows take the error hop</figcaption>
 </figure>
 </div>

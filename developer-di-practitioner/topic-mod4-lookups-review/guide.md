@@ -23,10 +23,12 @@ Enriching one stream with values from another. Database Lookup is the most commo
 
 <div align="center">
 <figure>
-<img src="../_assets/images/lookup-tables.png" alt="An entity-relationship diagram: Customers references the Countries and States lookup tables; Orders references Customers and the Order_Status and Order_Priorities lookup tables" width="784">
+<img src="../_assets/images/lookup-tables.png" alt="An entity-relationship diagram: Customers references the Countries and States lookup tables; Orders references Customers and the Order_Status and Order_Priorities lookup tables" width="662">
 <figcaption>Reference (lookup) tables around a sales schema</figcaption>
 </figure>
 </div>
+
+Read the diagram from the two blue tables out. `Orders` and `Customers` hold the business rows; the four orange tables are the reference sets they look up, each a key and a description. Every line runs from a foreign key (**FK**) to the primary key (**PK**) it points at, labeled with the column: the crow's foot with a ring at the `Orders` or `Customers` end means zero or many rows, and the two bars at the other end mean exactly one. So an order carries a `status_id` and a `priority_id`, and a lookup on each adds the description the report shows.
 
 > **Note:** Reference tables like these are usually small: a handful of statuses, a few hundred countries. That makes them ideal for a lookup that is cached, or read into memory once.
 

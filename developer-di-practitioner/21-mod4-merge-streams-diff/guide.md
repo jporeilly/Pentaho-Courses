@@ -455,10 +455,12 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 <div align="center">
 <figure>
-<img src="../_assets/images/merge-diff-sync.png" alt="The two sorted streams feed Merge rows (diff), which flags each row identical, changed, new or deleted; Synchronize after merge skips identical rows and runs an UPDATE, INSERT or DELETE for the others" width="784">
+<img src="../_assets/images/merge-diff-sync.png" alt="The two sorted streams feed Merge rows (diff), which flags each row identical, changed, new or deleted; Synchronize after merge skips identical rows and runs an UPDATE, INSERT or DELETE for the others" width="800">
 <figcaption>Each flag becomes one statement, or none</figcaption>
 </figure>
 </div>
+
+Read the diagram left to right. The reference stream is the table as it stands, `STG_ORDERS_MERGED` read in `PRODUCTCODE` order, and the compare stream is today's `orders_update.txt`, sorted on the same key. **Merge rows (diff)** adds a flag to every row, and **Synchronize after merge** turns each flag into one statement: an `identical` row is skipped, a `changed` row becomes an `UPDATE` on its `PRODUCTCODE`, a `new` row an `INSERT`, and a `deleted` row a `DELETE` on its `PRODUCTCODE`.
 
 1. On the **Design** tab, open the **Output** folder and drag **Synchronize after merge** onto the canvas.
 2. Create a hop from **Merge Rows (diff)** to **Synchronize after merge**.

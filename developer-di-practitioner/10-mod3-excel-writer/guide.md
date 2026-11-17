@@ -18,7 +18,7 @@
 > 
 > **Prerequisites:** [Text File Input](../06-mod3-text-file-input/guide.md), and Microsoft Excel or another spreadsheet application that opens `.xlsx` files, to look at the template and the finished report.
 > 
-> **Estimated time:** 30 minutes
+> **Estimated time:** 20 minutes
 
 <figure>
 

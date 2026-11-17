@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="972" height="480" viewBox="0 0 972 480" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+<filter id="shadow" x="-10%" y="-10%" width="120%" height="140%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#0f172a" flood-opacity="0.12"/></filter></defs>
+<rect width="972" height="480" fill="#ffffff"/>
+<rect x="12" y="12" width="948" height="456" rx="12" fill="#f5f3ff" stroke="#ede9fe" stroke-width="1.5"/>
+<path d="M12 24a12 12 0 0 1 12-12h924a12 12 0 0 1 12 12v32h-948z" fill="#6d28d9"/>
+<g transform="translate(25 22) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 14 4 4-4 4"/><path d="m18 2 4 4-4 4"/><path d="M2 18h1.973a4 4 0 0 0 3.3-1.7l5.454-8.6a4 4 0 0 1 3.3-1.7H22"/><path d="M2 6h1.972a4 4 0 0 1 3.6 2.2"/><path d="M22 18h-6.041a4 4 0 0 1-3.3-1.8l-.359-.45"/></g>
+<text x="52" y="32" font-size="14" font-weight="700" fill="#ffffff">Transformation = Steps + Hops</text>
+<text x="52" y="48" font-size="11.5" fill="#ffffff" opacity="0.92">every box is a step, every arrow a hop</text>
+<path d="M210 111C242.5 111 242.5 111 275 111" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M456 99C488.5 99 488.5 99 521 99" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M456 257C488.5 257 488.5 125 521 125" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M702 111C734.5 111 734.5 111 767 111" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M613 146L613 219" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M702 257C734.5 257 734.5 257 767 257" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M859 292L859 365" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="32" y="76" width="178" height="70" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="111" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(50 99) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M21 9H3"/><path d="M21 15H3"/></g>
+<text x="92" y="101.5" font-size="14" font-weight="700" fill="#1e3a8a">10 rows</text>
+<text x="92" y="118.5" font-size="12" fill="#1e3a8a">Generate rows</text>
+<rect x="278" y="76" width="178" height="70" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="308" cy="111" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(296 99) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="9" y2="9"/><line x1="4" x2="20" y1="15" y2="15"/><line x1="10" x2="8" y1="3" y2="21"/><line x1="16" x2="14" y1="3" y2="21"/></g>
+<text x="338" y="101.5" font-size="14" font-weight="700" fill="#3b0764">seq</text>
+<text x="338" y="118.5" font-size="12" fill="#3b0764">Add sequence</text>
+<rect x="524" y="76" width="178" height="70" rx="10" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="554" cy="111" r="19" fill="#ffffff" stroke="#0f766e" stroke-width="1.2"/>
+<g transform="translate(542 99) scale(1)" fill="none" stroke="#0f766e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></g>
+<text x="584" y="101.5" font-size="14" font-weight="700" fill="#134e4a">Join Rows</text>
+<text x="584" y="118.5" font-size="12" fill="#134e4a">Join rows</text>
+<rect x="770" y="76" width="178" height="70" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="800" cy="111" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(788 99) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 7V5a1 1 0 0 0-1-1H6.5a.5.5 0 0 0-.4.8l4.5 6a2 2 0 0 1 0 2.4l-4.5 6a.5.5 0 0 0 .4.8H17a1 1 0 0 0 1-1v-2"/></g>
+<text x="830" y="101.5" font-size="14" font-weight="700" fill="#3b0764">Group</text>
+<text x="830" y="118.5" font-size="12" fill="#3b0764">Group by</text>
+<rect x="278" y="222" width="178" height="70" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="308" cy="257" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(296 245) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M3 15h18"/><path d="M9 3v18"/><path d="M15 3v18"/></g>
+<text x="338" y="247.5" font-size="14" font-weight="700" fill="#1e3a8a">Input data</text>
+<text x="338" y="264.5" font-size="12" fill="#1e3a8a">Data grid</text>
+<rect x="524" y="222" width="178" height="70" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="554" cy="257" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(542 245) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="12" height="12" x="2" y="10" rx="2" ry="2"/><path d="m17.92 14 3.5-3.5a2.24 2.24 0 0 0 0-3l-5-4.92a2.24 2.24 0 0 0-3 0L10 6"/><path d="M6 18h.01"/><path d="M10 14h.01"/><path d="M15 6h.01"/><path d="M18 9h.01"/></g>
+<text x="584" y="247.5" font-size="14" font-weight="700" fill="#3b0764">rnd</text>
+<text x="584" y="264.5" font-size="12" fill="#3b0764">Random value</text>
+<rect x="770" y="222" width="178" height="70" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="800" cy="257" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(788 245) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 16 4 4 4-4"/><path d="M7 20V4"/><path d="M11 4h10"/><path d="M11 8h7"/><path d="M11 12h4"/></g>
+<text x="830" y="247.5" font-size="14" font-weight="700" fill="#3b0764">Sort rows</text>
+<text x="830" y="264.5" font-size="12" fill="#3b0764">Sort rows</text>
+<rect x="770" y="368" width="178" height="70" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="800" cy="403" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(788 391) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 7V5a1 1 0 0 0-1-1H6.5a.5.5 0 0 0-.4.8l4.5 6a2 2 0 0 1 0 2.4l-4.5 6a.5.5 0 0 0 .4.8H17a1 1 0 0 0 1-1v-2"/></g>
+<text x="830" y="393.5" font-size="14" font-weight="700" fill="#3b0764">Memory Group</text>
+<text x="830" y="410.5" font-size="12" fill="#3b0764">Memory group by</text>
+<rect x="220.9" y="98.5" width="43.2" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="242.5" y="116.5" text-anchor="middle" font-size="12" fill="#334155">rows</text>
+<rect x="466.9" y="86.5" width="43.2" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="488.5" y="104.5" text-anchor="middle" font-size="12" fill="#334155">rows</text>
+<rect x="468.4" y="177.5" width="43.2" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="490" y="195.5" text-anchor="middle" font-size="12" fill="#334155">rows</text>
+<rect x="712.9" y="98.5" width="43.2" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="734.5" y="116.5" text-anchor="middle" font-size="12" fill="#334155">copy</text>
+<rect x="591.4" y="170" width="43.2" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="613" y="188" text-anchor="middle" font-size="12" fill="#334155">copy</text>
+<rect x="712.9" y="244.5" width="43.2" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="734.5" y="262.5" text-anchor="middle" font-size="12" fill="#334155">rows</text>
+<rect x="837.4" y="316" width="43.2" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="859" y="334" text-anchor="middle" font-size="12" fill="#334155">rows</text>
+<rect x="32" y="362" width="670" height="82" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<rect x="48" y="376" width="44" height="26" rx="6" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5"/>
+<text x="104" y="387" font-size="13" font-weight="700" fill="#0f172a">Step</text>
+<text x="104" y="403" font-size="12" fill="#334155">does one job: reads, changes or writes rows</text>
+<line x1="48" y1="424" x2="90" y2="424" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<text x="104" y="420" font-size="13" font-weight="700" fill="#0f172a">Hop</text>
+<text x="104" y="436" font-size="12" fill="#334155">carries rows from one step to the next: a buffer of rows between them</text>
+<text x="392" y="387" font-size="12" fill="#334155">All the steps run at the same time;</text>
+<text x="392" y="403" font-size="12" fill="#334155">"copy" sends every row down both hops.</text>
+</svg>
