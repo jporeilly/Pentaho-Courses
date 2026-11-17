@@ -18,7 +18,7 @@
 > 
 > **Prerequisites:** [Hello World](../03-mod2-hello-world/guide.md) - steps, hops and preview.
 > 
-> **Estimated time:** 20 minutes
+> **Estimated time:** 15 minutes
 
 <figure>
 
