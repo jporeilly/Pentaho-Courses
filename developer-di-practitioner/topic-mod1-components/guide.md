@@ -344,26 +344,16 @@ FontDefaultStyle=0
 
 ---
 
-> **Note:** **Versioning & Comments (Dev only)**
+> **Note:** **Versioning & Comments**
 >
-> Pentaho Data Integration can track versions and comments for jobs, transformations, and connection information when you save them. You can turn version control and comment tracking on or off by modifying their related statements in the repository.spring.properties text file.
+> On a Pentaho Server, the Pentaho Repository can keep versions of the jobs, transformations and connection information saved to it, with a comment on each save. Both are off by default (`false`). They are switched on in the server's `pentaho-solutions\system\repository.spring.properties` file, and take effect when the server is restarted:
 >
-> By default, version control and comment tracking are disabled (set to `false`). Best practice: keep your transformations and jobs in a version-control system such as Git, and upload only the production version to the repository.
-
-1. Exit Spoon.
-2. Stop the Pentaho Server.
-3. Open `repository.spring.properties` in the server's `pentaho-solutions\system` folder.
-
-```powershell
-notepad C:\Pentaho\server\pentaho-server\pentaho-solutions\system\repository.spring.properties
-```
-
-4. Set `versioningEnabled` and `versionCommentsEnabled` to `true`, save the file, and start the Pentaho Server again:
-
-```
-versioningEnabled=true
-versionCommentsEnabled=true
-```
+> ```
+> versioningEnabled=true
+> versionCommentsEnabled=true
+> ```
+>
+> This course has no Pentaho Server: its workshops save transformations and jobs as files on disk, so there is nothing to change here. Best practice is the same either way: keep your transformations and jobs in a version-control system such as Git, and upload only the production version to a repository.
 
 ::::
 
