@@ -18,7 +18,13 @@
 >
 > **Prerequisites:** Schema Workbench installed and the Pentaho Server running, which hosts the SampleData database (see [Before You Start](../00-before-you-start/guide.md)); a basic understanding of relational tables
 >
-> **Estimated time:** 45 minutes
+> **Estimated time:** 25 minutes
+
+<figure>
+
+<figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
+
+</figure>
 
 <div align="center">
 <figure>
@@ -39,48 +45,20 @@
 >
 > The SampleData database is HSQLDB (Hypersonic), and Schema Workbench ships its driver in `schema-workbench\drivers`, so this connection needs nothing extra. For another database, copy its JDBC driver into that `drivers` folder and restart Schema Workbench.
 
-<div class="pcm-embed-card" data-href="https://www.loom.com/share/5d8aeb46632048b491c3a26eeaeb936f?hideEmbedTopBar=true&amp;hide_owner=true&amp;hide_share=true&amp;hide_title=true" data-title="Connecting to the Steel Wheels Sample Database in Schema Workbench" data-description="In this video, I demonstrate how to connect to the Steel Wheels sample database using Schema Workbench. I walk through the steps to set up the database connection, including specifying the connection name, type, hostname, database name, port, username, and password. I also emphasize the importance of testing the connection to ensure everything is set up correctly, which I successfully did. Now that the connection is established, I am ready to build the schema in the next demonstration. Please follow along as I create the schema in the upcoming video." data-thumb="../_assets/embeds/2631a0493553.png"></div>
-
-1. Start Schema Workbench with the **Start Schema Workbench** button below, or from a terminal:
-
-::: tabs
-
-### Windows (PowerShell)
+1. Start Schema Workbench with the **Start Pentaho Schema Workbench** button below, or from PowerShell:
 
 ```powershell
 Set-Location C:\Pentaho\design-tools\schema-workbench
 .\workbench.bat
 ```
 
-### macOS / Linux
+<button data-launch="schema-workbench">Start Pentaho Schema Workbench</button>
 
-```bash
-cd ~/Pentaho/design-tools/schema-workbench
-./workbench.sh
-```
-
-:::
-
-<button data-launch="schema-workbench">Start Schema Workbench</button>
-
-2. Make sure the Pentaho Server is running: it hosts the SampleData database on port `9001`. On a lab VM it starts with the machine. On your own machine, start it and wait until **http://localhost:8080/pentaho** shows the sign-in page:
-
-::: tabs
-
-### Windows (PowerShell)
+2. Make sure the Pentaho Server is running: it hosts the SampleData database on port `9001`. On a lab VM it starts with the machine. On your own machine, start it as [Before You Start](../00-before-you-start/guide.md) describes (its repository database first), and wait until **http://localhost:8080/pentaho** shows the sign-in page:
 
 ```powershell
 C:\Pentaho\server\pentaho-server\start-pentaho.bat
 ```
-
-### macOS / Linux
-
-```bash
-cd ~/Pentaho/server/pentaho-server
-./start-pentaho.sh
-```
-
-:::
 
 3. Select **Options > Connection**.
 
@@ -186,7 +164,16 @@ cd ~/Pentaho/server/pentaho-server
 >
 > Its two measures, **Quantity** and **Sales**, each have an aggregator and a format string.
 
-1. Select **File > Open** and open `steelwheels.xml`, which you downloaded from **Lab Files** below.
+The whole schema at a glance, before you expand it:
+
+<div align="center">
+<figure>
+<img src="../_assets/images/steelwheels-schema.png" alt="The SteelWheels schema: the Sales_2003_2005 cube reads rows from the ORDERFACT fact table, has two measures, Quantity (sum of QUANTITYORDERED) and Sales (sum of TOTALPRICE), and five dimensions: MARKETS (Territory, Country, State Province, City), CUSTOMERS (Customer, with six member properties), PRODUCT (Line, Vendor), TIME (Years, Quarters, Months) and ORDERSTATUS (Status, degenerate, no table of its own)" width="800">
+<figcaption>One cube, its fact table, two measures and five dimensions</figcaption>
+</figure>
+</div>
+
+1. Select **File > Open** and open `steelwheels.xml` from `C:\Workshop-SW-Practitioner\03-schemas\04-schemas-steelwheels`, or download it from **Lab Files** below.
 
 <div align="center">
 <figure>
@@ -352,9 +339,9 @@ cd ~/Pentaho/server/pentaho-server
 
 ## Lab Files
 
-Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches Pentaho Data Integration with the file loaded. If Pentaho Data Integration is already running, the path is copied to your clipboard — switch to Pentaho Data Integration and press `Ctrl+O`, `Ctrl+V`, `Enter`.
+Click a file to download. Every file is also on disk in this workshop's folder, `C:\Workshop-SW-Practitioner\03-schemas\04-schemas-steelwheels`: open a schema in Schema Workbench with **File > Open**.
 
-The schema this workshop explores. Open it in Schema Workbench with **File > Open**:
+This workshop explores a finished schema, so it has no separate solution. The schema it explores:
 
 [steelwheels.xml](./files/steelwheels.xml)
 

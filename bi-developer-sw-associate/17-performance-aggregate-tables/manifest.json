@@ -1,9 +1,9 @@
 {
   "title": "Aggregate Tables",
-  "description": "",
+  "description": "Build two aggregate tables from ORDERFACT, switch Mondrian's aggregate matching on, declare them with Aggregate Name and prove from the SQL that queries use them.",
   "order": 17,
   "kind": "workshop",
-  "stepCount": 6,
+  "stepCount": 4,
   "hasVideo": false,
   "estimatedMinutes": 45
 }

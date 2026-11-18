@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="780" height="560" viewBox="0 0 780 560" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+<filter id="shadow" x="-10%" y="-10%" width="120%" height="140%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#0f172a" flood-opacity="0.12"/></filter></defs>
+<rect width="780" height="560" fill="#ffffff"/>
+<rect x="16" y="16" width="748" height="136" rx="12" fill="#fffbeb" stroke="#fef3c7" stroke-width="1.5"/>
+<path d="M16 28a12 12 0 0 1 12-12h724a12 12 0 0 1 12 12v32h-748z" fill="#b45309"/>
+<g transform="translate(29 26) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></g>
+<text x="56" y="36" font-size="14" font-weight="700" fill="#ffffff">In the browser</text>
+<text x="56" y="52" font-size="11.5" fill="#ffffff" opacity="0.92">the Pentaho User Console</text>
+<path d="M146 144C146 196.5 394 196.5 394 249" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M390 144C390 196.5 444 196.5 444 249" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M634 144C634 196.5 494 196.5 494 249" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M260 291L327 291" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M404 330C404 378.5 404 378.5 404 427" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M484 430C484 381.5 484 381.5 484 333" fill="none" stroke="#64748b" stroke-width="1.7" stroke-dasharray="5 4" marker-end="url(#arrow)"/>
+<rect x="32" y="66" width="228" height="78" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="105" r="19" fill="#ffffff" stroke="#b45309" stroke-width="1.2"/>
+<g transform="translate(50 93) scale(1)" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></g>
+<text x="92" y="88" font-size="14" font-weight="700" fill="#78350f">Analyzer</text>
+<text x="92" y="105" font-size="12" fill="#78350f">drag fields, filter,</text>
+<text x="92" y="120" font-size="12" fill="#78350f">drill down</text>
+<rect x="276" y="66" width="228" height="78" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="306" cy="105" r="19" fill="#ffffff" stroke="#b45309" stroke-width="1.2"/>
+<g transform="translate(294 93) scale(1)" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></g>
+<text x="336" y="88" font-size="14" font-weight="700" fill="#78350f">Reports</text>
+<text x="336" y="105" font-size="12" fill="#78350f">with an OLAP</text>
+<text x="336" y="120" font-size="12" fill="#78350f">data source</text>
+<rect x="520" y="66" width="228" height="78" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="550" cy="105" r="19" fill="#ffffff" stroke="#b45309" stroke-width="1.2"/>
+<g transform="translate(538 93) scale(1)" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></g>
+<text x="580" y="88" font-size="14" font-weight="700" fill="#78350f">Dashboards</text>
+<text x="580" y="105" font-size="12" fill="#78350f">CTools, with</text>
+<text x="580" y="120" font-size="12" fill="#78350f">MDX queries</text>
+<rect x="32" y="252" width="228" height="78" rx="10" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="291" r="19" fill="#ffffff" stroke="#0f766e" stroke-width="1.2"/>
+<g transform="translate(50 279) scale(1)" fill="none" stroke="#0f766e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 12.5 8 15l2 2.5"/><path d="m14 12.5 2 2.5-2 2.5"/></g>
+<text x="92" y="274" font-size="14" font-weight="700" fill="#134e4a">Your schema</text>
+<text x="92" y="291" font-size="12" fill="#134e4a">the .xml you publish:</text>
+<text x="92" y="306" font-size="12" fill="#134e4a">cubes mapped to tables</text>
+<rect x="330" y="252" width="228" height="78" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="360" cy="291" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(348 279) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 10.27 7 3.34"/><path d="m11 13.73-4 6.93"/><path d="M12 22v-2"/><path d="M12 2v2"/><path d="M14 12h8"/><path d="m17 20.66-1-1.73"/><path d="m17 3.34-1 1.73"/><path d="M2 12h2"/><path d="m20.66 17-1.73-1"/><path d="m20.66 7-1.73 1"/><path d="m3.34 17 1.73-1"/><path d="m3.34 7 1.73 1"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="12" r="8"/></g>
+<text x="390" y="274" font-size="14" font-weight="700" fill="#3b0764">Mondrian</text>
+<text x="390" y="291" font-size="12" fill="#3b0764">on the Pentaho Server;</text>
+<text x="390" y="306" font-size="12" fill="#3b0764">answers MDX, caches cells</text>
+<rect x="16" y="430" width="748" height="70" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="48" cy="465" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(36 453) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></g>
+<text x="78" y="462" font-size="14" font-weight="700" fill="#14532d">The data mart: a star schema in a relational database</text>
+<text x="78" y="480" font-size="12" fill="#14532d">in this course SampleData (HSQLDB): ORDERFACT and its dimension tables</text>
+<rect x="608.6" y="270" width="118.8" height="40" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="668" y="288" text-anchor="middle" font-size="12" fill="#334155">1  each click is</text>
+<text x="668" y="303" text-anchor="middle" font-size="12" fill="#334155">an MDX query</text>
+<rect x="263.95" y="248.5" width="62.1" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="295" y="266.5" text-anchor="middle" font-size="12" fill="#334155">2  maps</text>
+<rect x="376.1" y="367.5" width="55.8" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="404" y="385.5" text-anchor="middle" font-size="12" fill="#334155">3  SQL</text>
+<rect x="532.55" y="360" width="162.9" height="40" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="614" y="378" text-anchor="middle" font-size="12" fill="#334155">4  rows back, summed</text>
+<text x="614" y="393" text-anchor="middle" font-size="12" fill="#334155">into cells for the tool</text>
+<text x="16" y="540" font-size="12" fill="#64748b">ROLAP: the cube is not stored anywhere. Mondrian computes each cell from the relational tables, as the tool asks for it.</text>
+</svg>

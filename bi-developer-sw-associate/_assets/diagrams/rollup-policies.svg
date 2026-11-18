@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="632" viewBox="0 0 1100 632" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+<filter id="shadow" x="-10%" y="-10%" width="120%" height="140%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#0f172a" flood-opacity="0.12"/></filter></defs>
+<rect width="1100" height="632" fill="#ffffff"/>
+<rect x="16" y="100" width="344" height="488" rx="12" fill="#f8fafc" stroke="#f1f5f9" stroke-width="1.5"/>
+<path d="M16 112a12 12 0 0 1 12-12h320a12 12 0 0 1 12 12v32h-344z" fill="#475569"/>
+<g transform="translate(29 110) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"/><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"/><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"/></g>
+<text x="56" y="120" font-size="14" font-weight="700" fill="#ffffff">rollupPolicy="full"</text>
+<text x="56" y="136" font-size="11.5" fill="#ffffff" opacity="0.92">the default: totals include hidden members</text>
+<rect x="378" y="100" width="344" height="488" rx="12" fill="#f8fafc" stroke="#f1f5f9" stroke-width="1.5"/>
+<path d="M378 112a12 12 0 0 1 12-12h320a12 12 0 0 1 12 12v32h-344z" fill="#475569"/>
+<g transform="translate(391 110) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"/><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"/><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"/></g>
+<text x="418" y="120" font-size="14" font-weight="700" fill="#ffffff">rollupPolicy="partial"</text>
+<text x="418" y="136" font-size="11.5" fill="#ffffff" opacity="0.92">totals of the visible members only</text>
+<rect x="740" y="100" width="344" height="488" rx="12" fill="#f8fafc" stroke="#f1f5f9" stroke-width="1.5"/>
+<path d="M740 112a12 12 0 0 1 12-12h320a12 12 0 0 1 12 12v32h-344z" fill="#475569"/>
+<g transform="translate(753 110) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"/><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"/><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"/></g>
+<text x="780" y="120" font-size="14" font-weight="700" fill="#ffffff">rollupPolicy="hidden"</text>
+<text x="780" y="136" font-size="11.5" fill="#ffffff" opacity="0.92">no total over a hidden child</text>
+<path d="M188 222L188 238" fill="none" stroke="#64748b" stroke-width="1.7"/>
+<path d="M188 298L188 314" fill="none" stroke="#64748b" stroke-width="1.7"/>
+<path d="M188 374C188 391 78 391 78 408" fill="none" stroke="#64748b" stroke-width="1.7"/>
+<path d="M188 374C188 391 188 391 188 408" fill="none" stroke="#64748b" stroke-width="1.7"/>
+<path d="M188 374C188 391 298 391 298 408" fill="none" stroke="#64748b" stroke-width="1.7"/>
+<path d="M550 222L550 238" fill="none" stroke="#64748b" stroke-width="1.7"/>
+<path d="M550 298L550 314" fill="none" stroke="#64748b" stroke-width="1.7"/>
+<path d="M550 374C550 391 440 391 440 408" fill="none" stroke="#64748b" stroke-width="1.7"/>
+<path d="M550 374C550 391 550 391 550 408" fill="none" stroke="#64748b" stroke-width="1.7"/>
+<path d="M550 374C550 391 660 391 660 408" fill="none" stroke="#64748b" stroke-width="1.7"/>
+<path d="M912 222L912 238" fill="none" stroke="#64748b" stroke-width="1.7"/>
+<path d="M912 298L912 314" fill="none" stroke="#64748b" stroke-width="1.7"/>
+<path d="M912 374C912 391 802 391 802 408" fill="none" stroke="#64748b" stroke-width="1.7"/>
+<path d="M912 374C912 391 912 391 912 408" fill="none" stroke="#64748b" stroke-width="1.7"/>
+<path d="M912 374C912 391 1022 391 1022 408" fill="none" stroke="#64748b" stroke-width="1.7"/>
+<rect x="16" y="16" width="1068" height="64" rx="10" fill="#f1f5f9" stroke="#475569" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="48" cy="48" r="19" fill="#ffffff" stroke="#475569" stroke-width="1.2"/>
+<g transform="translate(36 36) scale(1)" fill="none" stroke="#475569" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z"/><circle cx="16.5" cy="7.5" r=".5" fill="currentColor"/></g>
+<text x="78" y="45" font-size="14" font-weight="700" fill="#0f172a">One grant, three policies: MemberGrant access="all" on NJ, NY and PA</text>
+<text x="78" y="63" font-size="12" fill="#0f172a">HierarchyGrant on [CUSTOMERS.Customers], access="custom", no topLevel: All Customers, NA and USA stay visible</text>
+<rect x="32" y="162" width="312" height="60" rx="10" fill="#fee2e2" stroke="#b91c1c" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="192" r="19" fill="#ffffff" stroke="#b91c1c" stroke-width="1.2"/>
+<g transform="translate(50 180) scale(1)" fill="none" stroke="#b91c1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><path d="M16 3.128a4 4 0 0 1 0 7.744"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><circle cx="9" cy="7" r="4"/></g>
+<text x="92" y="182.5" font-size="14" font-weight="700" fill="#7f1d1d">All Customers</text>
+<text x="92" y="199.5" font-size="12" fill="#7f1d1d">Sales 10,645,949.18</text>
+<rect x="32" y="238" width="312" height="60" rx="10" fill="#fee2e2" stroke="#b91c1c" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="268" r="19" fill="#ffffff" stroke="#b91c1c" stroke-width="1.2"/>
+<g transform="translate(50 256) scale(1)" fill="none" stroke="#b91c1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></g>
+<text x="92" y="258.5" font-size="14" font-weight="700" fill="#7f1d1d">NA</text>
+<text x="92" y="275.5" font-size="12" fill="#7f1d1d">Sales 3,852,061.39</text>
+<rect x="32" y="314" width="312" height="60" rx="10" fill="#fee2e2" stroke="#b91c1c" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="344" r="19" fill="#ffffff" stroke="#b91c1c" stroke-width="1.2"/>
+<g transform="translate(50 332) scale(1)" fill="none" stroke="#b91c1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22V4a1 1 0 0 1 .4-.8A6 6 0 0 1 8 2c3 0 5 2 7.333 2q2 0 3.067-.8A1 1 0 0 1 20 4v10a1 1 0 0 1-.4.8A6 6 0 0 1 16 16c-3 0-5-2-8-2a6 6 0 0 0-4 1.528"/></g>
+<text x="92" y="334.5" font-size="14" font-weight="700" fill="#7f1d1d">USA</text>
+<text x="92" y="351.5" font-size="12" fill="#7f1d1d">Sales 3,627,982.83</text>
+<rect x="32" y="408" width="92" height="56" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="78" y="426.5" text-anchor="middle" font-size="14" font-weight="700" fill="#78350f">NJ</text>
+<text x="78" y="443.5" text-anchor="middle" font-size="12" fill="#78350f">83,228.19</text>
+<rect x="142" y="408" width="92" height="56" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="188" y="426.5" text-anchor="middle" font-size="14" font-weight="700" fill="#78350f">NY</text>
+<text x="188" y="443.5" text-anchor="middle" font-size="12" fill="#78350f">646,343.76</text>
+<rect x="252" y="408" width="92" height="56" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="298" y="426.5" text-anchor="middle" font-size="14" font-weight="700" fill="#78350f">PA</text>
+<text x="298" y="443.5" text-anchor="middle" font-size="12" fill="#78350f">273,327.27</text>
+<rect x="32" y="500" width="312" height="72" rx="10" fill="#fee2e2" stroke="#b91c1c" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="536" r="19" fill="#ffffff" stroke="#b91c1c" stroke-width="1.2"/>
+<g transform="translate(50 524) scale(1)" fill="none" stroke="#b91c1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></g>
+<text x="92" y="519" font-size="14" font-weight="700" fill="#7f1d1d">The leak: 2,625,083.61</text>
+<text x="92" y="536" font-size="12" fill="#7f1d1d">USA 3,627,982.83 minus the</text>
+<text x="92" y="551" font-size="12" fill="#7f1d1d">three visible states</text>
+<rect x="394" y="162" width="312" height="60" rx="10" fill="#ffffff" stroke="#64748b" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="424" cy="192" r="19" fill="#ffffff" stroke="#64748b" stroke-width="1.2"/>
+<g transform="translate(412 180) scale(1)" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><path d="M16 3.128a4 4 0 0 1 0 7.744"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><circle cx="9" cy="7" r="4"/></g>
+<text x="454" y="182.5" font-size="14" font-weight="700" fill="#0f172a">All Customers</text>
+<text x="454" y="199.5" font-size="12" fill="#0f172a">Sales 1,002,899.22</text>
+<rect x="394" y="238" width="312" height="60" rx="10" fill="#ffffff" stroke="#64748b" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="424" cy="268" r="19" fill="#ffffff" stroke="#64748b" stroke-width="1.2"/>
+<g transform="translate(412 256) scale(1)" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></g>
+<text x="454" y="258.5" font-size="14" font-weight="700" fill="#0f172a">NA</text>
+<text x="454" y="275.5" font-size="12" fill="#0f172a">Sales 1,002,899.22</text>
+<rect x="394" y="314" width="312" height="60" rx="10" fill="#ffffff" stroke="#64748b" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="424" cy="344" r="19" fill="#ffffff" stroke="#64748b" stroke-width="1.2"/>
+<g transform="translate(412 332) scale(1)" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22V4a1 1 0 0 1 .4-.8A6 6 0 0 1 8 2c3 0 5 2 7.333 2q2 0 3.067-.8A1 1 0 0 1 20 4v10a1 1 0 0 1-.4.8A6 6 0 0 1 16 16c-3 0-5-2-8-2a6 6 0 0 0-4 1.528"/></g>
+<text x="454" y="334.5" font-size="14" font-weight="700" fill="#0f172a">USA</text>
+<text x="454" y="351.5" font-size="12" fill="#0f172a">Sales 1,002,899.22</text>
+<rect x="394" y="408" width="92" height="56" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="440" y="426.5" text-anchor="middle" font-size="14" font-weight="700" fill="#78350f">NJ</text>
+<text x="440" y="443.5" text-anchor="middle" font-size="12" fill="#78350f">83,228.19</text>
+<rect x="504" y="408" width="92" height="56" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="550" y="426.5" text-anchor="middle" font-size="14" font-weight="700" fill="#78350f">NY</text>
+<text x="550" y="443.5" text-anchor="middle" font-size="12" fill="#78350f">646,343.76</text>
+<rect x="614" y="408" width="92" height="56" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="660" y="426.5" text-anchor="middle" font-size="14" font-weight="700" fill="#78350f">PA</text>
+<text x="660" y="443.5" text-anchor="middle" font-size="12" fill="#78350f">273,327.27</text>
+<rect x="394" y="500" width="312" height="72" rx="10" fill="#ffffff" stroke="#64748b" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="424" cy="536" r="19" fill="#ffffff" stroke="#64748b" stroke-width="1.2"/>
+<g transform="translate(412 524) scale(1)" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></g>
+<text x="454" y="519" font-size="14" font-weight="700" fill="#0f172a">Each total = NJ + NY + PA</text>
+<text x="454" y="536" font-size="12" fill="#0f172a">nothing hidden can be</text>
+<text x="454" y="551" font-size="12" fill="#0f172a">worked out</text>
+<rect x="756" y="162" width="312" height="60" rx="10" fill="#f5f5f4" stroke="#a8a29e" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="786" cy="192" r="19" fill="#ffffff" stroke="#a8a29e" stroke-width="1.2"/>
+<g transform="translate(774 180) scale(1)" fill="none" stroke="#a8a29e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><path d="M16 3.128a4 4 0 0 1 0 7.744"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><circle cx="9" cy="7" r="4"/></g>
+<text x="816" y="182.5" font-size="14" font-weight="700" fill="#78716c">All Customers</text>
+<text x="816" y="199.5" font-size="12" fill="#78716c">Sales (empty)</text>
+<rect x="756" y="238" width="312" height="60" rx="10" fill="#f5f5f4" stroke="#a8a29e" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="786" cy="268" r="19" fill="#ffffff" stroke="#a8a29e" stroke-width="1.2"/>
+<g transform="translate(774 256) scale(1)" fill="none" stroke="#a8a29e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></g>
+<text x="816" y="258.5" font-size="14" font-weight="700" fill="#78716c">NA</text>
+<text x="816" y="275.5" font-size="12" fill="#78716c">Sales (empty)</text>
+<rect x="756" y="314" width="312" height="60" rx="10" fill="#f5f5f4" stroke="#a8a29e" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="786" cy="344" r="19" fill="#ffffff" stroke="#a8a29e" stroke-width="1.2"/>
+<g transform="translate(774 332) scale(1)" fill="none" stroke="#a8a29e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22V4a1 1 0 0 1 .4-.8A6 6 0 0 1 8 2c3 0 5 2 7.333 2q2 0 3.067-.8A1 1 0 0 1 20 4v10a1 1 0 0 1-.4.8A6 6 0 0 1 16 16c-3 0-5-2-8-2a6 6 0 0 0-4 1.528"/></g>
+<text x="816" y="334.5" font-size="14" font-weight="700" fill="#78716c">USA</text>
+<text x="816" y="351.5" font-size="12" fill="#78716c">Sales (empty)</text>
+<rect x="756" y="408" width="92" height="56" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="802" y="426.5" text-anchor="middle" font-size="14" font-weight="700" fill="#78350f">NJ</text>
+<text x="802" y="443.5" text-anchor="middle" font-size="12" fill="#78350f">83,228.19</text>
+<rect x="866" y="408" width="92" height="56" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="912" y="426.5" text-anchor="middle" font-size="14" font-weight="700" fill="#78350f">NY</text>
+<text x="912" y="443.5" text-anchor="middle" font-size="12" fill="#78350f">646,343.76</text>
+<rect x="976" y="408" width="92" height="56" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="1022" y="426.5" text-anchor="middle" font-size="14" font-weight="700" fill="#78350f">PA</text>
+<text x="1022" y="443.5" text-anchor="middle" font-size="12" fill="#78350f">273,327.27</text>
+<rect x="756" y="500" width="312" height="72" rx="10" fill="#ffffff" stroke="#64748b" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="786" cy="536" r="19" fill="#ffffff" stroke="#64748b" stroke-width="1.2"/>
+<g transform="translate(774 524) scale(1)" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m2 2 20 20"/><path d="M5 5a1 1 0 0 0-1 1v7c0 5 3.5 7.5 7.67 8.94a1 1 0 0 0 .67.01c2.35-.82 4.48-1.97 5.9-3.71"/><path d="M9.309 3.652A12.252 12.252 0 0 0 11.24 2.28a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1v7a9.784 9.784 0 0 1-.08 1.264"/></g>
+<text x="816" y="519" font-size="14" font-weight="700" fill="#0f172a">No totals at all</text>
+<text x="816" y="536" font-size="12" fill="#0f172a">the most restrictive:</text>
+<text x="816" y="551" font-size="12" fill="#0f172a">only the states show</text>
+<text x="550" y="614" text-anchor="middle" font-size="12" fill="#475569">Amber: the granted states, visible under every policy. The policy only decides what their ancestors show.</text>
+</svg>

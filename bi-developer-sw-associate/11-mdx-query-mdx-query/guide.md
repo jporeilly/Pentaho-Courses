@@ -15,9 +15,13 @@
 >
 > **Prerequisites:** Complete [SteelWheels](../04-schemas-steelwheels/guide.md), so Schema Workbench has the `hsqldb_sampledata` connection; the Pentaho Server running
 >
-> **Estimated time:** 25 minutes
+> **Estimated time:** 15 minutes
 
-<div class="pcm-embed-card" data-href="https://www.loom.com/share/6404e8e60d424783933e7e48a6b443ad?hideEmbedTopBar=true&amp;hide_owner=true&amp;hide_share=true&amp;hide_title=true" data-title="Testing MDX Queries for the Steel Wheel Sales Training Cube 🛠️" data-description="In this video, I demonstrate how to test the Steel Wheel Sales Training Cube using MDX query mode. I write two MDX queries: the first displays all measures for the year 2004, confirming that both sales and quantity measures, along with calculated measures, are functioning correctly. I then modify the query to show only sales and quantity measures for 2005, illustrating how to select specific members from the year's level. I encourage you to explore variations of these queries to further test the schema. Finally, I will be publishing the schema to the repository in the next demonstration." data-thumb="../_assets/embeds/2631a0493553.png"></div>
+<figure>
+
+<figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
+
+</figure>
 
 :::: tabs
 
@@ -27,51 +31,25 @@
 >
 > #### Launch MDX Query Mode
 >
-> The MDX Query window runs queries against a schema open in Schema Workbench, through the workbench's own JDBC connection. This workshop uses the SteelWheels sample schema that ships with Pentaho Report Designer: its cube is `SteelWheelsSales`.
+> The MDX Query window runs queries against a schema open in Schema Workbench, through the workbench's own JDBC connection. This workshop queries the SteelWheels schema you explored in [SteelWheels](../04-schemas-steelwheels/guide.md): its cube is `Sales_2003_2005`.
 
-1. Start Schema Workbench with the **Start Schema Workbench** button below, or from a terminal:
-
-::: tabs
-
-### Windows (PowerShell)
+1. Start Schema Workbench with the **Start Pentaho Schema Workbench** button below, or from PowerShell:
 
 ```powershell
 Set-Location C:\Pentaho\design-tools\schema-workbench
 .\workbench.bat
 ```
 
-### macOS / Linux
+<button data-launch="schema-workbench">Start Pentaho Schema Workbench</button>
 
-```bash
-cd ~/Pentaho/design-tools/schema-workbench
-./workbench.sh
-```
-
-:::
-
-<button data-launch="schema-workbench">Start Schema Workbench</button>
-
-2. Make sure the Pentaho Server is running: it hosts the SampleData database on port `9001`. On a lab VM it starts with the machine. On your own machine, start it and wait until **http://localhost:8080/pentaho** shows the sign-in page:
-
-::: tabs
-
-### Windows (PowerShell)
+2. Make sure the Pentaho Server is running: it hosts the SampleData database on port `9001`. On a lab VM it starts with the machine. On your own machine, start it as [Before You Start](../00-before-you-start/guide.md) describes (its repository database first), and wait until **http://localhost:8080/pentaho** shows the sign-in page:
 
 ```powershell
 C:\Pentaho\server\pentaho-server\start-pentaho.bat
 ```
 
-### macOS / Linux
-
-```bash
-cd ~/Pentaho/server/pentaho-server
-./start-pentaho.sh
-```
-
-:::
-
-3. Select **File > Open** and open the sample schema: `C:\Pentaho\design-tools\report-designer\samples\steelwheels.mondrian.xml` on Windows, `~/Pentaho/design-tools/report-designer/samples/steelwheels.mondrian.xml` on macOS and Linux.
-4. Select **File > New > MDX Query**.
+3. Select **File > Open** and open `steelwheels.xml` from `C:\Workshop-SW-Practitioner\05-mdx-query\11-mdx-query-mdx-query`, or download it from **Lab Files** below.
+4. With the schema's window selected, select **File > New > MDX Query**. Opening the schema first connects the query window to it; with no schema open, Schema Workbench answers `No Mondrian connection. Select a Schema to connect.`
 
 <div align="center">
 <figure>
@@ -80,9 +58,9 @@ cd ~/Pentaho/server/pentaho-server
 </figure>
 </div>
 
-5. If the window title doesn't read **MDX Query - connected to steelwheels.mondrian.xml**, select the schema in the **Schema** list and select **Connect**. When Schema Workbench reports `Mondrian connection Successful.`, select **OK**.
+5. If the window title doesn't read **MDX Query - connected to steelwheels.xml**, select the schema in the **Schema** list and select **Connect**. When Schema Workbench reports `Mondrian connection Successful.`, select **OK**.
 
-> **Success:** Checkpoint: the window title reads **MDX Query - connected to steelwheels.mondrian.xml**.
+> **Success:** Checkpoint: the window title reads **MDX Query - connected to steelwheels.xml**.
 
 ### 2. A Basic Query
 
@@ -96,7 +74,7 @@ cd ~/Pentaho/server/pentaho-server
 
 ```mdx
 SELECT Measures.allmembers on columns
-FROM SteelWheelsSales
+FROM [Sales_2003_2005]
 WHERE ([Years].[2004])
 ```
 
@@ -104,8 +82,8 @@ WHERE ([Years].[2004])
 
 <div align="center">
 <figure>
-<img src="../_assets/images/mdx_query_mdx_query_quantity_sales_count_for_fy2004.png" alt="MDX Query window running SELECT Measures.allmembers for 2004 against SteelWheelsSales, returning Quantity 49,417, Sales 4,987,740 and Fact Count 1,421" width="539">
-<figcaption>Quantity, Sales and Fact Count for 2004 (taken on a copy of the schema saved as steelwheelssales.xml)</figcaption>
+<img src="../_assets/images/mdx_query_mdx_query_quantity_sales_count_for_fy2004.png" alt="MDX Query window running SELECT Measures.allmembers for 2004, returning Quantity 49,417, Sales 4,987,740 and Fact Count 1,421" width="539">
+<figcaption>Quantity, Sales and Fact Count for 2004</figcaption>
 </figure>
 </div>
 
@@ -146,7 +124,7 @@ SELECT
 { [Measures].[Sales], [Measures].[Quantity] } ON COLUMNS,
 { [Years].&[2004],
 [Years].&[2005]} ON ROWS
-FROM [SteelWheelsSales]
+FROM [Sales_2003_2005]
 WHERE ( [Markets].[APAC] )
 ```
 
@@ -155,7 +133,7 @@ WHERE ( [Markets].[APAC] )
 <div align="center">
 <figure>
 <img src="../_assets/images/mdx_query_mdx_query_sales_quantity_for_fy2004_and_2005_apac.png" alt="MDX Query window returning APAC Sales and Quantity for 2004 and 2005: 601,606 and 5,938 for 2004, 337,018 and 3,411 for 2005" width="521">
-<figcaption>Sales and Quantity for 2004 and 2005 in APAC (taken on a copy of the schema with a named Markets hierarchy)</figcaption>
+<figcaption>Sales and Quantity for 2004 and 2005 in APAC</figcaption>
 </figure>
 </div>
 
@@ -172,9 +150,11 @@ WHERE ( [Markets].[APAC] )
 > schema the two are the same, but where a level has a separate name
 > column, a key reference keeps working when the displayed name changes.
 >
-> `[Markets].[APAC]` names the hierarchy after its dimension, because in
-> this sample the Markets hierarchy has no name of its own. Schema
-> Workbench matches names without regard to case
+> `[Markets].[APAC]` is a short form: Mondrian finds the Markets
+> hierarchy of the MARKETS dimension by name, and APAC in it. The full
+> form names the dimension and the hierarchy, `[MARKETS.Markets].[APAC]`,
+> as the results pane does. Schema Workbench matches names without
+> regard to case
 > (`mondrian.olap.case.sensitive` is left off in its
 > mondrian.properties), so `[markets].[apac]` works there too; the
 > Pentaho Server ships with it set to true, and the same lowercase query
@@ -182,12 +162,16 @@ WHERE ( [Markets].[APAC] )
 >
 > **Why it matters:** write names in their exact case. And `[Years]`
 > works on its own only because nothing else in the cube has that name;
-> the full form, `[Time].[2004]`, never depends on that.
+> the full form, `[TIME.Time].[2004]`, never depends on that.
 
 ::::
 
 ## Lab Files
 
-Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches Pentaho Data Integration with the file loaded. If Pentaho Data Integration is already running, the path is copied to your clipboard — switch to Pentaho Data Integration and press `Ctrl+O`, `Ctrl+V`, `Enter`.
+Click a file to download. Every file is also on disk in this workshop's folder, `C:\Workshop-SW-Practitioner\05-mdx-query\11-mdx-query-mdx-query`: open a schema in Schema Workbench with **File > Open**.
 
-_No bundled files for this lab._ The schema it queries ships with your Pentaho install, at `C:\Pentaho\design-tools\report-designer\samples\steelwheels.mondrian.xml`.
+The schema this workshop queries, the same SteelWheels schema as in [SteelWheels](../04-schemas-steelwheels/guide.md):
+
+[steelwheels.xml](./files/steelwheels.xml)
+
+This workshop writes queries, not a schema, so it has no separate solution: the checkpoints give each query's result.

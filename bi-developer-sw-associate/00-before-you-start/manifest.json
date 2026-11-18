@@ -3,8 +3,8 @@
   "description": "Orient yourself: progress tracking, code copy, launchers, and the AI assistant.",
   "order": 0,
   "kind": "page",
-  "stepCount": 12,
-  "estimatedMinutes": 25,
+  "stepCount": 19,
+  "estimatedMinutes": 5,
   "hasVideo": false,
   "checks": [],
   "noProgress": true

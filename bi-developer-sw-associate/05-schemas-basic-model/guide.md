@@ -16,18 +16,24 @@
 >
 > **Prerequisites:** Complete [SteelWheels](../04-schemas-steelwheels/guide.md); the Pentaho Server running, with access to the User Console as `admin`
 >
-> **Estimated time:** 90 minutes
+> **Estimated time:** 45 minutes
 
-<div align="center">
 <figure>
-<img src="../_assets/images/classic_workflow_to_define_a_schema.png" alt="Curved arrow diagram of the workflow to define a schema: connect to a data source, create the schema and cube, add the fact table, measures and dimensions, then publish" width="425">
-<figcaption>The workflow to define a schema</figcaption>
-</figure>
-</div>
+
+<figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
+
+
 
 :::: tabs
 
 ### 1. JDBC Connection
+
+<div align="center">
+<figure>
+<img src="../_assets/images/basic-model-workflow-1.png" alt="The workflow to define a schema with part 1 of 9, JDBC connection, highlighted as this tab" width="800">
+<figcaption>Part 1 of 9: JDBC connection</figcaption>
+</figure>
+</div>
 
 > **Note:**
 >
@@ -35,48 +41,20 @@
 >
 > A JDBC (Java Database Connectivity) connection links Schema Workbench to the source database, so it can list the physical tables and columns you build the schema from. Schema Workbench ships the HSQLDB driver the SampleData database needs in `schema-workbench\drivers`; for another database, copy its JDBC driver into that folder and restart Schema Workbench.
 
-<div class="pcm-embed-card" data-href="https://www.loom.com/share/5d8aeb46632048b491c3a26eeaeb936f?hideEmbedTopBar=true&amp;hide_owner=true&amp;hide_share=true&amp;hide_title=true" data-title="Connecting to the Steel Wheels Sample Database in Schema Workbench" data-description="In this video, I demonstrate how to connect to the Steel Wheels sample database using Schema Workbench. I walk through the steps to set up the database connection, including specifying the connection name, type, hostname, database name, port, username, and password. I also emphasize the importance of testing the connection to ensure everything is set up correctly, which I successfully did. Now that the connection is established, I am ready to build the schema in the next demonstration. Please follow along as I create the schema in the upcoming video." data-thumb="../_assets/embeds/2631a0493553.png"></div>
-
-1. Start Schema Workbench with the **Start Schema Workbench** button below, or from a terminal:
-
-::: tabs
-
-### Windows (PowerShell)
+1. Start Schema Workbench with the **Start Pentaho Schema Workbench** button below, or from PowerShell:
 
 ```powershell
 Set-Location C:\Pentaho\design-tools\schema-workbench
 .\workbench.bat
 ```
 
-### macOS / Linux
+<button data-launch="schema-workbench">Start Pentaho Schema Workbench</button>
 
-```bash
-cd ~/Pentaho/design-tools/schema-workbench
-./workbench.sh
-```
-
-:::
-
-<button data-launch="schema-workbench">Start Schema Workbench</button>
-
-2. Make sure the Pentaho Server is running: it hosts the SampleData database on port `9001`. On a lab VM it starts with the machine. On your own machine, start it and wait until **http://localhost:8080/pentaho** shows the sign-in page:
-
-::: tabs
-
-### Windows (PowerShell)
+2. Make sure the Pentaho Server is running: it hosts the SampleData database on port `9001`. On a lab VM it starts with the machine. On your own machine, start it as [Before You Start](../00-before-you-start/guide.md) describes (its repository database first), and wait until **http://localhost:8080/pentaho** shows the sign-in page:
 
 ```powershell
 C:\Pentaho\server\pentaho-server\start-pentaho.bat
 ```
-
-### macOS / Linux
-
-```bash
-cd ~/Pentaho/server/pentaho-server
-./start-pentaho.sh
-```
-
-:::
 
 3. Select **Options > Connection**.
 
@@ -114,6 +92,13 @@ cd ~/Pentaho/server/pentaho-server
 6. Select **OK** to close the message, then select **OK** to close **Database Connection**.
 
 ### 2. Server Connection
+
+<div align="center">
+<figure>
+<img src="../_assets/images/basic-model-workflow-2.png" alt="The workflow to define a schema with part 2 of 9, server connection, highlighted as this tab" width="800">
+<figcaption>Part 2 of 9: Server connection</figcaption>
+</figure>
+</div>
 
 > **Note:**
 >
@@ -168,6 +153,15 @@ cd ~/Pentaho/server/pentaho-server
 
 6. Select **OK** to close the message, select **OK** to save the connection, and select **Close** to close **Manage Data Sources**.
 
+You now have two connections with the same name, one in each place:
+
+<div align="center">
+<figure>
+<img src="../_assets/images/two-connections.png" alt="Two separate connections called hsqldb_sampledata: Schema Workbench's, set in Options &gt; Connection, which lists tables and runs MDX while you design; and the Pentaho Server's, set in Manage Data Sources. When you publish ClassicModels.xml you type hsqldb_sampledata, the published Classic Models catalog records it as its DataSource, and the server finds its own connection by that name. Analyzer queries the catalog. Both connections reach the SampleData HSQLDB database on port 9001 separately" width="800">
+<figcaption>Two connections, joined only by the name you type when you publish</figcaption>
+</figure>
+</div>
+
 > **Under the hood:**
 >
 > #### Two connections, joined only by a name
@@ -188,13 +182,18 @@ cd ~/Pentaho/server/pentaho-server
 
 ### 3. Schema & Cube
 
+<div align="center">
+<figure>
+<img src="../_assets/images/basic-model-workflow-3.png" alt="The workflow to define a schema with part 3 of 9, schema and cube, highlighted as this tab" width="800">
+<figcaption>Part 3 of 9: Schema and cube</figcaption>
+</figure>
+</div>
+
 > **Note:**
 >
 > #### Classic Models Schema and Cube
 >
 > The schema is the top-level container. The `ClassicModelsOrders` cube inside it covers one business process, order transactions: it joins the `ORDERFACT` fact table to the CUSTOMERS and PRODUCTS dimensions and the Sales measure. Once published, the cube is a data source in Analyzer, where users slice, drill and pivot sales by territory and product line.
-
-<div class="pcm-embed-card" data-href="https://www.loom.com/share/edcdc7025caa49038a22df66e9e186e3?hideEmbedTopBar=true&amp;hide_owner=true&amp;hide_share=true&amp;hide_title=true" data-title="Creating a Schema in Schema Workbench 🛠️" data-description="In this video, I walk you through the process of creating a new schema file in Schema Workbench. I demonstrate how to name the schema &amp;#34;My Steel Wheels&amp;#34; and save it as an XML file on my file system. I also highlight the importance of using the right-click function to build your schema, cubes, measures, and dimensions effectively. As a next step, I will be adding a cube to this schema in the following demonstration. Please follow along and ensure you have your Schema Workbench ready for the next steps." data-thumb="../_assets/embeds/2631a0493553.png"></div>
 
 1. Select **File > New > Schema**. (On the toolbar, **New** offers the same choice.)
 
@@ -215,8 +214,6 @@ cd ~/Pentaho/server/pentaho-server
 </figure>
 </div>
 
-<div class="pcm-embed-card" data-href="https://www.loom.com/share/aa2efbf60ee8490fbeef871e6192370f?hideEmbedTopBar=true&amp;hide_owner=true&amp;hide_share=true&amp;hide_title=true" data-title="Adding a Cube to the Schema: Steel Wheels Sales Training" data-description="In this video, I demonstrate how to add a cube called &amp;#34;Steel Wheels Sales Training&amp;#34; to the schema I previously created. I walk through the steps of right-clicking the schema in the navigation pane, selecting &amp;#34;Add Cube,&amp;#34; and entering the cube name. It's important to note that I need to set a fact name for the cube to be valid, as indicated by the red X's and messages at the bottom of the screen. In the next demonstration, I will begin building the cube by adding the fact table. Please make sure to follow along and ensure all necessary attributes are set for a valid schema." data-thumb="../_assets/embeds/2631a0493553.png"></div>
-
 4. Right-click **Schema** and select **Add cube**.
 5. Set **name** to `ClassicModelsOrders` and press `Tab`. Leave **cache**, **enabled** and **visible** selected.
 
@@ -229,17 +226,22 @@ cd ~/Pentaho/server/pentaho-server
 
 > **Success:** Checkpoint: the cube and the schema show a red cross, and the message under the property grid reads `Fact name must be set`: a cube needs a fact table, which you add next.
 
-6. Select **File > Save As** and save the schema as `ClassicModels.xml` in a folder of your own.
+6. Select **File > Save As** and save the schema as `ClassicModels.xml` in `C:\Workshop-SW-Practitioner\03-schemas\05-schemas-basic-model`.
 
 ### 4. Fact Table
+
+<div align="center">
+<figure>
+<img src="../_assets/images/basic-model-workflow-4.png" alt="The workflow to define a schema with part 4 of 9, fact table, highlighted as this tab" width="800">
+<figcaption>Part 4 of 9: Fact table</figcaption>
+</figure>
+</div>
 
 > **Note:**
 >
 > #### Fact Table
 >
 > The fact table holds the columns the measures are calculated from, and the keys that join it to the dimension tables. `ORDERFACT` holds one row per order line; the Sales measure sums its `TOTALPRICE` column.
-
-<div class="pcm-embed-card" data-href="https://www.loom.com/share/7d8012bd48594ff9aceec25256c9ef24?hideEmbedTopBar=true&amp;hide_owner=true&amp;hide_share=true&amp;hide_title=true" data-title="Building a Cube with Order Fact Table in Steel Wheel Sales Training" data-description="In this video, I demonstrate how to build a cube using a star schema, starting with the order fact table at the center. I guide you through the process of adding the order fact table to the Steel Wheel Sales Training Cube, showing you how to navigate the interface and select the appropriate table from our sample database. Once the fact table is added, we will be ready to incorporate measures in the next demonstration. Please pay attention to the steps I outline, as they are crucial for the next phase of our project." data-thumb="../_assets/embeds/2631a0493553.png"></div>
 
 1. Right-click **ClassicModelsOrders** and select **Add Table**.
 
@@ -270,13 +272,18 @@ cd ~/Pentaho/server/pentaho-server
 
 ### 5. CUSTOMERS Dimension
 
+<div align="center">
+<figure>
+<img src="../_assets/images/basic-model-workflow-5.png" alt="The workflow to define a schema with part 5 of 9, CUSTOMERS dimension, highlighted as this tab" width="800">
+<figcaption>Part 5 of 9: CUSTOMERS dimension</figcaption>
+</figure>
+</div>
+
 > **Note:**
 >
 > #### CUSTOMERS Dimension, Hierarchy and Levels
 >
 > The CUSTOMERS dimension joins the fact table on its `CUSTOMERNUMBER` foreign key. Its **Customers** hierarchy reads the `CUSTOMER_W_TER` table and has two levels, from general to specific: **Territory**, the sales region, and **Customer Name**. Users drill from a territory's total down to its customers.
-
-<div class="pcm-embed-card" data-href="https://www.loom.com/share/3752f22898e6433e89cfc8c2872f5962?hideEmbedTopBar=true&amp;hide_owner=true&amp;hide_share=true&amp;hide_title=true" data-title="Adding Dimensions and Hierarchies in Schema Workbench" data-description="In this video, I demonstrate how to add a new dimension, specifically the Markets dimension, to our steel wheel sales training cube using Schema Workbench. I explain the process of selecting the foreign key, attaching the customer with territory table, and setting up the hierarchy within the dimension. I also highlight the importance of naming conventions and the all-member concept. As we move forward, I will be adding levels to this hierarchy in the next demonstration. Please pay attention to the steps outlined, as they are crucial for our logical star schema setup." data-thumb="../_assets/embeds/2631a0493553.png"></div>
 
 1. Right-click **ClassicModelsOrders** and select **Add Dimension**.
 
@@ -344,8 +351,6 @@ cd ~/Pentaho/server/pentaho-server
 
 > **Success:** Checkpoint: the hierarchy is now **Customers**, and its message reads `At least one Level must be set for Hierarchy`.
 
-<div class="pcm-embed-card" data-href="https://www.loom.com/share/ce0e6919c4544c24adbb6cc2cc8f8f2e?hideEmbedTopBar=true&amp;hide_owner=true&amp;hide_share=true&amp;hide_title=true" data-title="BA3000 - M5L2S6b - Adding Levels to a Hierarchy" data-description="Use Loom to record quick videos of your screen and cam. Explain anything clearly and easily – and skip the meeting. An essential tool for hybrid workplaces." data-thumb="../_assets/embeds/2631a0493553.png"></div>
-
 6. Right-click **Customers** and select **Add Level**.
 7. Set the level's attributes:
 
@@ -410,6 +415,13 @@ cd ~/Pentaho/server/pentaho-server
 > **Success:** Checkpoint: **CUSTOMERS** and everything under it show no red cross: **Customers** holds **Territory**, **Customer Name** and **Table: CUSTOMER_W_TER**. The cube and the schema keep theirs until the cube has a measure.
 
 ### 6. PRODUCTS Dimension
+
+<div align="center">
+<figure>
+<img src="../_assets/images/basic-model-workflow-6.png" alt="The workflow to define a schema with part 6 of 9, PRODUCTS dimension, highlighted as this tab" width="800">
+<figcaption>Part 6 of 9: PRODUCTS dimension</figcaption>
+</figure>
+</div>
 
 > **Note:**
 >
@@ -486,13 +498,18 @@ cd ~/Pentaho/server/pentaho-server
 
 ### 7. Measures
 
+<div align="center">
+<figure>
+<img src="../_assets/images/basic-model-workflow-7.png" alt="The workflow to define a schema with part 7 of 9, measures, highlighted as this tab" width="800">
+<figcaption>Part 7 of 9: Measures</figcaption>
+</figure>
+</div>
+
 > **Note:**
 >
 > #### Measures
 >
 > Measures are the numbers users aggregate across the dimensions. The **Sales** measure sums the `TOTALPRICE` column of `ORDERFACT`, so Sales by Territory, by Product Line or by both adds up the order lines underneath. Its format string shows the result as currency with two decimal places, and the **Numeric** data type tells client tools it is a number.
-
-<div class="pcm-embed-card" data-href="https://www.loom.com/share/9a3b097c1ccc4819b8474147a67d7189?hideEmbedTopBar=true&amp;hide_owner=true&amp;hide_share=true&amp;hide_title=true" data-title="Adding Measures to Your Cube in Schema Workbench 📊" data-description="In this video, I walk you through the process of adding measures to our cube, specifically focusing on the sales measure derived from the total price column in the order fact table. I demonstrate how to assign a business-friendly name, select the aggregation method as &amp;#34;sum,&amp;#34; and format the measure as US currency with two decimal places. Additionally, I emphasize the importance of specifying the data type as numeric to ensure accurate reporting. I also show how to use the JDBC Explorer to verify the data type in the database. Please make sure to follow these steps as we prepare to add dimensions in the next demonstration." data-thumb="../_assets/embeds/2631a0493553.png"></div>
 
 1. Right-click **ClassicModelsOrders** and select **Add Measure**.
 2. Set the measure's attributes:
@@ -550,13 +567,18 @@ cd ~/Pentaho/server/pentaho-server
 
 ### 8. Publish
 
+<div align="center">
+<figure>
+<img src="../_assets/images/basic-model-workflow-8.png" alt="The workflow to define a schema with part 8 of 9, publish, highlighted as this tab" width="800">
+<figcaption>Part 8 of 9: Publish</figcaption>
+</figure>
+</div>
+
 > **Note:**
 >
 > #### Publish
 >
 > Publishing sends the schema from Schema Workbench to the Pentaho Server, where it becomes a data source for Analyzer reports and dashboards.
-
-<div class="pcm-embed-card" data-href="https://www.loom.com/share/78f922d6f37d45dc81b56046eae090b0?hideEmbedTopBar=true&amp;hide_owner=true&amp;hide_share=true&amp;hide_title=true" data-title="Publishing a Schema to Pentaho BA Server" data-description="In this video, I walk you through the process of publishing a schema to the Pentaho server, which is essential for utilizing it as a data source in tools like Analyzer and Report Designer. I demonstrate how to access the publish feature, input the server URL, and enter your credentials—using &amp;#34;admin&amp;#34; and &amp;#34;password&amp;#34; as examples. It's important to ensure that the Pentaho data source is set to match your specific database connection, which I change to &amp;#34;sample data&amp;#34; in this instance. I also highlight the option to remember your settings for future publications. Please follow these steps to successfully publish your schema and make it available for use." data-thumb="../_assets/embeds/2631a0493553.png"></div>
 
 1. Select **File > Publish**.
 2. In the **Publish Schema** dialog, set these fields. **Pentaho or JNDI Data Source** is the name of the server connection from tab 2. **Register XMLA Data Source** also registers the schema for XML for Analysis (XMLA) clients.
@@ -584,6 +606,13 @@ cd ~/Pentaho/server/pentaho-server
 4. Select **OK**.
 
 ### 9. Test in Analyzer
+
+<div align="center">
+<figure>
+<img src="../_assets/images/basic-model-workflow-9.png" alt="The workflow to define a schema with part 9 of 9, test in Analyzer, highlighted as this tab" width="800">
+<figcaption>Part 9 of 9: Test in Analyzer</figcaption>
+</figure>
+</div>
 
 > **Note:**
 >
@@ -631,14 +660,14 @@ cd ~/Pentaho/server/pentaho-server
 
 ## Lab Files
 
-Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches Pentaho Data Integration with the file loaded. If Pentaho Data Integration is already running, the path is copied to your clipboard — switch to Pentaho Data Integration and press `Ctrl+O`, `Ctrl+V`, `Enter`.
+Click a file to download. Every file is also on disk in this workshop's folder, `C:\Workshop-SW-Practitioner\03-schemas\05-schemas-basic-model`: open a schema in Schema Workbench with **File > Open**.
+
+_No starting files: this workshop builds the schema from nothing._
 
 ### Solution <!-- no-step -->
 
-The finished schema for this lab. Open it in Schema Workbench (**File > Open**) alongside your own to compare:
+The finished schema for this lab. Open it in Schema Workbench (**File > Open**) alongside your own to compare, or publish it to see the expected result.
 
-[classicmodels.xml](./files/classicmodels.xml)
+Also on disk at `C:\Workshop-SW-Practitioner\03-schemas\05-schemas-basic-model\solution`.
 
-An identical copy of the same schema:
-
-[classicmodels-original.xml](./files/classicmodels-original.xml)
+[classicmodels.xml](./files/solution/classicmodels.xml)

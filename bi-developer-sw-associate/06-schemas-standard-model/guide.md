@@ -16,7 +16,13 @@
 >
 > **Prerequisites:** Complete [Basic Model](../05-schemas-basic-model/guide.md), which also creates the server connection `hsqldb_sampledata`; the Pentaho Server running
 >
-> **Estimated time:** 75 minutes
+> **Estimated time:** 45 minutes
+
+<figure>
+
+<figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
+
+</figure>
 
 <div align="center">
 <figure>
@@ -35,46 +41,20 @@
 >
 > Schema Workbench reads table and column metadata through its database connection. Check the `hsqldb_sampledata` connection first, so the schema editor can list the `ORDERFACT`, `CUSTOMER_W_TER` and `PRODUCTS` tables.
 
-1. Start Schema Workbench with the **Start Schema Workbench** button below, or from a terminal:
-
-::: tabs
-
-### Windows (PowerShell)
+1. Start Schema Workbench with the **Start Pentaho Schema Workbench** button below, or from PowerShell:
 
 ```powershell
 Set-Location C:\Pentaho\design-tools\schema-workbench
 .\workbench.bat
 ```
 
-### macOS / Linux
+<button data-launch="schema-workbench">Start Pentaho Schema Workbench</button>
 
-```bash
-cd ~/Pentaho/design-tools/schema-workbench
-./workbench.sh
-```
-
-:::
-
-<button data-launch="schema-workbench">Start Schema Workbench</button>
-
-2. Make sure the Pentaho Server is running: it hosts the SampleData database on port `9001`. On a lab VM it starts with the machine. On your own machine, start it and wait until **http://localhost:8080/pentaho** shows the sign-in page:
-
-::: tabs
-
-### Windows (PowerShell)
+2. Make sure the Pentaho Server is running: it hosts the SampleData database on port `9001`. On a lab VM it starts with the machine. On your own machine, start it as [Before You Start](../00-before-you-start/guide.md) describes (its repository database first), and wait until **http://localhost:8080/pentaho** shows the sign-in page:
 
 ```powershell
 C:\Pentaho\server\pentaho-server\start-pentaho.bat
 ```
-
-### macOS / Linux
-
-```bash
-cd ~/Pentaho/server/pentaho-server
-./start-pentaho.sh
-```
-
-:::
 
 3. Select **Options > Connection**.
 4. In the **Database Connection** dialog, make sure the fields hold these values:
@@ -108,7 +88,7 @@ cd ~/Pentaho/server/pentaho-server
 2. In the left pane, select **Schema**, set **name** to `Miniature Models` and press `Tab`.
 3. Right-click **Schema** and select **Add cube**.
 4. Set **name** to `Sales_FY2003_2005` and press `Tab`. Leave **cache**, **enabled** and **visible** selected.
-5. Select **File > Save As** and save the schema as `MiniatureModels.xml` in a folder of your own.
+5. Select **File > Save As** and save the schema as `MiniatureModels.xml` in `C:\Workshop-SW-Practitioner\03-schemas\06-schemas-standard-model`.
 
 > **Success:** Checkpoint: the tree shows **Schema** and **Sales_FY2003_2005**, both with a red cross until the cube has a fact table, dimensions and a measure.
 
@@ -384,10 +364,14 @@ cd ~/Pentaho/server/pentaho-server
 
 ## Lab Files
 
-Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches Pentaho Data Integration with the file loaded. If Pentaho Data Integration is already running, the path is copied to your clipboard — switch to Pentaho Data Integration and press `Ctrl+O`, `Ctrl+V`, `Enter`.
+Click a file to download. Every file is also on disk in this workshop's folder, `C:\Workshop-SW-Practitioner\03-schemas\06-schemas-standard-model`: open a schema in Schema Workbench with **File > Open**.
+
+_No starting files: this workshop builds the schema from nothing._
 
 ### Solution <!-- no-step -->
 
-The finished schema for this lab. Open it in Schema Workbench (**File > Open**) alongside your own to compare:
+The finished schema for this lab. Open it in Schema Workbench (**File > Open**) alongside your own to compare, or publish it to see the expected result.
 
-[miniaturemodels-original.xml](./files/miniaturemodels-original.xml)
+Also on disk at `C:\Workshop-SW-Practitioner\03-schemas\06-schemas-standard-model\solution`.
+
+[miniaturemodels-original.xml](./files/solution/miniaturemodels-original.xml)

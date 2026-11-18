@@ -2,8 +2,8 @@
   "title": "Standard Model",
   "description": "Independently build the Miniature Models schema (Sales_FY2003_2005 cube) with three-level CUSTOMERS and PRODUCTS hierarchies in Schema Workbench, then publish and test in Analyzer.",
   "order": 6,
-  "stepCount": 11,
-  "estimatedMinutes": 75,
+  "stepCount": 7,
+  "estimatedMinutes": 45,
   "hasVideo": false,
   "kind": "workshop"
 }

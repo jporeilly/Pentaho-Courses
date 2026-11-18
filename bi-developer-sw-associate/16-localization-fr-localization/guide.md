@@ -11,12 +11,29 @@
 > * Replace the captions and descriptions of the Classic Models schema with `%{...}` tokens
 > * Deploy the English and French message bundles on the Pentaho Server
 > * Point Mondrian at the bundles with `mondrian.rolap.localePropFile` in `mondrian.properties`
-> * Check the data source's DynamicSchemaProcessor and UseContentChecksum settings
-> * Test the translated captions in Analyzer
+> * Add the DynamicSchemaProcessor and UseContentChecksum parameters to the published data source
+> * See the same cube in French and in English in Analyzer
 >
 > **Prerequisites:** Complete [Basic Model](../05-schemas-basic-model/guide.md); the Pentaho Server running, with administrator access to the User Console and to the server's files
 >
 > **Estimated time:** 60 minutes
+
+<figure>
+
+<figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
+
+</figure>
+
+One schema, four pieces. Three are files and stay where you put them; the fourth, the processor parameters, belongs to the published catalog:
+
+<div align="center">
+<figure>
+<img src="../_assets/images/localization-pieces.png" alt="Schema Workbench publishes the tokenized schema to the Classic Models catalog. On the Pentaho Server the message bundles in WEB-INF\classes\com\pentaho\messages, localePropFile in mondrian.properties and the catalog's DynamicSchemaProcessor and UseContentChecksum parameters feed token replacement, which gives Analyzer French captions in a French session and English ones in an English session. Publishing again resets the catalog's parameters" width="800">
+<figcaption>Where each piece lives</figcaption>
+</figure>
+</div>
+
+Read the diagram from left to right, tab by tab. Tab 1 replaces the schema's captions with `%{...}` tokens, and publishing puts it on the server as the Classic Models catalog. Tabs 2 to 4 add the three things token replacement needs: the message bundles, the `localePropFile` setting in `mondrian.properties` that points Mondrian at them, and the catalog's DynamicSchemaProcessor and UseContentChecksum parameters. Analyzer then shows each token as the text of the session's language: French at `Home?locale=fr`, English at `Home?locale=en`. The note at the foot is the trap tab 4 explains: the parameters belong to the catalog, so publishing again from Schema Workbench removes them.
 
 :::: tabs
 
@@ -180,50 +197,24 @@ Every token follows the pattern `%{classicmodels.[component].[element].[property
 | Measure: Sales | caption | `%{classicmodels.measures.sales.caption}` |
 | Measure: Sales | description | `%{classicmodels.measures.sales.description}` |
 
-1. Start Schema Workbench with the **Start Schema Workbench** button below, or from a terminal:
-
-::: tabs
-
-### Windows (PowerShell)
+1. Start Schema Workbench with the **Start Pentaho Schema Workbench** button below, or from PowerShell:
 
 ```powershell
 Set-Location C:\Pentaho\design-tools\schema-workbench
 .\workbench.bat
 ```
 
-### macOS / Linux
+<button data-launch="schema-workbench">Start Pentaho Schema Workbench</button>
 
-```bash
-cd ~/Pentaho/design-tools/schema-workbench
-./workbench.sh
-```
-
-:::
-
-<button data-launch="schema-workbench">Start Schema Workbench</button>
-
-2. Make sure the Pentaho Server is running. On a lab VM it starts with the machine. On your own machine, start it and wait until **http://localhost:8080/pentaho** shows the sign-in page:
-
-::: tabs
-
-### Windows (PowerShell)
+2. Make sure the Pentaho Server is running: it hosts the SampleData database on port `9001`. On a lab VM it starts with the machine. On your own machine, start it as [Before You Start](../00-before-you-start/guide.md) describes (its repository database first), and wait until **http://localhost:8080/pentaho** shows the sign-in page:
 
 ```powershell
 C:\Pentaho\server\pentaho-server\start-pentaho.bat
 ```
 
-### macOS / Linux
-
-```bash
-cd ~/Pentaho/server/pentaho-server
-./start-pentaho.sh
-```
-
-:::
-
-3. Select **File > Open** and open `ClassicModels.xml`, your schema from [Basic Model](../05-schemas-basic-model/guide.md).
-4. Select **File > Save As** and save it as `ClassicModels-localized.xml`.
-5. For each row of the token table, select the element in the left pane, set the attribute to the token, and press `Tab`.
+3. Select **File > Open** and open `ClassicModels.xml`, your schema from [Basic Model](../05-schemas-basic-model/guide.md), in `C:\Workshop-SW-Practitioner\03-schemas\05-schemas-basic-model`.
+4. Select **File > Save As** and save it as `ClassicModels-localized.xml` in `C:\Workshop-SW-Practitioner\07-localization\16-localization-fr-localization`.
+5. For each row of the token table, select the element in the left pane, set the attribute to the token, and press `Tab`. The XML above shows every token in place.
 
 <div align="center">
 <figure>
@@ -236,7 +227,7 @@ cd ~/Pentaho/server/pentaho-server
 
 > **Success:** Checkpoint: select **View > View XML**: the schema holds the 24 tokens of the table, as in the XML above. Select **View > View XML** again to hide it.
 
-7. Select **File > Publish**, with the **Publish Schema** values from [Basic Model](../05-schemas-basic-model/guide.md), and select **Publish**. If Schema Workbench asks whether to overwrite the Classic Models schema, select **Yes**.
+7. Select **File > Publish**, with the **Publish Schema** values from [Basic Model](../05-schemas-basic-model/guide.md) (data source `hsqldb_sampledata`), and select **Publish**. The schema is still called Classic Models, so it replaces the catalog you published in Basic Model: when Schema Workbench asks whether to overwrite it, select **Yes**.
 
 > **Success:** Checkpoint: a **Publish** message reads `Publish Successful`.
 
@@ -251,13 +242,14 @@ cd ~/Pentaho/server/pentaho-server
 > schema text. It finds every `%{...}`, looks the key up in the message
 > bundle for the connection's locale and substitutes the translation;
 > only then is the result parsed as an ordinary schema. In French this
-> schema's 24 tokens become CLIENTS, Territoire, Gamme de Produits,
+> schema's 24 tokens become Clients, Territoire, Gamme de Produits,
 > Ventes and the rest.
 >
-> A key the bundle lacks is logged (`Missing resource for key [...]`)
-> and its token is left where it was, so it becomes the caption: users
-> would see `%{classicmodels.dimension.customers.caption}` as the
-> dimension's name.
+> Until tab 4 nothing runs that processor, so a report on the catalog
+> you just published shows the tokens themselves:
+> `%{classicmodels.dimension.customers.territory.caption}` as a field
+> name. A key a bundle lacks does the same: the token is left where it
+> was.
 >
 > **Why it matters:** every token must match a key in the properties
 > files character for character.
@@ -272,58 +264,21 @@ cd ~/Pentaho/server/pentaho-server
 
 1. Create the folder:
 
-::: tabs
-
-### Windows (PowerShell)
-
 ```powershell
 New-Item -ItemType Directory -Force C:\Pentaho\server\pentaho-server\tomcat\webapps\pentaho\WEB-INF\classes\com\pentaho\messages
 ```
 
-### macOS / Linux
-
-```bash
-mkdir -p ~/Pentaho/server/pentaho-server/tomcat/webapps/pentaho/WEB-INF/classes/com/pentaho/messages
-```
-
-:::
-
-2. Download `MondrianMessages_en.properties` and `MondrianMessages_fr.properties` from **Lab Files** below.
-3. Copy them into the folder:
-
-::: tabs
-
-### Windows (PowerShell)
+2. Copy the two bundles into it from this workshop's folder (they are also under **Lab Files** below):
 
 ```powershell
-Copy-Item "$env:USERPROFILE\Downloads\MondrianMessages_*.properties" C:\Pentaho\server\pentaho-server\tomcat\webapps\pentaho\WEB-INF\classes\com\pentaho\messages\
+Copy-Item C:\Workshop-SW-Practitioner\07-localization\16-localization-fr-localization\MondrianMessages_*.properties C:\Pentaho\server\pentaho-server\tomcat\webapps\pentaho\WEB-INF\classes\com\pentaho\messages\
 ```
 
-### macOS / Linux
-
-```bash
-cp ~/Downloads/MondrianMessages_*.properties ~/Pentaho/server/pentaho-server/tomcat/webapps/pentaho/WEB-INF/classes/com/pentaho/messages/
-```
-
-:::
-
-4. List the folder:
-
-::: tabs
-
-### Windows (PowerShell)
+3. List the folder:
 
 ```powershell
 Get-ChildItem C:\Pentaho\server\pentaho-server\tomcat\webapps\pentaho\WEB-INF\classes\com\pentaho\messages
 ```
-
-### macOS / Linux
-
-```bash
-ls -l ~/Pentaho/server/pentaho-server/tomcat/webapps/pentaho/WEB-INF/classes/com/pentaho/messages/
-```
-
-:::
 
 > **Success:** Checkpoint: the folder holds `MondrianMessages_en.properties` and `MondrianMessages_fr.properties`, 25 keys each.
 
@@ -333,25 +288,15 @@ ls -l ~/Pentaho/server/pentaho-server/tomcat/webapps/pentaho/WEB-INF/classes/com
 >
 > #### Configure mondrian.properties
 >
-> One property tells Mondrian where the message bundles are: `mondrian.rolap.localePropFile`, set in the server's `mondrian.properties`.
+> One property tells Mondrian where the message bundles are: `mondrian.rolap.localePropFile`, set in the server's `mondrian.properties`. The server reads that file when it starts.
 
-1. Open the server's `mondrian.properties` in a text editor:
-
-::: tabs
-
-### Windows (PowerShell)
+1. Keep a copy of the server's `mondrian.properties`, then open it in Notepad:
 
 ```powershell
-notepad C:\Pentaho\server\pentaho-server\pentaho-solutions\system\mondrian\mondrian.properties
+$f = 'C:\Pentaho\server\pentaho-server\pentaho-solutions\system\mondrian\mondrian.properties'
+Copy-Item $f "$f.before-localization-lab"
+notepad $f
 ```
-
-### macOS / Linux
-
-```bash
-nano ~/Pentaho/server/pentaho-server/pentaho-solutions/system/mondrian/mondrian.properties
-```
-
-:::
 
 2. Add this line at the end of the file. It names the bundle without its language suffix.
 
@@ -364,66 +309,100 @@ mondrian.rolap.localePropFile=com.pentaho.messages.MondrianMessages
 > #### localePropFile is a Java resource-bundle name
 >
 > Mondrian passes `com.pentaho.messages.MondrianMessages` to Java's
-> `ResourceBundle.getBundle` with the connection's `Locale` property, or
-> the server's default locale when the connection carries none. Java
-> then looks for `com/pentaho/messages/MondrianMessages_fr.properties`
-> on the web application's classpath, which includes `WEB-INF/classes`
-> (hence the folders), and falls back to a less specific file when there
-> is no exact match.
+> `ResourceBundle.getBundle` with the connection's `Locale` property.
+> In the User Console that is the language of your session. Java then
+> looks for `com/pentaho/messages/MondrianMessages_fr.properties` on the
+> web application's classpath, which includes `WEB-INF/classes` (hence
+> the folders), and falls back to a less specific file when there is no
+> exact match.
 >
 > **Why it matters:** on Java 9 and later, properties files are read as
-> UTF-8, so the accents in the French file (Modèles Classiques) arrive
-> intact.
+> UTF-8, so the accents in the French file arrive intact.
 
-3. Save the file. In nano, press `Ctrl+O`, `Enter`, then `Ctrl+X`.
-4. Restart the Pentaho Server: stop it, and start it again when it has stopped.
-
-::: tabs
-
-### Windows (PowerShell)
+3. Save the file and close Notepad.
+4. Restart the Pentaho Server: stop it, wait until **http://localhost:8080/pentaho** no longer answers, and start it again.
 
 ```powershell
 C:\Pentaho\server\pentaho-server\stop-pentaho.bat
 C:\Pentaho\server\pentaho-server\start-pentaho.bat
 ```
 
-### macOS / Linux
-
-```bash
-cd ~/Pentaho/server/pentaho-server
-./stop-pentaho.sh
-./start-pentaho.sh
-```
-
-:::
-
-> **Success:** Checkpoint: **http://localhost:8080/pentaho** shows the sign-in page again.
+> **Success:** Checkpoint: **http://localhost:8080/pentaho** shows the sign-in page again. The server takes a few minutes to start.
 
 ### 4. Manage Data Source
 
 > **Note:**
 >
-> #### The Data Source's Settings
+> #### The data source's parameters
 >
-> Two settings in the published data source's DataSourceInfo make the localization work:
+> Publishing from Schema Workbench stores three parameters with the catalog: `Provider`, `DataSource` and `EnableXmla`. Two more make the localization work, and you add them in the User Console:
 >
-> * **DynamicSchemaProcessor** names a class implementing `mondrian.spi.DynamicSchemaProcessor`, which filters the schema text before Mondrian's core reads it. Mondrian's own, `mondrian.i18n.LocalizingDynamicSchemaProcessor`, replaces the tokens with values from the Java message bundles.
-> * **UseContentChecksum** makes Mondrian keep a checksum of the schema XML and expose it through `mondrian.olap.Schema.getId()`. Pentaho Analyzer uses it to detect a changed schema and refresh its caches. With it on, Mondrian calls the schema processor on every connection request, so a custom processor should cache its results.
+> * **DynamicSchemaProcessor** names a class implementing `mondrian.spi.DynamicSchemaProcessor`, which filters the schema text before Mondrian's core reads it. Mondrian's own, `mondrian.i18n.LocalizingDynamicSchemaProcessor`, replaces the tokens with values from the message bundles.
+> * **UseContentChecksum** makes Mondrian keep a checksum of the schema XML, so a changed schema is noticed and its cache refreshed. With it on, Mondrian calls the schema processor on every connection request.
 
 <button data-launch="puc">Open Pentaho User Console</button>
 
 1. Sign in to the User Console as `admin`, and on the **Home** perspective select **Manage Data Sources**.
-2. Select the **Classic Models** analysis data source, open the gear menu, and select **Edit**.
-3. Check that the data source's parameters include `DynamicSchemaProcessor` set to `mondrian.i18n.LocalizingDynamicSchemaProcessor` and `UseContentChecksum` set to `true`. Then close the dialog, and close **Manage Data Sources**.
-4. Open the User Console in French, at `http://localhost:8080/pentaho/Home?locale=fr`, and create an Analysis Report on the Classic Models cube.
+2. Select the **Classic Models** analysis data source, open the gear menu, and select **Edit...**.
+3. In **Import Analysis**, select **Manually enter data source parameter values.** The **Parameters** list shows `DataSource` (`hsqldb_sampledata`) and `EnableXmla` (`true`).
 
-> **Success:** Checkpoint: the field list shows the French captions from `MondrianMessages_fr.properties`, such as **Territoire**, **Nom du Client**, **Gamme de Produits** and **Ventes**. Opened in English, the same report shows the English captions.
+> **Warning:** Don't save with **Select from available data sources.** selected: its list starts at the first connection in alphabetical order, not `hsqldb_sampledata`, and saving would point the catalog at that connection.
+
+4. Select **+** (Add). In **Parameters**, set **Name** to `DynamicSchemaProcessor` and **Value** to `mondrian.i18n.LocalizingDynamicSchemaProcessor`, and select **OK**.
+5. Select **+** again, set **Name** to `UseContentChecksum` and **Value** to `true`, and select **OK**.
+
+> **Success:** Checkpoint: the **Parameters** list holds four rows: `DataSource`, `EnableXmla`, `DynamicSchemaProcessor` and `UseContentChecksum`.
+
+6. Select **Save**, then **Close**.
+7. Select **Tools > Refresh > Mondrian Schema Cache**, and **OK** on the message `Mondrian schema cache flushed successfully.`
+
+> **Under the hood:**
+>
+> #### One cached schema per language
+>
+> Mondrian caches each processed schema. A language you opened before
+> the parameters were in place keeps the schema it built then, tokens
+> and all, until the cache is flushed; flushing makes the next request
+> in each language run the processor again.
+>
+> The parameters belong to the published catalog, not to the schema
+> file. Publish from Schema Workbench again and the catalog gets
+> `Provider`, `DataSource` and `EnableXmla` back without the other two:
+> the captions turn back into tokens until you repeat steps 2 to 7.
+>
+> **Why it matters:** the same three settings (bundles, localePropFile,
+> processor) must all be in place, and only the third lives in the
+> catalog that every publish replaces.
+
+8. Open the User Console in French, at `http://localhost:8080/pentaho/Home?locale=fr`. The console's own labels switch to French.
+9. Select `Créer nouveau` > `Rapport d'analyse` (Create New > Analysis Report). The list of data sources shows **Classic Models: Commandes Classic Models**; select it and select **OK**.
+
+> **Success:** Checkpoint: the field list reads **Commandes Classic Models**, with **Clients** (Territoire, Nom du Client), **Mesures** (Ventes) and **Produits** (Gamme de Produits, Vendeur), the captions from `MondrianMessages_fr.properties`.
+
+10. Open `http://localhost:8080/pentaho/Home?locale=en` and create an Analysis Report on the same data source.
+
+> **Success:** Checkpoint: the same cube in English: **Classic Models Orders**, with Customers (Territory, Customer Name), Sales, and Products (Line, Vendor).
+
+11. Close both reports without saving them.
+
+> **Under the hood:**
+>
+> #### The session's language picks the bundle
+>
+> `?locale=fr` on the Home page sets the language of your User Console
+> session. Each connection Analyzer opens passes that language to
+> Mondrian as its `Locale`, so the French session reads
+> `MondrianMessages_fr.properties` and the English one
+> `MondrianMessages_en.properties`, from one published schema.
+>
+> **Why it matters:** a user's browser or account language decides the
+> captions. Nobody maintains a French copy of the schema.
 
 ::::
 
 ## Lab Files
 
-Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches Pentaho Data Integration with the file loaded. If Pentaho Data Integration is already running, the path is copied to your clipboard — switch to Pentaho Data Integration and press `Ctrl+O`, `Ctrl+V`, `Enter`.
+Click a file to download. Every file is also on disk in this workshop's folder, `C:\Workshop-SW-Practitioner\07-localization\16-localization-fr-localization`.
 
 The English and French message bundles you deploy in tab 2:
 
@@ -433,6 +412,8 @@ The English and French message bundles you deploy in tab 2:
 
 ### Solution <!-- no-step -->
 
-The tokenized Classic Models schema. Open it in Schema Workbench (**File > Open**) alongside your own to compare:
+The tokenized Classic Models schema. Open it in Schema Workbench (**File > Open**) alongside your own to compare, or publish it in place of your own.
 
-[classicmodels-localized.xml](./files/classicmodels-localized.xml)
+Also on disk at `C:\Workshop-SW-Practitioner\07-localization\16-localization-fr-localization\solution`.
+
+[classicmodels-localized.xml](./files/solution/classicmodels-localized.xml)

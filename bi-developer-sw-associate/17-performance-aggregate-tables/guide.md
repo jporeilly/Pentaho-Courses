@@ -17,7 +17,24 @@
 >
 > **Estimated time:** 45 minutes
 
+<figure>
+
+<figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
+
+</figure>
+
 There is nothing special about an aggregate table's data: it is an ordinary table that the ETL keeps in step with the fact table. Mondrian reads the small table for high-level views and the detail table only when someone drills beneath it. Best practice is few, targeted aggregates: start from a slow query, build the aggregate that answers it, and measure again.
+
+What you build, and which table each query ends up reading:
+
+<div align="center">
+<figure>
+<img src="../_assets/images/aggregate-pick.png" alt="Three MDX queries on Sales and the table each one's SQL reads: Territory reads Miniature_Sales_AGG_2 (55 rows), in both aggregates but the smaller; Country reads Miniature_Sales_AGG_1 (129 rows), the only aggregate with Country; State Province is in neither and reads ORDERFACT (2,996 rows) joined to its dimension tables" width="800">
+<figcaption>The smallest aggregate that fits</figcaption>
+</figure>
+</div>
+
+Read the diagram row by row. Each row is a query with Sales on the columns and one level of the Markets hierarchy on the rows, and the arrow ends at the table its SQL reads. Mondrian picks the smallest table that holds the level: Territory is in both aggregates, and `Miniature_Sales_AGG_2` is the smaller; only `Miniature_Sales_AGG_1` has Country; State Province is in neither, so that query goes back to `ORDERFACT`, joined to its dimension tables.
 
 :::: tabs
 
@@ -29,24 +46,11 @@ There is nothing special about an aggregate table's data: it is an ordinary tabl
 >
 > The bundled script builds both tables from `ORDERFACT`. Their column names follow Mondrian's collapsed-level convention, such as `CUSTOMER_W_TER_Territory` and `ORDERFACT_Sales`, and the script creates them case-exact: the schema declarations in part 3 reference them verbatim. Each row also carries `ORDERFACT_fact_count`, the number of detail rows it summarizes, which Mondrian needs.
 
-1. Make sure the Pentaho Server is running: it hosts the SampleData database on port `9001`. On a lab VM it starts with the machine. On your own machine, start it and wait until **http://localhost:8080/pentaho** shows the sign-in page:
-
-::: tabs
-
-### Windows (PowerShell)
+1. Make sure the Pentaho Server is running: it hosts the SampleData database on port `9001`. On a lab VM it starts with the machine. On your own machine, start it as [Before You Start](../00-before-you-start/guide.md) describes (its repository database first), and wait until **http://localhost:8080/pentaho** shows the sign-in page:
 
 ```powershell
 C:\Pentaho\server\pentaho-server\start-pentaho.bat
 ```
-
-### macOS / Linux
-
-```bash
-cd ~/Pentaho/server/pentaho-server
-./start-pentaho.sh
-```
-
-:::
 
 2. Connect your SQL client to the sample data as `pentaho_admin`: `pentaho_user` can only read the sample tables, and the script creates new ones.
 
@@ -56,7 +60,7 @@ cd ~/Pentaho/server/pentaho-server
    Password: password
    ```
 
-3. In DBeaver, open `agg_tables.sql` from **Lab Files** below and run the whole script. It builds:
+3. In DBeaver, open `agg_tables.sql` from `C:\Workshop-SW-Practitioner\08-performance\17-performance-aggregate-tables` (also under **Lab Files** below) and run the whole script. It builds:
 
    | Table | Grain | Answers |
    | --- | --- | --- |
@@ -78,8 +82,8 @@ mondrian.rolap.aggregates.Use=true
 mondrian.rolap.aggregates.Read=true
 ```
 
-1. Add the two lines to Schema Workbench's `mondrian.properties`, in your `.schemaWorkbench` folder: `%USERPROFILE%\.schemaWorkbench\mondrian.properties` on Windows, `~/.schemaWorkbench/mondrian.properties` on macOS and Linux. The start script copies the file there from the install folder the first time it runs, and puts that folder first on the classpath. If the file isn't there yet, edit `C:\Pentaho\design-tools\schema-workbench\mondrian.properties` instead.
-2. Add the two lines to the server's `C:\Pentaho\server\pentaho-server\pentaho-solutions\system\mondrian\mondrian.properties` (`~/Pentaho/server/pentaho-server/pentaho-solutions/system/mondrian/mondrian.properties` on macOS and Linux).
+1. Add the two lines to Schema Workbench's `mondrian.properties`, in your `.schemaWorkbench` folder: `%USERPROFILE%\.schemaWorkbench\mondrian.properties`. The start script copies the file there from the install folder the first time it runs, and puts that folder first on the classpath. If the file isn't there yet, edit `C:\Pentaho\design-tools\schema-workbench\mondrian.properties` instead.
+2. Add the two lines to the server's `C:\Pentaho\server\pentaho-server\pentaho-solutions\system\mondrian\mondrian.properties`.
 3. Restart Schema Workbench and the Pentaho Server.
 
 > **Success:** Checkpoint: Schema Workbench starts again, and **http://localhost:8080/pentaho** shows the sign-in page.
@@ -92,7 +96,7 @@ mondrian.rolap.aggregates.Read=true
 >
 > An **Aggregate Name** under the cube's fact table tells Mondrian which table to read and maps its columns to the cube's measures and levels. Every measure and every level the aggregate holds must be mapped; anything below its grain stays with the detail table.
 
-1. Select **File > Open** and open `miniaturemodels-agg.xml`, which you downloaded from **Lab Files** below.
+1. Select **File > Open** and open `miniaturemodels-agg.xml` from `C:\Workshop-SW-Practitioner\08-performance\17-performance-aggregate-tables`, or download it from **Lab Files** below.
 2. Right-click the cube's **Table: ORDERFACT** and select **Add Aggregate Name**. Set **name** to `Miniature_Sales_AGG_1` and press `Tab`.
 3. Right-click the new aggregate name and add its children, one per row, with these attributes:
 
@@ -147,7 +151,7 @@ mondrian.rolap.aggregates.Read=true
 >
 > Mondrian logs the SQL it sends under the `mondrian.sql` logger. Switch it on, run queries at the aggregates' grain, and read which table each statement selects from.
 
-1. Add this line inside the `<Loggers>` element of Schema Workbench's `log4j2.xml`, in the same `.schemaWorkbench` folder as `mondrian.properties`. The SQL goes to `workbench.log` in that folder.
+1. Add this line inside the `<Loggers>` element of Schema Workbench's `log4j2.xml`, in the same `.schemaWorkbench` folder as `mondrian.properties`. The SQL goes to `workbench.log` in that folder. Schema Workbench rereads `log4j2.xml` every 30 seconds, so there is no need to restart it.
 
 ```xml
 <Logger name="mondrian.sql" level="DEBUG"/>
@@ -161,9 +165,14 @@ SELECT {[Measures].[Sales]} ON COLUMNS,
 FROM [Sales_FY2003_2005]
 ```
 
-> **Success:** Checkpoint: APAC £1,281,705.89, EMEA £5,008,224.32, Japan £503,957.58 and NA £3,852,061.39, plus an empty #null row for the customers with no territory. In `workbench.log`, the SQL for these cells selects from `Miniature_Sales_AGG_2` instead of `ORDERFACT`.
+> **Success:** Checkpoint: APAC £1,281,705.89, EMEA £5,008,224.32, Japan £503,957.58 and NA £3,852,061.39, plus an empty #null row for the customers with no territory. In `workbench.log`, the SQL for these cells selects from `Miniature_Sales_AGG_2` instead of `ORDERFACT`:
 
-3. Replace `[MARKETS.Markets].[Territory].Members` with `[MARKETS.Markets].[Country].Members` and select **Execute** again.
+```text
+Segment.load: executing sql [select "Miniature_Sales_AGG_2"."CUSTOMER_W_TER_Territory" as "c0",
+  sum("Miniature_Sales_AGG_2"."ORDERFACT_Sales") as "m0" from "PUBLIC"."Miniature_Sales_AGG_2" ...
+```
+
+3. Replace `[MARKETS.Markets].[Territory].Members` with `[MARKETS.Markets].[Country].Members` and select **Execute** again. In `workbench.log`, this query's SQL selects from `Miniature_Sales_AGG_1`.
 
 > **Under the hood:**
 >
@@ -211,7 +220,7 @@ The aggregate columns are case-exact and quoted when the script creates them. If
 
 ## Lab Files
 
-Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches Pentaho Data Integration with the file loaded. If Pentaho Data Integration is already running, the path is copied to your clipboard — switch to Pentaho Data Integration and press `Ctrl+O`, `Ctrl+V`, `Enter`.
+Click a file to download. Every file is also on disk in this workshop's folder, `C:\Workshop-SW-Practitioner\08-performance\17-performance-aggregate-tables`: open a schema in Schema Workbench with **File > Open**.
 
 The starting schema:
 

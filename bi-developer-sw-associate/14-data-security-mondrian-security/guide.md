@@ -18,6 +18,12 @@
 >
 > **Estimated time:** 120 minutes
 
+<figure>
+
+<figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
+
+</figure>
+
 The finished roles, for reference:
 
 ```xml
@@ -128,24 +134,11 @@ The finished roles, for reference:
 | `region_mgr` | Regional Manager | Limited to three states |
 | `analyst` | Analyst | Summary levels only, no individual customers |
 
-1. Make sure the Pentaho Server is running. On a lab VM it starts with the machine. On your own machine, start it and wait until **http://localhost:8080/pentaho** shows the sign-in page:
-
-::: tabs
-
-### Windows (PowerShell)
+1. Make sure the Pentaho Server is running. On a lab VM it starts with the machine. On your own machine, start it as [Before You Start](../00-before-you-start/guide.md) describes (its repository database first), and wait until **http://localhost:8080/pentaho** shows the sign-in page:
 
 ```powershell
 C:\Pentaho\server\pentaho-server\start-pentaho.bat
 ```
-
-### macOS / Linux
-
-```bash
-cd ~/Pentaho/server/pentaho-server
-./start-pentaho.sh
-```
-
-:::
 
 <button data-launch="puc">Open Pentaho User Console</button>
 
@@ -179,23 +172,12 @@ cd ~/Pentaho/server/pentaho-server
 
 > **Success:** Checkpoint: **Manage Roles** lists **Analyst**, **Executive**, **Regional Manager** and **Sales Manager**, each with its one user under **Selected**.
 
-7. On the server, open `pentahoObjects.spring.xml` in a text editor:
-
-::: tabs
-
-### Windows (PowerShell)
+7. On the server, open `pentahoObjects.spring.xml` in a text editor. First keep a copy, so you can put the file back when you finish (tab 6). In PowerShell, run:
 
 ```powershell
+Copy-Item C:\Pentaho\server\pentaho-server\pentaho-solutions\system\pentahoObjects.spring.xml C:\Pentaho\server\pentaho-server\pentaho-solutions\system\pentahoObjects.spring.xml.before-security-lab
 notepad C:\Pentaho\server\pentaho-server\pentaho-solutions\system\pentahoObjects.spring.xml
 ```
-
-### macOS / Linux
-
-```bash
-nano ~/Pentaho/server/pentaho-server/pentaho-solutions/system/pentahoObjects.spring.xml
-```
-
-:::
 
 8. Find the `Mondrian-UserRoleMapper` beans, at about line 282 in Pentaho 11. The One-To-One mapper is the active one; comment it out:
 
@@ -242,26 +224,28 @@ nano ~/Pentaho/server/pentaho-server/pentaho-solutions/system/pentahoObjects.spr
 > **Why it matters:** "Sales Manager Role" in the map and in the schema
 > must match character for character, the word "Role" included.
 
-11. Restart the Pentaho Server: stop it, and start it again when it has stopped.
+<div align="center">
+<figure>
+<img src="../_assets/images/role-mapping.png" alt="One row per test user: exec_user, platform role Executive, Mondrian role Executive Role, sees everything; sales_mgr, Sales Manager, Sales Manager Role, this cube only; region_mgr, Regional Manager, Regional Manager Role, NJ, NY and PA; analyst, Analyst, Analyst Role, Country to City with no customers. The lookup map turns each platform role into its Mondrian role" width="800">
+<figcaption>From a User Console user to what Mondrian lets them see</figcaption>
+</figure>
+</div>
 
-::: tabs
+Read the diagram row by row, from left to right. Each test user from step 5 holds one platform role from step 6, and the lookup map you just added turns that role into the Mondrian role in the same row. The last column is what that role's grants will let the user see once you build them in tabs 2 to 4: everything for the Executive Role, only the `Sales_FY2003_2005` cube for the Sales Manager Role, Country to City but no customers for the Analyst Role, and only NJ, NY and PA for the Regional Manager Role.
 
-### Windows (PowerShell)
+> **Warning:** From the restart in the next step until you finish this workshop, the lookup map applies to **every** user. A user whose platform roles have no entry in the map, `admin` included, can't open a schema that defines roles. Tab 6 puts the original mapper back.
+
+11. Restart the Pentaho Server: stop it, and start it again when it has stopped. In PowerShell, run:
 
 ```powershell
 C:\Pentaho\server\pentaho-server\stop-pentaho.bat
+```
+
+When the **Tomcat** window has closed, run:
+
+```powershell
 C:\Pentaho\server\pentaho-server\start-pentaho.bat
 ```
-
-### macOS / Linux
-
-```bash
-cd ~/Pentaho/server/pentaho-server
-./stop-pentaho.sh
-./start-pentaho.sh
-```
-
-:::
 
 > **Success:** Checkpoint: **http://localhost:8080/pentaho** shows the sign-in page again.
 
@@ -275,30 +259,17 @@ cd ~/Pentaho/server/pentaho-server
 >
 > After every save and publish in this workshop, refresh the Mondrian schema cache in the User Console, so the server reads the new roles.
 
-1. Start Schema Workbench with the **Start Schema Workbench** button below, or from a terminal:
-
-::: tabs
-
-### Windows (PowerShell)
+1. Start Schema Workbench with the **Start Pentaho Schema Workbench** button below, or from PowerShell:
 
 ```powershell
 Set-Location C:\Pentaho\design-tools\schema-workbench
 .\workbench.bat
 ```
 
-### macOS / Linux
+<button data-launch="schema-workbench">Start Pentaho Schema Workbench</button>
 
-```bash
-cd ~/Pentaho/design-tools/schema-workbench
-./workbench.sh
-```
-
-:::
-
-<button data-launch="schema-workbench">Start Schema Workbench</button>
-
-2. Select **File > Open** and open `miniaturemodels-original.xml`, which you downloaded from **Lab Files** below.
-3. Select **File > Save As** and save it as `miniaturemodels-security.xml`.
+2. Select **File > Open** and open `miniaturemodels-original.xml` from `C:\Workshop-SW-Practitioner\06-data-security\14-data-security-mondrian-security`, or download it from **Lab Files** below.
+3. Select **File > Save As** and save it as `miniaturemodels-security.xml` in the same folder.
 
 <div align="center">
 <figure>
@@ -635,7 +606,7 @@ The role in the XML:
 </Role>
 ```
 
-> **Note:** With `access="custom"`, Mondrian denies every member by default and allows only what you grant. Granting NJ, NY and PA makes them the only states the role sees.
+> **Note:** With `access="custom"` and MemberGrants, Mondrian allows only the granted members and their descendants, and shows their ancestors on the way down. Granting NJ, NY and PA makes them the only states the role sees. (Custom access with no MemberGrants, as the Analyst Role has, allows every member between topLevel and bottomLevel.)
 
 7. Save and publish the schema. In the User Console, signed in as `admin`, select **Tools > Refresh > Mondrian Schema Cache**.
 
@@ -731,11 +702,64 @@ The aggregation follows the access restrictions. If the Regional Manager needs c
 > visible states is 2,625,083.61, so a user with full totals can work
 > out exactly what the states they can't see add up to.
 
+<div align="center">
+<figure>
+<img src="../_assets/images/rollup-policies.png" alt="The same grant, MemberGrants on NJ, NY and PA with no topLevel, under three rollup policies. full: All Customers 10,645,949.18, NA 3,852,061.39 and USA 3,627,982.83, so USA minus the visible states leaks 2,625,083.61. partial: all three show 1,002,899.22. hidden: all three empty. The states show the same Sales in every column" width="800">
+<figcaption>One grant, three rollup policies</figcaption>
+</figure>
+</div>
+
+Read the diagram one column at a time. The grant across the top is the same in all three, and so are the amber states at the foot of each column: NJ 83,228.19, NY 646,343.76 and PA 273,327.27, which add up to 1,002,899.22. Only the three ancestors change. Under full they are red, because each one includes members the role can't see, and the note under them does the subtraction any user could do. Under partial each shows the three states' total, and under hidden all three are empty.
+
+### 6. Restore the Role Mapper
+
+> **Note:**
+>
+> #### Put the Server Back as It Was
+>
+> The lookup map from tab 1 stays in force until you change it back, and it applies to every schema on the server. Put the server back as it shipped, with its One-to-One mapper, so other schemas' roles behave as their authors expect.
+
+1. Stop the Pentaho Server. In PowerShell, run:
+
+```powershell
+C:\Pentaho\server\pentaho-server\stop-pentaho.bat
+```
+
+2. When the **Tomcat** window has closed, put back the copy you kept in tab 1, then start the server:
+
+```powershell
+Copy-Item C:\Pentaho\server\pentaho-server\pentaho-solutions\system\pentahoObjects.spring.xml.before-security-lab C:\Pentaho\server\pentaho-server\pentaho-solutions\system\pentahoObjects.spring.xml -Force
+C:\Pentaho\server\pentaho-server\start-pentaho.bat
+```
+
+If you didn't keep a copy, open the file again, delete the lookup map bean you added, and remove the `<!-- Disabled for workshop` and `-->` lines around the One-To-One bean.
+
+> **Success:** Checkpoint: **http://localhost:8080/pentaho** shows the sign-in page again, and in `pentahoObjects.spring.xml` the One-To-One bean is active and the lookup map bean gone.
+
+The restore does not open the secured schema to everyone again, and the reason is worth knowing:
+
+> **Under the hood:**
+>
+> #### Both mappers refuse a user who matches no role
+>
+> The One-to-One mapper maps each platform role to the Mondrian role of
+> the same name. Like the lookup map, it refuses a user when none of
+> their roles names a role the schema defines. So with it back, `admin`
+> (platform roles Administrator and Authenticated) still can't open
+> this schema, and nor can `exec_user`, whose Executive role doesn't
+> match `Executive Role`. A schema with no roles at all is open to
+> every user who may read it.
+>
+> **Why it matters:** once a schema defines roles, every user who needs
+> it must reach one of them, the administrators included. The Classic
+> Models comparison file in **Lab Files** gives `admin` its own
+> `Administrator` role for that reason.
+
 ::::
 
 ## Lab Files
 
-Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches Pentaho Data Integration with the file loaded. If Pentaho Data Integration is already running, the path is copied to your clipboard — switch to Pentaho Data Integration and press `Ctrl+O`, `Ctrl+V`, `Enter`.
+Click a file to download. Every file is also on disk in this workshop's folder, `C:\Workshop-SW-Practitioner\06-data-security\14-data-security-mondrian-security`: open a schema in Schema Workbench with **File > Open**.
 
 The Miniature Models schema from [Standard Model](../06-schemas-standard-model/guide.md), the starting point for this workshop:
 
@@ -743,9 +767,11 @@ The Miniature Models schema from [Standard Model](../06-schemas-standard-model/g
 
 ### Solution <!-- no-step -->
 
-The secured schema with all four roles. Open it in Schema Workbench (**File > Open**) alongside your own to compare:
+The secured schema with all four roles. Open it in Schema Workbench (**File > Open**) alongside your own to compare, or publish it to see the expected result.
 
-[miniaturemodels-security.xml](./files/miniaturemodels-security.xml)
+Also on disk at `C:\Workshop-SW-Practitioner\06-data-security\14-data-security-mondrian-security\solution`.
+
+[miniaturemodels-security.xml](./files/solution/miniaturemodels-security.xml)
 
 For comparison, a Classic Models schema with two roles, Administrator and Power User:
 

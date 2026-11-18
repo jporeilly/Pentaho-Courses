@@ -16,9 +16,13 @@
 >
 > **Prerequisites:** Complete [Basic Model](../05-schemas-basic-model/guide.md) and [Extended Model](../08-extend-model-extended-model/guide.md); the Pentaho Server running; a first look at MDX expressions
 >
-> **Estimated time:** 30 minutes
+> **Estimated time:** 20 minutes
 
-<div class="pcm-embed-card" data-href="https://www.loom.com/share/f90a125e5154469f86032d6515d4e99a?hideEmbedTopBar=true&amp;hide_owner=true&amp;hide_share=true&amp;hide_title=true" data-title="Adding Calculated Measures to the SteelWheels Sales Training Cube" data-description="In this video, I demonstrate how to add calculated measures to the SteelWheels Sales Training Cube using MDX formulas. I create two calculated measures: one for unit price, which divides sales by quantity, and another for year-to-date sales using the aggregate function with the sales measure. Both measures are formatted as U.S. currency with two decimal places. I encourage you to follow along and implement these calculations in your own cubes. Finally, I'll be testing the cube using MDX query mode in the next demonstration." data-thumb="../_assets/embeds/2631a0493553.png"></div>
+<figure>
+
+<figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
+
+</figure>
 
 :::: tabs
 
@@ -30,48 +34,22 @@
 >
 > A calculated member is a member computed from an MDX (Multidimensional Expressions) formula instead of read from a column. On the Measures dimension it acts as a calculated measure: Unit Price divides Sales by Quantity, the average price per unit sold.
 
-1. Start Schema Workbench with the **Start Schema Workbench** button below, or from a terminal:
-
-::: tabs
-
-### Windows (PowerShell)
+1. Start Schema Workbench with the **Start Pentaho Schema Workbench** button below, or from PowerShell:
 
 ```powershell
 Set-Location C:\Pentaho\design-tools\schema-workbench
 .\workbench.bat
 ```
 
-### macOS / Linux
+<button data-launch="schema-workbench">Start Pentaho Schema Workbench</button>
 
-```bash
-cd ~/Pentaho/design-tools/schema-workbench
-./workbench.sh
-```
-
-:::
-
-<button data-launch="schema-workbench">Start Schema Workbench</button>
-
-2. Make sure the Pentaho Server is running: it hosts the SampleData database on port `9001`. On a lab VM it starts with the machine. On your own machine, start it and wait until **http://localhost:8080/pentaho** shows the sign-in page:
-
-::: tabs
-
-### Windows (PowerShell)
+2. Make sure the Pentaho Server is running: it hosts the SampleData database on port `9001`. On a lab VM it starts with the machine. On your own machine, start it as [Before You Start](../00-before-you-start/guide.md) describes (its repository database first), and wait until **http://localhost:8080/pentaho** shows the sign-in page:
 
 ```powershell
 C:\Pentaho\server\pentaho-server\start-pentaho.bat
 ```
 
-### macOS / Linux
-
-```bash
-cd ~/Pentaho/server/pentaho-server
-./start-pentaho.sh
-```
-
-:::
-
-3. Select **File > Open** and open `ClassicModels.xml`, your schema from [Basic Model](../05-schemas-basic-model/guide.md).
+3. Select **File > Open** and open `ClassicModels.xml`, your schema from [Basic Model](../05-schemas-basic-model/guide.md), in `C:\Workshop-SW-Practitioner\03-schemas\05-schemas-basic-model`. If you didn't build it, open `classicmodels.xml` from this workshop's folder instead: it is Basic Model's finished schema.
 4. The formula divides by a Quantity measure, which the Classic Models cube doesn't have yet. Right-click **ClassicModelsOrders**, select **Add Measure**, and set the measure's attributes:
 
 | Attribute | Value |
@@ -152,7 +130,7 @@ cd ~/Pentaho/server/pentaho-server
 >
 > A calculated member can use set functions as well as arithmetic. Top 10 Customers ranks the customers by Sales with `TopCount` and adds up the ten largest with `Aggregate`.
 
-1. Select **File > Open** and open `MiniatureModels-extended.xml`, your schema from [Extended Model](../08-extend-model-extended-model/guide.md).
+1. Select **File > Open** and open `MiniatureModels-extended.xml`, your schema from [Extended Model](../08-extend-model-extended-model/guide.md), in `C:\Workshop-SW-Practitioner\04-extend-model\08-extend-model-extended-model`. If you didn't build it, open `miniaturemodels-extended.xml` from this workshop's folder instead.
 2. Right-click **Sales_FY2003_2005** and select **Add Calculated Member**.
 3. Set the calculated member's attributes. The format string matches the cube's Sales measure.
 
@@ -212,14 +190,26 @@ FROM [Sales_FY2003_2005]
 
 ## Lab Files
 
-Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches Pentaho Data Integration with the file loaded. If Pentaho Data Integration is already running, the path is copied to your clipboard — switch to Pentaho Data Integration and press `Ctrl+O`, `Ctrl+V`, `Enter`.
+Click a file to download. Every file is also on disk in this workshop's folder, `C:\Workshop-SW-Practitioner\04-extend-model\09-extend-model-calculations`: open a schema in Schema Workbench with **File > Open**.
 
-### Solution <!-- no-step -->
-
-Schemas to compare with your own in Schema Workbench (**File > Open**). The Classic Models schema as Basic Model finished it, before this workshop's Quantity measure and Unit Price:
+The two schemas this workshop starts from, if you didn't build your own. The Classic Models schema as [Basic Model](../05-schemas-basic-model/guide.md) finished it, before this workshop's Quantity measure and Unit Price:
 
 [classicmodels.xml](./files/classicmodels.xml)
 
-The extended Miniature Models schema, with a Unit Price calculated member on `Sales_FY2003_2005`:
+The Miniature Models schema as [Extended Model](../08-extend-model-extended-model/guide.md) finished it (it already holds a Unit Price member on `Sales_FY2003_2005`):
 
 [miniaturemodels-extended.xml](./files/miniaturemodels-extended.xml)
+
+### Solution <!-- no-step -->
+
+The two finished schemas. Open them in Schema Workbench (**File > Open**) alongside your own to compare, or publish them to see the expected results.
+
+Also on disk at `C:\Workshop-SW-Practitioner\04-extend-model\09-extend-model-calculations\solution`.
+
+Classic Models with the Quantity measure and the Unit Price calculated member (tab 1):
+
+[classicmodels-calc.xml](./files/solution/classicmodels-calc.xml)
+
+Miniature Models with the Top 10 Customers calculated member (tab 2):
+
+[miniaturemodels-calc.xml](./files/solution/miniaturemodels-calc.xml)

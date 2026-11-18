@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="462" viewBox="0 0 1200 462" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+<filter id="shadow" x="-10%" y="-10%" width="120%" height="140%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#0f172a" flood-opacity="0.12"/></filter></defs>
+<rect width="1200" height="462" fill="#ffffff"/>
+<rect x="16" y="16" width="264" height="376" rx="12" fill="#eff6ff" stroke="#dbeafe" stroke-width="1.5"/>
+<path d="M16 28a12 12 0 0 1 12-12h240a12 12 0 0 1 12 12v32h-264z" fill="#1d4ed8"/>
+<g transform="translate(29 26) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 7 8.7 2.7a2.41 2.41 0 0 0-3.4 0L2.7 5.3a2.41 2.41 0 0 0 0 3.4L7 13"/><path d="m8 6 2-2"/><path d="m18 16 2-2"/><path d="m17 11 4.3 4.3c.94.94.94 2.46 0 3.4l-2.6 2.6c-.94.94-2.46.94-3.4 0L11 17"/><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></g>
+<text x="56" y="36" font-size="14" font-weight="700" fill="#ffffff">Schema Workbench</text>
+<text x="56" y="52" font-size="11.5" fill="#ffffff" opacity="0.92">tab 1</text>
+<rect x="316" y="16" width="560" height="376" rx="12" fill="#f5f3ff" stroke="#ede9fe" stroke-width="1.5"/>
+<path d="M316 28a12 12 0 0 1 12-12h536a12 12 0 0 1 12 12v32h-560z" fill="#6d28d9"/>
+<g transform="translate(329 26) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="8" x="2" y="2" rx="2" ry="2"/><rect width="20" height="8" x="2" y="14" rx="2" ry="2"/><line x1="6" x2="6.01" y1="6" y2="6"/><line x1="6" x2="6.01" y1="18" y2="18"/></g>
+<text x="356" y="36" font-size="14" font-weight="700" fill="#ffffff">Pentaho Server</text>
+<text x="356" y="52" font-size="11.5" fill="#ffffff" opacity="0.92">tabs 2 to 4</text>
+<rect x="912" y="16" width="272" height="376" rx="12" fill="#fffbeb" stroke="#fef3c7" stroke-width="1.5"/>
+<path d="M912 28a12 12 0 0 1 12-12h248a12 12 0 0 1 12 12v32h-272z" fill="#b45309"/>
+<g transform="translate(925 26) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></g>
+<text x="952" y="36" font-size="14" font-weight="700" fill="#ffffff">Analyzer</text>
+<text x="952" y="52" font-size="11.5" fill="#ffffff" opacity="0.92">the session's language</text>
+<path d="M268 228C296.5 228 296.5 332 325 332" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M568 124C604.5 124 604.5 206 641 206" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M568 228L641 228" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M568 332C604.5 332 604.5 250 641 250" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M864 228C892.5 228 892.5 170 921 170" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M864 228C892.5 228 892.5 286 921 286" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="28" y="186" width="240" height="84" rx="10" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="58" cy="228" r="19" fill="#ffffff" stroke="#0f766e" stroke-width="1.2"/>
+<g transform="translate(46 216) scale(1)" fill="none" stroke="#0f766e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 12.5 8 15l2 2.5"/><path d="m14 12.5 2 2.5-2 2.5"/></g>
+<text x="88" y="211" font-size="14" font-weight="700" fill="#134e4a">Tokenized schema</text>
+<text x="88" y="228" font-size="12" fill="#134e4a">caption="%{classicmodels.</text>
+<text x="88" y="243" font-size="12" fill="#134e4a">...territory.caption}"</text>
+<rect x="328" y="82" width="240" height="84" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="358" cy="124" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(346 112) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></g>
+<text x="388" y="107" font-size="14" font-weight="700" fill="#14532d">Message bundles</text>
+<text x="388" y="124" font-size="12" fill="#14532d">WEB-INF\classes\com\</text>
+<text x="388" y="139" font-size="12" fill="#14532d">pentaho\messages (tab 2)</text>
+<rect x="328" y="186" width="240" height="84" rx="10" fill="#f1f5f9" stroke="#475569" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="358" cy="228" r="19" fill="#ffffff" stroke="#475569" stroke-width="1.2"/>
+<g transform="translate(346 216) scale(1)" fill="none" stroke="#475569" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915"/><circle cx="12" cy="12" r="3"/></g>
+<text x="388" y="211" font-size="14" font-weight="700" fill="#0f172a">mondrian.properties</text>
+<text x="388" y="228" font-size="12" fill="#0f172a">localePropFile = com.</text>
+<text x="388" y="243" font-size="12" fill="#0f172a">pentaho.messages... (tab 3)</text>
+<rect x="328" y="290" width="240" height="84" rx="10" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="358" cy="332" r="19" fill="#ffffff" stroke="#0f766e" stroke-width="1.2"/>
+<g transform="translate(346 320) scale(1)" fill="none" stroke="#0f766e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></g>
+<text x="388" y="315" font-size="14" font-weight="700" fill="#134e4a">Classic Models</text>
+<text x="388" y="332" font-size="12" fill="#134e4a">DynamicSchemaProcessor,</text>
+<text x="388" y="347" font-size="12" fill="#134e4a">UseContentChecksum (tab 4)</text>
+<rect x="644" y="186" width="220" height="84" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="674" cy="228" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(662 216) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></g>
+<text x="704" y="211" font-size="14" font-weight="700" fill="#3b0764">Token replacement</text>
+<text x="704" y="228" font-size="12" fill="#3b0764">each %{key} becomes</text>
+<text x="704" y="243" font-size="12" fill="#3b0764">the bundle's text</text>
+<rect x="924" y="128" width="248" height="84" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="954" cy="170" r="19" fill="#ffffff" stroke="#b45309" stroke-width="1.2"/>
+<g transform="translate(942 158) scale(1)" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></g>
+<text x="984" y="153" font-size="14" font-weight="700" fill="#78350f">Home?locale=fr</text>
+<text x="984" y="170" font-size="12" fill="#78350f">Clients, Territoire,</text>
+<text x="984" y="185" font-size="12" fill="#78350f">Gamme de Produits, Ventes</text>
+<rect x="924" y="244" width="248" height="84" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="954" cy="286" r="19" fill="#ffffff" stroke="#b45309" stroke-width="1.2"/>
+<g transform="translate(942 274) scale(1)" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></g>
+<text x="984" y="269" font-size="14" font-weight="700" fill="#78350f">Home?locale=en</text>
+<text x="984" y="286" font-size="12" fill="#78350f">Customers, Territory,</text>
+<text x="984" y="301" font-size="12" fill="#78350f">Line, Sales</text>
+<rect x="265.45" y="267.5" width="62.1" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="296.5" y="285.5" text-anchor="middle" font-size="12" fill="#334155">Publish</text>
+<rect x="238.2" y="415.5" width="723.6" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="600" y="433.5" text-anchor="middle" font-size="12" fill="#334155">Publishing again from Schema Workbench resets the catalog's parameters: add the two again in Manage Data Sources</text>
+</svg>

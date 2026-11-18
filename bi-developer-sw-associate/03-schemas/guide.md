@@ -14,10 +14,12 @@ A schema defines a multidimensional **star / snowflake** database. It contains a
 
 <div align="center">
 <figure>
-<img src="../_assets/images/schema_mondrian_3_schema.png" alt="Mind map of the Mondrian 3 schema structure, branching from Schema into Cube, Virtual Cube and Roles, with Dimension, Hierarchy, Level, Property and Measure under Cube" width="800">
-<figcaption>Mondrian 3 Schema</figcaption>
+<img src="../_assets/images/mondrian3-schema.png" alt="The Mondrian 3 schema, nested as the XML nests it, with SteelWheels' names. Schema SteelWheels holds Cube Sales_2003_2005, which holds Table ORDERFACT (the fact table), Dimension MARKETS (joined on foreignKey CUSTOMERNUMBER), Measure Sales (SUM of TOTALPRICE), CalculatedMember (lessons 8 and 9) and NamedSet (lesson 12). The dimension holds Hierarchy Markets (hasAll, All Markets), which holds Table CUSTOMER_W_TER and Level Territory, then Country, State Province and City; a level holds a Property, such as Customer Number on the Customer level, and an Annotation, such as Geo.Role on the Country level. Also directly under Schema: a shared Dimension used through DimensionUsage (lesson 8), Role (lesson 14) and a schema-wide NamedSet; VirtualCube, Parameter and UserDefinedFunction are not used in this course" width="800">
+<figcaption>The Mondrian 3 schema: each element inside the one that holds it, with its SteelWheels example</figcaption>
 </figure>
 </div>
+
+Read the picture from the outside in. The schema holds the cube, the cube holds its fact table, its dimensions and its measures, and each dimension holds a hierarchy of levels over the dimension's own table. The tabs below take these building blocks one at a time, in the same order.
 
 <div class="pcm-embed-card" data-href="https://mondrian.pentaho.com/documentation/schema.php" data-title="Pentaho Mondrian Documentation"></div>
 This page is your **reference** for the building blocks. The three labs that follow — **SteelWheels**, **Basic Model**, and **Standard Model** — put them to work.

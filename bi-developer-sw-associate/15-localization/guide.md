@@ -26,16 +26,16 @@ Global organizations need analytics that speak their users' language — present
 >
 > `%{classicmodels.[component].[element].[property]}`
 >
-> - **component** — the schema layer: `schema`, `dimension`, `hierarchy`, `measures`
+> - **component** — the schema layer: `schema`, `cube`, `dimension`, `hierarchy`, `measures`
 > - **element** — the specific object: `customers`, `products`, `territory`…
 > - **property** — the attribute: `caption` or `description`
 
 ```xml
-<Dimension name="CUSTOMERS" caption="%{dimension.customers.caption}">
+<Dimension name="CUSTOMERS" caption="%{classicmodels.dimension.customers.caption}">
   <Hierarchy name="Customers"
-             caption="%{hierarchy.customers.caption}"
-             allMemberCaption="%{hierarchy.customers.allmember}">
-    <Level name="Territory" caption="%{level.territory.caption}" .../>
+             caption="%{classicmodels.hierarchy.customers.caption}"
+             allMemberCaption="%{classicmodels.dimension.customers.allmember.caption}">
+    <Level name="Territory" caption="%{classicmodels.dimension.customers.territory.caption}" .../>
   </Hierarchy>
 </Dimension>
 ```
@@ -57,7 +57,7 @@ Global organizations need analytics that speak their users' language — present
 > Two settings activate runtime substitution:
 >
 > - **`mondrian.rolap.localePropFile`** in `mondrian.properties` points to the message bundle (`com.pentaho.messages.MondrianMessages`, without the language suffix).
-> - The published data source declares a **`DynamicSchemaProcessor`** (Mondrian's token-replacement class) and **`UseContentChecksum`** (so Pentaho Analyzer detects schema changes and refreshes its cache).
+> - The published data source declares a **`DynamicSchemaProcessor`** (Mondrian's token-replacement class) and **`UseContentChecksum`** (so Pentaho Analyzer detects schema changes and refreshes its cache). Publishing from Schema Workbench doesn't set either: you add both to the data source in the User Console, and again after every publish.
 
 ::::
 

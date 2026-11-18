@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="560" viewBox="0 0 1100 560" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+<filter id="shadow" x="-10%" y="-10%" width="120%" height="140%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#0f172a" flood-opacity="0.12"/></filter></defs>
+<rect width="1100" height="560" fill="#ffffff"/>
+<rect x="16" y="16" width="472" height="400" rx="12" fill="#eff6ff" stroke="#dbeafe" stroke-width="1.5"/>
+<path d="M16 28a12 12 0 0 1 12-12h448a12 12 0 0 1 12 12v32h-472z" fill="#1d4ed8"/>
+<g transform="translate(29 26) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 7 8.7 2.7a2.41 2.41 0 0 0-3.4 0L2.7 5.3a2.41 2.41 0 0 0 0 3.4L7 13"/><path d="m8 6 2-2"/><path d="m18 16 2-2"/><path d="m17 11 4.3 4.3c.94.94.94 2.46 0 3.4l-2.6 2.6c-.94.94-2.46.94-3.4 0L11 17"/><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></g>
+<text x="56" y="36" font-size="14" font-weight="700" fill="#ffffff">The query</text>
+<text x="56" y="52" font-size="11.5" fill="#ffffff" opacity="0.92">one clause per part of the result</text>
+<rect x="600" y="16" width="484" height="400" rx="12" fill="#f8fafc" stroke="#ffffff" stroke-width="1.5"/>
+<path d="M600 28a12 12 0 0 1 12-12h460a12 12 0 0 1 12 12v32h-484z" fill="#475569"/>
+<g transform="translate(613 26) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M3 15h18"/></g>
+<text x="640" y="36" font-size="14" font-weight="700" fill="#ffffff">The result grid</text>
+<text x="640" y="52" font-size="11.5" fill="#ffffff" opacity="0.92">Sales and Quantity in APAC, by year</text>
+<path d="M472 113C900 113 900 113 900 136" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M472 193C542 193 542 218 612 218" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M472 353C900 353 900 353 900 336" fill="none" stroke="#64748b" stroke-width="1.7" stroke-dasharray="5 4" marker-end="url(#arrow)"/>
+<rect x="32" y="80" width="440" height="66" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="113" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(50 101) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M9 3v18"/><path d="M15 3v18"/></g>
+<text x="92" y="103.5" font-size="14" font-weight="700" fill="#1e3a8a">SELECT { ... } ON COLUMNS</text>
+<text x="92" y="120.5" font-size="12" fill="#1e3a8a">{ [Measures].[Sales], [Measures].[Quantity] }</text>
+<rect x="32" y="160" width="440" height="66" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="193" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(50 181) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M21 9H3"/><path d="M21 15H3"/></g>
+<text x="92" y="183.5" font-size="14" font-weight="700" fill="#1e3a8a">{ ... } ON ROWS</text>
+<text x="92" y="200.5" font-size="12" fill="#1e3a8a">{ [Years].&amp;[2004], [Years].&amp;[2005] }   (&amp; = by key)</text>
+<rect x="32" y="240" width="440" height="66" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="273" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(50 261) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></g>
+<text x="92" y="263.5" font-size="14" font-weight="700" fill="#1e3a8a">FROM [Sales_2003_2005]</text>
+<text x="92" y="280.5" font-size="12" fill="#1e3a8a">the cube the query reads</text>
+<rect x="32" y="320" width="440" height="66" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="353" r="19" fill="#ffffff" stroke="#b45309" stroke-width="1.2"/>
+<g transform="translate(50 341) scale(1)" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="22" x2="18" y1="12" y2="12"/><line x1="6" x2="2" y1="12" y2="12"/><line x1="12" x2="12" y1="6" y2="2"/><line x1="12" x2="12" y1="22" y2="18"/></g>
+<text x="92" y="343.5" font-size="14" font-weight="700" fill="#78350f">WHERE ( [MARKETS.Markets].[APAC] )</text>
+<text x="92" y="360.5" font-size="12" fill="#78350f">the slicer: on no axis</text>
+<rect x="616" y="140" width="116" height="40" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1"/>
+<rect x="732" y="140" width="168" height="40" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1"/>
+<text x="816" y="165" text-anchor="middle" font-size="14" font-weight="700" fill="#1e3a8a">Sales</text>
+<rect x="900" y="140" width="168" height="40" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1"/>
+<text x="984" y="165" text-anchor="middle" font-size="14" font-weight="700" fill="#1e3a8a">Quantity</text>
+<rect x="616" y="180" width="116" height="76" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1"/>
+<text x="674" y="223" text-anchor="middle" font-size="14" font-weight="700" fill="#1e3a8a">2004</text>
+<rect x="616" y="256" width="116" height="76" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1"/>
+<text x="674" y="299" text-anchor="middle" font-size="14" font-weight="700" fill="#1e3a8a">2005</text>
+<rect x="732" y="180" width="168" height="76" fill="#ffffff" stroke="#94a3b8" stroke-width="1"/>
+<text x="816" y="210" text-anchor="middle" font-size="16" font-weight="700" fill="#0f172a">601,606</text>
+<text x="828" y="236" text-anchor="end" font-size="11.5" fill="#475569">Sales, 2004,</text>
+<rect x="832" y="223" width="44" height="18" rx="9" fill="#fef3c7" stroke="#b45309" stroke-width="1"/>
+<text x="854" y="236" text-anchor="middle" font-size="11" font-weight="700" fill="#78350f">APAC</text>
+<rect x="900" y="180" width="168" height="76" fill="#ffffff" stroke="#94a3b8" stroke-width="1"/>
+<text x="984" y="210" text-anchor="middle" font-size="16" font-weight="700" fill="#0f172a">5,938</text>
+<text x="996" y="236" text-anchor="end" font-size="11.5" fill="#475569">Quantity, 2004,</text>
+<rect x="1000" y="223" width="44" height="18" rx="9" fill="#fef3c7" stroke="#b45309" stroke-width="1"/>
+<text x="1022" y="236" text-anchor="middle" font-size="11" font-weight="700" fill="#78350f">APAC</text>
+<rect x="732" y="256" width="168" height="76" fill="#ffffff" stroke="#94a3b8" stroke-width="1"/>
+<text x="816" y="286" text-anchor="middle" font-size="16" font-weight="700" fill="#0f172a">337,018</text>
+<text x="828" y="312" text-anchor="end" font-size="11.5" fill="#475569">Sales, 2005,</text>
+<rect x="832" y="299" width="44" height="18" rx="9" fill="#fef3c7" stroke="#b45309" stroke-width="1"/>
+<text x="854" y="312" text-anchor="middle" font-size="11" font-weight="700" fill="#78350f">APAC</text>
+<rect x="900" y="256" width="168" height="76" fill="#ffffff" stroke="#94a3b8" stroke-width="1"/>
+<text x="984" y="286" text-anchor="middle" font-size="16" font-weight="700" fill="#0f172a">3,411</text>
+<text x="996" y="312" text-anchor="end" font-size="11.5" fill="#475569">Quantity, 2005,</text>
+<rect x="1000" y="299" width="44" height="18" rx="9" fill="#fef3c7" stroke="#b45309" stroke-width="1"/>
+<text x="1022" y="312" text-anchor="middle" font-size="11" font-weight="700" fill="#78350f">APAC</text>
+<rect x="666.9" y="100.5" width="106.2" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="720" y="118.5" text-anchor="middle" font-size="12" fill="#334155">across the top</text>
+<rect x="494.05" y="193" width="99.89999999999999" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="544" y="211" text-anchor="middle" font-size="12" fill="#334155">down the side</text>
+<rect x="892.25" y="361.5" width="175.5" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="980" y="379.5" text-anchor="middle" font-size="12" fill="#334155">in every cell, on no axis</text>
+<rect x="16" y="440" width="1068" height="70" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="48" cy="475" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(36 463) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></g>
+<text x="78" y="472" font-size="14" font-weight="700" fill="#14532d">In the SQL, a slicer becomes a condition on the cell query: YEAR_ID = '2004'</text>
+<text x="78" y="490" font-size="12" fill="#14532d">the MDX Query workshop's basic query: SELECT Measures.allmembers ON COLUMNS FROM [Sales_2003_2005] WHERE ([Years].[2004])</text>
+<text x="550" y="540" text-anchor="middle" font-size="12" fill="#475569">Read the WHERE clause first when a figure surprises you: it changes every number without adding a row or a column.</text>
+</svg>

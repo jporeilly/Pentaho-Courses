@@ -40,3 +40,7 @@
 ## Performance
 
 * [Aggregate Tables](17-performance-aggregate-tables/guide.md)
+
+## Capstone Project
+
+* [Budget v Actual](18-capstone-budget-v-actual/guide.md)

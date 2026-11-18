@@ -15,7 +15,13 @@
 >
 > **Prerequisites:** Complete [Standard Model](../06-schemas-standard-model/guide.md) and [MDX Query](../11-mdx-query-mdx-query/guide.md); the Pentaho Server running
 >
-> **Estimated time:** 30 minutes
+> **Estimated time:** 15 minutes
+
+<figure>
+
+<figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
+
+</figure>
 
 ## Named Sets vs. Calculated Members <!-- no-step -->
 
@@ -57,48 +63,22 @@ The named set you add to the Miniature Models schema looks like this in the XML:
 >
 > A `WITH SET` clause defines a named set that lasts for one query. Test the formula that way first, then add it to the schema.
 
-1. Start Schema Workbench with the **Start Schema Workbench** button below, or from a terminal:
-
-::: tabs
-
-### Windows (PowerShell)
+1. Start Schema Workbench with the **Start Pentaho Schema Workbench** button below, or from PowerShell:
 
 ```powershell
 Set-Location C:\Pentaho\design-tools\schema-workbench
 .\workbench.bat
 ```
 
-### macOS / Linux
+<button data-launch="schema-workbench">Start Pentaho Schema Workbench</button>
 
-```bash
-cd ~/Pentaho/design-tools/schema-workbench
-./workbench.sh
-```
-
-:::
-
-<button data-launch="schema-workbench">Start Schema Workbench</button>
-
-2. Make sure the Pentaho Server is running: it hosts the SampleData database on port `9001`. On a lab VM it starts with the machine. On your own machine, start it and wait until **http://localhost:8080/pentaho** shows the sign-in page:
-
-::: tabs
-
-### Windows (PowerShell)
+2. Make sure the Pentaho Server is running: it hosts the SampleData database on port `9001`. On a lab VM it starts with the machine. On your own machine, start it as [Before You Start](../00-before-you-start/guide.md) describes (its repository database first), and wait until **http://localhost:8080/pentaho** shows the sign-in page:
 
 ```powershell
 C:\Pentaho\server\pentaho-server\start-pentaho.bat
 ```
 
-### macOS / Linux
-
-```bash
-cd ~/Pentaho/server/pentaho-server
-./start-pentaho.sh
-```
-
-:::
-
-3. Select **File > Open** and open `miniaturemodels-original.xml`, which you downloaded from **Lab Files** below.
+3. Select **File > Open** and open `miniaturemodels-original.xml` from `C:\Workshop-SW-Practitioner\05-mdx-query\12-mdx-query-named-sets`, or download it from **Lab Files** below.
 4. Select **File > New > MDX Query**.
 
 <div align="center">
@@ -263,8 +243,16 @@ TopCount(
 
 ## Lab Files
 
-Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches Pentaho Data Integration with the file loaded. If Pentaho Data Integration is already running, the path is copied to your clipboard — switch to Pentaho Data Integration and press `Ctrl+O`, `Ctrl+V`, `Enter`.
+Click a file to download. Every file is also on disk in this workshop's folder, `C:\Workshop-SW-Practitioner\05-mdx-query\12-mdx-query-named-sets`: open a schema in Schema Workbench with **File > Open**.
 
 The Miniature Models schema from [Standard Model](../06-schemas-standard-model/guide.md), the starting point for this workshop:
 
 [miniaturemodels-original.xml](./files/miniaturemodels-original.xml)
+
+### Solution <!-- no-step -->
+
+The finished schema, with the Top 3 Territories named set last in the cube. Open it in Schema Workbench (**File > Open**) alongside your own to compare, or publish it to see the expected result.
+
+Also on disk at `C:\Workshop-SW-Practitioner\05-mdx-query\12-mdx-query-named-sets\solution`.
+
+[miniaturemodels-namedset.xml](./files/solution/miniaturemodels-namedset.xml)

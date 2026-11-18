@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1164" height="640" viewBox="0 0 1164 640" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+<filter id="shadow" x="-10%" y="-10%" width="120%" height="140%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#0f172a" flood-opacity="0.12"/></filter></defs>
+<rect width="1164" height="640" fill="#ffffff"/>
+<rect x="16" y="16" width="1132" height="608" rx="12" fill="#f8fafc" stroke="#f1f5f9" stroke-width="1.5"/>
+<path d="M16 28a12 12 0 0 1 12-12h1108a12 12 0 0 1 12 12v32h-1132z" fill="#475569"/>
+<g transform="translate(29 26) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 12.5 8 15l2 2.5"/><path d="m14 12.5 2 2.5-2 2.5"/></g>
+<text x="56" y="36" font-size="14" font-weight="700" fill="#ffffff">Miniature Models: the schema</text>
+<text x="56" y="52" font-size="11.5" fill="#ffffff" opacity="0.92">A shared dimension is defined here, once, outside every cube</text>
+<rect x="32" y="76" width="1100" height="380" rx="12" fill="#f0fdfa" stroke="#ccfbf1" stroke-width="1.5"/>
+<path d="M32 88a12 12 0 0 1 12-12h1076a12 12 0 0 1 12 12v32h-1100z" fill="#0f766e"/>
+<g transform="translate(45 86) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></g>
+<text x="72" y="96" font-size="14" font-weight="700" fill="#ffffff">Sales_FY2003_2005: the cube</text>
+<text x="72" y="112" font-size="11.5" fill="#ffffff" opacity="0.92">Private and degenerate dimensions are defined inside it</text>
+<path d="M480 209C393.5 209 393.5 172 307 172" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M480 209C393.5 209 393.5 264 307 264" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M480 231C393.5 231 393.5 356 307 356" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M780 275C822.5 275 822.5 275 865 275" fill="none" stroke="#64748b" stroke-width="1.7" stroke-dasharray="5 4" marker-end="url(#arrow)"/>
+<path d="M630 336L630 515" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="480" y="160" width="300" height="176" rx="10" fill="#ffffff" stroke="#0f766e" stroke-width="1.5" filter="url(#shadow)"/>
+<path d="M480 170a10 10 0 0 1 10-10h280a10 10 0 0 1 10 10v26h-300z" fill="#0f766e"/>
+<g transform="translate(492 168) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></g>
+<text x="520" y="184" font-size="14" font-weight="700" fill="#ffffff">ORDERFACT  (the fact table)</text>
+<text x="492" y="213" font-size="12" fill="#64748b">to slice by</text>
+<text x="584" y="213" font-size="12" fill="#134e4a">CUSTOMERNUMBER</text>
+<rect x="742" y="201" width="28" height="15" rx="7.5" fill="#f1f5f9" stroke="#94a3b8" stroke-width="0.8"/>
+<text x="756" y="212" text-anchor="middle" font-size="9.5" font-weight="700" fill="#475569">FK</text>
+<rect x="481" y="220" width="298" height="22" fill="#f0fdfa"/>
+<text x="492" y="235" font-size="12" fill="#64748b">to slice by</text>
+<text x="584" y="235" font-size="12" fill="#134e4a">PRODUCTCODE</text>
+<rect x="742" y="223" width="28" height="15" rx="7.5" fill="#f1f5f9" stroke="#94a3b8" stroke-width="0.8"/>
+<text x="756" y="234" text-anchor="middle" font-size="9.5" font-weight="700" fill="#475569">FK</text>
+<text x="492" y="257" font-size="12" fill="#64748b">to slice by</text>
+<text x="584" y="257" font-size="12" fill="#134e4a">TIME_ID</text>
+<rect x="742" y="245" width="28" height="15" rx="7.5" fill="#f1f5f9" stroke="#94a3b8" stroke-width="0.8"/>
+<text x="756" y="256" text-anchor="middle" font-size="9.5" font-weight="700" fill="#475569">FK</text>
+<rect x="481" y="264" width="298" height="22" fill="#f0fdfa"/>
+<text x="492" y="279" font-size="12" fill="#64748b">to slice by</text>
+<text x="584" y="279" font-size="12" fill="#134e4a">STATUS</text>
+<text x="492" y="301" font-size="12" fill="#64748b">to measure</text>
+<text x="584" y="301" font-size="12" fill="#134e4a">QUANTITYORDERED</text>
+<rect x="481" y="308" width="298" height="22" fill="#f0fdfa"/>
+<text x="492" y="323" font-size="12" fill="#64748b">to measure</text>
+<text x="584" y="323" font-size="12" fill="#134e4a">TOTALPRICE</text>
+<rect x="48" y="136" width="256" height="72" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="78" cy="172" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(66 160) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></g>
+<text x="108" y="155" font-size="14" font-weight="700" fill="#14532d">MARKETS</text>
+<text x="108" y="172" font-size="12" fill="#14532d">private: CUSTOMER_W_TER,</text>
+<text x="108" y="187" font-size="12" fill="#14532d">4 levels, Territory to City</text>
+<rect x="48" y="228" width="256" height="72" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="78" cy="264" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(66 252) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><path d="M16 3.128a4 4 0 0 1 0 7.744"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><circle cx="9" cy="7" r="4"/></g>
+<text x="108" y="247" font-size="14" font-weight="700" fill="#14532d">CUSTOMERS</text>
+<text x="108" y="264" font-size="12" fill="#14532d">private: CUSTOMER_W_TER,</text>
+<text x="108" y="279" font-size="12" fill="#14532d">Customer Name, 4 properties</text>
+<rect x="48" y="320" width="256" height="72" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="78" cy="356" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(66 344) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></g>
+<text x="108" y="339" font-size="14" font-weight="700" fill="#14532d">PRODUCTS</text>
+<text x="108" y="356" font-size="12" fill="#14532d">private: PRODUCTS,</text>
+<text x="108" y="371" font-size="12" fill="#14532d">Line &gt; Name</text>
+<rect x="321.5" y="178" width="144" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="393.5" y="196" text-anchor="middle" font-size="12" fill="#334155">   CUSTOMERNUMBER   </text>
+<rect x="321.5" y="224" width="144" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="393.5" y="242" text-anchor="middle" font-size="12" fill="#334155">   CUSTOMERNUMBER   </text>
+<rect x="343.55" y="281" width="99.89999999999999" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="393.5" y="299" text-anchor="middle" font-size="12" fill="#334155"> PRODUCTCODE </text>
+<rect x="868" y="239" width="256" height="72" rx="10" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="898" cy="275" r="19" fill="#ffffff" stroke="#0f766e" stroke-width="1.2"/>
+<g transform="translate(886 263) scale(1)" fill="none" stroke="#0f766e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z"/><circle cx="7.5" cy="7.5" r=".5" fill="currentColor"/></g>
+<text x="928" y="258" font-size="14" font-weight="700" fill="#134e4a">ORDER STATUS</text>
+<text x="928" y="275" font-size="12" fill="#134e4a">degenerate: level Type on</text>
+<text x="928" y="290" font-size="12" fill="#134e4a">ORDERFACT.STATUS itself</text>
+<rect x="791.45" y="262.5" width="62.1" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="822.5" y="280.5" text-anchor="middle" font-size="12" fill="#334155">no join</text>
+<rect x="44.150000000000006" y="408" width="263.7" height="40" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="176" y="426" text-anchor="middle" font-size="12" fill="#334155">Private: a &lt;Dimension foreignKey="..."&gt;</text>
+<text x="176" y="441" text-anchor="middle" font-size="12" fill="#334155">in the cube, with its own &lt;Table&gt;</text>
+<rect x="892.5" y="342" width="207" height="40" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="996" y="360" text-anchor="middle" font-size="12" fill="#334155">Degenerate: no foreignKey,</text>
+<text x="996" y="375" text-anchor="middle" font-size="12" fill="#334155">no &lt;Table&gt;, no join in the SQL</text>
+<rect x="502" y="518" width="256" height="72" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="532" cy="554" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(520 542) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></g>
+<text x="562" y="537" font-size="14" font-weight="700" fill="#14532d">TIME (shared)</text>
+<text x="562" y="554" font-size="12" fill="#14532d">DIM_TIME, a TimeDimension:</text>
+<text x="562" y="569" font-size="12" fill="#14532d">Years &gt; Quarters &gt; Months</text>
+<rect x="542.25" y="474.5" width="175.5" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="630" y="492.5" text-anchor="middle" font-size="12" fill="#334155">DimensionUsage on TIME_ID</text>
+<rect x="784.35" y="526.5" width="339.3" height="55" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="954" y="544.5" text-anchor="middle" font-size="12" fill="#334155">Shared: a &lt;Dimension&gt; directly under</text>
+<text x="954" y="559.5" text-anchor="middle" font-size="12" fill="#334155">&lt;Schema&gt;, no foreignKey; the cube holds</text>
+<text x="954" y="574.5" text-anchor="middle" font-size="12" fill="#334155">&lt;DimensionUsage source="TIME" foreignKey="TIME_ID"&gt;</text>
+</svg>

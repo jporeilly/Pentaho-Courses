@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="684" viewBox="0 0 1100 684" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+<filter id="shadow" x="-10%" y="-10%" width="120%" height="140%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#0f172a" flood-opacity="0.12"/></filter></defs>
+<rect width="1100" height="684" fill="#ffffff"/>
+<rect x="16" y="16" width="1068" height="624" rx="12" fill="#f8fafc" stroke="#f1f5f9" stroke-width="1.5"/>
+<path d="M16 28a12 12 0 0 1 12-12h1044a12 12 0 0 1 12 12v32h-1068z" fill="#475569"/>
+<g transform="translate(29 26) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 12.5 8 15l2 2.5"/><path d="m14 12.5 2 2.5-2 2.5"/></g>
+<text x="56" y="36" font-size="14" font-weight="700" fill="#ffffff">Schema  "SteelWheels"</text>
+<text x="56" y="52" font-size="11.5" fill="#ffffff" opacity="0.92">one XML file: you publish it to the server as one catalog</text>
+<rect x="32" y="76" width="704" height="548" rx="12" fill="#f0fdfa" stroke="#ccfbf1" stroke-width="1.5"/>
+<path d="M32 88a12 12 0 0 1 12-12h680a12 12 0 0 1 12 12v32h-704z" fill="#0f766e"/>
+<g transform="translate(45 86) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></g>
+<text x="72" y="96" font-size="14" font-weight="700" fill="#ffffff">Cube  "Sales_2003_2005"</text>
+<text x="72" y="112" font-size="11.5" fill="#ffffff" opacity="0.92">one fact table, the dimensions around it, the measures</text>
+<rect x="48" y="208" width="672" height="324" rx="12" fill="#f0fdfa" stroke="#ccfbf1" stroke-width="1.5"/>
+<path d="M48 220a12 12 0 0 1 12-12h648a12 12 0 0 1 12 12v32h-672z" fill="#0f766e"/>
+<g transform="translate(61 218) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></g>
+<text x="88" y="228" font-size="14" font-weight="700" fill="#ffffff">Dimension  "MARKETS"</text>
+<text x="88" y="244" font-size="11.5" fill="#ffffff" opacity="0.92">joined to the fact table on foreignKey CUSTOMERNUMBER</text>
+<rect x="64" y="266" width="640" height="250" rx="12" fill="#f0fdfa" stroke="#ccfbf1" stroke-width="1.5"/>
+<path d="M64 278a12 12 0 0 1 12-12h616a12 12 0 0 1 12 12v32h-640z" fill="#0f766e"/>
+<g transform="translate(77 276) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="16" y="16" width="6" height="6" rx="1"/><rect x="2" y="16" width="6" height="6" rx="1"/><rect x="9" y="2" width="6" height="6" rx="1"/><path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3"/><path d="M12 12V8"/></g>
+<text x="104" y="286" font-size="14" font-weight="700" fill="#ffffff">Hierarchy  "Markets"</text>
+<text x="104" y="302" font-size="11.5" fill="#ffffff" opacity="0.92">hasAll: an "All Markets" member above the top level</text>
+<rect x="344" y="324" width="344" height="176" rx="12" fill="#f0fdfa" stroke="#ccfbf1" stroke-width="1.5"/>
+<path d="M344 336a12 12 0 0 1 12-12h320a12 12 0 0 1 12 12v32h-344z" fill="#0f766e"/>
+<g transform="translate(357 334) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"/><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"/><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"/></g>
+<text x="384" y="344" font-size="14" font-weight="700" fill="#ffffff">Level  "Territory"</text>
+<text x="384" y="360" font-size="11.5" fill="#ffffff" opacity="0.92">then Country, State Province and City</text>
+<rect x="48" y="136" width="300" height="56" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="78" cy="164" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(66 152) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></g>
+<text x="108" y="154.5" font-size="14" font-weight="700" fill="#14532d">Table  ORDERFACT</text>
+<text x="108" y="171.5" font-size="12" fill="#14532d">the fact table, one row per order line</text>
+<rect x="80" y="324" width="248" height="56" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="110" cy="352" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(98 340) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></g>
+<text x="140" y="342.5" font-size="14" font-weight="700" fill="#14532d">Table  CUSTOMER_W_TER</text>
+<text x="140" y="359.5" font-size="12" fill="#14532d">the dimension's own table</text>
+<rect x="360" y="382" width="312" height="52" rx="10" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="390" cy="408" r="19" fill="#ffffff" stroke="#0f766e" stroke-width="1.2"/>
+<g transform="translate(378 396) scale(1)" fill="none" stroke="#0f766e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></g>
+<text x="420" y="398.5" font-size="14" font-weight="700" fill="#134e4a">Property</text>
+<text x="420" y="415.5" font-size="12" fill="#134e4a">Customer Number, on the Customer level</text>
+<rect x="360" y="440" width="312" height="52" rx="10" fill="#f1f5f9" stroke="#475569" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="390" cy="466" r="19" fill="#ffffff" stroke="#475569" stroke-width="1.2"/>
+<g transform="translate(378 454) scale(1)" fill="none" stroke="#475569" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 9a2.4 2.4 0 0 0-.706-1.706l-3.588-3.588A2.4 2.4 0 0 0 15 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2z"/><path d="M15 3v5a1 1 0 0 0 1 1h5"/></g>
+<text x="420" y="456.5" font-size="14" font-weight="700" fill="#0f172a">Annotation</text>
+<text x="420" y="473.5" font-size="12" fill="#0f172a">Geo.Role, on the Country level</text>
+<rect x="48" y="548" width="213" height="60" rx="10" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="78" cy="578" r="19" fill="#ffffff" stroke="#0f766e" stroke-width="1.2"/>
+<g transform="translate(66 566) scale(1)" fill="none" stroke="#0f766e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 7V5a1 1 0 0 0-1-1H6.5a.5.5 0 0 0-.4.8l4.5 6a2 2 0 0 1 0 2.4l-4.5 6a.5.5 0 0 0 .4.8H17a1 1 0 0 0 1-1v-2"/></g>
+<text x="108" y="568.5" font-size="14" font-weight="700" fill="#134e4a">Measure  Sales</text>
+<text x="108" y="585.5" font-size="12" fill="#134e4a">SUM of TOTALPRICE</text>
+<rect x="277" y="548" width="213" height="60" rx="10" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="307" cy="578" r="19" fill="#ffffff" stroke="#0f766e" stroke-width="1.2"/>
+<g transform="translate(295 566) scale(1)" fill="none" stroke="#0f766e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="20" x="4" y="2" rx="2"/><line x1="8" x2="16" y1="6" y2="6"/><line x1="16" x2="16" y1="14" y2="18"/><path d="M16 10h.01"/><path d="M12 10h.01"/><path d="M8 10h.01"/><path d="M12 14h.01"/><path d="M8 14h.01"/><path d="M12 18h.01"/><path d="M8 18h.01"/></g>
+<text x="337" y="568.5" font-size="14" font-weight="700" fill="#134e4a">CalculatedMember</text>
+<text x="337" y="585.5" font-size="12" fill="#134e4a">a formula: lessons 8, 9</text>
+<rect x="506" y="548" width="213" height="60" rx="10" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="536" cy="578" r="19" fill="#ffffff" stroke="#0f766e" stroke-width="1.2"/>
+<g transform="translate(524 566) scale(1)" fill="none" stroke="#0f766e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 5h8"/><path d="M13 12h8"/><path d="M13 19h8"/><path d="m3 17 2 2 4-4"/><path d="m3 7 2 2 4-4"/></g>
+<text x="566" y="568.5" font-size="14" font-weight="700" fill="#134e4a">NamedSet</text>
+<text x="566" y="585.5" font-size="12" fill="#134e4a">a saved set: lesson 12</text>
+<text x="752" y="98" font-size="13" font-weight="700" fill="#334155">Also directly under Schema</text>
+<rect x="752" y="112" width="316" height="68" rx="10" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="782" cy="146" r="19" fill="#ffffff" stroke="#0f766e" stroke-width="1.2"/>
+<g transform="translate(770 134) scale(1)" fill="none" stroke="#0f766e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/></g>
+<text x="812" y="129" font-size="14" font-weight="700" fill="#134e4a">Dimension (shared)</text>
+<text x="812" y="146" font-size="12" fill="#134e4a">declared once, used in each cube</text>
+<text x="812" y="161" font-size="12" fill="#134e4a">through DimensionUsage: lesson 8</text>
+<rect x="752" y="196" width="316" height="68" rx="10" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="782" cy="230" r="19" fill="#ffffff" stroke="#0f766e" stroke-width="1.2"/>
+<g transform="translate(770 218) scale(1)" fill="none" stroke="#0f766e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z"/><circle cx="16.5" cy="7.5" r=".5" fill="currentColor"/></g>
+<text x="812" y="213" font-size="14" font-weight="700" fill="#134e4a">Role</text>
+<text x="812" y="230" font-size="12" fill="#134e4a">who sees which cubes and members:</text>
+<text x="812" y="245" font-size="12" fill="#134e4a">lesson 14</text>
+<rect x="752" y="280" width="316" height="68" rx="10" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="782" cy="314" r="19" fill="#ffffff" stroke="#0f766e" stroke-width="1.2"/>
+<g transform="translate(770 302) scale(1)" fill="none" stroke="#0f766e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 5h8"/><path d="M13 12h8"/><path d="M13 19h8"/><path d="m3 17 2 2 4-4"/><path d="m3 7 2 2 4-4"/></g>
+<text x="812" y="304.5" font-size="14" font-weight="700" fill="#134e4a">NamedSet (schema-wide)</text>
+<text x="812" y="321.5" font-size="12" fill="#134e4a">a saved set every cube can use</text>
+<rect x="752" y="364" width="316" height="68" rx="10" fill="#f5f5f4" stroke="#a8a29e" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="782" cy="398" r="19" fill="#ffffff" stroke="#a8a29e" stroke-width="1.2"/>
+<g transform="translate(770 386) scale(1)" fill="none" stroke="#a8a29e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.97 12.92A2 2 0 0 0 2 14.63v3.24a2 2 0 0 0 .97 1.71l3 1.8a2 2 0 0 0 2.06 0L12 19v-5.5l-5-3-4.03 2.42Z"/><path d="m7 16.5-4.74-2.85"/><path d="m7 16.5 5-3"/><path d="M7 16.5v5.17"/><path d="M12 13.5V19l3.97 2.38a2 2 0 0 0 2.06 0l3-1.8a2 2 0 0 0 .97-1.71v-3.24a2 2 0 0 0-.97-1.71L17 10.5l-5 3Z"/><path d="m17 16.5-5-3"/><path d="m17 16.5 4.74-2.85"/><path d="M17 16.5v5.17"/><path d="M7.97 4.42A2 2 0 0 0 7 6.13v4.37l5 3 5-3V6.13a2 2 0 0 0-.97-1.71l-3-1.8a2 2 0 0 0-2.06 0l-3 1.8Z"/><path d="M12 8 7.26 5.15"/><path d="m12 8 4.74-2.85"/><path d="M12 13.5V8"/></g>
+<text x="812" y="381" font-size="14" font-weight="700" fill="#78716c">VirtualCube</text>
+<text x="812" y="398" font-size="12" fill="#78716c">combines cubes' measures;</text>
+<text x="812" y="413" font-size="12" fill="#78716c">not used in this course</text>
+<rect x="752" y="448" width="316" height="68" rx="10" fill="#f5f5f4" stroke="#a8a29e" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="782" cy="482" r="19" fill="#ffffff" stroke="#a8a29e" stroke-width="1.2"/>
+<g transform="translate(770 470) scale(1)" fill="none" stroke="#a8a29e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 12.5 8 15l2 2.5"/><path d="m14 12.5 2 2.5-2 2.5"/></g>
+<text x="812" y="472.5" font-size="14" font-weight="700" fill="#78716c">Parameter, UserDefinedFunction</text>
+<text x="812" y="489.5" font-size="12" fill="#78716c">not used in this course</text>
+<text x="550" y="670" text-anchor="middle" font-size="12" fill="#475569">A box inside another is an XML element inside another. Teal: the logical model; green: a physical table; stone: not used in this course.</text>
+</svg>

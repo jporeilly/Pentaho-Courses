@@ -120,12 +120,4 @@
     <CalculatedMember name="Unit Price" formatString="&#163;#,###" formula="[Measures].[Sales]/[Measures].[Quantity]" dimension="Measures" visible="true">
     </CalculatedMember>
   </Cube>
-  <Role name="Administrator">
-    <SchemaGrant access="all">
-      <CubeGrant cube="Sales_FY2003_2005" access="all">
-        <DimensionGrant dimension="CUSTOMERS" access="custom">
-        </DimensionGrant>
-      </CubeGrant>
-    </SchemaGrant>
-  </Role>
 </Schema>

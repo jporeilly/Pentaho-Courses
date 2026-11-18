@@ -1,0 +1,180 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1160" height="704" viewBox="0 0 1160 704" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+<filter id="shadow" x="-10%" y="-10%" width="120%" height="140%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#0f172a" flood-opacity="0.12"/></filter></defs>
+<rect width="1160" height="704" fill="#ffffff"/>
+<rect x="16" y="88" width="736" height="600" rx="12" fill="#eff6ff" stroke="#dbeafe" stroke-width="1.5"/>
+<path d="M16 100a12 12 0 0 1 12-12h712a12 12 0 0 1 12 12v32h-736z" fill="#1d4ed8"/>
+<g transform="translate(29 98) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></g>
+<text x="56" y="108" font-size="14" font-weight="700" fill="#ffffff">Normalized: the order system (OLTP)</text>
+<text x="56" y="124" font-size="11.5" fill="#ffffff" opacity="0.92">each fact stored once, so a question walks the joins</text>
+<rect x="768" y="88" width="376" height="600" rx="12" fill="#f0fdfa" stroke="#ccfbf1" stroke-width="1.5"/>
+<path d="M768 100a12 12 0 0 1 12-12h352a12 12 0 0 1 12 12v32h-376z" fill="#0f766e"/>
+<g transform="translate(781 98) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></g>
+<text x="808" y="108" font-size="14" font-weight="700" fill="#ffffff">Star: the SteelWheels data mart</text>
+<text x="808" y="124" font-size="11.5" fill="#ffffff" opacity="0.92">shaped for the question, one join per dimension</text>
+<path d="M346 223C384.5 223 384.5 201 423 201" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M191 284C191 302.5 191 302.5 191 321" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M191 434C191 452.5 191 452.5 191 471" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M346 567C384.5 567 384.5 523 423 523" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M581 474C581 444.5 581 444.5 581 415" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="16" y="16" width="1128" height="56" rx="10" fill="#f1f5f9" stroke="#475569" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="48" cy="44" r="19" fill="#ffffff" stroke="#475569" stroke-width="1.2"/>
+<g transform="translate(36 32) scale(1)" fill="none" stroke="#475569" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></g>
+<text x="78" y="41" font-size="14" font-weight="700" fill="#0f172a">One question, two designs: Sales by Product Line and Territory</text>
+<text x="78" y="59" font-size="12" fill="#0f172a">Both halves are tables in SampleData: the order system, and the SteelWheels data mart built from it</text>
+<rect x="36" y="152" width="310" height="132" rx="10" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<path d="M36 162a10 10 0 0 1 10-10h290a10 10 0 0 1 10 10v26h-310z" fill="#1d4ed8"/>
+<g transform="translate(48 160) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h.01"/><path d="M3 12h.01"/><path d="M3 19h.01"/><path d="M8 5h13"/><path d="M8 12h13"/><path d="M8 19h13"/></g>
+<text x="76" y="176" font-size="14" font-weight="700" fill="#ffffff">ORDERDETAILS</text>
+<text x="48" y="205" font-size="12" fill="#64748b">INTEGER</text>
+<text x="140" y="205" font-size="12" fill="#1e3a8a">ORDERNUMBER</text>
+<rect x="308" y="193" width="28" height="15" rx="7.5" fill="#f1f5f9" stroke="#94a3b8" stroke-width="0.8"/>
+<text x="322" y="204" text-anchor="middle" font-size="9.5" font-weight="700" fill="#475569">FK</text>
+<rect x="37" y="212" width="308" height="22" fill="#eff6ff"/>
+<text x="48" y="227" font-size="12" fill="#64748b">VARCHAR</text>
+<text x="140" y="227" font-size="12" fill="#1e3a8a">PRODUCTCODE</text>
+<rect x="308" y="215" width="28" height="15" rx="7.5" fill="#f1f5f9" stroke="#94a3b8" stroke-width="0.8"/>
+<text x="322" y="226" text-anchor="middle" font-size="9.5" font-weight="700" fill="#475569">FK</text>
+<text x="48" y="249" font-size="12" fill="#64748b">INTEGER</text>
+<text x="140" y="249" font-size="12" fill="#1e3a8a">QUANTITYORDERED</text>
+<rect x="37" y="256" width="308" height="22" fill="#eff6ff"/>
+<text x="48" y="271" font-size="12" fill="#64748b">NUMERIC</text>
+<text x="140" y="271" font-size="12" fill="#1e3a8a">PRICEEACH</text>
+<rect x="36" y="324" width="310" height="110" rx="10" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<path d="M36 334a10 10 0 0 1 10-10h290a10 10 0 0 1 10 10v26h-310z" fill="#1d4ed8"/>
+<g transform="translate(48 332) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 17V7"/><path d="M16 8h-6a2 2 0 0 0 0 4h4a2 2 0 0 1 0 4H8"/><path d="M4 3a1 1 0 0 1 1-1 1.3 1.3 0 0 1 .7.2l.933.6a1.3 1.3 0 0 0 1.4 0l.934-.6a1.3 1.3 0 0 1 1.4 0l.933.6a1.3 1.3 0 0 0 1.4 0l.933-.6a1.3 1.3 0 0 1 1.4 0l.934.6a1.3 1.3 0 0 0 1.4 0l.933-.6A1.3 1.3 0 0 1 19 2a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1 1.3 1.3 0 0 1-.7-.2l-.933-.6a1.3 1.3 0 0 0-1.4 0l-.934.6a1.3 1.3 0 0 1-1.4 0l-.933-.6a1.3 1.3 0 0 0-1.4 0l-.933.6a1.3 1.3 0 0 1-1.4 0l-.934-.6a1.3 1.3 0 0 0-1.4 0l-.933.6a1.3 1.3 0 0 1-.7.2 1 1 0 0 1-1-1z"/></g>
+<text x="76" y="348" font-size="14" font-weight="700" fill="#ffffff">ORDERS</text>
+<text x="48" y="377" font-size="12" fill="#64748b">INTEGER</text>
+<text x="140" y="377" font-size="12" fill="#1e3a8a" font-weight="700">ORDERNUMBER</text>
+<rect x="308" y="365" width="28" height="15" rx="7.5" fill="#dbeafe" stroke="#1d4ed8" stroke-width="0.8"/>
+<text x="322" y="376" text-anchor="middle" font-size="9.5" font-weight="700" fill="#1e3a8a">PK</text>
+<rect x="37" y="384" width="308" height="22" fill="#eff6ff"/>
+<text x="48" y="399" font-size="12" fill="#64748b">TIMESTAMP</text>
+<text x="140" y="399" font-size="12" fill="#1e3a8a">ORDERDATE</text>
+<text x="48" y="421" font-size="12" fill="#64748b">INTEGER</text>
+<text x="140" y="421" font-size="12" fill="#1e3a8a">CUSTOMERNUMBER</text>
+<rect x="308" y="409" width="28" height="15" rx="7.5" fill="#f1f5f9" stroke="#94a3b8" stroke-width="0.8"/>
+<text x="322" y="420" text-anchor="middle" font-size="9.5" font-weight="700" fill="#475569">FK</text>
+<rect x="36" y="474" width="310" height="110" rx="10" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<path d="M36 484a10 10 0 0 1 10-10h290a10 10 0 0 1 10 10v26h-310z" fill="#1d4ed8"/>
+<g transform="translate(48 482) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><path d="M16 3.128a4 4 0 0 1 0 7.744"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><circle cx="9" cy="7" r="4"/></g>
+<text x="76" y="498" font-size="14" font-weight="700" fill="#ffffff">CUSTOMERS</text>
+<text x="48" y="527" font-size="12" fill="#64748b">INTEGER</text>
+<text x="140" y="527" font-size="12" fill="#1e3a8a" font-weight="700">CUSTOMERNUMBER</text>
+<rect x="308" y="515" width="28" height="15" rx="7.5" fill="#dbeafe" stroke="#1d4ed8" stroke-width="0.8"/>
+<text x="322" y="526" text-anchor="middle" font-size="9.5" font-weight="700" fill="#1e3a8a">PK</text>
+<rect x="37" y="534" width="308" height="22" fill="#eff6ff"/>
+<text x="48" y="549" font-size="12" fill="#64748b">VARCHAR</text>
+<text x="140" y="549" font-size="12" fill="#1e3a8a">COUNTRY</text>
+<text x="48" y="571" font-size="12" fill="#64748b">INTEGER</text>
+<text x="140" y="571" font-size="12" fill="#1e3a8a">SALESREPEMPLOYEENUMBER</text>
+<rect x="308" y="559" width="28" height="15" rx="7.5" fill="#f1f5f9" stroke="#94a3b8" stroke-width="0.8"/>
+<text x="322" y="570" text-anchor="middle" font-size="9.5" font-weight="700" fill="#475569">FK</text>
+<rect x="426" y="152" width="310" height="88" rx="10" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<path d="M426 162a10 10 0 0 1 10-10h290a10 10 0 0 1 10 10v26h-310z" fill="#1d4ed8"/>
+<g transform="translate(438 160) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></g>
+<text x="466" y="176" font-size="14" font-weight="700" fill="#ffffff">PRODUCTS</text>
+<text x="438" y="205" font-size="12" fill="#64748b">VARCHAR</text>
+<text x="530" y="205" font-size="12" fill="#1e3a8a" font-weight="700">PRODUCTCODE</text>
+<rect x="698" y="193" width="28" height="15" rx="7.5" fill="#dbeafe" stroke="#1d4ed8" stroke-width="0.8"/>
+<text x="712" y="204" text-anchor="middle" font-size="9.5" font-weight="700" fill="#1e3a8a">PK</text>
+<rect x="427" y="212" width="308" height="22" fill="#eff6ff"/>
+<text x="438" y="227" font-size="12" fill="#64748b">VARCHAR</text>
+<text x="530" y="227" font-size="12" fill="#1e3a8a">PRODUCTLINE</text>
+<rect x="426" y="324" width="310" height="88" rx="10" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<path d="M426 334a10 10 0 0 1 10-10h290a10 10 0 0 1 10 10v26h-310z" fill="#1d4ed8"/>
+<g transform="translate(438 332) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 12h4"/><path d="M10 8h4"/><path d="M14 21v-3a2 2 0 0 0-4 0v3"/><path d="M6 10H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2"/><path d="M6 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16"/></g>
+<text x="466" y="348" font-size="14" font-weight="700" fill="#ffffff">OFFICES</text>
+<text x="438" y="377" font-size="12" fill="#64748b">VARCHAR</text>
+<text x="530" y="377" font-size="12" fill="#1e3a8a" font-weight="700">OFFICECODE</text>
+<rect x="698" y="365" width="28" height="15" rx="7.5" fill="#dbeafe" stroke="#1d4ed8" stroke-width="0.8"/>
+<text x="712" y="376" text-anchor="middle" font-size="9.5" font-weight="700" fill="#1e3a8a">PK</text>
+<rect x="427" y="384" width="308" height="22" fill="#eff6ff"/>
+<text x="438" y="399" font-size="12" fill="#64748b">VARCHAR</text>
+<text x="530" y="399" font-size="12" fill="#1e3a8a">TERRITORY</text>
+<rect x="426" y="474" width="310" height="88" rx="10" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<path d="M426 484a10 10 0 0 1 10-10h290a10 10 0 0 1 10 10v26h-310z" fill="#1d4ed8"/>
+<g transform="translate(438 482) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10h2"/><path d="M16 14h2"/><path d="M6.17 15a3 3 0 0 1 5.66 0"/><circle cx="9" cy="11" r="2"/><rect x="2" y="5" width="20" height="14" rx="2"/></g>
+<text x="466" y="498" font-size="14" font-weight="700" fill="#ffffff">EMPLOYEES</text>
+<text x="438" y="527" font-size="12" fill="#64748b">INTEGER</text>
+<text x="530" y="527" font-size="12" fill="#1e3a8a" font-weight="700">EMPLOYEENUMBER</text>
+<rect x="698" y="515" width="28" height="15" rx="7.5" fill="#dbeafe" stroke="#1d4ed8" stroke-width="0.8"/>
+<text x="712" y="526" text-anchor="middle" font-size="9.5" font-weight="700" fill="#1e3a8a">PK</text>
+<rect x="427" y="534" width="308" height="22" fill="#eff6ff"/>
+<text x="438" y="549" font-size="12" fill="#64748b">VARCHAR</text>
+<text x="530" y="549" font-size="12" fill="#1e3a8a">OFFICECODE</text>
+<rect x="698" y="537" width="28" height="15" rx="7.5" fill="#f1f5f9" stroke="#94a3b8" stroke-width="0.8"/>
+<text x="712" y="548" text-anchor="middle" font-size="9.5" font-weight="700" fill="#475569">FK</text>
+<rect x="372.35" y="199.5" width="24.3" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="384.5" y="217.5" text-anchor="middle" font-size="12" fill="#334155">1</text>
+<rect x="178.85" y="290" width="24.3" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="191" y="308" text-anchor="middle" font-size="12" fill="#334155">2</text>
+<rect x="178.85" y="440" width="24.3" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="191" y="458" text-anchor="middle" font-size="12" fill="#334155">3</text>
+<rect x="372.35" y="532.5" width="24.3" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="384.5" y="550.5" text-anchor="middle" font-size="12" fill="#334155">4</text>
+<rect x="568.85" y="432" width="24.3" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="581" y="450" text-anchor="middle" font-size="12" fill="#334155">5</text>
+<rect x="36" y="604" width="700" height="64" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="66" cy="636" r="19" fill="#ffffff" stroke="#b45309" stroke-width="1.2"/>
+<g transform="translate(54 624) scale(1)" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="19" r="3"/><path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15"/><circle cx="18" cy="5" r="3"/></g>
+<text x="96" y="619" font-size="14" font-weight="700" fill="#78350f">5 joins across 6 tables</text>
+<text x="96" y="636" font-size="12" fill="#78350f">Territory: found through the customer's sales rep and their office;</text>
+<text x="96" y="651" font-size="12" fill="#78350f">Sales: QUANTITYORDERED x PRICEEACH, worked out for every line</text>
+<rect x="784" y="152" width="310" height="132" rx="10" fill="#ffffff" stroke="#0f766e" stroke-width="1.5" filter="url(#shadow)"/>
+<path d="M784 162a10 10 0 0 1 10-10h290a10 10 0 0 1 10 10v26h-310z" fill="#0f766e"/>
+<g transform="translate(796 160) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></g>
+<text x="824" y="176" font-size="14" font-weight="700" fill="#ffffff">ORDERFACT</text>
+<text x="796" y="205" font-size="12" fill="#64748b">INTEGER</text>
+<text x="888" y="205" font-size="12" fill="#134e4a">CUSTOMERNUMBER</text>
+<rect x="1056" y="193" width="28" height="15" rx="7.5" fill="#f1f5f9" stroke="#94a3b8" stroke-width="0.8"/>
+<text x="1070" y="204" text-anchor="middle" font-size="9.5" font-weight="700" fill="#475569">FK</text>
+<rect x="785" y="212" width="308" height="22" fill="#f0fdfa"/>
+<text x="796" y="227" font-size="12" fill="#64748b">VARCHAR</text>
+<text x="888" y="227" font-size="12" fill="#134e4a">PRODUCTCODE</text>
+<rect x="1056" y="215" width="28" height="15" rx="7.5" fill="#f1f5f9" stroke="#94a3b8" stroke-width="0.8"/>
+<text x="1070" y="226" text-anchor="middle" font-size="9.5" font-weight="700" fill="#475569">FK</text>
+<text x="796" y="249" font-size="12" fill="#64748b">VARCHAR</text>
+<text x="888" y="249" font-size="12" fill="#134e4a">TIME_ID</text>
+<rect x="1056" y="237" width="28" height="15" rx="7.5" fill="#f1f5f9" stroke="#94a3b8" stroke-width="0.8"/>
+<text x="1070" y="248" text-anchor="middle" font-size="9.5" font-weight="700" fill="#475569">FK</text>
+<rect x="785" y="256" width="308" height="22" fill="#f0fdfa"/>
+<text x="796" y="271" font-size="12" fill="#64748b">DOUBLE</text>
+<text x="888" y="271" font-size="12" fill="#134e4a">TOTALPRICE</text>
+<rect x="784" y="324" width="310" height="88" rx="10" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<path d="M784 334a10 10 0 0 1 10-10h290a10 10 0 0 1 10 10v26h-310z" fill="#1d4ed8"/>
+<g transform="translate(796 332) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></g>
+<text x="824" y="348" font-size="14" font-weight="700" fill="#ffffff">PRODUCTS</text>
+<text x="796" y="377" font-size="12" fill="#64748b">VARCHAR</text>
+<text x="888" y="377" font-size="12" fill="#1e3a8a" font-weight="700">PRODUCTCODE</text>
+<rect x="1056" y="365" width="28" height="15" rx="7.5" fill="#dbeafe" stroke="#1d4ed8" stroke-width="0.8"/>
+<text x="1070" y="376" text-anchor="middle" font-size="9.5" font-weight="700" fill="#1e3a8a">PK</text>
+<rect x="785" y="384" width="308" height="22" fill="#eff6ff"/>
+<text x="796" y="399" font-size="12" fill="#64748b">VARCHAR</text>
+<text x="888" y="399" font-size="12" fill="#1e3a8a">PRODUCTLINE</text>
+<rect x="784" y="452" width="310" height="110" rx="10" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<path d="M784 462a10 10 0 0 1 10-10h290a10 10 0 0 1 10 10v26h-310z" fill="#1d4ed8"/>
+<g transform="translate(796 460) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><path d="M16 3.128a4 4 0 0 1 0 7.744"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><circle cx="9" cy="7" r="4"/></g>
+<text x="824" y="476" font-size="14" font-weight="700" fill="#ffffff">CUSTOMER_W_TER</text>
+<text x="796" y="505" font-size="12" fill="#64748b">INTEGER</text>
+<text x="888" y="505" font-size="12" fill="#1e3a8a" font-weight="700">CUSTOMERNUMBER</text>
+<rect x="1056" y="493" width="28" height="15" rx="7.5" fill="#dbeafe" stroke="#1d4ed8" stroke-width="0.8"/>
+<text x="1070" y="504" text-anchor="middle" font-size="9.5" font-weight="700" fill="#1e3a8a">PK</text>
+<rect x="785" y="512" width="308" height="22" fill="#eff6ff"/>
+<text x="796" y="527" font-size="12" fill="#64748b">VARCHAR</text>
+<text x="888" y="527" font-size="12" fill="#1e3a8a">COUNTRY</text>
+<text x="796" y="549" font-size="12" fill="#64748b">VARCHAR</text>
+<text x="888" y="549" font-size="12" fill="#1e3a8a">TERRITORY</text>
+<path d="M1094 223C1120 223 1120 373 1097 373" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="1101.35" y="312.5" width="24.3" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="1113.5" y="330.5" text-anchor="middle" font-size="12" fill="#334155">1</text>
+<path d="M1094 201C1146 201 1146 501 1097 501" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="1120.85" y="440.5" width="24.3" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="1133" y="458.5" text-anchor="middle" font-size="12" fill="#334155">2</text>
+<rect x="784" y="604" width="344" height="64" rx="10" fill="#ffffff" stroke="#64748b" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="814" cy="636" r="19" fill="#ffffff" stroke="#64748b" stroke-width="1.2"/>
+<g transform="translate(802 624) scale(1)" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></g>
+<text x="844" y="619" font-size="14" font-weight="700" fill="#0f172a">2 joins across 3 tables</text>
+<text x="844" y="636" font-size="12" fill="#0f172a">Territory copied onto the customer row;</text>
+<text x="844" y="651" font-size="12" fill="#0f172a">Sales stored as TOTALPRICE</text>
+</svg>

@@ -1,0 +1,202 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="784" viewBox="0 0 1100 784" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+<filter id="shadow" x="-10%" y="-10%" width="120%" height="140%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#0f172a" flood-opacity="0.12"/></filter></defs>
+<rect width="1100" height="784" fill="#ffffff"/>
+<rect x="16" y="16" width="344" height="356" rx="12" fill="#f8fafc" stroke="#f1f5f9" stroke-width="1.5"/>
+<path d="M16 28a12 12 0 0 1 12-12h320a12 12 0 0 1 12 12v32h-344z" fill="#475569"/>
+<g transform="translate(29 26) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></g>
+<text x="56" y="36" font-size="14" font-weight="700" fill="#ffffff">The starting view</text>
+<text x="56" y="52" font-size="11.5" fill="#ffffff" opacity="0.92">Sales by Territory and Year</text>
+<rect x="378" y="16" width="344" height="356" rx="12" fill="#f0fdfa" stroke="#ccfbf1" stroke-width="1.5"/>
+<path d="M378 28a12 12 0 0 1 12-12h320a12 12 0 0 1 12 12v32h-344z" fill="#0f766e"/>
+<g transform="translate(391 26) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 16.586V19a1 1 0 0 1-1 1H2L18.37 3.63a1 1 0 1 1 3 3l-9.663 9.663a1 1 0 0 1-1.414 0L8 14"/></g>
+<text x="418" y="36" font-size="14" font-weight="700" fill="#ffffff">Slice</text>
+<text x="418" y="52" font-size="11.5" fill="#ffffff" opacity="0.92">pin one dimension to a single member</text>
+<rect x="740" y="16" width="344" height="356" rx="12" fill="#f0fdfa" stroke="#ccfbf1" stroke-width="1.5"/>
+<path d="M740 28a12 12 0 0 1 12-12h320a12 12 0 0 1 12 12v32h-344z" fill="#0f766e"/>
+<g transform="translate(753 26) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></g>
+<text x="780" y="36" font-size="14" font-weight="700" fill="#ffffff">Dice</text>
+<text x="780" y="52" font-size="11.5" fill="#ffffff" opacity="0.92">keep a few members on several dimensions</text>
+<rect x="16" y="390" width="344" height="356" rx="12" fill="#f0fdfa" stroke="#ccfbf1" stroke-width="1.5"/>
+<path d="M16 402a12 12 0 0 1 12-12h320a12 12 0 0 1 12 12v32h-344z" fill="#0f766e"/>
+<g transform="translate(29 400) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" x2="16.65" y1="21" y2="16.65"/><line x1="11" x2="11" y1="8" y2="14"/><line x1="8" x2="14" y1="11" y2="11"/></g>
+<text x="56" y="410" font-size="14" font-weight="700" fill="#ffffff">Drill down</text>
+<text x="56" y="426" font-size="11.5" fill="#ffffff" opacity="0.92">one level more detail</text>
+<rect x="378" y="390" width="344" height="356" rx="12" fill="#f0fdfa" stroke="#ccfbf1" stroke-width="1.5"/>
+<path d="M378 402a12 12 0 0 1 12-12h320a12 12 0 0 1 12 12v32h-344z" fill="#0f766e"/>
+<g transform="translate(391 400) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" x2="16.65" y1="21" y2="16.65"/><line x1="8" x2="14" y1="11" y2="11"/></g>
+<text x="418" y="410" font-size="14" font-weight="700" fill="#ffffff">Roll up</text>
+<text x="418" y="426" font-size="11.5" fill="#ffffff" opacity="0.92">one level less detail</text>
+<rect x="740" y="390" width="344" height="356" rx="12" fill="#f0fdfa" stroke="#ccfbf1" stroke-width="1.5"/>
+<path d="M740 402a12 12 0 0 1 12-12h320a12 12 0 0 1 12 12v32h-344z" fill="#0f766e"/>
+<g transform="translate(753 400) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3 4 7l4 4"/><path d="M4 7h16"/><path d="m16 21 4-4-4-4"/><path d="M20 17H4"/></g>
+<text x="780" y="410" font-size="14" font-weight="700" fill="#ffffff">Pivot</text>
+<text x="780" y="426" font-size="11.5" fill="#ffffff" opacity="0.92">swap rows and columns</text>
+<rect x="32" y="76" width="312" height="56" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="104" r="19" fill="#ffffff" stroke="#b45309" stroke-width="1.2"/>
+<g transform="translate(50 92) scale(1)" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4.1 12 6"/><path d="m5.1 8-2.9-.8"/><path d="m6 12-1.9 2"/><path d="M7.2 2.2 8 5.1"/><path d="M9.037 9.69a.498.498 0 0 1 .653-.653l11 4.5a.5.5 0 0 1-.074.949l-4.349 1.041a1 1 0 0 0-.74.739l-1.04 4.35a.5.5 0 0 1-.95.074z"/></g>
+<text x="92" y="94.5" font-size="14" font-weight="700" fill="#78350f">Territory on Rows</text>
+<text x="92" y="111.5" font-size="12" fill="#78350f">Years on Columns, Sales as the measure</text>
+<rect x="32" y="144" width="312" height="190" rx="10" fill="#ffffff" stroke="#64748b" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="172" r="19" fill="#ffffff" stroke="#64748b" stroke-width="1.2"/>
+<g transform="translate(50 160) scale(1)" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></g>
+<text x="92" y="169" font-size="14" font-weight="700" fill="#0f172a">What Analyzer shows</text>
+<text x="92" y="186" font-size="12" fill="#0f172a">Sales</text>
+<text x="83" y="216" text-anchor="middle" font-size="12" font-weight="600" fill="#0f172a">Territory</text>
+<text x="153" y="216" text-anchor="middle" font-size="12" font-weight="600" fill="#0f172a">2003</text>
+<text x="223" y="216" text-anchor="middle" font-size="12" font-weight="600" fill="#0f172a">2004</text>
+<text x="293" y="216" text-anchor="middle" font-size="12" font-weight="600" fill="#0f172a">2005</text>
+<line x1="48" y1="223" x2="328" y2="223" stroke="#94a3b8" stroke-width="1"/>
+<rect x="48" y="226" width="280" height="21" rx="4" fill="#ffffff" stroke="#64748b" stroke-width="0.8"/>
+<text x="83" y="241" text-anchor="middle" font-size="12" fill="#0f172a">APAC</text>
+<text x="153" y="241" text-anchor="middle" font-size="12" fill="#0f172a">343,082</text>
+<text x="223" y="241" text-anchor="middle" font-size="12" fill="#0f172a">601,606</text>
+<text x="293" y="241" text-anchor="middle" font-size="12" fill="#0f172a">337,018</text>
+<rect x="48" y="250" width="280" height="21" rx="4" fill="#ffffff" stroke="#64748b" stroke-width="0.8"/>
+<text x="83" y="265" text-anchor="middle" font-size="12" fill="#0f172a">EMEA</text>
+<text x="153" y="265" text-anchor="middle" font-size="12" fill="#0f172a">1,681,987</text>
+<text x="223" y="265" text-anchor="middle" font-size="12" fill="#0f172a">2,396,408</text>
+<text x="293" y="265" text-anchor="middle" font-size="12" fill="#0f172a">929,829</text>
+<rect x="48" y="274" width="280" height="21" rx="4" fill="#ffffff" stroke="#64748b" stroke-width="0.8"/>
+<text x="83" y="289" text-anchor="middle" font-size="12" fill="#0f172a">Japan</text>
+<text x="153" y="289" text-anchor="middle" font-size="12" fill="#0f172a">292,558</text>
+<text x="223" y="289" text-anchor="middle" font-size="12" fill="#0f172a">168,479</text>
+<text x="293" y="289" text-anchor="middle" font-size="12" fill="#0f172a">42,921</text>
+<rect x="48" y="298" width="280" height="21" rx="4" fill="#ffffff" stroke="#64748b" stroke-width="0.8"/>
+<text x="83" y="313" text-anchor="middle" font-size="12" fill="#0f172a">NA</text>
+<text x="153" y="313" text-anchor="middle" font-size="12" fill="#0f172a">1,359,757</text>
+<text x="223" y="313" text-anchor="middle" font-size="12" fill="#0f172a">1,821,247</text>
+<text x="293" y="313" text-anchor="middle" font-size="12" fill="#0f172a">671,057</text>
+<rect x="394" y="76" width="312" height="56" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="424" cy="104" r="19" fill="#ffffff" stroke="#b45309" stroke-width="1.2"/>
+<g transform="translate(412 92) scale(1)" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 20a1 1 0 0 0 .553.895l2 1A1 1 0 0 0 14 21v-7a2 2 0 0 1 .517-1.341L21.74 4.67A1 1 0 0 0 21 3H3a1 1 0 0 0-.742 1.67l7.225 7.989A2 2 0 0 1 10 14z"/></g>
+<text x="454" y="94.5" font-size="14" font-weight="700" fill="#78350f">Filter: Years = 2004</text>
+<text x="454" y="111.5" font-size="12" fill="#78350f">one year only: a slice through the cube</text>
+<rect x="394" y="144" width="312" height="190" rx="10" fill="#ffffff" stroke="#64748b" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="424" cy="172" r="19" fill="#ffffff" stroke="#64748b" stroke-width="1.2"/>
+<g transform="translate(412 160) scale(1)" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></g>
+<text x="454" y="169" font-size="14" font-weight="700" fill="#0f172a">What Analyzer shows</text>
+<text x="454" y="186" font-size="12" fill="#0f172a">Sales</text>
+<text x="480" y="216" text-anchor="middle" font-size="12" font-weight="600" fill="#0f172a">Territory</text>
+<text x="620" y="216" text-anchor="middle" font-size="12" font-weight="600" fill="#0f172a">2004</text>
+<line x1="410" y1="223" x2="690" y2="223" stroke="#94a3b8" stroke-width="1"/>
+<rect x="410" y="226" width="280" height="21" rx="4" fill="#fef3c7" stroke="#b45309" stroke-width="0.8"/>
+<text x="480" y="241" text-anchor="middle" font-size="12" fill="#78350f">APAC</text>
+<text x="620" y="241" text-anchor="middle" font-size="12" fill="#78350f">601,606</text>
+<rect x="410" y="250" width="280" height="21" rx="4" fill="#fef3c7" stroke="#b45309" stroke-width="0.8"/>
+<text x="480" y="265" text-anchor="middle" font-size="12" fill="#78350f">EMEA</text>
+<text x="620" y="265" text-anchor="middle" font-size="12" fill="#78350f">2,396,408</text>
+<rect x="410" y="274" width="280" height="21" rx="4" fill="#fef3c7" stroke="#b45309" stroke-width="0.8"/>
+<text x="480" y="289" text-anchor="middle" font-size="12" fill="#78350f">Japan</text>
+<text x="620" y="289" text-anchor="middle" font-size="12" fill="#78350f">168,479</text>
+<rect x="410" y="298" width="280" height="21" rx="4" fill="#fef3c7" stroke="#b45309" stroke-width="0.8"/>
+<text x="480" y="313" text-anchor="middle" font-size="12" fill="#78350f">NA</text>
+<text x="620" y="313" text-anchor="middle" font-size="12" fill="#78350f">1,821,247</text>
+<rect x="756" y="76" width="312" height="56" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="786" cy="104" r="19" fill="#ffffff" stroke="#b45309" stroke-width="1.2"/>
+<g transform="translate(774 92) scale(1)" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 20a1 1 0 0 0 .553.895l2 1A1 1 0 0 0 14 21v-7a2 2 0 0 1 .517-1.341L21.74 4.67A1 1 0 0 0 21 3H3a1 1 0 0 0-.742 1.67l7.225 7.989A2 2 0 0 1 10 14z"/></g>
+<text x="816" y="94.5" font-size="14" font-weight="700" fill="#78350f">2004, 2005 · EMEA, NA</text>
+<text x="816" y="111.5" font-size="12" fill="#78350f">and Line = Classic Cars: a smaller cube</text>
+<rect x="756" y="144" width="312" height="142" rx="10" fill="#ffffff" stroke="#64748b" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="786" cy="172" r="19" fill="#ffffff" stroke="#64748b" stroke-width="1.2"/>
+<g transform="translate(774 160) scale(1)" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></g>
+<text x="816" y="169" font-size="14" font-weight="700" fill="#0f172a">What Analyzer shows</text>
+<text x="816" y="186" font-size="12" fill="#0f172a">Sales</text>
+<text x="818.6666666666666" y="216" text-anchor="middle" font-size="12" font-weight="600" fill="#0f172a">Territory</text>
+<text x="912" y="216" text-anchor="middle" font-size="12" font-weight="600" fill="#0f172a">2004</text>
+<text x="1005.3333333333333" y="216" text-anchor="middle" font-size="12" font-weight="600" fill="#0f172a">2005</text>
+<line x1="772" y1="223" x2="1052" y2="223" stroke="#94a3b8" stroke-width="1"/>
+<rect x="772" y="226" width="280" height="21" rx="4" fill="#fef3c7" stroke="#b45309" stroke-width="0.8"/>
+<text x="818.6666666666666" y="241" text-anchor="middle" font-size="12" fill="#78350f">EMEA</text>
+<text x="912" y="241" text-anchor="middle" font-size="12" fill="#78350f">1,015,790</text>
+<text x="1005.3333333333333" y="241" text-anchor="middle" font-size="12" fill="#78350f">384,538</text>
+<rect x="772" y="250" width="280" height="21" rx="4" fill="#fef3c7" stroke="#b45309" stroke-width="0.8"/>
+<text x="818.6666666666666" y="265" text-anchor="middle" font-size="12" fill="#78350f">NA</text>
+<text x="912" y="265" text-anchor="middle" font-size="12" fill="#78350f">581,043</text>
+<text x="1005.3333333333333" y="265" text-anchor="middle" font-size="12" fill="#78350f">237,791</text>
+<rect x="32" y="450" width="312" height="56" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="478" r="19" fill="#ffffff" stroke="#b45309" stroke-width="1.2"/>
+<g transform="translate(50 466) scale(1)" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4.1 12 6"/><path d="m5.1 8-2.9-.8"/><path d="m6 12-1.9 2"/><path d="M7.2 2.2 8 5.1"/><path d="M9.037 9.69a.498.498 0 0 1 .653-.653l11 4.5a.5.5 0 0 1-.074.949l-4.349 1.041a1 1 0 0 0-.74.739l-1.04 4.35a.5.5 0 0 1-.95.074z"/></g>
+<text x="92" y="468.5" font-size="14" font-weight="700" fill="#78350f">Drill down on NA</text>
+<text x="92" y="485.5" font-size="12" fill="#78350f">Territory to Country, all years</text>
+<rect x="32" y="518" width="312" height="166" rx="10" fill="#ffffff" stroke="#64748b" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="546" r="19" fill="#ffffff" stroke="#64748b" stroke-width="1.2"/>
+<g transform="translate(50 534) scale(1)" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></g>
+<text x="92" y="543" font-size="14" font-weight="700" fill="#0f172a">What Analyzer shows</text>
+<text x="92" y="560" font-size="12" fill="#0f172a">Sales</text>
+<text x="118" y="590" text-anchor="middle" font-size="12" font-weight="600" fill="#0f172a">Member</text>
+<text x="258" y="590" text-anchor="middle" font-size="12" font-weight="600" fill="#0f172a">Sales</text>
+<line x1="48" y1="597" x2="328" y2="597" stroke="#94a3b8" stroke-width="1"/>
+<rect x="48" y="600" width="280" height="21" rx="4" fill="#ffffff" stroke="#64748b" stroke-width="0.8"/>
+<text x="118" y="615" text-anchor="middle" font-size="12" fill="#0f172a">NA</text>
+<text x="258" y="615" text-anchor="middle" font-size="12" fill="#0f172a">3,852,061</text>
+<rect x="48" y="624" width="280" height="21" rx="4" fill="#fef3c7" stroke="#b45309" stroke-width="0.8"/>
+<text x="118" y="639" text-anchor="middle" font-size="12" fill="#78350f">   USA</text>
+<text x="258" y="639" text-anchor="middle" font-size="12" fill="#78350f">3,627,983</text>
+<rect x="48" y="648" width="280" height="21" rx="4" fill="#fef3c7" stroke="#b45309" stroke-width="0.8"/>
+<text x="118" y="663" text-anchor="middle" font-size="12" fill="#78350f">   Canada</text>
+<text x="258" y="663" text-anchor="middle" font-size="12" fill="#78350f">224,079</text>
+<rect x="394" y="450" width="312" height="56" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="424" cy="478" r="19" fill="#ffffff" stroke="#b45309" stroke-width="1.2"/>
+<g transform="translate(412 466) scale(1)" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4.1 12 6"/><path d="m5.1 8-2.9-.8"/><path d="m6 12-1.9 2"/><path d="M7.2 2.2 8 5.1"/><path d="M9.037 9.69a.498.498 0 0 1 .653-.653l11 4.5a.5.5 0 0 1-.074.949l-4.349 1.041a1 1 0 0 0-.74.739l-1.04 4.35a.5.5 0 0 1-.95.074z"/></g>
+<text x="454" y="468.5" font-size="14" font-weight="700" fill="#78350f">Quarters up to the year</text>
+<text x="454" y="485.5" font-size="12" fill="#78350f">Mondrian sums the four quarters</text>
+<rect x="394" y="518" width="312" height="214" rx="10" fill="#ffffff" stroke="#64748b" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="424" cy="546" r="19" fill="#ffffff" stroke="#64748b" stroke-width="1.2"/>
+<g transform="translate(412 534) scale(1)" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></g>
+<text x="454" y="543" font-size="14" font-weight="700" fill="#0f172a">What Analyzer shows</text>
+<text x="454" y="560" font-size="12" fill="#0f172a">Sales</text>
+<text x="480" y="590" text-anchor="middle" font-size="12" font-weight="600" fill="#0f172a">Member</text>
+<text x="620" y="590" text-anchor="middle" font-size="12" font-weight="600" fill="#0f172a">Sales</text>
+<line x1="410" y1="597" x2="690" y2="597" stroke="#94a3b8" stroke-width="1"/>
+<rect x="410" y="600" width="280" height="21" rx="4" fill="#ffffff" stroke="#64748b" stroke-width="0.8"/>
+<text x="480" y="615" text-anchor="middle" font-size="12" fill="#0f172a">2004 QTR1</text>
+<text x="620" y="615" text-anchor="middle" font-size="12" fill="#0f172a">877,419</text>
+<rect x="410" y="624" width="280" height="21" rx="4" fill="#ffffff" stroke="#64748b" stroke-width="0.8"/>
+<text x="480" y="639" text-anchor="middle" font-size="12" fill="#0f172a">2004 QTR2</text>
+<text x="620" y="639" text-anchor="middle" font-size="12" fill="#0f172a">847,714</text>
+<rect x="410" y="648" width="280" height="21" rx="4" fill="#ffffff" stroke="#64748b" stroke-width="0.8"/>
+<text x="480" y="663" text-anchor="middle" font-size="12" fill="#0f172a">2004 QTR3</text>
+<text x="620" y="663" text-anchor="middle" font-size="12" fill="#0f172a">1,145,308</text>
+<rect x="410" y="672" width="280" height="21" rx="4" fill="#ffffff" stroke="#64748b" stroke-width="0.8"/>
+<text x="480" y="687" text-anchor="middle" font-size="12" fill="#0f172a">2004 QTR4</text>
+<text x="620" y="687" text-anchor="middle" font-size="12" fill="#0f172a">2,117,299</text>
+<rect x="410" y="696" width="280" height="21" rx="4" fill="#fef3c7" stroke="#b45309" stroke-width="0.8"/>
+<text x="480" y="711" text-anchor="middle" font-size="12" fill="#78350f">2004</text>
+<text x="620" y="711" text-anchor="middle" font-size="12" fill="#78350f">4,987,740</text>
+<rect x="756" y="450" width="312" height="56" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="786" cy="478" r="19" fill="#ffffff" stroke="#b45309" stroke-width="1.2"/>
+<g transform="translate(774 466) scale(1)" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4.1 12 6"/><path d="m5.1 8-2.9-.8"/><path d="m6 12-1.9 2"/><path d="M7.2 2.2 8 5.1"/><path d="M9.037 9.69a.498.498 0 0 1 .653-.653l11 4.5a.5.5 0 0 1-.074.949l-4.349 1.041a1 1 0 0 0-.74.739l-1.04 4.35a.5.5 0 0 1-.95.074z"/></g>
+<text x="816" y="468.5" font-size="14" font-weight="700" fill="#78350f">Years on Rows</text>
+<text x="816" y="485.5" font-size="12" fill="#78350f">Territory on Columns: same cells</text>
+<rect x="756" y="518" width="312" height="166" rx="10" fill="#ffffff" stroke="#64748b" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="786" cy="546" r="19" fill="#ffffff" stroke="#64748b" stroke-width="1.2"/>
+<g transform="translate(774 534) scale(1)" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></g>
+<text x="816" y="543" font-size="14" font-weight="700" fill="#0f172a">What Analyzer shows</text>
+<text x="816" y="560" font-size="12" fill="#0f172a">Sales</text>
+<text x="800" y="590" text-anchor="middle" font-size="12" font-weight="600" fill="#0f172a">Year</text>
+<text x="856" y="590" text-anchor="middle" font-size="12" font-weight="600" fill="#0f172a">APAC</text>
+<text x="912" y="590" text-anchor="middle" font-size="12" font-weight="600" fill="#0f172a">EMEA</text>
+<text x="968" y="590" text-anchor="middle" font-size="12" font-weight="600" fill="#0f172a">Japan</text>
+<text x="1024" y="590" text-anchor="middle" font-size="12" font-weight="600" fill="#0f172a">NA</text>
+<line x1="772" y1="597" x2="1052" y2="597" stroke="#94a3b8" stroke-width="1"/>
+<rect x="772" y="600" width="280" height="21" rx="4" fill="#fef3c7" stroke="#b45309" stroke-width="0.8"/>
+<text x="800" y="615" text-anchor="middle" font-size="12" fill="#78350f">2003</text>
+<text x="856" y="615" text-anchor="middle" font-size="12" fill="#78350f">343,082</text>
+<text x="912" y="615" text-anchor="middle" font-size="12" fill="#78350f">1,681,987</text>
+<text x="968" y="615" text-anchor="middle" font-size="12" fill="#78350f">292,558</text>
+<text x="1024" y="615" text-anchor="middle" font-size="12" fill="#78350f">1,359,757</text>
+<rect x="772" y="624" width="280" height="21" rx="4" fill="#fef3c7" stroke="#b45309" stroke-width="0.8"/>
+<text x="800" y="639" text-anchor="middle" font-size="12" fill="#78350f">2004</text>
+<text x="856" y="639" text-anchor="middle" font-size="12" fill="#78350f">601,606</text>
+<text x="912" y="639" text-anchor="middle" font-size="12" fill="#78350f">2,396,408</text>
+<text x="968" y="639" text-anchor="middle" font-size="12" fill="#78350f">168,479</text>
+<text x="1024" y="639" text-anchor="middle" font-size="12" fill="#78350f">1,821,247</text>
+<rect x="772" y="648" width="280" height="21" rx="4" fill="#fef3c7" stroke="#b45309" stroke-width="0.8"/>
+<text x="800" y="663" text-anchor="middle" font-size="12" fill="#78350f">2005</text>
+<text x="856" y="663" text-anchor="middle" font-size="12" fill="#78350f">337,018</text>
+<text x="912" y="663" text-anchor="middle" font-size="12" fill="#78350f">929,829</text>
+<text x="968" y="663" text-anchor="middle" font-size="12" fill="#78350f">42,921</text>
+<text x="1024" y="663" text-anchor="middle" font-size="12" fill="#78350f">671,057</text>
+<text x="550" y="770" text-anchor="middle" font-size="12" fill="#475569">Every figure is the SteelWheels cube's Sales on SampleData. Amber rows: the cells the operation changed or kept.</text>
+</svg>

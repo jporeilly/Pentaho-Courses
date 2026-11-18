@@ -16,7 +16,13 @@
 >
 > **Prerequisites:** Complete [Standard Model](../06-schemas-standard-model/guide.md); the Pentaho Server running
 >
-> **Estimated time:** 90 minutes
+> **Estimated time:** 40 minutes
+
+<figure>
+
+<figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
+
+</figure>
 
 <div align="center">
 <figure>
@@ -24,6 +30,17 @@
 <figcaption>What you build: the extended Miniature Models schema</figcaption>
 </figure>
 </div>
+
+Three of the dimensions you build reach the fact table in three different ways:
+
+<div align="center">
+<figure>
+<img src="../_assets/images/dimension-kinds.png" alt="Three ways a dimension reaches ORDERFACT in the Sales_FY2003_2005 cube. MARKETS, CUSTOMERS and PRODUCTS are private, defined inside the cube, each joined from its own table through its foreignKey, CUSTOMERNUMBER or PRODUCTCODE. ORDER STATUS is degenerate: its Type level reads the STATUS column of ORDERFACT, with no table and no join. TIME is shared, defined once under Schema on DIM_TIME, and joined through the cube's DimensionUsage on TIME_ID" width="800">
+<figcaption>Private, degenerate and shared dimensions</figcaption>
+</figure>
+</div>
+
+Read the diagram from the fact table outward. On the left, MARKETS, CUSTOMERS and PRODUCTS are private dimensions: each is a `<Dimension>` inside the cube with its own table, joined through its own **foreignKey** (the column name in each arrow's label). On the right, ORDER STATUS is degenerate: its level reads the fact table's STATUS column, so the arrow is dashed and no join is made. Below the cube, TIME is shared: it is defined once at schema level, and the cube reaches it through a dimension usage that supplies `TIME_ID`, the foreign key of its own fact table. Tabs 1, 3 and 4 build the private dimensions, tab 5 the shared one and tab 6 the degenerate one.
 
 :::: tabs
 
@@ -35,49 +52,23 @@
 >
 > The MARKETS dimension lets users drill into the data by geography: Territory, Country, State Province and City, all read from the `CUSTOMER_W_TER` table.
 
-1. Start Schema Workbench with the **Start Schema Workbench** button below, or from a terminal:
-
-::: tabs
-
-### Windows (PowerShell)
+1. Start Schema Workbench with the **Start Pentaho Schema Workbench** button below, or from PowerShell:
 
 ```powershell
 Set-Location C:\Pentaho\design-tools\schema-workbench
 .\workbench.bat
 ```
 
-### macOS / Linux
+<button data-launch="schema-workbench">Start Pentaho Schema Workbench</button>
 
-```bash
-cd ~/Pentaho/design-tools/schema-workbench
-./workbench.sh
-```
-
-:::
-
-<button data-launch="schema-workbench">Start Schema Workbench</button>
-
-2. Make sure the Pentaho Server is running: it hosts the SampleData database on port `9001`. On a lab VM it starts with the machine. On your own machine, start it and wait until **http://localhost:8080/pentaho** shows the sign-in page:
-
-::: tabs
-
-### Windows (PowerShell)
+2. Make sure the Pentaho Server is running: it hosts the SampleData database on port `9001`. On a lab VM it starts with the machine. On your own machine, start it as [Before You Start](../00-before-you-start/guide.md) describes (its repository database first), and wait until **http://localhost:8080/pentaho** shows the sign-in page:
 
 ```powershell
 C:\Pentaho\server\pentaho-server\start-pentaho.bat
 ```
 
-### macOS / Linux
-
-```bash
-cd ~/Pentaho/server/pentaho-server
-./start-pentaho.sh
-```
-
-:::
-
-3. Select **File > Open** and open `MiniatureModels.xml`, your schema from [Standard Model](../06-schemas-standard-model/guide.md).
-4. Select **File > Save As** and save it as `MiniatureModels-extended.xml`, so your Standard Model schema stays as it was.
+3. Select **File > Open** and open `MiniatureModels.xml`, your schema from [Standard Model](../06-schemas-standard-model/guide.md), in `C:\Workshop-SW-Practitioner\03-schemas\06-schemas-standard-model`. If you didn't build it, open that lab's solution, `solution\miniaturemodels-original.xml`, instead.
+4. Select **File > Save As** and save it as `MiniatureModels-extended.xml` in `C:\Workshop-SW-Practitioner\04-extend-model\08-extend-model-extended-model`, so your Standard Model schema stays as it was.
 5. Right-click **Sales_FY2003_2005** and select **Add Dimension**.
 6. Set the dimension's attributes:
 
@@ -131,8 +122,6 @@ cd ~/Pentaho/server/pentaho-server
 > #### Geographic Annotations
 >
 > Annotations mark Country, State Province and City as geography, so Analyzer can place them on a Geo Map, which draws its map tiles from OpenStreetMap. Each level takes an **Annotations** node, and one **Annotation** under it per name.
-
-<div class="pcm-embed-card" data-href="https://www.loom.com/share/477584be32574fae8570a1219e2b38bd?hideEmbedTopBar=true&amp;hide_owner=true&amp;hide_share=true&amp;hide_title=true" data-title="Enabling Geography Levels for GeoMap Visualization in Analyzer" data-description="In this video, I demonstrate how to add annotations to enable the city level to be displayed in an Analyzer geomap visualization. I walk through the process of specifying geography levels, including setting the data.roll annotation to indicate it's a geography level and defining the Geo.Roll as city. Additionally, I explain the importance of establishing the hierarchy with the Geo.RequiredParents annotation for country and state. This setup allows users to leverage Analyzer's geomapping capabilities effectively. Please ensure you follow these steps to enhance your data visualization." data-thumb="../_assets/embeds/2631a0493553.png"></div>
 
 1. Right-click **Country** and select **Add Annotations**.
 2. Right-click the new **Annotations** node and select **Add Annotation**. Set **name** to `Data.Role` and **cdata** to `Geography`.
@@ -295,8 +284,6 @@ This example shares a CUSTOMERS dimension between two cubes, joined through `ORD
 </Cube>
 ```
 
-<div class="pcm-embed-card" data-href="https://www.loom.com/share/cc5f940551384a40a326537009003dcb?hideEmbedTopBar=true&amp;hide_owner=true&amp;hide_share=true&amp;hide_title=true" data-title="Creating a Time Period Dimension in Data Cubes" data-description="In this video, I demonstrate how to create a time period dimension for our Steel Wheel Sales Training Cube. I walk through the steps of adding levels for years, quarters, and months, ensuring to set the appropriate attributes such as Time ID and level types. I emphasize the importance of using uppercase letters for dimension names and the need to specify an all-member name for the hierarchy. Additionally, I highlight the need for further annotations to enhance filtering capabilities for Analyzer. Please pay attention to these details as we move forward with our data analysis." data-thumb="../_assets/embeds/2631a0493553.png"></div>
-
 1. Right-click **Schema** and select **Add Dimension**.
 2. Set the dimension's attributes. A shared dimension has no **foreignKey**: each cube supplies its own.
 
@@ -384,8 +371,6 @@ This example shares a CUSTOMERS dimension between two cubes, joined through `ORD
 > #### ORDER STATUS, a Degenerate Dimension
 >
 > A star dimension has one dimension table and a snowflake dimension two or more; a degenerate dimension has none. All the columns that describe it live in the fact table. Order status suits it: a handful of values, nothing more to describe them, and a dimension table would only add a join.
-
-<div class="pcm-embed-card" data-href="https://www.loom.com/share/f93673283a184b31ae57261b9086cd84?hideEmbedTopBar=true&amp;hide_owner=true&amp;hide_share=true&amp;hide_title=true" data-title="Adding a Degenerate Dimension to the Steel Wheel Sales Training Cube" data-description="In this video, I demonstrate how to add a degenerate dimension, specifically the order status dimension, to the Steel Wheel Sales Training Cube. I explain that degenerate dimensions do not have their own tables, which can impact performance, so it's essential to discuss this with the data warehouse team before implementation. I walk through the steps of creating the dimension, naming it in uppercase, and adding a hierarchy and level without needing a foreign key. I also highlight the importance of careful navigation when using the toolbar to add levels. Please ensure to follow these steps accurately as we move forward with our cube development." data-thumb="../_assets/embeds/2631a0493553.png"></div>
 
 1. Right-click **Sales_FY2003_2005** and select **Add Dimension**.
 2. Set the dimension's attributes. It has no **foreignKey**: its column is in the fact table itself.
@@ -506,10 +491,14 @@ This example shares a CUSTOMERS dimension between two cubes, joined through `ORD
 
 ## Lab Files
 
-Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches Pentaho Data Integration with the file loaded. If Pentaho Data Integration is already running, the path is copied to your clipboard — switch to Pentaho Data Integration and press `Ctrl+O`, `Ctrl+V`, `Enter`.
+Click a file to download. Every file is also on disk in this workshop's folder, `C:\Workshop-SW-Practitioner\04-extend-model\08-extend-model-extended-model`: open a schema in Schema Workbench with **File > Open**.
+
+_No starting files: this workshop extends your schema from [Standard Model](../06-schemas-standard-model/guide.md)._
 
 ### Solution <!-- no-step -->
 
-The extended schema. Open it in Schema Workbench (**File > Open**) alongside your own to compare. It also holds the Unit Price calculated member that workshop 09 adds:
+The extended schema. Open it in Schema Workbench (**File > Open**) alongside your own to compare, or publish it to see the expected result. It also holds the Unit Price calculated member that workshop 09 adds.
 
-[miniaturemodels-extended.xml](./files/miniaturemodels-extended.xml)
+Also on disk at `C:\Workshop-SW-Practitioner\04-extend-model\08-extend-model-extended-model\solution`.
+
+[miniaturemodels-extended.xml](./files/solution/miniaturemodels-extended.xml)

@@ -46,7 +46,7 @@ Publishing OLAP cubes for organizational use means more than building good dimen
 > - **Path:** `pentaho-solutions/system`
 > - **Bean ID:** `Mondrian-UserRoleMapper`
 >
-> **Security warning:** without a configured role mapper, Mondrian defaults to **unrestricted access**: every user can see all data regardless of their Pentaho roles. Always configure a role mapper.
+> **Security warning:** without a configured role mapper, Mondrian defaults to **unrestricted access**: every user can see all data regardless of their Pentaho roles. The Pentaho Server ships with the One-to-One mapper switched on in `pentahoObjects.spring.xml`; keep a mapper configured.
 
 Pentaho ships three built-in role-mapper types:
 
@@ -121,10 +121,12 @@ Pentaho ships three built-in role-mapper types:
 
 <div align="center">
 <figure>
-<img src="../_assets/images/security.png" alt="Diagram of grant levels on an Adventure Works schema: SchemaGrant on the schema, CubeGrant on two cubes, and DimensionGrant, HierarchyGrant and MemberGrant inside them" width="478">
-<figcaption>Where each grant applies</figcaption>
+<img src="../_assets/images/grant-nesting.png" alt="Grants nested on the Miniature Models schema. Left, the Regional Manager Role: SchemaGrant access none holds a CubeGrant on Sales_FY2003_2005 with access all, which holds a custom HierarchyGrant on Customers with topLevel State and MemberGrants on NJ, NY and PA, and a HierarchyGrant on Products with access all. Right, the Analyst Role's Customers grant: Territory hidden above topLevel, Country, State and City visible, Customer Name hidden below bottomLevel" width="800">
+<figcaption>Where each grant applies, on the course's own schema</figcaption>
 </figure>
 </div>
+
+Read the diagram from the outside in. On the left is the Regional Manager Role you build in the **Mondrian Security** workshop: each grant sits inside the one above it, from the whole schema down to three single members, and the amber boxes are what the role can see. On the right, the Analyst Role's grant on the same Customers hierarchy uses `topLevel` and `bottomLevel` instead of member grants, so the levels between Country and City stay visible and the levels outside them are hidden. The two bars underneath are the rules in the warning below and in the MemberGrant tab.
 
 | Level | Scope | Purpose |
 | --- | --- | --- |
@@ -178,20 +180,15 @@ Pentaho ships three built-in role-mapper types:
 > `DimensionGrant` (`all`/`none`, no children) controls a whole dimension. For finer control use `HierarchyGrant`, which can bound the visible range with **`topLevel`** (hide upper, over-aggregated levels) and **`bottomLevel`** (hide lower, granular levels) — both require `access="custom"`.
 
 ```xml
-<HierarchyGrant hierarchy="[Location]"
+<HierarchyGrant hierarchy="[CUSTOMERS.Customers]"
                 access="custom"
-                topLevel="[Location].[Country]"
-                bottomLevel="[Location].[City]">
+                topLevel="[CUSTOMERS.Customers].[Country]"
+                bottomLevel="[CUSTOMERS.Customers].[City]">
   <!-- User can only see Country to City levels -->
 </HierarchyGrant>
 ```
 
-<div align="center">
-<figure>
-<img src="../_assets/images/security_top_and_bottom.png" alt="Hierarchy level restriction example: Country, State and City stay visible, while Territory above topLevel and Store below bottomLevel are hidden" width="712">
-<figcaption>Top &#x26; Bottom</figcaption>
-</figure>
-</div>
+The right-hand side of the grants diagram above shows the same bounds on the Miniature Models schema: the Analyst Role's grant hides Territory above `topLevel` and Customer Name below `bottomLevel`.
 
 ### 4. MemberGrant
 

@@ -1,0 +1,46 @@
+{
+  "title": "Budget v Actual",
+  "description": "Capstone: a new Mondrian schema on QUADRANT_ACTUALS with actuals, budget and variance by region and department, a Variance % calculated member, an Over Budget Departments named set and a Central-only role, published and handed in for the accreditation checks.",
+  "order": 18,
+  "kind": "workshop",
+  "stepCount": 18,
+  "hasVideo": false,
+  "estimatedMinutes": 90,
+  "checks": [
+    {
+      "id": "budget-schema",
+      "kind": "file-contains",
+      "label": "Your schema, quadrant-budget.xml in solution\\, built on QUADRANT_ACTUALS",
+      "path": "C:/Workshop-SW-Practitioner/capstone/solution/quadrant-budget.xml",
+      "text": "QUADRANT_ACTUALS"
+    },
+    {
+      "id": "variance-pct",
+      "kind": "file-contains",
+      "label": "In your schema, the calculated member Variance %",
+      "path": "C:/Workshop-SW-Practitioner/capstone/solution/quadrant-budget.xml",
+      "text": "name=\"Variance %\""
+    },
+    {
+      "id": "over-budget-set",
+      "kind": "file-contains",
+      "label": "In your schema, the named set Over Budget Departments",
+      "path": "C:/Workshop-SW-Practitioner/capstone/solution/quadrant-budget.xml",
+      "text": "name=\"Over Budget Departments\""
+    },
+    {
+      "id": "central-role",
+      "kind": "file-contains",
+      "label": "In your schema, the role Central Region Manager",
+      "path": "C:/Workshop-SW-Practitioner/capstone/solution/quadrant-budget.xml",
+      "text": "<Role name=\"Central Region Manager\">"
+    },
+    {
+      "id": "published-schema",
+      "kind": "file-contains",
+      "label": "The published schema, exported as Quadrant Budget.mondrian.xml into out\\, with your named set",
+      "path": "C:/Workshop-SW-Practitioner/capstone/out/Quadrant Budget.mondrian.xml",
+      "text": "name=\"Over Budget Departments\""
+    }
+  ]
+}
