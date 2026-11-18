@@ -26,11 +26,41 @@
 </figure>
 </div>
 
+Here is the same analysis in its table view, the figures behind the tree
+map:
+
+<div align="center">
+<figure>
+<img src="../_assets/images/analyzer-emea-quantity.png" alt="A mock-up of the finished EMEA Quantity Sold by Territory Yr2004 analysis in its table view, filtered to Territory EMEA and Years 2004. Territory and Country run down the side, and under 2004 sit Quantity, with a green data bar, and Rank by Quantity: Austria 491, rank 12; Belgium 799, rank 10; Denmark 1,120, rank 6; Finland 778, rank 11; France 5,632, rank 1. Eight more countries follow, and the Grand Total is 23,630." width="800">
+<figcaption>What you will build: EMEA Quantity Sold by Territory Yr2004</figcaption>
+</figure>
+</div>
+
+Read the diagram from the filters down. The filters leave EMEA in 2004,
+and each country's Quantity carries a green data bar sized against the
+largest value, France's. Rank by Quantity is computed within what the
+filters leave, so France ranks first and Spain second. The Grand Total
+row adds up the column; the rank has no total, so it shows a dash.
+
 ***
+
+<div align="center">
+<figure>
+<img src="../_assets/images/az-workflow.png" alt="The Analyzer workflow in four parts, in order: 1 data source and fields, 2 filters and formatting, 3 calculations and drill-through, 4 format and save" width="644">
+<figcaption>The Analyzer workflow; each tab below belongs to one part</figcaption>
+</figure>
+</div>
 
 :::: tabs
 
 ### 1. Data Source
+
+<div align="center">
+<figure>
+<img src="../_assets/images/az-workflow-1.png" alt="The Analyzer workflow with part 1 of 4, data source and fields, highlighted as this tab" width="644">
+<figcaption>Part 1 of 4: Data source and fields</figcaption>
+</figure>
+</div>
 
 1. Select the perspective drop-down and select **Home**, then select **Create New > Analysis Report**. With other reports open, the same choices are under the **File** menu on the menu bar.
 2. In the **Select Data Source** dialog, select **SteelWheels: SteelWheelsSales**, and select **OK**.
@@ -47,6 +77,13 @@
 > **Success:** Checkpoint: a new, empty analysis opens, with **Available Fields** listed by the schema's dimensions.
 
 ### 2. Add Data Columns and Rows to the Analysis
+
+<div align="center">
+<figure>
+<img src="../_assets/images/az-workflow-1.png" alt="The Analyzer workflow with part 1 of 4, data source and fields, highlighted as this tab" width="644">
+<figcaption>Part 1 of 4: Data source and fields</figcaption>
+</figure>
+</div>
 
 Add Quantity, Territory, Country, and Years to the analysis.
 
@@ -68,6 +105,13 @@ Add Quantity, Territory, Country, and Years to the analysis.
 > **Success:** Checkpoint: the table shows Quantity by Territory and Country, with a column for each year.
 
 ### 3. Filter the Analysis Data
+
+<div align="center">
+<figure>
+<img src="../_assets/images/az-workflow-2.png" alt="The Analyzer workflow with part 2 of 4, filters and formatting, highlighted as this tab" width="644">
+<figcaption>Part 2 of 4: Filters and formatting</figcaption>
+</figure>
+</div>
 
 Filter the analysis to EMEA and 2004.
 
@@ -97,6 +141,13 @@ Filter the analysis to EMEA and 2004.
 
 ### 4. Apply Conditional Formatting
 
+<div align="center">
+<figure>
+<img src="../_assets/images/az-workflow-2.png" alt="The Analyzer workflow with part 2 of 4, filters and formatting, highlighted as this tab" width="644">
+<figcaption>Part 2 of 4: Filters and formatting</figcaption>
+</figure>
+</div>
+
 1. Right-click the **Quantity** header, and select **Conditional Formatting > Data Bar: Green**.
 
 <div align="center">
@@ -110,6 +161,13 @@ Filter the analysis to EMEA and 2004.
 > **Success:** Checkpoint: each Quantity cell carries a green bar sized by its value.
 
 ### 5. Rank
+
+<div align="center">
+<figure>
+<img src="../_assets/images/az-workflow-3.png" alt="The Analyzer workflow with part 3 of 4, calculations and drill-through, highlighted as this tab" width="644">
+<figcaption>Part 3 of 4: Calculations, drill-through</figcaption>
+</figure>
+</div>
 
 Add a column with each country's rank by Quantity.
 
@@ -148,6 +206,13 @@ Add a column with each country's rank by Quantity.
 
 ### 6. Add Totals
 
+<div align="center">
+<figure>
+<img src="../_assets/images/az-workflow-3.png" alt="The Analyzer workflow with part 3 of 4, calculations and drill-through, highlighted as this tab" width="644">
+<figcaption>Part 3 of 4: Calculations, drill-through</figcaption>
+</figure>
+</div>
+
 1. On the **Layout** panel, select **Report Options...**.
 2. In the **Report Options** dialog, select **Grand Totals for Columns**, and select **OK**.
 
@@ -163,12 +228,26 @@ Add a column with each country's rank by Quantity.
 
 ### 7. Switch to Chart Format
 
+<div align="center">
+<figure>
+<img src="../_assets/images/az-workflow-4.png" alt="The Analyzer workflow with part 4 of 4, format and save, highlighted as this tab" width="644">
+<figcaption>Part 4 of 4: Format and save</figcaption>
+</figure>
+</div>
+
 1. Beside **View As**, select **Switch to chart format**.
 2. Select the arrow next to it, and select a chart type. Try a few; the picture at the top of this page is a **Treemap**, which needs no extra fields.
 
 > **Success:** Checkpoint: the chart shows the 2004 EMEA countries, sized by Quantity.
 
 ### 8. Save the Report
+
+<div align="center">
+<figure>
+<img src="../_assets/images/az-workflow-4.png" alt="The Analyzer workflow with part 4 of 4, format and save, highlighted as this tab" width="644">
+<figcaption>Part 4 of 4: Format and save</figcaption>
+</figure>
+</div>
 
 Analyzer has no separate title field: the title shown above the chart is the report's name, so saving gives the report its title, `EMEA Quantity Sold by Territory Yr2004`.
 
@@ -197,7 +276,7 @@ Click a file to download it.
 
 One finished version of this analysis: Quantity by Territory and Country for EMEA in 2004, with a green data bar, column grand totals, Rank by Quantity, and the Tree Map view. Your chart type can differ; the figures should not.
 
-Also on disk at `C:\Workshop-BA-Practitioner\04-analyzer-reports\11-analyzer-reports-emea-quantity\solution`.
+Select the file to download it: it saves to your **Downloads** folder.
 
 [EMEA Quantity Sold by Territory Yr2004.xanalyzer](./files/EMEA%20Quantity%20Sold%20by%20Territory%20Yr2004.xanalyzer)
 

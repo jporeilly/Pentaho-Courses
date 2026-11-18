@@ -1,5 +1,5 @@
 {
-  "Pentaho Server": "The heart of the Business Analytics suite — the back-end that processes reporting, analysis, and dashboard content, hosts the central Repository, and provides scheduling and security. Business users reach it through the browser-based User Console.",
+  "Pentaho Server": "The heart of Pentaho Business Analytics — the back-end that processes reporting, analysis, and dashboard content, hosts the central Repository, and provides scheduling and security. Business users reach it through the browser-based User Console.",
   "Pentaho User Console": "The browser-based home of the Pentaho Server, usually shortened to PUC. It is where business users log in to open and create reports, browse data sources, organise content, and manage schedules without installing anything on their machine.",
   "Perspective": "One of the task-oriented views the User Console is organised into — Home, Browse Files, Schedules, Administration, and so on. Perspectives group features by what a user is trying to do rather than mirroring the server's folder layout.",
   "Browse Files": "The User Console perspective for finding and managing content. The left pane lists folders (your personal home plus shared public space), the middle shows the files in the selected folder, and the Actions pane offers things like open, schedule, or add to favourites.",

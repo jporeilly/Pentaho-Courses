@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="640" viewBox="0 0 800 640" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+<filter id="shadow" x="-10%" y="-10%" width="120%" height="140%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#0f172a" flood-opacity="0.12"/></filter></defs>
+<rect width="800" height="640" fill="#ffffff"/>
+<path d="M400 80L400 125" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M146 192L146 237" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M654 192L654 237" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M400 192L400 381" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M86 336L86 525" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M714 336L714 525" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M400 480L400 525" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="16" y="16" width="768" height="64" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="48" cy="48" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(36 36) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></g>
+<text x="78" y="45" font-size="14" font-weight="700" fill="#1e3a8a">Steel Wheels sample data, already on the Pentaho Server</text>
+<text x="78" y="63" font-size="12" fill="#1e3a8a">a metadata domain (the Orders and Inventory data sources) and a cube (SteelWheelsSales)</text>
+<rect x="16" y="128" width="768" height="64" rx="10" fill="#f1f5f9" stroke="#475569" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="48" cy="160" r="19" fill="#ffffff" stroke="#475569" stroke-width="1.2"/>
+<g transform="translate(36 148) scale(1)" fill="none" stroke="#475569" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></g>
+<text x="78" y="157" font-size="14" font-weight="700" fill="#0f172a">Pentaho User Console</text>
+<text x="78" y="175" font-size="12" fill="#0f172a">open, organize and schedule reports; every workshop saves into Public &gt; Training</text>
+<rect x="16" y="240" width="260" height="96" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="46" cy="288" r="19" fill="#ffffff" stroke="#b45309" stroke-width="1.2"/>
+<g transform="translate(34 276) scale(1)" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></g>
+<text x="76" y="263.5" font-size="14" font-weight="700" fill="#78350f">Interactive Reports</text>
+<text x="76" y="280.5" font-size="12" fill="#78350f">ad-hoc reports on the Orders</text>
+<text x="76" y="295.5" font-size="12" fill="#78350f">model: Sales Territory, Orders</text>
+<text x="76" y="310.5" font-size="12" fill="#78350f">NA and EMEA, Ships and Trains</text>
+<rect x="524" y="240" width="260" height="96" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="554" cy="288" r="19" fill="#ffffff" stroke="#b45309" stroke-width="1.2"/>
+<g transform="translate(542 276) scale(1)" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></g>
+<text x="584" y="263.5" font-size="14" font-weight="700" fill="#78350f">Analyzer</text>
+<text x="584" y="280.5" font-size="12" fill="#78350f">slice and pivot the</text>
+<text x="584" y="295.5" font-size="12" fill="#78350f">SteelWheelsSales cube: Sales</text>
+<text x="584" y="310.5" font-size="12" fill="#78350f">Analysis, EMEA Quantity</text>
+<rect x="280" y="384" width="240" height="96" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="310" cy="432" r="19" fill="#ffffff" stroke="#b45309" stroke-width="1.2"/>
+<g transform="translate(298 420) scale(1)" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></g>
+<text x="340" y="407.5" font-size="14" font-weight="700" fill="#78350f">Dashboard Designer</text>
+<text x="340" y="424.5" font-size="12" fill="#78350f">panels on one page:</text>
+<text x="340" y="439.5" font-size="12" fill="#78350f">Vendor Sales, Inventory,</text>
+<text x="340" y="454.5" font-size="12" fill="#78350f">Product Performance</text>
+<rect x="16" y="528" width="768" height="96" rx="10" fill="#ffffff" stroke="#64748b" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="46" cy="576" r="19" fill="#ffffff" stroke="#64748b" stroke-width="1.2"/>
+<g transform="translate(34 564) scale(1)" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14.66v1.626a2 2 0 0 1-.976 1.696A5 5 0 0 0 7 21.978"/><path d="M14 14.66v1.626a2 2 0 0 0 .976 1.696A5 5 0 0 1 17 21.978"/><path d="M18 9h1.5a1 1 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M6 9a6 6 0 0 0 12 0V3a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1z"/><path d="M6 9H4.5a1 1 0 0 1 0-5H6"/></g>
+<text x="76" y="551.5" font-size="14" font-weight="700" fill="#0f172a">Capstone: the APAC Sales Pack, for the APAC regional director</text>
+<text x="76" y="568.5" font-size="12" fill="#0f172a">APAC-Orders-by-Country, an Interactive Report with prompts and totals;</text>
+<text x="76" y="583.5" font-size="12" fill="#0f172a">APAC-Product-Line-Sales, an Analyzer report with a calculated measure;</text>
+<text x="76" y="598.5" font-size="12" fill="#0f172a">APAC-Sales-Pack, a dashboard that links them</text>
+<path d="M216 336C216 432 216 432 277 432" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M584 336C584 432 584 432 523 432" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="153.45" y="349.5" width="125.1" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="216" y="367.5" text-anchor="middle" font-size="12" fill="#334155">placed on a panel</text>
+<rect x="521.45" y="349.5" width="125.1" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="584" y="367.5" text-anchor="middle" font-size="12" fill="#334155">placed on a panel</text>
+</svg>

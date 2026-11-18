@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="546" viewBox="0 0 800 546" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+<filter id="shadow" x="-10%" y="-10%" width="120%" height="140%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#0f172a" flood-opacity="0.12"/></filter></defs>
+<rect width="800" height="546" fill="#ffffff"/>
+<rect x="16" y="16" width="768" height="308" rx="12" fill="#f8fafc" stroke="#f1f5f9" stroke-width="1.5"/>
+<path d="M16 28a12 12 0 0 1 12-12h744a12 12 0 0 1 12 12v32h-768z" fill="#475569"/>
+<g transform="translate(29 26) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></g>
+<text x="56" y="36" font-size="14" font-weight="700" fill="#ffffff">Product Performance Dashboard</text>
+<text x="56" y="52" font-size="11.5" fill="#ffffff" opacity="0.92">a click on the report re-runs the pie, then the bar; a click on the pie, only the bar</text>
+<path d="M292 180C388.5 180 388.5 120 485 120" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M292 204C388.5 204 388.5 264 485 264" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M618 164L618 217" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M162 236L162 369" fill="none" stroke="#64748b" stroke-width="1.7" stroke-dasharray="5 4" marker-end="url(#arrow)"/>
+<path d="M618 308L618 369" fill="none" stroke="#64748b" stroke-width="1.7" stroke-dasharray="5 4" marker-end="url(#arrow)"/>
+<path d="M748 120H766V408H751" fill="none" stroke="#64748b" stroke-width="1.7" stroke-dasharray="5 4" marker-end="url(#arrow)"/>
+<rect x="32" y="148" width="260" height="88" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="192" r="19" fill="#ffffff" stroke="#b45309" stroke-width="1.2"/>
+<g transform="translate(50 180) scale(1)" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></g>
+<text x="92" y="167.5" font-size="14" font-weight="700" fill="#78350f">Product Sales Analysis</text>
+<text x="92" y="184.5" font-size="12" fill="#78350f">Product Sales by Year,</text>
+<text x="92" y="199.5" font-size="12" fill="#78350f">an Analyzer report;</text>
+<text x="92" y="214.5" font-size="12" fill="#78350f">publishes Product</text>
+<rect x="488" y="76" width="260" height="88" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="518" cy="120" r="19" fill="#ffffff" stroke="#b45309" stroke-width="1.2"/>
+<g transform="translate(506 108) scale(1)" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12c.552 0 1.005-.449.95-.998a10 10 0 0 0-8.953-8.951c-.55-.055-.998.398-.998.95v8a1 1 0 0 0 1 1z"/><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/></g>
+<text x="548" y="95.5" font-size="14" font-weight="700" fill="#78350f">Territory Sales Mix</text>
+<text x="548" y="112.5" font-size="12" fill="#78350f">Product Name = {PRODUCT},</text>
+<text x="548" y="127.5" font-size="12" fill="#78350f">default 18th century schooner;</text>
+<text x="548" y="142.5" font-size="12" fill="#78350f">publishes Territory</text>
+<rect x="488" y="220" width="260" height="88" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="518" cy="264" r="19" fill="#ffffff" stroke="#b45309" stroke-width="1.2"/>
+<g transform="translate(506 252) scale(1)" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v16a2 2 0 0 0 2 2h16"/><rect x="7" y="13" width="9" height="4" rx="1"/><rect x="7" y="5" width="12" height="4" rx="1"/></g>
+<text x="548" y="239.5" font-size="14" font-weight="700" fill="#78350f">Order Status</text>
+<text x="548" y="256.5" font-size="12" fill="#78350f">distinct orders by status</text>
+<text x="548" y="271.5" font-size="12" fill="#78350f">for {PRODUCT} &amp; {TERRITORY}</text>
+<text x="548" y="286.5" font-size="12" fill="#78350f">(default Territory: NA)</text>
+<rect x="357.45" y="137.5" width="62.1" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="388.5" y="155.5" text-anchor="middle" font-size="12" fill="#334155">Product</text>
+<rect x="357.45" y="221.5" width="62.1" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="388.5" y="239.5" text-anchor="middle" font-size="12" fill="#334155">Product</text>
+<rect x="580.65" y="178" width="74.69999999999999" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="618" y="196" text-anchor="middle" font-size="12" fill="#334155">Territory</text>
+<rect x="32" y="372" width="260" height="72" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="408" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(50 396) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 10.27 7 3.34"/><path d="m11 13.73-4 6.93"/><path d="M12 22v-2"/><path d="M12 2v2"/><path d="M14 12h8"/><path d="m17 20.66-1-1.73"/><path d="m17 3.34-1 1.73"/><path d="M2 12h2"/><path d="m20.66 17-1.73-1"/><path d="m20.66 7-1.73 1"/><path d="m3.34 17 1.73-1"/><path d="m3.34 7 1.73 1"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="12" r="8"/></g>
+<text x="92" y="398.5" font-size="14" font-weight="700" fill="#3b0764">Mondrian</text>
+<text x="92" y="415.5" font-size="12" fill="#3b0764">the cube the report reads</text>
+<rect x="488" y="372" width="260" height="72" rx="10" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="518" cy="408" r="19" fill="#ffffff" stroke="#0f766e" stroke-width="1.2"/>
+<g transform="translate(506 396) scale(1)" fill="none" stroke="#0f766e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.3 10a.7.7 0 0 1-.626-1.079L11.4 3a.7.7 0 0 1 1.198-.043L16.3 8.9a.7.7 0 0 1-.572 1.1Z"/><rect x="3" y="14" width="7" height="7" rx="1"/><circle cx="17.5" cy="17.5" r="3.5"/></g>
+<text x="548" y="391" font-size="14" font-weight="700" fill="#134e4a">Orders metadata model</text>
+<text x="548" y="408" font-size="12" fill="#134e4a">each chart re-runs its query</text>
+<text x="548" y="423" font-size="12" fill="#134e4a">with the value in WHERE</text>
+<rect x="16" y="468" width="768" height="62" rx="10" fill="#ffffff" stroke="#64748b" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="48" cy="499" r="19" fill="#ffffff" stroke="#64748b" stroke-width="1.2"/>
+<g transform="translate(36 487) scale(1)" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></g>
+<text x="78" y="496" font-size="14" font-weight="700" fill="#0f172a">The parameter is the only contract between panels</text>
+<text x="78" y="514" font-size="12" fill="#0f172a">the chart never touches the cube, and the report never touches the SQL</text>
+</svg>

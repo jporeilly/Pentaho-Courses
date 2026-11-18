@@ -28,6 +28,23 @@
 </figure>
 </div>
 
+Here is the analysis you build in the second tab, as it looks when you
+save it:
+
+<div align="center">
+<figure>
+<img src="../_assets/images/analyzer-sales-analysis.png" alt="A mock-up of the finished EMEA Revenue by Product Line Yr2003 analysis, filtered to Territory EMEA and Years 2003. Territory and Product Line run down the side, and Years 2003 with Quarters QTR1 to QTR4 across the top, each column headed Revenue. EMEA appears once beside seven product lines, from Classic Cars, $96,678 in QTR1 and $407,683 in QTR4, to Vintage Cars. A dash marks a quarter with no sales, and each value is a drill-through link." width="800">
+<figcaption>What you will build: EMEA Revenue by Product Line Yr2003</figcaption>
+</figure>
+</div>
+
+Read the diagram from the filters down. The two filters narrow the cube
+to EMEA and 2003, so a single territory and a single year are left. Down
+the side are the members of the Territory and Product Line levels, and
+across the top the 2003 member split into its four quarters. Each cell
+is Sales for that product line and quarter, renamed Revenue and shown as
+whole dollars.
+
 ***
 
 :::: tabs
@@ -300,9 +317,23 @@ The colors tell the story at a glance: Belgium's sales have been consistently lo
 </figure>
 </div>
 
+<div align="center">
+<figure>
+<img src="../_assets/images/az-workflow.png" alt="The Analyzer workflow in four parts, in order: 1 data source and fields, 2 filters and formatting, 3 calculations and drill-through, 4 format and save" width="644">
+<figcaption>The Analyzer workflow, one part per tab below</figcaption>
+</figure>
+</div>
+
 ::: tabs
 
 ### 1. Data Source
+
+<div align="center">
+<figure>
+<img src="../_assets/images/az-workflow-1.png" alt="The Analyzer workflow with part 1 of 4, data source and fields, highlighted as this tab" width="644">
+<figcaption>Part 1 of 4: Data source and fields</figcaption>
+</figure>
+</div>
 
 > **Note:**
 >
@@ -404,6 +435,13 @@ The colors tell the story at a glance: Belgium's sales have been consistently lo
 > **Success:** Checkpoint: **Rows** holds **Territory** and then **Line**, **Columns** holds **Years** and **Quarters**, and **Measures** holds **Sales**. Analyzer aggregates Sales to each combination as you add fields.
 
 ### 2. Filter & Conditional Formatting
+
+<div align="center">
+<figure>
+<img src="../_assets/images/az-workflow-2.png" alt="The Analyzer workflow with part 2 of 4, filters and formatting, highlighted as this tab" width="644">
+<figcaption>Part 2 of 4: Filters and formatting</figcaption>
+</figure>
+</div>
 
 > **Note:**
 >
@@ -569,6 +607,13 @@ Select **OK**.
 13. Remove the conditional formatting: right-click one of the **Sales** headers, and select **Conditional Formatting > Color Scale: Green-Yellow-Red** again to clear it.
 
 ### 3. Calculations & Drill-Through
+
+<div align="center">
+<figure>
+<img src="../_assets/images/az-workflow-3.png" alt="The Analyzer workflow with part 3 of 4, calculations and drill-through, highlighted as this tab" width="644">
+<figcaption>Part 3 of 4: Calculations and drill-through</figcaption>
+</figure>
+</div>
 
 > **Note:**
 >
@@ -797,6 +842,13 @@ Drill-through links turn every non-calculated measure into a link. Selecting a v
 > build or keep in sync.
 
 ### 4. Formatting
+
+<div align="center">
+<figure>
+<img src="../_assets/images/az-workflow-4.png" alt="The Analyzer workflow with part 4 of 4, format and save, highlighted as this tab" width="644">
+<figcaption>Part 4 of 4: Format and save</figcaption>
+</figure>
+</div>
 
 > **Note:**
 >
@@ -1070,7 +1122,7 @@ Click a file to download it.
 
 The finished analysis from the Sales Analysis tab: Territory and Product Line by Years and Quarters, filtered to EMEA and 2003, with Revenue as currency and drill-through links on. Open it alongside your own to compare.
 
-Also on disk at `C:\Workshop-BA-Practitioner\04-analyzer-reports\10-analyzer-reports-sales-analysis\solution`.
+Select the file to download it: it saves to your **Downloads** folder.
 
 [EMEA Revenue by Product Line Yr2003.xanalyzer](./files/EMEA%20Revenue%20by%20Product%20Line%20Yr2003.xanalyzer)
 

@@ -5,7 +5,7 @@
 > #### Get Ready — Before You Start
 >
 > Before the first workshop, check that the Pentaho Server is running
-> and that the workshop folder is in place. The course builds reports,
+> on this Ubuntu machine. The course builds reports,
 > analyses and dashboards in the Pentaho User Console against the Steel
 > Wheels sample data, and **none of the lab time should go on setup**:
 > this page does it in advance.
@@ -14,7 +14,7 @@
 >
 > * Learn how the guide works: progress, copy buttons, the assistant.
 > * Confirm the Pentaho Server starts and the User Console signs you in.
-> * Check the workshop folder: *C:\Workshop-BA-Practitioner*
+> * Know where the lab files go: your *Downloads* folder, and *~/Workshop-BA-Practitioner* for the capstone.
 >
 > **Estimated Time:** 5 minutes on a lab VM; about 15 minutes the first
 > time on your own machine.
@@ -80,7 +80,7 @@ reinstalling anything.
 
 ### I'm installing on my own machine
 
-Everything here is a **one-off setup** for your own laptop. Work through
+Everything here is a **one-off setup** for your own Ubuntu 24.04 machine. Work through
 the tabs in order — the last one is a reference card of ports and
 logins, for when you come back to it later.
 
@@ -93,41 +93,50 @@ logins, for when you come back to it later.
 
 ### 1. Start the Pentaho Server
 
-The server ships with Pentaho, so there is nothing to install — you
-start it. It brings up the User Console, the sample data and the
-reporting plugins together.
+This course expects a Pentaho Server 11 installed in
+`/opt/pentaho/server/pentaho-server`, with the PostgreSQL database that
+holds its repository, both running as services (the Installation course
+sets a machine up this way). You start them rather than install anything.
 
-1. Open PowerShell and run the start script from your Pentaho install:
+1. Open a terminal and start the repository database, then the server:
 
-   ```powershell
-   C:\Pentaho\server\pentaho-server\start-pentaho.bat
+   ```bash
+   sudo systemctl start postgresql
+   sudo systemctl start pentaho-server
    ```
 
-2. Wait for it to finish booting. The first start takes a few minutes;
-   leave the window open, as closing it stops the server.
+2. Wait for it to finish booting. It takes 3 to 5 minutes after the
+   database is up; nothing needs to stay open while it loads.
 
 3. Confirm it is up by browsing to **http://localhost:8080/pentaho**.
    You should get a sign-in page.
 
-To shut it down later, run `stop-pentaho.bat` from the same folder.
+To shut it down later, run `sudo systemctl stop pentaho-server`.
 
 <details>
 <summary>Troubleshooting</summary>
 
 **The browser cannot reach localhost:8080.** The server is still
-starting, or it stopped. Watch the console window for
-`Server startup in ... ms`, then retry.
+starting, or it stopped. `systemctl status pentaho-server` says which;
+while it loads, watch for `Server startup in ... ms` at the end of
+the log:
 
-**"Port 8080 already in use".** Something else has the port — often a
-second Pentaho Server, or another Tomcat. Stop it, or change the
-port in `tomcat\conf\server.xml`.
+```bash
+tail -f /opt/pentaho/server/pentaho-server/tomcat/logs/catalina.out
+```
 
-**The window closes immediately.** The server could not find a usable
-Java. It checks `PENTAHO_JAVA_HOME` first, then the bundled
-`C:\Pentaho\java`, and only then `JAVA_HOME`: check `echo $env:PENTAHO_JAVA_HOME`
-and `echo $env:JAVA_HOME` (a JDK newer than 21 stops the server), and
-see `set-pentaho-env.bat` in the same folder for what the server
-expects.
+**It starts but never finishes.** The repository database is down.
+Check `systemctl status postgresql`, start it, then restart the server
+with `sudo systemctl restart pentaho-server`.
+
+**"Port 8080 already in use".** Something else has the port, often a
+second Pentaho Server or another Tomcat. `sudo ss -ltnp 'sport = :8080'`
+names it; stop it, or change the port in `tomcat/conf/server.xml`.
+
+**It stops straight away.** The server could not find a usable Java.
+It checks `PENTAHO_JAVA_HOME` first, then `JAVA_HOME`: check
+`echo $PENTAHO_JAVA_HOME` and `java -version` (Pentaho 11 needs Java 21),
+and see `set-pentaho-env.sh` in the server folder for what it expects.
 
 **Sample data is missing.** The bundled HSQLDB `sampledata` starts
 with the server on port 9001. If the server started but reports
@@ -145,6 +154,13 @@ cannot find their data, stop the server, make sure nothing else owns
 
 3. You should land on the Home perspective, with **Browse Files** and
    **Create New** available.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/user_console_new_pentaho_user_login.png" alt="The Pentaho 11 User Console sign-in page, with Welcome to Pentaho on the left and Username and Password fields, a Log In button and Login as Evaluator on the right" width="800">
+<figcaption>The User Console sign-in page</figcaption>
+</figure>
+</div>
 
 Use `admin` for every lab in this course. The server also ships with
 sample users for other roles — they matter when you are designing
@@ -171,32 +187,21 @@ nothing you try is blocked for a reason unrelated to the lesson.
 
 </details>
 
-### 3. Lab files on disk
+### 3. Lab files
 
-The installer lays each workshop's finished answer out under
-**`C:\Workshop-BA-Practitioner`**, one folder per module, so you can
-compare your work with a solution without downloading it from the
-guide first. Every lab's **Solution** section quotes its path.
-
-These are repository files (`.prpti`, `.xanalyzer`, `.xdash`), not
+Each workshop's finished answer is under **Lab Files** at the end of
+its page: select it and it saves to your **Downloads** folder. These
+are repository files (`.prpti`, `.xanalyzer`, `.xdash`), not
 programs: you open one by uploading it to the User Console, and each
 Solution section gives the steps.
 
-<details>
-<summary>The folder isn't there</summary>
+The capstone is the one place that needs a folder of its own, because
+its accreditation checks read your files from
+`~/Workshop-BA-Practitioner/capstone`. Make it now:
 
-It is an optional component, so a **Minimal (app only)** install, or
-clearing the **Workshop lab files** box, skips it. Lay it down at any
-time from your install's `provisioning` folder:
-
-```powershell
-.\install-workshop.ps1
+```bash
+mkdir -p ~/Workshop-BA-Practitioner/capstone/solution ~/Workshop-BA-Practitioner/capstone/out
 ```
-
-Safe to run whenever you want the shipped files back as they shipped:
-it only ever adds and refreshes, and never deletes your work.
-
-</details>
 
 ### 4. Ports and logins
 
@@ -236,50 +241,35 @@ whichever tab above you chose. Each row reports one of four states:
 * **<span class="pcm-c-danger">Red</span>** — it will block a lab, and the row tells you the exact fix.
 * **<span class="pcm-c-muted">Grey</span>** — skipped, because this course doesn't use it.
 
-The row that matters most is **Pentaho Server URL**: every lab runs in
+The row that matters most is **Pentaho Server (8080)**: every lab runs in
 the User Console. It is green only once the sign-in page really answers.
 
 A row with a turning circle and **Starting up** is not broken: the
 Pentaho Server is still loading (3 to 5 minutes), and the list checks
 again by itself every few seconds. Wait for it. Only when a row is
-**red** is something wrong, and then **Get my lab ready** runs the same
-steps the sign-in runs and checks again.
+**red** is something wrong, and the row names the command that fixes it.
 
-<div data-env-check="server"></div>
+<div data-env-check="ubuntu-server"></div>
 
-## Check the working folders
+## Check the capstone folder
 
-The installer lays every workshop's solution out under
-**`C:\Workshop-BA-Practitioner`**, one folder per module, in the
-order the sidebar reads. The User Console module is reading and
-exploring only, so the numbering starts at `03`.
+There is nothing to unpack for the workshops: every lab's solution
+downloads from its own **Lab Files** section when you want it. Your own
+work never lives on disk either: you build it in the User Console and
+save it to **Public > Training** on the server.
+
+The capstone is the exception. Its checks read your finished pack from
+this folder, so confirm it exists before you start:
 
 ```text
-C:\Workshop-BA-Practitioner
-├── 03-interactive-reports
-│   ├── 06-interactive-reports-sales-territory
-│   │   └── solution
-│   │       └── Sales Territory Report - Demo.prpti     the finished report
-│   ├── 07-interactive-reports-orders-na-and-emea\solution
-│   └── 08-interactive-reports-ships-and-trains\solution
-├── 04-analyzer-reports
-│   ├── 10-analyzer-reports-sales-analysis\solution    an .xanalyzer each
-│   └── 11-analyzer-reports-emea-quantity\solution
-└── 05-dashboard-designer
-    ├── 13-dashboard-designer-vendor-sales\solution    an .xdash each
-    ├── 14-dashboard-designer-inventory\solution
-    └── 15-dashboard-designer-product-performance\solution
+~/Workshop-BA-Practitioner
+└── capstone
+    ├── solution        your APAC folder, downloaded from the User Console
+    └── out             the report's PDF export
 ```
 
-Every `solution` folder holds the **finished, working** answer to its
-workshop. Your own work never lives here: you build it in the User
-Console and save it to **Public > Training** on the server.
-
-**Confirm the files are there**, not only the folder: open
-`03-interactive-reports\06-interactive-reports-sales-territory\solution`
-and check you can see `Sales Territory Report - Demo.prpti`. An empty
-folder is the one thing worth catching now rather than in the middle
-of a lab.
+If `ls ~/Workshop-BA-Practitioner/capstone` does not list `solution` and
+`out`, run the `mkdir` command from **3. Lab files** above.
 
 ## Ask the AI assistant
 
@@ -293,6 +283,23 @@ model, so it works even when the VM is offline.
 Each section starts with an **overview page** (<span data-icon="page"></span> — background reading,
 no checkboxes) followed by **hands-on workshops** (<span data-icon="workshop"></span> — tracked steps).
 Head to the first section whenever you're ready.
+
+The whole course on one page: the tools you meet, the workshops you
+build in each, and how the capstone draws on them:
+
+<div align="center">
+<figure>
+<img src="../_assets/images/level1-toolset.png" alt="The Level 1 toolset on the Steel Wheels data. The sample data, a metadata domain with the Orders and Inventory data sources and the SteelWheelsSales cube, is read through the Pentaho User Console. The console opens Interactive Reports, Analyzer and Dashboard Designer, whose workshops each name. Reports from both report tools are placed on dashboard panels, and the capstone, the APAC Sales Pack, builds one file in each tool." width="800">
+<figcaption>The Level 1 toolset on the Steel Wheels data, and how the capstone draws on it</figcaption>
+</figure>
+</div>
+
+Read the diagram from the top down. The Steel Wheels data is already on
+the server, so every workshop starts in the User Console. Interactive
+Reports builds reports on the Orders model and Analyzer analyses on the
+cube, and Dashboard Designer puts reports from both on one page. The
+capstone builds one of each and links them in a dashboard for the APAC
+regional director.
 
 ---
 

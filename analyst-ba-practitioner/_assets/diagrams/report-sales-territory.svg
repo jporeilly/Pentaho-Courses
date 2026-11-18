@@ -1,0 +1,148 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="610" viewBox="0 0 800 610" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+<filter id="shadow" x="-10%" y="-10%" width="120%" height="140%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#0f172a" flood-opacity="0.12"/></filter></defs>
+<rect width="800" height="610" fill="#ffffff"/>
+<rect x="16" y="16" width="768" height="548" rx="12" fill="#fffbeb" stroke="#fef3c7" stroke-width="1.5"/>
+<path d="M16 28a12 12 0 0 1 12-12h744a12 12 0 0 1 12 12v32h-768z" fill="#b45309"/>
+<g transform="translate(29 26) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></g>
+<text x="56" y="36" font-size="14" font-weight="700" fill="#ffffff">Sales Territory Report - Demo (Interactive Report, landscape)</text>
+<text x="56" y="52" font-size="11.5" fill="#ffffff" opacity="0.92">Grouped by Territory (descending) and Country; rows sorted by Customer Name, descending; no filters</text>
+<text x="32" y="92" font-size="12" fill="#334155">Steel Wheels, Inc.</text>
+<line x1="32" y1="100" x2="768" y2="100" stroke="#334155" stroke-width="1.2"/>
+<text x="400" y="136" text-anchor="middle" font-size="20" fill="#0f172a" letter-spacing="0.5">Sales Territory Report</text>
+<rect x="32" y="156" width="736" height="26" fill="#ffffff" stroke="#ffffff" stroke-width="0.8"/>
+<line x1="32" y1="181" x2="768" y2="181" stroke="#0f766e" stroke-width="1"/>
+<text x="40" y="173.5" font-size="13.5" font-weight="700" fill="#134e4a">Territory: NA</text>
+<rect x="32" y="182" width="736" height="26" fill="#ccfbf1" stroke="#ccfbf1" stroke-width="0.8"/>
+<text x="40" y="199.5" font-size="12" font-weight="600" fill="#134e4a">Country: Canada</text>
+<rect x="32" y="208" width="216" height="26" fill="#475569" stroke="#64748b" stroke-width="0.8"/>
+<text x="40" y="225.5" font-size="12" font-weight="600" fill="#ffffff">Customer Name</text>
+<rect x="248" y="208" width="100" height="26" fill="#475569" stroke="#64748b" stroke-width="0.8"/>
+<text x="298" y="225.5" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">City</text>
+<rect x="348" y="208" width="104" height="26" fill="#475569" stroke="#64748b" stroke-width="0.8"/>
+<text x="400" y="225.5" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">Order Number</text>
+<rect x="452" y="208" width="100" height="26" fill="#475569" stroke="#64748b" stroke-width="0.8"/>
+<text x="544" y="225.5" text-anchor="end" font-size="12" font-weight="600" fill="#ffffff">Order Date</text>
+<rect x="552" y="208" width="114" height="26" fill="#475569" stroke="#64748b" stroke-width="0.8"/>
+<text x="658" y="225.5" text-anchor="end" font-size="12" font-weight="600" fill="#ffffff">Revenue</text>
+<rect x="666" y="208" width="102" height="26" fill="#475569" stroke="#64748b" stroke-width="0.8"/>
+<text x="760" y="225.5" text-anchor="end" font-size="12" font-weight="600" fill="#ffffff">Tax</text>
+<rect x="32" y="234" width="216" height="26" fill="#ffffff" stroke="#e2e8f0" stroke-width="0.8"/>
+<text x="40" y="251.5" font-size="12" font-weight="400" fill="#0f172a">Royal Canadian Collectables, Ltd.</text>
+<rect x="248" y="234" width="100" height="26" fill="#ffffff" stroke="#e2e8f0" stroke-width="0.8"/>
+<text x="298" y="251.5" text-anchor="middle" font-size="12" font-weight="400" fill="#0f172a">Tsawassen</text>
+<rect x="348" y="234" width="104" height="26" fill="#ffffff" stroke="#e2e8f0" stroke-width="0.8"/>
+<text x="356" y="251.5" font-size="12" font-weight="400" fill="#0f172a">10283</text>
+<rect x="452" y="234" width="100" height="26" fill="#ffffff" stroke="#e2e8f0" stroke-width="0.8"/>
+<text x="544" y="251.5" text-anchor="end" font-size="12" font-weight="400" fill="#0f172a">08-20-2004</text>
+<rect x="552" y="234" width="114" height="26" fill="#ffffff" stroke="#e2e8f0" stroke-width="0.8"/>
+<text x="658" y="251.5" text-anchor="end" font-size="12" font-weight="400" fill="#0f172a">$43,361</text>
+<rect x="666" y="234" width="102" height="26" fill="#ffffff" stroke="#e2e8f0" stroke-width="0.8"/>
+<text x="760" y="251.5" text-anchor="end" font-size="12" font-weight="400" fill="#0f172a">$6,504.15</text>
+<rect x="32" y="260" width="216" height="26" fill="#f8fafc" stroke="#e2e8f0" stroke-width="0.8"/>
+<text x="40" y="277.5" font-size="12" font-weight="400" fill="#0f172a">Royal Canadian Collectables, Ltd.</text>
+<rect x="248" y="260" width="100" height="26" fill="#f8fafc" stroke="#e2e8f0" stroke-width="0.8"/>
+<text x="298" y="277.5" text-anchor="middle" font-size="12" font-weight="400" fill="#0f172a">Tsawassen</text>
+<rect x="348" y="260" width="104" height="26" fill="#f8fafc" stroke="#e2e8f0" stroke-width="0.8"/>
+<text x="356" y="277.5" font-size="12" font-weight="400" fill="#0f172a">10235</text>
+<rect x="452" y="260" width="100" height="26" fill="#f8fafc" stroke="#e2e8f0" stroke-width="0.8"/>
+<text x="544" y="277.5" text-anchor="end" font-size="12" font-weight="400" fill="#0f172a">04-02-2004</text>
+<rect x="552" y="260" width="114" height="26" fill="#f8fafc" stroke="#e2e8f0" stroke-width="0.8"/>
+<text x="658" y="277.5" text-anchor="end" font-size="12" font-weight="400" fill="#0f172a">$31,304</text>
+<rect x="666" y="260" width="102" height="26" fill="#f8fafc" stroke="#e2e8f0" stroke-width="0.8"/>
+<text x="760" y="277.5" text-anchor="end" font-size="12" font-weight="400" fill="#0f172a">$4,695.60</text>
+<rect x="32" y="286" width="216" height="26" fill="#ffffff" stroke="#e2e8f0" stroke-width="0.8"/>
+<text x="40" y="303.5" font-size="12" font-weight="400" fill="#0f172a">Québec Home Shopping Network</text>
+<rect x="248" y="286" width="100" height="26" fill="#ffffff" stroke="#e2e8f0" stroke-width="0.8"/>
+<text x="298" y="303.5" text-anchor="middle" font-size="12" font-weight="400" fill="#0f172a">Montréal</text>
+<rect x="348" y="286" width="104" height="26" fill="#ffffff" stroke="#e2e8f0" stroke-width="0.8"/>
+<text x="356" y="303.5" font-size="12" font-weight="400" fill="#0f172a">10171</text>
+<rect x="452" y="286" width="100" height="26" fill="#ffffff" stroke="#e2e8f0" stroke-width="0.8"/>
+<text x="544" y="303.5" text-anchor="end" font-size="12" font-weight="400" fill="#0f172a">11-05-2003</text>
+<rect x="552" y="286" width="114" height="26" fill="#ffffff" stroke="#e2e8f0" stroke-width="0.8"/>
+<text x="658" y="303.5" text-anchor="end" font-size="12" font-weight="400" fill="#0f172a">$15,964</text>
+<rect x="666" y="286" width="102" height="26" fill="#ffffff" stroke="#e2e8f0" stroke-width="0.8"/>
+<text x="760" y="303.5" text-anchor="end" font-size="12" font-weight="400" fill="#0f172a">$2,394.60</text>
+<rect x="32" y="312" width="216" height="26" fill="#f8fafc" stroke="#e2e8f0" stroke-width="0.8"/>
+<text x="40" y="329.5" font-size="12" font-weight="400" fill="#0f172a">Québec Home Shopping Network</text>
+<rect x="248" y="312" width="100" height="26" fill="#f8fafc" stroke="#e2e8f0" stroke-width="0.8"/>
+<text x="298" y="329.5" text-anchor="middle" font-size="12" font-weight="400" fill="#0f172a">Montréal</text>
+<rect x="348" y="312" width="104" height="26" fill="#f8fafc" stroke="#e2e8f0" stroke-width="0.8"/>
+<text x="356" y="329.5" font-size="12" font-weight="400" fill="#0f172a">10261</text>
+<rect x="452" y="312" width="100" height="26" fill="#f8fafc" stroke="#e2e8f0" stroke-width="0.8"/>
+<text x="544" y="329.5" text-anchor="end" font-size="12" font-weight="400" fill="#0f172a">06-17-2004</text>
+<rect x="552" y="312" width="114" height="26" fill="#f8fafc" stroke="#e2e8f0" stroke-width="0.8"/>
+<text x="658" y="329.5" text-anchor="end" font-size="12" font-weight="400" fill="#0f172a">$24,550</text>
+<rect x="666" y="312" width="102" height="26" fill="#f8fafc" stroke="#e2e8f0" stroke-width="0.8"/>
+<text x="760" y="329.5" text-anchor="end" font-size="12" font-weight="400" fill="#0f172a">$3,682.50</text>
+<rect x="32" y="338" width="216" height="26" fill="#ffffff" stroke="#e2e8f0" stroke-width="0.8"/>
+<text x="40" y="355.5" font-size="12" font-weight="400" fill="#0f172a">Québec Home Shopping Network</text>
+<rect x="248" y="338" width="100" height="26" fill="#ffffff" stroke="#e2e8f0" stroke-width="0.8"/>
+<text x="298" y="355.5" text-anchor="middle" font-size="12" font-weight="400" fill="#0f172a">Montréal</text>
+<rect x="348" y="338" width="104" height="26" fill="#ffffff" stroke="#e2e8f0" stroke-width="0.8"/>
+<text x="356" y="355.5" font-size="12" font-weight="400" fill="#0f172a">10411</text>
+<rect x="452" y="338" width="100" height="26" fill="#ffffff" stroke="#e2e8f0" stroke-width="0.8"/>
+<text x="544" y="355.5" text-anchor="end" font-size="12" font-weight="400" fill="#0f172a">05-01-2005</text>
+<rect x="552" y="338" width="114" height="26" fill="#ffffff" stroke="#e2e8f0" stroke-width="0.8"/>
+<text x="658" y="355.5" text-anchor="end" font-size="12" font-weight="400" fill="#0f172a">$33,710</text>
+<rect x="666" y="338" width="102" height="26" fill="#ffffff" stroke="#e2e8f0" stroke-width="0.8"/>
+<text x="760" y="355.5" text-anchor="end" font-size="12" font-weight="400" fill="#0f172a">$5,056.50</text>
+<rect x="32" y="364" width="216" height="26" fill="#f8fafc" stroke="#e2e8f0" stroke-width="0.8"/>
+<text x="40" y="381.5" font-size="12" font-weight="400" fill="#0f172a">Canadian Gift Exchange Network</text>
+<rect x="248" y="364" width="100" height="26" fill="#f8fafc" stroke="#e2e8f0" stroke-width="0.8"/>
+<text x="298" y="381.5" text-anchor="middle" font-size="12" font-weight="400" fill="#0f172a">Vancouver</text>
+<rect x="348" y="364" width="104" height="26" fill="#f8fafc" stroke="#e2e8f0" stroke-width="0.8"/>
+<text x="356" y="381.5" font-size="12" font-weight="400" fill="#0f172a">10313</text>
+<rect x="452" y="364" width="100" height="26" fill="#f8fafc" stroke="#e2e8f0" stroke-width="0.8"/>
+<text x="544" y="381.5" text-anchor="end" font-size="12" font-weight="400" fill="#0f172a">10-22-2004</text>
+<rect x="552" y="364" width="114" height="26" fill="#f8fafc" stroke="#e2e8f0" stroke-width="0.8"/>
+<text x="658" y="381.5" text-anchor="end" font-size="12" font-weight="400" fill="#0f172a">$36,576</text>
+<rect x="666" y="364" width="102" height="26" fill="#f8fafc" stroke="#e2e8f0" stroke-width="0.8"/>
+<text x="760" y="381.5" text-anchor="end" font-size="12" font-weight="400" fill="#0f172a">$5,486.40</text>
+<rect x="32" y="390" width="216" height="26" fill="#ffffff" stroke="#e2e8f0" stroke-width="0.8"/>
+<text x="40" y="407.5" font-size="12" font-weight="400" fill="#0f172a">Canadian Gift Exchange Network</text>
+<rect x="248" y="390" width="100" height="26" fill="#ffffff" stroke="#e2e8f0" stroke-width="0.8"/>
+<text x="298" y="407.5" text-anchor="middle" font-size="12" font-weight="400" fill="#0f172a">Vancouver</text>
+<rect x="348" y="390" width="104" height="26" fill="#ffffff" stroke="#e2e8f0" stroke-width="0.8"/>
+<text x="356" y="407.5" font-size="12" font-weight="400" fill="#0f172a">10206</text>
+<rect x="452" y="390" width="100" height="26" fill="#ffffff" stroke="#e2e8f0" stroke-width="0.8"/>
+<text x="544" y="407.5" text-anchor="end" font-size="12" font-weight="400" fill="#0f172a">12-05-2003</text>
+<rect x="552" y="390" width="114" height="26" fill="#ffffff" stroke="#e2e8f0" stroke-width="0.8"/>
+<text x="658" y="407.5" text-anchor="end" font-size="12" font-weight="400" fill="#0f172a">$38,620</text>
+<rect x="666" y="390" width="102" height="26" fill="#ffffff" stroke="#e2e8f0" stroke-width="0.8"/>
+<text x="760" y="407.5" text-anchor="end" font-size="12" font-weight="400" fill="#0f172a">$5,793.00</text>
+<rect x="32" y="416" width="216" height="26" fill="#ede9fe" stroke="#ede9fe" stroke-width="0.8"/>
+<rect x="248" y="416" width="100" height="26" fill="#ede9fe" stroke="#ede9fe" stroke-width="0.8"/>
+<rect x="348" y="416" width="204" height="26" fill="#ede9fe" stroke="#ede9fe" stroke-width="0.8"/>
+<text x="544" y="433.5" text-anchor="end" font-size="12" font-weight="600" fill="#3b0764">Country Subtotal</text>
+<rect x="552" y="416" width="114" height="26" fill="#ede9fe" stroke="#ede9fe" stroke-width="0.8"/>
+<text x="658" y="433.5" text-anchor="end" font-size="12" font-weight="600" fill="#3b0764">$224,085</text>
+<rect x="666" y="416" width="102" height="26" fill="#ede9fe" stroke="#ede9fe" stroke-width="0.8"/>
+<rect x="32" y="442" width="736" height="26" fill="#fafaf9" stroke="#a8a29e" stroke-width="0.8" stroke-dasharray="4 3"/>
+<text x="400" y="459.5" text-anchor="middle" font-size="12" font-weight="400" font-style="italic" fill="#78716c">Country: USA, with its customers and its Country Subtotal</text>
+<rect x="32" y="468" width="216" height="26" fill="#ede9fe" stroke="#ede9fe" stroke-width="0.8"/>
+<rect x="248" y="468" width="100" height="26" fill="#ede9fe" stroke="#ede9fe" stroke-width="0.8"/>
+<rect x="348" y="468" width="204" height="26" fill="#ede9fe" stroke="#ede9fe" stroke-width="0.8"/>
+<text x="544" y="485.5" text-anchor="end" font-size="12" font-weight="600" fill="#3b0764">Territory Subtotal</text>
+<rect x="552" y="468" width="114" height="26" fill="#ede9fe" stroke="#ede9fe" stroke-width="0.8"/>
+<text x="658" y="485.5" text-anchor="end" font-size="12" font-weight="600" fill="#3b0764">$3,852,214</text>
+<rect x="666" y="468" width="102" height="26" fill="#ede9fe" stroke="#ede9fe" stroke-width="0.8"/>
+<rect x="32" y="494" width="736" height="26" fill="#fafaf9" stroke="#a8a29e" stroke-width="0.8" stroke-dasharray="4 3"/>
+<text x="400" y="511.5" text-anchor="middle" font-size="12" font-weight="400" font-style="italic" fill="#78716c">Territories Japan, EMEA and APAC (descending), each with its countries and subtotals</text>
+<rect x="32" y="520" width="216" height="26" fill="#ede9fe" stroke="#ede9fe" stroke-width="0.8"/>
+<rect x="248" y="520" width="100" height="26" fill="#ede9fe" stroke="#ede9fe" stroke-width="0.8"/>
+<rect x="348" y="520" width="204" height="26" fill="#ede9fe" stroke="#ede9fe" stroke-width="0.8"/>
+<text x="544" y="537.5" text-anchor="end" font-size="12" font-weight="700" fill="#3b0764">Grand Total</text>
+<rect x="552" y="520" width="114" height="26" fill="#ede9fe" stroke="#ede9fe" stroke-width="0.8"/>
+<text x="658" y="537.5" text-anchor="end" font-size="12" font-weight="700" fill="#3b0764">$10,644,855.00</text>
+<rect x="666" y="520" width="102" height="26" fill="#ede9fe" stroke="#ede9fe" stroke-width="0.8"/>
+<rect x="32" y="520" width="736" height="26" fill="none" stroke="#6d28d9" stroke-width="1.2"/>
+<rect x="32" y="580" width="20" height="14" rx="3" fill="#475569" stroke="#64748b" stroke-width="0.8"/>
+<text x="59" y="591.5" font-size="11.5" fill="#334155">column headings</text>
+<rect x="166.5" y="580" width="20" height="14" rx="3" fill="#ccfbf1" stroke="#ccfbf1" stroke-width="0.8"/>
+<text x="193.5" y="591.5" font-size="11.5" fill="#334155">group headers</text>
+<rect x="289.6" y="580" width="20" height="14" rx="3" fill="#ede9fe" stroke="#ede9fe" stroke-width="0.8"/>
+<text x="316.6" y="591.5" font-size="11.5" fill="#334155">subtotals and Grand Total (report engine)</text>
+<rect x="572.3000000000001" y="580" width="20" height="14" rx="3" fill="#fafaf9" stroke="#a8a29e" stroke-width="0.8" stroke-dasharray="3 2"/>
+<text x="599.3000000000001" y="591.5" font-size="11.5" fill="#334155">rows left out here</text>
+</svg>

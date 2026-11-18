@@ -265,6 +265,22 @@ Last, add a bar chart of the number of orders for the product selected in Produc
 > place (the database), and a cascade you can trace by reading which
 > panel publishes what.
 
+<div align="center">
+<figure>
+<img src="../_assets/images/content-linking.png" alt="The Product Performance Dashboard's parameter wiring. Product Sales Analysis, an Analyzer report, publishes Product to the Territory Sales Mix pie and the Order Status bar chart; the pie, filtered on PRODUCT with the default 18th century schooner, publishes Territory to the bar chart, whose Territory default is NA. The report reads the Mondrian cube; each chart re-runs its query on the Orders metadata model." width="800">
+<figcaption>Which panel publishes what</figcaption>
+</figure>
+</div>
+
+Read the diagram along the solid arrows. A click on a product in
+Product Sales Analysis publishes `Product`, which both charts take as
+`{PRODUCT}`, and a click on a territory in the pie publishes
+`Territory`, which the Order Status chart takes as `{TERRITORY}`. The
+dashed arrows are each panel's own query: the report reads the cube,
+and each chart re-runs its metadata query on Orders with the new value
+in the WHERE clause, so the parameters are the only thing the panels
+share.
+
 ### 8. Save the Dashboard
 
 1. On the toolbar, select the **Save** icon. Select the **Up One Level** icon twice, double-click **Public** and then **Training**, set **Filename** to `Product Performance Dashboard`, and select **Save**.
@@ -301,7 +317,7 @@ Click a file to download it.
 
 The finished dashboard: 1 and 2 with the Ruby theme, the Product Sales by Year analysis publishing Product, the Territory Sales Mix pie (Orders, filtered on {PRODUCT}) publishing Territory, and the Order Status bar chart filtered on both. The report panel opens Public > Steel Wheels > Widget Library > Analysis Views > Product Sales by Year, so that sample must be on your server.
 
-Also on disk at `C:\Workshop-BA-Practitioner\05-dashboard-designer\15-dashboard-designer-product-performance\solution`.
+Select the file to download it: it saves to your **Downloads** folder.
 
 [Product Performance Dashboard.xdash](./files/Product%20Performance%20Dashboard.xdash)
 

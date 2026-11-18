@@ -1,0 +1,142 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="750" viewBox="0 0 800 750" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+<filter id="shadow" x="-10%" y="-10%" width="120%" height="140%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#0f172a" flood-opacity="0.12"/></filter></defs>
+<rect width="800" height="750" fill="#ffffff"/>
+<rect x="16" y="16" width="768" height="688" rx="12" fill="#fffbeb" stroke="#fef3c7" stroke-width="1.5"/>
+<path d="M16 28a12 12 0 0 1 12-12h744a12 12 0 0 1 12 12v32h-768z" fill="#b45309"/>
+<g transform="translate(29 26) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></g>
+<text x="56" y="36" font-size="14" font-weight="700" fill="#ffffff">Ships and Trains Ordered (Interactive Report)</text>
+<text x="56" y="52" font-size="11.5" fill="#ffffff" opacity="0.92">Grouped by Territory and Product Line; rows sorted by Order Date; Quantity Ordered summed</text>
+<text x="32" y="92" font-size="12" fill="#334155">Steel Wheels, Inc.</text>
+<line x1="32" y1="100" x2="768" y2="100" stroke="#334155" stroke-width="1.2"/>
+<text x="32" y="134" font-size="20" fill="#0f172a" letter-spacing="0.5">Customer Report: Ships and Trains Ordered</text>
+<rect x="32" y="156" width="254" height="24" rx="12" fill="#fef3c7" stroke="#b45309" stroke-width="1"/>
+<g transform="translate(41 161) scale(0.5833333333333334)" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 20a1 1 0 0 0 .553.895l2 1A1 1 0 0 0 14 21v-7a2 2 0 0 1 .517-1.341L21.74 4.67A1 1 0 0 0 21 3H3a1 1 0 0 0-.742 1.67l7.225 7.989A2 2 0 0 1 10 14z"/></g>
+<text x="62" y="172" font-size="12" fill="#78350f">Product Line includes Ships, Trains</text>
+<rect x="32" y="194" width="736" height="26" fill="#ffffff" stroke="#ffffff" stroke-width="0.8"/>
+<line x1="32" y1="219" x2="768" y2="219" stroke="#0f766e" stroke-width="1"/>
+<text x="40" y="211.5" font-size="13.5" font-weight="700" fill="#134e4a">Territory: APAC</text>
+<rect x="32" y="220" width="736" height="26" fill="#ccfbf1" stroke="#ccfbf1" stroke-width="0.8"/>
+<text x="40" y="237.5" font-size="12" font-weight="600" fill="#134e4a">Product Line: Ships</text>
+<rect x="32" y="246" width="280" height="26" fill="#475569" stroke="#64748b" stroke-width="0.8"/>
+<text x="40" y="263.5" font-size="12" font-weight="600" fill="#ffffff">Customer Name</text>
+<rect x="312" y="246" width="147" height="26" fill="#475569" stroke="#64748b" stroke-width="0.8"/>
+<text x="385.5" y="263.5" text-anchor="middle" font-size="12" font-weight="600" fill="#ffffff">Order Date</text>
+<rect x="459" y="246" width="184" height="26" fill="#475569" stroke="#64748b" stroke-width="0.8"/>
+<text x="551" y="263.5" text-anchor="middle" font-size="12" font-weight="600" fill="#ffffff">Status</text>
+<rect x="643" y="246" width="125" height="26" fill="#475569" stroke="#64748b" stroke-width="0.8"/>
+<text x="760" y="263.5" text-anchor="end" font-size="12" font-weight="600" fill="#ffffff">Quantity Ordered</text>
+<rect x="32" y="272" width="280" height="26" fill="#ffffff" stroke="#e2e8f0" stroke-width="0.8"/>
+<text x="40" y="289.5" font-size="12" font-weight="400" fill="#0f172a">Extreme Desk Decorations, Ltd</text>
+<rect x="312" y="272" width="147" height="26" fill="#ffffff" stroke="#e2e8f0" stroke-width="0.8"/>
+<text x="385.5" y="289.5" text-anchor="middle" font-size="12" font-weight="400" fill="#0f172a">03-30-2004</text>
+<rect x="459" y="272" width="184" height="26" fill="#ffffff" stroke="#e2e8f0" stroke-width="0.8"/>
+<text x="551" y="289.5" text-anchor="middle" font-size="12" font-weight="400" fill="#0f172a">Shipped</text>
+<rect x="643" y="272" width="125" height="26" fill="#ffffff" stroke="#e2e8f0" stroke-width="0.8"/>
+<text x="760" y="289.5" text-anchor="end" font-size="12" font-weight="400" fill="#0f172a">77</text>
+<rect x="32" y="298" width="280" height="26" fill="#f8fafc" stroke="#e2e8f0" stroke-width="0.8"/>
+<text x="40" y="315.5" font-size="12" font-weight="400" fill="#0f172a">GiftsForHim.com</text>
+<rect x="312" y="298" width="147" height="26" fill="#f8fafc" stroke="#e2e8f0" stroke-width="0.8"/>
+<text x="385.5" y="315.5" text-anchor="middle" font-size="12" font-weight="400" fill="#0f172a">06-16-2004</text>
+<rect x="459" y="298" width="184" height="26" fill="#f8fafc" stroke="#e2e8f0" stroke-width="0.8"/>
+<text x="551" y="315.5" text-anchor="middle" font-size="12" font-weight="400" fill="#0f172a">Cancelled</text>
+<rect x="643" y="298" width="125" height="26" fill="#f8fafc" stroke="#e2e8f0" stroke-width="0.8"/>
+<text x="760" y="315.5" text-anchor="end" font-size="12" font-weight="400" fill="#0f172a">33</text>
+<rect x="32" y="324" width="280" height="26" fill="#ffffff" stroke="#e2e8f0" stroke-width="0.8"/>
+<text x="40" y="341.5" font-size="12" font-weight="400" fill="#0f172a">Kelly's Gift Shop</text>
+<rect x="312" y="324" width="147" height="26" fill="#ffffff" stroke="#e2e8f0" stroke-width="0.8"/>
+<text x="385.5" y="341.5" text-anchor="middle" font-size="12" font-weight="400" fill="#0f172a">12-16-2004</text>
+<rect x="459" y="324" width="184" height="26" fill="#ffffff" stroke="#e2e8f0" stroke-width="0.8"/>
+<text x="551" y="341.5" text-anchor="middle" font-size="12" font-weight="400" fill="#0f172a">Shipped</text>
+<rect x="643" y="324" width="125" height="26" fill="#ffffff" stroke="#e2e8f0" stroke-width="0.8"/>
+<text x="760" y="341.5" text-anchor="end" font-size="12" font-weight="400" fill="#0f172a">262</text>
+<rect x="32" y="350" width="280" height="26" fill="#f8fafc" stroke="#e2e8f0" stroke-width="0.8"/>
+<text x="40" y="367.5" font-size="12" font-weight="400" fill="#0f172a">Souveniers And Things Co.</text>
+<rect x="312" y="350" width="147" height="26" fill="#f8fafc" stroke="#e2e8f0" stroke-width="0.8"/>
+<text x="385.5" y="367.5" text-anchor="middle" font-size="12" font-weight="400" fill="#0f172a">12-17-2004</text>
+<rect x="459" y="350" width="184" height="26" fill="#f8fafc" stroke="#e2e8f0" stroke-width="0.8"/>
+<text x="551" y="367.5" text-anchor="middle" font-size="12" font-weight="400" fill="#0f172a">Shipped</text>
+<rect x="643" y="350" width="125" height="26" fill="#f8fafc" stroke="#e2e8f0" stroke-width="0.8"/>
+<text x="760" y="367.5" text-anchor="end" font-size="12" font-weight="400" fill="#0f172a">24</text>
+<rect x="32" y="376" width="280" height="26" fill="#ffffff" stroke="#e2e8f0" stroke-width="0.8"/>
+<text x="40" y="393.5" font-size="12" font-weight="400" fill="#0f172a">Australian Collectables, Ltd</text>
+<rect x="312" y="376" width="147" height="26" fill="#ffffff" stroke="#e2e8f0" stroke-width="0.8"/>
+<text x="385.5" y="393.5" text-anchor="middle" font-size="12" font-weight="400" fill="#0f172a">05-09-2005</text>
+<rect x="459" y="376" width="184" height="26" fill="#ffffff" stroke="#e2e8f0" stroke-width="0.8"/>
+<text x="551" y="393.5" text-anchor="middle" font-size="12" font-weight="400" fill="#0f172a">Disputed</text>
+<rect x="643" y="376" width="125" height="26" fill="#ffffff" stroke="#e2e8f0" stroke-width="0.8"/>
+<text x="760" y="393.5" text-anchor="end" font-size="12" font-weight="400" fill="#0f172a">32</text>
+<rect x="32" y="402" width="280" height="26" fill="#ede9fe" stroke="#ede9fe" stroke-width="0.8"/>
+<rect x="312" y="402" width="147" height="26" fill="#ede9fe" stroke="#ede9fe" stroke-width="0.8"/>
+<rect x="459" y="402" width="184" height="26" fill="#ede9fe" stroke="#ede9fe" stroke-width="0.8"/>
+<text x="635" y="419.5" text-anchor="end" font-size="12" font-weight="600" fill="#3b0764">Line Subtotal:</text>
+<rect x="643" y="402" width="125" height="26" fill="#ede9fe" stroke="#ede9fe" stroke-width="0.8"/>
+<text x="760" y="419.5" text-anchor="end" font-size="12" font-weight="600" fill="#3b0764">428</text>
+<rect x="32" y="428" width="736" height="26" fill="#ccfbf1" stroke="#ccfbf1" stroke-width="0.8"/>
+<text x="40" y="445.5" font-size="12" font-weight="600" fill="#134e4a">Product Line: Trains</text>
+<rect x="32" y="454" width="280" height="26" fill="#475569" stroke="#64748b" stroke-width="0.8"/>
+<text x="40" y="471.5" font-size="12" font-weight="600" fill="#ffffff">Customer Name</text>
+<rect x="312" y="454" width="147" height="26" fill="#475569" stroke="#64748b" stroke-width="0.8"/>
+<text x="385.5" y="471.5" text-anchor="middle" font-size="12" font-weight="600" fill="#ffffff">Order Date</text>
+<rect x="459" y="454" width="184" height="26" fill="#475569" stroke="#64748b" stroke-width="0.8"/>
+<text x="551" y="471.5" text-anchor="middle" font-size="12" font-weight="600" fill="#ffffff">Status</text>
+<rect x="643" y="454" width="125" height="26" fill="#475569" stroke="#64748b" stroke-width="0.8"/>
+<text x="760" y="471.5" text-anchor="end" font-size="12" font-weight="600" fill="#ffffff">Quantity Ordered</text>
+<rect x="32" y="480" width="280" height="26" fill="#ffffff" stroke="#e2e8f0" stroke-width="0.8"/>
+<text x="40" y="497.5" font-size="12" font-weight="400" fill="#0f172a">Australian Gift Network, Co</text>
+<rect x="312" y="480" width="147" height="26" fill="#ffffff" stroke="#e2e8f0" stroke-width="0.8"/>
+<text x="385.5" y="497.5" text-anchor="middle" font-size="12" font-weight="400" fill="#0f172a">09-25-2003</text>
+<rect x="459" y="480" width="184" height="26" fill="#ffffff" stroke="#e2e8f0" stroke-width="0.8"/>
+<text x="551" y="497.5" text-anchor="middle" font-size="12" font-weight="400" fill="#0f172a">Shipped</text>
+<rect x="643" y="480" width="125" height="26" fill="#ffffff" stroke="#e2e8f0" stroke-width="0.8"/>
+<text x="760" y="497.5" text-anchor="end" font-size="12" font-weight="400" fill="#0f172a">33</text>
+<rect x="32" y="506" width="280" height="26" fill="#f8fafc" stroke="#e2e8f0" stroke-width="0.8"/>
+<text x="40" y="523.5" font-size="12" font-weight="400" fill="#0f172a">GiftsForHim.com</text>
+<rect x="312" y="506" width="147" height="26" fill="#f8fafc" stroke="#e2e8f0" stroke-width="0.8"/>
+<text x="385.5" y="523.5" text-anchor="middle" font-size="12" font-weight="400" fill="#0f172a">06-16-2004</text>
+<rect x="459" y="506" width="184" height="26" fill="#f8fafc" stroke="#e2e8f0" stroke-width="0.8"/>
+<text x="551" y="523.5" text-anchor="middle" font-size="12" font-weight="400" fill="#0f172a">Cancelled</text>
+<rect x="643" y="506" width="125" height="26" fill="#f8fafc" stroke="#e2e8f0" stroke-width="0.8"/>
+<text x="760" y="523.5" text-anchor="end" font-size="12" font-weight="400" fill="#0f172a">77</text>
+<rect x="32" y="532" width="280" height="26" fill="#ffffff" stroke="#e2e8f0" stroke-width="0.8"/>
+<text x="40" y="549.5" font-size="12" font-weight="400" fill="#0f172a">Kelly's Gift Shop</text>
+<rect x="312" y="532" width="147" height="26" fill="#ffffff" stroke="#e2e8f0" stroke-width="0.8"/>
+<text x="385.5" y="549.5" text-anchor="middle" font-size="12" font-weight="400" fill="#0f172a">12-16-2004</text>
+<rect x="459" y="532" width="184" height="26" fill="#ffffff" stroke="#e2e8f0" stroke-width="0.8"/>
+<text x="551" y="549.5" text-anchor="middle" font-size="12" font-weight="400" fill="#0f172a">Shipped</text>
+<rect x="643" y="532" width="125" height="26" fill="#ffffff" stroke="#e2e8f0" stroke-width="0.8"/>
+<text x="760" y="549.5" text-anchor="end" font-size="12" font-weight="400" fill="#0f172a">29</text>
+<rect x="32" y="558" width="280" height="26" fill="#ede9fe" stroke="#ede9fe" stroke-width="0.8"/>
+<rect x="312" y="558" width="147" height="26" fill="#ede9fe" stroke="#ede9fe" stroke-width="0.8"/>
+<rect x="459" y="558" width="184" height="26" fill="#ede9fe" stroke="#ede9fe" stroke-width="0.8"/>
+<text x="635" y="575.5" text-anchor="end" font-size="12" font-weight="600" fill="#3b0764">Line Subtotal:</text>
+<rect x="643" y="558" width="125" height="26" fill="#ede9fe" stroke="#ede9fe" stroke-width="0.8"/>
+<text x="760" y="575.5" text-anchor="end" font-size="12" font-weight="600" fill="#3b0764">139</text>
+<rect x="32" y="584" width="280" height="26" fill="#ede9fe" stroke="#ede9fe" stroke-width="0.8"/>
+<rect x="312" y="584" width="147" height="26" fill="#ede9fe" stroke="#ede9fe" stroke-width="0.8"/>
+<rect x="459" y="584" width="184" height="26" fill="#ede9fe" stroke="#ede9fe" stroke-width="0.8"/>
+<text x="635" y="601.5" text-anchor="end" font-size="12" font-weight="600" fill="#3b0764">Territory subtotal:</text>
+<rect x="643" y="584" width="125" height="26" fill="#ede9fe" stroke="#ede9fe" stroke-width="0.8"/>
+<text x="760" y="601.5" text-anchor="end" font-size="12" font-weight="600" fill="#3b0764">567</text>
+<rect x="32" y="610" width="736" height="26" fill="#fafaf9" stroke="#a8a29e" stroke-width="0.8" stroke-dasharray="4 3"/>
+<text x="400" y="627.5" text-anchor="middle" font-size="12" font-weight="400" font-style="italic" fill="#78716c">Territories EMEA, Japan and NA, each with Ships, Trains and their subtotals</text>
+<rect x="32" y="636" width="280" height="26" fill="#ede9fe" stroke="#ede9fe" stroke-width="0.8"/>
+<rect x="312" y="636" width="147" height="26" fill="#ede9fe" stroke="#ede9fe" stroke-width="0.8"/>
+<rect x="459" y="636" width="184" height="26" fill="#ede9fe" stroke="#ede9fe" stroke-width="0.8"/>
+<text x="635" y="653.5" text-anchor="end" font-size="12" font-weight="700" fill="#3b0764">Grand Total:</text>
+<rect x="643" y="636" width="125" height="26" fill="#ede9fe" stroke="#ede9fe" stroke-width="0.8"/>
+<text x="760" y="653.5" text-anchor="end" font-size="12" font-weight="700" fill="#3b0764">11,317</text>
+<rect x="32" y="636" width="736" height="26" fill="none" stroke="#6d28d9" stroke-width="1.2"/>
+<line x1="32" y1="678" x2="768" y2="678" stroke="#334155" stroke-width="1.2"/>
+<text x="32" y="695" font-size="12" fill="#334155">Prepared for the Sales Manager</text>
+<rect x="32" y="720" width="20" height="14" rx="7" fill="#fef3c7" stroke="#b45309" stroke-width="0.8"/>
+<text x="59" y="731.5" font-size="11.5" fill="#334155">filter</text>
+<rect x="115.2" y="720" width="20" height="14" rx="3" fill="#475569" stroke="#64748b" stroke-width="0.8"/>
+<text x="142.2" y="731.5" font-size="11.5" fill="#334155">column headings</text>
+<rect x="249.7" y="720" width="20" height="14" rx="3" fill="#ccfbf1" stroke="#ccfbf1" stroke-width="0.8"/>
+<text x="276.7" y="731.5" font-size="11.5" fill="#334155">group headers</text>
+<rect x="372.8" y="720" width="20" height="14" rx="3" fill="#ede9fe" stroke="#ede9fe" stroke-width="0.8"/>
+<text x="399.8" y="731.5" font-size="11.5" fill="#334155">subtotals and Grand Total (report engine)</text>
+<rect x="655.5" y="720" width="20" height="14" rx="3" fill="#fafaf9" stroke="#a8a29e" stroke-width="0.8" stroke-dasharray="3 2"/>
+<text x="682.5" y="731.5" font-size="11.5" fill="#334155">rows left out here</text>
+</svg>

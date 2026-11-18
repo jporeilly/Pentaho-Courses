@@ -9,8 +9,6 @@
 > Among other things, common formatting features such as font selection, column resizing, column sorting, column heading renaming, copy/paste formatting, and unlimited undo/redo capability are available from the Interactive Reports formatting menu and toolbar.&#x20;
 > 
 > The reports you create can be output as HTML, PDF, CSV or Excel files. Additionally, you can display your report in a dashboard.
->
-> **Estimated time:** 10 minutes
 
 <figure>
 
@@ -31,7 +29,7 @@
 </figure>
 </div>
 
-> **Note:** Reports you create using Interactive Reporting can be opened in Report Designer for further customization. Pentaho Report Designer is the most comprehensive report design tool in the Pentaho Pro Suite and provides you with advanced formatting capabilities and the ability to connect to disparate data sources. Charts and other report elements, including sub-reports can be added to a basic report.&#x20;
+> **Note:** Reports you create using Interactive Reporting can be opened in Report Designer for further customization. Pentaho Report Designer is the most comprehensive report design tool in Pentaho Business Analytics and provides you with advanced formatting capabilities and the ability to connect to disparate data sources. Charts and other report elements, including sub-reports can be added to a basic report.&#x20;
 > 
 > Below is a subset of Report Designer capabilities:
 > 

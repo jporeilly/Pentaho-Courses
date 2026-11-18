@@ -12,16 +12,27 @@
 > 
 > &#x20; • Client-Based Design Tools
 > 
-> The Pentaho Server, which is the heart of the Pentaho BA Suite, processes reporting, analysis, and dashboard content. The Pentaho Server hosts the centralized Repository for secure sharing of all data solutions. It also provides scheduling and audit functionality. The Pentaho server is managed through its web-based tool, the User Console. Use the User Console to create business analytics content, display and schedule reports, and manage Pentaho security.
+> The Pentaho Server, which is the heart of Pentaho Business Analytics, processes reporting, analysis, and dashboard content. The Pentaho Server hosts the centralized Repository for secure sharing of all data solutions. It also provides scheduling and audit functionality. The Pentaho server is managed through its web-based tool, the User Console. Use the User Console to create business analytics content, display and schedule reports, and manage Pentaho security. The figure below also shows the server's Data Integration Server, whose plugins include Pipeline Designer, Carte, the Scheduler and the Semantic Model Editor; this course works in the Analytics Server's tools.
 >
 > **Estimated Time:** 10 minutes
 
 <div align="center">
 <figure>
-<img src="../_assets/images/1793631012928.png" alt="The Pentaho architecture: Data Integration sends .ktr and .kjb files to the Data Integration Server; Schema Workbench sends .mondrian.xml, Metadata Editor .xmi and Report Designer .prpt files to the Analytics Server; the Pentaho Server saves content in the Repository and runs pipelines and queries data in the data sources" width="800">
+<img src="../_assets/images/pentaho-architecture.png" alt="The Pentaho architecture: Data Integration sends .ktr and .kjb files to the Data Integration Server; Schema Workbench sends .mondrian.xml, Metadata Editor .xmi and Report Designer .prpt files to the Analytics Server; the Pentaho Server saves content in the Repository and runs pipelines and queries data in the data sources" width="800">
 <figcaption>Pentaho Architecture</figcaption>
 </figure>
 </div>
+
+Read the diagram from left to right. Each client design tool on the
+left publishes a file to the Pentaho Server: Data Integration sends
+pipelines and jobs (`.ktr`, `.kjb`) to the Data Integration Server, and
+Schema Workbench, Metadata Editor and Report Designer send cube schemas
+(`.mondrian.xml`), business models (`.xmi`) and reports (`.prpt`) to the
+Analytics Server, whose plugins include the three web-based tools this
+course uses. Underneath, the server saves and loads content in the
+repository and runs pipelines and queries data in the data sources. The
+dashed line is the design tools' own connection to the data while you
+build.
 
 <figure>
 
@@ -38,7 +49,7 @@
 > 
 > The console features role-based security controls, allowing administrators to manage user access and permissions. Users can navigate through organized folders of content, execute reports on demand, set up automated report distribution, and interact with dynamic dashboards.&#x20;
 > 
-> The interface supports various content types including interactive reports, analysis views, and data visualizations, making it a key component of Pentaho's business intelligence suite for non-technical users to access and analyze business data.
+> The interface supports various content types including interactive reports, analysis views, and data visualizations, making it a key component of Pentaho Business Analytics for non-technical users to access and analyze business data.
 > 
 > In Pentaho 11 you have the option to switch to the new login screen which will redirect you to the new pentaho console.
 
@@ -59,6 +70,28 @@ This course works through the three web-based tools in the sections
 that follow. **Report Designer** is a desktop tool covered by its own
 course — it is described here so you can place it alongside the rest.
 
+Each web-based tool reads a different kind of model, built from the
+same data source:
+
+<div align="center">
+<figure>
+<img src="../_assets/images/models-and-tools.png" alt="Which model feeds which tool. A data source of relational tables or a CSV file feeds Metadata Editor, the Data Source Wizard and Schema Workbench. Metadata Editor builds a metadata model (.xmi), Schema Workbench a Mondrian schema (.mondrian.xml), and the wizard can generate either. The metadata model feeds Interactive Reports, the Mondrian schema feeds Analyzer, and Dashboard Designer panels show both. An Interactive Report opened in Report Designer becomes a .prpt, one way." width="800">
+<figcaption>Which model feeds which tool</figcaption>
+</figure>
+</div>
+
+Read the diagram from the top down. An administrator provides the data
+source, and a model is built on it: Metadata Editor builds a metadata
+model, which presents the data in business terms, and Schema Workbench
+builds a Mondrian schema, a cube-like XML model also called an Analysis
+Model; the Data Source Wizard can generate either, from a SQL query, an
+auto-query or a CSV file. Interactive Reports reads a metadata model and
+Analyzer reads a Mondrian schema. Dashboard Designer's panels can show
+reports from Interactive Reports, Analyzer and Report Designer, and its
+prompts and charts query a metadata model directly. An Interactive Report (`.prpti`) can be
+opened in Report Designer and saved as a `.prpt`, but only one way: once
+customized there, it can no longer be edited in Interactive Reports.
+
 ::: tabs
 
 ### Analyzer Reports
@@ -67,7 +100,7 @@ course — it is described here so you can place it alongside the rest.
 >
 > #### Analyzer
 > 
-> **Pentaho Analyzer** (PAZ) is a web-based OLAP (Online Analytical Processing) analysis tool that's part of the Pentaho Business Intelligence Suite. It enables business users to create interactive reports and perform deep data analysis through an intuitive drag-and-drop interface.&#x20;
+> **Pentaho Analyzer** (PAZ) is a web-based OLAP (Online Analytical Processing) analysis tool that's part of Pentaho Business Analytics. It enables business users to create interactive reports and perform deep data analysis through an intuitive drag-and-drop interface.&#x20;
 > 
 > The tool allows users to explore data from multiple angles, create sophisticated visualizations, and generate detailed reports without requiring advanced technical skills. Key features include the ability to create pivot tables, charts, and interactive dashboards, along with capabilities for drilling down into data, filtering results, and exporting analyses in various formats.&#x20;
 > 
@@ -86,7 +119,7 @@ course — it is described here so you can place it alongside the rest.
 >
 > #### Interactive Reports
 > 
-> **Pentaho Interactive Reporting** (PIR) is a business intelligence tool that enables users to create and customize interactive reports without requiring extensive technical knowledge. As part of the Pentaho Business Analytics Pro suite, PIR provides a web-based interface where users can drag and drop elements to design reports, apply filters, and create visualizations of their data.&#x20;
+> **Pentaho Interactive Reporting** (PIR) is a business intelligence tool that enables users to create and customize interactive reports without requiring extensive technical knowledge. As part of Pentaho Business Analytics, PIR provides a web-based interface where users can drag and drop elements to design reports, apply filters, and create visualizations of their data.&#x20;
 > 
 > The tool supports various data sources, including databases, spreadsheets, and big data platforms. Key features include the ability to create ad-hoc reports, interactive filtering, parameter input, and the option to export reports in multiple formats such as PDF, Excel, and HTML.&#x20;
 > 
@@ -105,7 +138,7 @@ course — it is described here so you can place it alongside the rest.
 >
 > #### Dashboard Designer
 > 
-> The Pentaho **Dashboard Designer** (PDD), is a visual analytics tool that was part of the Pentaho Business Pro Suite. It allows users to create interactive business dashboards without requiring extensive programming knowledge.&#x20;
+> The Pentaho **Dashboard Designer** (PDD), is a visual analytics tool that was part of Pentaho Business Analytics. It allows users to create interactive business dashboards without requiring extensive programming knowledge.&#x20;
 > 
 > The tool provides drag-and-drop functionality for building dashboards that can integrate multiple data sources, including databases, spreadsheets, and OLAP cubes. Users can incorporate various visualization components like charts, tables, and metrics, and add interactive elements such as filters and drill-down capabilities.&#x20;
 
@@ -113,6 +146,39 @@ course — it is described here so you can place it alongside the rest.
 <figure>
 <img src="../_assets/images/getting_started_regional_product_mix.png" alt="The Regional Product Mix dashboard with Territory, Country and Product Line prompts above a Product Line Sales Trend chart, a Product Heat Grid and a Latest Product Standings table" width="800">
 <figcaption>Regional Product Mix</figcaption>
+</figure>
+</div>
+
+### Data Source Wizard
+
+> **Note:**
+>
+> #### Data Source Wizard
+>
+> The **Data Source Wizard** creates a data source for reports and
+> analyses from inside the User Console, with no desktop tool. Open it
+> with **Create New > Data Source**, or from **Manage Data Sources**,
+> which lists every data source on the server and lets you edit or
+> delete one. Both need the **Manage Data Sources** permission.
+>
+> The wizard starts from one of three sources: a **CSV file** you
+> upload, **database tables** from an existing connection (it can join
+> several), or a **SQL query**. It then builds the model for you: a
+> metadata model, for Interactive Reports and the dashboard's prompts
+> and charts, or a metadata model and a Mondrian schema together, when
+> the data source is also for Analyzer. A model editor lets you adjust
+> what it generated, such as which columns are dimensions and which
+> are measures, before you save.
+>
+> It suits a quick, self-service model on one data set. Larger or
+> shared models are built in Metadata Editor and Schema Workbench, and
+> this course uses the **Orders**, **Inventory** and **SteelWheelsSales**
+> data sources that already ship with the server.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/puc_data_source_wizard.png" alt="The Data Source Wizard opened from Create New, with a Data Source Name box and the Source Type list open on its three choices: CSV File, SQL Query and Database Table(s)" width="800">
+<figcaption>The Data Source Wizard and its three source types</figcaption>
 </figure>
 </div>
 

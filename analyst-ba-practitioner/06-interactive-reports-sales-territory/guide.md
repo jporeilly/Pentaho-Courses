@@ -29,6 +29,24 @@
 </figure>
 </div>
 
+Here is what the finished report holds, from its first group to the
+Grand Total:
+
+<div align="center">
+<figure>
+<img src="../_assets/images/report-sales-territory.png" alt="A mock-up of the finished Sales Territory Report. Under the Steel Wheels, Inc. header and the centered title, Territory NA and Country Canada head seven rows with Customer Name, City, Order Number, Order Date, Revenue and Tax, sorted by Customer Name from Royal Canadian Collectables down. The Country Subtotal is $224,085, the NA Territory Subtotal $3,852,214 and the Grand Total $10,644,855.00." width="800">
+<figcaption>What you will build: the Sales Territory Report</figcaption>
+</figure>
+</div>
+
+Read the diagram from the top down. The report is grouped by Territory,
+in descending order so NA comes first, and then by Country, and its rows
+are sorted by Customer Name, descending. Revenue is the Total column in
+whole dollars, and Tax is the calculated field, 15% of each row's Total,
+in dollars and cents. The violet rows are the totals the report engine
+adds at each Country and Territory footer and at the end; Tax has none,
+because a calculated field cannot be aggregated.
+
 ***
 
 :::: tabs
@@ -120,16 +138,16 @@ The toolbar also holds **Row Limit**: **Maximum**, or **No more than** a number 
 >
 > One of the standard corporate reports is a breakdown of the total customer revenue by sales territory. This tab builds it, one part per tab below.
 
-<div align="center">
-<figure>
-<img src="../_assets/images/ir_sales_territory_workflow_interactive_report.png" alt="Workflow - Interactive report" width="563">
-<figcaption>The Interactive Report workflow</figcaption>
-</figure>
-</div>
-
 ::: tabs
 
 ### 1. Data Source & Templates
+
+<div align="center">
+<figure>
+<img src="../_assets/images/ir-workflow-1.png" alt="The Interactive Report workflow with part 1 of 6, data source and template, highlighted as this tab" width="800">
+<figcaption>Part 1 of 6: Data source and template</figcaption>
+</figure>
+</div>
 
 > **Note:**
 >
@@ -208,6 +226,13 @@ The toolbar also holds **Row Limit**: **Maximum**, or **No more than** a number 
 > **Success:** Checkpoint: the **General** tab shows **Left Aligned - Grid - Nickel**, and the empty report takes on its brown header band.
 
 ### 2. Adding Data
+
+<div align="center">
+<figure>
+<img src="../_assets/images/ir-workflow-2.png" alt="The Interactive Report workflow with part 2 of 6, add the data columns, highlighted as this tab" width="800">
+<figcaption>Part 2 of 6: Add the data columns</figcaption>
+</figure>
+</div>
 
 > **Note:**
 >
@@ -338,6 +363,13 @@ The toolbar also holds **Row Limit**: **Maximum**, or **No more than** a number 
 
 ### 3. Grouping & Sorting
 
+<div align="center">
+<figure>
+<img src="../_assets/images/ir-workflow-3.png" alt="The Interactive Report workflow with part 3 of 6, group and sort, highlighted as this tab" width="800">
+<figcaption>Part 3 of 6: Group and sort</figcaption>
+</figure>
+</div>
+
 > **Note:**
 >
 > #### Grouping & Sorting
@@ -422,6 +454,13 @@ The toolbar also holds **Row Limit**: **Maximum**, or **No more than** a number 
 </div>
 
 ### 4. Filters & Prompts
+
+<div align="center">
+<figure>
+<img src="../_assets/images/ir-workflow-4.png" alt="The Interactive Report workflow with part 4 of 6, filters and prompts, highlighted as this tab" width="800">
+<figcaption>Part 4 of 6: Filters and prompts</figcaption>
+</figure>
+</div>
 
 > **Note:**
 >
@@ -612,6 +651,13 @@ A prompt filters a report interactively: whoever runs the report picks the value
 
 ### 5. Totals
 
+<div align="center">
+<figure>
+<img src="../_assets/images/ir-workflow-5.png" alt="The Interactive Report workflow with part 5 of 6, totals, highlighted as this tab" width="800">
+<figcaption>Part 5 of 6: Totals</figcaption>
+</figure>
+</div>
+
 > **Note:**
 >
 > #### Totals
@@ -732,6 +778,13 @@ You can create calculated fields from the fields of the data source and from oth
 > **Success:** Checkpoint: **Tax** is added as the last column, 15% of each row's **Total**.
 
 ### 6. Format & Save
+
+<div align="center">
+<figure>
+<img src="../_assets/images/ir-workflow-6.png" alt="The Interactive Report workflow with part 6 of 6, format and save, highlighted as this tab" width="800">
+<figcaption>Part 6 of 6: Format and save</figcaption>
+</figure>
+</div>
 
 > **Note:**
 >
@@ -913,7 +966,7 @@ Click a file to download it.
 
 The finished report for this lab: grouped by Territory and Country, with the three totals, the Tax calculated field, the formatting and the landscape page. Open it alongside your own to compare.
 
-Also on disk at `C:\Workshop-BA-Practitioner\03-interactive-reports\06-interactive-reports-sales-territory\solution`.
+Select the file to download it: it saves to your **Downloads** folder.
 
 [Sales Territory Report - Demo.prpti](./files/Sales%20Territory%20Report%20-%20Demo.prpti)
 

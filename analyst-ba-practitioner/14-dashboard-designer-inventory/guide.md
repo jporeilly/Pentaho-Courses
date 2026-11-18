@@ -174,7 +174,7 @@ Click a file to download it.
 
 The finished dashboard: 2 Column with the Crystal theme, the Inventory Table data table (Product Line, Product Name, Quantity In Stock and MSRP, sorted ascending by Product Line) and the Inventory bar chart of Motorcycles stock against MSRP. Both panels query the Inventory model in the Steel Wheels sample data, so it must be on your server.
 
-Also on disk at `C:\Workshop-BA-Practitioner\05-dashboard-designer\14-dashboard-designer-inventory\solution`.
+Select the file to download it: it saves to your **Downloads** folder.
 
 [Inventory Dashboard.xdash](./files/Inventory%20Dashboard.xdash)
 

@@ -15,7 +15,6 @@
   "description": "Hands-on workshop for the Pentaho Business Analytics Practitioner. Pentaho User Console, Interactive Reports, Analyzer Reports and Dashboard Designer.",
   "version": "0.1.19",
   "kind": "workshop",
-  "platform": "windows11",
   "level": { "number": 1, "name": "Practitioner" },
   "mode": "sequential",
   "welcome": { "caption": "Welcome Tour: coming soon" },
@@ -39,6 +38,38 @@
       "How do I publish a dashboard so others can see it?",
       "What can I do in the User Console?"
     ]
+  },
+  "certification": {
+    "badge": "Certified Solution Analyst",
+    "path": {
+      "title": "Certified Solution Analyst Learning Path",
+      "steps": [
+        {
+          "title": "BA Analyst",
+          "courseId": "analyst-ba-practitioner"
+        },
+        {
+          "title": "Schema Workbench",
+          "courseId": "bi-developer-sw-associate"
+        },
+        {
+          "title": "Metadata Editor",
+          "courseId": "bi-developer-me-associate"
+        },
+        {
+          "title": "Report Designer",
+          "courseId": "bi-developer-rd-associate"
+        },
+        {
+          "title": "CTools",
+          "courseId": "bi-developer-ct-associate"
+        },
+        {
+          "title": "Certified Solution Analyst",
+          "certified": true
+        }
+      ]
+    }
   },
   "moduleSummaries": [
     {
@@ -94,8 +125,6 @@
     }
   },
   "install": {
-    "code": "BA",
-    "signIn": "server",
-    "workshop": true
+    "code": "BA"
   }
 }

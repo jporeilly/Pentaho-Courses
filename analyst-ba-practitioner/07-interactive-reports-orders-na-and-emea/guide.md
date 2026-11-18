@@ -28,6 +28,24 @@
 </figure>
 </div>
 
+Here is what the finished report holds, with its three filters, its
+first group and its totals:
+
+<div align="center">
+<figure>
+<img src="../_assets/images/report-orders-na-emea.png" alt="A mock-up of the finished Orders Shipped from Jan 1st 2005 report, filtered to Territory EMEA and NA, Status Shipped and Order Date on or after 2005-01-01. Territory EMEA and Product Line Classic Cars head the first rows, from order 10363 of 01-06-2005, with Order Total in whole dollars. The Line subtotal is $324,125, the EMEA Territory Total $730,609, the NA Territory Total $460,810 and the Grand Total $1,191,419.00." width="800">
+<figcaption>What you will build: Orders Shipped from Jan 1st 2005</figcaption>
+</figure>
+</div>
+
+Read the diagram from the top down. The three amber filters are joined
+by AND, so only shipped orders from EMEA and NA since January 1, 2005
+reach the report. Inside each territory the rows are grouped by product
+line and sorted by Order Date. The violet rows are the labeled totals: a
+Line subtotal after each product line, a Territory Total after each
+territory, and the Grand Total at the end, which counts every group only
+once the row limit is Maximum.
+
 ***
 
 ::: tabs
@@ -214,7 +232,7 @@ Click a file to download it.
 
 The finished report for this lab: EMEA and NA shipped orders since January 1, 2005, grouped by Territory and Product Line, with the three totals and the formatting above. Open it alongside your own to compare.
 
-Also on disk at `C:\Workshop-BA-Practitioner\03-interactive-reports\07-interactive-reports-orders-na-and-emea\solution`.
+Select the file to download it: it saves to your **Downloads** folder.
 
 [Shipped Orders Activity - Jan 1st 2005.prpti](./files/Shipped%20Orders%20Activity%20-%20Jan%201st%202005.prpti)
 

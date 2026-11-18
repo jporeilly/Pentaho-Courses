@@ -28,6 +28,24 @@
 </figure>
 </div>
 
+Here is what one solution holds: the whole of its first territory, the
+Grand Total and the page footer:
+
+<div align="center">
+<figure>
+<img src="../_assets/images/report-ships-trains.png" alt="A mock-up of the finished Customer Report: Ships and Trains Ordered, filtered to the Ships and Trains product lines. Territory APAC holds Ships, five rows with Customer Name, Order Date, Status and Quantity Ordered and a Line Subtotal of 428, then Trains, three rows and a Line Subtotal of 139, then a Territory subtotal of 567. The Grand Total is 11,317, and the page footer reads Prepared for the Sales Manager." width="800">
+<figcaption>What you will build: Ships and Trains Ordered</figcaption>
+</figure>
+</div>
+
+Read the diagram from the top down. The Product Line filter keeps only
+Ships and Trains, and the report is grouped by Territory and then
+Product Line, with the rows of each line sorted by Order Date. Each row
+is one customer's order date and status, with Quantity Ordered summed.
+The violet rows are the sums of Quantity Ordered: after each product
+line, after each territory, and for the whole report. Your layout and
+labels can differ; the totals should not.
+
 > **Note:**
 >
 > #### Report Guidelines
@@ -166,7 +184,7 @@ Click a file to download it.
 
 One finished version of this report: Left Aligned - Nickel, grouped by Territory and Product Line, sorted by Order Date, with labeled subtotals, a grand total, and text in the page header and footer. Yours can differ in layout and wording; the totals should not.
 
-Also on disk at `C:\Workshop-BA-Practitioner\03-interactive-reports\08-interactive-reports-ships-and-trains\solution`.
+Select the file to download it: it saves to your **Downloads** folder.
 
 [Ships and Trains Ordered.prpti](./files/Ships%20and%20Trains%20Ordered.prpti)
 

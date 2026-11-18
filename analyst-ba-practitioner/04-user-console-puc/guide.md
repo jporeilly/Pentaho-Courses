@@ -23,8 +23,8 @@
 
 1. Make sure the Pentaho Server is running. On a lab VM it already is; on your own machine start it as in [Before You Start](../00-before-you-start/guide.md):
 
-```powershell
-C:\Pentaho\server\pentaho-server\start-pentaho.bat
+```bash
+sudo systemctl start pentaho-server
 ```
 
 It takes a few minutes; the console is ready when http://localhost:8080/pentaho opens the login page.
@@ -466,4 +466,3 @@ I haven't put this into a guide. Say where it belongs, most likely next to the u
 ## Lab Files
 
 _No bundled files for this lab._
-<dfn>term</dfn>

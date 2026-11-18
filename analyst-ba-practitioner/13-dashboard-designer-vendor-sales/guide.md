@@ -30,6 +30,13 @@
 
 ### 1. Template
 
+<div align="center">
+<figure>
+<img src="../_assets/images/dd-workflow-1.png" alt="The Dashboard Designer workflow with part 1 of 4, template and layout, highlighted as this tab" width="644">
+<figcaption>Part 1 of 4: Template and layout</figcaption>
+</figure>
+</div>
+
 > **Note:**
 >
 > #### Dashboard Templates
@@ -79,6 +86,13 @@ The **Properties** tab also has **Resize Panels** and **Refresh Interval (sec)**
 
 ### 2. Resize the Panels
 
+<div align="center">
+<figure>
+<img src="../_assets/images/dd-workflow-1.png" alt="The Dashboard Designer workflow with part 1 of 4, template and layout, highlighted as this tab" width="644">
+<figcaption>Part 1 of 4: Template and layout</figcaption>
+</figure>
+</div>
+
 1. Select **Resize Panels**. Blue horizontal and vertical bars appear between the panels.
 2. Drag the vertical bar about an inch to the left, to make the **Untitled 1** panel smaller.
 3. In the lower-right corner of the canvas, select **Close**.
@@ -91,6 +105,13 @@ The **Properties** tab also has **Resize Panels** and **Refresh Interval (sec)**
 </div>
 
 ### 3. European Sales
+
+<div align="center">
+<figure>
+<img src="../_assets/images/dd-workflow-2.png" alt="The Dashboard Designer workflow with part 2 of 4, add the content, highlighted as this tab" width="644">
+<figcaption>Part 2 of 4: Add the content</figcaption>
+</figure>
+</div>
 
 > **Note:**
 >
@@ -128,6 +149,13 @@ The **Properties** tab also has **Resize Panels** and **Refresh Interval (sec)**
 
 ### 4. Vendor Sales Report
 
+<div align="center">
+<figure>
+<img src="../_assets/images/dd-workflow-2.png" alt="The Dashboard Designer workflow with part 2 of 4, add the content, highlighted as this tab" width="644">
+<figcaption>Part 2 of 4: Add the content</figcaption>
+</figure>
+</div>
+
 1. In the **Folders** pane of the browse panel, select **Public > Steel Wheels**. Drag **Vendor Sales Report (interactive report)** from the **Files** pane onto the **Untitled 2** panel (or select **Insert Content > File** on that panel, as for **Untitled 1**).
 2. Set **Title** to `Vendor Sales`, and select **Apply**.
 
@@ -141,6 +169,13 @@ The **Properties** tab also has **Resize Panels** and **Refresh Interval (sec)**
 > **Success:** Checkpoint: the **Vendor Sales** panel shows the Vendor Sales Report, and the pane below lists its parameters, including **region** and **Product Line**. You use those parameters with dashboard prompts later.
 
 ### 5. Inventory List
+
+<div align="center">
+<figure>
+<img src="../_assets/images/dd-workflow-2.png" alt="The Dashboard Designer workflow with part 2 of 4, add the content, highlighted as this tab" width="644">
+<figcaption>Part 2 of 4: Add the content</figcaption>
+</figure>
+</div>
 
 1. Drag **Inventory List (report)** from the **Files** pane onto the **Untitled 3** panel (or select **Insert Content > File**).
 2. Set **Title** to `Inventory List`, and select **Apply**. The Inventory List report fills the bottom panel.
@@ -170,6 +205,13 @@ The **Properties** tab also has **Resize Panels** and **Refresh Interval (sec)**
 
 ### 6. Prompt Toolbar
 
+<div align="center">
+<figure>
+<img src="../_assets/images/dd-workflow-3.png" alt="The Dashboard Designer workflow with part 3 of 4, prompts and parameters, highlighted as this tab" width="644">
+<figcaption>Part 3 of 4: Prompts and parameters</figcaption>
+</figure>
+</div>
+
 > **Note:**
 >
 > #### Dashboard Prompts
@@ -190,6 +232,13 @@ The **Properties** tab also has **Resize Panels** and **Refresh Interval (sec)**
 > **Success:** Checkpoint: an empty **Prompts** toolbar appears at the top of the dashboard. Its height is set on the **Properties** tab of **General Settings**.
 
 ### 7. Territory Prompt
+
+<div align="center">
+<figure>
+<img src="../_assets/images/dd-workflow-3.png" alt="The Dashboard Designer workflow with part 3 of 4, prompts and parameters, highlighted as this tab" width="644">
+<figcaption>Part 3 of 4: Prompts and parameters</figcaption>
+</figure>
+</div>
 
 1. In the bottom pane, select the **+** (**Add**) icon.
 
@@ -260,6 +309,13 @@ The two prompts this lab builds, side by side:
 
 ### 8. Apply the Prompt
 
+<div align="center">
+<figure>
+<img src="../_assets/images/dd-workflow-3.png" alt="The Dashboard Designer workflow with part 3 of 4, prompts and parameters, highlighted as this tab" width="644">
+<figcaption>Part 3 of 4: Prompts and parameters</figcaption>
+</figure>
+</div>
+
 1. Apply the Territory prompt to the Vendor Sales Report: in the **Objects** list in the bottom pane, select **Vendor Sales Report**. On the **Parameters** tab, set the **Source** of **region** to **Select one or more Territories:**, and select **Apply**.
 
 <div align="center">
@@ -286,11 +342,32 @@ The two prompts this lab builds, side by side:
 > they share a parameter contract, not because the dashboard knows
 > anything about their data.
 
+<div align="center">
+<figure>
+<img src="../_assets/images/dashboard-prompts.png" alt="How the two prompts reach the Vendor Sales Report. A Metadata List on Orders fetches the buttons: Customer Territory and Products Product Line, each is not null. The Territory buttons allow multiple selections, the Product Line buttons one. Each click sets a dashboard parameter that is the Source of the report's region or Product Line parameter, and the panel reloads the report, whose engine applies the value as a WHERE constraint." width="800">
+<figcaption>A dashboard prompt is a parameter handed to the report</figcaption>
+</figure>
+</div>
+
+Read the diagram one row per prompt, from left to right. The Metadata
+List's query on Orders supplies the buttons, a click on a button sets a
+dashboard parameter, and the **Source** you set on the **Parameters**
+tab hands that parameter to the report's own `region` or `Product Line`
+parameter. The panel then reloads the report with the value, for
+example `region=EMEA`, and the report applies it as a WHERE constraint.
+
 2. Test the prompt: in the row of prompt buttons, select **APAC** to clear it, and select **EMEA**.
 
 > **Success:** Checkpoint: the **Vendor Sales** panel reloads and shows the report for **Territory: EMEA**.
 
 ### 9. Product Line Prompt
+
+<div align="center">
+<figure>
+<img src="../_assets/images/dd-workflow-3.png" alt="The Dashboard Designer workflow with part 3 of 4, prompts and parameters, highlighted as this tab" width="644">
+<figcaption>Part 3 of 4: Prompts and parameters</figcaption>
+</figure>
+</div>
 
 1. Repeat the Territory prompt for Product Line, steps 1 to 10 of **7. Territory Prompt** and then **8. Apply the Prompt**, with the settings in the table above: name it `Select a Product Line:`, select **Buttons** and a **Metadata List** on **Orders** with **Products > Product Line** (**is not null**), set **Display** to **Horizontal**, leave **Allow multiple selections** cleared (the report's Product Line parameter takes one value), and set it as the **Source** of the Vendor Sales Report's **Product Line** parameter.
 
@@ -302,6 +379,13 @@ The two prompts this lab builds, side by side:
 </div>
 2. Select **Classic Cars** in the new row of buttons, and view the result in the **Vendor Sales** panel.
 ### 10. Save the Dashboard
+
+<div align="center">
+<figure>
+<img src="../_assets/images/dd-workflow-4.png" alt="The Dashboard Designer workflow with part 4 of 4, save the dashboard, highlighted as this tab" width="644">
+<figcaption>Part 4 of 4: Save the dashboard</figcaption>
+</figure>
+</div>
 
 1. On the toolbar, select the **Save** icon. Select the **Up One Level** icon twice, double-click **Public** and then **Training**, set **Filename** to `Training Demo Dashboard`, and select **Save**.
 
@@ -326,7 +410,7 @@ Click a file to download it.
 
 The finished dashboard: 2 over 1 with the Ruby theme, European Sales, Vendor Sales and Inventory List panels, and Territory and Product Line prompts wired to the Vendor Sales report's region and Product Line parameters. The panels show the Steel Wheels sample reports, so they must be in Public > Steel Wheels on your server.
 
-Also on disk at `C:\Workshop-BA-Practitioner\05-dashboard-designer\13-dashboard-designer-vendor-sales\solution`.
+Select the file to download it: it saves to your **Downloads** folder.
 
 [Training Demo Dashboard.xdash](./files/Training%20Demo%20Dashboard.xdash)
 
