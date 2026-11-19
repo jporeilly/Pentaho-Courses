@@ -1,0 +1,10 @@
+{
+  "title": "First Workshop",
+  "description": "The standard workshop shape - every content block the renderer understands.",
+  "order": 3,
+  "kind": "workshop",
+  "stepCount": 4,
+  "estimatedMinutes": 25,
+  "hasVideo": false,
+  "checks": []
+}

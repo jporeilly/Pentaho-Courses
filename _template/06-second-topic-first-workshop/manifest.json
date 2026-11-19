@@ -1,0 +1,10 @@
+{
+  "title": "First Workshop",
+  "description": "The tool-integration shape: lab files, launcher + graph buttons, completion checks.",
+  "order": 6,
+  "kind": "workshop",
+  "stepCount": 3,
+  "estimatedMinutes": 25,
+  "hasVideo": false,
+  "checks": []
+}

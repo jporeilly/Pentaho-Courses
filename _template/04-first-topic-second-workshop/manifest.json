@@ -1,0 +1,10 @@
+{
+  "title": "Second Workshop",
+  "description": "The minimal workshop shape - copy this one for quick labs.",
+  "order": 4,
+  "kind": "workshop",
+  "stepCount": 3,
+  "estimatedMinutes": 25,
+  "hasVideo": false,
+  "checks": []
+}

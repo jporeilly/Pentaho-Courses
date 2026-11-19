@@ -1,0 +1,57 @@
+{
+  "title": "Practitioner Exam",
+  "description": "REPLACE: frame the exam - how many questions, rough time, retake policy. Author questions by hand here or generate + review them in the Question Bank app, then export its exam.json over this file. REPLACE the xx- id prefix with a short token for THIS course (di, ct, 2hr...) and keep the rest of the shape: every id is <token>-m<module>-q<question>, where m is the module's place in the course's reading order and q the question's place in it. Ids must be unique across every course, numbers are never reused, and npm run verify fails any other shape. Every question needs a `bloom`: Remember, Understand, Apply, Analyze or Evaluate. State it rather than leaving it out - an absent bloom is read as Understand, which will misreport the exam. Weight the pool to Apply and above, and cap Remember: an exam that asks what things are called does not measure whether anyone can do the job.",
+  "passMark": 80,
+  "shuffle": true,
+  "questions": [
+    {
+      "id": "xx-m1-q1",
+      "module": "First Topic",
+      "bloom": "Apply",
+      "scenario": "REPLACE: the situation the candidate is in. A question without one is usually a definition in disguise.",
+      "prompt": "REPLACE: put the candidate in a situation and ask what they would do. Apply is the workhorse level - most questions should sit here or above.",
+      "options": [
+        "REPLACE: the correct answer",
+        "REPLACE: plausible distractor",
+        "REPLACE: plausible distractor",
+        "REPLACE: plausible distractor"
+      ],
+      "correct": 0,
+      "explanation": "REPLACE: teach, don't just judge - why the answer is right.",
+      "source": "REPLACE: where the course covers this (shown only in results)"
+    },
+    {
+      "id": "xx-m1-q2",
+      "module": "First Topic",
+      "bloom": "Analyze",
+      "scenario": "REPLACE: the situation. Name a workshop by its title if you must refer to one - never 'Lab 3, step 4'.",
+      "prompt": "REPLACE: a multi-select stem - phrase as 'select all that apply'. Analyze asks what follows from a situation, not what a thing is called.",
+      "options": [
+        "REPLACE: correct option A",
+        "REPLACE: correct option B",
+        "REPLACE: incorrect option",
+        "REPLACE: incorrect option"
+      ],
+      "correctIndices": [
+        0,
+        1
+      ],
+      "explanation": "REPLACE: multi-select questions are graded all-or-nothing."
+    },
+    {
+      "id": "xx-m2-q1",
+      "module": "Second Topic",
+      "bloom": "Evaluate",
+      "scenario": "REPLACE: a proposal a reasonable colleague might make, which is wrong here for a reason the scenario states.",
+      "prompt": "REPLACE: Evaluate gives two defensible options and asks which is better on a stated criterion. Hardest to write, and what separates a senior exam from a quiz.",
+      "options": [
+        "REPLACE",
+        "REPLACE",
+        "REPLACE",
+        "REPLACE"
+      ],
+      "correct": 0,
+      "explanation": "REPLACE"
+    }
+  ]
+}

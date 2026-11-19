@@ -1,0 +1,10 @@
+{
+  "title": "Overview of First Topic",
+  "description": "What this section covers, and the labs inside it.",
+  "order": 2,
+  "kind": "page",
+  "stepCount": 2,
+  "estimatedMinutes": 15,
+  "hasVideo": false,
+  "noProgress": true
+}

@@ -1,0 +1,91 @@
+{
+  "id": "_template",
+  "title": "Course Template",
+  "version": "0.1.0",
+  "kind": "workshop",
+  "level": { "number": 1, "name": "Practitioner" },
+  "mode": "sequential",
+  "theme": {
+    "accent": "#b91c1c"
+  },
+  "launchers": {
+    "spoon": {
+      "label": "Pentaho Data Integration",
+      "action": "Start",
+      "windows": "C:\\Pentaho\\design-tools\\data-integration\\Spoon.bat",
+      "linux": "~/pentaho/design-tools/data-integration/spoon.sh",
+      "macos": "~/pentaho/design-tools/data-integration/spoon.sh"
+    },
+    "prd": {
+      "label": "Pentaho Report Designer",
+      "action": "Start",
+      "windows": "C:\\Pentaho\\design-tools\\report-designer\\report-designer.bat",
+      "linux": "~/pentaho/design-tools/report-designer/report-designer.sh",
+      "macos": "~/pentaho/design-tools/report-designer/report-designer.sh"
+    },
+    "schema-workbench": {
+      "label": "Schema Workbench",
+      "action": "Start",
+      "windows": "C:\\Pentaho\\design-tools\\schema-workbench\\workbench.bat",
+      "linux": "~/Pentaho/design-tools/schema-workbench/workbench.sh",
+      "macos": "~/Pentaho/design-tools/schema-workbench/workbench.sh"
+    },
+    "metadata-editor": {
+      "label": "Metadata Editor",
+      "action": "Start",
+      "windows": "C:\\Pentaho\\design-tools\\metadata-editor\\metadata-editor.bat",
+      "linux": "~/Pentaho/design-tools/metadata-editor/metadata-editor.sh",
+      "macos": "~/Pentaho/design-tools/metadata-editor/metadata-editor.sh"
+    },
+    "puc": {
+      "label": "Pentaho User Console",
+      "action": "Log into",
+      "url": "http://localhost:8080"
+    }
+  },
+  "assistant": {
+    "ollamaURL": "http://localhost:11434",
+    "defaultProfile": "cpu",
+    "models": {
+      "cpu": "llama3.2:3b",
+      "gpu": "gemma4:12b"
+    },
+    "ladder": ["gemma4:12b", "qwen2.5:7b"]
+  },
+  "description": "Starter structure every new course is cloned from - improve it here and future courses inherit the changes.",
+  "moduleSummaries": [
+    {
+      "title": "Before You Start",
+      "summary": "How to get the best from this lab guide - read this five-minute orientation before you begin the course."
+    },
+    {
+      "title": "First Topic",
+      "summary": "REPLACE: a one/two-line pitch of this section, shown on the Welcome screen outline."
+    },
+    {
+      "title": "Second Topic",
+      "summary": "REPLACE: a one/two-line pitch of this section, shown on the Welcome screen outline."
+    },
+    {
+      "title": "Capstone Project",
+      "summary": "Bring every section together in one realistic end-to-end build - the portfolio piece of the course."
+    }
+  ],
+  "welcome": null,
+  "contact": {
+    "to": "academy@pentaho.com",
+    "heading": "Contact Us",
+    "blurb": "Ask us anything about the course, or tell us what you would like to know about Pentaho products and services.",
+    "messagePlaceholder": "What would you like to know?",
+    "sendLabel": "Send"
+  },
+  "completionCertificate": {
+    "topics": [],
+    "validYears": 2,
+    "watermark": "PENTAHO",
+    "signatory": {
+      "name": "Jason Allaway",
+      "title": "President Pentaho - A Leo Software Group Company"
+    }
+  }
+}

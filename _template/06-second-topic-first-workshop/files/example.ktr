@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<transformation>
+  <info>
+    <name>Example Transformation</name>
+    <description>Placeholder shipped with the course template so the launcher, graph, and download examples work out of the box. Replace with the lab's real file.</description>
+  </info>
+  <notepads>
+    <notepad>
+      <note>example - REPLACE with what the transformation does, in one sentence.
+
+1. Generate Rows: REPLACE with what the step does and the settings that matter.
+2. Write to Log: REPLACE.
+
+Shipped data: REPLACE with what a run gives (from the guide's checkpoints).</note>
+      <xloc>100</xloc>
+      <yloc>32</yloc>
+      <width>480</width>
+      <heigth>116</heigth>
+      <fontname>Segoe UI</fontname>
+      <fontsize>10</fontsize>
+      <fontbold>N</fontbold>
+      <fontitalic>N</fontitalic>
+      <fontcolorred>0</fontcolorred>
+      <fontcolorgreen>0</fontcolorgreen>
+      <fontcolorblue>0</fontcolorblue>
+      <backgroundcolorred>167</backgroundcolorred>
+      <backgroundcolorgreen>224</backgroundcolorgreen>
+      <backgroundcolorblue>245</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
+      <drawshadow>Y</drawshadow>
+    </notepad>
+  </notepads>
+  <step>
+    <name>Generate Rows</name>
+    <type>RowGenerator</type>
+    <GUI><xloc>100</xloc><yloc>196</yloc></GUI>
+  </step>
+  <step>
+    <name>Write to Log</name>
+    <type>WriteToLog</type>
+    <GUI><xloc>320</xloc><yloc>196</yloc></GUI>
+  </step>
+  <order>
+    <hop><from>Generate Rows</from><to>Write to Log</to><enabled>Y</enabled></hop>
+  </order>
+</transformation>

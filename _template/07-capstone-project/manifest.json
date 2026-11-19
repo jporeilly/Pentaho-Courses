@@ -1,0 +1,9 @@
+{
+  "title": "Capstone Project",
+  "description": "One end-to-end build that exercises every section of the course.",
+  "order": 7,
+  "kind": "workshop",
+  "stepCount": 5,
+  "hasVideo": false,
+  "estimatedMinutes": 20
+}

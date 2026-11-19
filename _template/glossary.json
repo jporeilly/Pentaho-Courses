@@ -1,0 +1,12 @@
+{
+  "Pentaho": "Replace this example term. Wrap the word in <dfn>Pentaho</dfn> anywhere in a guide.md to show this definition on hover.",
+  "transformation": "A data flow you design in PDI (Spoon): steps connected by hops that read, transform, and write data.",
+  "PUC": "Pentaho User Console - the Pentaho Server's browser UI where published content is browsed, run, and scheduled.",
+  "PDI": "Pentaho Data Integration (Kettle) - the ETL side of the platform: Spoon designer, Kitchen/Pan runners, Carte server.",
+  "BA repository": "The Pentaho Server's content store. Published reports, dashboards, and analysis views live here.",
+  "data source": "Where content gets its data - JDBC connections, metadata models, Mondrian cubes, CSV files, and more.",
+  "job": "A PDI orchestration flow (.kjb): entries executed in sequence with success/failure hops - typically wrapping transformations.",
+  "step": "One operation inside a PDI transformation (read a file, filter rows, write a table). Steps are connected by hops.",
+  "hop": "The link between two PDI steps or job entries, carrying rows (transformations) or control flow (jobs).",
+  "publish": "Uploading finished content from a design tool to the Pentaho Server so users can run it in the browser."
+}
