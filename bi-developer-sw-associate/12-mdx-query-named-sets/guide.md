@@ -219,6 +219,13 @@ TopCount(
 
 > **Success:** Checkpoint: a **Publish** message reads `Publish Successful`. The schema now holds the reusable `Top 3 Territories` named set, for every report on the Miniature Models cube.
 
+<div align="center">
+<figure>
+<img src="../_assets/images/sw_publish_schema.png" alt="Schema Workbench Publish Schema dialog: server URL http://localhost:8080/pentaho/, user admin, a masked password, data source hsqldb_sampledata, with Register XMLA Data Source and Remember these Settings selected" width="351">
+<figcaption>The Publish Schema dialog, filled in</figcaption>
+</figure>
+</div>
+
 6. Select **OK**.
 
 > **Under the hood:**

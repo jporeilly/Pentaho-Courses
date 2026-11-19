@@ -106,6 +106,13 @@ C:\Pentaho\server\pentaho-server\start-pentaho.bat
 
 <div align="center">
 <figure>
+<img src="../_assets/images/extended_dimension_markets.png" alt="Schema Workbench with the finished MARKETS dimension selected: name MARKETS, foreignKey CUSTOMERNUMBER, type StandardDimension; the tree shows its Markets hierarchy with the Territory, Country, State Province and City levels and the CUSTOMER_W_TER table" width="710">
+<figcaption>The finished MARKETS dimension</figcaption>
+</figure>
+</div>
+
+<div align="center">
+<figure>
 <img src="../_assets/images/extended_add_dimension_markets.png" alt="Schema Workbench tree for the MARKETS dimension, with the Markets hierarchy's Territory, Country, State Province and City levels over the CUSTOMER_W_TER table" width="253">
 <figcaption>The MARKETS dimension</figcaption>
 </figure>
@@ -126,6 +133,13 @@ C:\Pentaho\server\pentaho-server\start-pentaho.bat
 1. Right-click **Country** and select **Add Annotations**.
 2. Right-click the new **Annotations** node and select **Add Annotation**. Set **name** to `Data.Role` and **cdata** to `Geography`.
 3. Right-click **Annotations** again, select **Add Annotation**, and set **name** to `Geo.Role` and **cdata** to `country`.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/extended_annotation_geo_role.png" alt="Schema Workbench with the Geo.Role annotation under the Country level's Annotations node selected: name Geo.Role, cdata country; Data.Role sits above it" width="710">
+<figcaption>The Country level's Geo.Role annotation</figcaption>
+</figure>
+</div>
 4. Add an **Annotations** node to **State Province** and **City** the same way, with these annotations:
 
 | Level | name | cdata |
@@ -182,6 +196,13 @@ C:\Pentaho\server\pentaho-server\start-pentaho.bat
 | **column** | `CUSTOMERNUMBER` |
 | **type** | String |
 
+<div align="center">
+<figure>
+<img src="../_assets/images/extended_property_customer_number.png" alt="Schema Workbench with the Customer Number property under the Customer Name level selected: column CUSTOMERNUMBER, type String; Contact First Name, Contact Last Name and Phone follow it" width="710">
+<figcaption>The Customer Number property</figcaption>
+</figure>
+</div>
+
 5. Add three more properties to **Customer Name** the same way, each **type** String:
 
 | name | column |
@@ -217,6 +238,13 @@ C:\Pentaho\server\pentaho-server\start-pentaho.bat
 | **name** | `Description` |
 | **column** | `PRODUCTDESCRIPTION` |
 | **type** | String |
+
+<div align="center">
+<figure>
+<img src="../_assets/images/extended_property_description.png" alt="Schema Workbench with the Description property under the Name level selected: column PRODUCTDESCRIPTION, type String" width="710">
+<figcaption>The Description property</figcaption>
+</figure>
+</div>
 
 3. Add two more properties to **Name** the same way, each **type** String:
 
@@ -325,6 +353,13 @@ This example shares a CUSTOMERS dimension between two cubes, joined through `ORD
 | **Quarters** | `[yyyy].['QTR'q]` |
 | **Months** | `[yyyy].['QTR'q].[MMM]` |
 
+<div align="center">
+<figure>
+<img src="../_assets/images/extended_shared_dimension_time.png" alt="Schema Workbench with the shared TIME dimension under Schema selected: name TIME, no foreignKey, type TimeDimension; the tree shows its Time hierarchy with the Years, Quarters and Months levels and the DIM_TIME table" width="710">
+<figcaption>The finished shared TIME dimension</figcaption>
+</figure>
+</div>
+
 8. Right-click **Sales_FY2003_2005** and select **Add Dimension Usage**. Its icon differs from a dimension's: it points at a shared dimension.
 9. Set the usage's attributes:
 
@@ -408,6 +443,13 @@ This example shares a CUSTOMERS dimension between two cubes, joined through `ORD
 | **levelType** | Regular |
 | **hideMemberIf** | Never |
 
+<div align="center">
+<figure>
+<img src="../_assets/images/extended_dimension_order_status.png" alt="Schema Workbench with the finished ORDER STATUS dimension selected: name ORDER STATUS, no foreignKey, type StandardDimension; the tree shows its Status hierarchy with one level, Type, and no table" width="710">
+<figcaption>The finished ORDER STATUS dimension</figcaption>
+</figure>
+</div>
+
 6. Select **File > Save**.
 
 > **Success:** Checkpoint: **ORDER STATUS** shows no red cross, and its **Status** hierarchy holds the **Type** level and no **Table** node.
@@ -431,6 +473,13 @@ This example shares a CUSTOMERS dimension between two cubes, joined through `ORD
 | **formatString** | `#,###` |
 | **datatype** | Numeric |
 
+<div align="center">
+<figure>
+<img src="../_assets/images/extended_measure_quantity.png" alt="Schema Workbench with the Quantity measure selected: aggregator sum, column QUANTITYORDERED, formatString #,###, datatype Numeric, visible selected" width="710">
+<figcaption>The Quantity measure</figcaption>
+</figure>
+</div>
+
 3. Select **File > Save**.
 
 > **Success:** Checkpoint: no red cross anywhere in the schema. The cube holds **Table: ORDERFACT**, **MARKETS**, **CUSTOMERS**, **PRODUCTS**, **ORDER STATUS**, **TIME**, **Sales** and **Quantity**.
@@ -445,6 +494,13 @@ This example shares a CUSTOMERS dimension between two cubes, joined through `ORD
 
 1. Select **File > Publish**.
 2. In the **Publish Schema** dialog, make sure the fields hold the values from [Basic Model](../05-schemas-basic-model/guide.md): **Server URL** `http://localhost:8080/pentaho/`, **User** `admin`, **Password** `password` and **Pentaho or JNDI Data Source** `hsqldb_sampledata`.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/sw_publish_schema.png" alt="Schema Workbench Publish Schema dialog: server URL http://localhost:8080/pentaho/, user admin, a masked password, data source hsqldb_sampledata, with Register XMLA Data Source and Remember these Settings selected" width="351">
+<figcaption>The Publish Schema dialog, filled in</figcaption>
+</figure>
+</div>
 3. Select **Publish**. If Schema Workbench asks whether to overwrite the Miniature Models schema you published in Standard Model, select **Yes**.
 
 > **Success:** Checkpoint: a **Publish** message reads `Publish Successful`.

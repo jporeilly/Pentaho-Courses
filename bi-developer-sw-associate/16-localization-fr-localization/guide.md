@@ -338,7 +338,7 @@ C:\Pentaho\server\pentaho-server\start-pentaho.bat
 > Publishing from Schema Workbench stores three parameters with the catalog: `Provider`, `DataSource` and `EnableXmla`. Two more make the localization work, and you add them in the User Console:
 >
 > * **DynamicSchemaProcessor** names a class implementing `mondrian.spi.DynamicSchemaProcessor`, which filters the schema text before Mondrian's core reads it. Mondrian's own, `mondrian.i18n.LocalizingDynamicSchemaProcessor`, replaces the tokens with values from the message bundles.
-> * **UseContentChecksum** makes Mondrian keep a checksum of the schema XML, so a changed schema is noticed and its cache refreshed. With it on, Mondrian calls the schema processor on every connection request.
+> * **UseContentChecksum** makes Mondrian find a cached schema by an MD5 checksum of the processed schema text, so connections that produce the same text share one cached schema. Mondrian runs the schema processor on every connection request either way; see [Overview of Localization](../15-localization/guide.md) for how the cache keeps one schema per language.
 
 <button data-launch="puc">Open Pentaho User Console</button>
 
@@ -352,6 +352,13 @@ C:\Pentaho\server\pentaho-server\start-pentaho.bat
 5. Select **+** again, set **Name** to `UseContentChecksum` and **Value** to `true`, and select **OK**.
 
 > **Success:** Checkpoint: the **Parameters** list holds four rows: `DataSource`, `EnableXmla`, `DynamicSchemaProcessor` and `UseContentChecksum`.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/fr_l10n_import_analysis_four_parameters.png" alt="User Console Import Analysis dialog for Classic Models.mondrian.xml with Manually enter data source parameter values selected and four parameters: DataSource hsqldb_sampledata, EnableXmla true, DynamicSchemaProcessor mondrian.i18n.LocalizingDynamicSchemaProcessor (cut off in the list) and UseContentChecksum true" width="289">
+<figcaption>The four parameters in Import Analysis</figcaption>
+</figure>
+</div>
 
 6. Select **Save**, then **Close**.
 7. Select **Tools > Refresh > Mondrian Schema Cache**, and **OK** on the message `Mondrian schema cache flushed successfully.`

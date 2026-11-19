@@ -426,14 +426,35 @@ The role in the XML:
 | **levelType** | Regular |
 | **hideMemberIf** | Never |
 
+<div align="center">
+<figure>
+<img src="../_assets/images/mondrian_sec_level_state.png" alt="Schema Workbench with the new State level of the Customers hierarchy selected: table CUSTOMER_W_TER, column STATE, type String, uniqueMembers cleared, levelType Regular, hideMemberIf Never" width="710">
+<figcaption>The State level</figcaption>
+</figure>
+</div>
+
 2. Right-click **State** and select **Move Level Up** until it sits directly below **Country**.
 3. Add a `City` level the same way, with **column** `CITY` and the other attributes as for State, and move it up until it sits directly below **State**.
 
 > **Success:** Checkpoint: **Customers** holds **Territory**, **Country**, **State**, **City** and **Customer Name**, in that order.
 
+<div align="center">
+<figure>
+<img src="../_assets/images/mondrian_sec_level_city.png" alt="Schema Workbench with the City level selected, below State: table CUSTOMER_W_TER, column CITY, type String, uniqueMembers cleared" width="710">
+<figcaption>The City level</figcaption>
+</figure>
+</div>
+
 4. Right-click **Schema**, select **Add Role**, and set **name** to `Analyst Role`.
 5. Right-click **Analyst Role**, select **Add Schema Grant**, and set **access** to `none`.
 6. Right-click its **Schema Grant**, select **Add Cube Grant**, and set **access** to `all` and **cube** to `Sales_FY2003_2005`.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/mondrian_sec_analyst_cube_grant.png" alt="Schema Workbench with the Analyst Role's Cube Grant, under its Schema Grant, selected: access all, cube Sales_FY2003_2005" width="710">
+<figcaption>The Analyst Role's cube grant</figcaption>
+</figure>
+</div>
 7. Right-click the **Cube Grant** and select **Add Hierarchy Grant**.
 
 <div align="center">
@@ -545,6 +566,13 @@ The role in the XML:
 1. In Schema Workbench, right-click **Schema**, select **Add Role**, and set **name** to `Regional Manager Role`.
 2. Right-click **Regional Manager Role**, select **Add Schema Grant**, and set **access** to `none`.
 3. Right-click its **Schema Grant**, select **Add Cube Grant**, and set **access** to `all` and **cube** to `Sales_FY2003_2005`.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/mondrian_sec_regional_manager_cube_grant.png" alt="Schema Workbench with the Regional Manager Role's Cube Grant, under its Schema Grant, selected: access all, cube Sales_FY2003_2005" width="710">
+<figcaption>The Regional Manager Role's cube grant</figcaption>
+</figure>
+</div>
 4. Right-click the **Cube Grant**, select **Add Hierarchy Grant**, and set its attributes:
 
 | Attribute | Value |

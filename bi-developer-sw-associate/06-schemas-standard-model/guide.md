@@ -70,6 +70,13 @@ C:\Pentaho\server\pentaho-server\start-pentaho.bat
 | **Username** | `pentaho_admin` |
 | **Password** | `password` |
 
+<div align="center">
+<figure>
+<img src="../_assets/images/sw_database_connection_hsqldb_sampledata.png" alt="Schema Workbench Database Connection dialog: connection name hsqldb_sampledata, connection type Hypersonic, access Native (JDBC), host name localhost, database name sampledata, port number 9001, user name pentaho_admin and a masked password" width="761">
+<figcaption>The Database Connection dialog, filled in</figcaption>
+</figure>
+</div>
+
 5. Select **Test**.
 
 > **Success:** Checkpoint: a **Message Box** reports that the connection to `hsqldb_sampledata` was successful.
@@ -88,6 +95,13 @@ C:\Pentaho\server\pentaho-server\start-pentaho.bat
 2. In the left pane, select **Schema**, set **name** to `Miniature Models` and press `Tab`.
 3. Right-click **Schema** and select **Add cube**.
 4. Set **name** to `Sales_FY2003_2005` and press `Tab`. Leave **cache**, **enabled** and **visible** selected.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/miniature_cube_sales_fy2003_2005.png" alt="Schema Workbench with the Sales_FY2003_2005 cube of the Miniature Models schema selected: name Sales_FY2003_2005, cache, enabled and visible selected" width="710">
+<figcaption>The Sales_FY2003_2005 cube</figcaption>
+</figure>
+</div>
 5. Select **File > Save As** and save the schema as `MiniatureModels.xml` in `C:\Workshop-SW-Practitioner\03-schemas\06-schemas-standard-model`.
 
 > **Success:** Checkpoint: the tree shows **Schema** and **Sales_FY2003_2005**, both with a red cross until the cube has a fact table, dimensions and a measure.
@@ -107,6 +121,13 @@ C:\Pentaho\server\pentaho-server\start-pentaho.bat
 | --------- | ----- |
 | **schema** | `PUBLIC` |
 | **name** | `ORDERFACT` |
+
+<div align="center">
+<figure>
+<img src="../_assets/images/miniature_table_orderfact.png" alt="Schema Workbench with the cube's fact table selected: schema PUBLIC, name ORDERFACT" width="710">
+<figcaption>The fact table</figcaption>
+</figure>
+</div>
 
 3. Select **File > Save**.
 
@@ -178,6 +199,13 @@ C:\Pentaho\server\pentaho-server\start-pentaho.bat
 | **uniqueMembers** | cleared |
 | **levelType** | Regular |
 | **hideMemberIf** | Never |
+
+<div align="center">
+<figure>
+<img src="../_assets/images/miniature_dimension_customers.png" alt="Schema Workbench with the finished CUSTOMERS dimension selected: name CUSTOMERS, foreignKey CUSTOMERNUMBER, type StandardDimension; the tree shows its Customers hierarchy with the Territory, Country and Customer Name levels and the CUSTOMER_W_TER table" width="710">
+<figcaption>The finished CUSTOMERS dimension</figcaption>
+</figure>
+</div>
 
 > **Under the hood:**
 >
@@ -268,6 +296,13 @@ C:\Pentaho\server\pentaho-server\start-pentaho.bat
 | **levelType** | Regular |
 | **hideMemberIf** | Never |
 
+<div align="center">
+<figure>
+<img src="../_assets/images/miniature_dimension_products.png" alt="Schema Workbench with the finished PRODUCTS dimension selected: name PRODUCTS, foreignKey PRODUCTCODE, type StandardDimension; the tree shows its Products hierarchy with the Line, Vendor and Name levels and the PRODUCTS table" width="710">
+<figcaption>The finished PRODUCTS dimension</figcaption>
+</figure>
+</div>
+
 9. Select **File > Save**.
 
 > **Success:** Checkpoint: **PRODUCTS** shows no red cross, and **Products** holds **Line**, **Vendor**, **Name** and **Table: PRODUCTS**.
@@ -291,6 +326,13 @@ C:\Pentaho\server\pentaho-server\start-pentaho.bat
 | **formatString** | `£#,###.00` |
 | **datatype** | Numeric |
 
+<div align="center">
+<figure>
+<img src="../_assets/images/miniature_measure_sales.png" alt="Schema Workbench with the Sales measure selected: aggregator sum, column TOTALPRICE, formatString £#,###.00, datatype Numeric, visible selected" width="710">
+<figcaption>The Sales measure</figcaption>
+</figure>
+</div>
+
 3. Right-click **Sales_FY2003_2005**, select **Add Measure**, and set the measure's attributes:
 
 | Attribute | Value |
@@ -300,6 +342,13 @@ C:\Pentaho\server\pentaho-server\start-pentaho.bat
 | **column** | `QUANTITYORDERED` |
 | **formatString** | `#` |
 | **datatype** | Integer |
+
+<div align="center">
+<figure>
+<img src="../_assets/images/miniature_measure_quantity_ordered.png" alt="Schema Workbench with the Quantity Ordered measure selected: aggregator distinct-count, column QUANTITYORDERED, formatString #, datatype Integer, visible selected" width="710">
+<figcaption>The Quantity Ordered measure</figcaption>
+</figure>
+</div>
 
 > **Under the hood:**
 >
@@ -335,6 +384,13 @@ C:\Pentaho\server\pentaho-server\start-pentaho.bat
 
 1. Select **File > Publish**.
 2. In the **Publish Schema** dialog, make sure the fields hold the values from [Basic Model](../05-schemas-basic-model/guide.md): **Server URL** `http://localhost:8080/pentaho/`, **User** `admin`, **Password** `password` and **Pentaho or JNDI Data Source** `hsqldb_sampledata`.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/sw_publish_schema.png" alt="Schema Workbench Publish Schema dialog: server URL http://localhost:8080/pentaho/, user admin, a masked password, data source hsqldb_sampledata, with Register XMLA Data Source and Remember these Settings selected" width="351">
+<figcaption>The Publish Schema dialog, filled in</figcaption>
+</figure>
+</div>
 3. Select **Publish**.
 
 > **Success:** Checkpoint: a **Publish** message reads `Publish Successful`.

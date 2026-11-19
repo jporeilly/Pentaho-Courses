@@ -60,6 +60,13 @@ C:\Pentaho\server\pentaho-server\start-pentaho.bat
 | **formatString** | `#,###` |
 | **datatype** | Numeric |
 
+<div align="center">
+<figure>
+<img src="../_assets/images/calc_measure_quantity.png" alt="Schema Workbench with the new Quantity measure of the ClassicModelsOrders cube selected: aggregator sum, column QUANTITYORDERED, formatString #,###, datatype Numeric" width="710">
+<figcaption>The Quantity measure the formula needs</figcaption>
+</figure>
+</div>
+
 5. Right-click **ClassicModelsOrders** and select **Add Calculated Member**.
 6. Set the calculated member's attributes. In **formula | formulaElement**, enter the formula below the table.
 
@@ -77,7 +84,7 @@ C:\Pentaho\server\pentaho-server\start-pentaho.bat
 
 <div align="center">
 <figure>
-<img src="../_assets/images/calc_calculated_member.png" alt="Schema Workbench showing the Unit Price calculated member in the ClassicModelsOrders cube, defined as Sales divided by Quantity with a currency format" width="590">
+<img src="../_assets/images/calc_member_unit_price.png" alt="Schema Workbench with the Unit Price calculated member of the ClassicModelsOrders cube selected: dimension Measures, visible selected, formula [Measures].[Sales] / [Measures].[Quantity], formatString $#,###.00; the Quantity measure sits above it in the tree" width="710">
 <figcaption>The Unit Price calculated member</figcaption>
 </figure>
 </div>
@@ -89,6 +96,13 @@ C:\Pentaho\server\pentaho-server\start-pentaho.bat
 8. Select **File > Publish**, make sure the **Publish Schema** fields hold the values from [Basic Model](../05-schemas-basic-model/guide.md), and select **Publish**. If Schema Workbench asks whether to overwrite the Classic Models schema, select **Yes**.
 
 > **Success:** Checkpoint: a **Publish** message reads `Publish Successful`.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/sw_publish_schema.png" alt="Schema Workbench Publish Schema dialog: server URL http://localhost:8080/pentaho/, user admin, a masked password, data source hsqldb_sampledata, with Register XMLA Data Source and Remember these Settings selected" width="351">
+<figcaption>The Publish Schema dialog, filled in</figcaption>
+</figure>
+</div>
 
 9. Select **OK**.
 
@@ -142,6 +156,13 @@ C:\Pentaho\server\pentaho-server\start-pentaho.bat
 | **formula \| formulaElement** | the formula below |
 | **formatString** | `£#,###.00` |
 
+<div align="center">
+<figure>
+<img src="../_assets/images/calc_member_top_10_customers.png" alt="Schema Workbench with the Top 10 Customers calculated member selected: dimension Measures, visible selected, formula starting Aggregate(TopCount([CUSTOMERS.Customers].[Customer..., formatString £#,###.00" width="710">
+<figcaption>The Top 10 Customers calculated member</figcaption>
+</figure>
+</div>
+
 ```mdx
 Aggregate(
   TopCount([CUSTOMERS.Customers].[Customer Name].Members, 10, [Measures].[Sales]),
@@ -185,6 +206,13 @@ FROM [Sales_FY2003_2005]
 8. Close the MDX Query window. Select **File > Publish** and publish the schema as in step 8 of the first tab, so Analyzer reports can use **Top 10 Customers**.
 
 > **Success:** Checkpoint: a **Publish** message reads `Publish Successful`. Both calculated members are now defined in the semantic layer, for every report built on these schemas.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/sw_publish_schema.png" alt="Schema Workbench Publish Schema dialog: server URL http://localhost:8080/pentaho/, user admin, a masked password, data source hsqldb_sampledata, with Register XMLA Data Source and Remember these Settings selected" width="351">
+<figcaption>The Publish Schema dialog, filled in</figcaption>
+</figure>
+</div>
 
 ::::
 

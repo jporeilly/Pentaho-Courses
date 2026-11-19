@@ -109,6 +109,13 @@ mondrian.rolap.aggregates.Read=true
 | **Add Aggregate Level** | `CUSTOMER_W_TER_Territory` | `[MARKETS.Markets].[Territory]` |
 | **Add Aggregate Level** | `CUSTOMER_W_TER_Country` | `[MARKETS.Markets].[Country]` |
 
+<div align="center">
+<figure>
+<img src="../_assets/images/agg_aggregate_name_1.png" alt="Schema Workbench with the first Aggregate Name under Table: ORDERFACT selected: name Miniature_Sales_AGG_1, ignorecase selected; under it AggFactCount, two Aggregate Measures and three Aggregate Levels" width="710">
+<figcaption>Miniature_Sales_AGG_1 and its children</figcaption>
+</figure>
+</div>
+
 4. Declare `Miniature_Sales_AGG_2` the same way: right-click **Table: ORDERFACT**, select **Add Aggregate Name**, set **name** to `Miniature_Sales_AGG_2`, and add these children. Try it from the table in part 1 before you look:
 
 | Add | column | name |
@@ -120,6 +127,13 @@ mondrian.rolap.aggregates.Read=true
 | **Add Aggregate Level** | `DIM_TIME_Years` | `[TIME.Time].[Years]` |
 | **Add Aggregate Level** | `DIM_TIME_Quarters` | `[TIME.Time].[Quarters]` |
 | **Add Aggregate Level** | `ORDERFACT_Type` | `[ORDER STATUS.Status].[Type]` |
+
+<div align="center">
+<figure>
+<img src="../_assets/images/agg_aggregate_name_2.png" alt="Schema Workbench with the second Aggregate Name selected: name Miniature_Sales_AGG_2, ignorecase selected; under it AggFactCount, two Aggregate Measures and four Aggregate Levels" width="710">
+<figcaption>Miniature_Sales_AGG_2 and its children</figcaption>
+</figure>
+</div>
 
 5. Select **File > Save**, then **File > Publish**, with the **Publish Schema** values from [Basic Model](../05-schemas-basic-model/guide.md). If Schema Workbench asks whether to overwrite the Miniature Models schema, select **Yes**.
 

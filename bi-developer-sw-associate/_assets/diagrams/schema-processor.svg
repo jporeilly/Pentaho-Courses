@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="360" viewBox="0 0 1100 360" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+<filter id="shadow" x="-10%" y="-10%" width="120%" height="140%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#0f172a" flood-opacity="0.12"/></filter></defs>
+<rect width="1100" height="360" fill="#ffffff"/>
+<path d="M261 66L291 66" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M538 66L568 66" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M815 66L845 66" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M692.5 156L692.5 110" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M656 294L712 294" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="16" y="24" width="245" height="84" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="46" cy="66" r="19" fill="#ffffff" stroke="#b45309" stroke-width="1.2"/>
+<g transform="translate(34 54) scale(1)" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></g>
+<text x="76" y="49" font-size="14" font-weight="700" fill="#78350f">Analyzer</text>
+<text x="76" y="66" font-size="12" fill="#78350f">opens a connection whose</text>
+<text x="76" y="81" font-size="12" fill="#78350f">Locale is the session's: fr</text>
+<rect x="293" y="24" width="245" height="84" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="323" cy="66" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(311 54) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 12.5 8 15l2 2.5"/><path d="m14 12.5 2 2.5-2 2.5"/></g>
+<text x="353" y="49" font-size="14" font-weight="700" fill="#3b0764">Classic Models catalog</text>
+<text x="353" y="66" font-size="12" fill="#3b0764">its parameters name the</text>
+<text x="353" y="81" font-size="12" fill="#3b0764">DynamicSchemaProcessor</text>
+<rect x="570" y="24" width="245" height="84" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="600" cy="66" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(588 54) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></g>
+<text x="630" y="49" font-size="14" font-weight="700" fill="#3b0764">Schema processor</text>
+<text x="630" y="66" font-size="12" fill="#3b0764">swaps each %{...} token for</text>
+<text x="630" y="81" font-size="12" fill="#3b0764">its text in the fr bundle</text>
+<rect x="847" y="24" width="245" height="84" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="877" cy="66" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(865 54) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 10.27 7 3.34"/><path d="m11 13.73-4 6.93"/><path d="M12 22v-2"/><path d="M12 2v2"/><path d="M14 12h8"/><path d="m17 20.66-1-1.73"/><path d="m17 3.34-1 1.73"/><path d="M2 12h2"/><path d="m20.66 17-1.73-1"/><path d="m20.66 7-1.73 1"/><path d="m3.34 17 1.73-1"/><path d="m3.34 7 1.73 1"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="12" r="8"/></g>
+<text x="907" y="49" font-size="14" font-weight="700" fill="#3b0764">Mondrian</text>
+<text x="907" y="66" font-size="12" fill="#3b0764">parses the French text and</text>
+<text x="907" y="81" font-size="12" fill="#3b0764">caches it under that text</text>
+<rect x="293" y="156" width="799" height="60" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="325" cy="186" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(313 174) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></g>
+<text x="355" y="183" font-size="14" font-weight="700" fill="#14532d">MondrianMessages_en.properties, MondrianMessages_fr.properties</text>
+<text x="355" y="201" font-size="12" fill="#14532d">WEB-INF\classes\com\pentaho\messages, found through mondrian.rolap.localePropFile</text>
+<rect x="655.15" y="120.5" width="74.69999999999999" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="692.5" y="138.5" text-anchor="middle" font-size="12" fill="#334155">fr bundle</text>
+<text x="16" y="256" font-size="13" font-weight="700" fill="#334155">One token, before and after</text>
+<rect x="16" y="268" width="640" height="52" rx="10" fill="#f5f5f4" stroke="#a8a29e" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="32" y="299" font-size="14" font-weight="700" fill="#78716c">caption="%{classicmodels.dimension.customers.territory.caption}"</text>
+<rect x="714" y="268" width="178" height="52" rx="10" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="803" y="299" text-anchor="middle" font-size="14" font-weight="700" fill="#134e4a">caption="Territoire"</text>
+<rect x="906" y="268" width="178" height="52" rx="10" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="995" y="299" text-anchor="middle" font-size="14" font-weight="700" fill="#134e4a">caption="Territory"</text>
+<rect x="762.5" y="243.5" width="81" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="803" y="261.5" text-anchor="middle" font-size="12" fill="#334155">fr session</text>
+<rect x="954.5" y="243.5" width="81" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="995" y="261.5" text-anchor="middle" font-size="12" fill="#334155">en session</text>
+<text x="550" y="348" text-anchor="middle" font-size="12" fill="#475569">The processor runs on every connection request, before Mondrian looks in its cache: one published file, one cached schema per language.</text>
+</svg>

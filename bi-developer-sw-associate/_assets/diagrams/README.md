@@ -52,6 +52,7 @@ and commit the script, the `.svg` and the `.png` together.
 | `basic-model-workflow` | Basic Model: the nine parts of defining a schema, one per tab; `-1` to `-9` light that tab's part (BA's workflow strip, `scripts/workflow-strip.mjs`; replaces `classic_workflow_to_define_a_schema.png`) |
 | `two-connections` | Basic Model, tab 2: Schema Workbench's connection and the server's, joined by the name typed at publish |
 | `role-mapping` | Mondrian Security: User Console user, platform role, lookup map, Mondrian role, what each sees |
+| `schema-processor` | Overview of Localization, tab 3: what the dynamic schema processor does on each connection request, from Analyzer's Locale to the cached schema, with one real token (facts read from the server's own Mondrian jar) |
 | `localization-pieces` | FR Localization: tokens, bundles, localePropFile and the catalog's processor parameters, and where each lives |
 | `aggregate-pick` | Aggregate Tables: which table a Territory, Country and State Province query reads, and why |
 | `dimension-kinds` | Extended Model: private, degenerate and shared dimensions, and how each reaches ORDERFACT (the SME course's diagram of the same name, on Miniature Models) |

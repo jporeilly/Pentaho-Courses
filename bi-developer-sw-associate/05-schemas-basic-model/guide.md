@@ -438,6 +438,13 @@ You now have two connections with the same name, one in each place:
 | **foreignKey** | `PRODUCTCODE` |
 | **type** | StandardDimension |
 
+<div align="center">
+<figure>
+<img src="../_assets/images/classic_dimension_products.png" alt="Schema Workbench with the PRODUCTS dimension of the ClassicModelsOrders cube selected: name PRODUCTS, foreignKey PRODUCTCODE, type StandardDimension, visible selected" width="710">
+<figcaption>The PRODUCTS dimension</figcaption>
+</figure>
+</div>
+
 3. Expand **PRODUCTS**, right-click **New Hierarchy 0** and select **Add Table**.
 4. Set the table's attributes:
 
@@ -445,6 +452,13 @@ You now have two connections with the same name, one in each place:
 | --- | --- |
 | **schema** | `PUBLIC` |
 | **name** | `PRODUCTS` |
+
+<div align="center">
+<figure>
+<img src="../_assets/images/classic_table_products.png" alt="Schema Workbench with the Products hierarchy's table selected: schema PUBLIC, name PRODUCTS" width="710">
+<figcaption>The PRODUCTS dimension's table</figcaption>
+</figure>
+</div>
 
 5. Select **New Hierarchy 0** and set its attributes:
 
@@ -473,6 +487,13 @@ You now have two connections with the same name, one in each place:
 | **uniqueMembers** | selected |
 | **levelType** | Regular |
 | **hideMemberIf** | Never |
+
+<div align="center">
+<figure>
+<img src="../_assets/images/classic_level_product_line.png" alt="Schema Workbench with the Product Line level selected: column PRODUCTLINE, type String, uniqueMembers selected, levelType Regular, hideMemberIf Never" width="710">
+<figcaption>The Product Line level</figcaption>
+</figure>
+</div>
 
 7. Right-click **Products**, select **Add Level**, and set the level's attributes:
 
