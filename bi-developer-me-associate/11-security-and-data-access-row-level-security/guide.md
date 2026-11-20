@@ -21,9 +21,15 @@
 >
 > **Estimated time:** 75 minutes
 
+<figure>
+
+<figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
+
+</figure>
+
 <div align="center">
 <figure>
-<img src="../_assets/images/rls_securityorder_constraints.png" alt="Business Model Properties for OrderStarCustomer on the hsqldb:sampledata connection: Metadata Security lists the Power User role, and Data Constraints is set to None, with Global Constraint below it" width="800">
+<img src="../_assets/images/rls_securityorder_constraints.png" alt="Business Model Properties for OrderStarCustomer on the hsqldb:sampledata connection: Metadata Security lists the Power User role, and Data Constraints is set to Role Based Constraints with two entries, Power User with a formula on BT_CUSTOMER_W_TER_CUSTOMER_W_TER.BC_CUSTOMER_W_TER_TERRITORY and admin with TRUE()" width="800">
 <figcaption>What you build: security on the business model</figcaption>
 </figure>
 </div>
@@ -38,47 +44,20 @@
 >
 > To list users and roles in its security properties, the Metadata Editor asks the Pentaho Server for them. Point it at the server's user and role list, `http://localhost:8080/pentaho/api/userrolelist`, the example the dialog itself gives.
 
-1. Start the Metadata Editor with the **Open Metadata Editor** button below, or from a terminal:
-
-::: tabs
-
-### Windows (PowerShell)
+1. Start the Metadata Editor with the **Open Metadata Editor** button below, or from PowerShell:
 
 ```powershell
 Set-Location C:\Pentaho\design-tools\metadata-editor
 .\metadata-editor.bat
 ```
 
-### macOS / Linux
-
-```bash
-cd ~/Pentaho/design-tools/metadata-editor
-./metadata-editor.sh
-```
-
-:::
-
 <button data-launch="metadata-editor">Open Metadata Editor</button>
 
-2. Make sure the Pentaho Server is running. On a lab VM it is already running. On your own machine, start it:
-
-::: tabs
-
-### Windows (PowerShell)
+2. Make sure the Pentaho Server is running: the Metadata Editor asks it for its users and roles, and the HSQLDB sample data runs with it, on port `9001`. On a lab VM it starts with the machine. On your own machine, start it as [Before You Start](../00-before-you-start/guide.md) describes (its repository database first), and wait until **http://localhost:8080/pentaho** shows the sign-in page:
 
 ```powershell
-Set-Location C:\Pentaho\server\pentaho-server
-.\start-pentaho.bat
+C:\Pentaho\server\pentaho-server\start-pentaho.bat
 ```
-
-### macOS / Linux
-
-```bash
-cd ~/Pentaho/server/pentaho-server
-./start-pentaho.sh
-```
-
-:::
 
 3. Select **Tools > Security**. The **Security Service** dialog opens on its **Service** tab.
 4. Set:
@@ -114,7 +93,7 @@ cd ~/Pentaho/server/pentaho-server
 
 To work without the server later, save this XML to a file: copy everything from `<content>` to `</content>` in the **XML** dialog into a text editor, save it as `metadata_security.xml`, then on the **File** tab of **Security Service**, select **Browse** and choose the file. The editor then reads users and roles from the file.
 
-7. Select **File > Open** (`Ctrl+O`), select **OrderStarCustomer** in the **Select a Domain** dialog, and select **OK**. Starting from the Lab Files instead? Select **File > Import from XMI File** (`Ctrl+I`), open `OrderStarCustomer-concepts.xmi`, and in the **Save Model** dialog enter `OrderStarCustomer` and select **OK**.
+7. Select **File > Open** (`Ctrl+O`), select **OrderStarCustomer** in the **Select a Domain** dialog, and select **OK**. Starting from the Lab Files instead? Select **File > Import from XMI File** (`Ctrl+I`), open `OrderStarCustomer-concepts.xmi` from `C:\Workshop-ME-Practitioner\05-security-data-access\11-security-and-data-access-row-level-security`, and in the **Save Model** dialog enter `OrderStarCustomer` and select **OK**.
 
 ### 2. Model Access
 
@@ -136,6 +115,13 @@ To work without the server later, save this XML to a file: copy everything from 
 2. In the **Business Model Properties** dialog, select **General > Metadata Security** in the **Available** pane.
 3. In **Settings**, select **Add New Users/Groups**, the green plus icon to the right of **Selected Users/Groups**. The **Add Permissions** dialog opens.
 4. Under **Available Users/Roles**, select **Power User**, select the right arrow, and select **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/rls_add_permissions_power_user.png" alt="The Add Permissions dialog: Available Users/Roles lists the roles Anonymous, Authenticated, Business Analyst, Report Author and Schedule Power User, then the users admin, bob, pat, suzy and tiffany; Assigned Users/Roles holds Power User" width="522">
+<figcaption>Power User assigned to the model</figcaption>
+</figure>
+</div>
 5. Select **General > Data Constraints** and check that **None** is selected.
 
 <div align="center">
@@ -197,7 +183,7 @@ To work without the server later, save this XML to a file: copy everything from 
 <details>
 <summary>Reference: who may view and manage data sources</summary>
 
-The server's own data source permissions are in `settings.xml`, in `C:\Pentaho\server\pentaho-server\pentaho-solutions\system\data-access\` (macOS / Linux: `~/Pentaho/server/pentaho-server/pentaho-solutions/system/data-access/`). By default every authenticated user can view data sources, and the Administrator role manages them:
+The server's own data source permissions are in `settings.xml`, in `C:\Pentaho\server\pentaho-server\pentaho-solutions\system\data-access\`. By default every authenticated user can view data sources, and the Administrator role manages them:
 
 ```xml
 <data-access-roles>Administrator</data-access-roles>
@@ -283,7 +269,7 @@ Whether `suzy` sees OrderStarCustomer is decided by the model's Metadata Securit
 >
 > Row-level security is a **Data Constraint** on the **business model**: the engine reads it from the model only, and ignores one added to a business table or column. In **Role Based Constraints** mode each role or user gets its own formula. A user who matches several entries gets their formulas joined with OR, and **a user who matches no entry sees no rows at all**, so `admin` needs an entry too.
 
-1. In the Metadata Editor, expand **Business Tables > CUSTOMER W TER**, right-click **Credit Limit**, and select **Edit**. The **Business Table Properties** dialog opens with **Credit Limit** selected.
+1. In the Metadata Editor, expand **Business Models > OrderStarCustomer > Business Tables > CUSTOMER W TER**, right-click **Credit Limit**, and select **Edit**. The **Business Table Properties** dialog opens with **Credit Limit** selected.
 
 <div align="center">
 <figure>
@@ -328,6 +314,15 @@ Whether `suzy` sees OrderStarCustomer is decided by the model's Metadata Securit
 ```text
 [BT_CUSTOMER_W_TER_CUSTOMER_W_TER.BC_CUSTOMER_W_TER_TERRITORY] = "EMEA"
 ```
+
+The **Role** list holds the server's roles and then its users, each with its own icon; an entry you already constrained drops out of the list. The picture was taken with the admin entry already in place, so admin is missing from it; in step 9 you still see it.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/rls_add_role_based_constraint.png" alt="The Add Role Based Constraint dialog: the Role list shows the roles Anonymous, Authenticated, Business Analyst, Power User, Report Author and Schedule Power User, then the users bob, pat, suzy and tiffany; Power User is selected, and Constraint Formula holds the EMEA formula on BC_CUSTOMER_W_TER_TERRITORY" width="556">
+<figcaption>The Power User entry</figcaption>
+</figure>
+</div>
 
 10. Add a second entry the same way, for the user **admin**, with this **Constraint Formula**:
 
@@ -412,18 +407,20 @@ The server is serving the old model. As `admin`, select **Tools > Refresh > Repo
 
 ## Lab Files
 
-Click a file to download it.
+Click a file to download. Every file is also on disk in this workshop's folder, `C:\Workshop-ME-Practitioner\05-security-data-access\11-security-and-data-access-row-level-security`: load a domain into Metadata Editor with **File > Import from XMI File**.
 
 The two row-level constraints, ready to copy into the **Constraint Formula** fields:
 
-[security-order-constraints.txt](../_assets/data/security-order-constraints.txt)
+[security-order-constraints.txt](./files/security-order-constraints.txt)
 
 The starting domain, the result of the [Concept Editor](../09-concepts-concept-editor/guide.md) workshop:
 
-[OrderStarCustomer-concepts.xmi](../_assets/files/OrderStarCustomer-concepts.xmi)
+[OrderStarCustomer-concepts.xmi](./files/OrderStarCustomer-concepts.xmi)
 
 ### Solution <!-- no-step -->
 
-The finished domain, with this workshop's model, category, column and row-level security. Load it with **File > Import from XMI File**.
+The finished domain, with this workshop's model, category, column and row-level security. Open it in Metadata Editor alongside your own to compare, or publish it to see the expected result.
 
-[OrderStarCustomer-security.xmi](../_assets/files/OrderStarCustomer-security.xmi)
+Also on disk at `C:\Workshop-ME-Practitioner\05-security-data-access\11-security-and-data-access-row-level-security\solution`.
+
+[OrderStarCustomer-security.xmi](./files/solution/OrderStarCustomer-security.xmi)

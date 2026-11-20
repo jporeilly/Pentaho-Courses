@@ -1,5 +1,5 @@
 {
-  "title": "Associate Exam",
+  "title": "Practitioner Exam",
   "description": "A fixed 40-question exam drawn at random from a 46-question bank covering all five modules. Pass mark is 80%. This is an open-book exam — take your time, browse any module to refresh your memory, or ask the AI assistant for help. Your answers are saved as you go, so leaving the page to look something up is fine. Explanations show after submission so you can learn from any answers you missed.",
   "passMark": 80,
   "questionsPerAttempt": 40,
@@ -574,7 +574,7 @@
       "id": "me-m4-q5",
       "module": "Concepts",
       "bloom": "Apply",
-      "scenario": "Employee Number must not appear in report writers' column lists. When it is read, it must show as a whole number.",
+      "scenario": "Employee Number is an internal ID. When it is read, it must show as a whole number, and the domain must flag it as a column report writers should not see.",
       "prompt": "Which parent concept fits this requirement?",
       "options": [
         "ID, whose # mask shows the value as a whole number in reports",
@@ -583,7 +583,7 @@
         "Number, with its mask overridden to # on the column"
       ],
       "correct": 1,
-      "explanation": "The **Hidden** concept inherits the `#` mask from its parent, **ID**, so the value shows as a whole number, and it adds **Hidden For the User?**, which drops the column from report interfaces.",
+      "explanation": "The **Hidden** concept inherits the `#` mask from its parent, **ID**, so the value shows as a whole number, and it adds **Hidden For the User?**, the flag that marks the column as one report writers should not see.\n\nPentaho Server 11.0.0.3 does not pass that flag to Interactive Reports, so the column stays listed there. To keep a column from users in Interactive Reports, restrict its **Metadata Security**.",
       "source": "Pentaho BI Developer - ME Associate: Concepts — Concept Editor"
     },
     {

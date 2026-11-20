@@ -16,12 +16,16 @@
 >
 > **Prerequisites:**
 >
-> * `OrderStarCustomer.xmi` from **Lab Files** below. You build this domain yourself in the [OrderStarCustomer](../07-properties-orderstarcustomer/guide.md) workshop.
+> * `OrderStarCustomer.xmi`, in this workshop's folder and under **Lab Files** below. You build this domain yourself in the [OrderStarCustomer](../07-properties-orderstarcustomer/guide.md) workshop.
 > * The Pentaho Server running, for its HSQLDB sample data (see [Before You Start](../00-before-you-start/guide.md))
 >
 > **Estimated time:** 15 minutes
 
-<div class="pcm-embed-card" data-href="https://www.loom.com/share/fb31dbf09b494e71bd03a3ca905b0e58?hideEmbedTopBar=true&amp;hide_share=true&amp;hide_title=true&amp;sid=c17f1cdc-2507-463d-82ff-ff04702f3edd?hide_owner=true" data-title="Testing and Validating Data Models in Metadata Editor" data-description="In this video, I demonstrate how to use the Metadata Editor's query tool to test the order's ME model we built earlier. I walk you through selecting columns, setting a row limit of 100, and executing queries to validate our calculations and relationships within the data model. It's crucial to thoroughly test the model using various queries to ensure everything functions correctly. After reviewing the results, I conclude by saving and preparing to publish the metadata domain for use in interactive reports. Please make sure to apply these testing methods to your own models as well." data-thumb="../_assets/embeds/125979ecbc12.png"></div>
+<figure>
+
+<figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
+
+</figure>
 
 :::: tabs
 
@@ -33,33 +37,26 @@
 >
 > The Query Builder works on the domain open in the editor. Import OrderStarCustomer, the star-schema domain this workshop queries.
 
-1. Start the Metadata Editor with the **Open Metadata Editor** button below, or from a terminal:
-
-::: tabs
-
-### Windows (PowerShell)
+1. Start the Metadata Editor with the **Open Metadata Editor** button below, or from PowerShell:
 
 ```powershell
 Set-Location C:\Pentaho\design-tools\metadata-editor
 .\metadata-editor.bat
 ```
 
-### macOS / Linux
-
-```bash
-cd ~/Pentaho/design-tools/metadata-editor
-./metadata-editor.sh
-```
-
-:::
-
 <button data-launch="metadata-editor">Open Metadata Editor</button>
 
-2. Download `OrderStarCustomer.xmi` from **Lab Files** below.
-3. Select **File > Import from XMI File** (`Ctrl+I`) and open `OrderStarCustomer.xmi`.
-4. In the **Save Model** dialog, enter `OrderStarCustomer` and select **OK**.
+2. Select **File > Import from XMI File** (`Ctrl+I`) and open `OrderStarCustomer.xmi` from `C:\Workshop-ME-Practitioner\02-domains-models\05-domains-and-models-query-builder`, or download it from **Lab Files** below.
+3. In the **Save Model** dialog, enter `OrderStarCustomer` and select **OK**.
 
-> **Success:** Checkpoint: the title bar reads **Pentaho Metadata Editor - OrderStarCustomer**, and **Business Models** shows the **OrderStarCustomer** model, whose **Business View** holds four categories: **Orders**, **Customers**, **Products** and **Time**.
+<div align="center">
+<figure>
+<img src="../_assets/images/props_orderstar_business_views_ordersstarcustomer.png" alt="The editor with the OrderStarCustomer model on hsqldb:sampledata expanded to Business Tables, Relationships and a Business View holding Orders, Customers, Products and Time; the graphical view draws ORDERFACT joined to DIM TIME, PRODUCTS and CUSTOMER W TER" width="800">
+<figcaption>The imported model and its four categories</figcaption>
+</figure>
+</div>
+
+> **Success:** Checkpoint: **Business Models** shows the **OrderStarCustomer** model, whose **Business View** holds four categories: **Orders**, **Customers**, **Products** and **Time**.
 
 ### 2. Build and Run a Query
 
@@ -132,6 +129,15 @@ cd ~/Pentaho/design-tools/metadata-editor
 > selected can go wrong when a report drops one. Test the model with the
 > few columns a summary report would use, not only with all of them.
 
+<div align="center">
+<figure>
+<img src="../_assets/images/mql-to-sql.png" alt="From query to SQL in four rows: Product Name and Order Number from two categories meet the N:1 inner relationship on PRODUCTCODE and become a WHERE condition; Price Sold meets its Default Aggregation Sum and becomes SUM, or AVG if Average is picked, with GROUP BY the other columns; Total meets its exact formula and becomes SUM(ORDERFACT.QUANTITYORDERED * ORDERFACT.PRICEEACH); the signed-in user's role meets its Data Constraint entry and becomes a WHERE filter" width="800">
+<figcaption>What the engine writes for each part of a query</figcaption>
+</figure>
+</div>
+
+Read the diagram row by row, left to right. The left column is what a query names: the columns you selected here, or the ones a user drags into an Interactive Report. The middle column is what the engine finds in the business model for them, and the right column is the part of the SQL it writes. Product Name and Order Number come from tables joined by an N:1 inner relationship, so the SQL gets a WHERE condition on the product code; Price Sold's default aggregation becomes SUM, or AVG when a report picks Average; and Total's formula, marked exact, becomes an expression. The last row names no column at all: once a model has row-level security, as in the [Row-Level Security](../11-security-and-data-access-row-level-security/guide.md) workshop, the signed-in user's role picks a Data Constraint entry, and that entry becomes a WHERE filter.
+
 7. Select **OK** to close the Query Builder.
 
 > **Note:** In Report Designer's Metadata Data Source Editor (not this Query Builder), you define a parameter by writing its name in curly brackets, `{Parameter Name}` for example. The name must match a parameter you created in the report. The **Default** value column is used only to preview data in the Metadata Data Source Editor.
@@ -140,8 +146,8 @@ cd ~/Pentaho/design-tools/metadata-editor
 
 ## Lab Files
 
-Click a file to download it.
+Click a file to download. Every file is also on disk in this workshop's folder, `C:\Workshop-ME-Practitioner\02-domains-models\05-domains-and-models-query-builder`: load a domain into Metadata Editor with **File > Import from XMI File**.
 
 The domain this workshop queries, the finished domain of the [OrderStarCustomer](../07-properties-orderstarcustomer/guide.md) workshop:
 
-[OrderStarCustomer.xmi](../_assets/files/OrderStarCustomer.xmi)
+[OrderStarCustomer.xmi](./files/OrderStarCustomer.xmi)

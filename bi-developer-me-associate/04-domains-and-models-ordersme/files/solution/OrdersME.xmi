@@ -1,7 +1,7 @@
 <?xml version = '1.0' encoding = 'UTF-8' ?>
 <XMI xmi.version = '1.2' xmlns:CWM = 'org.omg.xmi.namespace.CWM' xmlns:CWMTFM = 'org.omg.xmi.namespace.CWMTFM'
   xmlns:CWMRDB = 'org.omg.xmi.namespace.CWMRDB' xmlns:CWMOLAP = 'org.omg.xmi.namespace.CWMOLAP'
-  xmlns:CWMMDB = 'org.omg.xmi.namespace.CWMMDB' timestamp = 'Thu Nov 16 10:43:49 CET 2017'>
+  xmlns:CWMMDB = 'org.omg.xmi.namespace.CWMMDB' timestamp = 'Thu Nov 12 14:06:01 GMT 2026'>
   <XMI.header>
     <XMI.documentation>
       <XMI.exporter>Netbeans XMI Writer</XMI.exporter>
@@ -137,8 +137,7 @@
         <CWMRDB:Column xmi.idref = 'a36'/>
       </CWM:Description.modelElement>
     </CWM:Description>
-    <CWM:Description xmi.id = 'a41' name = 'datatype' body = 'String,50,-1'
-      type = 'DataType'>
+    <CWM:Description xmi.id = 'a41' name = 'datatype' body = 'String,9,-1' type = 'DataType'>
       <CWM:Description.modelElement>
         <CWMRDB:Column xmi.idref = 'a36'/>
       </CWM:Description.modelElement>
@@ -223,8 +222,7 @@
         <CWMRDB:Column xmi.idref = 'a54'/>
       </CWM:Description.modelElement>
     </CWM:Description>
-    <CWM:Description xmi.id = 'a59' name = 'datatype' body = 'Numeric,18,4'
-      type = 'DataType'>
+    <CWM:Description xmi.id = 'a59' name = 'datatype' body = 'Numeric,9,0' type = 'DataType'>
       <CWM:Description.modelElement>
         <CWMRDB:Column xmi.idref = 'a54'/>
       </CWM:Description.modelElement>
@@ -309,8 +307,7 @@
         <CWMRDB:Column xmi.idref = 'a72'/>
       </CWM:Description.modelElement>
     </CWM:Description>
-    <CWM:Description xmi.id = 'a77' name = 'datatype' body = 'Numeric,64,-1'
-      type = 'DataType'>
+    <CWM:Description xmi.id = 'a77' name = 'datatype' body = 'Numeric,9,0' type = 'DataType'>
       <CWM:Description.modelElement>
         <CWMRDB:Column xmi.idref = 'a72'/>
       </CWM:Description.modelElement>
@@ -352,7 +349,7 @@
         <CWMRDB:Column xmi.idref = 'a81'/>
       </CWM:Description.modelElement>
     </CWM:Description>
-    <CWM:Description xmi.id = 'a86' name = 'datatype' body = 'String,6,-1' type = 'DataType'>
+    <CWM:Description xmi.id = 'a86' name = 'datatype' body = 'String,9,-1' type = 'DataType'>
       <CWM:Description.modelElement>
         <CWMRDB:Column xmi.idref = 'a81'/>
       </CWM:Description.modelElement>
@@ -394,7 +391,7 @@
         <CWMRDB:Column xmi.idref = 'a90'/>
       </CWM:Description.modelElement>
     </CWM:Description>
-    <CWM:Description xmi.id = 'a95' name = 'datatype' body = 'String,6,-1' type = 'DataType'>
+    <CWM:Description xmi.id = 'a95' name = 'datatype' body = 'String,9,-1' type = 'DataType'>
       <CWM:Description.modelElement>
         <CWMRDB:Column xmi.idref = 'a90'/>
       </CWM:Description.modelElement>
@@ -436,7 +433,7 @@
         <CWMRDB:Column xmi.idref = 'a99'/>
       </CWM:Description.modelElement>
     </CWM:Description>
-    <CWM:Description xmi.id = 'a104' name = 'datatype' body = 'String,6,-1'
+    <CWM:Description xmi.id = 'a104' name = 'datatype' body = 'String,9,-1'
       type = 'DataType'>
       <CWM:Description.modelElement>
         <CWMRDB:Column xmi.idref = 'a99'/>
@@ -479,7 +476,7 @@
         <CWMRDB:Column xmi.idref = 'a108'/>
       </CWM:Description.modelElement>
     </CWM:Description>
-    <CWM:Description xmi.id = 'a113' name = 'datatype' body = 'String,15,-1'
+    <CWM:Description xmi.id = 'a113' name = 'datatype' body = 'String,9,-1'
       type = 'DataType'>
       <CWM:Description.modelElement>
         <CWMRDB:Column xmi.idref = 'a108'/>
@@ -522,7 +519,7 @@
         <CWMRDB:Column xmi.idref = 'a117'/>
       </CWM:Description.modelElement>
     </CWM:Description>
-    <CWM:Description xmi.id = 'a122' name = 'datatype' body = 'String,16777216,-1'
+    <CWM:Description xmi.id = 'a122' name = 'datatype' body = 'String,9,-1'
       type = 'DataType'>
       <CWM:Description.modelElement>
         <CWMRDB:Column xmi.idref = 'a117'/>
@@ -609,7 +606,7 @@
         <CWMRDB:Column xmi.idref = 'a135'/>
       </CWM:Description.modelElement>
     </CWM:Description>
-    <CWM:Description xmi.id = 'a140' name = 'datatype' body = 'String,10,-1'
+    <CWM:Description xmi.id = 'a140' name = 'datatype' body = 'String,9,-1'
       type = 'DataType'>
       <CWM:Description.modelElement>
         <CWMRDB:Column xmi.idref = 'a135'/>
@@ -652,7 +649,7 @@
         <CWMRDB:Column xmi.idref = 'a144'/>
       </CWM:Description.modelElement>
     </CWM:Description>
-    <CWM:Description xmi.id = 'a149' name = 'datatype' body = 'Numeric,15,0'
+    <CWM:Description xmi.id = 'a149' name = 'datatype' body = 'Numeric,9,0'
       type = 'DataType'>
       <CWM:Description.modelElement>
         <CWMRDB:Column xmi.idref = 'a144'/>
@@ -695,7 +692,7 @@
         <CWMRDB:Column xmi.idref = 'a153'/>
       </CWM:Description.modelElement>
     </CWM:Description>
-    <CWM:Description xmi.id = 'a158' name = 'datatype' body = 'Numeric,15,0'
+    <CWM:Description xmi.id = 'a158' name = 'datatype' body = 'Numeric,9,0'
       type = 'DataType'>
       <CWM:Description.modelElement>
         <CWMRDB:Column xmi.idref = 'a153'/>
@@ -738,7 +735,7 @@
         <CWMRDB:Column xmi.idref = 'a162'/>
       </CWM:Description.modelElement>
     </CWM:Description>
-    <CWM:Description xmi.id = 'a167' name = 'datatype' body = 'Numeric,15,0'
+    <CWM:Description xmi.id = 'a167' name = 'datatype' body = 'Numeric,9,0'
       type = 'DataType'>
       <CWM:Description.modelElement>
         <CWMRDB:Column xmi.idref = 'a162'/>
@@ -804,7 +801,7 @@
         <CWMRDB:Column xmi.idref = 'a176'/>
       </CWM:Description.modelElement>
     </CWM:Description>
-    <CWM:Description xmi.id = 'a181' name = 'datatype' body = 'String,50,-1'
+    <CWM:Description xmi.id = 'a181' name = 'datatype' body = 'String,9,-1'
       type = 'DataType'>
       <CWM:Description.modelElement>
         <CWMRDB:Column xmi.idref = 'a176'/>
@@ -847,7 +844,7 @@
         <CWMRDB:Column xmi.idref = 'a185'/>
       </CWM:Description.modelElement>
     </CWM:Description>
-    <CWM:Description xmi.id = 'a190' name = 'datatype' body = 'String,70,-1'
+    <CWM:Description xmi.id = 'a190' name = 'datatype' body = 'String,9,-1'
       type = 'DataType'>
       <CWM:Description.modelElement>
         <CWMRDB:Column xmi.idref = 'a185'/>
@@ -890,7 +887,7 @@
         <CWMRDB:Column xmi.idref = 'a194'/>
       </CWM:Description.modelElement>
     </CWM:Description>
-    <CWM:Description xmi.id = 'a199' name = 'datatype' body = 'String,50,-1'
+    <CWM:Description xmi.id = 'a199' name = 'datatype' body = 'String,9,-1'
       type = 'DataType'>
       <CWM:Description.modelElement>
         <CWMRDB:Column xmi.idref = 'a194'/>
@@ -934,7 +931,7 @@
         <CWMRDB:Column xmi.idref = 'a203'/>
       </CWM:Description.modelElement>
     </CWM:Description>
-    <CWM:Description xmi.id = 'a208' name = 'datatype' body = 'String,10,-1'
+    <CWM:Description xmi.id = 'a208' name = 'datatype' body = 'String,9,-1'
       type = 'DataType'>
       <CWM:Description.modelElement>
         <CWMRDB:Column xmi.idref = 'a203'/>
@@ -978,7 +975,7 @@
         <CWMRDB:Column xmi.idref = 'a212'/>
       </CWM:Description.modelElement>
     </CWM:Description>
-    <CWM:Description xmi.id = 'a217' name = 'datatype' body = 'String,50,-1'
+    <CWM:Description xmi.id = 'a217' name = 'datatype' body = 'String,9,-1'
       type = 'DataType'>
       <CWM:Description.modelElement>
         <CWMRDB:Column xmi.idref = 'a212'/>
@@ -1022,7 +1019,7 @@
         <CWMRDB:Column xmi.idref = 'a221'/>
       </CWM:Description.modelElement>
     </CWM:Description>
-    <CWM:Description xmi.id = 'a226' name = 'datatype' body = 'String,16777216,-1'
+    <CWM:Description xmi.id = 'a226' name = 'datatype' body = 'String,9,-1'
       type = 'DataType'>
       <CWM:Description.modelElement>
         <CWMRDB:Column xmi.idref = 'a221'/>
@@ -1066,7 +1063,7 @@
         <CWMRDB:Column xmi.idref = 'a230'/>
       </CWM:Description.modelElement>
     </CWM:Description>
-    <CWM:Description xmi.id = 'a235' name = 'datatype' body = 'Numeric,4,0'
+    <CWM:Description xmi.id = 'a235' name = 'datatype' body = 'Numeric,9,0'
       type = 'DataType'>
       <CWM:Description.modelElement>
         <CWMRDB:Column xmi.idref = 'a230'/>
@@ -1109,7 +1106,7 @@
         <CWMRDB:Column xmi.idref = 'a239'/>
       </CWM:Description.modelElement>
     </CWM:Description>
-    <CWM:Description xmi.id = 'a244' name = 'datatype' body = 'Numeric,17,0'
+    <CWM:Description xmi.id = 'a244' name = 'datatype' body = 'Numeric,9,0'
       type = 'DataType'>
       <CWM:Description.modelElement>
         <CWMRDB:Column xmi.idref = 'a239'/>
@@ -1152,7 +1149,7 @@
         <CWMRDB:Column xmi.idref = 'a248'/>
       </CWM:Description.modelElement>
     </CWM:Description>
-    <CWM:Description xmi.id = 'a253' name = 'datatype' body = 'Numeric,17,0'
+    <CWM:Description xmi.id = 'a253' name = 'datatype' body = 'Numeric,9,0'
       type = 'DataType'>
       <CWM:Description.modelElement>
         <CWMRDB:Column xmi.idref = 'a248'/>
@@ -1260,7 +1257,7 @@
         <CWMRDB:Column xmi.idref = 'a271'/>
       </CWM:Description.modelElement>
     </CWM:Description>
-    <CWM:Description xmi.id = 'a276' name = 'datatype' body = 'String,6,-1'
+    <CWM:Description xmi.id = 'a276' name = 'datatype' body = 'String,9,-1'
       type = 'DataType'>
       <CWM:Description.modelElement>
         <CWMRDB:Column xmi.idref = 'a271'/>
@@ -1304,7 +1301,7 @@
         <CWMRDB:Column xmi.idref = 'a280'/>
       </CWM:Description.modelElement>
     </CWM:Description>
-    <CWM:Description xmi.id = 'a285' name = 'datatype' body = 'String,6,-1'
+    <CWM:Description xmi.id = 'a285' name = 'datatype' body = 'String,9,-1'
       type = 'DataType'>
       <CWM:Description.modelElement>
         <CWMRDB:Column xmi.idref = 'a280'/>
@@ -1347,7 +1344,7 @@
         <CWMRDB:Column xmi.idref = 'a289'/>
       </CWM:Description.modelElement>
     </CWM:Description>
-    <CWM:Description xmi.id = 'a294' name = 'datatype' body = 'String,6,-1'
+    <CWM:Description xmi.id = 'a294' name = 'datatype' body = 'String,9,-1'
       type = 'DataType'>
       <CWM:Description.modelElement>
         <CWMRDB:Column xmi.idref = 'a289'/>
@@ -1390,7 +1387,7 @@
         <CWMRDB:Column xmi.idref = 'a298'/>
       </CWM:Description.modelElement>
     </CWM:Description>
-    <CWM:Description xmi.id = 'a303' name = 'datatype' body = 'String,15,-1'
+    <CWM:Description xmi.id = 'a303' name = 'datatype' body = 'String,9,-1'
       type = 'DataType'>
       <CWM:Description.modelElement>
         <CWMRDB:Column xmi.idref = 'a298'/>
@@ -1433,7 +1430,7 @@
         <CWMRDB:Column xmi.idref = 'a307'/>
       </CWM:Description.modelElement>
     </CWM:Description>
-    <CWM:Description xmi.id = 'a312' name = 'datatype' body = 'String,16777216,-1'
+    <CWM:Description xmi.id = 'a312' name = 'datatype' body = 'String,9,-1'
       type = 'DataType'>
       <CWM:Description.modelElement>
         <CWMRDB:Column xmi.idref = 'a307'/>
@@ -1543,7 +1540,7 @@
         <CWMRDB:Column xmi.idref = 'a330'/>
       </CWM:Description.modelElement>
     </CWM:Description>
-    <CWM:Description xmi.id = 'a335' name = 'datatype' body = 'String,10,-1'
+    <CWM:Description xmi.id = 'a335' name = 'datatype' body = 'String,9,-1'
       type = 'DataType'>
       <CWM:Description.modelElement>
         <CWMRDB:Column xmi.idref = 'a330'/>
@@ -1715,7 +1712,7 @@
         <CWMRDB:Column xmi.idref = 'a366'/>
       </CWM:Description.modelElement>
     </CWM:Description>
-    <CWM:Description xmi.id = 'a371' name = 'datatype' body = 'String,3,-1'
+    <CWM:Description xmi.id = 'a371' name = 'datatype' body = 'String,9,-1'
       type = 'DataType'>
       <CWM:Description.modelElement>
         <CWMRDB:Column xmi.idref = 'a366'/>
@@ -1801,7 +1798,7 @@
         <CWMRDB:Column xmi.idref = 'a384'/>
       </CWM:Description.modelElement>
     </CWM:Description>
-    <CWM:Description xmi.id = 'a389' name = 'datatype' body = 'String,4,-1'
+    <CWM:Description xmi.id = 'a389' name = 'datatype' body = 'String,9,-1'
       type = 'DataType'>
       <CWM:Description.modelElement>
         <CWMRDB:Column xmi.idref = 'a384'/>
@@ -1966,7 +1963,7 @@
     <CWMRDB:Table xmi.id = 'a22' name = 'PT_ORDERFACT' isAbstract = 'false'
       isTemporary = 'false' isSystem = 'false'>
       <CWM:ModelElement.taggedValue>
-        <CWM:TaggedValue xmi.id = 'a426' tag = 'TABLE_TARGET_DATABASE_NAME' value = 'Sampledata'/>
+        <CWM:TaggedValue xmi.id = 'a426' tag = 'TABLE_TARGET_DATABASE_NAME' value = 'hsqldb:sampledata'/>
       </CWM:ModelElement.taggedValue>
       <CWM:Namespace.ownedElement>
         <CWMRDB:Column xmi.id = 'a27' name = 'ORDERNUMBER'>
@@ -2054,7 +2051,7 @@
     <CWMRDB:Table xmi.id = 'a171' name = 'PT_PRODUCTS' isAbstract = 'false'
       isTemporary = 'false' isSystem = 'false'>
       <CWM:ModelElement.taggedValue>
-        <CWM:TaggedValue xmi.id = 'a443' tag = 'TABLE_TARGET_DATABASE_NAME' value = 'Sampledata'/>
+        <CWM:TaggedValue xmi.id = 'a443' tag = 'TABLE_TARGET_DATABASE_NAME' value = 'hsqldb:sampledata'/>
       </CWM:ModelElement.taggedValue>
       <CWM:Namespace.ownedElement>
         <CWMRDB:Column xmi.id = 'a176' name = 'PRODUCTCODE'>
@@ -2107,7 +2104,7 @@
     <CWMRDB:Table xmi.id = 'a257' name = 'PT_ORDERS' isAbstract = 'false' isTemporary = 'false'
       isSystem = 'false'>
       <CWM:ModelElement.taggedValue>
-        <CWM:TaggedValue xmi.id = 'a453' tag = 'TABLE_TARGET_DATABASE_NAME' value = 'Sampledata'/>
+        <CWM:TaggedValue xmi.id = 'a453' tag = 'TABLE_TARGET_DATABASE_NAME' value = 'hsqldb:sampledata'/>
       </CWM:ModelElement.taggedValue>
       <CWM:Namespace.ownedElement>
         <CWMRDB:Column xmi.id = 'a262' name = 'ORDERNUMBER'>
@@ -2150,7 +2147,7 @@
     <CWMRDB:Table xmi.id = 'a325' name = 'PT_DIM_TIME' isAbstract = 'false'
       isTemporary = 'false' isSystem = 'false'>
       <CWM:ModelElement.taggedValue>
-        <CWM:TaggedValue xmi.id = 'a461' tag = 'TABLE_TARGET_DATABASE_NAME' value = 'Sampledata'/>
+        <CWM:TaggedValue xmi.id = 'a461' tag = 'TABLE_TARGET_DATABASE_NAME' value = 'hsqldb:sampledata'/>
       </CWM:ModelElement.taggedValue>
       <CWM:Namespace.ownedElement>
         <CWMRDB:Column xmi.id = 'a330' name = 'TIME_ID'>
@@ -2195,7 +2192,7 @@
         </CWMRDB:Column>
       </CWM:Namespace.ownedElement>
     </CWMRDB:Table>
-    <CWMRDB:Catalog xmi.id = 'a470' name = 'Sampledata'>
+    <CWMRDB:Catalog xmi.id = 'a470' name = 'hsqldb:sampledata'>
       <CWM:ModelElement.taggedValue>
         <CWM:TaggedValue xmi.id = 'a471' tag = 'DATABASE_SERVER' value = 'localhost'/>
         <CWM:TaggedValue xmi.id = 'a472' tag = 'DATABASE_TYPE' value = 'HYPERSONIC'/>
@@ -2209,22 +2206,22 @@
         <CWM:TaggedValue xmi.id = 'a480' tag = 'DATABASE_INDEX_TABLESPACE'/>
         <CWM:TaggedValue xmi.id = 'a481' tag = 'DATABASE_ATTRIBUTE_PREFIX_USE_POOLING'
           value = 'N'/>
-        <CWM:TaggedValue xmi.id = 'a482' tag = 'DATABASE_ATTRIBUTE_PREFIX_PRESERVE_RESERVED_WORD_CASE'
-          value = 'Y'/>
-        <CWM:TaggedValue xmi.id = 'a483' tag = 'DATABASE_ATTRIBUTE_PREFIX_IS_CLUSTERED'
+        <CWM:TaggedValue xmi.id = 'a482' tag = 'DATABASE_ATTRIBUTE_PREFIX_IS_CLUSTERED'
           value = 'N'/>
-        <CWM:TaggedValue xmi.id = 'a484' tag = 'DATABASE_ATTRIBUTE_PREFIX_SUPPORTS_TIMESTAMP_DATA_TYPE'
+        <CWM:TaggedValue xmi.id = 'a483' tag = 'DATABASE_ATTRIBUTE_PREFIX_SUPPORTS_TIMESTAMP_DATA_TYPE'
           value = 'Y'/>
+        <CWM:TaggedValue xmi.id = 'a484' tag = 'DATABASE_ATTRIBUTE_PREFIX_QUOTE_ALL_FIELDS'
+          value = 'N'/>
         <CWM:TaggedValue xmi.id = 'a485' tag = 'DATABASE_ATTRIBUTE_PREFIX_SUPPORTS_BOOLEAN_DATA_TYPE'
           value = 'Y'/>
-        <CWM:TaggedValue xmi.id = 'a486' tag = 'DATABASE_ATTRIBUTE_PREFIX_PORT_NUMBER'
+        <CWM:TaggedValue xmi.id = 'a486' tag = 'DATABASE_ATTRIBUTE_PREFIX_FORCE_IDENTIFIERS_TO_LOWERCASE'
+          value = 'N'/>
+        <CWM:TaggedValue xmi.id = 'a487' tag = 'DATABASE_ATTRIBUTE_PREFIX_PRESERVE_RESERVED_WORD_CASE'
+          value = 'Y'/>
+        <CWM:TaggedValue xmi.id = 'a488' tag = 'DATABASE_ATTRIBUTE_PREFIX_FORCE_IDENTIFIERS_TO_UPPERCASE'
+          value = 'N'/>
+        <CWM:TaggedValue xmi.id = 'a489' tag = 'DATABASE_ATTRIBUTE_PREFIX_PORT_NUMBER'
           value = '9001'/>
-        <CWM:TaggedValue xmi.id = 'a487' tag = 'DATABASE_ATTRIBUTE_PREFIX_FORCE_IDENTIFIERS_TO_UPPERCASE'
-          value = 'N'/>
-        <CWM:TaggedValue xmi.id = 'a488' tag = 'DATABASE_ATTRIBUTE_PREFIX_FORCE_IDENTIFIERS_TO_LOWERCASE'
-          value = 'N'/>
-        <CWM:TaggedValue xmi.id = 'a489' tag = 'DATABASE_ATTRIBUTE_PREFIX_QUOTE_ALL_FIELDS'
-          value = 'N'/>
         <CWM:TaggedValue xmi.id = 'a490' tag = 'DATABASE_JDBC_URL' value = 'jdbc:hsqldb:hsql://localhost:9001/sampledata'/>
       </CWM:ModelElement.taggedValue>
     </CWMRDB:Catalog>

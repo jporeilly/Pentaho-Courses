@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="576" viewBox="0 0 800 576" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+<filter id="shadow" x="-10%" y="-10%" width="120%" height="140%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#0f172a" flood-opacity="0.12"/></filter></defs>
+<rect width="800" height="576" fill="#ffffff"/>
+<rect x="16" y="16" width="768" height="300" rx="12" fill="#f0fdfa" stroke="#ccfbf1" stroke-width="1.5"/>
+<path d="M16 28a12 12 0 0 1 12-12h744a12 12 0 0 1 12 12v32h-768z" fill="#0f766e"/>
+<g transform="translate(29 26) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13.172 2a2 2 0 0 1 1.414.586l6.71 6.71a2.4 2.4 0 0 1 0 3.408l-4.592 4.592a2.4 2.4 0 0 1-3.408 0l-6.71-6.71A2 2 0 0 1 6 9.172V3a1 1 0 0 1 1-1z"/><path d="M2 7v6.172a2 2 0 0 0 .586 1.414l6.71 6.71a2.4 2.4 0 0 0 3.191.193"/><circle cx="10.5" cy="6.5" r=".5" fill="currentColor"/></g>
+<text x="56" y="36" font-size="14" font-weight="700" fill="#ffffff">The concept tree</text>
+<text x="56" y="52" font-size="11.5" fill="#ffffff" opacity="0.92">each concept starts from its parent and adds its own settings</text>
+<rect x="16" y="332" width="768" height="228" rx="12" fill="#f8fafc" stroke="#f1f5f9" stroke-width="1.5"/>
+<path d="M16 344a12 12 0 0 1 12-12h744a12 12 0 0 1 12 12v32h-768z" fill="#475569"/>
+<g transform="translate(29 342) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M9 3v18"/><path d="M15 3v18"/></g>
+<text x="56" y="352" font-size="14" font-weight="700" fill="#ffffff">Where a business column gets a property</text>
+<text x="56" y="368" font-size="11.5" fill="#ffffff" opacity="0.92">checked left to right: the first that sets it wins</text>
+<path d="M192 208C206.5 208 206.5 148 221 148" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M192 208C206.5 208 206.5 268 221 268" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M384 148C398.5 148 398.5 108 413 108" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M384 148C398.5 148 398.5 188 413 188" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M576 188C590.5 188 590.5 188 605 188" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M256 428L285 428" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M512 428L541 428" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="32" y="176" width="160" height="64" rx="10" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="48" y="191" font-size="14" font-weight="700" fill="#134e4a">Base</text>
+<text x="48" y="208" font-size="12" fill="#134e4a">font and Text</text>
+<text x="48" y="223" font-size="12" fill="#134e4a">Alignment Left</text>
+<rect x="224" y="116" width="160" height="64" rx="10" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="240" y="131" font-size="14" font-weight="700" fill="#134e4a">Number</text>
+<text x="240" y="148" font-size="12" fill="#134e4a">adds Text Alignment</text>
+<text x="240" y="163" font-size="12" fill="#134e4a">Right, mask #,##0</text>
+<rect x="224" y="236" width="160" height="64" rx="10" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="240" y="251" font-size="14" font-weight="700" fill="#134e4a">Date</text>
+<text x="240" y="268" font-size="12" fill="#134e4a">adds the mask</text>
+<text x="240" y="283" font-size="12" fill="#134e4a">MM-dd-yyyy</text>
+<rect x="416" y="76" width="160" height="64" rx="10" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="432" y="91" font-size="14" font-weight="700" fill="#134e4a">USCurrency</text>
+<text x="432" y="108" font-size="12" fill="#134e4a">overrides the mask:</text>
+<text x="432" y="123" font-size="12" fill="#134e4a">$#,##0.00;($#,##0.00)</text>
+<rect x="416" y="156" width="160" height="64" rx="10" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="432" y="171" font-size="14" font-weight="700" fill="#134e4a">ID</text>
+<text x="432" y="188" font-size="12" fill="#134e4a">overrides the mask:</text>
+<text x="432" y="203" font-size="12" fill="#134e4a">#</text>
+<rect x="608" y="156" width="160" height="64" rx="10" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="624" y="171" font-size="14" font-weight="700" fill="#134e4a">Hidden</text>
+<text x="624" y="188" font-size="12" fill="#134e4a">adds Hidden For the</text>
+<text x="624" y="203" font-size="12" fill="#134e4a">User?, selected</text>
+<rect x="32" y="392" width="224" height="72" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="428" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(50 416) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></g>
+<text x="92" y="411" font-size="14" font-weight="700" fill="#1e3a8a">1. Its own override</text>
+<text x="92" y="428" font-size="12" fill="#1e3a8a">set on the business</text>
+<text x="92" y="443" font-size="12" fill="#1e3a8a">column: wins over all</text>
+<rect x="288" y="392" width="224" height="72" rx="10" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="318" cy="428" r="19" fill="#ffffff" stroke="#0f766e" stroke-width="1.2"/>
+<g transform="translate(306 416) scale(1)" fill="none" stroke="#0f766e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z"/><circle cx="7.5" cy="7.5" r=".5" fill="currentColor"/></g>
+<text x="348" y="411" font-size="14" font-weight="700" fill="#134e4a">2. Its parent concept</text>
+<text x="348" y="428" font-size="12" fill="#134e4a">and up the chain:</text>
+<text x="348" y="443" font-size="12" fill="#134e4a">Hidden, ID, Number, Base</text>
+<rect x="544" y="392" width="224" height="72" rx="10" fill="#f1f5f9" stroke="#475569" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="574" cy="428" r="19" fill="#ffffff" stroke="#475569" stroke-width="1.2"/>
+<g transform="translate(562 416) scale(1)" fill="none" stroke="#475569" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M9 3v18"/><path d="M15 3v18"/></g>
+<text x="604" y="411" font-size="14" font-weight="700" fill="#0f172a">3. Its physical column</text>
+<text x="604" y="428" font-size="12" fill="#0f172a">what the business</text>
+<text x="604" y="443" font-size="12" fill="#0f172a">column inherits</text>
+<rect x="32" y="484" width="736" height="60" rx="10" fill="#ffffff" stroke="#64748b" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="64" cy="514" r="19" fill="#ffffff" stroke="#64748b" stroke-width="1.2"/>
+<g transform="translate(52 502) scale(1)" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49"/><path d="M14.084 14.158a3 3 0 0 1-4.242-4.242"/><path d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143"/><path d="m2 2 20 20"/></g>
+<text x="94" y="511" font-size="14" font-weight="700" fill="#0f172a">Employee Number, parent concept Hidden: flagged Hidden For the User?</text>
+<text x="94" y="529" font-size="12" fill="#0f172a">Hidden For the User? from Hidden, the # mask from ID, Text Alignment Right from Number, the font from Base</text>
+</svg>

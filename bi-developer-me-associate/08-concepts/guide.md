@@ -25,13 +25,24 @@ At the foundation sits the **Base concept**, which automatically serves as the p
 
 ## Three levels of Concepts
 
+A business column looks for each property at these levels in order, and takes the first value it finds. Only a property that none of them sets comes from the column's physical column, as the [Concept Editor](../09-concepts-concept-editor/guide.md) workshop shows.
+
 | Level | Where the properties come from |
 | --- | --- |
-| **Self-concepts** | Properties applied directly to the object in the editor. |
-| **Parent concepts** | Properties inherited from a parent concept set at the business view level. |
-| **Inherited concepts** | Properties inherited from other concepts higher up in the hierarchy. |
+| **Self-concepts** | Properties applied directly to the object in the editor: its own overrides. |
+| **Parent concepts** | Properties from the parent concept set on the object, such as a business column in the business view. |
+| **Inherited concepts** | Properties the parent concept inherits from the concepts above it in the hierarchy, up to Base. |
 
 Together these create a flexible, reusable system for managing metadata across your data landscape.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/concept-chain.png" alt="Top: the concept tree the Concept Editor workshop builds, Base, then Number and Date, then USCurrency and ID under Number, then Hidden under ID. Bottom: where a business column gets a property, checked left to right: its own override, then its parent concept and up the chain, then its physical column. Employee Number, on Hidden, carries Hidden For the User? from Hidden, the # mask from ID, Text Alignment Right from Number and the font from Base" width="800">
+<figcaption>The three levels in practice: the concept tree you build in the next workshop</figcaption>
+</figure>
+</div>
+
+**Read the diagram.** The bottom panel is the table above, drawn left to right: a column's own override wins, then its parent concept and every concept above it up to Base, and only then its physical column. The top panel is the tree you build in the [Concept Editor](../09-concepts-concept-editor/guide.md) workshop.
 
 ## Concept tools
 

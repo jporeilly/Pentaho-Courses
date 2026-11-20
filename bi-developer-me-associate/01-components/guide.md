@@ -20,6 +20,15 @@ The Pentaho **Metadata Editor (PME)** bridges the gap between raw database struc
 
 <div align="center">
 <figure>
+<img src="../_assets/images/domain-purpose.png" alt="Two columns followed from the database to a report: CUSTOMER_W_TER's CUSTOMERNAME becomes the business column Customer Name in the category Customers, which the report user picks; ORDERFACT's PRICEEACH becomes Price Sold, aggregation Sum and concept USCurrency, which arrives summed. Underneath, what the domain adds: business names per locale, formats from concepts, security (suzy sees EMEA customers only), and a buffer against database change" width="800">
+<figcaption>What a domain does between the database and a report</figcaption>
+</figure>
+</div>
+
+**Read the diagram.** Each row follows one column. The database knows `CUSTOMERNAME` in a table called `CUSTOMER_W_TER`; the report user never sees either name. The domain gives the column a business name and puts it in a category, and for a number it also decides how it is summed and formatted. The panel underneath is what the rest of this course builds: names in [Properties](../07-properties-orderstarcustomer/guide.md), formats in [Concepts](../09-concepts-concept-editor/guide.md), and security in [Row-Level Security](../11-security-and-data-access-row-level-security/guide.md).
+
+<div align="center">
+<figure>
 <img src="../_assets/images/components.png" alt="The Metadata Editor with the SteelWheels domain open: the tree shows the SampleData connection and its tables, then the Human Resources, Inventory and Orders business models, and the graphical view draws the Orders model's five tables" width="800">
 <figcaption>A domain in the Metadata Editor: the physical layer above, the business models below</figcaption>
 </figure>

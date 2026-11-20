@@ -26,3 +26,12 @@ In the Pentaho Metadata Editor, **properties** are the descriptive metadata atta
 <figcaption>Property Editor</figcaption>
 </figure>
 </div>
+
+<div align="center">
+<figure>
+<img src="../_assets/images/property-map.png" alt="Physical column PRICEEACH sets every property: Name PRICEEACH, Formula PRICEEACH, Data Type Numeric, Default Aggregation None, no optional aggregations. Business column Price Sold stores only its overrides, Name Price Sold, Default Aggregation Sum and Optional Aggregations Average, Minimum, Maximum, and inherits Formula PRICEEACH and Data Type Numeric. Below, physical table ORDERFACT's required property Target Table ORDERFACT" width="800">
+<figcaption>One column's properties, as the OrderStarCustomer workshop leaves them</figcaption>
+</figure>
+</div>
+
+**Read the diagram.** Each box is one property: its key on top, its value underneath. The physical column on the left has a value for every key. The business column on the right stores only the keys you change, shown in teal; for every other key it reads its physical column's value, shown in grey. That is why renaming `PRICEEACH` to `Price Sold` leaves the formula alone. The required property sits on the physical table: `Target Table` is the table name the SQL uses, so the editor will not let you delete it. You set these exact values in [OrderStarCustomer](../07-properties-orderstarcustomer/guide.md), parts 4 and 5.

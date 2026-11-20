@@ -21,6 +21,12 @@
 >
 > **Estimated time:** 45 minutes
 
+<figure>
+
+<figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
+
+</figure>
+
 <div align="center">
 <figure>
 <img src="../_assets/images/dm_steelwheels_steelwheels_domain.png" alt="The Metadata Editor with the SteelWheels domain open: the tree lists the SampleData connection's 13 tables and the Orders business model with its business tables, relationships and business view, and the graphical view draws Customer W Ter, Orders, Orderdetails, Products and Payments" width="800">
@@ -38,25 +44,12 @@
 >
 > The Metadata Editor saves domains in its own repository. An XMI file is the exchange format: importing one loads the domain into the editor, and you then save it under a name of your choice.
 
-1. Start the Metadata Editor with the **Open Metadata Editor** button below, or from a terminal:
-
-::: tabs
-
-### Windows (PowerShell)
+1. Start the Metadata Editor with the **Open Metadata Editor** button below, or from PowerShell:
 
 ```powershell
 Set-Location C:\Pentaho\design-tools\metadata-editor
 .\metadata-editor.bat
 ```
-
-### macOS / Linux
-
-```bash
-cd ~/Pentaho/design-tools/metadata-editor
-./metadata-editor.sh
-```
-
-:::
 
 <button data-launch="metadata-editor">Open Metadata Editor</button>
 
@@ -68,8 +61,15 @@ cd ~/Pentaho/design-tools/metadata-editor
 </div>
 
 2. Select **File > Import from XMI File** (`Ctrl+I`).
-3. Open `steel-wheels.xmi` from the Metadata Editor's `samples` folder: `C:\Pentaho\design-tools\metadata-editor\samples` (macOS / Linux: `~/Pentaho/design-tools/metadata-editor/samples`). The same file is under **Lab Files** below.
+3. Open `steel-wheels.xmi` from the Metadata Editor's `samples` folder: `C:\Pentaho\design-tools\metadata-editor\samples`. The same file is in this workshop's folder, `C:\Workshop-ME-Practitioner\02-domains-models\03-domains-and-models-steelwheels`, and under **Lab Files** below.
 4. In the **Save Model** dialog, enter `SteelWheels` and select **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/dm_steelwheels_save_model.png" alt="The Save Model dialog: Enter a name for this model, SteelWheels" width="168">
+<figcaption>An imported file gets its name in the editor</figcaption>
+</figure>
+</div>
 
 <div align="center">
 <figure>
@@ -78,7 +78,7 @@ cd ~/Pentaho/design-tools/metadata-editor
 </figure>
 </div>
 
-> **Success:** Checkpoint: the title bar reads **Pentaho Metadata Editor - SteelWheels**. **Connections** holds one connection, **SampleData**, and **Business Models** lists three models: **Human Resources**, **Inventory** and **Orders**, each followed by its connection, **(SampleData)**.
+> **Success:** Checkpoint: **Connections** holds one connection, **SampleData**, and **Business Models** lists three models: **Human Resources**, **Inventory** and **Orders**, each followed by its connection, **(SampleData)**.
 
 ### 2. Physical Layer
 
@@ -384,10 +384,8 @@ Wherever metadata writes a formula, such as a complex join or a calculated colum
 
 ## Lab Files
 
-Click a file to download it.
+Click a file to download. Every file is also on disk in this workshop's folder, `C:\Workshop-ME-Practitioner\02-domains-models\03-domains-and-models-steelwheels`: load a domain into Metadata Editor with **File > Import from XMI File**.
 
-### Solution <!-- no-step -->
+The SteelWheels domain this workshop explores, the same file as the Metadata Editor's own `samples\steel-wheels.xmi`:
 
-The SteelWheels domain this workshop explores, the same file as the Metadata Editor's own `samples\steel-wheels.xmi`. Load it with **File > Import from XMI File**.
-
-[steel-wheels.xmi](../_assets/files/steel-wheels.xmi)
+[steel-wheels.xmi](./files/steel-wheels.xmi)

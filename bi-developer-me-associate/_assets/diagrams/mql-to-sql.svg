@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="492" viewBox="0 0 800 492" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+<filter id="shadow" x="-10%" y="-10%" width="120%" height="140%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#0f172a" flood-opacity="0.12"/></filter></defs>
+<rect width="800" height="492" fill="#ffffff"/>
+<rect x="16" y="16" width="232" height="460" rx="12" fill="#eff6ff" stroke="#dbeafe" stroke-width="1.5"/>
+<path d="M16 28a12 12 0 0 1 12-12h208a12 12 0 0 1 12 12v32h-232z" fill="#1d4ed8"/>
+<g transform="translate(29 26) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M3 15h18"/></g>
+<text x="56" y="36" font-size="14" font-weight="700" fill="#ffffff">What the query names</text>
+<text x="56" y="52" font-size="11.5" fill="#ffffff" opacity="0.92">the Query Builder or a report</text>
+<rect x="272" y="16" width="248" height="460" rx="12" fill="#f5f3ff" stroke="#ede9fe" stroke-width="1.5"/>
+<path d="M272 28a12 12 0 0 1 12-12h224a12 12 0 0 1 12 12v32h-248z" fill="#6d28d9"/>
+<g transform="translate(285 26) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 10.27 7 3.34"/><path d="m11 13.73-4 6.93"/><path d="M12 22v-2"/><path d="M12 2v2"/><path d="M14 12h8"/><path d="m17 20.66-1-1.73"/><path d="m17 3.34-1 1.73"/><path d="M2 12h2"/><path d="m20.66 17-1.73-1"/><path d="m20.66 7-1.73 1"/><path d="m3.34 17 1.73-1"/><path d="m3.34 7 1.73 1"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="12" r="8"/></g>
+<text x="312" y="36" font-size="14" font-weight="700" fill="#ffffff">What the engine reads</text>
+<text x="312" y="52" font-size="11.5" fill="#ffffff" opacity="0.92">from the business model</text>
+<rect x="544" y="16" width="240" height="460" rx="12" fill="#f8fafc" stroke="#ffffff" stroke-width="1.5"/>
+<path d="M544 28a12 12 0 0 1 12-12h216a12 12 0 0 1 12 12v32h-240z" fill="#475569"/>
+<g transform="translate(557 26) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/></g>
+<text x="584" y="36" font-size="14" font-weight="700" fill="#ffffff">What the SQL gets</text>
+<text x="584" y="52" font-size="11.5" fill="#ffffff" opacity="0.92">sent to the database</text>
+<path d="M232 118L285 118" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M504 118L557 118" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M232 218L285 218" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M504 218L557 218" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M232 318L285 318" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M504 318L557 318" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M232 418L285 418" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M504 418L557 418" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="32" y="76" width="200" height="84" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="118" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(50 106) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M9 3v18"/><path d="M15 3v18"/></g>
+<text x="92" y="101" font-size="14" font-weight="700" fill="#1e3a8a">Two categories</text>
+<text x="92" y="118" font-size="12" fill="#1e3a8a">Product Name and</text>
+<text x="92" y="133" font-size="12" fill="#1e3a8a">Order Number</text>
+<rect x="288" y="76" width="216" height="84" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="318" cy="118" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(306 106) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></g>
+<text x="348" y="101" font-size="14" font-weight="700" fill="#3b0764">Relationship</text>
+<text x="348" y="118" font-size="12" fill="#3b0764">N:1, Join type Inner,</text>
+<text x="348" y="133" font-size="12" fill="#3b0764">on PRODUCTCODE</text>
+<rect x="560" y="76" width="208" height="84" rx="10" fill="#ffffff" stroke="#64748b" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="576" y="93.5" font-size="14" font-weight="700" fill="#0f172a">An inner join</text>
+<text x="576" y="110.5" font-size="12" fill="#0f172a">a WHERE condition:</text>
+<text x="576" y="125.5" font-size="12" fill="#0f172a">PRODUCTS.PRODUCTCODE =</text>
+<text x="576" y="140.5" font-size="12" fill="#0f172a">ORDERFACT.PRODUCTCODE</text>
+<rect x="32" y="176" width="200" height="84" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="218" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(50 206) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M9 3v18"/><path d="M15 3v18"/></g>
+<text x="92" y="201" font-size="14" font-weight="700" fill="#1e3a8a">Price Sold</text>
+<text x="92" y="218" font-size="12" fill="#1e3a8a">no aggregation</text>
+<text x="92" y="233" font-size="12" fill="#1e3a8a">picked in the query</text>
+<rect x="288" y="176" width="216" height="84" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="318" cy="218" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(306 206) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 7V5a1 1 0 0 0-1-1H6.5a.5.5 0 0 0-.4.8l4.5 6a2 2 0 0 1 0 2.4l-4.5 6a.5.5 0 0 0 .4.8H17a1 1 0 0 0 1-1v-2"/></g>
+<text x="348" y="201" font-size="14" font-weight="700" fill="#3b0764">Aggregation</text>
+<text x="348" y="218" font-size="12" fill="#3b0764">Default Aggregation Sum;</text>
+<text x="348" y="233" font-size="12" fill="#3b0764">Average if it is picked</text>
+<rect x="560" y="176" width="208" height="84" rx="10" fill="#ffffff" stroke="#64748b" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="576" y="201" font-size="14" font-weight="700" fill="#0f172a">SUM( )</text>
+<text x="576" y="218" font-size="12" fill="#0f172a">or AVG; GROUP BY the</text>
+<text x="576" y="233" font-size="12" fill="#0f172a">columns not aggregated</text>
+<rect x="32" y="276" width="200" height="84" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="318" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(50 306) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M9 3v18"/><path d="M15 3v18"/></g>
+<text x="92" y="301" font-size="14" font-weight="700" fill="#1e3a8a">Total</text>
+<text x="92" y="318" font-size="12" fill="#1e3a8a">a calculated column,</text>
+<text x="92" y="333" font-size="12" fill="#1e3a8a">PC_TOTAL</text>
+<rect x="288" y="276" width="216" height="84" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="318" cy="318" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(306 306) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><path d="M9 17c2 0 2.8-1 2.8-2.8V10c0-2 1-3.3 3.2-3"/><path d="M9 11.2h5.7"/></g>
+<text x="348" y="293.5" font-size="14" font-weight="700" fill="#3b0764">Formula</text>
+<text x="348" y="310.5" font-size="12" fill="#3b0764">[QUANTITYORDERED]*</text>
+<text x="348" y="325.5" font-size="12" fill="#3b0764">[PRICEEACH]; Is the</text>
+<text x="348" y="340.5" font-size="12" fill="#3b0764">Formula Exact? selected</text>
+<rect x="560" y="276" width="208" height="84" rx="10" fill="#ffffff" stroke="#64748b" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="576" y="293.5" font-size="14" font-weight="700" fill="#0f172a">An expression</text>
+<text x="576" y="310.5" font-size="12" fill="#0f172a">SUM(ORDERFACT.</text>
+<text x="576" y="325.5" font-size="12" fill="#0f172a">QUANTITYORDERED *</text>
+<text x="576" y="340.5" font-size="12" fill="#0f172a">ORDERFACT.PRICEEACH)</text>
+<rect x="32" y="376" width="200" height="84" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="418" r="19" fill="#ffffff" stroke="#b45309" stroke-width="1.2"/>
+<g transform="translate(50 406) scale(1)" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></g>
+<text x="92" y="401" font-size="14" font-weight="700" fill="#78350f">Who is signed in</text>
+<text x="92" y="418" font-size="12" fill="#78350f">suzy, role Power User;</text>
+<text x="92" y="433" font-size="12" fill="#78350f">no column needed</text>
+<rect x="288" y="376" width="216" height="84" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="318" cy="418" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(306 406) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 20a1 1 0 0 0 .553.895l2 1A1 1 0 0 0 14 21v-7a2 2 0 0 1 .517-1.341L21.74 4.67A1 1 0 0 0 21 3H3a1 1 0 0 0-.742 1.67l7.225 7.989A2 2 0 0 1 10 14z"/></g>
+<text x="348" y="401" font-size="14" font-weight="700" fill="#3b0764">Data Constraint</text>
+<text x="348" y="418" font-size="12" fill="#3b0764">the role's entry:</text>
+<text x="348" y="433" font-size="12" fill="#3b0764">Territory EMEA</text>
+<rect x="560" y="376" width="208" height="84" rx="10" fill="#ffffff" stroke="#64748b" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="576" y="393.5" font-size="14" font-weight="700" fill="#0f172a">A WHERE filter</text>
+<text x="576" y="410.5" font-size="12" fill="#0f172a">TERRITORY = 'EMEA';</text>
+<text x="576" y="425.5" font-size="12" fill="#0f172a">a role with no entry:</text>
+<text x="576" y="440.5" font-size="12" fill="#0f172a">WHERE FALSE</text>
+</svg>

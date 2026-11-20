@@ -28,11 +28,32 @@ to look back.
 
 ---
 
-## The data
+> **Warning:**
+>
+> #### Required for your course accreditation: five checks on your own folders
+>
+> The course accreditation is issued only when all five of these checks
+> pass. They read your workshop folder, so put your work in exactly
+> these places **before you take the exam**:
+>
+> | # | What must be there | Where |
+> | --- | --- | --- |
+> | 1 | Your domain, exported as `Trailhead.xmi`, on the `mysql:trailhead` connection | `C:\Workshop-ME-Practitioner\capstone\solution\` |
+> | 2 | In it, the Stores relationship joined on both store key columns | the same file |
+> | 3 | In it, a Customer Name column written the way MySQL needs | the same file |
+> | 4 | In it, the West region's row-level constraint | the same file |
+> | 5 | The published domain, exported from the User Console as `Trailhead.xmi` | `C:\Workshop-ME-Practitioner\capstone\out\` |
+>
+> File 1 is **File > Export to XMI File** in Metadata Editor. File 5 is
+> the copy the server holds, from **Manage Data Sources** (stage 9). Use
+> these names exactly: the checks look for them. Select **Run checks**
+> under **Verification checks** to see where you stand.
+
+## Inputs
 
 | Table | Rows | What it holds |
 | --- | --- | --- |
-| `sales` | 4,286 | One row per order line, 2024 and 2025: `order_no`, `line_no`, `sale_date`, `region_code`, `store_no`, `customer_id`, `product_id`, `quantity`, `unit_price`, `discount_pct` |
+| `sales` | 4,286 | One row per order line, 2024 and 2025: `sale_id`, `order_no`, `line_no`, `sale_date`, `region_code`, `store_no`, `customer_id`, `product_id`, `quantity`, `unit_price`, `discount_pct` |
 | `stores` | 12 | `region_code` + `store_no` (the key), `region_name`, `store_name`, `city`, `state`, `store_type`, `opened_date`, `square_feet` |
 | `customers` | 540 | `customer_id`, `first_name`, `last_name`, `email`, `phone`, `city`, `state`, `home_region_code`, `loyalty_tier`, `joined_date` |
 | `products` | 56 | `product_id`, `sku`, `product_name`, `category`, `brand`, `unit_cost`, `list_price` |
@@ -43,9 +64,135 @@ to look back.
 > therefore names its store with **two** columns, `region_code` and
 > `store_no`. Keep that in mind at stage 4.
 
+The server's users for the test: `admin`, `suzy` (role **Power User**),
+`pat` (**Business Analyst**) and `tiffany` (**Report Author**), all with
+the password `password`.
+
+---
+
+## Required behavior
+
+Build the domain in the stages of the outline below. What each stage
+must deliver:
+
+1. **Ready:** the `trailhead` database answering, and the MySQL JDBC
+   driver in both Metadata Editor and the Pentaho Server.
+2. **Domain and connection:** a new domain with the connection
+   `mysql:trailhead` (MySQL, native JDBC, `127.0.0.1`, port `3306`,
+   database `trailhead`, `pentaho_admin` / `password`) and all five
+   tables imported.
+3. **Calculated columns,** in the physical layer:
+   - `PC_NET_SALES` on `sales`: quantity × unit price, less the discount
+     (`discount_pct` is a fraction, 0.25 for 25%); summed by default.
+   - `PC_ORDERS` on `sales`: the number of distinct orders, not lines.
+   - `PC_CUSTOMER_NAME` on `customers`: the last name, a comma and a
+     space, then the first name, such as `Barnes, Taylor`, as MySQL
+     returns it.
+4. **Business model** `Trailhead Sales` on `mysql:trailhead`, with the
+   five business tables and four N:1 relationships from Sales: to
+   Products on the product, Customers on the customer, Calendar on the
+   sale date, and Stores on **both** store key columns.
+5. **Names and aggregations:** the business names below, and Default
+   Aggregation **Sum** on Quantity, **Average** on Unit Price and
+   Discount.
+6. **Concepts:** Number, USCurrency, Percent and Date, applied as below.
+7. **Business view:** five categories, as below.
+8. **Security:**
+   - the model readable by the **Power User** and **Business Analyst**
+     roles, and every category inheriting that;
+   - **Email** and **Phone** readable by the user `admin` only;
+   - rows: Power User sees the `WEST` region, Business Analyst the
+     `EAST` region, and `admin` every region.
+9. **Published** to the server as domain `Trailhead`, exported from
+   Metadata Editor into `capstone\solution\` and from the User Console
+   into `capstone\out\`.
+
+| Business column | Name |
+| --- | --- |
+| BC_SALES_ORDER_NO | Order Number |
+| BC_SALES_SALE_DATE | Sale Date |
+| BC_SALES_UNIT_PRICE | Unit Price |
+| BC_SALES_DISCOUNT_PCT | Discount |
+| BC_STORES_REGION_NAME | Region |
+| BC_STORES_REGION_CODE | Region Code |
+| BC_STORES_STORE_NAME | Store |
+| BC_STORES_CITY / BC_STORES_STATE | Store City / Store State |
+| BC_STORES_STORE_TYPE | Store Type |
+| BC_CUSTOMERS_CITY / BC_CUSTOMERS_STATE | Customer City / Customer State |
+| BC_CUSTOMERS_LOYALTY_TIER | Loyalty Tier |
+| BC_PRODUCTS_PRODUCT_NAME | Product |
+| BC_PRODUCTS_SKU | SKU |
+| BC_PRODUCTS_UNIT_COST / BC_PRODUCTS_LIST_PRICE | Unit Cost / List Price |
+| BC_CALENDAR_YEAR_NO | Year |
+| BC_CALENDAR_QUARTER_NAME | Quarter |
+| BC_CALENDAR_MONTH_NO | Month Number |
+| BC_CALENDAR_MONTH_DESC | Month |
+| BC_CALENDAR_IS_WEEKEND | Weekend |
+
+| Concept | Parent | Mask for Number or Date | Text Alignment | Applied to |
+| --- | --- | --- | --- | --- |
+| Number | Base | `#,##0` | Right | Quantity, Orders |
+| USCurrency | Number | `$#,##0.00;($#,##0.00)` | (inherited) | Unit Price, Net Sales, Unit Cost, List Price |
+| Percent | Number | `0.0%` | (inherited) | Discount |
+| Date | Base | `MM-dd-yyyy` | | Sale Date |
+
+| ID | Name | Columns |
+| --- | --- | --- |
+| CT_SALES | Sales | Order Number, Sale Date, Quantity, Unit Price, Discount, Net Sales, Orders |
+| CT_STORES | Stores | Region, Region Code, Store, Store City, Store State, Store Type |
+| CT_PRODUCTS | Products | Category, Brand, Product, SKU, Unit Cost, List Price |
+| CT_CUSTOMERS | Customers | Customer Name, Email, Phone, Customer City, Customer State, Loyalty Tier |
+| CT_CALENDAR | Calendar | Year, Quarter, Month Number, Month, Season, Weekend |
+
+---
+
+## Suggested shape
+
+<div align="center">
+<figure>
+<img src="../_assets/images/capstone-trailhead.png" alt="The target design of the Trailhead domain: the business model Trailhead Sales on mysql:trailhead, with the categories Sales, Stores, Products, Customers and Calendar; the sales fact table joined N:1 to products, customers and calendar, and to stores on both region_code and store_no; the calculated columns PC_NET_SALES, PC_ORDERS and PC_CUSTOMER_NAME; admin sees every region with Email and Phone, suzy only WEST, pat only EAST, and tiffany no data source" width="800">
+<figcaption>What you build: the Trailhead domain, and who sees what</figcaption>
+</figure>
+</div>
+
+Read the diagram from the top. The bar is the business model, Trailhead Sales, on the `mysql:trailhead` connection, with the five categories of its business view. Under it, the `sales` fact table sits in the middle, and each arrow runs from one of its foreign keys to the key of the dimension table it matches; Stores takes two arrows, one complex join on both columns, because store numbers restart in each region. The rows marked calculated are the three columns you add in the physical layer at stage 3. The strip at the bottom is the result of stage 8: suzy and pat each see one region and no Email or Phone, admin sees every region only because admin has a Data Constraint entry of its own, and tiffany, in neither role, gets no data source at all.
+
+Your capstone folder, where the accreditation checks look:
+
+```text
+C:\Workshop-ME-Practitioner\capstone\    (your machine)
+├── solution\Trailhead.xmi       your domain: File > Export to XMI File
+└── out\Trailhead.xmi            the published domain, exported from the User Console
+```
+
+The installer makes `capstone\solution\` and `capstone\out\` for you,
+empty. If `C:\Workshop-ME-Practitioner\` has no `capstone` folder,
+create `capstone\solution\` and `capstone\out\` there yourself.
+
+---
+
+## Hints for the tricky bits
+
+- **A two-column join** is a complex join, written as a Metadata Formula that names each column `[business table ID.business column ID]` and joins conditions with `AND(...; ...)`. [OrdersME](../04-domains-and-models-ordersme/guide.md) has the syntax.
+- **Joining on one store column** gives no error and wrong totals; see the panel at stage 4.
+- **Joining two strings on MySQL.** The [OrderStarCustomer](../07-properties-orderstarcustomer/guide.md) workshop's `+` is generated as written, and MySQL's `+` adds numbers. A formula the engine can't parse as a Metadata Formula is passed into the SQL unchanged, so MySQL's own `CONCAT` function works (write its name in capitals: the accreditation check looks for `CONCAT`); keep **Is the Formula Exact?** selected for it.
+- **Counting orders, not lines.** A formula that is not exact is a column name. Pick the aggregation that counts each value once.
+- **Row-level rules** are Data Constraints on the business model, one per role or user, as in [Row-Level Security](../11-security-and-data-access-row-level-security/guide.md). A role or user with no entry gets no rows, administrator included.
+- **The export from the User Console** downloads a file named after the domain. Move it into `capstone\out\` without renaming it.
+
+---
+
+## Build outline and hints <!-- no-step -->
+
+One section per stage, in the order you build them. Each says what the
+stage must do and what a correct build shows. The hints name a dialog or
+a technique; the settings are yours to work out.
+
 :::: tabs
 
 ### 1. Get ready
+
+**Must do:** requirement 1.
 
 1. Check that the `trailhead` database is there. In PowerShell:
 
@@ -54,7 +201,7 @@ C:\MySQL\load-trailhead.ps1
 ```
 
    It prints `trailhead database present (4286 sales lines).`, or loads
-   the database first and then says so. If it says it cannot query
+   the database first and prints `trailhead database loaded (4286 sales lines).` If it says it cannot query
    MySQL, start the container and try again:
 
 ```powershell
@@ -80,35 +227,33 @@ Copy-Item $jar.FullName "C:\Pentaho\server\pentaho-server\tomcat\lib\"
 3. Restart the Metadata Editor, and restart the Pentaho Server (stop it,
    then start it), so both load the driver.
 
+> **Success:** Checkpoint: in [Before You Start](../00-before-you-start/guide.md), the **MySQL driver (Metadata Editor)** and **Trailhead database (MySQL)** rows are green.
+
+Leave the MySQL container and both programs running for the rest of the capstone.
+
 > **Under the hood:**
 >
 > #### Two programs, two drivers
 >
 > The Metadata Editor connects to MySQL itself, to import tables and to
-> run the Query Editor. The published domain does not travel with a
-> connection, only with the connection's details, so the Pentaho Server
-> opens its own connection for every report built on it. Each program
-> loads drivers from its own folder, and only when it starts.
+> run the Query Editor. The published domain carries the connection's
+> details, and the Pentaho Server opens its own connection from them for
+> every report built on it. Each program loads drivers from its own
+> folder, and only when it starts.
 
-### 2. Domain, connection and tables (OrdersME)
+### 2. Domain and tables
 
-1. **File > New > Domain File**.
-2. Right-click **Connections** and create this connection:
+**Must do:** requirement 2. *(OrdersME)*
 
-| Field | Value |
-| --- | --- |
-| Connection name | mysql:trailhead |
-| Connection Type | MySQL |
-| Access | Native (JDBC) |
-| Host name | 127.0.0.1 |
-| Database Name | trailhead |
-| Port Number | 3306 |
-| User Name | pentaho_admin |
-| Password | password |
+> **Success:** Checkpoint: **Test** reports that the connection to `mysql:trailhead` was successful, and **Connections** lists five tables.
 
-3. Select **Test**, then **OK**. **Import Tables** opens: select the five
-   `trailhead` tables (`calendar`, `customers`, `products`, `sales`,
-   `stores`) and select **OK**.
+<details>
+<summary>Hints</summary>
+
+- **File > New > Domain File**, then **New Connection** on **Connections**, as in [OrdersME](../04-domains-and-models-ordersme/guide.md).
+- **Import Tables** opens after the connection is saved; select all five.
+
+</details>
 
 > **Under the hood:**
 >
@@ -126,67 +271,34 @@ Copy-Item $jar.FullName "C:\Pentaho\server\pentaho-server\tomcat\lib\"
 > has no case for and records as **String**: that is why the
 > OrderStarCustomer workshop had to set Order Date's data type by hand.
 
-### 3. Calculated columns (OrderStarCustomer)
+### 3. Calculated columns
 
-Add three columns in the physical layer, before you build the business
-model, so they come along when you drag the tables in. For each one:
-right-click the physical table, **Edit**, **Add New Column**, type the
-ID, then set the properties.
+**Must do:** requirement 3. *(OrderStarCustomer)*
 
-| Table | ID | Formula | Is the Formula Exact? | Default Aggregation | Data Type |
-| --- | --- | --- | --- | --- | --- |
-| `PT_SALES` | `PC_NET_SALES` | `[quantity]*[unit_price]*(1-[discount_pct])` | Selected | Sum | Numeric |
-| `PT_SALES` | `PC_ORDERS` | `order_no` | **Cleared** | Distinct Count | Numeric |
-| `PT_CUSTOMERS` | `PC_CUSTOMER_NAME` | `CONCAT(last_name, ', ', first_name)` | Selected | None | String |
+> **Success:** Checkpoint: Metadata Editor names each new column from its ID: **Net Sales**, **Orders** and **Customer Name**.
 
-The Metadata Editor names each one from its ID: **Net Sales**,
-**Orders**, **Customer Name**.
+<details>
+<summary>Hints</summary>
 
-> **Under the hood:**
->
-> #### Three formulas, three different routes into the SQL
->
-> **Net Sales** is a Metadata Formula: the engine parses it, swaps each
-> `[column]` for the table's alias and column, and wraps it in the
-> aggregation: `SUM(BT_SALES_SALES.quantity * BT_SALES_SALES.unit_price * (1 - BT_SALES_SALES.discount_pct))`.
->
-> **Orders** is not exact, so the text is a column name, and
-> Distinct Count turns it into `COUNT(DISTINCT BT_SALES_SALES.order_no)`: one per
-> order, however many lines it has. 4,286 lines make 2,410 orders.
->
-> **Customer Name** is the one MySQL needs its own way. The
-> OrderStarCustomer formula, `[last_name] + ", " + [first_name]`, is
-> generated as written, and MySQL's `+` adds numbers: every name
-> becomes `0`, and a Net Sales by Customer Name report collapses into
-> one row of $690,124.85. `CONCAT(...)` is not a Metadata Formula the
-> engine can parse, so it passes the text into the SQL unchanged, the
-> rule the complex-join warning describes. Because it goes in without a
-> table alias, use it only with column names that no other table in
-> the query shares: `last_name` and `first_name` are only in
-> `customers`, but `city` would be ambiguous.
+- Add them in the physical layer before you build the business model, so they come along when you drag the tables in: **Edit** the physical table, **Add New Column**, type the ID.
+- Physical column IDs are lower-case here: write them that way inside `[...]`.
+- See **Hints for the tricky bits** for Orders and Customer Name.
 
-### 4. Business model and relationships (OrdersME)
+</details>
 
-1. Right-click **Business Models**, **New Business Model**: Name
-   **Trailhead Sales**, Connection **mysql:trailhead**.
-2. Drag the five physical tables into **Business Tables**. Their IDs
-   are `BT_SALES_SALES`, `BT_STORES_STORES`, `BT_CUSTOMERS_CUSTOMERS`,
-   `BT_PRODUCTS_PRODUCTS` and `BT_CALENDAR_CALENDAR`.
-3. Create the relationships, every one **N:1** from Sales:
+### 4. Business model and relationships
 
-| From Table / Field | To Table / Field |
-| --- | --- |
-| BT_SALES_SALES / BC_SALES_PRODUCT_ID | BT_PRODUCTS_PRODUCTS / BC_PRODUCTS_PRODUCT_ID |
-| BT_SALES_SALES / BC_SALES_CUSTOMER_ID | BT_CUSTOMERS_CUSTOMERS / BC_CUSTOMERS_CUSTOMER_ID |
-| BT_SALES_SALES / BC_SALES_SALE_DATE | BT_CALENDAR_CALENDAR / BC_CALENDAR_DATE_KEY |
-| BT_SALES_SALES / BC_SALES_REGION_CODE | BT_STORES_STORES / BC_STORES_REGION_CODE |
+**Must do:** requirement 4. *(OrdersME)*
 
-4. The Stores relationship needs both key columns. Select
-   **Complex Join?** and enter this in **Complex Join Metadata Formula**:
+> **Success:** Checkpoint: the **Graphical View** draws Sales in the middle, joined to the four other tables, and the Stores relationship shows **Complex Join?** selected.
 
-```
-AND([BT_SALES_SALES.BC_SALES_REGION_CODE]=[BT_STORES_STORES.BC_STORES_REGION_CODE]; [BT_SALES_SALES.BC_SALES_STORE_NO]=[BT_STORES_STORES.BC_STORES_STORE_NO])
-```
+<details>
+<summary>Hints</summary>
+
+- Drag each physical table onto **Business Tables**; the IDs follow the pattern `BT_SALES_SALES`.
+- **Guess Matching Fields** fills a relationship whose two columns share a name; the Calendar one doesn't.
+
+</details>
 
 > **Under the hood:**
 >
@@ -200,54 +312,33 @@ AND([BT_SALES_SALES.BC_SALES_REGION_CODE]=[BT_STORES_STORES.BC_STORES_REGION_COD
 > is valid, just wrong. With both columns each sale matches exactly one
 > store, and the regions add up to the company total.
 
-### 5. Names and aggregations (OrderStarCustomer)
+### 5. Names and aggregations
 
-Override these names (Business Table Properties, **General > Name**):
+**Must do:** requirement 5 and the names table. *(OrderStarCustomer)*
 
-| Business column | Name |
-| --- | --- |
-| BC_SALES_ORDER_NO | Order Number |
-| BC_SALES_SALE_DATE | Sale Date |
-| BC_SALES_UNIT_PRICE | Unit Price |
-| BC_SALES_DISCOUNT_PCT | Discount |
-| BC_STORES_REGION_NAME | Region |
-| BC_STORES_REGION_CODE | Region Code |
-| BC_STORES_STORE_NAME | Store |
-| BC_STORES_CITY / BC_STORES_STATE | Store City / Store State |
-| BC_STORES_STORE_TYPE | Store Type |
-| BC_CUSTOMERS_CITY / BC_CUSTOMERS_STATE | Customer City / Customer State |
-| BC_CUSTOMERS_LOYALTY_TIER | Loyalty Tier |
-| BC_PRODUCTS_PRODUCT_NAME | Product |
-| BC_PRODUCTS_SKU | SKU |
-| BC_PRODUCTS_UNIT_COST / BC_PRODUCTS_LIST_PRICE | Unit Cost / List Price |
-| BC_CALENDAR_YEAR_NO | Year |
-| BC_CALENDAR_QUARTER_NAME | Quarter |
-| BC_CALENDAR_MONTH_NO | Month Number |
-| BC_CALENDAR_MONTH_DESC | Month |
-| BC_CALENDAR_IS_WEEKEND | Weekend |
+> **Success:** Checkpoint: the business tables show the business names, and the **Default Aggregation** of Quantity, Unit Price and Discount is Sum, Average and Average.
 
-Then set **Default Aggregation** on three Sales columns: Quantity
-**Sum**, Unit Price **Average**, Discount **Average**. (Net Sales and
-Orders already have theirs from the physical layer.)
+<details>
+<summary>Hints</summary>
 
-### 6. Concepts (Concept Editor)
+- **Business Table Properties**, **General > Name**, **Override**, as in [OrderStarCustomer](../07-properties-orderstarcustomer/guide.md).
+- Net Sales and Orders already have their aggregations from the physical layer.
 
-Create these concepts (**Tools > Concept Editor**), then set the parent
-concepts:
+</details>
 
-| Concept | Parent | Mask for Number or Date | Text Alignment |
-| --- | --- | --- | --- |
-| Number | Base | `#,##0` | Right |
-| USCurrency | Number | `$#,##0.00;($#,##0.00)` | (inherited) |
-| Percent | Number | `0.0%` | (inherited) |
-| Date | Base | `MM-dd-yyyy` | |
+### 6. Concepts
 
-| Parent concept | Business columns |
-| --- | --- |
-| Number | Quantity, Orders |
-| USCurrency | Unit Price, Net Sales, Unit Cost, List Price |
-| Percent | Discount |
-| Date | Sale Date |
+**Must do:** requirement 6 and the concepts table. *(Concept Editor)*
+
+> **Success:** Checkpoint: in the Concept Editor, **Number** and **Date** sit under **Base**, with **USCurrency** and **Percent** under **Number**.
+
+<details>
+<summary>Hints</summary>
+
+- **Tools > Concept Editor**; a new concept's parent is the one selected when you create it, as in [Concept Editor](../09-concepts-concept-editor/guide.md).
+- **Set Parent Concept** on each business column.
+
+</details>
 
 > **Under the hood:**
 >
@@ -260,38 +351,33 @@ concepts:
 > TIMESTAMP had come in as a String. `0.0%` multiplies by 100, so a
 > stored 0.25 shows as 25.0%.
 
-### 7. Business view (OrdersME, OrderStarCustomer)
+### 7. Business view
 
-Create five categories and add the columns, in this order:
+**Must do:** requirement 7 and the categories table. *(OrdersME, OrderStarCustomer)*
 
-| ID | Name | Columns |
-| --- | --- | --- |
-| CT_SALES | Sales | Order Number, Sale Date, Quantity, Unit Price, Discount, Net Sales, Orders |
-| CT_STORES | Stores | Region, Region Code, Store, Store City, Store State, Store Type |
-| CT_PRODUCTS | Products | Category, Brand, Product, SKU, Unit Cost, List Price |
-| CT_CUSTOMERS | Customers | Customer Name, Email, Phone, Customer City, Customer State, Loyalty Tier |
-| CT_CALENDAR | Calendar | Year, Quarter, Month Number, Month, Season, Weekend |
+> **Success:** Checkpoint: **Business View** holds Sales (7 columns), Stores (6), Products (6), Customers (6) and Calendar (6).
 
-### 8. Security (Row-Level Security)
+<details>
+<summary>Hints</summary>
 
-1. Point the editor at the server's security service
-   (**Tools > Security**, `http://localhost:8080/pentaho/api/userrolelist`,
-   `admin` / `password`), as in the Row-Level Security workshop.
-2. **Model:** edit the Trailhead Sales business model and set
-   **Metadata Security** to the roles **Power User** and **Business
-   Analyst**.
-3. **Categories:** edit each category and stop its Metadata Security
-   override, so all five inherit the model's.
-4. **Columns:** override Metadata Security on **Email** and **Phone**
-   (Customers) with the user **admin** only.
-5. **Rows:** on the business model, set **Data Constraints** to **Role
-   Based** with three entries:
+- **New Category** sets the ID and name; **Manage Categories** adds the columns.
 
-| Role or user | Constraint |
-| --- | --- |
-| Power User (role) | `[BT_STORES_STORES.BC_STORES_REGION_CODE] = "WEST"` |
-| Business Analyst (role) | `[BT_STORES_STORES.BC_STORES_REGION_CODE] = "EAST"` |
-| admin (user) | `TRUE()` |
+</details>
+
+### 8. Security
+
+**Must do:** requirement 8. *(Row-Level Security)*
+
+> **Success:** Checkpoint: the model's **Data Constraints** are **Role Based**, with three entries; **Email** and **Phone** list only `admin` under **Metadata Security**.
+
+<details>
+<summary>Hints</summary>
+
+- **Tools > Security** first, so the dialogs can list the server's users and roles.
+- A category created with its own, empty Metadata Security hides itself from everyone but the administrator: **Stop Override** on each.
+- The region constraint names the Stores business column for the region code.
+
+</details>
 
 > **Under the hood:**
 >
@@ -304,30 +390,53 @@ Create five categories and add the columns, in this order:
 > Sales data source at all.
 >
 > Data Constraints decide which **rows** come back, and here the
-> administrator gets no free pass: admin's `TRUE()` entry is what lets
-> admin see every region. Suzy holds Power User, so her queries get
-> `BT_STORES_STORES.region_code = 'WEST'` in the WHERE clause. The condition names the Stores
-> table, so the engine adds Stores to every query she runs, even one
-> that selects only Products and Sales columns: her Net Sales by
-> Category totals are West Coast totals too.
+> administrator gets no free pass: admin's entry is what lets admin see
+> every region. Because suzy's condition names the Stores table, the
+> engine adds Stores to every query she runs, even one that selects only
+> Products and Sales columns: her Net Sales by Category totals are West
+> Coast totals too.
 
-### 9. Test, save and publish (Query Builder, OrdersME)
+### 9. Test, publish and hand in
 
-1. Open the **Query Editor** and run **Region**, **Net Sales** and
-   **Orders**. You should get four rows that match admin's figures in
-   stage 10.
-2. **File > Save** as **Trailhead**.
-3. **File > Publish To Server**: Web Publish URL
-   `http://localhost:8080/pentaho/plugin/data-access/api/metadata/import`,
-   `admin` / `password`, Domain Name **Trailhead**.
-4. In the User Console, as admin: **Tools > Refresh > Reporting
-   Metadata**.
+**Must do:** requirement 9, and the five checks. *(Query Builder, OrdersME)*
 
-### 10. Prove it in Interactive Reports
+> **Success:** Checkpoint: the **Query Editor** returns four rows for **Region**, **Net Sales** and **Orders** that match **Verification checks** below, and every check is green.
 
-Create an Interactive Report on the **Trailhead Sales** data source with
-**Region**, **Net Sales** and **Orders**, then sign in as each user in
-turn.
+<details>
+<summary>Hints</summary>
+
+- **File > Save** as `Trailhead`, then **File > Publish To Server** with the [OrdersME](../04-domains-and-models-ordersme/guide.md) settings and the Domain Name `Trailhead`.
+- In the User Console, as `admin`: **Tools > Refresh > Reporting Metadata**.
+- **File > Export to XMI File** (`Ctrl+E`) saves `Trailhead.xmi`; save it into `capstone\solution\`.
+- In the User Console, **File > Manage Data Sources**: select **Trailhead** (a Metadata data source) and **Export...** from the gear menu, and move the download into `capstone\out\`.
+
+</details>
+
+::::
+
+---
+
+## Lab Files
+
+_No bundled files for this lab._ The data is the `trailhead` database in
+the MySQL lab kit, your domain is built from nothing in Metadata Editor,
+and the accreditation checks read `C:\Workshop-ME-Practitioner\capstone\`.
+
+---
+
+## Verification checks
+
+> **Warning:** These five checks decide your course accreditation, and
+> they look only in `C:\Workshop-ME-Practitioner\capstone\`: in
+> `solution\` your exported `Trailhead.xmi`, on `mysql:trailhead`, with
+> the two-column Stores join, a MySQL-ready Customer Name and the West
+> constraint; and in `out\` the published domain, exported from the User
+> Console. Export your work there before you take the exam.
+
+The checks confirm that the files exist and hold those parts. Check the
+numbers yourself: create an Interactive Report on the **Trailhead Sales**
+data source with **Region**, **Net Sales** and **Orders**, then sign in
+as each user in turn.
 
 | Region | Net Sales | Orders |
 | --- | --- | --- |
@@ -347,23 +456,16 @@ turn.
 For a second check, as admin: Net Sales by **Year** is $327,121.25 for
 2024 (1,137 orders) and $363,003.60 for 2025 (1,273 orders).
 
-::::
-
 ## Deliverables
 
-* [ ] A domain saved as `Trailhead` with the five tables, three calculated columns and the two-column complex join.
-* [ ] Names, aggregations, concepts and categories as specified; Sale Date shows as MM-dd-yyyy and Net Sales as currency.
-* [ ] The domain published to the Pentaho Server.
-* [ ] The region figures above, reproduced as admin, and as suzy and pat for their own regions.
-* [ ] Email and Phone visible to admin only; tiffany sees no Trailhead Sales data source.
+1. `Trailhead`: the domain, with the five tables, three calculated columns and the two-column complex join
+2. Names, aggregations, concepts and categories as specified; Sale Date shows as MM-dd-yyyy and Net Sales as currency
+3. The domain published to the Pentaho Server, giving the figures above to admin, suzy and pat
+4. Email and Phone visible to admin only; tiffany sees no Trailhead Sales data source
+5. `C:\Workshop-ME-Practitioner\capstone\solution\Trailhead.xmi` and `capstone\out\Trailhead.xmi`
 
----
-
-> **Tip:** Done? Take the **Associate Exam** from the sidebar to
-> validate what you've learned across the whole course.
-
-## Lab Files
-
-The reference solution. Build your own first, then compare:
-
-- [Trailhead.xmi](../_assets/files/Trailhead.xmi) - the finished domain (File > Import from XMI File)
+> **Warning:** Save into `capstone\solution\` and `capstone\out\`, not
+> into the course folder. Course content is refreshed from the
+> repository on every launch, so anything you leave there will be
+> overwritten. Reinstalling or upgrading the course never touches those
+> two folders.

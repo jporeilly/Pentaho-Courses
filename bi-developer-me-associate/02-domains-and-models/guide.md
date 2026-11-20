@@ -22,10 +22,12 @@ Pentaho Metadata Editor (PME) builds Pentaho metadata **domains** and **models**
 
 <div align="center">
 <figure>
-<img src="../_assets/images/dm_metadata_editor.png" alt="A diagram of the three layers: Table1 and CUST_TBL in the Physical Layer map to Business Table1 and Customers in the Abstract Business Layer, which feed Category1, Category2, Customers East and Customers West in the Business View" width="800">
-<figcaption>Metadata Editor</figcaption>
+<img src="../_assets/images/domain-layers.png" alt="A diagram of the three layers: Table1 and CUST_TBL in the Physical Layer map to Business Table1 and Customers in the Abstract Business Layer, which feed Category1, Category2, Customers East and Customers West in the Business View" width="800">
+<figcaption>The three layers of a metadata domain</figcaption>
 </figure>
 </div>
+
+Read the diagram left to right. Each physical table maps to a business table, which keeps a reference to it, and each business table's columns are placed in the categories of the Business View. One business table can feed several categories: here the Customers business table supplies both Customers East and Customers West. A category can also mix columns from different business tables, as the Business View tab below describes.
 
 This page is your **reference** for how a metadata domain is structured. A Metadata Editor domain is composed of three layers — the **Physical Layer**, the **Business Layer**, and the **Business View** — described below. The labs that follow — **SteelWheels**, **OrdersME**, and **Query Builder** — put them to work.
 

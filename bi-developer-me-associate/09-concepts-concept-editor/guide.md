@@ -12,7 +12,7 @@
 > * Give them masks, a text alignment and the **Hidden For the User?** flag
 > * Set the parent concept of business columns in the Orders, Customers and Products categories
 > * Publish the domain to the Pentaho Server
-> * Check the formatting, and the hidden column, in an Interactive Report
+> * Check the formatting in an Interactive Report, and see what the Hidden flag does there
 >
 > **Prerequisites:**
 >
@@ -20,6 +20,12 @@
 > * The Pentaho Server running (see [Before You Start](../00-before-you-start/guide.md))
 >
 > **Estimated time:** 60 minutes
+
+<figure>
+
+<figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
+
+</figure>
 
 <div align="center">
 <figure>
@@ -38,51 +44,22 @@
 >
 > A concept is a reusable bundle of properties. A concept starts from its parent's properties and adds or overrides its own, and every business column whose parent concept it is takes them all. A new concept's parent is the concept selected when you create it.
 
-<div class="pcm-embed-card" data-href="https://www.loom.com/share/c53a49ad5f204a29818000b69e47f7c8?hideEmbedTopBar=true&amp;hide_share=true&amp;hide_title=true&amp;sid=c43fa08d-06b6-4b14-8658-993775337ca4?hide_owner=true" data-title="Creating and Applying Metadata Concepts for Business Objects 💻" data-description="In this video, I demonstrate how to create and apply metadata concepts for formatting business columns, specifically for numbers, currency, and dates. I walk you through accessing the Concept Editor, where I start by modifying the base concept to create a number concept with right alignment and comma formatting. Next, I create a currency concept inheriting from the number concept, adding a dollar sign and two decimal places. Finally, I establish a date concept with a specific Java date format. Please be prepared to apply these concepts to the business columns in the next demonstration." data-thumb="../_assets/embeds/125979ecbc12.png"></div>
-
-1. Start the Metadata Editor with the **Open Metadata Editor** button below, or from a terminal:
-
-::: tabs
-
-### Windows (PowerShell)
+1. Start the Metadata Editor with the **Open Metadata Editor** button below, or from PowerShell:
 
 ```powershell
 Set-Location C:\Pentaho\design-tools\metadata-editor
 .\metadata-editor.bat
 ```
 
-### macOS / Linux
-
-```bash
-cd ~/Pentaho/design-tools/metadata-editor
-./metadata-editor.sh
-```
-
-:::
-
 <button data-launch="metadata-editor">Open Metadata Editor</button>
 
-2. Make sure the Pentaho Server is running: you publish to it in part 3. On a lab VM it is already running. On your own machine, start it:
-
-::: tabs
-
-### Windows (PowerShell)
+2. Make sure the Pentaho Server is running: you publish to it in part 3, and the HSQLDB sample data runs with it, on port `9001`. On a lab VM it starts with the machine. On your own machine, start it as [Before You Start](../00-before-you-start/guide.md) describes (its repository database first), and wait until **http://localhost:8080/pentaho** shows the sign-in page:
 
 ```powershell
-Set-Location C:\Pentaho\server\pentaho-server
-.\start-pentaho.bat
+C:\Pentaho\server\pentaho-server\start-pentaho.bat
 ```
 
-### macOS / Linux
-
-```bash
-cd ~/Pentaho/server/pentaho-server
-./start-pentaho.sh
-```
-
-:::
-
-3. Select **File > Open** (`Ctrl+O`), select **OrderStarCustomer** in the **Select a Domain** dialog, and select **OK**. Starting from the Lab Files instead? Select **File > Import from XMI File** (`Ctrl+I`), open `OrderStarCustomer.xmi`, and in the **Save Model** dialog enter `OrderStarCustomer` and select **OK**.
+3. Select **File > Open** (`Ctrl+O`), select **OrderStarCustomer** in the **Select a Domain** dialog, and select **OK**. Starting from the Lab Files instead? Select **File > Import from XMI File** (`Ctrl+I`), open `OrderStarCustomer.xmi` from `C:\Workshop-ME-Practitioner\04-concepts\09-concepts-concept-editor`, and in the **Save Model** dialog enter `OrderStarCustomer` and select **OK**.
 4. Select **Tools > Concept Editor**.
 5. Under **Concepts**, select **Base**, then select the green plus icon above the tree, ![The green plus icon](../_assets/images/add-concept-button.png).
 6. In the **New Concept** dialog, enter `Number` and select **OK**.
@@ -126,6 +103,14 @@ cd ~/Pentaho/server/pentaho-server
 </div>
 
 14. Select **Number**, create the concept `ID` the same way, override its **Mask for Number or Date**, and set **Value** to `#`.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/concept_editor_id_concept.png" alt="The ID concept under Number, with Mask for Number or Date selected in Available: the inherited Text Alignment Right is grayed out, and the overridden mask Value is #" width="800">
+<figcaption>ID: a number with no thousands separator</figcaption>
+</figure>
+</div>
+
 15. Select **ID** and create the concept `Hidden`.
 16. Select **Hidden** and the green plus icon to the right of **Available**. In **Add New Property**, select **Miscellaneous > Hidden For the User?** and select **OK**.
 
@@ -145,7 +130,7 @@ cd ~/Pentaho/server/pentaho-server
 </figure>
 </div>
 
-18. Select **Base** and create the concept `Date`. Add **Miscellaneous > Mask for Number or Date** to it, as in step 8, and set **Value** to `MM-dd-yyyy`.
+18. Select **Base** and create the concept `Date`. Add **Miscellaneous > Mask for Number or Date** to it, as in steps 7 and 8, and set **Value** to `MM-dd-yyyy`.
 
 <div align="center">
 <figure>
@@ -185,6 +170,15 @@ cd ~/Pentaho/server/pentaho-server
 > Number, USCurrency, ID and Hidden follows, unless it overrides that
 > property itself.
 
+<div align="center">
+<figure>
+<img src="../_assets/images/concept-chain.png" alt="The concept tree: Base, with its font and Text Alignment Left, passes its properties to Number and Date; Number adds Text Alignment Right and the mask #,##0 and passes them to USCurrency and ID, which each override the mask; ID passes them to Hidden, which adds Hidden For the User?. Below, a business column takes a property from its own override, then its parent concept chain, then its physical column" width="800">
+<figcaption>Five concepts below Base, and where a column's property comes from</figcaption>
+</figure>
+</div>
+
+Read the top of the diagram left to right: each arrow runs from a parent concept to a child, and each box names only what that concept adds or overrides. Date hangs directly from Base, so it takes Base's left alignment, not Number's right one. The bottom row is the order in which a business column looks for a property: its own override first, then its parent concept and every concept above it, and only then its physical column. Employee Number sets nothing itself, so the chain from Hidden up to Base supplies all of its properties, and Hidden For the User? flags it as a column report users should not see.
+
 ### 2. Apply Concepts
 
 > **Note:**
@@ -192,8 +186,6 @@ cd ~/Pentaho/server/pentaho-server
 > #### Apply Concepts
 >
 > Set a business column's parent concept from the business view: right-click the column and select **Set Parent Concept**. The column then shows its concept in the tree's **Parent Concept** column.
-
-<div class="pcm-embed-card" data-href="https://www.loom.com/share/c076e434bfad4b5e9c63e7bf2dca9ca2?hideEmbedTopBar=true&amp;hide_share=true&amp;hide_title=true&amp;sid=a323e4f4-9cf0-4441-8e64-2ed8174abbbe?hide_owner=true" data-title="Applying Concepts to Business Columns in Data Management" data-description="In this demonstration, I applied concepts for numbers, currency, and dates to various business columns. I assigned the number concept to the quantity ordered, the currency concept to the price sold and total price columns, and the date concept to the order date. I also applied the currency concept to the total column. The remaining columns utilize the base concept, and I am now finished with applying concepts. In the next demonstration, I will use the query editor to test this metadata domain, so please stay tuned for that." data-thumb="../_assets/embeds/125979ecbc12.png"></div>
 
 1. Expand **Business Models > OrderStarCustomer > Business View > Orders**.
 2. Right-click **Order Number** and select **Set Parent Concept**.
@@ -242,14 +234,14 @@ Every other column keeps **Base**.
 
 <div align="center">
 <figure>
-<img src="../_assets/images/concept_editor_hidden_concept.png" alt="The Customers category with every column on Base except Employee Number, on Hidden" width="436">
-<figcaption>Customers: Employee Number is hidden</figcaption>
+<img src="../_assets/images/concept_editor_hidden_concept.png" alt="The Customers category with every column on Base except Employee Number, on Hidden; Contact Name, the calculated column, shows no concept" width="364">
+<figcaption>Customers: Employee Number on the Hidden concept</figcaption>
 </figure>
 </div>
 
 <div align="center">
 <figure>
-<img src="../_assets/images/concept_editor_2.png" alt="The Products category with Buy Price and MSRP on USCurrency and the descriptive columns on Base" width="435">
+<img src="../_assets/images/concept_editor_2.png" alt="The Products category with Product Code and the descriptive columns on Base, and Buy Price and MSRP on USCurrency" width="364">
 <figcaption>Products: the two prices are currency</figcaption>
 </figure>
 </div>
@@ -274,11 +266,20 @@ Every other column keeps **Base**.
 | **Server Password** | `password` |
 | **Domain Name** | `OrdersStarCustomer` |
 
+The editor fills in the **Web Publish URL** and proposes the model's name, `OrderStarCustomer`, as **Domain Name**: replace it with `OrdersStarCustomer`.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/concept_editor_publish_dialog.png" alt="The Publish To Server dialog: Web Publish URL http://localhost:8080/pentaho/plugin/data-access/api/metadata/import, Server Userid admin, a masked Server Password and the Domain Name OrdersStarCustomer" width="588">
+<figcaption>Ready to publish</figcaption>
+</figure>
+</div>
+
 3. Select **OK**.
 
 <div align="center">
 <figure>
-<img src="../_assets/images/concept_editor_publish_ordersstarcustomer.png" alt="The Action Successful message over the Publish To Server dialog: File - OrdersStarCustomer: Successfully saved to the server" width="800">
+<img src="../_assets/images/concept_editor_publish_ordersstarcustomer.png" alt="The Action Successful message over the Publish To Server dialog: File - OrdersStarCustomer: Successfully saved to the server; the Web Publish URL, Server Userid admin and the masked password show above it" width="800">
 <figcaption>Published as OrdersStarCustomer</figcaption>
 </figure>
 </div>
@@ -293,7 +294,7 @@ Every other column keeps **Base**.
 >
 > #### Check the Concepts in a Report
 >
-> Interactive Reports applies a column's mask, alignment and **Hidden For the User?** flag as it lists and shows the fields.
+> Interactive Reports applies a column's mask and alignment as it shows the fields. It does not apply **Hidden For the User?** on Pentaho 11.0.0.3, and this section shows what that means.
 
 1. Open the Pentaho User Console with the button below and log in as `admin` (password `password`).
 
@@ -309,20 +310,38 @@ Every other column keeps **Base**.
 </figure>
 </div>
 
-> **Success:** Checkpoint: the list shows **OrderStarCustomer**, not **OrdersStarCustomer**: **Select Data Source** lists business models, and the domain you published holds a model named OrderStarCustomer. On the **Data** tab, the **Customers** category doesn't list **Employee Number**: its parent concept, Hidden, hides it.
+> **Success:** Checkpoint: the list shows **OrderStarCustomer**, not **OrdersStarCustomer**: **Select Data Source** lists business models, and the domain you published holds a model named OrderStarCustomer.
 
-4. On the **Data** tab, double-click **Contact Name**, **Order Date**, **Quantity Ordered**, **Price Sold** and **Total**, in that order. Each one becomes a column of the report.
+4. On the **Data** tab, expand **Customers**. It still lists **Employee Number**, though its parent concept is Hidden.
 
-<div align="center">
-<figure>
-<img src="../_assets/images/concept_editor_test_interactive_report.png" alt="An Interactive Report on OrderStarCustomer with the columns Contact Name, Order Date, Quantity Ordered, Price Sold and Total; the Customers category on the Data tab lists no Employee Number, and Price Sold and Total show dollar amounts such as $325.87 and $9,450.23" width="800">
-<figcaption>The concepts at work in a report</figcaption>
-</figure>
-</div>
+> **Under the hood:**
+>
+> #### The Hidden flag stays in the domain
+>
+> The domain you published carries **Hidden For the User?** on Employee
+> Number, but Pentaho Server 11.0.0.3 does not pass the flag to
+> Interactive Reports: the model it sends marks every column as visible,
+> while the masks and alignments from the same concepts arrive and apply.
+> So the flag records your intent in the domain, and Interactive Reports
+> ignores it.
+>
+> **Why it matters:** to keep a column from report users in Interactive
+> Reports, restrict its Metadata Security. The
+> [Row-Level Security](../11-security-and-data-access-row-level-security/guide.md)
+> workshop does that for Credit Limit, and `suzy` no longer sees it.
+
+5. On the **Data** tab, double-click **Contact Name**, **Order Date**, **Quantity Ordered**, **Price Sold** and **Total**, in that order. Each one becomes a column of the report.
 
 > **Success:** Checkpoint: **Price Sold** and **Total** show as dollar amounts with two decimals, such as `$325.87`, and the numbers are right-aligned. **Contact Name** reads last name, then first name, such as `Ferguson, Peter`.
 
-5. Double-click **Required Date** and compare it with **Order Date**.
+6. Double-click **Required Date** and compare it with **Order Date**. **Order Date** reads like `04-29-2003`, the Date concept's mask; **Required Date** reads like `2003-05-08 00:00:00.0`, though it has the same concept.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/concept_editor_test_interactive_report.png" alt="An Interactive Report on OrderStarCustomer with the columns Contact Name, Order Date, Quantity Ordered, Price Sold, Total and Required Date; the first row reads Ferguson, Peter, 04-29-2003, 29, $325.87, $9,450.23 and 2003-05-08 00:00:00.0. The Data tab lists the Orders, Customers and Products categories" width="800">
+<figcaption>The concepts at work: the masked Order Date beside the unmasked Required Date</figcaption>
+</figure>
+</div>
 
 > **Under the hood:**
 >
@@ -338,20 +357,22 @@ Every other column keeps **Base**.
 > it. When a mask seems to do nothing, check the column's **Data Type**
 > before the mask.
 
-6. Close the **Interactive Report** tab. You don't need to save the report.
+7. Close the **Interactive Report** tab. You don't need to save the report.
 
 ::::
 
 ## Lab Files
 
-Click a file to download it.
+Click a file to download. Every file is also on disk in this workshop's folder, `C:\Workshop-ME-Practitioner\04-concepts\09-concepts-concept-editor`: load a domain into Metadata Editor with **File > Import from XMI File**.
 
 The starting domain, the result of the [OrderStarCustomer](../07-properties-orderstarcustomer/guide.md) workshop:
 
-[OrderStarCustomer.xmi](../_assets/files/OrderStarCustomer.xmi)
+[OrderStarCustomer.xmi](./files/OrderStarCustomer.xmi)
 
 ### Solution <!-- no-step -->
 
-The finished domain, with this workshop's concepts applied. Load it with **File > Import from XMI File**.
+The finished domain, with this workshop's concepts applied. Open it in Metadata Editor alongside your own to compare, or publish it to see the expected result.
 
-[OrderStarCustomer-concepts.xmi](../_assets/files/OrderStarCustomer-concepts.xmi)
+Also on disk at `C:\Workshop-ME-Practitioner\04-concepts\09-concepts-concept-editor\solution`.
+
+[OrderStarCustomer-concepts.xmi](./files/solution/OrderStarCustomer-concepts.xmi)

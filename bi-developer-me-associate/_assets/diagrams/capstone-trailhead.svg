@@ -1,0 +1,171 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="766" viewBox="0 0 800 766" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+<filter id="shadow" x="-10%" y="-10%" width="120%" height="140%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#0f172a" flood-opacity="0.12"/></filter></defs>
+<rect width="800" height="766" fill="#ffffff"/>
+<rect x="16" y="524" width="768" height="226" rx="12" fill="#fffbeb" stroke="#fef3c7" stroke-width="1.5"/>
+<path d="M16 536a12 12 0 0 1 12-12h744a12 12 0 0 1 12 12v32h-768z" fill="#b45309"/>
+<g transform="translate(29 534) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></g>
+<text x="56" y="544" font-size="14" font-weight="700" fill="#ffffff">Security on Trailhead Sales</text>
+<text x="56" y="560" font-size="11.5" fill="#ffffff" opacity="0.92">model: Power User and Business Analyst; rows: one Data Constraint per role or user</text>
+<path d="M290 147C276.5 147 276.5 147 263 147" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M290 191C276.5 191 276.5 317 263 317" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M510 169C523.5 169 523.5 147 537 147" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M510 213C523.5 213 523.5 317 537 317" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M510 235C523.5 235 523.5 339 537 339" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="16" y="16" width="768" height="62" rx="10" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="48" cy="47" r="19" fill="#ffffff" stroke="#0f766e" stroke-width="1.2"/>
+<g transform="translate(36 35) scale(1)" fill="none" stroke="#0f766e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/><rect width="20" height="14" x="2" y="6" rx="2"/></g>
+<text x="78" y="44" font-size="14" font-weight="700" fill="#134e4a">Trailhead Sales, on the connection mysql:trailhead</text>
+<text x="78" y="62" font-size="12" fill="#134e4a">Business View: Sales, Stores, Products, Customers, Calendar</text>
+<rect x="290" y="98" width="220" height="286" rx="10" fill="#ffffff" stroke="#0f766e" stroke-width="1.5" filter="url(#shadow)"/>
+<path d="M290 108a10 10 0 0 1 10-10h200a10 10 0 0 1 10 10v26h-220z" fill="#0f766e"/>
+<g transform="translate(302 106) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></g>
+<text x="330" y="122" font-size="14" font-weight="700" fill="#ffffff">sales  (fact)</text>
+<text x="302" y="151" font-size="12" fill="#64748b"></text>
+<text x="394" y="151" font-size="12" fill="#134e4a">product_id</text>
+<rect x="472" y="139" width="28" height="15" rx="7.5" fill="#f1f5f9" stroke="#94a3b8" stroke-width="0.8"/>
+<text x="486" y="150" text-anchor="middle" font-size="9.5" font-weight="700" fill="#475569">FK</text>
+<rect x="291" y="158" width="218" height="22" fill="#f0fdfa"/>
+<text x="302" y="173" font-size="12" fill="#64748b"></text>
+<text x="394" y="173" font-size="12" fill="#134e4a">sale_date</text>
+<rect x="472" y="161" width="28" height="15" rx="7.5" fill="#f1f5f9" stroke="#94a3b8" stroke-width="0.8"/>
+<text x="486" y="172" text-anchor="middle" font-size="9.5" font-weight="700" fill="#475569">FK</text>
+<text x="302" y="195" font-size="12" fill="#64748b"></text>
+<text x="394" y="195" font-size="12" fill="#134e4a">customer_id</text>
+<rect x="472" y="183" width="28" height="15" rx="7.5" fill="#f1f5f9" stroke="#94a3b8" stroke-width="0.8"/>
+<text x="486" y="194" text-anchor="middle" font-size="9.5" font-weight="700" fill="#475569">FK</text>
+<rect x="291" y="202" width="218" height="22" fill="#f0fdfa"/>
+<text x="302" y="217" font-size="12" fill="#64748b"></text>
+<text x="394" y="217" font-size="12" fill="#134e4a">region_code</text>
+<rect x="472" y="205" width="28" height="15" rx="7.5" fill="#f1f5f9" stroke="#94a3b8" stroke-width="0.8"/>
+<text x="486" y="216" text-anchor="middle" font-size="9.5" font-weight="700" fill="#475569">FK</text>
+<text x="302" y="239" font-size="12" fill="#64748b"></text>
+<text x="394" y="239" font-size="12" fill="#134e4a">store_no</text>
+<rect x="472" y="227" width="28" height="15" rx="7.5" fill="#f1f5f9" stroke="#94a3b8" stroke-width="0.8"/>
+<text x="486" y="238" text-anchor="middle" font-size="9.5" font-weight="700" fill="#475569">FK</text>
+<rect x="291" y="246" width="218" height="22" fill="#f0fdfa"/>
+<text x="302" y="261" font-size="12" fill="#64748b"></text>
+<text x="394" y="261" font-size="12" fill="#134e4a">order_no</text>
+<text x="302" y="283" font-size="12" fill="#64748b"></text>
+<text x="394" y="283" font-size="12" fill="#134e4a">quantity</text>
+<rect x="291" y="290" width="218" height="22" fill="#f0fdfa"/>
+<text x="302" y="305" font-size="12" fill="#64748b"></text>
+<text x="394" y="305" font-size="12" fill="#134e4a">unit_price</text>
+<text x="302" y="327" font-size="12" fill="#64748b"></text>
+<text x="394" y="327" font-size="12" fill="#134e4a">discount_pct</text>
+<rect x="291" y="334" width="218" height="22" fill="#f0fdfa"/>
+<text x="302" y="349" font-size="12" fill="#64748b">calculated</text>
+<text x="394" y="349" font-size="12" fill="#134e4a">PC_NET_SALES</text>
+<text x="302" y="371" font-size="12" fill="#64748b">calculated</text>
+<text x="394" y="371" font-size="12" fill="#134e4a">PC_ORDERS</text>
+<rect x="16" y="98" width="244" height="132" rx="10" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<path d="M16 108a10 10 0 0 1 10-10h224a10 10 0 0 1 10 10v26h-244z" fill="#1d4ed8"/>
+<g transform="translate(28 106) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z"/><path d="M12 22V12"/><polyline points="3.29 7 12 12 20.71 7"/><path d="m7.5 4.27 9 5.15"/></g>
+<text x="56" y="122" font-size="14" font-weight="700" fill="#ffffff">products</text>
+<text x="28" y="151" font-size="12" fill="#64748b"></text>
+<text x="120" y="151" font-size="12" fill="#1e3a8a" font-weight="700">product_id</text>
+<rect x="222" y="139" width="28" height="15" rx="7.5" fill="#dbeafe" stroke="#1d4ed8" stroke-width="0.8"/>
+<text x="236" y="150" text-anchor="middle" font-size="9.5" font-weight="700" fill="#1e3a8a">PK</text>
+<rect x="17" y="158" width="242" height="22" fill="#eff6ff"/>
+<text x="28" y="173" font-size="12" fill="#64748b"></text>
+<text x="120" y="173" font-size="12" fill="#1e3a8a">product_name</text>
+<text x="28" y="195" font-size="12" fill="#64748b"></text>
+<text x="120" y="195" font-size="12" fill="#1e3a8a">category</text>
+<rect x="17" y="202" width="242" height="22" fill="#eff6ff"/>
+<text x="28" y="217" font-size="12" fill="#64748b"></text>
+<text x="120" y="217" font-size="12" fill="#1e3a8a">brand</text>
+<rect x="16" y="268" width="244" height="176" rx="10" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<path d="M16 278a10 10 0 0 1 10-10h224a10 10 0 0 1 10 10v26h-244z" fill="#1d4ed8"/>
+<g transform="translate(28 276) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><path d="M16 3.128a4 4 0 0 1 0 7.744"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><circle cx="9" cy="7" r="4"/></g>
+<text x="56" y="292" font-size="14" font-weight="700" fill="#ffffff">customers</text>
+<text x="28" y="321" font-size="12" fill="#64748b"></text>
+<text x="120" y="321" font-size="12" fill="#1e3a8a" font-weight="700">customer_id</text>
+<rect x="222" y="309" width="28" height="15" rx="7.5" fill="#dbeafe" stroke="#1d4ed8" stroke-width="0.8"/>
+<text x="236" y="320" text-anchor="middle" font-size="9.5" font-weight="700" fill="#1e3a8a">PK</text>
+<rect x="17" y="328" width="242" height="22" fill="#eff6ff"/>
+<text x="28" y="343" font-size="12" fill="#64748b"></text>
+<text x="120" y="343" font-size="12" fill="#1e3a8a">first_name</text>
+<text x="28" y="365" font-size="12" fill="#64748b"></text>
+<text x="120" y="365" font-size="12" fill="#1e3a8a">last_name</text>
+<rect x="17" y="372" width="242" height="22" fill="#eff6ff"/>
+<text x="28" y="387" font-size="12" fill="#64748b"></text>
+<text x="120" y="387" font-size="12" fill="#1e3a8a">email</text>
+<text x="28" y="409" font-size="12" fill="#64748b"></text>
+<text x="120" y="409" font-size="12" fill="#1e3a8a">phone</text>
+<rect x="17" y="416" width="242" height="22" fill="#eff6ff"/>
+<text x="28" y="431" font-size="12" fill="#64748b">calculated</text>
+<text x="120" y="431" font-size="12" fill="#1e3a8a">PC_CUSTOMER_NAME</text>
+<rect x="540" y="98" width="244" height="132" rx="10" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<path d="M540 108a10 10 0 0 1 10-10h224a10 10 0 0 1 10 10v26h-244z" fill="#1d4ed8"/>
+<g transform="translate(552 106) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></g>
+<text x="580" y="122" font-size="14" font-weight="700" fill="#ffffff">calendar</text>
+<text x="552" y="151" font-size="12" fill="#64748b"></text>
+<text x="644" y="151" font-size="12" fill="#1e3a8a" font-weight="700">date_key</text>
+<rect x="746" y="139" width="28" height="15" rx="7.5" fill="#dbeafe" stroke="#1d4ed8" stroke-width="0.8"/>
+<text x="760" y="150" text-anchor="middle" font-size="9.5" font-weight="700" fill="#1e3a8a">PK</text>
+<rect x="541" y="158" width="242" height="22" fill="#eff6ff"/>
+<text x="552" y="173" font-size="12" fill="#64748b"></text>
+<text x="644" y="173" font-size="12" fill="#1e3a8a">year_no</text>
+<text x="552" y="195" font-size="12" fill="#64748b"></text>
+<text x="644" y="195" font-size="12" fill="#1e3a8a">quarter_name</text>
+<rect x="541" y="202" width="242" height="22" fill="#eff6ff"/>
+<text x="552" y="217" font-size="12" fill="#64748b"></text>
+<text x="644" y="217" font-size="12" fill="#1e3a8a">month_desc</text>
+<rect x="540" y="268" width="244" height="132" rx="10" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<path d="M540 278a10 10 0 0 1 10-10h224a10 10 0 0 1 10 10v26h-244z" fill="#1d4ed8"/>
+<g transform="translate(552 276) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 21v-5a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v5"/><path d="M17.774 10.31a1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.451 0 1.12 1.12 0 0 0-1.548 0 2.5 2.5 0 0 1-3.452 0 1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.77-3.248l2.889-4.184A2 2 0 0 1 7 2h10a2 2 0 0 1 1.653.873l2.895 4.192a2.5 2.5 0 0 1-3.774 3.244"/><path d="M4 10.95V19a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8.05"/></g>
+<text x="580" y="292" font-size="14" font-weight="700" fill="#ffffff">stores</text>
+<text x="552" y="321" font-size="12" fill="#64748b"></text>
+<text x="644" y="321" font-size="12" fill="#1e3a8a" font-weight="700">region_code</text>
+<rect x="746" y="309" width="28" height="15" rx="7.5" fill="#dbeafe" stroke="#1d4ed8" stroke-width="0.8"/>
+<text x="760" y="320" text-anchor="middle" font-size="9.5" font-weight="700" fill="#1e3a8a">PK</text>
+<rect x="541" y="328" width="242" height="22" fill="#eff6ff"/>
+<text x="552" y="343" font-size="12" fill="#64748b"></text>
+<text x="644" y="343" font-size="12" fill="#1e3a8a" font-weight="700">store_no</text>
+<rect x="746" y="331" width="28" height="15" rx="7.5" fill="#dbeafe" stroke="#1d4ed8" stroke-width="0.8"/>
+<text x="760" y="342" text-anchor="middle" font-size="9.5" font-weight="700" fill="#1e3a8a">PK</text>
+<text x="552" y="365" font-size="12" fill="#64748b"></text>
+<text x="644" y="365" font-size="12" fill="#1e3a8a">region_name</text>
+<rect x="541" y="372" width="242" height="22" fill="#eff6ff"/>
+<text x="552" y="387" font-size="12" fill="#64748b"></text>
+<text x="644" y="387" font-size="12" fill="#1e3a8a">store_name</text>
+<rect x="72.30000000000001" y="232.5" width="131.39999999999998" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="138" y="250.5" text-anchor="middle" font-size="12" fill="#334155">N:1 on the product</text>
+<rect x="590" y="232.5" width="144" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="662" y="250.5" text-anchor="middle" font-size="12" fill="#334155">N:1 on the sale date</text>
+<rect x="580.55" y="403" width="162.9" height="40" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="662" y="421" text-anchor="middle" font-size="12" fill="#334155">N:1 on both store key</text>
+<text x="662" y="436" text-anchor="middle" font-size="12" fill="#334155">columns: a complex join</text>
+<rect x="50.25" y="450.5" width="175.5" height="55" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="138" y="468.5" text-anchor="middle" font-size="12" fill="#334155">N:1 on the customer;</text>
+<text x="138" y="483.5" text-anchor="middle" font-size="12" fill="#334155">Customer Name such as</text>
+<text x="138" y="498.5" text-anchor="middle" font-size="12" fill="#334155">Barnes, Taylor, for MySQL</text>
+<rect x="274.45" y="390.5" width="251.1" height="55" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="400" y="408.5" text-anchor="middle" font-size="12" fill="#334155">PC_NET_SALES: quantity × unit price,</text>
+<text x="400" y="423.5" text-anchor="middle" font-size="12" fill="#334155">less the discount, summed;</text>
+<text x="400" y="438.5" text-anchor="middle" font-size="12" fill="#334155">PC_ORDERS: distinct orders, not lines</text>
+<rect x="32" y="584" width="360" height="72" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="620" r="19" fill="#ffffff" stroke="#b45309" stroke-width="1.2"/>
+<g transform="translate(50 608) scale(1)" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></g>
+<text x="92" y="603" font-size="14" font-weight="700" fill="#78350f">admin</text>
+<text x="92" y="620" font-size="12" fill="#78350f">every region, from its own entry;</text>
+<text x="92" y="635" font-size="12" fill="#78350f">Email and Phone listed</text>
+<rect x="408" y="584" width="360" height="72" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="438" cy="620" r="19" fill="#ffffff" stroke="#b45309" stroke-width="1.2"/>
+<g transform="translate(426 608) scale(1)" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></g>
+<text x="468" y="603" font-size="14" font-weight="700" fill="#78350f">suzy, Power User</text>
+<text x="468" y="620" font-size="12" fill="#78350f">WEST rows only</text>
+<text x="468" y="635" font-size="12" fill="#78350f">no Email or Phone</text>
+<rect x="32" y="670" width="360" height="72" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="706" r="19" fill="#ffffff" stroke="#b45309" stroke-width="1.2"/>
+<g transform="translate(50 694) scale(1)" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></g>
+<text x="92" y="689" font-size="14" font-weight="700" fill="#78350f">pat, Business Analyst</text>
+<text x="92" y="706" font-size="12" fill="#78350f">EAST rows only</text>
+<text x="92" y="721" font-size="12" fill="#78350f">no Email or Phone</text>
+<rect x="408" y="670" width="360" height="72" rx="10" fill="#fee2e2" stroke="#b91c1c" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="438" cy="706" r="19" fill="#ffffff" stroke="#b91c1c" stroke-width="1.2"/>
+<g transform="translate(426 694) scale(1)" fill="none" stroke="#b91c1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="17" x2="22" y1="8" y2="13"/><line x1="22" x2="17" y1="8" y2="13"/></g>
+<text x="468" y="689" font-size="14" font-weight="700" fill="#7f1d1d">tiffany, Report Author</text>
+<text x="468" y="706" font-size="12" fill="#7f1d1d">in neither role: no Trailhead</text>
+<text x="468" y="721" font-size="12" fill="#7f1d1d">Sales data source at all</text>
+</svg>

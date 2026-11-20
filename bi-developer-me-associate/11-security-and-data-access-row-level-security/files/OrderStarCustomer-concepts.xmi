@@ -2646,7 +2646,7 @@
         <CWMMDB:DimensionedObject xmi.idref = 'a600'/>
       </CWM:Description.modelElement>
     </CWM:Description>
-    <CWM:Description xmi.id = 'a602' name = 'name' body = 'Territory Colour'
+    <CWM:Description xmi.id = 'a602' name = 'name' body = 'Territory Color'
       language = 'en_US' type = 'LocString'>
       <CWM:Description.modelElement>
         <CWMMDB:DimensionedObject xmi.idref = 'a603'/>
@@ -2979,7 +2979,7 @@
         <CWM:TaggedValue xmi.id = 'a669' tag = 'DATABASE_SERVER' value = 'localhost'/>
         <CWM:TaggedValue xmi.id = 'a670' tag = 'DATABASE_TYPE' value = 'HYPERSONIC'/>
         <CWM:TaggedValue xmi.id = 'a671' tag = 'DATABASE_ACCESS' value = 'Native'/>
-        <CWM:TaggedValue xmi.id = 'a672' tag = 'DATABASE_DATABASE' value = 'Sampledata'/>
+        <CWM:TaggedValue xmi.id = 'a672' tag = 'DATABASE_DATABASE' value = 'sampledata'/>
         <CWM:TaggedValue xmi.id = 'a673' tag = 'DATABASE_PORT' value = '9001'/>
         <CWM:TaggedValue xmi.id = 'a674' tag = 'DATABASE_USERNAME' value = 'pentaho_admin'/>
         <CWM:TaggedValue xmi.id = 'a675' tag = 'DATABASE_PASSWORD' value = 'password'/>
@@ -3004,7 +3004,7 @@
           value = 'N'/>
         <CWM:TaggedValue xmi.id = 'a687' tag = 'DATABASE_ATTRIBUTE_PREFIX_PORT_NUMBER'
           value = '9001'/>
-        <CWM:TaggedValue xmi.id = 'a688' tag = 'DATABASE_JDBC_URL' value = 'jdbc:hsqldb:hsql://localhost:9001/Sampledata'/>
+        <CWM:TaggedValue xmi.id = 'a688' tag = 'DATABASE_JDBC_URL' value = 'jdbc:hsqldb:hsql://localhost:9001/sampledata'/>
       </CWM:ModelElement.taggedValue>
     </CWMRDB:Catalog>
     <CWMOLAP:Schema xmi.id = 'a689' name = 'BV_MODEL_1'/>
