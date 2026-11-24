@@ -75,6 +75,13 @@ Set-Location C:\Pentaho\design-tools\report-designer
 | `TotalforTerritory` | `TOTALPRICE` | `Territory` |
 | `TotalforReport` | `TOTALPRICE` | (empty) |
 
+<div align="center">
+<figure>
+<img src="../_assets/images/prac5_functions.png" alt="The Data tab with three Sum functions under Functions, TotalforCountry, TotalforTerritory and TotalforReport; TotalforCountry is selected, with Field Name TOTALPRICE and Reset on Group Name Country" width="800">
+<figcaption>The three totals</figcaption>
+</figure>
+</div>
+
 > **Success:** Checkpoint: **Functions** lists **Sum: TotalforCountry**, **Sum: TotalforTerritory** and **Sum: TotalforReport**.
 
 3. Select `TotalforCountry` on the **Data** tab and check its **Reset on Group Name** once more: it names the group, `Country`, not the field `COUNTRY`.
@@ -103,13 +110,61 @@ Set-Location C:\Pentaho\design-tools\report-designer
 
 1. Drag **Sum: TotalforCountry** onto the country group's **Group Footer** band, directly below `TOTALPRICE`.
 2. Drag a **message** element onto the same band, below `ORDERNUMBER`, and set its **value** to `Total for: $(COUNTRY)`.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/prac5_msg_country.png" alt="The message Total for: $(COUNTRY) selected in the country group's Group Footer band, with TotalforCountry under TOTALPRICE" width="800">
+<figcaption>The country total message</figcaption>
+</figure>
+</div>
+
 3. Select the message and the total, select **Bold**, and set the font size to `12`.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/prac5_bold_country.png" alt="The country total message and TotalforCountry in bold; the Style tab shows font-size 12 and bold true" width="800">
+<figcaption>Bold, size 12</figcaption>
+</figure>
+</div>
+
 4. Drag **Sum: TotalforTerritory** onto the territory group's **Group Footer** band, below the country total.
 5. Drag a **message** element onto the same band, below the country message, and set its **value** to `Total for: $(TERRITORY)`.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/prac5_msg_territory.png" alt="The message Total for: $(TERRITORY) selected in the territory group's Group Footer band, with TotalforTerritory beside it" width="800">
+<figcaption>The territory total message</figcaption>
+</figure>
+</div>
+
 6. Select the message and the total, select **Bold**, set the font size to `12` and the font color to `blue`.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/prac5_blue_territory.png" alt="The territory total message and TotalforTerritory in bold blue; the Style tab shows font-size 12, bold true and a blue text-color" width="800">
+<figcaption>Bold, size 12, blue</figcaption>
+</figure>
+</div>
+
 7. Drag **Sum: TotalforReport** onto the **Report Footer** band, below the territory total.
 8. Drag a **label** onto the **Report Footer** band, below the territory message, and set its **value** to `Grand Total:`.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/prac5_grand_label.png" alt="The label Grand Total: selected in the Report Footer band, with TotalforReport beside it" width="800">
+<figcaption>The Grand Total label</figcaption>
+</figure>
+</div>
+
 9. Select the label and the total, select **Bold**, set the font size to `12` and the font color to `blue`.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/prac5_blue_grand.png" alt="Grand Total: and TotalforReport in bold blue in the Report Footer band; the Style tab shows font-size 12, bold true and a blue text-color" width="800">
+<figcaption>The grand total, bold and blue</figcaption>
+</figure>
+</div>
+
 10. Select **Preview**, and select the last-page arrow.
 
 <div align="center">
@@ -127,4 +182,14 @@ Set-Location C:\Pentaho\design-tools\report-designer
 
 ## Lab Files
 
-_No bundled files for this lab._
+Click a file to download. For `.prpt` files, **Open in Pentaho Report Designer** starts Report Designer with the report loaded. Every file is also on disk in this workshop's folder, `C:\Workshop-RD-Associate\05-calculations\12-mod5-practice`.
+
+### Solution <!-- no-step -->
+
+The finished reports for this practice: the conditional formatting exercise, and the totals exercise built on it. Open them alongside your own to compare, or preview them to see the expected result.
+
+Also on disk at `C:\Workshop-RD-Associate\05-calculations\12-mod5-practice\solution`.
+
+[Exercise - conditional formatting.prpt](./files/solution/Exercise%20-%20conditional%20formatting.prpt) <button data-launch="prd" data-path="files/solution/Exercise - conditional formatting.prpt">Open in Pentaho Report Designer</button>
+
+[Exercise - totals.prpt](./files/solution/Exercise%20-%20totals.prpt) <button data-launch="prd" data-path="files/solution/Exercise - totals.prpt">Open in Pentaho Report Designer</button>

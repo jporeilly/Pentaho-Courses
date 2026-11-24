@@ -15,7 +15,7 @@
 >
 > **Prerequisites:** [Practice: Formatting](../16-mod6-practice/guide.md) and its report, `Exercise - formatting.prpt`; [Report Parameters](../18-mod7-parameters/guide.md)
 >
-> **Estimated time:** 20 minutes
+> **Estimated time:** 10 minutes
 
 <figure>
 
@@ -69,6 +69,13 @@ select distinct territory from customer_w_ter
 | **Display Name** | `TERRITORY` |
 | **Validate Values** | Selected |
 
+<div align="center">
+<figure>
+<img src="../_assets/images/prac7_add_parameter.png" alt="The Add Parameter dialog with territory_list selected: Name territory_var, Label Select a Territory:, Value Type String, Default Value APAC, Display Type Drop Down, Query territory_list, Value and Display Name TERRITORY, Validate Values selected" width="800">
+<figcaption>The territory_var parameter</figcaption>
+</figure>
+</div>
+
 8. Double-click the data source, select `Query 1`, and add this line above `ORDER BY`:
 
 ```sql
@@ -109,4 +116,12 @@ WHERE territory IN (${territory_var})
 
 ## Lab Files
 
-_No bundled files for this lab._
+Click a file to download. For `.prpt` files, **Open in Pentaho Report Designer** starts Report Designer with the report loaded. Every file is also on disk in this workshop's folder, `C:\Workshop-RD-Associate\07-report-parameters\19-mod7-practice`.
+
+### Solution <!-- no-step -->
+
+The finished report for this practice, with the territory prompt. Open it alongside your own to compare, or preview it to see the expected result.
+
+Also on disk at `C:\Workshop-RD-Associate\07-report-parameters\19-mod7-practice\solution`.
+
+[Exercise - parameters.prpt](./files/solution/Exercise%20-%20parameters.prpt) <button data-launch="prd" data-path="files/solution/Exercise - parameters.prpt">Open in Pentaho Report Designer</button>

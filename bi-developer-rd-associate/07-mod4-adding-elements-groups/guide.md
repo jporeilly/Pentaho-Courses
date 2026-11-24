@@ -308,6 +308,15 @@ Set-Location C:\Pentaho\design-tools\report-designer
 > buffering, no second query) provided the ORDER BY matches the group
 > order. Nested groups work the same way, outermost sort key first.
 
+<div align="center">
+<figure>
+<img src="../_assets/images/group-by-sorted-rows.png" alt="The same four rows, sorted and unsorted. Sorted by PRODUCTLINE, three Classic Cars rows and one Motorcycles row print as two groups, each with one Group Header and one Group Footer. Unsorted, with Motorcycles third, they print three groups: the fourth row, Classic Cars again, starts a second Classic Cars group, drawn red. Underneath, the group stores only group-fields set to PRODUCTLINE" width="800">
+<figcaption>A group starts wherever PRODUCTLINE changes from the row before</figcaption>
+</figure>
+</div>
+
+Read each panel from left to right: a numbered row becomes the Details band its arrow points to, and the bands with no row are the ones the engine adds where `PRODUCTLINE` changes. On the left the rows arrive sorted, so the value changes once. On the right the same rows arrive unsorted, the value flips back to Classic Cars, and the engine, which only compares each row with the one before, starts a second Classic Cars group. The Troubleshooting entry at the end of this page fixes that with the `ORDER BY`.
+
 6. With the message selected, open the **Attributes** tab and select the **...** button in the **value** row. In the **Edit Property** dialog, enter `Product Line: $(PRODUCTLINE)` and select **OK**.
 
 <div align="center">
@@ -328,6 +337,14 @@ Set-Location C:\Pentaho\design-tools\report-designer
 </div>
 
 9. With the message selected, on the formatting toolbar, select **Bold** and set the font size to `12`.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/mod4_group_message_bold.png" alt="The Product Line: $(PRODUCTLINE) message selected in the Group Header; the formatting toolbar shows font size 12 with Bold on, and the Style tab font-size 12 and bold true" width="800">
+<figcaption>Bold, size 12</figcaption>
+</figure>
+</div>
+
 10. Select **Preview**.
 
 > **Success:** Checkpoint: each product line starts with a bold heading, the first one `Product Line: Classic Cars`, and the column labels repeat under each heading.
@@ -417,12 +434,12 @@ The rows aren't sorted by `PRODUCTLINE`. Double-click the data source on the **D
 
 ## Lab Files
 
-Click a file to download. For `.prpt` files, **Open in Pentaho Report Designer** starts Report Designer with the report loaded. Every file is also on disk in this workshop's folder, `C:\Workshop-RD-Practitioner\04-report-elements-groups\07-mod4-adding-elements-groups`.
+Click a file to download. For `.prpt` files, **Open in Pentaho Report Designer** starts Report Designer with the report loaded. Every file is also on disk in this workshop's folder, `C:\Workshop-RD-Associate\04-report-elements-groups\07-mod4-adding-elements-groups`.
 
 ### Solution <!-- no-step -->
 
 The finished report for this lab. Open it alongside your own to compare, or preview it to see the expected result.
 
-Also on disk at `C:\Workshop-RD-Practitioner\04-report-elements-groups\07-mod4-adding-elements-groups\solution`.
+Also on disk at `C:\Workshop-RD-Associate\04-report-elements-groups\07-mod4-adding-elements-groups\solution`.
 
 [Training Demo Report 4 data elements.prpt](./files/solution/Training%20Demo%20Report%204%20data%20elements.prpt) <button data-launch="prd" data-path="files/solution/Training Demo Report 4 data elements.prpt">Open in Pentaho Report Designer</button>

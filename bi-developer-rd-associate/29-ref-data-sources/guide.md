@@ -221,7 +221,7 @@ Select the yellow cylinder icon in the upper left part of the **Data** pane, or 
 Select **XML** from the drop-down menu. The XML Datasource Editor window will appear.
 
 * Select **Browse** and navigate to your XML file:
-**File:** `C:\Workshop-RD-Practitioner\11-reference\29-ref-data-sources\orders.xml`, or download [orders.xml](./files/orders.xml): SampleData's 326 orders, each an `<order>` element with its number, date, status and customer
+**File:** `C:\Workshop-RD-Associate\11-reference\29-ref-data-sources\orders.xml`, or download [orders.xml](./files/orders.xml): SampleData's 326 orders, each an `<order>` element with its number, date, status and customer
 
 Select the round green **+** icon above the **Available Queries** field.
 

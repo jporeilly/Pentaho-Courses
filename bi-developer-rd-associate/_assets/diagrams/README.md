@@ -28,6 +28,23 @@ a supporting service. Keep one icon per thing across diagrams:
 `table-2` a physical table, `briefcase` a business model or table, `folder` a category, `folder-tree` a business view,
 `server` the Pentaho Server, `database` a database, `archive` the
 repository, `monitor` your machine.
+The later diagrams add: `files` a page or a sub-report, `layers` a
+group, `rows-3` a Details row, `list` a key, `ruler` the pagination
+pass, `printer` the print pass, `file-output` an output, `sigma` a
+total, `calendar-clock` a schedule, `file-text` a page or a PDF, `send`
+the mail sender, `inbox` and `mail` Mailpit and an email, `code` a
+query, `list-filter` a prompt, `radar` the radar chart,
+`arrow-down-wide-narrow` sorted rows and `shuffle` unsorted ones.
+
+The diagrams that draw a printed report share
+[`strips.mjs`](strips.mjs): one band as it prints, as a thin strip,
+colored by when it prints: slate a page band, blue a report band, teal
+a group band (the Details Header included), white a Details row, stone
+pages or groups left out, red a group that should not be there. It sits
+on the shared kit and draws nothing by itself.
+
+Each script's header comment lists the facts it draws and the lesson
+each comes from; keep it in step when a lesson's figures change.
 
 The PNG is twice the SVG's size, so a figure's `width` is the SVG's
 width, capped at 800 (the reading column). Edit the `.svg.mjs`, run it,
@@ -36,3 +53,9 @@ and commit the script, the `.svg` and the `.png` together.
 | Diagram | Page |
 | --- | --- |
 | `lab-setup` | Before You Start: Report Designer, the Pentaho Server and the sample data |
+| `report-bands` | Navigating Report Designer (03), "4. Report bands": when each band prints, on the first page and the last |
+| `group-by-sorted-rows` | Adding Data Elements and Report Groups (07), "4. Group by product line": the same rows sorted and unsorted, and the groups each prints |
+| `two-pass-engine` | Totals (11), "1. Two Sum functions": the pagination and print passes, the output processors, and where Sum and ItemSumFunction are right |
+| `parameter-flow` | Report Parameters (18), "4. A second prompt": each prompt's own query, the `${ }` references and their `?` bind markers, and a cascading prompt (dashed) |
+| `subreport-runs` | Charts & Sub Reports (21), "3. A sub-report": how often a sub-report runs in each band, and where banded and inline sub-reports print |
+| `report-burst` | Report Bursting (39), "4. Run and Check": one report, three schedules with their `TERRITORY` and `_SCH_EMAIL_TO`, the mail sender and Mailpit |

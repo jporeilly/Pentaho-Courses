@@ -126,6 +126,15 @@ Set-Location C:\Pentaho\design-tools\report-designer
 > engine reads the data twice so you don't have to write a second
 > query.
 
+<div align="center">
+<figure>
+<img src="../_assets/images/two-pass-engine.png" alt="The Pentaho Reporting engine reads the query rows in two passes. The pagination pass lays out every row to find the page breaks, the page count and each group total; the print pass prints the pages, and output processors render them as Preview, PDF, Excel, HTML or CSV. Below, in the Classic Cars group, Sum shows 5,844,033 in the Group Header, on every Details row and in the Group Footer; ItemSumFunction is complete only in the footer" width="800">
+<figcaption>The engine's two passes, and where each kind of sum is right</figcaption>
+</figure>
+</div>
+
+Read the diagram from the top. The query's rows go through the engine twice: the pagination pass lays them out and learns where the pages break, how many pages there are and each group's total, and the print pass prints the pages with all of that already known. One output processor per format then renders the same laid-out pages. The table underneath follows the Classic Cars group through the print pass: the **Sum** function you add in this workshop has its 5,844,033 from the Group Header on, while a running function such as `ItemSumFunction` reaches that number only in the Group Footer.
+
 ### 2. Group totals
 
 > **Note:**
@@ -190,6 +199,14 @@ Set-Location C:\Pentaho\design-tools\report-designer
 1. Drag **Sum: TotalReport** from the **Data** tab onto the **Report Footer** band, directly below the **TotalGroup** field.
 2. Drag a **label** onto the **Report Footer** band, below the group total's message, starting at the 1.25-inch guide and about 1.4 inches wide.
 3. Set the label's **value** to `Grand Total`.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/mod5_grand_total_label.png" alt="The Grand Total label selected in the Report Footer beside TotalReport, with the value Grand Total on the Attributes tab" width="800">
+<figcaption>The Grand Total label</figcaption>
+</figure>
+</div>
+
 4. Select the label and the **TotalReport** field, select **Bold**, and set the font color to `blue`.
 
 <div align="center">
@@ -209,12 +226,12 @@ Set-Location C:\Pentaho\design-tools\report-designer
 
 ## Lab Files
 
-Click a file to download. For `.prpt` files, **Open in Pentaho Report Designer** starts Report Designer with the report loaded. Every file is also on disk in this workshop's folder, `C:\Workshop-RD-Practitioner\05-calculations\11-mod5-totals`.
+Click a file to download. For `.prpt` files, **Open in Pentaho Report Designer** starts Report Designer with the report loaded. Every file is also on disk in this workshop's folder, `C:\Workshop-RD-Associate\05-calculations\11-mod5-totals`.
 
 ### Solution <!-- no-step -->
 
 The finished report for this lab. Open it alongside your own to compare, or preview it to see the expected result. It already has the report header you build in [Formatting Report Headers & Footers](../14-mod6-headers-footers/guide.md).
 
-Also on disk at `C:\Workshop-RD-Practitioner\05-calculations\11-mod5-totals\solution`.
+Also on disk at `C:\Workshop-RD-Associate\05-calculations\11-mod5-totals\solution`.
 
 [Training Demo Report 5-1 totals.prpt](./files/solution/Training%20Demo%20Report%205-1%20totals.prpt) <button data-launch="prd" data-path="files/solution/Training Demo Report 5-1 totals.prpt">Open in Pentaho Report Designer</button>

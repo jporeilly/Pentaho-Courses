@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="682" viewBox="0 0 800 682" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+<filter id="shadow" x="-10%" y="-10%" width="120%" height="140%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#0f172a" flood-opacity="0.12"/></filter></defs>
+<rect width="800" height="682" fill="#ffffff"/>
+<rect x="16" y="16" width="768" height="468" rx="12" fill="#f5f3ff" stroke="#ede9fe" stroke-width="1.5"/>
+<path d="M16 28a12 12 0 0 1 12-12h744a12 12 0 0 1 12 12v32h-768z" fill="#6d28d9"/>
+<g transform="translate(29 26) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="8" x="2" y="2" rx="2" ry="2"/><rect width="20" height="8" x="2" y="14" rx="2" ry="2"/><line x1="6" x2="6.01" y1="6" y2="6"/><line x1="6" x2="6.01" y1="18" y2="18"/></g>
+<text x="56" y="36" font-size="14" font-weight="700" fill="#ffffff">Pentaho Server</text>
+<text x="56" y="52" font-size="11.5" fill="#ffffff" opacity="0.92">http://localhost:8080/pentaho</text>
+<rect x="16" y="516" width="768" height="150" rx="12" fill="#fffbeb" stroke="#fef3c7" stroke-width="1.5"/>
+<path d="M16 528a12 12 0 0 1 12-12h744a12 12 0 0 1 12 12v32h-768z" fill="#b45309"/>
+<g transform="translate(29 526) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></g>
+<text x="56" y="536" font-size="14" font-weight="700" fill="#ffffff">Mailpit inbox</text>
+<text x="56" y="552" font-size="11.5" fill="#ffffff" opacity="0.92">http://localhost:8025, each email with its PDF attached</text>
+<path d="M148 132L148 169" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M148 258L148 295" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M148 368L148 405" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M148 468L148 569" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M400 132L400 169" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M400 258L400 295" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M400 368L400 405" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M400 468L400 569" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M652 132L652 169" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M652 258L652 295" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M652 368L652 405" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M652 468L652 569" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="32" y="72" width="736" height="60" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="64" cy="102" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(52 90) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M8 18v-1"/><path d="M12 18v-6"/><path d="M16 18v-3"/></g>
+<text x="94" y="99" font-size="14" font-weight="700" fill="#1e3a8a">Regional Sales.prpt, published to /public/Training</text>
+<text x="94" y="117" font-size="12" fill="#1e3a8a">TERRITORY: a Multi Value List prompt; Query 1 filters on IN (${TERRITORY})</text>
+<rect x="32" y="172" width="232" height="86" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="215" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(50 203) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 14v2.2l1.6 1"/><path d="M16 2v4"/><path d="M21 7.5V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3.5"/><path d="M3 10h5"/><path d="M8 2v4"/><circle cx="16" cy="16" r="6"/></g>
+<text x="92" y="190.5" font-size="14" font-weight="700" fill="#3b0764">Regional Sales EMEA</text>
+<text x="92" y="207.5" font-size="12" fill="#3b0764">TERRITORY = EMEA</text>
+<text x="92" y="222.5" font-size="12" fill="#3b0764">_SCH_EMAIL_TO =</text>
+<text x="92" y="237.5" font-size="12" fill="#3b0764">athompson@…</text>
+<rect x="284" y="172" width="232" height="86" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="314" cy="215" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(302 203) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 14v2.2l1.6 1"/><path d="M16 2v4"/><path d="M21 7.5V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3.5"/><path d="M3 10h5"/><path d="M8 2v4"/><circle cx="16" cy="16" r="6"/></g>
+<text x="344" y="190.5" font-size="14" font-weight="700" fill="#3b0764">Regional Sales APAC</text>
+<text x="344" y="207.5" font-size="12" fill="#3b0764">TERRITORY = APAC, Japan</text>
+<text x="344" y="222.5" font-size="12" fill="#3b0764">_SCH_EMAIL_TO =</text>
+<text x="344" y="237.5" font-size="12" fill="#3b0764">wpatterson@…</text>
+<rect x="536" y="172" width="232" height="86" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="566" cy="215" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(554 203) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 14v2.2l1.6 1"/><path d="M16 2v4"/><path d="M21 7.5V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3.5"/><path d="M3 10h5"/><path d="M8 2v4"/><circle cx="16" cy="16" r="6"/></g>
+<text x="596" y="190.5" font-size="14" font-weight="700" fill="#3b0764">Regional Sales NA</text>
+<text x="596" y="207.5" font-size="12" fill="#3b0764">TERRITORY = NA</text>
+<text x="596" y="222.5" font-size="12" fill="#3b0764">_SCH_EMAIL_TO =</text>
+<text x="596" y="237.5" font-size="12" fill="#3b0764">bhoward@…</text>
+<rect x="32" y="298" width="232" height="70" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="333" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(50 321) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></g>
+<text x="92" y="316" font-size="14" font-weight="700" fill="#14532d">Background run</text>
+<text x="92" y="333" font-size="12" fill="#14532d">writes Regional Sales</text>
+<text x="92" y="348" font-size="12" fill="#14532d">EMEA.pdf to /home/admin</text>
+<rect x="284" y="298" width="232" height="70" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="314" cy="333" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(302 321) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></g>
+<text x="344" y="316" font-size="14" font-weight="700" fill="#14532d">Background run</text>
+<text x="344" y="333" font-size="12" fill="#14532d">writes Regional Sales</text>
+<text x="344" y="348" font-size="12" fill="#14532d">APAC.pdf to /home/admin</text>
+<rect x="536" y="298" width="232" height="70" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="566" cy="333" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(554 321) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></g>
+<text x="596" y="316" font-size="14" font-weight="700" fill="#14532d">Background run</text>
+<text x="596" y="333" font-size="12" fill="#14532d">writes Regional Sales</text>
+<text x="596" y="348" font-size="12" fill="#14532d">NA.pdf to /home/admin</text>
+<rect x="32" y="408" width="736" height="60" rx="10" fill="#f1f5f9" stroke="#475569" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="64" cy="438" r="19" fill="#ffffff" stroke="#475569" stroke-width="1.2"/>
+<g transform="translate(52 426) scale(1)" fill="none" stroke="#475569" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"/><path d="m21.854 2.147-10.94 10.939"/></g>
+<text x="94" y="435" font-size="14" font-weight="700" fill="#0f172a">Mail sender: Administration &gt; Mail Server</text>
+<text x="94" y="453" font-size="12" fill="#0f172a">email_config.xml: SMTP to localhost, port 1025, from Steel Wheels Reports</text>
+<rect x="32" y="572" width="232" height="78" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="611" r="19" fill="#ffffff" stroke="#b45309" stroke-width="1.2"/>
+<g transform="translate(50 599) scale(1)" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"/><rect x="2" y="4" width="20" height="16" rx="2"/></g>
+<text x="92" y="594" font-size="14" font-weight="700" fill="#78350f">Regional Sales - EMEA</text>
+<text x="92" y="611" font-size="12" fill="#78350f">to athompson@</text>
+<text x="92" y="626" font-size="12" fill="#78350f">classicmodelcars.com</text>
+<rect x="284" y="572" width="232" height="78" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="314" cy="611" r="19" fill="#ffffff" stroke="#b45309" stroke-width="1.2"/>
+<g transform="translate(302 599) scale(1)" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"/><rect x="2" y="4" width="20" height="16" rx="2"/></g>
+<text x="344" y="594" font-size="14" font-weight="700" fill="#78350f">Regional Sales - APAC</text>
+<text x="344" y="611" font-size="12" fill="#78350f">to wpatterson@</text>
+<text x="344" y="626" font-size="12" fill="#78350f">classicmodelcars.com</text>
+<rect x="536" y="572" width="232" height="78" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="566" cy="611" r="19" fill="#ffffff" stroke="#b45309" stroke-width="1.2"/>
+<g transform="translate(554 599) scale(1)" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"/><rect x="2" y="4" width="20" height="16" rx="2"/></g>
+<text x="596" y="594" font-size="14" font-weight="700" fill="#78350f">Regional Sales - NA</text>
+<text x="596" y="611" font-size="12" fill="#78350f">to bhoward@</text>
+<text x="596" y="626" font-size="12" fill="#78350f">classicmodelcars.com</text>
+<rect x="299.65" y="138" width="200.7" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="400" y="156" text-anchor="middle" font-size="12" fill="#334155">Schedule..., once per manager</text>
+<rect x="356.35" y="264" width="87.3" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="400" y="282" text-anchor="middle" font-size="12" fill="#334155">Execute Now</text>
+<rect x="334.3" y="374" width="131.39999999999998" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="400" y="392" text-anchor="middle" font-size="12" fill="#334155">hands over the PDF</text>
+<rect x="343.75" y="487.5" width="112.5" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="400" y="505.5" text-anchor="middle" font-size="12" fill="#334155">SMTP, port 1025</text>
+</svg>

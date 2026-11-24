@@ -59,7 +59,23 @@ Set-Location C:\Pentaho\design-tools\report-designer
 > The title and the date sit at the right of the band, right-aligned, from 4 inches to the right edge.
 
 1. Drag a **label** onto the upper right corner of the **Report Header** band, set its **value** to `Steel Wheels Sales Report`, and drag its left handle to about 4 inches on the top ruler.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/prac6_title_label.png" alt="The label Steel Wheels Sales Report selected at the upper right of the Report Header band, beside the Steel Wheels logo; the Attributes tab shows its value" width="800">
+<figcaption>The title label</figcaption>
+</figure>
+</div>
+
 2. Drag a **message** element directly below the label, set its **value** to `As of $(report.date, date, MM-dd-yyyy)`, and drag its left handle to about 4 inches.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/prac6_date_message.png" alt="The message As of $(report.date, date, MM-dd-yyyy) selected below the title label, from about 4 inches to the right edge" width="800">
+<figcaption>The date message</figcaption>
+</figure>
+</div>
+
 3. Select the label and the message, and on the formatting toolbar select **Align Right**.
 4. Drag a **horizontal-line** onto the band, below the logo. Drag its ends to the left and right edges of the band, and its middle handle to about 0.75 inch on the left ruler.
 5. Select **Preview**.
@@ -87,4 +103,12 @@ Set-Location C:\Pentaho\design-tools\report-designer
 
 ## Lab Files
 
-_No bundled files for this lab._
+Click a file to download. For `.prpt` files, **Open in Pentaho Report Designer** starts Report Designer with the report loaded. Every file is also on disk in this workshop's folder, `C:\Workshop-RD-Associate\06-formatting-the-report\16-mod6-practice`.
+
+### Solution <!-- no-step -->
+
+The finished report for this practice, with the logo, title, date and line. Open it alongside your own to compare, or preview it to see the expected result.
+
+Also on disk at `C:\Workshop-RD-Associate\06-formatting-the-report\16-mod6-practice\solution`.
+
+[Exercise - formatting.prpt](./files/solution/Exercise%20-%20formatting.prpt) <button data-launch="prd" data-path="files/solution/Exercise - formatting.prpt">Open in Pentaho Report Designer</button>

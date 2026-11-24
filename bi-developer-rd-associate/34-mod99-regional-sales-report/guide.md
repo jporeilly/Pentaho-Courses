@@ -20,9 +20,9 @@ publishing and bursting.
 > - Add a summary chart and a supporting sub-report.
 > - Publish it to the Pentaho Server and run it from the Pentaho User Console.
 > - Burst it by territory: a schedule per regional manager, each emailing that territory's PDF.
-> - Produce something portfolio-worthy ("I built this for my Practitioner course accreditation").
+> - Produce something portfolio-worthy ("I built this for my Associate course accreditation").
 >
-> **Estimated time:** 2 to 3 hours for a clean, well-named solution.
+> **Estimated time:** 90 mins for a clean, well-named solution.
 
 ---
 
@@ -36,11 +36,11 @@ publishing and bursting.
 >
 > | # | What must be there | Where |
 > | --- | --- | --- |
-> | 1 | Your report, `regional-sales-report.prpt` | `C:\Workshop-RD-Practitioner\capstone\solution\` |
-> | 2 | The APAC manager's emailed copy, saved from Mailpit as `APAC.pdf` | `C:\Workshop-RD-Practitioner\capstone\out\burst\` |
+> | 1 | Your report, `regional-sales-report.prpt` | `C:\Workshop-RD-Associate\capstone\solution\` |
+> | 2 | The APAC manager's emailed copy, saved from Mailpit as `APAC.pdf` | `C:\Workshop-RD-Associate\capstone\out\burst\` |
 > | 3 | The EMEA manager's, saved as `EMEA.pdf` | the same folder |
 > | 4 | The NA manager's, saved as `NA.pdf` | the same folder |
-> | 5 | The published report run from the User Console and exported as `regional-sales-report.pdf` | `C:\Workshop-RD-Practitioner\capstone\out\` |
+> | 5 | The published report run from the User Console and exported as `regional-sales-report.pdf` | `C:\Workshop-RD-Associate\capstone\out\` |
 >
 > Use these names exactly, capitals included: the checks look for them.
 > Select **Run checks** under **Verification checks** to see where you
@@ -124,14 +124,14 @@ into `capstone\out\burst\` as `APAC.pdf`, `EMEA.pdf` and `NA.pdf`.
 ## Suggested shape
 
 ```text
-C:\Workshop-RD-Practitioner\capstone\    (your machine)
+C:\Workshop-RD-Associate\capstone\    (your machine)
 ├── solution\regional-sales-report.prpt  your report
 ├── out\regional-sales-report.pdf        one run, exported from the User Console
 └── out\burst\APAC.pdf, EMEA.pdf, NA.pdf  each manager's emailed copy, saved from Mailpit
 ```
 
 The installer makes `capstone\solution\` and `capstone\out\` for you,
-empty. If `C:\Workshop-RD-Practitioner\` has no `capstone` folder,
+empty. If `C:\Workshop-RD-Associate\` has no `capstone` folder,
 create `capstone\solution\` and `capstone\out\` there yourself.
 
 ---
@@ -152,14 +152,14 @@ create `capstone\solution\` and `capstone\out\` there yourself.
 
 _No bundled files for this lab._ The data is the Steel Wheels sample
 on your server, your report and schedules are yours to build, and
-the accreditation checks read `C:\Workshop-RD-Practitioner\capstone\`.
+the accreditation checks read `C:\Workshop-RD-Associate\capstone\`.
 
 ---
 
 ## Verification checks
 
 > **Warning:** These five checks decide your course accreditation, and
-> they look only in `C:\Workshop-RD-Practitioner\capstone\`: your report
+> they look only in `C:\Workshop-RD-Associate\capstone\`: your report
 > in `solution\`, the exported run in `out\`, and the managers' emailed
 > copies in `out\burst\`. Save your work there before you take the exam.
 

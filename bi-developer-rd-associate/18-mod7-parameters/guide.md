@@ -99,6 +99,14 @@ select distinct productline from products
 </div>
 
 2. In the **Add Parameter** dialog, under **DataSources**, select `prod_list`.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/mod7_add_parameter_prod_list.png" alt="The Add Parameter dialog with prod_list selected under DataSources: Query prod_list and Value PRODUCTLINE, the other fields still empty" width="800">
+<figcaption>prod_list selected</figcaption>
+</figure>
+</div>
+
 3. Set the fields as in this table, then select **OK**:
 
 | Field | Value |
@@ -307,17 +315,26 @@ WHERE productline IN (${product_var}) AND country IN (${country_var})
 
 11. Optional: group the report by `COUNTRY`, outside the product line group, with a `Country: $(COUNTRY)` message in its header, as in the screenshot above.
 
+<div align="center">
+<figure>
+<img src="../_assets/images/parameter-flow.png" alt="Each prompt has its own query: prod_list, 7 rows, fills the product_var drop-down, default Classic Cars; country_list, 27 rows, fills country_var, default Australia. The chosen values go into Query 1 as ${product_var} and ${country_var}; the SQL data factory turns each into a ? bind marker, and SampleData runs the prepared statement. A dashed arrow from product_var to country_list marks a cascading prompt, if country_list named ${product_var}" width="800">
+<figcaption>Where a prompt's choices come from, and where its value goes</figcaption>
+</figure>
+</div>
+
+Read the diagram from left to right. Each blue query fills the amber prompt beside it, and the value the reader picks travels to `Query 1`, where the SQL data factory swaps each `${ }` reference for a `?` before SampleData runs the query. The dashed arrow is the cascading prompt from the Under the hood panel above: it isn't in your report, because `country_list` doesn't mention `${product_var}`.
+
 ::::
 
 ## Lab Files
 
-Click a file to download. For `.prpt` files, **Open in Pentaho Report Designer** starts Report Designer with the report loaded. Every file is also on disk in this workshop's folder, `C:\Workshop-RD-Practitioner\07-report-parameters\18-mod7-parameters`.
+Click a file to download. For `.prpt` files, **Open in Pentaho Report Designer** starts Report Designer with the report loaded. Every file is also on disk in this workshop's folder, `C:\Workshop-RD-Associate\07-report-parameters\18-mod7-parameters`.
 
 ### Solution <!-- no-step -->
 
 The finished reports for this lab: the product line prompt, then both prompts. Open them alongside your own to compare, or preview them to see the expected result.
 
-Also on disk at `C:\Workshop-RD-Practitioner\07-report-parameters\18-mod7-parameters\solution`.
+Also on disk at `C:\Workshop-RD-Associate\07-report-parameters\18-mod7-parameters\solution`.
 
 [Training Demo Report 7 parameters.prpt](./files/solution/Training%20Demo%20Report%207%20parameters.prpt) <button data-launch="prd" data-path="files/solution/Training Demo Report 7 parameters.prpt">Open in Pentaho Report Designer</button>
 

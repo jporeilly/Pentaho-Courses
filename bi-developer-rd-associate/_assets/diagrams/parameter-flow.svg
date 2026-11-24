@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="458" viewBox="0 0 800 458" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+<filter id="shadow" x="-10%" y="-10%" width="120%" height="140%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#0f172a" flood-opacity="0.12"/></filter></defs>
+<rect width="800" height="458" fill="#ffffff"/>
+<rect x="16" y="16" width="248" height="342" rx="12" fill="#eff6ff" stroke="#dbeafe" stroke-width="1.5"/>
+<path d="M16 28a12 12 0 0 1 12-12h224a12 12 0 0 1 12 12v32h-248z" fill="#1d4ed8"/>
+<g transform="translate(29 26) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/></g>
+<text x="56" y="36" font-size="14" font-weight="700" fill="#ffffff">Each prompt's own query</text>
+<text x="56" y="52" font-size="11.5" fill="#ffffff" opacity="0.92">on the JDBC data source</text>
+<rect x="288" y="16" width="228" height="342" rx="12" fill="#fffbeb" stroke="#fef3c7" stroke-width="1.5"/>
+<path d="M288 28a12 12 0 0 1 12-12h204a12 12 0 0 1 12 12v32h-228z" fill="#b45309"/>
+<g transform="translate(301 26) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 5h20"/><path d="M6 12h12"/><path d="M9 19h6"/></g>
+<text x="328" y="36" font-size="14" font-weight="700" fill="#ffffff">The prompts</text>
+<text x="328" y="52" font-size="11.5" fill="#ffffff" opacity="0.92">in Preview or the User Console</text>
+<rect x="540" y="16" width="244" height="342" rx="12" fill="#f5f3ff" stroke="#ede9fe" stroke-width="1.5"/>
+<path d="M540 28a12 12 0 0 1 12-12h220a12 12 0 0 1 12 12v32h-244z" fill="#6d28d9"/>
+<g transform="translate(553 26) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 10.27 7 3.34"/><path d="m11 13.73-4 6.93"/><path d="M12 22v-2"/><path d="M12 2v2"/><path d="M14 12h8"/><path d="m17 20.66-1-1.73"/><path d="m17 3.34-1 1.73"/><path d="M2 12h2"/><path d="m20.66 17-1.73-1"/><path d="m20.66 7-1.73 1"/><path d="m3.34 17 1.73-1"/><path d="m3.34 7 1.73 1"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="12" r="8"/></g>
+<text x="580" y="36" font-size="14" font-weight="700" fill="#ffffff">The main query</text>
+<text x="580" y="52" font-size="11.5" fill="#ffffff" opacity="0.92">Query 1, and the SQL data factory</text>
+<path d="M252 124C274.5 124 274.5 124 297 124" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M252 294C274.5 294 274.5 294 297 294" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M504 124C526.5 124 526.5 110 549 110" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M504 294C526.5 294 526.5 146 549 146" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M662 172C662 207.5 662 207.5 662 243" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M662 342C662 360.5 662 360.5 662 379" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M340 172C340 207.5 212 207.5 212 243" fill="none" stroke="#64748b" stroke-width="1.7" stroke-dasharray="5 4" marker-end="url(#arrow)"/>
+<rect x="28" y="76" width="224" height="96" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="58" cy="124" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(46 112) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/></g>
+<text x="88" y="99.5" font-size="14" font-weight="700" fill="#1e3a8a">prod_list</text>
+<text x="88" y="116.5" font-size="12" fill="#1e3a8a">select distinct</text>
+<text x="88" y="131.5" font-size="12" fill="#1e3a8a">productline from products</text>
+<text x="88" y="146.5" font-size="12" fill="#1e3a8a">7 rows: the choices</text>
+<rect x="28" y="246" width="224" height="96" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="58" cy="294" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(46 282) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/></g>
+<text x="88" y="269.5" font-size="14" font-weight="700" fill="#1e3a8a">country_list</text>
+<text x="88" y="286.5" font-size="12" fill="#1e3a8a">select distinct country</text>
+<text x="88" y="301.5" font-size="12" fill="#1e3a8a">from customer_w_ter</text>
+<text x="88" y="316.5" font-size="12" fill="#1e3a8a">27 rows: the choices</text>
+<rect x="300" y="76" width="204" height="96" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="330" cy="124" r="19" fill="#ffffff" stroke="#b45309" stroke-width="1.2"/>
+<g transform="translate(318 112) scale(1)" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 5h20"/><path d="M6 12h12"/><path d="M9 19h6"/></g>
+<text x="360" y="99.5" font-size="14" font-weight="700" fill="#78350f">product_var</text>
+<text x="360" y="116.5" font-size="12" fill="#78350f">Drop Down, values</text>
+<text x="360" y="131.5" font-size="12" fill="#78350f">checked against the list,</text>
+<text x="360" y="146.5" font-size="12" fill="#78350f">default Classic Cars</text>
+<rect x="300" y="246" width="204" height="96" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="330" cy="294" r="19" fill="#ffffff" stroke="#b45309" stroke-width="1.2"/>
+<g transform="translate(318 282) scale(1)" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 5h20"/><path d="M6 12h12"/><path d="M9 19h6"/></g>
+<text x="360" y="269.5" font-size="14" font-weight="700" fill="#78350f">country_var</text>
+<text x="360" y="286.5" font-size="12" fill="#78350f">Drop Down, values</text>
+<text x="360" y="301.5" font-size="12" fill="#78350f">checked against the list,</text>
+<text x="360" y="316.5" font-size="12" fill="#78350f">default Australia</text>
+<rect x="552" y="76" width="220" height="96" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="568" y="99.5" font-size="14" font-weight="700" fill="#3b0764">Query 1, as written</text>
+<text x="568" y="116.5" font-size="12" fill="#3b0764">WHERE productline IN</text>
+<text x="568" y="131.5" font-size="12" fill="#3b0764">(${product_var}) AND</text>
+<text x="568" y="146.5" font-size="12" fill="#3b0764">country IN (${country_var})</text>
+<rect x="552" y="246" width="220" height="96" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="568" y="269.5" font-size="14" font-weight="700" fill="#3b0764">Prepared statement</text>
+<text x="568" y="286.5" font-size="12" fill="#3b0764">WHERE productline IN (?)</text>
+<text x="568" y="301.5" font-size="12" fill="#3b0764">AND country IN (?)</text>
+<text x="568" y="316.5" font-size="12" fill="#3b0764">each value bound, no quotes</text>
+<rect x="16" y="382" width="768" height="60" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="48" cy="412" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(36 400) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></g>
+<text x="78" y="409" font-size="14" font-weight="700" fill="#14532d">SampleData runs the prepared statement</text>
+<text x="78" y="427" font-size="12" fill="#14532d">with the defaults, Classic Cars and Australia: 53 rows; with Ships and Finland: 9 rows</text>
+<rect x="583.7" y="195" width="156.6" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="662" y="213" text-anchor="middle" font-size="12" fill="#334155">each ${name} becomes ?</text>
+<rect x="329.1" y="189" width="181.79999999999998" height="40" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="420" y="207" text-anchor="middle" font-size="12" fill="#334155">cascading: if country_list</text>
+<text x="420" y="222" text-anchor="middle" font-size="12" fill="#334155">named ${product_var}</text>
+</svg>

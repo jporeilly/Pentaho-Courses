@@ -16,7 +16,7 @@
 >
 > **Prerequisites:** [Formatting Report Headers & Footers](../14-mod6-headers-footers/guide.md) and its report, `Demo - header.prpt`
 >
-> **Estimated time:** 15 minutes
+> **Estimated time:** 10 minutes
 
 <figure>
 

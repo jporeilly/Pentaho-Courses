@@ -16,7 +16,7 @@
 >
 > **Prerequisites:** Report Designer and the Pentaho Server running (see [Before You Start](../01-mod1-getting-started/guide.md)): the samples query the server's Steel Wheels sample data
 >
-> **Estimated time:** 60 minutes
+> **Estimated time:** 15 minutes
 
 <figure>
 
@@ -209,6 +209,15 @@ To bring the **Welcome** tab back after you close it, select **Help > Welcome**.
 | **Details** | Once for every row of data | The data fields, a description and the bar section |
 | **Report Footer** | Once, at the end of the report | The notes and an index |
 | **Page Footer** | At the bottom of every page | The page number and the number of pages |
+
+<div align="center">
+<figure>
+<img src="../_assets/images/report-bands.png" alt="Two pages of a product report grouped by product line. Page 1 prints the Page Header, the Report Header, then the Classic Cars group: a Group Header, a Details Header, a Details band per row and a Group Footer, then the start of Motorcycles, and a Page Footer reading page 1 of 12. The last page prints the Page Header, the Vintage Cars group, the Report Footer and page 12 of 12. A key sorts the bands by when they print" width="800">
+<figcaption>When each band prints, on the first page and the last</figcaption>
+</figure>
+</div>
+
+Read the diagram down each page. The slate Page Header and Page Footer print on both pages, and the blue Report Header and Report Footer once each, at the start of the first page and the end of the last. Each product line gets its own teal Group Header, Details Header and Group Footer, and a white Details band prints for every row. The pages in between are left out; the page count in the first footer is already known, as the Under the hood panel in part 3 explains.
 
 <div align="center">
 <figure>
@@ -489,7 +498,7 @@ ORDER BY
 
 ## Lab Files
 
-Click a file to download. For `.prpt` files, **Open in Pentaho Report Designer** starts Report Designer with the report loaded. Every file is also on disk in this workshop's folder, `C:\Workshop-RD-Practitioner\02-navigating-report-designer\03-mod2-navigating-report-designer`.
+Click a file to download. For `.prpt` files, **Open in Pentaho Report Designer** starts Report Designer with the report loaded. Every file is also on disk in this workshop's folder, `C:\Workshop-RD-Associate\02-navigating-report-designer\03-mod2-navigating-report-designer`.
 
 This workshop tours the **Inventory List** sample from the **Welcome** tab. `Inventory List.prpt` below is not that sample: it is a Steel Wheels product report grouped by product line, of the kind you build in Modules 3 to 6.
 

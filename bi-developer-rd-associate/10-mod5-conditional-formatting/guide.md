@@ -82,6 +82,14 @@ Set-Location C:\Pentaho\design-tools\report-designer
 
 8. Select the field icon to the right of **Test**. In the **Select Field** dialog, select `QUANTITYINSTOCK` and select **OK**. **Test** now holds `[QUANTITYINSTOCK]`.
 9. Click in **Test** after `[QUANTITYINSTOCK]` and enter `<1000`.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/mod5_if_test.png" alt="The Edit Expression dialog with Category Logical and IF selected: Test holds [QUANTITYINSTOCK]&lt;1000, Then_value and Otherwise_value still read Any, and the Formula box shows =IF([QUANTITYINSTOCK]&lt;1000;Any;Any)" width="461">
+<figcaption>The test</figcaption>
+</figure>
+</div>
+
 10. Set **Then_value** to `"RED"` and **Otherwise_value** to `"BLACK"`, with the quotation marks.
 
 <div align="center">
@@ -140,12 +148,12 @@ The next workshop adds *functions*. Unlike the formula you wrote, a function kee
 
 ## Lab Files
 
-Click a file to download. For `.prpt` files, **Open in Pentaho Report Designer** starts Report Designer with the report loaded. Every file is also on disk in this workshop's folder, `C:\Workshop-RD-Practitioner\05-calculations\10-mod5-conditional-formatting`.
+Click a file to download. For `.prpt` files, **Open in Pentaho Report Designer** starts Report Designer with the report loaded. Every file is also on disk in this workshop's folder, `C:\Workshop-RD-Associate\05-calculations\10-mod5-conditional-formatting`.
 
 ### Solution <!-- no-step -->
 
 The finished report for this lab. Open it alongside your own to compare, or preview it to see the expected result.
 
-Also on disk at `C:\Workshop-RD-Practitioner\05-calculations\10-mod5-conditional-formatting\solution`.
+Also on disk at `C:\Workshop-RD-Associate\05-calculations\10-mod5-conditional-formatting\solution`.
 
 [Training Demo Report 5 conditional formatting.prpt](./files/solution/Training%20Demo%20Report%205%20conditional%20formatting.prpt) <button data-launch="prd" data-path="files/solution/Training Demo Report 5 conditional formatting.prpt">Open in Pentaho Report Designer</button>

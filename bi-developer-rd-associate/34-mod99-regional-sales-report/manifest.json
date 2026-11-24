@@ -5,37 +5,37 @@
   "kind": "workshop",
   "stepCount": 21,
   "hasVideo": false,
-  "estimatedMinutes": 150,
+  "estimatedMinutes": 90,
   "checks": [
     {
       "id": "report-file",
       "kind": "file-exists",
       "label": "Your report, regional-sales-report.prpt, in solution\\",
-      "path": "C:/Workshop-RD-Practitioner/capstone/solution/regional-sales-report.prpt"
+      "path": "C:/Workshop-RD-Associate/capstone/solution/regional-sales-report.prpt"
     },
     {
       "id": "mailed-apac",
       "kind": "file-exists",
       "label": "The APAC manager's emailed copy, saved from Mailpit as out\\burst\\APAC.pdf",
-      "path": "C:/Workshop-RD-Practitioner/capstone/out/burst/APAC.pdf"
+      "path": "C:/Workshop-RD-Associate/capstone/out/burst/APAC.pdf"
     },
     {
       "id": "mailed-emea",
       "kind": "file-exists",
       "label": "The EMEA manager's, out\\burst\\EMEA.pdf",
-      "path": "C:/Workshop-RD-Practitioner/capstone/out/burst/EMEA.pdf"
+      "path": "C:/Workshop-RD-Associate/capstone/out/burst/EMEA.pdf"
     },
     {
       "id": "mailed-na",
       "kind": "file-exists",
       "label": "The NA manager's, out\\burst\\NA.pdf",
-      "path": "C:/Workshop-RD-Practitioner/capstone/out/burst/NA.pdf"
+      "path": "C:/Workshop-RD-Associate/capstone/out/burst/NA.pdf"
     },
     {
       "id": "published-run",
       "kind": "file-exists",
       "label": "One run from the User Console, exported as regional-sales-report.pdf into out\\",
-      "path": "C:/Workshop-RD-Practitioner/capstone/out/regional-sales-report.pdf"
+      "path": "C:/Workshop-RD-Associate/capstone/out/regional-sales-report.pdf"
     }
   ]
 }

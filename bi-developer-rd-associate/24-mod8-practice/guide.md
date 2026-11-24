@@ -46,6 +46,14 @@ Set-Location C:\Pentaho\design-tools\report-designer
 3. Select **File > Save As** and save it as `Exercise - charts.prpt`.
 4. On the **Data** tab, double-click `Query 1` to read the query: `SALES` and `VOLUME` by product line and year. Select **OK**.
 5. Select **File > Page Setup**, select **Landscape**, and set the four margins to `18`. Select **OK**, then select **Do not change the layout** and **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/prac8_page_setup.png" alt="The Page Setup dialog with Landscape selected, page size LETTER and the four margins 18" width="516">
+<figcaption>Landscape, margins 18</figcaption>
+</figure>
+</div>
+
 6. Drag the bottom of the **Report Header** band down to about 7 inches, drag a **chart** onto it, and resize the chart to fill the band.
 7. Double-click the chart, select the **Multi Pie Chart** button, and set:
 
@@ -55,6 +63,13 @@ Set-Location C:\Pentaho\design-tools\report-designer
 | **category-column** | `PRODUCTLINE` |
 | **value-columns** | `SALES` |
 | **series-by-field** | `YEAR_ID` |
+
+<div align="center">
+<figure>
+<img src="../_assets/images/prac8_multi_pie.png" alt="The Edit Chart dialog with Multi Pie Chart selected: chart-title Product Line Mix; on the Primary DataSource tab category-column PRODUCTLINE, value-columns [SALES] and series-by-field [YEAR_ID]" width="800">
+<figcaption>The multi-pie chart</figcaption>
+</figure>
+</div>
 
 8. Select **OK**, then select **Preview**.
 
@@ -81,7 +96,23 @@ Set-Location C:\Pentaho\design-tools\report-designer
 2. On the master report's tab, drag the bottom of the **Report Footer** band down to about 3 inches, and resize the sub-report element to fill the band.
 3. On the sub-report's tab, drag `YEAR_ID` and `VOLUME` onto the **Details** band.
 4. Show the **Details Header** band (**hide-on-canvas** `False`), and add the labels `Year` and `Volume` and a **horizontal-line** under them.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/prac8_sub_details_header.png" alt="The sub-report tab with its Details Header band shown: the labels Year and Volume with a horizontal line under them, above YEAR_ID and VOLUME in the Details band" width="800">
+<figcaption>The Details Header</figcaption>
+</figure>
+</div>
+
 5. Add a group on `PRODUCTLINE` (**Add Group**), and a **message** element `Product Line: $(PRODUCTLINE)` in its **Group Header** band.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/prac8_group_message.png" alt="The sub-report with a Group: PRODUCTLINE in the Structure tab and the message Product Line: $(PRODUCTLINE) selected in its Group Header band" width="800">
+<figcaption>The product line group</figcaption>
+</figure>
+</div>
+
 6. Select `YEAR_ID` in the **Details** band and select **Format > Morph > text-field**, so that the year prints without a thousands separator.
 
 <div align="center">
@@ -148,6 +179,14 @@ ORDER BY
 3. Drag the bottom of the **Report Header** band down to about 4 inches.
 4. Drag a **sub-report** onto the band below the territory chart. Select **Inline** and the `By Territory` query.
 5. On the sub-report's tab, drag `TERRITORY` and `TOTAL` onto the **Details** band, and add the labels `Territory` and `Total` above them, in the sub-report's **Report Header** band.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/prac8_territory_subreport.png" alt="The By Territory sub-report tab: the labels Territory and Total in its Report Header band, TERRITORY and TOTAL in its Details band" width="800">
+<figcaption>The territory sub-report</figcaption>
+</figure>
+</div>
+
 6. On the master report's tab, add a second sub-report below the North America chart, with the `By Country` query, `COUNTRY` and `TOTAL`, and the labels `Country` and `Total`.
 7. Select **Preview**.
 
@@ -166,7 +205,23 @@ ORDER BY
 1. Select **File > Open** (`Ctrl+O`), open `chart drillable.prpt`, and save it as `Exercise - drillable chart.prpt`.
 2. Drag a **chart** onto the **Report Header** band and resize it to fill the band.
 3. Double-click the chart, keep the bar chart, and set **category-column** to `PRODUCTLINE`, **value-columns** to `QUANTITY` and **series-by-field** to `CITY`.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/prac8_drill_chart.png" alt="The Edit Chart dialog with the bar chart: on the Primary DataSource tab category-column PRODUCTLINE, value-columns [QUANTITY] and series-by-field [CITY]" width="800">
+<figcaption>The chart data</figcaption>
+</figure>
+</div>
+
 4. Set **3-D** (in **General**) to `True`, and **x-axis-label-rotation** (in **X-Axis**) to `45`. Select **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/prac8_drill_3d.png" alt="The Edit Chart dialog scrolled to the X-Axis group, with x-axis-label-rotation 45" width="800">
+<figcaption>x-axis-label-rotation 45</figcaption>
+</figure>
+</div>
+
 5. Select **Preview**.
 
 > **Success:** Checkpoint: a 3-D bar chart with the product lines along the x-axis at an angle, and one bar per New York city in each: `NYC` and `White Plains`.
@@ -182,6 +237,13 @@ ORDER BY
 | **Mandatory** | Selected |
 | **Display Type** | `Text Box` |
 
+<div align="center">
+<figure>
+<img src="../_assets/images/prac8_state_param.png" alt="The Add Parameter dialog: Name State, Label State:, Value Type String, Default Value NY, Mandatory selected, Display Type Text Box" width="800">
+<figcaption>The State parameter</figcaption>
+</figure>
+</div>
+
 7. Double-click the data source, select `Query 1`, and in its `WHERE` clause change `'NY'` to `${State}`, without the quotation marks:
 
 ```sql
@@ -189,6 +251,13 @@ ORDER BY
 ```
 
 8. Select **OK**, then select **Preview**. Enter `CA`, then `NJ`, in **State:**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/prac8_preview_ca.png" alt="The preview with State: CA: the 3-D bar chart of quantity by product line, the labels at an angle, and ten California cities in the legend" width="800">
+<figcaption>State: CA</figcaption>
+</figure>
+</div>
 
 > **Success:** Checkpoint: the chart changes with the state: ten cities in the legend for `CA`, and one, `Newark`, for `NJ`.
 
@@ -231,4 +300,18 @@ ORDER BY
 
 ## Lab Files
 
-_No bundled files for this lab._ The starting reports are in the **Lab Files** of [Drilldown Charts](../22-mod8-drilldown-charts/guide.md) and [Multiple Sub Reports](../23-mod8-multiple-sub-reports/guide.md).
+Click a file to download. For `.prpt` files, **Open in Pentaho Report Designer** starts Report Designer with the report loaded. Every file is also on disk in this workshop's folder, `C:\Workshop-RD-Associate\08-charts-sub-reports\24-mod8-practice`.
+
+The starting reports are in the **Lab Files** of [Drilldown Charts](../22-mod8-drilldown-charts/guide.md) and [Multiple Sub Reports](../23-mod8-multiple-sub-reports/guide.md).
+
+### Solution <!-- no-step -->
+
+The finished reports for this practice: the multi-pie chart with its grouped sub-report, the summary sub-reports, and the drillable 3-D chart. Open them alongside your own to compare, or preview them to see the expected result.
+
+Also on disk at `C:\Workshop-RD-Associate\08-charts-sub-reports\24-mod8-practice\solution`.
+
+[Exercise - charts.prpt](./files/solution/Exercise%20-%20charts.prpt) <button data-launch="prd" data-path="files/solution/Exercise - charts.prpt">Open in Pentaho Report Designer</button>
+
+[Exercise - multiple sub reports.prpt](./files/solution/Exercise%20-%20multiple%20sub%20reports.prpt) <button data-launch="prd" data-path="files/solution/Exercise - multiple sub reports.prpt">Open in Pentaho Report Designer</button>
+
+[Exercise - drillable chart.prpt](./files/solution/Exercise%20-%20drillable%20chart.prpt) <button data-launch="prd" data-path="files/solution/Exercise - drillable chart.prpt">Open in Pentaho Report Designer</button>

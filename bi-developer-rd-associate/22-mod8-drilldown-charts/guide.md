@@ -69,6 +69,14 @@ ORDER BY
 7. Drag the divider at the bottom of the **Report Header** band down to about 4 inches.
 8. From the palette, drag a **chart** onto the **Report Header** band, and drag its handles so that it fills the band: 6.5 inches wide and 4 inches high.
 9. Double-click the chart. In the **Edit Chart** dialog, keep the bar chart, and on the **Primary DataSource** tab set **category-column** to `STATUS` and **value-columns** to `SALES`: select the **...** button, move `SALES` to **Selected Items** in the **Edit Array** dialog, and select **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/mod8_edit_chart_status_sales.png" alt="The Edit Chart dialog with the bar chart selected; on the Primary DataSource tab the CategorySet Data Collector has category-column STATUS and value-columns [SALES]" width="800">
+<figcaption>The chart data</figcaption>
+</figure>
+</div>
+
 10. In the chart's properties on the left, set:
 
 | Property | Value |
@@ -110,7 +118,7 @@ ORDER BY
 </figure>
 </div>
 
-3. Set **Location** to `Pentaho Repository (Legacy)`.
+3. Set **Location** to `Pentaho Repository`.
 4. Select **Login**. In the **Login** dialog, check that **URL** is `http://localhost:8080/pentaho`, enter the administrator user and password from [Before You Start](../01-mod1-getting-started/guide.md), and select **OK**.
 
 <div align="center">
@@ -178,13 +186,13 @@ ORDER BY
 
 ## Lab Files
 
-Click a file to download. For `.prpt` files, **Open in Pentaho Report Designer** starts Report Designer with the report loaded. Every file is also on disk in this workshop's folder, `C:\Workshop-RD-Practitioner\08-charts-sub-reports\22-mod8-drilldown-charts`.
+Click a file to download. For `.prpt` files, **Open in Pentaho Report Designer** starts Report Designer with the report loaded. Every file is also on disk in this workshop's folder, `C:\Workshop-RD-Associate\08-charts-sub-reports\22-mod8-drilldown-charts`.
 
 ### Solution <!-- no-step -->
 
 The finished report for this lab. Open it alongside your own to compare.
 
-Also on disk at `C:\Workshop-RD-Practitioner\08-charts-sub-reports\22-mod8-drilldown-charts\solution`.
+Also on disk at `C:\Workshop-RD-Associate\08-charts-sub-reports\22-mod8-drilldown-charts\solution`.
 
 [Training Demo Report 8-1 drilldown charts.prpt](./files/solution/Training%20Demo%20Report%208-1%20drilldown%20charts.prpt) <button data-launch="prd" data-path="files/solution/Training Demo Report 8-1 drilldown charts.prpt">Open in Pentaho Report Designer</button>
 

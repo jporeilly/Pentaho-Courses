@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="586" viewBox="0 0 800 586" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+<filter id="shadow" x="-10%" y="-10%" width="120%" height="140%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#0f172a" flood-opacity="0.12"/></filter></defs>
+<rect width="800" height="586" fill="#ffffff"/>
+<rect x="202" y="16" width="582" height="186" rx="12" fill="#f5f3ff" stroke="#ede9fe" stroke-width="1.5"/>
+<path d="M202 28a12 12 0 0 1 12-12h558a12 12 0 0 1 12 12v32h-582z" fill="#6d28d9"/>
+<g transform="translate(215 26) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 10.27 7 3.34"/><path d="m11 13.73-4 6.93"/><path d="M12 22v-2"/><path d="M12 2v2"/><path d="M14 12h8"/><path d="m17 20.66-1-1.73"/><path d="m17 3.34-1 1.73"/><path d="M2 12h2"/><path d="m20.66 17-1.73-1"/><path d="m20.66 7-1.73 1"/><path d="m3.34 17 1.73-1"/><path d="m3.34 7 1.73 1"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="12" r="8"/></g>
+<text x="242" y="36" font-size="14" font-weight="700" fill="#ffffff">Pentaho Reporting engine</text>
+<text x="242" y="52" font-size="11.5" fill="#ffffff" opacity="0.92">the same code in Preview and on the server</text>
+<rect x="202" y="228" width="582" height="104" rx="12" fill="#f8fafc" stroke="#ffffff" stroke-width="1.5"/>
+<path d="M202 240a12 12 0 0 1 12-12h558a12 12 0 0 1 12 12v32h-582z" fill="#475569"/>
+<g transform="translate(215 238) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.226 20.925A2 2 0 0 0 6 22h12a2 2 0 0 0 2-2V8a2.4 2.4 0 0 0-.706-1.706l-3.588-3.588A2.4 2.4 0 0 0 14 2H6a2 2 0 0 0-2 2v3.127"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="m5 11-3 3"/><path d="m5 17-3-3h10"/></g>
+<text x="242" y="248" font-size="14" font-weight="700" fill="#ffffff">Output processors</text>
+<text x="242" y="264" font-size="11.5" fill="#ffffff" opacity="0.92">each renders the one laid-out result its own way</text>
+<rect x="16" y="356" width="768" height="214" rx="12" fill="#f8fafc" stroke="#ffffff" stroke-width="1.5"/>
+<path d="M16 368a12 12 0 0 1 12-12h744a12 12 0 0 1 12 12v22h-768z" fill="#475569"/>
+<g transform="translate(29 362) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 7V5a1 1 0 0 0-1-1H6.5a.5.5 0 0 0-.4.8l4.5 6a2 2 0 0 1 0 2.4l-4.5 6a.5.5 0 0 0 .4.8H17a1 1 0 0 0 1-1v-2"/></g>
+<text x="56" y="379" font-size="14" font-weight="700" fill="#ffffff">In the print pass: the Classic Cars group, two kinds of sum</text>
+<path d="M170 131C192.5 131 192.5 131 215 131" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M478 131C491.5 131 491.5 131 505 131" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M638 186C638 205.5 638 205.5 638 225" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="16" y="76" width="154" height="110" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="46" cy="131" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(34 119) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></g>
+<text x="76" y="106.5" font-size="14" font-weight="700" fill="#14532d">Query rows</text>
+<text x="76" y="123.5" font-size="12" fill="#14532d">every row the</text>
+<text x="76" y="138.5" font-size="12" fill="#14532d">report's query</text>
+<text x="76" y="153.5" font-size="12" fill="#14532d">returns</text>
+<rect x="218" y="76" width="260" height="110" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="248" cy="131" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(236 119) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.3 15.3a2.4 2.4 0 0 1 0 3.4l-2.6 2.6a2.4 2.4 0 0 1-3.4 0L2.7 8.7a2.41 2.41 0 0 1 0-3.4l2.6-2.6a2.41 2.41 0 0 1 3.4 0Z"/><path d="m14.5 12.5 2-2"/><path d="m11.5 9.5 2-2"/><path d="m8.5 6.5 2-2"/><path d="m17.5 15.5 2-2"/></g>
+<text x="278" y="106.5" font-size="14" font-weight="700" fill="#3b0764">1. Pagination pass</text>
+<text x="278" y="123.5" font-size="12" fill="#3b0764">lays out every row: where</text>
+<text x="278" y="138.5" font-size="12" fill="#3b0764">pages break, how many pages,</text>
+<text x="278" y="153.5" font-size="12" fill="#3b0764">each group's Sum total</text>
+<rect x="508" y="76" width="260" height="110" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="538" cy="131" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(526 119) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><path d="M6 9V3a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6"/><rect x="6" y="14" width="12" height="8" rx="1"/></g>
+<text x="568" y="106.5" font-size="14" font-weight="700" fill="#3b0764">2. Print pass</text>
+<text x="568" y="123.5" font-size="12" fill="#3b0764">prints the pages: page 1 of</text>
+<text x="568" y="138.5" font-size="12" fill="#3b0764">12 on page 1, a group total</text>
+<text x="568" y="153.5" font-size="12" fill="#3b0764">in its Group Header</text>
+<rect x="218" y="284" width="98" height="36" rx="10" fill="#ffffff" stroke="#64748b" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="267" y="307" text-anchor="middle" font-size="14" font-weight="700" fill="#0f172a">Preview</text>
+<rect x="331" y="284" width="98" height="36" rx="10" fill="#ffffff" stroke="#64748b" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="380" y="307" text-anchor="middle" font-size="14" font-weight="700" fill="#0f172a">PDF</text>
+<rect x="444" y="284" width="98" height="36" rx="10" fill="#ffffff" stroke="#64748b" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="493" y="307" text-anchor="middle" font-size="14" font-weight="700" fill="#0f172a">Excel</text>
+<rect x="557" y="284" width="98" height="36" rx="10" fill="#ffffff" stroke="#64748b" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="606" y="307" text-anchor="middle" font-size="14" font-weight="700" fill="#0f172a">HTML</text>
+<rect x="670" y="284" width="98" height="36" rx="10" fill="#ffffff" stroke="#64748b" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="719" y="307" text-anchor="middle" font-size="14" font-weight="700" fill="#0f172a">CSV</text>
+<text x="400" y="418" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0f172a">Sum (TotalGroupSumFunction)</text>
+<text x="652" y="418" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0f172a">ItemSumFunction (running)</text>
+<rect x="32" y="434" width="232" height="32" rx="5" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.2"/>
+<text x="40" y="454" font-size="11.5" font-weight="700" fill="#134e4a">Group Header</text>
+<text x="256" y="454" text-anchor="end" font-size="11.5" fill="#134e4a">before its rows</text>
+<rect x="284" y="434" width="232" height="32" rx="6" fill="#fef3c7" stroke="#b45309" stroke-width="1.2"/>
+<g transform="translate(294 441) scale(0.75)" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></g>
+<text x="320" y="454.5" font-size="12" fill="#78350f">5,844,033, already complete</text>
+<rect x="536" y="434" width="232" height="32" rx="6" fill="#fee2e2" stroke="#b91c1c" stroke-width="1.2"/>
+<g transform="translate(546 441) scale(0.75)" fill="none" stroke="#b91c1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></g>
+<text x="572" y="454.5" font-size="12" fill="#7f1d1d">not complete yet</text>
+<rect x="32" y="476" width="232" height="32" rx="5" fill="#ffffff" stroke="#64748b" stroke-width="1.2"/>
+<text x="40" y="496" font-size="11.5" font-weight="700" fill="#0f172a">Details</text>
+<text x="256" y="496" text-anchor="end" font-size="11.5" fill="#0f172a">every row</text>
+<rect x="284" y="476" width="232" height="32" rx="6" fill="#fef3c7" stroke="#b45309" stroke-width="1.2"/>
+<g transform="translate(294 483) scale(0.75)" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></g>
+<text x="320" y="496.5" font-size="12" fill="#78350f">5,844,033 on every row</text>
+<rect x="536" y="476" width="232" height="32" rx="6" fill="#ffffff" stroke="#64748b" stroke-width="1.2"/>
+<text x="548" y="496.5" font-size="12" fill="#0f172a">the total so far</text>
+<rect x="32" y="518" width="232" height="32" rx="5" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.2"/>
+<text x="40" y="538" font-size="11.5" font-weight="700" fill="#134e4a">Group Footer</text>
+<text x="256" y="538" text-anchor="end" font-size="11.5" fill="#134e4a">after the last row</text>
+<rect x="284" y="518" width="232" height="32" rx="6" fill="#fef3c7" stroke="#b45309" stroke-width="1.2"/>
+<g transform="translate(294 525) scale(0.75)" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></g>
+<text x="320" y="538.5" font-size="12" fill="#78350f">5,844,033</text>
+<rect x="536" y="518" width="232" height="32" rx="6" fill="#fef3c7" stroke="#b45309" stroke-width="1.2"/>
+<g transform="translate(546 525) scale(0.75)" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></g>
+<text x="572" y="538.5" font-size="12" fill="#78350f">5,844,033</text>
+</svg>

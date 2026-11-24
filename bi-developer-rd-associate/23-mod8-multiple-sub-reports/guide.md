@@ -44,6 +44,14 @@ Set-Location C:\Pentaho\design-tools\report-designer
 
 2. Select **File > New** (`Ctrl+N`).
 3. Select **Data > Add Datasource > JDBC**, and select **SampleData (Hypersonic)**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/rd_jdbc_sampledata_hypersonic.png" alt="The JDBC Data Source dialog with SampleData (Hypersonic) selected under Connections and no queries yet" width="800">
+<figcaption>The SampleData (Hypersonic) connection</figcaption>
+</figure>
+</div>
+
 4. Select the green plus (**Add Query**), set **Query Name** to `Sales by Territory`, and select the pencil above the **Query** box to open the **SQL Query Designer**.
 
 <div align="center">
@@ -138,6 +146,14 @@ WHERE
 
 7. Select **OK**.
 8. Select the master report's tab. Add a second inline **sub-report** on the left side of the **Report Header** band, with the `Sales by Country` query, spanning from the left edge to about 3.4 inches.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/mod8_second_subreport.png" alt="The master report with the left sub-report in the Report Header selected, from the left edge to about 3.4 inches; the Attributes tab shows its query name Sales by Country" width="800">
+<figcaption>The second sub-report</figcaption>
+</figure>
+</div>
+
 9. In the second sub-report, add a pie chart the same way, with **chart-title** `Sales by North America`, **value-column** `TOTALPRICE` and **series-by-field** `COUNTRY`.
 
 <div align="center">
@@ -180,13 +196,13 @@ WHERE
 
 ## Lab Files
 
-Click a file to download. For `.prpt` files, **Open in Pentaho Report Designer** starts Report Designer with the report loaded. Every file is also on disk in this workshop's folder, `C:\Workshop-RD-Practitioner\08-charts-sub-reports\23-mod8-multiple-sub-reports`.
+Click a file to download. For `.prpt` files, **Open in Pentaho Report Designer** starts Report Designer with the report loaded. Every file is also on disk in this workshop's folder, `C:\Workshop-RD-Associate\08-charts-sub-reports\23-mod8-multiple-sub-reports`.
 
 ### Solution <!-- no-step -->
 
 The finished report for this lab. Open it alongside your own to compare, or preview it to see the expected result.
 
-Also on disk at `C:\Workshop-RD-Practitioner\08-charts-sub-reports\23-mod8-multiple-sub-reports\solution`.
+Also on disk at `C:\Workshop-RD-Associate\08-charts-sub-reports\23-mod8-multiple-sub-reports\solution`.
 
 [Training Guided Demo Report 8-2 multiple sub.prpt](./files/solution/Training%20Guided%20Demo%20Report%208-2%20multiple%20sub.prpt) <button data-launch="prd" data-path="files/solution/Training Guided Demo Report 8-2 multiple sub.prpt">Open in Pentaho Report Designer</button>
 

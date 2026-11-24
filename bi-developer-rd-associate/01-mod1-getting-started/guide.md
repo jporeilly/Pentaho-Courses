@@ -15,7 +15,7 @@
 > * Learn how the guide works: progress, copy buttons, the assistant.
 > * See how Report Designer, the Pentaho Server and the sample data fit together.
 > * Confirm the server, the sample data, Report Designer and the reporting plugin all answer.
-> * Check the workshop folder: *C:\Workshop-RD-Practitioner*
+> * Check the workshop folder: *C:\Workshop-RD-Associate*
 >
 > **Prerequisites:** A basic understanding of relational tables and SQL.
 >
@@ -74,6 +74,8 @@ uses all three:
 * **PostgreSQL** is the server's own repository: its users and files,
   including the reports you publish. The server cannot finish starting
   without it, so it starts first.
+
+Read the diagram along its arrows. When you preview, Report Designer sends the report's query to SampleData through its **SampleData (Hypersonic)** connection; **Publish** copies the `.prpt` to the server. When someone opens the published report in the User Console and picks its prompts, the reporting engine runs the same query against SampleData again. The dashed arrow down to PostgreSQL is where the published report is kept.
 
 > **Under the hood:**
 >
@@ -257,7 +259,7 @@ the later ones meaningless, so fix from the top down.
 ### 4. Lab files on disk
 
 The installer has already laid this course's lab files out under
-**`C:\Workshop-RD-Practitioner`**, one folder per module, so you can
+**`C:\Workshop-RD-Associate`**, one folder per module, so you can
 open a report in Report Designer directly instead of downloading it
 from the guide first. Every lab's **Lab Files** section names the files.
 
@@ -335,7 +337,7 @@ steps the sign-in runs and checks again.
 
 Two folders matter in this course:
 
-* **`C:\Workshop-RD-Practitioner`**, laid down by the installer: one
+* **`C:\Workshop-RD-Associate`**, laid down by the installer: one
   folder per module, in the order the sidebar reads, holding each lab's
   shipped reports. A lab's `solution` folder holds its finished report,
   to compare with your own; a report at the lab's top level is a starter
@@ -346,7 +348,7 @@ Two folders matter in this course:
   workshop to workshop, saving a new copy in this folder at each step.
 
 ```text
-C:\Workshop-RD-Practitioner
+C:\Workshop-RD-Associate
 ├── 02-navigating-report-designer\03-mod2-navigating-report-designer
 ├── 03-data-sources-queries\05-mod3-connect-jdbc\solution
 ├── 04-report-elements-groups\07-mod4-adding-elements-groups\solution
@@ -388,7 +390,7 @@ there to look things up; they are not part of the course time.
 
 ## The exam and your course accreditation
 
-When you have worked through the sections, the **Practitioner Exam** in
+When you have worked through the sections, the **Associate Exam** in
 the sidebar draws 40 questions from a pool of 50. It is open-book: take
 your time, browse any module to refresh your memory, or ask the
 assistant. Your answers are saved as you go, so leaving the page to look
@@ -399,7 +401,7 @@ You are asked for your name, email and organization before you begin
 (and your Partner ID, if you are taking it as part of the Pentaho Partner
 Program); those are what your accreditation is made out to. Complete the
 capstone project and pass the exam, and your **Pentaho Report Designer -
-Practitioner Level** course accreditation appears on the results screen
+Associate Level** course accreditation appears on the results screen
 to download. It is valid for two years, and you can come back for it
 later from the same screen.
 

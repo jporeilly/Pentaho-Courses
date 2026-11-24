@@ -11,7 +11,7 @@
     "messagePlaceholder": "What would you like to know?",
     "sendLabel": "Send"
   },
-  "title": "Pentaho BI Developer - RD Practitioner",
+  "title": "Pentaho BI Developer - RD Associate",
   "description": "Hands-on workshop for Pentaho Report Designer: data sources, report elements and groups, calculations, formatting, parameters, charts, sub-reports, and publishing to the BA repository.",
   "version": "0.1.9",
   "kind": "workshop",
@@ -131,7 +131,7 @@
     }
   ],
   "completionCertificate": {
-    "title": "Pentaho Report Designer - Practitioner Level",
+    "title": "Pentaho Report Designer - Associate Level",
     "topics": [
       "Data sources and SQL queries",
       "Report elements, groups and totals",

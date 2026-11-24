@@ -48,7 +48,7 @@ Set-Location C:\Pentaho\design-tools\report-designer
 
 2. Select **File > Open** (`Ctrl+O`) and open `Demo - parameters.prpt` from your reports folder, `Documents\RD-Workshop`.
 3. Select **File > Save As** and save it as `Regional Sales.prpt` in the same folder.
-4. On the **Data** tab, under **Data Sets**, double-click **JDBC: SampleData (Hypersonic)**. Under **Available Queries**, select `prod_list`, set **Query Name** to `territory_list`, and replace the **Query** with:
+4. On the **Data** tab, under **Data Sets**, double-click **JDBC: SampleData (Hypersonic)**. Under **Available Queries**, select `prod_list`, the product line list from the [Report Parameters](../18-mod7-parameters/guide.md) workshop. This report no longer needs it, so you rename it rather than add a query: set **Query Name** to `territory_list`, and replace the **Query** with:
 
 ```sql
 SELECT DISTINCT TERRITORY FROM CUSTOMER_W_TER
@@ -80,6 +80,13 @@ WHERE "PUBLIC"."CUSTOMER_W_TER"."TERRITORY" IN (${TERRITORY})
 | **Query** | `territory_list` |
 | **Value** | `TERRITORY` |
 | **Display Name** | `TERRITORY` |
+
+<div align="center">
+<figure>
+<img src="../_assets/images/mod9_edit_parameter_territory.png" alt="The Edit Parameter dialog for TERRITORY: Label Select territories:, Value Type String, Default Value NA, Mandatory selected, Display Type Multi Value List, Query territory_list, Value and Display Name TERRITORY" width="800">
+<figcaption>The TERRITORY parameter</figcaption>
+</figure>
+</div>
 
 9. Select **OK**, then **Preview**. In the prompt, select `EMEA` only.
 
@@ -274,16 +281,25 @@ On your own machine, download `mailpit-windows-amd64.zip` from the [Mailpit rele
 > on its own; change the report once, republish it, and every copy
 > changes with it.
 
+<div align="center">
+<figure>
+<img src="../_assets/images/report-burst.png" alt="The published Regional Sales report on the Pentaho Server and its three schedules: Regional Sales EMEA with TERRITORY EMEA, Regional Sales APAC with APAC and Japan, and Regional Sales NA with NA, each with its own _SCH_EMAIL_TO. Each background run writes its PDF to /home/admin and hands it to the mail sender, which sends it over SMTP on port 1025 to Mailpit, where the inbox holds one email for each manager" width="800">
+<figcaption>One report, three schedules, three emails</figcaption>
+</figure>
+</div>
+
+Read the diagram from the top down, one column per manager. Each schedule holds its own `TERRITORY` values and its own `_SCH_EMAIL_TO`, so the one published report runs three times with three different prompt values. Every run hands its PDF to the same mail sender, the **Mail Server** settings you saved in tab 2, and every email lands in the one Mailpit inbox, addressed to its manager.
+
 ::::
 
 ## Lab Files
 
-Click a file to download. For `.prpt` files, **Open in Pentaho Report Designer** starts Report Designer with the report loaded. Every file is also on disk in this workshop's folder, `C:\Workshop-RD-Practitioner\09-publishing-reports\39-mod9-report-bursting`.
+Click a file to download. For `.prpt` files, **Open in Pentaho Report Designer** starts Report Designer with the report loaded. Every file is also on disk in this workshop's folder, `C:\Workshop-RD-Associate\09-publishing-reports\39-mod9-report-bursting`.
 
 ### Solution <!-- no-step -->
 
 The finished report: the [Report Parameters](../18-mod7-parameters/guide.md) solution with its product line prompt turned into the `TERRITORY` list. Open it in Report Designer to compare with your own.
 
-Also on disk at `C:\Workshop-RD-Practitioner\09-publishing-reports\39-mod9-report-bursting\solution`.
+Also on disk at `C:\Workshop-RD-Associate\09-publishing-reports\39-mod9-report-bursting\solution`.
 
 [Regional Sales.prpt](./files/solution/Regional%20Sales.prpt) <button data-launch="prd" data-path="files/solution/Regional Sales.prpt">Open in Pentaho Report Designer</button>

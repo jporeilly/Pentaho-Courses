@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="460" viewBox="0 0 800 460" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+<filter id="shadow" x="-10%" y="-10%" width="120%" height="140%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#0f172a" flood-opacity="0.12"/></filter></defs>
+<rect width="800" height="460" fill="#ffffff"/>
+<rect x="16" y="16" width="376" height="350" rx="12" fill="#f0fdfa" stroke="#ccfbf1" stroke-width="1.5"/>
+<path d="M16 28a12 12 0 0 1 12-12h352a12 12 0 0 1 12 12v32h-376z" fill="#0f766e"/>
+<g transform="translate(29 26) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 16 4 4 4-4"/><path d="M7 20V4"/><path d="M11 4h10"/><path d="M11 8h7"/><path d="M11 12h4"/></g>
+<text x="56" y="36" font-size="14" font-weight="700" fill="#ffffff">Sorted rows</text>
+<text x="56" y="52" font-size="11.5" fill="#ffffff" opacity="0.92">ORDER BY PRODUCTLINE first</text>
+<rect x="408" y="16" width="376" height="350" rx="12" fill="#fef2f2" stroke="#fee2e2" stroke-width="1.5"/>
+<path d="M408 28a12 12 0 0 1 12-12h352a12 12 0 0 1 12 12v32h-376z" fill="#b91c1c"/>
+<g transform="translate(421 26) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 14 4 4-4 4"/><path d="m18 2 4 4-4 4"/><path d="M2 18h1.973a4 4 0 0 0 3.3-1.7l5.454-8.6a4 4 0 0 1 3.3-1.7H22"/><path d="M2 6h1.972a4 4 0 0 1 3.6 2.2"/><path d="M22 18h-6.041a4 4 0 0 1-3.3-1.8l-.359-.45"/></g>
+<text x="448" y="36" font-size="14" font-weight="700" fill="#ffffff">Unsorted rows</text>
+<text x="448" y="52" font-size="11.5" fill="#ffffff" opacity="0.92">the same rows, PRODUCTLINE not sorted</text>
+<path d="M156 133L181 133" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M156 159L181 159" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M156 185L181 185" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M156 263L181 263" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M548 133L573 133" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M548 159L573 159" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M548 237L573 237" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M548 315L573 315" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<text x="32" y="86" font-size="12" font-weight="700" fill="#334155">Rows, in query order</text>
+<text x="184" y="86" font-size="12" font-weight="700" fill="#334155">What prints</text>
+<rect x="184" y="96" width="192" height="22" rx="5" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.2"/>
+<text x="192" y="111" font-size="11.5" font-weight="700" fill="#134e4a">Group Header</text>
+<text x="368" y="111" text-anchor="end" font-size="11.5" fill="#134e4a">Classic Cars</text>
+<rect x="184" y="122" width="192" height="22" rx="5" fill="#ffffff" stroke="#64748b" stroke-width="1.2"/>
+<text x="192" y="137" font-size="11.5" font-weight="700" fill="#0f172a">Details</text>
+<text x="368" y="137" text-anchor="end" font-size="11.5" fill="#0f172a">Classic Cars</text>
+<rect x="32" y="122" width="124" height="22" rx="5" fill="#ffffff" stroke="#94a3b8" stroke-width="1"/>
+<text x="40" y="137" font-size="11.5" fill="#0f172a"><tspan font-weight="700">1</tspan>  Classic Cars</text>
+<rect x="184" y="148" width="192" height="22" rx="5" fill="#ffffff" stroke="#64748b" stroke-width="1.2"/>
+<text x="192" y="163" font-size="11.5" font-weight="700" fill="#0f172a">Details</text>
+<text x="368" y="163" text-anchor="end" font-size="11.5" fill="#0f172a">Classic Cars</text>
+<rect x="32" y="148" width="124" height="22" rx="5" fill="#ffffff" stroke="#94a3b8" stroke-width="1"/>
+<text x="40" y="163" font-size="11.5" fill="#0f172a"><tspan font-weight="700">2</tspan>  Classic Cars</text>
+<rect x="184" y="174" width="192" height="22" rx="5" fill="#ffffff" stroke="#64748b" stroke-width="1.2"/>
+<text x="192" y="189" font-size="11.5" font-weight="700" fill="#0f172a">Details</text>
+<text x="368" y="189" text-anchor="end" font-size="11.5" fill="#0f172a">Classic Cars</text>
+<rect x="32" y="174" width="124" height="22" rx="5" fill="#ffffff" stroke="#94a3b8" stroke-width="1"/>
+<text x="40" y="189" font-size="11.5" fill="#0f172a"><tspan font-weight="700">3</tspan>  Classic Cars</text>
+<rect x="184" y="200" width="192" height="22" rx="5" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.2"/>
+<text x="192" y="215" font-size="11.5" font-weight="700" fill="#134e4a">Group Footer</text>
+<text x="368" y="215" text-anchor="end" font-size="11.5" fill="#134e4a">Classic Cars</text>
+<rect x="184" y="226" width="192" height="22" rx="5" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.2"/>
+<text x="192" y="241" font-size="11.5" font-weight="700" fill="#134e4a">Group Header</text>
+<text x="368" y="241" text-anchor="end" font-size="11.5" fill="#134e4a">Motorcycles</text>
+<rect x="184" y="252" width="192" height="22" rx="5" fill="#ffffff" stroke="#64748b" stroke-width="1.2"/>
+<text x="192" y="267" font-size="11.5" font-weight="700" fill="#0f172a">Details</text>
+<text x="368" y="267" text-anchor="end" font-size="11.5" fill="#0f172a">Motorcycles</text>
+<rect x="32" y="252" width="124" height="22" rx="5" fill="#ffffff" stroke="#94a3b8" stroke-width="1"/>
+<text x="40" y="267" font-size="11.5" fill="#0f172a"><tspan font-weight="700">4</tspan>  Motorcycles</text>
+<rect x="184" y="278" width="192" height="22" rx="5" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.2"/>
+<text x="192" y="293" font-size="11.5" font-weight="700" fill="#134e4a">Group Footer</text>
+<text x="368" y="293" text-anchor="end" font-size="11.5" fill="#134e4a">Motorcycles</text>
+<rect x="44.050000000000004" y="211.5" width="99.89999999999999" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="94" y="229.5" text-anchor="middle" font-size="12" fill="#334155">value changes</text>
+<text x="32" y="326" font-size="12.5" font-weight="700" fill="#134e4a">One header and one footer per product line</text>
+<text x="424" y="86" font-size="12" font-weight="700" fill="#334155">Rows, in query order</text>
+<text x="576" y="86" font-size="12" font-weight="700" fill="#334155">What prints</text>
+<rect x="576" y="96" width="192" height="22" rx="5" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.2"/>
+<text x="584" y="111" font-size="11.5" font-weight="700" fill="#134e4a">Group Header</text>
+<text x="760" y="111" text-anchor="end" font-size="11.5" fill="#134e4a">Classic Cars</text>
+<rect x="576" y="122" width="192" height="22" rx="5" fill="#ffffff" stroke="#64748b" stroke-width="1.2"/>
+<text x="584" y="137" font-size="11.5" font-weight="700" fill="#0f172a">Details</text>
+<text x="760" y="137" text-anchor="end" font-size="11.5" fill="#0f172a">Classic Cars</text>
+<rect x="424" y="122" width="124" height="22" rx="5" fill="#ffffff" stroke="#94a3b8" stroke-width="1"/>
+<text x="432" y="137" font-size="11.5" fill="#0f172a"><tspan font-weight="700">1</tspan>  Classic Cars</text>
+<rect x="576" y="148" width="192" height="22" rx="5" fill="#ffffff" stroke="#64748b" stroke-width="1.2"/>
+<text x="584" y="163" font-size="11.5" font-weight="700" fill="#0f172a">Details</text>
+<text x="760" y="163" text-anchor="end" font-size="11.5" fill="#0f172a">Classic Cars</text>
+<rect x="424" y="148" width="124" height="22" rx="5" fill="#ffffff" stroke="#94a3b8" stroke-width="1"/>
+<text x="432" y="163" font-size="11.5" fill="#0f172a"><tspan font-weight="700">2</tspan>  Classic Cars</text>
+<rect x="576" y="174" width="192" height="22" rx="5" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.2"/>
+<text x="584" y="189" font-size="11.5" font-weight="700" fill="#134e4a">Group Footer</text>
+<text x="760" y="189" text-anchor="end" font-size="11.5" fill="#134e4a">Classic Cars</text>
+<rect x="576" y="200" width="192" height="22" rx="5" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.2"/>
+<text x="584" y="215" font-size="11.5" font-weight="700" fill="#134e4a">Group Header</text>
+<text x="760" y="215" text-anchor="end" font-size="11.5" fill="#134e4a">Motorcycles</text>
+<rect x="576" y="226" width="192" height="22" rx="5" fill="#ffffff" stroke="#64748b" stroke-width="1.2"/>
+<text x="584" y="241" font-size="11.5" font-weight="700" fill="#0f172a">Details</text>
+<text x="760" y="241" text-anchor="end" font-size="11.5" fill="#0f172a">Motorcycles</text>
+<rect x="424" y="226" width="124" height="22" rx="5" fill="#ffffff" stroke="#94a3b8" stroke-width="1"/>
+<text x="432" y="241" font-size="11.5" fill="#0f172a"><tspan font-weight="700">3</tspan>  Motorcycles</text>
+<rect x="576" y="252" width="192" height="22" rx="5" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.2"/>
+<text x="584" y="267" font-size="11.5" font-weight="700" fill="#134e4a">Group Footer</text>
+<text x="760" y="267" text-anchor="end" font-size="11.5" fill="#134e4a">Motorcycles</text>
+<rect x="576" y="278" width="192" height="22" rx="5" fill="#fee2e2" stroke="#b91c1c" stroke-width="1.2"/>
+<text x="584" y="293" font-size="11.5" font-weight="700" fill="#7f1d1d">Group Header</text>
+<text x="760" y="293" text-anchor="end" font-size="11.5" fill="#7f1d1d">Classic Cars</text>
+<rect x="576" y="304" width="192" height="22" rx="5" fill="#fee2e2" stroke="#b91c1c" stroke-width="1.2"/>
+<text x="584" y="319" font-size="11.5" font-weight="700" fill="#7f1d1d">Details</text>
+<text x="760" y="319" text-anchor="end" font-size="11.5" fill="#7f1d1d">Classic Cars</text>
+<rect x="424" y="304" width="124" height="22" rx="5" fill="#ffffff" stroke="#94a3b8" stroke-width="1"/>
+<text x="432" y="319" font-size="11.5" fill="#0f172a"><tspan font-weight="700">4</tspan>  Classic Cars</text>
+<rect x="576" y="330" width="192" height="22" rx="5" fill="#fee2e2" stroke="#b91c1c" stroke-width="1.2"/>
+<text x="584" y="345" font-size="11.5" font-weight="700" fill="#7f1d1d">Group Footer</text>
+<text x="760" y="345" text-anchor="end" font-size="11.5" fill="#7f1d1d">Classic Cars</text>
+<rect x="436.05" y="185.5" width="99.89999999999999" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="486" y="203.5" text-anchor="middle" font-size="12" fill="#334155">value changes</text>
+<rect x="445.5" y="263.5" width="81" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="486" y="281.5" text-anchor="middle" font-size="12" fill="#334155">flips back</text>
+<rect x="16" y="382" width="768" height="62" rx="10" fill="#f1f5f9" stroke="#475569" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="48" cy="413" r="19" fill="#ffffff" stroke="#475569" stroke-width="1.2"/>
+<g transform="translate(36 401) scale(1)" fill="none" stroke="#475569" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"/><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"/><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"/></g>
+<text x="78" y="410" font-size="14" font-weight="700" fill="#0f172a">The group stores only group-fields="PRODUCTLINE"</text>
+<text x="78" y="428" font-size="12" fill="#0f172a">each row is compared with the row before: a change prints the old value's footer, then the new one's header</text>
+</svg>

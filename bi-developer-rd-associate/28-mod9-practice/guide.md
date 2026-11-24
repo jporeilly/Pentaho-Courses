@@ -15,7 +15,7 @@
 >
 > **Prerequisites:** [Practice: Charts & Sub Reports](../24-mod8-practice/guide.md) and its report, `Exercise - drillable chart.prpt`; [Publishing Reports](../26-mod9-publishing/guide.md) and [Hyperlinks](../27-mod9-hyperlinks/guide.md), with `Inventory List - drill-to` published
 >
-> **Estimated time:** 15 minutes
+> **Estimated time:** 10 minutes
 
 <figure>
 
@@ -60,8 +60,16 @@ Set-Location C:\Pentaho\design-tools\report-designer
 
 1. Select **File > Open** (`Ctrl+O`) and open `Inventory List HyperLink Report.prpt` from your workshop folder.
 2. In the **Details** band, right-click `PRODUCTCODE` and select **Hyperlink**.
-3. In the **Hyperlink** dialog, set **Location** to `Pentaho Repository (Legacy)`, select **Browse**, open `/public/Training`, select **Inventory List - drill-to**, and select **OK**.
+3. In the **Hyperlink** dialog, set **Location** to `Pentaho Repository`, select **Browse**, open `/public/Training`, select **Inventory List - drill-to**, and select **OK**.
 4. On the **Report Parameters** tab, set the **Value** of `ProdCodeParameter` to `=[PRODUCTCODE]`, and select **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/prac9_hyperlink.png" alt="The Hyperlink dialog: Location Pentaho Repository, Server URL localhost:8080/pentaho, Path /public/Training/Inventory List - drill-to.prpt, and ProdCodeParameter set to [PRODUCTCODE] on the Report Parameters tab" width="462">
+<figcaption>The link and its parameter</figcaption>
+</figure>
+</div>
+
 5. Save the report (`Ctrl+S`).
 6. Select **File > Publish** (`Ctrl+Shift+P`), and publish the report to `/public/Training` as `Inventory List HyperLink Report.prpt`. In the **Launch the published report?** dialog, select **No**.
 7. In the User Console, open **Browse Files > Public > Training**, double-click **Inventory List HyperLink Report**, and select a product code.
@@ -89,4 +97,14 @@ Set-Location C:\Pentaho\design-tools\report-designer
 
 ## Lab Files
 
-_No bundled files for this lab._ The reports are in the **Lab Files** of [Hyperlinks](../27-mod9-hyperlinks/guide.md).
+Click a file to download. For `.prpt` files, **Open in Pentaho Report Designer** starts Report Designer with the report loaded. Every file is also on disk in this workshop's folder, `C:\Workshop-RD-Associate\09-publishing-reports\28-mod9-practice`.
+
+The reports are in the **Lab Files** of [Hyperlinks](../27-mod9-hyperlinks/guide.md).
+
+### Solution <!-- no-step -->
+
+The finished report for this practice, with its product code links. The link points at `/public/Training/Inventory List - drill-to.prpt`, so publish that report first. Open it alongside your own to compare, or preview it to see the expected result.
+
+Also on disk at `C:\Workshop-RD-Associate\09-publishing-reports\28-mod9-practice\solution`.
+
+[Inventory List HyperLink Report.prpt](./files/solution/Inventory%20List%20HyperLink%20Report.prpt) <button data-launch="prd" data-path="files/solution/Inventory List HyperLink Report.prpt">Open in Pentaho Report Designer</button>

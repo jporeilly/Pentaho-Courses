@@ -15,7 +15,7 @@
 >
 > **Prerequisites:** [Publishing Reports](../26-mod9-publishing/guide.md), with a `Training` folder in `/public` on the server; `Demo - formatting.prpt` from [Formatting the Report](../15-mod6-formatting-report/guide.md)
 >
-> **Estimated time:** 15 minutes
+> **Estimated time:** 5 minutes
 
 <figure>
 
@@ -93,14 +93,14 @@ Set-Location C:\Pentaho\design-tools\report-designer
 </figure>
 </div>
 
-5. In the **Hyperlink** dialog, set **Location** to `Pentaho Repository (Legacy)`, and check that **Server URL** is `http://localhost:8080/pentaho`.
+5. In the **Hyperlink** dialog, set **Location** to `Pentaho Repository`, and check that **Server URL** is `http://localhost:8080/pentaho`.
 6. Select **Browse**, sign in if asked, open `/public/Training`, select **Inventory List - drill-to**, and select **OK**. **Path** now reads `/public/Training/Inventory List - drill-to.prpt`.
 7. Set **Target** to `_BLANK`, so the detail opens in a new window, and **Tooltip** to `Click for more details...`.
 8. On the **Report Parameters** tab, open the **Value** list of `ProdCodeParameter` and select `=[PRODUCTCODE]`.
 
 <div align="center">
 <figure>
-<img src="../_assets/images/mod9-13.png" alt="The Hyperlink dialog: Location Pentaho Repository (Legacy), Server URL localhost:8080/pentaho, Path /public/Training/Inventory List - drill-to.prpt, Target _BLANK, Tooltip Click for more details, and =[PRODUCTCODE] being selected for ProdCodeParameter" width="462">
+<img src="../_assets/images/mod9-13.png" alt="The Hyperlink dialog: Location Pentaho Repository, Server URL localhost:8080/pentaho, Path /public/Training/Inventory List - drill-to.prpt, Target _BLANK, Tooltip Click for more details..., and ProdCodeParameter set to [PRODUCTCODE] on the Report Parameters tab" width="462">
 <figcaption>The target report, the window, the tooltip and the parameter</figcaption>
 </figure>
 </div>
@@ -156,7 +156,7 @@ Set-Location C:\Pentaho\design-tools\report-designer
 
 ## Lab Files
 
-Click a file to download. For `.prpt` files, **Open in Pentaho Report Designer** starts Report Designer with the report loaded. Every file is also on disk in this workshop's folder, `C:\Workshop-RD-Practitioner\09-publishing-reports\27-mod9-hyperlinks`.
+Click a file to download. For `.prpt` files, **Open in Pentaho Report Designer** starts Report Designer with the report loaded. Every file is also on disk in this workshop's folder, `C:\Workshop-RD-Associate\09-publishing-reports\27-mod9-hyperlinks`.
 
 The detail report the hyperlinks open:
 
@@ -170,6 +170,6 @@ If you don't have `Demo - formatting.prpt`, start from this report instead: the 
 
 The finished report for this lab. Open it alongside your own to compare.
 
-Also on disk at `C:\Workshop-RD-Practitioner\09-publishing-reports\27-mod9-hyperlinks\solution`.
+Also on disk at `C:\Workshop-RD-Associate\09-publishing-reports\27-mod9-hyperlinks\solution`.
 
 [Training Guided Demo Report 9-1 hyperlinks.prpt](./files/solution/Training%20Guided%20Demo%20Report%209-1%20hyperlinks.prpt) <button data-launch="prd" data-path="files/solution/Training Guided Demo Report 9-1 hyperlinks.prpt">Open in Pentaho Report Designer</button>

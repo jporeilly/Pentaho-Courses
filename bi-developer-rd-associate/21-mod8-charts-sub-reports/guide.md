@@ -282,17 +282,26 @@ Every report prints its bands relative to its own position on the page. A master
 
 The dark gray area at the left of an inline sub-report's canvas is the space to the left of its element in the parent. You can't place elements there; move the sub-report element in the parent instead.
 
+<div align="center">
+<figure>
+<img src="../_assets/images/subreport-runs.png" alt="Top: a sub-report runs once each time its band prints: once in the Report Header, once per product line in a Group Header, from Classic Cars to Vintage Cars, and once per row in the Details band. Bottom: a banded sub-report prints at the left edge of its parent band; an inline sub-report prints at its element's x and y, here at 4.5 inches, beside the radar chart" width="800">
+<figcaption>How often a sub-report runs, and where banded and inline sub-reports print</figcaption>
+</figure>
+</div>
+
+Read the top half one band at a time: each violet box is one run of the sub-report, with its own query. Your sub-report sits in the Report Header, the first row, so it runs once; in a product line Group Header it would run once for each of the seven lines, which is a master-detail report. The bottom half is this workshop's layout: the radar chart fills the left of the Report Header, and the inline sub-report starts at 4.5 inches, where you placed its element in part 3. A banded sub-report would start at the band's left edge instead.
+
 ::::
 
 ## Lab Files
 
-Click a file to download. For `.prpt` files, **Open in Pentaho Report Designer** starts Report Designer with the report loaded. Every file is also on disk in this workshop's folder, `C:\Workshop-RD-Practitioner\08-charts-sub-reports\21-mod8-charts-sub-reports`.
+Click a file to download. For `.prpt` files, **Open in Pentaho Report Designer** starts Report Designer with the report loaded. Every file is also on disk in this workshop's folder, `C:\Workshop-RD-Associate\08-charts-sub-reports\21-mod8-charts-sub-reports`.
 
 ### Solution <!-- no-step -->
 
 The finished report for this lab. Open it alongside your own to compare, or preview it to see the expected result. It puts the column labels in the master report's **Page Header** band instead of the sub-report.
 
-Also on disk at `C:\Workshop-RD-Practitioner\08-charts-sub-reports\21-mod8-charts-sub-reports\solution`.
+Also on disk at `C:\Workshop-RD-Associate\08-charts-sub-reports\21-mod8-charts-sub-reports\solution`.
 
 [Training Demo Report 8 charts.prpt](./files/solution/Training%20Demo%20Report%208%20charts.prpt) <button data-launch="prd" data-path="files/solution/Training Demo Report 8 charts.prpt">Open in Pentaho Report Designer</button>
 

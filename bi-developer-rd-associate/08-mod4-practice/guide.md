@@ -44,7 +44,23 @@ Set-Location C:\Pentaho\design-tools\report-designer
 
 2. Select **File > New** (`Ctrl+N`).
 3. Select **Data > Add Datasource > JDBC**, and under **Connections** select **SampleData (Hypersonic)**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/rd_jdbc_sampledata_hypersonic.png" alt="The JDBC Data Source dialog with SampleData (Hypersonic) selected under Connections and no queries yet" width="800">
+<figcaption>The SampleData (Hypersonic) connection</figcaption>
+</figure>
+</div>
+
 4. To the right of **Available Queries**, select the green plus (**Add Query**), and keep the name `Query 1`.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/rd_jdbc_add_query_1.png" alt="The JDBC Data Source dialog with SampleData (Hypersonic) selected and Query 1 added under Available Queries: Query Name Query 1 and an empty query" width="800">
+<figcaption>Query 1 added</figcaption>
+</figure>
+</div>
+
 5. Enter this statement in the **Query** box. You can also build it in the **SQL Query Designer**, as in [Connect to a JDBC Data Source](../05-mod3-connect-jdbc/guide.md):
 
 ```sql
@@ -82,6 +98,14 @@ ORDER BY
 2. From the **Data** tab, drag `CUSTOMERNAME`, `ORDERNUMBER`, `PRODUCTCODE` and `TOTALPRICE` onto the **Details** band, from left to right.
 3. Zoom the canvas to 150%.
 4. Click the top ruler to add vertical guides at 2.5 inches (6 cm), 3.75 inches (9.5 cm) and 5.25 inches (13.5 cm).
+
+<div align="center">
+<figure>
+<img src="../_assets/images/prac4_guides.png" alt="The Details band with CUSTOMERNAME, ORDERNUMBER, PRODUCTCODE and TOTALPRICE, and vertical guides on the top ruler at 2.5, 3.75 and 5.25 inches" width="800">
+<figcaption>The four elements on their guides</figcaption>
+</figure>
+</div>
+
 5. Resize the elements to fit between the guides:
 
 | Element | Left edge | Right edge |
@@ -109,6 +133,14 @@ ORDER BY
 1. In the **Structure** tab, select **Details Header**, and on the **Attributes** tab set **hide-on-canvas** to `False`.
 2. Resize the **Details Header** band to about 0.5 inch high.
 3. Add a **label** above each element, as wide as the element below it, with the text `Customer Name`, `Order Number`, `Product Code` and `Total Price`.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/prac4_labels.png" alt="The Details Header band with the labels Customer Name, Order Number, Product Code and Total Price above the four elements; the Total Price label is selected" width="800">
+<figcaption>The column labels</figcaption>
+</figure>
+</div>
+
 4. Select the four labels and select **Format > Alignment > Top**.
 5. Select **Preview**.
 
@@ -125,9 +157,41 @@ ORDER BY
 > Group the orders by territory and, inside each territory, by country. Each group gets a message element as its heading.
 
 1. In the **Structure** tab, right-click **Group** and select **Add Group**. Set **Name** to `Territory`, move `TERRITORY` to **Selected Fields**, and select **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/prac4_group_territory.png" alt="The Add Group dialog with Name Territory and TERRITORY under Selected Fields" width="559">
+<figcaption>The Territory group</figcaption>
+</figure>
+</div>
+
 2. In the **Structure** tab, right-click the new `Territory` group and select **Add Group**: the new group goes inside it. Set **Name** to `Country`, move `COUNTRY` to **Selected Fields**, and select **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/prac4_group_country.png" alt="The Add Group dialog with Name Country and COUNTRY under Selected Fields" width="559">
+<figcaption>The Country group</figcaption>
+</figure>
+</div>
+
 3. Drag a **message** element onto the top left corner of the territory group's **Group Header** band, the upper of the two. Set its **value** to `Territory: $(TERRITORY)` and resize it to the second guide, at 3.75 inches.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/prac4_msg_territory.png" alt="The message Territory: $(TERRITORY) selected at the top left of the territory group's Group Header band" width="800">
+<figcaption>The territory message</figcaption>
+</figure>
+</div>
+
 4. Drag a **message** element onto the top left corner of the country group's **Group Header** band. Set its **value** to `Country: $(COUNTRY)` and resize it to the first guide, at 2.5 inches.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/prac4_msg_country.png" alt="The message Country: $(COUNTRY) selected at the top left of the country group's Group Header band, below the territory message" width="800">
+<figcaption>The country message</figcaption>
+</figure>
+</div>
+
 5. Select both messages and select **Bold**.
 
 <div align="center">
@@ -162,4 +226,12 @@ ORDER BY
 
 ## Lab Files
 
-_No bundled files for this lab._
+Click a file to download. For `.prpt` files, **Open in Pentaho Report Designer** starts Report Designer with the report loaded. Every file is also on disk in this workshop's folder, `C:\Workshop-RD-Associate\04-report-elements-groups\08-mod4-practice`.
+
+### Solution <!-- no-step -->
+
+The finished report for this practice, with its groups and labels. Open it alongside your own to compare, or preview it to see the expected result.
+
+Also on disk at `C:\Workshop-RD-Associate\04-report-elements-groups\08-mod4-practice\solution`.
+
+[Exercise - data elements.prpt](./files/solution/Exercise%20-%20data%20elements.prpt) <button data-launch="prd" data-path="files/solution/Exercise - data elements.prpt">Open in Pentaho Report Designer</button>

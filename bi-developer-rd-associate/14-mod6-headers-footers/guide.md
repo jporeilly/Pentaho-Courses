@@ -100,6 +100,14 @@ Set-Location C:\Pentaho\design-tools\report-designer
 > The title is a fixed **label**; the date is a **message** element that reads `report.date`, the date and time the report runs.
 
 1. Drag a **label** onto the upper right corner of the **Report Header** band. Set its **value** to `Steel Wheels Product Report`, and drag its left handle to about 4 inches on the top ruler, so that it spans from 4 inches to the right edge of the band.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/mod6_title_label.png" alt="The Steel Wheels Product Report label selected at the upper right of the Report Header, with that value on the Attributes tab" width="800">
+<figcaption>The title label</figcaption>
+</figure>
+</div>
+
 2. Drag a **message** element directly below the label, with the same width. Set its **value** to `As of $(report.date, date, MM-dd-yyyy)`.
 
 <div align="center">
@@ -159,6 +167,14 @@ Set-Location C:\Pentaho\design-tools\report-designer
 > The **Page Footer** band prints at the bottom of every page. A **Page** function counts the pages as the report runs.
 
 1. On the **Data** tab, right-click **Functions** and select **Add Functions**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/mod6_add_functions_menu.png" alt="The Data tab with Functions right-clicked and Add Functions highlighted; Functions holds Sum: TotalGroup and Sum: TotalReport" width="800">
+<figcaption>Add Functions</figcaption>
+</figure>
+</div>
+
 2. In the **Add Function** dialog, open the **Common** folder, select **Page**, and select **OK**.
 
 <div align="center">
@@ -202,12 +218,12 @@ Set-Location C:\Pentaho\design-tools\report-designer
 
 ## Lab Files
 
-Click a file to download. For `.prpt` files, **Open in Pentaho Report Designer** starts Report Designer with the report loaded. Every file is also on disk in this workshop's folder, `C:\Workshop-RD-Practitioner\06-formatting-the-report\14-mod6-headers-footers`.
+Click a file to download. For `.prpt` files, **Open in Pentaho Report Designer** starts Report Designer with the report loaded. Every file is also on disk in this workshop's folder, `C:\Workshop-RD-Associate\06-formatting-the-report\14-mod6-headers-footers`.
 
 ### Solution <!-- no-step -->
 
-The finished report for this lab. Open it alongside your own to compare, or preview it to see the expected result. It also has the formatting of the next workshop, [Formatting the Report](../15-mod6-formatting-report/guide.md), and its title reads `Steel Wheels Sales Report`.
+The finished report for this lab. Open it alongside your own to compare, or preview it to see the expected result. It also has the formatting of the next workshop, [Formatting the Report](../15-mod6-formatting-report/guide.md).
 
-Also on disk at `C:\Workshop-RD-Practitioner\06-formatting-the-report\14-mod6-headers-footers\solution`.
+Also on disk at `C:\Workshop-RD-Associate\06-formatting-the-report\14-mod6-headers-footers\solution`.
 
 [Training Demo Report 6-1 header.prpt](./files/solution/Training%20Demo%20Report%206-1%20header.prpt) <button data-launch="prd" data-path="files/solution/Training Demo Report 6-1 header.prpt">Open in Pentaho Report Designer</button>

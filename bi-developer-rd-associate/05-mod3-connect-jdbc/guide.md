@@ -101,6 +101,14 @@ The **Add DataSources** icon on the main toolbar, a yellow cylinder, opens the s
 > The **SQL Query Designer** writes the `SELECT` statement for you as you pick tables and columns. You join three tables: `PRODUCTS`, `ORDERFACT` (one row per order line) and `CUSTOMER_W_TER` (customers with their sales territory).
 
 1. To the right of **Available Queries**, select the green plus (**Add Query**). Report Designer adds a query named `Query 1`.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/rd_jdbc_add_query_1.png" alt="The JDBC Data Source dialog with SampleData (Hypersonic) selected and Query 1 added under Available Queries: Query Name Query 1 and an empty query" width="800">
+<figcaption>Query 1 added</figcaption>
+</figure>
+</div>
+
 2. Keep `Query 1` in **Query Name**: the later workshops refer to the query by that name.
 3. Above the right-hand corner of the **Query** box, select the pencil icon. The **SQL Query Designer** opens.
 
@@ -307,13 +315,13 @@ To connect to other kinds of data source, see the [Data Sources Reference](../29
 
 ## Lab Files
 
-Click a file to download. For `.prpt` files, **Open in Pentaho Report Designer** starts Report Designer with the report loaded. Every file is also on disk in this workshop's folder, `C:\Workshop-RD-Practitioner\03-data-sources-queries\05-mod3-connect-jdbc`.
+Click a file to download. For `.prpt` files, **Open in Pentaho Report Designer** starts Report Designer with the report loaded. Every file is also on disk in this workshop's folder, `C:\Workshop-RD-Associate\03-data-sources-queries\05-mod3-connect-jdbc`.
 
 ### Solution <!-- no-step -->
 
 The finished report for this lab: the **SampleData (Hypersonic)** data source and `Query 1`, with no layout yet. Open it alongside your own to compare.
 
-Also on disk at `C:\Workshop-RD-Practitioner\03-data-sources-queries\05-mod3-connect-jdbc\solution`.
+Also on disk at `C:\Workshop-RD-Associate\03-data-sources-queries\05-mod3-connect-jdbc\solution`.
 
 [Training Demo Report 3 jdbc sql query.prpt](./files/solution/Training%20Demo%20Report%203%20jdbc%20sql%20query.prpt) <button data-launch="prd" data-path="files/solution/Training Demo Report 3 jdbc sql query.prpt">Open in Pentaho Report Designer</button>
 
