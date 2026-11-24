@@ -67,9 +67,17 @@ Set-Location C:\Pentaho\design-tools\schema-workbench
 C:\Pentaho\server\pentaho-server\start-pentaho.bat
 ```
 
-3. Select **File > Open** and open `MiniatureModels.xml`, your schema from [Standard Model](../06-schemas-standard-model/guide.md), in `C:\Workshop-SW-Practitioner\03-schemas\06-schemas-standard-model`. If you didn't build it, open that lab's solution, `solution\miniaturemodels-original.xml`, instead.
-4. Select **File > Save As** and save it as `MiniatureModels-extended.xml` in `C:\Workshop-SW-Practitioner\04-extend-model\08-extend-model-extended-model`, so your Standard Model schema stays as it was.
+3. Select **File > Open** and open `MiniatureModels.xml`, your schema from [Standard Model](../06-schemas-standard-model/guide.md), in `C:\Workshop-SW-Associate\03-schemas\06-schemas-standard-model`. If you didn't build it, open that lab's solution, `solution\miniaturemodels-original.xml`, instead.
+4. Select **File > Save As** and save it as `MiniatureModels-extended.xml` in `C:\Workshop-SW-Associate\04-extend-model\08-extend-model-extended-model`, so your Standard Model schema stays as it was.
 5. Right-click **Sales_FY2003_2005** and select **Add Dimension**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/extended_add_dimension_markets_menu.png" alt="Schema Workbench context menu on the Sales_FY2003_2005 cube of MiniatureModels-extended.xml, with Add Dimension highlighted" width="800">
+<figcaption>Add the MARKETS dimension</figcaption>
+</figure>
+</div>
+
 6. Set the dimension's attributes:
 
 | Attribute  | Value          |
@@ -78,13 +86,35 @@ C:\Pentaho\server\pentaho-server\start-pentaho.bat
 | **foreignKey** | `CUSTOMERNUMBER` |
 | **type** | StandardDimension |
 
+<div align="center">
+<figure>
+<img src="../_assets/images/extended_dimension_markets_attributes.png" alt="The new MARKETS dimension selected: name MARKETS, foreignKey CUSTOMERNUMBER, type StandardDimension; the message reads that Hierarchy New Hierarchy 0 is invalid" width="800">
+<figcaption>The dimension's attributes</figcaption>
+</figure>
+</div>
+
 7. Expand **MARKETS**, right-click **New Hierarchy 0** and select **Add Table**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/extended_add_table_markets_menu.png" alt="Schema Workbench context menu on the MARKETS dimension's New Hierarchy 0, with Add Table highlighted" width="800">
+<figcaption>Add the dimension's table</figcaption>
+</figure>
+</div>
+
 8. Set the table's attributes:
 
 | Attribute | Value |
 | --------- | ----- |
 | **schema** | `PUBLIC` |
 | **name** | `CUSTOMER_W_TER` |
+
+<div align="center">
+<figure>
+<img src="../_assets/images/extended_table_markets.png" alt="The table of New Hierarchy 0 under MARKETS selected: schema PUBLIC, name CUSTOMER_W_TER" width="800">
+<figcaption>The dimension's table</figcaption>
+</figure>
+</div>
 
 9. Select **New Hierarchy 0** and set its attributes:
 
@@ -94,6 +124,13 @@ C:\Pentaho\server\pentaho-server\start-pentaho.bat
 | **hasAll** | selected |
 | **allMemberName** | `All Markets` |
 | **primaryKey** | `CUSTOMERNUMBER` |
+
+<div align="center">
+<figure>
+<img src="../_assets/images/extended_hierarchy_markets.png" alt="The Markets hierarchy selected: hasAll selected, allMemberName All Markets, primaryKey CUSTOMERNUMBER, visible selected" width="800">
+<figcaption>The Markets hierarchy</figcaption>
+</figure>
+</div>
 
 10. For each row of this table, in order, right-click **Markets**, select **Add Level**, and set the level's attributes. Each level is **type** String, **levelType** Regular and **hideMemberIf** Never.
 
@@ -131,7 +168,23 @@ C:\Pentaho\server\pentaho-server\start-pentaho.bat
 > Annotations mark Country, State Province and City as geography, so Analyzer can place them on a Geo Map, which draws its map tiles from OpenStreetMap. Each level takes an **Annotations** node, and one **Annotation** under it per name.
 
 1. Right-click **Country** and select **Add Annotations**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/extended_add_annotations_menu.png" alt="Schema Workbench context menu on the Country level of the Markets hierarchy, with Add Annotations highlighted" width="800">
+<figcaption>Add Annotations</figcaption>
+</figure>
+</div>
+
 2. Right-click the new **Annotations** node and select **Add Annotation**. Set **name** to `Data.Role` and **cdata** to `Geography`.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/extended_annotation_data_role.png" alt="The Data.Role annotation under the Country level&#39;s Annotations node selected: name Data.Role, cdata Geography" width="800">
+<figcaption>The Data.Role annotation</figcaption>
+</figure>
+</div>
+
 3. Right-click **Annotations** again, select **Add Annotation**, and set **name** to `Geo.Role` and **cdata** to `country`.
 
 <div align="center">
@@ -188,6 +241,14 @@ C:\Pentaho\server\pentaho-server\start-pentaho.bat
 1. Under **CUSTOMERS > Customers**, right-click **Territory** and select **Delete**.
 2. Right-click **Country** and select **Delete**.
 3. Right-click **Customer Name** and select **Add Property**. Type each **column** name: the property grid doesn't offer a list for it.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/extended_add_property_menu.png" alt="Schema Workbench context menu on the Customer Name level, the only level left in the Customers hierarchy, with Add Property highlighted" width="800">
+<figcaption>Add Property</figcaption>
+</figure>
+</div>
+
 4. Set the property's attributes:
 
 | Attribute | Value          |
@@ -313,6 +374,14 @@ This example shares a CUSTOMERS dimension between two cubes, joined through `ORD
 ```
 
 1. Right-click **Schema** and select **Add Dimension**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/extended_add_dimension_time_menu.png" alt="Schema Workbench context menu on Schema, with Add Dimension highlighted" width="800">
+<figcaption>A dimension at schema level</figcaption>
+</figure>
+</div>
+
 2. Set the dimension's attributes. A shared dimension has no **foreignKey**: each cube supplies its own.
 
 | Attribute | Value         |
@@ -320,13 +389,35 @@ This example shares a CUSTOMERS dimension between two cubes, joined through `ORD
 | **name** | `TIME` |
 | **type** | TimeDimension |
 
+<div align="center">
+<figure>
+<img src="../_assets/images/extended_dimension_time_attributes.png" alt="The new shared TIME dimension selected under Schema: name TIME, no foreignKey, type TimeDimension; the message reads that Hierarchy New Hierarchy 0 is invalid" width="800">
+<figcaption>The shared dimension's attributes</figcaption>
+</figure>
+</div>
+
 3. Expand **TIME**, right-click **New Hierarchy 0** and select **Add Table**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/extended_add_table_time_menu.png" alt="Schema Workbench context menu on the TIME dimension's New Hierarchy 0, with Add Table highlighted" width="800">
+<figcaption>Add the dimension's table</figcaption>
+</figure>
+</div>
+
 4. Set the table's attributes:
 
 | Attribute | Value |
 | --------- | ----- |
 | **schema** | `PUBLIC` |
 | **name** | `DIM_TIME` |
+
+<div align="center">
+<figure>
+<img src="../_assets/images/extended_table_dim_time.png" alt="The table of New Hierarchy 0 under TIME selected: schema PUBLIC, name DIM_TIME" width="800">
+<figcaption>The dimension's table</figcaption>
+</figure>
+</div>
 
 5. Select **New Hierarchy 0** and set its attributes:
 
@@ -337,6 +428,13 @@ This example shares a CUSTOMERS dimension between two cubes, joined through `ORD
 | **allMemberName** | `All Years` |
 | **primaryKey** | `TIME_ID` |
 
+<div align="center">
+<figure>
+<img src="../_assets/images/extended_hierarchy_time.png" alt="The Time hierarchy selected: hasAll selected, allMemberName All Years, primaryKey TIME_ID, visible selected" width="800">
+<figcaption>The Time hierarchy</figcaption>
+</figure>
+</div>
+
 6. For each row of this table, in order, right-click **Time**, select **Add Level**, and set the level's attributes. Each level is **type** String and **hideMemberIf** Never.
 
 | name | column | ordinalColumn | uniqueMembers | levelType |
@@ -344,6 +442,13 @@ This example shares a CUSTOMERS dimension between two cubes, joined through `ORD
 | `Years` | `YEAR_ID` | | selected | TimeYears |
 | `Quarters` | `QTR_NAME` | `QTR_ID` | cleared | TimeQuarters |
 | `Months` | `MONTH_NAME` | `MONTH_ID` | cleared | TimeMonths |
+
+<div align="center">
+<figure>
+<img src="../_assets/images/extended_level_quarters.png" alt="The Quarters level of the Time hierarchy selected, between Years and Months: column QTR_NAME, ordinalColumn QTR_ID, type String, uniqueMembers cleared, levelType TimeQuarters, hideMemberIf Never" width="800">
+<figcaption>The Quarters level, ordered by QTR_ID</figcaption>
+</figure>
+</div>
 
 7. Add an **Annotations** node to each level and, under it, one **Annotation** with **name** `AnalyzerDateFormat` and this **cdata**:
 
@@ -361,6 +466,14 @@ This example shares a CUSTOMERS dimension between two cubes, joined through `ORD
 </div>
 
 8. Right-click **Sales_FY2003_2005** and select **Add Dimension Usage**. Its icon differs from a dimension's: it points at a shared dimension.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/extended_add_dimension_usage_menu.png" alt="Schema Workbench context menu on the Sales_FY2003_2005 cube, with Add Dimension Usage highlighted; the shared TIME dimension sits below the cube" width="800">
+<figcaption>Add Dimension Usage</figcaption>
+</figure>
+</div>
+
 9. Set the usage's attributes:
 
 | Attribute  | Value   |
@@ -408,12 +521,27 @@ This example shares a CUSTOMERS dimension between two cubes, joined through `ORD
 > A star dimension has one dimension table and a snowflake dimension two or more; a degenerate dimension has none. All the columns that describe it live in the fact table. Order status suits it: a handful of values, nothing more to describe them, and a dimension table would only add a join.
 
 1. Right-click **Sales_FY2003_2005** and select **Add Dimension**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/extended_add_dimension_order_status_menu.png" alt="Schema Workbench context menu on the Sales_FY2003_2005 cube, with Add Dimension highlighted" width="800">
+<figcaption>Add the ORDER STATUS dimension</figcaption>
+</figure>
+</div>
+
 2. Set the dimension's attributes. It has no **foreignKey**: its column is in the fact table itself.
 
 | Attribute  | Value       |
 | ---------- | ----------- |
 | **name** | `ORDER STATUS` |
 | **type** | StandardDimension |
+
+<div align="center">
+<figure>
+<img src="../_assets/images/extended_dimension_order_status_attributes.png" alt="The ORDER STATUS dimension selected: name ORDER STATUS, no foreignKey, type StandardDimension, visible selected" width="800">
+<figcaption>The dimension's attributes</figcaption>
+</figure>
+</div>
 
 3. Expand **ORDER STATUS**, select **New Hierarchy 0**, and set its attributes. It gets no table.
 
@@ -422,6 +550,13 @@ This example shares a CUSTOMERS dimension between two cubes, joined through `ORD
 | **name** | `Status` |
 | **hasAll** | selected |
 | **allMemberName** | `All Status` |
+
+<div align="center">
+<figure>
+<img src="../_assets/images/extended_hierarchy_status.png" alt="The Status hierarchy of ORDER STATUS selected: hasAll selected, allMemberName All Status, no primaryKey and no table" width="800">
+<figcaption>The Status hierarchy</figcaption>
+</figure>
+</div>
 
 4. With **Status** selected, select **Add Level** on the toolbar. The right-click menu keeps **Add Level** unavailable for a hierarchy without a table.
 
@@ -547,7 +682,7 @@ This example shares a CUSTOMERS dimension between two cubes, joined through `ORD
 
 ## Lab Files
 
-Click a file to download. Every file is also on disk in this workshop's folder, `C:\Workshop-SW-Practitioner\04-extend-model\08-extend-model-extended-model`: open a schema in Schema Workbench with **File > Open**.
+Click a file to download. Every file is also on disk in this workshop's folder, `C:\Workshop-SW-Associate\04-extend-model\08-extend-model-extended-model`: open a schema in Schema Workbench with **File > Open**.
 
 _No starting files: this workshop extends your schema from [Standard Model](../06-schemas-standard-model/guide.md)._
 
@@ -555,6 +690,6 @@ _No starting files: this workshop extends your schema from [Standard Model](../0
 
 The extended schema. Open it in Schema Workbench (**File > Open**) alongside your own to compare, or publish it to see the expected result. It also holds the Unit Price calculated member that workshop 09 adds.
 
-Also on disk at `C:\Workshop-SW-Practitioner\04-extend-model\08-extend-model-extended-model\solution`.
+Also on disk at `C:\Workshop-SW-Associate\04-extend-model\08-extend-model-extended-model\solution`.
 
 [miniaturemodels-extended.xml](./files/solution/miniaturemodels-extended.xml)

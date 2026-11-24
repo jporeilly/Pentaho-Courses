@@ -94,6 +94,14 @@ C:\Pentaho\server\pentaho-server\start-pentaho.bat
 1. Select **File > New > Schema**.
 2. In the left pane, select **Schema**, set **name** to `Miniature Models` and press `Tab`.
 3. Right-click **Schema** and select **Add cube**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/miniature_add_cube_menu.png" alt="Schema Workbench context menu on Schema, with Add cube highlighted; the Miniature Models schema has no cube yet" width="800">
+<figcaption>Add cube</figcaption>
+</figure>
+</div>
+
 4. Set **name** to `Sales_FY2003_2005` and press `Tab`. Leave **cache**, **enabled** and **visible** selected.
 
 <div align="center">
@@ -102,7 +110,7 @@ C:\Pentaho\server\pentaho-server\start-pentaho.bat
 <figcaption>The Sales_FY2003_2005 cube</figcaption>
 </figure>
 </div>
-5. Select **File > Save As** and save the schema as `MiniatureModels.xml` in `C:\Workshop-SW-Practitioner\03-schemas\06-schemas-standard-model`.
+5. Select **File > Save As** and save the schema as `MiniatureModels.xml` in `C:\Workshop-SW-Associate\03-schemas\06-schemas-standard-model`.
 
 > **Success:** Checkpoint: the tree shows **Schema** and **Sales_FY2003_2005**, both with a red cross until the cube has a fact table, dimensions and a measure.
 
@@ -115,6 +123,14 @@ C:\Pentaho\server\pentaho-server\start-pentaho.bat
 > The fact table holds the transactional rows the cube aggregates. `ORDERFACT` lives in the `PUBLIC` schema of the SampleData database.
 
 1. Right-click **Sales_FY2003_2005** and select **Add Table**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/miniature_add_table_menu.png" alt="Schema Workbench context menu on the Sales_FY2003_2005 cube, with Add Table highlighted, which still needs its fact table" width="800">
+<figcaption>Add the fact table</figcaption>
+</figure>
+</div>
+
 2. Set the table's attributes: click in each **Value** cell and select from the list.
 
 | Attribute | Value |
@@ -142,6 +158,14 @@ C:\Pentaho\server\pentaho-server\start-pentaho.bat
 > A three-level hierarchy: Territory, Country, Customer Name. The dimension joins `ORDERFACT` on `CUSTOMERNUMBER`, and the hierarchy reads the `CUSTOMER_W_TER` table.
 
 1. Right-click **Sales_FY2003_2005** and select **Add Dimension**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/miniature_add_dimension_customers_menu.png" alt="Schema Workbench context menu on the Sales_FY2003_2005 cube, with Add Dimension highlighted, which holds Table: ORDERFACT" width="800">
+<figcaption>Add the CUSTOMERS dimension</figcaption>
+</figure>
+</div>
+
 2. Set the dimension's attributes:
 
 | Attribute | Value |
@@ -150,13 +174,35 @@ C:\Pentaho\server\pentaho-server\start-pentaho.bat
 | **foreignKey** | `CUSTOMERNUMBER` |
 | **type** | StandardDimension |
 
+<div align="center">
+<figure>
+<img src="../_assets/images/miniature_dimension_customers_attributes.png" alt="The new CUSTOMERS dimension selected: name CUSTOMERS, foreignKey CUSTOMERNUMBER, type StandardDimension, visible selected; the message reads that Hierarchy New Hierarchy 0 is invalid" width="800">
+<figcaption>The dimension's attributes</figcaption>
+</figure>
+</div>
+
 3. Expand **CUSTOMERS**, right-click **New Hierarchy 0** and select **Add Table**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/miniature_add_table_customers_menu.png" alt="Schema Workbench context menu on the CUSTOMERS dimension's New Hierarchy 0, with Add Table highlighted" width="800">
+<figcaption>Add the dimension's table</figcaption>
+</figure>
+</div>
+
 4. Set the table's attributes:
 
 | Attribute | Value |
 | --------- | ----- |
 | **schema** | `PUBLIC` |
 | **name** | `CUSTOMER_W_TER` |
+
+<div align="center">
+<figure>
+<img src="../_assets/images/miniature_table_customer_w_ter.png" alt="The table of New Hierarchy 0 selected: schema PUBLIC, name CUSTOMER_W_TER" width="800">
+<figcaption>The dimension's table</figcaption>
+</figure>
+</div>
 
 5. Select **New Hierarchy 0** and set its attributes:
 
@@ -166,6 +212,13 @@ C:\Pentaho\server\pentaho-server\start-pentaho.bat
 | **hasAll** | selected |
 | **allMemberName** | `All Customers` |
 | **primaryKey** | `CUSTOMERNUMBER` |
+
+<div align="center">
+<figure>
+<img src="../_assets/images/miniature_hierarchy_customers.png" alt="The Customers hierarchy selected: hasAll selected, allMemberName All Customers, primaryKey CUSTOMERNUMBER, visible selected; the message reads that at least one level must be set" width="800">
+<figcaption>The Customers hierarchy</figcaption>
+</figure>
+</div>
 
 6. Right-click **Customers**, select **Add Level**, and set the level's attributes:
 
@@ -178,6 +231,13 @@ C:\Pentaho\server\pentaho-server\start-pentaho.bat
 | **levelType** | Regular |
 | **hideMemberIf** | Never |
 
+<div align="center">
+<figure>
+<img src="../_assets/images/miniature_level_territory.png" alt="The Territory level selected: column TERRITORY, type String, uniqueMembers selected, levelType Regular, hideMemberIf Never, visible selected" width="800">
+<figcaption>The Territory level</figcaption>
+</figure>
+</div>
+
 7. Right-click **Customers**, select **Add Level**, and set the level's attributes:
 
 | Attribute | Value |
@@ -188,6 +248,13 @@ C:\Pentaho\server\pentaho-server\start-pentaho.bat
 | **uniqueMembers** | cleared |
 | **levelType** | Regular |
 | **hideMemberIf** | Never |
+
+<div align="center">
+<figure>
+<img src="../_assets/images/miniature_level_country.png" alt="The Country level selected, below Territory: column COUNTRY, type String, uniqueMembers cleared, levelType Regular, hideMemberIf Never" width="800">
+<figcaption>The Country level</figcaption>
+</figure>
+</div>
 
 8. Right-click **Customers**, select **Add Level**, and set the level's attributes:
 
@@ -238,6 +305,14 @@ C:\Pentaho\server\pentaho-server\start-pentaho.bat
 > A second three-level hierarchy: Line, Vendor, Name. The dimension joins `ORDERFACT` on `PRODUCTCODE`, and the hierarchy reads the `PRODUCTS` table.
 
 1. Right-click **Sales_FY2003_2005** and select **Add Dimension**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/miniature_add_dimension_products_menu.png" alt="Schema Workbench context menu on the Sales_FY2003_2005 cube, with Add Dimension highlighted, with the CUSTOMERS dimension finished" width="800">
+<figcaption>Add the PRODUCTS dimension</figcaption>
+</figure>
+</div>
+
 2. Set the dimension's attributes:
 
 | Attribute | Value |
@@ -246,13 +321,35 @@ C:\Pentaho\server\pentaho-server\start-pentaho.bat
 | **foreignKey** | `PRODUCTCODE` |
 | **type** | StandardDimension |
 
+<div align="center">
+<figure>
+<img src="../_assets/images/miniature_dimension_products_attributes.png" alt="The new PRODUCTS dimension selected: name PRODUCTS, foreignKey PRODUCTCODE, type StandardDimension; the message reads that Hierarchy New Hierarchy 0 is invalid" width="800">
+<figcaption>The dimension's attributes</figcaption>
+</figure>
+</div>
+
 3. Expand **PRODUCTS**, right-click **New Hierarchy 0** and select **Add Table**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/miniature_add_table_products_menu.png" alt="Schema Workbench context menu on the PRODUCTS dimension's New Hierarchy 0, with Add Table highlighted" width="800">
+<figcaption>Add the dimension's table</figcaption>
+</figure>
+</div>
+
 4. Set the table's attributes:
 
 | Attribute | Value |
 | --------- | ----- |
 | **schema** | `PUBLIC` |
 | **name** | `PRODUCTS` |
+
+<div align="center">
+<figure>
+<img src="../_assets/images/miniature_table_products.png" alt="The table of New Hierarchy 0 under PRODUCTS selected: schema PUBLIC, name PRODUCTS" width="800">
+<figcaption>The dimension's table</figcaption>
+</figure>
+</div>
 
 5. Select **New Hierarchy 0** and set its attributes:
 
@@ -262,6 +359,13 @@ C:\Pentaho\server\pentaho-server\start-pentaho.bat
 | **hasAll** | selected |
 | **allMemberName** | `All Products` |
 | **primaryKey** | `PRODUCTCODE` |
+
+<div align="center">
+<figure>
+<img src="../_assets/images/miniature_hierarchy_products.png" alt="The Products hierarchy selected: hasAll selected, allMemberName All Products, primaryKey PRODUCTCODE, visible selected" width="800">
+<figcaption>The Products hierarchy</figcaption>
+</figure>
+</div>
 
 6. Right-click **Products**, select **Add Level**, and set the level's attributes:
 
@@ -274,6 +378,13 @@ C:\Pentaho\server\pentaho-server\start-pentaho.bat
 | **levelType** | Regular |
 | **hideMemberIf** | Never |
 
+<div align="center">
+<figure>
+<img src="../_assets/images/miniature_level_line.png" alt="The Line level selected: column PRODUCTLINE, type String, uniqueMembers selected, levelType Regular, hideMemberIf Never" width="800">
+<figcaption>The Line level</figcaption>
+</figure>
+</div>
+
 7. Right-click **Products**, select **Add Level**, and set the level's attributes:
 
 | Attribute | Value |
@@ -284,6 +395,13 @@ C:\Pentaho\server\pentaho-server\start-pentaho.bat
 | **uniqueMembers** | cleared |
 | **levelType** | Regular |
 | **hideMemberIf** | Never |
+
+<div align="center">
+<figure>
+<img src="../_assets/images/miniature_level_vendor.png" alt="The Vendor level selected, below Line: column PRODUCTVENDOR, type String, uniqueMembers cleared, levelType Regular, hideMemberIf Never" width="800">
+<figcaption>The Vendor level</figcaption>
+</figure>
+</div>
 
 8. Right-click **Products**, select **Add Level**, and set the level's attributes. Later workshops refer to this level as **Name**.
 
@@ -316,6 +434,14 @@ C:\Pentaho\server\pentaho-server\start-pentaho.bat
 > Measures are the aggregated numbers the cube exposes. Sales sums `TOTALPRICE` as currency; Quantity Ordered counts the distinct values of `QUANTITYORDERED`.
 
 1. Right-click **Sales_FY2003_2005** and select **Add Measure**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/miniature_add_measure_menu.png" alt="Schema Workbench context menu on the Sales_FY2003_2005 cube, with Add Measure highlighted; both dimensions are finished and the cube shows that it must contain measures" width="800">
+<figcaption>Add Measure</figcaption>
+</figure>
+</div>
+
 2. Set the measure's attributes. The format string shows Sales in pounds, as the solution file and the later screenshots do.
 
 | Attribute | Value |
@@ -420,7 +546,7 @@ C:\Pentaho\server\pentaho-server\start-pentaho.bat
 
 ## Lab Files
 
-Click a file to download. Every file is also on disk in this workshop's folder, `C:\Workshop-SW-Practitioner\03-schemas\06-schemas-standard-model`: open a schema in Schema Workbench with **File > Open**.
+Click a file to download. Every file is also on disk in this workshop's folder, `C:\Workshop-SW-Associate\03-schemas\06-schemas-standard-model`: open a schema in Schema Workbench with **File > Open**.
 
 _No starting files: this workshop builds the schema from nothing._
 
@@ -428,6 +554,6 @@ _No starting files: this workshop builds the schema from nothing._
 
 The finished schema for this lab. Open it in Schema Workbench (**File > Open**) alongside your own to compare, or publish it to see the expected result.
 
-Also on disk at `C:\Workshop-SW-Practitioner\03-schemas\06-schemas-standard-model\solution`.
+Also on disk at `C:\Workshop-SW-Associate\03-schemas\06-schemas-standard-model\solution`.
 
 [miniaturemodels-original.xml](./files/solution/miniaturemodels-original.xml)

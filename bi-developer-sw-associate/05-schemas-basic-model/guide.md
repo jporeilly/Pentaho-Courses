@@ -22,8 +22,6 @@
 
 <figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
 
-
-
 :::: tabs
 
 ### 1. JDBC Connection
@@ -77,6 +75,13 @@ C:\Pentaho\server\pentaho-server\start-pentaho.bat
 | **Port Number** | `9001` |
 | **Username** | `pentaho_admin` |
 | **Password** | `password` |
+
+<div align="center">
+<figure>
+<img src="../_assets/images/sw_database_connection_settings.png" alt="Schema Workbench Database Connection dialog for hsqldb_sampledata: connection type Hypersonic, access Native (JDBC), host name localhost, database name sampledata, port 9001, username pentaho_admin and a masked password" width="761">
+<figcaption>The connection's settings</figcaption>
+</figure>
+</div>
 
 5. Select **Test**.
 
@@ -139,6 +144,13 @@ C:\Pentaho\server\pentaho-server\start-pentaho.bat
 | **Port Number** | `9001` |
 | **User Name** | `pentaho_admin` |
 | **Password** | `password` |
+
+<div align="center">
+<figure>
+<img src="../_assets/images/classic_puc_connection_settings.png" alt="User Console Database Connection dialog for hsqldb_sampledata: database type Hypersonic, access Native (JDBC), host name localhost, database name sampledata, port number 9001, user name pentaho_admin and a masked password" width="800">
+<figcaption>The server connection's settings</figcaption>
+</figure>
+</div>
 
 5. Select **Test**.
 
@@ -215,6 +227,14 @@ You now have two connections with the same name, one in each place:
 </div>
 
 4. Right-click **Schema** and select **Add cube**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/classic_add_cube_menu.png" alt="Schema Workbench context menu on Schema, with Add cube highlighted; the Classic Models schema has no cube yet" width="800">
+<figcaption>Add cube</figcaption>
+</figure>
+</div>
+
 5. Set **name** to `ClassicModelsOrders` and press `Tab`. Leave **cache**, **enabled** and **visible** selected.
 
 <div align="center">
@@ -226,7 +246,7 @@ You now have two connections with the same name, one in each place:
 
 > **Success:** Checkpoint: the cube and the schema show a red cross, and the message under the property grid reads `Fact name must be set`: a cube needs a fact table, which you add next.
 
-6. Select **File > Save As** and save the schema as `ClassicModels.xml` in `C:\Workshop-SW-Practitioner\03-schemas\05-schemas-basic-model`.
+6. Select **File > Save As** and save the schema as `ClassicModels.xml` in `C:\Workshop-SW-Associate\03-schemas\05-schemas-basic-model`.
 
 ### 4. Fact Table
 
@@ -352,6 +372,14 @@ You now have two connections with the same name, one in each place:
 > **Success:** Checkpoint: the hierarchy is now **Customers**, and its message reads `At least one Level must be set for Hierarchy`.
 
 6. Right-click **Customers** and select **Add Level**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/classic_add_level_territory_menu.png" alt="Schema Workbench context menu on the Customers hierarchy, with Add Level highlighted; the hierarchy holds only Table: CUSTOMER_W_TER, so it shows a red cross and the message that it needs a level" width="800">
+<figcaption>Add the first level</figcaption>
+</figure>
+</div>
+
 7. Set the level's attributes:
 
 | Attribute | Value |
@@ -371,6 +399,14 @@ You now have two connections with the same name, one in each place:
 </div>
 
 8. Right-click **Customers** and select **Add Level**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/classic_add_level_customer_name_menu.png" alt="Schema Workbench context menu on the Customers hierarchy, which now holds the Territory level, with Add Level highlighted" width="800">
+<figcaption>Add the second level</figcaption>
+</figure>
+</div>
+
 9. Set the level's attributes. Leave **uniqueMembers** cleared unless you know every customer name is unique.
 
 | Attribute | Value |
@@ -430,6 +466,14 @@ You now have two connections with the same name, one in each place:
 > The PRODUCTS dimension joins the fact table on `PRODUCTCODE`. Its **Products** hierarchy reads the `PRODUCTS` table and has two levels: **Product Line**, the product family such as Classic Cars, Motorcycles or Planes, and **Vendor**, the manufacturer.
 
 1. Right-click **ClassicModelsOrders** and select **Add Dimension**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/classic_add_dimension_products_menu.png" alt="Schema Workbench context menu on the ClassicModelsOrders cube, with Add Dimension highlighted; the cube holds Table: ORDERFACT and the finished CUSTOMERS dimension" width="800">
+<figcaption>Add the PRODUCTS dimension</figcaption>
+</figure>
+</div>
+
 2. Set the dimension's attributes:
 
 | Attribute | Value |
@@ -446,6 +490,14 @@ You now have two connections with the same name, one in each place:
 </div>
 
 3. Expand **PRODUCTS**, right-click **New Hierarchy 0** and select **Add Table**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/classic_add_table_products_menu.png" alt="Schema Workbench context menu on the PRODUCTS dimension's New Hierarchy 0, with Add Table highlighted" width="800">
+<figcaption>Add the dimension's table</figcaption>
+</figure>
+</div>
+
 4. Set the table's attributes:
 
 | Attribute | Value |
@@ -533,6 +585,14 @@ You now have two connections with the same name, one in each place:
 > Measures are the numbers users aggregate across the dimensions. The **Sales** measure sums the `TOTALPRICE` column of `ORDERFACT`, so Sales by Territory, by Product Line or by both adds up the order lines underneath. Its format string shows the result as currency with two decimal places, and the **Numeric** data type tells client tools it is a number.
 
 1. Right-click **ClassicModelsOrders** and select **Add Measure**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/classic_add_measure_menu.png" alt="Schema Workbench context menu on the ClassicModelsOrders cube, with Add Measure highlighted; the cube holds the CUSTOMERS and PRODUCTS dimensions and shows that it must contain measures" width="800">
+<figcaption>Add Measure</figcaption>
+</figure>
+</div>
+
 2. Set the measure's attributes:
 
 | Attribute | Value |
@@ -681,7 +741,7 @@ You now have two connections with the same name, one in each place:
 
 ## Lab Files
 
-Click a file to download. Every file is also on disk in this workshop's folder, `C:\Workshop-SW-Practitioner\03-schemas\05-schemas-basic-model`: open a schema in Schema Workbench with **File > Open**.
+Click a file to download. Every file is also on disk in this workshop's folder, `C:\Workshop-SW-Associate\03-schemas\05-schemas-basic-model`: open a schema in Schema Workbench with **File > Open**.
 
 _No starting files: this workshop builds the schema from nothing._
 
@@ -689,6 +749,6 @@ _No starting files: this workshop builds the schema from nothing._
 
 The finished schema for this lab. Open it in Schema Workbench (**File > Open**) alongside your own to compare, or publish it to see the expected result.
 
-Also on disk at `C:\Workshop-SW-Practitioner\03-schemas\05-schemas-basic-model\solution`.
+Also on disk at `C:\Workshop-SW-Associate\03-schemas\05-schemas-basic-model\solution`.
 
 [classicmodels.xml](./files/solution/classicmodels.xml)

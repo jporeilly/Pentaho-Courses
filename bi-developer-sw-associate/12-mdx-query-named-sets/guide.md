@@ -78,7 +78,7 @@ Set-Location C:\Pentaho\design-tools\schema-workbench
 C:\Pentaho\server\pentaho-server\start-pentaho.bat
 ```
 
-3. Select **File > Open** and open `miniaturemodels-original.xml` from `C:\Workshop-SW-Practitioner\05-mdx-query\12-mdx-query-named-sets`, or download it from **Lab Files** below.
+3. Select **File > Open** and open `miniaturemodels-original.xml` from `C:\Workshop-SW-Associate\05-mdx-query\12-mdx-query-named-sets`, or download it from **Lab Files** below.
 4. Select **File > New > MDX Query**.
 
 <div align="center">
@@ -250,7 +250,7 @@ TopCount(
 
 ## Lab Files
 
-Click a file to download. Every file is also on disk in this workshop's folder, `C:\Workshop-SW-Practitioner\05-mdx-query\12-mdx-query-named-sets`: open a schema in Schema Workbench with **File > Open**.
+Click a file to download. Every file is also on disk in this workshop's folder, `C:\Workshop-SW-Associate\05-mdx-query\12-mdx-query-named-sets`: open a schema in Schema Workbench with **File > Open**.
 
 The Miniature Models schema from [Standard Model](../06-schemas-standard-model/guide.md), the starting point for this workshop:
 
@@ -260,6 +260,6 @@ The Miniature Models schema from [Standard Model](../06-schemas-standard-model/g
 
 The finished schema, with the Top 3 Territories named set last in the cube. Open it in Schema Workbench (**File > Open**) alongside your own to compare, or publish it to see the expected result.
 
-Also on disk at `C:\Workshop-SW-Practitioner\05-mdx-query\12-mdx-query-named-sets\solution`.
+Also on disk at `C:\Workshop-SW-Associate\05-mdx-query\12-mdx-query-named-sets\solution`.
 
 [miniaturemodels-namedset.xml](./files/solution/miniaturemodels-namedset.xml)

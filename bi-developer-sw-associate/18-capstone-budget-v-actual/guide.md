@@ -19,7 +19,7 @@ security and publishing.
 > - Build a new Mondrian schema in **Schema Workbench** on a table no workshop has used, `QUADRANT_ACTUALS`.
 > - Give it a calculated member, a named set and a role, each working the way the controller needs.
 > - Publish it to the Pentaho Server and hand in both your schema file and the server's copy of it, the way the checks read them.
-> - Produce something portfolio-worthy ("I built this for my Practitioner course accreditation").
+> - Produce something portfolio-worthy ("I built this for my Associate course accreditation").
 >
 > **Estimated time:** 60-90 minutes for a clean, well-named schema. Re-shape and revisit as you'd like.
 
@@ -35,11 +35,11 @@ security and publishing.
 >
 > | # | What must be there | Where |
 > | --- | --- | --- |
-> | 1 | Your schema, `quadrant-budget.xml`, built on `QUADRANT_ACTUALS` | `C:\Workshop-SW-Practitioner\capstone\solution\` |
+> | 1 | Your schema, `quadrant-budget.xml`, built on `QUADRANT_ACTUALS` | `C:\Workshop-SW-Associate\capstone\solution\` |
 > | 2 | In it, the calculated member `Variance %` | the same file |
 > | 3 | In it, the named set `Over Budget Departments` | the same file |
 > | 4 | In it, the role `Central Region Manager` | the same file |
-> | 5 | The published schema, exported from the User Console as `Quadrant Budget.mondrian.xml`, with your named set in it | `C:\Workshop-SW-Practitioner\capstone\out\` |
+> | 5 | The published schema, exported from the User Console as `Quadrant Budget.mondrian.xml`, with your named set in it | `C:\Workshop-SW-Associate\capstone\out\` |
 >
 > Use these names exactly, spaces and capitals included: the checks look
 > for them. Select **Run checks** under **Verification checks** to see
@@ -70,7 +70,7 @@ can look back at the workshop that taught it.
 ### 1. The schema and its cube *(Basic Model)*
 
 A new schema named `Quadrant Budget`, saved as
-`C:\Workshop-SW-Practitioner\capstone\solution\quadrant-budget.xml`,
+`C:\Workshop-SW-Associate\capstone\solution\quadrant-budget.xml`,
 holding one cube, `Budget_v_Actual`, whose fact table is
 `QUADRANT_ACTUALS`.
 
@@ -100,7 +100,7 @@ never a typed list of department names.
 
 - A role `Central Region Manager` that sees only the `Budget_v_Actual` cube, and in it only the Central region. Its totals must not give away the other regions: **All Regions** shows Central's figures.
 - Publish the schema to the Pentaho Server, on the `hsqldb_sampledata` data source.
-- In the User Console's **Manage Data Sources**, export the published **Quadrant Budget** schema and save it as `C:\Workshop-SW-Practitioner\capstone\out\Quadrant Budget.mondrian.xml`.
+- In the User Console's **Manage Data Sources**, export the published **Quadrant Budget** schema and save it as `C:\Workshop-SW-Associate\capstone\out\Quadrant Budget.mondrian.xml`.
 
 ---
 
@@ -116,13 +116,13 @@ never a typed list of department names.
 Read the diagram from the fact table outward. Its first three columns are read by the two dimensions on the left, with dashed arrows because neither has a table of its own; its last three are summed by the measures on the right. Down that right-hand column the cube holds its parts in the order a hint below gives: measures, then `Variance %`, then `Over Budget Departments`. The role sits outside the cube, in the schema, and its box says what it must do, not how: the grants that do it are yours to work out. The note beside it is the result the **Verification checks** explain: the same named set, worked out for Central alone, holds fewer departments.
 
 ```text
-C:\Workshop-SW-Practitioner\capstone\    (your machine)
+C:\Workshop-SW-Associate\capstone\    (your machine)
 ├── solution\quadrant-budget.xml         your schema, as Schema Workbench saves it
 └── out\Quadrant Budget.mondrian.xml     the published schema, exported from the User Console
 ```
 
 The installer makes `capstone\solution\` and `capstone\out\` for you,
-empty. If `C:\Workshop-SW-Practitioner\` has no `capstone` folder (the
+empty. If `C:\Workshop-SW-Associate\` has no `capstone` folder (the
 course was installed before the capstone was added), create
 `capstone\solution\` and `capstone\out\` there yourself.
 
@@ -146,7 +146,7 @@ course was installed before the capstone was added), create
 
 _No bundled files for this lab._ The data is the SampleData database on
 your server, your schema is built from nothing in Schema Workbench, and
-the accreditation checks read `C:\Workshop-SW-Practitioner\capstone\`.
+the accreditation checks read `C:\Workshop-SW-Associate\capstone\`.
 Nothing else in the capstone is supplied: the schema is yours to build.
 
 ---
@@ -154,7 +154,7 @@ Nothing else in the capstone is supplied: the schema is yours to build.
 ## Verification checks
 
 > **Warning:** These five checks decide your course accreditation, and
-> they look only in `C:\Workshop-SW-Practitioner\capstone\`: in
+> they look only in `C:\Workshop-SW-Associate\capstone\`: in
 > `solution\` your `quadrant-budget.xml` on `QUADRANT_ACTUALS`, with the
 > `Variance %` calculated member, the `Over Budget Departments` named set
 > and the `Central Region Manager` role; and in `out\` the published
@@ -210,8 +210,8 @@ Your schema on the server, and the capstone folder on disk:
 
 1. `Quadrant Budget`: the schema, with the `Budget_v_Actual` cube, its two dimensions, three measures, `Variance %` and `Over Budget Departments`
 2. `Central Region Manager`: the role, seeing Central only
-3. `C:\Workshop-SW-Practitioner\capstone\solution\quadrant-budget.xml`: your schema file
-4. `C:\Workshop-SW-Practitioner\capstone\out\Quadrant Budget.mondrian.xml`: the published schema, exported
+3. `C:\Workshop-SW-Associate\capstone\solution\quadrant-budget.xml`: your schema file
+4. `C:\Workshop-SW-Associate\capstone\out\Quadrant Budget.mondrian.xml`: the published schema, exported
 
 > **Warning:** Save into `capstone\solution\`, not into the course
 > folder. Course content is refreshed from the repository on every

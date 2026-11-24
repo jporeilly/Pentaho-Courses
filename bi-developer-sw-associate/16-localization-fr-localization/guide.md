@@ -212,8 +212,8 @@ Set-Location C:\Pentaho\design-tools\schema-workbench
 C:\Pentaho\server\pentaho-server\start-pentaho.bat
 ```
 
-3. Select **File > Open** and open `ClassicModels.xml`, your schema from [Basic Model](../05-schemas-basic-model/guide.md), in `C:\Workshop-SW-Practitioner\03-schemas\05-schemas-basic-model`.
-4. Select **File > Save As** and save it as `ClassicModels-localized.xml` in `C:\Workshop-SW-Practitioner\07-localization\16-localization-fr-localization`.
+3. Select **File > Open** and open `ClassicModels.xml`, your schema from [Basic Model](../05-schemas-basic-model/guide.md), in `C:\Workshop-SW-Associate\03-schemas\05-schemas-basic-model`.
+4. Select **File > Save As** and save it as `ClassicModels-localized.xml` in `C:\Workshop-SW-Associate\07-localization\16-localization-fr-localization`.
 5. For each row of the token table, select the element in the left pane, set the attribute to the token, and press `Tab`. The XML above shows every token in place.
 
 <div align="center">
@@ -271,7 +271,7 @@ New-Item -ItemType Directory -Force C:\Pentaho\server\pentaho-server\tomcat\weba
 2. Copy the two bundles into it from this workshop's folder (they are also under **Lab Files** below):
 
 ```powershell
-Copy-Item C:\Workshop-SW-Practitioner\07-localization\16-localization-fr-localization\MondrianMessages_*.properties C:\Pentaho\server\pentaho-server\tomcat\webapps\pentaho\WEB-INF\classes\com\pentaho\messages\
+Copy-Item C:\Workshop-SW-Associate\07-localization\16-localization-fr-localization\MondrianMessages_*.properties C:\Pentaho\server\pentaho-server\tomcat\webapps\pentaho\WEB-INF\classes\com\pentaho\messages\
 ```
 
 3. List the folder:
@@ -346,9 +346,24 @@ C:\Pentaho\server\pentaho-server\start-pentaho.bat
 2. Select the **Classic Models** analysis data source, open the gear menu, and select **Edit...**.
 3. In **Import Analysis**, select **Manually enter data source parameter values.** The **Parameters** list shows `DataSource` (`hsqldb_sampledata`) and `EnableXmla` (`true`).
 
+<div align="center">
+<figure>
+<img src="../_assets/images/fr_l10n_import_analysis_two_parameters.png" alt="User Console Import Analysis dialog for Classic Models.mondrian.xml with Manually enter data source parameter values selected and two parameters: DataSource hsqldb_sampledata and EnableXmla true" width="446">
+<figcaption>The parameters before you add any</figcaption>
+</figure>
+</div>
+
 > **Warning:** Don't save with **Select from available data sources.** selected: its list starts at the first connection in alphabetical order, not `hsqldb_sampledata`, and saving would point the catalog at that connection.
 
 4. Select **+** (Add). In **Parameters**, set **Name** to `DynamicSchemaProcessor` and **Value** to `mondrian.i18n.LocalizingDynamicSchemaProcessor`, and select **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/fr_l10n_parameter_dynamic_schema_processor.png" alt="The Parameters dialog with Name DynamicSchemaProcessor and Value mondrian.i18n.LocalizingDynamicSchemaProcessor" width="446">
+<figcaption>The DynamicSchemaProcessor parameter</figcaption>
+</figure>
+</div>
+
 5. Select **+** again, set **Name** to `UseContentChecksum` and **Value** to `true`, and select **OK**.
 
 > **Success:** Checkpoint: the **Parameters** list holds four rows: `DataSource`, `EnableXmla`, `DynamicSchemaProcessor` and `UseContentChecksum`.
@@ -409,7 +424,7 @@ C:\Pentaho\server\pentaho-server\start-pentaho.bat
 
 ## Lab Files
 
-Click a file to download. Every file is also on disk in this workshop's folder, `C:\Workshop-SW-Practitioner\07-localization\16-localization-fr-localization`.
+Click a file to download. Every file is also on disk in this workshop's folder, `C:\Workshop-SW-Associate\07-localization\16-localization-fr-localization`.
 
 The English and French message bundles you deploy in tab 2:
 
@@ -421,6 +436,6 @@ The English and French message bundles you deploy in tab 2:
 
 The tokenized Classic Models schema. Open it in Schema Workbench (**File > Open**) alongside your own to compare, or publish it in place of your own.
 
-Also on disk at `C:\Workshop-SW-Practitioner\07-localization\16-localization-fr-localization\solution`.
+Also on disk at `C:\Workshop-SW-Associate\07-localization\16-localization-fr-localization\solution`.
 
 [classicmodels-localized.xml](./files/solution/classicmodels-localized.xml)

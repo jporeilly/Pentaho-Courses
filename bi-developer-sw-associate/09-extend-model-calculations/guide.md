@@ -49,7 +49,7 @@ Set-Location C:\Pentaho\design-tools\schema-workbench
 C:\Pentaho\server\pentaho-server\start-pentaho.bat
 ```
 
-3. Select **File > Open** and open `ClassicModels.xml`, your schema from [Basic Model](../05-schemas-basic-model/guide.md), in `C:\Workshop-SW-Practitioner\03-schemas\05-schemas-basic-model`. If you didn't build it, open `classicmodels.xml` from this workshop's folder instead: it is Basic Model's finished schema.
+3. Select **File > Open** and open `ClassicModels.xml`, your schema from [Basic Model](../05-schemas-basic-model/guide.md), in `C:\Workshop-SW-Associate\03-schemas\05-schemas-basic-model`. If you didn't build it, open `classicmodels.xml` from this workshop's folder instead: it is Basic Model's finished schema.
 4. The formula divides by a Quantity measure, which the Classic Models cube doesn't have yet. Right-click **ClassicModelsOrders**, select **Add Measure**, and set the measure's attributes:
 
 | Attribute | Value |
@@ -68,6 +68,14 @@ C:\Pentaho\server\pentaho-server\start-pentaho.bat
 </div>
 
 5. Right-click **ClassicModelsOrders** and select **Add Calculated Member**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/calc_add_calculated_member_unit_price_menu.png" alt="Schema Workbench context menu on the ClassicModelsOrders cube, with Add Calculated Member highlighted; the cube holds Sales and the new Quantity measure" width="800">
+<figcaption>Add Calculated Member</figcaption>
+</figure>
+</div>
+
 6. Set the calculated member's attributes. In **formula | formulaElement**, enter the formula below the table.
 
 | Attribute | Value |
@@ -144,8 +152,16 @@ C:\Pentaho\server\pentaho-server\start-pentaho.bat
 >
 > A calculated member can use set functions as well as arithmetic. Top 10 Customers ranks the customers by Sales with `TopCount` and adds up the ten largest with `Aggregate`.
 
-1. Select **File > Open** and open `MiniatureModels-extended.xml`, your schema from [Extended Model](../08-extend-model-extended-model/guide.md), in `C:\Workshop-SW-Practitioner\04-extend-model\08-extend-model-extended-model`. If you didn't build it, open `miniaturemodels-extended.xml` from this workshop's folder instead.
+1. Select **File > Open** and open `MiniatureModels-extended.xml`, your schema from [Extended Model](../08-extend-model-extended-model/guide.md), in `C:\Workshop-SW-Associate\04-extend-model\08-extend-model-extended-model`. If you didn't build it, open `miniaturemodels-extended.xml` from this workshop's folder instead.
 2. Right-click **Sales_FY2003_2005** and select **Add Calculated Member**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/calc_add_calculated_member_top_10_menu.png" alt="Schema Workbench context menu on the Sales_FY2003_2005 cube of MiniatureModels-extended.xml, with Add Calculated Member highlighted" width="800">
+<figcaption>Add Calculated Member</figcaption>
+</figure>
+</div>
+
 3. Set the calculated member's attributes. The format string matches the cube's Sales measure.
 
 | Attribute | Value |
@@ -186,6 +202,13 @@ FROM [Sales_FY2003_2005]
 
 7. Change `ON COLUMNS` to `ON COLUMNS, [PRODUCTS.Products].[Line].Members ON ROWS` and select **Execute** again.
 
+<div align="center">
+<figure>
+<img src="../_assets/images/calc_mdx_top_10_by_line.png" alt="MDX Query connected to MiniatureModels-extended.xml: the query selects Sales and Top 10 Customers on columns and the product lines on rows; the result lists seven lines, Classic Cars first with Sales £4,091,419.87 and Top 10 Customers £1,476,061.45" width="800">
+<figcaption>Sales and Top 10 Customers by product line</figcaption>
+</figure>
+</div>
+
 > **Under the hood:**
 >
 > #### TopCount is re-ranked in every cell
@@ -218,7 +241,7 @@ FROM [Sales_FY2003_2005]
 
 ## Lab Files
 
-Click a file to download. Every file is also on disk in this workshop's folder, `C:\Workshop-SW-Practitioner\04-extend-model\09-extend-model-calculations`: open a schema in Schema Workbench with **File > Open**.
+Click a file to download. Every file is also on disk in this workshop's folder, `C:\Workshop-SW-Associate\04-extend-model\09-extend-model-calculations`: open a schema in Schema Workbench with **File > Open**.
 
 The two schemas this workshop starts from, if you didn't build your own. The Classic Models schema as [Basic Model](../05-schemas-basic-model/guide.md) finished it, before this workshop's Quantity measure and Unit Price:
 
@@ -232,7 +255,7 @@ The Miniature Models schema as [Extended Model](../08-extend-model-extended-mode
 
 The two finished schemas. Open them in Schema Workbench (**File > Open**) alongside your own to compare, or publish them to see the expected results.
 
-Also on disk at `C:\Workshop-SW-Practitioner\04-extend-model\09-extend-model-calculations\solution`.
+Also on disk at `C:\Workshop-SW-Associate\04-extend-model\09-extend-model-calculations\solution`.
 
 Classic Models with the Quantity measure and the Unit Price calculated member (tab 1):
 

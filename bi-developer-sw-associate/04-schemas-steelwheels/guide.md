@@ -82,6 +82,13 @@ C:\Pentaho\server\pentaho-server\start-pentaho.bat
 | **Username** | `pentaho_admin` |
 | **Password** | `password` |
 
+<div align="center">
+<figure>
+<img src="../_assets/images/sw_database_connection_settings.png" alt="Schema Workbench Database Connection dialog for hsqldb_sampledata: connection type Hypersonic, access Native (JDBC), host name localhost, database name sampledata, port 9001, username pentaho_admin and a masked password" width="761">
+<figcaption>The connection's settings</figcaption>
+</figure>
+</div>
+
 5. Select **Test**.
 
 <div align="center">
@@ -173,7 +180,7 @@ The whole schema at a glance, before you expand it:
 </figure>
 </div>
 
-1. Select **File > Open** and open `steelwheels.xml` from `C:\Workshop-SW-Practitioner\03-schemas\04-schemas-steelwheels`, or download it from **Lab Files** below.
+1. Select **File > Open** and open `steelwheels.xml` from `C:\Workshop-SW-Associate\03-schemas\04-schemas-steelwheels`, or download it from **Lab Files** below.
 
 <div align="center">
 <figure>
@@ -339,7 +346,7 @@ The whole schema at a glance, before you expand it:
 
 ## Lab Files
 
-Click a file to download. Every file is also on disk in this workshop's folder, `C:\Workshop-SW-Practitioner\03-schemas\04-schemas-steelwheels`: open a schema in Schema Workbench with **File > Open**.
+Click a file to download. Every file is also on disk in this workshop's folder, `C:\Workshop-SW-Associate\03-schemas\04-schemas-steelwheels`: open a schema in Schema Workbench with **File > Open**.
 
 This workshop explores a finished schema, so it has no separate solution. The schema it explores:
 

@@ -10,14 +10,14 @@
           </Annotation>
         </Annotations>
       </Level>
-      <Level name="Quarters" visible="true" column="QTR_NAME" type="String" uniqueMembers="false" levelType="TimeQuarters" hideMemberIf="Never">
+      <Level name="Quarters" visible="true" column="QTR_NAME" ordinalColumn="QTR_ID" type="String" uniqueMembers="false" levelType="TimeQuarters" hideMemberIf="Never">
         <Annotations>
           <Annotation name="AnalyzerDateFormat">
             <![CDATA[[yyyy].['QTR'q]]]>
           </Annotation>
         </Annotations>
       </Level>
-      <Level name="Months" visible="true" column="MONTH_NAME" type="String" uniqueMembers="false" levelType="TimeMonths" hideMemberIf="Never">
+      <Level name="Months" visible="true" column="MONTH_NAME" ordinalColumn="MONTH_ID" type="String" uniqueMembers="false" levelType="TimeMonths" hideMemberIf="Never">
         <Annotations>
           <Annotation name="AnalyzerDateFormat">
             <![CDATA[[yyyy].['QTR'q].[MMM]]]>

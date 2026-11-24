@@ -16,7 +16,7 @@
 > * Learn how the guide works: progress, copy buttons, the assistant.
 > * See how Schema Workbench, the Pentaho Server and the sample data fit together.
 > * Confirm the server, the sample data, Schema Workbench and Analyzer all answer.
-> * Check the workshop folder: *C:\Workshop-SW-Practitioner*
+> * Check the workshop folder: *C:\Workshop-SW-Associate*
 >
 > **Prerequisites:** A basic understanding of relational tables and SQL.
 >
@@ -268,7 +268,7 @@ When everything is green you are ready to start Module 1.
 ### 4. Lab files on disk
 
 The installer has already laid this course's lab files out under
-**`C:\Workshop-SW-Practitioner`**, one folder per module, so you can
+**`C:\Workshop-SW-Associate`**, one folder per module, so you can
 open a schema in Schema Workbench directly instead of downloading it
 from the guide first. Every lab's **Lab Files** section names the files.
 
@@ -342,12 +342,12 @@ steps the sign-in runs and checks again.
 ## Check the working folders
 
 The installer lays every lab's files out under
-**`C:\Workshop-SW-Practitioner`**, one folder per module, in the order
+**`C:\Workshop-SW-Associate`**, one folder per module, in the order
 the sidebar reads. The first two sections, Getting Started and Key
 Concepts, have no lab files, so the numbering starts at `03`.
 
 ```text
-C:\Workshop-SW-Practitioner
+C:\Workshop-SW-Associate
 ├── 03-schemas
 │   ├── 04-schemas-steelwheels
 │   │   ├── steelwheels.xml                   the SteelWheels schema you explore
@@ -425,7 +425,7 @@ expand the workshops underneath.
 
 ## The exam and your course accreditation
 
-When you have worked through the sections, the **Practitioner Exam** in
+When you have worked through the sections, the **Associate Exam** in
 the sidebar draws 40 questions from a pool of 50. It is open-book: take
 your time, browse any module to refresh your memory, or ask the
 assistant. Your answers are saved as you go, so leaving the page to look
@@ -435,7 +435,7 @@ learn from anything you missed. The pass mark is **80%**.
 You are asked for your name, email and organization before you begin
 (and your Partner ID, if you are taking it as part of the Pentaho Partner
 Program); those are what your accreditation is made out to. Complete the
-capstone project and pass the exam, and your **Pentaho Schema Workbench - Practitioner Level** course
+capstone project and pass the exam, and your **Pentaho Schema Workbench - Associate Level** course
 accreditation appears on the results screen to download. It is valid
 for two years, and you can come back for it later from the same screen.
 

@@ -16,7 +16,7 @@
 >
 > **Prerequisites:** Complete [Standard Model](../06-schemas-standard-model/guide.md); the Pentaho Server running, with administrator access to the User Console and to the server's files
 >
-> **Estimated time:** 120 minutes
+> **Estimated time:** 60 minutes
 
 <figure>
 
@@ -268,7 +268,7 @@ Set-Location C:\Pentaho\design-tools\schema-workbench
 
 <button data-launch="schema-workbench">Start Pentaho Schema Workbench</button>
 
-2. Select **File > Open** and open `miniaturemodels-original.xml` from `C:\Workshop-SW-Practitioner\06-data-security\14-data-security-mondrian-security`, or download it from **Lab Files** below.
+2. Select **File > Open** and open `miniaturemodels-original.xml` from `C:\Workshop-SW-Associate\06-data-security\14-data-security-mondrian-security`, or download it from **Lab Files** below.
 3. Select **File > Save As** and save it as `miniaturemodels-security.xml` in the same folder.
 
 <div align="center">
@@ -279,6 +279,14 @@ Set-Location C:\Pentaho\design-tools\schema-workbench
 </div>
 
 4. Right-click **Schema** and select **Add Role**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/mondrian_sec_add_role_menu.png" alt="Schema Workbench context menu on Schema, with Add Role highlighted; miniaturemodels-security.xml has no role yet" width="800">
+<figcaption>Add Role</figcaption>
+</figure>
+</div>
+
 5. Set **name** to `Executive Role` and press `Tab`.
 6. Right-click **Executive Role** and select **Add Schema Grant**.
 
@@ -363,6 +371,14 @@ The role in the XML:
 > **Success:** Checkpoint: no Miniature Models in the list. So far only the Executive Role has access to the schema.
 
 14. Select **Cancel**. In Schema Workbench, right-click **Schema**, select **Add Role**, and set **name** to `Sales Manager Role`.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/mondrian_sec_sales_manager_role.png" alt="The new Sales Manager Role selected below Executive Role: name Sales Manager Role" width="800">
+<figcaption>The Sales Manager Role</figcaption>
+</figure>
+</div>
+
 15. Right-click **Sales Manager Role**, select **Add Schema Grant**, and set **access** to `none`.
 
 <div align="center">
@@ -446,7 +462,23 @@ The role in the XML:
 </div>
 
 4. Right-click **Schema**, select **Add Role**, and set **name** to `Analyst Role`.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/mondrian_sec_analyst_role.png" alt="The new Analyst Role selected below Executive Role and Sales Manager Role: name Analyst Role" width="800">
+<figcaption>The Analyst Role</figcaption>
+</figure>
+</div>
+
 5. Right-click **Analyst Role**, select **Add Schema Grant**, and set **access** to `none`.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/mondrian_sec_analyst_schema_grant.png" alt="The Analyst Role's Schema Grant selected: access none" width="800">
+<figcaption>Schema access none</figcaption>
+</figure>
+</div>
+
 6. Right-click its **Schema Grant**, select **Add Cube Grant**, and set **access** to `all` and **cube** to `Sales_FY2003_2005`.
 
 <div align="center">
@@ -564,7 +596,23 @@ The role in the XML:
 > MemberGrants restrict a role to single members. The Regional Manager Role sees only the Eastern USA region: New Jersey, New York and Pennsylvania.
 
 1. In Schema Workbench, right-click **Schema**, select **Add Role**, and set **name** to `Regional Manager Role`.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/mondrian_sec_regional_manager_role.png" alt="The new Regional Manager Role selected below the other three roles: name Regional Manager Role" width="800">
+<figcaption>The Regional Manager Role</figcaption>
+</figure>
+</div>
+
 2. Right-click **Regional Manager Role**, select **Add Schema Grant**, and set **access** to `none`.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/mondrian_sec_regional_manager_schema_grant.png" alt="The Regional Manager Role's Schema Grant selected: access none" width="800">
+<figcaption>Schema access none</figcaption>
+</figure>
+</div>
+
 3. Right-click its **Schema Grant**, select **Add Cube Grant**, and set **access** to `all` and **cube** to `Sales_FY2003_2005`.
 
 <div align="center">
@@ -787,7 +835,7 @@ The restore does not open the secured schema to everyone again, and the reason i
 
 ## Lab Files
 
-Click a file to download. Every file is also on disk in this workshop's folder, `C:\Workshop-SW-Practitioner\06-data-security\14-data-security-mondrian-security`: open a schema in Schema Workbench with **File > Open**.
+Click a file to download. Every file is also on disk in this workshop's folder, `C:\Workshop-SW-Associate\06-data-security\14-data-security-mondrian-security`: open a schema in Schema Workbench with **File > Open**.
 
 The Miniature Models schema from [Standard Model](../06-schemas-standard-model/guide.md), the starting point for this workshop:
 
@@ -797,7 +845,7 @@ The Miniature Models schema from [Standard Model](../06-schemas-standard-model/g
 
 The secured schema with all four roles. Open it in Schema Workbench (**File > Open**) alongside your own to compare, or publish it to see the expected result.
 
-Also on disk at `C:\Workshop-SW-Practitioner\06-data-security\14-data-security-mondrian-security\solution`.
+Also on disk at `C:\Workshop-SW-Associate\06-data-security\14-data-security-mondrian-security\solution`.
 
 [miniaturemodels-security.xml](./files/solution/miniaturemodels-security.xml)
 

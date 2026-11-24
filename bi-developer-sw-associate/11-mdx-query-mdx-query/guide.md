@@ -48,7 +48,7 @@ Set-Location C:\Pentaho\design-tools\schema-workbench
 C:\Pentaho\server\pentaho-server\start-pentaho.bat
 ```
 
-3. Select **File > Open** and open `steelwheels.xml` from `C:\Workshop-SW-Practitioner\05-mdx-query\11-mdx-query-mdx-query`, or download it from **Lab Files** below.
+3. Select **File > Open** and open `steelwheels.xml` from `C:\Workshop-SW-Associate\05-mdx-query\11-mdx-query-mdx-query`, or download it from **Lab Files** below.
 4. With the schema's window selected, select **File > New > MDX Query**. Opening the schema first connects the query window to it; with no schema open, Schema Workbench answers `No Mondrian connection. Select a Schema to connect.`
 
 <div align="center">
@@ -168,7 +168,7 @@ WHERE ( [Markets].[APAC] )
 
 ## Lab Files
 
-Click a file to download. Every file is also on disk in this workshop's folder, `C:\Workshop-SW-Practitioner\05-mdx-query\11-mdx-query-mdx-query`: open a schema in Schema Workbench with **File > Open**.
+Click a file to download. Every file is also on disk in this workshop's folder, `C:\Workshop-SW-Associate\05-mdx-query\11-mdx-query-mdx-query`: open a schema in Schema Workbench with **File > Open**.
 
 The schema this workshop queries, the same SteelWheels schema as in [SteelWheels](../04-schemas-steelwheels/guide.md):
 

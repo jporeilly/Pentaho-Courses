@@ -15,7 +15,7 @@
 >
 > **Prerequisites:** Complete [Extended Model](../08-extend-model-extended-model/guide.md); the Pentaho Server running, which hosts the sample data; a SQL client that can reach HSQLDB. The free **DBeaver Community** works: `winget install -e --id dbeaver.dbeaver`.
 >
-> **Estimated time:** 45 minutes
+> **Estimated time:** 30 minutes
 
 <figure>
 
@@ -60,7 +60,7 @@ C:\Pentaho\server\pentaho-server\start-pentaho.bat
    Password: password
    ```
 
-3. In DBeaver, open `agg_tables.sql` from `C:\Workshop-SW-Practitioner\08-performance\17-performance-aggregate-tables` (also under **Lab Files** below) and run the whole script. It builds:
+3. In DBeaver, open `agg_tables.sql` from `C:\Workshop-SW-Associate\08-performance\17-performance-aggregate-tables` (also under **Lab Files** below) and run the whole script. It builds:
 
    | Table | Grain | Answers |
    | --- | --- | --- |
@@ -96,8 +96,16 @@ mondrian.rolap.aggregates.Read=true
 >
 > An **Aggregate Name** under the cube's fact table tells Mondrian which table to read and maps its columns to the cube's measures and levels. Every measure and every level the aggregate holds must be mapped; anything below its grain stays with the detail table.
 
-1. Select **File > Open** and open `miniaturemodels-agg.xml` from `C:\Workshop-SW-Practitioner\08-performance\17-performance-aggregate-tables`, or download it from **Lab Files** below.
+1. Select **File > Open** and open `miniaturemodels-agg.xml` from `C:\Workshop-SW-Associate\08-performance\17-performance-aggregate-tables`, or download it from **Lab Files** below.
 2. Right-click the cube's **Table: ORDERFACT** and select **Add Aggregate Name**. Set **name** to `Miniature_Sales_AGG_1` and press `Tab`.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/agg_aggregate_name_new.png" alt="A new Aggregate Name under Table: ORDERFACT selected: name Miniature_Sales_AGG_1, ignorecase selected, no children yet" width="800">
+<figcaption>The first aggregate name</figcaption>
+</figure>
+</div>
+
 3. Right-click the new aggregate name and add its children, one per row, with these attributes:
 
 | Add | column | name |
@@ -234,7 +242,7 @@ The aggregate columns are case-exact and quoted when the script creates them. If
 
 ## Lab Files
 
-Click a file to download. Every file is also on disk in this workshop's folder, `C:\Workshop-SW-Practitioner\08-performance\17-performance-aggregate-tables`: open a schema in Schema Workbench with **File > Open**.
+Click a file to download. Every file is also on disk in this workshop's folder, `C:\Workshop-SW-Associate\08-performance\17-performance-aggregate-tables`: open a schema in Schema Workbench with **File > Open**.
 
 The starting schema:
 
