@@ -61,7 +61,7 @@ Set-Location C:\Pentaho\design-tools\metadata-editor
 </div>
 
 2. Select **File > Import from XMI File** (`Ctrl+I`).
-3. Open `steel-wheels.xmi` from the Metadata Editor's `samples` folder: `C:\Pentaho\design-tools\metadata-editor\samples`. The same file is in this workshop's folder, `C:\Workshop-ME-Practitioner\02-domains-models\03-domains-and-models-steelwheels`, and under **Lab Files** below.
+3. Open `steel-wheels.xmi` from the Metadata Editor's `samples` folder: `C:\Pentaho\design-tools\metadata-editor\samples`. The same file is in this workshop's folder, `C:\Workshop-ME-Associate\02-domains-models\03-domains-and-models-steelwheels`, and under **Lab Files** below.
 4. In the **Save Model** dialog, enter `SteelWheels` and select **OK**.
 
 <div align="center">
@@ -384,7 +384,7 @@ Wherever metadata writes a formula, such as a complex join or a calculated colum
 
 ## Lab Files
 
-Click a file to download. Every file is also on disk in this workshop's folder, `C:\Workshop-ME-Practitioner\02-domains-models\03-domains-and-models-steelwheels`: load a domain into Metadata Editor with **File > Import from XMI File**.
+Click a file to download. Every file is also on disk in this workshop's folder, `C:\Workshop-ME-Associate\02-domains-models\03-domains-and-models-steelwheels`: load a domain into Metadata Editor with **File > Import from XMI File**.
 
 The SteelWheels domain this workshop explores, the same file as the Metadata Editor's own `samples\steel-wheels.xmi`:
 

@@ -3,7 +3,7 @@
   "description": "Define reusable Concepts (Number, USCurrency, ID, Hidden, Date) in the Concept Editor, apply them to business columns, publish the domain, and validate in an Interactive Report.",
   "order": 9,
   "stepCount": 4,
-  "estimatedMinutes": 60,
+  "estimatedMinutes": 30,
   "hasVideo": false,
   "kind": "workshop"
 }

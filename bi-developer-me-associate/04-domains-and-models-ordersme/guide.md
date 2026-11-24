@@ -19,7 +19,7 @@
 > * The [SteelWheels](../03-domains-and-models-steelwheels/guide.md) workshop
 > * The Pentaho Server, running (see [Before You Start](../00-before-you-start/guide.md))
 >
-> **Estimated time:** 90 minutes
+> **Estimated time:** 60 minutes
 
 <figure>
 
@@ -197,7 +197,23 @@ This workshop keeps every column. To remove one you don't want, double-click its
 
 2. In the **Business Model Properties** dialog, keep the **ID** the editor proposes, `BV_MODEL_1`. It must be unique among the domain's models.
 3. Under **Settings**, click in the **String** cell of the `en_US` row under **Name** and enter `OrdersME`.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/dm_ordersme_business_model_name.png" alt="Business Model Properties with ID BV_MODEL_1, an empty Connection, the Name OrdersME for en_US and an empty Description" width="800">
+<figcaption>The model's name</figcaption>
+</figure>
+</div>
+
 4. Click in the **String** cell of the `en_US` row under **Description** and enter `test sampledata orders domain`.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/dm_ordersme_business_model_description.png" alt="Business Model Properties with ID BV_MODEL_1, the Name OrdersME and the Description test sampledata orders domain; Connection still empty" width="800">
+<figcaption>The model's description</figcaption>
+</figure>
+</div>
+
 5. Set **Connection** to `hsqldb:sampledata`.
 
 <div align="center">
@@ -605,12 +621,12 @@ You can also add a column without the dialog: expand a business table in the tre
 
 ## Lab Files
 
-Click a file to download. Every file is also on disk in this workshop's folder, `C:\Workshop-ME-Practitioner\02-domains-models\04-domains-and-models-ordersme`: load a domain into Metadata Editor with **File > Import from XMI File**.
+Click a file to download. Every file is also on disk in this workshop's folder, `C:\Workshop-ME-Associate\02-domains-models\04-domains-and-models-ordersme`: load a domain into Metadata Editor with **File > Import from XMI File**.
 
 ### Solution <!-- no-step -->
 
 The finished OrdersME domain, with the `hsqldb:sampledata` connection of part 1. Open it in Metadata Editor alongside your own to compare, or publish it to see the expected result.
 
-Also on disk at `C:\Workshop-ME-Practitioner\02-domains-models\04-domains-and-models-ordersme\solution`.
+Also on disk at `C:\Workshop-ME-Associate\02-domains-models\04-domains-and-models-ordersme\solution`.
 
 [OrdersME.xmi](./files/solution/OrdersME.xmi)

@@ -19,7 +19,7 @@
 > * The [OrdersME](../04-domains-and-models-ordersme/guide.md) workshop
 > * The Pentaho Server running, for its HSQLDB sample data (see [Before You Start](../00-before-you-start/guide.md))
 >
-> **Estimated time:** 45 minutes
+> **Estimated time:** 30 minutes
 
 <figure>
 
@@ -110,7 +110,23 @@ C:\Pentaho\server\pentaho-server\start-pentaho.bat
 
 1. Right-click **Business Models** and select **New Business Model**.
 2. In the **Business Model Properties** dialog, keep the **ID**, `BV_MODEL_1`. The engine refers to the model by this ID when it generates SQL, so don't change it.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/props_orderstar_model_id.png" alt="A new Business Model Properties dialog: ID BV_MODEL_1, an empty Connection, and the proposed Name Model 1" width="800">
+<figcaption>The ID the editor proposes</figcaption>
+</figure>
+</div>
+
 3. Under **Settings**, click in the **String** cell of the `en_US` row under **Name** and enter `OrderStarCustomer`.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/props_orderstar_model_name.png" alt="Business Model Properties with ID BV_MODEL_1 and the Name OrderStarCustomer for en_US; Connection still empty" width="800">
+<figcaption>The model's name</figcaption>
+</figure>
+</div>
+
 4. Set **Connection** to `hsqldb:sampledata`.
 
 <div align="center">
@@ -147,6 +163,13 @@ C:\Pentaho\server\pentaho-server\start-pentaho.bat
 > **Success:** Checkpoint: **Business Tables** holds **ORDERFACT**, **DIM TIME**, **PRODUCTS** and **CUSTOMER W TER**.
 
 11. Save the domain (`Ctrl+S`). In the **Save Domain** dialog, enter `OrderStarCustomer` and select **OK**. If you imported the Lab Files copy in the [Query Builder](../05-domains-and-models-query-builder/guide.md) workshop, the editor says the model already exists: confirm to overwrite it.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/props_orderstar_save_domain.png" alt="The Save Domain dialog: Enter a name for this domain, OrderStarCustomer" width="168">
+<figcaption>The domain's name in the editor</figcaption>
+</figure>
+</div>
 
 ### 3. Relationships
 
@@ -252,6 +275,13 @@ Read the top of the diagram row by row: the relationship type you set in **Relat
 | QUANTITYINSTOCK | `Quantity In Stock` |
 | BUYPRICE | `Buy Price` |
 
+<div align="center">
+<figure>
+<img src="../_assets/images/props_orderstar_names_products_buy_price.png" alt="Business Table Properties for PRODUCTS with Buy Price selected (ID BC_PRODUCTS_BUYPRICE) and General Name selected in Available; Settings shows the overridden Name Buy Price, and the Subject pane lists Product Code, Product Name, Product Line, Product Scale, Product Vendor, Product Description, Quantity In Stock, Buy Price and MSRP" width="800">
+<figcaption>Every PRODUCTS column renamed except MSRP</figcaption>
+</figure>
+</div>
+
 7. Select **OK**, then save the domain (`Ctrl+S`).
 8. Right-click **ORDERFACT**, select **Edit**, and rename these columns the same way. **PRICEEACH** gets its name in part 5; **TIME ID**, **QTR ID**, **MONTH ID** and **YEAR ID** keep theirs.
 
@@ -338,6 +368,14 @@ Read the top of the diagram row by row: the relationship type you set in **Relat
 1. Right-click **ORDERFACT** and select **Edit**.
 2. Select **PRICEEACH** in the **Subject** pane, then override its **General > Name** with `Price Sold`, as in part 4.
 3. In the **Available** pane, select **Model Descriptors > Default Aggregation**, select its **Override** icon in **Settings**, and set **Aggregation Type** to `Sum`. After **Override**, **Settings** can jump back to the top: select **Default Aggregation** again to scroll to it.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/props_orderstar_price_sold_default_aggregation.png" alt="Business Table Properties for ORDERFACT with Price Sold selected (ID BC_ORDERFACT_PRICEEACH) and Default Aggregation selected in Available: Aggregation Type Sum, and Optional Aggregations not yet overridden" width="800">
+<figcaption>Price Sold sums by default</figcaption>
+</figure>
+</div>
+
 4. Select **Model Descriptors > Optional Aggregations**, select its **Override** icon, and in **Aggregation List** hold `Ctrl` and select `Average`, `Minimum` and `Maximum`.
 
 <div align="center">
@@ -391,7 +429,15 @@ Read the top of the diagram row by row: the relationship type you set in **Relat
 
 1. Under **Connections > hsqldb:sampledata**, right-click **ORDERFACT** and select **Edit**.
 2. In the **Physical Table Properties** dialog, select **Add New Column**, the green plus icon to the right of **Subject**.
-3. In the **New Column** dialog, enter `PC_TOTAL` and select **OK**. The editor names the column from its ID: **Total** appears in the **Subject** pane.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/props_orderstar_new_column_proposed.png" alt="The New Column dialog: Enter the name of the new column, with PC_ proposed and selected" width="474">
+<figcaption>The editor proposes the PC_ prefix</figcaption>
+</figure>
+</div>
+
+3. In the **New Column** dialog, which proposes `PC_`, enter `PC_TOTAL` and select **OK**. The editor names the column from its ID: **Total** appears in the **Subject** pane.
 
 <div align="center">
 <figure>
@@ -456,6 +502,14 @@ Read the top of the diagram row by row: the relationship type you set in **Relat
 
 9. Under **Connections > hsqldb:sampledata**, right-click **CUSTOMER W TER** and select **Edit**.
 10. Select **Add New Column**, enter `PC_CONTACT` in the **New Column** dialog, and select **OK**. The new column is named **Contact**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/props_orderstar_new_column_contact.png" alt="The New Column dialog: Enter the name of the new column, PC_CONTACT" width="474">
+<figcaption>The contact column's ID</figcaption>
+</figure>
+</div>
+
 11. With **Contact** selected, set:
 
 | Property | Setting |
@@ -473,6 +527,14 @@ Read the top of the diagram row by row: the relationship type you set in **Relat
 
 12. Select **OK**.
 13. Under **Business Tables**, right-click **CUSTOMER W TER**, select **Edit**, select **Add New Column**, select **Contact Name**, and select **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/props_orderstar_add_column_contact.png" alt="The Add New Column dialog for CUSTOMER W TER: Add a column to the business table, listing CUSTOMERNUMBER to TERRITORY COLOR, then Contact Name, which is selected" width="511">
+<figcaption>Contact Name joins the business table</figcaption>
+</figure>
+</div>
+
 14. Select **OK**, then save the domain (`Ctrl+S`). The **CUSTOMER W TER** business table now ends with a **Contact Name** column.
 
 > **Under the hood:**
@@ -514,6 +576,14 @@ Read the top of the diagram row by row: the relationship type you set in **Relat
 4. Select **OK**.
 5. Right-click **Business View** and select **Manage Categories**.
 6. Select **Add New Category** (the green plus icon above **Business View Categories**), set **ID** to `CT_CUSTOMERS` and **Name** to `Customers`, and select **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/props_orderstar_category_customers.png" alt="Business Category Properties with ID CT_CUSTOMERS and the Name Customers for en_US" width="800">
+<figcaption>A category from Manage Categories</figcaption>
+</figure>
+</div>
+
 7. Create `CT_PRODUCTS` (**Name** `Products`) and `CT_TIME` (**Name** `Time`) the same way.
 8. Add the columns to the categories. For each one, select the column under **Available Business Tables** (hold `Ctrl` for several), select the category under **Business View Categories**, and select **Add** (the single arrow between the panes):
 
@@ -548,12 +618,12 @@ Read the top of the diagram row by row: the relationship type you set in **Relat
 
 ## Lab Files
 
-Click a file to download. Every file is also on disk in this workshop's folder, `C:\Workshop-ME-Practitioner\03-properties\07-properties-orderstarcustomer`: load a domain into Metadata Editor with **File > Import from XMI File**.
+Click a file to download. Every file is also on disk in this workshop's folder, `C:\Workshop-ME-Associate\03-properties\07-properties-orderstarcustomer`: load a domain into Metadata Editor with **File > Import from XMI File**.
 
 ### Solution <!-- no-step -->
 
 The finished OrderStarCustomer domain, before the Concept Editor workshop adds concepts. Open it in Metadata Editor alongside your own to compare, or publish it to see the expected result.
 
-Also on disk at `C:\Workshop-ME-Practitioner\03-properties\07-properties-orderstarcustomer\solution`.
+Also on disk at `C:\Workshop-ME-Associate\03-properties\07-properties-orderstarcustomer\solution`.
 
 [OrderStarCustomer.xmi](./files/solution/OrderStarCustomer.xmi)

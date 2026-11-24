@@ -24,7 +24,7 @@ to look back.
 >
 > **Prerequisites:** Workshops 03 to 11; Pentaho Metadata Editor and Pentaho Server installed; the sampledata MySQL container (the MySQL lab kit in `C:\MySQL`).
 >
-> **Estimated time:** 2 hours.
+> **Estimated time:** 90 mins.
 
 ---
 
@@ -38,11 +38,11 @@ to look back.
 >
 > | # | What must be there | Where |
 > | --- | --- | --- |
-> | 1 | Your domain, exported as `Trailhead.xmi`, on the `mysql:trailhead` connection | `C:\Workshop-ME-Practitioner\capstone\solution\` |
+> | 1 | Your domain, exported as `Trailhead.xmi`, on the `mysql:trailhead` connection | `C:\Workshop-ME-Associate\capstone\solution\` |
 > | 2 | In it, the Stores relationship joined on both store key columns | the same file |
 > | 3 | In it, a Customer Name column written the way MySQL needs | the same file |
 > | 4 | In it, the West region's row-level constraint | the same file |
-> | 5 | The published domain, exported from the User Console as `Trailhead.xmi` | `C:\Workshop-ME-Practitioner\capstone\out\` |
+> | 5 | The published domain, exported from the User Console as `Trailhead.xmi` | `C:\Workshop-ME-Associate\capstone\out\` |
 >
 > File 1 is **File > Export to XMI File** in Metadata Editor. File 5 is
 > the copy the server holds, from **Manage Data Sources** (stage 9). Use
@@ -160,13 +160,13 @@ Read the diagram from the top. The bar is the business model, Trailhead Sales, o
 Your capstone folder, where the accreditation checks look:
 
 ```text
-C:\Workshop-ME-Practitioner\capstone\    (your machine)
+C:\Workshop-ME-Associate\capstone\    (your machine)
 ├── solution\Trailhead.xmi       your domain: File > Export to XMI File
 └── out\Trailhead.xmi            the published domain, exported from the User Console
 ```
 
 The installer makes `capstone\solution\` and `capstone\out\` for you,
-empty. If `C:\Workshop-ME-Practitioner\` has no `capstone` folder,
+empty. If `C:\Workshop-ME-Associate\` has no `capstone` folder,
 create `capstone\solution\` and `capstone\out\` there yourself.
 
 ---
@@ -420,14 +420,14 @@ Leave the MySQL container and both programs running for the rest of the capstone
 
 _No bundled files for this lab._ The data is the `trailhead` database in
 the MySQL lab kit, your domain is built from nothing in Metadata Editor,
-and the accreditation checks read `C:\Workshop-ME-Practitioner\capstone\`.
+and the accreditation checks read `C:\Workshop-ME-Associate\capstone\`.
 
 ---
 
 ## Verification checks
 
 > **Warning:** These five checks decide your course accreditation, and
-> they look only in `C:\Workshop-ME-Practitioner\capstone\`: in
+> they look only in `C:\Workshop-ME-Associate\capstone\`: in
 > `solution\` your exported `Trailhead.xmi`, on `mysql:trailhead`, with
 > the two-column Stores join, a MySQL-ready Customer Name and the West
 > constraint; and in `out\` the published domain, exported from the User
@@ -462,7 +462,7 @@ For a second check, as admin: Net Sales by **Year** is $327,121.25 for
 2. Names, aggregations, concepts and categories as specified; Sale Date shows as MM-dd-yyyy and Net Sales as currency
 3. The domain published to the Pentaho Server, giving the figures above to admin, suzy and pat
 4. Email and Phone visible to admin only; tiffany sees no Trailhead Sales data source
-5. `C:\Workshop-ME-Practitioner\capstone\solution\Trailhead.xmi` and `capstone\out\Trailhead.xmi`
+5. `C:\Workshop-ME-Associate\capstone\solution\Trailhead.xmi` and `capstone\out\Trailhead.xmi`
 
 > **Warning:** Save into `capstone\solution\` and `capstone\out\`, not
 > into the course folder. Course content is refreshed from the

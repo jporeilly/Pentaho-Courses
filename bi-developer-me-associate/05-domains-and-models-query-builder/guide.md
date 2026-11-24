@@ -46,7 +46,7 @@ Set-Location C:\Pentaho\design-tools\metadata-editor
 
 <button data-launch="metadata-editor">Open Metadata Editor</button>
 
-2. Select **File > Import from XMI File** (`Ctrl+I`) and open `OrderStarCustomer.xmi` from `C:\Workshop-ME-Practitioner\02-domains-models\05-domains-and-models-query-builder`, or download it from **Lab Files** below.
+2. Select **File > Import from XMI File** (`Ctrl+I`) and open `OrderStarCustomer.xmi` from `C:\Workshop-ME-Associate\02-domains-models\05-domains-and-models-query-builder`, or download it from **Lab Files** below.
 3. In the **Save Model** dialog, enter `OrderStarCustomer` and select **OK**.
 
 <div align="center">
@@ -146,7 +146,7 @@ Read the diagram row by row, left to right. The left column is what a query name
 
 ## Lab Files
 
-Click a file to download. Every file is also on disk in this workshop's folder, `C:\Workshop-ME-Practitioner\02-domains-models\05-domains-and-models-query-builder`: load a domain into Metadata Editor with **File > Import from XMI File**.
+Click a file to download. Every file is also on disk in this workshop's folder, `C:\Workshop-ME-Associate\02-domains-models\05-domains-and-models-query-builder`: load a domain into Metadata Editor with **File > Import from XMI File**.
 
 The domain this workshop queries, the finished domain of the [OrderStarCustomer](../07-properties-orderstarcustomer/guide.md) workshop:
 

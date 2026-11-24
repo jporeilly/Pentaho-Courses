@@ -5,41 +5,41 @@
   "kind": "workshop",
   "stepCount": 15,
   "hasVideo": false,
-  "estimatedMinutes": 120,
+  "estimatedMinutes": 90,
   "checks": [
     {
       "id": "trailhead-domain",
       "kind": "file-contains",
       "label": "Your domain, exported as Trailhead.xmi into solution\\, on the mysql:trailhead connection",
-      "path": "C:/Workshop-ME-Practitioner/capstone/solution/Trailhead.xmi",
+      "path": "C:/Workshop-ME-Associate/capstone/solution/Trailhead.xmi",
       "text": "mysql:trailhead"
     },
     {
       "id": "store-complex-join",
       "kind": "file-contains",
       "label": "In your domain, the Stores relationship joined on both store key columns",
-      "path": "C:/Workshop-ME-Practitioner/capstone/solution/Trailhead.xmi",
+      "path": "C:/Workshop-ME-Associate/capstone/solution/Trailhead.xmi",
       "text": "BC_STORES_STORE_NO]"
     },
     {
       "id": "customer-name-mysql",
       "kind": "file-contains",
       "label": "In your domain, Customer Name written the way MySQL needs",
-      "path": "C:/Workshop-ME-Practitioner/capstone/solution/Trailhead.xmi",
+      "path": "C:/Workshop-ME-Associate/capstone/solution/Trailhead.xmi",
       "text": "CONCAT"
     },
     {
       "id": "west-constraint",
       "kind": "file-contains",
       "label": "In your domain, the West region's row-level constraint",
-      "path": "C:/Workshop-ME-Practitioner/capstone/solution/Trailhead.xmi",
+      "path": "C:/Workshop-ME-Associate/capstone/solution/Trailhead.xmi",
       "text": "&quot;WEST&quot;"
     },
     {
       "id": "published-domain",
       "kind": "file-contains",
       "label": "The published domain, exported from the User Console as Trailhead.xmi into out\\",
-      "path": "C:/Workshop-ME-Practitioner/capstone/out/Trailhead.xmi",
+      "path": "C:/Workshop-ME-Associate/capstone/out/Trailhead.xmi",
       "text": "mysql:trailhead"
     }
   ]

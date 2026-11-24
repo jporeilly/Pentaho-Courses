@@ -19,7 +19,7 @@
 > * The [OrderStarCustomer](../07-properties-orderstarcustomer/guide.md) workshop, or `OrderStarCustomer.xmi` from **Lab Files** below
 > * The Pentaho Server running (see [Before You Start](../00-before-you-start/guide.md))
 >
-> **Estimated time:** 60 minutes
+> **Estimated time:** 30 minutes
 
 <figure>
 
@@ -59,9 +59,25 @@ Set-Location C:\Pentaho\design-tools\metadata-editor
 C:\Pentaho\server\pentaho-server\start-pentaho.bat
 ```
 
-3. Select **File > Open** (`Ctrl+O`), select **OrderStarCustomer** in the **Select a Domain** dialog, and select **OK**. Starting from the Lab Files instead? Select **File > Import from XMI File** (`Ctrl+I`), open `OrderStarCustomer.xmi` from `C:\Workshop-ME-Practitioner\04-concepts\09-concepts-concept-editor`, and in the **Save Model** dialog enter `OrderStarCustomer` and select **OK**.
+3. Select **File > Open** (`Ctrl+O`), select **OrderStarCustomer** in the **Select a Domain** dialog, and select **OK**. Starting from the Lab Files instead? Select **File > Import from XMI File** (`Ctrl+I`), open `OrderStarCustomer.xmi` from `C:\Workshop-ME-Associate\04-concepts\09-concepts-concept-editor`, and in the **Save Model** dialog enter `OrderStarCustomer` and select **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/concept_editor_select_domain.png" alt="The Select a Domain dialog listing OrderStarCustomer, OrdersME and SteelWheels, with OrderStarCustomer selected" width="300">
+<figcaption>Open the domain from the editor</figcaption>
+</figure>
+</div>
+
 4. Select **Tools > Concept Editor**.
 5. Under **Concepts**, select **Base**, then select the green plus icon above the tree, ![The green plus icon](../_assets/images/add-concept-button.png).
+
+<div align="center">
+<figure>
+<img src="../_assets/images/concept_editor_base_selected.png" alt="The Concept Editor with Base selected under Concepts: Font Arial-10, Color of Text black and Text Alignment Left" width="800">
+<figcaption>Base, the parent of every concept</figcaption>
+</figure>
+</div>
+
 6. In the **New Concept** dialog, enter `Number` and select **OK**.
 
 <div align="center">
@@ -72,6 +88,14 @@ C:\Pentaho\server\pentaho-server\start-pentaho.bat
 </div>
 
 7. Select **Number**. To the right of **Available**, select the green plus icon. The **Add New Property** dialog opens.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/concept_editor_add_property_number.png" alt="The Add New Property dialog for Number with Add a pre-defined property selected and the General and Formatting properties listed" width="486">
+<figcaption>Add a property to Number</figcaption>
+</figure>
+</div>
+
 8. Keep **Add a pre-defined property** selected, select **Miscellaneous > Mask for Number or Date**, and select **OK**.
 
 <div align="center">
@@ -82,6 +106,14 @@ C:\Pentaho\server\pentaho-server\start-pentaho.bat
 </div>
 
 9. In the **Available** pane, select **Formatting > Text Alignment**. In **Settings**, select the **Override** icon to the right of **Text Alignment** and set **Alignment Type** to `Right`.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/concept_editor_number_alignment_right.png" alt="The Number concept under Base with Text Alignment selected in Available: Font and Color of Text grayed out as inherited, Text Alignment overridden to Right, and an empty Mask for Number or Date" width="800">
+<figcaption>Number aligns right</figcaption>
+</figure>
+</div>
+
 10. Select **Miscellaneous > Mask for Number or Date** and set **Value** to `#,##0`.
 
 <div align="center">
@@ -92,6 +124,14 @@ C:\Pentaho\server\pentaho-server\start-pentaho.bat
 </div>
 
 11. Select **Number** and select the green plus icon above **Concepts**. In **New Concept**, enter `USCurrency` and select **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/concept_editor_new_concept_uscurrency.png" alt="The New Concept dialog with the name USCurrency; the parent of the new concept is the one selected, Number" width="474">
+<figcaption>USCurrency, a child of Number</figcaption>
+</figure>
+</div>
+
 12. Select **USCurrency**, then select **Miscellaneous > Mask for Number or Date**. The mask it inherited from Number is grayed out.
 13. Select the **Override** icon to the right of **Mask for Number or Date** and set **Value** to `$#,##0.00;($#,##0.00)`.
 
@@ -363,7 +403,7 @@ The editor fills in the **Web Publish URL** and proposes the model's name, `Orde
 
 ## Lab Files
 
-Click a file to download. Every file is also on disk in this workshop's folder, `C:\Workshop-ME-Practitioner\04-concepts\09-concepts-concept-editor`: load a domain into Metadata Editor with **File > Import from XMI File**.
+Click a file to download. Every file is also on disk in this workshop's folder, `C:\Workshop-ME-Associate\04-concepts\09-concepts-concept-editor`: load a domain into Metadata Editor with **File > Import from XMI File**.
 
 The starting domain, the result of the [OrderStarCustomer](../07-properties-orderstarcustomer/guide.md) workshop:
 
@@ -373,6 +413,6 @@ The starting domain, the result of the [OrderStarCustomer](../07-properties-orde
 
 The finished domain, with this workshop's concepts applied. Open it in Metadata Editor alongside your own to compare, or publish it to see the expected result.
 
-Also on disk at `C:\Workshop-ME-Practitioner\04-concepts\09-concepts-concept-editor\solution`.
+Also on disk at `C:\Workshop-ME-Associate\04-concepts\09-concepts-concept-editor\solution`.
 
 [OrderStarCustomer-concepts.xmi](./files/solution/OrderStarCustomer-concepts.xmi)

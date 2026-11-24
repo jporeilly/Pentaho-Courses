@@ -19,7 +19,7 @@
 > * The [Concept Editor](../09-concepts-concept-editor/guide.md) workshop, or `OrderStarCustomer-concepts.xmi` from **Lab Files** below
 > * The Pentaho Server running (see [Before You Start](../00-before-you-start/guide.md)), and its users `admin` and `suzy`
 >
-> **Estimated time:** 75 minutes
+> **Estimated time:** 45 minutes
 
 <figure>
 
@@ -93,7 +93,14 @@ C:\Pentaho\server\pentaho-server\start-pentaho.bat
 
 To work without the server later, save this XML to a file: copy everything from `<content>` to `</content>` in the **XML** dialog into a text editor, save it as `metadata_security.xml`, then on the **File** tab of **Security Service**, select **Browse** and choose the file. The editor then reads users and roles from the file.
 
-7. Select **File > Open** (`Ctrl+O`), select **OrderStarCustomer** in the **Select a Domain** dialog, and select **OK**. Starting from the Lab Files instead? Select **File > Import from XMI File** (`Ctrl+I`), open `OrderStarCustomer-concepts.xmi` from `C:\Workshop-ME-Practitioner\05-security-data-access\11-security-and-data-access-row-level-security`, and in the **Save Model** dialog enter `OrderStarCustomer` and select **OK**.
+7. Select **File > Open** (`Ctrl+O`), select **OrderStarCustomer** in the **Select a Domain** dialog, and select **OK**. Starting from the Lab Files instead? Select **File > Import from XMI File** (`Ctrl+I`), open `OrderStarCustomer-concepts.xmi` from `C:\Workshop-ME-Associate\05-security-data-access\11-security-and-data-access-row-level-security`, and in the **Save Model** dialog enter `OrderStarCustomer` and select **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/concept_editor_select_domain.png" alt="The Select a Domain dialog listing OrderStarCustomer, OrdersME and SteelWheels, with OrderStarCustomer selected" width="300">
+<figcaption>Open the domain from the editor</figcaption>
+</figure>
+</div>
 
 ### 2. Model Access
 
@@ -114,6 +121,14 @@ To work without the server later, save this XML to a file: copy everything from 
 
 2. In the **Business Model Properties** dialog, select **General > Metadata Security** in the **Available** pane.
 3. In **Settings**, select **Add New Users/Groups**, the green plus icon to the right of **Selected Users/Groups**. The **Add Permissions** dialog opens.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/rls_metadata_security_add.png" alt="Business Model Properties for BV_MODEL_1 on hsqldb:sampledata with General Metadata Security selected: an empty Selected Users/Groups list with the Add New Users/Groups icon above it, and Data Constraints None" width="800">
+<figcaption>Metadata Security, before any role is added</figcaption>
+</figure>
+</div>
+
 4. Under **Available Users/Roles**, select **Power User**, select the right arrow, and select **OK**.
 
 <div align="center">
@@ -122,6 +137,7 @@ To work without the server later, save this XML to a file: copy everything from 
 <figcaption>Power User assigned to the model</figcaption>
 </figure>
 </div>
+
 5. Select **General > Data Constraints** and check that **None** is selected.
 
 <div align="center">
@@ -407,7 +423,7 @@ The server is serving the old model. As `admin`, select **Tools > Refresh > Repo
 
 ## Lab Files
 
-Click a file to download. Every file is also on disk in this workshop's folder, `C:\Workshop-ME-Practitioner\05-security-data-access\11-security-and-data-access-row-level-security`: load a domain into Metadata Editor with **File > Import from XMI File**.
+Click a file to download. Every file is also on disk in this workshop's folder, `C:\Workshop-ME-Associate\05-security-data-access\11-security-and-data-access-row-level-security`: load a domain into Metadata Editor with **File > Import from XMI File**.
 
 The two row-level constraints, ready to copy into the **Constraint Formula** fields:
 
@@ -421,6 +437,6 @@ The starting domain, the result of the [Concept Editor](../09-concepts-concept-e
 
 The finished domain, with this workshop's model, category, column and row-level security. Open it in Metadata Editor alongside your own to compare, or publish it to see the expected result.
 
-Also on disk at `C:\Workshop-ME-Practitioner\05-security-data-access\11-security-and-data-access-row-level-security\solution`.
+Also on disk at `C:\Workshop-ME-Associate\05-security-data-access\11-security-and-data-access-row-level-security\solution`.
 
 [OrderStarCustomer-security.xmi](./files/solution/OrderStarCustomer-security.xmi)
