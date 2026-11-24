@@ -78,6 +78,8 @@ You can assign the width of a column across multiple devices — where you'll dr
 
 > **Note:** In the **Components** perspective you add and set up the different components that make up your dashboard. These are the central elements — they link the layout elements with the data sources.
 
+A component makes those links by name: its **HtmlObject** is the Name of a layout element, and its **Datasource** is the name of a data source. The diagram in [My First Dashboard](../03-getting-started-my-first-dashboard/guide.md), under **Chart Component**, follows one chart through all three perspectives to the server's connection.
+
 There are three types of components:
 
 #### Visual and Data Components
@@ -132,7 +134,7 @@ The standard library of visual and data components — text boxes, tables, OLAP 
 
 #### Charts
 
-CCC stands for **Community Charting Components**, the CTools charting library, built on top of **Protovis** — a free, open-source visualization toolkit. CCC was updated to provide a larger set of out-of-the-box properties for direct customization, and is now referred to as **CCC2**. CCC2 charts look great, are flexible, allow interaction, and expose roughly **200 advanced properties**, with further customization via extension points.
+CCC stands for **Community Chart Components**, the CTools charting library, built on top of **Protovis** — a free, open-source visualization toolkit. CCC was updated to provide a larger set of out-of-the-box properties for direct customization, and is now referred to as **CCC2**. CCC2 charts look great, are flexible, allow interaction, and expose roughly **200 advanced properties**, with further customization via extension points.
 
 CCC2 charts are added via the Components perspective and all begin with the prefix **CCC**. All other charts are legacy and are not supported. About Protovis:
 

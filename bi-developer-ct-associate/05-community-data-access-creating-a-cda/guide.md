@@ -16,12 +16,12 @@
 >
 > **Prerequisites:** A running Pentaho Server with the CTools plugins; [My First Dashboard](../03-getting-started-my-first-dashboard/guide.md), which creates the `CTools-Dashboard` folder; a text editor; basic SQL and MDX
 >
-> **Estimated time:** 45 minutes
+> **Estimated time:** 20 minutes
 
 <div align="center">
 <figure>
-<img src="../_assets/images/cda_create_community_data_access.png" alt="Architecture diagram placing Community Data Access between CDF and CDE dashboards and the data sources, with a CDA Cache over SQL, MDX, MQL, Kettle, scripting, XPath and compound queries" width="800">
-<figcaption>Community Data Access</figcaption>
+<img src="../_assets/images/cda-request.png" alt="A dashboard component or an external application calls doQuery with path, dataAccessId and param name and value pairs; CDA checks the cache key of connection, query text, type, parameter values and Key entries, plus the Mondrian role for MDX; a hit returns the rows; a miss runs the DataAccess over its Connection, SQL binding each value and MDX pasting it in, then Column, CalculatedColumn and Output reshape the rows, which are cached when cache is true and returned as json, xml, csv, xls or html" width="800">
+<figcaption>One doQuery request through CDA: the cache check, then the query and the reshaping on a miss</figcaption>
 </figure>
 </div>
 
@@ -40,6 +40,8 @@
 > * Scripting (Beanshell and JavaScript)
 > * XPath over XML files
 > * Compound queries, which join or union other queries
+
+Read the diagram along its arrows. A request from a dashboard component or another application carries the file's `path`, the `dataAccessId` and one `param<name>` pair per parameter, and CDA first looks for a cached result under its key: the connection, the query text and type, the parameter values and any `Key` entries, plus the Mondrian role for MDX. A hit goes straight back to the caller. A miss runs the DataAccess over its Connection, where SQL binds each value to a `?` and MDX writes it into the query text; `Column`, `CalculatedColumn` and `Output` then reshape the rows, which CDA keeps for `cacheDuration` seconds when `cache` is `true`. The dashed arrow is `bypassCache=true`, which skips the cache; the tabs below cover each piece, and [CDA Data Sources](../06-community-data-access-cda-data-sources/guide.md) covers the cache key.
 
 There are two ways to create CDA data sources. In CDE you create them in the Data Sources perspective, with no XML to write; the CDE workshops do that. The other way is to edit the `.cda` file by hand, which is what this workshop does.
 
@@ -238,15 +240,47 @@ It takes a few minutes; the console is ready when http://localhost:8080/pentaho 
 
 3. Select **Browse Files**. Under **Folders**, expand **Public** and select **CTools-Dashboard**. If it isn't there, select **Public**, select **New Folder...** under **Folder Actions**, and create it.
 4. Under **Folder Actions**, select **New Folder...**, enter `CDA` and select **OK**.
-5. In a text editor, paste the `sql.jndi` listing above and save it as `sql-jndi.cda`.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/cda_create_new_folder_cda.png" alt="Browse Files with Public, CTools-Dashboard selected and the New Folder dialog holding CDA" width="800">
+<figcaption>The CDA folder, inside CTools-Dashboard</figcaption>
+</figure>
+</div>
+
+5. In a text editor, paste the `sql.jndi` listing above and save it as `sql-jndi.cda`, or download [sql-jndi.cda](./files/sql-jndi.cda) from **Lab Files** at the end of this page.
 6. In the PUC, select the **CDA** folder. Under **Folder Actions**, select **Upload...**. Select **Browse...**, choose `sql-jndi.cda`, and select **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/cda_create_upload_sql_jndi.png" alt="Browse Files with the CDA folder selected and the Upload dialog showing sql-jndi.cda in its File box, above Advanced Options, OK and Cancel" width="800">
+<figcaption>Upload sql-jndi.cda into the CDA folder</figcaption>
+</figure>
+</div>
+
 7. If the file is not listed under **Files** yet, select the **Refresh** icon beside **Folders**.
 8. Under **Files**, select **sql-jndi**, and under **File Actions** select **Open**. The CDA previewer opens in a new tab.
 9. In the **Data Access** list, select **Sql Query on SampleData - Jndi**. The previewer shows the query's parameters, `status` and `orderDate`, with their defaults, and runs the query.
 
+<div align="center">
+<figure>
+<img src="../_assets/images/cda_create_preview_sql_jndi.png" alt="CDA previewer for /public/CTools-Dashboard/CDA/sql-jndi.cda with Sql Query on SampleData - Jndi selected, status Shipped and orderDate 2004-03-01, returning two rows: Shipped 2004 4114929.96 and Shipped 2005 1513074.46, with PriceInK 4.11 and 1.51" width="800">
+<figcaption>The previewer runs the query with its default parameters</figcaption>
+</figure>
+</div>
+
+
 > **Success:** Checkpoint: 2 rows, both `Shipped`: one for 2004 and one for 2005. The columns come in the order `<Output indexes="1,0,2,3"/>` sets: the status, `Year`, the price total and `PriceInK`. The 2004 total is about 4.11 million and the 2005 total about 1.51 million, so `PriceInK` is about 4.11 and 1.51.
 
 10. Select **Query URL**. The **Query Execution URL** dialog shows the `doQuery` call the previewer made. Select **Close**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/cda_create_query_url.png" alt="The Query Execution URL dialog over the previewer, its box holding http://localhost:8080/pentaho/plugin/cda/api/doQuery?path=/public/CTools-Dashboard/CDA/sql-jndi.cda and the rest of the call, with a Close button" width="800">
+<figcaption>The doQuery call behind the preview</figcaption>
+</figure>
+</div>
+
 
 > **Under the hood:**
 >
@@ -261,8 +295,10 @@ It takes a few minutes; the console is ready when http://localhost:8080/pentaho 
 > The rows that come back are then reshaped in order: Column entries
 > rename columns by position, CalculatedColumn formulas (OpenFormula, as
 > in Report Designer) add new ones, and Output picks and orders what is
-> returned, so indexes 1,0,2,3 puts STATUS first. With no cache
-> attribute and no Cache element, CDA does not cache the result at all.
+> returned, so indexes 1,0,2,3 puts STATUS first. This file sets
+> cache="true" and cacheDuration="3600", so CDA keeps each result for an
+> hour, keyed by the parameter values; a DataAccess with no cache
+> attribute and no Cache element is not cached at all.
 >
 > **Why it matters:** the query, the column names and the column order
 > are set once, in the file, for every dashboard and application that
@@ -769,6 +805,13 @@ A query can use several parameters, each with its own `Parameter` element and th
 
 1. In the CDA previewer tab from the first tab, set **status** to `Cancelled` and select the refresh button to the right of the **Data Access** list. If you closed the tab, open **sql-jndi** again from **Browse Files** and select **Sql Query on SampleData - Jndi** first.
 
+<div align="center">
+<figure>
+<img src="../_assets/images/cda_create_preview_cancelled.png" alt="CDA previewer with status set to Cancelled and orderDate 2004-03-01, returning one row: Cancelled, 2004, 187195.13, PriceInK 0.187" width="800">
+<figcaption>status set to <code>Cancelled</code></figcaption>
+</figure>
+</div>
+
 > **Success:** Checkpoint: 1 row: `Cancelled` for 2004, with a total of about 187,195. No order in 2005 is `Cancelled`.
 
 2. Set **status** back to `Shipped` and select the refresh button.
@@ -1001,12 +1044,12 @@ http://localhost:8080/pentaho/plugin/cda/api/editFile?path=/public/CTools-Dashbo
 
 <div align="center">
 <figure>
-<img src="../_assets/images/cda_create_edit_cda.png" alt="CDA editor showing a CDA file's XML, with a SampleData mondrian.jndi connection and MDX data access queries named territories and countries, plus Preview, Reload and Save buttons" width="800">
-<figcaption>Edit CDA</figcaption>
+<img src="../_assets/images/cda_create_edit_sql_jndi.png" alt="CDA editor for /public/CTools-Dashboard/CDA/sql-jndi.cda showing its XML: the sql.jndi connection to SampleData, the DataAccess with its query, the status and orderDate parameters, the Year column, the PriceInK calculated column and three Output lines, with Preview, Reload and Save above" width="800">
+<figcaption>sql-jndi.cda in the CDA editor</figcaption>
 </figure>
 </div>
 
-> **Success:** Checkpoint: the editor shows the XML of `sql-jndi.cda`, with **Save**, **Reload** and **Preview** above it. The picture shows a different file in the same editor.
+> **Success:** Checkpoint: the editor shows the XML of `sql-jndi.cda`, with **Save**, **Reload** and **Preview** above it.
 
 9. Close the editor tab without saving.
 
@@ -1016,4 +1059,8 @@ http://localhost:8080/pentaho/plugin/cda/api/editFile?path=/public/CTools-Dashbo
 
 ## Lab Files
 
-_No bundled files for this lab._
+Click a file to download. Every file is also on disk in this workshop's folder, `C:\Workshop-CT-Associate\02-community-data-access\05-community-data-access-creating-a-cda`.
+
+The CDA file you upload in the first tab, the `sql.jndi` listing:
+
+[sql-jndi.cda](./files/sql-jndi.cda)

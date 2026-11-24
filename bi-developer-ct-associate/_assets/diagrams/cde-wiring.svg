@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="718" viewBox="0 0 800 718" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+<filter id="shadow" x="-10%" y="-10%" width="120%" height="140%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#0f172a" flood-opacity="0.12"/></filter></defs>
+<rect width="800" height="718" fill="#ffffff"/>
+<rect x="16" y="16" width="362" height="496" rx="12" fill="#eff6ff" stroke="#dbeafe" stroke-width="1.5"/>
+<path d="M16 28a12 12 0 0 1 12-12h338a12 12 0 0 1 12 12v32h-362z" fill="#1d4ed8"/>
+<g transform="translate(29 26) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="7" x="3" y="3" rx="1"/><rect width="9" height="7" x="3" y="14" rx="1"/><rect width="5" height="7" x="16" y="14" rx="1"/></g>
+<text x="56" y="36" font-size="14" font-weight="700" fill="#ffffff">CDE editor</text>
+<text x="56" y="52" font-size="11.5" fill="#ffffff" opacity="0.92">one element from each perspective</text>
+<rect x="504" y="324" width="280" height="188" rx="12" fill="#f5f3ff" stroke="#ede9fe" stroke-width="1.5"/>
+<path d="M504 336a12 12 0 0 1 12-12h256a12 12 0 0 1 12 12v32h-280z" fill="#6d28d9"/>
+<g transform="translate(517 334) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="8" x="2" y="2" rx="2" ry="2"/><rect width="20" height="8" x="2" y="14" rx="2" ry="2"/><line x1="6" x2="6.01" y1="6" y2="6"/><line x1="6" x2="6.01" y1="18" y2="18"/></g>
+<text x="544" y="344" font-size="14" font-weight="700" fill="#ffffff">Pentaho Server</text>
+<text x="544" y="360" font-size="11.5" fill="#ffffff" opacity="0.92">Manage Data Sources</text>
+<rect x="16" y="552" width="768" height="150" rx="12" fill="#f0fdf4" stroke="#dcfce7" stroke-width="1.5"/>
+<path d="M16 564a12 12 0 0 1 12-12h744a12 12 0 0 1 12 12v32h-768z" fill="#15803d"/>
+<g transform="translate(29 562) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2h-4a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V8"/><path d="M16.706 2.706A2.4 2.4 0 0 0 15 2v5a1 1 0 0 0 1 1h5a2.4 2.4 0 0 0-.706-1.706z"/><path d="M5 7a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h8a2 2 0 0 0 1.732-1"/></g>
+<text x="56" y="572" font-size="14" font-weight="700" fill="#ffffff">Repository: what Save writes</text>
+<text x="56" y="588" font-size="11.5" fill="#ffffff" opacity="0.92">public &gt; CTools-Dashboard &gt; My-First-Dashboard</text>
+<path d="M197 248C197 209.5 197 209.5 197 171" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M197 332C197 370.5 197 370.5 197 409" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M362 454L517 454" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M197 512C197 530.5 197 530.5 197 549" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="32" y="84" width="330" height="84" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="126" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(50 114) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="7" x="3" y="3" rx="1"/><rect width="9" height="7" x="3" y="14" rx="1"/><rect width="5" height="7" x="16" y="14" rx="1"/></g>
+<text x="92" y="109" font-size="14" font-weight="700" fill="#1e3a8a">Layout: Panel_3</text>
+<text x="92" y="126" font-size="12" fill="#1e3a8a">a column of the Body row,</text>
+<text x="92" y="141" font-size="12" fill="#1e3a8a">drawn as a div with id Panel_3</text>
+<rect x="32" y="248" width="330" height="84" rx="10" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="290" r="19" fill="#ffffff" stroke="#0f766e" stroke-width="1.2"/>
+<g transform="translate(50 278) scale(1)" fill="none" stroke="#0f766e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12c.552 0 1.005-.449.95-.998a10 10 0 0 0-8.953-8.951c-.55-.055-.998.398-.998.95v8a1 1 0 0 0 1 1z"/><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/></g>
+<text x="92" y="273" font-size="14" font-weight="700" fill="#134e4a">Components: Total_SalesChart</text>
+<text x="92" y="290" font-size="12" fill="#134e4a">HtmlObject: Panel_3</text>
+<text x="92" y="305" font-size="12" fill="#134e4a">Datasource: Total_SalesQuery</text>
+<rect x="32" y="412" width="330" height="84" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="454" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(50 442) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 15 21.84"/><path d="M21 5V8"/><path d="M21 12L18 17H22L19 22"/><path d="M3 12A9 3 0 0 0 14.59 14.87"/></g>
+<text x="92" y="437" font-size="14" font-weight="700" fill="#1e3a8a">Data Sources: Total_SalesQuery</text>
+<text x="92" y="454" font-size="12" fill="#1e3a8a">mdx over mondrianJndi, SteelWheels</text>
+<text x="92" y="469" font-size="12" fill="#1e3a8a">Jndi: a server connection's name</text>
+<rect x="134.45" y="189.5" width="125.1" height="40" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="197" y="207.5" text-anchor="middle" font-size="12" fill="#334155">HtmlObject =</text>
+<text x="197" y="222.5" text-anchor="middle" font-size="12" fill="#334155">the column's Name</text>
+<rect x="137.6" y="350.5" width="118.8" height="40" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="197" y="368.5" text-anchor="middle" font-size="12" fill="#334155">Datasource =</text>
+<text x="197" y="383.5" text-anchor="middle" font-size="12" fill="#334155">the query's Name</text>
+<rect x="520" y="84" width="264" height="120" rx="10" fill="#fee2e2" stroke="#b91c1c" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="550" cy="144" r="19" fill="#ffffff" stroke="#b91c1c" stroke-width="1.2"/>
+<g transform="translate(538 132) scale(1)" fill="none" stroke="#b91c1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></g>
+<text x="580" y="119.5" font-size="14" font-weight="700" fill="#7f1d1d">One wrong name</text>
+<text x="580" y="136.5" font-size="12" fill="#7f1d1d">wrong HtmlObject: no chart</text>
+<text x="580" y="151.5" font-size="12" fill="#7f1d1d">wrong Datasource: no data</text>
+<text x="580" y="166.5" font-size="12" fill="#7f1d1d">wrong Jndi: no database</text>
+<rect x="520" y="412" width="248" height="84" rx="10" fill="#f1f5f9" stroke="#475569" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="550" cy="454" r="19" fill="#ffffff" stroke="#475569" stroke-width="1.2"/>
+<g transform="translate(538 442) scale(1)" fill="none" stroke="#475569" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22v-5"/><path d="M15 8V2"/><path d="M17 8a1 1 0 0 1 1 1v4a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1z"/><path d="M9 8V2"/></g>
+<text x="580" y="437" font-size="14" font-weight="700" fill="#0f172a">SampleData</text>
+<text x="580" y="454" font-size="12" fill="#0f172a">JDBC, Hypersonic,</text>
+<text x="580" y="469" font-size="12" fill="#0f172a">port 9001</text>
+<rect x="406.8" y="434" width="68.4" height="40" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="441" y="452" text-anchor="middle" font-size="12" fill="#334155">Jndi =</text>
+<text x="441" y="467" text-anchor="middle" font-size="12" fill="#334155">its name</text>
+<rect x="32" y="616" width="232" height="70" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="651" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(50 639) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 8a1 1 0 0 1-1-1V2a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8z"/><path d="M20 8v12a2 2 0 0 1-2 2h-4.182"/><path d="m3.305 19.53.923-.382"/><path d="M4 10.592V4a2 2 0 0 1 2-2h8"/><path d="m4.228 16.852-.924-.383"/><path d="m5.852 15.228-.383-.923"/><path d="m5.852 20.772-.383.924"/><path d="m8.148 15.228.383-.923"/><path d="m8.53 21.696-.382-.924"/><path d="m9.773 16.852.922-.383"/><path d="m9.773 19.148.922.383"/><circle cx="7" cy="18" r="3"/></g>
+<text x="92" y="641.5" font-size="14" font-weight="700" fill="#14532d">.wcdf</text>
+<text x="92" y="658.5" font-size="12" fill="#14532d">title and settings</text>
+<rect x="284" y="616" width="232" height="70" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="314" cy="651" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(302 639) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 12a1 1 0 0 0-1 1v1a1 1 0 0 1-1 1 1 1 0 0 1 1 1v1a1 1 0 0 0 1 1"/><path d="M14 18a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1 1 1 0 0 1-1-1v-1a1 1 0 0 0-1-1"/></g>
+<text x="344" y="634" font-size="14" font-weight="700" fill="#14532d">.cdfde</text>
+<text x="344" y="651" font-size="12" fill="#14532d">all three perspectives,</text>
+<text x="344" y="666" font-size="12" fill="#14532d">as JSON</text>
+<rect x="536" y="616" width="232" height="70" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="566" cy="651" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(554 639) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 12.5 8 15l2 2.5"/><path d="m14 12.5 2 2.5-2 2.5"/></g>
+<text x="596" y="634" font-size="14" font-weight="700" fill="#14532d">.cda</text>
+<text x="596" y="651" font-size="12" fill="#14532d">built from Data Sources</text>
+<text x="596" y="666" font-size="12" fill="#14532d">at every save</text>
+<rect x="175.4" y="518" width="43.2" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="197" y="536" text-anchor="middle" font-size="12" fill="#334155">Save</text>
+</svg>

@@ -1,9 +1,9 @@
 {
-  "title": "Carrier Dashboard Charts",
-  "description": "Use CGG postFetch functions to render the Carrier Dashboard's CCC charts server-side as export-optimized PNG/SVG images.",
+  "title": "Sales Dashboard Charts",
+  "description": "Use CGG postFetch functions to render the Sales Dashboard's CCC charts server-side as export-optimized PNG/SVG images.",
   "order": 14,
   "stepCount": 1,
-  "estimatedMinutes": 20,
+  "estimatedMinutes": 15,
   "hasVideo": false,
   "kind": "workshop"
 }

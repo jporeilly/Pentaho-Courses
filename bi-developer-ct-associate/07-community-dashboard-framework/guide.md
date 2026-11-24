@@ -93,7 +93,7 @@ CDF implements AMD through **RequireJS**, a JavaScript module loader that offers
 
 ## Where CDF sits in CTools
 
-CDF is one of three main components of **Pentaho CTools** (Community Tools), an open-source data visualization toolkit that integrates with the Pentaho Business Intelligence Suite:
+CDF is one of three main components of **Pentaho CTools** (Community Tools), an open-source data visualization toolkit that integrates with Pentaho Business Analytics:
 
 | Tool | Role |
 | --- | --- |

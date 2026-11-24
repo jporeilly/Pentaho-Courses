@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CDADescriptor>
+    <DataSources>
+        <Connection id="sampledata" type="sql.jndi">
+            <Jndi>SampleData</Jndi>
+        </Connection>
+    </DataSources>
+    <DataAccess id="allYearsQuery" connection="sampledata" type="sql" access="public" cache="true" cacheDuration="3600">
+        <Name>Sales Data All Years</Name>
+        <Query>
+            SELECT
+                YEAR(o.ORDERDATE) as YEAR,
+                MONTH(o.ORDERDATE) as MONTH,
+                o.ORDERNUMBER,
+                o.ORDERDATE,
+                o.STATUS,
+                o.CUSTOMERNUMBER,
+                c.CUSTOMERNAME,
+                c.COUNTRY,
+                p.PRODUCTCODE,
+                p.PRODUCTNAME,
+                p.PRODUCTLINE,
+                od.QUANTITYORDERED,
+                od.PRICEEACH,
+                (od.QUANTITYORDERED * od.PRICEEACH) as TOTAL_AMOUNT
+            FROM
+                ORDERS o
+                JOIN ORDERDETAILS od ON o.ORDERNUMBER = od.ORDERNUMBER
+                JOIN PRODUCTS p ON od.PRODUCTCODE = p.PRODUCTCODE
+                JOIN CUSTOMERS c ON o.CUSTOMERNUMBER = c.CUSTOMERNUMBER
+            ORDER BY
+                o.ORDERDATE, o.ORDERNUMBER
+        </Query>
+        <Parameters></Parameters>
+        <Columns></Columns>
+    </DataAccess>
+    <DataAccess id="productLinesQuery" connection="sampledata" type="sql" access="public" cache="true" cacheDuration="3600">
+        <Name>Product lines</Name>
+        <Query>
+            SELECT DISTINCT PRODUCTLINE AS ID, PRODUCTLINE AS NAME
+            FROM PRODUCTS
+            ORDER BY PRODUCTLINE
+        </Query>
+    </DataAccess>
+    <DataAccess id="countriesQuery" connection="sampledata" type="sql" access="public" cache="true" cacheDuration="3600">
+        <Name>Countries</Name>
+        <Query>
+            SELECT DISTINCT c.COUNTRY AS ID, c.COUNTRY AS NAME
+            FROM CUSTOMERS c
+            JOIN ORDERS o ON o.CUSTOMERNUMBER = c.CUSTOMERNUMBER
+            ORDER BY c.COUNTRY
+        </Query>
+    </DataAccess>
+    <DataAccess id="salesTrendQuery" connection="sampledata" type="sql" access="public" cache="true" cacheDuration="3600">
+        <Name>Sales trend</Name>
+        <Query>
+            SELECT
+                TO_CHAR(o.ORDERDATE, 'YYYY-MM') AS MONTH,
+                SUM(od.QUANTITYORDERED * od.PRICEEACH) AS SALES
+            FROM
+                ORDERS o
+                JOIN ORDERDETAILS od ON o.ORDERNUMBER = od.ORDERNUMBER
+                JOIN PRODUCTS p ON od.PRODUCTCODE = p.PRODUCTCODE
+                JOIN CUSTOMERS c ON o.CUSTOMERNUMBER = c.CUSTOMERNUMBER
+            WHERE o.ORDERDATE BETWEEN ${startDate} AND ${endDate}
+              AND p.PRODUCTLINE IN (${productLines})
+              AND c.COUNTRY IN (${countries})
+            GROUP BY TO_CHAR(o.ORDERDATE, 'YYYY-MM')
+            ORDER BY 1
+        </Query>
+        <Parameters>
+            <Parameter name="startDate" type="Date" pattern="yyyy-MM-dd" default="2004-01-01"/>
+            <Parameter name="endDate" type="Date" pattern="yyyy-MM-dd" default="2004-12-31"/>
+            <Parameter name="productLines" type="StringArray" default="Classic Cars;Motorcycles;Planes;Ships;Trains;Trucks and Buses;Vintage Cars"/>
+            <Parameter name="countries" type="StringArray" default="Australia;Austria;Belgium;Canada;Denmark;Finland;France;Germany;Hong Kong;Ireland;Italy;Japan;New Zealand;Norway;Philippines;Singapore;Spain;Sweden;Switzerland;UK;USA"/>
+        </Parameters>
+    </DataAccess>
+    <DataAccess id="productDistributionQuery" connection="sampledata" type="sql" access="public" cache="true" cacheDuration="3600">
+        <Name>Product distribution</Name>
+        <Query>
+            SELECT
+                p.PRODUCTLINE,
+                SUM(od.QUANTITYORDERED * od.PRICEEACH) AS SALES
+            FROM
+                ORDERS o
+                JOIN ORDERDETAILS od ON o.ORDERNUMBER = od.ORDERNUMBER
+                JOIN PRODUCTS p ON od.PRODUCTCODE = p.PRODUCTCODE
+                JOIN CUSTOMERS c ON o.CUSTOMERNUMBER = c.CUSTOMERNUMBER
+            WHERE o.ORDERDATE BETWEEN ${startDate} AND ${endDate}
+              AND p.PRODUCTLINE IN (${productLines})
+              AND c.COUNTRY IN (${countries})
+            GROUP BY p.PRODUCTLINE
+            ORDER BY 2 DESC
+        </Query>
+        <Parameters>
+            <Parameter name="startDate" type="Date" pattern="yyyy-MM-dd" default="2004-01-01"/>
+            <Parameter name="endDate" type="Date" pattern="yyyy-MM-dd" default="2004-12-31"/>
+            <Parameter name="productLines" type="StringArray" default="Classic Cars;Motorcycles;Planes;Ships;Trains;Trucks and Buses;Vintage Cars"/>
+            <Parameter name="countries" type="StringArray" default="Australia;Austria;Belgium;Canada;Denmark;Finland;France;Germany;Hong Kong;Ireland;Italy;Japan;New Zealand;Norway;Philippines;Singapore;Spain;Sweden;Switzerland;UK;USA"/>
+        </Parameters>
+    </DataAccess>
+    <DataAccess id="salesDetailsQuery" connection="sampledata" type="sql" access="public" cache="true" cacheDuration="3600">
+        <Name>Sales details</Name>
+        <Query>
+            SELECT
+                TO_CHAR(o.ORDERDATE, 'YYYY-MM-DD') AS ORDERDATE,
+                o.ORDERNUMBER,
+                c.CUSTOMERNAME,
+                c.COUNTRY,
+                p.PRODUCTLINE,
+                p.PRODUCTNAME,
+                od.QUANTITYORDERED,
+                (od.QUANTITYORDERED * od.PRICEEACH) AS TOTAL_AMOUNT
+            FROM
+                ORDERS o
+                JOIN ORDERDETAILS od ON o.ORDERNUMBER = od.ORDERNUMBER
+                JOIN PRODUCTS p ON od.PRODUCTCODE = p.PRODUCTCODE
+                JOIN CUSTOMERS c ON o.CUSTOMERNUMBER = c.CUSTOMERNUMBER
+            WHERE o.ORDERDATE BETWEEN ${startDate} AND ${endDate}
+              AND p.PRODUCTLINE IN (${productLines})
+              AND c.COUNTRY IN (${countries})
+            ORDER BY o.ORDERDATE, o.ORDERNUMBER
+        </Query>
+        <Parameters>
+            <Parameter name="startDate" type="Date" pattern="yyyy-MM-dd" default="2004-01-01"/>
+            <Parameter name="endDate" type="Date" pattern="yyyy-MM-dd" default="2004-12-31"/>
+            <Parameter name="productLines" type="StringArray" default="Classic Cars;Motorcycles;Planes;Ships;Trains;Trucks and Buses;Vintage Cars"/>
+            <Parameter name="countries" type="StringArray" default="Australia;Austria;Belgium;Canada;Denmark;Finland;France;Germany;Hong Kong;Ireland;Italy;Japan;New Zealand;Norway;Philippines;Singapore;Spain;Sweden;Switzerland;UK;USA"/>
+        </Parameters>
+    </DataAccess>
+</CDADescriptor>

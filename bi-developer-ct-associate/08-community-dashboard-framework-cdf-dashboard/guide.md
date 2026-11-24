@@ -15,7 +15,7 @@
 >
 > **Prerequisites:** [Overview of Community Dashboard Framework](../07-community-dashboard-framework/guide.md); basic HTML, CSS and JavaScript; a text editor; a running Pentaho Server
 >
-> **Estimated time:** 30 minutes
+> **Estimated time:** 20 minutes
 
 A CDF dashboard needs two files:
 
@@ -65,7 +65,7 @@ The same approach makes a dashboard easier to embed in another application, whic
 | `<style>` | The dashboard style, for example `clean`. |
 | `<require>` | Whether the dashboard uses RequireJS (AMD) module loading. `true` opts the dashboard into the approach described above. |
 
-1. In a text editor, paste the listing above and save it as `myFirstDashboard.xcdf`.
+1. In a text editor, paste the listing above and save it as `myFirstDashboard.xcdf`, or download [myFirstDashboard.xcdf](./files/myFirstDashboard.xcdf) from **Lab Files** at the end of this page.
 
 > **Under the hood:**
 >
@@ -94,7 +94,7 @@ The same approach makes a dashboard easier to embed in another application, whic
 >
 > The HTML file is the template that the `<template>` element names. It holds the HTML that the dashboard's components render into.
 
-1. In the same folder as `myFirstDashboard.xcdf`, create `myFirstDashboard.html` with a heading and one element for a component to render into:
+1. In the same folder as `myFirstDashboard.xcdf`, create `myFirstDashboard.html` with a heading and one element for a component to render into, or download [myFirstDashboard.html](./files/myFirstDashboard.html) from **Lab Files**:
 
 ```html
 <h2>My first dashboard!</h2>
@@ -138,12 +138,43 @@ It takes a few minutes; the console is ready when http://localhost:8080/pentaho 
 
 3. Select **Browse Files**. Under **Folders**, expand **Public** and select **CTools-Dashboard**. If it isn't there, select **Public**, select **New Folder...** under **Folder Actions**, and create it.
 4. Under **Folder Actions**, select **New Folder...**, enter `CDF` and select **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/cdf_dashboard_new_folder_cdf.png" alt="Browse Files with Public, CTools-Dashboard selected, CDA and My-First-Dashboard under it, and the New Folder dialog holding CDF" width="800">
+<figcaption>The CDF folder</figcaption>
+</figure>
+</div>
+
 5. Select **CDF**. Under **Folder Actions**, select **Upload...**. Select **Browse...**, choose `myFirstDashboard.xcdf`, and select **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/cdf_dashboard_upload_xcdf.png" alt="Browse Files with the CDF folder selected and the Upload dialog showing myFirstDashboard.xcdf in its File box" width="800">
+<figcaption>Upload myFirstDashboard.xcdf</figcaption>
+</figure>
+</div>
+
 6. Upload `myFirstDashboard.html` to the same folder the same way.
-7. If the files are not listed under **Files** yet, select the **Refresh** icon beside **Folders**.
+7. If the files are not listed under **Files** yet, select the **Refresh** icon beside **Folders**. The XCDF file is listed by its name, **myFirstDashboard**, with the CDF icon; the template keeps its extension, **myFirstDashboard.html**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/cdf_dashboard_files.png" alt="Browse Files with Public, CTools-Dashboard, CDF selected and two files under Files: myFirstDashboard with the CDF icon, and myFirstDashboard.html" width="800">
+<figcaption>The dashboard and its template</figcaption>
+</figure>
+</div>
+
 8. Under **Files**, double-click **myFirstDashboard**, the XCDF file, not the HTML template.
 
-> **Success:** Checkpoint: the dashboard opens in a new tab and shows the heading **My first dashboard!**. The `myFirstComponent` element is empty: no component renders into it yet.
+<div align="center">
+<figure>
+<img src="../_assets/images/cdf_dashboard_my_first_dashboard.png" alt="The User Console with a myFirstDashboard tab open, showing only the heading My first dashboard!" width="800">
+<figcaption>The dashboard renders the template</figcaption>
+</figure>
+</div>
+
+> **Success:** Checkpoint: the dashboard opens in a new **myFirstDashboard** tab in the User Console and shows the heading **My first dashboard!**. The `myFirstComponent` element is empty: no component renders into it yet.
 
 9. Close the dashboard's tab.
 
@@ -151,4 +182,12 @@ It takes a few minutes; the console is ready when http://localhost:8080/pentaho 
 
 ## Lab Files
 
-_No bundled files for this lab._
+Click a file to download. Every file is also on disk in this workshop's folder, `C:\Workshop-CT-Associate\03-community-dashboard-framework\08-community-dashboard-framework-cdf-dashboard`.
+
+The XCDF descriptor from the first tab:
+
+[myFirstDashboard.xcdf](./files/myFirstDashboard.xcdf)
+
+The HTML template from the second tab:
+
+[myFirstDashboard.html](./files/myFirstDashboard.html)

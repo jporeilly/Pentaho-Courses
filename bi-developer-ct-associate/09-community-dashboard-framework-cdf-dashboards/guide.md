@@ -15,7 +15,7 @@
 >
 > **Prerequisites:** [CDF Dashboard](../08-community-dashboard-framework-cdf-dashboard/guide.md), which creates the `CTools-Dashboard/CDF` folder; basic HTML, CSS and JavaScript; a text editor; a running Pentaho Server
 >
-> **Estimated time:** 30 minutes
+> **Estimated time:** 25 minutes
 
 A CDF dashboard is built from two mandatory files:
 
@@ -36,7 +36,7 @@ A CDF dashboard is built from two mandatory files:
 >
 > The `.xcdf` file is the root of the dashboard. It identifies the file to Pentaho as a CDF dashboard and names, in its `<template>` element, the HTML file that holds the markup. It is the file you see in the PUC's file browser; opening it renders the dashboard.
 
-1. In a text editor, create a file named `cdfDashboards.xcdf` with this content:
+1. In a text editor, create a file named `cdfDashboards.xcdf` with this content, or download [cdfDashboards.xcdf](./files/cdfDashboards.xcdf) from **Lab Files** at the end of this page:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -94,7 +94,7 @@ The element with `id="panel_1"` is the htmlObject that a component renders into.
 
 With `require` on, the template creates the dashboard itself, in a script that names the modules it needs. CDF's own samples are written this way.
 
-1. Add this script to the end of `cdfDashboards.html` and save the file:
+1. Add this script to the end of `cdfDashboards.html` and save the file. [cdfDashboards.html](./files/cdfDashboards.html) in **Lab Files** is the finished template, with the script in place:
 
 ```html
 <script type="text/javascript">
@@ -165,7 +165,14 @@ It takes a few minutes; the console is ready when http://localhost:8080/pentaho 
 6. If the files are not listed under **Files** yet, select the **Refresh** icon beside **Folders**.
 7. Under **Files**, double-click **cdfDashboards**, the XCDF file, not the HTML template.
 
-> **Success:** Checkpoint: the dashboard opens in a new tab with the heading **My First Dashboard** and, under it, the line `My text generated in` followed by the date and time the page loaded.
+<div align="center">
+<figure>
+<img src="../_assets/images/cdf_dashboards_text_component.png" alt="The User Console with a cdfDashboards tab showing the heading My First Dashboard and the line My text generated in Tue Nov 24 2026 11:10:07 GMT+0000" width="800">
+<figcaption>The Text component writes into panel_1</figcaption>
+</figure>
+</div>
+
+> **Success:** Checkpoint: the dashboard opens in a new **cdfDashboards** tab in the User Console with the heading **My First Dashboard** and, under it, the line `My text generated in` followed by the date and time the page loaded.
 
 8. Close the dashboard's tab.
 
@@ -175,4 +182,12 @@ It takes a few minutes; the console is ready when http://localhost:8080/pentaho 
 
 ## Lab Files
 
-_No bundled files for this lab._
+Click a file to download. Every file is also on disk in this workshop's folder, `C:\Workshop-CT-Associate\03-community-dashboard-framework\09-community-dashboard-framework-cdf-dashboards`.
+
+The XCDF descriptor from the first tab:
+
+[cdfDashboards.xcdf](./files/cdfDashboards.xcdf)
+
+The finished HTML template, with the RequireJS script from the third tab:
+
+[cdfDashboards.html](./files/cdfDashboards.html)

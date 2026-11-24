@@ -16,8 +16,8 @@ The **Community Graphics Generator (CGG)** renders CCC charts **server-side** as
 
 <div align="center">
 <figure>
-<img src="../_assets/images/cgg_url_for_tablequery.png" alt="Query Execution URL dialog showing a highlighted CDA doQuery address on localhost:8080 whose path, under CTools-Dashboard/Carrier-Dashboard, is cut off at the right edge" width="600">
-<figcaption>The CDA doQuery URL behind a dashboard query</figcaption>
+<img src="../_assets/images/cgg_url_for_tablequery.png" alt="The CDA previewer for sales-dashboard.cda with lineChartQuery selected and the Query Execution URL dialog showing its doQuery address on localhost:8080, the path under CTools-Dashboard/Sales-Dashboard cut off at the right edge" width="800">
+<figcaption>The CDA doQuery URL that returns a query's data; the CGG draw URL below, which renders a chart as an image, is a different endpoint</figcaption>
 </figure>
 </div>
 

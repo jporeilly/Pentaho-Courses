@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cdf>
+  <title>CDF Dashboards</title>
+  <author>My Name</author>
+  <description>A CDF dashboard with a Text component</description>
+  <icon></icon>
+  <template>cdfDashboards.html</template>
+  <style>clean</style>
+  <require>true</require>
+</cdf>

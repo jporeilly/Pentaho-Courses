@@ -2,7 +2,7 @@
   "title": "Sales Analysis Dashboard",
   "description": "End-to-end Retail Sales analysis dashboard combining a CDA SQL data source, a CDE Bootstrap layout, and CCC chart components.",
   "order": 15,
-  "stepCount": 3,
+  "stepCount": 5,
   "estimatedMinutes": 45,
   "hasVideo": false,
   "kind": "workshop"

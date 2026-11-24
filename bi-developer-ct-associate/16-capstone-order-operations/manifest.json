@@ -1,0 +1,80 @@
+{
+  "title": "Capstone: Order Operations",
+  "description": "Capstone: build an Order Operations dashboard in CDE from nothing: your own SQL data sources on SampleData and an MDX one on the SteelWheels cube, a year selector, a status chart whose click drives an order list and a product-line pie, a CSV export and a CGG chart export. Outline and hints; its checks decide the accreditation.",
+  "order": 16,
+  "kind": "workshop",
+  "stepCount": 13,
+  "hasVideo": false,
+  "estimatedMinutes": 90,
+  "checks": [
+    {
+      "id": "status-query",
+      "kind": "file-contains",
+      "label": "Your dashboard's CDA, downloaded into solution\\Order-Operations\\, with the statusQuery data source",
+      "path": "C:/Workshop-CT-Associate/capstone/solution/Order-Operations/order-operations.cda",
+      "text": "<Name>statusQuery</Name>"
+    },
+    {
+      "id": "orders-query",
+      "kind": "file-contains",
+      "label": "In your CDA, the ordersQuery data source",
+      "path": "C:/Workshop-CT-Associate/capstone/solution/Order-Operations/order-operations.cda",
+      "text": "<Name>ordersQuery</Name>"
+    },
+    {
+      "id": "status-chart",
+      "kind": "file-contains",
+      "label": "Your dashboard, with the statusChart component",
+      "path": "C:/Workshop-CT-Associate/capstone/solution/Order-Operations/order-operations.cdfde",
+      "text": "\"value\" : \"statusChart\""
+    },
+    {
+      "id": "click-action",
+      "kind": "file-contains",
+      "label": "In your dashboard, a click action that calls fireChange",
+      "path": "C:/Workshop-CT-Associate/capstone/solution/Order-Operations/order-operations.cdfde",
+      "text": "fireChange"
+    },
+    {
+      "id": "orders-table",
+      "kind": "file-contains",
+      "label": "In your dashboard, the ordersTable component",
+      "path": "C:/Workshop-CT-Associate/capstone/solution/Order-Operations/order-operations.cdfde",
+      "text": "\"value\" : \"ordersTable\""
+    },
+    {
+      "id": "export-orders",
+      "kind": "file-contains",
+      "label": "In your dashboard, the exportOrders component",
+      "path": "C:/Workshop-CT-Associate/capstone/solution/Order-Operations/order-operations.cdfde",
+      "text": "\"value\" : \"exportOrders\""
+    },
+    {
+      "id": "mdx-query",
+      "kind": "file-contains",
+      "label": "In your CDA, the lineSalesQuery data source, an MDX query on a Mondrian JNDI connection",
+      "path": "C:/Workshop-CT-Associate/capstone/solution/Order-Operations/order-operations.cda",
+      "text": "<Connection id=\"lineSalesQuery\" type=\"mondrian.jndi\">"
+    },
+    {
+      "id": "pie-chart",
+      "kind": "file-contains",
+      "label": "In your dashboard, the lineSalesChart component",
+      "path": "C:/Workshop-CT-Associate/capstone/solution/Order-Operations/order-operations.cdfde",
+      "text": "\"value\" : \"lineSalesChart\""
+    },
+    {
+      "id": "export-chart",
+      "kind": "file-contains",
+      "label": "In your dashboard, the exportChart component",
+      "path": "C:/Workshop-CT-Associate/capstone/solution/Order-Operations/order-operations.cdfde",
+      "text": "\"value\" : \"exportChart\""
+    },
+    {
+      "id": "cgg-script",
+      "kind": "file-exists",
+      "label": "The CGG script CDE writes for statusChart, statusChart.js, downloaded with the dashboard",
+      "path": "C:/Workshop-CT-Associate/capstone/solution/Order-Operations/statusChart.js"
+    }
+  ]
+}

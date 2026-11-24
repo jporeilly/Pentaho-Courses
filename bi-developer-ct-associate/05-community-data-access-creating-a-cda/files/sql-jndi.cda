@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CDADescriptor>
+    <DataSources>
+        <Connection id="1" type="sql.jndi">
+            <Jndi>SampleData</Jndi>
+        </Connection>
+    </DataSources>
+    <DataAccess id="1" connection="1" type="sql" access="public" cache="true" cacheDuration="3600">
+        <Name>Sql Query on SampleData - Jndi</Name>
+        <Query>
+            select o.YEAR_ID, o.STATUS, sum(o.TOTALPRICE) as price from orderfact o
+            where o.STATUS = ${status} and o.ORDERDATE &gt; ${orderDate}
+            group by o.YEAR_ID, o.STATUS
+        </Query>
+        <Parameters>
+            <Parameter name="status" type="String" default="Shipped"/>
+            <Parameter name="orderDate" type="Date" pattern="yyyy-MM-dd" default="2004-03-01"/>
+        </Parameters>
+        <Columns>
+            <Column idx="0">
+                <Name>Year</Name>
+            </Column>
+            <CalculatedColumn>
+                <Name>PriceInK</Name>
+                <Formula>=[PRICE]/1000000</Formula>
+            </CalculatedColumn>
+        </Columns>
+        <Settings>
+            <Export type="csv" includeTotals="true">
+                <Column idx="0" aggregator="None"/>
+                <Column idx="1" aggregator="Average"/>
+            </Export>
+        </Settings>
+        <Output indexes="1,0,2,3"/>
+        <Output id="2" indexes="0,1,3"/>
+        <Output id="3" indexes="1,0,2"/>
+    </DataAccess>
+</CDADescriptor>

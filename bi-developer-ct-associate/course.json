@@ -37,6 +37,38 @@
       "How do I make dashboard components react to a parameter?"
     ]
   },
+  "certification": {
+    "badge": "Certified Solution Analyst",
+    "path": {
+      "title": "Certified Solution Analyst Learning Path",
+      "steps": [
+        {
+          "title": "BA Analyst",
+          "courseId": "analyst-ba-practitioner"
+        },
+        {
+          "title": "Schema Workbench",
+          "courseId": "bi-developer-sw-associate"
+        },
+        {
+          "title": "Metadata Editor",
+          "courseId": "bi-developer-me-associate"
+        },
+        {
+          "title": "Report Designer",
+          "courseId": "bi-developer-rd-associate"
+        },
+        {
+          "title": "CTools",
+          "courseId": "bi-developer-ct-associate"
+        },
+        {
+          "title": "Certified Solution Analyst",
+          "certified": true
+        }
+      ]
+    }
+  },
   "moduleSummaries": [
     {
       "title": "Getting Started",
@@ -52,15 +84,19 @@
     },
     {
       "title": "Community Dashboard Editor",
-      "summary": "CDE is the graphical dashboard editor: a Layout / Components / Data Sources workflow over the CDF framework. Build the Carrier Dashboard with responsive Bootstrap layouts, CCC charts, parameters, and selectors — no hand-coding required."
+      "summary": "CDE is the graphical dashboard editor: a Layout / Components / Data Sources workflow over the CDF framework. Build the Steel Wheels Sales Dashboard with responsive Bootstrap layouts, CCC charts, parameters, and selectors — no hand-coding required."
     },
     {
       "title": "Community Graphics Generator",
-      "summary": "CGG renders CCC charts server-side as images — for reports, for browsers with limited SVG support, and via URL. Generate the Carrier Dashboard's charts with CGG."
+      "summary": "CGG renders CCC charts server-side as images — for reports, for browsers with limited SVG support, and via URL. Generate the Sales Dashboard's charts with CGG."
     },
     {
       "title": "Use Cases",
       "summary": "Put it together end-to-end: build a complete Retail Sales analysis dashboard that combines CDA data sources, CDE layout and components, and CCC charts."
+    },
+    {
+      "title": "Capstone Project",
+      "summary": "Put it together end to end: build Steel Wheels' Order Operations dashboard in CDE from nothing, with your own SQL data sources, a selector, a chart click that drives an order list, and an export."
     }
   ],
   "launchers": {
@@ -72,6 +108,30 @@
   "role": "bi-developer",
   "install": {
     "code": "CT",
-    "getReady": true
+    "getReady": true,
+    "workshop": true
+  },
+  "completionCertificate": {
+    "title": "Pentaho CTools - Associate Level",
+    "topics": [
+      "Community Data Access: SQL and MDX queries, parameters and the cache",
+      "Community Dashboard Framework dashboards",
+      "Community Dashboard Editor: layout, data sources and components",
+      "Selectors, parameters, listeners and click actions",
+      "CCC charts, tables and extension points",
+      "Exports and server-side charts with CGG"
+    ],
+    "validYears": 2,
+    "signatory": {
+      "name": "Jason Allaway",
+      "title": "President Pentaho - A Leo Software Group Company"
+    },
+    "watermark": "PENTAHO",
+    "capstone": "Completed a capstone project: an Order Operations dashboard built in CDE from nothing on SampleData, with its own parameterised SQL data sources, a year selector, a chart click that drives an order list, and a CSV export.",
+    "requires": {
+      "labChecks": [
+        "16-capstone-order-operations"
+      ]
+    }
   }
 }

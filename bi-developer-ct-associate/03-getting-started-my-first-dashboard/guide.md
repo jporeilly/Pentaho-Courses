@@ -51,8 +51,16 @@ It takes a few minutes; the console is ready when http://localhost:8080/pentaho 
 
 3. Select **Browse Files**. Under **Folders**, select **Public**.
 4. Under **Folder Actions**, select **New Folder...**, enter `CTools-Dashboard` and select **OK**. The later workshops keep their files in this folder too.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/gs_first_dashboard_new_folder.png" alt="Browse Files with Public selected and the New Folder dialog open, its Name box holding CTools-Dashboard" width="800">
+<figcaption>A new folder under Public</figcaption>
+</figure>
+</div>
+
 5. Select **CTools-Dashboard** and create the folder `My-First-Dashboard` inside it the same way.
-6. On the **Home** page, select **Create New > CDE Dashboard**. **File > New > CDE Dashboard** does the same.
+6. On the **Home** page, select **Create New > CDE Dashboard**. **File > New > CDE Dashboard** does the same. The first time after the server starts, the editor can take a minute or two to open while the server prepares it; later it opens at once.
 
 <div align="center">
 <figure>
@@ -99,7 +107,7 @@ The template's layout has five main rows: **Header**, **Spacer**, **Body**, **Sm
 
 <div align="center">
 <figure>
-<img src="../_assets/images/gs_first_dashboard_save_as.png" alt="CDE Save as dialog with the Dashboard format, the My-First-Dashboard folder inside CTools-Dashboard selected, file name sampledata and title My First Dashboard" width="504">
+<img src="../_assets/images/gs_first_dashboard_save_as.png" alt="CDE Save as dialog with the Dashboard format, the My-First-Dashboard folder inside public, CTools-Dashboard selected, file name my-first-dashboard and title My First Dashboard" width="532">
 <figcaption>Save as ..</figcaption>
 </figure>
 </div>
@@ -169,11 +177,19 @@ The template's layout has five main rows: **Header**, **Spacer**, **Body**, **Sm
 
 #### Footer
 
-The footer shows a logo from a folder beside the dashboard. This lab ships no logo file: use any small PNG image of your own and name it `logo_pentaho.png`.
+The footer shows a logo from a folder beside the dashboard. Download the lab's logo, [logo_pentaho.png](./files/logo_pentaho.png), from **Lab Files** at the end of this page; it is also on disk in this workshop's folder.
 
 5. In the PUC, open **Browse Files** and select **My-First-Dashboard**. Under **Folder Actions**, select **New Folder...**, enter `resources` and select **OK**.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/gs_first_dashboard_new_folder_resources.png" alt="Browse Files with Public, CTools-Dashboard, My-First-Dashboard selected, showing My First Dashboard, my-first-dashboard.cda and my-first-dashboard.cdfde, and the New Folder dialog holding resources" width="800">
+<figcaption>The resources folder, beside the dashboard's files</figcaption>
+</figure>
+</div>
+
 6. Select **resources** and create the folder `img` inside it the same way.
-7. Select **img**. Under **Folder Actions**, select **Upload...**. Select **Browse...**, choose `logo_pentaho.png`, and select **OK**.
+7. Select **img**. Under **Folder Actions**, select **Upload...**. Select **Browse...**, choose `logo_pentaho.png`, and select **OK**. Browse Files hides uploaded images, so the folder still looks empty: **View > Show Hidden Files** shows the logo.
 8. Return to the editor tab. In **Layout Structure**, expand the **Footer** row and its column **Footer_Image**, and select the **Html** element under it.
 9. In **Properties**, select the **...** button in the **HTML** value, replace the HTML with the following, and select **Ok**:
 
@@ -204,7 +220,7 @@ The footer shows a logo from a folder beside the dashboard. This lab ships no lo
 
 <div align="center">
 <figure>
-<img src="../_assets/images/gs_first_dashboard_dashboard_layout_header_and_footer.png" alt="Dashboard preview tab showing the blue My First Dashboard header, three empty gray panels and a dark blue footer with the Pentaho Professional Services logo and link" width="800">
+<img src="../_assets/images/gs_first_dashboard_dashboard_layout_header_and_footer.png" alt="Dashboard preview showing the blue My First Dashboard header, three empty gray panels and a dark blue footer with the white P on black logo and the Pentaho Professional Services link" width="800">
 <figcaption>Dashboard Layout - Header & Footer</figcaption>
 </figure>
 </div>
@@ -255,8 +271,7 @@ The OLAP Chart Wizard builds its queries on a schema published to the server, he
 </div>
 
 2. In **OLAP Wizard**, set **Catalog** to `SteelWheels` and **Cube** to `SteelWheelsSales`.
-3. Set **Name** to `Total_Sales`, **Html Object** to `Panel_3` and **Chart Type** to `Pie Chart`.
-4. Under **Dimensions**, expand **Markets** and drag **Territory** to **Rows**. Under **Measures**, drag **Sales** to **Columns**. The **Preview Area** draws the chart.
+3. Set **Name** to `Total_Sales`, **Html Object** to `Panel_3` and **Chart Type** to `Pie Chart`. Then, under **Dimensions**, expand **Markets** and drag **Territory** to **Rows**; under **Measures**, drag **Sales** to **Columns**. The **Preview Area** draws the chart.
 
 <div align="center">
 <figure>
@@ -265,8 +280,8 @@ The OLAP Chart Wizard builds its queries on a schema published to the server, he
 </figure>
 </div>
 
-5. Select **Ok**.
-6. Select **Save**, then **Preview your Dashboard**.
+4. Select **Ok**.
+5. Select **Save**, then **Preview your Dashboard**.
 
 <div align="center">
 <figure>
@@ -277,8 +292,8 @@ The OLAP Chart Wizard builds its queries on a schema published to the server, he
 
 > **Success:** Checkpoint: the **Total_Sales** pie chart in the right-hand panel, one slice per territory: `APAC`, `EMEA`, `Japan` and `NA`. The two left panels are still empty.
 
-7. Close the preview. The chart needs a few adjustments, which come after the other two charts.
-8. Open **OLAP Chart Wizard** again and build the second chart with these values, then select **Ok**:
+6. Close the preview. The chart needs a few adjustments, which come after the other two charts.
+7. Open **OLAP Chart Wizard** again and build the second chart with these values, then select **Ok**:
 
 | Setting | Value |
 | --- | --- |
@@ -297,8 +312,8 @@ The OLAP Chart Wizard builds its queries on a schema published to the server, he
 </figure>
 </div>
 
-9. Select **Save**.
-10. Open **OLAP Chart Wizard** again and build the third chart, then select **Ok**:
+8. Select **Save**.
+9. Open **OLAP Chart Wizard** again and build the third chart, then select **Ok**:
 
 | Setting | Value |
 | --- | --- |
@@ -310,7 +325,15 @@ The OLAP Chart Wizard builds its queries on a schema published to the server, he
 | **Rows** | **Years**, from the **Time** dimension |
 | **Columns** | **Sales**, from **Measures** |
 
-11. Select **Save**, then **Preview your Dashboard**.
+<div align="center">
+<figure>
+<img src="../_assets/images/gs_first_dashboard_bar_chart_years_sales.png" alt="OLAP Wizard with the SteelWheels catalog and SteelWheelsSales cube, Name Years_Sales, Html Object Panel_2, Chart Type Bar Chart, Years on Rows and Sales on Columns, previewing bars for 2003, 2004 and 2005" width="800">
+<figcaption>Bar Chart - Years_Sales</figcaption>
+</figure>
+</div>
+
+
+10. Select **Save**, then **Preview your Dashboard**.
 
 <div align="center">
 <figure>
@@ -321,7 +344,7 @@ The OLAP Chart Wizard builds its queries on a schema published to the server, he
 
 > **Success:** Checkpoint: three charts: **Line_Sales** over the seven product lines at the top left, **Years_Sales** with one bar each for `2003`, `2004` and `2005` at the bottom left, and **Total_Sales** on the right. The left-hand charts don't fit their panels yet.
 
-12. Close the preview.
+11. Close the preview.
 
 ***
 
@@ -329,7 +352,7 @@ The OLAP Chart Wizard builds its queries on a schema published to the server, he
 
 Each chart is a component, configured with a set of properties.
 
-13. Select **Components Panel**, the perspective icon at the top right, and expand **Charts** in the **Components** list.
+12. Select **Components Panel**, the perspective icon at the top right, and expand **Charts** in the **Components** list.
 
 <div align="center">
 <figure>
@@ -340,7 +363,7 @@ Each chart is a component, configured with a set of properties.
 
 > **Success:** Checkpoint: the wizard added three chart components, each named after its chart with `Chart` appended: **Total_SalesChart** (CCC Pie Chart), **Line_SalesChart** (CCC Line Chart) and **Years_SalesChart** (CCC Bar Chart).
 
-14. Select **Total_SalesChart**. In **Properties**, its **Datasource** is `Total_SalesQuery` and its **HtmlObject** is `Panel_3`.
+13. Select **Total_SalesChart**. In **Properties**, its **Datasource** is `Total_SalesQuery` and its **HtmlObject** is `Panel_3`.
 
 > **Under the hood:**
 >
@@ -362,7 +385,16 @@ Each chart is a component, configured with a set of properties.
 > broken name: a Datasource that names no query, or an HtmlObject that
 > names no layout element. Those are the first two properties to check.
 
-15. Set these properties, selecting each component in turn:
+<div align="center">
+<figure>
+<img src="../_assets/images/cde-wiring.png" alt="CDE's three perspectives joined by name: the Total_SalesChart component's HtmlObject is Panel_3, the Name of a layout column drawn as a div, and its Datasource is Total_SalesQuery, an mdx over mondrianJndi data source whose Jndi names the SampleData connection on the Pentaho Server; a wrong name means no chart, no data or no database; Save writes the .wcdf, the .cdfde with all three perspectives and the .cda to the repository" width="800">
+<figcaption>One chart's wiring: three names that must match, and the three files Save writes</figcaption>
+</figure>
+</div>
+
+Read the diagram from the component in the middle. Total_SalesChart names the other two: its HtmlObject is the Name of the Panel_3 column above it, and its Datasource is the Name of the Total_SalesQuery data source below it. The query in turn names a server connection by its Jndi, and the server opens the database behind that name. A wrong name at any of the three arrows breaks the dashboard in the way the red box lists. Save writes all of it to the repository: the .wcdf with the title and settings, the .cdfde with all three perspectives, and the .cda that CDE generates from the Data Sources panel.
+
+14. Set these properties, selecting each component in turn:
 
 | Component | Property | Value |
 | --- | --- | --- |
@@ -373,11 +405,19 @@ Each chart is a component, configured with a set of properties.
 | **Years_SalesChart** | **Title** | `Yearly Sales` |
 | **Years_SalesChart** | **Legend** | `False` |
 
-16. Select **Save**, then **Preview your Dashboard**.
+<div align="center">
+<figure>
+<img src="../_assets/images/gs_first_dashboard_line_chart_properties.png" alt="CDE Components perspective with Line_SalesChart selected in the Charts group, its Properties showing Title Product Line Sales, Datasource Line_SalesQuery, HtmlObject Panel_1 and Legend False" width="800">
+<figcaption>Line_SalesChart with its title set and its legend off</figcaption>
+</figure>
+</div>
+
+
+15. Select **Save**, then **Preview your Dashboard**.
 
 > **Success:** Checkpoint: each chart shows its new title, and the line and bar charts have no legend.
 
-17. Close the preview.
+16. Close the preview.
 
 ### 4. Final Layout
 
@@ -400,9 +440,25 @@ Each chart is a component, configured with a set of properties.
 | **Panel_3** column | **Height** | `725` |
 | **Panel_3** column | **Text Align** | **Center** |
 
+<div align="center">
+<figure>
+<img src="../_assets/images/gs_first_dashboard_final_layout_row.png" alt="CDE Layout Structure with Body expanded and the unnamed Row that holds Panel_1 selected, its Properties showing Height 360" width="800">
+<figcaption>The unnamed row above Panel_1, set to 360</figcaption>
+</figure>
+</div>
+
+The rows that hold **Panel_1** and **Panel_2** have no name: select the **Row** directly above each panel's **Column**, as in the picture.
+
 3. Select **Save**, then **Preview your Dashboard**.
 
-> **Success:** Checkpoint: the dashboard from the top of this page: the panels are taller, and each chart sits inside its panel.
+<div align="center">
+<figure>
+<img src="../_assets/images/gs_first_dashboard_final_preview.png" alt="Finished My First Dashboard: the Product Line Sales line chart and Yearly Sales bar chart in the left panels, the Total Sales pie chart by territory on the right, and the dark blue footer with the logo" width="800">
+<figcaption>My First Dashboard, finished</figcaption>
+</figure>
+</div>
+
+> **Success:** Checkpoint: the panels are taller and each chart sits inside its panel: **Product Line Sales** and **Yearly Sales** on the left without legends, **Total Sales** on the right.
 
 4. Close the preview.
 
@@ -433,7 +489,7 @@ The server reaches the database through a named connection, **SampleData**. Open
 </figure>
 </div>
 
-3. Compare the **Database Connection** dialog with this table:
+3. Compare the **Database Connection** dialog with this table, then select **Test**:
 
 | Setting | Value |
 | --- | --- |
@@ -444,8 +500,6 @@ The server reaches the database through a named connection, **SampleData**. Open
 | **Database Name** | `sampledata` |
 | **Port Number** | `9001` |
 
-4. Select **Test**.
-
 <div align="center">
 <figure>
 <img src="../_assets/images/gs_first_dashboard_database_connection_sampledata.png" alt="Database Connection dialog for SampleData using Hypersonic over Native JDBC, host localhost, database sampledata, port 9001, user pentaho_admin, with a Test Connection success message" width="800">
@@ -455,7 +509,7 @@ The server reaches the database through a named connection, **SampleData**. Open
 
 > **Success:** Checkpoint: **Test Connection** reports that the connection to database `sampledata` succeeded.
 
-5. Close the message, select **Cancel** to leave the connection unchanged, and close **Manage Data Sources**.
+4. Close the message, select **Cancel** to leave the connection unchanged, and close **Manage Data Sources**.
 
 > **Under the hood:**
 >
@@ -479,4 +533,14 @@ The server reaches the database through a named connection, **SampleData**. Open
 
 ## Lab Files
 
-_No bundled files for this lab._
+Click a file to download. Every file is also on disk in this workshop's folder, `C:\Workshop-CT-Associate\01-getting-started\03-getting-started-my-first-dashboard`.
+
+The footer logo for tab 2:
+
+[logo_pentaho.png](./files/logo_pentaho.png)
+
+### Solution <!-- no-step -->
+
+The finished dashboard. To compare it with your own, upload the zip in **Browse Files**: select **Public > CTools-Dashboard**, select **Upload...**, choose the zip and select **OK**. The server unpacks it into a folder **My-First-Dashboard-Solution**; open **My First Dashboard** there.
+
+[my-first-dashboard-solution.zip](./files/my-first-dashboard-solution.zip)

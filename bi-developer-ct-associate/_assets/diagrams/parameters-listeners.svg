@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="556" viewBox="0 0 800 556" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+<filter id="shadow" x="-10%" y="-10%" width="120%" height="140%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#0f172a" flood-opacity="0.12"/></filter></defs>
+<rect width="800" height="556" fill="#ffffff"/>
+<rect x="16" y="16" width="768" height="412" rx="12" fill="#fffbeb" stroke="#fef3c7" stroke-width="1.5"/>
+<path d="M16 28a12 12 0 0 1 12-12h744a12 12 0 0 1 12 12v32h-768z" fill="#b45309"/>
+<g transform="translate(29 26) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></g>
+<text x="56" y="36" font-size="14" font-weight="700" fill="#ffffff">The dashboard, in the browser</text>
+<text x="56" y="52" font-size="11.5" fill="#ffffff" opacity="0.92">Sales Dashboard: one parameter change</text>
+<path d="M268 122C277.5 122 277.5 148 287 148" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M268 222C277.5 222 277.5 196 287 196" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M379 252C379 282.5 148 282.5 148 313" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M419 252C419 282.5 400 282.5 400 313" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M459 252C459 282.5 652 282.5 652 313" fill="none" stroke="#64748b" stroke-width="1.7" stroke-dasharray="5 4"/>
+<path d="M148 412C148 437.5 148 437.5 148 463" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M400 412C400 437.5 400 437.5 400 463" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="32" y="80" width="236" height="84" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="122" r="19" fill="#ffffff" stroke="#b45309" stroke-width="1.2"/>
+<g transform="translate(50 110) scale(1)" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 5h20"/><path d="M6 12h12"/><path d="M9 19h6"/></g>
+<text x="92" y="105" font-size="14" font-weight="700" fill="#78350f">Selector</text>
+<text x="92" y="122" font-size="12" fill="#78350f">stores the choice</text>
+<text x="92" y="137" font-size="12" fill="#78350f">in its Parameter</text>
+<rect x="32" y="180" width="236" height="84" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="222" r="19" fill="#ffffff" stroke="#b45309" stroke-width="1.2"/>
+<g transform="translate(50 210) scale(1)" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4.1 12 6"/><path d="m5.1 8-2.9-.8"/><path d="m6 12-1.9 2"/><path d="M7.2 2.2 8 5.1"/><path d="M9.037 9.69a.498.498 0 0 1 .653-.653l11 4.5a.5.5 0 0 1-.074.949l-4.349 1.041a1 1 0 0 0-.74.739l-1.04 4.35a.5.5 0 0 1-.95.074z"/></g>
+<text x="92" y="205" font-size="14" font-weight="700" fill="#78350f">Pie slice click</text>
+<text x="92" y="222" font-size="12" fill="#78350f">Click Action calls</text>
+<text x="92" y="237" font-size="12" fill="#78350f">dashboard.fireChange</text>
+<rect x="290" y="92" width="258" height="160" rx="10" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="320" cy="172" r="19" fill="#ffffff" stroke="#0f766e" stroke-width="1.2"/>
+<g transform="translate(308 160) scale(1)" fill="none" stroke="#0f766e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21s-4-3-4-9 4-9 4-9"/><path d="M16 3s4 3 4 9-4 9-4 9"/><line x1="15" x2="9" y1="9" y2="15"/><line x1="9" x2="15" y1="9" y2="15"/></g>
+<text x="350" y="140" font-size="14" font-weight="700" fill="#134e4a">The parameter changes</text>
+<text x="350" y="157" font-size="12" fill="#134e4a">set to the new value;</text>
+<text x="350" y="172" font-size="12" fill="#134e4a">event cdf &lt;name&gt;:fireChange;</text>
+<text x="350" y="187" font-size="12" fill="#134e4a">then each enabled component</text>
+<text x="350" y="202" font-size="12" fill="#134e4a">listening to it updates</text>
+<rect x="560" y="92" width="208" height="160" rx="10" fill="#f1f5f9" stroke="#475569" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="590" cy="172" r="19" fill="#ffffff" stroke="#475569" stroke-width="1.2"/>
+<g transform="translate(578 160) scale(1)" fill="none" stroke="#475569" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8.5a6.5 6.5 0 1 1 13 0c0 6-6 6-6 10a3.5 3.5 0 1 1-7 0"/><path d="M15 8.5a2.5 2.5 0 0 0-5 0v1a2 2 0 1 1 0 4"/></g>
+<text x="620" y="140" font-size="14" font-weight="700" fill="#0f172a">Needs both</text>
+<text x="620" y="157" font-size="12" fill="#0f172a">Listeners: run again</text>
+<text x="620" y="172" font-size="12" fill="#0f172a">when it changes</text>
+<text x="620" y="187" font-size="12" fill="#0f172a">Parameters: send</text>
+<text x="620" y="202" font-size="12" fill="#0f172a">its value to the query</text>
+<rect x="32" y="316" width="232" height="96" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="364" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(50 352) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="m19 9-5 5-4-4-3 3"/></g>
+<text x="92" y="339.5" font-size="14" font-weight="700" fill="#1e3a8a">Listeners + Parameters</text>
+<text x="92" y="356.5" font-size="12" fill="#1e3a8a">lineChart: runs again</text>
+<text x="92" y="371.5" font-size="12" fill="#1e3a8a">and sends the new value:</text>
+<text x="92" y="386.5" font-size="12" fill="#1e3a8a">redraws with new data</text>
+<rect x="284" y="316" width="232" height="96" rx="10" fill="#fee2e2" stroke="#b91c1c" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="314" cy="364" r="19" fill="#ffffff" stroke="#b91c1c" stroke-width="1.2"/>
+<g transform="translate(302 352) scale(1)" fill="none" stroke="#b91c1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="m19 9-5 5-4-4-3 3"/></g>
+<text x="344" y="339.5" font-size="14" font-weight="700" fill="#7f1d1d">Listeners only</text>
+<text x="344" y="356.5" font-size="12" fill="#7f1d1d">runs again, value not sent:</text>
+<text x="344" y="371.5" font-size="12" fill="#7f1d1d">updates with old data</text>
+<text x="344" y="386.5" font-size="12" fill="#7f1d1d">= missing Parameters</text>
+<rect x="536" y="316" width="232" height="96" rx="10" fill="#fee2e2" stroke="#b91c1c" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="566" cy="364" r="19" fill="#ffffff" stroke="#b91c1c" stroke-width="1.2"/>
+<g transform="translate(554 352) scale(1)" fill="none" stroke="#b91c1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="m19 9-5 5-4-4-3 3"/></g>
+<text x="596" y="339.5" font-size="14" font-weight="700" fill="#7f1d1d">Parameters only</text>
+<text x="596" y="356.5" font-size="12" fill="#7f1d1d">never told of the change:</text>
+<text x="596" y="371.5" font-size="12" fill="#7f1d1d">never updates</text>
+<text x="596" y="386.5" font-size="12" fill="#7f1d1d">= missing Listener</text>
+<rect x="16" y="466" width="768" height="74" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="48" cy="503" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(36 491) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 15 21.84"/><path d="M21 5V8"/><path d="M21 12L18 17H22L19 22"/><path d="M3 12A9 3 0 0 0 14.59 14.87"/></g>
+<text x="78" y="500" font-size="14" font-weight="700" fill="#3b0764">CDA doQuery runs the component's query</text>
+<text x="78" y="518" font-size="12" fill="#3b0764">each entry in its Parameters arrives as param&lt;name&gt;=&lt;value&gt;, e.g. paramproductLineParameter</text>
+<rect x="60.25" y="425" width="175.5" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="148" y="443" text-anchor="middle" font-size="12" fill="#334155">paramproductLineParameter</text>
+<rect x="353.2" y="425" width="93.6" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="400" y="443" text-anchor="middle" font-size="12" fill="#334155">no new value</text>
+</svg>

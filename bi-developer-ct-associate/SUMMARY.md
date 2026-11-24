@@ -23,13 +23,17 @@
 
 * [Overview of Community Dashboard Editor](10-community-dashboard-editor/guide.md)
 * [UI Overview](11-community-dashboard-editor-ui-overview/guide.md)
-* [Carrier Dashboard](12-community-dashboard-editor-carrier-dashboard/guide.md)
+* [Sales Dashboard](12-community-dashboard-editor-carrier-dashboard/guide.md)
 
 ## Community Graphics Generator
 
 * [Overview of Community Graphics Generator](13-community-graphics-generator/guide.md)
-* [Carrier Dashboard Charts](14-community-graphics-generator-carrier-dashboard/guide.md)
+* [Sales Dashboard Charts](14-community-graphics-generator-carrier-dashboard/guide.md)
 
 ## Use Cases
 
 * [Sales Analysis Dashboard](15-use-cases-sales-analysis-dashboard/guide.md)
+
+## Capstone Project
+
+* [Order Operations](16-capstone-order-operations/guide.md)

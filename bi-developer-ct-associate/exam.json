@@ -414,17 +414,17 @@
       "id": "ct-m4-q1",
       "module": "Community Dashboard Editor",
       "bloom": "Apply",
-      "scenario": "Clicking a slice of a CCC pie chart must filter a line chart by that slice's plan type. The pie's clickable property is true, and the line chart's parameters already pass `planTypeParameter` to its query.",
+      "scenario": "Clicking a slice of a CCC pie chart must filter a line chart by that slice's product line. The pie's Clickable property is True, and the line chart's Parameters already pass `productLineParameter` to its query.",
       "prompt": "What completes the interaction?",
       "options": [
-        "A listener for planTypeParameter added to the pie chart",
+        "A listener for productLineParameter added to the pie chart",
         "A Post Change function on the pie that redraws the line chart",
         "A clickAction that calls fireChange, with the line chart listening",
         "A clickAction that calls setParameter, so no listener is needed at all"
       ],
       "correct": 2,
-      "explanation": "The **clickAction** that calls `fireChange` sets the `planTypeParameter` to the clicked category and updates every component that is listening to that parameter. While `setParameter` only stores a value, **fireChange** is the mechanism required to trigger the update of the listeners, ensuring the line chart redraws with the new data.",
-      "source": "Pentaho BI Developer - CT Associate: Community Dashboard Editor — Carrier Dashboard"
+      "explanation": "The pie's **Click Action** calls `dashboard.fireChange`, which sets `productLineParameter` to the clicked line and updates every component that lists the parameter in its **Listeners**; with the line chart listening, it redraws with the new data.\n\nA listener on the pie itself would make the pie, not the line chart, react. A Post Change function belongs to selectors, not to a chart click. `setParameter` only stores the value: no component is told it changed, so nothing redraws.",
+      "source": "Pentaho BI Developer - CT Associate: Community Dashboard Editor — Sales Dashboard"
     },
     {
       "id": "ct-m4-q2",
@@ -478,16 +478,16 @@
       "id": "ct-m4-q5",
       "module": "Community Dashboard Editor",
       "bloom": "Analyze",
-      "scenario": "A chart includes `monthParameter` in its Listeners and redraws every time the user selects a month. The chart consistently displays January, which is the default value in the data source.",
+      "scenario": "A chart lists `yearParameter` in its Listeners and redraws every time the user picks a year. It always shows 2004, the parameter's default value in the data source.",
       "prompt": "What is missing?",
       "options": [
-        "A second listener on `monthParameter` to force a new fetch",
-        "A higher Priority number so the chart runs after the month selector",
-        "Execute at Start set to False so January is never drawn",
-        "`monthParameter` in the chart's Parameters, passing it to the query"
+        "A second listener on `yearParameter` to force a new fetch",
+        "A higher Priority number so the chart runs after the year selector",
+        "Execute at Start set to False so 2004 is never drawn",
+        "`yearParameter` in the chart's Parameters, passing it to the query"
       ],
       "correct": 3,
-      "explanation": "While **Listeners** determine when a component must re-execute, the **Parameters** property defines which specific values are passed into the query. Because the `monthParameter` is not defined in the Parameters list, the query does not receive the selected value and defaults to the data source value.",
+      "explanation": "**Listeners** decide when a component runs again; **Parameters** decide which values go to its query. Without `yearParameter` in the chart's Parameters, the query never receives the year picked, so CDA uses the default, 2004.\n\nA second listener changes nothing, Priority only orders components that run together, and Execute at Start only affects the first load.",
       "source": "Pentaho BI Developer - CT Associate: Community Dashboard Editor — UI Overview (Components)"
     },
     {
@@ -510,7 +510,7 @@
       "id": "ct-m4-q7",
       "module": "Community Dashboard Editor",
       "bloom": "Analyze",
-      "scenario": "A Filter component allows users to select a destination region. The charts that list `destinationParameter` in their Listeners do not update when a new selection is made.",
+      "scenario": "A Filter component lets users pick a territory. The charts that list `territoryParameter` in their Listeners do not update when a new territory is picked.",
       "prompt": "Which of the selector's properties is most likely wrong?",
       "options": [
         "HtmlObject, which ties the selector to the charts' column",
@@ -519,7 +519,7 @@
         "Parameter, where the selector stores the value picked"
       ],
       "correct": 3,
-      "explanation": "The **Parameter** property is the specific location where a selector stores the user input for use across the dashboard. If the selection is not mapped to the specific variable that the charts are listening to, the charts will not reflect the updated selection.",
+      "explanation": "A selector's **Parameter** property names the dashboard parameter it stores the user's choice in. If it names a different parameter than the one the charts list in their Listeners, picking a territory never changes `territoryParameter`, and the charts never update.\n\nThe HtmlObject only places the selector on the page, its Parameters feed its own query, and its Listeners make the selector itself react.",
       "source": "Pentaho BI Developer - CT Associate: Community Dashboard Editor — UI Overview (Components)"
     },
     {
@@ -606,7 +606,7 @@
       "id": "ct-m4-q13",
       "module": "Community Dashboard Editor",
       "bloom": "Apply",
-      "scenario": "A dashboard's figures live in a Mondrian cube published on the Pentaho Server. The server reaches the cube's database through a JNDI connection called `BaselineDemo`.",
+      "scenario": "A dashboard's figures live in a Mondrian cube published on the Pentaho Server. The server reaches the cube's database through a JNDI connection called `SampleData`.",
       "prompt": "Which CDE data source fits?",
       "options": [
         "An MQL query (mql over metadata) with the cube used as the domain",
@@ -615,7 +615,7 @@
         "A SQL query (sql over sqlJndi) with the cube's name used as the table"
       ],
       "correct": 2,
-      "explanation": "An MDX query of type `mdx over mondrianJndi` runs MDX against the cube through the Mondrian schema and the **JNDI connection**, here `BaselineDemo`, which the server uses to reach the cube's database.",
+      "explanation": "An **mdx over mondrianJndi** data source runs MDX against the cube through its Mondrian schema and the **JNDI connection**, here `SampleData`, which the server uses to reach the cube's database.\n\nMQL queries a metadata domain, not a cube; XPath reads XML files; and SQL cannot use a cube's name as a table.",
       "source": "Pentaho BI Developer - CT Associate: Community Dashboard Editor — UI Overview (Data Sources)"
     },
     {
@@ -638,17 +638,17 @@
       "id": "ct-m5-q1",
       "module": "Community Graphics Generator",
       "bloom": "Analyze",
-      "scenario": "A chart's postFetch sets its title from `Dashboards.getParameterValue('dateParam')`. On the dashboard, the title is correct, but the CGG export fails at that line.",
+      "scenario": "A chart's postFetch sets its title from `dashboard.getParameterValue('territoryParameter')`. On the dashboard the title is correct, but the CGG export fails at that line.",
       "prompt": "What change makes the export work?",
       "options": [
-        "Add dateParam to the chart's Listeners so that CGG receives it",
+        "Add territoryParameter to the chart's Listeners so that CGG receives it",
         "Read the value with this.dashboard.getParameterValue instead",
-        "Pass it as a query parameter such as _date, read by params.get",
+        "Read it with params.get, with the parameter in the chart's Parameters",
         "Set the chart title as a fixed string in the chart's properties"
       ],
       "correct": 2,
-      "explanation": "CGG export scripts cannot access **CDE parameters** or **CDF functions** such as `Dashboards.getParameterValue`. To resolve this, the value must be passed as a **query parameter**.\n\nAdd `_date` with the value `dateParam` to the component's Parameters. When `cgg` is defined, the postFetch script must use `params.get('_date')` to retrieve the value.",
-      "source": "Pentaho BI Developer - CT Associate: Community Graphics Generator — Carrier Dashboard Charts"
+      "explanation": "A CGG export script runs on the server, without the dashboard: it cannot call CDF functions such as `getParameterValue`. What it receives is the request, with each of the chart's **Parameters** sent as `param<name>`, and `params.get('territoryParameter')` reads it back.\n\n```javascript\nvar territory = ( typeof cgg == 'undefined' ) ?\n    dashboard.getParameterValue('territoryParameter') : params.get('territoryParameter');\n```\n\nListeners only decide when the chart runs, `this.dashboard` does not exist in CGG either, and a fixed title loses the territory.",
+      "source": "Pentaho BI Developer - CT Associate: Community Graphics Generator — Sales Dashboard Charts"
     },
     {
       "id": "ct-m5-q2",
@@ -716,7 +716,7 @@
       ],
       "correct": 3,
       "explanation": "The **Export Popup Component** exports both the chart image, drawn by CGG as PNG or SVG, and the chart's data in one or more formats, such as CSV, from one control.",
-      "source": "Pentaho BI Developer - CT Associate: Community Dashboard Editor — Carrier Dashboard"
+      "source": "Pentaho BI Developer - CT Associate: Community Dashboard Editor — Sales Dashboard"
     },
     {
       "id": "ct-m5-q6",
@@ -732,7 +732,7 @@
       ],
       "correct": 0,
       "explanation": "The **cgg object** exists only when CGG renders the chart, so a block guarded by `typeof cgg != 'undefined'` runs only in the export, where it can change `chartDefinition` - the title, `legendAlign`, `legendPosition` and the rest.\n\n```javascript\nif (typeof cgg != 'undefined') {\n  // change chartDefinition here\n}\n```",
-      "source": "Pentaho BI Developer - CT Associate: Community Graphics Generator — Carrier Dashboard Charts"
+      "source": "Pentaho BI Developer - CT Associate: Community Graphics Generator — Sales Dashboard Charts"
     },
     {
       "id": "ct-m6-q1",
@@ -786,16 +786,16 @@
       "id": "ct-m6-q4",
       "module": "Use Cases",
       "bloom": "Apply",
-      "scenario": "A new `sql.jdbc` connection to a MariaDB `sampledata` database fails with a driver-not-found error. The URL, user, and password are all correct.",
+      "scenario": "A new `sql.jdbc` connection to a MySQL `sampledata` database fails with a driver-not-found error. The URL, user, and password are all correct.",
       "prompt": "What action resolves this error?",
       "options": [
-        "Changing the Driver element to the MySQL driver's class name",
+        "Changing the Driver element to the MariaDB driver's class name",
         "Uploading the driver .jar to the dashboard's repository folder",
-        "Copying the MariaDB driver to tomcat/lib, then restarting",
+        "Copying the MySQL driver to tomcat/lib, then restarting",
         "Switching the connection to sql.jndi, keeping the same URL"
       ],
       "correct": 2,
-      "explanation": "The server loads **JDBC drivers** from `tomcat/lib`, so the MariaDB driver is copied there with the server stopped, and the server is restarted. The `Driver` element (`org.mariadb.jdbc.Driver`) then finds its class.\n\nA **JNDI connection** is also defined on the server and needs the same driver installed.",
+      "explanation": "The Pentaho Server loads **JDBC drivers** from `tomcat/lib`, and only at startup, so the MySQL driver jar is copied there and the server restarted. The connection's `Driver` element then finds its class.\n\nAnother class name does not help when no jar is installed, the repository is not on the server's class path, and a JNDI connection is also defined on the server and needs the same driver.",
       "source": "Pentaho BI Developer - CT Associate: Getting Started — My First Dashboard"
     },
     {
@@ -812,7 +812,7 @@
       ],
       "correct": 3,
       "explanation": "The **Export Popup Component** must be used on a dashboard that is opened via the **Browse Files** menu in the User Console rather than within the CDE Preview environment.",
-      "source": "Pentaho BI Developer - CT Associate: Community Dashboard Editor — Carrier Dashboard"
+      "source": "Pentaho BI Developer - CT Associate: Community Dashboard Editor — Sales Dashboard"
     }
   ]
 }

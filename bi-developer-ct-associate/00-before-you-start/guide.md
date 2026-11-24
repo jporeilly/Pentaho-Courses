@@ -19,11 +19,12 @@ This panel stays beside your tools for the whole workshop:
 
 ## Track your progress
 
-In every workshop lab, each numbered heading is a **step** with a
-checkbox — select it when you're done. Progress is saved on this machine
-and survives restarts, so you can pick up exactly where you left off.
-(This orientation page doesn't track steps — the checkboxes start in
-the first workshop.)
+Each workshop's steps sit in a numbered row at the top of the lab, one
+dot per step. Work through them in order: the button at the end of a
+step names the next one, and moving on puts a check mark on the step
+you leave. Your progress is saved on this machine and survives
+restarts, so you can pick up exactly where you left off. (This page has
+no steps: tracking starts in the first workshop.)
 
 ## Copy code with one click
 
@@ -42,6 +43,15 @@ Launch your main tool straight from the guide:
 
 If it is already open from a previous session, the button focuses
 the running window instead of starting a second copy.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/lab-setup.png" alt="Your machine needs only a browser: the User Console opens the CDE editor and the CTools dashboards run in it, each component calling doQuery on the CTools plugins (CDE, CDF, CDA, CCC, CGG) inside the Pentaho Server at localhost:8080; the plugins reach the HSQLDB sampledata database on port 9001 by name through the SampleData connection in Manage Data Sources, and start-pentaho.bat brings it all up together" width="800">
+<figcaption>Your browser, the Pentaho Server with the CTools plugins, and the sample data</figcaption>
+</figure>
+</div>
+
+Read the diagram from the left. Your machine needs only a browser: the User Console opens the CDE editor through **Create New**, and the dashboards you build run in the same browser, each component asking the server for its data with a `doQuery` request. On the server, the CTools plugins reach the data by a connection's name, **SampleData** in **Manage Data Sources**, and the server opens the HSQLDB `sampledata` database on port 9001 behind it. The start script at the bottom brings all of it up together, so there is nothing else to start.
 
 ### Do you need to set anything up?
 
@@ -121,10 +131,12 @@ expects.
 <details>
 <summary>Troubleshooting</summary>
 
-**Create New shows no CDE Dashboard.** The CTools plugins are missing
-from your server build — they are Enterprise Edition plugins;
-install them via the server's plugin installation for your version,
-then restart the server.
+**Create New shows no CDE Dashboard.** That is how Pentaho 11 ships:
+the CTools plugins are installed, but their User Console entries are
+commented out. The [Getting Started](../01-getting-started/guide.md)
+page's **Enable CDE & CDA** tab shows the three files and what to
+uncomment; then restart the server. The **CDE in the User Console** row
+in the panel below checks it.
 
 **Dashboards render blank after edits.** Clear the server's CDE cache
 from Tools ▸ Refresh ▸ CDA cache / repository cache, then reload.

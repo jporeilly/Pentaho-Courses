@@ -10,6 +10,15 @@ Pentaho **Community Tools (CTools)** are a stack of open-source tools installed 
 
 <div align="center">
 <figure>
+<img src="../_assets/images/ctools-stack.png" alt="The five CTools: in the browser, CDE builds a CDF dashboard whose charts CCC draws; on the Pentaho Server, Save writes the .wcdf, .cdfde and .cda files to the repository, every dashboard component fetches data from CDA with doQuery, CGG draws the same CCC chart on the server as PNG, JPG or SVG and reads its data through CDA, and CDA queries SQL, MDX, metadata, Kettle, scripting and XPath sources" width="800">
+<figcaption>The CTools stack: what runs in the browser and what runs on the Pentaho Server</figcaption>
+</figure>
+</div>
+
+Read the diagram from the top. Everything in the amber panel runs in the browser: you build a dashboard in CDE, CDE turns it into a CDF dashboard of components and parameters, and the dashboard's chart components draw with CCC. Save stores the dashboard as files in the server's repository, and every component fetches its data from CDA with a `doQuery` request; CDA is the one layer over all the data sources at the bottom. CGG, on the right, draws the same CCC chart on the server and reads its data through CDA too, so a chart can leave the dashboard as an image.
+
+<div align="center">
+<figure>
 <img src="../_assets/images/gs_component_breakdown_of_a_pentaho_ctools_dashboard.png" alt="Sample CTools dashboard with red row and blue column labels marking its layout grid, holding a year selector, a sales-by-zone donut chart and a product sales bar chart" width="706">
 <figcaption>Component breakdown of a Pentaho CTools dashboard.</figcaption>
 </figure>
@@ -94,7 +103,7 @@ Pentaho **Community Tools (CTools)** are a stack of open-source tools installed 
 
 > **Note:**
 >
-> [Community Chart Components (CCC)](/pentaho-ctools/c-tools/community-dashboard-editor)
+> [Community Chart Components (CCC)](http://webdetails.github.io/ccc/)
 >
 > Allows dashboard designers to create custom charts for their dashboards. Essentially, it is a visualization library built on top of [Protovis](http://mbostock.github.com/protovis), an open source data visualization library based in scalable vector graphics (SVG).
 >
@@ -123,41 +132,30 @@ Pentaho **Community Tools (CTools)** are a stack of open-source tools installed 
 
 <div align="center">
 <figure>
-<img src="../_assets/images/cgg_carrier_export_chart.png" alt="Export Options popup over a dashboard, set to width 928 and height 220, previewing a line chart of daily Number of Calls against Number of Users" width="800">
+<img src="../_assets/images/cgg_sales_export_chart.png" alt="Export Options, Width 720 and Height 300, previewing a server-side CGG rendering of the Sales Dashboard line chart, Steel Wheels monthly sales: EMEA, this year and last year" width="800">
 <figcaption>CGG export of a line chart</figcaption>
 </figure>
 </div>
 
 ### Enable CDE & CDA
 
-> **Note:** To activate the Community Dashboard Editor (CDE) plugin, you will need to change the configuration of several `.xml` files in the Pentaho solutions folder as described below. Verify that you have the appropriate permissions to read, write, and execute commands in the specified directories in the instructions.
+> **Note:**
+>
+> #### Already done on your lab server
+>
+> Pentaho 11 installs the CTools plugins with their User Console entries switched off. Your lab server has them switched on, so there is nothing to change. **Do not edit these files**: a broken `plugin.xml` stops the plugin loading, and every lab in this course needs it. This tab shows what was changed, so you can recognize it on a server of your own.
 
-1. Ensure the Pentaho Server is stopped.
+Three files in the server's `C:\Pentaho\server\pentaho-server\pentaho-solutions\system` folder were edited, each by removing the `<!--` and `-->` comment tags around a block, and the server was restarted.
 
-```bash
-cd
-cd /opt/pentaho/server/pentaho-server
-sudo ./stop-pentaho.sh
-```
+| File | Block switched on | What it adds to the User Console |
+| --- | --- | --- |
+| `pentaho-cdf-dd\plugin.xml` | the `EDIT` operation | **Edit** on a CDE dashboard (`.wcdf`), which opens it in the editor |
+| `pentaho-cdf-dd\plugin.xml` | the `<overlays>` block | **CDE Dashboard** on **Create New** and under **File > New** |
+| `pentaho-cdf-dd\settings.xml` | the `new-toolbar-button` line | the **New CDE Dashboard** toolbar entry |
+| `cda\plugin.xml` | the `EDIT` operation | **Edit** on a `.cda` file, which opens the CDA editor |
+| `cda\plugin.xml` | the `<overlays>` block | **CDA Cache Manager** on the **Tools** menu and **CDA Cache** under **Tools > Refresh** |
 
-2. Uncomment the following lines:
-
-`/opt/pentaho/server/pentaho-server/pentaho-solutions/system/pentaho-cdf-dd/plugin.xml`
-
-```bash
-cd
-cd /opt/pentaho/server/pentaho-server/pentaho-solutions/system/pentaho-cdf-dd
-sudo nano plugin.xml
-```
-
-3. Locate the following two commented blocks in this file and remove the comment tags from these blocks.
-
-```xml
-<operation>
-    <id>EDIT</id>
-    <perspective>wcdf.edit</perspective>
-</operation>
-```
+This is the CDE block from `pentaho-cdf-dd\plugin.xml` once its comment tags are gone:
 
 ```xml
 <overlays>
@@ -172,52 +170,29 @@ sudo nano plugin.xml
 </overlays>
 ```
 
-4. Save.
-
-```text
-CTRL + O
-Enter
-CTRL + X
-```
-
-5. Uncomment the following lines:
-
-`/opt/pentaho/server/pentaho-server/pentaho-solutions/system/pentaho-cdf-dd/settings.xml`
-
-```bash
-cd
-cd /opt/pentaho/server/pentaho-server/pentaho-solutions/system/pentaho-cdf-dd
-sudo nano settings.xml
-```
-
-6. Locate the block at end of the file, 'Defining the new-toolbar-button' and remove the comment tags from this block.
-
-```xml
-<new-toolbar-button>1,New CDE Dashboard,CDE Dashboard,api/repos/wcdf/new</new-toolbar-button>
-```
-
-7. Locate the block at end of the file, 'Defining the new-toolbar-button' and remove the comment tags from this block.
-8. Save.
-
-```text
-CTRL + O
-Enter
-CTRL + X
-```
-
-9. Restart the Pentaho Server.
-
-```bash
-cd
-cd /opt/pentaho/server/pentaho-server
-sudo ./start-pentaho.sh
-```
+> **Under the hood:**
+>
+> #### A plugin declares its own menu entries
+>
+> Each CTools plugin is a folder under `pentaho-solutions\system` with a
+> `plugin.xml`, which the server reads at startup. `<content-types>`
+> tells the User Console which actions a file type offers (RUN,
+> NEWWINDOW, EDIT), and `<overlays>` are XUL fragments merged into the
+> console's own menus and its Create New panel. The edits install and
+> remove nothing: the plugins already answer at
+> `/pentaho/plugin/pentaho-cdf-dd/api/...` and `/pentaho/plugin/cda/api/...`,
+> and the comment tags only hide their entries in the console.
+>
+> **Why it matters:** the change takes effect only after a restart, and
+> a server upgrade that replaces `plugin.xml` quietly takes the entries
+> away again. When **CDE Dashboard** goes missing from Create New, these
+> three files are the first place to look.
 
 #### Community Dashboard Editor (CDE)
 
-To verify CDE is activated, do the following.
+To check that CDE is switched on:
 
-1. Log on to the [Pentaho User Console](https://help.pentaho.com/Documentation/8.0/Setup/Evaluation/Tutorials/0D0/020).
+1. Sign in to the Pentaho User Console as `admin`, with the button below.
 2. On the **Home** page, select **Create New**.
 3. In the menu, select **CDE Dashboard**. The Community Dashboard Editor opens with a new dashboard.
 
