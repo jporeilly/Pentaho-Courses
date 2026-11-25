@@ -16,8 +16,8 @@
 //
 // Run from this folder:   node az-workflow.svg.mjs
 // It writes az-workflow.svg and az-workflow-1.svg to az-workflow-4.svg,
-// and the PNGs in ../images. The drawing is workflow-strip.mjs.
-import { writeWorkflow } from './workflow-strip.mjs';
+// and the PNGs in ../images. The drawing is scripts/workflow-strip.mjs.
+import { writeWorkflow } from '../../../../scripts/workflow-strip.mjs';
 
 const STEPS = [
   { icon: 'database', title: ['Data source', 'and fields'] },

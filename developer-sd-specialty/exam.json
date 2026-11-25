@@ -20,7 +20,7 @@
       ],
       "correct": 3,
       "explanation": "A **streaming transformation** works on an unbounded sequence of events and remains active to process each record as it arrives, allowing for a latency of seconds or less.\n\nIn contrast to a batch process that handles a bounded dataset and ends once the data is exhausted, a streaming process stays running to provide near-real-time results.",
-      "source": "Pentaho Developer - Streaming Specialty: Overview"
+      "source": "Developer - Streaming Specialty: Overview"
     },
     {
       "id": "sd-m1-q2",
@@ -36,7 +36,7 @@
       ],
       "correct": 2,
       "explanation": "A parent transformation holds the consumer step, which collects messages into batches and passes each batch to a **child transformation**. The lookup and database write then run once for each batch rather than once for each message.",
-      "source": "Pentaho Developer - Streaming Specialty: Overview"
+      "source": "Developer - Streaming Specialty: Overview"
     },
     {
       "id": "sd-m1-q3",
@@ -52,7 +52,7 @@
       ],
       "correct": 1,
       "explanation": "The Get records from stream step produces rows and must be the **first step** in the child transformation. To add streamed data to an existing stream, the developer must use a **join step** to merge the two data streams.\n\nGet records from stream serves as a source for the child transformation, while a join step is required to combine those results with other rows in the transformation.",
-      "source": "Pentaho Developer - Streaming Specialty: Overview"
+      "source": "Developer - Streaming Specialty: Overview"
     },
     {
       "id": "sd-m1-q4",
@@ -68,7 +68,7 @@
       ],
       "correct": 3,
       "explanation": "A batch is flushed when the first of the two thresholds is reached. Because the **batch window** of 5 seconds is reached before the 100-record count is reached at a rate of one message per second, each batch carries about five records.",
-      "source": "Pentaho Developer - Streaming Specialty: Kafka Use Cases"
+      "source": "Developer - Streaming Specialty: Kafka Use Cases"
     },
     {
       "id": "sd-m1-q5",
@@ -84,7 +84,7 @@
       ],
       "correct": 0,
       "explanation": "The **MQTT protocol** is designed for low-bandwidth, high-latency, or unreliable networks, making it ideal for resource-constrained sensors.\n\n**Kafka** utilizes a distributed commit log where each consumer tracks its own offset, allowing multiple teams to read the same stream independently and revisit historical data.",
-      "source": "Pentaho Developer - Streaming Specialty: Overview"
+      "source": "Developer - Streaming Specialty: Overview"
     },
     {
       "id": "sd-m1-q6",
@@ -100,7 +100,7 @@
       ],
       "correct": 1,
       "explanation": "In a **publish/subscribe** model, the producer sends data to a specific topic on the broker rather than to a specific recipient. This architecture removes the need for the producer to maintain a list of subscribers or knowledge of how many entities are consuming the data.\n\nBecause the producer only interacts with the topic, any number of subscribers can register interest in that topic independently without requiring changes to the producer's configuration or logic.",
-      "source": "Pentaho Developer - Streaming Specialty: MQTT"
+      "source": "Developer - Streaming Specialty: MQTT"
     },
     {
       "id": "sd-m1-q7",
@@ -120,7 +120,7 @@
         3
       ],
       "explanation": "The **Message prefetch limit** caps the number of messages that PDI queues in memory. The **Maximum concurrent batches** setting limits how many batches are processed simultaneously, which manages the relationship between throughput and resource consumption.",
-      "source": "Pentaho Developer - Streaming Specialty: EMQX"
+      "source": "Developer - Streaming Specialty: EMQX"
     },
     {
       "id": "sd-m2-q1",
@@ -136,7 +136,7 @@
       ],
       "correct": 3,
       "explanation": "MQTT is a **lightweight protocol** that requires minimal resources, which allows small microcontrollers to run it while keeping power consumption and manufacturing costs low.",
-      "source": "Pentaho Developer - Streaming Specialty: MQTT"
+      "source": "Developer - Streaming Specialty: MQTT"
     },
     {
       "id": "sd-m2-q2",
@@ -152,7 +152,7 @@
       ],
       "correct": 0,
       "explanation": "Selecting the **lowest level** that satisfies the use case ensures efficient delivery. **QoS 0** (at most once) is appropriate for high-frequency readings where a lost packet is not critical.\n\n**QoS 2** (exactly once) is required for payment commands to ensure that messages are delivered exactly once and are never duplicated, preventing double charges.",
-      "source": "Pentaho Developer - Streaming Specialty: MQTT"
+      "source": "Developer - Streaming Specialty: MQTT"
     },
     {
       "id": "sd-m2-q3",
@@ -168,7 +168,7 @@
       ],
       "correct": 1,
       "explanation": "The deployment does not have sufficient security because the **hivemq-allow-all extension** allows any MQTT client to connect with full permissions. While the Control Center password protects the web console, it does not secure the MQTT listener, which requires a specific security extension to restrict access.",
-      "source": "Pentaho Developer - Streaming Specialty: HiveMQ"
+      "source": "Developer - Streaming Specialty: HiveMQ"
     },
     {
       "id": "sd-m2-q4",
@@ -188,7 +188,7 @@
         4
       ],
       "explanation": "A mismatch in the **topic** means that messages from the producer do not reach the consumer. If the **batch settings** are configured such that the threshold for duration or records is above zero, the transformation will not trigger until those specific conditions are met.",
-      "source": "Pentaho Developer - Streaming Specialty: EMQX"
+      "source": "Developer - Streaming Specialty: EMQX"
     },
     {
       "id": "sd-m2-q5",
@@ -204,7 +204,7 @@
       ],
       "correct": 1,
       "explanation": "Setting **clean session** to false creates a persistent session, which ensures the broker maintains the client's state and queues QoS 1 and 2 messages while the client is offline.\n\nWhen the client reconnects, the broker delivers all queued messages. This is necessary because a clean session of true would discard subscriptions and queued messages upon every disconnect.",
-      "source": "Pentaho Developer - Streaming Specialty: MQTT"
+      "source": "Developer - Streaming Specialty: MQTT"
     },
     {
       "id": "sd-m2-q6",
@@ -220,7 +220,7 @@
       ],
       "correct": 1,
       "explanation": "A **Last Will** is a message registered by a client at the time of connection. The broker publishes this message to a designated topic if the client disconnects ungracefully or misses its keep-alive signal.\n\nBecause the consumer only reacts to incoming messages, a silent truck sends no data. The **Last Will** ensures that the absence of a heartbeat is communicated by the broker as a specific notification.",
-      "source": "Pentaho Developer - Streaming Specialty: HiveMQ"
+      "source": "Developer - Streaming Specialty: HiveMQ"
     },
     {
       "id": "sd-m4-q1",
@@ -236,7 +236,7 @@
       ],
       "correct": 3,
       "explanation": "KRaft integrates **metadata management** directly into the Kafka cluster. By using the Raft consensus algorithm and embedding the controller within the broker, the system removes the requirement for an external ZooKeeper ensemble.",
-      "source": "Pentaho Developer - Streaming Specialty: Kafka"
+      "source": "Developer - Streaming Specialty: Kafka"
     },
     {
       "id": "sd-m4-q2",
@@ -252,7 +252,7 @@
       ],
       "correct": 1,
       "explanation": "The **committed offset** is a sequential identifier that identifies a record within a partition. The consumer tracks its progress by committing these offsets and resumes from the last committed position after a restart.\n\nBecause the offset represents a specific location in the log, it allows the consumer to track its position without requiring the broker to hold locks or delete messages upon successful read.",
-      "source": "Pentaho Developer - Streaming Specialty: Kafka Use Cases"
+      "source": "Developer - Streaming Specialty: Kafka Use Cases"
     },
     {
       "id": "sd-m4-q3",
@@ -268,7 +268,7 @@
       ],
       "correct": 0,
       "explanation": "The **auto.offset.reset** setting determines the starting point for a consumer when there is no committed offset to resume from. Because a new group has no existing offset history, it defaults to this setting; if it is set to `earliest`, the consumer starts at the beginning of the log, while `latest` would only process new messages.",
-      "source": "Pentaho Developer - Streaming Specialty: Kafka Use Cases"
+      "source": "Developer - Streaming Specialty: Kafka Use Cases"
     },
     {
       "id": "sd-m4-q4",
@@ -284,7 +284,7 @@
       ],
       "correct": 3,
       "explanation": "When a field length is not explicitly defined, Pentaho Data Integration maps the field to a type that MySQL cannot index, such as `TINYTEXT`. Defining the length on the **Metadata tab** of the Select values step makes PDI generate a `VARCHAR` type instead, so the index can be created.\n\nThe SQL button's proposed `ALTER TABLE ... MODIFY user_id TINYTEXT` would make the problem permanent, so close it without executing.",
-      "source": "Pentaho Developer - Streaming Specialty: Kafka Use Cases"
+      "source": "Developer - Streaming Specialty: Kafka Use Cases"
     },
     {
       "id": "sd-m4-q5",
@@ -300,7 +300,7 @@
       ],
       "correct": 1,
       "explanation": "The **Calculator step** requires both operands in a calculation to be existing fields in the data stream. It does not support the inclusion of literals or constants directly in the calculation.\n\nIn contrast, the **Formula step** supports the use of constants, allowing a developer to perform a calculation like `[register_time_epoch] / 1000` directly within the step.",
-      "source": "Pentaho Developer - Streaming Specialty: Kafka Use Cases"
+      "source": "Developer - Streaming Specialty: Kafka Use Cases"
     },
     {
       "id": "sd-m4-q6",
@@ -316,7 +316,7 @@
       ],
       "correct": 1,
       "explanation": "MySQL retrieves the database name from the **connection details**. When a value is entered into the Target schema field, Pentaho Data Integration may attempt to qualify the table name, which can cause execution failures. Leaving the field blank ensures the database is correctly identified from the connection properties.",
-      "source": "Pentaho Developer - Streaming Specialty: Kafka Use Cases"
+      "source": "Developer - Streaming Specialty: Kafka Use Cases"
     },
     {
       "id": "sd-m4-q7",
@@ -332,7 +332,7 @@
       ],
       "correct": 3,
       "explanation": "In a **consumer group**, each **partition** is assigned to exactly one member. Since there are only four partitions available, only four consumers can be active at any given time, while the remaining four consumers will sit idle.\n\nIncreasing the number of consumers only improves throughput if the number of available partitions is greater than or equal to the number of consumers.",
-      "source": "Pentaho Developer - Streaming Specialty: Kafka Use Cases"
+      "source": "Developer - Streaming Specialty: Kafka Use Cases"
     },
     {
       "id": "sd-m3-q1",
@@ -348,7 +348,7 @@
       ],
       "correct": 2,
       "explanation": "A producer sends messages to an **exchange**, which then routes them to specific queues based on **bindings** and the assigned **routing key**. In this scenario, the system uses the `tv_room` routing key to direct the sensor data to the correct destination.",
-      "source": "Pentaho Developer - Streaming Specialty: AMQP"
+      "source": "Developer - Streaming Specialty: AMQP"
     },
     {
       "id": "sd-m3-q2",
@@ -364,7 +364,7 @@
       ],
       "correct": 1,
       "explanation": "A **fanout exchange** broadcasts every message to all bound queues and ignores the routing key entirely. This aligns directly with the requirement to deliver every message to three specific queues.\n\nWhile a topic exchange with a wildcard binding may function, it requires every message to include a routing key that satisfies the wildcard, creating an unnecessary dependency on the routing key for a process that is intended to be a simple broadcast.",
-      "source": "Pentaho Developer - Streaming Specialty: AMQP"
+      "source": "Developer - Streaming Specialty: AMQP"
     },
     {
       "id": "sd-m3-q3",
@@ -380,7 +380,7 @@
       ],
       "correct": 0,
       "explanation": "A **durable** queue is saved to disk and survives broker restarts. By ensuring the queue is neither **exclusive** nor **auto-delete**, the queue remains available for multiple connections and does not disappear when the consumer count drops to zero.",
-      "source": "Pentaho Developer - Streaming Specialty: AMQP"
+      "source": "Developer - Streaming Specialty: AMQP"
     },
     {
       "id": "sd-m3-q4",
@@ -396,7 +396,7 @@
       ],
       "correct": 2,
       "explanation": "An **exchange** does not have the capacity to store messages; it acts as a routing agent that directs messages to bound queues immediately. If no queue is bound to the exchange at the moment of publication, the messages are lost because the producer does not maintain a buffer for messages without a destination.\n\nThe **AMQP Consumer** step only creates its own queue and binding upon establishing a connection. Because the producer finished sending messages before the consumer created the necessary infrastructure, the messages had no destination to wait in and were not retained.",
-      "source": "Pentaho Developer - Streaming Specialty: RabbitMQ"
+      "source": "Developer - Streaming Specialty: RabbitMQ"
     },
     {
       "id": "sd-m3-q5",
@@ -412,7 +412,7 @@
       ],
       "correct": 3,
       "explanation": "The **auto-delete** flag causes a queue to be deleted as soon as the number of consumers connected to it drops to zero. Because the consumer only runs once a night, the queue would be deleted immediately after each nightly run finishes, preventing any messages produced before the next run from having a queue to wait in.",
-      "source": "Pentaho Developer - Streaming Specialty: AMQP"
+      "source": "Developer - Streaming Specialty: AMQP"
     },
     {
       "id": "sd-m3-q6",
@@ -428,7 +428,7 @@
       ],
       "correct": 3,
       "explanation": "The AMQP Consumer step creates a new queue only during the first execution. If a queue with the same name exists but has different configuration settings, the transformation **aborts** because the step cannot automatically resolve the conflict between the existing queue and the configured parameters.",
-      "source": "Pentaho Developer - Streaming Specialty: RabbitMQ"
+      "source": "Developer - Streaming Specialty: RabbitMQ"
     },
     {
       "id": "sd-m1-q8",
@@ -444,7 +444,7 @@
       ],
       "correct": 1,
       "explanation": "Streaming transformations follow a consistent parent/child pattern where the only new components are the **consumer** at the front and the **Get records from stream** step at the start of the child transformation.\n\nStandard processing steps, such as JSON input, Select values, Formula, and Table output, function identically in both batch and streaming contexts. These steps serve every protocol, meaning the core logic of the transformation does not change based on the source type.",
-      "source": "Pentaho Developer - Streaming Specialty: Overview"
+      "source": "Developer - Streaming Specialty: Overview"
     },
     {
       "id": "sd-m2-q7",
@@ -460,7 +460,7 @@
       ],
       "correct": 2,
       "explanation": "The **wildcard** `+` matches exactly one level in the topic hierarchy, ensuring that `industrial/+/sensor` matches the three specific sensor topics while excluding other levels.\n\nThis specific structure ensures the consumer only receives data where the third level is `sensor` and the middle level is any single word.",
-      "source": "Pentaho Developer - Streaming Specialty: MQTT"
+      "source": "Developer - Streaming Specialty: MQTT"
     },
     {
       "id": "sd-m2-q8",
@@ -476,7 +476,7 @@
       ],
       "correct": 3,
       "explanation": "The message was stored by the broker because it was published with the **retained** flag. When a new client subscribes to a topic with a retained message, the broker delivers that last value at once, so a late subscriber still learns the device's last known state.",
-      "source": "Pentaho Developer - Streaming Specialty: HiveMQ"
+      "source": "Developer - Streaming Specialty: HiveMQ"
     },
     {
       "id": "sd-m2-q9",
@@ -492,7 +492,7 @@
       ],
       "correct": 1,
       "explanation": "A **graceful disconnect** occurs when a client explicitly closes its connection using a method like `disconnect()`. In this scenario, the broker is informed of the intentional termination and therefore discards the **Last Will** instead of publishing it.\n\nA **Last Will** is only triggered by an unexpected drop, such as a crash, network loss, or a missed keep-alive. Because the developer used a graceful command, the broker did not treat the disconnection as an unexpected failure.",
-      "source": "Pentaho Developer - Streaming Specialty: HiveMQ"
+      "source": "Developer - Streaming Specialty: HiveMQ"
     },
     {
       "id": "sd-m2-q10",
@@ -508,7 +508,7 @@
       ],
       "correct": 2,
       "explanation": "The broker determines a client has disconnected when it receives no communication within **1.5 times the keep-alive** interval. Because the broker cannot see a remote process end, it relies on this timeout to determine when to publish the will.\n\nAn ungraceful drop, such as a killed process, triggers the will only after this grace period passes. A single keep-alive interval is the window for the client to send a PINGREQ, not the threshold at which the broker gives up.",
-      "source": "Pentaho Developer - Streaming Specialty: HiveMQ"
+      "source": "Developer - Streaming Specialty: HiveMQ"
     },
     {
       "id": "sd-m2-q11",
@@ -524,7 +524,7 @@
       ],
       "correct": 1,
       "explanation": "HiveMQ and EMQX are intended to run side by side on different ports. HiveMQ listens on port 1883, while EMQX listens on port 1884. If a consumer connects to port 1883, it will successfully connect to the HiveMQ broker but will not receive any data from the EMQX broker. Checking the **port number** ensures the client is connected to the correct broker.",
-      "source": "Pentaho Developer - Streaming Specialty: EMQX"
+      "source": "Developer - Streaming Specialty: EMQX"
     },
     {
       "id": "sd-m2-q12",
@@ -540,7 +540,7 @@
       ],
       "correct": 1,
       "explanation": "Topics should be short, specific, and ASCII, without **spaces** or a **leading forward slash** (/). A client should not subscribe to a broad **multi-level wildcard** (#) in a production environment.\n\nBrokers accept any valid topic on the fly, so the topic does not need to be created on the broker before use. Wildcards are intended for subscriptions only and are not part of a published topic. Non-ASCII names are not recommended for topic structures.",
-      "source": "Pentaho Developer - Streaming Specialty: MQTT"
+      "source": "Developer - Streaming Specialty: MQTT"
     },
     {
       "id": "sd-m4-q8",
@@ -556,7 +556,7 @@
       ],
       "correct": 0,
       "explanation": "The **Commit when batch completed** setting ensures that the offset moves only after the child has finished processing the entire batch. If a batch fails, the offset is not updated, and the batch is read again upon restart.\n\nThis behavior prevents the loss of records during a failure because the system treats the entire batch as a single unit of work for the **offset update**.",
-      "source": "Pentaho Developer - Streaming Specialty: Kafka Use Cases"
+      "source": "Developer - Streaming Specialty: Kafka Use Cases"
     },
     {
       "id": "sd-m4-q9",
@@ -572,7 +572,7 @@
       ],
       "correct": 0,
       "explanation": "An **offset** identifies a record within its partition, so `kafka_topic`, `kafka_partition`, and `kafka_offset` together identify one Kafka record. Grouping on them and looking for counts above one finds anything loaded twice, and they also show the offset progress of each partition.",
-      "source": "Pentaho Developer - Streaming Specialty: Kafka Use Cases"
+      "source": "Developer - Streaming Specialty: Kafka Use Cases"
     },
     {
       "id": "sd-m4-q10",
@@ -588,7 +588,7 @@
       ],
       "correct": 0,
       "explanation": "Windows resolves `localhost` to an **IPv6 address** first, so the connection does not reach the Kafka container listening on IPv4. Setting the bootstrap server to `127.0.0.1:9092` uses the IPv4 address directly.",
-      "source": "Pentaho Developer - Streaming Specialty: Kafka Use Cases"
+      "source": "Developer - Streaming Specialty: Kafka Use Cases"
     },
     {
       "id": "sd-m4-q11",
@@ -604,7 +604,7 @@
       ],
       "correct": 2,
       "explanation": "A **Schema Registry** is a central repository for managing and validating message schemas. It sits apart from the brokers, and producers and consumers consult it alongside Kafka to send and retrieve schemas.",
-      "source": "Pentaho Developer - Streaming Specialty: Kafka"
+      "source": "Developer - Streaming Specialty: Kafka"
     },
     {
       "id": "sd-m4-q12",
@@ -620,7 +620,7 @@
       ],
       "correct": 3,
       "explanation": "The **Kafka key** determines how messages are distributed to partitions: messages with the same key always go to the same partition. Without a key, the producer spreads the messages across the partitions.",
-      "source": "Pentaho Developer - Streaming Specialty: Kafka Use Cases"
+      "source": "Developer - Streaming Specialty: Kafka Use Cases"
     },
     {
       "id": "sd-m3-q7",
@@ -636,7 +636,7 @@
       ],
       "correct": 1,
       "explanation": "When the Exchange name is left blank, the step uses the **default exchange**. This default exchange is of type **DIRECT** and routes messages based on the specific routing key provided by the producer.",
-      "source": "Pentaho Developer - Streaming Specialty: RabbitMQ"
+      "source": "Developer - Streaming Specialty: RabbitMQ"
     },
     {
       "id": "sd-m3-q8",
@@ -652,7 +652,7 @@
       ],
       "correct": 0,
       "explanation": "The use of a **message queue** ensures that messages are stored by the broker until a consumer is available to retrieve them. This architecture decouples the services, ensuring that a temporary failure in a downstream service does not result in the loss of data.\n\nBecause the communication is **asynchronous**, the producer does not wait for a response from the consumer. The broker maintains these messages in the queue because they are bound to a queue rather than being sent to an exchange with no bound queue.",
-      "source": "Pentaho Developer - Streaming Specialty: AMQP"
+      "source": "Developer - Streaming Specialty: AMQP"
     }
   ]
 }

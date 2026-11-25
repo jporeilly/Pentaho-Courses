@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="664" viewBox="0 0 800 664" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+<filter id="shadow" x="-10%" y="-10%" width="120%" height="140%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#0f172a" flood-opacity="0.12"/></filter></defs>
+<rect width="800" height="664" fill="#ffffff"/>
+<rect x="8" y="124" width="356" height="236" rx="12" fill="#f8fafc" stroke="#f1f5f9" stroke-width="1.5"/>
+<path d="M8 136a12 12 0 0 1 12-12h332a12 12 0 0 1 12 12v32h-356z" fill="#475569"/>
+<g transform="translate(21 134) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></g>
+<text x="48" y="144" font-size="14" font-weight="700" fill="#ffffff">Parent transformation</text>
+<text x="48" y="160" font-size="11.5" fill="#ffffff" opacity="0.92">one consumer step: the only part that changes</text>
+<rect x="436" y="220" width="356" height="428" rx="12" fill="#f8fafc" stroke="#f1f5f9" stroke-width="1.5"/>
+<path d="M436 232a12 12 0 0 1 12-12h332a12 12 0 0 1 12 12v32h-356z" fill="#475569"/>
+<g transform="translate(449 230) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></g>
+<text x="476" y="240" font-size="14" font-weight="700" fill="#ffffff">Child transformation</text>
+<text x="476" y="256" font-size="11.5" fill="#ffffff" opacity="0.92">runs once for each batch</text>
+<path d="M308 88L308 175" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M186 248C186 259.5 186 259.5 186 271" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M614 344C614 355.5 614 355.5 614 367" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M614 440C614 451.5 614 451.5 614 463" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M614 536C614 547.5 614 547.5 614 559" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M356 308L443 308" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="16" y="16" width="340" height="72" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="46" cy="52" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(34 40) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.9 16.1C1 12.2 1 5.8 4.9 1.9"/><path d="M7.8 4.7a6.14 6.14 0 0 0-.8 7.5"/><circle cx="12" cy="9" r="2"/><path d="M16.2 4.8c2 2 2.26 5.11.8 7.47"/><path d="M19.1 1.9a9.96 9.96 0 0 1 0 14.1"/><path d="M9.5 18h5"/><path d="m8 22 4-11 4 11"/></g>
+<text x="76" y="35" font-size="14" font-weight="700" fill="#3b0764">Broker</text>
+<text x="76" y="52" font-size="12" fill="#3b0764">HiveMQ or EMQX (MQTT), RabbitMQ</text>
+<text x="76" y="67" font-size="12" fill="#3b0764">(AMQP), or Kafka</text>
+<rect x="16" y="176" width="340" height="72" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="46" cy="212" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(34 200) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></g>
+<text x="76" y="195" font-size="14" font-weight="700" fill="#1e3a8a">Consumer step</text>
+<text x="76" y="212" font-size="12" fill="#1e3a8a">MQTT consumer, AMQP consumer or</text>
+<text x="76" y="227" font-size="12" fill="#1e3a8a">Kafka consumer: collects messages</text>
+<rect x="16" y="272" width="340" height="72" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="46" cy="308" r="19" fill="#ffffff" stroke="#b45309" stroke-width="1.2"/>
+<g transform="translate(34 296) scale(1)" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="10" x2="14" y1="2" y2="2"/><line x1="12" x2="15" y1="14" y2="11"/><circle cx="12" cy="14" r="8"/></g>
+<text x="76" y="291" font-size="14" font-weight="700" fill="#78350f">Batch: the first threshold wins</text>
+<text x="76" y="308" font-size="12" fill="#78350f">Duration (ms), a time window, or</text>
+<text x="76" y="323" font-size="12" fill="#78350f">Number of records, a message count</text>
+<rect x="267.5" y="93.5" width="81" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="308" y="111.5" text-anchor="middle" font-size="12" fill="#334155">subscribes</text>
+<rect x="444" y="272" width="340" height="72" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="474" cy="308" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(462 296) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M21 9H3"/><path d="M21 15H3"/></g>
+<text x="504" y="291" font-size="14" font-weight="700" fill="#1e3a8a">Get records from stream</text>
+<text x="504" y="308" font-size="12" fill="#1e3a8a">must be the first step:</text>
+<text x="504" y="323" font-size="12" fill="#1e3a8a">the batch arrives as rows</text>
+<rect x="444" y="368" width="340" height="72" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="474" cy="404" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(462 392) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 12a1 1 0 0 0-1 1v1a1 1 0 0 1-1 1 1 1 0 0 1 1 1v1a1 1 0 0 0 1 1"/><path d="M14 18a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1 1 1 0 0 1-1-1v-1a1 1 0 0 0-1-1"/></g>
+<text x="504" y="394.5" font-size="14" font-weight="700" fill="#3b0764">Parse: JSON input</text>
+<text x="504" y="411.5" font-size="12" fill="#3b0764">splits each message into fields</text>
+<rect x="444" y="464" width="340" height="72" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="474" cy="500" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(462 488) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="20" x="4" y="2" rx="2"/><line x1="8" x2="16" y1="6" y2="6"/><line x1="16" x2="16" y1="14" y2="18"/><path d="M16 10h.01"/><path d="M12 10h.01"/><path d="M8 10h.01"/><path d="M12 14h.01"/><path d="M8 14h.01"/><path d="M12 18h.01"/><path d="M8 18h.01"/></g>
+<text x="504" y="490.5" font-size="14" font-weight="700" fill="#3b0764">Transform</text>
+<text x="504" y="507.5" font-size="12" fill="#3b0764">Select values, Formula</text>
+<rect x="444" y="560" width="340" height="72" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="474" cy="596" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(462 584) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></g>
+<text x="504" y="579" font-size="14" font-weight="700" fill="#14532d">Load: Table output</text>
+<text x="504" y="596" font-size="12" fill="#14532d">or Text file output, in the</text>
+<text x="504" y="611" font-size="12" fill="#14532d">MQTT and AMQP labs</text>
+<rect x="374.75" y="288" width="49.5" height="40" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="399.5" y="306" text-anchor="middle" font-size="12" fill="#334155">each</text>
+<text x="399.5" y="321" text-anchor="middle" font-size="12" fill="#334155">batch</text>
+<rect x="16" y="392" width="340" height="166" rx="10" fill="#f1f5f9" stroke="#475569" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="46" cy="420" r="19" fill="#ffffff" stroke="#475569" stroke-width="1.2"/>
+<g transform="translate(34 408) scale(1)" fill="none" stroke="#475569" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 5H3"/><path d="M12 19H3"/><path d="M14 3v4"/><path d="M16 17v4"/><path d="M21 12h-9"/><path d="M21 19h-5"/><path d="M21 5h-7"/><path d="M8 10v4"/><path d="M8 12H3"/></g>
+<text x="76" y="417" font-size="14" font-weight="700" fill="#0f172a">The labs’ Batch tab</text>
+<text x="76" y="434" font-size="12" fill="#0f172a">whichever comes first sends the batch</text>
+<text x="83.33333333333334" y="464" text-anchor="middle" font-size="12" font-weight="600" fill="#0f172a">Consumer step</text>
+<text x="186.00000000000003" y="464" text-anchor="middle" font-size="12" font-weight="600" fill="#0f172a">Duration (ms)</text>
+<text x="288.6666666666667" y="464" text-anchor="middle" font-size="12" font-weight="600" fill="#0f172a">Records</text>
+<line x1="32" y1="471" x2="340" y2="471" stroke="#94a3b8" stroke-width="1"/>
+<rect x="32" y="474" width="308" height="21" rx="4" fill="#dbeafe" stroke="#1d4ed8" stroke-width="0.8"/>
+<text x="83.33333333333334" y="489" text-anchor="middle" font-size="12" fill="#1e3a8a">MQTT consumer</text>
+<text x="186.00000000000003" y="489" text-anchor="middle" font-size="12" fill="#1e3a8a">5000</text>
+<text x="288.6666666666667" y="489" text-anchor="middle" font-size="12" fill="#1e3a8a">50</text>
+<rect x="32" y="498" width="308" height="21" rx="4" fill="#dbeafe" stroke="#1d4ed8" stroke-width="0.8"/>
+<text x="83.33333333333334" y="513" text-anchor="middle" font-size="12" fill="#1e3a8a">AMQP consumer</text>
+<text x="186.00000000000003" y="513" text-anchor="middle" font-size="12" fill="#1e3a8a">1000</text>
+<text x="288.6666666666667" y="513" text-anchor="middle" font-size="12" fill="#1e3a8a">1000</text>
+<rect x="32" y="522" width="308" height="21" rx="4" fill="#dbeafe" stroke="#1d4ed8" stroke-width="0.8"/>
+<text x="83.33333333333334" y="537" text-anchor="middle" font-size="12" fill="#1e3a8a">Kafka consumer</text>
+<text x="186.00000000000003" y="537" text-anchor="middle" font-size="12" fill="#1e3a8a">500</text>
+<text x="288.6666666666667" y="537" text-anchor="middle" font-size="12" fill="#1e3a8a">100</text>
+</svg>

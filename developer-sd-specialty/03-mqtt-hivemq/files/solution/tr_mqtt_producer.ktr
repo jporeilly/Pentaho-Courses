@@ -627,13 +627,13 @@ output, simulating IoT.</note>
     <step-props secure="PASSWORD SSL_VALUES">
       <group name="">
         <property group="" name="MQTT_SERVER">
-          <value xsi:type="xs:string"/>
+          <value xsi:type="xs:string">localhost:1884</value>
         </property>
         <property group="" name="CLIENT_ID">
           <value xsi:type="xs:string"/>
         </property>
         <property group="" name="TOPIC">
-          <value xsi:type="xs:string"/>
+          <value xsi:type="xs:string">SensorData</value>
         </property>
         <property group="" name="FIELD_TOPIC">
           <value xsi:type="xs:string">message</value>

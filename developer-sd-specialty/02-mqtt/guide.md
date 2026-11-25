@@ -29,7 +29,16 @@ QoS is the delivery guarantee agreed between sender and receiver. There are thre
 
 * **QoS 0 — at most once:** fire-and-forget. The message is sent once and may be lost. Lowest overhead; fine for high-frequency sensor data where the odd dropped reading doesn't matter.
 * **QoS 1 — at least once:** the message is confirmed (`PUBACK`) and re-sent if needed, so it always arrives but may be **duplicated**. The most commonly used level.
-* **QoS 2 — exactly once:** a four-step handshake guarantees a single delivery, at the cost of the most overhead and latency. Reserve it for messages where a duplicate would cause harm.
+* **QoS 2 — exactly once:** a four-step handshake (`PUBLISH`, `PUBREC`, `PUBREL`, `PUBCOMP`) guarantees a single delivery, at the cost of the most overhead and latency. Reserve it for messages where a duplicate would cause harm.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/mqtt-qos-levels.png" alt="Three sequences between a sender, the publisher, and a receiver, the broker. QoS 0: one PUBLISH and no reply; a message may be lost. QoS 1: PUBLISH, a re-send while no PUBACK has come back, which gives the broker a duplicate, then PUBACK. QoS 2: PUBLISH, PUBREC, PUBREL and PUBCOMP; delivered once, at the most overhead" width="800">
+<figcaption>The three QoS levels, packet by packet</figcaption>
+</figure>
+</div>
+
+Read the diagram one level at a time, top to bottom: solid arrows go from the sender to the receiver, and dashed arrows are replies. At QoS 0 the publisher sends once and hears nothing back. At QoS 1 a publisher that has no `PUBACK` yet sends the message again, so the broker can receive it twice. At QoS 2 the two sides exchange four packets before the message counts as delivered once. The box under each level is what it guarantees.
 
 Pick the lowest level that satisfies the use case — higher QoS means more round-trips and resource use.
 

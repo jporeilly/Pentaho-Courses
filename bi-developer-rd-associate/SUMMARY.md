@@ -1,4 +1,4 @@
-# Pentaho BI Developer - RD Associate
+# BI Developer - RD Associate
 
 ## Before You Start
 

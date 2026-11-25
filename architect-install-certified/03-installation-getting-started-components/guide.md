@@ -52,10 +52,12 @@ The ports an installed system uses:
 
 <div align="center">
 <figure>
-<img src="../_assets/images/1794309012312.png" alt="Diagram: Spoon (Designer, Engine, Scheduler, Repo Browser, DB Explorer) sends .ktr and .kjb files to the Pentaho Server's Data Integration topology (Engine, Repository, Quartz Scheduler, Security, Monitoring) backed by a system database; Pan, Kitchen and Carte run standalone" width="800">
+<img src="../_assets/images/pdi-client-server.png" alt="Pentaho Data Integration as client and server: Spoon, with its Designer, Scheduler, Repository Browser and DB Explorer, sends .ktr and .kjb files to the Pentaho Server, whose Data Integration topology has an engine, a repository, the Quartz scheduler, security and monitoring and keeps its data in a system database; Pan, Kitchen and Carte run work standalone, without the server" width="800">
 <figcaption>Pentaho client / server architecture for data integration</figcaption>
 </figure>
 </div>
+
+Read the diagram from the top. Spoon, the blue client tool, saves transformations (`.ktr`) and jobs (`.kjb`) to the Pentaho Server, whose Data Integration side runs them, schedules them with Quartz, secures and monitors them, and keeps them in its repository on a system database. Pan, Kitchen and Carte, beside Spoon, run the same files without the server: the **Carte Server** and **APIs** tabs below cover them.
 
 | Component | What it does |
 | --- | --- |
@@ -131,7 +133,7 @@ The ports an installed system uses:
 > * **Security** - authentication and authorization, integrated with enterprise security systems.
 > * **Repository** - the store for every Pentaho asset, from reports and dashboards to transformations and jobs.
 
-**Pentaho Server Reporting Suite**
+**Pentaho Business Analytics reporting tools**
 
 ::: tabs
 
@@ -236,10 +238,12 @@ The ports an installed system uses:
 
 <div align="center">
 <figure>
-<img src="../_assets/images/carte_cluster.png" alt="A Carte cluster: source data from flat files, applications and databases goes to four slave servers working in parallel, a master splits the transformation and tracks progress, and the slaves load the target database" width="728">
+<img src="../_assets/images/carte-cluster.png" alt="A Carte cluster: source data from flat files, applications and databases goes to four slave servers working in parallel, a master splits the transformation, sends each slave its part and tracks progress, and the slaves load the target database" width="800">
 <figcaption>A Carte cluster: one master, several slaves</figcaption>
 </figure>
 </div>
+
+Read the diagram from the top. The amber master splits the transformation, sends each slave its part along the dashed arrow, and tracks their progress. The four violet slaves are Carte servers working in parallel: each reads from the blue source data and loads the green target database, which is how a cluster spreads the load.
 
 ### 4. APIs
 

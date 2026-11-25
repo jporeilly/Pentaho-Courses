@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="584" viewBox="0 0 800 584" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+<filter id="shadow" x="-10%" y="-10%" width="120%" height="140%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#0f172a" flood-opacity="0.12"/></filter></defs>
+<rect width="800" height="584" fill="#ffffff"/>
+<rect x="544" y="256" width="240" height="236" rx="12" fill="#f0fdf4" stroke="#dcfce7" stroke-width="1.5"/>
+<path d="M544 268a12 12 0 0 1 12-12h216a12 12 0 0 1 12 12v32h-240z" fill="#15803d"/>
+<g transform="translate(557 266) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></g>
+<text x="584" y="276" font-size="14" font-weight="700" fill="#ffffff">hibernate</text>
+<text x="584" y="292" font-size="11.5" fill="#ffffff" opacity="0.92">owner hibuser; three schemas</text>
+<path d="M228 90L273 90" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M496 90L541 90" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M228 194L273 194" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M496 194L541 194" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M228 318L273 318" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M228 430L273 430" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M496 374L541 374" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<text x="122" y="30" text-anchor="middle" font-size="11" font-weight="700" letter-spacing="0.5" fill="#475569">COMPONENT AND ITS CONFIG FILE</text>
+<text x="386" y="30" text-anchor="middle" font-size="11" font-weight="700" letter-spacing="0.5" fill="#475569">JNDI RESOURCE IN CONTEXT.XML</text>
+<text x="664" y="30" text-anchor="middle" font-size="11" font-weight="700" letter-spacing="0.5" fill="#475569">DATABASE AND OWNER</text>
+<rect x="16" y="48" width="212" height="84" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="46" cy="90" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(34 78) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1h-2.5a1 1 0 0 1-.8-.4l-.9-1.2A1 1 0 0 0 15 3h-2a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1Z"/><path d="M20 21a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1h-2.9a1 1 0 0 1-.88-.55l-.42-.85a1 1 0 0 0-.92-.6H13a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1Z"/><path d="M3 5a2 2 0 0 0 2 2h3"/><path d="M3 3v13a2 2 0 0 0 2 2h3"/></g>
+<text x="76" y="73" font-size="14" font-weight="700" fill="#3b0764">Jackrabbit</text>
+<text x="76" y="90" font-size="12" fill="#3b0764">repository.xml</text>
+<text x="76" y="105" font-size="12" fill="#3b0764">content, security</text>
+<rect x="276" y="66" width="220" height="48" rx="10" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="292" y="80.5" font-size="14" font-weight="700" fill="#134e4a">jdbc/jackrabbit</text>
+<text x="292" y="97.5" font-size="12" fill="#134e4a">as jcr_user</text>
+<rect x="544" y="48" width="240" height="84" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="574" cy="90" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(562 78) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></g>
+<text x="604" y="65.5" font-size="14" font-weight="700" fill="#14532d">jackrabbit</text>
+<text x="604" y="82.5" font-size="12" fill="#14532d">owner jcr_user</text>
+<text x="604" y="97.5" font-size="12" fill="#14532d">script: no tables yet</text>
+<text x="604" y="112.5" font-size="12" fill="#14532d">first start: 19 tables</text>
+<rect x="16" y="152" width="212" height="84" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="46" cy="194" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(34 182) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 14v2.2l1.6 1"/><path d="M16 2v4"/><path d="M21 7.5V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3.5"/><path d="M3 10h5"/><path d="M8 2v4"/><circle cx="16" cy="16" r="6"/></g>
+<text x="76" y="177" font-size="14" font-weight="700" fill="#3b0764">Quartz</text>
+<text x="76" y="194" font-size="12" fill="#3b0764">quartz.properties</text>
+<text x="76" y="209" font-size="12" fill="#3b0764">table prefix QRTZ6_</text>
+<rect x="276" y="170" width="220" height="48" rx="10" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="292" y="184.5" font-size="14" font-weight="700" fill="#134e4a">jdbc/Quartz</text>
+<text x="292" y="201.5" font-size="12" fill="#134e4a">as pentaho_user</text>
+<rect x="544" y="152" width="240" height="84" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="574" cy="194" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(562 182) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></g>
+<text x="604" y="169.5" font-size="14" font-weight="700" fill="#14532d">quartz</text>
+<text x="604" y="186.5" font-size="12" fill="#14532d">owner pentaho_user</text>
+<text x="604" y="201.5" font-size="12" fill="#14532d">script: 11 qrtz6_ tables</text>
+<text x="604" y="216.5" font-size="12" fill="#14532d">first start: 5 lock rows</text>
+<rect x="556" y="312" width="216" height="50" rx="10" fill="#ffffff" stroke="#64748b" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="572" y="327.5" font-size="14" font-weight="700" fill="#0f172a">public</text>
+<text x="572" y="344.5" font-size="12" fill="#0f172a">first start: 17 tables</text>
+<rect x="556" y="370" width="216" height="50" rx="10" fill="#ffffff" stroke="#64748b" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="572" y="385.5" font-size="14" font-weight="700" fill="#0f172a">pentaho_operations_mart</text>
+<text x="572" y="402.5" font-size="12" fill="#0f172a">pentaho_mart_postgresql.sql</text>
+<rect x="556" y="428" width="216" height="50" rx="10" fill="#ffffff" stroke="#64748b" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="572" y="443.5" font-size="14" font-weight="700" fill="#0f172a">pentaho_dilogs</text>
+<text x="572" y="460.5" font-size="12" fill="#0f172a">pentaho_logging_postgresql.sql</text>
+<rect x="16" y="276" width="212" height="84" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="46" cy="318" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(34 306) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l4 2"/></g>
+<text x="76" y="301" font-size="14" font-weight="700" fill="#3b0764">Hibernate</text>
+<text x="76" y="318" font-size="12" fill="#3b0764">hibernate-settings.xml</text>
+<text x="76" y="333" font-size="12" fill="#3b0764">audit logging</text>
+<rect x="16" y="388" width="212" height="84" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="46" cy="430" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(34 418) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="m19 9-5 5-4-4-3 3"/></g>
+<text x="76" y="413" font-size="14" font-weight="700" fill="#3b0764">Operations Mart</text>
+<text x="76" y="430" font-size="12" fill="#3b0764">usage and</text>
+<text x="76" y="445" font-size="12" fill="#3b0764">performance</text>
+<rect x="276" y="294" width="220" height="160" rx="10" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="292" y="334.5" font-size="14" font-weight="700" fill="#134e4a">Five, all as hibuser</text>
+<text x="292" y="351.5" font-size="12" fill="#134e4a">jdbc/Hibernate</text>
+<text x="292" y="366.5" font-size="12" fill="#134e4a">jdbc/Audit</text>
+<text x="292" y="381.5" font-size="12" fill="#134e4a">jdbc/PDI_Operations_Mart</text>
+<text x="292" y="396.5" font-size="12" fill="#134e4a">jdbc/pentaho_operations_mart</text>
+<text x="292" y="411.5" font-size="12" fill="#134e4a">jdbc/live_logging_info</text>
+<rect x="16" y="512" width="768" height="56" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="48" cy="540" r="19" fill="#ffffff" stroke="#b45309" stroke-width="1.2"/>
+<g transform="translate(36 528) scale(1)" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></g>
+<text x="78" y="537" font-size="14" font-weight="700" fill="#78350f">After the first start, jackrabbit is no longer empty</text>
+<text x="78" y="555" font-size="12" fill="#78350f">empty after a start: the server never reached its repository; check context.xml and pg_hba.conf</text>
+</svg>

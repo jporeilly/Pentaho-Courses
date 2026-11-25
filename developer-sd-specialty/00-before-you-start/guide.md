@@ -19,11 +19,12 @@ This panel stays beside your tools for the whole workshop:
 
 ## Track your progress
 
-In every workshop lab, each numbered heading is a **step** with a
-checkbox — select it when you're done. Progress is saved on this machine
-and survives restarts, so you can pick up exactly where you left off.
-(This orientation page doesn't track steps — the checkboxes start in
-the first workshop.)
+Each workshop's steps sit in a numbered row at the top of the lab, one
+dot per step. Work through them in order: the button at the end of a
+step names the next one, and moving on puts a check mark on the step
+you leave. Your progress is saved on this machine and survives
+restarts, so you can pick up exactly where you left off. (This page has
+no steps: tracking starts in the first workshop.)
 
 ## Copy code with one click
 
@@ -42,6 +43,26 @@ Launch your main tool straight from the guide:
 
 If it is already open from a previous session, the button focuses
 the running window instead of starting a second copy.
+
+Every workshop follows the same map. A publisher sends to a broker that
+runs in a container, a Pentaho Data Integration transformation consumes
+from that broker, and the data lands in a file or in MySQL:
+
+<div align="center">
+<figure>
+<img src="../_assets/images/sd-lab-setup.png" alt="Four rows, one per workshop: sensor.py to HiveMQ on 1883 to an MQTT consumer writing robot_sensor.txt; the MQTT producer to EMQX on 1884 to an MQTT consumer writing the alert files; sensor_tv_room.py to RabbitMQ on 5672 to an AMQP consumer writing tv_room_sensor.txt; produce_users.py to Kafka on 9092 to a Kafka consumer loading MySQL user_events on 3306. A bar lists the admin UIs on 9090, 18083 and 15672" width="800">
+<figcaption>The lab map: publishers, broker containers, consumers and outputs</figcaption>
+</figure>
+</div>
+
+Read the diagram one row per workshop, left to right: HiveMQ, EMQX,
+RabbitMQ, then Kafka. The EMQX lab publishes from Pentaho Data
+Integration itself, with the **MQTT producer** in `tr_mqtt_producer.ktr`;
+the other three use a bundled Python script. Each consumer step runs a
+child transformation for every batch, which writes to a file in the
+lab's folder or, for Kafka, loads the workshop MySQL. HiveMQ, EMQX and
+RabbitMQ each have an admin UI you open in a browser; their logins are
+in the **Ports and logins** tab below.
 
 ### Do you need to set anything up?
 
@@ -126,7 +147,7 @@ provisioning\check-environment.ps1 -Streaming
 <details>
 <summary>Troubleshooting</summary>
 
-**A port is already in use.** Something else owns 1883, 5672 or 9092 —
+**A port is already in use.** Something else owns 1883, 1884, 5672 or 9092 —
 usually an older broker container. `podman ps -a` shows what;
 `podman rm -f <name>` clears it.
 
@@ -146,7 +167,7 @@ brokers back with it.
 
 **Everything is slow or containers get OOM-killed.** The Podman
 machine defaults to a modest memory slice — in Podman Desktop,
-Settings → Resources, give it 4 GB+ when running all three brokers.
+Settings → Resources, give it 4 GB+ when running all four brokers.
 
 **Which MQTT broker am I talking to?** HiveMQ listens on **1883**,
 EMQX on **1884** — both run at once. If a consumer sees nothing,

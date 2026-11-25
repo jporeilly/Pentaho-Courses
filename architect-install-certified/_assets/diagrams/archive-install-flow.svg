@@ -1,0 +1,247 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="2234" viewBox="0 0 800 2234" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+<filter id="shadow" x="-10%" y="-10%" width="120%" height="140%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#0f172a" flood-opacity="0.12"/></filter></defs>
+<rect width="800" height="2234" fill="#ffffff"/>
+<rect x="16" y="16" width="768" height="364" rx="12" fill="#f8fafc" stroke="#f1f5f9" stroke-width="1.5"/>
+<path d="M16 28a12 12 0 0 1 12-12h744a12 12 0 0 1 12 12v32h-768z" fill="#475569"/>
+<g transform="translate(29 26) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></g>
+<text x="56" y="36" font-size="14" font-weight="700" fill="#ffffff">Prepare the machine</text>
+<text x="56" y="52" font-size="11.5" fill="#ffffff" opacity="0.92">the user, the paths and Java 21</text>
+<rect x="16" y="406" width="768" height="468" rx="12" fill="#f0fdf4" stroke="#dcfce7" stroke-width="1.5"/>
+<path d="M16 418a12 12 0 0 1 12-12h744a12 12 0 0 1 12 12v32h-768z" fill="#15803d"/>
+<g transform="translate(29 416) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></g>
+<text x="56" y="426" font-size="14" font-weight="700" fill="#ffffff">PostgreSQL 17</text>
+<text x="56" y="442" font-size="11.5" fill="#ffffff" opacity="0.92">the database server for the Pentaho Repository</text>
+<rect x="16" y="900" width="768" height="468" rx="12" fill="#f5f3ff" stroke="#ede9fe" stroke-width="1.5"/>
+<path d="M16 912a12 12 0 0 1 12-12h744a12 12 0 0 1 12 12v32h-768z" fill="#6d28d9"/>
+<g transform="translate(29 910) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="8" x="2" y="2" rx="2" ry="2"/><rect width="20" height="8" x="2" y="14" rx="2" ry="2"/><line x1="6" x2="6.01" y1="6" y2="6"/><line x1="6" x2="6.01" y1="18" y2="18"/></g>
+<text x="56" y="920" font-size="14" font-weight="700" fill="#ffffff">Unpack and connect the server</text>
+<text x="56" y="936" font-size="11.5" fill="#ffffff" opacity="0.92">the archive, the repository databases and their connections</text>
+<rect x="16" y="1394" width="768" height="572" rx="12" fill="#fffbeb" stroke="#fef3c7" stroke-width="1.5"/>
+<path d="M16 1406a12 12 0 0 1 12-12h744a12 12 0 0 1 12 12v32h-768z" fill="#b45309"/>
+<g transform="translate(29 1404) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></g>
+<text x="56" y="1414" font-size="14" font-weight="700" fill="#ffffff">Start, log in and license</text>
+<text x="56" y="1430" font-size="11.5" fill="#ffffff" opacity="0.92">the first start, its checks and the license</text>
+<rect x="16" y="2082" width="768" height="136" rx="12" fill="#f8fafc" stroke="#f1f5f9" stroke-width="1.5"/>
+<path d="M16 2094a12 12 0 0 1 12-12h744a12 12 0 0 1 12 12v32h-768z" fill="#475569"/>
+<g transform="translate(29 2092) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 5h8"/><path d="M13 12h8"/><path d="M13 19h8"/><path d="m3 17 2 2 4-4"/><rect x="3" y="4" width="6" height="6" rx="1"/></g>
+<text x="56" y="2102" font-size="14" font-weight="700" fill="#ffffff">Then</text>
+<text x="56" y="2118" font-size="11.5" fill="#ffffff" opacity="0.92">the labs that build on it, lessons 07 to 10</text>
+<path d="M514 116L536 116" fill="none" stroke="#64748b" stroke-width="1.7" stroke-dasharray="5 4"/>
+<path d="M514 220L536 220" fill="none" stroke="#64748b" stroke-width="1.7" stroke-dasharray="5 4"/>
+<path d="M514 324L536 324" fill="none" stroke="#64748b" stroke-width="1.7" stroke-dasharray="5 4"/>
+<path d="M514 506L536 506" fill="none" stroke="#64748b" stroke-width="1.7" stroke-dasharray="5 4"/>
+<path d="M514 610L536 610" fill="none" stroke="#64748b" stroke-width="1.7" stroke-dasharray="5 4"/>
+<path d="M514 714L536 714" fill="none" stroke="#64748b" stroke-width="1.7" stroke-dasharray="5 4"/>
+<path d="M514 818L536 818" fill="none" stroke="#64748b" stroke-width="1.7" stroke-dasharray="5 4"/>
+<path d="M514 1000L536 1000" fill="none" stroke="#64748b" stroke-width="1.7" stroke-dasharray="5 4"/>
+<path d="M514 1104L536 1104" fill="none" stroke="#64748b" stroke-width="1.7" stroke-dasharray="5 4"/>
+<path d="M514 1208L536 1208" fill="none" stroke="#64748b" stroke-width="1.7" stroke-dasharray="5 4"/>
+<path d="M514 1312L536 1312" fill="none" stroke="#64748b" stroke-width="1.7" stroke-dasharray="5 4"/>
+<path d="M514 1494L536 1494" fill="none" stroke="#64748b" stroke-width="1.7" stroke-dasharray="5 4"/>
+<path d="M514 1598L536 1598" fill="none" stroke="#64748b" stroke-width="1.7" stroke-dasharray="5 4"/>
+<path d="M514 1702L536 1702" fill="none" stroke="#64748b" stroke-width="1.7" stroke-dasharray="5 4"/>
+<path d="M514 1806L536 1806" fill="none" stroke="#64748b" stroke-width="1.7" stroke-dasharray="5 4"/>
+<path d="M514 1910L536 1910" fill="none" stroke="#64748b" stroke-width="1.7" stroke-dasharray="5 4"/>
+<path d="M470 158L470 175" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M470 262L470 279" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M470 366L470 461" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M470 548L470 565" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M470 652L470 669" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M470 756L470 773" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M470 860L470 955" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M470 1042L470 1059" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M470 1146L470 1163" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M470 1250L470 1267" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M470 1354L470 1449" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M470 1536L470 1553" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M470 1640L470 1657" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M470 1744L470 1761" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M470 1848L470 1865" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M470 1952L470 1989" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M470 2056L470 2079" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="687.2" y="28" width="82.8" height="20" rx="10" fill="#ffffff" opacity="0.95"/>
+<text x="728.6" y="42" text-anchor="middle" font-size="10.5" font-weight="700" letter-spacing="0.5" fill="#475569">LESSON 05</text>
+<rect x="687.2" y="418" width="82.8" height="20" rx="10" fill="#ffffff" opacity="0.95"/>
+<text x="728.6" y="432" text-anchor="middle" font-size="10.5" font-weight="700" letter-spacing="0.5" fill="#15803d">LESSON 05</text>
+<rect x="687.2" y="912" width="82.8" height="20" rx="10" fill="#ffffff" opacity="0.95"/>
+<text x="728.6" y="926" text-anchor="middle" font-size="10.5" font-weight="700" letter-spacing="0.5" fill="#6d28d9">LESSON 06</text>
+<rect x="687.2" y="1406" width="82.8" height="20" rx="10" fill="#ffffff" opacity="0.95"/>
+<text x="728.6" y="1420" text-anchor="middle" font-size="10.5" font-weight="700" letter-spacing="0.5" fill="#b45309">LESSON 06</text>
+<rect x="28" y="74" width="486" height="84" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="58" cy="116" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(46 104) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 11 2-2-2-2"/><path d="M11 13h4"/><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/></g>
+<text x="88" y="99" font-size="14" font-weight="700" fill="#1e3a8a">1. Install unzip, set the Pentaho paths</text>
+<text x="88" y="116" font-size="12" fill="#1e3a8a">sudo apt install -y unzip; PENTAHO_BASE, PENTAHO_SERVER</text>
+<text x="88" y="131" font-size="12" fill="#1e3a8a">and TOMCAT_HOME in /etc/environment</text>
+<rect x="536" y="74" width="236" height="84" rx="10" fill="#ffffff" stroke="#64748b" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="552" y="106.5" font-size="14" font-weight="700" fill="#0f172a">UnZip 6.00</text>
+<text x="552" y="123.5" font-size="12" fill="#0f172a">unzip -v, first line</text>
+<rect x="28" y="178" width="486" height="84" rx="10" fill="#f1f5f9" stroke="#475569" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="58" cy="220" r="19" fill="#ffffff" stroke="#475569" stroke-width="1.2"/>
+<g transform="translate(46 208) scale(1)" fill="none" stroke="#475569" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></g>
+<text x="88" y="203" font-size="14" font-weight="700" fill="#0f172a">2. Create the pentaho user</text>
+<text x="88" y="220" font-size="12" fill="#0f172a">sudo adduser pentaho; usermod -aG sudo pentaho;</text>
+<text x="88" y="235" font-size="12" fill="#0f172a">work as pentaho from here on</text>
+<rect x="536" y="178" width="236" height="84" rx="10" fill="#ffffff" stroke="#64748b" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="552" y="210.5" font-size="14" font-weight="700" fill="#0f172a">groups: pentaho, sudo</text>
+<text x="552" y="227.5" font-size="12" fill="#0f172a">sudo -v returns with no error</text>
+<rect x="28" y="282" width="486" height="84" rx="10" fill="#f1f5f9" stroke="#475569" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="58" cy="324" r="19" fill="#ffffff" stroke="#475569" stroke-width="1.2"/>
+<g transform="translate(46 312) scale(1)" fill="none" stroke="#475569" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v2"/><path d="M14 2v2"/><path d="M16 8a1 1 0 0 1 1 1v8a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1h14a4 4 0 1 1 0 8h-1"/><path d="M6 2v2"/></g>
+<text x="88" y="307" font-size="14" font-weight="700" fill="#0f172a">3. Install Java 21, set PENTAHO_JAVA_HOME</text>
+<text x="88" y="324" font-size="12" fill="#0f172a">sudo apt install -y openjdk-21-jre-headless;</text>
+<text x="88" y="339" font-size="12" fill="#0f172a">PENTAHO_JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64</text>
+<rect x="536" y="282" width="236" height="84" rx="10" fill="#ffffff" stroke="#64748b" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="552" y="307" font-size="14" font-weight="700" fill="#0f172a">openjdk version "21.0.</text>
+<text x="552" y="324" font-size="12" fill="#0f172a">echo $PENTAHO_JAVA_HOME</text>
+<text x="552" y="339" font-size="12" fill="#0f172a">prints the same path</text>
+<rect x="28" y="464" width="486" height="84" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="58" cy="506" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(46 494) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></g>
+<text x="88" y="489" font-size="14" font-weight="700" fill="#14532d">4. Install PostgreSQL 17</text>
+<text x="88" y="506" font-size="12" fill="#14532d">the PostgreSQL (PGDG) repository, then</text>
+<text x="88" y="521" font-size="12" fill="#14532d">sudo apt install -y postgresql-17</text>
+<rect x="536" y="464" width="236" height="84" rx="10" fill="#ffffff" stroke="#64748b" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="552" y="496.5" font-size="14" font-weight="700" fill="#0f172a">LISTEN on port 5432</text>
+<text x="552" y="513.5" font-size="12" fill="#0f172a">SELECT version(): PostgreSQL 17.</text>
+<rect x="28" y="568" width="486" height="84" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="58" cy="610" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(46 598) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15H6a4 4 0 0 0-4 4v2"/><path d="m14.305 16.53.923-.382"/><path d="m15.228 13.852-.923-.383"/><path d="m16.852 12.228-.383-.923"/><path d="m16.852 17.772-.383.924"/><path d="m19.148 12.228.383-.923"/><path d="m19.53 18.696-.382-.924"/><path d="m20.772 13.852.924-.383"/><path d="m20.772 16.148.924.383"/><circle cx="18" cy="15" r="3"/><circle cx="9" cy="7" r="4"/></g>
+<text x="88" y="593" font-size="14" font-weight="700" fill="#14532d">5. Create the pentaho database role</text>
+<text x="88" y="610" font-size="12" fill="#14532d">ALTER USER postgres WITH PASSWORD; CREATE USER</text>
+<text x="88" y="625" font-size="12" fill="#14532d">pentaho, then WITH SUPERUSER (demo only)</text>
+<rect x="536" y="568" width="236" height="84" rx="10" fill="#ffffff" stroke="#64748b" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="552" y="600.5" font-size="14" font-weight="700" fill="#0f172a">ALTER, CREATE, ALTER ROLE</text>
+<text x="552" y="617.5" font-size="12" fill="#0f172a">one line per command</text>
+<rect x="28" y="672" width="486" height="84" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="58" cy="714" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(46 702) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></g>
+<text x="88" y="697" font-size="14" font-weight="700" fill="#14532d">6. Configure pg_hba.conf</text>
+<text x="88" y="714" font-size="12" fill="#14532d">local lines: scram-sha-256; first host line:</text>
+<text x="88" y="729" font-size="12" fill="#14532d">0.0.0.0/0 md5; sudo systemctl restart postgresql</text>
+<rect x="536" y="672" width="236" height="84" rx="10" fill="#ffffff" stroke="#64748b" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="552" y="697" font-size="14" font-weight="700" fill="#0f172a">Seven lines</text>
+<text x="552" y="714" font-size="12" fill="#0f172a">the first three with</text>
+<text x="552" y="729" font-size="12" fill="#0f172a">the new methods</text>
+<rect x="28" y="776" width="486" height="84" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="58" cy="818" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(46 806) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="m9 14 2 2 4-4"/></g>
+<text x="88" y="801" font-size="14" font-weight="700" fill="#1e3a8a">7. Install pgAdmin 4, validate</text>
+<text x="88" y="818" font-size="12" fill="#1e3a8a">pgadmin4-desktop, register the server as Pentaho;</text>
+<text x="88" y="833" font-size="12" fill="#1e3a8a">then the Java and PostgreSQL checks</text>
+<rect x="536" y="776" width="236" height="84" rx="10" fill="#ffffff" stroke="#64748b" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="552" y="801" font-size="14" font-weight="700" fill="#0f172a">Servers (1) &gt; Pentaho</text>
+<text x="552" y="818" font-size="12" fill="#0f172a">the checks print OK for</text>
+<text x="552" y="833" font-size="12" fill="#0f172a">PENTAHO_JAVA_HOME</text>
+<rect x="28" y="958" width="486" height="84" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="58" cy="1000" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(46 988) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z"/><path d="M12 22V12"/><polyline points="3.29 7 12 12 20.71 7"/><path d="m7.5 4.27 9 5.15"/></g>
+<text x="88" y="975.5" font-size="14" font-weight="700" fill="#1e3a8a">8. Unpack the server</text>
+<text x="88" y="992.5" font-size="12" fill="#1e3a8a">/opt/pentaho/{server,software}; unzip</text>
+<text x="88" y="1007.5" font-size="12" fill="#1e3a8a">pentaho-server-ee-11.0.0.0-237.zip into</text>
+<text x="88" y="1022.5" font-size="12" fill="#1e3a8a">$PENTAHO_BASE/server; chown -R pentaho:pentaho</text>
+<rect x="536" y="958" width="236" height="84" rx="10" fill="#ffffff" stroke="#64748b" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="552" y="983" font-size="14" font-weight="700" fill="#0f172a">Three folders</text>
+<text x="552" y="1000" font-size="12" fill="#0f172a">jdbc-distribution, license-</text>
+<text x="552" y="1015" font-size="12" fill="#0f172a">installer, pentaho-server</text>
+<rect x="28" y="1062" width="486" height="84" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="58" cy="1104" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(46 1092) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></g>
+<text x="88" y="1079.5" font-size="14" font-weight="700" fill="#14532d">9. Create the repository databases</text>
+<text x="88" y="1096.5" font-size="12" fill="#14532d">in $PENTAHO_SERVER/data/postgresql, psql as pentaho:</text>
+<text x="88" y="1111.5" font-size="12" fill="#14532d">\i create_jcr, create_quartz; \q; then create_repository,</text>
+<text x="88" y="1126.5" font-size="12" fill="#14532d">pentaho_mart, pentaho_logging (_postgresql.sql)</text>
+<rect x="536" y="1062" width="236" height="84" rx="10" fill="#ffffff" stroke="#64748b" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="552" y="1087" font-size="14" font-weight="700" fill="#0f172a">Three databases</text>
+<text x="552" y="1104" font-size="12" fill="#0f172a">jackrabbit, quartz, hibernate;</text>
+<text x="552" y="1119" font-size="12" fill="#0f172a">11 tables in quartz</text>
+<rect x="28" y="1166" width="486" height="84" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="58" cy="1208" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(46 1196) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 20H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.98a2 2 0 0 1 1.69.9l.66 1.2A2 2 0 0 0 12 6h8a2 2 0 0 1 2 2v3.3"/><path d="m14.305 19.53.923-.382"/><path d="m15.228 16.852-.923-.383"/><path d="m16.852 15.228-.383-.923"/><path d="m16.852 20.772-.383.924"/><path d="m19.148 15.228.383-.923"/><path d="m19.53 21.696-.382-.924"/><path d="m20.772 16.852.924-.383"/><path d="m20.772 19.148.924.383"/><circle cx="18" cy="18" r="3"/></g>
+<text x="88" y="1183.5" font-size="14" font-weight="700" fill="#3b0764">10. Check the repository configuration</text>
+<text x="88" y="1200.5" font-size="12" fill="#3b0764">quartz.properties: PostgreSQLDelegate;</text>
+<text x="88" y="1215.5" font-size="12" fill="#3b0764">hibernate-settings.xml: postgresql.hibernate.cfg.xml;</text>
+<text x="88" y="1230.5" font-size="12" fill="#3b0764">jackrabbit/repository.xml</text>
+<rect x="536" y="1166" width="236" height="84" rx="10" fill="#ffffff" stroke="#64748b" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="552" y="1191" font-size="14" font-weight="700" fill="#0f172a">postgresql everywhere</text>
+<text x="552" y="1208" font-size="12" fill="#0f172a">in every active section</text>
+<text x="552" y="1223" font-size="12" fill="#0f172a">of repository.xml</text>
+<rect x="28" y="1270" width="486" height="84" rx="10" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="58" cy="1312" r="19" fill="#ffffff" stroke="#0f766e" stroke-width="1.2"/>
+<g transform="translate(46 1300) scale(1)" fill="none" stroke="#0f766e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22v-5"/><path d="M15 8V2"/><path d="M17 8a1 1 0 0 1 1 1v4a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1z"/><path d="M9 8V2"/></g>
+<text x="88" y="1295" font-size="14" font-weight="700" fill="#134e4a">11. Check Tomcat's driver and context.xml</text>
+<text x="88" y="1312" font-size="12" fill="#134e4a">$TOMCAT_HOME/lib: postgresql-42.5.6.jar;</text>
+<text x="88" y="1327" font-size="12" fill="#134e4a">webapps/pentaho/META-INF/context.xml</text>
+<rect x="536" y="1270" width="236" height="84" rx="10" fill="#ffffff" stroke="#64748b" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="552" y="1295" font-size="14" font-weight="700" fill="#0f172a">Nine Resource elements</text>
+<text x="552" y="1312" font-size="12" fill="#0f172a">seven on jdbc:postgresql://</text>
+<text x="552" y="1327" font-size="12" fill="#0f172a">localhost:5432/</text>
+<rect x="28" y="1452" width="486" height="84" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="58" cy="1494" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(46 1482) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 11 2-2-2-2"/><path d="M11 13h4"/><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/></g>
+<text x="88" y="1477" font-size="14" font-weight="700" fill="#3b0764">12. Start the server</text>
+<text x="88" y="1494" font-size="12" fill="#3b0764">cd $PENTAHO_SERVER; ./start-pentaho.sh;</text>
+<text x="88" y="1509" font-size="12" fill="#3b0764">tail -f the catalina.*.log</text>
+<rect x="536" y="1452" width="236" height="84" rx="10" fill="#ffffff" stroke="#64748b" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="552" y="1484.5" font-size="14" font-weight="700" fill="#0f172a">Server startup in [...] ms</text>
+<text x="552" y="1501.5" font-size="12" fill="#0f172a">curl -I: HTTP/1.1 401</text>
+<rect x="28" y="1556" width="486" height="84" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="58" cy="1598" r="19" fill="#ffffff" stroke="#b45309" stroke-width="1.2"/>
+<g transform="translate(46 1586) scale(1)" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></g>
+<text x="88" y="1581" font-size="14" font-weight="700" fill="#78350f">13. Log in to the User Console</text>
+<text x="88" y="1598" font-size="12" fill="#78350f">http://localhost:8080/pentaho</text>
+<text x="88" y="1613" font-size="12" fill="#78350f">as admin, password password</text>
+<rect x="536" y="1556" width="236" height="84" rx="10" fill="#ffffff" stroke="#64748b" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="552" y="1581" font-size="14" font-weight="700" fill="#0f172a">Logged in as admin</text>
+<text x="552" y="1598" font-size="12" fill="#0f172a">no license yet: Missing</text>
+<text x="552" y="1613" font-size="12" fill="#0f172a">or expired license.</text>
+<rect x="28" y="1660" width="486" height="84" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="58" cy="1702" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(46 1690) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></g>
+<text x="88" y="1685" font-size="14" font-weight="700" fill="#14532d">14. Count what the first start created</text>
+<text x="88" y="1702" font-size="12" fill="#14532d">psql: qrtz6_locks in quartz, the public</text>
+<text x="88" y="1717" font-size="12" fill="#14532d">tables in hibernate and jackrabbit</text>
+<rect x="536" y="1660" width="236" height="84" rx="10" fill="#ffffff" stroke="#64748b" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="552" y="1685" font-size="14" font-weight="700" fill="#0f172a">5, 17 and 19</text>
+<text x="552" y="1702" font-size="12" fill="#0f172a">lock rows, hibernate tables,</text>
+<text x="552" y="1717" font-size="12" fill="#0f172a">jackrabbit tables</text>
+<rect x="28" y="1764" width="486" height="84" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="58" cy="1806" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(46 1794) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="8" x="2" y="2" rx="2" ry="2"/><rect width="20" height="8" x="2" y="14" rx="2" ry="2"/><line x1="6" x2="6.01" y1="6" y2="6"/><line x1="6" x2="6.01" y1="18" y2="18"/></g>
+<text x="88" y="1789" font-size="14" font-weight="700" fill="#3b0764">15. Optional: run it as a service</text>
+<text x="88" y="1806" font-size="12" fill="#3b0764">/etc/systemd/system/pentaho-server.service;</text>
+<text x="88" y="1821" font-size="12" fill="#3b0764">./stop-pentaho.sh, then systemctl start, enable</text>
+<rect x="536" y="1764" width="236" height="84" rx="10" fill="#ffffff" stroke="#64748b" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="552" y="1789" font-size="14" font-weight="700" fill="#0f172a">Loaded, enabled, active</text>
+<text x="552" y="1806" font-size="12" fill="#0f172a">systemctl status</text>
+<text x="552" y="1821" font-size="12" fill="#0f172a">pentaho-server</text>
+<rect x="28" y="1868" width="486" height="84" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="58" cy="1910" r="19" fill="#ffffff" stroke="#b45309" stroke-width="1.2"/>
+<g transform="translate(46 1898) scale(1)" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z"/><circle cx="16.5" cy="7.5" r=".5" fill="currentColor"/></g>
+<text x="88" y="1885.5" font-size="14" font-weight="700" fill="#78350f">16. Apply the license, set its path</text>
+<text x="88" y="1902.5" font-size="12" fill="#78350f">Administration &gt; Licenses &gt; +: activation code or</text>
+<text x="88" y="1917.5" font-size="12" fill="#78350f">license server; PENTAHO_LICENSE_INFORMATION_PATH;</text>
+<text x="88" y="1932.5" font-size="12" fill="#78350f">restart the server</text>
+<rect x="536" y="1868" width="236" height="84" rx="10" fill="#ffffff" stroke="#64748b" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="552" y="1893" font-size="14" font-weight="700" fill="#0f172a">Green check marks</text>
+<text x="552" y="1910" font-size="12" fill="#0f172a">for each product in</text>
+<text x="552" y="1925" font-size="12" fill="#0f172a">the Licenses table</text>
+<rect x="16" y="1992" width="768" height="64" rx="10" fill="#ffffff" stroke="#64748b" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="48" cy="2024" r="19" fill="#ffffff" stroke="#64748b" stroke-width="1.2"/>
+<g transform="translate(36 2012) scale(1)" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></g>
+<text x="78" y="2021" font-size="14" font-weight="700" fill="#0f172a">Done: a licensed Pentaho Server on Tomcat 10, its repository on PostgreSQL 17</text>
+<text x="78" y="2039" font-size="12" fill="#0f172a">jackrabbit, quartz and hibernate filled by the first start; the User Console on port 8080</text>
+<rect x="28" y="2140" width="177" height="64" rx="10" fill="#f1f5f9" stroke="#475569" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="44" y="2162.5" font-size="14" font-weight="700" fill="#0f172a">07 Server plugins</text>
+<text x="44" y="2179.5" font-size="12" fill="#0f172a">from the Plugin Manager</text>
+<rect x="217" y="2140" width="177" height="64" rx="10" fill="#f1f5f9" stroke="#475569" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="233" y="2162.5" font-size="14" font-weight="700" fill="#0f172a">08 Post installation</text>
+<text x="233" y="2179.5" font-size="12" fill="#0f172a">secure, ports, tune</text>
+<rect x="406" y="2140" width="177" height="64" rx="10" fill="#f1f5f9" stroke="#475569" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="422" y="2162.5" font-size="14" font-weight="700" fill="#0f172a">09 Service pack</text>
+<text x="422" y="2179.5" font-size="12" fill="#0f172a">11.0.0.3-312</text>
+<rect x="595" y="2140" width="177" height="64" rx="10" fill="#f1f5f9" stroke="#475569" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="611" y="2162.5" font-size="14" font-weight="700" fill="#0f172a">10 Client tools</text>
+<text x="611" y="2179.5" font-size="12" fill="#0f172a">the design tools</text>
+</svg>

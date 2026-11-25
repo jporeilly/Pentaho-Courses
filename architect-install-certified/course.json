@@ -11,9 +11,9 @@
     "messagePlaceholder": "What would you like to know?",
     "sendLabel": "Send"
   },
-  "title": "Pentaho Solution Architect - Installation - Certified",
+  "title": "Solution Architect - Installation - Certified",
   "description": "Pentaho 11 installation, configuration, upgrade, and post-install tasks. Archive deployment on Linux, server + client tools, plugins.",
-  "version": "0.1.15",
+  "version": "0.1.16",
   "kind": "workshop",
   "level": {
     "number": 3,
@@ -85,6 +85,10 @@
         {
           "title": "High Availability",
           "courseId": "architect-ha-specialty"
+        },
+        {
+          "title": "Enterprise Security",
+          "courseId": "admin-auth-specialty"
         },
         {
           "title": "Certified Solution Architect",

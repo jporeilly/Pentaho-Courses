@@ -1,0 +1,137 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="924" viewBox="0 0 800 924" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+<filter id="shadow" x="-10%" y="-10%" width="120%" height="140%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#0f172a" flood-opacity="0.12"/></filter></defs>
+<rect width="800" height="924" fill="#ffffff"/>
+<rect x="16" y="16" width="768" height="232" rx="12" fill="#f8fafc" stroke="#f1f5f9" stroke-width="1.5"/>
+<path d="M16 28a12 12 0 0 1 12-12h744a12 12 0 0 1 12 12v32h-768z" fill="#475569"/>
+<g transform="translate(29 26) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5h10"/><path d="M11 12h10"/><path d="M11 19h10"/><path d="M4 4h1v5"/><path d="M4 9h2"/><path d="M6.5 20H3.4c0-1 2.6-1.925 2.6-3.5a1.5 1.5 0 0 0-2.6-1.02"/></g>
+<text x="56" y="36" font-size="14" font-weight="700" fill="#ffffff">jb_fraud_main_job.kjb</text>
+<text x="56" y="52" font-size="11.5" fill="#ffffff" opacity="0.92">train, then predict: the red hops end the run in Abort job</text>
+<defs><marker id="hop-64748b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker></defs>
+<defs><marker id="hop-15803d" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#15803d"/></marker></defs>
+<defs><marker id="hop-b91c1c" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#b91c1c"/></marker></defs>
+<rect x="16" y="264" width="372" height="508" rx="12" fill="#f0fdfa" stroke="#ccfbf1" stroke-width="1.5"/>
+<path d="M16 276a12 12 0 0 1 12-12h348a12 12 0 0 1 12 12v32h-372z" fill="#0f766e"/>
+<g transform="translate(29 274) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 14 4 4-4 4"/><path d="m18 2 4 4-4 4"/><path d="M2 18h1.973a4 4 0 0 0 3.3-1.7l5.454-8.6a4 4 0 0 1 3.3-1.7H22"/><path d="M2 6h1.972a4 4 0 0 1 3.6 2.2"/><path d="M22 18h-6.041a4 4 0 0 1-3.3-1.8l-.359-.45"/></g>
+<text x="56" y="284" font-size="14" font-weight="700" fill="#ffffff">train_model: tr_train_model_fraud.ktr</text>
+<text x="56" y="300" font-size="11.5" fill="#ffffff" opacity="0.92">reads the fraud report, keeps the label</text>
+<rect x="412" y="264" width="372" height="624" rx="12" fill="#f5f3ff" stroke="#ede9fe" stroke-width="1.5"/>
+<path d="M412 276a12 12 0 0 1 12-12h348a12 12 0 0 1 12 12v32h-372z" fill="#6d28d9"/>
+<g transform="translate(425 274) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 14 4 4-4 4"/><path d="m18 2 4 4-4 4"/><path d="M2 18h1.973a4 4 0 0 0 3.3-1.7l5.454-8.6a4 4 0 0 1 3.3-1.7H22"/><path d="M2 6h1.972a4 4 0 0 1 3.6 2.2"/><path d="M22 18h-6.041a4 4 0 0 1-3.3-1.8l-.359-.45"/></g>
+<text x="452" y="284" font-size="14" font-weight="700" fill="#ffffff">predict_fraud: tr_predict_fraud.ktr</text>
+<text x="452" y="300" font-size="11.5" fill="#ffffff" opacity="0.92">no fraud report, no label</text>
+<path d="M192 112L221 112" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#hop-64748b)"/>
+<path d="M384 112L413 112" fill="none" stroke="#15803d" stroke-width="2" marker-end="url(#hop-15803d)"/>
+<path d="M576 112L605 112" fill="none" stroke="#15803d" stroke-width="2" marker-end="url(#hop-15803d)"/>
+<path d="M260 140L260 192Q260 204 272 204L317 204" fill="none" stroke="#b91c1c" stroke-width="2" marker-end="url(#hop-b91c1c)"/>
+<path d="M540 140L540 192Q540 204 528 204L483 204" fill="none" stroke="#b91c1c" stroke-width="2" marker-end="url(#hop-b91c1c)"/>
+<path d="M202 408L202 433" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M202 524L202 549" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M202 640L202 665" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M598 408L598 433" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M598 524L598 549" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M598 640L598 665" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M598 756L598 781" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M202 756L202 801" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M372 848C398.5 848 398.5 728 425 728" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="32" y="84" width="160" height="56" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="112" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(50 100) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z"/></g>
+<text x="92" y="117" font-size="14" font-weight="700" fill="#1e3a8a">START</text>
+<rect x="224" y="84" width="160" height="56" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="254" cy="112" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(242 100) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 14 4 4-4 4"/><path d="m18 2 4 4-4 4"/><path d="M2 18h1.973a4 4 0 0 0 3.3-1.7l5.454-8.6a4 4 0 0 1 3.3-1.7H22"/><path d="M2 6h1.972a4 4 0 0 1 3.6 2.2"/><path d="M22 18h-6.041a4 4 0 0 1-3.3-1.8l-.359-.45"/></g>
+<text x="284" y="117" font-size="14" font-weight="700" fill="#3b0764">train_model</text>
+<rect x="416" y="84" width="160" height="56" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="446" cy="112" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(434 100) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 14 4 4-4 4"/><path d="m18 2 4 4-4 4"/><path d="M2 18h1.973a4 4 0 0 0 3.3-1.7l5.454-8.6a4 4 0 0 1 3.3-1.7H22"/><path d="M2 6h1.972a4 4 0 0 1 3.6 2.2"/><path d="M22 18h-6.041a4 4 0 0 1-3.3-1.8l-.359-.45"/></g>
+<text x="476" y="117" font-size="14" font-weight="700" fill="#3b0764">predict_fraud</text>
+<rect x="608" y="84" width="160" height="56" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="638" cy="112" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(626 100) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></g>
+<text x="668" y="117" font-size="14" font-weight="700" fill="#14532d">Success</text>
+<rect x="320" y="176" width="160" height="56" rx="10" fill="#fee2e2" stroke="#b91c1c" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="350" cy="204" r="19" fill="#ffffff" stroke="#b91c1c" stroke-width="1.2"/>
+<g transform="translate(338 192) scale(1)" fill="none" stroke="#b91c1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 9-6 6"/><path d="M2.586 16.726A2 2 0 0 1 2 15.312V8.688a2 2 0 0 1 .586-1.414l4.688-4.688A2 2 0 0 1 8.688 2h6.624a2 2 0 0 1 1.414.586l4.688 4.688A2 2 0 0 1 22 8.688v6.624a2 2 0 0 1-.586 1.414l-4.688 4.688a2 2 0 0 1-1.414.586H8.688a2 2 0 0 1-1.414-.586z"/><path d="m9 9 6 6"/></g>
+<text x="380" y="209" font-size="14" font-weight="700" fill="#7f1d1d">Abort job</text>
+<rect x="228.95" y="155.5" width="62.1" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="260" y="173.5" text-anchor="middle" font-size="12" fill="#334155">failure</text>
+<rect x="508.95" y="155.5" width="62.1" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="540" y="173.5" text-anchor="middle" font-size="12" fill="#334155">failure</text>
+<text x="400" y="78" text-anchor="middle" font-size="11" font-weight="600" fill="#15803d">success</text>
+<text x="592" y="78" text-anchor="middle" font-size="11" font-weight="600" fill="#15803d">success</text>
+<rect x="32" y="320" width="340" height="88" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="364" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(50 352) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.706.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-1"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M2 15h10"/><path d="m9 18 3-3-3-3"/></g>
+<text x="92" y="339.5" font-size="14" font-weight="700" fill="#1e3a8a">4 CSV file inputs</text>
+<text x="92" y="356.5" font-size="12" fill="#1e3a8a">customer.csv, customer_billing.csv,</text>
+<text x="92" y="371.5" font-size="12" fill="#1e3a8a">transaction_details.csv and</text>
+<text x="92" y="386.5" font-size="12" fill="#1e3a8a">transaction_fraud_report.csv</text>
+<rect x="428" y="320" width="340" height="88" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="458" cy="364" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(446 352) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.706.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-1"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M2 15h10"/><path d="m9 18 3-3-3-3"/></g>
+<text x="488" y="339.5" font-size="14" font-weight="700" fill="#1e3a8a">3 CSV file inputs</text>
+<text x="488" y="356.5" font-size="12" fill="#1e3a8a">customer.csv, customer_billing.csv,</text>
+<text x="488" y="371.5" font-size="12" fill="#1e3a8a">transaction_details.csv;</text>
+<text x="488" y="386.5" font-size="12" fill="#1e3a8a">not the fraud report</text>
+<rect x="32" y="436" width="340" height="88" rx="10" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="480" r="19" fill="#ffffff" stroke="#0f766e" stroke-width="1.2"/>
+<g transform="translate(50 468) scale(1)" fill="none" stroke="#0f766e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m8 6 4-4 4 4"/><path d="M12 2v10.3a4 4 0 0 1-1.172 2.872L4 22"/><path d="m20 22-5-5"/></g>
+<text x="92" y="455.5" font-size="14" font-weight="700" fill="#134e4a">3 Stream lookups</text>
+<text x="92" y="472.5" font-size="12" fill="#134e4a">slkp-customer, slkp-transaction_details,</text>
+<text x="92" y="487.5" font-size="12" fill="#134e4a">slkp-fraud_report: adds</text>
+<text x="92" y="502.5" font-size="12" fill="#134e4a">reported_as_fraud_historic</text>
+<rect x="428" y="436" width="340" height="88" rx="10" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="458" cy="480" r="19" fill="#ffffff" stroke="#0f766e" stroke-width="1.2"/>
+<g transform="translate(446 468) scale(1)" fill="none" stroke="#0f766e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m8 6 4-4 4 4"/><path d="M12 2v10.3a4 4 0 0 1-1.172 2.872L4 22"/><path d="m20 22-5-5"/></g>
+<text x="488" y="455.5" font-size="14" font-weight="700" fill="#134e4a">2 Stream lookups</text>
+<text x="488" y="472.5" font-size="12" fill="#134e4a">slkp-customer,</text>
+<text x="488" y="487.5" font-size="12" fill="#134e4a">slkp-transaction_details:</text>
+<text x="488" y="502.5" font-size="12" fill="#134e4a">the same joins</text>
+<rect x="32" y="552" width="340" height="88" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="596" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(50 584) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="20" x="4" y="2" rx="2"/><line x1="8" x2="16" y1="6" y2="6"/><line x1="16" x2="16" y1="14" y2="18"/><path d="M16 10h.01"/><path d="M12 10h.01"/><path d="M8 10h.01"/><path d="M12 14h.01"/><path d="M8 14h.01"/><path d="M12 18h.01"/><path d="M8 18h.01"/></g>
+<text x="92" y="571.5" font-size="14" font-weight="700" fill="#3b0764">Eight features + the label</text>
+<text x="92" y="588.5" font-size="12" fill="#3b0764">frmla-billing=shipping,</text>
+<text x="92" y="603.5" font-size="12" fill="#3b0764">sv-convert_booleans_to_numbers</text>
+<text x="92" y="618.5" font-size="12" fill="#3b0764">(flags become Numbers)</text>
+<rect x="428" y="552" width="340" height="88" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="458" cy="596" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(446 584) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="20" x="4" y="2" rx="2"/><line x1="8" x2="16" y1="6" y2="6"/><line x1="16" x2="16" y1="14" y2="18"/><path d="M16 10h.01"/><path d="M12 10h.01"/><path d="M8 10h.01"/><path d="M12 14h.01"/><path d="M8 14h.01"/><path d="M12 18h.01"/><path d="M8 18h.01"/></g>
+<text x="488" y="571.5" font-size="14" font-weight="700" fill="#3b0764">Eight features only</text>
+<text x="488" y="588.5" font-size="12" fill="#3b0764">frmla-billing=shipping, sv-fields,</text>
+<text x="488" y="603.5" font-size="12" fill="#3b0764">sv-predict_fields,</text>
+<text x="488" y="618.5" font-size="12" fill="#3b0764">sv-convert_booleans_to_numbers</text>
+<rect x="32" y="668" width="340" height="88" rx="10" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="712" r="19" fill="#ffffff" stroke="#0f766e" stroke-width="1.2"/>
+<g transform="translate(50 700) scale(1)" fill="none" stroke="#0f766e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"/><path d="M9 13a4.5 4.5 0 0 0 3-4"/><path d="M6.003 5.125A3 3 0 0 0 6.401 6.5"/><path d="M3.477 10.896a4 4 0 0 1 .585-.396"/><path d="M6 18a4 4 0 0 1-1.967-.516"/><path d="M12 13h4"/><path d="M12 18h6a2 2 0 0 1 2 2v1"/><path d="M12 8h8"/><path d="M16 8V5a2 2 0 0 1 2-2"/><circle cx="16" cy="13" r=".5"/><circle cx="18" cy="3" r=".5"/><circle cx="20" cy="21" r=".5"/><circle cx="20" cy="8" r=".5"/></g>
+<text x="92" y="687.5" font-size="14" font-weight="700" fill="#134e4a">rscrpt-train_gbm</text>
+<text x="92" y="704.5" font-size="12" fill="#134e4a">All rows as frame train; gbm():</text>
+<text x="92" y="719.5" font-size="12" fill="#134e4a">bernoulli, 500 trees; save() the</text>
+<text x="92" y="734.5" font-size="12" fill="#134e4a">model; returns one row, ok: Finished</text>
+<rect x="428" y="668" width="340" height="88" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="458" cy="712" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(446 700) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/></g>
+<text x="488" y="687.5" font-size="14" font-weight="700" fill="#3b0764">rscrpt-predict</text>
+<text x="488" y="704.5" font-size="12" fill="#3b0764">All rows as frame test; load() the</text>
+<text x="488" y="719.5" font-size="12" fill="#3b0764">model; predict(): fraud_probability,</text>
+<text x="488" y="734.5" font-size="12" fill="#3b0764">fraud_pct, predicted_fraud</text>
+<rect x="428" y="784" width="340" height="88" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="458" cy="828" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(446 816) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.226 20.925A2 2 0 0 0 6 22h12a2 2 0 0 0 2-2V8a2.4 2.4 0 0 0-.706-1.706l-3.588-3.588A2.4 2.4 0 0 0 14 2H6a2 2 0 0 0-2 2v3.127"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="m5 11-3 3"/><path d="m5 17-3-3h10"/></g>
+<text x="488" y="803.5" font-size="14" font-weight="700" fill="#14532d">Predict Fraud</text>
+<text x="488" y="820.5" font-size="12" fill="#14532d">Text file output:</text>
+<text x="488" y="835.5" font-size="12" fill="#14532d">output/credit_card_fraud_&lt;HHmmss&gt;.csv,</text>
+<text x="488" y="850.5" font-size="12" fill="#14532d">11 columns</text>
+<rect x="32" y="804" width="340" height="88" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="848" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(50 836) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7"/><path d="M7 3v4a1 1 0 0 0 1 1h7"/></g>
+<text x="92" y="823.5" font-size="14" font-weight="700" fill="#14532d">gbm_fraud.rdata</text>
+<text x="92" y="840.5" font-size="12" fill="#14532d">in train_model_output, next to the</text>
+<text x="92" y="855.5" font-size="12" fill="#14532d">transformations: gbm_model and</text>
+<text x="92" y="870.5" font-size="12" fill="#14532d">best_trees</text>
+<rect x="174.1" y="766" width="55.8" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="202" y="784" text-anchor="middle" font-size="12" fill="#334155">save()</text>
+<rect x="372.1" y="775.5" width="55.8" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="400" y="793.5" text-anchor="middle" font-size="12" fill="#334155">load()</text>
+</svg>

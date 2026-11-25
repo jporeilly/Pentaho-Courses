@@ -23,8 +23,8 @@
 // Run from this folder:   node ir-workflow.svg.mjs
 // It writes ir-workflow.svg and ir-workflow-1.svg to ir-workflow-6.svg
 // here, and the matching PNGs in ../images at twice the size. The drawing
-// is workflow-strip.mjs, shared with az-workflow and dd-workflow.
-import { writeWorkflow } from './workflow-strip.mjs';
+// is scripts/workflow-strip.mjs, shared with az-workflow and dd-workflow.
+import { writeWorkflow } from '../../../../scripts/workflow-strip.mjs';
 
 const STEPS = [
   { icon: 'database', title: ['Data source', 'and template'] },

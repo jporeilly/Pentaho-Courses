@@ -43,6 +43,21 @@ background, the start script would end and the container with it.
 Without a license, the server starts, and signing in opens the
 **Licenses** page: add an activation code or a licensing URL there.
 
+<div align="center">
+<figure>
+<img src="../_assets/images/image-two-stage-build.png" alt="The image build: stagedArtifacts goes into the install_unpack stage, which unpacks the archive into /opt/pentaho; pack copies only /opt/pentaho, adds the user pentaho, the JRE, softwareOverride and the entrypoint, and makes the image; each container start copies the passes, runs extra-entrypoint.sh, installs a license if LICENSE_URL is set, and runs start-pentaho.sh" width="800">
+<figcaption>Two stages to build, four steps at every start</figcaption>
+</figure>
+</div>
+
+Read the diagram from the top left. Only `stagedArtifacts/` goes into
+`install_unpack`; `softwareOverride/` and `entrypoint/` go into `pack`,
+which bakes the passes into `/docker-entrypoint-init` for the K3s
+workshops. The gray box is what stays behind in the first stage. Under
+`pack`, `build.sh` tests the new image, and the bottom row is what
+`docker-entrypoint.sh` does, left to right, each time a container
+starts from it.
+
 ## Configured from `.env`
 
 `build.sh` reads every setting from `.env`, created from

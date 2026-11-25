@@ -24,10 +24,12 @@
 
 <div align="center">
 <figure>
-<img src="../_assets/images/langextract-contract-documents.png" alt="Architecture diagram in four bands: Get File Names scanning /data/contracts and Text File Input; Modified Java Script, HTTP Client with a 180-second timeout, JSON Input and Add Constants, then a copy hop that sends Branch A to a Table Output for staging.clause_details; Branch B through Row Denormaliser, Modified Java Script and Filter Rows on validation_status; Table Output steps for staging.contract_master (valid) and staging.contract_review_queue (invalid)" width="800">
+<img src="../_assets/images/contract-documents-flow.png" alt="A Pentaho Data Integration column for langextract_contracts.ktr: Get file names, Text file input, Modified JavaScript value building contract_id and request_json, REST client to the LangExtract service on localhost:8765 and llama3.1:8b on Ollama, JSON input, Get system info stamping extracted_at, Row denormaliser, a validation script and Filter rows on validation_status = Y. Branch A loads staging.clause_details; TRUE rows load contract_master and FALSE rows contract_review_queue" width="800">
 <figcaption>One stream, two branches: a row per clause, and a wide row per contract that is validated before it loads</figcaption>
 </figure>
 </div>
+
+Read the diagram down the left column, then across. The steps down to **JSON input** work as in Support Tickets: each contract becomes one `request_json`, the box at the top right, with the seven classes, an `overlap` of 200 characters between chunks and two extraction passes, and the reply becomes one row per clause. **Get system info** stamps each row with `extracted_at`, and its two hops copy every row into both branches. Branch A writes the rows as they are to `staging.clause_details`. Branch B pivots them into the wide row beside **Row denormaliser**, one per contract, sets `validation_status`, and **Filter rows** sends the row to `staging.contract_master` when it is `Y` and to `staging.contract_review_queue` when it is not.
 
 > **Note:**
 >
@@ -48,7 +50,9 @@ This workshop ships no files and no solution. You build the transformation from 
 | 7 | **Table output** | Writes normalized clause rows to `staging.clause_details` |
 | 8 | **Row denormaliser** | Pivots the target classes into one wide row per contract |
 | 9 | **Modified JavaScript value** | Validates the required fields |
-| 10 | **Filter rows** | Routes valid rows to `staging.contract_master` and the rest to `staging.contract_review_queue` |
+| 10 | **Filter rows** | Routes valid rows to `contract_master` and the rest to `contract_review_queue` |
+| 11 | **Table output** (`contract_master`) | Writes valid wide rows to `staging.contract_master` |
+| 12 | **Table output** (`contract_review_queue`) | Writes the rest to `staging.contract_review_queue` |
 
 The two branches are:
 

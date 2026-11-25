@@ -12,7 +12,7 @@
 > * Set the Pentaho path variables and `PENTAHO_JAVA_HOME`
 > * Install Java 21 (OpenJDK)
 > * Install PostgreSQL 17 and create the `pentaho` database role
-> * Switch local database connections to password authentication
+> * Switch database connections to password authentication, and allow password connections from any IPv4 address
 > * Install pgAdmin 4 and register the server
 >
 > **Prerequisites:**
@@ -38,6 +38,17 @@
 > The supported Linux baseline for Pentaho 11.x is Ubuntu 24.04 LTS. Every command below runs in a terminal; each one uses `sudo` where it needs root. For the versions Pentaho supports, see the Components Reference.
 
 <div class="pcm-embed-card" data-href="https://docs.pentaho.com/install/pdia-11.0-installation/components-reference" data-title="Components reference | Pentaho Documentation"></div>
+
+The archive installation runs across this lab and the next, and the diagram shows every stage in order.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/archive-install-flow.png" alt="The archive installation in sixteen stages, each beside the check that shows it worked. Lesson 05 prepares the machine: unzip and the Pentaho paths, the pentaho user, Java 21 and PENTAHO_JAVA_HOME, then PostgreSQL 17, the pentaho role, pg_hba.conf, and pgAdmin with the checks. Lesson 06 unpacks the server, creates the repository databases, checks their configuration and context.xml, starts it, logs in, counts the new tables, adds an optional service and applies the license." width="800">
+<figcaption>The archive installation, stage by stage, with the check for each</figcaption>
+</figure>
+</div>
+
+Read the diagram from the top down; the white box beside each stage is the checkpoint the lab gives for it. This lab is the first two panels: stages 1 to 3 install `unzip`, set the Pentaho paths, create the `pentaho` user and install Java 21 with `PENTAHO_JAVA_HOME`, and stages 4 to 7 install PostgreSQL 17, create the `pentaho` role, switch `pg_hba.conf` to passwords, install pgAdmin and validate the machine (tabs **6** and **8** only look around or are optional, so they are not drawn). [Install Pentaho Server](../06-installation-archive-pentaho-server/guide.md) is the other two: stages 8 to 11 unpack the server, create the repository databases and check the files that connect it to them, and stages 12 to 16 start it, log in, count what the first start created, optionally run it as a service and apply the license. The slate panel at the foot names the labs that build on the result.
 
 :::: tabs
 
@@ -501,7 +512,7 @@ sudo nano /etc/postgresql/17/main/postgresql.conf
 
 ### 9. Configure pg_hba.conf
 
-`pg_hba.conf` (PostgreSQL host-based authentication) decides who can connect to which database, from where, and how they prove who they are. Here you switch local connections to password authentication. In production, allow only the users and server addresses that need each database.
+`pg_hba.conf` (PostgreSQL host-based authentication) decides who can connect to which database, from where, and how they prove who they are. Here you switch local connections to password authentication, and open the first IPv4 `host` line to connections from any address, also with a password. In production, allow only the users and server addresses that need each database.
 
 1. Back up `pg_hba.conf` and open it:
 
@@ -556,11 +567,20 @@ sudo sed -i '0,/^host[[:space:]]\+all[[:space:]]\+all[[:space:]]\+127\.0\.0\.1\/
 >
 > #### PostgreSQL uses the first pg_hba.conf line that matches
 >
-> For every new connection, PostgreSQL reads `pg_hba.conf` from the top and takes the first line whose connection type (`local` for the Unix socket, `host` for TCP), database, user and address match; that line's method decides how the client must authenticate. The lines you changed used `peer`, which trusts the Linux user name: Linux user `postgres` became database user `postgres` with no password. `scram-sha-256` and `md5` ask for the database password instead.
+> For every new connection, PostgreSQL reads `pg_hba.conf` from the top and takes the first line whose connection type (`local` for the Unix socket, `host` for TCP), database, user and address match; that line's method decides how the client must authenticate. The two `local` lines you changed used `peer`, which trusts the Linux user name: Linux user `postgres` became database user `postgres` with no password. `scram-sha-256` and `md5` ask for the database password instead.
 >
 > `scram-sha-256` hashes passwords more strongly than `md5`, so prefer it on a modern PostgreSQL. Keep `md5` only where a client's JDBC driver does not support SCRAM.
 >
 > **Why it matters:** the Pentaho Server connects over TCP to `localhost` with its own database users, so the `host` lines are the ones it meets. A login error from the server after a change here is a `pg_hba.conf` question first.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/pg-hba-first-match.png" alt="How PostgreSQL picks a pg_hba.conf line: a new connection is checked against each line from the top on type, database, user and address; if one does not match, the next line is tried; the first line where all four match wins and its method decides: peer trusts the Linux user name, scram-sha-256 and md5 ask for the password. Below, the seven lines after the change: psql as postgres lands on line 1, the Pentaho Server on the host lines" width="800">
+<figcaption>The first matching line wins, and its method decides</figcaption>
+</figure>
+</div>
+
+Read the diagram from the top left. A new connection meets the amber checks one line at a time: if its type, database, user or address does not match, PostgreSQL tries the next line, and the first line where all four match decides the method. The table is your file after this step, with the three changed lines in amber. `sudo -u postgres psql` comes over the Unix socket as `postgres`, so line 1 catches it and it now needs the `postgres` password; the Pentaho Server comes over TCP to `localhost`, so it meets the `host` lines.
 
 3. Check the result:
 

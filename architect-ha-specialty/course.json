@@ -11,9 +11,9 @@
     "messagePlaceholder": "What would you like to know?",
     "sendLabel": "Send"
   },
-  "title": "Pentaho Solution Architect - High Availability Specialty",
+  "title": "Solution Architect - High Availability Specialty",
   "description": "Deploy the Pentaho Server for high availability: two server nodes behind an HAProxy pair with a Keepalived virtual IP, one shared PostgreSQL repository, the Jackrabbit cluster journal and clustered Quartz, then Carte clustering for Pentaho Data Integration execution and Tray.io driving it through the Carte REST API.",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "kind": "workshop",
   "level": {
     "number": 2,
@@ -68,6 +68,10 @@
         {
           "title": "High Availability",
           "courseId": "architect-ha-specialty"
+        },
+        {
+          "title": "Enterprise Security",
+          "courseId": "admin-auth-specialty"
         },
         {
           "title": "Certified Solution Architect",

@@ -11,9 +11,9 @@
     "messagePlaceholder": "What would you like to know?",
     "sendLabel": "Send"
   },
-  "title": "Pentaho Solution Architect - Containers Specialty",
+  "title": "Solution Architect - Containers Specialty",
   "description": "Deploy the Pentaho Server with containers and Kubernetes: build the EE image from a staged archive, run it with Podman Compose against PostgreSQL, then take the same deployment to K3s with raw manifests and Helm.",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "kind": "workshop",
   "level": { "number": 2, "name": "Specialty" },
   "mode": "sequential",
@@ -38,7 +38,7 @@
     "subject": "deploying the Pentaho Server with containers (Podman image builds, Compose with PostgreSQL, K3s manifests and Helm)",
     "suggestions": [
       "What does the softwareOverride layer pattern do in the image build?",
-      "Why does the repository need five PostgreSQL databases?",
+      "Why does the repository need three PostgreSQL databases and two schemas?",
       "How do the K3s manifests map onto the Compose deployment?",
       "When would I choose Helm over raw manifests?"
     ]
@@ -63,6 +63,10 @@
         {
           "title": "High Availability",
           "courseId": "architect-ha-specialty"
+        },
+        {
+          "title": "Enterprise Security",
+          "courseId": "admin-auth-specialty"
         },
         {
           "title": "Certified Solution Architect",
@@ -94,7 +98,7 @@
     },
     {
       "title": "Helm",
-      "summary": "Package the K3s deployment as a Helm release - install, upgrade and roll back from one chart."
+      "summary": "Package the K3s deployment as a Helm release - install, upgrade, roll back and uninstall from one chart."
     }
   ],
   "completionCertificate": {

@@ -17,7 +17,7 @@
 > * Confirm MySQL, PDI, the Pentaho Server and Analyzer all answer.
 > * Check the workshop folder: *C:\Workshop-DP-Specialty*
 >
-> **Prerequisites:** Pentaho Developer - DI Practitioner, or the same skills: building, previewing and running a transformation and a job in Spoon. Basic SQL.
+> **Prerequisites:** Developer - DI Practitioner, or the same skills: building, previewing and running a transformation and a job in Spoon. Basic SQL.
 >
 > **Estimated time:** 5 minutes on a lab VM; about 30 minutes the first
 > time on your own machine.

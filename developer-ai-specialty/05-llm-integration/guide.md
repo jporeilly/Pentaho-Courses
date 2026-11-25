@@ -13,6 +13,15 @@ These workshops share one architectural pattern: Pentaho Data Integration is the
 * How to write a prompt that returns the same structured answer every time
 * The five mistakes that break LLM pipelines most often
 
+<div align="center">
+<figure>
+<img src="../_assets/images/llm-row-skeleton.png" alt="One row's path: CSV file input, Modified JavaScript value building json_payload with getVariable and JSON.stringify, REST client posting to Ollama's /api/generate on localhost:11434 with stream false and format json, then Parse 1 reading $.response and Parse 2 reading the model's own fields, and Text file output. A callout shows the model's JSON held as a string inside Ollama's reply" width="800">
+<figcaption>The skeleton every workshop shares: build, call, parse twice</figcaption>
+</figure>
+</div>
+
+Read the diagram from the top of the left column. Each row gets its prompt and request body from a **Modified JavaScript value** step, and **REST client** posts that body to Ollama and keeps the reply in a field (the names shown are those of Sentiment Analysis: `json_payload` and `llm_response`). The reply is JSON inside JSON, as the callout shows: Ollama's own object, whose `response` field holds the model's JSON as a string. So the answer is parsed twice, first `$.response`, then the model's fields, before the row is written. The tabs below take each part in turn.
+
 ::: tabs
 
 ### Request
@@ -55,7 +64,7 @@ The request payload structure is:
 
 > **Note:** When Pentaho Data Integration's REST Client step receives the Ollama response, it comes back as a single JSON object with two categories of fields: the **content fields** that contain the actual result, and the **performance/telemetry fields** that tell you how the inference went.
 >
-> The `response` field is a *string containing JSON*, not a nested object - which is why the pipeline requires two separate JSON Input steps: one to extract `$.response` from the Ollama wrapper, and a second to parse the actual model output into structured fields.
+> The `response` field is a *string containing JSON*, not a nested object - which is why the pipeline parses twice: once to extract `$.response` from the Ollama wrapper, and again to parse the actual model output into structured fields. Sentiment Analysis does this with two **JSON input** steps; the other workshops call `JSON.parse()` twice in one **Modified JavaScript value** step.
 
 The response payload structure is:
 
@@ -79,7 +88,7 @@ The response payload structure is:
 >
 > **`created_at`** — The UTC timestamp of when the response was generated. Useful for logging and auditing, particularly if you're persisting results to a database and need to track when the enrichment was applied.
 >
-> **`response`** — This is the only field you actually care about for downstream processing. It contains the LLM's generated output as a string. Importantly, even when you pass `"format": "json"` in the request, Ollama still wraps the model's JSON output inside this string field rather than embedding it as a native JSON object. That's why the pipeline needs a JSON Input step to extract `$.response` first, then a second parsing pass to read the actual model output.
+> **`response`** — This is the only field you actually care about for downstream processing. It contains the LLM's generated output as a string. Importantly, even when you pass `"format": "json"` in the request, Ollama still wraps the model's JSON output inside this string field rather than embedding it as a native JSON object. That's why the pipeline extracts `$.response` first, then makes a second parsing pass to read the actual model output.
 >
 > **`done`** — A boolean that signals whether generation completed. When `true`, the response is complete. When `false`, the model was interrupted or is still streaming (which shouldn't happen in Pentaho Data Integration since you set `stream: false`, but worth checking during error handling).
 >

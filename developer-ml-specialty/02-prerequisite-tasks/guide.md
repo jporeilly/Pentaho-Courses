@@ -18,6 +18,15 @@
 >
 > **Estimated time:** 15 minutes
 
+<div align="center">
+<figure>
+<img src="../_assets/images/ml-runtimes.png" alt="Where the code runs. On your machine, inside Spoon's Java process: the R script executor step talks through JRI to R, which runs inside Spoon's process, and the Python Executor step uses CPython in the h2o-env virtual environment. /etc/environment gives R its R_HOME. In the cloud, a Colab notebook in your browser runs on a hosted runtime. A red check: when an R step can't start R, check libjri.so and /etc/environment." width="800">
+<figcaption>Where each part of the course runs, and what this lab sets up for it</figcaption>
+</figure>
+</div>
+
+Read the diagram as a map of what this lab installs. Spoon is one Java process, started by `spoon.sh` with Pentaho Data Integration's `native-lib` folder on its library path. Inside it, the **R script executor** step reaches R through JRI: JRI's Java half ships with the step, its native half, `libjri.so`, is the file you copy into `native-lib`, and R itself runs inside Spoon's process and finds its installation through `R_HOME` from `/etc/environment`. The **Python Executor** step runs its script with the Python in the `h2o-env` virtual environment you create in your home folder. Colab needs nothing on your machine but a browser and your Google account: its notebooks run on a hosted runtime in the cloud. The red box is the rule to keep for later: when an R step can't start R, the cause is this setup, not the script.
+
 :::: tabs
 
 ### 1. Google Colab

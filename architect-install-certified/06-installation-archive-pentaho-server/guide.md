@@ -39,10 +39,12 @@
 
 <div align="center">
 <figure>
-<img src="../_assets/images/pentaho_pro_suite.png" alt="Diagram of Pentaho Data Integration Carte: developer tools call the Carte UI and server over a REST API, Carte ingests data from source systems such as Oracle, MySQL, CSV and Kafka, loads target systems such as Snowflake, Redshift and BigQuery, and uses an object store, file store, secrets and config maps" width="800">
-<figcaption>Pentaho Data Integration Carte: tools, sources, targets and storage</figcaption>
+<img src="../_assets/images/archive-install-layout.png" alt="One Ubuntu 24.04 LTS host: the staging area /opt/pentaho/software holds the server ZIP, JDBC drivers and EE plugins; the ZIP is unzipped into /opt/pentaho/server/pentaho-server, with pentaho-solutions, Tomcat 10 and start-pentaho.sh; the script runs Java 21 named by PENTAHO_JAVA_HOME, Tomcat reaches PostgreSQL 17 on port 5432 through the JNDI resources in context.xml, and the browser opens the User Console on port 8080" width="800">
+<figcaption>The archive installation on one host: staging, server, Java, repository and browser</figcaption>
 </figure>
 </div>
+
+Read the diagram as the plan for this workshop. Everything sits under `/opt/pentaho`, owned by the `pentaho` user: the blue staging area, `/opt/pentaho/software`, keeps what you download, and the archive in its `server` folder is unzipped into `/opt/pentaho/server`, which gives the violet `pentaho-server` folder that `$PENTAHO_SERVER` points at. `start-pentaho.sh` starts Tomcat on the Java 21 that `PENTAHO_JAVA_HOME` names, Tomcat's `context.xml` connects the server to its three repository databases in PostgreSQL 17 on port `5432`, and your browser reaches the User Console on port `8080`. The tabs below build it in that order.
 
 :::: tabs
 
@@ -156,6 +158,15 @@ ls -l "$PENTAHO_SERVER"/*.sh | head -3
 > #### Pentaho Repository components
 >
 > The Pentaho Repository, on PostgreSQL by default, has four parts: Jackrabbit (the solution repository, security and content metadata), Quartz (the scheduler's data), Hibernate (audit logging) and the Pentaho Operations Mart (usage and performance reporting).
+
+<div align="center">
+<figure>
+<img src="../_assets/images/repository-databases.png" alt="Server components, their JNDI resources and their databases: Jackrabbit uses jdbc/jackrabbit to reach the jackrabbit database, owner jcr_user; Quartz uses jdbc/Quartz to reach quartz, owner pentaho_user, with 11 qrtz6_ tables; Hibernate and the Operations Mart use five resources, all as hibuser, to reach hibernate with the public, pentaho_operations_mart and pentaho_dilogs schemas; the first start adds 19 tables in jackrabbit, 17 in public and 5 lock rows in quartz" width="800">
+<figcaption>The repository: component, JNDI resource, database and owner</figcaption>
+</figure>
+</div>
+
+Read the diagram from left to right. Each violet component names its data source in its own configuration file, Tomcat's `context.xml` defines that data source as a teal JNDI resource, and the resource logs in to a green database as that database's owner. Jackrabbit and Quartz each have a database of their own; Hibernate and the Operations Mart share `hibernate` through five resources, and the scripts add the Operations Mart and logging schemas beside `public`. Each green box also says what its script creates and what the first start adds: the steps below create the databases, the **Repository Configuration** and **Tomcat** tabs check the middle column, and the **Start Server** tab counts the tables.
 
 **Review the default passwords**
 
@@ -487,6 +498,7 @@ tail -f "$TOMCAT_HOME/logs/catalina."*.log
 3. Press `Ctrl+C` to stop following the log. The server keeps running.
 
 On this first start, before a license is installed, `tomcat/logs/pentaho.log` records a few `ERROR` lines (the scheduler's state and a geo `CsvReader`). They are expected: on the course's server they did not come back on the next start, once the license was in.
+
 4. Check that HTTP answers:
 
 ```bash
@@ -627,7 +639,7 @@ From now on, stop, start and restart the server with `systemctl`, not with the s
 
 <div align="center">
 <figure>
-<img src="../_assets/images/licenses.png" alt="The Administration perspective's Licenses page: the Status, Product Name, Version, Begin Date and Exp. Date table lists products such as Pentaho Data Integration-EE, BISERVER-EE and ANALYSIS-EE, each with a green check mark" width="800">
+<img src="../_assets/images/licenses.png" alt="The Administration perspective's Licenses page: the Status, Product Name, Version, Begin Date and Exp. Date table lists eleven products, among them PDI-EE, BISERVER-EE, ANALYSIS-EE and REPORTING-EE, each with a green check mark, a SUBSCRIPTION version and a two-year term" width="800">
 <figcaption>Licenses in the Administration perspective</figcaption>
 </figure>
 </div>

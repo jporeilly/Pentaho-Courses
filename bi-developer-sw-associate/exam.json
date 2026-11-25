@@ -20,7 +20,7 @@
       ],
       "correct": 0,
       "explanation": "An **OLAP system** is optimized for read-heavy operations. It utilizes **pre-aggregated multidimensional data** structures to provide fast, consistent query performance, which removes the analytical load from the transactional system.\n\nBecause these systems are structured for analysis, they provide the necessary performance for complex trend queries that would otherwise slow down a transaction-focused database.",
-      "source": "Pentaho BI Developer - SW Associate: Key Concepts — OLAP"
+      "source": "BI Developer - SW Associate: Key Concepts — OLAP"
     },
     {
       "id": "sw-m1-q2",
@@ -36,7 +36,7 @@
       ],
       "correct": 2,
       "explanation": "Mondrian is a **ROLAP engine**, meaning the cube is logical and defined by an XML schema. Each MDX request is translated into **SQL** that runs against the relational tables in the data mart.\n\nBecause the data is queried live from the relational database, it does not require a pre-built cube file on disk.",
-      "source": "Pentaho BI Developer - SW Associate: Key Concepts — ROLAP Mondrian"
+      "source": "BI Developer - SW Associate: Key Concepts — ROLAP Mondrian"
     },
     {
       "id": "sw-m1-q3",
@@ -52,7 +52,7 @@
       ],
       "correct": 3,
       "explanation": "A star schema uses one **denormalized table** for each dimension. A chain of normalized tables, such as product, subcategory, and category, collapses into a single dimension table, so each dimension needs only one join to the central fact table.",
-      "source": "Pentaho BI Developer - SW Associate: Key Concepts — Normalized vs Star"
+      "source": "BI Developer - SW Associate: Key Concepts — Normalized vs Star"
     },
     {
       "id": "sw-m1-q4",
@@ -68,7 +68,7 @@
       ],
       "correct": 2,
       "explanation": "The **Mondrian schema** is an XML file that defines the logical model, including cubes, dimensions, hierarchies, levels, and measures. It maps these logical components onto the physical tables and defines each measure's column and aggregator.",
-      "source": "Pentaho BI Developer - SW Associate: Key Concepts — ROLAP Mondrian"
+      "source": "BI Developer - SW Associate: Key Concepts — ROLAP Mondrian"
     },
     {
       "id": "sw-m2-q1",
@@ -84,7 +84,7 @@
       ],
       "correct": 3,
       "explanation": "The **fact table** contains the primary metrics used for calculations, such as `TOTALPRICE` for the Sales measure. It also contains the **foreign keys**, such as `CUSTOMERNUMBER` and `PRODUCTCODE`, which link each record to its corresponding attributes in the dimension tables.",
-      "source": "Pentaho BI Developer - SW Associate: Schemas — Basic Model (FACT)"
+      "source": "BI Developer - SW Associate: Schemas — Basic Model (FACT)"
     },
     {
       "id": "sw-m2-q2",
@@ -100,7 +100,7 @@
       ],
       "correct": 2,
       "explanation": "The Dimension's `foreignKey` names the fact-table column (`PRODUCTCODE` in `ORDERFACT`), and the Hierarchy's `primaryKey` names the matching column in its dimension table. Mondrian **joins on those two**.",
-      "source": "Pentaho BI Developer - SW Associate: Schemas — Overview (Dimension/Hierarchy)"
+      "source": "BI Developer - SW Associate: Schemas — Overview (Dimension/Hierarchy)"
     },
     {
       "id": "sw-m2-q3",
@@ -116,7 +116,7 @@
       ],
       "correct": 3,
       "explanation": "The **sum** aggregator adds values as they roll up across any dimension, so the territory, product-line, and grand totals are all real revenue.",
-      "source": "Pentaho BI Developer - SW Associate: Schemas — Overview (Measures)"
+      "source": "BI Developer - SW Associate: Schemas — Overview (Measures)"
     },
     {
       "id": "sw-m2-q4",
@@ -136,7 +136,7 @@
         4
       ],
       "explanation": "The **distinct-count** aggregator counts different `CUSTOMERNUMBER` values, so a customer who placed several orders counts once, and **avg** gives the mean order-line value.",
-      "source": "Pentaho BI Developer - SW Associate: Schemas — Overview (Measures)"
+      "source": "BI Developer - SW Associate: Schemas — Overview (Measures)"
     },
     {
       "id": "sw-m2-q5",
@@ -152,7 +152,7 @@
       ],
       "correct": 2,
       "explanation": "A **degenerate dimension** has no table of its own: its level reads `STATUS` straight from `ORDERFACT`. That avoids a join and a key for a column with a few values and nothing else to describe.",
-      "source": "Pentaho BI Developer - SW Associate: Schemas — SteelWheels (Order Status)"
+      "source": "BI Developer - SW Associate: Schemas — SteelWheels (Order Status)"
     },
     {
       "id": "sw-m2-q6",
@@ -168,7 +168,7 @@
       ],
       "correct": 1,
       "explanation": "When the `hasAll` property is set to true, the hierarchy includes an **(All) member** above every other member. This member represents the grand total and serves as the default member when the hierarchy is not assigned to a specific axis or slicer.\n\nBecause the **(All) member** is the default for the hierarchy, the report displays the grand total even when no specific member is selected.",
-      "source": "Pentaho BI Developer - SW Associate: Schemas — Overview (Hierarchy)"
+      "source": "BI Developer - SW Associate: Schemas — Overview (Hierarchy)"
     },
     {
       "id": "sw-m2-q7",
@@ -184,7 +184,7 @@
       ],
       "correct": 1,
       "explanation": "The **uniqueMembers** attribute indicates that the members of a level are unique across all parents, which allows the engine to generate more efficient SQL. Because country names are unique across territories, the setting should be true for Country. Since a city name like Portland appears under multiple states, the setting must be false for City.",
-      "source": "Pentaho BI Developer - SW Associate: Schemas — Overview (Level)"
+      "source": "BI Developer - SW Associate: Schemas — Overview (Level)"
     },
     {
       "id": "sw-m2-q8",
@@ -200,7 +200,7 @@
       ],
       "correct": 3,
       "explanation": "Mondrian **caches schemas**, so after a change is published, the **Mondrian Schema Cache** (and the reporting data cache) is refreshed in the User Console, and Analyzer then reads the new definition.\n\nPublishing again leaves the cached schema in place.",
-      "source": "Pentaho BI Developer - SW Associate: Schemas — Basic Model (Publish)"
+      "source": "BI Developer - SW Associate: Schemas — Basic Model (Publish)"
     },
     {
       "id": "sw-m2-q9",
@@ -216,7 +216,7 @@
       ],
       "correct": 3,
       "explanation": "A schema identifies its source data using a **connection name**. Because the Workbench and the Server resolve this name against their respective internal lists of connections, the schema will fail to return data if the Server does not have a defined connection that matches the name used in the Schema Workbench.\n\nThis is why a shared connection name, such as `hsqldb_sampledata`, must be defined in both the Schema Workbench and the Manage Data Sources area to ensure the Server can resolve the data source.",
-      "source": "Pentaho BI Developer - SW Associate: Schemas — Basic Model (JDBC Connection)"
+      "source": "BI Developer - SW Associate: Schemas — Basic Model (JDBC Connection)"
     },
     {
       "id": "sw-m3-q1",
@@ -232,7 +232,7 @@
       ],
       "correct": 3,
       "explanation": "A shared dimension belongs to the schema rather than a specific cube. Each cube uses a **DimensionUsage** to reference it while giving the `foreignKey` for its own join, so one definition serves both cubes even though their join columns differ.",
-      "source": "Pentaho BI Developer - SW Associate: Extend Model — Extended Model (TIME)"
+      "source": "BI Developer - SW Associate: Extend Model — Extended Model (TIME)"
     },
     {
       "id": "sw-m3-q2",
@@ -248,7 +248,7 @@
       ],
       "correct": 2,
       "explanation": "The schema must include **geo annotations** to define how Analyzer maps geographic data. The `Data.Role` of `Geography` identifies the level as geographic, `Geo.Role` specifies the type (such as Country or State), and `Geo.RequiredParents` identifies the parent levels required to resolve the location, such as a Country for a State.\n\n```xml\n<Level name=\"State Province\">\n  <Annotations>\n    <Annotation name=\"Data.Role\">Geography</Annotation>\n    <Annotation name=\"Geo.Role\">State</Annotation>\n    <Annotation name=\"Geo.RequiredParents\">Country</Annotation>\n  </Annotations>\n</Level>\n```",
-      "source": "Pentaho BI Developer - SW Associate: Extend Model — Extended Model (Annotations)"
+      "source": "BI Developer - SW Associate: Extend Model — Extended Model (Annotations)"
     },
     {
       "id": "sw-m3-q3",
@@ -264,7 +264,7 @@
       ],
       "correct": 0,
       "explanation": "To enable relative-date filtering, the system must recognize the dimension as a **TimeDimension** type and identify the role of each level using **time levelTypes** (such as `TimeYears`, `TimeQuarters`, or `TimeMonths`).\n\nAn **AnalyzerDateFormat** annotation, such as `[yyyy].['QTR'q]`, is required so Analyzer can determine the current period based on the provided format.",
-      "source": "Pentaho BI Developer - SW Associate: Extend Model — Extended Model (TIME)"
+      "source": "BI Developer - SW Associate: Extend Model — Extended Model (TIME)"
     },
     {
       "id": "sw-m3-q4",
@@ -280,7 +280,7 @@
       ],
       "correct": 1,
       "explanation": "Defining these attributes as **member properties** allows the system to attach details such as phone numbers, addresses, and credit limits to a level's members. This provides necessary context and filtering capabilities for the data without adding additional levels to the hierarchy.\n\n```text\nCustomer Name\n  - Member Property: PHONE\n  - Member Property: ADDRESSLINE1\n  - Member Property: CREDITLIMIT\n```",
-      "source": "Pentaho BI Developer - SW Associate: Extend Model — Extended Model (Customers)"
+      "source": "BI Developer - SW Associate: Extend Model — Extended Model (Customers)"
     },
     {
       "id": "sw-m3-q5",
@@ -296,7 +296,7 @@
       ],
       "correct": 1,
       "explanation": "Defining a **calculated member** in the `Measures` dimension ensures the calculation is performed once in the semantic layer.\n\nBy using the formula `[Measures].[Sales] / [Measures].[Quantity]`, every report will consistently display the same unit price because the logic is centralized in the schema.",
-      "source": "Pentaho BI Developer - SW Associate: Extend Model — Calculations (Unit Price)"
+      "source": "BI Developer - SW Associate: Extend Model — Calculations (Unit Price)"
     },
     {
       "id": "sw-m3-q6",
@@ -312,7 +312,7 @@
       ],
       "correct": 1,
       "explanation": "The **TopCount** function ranks the customer members by Sales and identifies the top 10. The **Aggregate** function then rolls that specific set into a single value.\n\nBecause a calculated member must return a single figure rather than a set of members, the **Aggregate** function is required to consolidate the result of the selection.",
-      "source": "Pentaho BI Developer - SW Associate: Extend Model — Calculations (Top 10 Customers)"
+      "source": "BI Developer - SW Associate: Extend Model — Calculations (Top 10 Customers)"
     },
     {
       "id": "sw-m4-q1",
@@ -328,7 +328,7 @@
       ],
       "correct": 0,
       "explanation": "The **WHERE clause** is the slicer: it sets the dimensional context, here `[Years].[2004]`, without placing that dimension on a visible axis.",
-      "source": "Pentaho BI Developer - SW Associate: MDX Query — Overview"
+      "source": "BI Developer - SW Associate: MDX Query — Overview"
     },
     {
       "id": "sw-m4-q2",
@@ -344,7 +344,7 @@
       ],
       "correct": 0,
       "explanation": "`Measures.AllMembers` returns every member of the Measures dimension, **calculated members** such as `UnitPrice` included, which is what a check of the whole cube needs.",
-      "source": "Pentaho BI Developer - SW Associate: MDX Query — MDX Query"
+      "source": "BI Developer - SW Associate: MDX Query — MDX Query"
     },
     {
       "id": "sw-m4-q3",
@@ -360,7 +360,7 @@
       ],
       "correct": 3,
       "explanation": "An **ampersand** in front of the brackets references a member by its **key**, so `[Years].&[2004]` keeps working if the displayed name changes.",
-      "source": "Pentaho BI Developer - SW Associate: MDX Query — Overview"
+      "source": "BI Developer - SW Associate: MDX Query — Overview"
     },
     {
       "id": "sw-m4-q4",
@@ -376,7 +376,7 @@
       ],
       "correct": 1,
       "explanation": "A **named set** is a reusable collection of members, which provides the required structure for a list of territories. A **calculated member** is used to compute a single value from an expression, which is the appropriate method for calculating profit from sales and costs.",
-      "source": "Pentaho BI Developer - SW Associate: MDX Query — Named Sets"
+      "source": "BI Developer - SW Associate: MDX Query — Named Sets"
     },
     {
       "id": "sw-m4-q5",
@@ -392,7 +392,7 @@
       ],
       "correct": 0,
       "explanation": "The **WITH SET** clause defines a named set scoped to that one query, so the developer can test the formula and check it picks the right territories before embedding it in the schema as a **NamedSet**.",
-      "source": "Pentaho BI Developer - SW Associate: MDX Query — Named Sets"
+      "source": "BI Developer - SW Associate: MDX Query — Named Sets"
     },
     {
       "id": "sw-m4-q6",
@@ -412,7 +412,7 @@
         4
       ],
       "explanation": "The **TopCount** function filters the set to include only the top N members based on a specified measure, ensuring that only the five highest-selling countries are returned.\n\nThe **WHERE** clause acts as a slicer that restricts the data to the specified members without adding those members to the visual axes of the result.",
-      "source": "Pentaho BI Developer - SW Associate: MDX Query — Overview"
+      "source": "BI Developer - SW Associate: MDX Query — Overview"
     },
     {
       "id": "sw-m5-q1",
@@ -428,7 +428,7 @@
       ],
       "correct": 2,
       "explanation": "Mondrian roles only apply when a **role mapper** (the `Mondrian-UserRoleMapper` bean in `pentahoObjects.spring.xml`) passes user roles to the engine. Without a configured mapper, Mondrian defaults to unrestricted access.",
-      "source": "Pentaho BI Developer - SW Associate: Data Security — Overview (Role mapper)"
+      "source": "BI Developer - SW Associate: Data Security — Overview (Role mapper)"
     },
     {
       "id": "sw-m5-q2",
@@ -444,7 +444,7 @@
       ],
       "correct": 2,
       "explanation": "`access none` on the schema denies every cube by default, and the **CubeGrant** re-opens Sales. Granting a child implicitly grants its parent, so the schema is visible with just that cube in it.",
-      "source": "Pentaho BI Developer - SW Associate: Data Security — Mondrian Security (SchemaGrant)"
+      "source": "BI Developer - SW Associate: Data Security — Mondrian Security (SchemaGrant)"
     },
     {
       "id": "sw-m5-q3",
@@ -460,7 +460,7 @@
       ],
       "correct": 1,
       "explanation": "A **HierarchyGrant** with the `topLevel` property set to Country hides all levels above Country, including the (All) total. The `bottomLevel` property set to City hides all levels below City, such as the individual customer names.\n\nThe `access custom` setting is required to enable these specific boundaries while still allowing the user to see the data within the defined range.",
-      "source": "Pentaho BI Developer - SW Associate: Data Security — Mondrian Security (HierarchyGrant)"
+      "source": "BI Developer - SW Associate: Data Security — Mondrian Security (HierarchyGrant)"
     },
     {
       "id": "sw-m5-q4",
@@ -476,7 +476,7 @@
       ],
       "correct": 2,
       "explanation": "Under **access custom**, everything is denied unless granted. Granting `[USA].[WA]` implicitly grants its **parent**, USA, but not USA's other children.",
-      "source": "Pentaho BI Developer - SW Associate: Data Security — Mondrian Security (MemberGrant)"
+      "source": "BI Developer - SW Associate: Data Security — Mondrian Security (MemberGrant)"
     },
     {
       "id": "sw-m5-q5",
@@ -492,7 +492,7 @@
       ],
       "correct": 0,
       "explanation": "The **partial** rollup policy makes the parent total the sum of the visible children only, so the USA figure is CA plus OR and WA cannot be deduced, while the manager still sees a total.",
-      "source": "Pentaho BI Developer - SW Associate: Data Security — Overview (Rollup policy)"
+      "source": "BI Developer - SW Associate: Data Security — Overview (Rollup policy)"
     },
     {
       "id": "sw-m5-q6",
@@ -508,7 +508,7 @@
       ],
       "correct": 1,
       "explanation": "By default, a user whose roles match no Mondrian role gets an exception, which blocks access. With `failOnEmptyRoleList` set to `false`, that user gets **full access** to everything, which is effectively no security.",
-      "source": "Pentaho BI Developer - SW Associate: Data Security — Overview (One-to-One mapper)"
+      "source": "BI Developer - SW Associate: Data Security — Overview (One-to-One mapper)"
     },
     {
       "id": "sw-m6-q1",
@@ -524,7 +524,7 @@
       ],
       "correct": 2,
       "explanation": "Localization replaces the caption with a **token** using the `%{...}` syntax. The **dynamic schema processor** identifies this syntax and substitutes the appropriate value from the user's locale file at runtime.\n\n```xml\n<Dimension name=\"Customers\" caption=\"%{dimension.customers.caption}\">\n```",
-      "source": "Pentaho BI Developer - SW Associate: Localization — FR Localization (Tokenized Schema)"
+      "source": "BI Developer - SW Associate: Localization — FR Localization (Tokenized Schema)"
     },
     {
       "id": "sw-m6-q2",
@@ -540,7 +540,7 @@
       ],
       "correct": 0,
       "explanation": "Translations are stored in **Java properties files** based on the user locale, such as `MondrianMessages_fr.properties` and `MondrianMessages_en.properties`. These files are located in the `WEB-INF/classes/com/pentaho/messages` directory on the server, where the system selects the file matching the current locale.\n\nThese files provide the **caption text** for the tokens. They are distinct from the data layer and the schema definition, which remain consistent across all languages.",
-      "source": "Pentaho BI Developer - SW Associate: Localization — FR Localization (Properties)"
+      "source": "BI Developer - SW Associate: Localization — FR Localization (Properties)"
     },
     {
       "id": "sw-m6-q3",
@@ -556,7 +556,7 @@
       ],
       "correct": 3,
       "explanation": "The **localePropFile** property must define the message bundle without a language suffix, such as `com.pentaho.messages.MondrianMessages`. Java automatically appends the appropriate suffix, such as `_fr` or `_en`, based on the user locale.\n\nDefining the bundle as a Java package path using dots rather than a file system path ensures the system selects the correct translation dynamically. Including the language suffix in the configuration would restrict the bundle to a specific language.",
-      "source": "Pentaho BI Developer - SW Associate: Localization — FR Localization (mondrian.properties)"
+      "source": "BI Developer - SW Associate: Localization — FR Localization (mondrian.properties)"
     },
     {
       "id": "sw-m6-q4",
@@ -572,7 +572,7 @@
       ],
       "correct": 0,
       "explanation": "The **DynamicSchemaProcessor** is the class that replaces tokens with text from the locale files, so without it the captions stay as raw `%{...}` tokens.\n\n**UseContentChecksum** is what lets Analyzer detect schema changes and refresh its caches.",
-      "source": "Pentaho BI Developer - SW Associate: Localization — FR Localization (Manage Data Source)"
+      "source": "BI Developer - SW Associate: Localization — FR Localization (Manage Data Source)"
     },
     {
       "id": "sw-m1-q5",
@@ -588,7 +588,7 @@
       ],
       "correct": 1,
       "explanation": "Landing data in a **staging area** allows the ETL process to compare incoming records against existing records. This comparison identifies the specific changes required to perform a **delta load** instead of a full reload of the entire dataset.",
-      "source": "Pentaho BI Developer - SW Associate: Key Concepts — Data Pipeline"
+      "source": "BI Developer - SW Associate: Key Concepts — Data Pipeline"
     },
     {
       "id": "sw-m1-q6",
@@ -604,7 +604,7 @@
       ],
       "correct": 1,
       "explanation": "A **cube** is the analytical context for one business process. It collects the dimensions, hierarchies, levels, and measures over a fact table into one place for querying.",
-      "source": "Pentaho BI Developer - SW Associate: Schemas — Overview (Cube)"
+      "source": "BI Developer - SW Associate: Schemas — Overview (Cube)"
     },
     {
       "id": "sw-m1-q7",
@@ -620,7 +620,7 @@
       ],
       "correct": 0,
       "explanation": "An **OLAP cube** presents the data in business terms, such as products, revenue, and regions, so the director explores it directly in a tool like Analyzer while **Mondrian** generates the SQL.\n\nThe cube is a logical layer over the existing database, so new questions no longer wait for IT to write SQL.",
-      "source": "Pentaho BI Developer - SW Associate: Key Concepts — Multidimensional"
+      "source": "BI Developer - SW Associate: Key Concepts — Multidimensional"
     },
     {
       "id": "sw-m2-q10",
@@ -636,7 +636,7 @@
       ],
       "correct": 3,
       "explanation": "The **v3 parser** is order-sensitive. If a child element is placed in the wrong location, such as a cube appearing after a role, the parser silently ignores that element. This results in the cube being missing from the application even though the schema file validates without errors.\n\nWhile a schema can hold multiple cubes that share a single connection, the parser requires the correct sequence of elements to identify and include them as available data sources.",
-      "source": "Pentaho BI Developer - SW Associate: Schemas — Overview (Schema)"
+      "source": "BI Developer - SW Associate: Schemas — Overview (Schema)"
     },
     {
       "id": "sw-m2-q11",
@@ -652,7 +652,7 @@
       ],
       "correct": 1,
       "explanation": "Mondrian uses the **level order** as declared, and drilling follows it downward. A hierarchy should read broadest to narrowest (Territory, Country, State/Province, City); declared inverted, nothing errors, and the cube simply drills backwards.",
-      "source": "Pentaho BI Developer - SW Associate: Schemas — SteelWheels (Markets)"
+      "source": "BI Developer - SW Associate: Schemas — SteelWheels (Markets)"
     },
     {
       "id": "sw-m2-q12",
@@ -668,7 +668,7 @@
       ],
       "correct": 3,
       "explanation": "The depth of navigation available to users is determined by the **hierarchy** configuration. Each level in the hierarchy is mapped to a specific column; adding a level under Country that maps to the customer name column provides the required granularity.\n\n```text\nTerritory\n  Country\n    Customer Name     the new level\n```",
-      "source": "Pentaho BI Developer - SW Associate: Schemas — Standard Model"
+      "source": "BI Developer - SW Associate: Schemas — Standard Model"
     },
     {
       "id": "sw-m3-q7",
@@ -684,7 +684,7 @@
       ],
       "correct": 3,
       "explanation": "A **degenerate dimension** is a dimension that does not have its own table; instead, its attributes are stored as columns within the fact table. Order Status qualifies as a degenerate dimension because its values are stored directly in the `ORDERFACT` table.",
-      "source": "Pentaho BI Developer - SW Associate: Extend Model — Extended Model (Degenerate)"
+      "source": "BI Developer - SW Associate: Extend Model — Extended Model (Degenerate)"
     },
     {
       "id": "sw-m3-q8",
@@ -704,7 +704,7 @@
         4
       ],
       "explanation": "A shared **TIME dimension** referenced from each cube with a `DimensionUsage` provides both cubes with a consistent time model. **Geo annotations** (using `Data.Role` and `Geo.Role`) let Analyzer to map sales by country.",
-      "source": "Pentaho BI Developer - SW Associate: Extend Model — Overview"
+      "source": "BI Developer - SW Associate: Extend Model — Overview"
     },
     {
       "id": "sw-m4-q7",
@@ -720,7 +720,7 @@
       ],
       "correct": 2,
       "explanation": "A set meant to be seen goes on a visible axis, so the years go **ON ROWS**. A restriction that should not appear goes in the **WHERE slicer**, so APAC does.",
-      "source": "Pentaho BI Developer - SW Associate: MDX Query — MDX Query"
+      "source": "BI Developer - SW Associate: MDX Query — MDX Query"
     },
     {
       "id": "sw-m4-q8",
@@ -736,7 +736,7 @@
       ],
       "correct": 3,
       "explanation": "Testing in MDX Query mode lets developers validate **calculated members** and query behavior directly in the workspace, so logic errors are found before users build reports on them.",
-      "source": "Pentaho BI Developer - SW Associate: MDX Query — Overview"
+      "source": "BI Developer - SW Associate: MDX Query — Overview"
     },
     {
       "id": "sw-m5-q7",
@@ -752,7 +752,7 @@
       ],
       "correct": 0,
       "explanation": "Mondrian grants nest from the **entire schema** down to individual members. A `SchemaGrant` contains `CubeGrant` objects, a `CubeGrant` contains `HierarchyGrant` objects, and a `HierarchyGrant` contains `MemberGrant` objects.\n\n```text\nSchemaGrant\n  CubeGrant\n    HierarchyGrant\n      MemberGrant\n```",
-      "source": "Pentaho BI Developer - SW Associate: Data Security — Overview (Security grants)"
+      "source": "BI Developer - SW Associate: Data Security — Overview (Security grants)"
     },
     {
       "id": "sw-m5-q8",
@@ -768,7 +768,7 @@
       ],
       "correct": 3,
       "explanation": "The **Lookup Map** mapper holds key/value pairs in which the key is the Pentaho role and the value the Mondrian role, so `Sales Manager` maps to `Sales Manager Role`.",
-      "source": "Pentaho BI Developer - SW Associate: Data Security — Overview (Lookup Map)"
+      "source": "BI Developer - SW Associate: Data Security — Overview (Lookup Map)"
     },
     {
       "id": "sw-m5-q9",
@@ -784,7 +784,7 @@
       ],
       "correct": 0,
       "explanation": "A role containing a **Union of RoleUsage** elements combines the permissions of the roles it names. The new role has their combined access and follows any later change to them.\n\n```xml\n<Role name=\"Product and Sales Manager\">\n  <Union>\n    <RoleUsage roleName=\"General Sales Manager\"/>\n    <RoleUsage roleName=\"Product Manager\"/>\n  </Union>\n</Role>\n```",
-      "source": "Pentaho BI Developer - SW Associate: Data Security — Overview (Roles)"
+      "source": "BI Developer - SW Associate: Data Security — Overview (Roles)"
     },
     {
       "id": "sw-m6-q5",
@@ -800,7 +800,7 @@
       ],
       "correct": 1,
       "explanation": "Tokens follow **component.element.property**, so `dimension` is the component, `customers` the element, and `caption` the property.",
-      "source": "Pentaho BI Developer - SW Associate: Localization — FR Localization (Tokenized Schema)"
+      "source": "BI Developer - SW Associate: Localization — FR Localization (Tokenized Schema)"
     },
     {
       "id": "sw-m6-q6",
@@ -816,7 +816,7 @@
       ],
       "correct": 1,
       "explanation": "A **tokenized schema** keeps the structure (cubes, levels, grants) in a single definition, while the translations sit in properties files that non-technical staff can maintain, so a structural change is made once.",
-      "source": "Pentaho BI Developer - SW Associate: Localization — Overview"
+      "source": "BI Developer - SW Associate: Localization — Overview"
     }
   ]
 }

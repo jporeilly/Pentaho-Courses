@@ -10,17 +10,17 @@
       "id": "ml-m1-q1",
       "module": "ML Foundations",
       "bloom": "Apply",
-      "scenario": "A fraud team holds years of transactions already marked as fraud or legitimate. The team also wants to identify new types of fraud that have not been seen before.",
-      "prompt": "Which learning approaches fit the two aims?",
+      "scenario": "A fraud team holds years of transactions already marked as fraud or legitimate, and wants a model that scores each new transaction with a fraud probability.",
+      "prompt": "Which approach fits, and why?",
       "options": [
-        "Supervised for the known patterns, unsupervised for new kinds",
-        "Unsupervised for the known patterns, supervised for new kinds",
-        "Supervised for both, as the marked history covers new kinds too",
-        "Unsupervised for both, as labels only bias the model's judgement"
+        "Supervised learning, as the marked history shows the model each outcome",
+        "Supervised learning, as it learns without any labeled history at all",
+        "Hand-written rules, as a model cannot learn from past outcomes",
+        "Any approach, as long as its accuracy on the history is high"
       ],
       "correct": 0,
-      "explanation": "The team can use **supervised learning** to identify patterns in the historical records because those cases are already labeled. They can use **unsupervised methods** to detect new, previously unseen types of fraud that do not yet have corresponding labels.\n\nSupervised learning relies on labeled data to recognize known patterns, while unsupervised learning identifies anomalies or clusters that do not require prior labeling.",
-      "source": "Pentaho Developer - ML Specialty: Overview"
+      "explanation": "The marked history is what makes this a **supervised learning** problem: each past transaction carries its known outcome, so the model can learn which attributes go with fraud. The course's Gradient Boosting Machine, trained in R, learns exactly this from the historical fraud cases and then scores new transactions with a fraud probability.\n\nHigh accuracy alone is no test of a fraud model, because almost every transaction is legitimate.",
+      "source": "Developer - ML Specialty: Overview"
     },
     {
       "id": "ml-m1-q2",
@@ -36,7 +36,7 @@
       ],
       "correct": 1,
       "explanation": "In a **supervised learning** model, the system learns from historical cases where the outcome is already known. The records in the CSV serve as the **target label**, which allows the training process to associate specific order attributes with the known result of fraud or non-fraud.\n\nThis label is the essential component that allows the model to learn the outcome of the training data.",
-      "source": "Pentaho Developer - ML Specialty: AutoML"
+      "source": "Developer - ML Specialty: AutoML"
     },
     {
       "id": "ml-m1-q3",
@@ -52,7 +52,7 @@
       ],
       "correct": 2,
       "explanation": "Using more trees than the point where the out-of-bag error is lowest causes the model to **overfit** the training data. Because an increasing error indicates that additional trees are making the model perform worse on unseen data, `gbm.perf` uses the `best_trees` count to optimize the model's accuracy.",
-      "source": "Pentaho Developer - ML Specialty: Credit Card"
+      "source": "Developer - ML Specialty: Credit Card"
     },
     {
       "id": "ml-m1-q4",
@@ -68,7 +68,7 @@
       ],
       "correct": 0,
       "explanation": "The formula `reported_as_fraud_historic ~ .` instructs the model to use every available column in the frame as a **predictor** to predict the target. Because the `transaction_id` is part of the frame and is not the target, the model treats it as a feature.\n\nWhile a unique identifier provides no meaningful information about the transaction, the **gradient boosting machine** (gbm) does not automatically discard columns based on their uniqueness.",
-      "source": "Pentaho Developer - ML Specialty: Credit Card"
+      "source": "Developer - ML Specialty: Credit Card"
     },
     {
       "id": "ml-m1-q5",
@@ -84,7 +84,7 @@
       ],
       "correct": 2,
       "explanation": "The `as.factor()` function assigns levels to categorical data starting at 1. Applying `as.numeric()` to these factors results in values of 1 and 2; subtracting 1 ensures the target becomes 0 and 1 to satisfy the **Bernoulli distribution** requirements for a binary target.\n\nThis arithmetic applies to every value in the dataset. The result is a binary target rather than a continuous amount or a truncated range.",
-      "source": "Pentaho Developer - ML Specialty: Credit Card"
+      "source": "Developer - ML Specialty: Credit Card"
     },
     {
       "id": "ml-m1-q6",
@@ -100,7 +100,7 @@
       ],
       "correct": 3,
       "explanation": "Scoring involves loading the **saved model** from a previous training session and applying it to new data. The process uses the existing model to perform predictions on the current transactions without requiring any additional training or updates to the underlying algorithm.",
-      "source": "Pentaho Developer - ML Specialty: Credit Card"
+      "source": "Developer - ML Specialty: Credit Card"
     },
     {
       "id": "ml-m1-q7",
@@ -116,7 +116,7 @@
       ],
       "correct": 0,
       "explanation": "The **JRI library** runs R within the JVM process, and cross-validation spawns extra processes that exceed the **FD_SETSIZE limit** of 1024 in the Linux `select()` call. This exhaustion of file descriptors causes the JVM to abort.",
-      "source": "Pentaho Developer - ML Specialty: Credit Card"
+      "source": "Developer - ML Specialty: Credit Card"
     },
     {
       "id": "ml-m1-q8",
@@ -132,7 +132,7 @@
       ],
       "correct": 0,
       "explanation": "The prediction script passes `best_trees`, the tree count chosen by out-of-bag estimation, to `predict`. Saving only `gbm_model` leaves that **object** out of `gbm_fraud.rdata`, so the script cannot find it.\n\nAn `.rdata` file can hold one object or many; this one must hold both.",
-      "source": "Pentaho Developer - ML Specialty: Credit Card"
+      "source": "Developer - ML Specialty: Credit Card"
     },
     {
       "id": "ml-m2-q1",
@@ -148,7 +148,7 @@
       ],
       "correct": 0,
       "explanation": "The **rJava** library is the bridge between the Java Virtual Machine and R, so a Java-based application like Pentaho Data Integration can run R code directly.",
-      "source": "Pentaho Developer - ML Specialty: Prerequisite Tasks"
+      "source": "Developer - ML Specialty: Prerequisite Tasks"
     },
     {
       "id": "ml-m2-q2",
@@ -164,7 +164,7 @@
       ],
       "correct": 2,
       "explanation": "The `R CMD javareconf` command **detects the current Java** installation and updates R's configuration files to match it, so **rJava** builds against the Java now installed.\n\nThe command updates configuration; it does not install or downgrade software.",
-      "source": "Pentaho Developer - ML Specialty: Prerequisite Tasks"
+      "source": "Developer - ML Specialty: Prerequisite Tasks"
     },
     {
       "id": "ml-m2-q3",
@@ -180,7 +180,7 @@
       ],
       "correct": 2,
       "explanation": "`libjri.so`, from the rJava package's `jri` folder, goes into Spoon's `native-lib/linux/x86_64` directory, owned by the PDI user, so PDI can load the **R-Java interface**.",
-      "source": "Pentaho Developer - ML Specialty: Prerequisite Tasks"
+      "source": "Developer - ML Specialty: Prerequisite Tasks"
     },
     {
       "id": "ml-m2-q4",
@@ -196,7 +196,7 @@
       ],
       "correct": 2,
       "explanation": "Google Colab provides a **browser-based Jupyter** environment with **preconfigured runtimes** for common machine learning libraries, so the search runs on the uploaded H2O data with nothing to configure on a workstation.",
-      "source": "Pentaho Developer - ML Specialty: Prerequisite Tasks"
+      "source": "Developer - ML Specialty: Prerequisite Tasks"
     },
     {
       "id": "ml-m2-q5",
@@ -216,7 +216,7 @@
         4
       ],
       "explanation": "PDI's R integration needs the **environment variables** `R_HOME` and `R_LIBS_USER` set in `/etc/environment`, with R's `bin` directory on the `PATH`.\n\nA restart may be needed to register the libraries.",
-      "source": "Pentaho Developer - ML Specialty: Prerequisite Tasks"
+      "source": "Developer - ML Specialty: Prerequisite Tasks"
     },
     {
       "id": "ml-m2-q6",
@@ -232,7 +232,7 @@
       ],
       "correct": 0,
       "explanation": "When R is executed without administrative privileges, installed packages are confined to that specific **user library**. Because the service user does not have access to the developer's local files, the package is not found.\n\nInstalling the package with `sudo -i R` places the **system-wide** library in a location accessible by all system users, including the service account used by PDI.",
-      "source": "Pentaho Developer - ML Specialty: Prerequisite Tasks"
+      "source": "Developer - ML Specialty: Prerequisite Tasks"
     },
     {
       "id": "ml-m2-q7",
@@ -248,7 +248,7 @@
       ],
       "correct": 3,
       "explanation": "Executing a small script that returns the built-in iris data and viewing it with the **Test Script** feature exercises the whole chain, from PDI through `rJava` to the R environment.\n\nIt confirms the connection at once, without running a full transformation and without relying on configuration fields alone.",
-      "source": "Pentaho Developer - ML Specialty: Prerequisite Tasks"
+      "source": "Developer - ML Specialty: Prerequisite Tasks"
     },
     {
       "id": "ml-m3-q1",
@@ -264,7 +264,7 @@
       ],
       "correct": 2,
       "explanation": "H2O AutoML automatically discovers well-performing models and provides a **shortlist of candidates** to compare on the appropriate metric.\n\nThe team then compares how the algorithms perform before choosing one for production.",
-      "source": "Pentaho Developer - ML Specialty: Overview"
+      "source": "Developer - ML Specialty: Overview"
     },
     {
       "id": "ml-m3-q2",
@@ -280,7 +280,7 @@
       ],
       "correct": 3,
       "explanation": "**AUCPR** (Area Under the Precision-Recall Curve) is built from precision and recall, which both focus on the fraud class, so the score is not inflated by the 99% of rows that are not fraud, as accuracy is. It also ranks candidates before any threshold is tuned.",
-      "source": "Pentaho Developer - ML Specialty: AutoML"
+      "source": "Developer - ML Specialty: AutoML"
     },
     {
       "id": "ml-m3-q3",
@@ -296,7 +296,7 @@
       ],
       "correct": 0,
       "explanation": "Accuracy is a misleading metric on **imbalanced data**. Because fraud is only 1% of cases, a model that predicts every transaction as legitimate is still 99% accurate while catching no fraud at all.",
-      "source": "Pentaho Developer - ML Specialty: AutoML"
+      "source": "Developer - ML Specialty: AutoML"
     },
     {
       "id": "ml-m3-q4",
@@ -312,7 +312,7 @@
       ],
       "correct": 1,
       "explanation": "The **AUC metric** measures how well a model ranks fraud over legitimate transactions. While a high score indicates good ranking, it does not guarantee that the **precision at the specific threshold** used in production will be sufficient to meet business requirements.\n\nAUC is a classification metric that can be calculated on imbalanced data, but it does not define the behavior of the model at a specific cutoff point.",
-      "source": "Pentaho Developer - ML Specialty: AutoML"
+      "source": "Developer - ML Specialty: AutoML"
     },
     {
       "id": "ml-m3-q5",
@@ -328,7 +328,7 @@
       ],
       "correct": 2,
       "explanation": "The **precision** of a model is the ratio of true positives to the total number of alerts, which in this case is 20 out of 100, or 20%. The **recall** is the ratio of true positives to the total number of actual occurrences, which is 20 out of 50, or 40%.",
-      "source": "Pentaho Developer - ML Specialty: AutoML"
+      "source": "Developer - ML Specialty: AutoML"
     },
     {
       "id": "ml-m3-q6",
@@ -344,7 +344,7 @@
       ],
       "correct": 3,
       "explanation": "When fraud losses are expensive, the guidance is to prioritize **recall** because missed fraud is the costlier error. Precision remains informative because it measures the burden of the alert volume that the team must process.\n\nWhile the bank can control both types of errors by adjusting the threshold, a focus on **recall** ensures that the primary financial risk is mitigated.",
-      "source": "Pentaho Developer - ML Specialty: AutoML"
+      "source": "Developer - ML Specialty: AutoML"
     },
     {
       "id": "ml-m3-q7",
@@ -360,7 +360,7 @@
       ],
       "correct": 1,
       "explanation": "Comparing candidates using **AUCPR** allows for an objective evaluation of models before thresholds are tuned. Once the optimal model is selected, the **threshold** is adjusted to balance precision and recall for the specific business requirements.",
-      "source": "Pentaho Developer - ML Specialty: AutoML"
+      "source": "Developer - ML Specialty: AutoML"
     },
     {
       "id": "ml-m3-q8",
@@ -376,7 +376,7 @@
       ],
       "correct": 0,
       "explanation": "The handover between the two systems is achieved via the **file transfer** of the `H2O.csv` file. After the `autoML.ktr` transformation is executed in PDI, the resulting file is uploaded to the Colab environment to provide the data for the AutoML search.",
-      "source": "Pentaho Developer - ML Specialty: AutoML"
+      "source": "Developer - ML Specialty: AutoML"
     },
     {
       "id": "ml-m3-q9",
@@ -392,7 +392,7 @@
       ],
       "correct": 1,
       "explanation": "The H2O results point to GBM, and the PDI workflow puts that choice into practice by training a GBM with the **R gbm package** on the same dataset, saving the artifact, and scoring with it.",
-      "source": "Pentaho Developer - ML Specialty: Credit Card"
+      "source": "Developer - ML Specialty: Credit Card"
     },
     {
       "id": "ml-m3-q10",
@@ -408,7 +408,7 @@
       ],
       "correct": 2,
       "explanation": "Root Mean Square Error (RMSE) and Mean Squared Error (MSE) are **regression-style errors** calculated on predicted probabilities. These metrics do not provide an accurate measure of the quality of a final decision in a classification task such as fraud detection.\n\nMetrics like AUCPR are better suited for ranking candidates because they evaluate the actual **classification performance**.",
-      "source": "Pentaho Developer - ML Specialty: AutoML"
+      "source": "Developer - ML Specialty: AutoML"
     },
     {
       "id": "ml-m4-q1",
@@ -428,7 +428,7 @@
         4
       ],
       "explanation": "The values `n.trees` and `shrinkage` are **hyperparameters** that define the number of boosting iterations and the learning rate, respectively. These are configured as arguments passed to the model before the training process begins.",
-      "source": "Pentaho Developer - ML Specialty: Credit Card"
+      "source": "Developer - ML Specialty: Credit Card"
     },
     {
       "id": "ml-m4-q2",
@@ -444,7 +444,7 @@
       ],
       "correct": 1,
       "explanation": "The `bag.fraction` setting determines the proportion of data used to train each individual tree. By setting this value to 0.5, the model performs **stochastic gradient boosting** by selecting a random subset of rows for each tree.\n\nThe rows that are not selected during the training of a specific tree are considered out-of-bag, which can be used for estimation. This sampling occurs independently for each tree rather than reserving a fixed portion of the data for testing.",
-      "source": "Pentaho Developer - ML Specialty: Credit Card"
+      "source": "Developer - ML Specialty: Credit Card"
     },
     {
       "id": "ml-m4-q3",
@@ -460,7 +460,7 @@
       ],
       "correct": 3,
       "explanation": "The `bernoulli` distribution is used because the target represents a **binary classification** problem, where the outcome is limited to two possible states, such as fraud or not fraud.\n\nThis distribution is specifically designed for data categorized into exactly two classes, matching the binary nature of the target variable.",
-      "source": "Pentaho Developer - ML Specialty: Credit Card"
+      "source": "Developer - ML Specialty: Credit Card"
     },
     {
       "id": "ml-m4-q4",
@@ -476,7 +476,7 @@
       ],
       "correct": 1,
       "explanation": "The `interaction.depth` parameter defines the maximum number of levels for each tree, while `n.minobsinnode` sets the minimum number of observations required per **terminal node**.\n\nThese settings ensure the model respects the specific structural constraints of the fraud model's tree depth and minimum sample size.",
-      "source": "Pentaho Developer - ML Specialty: Credit Card"
+      "source": "Developer - ML Specialty: Credit Card"
     },
     {
       "id": "ml-m4-q5",
@@ -492,7 +492,7 @@
       ],
       "correct": 3,
       "explanation": "The R Script Executor step requires the script's final expression to be a **data frame**, which is what the step passes from R into the PDI pipeline.\n\nA script that ends with a data frame, such as one holding the status `Finished`, completes, and the step passes that row on to the next step.",
-      "source": "Pentaho Developer - ML Specialty: Credit Card"
+      "source": "Developer - ML Specialty: Credit Card"
     },
     {
       "id": "ml-m4-q6",
@@ -508,7 +508,7 @@
       ],
       "correct": 1,
       "explanation": "With a Bernoulli model, the `type` parameter set to `response` returns **probabilities** on the 0 to 1 scale, where values closer to 1 indicate a higher likelihood of fraud.\n\nBoosted trees are summed into a single score rather than being counted as individual votes. The 0/1 flag is generated as a separate step using a conditional statement such as `ifelse(fraud_prob >= 0.5, 1, 0)`.",
-      "source": "Pentaho Developer - ML Specialty: Credit Card"
+      "source": "Developer - ML Specialty: Credit Card"
     },
     {
       "id": "ml-m4-q7",
@@ -524,7 +524,7 @@
       ],
       "correct": 0,
       "explanation": "Lowering the **prediction threshold** flags transactions based on weaker evidence. This results in more fraud being caught, but it also increases the number of false alarms, which is only acceptable if the reviewers can manage the higher volume of flagged records.\n\nThe threshold determines the logic for the `predicted_fraud` result. Because it is applied to probabilities the model already generates, no retraining is required to implement the change.",
-      "source": "Pentaho Developer - ML Specialty: Credit Card"
+      "source": "Developer - ML Specialty: Credit Card"
     },
     {
       "id": "ml-m4-q8",
@@ -540,7 +540,7 @@
       ],
       "correct": 3,
       "explanation": "Enabling **variable substitution** ensures that Pentaho Data Integration (PDI) resolves the variable to its actual value before passing the script to the R environment. If substitution is disabled, the R engine receives and attempts to process the literal string instead of the resolved file path.\n\nBy ensuring the path is resolved by PDI, the system maintains the ability to use **relative paths** for portability while ensuring the R environment receives the correct system path.",
-      "source": "Pentaho Developer - ML Specialty: Credit Card"
+      "source": "Developer - ML Specialty: Credit Card"
     },
     {
       "id": "ml-m4-q9",
@@ -556,7 +556,7 @@
       ],
       "correct": 1,
       "explanation": "The script uses **cbind** to join the input frame and the predictions column by column, so every original input field travels downstream with the `fraud_probability`, `fraud_pct`, and `predicted_fraud` values.",
-      "source": "Pentaho Developer - ML Specialty: Credit Card"
+      "source": "Developer - ML Specialty: Credit Card"
     },
     {
       "id": "ml-m5-q1",
@@ -572,7 +572,7 @@
       ],
       "correct": 3,
       "explanation": "Splitting the process into two transformations lets each one run, be tested, and be rerun on its own, with the **saved model** as the handoff between them: training writes the **artifact**, and prediction reads it.",
-      "source": "Pentaho Developer - ML Specialty: Credit Card"
+      "source": "Developer - ML Specialty: Credit Card"
     },
     {
       "id": "ml-m5-q2",
@@ -588,7 +588,7 @@
       ],
       "correct": 1,
       "explanation": "Setting **Number of rows to process** to `All` in the Row handling configuration passes every row in the stream to the script at once, so one model is fitted on the whole dataset in a single run.",
-      "source": "Pentaho Developer - ML Specialty: Credit Card"
+      "source": "Developer - ML Specialty: Credit Card"
     },
     {
       "id": "ml-m5-q3",
@@ -604,7 +604,7 @@
       ],
       "correct": 1,
       "explanation": "The **R frame name** defines the specific variable name that the incoming data rows are assigned to within the R environment. Because the script attempts to access an object named `test` while the data is bound to the variable `train`, the script cannot find the required object and fails.\n\nPentaho Data Integration does not automatically synchronize the script content with the configured **frame name**; the frame name is the functional identifier for the data, not a simple display label.",
-      "source": "Pentaho Developer - ML Specialty: Credit Card"
+      "source": "Developer - ML Specialty: Credit Card"
     },
     {
       "id": "ml-m5-q4",
@@ -620,7 +620,7 @@
       ],
       "correct": 1,
       "explanation": "The workflow follows a specific sequence where data must be prepared before any analysis can occur. The **data preparation** phase ensures the input is ready for the AutoML environment to shortlist models.\n\nOnce the models are shortlisted, the **Gradient Boosting Machine (GBM)** is trained in R to create a saved model file. Only after this training is complete can a transformation load the model to **score transactions**.",
-      "source": "Pentaho Developer - ML Specialty: Credit Card"
+      "source": "Developer - ML Specialty: Credit Card"
     },
     {
       "id": "ml-m5-q5",
@@ -636,7 +636,7 @@
       ],
       "correct": 0,
       "explanation": "The handoff succeeds because the scripts utilize a **relative path** based on the internal PDI variable.\n\nBy using `${Internal.Transformation.Filename.Directory}`, the system resolves the location of the file relative to the location of the transformation file, ensuring the link remains intact regardless of the absolute path on the local file system.",
-      "source": "Pentaho Developer - ML Specialty: Credit Card"
+      "source": "Developer - ML Specialty: Credit Card"
     },
     {
       "id": "ml-m5-q6",
@@ -652,7 +652,7 @@
       ],
       "correct": 0,
       "explanation": "The job entry points to a specific **file path** for the transformation. Because the job does not embed a copy of the file, any change to the filename or its location breaks the **file reference** until the entry is updated.\n\nWhen a transformation is renamed or moved, the absolute or relative path in the job file no longer matches the actual location of the .ktr file.",
-      "source": "Pentaho Developer - ML Specialty: Credit Card"
+      "source": "Developer - ML Specialty: Credit Card"
     },
     {
       "id": "ml-m5-q7",
@@ -668,7 +668,7 @@
       ],
       "correct": 3,
       "explanation": "The prediction job writes a **CSV file** to the `output` folder and adds the time of the run to its name: `credit_card_fraud_<HHmmss>.csv`. Each row is a scored transaction with its original fields plus `fraud_probability`, `fraud_pct`, and `predicted_fraud`, so a reviewer can open and sort it without PDI.",
-      "source": "Pentaho Developer - ML Specialty: Credit Card"
+      "source": "Developer - ML Specialty: Credit Card"
     }
   ]
 }

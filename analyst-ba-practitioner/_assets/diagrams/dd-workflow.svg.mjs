@@ -16,8 +16,8 @@
 //
 // Run from this folder:   node dd-workflow.svg.mjs
 // It writes dd-workflow.svg and dd-workflow-1.svg to dd-workflow-4.svg,
-// and the PNGs in ../images. The drawing is workflow-strip.mjs.
-import { writeWorkflow } from './workflow-strip.mjs';
+// and the PNGs in ../images. The drawing is scripts/workflow-strip.mjs.
+import { writeWorkflow } from '../../../../scripts/workflow-strip.mjs';
 
 const STEPS = [
   { icon: 'layout-template', title: ['Template', 'and layout'] },

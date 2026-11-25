@@ -495,7 +495,7 @@ sub-transformation, that will utilize the 'Get records from stream' Step.</note>
     <step-props secure="password SSL_KEYSTORE_PASSWORD SSL_TRUSTSTORE_PASSWORD">
       <group name="">
         <property group="" name="connection">
-          <value xsi:type="xs:string"/>
+          <value xsi:type="xs:string">amqp://localhost:5672</value>
         </property>
         <property group="" name="exchangeType">
           <value xsi:type="xs:string">DIRECT</value>
@@ -519,7 +519,7 @@ sub-transformation, that will utilize the 'Get records from stream' Step.</note>
           <value xsi:type="xs:string"/>
         </property>
         <property group="" name="directQueue">
-          <value xsi:type="xs:string"/>
+          <value xsi:type="xs:string">tv_room</value>
         </property>
         <property group="" name="fanoutQueue">
           <value xsi:type="xs:string"/>

@@ -11,9 +11,9 @@
     "messagePlaceholder": "What would you like to know?",
     "sendLabel": "Send"
   },
-  "title": "Pentaho BI Developer - ME Associate",
+  "title": "BI Developer - ME Associate",
   "description": "Hands-on workshop for the BI Developer. Build business-friendly semantic models with Pentaho Metadata Editor — physical layer, business models, relationships, business views, properties, reusable concepts, and security — then publish XMI domains for ad-hoc Interactive Reporting.",
-  "version": "0.1.11",
+  "version": "0.1.12",
   "kind": "workshop",
   "platform": "windows11",
   "level": { "number": 2, "name": "Associate" },

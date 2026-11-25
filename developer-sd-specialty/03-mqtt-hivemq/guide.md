@@ -363,6 +363,15 @@ python sensor.py
 > from one that has gone away, without polling it. Starting `sensor.py`
 > again publishes a retained `online`, which replaces the `offline`.
 
+<div align="center">
+<figure>
+<img src="../_assets/images/mqtt-lwt-retained.png" alt="Four lanes: sensor.py, HiveMQ on localhost:1883, a subscriber and a later subscriber. sensor.py connects with a will, offline, QoS 1, retained, and publishes a retained online; the subscriber subscribes and gets online. The window is closed without DISCONNECT, so HiveMQ publishes the will: the subscriber gets offline, and a later subscriber gets the retained offline. A clean disconnect() would discard the will" width="800">
+<figcaption>The will and the retained status topic, from connect to crash</figcaption>
+</figure>
+</div>
+
+Read the diagram top to bottom. Messages 1 and 2 are the new `connect_mqtt`: the will travels to HiveMQ with the connection, then `online` is published as the topic's retained value. Messages 3 and 4 are step 4, where your MQTT client shows `online` at once. Under the red band is step 5: the broker publishes the will, and the retained value becomes `offline`, so a client that subscribes only now, in messages 6 and 7, still learns that the sensor is gone. The bar at the foot is the case that sends nothing: a clean `disconnect()`.
+
 ::::
 
 ## Troubleshooting <!-- no-step -->

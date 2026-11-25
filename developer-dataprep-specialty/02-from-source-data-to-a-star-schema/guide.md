@@ -110,7 +110,7 @@ Read the diagram from the top. The first band is the order system, four normaliz
 | `mart_fact_sales` columns `sales_amount`, `quantity_ordered` | The **Sales** and **Quantity** measures |
 | The `agg_` tables | Aggregate tables Mondrian reads instead of `mart_fact_sales` when a query allows |
 
-Building the schema itself is the subject of the Pentaho BI Developer - SW course; this course ships a finished schema, `sales_mart.xml`, and concentrates on the data underneath it. What this course adds is the other half of the contract: a mart whose keys, history and summaries the cube can rely on, and a load that tells the cube when the data has changed.
+Building the schema itself is the subject of the BI Developer - SW course; this course ships a finished schema, `sales_mart.xml`, and concentrates on the data underneath it. What this course adds is the other half of the contract: a mart whose keys, history and summaries the cube can rely on, and a load that tells the cube when the data has changed.
 
 <div class="pcm-embed-card" data-href="https://docs.pentaho.com/pdia-data-integration/pdi-transformation-steps-reference-overview" data-title="PDI transformation steps"></div>
 

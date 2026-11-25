@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1012" viewBox="0 0 800 1012" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+<filter id="shadow" x="-10%" y="-10%" width="120%" height="140%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#0f172a" flood-opacity="0.12"/></filter></defs>
+<rect width="800" height="1012" fill="#ffffff"/>
+<rect x="16" y="16" width="768" height="292" rx="12" fill="#f8fafc" stroke="#f1f5f9" stroke-width="1.5"/>
+<path d="M16 28a12 12 0 0 1 12-12h744a12 12 0 0 1 12 12v32h-768z" fill="#475569"/>
+<text x="32" y="36" font-size="14" font-weight="700" fill="#ffffff">Core courses</text>
+<text x="32" y="52" font-size="11.5" fill="#ffffff" opacity="0.92">mandatory: every Solution Architect takes both, in this order</text>
+<rect x="16" y="368" width="768" height="424" rx="12" fill="#f8fafc" stroke="#f1f5f9" stroke-width="1.5"/>
+<path d="M16 380a12 12 0 0 1 12-12h744a12 12 0 0 1 12 12v32h-768z" fill="#475569"/>
+<text x="32" y="388" font-size="14" font-weight="700" fill="#ffffff">Speciality courses</text>
+<text x="32" y="404" font-size="11.5" fill="#ffffff" opacity="0.92">also mandatory: all three, in this order, after the core courses</text>
+<path d="M400 160L400 205" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M400 292L400 365" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M400 512L400 557" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M400 644L400 689" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M400 776L400 829" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="32" y="76" width="736" height="84" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="118" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(50 106) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></g>
+<text x="92" y="93.5" font-size="14" font-weight="700" fill="#1e3a8a">1 · DI Developer</text>
+<text x="92" y="110.5" font-size="12" fill="#1e3a8a">53 lessons · 6 modules · ~14h 35m</text>
+<text x="92" y="125.5" font-size="12" fill="#1e3a8a">Runs in a hosted lab</text>
+<text x="92" y="140.5" font-size="12" fill="#1e3a8a">Build, run and operate PDI pipelines in Spoon, ending in a capstone project</text>
+<rect x="656.8" y="87" width="99.19999999999999" height="20" rx="10" fill="#ffffff" stroke="#1d4ed8" stroke-width="1"/>
+<text x="706.4" y="101" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1e3a8a">Practitioner</text>
+<rect x="32" y="208" width="736" height="84" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="250" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(50 238) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="8" x="2" y="2" rx="2" ry="2"/><rect width="20" height="8" x="2" y="14" rx="2" ry="2"/><line x1="6" x2="6.01" y1="6" y2="6"/><line x1="6" x2="6.01" y1="18" y2="18"/></g>
+<text x="92" y="225.5" font-size="14" font-weight="700" fill="#3b0764">2 · Installation</text>
+<text x="92" y="242.5" font-size="12" fill="#3b0764">12 lessons · 4 modules · ~5h 10m</text>
+<text x="92" y="257.5" font-size="12" fill="#3b0764">Runs on your own Ubuntu host</text>
+<text x="92" y="272.5" font-size="12" fill="#3b0764">Install Pentaho 11 from the archive, plugins, client tools; service pack 11.0.0.3-312</text>
+<rect x="676.6" y="219" width="79.4" height="20" rx="10" fill="#ffffff" stroke="#6d28d9" stroke-width="1"/>
+<text x="716.3000000000001" y="233" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">Certified</text>
+<rect x="32" y="428" width="736" height="84" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="470" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(50 458) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 7.7c0-.6-.4-1.2-.8-1.5l-6.3-3.9a1.72 1.72 0 0 0-1.7 0l-10.3 6c-.5.2-.9.8-.9 1.4v6.6c0 .5.4 1.2.8 1.5l6.3 3.9a1.72 1.72 0 0 0 1.7 0l10.3-6c.5-.3.9-1 .9-1.5Z"/><path d="M10 21.9V14L2.1 9.1"/><path d="m10 14 11.9-6.9"/><path d="M14 19.8v-8.1"/><path d="M18 17.5V9.4"/></g>
+<text x="92" y="445.5" font-size="14" font-weight="700" fill="#3b0764">3 · Containers</text>
+<text x="92" y="462.5" font-size="12" fill="#3b0764">10 lessons · 6 modules · ~4h 50m</text>
+<text x="92" y="477.5" font-size="12" fill="#3b0764">Runs on the same host</text>
+<text x="92" y="492.5" font-size="12" fill="#3b0764">The server as an image: build it, run it with Podman Compose, deploy to K3s and Helm</text>
+<rect x="670" y="439" width="86" height="20" rx="10" fill="#ffffff" stroke="#6d28d9" stroke-width="1"/>
+<text x="713" y="453" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">Speciality</text>
+<rect x="32" y="560" width="736" height="84" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="602" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(50 590) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="m19 8 3 8a5 5 0 0 1-6 0zV7"/><path d="M3 7h1a17 17 0 0 0 8-2 17 17 0 0 0 8 2h1"/><path d="m5 8 3 8a5 5 0 0 1-6 0zV7"/><path d="M7 21h10"/></g>
+<text x="92" y="577.5" font-size="14" font-weight="700" fill="#3b0764">4 · High Availability</text>
+<text x="92" y="594.5" font-size="12" fill="#3b0764">6 lessons · 2 modules · ~4h 5m</text>
+<text x="92" y="609.5" font-size="12" fill="#3b0764">Runs on eight virtual machines</text>
+<text x="92" y="624.5" font-size="12" fill="#3b0764">Two nodes behind HAProxy and Keepalived, a shared repository, a Carte cluster</text>
+<rect x="670" y="571" width="86" height="20" rx="10" fill="#ffffff" stroke="#6d28d9" stroke-width="1"/>
+<text x="713" y="585" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">Speciality</text>
+<rect x="32" y="692" width="736" height="84" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="734" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(50 722) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m10 17 5-5-5-5"/><path d="M15 12H3"/><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/></g>
+<text x="92" y="709.5" font-size="14" font-weight="700" fill="#3b0764">5 · Enterprise Security: Authentication</text>
+<text x="92" y="726.5" font-size="12" fill="#3b0764">17 lessons · 6 modules · ~6h 45m</text>
+<text x="92" y="741.5" font-size="12" fill="#3b0764">Runs on an Ubuntu lab server with OpenLDAP, a simulated AD domain and Keycloak</text>
+<text x="92" y="756.5" font-size="12" fill="#3b0764">LDAP and AD, OpenID Connect with Keycloak and Entra ID, Kerberos and IWA, a capstone</text>
+<rect x="670" y="703" width="86" height="20" rx="10" fill="#ffffff" stroke="#6d28d9" stroke-width="1"/>
+<text x="713" y="717" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">Speciality</text>
+<rect x="32" y="832" width="736" height="84" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="874" r="19" fill="#ffffff" stroke="#b45309" stroke-width="1.2"/>
+<g transform="translate(50 862) scale(1)" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526"/><circle cx="12" cy="8" r="6"/></g>
+<text x="92" y="849.5" font-size="14" font-weight="700" fill="#78350f">Certified Solution Architect</text>
+<text x="92" y="866.5" font-size="12" fill="#78350f">All five mandatory courses plus a proctored exam</text>
+<text x="92" y="881.5" font-size="12" fill="#78350f">Booked and sat through Kryterion's Webassessor:</text>
+<text x="92" y="896.5" font-size="12" fill="#78350f">online from your own computer, or at a Kryterion-authorised test centre</text>
+<rect x="538" y="843" width="218" height="20" rx="10" fill="#ffffff" stroke="#b45309" stroke-width="1"/>
+<text x="647" y="857" text-anchor="middle" font-size="11.5" font-weight="700" fill="#78350f">Certification · proctored exam</text>
+<rect x="16" y="940" width="768" height="56" rx="10" fill="#f1f5f9" stroke="#475569" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="48" cy="968" r="19" fill="#ffffff" stroke="#475569" stroke-width="1.2"/>
+<g transform="translate(36 956) scale(1)" fill="none" stroke="#475569" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z"/><circle cx="7.5" cy="7.5" r=".5" fill="currentColor"/></g>
+<text x="78" y="965" font-size="14" font-weight="700" fill="#0f172a">Built against Pentaho EE 11.0.0.0-237</text>
+<text x="78" y="983" font-size="12" fill="#0f172a">Only Installation goes further: it applies service pack 3, taking the build to 11.0.0.3-312</text>
+<rect x="305.95" y="170" width="188.1" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="400" y="188" text-anchor="middle" font-size="12" fill="#334155">pipelines the platform runs</text>
+<rect x="318.55" y="323.5" width="162.9" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="400" y="341.5" text-anchor="middle" font-size="12" fill="#334155">the server, as an image</text>
+<rect x="299.65" y="522" width="200.7" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="400" y="540" text-anchor="middle" font-size="12" fill="#334155">two servers behind a balancer</text>
+<rect x="331.15" y="654" width="137.7" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="400" y="672" text-anchor="middle" font-size="12" fill="#334155">then secure sign-on</text>
+</svg>

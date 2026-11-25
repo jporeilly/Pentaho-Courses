@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="664" viewBox="0 0 800 664" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+<filter id="shadow" x="-10%" y="-10%" width="120%" height="140%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#0f172a" flood-opacity="0.12"/></filter></defs>
+<rect width="800" height="664" fill="#ffffff"/>
+<path d="M251 84L251 105" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M251 176L251 197" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M251 268L251 289" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M251 360L251 381" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M251 452L251 473" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M251 544L251 565" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M486 234L525 234" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M656 268L656 289" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="16" y="16" width="470" height="68" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="46" cy="50" r="19" fill="#ffffff" stroke="#b45309" stroke-width="1.2"/>
+<g transform="translate(34 38) scale(1)" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M12 11h4"/><path d="M12 16h4"/><path d="M8 11h.01"/><path d="M8 16h.01"/></g>
+<text x="76" y="33" font-size="14" font-weight="700" fill="#78350f">Record and back up</text>
+<text x="76" y="50" font-size="12" fill="#78350f">build, plugins and drivers; plugins to ~/pentaho-backup;</text>
+<text x="76" y="65" font-size="12" fill="#78350f">22 GB free, JAVA_HOME set, server stopped</text>
+<rect x="16" y="108" width="470" height="68" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="46" cy="142" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(34 130) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z"/><path d="M12 22V12"/><polyline points="3.29 7 12 12 20.71 7"/><path d="m7.5 4.27 9 5.15"/></g>
+<text x="76" y="125" font-size="14" font-weight="700" fill="#3b0764">Run the installer, -i silent</text>
+<text x="76" y="142" font-size="12" fill="#3b0764">pentaho-update-11.0.0.3-312.bin</text>
+<text x="76" y="157" font-size="12" fill="#3b0764">-DUSER_INSTALL_DIR=/opt/pentaho/server</text>
+<rect x="16" y="200" width="470" height="68" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="46" cy="234" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(34 222) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="5" x="2" y="3" rx="1"/><path d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8"/><path d="M10 12h4"/></g>
+<text x="76" y="224.5" font-size="14" font-weight="700" fill="#3b0764">It scans USER_INSTALL_DIR and backs it up</text>
+<text x="76" y="241.5" font-size="12" fill="#3b0764">the whole folder, before it changes anything</text>
+<rect x="16" y="292" width="470" height="68" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="46" cy="326" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(34 314) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></g>
+<text x="76" y="309" font-size="14" font-weight="700" fill="#3b0764">It replaces the six products: exit code 0</text>
+<text x="76" y="326" font-size="12" fill="#3b0764">Server, Analyzer, Dashboards, Interactive Reporting,</text>
+<text x="76" y="341" font-size="12" fill="#3b0764">JDBC Distribution, License Installer</text>
+<rect x="16" y="384" width="470" height="68" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="46" cy="418" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(34 406) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 14 1.5-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.54 6a2 2 0 0 1-1.95 1.5H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H18a2 2 0 0 1 2 2v2"/></g>
+<text x="76" y="401" font-size="14" font-weight="700" fill="#14532d">Read what it left</text>
+<text x="76" y="418" font-size="12" fill="#14532d">reports and Logs in Pentaho__Installation;</text>
+<text x="76" y="433" font-size="12" fill="#14532d">~/.pentaho/backups/11.0.0.0-237-&lt;date&gt;.zip</text>
+<rect x="16" y="476" width="470" height="68" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="46" cy="510" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(34 498) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 5.5 5.5a5.5 5.5 0 0 1-5.5 5.5H11"/></g>
+<text x="76" y="493" font-size="14" font-weight="700" fill="#1e3a8a">Put back what it removed</text>
+<text x="76" y="510" font-size="12" fill="#1e3a8a">Semantic Model Editor from the Plugin Manager; your</text>
+<text x="76" y="525" font-size="12" fill="#1e3a8a">JDBC driver from /opt/pentaho/software/db-drivers</text>
+<rect x="16" y="568" width="470" height="68" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="46" cy="602" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(34 590) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 5a2 2 0 0 1 2 2v8.526a2 2 0 0 0 .212.897l1.068 2.127a1 1 0 0 1-.9 1.45H3.62a1 1 0 0 1-.9-1.45l1.068-2.127A2 2 0 0 0 4 15.526V7a2 2 0 0 1 2-2z"/><path d="M20.054 15.987H3.946"/></g>
+<text x="76" y="585" font-size="14" font-weight="700" fill="#1e3a8a">Patch the client tools</text>
+<text x="76" y="602" font-size="12" fill="#1e3a8a">unpack the service pack's client archives</text>
+<text x="76" y="617" font-size="12" fill="#1e3a8a">into a new ~/Pentaho/design-tools</text>
+<text x="476" y="32" text-anchor="end" font-size="10.5" font-weight="700" letter-spacing="0.4" fill="#475569">TAB 1</text>
+<text x="476" y="124" text-anchor="end" font-size="10.5" font-weight="700" letter-spacing="0.4" fill="#475569">TAB 2</text>
+<text x="476" y="400" text-anchor="end" font-size="10.5" font-weight="700" letter-spacing="0.4" fill="#475569">TAB 2</text>
+<text x="476" y="492" text-anchor="end" font-size="10.5" font-weight="700" letter-spacing="0.4" fill="#475569">TAB 3</text>
+<text x="476" y="584" text-anchor="end" font-size="10.5" font-weight="700" letter-spacing="0.4" fill="#475569">TAB 4</text>
+<rect x="528" y="200" width="256" height="68" rx="10" fill="#fee2e2" stroke="#b91c1c" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="558" cy="234" r="19" fill="#ffffff" stroke="#b91c1c" stroke-width="1.2"/>
+<g transform="translate(546 222) scale(1)" fill="none" stroke="#b91c1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 9-6 6"/><path d="M2.586 16.726A2 2 0 0 1 2 15.312V8.688a2 2 0 0 1 .586-1.414l4.688-4.688A2 2 0 0 1 8.688 2h6.624a2 2 0 0 1 1.414.586l4.688 4.688A2 2 0 0 1 22 8.688v6.624a2 2 0 0 1-.586 1.414l-4.688 4.688a2 2 0 0 1-1.414.586H8.688a2 2 0 0 1-1.414-.586z"/><path d="m9 9 6 6"/></g>
+<text x="588" y="217" font-size="14" font-weight="700" fill="#7f1d1d">Given /opt/pentaho</text>
+<text x="588" y="234" font-size="12" fill="#7f1d1d">it finds the 1.1 GB server</text>
+<text x="588" y="249" font-size="12" fill="#7f1d1d">ZIP in /opt/pentaho/software</text>
+<rect x="528" y="292" width="256" height="68" rx="10" fill="#fee2e2" stroke="#b91c1c" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="558" cy="326" r="19" fill="#ffffff" stroke="#b91c1c" stroke-width="1.2"/>
+<g transform="translate(546 314) scale(1)" fill="none" stroke="#b91c1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 9-6 6"/><path d="M2.586 16.726A2 2 0 0 1 2 15.312V8.688a2 2 0 0 1 .586-1.414l4.688-4.688A2 2 0 0 1 8.688 2h6.624a2 2 0 0 1 1.414.586l4.688 4.688A2 2 0 0 1 22 8.688v6.624a2 2 0 0 1-.586 1.414l-4.688 4.688a2 2 0 0 1-1.414.586H8.688a2 2 0 0 1-1.414-.586z"/><path d="m9 9 6 6"/></g>
+<text x="588" y="309" font-size="14" font-weight="700" fill="#7f1d1d">Exit code 255</text>
+<text x="588" y="326" font-size="12" fill="#7f1d1d">"This file is too large to</text>
+<text x="588" y="341" font-size="12" fill="#7f1d1d">back up": nothing changed</text>
+</svg>

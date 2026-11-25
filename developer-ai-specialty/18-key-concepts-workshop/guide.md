@@ -1462,10 +1462,12 @@ The idea behind semantic search is to use embeddings to find text with similar o
 
 <div align="center">
 <figure>
-<img src="../_assets/images/semantic_search_diagram.png" alt="Diagram: your data (PDF, doc, text) is split into chunks, each chunk is embedded into a vector store; the user query is embedded, the relevant data chunks are found and passed with the query, within the token limit, to an LLM that writes the response" width="800">
+<img src="../_assets/images/semantic-search.png" alt="Two phases. Before any query, documents are split into chunks, each chunk is embedded by nomic-embed-text into 768 numbers, and the vectors are kept in a vector store. For each query, the user's query is embedded by the same model and compared with the chunk vectors by cosine similarity, highest first; the nearest chunks and the query go into a prompt, within the token limit, and an LLM answers from them" width="800">
 <figcaption>Semantic search: the query's embedding finds the relevant chunks for the LLM</figcaption>
 </figure>
 </div>
+
+Read the diagram row by row. The top row runs once, before any query: each chunk gets its vector from the embedding model, `nomic-embed-text` in this workshop, and the vectors are kept. The middle row runs for every query: the query is embedded by the same model, so its 768 numbers can be compared with every chunk's, and the chunks with the highest cosine similarity are the ones closest in meaning. The bottom row is where the LLM comes in: it gets the query and those chunks, as much as fits in its token limit, and answers from them. `search.py` below does the embedding and the comparison, on 8 documents and 4 queries; it calls no LLM to answer.
 
 1. Read `search.py`:
 

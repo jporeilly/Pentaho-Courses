@@ -8,8 +8,8 @@
 # Java: OpenJDK 21 JRE (headless)
 # User: pentaho (UID 5000, non-root for security)
 #
-# Build: docker compose build pentaho-server
-# Run:   docker compose up -d pentaho-server
+# Build: ./build.sh (runs podman build in this folder)
+# Run:   podman compose up -d (from the compose project, lesson 04)
 #
 # Stages:
 #   1. install_unpack - Extracts Pentaho ZIP and optional plugins
@@ -179,7 +179,7 @@ COPY ./entrypoint/ /
 
 # Copy softwareOverride directory (K3s-specific: baked into image)
 # Podman Compose mounts this as a volume, but for K3s we bake it in
-# Contains: database configs, JDBC drivers, modified startup.sh
+# Contains: 2_repository (repository connection settings) and 4_others (startup and other settings)
 COPY --chown=${PENTAHO_USER}:${PENTAHO_USER} ./softwareOverride /docker-entrypoint-init
 
 # Set working directory to Pentaho Server root

@@ -11,9 +11,9 @@
     "messagePlaceholder": "What would you like to know?",
     "sendLabel": "Send"
   },
-  "title": "Pentaho Developer - DI Practitioner",
+  "title": "Developer - DI Practitioner",
   "description": "Self-paced, hands-on workshop for the Pentaho Data Integration Practitioner.",
-  "version": "0.1.28",
+  "version": "0.1.29",
   "kind": "workshop",
   "platform": "windows11",
   "level": { "number": 1, "name": "Practitioner" },

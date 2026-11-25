@@ -319,6 +319,8 @@ If the server runs as the service you created in **Install Pentaho Server**, run
 
 > **Success:** Checkpoint: `OK`: the 11.0 server archive ships Pipeline Designer (`pentaho-webttle`), so the Plugin Manager lists it with a version under **Installed Version** and a **View Details** button.
 
+The two names are one plugin: `webttle-plugin` in the **Plugin Matrix** below is the package, which the Support Portal ships as `webttle-plugin-ee-11.0.0.0-237.zip`, and `pentaho-webttle` is the folder it is installed in under `pentaho-solutions/system`.
+
 2. If the check printed the "missing" message instead, install it the way you installed Analyzer: select the **Pipeline Designer** row, select the version that matches your server in **Select the plugin version**, select **Install**, and restart the server.
 
 <div align="center">
@@ -550,6 +552,15 @@ If the server runs as the service you created in **Install Pentaho Server**, run
 > Pipeline Designer does not run a transformation in your browser. It hands it to the Carte service inside the Pentaho Server, at `/pentaho/kettle`, which the Carte API plugin connects it to: that is why the **Logging** tab starts with a `kettle/transStatus` link, and why the **PDI Status** page lists the run. The service's settings, such as how long it keeps log lines and finished objects, are in `pentaho-solutions/system/kettle/slave-server-config.xml`, as the bottom of the status page says.
 >
 > **Why it matters:** a pipeline run from the browser uses the server's Java, memory, JDBC drivers and Pentaho Data Integration plugins, not your desktop's. When a step works in Spoon but fails in Pipeline Designer, check the server's drivers and plugins first.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/pipeline-designer-runs-on-server.png" alt="A Pipeline Designer run: the browser opens the User Console, Pipeline Designer in pentaho-webttle hands the run to the Carte API plugin, and the server's own Carte at /pentaho/kettle runs it with the server's Java 21, memory, JDBC drivers in tomcat/lib and PDI plugins in system/kettle/plugins; the transStatus and PDI Status pages come back to the browser, and the desktop's Spoon is not used" width="800">
+<figcaption>Pipeline Designer runs on the server's own Carte</figcaption>
+</figure>
+</div>
+
+Read the diagram down the server's left column. The browser only shows the pages: the User Console opens Pipeline Designer, Pipeline Designer hands the run to the Carte API plugin, and the plugin passes it to the server's own Carte at `/pentaho/kettle`, configured by `slave-server-config.xml`. Carte runs it with the slate resources on the right, all the server's own, and the dashed arrow is the `transStatus` link and the **PDI Status** page you opened above. Spoon on your desktop, in stone, plays no part.
 
 :::
 

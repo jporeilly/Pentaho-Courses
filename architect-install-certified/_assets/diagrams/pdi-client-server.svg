@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="384" viewBox="0 0 800 384" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+<filter id="shadow" x="-10%" y="-10%" width="120%" height="140%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#0f172a" flood-opacity="0.12"/></filter></defs>
+<rect width="800" height="384" fill="#ffffff"/>
+<rect x="16" y="16" width="768" height="132" rx="12" fill="#f8fafc" stroke="#f1f5f9" stroke-width="1.5"/>
+<path d="M16 28a12 12 0 0 1 12-12h744a12 12 0 0 1 12 12v22h-768z" fill="#475569"/>
+<g transform="translate(29 22) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 14 4 4-4 4"/><path d="m18 2 4 4-4 4"/><path d="M2 18h1.973a4 4 0 0 0 3.3-1.7l5.454-8.6a4 4 0 0 1 3.3-1.7H22"/><path d="M2 6h1.972a4 4 0 0 1 3.6 2.2"/><path d="M22 18h-6.041a4 4 0 0 1-3.3-1.8l-.359-.45"/></g>
+<text x="56" y="39" font-size="14" font-weight="700" fill="#ffffff">Pentaho Data Integration</text>
+<rect x="16" y="196" width="520" height="172" rx="12" fill="#f5f3ff" stroke="#ede9fe" stroke-width="1.5"/>
+<path d="M16 208a12 12 0 0 1 12-12h496a12 12 0 0 1 12 12v32h-520z" fill="#6d28d9"/>
+<g transform="translate(29 206) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="8" x="2" y="2" rx="2" ry="2"/><rect width="20" height="8" x="2" y="14" rx="2" ry="2"/><line x1="6" x2="6.01" y1="6" y2="6"/><line x1="6" x2="6.01" y1="18" y2="18"/></g>
+<text x="56" y="216" font-size="14" font-weight="700" fill="#ffffff">Pentaho Server</text>
+<text x="56" y="232" font-size="11.5" fill="#ffffff" opacity="0.92">Data Integration topology</text>
+<path d="M212 132L212 193" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M536 282L581 282" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="32" y="56" width="360" height="76" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="94" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(50 82) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></g>
+<text x="92" y="77" font-size="14" font-weight="700" fill="#1e3a8a">Client tool: Spoon</text>
+<text x="92" y="94" font-size="12" fill="#1e3a8a">Designer, Scheduler,</text>
+<text x="92" y="109" font-size="12" fill="#1e3a8a">Repository Browser, DB Explorer</text>
+<rect x="408" y="56" width="360" height="76" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="438" cy="94" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(426 82) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 11 2-2-2-2"/><path d="M11 13h4"/><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/></g>
+<text x="468" y="84.5" font-size="14" font-weight="700" fill="#1e3a8a">Standalone: Pan, Kitchen, Carte</text>
+<text x="468" y="101.5" font-size="12" fill="#1e3a8a">run work without the server</text>
+<rect x="28" y="252" width="157.33333333333334" height="46" rx="10" fill="#ffffff" stroke="#64748b" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="106.66666666666667" y="280" text-anchor="middle" font-size="14" font-weight="700" fill="#0f172a">Engine</text>
+<rect x="197.33333333333334" y="252" width="157.33333333333334" height="46" rx="10" fill="#ffffff" stroke="#64748b" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="276" y="280" text-anchor="middle" font-size="14" font-weight="700" fill="#0f172a">Repository</text>
+<rect x="366.6666666666667" y="252" width="157.33333333333334" height="46" rx="10" fill="#ffffff" stroke="#64748b" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="445.33333333333337" y="280" text-anchor="middle" font-size="14" font-weight="700" fill="#0f172a">Quartz scheduler</text>
+<rect x="28" y="310" width="157.33333333333334" height="46" rx="10" fill="#ffffff" stroke="#64748b" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="106.66666666666667" y="338" text-anchor="middle" font-size="14" font-weight="700" fill="#0f172a">Security</text>
+<rect x="197.33333333333334" y="310" width="157.33333333333334" height="46" rx="10" fill="#ffffff" stroke="#64748b" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="276" y="338" text-anchor="middle" font-size="14" font-weight="700" fill="#0f172a">Monitoring</text>
+<rect x="584" y="250" width="200" height="64" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="614" cy="282" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(602 270) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></g>
+<text x="644" y="287" font-size="14" font-weight="700" fill="#14532d">System database</text>
+<rect x="171.5" y="159.5" width="81" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="212" y="177.5" text-anchor="middle" font-size="12" fill="#334155">.ktr, .kjb</text>
+</svg>

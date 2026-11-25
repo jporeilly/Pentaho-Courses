@@ -19,9 +19,11 @@ parameters, and draw only what the lessons state.
   node models-and-tools.svg.mjs
   ```
 
-* The three workflow strips share one drawing, `workflow-strip.mjs`;
-  each `*-workflow.svg.mjs` names only its parts and calls
-  `writeWorkflow`.
+* The three workflow strips share one drawing,
+  [`scripts/workflow-strip.mjs`](../../../../scripts/workflow-strip.mjs)
+  (moved there from this folder on 2026-11-18, when SW's Basic Model
+  took the same strip); each `*-workflow.svg.mjs` names only its parts
+  and calls `writeWorkflow`.
 
 * `pentaho-architecture` is a port of the course's earlier hand-written
   script to the kit, with the same content. It now writes

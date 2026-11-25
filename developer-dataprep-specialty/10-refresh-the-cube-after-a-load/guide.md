@@ -92,7 +92,7 @@ The connection uses the MySQL driver you copied to the server's `tomcat\lib` in 
 >
 > #### Switch Aggregates On
 >
-> Mondrian ignores aggregate tables until two properties are true. The Pentaho BI Developer - SW course sets them for its own cubes; if you have done that course on this server, they are already set.
+> Mondrian ignores aggregate tables until two properties are true. The BI Developer - SW course sets them for its own cubes; if you have done that course on this server, they are already set.
 
 1. Open `C:\Pentaho\server\pentaho-server\pentaho-solutions\system\mondrian\mondrian.properties`.
 2. Make sure it holds these two lines, and add them if not:

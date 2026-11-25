@@ -166,6 +166,15 @@
 >
 > **Why it matters:** a dynamic clustering schema needs to know only the master: in the words of Spoon's **Dynamic cluster** option, it "gets the list of slave servers from the first master slave server it can contact". Slaves can then join and leave without editing a schema.
 
+<div align="center">
+<figure>
+<img src="../_assets/images/carte-master-slaves.png" alt="CarteMaster on carte-master, 10.0.1.40:9001, master Y, keeps the slave list. CarteSlaveOne on carte-slave-01, 10.0.1.41:9002, and CarteSlaveTwo on carte-slave-02, 10.0.1.42:9002, both master N with report_to_masters Y, register with it at start, and the master checks each one every 30 seconds. curl on :9001/kettle/getSlaves/ lists both slaves. Spoon's HA_Carte_Cluster names all three servers with Dynamic cluster cleared; a dynamic schema, not used here, would list only the master." width="800">
+<figcaption>The slaves register with the master, which keeps the list that getSlaves returns</figcaption>
+</figure>
+</div>
+
+Read the diagram from the slaves up. Each slave registers with `CarteMaster` when it starts (1), and the master then checks each slave it holds (2); that list is what the `getSlaves` call in the next step returns. On the left, Spoon's schema `HA_Carte_Cluster`, which you define in part 3, names all three servers itself, because this workshop leaves **Dynamic cluster** cleared. The gray box is the alternative: a dynamic schema would name only the master and take the slaves from it.
+
 7. From any host on the subnet, check that the master is online, then ask it which slaves have registered:
 
    ```bash

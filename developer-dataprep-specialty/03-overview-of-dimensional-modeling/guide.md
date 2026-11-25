@@ -144,7 +144,7 @@ The settings that make this work, which [Load Dimensions with Slowly Changing Hi
 | **Date range start field** / **Table date range end** | `date_from` / `date_to` | The validity of each version |
 | **Fields** tab | One row per attribute, with **Insert** or **Update** | Type 2 or type 1, field by field |
 
-The Pentaho Developer - DI Practitioner course's **Slowly Changing Dimensions** workshop walks through every **Type of dimension update** on a small table, punch through included. This course applies the step to a real dimension.
+The Developer - DI Practitioner course's **Slowly Changing Dimensions** workshop walks through every **Type of dimension update** on a small table, punch through included. This course applies the step to a real dimension.
 
 <div class="pcm-embed-card" data-href="https://docs.pentaho.com/pdia-data-integration/pdi-transformation-steps-reference-overview" data-title="PDI transformation steps"></div>
 

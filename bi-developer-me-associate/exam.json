@@ -20,7 +20,7 @@
       ],
       "correct": 2,
       "explanation": "A **metadata domain** translates technical database names into business terms, and the query generator uses the model's relationships to build the SQL, so users report by picking **business-named fields** without writing any.\n\nThe friendly names live once in the model rather than in every report, which keeps them consistent.",
-      "source": "Pentaho BI Developer - ME Associate: Getting Started — Components"
+      "source": "BI Developer - ME Associate: Getting Started — Components"
     },
     {
       "id": "me-m1-q2",
@@ -36,7 +36,7 @@
       ],
       "correct": 0,
       "explanation": "The **metadata layer** acts as a buffer between the source data and the reports. Because reports reference business columns rather than physical database columns, a change at the database level is absorbed in the **physical layer** of the domain.\n\nOnce the physical layer is updated and the domain is republished, the reports remain unchanged because their business columns have not changed.",
-      "source": "Pentaho BI Developer - ME Associate: Getting Started — Components"
+      "source": "BI Developer - ME Associate: Getting Started — Components"
     },
     {
       "id": "me-m1-q3",
@@ -52,7 +52,7 @@
       ],
       "correct": 0,
       "explanation": "Report writers work against the **business model layer** because it provides a business-oriented view of the data. This layer uses categories to present information in a way that applications and users can easily interact with, abstracting the technical details of the underlying database.",
-      "source": "Pentaho BI Developer - ME Associate: Getting Started — Components"
+      "source": "BI Developer - ME Associate: Getting Started — Components"
     },
     {
       "id": "me-m1-q4",
@@ -68,7 +68,7 @@
       ],
       "correct": 3,
       "explanation": "Moving formatting to the **metadata layer** establishes a single set of formatting rules for text, dates, and numbers within the model.\n\nBecause these rules are defined centrally in the metadata domain, every report built upon that model automatically shares the same consistent formatting for its data fields.",
-      "source": "Pentaho BI Developer - ME Associate: Getting Started — Components"
+      "source": "BI Developer - ME Associate: Getting Started — Components"
     },
     {
       "id": "me-m1-q5",
@@ -88,7 +88,7 @@
         3
       ],
       "explanation": "The requirement to adapt labels based on regional settings is met by **Localization**, which ensures information is presented correctly according to local context.\n\n**Security controls** manage which data elements, such as salary figures, are visible to specific users, allowing a single domain to serve a diverse, global user base.",
-      "source": "Pentaho BI Developer - ME Associate: Getting Started — Components"
+      "source": "BI Developer - ME Associate: Getting Started — Components"
     },
     {
       "id": "me-m1-q6",
@@ -104,7 +104,7 @@
       ],
       "correct": 3,
       "explanation": "A **metadata domain** provides a shared model where business names, formatting, and security are defined in one location. While this design ensures consistency across all reports and allows the system to absorb many database changes, the domain itself requires maintenance to remain in sync with the physical layer.",
-      "source": "Pentaho BI Developer - ME Associate: Getting Started — Components"
+      "source": "BI Developer - ME Associate: Getting Started — Components"
     },
     {
       "id": "me-m1-q7",
@@ -120,7 +120,7 @@
       ],
       "correct": 3,
       "explanation": "**File > Publish To Server** sends the domain to the **Pentaho Server**, which registers it as a data source for the reporting tools. Saving the domain only stores it locally, so it never reaches the server.",
-      "source": "Pentaho BI Developer - ME Associate: Domains & Models — OrdersME"
+      "source": "BI Developer - ME Associate: Domains & Models — OrdersME"
     },
     {
       "id": "me-m2-q1",
@@ -136,7 +136,7 @@
       ],
       "correct": 2,
       "explanation": "The **physical layer** represents the database as it is and is not part of the business model; the business tables, relationships, and business view built on top of it are what applications and users work against.\n\nReport writers do not browse the physical layer. Because **categories** hold business columns, a business model must exist before there is anything to categorize. Unneeded tables can simply be left out of the model; no items are dropped from the actual database.",
-      "source": "Pentaho BI Developer - ME Associate: Domains & Models — Overview"
+      "source": "BI Developer - ME Associate: Domains & Models — Overview"
     },
     {
       "id": "me-m2-q2",
@@ -152,7 +152,7 @@
       ],
       "correct": 2,
       "explanation": "A **business model** can reference only one connection. Because tables from different connections cannot be mixed in the same model, the data must be moved into a single database before the business model is created.",
-      "source": "Pentaho BI Developer - ME Associate: Domains & Models — Overview"
+      "source": "BI Developer - ME Associate: Domains & Models — Overview"
     },
     {
       "id": "me-m2-q3",
@@ -168,7 +168,7 @@
       ],
       "correct": 0,
       "explanation": "The business layer allows a **relationship** between two business tables on the columns they share, so budget and actual figures can be compared even though the database has no foreign key between the tables.",
-      "source": "Pentaho BI Developer - ME Associate: Domains & Models — Overview"
+      "source": "BI Developer - ME Associate: Domains & Models — Overview"
     },
     {
       "id": "me-m2-q4",
@@ -184,7 +184,7 @@
       ],
       "correct": 0,
       "explanation": "A business column can be added to more than one **category** in a business view. The only restriction is that a column cannot appear more than once within a single category. Because **categories** are not tied to specific business tables, a column can be shared across multiple categories without requiring additional tables or duplicate entries.",
-      "source": "Pentaho BI Developer - ME Associate: Domains & Models — Overview"
+      "source": "BI Developer - ME Associate: Domains & Models — Overview"
     },
     {
       "id": "me-m2-q5",
@@ -200,7 +200,7 @@
       ],
       "correct": 3,
       "explanation": "The physical layer is not part of the business model, because not every table in it is needed by every model. Report writers see only the **business view**, so the unused tables are harmless and can be removed later if wanted.\n\nNothing requires every physical table to appear in a model, and PME never needs tables dropped from the database.",
-      "source": "Pentaho BI Developer - ME Associate: Domains & Models — Overview"
+      "source": "BI Developer - ME Associate: Domains & Models — Overview"
     },
     {
       "id": "me-m2-q6",
@@ -216,7 +216,7 @@
       ],
       "correct": 1,
       "explanation": "A column that does not exist in the physical table can be created as a **calculated column** using existing fields. The formula utilizes **square brackets** to identify the columns, such as `[QUANTITYORDERED]*[PRICEEACH]`.",
-      "source": "Pentaho BI Developer - ME Associate: Domains & Models — SteelWheels"
+      "source": "BI Developer - ME Associate: Domains & Models — SteelWheels"
     },
     {
       "id": "me-m2-q7",
@@ -232,7 +232,7 @@
       ],
       "correct": 0,
       "explanation": "With **JNDI access**, the connection names a resource, such as `SampleData`, and the application server holds the connection details. The domain is portable: each server supplies its own database behind the same name, so nothing in the definition is edited.",
-      "source": "Pentaho BI Developer - ME Associate: Domains & Models — OrdersME"
+      "source": "BI Developer - ME Associate: Domains & Models — OrdersME"
     },
     {
       "id": "me-m2-q8",
@@ -248,7 +248,7 @@
       ],
       "correct": 2,
       "explanation": "The prefix **BT** identifies a business table, and the prefix **BC** identifies a business column. Because both sides of the relationship use the **BT** and **BC** prefixes, the link connects business columns of two business tables.",
-      "source": "Pentaho BI Developer - ME Associate: Domains & Models — SteelWheels"
+      "source": "BI Developer - ME Associate: Domains & Models — SteelWheels"
     },
     {
       "id": "me-m2-q9",
@@ -264,7 +264,7 @@
       ],
       "correct": 2,
       "explanation": "The client tool loads the driver itself, so the **JDBC driver** goes into Metadata Editor's `lib` folder (removing any older copy of the same JAR), and the editor is restarted to register it.",
-      "source": "Pentaho BI Developer - ME Associate: Domains & Models — OrdersME"
+      "source": "BI Developer - ME Associate: Domains & Models — OrdersME"
     },
     {
       "id": "me-m2-q10",
@@ -280,7 +280,7 @@
       ],
       "correct": 1,
       "explanation": "Publishing posts the domain to the server's **metadata import endpoint**, so the server must be running. Closing its console window stops the server, and it has to be started again before the domain can be published.",
-      "source": "Pentaho BI Developer - ME Associate: Domains & Models — OrdersME"
+      "source": "BI Developer - ME Associate: Domains & Models — OrdersME"
     },
     {
       "id": "me-m2-q11",
@@ -296,7 +296,7 @@
       ],
       "correct": 3,
       "explanation": "Building an Interactive Report on the domain as the data source exercises the **business view**, its categories, and the generated joins. This confirms that the metadata layer is correctly processed for end-user consumption.",
-      "source": "Pentaho BI Developer - ME Associate: Domains & Models — OrdersME"
+      "source": "BI Developer - ME Associate: Domains & Models — OrdersME"
     },
     {
       "id": "me-m2-q12",
@@ -312,7 +312,7 @@
       ],
       "correct": 3,
       "explanation": "The relationship from ORDERFACT to PRODUCTS is **many-to-one (N:1)** because multiple order lines in the fact table can refer to the same single product record in the dimension table.\n\nIn a standard star schema, the fact table maintains an N:1 relationship with each of its associated dimension tables.",
-      "source": "Pentaho BI Developer - ME Associate: Domains & Models — OrdersME"
+      "source": "BI Developer - ME Associate: Domains & Models — OrdersME"
     },
     {
       "id": "me-m2-q13",
@@ -328,7 +328,7 @@
       ],
       "correct": 1,
       "explanation": "The **Query Editor** builds a query from business categories and columns and shows the generated SQL and the resulting data, so problems with relationships, aggregations, or column definitions show up before the model is published.",
-      "source": "Pentaho BI Developer - ME Associate: Domains & Models — Query Builder"
+      "source": "BI Developer - ME Associate: Domains & Models — Query Builder"
     },
     {
       "id": "me-m2-q14",
@@ -344,7 +344,7 @@
       ],
       "correct": 1,
       "explanation": "One model holds both by defining **two business tables** that reference the same physical table, so the metadata layer presents the same data in two ways, one of them with the filter the business area needs.",
-      "source": "Pentaho BI Developer - ME Associate: Domains & Models — Overview"
+      "source": "BI Developer - ME Associate: Domains & Models — Overview"
     },
     {
       "id": "me-m3-q1",
@@ -360,7 +360,7 @@
       ],
       "correct": 2,
       "explanation": "The **ID** is used internally to reference the model when SQL is generated and must be unique across all models. The **Name** property is the correct field for display labels that users see.",
-      "source": "Pentaho BI Developer - ME Associate: Properties — OrderStarCustomer"
+      "source": "BI Developer - ME Associate: Properties — OrderStarCustomer"
     },
     {
       "id": "me-m3-q2",
@@ -376,7 +376,7 @@
       ],
       "correct": 0,
       "explanation": "Tables cannot be added to the business layer as a group; they must be added individually. Each drag operation triggers a **properties dialog** that displays the business table's ID (such as `BT_PRODUCTS_PRODUCTS`) and its corresponding physical table, where the user can then choose to remove specific columns.",
-      "source": "Pentaho BI Developer - ME Associate: Properties — OrderStarCustomer"
+      "source": "BI Developer - ME Associate: Properties — OrderStarCustomer"
     },
     {
       "id": "me-m3-q3",
@@ -392,7 +392,7 @@
       ],
       "correct": 1,
       "explanation": "A business table maintains a **reference link** to the physical table it models. Business columns inherit properties from their corresponding physical columns on a per-property basis.\n\nIf a property is not explicitly overridden, the business column **inherits the value** from the physical column. If a business column has its own override, that specific property remains unchanged regardless of updates to the physical column's property.",
-      "source": "Pentaho BI Developer - ME Associate: Domains & Models — Overview"
+      "source": "BI Developer - ME Associate: Domains & Models — Overview"
     },
     {
       "id": "me-m3-q4",
@@ -408,7 +408,7 @@
       ],
       "correct": 0,
       "explanation": "A **relationship** tells the query and SQL generators how business tables join. The report takes Customer Name from CUSTOMER_W_TER and Total from ORDERFACT, so the two need one, here ORDERFACT N:1 to CUSTOMER_W_TER on `CUSTOMERNUMBER`.",
-      "source": "Pentaho BI Developer - ME Associate: Properties — OrderStarCustomer"
+      "source": "BI Developer - ME Associate: Properties — OrderStarCustomer"
     },
     {
       "id": "me-m3-q5",
@@ -424,7 +424,7 @@
       ],
       "correct": 2,
       "explanation": "A business column inherits the metadata of a physical column until a property is overridden. When an **override** is applied, the business layer uses its own specific configuration for that property.\n\nPhysical metadata acts as the default value, but the specific configuration of the business layer takes precedence over the inherited values.",
-      "source": "Pentaho BI Developer - ME Associate: Domains & Models — Overview"
+      "source": "BI Developer - ME Associate: Domains & Models — Overview"
     },
     {
       "id": "me-m3-q6",
@@ -440,7 +440,7 @@
       ],
       "correct": 2,
       "explanation": "Physical objects carry **mandatory properties** that are created automatically and cannot be deleted, so nothing essential to **SQL generation** can be removed by accident. A physical table must always have a Target Table.",
-      "source": "Pentaho BI Developer - ME Associate: Properties — Overview"
+      "source": "BI Developer - ME Associate: Properties — Overview"
     },
     {
       "id": "me-m3-q7",
@@ -456,7 +456,7 @@
       ],
       "correct": 2,
       "explanation": "A new **physical column** (`PC_CONTACT`) takes the formula `[CONTACTLASTNAME]+\",\"+[CONTACTFIRSTNAME]` and is then added to the business table, so it can be categorized like any other column.",
-      "source": "Pentaho BI Developer - ME Associate: Properties — OrderStarCustomer"
+      "source": "BI Developer - ME Associate: Properties — OrderStarCustomer"
     },
     {
       "id": "me-m3-q8",
@@ -472,7 +472,7 @@
       ],
       "correct": 2,
       "explanation": "Overriding the **Name property** of each business column with the business label is what report writers then see.\n\nThe label lives in the metadata layer, so the database columns keep their names.",
-      "source": "Pentaho BI Developer - ME Associate: Properties — OrderStarCustomer"
+      "source": "BI Developer - ME Associate: Properties — OrderStarCustomer"
     },
     {
       "id": "me-m3-q9",
@@ -488,7 +488,7 @@
       ],
       "correct": 2,
       "explanation": "**Default Aggregation** sets the aggregation applied when nobody chooses one (Sum), and **Optional Aggregations** lists the others report writers may pick, here Average, Minimum, and Maximum.",
-      "source": "Pentaho BI Developer - ME Associate: Properties — OrderStarCustomer"
+      "source": "BI Developer - ME Associate: Properties — OrderStarCustomer"
     },
     {
       "id": "me-m3-q10",
@@ -504,7 +504,7 @@
       ],
       "correct": 1,
       "explanation": "An **inner join** produces a result only where there is a match in both tables based on the join condition. When a row in one table does not have a corresponding match in the other table, that row is excluded from the final result set.",
-      "source": "Pentaho BI Developer - ME Associate: Properties — OrderStarCustomer"
+      "source": "BI Developer - ME Associate: Properties — OrderStarCustomer"
     },
     {
       "id": "me-m4-q1",
@@ -520,7 +520,7 @@
       ],
       "correct": 0,
       "explanation": "A **concept** bundles properties once, and columns inherit those properties from their parent. By defining a **concept** for currency and setting it as the parent of every currency column, a single change to the concept's mask will apply to every associated column.",
-      "source": "Pentaho BI Developer - ME Associate: Concepts — Concept Editor"
+      "source": "BI Developer - ME Associate: Concepts — Concept Editor"
     },
     {
       "id": "me-m4-q2",
@@ -536,7 +536,7 @@
       ],
       "correct": 2,
       "explanation": "A column inherits a concept's properties only once the concept is assigned to it. Right-clicking the column and choosing **Set Parent Concept** links the two, and the column then takes the formatting defined in the **Concept Editor**.",
-      "source": "Pentaho BI Developer - ME Associate: Concepts — Concept Editor"
+      "source": "BI Developer - ME Associate: Concepts — Concept Editor"
     },
     {
       "id": "me-m4-q3",
@@ -552,7 +552,7 @@
       ],
       "correct": 2,
       "explanation": "Base can be removed as the parent of particular columns, so they stop inheriting its properties, but the **Base concept** itself cannot be deleted from the concept list.\n\nBase's own properties can still be updated, added, or deleted.",
-      "source": "Pentaho BI Developer - ME Associate: Concepts — Overview"
+      "source": "BI Developer - ME Associate: Concepts — Overview"
     },
     {
       "id": "me-m4-q4",
@@ -568,7 +568,7 @@
       ],
       "correct": 1,
       "explanation": "Properties applied directly to an object are its **self-concept**, so a mask typed onto the column belongs there.\n\nUSCurrency is the column's **parent concept**, Number an **inherited concept** further up the hierarchy, and Base the **default concept**, which supplies any value not set elsewhere.",
-      "source": "Pentaho BI Developer - ME Associate: Concepts — Overview"
+      "source": "BI Developer - ME Associate: Concepts — Overview"
     },
     {
       "id": "me-m4-q5",
@@ -584,7 +584,7 @@
       ],
       "correct": 1,
       "explanation": "The **Hidden** concept inherits the `#` mask from its parent, **ID**, so the value shows as a whole number, and it adds **Hidden For the User?**, the flag that marks the column as one report writers should not see.\n\nPentaho Server 11.0.0.3 does not pass that flag to Interactive Reports, so the column stays listed there. To keep a column from users in Interactive Reports, restrict its **Metadata Security**.",
-      "source": "Pentaho BI Developer - ME Associate: Concepts — Concept Editor"
+      "source": "BI Developer - ME Associate: Concepts — Concept Editor"
     },
     {
       "id": "me-m4-q6",
@@ -600,7 +600,7 @@
       ],
       "correct": 1,
       "explanation": "A **Date concept** is created under Base with the mask set to `MM-dd-yyyy` and then assigned as the parent of each specific date column to ensure consistent formatting across the report.\n\nBy defining the format at the **concept level**, the requirement is met for all columns sharing that underlying definition.",
-      "source": "Pentaho BI Developer - ME Associate: Concepts — Concept Editor"
+      "source": "BI Developer - ME Associate: Concepts — Concept Editor"
     },
     {
       "id": "me-m4-q7",
@@ -616,7 +616,7 @@
       ],
       "correct": 2,
       "explanation": "Inheritance is **live**; a child concept inherits every property from its parent except those it specifically overrides. Because the `USCurrency` concept only overrides the mask, it continues to inherit the alignment property from the `Number` parent.\n\nSince the property is inherited dynamically, the columns update to the new alignment immediately without requiring the parent to be reassigned.",
-      "source": "Pentaho BI Developer - ME Associate: Concepts — Concept Editor"
+      "source": "BI Developer - ME Associate: Concepts — Concept Editor"
     },
     {
       "id": "me-m4-q8",
@@ -632,7 +632,7 @@
       ],
       "correct": 2,
       "explanation": "The **Mask for Number or Date** applies only to fields specifically defined as date or numeric data types. Because the Order Date was explicitly overridden to a date type while Required Date remained a string, only the former is formatted by the system.\n\nFormatting logic is applied based on the individual field **Data Type** definition rather than the grouping or category in which the field resides.",
-      "source": "Pentaho BI Developer - ME Associate: Concepts — Concept Editor"
+      "source": "BI Developer - ME Associate: Concepts — Concept Editor"
     },
     {
       "id": "me-m4-q9",
@@ -648,7 +648,7 @@
       ],
       "correct": 2,
       "explanation": "Nesting a concept allows it to **inherit properties** from a parent while only defining specific differences. If the modeler copies the alignment into a top-level concept, it works, but the value must be updated in two locations if the alignment needs to change.\n\nUsing a **nested hierarchy** ensures that common properties are managed in a single location, which reduces maintenance and the risk of inconsistency.",
-      "source": "Pentaho BI Developer - ME Associate: Concepts — Concept Editor"
+      "source": "BI Developer - ME Associate: Concepts — Concept Editor"
     },
     {
       "id": "me-m5-q1",
@@ -664,7 +664,7 @@
       ],
       "correct": 0,
       "explanation": "The restriction is applied by overriding the **Metadata Security** of the Credit Limit business column. With access assigned to the Admin role only, the field is hidden from every other role, the sales representatives' included.\n\n**Column-level security** in the metadata layer means no separate database views are needed for different roles.",
-      "source": "Pentaho BI Developer - ME Associate: Security & Data Access — Row-Level Security"
+      "source": "BI Developer - ME Associate: Security & Data Access — Row-Level Security"
     },
     {
       "id": "me-m5-q2",
@@ -680,7 +680,7 @@
       ],
       "correct": 0,
       "explanation": "A **role-based MQL data constraint** on the business model filters the rows each role sees, with formulas such as `Territory = \"EMEA\"` for the managers' role and `TRUE()` for Administrator. A role with no entry sees no rows.\n\nEveryone shares one domain, and **row-level security** decides what each of them gets back.",
-      "source": "Pentaho BI Developer - ME Associate: Security & Data Access — Overview"
+      "source": "BI Developer - ME Associate: Security & Data Access — Overview"
     },
     {
       "id": "me-m5-q3",
@@ -696,7 +696,7 @@
       ],
       "correct": 2,
       "explanation": "Security defined in the **metadata layer** is enforced by every reporting tool and data access method that queries the domain, so no report reimplements the security logic, including reports written later.",
-      "source": "Pentaho BI Developer - ME Associate: Security & Data Access — Overview"
+      "source": "BI Developer - ME Associate: Security & Data Access — Overview"
     },
     {
       "id": "me-m5-q4",
@@ -716,7 +716,7 @@
         4
       ],
       "explanation": "While model-level **Metadata Security** is inherited by business tables and columns, it is not inherited by the business view's categories. To ensure visibility, the **override** must be stopped on each category.\n\nSecurity changes only take effect once the domain is **republished** and the server's **Reporting Metadata** is refreshed.",
-      "source": "Pentaho BI Developer - ME Associate: Security & Data Access — Row-Level Security"
+      "source": "BI Developer - ME Associate: Security & Data Access — Row-Level Security"
     },
     {
       "id": "me-m5-q5",
@@ -732,7 +732,7 @@
       ],
       "correct": 0,
       "explanation": "The Metadata Editor retrieves users, roles, and access control lists from the Pentaho Server's security service. This service is configured under **Tools > Security** with a URL, such as `http://localhost:8080/pentaho/api/userrolelist`.\n\nOn a server with hundreds of users, returning only **roles** is the practical choice.",
-      "source": "Pentaho BI Developer - ME Associate: Security & Data Access — Row-Level Security"
+      "source": "BI Developer - ME Associate: Security & Data Access — Row-Level Security"
     },
     {
       "id": "me-m5-q6",
@@ -748,7 +748,7 @@
       ],
       "correct": 2,
       "explanation": "By default, only the authenticated **Administrator** can use metadata domains. The Power User role must be granted access through the **Metadata Security** of the model or via the data-access roles defined in the `settings.xml` file.",
-      "source": "Pentaho BI Developer - ME Associate: Security & Data Access — Row-Level Security"
+      "source": "BI Developer - ME Associate: Security & Data Access — Row-Level Security"
     }
   ]
 }

@@ -192,7 +192,7 @@ customized there, it can no longer be edited in Interactive Reports.
 > 
 > It offers parameterized reporting, sub-reports, cross-tabs, charts, and conditional formatting, and outputs PDF, Excel, HTML, and CSV, among other formats. Every element of a report sits exactly where the designer placed it, which suits printed and pixel-perfect output.
 
-Report Designer has its own workshop — **Pentaho BI Developer - RD
+Report Designer has its own workshop — **BI Developer - RD
 Associate** — which covers it hands-on.
 
 :::

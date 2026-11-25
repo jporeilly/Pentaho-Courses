@@ -1,0 +1,136 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="568" viewBox="0 0 1080 568" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+<filter id="shadow" x="-10%" y="-10%" width="120%" height="140%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#0f172a" flood-opacity="0.12"/></filter></defs>
+<rect width="1080" height="568" fill="#ffffff"/>
+<rect x="16" y="16" width="244" height="444" rx="12" fill="#f8fafc" stroke="#f1f5f9" stroke-width="1.5"/>
+<path d="M16 28a12 12 0 0 1 12-12h220a12 12 0 0 1 12 12v32h-244z" fill="#475569"/>
+<g transform="translate(29 26) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 11 2-2-2-2"/><path d="M11 13h4"/><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/></g>
+<text x="56" y="36" font-size="14" font-weight="700" fill="#ffffff">Publishers</text>
+<text x="56" y="52" font-size="11.5" fill="#ffffff" opacity="0.92">each running in its own window</text>
+<rect x="284" y="16" width="244" height="444" rx="12" fill="#f5f3ff" stroke="#ede9fe" stroke-width="1.5"/>
+<path d="M284 28a12 12 0 0 1 12-12h220a12 12 0 0 1 12 12v32h-244z" fill="#6d28d9"/>
+<g transform="translate(297 26) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 7.7c0-.6-.4-1.2-.8-1.5l-6.3-3.9a1.72 1.72 0 0 0-1.7 0l-10.3 6c-.5.2-.9.8-.9 1.4v6.6c0 .5.4 1.2.8 1.5l6.3 3.9a1.72 1.72 0 0 0 1.7 0l10.3-6c.5-.3.9-1 .9-1.5Z"/><path d="M10 21.9V14L2.1 9.1"/><path d="m10 14 11.9-6.9"/><path d="M14 19.8v-8.1"/><path d="M18 17.5V9.4"/></g>
+<text x="324" y="36" font-size="14" font-weight="700" fill="#ffffff">Brokers, in containers</text>
+<text x="324" y="52" font-size="11.5" fill="#ffffff" opacity="0.92">setup-services.ps1 -Streaming</text>
+<rect x="552" y="16" width="244" height="444" rx="12" fill="#eff6ff" stroke="#dbeafe" stroke-width="1.5"/>
+<path d="M552 28a12 12 0 0 1 12-12h220a12 12 0 0 1 12 12v32h-244z" fill="#1d4ed8"/>
+<g transform="translate(565 26) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></g>
+<text x="592" y="36" font-size="14" font-weight="700" fill="#ffffff">Pentaho Data Integration</text>
+<text x="592" y="52" font-size="11.5" fill="#ffffff" opacity="0.92">a parent with a consumer step</text>
+<rect x="820" y="16" width="244" height="444" rx="12" fill="#f0fdf4" stroke="#dcfce7" stroke-width="1.5"/>
+<path d="M820 28a12 12 0 0 1 12-12h220a12 12 0 0 1 12 12v32h-244z" fill="#15803d"/>
+<g transform="translate(833 26) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 16h.01"/><path d="M2.212 11.577a2 2 0 0 0-.212.896V18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-5.527a2 2 0 0 0-.212-.896L18.55 5.11A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/><path d="M21.946 12.013H2.054"/><path d="M6 16h.01"/></g>
+<text x="860" y="36" font-size="14" font-weight="700" fill="#ffffff">Outputs</text>
+<text x="860" y="52" font-size="11.5" fill="#ffffff" opacity="0.92">in each lab’s folder, or MySQL</text>
+<path d="M250 116L293 116" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M518 116L561 116" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M786 116L829 116" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M250 212L293 212" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M518 212L561 212" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M786 212L829 212" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M250 308L293 308" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M518 308L561 308" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M786 308L829 308" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M250 404L293 404" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M518 404L561 404" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M786 404L829 404" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="26" y="76" width="224" height="80" rx="10" fill="#f1f5f9" stroke="#475569" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="56" cy="116" r="19" fill="#ffffff" stroke="#475569" stroke-width="1.2"/>
+<g transform="translate(44 104) scale(1)" fill="none" stroke="#475569" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 11 2-2-2-2"/><path d="M11 13h4"/><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/></g>
+<text x="86" y="99" font-size="14" font-weight="700" fill="#0f172a">sensor.py</text>
+<text x="86" y="116" font-size="12" fill="#0f172a">Python, a reading a second</text>
+<text x="86" y="131" font-size="12" fill="#0f172a">industrial/robot/sensor</text>
+<rect x="294" y="76" width="224" height="80" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="324" cy="116" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(312 104) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.9 16.1C1 12.2 1 5.8 4.9 1.9"/><path d="M7.8 4.7a6.14 6.14 0 0 0-.8 7.5"/><circle cx="12" cy="9" r="2"/><path d="M16.2 4.8c2 2 2.26 5.11.8 7.47"/><path d="M19.1 1.9a9.96 9.96 0 0 1 0 14.1"/><path d="M9.5 18h5"/><path d="m8 22 4-11 4 11"/></g>
+<text x="354" y="99" font-size="14" font-weight="700" fill="#3b0764">HiveMQ</text>
+<text x="354" y="116" font-size="12" fill="#3b0764">pcm-hivemq (MQTT)</text>
+<text x="354" y="131" font-size="12" fill="#3b0764">tcp://localhost:1883</text>
+<rect x="562" y="76" width="224" height="80" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="592" cy="116" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(580 104) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></g>
+<text x="622" y="99" font-size="14" font-weight="700" fill="#1e3a8a">MQTT consumer</text>
+<text x="622" y="116" font-size="12" fill="#1e3a8a">tr_robot_consumer.ktr</text>
+<text x="622" y="131" font-size="12" fill="#1e3a8a">HiveMQ lab</text>
+<rect x="830" y="76" width="224" height="80" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="860" cy="116" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(848 104) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></g>
+<text x="890" y="106.5" font-size="14" font-weight="700" fill="#14532d">robot_sensor.txt</text>
+<text x="890" y="123.5" font-size="12" fill="#14532d">appended for each batch</text>
+<rect x="26" y="172" width="224" height="80" rx="10" fill="#f1f5f9" stroke="#475569" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="56" cy="212" r="19" fill="#ffffff" stroke="#475569" stroke-width="1.2"/>
+<g transform="translate(44 200) scale(1)" fill="none" stroke="#475569" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></g>
+<text x="86" y="195" font-size="14" font-weight="700" fill="#0f172a">MQTT producer</text>
+<text x="86" y="212" font-size="12" fill="#0f172a">tr_mqtt_producer.ktr,</text>
+<text x="86" y="227" font-size="12" fill="#0f172a">topic SensorData</text>
+<rect x="294" y="172" width="224" height="80" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="324" cy="212" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(312 200) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.9 16.1C1 12.2 1 5.8 4.9 1.9"/><path d="M7.8 4.7a6.14 6.14 0 0 0-.8 7.5"/><circle cx="12" cy="9" r="2"/><path d="M16.2 4.8c2 2 2.26 5.11.8 7.47"/><path d="M19.1 1.9a9.96 9.96 0 0 1 0 14.1"/><path d="M9.5 18h5"/><path d="m8 22 4-11 4 11"/></g>
+<text x="354" y="195" font-size="14" font-weight="700" fill="#3b0764">EMQX</text>
+<text x="354" y="212" font-size="12" fill="#3b0764">pcm-emqx (MQTT)</text>
+<text x="354" y="227" font-size="12" fill="#3b0764">tcp://localhost:1884</text>
+<rect x="562" y="172" width="224" height="80" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="592" cy="212" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(580 200) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></g>
+<text x="622" y="195" font-size="14" font-weight="700" fill="#1e3a8a">MQTT consumer</text>
+<text x="622" y="212" font-size="12" fill="#1e3a8a">tr_mqtt_consumer.ktr</text>
+<text x="622" y="227" font-size="12" fill="#1e3a8a">EMQX lab</text>
+<rect x="830" y="172" width="224" height="80" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="860" cy="212" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(848 200) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></g>
+<text x="890" y="195" font-size="14" font-weight="700" fill="#14532d">Alert files</text>
+<text x="890" y="212" font-size="12" fill="#14532d">minor_alert.txt,</text>
+<text x="890" y="227" font-size="12" fill="#14532d">major_alert.txt</text>
+<rect x="26" y="268" width="224" height="80" rx="10" fill="#f1f5f9" stroke="#475569" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="56" cy="308" r="19" fill="#ffffff" stroke="#475569" stroke-width="1.2"/>
+<g transform="translate(44 296) scale(1)" fill="none" stroke="#475569" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 11 2-2-2-2"/><path d="M11 13h4"/><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/></g>
+<text x="86" y="291" font-size="14" font-weight="700" fill="#0f172a">sensor_tv_room.py</text>
+<text x="86" y="308" font-size="12" fill="#0f172a">Python, a reading a second</text>
+<text x="86" y="323" font-size="12" fill="#0f172a">queue tv_room</text>
+<rect x="294" y="268" width="224" height="80" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="324" cy="308" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(312 296) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 16a3 3 0 0 1 2.24 5"/><path d="M18 12h.01"/><path d="M18 21h-8a4 4 0 0 1-4-4 7 7 0 0 1 7-7h.2L9.6 6.4a1 1 0 1 1 2.8-2.8L15.8 7h.2c3.3 0 6 2.7 6 6v1a2 2 0 0 1-2 2h-1a3 3 0 0 0-3 3"/><path d="M20 8.54V4a2 2 0 1 0-4 0v3"/><path d="M7.612 12.524a3 3 0 1 0-1.6 4.3"/></g>
+<text x="354" y="291" font-size="14" font-weight="700" fill="#3b0764">RabbitMQ</text>
+<text x="354" y="308" font-size="12" fill="#3b0764">pcm-rabbitmq (AMQP)</text>
+<text x="354" y="323" font-size="12" fill="#3b0764">amqp://localhost:5672</text>
+<rect x="562" y="268" width="224" height="80" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="592" cy="308" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(580 296) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></g>
+<text x="622" y="291" font-size="14" font-weight="700" fill="#1e3a8a">AMQP consumer</text>
+<text x="622" y="308" font-size="12" fill="#1e3a8a">tr_rabbit_consumer.ktr</text>
+<text x="622" y="323" font-size="12" fill="#1e3a8a">RabbitMQ lab</text>
+<rect x="830" y="268" width="224" height="80" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="860" cy="308" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(848 296) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></g>
+<text x="890" y="298.5" font-size="14" font-weight="700" fill="#14532d">tv_room_sensor.txt</text>
+<text x="890" y="315.5" font-size="12" fill="#14532d">appended for each batch</text>
+<rect x="26" y="364" width="224" height="80" rx="10" fill="#f1f5f9" stroke="#475569" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="56" cy="404" r="19" fill="#ffffff" stroke="#475569" stroke-width="1.2"/>
+<g transform="translate(44 392) scale(1)" fill="none" stroke="#475569" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 11 2-2-2-2"/><path d="M11 13h4"/><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/></g>
+<text x="86" y="387" font-size="14" font-weight="700" fill="#0f172a">produce_users.py</text>
+<text x="86" y="404" font-size="12" fill="#0f172a">Python, an event a second</text>
+<text x="86" y="419" font-size="12" fill="#0f172a">topic pdi-users</text>
+<rect x="294" y="364" width="224" height="80" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="324" cy="404" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(312 392) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"/><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"/><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"/></g>
+<text x="354" y="387" font-size="14" font-weight="700" fill="#3b0764">Kafka</text>
+<text x="354" y="404" font-size="12" fill="#3b0764">KRaft mode</text>
+<text x="354" y="419" font-size="12" fill="#3b0764">127.0.0.1:9092</text>
+<rect x="562" y="364" width="224" height="80" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="592" cy="404" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(580 392) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></g>
+<text x="622" y="387" font-size="14" font-weight="700" fill="#1e3a8a">Kafka consumer</text>
+<text x="622" y="404" font-size="12" fill="#1e3a8a">users-to-db-parent.ktr</text>
+<text x="622" y="419" font-size="12" fill="#1e3a8a">Kafka lab</text>
+<rect x="830" y="364" width="224" height="80" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="860" cy="404" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(848 392) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></g>
+<text x="890" y="387" font-size="14" font-weight="700" fill="#14532d">MySQL user_events</text>
+<text x="890" y="404" font-size="12" fill="#14532d">pcm-mysql, localhost:3306</text>
+<text x="890" y="419" font-size="12" fill="#14532d">database kafka_warehouse</text>
+<rect x="16" y="480" width="1048" height="68" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="48" cy="514" r="19" fill="#ffffff" stroke="#b45309" stroke-width="1.2"/>
+<g transform="translate(36 502) scale(1)" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></g>
+<text x="78" y="511" font-size="14" font-weight="700" fill="#78350f">In a browser: the brokers’ admin UIs (Kafka has none in this course)</text>
+<text x="78" y="529" font-size="12" fill="#78350f">HiveMQ Control Center http://localhost:9090  ·  EMQX Dashboard http://localhost:18083  ·  RabbitMQ management http://localhost:15672</text>
+</svg>

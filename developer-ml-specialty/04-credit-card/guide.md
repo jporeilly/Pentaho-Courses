@@ -26,6 +26,15 @@
 </figure>
 </div>
 
+<div align="center">
+<figure>
+<img src="../_assets/images/train-then-predict.png" alt="Top: jb_fraud_main_job.kjb, START to train_model to predict_fraud to Success, green hops on success, red failure hops to Abort job. Below, side by side: tr_train_model_fraud.ktr reads four CSV files, joins them with three Stream lookups, keeps eight features plus the label, and rscrpt-train_gbm saves gbm_fraud.rdata. tr_predict_fraud.ktr reads three files with no fraud report, keeps eight features only, and rscrpt-predict loads the model; Predict Fraud writes the scored CSV." width="800">
+<figcaption>Two transformations, one model file: training saves it, prediction loads it</figcaption>
+</figure>
+</div>
+
+Read the diagram from the job down. The job runs **train_model** first; only when it succeeds does the green hop start **predict_fraud**, and a failure in either one takes its red hop to **Abort job**. The two transformations underneath are built alike, row for row, with one difference: training also reads `transaction_fraud_report.csv` and keeps `reported_as_fraud_historic` as the label the model learns, while prediction has no label to read. The model crosses between them as a file: `rscrpt-train_gbm` saves `gbm_fraud.rdata` in `train_model_output`, and `rscrpt-predict` loads it to score each transaction.
+
 :::: tabs
 
 ### 1. Set Up

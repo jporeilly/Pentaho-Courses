@@ -8,10 +8,12 @@
 
 <div align="center">
 <figure>
-<img src="../_assets/images/langextract-pipeline-architecture.png" alt="Architecture in three panels: Pentaho Data Integration steps (an input step, a JavaScript step that builds the JSON request, an HTTP call to localhost:8765/extract, JSON Input, transform steps and a Table Output to PostgreSQL); the LangExtract service (FastAPI /extract on uvicorn port 8765, lx.extract() with chunking, source grounding with character offsets, and the JSON response); and the backend (Ollama, prompt and few-shot examples, controlled generation, and a PostgreSQL staging schema)" width="800">
+<img src="../_assets/images/langextract-architecture.png" alt="Three columns. Pentaho Data Integration: Table input, Modified JavaScript value building request_json, REST client, JSON input reading $.extractions[*] and Row denormaliser. The LangExtract service on localhost:8765: POST /extract, lx.extract with chunks, overlap and extraction passes, and the response with offsets. Ollama on localhost:11434 serves the model. Two boxes contrast the request's extraction_class and extraction_text with the response's class, text, start and end" width="800">
 <figcaption>Pentaho Data Integration calls the LangExtract service, which calls the local Ollama</figcaption>
 </figure>
 </div>
+
+Read the diagram down the left column, then across. **Modified JavaScript value** builds one request per row, **REST client** posts it to the service's `/extract`, and the service runs `lx.extract`, which reads the text in chunks sized by `max_char_buffer`, with `overlap` between them, in as many passes as `extraction_passes` asks, and calls the model on Ollama. The response comes back to **JSON input** as one row per extraction, with its `start` and `end` offsets in the text, and **Row denormaliser** turns those rows back into one row per ticket, as in the Support Tickets workshop. The two boxes at the top are the contract below: the names you send in the examples are not the names you read back.
 
 **This page assumes:**
 

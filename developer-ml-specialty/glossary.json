@@ -8,8 +8,7 @@
   "H2O": "An open-source machine-learning platform whose AutoML feature is used to automatically search for well-performing models without extensive manual tuning.",
   "AutoML": "Automated machine learning — letting H2O try many algorithms and settings, then rank them, so you can shortlist strong candidate models instead of hand-building each one.",
   "Leaderboard": "The ranked table H2O AutoML produces, listing the candidate models it trained ordered by a chosen metric so you can pick the best performer.",
-  "Supervised learning": "Training a model on labelled historical examples — transactions already marked fraud or legitimate — so it can learn the patterns that distinguish the two and predict the label for new rows.",
-  "Unsupervised learning": "Finding structure in unlabelled data, used here to surface new, previously unseen kinds of fraud by spotting transactions that do not fit normal patterns.",
+  "Supervised learning": "Training a model on labeled historical examples — transactions already marked fraud or legitimate — so it can learn the patterns that distinguish the two and predict the label for new rows.",
   "Imbalanced dataset": "A dataset where one class is far rarer than the other, as with fraud being a tiny fraction of all transactions. Handling this imbalance properly is a key focus so the model does not simply ignore the rare cases.",
   "Feature": "An individual input column the model learns from, such as transaction amount or billing details. Good features carry the signal the model needs to separate fraud from legitimate activity.",
   "Feature engineering": "Creating new, more useful input columns from the raw data so the model has better signal to learn from. The AutoML lab includes a feature-engineering step before model search.",
@@ -35,7 +34,7 @@
   "Recall": "Of all the truly fraudulent transactions, the proportion the model catches. High recall means fewer missed frauds; prioritise it when fraud losses are expensive.",
   "AUC": "Area Under the ROC Curve — a single number measuring how well the model ranks fraud above legitimate transactions. Useful as a sanity check, but it can look good even when precision is poor at usable thresholds.",
   "AUCPR": "Area Under the Precision-Recall Curve — the best single-number metric for highly imbalanced classification like fraud, used to compare candidate models before tuning thresholds.",
-  "Decision threshold": "The probability cut-off above which a scored transaction is labelled fraud. Lowering it catches more fraud but raises more false alarms; you tune it to balance precision and recall for the business.",
+  "Decision threshold": "The probability cut-off above which a scored transaction is labeled fraud. Lowering it catches more fraud but raises more false alarms; you tune it to balance precision and recall for the business.",
   "Google Colab": "A free service that runs Jupyter notebooks in the browser with preconfigured ML runtimes. You upload the H2O.csv produced by Pentaho Data Integration and run the AutoML model search there.",
   "rJava": "An R package providing a bridge between R and Java, required so Pentaho Data Integration can run R steps. Setup involves configuring R with javareconf and copying libjri into Spoon's native library folder.",
   "R Script Executor": "A Pentaho Data Integration step that runs R code inside a transformation, used in the prerequisites to validate the R integration and in the credit-card lab to train and apply the GBM model."

@@ -94,10 +94,12 @@ The same chain fits support automation, contract review, content moderation, res
 
 <div align="center">
 <figure>
-<img src="../_assets/images/multi_staged_optimized.png" alt="A text diagram: 15 raw documents flow through Stage 1 Classification, Stage 2 Priority Scoring, Stage 3 Type-Specific Extraction with an IF per type, Stage 4 Action Item Generation and Stage 5 Department Routing, each passing its fields forward, into fully processed and routed documents" width="710">
-<figcaption>The five stages and what each passes forward</figcaption>
+<img src="../_assets/images/multi-stage-fields.png" alt="Read Documents feeds five stages in a column. Each stage reads the document and earlier fields and adds its own: Stage 1 doc_type and its confidence and reasoning; Stage 2 urgency, priority and priority_reasoning; Stage 3 extracted_details, with questions chosen by doc_type; Stage 4 actions_json, action_count and requires_escalation; Stage 5 primary_dept, escalate_to, cc_depts and sla_hours. Each lists its safe default. Write Processed Documents writes every field" width="800">
+<figcaption>The five stages and what each adds to the row</figcaption>
 </figure>
 </div>
+
+Read the diagram down the left column, like the assembly line it is. Each stage is three steps (build the prompt, call the LLM, parse the answer), and each reads the document and the fields the stages above it added. The green box beside a stage lists the fields it adds to the row and the safe default its parse script starts from, which is what the row carries on when that stage's answer cannot be parsed. **Write Processed Documents** gets the row with every stage's fields, one decision per stage.
 
 ### 2. Ollama API
 

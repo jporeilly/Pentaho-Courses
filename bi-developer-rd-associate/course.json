@@ -11,9 +11,9 @@
     "messagePlaceholder": "What would you like to know?",
     "sendLabel": "Send"
   },
-  "title": "Pentaho BI Developer - RD Associate",
+  "title": "BI Developer - RD Associate",
   "description": "Hands-on workshop for Pentaho Report Designer: data sources, report elements and groups, calculations, formatting, parameters, charts, sub-reports, and publishing to the BA repository.",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "kind": "workshop",
   "platform": "windows11",
   "level": { "number": 2, "name": "Associate" },

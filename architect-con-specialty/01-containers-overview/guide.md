@@ -66,7 +66,7 @@ database on a volume that outlives it.
 
 <div align="center">
 <figure>
-<img src="../_assets/images/con-course-path.png" alt="The course path: one Pentaho Server image, built with Podman from the licensed archive, runs with Podman Compose against PostgreSQL and Vault, then on K3s from manifests, then from a Helm chart" width="784">
+<img src="../_assets/images/con-course-path.png" alt="The course path: one Pentaho Server image, built with Podman from the licensed archive, runs with Podman Compose against PostgreSQL and Vault, then on K3s from manifests, then from a Helm chart" width="800">
 <figcaption>One image, three ways to run it</figcaption>
 </figure>
 </div>
@@ -75,4 +75,11 @@ You build the Pentaho Server image once, from the licensed archive, and
 run it three ways: with Podman Compose against PostgreSQL and Vault, on
 K3s from plain manifests, and on K3s again from a Helm chart. Running
 the server as a cluster, on virtual machines, is a course of its own:
-Pentaho Solution Architect - High Availability Specialty.
+Solution Architect - High Availability Specialty.
+
+Read the diagram from the top: the licensed archive goes into the build,
+and the image it makes comes down into the three ways to run it. The
+arrows along the bottom row are the order of the workshops, all on the
+same Ubuntu host: Compose on port 8090, then K3s, which takes the image
+into containerd with `podman save`, then the same deployment as a Helm
+release.

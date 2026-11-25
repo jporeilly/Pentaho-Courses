@@ -40,10 +40,12 @@ The transformation turns each ticket into one row with `ticket_id`, `issue_type`
 
 <div align="center">
 <figure>
-<img src="../_assets/images/langextract-support-tickets.png" alt="Architecture diagram in three bands: Input with Table Input on helpdesk.tickets; Process with Modified Java Script, REST Client posting to port 8765, JSON Input, Row Denormaliser and Select Values; Output with Filter Rows on urgency sending false rows to a Table Output for helpdesk.ticket_triage and true rows to a Table Output for helpdesk.escalations" width="800">
+<img src="../_assets/images/support-tickets-flow.png" alt="Production design. A Pentaho Data Integration column for ticket_triage.ktr: Table input on helpdesk.tickets, Modified JavaScript value building request_json, REST client to the LangExtract service on localhost:8765 and llama3.1:8b on Ollama, JSON input, Select values, the buffer Dummy step, Row denormaliser and Filter rows on urgency = CRITICAL. TRUE rows load helpdesk.escalations and FALSE rows helpdesk.ticket_triage, where the lab has the Dummy steps critical and others" width="800">
 <figcaption>The production design: Table output steps where this lab has Dummy steps</figcaption>
 </figure>
 </div>
+
+Read the diagram down the left column, then across. The column is the transformation you build in parts 3 to 6, in order. **Modified JavaScript value** builds the request at the top right, **REST client** posts it to the service, which calls the model on Ollama, and the reply comes back into `response_json`. **JSON input** makes one row per extraction, **Select values** keeps the three fields the pivot needs, and **Row denormaliser** turns each ticket's rows into the ticket row beside it, where the classes `system` and `user` fill `affected_system` and `submitter`. **Filter rows** splits on `urgency`: in production the two branches load the tables on the right; in this lab they end in the **Dummy (do nothing)** steps `critical` and `others`.
 
 :::: tabs
 

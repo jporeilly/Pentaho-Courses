@@ -124,6 +124,15 @@
 
 > **Success:** Checkpoint: the script step outputs a `jobId`, the loop repeats its status call until Carte reports `Finished`, and the notification arrives. Carte's `jobStatus` for that ID shows the same status.
 
+<div align="center">
+<figure>
+<img src="../_assets/images/trayio-carte-poll.png" alt="Tray.io workflow, On-Premises Agent and Carte master at 10.0.1.40:9001. A Scheduler or Webhook trigger starts the workflow. An HTTP Client step sends GET runJob with job=/ETL/LoadCustomer.kjb and level=Basic through the agent; Carte starts the job and answers at once with OK and the job's id. A Script step reads jobId. A loop calls jobStatus with name=LoadCustomer and the id, then waits 10 seconds, until Finished or Stopped. A Slack, email or Jira step sends the notification." width="800">
+<figcaption>Start the job, read its ID, and poll its status until it ends</figcaption>
+</figure>
+</div>
+
+Read the diagram from the top. Every call from Tray.io passes through the On-Premises Agent, which reaches the private address `10.0.1.40:9001`, and every answer comes back the same way. `runJob` answers in step 2 while the job is still running, so the workflow keeps only the ID, and steps 4 to 6 repeat until `jobStatus` reports that the job has ended. The webhook workflow of part 3 starts the same way, with its payload's values added to the `runJob` URL as job parameters.
+
 ### 3. Trigger from a Webhook
 
 > **Note:**

@@ -1,6 +1,6 @@
 # Course diagrams
 
-The Pentaho BI Developer: CTools course's diagrams are hand-laid SVG,
+The BI Developer: CTools course's diagrams are hand-laid SVG,
 drawn with the shared kit every course uses,
 [`scripts/diagram-kit.mjs`](../../../../scripts/diagram-kit.mjs): panels
 with a colored title strip, same-size boxes with a Lucide icon in a white

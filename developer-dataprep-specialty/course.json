@@ -2,7 +2,7 @@
   "id": "developer-dataprep-specialty",
   "title": "Developer - DP Specialty",
   "description": "Use Pentaho Data Integration to build the star schemas and summary tables that cubes and domains sit on: a date dimension, dimensions with slowly changing history, fact and summary tables, and a scheduled load that refreshes the cube.",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "kind": "workshop",
   "platform": "windows11",
   "mode": "sequential",

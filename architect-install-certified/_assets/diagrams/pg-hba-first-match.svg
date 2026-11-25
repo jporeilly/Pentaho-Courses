@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="574" viewBox="0 0 800 574" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+<filter id="shadow" x="-10%" y="-10%" width="120%" height="140%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#0f172a" flood-opacity="0.12"/></filter></defs>
+<rect width="800" height="574" fill="#ffffff"/>
+<rect x="272" y="16" width="512" height="124" rx="12" fill="#fffbeb" stroke="#fef3c7" stroke-width="1.5"/>
+<path d="M272 28a12 12 0 0 1 12-12h488a12 12 0 0 1 12 12v32h-512z" fill="#b45309"/>
+<g transform="translate(285 26) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 5h8"/><path d="M13 12h8"/><path d="M13 19h8"/><path d="m3 17 2 2 4-4"/><path d="m3 7 2 2 4-4"/></g>
+<text x="312" y="36" font-size="14" font-weight="700" fill="#ffffff">The next line, from the top</text>
+<text x="312" y="52" font-size="11.5" fill="#ffffff" opacity="0.92">all four must match; type local is the Unix socket, host is TCP</text>
+<path d="M391 98L408 98" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M518 98L535 98" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M645 98L662 98" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M232 64C250.5 64 250.5 98 269 98" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M272 128C124 128 124 128 124 193" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M528 140L528 183" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M588 388L547 388" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M588 476C567.5 476 567.5 436 547 436" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M588 496C567.5 496 567.5 460 547 460" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="16" y="32" width="216" height="64" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="46" cy="64" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(34 52) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22v-5"/><path d="M15 8V2"/><path d="M17 8a1 1 0 0 1 1 1v4a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1z"/><path d="M9 8V2"/></g>
+<text x="76" y="47" font-size="14" font-weight="700" fill="#1e3a8a">A new connection</text>
+<text x="76" y="64" font-size="12" fill="#1e3a8a">its type, database,</text>
+<text x="76" y="79" font-size="12" fill="#1e3a8a">user and address</text>
+<rect x="284" y="74" width="107" height="48" rx="10" fill="#ffffff" stroke="#64748b" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="337.5" y="103" text-anchor="middle" font-size="14" font-weight="700" fill="#0f172a">type</text>
+<rect x="411" y="74" width="107" height="48" rx="10" fill="#ffffff" stroke="#64748b" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="464.5" y="103" text-anchor="middle" font-size="14" font-weight="700" fill="#0f172a">database</text>
+<rect x="538" y="74" width="107" height="48" rx="10" fill="#ffffff" stroke="#64748b" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="591.5" y="103" text-anchor="middle" font-size="14" font-weight="700" fill="#0f172a">user</text>
+<rect x="665" y="74" width="107" height="48" rx="10" fill="#ffffff" stroke="#64748b" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="718.5" y="103" text-anchor="middle" font-size="14" font-weight="700" fill="#0f172a">address</text>
+<rect x="16" y="196" width="216" height="64" rx="10" fill="#f1f5f9" stroke="#475569" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="46" cy="228" r="19" fill="#ffffff" stroke="#475569" stroke-width="1.2"/>
+<g transform="translate(34 216) scale(1)" fill="none" stroke="#475569" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 5.5 5.5a5.5 5.5 0 0 1-5.5 5.5H11"/></g>
+<text x="76" y="211" font-size="14" font-weight="700" fill="#0f172a">One does not match</text>
+<text x="76" y="228" font-size="12" fill="#0f172a">back up: the checks run</text>
+<text x="76" y="243" font-size="12" fill="#0f172a">on the next line</text>
+<rect x="180.7" y="115.5" width="30.6" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="196" y="133.5" text-anchor="middle" font-size="12" fill="#334155">no</text>
+<rect x="272" y="186" width="162.66666666666666" height="84" rx="10" fill="#f5f5f4" stroke="#a8a29e" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="353.3333333333333" y="203.5" text-anchor="middle" font-size="14" font-weight="700" fill="#78716c">peer</text>
+<text x="353.3333333333333" y="220.5" text-anchor="middle" font-size="12" fill="#78716c">trusts the Linux</text>
+<text x="353.3333333333333" y="235.5" text-anchor="middle" font-size="12" fill="#78716c">user name: no</text>
+<text x="353.3333333333333" y="250.5" text-anchor="middle" font-size="12" fill="#78716c">password asked</text>
+<rect x="446.66666666666663" y="186" width="162.66666666666666" height="84" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="528" y="203.5" text-anchor="middle" font-size="14" font-weight="700" fill="#14532d">scram-sha-256</text>
+<text x="528" y="220.5" text-anchor="middle" font-size="12" fill="#14532d">asks for the</text>
+<text x="528" y="235.5" text-anchor="middle" font-size="12" fill="#14532d">password; the</text>
+<text x="528" y="250.5" text-anchor="middle" font-size="12" fill="#14532d">stronger hash</text>
+<rect x="621.3333333333333" y="186" width="162.66666666666666" height="84" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="702.6666666666666" y="203.5" text-anchor="middle" font-size="14" font-weight="700" fill="#14532d">md5</text>
+<text x="702.6666666666666" y="220.5" text-anchor="middle" font-size="12" fill="#14532d">asks for the password</text>
+<text x="702.6666666666666" y="235.5" text-anchor="middle" font-size="12" fill="#14532d">where a JDBC driver</text>
+<text x="702.6666666666666" y="250.5" text-anchor="middle" font-size="12" fill="#14532d">lacks SCRAM</text>
+<rect x="377.25" y="147.5" width="301.5" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="528" y="165.5" text-anchor="middle" font-size="12" fill="#334155">yes: the first match wins; its method decides</text>
+<rect x="16" y="296" width="528" height="262" rx="10" fill="#f1f5f9" stroke="#475569" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="46" cy="324" r="19" fill="#ffffff" stroke="#475569" stroke-width="1.2"/>
+<g transform="translate(34 312) scale(1)" fill="none" stroke="#475569" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></g>
+<text x="76" y="321" font-size="14" font-weight="700" fill="#0f172a">pg_hba.conf after the change</text>
+<text x="76" y="338" font-size="12" fill="#0f172a">amber: the three lines this lab changes</text>
+<text x="81.6" y="368" text-anchor="middle" font-size="12" font-weight="600" fill="#0f172a">type</text>
+<text x="180.79999999999998" y="368" text-anchor="middle" font-size="12" font-weight="600" fill="#0f172a">database</text>
+<text x="280" y="368" text-anchor="middle" font-size="12" font-weight="600" fill="#0f172a">user</text>
+<text x="379.20000000000005" y="368" text-anchor="middle" font-size="12" font-weight="600" fill="#0f172a">address</text>
+<text x="478.40000000000003" y="368" text-anchor="middle" font-size="12" font-weight="600" fill="#0f172a">method</text>
+<line x1="32" y1="375" x2="528" y2="375" stroke="#94a3b8" stroke-width="1"/>
+<rect x="32" y="378" width="496" height="21" rx="4" fill="#fef3c7" stroke="#b45309" stroke-width="0.8"/>
+<text x="81.6" y="393" text-anchor="middle" font-size="12" fill="#78350f">local</text>
+<text x="180.79999999999998" y="393" text-anchor="middle" font-size="12" fill="#78350f">all</text>
+<text x="280" y="393" text-anchor="middle" font-size="12" fill="#78350f">postgres</text>
+<text x="379.20000000000005" y="393" text-anchor="middle" font-size="12" fill="#78350f"></text>
+<text x="478.40000000000003" y="393" text-anchor="middle" font-size="12" fill="#78350f">scram-sha-256</text>
+<rect x="32" y="402" width="496" height="21" rx="4" fill="#fef3c7" stroke="#b45309" stroke-width="0.8"/>
+<text x="81.6" y="417" text-anchor="middle" font-size="12" fill="#78350f">local</text>
+<text x="180.79999999999998" y="417" text-anchor="middle" font-size="12" fill="#78350f">all</text>
+<text x="280" y="417" text-anchor="middle" font-size="12" fill="#78350f">all</text>
+<text x="379.20000000000005" y="417" text-anchor="middle" font-size="12" fill="#78350f"></text>
+<text x="478.40000000000003" y="417" text-anchor="middle" font-size="12" fill="#78350f">scram-sha-256</text>
+<rect x="32" y="426" width="496" height="21" rx="4" fill="#fef3c7" stroke="#b45309" stroke-width="0.8"/>
+<text x="81.6" y="441" text-anchor="middle" font-size="12" fill="#78350f">host</text>
+<text x="180.79999999999998" y="441" text-anchor="middle" font-size="12" fill="#78350f">all</text>
+<text x="280" y="441" text-anchor="middle" font-size="12" fill="#78350f">all</text>
+<text x="379.20000000000005" y="441" text-anchor="middle" font-size="12" fill="#78350f">0.0.0.0/0</text>
+<text x="478.40000000000003" y="441" text-anchor="middle" font-size="12" fill="#78350f">md5</text>
+<rect x="32" y="450" width="496" height="21" rx="4" fill="#ffffff" stroke="#64748b" stroke-width="0.8"/>
+<text x="81.6" y="465" text-anchor="middle" font-size="12" fill="#0f172a">host</text>
+<text x="180.79999999999998" y="465" text-anchor="middle" font-size="12" fill="#0f172a">all</text>
+<text x="280" y="465" text-anchor="middle" font-size="12" fill="#0f172a">all</text>
+<text x="379.20000000000005" y="465" text-anchor="middle" font-size="12" fill="#0f172a">::1/128</text>
+<text x="478.40000000000003" y="465" text-anchor="middle" font-size="12" fill="#0f172a">scram-sha-256</text>
+<rect x="32" y="474" width="496" height="21" rx="4" fill="#ffffff" stroke="#64748b" stroke-width="0.8"/>
+<text x="81.6" y="489" text-anchor="middle" font-size="12" fill="#0f172a">local</text>
+<text x="180.79999999999998" y="489" text-anchor="middle" font-size="12" fill="#0f172a">replication</text>
+<text x="280" y="489" text-anchor="middle" font-size="12" fill="#0f172a">all</text>
+<text x="379.20000000000005" y="489" text-anchor="middle" font-size="12" fill="#0f172a"></text>
+<text x="478.40000000000003" y="489" text-anchor="middle" font-size="12" fill="#0f172a">peer</text>
+<rect x="32" y="498" width="496" height="21" rx="4" fill="#ffffff" stroke="#64748b" stroke-width="0.8"/>
+<text x="81.6" y="513" text-anchor="middle" font-size="12" fill="#0f172a">host</text>
+<text x="180.79999999999998" y="513" text-anchor="middle" font-size="12" fill="#0f172a">replication</text>
+<text x="280" y="513" text-anchor="middle" font-size="12" fill="#0f172a">all</text>
+<text x="379.20000000000005" y="513" text-anchor="middle" font-size="12" fill="#0f172a">127.0.0.1/32</text>
+<text x="478.40000000000003" y="513" text-anchor="middle" font-size="12" fill="#0f172a">scram-sha-256</text>
+<rect x="32" y="522" width="496" height="21" rx="4" fill="#ffffff" stroke="#64748b" stroke-width="0.8"/>
+<text x="81.6" y="537" text-anchor="middle" font-size="12" fill="#0f172a">host</text>
+<text x="180.79999999999998" y="537" text-anchor="middle" font-size="12" fill="#0f172a">replication</text>
+<text x="280" y="537" text-anchor="middle" font-size="12" fill="#0f172a">all</text>
+<text x="379.20000000000005" y="537" text-anchor="middle" font-size="12" fill="#0f172a">::1/128</text>
+<text x="478.40000000000003" y="537" text-anchor="middle" font-size="12" fill="#0f172a">scram-sha-256</text>
+<rect x="588" y="346" width="196" height="84" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="618" cy="388" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(606 376) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 11 2-2-2-2"/><path d="M11 13h4"/><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/></g>
+<text x="648" y="363.5" font-size="14" font-weight="700" fill="#1e3a8a">psql as postgres</text>
+<text x="648" y="380.5" font-size="12" fill="#1e3a8a">sudo -u postgres psql:</text>
+<text x="648" y="395.5" font-size="12" fill="#1e3a8a">socket, now asks for</text>
+<text x="648" y="410.5" font-size="12" fill="#1e3a8a">the password</text>
+<rect x="588" y="444" width="196" height="84" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="618" cy="486" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(606 474) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="8" x="2" y="2" rx="2" ry="2"/><rect width="20" height="8" x="2" y="14" rx="2" ry="2"/><line x1="6" x2="6.01" y1="6" y2="6"/><line x1="6" x2="6.01" y1="18" y2="18"/></g>
+<text x="648" y="461.5" font-size="14" font-weight="700" fill="#3b0764">Pentaho Server</text>
+<text x="648" y="478.5" font-size="12" fill="#3b0764">TCP to localhost with</text>
+<text x="648" y="493.5" font-size="12" fill="#3b0764">its own users: the</text>
+<text x="648" y="508.5" font-size="12" fill="#3b0764">host lines</text>
+</svg>

@@ -240,6 +240,15 @@ On a separate Linux VM, copy the folder across with `scp` or a shared folder. Th
 
 > **Success:** Checkpoint: the limit is back to `6Gi`, and the history has three revisions; the third is `deployed`, with the description `Rollback to 1`. The Secrets are `sh.helm.release.v1.pentaho.v1`, `.v2` and `.v3`.
 
+<div align="center">
+<figure>
+<img src="../_assets/images/helm-revisions.png" alt="The release pentaho over three changes: helm install records revision 1 with a 6Gi limit, helm upgrade records revision 2 with 8Gi and replaces the pentaho-server pod, helm rollback pentaho 1 records revision 3 and replaces it again at 6Gi; the revision Secrets live in the namespace default, the pods in pentaho, and the postgres pod keeps running" width="800">
+<figcaption>Three revisions in default, one deployment in pentaho</figcaption>
+</figure>
+</div>
+
+Read the diagram one column at a time, top to bottom: the command, the revision Secret it records in `default`, and the `pentaho-server` pod that revision leaves running in `pentaho`. The upgrade and the rollback each replace that pod, while the `postgres` pod underneath keeps running. Revision 3 holds revision 1's manifests, so its pod has the same `6Gi` limit, and revision 2 is still there to roll back to.
+
 ### 4. Uninstall
 
 > **Note:**

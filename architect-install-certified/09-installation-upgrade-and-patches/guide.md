@@ -39,6 +39,15 @@
 >
 > A **version upgrade** moves to another release, such as 10.2 to 11.0. It changes the repository, the configuration files and often the Java version, and it needs a plan and a test environment: see **Version Upgrades**, the last step.
 
+<div align="center">
+<figure>
+<img src="../_assets/images/service-pack-flow.png" alt="Applying service pack 11.0.0.3-312: record and back up, run the installer silently on /opt/pentaho/server, which scans and backs up USER_INSTALL_DIR, replaces the six products and exits with code 0; read the reports and the backup ZIP in ~/.pentaho/backups; put back Semantic Model Editor and your JDBC driver; patch the client tools from their own archives. Red branch: given /opt/pentaho, it finds the 1.1 GB server ZIP in staging and exits with code 255, nothing changed" width="800">
+<figcaption>Applying a service pack, tab by tab, and the one mistake that stops it</figcaption>
+</figure>
+</div>
+
+Read the diagram from the top: each step is a tab of this workshop, tagged with its number. Amber is what you record before you start, violet is what the installer does on its own, green is what it leaves for you to read, and blue is what you do by hand afterwards. The red branch is the backup failing: name `/opt/pentaho` instead of `/opt/pentaho/server`, and the installer finds the server ZIP you staged in `/opt/pentaho/software`, cannot back it up, and stops with exit code `255` before it changes anything.
+
 :::: tabs
 
 ### 1. Before You Patch

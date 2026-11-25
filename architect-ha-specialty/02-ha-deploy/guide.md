@@ -510,6 +510,15 @@ The file for `lb-01`; on `lb-02`, change the three values above:
 >
 > **Why it matters:** Pentaho doesn't copy sessions between nodes (guide section 1.2), so every request of a session must reach the node that holds it. When that node fails, `option redispatch` sends the request to the other one, where the user signs in again.
 
+<div align="center">
+<figure>
+<img src="../_assets/images/ha-sticky-session.png" alt="A sequence across Browser, HAProxy, pentaho-node-01 and pentaho-node-02. The first request has no cookie; roundrobin picks node 1, Tomcat sets JSESSIONID, and HAProxy adds S1~ on the way out. The next request carries S1~ and the session ID; HAProxy strips S1~ and sends it to node 1. After systemctl stop pentaho on node 1, a request with S1~ goes to node 2 through option redispatch; node 2 has no such session, the user signs in again, and the cookie becomes S2~ with a new ID." width="800">
+<figcaption>Sticky sessions through the JSESSIONID prefix, and what happens when node 1 stops</figcaption>
+</figure>
+</div>
+
+Read the diagram from the top. Steps 1 to 4 are the first request: HAProxy picks a node, here node 1, and adds `S1~` to the session ID Tomcat issued. Steps 5 to 7 are every later request of that session, which HAProxy sends to node 1 with the prefix stripped. In steps 8 to 12, node 1 has stopped as in test 3: the cookie still says `S1`, so `option redispatch` sends the request to node 2, which holds no copy of the session, and the user signs in again under a new `S2~` cookie.
+
 3. Test 3: on `pentaho-node-01`, stop the server. Then, from any host, ask for the sign-in page through the VIP:
 
    ```bash
@@ -525,6 +534,15 @@ The file for `lb-01`; on `lb-02`, change the three values above:
 4. On `pentaho-node-01`, start the server again: `sudo systemctl start pentaho`.
 
 > **Warning:** with the guide's Keepalived values, stopping only HAProxy on `lb-01` does not move the VIP (the guide's test 4 expects that it does). The check adds its `weight` of 2 while HAProxy runs: `lb-01` has 112 and `lb-02` 102. When HAProxy stops on `lb-01`, it drops to 110, still above 102, so it keeps the VIP. The next test stops all of `lb-01`'s VRRP instead.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/keepalived-failover.png" alt="Three states of the balancer pair. Both running: lb-01 has 110 + 2 = 112 and holds VIP 10.0.1.100, lb-02 has 100 + 2 = 102 and stands by. HAProxy stopped on lb-01: it drops to 110, still above 102, and keeps the VIP. Keepalived stopped on lb-01: it sends no VRRP heartbeat, so lb-02, at 102, takes the VIP. Underneath, vrrp_script chk_haproxy runs killall -0 haproxy every 2 seconds and adds its weight of 2 while it succeeds." width="800">
+<figcaption>Why stopping HAProxy keeps the VIP on lb-01, and stopping Keepalived moves it</figcaption>
+</figure>
+</div>
+
+Read the diagram from left to right. The teal box is the balancer that holds the VIP, and the pill between the two boxes compares their priorities. Stopping HAProxy on `lb-01`, in the middle column, only removes the 2 that `chk_haproxy` adds, so `lb-01` keeps the VIP. Stopping Keepalived, in the right column, takes `lb-01` out of VRRP altogether, which is what test 4 does; when you start it again in step 6, `lb-01` is back at 112 and takes the VIP back.
 
 5. Test 4: on `lb-01`, stop Keepalived. Then, on `lb-02`, look for the VIP, and ask for the sign-in page through it:
 
@@ -558,6 +576,15 @@ The file for `lb-01`; on `lb-02`, change the three values above:
 > A clustered Quartz node writes a check-in row to `qrtz6_scheduler_state` every `clusterCheckinInterval`, 20 seconds. To fire a trigger, a node first takes the row `TRIGGER_ACCESS` in `qrtz6_locks` with `SELECT ... FOR UPDATE`, so only one node at a time acquires triggers, and each trigger fires on one node. When a node misses its check-ins, another node recovers the jobs it was running.
 >
 > **Why it matters:** a schedule fires once for the whole cluster, not once per node. And the check-in times are compared across nodes, which is why every clock must be synchronized.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/ha-shared-state.png" alt="pentaho-node-01 with Cluster id NODE_1 and pentaho-node-02 with NODE_2, both with Quartz instanceId AUTO, reach db-01 10.0.1.30 on 5432; a red box between them says sessions are not shared. In db-01: the jackrabbit cluster journal in the cl_j_ tables, each record written by NODE_1 or NODE_2, and cl_j_global_revision; quartz with a qrtz6_scheduler_state check-in row per node every 20000 ms, and the TRIGGER_ACCESS lock in qrtz6_locks; and hibernate, one copy for both nodes." width="800">
+<figcaption>What the two nodes share through db-01, and what they don't</figcaption>
+</figure>
+</div>
+
+Read the diagram from the top down. Both nodes use every database on `db-01`, so the arrows end on its panel rather than on one table. On the left, the Jackrabbit journal records which node wrote each change, which is why the IDs `NODE_1` and `NODE_2` of parts 3 and 4 must differ; on the right, the check-in rows are what this test's query reads, and the `TRIGGER_ACCESS` lock is what makes a trigger fire on one node. Sessions, in the red box, are not shared at all: each stays on the node that created it, which is why HAProxy pins it there.
 
 10. Run the query again after 20 seconds.
 

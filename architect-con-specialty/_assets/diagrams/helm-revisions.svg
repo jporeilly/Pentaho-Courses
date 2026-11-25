@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="584" viewBox="0 0 1000 584" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+<filter id="shadow" x="-10%" y="-10%" width="120%" height="140%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#0f172a" flood-opacity="0.12"/></filter></defs>
+<rect width="1000" height="584" fill="#ffffff"/>
+<rect x="16" y="132" width="968" height="160" rx="12" fill="#f0fdf4" stroke="#dcfce7" stroke-width="1.5"/>
+<path d="M16 144a12 12 0 0 1 12-12h944a12 12 0 0 1 12 12v32h-968z" fill="#15803d"/>
+<g transform="translate(29 142) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l4 2"/></g>
+<text x="56" y="152" font-size="14" font-weight="700" fill="#ffffff">Namespace default</text>
+<text x="56" y="168" font-size="11.5" fill="#ffffff" opacity="0.92">one Secret per revision</text>
+<rect x="16" y="324" width="968" height="244" rx="12" fill="#f5f3ff" stroke="#ede9fe" stroke-width="1.5"/>
+<path d="M16 336a12 12 0 0 1 12-12h944a12 12 0 0 1 12 12v32h-968z" fill="#6d28d9"/>
+<g transform="translate(29 334) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"/><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"/><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"/></g>
+<text x="56" y="344" font-size="14" font-weight="700" fill="#ffffff">Namespace pentaho</text>
+<text x="56" y="360" font-size="11.5" fill="#ffffff" opacity="0.92">kubectl needs -n pentaho</text>
+<path d="M322 58C337 58 337 58 352 58" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M645 58C660 58 660 58 675 58" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M292 100L292 189" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M615 100L615 189" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M938 100L938 189" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M292 276L292 381" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M615 276L615 381" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M938 276L938 381" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M322 426C337 426 337 426 352 426" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M645 426C660 426 660 426 675 426" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="32" y="16" width="290" height="84" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="58" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(50 46) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><path d="M12 2v7.5"/><path d="m19 5-5.23 5.23"/><path d="M22 12h-7.5"/><path d="m19 19-5.23-5.23"/><path d="M12 14.5V22"/><path d="M10.23 13.77 5 19"/><path d="M9.5 12H2"/><path d="M10.23 10.23 5 5"/><circle cx="12" cy="12" r="2.5"/></g>
+<text x="92" y="41" font-size="14" font-weight="700" fill="#1e3a8a">helm install</text>
+<text x="92" y="58" font-size="12" fill="#1e3a8a">helm install pentaho ./pentaho</text>
+<text x="92" y="73" font-size="12" fill="#1e3a8a">NAMESPACE: default; limit 6Gi</text>
+<rect x="355" y="16" width="290" height="84" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="385" cy="58" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(373 46) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><path d="M12 2v7.5"/><path d="m19 5-5.23 5.23"/><path d="M22 12h-7.5"/><path d="m19 19-5.23-5.23"/><path d="M12 14.5V22"/><path d="M10.23 13.77 5 19"/><path d="M9.5 12H2"/><path d="M10.23 10.23 5 5"/><circle cx="12" cy="12" r="2.5"/></g>
+<text x="415" y="41" font-size="14" font-weight="700" fill="#1e3a8a">helm upgrade</text>
+<text x="415" y="58" font-size="12" fill="#1e3a8a">--set pentaho.resources.</text>
+<text x="415" y="73" font-size="12" fill="#1e3a8a">limits.memory=8Gi</text>
+<rect x="678" y="16" width="290" height="84" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="708" cy="58" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(696 46) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><path d="M12 2v7.5"/><path d="m19 5-5.23 5.23"/><path d="M22 12h-7.5"/><path d="m19 19-5.23-5.23"/><path d="M12 14.5V22"/><path d="M10.23 13.77 5 19"/><path d="M9.5 12H2"/><path d="M10.23 10.23 5 5"/><circle cx="12" cy="12" r="2.5"/></g>
+<text x="738" y="41" font-size="14" font-weight="700" fill="#1e3a8a">helm rollback pentaho 1</text>
+<text x="738" y="58" font-size="12" fill="#1e3a8a">applies revision 1's</text>
+<text x="738" y="73" font-size="12" fill="#1e3a8a">stored manifests again</text>
+<rect x="32" y="192" width="290" height="84" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="234" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(50 222) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.8V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.706.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2h-3"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M9 17v-2a2 2 0 0 0-4 0v2"/><rect width="8" height="5" x="3" y="17" rx="1"/></g>
+<text x="92" y="217" font-size="14" font-weight="700" fill="#14532d">Revision 1</text>
+<text x="92" y="234" font-size="12" fill="#14532d">sh.helm.release.v1.pentaho.v1</text>
+<text x="92" y="249" font-size="12" fill="#14532d">Install complete</text>
+<rect x="355" y="192" width="290" height="84" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="385" cy="234" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(373 222) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.8V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.706.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2h-3"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M9 17v-2a2 2 0 0 0-4 0v2"/><rect width="8" height="5" x="3" y="17" rx="1"/></g>
+<text x="415" y="217" font-size="14" font-weight="700" fill="#14532d">Revision 2</text>
+<text x="415" y="234" font-size="12" fill="#14532d">sh.helm.release.v1.pentaho.v2</text>
+<text x="415" y="249" font-size="12" fill="#14532d">Upgrade complete</text>
+<rect x="678" y="192" width="290" height="84" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="708" cy="234" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(696 222) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.8V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.706.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2h-3"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M9 17v-2a2 2 0 0 0-4 0v2"/><rect width="8" height="5" x="3" y="17" rx="1"/></g>
+<text x="738" y="217" font-size="14" font-weight="700" fill="#14532d">Revision 3</text>
+<text x="738" y="234" font-size="12" fill="#14532d">sh.helm.release.v1.pentaho.v3</text>
+<text x="738" y="249" font-size="12" fill="#14532d">Rollback to 1: deployed</text>
+<rect x="32" y="384" width="290" height="84" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="426" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(50 414) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="8" x="2" y="2" rx="2" ry="2"/><rect width="20" height="8" x="2" y="14" rx="2" ry="2"/><line x1="6" x2="6.01" y1="6" y2="6"/><line x1="6" x2="6.01" y1="18" y2="18"/></g>
+<text x="92" y="416.5" font-size="14" font-weight="700" fill="#3b0764">pentaho-server pod</text>
+<text x="92" y="433.5" font-size="12" fill="#3b0764">memory limit 6Gi</text>
+<rect x="355" y="384" width="290" height="84" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="385" cy="426" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(373 414) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="8" x="2" y="2" rx="2" ry="2"/><rect width="20" height="8" x="2" y="14" rx="2" ry="2"/><line x1="6" x2="6.01" y1="6" y2="6"/><line x1="6" x2="6.01" y1="18" y2="18"/></g>
+<text x="415" y="409" font-size="14" font-weight="700" fill="#3b0764">Replaced: a new pod</text>
+<text x="415" y="426" font-size="12" fill="#3b0764">limit 8Gi; Recreate stops</text>
+<text x="415" y="441" font-size="12" fill="#3b0764">the old pod first</text>
+<rect x="678" y="384" width="290" height="84" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="708" cy="426" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(696 414) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="8" x="2" y="2" rx="2" ry="2"/><rect width="20" height="8" x="2" y="14" rx="2" ry="2"/><line x1="6" x2="6.01" y1="6" y2="6"/><line x1="6" x2="6.01" y1="18" y2="18"/></g>
+<text x="738" y="416.5" font-size="14" font-weight="700" fill="#3b0764">Replaced again</text>
+<text x="738" y="433.5" font-size="12" fill="#3b0764">limit back to 6Gi</text>
+<rect x="32" y="484" width="936" height="64" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="64" cy="516" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(52 504) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></g>
+<text x="94" y="513" font-size="14" font-weight="700" fill="#14532d">postgres pod</text>
+<text x="94" y="531" font-size="12" fill="#14532d">its Deployment renders the same after the upgrade, so the pod keeps its name and age</text>
+</svg>

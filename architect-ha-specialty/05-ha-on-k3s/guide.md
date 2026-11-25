@@ -2,7 +2,7 @@
 
 > **Note:** This course follows the installation guide's topology:
 > virtual machines, HAProxy and Keepalived. This page sketches the same
-> principles on the K3s stack of the Pentaho Solution Architect -
+> principles on the K3s stack of the Solution Architect -
 > Containers Specialty course, for comparison.
 > It is not a workshop, and its draft files are not ready to run.
 

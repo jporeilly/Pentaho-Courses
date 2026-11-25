@@ -23,10 +23,12 @@
 
 <div align="center">
 <figure>
-<img src="../_assets/images/rt0m9.png" alt="Architecture diagram in three bands: Get File Names scanning /data/clinical_notes and Text File Input; Modified Java Script, HTTP Client posting to the LangExtract service, JSON Input, a second Modified Java Script and Filter Rows keeping valid classes; a Switch / Case routing medication, symptom, diagnosis and allergy rows to four Table Output steps" width="800">
-<figcaption>The extraction flow; this page loads all four classes into one staging table, where the diagram splits them</figcaption>
+<img src="../_assets/images/clinical-notes-flow.png" alt="A Pentaho Data Integration column for clinical_notes.ktr: Get file names, Text file input reading note_text, Modified JavaScript value building patient_id and request_json, REST client, JSON input with one row per extraction, and Filter rows on class IN LIST medication, symptom, diagnosis, allergy. REST client posts to the LangExtract service on localhost:8765, whose lx.extract calls llama3.1:8b on Ollama. TRUE rows load staging.patient_extractions; a row of any other class is dropped" width="800">
+<figcaption>What you build: the steps of clinical_notes.ktr, the service they call, and where each fact goes</figcaption>
 </figure>
 </div>
+
+Read the diagram down the left column, then across. **Get file names** lists the note files, and **Text file input** reads each one into `note_text`. **Modified JavaScript value** takes `patient_id` from the file name and builds `request_json`, the box at the top right, whose worked example shows the four classes. **REST client** posts it to the service's `/extract`, where `lx.extract` reads the note in chunks of up to 1,200 characters (`max_char_buffer`), in two passes, and calls `llama3.1:8b` on Ollama; the reply comes back into `response_json`. **JSON input** turns each reply into one row per fact, and **Filter rows** keeps the four expected classes: those rows go to **Table output** and `staging.patient_extractions`, and a row of any other class has no hop to take, so it is dropped.
 
 > **Note:**
 >

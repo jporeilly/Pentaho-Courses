@@ -20,7 +20,7 @@
       ],
       "correct": 2,
       "explanation": "The **Analyzer** tool is designed for OLAP analysis: users pivot measures across dimensions and drill down through a hierarchy, such as from years to quarters, with a double-click, exploring the cube whenever a figure looks odd.",
-      "source": "Pentaho Analyst - Practitioner: Overview — Choosing the right tool"
+      "source": "Analyst - Practitioner: Overview — Choosing the right tool"
     },
     {
       "id": "ba-m1-q2",
@@ -36,7 +36,7 @@
       ],
       "correct": 2,
       "explanation": "The **Dashboard Designer** allows the integration of content from Analyzer, Interactive Reporting, and Report Designer into a single page using panels. It enables the application of a single dashboard prompt to bind to the parameters of each report on the page.",
-      "source": "Pentaho Analyst - Practitioner: Overview — Choosing the right tool"
+      "source": "Analyst - Practitioner: Overview — Choosing the right tool"
     },
     {
       "id": "ba-m1-q3",
@@ -52,7 +52,7 @@
       ],
       "correct": 0,
       "explanation": "Interactive Reports are designed to build **grouped tabular reports** with subtotals and specific page setup for printing from a metadata model.\n\nThis tool provides the necessary functionality to generate the structured list required for the printable report.",
-      "source": "Pentaho Analyst - Practitioner: Overview — Choosing the right tool"
+      "source": "Analyst - Practitioner: Overview — Choosing the right tool"
     },
     {
       "id": "ba-m1-q4",
@@ -68,7 +68,7 @@
       ],
       "correct": 3,
       "explanation": "The **database connection** belongs to the metadata model. Every report built on that model accesses the database through that specific connection, so updating the connection in the model automatically updates the access point for all associated reports.\n\nBecause reports store a query against the model rather than raw SQL against a specific server, the query does not need to be updated individually for each report.",
-      "source": "Pentaho Analyst - Practitioner: Overview — Data governance"
+      "source": "Analyst - Practitioner: Overview — Data governance"
     },
     {
       "id": "ba-m1-q5",
@@ -84,7 +84,7 @@
       ],
       "correct": 1,
       "explanation": "A **monthly schedule** runs the report on the server's scheduler at a set recurrence and can email the output, which allows the report to be delivered without anyone needing to open it manually.",
-      "source": "Pentaho Analyst - Practitioner: User Console — Schedules"
+      "source": "Analyst - Practitioner: User Console — Schedules"
     },
     {
       "id": "ba-m1-q6",
@@ -100,7 +100,7 @@
       ],
       "correct": 3,
       "explanation": "An Analyzer report saves each field as a schema formula such as `[Markets].[Territory]`, and dashboards map parameters to those levels, so a rename reaches every report and link built on the cube.\n\nThat reach is why models are **reviewed and versioned** like software.",
-      "source": "Pentaho Analyst - Practitioner: Overview — Data governance"
+      "source": "Analyst - Practitioner: Overview — Data governance"
     },
     {
       "id": "ba-m1-q7",
@@ -116,7 +116,7 @@
       ],
       "correct": 2,
       "explanation": "The distinction between self-service and managed reporting is based on **who authors the reports**. While both approaches can utilize the same governed models and underlying data sources, the first approach empowers business users to perform the authoring, while the second keeps authoring within the IT department.",
-      "source": "Pentaho Analyst - Practitioner: Overview — Self-service vs managed reporting"
+      "source": "Analyst - Practitioner: Overview — Self-service vs managed reporting"
     },
     {
       "id": "ba-m1-q8",
@@ -132,7 +132,7 @@
       ],
       "correct": 1,
       "explanation": "Defining the restriction in the **metadata model security** applies it to every query the model generates, so every report built on the model, now or next year, is restricted by the user's role, whichever report is opened.",
-      "source": "Pentaho Analyst - Practitioner: Overview — Data governance"
+      "source": "Analyst - Practitioner: Overview — Data governance"
     },
     {
       "id": "ba-m1-q9",
@@ -180,7 +180,7 @@
       ],
       "correct": 2,
       "explanation": "The **User Console** is the web-based front end of the Pentaho Server. It provides the interface for users to open content, create Interactive Reports, create Analyzer reports, and schedule reports and dashboards.",
-      "source": "Pentaho Analyst - Practitioner: User Console — Pentaho User Console"
+      "source": "Analyst - Practitioner: User Console — Pentaho User Console"
     },
     {
       "id": "ba-m2-q2",
@@ -196,7 +196,7 @@
       ],
       "correct": 1,
       "explanation": "Using a browser ensures that content, permissions, and updates are hosted on the server. This means a single **server upgrade** reaches all 300 users immediately, preventing individual laptops from falling out of sync.",
-      "source": "Pentaho Analyst - Practitioner: User Console — Pentaho User Console"
+      "source": "Analyst - Practitioner: User Console — Pentaho User Console"
     },
     {
       "id": "ba-m2-q3",
@@ -212,7 +212,7 @@
       ],
       "correct": 3,
       "explanation": "An Interactive Report is a bundle of definitions, including the layout and the query against the model, but it does not contain a stored copy of the rows. When the report is opened, it executes the **query definition** against the live data source.\n\nBecause the report refers to a live data source rather than a static file or cached result, the data is current at the time of opening.",
-      "source": "Pentaho Analyst - Practitioner: User Console — Data sources"
+      "source": "Analyst - Practitioner: User Console — Data sources"
     },
     {
       "id": "ba-m2-q4",
@@ -228,7 +228,7 @@
       ],
       "correct": 1,
       "explanation": "The **Recents** section lists content that the user has opened lately, allowing the user to access the report without knowing its specific folder path.",
-      "source": "Pentaho Analyst - Practitioner: User Console — Perspectives"
+      "source": "Analyst - Practitioner: User Console — Perspectives"
     },
     {
       "id": "ba-m2-q5",
@@ -244,7 +244,7 @@
       ],
       "correct": 0,
       "explanation": "The server checks the **access-control list** of the requested content on every request. Because the folder still grants the Sales role access, the user can still fetch the report using any client, including the User Console, Report Designer, a script, or the REST API.\n\nContent does not require a link to be requested; any client can request a path from the server. A portal page is only one of many possible clients and does not manage permissions; only the **folder permissions** determine if a user can access the file.",
-      "source": "Pentaho Analyst - Practitioner: User Console — Users & Roles"
+      "source": "Analyst - Practitioner: User Console — Users & Roles"
     },
     {
       "id": "ba-m2-q6",
@@ -260,7 +260,7 @@
       ],
       "correct": 0,
       "explanation": "Content in a shared **Public folder** can be found and run by others, subject to the folder's permissions, while a **Home folder** is personal space, so the draft stays private until it is ready.",
-      "source": "Pentaho Analyst - Practitioner: User Console — Browse Files"
+      "source": "Analyst - Practitioner: User Console — Browse Files"
     },
     {
       "id": "ba-m2-q7",
@@ -340,7 +340,7 @@
       ],
       "correct": 3,
       "explanation": "The **Row Limit** is applied in the query, so the database returns only the first 100 rows in sort order, and the summaries add up only what arrived.\n\nSet the Row Limit to **Maximum** before trusting a total.",
-      "source": "Pentaho Analyst - Practitioner: Interactive Reports — Query settings"
+      "source": "Analyst - Practitioner: Interactive Reports — Query settings"
     },
     {
       "id": "ba-m3-q2",
@@ -356,7 +356,7 @@
       ],
       "correct": 0,
       "explanation": "The **Count Distinct** summary counts how many unique values a group holds, so an order with several lines is counted once in its territory's total.",
-      "source": "Pentaho Analyst - Practitioner: Interactive Reports — Totals"
+      "source": "Analyst - Practitioner: Interactive Reports — Totals"
     },
     {
       "id": "ba-m3-q3",
@@ -372,7 +372,7 @@
       ],
       "correct": 1,
       "explanation": "A **prompt** is a filter whose value is provided at run time, so a single report serves each manager with the territory they choose.\n\nThe same report can also go into schedules and dashboards, where the parameter is set for each territory.",
-      "source": "Pentaho Analyst - Practitioner: Interactive Reports — Prompts"
+      "source": "Analyst - Practitioner: Interactive Reports — Prompts"
     },
     {
       "id": "ba-m3-q4",
@@ -388,7 +388,7 @@
       ],
       "correct": 3,
       "explanation": "**Page Setup** controls page format, orientation, and margins, and the default is Letter portrait. Switching to **landscape** gives the columns room on each page.",
-      "source": "Pentaho Analyst - Practitioner: Interactive Reports — Page setup"
+      "source": "Analyst - Practitioner: Interactive Reports — Page setup"
     },
     {
       "id": "ba-m3-q5",
@@ -404,7 +404,7 @@
       ],
       "correct": 1,
       "explanation": "A report with a **Territory prompt** is a single definition of the report. Each schedule then sets the `Territory` parameter for its own team.\n\nA change to the layout or logic is made once, in the shared report.",
-      "source": "Pentaho Analyst - Practitioner: Interactive Reports — Orders NA and EMEA"
+      "source": "Analyst - Practitioner: Interactive Reports — Orders NA and EMEA"
     },
     {
       "id": "ba-m3-q6",
@@ -420,7 +420,7 @@
       ],
       "correct": 2,
       "explanation": "The **metadata layer** follows relationships established in the data model to generate a single SQL statement with the correct joins. Because the relationships are defined once in the model, the analyst does not need to specify join keys for each field, and the join is executed in the database rather than in the browser.",
-      "source": "Pentaho Analyst - Practitioner: Interactive Reports — Metadata model"
+      "source": "Analyst - Practitioner: Interactive Reports — Metadata model"
     },
     {
       "id": "ba-m3-q7",
@@ -436,7 +436,7 @@
       ],
       "correct": 2,
       "explanation": "The **reporting engine** evaluates a calculated field row by row after the data is retrieved from the database. Because the calculation occurs after the query is completed, the database cannot process a `WHERE` clause for that specific field.\n\nTo enable filtering, sorting, and aggregation on a calculation, the expression must be defined as a formula column within the **metadata model** rather than as a calculation in the report interface.",
-      "source": "Pentaho Analyst - Practitioner: Interactive Reports — Computed fields"
+      "source": "Analyst - Practitioner: Interactive Reports — Computed fields"
     },
     {
       "id": "ba-m3-q8",
@@ -452,7 +452,7 @@
       ],
       "correct": 1,
       "explanation": "The engine starts a new group when a value changes between consecutive rows, so the **group fields** go into the query's `ORDER BY` ahead of any column sort, and the database does the ordering.\n\nThe filter goes into the `WHERE` clause, so it runs in the database before any rows reach the engine.",
-      "source": "Pentaho Analyst - Practitioner: Interactive Reports — Filtering & sorting"
+      "source": "Analyst - Practitioner: Interactive Reports — Filtering & sorting"
     },
     {
       "id": "ba-m3-q9",
@@ -472,7 +472,7 @@
         1
       ],
       "explanation": "The **CSV** format is a delimited text file that the finance system can load. The **PDF** format maintains a fixed page layout for printing.",
-      "source": "Pentaho Analyst - Practitioner: Interactive Reports — Output formats"
+      "source": "Analyst - Practitioner: Interactive Reports — Output formats"
     },
     {
       "id": "ba-m3-q10",
@@ -488,7 +488,7 @@
       ],
       "correct": 3,
       "explanation": "The filter keeps only the two product lines, and nesting Product Line inside Territory puts a **subtotal** for each product line within each territory.",
-      "source": "Pentaho Analyst - Practitioner: Interactive Reports — Ships and Trains"
+      "source": "Analyst - Practitioner: Interactive Reports — Ships and Trains"
     },
     {
       "id": "ba-m4-q1",
@@ -508,7 +508,7 @@
         2
       ],
       "explanation": "Drilling through a hierarchy and creating a **calculated measure** are analysis actions because each action modifies the report's **MDX query**.\n\nThese operations occur within the **Analyzer** tool, which reads from the cube rather than modifying the underlying data or the schema.",
-      "source": "Pentaho Analyst - Practitioner: Analyzer Reports — OLAP & Mondrian"
+      "source": "Analyst - Practitioner: Analyzer Reports — OLAP & Mondrian"
     },
     {
       "id": "ba-m4-q2",
@@ -524,7 +524,7 @@
       ],
       "correct": 3,
       "explanation": "The operation of moving from one level of a hierarchy to the level below it, such as from years to quarters, while keeping the rest of the view the same is called a **drill-down**.\n\n```text\nYears\n  2004          double-click\n    QTR1\n    QTR2\n    QTR3\n    QTR4\n```",
-      "source": "Pentaho Analyst - Practitioner: Analyzer Reports — Drill-down"
+      "source": "Analyst - Practitioner: Analyzer Reports — Drill-down"
     },
     {
       "id": "ba-m4-q3",
@@ -540,7 +540,7 @@
       ],
       "correct": 0,
       "explanation": "A **Data Bar** draws a bar in each cell sized to its value, which provides a direct visual comparison by length.",
-      "source": "Pentaho Analyst - Practitioner: Analyzer Reports — Conditional formatting"
+      "source": "Analyst - Practitioner: Analyzer Reports — Conditional formatting"
     },
     {
       "id": "ba-m4-q4",
@@ -556,7 +556,7 @@
       ],
       "correct": 0,
       "explanation": "A **Tree map** sizes each rectangle by its value within the whole, so the biggest contributors stand out at a glance.",
-      "source": "Pentaho Analyst - Practitioner: Analyzer Reports — Visualisations"
+      "source": "Analyst - Practitioner: Analyzer Reports — Visualisations"
     },
     {
       "id": "ba-m4-q5",
@@ -572,7 +572,7 @@
       ],
       "correct": 1,
       "explanation": "Mondrian keeps a **cache of cell values**, shared across users, so cells it already holds are served without new SQL.\n\n**Administration > Clear Cache** flushes it, and the new rows appear.",
-      "source": "Pentaho Analyst - Practitioner: Analyzer Reports — Administration"
+      "source": "Analyst - Practitioner: Analyzer Reports — Administration"
     },
     {
       "id": "ba-m4-q6",
@@ -588,7 +588,7 @@
       ],
       "correct": 3,
       "explanation": "A double-click requests the children of a specific member from the engine. This request succeeds only when the schema defines the levels within a single **hierarchy**, such as Country > State > City.\n\nBecause the dimensions are defined as three separate entities, there is no inherent parent-child relationship between them to support a **drill-down** operation.\n\n```text\nMarkets\n  Country\n    State\n      City\n```",
-      "source": "Pentaho Analyst - Practitioner: Analyzer Reports — Hierarchies"
+      "source": "Analyst - Practitioner: Analyzer Reports — Hierarchies"
     },
     {
       "id": "ba-m4-q7",
@@ -604,7 +604,7 @@
       ],
       "correct": 2,
       "explanation": "Defining the calculation as a **calculated member** in the Mondrian schema ensures that the definition and format are consistent across every report and dashboard that utilizes the cube.\n\nThis centralized configuration ensures that all users compute the metric identically, as the calculation is tied to the data model rather than the individual report definition.",
-      "source": "Pentaho Analyst - Practitioner: Analyzer Reports — Calculated measures"
+      "source": "Analyst - Practitioner: Analyzer Reports — Calculated measures"
     },
     {
       "id": "ba-m4-q8",
@@ -620,7 +620,7 @@
       ],
       "correct": 0,
       "explanation": "Enabling **drill-through links** on measure cells in Report Options turns each non-calculated measure into a link that opens the fact rows behind that aggregate value.",
-      "source": "Pentaho Analyst - Practitioner: Analyzer Reports — Drill-through"
+      "source": "Analyst - Practitioner: Analyzer Reports — Drill-through"
     },
     {
       "id": "ba-m4-q9",
@@ -636,7 +636,7 @@
       ],
       "correct": 0,
       "explanation": "By default, the Analyzer uses **visual totals**. The **Aggregate** calculation is performed only on the members remaining after a filter is applied.\n\nTo include the values of the members that were filtered out and return the full figure, the user must select the **Display Totals that Includes Filtered Out Values** option.",
-      "source": "Pentaho Analyst - Practitioner: Analyzer Reports — Totals"
+      "source": "Analyst - Practitioner: Analyzer Reports — Totals"
     },
     {
       "id": "ba-m4-q10",
@@ -652,7 +652,7 @@
       ],
       "correct": 1,
       "explanation": "Analyzer uses **MDX** as its underlying language. Every interaction in the interface translates into an MDX query sent to the Mondrian engine, which then handles the conversion to SQL to query the fact and dimension tables. The analysis log records this **MDX query** and the time it took to execute.",
-      "source": "Pentaho Analyst - Practitioner: Analyzer Reports — OLAP & Mondrian"
+      "source": "Analyst - Practitioner: Analyzer Reports — OLAP & Mondrian"
     },
     {
       "id": "ba-m5-q1",
@@ -673,7 +673,7 @@
         4
       ],
       "explanation": "A **dashboard panel** can display Interactive Reporting, Analyzer, and Report Designer content from the repository, as well as data tables, charts built in Chart Designer, and any web page via its URL.\n\nThese components provide a variety of ways to visualize and interact with data within the dashboard interface.",
-      "source": "Pentaho Analyst - Practitioner: Dashboard Designer — Overview"
+      "source": "Analyst - Practitioner: Dashboard Designer — Overview"
     },
     {
       "id": "ba-m5-q2",
@@ -689,7 +689,7 @@
       ],
       "correct": 3,
       "explanation": "A dashboard prompt can be applied to a report only when the report's filter is set up as a **parameter**, which the prompt's value is then mapped onto.",
-      "source": "Pentaho Analyst - Practitioner: Dashboard Designer — Filters & content linking"
+      "source": "Analyst - Practitioner: Dashboard Designer — Filters & content linking"
     },
     {
       "id": "ba-m5-q3",
@@ -705,7 +705,7 @@
       ],
       "correct": 0,
       "explanation": "A condition added to the query becomes a SQL `WHERE` clause, so the database returns only the rows the chart needs.\n\nFiltering at the query level cuts the **data volume** sent from the database to the dashboard.",
-      "source": "Pentaho Analyst - Practitioner: Dashboard Designer — Inventory"
+      "source": "Analyst - Practitioner: Dashboard Designer — Inventory"
     },
     {
       "id": "ba-m5-q4",
@@ -721,7 +721,7 @@
       ],
       "correct": 0,
       "explanation": "The **Data Table panel** queries a data source directly, so the table goes on the dashboard with no report to build and publish first.",
-      "source": "Pentaho Analyst - Practitioner: Dashboard Designer — Inventory"
+      "source": "Analyst - Practitioner: Dashboard Designer — Inventory"
     },
     {
       "id": "ba-m5-q5",
@@ -737,7 +737,7 @@
       ],
       "correct": 0,
       "explanation": "The bar chart is the only panel that takes its territory from the pie chart. When a user interacts with the pie chart, the **content linking** logic triggers a query refresh only for the downstream component.\n\nThe pie chart publishes a value rather than subscribing to a new one, and the Analyzer report does not have any active subscriptions, so neither of those components re-queries upon a click.",
-      "source": "Pentaho Analyst - Practitioner: Dashboard Designer — Product Performance"
+      "source": "Analyst - Practitioner: Dashboard Designer — Product Performance"
     },
     {
       "id": "ba-m5-q6",
@@ -753,7 +753,7 @@
       ],
       "correct": 0,
       "explanation": "Enabling content linking declares an **output parameter** that the panel emits on each click. Nothing reacts until another panel maps one of its parameters to that output.",
-      "source": "Pentaho Analyst - Practitioner: Dashboard Designer — Content linking"
+      "source": "Analyst - Practitioner: Dashboard Designer — Content linking"
     },
     {
       "id": "ba-m5-q7",
@@ -769,7 +769,7 @@
       ],
       "correct": 2,
       "explanation": "The use of **Buttons** allows a manager to select an option with a single click, while a **Metadata List** dynamically queries the system to ensure the list remains current as new territories are added. Enabling **multiple selections** ensures that more than one territory can be chosen simultaneously.",
-      "source": "Pentaho Analyst - Practitioner: Dashboard Designer — Vendor Sales"
+      "source": "Analyst - Practitioner: Dashboard Designer — Vendor Sales"
     },
     {
       "id": "ba-m5-q8",
@@ -785,7 +785,7 @@
       ],
       "correct": 1,
       "explanation": "A **pie chart** effectively represents parts of a whole, making it suitable for displaying the proportion of total sales contributed by each territory.\n\nA **line chart** is designed to show changes over an ordered time axis, making it the appropriate choice for visualizing a trend over multiple months.",
-      "source": "Pentaho Analyst - Practitioner: Dashboard Designer — Chart selection"
+      "source": "Analyst - Practitioner: Dashboard Designer — Chart selection"
     },
     {
       "id": "ba-m5-q9",
@@ -801,7 +801,7 @@
       ],
       "correct": 1,
       "explanation": "The **default value** assigned to the parameter ensures that the query has a valid input immediately upon loading. This means the chart displays data for the specific product defined in the default until a user interaction updates the variable.\n\nBecause the condition is explicitly defined, the query always has a value to process, preventing the chart from appearing empty or triggering an error during the initial load.",
-      "source": "Pentaho Analyst - Practitioner: Dashboard Designer — Product Performance"
+      "source": "Analyst - Practitioner: Dashboard Designer — Product Performance"
     },
     {
       "id": "ba-m5-q10",
@@ -817,7 +817,7 @@
       ],
       "correct": 2,
       "explanation": "Content linking only functions once the dashboard has been **saved**. An unsaved dashboard will ignore a click even if the parameter mapping is correct.",
-      "source": "Pentaho Analyst - Practitioner: Dashboard Designer — Content linking"
+      "source": "Analyst - Practitioner: Dashboard Designer — Content linking"
     }
   ]
 }

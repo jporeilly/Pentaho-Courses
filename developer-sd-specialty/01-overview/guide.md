@@ -41,6 +41,15 @@ Every streaming source in Pentaho Data Integration — MQTT, Kafka, AMQP, JMS, K
   * **Number of records** — a message count.
 * A **child transformation** processes each batch. It **must** start with the **Get records from stream** step, which surfaces the batched messages as rows. From there you parse, transform, and load the records like any other Pentaho Data Integration stream.
 
+<div align="center">
+<figure>
+<img src="../_assets/images/parent-child-streaming.png" alt="A broker, HiveMQ, EMQX, RabbitMQ or Kafka, feeds the consumer step in the parent transformation, which closes a batch at Duration (ms) or Number of records, whichever comes first. Each batch runs the child: Get records from stream, JSON input, Select values and Formula, then Table output. A table lists the labs’ batch settings: MQTT 5000 ms or 50, AMQP 1000 or 1000, Kafka 500 or 100" width="800">
+<figcaption>One pattern for every protocol: the parent batches, the child runs once per batch</figcaption>
+</figure>
+</div>
+
+Read the diagram from the broker down the left: the consumer step in the parent subscribes and collects messages, and the amber box is the rule that closes a batch. Each batch crosses to the right and starts one run of the child, which begins with **Get records from stream** and then parses, transforms and loads the rows. The table under the parent lists the batch settings the workshops use; the MQTT and AMQP workshops load with **Text file output** rather than **Table output**.
+
 This pattern means the same skills — JSON Input, Select values, Formula, Table output — apply to every protocol. Only the consumer step at the front changes.
 
 > **Note:** **Get records from stream**

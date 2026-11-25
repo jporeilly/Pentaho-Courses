@@ -20,7 +20,7 @@
       ],
       "correct": 1,
       "explanation": "A container is a process isolated from the rest of the host but **sharing the host's kernel**: nothing is emulated, which is why it starts in seconds. It does get its own file system (the image's layers), its own process IDs and its own network interfaces; a virtual machine additionally boots a kernel of its own.",
-      "source": "Pentaho Solution Architect - Containers Specialty: Containers 101 — Overview of Containers"
+      "source": "Solution Architect - Containers Specialty: Containers 101 — Overview of Containers"
     },
     {
       "id": "con-m1-q2",
@@ -36,7 +36,7 @@
       ],
       "correct": 0,
       "explanation": "Podman on Ubuntu searches **no registry** for a short image name, so `postgres:15` fails. Every image in this course is written in full, registry included: `docker.io/library/postgres:15`. `podman-docker` only answers to the `docker` command, and neither `sudo` nor `depends_on` changes how a name resolves.",
-      "source": "Pentaho Solution Architect - Containers Specialty: Containers 101 — Overview of Containers"
+      "source": "Solution Architect - Containers Specialty: Containers 101 — Overview of Containers"
     },
     {
       "id": "con-m1-q3",
@@ -52,7 +52,7 @@
       ],
       "correct": 3,
       "explanation": "Podman has **no daemon**: there is no background service to start, and no group to join. Each `podman` command starts its container itself, and rootless containers run as your own user. containerd belongs to K3s, which runs its own containers.",
-      "source": "Pentaho Solution Architect - Containers Specialty: Containers 101 — Overview of Containers"
+      "source": "Solution Architect - Containers Specialty: Containers 101 — Overview of Containers"
     },
     {
       "id": "con-m1-q4",
@@ -68,7 +68,7 @@
       ],
       "correct": 2,
       "explanation": "K3s runs pods with its own runtime, **containerd**, whose image store is separate from Podman's. The image is copied across with `podman save` piped into `sudo k3s ctr images import -`. A registry is one way to share images, but not the only one, and plain manifests run images as well as charts do.",
-      "source": "Pentaho Solution Architect - Containers Specialty: Containers 101 — Overview of Containers"
+      "source": "Solution Architect - Containers Specialty: Containers 101 — Overview of Containers"
     },
     {
       "id": "con-m2-q1",
@@ -84,7 +84,7 @@
       ],
       "correct": 1,
       "explanation": "The build copies everything in **`stagedArtifacts/`** into its first stage. The file name is built from `EDITION` and `PENTAHO_VERSION` in `.env` and must match exactly: `pentaho-server-ee-11.0.0.0-237.zip`. The archive is licensed, so it never ships with the course.",
-      "source": "Pentaho Solution Architect - Containers Specialty: Build the Image — Build the Pentaho Image: Stage the Archive"
+      "source": "Solution Architect - Containers Specialty: Build the Image — Build the Pentaho Image: Stage the Archive"
     },
     {
       "id": "con-m2-q2",
@@ -100,7 +100,7 @@
       ],
       "correct": 0,
       "explanation": "`pack` starts again from a clean `debian:trixie-slim`, installs `openjdk-21-jre-headless` and `curl`, creates the user `pentaho` and copies **only `/opt/pentaho`** from the first stage. The 1.1 GB archive and `unzip` never reach the shipped image; the Java runtime, the overlay and the user are all in it.",
-      "source": "Pentaho Solution Architect - Containers Specialty: Build the Image — Overview of the Image Build"
+      "source": "Solution Architect - Containers Specialty: Build the Image — Overview of the Image Build"
     },
     {
       "id": "con-m2-q3",
@@ -116,7 +116,7 @@
       ],
       "correct": 3,
       "explanation": "The entrypoint copies the `softwareOverride` passes over the server **in name order**, and the layout reserves `1_drivers` for JDBC drivers, so a driver is in place before the configuration that uses it. `2_repository` holds the connections themselves, and `stagedArtifacts/` is read only by the build.",
-      "source": "Pentaho Solution Architect - Containers Specialty: Build the Image — Overview of Database Variants"
+      "source": "Solution Architect - Containers Specialty: Build the Image — Overview of Database Variants"
     },
     {
       "id": "con-m2-q4",
@@ -132,7 +132,7 @@
       ],
       "correct": 2,
       "explanation": "A container lives as long as its main process. With `catalina.sh run`, **Tomcat runs in the foreground** as that process. The original `startup.sh` starts Tomcat in the background and returns, so the start script would end and the container would stop with it.",
-      "source": "Pentaho Solution Architect - Containers Specialty: Build the Image — Build the Pentaho Image: Smoke-Test the Image"
+      "source": "Solution Architect - Containers Specialty: Build the Image — Build the Pentaho Image: Smoke-Test the Image"
     },
     {
       "id": "con-m2-q5",
@@ -148,7 +148,7 @@
       ],
       "correct": 1,
       "explanation": "`docker-entrypoint.sh` skips any `softwareOverride` folder that holds a **`.ignore` file**. A `.containerignore` entry would keep the folder out of the build context, and so out of the image, which is not what was asked; the entrypoint doesn't treat underscores specially.",
-      "source": "Pentaho Solution Architect - Containers Specialty: Build the Image — Overview of the Image Build"
+      "source": "Solution Architect - Containers Specialty: Build the Image — Overview of the Image Build"
     },
     {
       "id": "con-m2-q6",
@@ -164,7 +164,7 @@
       ],
       "correct": 0,
       "explanation": "`--dry-run` prints the configuration summary and **the command `build.sh` would run**, then stops. `podman build --no-cache` builds, `podman image inspect` needs an image that exists, and `RUN_TESTS=false` only skips the tests after a real build.",
-      "source": "Pentaho Solution Architect - Containers Specialty: Build the Image — Build the Pentaho Image: Configure the Build"
+      "source": "Solution Architect - Containers Specialty: Build the Image — Build the Pentaho Image: Configure the Build"
     },
     {
       "id": "con-m2-q7",
@@ -180,7 +180,7 @@
       ],
       "correct": 3,
       "explanation": "An image name without a registry is a local build, and **Podman prefixes `localhost/`** to it. The tag `pentaho/pentaho-server:11.0.0.0-237` still finds it. The prefix matters later: `podman save` passes it to K3s, so the K3s manifests ask for `localhost/pentaho/pentaho-server`.",
-      "source": "Pentaho Solution Architect - Containers Specialty: Build the Image — Build the Pentaho Image: Build the Image"
+      "source": "Solution Architect - Containers Specialty: Build the Image — Build the Pentaho Image: Build the Image"
     },
     {
       "id": "con-m2-q8",
@@ -196,7 +196,7 @@
       ],
       "correct": 2,
       "explanation": "Without `LICENSE_URL`, the image runs **unlicensed**: signing in opens **Licenses**, where **+** adds an activation code or a licensing URL. The sign-in itself proves the repository works, because the server read the `admin` user from the content repository it keeps in PostgreSQL.",
-      "source": "Pentaho Solution Architect - Containers Specialty: Build the Image — Build the Pentaho Image: Smoke-Test the Image"
+      "source": "Solution Architect - Containers Specialty: Build the Image — Build the Pentaho Image: Smoke-Test the Image"
     },
     {
       "id": "con-m2-q9",
@@ -212,7 +212,7 @@
       ],
       "correct": 1,
       "explanation": "`podman-compose` turns `depends_on` into `--requires`, and Podman starts every required container that isn't running **whenever the dependent one starts**, finished jobs included. A second run of the scripts would drop the repository under a running server, so the job stops when the three databases exist.",
-      "source": "Pentaho Solution Architect - Containers Specialty: Build the Image — Build the Pentaho Image: Smoke-Test the Image"
+      "source": "Solution Architect - Containers Specialty: Build the Image — Build the Pentaho Image: Smoke-Test the Image"
     },
     {
       "id": "con-m3-q1",
@@ -228,7 +228,7 @@
       ],
       "correct": 0,
       "explanation": "Podman 4.9 cannot start a container whose required container has exited while that one's own requirement still runs. **A one-off job that waits by itself**, with no `depends_on`, breaks the chain: the server requires PostgreSQL and the job directly. `vault-init` and the smoke test's `postgres-init` are written this way.",
-      "source": "Pentaho Solution Architect - Containers Specialty: Compose Deployment — Overview of Compose Deployment"
+      "source": "Solution Architect - Containers Specialty: Compose Deployment — Overview of Compose Deployment"
     },
     {
       "id": "con-m3-q2",
@@ -244,7 +244,7 @@
       ],
       "correct": 3,
       "explanation": "The server `depends_on` `vault-init`, and **Podman starts required containers with the server**, even one that has already exited. The job is written to run again safely: Vault initialized means it only unseals. Its restart policy is `\"no\"`.",
-      "source": "Pentaho Solution Architect - Containers Specialty: Compose Deployment — Pentaho Server + PostgreSQL: Stop and Start"
+      "source": "Solution Architect - Containers Specialty: Compose Deployment — Pentaho Server + PostgreSQL: Stop and Start"
     },
     {
       "id": "con-m3-q3",
@@ -260,7 +260,7 @@
       ],
       "correct": 2,
       "explanation": "Rootless Podman shows a folder you own as owned by `root` inside the container. **`:U` chowns the source to the container user** at each start. `:ro` makes the problem permanent, running the server as root defeats the image's design, and a `tmpfs` loses the license at every restart.",
-      "source": "Pentaho Solution Architect - Containers Specialty: Compose Deployment — Pentaho Server + PostgreSQL: Check the Repository"
+      "source": "Solution Architect - Containers Specialty: Compose Deployment — Pentaho Server + PostgreSQL: Check the Repository"
     },
     {
       "id": "con-m3-q4",
@@ -276,7 +276,7 @@
       ],
       "correct": 1,
       "explanation": "Rootless Podman maps **`root` in the container to you**, and the container's other UIDs to your subordinate range in order: UID 1 is 100000, so UID 5000 is 100000 + 4999 = 104999. To read such files on the host, go through the same mapping with `podman unshare`.",
-      "source": "Pentaho Solution Architect - Containers Specialty: Compose Deployment — Pentaho Server + PostgreSQL: Check the Repository"
+      "source": "Solution Architect - Containers Specialty: Compose Deployment — Pentaho Server + PostgreSQL: Check the Repository"
     },
     {
       "id": "con-m3-q5",
@@ -292,7 +292,7 @@
       ],
       "correct": 0,
       "explanation": "The `postgres` image runs the files in `/docker-entrypoint-initdb.d` **only when its data directory is empty**. `down` keeps the named volume `pentaho_postgres_data`, so the next start finds a database and skips the folder. `down -v` deletes the volume, and the next start runs the scripts again.",
-      "source": "Pentaho Solution Architect - Containers Specialty: Compose Deployment — Pentaho Server + PostgreSQL: Check the Repository"
+      "source": "Solution Architect - Containers Specialty: Compose Deployment — Pentaho Server + PostgreSQL: Check the Repository"
     },
     {
       "id": "con-m3-q6",
@@ -308,7 +308,7 @@
       ],
       "correct": 3,
       "explanation": "`down` removes the containers and the network but **keeps the named volumes**; `down -v` deletes them too. `stop` keeps even the containers, and `podman volume prune` removes only volumes no container uses, so it leaves a running stack's volumes alone.",
-      "source": "Pentaho Solution Architect - Containers Specialty: Compose Deployment — Pentaho Server + PostgreSQL: Stop and Start"
+      "source": "Solution Architect - Containers Specialty: Compose Deployment — Pentaho Server + PostgreSQL: Stop and Start"
     },
     {
       "id": "con-m3-q7",
@@ -324,7 +324,7 @@
       ],
       "correct": 2,
       "explanation": "`vault-init` stores the users and passwords at `secret/data/pentaho/postgresql` and creates the AppRole `pentaho`. At each start, **`extra-entrypoint.sh` signs in with that AppRole**, reads the secret and rewrites the `password` of the three resources in `context.xml`, all before `start-pentaho.sh` runs.",
-      "source": "Pentaho Solution Architect - Containers Specialty: Compose Deployment — Pentaho Server + PostgreSQL: Deploy"
+      "source": "Solution Architect - Containers Specialty: Compose Deployment — Pentaho Server + PostgreSQL: Deploy"
     },
     {
       "id": "con-m3-q8",
@@ -340,7 +340,7 @@
       ],
       "correct": 1,
       "explanation": "The scripts reconnect as `pentaho_user` and `hibuser`, and the image's start script gives those reconnects **the superuser's password from the secret file**, which therefore has to equal the users' password. Fix the file, delete the half-built repository with `down -v`, and deploy again.",
-      "source": "Pentaho Solution Architect - Containers Specialty: Compose Deployment — Pentaho Server + PostgreSQL: Troubleshooting"
+      "source": "Solution Architect - Containers Specialty: Compose Deployment — Pentaho Server + PostgreSQL: Troubleshooting"
     },
     {
       "id": "con-m3-q9",
@@ -356,7 +356,7 @@
       ],
       "correct": 0,
       "explanation": "Only three things change: **the five scripts**, in the database's SQL, **the driver**, and the JDBC URLs and dialects in `2_repository`. The image build, the entrypoint, Vault, the health checks and the Compose workflow stay the same.",
-      "source": "Pentaho Solution Architect - Containers Specialty: Compose Deployment — Database Variants"
+      "source": "Solution Architect - Containers Specialty: Compose Deployment — Database Variants"
     },
     {
       "id": "con-m3-q10",
@@ -372,7 +372,7 @@
       ],
       "correct": 3,
       "explanation": "Podman waits the **`stop_grace_period`** before it kills a container; its own default is 10 seconds, as the smoke test's warning shows. The image's start script doesn't pass the stop signal on to Tomcat, so the wait always ends in `SIGKILL`.",
-      "source": "Pentaho Solution Architect - Containers Specialty: Compose Deployment — Pentaho Server + PostgreSQL: Stop and Start"
+      "source": "Solution Architect - Containers Specialty: Compose Deployment — Pentaho Server + PostgreSQL: Stop and Start"
     },
     {
       "id": "con-m4-q1",
@@ -388,7 +388,7 @@
       ],
       "correct": 2,
       "explanation": "Kubernetes adds **`docker.io/`** to a name with no registry, so the pod asks Docker Hub for an image that was never pushed. The manifests therefore name the image exactly as Podman did, `localhost/pentaho/pentaho-server:11.0.0.0-237`, and `IfNotPresent` uses the imported copy.",
-      "source": "Pentaho Solution Architect - Containers Specialty: Kubernetes (K3s) — Deploy to K3s: Deploy"
+      "source": "Solution Architect - Containers Specialty: Kubernetes (K3s) — Deploy to K3s: Deploy"
     },
     {
       "id": "con-m4-q2",
@@ -404,7 +404,7 @@
       ],
       "correct": 1,
       "explanation": "Until the startup probe succeeds, **Kubernetes runs neither of the other probes**. Without it, a liveness probe sized for a running server would kill a server that needs minutes to start. Keeping traffic away is the readiness probe's job, and waiting for PostgreSQL is the init container's.",
-      "source": "Pentaho Solution Architect - Containers Specialty: Kubernetes (K3s) — Deploy to K3s: Deploy"
+      "source": "Solution Architect - Containers Specialty: Kubernetes (K3s) — Deploy to K3s: Deploy"
     },
     {
       "id": "con-m4-q3",
@@ -420,7 +420,7 @@
       ],
       "correct": 0,
       "explanation": "An init container must finish before the pod's main container starts. `wait-for-postgres` **loops until `postgres:5432` accepts a connection**, so `Init:0/1` that lasts means PostgreSQL isn't ready: check its pod and its logs.",
-      "source": "Pentaho Solution Architect - Containers Specialty: Kubernetes (K3s) — Deploy to K3s: Deploy"
+      "source": "Solution Architect - Containers Specialty: Kubernetes (K3s) — Deploy to K3s: Deploy"
     },
     {
       "id": "con-m4-q4",
@@ -436,7 +436,7 @@
       ],
       "correct": 3,
       "explanation": "K3s's `local-path` storage class binds **when a pod that uses the claim is scheduled** (`WaitForFirstConsumer`). The mounts were taken out of the server Deployment because an empty claim mounted over `pentaho-solutions` would hide the files the image put there.",
-      "source": "Pentaho Solution Architect - Containers Specialty: Kubernetes (K3s) — Deploy to K3s: Check the Deployment"
+      "source": "Solution Architect - Containers Specialty: Kubernetes (K3s) — Deploy to K3s: Check the Deployment"
     },
     {
       "id": "con-m4-q5",
@@ -452,7 +452,7 @@
       ],
       "correct": 2,
       "explanation": "`--keep-data` only skips deleting the claims one by one. The last line, **`kubectl delete namespace pentaho`**, deletes everything left in the namespace, the claim and the repository on it included.",
-      "source": "Pentaho Solution Architect - Containers Specialty: Kubernetes (K3s) — Deploy to K3s: Access and Tear Down"
+      "source": "Solution Architect - Containers Specialty: Kubernetes (K3s) — Deploy to K3s: Access and Tear Down"
     },
     {
       "id": "con-m4-q6",
@@ -468,7 +468,7 @@
       ],
       "correct": 1,
       "explanation": "The `kubectl` that K3s installs reads **`/etc/rancher/k3s/k3s.yaml` unless `KUBECONFIG` says otherwise**, and only root can open that file. Setting the variable points it, and Helm, at your copy. The copy's permissions aren't the problem: it is never read.",
-      "source": "Pentaho Solution Architect - Containers Specialty: Kubernetes (K3s) — Before You Start"
+      "source": "Solution Architect - Containers Specialty: Kubernetes (K3s) — Before You Start"
     },
     {
       "id": "con-m4-q7",
@@ -484,7 +484,7 @@
       ],
       "correct": 0,
       "explanation": "A `ClusterIP` Service is reachable only inside the cluster. **Traefik answers on ports 80 and 443 of the node** and sends any request for `/pentaho` to the `pentaho-server` Service, whatever the host name.",
-      "source": "Pentaho Solution Architect - Containers Specialty: Kubernetes (K3s) — Deploy to K3s: Access and Tear Down"
+      "source": "Solution Architect - Containers Specialty: Kubernetes (K3s) — Deploy to K3s: Access and Tear Down"
     },
     {
       "id": "con-m5-q1",
@@ -500,7 +500,7 @@
       ],
       "correct": 3,
       "explanation": "Helm stores each revision as a Secret **in the namespace you install into**: `default`, from the `kubectl` context. Every template sets `namespace: pentaho` itself. When a release seems missing, `helm list -A` finds it before you install it a second time.",
-      "source": "Pentaho Solution Architect - Containers Specialty: Helm — Install via Helm: Install"
+      "source": "Solution Architect - Containers Specialty: Helm — Install via Helm: Install"
     },
     {
       "id": "con-m5-q2",
@@ -516,7 +516,7 @@
       ],
       "correct": 2,
       "explanation": "**`helm upgrade` renders the chart again with the new value** and records revision 2. Editing the Deployment changes the cluster behind Helm's back, so the next upgrade would undo it; `install` refuses a release name that exists; and a rollback only restores a revision that already exists.",
-      "source": "Pentaho Solution Architect - Containers Specialty: Helm — Install via Helm: Upgrade and Roll Back"
+      "source": "Solution Architect - Containers Specialty: Helm — Install via Helm: Upgrade and Roll Back"
     },
     {
       "id": "con-m5-q3",
@@ -532,7 +532,7 @@
       ],
       "correct": 1,
       "explanation": "A rollback takes the manifests stored with revision 1, applies them and **records a new revision**, 3. Nothing is deleted, so the history is an audit trail, and you can roll back the rollback.",
-      "source": "Pentaho Solution Architect - Containers Specialty: Helm — Install via Helm: Upgrade and Roll Back"
+      "source": "Solution Architect - Containers Specialty: Helm — Install via Helm: Upgrade and Roll Back"
     },
     {
       "id": "con-m5-q4",
@@ -548,7 +548,7 @@
       ],
       "correct": 0,
       "explanation": "Helm patches **only what renders differently**. A changed pod template makes the Deployment replace its pod, and the chart's `strategy: Recreate` stops the old one first. The `postgres` Deployment rendered the same, so its pod keeps its name and age.",
-      "source": "Pentaho Solution Architect - Containers Specialty: Helm — Install via Helm: Upgrade and Roll Back"
+      "source": "Solution Architect - Containers Specialty: Helm — Install via Helm: Upgrade and Roll Back"
     },
     {
       "id": "con-m5-q5",
@@ -564,7 +564,7 @@
       ],
       "correct": 3,
       "explanation": "The ConfigMap is updated, but **environment variables are read when a container starts**. With no pod template change, nothing restarts the server. Read what a value renders into before you upgrade a production release.",
-      "source": "Pentaho Solution Architect - Containers Specialty: Helm — Install via Helm: Upgrade and Roll Back"
+      "source": "Solution Architect - Containers Specialty: Helm — Install via Helm: Upgrade and Roll Back"
     }
   ]
 }

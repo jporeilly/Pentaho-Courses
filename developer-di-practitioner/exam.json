@@ -20,7 +20,7 @@
       ],
       "correct": 2,
       "explanation": "The path relies on a **variable** defined in `kettle.properties`, which is located in each user's individual `.kettle` folder. Because these files are local to the machine, a variable can resolve to a different directory or fail to resolve entirely on another machine.",
-      "source": "Pentaho Developer - Practitioner: Getting Started — Configuring PDI"
+      "source": "Developer - Practitioner: Getting Started — Configuring PDI"
     },
     {
       "id": "di-m1-q2",
@@ -36,7 +36,7 @@
       ],
       "correct": 0,
       "explanation": "The `kettle.properties` file is loaded by PDI at startup and allows for the definition of **configuration variables** that can be used throughout transformations and jobs using the `${variable_name}` syntax.\n\nBy defining values in this file, the system can reference global settings like hostnames or paths without requiring these values to be hard-coded in individual components.",
-      "source": "Pentaho Developer - Practitioner: Getting Started — Kettle Variables"
+      "source": "Developer - Practitioner: Getting Started — Kettle Variables"
     },
     {
       "id": "di-m1-q3",
@@ -52,7 +52,7 @@
       ],
       "correct": 3,
       "explanation": "The use of the `${}` notation is the **variable syntax** in PDI. This syntax instructs the engine to resolve the value of the variable at runtime.",
-      "source": "Pentaho Developer - Practitioner: Getting Started — Kettle Variables"
+      "source": "Developer - Practitioner: Getting Started — Kettle Variables"
     },
     {
       "id": "di-m1-q4",
@@ -68,7 +68,7 @@
       ],
       "correct": 0,
       "explanation": "PDI reads `kettle.properties` from the `.kettle` folder in the **user home directory**, which is `%USERPROFILE%\\.kettle` on Windows, so each user's settings are kept apart from the installation directory.",
-      "source": "Pentaho Developer - Practitioner: Getting Started — Kettle Variables"
+      "source": "Developer - Practitioner: Getting Started — Kettle Variables"
     },
     {
       "id": "di-m1-q5",
@@ -84,7 +84,7 @@
       ],
       "correct": 1,
       "explanation": "The **Data Integration** perspective provides the design canvas for creating and editing transformations and jobs.",
-      "source": "Pentaho Developer - Practitioner: Getting Started — Configuring PDI"
+      "source": "Developer - Practitioner: Getting Started — Configuring PDI"
     },
     {
       "id": "di-m2-q1",
@@ -100,7 +100,7 @@
       ],
       "correct": 0,
       "explanation": "A **hop** defines the flow of data between steps in a transformation. It carries rows read from the source to the subsequent step for evaluation.\n\nText file input → Filter rows",
-      "source": "Pentaho Developer - Practitioner: Concepts & Terminology — Hello World"
+      "source": "Developer - Practitioner: Concepts & Terminology — Hello World"
     },
     {
       "id": "di-m2-q2",
@@ -116,7 +116,7 @@
       ],
       "correct": 2,
       "explanation": "The **Preview** feature starts the transformation, captures the rows produced by the selected step, and pauses the run once the requested number of rows is gathered, so the developer sees the data at that point without running everything to completion.\n\nA standard run takes all the data through all the steps; a preview stops after a **limited sample** from one step.",
-      "source": "Pentaho Developer - Practitioner: Concepts & Terminology — Hello World"
+      "source": "Developer - Practitioner: Concepts & Terminology — Hello World"
     },
     {
       "id": "di-m2-q3",
@@ -132,7 +132,7 @@
       ],
       "correct": 2,
       "explanation": "The **Row Level** logging level provides the most granular output because it includes the contents of each row as it passes through each step of the transformation.",
-      "source": "Pentaho Developer - Practitioner: Concepts & Terminology — Logging"
+      "source": "Developer - Practitioner: Concepts & Terminology — Logging"
     },
     {
       "id": "di-m2-q5",
@@ -148,7 +148,7 @@
       ],
       "correct": 0,
       "explanation": "The **Copy** hop type duplicates the data stream so that every row is sent to every connected step. In this scenario, every row is passed to both the text file and the database table.",
-      "source": "Pentaho Developer - Practitioner: Concepts & Terminology"
+      "source": "Developer - Practitioner: Concepts & Terminology"
     },
     {
       "id": "di-m2-q6",
@@ -164,7 +164,7 @@
       ],
       "correct": 2,
       "explanation": "The **Write to log** step is specifically designed to output custom messages to the execution log. It allows the developer to include specific field values for every row processed during the transformation.",
-      "source": "Pentaho Developer - Practitioner: Concepts & Terminology — Logging"
+      "source": "Developer - Practitioner: Concepts & Terminology — Logging"
     },
     {
       "id": "di-m2-q7",
@@ -180,7 +180,7 @@
       ],
       "correct": 2,
       "explanation": "The **error handling hop** captures the entire original row and appends technical details regarding the failure. These details include the error description, error codes, and the specific fields that caused the error, as defined in the configuration of the step.",
-      "source": "Pentaho Developer - Practitioner: Concepts & Terminology — Error Handling"
+      "source": "Developer - Practitioner: Concepts & Terminology — Error Handling"
     },
     {
       "id": "di-m2-q8",
@@ -196,7 +196,7 @@
       ],
       "correct": 2,
       "explanation": "An empty file represents a **bad run** rather than a bad row; loading such a file would quietly replace existing data with nothing, making an **Abort** step the correct way to stop the entire process.\n\nWhile individual rows may fail validation, these should be handled by routing them to a separate branch so the remaining valid rows can still be processed.",
-      "source": "Pentaho Developer - Practitioner: Concepts & Terminology — Error Handling"
+      "source": "Developer - Practitioner: Concepts & Terminology — Error Handling"
     },
     {
       "id": "di-m2-q9",
@@ -212,7 +212,7 @@
       ],
       "correct": 3,
       "explanation": "**Preview** shows the rows a step outputs and pauses the run once enough have been collected, so the Calculator's output can be inspected without running the transformation to the end.",
-      "source": "Pentaho Developer - Practitioner: Concepts & Terminology — Hello World"
+      "source": "Developer - Practitioner: Concepts & Terminology — Hello World"
     },
     {
       "id": "di-m3-q1",
@@ -228,7 +228,7 @@
       ],
       "correct": 3,
       "explanation": "Ticking **Header** on the Content tab tells the step to treat the first line as field names rather than data records.",
-      "source": "Pentaho Developer - Practitioner: Data Sources — Text File Input"
+      "source": "Developer - Practitioner: Data Sources — Text File Input"
     },
     {
       "id": "di-m3-q2",
@@ -244,7 +244,7 @@
       ],
       "correct": 2,
       "explanation": "The expression `$.orders[*].customer.email` uses **JSONPath** syntax to navigate the data structure. It selects every element within the `orders` array, moves into the `customer` object, and retrieves the `email` field.\n\n```json\n{\n  \"orders\": [\n    { \"customer\": { \"email\": \"user1@example.com\" } },\n    { \"customer\": { \"email\": \"user2@example.com\" } }\n  ]\n}\n```",
-      "source": "Pentaho Developer - Practitioner: Data Sources — Read JSON"
+      "source": "Developer - Practitioner: Data Sources — Read JSON"
     },
     {
       "id": "di-m3-q3",
@@ -260,7 +260,7 @@
       ],
       "correct": 1,
       "explanation": "The **loop path** is an XPath expression that names the repeating element in the XML, such as `/invoices/invoice`. The step creates one row for each element it matches, and fields like `amount` are read relative to each invoice.\n\n```xml\n<invoices>\n  <invoice>\n    <amount>100</amount>\n  </invoice>\n</invoices>\n```",
-      "source": "Pentaho Developer - Practitioner: Data Sources — Read XML"
+      "source": "Developer - Practitioner: Data Sources — Read XML"
     },
     {
       "id": "di-m3-q4",
@@ -276,7 +276,7 @@
       ],
       "correct": 1,
       "explanation": "The **Insert / update** step looks each row up by its key, updates the row if it finds one, and inserts it if not.",
-      "source": "Pentaho Developer - Practitioner: Data Sources — Table Insert/Update"
+      "source": "Developer - Practitioner: Data Sources — Table Insert/Update"
     },
     {
       "id": "di-m3-q5",
@@ -292,7 +292,7 @@
       ],
       "correct": 0,
       "explanation": "A **Type 2 slowly changing dimension** maintains a historical record by creating a new row for every change. Each row includes specific **valid dates**, which allows a query to identify the record that was active at any point in the past.",
-      "source": "Pentaho Developer - Practitioner: Data Sources — Slowly Changing Dimensions"
+      "source": "Developer - Practitioner: Data Sources — Slowly Changing Dimensions"
     },
     {
       "id": "di-m3-q6",
@@ -308,7 +308,7 @@
       ],
       "correct": 0,
       "explanation": "Because MinIO utilizes the S3 protocol, a connection configured as an **S3-compatible VFS** allows Pentaho Data Integration to read from and write to the bucket as it would with AWS S3.",
-      "source": "Pentaho Developer - Practitioner: Data Sources — MinIO"
+      "source": "Developer - Practitioner: Data Sources — MinIO"
     },
     {
       "id": "di-m3-q7",
@@ -324,7 +324,7 @@
       ],
       "correct": 3,
       "explanation": "The **Table input** step runs a SELECT against a database connection and emits each result row, so it starts a stream.",
-      "source": "Pentaho Developer - Practitioner: Data Sources — Reading from a Database"
+      "source": "Developer - Practitioner: Data Sources — Reading from a Database"
     },
     {
       "id": "di-m3-q8",
@@ -340,7 +340,7 @@
       ],
       "correct": 0,
       "explanation": "The **Microsoft Excel writer** set to **Use existing file for writing** writes into the same workbook and sheet, and starting at the end of the sheet appends the new rows below last month's.",
-      "source": "Pentaho Developer - Practitioner: Data Sources — Excel Writer"
+      "source": "Developer - Practitioner: Data Sources — Excel Writer"
     },
     {
       "id": "di-m3-q9",
@@ -356,7 +356,7 @@
       ],
       "correct": 3,
       "explanation": "The **Split every ... rows** setting starts a new output file after the specified number of rows are written, ensuring each file remains capped at a manageable size.",
-      "source": "Pentaho Developer - Practitioner: Data Sources — Text File Output"
+      "source": "Developer - Practitioner: Data Sources — Text File Output"
     },
     {
       "id": "di-m3-q11",
@@ -372,7 +372,7 @@
       ],
       "correct": 1,
       "explanation": "Pentaho Data Integration connects to databases via **JDBC**. Because the MySQL driver is not bundled with the software, the `.jar` file must be placed in the `data-integration/lib` directory.\n\nAfter placing the driver in the correct directory, the application must be restarted for the connection to be recognized.",
-      "source": "Pentaho Developer - Practitioner: Data Sources — Connecting to a Database"
+      "source": "Developer - Practitioner: Data Sources — Connecting to a Database"
     },
     {
       "id": "di-m3-q12",
@@ -388,7 +388,7 @@
       ],
       "correct": 2,
       "explanation": "The **Merge join** step walks the two streams in step, so both must be **sorted** on the join key in the same direction. Here that means an `ORDER BY` in the query and a Sort rows step after the CSV.",
-      "source": "Pentaho Developer - Practitioner: Data Sources — Merge Join"
+      "source": "Developer - Practitioner: Data Sources — Merge Join"
     },
     {
       "id": "di-m3-q13",
@@ -404,7 +404,7 @@
       ],
       "correct": 1,
       "explanation": "The **Combination lookup/update** step assigns a surrogate key to each new combination of its input fields and reuses that key when the combination appears again, which is exactly a junk dimension.",
-      "source": "Pentaho Developer - Practitioner: Data Sources — Slowly Changing Dimensions"
+      "source": "Developer - Practitioner: Data Sources — Slowly Changing Dimensions"
     },
     {
       "id": "di-m3-q14",
@@ -420,7 +420,7 @@
       ],
       "correct": 1,
       "explanation": "The **Enclosure** setting names the character that wraps a field, so commas inside those characters are read as part of the data, not as delimiters.",
-      "source": "Pentaho Developer - Practitioner: Data Sources — Text File Input"
+      "source": "Developer - Practitioner: Data Sources — Text File Input"
     },
     {
       "id": "di-m4-q1",
@@ -440,7 +440,7 @@
         4
       ],
       "explanation": "The **Merge join** step requires both input streams to be sorted on the join key before the join operation can be performed.\n\nThe **Database join** step functions by executing a separate SQL query for every incoming row in the stream. This provides flexibility but results in a high volume of individual queries when processing large datasets.",
-      "source": "Pentaho Developer - Practitioner: Enriching the Dataset — Database Join"
+      "source": "Developer - Practitioner: Enriching the Dataset — Database Join"
     },
     {
       "id": "di-m4-q2",
@@ -456,7 +456,7 @@
       ],
       "correct": 2,
       "explanation": "**Join rows** produces the Cartesian product, every row of one input paired with every row of the other, so 2,000 rows against 2,500 already makes 5,000,000. It usually means the step was used where a keyed join was meant.",
-      "source": "Pentaho Developer - Practitioner: Enriching the Dataset — Join Rows"
+      "source": "Developer - Practitioner: Enriching the Dataset — Join Rows"
     },
     {
       "id": "di-m4-q3",
@@ -472,7 +472,7 @@
       ],
       "correct": 1,
       "explanation": "Enabling the **lookup cache** stores the result of each lookup in memory. When the transformation encounters a key that has been processed previously, it retrieves the value from the memory cache instead of executing a new query against the database.",
-      "source": "Pentaho Developer - Practitioner: Enriching the Dataset — Database Lookups"
+      "source": "Developer - Practitioner: Enriching the Dataset — Database Lookups"
     },
     {
       "id": "di-m4-q4",
@@ -488,7 +488,7 @@
       ],
       "correct": 3,
       "explanation": "The **Merge rows (diff)** step identifies records that are present in the reference stream but absent from the compare stream and assigns them the flag `deleted`.",
-      "source": "Pentaho Developer - Practitioner: Enriching the Dataset — Merge Rows (diff)"
+      "source": "Developer - Practitioner: Enriching the Dataset — Merge Rows (diff)"
     },
     {
       "id": "di-m4-q5",
@@ -504,7 +504,7 @@
       ],
       "correct": 1,
       "explanation": "The **Formula** step evaluates spreadsheet-style expressions, such as `IF`, with fields referenced in square brackets, so the rules carry into the transformation almost unchanged.",
-      "source": "Pentaho Developer - Practitioner: Enriching the Dataset — Formula"
+      "source": "Developer - Practitioner: Enriching the Dataset — Formula"
     },
     {
       "id": "di-m4-q6",
@@ -520,7 +520,7 @@
       ],
       "correct": 0,
       "explanation": "The **Stream lookup** step loads the whole reference data set into memory when the transformation starts, so each incoming row is matched in memory without a query to a database or a file.",
-      "source": "Pentaho Developer - Practitioner: Enriching the Dataset — Lookups"
+      "source": "Developer - Practitioner: Enriching the Dataset — Lookups"
     },
     {
       "id": "di-m4-q7",
@@ -536,7 +536,7 @@
       ],
       "correct": 0,
       "explanation": "The Group by step aggregates **consecutive rows** that share the same key value. If the input data is not ordered, a single region may appear in multiple non-contiguous blocks, which causes the step to treat them as separate groups.\n\nA Sort rows step ensures all rows for a specific region are adjacent, allowing the Group by step to calculate a single total for that region.\n\nSort rows → Group by",
-      "source": "Pentaho Developer - Practitioner: Enriching the Dataset"
+      "source": "Developer - Practitioner: Enriching the Dataset"
     },
     {
       "id": "di-m4-q8",
@@ -552,7 +552,7 @@
       ],
       "correct": 3,
       "explanation": "The **Modified JavaScript value** step runs full per-row logic, so nested conditions across several fields are straightforward.\n\nCalculator offers only a fixed list of operations.",
-      "source": "Pentaho Developer - Practitioner: Enriching the Dataset — Modified JavaScript Value"
+      "source": "Developer - Practitioner: Enriching the Dataset — Modified JavaScript Value"
     },
     {
       "id": "di-m4-q9",
@@ -568,7 +568,7 @@
       ],
       "correct": 3,
       "explanation": "The **Unique rows** step compares each row only with the row immediately preceding it in the stream. By using a **Sort rows** step first, all identical keys are grouped together, ensuring that the **Unique rows** step can identify and remove all duplicates.\n\nAlternatively, the Unique rows (HashSet) variant can identify duplicates without a prior sort, but it requires more memory to maintain the set of seen values.",
-      "source": "Pentaho Developer - Practitioner: Enriching the Dataset"
+      "source": "Developer - Practitioner: Enriching the Dataset"
     },
     {
       "id": "di-m4-q10",
@@ -584,7 +584,7 @@
       ],
       "correct": 1,
       "explanation": "Filter rows has a **true hop** and a **false hop**, and with both connected, each order goes to exactly one of the two steps.",
-      "source": "Pentaho Developer - Practitioner: Enriching the Dataset"
+      "source": "Developer - Practitioner: Enriching the Dataset"
     },
     {
       "id": "di-m4-q11",
@@ -632,7 +632,7 @@
       ],
       "correct": 3,
       "explanation": "A **job** is designed to orchestrate a workflow by executing entries in a specific sequence, such as a download, multiple transformations, and a mail notification. It manages the logic of the process by following success or failure hops.\n\nUnlike a transformation, which processes data row by row, a job manages the high-level execution flow of the overall process.",
-      "source": "Pentaho Developer - Practitioner: Enterprise Solution — Hello World Job"
+      "source": "Developer - Practitioner: Enterprise Solution — Hello World Job"
     },
     {
       "id": "di-m5-q2",
@@ -648,7 +648,7 @@
       ],
       "correct": 3,
       "explanation": "A hop evaluated on a **true result**, shown green, runs the next entry only when the previous entry succeeded.",
-      "source": "Pentaho Developer - Practitioner: Enterprise Solution — Order of Execution"
+      "source": "Developer - Practitioner: Enterprise Solution — Order of Execution"
     },
     {
       "id": "di-m5-q3",
@@ -664,7 +664,7 @@
       ],
       "correct": 1,
       "explanation": "The transformation uses the value of the `IN_DIR` **parameter**, which is set by the calling process at runtime.\n\n**Parameters** allow external control of transformation behavior, and their values are supplied when the transformation runs.",
-      "source": "Pentaho Developer - Practitioner: Enterprise Solution — Parameters"
+      "source": "Developer - Practitioner: Enterprise Solution — Parameters"
     },
     {
       "id": "di-m5-q5",
@@ -680,7 +680,7 @@
       ],
       "correct": 3,
       "explanation": "A **run configuration** targets the Pentaho engine either locally or on a remote Carte server, so choosing the Carte server sends the run there.",
-      "source": "Pentaho Developer - Practitioner: Enterprise Solution — Run Configurations"
+      "source": "Developer - Practitioner: Enterprise Solution — Run Configurations"
     },
     {
       "id": "di-m5-q6",
@@ -696,7 +696,7 @@
       ],
       "correct": 2,
       "explanation": "The **Kitchen** utility is used to execute job files (.kjb) from the command line, while the **Pan** utility is used to execute transformation files (.ktr). Both tools execute the processes to completion, making them suitable for use with an automated scheduler in a headless environment.",
-      "source": "Pentaho Developer - Practitioner: Enterprise Solution — Run Configurations"
+      "source": "Developer - Practitioner: Enterprise Solution — Run Configurations"
     },
     {
       "id": "di-m5-q7",
@@ -712,7 +712,7 @@
       ],
       "correct": 2,
       "explanation": "A parameter's default is declared on the **Parameters tab** of the transformation's own properties, and it is used whenever no caller supplies a value.",
-      "source": "Pentaho Developer - Practitioner: Enterprise Solution — Parameters"
+      "source": "Developer - Practitioner: Enterprise Solution — Parameters"
     },
     {
       "id": "di-m5-q8",
@@ -728,7 +728,7 @@
       ],
       "correct": 2,
       "explanation": "The **Mail** entry sends an SMTP message and is typically placed on the success or failure hop of the preceding job entry to provide notifications.",
-      "source": "Pentaho Developer - Practitioner: Enterprise Solution — Jobs"
+      "source": "Developer - Practitioner: Enterprise Solution — Jobs"
     },
     {
       "id": "di-m5-q9",
@@ -744,7 +744,7 @@
       ],
       "correct": 1,
       "explanation": "Variables defined in `kettle.properties` are loaded when Pentaho Data Integration starts and are available to every job and transformation in that process, providing a **global scope**.\n\nBecause these variables are loaded globally at the start of the process, they do not require a Set variables step to be accessible by subsequent components.",
-      "source": "Pentaho Developer - Practitioner: Enterprise Solution — Parameters and Variables"
+      "source": "Developer - Practitioner: Enterprise Solution — Parameters and Variables"
     },
     {
       "id": "di-m5-q10",
@@ -760,7 +760,7 @@
       ],
       "correct": 0,
       "explanation": "A **file-based repository** is a folder of `.ktr` and `.kjb` files, so the team's existing branching, review, and history in Git apply to pipelines too.\n\nWhat it gives up is the database repository's **record locking**, shared connections, and central permissions.",
-      "source": "Pentaho Developer - Practitioner: Enterprise Solution"
+      "source": "Developer - Practitioner: Enterprise Solution"
     },
     {
       "id": "di-m5-q11",
@@ -776,7 +776,7 @@
       ],
       "correct": 0,
       "explanation": "The **Kitchen** service is designed to execute a job to completion and then exit, making it the appropriate choice for a cron-scheduled task.\n\nIn contrast, **Carte** is a long-running server that remains active to accept and execute transformations over HTTP, supporting remote and clustered execution.",
-      "source": "Pentaho Developer - Practitioner: Enterprise Solution — Run Configurations"
+      "source": "Developer - Practitioner: Enterprise Solution — Run Configurations"
     },
     {
       "id": "di-m5-q12",
@@ -792,7 +792,7 @@
       ],
       "correct": 1,
       "explanation": "The master node acts as the coordinator in a **clustered transformation**. It distributes rows to the slave servers to perform heavy processing in parallel and then gathers those results into a single stream.",
-      "source": "Pentaho Developer - Practitioner: Enterprise Solution — Run Configurations"
+      "source": "Developer - Practitioner: Enterprise Solution — Run Configurations"
     },
     {
       "id": "di-m6-q1",

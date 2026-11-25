@@ -366,7 +366,7 @@ These files are also on disk in `C:\Workshop-SD-Specialty\04-amqp\06-amqp-rabbit
 
 The parent and child transformations for this lab. Open them alongside your own to compare.
 
-Also on disk at `C:\Workshop-SD-Specialty\04-amqp\06-amqp-rabbitmq\solution`.
+Also on disk at `C:\Workshop-SD-Specialty\04-amqp\06-amqp-rabbitmq`, next to the lab files.
 
 [tr_rabbit_consumer.ktr](./files/tr_rabbit_consumer.ktr) <button data-launch="spoon" data-path="files/tr_rabbit_consumer.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/tr_rabbit_consumer.ktr">View graph</button>
 

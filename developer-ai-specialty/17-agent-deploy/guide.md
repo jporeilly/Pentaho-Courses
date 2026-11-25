@@ -196,24 +196,16 @@ Take these four history entries for asset `PUMP-017`:
 >
 > Pentaho Data Integration already knows each entry's `asset_id`, so it retrieves the history before it calls the agent, and the agent gets everything it needs in one request: one LLM call per log entry. Send it one request by hand first, so you know what Pentaho Data Integration gets back.
 
-The pipeline you build in parts 4 to 6:
+The pipeline you build in parts 4 to 6, for each log entry:
 
-```text
-PDI transformation                                    Agent (FastAPI, port 8000)
+<div align="center">
+<figure>
+<img src="../_assets/images/agent-assess-sequence.png" alt="A sequence across four lanes, SQLite, the transformation, the agent on localhost:8000 and Ollama on localhost:11434: Table input and Database join read the entries and their history; Group by leaves one row per entry; REST client posts to /assess; the agent makes one call to Ollama and answers 200 with seven keys; Filter rows sends other codes to Write HTTP Errors; Switch / case routes the rest to four Table output steps into assessed_log" width="800">
+<figcaption>One request per log entry, and one LLM call per request</figcaption>
+</figure>
+</div>
 
-Table input                  read maintenance_log
-Database join                fetch each asset's history rows
-Sort rows, Unique rows,
-Modified JavaScript value,
-Group by                     one row per log entry, history as a JSON array
-Modified JavaScript value    build the request body
-REST client                  POST /assess  ------------>  read log_text and history
-                                                          one LLM call to Ollama
-Filter rows                  HTTP 200?     <------------  the assessment as JSON
-Modified JavaScript value    parse the answer
-Switch / case                route on priority
-Table output (4 steps)       insert into assessed_log
-```
+Read the diagram from top to bottom. Steps 1 to 4 are Pentaho Data Integration's alone: it reads the five unprocessed entries from `maintenance_log.db`, fetches each asset's history rows from `asset_history.db`, and collapses them into one row per entry with the history as a JSON array. Steps 5 to 9 are the only exchange with the agent: one `POST /assess` per entry, one call from the agent to Ollama, and an answer with the seven keys you meet in this part. Steps 10 to 12 are Pentaho Data Integration's again: a status other than 200 goes to the error file, and every assessed row is inserted into `assessed_log`, by one of four **Table output** steps chosen by its priority.
 
 |  | Pentaho Data Integration transformation | Maintenance assessment agent |
 | --- | --- | --- |

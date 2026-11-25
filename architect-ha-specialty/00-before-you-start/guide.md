@@ -12,7 +12,7 @@
 > * See which hosts each workshop needs, and what must be on them
 > * Check a host with one command block
 >
-> **Prerequisites:** the Linux command line (`bash`, `sudo`, `ssh`, a text editor), and a Pentaho Server installed from the archive at least once, as in the Pentaho Solution Architect - Installation - Certified course
+> **Prerequisites:** the Linux command line (`bash`, `sudo`, `ssh`, a text editor), and a Pentaho Server installed from the archive at least once, as in the Solution Architect - Installation - Certified course
 >
 > **Estimated Time:** 5 minutes to read; the time to prepare the hosts depends on your platform
 

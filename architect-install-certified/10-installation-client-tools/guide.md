@@ -36,13 +36,6 @@
 >
 > This lab installs each tool by hand on a Linux desktop, with Ubuntu 24.04 LTS and Java 21 (OpenJDK) as the baseline. For Windows, see the Windows evaluation installation in the Pentaho documentation.
 
-<div align="center">
-<figure>
-<img src="../_assets/images/pentaho_pro_suite.png" alt="Diagram of Pentaho Data Integration Carte: developer tools call the Carte UI and server over a REST API, Carte ingests data from source systems such as Oracle, MySQL, CSV and Kafka, loads target systems such as Snowflake, Redshift and BigQuery, and uses an object store, file store, secrets and config maps" width="800">
-<figcaption>Pentaho Data Integration Carte: tools, sources, targets and storage</figcaption>
-</figure>
-</div>
-
 Each tool comes as a ZIP archive that you unpack with `unzip`, which needs no full JDK (the JRE has no `jar` tool):
 
 | Archive | Tool | Folder it creates | Launcher |

@@ -27,6 +27,15 @@ The test for whether something needs an agent: can Pentaho Data Integration prod
 | Can Pentaho Data Integration steps replicate it? | Yes: the multi-stage script and REST client pattern | Partly: rules cover known formats; LangExtract handles variable ones | Not with standard steps: the cross-text reasoning is the agent's |
 | Use when | Classifying, enriching or summarizing individual records | Extracting typed fields from free text where rules are too brittle | The assessment depends on what earlier records say, not only the current one |
 
+<div align="center">
+<figure>
+<img src="../_assets/images/three-approaches.png" alt="Three columns. Direct LLM call: one row in, Ollama's /api/generate once per row or stage, one enriched row out, no other records needed. LangExtract: one text with a prompt and examples in, one call per extraction pass, N extraction rows out, no other records needed. Agent as a service: one row and its history from Database join in, one call over every text, one assessment row out, other records needed. Underneath, Pentaho Data Integration owns retrieval, routing and persistence" width="800">
+<figcaption>What goes in, what does the work and what comes out, for each approach</figcaption>
+</figure>
+</div>
+
+Read the diagram down each column: what Pentaho Data Integration sends, the service that does the language work, and what comes back. Only the agent's column starts from more than the current row: Pentaho Data Integration retrieves the history first, with **Database join**, and sends it along, which is why only that column needs other records. The bar underneath holds for all three: retrieval, routing and persistence stay in Pentaho Data Integration.
+
 > **Note:**
 >
 > #### The Scenario
@@ -39,7 +48,7 @@ The test for whether something needs an agent: can Pentaho Data Integration prod
 
 <div align="center">
 <figure>
-<img src="../_assets/images/maintenance_assessment_agent.png" alt="The maintenance assessment transformation: Read Log Entries (spelt Enteries on this earlier canvas), Get Asset History, Sort rows, Remove Duplicates, Aggregate History, Group by, Build Agent Payload, Call Assessment Agent, Check HTTP status with a failure branch to Dummy (do nothing), Parse Agent Response, and a Switch / case to four outputs, CRITICAL, HIGH, MEDIUM and LOW" width="800">
+<img src="../_assets/images/maintenance_assessment_agent.png" alt="The maintenance assessment transformation: Read Log Entries (spelled Enteries on this earlier canvas), Get Asset History, Sort rows, Remove Duplicates, Aggregate History, Group by, Build Agent Payload, Call Assessment Agent, Check HTTP status with a failure branch to Dummy (do nothing), Parse Agent Response, and a Switch / case to four outputs, CRITICAL, HIGH, MEDIUM and LOW" width="800">
 <figcaption>An earlier build of the transformation the next workshop builds: Pentaho Data Integration retrieves the history, the agent reasons over it. Your step names follow the workshop</figcaption>
 </figure>
 </div>

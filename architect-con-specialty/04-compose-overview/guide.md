@@ -17,7 +17,9 @@ The project's `compose.yaml` runs four services:
 | `pentaho-server` | built from `image/Containerfile`   | Reads the passwords from Vault, then starts Tomcat on port 8090 of the host  |
 
 PostgreSQL runs the five scripts in `db_init_postgres` once, on an
-empty volume. The server mounts its configuration, `softwareOverride/`,
+empty volume. Its service is called `postgres`, but `compose.yaml` gives
+it the hostname `repository`, and that is the name the server's JDBC URLs
+use, such as `jdbc:postgresql://repository:5432/hibernate`. The server mounts its configuration, `softwareOverride/`,
 at start rather than baking it into the image, so the site's settings
 stay on the host. `deploy.sh` builds the image, starts PostgreSQL,
 waits for its health check, and then starts the server.
@@ -46,6 +48,22 @@ shows one of them at work:
 the named volumes: the repository, Vault's data and the server's
 solutions. The next `up` starts from them. `down -v` deletes the
 volumes too, and the next start builds the repository from scratch.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/compose-stack.png" alt="The Compose stack: pentaho-server requires postgres and vault healthy and vault-init exited 0; vault-init waits for vault itself; the host folders db_init_postgres, softwareOverride and the two config folders are mounted; the browser reaches the server on host port 8090; down removes the containers and keeps the four named volumes, which down -v deletes" width="800">
+<figcaption>Four services, four named volumes</figcaption>
+</figure>
+</div>
+
+Read the diagram from the server. Its three arrows are the `--requires`
+that Podman makes of `depends_on`: PostgreSQL and Vault must be healthy,
+and `vault-init` must have exited with 0. The dashed arrow is
+`vault-init`'s own wait for Vault, which its script does, not Podman. On
+the right are the project folders mounted from the host, read-only
+(`:ro`) or handed to `pentaho` (`:U`), and the browser on port 8090,
+which is the server's 8080. Everything in the top panel goes with
+`down`; the bottom panel goes only with `down -v`.
 
 See the project's `ARCHITECTURE.md` for the full picture and
 `TROUBLESHOOTING.md` for the failure modes this deployment has met.

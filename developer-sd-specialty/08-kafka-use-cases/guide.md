@@ -25,27 +25,14 @@
 
 This workshop uses Pentaho Data Integration's parent/child pattern. The parent's **Kafka consumer** reads messages in batches, every 500 milliseconds or 100 records, whichever comes first, and passes each batch to the child, which parses, transforms and writes it to MySQL:
 
-```text
-┌──────────────────────────────────────────────┐
-│  PARENT TRANSFORMATION (users-to-db-parent)  │
-│  ┌────────────────────────┐                  │
-│  │    Kafka consumer      │                  │
-│  │    Topic: pdi-users    │                  │
-│  │  Batch: 500ms / 100 rec│──── batches ───► │
-│  └────────────────────────┘                  │
-└──────────────────────────────────────────────┘
-                    │
-                    ▼
-┌──────────────────────────────────────────────┐
-│  CHILD TRANSFORMATION (users-to-db-child)    │
-│  Get records from stream                     │
-│  JSON input (parse $.userid, $.regionid,     │
-│              $.gender, $.registertime)       │
-│  Select values (rename + set metadata)       │
-│  Formula (epoch ms ÷ 1000 → seconds)         │
-│  Table output (→ user_events)                │
-└──────────────────────────────────────────────┘
-```
+<div align="center">
+<figure>
+<img src="../_assets/images/kafka-users-to-db.png" alt="produce_users.py feeds the Kafka topic pdi-users on 127.0.0.1:9092. In users-to-db-parent, Kafka consumer reads it as group pdi-warehouse-users, a batch every 500 ms or 100 records, committing offsets when a batch completes. Each batch runs users-to-db-child: Get records from stream, JSON input, Select values, Formula dividing by 1000, and Table output, which inserts into the MySQL table user_events" width="800">
+<figcaption>The pipeline: users-to-db-parent hands each batch to users-to-db-child, which loads user_events</figcaption>
+</figure>
+</div>
+
+Read the diagram down the left, then down the right. `produce_users.py` feeds the `pdi-users` topic; the parent's **Kafka consumer** reads it as the group `pdi-warehouse-users` and commits a batch's offsets only once the child has finished it. Each batch starts one run of the child, whose five steps you build in part 3, and **Table output** inserts the rows into `user_events`, whose columns come from `01-create-kafka-warehouse.sql`. `PK` marks the AUTO_INCREMENT key MySQL fills, and `UQ` the three columns of the unique key that keeps each event in the table once.
 
 :::: tabs
 

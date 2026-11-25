@@ -42,6 +42,22 @@ applies in order:
 `destroy.sh` removes them, and finally the namespace with everything
 left in it, the repository included.
 
+<div align="center">
+<figure>
+<img src="../_assets/images/k3s-deployment.png" alt="The K3s deployment: deploy.sh copies Podman's image into containerd with podman save and k3s ctr images import, then applies the namespace pentaho with a Secret, two ConfigMaps, volume claims from local-path, PostgreSQL, the Pentaho Server and an ingress through Traefik, numbered 1 to 7 in the order it applies them" width="800">
+<figcaption>One image import, seven layers of manifests</figcaption>
+</figure>
+</div>
+
+Read the diagram from the top. The image crosses from Podman into
+containerd once, and the server Deployment finds it there by name. Each
+K3s component serves the object under it: `local-path` the volume
+claims, containerd the server, Traefik the ingress. The numbers are the
+order of the list above. Only `postgres-data-pvc` is in use: the
+server's two claims stay `Pending`, as the K3s workshop shows. The
+server's init container waits for `postgres:5432` before the server
+starts.
+
 ## Raw manifests, then Helm
 
 The K3s workshop applies these files one by one. The Helm workshop

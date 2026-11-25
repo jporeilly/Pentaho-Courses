@@ -1,4 +1,4 @@
-# Pentaho Developer - ML Specialty
+# Developer - ML Specialty
 
 ## Getting Started
 

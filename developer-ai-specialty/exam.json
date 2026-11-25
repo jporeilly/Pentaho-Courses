@@ -20,7 +20,7 @@
       ],
       "correct": 1,
       "explanation": "Text is processed as **tokens**, which are not always whole words: `https://example.com` becomes four (`https`, `://`, `example`, `.com`) and `Python3.9` four more. Context windows and prompt sizes are counted in tokens, so a word count understates them.",
-      "source": "Pentaho Developer - AI Specialty: Key Concepts Workshop"
+      "source": "Developer - AI Specialty: Key Concepts Workshop"
     },
     {
       "id": "ai-m1-q2",
@@ -36,7 +36,7 @@
       ],
       "correct": 0,
       "explanation": "Embeddings are learned during **pre-training** on a large corpus, which maps words with similar meanings or contexts to similar vectors.",
-      "source": "Pentaho Developer - AI Specialty: Key Concepts Workshop"
+      "source": "Developer - AI Specialty: Key Concepts Workshop"
     },
     {
       "id": "ai-m1-q3",
@@ -52,7 +52,7 @@
       ],
       "correct": 1,
       "explanation": "The **self-attention** mechanism allows the model to link words that are far apart because each token in the sequence looks at all other tokens and calculates how relevant each is to the current context.\n\nBy weighing the relationships between all tokens, the model can resolve references regardless of their physical distance in the text.",
-      "source": "Pentaho Developer - AI Specialty: Key Concepts Workshop"
+      "source": "Developer - AI Specialty: Key Concepts Workshop"
     },
     {
       "id": "ai-m1-q4",
@@ -68,7 +68,7 @@
       ],
       "correct": 3,
       "explanation": "The generation process predicts one token, appends it, and repeats. Because of this **autoregressive** nature, the `eval_duration` (the time taken to generate the response) is the dominant cost compared to the `prompt_eval_duration` (the time taken to read the prompt), which only occurs once.",
-      "source": "Pentaho Developer - AI Specialty: LLM Integration"
+      "source": "Developer - AI Specialty: LLM Integration"
     },
     {
       "id": "ai-m1-q5",
@@ -84,7 +84,7 @@
       ],
       "correct": 3,
       "explanation": "**Vector search** compares embeddings, which capture meaning, so it finds the documents a query means even when the user's words do not appear in them.",
-      "source": "Pentaho Developer - AI Specialty: Key Concepts Workshop"
+      "source": "Developer - AI Specialty: Key Concepts Workshop"
     },
     {
       "id": "ai-m1-q6",
@@ -100,7 +100,7 @@
       ],
       "correct": 2,
       "explanation": "With this embedding model, even the unrelated weather sentence scores 0.78, below the 0.92 of a close paraphrase, so the scores are read **relative to one another** and the ranking is what matters. A fixed line such as 0.5 would call everything related.",
-      "source": "Pentaho Developer - AI Specialty: Key Concepts Workshop"
+      "source": "Developer - AI Specialty: Key Concepts Workshop"
     },
     {
       "id": "ai-m1-q7",
@@ -116,7 +116,7 @@
       ],
       "correct": 2,
       "explanation": "The **encoder** uses multi-head attention to allow every position to attend to every other position, which produces context-aware representations of the entire input.\n\nThe **decoder** masks future positions and ends in a softmax over possible next tokens to facilitate generation of fluent text.",
-      "source": "Pentaho Developer - AI Specialty: Key Concepts Workshop"
+      "source": "Developer - AI Specialty: Key Concepts Workshop"
     },
     {
       "id": "ai-m1-q8",
@@ -132,7 +132,7 @@
       ],
       "correct": 3,
       "explanation": "Since transformers process all tokens at once, **positional encodings** are added to each token's embedding to provide information about where each token sits in a sequence.\n\nWhile token IDs identify vocabulary entries, the inclusion of these encodings allows the model to distinguish between different sentence structures containing the same words.",
-      "source": "Pentaho Developer - AI Specialty: Key Concepts Workshop"
+      "source": "Developer - AI Specialty: Key Concepts Workshop"
     },
     {
       "id": "ai-m1-q9",
@@ -148,7 +148,7 @@
       ],
       "correct": 3,
       "explanation": "Values near 0 produce nearly deterministic output. A temperature of 0.1 is the sweet spot for structured ETL because it maintains consistency while avoiding **degenerate repetition loops**.\n\nAn enrichment step requires a higher degree of freedom for inference, making a temperature of 0.3 appropriate for providing some variation while remaining within a controlled range.",
-      "source": "Pentaho Developer - AI Specialty: LLM Integration"
+      "source": "Developer - AI Specialty: LLM Integration"
     },
     {
       "id": "ai-m1-q10",
@@ -164,7 +164,7 @@
       ],
       "correct": 1,
       "explanation": "The **context window** is measured in tokens, and every part of the prompt counts, instructions included. The verbose prompt uses about 120 tokens and the compact one about 60 for identical results, so the compact one leaves more room.",
-      "source": "Pentaho Developer - AI Specialty: LLM Integration"
+      "source": "Developer - AI Specialty: LLM Integration"
     },
     {
       "id": "ai-m1-q11",
@@ -180,7 +180,7 @@
       ],
       "correct": 1,
       "explanation": "Reducing high-dimensional embeddings to two dimensions with **dimensionality reduction**, such as t-SNE, is for people to look at, like the shadow of a 3D object: some detail is lost. Similarity should be computed on the **full vectors**.",
-      "source": "Pentaho Developer - AI Specialty: Key Concepts Workshop"
+      "source": "Developer - AI Specialty: Key Concepts Workshop"
     },
     {
       "id": "ai-m1-q12",
@@ -196,7 +196,7 @@
       ],
       "correct": 2,
       "explanation": "Each encoding scheme represents the same text with its own **vocabulary**, so the **token IDs** differ while every scheme decodes back to the original exactly.\n\nEncoding is deterministic and reversible: different IDs mean different vocabularies, not random or faulty results.",
-      "source": "Pentaho Developer - AI Specialty: Key Concepts Workshop"
+      "source": "Developer - AI Specialty: Key Concepts Workshop"
     },
     {
       "id": "ai-m2-q1",
@@ -212,7 +212,7 @@
       ],
       "correct": 3,
       "explanation": "The assistant uses **Retrieval-Augmented Generation** (RAG) to search a document store for content relevant to the query and inject it into the prompt context.\n\nThe model then answers from the company's own documents without being retrained on them.",
-      "source": "Pentaho Developer - AI Specialty: GenAI"
+      "source": "Developer - AI Specialty: GenAI"
     },
     {
       "id": "ai-m2-q2",
@@ -232,7 +232,7 @@
         2
       ],
       "explanation": "Using the **HTML Parser** to extract specific content using selectors removes noise from the data. Removing these elements reduces the total count of tokens sent to the provider, which results in fewer tokens spent on every call.\n\nBecause LLM providers limit the amount of text that can be processed in a single request, removing non-essential content leaves more room in the **context window** for relevant information.",
-      "source": "Pentaho Developer - AI Specialty: HTML Parser"
+      "source": "Developer - AI Specialty: HTML Parser"
     },
     {
       "id": "ai-m2-q3",
@@ -248,7 +248,7 @@
       ],
       "correct": 2,
       "explanation": "The model is limited by the **prompt context** assembled for a specific call, which includes the system prompt, the message, retrieved documents, and tool results.\n\nA document that is not successfully retrieved is not present in the context, and therefore the model cannot access it.",
-      "source": "Pentaho Developer - AI Specialty: GenAI"
+      "source": "Developer - AI Specialty: GenAI"
     },
     {
       "id": "ai-m2-q4",
@@ -264,7 +264,7 @@
       ],
       "correct": 3,
       "explanation": "The **system prompt** is the specific component of the prompt context that contains instructions defining how the model should behave. By defining behavioral constraints such as output formatting in the **system prompt**, the developer ensures the model adheres to these rules consistently across the pipeline.",
-      "source": "Pentaho Developer - AI Specialty: GenAI"
+      "source": "Developer - AI Specialty: GenAI"
     },
     {
       "id": "ai-m2-q5",
@@ -280,7 +280,7 @@
       ],
       "correct": 2,
       "explanation": "The **Read Unstructured Document (Tika)** step extracts text, metadata, and language from various formats, including password-protected PDFs, and can read the password from a field when files are processed as a stream.\n\nIt passes only the plain text on to the next step, which gives the LLM clean content.",
-      "source": "Pentaho Developer - AI Specialty: Apache Tika"
+      "source": "Developer - AI Specialty: Apache Tika"
     },
     {
       "id": "ai-m2-q6",
@@ -296,7 +296,7 @@
       ],
       "correct": 1,
       "explanation": "The proposed change removes Pentaho Data Integration as the **orchestration layer**. While the LLM performs the processing, it cannot manage the underlying data infrastructure.\n\nPDI is required to handle the reading of source data, the routing of records, the writing of results, and the execution of **error handling** and parsing logic required to load the model output into the final destination.",
-      "source": "Pentaho Developer - AI Specialty: LLM Integration"
+      "source": "Developer - AI Specialty: LLM Integration"
     },
     {
       "id": "ai-m2-q7",
@@ -312,7 +312,7 @@
       ],
       "correct": 0,
       "explanation": "A **fixed instruction and schema** around the data means every row is processed with the same logic and returns the same output structure, so results can be compared and parsed reliably across the whole dataset.",
-      "source": "Pentaho Developer - AI Specialty: LLM Integration"
+      "source": "Developer - AI Specialty: LLM Integration"
     },
     {
       "id": "ai-m3-q1",
@@ -328,7 +328,7 @@
       ],
       "correct": 0,
       "explanation": "Serving the model through Ollama provides a **local REST API** at `localhost:11434`, so the data stays on the local machine: there is no external dependency, no API key, and no network latency.",
-      "source": "Pentaho Developer - AI Specialty: LLM Integration"
+      "source": "Developer - AI Specialty: LLM Integration"
     },
     {
       "id": "ai-m3-q2",
@@ -344,7 +344,7 @@
       ],
       "correct": 1,
       "explanation": "Ollama wraps the model output in a `response` field as a **string** containing JSON rather than a nested object. To extract the data, one JSON input step must first extract the `response` string, followed by a second step to parse the nested JSON content.\n\n```json\n{\n  \"response\": \"{\\\"sentiment\\\": \\\"positive\\\"}\"\n}\n```",
-      "source": "Pentaho Developer - AI Specialty: LLM Integration"
+      "source": "Developer - AI Specialty: LLM Integration"
     },
     {
       "id": "ai-m3-q3",
@@ -360,7 +360,7 @@
       ],
       "correct": 0,
       "explanation": "LLM-based named entity recognition (NER) is a **zero-shot** process, which means it requires no prior training data to identify entities. New entity types are added through **prompt engineering** to modify the requirements of the extraction without retraining the model.",
-      "source": "Pentaho Developer - AI Specialty: Named Entity Recognition"
+      "source": "Developer - AI Specialty: Named Entity Recognition"
     },
     {
       "id": "ai-m3-q4",
@@ -376,7 +376,7 @@
       ],
       "correct": 2,
       "explanation": "Splitting the prompt into stages gives each stage a **single task**, and each stage receives the original input and all earlier outputs. When a result is wrong, the failure can be traced to the stage that produced it, and each simpler task is easier for the model to get right.",
-      "source": "Pentaho Developer - AI Specialty: Multi-staged"
+      "source": "Developer - AI Specialty: Multi-staged"
     },
     {
       "id": "ai-m3-q5",
@@ -396,7 +396,7 @@
         2
       ],
       "explanation": "A `load_duration` that stays high means the model is reloaded on every request, 10 to 30 seconds each, which **keep_alive** prevents. More **copies of the REST Client step**, 6 to 8 on 8 cores, put several calls in flight at once.",
-      "source": "Pentaho Developer - AI Specialty: Data Quality"
+      "source": "Developer - AI Specialty: Data Quality"
     },
     {
       "id": "ai-m3-q6",
@@ -412,7 +412,7 @@
       ],
       "correct": 0,
       "explanation": "The `done_reason` of `length` indicates that the generation reached the **limit of the prediction** count. An `eval_count` of 300 confirms that the response was truncated because it hit the `num_predict` cap.\n\nIncreasing `num_predict` allows the model to generate a complete JSON object before the output is cut off.",
-      "source": "Pentaho Developer - AI Specialty: LLM Integration"
+      "source": "Developer - AI Specialty: LLM Integration"
     },
     {
       "id": "ai-m3-q7",
@@ -428,7 +428,7 @@
       ],
       "correct": 3,
       "explanation": "**Variable substitution** with `${}` happens in step configuration fields, not inside the code of a Modified JavaScript value step, so the literal `${MODEL_NAME}` is sent. The **getVariable()** function resolves it, from `kettle.properties` or any other source of variables:\n\n```javascript\nvar model = getVariable(\"MODEL_NAME\", \"llama3.2:3b\");\n```",
-      "source": "Pentaho Developer - AI Specialty: LLM Integration"
+      "source": "Developer - AI Specialty: LLM Integration"
     },
     {
       "id": "ai-m3-q8",
@@ -444,7 +444,7 @@
       ],
       "correct": 3,
       "explanation": "The **confidence score** indicates the level of certainty the model has regarding a specific classification. Routing records with low scores to a manual review queue ensures that high-risk, borderline cases are verified by a human while high-confidence records proceed automatically.",
-      "source": "Pentaho Developer - AI Specialty: Deploy & Run the Agent"
+      "source": "Developer - AI Specialty: Deploy & Run the Agent"
     },
     {
       "id": "ai-m4-q1",
@@ -460,7 +460,7 @@
       ],
       "correct": 1,
       "explanation": "LangExtract is used for text where regex rules are too brittle. Because it works through a Large Language Model (LLM), it identifies intent by **reading for meaning** rather than matching a **literal pattern**.\n\nIt handles the varied wording of support tickets without a new rule for every phrasing, guided by few-shot examples sent to the local Ollama instance.",
-      "source": "Pentaho Developer - AI Specialty: LangExtract"
+      "source": "Developer - AI Specialty: LangExtract"
     },
     {
       "id": "ai-m4-q2",
@@ -476,7 +476,7 @@
       ],
       "correct": 3,
       "explanation": "Limiting the **prompt constraints** ensures the model returns a specific, predictable value. By restricting the output to `CRITICAL`, `HIGH`, `MEDIUM`, or `LOW`, the model does not include extra punctuation or synonyms, allowing the Filter rows step to match the value exactly.",
-      "source": "Pentaho Developer - AI Specialty: Support Tickets"
+      "source": "Developer - AI Specialty: Support Tickets"
     },
     {
       "id": "ai-m4-q3",
@@ -492,7 +492,7 @@
       ],
       "correct": 1,
       "explanation": "A **REST service** is the recommended pattern for reusable, production pipelines, while a Shell step is intended for quick local experiments where a shared service is not required.\n\nBecause a Shell step runs its own local script, it does not provide a shared architecture; only the REST pattern allows multiple pipelines to share a single service to avoid the redundancy of maintaining separate scripts for each pipeline.",
-      "source": "Pentaho Developer - AI Specialty: LangExtract"
+      "source": "Developer - AI Specialty: LangExtract"
     },
     {
       "id": "ai-m4-q4",
@@ -508,7 +508,7 @@
       ],
       "correct": 1,
       "explanation": "The request to the LangExtract service includes a **prompt** that specifies the fields to be extracted and **few-shot examples** that pair sample text with corresponding `extraction_class` and `extraction_text` values.\n\nThese components provide the necessary context for the model to identify the correct data points without requiring a pre-trained model file or a structured JSON schema.",
-      "source": "Pentaho Developer - AI Specialty: Contract Documents"
+      "source": "Developer - AI Specialty: Contract Documents"
     },
     {
       "id": "ai-m5-q1",
@@ -524,7 +524,7 @@
       ],
       "correct": 1,
       "explanation": "The determining factor is whether PDI can replicate the behavior on the canvas. While a direct call or a multi-stage chain can be represented by adding more steps, complex **cross-text reasoning** cannot be replicated by simply adding more steps.",
-      "source": "Pentaho Developer - AI Specialty: Agent-as-a-Service"
+      "source": "Developer - AI Specialty: Agent-as-a-Service"
     },
     {
       "id": "ai-m5-q2",
@@ -540,7 +540,7 @@
       ],
       "correct": 3,
       "explanation": "The required operations are **deterministic** and can be handled by standard PDI steps. A Regex evaluation step extracts fixed-format identifiers from text, a Database join or Database lookup step retrieves history by key, and a Filter rows or Switch/Case step routes the data based on known fields.\n\nFree text alone does not necessitate an agent because **regular expressions** effectively handle structured patterns within unstructured strings.",
-      "source": "Pentaho Developer - AI Specialty: Deploy & Run the Agent"
+      "source": "Developer - AI Specialty: Deploy & Run the Agent"
     },
     {
       "id": "ai-m5-q3",
@@ -556,7 +556,7 @@
       ],
       "correct": 3,
       "explanation": "The Fuzzy match step uses algorithms like Levenshtein or Jaro-Winkler to measure **character similarity** between strings. Because the algorithm only evaluates how many characters are shared or misplaced, it cannot account for the semantic meaning of the data.\n\nIn the provided examples, the temperature phrases are visually similar but have opposite meanings, while the noise phrases are semantically identical but share few common characters. The algorithm produces incorrect results because it lacks the ability to interpret **contextual meaning**.",
-      "source": "Pentaho Developer - AI Specialty: Deploy & Run the Agent"
+      "source": "Developer - AI Specialty: Deploy & Run the Agent"
     },
     {
       "id": "ai-m5-q4",
@@ -576,7 +576,7 @@
         4
       ],
       "explanation": "Sending non-200 responses to an error file ensures that records with a 502 status—which indicate a service is unavailable—are captured for investigation rather than being ignored.\n\nWhen a 200 response contains an unparseable body, defaulting the priority to `MEDIUM` and flagging the row with a `parse_error` of `Y` ensures the record remains in the processing stream and reaches the standard queue for manual review.",
-      "source": "Pentaho Developer - AI Specialty: Deploy & Run the Agent"
+      "source": "Developer - AI Specialty: Deploy & Run the Agent"
     },
     {
       "id": "ai-m5-q5",
@@ -592,7 +592,7 @@
       ],
       "correct": 0,
       "explanation": "The agent requires no tool calls because PDI retrieves the asset ID and the history to build a **complete payload**. Since the required data is included in the prompt before the LLM call is made, the agent only needs to perform reasoning across the provided text.\n\nThe extraction of data occurs during the integration phase, and the prompt contains all necessary information for the model to fulfill the request.",
-      "source": "Pentaho Developer - AI Specialty: Deploy & Run the Agent"
+      "source": "Developer - AI Specialty: Deploy & Run the Agent"
     },
     {
       "id": "ai-m3-q9",
@@ -608,7 +608,7 @@
       ],
       "correct": 2,
       "explanation": "Setting the review apart from the instruction in **quotes** ensures the model does not conflate the data with the instructions. This is necessary when input data contains imperative language that might mislead the model's execution path.",
-      "source": "Pentaho Developer - AI Specialty: LLM Integration"
+      "source": "Developer - AI Specialty: LLM Integration"
     },
     {
       "id": "ai-m3-q10",
@@ -624,7 +624,7 @@
       ],
       "correct": 3,
       "explanation": "The parser takes the **substring** from the first curly brace to the last one, so any conversational filler or Markdown code fences around the JSON are left out before it is parsed.",
-      "source": "Pentaho Developer - AI Specialty: LLM Integration"
+      "source": "Developer - AI Specialty: LLM Integration"
     },
     {
       "id": "ai-m3-q11",
@@ -640,7 +640,7 @@
       ],
       "correct": 2,
       "explanation": "Characters such as quotes, backslashes, and newlines in free text break the **JavaScript string concatenation**. The text must be sanitized before the request is sent, by escaping backslashes and quotes and replacing newlines, so the request body stays well-formed.",
-      "source": "Pentaho Developer - AI Specialty: LLM Integration"
+      "source": "Developer - AI Specialty: LLM Integration"
     },
     {
       "id": "ai-m3-q12",
@@ -656,7 +656,7 @@
       ],
       "correct": 1,
       "explanation": "When analytical prompts ask for multiple different items in a single request, large language models often fill the fields **speculatively** rather than accurately. While the `json` format ensures the output is valid JSON, it does not guarantee that the data within the fields is correct.\n\nTo ensure high accuracy for complex analysis, it is often better to use **single-purpose calls** for each specific data point, even if this requires more rounds of communication with the model. Well-defined tasks, such as extracting 10 NER types, are the exception.",
-      "source": "Pentaho Developer - AI Specialty: LLM Integration"
+      "source": "Developer - AI Specialty: LLM Integration"
     },
     {
       "id": "ai-m3-q13",
@@ -672,7 +672,7 @@
       ],
       "correct": 1,
       "explanation": "Data quality work such as cleaning and validating complete but messy data is a lower risk because it focuses on **standardizing** existing data. Formatting changes can be verified against the source.\n\nEnrichment via inference poses a higher risk because the model must **infer and classify** values that are not present in the source data, which can lead to inaccurate results.",
-      "source": "Pentaho Developer - AI Specialty: Data Enrichment"
+      "source": "Developer - AI Specialty: Data Enrichment"
     },
     {
       "id": "ai-m3-q14",
@@ -688,7 +688,7 @@
       ],
       "correct": 0,
       "explanation": "The parser starts from the original values as fallbacks, sets `parsing_error` to `Y` on any failure, and a Filter rows step on `parsing_error` = `N` passes only clean records on. This **error handling pattern** lets records that fail to parse be logged rather than lost.",
-      "source": "Pentaho Developer - AI Specialty: Data Quality"
+      "source": "Developer - AI Specialty: Data Quality"
     },
     {
       "id": "ai-m4-q5",
@@ -704,7 +704,7 @@
       ],
       "correct": 0,
       "explanation": "The **Row denormaliser** step transforms data from a tall format to a wide format. By specifying `class` as the key, `text` as the value, and `ticket_id` as the group, the step pivots the rows into columns so that each ticket occupies a single row with distinct columns for each attribute.",
-      "source": "Pentaho Developer - AI Specialty: Support Tickets"
+      "source": "Developer - AI Specialty: Support Tickets"
     },
     {
       "id": "ai-m4-q6",
@@ -720,7 +720,7 @@
       ],
       "correct": 1,
       "explanation": "Long documents are divided into segments based on the `max_char_buffer` limit. By increasing the **overlap**, text is repeated across the boundaries between chunks, ensuring that a clause split between two segments appears in its entirety in at least one of those chunks.",
-      "source": "Pentaho Developer - AI Specialty: Contract Documents"
+      "source": "Developer - AI Specialty: Contract Documents"
     }
   ]
 }

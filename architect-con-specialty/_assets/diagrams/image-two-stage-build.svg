@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1056" height="636" viewBox="0 0 1056 636" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+<filter id="shadow" x="-10%" y="-10%" width="120%" height="140%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#0f172a" flood-opacity="0.12"/></filter></defs>
+<rect width="1056" height="636" fill="#ffffff"/>
+<rect x="16" y="16" width="268" height="412" rx="12" fill="#eff6ff" stroke="#dbeafe" stroke-width="1.5"/>
+<path d="M16 28a12 12 0 0 1 12-12h244a12 12 0 0 1 12 12v22h-268z" fill="#1d4ed8"/>
+<g transform="translate(29 22) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></g>
+<text x="56" y="39" font-size="14" font-weight="700" fill="#ffffff">pentaho-image project</text>
+<rect x="324" y="16" width="332" height="412" rx="12" fill="#f5f3ff" stroke="#ede9fe" stroke-width="1.5"/>
+<path d="M324 28a12 12 0 0 1 12-12h308a12 12 0 0 1 12 12v22h-332z" fill="#6d28d9"/>
+<g transform="translate(337 22) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 12-9.373 9.373a1 1 0 0 1-3.001-3L12 9"/><path d="m18 15 4-4"/><path d="m21.5 11.5-1.914-1.914A2 2 0 0 1 19 8.172v-.344a2 2 0 0 0-.586-1.414l-1.657-1.657A6 6 0 0 0 12.516 3H9l1.243 1.243A6 6 0 0 1 12 8.485V10l2 2h1.172a2 2 0 0 1 1.414.586L18.5 14.5"/></g>
+<text x="364" y="39" font-size="14" font-weight="700" fill="#ffffff">Containerfile: two stages</text>
+<rect x="16" y="460" width="1024" height="160" rx="12" fill="#f0fdfa" stroke="#ccfbf1" stroke-width="1.5"/>
+<path d="M16 472a12 12 0 0 1 12-12h1000a12 12 0 0 1 12 12v32h-1024z" fill="#0f766e"/>
+<g transform="translate(29 470) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 7.7c0-.6-.4-1.2-.8-1.5l-6.3-3.9a1.72 1.72 0 0 0-1.7 0l-10.3 6c-.5.2-.9.8-.9 1.4v6.6c0 .5.4 1.2.8 1.5l6.3 3.9a1.72 1.72 0 0 0 1.7 0l10.3-6c.5-.3.9-1 .9-1.5Z"/><path d="M10 21.9V14L2.1 9.1"/><path d="m10 14 11.9-6.9"/><path d="M14 19.8v-8.1"/><path d="M18 17.5V9.4"/></g>
+<text x="56" y="480" font-size="14" font-weight="700" fill="#ffffff">Each time a container starts: /docker-entrypoint.sh</text>
+<text x="56" y="496" font-size="11.5" fill="#ffffff" opacity="0.92">then Tomcat is the main process: if it ran in the background, the container would stop</text>
+<path d="M268 122C302.5 122 302.5 122 337 122" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M268 246C302.5 246 302.5 236 337 236" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M268 370C302.5 370 302.5 264 337 264" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M490 164C490 182.5 490 182.5 490 201" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M640 122C670.5 122 670.5 122 701 122" fill="none" stroke="#64748b" stroke-width="1.7" stroke-dasharray="5 4" marker-end="url(#arrow)"/>
+<path d="M640 246C670.5 246 670.5 246 701 246" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M744 288C693.5 288 693.5 370 643 370" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M924 288C924 372.5 924 372.5 924 457" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M256 562C270.5 562 270.5 562 285 562" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M512 562C526.5 562 526.5 562 541 562" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M768 562C782.5 562 782.5 562 797 562" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="32" y="80" width="236" height="84" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="122" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(50 110) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13.659 22H18a2 2 0 0 0 2-2V8a2.4 2.4 0 0 0-.706-1.706l-3.588-3.588A2.4 2.4 0 0 0 14 2H6a2 2 0 0 0-2 2v11.5"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M8 12v-1"/><path d="M8 18v-2"/><path d="M8 7V6"/><circle cx="8" cy="20" r="2"/></g>
+<text x="92" y="105" font-size="14" font-weight="700" fill="#1e3a8a">stagedArtifacts/</text>
+<text x="92" y="122" font-size="12" fill="#1e3a8a">pentaho-server-ee-&lt;version&gt;</text>
+<text x="92" y="137" font-size="12" fill="#1e3a8a">.zip, and plugin archives</text>
+<rect x="32" y="204" width="236" height="84" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="246" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(50 234) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 20H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.98a2 2 0 0 1 1.69.9l.66 1.2A2 2 0 0 0 12 6h8a2 2 0 0 1 2 2v3.3"/><path d="m14.305 19.53.923-.382"/><path d="m15.228 16.852-.923-.383"/><path d="m16.852 15.228-.383-.923"/><path d="m16.852 20.772-.383.924"/><path d="m19.148 15.228.383-.923"/><path d="m19.53 21.696-.382-.924"/><path d="m20.772 16.852.924-.383"/><path d="m20.772 19.148.924.383"/><circle cx="18" cy="18" r="3"/></g>
+<text x="92" y="229" font-size="14" font-weight="700" fill="#1e3a8a">softwareOverride/</text>
+<text x="92" y="246" font-size="12" fill="#1e3a8a">2_repository, 4_others;</text>
+<text x="92" y="261" font-size="12" fill="#1e3a8a">into /docker-entrypoint-init</text>
+<rect x="32" y="328" width="236" height="84" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="370" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(50 358) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 12.5 8 15l2 2.5"/><path d="m14 12.5 2 2.5-2 2.5"/></g>
+<text x="92" y="353" font-size="14" font-weight="700" fill="#1e3a8a">entrypoint/</text>
+<text x="92" y="370" font-size="12" fill="#1e3a8a">docker-entrypoint.sh;</text>
+<text x="92" y="385" font-size="12" fill="#1e3a8a">into /</text>
+<rect x="340" y="80" width="300" height="84" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="370" cy="122" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(358 110) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22v-9"/><path d="M15.17 2.21a1.67 1.67 0 0 1 1.63 0L21 4.57a1.93 1.93 0 0 1 0 3.36L8.82 14.79a1.655 1.655 0 0 1-1.64 0L3 12.43a1.93 1.93 0 0 1 0-3.36z"/><path d="M20 13v3.87a2.06 2.06 0 0 1-1.11 1.83l-6 3.08a1.93 1.93 0 0 1-1.78 0l-6-3.08A2.06 2.06 0 0 1 4 16.87V13"/><path d="M21 12.43a1.93 1.93 0 0 0 0-3.36L8.83 2.2a1.64 1.64 0 0 0-1.63 0L3 4.57a1.93 1.93 0 0 0 0 3.36l12.18 6.86a1.636 1.636 0 0 0 1.63 0z"/></g>
+<text x="400" y="105" font-size="14" font-weight="700" fill="#3b0764">install_unpack</text>
+<text x="400" y="122" font-size="12" fill="#3b0764">debian:trixie-slim, with unzip;</text>
+<text x="400" y="137" font-size="12" fill="#3b0764">unpacks into /opt/pentaho</text>
+<rect x="340" y="204" width="300" height="84" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="370" cy="246" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(358 234) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"/><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"/><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"/></g>
+<text x="400" y="221.5" font-size="14" font-weight="700" fill="#3b0764">pack</text>
+<text x="400" y="238.5" font-size="12" fill="#3b0764">a clean debian:trixie-slim;</text>
+<text x="400" y="253.5" font-size="12" fill="#3b0764">user pentaho, UID 5000;</text>
+<text x="400" y="268.5" font-size="12" fill="#3b0764">openjdk-21-jre-headless, curl</text>
+<rect x="340" y="328" width="300" height="84" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="370" cy="370" r="19" fill="#ffffff" stroke="#b45309" stroke-width="1.2"/>
+<g transform="translate(358 358) scale(1)" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></g>
+<text x="400" y="353" font-size="14" font-weight="700" fill="#78350f">build.sh tests the image</text>
+<text x="400" y="370" font-size="12" fill="#78350f">Java answers;</text>
+<text x="400" y="385" font-size="12" fill="#78350f">the server's files are in place</text>
+<rect x="386.5" y="170" width="207" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="490" y="188" text-anchor="middle" font-size="12" fill="#334155">COPY --from: only /opt/pentaho</text>
+<rect x="704" y="80" width="320" height="84" rx="10" fill="#f5f5f4" stroke="#a8a29e" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="734" cy="122" r="19" fill="#ffffff" stroke="#a8a29e" stroke-width="1.2"/>
+<g transform="translate(722 110) scale(1)" fill="none" stroke="#a8a29e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 11v6"/><path d="M14 11v6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></g>
+<text x="764" y="105" font-size="14" font-weight="700" fill="#78716c">Left behind</text>
+<text x="764" y="122" font-size="12" fill="#78716c">the 1.1 GB archive and unzip</text>
+<text x="764" y="137" font-size="12" fill="#78716c">never reach the image you ship</text>
+<rect x="704" y="204" width="320" height="84" rx="10" fill="#ffffff" stroke="#64748b" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="734" cy="246" r="19" fill="#ffffff" stroke="#64748b" stroke-width="1.2"/>
+<g transform="translate(722 234) scale(1)" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z"/><path d="M12 22V12"/><polyline points="3.29 7 12 12 20.71 7"/><path d="m7.5 4.27 9 5.15"/></g>
+<text x="764" y="229" font-size="14" font-weight="700" fill="#0f172a">The image</text>
+<text x="764" y="246" font-size="12" fill="#0f172a">pentaho/pentaho-server:11.0.0.0-237</text>
+<text x="764" y="261" font-size="12" fill="#0f172a">runs as pentaho, not root</text>
+<rect x="858.3" y="360" width="131.39999999999998" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="924" y="378" text-anchor="middle" font-size="12" fill="#334155">a container starts</text>
+<rect x="32" y="520" width="224" height="84" rx="10" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="562" r="19" fill="#ffffff" stroke="#0f766e" stroke-width="1.2"/>
+<g transform="translate(50 550) scale(1)" fill="none" stroke="#0f766e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H20a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-1"/><path d="M2 13h10"/><path d="m9 16 3-3-3-3"/></g>
+<text x="92" y="537.5" font-size="14" font-weight="700" fill="#134e4a">Copy the passes</text>
+<text x="92" y="554.5" font-size="12" fill="#134e4a">over the server, in name</text>
+<text x="92" y="569.5" font-size="12" fill="#134e4a">order; a folder holding</text>
+<text x="92" y="584.5" font-size="12" fill="#134e4a">.ignore is skipped</text>
+<rect x="288" y="520" width="224" height="84" rx="10" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="318" cy="562" r="19" fill="#ffffff" stroke="#0f766e" stroke-width="1.2"/>
+<g transform="translate(306 550) scale(1)" fill="none" stroke="#0f766e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19h8"/><path d="m4 17 6-6-6-6"/></g>
+<text x="348" y="552.5" font-size="14" font-weight="700" fill="#134e4a">extra-entrypoint.sh</text>
+<text x="348" y="569.5" font-size="12" fill="#134e4a">runs it, if there is one</text>
+<rect x="544" y="520" width="224" height="84" rx="10" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="574" cy="562" r="19" fill="#ffffff" stroke="#0f766e" stroke-width="1.2"/>
+<g transform="translate(562 550) scale(1)" fill="none" stroke="#0f766e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"/><path d="m9 12 2 2 4-4"/></g>
+<text x="604" y="537.5" font-size="14" font-weight="700" fill="#134e4a">License</text>
+<text x="604" y="554.5" font-size="12" fill="#134e4a">installed if LICENSE_URL</text>
+<text x="604" y="569.5" font-size="12" fill="#134e4a">is set; if not, sign-in</text>
+<text x="604" y="584.5" font-size="12" fill="#134e4a">opens the Licenses page</text>
+<rect x="800" y="520" width="224" height="84" rx="10" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="830" cy="562" r="19" fill="#ffffff" stroke="#0f766e" stroke-width="1.2"/>
+<g transform="translate(818 550) scale(1)" fill="none" stroke="#0f766e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z"/></g>
+<text x="860" y="545" font-size="14" font-weight="700" fill="#134e4a">./start-pentaho.sh</text>
+<text x="860" y="562" font-size="12" fill="#134e4a">the command: Tomcat</text>
+<text x="860" y="577" font-size="12" fill="#134e4a">in the foreground</text>
+</svg>
