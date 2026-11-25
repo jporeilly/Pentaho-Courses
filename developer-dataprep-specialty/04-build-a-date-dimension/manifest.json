@@ -1,0 +1,10 @@
+{
+  "title": "Build a Date Dimension",
+  "description": "",
+  "order": 4,
+  "kind": "workshop",
+  "stepCount": 6,
+  "estimatedMinutes": 10,
+  "hasVideo": false,
+  "checks": []
+}

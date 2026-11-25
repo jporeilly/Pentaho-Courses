@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1056" height="450" viewBox="0 0 1056 450" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+<filter id="shadow" x="-10%" y="-10%" width="120%" height="140%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#0f172a" flood-opacity="0.12"/></filter></defs>
+<rect width="1056" height="450" fill="#ffffff"/>
+<rect x="16" y="16" width="1024" height="418" rx="12" fill="#f8fafc" stroke="#f1f5f9" stroke-width="1.5"/>
+<path d="M16 28a12 12 0 0 1 12-12h1000a12 12 0 0 1 12 12v22h-1024z" fill="#475569"/>
+<g transform="translate(29 22) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><path d="M16 3.128a4 4 0 0 1 0 7.744"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><circle cx="9" cy="7" r="4"/></g>
+<text x="56" y="39" font-size="14" font-weight="700" fill="#ffffff">tr_dim_customer.ktr, run 2: 123 rows in, four outcomes</text>
+<path d="M240 242L277 242" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M500 219.5C524.5 219.5 524.5 104 549 104" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M778 104L815 104" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M500 234.5C524.5 234.5 524.5 196 549 196" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M778 196L815 196" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M500 249.5C524.5 249.5 524.5 288 549 288" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M778 288L815 288" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M500 264.5C524.5 264.5 524.5 380 549 380" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M778 380L815 380" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="36" y="204" width="204" height="76" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="66" cy="242" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(54 230) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></g>
+<text x="96" y="225" font-size="14" font-weight="700" fill="#1e3a8a">csvi-customers</text>
+<text x="96" y="242" font-size="12" fill="#1e3a8a">15 May extract,</text>
+<text x="96" y="257" font-size="12" fill="#1e3a8a">123 rows</text>
+<rect x="280" y="204" width="220" height="76" rx="10" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="310" cy="242" r="19" fill="#ffffff" stroke="#0f766e" stroke-width="1.2"/>
+<g transform="translate(298 230) scale(1)" fill="none" stroke="#0f766e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l4 2"/></g>
+<text x="340" y="225" font-size="14" font-weight="700" fill="#134e4a">dlu-dim_customer</text>
+<text x="340" y="242" font-size="12" fill="#134e4a">finds the version on</text>
+<text x="340" y="257" font-size="12" fill="#134e4a">extract_date, compares</text>
+<rect x="552" y="66" width="226" height="76" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="582" cy="104" r="19" fill="#ffffff" stroke="#b45309" stroke-width="1.2"/>
+<g transform="translate(570 92) scale(1)" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></g>
+<text x="612" y="94.5" font-size="14" font-weight="700" fill="#78350f">No version found</text>
+<text x="612" y="111.5" font-size="12" fill="#78350f">customer 500, new</text>
+<rect x="818" y="66" width="206" height="76" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="848" cy="104" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(836 92) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></g>
+<text x="878" y="94.5" font-size="14" font-weight="700" fill="#14532d">Insert version 1</text>
+<text x="878" y="111.5" font-size="12" fill="#14532d">key 124, from 1900</text>
+<rect x="552" y="158" width="226" height="76" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="582" cy="196" r="19" fill="#ffffff" stroke="#b45309" stroke-width="1.2"/>
+<g transform="translate(570 184) scale(1)" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></g>
+<text x="612" y="186.5" font-size="14" font-weight="700" fill="#78350f">An Insert field differs</text>
+<text x="612" y="203.5" font-size="12" fill="#78350f">141: city Barcelona</text>
+<rect x="818" y="158" width="206" height="76" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="848" cy="196" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(836 184) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l4 2"/></g>
+<text x="878" y="179" font-size="14" font-weight="700" fill="#14532d">Add version 2</text>
+<text x="878" y="196" font-size="12" fill="#14532d">key 11 ends 15 May,</text>
+<text x="878" y="211" font-size="12" fill="#14532d">key 123 starts</text>
+<rect x="552" y="250" width="226" height="76" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="582" cy="288" r="19" fill="#ffffff" stroke="#b45309" stroke-width="1.2"/>
+<g transform="translate(570 276) scale(1)" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.375 2.625a1 1 0 0 1 3 3l-9.013 9.014a2 2 0 0 1-.853.505l-2.873.84a.5.5 0 0 1-.62-.62l.84-2.873a2 2 0 0 1 .506-.852z"/></g>
+<text x="612" y="271" font-size="14" font-weight="700" fill="#78350f">An Update field differs</text>
+<text x="612" y="288" font-size="12" fill="#78350f">119: credit limit</text>
+<text x="612" y="303" font-size="12" fill="#78350f">282: name</text>
+<rect x="818" y="250" width="206" height="76" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="848" cy="288" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(836 276) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.375 2.625a1 1 0 0 1 3 3l-9.013 9.014a2 2 0 0 1-.853.505l-2.873.84a.5.5 0 0 1-.62-.62l.84-2.873a2 2 0 0 1 .506-.852z"/></g>
+<text x="878" y="271" font-size="14" font-weight="700" fill="#14532d">Overwrite the row</text>
+<text x="878" y="288" font-size="12" fill="#14532d">keys 4 and 58,</text>
+<text x="878" y="303" font-size="12" fill="#14532d">no new key</text>
+<rect x="552" y="342" width="226" height="76" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="582" cy="380" r="19" fill="#ffffff" stroke="#b45309" stroke-width="1.2"/>
+<g transform="translate(570 368) scale(1)" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" x2="19" y1="9" y2="9"/><line x1="5" x2="19" y1="15" y2="15"/></g>
+<text x="612" y="370.5" font-size="14" font-weight="700" fill="#78350f">Nothing differs</text>
+<text x="612" y="387.5" font-size="12" fill="#78350f">the other 119 customers</text>
+<rect x="818" y="342" width="206" height="76" rx="10" fill="#ffffff" stroke="#64748b" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="848" cy="380" r="19" fill="#ffffff" stroke="#64748b" stroke-width="1.2"/>
+<g transform="translate(836 368) scale(1)" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 4v16"/><path d="M6.029 4.285A2 2 0 0 0 3 6v12a2 2 0 0 0 3.029 1.715l9.997-5.998a2 2 0 0 0 .003-3.432z"/></g>
+<text x="878" y="370.5" font-size="14" font-weight="700" fill="#0f172a">Write nothing</text>
+<text x="878" y="387.5" font-size="12" fill="#0f172a">the row stays as it is</text>
+</svg>

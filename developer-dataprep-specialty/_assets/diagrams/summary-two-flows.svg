@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1056" height="290" viewBox="0 0 1056 290" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+<filter id="shadow" x="-10%" y="-10%" width="120%" height="140%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#0f172a" flood-opacity="0.12"/></filter></defs>
+<rect width="1056" height="290" fill="#ffffff"/>
+<rect x="16" y="16" width="244" height="258" rx="12" fill="#eff6ff" stroke="#dbeafe" stroke-width="1.5"/>
+<path d="M16 28a12 12 0 0 1 12-12h220a12 12 0 0 1 12 12v22h-244z" fill="#1d4ed8"/>
+<g transform="translate(29 22) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></g>
+<text x="56" y="39" font-size="14" font-weight="700" fill="#ffffff">Read and sort</text>
+<rect x="284" y="16" width="244" height="258" rx="12" fill="#f5f3ff" stroke="#ede9fe" stroke-width="1.5"/>
+<path d="M284 28a12 12 0 0 1 12-12h220a12 12 0 0 1 12 12v22h-244z" fill="#6d28d9"/>
+<g transform="translate(297 22) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 7V5a1 1 0 0 0-1-1H6.5a.5.5 0 0 0-.4.8l4.5 6a2 2 0 0 1 0 2.4l-4.5 6a.5.5 0 0 0 .4.8H17a1 1 0 0 0 1-1v-2"/></g>
+<text x="324" y="39" font-size="14" font-weight="700" fill="#ffffff">Sum each group</text>
+<rect x="552" y="16" width="244" height="258" rx="12" fill="#f0fdf4" stroke="#dcfce7" stroke-width="1.5"/>
+<path d="M552 28a12 12 0 0 1 12-12h220a12 12 0 0 1 12 12v22h-244z" fill="#15803d"/>
+<g transform="translate(565 22) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></g>
+<text x="592" y="39" font-size="14" font-weight="700" fill="#ffffff">Rebuild the table</text>
+<rect x="820" y="16" width="220" height="258" rx="12" fill="#fffbeb" stroke="#fef3c7" stroke-width="1.5"/>
+<path d="M820 28a12 12 0 0 1 12-12h196a12 12 0 0 1 12 12v22h-220z" fill="#b45309"/>
+<g transform="translate(833 22) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></g>
+<text x="860" y="39" font-size="14" font-weight="700" fill="#ffffff">Mondrian can answer</text>
+<path d="M252 107L289 107" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M520 107L557 107" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M788 107L825 107" fill="none" stroke="#64748b" stroke-width="1.7" stroke-dasharray="5 4" marker-end="url(#arrow)"/>
+<path d="M252 215L289 215" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M520 215L557 215" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M788 215L825 215" fill="none" stroke="#64748b" stroke-width="1.7" stroke-dasharray="5 4" marker-end="url(#arrow)"/>
+<rect x="24" y="64" width="228" height="86" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="54" cy="107" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(42 95) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></g>
+<text x="84" y="90" font-size="14" font-weight="700" fill="#1e3a8a">ti-sales_by_month_line</text>
+<text x="84" y="107" font-size="12" fill="#1e3a8a">2,867 order lines,</text>
+<text x="84" y="122" font-size="12" fill="#1e3a8a">by month and line</text>
+<rect x="292" y="64" width="228" height="86" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="322" cy="107" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(310 95) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 7V5a1 1 0 0 0-1-1H6.5a.5.5 0 0 0-.4.8l4.5 6a2 2 0 0 1 0 2.4l-4.5 6a.5.5 0 0 0 .4.8H17a1 1 0 0 0 1-1v-2"/></g>
+<text x="352" y="90" font-size="14" font-weight="700" fill="#3b0764">gb-month_line</text>
+<text x="352" y="107" font-size="12" fill="#3b0764">year, quarter, month, line;</text>
+<text x="352" y="122" font-size="12" fill="#3b0764">two sums and fact_count</text>
+<rect x="560" y="64" width="228" height="86" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="590" cy="107" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(578 95) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></g>
+<text x="620" y="90" font-size="14" font-weight="700" fill="#14532d">to-agg_ym_line</text>
+<text x="620" y="107" font-size="12" fill="#14532d">agg_ym_line_mart_fact_sales</text>
+<text x="620" y="122" font-size="12" fill="#14532d">175 rows, truncated first</text>
+<rect x="828" y="64" width="204" height="86" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="858" cy="107" r="19" fill="#ffffff" stroke="#b45309" stroke-width="1.2"/>
+<g transform="translate(846 95) scale(1)" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></g>
+<text x="888" y="90" font-size="14" font-weight="700" fill="#78350f">Month and line</text>
+<text x="888" y="107" font-size="12" fill="#78350f">but not by market:</text>
+<text x="888" y="122" font-size="12" fill="#78350f">that column is lost</text>
+<rect x="24" y="172" width="228" height="86" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="54" cy="215" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(42 203) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></g>
+<text x="84" y="198" font-size="14" font-weight="700" fill="#1e3a8a">ti-sales_by_year_terr</text>
+<text x="84" y="215" font-size="12" fill="#1e3a8a">2,867 order lines,</text>
+<text x="84" y="230" font-size="12" fill="#1e3a8a">by year and territory</text>
+<rect x="292" y="172" width="228" height="86" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="322" cy="215" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(310 203) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 7V5a1 1 0 0 0-1-1H6.5a.5.5 0 0 0-.4.8l4.5 6a2 2 0 0 1 0 2.4l-4.5 6a.5.5 0 0 0 .4.8H17a1 1 0 0 0 1-1v-2"/></g>
+<text x="352" y="198" font-size="14" font-weight="700" fill="#3b0764">gb-year_terr</text>
+<text x="352" y="215" font-size="12" fill="#3b0764">year and territory; the</text>
+<text x="352" y="230" font-size="12" fill="#3b0764">same sums and fact_count</text>
+<rect x="560" y="172" width="228" height="86" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="590" cy="215" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(578 203) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></g>
+<text x="620" y="198" font-size="14" font-weight="700" fill="#14532d">to-agg_y_terr</text>
+<text x="620" y="215" font-size="12" fill="#14532d">agg_y_terr_mart_fact_sales</text>
+<text x="620" y="230" font-size="12" fill="#14532d">12 rows, truncated first</text>
+<rect x="828" y="172" width="204" height="86" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="858" cy="215" r="19" fill="#ffffff" stroke="#b45309" stroke-width="1.2"/>
+<g transform="translate(846 203) scale(1)" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></g>
+<text x="888" y="198" font-size="14" font-weight="700" fill="#78350f">Year and territory</text>
+<text x="888" y="215" font-size="12" fill="#78350f">but not by product:</text>
+<text x="888" y="230" font-size="12" fill="#78350f">that column is lost</text>
+</svg>
