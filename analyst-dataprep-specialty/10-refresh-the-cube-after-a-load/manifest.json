@@ -1,0 +1,10 @@
+{
+  "title": "Refresh the Cube After a Load",
+  "description": "",
+  "order": 10,
+  "kind": "workshop",
+  "stepCount": 7,
+  "estimatedMinutes": 40,
+  "hasVideo": false,
+  "checks": []
+}

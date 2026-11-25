@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="540" viewBox="0 0 1180 540" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+<filter id="shadow" x="-10%" y="-10%" width="120%" height="140%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#0f172a" flood-opacity="0.12"/></filter></defs>
+<rect width="1180" height="540" fill="#ffffff"/>
+<rect x="16" y="16" width="1148" height="248" rx="12" fill="#f8fafc" stroke="#f1f5f9" stroke-width="1.5"/>
+<path d="M16 28a12 12 0 0 1 12-12h1124a12 12 0 0 1 12 12v32h-1148z" fill="#475569"/>
+<g transform="translate(29 26) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l4 2"/></g>
+<text x="56" y="36" font-size="14" font-weight="700" fill="#ffffff">Type 2, add a version: Euro+ Shopping Channel (141) moves on 15 May 2005</text>
+<text x="56" y="52" font-size="11.5" fill="#ffffff" opacity="0.92">city is a type 2 attribute: the Madrid row is closed and a Barcelona row with a new key starts the same day</text>
+<rect x="16" y="284" width="1148" height="204" rx="12" fill="#f8fafc" stroke="#f1f5f9" stroke-width="1.5"/>
+<path d="M16 296a12 12 0 0 1 12-12h1124a12 12 0 0 1 12 12v32h-1148z" fill="#475569"/>
+<g transform="translate(29 294) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.375 2.625a1 1 0 0 1 3 3l-9.013 9.014a2 2 0 0 1-.853.505l-2.873.84a.5.5 0 0 1-.62-.62l.84-2.873a2 2 0 0 1 .506-.852z"/></g>
+<text x="56" y="304" font-size="14" font-weight="700" fill="#ffffff">Type 1, overwrite: La Rochelle Gifts (119) gets a new credit limit in the same extract</text>
+<text x="56" y="320" font-size="11.5" fill="#ffffff" opacity="0.92">credit_limit is a type 1 attribute: the old value is gone, for every period, and no new key is made</text>
+<path d="M900 116C797.5 116 797.5 180 695 180" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M900 212C797.5 212 797.5 204 695 204" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M520 407L657 407" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="32" y="88" width="660" height="142" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="116" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(50 104) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></g>
+<text x="92" y="113" font-size="14" font-weight="700" fill="#14532d">mart_dim_customer</text>
+<text x="92" y="130" font-size="12" fill="#14532d">customer 141, after the 15 May extract</text>
+<text x="100.33333333333334" y="160" text-anchor="middle" font-size="12" font-weight="600" fill="#14532d">customer_key</text>
+<text x="205.00000000000003" y="160" text-anchor="middle" font-size="12" font-weight="600" fill="#14532d">version</text>
+<text x="309.6666666666667" y="160" text-anchor="middle" font-size="12" font-weight="600" fill="#14532d">customer_number</text>
+<text x="414.3333333333333" y="160" text-anchor="middle" font-size="12" font-weight="600" fill="#14532d">city</text>
+<text x="519" y="160" text-anchor="middle" font-size="12" font-weight="600" fill="#14532d">date_from</text>
+<text x="623.6666666666667" y="160" text-anchor="middle" font-size="12" font-weight="600" fill="#14532d">date_to</text>
+<line x1="48" y1="167" x2="676" y2="167" stroke="#94a3b8" stroke-width="1"/>
+<rect x="48" y="170" width="628" height="21" rx="4" fill="#fef3c7" stroke="#b45309" stroke-width="0.8"/>
+<text x="100.33333333333334" y="185" text-anchor="middle" font-size="12" fill="#78350f">11</text>
+<text x="205.00000000000003" y="185" text-anchor="middle" font-size="12" fill="#78350f">1</text>
+<text x="309.6666666666667" y="185" text-anchor="middle" font-size="12" fill="#78350f">141</text>
+<text x="414.3333333333333" y="185" text-anchor="middle" font-size="12" fill="#78350f">Madrid</text>
+<text x="519" y="185" text-anchor="middle" font-size="12" fill="#78350f">1900-01-01</text>
+<text x="623.6666666666667" y="185" text-anchor="middle" font-size="12" fill="#78350f">2005-05-15</text>
+<rect x="48" y="194" width="628" height="21" rx="4" fill="#dcfce7" stroke="#15803d" stroke-width="0.8"/>
+<text x="100.33333333333334" y="209" text-anchor="middle" font-size="12" fill="#14532d">123</text>
+<text x="205.00000000000003" y="209" text-anchor="middle" font-size="12" fill="#14532d">2</text>
+<text x="309.6666666666667" y="209" text-anchor="middle" font-size="12" fill="#14532d">141</text>
+<text x="414.3333333333333" y="209" text-anchor="middle" font-size="12" fill="#14532d">Barcelona</text>
+<text x="519" y="209" text-anchor="middle" font-size="12" fill="#14532d">2005-05-15</text>
+<text x="623.6666666666667" y="209" text-anchor="middle" font-size="12" fill="#14532d">2200-01-01</text>
+<rect x="900" y="80" width="248" height="72" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="930" cy="116" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(918 104) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 17V7"/><path d="M16 8h-6a2 2 0 0 0 0 4h4a2 2 0 0 1 0 4H8"/><path d="M4 3a1 1 0 0 1 1-1 1.3 1.3 0 0 1 .7.2l.933.6a1.3 1.3 0 0 0 1.4 0l.934-.6a1.3 1.3 0 0 1 1.4 0l.933.6a1.3 1.3 0 0 0 1.4 0l.933-.6a1.3 1.3 0 0 1 1.4 0l.934.6a1.3 1.3 0 0 0 1.4 0l.933-.6A1.3 1.3 0 0 1 19 2a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1 1.3 1.3 0 0 1-.7-.2l-.933-.6a1.3 1.3 0 0 0-1.4 0l-.934.6a1.3 1.3 0 0 1-1.4 0l-.933-.6a1.3 1.3 0 0 0-1.4 0l-.933.6a1.3 1.3 0 0 1-1.4 0l-.934-.6a1.3 1.3 0 0 0-1.4 0l-.933.6a1.3 1.3 0 0 1-.7.2 1 1 0 0 1-1-1z"/></g>
+<text x="960" y="99" font-size="14" font-weight="700" fill="#1e3a8a">Order 10417</text>
+<text x="960" y="116" font-size="12" fill="#1e3a8a">13 May 2005, before</text>
+<text x="960" y="131" font-size="12" fill="#1e3a8a">the move</text>
+<rect x="900" y="176" width="248" height="72" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="930" cy="212" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(918 200) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 17V7"/><path d="M16 8h-6a2 2 0 0 0 0 4h4a2 2 0 0 1 0 4H8"/><path d="M4 3a1 1 0 0 1 1-1 1.3 1.3 0 0 1 .7.2l.933.6a1.3 1.3 0 0 0 1.4 0l.934-.6a1.3 1.3 0 0 1 1.4 0l.933.6a1.3 1.3 0 0 0 1.4 0l.933-.6a1.3 1.3 0 0 1 1.4 0l.934.6a1.3 1.3 0 0 0 1.4 0l.933-.6A1.3 1.3 0 0 1 19 2a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1 1.3 1.3 0 0 1-.7-.2l-.933-.6a1.3 1.3 0 0 0-1.4 0l-.934.6a1.3 1.3 0 0 1-1.4 0l-.933-.6a1.3 1.3 0 0 0-1.4 0l-.933.6a1.3 1.3 0 0 1-1.4 0l-.934-.6a1.3 1.3 0 0 0-1.4 0l-.933.6a1.3 1.3 0 0 1-.7.2 1 1 0 0 1-1-1z"/></g>
+<text x="960" y="195" font-size="14" font-weight="700" fill="#1e3a8a">Order 10424</text>
+<text x="960" y="212" font-size="12" fill="#1e3a8a">31 May 2005, after</text>
+<text x="960" y="227" font-size="12" fill="#1e3a8a">the move</text>
+<rect x="744.4" y="135.5" width="106.2" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="797.5" y="153.5" text-anchor="middle" font-size="12" fill="#334155">key 11, Madrid</text>
+<rect x="731.8" y="195.5" width="131.39999999999998" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="797.5" y="213.5" text-anchor="middle" font-size="12" fill="#334155">key 123, Barcelona</text>
+<rect x="32" y="348" width="488" height="118" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="376" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(50 364) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></g>
+<text x="92" y="373" font-size="14" font-weight="700" fill="#14532d">mart_dim_customer</text>
+<text x="92" y="390" font-size="12" fill="#14532d">after the 30 April extract</text>
+<text x="105" y="420" text-anchor="middle" font-size="12" font-weight="600" fill="#14532d">customer_key</text>
+<text x="219" y="420" text-anchor="middle" font-size="12" font-weight="600" fill="#14532d">customer_number</text>
+<text x="333" y="420" text-anchor="middle" font-size="12" font-weight="600" fill="#14532d">customer_name</text>
+<text x="447" y="420" text-anchor="middle" font-size="12" font-weight="600" fill="#14532d">credit_limit</text>
+<line x1="48" y1="427" x2="504" y2="427" stroke="#94a3b8" stroke-width="1"/>
+<rect x="48" y="430" width="456" height="21" rx="4" fill="#dbeafe" stroke="#1d4ed8" stroke-width="0.8"/>
+<text x="105" y="445" text-anchor="middle" font-size="12" fill="#1e3a8a">4</text>
+<text x="219" y="445" text-anchor="middle" font-size="12" fill="#1e3a8a">119</text>
+<text x="333" y="445" text-anchor="middle" font-size="12" fill="#1e3a8a">La Rochelle Gifts</text>
+<text x="447" y="445" text-anchor="middle" font-size="12" fill="#1e3a8a">118200.00</text>
+<rect x="660" y="348" width="488" height="118" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="690" cy="376" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(678 364) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></g>
+<text x="720" y="373" font-size="14" font-weight="700" fill="#14532d">mart_dim_customer</text>
+<text x="720" y="390" font-size="12" fill="#14532d">after the 15 May extract</text>
+<text x="733" y="420" text-anchor="middle" font-size="12" font-weight="600" fill="#14532d">customer_key</text>
+<text x="847" y="420" text-anchor="middle" font-size="12" font-weight="600" fill="#14532d">customer_number</text>
+<text x="961" y="420" text-anchor="middle" font-size="12" font-weight="600" fill="#14532d">customer_name</text>
+<text x="1075" y="420" text-anchor="middle" font-size="12" font-weight="600" fill="#14532d">credit_limit</text>
+<line x1="676" y1="427" x2="1132" y2="427" stroke="#94a3b8" stroke-width="1"/>
+<rect x="676" y="430" width="456" height="21" rx="4" fill="#fef3c7" stroke="#b45309" stroke-width="0.8"/>
+<text x="733" y="445" text-anchor="middle" font-size="12" fill="#78350f">4</text>
+<text x="847" y="445" text-anchor="middle" font-size="12" fill="#78350f">119</text>
+<text x="961" y="445" text-anchor="middle" font-size="12" fill="#78350f">La Rochelle Gifts</text>
+<text x="1075" y="445" text-anchor="middle" font-size="12" fill="#78350f">125000.00</text>
+<rect x="554.3" y="387" width="68.4" height="40" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="588.5" y="405" text-anchor="middle" font-size="12" fill="#334155">UPDATE</text>
+<text x="588.5" y="420" text-anchor="middle" font-size="12" fill="#334155">in place</text>
+<rect x="32" y="506" width="22" height="16" rx="4" fill="#fef3c7" stroke="#b45309" stroke-width="0.8"/>
+<text x="62" y="519" font-size="12" fill="#334155">a version closed, or a value overwritten</text>
+<rect x="334" y="506" width="22" height="16" rx="4" fill="#dcfce7" stroke="#15803d" stroke-width="0.8"/>
+<text x="364" y="519" font-size="12" fill="#334155">a new version, with a new key</text>
+<rect x="568.9" y="506" width="22" height="16" rx="4" fill="#dbeafe" stroke="#1d4ed8" stroke-width="0.8"/>
+<text x="598.9" y="519" font-size="12" fill="#334155">the row before the change</text>
+</svg>

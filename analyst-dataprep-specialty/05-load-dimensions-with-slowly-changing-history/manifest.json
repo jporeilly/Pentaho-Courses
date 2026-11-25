@@ -1,0 +1,10 @@
+{
+  "title": "Load Dimensions with Slowly Changing History",
+  "description": "",
+  "order": 5,
+  "kind": "workshop",
+  "stepCount": 6,
+  "estimatedMinutes": 30,
+  "hasVideo": false,
+  "checks": []
+}

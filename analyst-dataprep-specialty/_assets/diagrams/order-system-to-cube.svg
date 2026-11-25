@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1164" height="712" viewBox="0 0 1164 712" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+<filter id="shadow" x="-10%" y="-10%" width="120%" height="140%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#0f172a" flood-opacity="0.12"/></filter></defs>
+<rect width="1164" height="712" fill="#ffffff"/>
+<rect x="16" y="16" width="1132" height="146" rx="12" fill="#f8fafc" stroke="#f1f5f9" stroke-width="1.5"/>
+<path d="M16 28a12 12 0 0 1 12-12h1108a12 12 0 0 1 12 12v32h-1132z" fill="#475569"/>
+<g transform="translate(29 26) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></g>
+<text x="56" y="36" font-size="14" font-weight="700" fill="#ffffff">The order system: normalized, each fact stated once</text>
+<text x="56" y="52" font-size="11.5" fill="#ffffff" opacity="0.92">Right for entering orders; for analysis every question is a join, and an overwrite forgets history</text>
+<rect x="16" y="214" width="1132" height="176" rx="12" fill="#f8fafc" stroke="#f1f5f9" stroke-width="1.5"/>
+<path d="M16 226a12 12 0 0 1 12-12h1108a12 12 0 0 1 12 12v22h-1132z" fill="#475569"/>
+<g transform="translate(29 220) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 14 4 4-4 4"/><path d="m18 2 4 4-4 4"/><path d="M2 18h1.973a4 4 0 0 0 3.3-1.7l5.454-8.6a4 4 0 0 1 3.3-1.7H22"/><path d="M2 6h1.972a4 4 0 0 1 3.6 2.2"/><path d="M22 18h-6.041a4 4 0 0 1-3.3-1.8l-.359-.45"/></g>
+<text x="56" y="237" font-size="14" font-weight="700" fill="#ffffff">PDI: extract, transform, load</text>
+<rect x="16" y="422" width="1132" height="176" rx="12" fill="#f8fafc" stroke="#f1f5f9" stroke-width="1.5"/>
+<path d="M16 434a12 12 0 0 1 12-12h1108a12 12 0 0 1 12 12v22h-1132z" fill="#475569"/>
+<g transform="translate(29 428) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></g>
+<text x="56" y="445" font-size="14" font-weight="700" fill="#ffffff">Summaries, and the cube the analyst queries</text>
+<path d="M316 112L280 112" fill="none" stroke="#64748b" stroke-width="1.7"/>
+<path d="M600 112L564 112" fill="none" stroke="#64748b" stroke-width="1.7"/>
+<path d="M848 112L884 112" fill="none" stroke="#64748b" stroke-width="1.7"/>
+<path d="M376 162C376 214.5 260 214.5 260 267" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M280 306C296.5 306 296.5 306 313 306" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M564 306C580.5 306 580.5 306 597 306" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M848 306C864.5 306 864.5 306 881 306" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M1008 342L1008 475" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M884 514C867.5 514 867.5 514 851 514" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M600 514C583.5 514 583.5 514 567 514" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M316 514C299.5 514 299.5 514 283 514" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="32" y="76" width="248" height="72" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="112" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(50 100) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><path d="M16 3.128a4 4 0 0 1 0 7.744"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><circle cx="9" cy="7" r="4"/></g>
+<text x="92" y="95" font-size="14" font-weight="700" fill="#1e3a8a">CUSTOMERS</text>
+<text x="92" y="112" font-size="12" fill="#1e3a8a">one row per customer:</text>
+<text x="92" y="127" font-size="12" fill="#1e3a8a">122 rows</text>
+<rect x="316" y="76" width="248" height="72" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="346" cy="112" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(334 100) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 17V7"/><path d="M16 8h-6a2 2 0 0 0 0 4h4a2 2 0 0 1 0 4H8"/><path d="M4 3a1 1 0 0 1 1-1 1.3 1.3 0 0 1 .7.2l.933.6a1.3 1.3 0 0 0 1.4 0l.934-.6a1.3 1.3 0 0 1 1.4 0l.933.6a1.3 1.3 0 0 0 1.4 0l.933-.6a1.3 1.3 0 0 1 1.4 0l.934.6a1.3 1.3 0 0 0 1.4 0l.933-.6A1.3 1.3 0 0 1 19 2a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1 1.3 1.3 0 0 1-.7-.2l-.933-.6a1.3 1.3 0 0 0-1.4 0l-.934.6a1.3 1.3 0 0 1-1.4 0l-.933-.6a1.3 1.3 0 0 0-1.4 0l-.933.6a1.3 1.3 0 0 1-1.4 0l-.934-.6a1.3 1.3 0 0 0-1.4 0l-.933.6a1.3 1.3 0 0 1-.7.2 1 1 0 0 1-1-1z"/></g>
+<text x="376" y="95" font-size="14" font-weight="700" fill="#1e3a8a">ORDERS</text>
+<text x="376" y="112" font-size="12" fill="#1e3a8a">one row per order:</text>
+<text x="376" y="127" font-size="12" fill="#1e3a8a">326 rows</text>
+<rect x="600" y="76" width="248" height="72" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="630" cy="112" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(618 100) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M21 9H3"/><path d="M21 15H3"/></g>
+<text x="660" y="95" font-size="14" font-weight="700" fill="#1e3a8a">ORDERDETAILS</text>
+<text x="660" y="112" font-size="12" fill="#1e3a8a">one row per order line:</text>
+<text x="660" y="127" font-size="12" fill="#1e3a8a">2,996 rows</text>
+<rect x="884" y="76" width="248" height="72" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="914" cy="112" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(902 100) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z"/><path d="M12 22V12"/><polyline points="3.29 7 12 12 20.71 7"/><path d="m7.5 4.27 9 5.15"/></g>
+<text x="944" y="95" font-size="14" font-weight="700" fill="#1e3a8a">PRODUCTS</text>
+<text x="944" y="112" font-size="12" fill="#1e3a8a">one row per product:</text>
+<text x="944" y="127" font-size="12" fill="#1e3a8a">110 rows</text>
+<rect x="32" y="270" width="248" height="72" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="306" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(50 294) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></g>
+<text x="92" y="289" font-size="14" font-weight="700" fill="#1e3a8a">Extract</text>
+<text x="92" y="306" font-size="12" fill="#1e3a8a">CSV file input reads the</text>
+<text x="92" y="321" font-size="12" fill="#1e3a8a">order system's extracts</text>
+<rect x="316" y="270" width="248" height="72" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="346" cy="306" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(334 294) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l4 2"/></g>
+<text x="376" y="289" font-size="14" font-weight="700" fill="#3b0764">Transform: dimensions</text>
+<text x="376" y="306" font-size="12" fill="#3b0764">dates generated; customers,</text>
+<text x="376" y="321" font-size="12" fill="#3b0764">products by Dimension l/u</text>
+<rect x="600" y="270" width="248" height="72" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="630" cy="306" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(618 294) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m8 6 4-4 4 4"/><path d="M12 2v10.3a4 4 0 0 1-1.172 2.872L4 22"/><path d="m20 22-5-5"/></g>
+<text x="660" y="289" font-size="14" font-weight="700" fill="#3b0764">Transform: facts</text>
+<text x="660" y="306" font-size="12" fill="#3b0764">natural keys become</text>
+<text x="660" y="321" font-size="12" fill="#3b0764">surrogate keys; measures</text>
+<rect x="884" y="270" width="248" height="72" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="914" cy="306" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(902 294) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></g>
+<text x="944" y="289" font-size="14" font-weight="700" fill="#14532d">Load</text>
+<text x="944" y="306" font-size="12" fill="#14532d">Table output, Insert / Update:</text>
+<text x="944" y="321" font-size="12" fill="#14532d">no line twice on a re-run</text>
+<rect x="341.8" y="175.5" width="68.4" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="376" y="193.5" text-anchor="middle" font-size="12" fill="#334155">extracts</text>
+<rect x="462.75" y="351.5" width="238.5" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="582" y="369.5" text-anchor="middle" font-size="12" fill="#334155">Dimensions before facts, every time</text>
+<rect x="884" y="478" width="248" height="72" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="914" cy="514" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(902 502) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 7V5a1 1 0 0 0-1-1H6.5a.5.5 0 0 0-.4.8l4.5 6a2 2 0 0 1 0 2.4l-4.5 6a.5.5 0 0 0 .4.8H17a1 1 0 0 0 1-1v-2"/></g>
+<text x="944" y="497" font-size="14" font-weight="700" fill="#14532d">Summarize</text>
+<text x="944" y="514" font-size="12" fill="#14532d">Group by into the agg_</text>
+<text x="944" y="529" font-size="12" fill="#14532d">tables, a coarser grain</text>
+<rect x="600" y="478" width="248" height="72" rx="10" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="630" cy="514" r="19" fill="#ffffff" stroke="#0f766e" stroke-width="1.2"/>
+<g transform="translate(618 502) scale(1)" fill="none" stroke="#0f766e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 8a1 1 0 0 1-1-1V2a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8z"/><path d="M20 8v12a2 2 0 0 1-2 2h-4.182"/><path d="m3.305 19.53.923-.382"/><path d="M4 10.592V4a2 2 0 0 1 2-2h8"/><path d="m4.228 16.852-.924-.383"/><path d="m5.852 15.228-.383-.923"/><path d="m5.852 20.772-.383.924"/><path d="m8.148 15.228.383-.923"/><path d="m8.53 21.696-.382-.924"/><path d="m9.773 16.852.922-.383"/><path d="m9.773 19.148.922.383"/><circle cx="7" cy="18" r="3"/></g>
+<text x="660" y="497" font-size="14" font-weight="700" fill="#134e4a">Mondrian schema</text>
+<text x="660" y="514" font-size="12" fill="#134e4a">sales_mart.xml maps the</text>
+<text x="660" y="529" font-size="12" fill="#134e4a">star and agg_ tables</text>
+<rect x="316" y="478" width="248" height="72" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="346" cy="514" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(334 502) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.97 12.92A2 2 0 0 0 2 14.63v3.24a2 2 0 0 0 .97 1.71l3 1.8a2 2 0 0 0 2.06 0L12 19v-5.5l-5-3-4.03 2.42Z"/><path d="m7 16.5-4.74-2.85"/><path d="m7 16.5 5-3"/><path d="M7 16.5v5.17"/><path d="M12 13.5V19l3.97 2.38a2 2 0 0 0 2.06 0l3-1.8a2 2 0 0 0 .97-1.71v-3.24a2 2 0 0 0-.97-1.71L17 10.5l-5 3Z"/><path d="m17 16.5-5-3"/><path d="m17 16.5 4.74-2.85"/><path d="M17 16.5v5.17"/><path d="M7.97 4.42A2 2 0 0 0 7 6.13v4.37l5 3 5-3V6.13a2 2 0 0 0-.97-1.71l-3-1.8a2 2 0 0 0-2.06 0l-3 1.8Z"/><path d="M12 8 7.26 5.15"/><path d="m12 8 4.74-2.85"/><path d="M12 13.5V8"/></g>
+<text x="376" y="497" font-size="14" font-weight="700" fill="#3b0764">Sales Mart cube</text>
+<text x="376" y="514" font-size="12" fill="#3b0764">Time, Markets, Product;</text>
+<text x="376" y="529" font-size="12" fill="#3b0764">Sales and Quantity</text>
+<rect x="32" y="478" width="248" height="72" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="514" r="19" fill="#ffffff" stroke="#b45309" stroke-width="1.2"/>
+<g transform="translate(50 502) scale(1)" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></g>
+<text x="92" y="497" font-size="14" font-weight="700" fill="#78350f">Analyzer</text>
+<text x="92" y="514" font-size="12" fill="#78350f">and dashboards and</text>
+<text x="92" y="529" font-size="12" fill="#78350f">reports query the cube</text>
+<rect x="620.75" y="559.5" width="490.5" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="866" y="577.5" text-anchor="middle" font-size="12" fill="#334155">Mondrian reads an agg_ table instead of mart_fact_sales when a query allows</text>
+<rect x="16" y="614" width="1132" height="82" rx="10" fill="#f1f5f9" stroke="#475569" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="48" cy="655" r="19" fill="#ffffff" stroke="#475569" stroke-width="1.2"/>
+<g transform="translate(36 643) scale(1)" fill="none" stroke="#475569" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 14v2.2l1.6 1"/><path d="M16 2v4"/><path d="M21 7.5V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3.5"/><path d="M3 10h5"/><path d="M8 2v4"/><circle cx="16" cy="16" r="6"/></g>
+<text x="78" y="652" font-size="14" font-weight="700" fill="#0f172a">Automate: one job on the Pentaho Server</text>
+<text x="78" y="670" font-size="12" fill="#0f172a">Runs every stage in order on a schedule; an HTTP entry at the end tells the cube the data has changed</text>
+</svg>

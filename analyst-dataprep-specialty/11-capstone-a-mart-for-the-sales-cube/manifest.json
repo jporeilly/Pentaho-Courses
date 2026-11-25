@@ -1,0 +1,44 @@
+{
+  "title": "Capstone: A Mart for the Sales Cube",
+  "description": "Capstone: a sales-by-rep star schema with a type 2 sales rep dimension, a fact load, an aggregate table, a nightly job on the Pentaho Server that refreshes the cube, and a Mondrian schema on the mart.",
+  "order": 11,
+  "kind": "workshop",
+  "stepCount": 21,
+  "estimatedMinutes": 180,
+  "hasVideo": false,
+  "checks": [
+    {
+      "id": "job-file",
+      "kind": "file-contains",
+      "label": "Your job runs your transformations (load_sales_rep_mart.kjb has a Transformation entry)",
+      "path": "C:/Workshop-DP-Specialty/capstone/solution/load_sales_rep_mart.kjb",
+      "text": "<type>TRANS</type>"
+    },
+    {
+      "id": "job-refresh",
+      "kind": "file-contains",
+      "label": "Your job refreshes the cube (load_sales_rep_mart.kjb has an HTTP entry)",
+      "path": "C:/Workshop-DP-Specialty/capstone/solution/load_sales_rep_mart.kjb",
+      "text": "<type>HTTP</type>"
+    },
+    {
+      "id": "schema-agg",
+      "kind": "file-contains",
+      "label": "Your Mondrian schema declares an aggregate table (sales_rep_mart.xml has an AggName)",
+      "path": "C:/Workshop-DP-Specialty/capstone/solution/sales_rep_mart.xml",
+      "text": "<AggName"
+    },
+    {
+      "id": "load-audit",
+      "kind": "file-exists",
+      "label": "Your job wrote its load audit (load_audit.csv in out\\)",
+      "path": "C:/Workshop-DP-Specialty/capstone/out/load_audit.csv"
+    },
+    {
+      "id": "readme-file",
+      "kind": "file-exists",
+      "label": "Your README.md in solution\\ (how to run, schedule and check the load)",
+      "path": "C:/Workshop-DP-Specialty/capstone/solution/README.md"
+    }
+  ]
+}

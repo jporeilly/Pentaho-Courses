@@ -1,0 +1,24 @@
+employee_number,employee_name,job_title,office_code,reports_to,extract_date
+1002,Diane Murphy,President,1,,2005-04-30
+1056,Mary Patterson,VP Sales,1,1002,2005-04-30
+1076,Jeff Firrelli,VP Marketing,1,1002,2005-04-30
+1088,William Patterson,Sales Manager (APAC),6,1056,2005-04-30
+1102,Gerard Bondur,Sale Manager (EMEA),4,1056,2005-04-30
+1143,Anthony Bow,Sales Manager (NA),1,1056,2005-04-30
+1165,Leslie Jennings,Sales Rep,1,1143,2005-04-30
+1166,Leslie Thompson,Sales Rep,1,1143,2005-04-30
+1188,Julie Firrelli,Sales Rep,2,1143,2005-04-30
+1216,Steve Patterson,Sales Rep,2,1143,2005-04-30
+1286,Foon Yue Tseng,Sales Rep,3,1143,2005-04-30
+1323,George Vanauf,Sales Rep,3,1143,2005-04-30
+1337,Loui Bondur,Sales Rep,4,1102,2005-04-30
+1370,Gerard Hernandez,Sales Rep,4,1102,2005-04-30
+1401,Pamela Castillo,Sales Rep,4,1102,2005-04-30
+1501,Larry Bott,Sales Rep,7,1102,2005-04-30
+1504,Barry Jones,Sales Rep,7,1102,2005-04-30
+1611,Andy Fixter,Sales Rep,6,1088,2005-04-30
+1612,Peter Marsh,Sales Rep,6,1088,2005-04-30
+1619,Tom King,Sales Rep,6,1088,2005-04-30
+1621,Mami Nishi,Sales Rep,5,1056,2005-04-30
+1625,Yoshimi Kato,Sales Rep,5,1621,2005-04-30
+1702,Martin Gerard,Sales Rep,4,1102,2005-04-30

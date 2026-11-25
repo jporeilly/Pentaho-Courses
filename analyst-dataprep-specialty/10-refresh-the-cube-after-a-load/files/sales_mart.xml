@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Sales Mart: a Mondrian schema on the star schema this course builds in
+  the MySQL sampledata database (mart_dim_date, mart_dim_customer, mart_dim_product,
+  mart_fact_sales and the two agg_ tables).
+
+  Import it in the User Console with Manage Data Sources > Import Analysis,
+  against the sales_mart data source.
+
+  Markets is keyed on customer_key, the surrogate key: a customer with two
+  versions (Euro+ Shopping Channel, Madrid then Barcelona) appears under
+  each city, with the sales of the period each version was valid.
+-->
+<Schema name="SalesMart">
+
+  <Dimension name="Time" type="TimeDimension">
+    <Hierarchy hasAll="true" allMemberName="All Years" primaryKey="date_key">
+      <Table name="mart_dim_date"/>
+      <Level name="Years" column="year_id" type="Numeric" uniqueMembers="true" levelType="TimeYears"/>
+      <Level name="Quarters" column="quarter_id" nameColumn="quarter_name" type="Numeric" uniqueMembers="false" levelType="TimeQuarters"/>
+      <Level name="Months" column="month_id" nameColumn="month_name" type="Numeric" uniqueMembers="false" levelType="TimeMonths"/>
+    </Hierarchy>
+  </Dimension>
+
+  <Dimension name="Markets">
+    <Hierarchy hasAll="true" allMemberName="All Markets" primaryKey="customer_key">
+      <Table name="mart_dim_customer"/>
+      <Level name="Territory" column="territory" type="String" uniqueMembers="true"/>
+      <Level name="Country" column="country" type="String" uniqueMembers="false"/>
+      <Level name="City" column="city" type="String" uniqueMembers="false"/>
+      <Level name="Customer" column="customer_key" nameColumn="customer_name" type="Numeric" uniqueMembers="true">
+        <Property name="Customer Number" column="customer_number" type="Numeric"/>
+        <Property name="Version" column="version" type="Numeric"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+
+  <Dimension name="Product">
+    <Hierarchy hasAll="true" allMemberName="All Products" primaryKey="product_key">
+      <Table name="mart_dim_product"/>
+      <Level name="Line" column="product_line" type="String" uniqueMembers="true"/>
+      <Level name="Vendor" column="product_vendor" type="String" uniqueMembers="false"/>
+      <Level name="Product" column="product_key" nameColumn="product_name" type="Numeric" uniqueMembers="true"/>
+    </Hierarchy>
+  </Dimension>
+
+  <Cube name="Sales Mart" cache="true" enabled="true">
+    <Table name="mart_fact_sales">
+      <AggName name="agg_ym_line_mart_fact_sales">
+        <AggFactCount column="fact_count"/>
+        <AggMeasure name="[Measures].[Quantity]" column="quantity_ordered"/>
+        <AggMeasure name="[Measures].[Sales]" column="sales_amount"/>
+        <AggLevel name="[Time].[Years]" column="year_id"/>
+        <AggLevel name="[Time].[Quarters]" column="quarter_id"/>
+        <AggLevel name="[Time].[Months]" column="month_id"/>
+        <AggLevel name="[Product].[Line]" column="product_line"/>
+      </AggName>
+      <AggName name="agg_y_terr_mart_fact_sales">
+        <AggFactCount column="fact_count"/>
+        <AggMeasure name="[Measures].[Quantity]" column="quantity_ordered"/>
+        <AggMeasure name="[Measures].[Sales]" column="sales_amount"/>
+        <AggLevel name="[Time].[Years]" column="year_id"/>
+        <AggLevel name="[Markets].[Territory]" column="territory"/>
+      </AggName>
+    </Table>
+    <DimensionUsage name="Time" source="Time" foreignKey="date_key"/>
+    <DimensionUsage name="Markets" source="Markets" foreignKey="customer_key"/>
+    <DimensionUsage name="Product" source="Product" foreignKey="product_key"/>
+    <Measure name="Sales" column="sales_amount" aggregator="sum" formatString="#,##0.00"/>
+    <Measure name="Quantity" column="quantity_ordered" aggregator="sum" formatString="#,##0"/>
+  </Cube>
+
+</Schema>

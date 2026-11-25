@@ -1,0 +1,590 @@
+{
+  "title": "Specialty Exam",
+  "description": "30 questions drawn at random from a pool of 36, covering dimensional modeling, dimensions that keep history, fact and summary loads, and scheduled loads that refresh the cube; the Capstone Project is assessed by its own checks rather than by the exam. Pass mark is 80%. Open-book — browse any module to refresh your memory or ask the AI assistant for help. Your answers are saved as you go, so leaving the page to look something up is fine. Explanations show after submission so you can learn from any answers you missed.",
+  "passMark": 80,
+  "questionsPerAttempt": 30,
+  "shuffle": true,
+  "webhookUrl": "https://script.google.com/macros/s/AKfycbzsCLkWA07Nr7qQCwibn6_RiyhYi33xzeq529mlYhf3xYZPAxKOntIN-Wd1qjv4M4c/exec",
+  "questions": [
+    {
+      "id": "dp-m1-q1",
+      "module": "Getting Started",
+      "bloom": "Understand",
+      "scenario": "A customer moved from Lyon to Paris in March. An analyst queries the order system directly and finds that all of last year's sales to that customer report under Paris.",
+      "prompt": "Why does the query show the new city for last year's sales?",
+      "options": [
+        "The order system overwrote the address, so the old city is gone",
+        "Each order line holds a city, and the move rewrote all of them",
+        "The query sums whole orders, which mixes the two cities together",
+        "The order system keeps both addresses and returns the later one"
+      ],
+      "correct": 0,
+      "explanation": "A normalized order system stores each address **once**, so an update replaces the old value. Nothing is left to say where the customer was when an earlier order was placed.\n\nA data mart answers this by keeping **history** in its dimensions.",
+      "source": "Pentaho Analyst - Preparing Data for Analytics Specialty: Getting Started — From Source Data to a Star Schema"
+    },
+    {
+      "id": "dp-m1-q2",
+      "module": "Getting Started",
+      "bloom": "Apply",
+      "scenario": "A cube needs a Markets dimension with Territory, Country, and City levels, and a Sales measure. The mart behind it is a star schema.",
+      "prompt": "What should the Mondrian schema map them to?",
+      "options": [
+        "The levels to fact table columns, and Sales to a dimension table column",
+        "The levels to dimension table columns, and Sales to a fact table column",
+        "The levels to the order system's tables, and Sales to a fact table column",
+        "The levels to one aggregate table each, and Sales to the date dimension"
+      ],
+      "correct": 1,
+      "explanation": "In a star schema the **dimension tables** hold everything the business groups or filters by, so levels come from their columns. The **fact table** holds the measurements, so a measure comes from one of its columns.",
+      "source": "Pentaho Analyst - Preparing Data for Analytics Specialty: Getting Started — From Source Data to a Star Schema"
+    },
+    {
+      "id": "dp-m1-q3",
+      "module": "Getting Started",
+      "bloom": "Evaluate",
+      "scenario": "A manager wants dashboards to query the order system's tables directly, to save the work of building a data mart. The dashboards compare sales by region over three years, and customers sometimes change region.",
+      "prompt": "What is the fairest assessment of the proposal?",
+      "options": [
+        "It gives the same answers as a mart, and the only cost is the missing summary tables",
+        "It gives current data and full history, and only adds a few joins to every query",
+        "It gives current data, but loses each customer's past region and burdens order entry",
+        "It gives each customer's past region, but the dashboards only see yesterday's orders"
+      ],
+      "correct": 2,
+      "explanation": "Querying the source does show current rows, but the order system **overwrites** an address, so earlier sales would move to the new region. Long analytical queries also **compete with the users** entering orders, and every question becomes a join.",
+      "source": "Pentaho Analyst - Preparing Data for Analytics Specialty: Getting Started — From Source Data to a Star Schema"
+    },
+    {
+      "id": "dp-m2-q1",
+      "module": "Modeling the Star",
+      "bloom": "Evaluate",
+      "scenario": "An architect proposes a fact table with one row per order, to keep it small. An order usually holds products from several product lines, and the business plans to analyze sales by product line.",
+      "prompt": "What is the strongest objection to the proposal?",
+      "options": [
+        "An order's date could not be looked up in the date dimension table",
+        "An order's row would be too wide for the database to index well",
+        "An order's customer would need more than one version in the mart",
+        "An order's sales could never be split by product line afterwards"
+      ],
+      "correct": 3,
+      "explanation": "The **grain** decides what the mart can ever answer. A finer grain can always be summarized, but a coarser one cannot be split again, so a row per order loses which product lines sold.\n\nThe usual choice is the finest grain the source has, with **summary tables** added for speed.",
+      "source": "Pentaho Analyst - Preparing Data for Analytics Specialty: Modeling the Star — Overview of Dimensional Modeling"
+    },
+    {
+      "id": "dp-m2-q2",
+      "module": "Modeling the Star",
+      "bloom": "Understand",
+      "scenario": "A customer dimension holds two rows for customer number 141: one for the years in Madrid, and one for the time since a move to Barcelona. The fact table stores one key for the customer.",
+      "prompt": "How can a fact row point at the Madrid row only?",
+      "options": [
+        "Each row has a natural key, and the fact row stores that number",
+        "Each row has a surrogate key, and the fact row stores that key",
+        "Each row has a version number, and the fact row stores the number",
+        "Each row has a city name, and the fact row stores that same name"
+      ],
+      "correct": 1,
+      "explanation": "The mart generates a **surrogate key** for every row of the dimension, so the two versions of one customer have two different keys. The fact row stores the key of the version that was valid when the order was placed.",
+      "source": "Pentaho Analyst - Preparing Data for Analytics Specialty: Modeling the Star — Overview of Dimensional Modeling"
+    },
+    {
+      "id": "dp-m2-q3",
+      "module": "Modeling the Star",
+      "bloom": "Apply",
+      "scenario": "A Calculator step builds an integer `date_key` in the form `yyyymmdd` from three Integer fields: `year_id`, `month_id`, and `day_of_month`. Two products are added to `day_of_month`.",
+      "prompt": "Which constants must `year_id` and `month_id` be multiplied by?",
+      "options": [
+        "`year_id` by `10000` and `month_id` by `100`",
+        "`year_id` by `100000` and `month_id` by `1000`",
+        "`year_id` by `1000` and `month_id` by `10`",
+        "`year_id` by `100` and `month_id` by `10000`"
+      ],
+      "correct": 0,
+      "explanation": "The month and the day take two digits each, so the year moves left four places and the month two: **year times 10000 plus month times 100 plus day**. For 6 January 2003 that is 20030000 plus 100 plus 6, which is 20030106.",
+      "source": "Pentaho Analyst - Preparing Data for Analytics Specialty: Modeling the Star — Build a Date Dimension"
+    },
+    {
+      "id": "dp-m2-q4",
+      "module": "Modeling the Star",
+      "bloom": "Apply",
+      "scenario": "A transformation fills a date dimension from 1 January 2003 to 31 December 2005 with Generate Rows set to a limit of 1096. Its Table output step truncates the table. The dimension must now also cover the whole of 2006.",
+      "prompt": "What should the developer do before running it again?",
+      "options": [
+        "Set the limit to 365, and leave the truncate option selected",
+        "Set the limit to 1461, and clear the truncate option first",
+        "Set the limit to 1461, and leave the truncate option selected",
+        "Set the limit to 1096, and set the start date to 1 January 2006"
+      ],
+      "correct": 2,
+      "explanation": "2006 has 365 days, so the range needs 1096 plus 365, which is **1461** rows from the same start date. With **Truncate table** selected the run rebuilds the table whole, so no day is held twice.",
+      "source": "Pentaho Analyst - Preparing Data for Analytics Specialty: Modeling the Star — Build a Date Dimension"
+    },
+    {
+      "id": "dp-m2-q5",
+      "module": "Modeling the Star",
+      "bloom": "Analyze",
+      "scenario": "A Calculator step computes the quarter of each date into `quarter_id`. A Value mapper step then maps the source values 1 to 4 to QTR1 to QTR4, but `quarter_name` is empty on every row. The preview shows `quarter_id` as 1.0.",
+      "prompt": "What is the cause?",
+      "options": [
+        "The field is removed by Calculator before the mapper step can read it",
+        "The mapper reads its list in order, and it must be sorted by the target",
+        "The mapper has no default value set for rows that match its last line",
+        "The field's value type is Number, so its text matches no source value"
+      ],
+      "correct": 3,
+      "explanation": "Value mapper compares the field's value **as text** with each source value, and the text 1.0 matches none of them. Setting the calculated field's **value type to Integer** makes its text 1, which does match.",
+      "source": "Pentaho Analyst - Preparing Data for Analytics Specialty: Modeling the Star — Build a Date Dimension"
+    },
+    {
+      "id": "dp-m2-q6",
+      "module": "Modeling the Star",
+      "bloom": "Apply",
+      "scenario": "A customer dimension is loaded with Dimension lookup/update. Sales are analyzed by the city and the territory a customer was in when it ordered. Name corrections, contact changes, and credit limits should show only their current value.",
+      "prompt": "Which two fields should have their type of dimension update set to Insert?",
+      "options": [
+        "`credit_limit`",
+        "`territory`",
+        "`customer_name`",
+        "`city`",
+        "`contact_name`"
+      ],
+      "correctIndices": [
+        1,
+        3
+      ],
+      "explanation": "**Insert** makes a field type 2: a changed value closes the current version and adds a new one. `city` needs that because sales are reported by where the customer was.\n\n`territory` needs it for the same reason: an order must keep the **territory of its own date**.",
+      "source": "Pentaho Analyst - Preparing Data for Analytics Specialty: Modeling the Star — Overview of Dimensional Modeling"
+    },
+    {
+      "id": "dp-m2-q7",
+      "module": "Modeling the Star",
+      "bloom": "Analyze",
+      "scenario": "A dimension holds 200 customers, one version each, and row 0 for unknown keys. The next extract holds all 200 plus one new customer. Three customers changed city, an Insert field, and four others changed credit limit, an Update field.",
+      "prompt": "How many rows does the dimension hold after the load?",
+      "options": [
+        "202",
+        "204",
+        "205",
+        "209"
+      ],
+      "correct": 2,
+      "explanation": "The table starts with 201 rows. Three **Insert** changes add three versions and the new customer adds one row, which makes 205. The four **Update** changes overwrite values on the current versions and add no row.",
+      "source": "Pentaho Analyst - Preparing Data for Analytics Specialty: Modeling the Star — Load Dimensions with Slowly Changing History"
+    },
+    {
+      "id": "dp-m2-q8",
+      "module": "Modeling the Star",
+      "bloom": "Analyze",
+      "scenario": "A developer loads the same customer extract format every month with Dimension lookup/update. After the second month, every customer has a second version, although only a few customers changed. The extract has an `extract_date` column with the date of the extract.",
+      "prompt": "What is the most likely cause?",
+      "options": [
+        "The technical key is created from the table maximum, not from a sequence",
+        "The Keys tab compares `customer_number`, and it is not the technical key",
+        "The Fields tab compares `extract_date`, with its update type set to Insert",
+        "The stream date field is set to `extract_date`, not to the date of the run"
+      ],
+      "correct": 2,
+      "explanation": "`extract_date` is different in every extract. When it is compared as an **Insert** field it counts as a change for every customer, so each one gets a new version. It belongs in **Stream Datefield** only.",
+      "source": "Pentaho Analyst - Preparing Data for Analytics Specialty: Modeling the Star — Load Dimensions with Slowly Changing History"
+    },
+    {
+      "id": "dp-m2-q9",
+      "module": "Modeling the Star",
+      "bloom": "Analyze",
+      "scenario": "A type 1 field, `credit_limit`, is BigNumber in the stream and DECIMAL(10,2) in MySQL. The first load of the dimension works. The second load stops with \"Error serializing row to byte array\" and names a BigDecimal.",
+      "prompt": "Which change lets the second load finish?",
+      "options": [
+        "Read `credit_limit` as String in the step that reads the file",
+        "Read `credit_limit` as Number in the step that reads the file",
+        "Set `credit_limit` to Insert, so it is never overwritten again",
+        "Set the commit size to 1, so that each row is written at once"
+      ],
+      "correct": 1,
+      "explanation": "PDI reads MySQL's DECIMAL(10,2) as **Number**, so the overwritten BigNumber value does not fit the row type Dimension lookup/update keeps in its cache. With the stream field read as **Number** the two types agree.",
+      "source": "Pentaho Analyst - Preparing Data for Analytics Specialty: Modeling the Star — Load Dimensions with Slowly Changing History"
+    },
+    {
+      "id": "dp-m2-q10",
+      "module": "Modeling the Star",
+      "bloom": "Understand",
+      "scenario": "Dimension lookup/update loads an empty customer dimension from an extract dated 30 April 2005, with Min. year set to 1900. Orders from 2003 are loaded afterwards, and each finds its customer.",
+      "prompt": "Why do the 2003 orders find a version?",
+      "options": [
+        "An order older than every version is given the latest one instead",
+        "An order older than every version is given the row with key 0",
+        "A key's first version is valid from the start of the minimum year",
+        "A key's first version is valid from the date of its earliest order"
+      ],
+      "correct": 2,
+      "explanation": "When a natural key is new, the step inserts version 1 with its start date at **Min. year**, not at the stream date. The version therefore covers every order date back to 1900, 2003 included.",
+      "source": "Pentaho Analyst - Preparing Data for Analytics Specialty: Modeling the Star — Load Dimensions with Slowly Changing History"
+    },
+    {
+      "id": "dp-m2-q11",
+      "module": "Modeling the Star",
+      "bloom": "Apply",
+      "scenario": "A products file carries no date column. The product dimension needs a generated key and a row for unknown products, and a renamed product should show its new name in every report.",
+      "prompt": "How should Dimension lookup/update be set?",
+      "options": [
+        "Every field set to Update, and the update option cleared as well",
+        "Every field set to Insert, and the stream date field left empty",
+        "Every field set to Insert, and the update option cleared as well",
+        "Every field set to Update, and the stream date field left empty"
+      ],
+      "correct": 3,
+      "explanation": "**Update** overwrites a value on its row, which is type 1: one product, one row, the current name everywhere. With **Stream Datefield** empty the step uses the time of the run. It still generates the technical key and row 0.",
+      "source": "Pentaho Analyst - Preparing Data for Analytics Specialty: Modeling the Star — Load Dimensions with Slowly Changing History"
+    },
+    {
+      "id": "dp-m2-q12",
+      "module": "Modeling the Star",
+      "bloom": "Evaluate",
+      "scenario": "A designer proposes making every attribute of the customer dimension type 2, so that no value is ever lost. Contact names and spelling corrections change often, and sales are analyzed only by city and territory.",
+      "prompt": "What is the fairest assessment of the proposal?",
+      "options": [
+        "It keeps history nobody reports by, and each correction adds a version",
+        "It keeps the history needed, but the fact table needs a second key column",
+        "It keeps exactly the history reports need, at no cost to the dimension",
+        "It keeps no more history than type 1 does, but its loads run far faster"
+      ],
+      "correct": 0,
+      "explanation": "Type 2 is right for attributes that analysis depends on. Applied to corrections it adds a **new version** for each one, so a misspelled name stays on earlier sales. Choosing the type **attribute by attribute** keeps the history that matters and lets corrections show in every period.",
+      "source": "Pentaho Analyst - Preparing Data for Analytics Specialty: Modeling the Star — Overview of Dimensional Modeling"
+    },
+    {
+      "id": "dp-m3-q1",
+      "module": "Loading Facts",
+      "bloom": "Apply",
+      "scenario": "A fact load must give each order line the key of the customer version that was valid when the order was placed. The customer dimension is type 2, and the stream carries `customer_number` and `order_date`.",
+      "prompt": "Which step and setting finds that key?",
+      "options": [
+        "Dimension lookup/update, update selected, stream date `order_date`",
+        "Dimension lookup/update, update cleared, stream date `order_date`",
+        "Database lookup, all data loaded, key field `customer_number` only",
+        "Database lookup, cache enabled, key fields `customer_number` and `version`"
+      ],
+      "correct": 1,
+      "explanation": "**Dimension lookup/update** knows the version columns, so it matches the customer number and the order date against each version's validity. With **Update the dimension?** cleared it only looks keys up and writes nothing to the dimension.",
+      "source": "Pentaho Analyst - Preparing Data for Analytics Specialty: Loading Facts — Load the Fact Table"
+    },
+    {
+      "id": "dp-m3-q2",
+      "module": "Loading Facts",
+      "bloom": "Analyze",
+      "scenario": "A fact load finds `customer_key` with Database lookup on `customer_number` alone. The dimension is type 2, and one customer has a Madrid version and a Barcelona version. The load reports no errors.",
+      "prompt": "What is wrong in the reports?",
+      "options": [
+        "All of that customer's orders are missing, as the key is ambiguous",
+        "All of that customer's orders are credited to one of the two cities",
+        "All of that customer's orders appear under the unknown customer",
+        "All of that customer's orders are counted once under each city"
+      ],
+      "correct": 1,
+      "explanation": "The lookup has no date to choose by, so every order line receives the key of **whichever version came back first**. The totals still add up, which makes the mistake hard to see, but sales are credited to a city regardless of the **order date**.",
+      "source": "Pentaho Analyst - Preparing Data for Analytics Specialty: Loading Facts — Overview of Loading Facts"
+    },
+    {
+      "id": "dp-m3-q3",
+      "module": "Loading Facts",
+      "bloom": "Analyze",
+      "scenario": "A customer has two versions: key 40, with `date_from` 1900-01-01 and `date_to` 2005-05-15, and key 210, with `date_from` 2005-05-15 and `date_to` 2200-01-01. An order is dated 2005-05-15.",
+      "prompt": "Which key does Dimension lookup/update return in lookup mode?",
+      "options": [
+        "0, because a date that falls on a boundary matches neither of the versions",
+        "40, because a version includes its end date and starts after its start date",
+        "40, because the version with the lowest key is taken when two versions match",
+        "210, because a version ends before its end date and starts on its start date"
+      ],
+      "correct": 3,
+      "explanation": "The step matches a version when the date is **on or after `date_from` and before `date_to`**. 15 May is not before the first version's end, and it is on the second version's start, so only key 210 matches.",
+      "source": "Pentaho Analyst - Preparing Data for Analytics Specialty: Loading Facts — Load the Fact Table"
+    },
+    {
+      "id": "dp-m3-q4",
+      "module": "Loading Facts",
+      "bloom": "Analyze",
+      "scenario": "A Calculator step computes `sales_amount` as A * B, with `quantity_ordered`, an Integer, in Field A and `price_each`, a BigNumber, in Field B. The load ends without errors, but every amount is a whole number and the total is too low.",
+      "prompt": "Which change corrects the amounts?",
+      "options": [
+        "Put `price_each` in Field A and `quantity_ordered` in Field B",
+        "Set the result's value type to Integer and its precision to 0",
+        "Set the commit size to 1 on the step that writes the fact rows",
+        "Put a Precision of 2 on `quantity_ordered` in the input step"
+      ],
+      "correct": 0,
+      "explanation": "**A * B** works in the type of **Field A**. With an Integer there, the price is cut to a whole number before it is multiplied. With the BigNumber price in Field A the cents are kept.",
+      "source": "Pentaho Analyst - Preparing Data for Analytics Specialty: Loading Facts — Load the Fact Table"
+    },
+    {
+      "id": "dp-m3-q5",
+      "module": "Loading Facts",
+      "bloom": "Apply",
+      "scenario": "A nightly load reads order lines and may be run again after a failure. Later extracts also send corrected quantities for lines already loaded. Volumes are moderate, and the fact table's key is the order number and line number.",
+      "prompt": "Which way of writing the rows suits this load?",
+      "options": [
+        "Table output, with batch inserts and errors ignored on each run",
+        "Table output, with the truncate option selected for each run",
+        "Insert / Update, keyed on the order number and the line number",
+        "Insert / Update, keyed on the order number and the order date"
+      ],
+      "correct": 2,
+      "explanation": "**Insert / Update** looks each line up by its key, inserts it when it is new, and updates it when it is not. Keyed on the **order line**, a repeat run adds no rows and a correction changes the existing line.",
+      "source": "Pentaho Analyst - Preparing Data for Analytics Specialty: Loading Facts — Overview of Loading Facts"
+    },
+    {
+      "id": "dp-m3-q6",
+      "module": "Loading Facts",
+      "bloom": "Evaluate",
+      "scenario": "A fact load of 40 million rows a month uses Insert / Update and no longer finishes overnight. Each run reloads one whole month from the source. The team wants a faster load that is still safe to run twice.",
+      "prompt": "Which change is the best judgment?",
+      "options": [
+        "Keep Insert / Update, and lower its commit size to one row at a time",
+        "Truncate the whole table each night, then insert the month just read",
+        "Insert each month with Table output, and drop the table's primary key",
+        "Delete the month with an SQL entry, then insert it with Table output"
+      ],
+      "correct": 3,
+      "explanation": "The cost of Insert / Update is a **lookup for every row**. Deleting the **load's window** first and inserting it again with Table output removes those lookups, and a second run deletes and reloads the same month, so no line is held twice.",
+      "source": "Pentaho Analyst - Preparing Data for Analytics Specialty: Loading Facts — Overview of Loading Facts"
+    },
+    {
+      "id": "dp-m3-q7",
+      "module": "Loading Facts",
+      "bloom": "Understand",
+      "scenario": "A fact load finds no product for a few order lines, because their product codes are mistyped in the source. The load writes those lines with `product_key` 0.",
+      "prompt": "Why are the lines loaded with key 0 instead of being dropped?",
+      "options": [
+        "The mart's fact table needs one row for each product in the list",
+        "The mart's totals still agree with the totals in the source",
+        "The mart's dimension corrects the product code by itself later",
+        "The mart's cube leaves rows with key 0 out of every total it shows"
+      ],
+      "correct": 1,
+      "explanation": "Key 0 is the **unknown member**. The sale is counted under an unknown product, so the **totals match the source** and the count of rows with key 0 shows there is something to fix. A dropped row would make the totals disagree without any sign.",
+      "source": "Pentaho Analyst - Preparing Data for Analytics Specialty: Loading Facts — Overview of Loading Facts"
+    },
+    {
+      "id": "dp-m3-q8",
+      "module": "Loading Facts",
+      "bloom": "Analyze",
+      "scenario": "A date dimension covers 2003 to 2005, and a cached Database lookup returns `date_key` with a default of 0. After the January 2006 orders load without errors, a check counts 160 fact rows with `date_key` 0.",
+      "prompt": "What is the right fix?",
+      "options": [
+        "Turn off the lookup's cache, so it reads the new dates each time",
+        "Clear the default of 0, so the lookup returns the nearest date",
+        "Extend the date dimension into 2006, and load those orders again",
+        "Add the 160 order dates to row 0, so the unknown member holds them"
+      ],
+      "correct": 2,
+      "explanation": "The lookup returned its default because the order dates are **outside the dimension**. Extending the dimension gives each date a row, and loading the orders again replaces key 0 with the real keys.",
+      "source": "Pentaho Analyst - Preparing Data for Analytics Specialty: Loading Facts — Overview of Loading Facts"
+    },
+    {
+      "id": "dp-m3-q9",
+      "module": "Loading Facts",
+      "bloom": "Apply",
+      "scenario": "A team adds an aggregate table of year and territory for the fact table `mart_fact_returns`. They want Mondrian's default rules to recognize it.",
+      "prompt": "Which name follows Mondrian's pattern?",
+      "options": [
+        "`agg_y_terr_mart_fact_returns`",
+        "`mart_fact_returns_agg_y_terr`",
+        "`mart_agg_y_terr_fact_returns`",
+        "`y_terr_agg_mart_fact_returns`"
+      ],
+      "correct": 0,
+      "explanation": "Mondrian's default rules look for a name that **starts with `agg_` and ends with the fact table's whole name**, with the part that describes the summary in between.",
+      "source": "Pentaho Analyst - Preparing Data for Analytics Specialty: Loading Facts — Summary Tables for Aggregates"
+    },
+    {
+      "id": "dp-m3-q10",
+      "module": "Loading Facts",
+      "bloom": "Analyze",
+      "scenario": "A Group by step sums sales by month and product line into an aggregate table whose primary key is those columns. The load stops with \"Duplicate entry\" for one month and product line. The source query has no ORDER BY.",
+      "prompt": "What explains the error?",
+      "options": [
+        "The measure was null on some rows, so their group was split in two",
+        "The rows were unsorted, so one group was written more than once",
+        "The rows were unsorted, so Group by kept every row it had read",
+        "The table was truncated before the first row of the load arrived"
+      ],
+      "correct": 1,
+      "explanation": "Group by compares each row's group fields with the **previous row's** and writes a group when they change. With unsorted input, the same month and product line returns later and is written again. **Sorting by the group fields** in the query fixes it.",
+      "source": "Pentaho Analyst - Preparing Data for Analytics Specialty: Loading Facts — Summary Tables for Aggregates"
+    },
+    {
+      "id": "dp-m3-q11",
+      "module": "Loading Facts",
+      "bloom": "Apply",
+      "scenario": "A Group by step builds a Mondrian aggregate table. It sums `quantity_ordered` and `sales_amount`, and neither field is ever null. The table also needs `fact_count`.",
+      "prompt": "Which aggregate type should `fact_count` use on `sales_amount`?",
+      "options": [
+        "Number of Values (N)",
+        "Number of Distinct Values (N)",
+        "Maximum",
+        "Cumulative sum"
+      ],
+      "correct": 0,
+      "explanation": "`fact_count` is the **number of fact rows** each summary row stands for. **Number of Values (N)** counts the rows that have a value in the subject field, and `sales_amount` is never null, so it counts every row.",
+      "source": "Pentaho Analyst - Preparing Data for Analytics Specialty: Loading Facts — Summary Tables for Aggregates"
+    },
+    {
+      "id": "dp-m3-q12",
+      "module": "Loading Facts",
+      "bloom": "Apply",
+      "scenario": "An aggregate table holds year, quarter, month, and product line columns, the summed measures, and `fact_count`. It has no customer or market columns, and no day.",
+      "prompt": "Which query can Mondrian answer from this table?",
+      "options": [
+        "Sales by month and customer",
+        "Sales by day and product line",
+        "Sales by quarter and product line",
+        "Sales by year and territory"
+      ],
+      "correct": 2,
+      "explanation": "Mondrian can use an aggregate table when a query asks **only for levels the table holds**. Quarter and product line are both there. The Markets dimension is lost in this table, and time is collapsed to the month.",
+      "source": "Pentaho Analyst - Preparing Data for Analytics Specialty: Loading Facts — Summary Tables for Aggregates"
+    },
+    {
+      "id": "dp-m4-q1",
+      "module": "Automate and Publish",
+      "bloom": "Apply",
+      "scenario": "A job loads a mart with transformations for the dimensions, the fact table, and the summary tables. New customers can appear in the same night as their first orders.",
+      "prompt": "In which order should the job run them?",
+      "options": [
+        "Dimensions, then the summary tables, then the fact table",
+        "The summary tables, then the fact table, then the dimensions",
+        "The fact table, then the dimensions, then the summary tables",
+        "Dimensions, then the fact table, then the summary tables"
+      ],
+      "correct": 3,
+      "explanation": "The fact load looks up keys that the dimension loads write, so **dimensions come first** and a new customer has a key before its orders arrive. The summaries are built from the fact table, so they **come last**.",
+      "source": "Pentaho Analyst - Preparing Data for Analytics Specialty: Automate and Publish — Schedule the Load on the Pentaho Server"
+    },
+    {
+      "id": "dp-m4-q2",
+      "module": "Automate and Publish",
+      "bloom": "Analyze",
+      "scenario": "A job defines `ORDER_FILE` with the May file as its default and runs a fact load that has its own `ORDER_FILE` parameter, defaulting to the April file. The job ends successfully, but no May orders are loaded.",
+      "prompt": "What is the most likely cause?",
+      "options": [
+        "The job's default is read only when the job runs on a schedule",
+        "The Transformation entry does not pass its parameter values down",
+        "The job's parameter has the same name as the transformation's",
+        "The Transformation entry follows a hop for a result that is false"
+      ],
+      "correct": 1,
+      "explanation": "When **Pass parameter values to sub transformation** is cleared, the transformation does not receive the job's value and uses **its own default**, the April file. That load is safe to repeat, so the run ends without an error.",
+      "source": "Pentaho Analyst - Preparing Data for Analytics Specialty: Automate and Publish — Schedule the Load on the Pentaho Server"
+    },
+    {
+      "id": "dp-m4-q3",
+      "module": "Automate and Publish",
+      "bloom": "Analyze",
+      "scenario": "A job that loads MySQL tables runs from Spoon without errors. Scheduled on the Pentaho Server on the same machine, it fails with a message that the driver class com.mysql.cj.jdbc.Driver could not be found.",
+      "prompt": "What should the administrator do?",
+      "options": [
+        "Define the database connection once more in the server's console",
+        "Set the job's parameters again in the schedule, and execute it now",
+        "Copy the MySQL driver to Spoon's `lib` folder, and start it again",
+        "Copy the MySQL driver to the server's `tomcat/lib`, and restart it"
+      ],
+      "correct": 3,
+      "explanation": "On the server, the job runs inside the **Pentaho Server's own process**, which does not use the libraries of Spoon. The driver has to be in the server's `tomcat/lib`, and the server loads drivers **only when it starts**.",
+      "source": "Pentaho Analyst - Preparing Data for Analytics Specialty: Automate and Publish — Schedule the Load on the Pentaho Server"
+    },
+    {
+      "id": "dp-m4-q4",
+      "module": "Automate and Publish",
+      "bloom": "Apply",
+      "scenario": "A job and its four transformations sit in one folder on disk. They will be uploaded together to one folder of the Pentaho Repository, and the job must run unchanged in both places.",
+      "prompt": "How should each Transformation entry name its transformation?",
+      "options": [
+        "With `${java.io.tmpdir}` followed by the file name",
+        "With `C:/Workshop/load` followed by the file name",
+        "With `${Internal.Entry.Current.Directory}` and the file name",
+        "With `${KETTLE_HOME}` followed by the file name"
+      ],
+      "correct": 2,
+      "explanation": "`${Internal.Entry.Current.Directory}` is the folder the **job itself** is in. On disk it is the file system folder, and on the server it is the repository folder, so the same entry finds its transformation beside the job in both.",
+      "source": "Pentaho Analyst - Preparing Data for Analytics Specialty: Automate and Publish — Schedule the Load on the Pentaho Server"
+    },
+    {
+      "id": "dp-m4-q5",
+      "module": "Automate and Publish",
+      "bloom": "Apply",
+      "scenario": "A load job is scheduled on the Pentaho Server for 02:00 every day. The administrator wants to prove this afternoon that the server can run it, without changing tonight's run.",
+      "prompt": "What should the administrator do in Manage Schedules?",
+      "options": [
+        "Select the schedule, and run it with Execute Now",
+        "Create a second schedule that runs this afternoon and repeats daily",
+        "Open the job in Spoon, and run it there with its default parameters",
+        "Select the schedule, and edit its start time to this afternoon"
+      ],
+      "correct": 0,
+      "explanation": "**Execute Now** runs a schedule at once on the server, with the schedule's own settings, and leaves its **next run** alone. It proves the server has every file and driver the job needs.",
+      "source": "Pentaho Analyst - Preparing Data for Analytics Specialty: Automate and Publish — Schedule the Load on the Pentaho Server"
+    },
+    {
+      "id": "dp-m4-q6",
+      "module": "Automate and Publish",
+      "bloom": "Analyze",
+      "scenario": "A Sales report in Analyzer shows January to May. The June orders are then loaded, and a SQL query on the fact table returns them, but the report opened again still ends with May.",
+      "prompt": "What explains the difference?",
+      "options": [
+        "Analyzer read the summary tables, which hold only complete quarters",
+        "Mondrian answered from its cache, which is not checked against the table",
+        "Mondrian read the date dimension, which has no rows for that month yet",
+        "Analyzer stored the figures in the report file when it was first saved"
+      ],
+      "correct": 1,
+      "explanation": "Mondrian keeps the members and cells it has read in its **cache** and never checks the database for changes. The months of the year were read before June existed. **Refreshing the Mondrian schema cache** makes the next query read the database again.",
+      "source": "Pentaho Analyst - Preparing Data for Analytics Specialty: Automate and Publish — Refresh the Cube After a Load"
+    },
+    {
+      "id": "dp-m4-q7",
+      "module": "Automate and Publish",
+      "bloom": "Apply",
+      "scenario": "A nightly job loads dimensions, facts, and summary tables, and analysts query the cube from 07:00. The cube must show the new data without anyone taking action.",
+      "prompt": "Where should the job call the Mondrian schema cache refresh?",
+      "options": [
+        "In an HTTP entry after Start, before the dimensions are loaded",
+        "In an HTTP entry after the fact table, before the summary tables",
+        "In an HTTP entry after the summary tables, before Success",
+        "In an HTTP entry after Abort job, on the hop that a failure follows"
+      ],
+      "correct": 2,
+      "explanation": "The refresh belongs **right after the last table is written**. Any query that runs between an earlier refresh and the end of the load would fill the cache again with unfinished data.",
+      "source": "Pentaho Analyst - Preparing Data for Analytics Specialty: Automate and Publish — Refresh the Cube After a Load"
+    },
+    {
+      "id": "dp-m4-q8",
+      "module": "Automate and Publish",
+      "bloom": "Analyze",
+      "scenario": "A load job ends with an HTTP entry that refreshes the Mondrian schema cache on one node of a Pentaho Server cluster of two. Analysts on that node see new data each morning, and analysts on the other node do not.",
+      "prompt": "Which change to the job fixes this?",
+      "options": [
+        "Call the refresh service twice on the node the job calls now",
+        "Call the refresh service from each transformation in the job",
+        "Call the refresh service before the load as well as after it",
+        "Call the refresh service on each node of the cluster in turn"
+      ],
+      "correct": 3,
+      "explanation": "**Each node keeps its own cache**, so a refresh clears the cache of the node that receives the call and no other. The job has to call the service on every node.",
+      "source": "Pentaho Analyst - Preparing Data for Analytics Specialty: Automate and Publish — Refresh the Cube After a Load"
+    },
+    {
+      "id": "dp-m4-q9",
+      "module": "Automate and Publish",
+      "bloom": "Analyze",
+      "scenario": "A customer dimension keeps two versions of one customer, Madrid and Barcelona, and the fact rows hold the right version keys. A Mondrian schema joins on `customer_key`, and a designer wants to key its Customer level on `customer_number` instead.",
+      "prompt": "What would change for that customer in the cube?",
+      "options": [
+        "The two versions would collapse into one Customer member",
+        "The two versions would keep their cities but lose their sales",
+        "The two versions would be replaced by the unknown member",
+        "The two versions would each appear under both of the cities"
+      ],
+      "correct": 0,
+      "explanation": "Both versions share one natural key, so a level keyed on `customer_number` sees **one member** where there were two. Keyed on the **surrogate key**, each version is a member of its own, with the sales of the orders that point at it.",
+      "source": "Pentaho Analyst - Preparing Data for Analytics Specialty: Automate and Publish — Refresh the Cube After a Load"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "title": "Schedule the Load on the Pentaho Server",
+  "description": "",
+  "order": 9,
+  "kind": "workshop",
+  "stepCount": 7,
+  "estimatedMinutes": 35,
+  "hasVideo": false,
+  "checks": []
+}

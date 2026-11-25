@@ -1,0 +1,9 @@
+order_number,order_line_number,order_date,status,customer_number,product_code,quantity_ordered,price_each
+10426,1,2005-06-02,In Process,141,S10_1949,40,205.73
+10426,2,2005-06-02,In Process,141,S18_2238,35,154.92
+10426,3,2005-06-02,In Process,141,S24_2840,50,30.06
+10427,1,2005-06-07,In Process,500,S12_1099,25,165.38
+10427,2,2005-06-07,In Process,500,S700_2824,30,94.46
+10428,1,2005-06-14,In Process,119,S18_1749,28,151.59
+10428,2,2005-06-14,In Process,119,S24_3856,45,128.45
+10428,3,2005-06-14,In Process,119,S32_4485,20,99.69

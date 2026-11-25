@@ -1,0 +1,11 @@
+{
+  "star schema": "A fact table surrounded by dimension tables, each joined to the fact by one key. The shape cubes and metadata models are built on.",
+  "fact table": "The table that holds the measurements of a business process (quantities, amounts), one row per event at a stated grain, with a foreign key to each dimension.",
+  "dimension table": "A table of descriptive attributes (who, what, when, where) that facts are grouped and filtered by.",
+  "grain": "What one row of a fact table stands for, such as one order line. Decide it first: every other design choice follows from it.",
+  "surrogate key": "A key the data warehouse generates for a dimension row (also called a technical key), independent of the source system's natural key.",
+  "natural key": "The key a row has in the source system, such as a customer number. A dimension keeps it as an attribute, beside the surrogate key.",
+  "SCD": "Slowly Changing Dimension: a dimension whose attributes change over time. Type 1 overwrites the old value; type 2 keeps it by adding a new version of the row.",
+  "aggregate table": "A summary of the fact table at a coarser grain, kept in step with it by the load. Mondrian reads it instead of the fact table when a query's levels allow.",
+  "transformation": "A data flow you design in PDI (Spoon): steps connected by hops that read, transform, and write data."
+}

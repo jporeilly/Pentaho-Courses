@@ -1,0 +1,10 @@
+{
+  "title": "Load the Fact Table",
+  "description": "",
+  "order": 7,
+  "kind": "workshop",
+  "stepCount": 6,
+  "estimatedMinutes": 40,
+  "hasVideo": false,
+  "checks": []
+}

@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1144" height="654" viewBox="0 0 1144 654" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+<filter id="shadow" x="-10%" y="-10%" width="120%" height="140%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#0f172a" flood-opacity="0.12"/></filter></defs>
+<rect width="1144" height="654" fill="#ffffff"/>
+<rect x="16" y="16" width="1112" height="420" rx="12" fill="#f8fafc" stroke="#f1f5f9" stroke-width="1.5"/>
+<path d="M16 28a12 12 0 0 1 12-12h1088a12 12 0 0 1 12 12v32h-1112z" fill="#475569"/>
+<g transform="translate(29 26) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></g>
+<text x="56" y="36" font-size="14" font-weight="700" fill="#ffffff">The rep_ star in sampledata, at the order line grain</text>
+<text x="56" y="52" font-size="11.5" fill="#ffffff" opacity="0.92">Every dimension has a surrogate key and an unknown member; the fact table holds all four keys</text>
+<rect x="16" y="456" width="1112" height="182" rx="12" fill="#f8fafc" stroke="#f1f5f9" stroke-width="1.5"/>
+<path d="M16 468a12 12 0 0 1 12-12h1088a12 12 0 0 1 12 12v32h-1112z" fill="#475569"/>
+<g transform="translate(29 466) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 14v2.2l1.6 1"/><path d="M16 2v4"/><path d="M21 7.5V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3.5"/><path d="M3 10h5"/><path d="M8 2v4"/><circle cx="16" cy="16" r="6"/></g>
+<text x="56" y="476" font-size="14" font-weight="700" fill="#ffffff">Loaded every night, and the cube told</text>
+<text x="56" y="492" font-size="11.5" fill="#ffffff" opacity="0.92">The job and its transformations live in the Pentaho Repository, in /public/sales-rep-mart</text>
+<path d="M572 208L572 147" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M442 244L295 244" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M702 244L849 244" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M572 280L572 341" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M292 380L439 380" fill="none" stroke="#64748b" stroke-width="1.7" stroke-dasharray="5 4" marker-end="url(#arrow)"/>
+<path d="M702 268C775.5 268 775.5 380 849 380" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M275 556C291.5 556 291.5 556 308 556" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M554 556C570.5 556 570.5 556 587 556" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M833 556C849.5 556 849.5 556 866 556" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="442" y="208" width="260" height="72" rx="10" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="472" cy="244" r="19" fill="#ffffff" stroke="#0f766e" stroke-width="1.2"/>
+<g transform="translate(460 232) scale(1)" fill="none" stroke="#0f766e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></g>
+<text x="502" y="227" font-size="14" font-weight="700" fill="#134e4a">rep_fact_order_lines</text>
+<text x="502" y="244" font-size="12" fill="#134e4a">one row per order line:</text>
+<text x="502" y="259" font-size="12" fill="#134e4a">2,996, safe to load twice</text>
+<rect x="442" y="72" width="260" height="72" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="472" cy="108" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(460 96) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></g>
+<text x="502" y="91" font-size="14" font-weight="700" fill="#14532d">rep_dim_date</text>
+<text x="502" y="108" font-size="12" fill="#14532d">one row per day, 2003 to</text>
+<text x="502" y="123" font-size="12" fill="#14532d">2005: 1,096 rows</text>
+<rect x="32" y="208" width="260" height="72" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="244" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(50 232) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><path d="M16 3.128a4 4 0 0 1 0 7.744"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><circle cx="9" cy="7" r="4"/></g>
+<text x="92" y="227" font-size="14" font-weight="700" fill="#14532d">rep_dim_customer</text>
+<text x="92" y="244" font-size="12" fill="#14532d">type 1: 123 rows, with</text>
+<text x="92" y="259" font-size="12" fill="#14532d">the unknown member</text>
+<rect x="852" y="208" width="260" height="72" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="882" cy="244" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(870 232) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z"/><path d="M12 22V12"/><polyline points="3.29 7 12 12 20.71 7"/><path d="m7.5 4.27 9 5.15"/></g>
+<text x="912" y="227" font-size="14" font-weight="700" fill="#14532d">rep_dim_product</text>
+<text x="912" y="244" font-size="12" fill="#14532d">type 1: 111 rows, with</text>
+<text x="912" y="259" font-size="12" fill="#14532d">the unknown member</text>
+<rect x="442" y="344" width="260" height="72" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="472" cy="380" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(460 368) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l4 2"/></g>
+<text x="502" y="363" font-size="14" font-weight="700" fill="#14532d">rep_dim_sales_rep</text>
+<text x="502" y="380" font-size="12" fill="#14532d">type 2: a version per</text>
+<text x="502" y="395" font-size="12" fill="#14532d">office move, 25 rows</text>
+<rect x="503.15" y="165" width="137.7" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="572" y="183" text-anchor="middle" font-size="12" fill="#334155">date key (yyyymmdd)</text>
+<rect x="321.7" y="231.5" width="93.6" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="368.5" y="249.5" text-anchor="middle" font-size="12" fill="#334155">customer key</text>
+<rect x="731.85" y="231.5" width="87.3" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="775.5" y="249.5" text-anchor="middle" font-size="12" fill="#334155">product key</text>
+<rect x="481.1" y="290.5" width="181.79999999999998" height="40" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="572" y="308.5" text-anchor="middle" font-size="12" fill="#334155">sales rep key: the version</text>
+<text x="572" y="323.5" text-anchor="middle" font-size="12" fill="#334155">valid on the order date</text>
+<rect x="32" y="344" width="260" height="72" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="380" r="19" fill="#ffffff" stroke="#b45309" stroke-width="1.2"/>
+<g transform="translate(50 368) scale(1)" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 12h4"/><path d="M10 8h4"/><path d="M14 21v-3a2 2 0 0 0-4 0v3"/><path d="M6 10H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2"/><path d="M6 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16"/></g>
+<text x="92" y="363" font-size="14" font-weight="700" fill="#78350f">Gerard Hernandez</text>
+<text x="92" y="380" font-size="12" fill="#78350f">Paris, then London from</text>
+<text x="92" y="395" font-size="12" fill="#78350f">15 May 2005: two versions</text>
+<rect x="852" y="344" width="260" height="72" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="882" cy="380" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(870 368) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 7V5a1 1 0 0 0-1-1H6.5a.5.5 0 0 0-.4.8l4.5 6a2 2 0 0 1 0 2.4l-4.5 6a.5.5 0 0 0 .4.8H17a1 1 0 0 0 1-1v-2"/></g>
+<text x="912" y="363" font-size="14" font-weight="700" fill="#14532d">An agg_ table</text>
+<text x="912" y="380" font-size="12" fill="#14532d">year and office: 21 rows,</text>
+<text x="912" y="395" font-size="12" fill="#14532d">rebuilt on every load</text>
+<rect x="741.3" y="311.5" width="68.4" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="775.5" y="329.5" text-anchor="middle" font-size="12" fill="#334155">Group by</text>
+<rect x="32" y="520" width="243" height="72" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="556" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(50 544) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 14v2.2l1.6 1"/><path d="M16 2v4"/><path d="M21 7.5V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3.5"/><path d="M3 10h5"/><path d="M8 2v4"/><circle cx="16" cy="16" r="6"/></g>
+<text x="92" y="546.5" font-size="14" font-weight="700" fill="#3b0764">Nightly schedule</text>
+<text x="92" y="563.5" font-size="12" fill="#3b0764">on the Pentaho Server</text>
+<rect x="311" y="520" width="243" height="72" rx="10" fill="#f1f5f9" stroke="#475569" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="341" cy="556" r="19" fill="#ffffff" stroke="#475569" stroke-width="1.2"/>
+<g transform="translate(329 544) scale(1)" fill="none" stroke="#475569" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5h10"/><path d="M11 12h10"/><path d="M11 19h10"/><path d="M4 4h1v5"/><path d="M4 9h2"/><path d="M6.5 20H3.4c0-1 2.6-1.925 2.6-3.5a1.5 1.5 0 0 0-2.6-1.02"/></g>
+<text x="371" y="539" font-size="14" font-weight="700" fill="#0f172a">load_sales_rep_mart.kjb</text>
+<text x="371" y="556" font-size="12" fill="#0f172a">dimensions, fact, aggregate,</text>
+<text x="371" y="571" font-size="12" fill="#0f172a">then load_audit.csv</text>
+<rect x="590" y="520" width="243" height="72" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="620" cy="556" r="19" fill="#ffffff" stroke="#b45309" stroke-width="1.2"/>
+<g transform="translate(608 544) scale(1)" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></g>
+<text x="650" y="539" font-size="14" font-weight="700" fill="#78350f">HTTP entry</text>
+<text x="650" y="556" font-size="12" fill="#78350f">refreshes the Mondrian</text>
+<text x="650" y="571" font-size="12" fill="#78350f">schema cache</text>
+<rect x="869" y="520" width="243" height="72" rx="10" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="899" cy="556" r="19" fill="#ffffff" stroke="#0f766e" stroke-width="1.2"/>
+<g transform="translate(887 544) scale(1)" fill="none" stroke="#0f766e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.97 12.92A2 2 0 0 0 2 14.63v3.24a2 2 0 0 0 .97 1.71l3 1.8a2 2 0 0 0 2.06 0L12 19v-5.5l-5-3-4.03 2.42Z"/><path d="m7 16.5-4.74-2.85"/><path d="m7 16.5 5-3"/><path d="M7 16.5v5.17"/><path d="M12 13.5V19l3.97 2.38a2 2 0 0 0 2.06 0l3-1.8a2 2 0 0 0 .97-1.71v-3.24a2 2 0 0 0-.97-1.71L17 10.5l-5 3Z"/><path d="m17 16.5-5-3"/><path d="m17 16.5 4.74-2.85"/><path d="M17 16.5v5.17"/><path d="M7.97 4.42A2 2 0 0 0 7 6.13v4.37l5 3 5-3V6.13a2 2 0 0 0-.97-1.71l-3-1.8a2 2 0 0 0-2.06 0l-3 1.8Z"/><path d="M12 8 7.26 5.15"/><path d="m12 8 4.74-2.85"/><path d="M12 13.5V8"/></g>
+<text x="929" y="539" font-size="14" font-weight="700" fill="#134e4a">sales_rep_mart.xml</text>
+<text x="929" y="556" font-size="12" fill="#134e4a">the cube, with an AggName</text>
+<text x="929" y="571" font-size="12" fill="#134e4a">for the aggregate table</text>
+<rect x="170.60000000000002" y="603.5" width="244.79999999999998" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="293" y="621.5" text-anchor="middle" font-size="12" fill="#334155">runs, with the input file parameters</text>
+<rect x="753.8" y="603.5" width="194.4" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="851" y="621.5" text-anchor="middle" font-size="12" fill="#334155">its last step before success</text>
+</svg>
