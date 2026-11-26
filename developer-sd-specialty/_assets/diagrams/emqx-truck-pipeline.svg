@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="436" viewBox="0 0 800 436" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+<filter id="shadow" x="-10%" y="-10%" width="120%" height="140%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#0f172a" flood-opacity="0.12"/></filter></defs>
+<rect width="800" height="436" fill="#ffffff"/>
+<rect x="8" y="132" width="784" height="296" rx="12" fill="#f8fafc" stroke="#f1f5f9" stroke-width="1.5"/>
+<path d="M8 144a12 12 0 0 1 12-12h760a12 12 0 0 1 12 12v32h-784z" fill="#475569"/>
+<g transform="translate(21 142) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></g>
+<text x="48" y="152" font-size="14" font-weight="700" fill="#ffffff">tr_process_sensor_data</text>
+<text x="48" y="168" font-size="11.5" fill="#ffffff" opacity="0.92">the child transformation: runs once per batch</text>
+<path d="M256 58L279 58" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M520 58L543 58" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M664 100C664 147.5 664 147.5 664 195" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M544 238L521 238" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M280 238L257 238" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M136 280C136 303.5 136 303.5 136 327" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M256 370L279 370" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M520 370L543 370" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="16" y="16" width="240" height="84" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="46" cy="58" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(34 46) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"/><path d="m21.854 2.147-10.94 10.939"/></g>
+<text x="76" y="41" font-size="14" font-weight="700" fill="#1e3a8a">tr_mqtt_producer</text>
+<text x="76" y="58" font-size="12" fill="#1e3a8a">truck 111, six sensors;</text>
+<text x="76" y="73" font-size="12" fill="#1e3a8a">MQTT producer, QoS 0</text>
+<rect x="280" y="16" width="240" height="84" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="310" cy="58" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(298 46) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.9 16.1C1 12.2 1 5.8 4.9 1.9"/><path d="M7.8 4.7a6.14 6.14 0 0 0-.8 7.5"/><circle cx="12" cy="9" r="2"/><path d="M16.2 4.8c2 2 2.26 5.11.8 7.47"/><path d="M19.1 1.9a9.96 9.96 0 0 1 0 14.1"/><path d="M9.5 18h5"/><path d="m8 22 4-11 4 11"/></g>
+<text x="340" y="48.5" font-size="14" font-weight="700" fill="#3b0764">EMQX :1884</text>
+<text x="340" y="65.5" font-size="12" fill="#3b0764">topic SensorData</text>
+<rect x="544" y="16" width="240" height="84" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="574" cy="58" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(562 46) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></g>
+<text x="604" y="41" font-size="14" font-weight="700" fill="#1e3a8a">tr_mqtt_consumer</text>
+<text x="604" y="58" font-size="12" fill="#1e3a8a">MQTT Consumer: a batch</text>
+<text x="604" y="73" font-size="12" fill="#1e3a8a">every 5000 ms or 50</text>
+<rect x="544" y="196" width="240" height="84" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="574" cy="238" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(562 226) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M21 9H3"/><path d="M21 15H3"/></g>
+<text x="604" y="228.5" font-size="14" font-weight="700" fill="#1e3a8a">Get records from stream</text>
+<text x="604" y="245.5" font-size="12" fill="#1e3a8a">message (String)</text>
+<rect x="280" y="196" width="240" height="84" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="310" cy="238" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(298 226) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3h5v5"/><path d="M8 3H3v5"/><path d="M12 22v-8.3a4 4 0 0 0-1.172-2.872L3 3"/><path d="m15 9 6-6"/></g>
+<text x="340" y="221" font-size="14" font-weight="700" fill="#3b0764">sf-split_message_field</text>
+<text x="340" y="238" font-size="12" fill="#3b0764">splits on ; into</text>
+<text x="340" y="253" font-size="12" fill="#3b0764">seven fields</text>
+<rect x="16" y="196" width="240" height="84" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="46" cy="238" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(34 226) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></g>
+<text x="76" y="221" font-size="14" font-weight="700" fill="#3b0764">System Info, Sensor Type</text>
+<text x="76" y="238" font-size="12" fill="#3b0764">current_time for the batch;</text>
+<text x="76" y="253" font-size="12" fill="#3b0764">sensor_type 1-7 to a name</text>
+<rect x="16" y="328" width="240" height="84" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="46" cy="370" r="19" fill="#ffffff" stroke="#b45309" stroke-width="1.2"/>
+<g transform="translate(34 358) scale(1)" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 20a1 1 0 0 0 .553.895l2 1A1 1 0 0 0 14 21v-7a2 2 0 0 1 .517-1.341L21.74 4.67A1 1 0 0 0 21 3H3a1 1 0 0 0-.742 1.67l7.225 7.989A2 2 0 0 1 10 14z"/></g>
+<text x="76" y="353" font-size="14" font-weight="700" fill="#78350f">Filter Minor / Major</text>
+<text x="76" y="370" font-size="12" fill="#78350f">keep rows whose</text>
+<text x="76" y="385" font-size="12" fill="#78350f">alert flag is 1</text>
+<rect x="280" y="328" width="240" height="84" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="310" cy="370" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(298 358) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 7V5a1 1 0 0 0-1-1H6.5a.5.5 0 0 0-.4.8l4.5 6a2 2 0 0 1 0 2.4l-4.5 6a.5.5 0 0 0 .4.8H17a1 1 0 0 0 1-1v-2"/></g>
+<text x="340" y="353" font-size="14" font-weight="700" fill="#3b0764">Group, add the owner</text>
+<text x="340" y="370" font-size="12" fill="#3b0764">count_alerts; owner and</text>
+<text x="340" y="385" font-size="12" fill="#3b0764">phone for the vehicle</text>
+<rect x="544" y="328" width="240" height="84" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="574" cy="370" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(562 358) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></g>
+<text x="604" y="353" font-size="14" font-weight="700" fill="#14532d">Alert Output steps</text>
+<text x="604" y="370" font-size="12" fill="#14532d">append to minor_alert.txt</text>
+<text x="604" y="385" font-size="12" fill="#14532d">and major_alert.txt</text>
+<rect x="623.5" y="135" width="81" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="664" y="153" text-anchor="middle" font-size="12" fill="#334155">each batch</text>
+</svg>

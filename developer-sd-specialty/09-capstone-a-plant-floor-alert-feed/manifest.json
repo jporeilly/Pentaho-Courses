@@ -1,0 +1,44 @@
+{
+  "title": "Capstone: A Plant-Floor Alert Feed",
+  "description": "Capstone: subscribe to three machines' telemetry with one MQTT wildcard, archive every reading, publish over-threshold readings to a keyed Kafka topic, and load the alerts into MySQL without duplicates.",
+  "order": 9,
+  "kind": "workshop",
+  "stepCount": 17,
+  "estimatedMinutes": 120,
+  "hasVideo": false,
+  "checks": [
+    {
+      "id": "mqtt-wildcard",
+      "kind": "file-contains",
+      "label": "Your MQTT parent subscribes to all three machines with one wildcard (telemetry_to_kafka.ktr has factory/line1/+/telemetry)",
+      "path": "C:/Workshop-SD-Specialty/capstone/solution/telemetry_to_kafka.ktr",
+      "text": "factory/line1/+/telemetry"
+    },
+    {
+      "id": "kafka-producer",
+      "kind": "file-contains",
+      "label": "Your MQTT child publishes alerts to Kafka (process_telemetry.ktr has a Kafka producer step)",
+      "path": "C:/Workshop-SD-Specialty/capstone/solution/process_telemetry.ktr",
+      "text": "<type>KafkaProducerOutput</type>"
+    },
+    {
+      "id": "kafka-consumer",
+      "kind": "file-contains",
+      "label": "Your loader reads the alerts from Kafka (alerts_to_mysql.ktr has a Kafka consumer step)",
+      "path": "C:/Workshop-SD-Specialty/capstone/solution/alerts_to_mysql.ktr",
+      "text": "<type>KafkaConsumerInput</type>"
+    },
+    {
+      "id": "telemetry-archive",
+      "kind": "file-exists",
+      "label": "Your pipeline archived the readings (telemetry.txt in out\\)",
+      "path": "C:/Workshop-SD-Specialty/capstone/out/telemetry.txt"
+    },
+    {
+      "id": "readme-file",
+      "kind": "file-exists",
+      "label": "Your README.md in solution\\ (how to start, run, stop and check the feed)",
+      "path": "C:/Workshop-SD-Specialty/capstone/solution/README.md"
+    }
+  ]
+}

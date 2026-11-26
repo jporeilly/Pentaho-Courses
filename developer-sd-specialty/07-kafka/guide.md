@@ -1,29 +1,54 @@
 # Overview
 
+<div class="pcm-intro">
+
+Apache Kafka is a distributed event-streaming platform: producers append records to topics, Kafka keeps them, and consumers read them at their own pace. This module explains the parts of a Kafka cluster in KRaft mode and how topics, partitions and consumer groups decide who reads what, before the workshop loads a Kafka stream into MySQL.
+
+</div>
+
+**What You'll Learn**
+
+* **KRaft mode** - why Kafka 4 runs without ZooKeeper, and what a controller and a broker do.
+* **Topics, partitions and consumer groups** - how records are spread, ordered and shared between consumers.
+* **Offsets** - how a consumer group resumes where it stopped.
+* **Schema Registry** - the separate service many deployments add.
+
 <div align="center">
 <figure>
-<img src="../_assets/images/kafka-architecture.png" alt="ZooKeeper mode beside KRaft mode: on the left, three ZooKeeper nodes, one the leader, control four brokers; on the right, three KRaft controllers, one the metadata leader, control four brokers without ZooKeeper" width="800">
-<figcaption>ZooKeeper mode and KRaft mode</figcaption>
+<img src="../_assets/images/kafka-architecture.png" alt="ZooKeeper mode beside KRaft mode: on the left, three ZooKeeper nodes, one the leader, linked to one of four brokers, the ZooKeeper controller; on the right, three KRaft controllers, one the metadata leader, control four brokers without ZooKeeper" width="800">
+<figcaption>ZooKeeper mode, which Kafka 4.0 removed, and KRaft mode, the only mode since</figcaption>
 </figure>
 </div>
 
-> **Note:** **Apache Kafka**
+> **Note:**
 >
-> Apache Kafka is a distributed streaming platform for publishing, subscribing to, storing and processing streams of records in real time. It is designed to handle high volumes of data, which suits it to large-scale message processing. Kafka is built around the concept of a distributed commit log, providing fault tolerance, durability, and high throughput for both publishing and subscribing by leveraging cluster nodes.
+> #### Apache Kafka
 >
-> It supports producers sending messages to topics, from which consumers can read and process these messages. This makes Kafka suitable for a variety of applications, including real-time analytics, event sourcing, log aggregation, and more.
+> Apache Kafka is a distributed streaming platform for publishing, subscribing to, storing and processing streams of records in real time. It is designed to handle high volumes of data, which suits it to large-scale message processing. Kafka is built around a distributed commit log, spread over the nodes of a cluster, which gives it fault tolerance, durability and high throughput for both publishing and subscribing.
+>
+> Producers send records to topics, and consumers read and process them. Kafka serves applications such as real-time analytics, event sourcing and log aggregation.
 
-Apache Kafka in **KRaft (Kafka Raft metadata) mode** needs no external ZooKeeper cluster, which makes it simpler to run. These are the key components of a Kafka cluster in KRaft mode.
+Apache Kafka in **KRaft (Kafka Raft metadata) mode** needs no external ZooKeeper cluster, which makes it simpler to run. Since Kafka 4.0 (2025) KRaft is the only mode: ZooKeeper support is gone, and a cluster still on ZooKeeper must migrate to KRaft on a 3.x release before it can upgrade. This course runs Kafka 4.4, one node that is both broker and controller. These are the parts of a KRaft cluster, plus Schema Registry, a separate service many deployments add.
 
 ::: tabs
 
 ### Controller
 
-Manages the state of the cluster and is responsible for administrative tasks such as topic creation, deletion, and partition reassignment. In KRaft mode, the controller logic is embedded within the Kafka broker itself, leveraging the Raft protocol for consensus.
+Manages the state of the cluster and is responsible for administrative tasks such as topic creation, deletion, and partition reassignment. In KRaft mode the controllers are Kafka nodes that agree on cluster metadata with the Raft protocol. A large cluster runs dedicated controllers; a small one, like this course's single node, runs the controller and broker roles in one process.
 
 ### Broker
 
-A server in the Kafka cluster that stores data and serves client requests. In KRaft mode, brokers can handle both standard client requests and participate in cluster management operations.
+A server in the Kafka cluster that stores data and serves client requests: producers write records to it, and consumers read them from it. Each broker holds some of the partitions of each topic.
+
+### Topics, Partitions and Consumer Groups
+
+A **topic** is a named stream of records, such as the workshop's `pdi-users`. Kafka splits each topic into **partitions**, and each partition is an ordered log that only grows: a new record goes on the end.
+
+Every record in a partition has an **offset**, its position in that partition. An offset is unique within a partition, not across the topic, so a record is identified by its partition and offset together.
+
+Consumers read as a **consumer group**. Each partition is read by one member of a group at a time, so the group shares the work, and members beyond the partition count sit idle. A group commits the offsets it has processed, so after a stop it resumes where it stopped.
+
+A record's **key** decides its partition: records with the same key go to the same partition, so Kafka keeps their order per key. Records with no key are spread over the partitions.
 
 <div align="center">
 <figure>
@@ -34,7 +59,7 @@ A server in the Kafka cluster that stores data and serves client requests. In KR
 
 ### KRaft Mode
 
-Kafka KRaft is Apache Kafka's controller architecture that eliminates the dependency on Apache ZooKeeper. It consolidates metadata management within Kafka itself, replacing the traditional ZooKeeper-based controller. This simplifies deployment and operations by reducing the number of components to maintain, improves scalability by removing ZooKeeper bottlenecks, and enhances performance through optimized metadata handling.
+Kafka KRaft is Apache Kafka's controller architecture that eliminates the dependency on Apache ZooKeeper. It keeps the cluster metadata within Kafka itself, replacing the ZooKeeper-based controller, which Kafka 4.0 removed. One system to run instead of two, and metadata changes no longer wait on ZooKeeper.
 
 ### Schema Registry
 
@@ -44,4 +69,6 @@ Schema Registry provides a centralized repository for managing and validating sc
 
 This module has one hands-on workshop:
 
-* **Use Cases** — consume a real-time user-activity stream from Kafka and load it into a MySQL warehouse.
+* [Use Cases](../08-kafka-use-cases/guide.md) — consume a user-activity stream from Kafka in real time and load it into a MySQL warehouse.
+
+> **Tip:** Next, load a Kafka user-activity stream into MySQL: [Use Cases](../08-kafka-use-cases/guide.md).

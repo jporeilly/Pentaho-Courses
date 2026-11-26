@@ -1,5 +1,17 @@
 # Overview
 
+<div class="pcm-intro">
+
+The Advanced Message Queuing Protocol (AMQP) is a broker protocol for reliable, decoupled messaging between applications. A producer publishes to an exchange, the exchange routes each message to queues, and a consumer reads from a queue. This module explains that model, then the workshop consumes room-sensor data from RabbitMQ.
+
+</div>
+
+**What You'll Learn**
+
+* **Exchanges, bindings and routing keys** - how a message finds its queue.
+* **The exchange types** - direct, fanout, topic and headers, and the default exchange.
+* **Queues** - durability, exclusivity and auto-delete.
+
 <div align="center">
 <figure>
 <img src="../_assets/images/amqp-model.png" alt="The AMQP model: a producing service sends a message with a routing key to an exchange inside a virtual host on the AMQP broker; bindings connect the exchange to three queues, and a consuming service reads from them" width="604">
@@ -7,17 +19,18 @@
 </figure>
 </div>
 
-> **Note:** **Advanced Message Queuing Protocol**
+> **Note:**
 >
-> AMQP brokers facilitate high-performance, reliable, and scalable messaging services between applications. This makes them ideal for scenarios needing:
+> #### Advanced Message Queuing Protocol
 >
-> * **Asynchronous Communication:** decoupling producers and consumers so they communicate without waiting for responses, enhancing responsiveness.
-> * **System Decoupling:** applications communicate through messages rather than direct method calls, improving modularity and scalability.
-> * **Resilience and Fault Tolerance:** messages can be queued, ensuring no loss of information on temporary failures.
-> * **Load Balancing:** efficient distribution of message processing across multiple consumer instances.
-> * **Distributed Systems Communication:** a unified messaging platform for microservices and distributed architectures.
+> AMQP brokers carry messages between applications. They suit scenarios that need:
 >
-> AMQP brokers, such as RabbitMQ, offer a standardized, open solution to these requirements, making them a cornerstone of modern distributed application architectures.
+> * **Asynchronous communication:** producers and consumers exchange messages without waiting for each other.
+> * **System decoupling:** applications communicate through messages rather than direct calls, so each can change on its own.
+> * **Resilience:** a queue holds messages while a consumer is down, so a temporary failure loses nothing.
+> * **Load balancing:** several consumers can share the messages of one queue.
+>
+> AMQP is an open standard, and RabbitMQ is the broker this course uses.
 
 ## AMQP concepts
 
@@ -30,7 +43,7 @@ Messages are not published directly to a queue; instead, the producer sends mess
 * A **binding** is a link between a queue and an exchange.
 * The **routing key** is a message attribute the exchange looks at when deciding how to route the message (depending on exchange type).
 
-Exchanges, connections, and queues can be configured as *durable* (survive a restart), *temporary* (last until the broker is shut down), or *auto-delete* (removed once the last bound object is unbound). RabbitMQ provides four exchange types: **direct**, **fanout**, **topic** and **headers**. Its built-in **default exchange** - the one with no name, used when no exchange is named - is a **direct** exchange: every queue is bound to it automatically, with the queue's own name as the routing key. A **fanout** exchange, by contrast, broadcasts every message it receives to all bound queues, ignoring routing keys.
+Exchanges and queues can be *durable* (they survive a restart) or *auto-delete* (removed when the last binding or consumer goes). RabbitMQ provides four exchange types: **direct**, **fanout**, **topic** and **headers**. Its built-in **default exchange** - the one with no name, used when no exchange is named - is a **direct** exchange: every queue is bound to it automatically, with the queue's own name as the routing key. A **fanout** exchange, by contrast, broadcasts every message it receives to all bound queues, ignoring routing keys. A message that an exchange cannot route to any bound queue is dropped: publish only after the queue is bound.
 
 <div align="center">
 <figure>
@@ -45,7 +58,7 @@ In RabbitMQ, **queues** are the central structures where messages are stored for
 
 Queues have several important characteristics:
 
-* **Durability:** durable queues are saved to disk and survive broker restarts; transient queues do not.
+* **Durability:** durable queues are saved to disk and survive broker restarts. RabbitMQ 4 no longer accepts a transient queue unless it is exclusive, so the labs declare every queue durable.
 * **Exclusivity:** an exclusive queue is used by only one connection and is deleted when that connection closes.
 * **Auto-delete:** an auto-delete queue deletes itself when its consumer count drops to zero.
 
@@ -62,4 +75,6 @@ Messages are typically consumed FIFO (first in, first out), though RabbitMQ supp
 
 This module has one hands-on workshop:
 
-* **RabbitMQ** — consume room-sensor data from a RabbitMQ broker and append it to output files.
+* [RabbitMQ](../06-amqp-rabbitmq/guide.md) — consume room-sensor data from a RabbitMQ broker and append it to `tv_room_sensor.txt`.
+
+> **Tip:** Next, consume room-sensor data from RabbitMQ: [RabbitMQ](../06-amqp-rabbitmq/guide.md).

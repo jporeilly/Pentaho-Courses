@@ -92,7 +92,7 @@
 <rect x="17" y="638" width="338" height="22" fill="#f0fdf4"/>
 <text x="28" y="653" font-size="12" fill="#64748b">varchar(20)</text>
 <text x="120" y="653" font-size="12" fill="#14532d">gender</text>
-<text x="28" y="675" font-size="12" fill="#64748b">timestamp</text>
+<text x="28" y="675" font-size="12" fill="#64748b">bigint</text>
 <text x="120" y="675" font-size="12" fill="#14532d">register_time</text>
 <rect x="17" y="682" width="338" height="22" fill="#f0fdf4"/>
 <text x="28" y="697" font-size="12" fill="#64748b">varchar(255)</text>

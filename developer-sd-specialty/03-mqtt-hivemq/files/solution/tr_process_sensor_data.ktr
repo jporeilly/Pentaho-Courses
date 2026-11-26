@@ -436,11 +436,25 @@
   </info>
   <notepads>
     <notepad>
-      <note>Minor Alerts</note>
-      <xloc>288</xloc>
-      <yloc>288</yloc>
-      <width>85</width>
-      <heigth>28</heigth>
+      <note>tr_process_sensor_data - the child: counts truck 111's alerts in each batch.
+
+1. Get records from stream: the batch, one field, message (String).
+2. sf-split_message_field: Split fields on ; into vehicle_id, timestamp, sensor_id,
+   sensor_type, sensor_value, minor_alert, major_alert.
+3. Get System Info: current_time, system date (fixed).
+4. Get Sensor Type: Value mapper, sensor_type 1-7 to sensor_type_name (Unknown otherwise).
+5. Filter Minor Alerts / Filter Major Alerts: keep rows whose flag is 1.
+6. Group Minor Alerts / Group Major Alerts: Memory group by current_time, vehicle_id,
+   sensor_type_name; count_alerts counts the rows.
+7. Minor / Major Owner and Number: Stream lookup on vehicle_id in dg-vehicule_lookup,
+   adding owner and phone_number (NA when not found).
+8. Minor / Major Alert Output: append to minor_alert.txt and major_alert.txt beside this file.
+
+Data grid: sample messages for testing on its own; its hop is disabled.</note>
+      <xloc>32</xloc>
+      <yloc>32</yloc>
+      <width>562</width>
+      <heigth>278</heigth>
       <fontname>Segoe UI</fontname>
       <fontsize>10</fontsize>
       <fontbold>N</fontbold>
@@ -448,33 +462,12 @@
       <fontcolorred>0</fontcolorred>
       <fontcolorgreen>0</fontcolorgreen>
       <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>192</bordercolorred>
-      <bordercolorgreen>192</bordercolorgreen>
-      <bordercolorblue>192</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
-    <notepad>
-      <note>Major Alerts</note>
-      <xloc>592</xloc>
-      <yloc>288</yloc>
-      <width>84</width>
-      <heigth>28</heigth>
-      <fontname>Segoe UI</fontname>
-      <fontsize>10</fontsize>
-      <fontbold>N</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>192</bordercolorred>
-      <bordercolorgreen>192</bordercolorgreen>
-      <bordercolorblue>192</bordercolorblue>
+      <backgroundcolorred>167</backgroundcolorred>
+      <backgroundcolorgreen>224</backgroundcolorgreen>
+      <backgroundcolorblue>245</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
       <drawshadow>Y</drawshadow>
     </notepad>
   </notepads>
@@ -616,8 +609,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>680</xloc>
-      <yloc>112</yloc>
+      <xloc>208</xloc>
+      <yloc>502</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -665,8 +658,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>592</xloc>
-      <yloc>336</yloc>
+      <xloc>640</xloc>
+      <yloc>694</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -715,8 +708,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>384</xloc>
-      <yloc>336</yloc>
+      <xloc>640</xloc>
+      <yloc>502</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -773,8 +766,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>480</xloc>
-      <yloc>288</yloc>
+      <xloc>496</xloc>
+      <yloc>374</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -804,8 +797,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>480</xloc>
-      <yloc>192</yloc>
+      <xloc>352</xloc>
+      <yloc>374</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -837,8 +830,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>480</xloc>
-      <yloc>16</yloc>
+      <xloc>64</xloc>
+      <yloc>374</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -882,8 +875,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>592</xloc>
-      <yloc>416</yloc>
+      <xloc>784</xloc>
+      <yloc>694</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -927,8 +920,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>384</xloc>
-      <yloc>416</yloc>
+      <xloc>784</xloc>
+      <yloc>502</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1056,8 +1049,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>592</xloc>
-      <yloc>608</yloc>
+      <xloc>1072</xloc>
+      <yloc>694</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1104,8 +1097,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>592</xloc>
-      <yloc>512</yloc>
+      <xloc>928</xloc>
+      <yloc>694</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1233,8 +1226,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>384</xloc>
-      <yloc>608</yloc>
+      <xloc>1072</xloc>
+      <yloc>502</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1281,8 +1274,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>384</xloc>
-      <yloc>512</yloc>
+      <xloc>928</xloc>
+      <yloc>502</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1356,8 +1349,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>480</xloc>
-      <yloc>464</yloc>
+      <xloc>1072</xloc>
+      <yloc>598</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1491,8 +1484,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>480</xloc>
-      <yloc>112</yloc>
+      <xloc>208</xloc>
+      <yloc>374</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

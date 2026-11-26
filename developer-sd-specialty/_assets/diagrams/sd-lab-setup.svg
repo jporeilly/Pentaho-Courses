@@ -11,7 +11,7 @@
 <path d="M284 28a12 12 0 0 1 12-12h220a12 12 0 0 1 12 12v32h-244z" fill="#6d28d9"/>
 <g transform="translate(297 26) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 7.7c0-.6-.4-1.2-.8-1.5l-6.3-3.9a1.72 1.72 0 0 0-1.7 0l-10.3 6c-.5.2-.9.8-.9 1.4v6.6c0 .5.4 1.2.8 1.5l6.3 3.9a1.72 1.72 0 0 0 1.7 0l10.3-6c.5-.3.9-1 .9-1.5Z"/><path d="M10 21.9V14L2.1 9.1"/><path d="m10 14 11.9-6.9"/><path d="M14 19.8v-8.1"/><path d="M18 17.5V9.4"/></g>
 <text x="324" y="36" font-size="14" font-weight="700" fill="#ffffff">Brokers, in containers</text>
-<text x="324" y="52" font-size="11.5" fill="#ffffff" opacity="0.92">setup-services.ps1 -Streaming</text>
+<text x="324" y="52" font-size="11.5" fill="#ffffff" opacity="0.92">run-podman-streaming.ps1</text>
 <rect x="552" y="16" width="244" height="444" rx="12" fill="#eff6ff" stroke="#dbeafe" stroke-width="1.5"/>
 <path d="M552 28a12 12 0 0 1 12-12h220a12 12 0 0 1 12 12v32h-244z" fill="#1d4ed8"/>
 <g transform="translate(565 26) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></g>
@@ -126,7 +126,7 @@
 <circle cx="860" cy="404" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
 <g transform="translate(848 392) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></g>
 <text x="890" y="387" font-size="14" font-weight="700" fill="#14532d">MySQL user_events</text>
-<text x="890" y="404" font-size="12" fill="#14532d">pcm-mysql, localhost:3306</text>
+<text x="890" y="404" font-size="12" fill="#14532d">sampledata-mysql :3306,</text>
 <text x="890" y="419" font-size="12" fill="#14532d">database kafka_warehouse</text>
 <rect x="16" y="480" width="1048" height="68" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="1.5" filter="url(#shadow)"/>
 <circle cx="48" cy="514" r="19" fill="#ffffff" stroke="#b45309" stroke-width="1.2"/>

@@ -23,3 +23,7 @@
 
 * [Overview](07-kafka/guide.md)
 * [Use Cases](08-kafka-use-cases/guide.md)
+
+## Capstone Project
+
+* [Capstone: A Plant-Floor Alert Feed](09-capstone-a-plant-floor-alert-feed/guide.md)

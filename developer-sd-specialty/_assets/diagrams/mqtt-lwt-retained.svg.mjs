@@ -14,7 +14,7 @@
 //     "When sensor.py connected, it handed HiveMQ a will").
 //   - On connect, on_connect publishes "online" with qos=1, retain=True
 //     (step 2).
-//   - A client such as MQTT Explorer connects to localhost:1883,
+//   - status.py, the lab's watcher, connects to localhost:1883,
 //     subscribes to industrial/robot/status and shows `online` straight
 //     away: the broker hands the retained value to every new subscriber
 //     (steps 4 and its checkpoint).
@@ -53,8 +53,8 @@ const [sen, brk, sub, late] = lanes(d, {
   top: TOP, height: H, cols: [
     { x: 16, w: 182, role: 'support', iconName: 'square-terminal', title: 'sensor.py', sub: 'the robot sensor' },
     { x: 210, w: 182, role: 'server', iconName: 'radio-tower', title: 'HiveMQ', sub: 'localhost:1883' },
-    { x: 404, w: 182, role: 'check', iconName: 'eye', title: 'Subscriber', sub: 'e.g. MQTT Explorer' },
-    { x: 598, w: 182, role: 'check', iconName: 'eye', title: 'Later subscriber', sub: 'connects afterwards' },
+    { x: 404, w: 182, role: 'check', iconName: 'eye', title: 'Subscriber', sub: 'status.py' },
+    { x: 598, w: 182, role: 'check', iconName: 'eye', title: 'Later subscriber', sub: 'status.py, started again' },
   ],
 });
 

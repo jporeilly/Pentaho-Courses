@@ -290,7 +290,7 @@
       "id": "sd-m4-q5",
       "module": "Kafka",
       "bloom": "Understand",
-      "scenario": "A child transformation must convert the `register_time_epoch` field, which is in milliseconds, into seconds for a MySQL TIMESTAMP column.",
+      "scenario": "A child transformation must convert the `register_time_epoch` field, which is in milliseconds, into seconds for a MySQL BIGINT column of epoch seconds.",
       "prompt": "Why is a Formula step used rather than a Calculator step?",
       "options": [
         "MySQL rejects the values that a Calculator step produces.",
@@ -418,7 +418,7 @@
       "id": "sd-m3-q6",
       "module": "AMQP",
       "bloom": "Apply",
-      "scenario": "An AMQP Consumer step names an existing queue that another application declared non-durable. The step is configured to create a durable queue.",
+      "scenario": "An AMQP Consumer step names an existing queue that another application declared durable and auto-delete. The step creates its queues durable and not auto-delete.",
       "prompt": "What happens when the transformation runs?",
       "options": [
         "It reads from the queue and ignores the difference.",

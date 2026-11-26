@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="640" viewBox="0 0 800 640" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+<filter id="shadow" x="-10%" y="-10%" width="120%" height="140%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#0f172a" flood-opacity="0.12"/></filter></defs>
+<rect width="800" height="640" fill="#ffffff"/>
+<rect x="8" y="132" width="784" height="168" rx="12" fill="#f8fafc" stroke="#f1f5f9" stroke-width="1.5"/>
+<path d="M8 144a12 12 0 0 1 12-12h760a12 12 0 0 1 12 12v32h-784z" fill="#475569"/>
+<g transform="translate(21 142) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></g>
+<text x="48" y="152" font-size="14" font-weight="700" fill="#ffffff">process_telemetry</text>
+<text x="48" y="168" font-size="11.5" fill="#ffffff" opacity="0.92">runs once per batch</text>
+<rect x="8" y="448" width="784" height="176" rx="12" fill="#f8fafc" stroke="#f1f5f9" stroke-width="1.5"/>
+<path d="M8 460a12 12 0 0 1 12-12h760a12 12 0 0 1 12 12v32h-784z" fill="#475569"/>
+<g transform="translate(21 458) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></g>
+<text x="48" y="468" font-size="14" font-weight="700" fill="#ffffff">load_alerts</text>
+<text x="48" y="484" font-size="11.5" fill="#ffffff" opacity="0.92">runs once per batch</text>
+<path d="M256 58L279 58" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M520 58L543 58" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M664 100C664 147.5 664 147.5 664 195" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M544 238L521 238" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M280 238L257 238" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M136 280C136 305.5 136 305.5 136 331" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M256 374L279 374" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M520 374L543 374" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M664 416C664 463.5 664 463.5 664 511" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M544 554L521 554" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M280 554L257 554" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="16" y="16" width="240" height="84" rx="10" fill="#f1f5f9" stroke="#475569" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="46" cy="58" r="19" fill="#ffffff" stroke="#475569" stroke-width="1.2"/>
+<g transform="translate(34 46) scale(1)" fill="none" stroke="#475569" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16h.01"/><path d="M16 16h.01"/><path d="M3 19a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8.5a.5.5 0 0 0-.769-.422l-4.462 2.844A.5.5 0 0 1 15 10.5v-2a.5.5 0 0 0-.769-.422L9.77 10.922A.5.5 0 0 1 9 10.5V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2z"/><path d="M8 16h.01"/></g>
+<text x="76" y="41" font-size="14" font-weight="700" fill="#0f172a">line_sensors.py</text>
+<text x="76" y="58" font-size="12" fill="#0f172a">press-01, lathe-02, mill-03:</text>
+<text x="76" y="73" font-size="12" fill="#0f172a">a reading a second each</text>
+<rect x="280" y="16" width="240" height="84" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="310" cy="58" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(298 46) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.9 16.1C1 12.2 1 5.8 4.9 1.9"/><path d="M7.8 4.7a6.14 6.14 0 0 0-.8 7.5"/><circle cx="12" cy="9" r="2"/><path d="M16.2 4.8c2 2 2.26 5.11.8 7.47"/><path d="M19.1 1.9a9.96 9.96 0 0 1 0 14.1"/><path d="M9.5 18h5"/><path d="m8 22 4-11 4 11"/></g>
+<text x="340" y="41" font-size="14" font-weight="700" fill="#3b0764">HiveMQ :1883</text>
+<text x="340" y="58" font-size="12" fill="#3b0764">factory/line1/&lt;machine&gt;/</text>
+<text x="340" y="73" font-size="12" fill="#3b0764">telemetry</text>
+<rect x="544" y="16" width="240" height="84" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="574" cy="58" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(562 46) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></g>
+<text x="604" y="41" font-size="14" font-weight="700" fill="#1e3a8a">telemetry_to_kafka</text>
+<text x="604" y="58" font-size="12" fill="#1e3a8a">MQTT consumer on</text>
+<text x="604" y="73" font-size="12" fill="#1e3a8a">factory/line1/+/telemetry</text>
+<rect x="544" y="196" width="240" height="84" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="574" cy="238" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(562 226) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3h5v5"/><path d="M8 3H3v5"/><path d="M12 22v-8.3a4 4 0 0 0-1.172-2.872L3 3"/><path d="m15 9 6-6"/></g>
+<text x="604" y="221" font-size="14" font-weight="700" fill="#3b0764">Records, topic, JSON</text>
+<text x="604" y="238" font-size="12" fill="#3b0764">the machine is the</text>
+<text x="604" y="253" font-size="12" fill="#3b0764">topic's third part</text>
+<rect x="280" y="196" width="240" height="84" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="310" cy="238" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(298 226) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></g>
+<text x="340" y="221" font-size="14" font-weight="700" fill="#14532d">Text file output</text>
+<text x="340" y="238" font-size="12" fill="#14532d">appends every reading to</text>
+<text x="340" y="253" font-size="12" fill="#14532d">out\telemetry.txt</text>
+<rect x="16" y="196" width="240" height="84" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="46" cy="238" r="19" fill="#ffffff" stroke="#b45309" stroke-width="1.2"/>
+<g transform="translate(34 226) scale(1)" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 20a1 1 0 0 0 .553.895l2 1A1 1 0 0 0 14 21v-7a2 2 0 0 1 .517-1.341L21.74 4.67A1 1 0 0 0 21 3H3a1 1 0 0 0-.742 1.67l7.225 7.989A2 2 0 0 1 10 14z"/></g>
+<text x="76" y="221" font-size="14" font-weight="700" fill="#78350f">Filter rows</text>
+<text x="76" y="238" font-size="12" fill="#78350f">spindle_temp &gt; 85</text>
+<text x="76" y="253" font-size="12" fill="#78350f">OR vibration &gt; 7</text>
+<rect x="623.5" y="135" width="81" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="664" y="153" text-anchor="middle" font-size="12" fill="#334155">each batch</text>
+<rect x="16" y="332" width="240" height="84" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="46" cy="374" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(34 362) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"/><path d="m21.854 2.147-10.94 10.939"/></g>
+<text x="76" y="364.5" font-size="14" font-weight="700" fill="#1e3a8a">Kafka producer</text>
+<text x="76" y="381.5" font-size="12" fill="#1e3a8a">key = machine</text>
+<rect x="280" y="332" width="240" height="84" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="310" cy="374" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(298 362) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"/><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"/><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"/></g>
+<text x="340" y="357" font-size="14" font-weight="700" fill="#3b0764">line1-alerts</text>
+<text x="340" y="374" font-size="12" fill="#3b0764">three partitions:</text>
+<text x="340" y="389" font-size="12" fill="#3b0764">one machine, one partition</text>
+<rect x="544" y="332" width="240" height="84" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="574" cy="374" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(562 362) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></g>
+<text x="604" y="357" font-size="14" font-weight="700" fill="#1e3a8a">alerts_to_mysql</text>
+<text x="604" y="374" font-size="12" fill="#1e3a8a">Kafka consumer, group</text>
+<text x="604" y="389" font-size="12" fill="#1e3a8a">line1-alert-loader</text>
+<rect x="108.1" y="293" width="55.8" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="136" y="311" text-anchor="middle" font-size="12" fill="#334155">alerts</text>
+<rect x="544" y="512" width="240" height="84" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="574" cy="554" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(562 542) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 12a1 1 0 0 0-1 1v1a1 1 0 0 1-1 1 1 1 0 0 1 1 1v1a1 1 0 0 0 1 1"/><path d="M14 18a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1 1 1 0 0 1-1-1v-1a1 1 0 0 0-1-1"/></g>
+<text x="604" y="537" font-size="14" font-weight="700" fill="#3b0764">Records, JSON, names</text>
+<text x="604" y="554" font-size="12" fill="#3b0764">key becomes machine;</text>
+<text x="604" y="569" font-size="12" fill="#3b0764">topic, partition, offset kept</text>
+<rect x="280" y="512" width="240" height="84" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="310" cy="554" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(298 542) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></g>
+<text x="340" y="537" font-size="14" font-weight="700" fill="#14532d">Table output</text>
+<text x="340" y="554" font-size="12" fill="#14532d">factory.line_alerts;</text>
+<text x="340" y="569" font-size="12" fill="#14532d">a refused copy is skipped</text>
+<rect x="16" y="512" width="240" height="84" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="46" cy="554" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(34 542) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></g>
+<text x="76" y="537" font-size="14" font-weight="700" fill="#14532d">line_alerts</text>
+<text x="76" y="554" font-size="12" fill="#14532d">unique on topic,</text>
+<text x="76" y="569" font-size="12" fill="#14532d">partition, offset</text>
+<rect x="623.5" y="451" width="81" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="664" y="469" text-anchor="middle" font-size="12" fill="#334155">each batch</text>
+</svg>

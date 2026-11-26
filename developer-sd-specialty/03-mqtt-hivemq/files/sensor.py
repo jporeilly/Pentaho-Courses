@@ -1,66 +1,65 @@
-# python 3.10
-# Note: This script requires the 'paho-mqtt' package to be installed.
-# pip3 install paho-mqtt python-etcd for V2
-# pip3 install "paho-mqtt<2.0.0" for V1
+"""Simulated robot sensor: publishes one reading a second over MQTT.
 
-import random
-import time
+Each message is JSON, a temperature and an x/y/z position, sent to the
+topic industrial/robot/sensor on localhost. Needs the Paho MQTT client
+(pip install -r requirements.txt) and Python 3.11 or later.
+
+    python sensor.py          # HiveMQ on 1883
+    python sensor.py 1884     # EMQX, on its own port
+
+Stop it with Ctrl+C.
+"""
 import json
-from paho.mqtt import client as mqtt_client
-# username = 'emqx'  not required as HiveMQ has no security
-# password = 'public'
-
-# MQTT settings
-broker = 'localhost'
-# Default is HiveMQ (1883). The EMQX lab passes its port instead:
-#   python sensor.py 1884
+import random
 import sys
+import time
+
+from paho.mqtt import client as mqtt_client
+
+broker = 'localhost'
 port = int(sys.argv[1]) if len(sys.argv) > 1 else 1883
 topic = "industrial/robot/sensor"
-# Generate a Client ID with the subscribe prefix.
 client_id = f'python-mqtt-{random.randint(0, 1000)}'
 
-# Connect to MQTT broker
+
 def connect_mqtt():
-    def on_connect(client, userdata, flags, rc):
-    # For paho-mqtt 2.0.0, you need to add the properties parameter.
-    # def on_connect(client, userdata, flags, rc, properties):
-        if rc == 0:
+    def on_connect(client, userdata, flags, reason_code, properties):
+        if reason_code == 0:
             print("Connected to MQTT Broker!")
         else:
-            print("Failed to connect, return code %d\n", rc)
-    
-    # Set Connecting Client ID
-    # client = mqtt_client.Client(client_id)
+            print(f"Failed to connect: {reason_code}")
 
-    # For paho-mqtt 2.0.0, you need to set callback_api_version.
-    client = mqtt_client.Client(client_id=client_id, callback_api_version=mqtt_client.CallbackAPIVersion.VERSION1)
-
-    # client.username_pw_set(username, password)
+    client = mqtt_client.Client(callback_api_version=mqtt_client.CallbackAPIVersion.VERSION2,
+                                client_id=client_id)
     client.on_connect = on_connect
     client.connect(broker, port)
     return client
 
-# Publish sensor data
+
 def publish(client):
     while True:
-        temperature = random.uniform(20.0, 100.0)  # Simulate temperature sensor data
-        position = {'x': random.uniform(-10.0, 10.0), 'y': random.uniform(-10.0, 10.0), 'z': random.uniform(-10.0, 10.0)}  # Simulate position sensor data
+        temperature = random.uniform(20.0, 100.0)
+        position = {'x': random.uniform(-10.0, 10.0),
+                    'y': random.uniform(-10.0, 10.0),
+                    'z': random.uniform(-10.0, 10.0)}
         message = json.dumps({'temperature': temperature, 'position': position})
         result = client.publish(topic, message)
-        status = result[0]
-        if status == 0:
+        if result.rc == mqtt_client.MQTT_ERR_SUCCESS:
             print(f"Sent `{message}` to topic `{topic}`")
         else:
             print(f"Failed to send message to topic {topic}")
         time.sleep(1)
 
-# Main function
+
 def run():
     client = connect_mqtt()
     client.loop_start()
-    publish(client)
+    try:
+        publish(client)
+    except KeyboardInterrupt:
+        client.loop_stop()
+        client.disconnect()
 
-# Execute the main function
+
 if __name__ == '__main__':
     run()

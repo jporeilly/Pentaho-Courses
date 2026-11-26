@@ -7,17 +7,17 @@
 // readers both see it.
 //
 // Facts it encodes, and where each comes from:
-//   - One command, provisioning\setup-services.ps1 -Streaming, starts
-//     HiveMQ, EMQX, RabbitMQ and Kafka as containers; MySQL is in the same
-//     workshop-services compose file (00-before-you-start tab 2;
-//     03-mqtt-hivemq part 1 steps 2-3 and its note).
+//   - One command, C:\Streaming\run-podman-streaming.ps1 (the Streaming lab
+//     kit), starts HiveMQ, EMQX, RabbitMQ and Kafka as containers; the Kafka
+//     lab's MySQL is the MySQL kit's sampledata-mysql (00-before-you-start;
+//     03-mqtt-hivemq part 1).
 //   - Ports: HiveMQ tcp://localhost:1883, EMQX tcp://localhost:1884,
-//     RabbitMQ amqp://localhost:5672, Kafka 127.0.0.1:9092, Workshop
-//     MySQL localhost:3306 (00-before-you-start tab 5, "Ports and
+//     RabbitMQ amqp://localhost:5672, Kafka 127.0.0.1:9092, MySQL
+//     kit localhost:3306 (00-before-you-start tab 5, "Ports and
 //     logins").
 //   - Container names pcm-hivemq (03-mqtt-hivemq part 1), pcm-emqx
 //     (04-mqtt-emqx troubleshooting), pcm-rabbitmq (06-amqp-rabbitmq
-//     part 1), pcm-mysql (08-kafka-use-cases part 1). The lessons name no
+//     part 1), sampledata-mysql (08-kafka-use-cases part 1). The lessons name no
 //     Kafka container, so its box names none.
 //   - Admin UIs: HiveMQ Control Center http://localhost:9090, EMQX
 //     Dashboard http://localhost:18083, RabbitMQ management
@@ -59,7 +59,7 @@ const ROW = [76, 172, 268, 364]; // box y of each row (HiveMQ, EMQX, RabbitMQ, K
 // One panel per column, all the same height, under the boxes.
 const PANEL = [
   { role: 'support', iconName: 'square-terminal', title: 'Publishers', sub: 'each running in its own window' },
-  { role: 'server', iconName: 'container', title: 'Brokers, in containers', sub: 'setup-services.ps1 -Streaming' },
+  { role: 'server', iconName: 'container', title: 'Brokers, in containers', sub: 'run-podman-streaming.ps1' },
   { role: 'tool', iconName: 'workflow', title: 'Pentaho Data Integration', sub: 'a parent with a consumer step' },
   { role: 'store', iconName: 'hard-drive', title: 'Outputs', sub: 'in each lab’s folder, or MySQL' },
 ];
@@ -89,7 +89,7 @@ const rows = [
     { role: 'support', iconName: 'square-terminal', title: 'produce_users.py', lines: ['Python, an event a second', 'topic pdi-users'] },
     { role: 'server', iconName: 'layers', title: 'Kafka', lines: ['KRaft mode', '127.0.0.1:9092'] },
     { role: 'tool', iconName: 'inbox', title: 'Kafka consumer', lines: ['users-to-db-parent.ktr', 'Kafka lab'] },
-    { role: 'store', iconName: 'database', title: 'MySQL user_events', lines: ['pcm-mysql, localhost:3306', 'database kafka_warehouse'] },
+    { role: 'store', iconName: 'database', title: 'MySQL user_events', lines: ['sampledata-mysql :3306,', 'database kafka_warehouse'] },
   ],
 ];
 

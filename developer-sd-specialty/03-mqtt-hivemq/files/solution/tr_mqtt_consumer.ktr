@@ -436,46 +436,30 @@
   </info>
   <notepads>
     <notepad>
-      <note>MQTT Consumer step will call another transformation, 
-sub-transformation, that will utilize the 'Get records from stream' Step.</note>
-      <xloc>48</xloc>
-      <yloc>80</yloc>
-      <width>438</width>
-      <heigth>40</heigth>
-      <fontname>Inter Regular</fontname>
-      <fontsize>9</fontsize>
+      <note>tr_mqtt_consumer - the parent: subscribes to the truck's readings on EMQX.
+
+1. MQTT Consumer: localhost:1884, topic SensorData, QoS 0.
+   Runs tr_process_sensor_data.ktr for each batch: 5000 ms or 50 messages,
+   whichever comes first; one batch at a time; prefetch 100000.
+
+Needs tr_mqtt_producer.ktr running. Runs until you stop it.</note>
+      <xloc>32</xloc>
+      <yloc>32</yloc>
+      <width>452</width>
+      <heigth>134</heigth>
+      <fontname>Segoe UI</fontname>
+      <fontsize>10</fontsize>
       <fontbold>N</fontbold>
       <fontitalic>N</fontitalic>
       <fontcolorred>0</fontcolorred>
       <fontcolorgreen>0</fontcolorgreen>
       <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>0</bordercolorred>
-      <bordercolorgreen>128</bordercolorgreen>
-      <bordercolorblue>0</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
-    <notepad>
-      <note>MQTT</note>
-      <xloc>64</xloc>
-      <yloc>32</yloc>
-      <width>49</width>
-      <heigth>28</heigth>
-      <fontname>Segoe UI</fontname>
-      <fontsize>10</fontsize>
-      <fontbold>Y</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>255</bordercolorred>
-      <bordercolorgreen>255</bordercolorgreen>
-      <bordercolorblue>255</bordercolorblue>
+      <backgroundcolorred>167</backgroundcolorred>
+      <backgroundcolorgreen>224</backgroundcolorgreen>
+      <backgroundcolorblue>245</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
       <drawshadow>Y</drawshadow>
     </notepad>
   </notepads>
@@ -609,8 +593,8 @@ sub-transformation, that will utilize the 'Get records from stream' Step.</note>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>144</xloc>
-      <yloc>160</yloc>
+      <xloc>64</xloc>
+      <yloc>230</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

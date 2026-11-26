@@ -1,8 +1,7 @@
 """Publish simulated user-registration events to the pdi-users topic.
 
-Replaces the original workshop's Kafka Connect datagen connector with
-a laptop-friendly script. The event shape matches the datagen users
-quickstart exactly - the consumer transformations parse these fields:
+The event shape matches the datagen users quickstart (registertime is
+the current time) - the consumer transformations parse these fields:
 
     userid        User_1, User_2, ...
     regionid      Region_1 .. Region_9
@@ -11,7 +10,7 @@ quickstart exactly - the consumer transformations parse these fields:
 
 Run it while the consumer transformation is running:
 
-    python produce_users.py            # localhost:9092, 1 event/sec
+    python produce_users.py            # 127.0.0.1:9092, 1 event/sec
     python produce_users.py --fast     # no delay between events
 """
 

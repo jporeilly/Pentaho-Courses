@@ -436,88 +436,39 @@
   </info>
   <notepads>
     <notepad>
-      <note>Transformation simulates IoT Sensor data which is published to the Topic: SensorData via MQTT Producer step.</note>
-      <xloc>208</xloc>
-      <yloc>560</yloc>
-      <width>589</width>
-      <heigth>25</heigth>
-      <fontname>Segoe UI</fontname>
-      <fontsize>9</fontsize>
-      <fontbold>N</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>0</bordercolorred>
-      <bordercolorgreen>128</bordercolorgreen>
-      <bordercolorblue>0</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
-    <notepad>
-      <note>Step will never stop generating
-output, simulating IoT.</note>
-      <xloc>64</xloc>
-      <yloc>160</yloc>
-      <width>172</width>
-      <heigth>40</heigth>
-      <fontname>Segoe UI</fontname>
-      <fontsize>9</fontsize>
-      <fontbold>N</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>0</bordercolorred>
-      <bordercolorgreen>128</bordercolorgreen>
-      <bordercolorblue>0</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
-    <notepad>
-      <note>Records being batched in 5 sec intervals.</note>
-      <xloc>64</xloc>
-      <yloc>368</yloc>
-      <width>223</width>
-      <heigth>25</heigth>
-      <fontname>Segoe UI</fontname>
-      <fontsize>9</fontsize>
-      <fontbold>N</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>0</bordercolorred>
-      <bordercolorgreen>128</bordercolorgreen>
-      <bordercolorblue>0</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
-    <notepad>
-      <note>MQTT</note>
-      <xloc>64</xloc>
-      <yloc>64</yloc>
-      <width>49</width>
-      <heigth>28</heigth>
+      <note>tr_mqtt_producer - plays delivery truck 111: six sensors, one reading each every 5 seconds.
+
+1. gr-IoT_gateway: Generate rows, never ending, one row every 5000 ms: vehicle_id 111.
+2. as-gen_timestamp: Add sequence, timestamp from 20170401000000, +5 a row.
+3. sv-remove_fields: drops the generator's now and FiveSecondsAgo.
+4. mjsv-*: six JavaScript sensors - truck temperature, headlight, load weight,
+   axle vibration, GPS position, air pressure. Each sets sensor_id, sensor_type,
+   sensor_value, minor_alert and major_alert.
+5. dmmy-sensor_data_collector: joins the six streams.
+6. sv-define_metadata: Select values, each field's type.
+7. cf-concat_message_field: Concat fields, joins the seven fields with ; into data_row;
+   sensor_id, sensor_type and the alert flags as whole numbers (format #).
+8. sv-message: Select values, keeps vehicle_id and data_row, renamed message.
+9. MQTT producer: localhost:1884 (EMQX), topic SensorData, QoS 0, message field message.
+
+Six messages every 5 seconds, one per sensor. Runs until you stop it.</note>
+      <xloc>32</xloc>
+      <yloc>32</yloc>
+      <width>554</width>
+      <heigth>296</heigth>
       <fontname>Segoe UI</fontname>
       <fontsize>10</fontsize>
-      <fontbold>Y</fontbold>
+      <fontbold>N</fontbold>
       <fontitalic>N</fontitalic>
       <fontcolorred>0</fontcolorred>
       <fontcolorgreen>0</fontcolorgreen>
       <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>255</bordercolorred>
-      <bordercolorgreen>255</bordercolorgreen>
-      <bordercolorblue>255</bordercolorblue>
+      <backgroundcolorred>167</backgroundcolorred>
+      <backgroundcolorgreen>224</backgroundcolorgreen>
+      <backgroundcolorblue>245</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
       <drawshadow>Y</drawshadow>
     </notepad>
   </notepads>
@@ -724,7 +675,7 @@ output, simulating IoT.</note>
     </remotesteps>
     <GUI>
       <xloc>752</xloc>
-      <yloc>368</yloc>
+      <yloc>792</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -759,7 +710,7 @@ output, simulating IoT.</note>
     </remotesteps>
     <GUI>
       <xloc>192</xloc>
-      <yloc>256</yloc>
+      <yloc>656</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -904,8 +855,8 @@ output, simulating IoT.</note>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>912</xloc>
-      <yloc>256</yloc>
+      <xloc>896</xloc>
+      <yloc>656</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -929,8 +880,8 @@ output, simulating IoT.</note>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>592</xloc>
-      <yloc>256</yloc>
+      <xloc>608</xloc>
+      <yloc>656</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -974,7 +925,7 @@ output, simulating IoT.</note>
     </remotesteps>
     <GUI>
       <xloc>64</xloc>
-      <yloc>256</yloc>
+      <yloc>656</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1000,13 +951,13 @@ output, simulating IoT.</note>
 var sensor_id = 6;
 var sensor_type = 6;
 
-// No big vibration should be felt
+// Tire pressure, 30 to 34
 var sensor_value = Math.floor(Math.random() * 5) + 30;
 
 
-// minor alert -> hitting bumps in road
+// minor alert -> pressure at the top of its range
 var minor_alert = (sensor_value >= 34 ? 1 : 0);
-// should not happen while vehicle is moving
+// major alert -> pressure below its range (never, in this simulation)
 var major_alert = (sensor_value &lt; 30 ? 1 : 0);
 
 </jsScript_script>
@@ -1064,7 +1015,7 @@ var major_alert = (sensor_value &lt; 30 ? 1 : 0);
     </remotesteps>
     <GUI>
       <xloc>464</xloc>
-      <yloc>400</yloc>
+      <yloc>920</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1153,7 +1104,7 @@ var major_alert = (sensor_value > 90 ? 1 : 0);
     </remotesteps>
     <GUI>
       <xloc>464</xloc>
-      <yloc>320</yloc>
+      <yloc>728</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1476,7 +1427,7 @@ var iteration = 0;
     </remotesteps>
     <GUI>
       <xloc>464</xloc>
-      <yloc>480</yloc>
+      <yloc>824</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1565,7 +1516,7 @@ var major_alert = (sensor_value > 1200 ? 1 : 0);
     </remotesteps>
     <GUI>
       <xloc>464</xloc>
-      <yloc>128</yloc>
+      <yloc>488</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1654,7 +1605,7 @@ var major_alert = (sensor_value &lt; 2700 ? 1 : 0);
     </remotesteps>
     <GUI>
       <xloc>464</xloc>
-      <yloc>208</yloc>
+      <yloc>584</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1740,7 +1691,7 @@ var major_alert = (sensor_value > 95 ? 1 : 0);
     </remotesteps>
     <GUI>
       <xloc>464</xloc>
-      <yloc>48</yloc>
+      <yloc>392</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1887,7 +1838,7 @@ var major_alert = (sensor_value > 95 ? 1 : 0);
     </remotesteps>
     <GUI>
       <xloc>752</xloc>
-      <yloc>256</yloc>
+      <yloc>656</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1973,8 +1924,8 @@ var major_alert = (sensor_value > 95 ? 1 : 0);
       </output>
     </remotesteps>
     <GUI>
-      <xloc>912</xloc>
-      <yloc>368</yloc>
+      <xloc>896</xloc>
+      <yloc>792</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -2008,7 +1959,7 @@ var major_alert = (sensor_value > 95 ? 1 : 0);
     </remotesteps>
     <GUI>
       <xloc>320</xloc>
-      <yloc>256</yloc>
+      <yloc>656</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

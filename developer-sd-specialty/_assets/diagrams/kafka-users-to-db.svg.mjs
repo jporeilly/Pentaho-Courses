@@ -104,7 +104,7 @@ const table = d.entity({
     ['varchar(100)', 'user_id'],
     ['varchar(100)', 'region_id'],
     ['varchar(20)', 'gender'],
-    ['timestamp', 'register_time'],
+    ['bigint', 'register_time'],
     ['varchar(255)', 'kafka_topic', 'UQ'],
     ['int', 'kafka_partition', 'UQ'],
     ['bigint', 'kafka_offset', 'UQ'],
