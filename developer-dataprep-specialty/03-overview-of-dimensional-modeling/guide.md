@@ -61,12 +61,19 @@ The exception is the date dimension. Its key is a *smart key*: the date written 
 >
 > Dates get a dimension of their own because analysts group by calendar attributes (year, quarter, month, day of week) that a raw date column does not hold. Its rows come from the calendar, not from the source system.
 
-`mart_dim_date` holds one row per day from 1 January 2003 to 31 December 2005: 1,096 rows, 2004 being a leap year. Each row carries the attributes the cube's **Time** dimension needs:
+`mart_dim_date` holds one row per day from 1 January 2003 to 31 December 2005: 1,096 rows, 2004 being a leap year. Each row carries the attributes the cube's **Time** dimension needs. Two of its rows, one per column:
 
-| `date_key` | `the_date` | `year_id` | `quarter_id` | `quarter_name` | `month_id` | `month_name` | `day_of_month` | `day_of_week` |
-| ---------- | ---------- | --------- | ------------ | -------------- | ---------- | ------------ | -------------- | ------------- |
-| `20030101` | 2003-01-01 | 2003 | 1 | QTR1 | 1 | Jan | 1 | 4 |
-| `20030106` | 2003-01-06 | 2003 | 1 | QTR1 | 1 | Jan | 6 | 2 |
+| Column | 1 January 2003 | 6 January 2003 |
+| ------ | -------------- | -------------- |
+| `date_key` | `20030101` | `20030106` |
+| `the_date` | 2003-01-01 | 2003-01-06 |
+| `year_id` | 2003 | 2003 |
+| `quarter_id` | 1 | 1 |
+| `quarter_name` | QTR1 | QTR1 |
+| `month_id` | 1 | 1 |
+| `month_name` | Jan | Jan |
+| `day_of_month` | 1 | 6 |
+| `day_of_week` | 4, a Wednesday | 2, a Monday |
 
 Two consequences of building it from the calendar:
 

@@ -151,13 +151,6 @@ Set-Location C:\Pentaho\design-tools\data-integration
 >
 > **Why it matters:** a summary with a split group still adds up, so the totals look right while the table holds duplicate keys. The primary key on `(year_id, month_id, product_line)` makes such a mistake fail the load instead.
 
-<div align="center">
-<figure>
-<img src="../_assets/images/dp08-canvas-month.png" alt="tr_agg_sales on the canvas after this part: ti-sales_by_month_line, gb-month_line and to-agg_ym_line in a line" width="506">
-<figcaption>The canvas after to-agg_ym_line</figcaption>
-</figure>
-</div>
-
 ### 3. Sales by Year and Territory
 
 > **Note:**

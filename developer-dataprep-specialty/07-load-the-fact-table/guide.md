@@ -152,13 +152,6 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 7. Select **OK**.
 
-<div align="center">
-<figure>
-<img src="../_assets/images/dp07-canvas-date.png" alt="tr_fact_sales on the canvas after this part: csvi-order_lines hopped to dbl-dim_date" width="242">
-<figcaption>The canvas after dbl-dim_date</figcaption>
-</figure>
-</div>
-
 ### 4. Look Up the Customer Version
 
 > **Note:**
@@ -192,13 +185,6 @@ Set-Location C:\Pentaho\design-tools\data-integration
 >
 > **Why it matters:** this is where type 2 history pays off. A lookup on `customer_number` alone would hand every Euro+ order, 2003 included, whichever version came back first, and the cube would move sales between cities depending on the order the rows were stored in.
 
-<div align="center">
-<figure>
-<img src="../_assets/images/dp07-canvas-customer.png" alt="tr_fact_sales on the canvas after this part: csvi-order_lines, dbl-dim_date and dlu-customer_key in a line" width="396">
-<figcaption>The canvas after dlu-customer_key</figcaption>
-</figure>
-</div>
-
 ### 5. Look Up the Product Key
 
 > **Note:**
@@ -228,13 +214,6 @@ Set-Location C:\Pentaho\design-tools\data-integration
 > **Success:** Checkpoint: the first row now ends with `date_key` `20030106`, `customer_key` `86` and `product_key` `80`.
 
 10. Select **Close**.
-
-<div align="center">
-<figure>
-<img src="../_assets/images/dp07-canvas-product.png" alt="tr_fact_sales on the canvas after this part: csvi-order_lines, dbl-dim_date, dlu-customer_key and dbl-dim_product in a line" width="538">
-<figcaption>The canvas after dbl-dim_product</figcaption>
-</figure>
-</div>
 
 ### 6. Calculate and Write
 

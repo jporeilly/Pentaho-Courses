@@ -119,13 +119,6 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 16. Select **Close**.
 
-<div align="center">
-<figure>
-<img src="../_assets/images/dp04-canvas-days.png" alt="tr_dim_date on the canvas after this part: gr-days hopped to seq-day_offset" width="211">
-<figcaption>The canvas after seq-day_offset</figcaption>
-</figure>
-</div>
-
 ### 3. Calculate the Date Parts
 
 > **Note:**
@@ -178,13 +171,6 @@ Set-Location C:\Pentaho\design-tools\data-integration
 >
 > **Why it matters:** the fact load can compute the same `yyyymmdd` from any order date, so the date key never needs a table maintained by hand, and two loads can never disagree about which day a key means.
 
-<div align="center">
-<figure>
-<img src="../_assets/images/dp04-canvas-parts.png" alt="tr_dim_date on the canvas after this part: gr-days, seq-day_offset and calc-date_parts in a line" width="342">
-<figcaption>The canvas after calc-date_parts</figcaption>
-</figure>
-</div>
-
 ### 4. Name the Quarters and Months
 
 > **Note:**
@@ -232,13 +218,6 @@ Set-Location C:\Pentaho\design-tools\data-integration
 > **Success:** Checkpoint: the first row now ends with `quarter_name` `QTR1` and `month_name` `Jan`.
 
 13. Select **Close**.
-
-<div align="center">
-<figure>
-<img src="../_assets/images/dp04-canvas-names.png" alt="tr_dim_date on the canvas after this part: gr-days, seq-day_offset, calc-date_parts, vm-quarter_name and vm-month_name in a line" width="600">
-<figcaption>The canvas after vm-month_name</figcaption>
-</figure>
-</div>
 
 ### 5. Write the Table
 
