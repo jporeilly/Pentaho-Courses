@@ -15,7 +15,7 @@
 >
 > **Prerequisites:** Access to the Pentaho User Console; a web browser; familiarity with dashboards and business reporting
 >
-> **Estimated time:** 20 minutes
+> **Estimated time:** 10 minutes
 
 <div align="center">
 <figure>
