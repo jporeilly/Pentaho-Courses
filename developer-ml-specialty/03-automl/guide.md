@@ -31,6 +31,15 @@
 </figure>
 </div>
 
+<div align="center">
+<figure>
+<img src="../_assets/images/automl-pipeline.png" alt="Top, autoML.ktr: four file inputs, three Stream lookups and feature engineering; a Copy hop sends every row to tfo-H2O, which writes data/H2O.csv, and to the auto machine learning step, which runs H2O AutoML and returns one row, gbm at AUC 0.9951. Bottom, the notebook in JupyterLab reads H2O.csv, splits it 7,510 and 2,489, ranks three GBMs, a DRF and a GLM, and judges the best; GBM goes on to the Credit Card workshop" width="800">
+<figcaption>The workshop in one picture: the transformation searches in Pentaho Data Integration, the notebook repeats the search a cell at a time</figcaption>
+</figure>
+</div>
+
+Read the diagram top to bottom. The transformation joins the four files into one row per transaction and turns them into nine numeric fields. A **Copy** hop then sends every row two ways: to `H2O.csv`, the training set, and to a **Python Executor** step that runs H2O AutoML and returns one row describing the best model. The notebook reads the same `H2O.csv` and runs the same search a cell at a time, so you can see the leaderboard, the confusion matrix and the feature importance. Both point to a Gradient Boosting Machine, which the [Credit Card](../04-credit-card/guide.md) workshop trains and deploys.
+
 :::: tabs
 
 ### 1. Data Wrangling

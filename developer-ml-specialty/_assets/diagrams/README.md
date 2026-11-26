@@ -72,5 +72,6 @@ Keep one icon per thing across the diagrams:
 | --- | --- |
 | `ml-course-path` | Overview: the whole use case, from the four files through `H2O.csv` and H2O AutoML to the GBM trained and run in Python Executor steps |
 | `ml-runtimes` | Prerequisite Tasks: where the code runs (Spoon's Java process, the Python in `h2o-env`, H2O's engine, JupyterLab, Colab's hosted runtime) |
+| `automl-pipeline` | AutoML: the transformation's pipeline (four files, lookups, features, the Copy hop to H2O.csv and to the Python step) and the notebook that repeats the search |
 | `capstone-nightly-screening` | Capstone: the suggested shape (training with its quality gate, then screening into the review queue, from one nightly job) |
 | `train-then-predict` | Credit Card: the job, and its two transformations sharing the saved GBM model |

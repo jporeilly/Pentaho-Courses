@@ -13,7 +13,7 @@
   },
   "title": "Developer - ML Specialty",
   "description": "Machine learning with Pentaho Data Integration. A credit-card fraud-detection use case covering H2O AutoML, supervised learning with an H2O GBM in Python, and handling imbalanced datasets.",
-  "version": "0.1.12",
+  "version": "0.1.13",
   "kind": "workshop",
   "platform": "windows11",
   "level": {
