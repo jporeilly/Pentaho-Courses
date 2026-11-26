@@ -16,7 +16,7 @@
 >
 > **Prerequisites:** Complete [Prerequisite Tasks](../02-prerequisite-tasks/guide.md): Python with `h2o` in the `h2o-env` virtual environment, and optionally a Google account for Colab
 >
-> **Estimated time:** 20 minutes
+> **Estimated time:** 1 hour 30 minutes: about an hour to build the transformation, and half an hour for the notebook
 
 <figure>
 

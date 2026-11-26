@@ -15,7 +15,7 @@
 >
 > **Prerequisites:** The `h2o-env` virtual environment from [Prerequisite Tasks](../02-prerequisite-tasks/guide.md)
 >
-> **Estimated time:** 25 minutes
+> **Estimated time:** 45 minutes
 
 <figure>
 

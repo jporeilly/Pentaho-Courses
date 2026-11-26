@@ -4,7 +4,7 @@
   "order": 5,
   "kind": "workshop",
   "stepCount": 15,
-  "estimatedMinutes": 120,
+  "estimatedMinutes": 180,
   "hasVideo": false,
   "checks": [
     {

@@ -23,7 +23,7 @@ pipelines are yours to build.
 > - Run it all from one job that Kitchen can run every night.
 > - Produce something portfolio-worthy ("I built this for my Specialty course accreditation").
 >
-> **Estimated time:** 2 hours for a clean, well-named solution. Re-shape and revisit as you'd like.
+> **Estimated time:** 3 hours for a clean, well-named solution. Re-shape and revisit as you'd like.
 
 ---
 
