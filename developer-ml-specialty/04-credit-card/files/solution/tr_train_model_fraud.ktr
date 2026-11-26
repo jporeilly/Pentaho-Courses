@@ -473,198 +473,40 @@
   </info>
   <notepads>
     <notepad>
-      <note>1. Feature Engineering
+      <note>tr_train_model_fraud - trains the fraud model, an H2O GBM, and saves it in train_model_output.
+Run by jb_fraud_main_job; needs h2o-env.
 
-'Flag' to indicate whether 
-billing and shipping zip codes are 
-equal.</note>
-      <xloc>512</xloc>
-      <yloc>352</yloc>
-      <width>190</width>
-      <heigth>89</heigth>
-      <fontname>Segoe UI</fontname>
-      <fontsize>9</fontsize>
-      <fontbold>N</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>0</bordercolorred>
-      <bordercolorgreen>0</bordercolorgreen>
-      <bordercolorblue>255</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
-    <notepad>
-      <note>1. Data Wrangling
+1. csvi-customer_data, csvi-customer_billing, csv fi: customer transaction, csvi-fraud_details_report: CSV file
+   input, the four files, 100,000 rows each.
+2. slkp-customer, slkp-transaction_details, slkp-fraud_report: Stream lookup, one row per transaction.
+3. frmla-billing=shipping: Formula, billing_shipping_zip_equal = [customer_billing_zip] = [ship_to_zip].
+4. sv-convert_booleans_to_numbers: Select values, the eight features and reported_as_fraud_historic, the
+   flags as Number.
+5. py-train_gbm: Python Executor, h2o-env's python.exe, All rows as train; an H2O GBM, up to 500 trees,
+   depth 4, learn rate 0.01, 20% of the rows held back; saves train_model_output/gbm_fraud.
+6. wlog-model: Write to log, the five results.
 
-Join and blend data from different
-sources.</note>
-      <xloc>224</xloc>
-      <yloc>144</yloc>
-      <width>191</width>
-      <heigth>73</heigth>
+Shipped data: rows_trained 79967, trees 500, validation_auc 0.9800, validation_aucpr 0.9569.</note>
+      <xloc>352</xloc>
+      <yloc>32</yloc>
+      <width>627</width>
+      <heigth>260</heigth>
       <fontname>Segoe UI</fontname>
-      <fontsize>9</fontsize>
+      <fontsize>10</fontsize>
       <fontbold>N</fontbold>
       <fontitalic>N</fontitalic>
       <fontcolorred>0</fontcolorred>
       <fontcolorgreen>0</fontcolorgreen>
       <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>0</bordercolorred>
-      <bordercolorgreen>128</bordercolorgreen>
-      <bordercolorblue>0</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
-    <notepad>
-      <note>2. Model training, tuning and testing
-
-Train, Tune, Test Model in R</note>
-      <xloc>864</xloc>
-      <yloc>352</yloc>
-      <width>204</width>
-      <heigth>57</heigth>
-      <fontname>Segoe UI</fontname>
-      <fontsize>9</fontsize>
-      <fontbold>N</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>128</bordercolorred>
-      <bordercolorgreen>0</bordercolorgreen>
-      <bordercolorblue>0</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
-    <notepad>
-      <note>This transformation will train the data using Random Forest</note>
-      <xloc>528</xloc>
-      <yloc>80</yloc>
-      <width>324</width>
-      <heigth>26</heigth>
-      <fontname>Segoe UI</fontname>
-      <fontsize>9</fontsize>
-      <fontbold>N</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>255</bordercolorred>
-      <bordercolorgreen>255</bordercolorgreen>
-      <bordercolorblue>255</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
-    <notepad>
-      <note>Credit Card Fraud (Train Model)</note>
-      <xloc>528</xloc>
-      <yloc>48</yloc>
-      <width>215</width>
-      <heigth>29</heigth>
-      <fontname>Segoe UI</fontname>
-      <fontsize>11</fontsize>
-      <fontbold>N</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>255</bordercolorred>
-      <bordercolorgreen>255</bordercolorgreen>
-      <bordercolorblue>255</bordercolorblue>
-      <drawshadow>N</drawshadow>
-    </notepad>
-    <notepad>
-      <note>3. Deploy Model
-
-Deploy Model in R (randomForest)</note>
-      <xloc>976</xloc>
-      <yloc>528</yloc>
-      <width>192</width>
-      <heigth>57</heigth>
-      <fontname>Segoe UI</fontname>
-      <fontsize>9</fontsize>
-      <fontbold>N</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>255</bordercolorred>
-      <bordercolorgreen>128</bordercolorgreen>
-      <bordercolorblue>255</bordercolorblue>
+      <backgroundcolorred>167</backgroundcolorred>
+      <backgroundcolorgreen>224</backgroundcolorgreen>
+      <backgroundcolorblue>245</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
       <drawshadow>Y</drawshadow>
     </notepad>
   </notepads>
-  <connection>
-    <name>postgres_demo</name>
-    <server>localhost</server>
-    <type>POSTGRESQL</type>
-    <access>Native</access>
-    <database>demo</database>
-    <port>5432</port>
-    <username>postgres</username>
-    <password>Encrypted 2be98afc86aa7f2e4bb18bd63c99dbdde</password>
-    <servername/>
-    <data_tablespace/>
-    <index_tablespace/>
-    <attributes>
-      <attribute>
-        <code>FORCE_IDENTIFIERS_TO_LOWERCASE</code>
-        <attribute>N</attribute>
-      </attribute>
-      <attribute>
-        <code>FORCE_IDENTIFIERS_TO_UPPERCASE</code>
-        <attribute>N</attribute>
-      </attribute>
-      <attribute>
-        <code>IS_CLUSTERED</code>
-        <attribute>N</attribute>
-      </attribute>
-      <attribute>
-        <code>MSSQL_DOUBLE_DECIMAL_SEPARATOR</code>
-        <attribute>N</attribute>
-      </attribute>
-      <attribute>
-        <code>PORT_NUMBER</code>
-        <attribute>5432</attribute>
-      </attribute>
-      <attribute>
-        <code>PRESERVE_RESERVED_WORD_CASE</code>
-        <attribute>N</attribute>
-      </attribute>
-      <attribute>
-        <code>QUOTE_ALL_FIELDS</code>
-        <attribute>N</attribute>
-      </attribute>
-      <attribute>
-        <code>SUPPORTS_BOOLEAN_DATA_TYPE</code>
-        <attribute>N</attribute>
-      </attribute>
-      <attribute>
-        <code>SUPPORTS_TIMESTAMP_DATA_TYPE</code>
-        <attribute>N</attribute>
-      </attribute>
-      <attribute>
-        <code>USE_POOLING</code>
-        <attribute>N</attribute>
-      </attribute>
-    </attributes>
-  </connection>
   <order>
     <hop>
       <from>frmla-billing=shipping</from>
@@ -708,7 +550,12 @@ Deploy Model in R (randomForest)</note>
     </hop>
     <hop>
       <from>sv-convert_booleans_to_numbers</from>
-      <to>rscrpt-train_gbm</to>
+      <to>py-train_gbm</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>py-train_gbm</from>
+      <to>wlog-model</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -958,7 +805,7 @@ Deploy Model in R (randomForest)</note>
     </remotesteps>
     <GUI>
       <xloc>624</xloc>
-      <yloc>144</yloc>
+      <yloc>340</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1043,7 +890,7 @@ Deploy Model in R (randomForest)</note>
     </remotesteps>
     <GUI>
       <xloc>480</xloc>
-      <yloc>144</yloc>
+      <yloc>340</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1117,7 +964,7 @@ Deploy Model in R (randomForest)</note>
     </remotesteps>
     <GUI>
       <xloc>352</xloc>
-      <yloc>256</yloc>
+      <yloc>452</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1180,7 +1027,7 @@ Deploy Model in R (randomForest)</note>
     </remotesteps>
     <GUI>
       <xloc>768</xloc>
-      <yloc>144</yloc>
+      <yloc>340</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1213,201 +1060,7 @@ Deploy Model in R (randomForest)</note>
     </remotesteps>
     <GUI>
       <xloc>768</xloc>
-      <yloc>352</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>input - customer_billing</name>
-    <type>TableInput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>postgres_demo</connection>
-    <sql>SELECT
-  customer_id
-, transaction_id
-, card_number
-, expiry_date
-FROM strataml_customer_billing
-</sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-    <cached_row_meta_active>N</cached_row_meta_active>
-    <row-meta/>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>496</xloc>
-      <yloc>48</yloc>
-      <draw>N</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>input - transaction_details</name>
-    <type>MongoDbInput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <use_connection_string>N</use_connection_string>
-    <use_legacy_options>Y</use_legacy_options>
-    <connection_string>Encrypted </connection_string>
-    <hostname>localhost</hostname>
-    <port>27017</port>
-    <use_all_replica_members>N</use_all_replica_members>
-    <db_name>strata_ml</db_name>
-    <fields_name/>
-    <collection>transaction_details</collection>
-    <json_field_name>json</json_field_name>
-    <json_query/>
-    <auth_database/>
-    <auth_user/>
-    <auth_password>Encrypted </auth_password>
-    <auth_mech/>
-    <auth_kerberos>N</auth_kerberos>
-    <connect_timeout/>
-    <socket_timeout/>
-    <use_ssl_socket_factory>N</use_ssl_socket_factory>
-    <read_preference>primary</read_preference>
-    <output_json>Y</output_json>
-    <query_is_pipeline>N</query_is_pipeline>
-    <allow_disk_use>N</allow_disk_use>
-    <execute_for_each_row>N</execute_for_each_row>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>704</xloc>
-      <yloc>48</yloc>
-      <draw>N</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>rscrpt-train_gbm</name>
-    <type>RScriptExcecutor</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <rows_to_process>All</rows_to_process>
-    <rows_to_process_size/>
-    <reservoir_sampling>N</reservoir_sampling>
-    <reservoir_sampling_size/>
-    <random_seed>1</random_seed>
-    <output_is_raw_text>N</output_is_raw_text>
-    <strings_as_factors>Y</strings_as_factors>
-    <include_input_as_output>N</include_input_as_output>
-    <script># ============================================================
-# GBM Model Training - Credit Card Fraud Detection
-# ============================================================
-# This script trains a Gradient Boosting Machine (GBM) model
-# to predict fraudulent credit card transactions.
-# It runs inside the PDI R Script Executor step.
-# ============================================================
-
-# Load the GBM library for gradient boosting
-library(gbm)
-
-# Convert the incoming PDI data frame ("train") to a standard R data frame
-# The "train" variable is automatically created by the R Script Executor
-# from the input step: sv-convert_booleans_to_numbers
-train.df &lt;- as.data.frame(train)
-
-# Convert the target variable to binary 0/1
-# as.factor() creates levels, as.numeric() assigns 1 and 2, then subtract 1
-# Result: 0 = not fraud, 1 = fraud
-train.df$reported_as_fraud_historic &lt;- as.numeric(
-  as.factor(train.df$reported_as_fraud_historic)
-) - 1
-
-# Train the GBM model
-# --------------------------------------------------------
-# Note: We use OOB (out-of-bag) estimation instead of
-# cross-validation (cv.folds) because JRI runs R inside
-# the JVM process. Cross-validation spawns additional
-# processes that exceed the FD_SETSIZE limit (1024) in
-# Linux's select() system call, causing the JVM to abort.
-# --------------------------------------------------------
-gbm_model &lt;- gbm(
-  reported_as_fraud_historic ~ .,   # predict fraud using all other columns
-  data = train.df,                  # training data
-  distribution = "bernoulli",       # binary classification (fraud yes/no)
-  n.trees = 500,                    # number of boosting iterations
-  interaction.depth = 4,            # max depth of each tree
-  shrinkage = 0.01,                 # learning rate (smaller = more robust)
-  n.minobsinnode = 10,              # min observations per terminal node
-  bag.fraction = 0.5                # use 50% of data per tree (stochastic GBM)
-)
-
-# Determine the optimal number of trees using OOB error
-# This avoids overfitting by finding where performance plateaus
-best_trees &lt;- gbm.perf(gbm_model, method = "OOB")
-
-# Save the trained model and optimal tree count to disk
-# The predict transformation will load this file to score new transactions
-save(gbm_model, best_trees,
-  file = "${Internal.Transformation.Filename.Directory}/train_model_output/gbm_fraud.rdata"
-)
-
-# Return a status message to PDI
-# The R Script Executor expects a data frame as output
-ok &lt;- "Finished"
-ok.df &lt;- as.data.frame(ok)
-ok.df</script>
-    <r_log_level>Basic</r_log_level>
-    <load_r_script_at_runtime>N</load_r_script_at_runtime>
-    <r_script_to_load/>
-    <frame_names>
-      <frame_name0>train</frame_name0>
-    </frame_names>
-    <incoming_step_names>
-      <step_name0>sv-convert_booleans_to_numbers</step_name0>
-    </incoming_step_names>
-    <output_fields>
-      <out_field>
-        <field_name>ok</field_name>
-        <type>String</type>
-      </out_field>
-    </output_fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>976</xloc>
-      <yloc>464</yloc>
+      <yloc>548</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1461,7 +1114,7 @@ ok.df</script>
     </remotesteps>
     <GUI>
       <xloc>480</xloc>
-      <yloc>256</yloc>
+      <yloc>452</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1503,7 +1156,7 @@ ok.df</script>
     </remotesteps>
     <GUI>
       <xloc>768</xloc>
-      <yloc>256</yloc>
+      <yloc>452</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1645,7 +1298,7 @@ ok.df</script>
     </remotesteps>
     <GUI>
       <xloc>624</xloc>
-      <yloc>256</yloc>
+      <yloc>452</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1768,7 +1421,7 @@ ok.df</script>
     </remotesteps>
     <GUI>
       <xloc>768</xloc>
-      <yloc>464</yloc>
+      <yloc>660</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1782,4 +1435,284 @@ ok.df</script>
       <name>explorerState</name>
     </group>
   </attributes>
+  <step>
+    <name>py-train_gbm</name>
+    <type>PythonExecutor</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <step-props secure="">
+      <group name="">
+        <property group="" name="SCRIPT">
+          <value xsi:type="xs:string">import os
+from urllib.parse import urlparse, unquote
+import h2o
+
+
+def local_path(url):
+    # PDI hands folders over as file:/// URLs; turn one into a path
+    if url.startswith("file:"):
+        p = unquote(urlparse(url).path)
+        if os.name == "nt" and p[:1] == "/" and p[2:3] == ":":
+            p = p[1:]
+        return p
+    return url
+
+
+# The lab folder, and the folder the model is saved in
+lab_dir = local_path("${Internal.Transformation.Filename.Directory}")
+model_dir = os.path.join(lab_dir, "train_model_output")
+
+# Start H2O on the Java Pentaho Data Integration runs on. H2O_JAVA_HOME
+# wins over any java on PATH; Spoon, Pan and Kitchen set _PENTAHO_JAVA_HOME.
+if os.environ.get("_PENTAHO_JAVA_HOME"):
+    os.environ["H2O_JAVA_HOME"] = os.environ["_PENTAHO_JAVA_HOME"]
+h2o.init(nthreads=-1, max_mem_size="2G", verbose=False)
+
+from h2o.estimators import H2OGradientBoostingEstimator
+
+# The rows from sv-convert_booleans_to_numbers, as a pandas data frame
+frame = h2o.H2OFrame(train)
+y = "reported_as_fraud_historic"
+frame[y] = frame[y].asfactor()          # a class label: train a classifier
+x = [c for c in frame.columns if c != y]
+
+# Hold back 20% of the rows to measure the model on rows it never saw
+train_part, valid_part = frame.split_frame(ratios=[0.8], seed=42)
+
+gbm = H2OGradientBoostingEstimator(
+    model_id="gbm_fraud",
+    ntrees=500,               # at most 500 trees...
+    stopping_rounds=5,        # ...stopping early when validation AUC stops improving
+    stopping_metric="AUC",
+    score_tree_interval=10,
+    max_depth=4,              # depth of each tree
+    learn_rate=0.01,          # how much each tree corrects
+    min_rows=10,              # fewest rows in a leaf
+    sample_rate=0.5,          # each tree sees a random half of the rows
+    seed=42,
+)
+gbm.train(x=x, y=y, training_frame=train_part, validation_frame=valid_part)
+
+perf = gbm.model_performance(valid_part)
+saved = h2o.save_model(gbm, path=model_dir, filename="gbm_fraud", force=True)
+
+# One row back to PDI, from these five variables
+rows_trained = int(train_part.nrows)
+trees = int(gbm.summary()["number_of_trees"][0])
+validation_auc = f"{perf.auc():.4f}"
+validation_aucpr = f"{perf.aucpr():.4f}"
+model_path = str(saved)
+
+h2o.cluster().shutdown()
+</value>
+        </property>
+        <property group="" name="LOAD_SCRIPT_AT_RUNTIME">
+          <value xsi:type="xs:boolean">false</value>
+        </property>
+        <property group="" name="SCRIPT_TO_LOAD">
+          <value xsi:type="xs:string"/>
+        </property>
+        <property group="" name="OUTPUT_FRAME_VARIABLE">
+          <value xsi:type="xs:string"/>
+        </property>
+        <property group="" name="OUTPUT_IS_FRAME">
+          <value xsi:type="xs:boolean">false</value>
+        </property>
+        <property group="" name="IS_ALL_ROWS">
+          <value xsi:type="xs:boolean">true</value>
+        </property>
+        <property group="" name="OUTPUT_FRAME_MAPPING.FIELD_PYTHON_NAMES"/>
+        <property group="" name="OUTPUT_FRAME_MAPPING.FIELD_PYTHON_TYPES"/>
+        <property group="" name="OUTPUT_FRAME_MAPPING.FIELD_PDI_NAMES"/>
+        <property group="" name="OUTPUT_FRAME_MAPPING.FIELD_PDI_TYPES"/>
+        <property group="" name="OUTPUT_VARIABLE_MAPPING.FIELD_PYTHON_NAMES">
+          <value xsi:type="xs:string">rows_trained</value>
+          <value xsi:type="xs:string">trees</value>
+          <value xsi:type="xs:string">validation_auc</value>
+          <value xsi:type="xs:string">validation_aucpr</value>
+          <value xsi:type="xs:string">model_path</value>
+        </property>
+        <property group="" name="OUTPUT_VARIABLE_MAPPING.FIELD_PYTHON_TYPES">
+          <value xsi:type="xs:string">int</value>
+          <value xsi:type="xs:string">int</value>
+          <value xsi:type="xs:string">str</value>
+          <value xsi:type="xs:string">str</value>
+          <value xsi:type="xs:string">str</value>
+        </property>
+        <property group="" name="OUTPUT_VARIABLE_MAPPING.FIELD_PDI_NAMES">
+          <value xsi:type="xs:string">rows_trained</value>
+          <value xsi:type="xs:string">trees</value>
+          <value xsi:type="xs:string">validation_auc</value>
+          <value xsi:type="xs:string">validation_aucpr</value>
+          <value xsi:type="xs:string">model_path</value>
+        </property>
+        <property group="" name="OUTPUT_VARIABLE_MAPPING.FIELD_PDI_TYPES">
+          <value xsi:type="xs:string">Integer</value>
+          <value xsi:type="xs:string">Integer</value>
+          <value xsi:type="xs:string">String</value>
+          <value xsi:type="xs:string">String</value>
+          <value xsi:type="xs:string">String</value>
+        </property>
+        <property group="" name="INPUT_ROWBYROW_MAPPING.FIELD_PYTHON_NAMES"/>
+        <property group="" name="INPUT_ROWBYROW_MAPPING.FIELD_PYTHON_TYPES"/>
+        <property group="" name="INPUT_ROWBYROW_MAPPING.FIELD_PDI_NAMES"/>
+        <property group="" name="INPUT_ROWBYROW_MAPPING.FIELD_PDI_TYPES"/>
+        <property group="" name="INPUT_ALLROWS_MAPPING.INPUT_STEP_NAMES">
+          <value xsi:type="xs:string">sv-convert_booleans_to_numbers</value>
+          <value xsi:type="xs:string">sv-convert_booleans_to_numbers</value>
+          <value xsi:type="xs:string">sv-convert_booleans_to_numbers</value>
+          <value xsi:type="xs:string">sv-convert_booleans_to_numbers</value>
+          <value xsi:type="xs:string">sv-convert_booleans_to_numbers</value>
+          <value xsi:type="xs:string">sv-convert_booleans_to_numbers</value>
+          <value xsi:type="xs:string">sv-convert_booleans_to_numbers</value>
+          <value xsi:type="xs:string">sv-convert_booleans_to_numbers</value>
+          <value xsi:type="xs:string">sv-convert_booleans_to_numbers</value>
+        </property>
+        <property group="" name="INPUT_ALLROWS_MAPPING.INPUT_VAR_NAMES">
+          <value xsi:type="xs:string">train</value>
+          <value xsi:type="xs:string">train</value>
+          <value xsi:type="xs:string">train</value>
+          <value xsi:type="xs:string">train</value>
+          <value xsi:type="xs:string">train</value>
+          <value xsi:type="xs:string">train</value>
+          <value xsi:type="xs:string">train</value>
+          <value xsi:type="xs:string">train</value>
+          <value xsi:type="xs:string">train</value>
+        </property>
+        <property group="" name="INPUT_ALLROWS_MAPPING.INPUT_DATA_STRUCTURES">
+          <value xsi:type="xs:string">Pandas dataframe</value>
+          <value xsi:type="xs:string">Pandas dataframe</value>
+          <value xsi:type="xs:string">Pandas dataframe</value>
+          <value xsi:type="xs:string">Pandas dataframe</value>
+          <value xsi:type="xs:string">Pandas dataframe</value>
+          <value xsi:type="xs:string">Pandas dataframe</value>
+          <value xsi:type="xs:string">Pandas dataframe</value>
+          <value xsi:type="xs:string">Pandas dataframe</value>
+          <value xsi:type="xs:string">Pandas dataframe</value>
+        </property>
+        <property group="" name="INPUT_ALLROWS_MAPPING.FIELD_PYTHON_NAMES">
+          <value xsi:type="xs:string">first_time_customer</value>
+          <value xsi:type="xs:string">order_dollar_amount</value>
+          <value xsi:type="xs:string">num_items</value>
+          <value xsi:type="xs:string">age</value>
+          <value xsi:type="xs:string">web_order</value>
+          <value xsi:type="xs:string">total_transactions_to_date</value>
+          <value xsi:type="xs:string">hour_of_day</value>
+          <value xsi:type="xs:string">billing_shipping_zip_equal</value>
+          <value xsi:type="xs:string">reported_as_fraud_historic</value>
+        </property>
+        <property group="" name="INPUT_ALLROWS_MAPPING.FIELD_PYTHON_TYPES">
+          <value xsi:type="xs:string">float64</value>
+          <value xsi:type="xs:string">float64</value>
+          <value xsi:type="xs:string">int64</value>
+          <value xsi:type="xs:string">float64</value>
+          <value xsi:type="xs:string">float64</value>
+          <value xsi:type="xs:string">int64</value>
+          <value xsi:type="xs:string">int64</value>
+          <value xsi:type="xs:string">float64</value>
+          <value xsi:type="xs:string">float64</value>
+        </property>
+        <property group="" name="INPUT_ALLROWS_MAPPING.FIELD_PDI_NAMES">
+          <value xsi:type="xs:string">first_time_customer</value>
+          <value xsi:type="xs:string">order_dollar_amount</value>
+          <value xsi:type="xs:string">num_items</value>
+          <value xsi:type="xs:string">age</value>
+          <value xsi:type="xs:string">web_order</value>
+          <value xsi:type="xs:string">total_transactions_to_date</value>
+          <value xsi:type="xs:string">hour_of_day</value>
+          <value xsi:type="xs:string">billing_shipping_zip_equal</value>
+          <value xsi:type="xs:string">reported_as_fraud_historic</value>
+        </property>
+        <property group="" name="INPUT_ALLROWS_MAPPING.FIELD_PDI_TYPES">
+          <value xsi:type="xs:string">Number</value>
+          <value xsi:type="xs:string">Number</value>
+          <value xsi:type="xs:string">Integer</value>
+          <value xsi:type="xs:string">Number</value>
+          <value xsi:type="xs:string">Number</value>
+          <value xsi:type="xs:string">Integer</value>
+          <value xsi:type="xs:string">Integer</value>
+          <value xsi:type="xs:string">Number</value>
+          <value xsi:type="xs:string">Number</value>
+        </property>
+        <property group="" name="EMBED_USE_ENV">
+          <value xsi:type="xs:boolean">true</value>
+        </property>
+        <property group="" name="FILE_USE_ENV">
+          <value xsi:type="xs:boolean">false</value>
+        </property>
+        <property group="" name="EMBED_ENV_PATH">
+          <value xsi:type="xs:string">${user.home}\h2o-env\Scripts\python.exe</value>
+        </property>
+        <property group="" name="FILE_ENV_PATH">
+          <value xsi:type="xs:string"/>
+        </property>
+      </group>
+    </step-props>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>976</xloc>
+      <yloc>660</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>wlog-model</name>
+    <type>WriteToLog</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <loglevel>log_level_basic</loglevel>
+    <displayHeader>Y</displayHeader>
+    <limitRows>N</limitRows>
+    <limitRowsNumber>0</limitRowsNumber>
+    <logmessage>The fraud model</logmessage>
+    <fields>
+      <field>
+        <name>rows_trained</name>
+      </field>
+      <field>
+        <name>trees</name>
+      </field>
+      <field>
+        <name>validation_auc</name>
+      </field>
+      <field>
+        <name>validation_aucpr</name>
+      </field>
+      <field>
+        <name>model_path</name>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1136</xloc>
+      <yloc>660</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
 </transformation>

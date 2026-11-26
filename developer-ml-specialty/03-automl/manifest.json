@@ -2,6 +2,6 @@
   "title": "AutoML",
   "order": 3,
   "stepCount": 8,
-  "hasVideo": true,
+  "hasVideo": false,
   "estimatedMinutes": 20
 }

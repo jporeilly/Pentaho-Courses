@@ -9,3 +9,7 @@
 * [Prerequisite Tasks](02-prerequisite-tasks/guide.md)
 * [AutoML](03-automl/guide.md)
 * [Credit Card](04-credit-card/guide.md)
+
+## Capstone Project
+
+* [Capstone: Nightly Fraud Screening](05-capstone-nightly-fraud-screening/guide.md)

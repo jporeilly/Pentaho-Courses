@@ -1,81 +1,72 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="800" height="636" viewBox="0 0 800 636" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="516" viewBox="0 0 800 516" font-family="Segoe UI, Helvetica, Arial, sans-serif">
 <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
 <filter id="shadow" x="-10%" y="-10%" width="120%" height="140%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#0f172a" flood-opacity="0.12"/></filter></defs>
-<rect width="800" height="636" fill="#ffffff"/>
-<rect x="16" y="16" width="768" height="432" rx="12" fill="#f8fafc" stroke="#f1f5f9" stroke-width="1.5"/>
+<rect width="800" height="516" fill="#ffffff"/>
+<rect x="16" y="16" width="768" height="320" rx="12" fill="#f8fafc" stroke="#f1f5f9" stroke-width="1.5"/>
 <path d="M16 28a12 12 0 0 1 12-12h744a12 12 0 0 1 12 12v32h-768z" fill="#475569"/>
 <g transform="translate(29 26) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></g>
-<text x="56" y="36" font-size="14" font-weight="700" fill="#ffffff">Your machine: Ubuntu or Debian Linux</text>
-<text x="56" y="52" font-size="11.5" fill="#ffffff" opacity="0.92">Pentaho Data Integration 11 in ~/Pentaho/design-tools/data-integration</text>
-<rect x="32" y="72" width="736" height="256" rx="12" fill="#eff6ff" stroke="#dbeafe" stroke-width="1.5"/>
-<path d="M32 84a12 12 0 0 1 12-12h712a12 12 0 0 1 12 12v32h-736z" fill="#1d4ed8"/>
+<text x="56" y="36" font-size="14" font-weight="700" fill="#ffffff">Your machine: Windows 11 or Linux</text>
+<text x="56" y="52" font-size="11.5" fill="#ffffff" opacity="0.92">Pentaho Data Integration 11, and Python 3.11 or later</text>
+<rect x="32" y="72" width="452" height="136" rx="12" fill="#eff6ff" stroke="#dbeafe" stroke-width="1.5"/>
+<path d="M32 84a12 12 0 0 1 12-12h428a12 12 0 0 1 12 12v32h-452z" fill="#1d4ed8"/>
 <g transform="translate(45 82) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></g>
-<text x="72" y="92" font-size="14" font-weight="700" fill="#ffffff">Spoon's Java process, started by spoon.sh</text>
-<text x="72" y="108" font-size="11.5" fill="#ffffff" opacity="0.92">java.library.path: libswt/linux/x86_64 and native-lib/linux/x86_64</text>
-<rect x="16" y="472" width="500" height="148" rx="12" fill="#fffbeb" stroke="#fef3c7" stroke-width="1.5"/>
-<path d="M16 484a12 12 0 0 1 12-12h476a12 12 0 0 1 12 12v32h-500z" fill="#b45309"/>
-<g transform="translate(29 482) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></g>
-<text x="56" y="492" font-size="14" font-weight="700" fill="#ffffff">Google Colab, in the cloud</text>
-<text x="56" y="508" font-size="11.5" fill="#ffffff" opacity="0.92">a Google account; common ML libraries already installed</text>
-<path d="M268 168C277.5 168 277.5 168 287 168" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
-<path d="M510 168C519.5 168 519.5 168 529 168" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
-<path d="M279 312L279 349" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
-<path d="M642 352L642 211" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
-<path d="M252 568C264.5 568 264.5 568 277 568" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
-<rect x="48" y="128" width="220" height="80" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
-<circle cx="78" cy="168" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
-<g transform="translate(66 156) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/></g>
-<text x="108" y="151" font-size="14" font-weight="700" fill="#3b0764">R script executor</text>
-<text x="108" y="168" font-size="12" fill="#3b0764">in test_r.ktr and the</text>
-<text x="108" y="183" font-size="12" fill="#3b0764">Credit Card lab's R steps</text>
-<rect x="290" y="128" width="220" height="80" rx="10" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5" filter="url(#shadow)"/>
-<circle cx="320" cy="168" r="19" fill="#ffffff" stroke="#0f766e" stroke-width="1.2"/>
-<g transform="translate(308 156) scale(1)" fill="none" stroke="#0f766e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></g>
-<text x="350" y="151" font-size="14" font-weight="700" fill="#134e4a">JRI</text>
-<text x="350" y="168" font-size="12" fill="#134e4a">Java half: the R plugin;</text>
-<text x="350" y="183" font-size="12" fill="#134e4a">libjri.so: native-lib</text>
-<rect x="532" y="128" width="220" height="80" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
-<circle cx="562" cy="168" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
-<g transform="translate(550 156) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 7V5a1 1 0 0 0-1-1H6.5a.5.5 0 0 0-.4.8l4.5 6a2 2 0 0 1 0 2.4l-4.5 6a.5.5 0 0 0 .4.8H17a1 1 0 0 0 1-1v-2"/></g>
-<text x="592" y="151" font-size="14" font-weight="700" fill="#3b0764">R</text>
-<text x="592" y="168" font-size="12" fill="#3b0764">inside Spoon's process;</text>
-<text x="592" y="183" font-size="12" fill="#3b0764">library(gbm)</text>
-<rect x="48" y="232" width="462" height="80" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
-<circle cx="78" cy="272" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
-<g transform="translate(66 260) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/></g>
-<text x="108" y="255" font-size="14" font-weight="700" fill="#3b0764">Python Executor: auto machine learning</text>
-<text x="108" y="272" font-size="12" fill="#3b0764">CPython only; Use a Python virtual environment:</text>
-<text x="108" y="287" font-size="12" fill="#3b0764">/home/pentaho/h2o-env; All rows as dataset</text>
-<rect x="48" y="352" width="462" height="80" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
-<circle cx="78" cy="392" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
-<g transform="translate(66 380) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 11 2-2-2-2"/><path d="M11 13h4"/><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/></g>
-<text x="108" y="375" font-size="14" font-weight="700" fill="#3b0764">CPython in ~/h2o-env</text>
-<text x="108" y="392" font-size="12" fill="#3b0764">Python 3 with h2o, pandas, numpy, matplotlib, py4j;</text>
-<text x="108" y="407" font-size="12" fill="#3b0764">the script runs h2o.init(max_mem_size='4G')</text>
-<rect x="532" y="352" width="220" height="80" rx="10" fill="#f1f5f9" stroke="#475569" stroke-width="1.5" filter="url(#shadow)"/>
-<circle cx="562" cy="392" r="19" fill="#ffffff" stroke="#475569" stroke-width="1.2"/>
-<g transform="translate(550 380) scale(1)" fill="none" stroke="#475569" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 8a1 1 0 0 1-1-1V2a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8z"/><path d="M20 8v12a2 2 0 0 1-2 2h-4.182"/><path d="m3.305 19.53.923-.382"/><path d="M4 10.592V4a2 2 0 0 1 2-2h8"/><path d="m4.228 16.852-.924-.383"/><path d="m5.852 15.228-.383-.923"/><path d="m5.852 20.772-.383.924"/><path d="m8.148 15.228.383-.923"/><path d="m8.53 21.696-.382-.924"/><path d="m9.773 16.852.922-.383"/><path d="m9.773 19.148.922.383"/><circle cx="7" cy="18" r="3"/></g>
-<text x="592" y="375" font-size="14" font-weight="700" fill="#0f172a">/etc/environment</text>
-<text x="592" y="392" font-size="12" fill="#0f172a">R_HOME, R_LIBS_USER,</text>
-<text x="592" y="407" font-size="12" fill="#0f172a">PATH + /usr/lib/R/bin</text>
-<rect x="614.1" y="269" width="55.8" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
-<text x="642" y="287" text-anchor="middle" font-size="12" fill="#334155">R_HOME</text>
-<rect x="32" y="528" width="220" height="80" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="1.5" filter="url(#shadow)"/>
-<circle cx="62" cy="568" r="19" fill="#ffffff" stroke="#b45309" stroke-width="1.2"/>
-<g transform="translate(50 556) scale(1)" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></g>
-<text x="92" y="551" font-size="14" font-weight="700" fill="#78350f">Colab notebook</text>
-<text x="92" y="568" font-size="12" fill="#78350f">in your browser;</text>
-<text x="92" y="583" font-size="12" fill="#78350f">upload H2O.csv</text>
-<rect x="280" y="528" width="220" height="80" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
-<circle cx="310" cy="568" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
-<g transform="translate(298 556) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></g>
-<text x="340" y="551" font-size="14" font-weight="700" fill="#3b0764">Hosted runtime</text>
-<text x="340" y="568" font-size="12" fill="#3b0764">!pip install h2o;</text>
-<text x="340" y="583" font-size="12" fill="#3b0764">h2o.init(), AutoML</text>
-<rect x="532" y="528" width="252" height="80" rx="10" fill="#fee2e2" stroke="#b91c1c" stroke-width="1.5" filter="url(#shadow)"/>
-<circle cx="562" cy="568" r="19" fill="#ffffff" stroke="#b91c1c" stroke-width="1.2"/>
-<g transform="translate(550 556) scale(1)" fill="none" stroke="#b91c1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></g>
-<text x="592" y="551" font-size="14" font-weight="700" fill="#7f1d1d">R step can't start R?</text>
-<text x="592" y="568" font-size="12" fill="#7f1d1d">the setup, not the script: check</text>
-<text x="592" y="583" font-size="12" fill="#7f1d1d">libjri.so, /etc/environment</text>
+<text x="72" y="92" font-size="14" font-weight="700" fill="#ffffff">Spoon's Java process</text>
+<text x="72" y="108" font-size="11.5" fill="#ffffff" opacity="0.92">spoon.bat or spoon.sh; sets _PENTAHO_JAVA_HOME</text>
+<rect x="16" y="352" width="500" height="148" rx="12" fill="#fffbeb" stroke="#fef3c7" stroke-width="1.5"/>
+<path d="M16 364a12 12 0 0 1 12-12h476a12 12 0 0 1 12 12v32h-500z" fill="#b45309"/>
+<g transform="translate(29 362) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></g>
+<text x="56" y="372" font-size="14" font-weight="700" fill="#ffffff">Google Colab, in the cloud (optional)</text>
+<text x="56" y="388" font-size="11.5" fill="#ffffff" opacity="0.92">a Google account; your data leaves the machine</text>
+<path d="M258 200L258 237" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M468 280C512.5 280 512.5 280 557 280" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M664 200L664 237" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M252 448C264.5 448 264.5 448 277 448" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="48" y="120" width="420" height="80" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="78" cy="160" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(66 148) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/></g>
+<text x="108" y="143" font-size="14" font-weight="700" fill="#3b0764">Python Executor step</text>
+<text x="108" y="160" font-size="12" fill="#3b0764">Use a Python virtual environment: the program;</text>
+<text x="108" y="175" font-size="12" fill="#3b0764">All rows: the rows as a pandas data frame</text>
+<rect x="560" y="120" width="208" height="80" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="590" cy="160" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(578 148) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13.4 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7.4"/><path d="M2 6h4"/><path d="M2 10h4"/><path d="M2 14h4"/><path d="M2 18h4"/><path d="M21.378 5.626a1 1 0 1 0-3.004-3.004l-5.01 5.012a2 2 0 0 0-.506.854l-.837 2.87a.5.5 0 0 0 .62.62l2.87-.837a2 2 0 0 0 .854-.506z"/></g>
+<text x="620" y="143" font-size="14" font-weight="700" fill="#1e3a8a">JupyterLab</text>
+<text x="620" y="160" font-size="12" fill="#1e3a8a">the AutoML notebook,</text>
+<text x="620" y="175" font-size="12" fill="#1e3a8a">started from h2o-env</text>
+<rect x="48" y="240" width="420" height="80" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="78" cy="280" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(66 268) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 11 2-2-2-2"/><path d="M11 13h4"/><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/></g>
+<text x="108" y="263" font-size="14" font-weight="700" fill="#3b0764">Python in ~/h2o-env: its own process</text>
+<text x="108" y="280" font-size="12" fill="#3b0764">h2o, pandas, numpy, matplotlib, py4j, jupyterlab;</text>
+<text x="108" y="295" font-size="12" fill="#3b0764">Scripts\python.exe (Windows), bin/python (Linux)</text>
+<rect x="560" y="240" width="208" height="80" rx="10" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="590" cy="280" r="19" fill="#ffffff" stroke="#0f766e" stroke-width="1.2"/>
+<g transform="translate(578 268) scale(1)" fill="none" stroke="#0f766e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20v2"/><path d="M12 2v2"/><path d="M17 20v2"/><path d="M17 2v2"/><path d="M2 12h2"/><path d="M2 17h2"/><path d="M2 7h2"/><path d="M20 12h2"/><path d="M20 17h2"/><path d="M20 7h2"/><path d="M7 20v2"/><path d="M7 2v2"/><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="8" y="8" width="8" height="8" rx="1"/></g>
+<text x="620" y="263" font-size="14" font-weight="700" fill="#134e4a">H2O's engine</text>
+<text x="620" y="280" font-size="12" fill="#134e4a">a Java process on</text>
+<text x="620" y="295" font-size="12" fill="#134e4a">Pentaho's Java</text>
+<rect x="230.1" y="206" width="55.8" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="258" y="224" text-anchor="middle" font-size="12" fill="#334155">starts</text>
+<rect x="472" y="267.5" width="81" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="512.5" y="285.5" text-anchor="middle" font-size="12" fill="#334155">h2o.init()</text>
+<rect x="623.5" y="206" width="81" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="664" y="224" text-anchor="middle" font-size="12" fill="#334155">h2o.init()</text>
+<rect x="32" y="408" width="220" height="80" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="448" r="19" fill="#ffffff" stroke="#b45309" stroke-width="1.2"/>
+<g transform="translate(50 436) scale(1)" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></g>
+<text x="92" y="431" font-size="14" font-weight="700" fill="#78350f">Colab notebook</text>
+<text x="92" y="448" font-size="12" fill="#78350f">in your browser;</text>
+<text x="92" y="463" font-size="12" fill="#78350f">upload H2O.csv</text>
+<rect x="280" y="408" width="220" height="80" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="310" cy="448" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(298 436) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></g>
+<text x="340" y="431" font-size="14" font-weight="700" fill="#3b0764">Hosted runtime</text>
+<text x="340" y="448" font-size="12" fill="#3b0764">!pip install h2o;</text>
+<text x="340" y="463" font-size="12" fill="#3b0764">h2o.init(), AutoML</text>
+<rect x="532" y="408" width="252" height="80" rx="10" fill="#fee2e2" stroke="#b91c1c" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="562" cy="448" r="19" fill="#ffffff" stroke="#b91c1c" stroke-width="1.2"/>
+<g transform="translate(550 436) scale(1)" fill="none" stroke="#b91c1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></g>
+<text x="592" y="431" font-size="14" font-weight="700" fill="#7f1d1d">Python step fails?</text>
+<text x="592" y="448" font-size="12" fill="#7f1d1d">check the program path first,</text>
+<text x="592" y="463" font-size="12" fill="#7f1d1d">then pip list in h2o-env</text>
 </svg>

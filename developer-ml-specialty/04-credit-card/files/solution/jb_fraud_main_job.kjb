@@ -372,7 +372,7 @@
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>64</xloc>
-      <yloc>144</yloc>
+      <yloc>268</yloc>
       <attributes_kjc/>
     </entry>
     <entry>
@@ -411,7 +411,7 @@
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>208</xloc>
-      <yloc>144</yloc>
+      <yloc>268</yloc>
       <attributes_kjc/>
     </entry>
     <entry>
@@ -450,7 +450,7 @@
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>352</xloc>
-      <yloc>144</yloc>
+      <yloc>268</yloc>
       <attributes_kjc/>
     </entry>
     <entry>
@@ -462,7 +462,7 @@
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>480</xloc>
-      <yloc>144</yloc>
+      <yloc>268</yloc>
       <attributes_kjc/>
     </entry>
     <entry>
@@ -475,7 +475,7 @@
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>288</xloc>
-      <yloc>256</yloc>
+      <yloc>380</yloc>
       <attributes_kjc/>
     </entry>
   </entries>
@@ -528,46 +528,34 @@
   </hops>
   <notepads>
     <notepad>
-      <note>This job will train a Model using Random Forest and Predict new values.</note>
-      <xloc>48</xloc>
-      <yloc>80</yloc>
-      <width>388</width>
-      <heigth>26</heigth>
-      <fontname>Segoe UI</fontname>
-      <fontsize>9</fontsize>
-      <fontbold>N</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>255</bordercolorred>
-      <bordercolorgreen>255</bordercolorgreen>
-      <bordercolorblue>255</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
-    <notepad>
-      <note>Credit Card Fraud (Main Job)</note>
-      <xloc>208</xloc>
+      <note>jb_fraud_main_job - trains the fraud model, then scores every transaction with it.
+Needs h2o-env; the four CSV files sit beside it.
+
+1. START: runs the job once.
+2. train_model: Transformation, tr_train_model_fraud.ktr.
+3. predict_fraud: Transformation, tr_predict_fraud.ktr, only when train_model succeeded.
+4. Success; a failure in either goes to Abort job.
+
+Shipped data: the job ends at Success in about a minute and a half;
+output/credit_card_fraud_&lt;HHmmss&gt;.csv holds 100,000 rows.</note>
+      <xloc>64</xloc>
       <yloc>32</yloc>
-      <width>195</width>
-      <heigth>29</heigth>
+      <width>519</width>
+      <heigth>188</heigth>
       <fontname>Segoe UI</fontname>
-      <fontsize>11</fontsize>
+      <fontsize>10</fontsize>
       <fontbold>N</fontbold>
       <fontitalic>N</fontitalic>
       <fontcolorred>0</fontcolorred>
       <fontcolorgreen>0</fontcolorgreen>
       <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>255</bordercolorred>
-      <bordercolorgreen>255</bordercolorgreen>
-      <bordercolorblue>255</bordercolorblue>
-      <drawshadow>N</drawshadow>
+      <backgroundcolorred>167</backgroundcolorred>
+      <backgroundcolorgreen>224</backgroundcolorgreen>
+      <backgroundcolorblue>245</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
+      <drawshadow>Y</drawshadow>
     </notepad>
   </notepads>
   <attributes>

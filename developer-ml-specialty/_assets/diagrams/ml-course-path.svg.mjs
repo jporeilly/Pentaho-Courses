@@ -1,13 +1,13 @@
 // The whole machine learning use case, end to end: the AutoML lab blends
 // four files and engineers features in Pentaho Data Integration, writes
 // the training set H2O.csv and runs H2O AutoML, which ranks the models;
-// its results point to a GBM, which the Credit Card lab trains in R,
+// its results point to a GBM, which the Credit Card lab trains in Python,
 // saves as a model file and uses to score every transaction. It is the
 // figure in 01-overview/guide.md, under the Machine Learning note.
 //
 // Facts it encodes, and where each comes from:
 //   - 01-overview: two approaches; first H2O AutoML trains and ranks
-//     several models; second a Gradient Boosting Machine trained in R
+//     several models; second a Gradient Boosting Machine trained with H2O in Python
 //     scores new transactions with a fraud probability.
 //   - 03-automl, part 1 "Data wrangling": four files of 100,000 rows each
 //     (customer.csv, customer_billing.csv, transaction_details.csv,
@@ -22,29 +22,31 @@
 //     gets the same rows through a Copy hop, runs H2O AutoML in the
 //     h2o-env virtual environment and returns one row describing the best
 //     model.
-//   - 03-automl, part 5: in a Colab notebook you upload H2O.csv and run
-//     H2O AutoML with five algorithms (GBM, XGBoost, GLM, DRF,
-//     DeepLearning); the leaderboard ranks the models by AUC
-//     (sort_metric='AUC').
+//   - 03-automl, part 5: a notebook, credit_card_fraud.ipynb, in
+//     JupyterLab from h2o-env (or, optionally, in Colab) reads H2O.csv and
+//     runs H2O AutoML (GBM, GLM, DRF, DeepLearning; XGBoost only off
+//     Windows); the leaderboard ranks the models by AUC (sort_metric="AUC")
+//     and a GBM comes first.
 //   - 04-credit-card intro: "The H2O results in AutoML point to a
-//     Gradient Boosting Machine (GBM)"; one transformation trains a GBM in
-//     R with the gbm package and saves it, a second loads it and scores
+//     Gradient Boosting Machine (GBM)"; one transformation trains a GBM with
+//     H2O in a Python Executor step and saves it, a second loads it and scores
 //     every transaction, and the job jb_fraud_main_job.kjb runs the two in
 //     order (train_model, then predict_fraud).
-//   - 04-credit-card part 2: tr_train_model_fraud.ktr, gbm() with 500
-//     trees, save() writes train_model_output/gbm_fraud.rdata.
+//   - 04-credit-card part 2: tr_train_model_fraud.ktr, py-train_gbm, an
+//     H2O GBM (at most 500 trees); h2o.save_model writes
+//     train_model_output/gbm_fraud.
 //   - 04-credit-card part 3 and 4: tr_predict_fraud.ktr loads the model,
 //     scores each transaction (fraud_probability), and Predict Fraud
-//     writes output/credit_card_fraud_<HHmmss>.csv with 11 columns.
+//     writes output/credit_card_fraud_<HHmmss>.csv with 13 columns.
 //
 // Colors: blue the source files, teal the joins and the models (the
 // lookups, the leaderboard, the GBM training), violet the engines that
 // transform or score (feature engineering, Python Executor, prediction),
-// green what is written (H2O.csv, the model file), amber Colab in the
-// browser, white the scored result, slate the job.
+// green what is written (H2O.csv, the model file), amber the notebook in
+// the browser, white the scored result, slate the job.
 // Icons: files the four source files, merge Stream lookup, calculator
 // Formula (feature engineering), file-output Text file output, code a
-// script executor step, globe the Colab notebook in the browser,
+// script executor step, notebook-pen the AutoML notebook,
 // brain-circuit training a model, save the saved model file, file-text
 // the scored CSV, list-ordered a job.
 //
@@ -61,7 +63,7 @@ const COL = [32, 288, 544];
 const BW = 224, BH = 80;
 
 // The AutoML lab's panel: blending, the training set and AutoML.
-d.panel({ x: 16, y: 16, w: 768, h: 268, role: 'tool', iconName: 'workflow', title: 'AutoML lab: autoML.ktr and a Colab notebook', sub: 'blend and engineer in Pentaho Data Integration, then let H2O AutoML rank the models' });
+d.panel({ x: 16, y: 16, w: 768, h: 268, role: 'tool', iconName: 'workflow', title: 'AutoML lab: autoML.ktr and a notebook', sub: 'blend and engineer in Pentaho Data Integration, then let H2O AutoML rank the models' });
 
 // Row 1, left to right: the four files, the joins, the derived fields.
 const R1 = 72;
@@ -73,9 +75,9 @@ d.arrow({ x1: look.r, y1: look.cy, x2: feat.x - 3, y2: feat.cy });
 
 // Row 2 runs right to left: the Copy hop sends every row both to the
 // Python Executor (under the feature step) and to tfo-H2O; the file
-// H2O.csv then goes to Colab on the left.
+// H2O.csv then goes to the notebook on the left.
 const R2 = 188;
-const colab = d.box({ x: COL[0], y: R2, w: BW, h: BH, role: 'browser', iconName: 'globe', title: 'Colab notebook', lines: ['upload H2O.csv; AutoML', 'ranks 5 algorithms by AUC'] });
+const colab = d.box({ x: COL[0], y: R2, w: BW, h: BH, role: 'browser', iconName: 'notebook-pen', title: 'AutoML notebook', lines: ['JupyterLab reads H2O.csv;', 'leaderboard by AUC'] });
 const tfo = d.box({ x: COL[1], y: R2, w: BW, h: BH, role: 'store', iconName: 'file-output', title: 'tfo-H2O', lines: ['data/H2O.csv: nine fields,', 'semicolons, no header'] });
 const pyx = d.box({ x: COL[2], y: R2, w: BW, h: BH, role: 'engine', iconName: 'code', title: 'Python Executor', lines: ['auto machine learning:', 'AutoML in h2o-env, 1 row'] });
 // Straight down from the feature step to the Python Executor, labeled
@@ -85,29 +87,29 @@ d.arrow({ x1: pyx.cx, y1: feat.b, x2: pyx.cx, y2: pyx.y - 3, straight: true, lab
 // step's bottom-left down into tfo-H2O's top-right, through the gap
 // between the rows, so it stays clear of the Python Executor box.
 d.arrow({ x1: feat.x + 24, y1: feat.b, x2: tfo.r - 40, y2: tfo.y - 3, vertical: true });
-// The file travels to Colab: tfo-H2O's left edge to Colab's right edge.
+// The file travels to the notebook: tfo-H2O's left edge to its right edge.
 d.arrow({ x1: tfo.x, y1: tfo.cy, x2: colab.r + 3, y2: colab.cy });
 
 // The Credit Card lab's panel: the job, training, the model file,
 // prediction and the scored file.
 const PB = 324;
-d.panel({ x: 16, y: PB, w: 768, h: 268, role: 'support', iconName: 'list-ordered', title: 'Credit Card lab: jb_fraud_main_job.kjb', sub: 'train_model, then predict_fraud: a GBM in R with the gbm package' });
+d.panel({ x: 16, y: PB, w: 768, h: 268, role: 'support', iconName: 'list-ordered', title: 'Credit Card lab: jb_fraud_main_job.kjb', sub: 'train_model, then predict_fraud: an H2O GBM in Python Executor steps' });
 
-// Colab's leaderboard points to a GBM: the arrow leaves Colab and ends
+// The leaderboard points to a GBM: the arrow leaves the notebook and ends
 // on the Credit Card panel's top edge (the lab as a whole takes up the
 // choice), clear of the panel's title; its pill sits in the gap.
 const R3 = PB + 56, R4 = R3 + BH + 36;
-const train = d.box({ x: COL[0], y: R3, w: BW, h: BH, role: 'model', iconName: 'brain-circuit', title: 'Train in R', lines: ['tr_train_model_fraud.ktr:', 'gbm(), 500 trees'] });
+const train = d.box({ x: COL[0], y: R3, w: BW, h: BH, role: 'model', iconName: 'brain-circuit', title: 'Train in Python', lines: ['tr_train_model_fraud.ktr:', 'H2O GBM, up to 500 trees'] });
 d.arrow({ x1: colab.cx, y1: colab.b, x2: colab.cx, y2: PB - 3, straight: true, label: 'GBM chosen' });
 
 // Train, save, then load and score, left to right.
-const model = d.box({ x: COL[1], y: R3, w: BW, h: BH, role: 'store', iconName: 'save', title: 'gbm_fraud.rdata', lines: ['in train_model_output:', 'gbm_model, best_trees'] });
-const pred = d.box({ x: COL[2], y: R3, w: BW, h: BH, role: 'engine', iconName: 'code', title: 'Predict in R', lines: ['tr_predict_fraud.ktr: a', 'fraud probability per row'] });
+const model = d.box({ x: COL[1], y: R3, w: BW, h: BH, role: 'store', iconName: 'save', title: 'gbm_fraud', lines: ['in train_model_output:', 'the saved H2O model'] });
+const pred = d.box({ x: COL[2], y: R3, w: BW, h: BH, role: 'engine', iconName: 'code', title: 'Predict in Python', lines: ['tr_predict_fraud.ktr: a', 'fraud probability per row'] });
 d.arrow({ x1: train.r, y1: train.cy, x2: model.x - 3, y2: model.cy });
 d.arrow({ x1: model.r, y1: model.cy, x2: pred.x - 3, y2: pred.cy });
 
 // The scored file, under the prediction step.
-const out = d.box({ x: COL[2], y: R4, w: BW, h: BH, role: 'result', iconName: 'file-text', title: 'Scored CSV', lines: ['output/credit_card_fraud_', '<HHmmss>.csv, 11 columns'] });
+const out = d.box({ x: COL[2], y: R4, w: BW, h: BH, role: 'result', iconName: 'file-text', title: 'Scored CSV', lines: ['output/credit_card_fraud_', '<HHmmss>.csv, 13 columns'] });
 d.arrow({ x1: pred.cx, y1: pred.b, x2: out.cx, y2: out.y - 3, straight: true, label: 'Predict Fraud' });
 
 // Bottom left, what decides the order: the job's hops.

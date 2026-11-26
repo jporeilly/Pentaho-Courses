@@ -435,104 +435,47 @@
   </info>
   <notepads>
     <notepad>
-      <note>Build a catalogue
-of algorithms 
-tested with
-parameters and
-performance</note>
-      <xloc>720</xloc>
-      <yloc>224</yloc>
-      <width>102</width>
-      <heigth>90</heigth>
-      <fontname>Segoe UI</fontname>
-      <fontsize>9</fontsize>
-      <fontbold>N</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>192</bordercolorred>
-      <bordercolorgreen>192</bordercolorgreen>
-      <bordercolorblue>192</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
-    <notepad>
-      <note>Credit Card Fraud (AutoML)</note>
-      <xloc>352</xloc>
-      <yloc>112</yloc>
-      <width>187</width>
-      <heigth>29</heigth>
-      <fontname>Segoe UI</fontname>
-      <fontsize>11</fontsize>
-      <fontbold>N</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>255</bordercolorred>
-      <bordercolorgreen>255</bordercolorgreen>
-      <bordercolorblue>255</bordercolorblue>
-      <drawshadow>N</drawshadow>
-    </notepad>
-    <notepad>
-      <note>2. Feature Engineering
+      <note>autoML - blends the retailer's four files into one training set, writes H2O.csv, and ranks models with H2O
+AutoML.
+Needs the h2o-env virtual environment (Prerequisite Tasks); the four CSV files sit beside it.
 
-'Flag' to indicate whether 
-billing and shipping zip
-codes are equal.</note>
-      <xloc>320</xloc>
-      <yloc>400</yloc>
-      <width>147</width>
-      <heigth>89</heigth>
-      <fontname>Segoe UI</fontname>
-      <fontsize>9</fontsize>
-      <fontbold>N</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>0</bordercolorred>
-      <bordercolorgreen>0</bordercolorgreen>
-      <bordercolorblue>255</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
-    <notepad>
-      <note>1. Data Wrangling
+1. csvi-customer: Text file input, customer.csv, the first 10,000 customers.
+2. csvi_customer_billing, csvi-customer transaction, csvi-transaction_fraud_report: CSV file input, the billing,
+   order and fraud report files.
+3. slkp-customer, slkp-transaction_details, slkp-transaction_fraud_report: Stream lookup, one row per
+   transaction.
+4. frmla-billing_shipping_zip_equal: Formula, billing_shipping_zip_equal = [customer_billing_zip] =
+   [ship_to_zip].
+5. sv-change_to_numbers: Select values, the nine fields, the four flags as Number 1 and 0.
+6. tfo-H2O: Text file output, data/H2O.csv, semicolons, no header.
+7. auto machine learning: Python Executor, h2o-env's python.exe, All rows as dataset; H2O AutoML, up to
+   five models ranked by AUC; the best saved in automl_output.
 
-Join and blend data
-from different sources.</note>
-      <xloc>80</xloc>
-      <yloc>176</yloc>
-      <width>130</width>
-      <heigth>73</heigth>
+Shipped data: 9,999 rows in data/H2O.csv; one row back with best_algorithm gbm, best_auc 0.9951 and
+models_trained 5.</note>
+      <xloc>160</xloc>
+      <yloc>32</yloc>
+      <width>625</width>
+      <heigth>332</heigth>
       <fontname>Segoe UI</fontname>
-      <fontsize>9</fontsize>
+      <fontsize>10</fontsize>
       <fontbold>N</fontbold>
       <fontitalic>N</fontitalic>
       <fontcolorred>0</fontcolorred>
       <fontcolorgreen>0</fontcolorgreen>
       <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>255</backgroundcolorgreen>
-      <backgroundcolorblue>255</backgroundcolorblue>
-      <bordercolorred>0</bordercolorred>
-      <bordercolorgreen>128</bordercolorgreen>
-      <bordercolorblue>0</bordercolorblue>
+      <backgroundcolorred>167</backgroundcolorred>
+      <backgroundcolorgreen>224</backgroundcolorgreen>
+      <backgroundcolorblue>245</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
       <drawshadow>Y</drawshadow>
     </notepad>
   </notepads>
   <order>
     <hop>
-      <from>csvi-customer   </from>
+      <from>csvi-customer</from>
       <to>slkp-customer</to>
       <enabled>Y</enabled>
     </hop>
@@ -596,175 +539,73 @@ from different sources.</note>
     <step-props secure="">
       <group name="">
         <property group="" name="SCRIPT">
-          <value xsi:type="xs:string"># H2O AutoML for PDI - COMPLETE WORKING VERSION
+          <value xsi:type="xs:string">import os
+from urllib.parse import urlparse, unquote
 import h2o
 from h2o.automl import H2OAutoML
-import pandas as pd
-import numpy as np
-from datetime import datetime
-
-# Initialize H2O
-try:
-    h2o.init(max_mem_size='4G', nthreads=-1)
-    print("✅ H2O initialized!")
-except:
-    pass
-
-# Get data from PDI
-input_df = dataset.copy()
-
-# IMMEDIATE DIAGNOSTIC - Before any processing
-print(f"\n\ED\A0\BD\ED\B4\8D RAW DATA CHECK:")
-print(f"Columns: {list(input_df.columns)}")
-print(f"Shape: {input_df.shape}")
-print(f"\nFirst 5 rows of reported_as_fraud_historic:")
-if 'reported_as_fraud_historic' in input_df.columns:
-    print(input_df['reported_as_fraud_historic'].head())
-    print(f"Type: {input_df['reported_as_fraud_historic'].dtype}")
-    print(f"Unique values: {input_df['reported_as_fraud_historic'].unique()}")
-else:
-    print("❌ Column 'reported_as_fraud_historic' NOT FOUND!")
-    print(f"Available columns: {list(input_df.columns)}")
 
 
-# Print original columns
-print(f"\n\ED\A0\BD\ED\B3\8B Columns received: {list(input_df.columns)}")
+def local_path(url):
+    # PDI hands folders over as file:/// URLs; turn one into a path
+    if url.startswith("file:"):
+        p = unquote(urlparse(url).path)
+        if os.name == "nt" and p[:1] == "/" and p[2:3] == ":":
+            p = p[1:]
+        return p
+    return url
 
-# Rename fraud column
-input_df.columns = input_df.columns.str.replace('reported_as_fraud_historic', 'fraud')
-print(f"\ED\A0\BD\ED\B3\8B After rename: {list(input_df.columns)}")
 
-# CRITICAL DIAGNOSTIC: Check fraud column
-print(f"\n\ED\A0\BD\ED\B4\8D FRAUD COLUMN DIAGNOSTIC:")
-print(f"Data type: {input_df['fraud'].dtype}")
-print(f"Unique values: {sorted(input_df['fraud'].unique())}")
-print(f"Value counts:")
-print(input_df['fraud'].value_counts())
+# The lab folder, and the folder the best model is saved in
+lab_dir = local_path("${Internal.Transformation.Filename.Directory}")
+model_dir = os.path.join(lab_dir, "automl_output")
 
-# Verify we have both classes
-unique_vals = input_df['fraud'].unique()
-if len(unique_vals) &lt; 2:
-    error_msg = f"❌ CRITICAL ERROR: Fraud column has only {len(unique_vals)} unique value(s): {unique_vals}. Need both 0 and 1 for binary classification!"
-    print(error_msg)
-    raise ValueError(error_msg)
+# Start H2O on the Java Pentaho Data Integration runs on. H2O_JAVA_HOME
+# wins over any java on PATH; Spoon, Pan and Kitchen set _PENTAHO_JAVA_HOME.
+if os.environ.get("_PENTAHO_JAVA_HOME"):
+    os.environ["H2O_JAVA_HOME"] = os.environ["_PENTAHO_JAVA_HOME"]
+h2o.init(nthreads=-1, max_mem_size="4G", verbose=False)
 
-# Convert to integer
-input_df['fraud'] = input_df['fraud'].astype(int)
+# The rows from sv-change_to_numbers, as a pandas data frame
+frame = h2o.H2OFrame(dataset)
+y = "reported_as_fraud_historic"
+frame[y] = frame[y].asfactor()          # a class label: train classifiers
+x = [c for c in frame.columns if c != y]
 
-print(f"\n\ED\A0\BD\ED\B3\8A Dataset: {input_df.shape[0]:,} rows × {input_df.shape[1]} columns")
-fraud_count = (input_df['fraud'] == 1).sum()
-fraud_pct = (fraud_count / len(input_df)) * 100
-print(f"\ED\A0\BD\ED\BA\A8 Fraud cases: {fraud_count:,} ({fraud_pct:.2f}%)")
-
-if fraud_count == 0:
-    raise ValueError("❌ ERROR: No fraud cases found! Cannot train classification model.")
-
-# Convert to H2O frame
-hf = h2o.H2OFrame(input_df)
-hf['fraud'] = hf['fraud'].asfactor()
-
-# Split data
-train, test = hf.split_frame(ratios=[0.75], seed=42)
-print(f"\n\ED\A0\BD\ED\B3\88 Training: {train.nrows:,} rows")
-print(f"\ED\A0\BD\ED\B3\89 Test:     {test.nrows:,} rows")
-
-# Define features and target
-x = train.columns
-x.remove('fraud')
-y = 'fraud'
-
-print(f"\ED\A0\BC\ED\BE\AF Using {len(x)} features")
-
-# Train AutoML
-start_time = datetime.now()
-print("\n\ED\A0\BE\ED\B4\96 Starting H2O AutoML Training...")
-print("="*60)
+# 75% to train on, 25% to test the best model on
+train, test = frame.split_frame(ratios=[0.75], seed=42)
 
 aml = H2OAutoML(
-    max_models=5,
-    max_runtime_secs=900,
+    max_models=5,                 # at most five models...
+    max_runtime_secs=900,         # ...and at most 15 minutes
     seed=42,
-    balance_classes=True,
-    nfolds=5,
-    sort_metric='AUC',
-    include_algos=['GBM', 'XGBoost', 'GLM', 'DRF', 'DeepLearning'],
-    verbosity='info'
+    balance_classes=True,         # fraud is the smaller class
+    nfolds=5,                     # 5-fold cross-validation
+    sort_metric="AUC",            # rank the models by AUC
+    include_algos=["GBM", "GLM", "DRF", "DeepLearning"],
+    verbosity="warn",
 )
-
 aml.train(x=x, y=y, training_frame=train)
 
-duration = (datetime.now() - start_time).total_seconds()
-print(f"\n✅ Training completed in {duration/60:.1f} minutes!")
-print("="*60)
-
-# Get best model
 best = aml.leader
 perf = best.model_performance(test)
+saved = h2o.save_model(best, path=model_dir, force=True)
 
-print(f"\n\ED\A0\BC\ED\BF\86 BEST MODEL: {best.model_id}")
-print(f"Algorithm: {best.algo}")
+# One row back to PDI, from these ten variables
+best_model_id = str(best.model_id)
+best_algorithm = str(best.algo)
+best_auc = f"{perf.auc():.4f}"
+best_aucpr = f"{perf.aucpr():.4f}"
+# Precision, recall and F1 at the threshold that gives the best F1
+threshold = perf.find_threshold_by_max_metric("f1")
+best_precision = f"{perf.precision(thresholds=[threshold])[0][1]:.4f}"
+best_recall = f"{perf.recall(thresholds=[threshold])[0][1]:.4f}"
+best_f1 = f"{perf.F1(thresholds=[threshold])[0][1]:.4f}"
+models_trained = int(aml.leaderboard.nrows)
+test_rows = int(test.nrows)
+model_path = str(saved)
 
-# Safely get metrics (handle None case)
-try:
-    auc_val = perf.auc()
-    acc_val = perf.accuracy()[0][1]
-    prec_val = perf.precision()[0][1]
-    rec_val = perf.recall()[0][1]
-    f1_val = perf.F1()[0][1]
-    
-    print("\n\ED\A0\BD\ED\B3\8A TEST SET PERFORMANCE")
-    print("="*60)
-    print(f"AUC:       {auc_val:.4f}")
-    print(f"Accuracy:  {acc_val:.4f}")
-    print(f"Precision: {prec_val:.4f}")
-    print(f"Recall:    {rec_val:.4f}")
-    print(f"F1 Score:  {f1_val:.4f}")
-    print("="*60)
-    
-    # Confusion Matrix
-    print("\n\ED\A0\BD\ED\B3\8B CONFUSION MATRIX")
-    cm = perf.confusion_matrix()
-    print(cm)
-    
-except (TypeError, AttributeError, KeyError) as e:
-    print(f"\n⚠️ WARNING: Could not calculate metrics: {e}")
-    print("Setting default values...")
-    auc_val = 0.0
-    acc_val = 0.0
-    prec_val = 0.0
-    rec_val = 0.0
-    f1_val = 0.0
-
-# Feature Importance
-try:
-    varimp = best.varimp(use_pandas=True)
-    print("\n\ED\A0\BC\ED\BE\AF TOP 5 FEATURES")
-    print(varimp.head(5))
-except:
-    print("\n⚠️ Feature importance not available")
-
-# Save model
-model_path = h2o.save_model(model=best, path="/tmp/h2o_models", force=True)
-print(f"\n\ED\A0\BD\ED\B2\BE Model saved to: {model_path}")
-
-# Leaderboard
-lb = aml.leaderboard.as_data_frame()
-print(f"\n\ED\A0\BD\ED\B3\8A Total models trained: {lb.shape[0]}")
-
-# Output as STRINGS for PDI
-best_model_id = [str(best.model_id)]
-best_algorithm = [str(best.algo)]
-best_auc = [str(auc_val)]
-best_accuracy = [str(acc_val)]
-best_precision = [str(prec_val)]
-best_recall = [str(rec_val)]
-best_f1 = [str(f1_val)]
-total_models_trained = [str(int(lb.shape[0]))]
-training_time_minutes = [str(duration/60)]
-saved_model_path = [str(model_path)]
-
-print("\n✅ All output variables prepared as strings!")
-print(f"Ready to return: 1 row with 10 fields")</value>
+h2o.cluster().shutdown()
+</value>
         </property>
         <property group="" name="LOAD_SCRIPT_AT_RUNTIME">
           <value xsi:type="xs:boolean">false</value>
@@ -773,7 +614,7 @@ print(f"Ready to return: 1 row with 10 fields")</value>
           <value xsi:type="xs:string"/>
         </property>
         <property group="" name="OUTPUT_FRAME_VARIABLE">
-          <value xsi:type="xs:string">results</value>
+          <value xsi:type="xs:string"/>
         </property>
         <property group="" name="OUTPUT_IS_FRAME">
           <value xsi:type="xs:boolean">false</value>
@@ -781,89 +622,45 @@ print(f"Ready to return: 1 row with 10 fields")</value>
         <property group="" name="IS_ALL_ROWS">
           <value xsi:type="xs:boolean">true</value>
         </property>
-        <property group="" name="OUTPUT_FRAME_MAPPING.FIELD_PYTHON_NAMES">
-          <value xsi:type="xs:string">best_model_id</value>
-          <value xsi:type="xs:string">best algorithm</value>
-          <value xsi:type="xs:string">best_auc</value>
-          <value xsi:type="xs:string">best_accuracy</value>
-          <value xsi:type="xs:string">best_precision</value>
-          <value xsi:type="xs:string">best_recall</value>
-          <value xsi:type="xs:string">best_f1</value>
-          <value xsi:type="xs:string">total_models_trained</value>
-          <value xsi:type="xs:string">training_time_minutes</value>
-          <value xsi:type="xs:string">saved_model_path</value>
-        </property>
-        <property group="" name="OUTPUT_FRAME_MAPPING.FIELD_PYTHON_TYPES">
-          <value xsi:type="xs:string">float64</value>
-          <value xsi:type="xs:string">float64</value>
-          <value xsi:type="xs:string">float64</value>
-          <value xsi:type="xs:string">float64</value>
-          <value xsi:type="xs:string">float64</value>
-          <value xsi:type="xs:string">float64</value>
-          <value xsi:type="xs:string">float64</value>
-          <value xsi:type="xs:string">float64</value>
-          <value xsi:type="xs:string">float64</value>
-          <value xsi:type="xs:string">float64</value>
-        </property>
-        <property group="" name="OUTPUT_FRAME_MAPPING.FIELD_PDI_NAMES">
-          <value xsi:type="xs:string">best_model_id</value>
-          <value xsi:type="xs:string">best_algorithm</value>
-          <value xsi:type="xs:string">best_auc</value>
-          <value xsi:type="xs:string">best_accuracy</value>
-          <value xsi:type="xs:string">best_precision</value>
-          <value xsi:type="xs:string">best_recall</value>
-          <value xsi:type="xs:string">best_f1</value>
-          <value xsi:type="xs:string">total_models_trained</value>
-          <value xsi:type="xs:string">training_time_minutes</value>
-          <value xsi:type="xs:string">saved_model_path</value>
-        </property>
-        <property group="" name="OUTPUT_FRAME_MAPPING.FIELD_PDI_TYPES">
-          <value xsi:type="xs:string">String</value>
-          <value xsi:type="xs:string">String</value>
-          <value xsi:type="xs:string">String</value>
-          <value xsi:type="xs:string">String</value>
-          <value xsi:type="xs:string">String</value>
-          <value xsi:type="xs:string">String</value>
-          <value xsi:type="xs:string">String</value>
-          <value xsi:type="xs:string">String</value>
-          <value xsi:type="xs:string">String</value>
-          <value xsi:type="xs:string">String</value>
-        </property>
+        <property group="" name="OUTPUT_FRAME_MAPPING.FIELD_PYTHON_NAMES"/>
+        <property group="" name="OUTPUT_FRAME_MAPPING.FIELD_PYTHON_TYPES"/>
+        <property group="" name="OUTPUT_FRAME_MAPPING.FIELD_PDI_NAMES"/>
+        <property group="" name="OUTPUT_FRAME_MAPPING.FIELD_PDI_TYPES"/>
         <property group="" name="OUTPUT_VARIABLE_MAPPING.FIELD_PYTHON_NAMES">
           <value xsi:type="xs:string">best_model_id</value>
           <value xsi:type="xs:string">best_algorithm</value>
           <value xsi:type="xs:string">best_auc</value>
-          <value xsi:type="xs:string">best_accuracy</value>
+          <value xsi:type="xs:string">best_aucpr</value>
           <value xsi:type="xs:string">best_precision</value>
           <value xsi:type="xs:string">best_recall</value>
           <value xsi:type="xs:string">best_f1</value>
-          <value xsi:type="xs:string">total_models_trained</value>
-          <value xsi:type="xs:string">training_time_minutes</value>
-          <value xsi:type="xs:string">saved_model_path</value>
+          <value xsi:type="xs:string">models_trained</value>
+          <value xsi:type="xs:string">test_rows</value>
+          <value xsi:type="xs:string">model_path</value>
         </property>
         <property group="" name="OUTPUT_VARIABLE_MAPPING.FIELD_PYTHON_TYPES">
-          <value xsi:type="xs:string">list</value>
-          <value xsi:type="xs:string">list</value>
-          <value xsi:type="xs:string">list</value>
-          <value xsi:type="xs:string">list</value>
-          <value xsi:type="xs:string">list</value>
-          <value xsi:type="xs:string">list</value>
-          <value xsi:type="xs:string">list</value>
-          <value xsi:type="xs:string">list</value>
-          <value xsi:type="xs:string">list</value>
-          <value xsi:type="xs:string">list</value>
+          <value xsi:type="xs:string">str</value>
+          <value xsi:type="xs:string">str</value>
+          <value xsi:type="xs:string">str</value>
+          <value xsi:type="xs:string">str</value>
+          <value xsi:type="xs:string">str</value>
+          <value xsi:type="xs:string">str</value>
+          <value xsi:type="xs:string">str</value>
+          <value xsi:type="xs:string">int</value>
+          <value xsi:type="xs:string">int</value>
+          <value xsi:type="xs:string">str</value>
         </property>
         <property group="" name="OUTPUT_VARIABLE_MAPPING.FIELD_PDI_NAMES">
           <value xsi:type="xs:string">best_model_id</value>
           <value xsi:type="xs:string">best_algorithm</value>
           <value xsi:type="xs:string">best_auc</value>
-          <value xsi:type="xs:string">best_accuracy</value>
+          <value xsi:type="xs:string">best_aucpr</value>
           <value xsi:type="xs:string">best_precision</value>
           <value xsi:type="xs:string">best_recall</value>
           <value xsi:type="xs:string">best_f1</value>
-          <value xsi:type="xs:string">total_models_trained</value>
-          <value xsi:type="xs:string">training_time_minutes</value>
-          <value xsi:type="xs:string">saved_model_path</value>
+          <value xsi:type="xs:string">models_trained</value>
+          <value xsi:type="xs:string">test_rows</value>
+          <value xsi:type="xs:string">model_path</value>
         </property>
         <property group="" name="OUTPUT_VARIABLE_MAPPING.FIELD_PDI_TYPES">
           <value xsi:type="xs:string">String</value>
@@ -873,8 +670,8 @@ print(f"Ready to return: 1 row with 10 fields")</value>
           <value xsi:type="xs:string">String</value>
           <value xsi:type="xs:string">String</value>
           <value xsi:type="xs:string">String</value>
-          <value xsi:type="xs:string">String</value>
-          <value xsi:type="xs:string">String</value>
+          <value xsi:type="xs:string">Integer</value>
+          <value xsi:type="xs:string">Integer</value>
           <value xsi:type="xs:string">String</value>
         </property>
         <property group="" name="INPUT_ROWBYROW_MAPPING.FIELD_PYTHON_NAMES"/>
@@ -965,7 +762,7 @@ print(f"Ready to return: 1 row with 10 fields")</value>
           <value xsi:type="xs:boolean">false</value>
         </property>
         <property group="" name="EMBED_ENV_PATH">
-          <value xsi:type="xs:string">python</value>
+          <value xsi:type="xs:string">${user.home}\h2o-env\Scripts\python.exe</value>
         </property>
         <property group="" name="FILE_ENV_PATH">
           <value xsi:type="xs:string"/>
@@ -982,12 +779,12 @@ print(f"Ready to return: 1 row with 10 fields")</value>
     </remotesteps>
     <GUI>
       <xloc>752</xloc>
-      <yloc>512</yloc>
+      <yloc>748</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>csvi-customer   </name>
+    <name>csvi-customer</name>
     <type>TextFileInput</type>
     <description/>
     <distribute>Y</distribute>
@@ -1025,7 +822,7 @@ print(f"Ready to return: 1 row with 10 fields")</value>
     <length>Characters</length>
     <add_to_result_filenames>Y</add_to_result_filenames>
     <file>
-      <name>${Internal.Entry.Current.Directory}/data/customer.csv</name>
+      <name>${Internal.Entry.Current.Directory}/customer.csv</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>
@@ -1117,7 +914,7 @@ print(f"Ready to return: 1 row with 10 fields")</value>
     </remotesteps>
     <GUI>
       <xloc>160</xloc>
-      <yloc>288</yloc>
+      <yloc>524</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1132,7 +929,7 @@ print(f"Ready to return: 1 row with 10 fields")</value>
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <filename>${Internal.Entry.Current.Directory}/data/transaction_details.csv</filename>
+    <filename>${Internal.Entry.Current.Directory}/transaction_details.csv</filename>
     <filename_field/>
     <rownum_field/>
     <include_filename>N</include_filename>
@@ -1367,7 +1164,7 @@ print(f"Ready to return: 1 row with 10 fields")</value>
     </remotesteps>
     <GUI>
       <xloc>416</xloc>
-      <yloc>176</yloc>
+      <yloc>412</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1382,7 +1179,7 @@ print(f"Ready to return: 1 row with 10 fields")</value>
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <filename>${Internal.Entry.Current.Directory}/data/transaction_fraud_report.csv</filename>
+    <filename>${Internal.Entry.Current.Directory}/transaction_fraud_report.csv</filename>
     <filename_field/>
     <rownum_field/>
     <include_filename>N</include_filename>
@@ -1400,13 +1197,13 @@ print(f"Ready to return: 1 row with 10 fields")</value>
       <field>
         <name>transaction_id</name>
         <type>Integer</type>
-        <format> #</format>
+        <format>#</format>
         <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <length>15</length>
         <precision>0</precision>
-        <trim_type>none</trim_type>
+        <trim_type>both</trim_type>
       </field>
       <field>
         <name>reported_as_fraud_historic</name>
@@ -1430,7 +1227,7 @@ print(f"Ready to return: 1 row with 10 fields")</value>
     </remotesteps>
     <GUI>
       <xloc>576</xloc>
-      <yloc>176</yloc>
+      <yloc>412</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1445,7 +1242,7 @@ print(f"Ready to return: 1 row with 10 fields")</value>
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <filename>${Internal.Entry.Current.Directory}/data/customer_billing.csv</filename>
+    <filename>${Internal.Entry.Current.Directory}/customer_billing.csv</filename>
     <filename_field/>
     <rownum_field/>
     <include_filename>N</include_filename>
@@ -1515,7 +1312,7 @@ print(f"Ready to return: 1 row with 10 fields")</value>
     </remotesteps>
     <GUI>
       <xloc>272</xloc>
-      <yloc>176</yloc>
+      <yloc>412</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1548,7 +1345,7 @@ print(f"Ready to return: 1 row with 10 fields")</value>
     </remotesteps>
     <GUI>
       <xloc>576</xloc>
-      <yloc>400</yloc>
+      <yloc>636</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1602,7 +1399,7 @@ print(f"Ready to return: 1 row with 10 fields")</value>
     </remotesteps>
     <GUI>
       <xloc>272</xloc>
-      <yloc>288</yloc>
+      <yloc>524</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1744,7 +1541,7 @@ print(f"Ready to return: 1 row with 10 fields")</value>
     </remotesteps>
     <GUI>
       <xloc>416</xloc>
-      <yloc>288</yloc>
+      <yloc>524</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1786,7 +1583,7 @@ print(f"Ready to return: 1 row with 10 fields")</value>
     </remotesteps>
     <GUI>
       <xloc>576</xloc>
-      <yloc>288</yloc>
+      <yloc>524</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1909,7 +1706,7 @@ print(f"Ready to return: 1 row with 10 fields")</value>
     </remotesteps>
     <GUI>
       <xloc>576</xloc>
-      <yloc>512</yloc>
+      <yloc>748</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -2074,7 +1871,7 @@ print(f"Ready to return: 1 row with 10 fields")</value>
     </remotesteps>
     <GUI>
       <xloc>416</xloc>
-      <yloc>512</yloc>
+      <yloc>748</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

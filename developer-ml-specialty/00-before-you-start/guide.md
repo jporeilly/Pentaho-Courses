@@ -50,23 +50,23 @@ the running window instead of starting a second copy.
 
 ### I'm using a lab VM
 
-Nothing to do. Everything is installed and running already, and it
-starts with the machine.
+Pentaho Data Integration is installed and starts with the machine.
+One thing is yours to do: the Python environment the course uses
+lives in your own home folder, so you create it with one script in
+[Prerequisite Tasks](../02-prerequisite-tasks/guide.md).
 
 If something looks wrong later, tell your instructor rather than
 reinstalling anything.
 
 ### I'm installing on my own machine
 
-Install Pentaho Data Integration
+Install Pentaho Data Integration 11
 and make sure it starts.
 
 This course also needs:
 
-- **Python 3.11+** plus the notebook dependencies listed in the labs.
-- A Google account, for **Google Colab**.
-- **H2O** for the AutoML lab.
-- **rJava configured against your Pentaho Data Integration install** for the R-backed steps - this is the fiddliest part; follow the lab steps exactly.
+- **Python 3.11+**, with H2O, pandas, NumPy, Matplotlib, Py4J and JupyterLab in a virtual environment named `h2o-env`: [Prerequisite Tasks](../02-prerequisite-tasks/guide.md) sets it up.
+- Optionally, a Google account, for **Google Colab**.
 
 :::
 

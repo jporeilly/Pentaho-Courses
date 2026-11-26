@@ -1,6 +1,6 @@
 {
   "title": "PDI Machine Learning Specialty Exam",
-  "description": "30 questions drawn from a pool of 41, covering machine-learning concepts and the PDI credit-card fraud workflow: the R setup, choosing a model with AutoML, and training and scoring a GBM in R. Pass mark is 80%. Open-book — browse any page, hover glossary terms, or ask the AI assistant. Your answers are saved as you go. Explanations appear after submission.",
+  "description": "30 questions drawn from a pool of 41, covering machine-learning concepts and the PDI credit-card fraud workflow: the Python setup, choosing a model with AutoML, and training and scoring an H2O GBM in Python. Pass mark is 80%. Open-book — browse any page, hover glossary terms, or ask the AI assistant. Your answers are saved as you go. Explanations appear after submission.",
   "passMark": 80,
   "questionsPerAttempt": 30,
   "shuffle": true,
@@ -19,7 +19,7 @@
         "Any approach, as long as its accuracy on the history is high"
       ],
       "correct": 0,
-      "explanation": "The marked history is what makes this a **supervised learning** problem: each past transaction carries its known outcome, so the model can learn which attributes go with fraud. The course's Gradient Boosting Machine, trained in R, learns exactly this from the historical fraud cases and then scores new transactions with a fraud probability.\n\nHigh accuracy alone is no test of a fraud model, because almost every transaction is legitimate.",
+      "explanation": "The marked history is what makes this a **supervised learning** problem: each past transaction carries its known outcome, so the model can learn which attributes go with fraud. The course's Gradient Boosting Machine, trained with H2O in a Python Executor step, learns exactly this from the historical fraud cases and then scores new transactions with a fraud probability.\n\nHigh accuracy alone is no test of a fraud model: on real card data, where fraud is rare, a model can be highly accurate and still miss the fraud.",
       "source": "Developer - ML Specialty: Overview"
     },
     {
@@ -42,48 +42,48 @@
       "id": "ml-m1-q3",
       "module": "ML Foundations",
       "bloom": "Analyze",
-      "scenario": "A Gradient Boosting Machine (GBM) model is trained with `n.trees` = 500. The out-of-bag error falls until approximately 300 trees, then increases toward 500.",
-      "prompt": "What does scoring with all 500 trees risk?",
+      "scenario": "A GBM is trained with `ntrees=500`. The AUC on the held-back rows stops improving at about 300 trees, while the error on the training rows keeps falling.",
+      "prompt": "What does going on to 500 trees risk?",
       "options": [
         "A slower model, but one that is otherwise just as good",
         "Underfitting, as 500 trees are too few for the data",
-        "Overfitting, which is why gbm.perf picks the tree count",
+        "Overfitting, which is why stopping_rounds watches the AUC",
         "Nothing, as each extra tree can only improve the model"
       ],
       "correct": 2,
-      "explanation": "Using more trees than the point where the out-of-bag error is lowest causes the model to **overfit** the training data. Because an increasing error indicates that additional trees are making the model perform worse on unseen data, `gbm.perf` uses the `best_trees` count to optimize the model's accuracy.",
+      "explanation": "Trees added after the AUC on the held-back rows stops improving fit the training rows more closely without helping on rows the model has not seen: the model **overfits**.\n\nThe training script guards against it with `stopping_rounds=5` and `stopping_metric=\"AUC\"`: H2O stops adding trees when five scoring rounds in a row do not improve the AUC on the held-back rows.",
       "source": "Developer - ML Specialty: Credit Card"
     },
     {
       "id": "ml-m1-q4",
       "module": "ML Foundations",
       "bloom": "Analyze",
-      "scenario": "The training script fits `reported_as_fraud_historic ~ .` on the frame it receives. A `transaction_id` column, unique to every row, was left in that frame.",
+      "scenario": "The training script uses every column except the target as a predictor: `x = [c for c in frame.columns if c != y]`. A `transaction_id` column, unique to every row, was left in the data frame the step receives.",
       "prompt": "What happens to `transaction_id`?",
       "options": [
         "It is used as a predictor, though it describes nothing.",
         "It is used only to join the predictions back afterwards.",
         "It is used as the target, since it is the frame's key.",
-        "It is skipped, as gbm ignores columns with unique values."
+        "It is skipped, as H2O ignores columns with unique values."
       ],
       "correct": 0,
-      "explanation": "The formula `reported_as_fraud_historic ~ .` instructs the model to use every available column in the frame as a **predictor** to predict the target. Because the `transaction_id` is part of the frame and is not the target, the model treats it as a feature.\n\nWhile a unique identifier provides no meaningful information about the transaction, the **gradient boosting machine** (gbm) does not automatically discard columns based on their uniqueness.",
+      "explanation": "The list `x` holds every column of the frame except `reported_as_fraud_historic`, so the model treats `transaction_id` as a **predictor**.\n\nA unique identifier carries no information about fraud, and H2O does not drop a column because its values are unique. The lab's training transformation keeps it out: **sv-convert_booleans_to_numbers** passes only the eight features and the label to the step.",
       "source": "Developer - ML Specialty: Credit Card"
     },
     {
       "id": "ml-m1-q5",
       "module": "ML Foundations",
       "bloom": "Apply",
-      "scenario": "The training script converts `reported_as_fraud_historic` with `as.numeric(as.factor(x)) - 1` before calling `gbm`.",
-      "prompt": "Why is 1 subtracted?",
+      "scenario": "Before training, the script converts the target with `frame[y] = frame[y].asfactor()`, where `y` is `reported_as_fraud_historic`, a column of 0 and 1.",
+      "prompt": "Why is the target converted?",
       "options": [
         "To shift each fraud probability below the 0.5 threshold.",
         "To exclude the first transaction from the training data.",
-        "as.factor numbers from 1, so subtracting 1 gives 0 and 1.",
+        "To make it a class label, so H2O trains a classifier.",
         "To turn the target into a continuous dollar amount."
       ],
       "correct": 2,
-      "explanation": "The `as.factor()` function assigns levels to categorical data starting at 1. Applying `as.numeric()` to these factors results in values of 1 and 2; subtracting 1 ensures the target becomes 0 and 1 to satisfy the **Bernoulli distribution** requirements for a binary target.\n\nThis arithmetic applies to every value in the dataset. The result is a binary target rather than a continuous amount or a truncated range.",
+      "explanation": "`asfactor()` turns the 0 and 1 values into a **class label**. With a categorical target, H2O trains a **classifier**, whose predictions include `p1`, the probability of fraud, which the prediction script reads.\n\nLeft as numbers, the same column would make H2O train a regression model that predicts a number, not a class.",
       "source": "Developer - ML Specialty: Credit Card"
     },
     {
@@ -106,148 +106,148 @@
       "id": "ml-m1-q7",
       "module": "ML Foundations",
       "bloom": "Analyze",
-      "scenario": "A developer adds `cv.folds = 5` to the `gbm` call inside the R Script Executor.",
-      "prompt": "Why does the transformation abort the entire JVM?",
+      "scenario": "The R script executor step used in earlier versions of the course ran R inside Spoon's own Java process. The Python Executor step's script now raises an error partway through training.",
+      "prompt": "What happens to Spoon this time?",
       "options": [
-        "Its extra processes exceed select()'s FD_SETSIZE limit.",
-        "Five folds use more memory than the R step can be given.",
-        "Cross-validation needs more trees than n.trees allows.",
-        "gbm cannot run cross-validation on a binary target."
+        "The step fails and Spoon keeps running, as Python runs apart.",
+        "Spoon closes, as the script runs inside Spoon's Java process.",
+        "The step skips the rows that failed and carries on.",
+        "Spoon runs the script again on the next row it receives."
       ],
       "correct": 0,
-      "explanation": "The **JRI library** runs R within the JVM process, and cross-validation spawns extra processes that exceed the **FD_SETSIZE limit** of 1024 in the Linux `select()` call. This exhaustion of file descriptors causes the JVM to abort.",
+      "explanation": "The **Python Executor** step starts the virtual environment's Python as a **separate process**. An error in the script fails the step, and the transformation reports it, but Spoon's own process is untouched.\n\nThe R step ran R inside Spoon's process, so a crash in R took Spoon down with it.",
       "source": "Developer - ML Specialty: Credit Card"
     },
     {
       "id": "ml-m1-q8",
       "module": "ML Foundations",
       "bloom": "Analyze",
-      "scenario": "To keep the artifact small, a developer modifies the training script to save only `gbm_model` to `gbm_fraud.rdata`.",
-      "prompt": "What breaks in the prediction script?",
+      "scenario": "In a fresh lab folder, a developer changes `model_dir` in the training script to `train_output`, and leaves the prediction script as it is.",
+      "prompt": "What happens when the job runs?",
       "options": [
-        "predict needs best_trees, which is no longer saved with the model",
-        "Nothing, as predict always uses all 500 trees by default",
-        "The bernoulli distribution is lost, so outputs turn to counts",
-        "load() fails, as an .rdata file must hold two objects"
+        "py-predict_fraud fails, as it loads from train_model_output",
+        "Nothing, as h2o.load_model searches the lab folder for it",
+        "py-train_gbm fails, as save_model writes only one folder",
+        "The job skips predict_fraud, as no model file is found"
       ],
       "correct": 0,
-      "explanation": "The prediction script passes `best_trees`, the tree count chosen by out-of-bag estimation, to `predict`. Saving only `gbm_model` leaves that **object** out of `gbm_fraud.rdata`, so the script cannot find it.\n\nAn `.rdata` file can hold one object or many; this one must hold both.",
+      "explanation": "The model crosses from training to prediction as a **folder on disk**. Training now saves `train_output/gbm_fraud`, while the prediction script still calls `h2o.load_model` on `train_model_output/gbm_fraud`, which a fresh lab folder does not have, so **py-predict_fraud** fails.\n\nThe two scripts must name the same folder.",
       "source": "Developer - ML Specialty: Credit Card"
     },
     {
       "id": "ml-m2-q1",
       "module": "Prerequisites & Setup",
       "bloom": "Apply",
-      "scenario": "R is installed and works in a terminal. Pentaho Data Integration must now run an R Script Executor step.",
-      "prompt": "Why is rJava needed as well?",
+      "scenario": "A system-wide Python without H2O is installed, and `h2o-env` holds H2O. A Python Executor step has Use a Python virtual environment cleared.",
+      "prompt": "What happens when its script runs `import h2o`?",
       "options": [
-        "It bridges Java and R, so Java-based PDI can call into R",
-        "It is needed only when an R script draws a chart",
-        "It installs R itself, since the base R install is not enough",
-        "It converts R scripts to Java before PDI runs them"
+        "It fails with No module named h2o, as another Python runs",
+        "It works, as the step finds h2o-env in the home folder",
+        "It works, as Pentaho Data Integration ships its own H2O",
+        "Spoon installs h2o into the system Python before it runs"
       ],
       "correct": 0,
-      "explanation": "The **rJava** library is the bridge between the Java Virtual Machine and R, so a Java-based application like Pentaho Data Integration can run R code directly.",
+      "explanation": "The step uses exactly the Python it is given. With **Use a Python virtual environment** cleared, it runs a Python other than `h2o-env`'s, which has no H2O, so `import h2o` fails with `No module named h2o`.\n\nThe fix is to select **Use a Python virtual environment** and name the environment's Python program.",
       "source": "Developer - ML Specialty: Prerequisite Tasks"
     },
     {
       "id": "ml-m2-q2",
       "module": "Prerequisites & Setup",
       "bloom": "Apply",
-      "scenario": "Java was upgraded on a machine where rJava used to build, and rJava now fails to build.",
-      "prompt": "What does `sudo R CMD javareconf` do about it?",
+      "scenario": "On Windows, Use a Python virtual environment holds `${user.home}\\h2o-env`, and the step stops with `CreateProcess error=5, Access is denied`.",
+      "prompt": "What fixes it?",
       "options": [
-        "Disables the Java bridge so that R runs without it",
-        "Reinstalls Java at the version R was first set up with",
-        "Detects the current Java and updates R's config to match",
-        "Downgrades rJava to match the previous version of Java"
+        "Running Spoon as an administrator",
+        "Giving everyone full control of the h2o-env folder",
+        "Naming the program, ${user.home}\\h2o-env\\Scripts\\python.exe",
+        "Replacing ${user.home} with the folder's full path"
       ],
       "correct": 2,
-      "explanation": "The `R CMD javareconf` command **detects the current Java** installation and updates R's configuration files to match it, so **rJava** builds against the Java now installed.\n\nThe command updates configuration; it does not install or downgrade software.",
+      "explanation": "The step **runs** what the box names, and a folder cannot be run. Naming the environment's **Python program**, `${user.home}\\h2o-env\\Scripts\\python.exe`, fixes it.\n\nOn Linux the program is `${user.home}/h2o-env/bin/python`.",
       "source": "Developer - ML Specialty: Prerequisite Tasks"
     },
     {
       "id": "ml-m2-q3",
       "module": "Prerequisites & Setup",
       "bloom": "Apply",
-      "scenario": "The rJava library has been built and verified with `library(rJava); .jinit()`, but Spoon still cannot load R support for an R Script Executor step.",
-      "prompt": "Which file must be copied into the Spoon native-lib directory?",
+      "scenario": "On Linux, `h2o-env` was created with `python3 -m venv ~/h2o-env`, and a Python Executor step must use it.",
+      "prompt": "What goes in the Use a Python virtual environment box?",
       "options": [
-        "libR.so, from R's own lib folder",
-        "libjvm.so, from the JDK's server folder",
-        "libjri.so, from rJava's jri folder",
-        "rJava.so, from rJava's libs folder"
+        "${user.home}/h2o-env",
+        "${user.home}/h2o-env/Scripts/python.exe",
+        "${user.home}/h2o-env/bin/python",
+        "/usr/bin/python3"
       ],
       "correct": 2,
-      "explanation": "`libjri.so`, from the rJava package's `jri` folder, goes into Spoon's `native-lib/linux/x86_64` directory, owned by the PDI user, so PDI can load the **R-Java interface**.",
+      "explanation": "On Linux a virtual environment keeps its Python program in `bin`, so the box takes `${user.home}/h2o-env/bin/python`. The step runs that program, so it needs the **program**, not the folder.\n\nWindows keeps it in `Scripts`: `${user.home}\\h2o-env\\Scripts\\python.exe`.",
       "source": "Developer - ML Specialty: Prerequisite Tasks"
     },
     {
       "id": "ml-m2-q4",
       "module": "Prerequisites & Setup",
       "bloom": "Apply",
-      "scenario": "The AutoML model search requires Python with H2O and other machine learning libraries, and the team wants to avoid dependencies on the local configurations of individual workstations.",
+      "scenario": "A learner takes the optional cloud route for the AutoML notebook, and wants to run it without installing Python or H2O on their own machine.",
       "prompt": "What does Google Colab provide in this situation?",
       "options": [
         "A hosted database to hold the scored transactions",
         "A managed PDI server that runs the transformations for you",
         "Browser-based Jupyter, with ML runtimes ready-made",
-        "An R environment, so the R steps can run remotely"
+        "A PDI plugin that adds the Python Executor step"
       ],
       "correct": 2,
-      "explanation": "Google Colab provides a **browser-based Jupyter** environment with **preconfigured runtimes** for common machine learning libraries, so the search runs on the uploaded H2O data with nothing to configure on a workstation.",
+      "explanation": "Google Colab provides a **browser-based Jupyter** environment with **preconfigured runtimes** for common machine learning libraries, so the search runs on the uploaded H2O data with nothing to install on the learner's machine. The data then leaves the machine for Google's cloud.",
       "source": "Developer - ML Specialty: Prerequisite Tasks"
     },
     {
       "id": "ml-m2-q5",
       "module": "Prerequisites & Setup",
       "bloom": "Analyze",
-      "scenario": "R and rJava are installed and libjri.so has been copied into the Spoon native-lib directory, but the R Script Executor step still fails.",
-      "prompt": "Which two remaining steps are most likely missing?",
+      "scenario": "Before the workshops, a developer wants to prove that the Python setup the course needs is complete.",
+      "prompt": "Which two checks does the course use?",
       "options": [
-        "Restarting so the newly copied libraries are registered",
-        "Removing the default JDK that rJava was built against",
-        "Installing h2o and py4j in the Python virtual environment",
-        "Uploading H2O.csv to the Colab notebook first",
-        "Setting R_HOME and R_LIBS_USER, with R's bin on PATH"
+        "pip list in h2o-env shows h2o and the other libraries",
+        "where python finds a Python on the PATH",
+        "Spoon's Scripting folder lists the Python Executor step",
+        "Colab opens the Welcome To Colab notebook",
+        "A preview of test_python.ktr returns the library versions"
       ],
       "correctIndices": [
         0,
         4
       ],
-      "explanation": "PDI's R integration needs the **environment variables** `R_HOME` and `R_LIBS_USER` set in `/etc/environment`, with R's `bin` directory on the `PATH`.\n\nA restart may be needed to register the libraries.",
+      "explanation": "`pip list` in `h2o-env` proves that the **libraries** are installed in the environment, and previewing `test_python.ktr` proves that **Spoon can run Python** from it: its Python Executor step imports H2O, pandas and NumPy and returns their versions.\n\nThe course needs Python 3.11 or later, and Colab is optional.",
       "source": "Developer - ML Specialty: Prerequisite Tasks"
     },
     {
       "id": "ml-m2-q6",
       "module": "Prerequisites & Setup",
       "bloom": "Analyze",
-      "scenario": "The `gbm` package was installed by running R as the developer's own user. When PDI runs the training step as a different service user, R reports that there is no package called `gbm`.",
-      "prompt": "What explains the failure, and what is the fix?",
+      "scenario": "`h2o-env` was created in the developer's own home folder. The transformation is then scheduled to run as a different user, and its Python Executor step, which names `${user.home}\\h2o-env\\Scripts\\python.exe`, cannot start Python.",
+      "prompt": "What explains the failure?",
       "options": [
-        "`gbm` went into that user's library; install it with `sudo -i R`",
-        "`rJava` is missing `gbm`; rebuild `rJava` with `--with-java-home`",
-        "`gbm` cannot run inside PDI; train the model in Colab instead",
-        "The package name is case-sensitive; call `library(GBM)`"
+        "${user.home} now names the other user's home, which has no h2o-env",
+        "H2O can run only for the user who installed it",
+        "A scheduled run cannot use a virtual environment",
+        "The Python Executor step needs an administrator account"
       ],
       "correct": 0,
-      "explanation": "When R is executed without administrative privileges, installed packages are confined to that specific **user library**. Because the service user does not have access to the developer's local files, the package is not found.\n\nInstalling the package with `sudo -i R` places the **system-wide** library in a location accessible by all system users, including the service account used by PDI.",
+      "explanation": "`${user.home}` is the home folder of the user **running** the transformation. For the scheduled user it names a home with no `h2o-env`, so the step finds no Python program to start.\n\nCreating `h2o-env` for that user, or naming the full path of an environment that user can read, fixes it.",
       "source": "Developer - ML Specialty: Prerequisite Tasks"
     },
     {
       "id": "ml-m2-q7",
       "module": "Prerequisites & Setup",
       "bloom": "Apply",
-      "scenario": "A developer is building a fraud pipeline and needs to verify that the R Script Executor step is correctly connected to a working R installation.",
+      "scenario": "A developer is building a fraud pipeline and needs to verify that the Python Executor step can run the Python in `h2o-env`.",
       "prompt": "What is the quickest check?",
       "options": [
-        "Open the step and confirm that the R home field is filled in",
-        "Run the full training transformation to see if it finishes",
-        "Check that the installed R version matches the documented one",
-        "Run library(datasets); iris and use Test Script to see the rows"
+        "Open the step and confirm that the Script tab holds a script",
+        "Run the full training job to see if it finishes",
+        "Check that the installed Python version matches the documented one",
+        "Preview a Python Executor step that returns the H2O, pandas and NumPy versions"
       ],
       "correct": 3,
-      "explanation": "Executing a small script that returns the built-in iris data and viewing it with the **Test Script** feature exercises the whole chain, from PDI through `rJava` to the R environment.\n\nIt confirms the connection at once, without running a full transformation and without relying on configuration fields alone.",
+      "explanation": "Previewing a small Python Executor step that imports H2O, pandas and NumPy and returns their versions, as `test_python.ktr` does, exercises the whole chain, from Spoon through the virtual environment's Python to its libraries.\n\nIt confirms the connection at once, without running a full job and without relying on configuration fields alone.",
       "source": "Developer - ML Specialty: Prerequisite Tasks"
     },
     {
@@ -366,32 +366,32 @@
       "id": "ml-m3-q8",
       "module": "AutoML",
       "bloom": "Apply",
-      "scenario": "Data preparation is performed in PDI, and the AutoML search is executed in a Colab notebook.",
+      "scenario": "Data preparation is performed in PDI, and the AutoML search is run in a notebook in JupyterLab.",
       "prompt": "What passes from one to the other?",
       "options": [
-        "The H2O.csv file that autoML.ktr writes, uploaded to Colab",
-        "Nothing, as Colab queries PDI's database connections live",
-        "The autoML.ktr transformation itself, which Colab runs",
-        "A trained model artifact that Colab goes on to refine"
+        "The H2O.csv file that autoML.ktr writes, which the notebook reads",
+        "Nothing, as the notebook queries PDI's database connections live",
+        "The autoML.ktr transformation itself, which the notebook runs",
+        "A trained model that the notebook goes on to refine"
       ],
       "correct": 0,
-      "explanation": "The handover between the two systems is achieved via the **file transfer** of the `H2O.csv` file. After the `autoML.ktr` transformation is executed in PDI, the resulting file is uploaded to the Colab environment to provide the data for the AutoML search.",
+      "explanation": "The handover is a **file**: `autoML.ktr` writes the training set to `data/H2O.csv`, and the notebook reads that file to run the AutoML search.\n\nIn Colab, the same file is uploaded to the notebook instead.",
       "source": "Developer - ML Specialty: AutoML"
     },
     {
       "id": "ml-m3-q9",
       "module": "AutoML",
       "bloom": "Apply",
-      "scenario": "The AutoML results in Colab point to a Gradient Boosting model as the best fit for the fraud data.",
+      "scenario": "The AutoML results in the notebook point to a Gradient Boosting model as the best fit for the fraud data.",
       "prompt": "How is that result carried into the PDI fraud workflow?",
       "options": [
-        "PDI calls Colab to score each new transaction",
-        "A GBM is trained in R inside PDI, on the same dataset",
+        "PDI calls the notebook to score each new transaction",
+        "A GBM is trained with H2O in a Python step, on the same data",
         "The leaderboard's CSV is loaded as if it were the model",
-        "The H2O model is copied unchanged into the R step"
+        "The AutoML leader is copied from the notebook into the job"
       ],
       "correct": 1,
-      "explanation": "The H2O results point to GBM, and the PDI workflow puts that choice into practice by training a GBM with the **R gbm package** on the same dataset, saving the artifact, and scoring with it.",
+      "explanation": "The H2O results point to GBM, and the PDI workflow puts that choice into practice by training a GBM with **H2O in a Python Executor step** on the same data, saving the model, and scoring with it.",
       "source": "Developer - ML Specialty: Credit Card"
     },
     {
@@ -414,28 +414,28 @@
       "id": "ml-m4-q1",
       "module": "Credit-Card Fraud Use Case",
       "bloom": "Understand",
-      "scenario": "A colleague reviewing the gbm training script asks which values are chosen before training rather than produced by it.",
+      "scenario": "A colleague reviewing the GBM training script asks which values are chosen before training rather than produced by it.",
       "prompt": "Which two are set before the model is trained?",
       "options": [
-        "n.trees = 500",
-        "best_trees (gbm.perf)",
+        "ntrees = 500",
+        "trees, read from the model summary",
         "fraud_probability",
-        "OOB error per tree",
-        "shrinkage = 0.01"
+        "validation_auc",
+        "learn_rate = 0.01"
       ],
       "correctIndices": [
         0,
         4
       ],
-      "explanation": "The values `n.trees` and `shrinkage` are **hyperparameters** that define the number of boosting iterations and the learning rate, respectively. These are configured as arguments passed to the model before the training process begins.",
+      "explanation": "`ntrees` and `learn_rate` are **hyperparameters**: the most trees to build and the learning rate. They are passed to `H2OGradientBoostingEstimator` before the model is trained.\n\n`trees`, `validation_auc`, and `fraud_probability` are results of training and scoring.",
       "source": "Developer - ML Specialty: Credit Card"
     },
     {
       "id": "ml-m4-q2",
       "module": "Credit-Card Fraud Use Case",
       "bloom": "Understand",
-      "scenario": "A training script for a gradient boosting machine (GBM) includes the configuration `bag.fraction = 0.5`.",
-      "prompt": "What does the `bag.fraction` setting do?",
+      "scenario": "The GBM training script sets `sample_rate=0.5`.",
+      "prompt": "What does the `sample_rate` setting do?",
       "options": [
         "Keeps half of the rows back as a fixed test set",
         "Fits each tree on a random half of the rows",
@@ -443,63 +443,63 @@
         "Discards half of the trees once training ends"
       ],
       "correct": 1,
-      "explanation": "The `bag.fraction` setting determines the proportion of data used to train each individual tree. By setting this value to 0.5, the model performs **stochastic gradient boosting** by selecting a random subset of rows for each tree.\n\nThe rows that are not selected during the training of a specific tree are considered out-of-bag, which can be used for estimation. This sampling occurs independently for each tree rather than reserving a fixed portion of the data for testing.",
+      "explanation": "`sample_rate` sets the share of rows each tree is trained on. At 0.5, every tree is fitted on a **random half** of the rows, chosen afresh for each tree, which is **stochastic gradient boosting**.\n\nThe rows held back to measure the model are a separate, fixed split, made once with `split_frame`.",
       "source": "Developer - ML Specialty: Credit Card"
     },
     {
       "id": "ml-m4-q3",
       "module": "Credit-Card Fraud Use Case",
-      "bloom": "Understand",
-      "scenario": "A training script sets the distribution to `bernoulli` for a target holding 0 for not fraud and 1 for fraud.",
-      "prompt": "Why is the `bernoulli` distribution used?",
+      "bloom": "Apply",
+      "scenario": "One night, the capstone's training transformation measures a validation AUC of 0.86 for the new model. The quality gate's bar is 0.90.",
+      "prompt": "What happens to that night's orders?",
       "options": [
-        "The target is a continuous amount.",
-        "The target has more than two classes.",
-        "It makes the training run faster.",
-        "The target is binary, fraud or not."
+        "Training aborts, so the job does not screen them",
+        "They are screened at a threshold of 0.86 instead",
+        "The job retrains until the AUC reaches 0.90",
+        "They are queued for review without being scored"
       ],
-      "correct": 3,
-      "explanation": "The `bernoulli` distribution is used because the target represents a **binary classification** problem, where the outcome is limited to two possible states, such as fraud or not fraud.\n\nThis distribution is specifically designed for data categorized into exactly two classes, matching the binary nature of the target variable.",
-      "source": "Developer - ML Specialty: Credit Card"
+      "correct": 0,
+      "explanation": "The **quality gate** sends a validation AUC below 0.90 to an **Abort** step, so `train_fraud_model.ktr` fails. The job runs `screen_orders.ktr` only when training succeeded, so it takes its red hop instead and **screens no orders** that night.\n\nThe gate does not change the threshold or retrain the model; it stops the night's run.",
+      "source": "Developer - ML Specialty: Capstone: Nightly Fraud Screening"
     },
     {
       "id": "ml-m4-q4",
       "module": "Credit-Card Fraud Use Case",
       "bloom": "Apply",
       "scenario": "Each tree in the fraud model may be at most four levels deep, and no terminal node may hold fewer than 10 observations.",
-      "prompt": "Which `gbm` settings express those limits?",
+      "prompt": "Which H2O GBM settings express those limits?",
       "options": [
-        "shrinkage = 4, n.trees = 10",
-        "interaction.depth = 4, n.minobsinnode = 10",
-        "interaction.depth = 10, n.minobsinnode = 4",
-        "n.trees = 4, bag.fraction = 10"
+        "learn_rate = 4, ntrees = 10",
+        "max_depth = 4, min_rows = 10",
+        "max_depth = 10, min_rows = 4",
+        "ntrees = 4, sample_rate = 10"
       ],
       "correct": 1,
-      "explanation": "The `interaction.depth` parameter defines the maximum number of levels for each tree, while `n.minobsinnode` sets the minimum number of observations required per **terminal node**.\n\nThese settings ensure the model respects the specific structural constraints of the fraud model's tree depth and minimum sample size.",
+      "explanation": "`max_depth` sets the most levels in each tree, and `min_rows` the fewest rows a leaf, or **terminal node**, may hold.",
       "source": "Developer - ML Specialty: Credit Card"
     },
     {
       "id": "ml-m4-q5",
       "module": "Credit-Card Fraud Use Case",
       "bloom": "Apply",
-      "scenario": "A training script ends with the `save()` call that writes `gbm_fraud.rdata`, and the R Script Executor step reports an error even though the file is successfully written.",
-      "prompt": "What should the script end with?",
+      "scenario": "After training, the step must hand Pentaho Data Integration one row with five results, such as `rows_trained` and `validation_auc`.",
+      "prompt": "How does the script hand them over?",
       "options": [
-        "A print() of the saved model's full summary",
-        "A call to quit() so that the R session closes",
-        "The path of the .rdata file as a plain string",
-        "A data frame, such as one holding the status Finished"
+        "It prints them, and the step reads what Python prints",
+        "It writes them to kettle.properties for the next step",
+        "It ends with a return statement holding the five values",
+        "It leaves five variables, which Variables to fields maps"
       ],
       "correct": 3,
-      "explanation": "The R Script Executor step requires the script's final expression to be a **data frame**, which is what the step passes from R into the PDI pipeline.\n\nA script that ends with a data frame, such as one holding the status `Finished`, completes, and the step passes that row on to the next step.",
+      "explanation": "On the **Output** tab, **Variables to fields** reads the variables the script leaves behind and turns them into **one row**, with one field for each variable in the mapping grid.\n\nThe training script leaves `rows_trained`, `trees`, `validation_auc`, `validation_aucpr`, and `model_path`, and **wlog-model** writes them to the log.",
       "source": "Developer - ML Specialty: Credit Card"
     },
     {
       "id": "ml-m4-q6",
       "module": "Credit-Card Fraud Use Case",
       "bloom": "Apply",
-      "scenario": "A prediction script calls `predict(gbm_model, newdata = test.df, n.trees = best_trees, type = \"response\")`.",
-      "prompt": "What does it return for each transaction?",
+      "scenario": "The prediction script calls `gbm.predict(frame)` and reads its `p1` column.",
+      "prompt": "What does `p1` hold for each transaction?",
       "options": [
         "A count of the trees that voted fraud",
         "A fraud probability between 0 and 1",
@@ -507,7 +507,7 @@
         "The row's rank among all transactions"
       ],
       "correct": 1,
-      "explanation": "With a Bernoulli model, the `type` parameter set to `response` returns **probabilities** on the 0 to 1 scale, where values closer to 1 indicate a higher likelihood of fraud.\n\nBoosted trees are summed into a single score rather than being counted as individual votes. The 0/1 flag is generated as a separate step using a conditional statement such as `ifelse(fraud_prob >= 0.5, 1, 0)`.",
+      "explanation": "For a two-class model, `gbm.predict` returns the predicted class and the probability of each class. `p1` is the **probability of fraud**, on a 0 to 1 scale.\n\nThe script makes the 0 or 1 flag itself, in `predicted_fraud`, from `p1` at a threshold of 0.5.",
       "source": "Developer - ML Specialty: Credit Card"
     },
     {
@@ -530,16 +530,16 @@
       "id": "ml-m4-q8",
       "module": "Credit-Card Fraud Use Case",
       "bloom": "Apply",
-      "scenario": "The training step fails because R cannot open a file whose path begins with the literal text `${Internal.Transformation.Filename.Directory}`.",
-      "prompt": "What fixes it?",
+      "scenario": "In the training script, `${Internal.Transformation.Filename.Directory}` reaches Python as `file:///C:/Workshop-ML-Specialty/...`.",
+      "prompt": "Why does the script pass it through `local_path` first?",
       "options": [
-        "Escaping the dollar sign so R treats it as an R variable",
-        "Replacing the variable with the developer's own absolute path",
-        "Defining the variable in kettle.properties so R can read it",
-        "Enabling variable substitution on the R Script Executor step"
+        "To escape the dollar sign so Python treats it as text",
+        "To replace it with the developer's own absolute path",
+        "To read the variable's value from kettle.properties",
+        "PDI gives the folder as a file URL, and Python needs a path"
       ],
       "correct": 3,
-      "explanation": "Enabling **variable substitution** ensures that Pentaho Data Integration (PDI) resolves the variable to its actual value before passing the script to the R environment. If substitution is disabled, the R engine receives and attempts to process the literal string instead of the resolved file path.\n\nBy ensuring the path is resolved by PDI, the system maintains the ability to use **relative paths** for portability while ensuring the R environment receives the correct system path.",
+      "explanation": "Pentaho Data Integration replaces the variable before Python runs, but it hands the folder over as a **file URL**. `local_path` turns the URL into a plain **path**, which `h2o.save_model` and `h2o.load_model` can use.\n\nThe variable **follows the transformation's own folder**, so the lab folder can move.",
       "source": "Developer - ML Specialty: Credit Card"
     },
     {
@@ -549,13 +549,13 @@
       "scenario": "Reviewers need each scored transaction to include its original fields alongside its fraud probability and flag.",
       "prompt": "What in the prediction script provides that?",
       "options": [
-        "load(), which restores the original rows with the model",
-        "cbind(test.df, pred.df), joining inputs to predictions",
-        "predict(), which returns the input fields with each score",
-        "as.data.frame(test), which adds the predictions to the rows"
+        "h2o.load_model(), which restores the original rows with the model",
+        "scored = test.copy(), with the score columns added to the copy",
+        "gbm.predict(), which returns the input fields with each score",
+        "h2o.H2OFrame(test), which adds the predictions to the rows"
       ],
       "correct": 1,
-      "explanation": "The script uses **cbind** to join the input frame and the predictions column by column, so every original input field travels downstream with the `fraud_probability`, `fraud_pct`, and `predicted_fraud` values.",
+      "explanation": "`gbm.predict` returns only the prediction columns. The script copies the input data frame, `scored = test.copy()`, and adds `fraud_probability`, `fraud_pct`, and `predicted_fraud` to the **copy**, so every input field, including `customer_id` and `transaction_id`, travels downstream with its score.",
       "source": "Developer - ML Specialty: Credit Card"
     },
     {
@@ -566,7 +566,7 @@
       "prompt": "What does that split make possible?",
       "options": [
         "Staying under a limit on steps per transformation",
-        "Running R twice, which one transformation cannot do",
+        "Running Python twice, which one transformation cannot do",
         "Setting variables, which only a job is able to do",
         "Each runs alone; the saved model is the handoff"
       ],
@@ -578,32 +578,32 @@
       "id": "ml-m5-q2",
       "module": "PDI Orchestration",
       "bloom": "Apply",
-      "scenario": "The training model must be fitted on every row of the prepared data in a single run of the R script.",
-      "prompt": "Which R Script Executor setting ensures that?",
+      "scenario": "The training model must be fitted on every row of the prepared data in a single run of the Python script.",
+      "prompt": "Which Python Executor setting ensures that?",
       "options": [
-        "R frame name set to all, naming the data frame",
-        "Row handling, Number of rows to process, set to All",
+        "Variable name set to all, naming the data frame",
+        "Row processing set to All rows",
         "Variable substitution, so ${ALL} expands to the rows",
-        "Input frames set to every step in the transformation"
+        "Step set to every step in the transformation"
       ],
       "correct": 1,
-      "explanation": "Setting **Number of rows to process** to `All` in the Row handling configuration passes every row in the stream to the script at once, so one model is fitted on the whole dataset in a single run.",
+      "explanation": "With **Row processing** set to **All rows** on the **Input** tab, the step waits for the whole stream, builds one pandas data frame, and runs the script **once**, so one model is fitted on the whole data set.",
       "source": "Developer - ML Specialty: Credit Card"
     },
     {
       "id": "ml-m5-q3",
       "module": "PDI Orchestration",
       "bloom": "Analyze",
-      "scenario": "A prediction step is copied from a training step. The R frame name is left as `train`, while the script references `as.data.frame(test)`.",
+      "scenario": "A prediction step is copied from the training step. On the Input tab the variable name is left as `train`, while the script reads `h2o.H2OFrame(test)`.",
       "prompt": "What happens when the step runs?",
       "options": [
         "It scores the training rows instead of the new ones.",
-        "The script fails, as the rows arrive in R as train.",
+        "The script fails, as the rows arrive in Python as train.",
         "It works, as PDI renames the frame to suit the script.",
-        "It works, as the R frame name is only a display label."
+        "It works, as the variable name is only a display label."
       ],
       "correct": 1,
-      "explanation": "The **R frame name** defines the specific variable name that the incoming data rows are assigned to within the R environment. Because the script attempts to access an object named `test` while the data is bound to the variable `train`, the script cannot find the required object and fails.\n\nPentaho Data Integration does not automatically synchronize the script content with the configured **frame name**; the frame name is the functional identifier for the data, not a simple display label.",
+      "explanation": "The **Variable name** on the **Input** tab is the name the rows have in Python: the step hands them over as a pandas data frame called `train`. The script asks for `test`, which does not exist, so the script fails.\n\nPentaho Data Integration does not change the script to match the variable name.",
       "source": "Developer - ML Specialty: Credit Card"
     },
     {
@@ -614,28 +614,28 @@
       "prompt": "Which order is correct for the fraud solution workflow?",
       "options": [
         "Score transactions, train GBM on the scores, then run AutoML",
-        "Prepare data, shortlist with AutoML, train GBM in R, then score",
+        "Prepare data, shortlist with AutoML, train GBM, then score",
         "Run AutoML in PDI, then send each transaction to Colab",
-        "Train GBM in R, run AutoML on it, then prepare the data"
+        "Train GBM, run AutoML on it, then prepare the data"
       ],
       "correct": 1,
-      "explanation": "The workflow follows a specific sequence where data must be prepared before any analysis can occur. The **data preparation** phase ensures the input is ready for the AutoML environment to shortlist models.\n\nOnce the models are shortlisted, the **Gradient Boosting Machine (GBM)** is trained in R to create a saved model file. Only after this training is complete can a transformation load the model to **score transactions**.",
+      "explanation": "The data is **prepared** first, so AutoML has a clean table to shortlist models from. AutoML points to GBM, and the training transformation trains a **GBM** with H2O and saves the model.\n\nOnly then can the prediction transformation load the model and **score the transactions**.",
       "source": "Developer - ML Specialty: Credit Card"
     },
     {
       "id": "ml-m5-q5",
       "module": "PDI Orchestration",
       "bloom": "Analyze",
-      "scenario": "A solution folder is copied to another machine under a different directory path. Training and prediction scripts successfully locate `gbm_fraud.rdata` without any modifications to the configuration.",
+      "scenario": "A solution folder is copied to another machine under a different folder path. The training and prediction scripts find `train_model_output/gbm_fraud` without any change to the configuration.",
       "prompt": "Why does the handoff survive the move?",
       "options": [
         "Both paths start from the transformation's folder",
-        "R remembers the last file it saved and reloads it",
-        "PDI searches the whole disk for the .rdata file",
+        "H2O remembers the last model it saved and reloads it",
+        "PDI searches the whole disk for the model folder",
         "The model is stored inside the job file itself"
       ],
       "correct": 0,
-      "explanation": "The handoff succeeds because the scripts utilize a **relative path** based on the internal PDI variable.\n\nBy using `${Internal.Transformation.Filename.Directory}`, the system resolves the location of the file relative to the location of the transformation file, ensuring the link remains intact regardless of the absolute path on the local file system.",
+      "explanation": "Both scripts build the model folder from `${Internal.Transformation.Filename.Directory}`, which **follows the transformation's own folder**: it resolves to wherever the transformation is saved, so the handoff holds whatever the folder is called on the new machine.",
       "source": "Developer - ML Specialty: Credit Card"
     },
     {
@@ -662,12 +662,12 @@
       "prompt": "What does the prediction workflow give them?",
       "options": [
         "An entry for each transaction in `kettle.properties`",
-        "`gbm_fraud.rdata`, which also stores each prediction",
+        "`train_model_output/gbm_fraud`, which also stores each prediction",
         "`H2O.csv`, refreshed with each night's new scores",
         "`credit_card_fraud_<HHmmss>.csv`, in the `output` folder"
       ],
       "correct": 3,
-      "explanation": "The prediction job writes a **CSV file** to the `output` folder and adds the time of the run to its name: `credit_card_fraud_<HHmmss>.csv`. Each row is a scored transaction with its original fields plus `fraud_probability`, `fraud_pct`, and `predicted_fraud`, so a reviewer can open and sort it without PDI.",
+      "explanation": "The prediction job writes a **CSV file** to the `output` folder and adds the time of the run to its name: `credit_card_fraud_<HHmmss>.csv`. Each row is a scored transaction: `customer_id`, `transaction_id`, the eight model inputs, and `fraud_probability`, `fraud_pct`, and `predicted_fraud`, so a reviewer can open and sort it without PDI.",
       "source": "Developer - ML Specialty: Credit Card"
     }
   ]

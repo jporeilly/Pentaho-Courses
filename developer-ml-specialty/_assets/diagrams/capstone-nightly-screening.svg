@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="608" viewBox="0 0 800 608" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+<filter id="shadow" x="-10%" y="-10%" width="120%" height="140%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#0f172a" flood-opacity="0.12"/></filter></defs>
+<rect width="800" height="608" fill="#ffffff"/>
+<rect x="16" y="16" width="768" height="268" rx="12" fill="#eff6ff" stroke="#dbeafe" stroke-width="1.5"/>
+<path d="M16 28a12 12 0 0 1 12-12h744a12 12 0 0 1 12 12v32h-768z" fill="#1d4ed8"/>
+<g transform="translate(29 26) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></g>
+<text x="56" y="36" font-size="14" font-weight="700" fill="#ffffff">train_fraud_model.ktr</text>
+<text x="56" y="52" font-size="11.5" fill="#ffffff" opacity="0.92">learn from the labelled history; never let a weak model through</text>
+<rect x="16" y="324" width="768" height="268" rx="12" fill="#f8fafc" stroke="#f1f5f9" stroke-width="1.5"/>
+<path d="M16 336a12 12 0 0 1 12-12h744a12 12 0 0 1 12 12v32h-768z" fill="#475569"/>
+<g transform="translate(29 334) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5h10"/><path d="M11 12h10"/><path d="M11 19h10"/><path d="M4 4h1v5"/><path d="M4 9h2"/><path d="M6.5 20H3.4c0-1 2.6-1.925 2.6-3.5a1.5 1.5 0 0 0-2.6-1.02"/></g>
+<text x="56" y="344" font-size="14" font-weight="700" fill="#ffffff">jb_nightly_screening.kjb: then screen_orders.ktr</text>
+<text x="56" y="360" font-size="11.5" fill="#ffffff" opacity="0.92">runs only when training succeeded and passed the gate</text>
+<path d="M256 112C270.5 112 270.5 112 285 112" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M512 112C526.5 112 526.5 112 541 112" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M656 152L656 185" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M568 152C568 168.5 472 168.5 472 185" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M256 420C270.5 420 270.5 420 285 420" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M512 420C526.5 420 526.5 420 541 420" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M400 268L400 321" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M656 460L656 493" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M568 460C568 476.5 472 476.5 472 493" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="32" y="72" width="224" height="80" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="112" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(50 100) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M8 13h2"/><path d="M14 13h2"/><path d="M8 17h2"/><path d="M14 17h2"/></g>
+<text x="92" y="95" font-size="14" font-weight="700" fill="#1e3a8a">history.csv</text>
+<text x="92" y="112" font-size="12" fill="#1e3a8a">labelled orders,</text>
+<text x="92" y="127" font-size="12" fill="#1e3a8a">Y/N flags, two zips</text>
+<rect x="288" y="72" width="224" height="80" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="318" cy="112" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(306 100) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="20" x="4" y="2" rx="2"/><line x1="8" x2="16" y1="6" y2="6"/><line x1="16" x2="16" y1="14" y2="18"/><path d="M16 10h.01"/><path d="M12 10h.01"/><path d="M8 10h.01"/><path d="M12 14h.01"/><path d="M8 14h.01"/><path d="M12 18h.01"/><path d="M8 18h.01"/></g>
+<text x="348" y="95" font-size="14" font-weight="700" fill="#3b0764">Features</text>
+<text x="348" y="112" font-size="12" fill="#3b0764">zip match; Y/N to 1/0:</text>
+<text x="348" y="127" font-size="12" fill="#3b0764">as the model will see them</text>
+<rect x="544" y="72" width="224" height="80" rx="10" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="574" cy="112" r="19" fill="#ffffff" stroke="#0f766e" stroke-width="1.2"/>
+<g transform="translate(562 100) scale(1)" fill="none" stroke="#0f766e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"/><path d="M9 13a4.5 4.5 0 0 0 3-4"/><path d="M6.003 5.125A3 3 0 0 0 6.401 6.5"/><path d="M3.477 10.896a4 4 0 0 1 .585-.396"/><path d="M6 18a4 4 0 0 1-1.967-.516"/><path d="M12 13h4"/><path d="M12 18h6a2 2 0 0 1 2 2v1"/><path d="M12 8h8"/><path d="M16 8V5a2 2 0 0 1 2-2"/><circle cx="16" cy="13" r=".5"/><circle cx="18" cy="3" r=".5"/><circle cx="20" cy="21" r=".5"/><circle cx="20" cy="8" r=".5"/></g>
+<text x="604" y="95" font-size="14" font-weight="700" fill="#134e4a">Train an H2O GBM</text>
+<text x="604" y="112" font-size="12" fill="#134e4a">Python Executor; some</text>
+<text x="604" y="127" font-size="12" fill="#134e4a">rows held back to measure</text>
+<rect x="544" y="188" width="224" height="80" rx="10" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="574" cy="228" r="19" fill="#ffffff" stroke="#0f766e" stroke-width="1.2"/>
+<g transform="translate(562 216) scale(1)" fill="none" stroke="#0f766e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></g>
+<text x="604" y="211" font-size="14" font-weight="700" fill="#134e4a">Quality gate</text>
+<text x="604" y="228" font-size="12" fill="#134e4a">validation AUC below 0.90:</text>
+<text x="604" y="243" font-size="12" fill="#134e4a">abort, screen nothing</text>
+<rect x="288" y="188" width="224" height="80" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="318" cy="228" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(306 216) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7"/><path d="M7 3v4a1 1 0 0 0 1 1h7"/></g>
+<text x="348" y="211" font-size="14" font-weight="700" fill="#14532d">out\model</text>
+<text x="348" y="228" font-size="12" fill="#14532d">the saved H2O model,</text>
+<text x="348" y="243" font-size="12" fill="#14532d">tonight's version</text>
+<rect x="32" y="188" width="224" height="80" rx="10" fill="#f1f5f9" stroke="#475569" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="228" r="19" fill="#ffffff" stroke="#475569" stroke-width="1.2"/>
+<g transform="translate(50 216) scale(1)" fill="none" stroke="#475569" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></g>
+<text x="92" y="211" font-size="14" font-weight="700" fill="#0f172a">Every night</text>
+<text x="92" y="228" font-size="12" fill="#0f172a">Kitchen runs the job;</text>
+<text x="92" y="243" font-size="12" fill="#0f172a">your README says how</text>
+<rect x="32" y="380" width="224" height="80" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="420" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(50 408) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M8 13h2"/><path d="M14 13h2"/><path d="M8 17h2"/><path d="M14 17h2"/></g>
+<text x="92" y="403" font-size="14" font-weight="700" fill="#1e3a8a">new_orders.csv</text>
+<text x="92" y="420" font-size="12" fill="#1e3a8a">tonight's orders,</text>
+<text x="92" y="435" font-size="12" fill="#1e3a8a">no label</text>
+<rect x="288" y="380" width="224" height="80" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="318" cy="420" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(306 408) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="20" x="4" y="2" rx="2"/><line x1="8" x2="16" y1="6" y2="6"/><line x1="16" x2="16" y1="14" y2="18"/><path d="M16 10h.01"/><path d="M12 10h.01"/><path d="M8 10h.01"/><path d="M12 14h.01"/><path d="M8 14h.01"/><path d="M12 18h.01"/><path d="M8 18h.01"/></g>
+<text x="348" y="403" font-size="14" font-weight="700" fill="#3b0764">The same features</text>
+<text x="348" y="420" font-size="12" fill="#3b0764">exactly as in training:</text>
+<text x="348" y="435" font-size="12" fill="#3b0764">zip match; Y/N to 1/0</text>
+<rect x="544" y="380" width="224" height="80" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="574" cy="420" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(562 408) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/></g>
+<text x="604" y="403" font-size="14" font-weight="700" fill="#3b0764">Score every order</text>
+<text x="604" y="420" font-size="12" fill="#3b0764">Python Executor loads</text>
+<text x="604" y="435" font-size="12" fill="#3b0764">the model: p1 per order</text>
+<rect x="375.25" y="282" width="49.5" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="400" y="300" text-anchor="middle" font-size="12" fill="#334155">loads</text>
+<rect x="288" y="496" width="224" height="80" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="318" cy="536" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(306 524) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.226 20.925A2 2 0 0 0 6 22h12a2 2 0 0 0 2-2V8a2.4 2.4 0 0 0-.706-1.706l-3.588-3.588A2.4 2.4 0 0 0 14 2H6a2 2 0 0 0-2 2v3.127"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="m5 11-3 3"/><path d="m5 17-3-3h10"/></g>
+<text x="348" y="519" font-size="14" font-weight="700" fill="#14532d">screened_orders.csv</text>
+<text x="348" y="536" font-size="12" fill="#14532d">every order and</text>
+<text x="348" y="551" font-size="12" fill="#14532d">its fraud probability</text>
+<rect x="544" y="496" width="224" height="80" rx="10" fill="#ffffff" stroke="#64748b" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="574" cy="536" r="19" fill="#ffffff" stroke="#64748b" stroke-width="1.2"/>
+<g transform="translate(562 524) scale(1)" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></g>
+<text x="604" y="519" font-size="14" font-weight="700" fill="#0f172a">fraud_review_queue.csv</text>
+<text x="604" y="536" font-size="12" fill="#0f172a">0.3 or more,</text>
+<text x="604" y="551" font-size="12" fill="#0f172a">highest first</text>
+<rect x="624.95" y="464" width="62.1" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="656" y="482" text-anchor="middle" font-size="12" fill="#334155">flagged</text>
+</svg>

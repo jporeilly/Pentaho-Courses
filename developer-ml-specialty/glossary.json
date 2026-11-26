@@ -1,6 +1,6 @@
 {
   "Machine learning": "Teaching a model to find patterns in historical data so it can make predictions on new data. In this course the model learns to tell fraudulent credit-card transactions apart from legitimate ones.",
-  "PDI": "Pentaho Data Integration — the ETL platform used throughout the course to orchestrate the machine-learning workflow: preparing data, calling H2O and R, training models, and scoring new transactions.",
+  "PDI": "Pentaho Data Integration — the ETL platform used throughout the course to orchestrate the machine-learning workflow: preparing data, calling H2O from Python, training models, and scoring new transactions.",
   "Spoon": "The desktop design tool for building and running Pentaho Data Integration transformations and jobs. You use it to run autoML.ktr, train the model, and predict fraud.",
   "Transformation": "A Pentaho Data Integration data-flow made of steps connected by hops, saved as a .ktr file. The labs use transformations such as autoML.ktr, tr_train_model_fraud.ktr, and tr_predict_fraud.ktr.",
   "Job": "A Pentaho Data Integration orchestration unit (.kjb) that sequences transformations and other tasks. jb_fraud_main_job.kjb ties the training and prediction transformations together.",
@@ -23,8 +23,8 @@
   "Scoring": "Applying a trained model to new transactions to produce predictions — here, a fraud probability or label for each incoming order. Also called prediction.",
   "Model artifact": "The saved trained model file produced after training, which is loaded later to score new data without retraining. The AutoML lab saves the best model artifact.",
   "Gradient Boosting": "The algorithm (GBM) H2O's results point to for this dataset. It builds many small decision trees in sequence, each correcting the errors of the last, to form a strong combined predictor.",
-  "GBM": "Gradient Boosting Machine — the supervised model trained in R in the credit-card lab using the gbm package to predict fraudulent transactions.",
-  "Hyperparameter": "A setting that controls how a model learns, fixed before training rather than learned from data. For GBM these include the number of trees, interaction depth, and shrinkage.",
+  "GBM": "Gradient Boosting Machine — the supervised model the credit-card lab trains with H2O in a Python Executor step to predict fraudulent transactions.",
+  "Hyperparameter": "A setting that controls how a model learns, fixed before training rather than learned from data. For GBM these include the number of trees, the tree depth, and the learning rate.",
   "Shrinkage": "The GBM learning rate that scales each tree's contribution. Smaller values learn more slowly but often generalise better, at the cost of needing more trees.",
   "Overfitting": "When a model learns the training data too closely, including its noise, and then performs poorly on new data. Cross-validation and a held-out test set help detect it.",
   "Evaluation metric": "A number summarising how good a model's predictions are, used to compare candidates and choose one. Which metric matters depends on the cost of each kind of mistake.",
@@ -33,9 +33,12 @@
   "Precision": "Of the transactions the model flags as fraud, the proportion that really are fraud. High precision means fewer false alarms and less customer friction.",
   "Recall": "Of all the truly fraudulent transactions, the proportion the model catches. High recall means fewer missed frauds; prioritise it when fraud losses are expensive.",
   "AUC": "Area Under the ROC Curve — a single number measuring how well the model ranks fraud above legitimate transactions. Useful as a sanity check, but it can look good even when precision is poor at usable thresholds.",
-  "AUCPR": "Area Under the Precision-Recall Curve — the best single-number metric for highly imbalanced classification like fraud, used to compare candidate models before tuning thresholds.",
+  "AUCPR": "Area Under the Precision-Recall Curve - the best single-number metric for highly imbalanced classification like real card fraud. The course ranks its models by AUC, because its teaching data is only mildly imbalanced, and reports AUCPR beside it.",
   "Decision threshold": "The probability cut-off above which a scored transaction is labeled fraud. Lowering it catches more fraud but raises more false alarms; you tune it to balance precision and recall for the business.",
-  "Google Colab": "A free service that runs Jupyter notebooks in the browser with preconfigured ML runtimes. You upload the H2O.csv produced by Pentaho Data Integration and run the AutoML model search there.",
-  "rJava": "An R package providing a bridge between R and Java, required so Pentaho Data Integration can run R steps. Setup involves configuring R with javareconf and copying libjri into Spoon's native library folder.",
-  "R Script Executor": "A Pentaho Data Integration step that runs R code inside a transformation, used in the prerequisites to validate the R integration and in the credit-card lab to train and apply the GBM model."
+  "Google Colab": "A free service that runs Jupyter notebooks in the browser, on Google's computers, with machine-learning libraries already installed. It is the optional route for the AutoML notebook: you upload H2O.csv, so the data leaves your machine.",
+  "JupyterLab": "The notebook editor the AutoML lab runs its notebook in, credit_card_fraud.ipynb. It is installed in the h2o-env virtual environment and runs on your own machine, in your browser, so the data stays in house.",
+  "Python Executor": "The Pentaho Data Integration step that runs a Python script in a transformation. It starts the Python program you name, such as the one in h2o-env, as a separate process, hands it the rows as a pandas data frame, and turns the variables or data frame the script leaves behind into fields.",
+  "Virtual environment": "A self-contained Python installation with its own packages, here h2o-env in your home folder. The Python Executor step asks for its Python program, h2o-env\\Scripts\\python.exe.",
+  "rJava": "An R package that lets Java programs such as Spoon start R, through its JRI library. The course no longer uses it: CRAN's Windows builds of rJava 1.0-15 and later leave JRI out, and the last one with it runs only with R 4.3.2.",
+  "R Script Executor": "A Pentaho Data Integration step that runs R code inside Spoon's own process through rJava's JRI. Earlier versions of this course used it; the credit-card lab now uses the Python Executor step instead."
 }

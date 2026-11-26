@@ -11,18 +11,22 @@
 > * Join four files with **Stream lookup** steps (data wrangling)
 > * Derive a billing and shipping zip code match flag with **Formula** (feature engineering)
 > * Write the training set, `H2O.csv`, and run H2O AutoML from a **Python Executor** step
-> * Train, rank and evaluate models in a Colab notebook
-> * Install the R `gbm` package for the [Credit Card](../04-credit-card/guide.md) workshop
+> * Train, rank and evaluate models in a JupyterLab notebook, or in Colab
+> * Learn how a Gradient Boosting Machine works, for the [Credit Card](../04-credit-card/guide.md) workshop
 >
-> **Prerequisites:** Complete [Prerequisite Tasks](../02-prerequisite-tasks/guide.md): Python with `h2o` in the `h2o-env` virtual environment, a Google account for Colab, and R with rJava
+> **Prerequisites:** Complete [Prerequisite Tasks](../02-prerequisite-tasks/guide.md): Python with `h2o` in the `h2o-env` virtual environment, and optionally a Google account for Colab
 >
 > **Estimated time:** 20 minutes
 
-**🎥 Embed:** [Walkthrough (video)](<https://www.loom.com/share/52058cfd36b34a0286d5961ab393c9ad?hideEmbedTopBar=true&hide_owner=true&hide_share=true&hide_title=true>)
+<figure>
+
+<figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
+
+</figure>
 
 <div align="center">
 <figure>
-<img src="../_assets/images/automl_overview.png" alt="The finished tr_autoML transformation: four inputs joined by three Stream lookup steps, a Formula step, then a Select values step that copies its rows to a Text file output and to the auto machine learning Python Executor step" width="800">
+<img src="../_assets/images/automl_overview.png" alt="The finished tr_autoML transformation under its note: four inputs joined by three Stream lookup steps, a Formula step, then a Select values step that copies its rows to a Text file output and to the auto machine learning Python Executor step" width="721">
 <figcaption>What you build: blend, derive, then write the training set and run AutoML</figcaption>
 </figure>
 </div>
@@ -39,23 +43,10 @@
 
 1. Start Spoon with the **Start Pentaho Data Integration** button below, or from a terminal:
 
-::: tabs
-
-### Windows (PowerShell)
-
 ```powershell
 Set-Location C:\Pentaho\design-tools\data-integration
 .\spoon.bat
 ```
-
-### macOS / Linux
-
-```bash
-cd ~/Pentaho/design-tools/data-integration
-./spoon.sh
-```
-
-:::
 
 <button data-launch="spoon" data-path="">Start Pentaho Data Integration</button>
 
@@ -68,7 +59,7 @@ cd ~/Pentaho/design-tools/data-integration
 5. Double-click **Text file input**.
 6. Set **Step name** to `csvi-customer`.
 7. On the **File** tab, enter `${Internal.Entry.Current.Directory}/customer.csv` in **File or directory** and select **Add**.
-8. On the **Content** tab, set **Separator** to `,`, **Format** to `mixed` and **Limit** to `10000`, so the step reads only the first 10,000 customers. Leave **Header** selected, with **Number of header lines** `1`.
+8. On the **Content** tab, set **Separator** to `,`, **Format** to `mixed` and **Limit** to `10000`, so the step stops after the first 10,000 lines of the file. The header is one of them, so 9,999 customers go on. Leave **Header** selected, with **Number of header lines** `1`.
 9. On the **Fields** tab, select **Get Fields**. Spoon asks for the number of lines to sample: select **OK**, then close **Scan results**.
 10. Change the **Fields** grid to match this table:
 
@@ -311,7 +302,7 @@ cd ~/Pentaho/design-tools/data-integration
 >
 > #### The training set
 >
-> Write the nine fields to `H2O.csv`, the file you upload to Colab: semicolon-separated, with no header line, the flags written as `0` and `1`.
+> Write the nine fields to `H2O.csv`, the file the notebook reads: semicolon-separated, with no header line, the flags written as `0` and `1`.
 
 1. On the **Design** tab, open the **Output** folder and drag **Text file output** onto the canvas.
 2. Create a hop from **sv-change_to_numbers** to **Text file output**.
@@ -345,218 +336,152 @@ cd ~/Pentaho/design-tools/data-integration
 1. On the **Design** tab, open the **Scripting** folder and drag **Python Executor** onto the canvas.
 2. Create a hop from **sv-change_to_numbers** to **Python Executor**. When Spoon asks, select **Copy**: both **tfo-H2O** and the new step need every row.
 3. Double-click **Python Executor**. Set **Step name** to `auto machine learning`.
-4. On the **Script** tab, under **Source**, select **Embed**. Select **Use a Python virtual environment**, and enter the full path of the virtual environment you created in [Prerequisite Tasks](../02-prerequisite-tasks/guide.md), such as `/home/pentaho/h2o-env`.
-5. Enter this script in **Manual Python script**. It reads the rows from the `dataset` variable, runs AutoML with up to five models and 15 minutes (`max_runtime_secs=900`), saves the best model under `/tmp/h2o_models`, and leaves ten one-item lists behind for Pentaho Data Integration:
+4. On the **Script** tab, under **Source**, select **Embed**. Select **Use a Python virtual environment**, and enter the Python program of the virtual environment you created in [Prerequisite Tasks](../02-prerequisite-tasks/guide.md):
+
+   ```text
+   ${user.home}\h2o-env\Scripts\python.exe
+   ```
+
+   Enter the program, not the folder: the step runs what you enter.
+
+5. Enter this script in **Manual Python script**. It reads the rows from the `dataset` variable, runs AutoML with up to five models and 15 minutes (`max_runtime_secs=900`), saves the best model in `automl_output` in the lab folder, and leaves ten variables behind for Pentaho Data Integration:
 
    ```python
-   # H2O AutoML for PDI - COMPLETE WORKING VERSION
+   import os
+   from urllib.parse import urlparse, unquote
    import h2o
    from h2o.automl import H2OAutoML
-   import pandas as pd
-   import numpy as np
-   from datetime import datetime
-
-   # Initialize H2O
-   try:
-       h2o.init(max_mem_size='4G', nthreads=-1)
-       print("H2O initialized!")
-   except:
-       pass
-
-   # Get data from PDI
-   input_df = dataset.copy()
-
-   # IMMEDIATE DIAGNOSTIC - Before any processing
-   print(f"\nRAW DATA CHECK:")
-   print(f"Columns: {list(input_df.columns)}")
-   print(f"Shape: {input_df.shape}")
-   print(f"\nFirst 5 rows of reported_as_fraud_historic:")
-   if 'reported_as_fraud_historic' in input_df.columns:
-       print(input_df['reported_as_fraud_historic'].head())
-       print(f"Type: {input_df['reported_as_fraud_historic'].dtype}")
-       print(f"Unique values: {input_df['reported_as_fraud_historic'].unique()}")
-   else:
-       print("Column 'reported_as_fraud_historic' NOT FOUND!")
-       print(f"Available columns: {list(input_df.columns)}")
 
 
-   # Print original columns
-   print(f"\nColumns received: {list(input_df.columns)}")
+   def local_path(url):
+       # PDI hands folders over as file:/// URLs; turn one into a path
+       if url.startswith("file:"):
+           p = unquote(urlparse(url).path)
+           if os.name == "nt" and p[:1] == "/" and p[2:3] == ":":
+               p = p[1:]
+           return p
+       return url
 
-   # Rename fraud column
-   input_df.columns = input_df.columns.str.replace('reported_as_fraud_historic', 'fraud')
-   print(f"After rename: {list(input_df.columns)}")
 
-   # CRITICAL DIAGNOSTIC: Check fraud column
-   print(f"\nFRAUD COLUMN DIAGNOSTIC:")
-   print(f"Data type: {input_df['fraud'].dtype}")
-   print(f"Unique values: {sorted(input_df['fraud'].unique())}")
-   print(f"Value counts:")
-   print(input_df['fraud'].value_counts())
+   # The lab folder, and the folder the best model is saved in
+   lab_dir = local_path("${Internal.Transformation.Filename.Directory}")
+   model_dir = os.path.join(lab_dir, "automl_output")
 
-   # Verify we have both classes
-   unique_vals = input_df['fraud'].unique()
-   if len(unique_vals) < 2:
-       error_msg = f"CRITICAL ERROR: Fraud column has only {len(unique_vals)} unique value(s): {unique_vals}. Need both 0 and 1 for binary classification!"
-       print(error_msg)
-       raise ValueError(error_msg)
+   # Start H2O on the Java Pentaho Data Integration runs on. H2O_JAVA_HOME
+   # wins over any java on PATH; Spoon, Pan and Kitchen set _PENTAHO_JAVA_HOME.
+   if os.environ.get("_PENTAHO_JAVA_HOME"):
+       os.environ["H2O_JAVA_HOME"] = os.environ["_PENTAHO_JAVA_HOME"]
+   h2o.init(nthreads=-1, max_mem_size="4G", verbose=False)
 
-   # Convert to integer
-   input_df['fraud'] = input_df['fraud'].astype(int)
+   # The rows from sv-change_to_numbers, as a pandas data frame
+   frame = h2o.H2OFrame(dataset)
+   y = "reported_as_fraud_historic"
+   frame[y] = frame[y].asfactor()          # a class label: train classifiers
+   x = [c for c in frame.columns if c != y]
 
-   print(f"\nDataset: {input_df.shape[0]:,} rows × {input_df.shape[1]} columns")
-   fraud_count = (input_df['fraud'] == 1).sum()
-   fraud_pct = (fraud_count / len(input_df)) * 100
-   print(f"Fraud cases: {fraud_count:,} ({fraud_pct:.2f}%)")
-
-   if fraud_count == 0:
-       raise ValueError("ERROR: No fraud cases found! Cannot train classification model.")
-
-   # Convert to H2O frame
-   hf = h2o.H2OFrame(input_df)
-   hf['fraud'] = hf['fraud'].asfactor()
-
-   # Split data
-   train, test = hf.split_frame(ratios=[0.75], seed=42)
-   print(f"\nTraining: {train.nrows:,} rows")
-   print(f"Test:     {test.nrows:,} rows")
-
-   # Define features and target
-   x = train.columns
-   x.remove('fraud')
-   y = 'fraud'
-
-   print(f"Using {len(x)} features")
-
-   # Train AutoML
-   start_time = datetime.now()
-   print("\nStarting H2O AutoML Training...")
-   print("="*60)
+   # 75% to train on, 25% to test the best model on
+   train, test = frame.split_frame(ratios=[0.75], seed=42)
 
    aml = H2OAutoML(
-       max_models=5,
-       max_runtime_secs=900,
+       max_models=5,                 # at most five models...
+       max_runtime_secs=900,         # ...and at most 15 minutes
        seed=42,
-       balance_classes=True,
-       nfolds=5,
-       sort_metric='AUC',
-       include_algos=['GBM', 'XGBoost', 'GLM', 'DRF', 'DeepLearning'],
-       verbosity='info'
+       balance_classes=True,         # fraud is the smaller class
+       nfolds=5,                     # 5-fold cross-validation
+       sort_metric="AUC",            # rank the models by AUC
+       include_algos=["GBM", "GLM", "DRF", "DeepLearning"],
+       verbosity="warn",
    )
-
    aml.train(x=x, y=y, training_frame=train)
 
-   duration = (datetime.now() - start_time).total_seconds()
-   print(f"\nTraining completed in {duration/60:.1f} minutes!")
-   print("="*60)
-
-   # Get best model
    best = aml.leader
    perf = best.model_performance(test)
+   saved = h2o.save_model(best, path=model_dir, force=True)
 
-   print(f"\nBEST MODEL: {best.model_id}")
-   print(f"Algorithm: {best.algo}")
+   # One row back to PDI, from these ten variables
+   best_model_id = str(best.model_id)
+   best_algorithm = str(best.algo)
+   best_auc = f"{perf.auc():.4f}"
+   best_aucpr = f"{perf.aucpr():.4f}"
+   # Precision, recall and F1 at the threshold that gives the best F1
+   threshold = perf.find_threshold_by_max_metric("f1")
+   best_precision = f"{perf.precision(thresholds=[threshold])[0][1]:.4f}"
+   best_recall = f"{perf.recall(thresholds=[threshold])[0][1]:.4f}"
+   best_f1 = f"{perf.F1(thresholds=[threshold])[0][1]:.4f}"
+   models_trained = int(aml.leaderboard.nrows)
+   test_rows = int(test.nrows)
+   model_path = str(saved)
 
-   # Safely get metrics (handle None case)
-   try:
-       auc_val = perf.auc()
-       acc_val = perf.accuracy()[0][1]
-       prec_val = perf.precision()[0][1]
-       rec_val = perf.recall()[0][1]
-       f1_val = perf.F1()[0][1]
-
-       print("\nTEST SET PERFORMANCE")
-       print("="*60)
-       print(f"AUC:       {auc_val:.4f}")
-       print(f"Accuracy:  {acc_val:.4f}")
-       print(f"Precision: {prec_val:.4f}")
-       print(f"Recall:    {rec_val:.4f}")
-       print(f"F1 Score:  {f1_val:.4f}")
-       print("="*60)
-
-       # Confusion Matrix
-       print("\nCONFUSION MATRIX")
-       cm = perf.confusion_matrix()
-       print(cm)
-
-   except (TypeError, AttributeError, KeyError) as e:
-       print(f"\nWARNING: Could not calculate metrics: {e}")
-       print("Setting default values...")
-       auc_val = 0.0
-       acc_val = 0.0
-       prec_val = 0.0
-       rec_val = 0.0
-       f1_val = 0.0
-
-   # Feature Importance
-   try:
-       varimp = best.varimp(use_pandas=True)
-       print("\nTOP 5 FEATURES")
-       print(varimp.head(5))
-   except:
-       print("\nFeature importance not available")
-
-   # Save model
-   model_path = h2o.save_model(model=best, path="/tmp/h2o_models", force=True)
-   print(f"\nModel saved to: {model_path}")
-
-   # Leaderboard
-   lb = aml.leaderboard.as_data_frame()
-   print(f"\nTotal models trained: {lb.shape[0]}")
-
-   # Output as STRINGS for PDI
-   best_model_id = [str(best.model_id)]
-   best_algorithm = [str(best.algo)]
-   best_auc = [str(auc_val)]
-   best_accuracy = [str(acc_val)]
-   best_precision = [str(prec_val)]
-   best_recall = [str(rec_val)]
-   best_f1 = [str(f1_val)]
-   total_models_trained = [str(int(lb.shape[0]))]
-   training_time_minutes = [str(duration/60)]
-   saved_model_path = [str(model_path)]
-
-   print("\nAll output variables prepared as strings!")
-   print(f"Ready to return: 1 row with 10 fields")
+   h2o.cluster().shutdown()
    ```
+
+The script does four things:
+
+* **Finds the lab folder.** Pentaho Data Integration replaces `${Internal.Transformation.Filename.Directory}` before Python runs, with a URL such as `file:///C:/Workshop-ML-Specialty/...`; `local_path` turns it into a path.
+* **Starts H2O on Pentaho's Java.** H2O's engine is a Java program. Spoon sets `_PENTAHO_JAVA_HOME` to the Java it runs on, and the script passes it to H2O as `H2O_JAVA_HOME`, which H2O reads before it looks for a `java` on `PATH`.
+* **Searches and ranks.** It holds back 25% of the rows, lets AutoML train up to five models on the rest with 5-fold cross-validation, ranks them by AUC, and scores the best one on the held-back rows.
+* **Saves and reports.** It saves the best model under `automl_output` and leaves ten variables for Pentaho Data Integration to read.
+
+> **Note:** H2O's XGBoost does not run on Windows, so the script leaves it out of `include_algos`.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/automl_py_script.png" alt="The auto machine learning Python Executor dialog, Script tab: Source Embed, the Manual Python script, and Use a Python virtual environment selected with ${user.home}\h2o-env\Scripts\python.exe" width="800">
+<figcaption>auto machine learning, Script tab</figcaption>
+</figure>
+</div>
 
 6. Open the **Input** tab and, under **Row processing**, select **All rows**.
 7. Under **Available variables**, add a variable with the plus sign button. Set **Variable name** to `dataset`, **Step** to `sv-change_to_numbers` and **Data structure** to `Pandas dataframe`.
 8. Fill the **Mapping** grid so it matches this table:
 
-| Data structure field         | Data structure type | Pentaho Data Integration field                    | Pentaho Data Integration data type |
-| ---------------------------- | ------------------- | ---------------------------- | ------------- |
-| `first_time_customer`        | `float64`           | `first_time_customer`        | Number        |
-| `order_dollar_amount`        | `float64`           | `order_dollar_amount`        | Number        |
-| `num_items`                  | `int64`             | `num_items`                  | Integer       |
-| `age`                        | `float64`           | `age`                        | Number        |
-| `web_order`                  | `float64`           | `web_order`                  | Number        |
-| `total_transactions_to_date` | `int64`             | `total_transactions_to_date` | Integer       |
-| `hour_of_day`                | `int64`             | `hour_of_day`                | Integer       |
-| `billing_shipping_zip_equal` | `float64`           | `billing_shipping_zip_equal` | Number        |
-| `reported_as_fraud_historic` | `float64`           | `reported_as_fraud_historic` | Number        |
+| Data structure field         | Data structure type | Pentaho Data Integration field | Pentaho Data Integration data type |
+| ---------------------------- | ------------------- | ------------------------------ | ---------------------------------- |
+| `first_time_customer`        | `float64`           | `first_time_customer`          | Number                             |
+| `order_dollar_amount`        | `float64`           | `order_dollar_amount`          | Number                             |
+| `num_items`                  | `int64`             | `num_items`                    | Integer                            |
+| `age`                        | `float64`           | `age`                          | Number                             |
+| `web_order`                  | `float64`           | `web_order`                    | Number                             |
+| `total_transactions_to_date` | `int64`             | `total_transactions_to_date`   | Integer                            |
+| `hour_of_day`                | `int64`             | `hour_of_day`                  | Integer                            |
+| `billing_shipping_zip_equal` | `float64`           | `billing_shipping_zip_equal`   | Number                             |
+| `reported_as_fraud_historic` | `float64`           | `reported_as_fraud_historic`   | Number                             |
+
+<div align="center">
+<figure>
+<img src="../_assets/images/automl_py_input.png" alt="The auto machine learning Input tab: All rows; variable dataset from sv-change_to_numbers as a Pandas dataframe, with nine mapped fields from first_time_customer to reported_as_fraud_historic" width="800">
+<figcaption>auto machine learning, Input tab</figcaption>
+</figure>
+</div>
 
 9. Open the **Output** tab and, under **Output processing**, select **Variables to fields**.
-10. Fill the **Mapping** grid with the ten variables the script leaves behind. Each is a `list` in Python and a String in Pentaho Data Integration:
+10. Fill the **Mapping** grid with the ten variables the script leaves behind:
 
-| Variable                | Python data type | Pentaho Data Integration field               | Pentaho Data Integration data type |
-| ----------------------- | ---------------- | ----------------------- | ------------- |
-| `best_model_id`         | `list`           | `best_model_id`         | String        |
-| `best_algorithm`        | `list`           | `best_algorithm`        | String        |
-| `best_auc`              | `list`           | `best_auc`              | String        |
-| `best_accuracy`         | `list`           | `best_accuracy`         | String        |
-| `best_precision`        | `list`           | `best_precision`        | String        |
-| `best_recall`           | `list`           | `best_recall`           | String        |
-| `best_f1`               | `list`           | `best_f1`               | String        |
-| `total_models_trained`  | `list`           | `total_models_trained`  | String        |
-| `training_time_minutes` | `list`           | `training_time_minutes` | String        |
-| `saved_model_path`      | `list`           | `saved_model_path`      | String        |
+| Variable         | Python data type | Pentaho Data Integration field | Pentaho Data Integration data type |
+| ---------------- | ---------------- | ------------------------------ | ---------------------------------- |
+| `best_model_id`  | `str`            | `best_model_id`                | String                             |
+| `best_algorithm` | `str`            | `best_algorithm`               | String                             |
+| `best_auc`       | `str`            | `best_auc`                     | String                             |
+| `best_aucpr`     | `str`            | `best_aucpr`                   | String                             |
+| `best_precision` | `str`            | `best_precision`               | String                             |
+| `best_recall`    | `str`            | `best_recall`                  | String                             |
+| `best_f1`        | `str`            | `best_f1`                      | String                             |
+| `models_trained` | `int`            | `models_trained`               | Integer                            |
+| `test_rows`      | `int`            | `test_rows`                    | Integer                            |
+| `model_path`     | `str`            | `model_path`                   | String                             |
+
+<div align="center">
+<figure>
+<img src="../_assets/images/automl_py_output.png" alt="The auto machine learning Output tab: Variables to fields, mapping ten variables: best_model_id to best_f1 and model_path as str to String, models_trained and test_rows as int to Integer" width="800">
+<figcaption>auto machine learning, Output tab</figcaption>
+</figure>
+</div>
 
 11. Select **OK**, and save the transformation (`Ctrl+S`).
 
 **Run it**
 
-12. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog. AutoML runs inside the **auto machine learning** step, so the run can take up to 15 minutes.
+12. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog. AutoML runs inside the **auto machine learning** step; on the lab machine the run takes about a minute.
 
 > **Under the hood:**
 >
@@ -565,10 +490,10 @@ cd ~/Pentaho/design-tools/data-integration
 > With **All rows**, the **Python Executor** step waits for the whole
 > stream from **sv-change_to_numbers**, builds one pandas data frame from
 > the nine mapped fields, and hands it to the script as `dataset`. The
-> script runs once. **Variables to fields** then reads the ten variables
-> the script leaves behind and turns them into fields: each holds a list
-> with one item, so the step returns one row. Meanwhile the **Copy** hop
-> sends the same rows to **tfo-H2O**.
+> script runs once, in a Python process of its own. **Variables to
+> fields** then reads the ten variables the script leaves behind and
+> turns them into the fields of one row. Meanwhile the **Copy** hop sends
+> the same rows to **tfo-H2O**.
 >
 > **Why it matters:** Pentaho Data Integration does the joins and conversions, Python does the
 > modeling, and the result comes back as an ordinary row. A later step
@@ -577,11 +502,13 @@ cd ~/Pentaho/design-tools/data-integration
 
 13. When the run finishes, open the **Step Metrics** tab in **Execution Results**.
 
-> **Success:** Checkpoint: every step finishes without errors. **csvi-customer** stops at its **Limit**, and **tfo-H2O** and **auto machine learning** each read the same number of rows: with **Copy**, every row goes to both.
+> **Success:** Checkpoint: every step finishes without errors. **csvi-customer** stops at its **Limit**, and **tfo-H2O** and **auto machine learning** each read the same 9,999 rows: with **Copy**, every row goes to both. **auto machine learning** writes 1 row.
 
 14. Select **auto machine learning** on the canvas and open the **Preview data** tab.
 
-> **Success:** Checkpoint: 1 row with the ten fields from `best_model_id` to `saved_model_path`. `best_algorithm` names the algorithm H2O ranked first by AUC, and `saved_model_path` is a path under `/tmp/h2o_models`.
+> **Success:** Checkpoint: 1 row with the ten fields from `best_model_id` to `model_path`: `best_algorithm` `gbm`, `best_auc` `0.9951`, `best_aucpr` `0.9881`, `best_precision` `0.9681`, `best_recall` `0.9266`, `best_f1` `0.9469`, `models_trained` `5` and `test_rows` `2489`. `best_model_id` starts with `GBM_1_AutoML_1_` and ends with the time of the run, and `model_path` is a folder of that name under `automl_output`. With `seed=42` and `max_models=5`, every run trains the same five models.
+
+`best_precision`, `best_recall` and `best_f1` are measured at the threshold that gives the best F1 score, one probability cut-off for all three.
 
 15. Open `data/H2O.csv`, next to your transformation, in a text editor.
 
@@ -592,17 +519,40 @@ cd ~/Pentaho/design-tools/data-integration
 </figure>
 </div>
 
-> **Success:** Checkpoint: no header line, and nine semicolon-separated values per line. The first line is `0;964.7;19;104.7;1;40;7;0;0`: the same customer as the previews, with its flags as numbers.
+> **Success:** Checkpoint: no header line, and 9,999 lines of nine semicolon-separated values. The first line is `0;964.7;19;104.7;1;40;7;0;0`: the same customer as the previews, with its flags as numbers. The file is the same as the `H2O.csv` in **Lab Files**.
 
-### 5. AutoML in Colab
+### 5. AutoML in a Notebook
 
 > **Note:**
 >
-> #### H2O AutoML in Colab
+> #### H2O AutoML in a notebook
 >
-> A data scientist with a new data set usually starts by getting a feel for it: summary statistics, a few charts, and quick tests of how each field relates to the target, here `reported_as_fraud_historic`. Then come quick tests with common classification algorithms, to see which technique gives the best result. H2O AutoML does that last part for you: it trains and ranks several models and returns a leaderboard. Run the same steps one cell at a time in a Colab notebook, where you can see each result.
+> A data scientist with a new data set usually starts by getting a feel for it: summary statistics, a few charts, and quick tests of how each field relates to the target, here `reported_as_fraud_historic`. Then come quick tests with common classification algorithms, to see which technique gives the best result. H2O AutoML does that last part for you: it trains and ranks several models and returns a leaderboard. Run the same steps one cell at a time in a notebook, where you can see each result. JupyterLab runs the notebook on your machine, from the `h2o-env` virtual environment, so the data never leaves it; Colab runs it in Google's cloud instead.
 
-<div class="pcm-embed-card" data-href="https://www.loom.com/share/4a72fd0bf16446a7b7c742474ad242c0?hideEmbedTopBar=true&hide_owner=true&hide_share=true&hide_title=true" data-title="loom.com"></div>
+<figure>
+
+<figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
+
+</figure>
+
+1. Open the notebook:
+
+::: tabs
+
+### JupyterLab
+
+1. In PowerShell, go to the lab folder and start JupyterLab from the virtual environment:
+
+   ```powershell
+   Set-Location C:\Workshop-ML-Specialty\02-machine-learning\03-automl
+   & $HOME\h2o-env\Scripts\jupyter-lab.exe
+   ```
+
+2. JupyterLab opens in your browser. In its file browser on the left, double-click `credit_card_fraud.ipynb`: the installer put it in this lab's folder (on your own machine, download it from **Lab Files** into the folder that holds `autoML.ktr`). (Or select **File > New > Notebook**, choose the **Python 3 (ipykernel)** kernel, and enter each cell below.)
+
+Keep the PowerShell window open while you work: it runs JupyterLab. Press `Ctrl+C` in it when you have finished.
+
+### Colab (optional)
 
 1. Open Colab and sign in:
 
@@ -617,7 +567,7 @@ cd ~/Pentaho/design-tools/data-integration
 </figure>
 </div>
 
-3. Select **File > New notebook in Drive**. (If your instructor gave you the notebook, `credit_card_fraud.ipynb`, select **File > Upload notebook** and upload it instead: it holds the same cells.)
+3. Select **File > Upload notebook** and upload `credit_card_fraud.ipynb` from **Lab Files**, or select **File > New notebook in Drive** and enter each cell below.
 
 <div align="center">
 <figure>
@@ -626,42 +576,7 @@ cd ~/Pentaho/design-tools/data-integration
 </figure>
 </div>
 
-4. In the first cell, enter this code and press `Shift+Enter` to run it. `-q` keeps `pip` quiet:
-
-   ```python
-   # Install H2O
-   !pip install h2o -q
-   print("Installation complete.")
-   ```
-
-> **Success:** Checkpoint: the cell prints `Installation complete.`
-
-5. In the next cell, import the libraries and start H2O, with up to 4 GB of memory (`max_mem_size='4G'`) and every CPU core (`nthreads=-1`). Run it:
-
-   ```python
-   # Import libraries
-   import h2o
-   from h2o.automl import H2OAutoML
-   import pandas as pd
-   import numpy as np
-   from datetime import datetime
-   import matplotlib.pyplot as plt
-   import seaborn as sns
-
-   # Initialize H2O
-   h2o.init(max_mem_size='4G', nthreads=-1)
-   print("\nH2O initialized.")
-   ```
-
-> **Success:** Checkpoint: H2O prints a table that describes its new cluster, then `H2O initialized.`
-
-6. In the next cell, enter this code and run it. Colab shows a file upload widget: select `H2O.csv`, either the one your run wrote to `data` or the copy in **Lab Files**.
-
-   ```python
-   # Upload data
-   from google.colab import files
-   uploaded = files.upload()
-   ```
+4. Colab has no `h2o-env`. In the two cells marked *Colab only*, remove the `#` at the start of each code line: the first cell installs H2O, and the second shows a file upload widget, where you select `H2O.csv`. Also remove the `#` from the `files.download` lines at the end, to download the model and the summary.
 
 <div align="center">
 <figure>
@@ -670,59 +585,98 @@ cd ~/Pentaho/design-tools/data-integration
 </figure>
 </div>
 
-> **Success:** Checkpoint: the cell prints `Saving H2O.csv to H2O.csv`.
+Colab installs the newest H2O, so its numbers can differ a little from the checkpoints below.
 
-7. In the next cell, load the file and name its columns. The file has no header and uses `;` as its separator, and the target, `reported_as_fraud_historic` in Pentaho Data Integration, is named `fraud` here and converted to text, which H2O treats as classes. Run it:
+:::
+
+> **Success:** Checkpoint: the notebook is open, with its first cell, **Credit-card fraud: H2O AutoML**, at the top.
+
+2. Run the first code cell, the *Colab only* one, with `Shift+Enter`. In JupyterLab it does nothing: `h2o-env` already has H2O.
+3. Run the next cell. It imports the libraries and starts H2O, with up to 4 GB of memory (`max_mem_size="4G"`) and every CPU core (`nthreads=-1`). On the lab machine it starts H2O on Pentaho's Java:
 
    ```python
-   # Load data
-   data = pd.read_csv('H2O.csv', sep=';', engine='python', header=None)
+   # Import libraries
+   import os
+   from datetime import datetime
+
+   import h2o
+   from h2o.automl import H2OAutoML
+   import pandas as pd
+   import matplotlib.pyplot as plt
+
+   # On the lab machine, start H2O on Pentaho's Java. H2O reads H2O_JAVA_HOME
+   # before any java on PATH.
+   pentaho_java = r"C:\Pentaho\java"
+   if os.path.isdir(pentaho_java):
+       os.environ["H2O_JAVA_HOME"] = pentaho_java
+
+   h2o.init(max_mem_size="4G", nthreads=-1)
+   print("\nH2O initialized.")
+   ```
+
+> **Success:** Checkpoint: H2O prints a table that describes its new cluster, then `H2O initialized.` Above the table, `Java Version` names Pentaho's Java, `21` on the lab machine.
+
+4. Run the next cell, the second *Colab only* one. In JupyterLab it does nothing either.
+5. Run the next cell. It reads `data/H2O.csv`, the file your run wrote, or else the `H2O.csv` from **Lab Files**, and names its columns. The file has no header and uses `;` as its separator, and the target, `reported_as_fraud_historic` in Pentaho Data Integration, is named `fraud` here and converted to text, which H2O treats as classes:
+
+   ```python
+   # Load data: the file the transformation wrote, else the Lab Files copy
+   path = os.path.join("data", "H2O.csv") if os.path.exists(os.path.join("data", "H2O.csv")) else "H2O.csv"
+   data = pd.read_csv(path, sep=";", header=None)
 
    data.columns = [
-       'first_time_customer', 'order_dollar_amount', 'num_items', 'age',
-       'web_order', 'total_transactions', 'hour_of_day',
-       'billing_shipping_match', 'fraud'
+       "first_time_customer", "order_dollar_amount", "num_items", "age",
+       "web_order", "total_transactions", "hour_of_day",
+       "billing_shipping_match", "fraud",
    ]
 
    # Convert target to string
-   data['fraud'] = data['fraud'].astype(str)
+   data["fraud"] = data["fraud"].astype(str)
 
+   print(f"Read {path}")
    print(f"Dataset: {data.shape[0]:,} rows × {data.shape[1]} columns")
-   print(f"Fraud cases: {(data['fraud']=='1').sum():,} ({(data['fraud']=='1').mean()*100:.2f}%)")
+   print(f"Fraud cases: {(data['fraud'] == '1').sum():,} ({(data['fraud'] == '1').mean() * 100:.2f}%)")
    ```
 
-> **Success:** Checkpoint: with the `H2O.csv` from **Lab Files**, the cell prints `Dataset: 9,999 rows × 9 columns` and `Fraud cases: 2,623 (26.23%)`.
+> **Success:** Checkpoint: the cell prints `Dataset: 9,999 rows × 9 columns` and `Fraud cases: 2,623 (26.23%)`.
 
 The eight features: `first_time_customer` (a first order), `order_dollar_amount`, `num_items` (items in the order), `age` (the customer's age), `web_order` (online, not by phone), `total_transactions` (the customer's history), `hour_of_day` (when the order came in) and `billing_shipping_match` (the zip code flag). `fraud` is the target: `0` for a legitimate order, `1` for fraud.
 
-8. In the next cell, chart how many rows each class has. Run it:
+6. Run the next cell. It charts how many rows each class has:
 
    ```python
    # Quick class distribution check
-   fraud_dist = data['fraud'].value_counts()
+   fraud_dist = data["fraud"].value_counts().sort_index()
 
    plt.figure(figsize=(10, 4))
-   fraud_dist.plot(kind='bar', color=['green', 'red'])
-   plt.title('Class Distribution', fontweight='bold')
-   plt.xlabel('Class (0=Normal, 1=Fraud)')
-   plt.ylabel('Count')
-   plt.xticks([0, 1], ['Normal', 'Fraud'], rotation=0)
+   fraud_dist.plot(kind="bar", color=["green", "red"])
+   plt.title("Class Distribution", fontweight="bold")
+   plt.xlabel("Class (0=Normal, 1=Fraud)")
+   plt.ylabel("Count")
+   plt.xticks([0, 1], ["Normal", "Fraud"], rotation=0)
    for i, v in enumerate(fraud_dist):
-       plt.text(i, v + 50, f'{v:,}', ha='center', fontweight='bold')
+       plt.text(i, v + 50, f"{v:,}", ha="center", fontweight="bold")
    plt.tight_layout()
    plt.show()
    ```
 
-> **Success:** Checkpoint: a bar chart titled **Class Distribution**. With the **Lab Files** copy, the green **Normal** bar is labeled `7,376` and the red **Fraud** bar `2,623`.
+> **Success:** Checkpoint: a bar chart titled **Class Distribution**: the green **Normal** bar is labeled `7,376` and the red **Fraud** bar `2,623`.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/automl_class_distribution.png" alt="A bar chart titled Class Distribution: a green Normal bar labeled 7,376 and a red Fraud bar labeled 2,623" width="800">
+<figcaption>The two classes in H2O.csv</figcaption>
+</figure>
+</div>
 
 The chart shows how imbalanced the classes are. This teaching set is about one quarter fraud; real card data usually has far fewer fraud cases, which is why the AutoML run sets `balance_classes=True`.
 
-9. In the next cell, move the data into H2O, mark `fraud` as a class label (a *factor*), so H2O trains a classifier and not a regression, and split the rows 75% for training and 25% for testing. `seed=42` makes the split the same every time you run it. Run it:
+7. Run the next cell. It moves the data into H2O, marks `fraud` as a class label (a *factor*), so H2O trains a classifier and not a regression, and splits the rows 75% for training and 25% for testing. `seed=42` makes the split the same every time you run it:
 
    ```python
    # Convert to H2O frame
    hf = h2o.H2OFrame(data)
-   hf['fraud'] = hf['fraud'].asfactor()
+   hf["fraud"] = hf["fraud"].asfactor()
 
    # Split: 75% train, 25% test
    train, test = hf.split_frame(ratios=[0.75], seed=42)
@@ -732,26 +686,17 @@ The chart shows how imbalanced the classes are. This teaching set is about one q
 
    # Define features and target
    x = train.columns
-   x.remove('fraud')
-   y = 'fraud'
+   x.remove("fraud")
+   y = "fraud"
    ```
 
-> **Success:** Checkpoint: the cell prints the training and test row counts. They add up to the rows in the file, about three quarters and one quarter: H2O splits by probability, not by exact count.
+> **Success:** Checkpoint: `Training: 7,510 rows` and `Test: 2,489 rows`. H2O splits by probability, not by exact count, so the split is close to, not exactly, three quarters and one quarter.
 
-10. In the next cell, run AutoML. It runs for up to 15 minutes:
+8. Run the next cell. It runs AutoML, for up to 15 minutes; on the lab machine it takes well under one:
 
    ```python
    # Fast configuration
    start_time = datetime.now()
-
-   print("\nFAST H2O AutoML")
-   print("="*70)
-   print("Configuration:")
-   print("  Max models: 5 (for speed)")
-   print("  Max runtime: 15 minutes")
-   print("  Algorithms: GBM, XGBoost, GLM, DRF, DeepLearning")
-   print("  Balance classes: True")
-   print("\nTraining...\n")
 
    aml = H2OAutoML(
        max_models=5,                   # Only 5 models for speed
@@ -759,29 +704,25 @@ The chart shows how imbalanced the classes are. This teaching set is about one q
        seed=42,
        balance_classes=True,           # Handle imbalanced data
        nfolds=5,                       # 5-fold CV
-       sort_metric='AUC',
-
-       # Best algorithms for fraud detection
+       sort_metric="AUC",
        include_algos=[
-           'GBM',           # Gradient Boosting (usually best)
-           'XGBoost',       # Extreme Gradient Boosting
-           'GLM',           # Generalized Linear Model (fast)
-           'DRF',           # Distributed Random Forest (tree-based)
-           'DeepLearning'   # Neural Network
+           "GBM",           # Gradient Boosting (usually best)
+           "GLM",           # Generalized Linear Model (fast)
+           "DRF",           # Distributed Random Forest (tree-based)
+           "DeepLearning",  # Neural Network
+           # "XGBoost",     # add on Linux or Colab: H2O's XGBoost does not run on Windows
        ],
-
-       verbosity='info'
+       verbosity="warn",
    )
 
    # Train
    aml.train(x=x, y=y, training_frame=train)
 
    duration = (datetime.now() - start_time).total_seconds()
-   print(f"\nTraining completed in {duration/60:.1f} minutes.")
-   print("="*70)
+   print(f"\nTraining completed in {duration / 60:.1f} minutes.")
    ```
 
-> **Success:** Checkpoint: H2O logs each model as it trains, and the cell ends with `Training completed in` and the number of minutes.
+> **Success:** Checkpoint: H2O shows its progress, and the cell ends with `Training completed in` and the number of minutes.
 
 The settings:
 
@@ -791,135 +732,129 @@ The settings:
 | `max_runtime_secs=900` | Stops after 15 minutes |
 | `balance_classes=True` | Balances the classes while training, for imbalanced data |
 | `nfolds=5` | Scores each model with 5-fold cross-validation |
-| `sort_metric='AUC'` | Ranks the models by AUC |
+| `sort_metric="AUC"` | Ranks the models by AUC |
 
-The five algorithms:
+The algorithms it may try:
 
 | Algorithm | What it is |
 | --- | --- |
 | GBM (Gradient Boosting Machine) | Trees built one after another, each correcting the errors of the ones before; H2O's own implementation |
-| XGBoost | Another gradient boosting implementation, widely used for tabular data |
 | GLM (Generalized Linear Model) | A fast baseline with coefficients you can read |
 | DRF (Distributed Random Forest) | Many decision trees trained independently, their votes combined |
 | DeepLearning | A neural network |
+| XGBoost | Another gradient boosting implementation, widely used for tabular data. H2O's XGBoost does not run on Windows, so the cell leaves it out; in Colab you can add it |
 
-GBM, XGBoost and DRF each combine many trees, so a single decision tree is not among the candidates.
+GBM and DRF each combine many trees, so a single decision tree is not among the candidates.
 
-11. In the next cell, show the leaderboard. Run it:
+9. Run the next cell. It shows the leaderboard:
 
    ```python
    # View leaderboard
    lb = aml.leaderboard
-   print("\n ALL MODELS RANKED BY PERFORMANCE")
-   print("="*70)
    print(lb)
-   print("="*70)
-   print(f"\n Total models trained: {lb.nrows}")
+   print(f"\nTotal models trained: {lb.nrows}")
    print(f"Best model: {lb.as_data_frame()['model_id'][0]}")
    ```
 
-> **Success:** Checkpoint: a table with one row per model, best first. Its columns include the model ID, **AUC**, **AUCPR** (the area under the precision-recall curve), the mean per-class error, and the error measures RMSE and MSE. The cell ends with the number of models and the best model's ID.
+> **Success:** Checkpoint: a table with one row per model, best first: three GBM models, then a DRF and a GLM. The five-model limit is reached before AutoML gets to DeepLearning. Its columns include the model ID, **auc**, **aucpr** (the area under the precision-recall curve), the mean per-class error, and the error measures RMSE and MSE. The first row, `GBM_1_AutoML_1_` and the time of the run, has an **auc** of `0.993915`, and the cell ends with `Total models trained: 5`.
 
-For imbalanced classes, AUCPR is often a better guide than AUC: see the metrics cheat sheet under these tabs.
+The leaderboard's numbers come from cross-validation on the training rows. For imbalanced classes, AUCPR is often a better guide than AUC: see the metrics cheat sheet under these tabs. The course ranks by AUC because this teaching data is only mildly imbalanced, and the two put the models in the same order here; on real card data, where fraud is rare, rank by AUCPR (`sort_metric="AUCPR"`).
 
-12. In the next cell, score the best model on the test rows. Run it:
+10. Run the next cell. It scores the best model on the test rows:
 
    ```python
-   # Get best model
+   # Get best model and score it on the test rows
    best = aml.leader
-
-   print(f"\n BEST MODEL: {best.model_id}")
-   print(f"Algorithm: {best.algo}")
-
-   # Performance on test set
    perf = best.model_performance(test)
 
-   print("\n TEST SET PERFORMANCE")
-   print("="*70)
+   # Precision, recall and F1 at the threshold that gives the best F1
+   threshold = perf.find_threshold_by_max_metric("f1")
+
+   print(f"BEST MODEL: {best.model_id}")
+   print(f"Algorithm: {best.algo}")
+   print()
    print(f"AUC:       {perf.auc():.4f}")
-   print(f"Accuracy:  {perf.accuracy()[0][1]:.4f}")
-   print(f"Precision: {perf.precision()[0][1]:.4f}")
-   print(f"Recall:    {perf.recall()[0][1]:.4f}")
-   print(f"F1 Score:  {perf.F1()[0][1]:.4f}")
-   print("="*70)
+   print(f"AUCPR:     {perf.aucpr():.4f}")
+   print(f"Precision: {perf.precision(thresholds=[threshold])[0][1]:.4f}")
+   print(f"Recall:    {perf.recall(thresholds=[threshold])[0][1]:.4f}")
+   print(f"F1 Score:  {perf.F1(thresholds=[threshold])[0][1]:.4f}")
    ```
 
-> **Success:** Checkpoint: the best model's ID and algorithm, then five measures between 0 and 1: AUC, accuracy, precision, recall and F1 score.
+> **Success:** Checkpoint: `Algorithm: gbm`, then `AUC: 0.9951`, `AUCPR: 0.9881`, `Precision: 0.9681`, `Recall: 0.9266` and `F1 Score: 0.9469`: the same numbers as the **auto machine learning** step, because both run the same search on the same rows with the same seed.
 
 What they measure, for fraud:
 
 * **AUC**: how well the model ranks fraud above legitimate orders, over all thresholds.
-* **Accuracy**: the share of rows it gets right. It can be high on imbalanced data even when the model misses every fraud case.
+* **AUCPR**: the same idea on the precision-recall curve; it weighs the rare class more.
 * **Precision**: of the orders it flags, the share that are fraud. Higher precision means fewer false alarms.
 * **Recall**: of all fraud cases, the share it catches. Higher recall means less missed fraud.
 * **F1 score**: a balance of precision and recall.
 
-13. In the next cell, show the confusion matrix. Run it:
+Precision, recall and F1 depend on the probability above which an order counts as fraud. The cell measures all three at one threshold, the one that gives the best F1.
+
+11. Run the next cell. It shows the confusion matrix at the same threshold:
 
    ```python
-   # Confusion matrix
-   cm = perf.confusion_matrix()
-   print("\n CONFUSION MATRIX")
-   print("="*70)
+   # Confusion matrix, at the same threshold
+   cm = perf.confusion_matrix(thresholds=threshold)
    print(cm)
-   print("="*70)
 
-   # Extract values
    cm_table = cm.table.as_data_frame()
-   try:
-       tn = int(cm_table.iloc[0, 1])
-       fp = int(cm_table.iloc[0, 2])
-       fn = int(cm_table.iloc[1, 1])
-       tp = int(cm_table.iloc[1, 2])
-
-       print("\n BREAKDOWN")
-       print(f"True Negatives:  {tn:>6,}")
-       print(f"False Positives: {fp:>6,}")
-       print(f"False Negatives: {fn:>6,} (missed fraud)")
-       print(f"True Positives:  {tp:>6,}")
-       print(f"\nCaught {tp} fraud cases, missed {fn}.")
-   except:
-       print("See confusion matrix table above")
+   tn, fp = int(cm_table.iloc[0, 1]), int(cm_table.iloc[0, 2])
+   fn, tp = int(cm_table.iloc[1, 1]), int(cm_table.iloc[1, 2])
+   print(f"True Negatives:  {tn:>6,}")
+   print(f"False Positives: {fp:>6,}")
+   print(f"False Negatives: {fn:>6,} (missed fraud)")
+   print(f"True Positives:  {tp:>6,}")
+   print(f"\nCaught {tp} fraud cases, missed {fn}.")
    ```
 
-> **Success:** Checkpoint: a two-by-two table of actual against predicted classes, the four counts, and a line that starts `Caught`.
+> **Success:** Checkpoint: a two-by-two table of actual against predicted classes at a threshold of about `0.313`: `1,815` true negatives, `20` false positives, `48` false negatives and `606` true positives, and the line `Caught 606 fraud cases, missed 48.`
 
 A false negative is fraud that got through: a direct loss. A false positive is a legitimate order declined: friction for a real customer. Where to strike the balance depends on what each costs the business.
 
-14. In the next cell, list and plot the features that matter most to the model. Run it:
+12. Run the next cell. It lists and plots the features that matter most to the model:
 
    ```python
    # Top features
    varimp = best.varimp(use_pandas=True)
-   print("\n TOP FEATURES")
-   print("="*70)
    print(varimp.head(10))
-   print("="*70)
 
    # Plot
    best.varimp_plot()
    ```
 
-> **Success:** Checkpoint: a table of the eight features, most important first, and a bar chart of the same.
+> **Success:** Checkpoint: a table of the eight features, most important first, and a bar chart of the same. `order_dollar_amount` leads, then `billing_shipping_match` and `hour_of_day`.
 
-Feature importance explains what drives the predictions, shows where more feature engineering would pay off, and lets you check that the model relies on fields that make business sense.
+<div align="center">
+<figure>
+<img src="../_assets/images/automl_varimp.png" alt="A horizontal bar chart, Variable Importance: H2O Gradient Boosting Machine, from order_dollar_amount at 1.0, then billing_shipping_match, hour_of_day, age, num_items, first_time_customer and web_order, down to total_transactions" width="800">
+<figcaption>The best model's feature importance</figcaption>
+</figure>
+</div>
 
-15. In the next cell, save the best model and download it. The file is an H2O model, which you can load back into H2O; exporting a MOJO for low-latency scoring, or PMML, is a separate step. Run it:
+Feature importance explains what drives the predictions, shows where more feature engineering would pay off, and lets you check that the model relies on fields that make business sense. The zip code flag you built in **Feature Engineering** is the second most important feature.
+
+13. Run the next cell. It saves the best model in `automl_output`, next to the notebook. The folder is an H2O model, which you can load back into H2O; exporting it as a MOJO (H2O's standalone Java scoring file, which runs without an H2O cluster) is a separate step:
 
    ```python
-   model_path = h2o.save_model(model=best, path="./", force=True)
-   files.download(model_path)
+   # Save the best model in automl_output, next to the notebook
+   model_path = h2o.save_model(model=best, path="automl_output", force=True)
+   print(f"Model saved: {model_path}")
+
+   # Colab only: download it
+   # files.download(model_path)
    ```
 
-> **Success:** Checkpoint: your browser downloads a file named after the best model's ID.
+> **Success:** Checkpoint: `Model saved:` and a path under `automl_output` that ends with the best model's ID.
 
-16. In the last cell, write a summary for the record and download it. Run it:
+14. Run the last cell. It writes a summary for the record to `fraud_summary.txt`, next to the notebook:
 
    ```python
    # Generate summary
    report = f"""
    FRAUD DETECTION - QUICK SUMMARY
-   {'='*60}
+   {'=' * 60}
 
    Date: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
 
@@ -931,31 +866,31 @@ Feature importance explains what drives the predictions, shows where more featur
    Model:
      Best:      {best.model_id}
      Algorithm: {best.algo}
-     Training:  {duration/60:.1f} minutes
+     Training:  {duration / 60:.1f} minutes
 
    Performance:
      AUC:       {perf.auc():.4f}
-     Accuracy:  {perf.accuracy()[0][1]:.4f}
-     Precision: {perf.precision()[0][1]:.4f}
-     Recall:    {perf.recall()[0][1]:.4f}
-     F1:        {perf.F1()[0][1]:.4f}
+     AUCPR:     {perf.aucpr():.4f}
+     Precision: {perf.precision(thresholds=[threshold])[0][1]:.4f}
+     Recall:    {perf.recall(thresholds=[threshold])[0][1]:.4f}
+     F1:        {perf.F1(thresholds=[threshold])[0][1]:.4f}
 
    Model saved: {model_path}
 
-   {'='*60}
+   {'=' * 60}
    """
 
    print(report)
 
-   # Save report
-   with open('fraud_summary.txt', 'w') as f:
+   with open("fraud_summary.txt", "w", encoding="utf-8") as f:
        f.write(report)
+   print("Summary saved to fraud_summary.txt.")
 
-   files.download('fraud_summary.txt')
-   print("Summary downloaded.")
+   # Colab only: download it
+   # files.download("fraud_summary.txt")
    ```
 
-> **Success:** Checkpoint: the summary prints, your browser downloads `fraud_summary.txt`, and the cell ends with `Summary downloaded.`
+> **Success:** Checkpoint: the summary prints, and the cell ends with `Summary saved to fraud_summary.txt.`
 
 A summary like this serves model tracking, reports to stakeholders, comparisons between experiments and audit trails. Once the notebook gives you the answers you need, move the logic into Pentaho Data Integration, as the **auto machine learning** step does, and use the leaderboard to decide which algorithm to put into production.
 
@@ -965,7 +900,7 @@ A summary like this serves model tracking, reports to stakeholders, comparisons 
 >
 > #### Gradient Boosting Machine
 >
-> A Gradient Boosting Machine (GBM) builds a series of small decision trees one after another, each one focused on the errors of the trees before it. Its prediction is the weighted sum of all the trees. For fraud, it can capture patterns that combine several fields, such as an unusual amount at an unusual hour, which simple rules miss, and it ranks the features by importance, so investigators can see what drives a score. The [Credit Card](../04-credit-card/guide.md) workshop trains a GBM model in R; this tab installs the R package it uses.
+> A Gradient Boosting Machine (GBM) builds a series of small decision trees one after another, each one focused on the errors of the trees before it. Its prediction is the weighted sum of all the trees. For fraud, it can capture patterns that combine several fields, such as an unusual amount at an unusual hour, which simple rules miss, and it ranks the features by importance, so investigators can see what drives a score. The [Credit Card](../04-credit-card/guide.md) workshop trains a GBM model with H2O, in a **Python Executor** step.
 
 <div align="center">
 <figure>
@@ -984,30 +919,7 @@ How the training proceeds:
 
 The "gradient" in the name comes from *gradient descent*: the residuals each tree fits are the negative gradients of a loss function, such as log-loss for classification. Early trees tend to learn broad patterns (very large orders are riskier); later ones pick up finer signals.
 
-**Install GBM**
-
-1. In a terminal, install the `gbm` package from CRAN:
-
-   ```bash
-   sudo R -e "install.packages('gbm', repos='https://cran.r-project.org')"
-   ```
-
-<div align="center">
-<figure>
-<img src="../_assets/images/automl_install_gbm.png" alt="A terminal running install.packages for gbm: R 4.3.3 starts, downloads gbm_2.2.3.tar.gz from CRAN and begins compiling it" width="715">
-<figcaption>R downloads and compiles gbm</figcaption>
-</figure>
-</div>
-
-> **Success:** Checkpoint: R downloads the `gbm` source package, compiles it, and ends with `* DONE (gbm)`.
-
-2. Check that R can load it:
-
-   ```bash
-   R -e "library(gbm); cat('GBM loaded successfully\n')"
-   ```
-
-> **Success:** Checkpoint: R prints `GBM loaded successfully`.
+In H2O these settings have their own names: `ntrees` (how many trees), `max_depth` (how deep each tree grows), `learn_rate` (the learning rate) and `sample_rate` (the share of rows each tree sees). The Credit Card workshop sets all four.
 
 ::::
 
@@ -1057,9 +969,13 @@ The four source files, 100,000 rows each:
 
 [transaction_fraud_report.csv](./files/transaction_fraud_report.csv)
 
-`H2O.csv` is a ready-made training set in the layout **tfo-H2O** writes: 9,999 rows, no header line. Upload it to Colab if you have not run the transformation:
+`H2O.csv` is a ready-made training set in the layout **tfo-H2O** writes: 9,999 rows, no header line. The notebook reads it if you have not run the transformation:
 
 [H2O.csv](./files/H2O.csv)
+
+`credit_card_fraud.ipynb` is the notebook for **AutoML in a Notebook**, for JupyterLab or Colab:
+
+[credit_card_fraud.ipynb](./files/credit_card_fraud.ipynb)
 
 `source_data_mod.csv` is an older, pre-joined sample of 1,500 orders. No transformation in this course reads it:
 
@@ -1067,12 +983,12 @@ The four source files, 100,000 rows each:
 
 ### Solution <!-- no-step -->
 
-The finished transformation for this lab. Open it alongside your own to compare, or run it to see the expected result. It reads the four source files from a `data` folder next to it, and writes `data/H2O.csv` there: before you run it, create `data` in the solution folder and copy the four source files into it.
+The finished transformation for this lab. Open it alongside your own to compare, or run it to see the expected result. Like yours, it reads the four source files from its own folder, which holds copies of them, and writes `data/H2O.csv` and `automl_output` there.
 
 Also on disk at `C:\Workshop-ML-Specialty\02-machine-learning\03-automl\solution`.
 
 [autoML.ktr](./files/autoML.ktr) <button data-launch="spoon" data-path="files/autoML.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/autoML.ktr">View graph</button>
 
-`test_r.ktr` is the validation transformation from [Prerequisite Tasks](../02-prerequisite-tasks/guide.md):
+`test_python.ktr` is the validation transformation from [Prerequisite Tasks](../02-prerequisite-tasks/guide.md):
 
-[test_r.ktr](./files/test_r.ktr) <button data-launch="spoon" data-path="files/test_r.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/test_r.ktr">View graph</button>
+[test_python.ktr](./files/test_python.ktr) <button data-launch="spoon" data-path="files/test_python.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/test_python.ktr">View graph</button>

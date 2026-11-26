@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<transformation>
+  <info>
+    <name>test_python</name>
+    <description/>
+    <extended_description/>
+    <trans_version/>
+    <trans_type>Normal</trans_type>
+    <directory>/</directory>
+    <parameters>
+    </parameters>
+    <size_rowset>10000</size_rowset>
+    <unique_connections>N</unique_connections>
+  </info>
+  <notepads>
+    <notepad>
+      <note>test_python - proves that Spoon can run the Python in the h2o-env virtual environment.
+Needs h2o-env (Prerequisite Tasks).
+
+1. Generate rows: limit 1, one field run (Integer) = 1.
+2. Python Executor: h2o-env's python.exe, All rows as rows; Variables to fields returns python_version,
+   h2o_version, pandas_version and numpy_version.
+
+Shipped data: one row with the four versions.</note>
+      <xloc>128</xloc>
+      <yloc>32</yloc>
+      <width>600</width>
+      <heigth>152</heigth>
+      <fontname>Segoe UI</fontname>
+      <fontsize>10</fontsize>
+      <fontbold>N</fontbold>
+      <fontitalic>N</fontitalic>
+      <fontcolorred>0</fontcolorred>
+      <fontcolorgreen>0</fontcolorgreen>
+      <fontcolorblue>0</fontcolorblue>
+      <backgroundcolorred>167</backgroundcolorred>
+      <backgroundcolorgreen>224</backgroundcolorgreen>
+      <backgroundcolorblue>245</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
+      <drawshadow>Y</drawshadow>
+    </notepad>
+  </notepads>
+  <order>
+    <hop>
+      <from>Generate rows</from>
+      <to>Python Executor</to>
+      <enabled>Y</enabled>
+    </hop>
+  </order>
+  <step>
+    <name>Generate rows</name>
+    <type>RowGenerator</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>run</name>
+        <type>Integer</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif>1</nullif>
+        <length>-1</length>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+      </field>
+    </fields>
+    <limit>1</limit>
+    <never_ending>N</never_ending>
+    <interval_in_ms>5000</interval_in_ms>
+    <row_time_field>now</row_time_field>
+    <last_time_field>FiveSecondsAgo</last_time_field>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>128</xloc>
+      <yloc>232</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Python Executor</name>
+    <type>PythonExecutor</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <step-props secure="">
+      <group name="">
+        <property group="" name="SCRIPT">
+          <value xsi:type="xs:string">import sys
+import h2o, pandas, numpy
+
+# One row back to PDI: the versions this virtual environment provides
+python_version = sys.version.split()[0]
+h2o_version = h2o.__version__
+pandas_version = pandas.__version__
+numpy_version = numpy.__version__
+</value>
+        </property>
+        <property group="" name="LOAD_SCRIPT_AT_RUNTIME">
+          <value xsi:type="xs:boolean">false</value>
+        </property>
+        <property group="" name="SCRIPT_TO_LOAD">
+          <value xsi:type="xs:string"/>
+        </property>
+        <property group="" name="OUTPUT_FRAME_VARIABLE">
+          <value xsi:type="xs:string"/>
+        </property>
+        <property group="" name="OUTPUT_IS_FRAME">
+          <value xsi:type="xs:boolean">false</value>
+        </property>
+        <property group="" name="IS_ALL_ROWS">
+          <value xsi:type="xs:boolean">true</value>
+        </property>
+        <property group="" name="OUTPUT_FRAME_MAPPING.FIELD_PYTHON_NAMES"/>
+        <property group="" name="OUTPUT_FRAME_MAPPING.FIELD_PYTHON_TYPES"/>
+        <property group="" name="OUTPUT_FRAME_MAPPING.FIELD_PDI_NAMES"/>
+        <property group="" name="OUTPUT_FRAME_MAPPING.FIELD_PDI_TYPES"/>
+        <property group="" name="OUTPUT_VARIABLE_MAPPING.FIELD_PYTHON_NAMES">
+          <value xsi:type="xs:string">python_version</value>
+          <value xsi:type="xs:string">h2o_version</value>
+          <value xsi:type="xs:string">pandas_version</value>
+          <value xsi:type="xs:string">numpy_version</value>
+        </property>
+        <property group="" name="OUTPUT_VARIABLE_MAPPING.FIELD_PYTHON_TYPES">
+          <value xsi:type="xs:string">str</value>
+          <value xsi:type="xs:string">str</value>
+          <value xsi:type="xs:string">str</value>
+          <value xsi:type="xs:string">str</value>
+        </property>
+        <property group="" name="OUTPUT_VARIABLE_MAPPING.FIELD_PDI_NAMES">
+          <value xsi:type="xs:string">python_version</value>
+          <value xsi:type="xs:string">h2o_version</value>
+          <value xsi:type="xs:string">pandas_version</value>
+          <value xsi:type="xs:string">numpy_version</value>
+        </property>
+        <property group="" name="OUTPUT_VARIABLE_MAPPING.FIELD_PDI_TYPES">
+          <value xsi:type="xs:string">String</value>
+          <value xsi:type="xs:string">String</value>
+          <value xsi:type="xs:string">String</value>
+          <value xsi:type="xs:string">String</value>
+        </property>
+        <property group="" name="INPUT_ROWBYROW_MAPPING.FIELD_PYTHON_NAMES"/>
+        <property group="" name="INPUT_ROWBYROW_MAPPING.FIELD_PYTHON_TYPES"/>
+        <property group="" name="INPUT_ROWBYROW_MAPPING.FIELD_PDI_NAMES"/>
+        <property group="" name="INPUT_ROWBYROW_MAPPING.FIELD_PDI_TYPES"/>
+        <property group="" name="INPUT_ALLROWS_MAPPING.INPUT_STEP_NAMES">
+          <value xsi:type="xs:string">Generate rows</value>
+        </property>
+        <property group="" name="INPUT_ALLROWS_MAPPING.INPUT_VAR_NAMES">
+          <value xsi:type="xs:string">rows</value>
+        </property>
+        <property group="" name="INPUT_ALLROWS_MAPPING.INPUT_DATA_STRUCTURES">
+          <value xsi:type="xs:string">Pandas dataframe</value>
+        </property>
+        <property group="" name="INPUT_ALLROWS_MAPPING.FIELD_PYTHON_NAMES">
+          <value xsi:type="xs:string">run</value>
+        </property>
+        <property group="" name="INPUT_ALLROWS_MAPPING.FIELD_PYTHON_TYPES">
+          <value xsi:type="xs:string">int64</value>
+        </property>
+        <property group="" name="INPUT_ALLROWS_MAPPING.FIELD_PDI_NAMES">
+          <value xsi:type="xs:string">run</value>
+        </property>
+        <property group="" name="INPUT_ALLROWS_MAPPING.FIELD_PDI_TYPES">
+          <value xsi:type="xs:string">Integer</value>
+        </property>
+        <property group="" name="EMBED_USE_ENV">
+          <value xsi:type="xs:boolean">true</value>
+        </property>
+        <property group="" name="FILE_USE_ENV">
+          <value xsi:type="xs:boolean">false</value>
+        </property>
+        <property group="" name="EMBED_ENV_PATH">
+          <value xsi:type="xs:string">${user.home}\h2o-env\Scripts\python.exe</value>
+        </property>
+        <property group="" name="FILE_ENV_PATH">
+          <value xsi:type="xs:string"/>
+        </property>
+      </group>
+    </step-props>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>320</xloc>
+      <yloc>232</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+</transformation>

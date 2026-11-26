@@ -4,42 +4,94 @@
 >
 > #### Workshop - Prerequisite Tasks
 >
-> Set up the tools the machine learning workshops run on: a Google Colab account, Python with the H2O library, and R with rJava, wired into Pentaho Data Integration so the **R script executor** step can start R. The commands are for Ubuntu or Debian Linux, which install software with `apt`.
+> Set up the tools the machine learning workshops run on: Python with the H2O library in a virtual environment, which the **Python Executor** step and the AutoML notebook both use. Then prove that Pentaho Data Integration can run Python from that environment. If you want the optional cloud notebook, you can also sign in to Google Colab.
 >
 > **What you'll do**
 >
-> * Sign in to Google Colab
 > * Install Python and the machine learning libraries in a virtual environment
-> * Install R and rJava
-> * Point Pentaho Data Integration at R
-> * Prove the setup with a one-step R transformation
+> * Sign in to Google Colab (optional)
+> * Prove the setup with a two-step Python transformation
 >
-> **Prerequisites:** Pentaho Data Integration 11 in `~/Pentaho/design-tools/data-integration`, a Google account, and `sudo` rights on the machine
+> **Prerequisites:** Pentaho Data Integration 11, and Python 3.11 or later
 >
-> **Estimated time:** 15 minutes
+> **Estimated time:** 30 minutes, most of it the first download of the libraries
 
 <div align="center">
 <figure>
-<img src="../_assets/images/ml-runtimes.png" alt="Where the code runs. On your machine, inside Spoon's Java process: the R script executor step talks through JRI to R, which runs inside Spoon's process, and the Python Executor step uses CPython in the h2o-env virtual environment. /etc/environment gives R its R_HOME. In the cloud, a Colab notebook in your browser runs on a hosted runtime. A red check: when an R step can't start R, check libjri.so and /etc/environment." width="800">
+<img src="../_assets/images/ml-runtimes.png" alt="Where the code runs. On your machine: Spoon, one Java process, runs the Python Executor step, which starts the Python in the h2o-env virtual environment as a separate process; H2O starts its own engine on Pentaho's Java. JupyterLab runs the AutoML notebook from the same environment. In the cloud, optionally, a Colab notebook in your browser runs on a hosted runtime." width="800">
 <figcaption>Where each part of the course runs, and what this lab sets up for it</figcaption>
 </figure>
 </div>
 
-Read the diagram as a map of what this lab installs. Spoon is one Java process, started by `spoon.sh` with Pentaho Data Integration's `native-lib` folder on its library path. Inside it, the **R script executor** step reaches R through JRI: JRI's Java half ships with the step, its native half, `libjri.so`, is the file you copy into `native-lib`, and R itself runs inside Spoon's process and finds its installation through `R_HOME` from `/etc/environment`. The **Python Executor** step runs its script with the Python in the `h2o-env` virtual environment you create in your home folder. Colab needs nothing on your machine but a browser and your Google account: its notebooks run on a hosted runtime in the cloud. The red box is the rule to keep for later: when an R step can't start R, the cause is this setup, not the script.
+Read the diagram as a map of what this lab installs. Spoon is one Java process. The **Python Executor** step starts the Python program in the `h2o-env` virtual environment as a process of its own and hands it the rows. H2O's engine is a Java program too: the course's scripts start it on Pentaho's own Java. The same environment runs JupyterLab, where you work through the AutoML notebook. Colab is the optional cloud route: it needs only a browser and a Google account.
 
 :::: tabs
 
-### 1. Google Colab
+### 1. Python and ML Libraries
+
+> **Note:**
+>
+> #### Python and machine learning libraries
+>
+> The **Python Executor** step and the AutoML notebook need Python 3 with H2O, pandas, NumPy, Matplotlib and Py4J, and JupyterLab for the notebook. Install them in a virtual environment named `h2o-env` in your home folder, so they don't change any other Python on the machine.
+
+::: tabs
+
+### Lab machine
+
+The course installer put a setup script at `C:\ML\setup-ml.ps1`. It creates `h2o-env`, installs the libraries, checks every part, and checks that H2O starts on Pentaho's Java. It is safe to run again.
+
+1. Open PowerShell as yourself, not as an administrator: the script builds the environment in your home folder. Run the script:
+
+   ```powershell
+   powershell -ExecutionPolicy Bypass -File C:\ML\setup-ml.ps1
+   ```
+
+   `-ExecutionPolicy Bypass` runs this one script without changing the machine's policy. The first run downloads about 300 MB of libraries. To check the environment later without changing it, add `-Status`.
+
+> **Success:** Checkpoint: the script ends with `Machine Learning setup is complete.`, after an `OK` line for the libraries and `OK    H2O ... starts its engine on C:\Pentaho\java`. It names the environment's Python, `C:\Users\<you>\h2o-env\Scripts\python.exe`: the **Python Executor** step asks for this program.
+
+### Your own machine
+
+1. In PowerShell, check the Python version:
+
+   ```powershell
+   python --version
+   ```
+
+> **Success:** Checkpoint: PowerShell prints `Python 3.` and a minor version of 11 or later. If it prints `Python was not found`, install Python with `winget install -e --id Python.Python.3.12`, open a new PowerShell window, and check again. If `python` is still not found, use the Python launcher, `py -3.12`, in place of `python` in the next step.
+
+2. Create the virtual environment, install the libraries in it, and list them:
+
+   ```powershell
+   python -m venv $HOME\h2o-env
+   & $HOME\h2o-env\Scripts\python.exe -m pip install h2o pandas numpy matplotlib py4j jupyterlab
+   & $HOME\h2o-env\Scripts\python.exe -m pip list | Select-String "^(h2o|pandas|numpy|matplotlib|py4j|jupyterlab) "
+   ```
+
+> **Success:** Checkpoint: `pip list` shows `h2o`, `jupyterlab`, `matplotlib`, `numpy`, `pandas` and `py4j` with their versions. The environment's Python is `C:\Users\<you>\h2o-env\Scripts\python.exe`: the **Python Executor** step asks for this program.
+
+:::
+
+H2O's engine is a Java program. The course's transformations and notebook start it on Pentaho's own Java, `C:\Pentaho\java`, by setting `H2O_JAVA_HOME`; without it, H2O would start on whichever Java comes first on the machine's `PATH`.
+
+> **Note:**
+>
+> #### Running it on a server
+>
+> The course runs on Windows 11. To run its transformations on a Linux server in production, build the same environment there with `python3 -m venv` in the home folder of the user who runs Pentaho Data Integration, install the same libraries with its `pip`, and give the **Python Executor** step the environment's `bin/python` program. This is beyond the course's labs.
+
+To look up a `pip` command or option, see the [pip user guide](https://pip.pypa.io/en/stable/user_guide/).
+
+### 2. Google Colab (optional)
 
 > **Note:**
 >
 > #### Google Colab
 >
-> Colab runs Jupyter notebooks in your browser, with common machine learning libraries already installed. The [AutoML](../03-automl/guide.md) workshop trains and compares its models there.
+> Colab runs Jupyter notebooks in your browser, with common machine learning libraries already installed. The [AutoML](../03-automl/guide.md) workshop can run its notebook there instead of in JupyterLab on your machine; your data then leaves the machine for Google's cloud.
 
-1. Open Colab and sign in with your Google account:
-
-**🎥 Embed:** [Google Colab](<https://colab.research.google.com/#scrollTo=5fCEDCU_qrC0>)
+1. Open [Google Colab](https://colab.research.google.com/) in your browser and sign in with your Google account.
 
 <div align="center">
 <figure>
@@ -50,270 +102,124 @@ Read the diagram as a map of what this lab installs. Spoon is one Java process, 
 
 > **Success:** Checkpoint: Colab opens the **Welcome To Colab** notebook, with **Connect** at the top right.
 
-### 2. Python and ML Libraries
+### 3. Validate with a Python Transformation
 
 > **Note:**
 >
-> #### Python and machine learning libraries
+> #### Validate with a Python transformation
 >
-> The AutoML transformation's **Python Executor** step needs Python 3 with H2O, pandas, NumPy, Matplotlib and Py4J. Install them in a virtual environment, so they don't change the system's own Python.
-
-1. In a terminal, update the package lists and the installed packages:
-
-   ```bash
-   sudo apt update && sudo apt upgrade -y
-   ```
-
-2. Check the Python version:
-
-   ```bash
-   python3 --version
-   ```
-
-> **Success:** Checkpoint: the terminal prints `Python 3.` and a minor version. [Before You Start](../00-before-you-start/guide.md) asks for 3.11 or later.
-
-<details>
-
-<summary>Optional: install a newer Python version (deadsnakes PPA)</summary>
-
-Do this only if you must upgrade Python.
-
-```bash
-sudo apt install dirmngr ca-certificates software-properties-common apt-transport-https -y
-sudo gpg --no-default-keyring --keyring /usr/share/keyrings/deadsnakes.gpg --keyserver keyserver.ubuntu.com --recv-keys F23C5A6CF475977595C89F51BA6932366A755776
-echo "deb [signed-by=/usr/share/keyrings/deadsnakes.gpg] https://ppa.launchpadcontent.net/deadsnakes/ppa/ubuntu $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/pythonppa-deadsnakes.list
-sudo apt-get update
-apt-cache search python3.12
-sudo apt install python3.12-full -y
-```
-
-If you need several versions side by side, choose between them with `update-alternatives`:
-
-```bash
-ls -ls /usr/bin/python*
-sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.10 1
-sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.12 2
-sudo update-alternatives --config python
-```
-
-</details>
-
-3. Create a virtual environment named `h2o-env` in your home folder, install the five libraries in it, and list them:
-
-   ```bash
-   python3 -m venv ~/h2o-env
-   source ~/h2o-env/bin/activate
-   pip install h2o pandas numpy matplotlib py4j
-   pip list | grep -E "h2o|pandas|numpy|matplotlib|py4j"
-   which python
-   deactivate
-   ```
-
-<div align="center">
-<figure>
-<img src="../_assets/images/prereq_h2o_install.png" alt="A terminal creating the h2o-env virtual environment and pip downloading h2o 3.46.0.9 with its dependencies requests, tabulate, charset_normalizer, idna, urllib3 and certifi" width="779">
-<figcaption>pip installs h2o and its dependencies (this capture installs h2o alone)</figcaption>
-</figure>
-</div>
-
-> **Success:** Checkpoint: `pip list` shows `h2o`, `matplotlib`, `numpy`, `pandas` and `py4j` with their versions, and `which python` prints the `python` inside `h2o-env`, such as `/home/pentaho/h2o-env/bin/python`.
-
-To look up a package or a `pip` option, see this reference:
-
-**🎥 Embed:** [Python package reference](<https://apmonitor.com/pds/index.php/Main/InstallPythonPackages>)
-
-### 3. R and rJava
-
-> **Note:**
->
-> #### R and rJava
->
-> R trains and runs the fraud model in the [Credit Card](../04-credit-card/guide.md) workshop. rJava, and the JRI library that comes with it, let a Java program such as Spoon start R and pass data frames to it. You need them only for the R steps.
-
-1. Install R:
-
-   ```bash
-   sudo apt update && sudo apt upgrade -y
-   sudo apt install r-base r-base-dev -y
-   ```
-
-2. Check the R version:
-
-   ```bash
-   R --version
-   ```
-
-> **Success:** Checkpoint: the first line starts `R version`, followed by the version number and its release date.
-
-Running `R` without `sudo` installs packages for your user only. To install a package for every user, start R with `sudo -i R`.
-
-3. Install a Java Development Kit (JDK) and the `libtirpc` headers, then let R detect Java. `R CMD javareconf` finds the current Java installation and updates R's configuration files to match it:
-
-   ```bash
-   java --version
-   sudo apt-get update
-   sudo apt-get install default-jdk libtirpc-dev -y
-   sudo R CMD javareconf
-   ```
-
-4. Download rJava's source, configure it against the default JDK and install it:
-
-   ```bash
-   cd /tmp
-   wget https://cloud.r-project.org/src/contrib/rJava_1.0-14.tar.gz
-   tar -xzf rJava_1.0-14.tar.gz
-   cd rJava
-   ./configure --with-java-home=/usr/lib/jvm/default-java JAVA_LIBS="-L/usr/lib/jvm/default-java/lib/server -ljvm"
-   cd /tmp
-   sudo R CMD INSTALL rJava
-   ```
-
-5. Check that R can load rJava and start a Java virtual machine:
-
-   ```bash
-   R -e "library(rJava); .jinit(); system.file(package='rJava')"
-   ```
-
-> **Success:** Checkpoint: R prints no error and ends with the folder rJava is installed in, `[1] "/usr/local/lib/R/site-library/rJava"`. The next part copies a file from that folder.
-
-<details>
-
-<summary>Optional: install RStudio</summary>
-
-Use RStudio only if you want an IDE for R.
-
-1. Download a `.deb` package from the [RStudio downloads page](https://posit.co/download/rstudio-desktop/).
-2. Install it:
-
-```bash
-sudo apt install -f ./rstudio-*.deb
-```
-
-</details>
-
-### 4. Configure Pentaho Data Integration for R
-
-> **Note:**
->
-> #### Configure Pentaho Data Integration for R
->
-> Spoon needs to know where R is: two environment variables, `R_HOME` and `R_LIBS_USER`, and R's `bin` folder on `PATH`. It also needs JRI's native library in its own native library folder.
-
-1. Print the two values R uses on this machine:
-
-   ```bash
-   R -e "Sys.getenv('R_HOME'); Sys.getenv('R_LIBS_USER')"
-   ```
-
-> **Success:** Checkpoint: R prints two paths, such as `[1] "/usr/lib/R"` and `[1] "/home/pentaho/R/x86_64-pc-linux-gnu-library/4.3"`. Yours depend on your user name and R version.
-
-2. Open `/etc/environment` in an editor:
-
-   ```bash
-   sudo nano /etc/environment
-   ```
-
-3. Add `:/usr/lib/R/bin` to the end of the `PATH` line, and add `R_HOME` and `R_LIBS_USER` with the two values R printed. For the lab machine's user, `pentaho`, the file reads:
-
-   ```text
-   PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/lib/R/bin"
-
-   # R variables
-   R_HOME=/usr/lib/R
-   R_LIBS_USER=/home/pentaho/R/x86_64-pc-linux-gnu-library/4.3
-   ```
-
-4. Save the file and close the editor: in `nano`, press `Ctrl+O`, `Enter`, then `Ctrl+X`.
-5. Copy `libjri.so` from rJava into Spoon's native library folder, and make your user its owner:
-
-   ```bash
-   cd /usr/local/lib/R/site-library/rJava/jri
-   cp libjri.so ~/Pentaho/design-tools/data-integration/native-lib/linux/x86_64/
-   sudo chown "$(id -un):$(id -gn)" ~/Pentaho/design-tools/data-integration/native-lib/linux/x86_64/libjri.so
-   ```
-
-6. Sign out and sign back in, or restart the machine, so that the new variables in `/etc/environment` reach Spoon.
-
-### 5. Validate with an R Transformation
-
-> **Note:**
->
-> #### Validate with an R transformation
->
-> A one-step transformation proves that Spoon can start R: its script loads R's built-in `iris` data set and returns it as rows.
+> A two-step transformation proves that Spoon can run Python from the virtual environment: a **Generate rows** step makes one row, and a **Python Executor** step imports H2O, pandas and NumPy and returns their versions.
 
 1. Start Spoon with the **Start Pentaho Data Integration** button below, or from a terminal:
-
-::: tabs
-
-### Windows (PowerShell)
 
 ```powershell
 Set-Location C:\Pentaho\design-tools\data-integration
 .\spoon.bat
 ```
 
-### macOS / Linux
-
-```bash
-cd ~/Pentaho/design-tools/data-integration
-./spoon.sh
-```
-
-:::
-
 <button data-launch="spoon" data-path="">Start Pentaho Data Integration</button>
 
 2. Select **File > New > Transformation** (`Ctrl+N`).
-3. On the **Design** tab, open the **Statistics** folder and drag **R script executor** onto the canvas.
-4. Double-click **R script executor**. Keep its step name, `R script executor`.
-5. On the **Configure** tab, check that **Number of Rows to Process** is `All`, and set **Logging Level for R Messages** to `Detailed`.
-6. Open the **R Script** tab and enter this script in **Manual R Script**:
+3. On the **Design** tab, open the **Input** folder and drag **Generate rows** onto the canvas. Double-click it, set **Limit** to `1`, and add one field: **Name** `run`, **Type** `Integer`, **Value** `1`. Select **OK**.
+4. Open the **Scripting** folder and drag **Python Executor** onto the canvas. Create a hop from **Generate rows** to **Python Executor**: hold `Shift` and drag from one step to the other.
+5. Double-click **Python Executor**. On the **Script** tab, under **Source**, select **Embed**. Select **Use a Python virtual environment**, and enter the Python program of `h2o-env`:
 
-   ```r
-   library(datasets)
-   iris
+   ```text
+   ${user.home}\h2o-env\Scripts\python.exe
+   ```
+
+   `${user.home}` is your home folder. Enter the program, not the folder: the step runs what you enter, and a folder fails with `CreateProcess error=5, Access is denied`.
+
+6. Enter this script in **Manual Python script**:
+
+   ```python
+   import sys
+   import h2o, pandas, numpy
+
+   # One row back to PDI: the versions this virtual environment provides
+   python_version = sys.version.split()[0]
+   h2o_version = h2o.__version__
+   pandas_version = pandas.__version__
+   numpy_version = numpy.__version__
    ```
 
 <div align="center">
 <figure>
-<img src="../_assets/images/prereq_r_script_executor.png" alt="The R script executor dialog on its R Script tab, with library(datasets) and iris in Manual R Script and the Test Script button below" width="800">
-<figcaption>The test script on the R Script tab</figcaption>
+<img src="../_assets/images/prereq_py_script.png" alt="The Python Executor dialog, Script tab: Source Embed, a script that imports sys, h2o, pandas and numpy and sets four version variables, and Use a Python virtual environment selected with ${user.home}\h2o-env\Scripts\python.exe" width="800">
+<figcaption>The Script tab</figcaption>
 </figure>
 </div>
 
-7. Select **Test Script**. Spoon warns that this runs the script without running the transformation: confirm it.
+7. Open the **Input** tab. Under **Row processing**, select **All rows**. Under **Available variables**, add a variable with the plus sign button: **Variable name** `rows`, **Step** `Generate rows`, **Data structure** `Pandas dataframe`. Make sure the **Mapping** grid holds one row: **Data structure field** `run`, **Data structure type** `int64`, **Pentaho Data Integration field** `run`, **Pentaho Data Integration data type** Integer.
+<div align="center">
+<figure>
+<img src="../_assets/images/prereq_py_input.png" alt="The Python Executor Input tab: All rows; variable rows from Generate rows as a Pandas dataframe, mapping run, int64, to the Integer field run" width="800">
+<figcaption>The Input tab</figcaption>
+</figure>
+</div>
+
+8. Open the **Output** tab. Under **Output processing**, select **Variables to fields**, and fill the **Mapping** grid. Each is a `str` in Python and a String in Pentaho Data Integration:
+
+| Variable         | Python data type | Pentaho Data Integration field | Pentaho Data Integration data type |
+| ---------------- | ---------------- | ------------------------------ | ---------------------------------- |
+| `python_version` | `str`            | `python_version`               | String                             |
+| `h2o_version`    | `str`            | `h2o_version`                  | String                             |
+| `pandas_version` | `str`            | `pandas_version`               | String                             |
+| `numpy_version`  | `str`            | `numpy_version`                | String                             |
 
 <div align="center">
 <figure>
-<img src="../_assets/images/prereq_r_test_preview.png" alt="Examine preview data for the R script executor step: 150 rows with the columns Sepal.Length, Sepal.Width, Petal.Length, Petal.Width and Species, the first row 5.1, 3.5, 1.4, 0.2, setosa" width="613">
-<figcaption>R returns the iris data set</figcaption>
+<img src="../_assets/images/prereq_py_output.png" alt="The Python Executor Output tab: Variables to fields, mapping python_version, h2o_version, pandas_version and numpy_version as str to String" width="800">
+<figcaption>The Output tab</figcaption>
 </figure>
 </div>
 
-> **Success:** Checkpoint: **Examine preview data** shows `Rows of step: R script executor (150 rows)`, with the columns `Sepal.Length`, `Sepal.Width`, `Petal.Length`, `Petal.Width` and `Species`. The first row is `5.1`, `3.5`, `1.4`, `0.2`, `setosa`.
+9. Select **OK**. Select **File > Save as** and save the transformation as `test_python.ktr` in your `Documents` folder.
+<div align="center">
+<figure>
+<img src="../_assets/images/prereq_test_python.png" alt="The test_python transformation under its note: Generate rows, then a hop to Python Executor" width="666">
+<figcaption>test_python.ktr</figcaption>
+</figure>
+</div>
 
-8. Select **Close**, then select **OK**.
-9. Select **File > Save as** and save it as `test_r.ktr`.
+10. Select **Python Executor** on the canvas, press `F10` (**Action > Preview**), and select **Quick Launch**.
+
+> **Success:** Checkpoint: **Examine preview data** shows one row with four versions: `python_version` (`3.11` or later), `h2o_version` (`3.46` or later), `pandas_version` and `numpy_version`.
+
+11. Select **Close**.
 
 > **Under the hood:**
 >
-> #### Spoon loaded JRI from its own library path and started R inside its process
+> #### Spoon started the virtual environment's Python as a process of its own
 >
-> `spoon.sh` starts Java with `-Djava.library.path` set to Pentaho Data Integration's
-> `libswt/linux/x86_64` and `native-lib/linux/x86_64` folders (on 64-bit
-> Linux). The **R script executor** step talks to R through JRI: its Java
-> half ships with the step, in `plugins/pentaho-r-plugin/lib`, and its
-> native half, `libjri.so`, comes from rJava. Java loads that native
-> library only from a folder on its library path, which is why you copied
-> it into `native-lib`. JRI then runs R inside Spoon's own Java process,
-> and R finds its installation through `R_HOME`.
+> The **Python Executor** step runs the program you named in **Use a
+> Python virtual environment** as a separate process, sends it the rows
+> as a pandas data frame named after the variable, `rows`, runs the
+> script, and reads back the variables you mapped on the **Output** tab.
+> Python never runs inside Spoon's Java process, and nothing has to be
+> copied into Pentaho Data Integration's folders.
 >
-> **Why it matters:** when an R step can't start R, the cause is the
-> setup, not the script. Check the copied `libjri.so` and the variables in
-> `/etc/environment` before you change a line of R.
+> **Why it matters:** when a Python step fails, check the program path
+> and the packages in that environment first: the step uses exactly that
+> Python, whatever else is installed on the machine.
 
 ::::
+
+## Troubleshooting <!-- no-step -->
+
+<details>
+<summary>Cannot run program ... h2o-env: CreateProcess error=5, Access is denied</summary>
+
+**Use a Python virtual environment** names the folder. Enter the Python program inside it, as the table in step 5 shows.
+
+</details>
+
+<details>
+<summary>No module named h2o</summary>
+
+The step runs a Python without H2O: either **Use a Python virtual environment** is cleared, or it names another Python. Check the path, then list the environment's packages with `pip list`, as in the first tab.
+
+</details>
 
 ## Lab Files
 
@@ -321,6 +227,6 @@ _No bundled files for this lab._
 
 ### Solution <!-- no-step -->
 
-The finished transformation, `test_r.ktr`, ships with the next workshop: open it from the **Lab Files** of [AutoML](../03-automl/guide.md).
+The finished transformation, `test_python.ktr`, ships with the next workshop: open it from the **Lab Files** of [AutoML](../03-automl/guide.md).
 
 Also on disk at `C:\Workshop-ML-Specialty\02-machine-learning\03-automl\solution`.

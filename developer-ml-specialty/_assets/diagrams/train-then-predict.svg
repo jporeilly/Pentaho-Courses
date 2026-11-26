@@ -98,40 +98,40 @@
 <rect x="428" y="552" width="340" height="88" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
 <circle cx="458" cy="596" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
 <g transform="translate(446 584) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="20" x="4" y="2" rx="2"/><line x1="8" x2="16" y1="6" y2="6"/><line x1="16" x2="16" y1="14" y2="18"/><path d="M16 10h.01"/><path d="M12 10h.01"/><path d="M8 10h.01"/><path d="M12 14h.01"/><path d="M8 14h.01"/><path d="M12 18h.01"/><path d="M8 18h.01"/></g>
-<text x="488" y="571.5" font-size="14" font-weight="700" fill="#3b0764">Eight features only</text>
+<text x="488" y="571.5" font-size="14" font-weight="700" fill="#3b0764">Two ids + eight features</text>
 <text x="488" y="588.5" font-size="12" fill="#3b0764">frmla-billing=shipping, sv-fields,</text>
-<text x="488" y="603.5" font-size="12" fill="#3b0764">sv-predict_fields,</text>
-<text x="488" y="618.5" font-size="12" fill="#3b0764">sv-convert_booleans_to_numbers</text>
+<text x="488" y="603.5" font-size="12" fill="#3b0764">sv-predict_fields, sv-convert_</text>
+<text x="488" y="618.5" font-size="12" fill="#3b0764">booleans_to_numbers</text>
 <rect x="32" y="668" width="340" height="88" rx="10" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5" filter="url(#shadow)"/>
 <circle cx="62" cy="712" r="19" fill="#ffffff" stroke="#0f766e" stroke-width="1.2"/>
 <g transform="translate(50 700) scale(1)" fill="none" stroke="#0f766e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"/><path d="M9 13a4.5 4.5 0 0 0 3-4"/><path d="M6.003 5.125A3 3 0 0 0 6.401 6.5"/><path d="M3.477 10.896a4 4 0 0 1 .585-.396"/><path d="M6 18a4 4 0 0 1-1.967-.516"/><path d="M12 13h4"/><path d="M12 18h6a2 2 0 0 1 2 2v1"/><path d="M12 8h8"/><path d="M16 8V5a2 2 0 0 1 2-2"/><circle cx="16" cy="13" r=".5"/><circle cx="18" cy="3" r=".5"/><circle cx="20" cy="21" r=".5"/><circle cx="20" cy="8" r=".5"/></g>
-<text x="92" y="687.5" font-size="14" font-weight="700" fill="#134e4a">rscrpt-train_gbm</text>
-<text x="92" y="704.5" font-size="12" fill="#134e4a">All rows as frame train; gbm():</text>
-<text x="92" y="719.5" font-size="12" fill="#134e4a">bernoulli, 500 trees; save() the</text>
-<text x="92" y="734.5" font-size="12" fill="#134e4a">model; returns one row, ok: Finished</text>
+<text x="92" y="687.5" font-size="14" font-weight="700" fill="#134e4a">py-train_gbm</text>
+<text x="92" y="704.5" font-size="12" fill="#134e4a">Python Executor, All rows as train;</text>
+<text x="92" y="719.5" font-size="12" fill="#134e4a">H2O GBM on 80%, measured on 20%;</text>
+<text x="92" y="734.5" font-size="12" fill="#134e4a">one row: validation_auc, trees ...</text>
 <rect x="428" y="668" width="340" height="88" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
 <circle cx="458" cy="712" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
 <g transform="translate(446 700) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/></g>
-<text x="488" y="687.5" font-size="14" font-weight="700" fill="#3b0764">rscrpt-predict</text>
-<text x="488" y="704.5" font-size="12" fill="#3b0764">All rows as frame test; load() the</text>
-<text x="488" y="719.5" font-size="12" fill="#3b0764">model; predict(): fraud_probability,</text>
-<text x="488" y="734.5" font-size="12" fill="#3b0764">fraud_pct, predicted_fraud</text>
+<text x="488" y="687.5" font-size="14" font-weight="700" fill="#3b0764">py-predict_fraud</text>
+<text x="488" y="704.5" font-size="12" fill="#3b0764">Python Executor, All rows as test;</text>
+<text x="488" y="719.5" font-size="12" fill="#3b0764">load the model; predict():</text>
+<text x="488" y="734.5" font-size="12" fill="#3b0764">fraud_probability, fraud_pct, ...</text>
 <rect x="428" y="784" width="340" height="88" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
 <circle cx="458" cy="828" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
 <g transform="translate(446 816) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.226 20.925A2 2 0 0 0 6 22h12a2 2 0 0 0 2-2V8a2.4 2.4 0 0 0-.706-1.706l-3.588-3.588A2.4 2.4 0 0 0 14 2H6a2 2 0 0 0-2 2v3.127"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="m5 11-3 3"/><path d="m5 17-3-3h10"/></g>
 <text x="488" y="803.5" font-size="14" font-weight="700" fill="#14532d">Predict Fraud</text>
 <text x="488" y="820.5" font-size="12" fill="#14532d">Text file output:</text>
 <text x="488" y="835.5" font-size="12" fill="#14532d">output/credit_card_fraud_&lt;HHmmss&gt;.csv,</text>
-<text x="488" y="850.5" font-size="12" fill="#14532d">11 columns</text>
+<text x="488" y="850.5" font-size="12" fill="#14532d">13 columns: the ids and the scores</text>
 <rect x="32" y="804" width="340" height="88" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
 <circle cx="62" cy="848" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
 <g transform="translate(50 836) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7"/><path d="M7 3v4a1 1 0 0 0 1 1h7"/></g>
-<text x="92" y="823.5" font-size="14" font-weight="700" fill="#14532d">gbm_fraud.rdata</text>
+<text x="92" y="823.5" font-size="14" font-weight="700" fill="#14532d">gbm_fraud</text>
 <text x="92" y="840.5" font-size="12" fill="#14532d">in train_model_output, next to the</text>
-<text x="92" y="855.5" font-size="12" fill="#14532d">transformations: gbm_model and</text>
-<text x="92" y="870.5" font-size="12" fill="#14532d">best_trees</text>
-<rect x="174.1" y="766" width="55.8" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
-<text x="202" y="784" text-anchor="middle" font-size="12" fill="#334155">save()</text>
-<rect x="372.1" y="775.5" width="55.8" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
-<text x="400" y="793.5" text-anchor="middle" font-size="12" fill="#334155">load()</text>
+<text x="92" y="855.5" font-size="12" fill="#14532d">transformations: the H2O model</text>
+<text x="92" y="870.5" font-size="12" fill="#14532d">h2o.save_model writes</text>
+<rect x="161.5" y="766" width="81" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="202" y="784" text-anchor="middle" font-size="12" fill="#334155">save_model</text>
+<rect x="359.5" y="775.5" width="81" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="400" y="793.5" text-anchor="middle" font-size="12" fill="#334155">load_model</text>
 </svg>
