@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="810" viewBox="0 0 560 810" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+<filter id="shadow" x="-10%" y="-10%" width="120%" height="140%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#0f172a" flood-opacity="0.12"/></filter></defs>
+<rect width="560" height="810" fill="#ffffff"/>
+<rect x="40" y="264" width="480" height="406" rx="12" fill="#f0fdfa" stroke="#ccfbf1" stroke-width="1.5"/>
+<path d="M40 276a12 12 0 0 1 12-12h456a12 12 0 0 1 12 12v22h-480z" fill="#0f766e"/>
+<g transform="translate(53 270) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"/><path d="M20 2v4"/><path d="M22 4h-4"/><circle cx="4" cy="20" r="2"/></g>
+<text x="80" y="287" font-size="14" font-weight="700" fill="#ffffff">Speciality courses</text>
+<path d="M280 90L280 150" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M280 220L280 314" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M280 384L280 444" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M280 514L280 574" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M280 644L280 716" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="70" y="20" width="420" height="70" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="100" cy="55" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(88 43) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></g>
+<text x="130" y="38" font-size="14" font-weight="700" fill="#1e3a8a">1 · DI Developer</text>
+<text x="130" y="55" font-size="12" fill="#1e3a8a">The same course as Level 1 — Practitioner</text>
+<text x="130" y="70" font-size="12" fill="#1e3a8a">53 lessons · ~14h 35m</text>
+<rect x="70" y="150" width="420" height="70" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="100" cy="185" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(88 173) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="8" x="2" y="2" rx="2" ry="2"/><rect width="20" height="8" x="2" y="14" rx="2" ry="2"/><line x1="6" x2="6.01" y1="6" y2="6"/><line x1="6" x2="6.01" y1="18" y2="18"/></g>
+<text x="130" y="168" font-size="14" font-weight="700" fill="#3b0764">2 · Installation</text>
+<text x="130" y="185" font-size="12" fill="#3b0764">Pentaho 11 from the archive on Linux</text>
+<text x="130" y="200" font-size="12" fill="#3b0764">12 lessons · ~5h 10m</text>
+<rect x="70" y="314" width="420" height="70" rx="10" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="100" cy="349" r="19" fill="#ffffff" stroke="#0f766e" stroke-width="1.2"/>
+<g transform="translate(88 337) scale(1)" fill="none" stroke="#0f766e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 7.7c0-.6-.4-1.2-.8-1.5l-6.3-3.9a1.72 1.72 0 0 0-1.7 0l-10.3 6c-.5.2-.9.8-.9 1.4v6.6c0 .5.4 1.2.8 1.5l6.3 3.9a1.72 1.72 0 0 0 1.7 0l10.3-6c.5-.3.9-1 .9-1.5Z"/><path d="M10 21.9V14L2.1 9.1"/><path d="m10 14 11.9-6.9"/><path d="M14 19.8v-8.1"/><path d="M18 17.5V9.4"/></g>
+<text x="130" y="332" font-size="14" font-weight="700" fill="#134e4a">3 · Containers</text>
+<text x="130" y="349" font-size="12" fill="#134e4a">Podman Compose, K3s and Helm</text>
+<text x="130" y="364" font-size="12" fill="#134e4a">10 lessons · ~4h 50m</text>
+<rect x="70" y="444" width="420" height="70" rx="10" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="100" cy="479" r="19" fill="#ffffff" stroke="#0f766e" stroke-width="1.2"/>
+<g transform="translate(88 467) scale(1)" fill="none" stroke="#0f766e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="16" y="16" width="6" height="6" rx="1"/><rect x="2" y="16" width="6" height="6" rx="1"/><rect x="9" y="2" width="6" height="6" rx="1"/><path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3"/><path d="M12 12V8"/></g>
+<text x="130" y="462" font-size="14" font-weight="700" fill="#134e4a">4 · High Availability</text>
+<text x="130" y="479" font-size="12" fill="#134e4a">HAProxy, Keepalived and a Carte cluster</text>
+<text x="130" y="494" font-size="12" fill="#134e4a">6 lessons · ~4h 5m</text>
+<rect x="70" y="574" width="420" height="70" rx="10" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="100" cy="609" r="19" fill="#ffffff" stroke="#0f766e" stroke-width="1.2"/>
+<g transform="translate(88 597) scale(1)" fill="none" stroke="#0f766e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></g>
+<text x="130" y="592" font-size="14" font-weight="700" fill="#134e4a">5 · Enterprise Security</text>
+<text x="130" y="609" font-size="12" fill="#134e4a">LDAP, OpenID Connect and Kerberos sign-on</text>
+<text x="130" y="624" font-size="12" fill="#134e4a">17 lessons · ~6h 45m</text>
+<rect x="70" y="716" width="420" height="70" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="100" cy="751" r="19" fill="#ffffff" stroke="#b45309" stroke-width="1.2"/>
+<g transform="translate(88 739) scale(1)" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526"/><circle cx="12" cy="8" r="6"/></g>
+<text x="130" y="741.5" font-size="14" font-weight="700" fill="#78350f">Certified Solution Architect</text>
+<text x="130" y="758.5" font-size="12" fill="#78350f">All five courses plus a proctored exam</text>
+<rect x="167.05" y="107.5" width="225.9" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="280" y="125.5" text-anchor="middle" font-size="12" fill="#334155">install the platform you build on</text>
+<rect x="198.55" y="229.5" width="162.9" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="280" y="247.5" text-anchor="middle" font-size="12" fill="#334155">deploy it in containers</text>
+<rect x="217.45" y="401.5" width="125.1" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="280" y="419.5" text-anchor="middle" font-size="12" fill="#334155">keep it available</text>
+<rect x="211.15" y="531.5" width="137.7" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="280" y="549.5" text-anchor="middle" font-size="12" fill="#334155">secure who signs in</text>
+<rect x="217.45" y="680.5" width="125.1" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="280" y="698.5" text-anchor="middle" font-size="12" fill="#334155">all five complete</text>
+</svg>
