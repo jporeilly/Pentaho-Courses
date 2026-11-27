@@ -1,10 +1,10 @@
 {
   "title": "Before You Start",
-  "description": "Orient yourself: progress tracking, code copy, launchers, and the AI assistant.",
+  "description": "Get ready: how the guide works, Pentaho Data Integration, MySQL, Kafka and the h2o-env Python checked, the workshop folders and the database, and how the exam and the capstone earn your course accreditation.",
   "order": 0,
   "kind": "page",
-  "stepCount": 9,
-  "estimatedMinutes": 25,
+  "stepCount": 17,
+  "estimatedMinutes": 5,
   "hasVideo": false,
   "checks": [],
   "noProgress": true
