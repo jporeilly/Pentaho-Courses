@@ -57,10 +57,10 @@ Pick the lowest level that satisfies the use case — higher QoS means more roun
 
 ### Topics and wildcards
 
-A **topic** is a hierarchical UTF-8 string with levels separated by `/`, e.g. `industrial/robot/sensor`. The broker accepts any valid topic on the fly — no need to create it first. Subscribers can use **wildcards** (subscribe only):
+A **topic** is a hierarchical UTF-8 string with levels separated by `/`, e.g. `acme/plant1/line1/robot1/telemetry`. The broker accepts any valid topic on the fly — no need to create it first. Subscribers can use **wildcards** (subscribe only):
 
-* `+` — single level: `industrial/+/sensor` matches `industrial/robot/sensor` and `industrial/arm/sensor`.
-* `#` — multi level (last character only): `industrial/#` matches everything under `industrial/`.
+* `+` — single level: `acme/plant1/line1/+/telemetry` matches `acme/plant1/line1/robot1/telemetry` and `acme/plant1/line1/press1/telemetry`.
+* `#` — multi level (last character only): `acme/plant1/line1/#` matches everything under `acme/plant1/line1/`.
 
 **Best practices:** keep topics short and specific, use only ASCII, avoid spaces and a leading `/`, and don't subscribe a production client to `#`: it receives every message on the broker.
 
@@ -81,6 +81,25 @@ A message published with the **retained** flag is stored by the broker as the la
 
 A client can register a **will message** when it connects. If it disconnects ungracefully (crash, network drop, missed keep-alive), the broker publishes that message on its behalf — typically a `sensor gone` / `offline` notice on a status topic. Combined with a retained status topic, this keeps subscribers informed of device availability.
 
+### Unified Namespace and Sparkplug
+
+A plant with hundreds of devices needs its topics to follow one plan, or every consumer has to learn every device's naming. A **Unified Namespace** (UNS) is that plan: one topic tree for the whole business, usually shaped like the ISA-95 equipment hierarchy, enterprise, site, area or line, device, and what the message is. Every device publishes its current data to its own place in the tree, and every application finds data by where it sits, not by who sent it:
+
+<div align="center">
+<figure>
+<img src="../_assets/images/mqtt-uns-tree.png" alt="A Unified Namespace topic tree: acme, then plant1, then line1 and line2; under line1 the devices robot1, robot2 and press1, each with telemetry and state. The subscription acme/plant1/line1/+/telemetry takes the telemetry of every device on line1; acme/plant1/line1/robot1/# takes everything robot1 publishes" width="800">
+<figcaption>One tree for the plant: a wildcard picks a slice of it</figcaption>
+</figure>
+</div>
+
+The HiveMQ workshop publishes to such a path, `acme/plant1/line1/robot1/telemetry`, with plain JSON messages. Many plants also standardize the message itself with **Sparkplug B**, an Eclipse Foundation specification on top of MQTT:
+
+* **Fixed topics:** `spBv1.0/<group>/<message type>/<edge node>/<device>`, for example `spBv1.0/line1/DDATA/gateway1/robot1`.
+* **Birth and death messages:** a device announces itself and all its metrics with `NBIRTH`/`DBIRTH`, and its edge node registers an `NDEATH` as its Last Will. A consumer always knows which devices are alive and what each one sends: the Last Will and retained-status idea of this module, made standard.
+* **Protobuf payloads:** compact binary messages, not text.
+
+Sparkplug's payloads are binary, so Pentaho Data Integration's MQTT consumer reads them with **Message data type** `Binary`, and a decoding step, such as a Python script, turns them into fields. Plain JSON in a namespace-shaped tree, as in this course, needs no decoding. Practice differs: some plants run Sparkplug end to end, others use it at the edge and plain JSON in the central namespace.
+
 ### Keep alive
 
 On connect the client negotiates a **keep-alive** interval (seconds). If no other packet is sent within it, the client sends a `PINGREQ` and the broker replies `PINGRESP`, so both sides can detect a dead ("half-open") connection. If the broker hears nothing within 1.5× the interval, it drops the client and fires its LWT.
@@ -89,7 +108,7 @@ On connect the client negotiates a **keep-alive** interval (seconds). If no othe
 
 This module has two hands-on workshops:
 
-* [HiveMQ](../03-mqtt-hivemq/guide.md) — consume industrial robot-sensor telemetry from a HiveMQ broker.
-* [EMQX](../04-mqtt-emqx/guide.md) — consume delivery-truck telemetry from an EMQX broker for a predictive-maintenance use case.
+* [EMQX](../03-mqtt-emqx/guide.md) — plain publish/subscribe: publish delivery-truck telemetry from Pentaho Data Integration to an EMQX broker and consume it, for a predictive-maintenance use case.
+* [HiveMQ](../04-mqtt-hivemq/guide.md) — consume industrial robot-sensor telemetry from a HiveMQ broker, with a Python publisher, JSON messages and a Last Will.
 
-> **Tip:** Next, consume robot telemetry from HiveMQ: [HiveMQ](../03-mqtt-hivemq/guide.md).
+> **Tip:** Next, publish and subscribe with EMQX: [EMQX](../03-mqtt-emqx/guide.md).

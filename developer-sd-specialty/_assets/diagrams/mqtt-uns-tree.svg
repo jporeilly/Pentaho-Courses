@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="940" height="660" viewBox="0 0 940 660" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+<filter id="shadow" x="-10%" y="-10%" width="120%" height="140%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#0f172a" flood-opacity="0.12"/></filter></defs>
+<rect width="940" height="660" fill="#ffffff"/>
+<rect x="576" y="64" width="360" height="162" rx="12" fill="#fffbeb" stroke="#fef3c7" stroke-width="1.5"/>
+<path d="M576 76a12 12 0 0 1 12-12h336a12 12 0 0 1 12 12v22h-360z" fill="#b45309"/>
+<g transform="translate(589 70) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></g>
+<text x="616" y="87" font-size="14" font-weight="700" fill="#ffffff">acme/plant1/line1/robot1/#</text>
+<path d="M736 170L756 170" fill="none" stroke="#64748b" stroke-width="1.7"/>
+<path d="M756 170L756 144" fill="none" stroke="#64748b" stroke-width="1.7"/>
+<path d="M756 144L775 144" fill="none" stroke="#64748b" stroke-width="1.7"/>
+<path d="M736 170L756 170" fill="none" stroke="#64748b" stroke-width="1.7"/>
+<path d="M756 170L756 196" fill="none" stroke="#64748b" stroke-width="1.7"/>
+<path d="M756 196L775 196" fill="none" stroke="#64748b" stroke-width="1.7"/>
+<path d="M736 274L756 274" fill="none" stroke="#64748b" stroke-width="1.7"/>
+<path d="M756 274L756 248" fill="none" stroke="#64748b" stroke-width="1.7"/>
+<path d="M756 248L775 248" fill="none" stroke="#64748b" stroke-width="1.7"/>
+<path d="M736 274L756 274" fill="none" stroke="#64748b" stroke-width="1.7"/>
+<path d="M756 274L756 300" fill="none" stroke="#64748b" stroke-width="1.7"/>
+<path d="M756 300L775 300" fill="none" stroke="#64748b" stroke-width="1.7"/>
+<path d="M736 378L756 378" fill="none" stroke="#64748b" stroke-width="1.7"/>
+<path d="M756 378L756 352" fill="none" stroke="#64748b" stroke-width="1.7"/>
+<path d="M756 352L775 352" fill="none" stroke="#64748b" stroke-width="1.7"/>
+<path d="M736 378L756 378" fill="none" stroke="#64748b" stroke-width="1.7"/>
+<path d="M756 378L756 404" fill="none" stroke="#64748b" stroke-width="1.7"/>
+<path d="M756 404L775 404" fill="none" stroke="#64748b" stroke-width="1.7"/>
+<path d="M546 274L566 274" fill="none" stroke="#64748b" stroke-width="1.7"/>
+<path d="M566 274L566 170" fill="none" stroke="#64748b" stroke-width="1.7"/>
+<path d="M566 170L585 170" fill="none" stroke="#64748b" stroke-width="1.7"/>
+<path d="M546 274L566 274" fill="none" stroke="#64748b" stroke-width="1.7"/>
+<path d="M566 274L566 274" fill="none" stroke="#64748b" stroke-width="1.7"/>
+<path d="M566 274L585 274" fill="none" stroke="#64748b" stroke-width="1.7"/>
+<path d="M546 274L566 274" fill="none" stroke="#64748b" stroke-width="1.7"/>
+<path d="M566 274L566 378" fill="none" stroke="#64748b" stroke-width="1.7"/>
+<path d="M566 378L585 378" fill="none" stroke="#64748b" stroke-width="1.7"/>
+<path d="M546 466L566 466" fill="none" stroke="#64748b" stroke-width="1.7"/>
+<path d="M566 466L566 466" fill="none" stroke="#64748b" stroke-width="1.7"/>
+<path d="M566 466L585 466" fill="none" stroke="#64748b" stroke-width="1.7"/>
+<path d="M356 370L376 370" fill="none" stroke="#64748b" stroke-width="1.7"/>
+<path d="M376 370L376 274" fill="none" stroke="#64748b" stroke-width="1.7"/>
+<path d="M376 274L395 274" fill="none" stroke="#64748b" stroke-width="1.7"/>
+<path d="M356 370L376 370" fill="none" stroke="#64748b" stroke-width="1.7"/>
+<path d="M376 370L376 466" fill="none" stroke="#64748b" stroke-width="1.7"/>
+<path d="M376 466L395 466" fill="none" stroke="#64748b" stroke-width="1.7"/>
+<path d="M166 370L186 370" fill="none" stroke="#64748b" stroke-width="1.7"/>
+<path d="M186 370L186 370" fill="none" stroke="#64748b" stroke-width="1.7"/>
+<path d="M186 370L205 370" fill="none" stroke="#64748b" stroke-width="1.7"/>
+<rect x="50.5" y="17.5" width="81" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="91" y="35.5" text-anchor="middle" font-size="12" fill="#334155">enterprise</text>
+<rect x="259.4" y="17.5" width="43.2" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="281" y="35.5" text-anchor="middle" font-size="12" fill="#334155">site</text>
+<rect x="449.4" y="17.5" width="43.2" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="471" y="35.5" text-anchor="middle" font-size="12" fill="#334155">line</text>
+<rect x="633.1" y="17.5" width="55.8" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="661" y="35.5" text-anchor="middle" font-size="12" fill="#334155">device</text>
+<rect x="819.95" y="17.5" width="62.1" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="851" y="35.5" text-anchor="middle" font-size="12" fill="#334155">message</text>
+<rect x="776" y="124" width="150" height="40" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="851" y="149" text-anchor="middle" font-size="14" font-weight="700" fill="#1e3a8a">telemetry</text>
+<rect x="776" y="176" width="150" height="40" rx="10" fill="#ffffff" stroke="#64748b" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="851" y="201" text-anchor="middle" font-size="14" font-weight="700" fill="#0f172a">state</text>
+<rect x="586" y="150" width="150" height="40" rx="10" fill="#f1f5f9" stroke="#475569" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="661" y="175" text-anchor="middle" font-size="14" font-weight="700" fill="#0f172a">robot1</text>
+<rect x="776" y="228" width="150" height="40" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="851" y="253" text-anchor="middle" font-size="14" font-weight="700" fill="#1e3a8a">telemetry</text>
+<rect x="776" y="280" width="150" height="40" rx="10" fill="#ffffff" stroke="#64748b" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="851" y="305" text-anchor="middle" font-size="14" font-weight="700" fill="#0f172a">state</text>
+<rect x="586" y="254" width="150" height="40" rx="10" fill="#f1f5f9" stroke="#475569" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="661" y="279" text-anchor="middle" font-size="14" font-weight="700" fill="#0f172a">robot2</text>
+<rect x="776" y="332" width="150" height="40" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="851" y="357" text-anchor="middle" font-size="14" font-weight="700" fill="#1e3a8a">telemetry</text>
+<rect x="776" y="384" width="150" height="40" rx="10" fill="#ffffff" stroke="#64748b" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="851" y="409" text-anchor="middle" font-size="14" font-weight="700" fill="#0f172a">state</text>
+<rect x="586" y="358" width="150" height="40" rx="10" fill="#f1f5f9" stroke="#475569" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="661" y="383" text-anchor="middle" font-size="14" font-weight="700" fill="#0f172a">press1</text>
+<rect x="396" y="254" width="150" height="40" rx="10" fill="#f1f5f9" stroke="#475569" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="471" y="279" text-anchor="middle" font-size="14" font-weight="700" fill="#0f172a">line1</text>
+<rect x="396" y="446" width="150" height="40" rx="10" fill="#f1f5f9" stroke="#475569" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="471" y="471" text-anchor="middle" font-size="14" font-weight="700" fill="#0f172a">line2</text>
+<rect x="586" y="446" width="150" height="40" rx="10" fill="#f5f5f4" stroke="#a8a29e" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="661" y="471" text-anchor="middle" font-size="14" font-weight="700" fill="#78716c">…</text>
+<rect x="206" y="350" width="150" height="40" rx="10" fill="#f1f5f9" stroke="#475569" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="281" y="375" text-anchor="middle" font-size="14" font-weight="700" fill="#0f172a">plant1</text>
+<rect x="16" y="350" width="150" height="40" rx="10" fill="#f1f5f9" stroke="#475569" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="91" y="375" text-anchor="middle" font-size="14" font-weight="700" fill="#0f172a">acme</text>
+<rect x="16" y="530" width="908" height="52" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="48" cy="556" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(36 544) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></g>
+<text x="78" y="553" font-size="14" font-weight="700" fill="#1e3a8a">acme/plant1/line1/+/telemetry</text>
+<text x="78" y="571" font-size="12" fill="#1e3a8a">one level matched by +: the telemetry of every device on line1, and none of their state topics (blue)</text>
+<rect x="16" y="592" width="908" height="52" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="48" cy="618" r="19" fill="#ffffff" stroke="#b45309" stroke-width="1.2"/>
+<g transform="translate(36 606) scale(1)" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></g>
+<text x="78" y="615" font-size="14" font-weight="700" fill="#78350f">acme/plant1/line1/robot1/#</text>
+<text x="78" y="633" font-size="12" fill="#78350f">every level below robot1: its telemetry and its state (the amber panel)</text>
+</svg>

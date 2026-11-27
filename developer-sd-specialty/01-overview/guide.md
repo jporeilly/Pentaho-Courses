@@ -10,6 +10,7 @@ Streaming data never ends: sensors, applications and logs keep producing events,
 
 * **Batch vs. streaming** - what changes when the data has no end.
 * **The parent/child streaming pattern** - how a consumer step batches messages and runs a child transformation for each batch.
+* **Where Pentaho Data Integration fits** - what micro-batches do well, and when a stream processor such as Flink joins it.
 * **The three protocols** - where MQTT, AMQP and Kafka fit, and which broker each workshop uses.
 
 <div align="center">
@@ -70,13 +71,33 @@ This pattern means the same skills — **JSON input**, **Select values**, **Form
 >
 > This step produces rows and so must be the **first** step in the child transformation — it cannot sit mid-stream. To combine streamed rows with other data, read that data in the child and join it to the stream (for example with **Stream lookup**).
 
+## Where Pentaho Data Integration fits
+
+The pattern above processes a stream in *micro-batches*: the consumer collects messages for a few seconds, or up to a count, and the child handles them together. Each run of the child starts fresh, so nothing is carried from one batch to the next unless the pipeline writes it to a table or a file. A *stream processor*, such as Apache Flink or Kafka Streams, works the other way: it handles each event as it arrives and keeps *state* between events, so it can compute over time, a five-minute window, a join of two streams, a running total per machine.
+
+<div align="center">
+<figure>
+<img src="../_assets/images/pdi-vs-stream-processor.png" alt="Two lanes. Pentaho Data Integration: events from MQTT, AMQP, JMS, Kafka or Kinesis reach a consumer step, which runs a child once per batch to parse, check, look up and enrich, then loads many targets. A stream processor such as Flink or Kafka Streams: events, usually from Kafka, are handled one at a time with keyed state for windows and joins over time, into output streams. A bar underneath: often both, the stream processor computes over time and Pentaho Data Integration lands its output" width="800">
+<figcaption>Micro-batches and a stream processor: different jobs, often in one pipeline</figcaption>
+</figure>
+</div>
+
+| | Pentaho Data Integration | A stream processor |
+| --- | --- | --- |
+| **Unit of work** | A batch, every few seconds or records | One event |
+| **State between batches or events** | None of its own: kept in a table or file | Built in, checkpointed |
+| **Strengths** | Landing, checking, enriching and loading into many targets with the same steps as batch jobs | Windows, joins over time, per-event latency |
+| **Typical output** | Rows in a warehouse, lake or application database; files; topics | Alerts, aggregates, enriched topics |
+
+So the choice is rarely one or the other. Where the work is *land it, check it, enrich it, load it*, as in every workshop here, Pentaho Data Integration does it alone. Where the work is a computation over time, a stream processor does that part, and Pentaho Data Integration lands what it produces.
+
 ## Protocols covered in this specialty
 
 ::: tabs
 
 ### MQTT
 
-**Message Queuing Telemetry Transport** — a lightweight publish/subscribe protocol built for the Internet of Things (IoT). Minimal overhead suits constrained devices and sensor networks. You will consume industrial robot-sensor telemetry from a **HiveMQ** broker and truck telemetry from an **EMQX** broker.
+**Message Queuing Telemetry Transport** — a lightweight publish/subscribe protocol built for the Internet of Things (IoT). Minimal overhead suits constrained devices and sensor networks. You will publish and consume truck telemetry on an **EMQX** broker, share the subscription between two consumers and require a login, then consume robot telemetry from a **HiveMQ** broker on a Unified Namespace topic, with a Last Will.
 
 ### AMQP
 
@@ -84,7 +105,7 @@ This pattern means the same skills — **JSON input**, **Select values**, **Form
 
 ### Kafka
 
-**Apache Kafka** — a distributed event-streaming platform for high-volume, fault-tolerant publish/subscribe pipelines. You will consume a user-activity stream from Kafka in real time (running in KRaft mode) and land it in a MySQL warehouse.
+**Apache Kafka** — a distributed event-streaming platform for high-volume, fault-tolerant publish/subscribe pipelines. You will consume a user-activity stream from Kafka in real time (running in KRaft mode) and land it in a MySQL warehouse, then give the pipeline a data contract, send the events that break it to a rejects topic, and rebuild the table by replaying the log.
 
 :::
 

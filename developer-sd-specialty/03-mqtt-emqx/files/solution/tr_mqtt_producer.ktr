@@ -449,13 +449,14 @@
 7. cf-concat_message_field: Concat fields, joins the seven fields with ; into data_row;
    sensor_id, sensor_type and the alert flags as whole numbers (format #).
 8. sv-message: Select values, keeps vehicle_id and data_row, renamed message.
-9. MQTT producer: localhost:1884 (EMQX), topic SensorData, QoS 0, message field message.
+9. MQTT producer: localhost:1884 (EMQX), topic SensorData, QoS 0, message field message;
+   Security tab: username pdi, password pdi-lab-2026.
 
 Six messages every 5 seconds, one per sensor. Runs until you stop it.</note>
       <xloc>32</xloc>
       <yloc>32</yloc>
       <width>554</width>
-      <heigth>296</heigth>
+      <heigth>320</heigth>
       <fontname>Segoe UI</fontname>
       <fontsize>10</fontsize>
       <fontbold>N</fontbold>
@@ -599,10 +600,10 @@ Six messages every 5 seconds, one per sensor. Runs until you stop it.</note>
           <value xsi:type="xs:string">message</value>
         </property>
         <property group="" name="USERNAME">
-          <value xsi:type="xs:string"/>
+          <value xsi:type="xs:string">pdi</value>
         </property>
         <property group="" name="PASSWORD">
-          <value xsi:type="xs:string"/>
+          <value xsi:type="xs:string">pdi-lab-2026</value>
         </property>
         <property group="" name="KEEP_ALIVE_INTERVAL">
           <value xsi:type="xs:string"/>

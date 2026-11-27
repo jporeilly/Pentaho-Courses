@@ -11,7 +11,8 @@ Apache Kafka is a distributed event-streaming platform: producers append records
 * **KRaft mode** - why Kafka 4 runs without ZooKeeper, and what a controller and a broker do.
 * **Topics, partitions and consumer groups** - how records are spread, ordered and shared between consumers.
 * **Offsets** - how a consumer group resumes where it stopped.
-* **Schema Registry** - the separate service many deployments add.
+* **Schema Registry** - the separate service many deployments add, and what Pentaho Data Integration does instead.
+* **Change data capture** - where the events come from when the source is a database.
 
 <div align="center">
 <figure>
@@ -65,10 +66,19 @@ Kafka KRaft is Apache Kafka's controller architecture that eliminates the depend
 
 Schema Registry provides a centralized repository for managing and validating schemas for topic message data, and for serialization and deserialization of the data over the network. It is not part of Apache Kafka itself, but there are several open-source options to choose from. It lives separately from your brokers; producers and consumers talk to Kafka to publish and read messages, and concurrently talk to Schema Registry to send and retrieve the schemas that describe those messages.
 
+A registry enforces a *data contract*: the agreed shape of a topic's messages. It can refuse a producer's new schema that would break the consumers, before a single message is sent. Pentaho Data Integration's Kafka steps do not talk to a schema registry: they read and write each message as text or bytes. A pipeline therefore checks the contract itself, as each message arrives: step error handling for what cannot be parsed, **Data validator** for what is parsed but wrong, and a rejects topic for what fails. The [Contracts, Rejects and Replay](../09-kafka-contracts/guide.md) workshop builds exactly that.
+
+### Change Data Capture
+
+In this module's workshops an application publishes each event to Kafka. Often the events you want are already happening somewhere else: as inserts, updates and deletes in an operational database. *Change data capture* (CDC) reads them from the database's own transaction log, without touching the application, and publishes each change to Kafka as an event that says what the row looked like before and after.
+
+Everything in this module still applies to such a feed. It is a topic like any other: a consumer group reads it, a child loads it, offsets let a pipeline resume, and a replay rebuilds a target from the log. What changes is the message: a change event carries an operation (create, update or delete) as well as the row, so the child applies each change rather than only inserting. Pentaho offers log-based CDC, built on Debezium and integrated with Pentaho Data Integration; ask Pentaho about access.
+
 :::
 
-This module has one hands-on workshop:
+This module has two hands-on workshops:
 
 * [Use Cases](../08-kafka-use-cases/guide.md) — consume a user-activity stream from Kafka in real time and load it into a MySQL warehouse.
+* [Contracts, Rejects and Replay](../09-kafka-contracts/guide.md) — check each event against a contract, send the ones that break it to a rejects topic, read consumer lag, and rebuild the table by replaying the log.
 
 > **Tip:** Next, load a Kafka user-activity stream into MySQL: [Use Cases](../08-kafka-use-cases/guide.md).

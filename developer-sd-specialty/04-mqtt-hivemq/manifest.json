@@ -1,7 +1,7 @@
 {
   "title": "HiveMQ",
   "description": "Hands-on: consume industrial robot-sensor telemetry from a HiveMQ MQTT broker. Run HiveMQ in Podman, publish sensor data with a Python script, and process the stream in Pentaho Data Integration with the MQTT consumer parent/child pattern.",
-  "order": 3,
+  "order": 4,
   "kind": "workshop",
   "stepCount": 8,
   "hasVideo": false,

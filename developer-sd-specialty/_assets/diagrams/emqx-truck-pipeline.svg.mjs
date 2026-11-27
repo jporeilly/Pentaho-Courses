@@ -2,10 +2,10 @@
 // publishes each sensor reading to EMQX; tr_mqtt_consumer subscribes and
 // runs the child tr_process_sensor_data for each batch, which counts the
 // minor and major alerts, adds the truck's owner and appends them to two
-// files. The figure near the top of 04-mqtt-emqx/guide.md, before the tabs.
+// files. The figure near the top of 03-mqtt-emqx/guide.md, before the tabs.
 //
-// Facts it encodes (04-mqtt-emqx and its solution files in
-// 03-mqtt-hivemq/files/solution):
+// Facts it encodes (03-mqtt-emqx and its solution files in
+// 03-mqtt-emqx/files/solution):
 //   - Producer: gr-IoT_gateway one row every 5000 ms for vehicle 111; six
 //     JavaScript sensors; cf-concat_message_field joins the seven fields with
 //     ; and sv-message names the line message; MQTT producer to

@@ -3,7 +3,7 @@
   "description": "Apache Kafka — a distributed event-streaming platform. The parts of a KRaft-mode cluster (controller and broker), topics, partitions, offsets and consumer groups, Schema Registry as a separate service, and how Pentaho Data Integration consumes a topic with the Kafka consumer step.",
   "order": 7,
   "kind": "page",
-  "stepCount": 5,
+  "stepCount": 6,
   "hasVideo": false,
   "estimatedMinutes": 20
 }

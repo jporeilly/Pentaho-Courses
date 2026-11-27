@@ -1,6 +1,6 @@
 // Sequence-diagram helpers for this course's two MQTT flows: the three
 // QoS handshakes (mqtt-qos-levels, 02-mqtt) and the Last Will with a
-// retained status topic (mqtt-lwt-retained, 03-mqtt-hivemq). A copy of
+// retained status topic (mqtt-lwt-retained, 04-mqtt-hivemq). A copy of
 // the Solution Architect - High Availability Specialty course's
 // sequence.mjs (courses/architect-ha-specialty/_assets/diagrams/
 // sequence.mjs), itself a copy of the Integrating Authentication

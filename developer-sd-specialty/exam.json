@@ -1,6 +1,6 @@
 {
   "title": "Streaming Data Specialty Exam",
-  "description": "30 questions drawn from a pool of 40, covering streaming concepts and the PDI streaming pattern across MQTT, Kafka, and AMQP. Pass mark is 80%. Open-book — browse any page, hover glossary terms, or ask the AI assistant. Your answers are saved as you go. Explanations appear after submission.",
+  "description": "30 questions drawn from a pool of 48, covering streaming concepts and the PDI streaming pattern across MQTT, Kafka, and AMQP. Pass mark is 80%. Open-book — browse any page, hover glossary terms, or ask the AI assistant. Your answers are saved as you go. Explanations appear after submission.",
   "passMark": 80,
   "questionsPerAttempt": 30,
   "shuffle": true,
@@ -450,23 +450,23 @@
       "id": "sd-m2-q7",
       "module": "MQTT",
       "bloom": "Apply",
-      "scenario": "Robots publish to `industrial/robot/sensor`, `industrial/arm/sensor`, and `industrial/press/sensor`. An MQTT consumer must take all three topics and nothing else under `industrial/`.",
+      "scenario": "Devices on line 1 publish to `acme/plant1/line1/robot1/telemetry`, `acme/plant1/line1/robot2/telemetry` and `acme/plant1/line1/press1/telemetry`, and each also publishes to its own `state` topic. An MQTT consumer must take every device's telemetry on line 1 and nothing else.",
       "prompt": "Which topic should it subscribe to?",
       "options": [
-        "`+/sensor/#`",
-        "`industrial/*/sensor`",
-        "`industrial/+/sensor`",
-        "`industrial/#`"
+        "`acme/plant1/line1/#`",
+        "`acme/plant1/line1/*/telemetry`",
+        "`acme/plant1/line1/+/telemetry`",
+        "`+/+/+/telemetry/#`"
       ],
       "correct": 2,
-      "explanation": "The **wildcard** `+` matches exactly one level in the topic hierarchy, ensuring that `industrial/+/sensor` matches the three specific sensor topics while excluding other levels.\n\nThis specific structure ensures the consumer only receives data where the third level is `sensor` and the middle level is any single word.",
+      "explanation": "The **wildcard** `+` matches exactly one level of the topic tree, so `acme/plant1/line1/+/telemetry` takes the telemetry of any one device on line 1. `#` under `line1` would also take every `state` topic, `*` is not an MQTT wildcard, and `#` may only be the last level.",
       "source": "Developer - Streaming Specialty: MQTT"
     },
     {
       "id": "sd-m2-q8",
       "module": "MQTT",
       "bloom": "Apply",
-      "scenario": "A dashboard subscribes to the industrial/robot/status topic one hour after a robot came online. The robot published an online message to that topic once when it connected.",
+      "scenario": "A dashboard subscribes to the acme/plant1/line1/robot1/state topic one hour after a robot came online. The robot published an online message to that topic once when it connected.",
       "prompt": "Why does the dashboard see the online message immediately?",
       "options": [
         "QoS 1 makes the broker resend it until each client acknowledges.",
@@ -653,6 +653,134 @@
       "correct": 0,
       "explanation": "The use of a **message queue** ensures that messages are stored by the broker until a consumer is available to retrieve them. This architecture decouples the services, ensuring that a temporary failure in a downstream service does not result in the loss of data.\n\nBecause the communication is **asynchronous**, the producer does not wait for a response from the consumer. The broker maintains these messages in the queue because they are bound to a queue rather than being sent to an exchange with no bound queue.",
       "source": "Developer - Streaming Specialty: AMQP"
+    },
+    {
+      "id": "sd-m1-q9",
+      "module": "Streaming Data",
+      "bloom": "Analyze",
+      "scenario": "A team must raise an alert when a machine's average vibration over any five-minute window passes a limit, and must also load every reading into the warehouse. Their pipeline runs in Pentaho Data Integration with an MQTT consumer and a 5-second batch.",
+      "prompt": "Which design fits the two needs best?",
+      "options": [
+        "Compute the windows in the child, keeping each window's readings in a variable between batches",
+        "Compute the windows in a stream processor such as Flink, and load readings and alerts with PDI",
+        "Raise Duration (ms) to five minutes, so each batch holds exactly one window of readings",
+        "Use one child per machine, so each child keeps its own running average between batches"
+      ],
+      "correct": 1,
+      "explanation": "Each run of the child starts fresh, so Pentaho Data Integration keeps nothing between batches of its own: a sliding window needs **state** across events. A stream processor keeps keyed state and computes windows; Pentaho Data Integration lands its output and every reading, which is the work it does best. A five-minute batch gives fixed blocks, not sliding windows, and delays every reading.",
+      "source": "Developer - Streaming Specialty: Overview"
+    },
+    {
+      "id": "sd-m2-q13",
+      "module": "MQTT",
+      "bloom": "Apply",
+      "scenario": "Two copies of an MQTT consumer transformation run against EMQX to keep up with a fleet. Both subscribe to `SensorData`, and every alert now appears twice in the output files.",
+      "prompt": "What change makes each message reach only one of the two consumers?",
+      "options": [
+        "Give both consumers the same Client ID on the Setup tab",
+        "Subscribe both to `$share/alerts/SensorData` instead",
+        "Set Quality of Service to 2 on both consumer steps",
+        "Set Maximum concurrent batches to 2 on one consumer"
+      ],
+      "correct": 1,
+      "explanation": "A **shared subscription**, `$share/<group>/<topic>`, makes the subscribers one group, and the broker hands each message to one member of it. Two ordinary subscriptions each receive every message. A shared Client ID makes the broker drop one of the connections, and QoS 2 is about delivery to each subscriber, not between them.",
+      "source": "Developer - Streaming Specialty: EMQX"
+    },
+    {
+      "id": "sd-m2-q14",
+      "module": "MQTT",
+      "bloom": "Analyze",
+      "scenario": "An EMQX broker accepted every MQTT client until an administrator added a password-based authenticator with one user, `pdi`. Now an MQTT producer step stops at once with `Not authorized to connect (5)`.",
+      "prompt": "What is the most likely cause?",
+      "options": [
+        "The step sends no username and password on its Security tab",
+        "The step's Client ID is empty, so the broker rejects it",
+        "The topic name needs the `$share` prefix once auth is on",
+        "The step must switch from MQTT 3.1.1 to MQTT version 5"
+      ],
+      "correct": 0,
+      "explanation": "With an **authenticator** in its chain, EMQX refuses a client it cannot authenticate: no credentials gives `Not authorized`, a wrong password `Bad user name or password`. Setting **Username** and **Password** on the step's **Security** tab fixes it. An empty Client ID is fine (the client generates one), and Pentaho Data Integration's MQTT steps speak 3.1 and 3.1.1 only.",
+      "source": "Developer - Streaming Specialty: EMQX"
+    },
+    {
+      "id": "sd-m2-q15",
+      "module": "MQTT",
+      "bloom": "Understand",
+      "scenario": "A plant names every MQTT topic by one plan: enterprise, site, line, device, then what the message is, such as `acme/plant1/line1/robot1/telemetry`.",
+      "prompt": "What does this plan give the applications that consume the data?",
+      "options": [
+        "Messages that arrive in order across all of the plant's devices",
+        "One place to find any data by where it sits in the tree",
+        "A binary payload format that every device must publish in",
+        "Encryption of each device's messages under its own key"
+      ],
+      "correct": 1,
+      "explanation": "A **Unified Namespace** is one topic tree for the business, usually shaped like the ISA-95 hierarchy, so an application finds data by its place in the tree and can take a slice with a wildcard. It says nothing about order, payload format or encryption; a payload standard such as **Sparkplug B** is a separate choice.",
+      "source": "Developer - Streaming Specialty: MQTT"
+    },
+    {
+      "id": "sd-m4-q13",
+      "module": "Kafka",
+      "bloom": "Analyze",
+      "scenario": "A Kafka consumer commits offsets when a batch completes. One message's `registertime` is text, and its child fails on it. After every restart the consumer stops again at once, and the group's committed offset never moves.",
+      "prompt": "Why does the pipeline never get past this message?",
+      "options": [
+        "The broker deletes the topic's later records after the failure",
+        "The batch was never committed, so it is read first every time",
+        "auto.offset.reset earliest restarts the group at offset zero",
+        "The topic has one partition, so only one batch can ever run"
+      ],
+      "correct": 1,
+      "explanation": "With **Commit when batch completed**, a batch the child fails is never committed, so every restart reads the same message first and fails on it: a **poison message**. `auto.offset.reset` applies only to a group with no committed offset. Step error handling or a contract check that routes the message to a rejects topic lets the pipeline pass it.",
+      "source": "Developer - Streaming Specialty: Contracts, Rejects and Replay"
+    },
+    {
+      "id": "sd-m4-q14",
+      "module": "Kafka",
+      "bloom": "Apply",
+      "scenario": "A child transformation checks each Kafka message with Data validator. Messages that break a rule must not be lost, and someone must be able to see why each one was refused and send it again once the cause is fixed.",
+      "prompt": "Where should the refused messages go?",
+      "options": [
+        "To a rejects topic, unchanged, with the reason as each record's key",
+        "Into the warehouse table, with the failing fields set to NULL",
+        "Nowhere: Table output's Ignore insert errors skips them for you",
+        "To the Spoon log, by raising the logging level to Detailed"
+      ],
+      "correct": 0,
+      "explanation": "A **rejects topic** (a dead-letter topic) keeps each refused message as it was sent, with its reason, so it can be read, fixed and sent again. Loading it with NULLs puts wrong data in the warehouse, **Ignore insert errors** drops rows without a word, and a log is neither durable nor replayable.",
+      "source": "Developer - Streaming Specialty: Contracts, Rejects and Replay"
+    },
+    {
+      "id": "sd-m4-q15",
+      "module": "Kafka",
+      "bloom": "Apply",
+      "scenario": "A consumer group's transformation was stopped while the app kept publishing. `kafka-consumer-groups.sh --describe` shows `CURRENT-OFFSET 40`, `LOG-END-OFFSET 60` and no consumer.",
+      "prompt": "What happens when the transformation runs again?",
+      "options": [
+        "It starts at offset 60, skipping what arrived while it was stopped",
+        "It reads the 20 records from offset 40, and the lag falls to 0",
+        "It reads the topic from offset 0, as auto.offset.reset is earliest",
+        "It waits for 20 new records before the first batch can begin"
+      ],
+      "correct": 1,
+      "explanation": "The **lag** is the end of the log minus the committed offset: 20 records. A group resumes after its last committed offset, so the next run reads offsets 40 to 59 and the lag returns to 0. `auto.offset.reset` applies only when the group has no committed offset.",
+      "source": "Developer - Streaming Specialty: Contracts, Rejects and Replay"
+    },
+    {
+      "id": "sd-m4-q16",
+      "module": "Kafka",
+      "bloom": "Evaluate",
+      "scenario": "After a fix to its child, a team deletes the table rows its Kafka pipeline loaded, rewinds the consumer group to the start of the topic, and runs the pipeline again. The table has a unique key on topic, partition and offset; the rejects topic has none.",
+      "prompt": "What is true after the replay?",
+      "options": [
+        "Table and rejects topic both hold each event once",
+        "The table holds each event once; rejects repeat",
+        "The table holds every event twice; rejects once",
+        "Both hold every event twice until compaction runs"
+      ],
+      "correct": 1,
+      "explanation": "The table's unique key refuses a second copy of any offset, so a replay lands each event once. The rejects topic has no such key: every replay publishes its rejects again. Readers of the rejects dedupe, or the pipeline keys each reject by its source offset.",
+      "source": "Developer - Streaming Specialty: Contracts, Rejects and Replay"
     }
   ]
 }

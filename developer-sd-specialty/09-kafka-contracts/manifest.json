@@ -1,0 +1,9 @@
+{
+  "title": "Contracts, Rejects and Replay",
+  "description": "Hands-on: give a Kafka pipeline a data contract. See one bad message load wrong data, drop a row and stop the consumer; then catch what JSON input cannot read with step error handling, check the contract with Data validator, publish rejects to their own topic with a Kafka producer, read consumer lag, and rebuild the warehouse table by rewinding the group and replaying the log.",
+  "order": 9,
+  "kind": "workshop",
+  "stepCount": 8,
+  "hasVideo": false,
+  "estimatedMinutes": 50
+}

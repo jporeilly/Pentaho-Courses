@@ -9,7 +9,7 @@
 > **What you'll do**
 >
 > * Start a HiveMQ broker with Podman and sign in to its Control Center
-> * Publish simulated robot-sensor readings to the `industrial/robot/sensor` topic with a Python script
+> * Publish simulated robot-sensor readings to the `acme/plant1/line1/robot1/telemetry` topic with a Python script
 > * Build a child transformation that timestamps each reading, parses it and appends it to a file
 > * Build a parent transformation whose **MQTT consumer** step runs the child for each batch
 > * Watch a Last Will and Testament (LWT) message report the sensor offline
@@ -19,6 +19,7 @@
 > * The brokers and Python from [Before You Start](../00-before-you-start/guide.md)
 > * The parent/child pattern, from the Streaming Data [Overview](../01-overview/guide.md)
 > * The MQTT essentials (QoS, retained messages, LWT), from the MQTT [Overview](../02-mqtt/guide.md)
+> * The [EMQX](../03-mqtt-emqx/guide.md) workshop: the **MQTT consumer** and its **Batch** tab, which this lab builds from scratch
 >
 > **Estimated time:** 30 minutes
 
@@ -38,7 +39,7 @@ This workshop's pipeline: `sensor.py` publishes to HiveMQ, the parent's **MQTT C
 
 <div align="center">
 <figure>
-<img src="../_assets/images/hivemq-robot-pipeline.png" alt="sensor.py publishes one JSON reading a second to HiveMQ on localhost:1883, topic industrial/robot/sensor. In tr_robot_consumer, MQTT Consumer reads it with QoS 0, a batch every 5000 ms or 50 messages. Each batch runs tr_process_robot_data: Get records from stream (message), Get system info (current_time, system date fixed), JSON input ($.temperature and $.position) and Text file output, which appends semicolon-separated lines with no header to robot_sensor.txt" width="800">
+<img src="../_assets/images/hivemq-robot-pipeline.png" alt="sensor.py publishes one JSON reading a second to HiveMQ on localhost:1883, topic acme/plant1/line1/robot1/telemetry. In tr_robot_consumer, MQTT Consumer reads it with QoS 0, a batch every 5000 ms or 50 messages. Each batch runs tr_process_robot_data: Get records from stream (message), Get system info (current_time, system date fixed), JSON input ($.temperature and $.position) and Text file output, which appends semicolon-separated lines with no header to robot_sensor.txt" width="800">
 <figcaption>The pipeline: tr_robot_consumer hands each batch to tr_process_robot_data</figcaption>
 </figure>
 </div>
@@ -82,7 +83,7 @@ If the script stops with `These containers already publish a port a broker needs
 
 <div align="center">
 <figure>
-<img src="../_assets/images/sd03-hivemq-sign-in.png" alt="The HiveMQ Control Center sign-in page, version 4.57.0, with Username admin and the password filled in" width="800">
+<img src="../_assets/images/sd04-hivemq-sign-in.png" alt="The HiveMQ Control Center sign-in page, version 4.57.0, with Username admin and the password filled in" width="800">
 <figcaption>The Control Center's sign-in page</figcaption>
 </figure>
 </div>
@@ -91,7 +92,7 @@ If the script stops with `These containers already publish a port a broker needs
 
 <div align="center">
 <figure>
-<img src="../_assets/images/sd03-hivemq-welcome.png" alt="The Getting started page behind the Welcome to Your HiveMQ Control Center dialog with its Get Started button, and an orange Security Warning that the default HiveMQ login credentials are enabled" width="800">
+<img src="../_assets/images/sd04-hivemq-welcome.png" alt="The Getting started page behind the Welcome to Your HiveMQ Control Center dialog with its Get Started button, and an orange Security Warning that the default HiveMQ login credentials are enabled" width="800">
 <figcaption>The first sign-in: the Welcome dialog and the default-credentials warning</figcaption>
 </figure>
 </div>
@@ -100,7 +101,7 @@ If the script stops with `These containers already publish a port a broker needs
 
 <div align="center">
 <figure>
-<img src="../_assets/images/sd03-hivemq-overview-empty.png" alt="The Control Center Overview: the Clients box reads 0 of 25 clients, and the license is Trial" width="800">
+<img src="../_assets/images/sd04-hivemq-overview-empty.png" alt="The Control Center Overview: the Clients box reads 0 of 25 clients, and the license is Trial" width="800">
 <figcaption>Cluster Overview: the Clients box reads 0 / 25 and the license is Trial</figcaption>
 </figure>
 </div>
@@ -113,12 +114,14 @@ If the script stops with `These containers already publish a port a broker needs
 >
 > #### Publish robot-sensor readings
 >
-> `sensor.py` plays the robot. Once a second it publishes a JSON message, a temperature and an x/y/z position, to the `industrial/robot/sensor` topic on `localhost:1883`.
+> `sensor.py` plays the robot. Once a second it publishes a JSON message, a temperature and an x/y/z position, to the `acme/plant1/line1/robot1/telemetry` topic on `localhost:1883`.
+>
+> The topic is a path in the plant's *Unified Namespace*: enterprise `acme`, site `plant1`, line `line1`, device `robot1`, and what the message is, `telemetry`. Every device on the line publishes to its own path in the same tree, so a consumer can take one robot, or every device on the line with a wildcard. The MQTT [Overview](../02-mqtt/guide.md#unified-namespace-and-sparkplug) explains the idea.
 
 1. Install the script's one dependency, the Paho MQTT client. In PowerShell, run:
 
 ```powershell
-Set-Location C:\Workshop-SD-Specialty\03-mqtt\03-mqtt-hivemq
+Set-Location C:\Workshop-SD-Specialty\03-mqtt\04-mqtt-hivemq
 pip install -r requirements.txt
 ```
 
@@ -127,7 +130,7 @@ pip install -r requirements.txt
 ```python
 broker = 'localhost'
 port = int(sys.argv[1]) if len(sys.argv) > 1 else 1883
-topic = "industrial/robot/sensor"
+topic = "acme/plant1/line1/robot1/telemetry"
 
 def publish(client):
     while True:
@@ -149,7 +152,7 @@ The script creates its client with `callback_api_version=CallbackAPIVersion.VERS
 python sensor.py
 ```
 
-> **Success:** Checkpoint: the script prints `Connected to MQTT Broker!`, then one line a second that starts with `Sent` and ends with the topic, `industrial/robot/sensor`.
+> **Success:** Checkpoint: the script prints `Connected to MQTT Broker!`, then one line a second that starts with `Sent` and ends with the topic, `acme/plant1/line1/robot1/telemetry`.
 
 4. In the Control Center, open **Overview** again.
 
@@ -167,7 +170,7 @@ python sensor.py
 >
 > <div align="center">
 > <figure>
-> <img src="../_assets/images/sd03-what-you-build-child.png" alt="tr_process_robot_data on the Spoon canvas: its blue note listing the four steps, and Get records from stream, Get system info, JSON input and Text file output in a row" width="662">
+> <img src="../_assets/images/sd04-what-you-build-child.png" alt="tr_process_robot_data on the Spoon canvas: its blue note listing the four steps, and Get records from stream, Get system info, JSON input and Text file output in a row" width="662">
 > <figcaption>What you build: tr_process_robot_data</figcaption>
 > </figure>
 > </div>
@@ -182,7 +185,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 <button data-launch="spoon" data-path="">Start Pentaho Data Integration</button>
 
 2. Select **File > New > Transformation** (`Ctrl+N`).
-3. Select **File > Save as** and save it as `tr_process_robot_data.ktr` in `C:\Workshop-SD-Specialty\03-mqtt\03-mqtt-hivemq`. The folder already holds `tr_process_sensor_data.ktr`, the [EMQX](../04-mqtt-emqx/guide.md) lab's child, so use the new name.
+3. Select **File > Save as** and save it as `tr_process_robot_data.ktr` in `C:\Workshop-SD-Specialty\03-mqtt\04-mqtt-hivemq`.
 4. On the **Design** tab, open the **Streaming** folder and drag **Get records from stream** onto the canvas.
 5. Double-click **Get records from stream**. Fill the **Fields** grid with one row, the message text:
 
@@ -192,7 +195,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 <div align="center">
 <figure>
-<img src="../_assets/images/sd03-get-records.png" alt="Get records from stream: one field, message, of type String" width="404">
+<img src="../_assets/images/sd04-get-records.png" alt="Get records from stream: one field, message, of type String" width="404">
 <figcaption>Get records from stream: the batch arrives as one field, message</figcaption>
 </figure>
 </div>
@@ -208,7 +211,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 <div align="center">
 <figure>
-<img src="../_assets/images/sd03-system-info.png" alt="Get system info: one field, current_time, of type system date (fixed)" width="326">
+<img src="../_assets/images/sd04-system-info.png" alt="Get system info: one field, current_time, of type system date (fixed)" width="326">
 <figcaption>Get system info: one time for the whole batch</figcaption>
 </figure>
 </div>
@@ -228,7 +231,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 <div align="center">
 <figure>
-<img src="../_assets/images/sd03-json-file.png" alt="JSON input, File tab: Source is from a previous step selected, Select field message; the file settings below are grayed out" width="800">
+<img src="../_assets/images/sd04-json-file.png" alt="JSON input, File tab: Source is from a previous step selected, Select field message; the file settings below are grayed out" width="800">
 <figcaption>JSON input, File tab: the source is the field message</figcaption>
 </figure>
 </div>
@@ -237,7 +240,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 <div align="center">
 <figure>
-<img src="../_assets/images/sd03-json-content.png" alt="JSON input, Content tab: Do not raise an error if no files, Ignore missing path and Default path leaf to null selected" width="800">
+<img src="../_assets/images/sd04-json-content.png" alt="JSON input, Content tab: Do not raise an error if no files, Ignore missing path and Default path leaf to null selected" width="800">
 <figcaption>JSON input, Content tab</figcaption>
 </figure>
 </div>
@@ -251,7 +254,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 <div align="center">
 <figure>
-<img src="../_assets/images/sd03-json-fields.png" alt="JSON input, Fields tab: temperature with path $.temperature and position with path $.position, both String" width="800">
+<img src="../_assets/images/sd04-json-fields.png" alt="JSON input, Fields tab: temperature with path $.temperature and position with path $.position, both String" width="800">
 <figcaption>JSON input, Fields tab: two paths into each reading</figcaption>
 </figure>
 </div>
@@ -280,7 +283,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 <div align="center">
 <figure>
-<img src="../_assets/images/sd03-tfo-file.png" alt="Text file output, File tab: Filename ${Internal.Transformation.Filename.Directory}/robot_sensor, Create Parent folder selected, Extension txt" width="800">
+<img src="../_assets/images/sd04-tfo-file.png" alt="Text file output, File tab: Filename ${Internal.Transformation.Filename.Directory}/robot_sensor, Create Parent folder selected, Extension txt" width="800">
 <figcaption>Text file output, File tab: robot_sensor.txt beside the transformation</figcaption>
 </figure>
 </div>
@@ -289,7 +292,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 <div align="center">
 <figure>
-<img src="../_assets/images/sd03-tfo-content.png" alt="Text file output, Content tab: Append selected, Separator semicolon, Enclosure double quote, Header cleared, Format LF terminated (Unix), Encoding UTF-8" width="800">
+<img src="../_assets/images/sd04-tfo-content.png" alt="Text file output, Content tab: Append selected, Separator semicolon, Enclosure double quote, Header cleared, Format LF terminated (Unix), Encoding UTF-8" width="800">
 <figcaption>Text file output, Content tab: Append, ; and no header</figcaption>
 </figure>
 </div>
@@ -304,7 +307,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 <div align="center">
 <figure>
-<img src="../_assets/images/sd03-tfo-fields.png" alt="Text file output, Fields tab: current_time Date, temperature String and position String" width="800">
+<img src="../_assets/images/sd04-tfo-fields.png" alt="Text file output, Fields tab: current_time Date, temperature String and position String" width="800">
 <figcaption>Text file output, Fields tab: three fields, message removed</figcaption>
 </figure>
 </div>
@@ -323,22 +326,22 @@ Set-Location C:\Pentaho\design-tools\data-integration
 >
 > <div align="center">
 > <figure>
-> <img src="../_assets/images/sd03-what-you-build-parent.png" alt="tr_robot_consumer on the Spoon canvas: its blue note and one step, MQTT Consumer" width="516">
+> <img src="../_assets/images/sd04-what-you-build-parent.png" alt="tr_robot_consumer on the Spoon canvas: its blue note and one step, MQTT Consumer" width="516">
 > <figcaption>What you build: tr_robot_consumer</figcaption>
 > </figure>
 > </div>
 
 1. Select **File > New > Transformation** (`Ctrl+N`).
-2. Select **File > Save as** and save it as `tr_robot_consumer.ktr` in `C:\Workshop-SD-Specialty\03-mqtt\03-mqtt-hivemq`, next to the child.
+2. Select **File > Save as** and save it as `tr_robot_consumer.ktr` in `C:\Workshop-SD-Specialty\03-mqtt\04-mqtt-hivemq`, next to the child.
 3. On the **Design** tab, open the **Streaming** folder and drag **MQTT consumer** onto the canvas.
 4. Double-click **MQTT consumer**. Set **Step name** to `MQTT Consumer`.
 5. Set **Transformation** to `${Internal.Entry.Current.Directory}/tr_process_robot_data.ktr`.
-6. On the **Setup** tab, set **Connection** to `localhost:1883`, enter `industrial/robot/sensor` in the first row of the **Topics** grid, and set **Quality of Service** to `0`. Leave **Client ID** empty.
+6. On the **Setup** tab, set **Connection** to `localhost:1883`, enter `acme/plant1/line1/robot1/telemetry` in the first row of the **Topics** grid, and set **Quality of Service** to `0`. Leave **Client ID** empty.
 
 <div align="center">
 <figure>
-<img src="../_assets/images/sd03-mqtt-setup.png" alt="MQTT consumer, Setup tab: step name MQTT Consumer, Transformation ${Internal.Entry.Current.Directory}/tr_process_robot_data.ktr, Connection localhost:1883, Client ID empty, topic industrial/robot/sensor, Quality of Service 0" width="640">
-<figcaption>MQTT consumer, Setup tab: subscribed to industrial/robot/sensor</figcaption>
+<img src="../_assets/images/sd04-mqtt-setup.png" alt="MQTT consumer, Setup tab: step name MQTT Consumer, Transformation ${Internal.Entry.Current.Directory}/tr_process_robot_data.ktr, Connection localhost:1883, Client ID empty, topic acme/plant1/line1/robot1/telemetry, Quality of Service 0" width="640">
+<figcaption>MQTT consumer, Setup tab: subscribed to acme/plant1/line1/robot1/telemetry</figcaption>
 </figure>
 </div>
 
@@ -355,7 +358,7 @@ A `+` or `#` wildcard in the topic would let one consumer cover several sensors.
 
 <div align="center">
 <figure>
-<img src="../_assets/images/sd03-mqtt-batch.png" alt="MQTT consumer, Batch tab: Duration 5000 ms, Number of records 50, Maximum concurrent batches 1, Message prefetch limit 100000" width="640">
+<img src="../_assets/images/sd04-mqtt-batch.png" alt="MQTT consumer, Batch tab: Duration 5000 ms, Number of records 50, Maximum concurrent batches 1, Message prefetch limit 100000" width="640">
 <figcaption>MQTT consumer, Batch tab: a batch every 5 seconds or 50 messages</figcaption>
 </figure>
 </div>
@@ -366,7 +369,7 @@ A batch goes to the child after 5,000 ms or 50 messages, whichever comes first.
 
 <div align="center">
 <figure>
-<img src="../_assets/images/sd03-mqtt-fields.png" alt="MQTT consumer, Fields tab: input message as output Message, String, and input topic as output Topic, String" width="640">
+<img src="../_assets/images/sd04-mqtt-fields.png" alt="MQTT consumer, Fields tab: input message as output Message, String, and input topic as output Topic, String" width="640">
 <figcaption>MQTT consumer, Fields tab: what each row of a batch carries</figcaption>
 </figure>
 </div>
@@ -394,14 +397,14 @@ A batch goes to the child after 5,000 ms or 50 messages, whichever comes first.
 
 <div align="center">
 <figure>
-<img src="../_assets/images/sd03-hivemq-sessions.png" alt="HiveMQ Control Center Client Sessions: two active clients, one whose ID starts with paho, the MQTT consumer, and python-mqtt-867, the publisher" width="800">
+<img src="../_assets/images/sd04-hivemq-sessions.png" alt="HiveMQ Control Center Client Sessions: two active clients, one whose ID starts with paho, the MQTT consumer, and python-mqtt-867, the publisher" width="800">
 <figcaption>Two clients: the MQTT consumer (paho...) and sensor.py (python-mqtt-...)</figcaption>
 </figure>
 </div>
 
 > **Success:** Checkpoint: two **Active** sessions: `python-mqtt-` followed by a number is `sensor.py`, and the ID that starts with `paho` is the **MQTT consumer**, which generates its own ID when **Client ID** is empty.
 
-3. After 15 seconds, open `C:\Workshop-SD-Specialty\03-mqtt\03-mqtt-hivemq\robot_sensor.txt` in a text editor. Its first lines look like these, from a run of this workshop:
+3. After 15 seconds, open `C:\Workshop-SD-Specialty\03-mqtt\04-mqtt-hivemq\robot_sensor.txt` in a text editor. Its first lines look like these, from a run of this workshop:
 
 ```text
 2026/11/26 12:00:31.930;40.90783740037229;"{""x"":-5.2304745285768295,""y"":-2.184530866144055,""z"":-0.4331001192966042}"
@@ -444,7 +447,7 @@ A batch goes to the child after 5,000 ms or 50 messages, whichever comes first.
 2. Open `sensor.py` in a text editor. Replace the whole `connect_mqtt` function with this version. The block starts with a new `status_topic` line, which goes above the function. The new function adds a will and an `online` message on connect:
 
 ```python
-status_topic = "industrial/robot/status"
+status_topic = "acme/plant1/line1/robot1/state"
 
 
 def connect_mqtt():
@@ -476,11 +479,11 @@ python sensor.py
 4. Open a second PowerShell window, and start the status watcher in the same folder:
 
 ```powershell
-Set-Location C:\Workshop-SD-Specialty\03-mqtt\03-mqtt-hivemq
+Set-Location C:\Workshop-SD-Specialty\03-mqtt\04-mqtt-hivemq
 python status.py
 ```
 
-> **Success:** Checkpoint: `status.py` prints `Subscribed to industrial/robot/status`, then the time, `online` and `(retained)`: the broker handed it the topic's last value as it subscribed.
+> **Success:** Checkpoint: `status.py` prints `Subscribed to acme/plant1/line1/robot1/state`, then the time, `online` and `(retained)`: the broker handed it the topic's last value as it subscribed.
 
 5. Stop the sensor without a clean disconnect: close the PowerShell window that runs `sensor.py`.
 
@@ -540,7 +543,7 @@ The `sensor.py` you run is an older copy that creates its client with `CallbackA
 <details>
 <summary>robot_sensor.txt does not appear</summary>
 
-The publisher must be running while the parent runs: each lab's script stays running in its own window. Check that the topic in **MQTT consumer** is exactly `industrial/robot/sensor`, and that **Transformation** names `tr_process_robot_data.ktr`, the child you saved in the same folder.
+The publisher must be running while the parent runs: each lab's script stays running in its own window. Check that the topic in **MQTT consumer** is exactly `acme/plant1/line1/robot1/telemetry`, and that **Transformation** names `tr_process_robot_data.ktr`, the child you saved in the same folder.
 
 </details>
 
@@ -555,7 +558,7 @@ The publisher must be running while the parent runs: each lab's script stays run
 
 Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches Pentaho Data Integration with the file loaded. If Pentaho Data Integration is already running, the path is copied to your clipboard — switch to Pentaho Data Integration and press `Ctrl+O`, `Ctrl+V`, `Enter`.
 
-These files are also on disk in `C:\Workshop-SD-Specialty\03-mqtt\03-mqtt-hivemq`. The publisher, its dependency list, and the status watcher for part 8:
+These files are also on disk in `C:\Workshop-SD-Specialty\03-mqtt\04-mqtt-hivemq`. The publisher, its dependency list, and the status watcher for part 8:
 
 [sensor.py](./files/sensor.py)
 
@@ -563,30 +566,16 @@ These files are also on disk in `C:\Workshop-SD-Specialty\03-mqtt\03-mqtt-hivemq
 
 [status.py](./files/status.py)
 
-The [EMQX](../04-mqtt-emqx/guide.md) lab works in this folder too. Its starter transformations ship here:
-
-[tr_mqtt_producer.ktr](./files/tr_mqtt_producer.ktr) <button data-launch="spoon" data-path="files/tr_mqtt_producer.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/tr_mqtt_producer.ktr">View graph</button>
-
-[tr_mqtt_consumer.ktr](./files/tr_mqtt_consumer.ktr) <button data-launch="spoon" data-path="files/tr_mqtt_consumer.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/tr_mqtt_consumer.ktr">View graph</button>
-
-[tr_process_sensor_data.ktr](./files/tr_process_sensor_data.ktr) <button data-launch="spoon" data-path="files/tr_process_sensor_data.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/tr_process_sensor_data.ktr">View graph</button>
-
 ### Solution <!-- no-step -->
 
-The finished transformations: this lab's robot pipeline, `tr_robot_consumer.ktr` and `tr_process_robot_data.ktr`, and the [EMQX](../04-mqtt-emqx/guide.md) lab's producer, consumer and child. Open them alongside your own to compare.
+The finished robot pipeline: the parent, `tr_robot_consumer.ktr`, and its child, `tr_process_robot_data.ktr`. Open them alongside your own to compare.
 
-Also on disk at `C:\Workshop-SD-Specialty\03-mqtt\03-mqtt-hivemq\solution`.
+Also on disk at `C:\Workshop-SD-Specialty\03-mqtt\04-mqtt-hivemq\solution`.
 
 [tr_robot_consumer.ktr](./files/solution/tr_robot_consumer.ktr) <button data-launch="spoon" data-path="files/solution/tr_robot_consumer.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/solution/tr_robot_consumer.ktr">View graph</button>
 
 [tr_process_robot_data.ktr](./files/solution/tr_process_robot_data.ktr) <button data-launch="spoon" data-path="files/solution/tr_process_robot_data.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/solution/tr_process_robot_data.ktr">View graph</button>
 
-[tr_mqtt_producer.ktr](./files/solution/tr_mqtt_producer.ktr) <button data-launch="spoon" data-path="files/solution/tr_mqtt_producer.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/solution/tr_mqtt_producer.ktr">View graph</button>
-
-[tr_mqtt_consumer.ktr](./files/solution/tr_mqtt_consumer.ktr) <button data-launch="spoon" data-path="files/solution/tr_mqtt_consumer.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/solution/tr_mqtt_consumer.ktr">View graph</button>
-
-[tr_process_sensor_data.ktr](./files/solution/tr_process_sensor_data.ktr) <button data-launch="spoon" data-path="files/solution/tr_process_sensor_data.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/solution/tr_process_sensor_data.ktr">View graph</button>
-
 ---
 
-> **Tip:** Next, the same consumer pattern on a second broker, with Pentaho Data Integration as the publisher: [EMQX](../04-mqtt-emqx/guide.md).
+> **Tip:** Next, a second protocol: queues and exchanges with AMQP. Start with the AMQP [Overview](../05-amqp/guide.md).

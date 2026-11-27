@@ -2,16 +2,16 @@
 // to HiveMQ, the parent tr_robot_consumer reads them with MQTT Consumer and
 // hands each batch to the child tr_process_robot_data, which stamps, parses
 // and appends them to robot_sensor.txt. The figure near the top of
-// 03-mqtt-hivemq/guide.md, before the tabs.
+// 04-mqtt-hivemq/guide.md, before the tabs.
 //
-// Facts it encodes, and where each comes from (03-mqtt-hivemq unless
+// Facts it encodes, and where each comes from (04-mqtt-hivemq unless
 // stated):
 //   - sensor.py publishes one JSON reading a second, a temperature and an
-//     x/y/z position, to industrial/robot/sensor on localhost:1883
+//     x/y/z position, to acme/plant1/line1/robot1/telemetry on localhost:1883
 //     (files/sensor.py; part 2).
 //   - HiveMQ listens on 1883 (lab-kits/Streaming/run-podman-streaming.ps1).
 //   - Parent tr_robot_consumer.ktr: one step, MQTT Consumer, connection
-//     localhost:1883, topic industrial/robot/sensor, QoS 0; Batch tab 5000 ms
+//     localhost:1883, topic acme/plant1/line1/robot1/telemetry, QoS 0; Batch tab 5000 ms
 //     or 50 messages, whichever first (part 5; files/solution).
 //   - Child tr_process_robot_data.ktr, in hop order (parts 3 and 4):
 //     Get records from stream (message, String); Get system info
@@ -34,7 +34,7 @@ const STEP = 100;
 const FIRST = 272;
 
 const pub = d.box({ x: LX, y: 16, w: BW, h: BH, role: 'support', iconName: 'square-terminal', title: 'sensor.py', lines: ['one reading a second, as JSON:', 'temperature, position {x, y, z}'] });
-const broker = d.box({ x: LX, y: 124, w: BW, h: BH, role: 'server', iconName: 'radio-tower', title: 'HiveMQ, localhost:1883', lines: ['topic industrial/robot/sensor'] });
+const broker = d.box({ x: LX, y: 124, w: BW, h: BH, role: 'server', iconName: 'radio-tower', title: 'HiveMQ, localhost:1883', lines: ['topic acme/plant1/line1/robot1/telemetry'] });
 d.arrow({ x1: pub.cx, y1: pub.b, x2: broker.cx, y2: broker.y - 1, vertical: true });
 
 d.panel({ x: LX - 8, y: FIRST - 52, w: BW + 16, h: 52 + BH + 16, role: 'support', iconName: 'workflow', title: 'tr_robot_consumer', sub: 'the parent transformation' });

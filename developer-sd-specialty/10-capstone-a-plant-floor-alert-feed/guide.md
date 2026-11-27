@@ -361,4 +361,4 @@ how to check it.
 
 ---
 
-> **Tip:** When every check passes, your feed is the course's last deliverable. To look back at how any piece works, every workshop is still in the sidebar: [HiveMQ](../03-mqtt-hivemq/guide.md) for the MQTT consumer, [Use Cases](../08-kafka-use-cases/guide.md) for the Kafka consumer and the table load.
+> **Tip:** When every check passes, your feed is the course's last deliverable. To look back at how any piece works, every workshop is still in the sidebar: [HiveMQ](../04-mqtt-hivemq/guide.md) for the MQTT consumer, [Use Cases](../08-kafka-use-cases/guide.md) for the Kafka consumer and the table load.

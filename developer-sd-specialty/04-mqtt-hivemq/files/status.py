@@ -1,5 +1,5 @@
 """Watch the robot's status topic: prints every message on
-industrial/robot/status, starting with the retained one the broker holds.
+acme/plant1/line1/robot1/state, starting with the retained one the broker holds.
 
     python status.py          # HiveMQ on 1883
 
@@ -12,7 +12,7 @@ from paho.mqtt import client as mqtt_client
 
 broker = 'localhost'
 port = int(sys.argv[1]) if len(sys.argv) > 1 else 1883
-status_topic = "industrial/robot/status"
+status_topic = "acme/plant1/line1/robot1/state"
 
 
 def on_connect(client, userdata, flags, reason_code, properties):

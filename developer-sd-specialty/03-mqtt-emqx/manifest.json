@@ -1,0 +1,9 @@
+{
+  "title": "EMQX",
+  "description": "Hands-on: a predictive-maintenance logistics use case. Publish delivery-truck telemetry to an EMQX MQTT broker, consume it in Pentaho Data Integration, and write minor/major alerts to output files; then share the subscription between two consumers and require a username and password on the broker.",
+  "order": 3,
+  "kind": "workshop",
+  "stepCount": 8,
+  "hasVideo": false,
+  "estimatedMinutes": 55
+}

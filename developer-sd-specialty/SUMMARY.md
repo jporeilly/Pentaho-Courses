@@ -11,8 +11,8 @@
 ## MQTT
 
 * [Overview](02-mqtt/guide.md)
-* [HiveMQ](03-mqtt-hivemq/guide.md)
-* [EMQX](04-mqtt-emqx/guide.md)
+* [EMQX](03-mqtt-emqx/guide.md)
+* [HiveMQ](04-mqtt-hivemq/guide.md)
 
 ## AMQP
 
@@ -23,7 +23,8 @@
 
 * [Overview](07-kafka/guide.md)
 * [Use Cases](08-kafka-use-cases/guide.md)
+* [Contracts, Rejects and Replay](09-kafka-contracts/guide.md)
 
 ## Capstone Project
 
-* [Capstone: A Plant-Floor Alert Feed](09-capstone-a-plant-floor-alert-feed/guide.md)
+* [Capstone: A Plant-Floor Alert Feed](10-capstone-a-plant-floor-alert-feed/guide.md)

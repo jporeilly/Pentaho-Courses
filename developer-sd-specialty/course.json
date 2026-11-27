@@ -13,7 +13,7 @@
   },
   "title": "Developer - SD Specialty",
   "description": "Real-time streaming data integration with Pentaho Data Integration. Consume and process unbounded event streams over MQTT, AMQP, and Apache Kafka — IoT sensor telemetry, message-queue pipelines, and real-time user-activity streams using Pentaho Data Integration's parent/child streaming pattern.",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "kind": "workshop",
   "platform": "windows11",
   "level": {
@@ -58,7 +58,7 @@
     },
     {
       "title": "MQTT",
-      "summary": "Message Queuing Telemetry Transport — the lightweight publish/subscribe protocol for IoT. Two workshops: industrial robot-sensor telemetry via a HiveMQ broker, and a delivery-truck predictive-maintenance use case via an EMQX broker."
+      "summary": "Message Queuing Telemetry Transport — the lightweight publish/subscribe protocol for IoT. Two workshops: plain publish/subscribe with a delivery-truck predictive-maintenance use case via an EMQX broker, then industrial robot-sensor telemetry via a HiveMQ broker."
     },
     {
       "title": "AMQP",
@@ -66,7 +66,7 @@
     },
     {
       "title": "Kafka",
-      "summary": "Apache Kafka — a distributed event-streaming platform running in KRaft mode. Workshop: consume a real-time user-activity stream with the Kafka consumer step and load it into a MySQL warehouse."
+      "summary": "Apache Kafka — a distributed event-streaming platform running in KRaft mode. Two workshops: consume a real-time user-activity stream with the Kafka consumer step and load it into a MySQL warehouse; then give the pipeline a data contract, send the events that break it to a rejects topic, read consumer lag, and rebuild the table by replaying the log."
     },
     {
       "title": "Capstone Project",
@@ -111,7 +111,7 @@
     "watermark": "PENTAHO",
     "requires": {
       "labChecks": [
-        "09-capstone-a-plant-floor-alert-feed"
+        "10-capstone-a-plant-floor-alert-feed"
       ]
     }
   }

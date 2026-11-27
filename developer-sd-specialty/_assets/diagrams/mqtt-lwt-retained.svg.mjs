@@ -3,19 +3,19 @@
 // retained `online`, a subscriber sees it, the window is closed without
 // a DISCONNECT, the broker publishes the will `offline`, and a client
 // that subscribes later still gets `offline`. A sequence diagram with
-// four lanes. It is the figure in 03-mqtt-hivemq/guide.md, part 5
+// four lanes. It is the figure in 04-mqtt-hivemq/guide.md, part 5
 // "Last Will and Testament", after the "Under the hood".
 //
-// Facts it encodes, and where each comes from (03-mqtt-hivemq part 5
+// Facts it encodes, and where each comes from (04-mqtt-hivemq part 5
 // unless stated):
-//   - The status topic industrial/robot/status; will_set(status_topic,
+//   - The status topic acme/plant1/line1/robot1/state; will_set(status_topic,
 //     "offline", qos=1, retain=True) is set before client.connect(), so
 //     the will travels with the connection (step 2's connect_mqtt, and
 //     "When sensor.py connected, it handed HiveMQ a will").
 //   - On connect, on_connect publishes "online" with qos=1, retain=True
 //     (step 2).
 //   - status.py, the lab's watcher, connects to localhost:1883,
-//     subscribes to industrial/robot/status and shows `online` straight
+//     subscribes to acme/plant1/line1/robot1/state and shows `online` straight
 //     away: the broker hands the retained value to every new subscriber
 //     (steps 4 and its checkpoint).
 //   - Closing the PowerShell window ends the process without an MQTT
@@ -66,7 +66,7 @@ function band(y, title, color) {
 }
 
 // Phase 1: the sensor connects with its will and announces itself.
-band(76, 'sensor.py starts: topic industrial/robot/status', '#475569');
+band(76, 'sensor.py starts: topic acme/plant1/line1/robot1/state', '#475569');
 msg(d, sen, brk, 136, ['1  CONNECT, with a will:', 'offline, QoS 1, retained']);
 note(d, brk, 190, ['keeps the will', 'for this client']);
 msg(d, sen, brk, 244, ['2  PUBLISH online', 'QoS 1, retained']);

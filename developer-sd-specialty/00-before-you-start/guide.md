@@ -58,12 +58,12 @@ from that broker, and the data lands in a file or in MySQL:
 
 <div align="center">
 <figure>
-<img src="../_assets/images/sd-lab-setup.png" alt="Four rows, one per workshop: sensor.py to HiveMQ on 1883 to an MQTT consumer writing robot_sensor.txt; the MQTT producer to EMQX on 1884 to an MQTT consumer writing the alert files; sensor_tv_room.py to RabbitMQ on 5672 to an AMQP consumer writing tv_room_sensor.txt; produce_users.py to Kafka on 9092 to a Kafka consumer loading MySQL user_events on 3306. A bar lists the admin UIs on 9090, 18083 and 15672" width="800">
+<img src="../_assets/images/sd-lab-setup.png" alt="Four rows, one per workshop: the MQTT producer to EMQX on 1884 to an MQTT consumer writing the alert files; sensor.py to HiveMQ on 1883 to an MQTT consumer writing robot_sensor.txt; sensor_tv_room.py to RabbitMQ on 5672 to an AMQP consumer writing tv_room_sensor.txt; produce_users.py to Kafka on 9092 to a Kafka consumer loading MySQL user_events on 3306. A bar lists the admin UIs on 18083, 9090 and 15672" width="800">
 <figcaption>The lab map: publishers, broker containers, consumers and outputs</figcaption>
 </figure>
 </div>
 
-Read the diagram one row per workshop, left to right: HiveMQ, EMQX,
+Read the diagram one row per workshop, left to right: EMQX, HiveMQ,
 RabbitMQ, then Kafka. The EMQX lab publishes from Pentaho Data
 Integration itself, with the **MQTT producer** in `tr_mqtt_producer.ktr`;
 the other three use a bundled Python script. Each consumer step runs a
@@ -303,25 +303,30 @@ the Kafka lab and the capstone.
 
 The installer lays every lab's files out under
 **`C:\Workshop-SD-Specialty`**, one folder per protocol, in the order
-the sidebar reads. The overview pages have no lab files, and the EMQX
-lab works in the HiveMQ lab's folder. Each workshop's **Solution**
-section quotes its own folder.
+the sidebar reads. The overview pages have no lab files; every
+workshop has its own folder. Each workshop's **Solution** section
+quotes it.
 
 ```text
 C:\Workshop-SD-Specialty
 ├── 03-mqtt
-│   └── 03-mqtt-hivemq
-│       ├── sensor.py                     the HiveMQ lab's publisher
-│       ├── tr_mqtt_producer.ktr          the EMQX lab's starters
-│       └── solution                      the finished answers, ready to run
+│   ├── 03-mqtt-emqx
+│   │   ├── tr_mqtt_producer.ktr          the starter transformations
+│   │   └── solution                      the finished answers, ready to run
+│   └── 04-mqtt-hivemq
+│       ├── sensor.py                     the publisher
+│       └── solution
 ├── 04-amqp
 │   └── 06-amqp-rabbitmq
 │       ├── sensor_tv_room.py             the publisher
 │       └── solution
 ├── 05-kafka
-│   └── 08-kafka-use-cases
-│       ├── produce_users.py              the publisher
-│       ├── 01-create-kafka-warehouse.sql
+│   ├── 08-kafka-use-cases
+│   │   ├── produce_users.py              the publisher
+│   │   ├── 01-create-kafka-warehouse.sql
+│   │   └── solution
+│   └── 09-kafka-contracts
+│       ├── produce_signups.py            the publisher, some events broken
 │       └── solution
 └── capstone
     ├── data                              what the capstone reads, shipped
@@ -334,7 +339,7 @@ one in Pentaho Data Integration to compare it with your own; your work
 at the lab root is never touched.
 
 **Confirm the files are there**, not only the folder: open
-`03-mqtt\03-mqtt-hivemq` and check you can see `sensor.py` and a
+`03-mqtt\04-mqtt-hivemq` and check you can see `sensor.py` and a
 `solution` folder holding `tr_robot_consumer.ktr`. An empty folder is
 the one thing worth catching now rather than in the middle of a lab.
 
@@ -404,7 +409,7 @@ exam, and have the capstone's checks pass, and your **Pentaho Developer
 results screen to download. It is valid for two years, and you can come
 back for it later from the same screen.
 
-The capstone, [Capstone: A Plant-Floor Alert Feed](../09-capstone-a-plant-floor-alert-feed/guide.md),
+The capstone, [Capstone: A Plant-Floor Alert Feed](../10-capstone-a-plant-floor-alert-feed/guide.md),
 is a project of your own: subscribe to three machines' telemetry with
 one MQTT wildcard, archive every reading, publish over-threshold
 readings to a keyed Kafka topic, and load the alerts into MySQL without

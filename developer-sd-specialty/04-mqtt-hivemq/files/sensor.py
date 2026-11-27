@@ -1,7 +1,7 @@
 """Simulated robot sensor: publishes one reading a second over MQTT.
 
 Each message is JSON, a temperature and an x/y/z position, sent to the
-topic industrial/robot/sensor on localhost. Needs the Paho MQTT client
+topic acme/plant1/line1/robot1/telemetry on localhost. Needs the Paho MQTT client
 (pip install -r requirements.txt) and Python 3.11 or later.
 
     python sensor.py          # HiveMQ on 1883
@@ -18,7 +18,7 @@ from paho.mqtt import client as mqtt_client
 
 broker = 'localhost'
 port = int(sys.argv[1]) if len(sys.argv) > 1 else 1883
-topic = "industrial/robot/sensor"
+topic = "acme/plant1/line1/robot1/telemetry"
 client_id = f'python-mqtt-{random.randint(0, 1000)}'
 
 

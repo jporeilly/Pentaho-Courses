@@ -13,12 +13,12 @@
 //   - QoS 2, exactly once: a four-step handshake, PUBLISH, PUBREC, PUBREL,
 //     PUBCOMP, guarantees a single delivery at the most overhead. The
 //     packet names are in the bullet, added with this diagram.
-//   - 04-mqtt-emqx part 1's note repeats the trade-off: 0 lowest latency
+//   - 03-mqtt-emqx part 1's note repeats the trade-off: 0 lowest latency
 //     and can lose messages, 1 can deliver duplicates, 2 the highest
 //     overhead.
 //   The sender is drawn as the publisher and the receiver as the broker,
 //   as in the labs, where sensor.py and the MQTT producer publish to the
-//   broker (03-mqtt-hivemq part 2, 04-mqtt-emqx part 1).
+//   broker (04-mqtt-hivemq part 2, 03-mqtt-emqx part 1).
 //
 // Colors (see README.md): slate the sender (a publisher), violet the
 // receiver (the broker), white the result under each level. Replies are

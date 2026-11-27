@@ -498,4 +498,4 @@ Also on disk at `C:\Workshop-SD-Specialty\05-kafka\08-kafka-use-cases\solution`.
 
 ---
 
-> **Tip:** Next, put the whole course to work in one project: [Capstone: A Plant-Floor Alert Feed](../09-capstone-a-plant-floor-alert-feed/guide.md).
+> **Tip:** Next, what happens when the events break the agreed shape, and how to rebuild a table from the log: [Contracts, Rejects and Replay](../09-kafka-contracts/guide.md).

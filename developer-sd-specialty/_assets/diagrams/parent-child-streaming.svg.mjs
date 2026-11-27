@@ -13,7 +13,7 @@
 //     streaming pattern").
 //   - A batch goes to the child when the first of two thresholds is
 //     reached: Duration (ms), a time window, or Number of records, a
-//     message count (01-overview; 04-mqtt-emqx part 2, "Pentaho Data
+//     message count (01-overview; 03-mqtt-emqx part 2, "Pentaho Data
 //     Integration runs the child when either threshold is met").
 //   - The child must start with Get records from stream, which surfaces
 //     the batched messages as rows; it cannot sit mid-stream (01-overview,
@@ -21,13 +21,13 @@
 //   - Then parse, transform and load like any other stream: JSON Input,
 //     Select values, Formula, Table output; only the consumer step at the
 //     front changes (01-overview). The MQTT and AMQP labs load with Text
-//     file output instead (03-mqtt-hivemq part 3, 06-amqp-rabbitmq
+//     file output instead (04-mqtt-hivemq part 3, 06-amqp-rabbitmq
 //     part 3), hence "or Text file output".
 //   - The brokers the labs read: HiveMQ and EMQX (MQTT topics), RabbitMQ
 //     (an AMQP queue), Kafka (a topic) (01-overview, "Protocols covered
 //     in this specialty").
 //   - The labs' Batch tab settings: MQTT consumer 5000 ms / 50 records
-//     (03-mqtt-hivemq part 4 step 7, 04-mqtt-emqx part 2 step 7); AMQP
+//     (04-mqtt-hivemq part 4 step 7, 03-mqtt-emqx part 2 step 7); AMQP
 //     consumer 1000 ms / 1000 records (06-amqp-rabbitmq part 4 step 7);
 //     Kafka consumer 500 ms / 100 records (08-kafka-use-cases part 2
 //     step 8).
