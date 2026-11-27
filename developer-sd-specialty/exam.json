@@ -450,7 +450,7 @@
       "id": "sd-m2-q7",
       "module": "MQTT",
       "bloom": "Apply",
-      "scenario": "Devices on line 1 publish to `acme/plant1/line1/robot1/telemetry`, `acme/plant1/line1/robot2/telemetry` and `acme/plant1/line1/press1/telemetry`, and each also publishes to its own `state` topic. An MQTT consumer must take every device's telemetry on line 1 and nothing else.",
+      "scenario": "Devices on line 1 publish to `acme/plant1/line1/robot1/telemetry`, `acme/plant1/line1/robot2/telemetry` and `acme/plant1/line1/press1/telemetry`, and each also publishes to its own `state` topic. An MQTT consumer must take every device's telemetry on line 1, and must not receive any `state` topic.",
       "prompt": "Which topic should it subscribe to?",
       "options": [
         "`acme/plant1/line1/#`",
@@ -459,7 +459,7 @@
         "`+/+/+/telemetry/#`"
       ],
       "correct": 2,
-      "explanation": "The **wildcard** `+` matches exactly one level of the topic tree, so `acme/plant1/line1/+/telemetry` takes the telemetry of any one device on line 1. `#` under `line1` would also take every `state` topic, `*` is not an MQTT wildcard, and `#` may only be the last level.",
+      "explanation": "The **wildcard** `+` matches exactly one level of the topic tree, so `acme/plant1/line1/+/telemetry` takes the telemetry of every device on line 1 and nothing else. `acme/plant1/line1/#` takes every level under `line1`, the `state` topics too. `*` is not an MQTT wildcard. `+/+/+/telemetry/#` needs `telemetry` as the fourth level, where these topics have the device name.",
       "source": "Developer - Streaming Specialty: MQTT"
     },
     {
@@ -677,13 +677,13 @@
       "scenario": "Two copies of an MQTT consumer transformation run against EMQX to keep up with a fleet. Both subscribe to `SensorData`, and every alert now appears twice in the output files.",
       "prompt": "What change makes each message reach only one of the two consumers?",
       "options": [
-        "Give both consumers the same Client ID on the Setup tab",
+        "Give both consumers the Client ID `alerts` on the Setup tab",
         "Subscribe both to `$share/alerts/SensorData` instead",
-        "Set Quality of Service to 2 on both consumer steps",
-        "Set Maximum concurrent batches to 2 on one consumer"
+        "Set Quality of Service to `2` on both consumer steps",
+        "Set Maximum concurrent batches to `2` on one consumer"
       ],
       "correct": 1,
-      "explanation": "A **shared subscription**, `$share/<group>/<topic>`, makes the subscribers one group, and the broker hands each message to one member of it. Two ordinary subscriptions each receive every message. A shared Client ID makes the broker drop one of the connections, and QoS 2 is about delivery to each subscriber, not between them.",
+      "explanation": "A **shared subscription**, `$share/<group>/<topic>`, makes the subscribers one group, and the broker hands each message to one member of it. Two ordinary subscriptions each receive every message. Two clients with one Client ID make the broker drop the older connection, and QoS 2 is about delivery to each subscriber, not between them.",
       "source": "Developer - Streaming Specialty: EMQX"
     },
     {
