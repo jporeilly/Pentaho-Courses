@@ -630,7 +630,7 @@ Keep the PowerShell window open while you work: it runs JupyterLab. Press `Ctrl+
 
 <div align="center">
 <figure>
-<img src="../_assets/images/automl_colab_upload_data.png" alt="The file chooser opened by Colab's upload widget, with H2O.csv, 276.5 kB, selected among the lab's CSV files" width="800">
+<img src="../_assets/images/automl_colab_upload_data.png" alt="The Open dialog that Colab's upload widget opens, in C:\Workshop-ML-Specialty\02-machine-learning\03-automl, with H2O.csv, 1,196 KB, selected among the lab's files" width="800">
 <figcaption>Choose H2O.csv</figcaption>
 </figure>
 </div>
