@@ -13,7 +13,7 @@
   },
   "title": "Developer - AI Specialty",
   "description": "AI-augmented data pipelines with Pentaho Data Integration and the GenAI plugin suite: documents to text, LLM integration with the AI Chat step, retrieval-augmented generation with pgvector, structured extraction with LangExtract, and MCP tools and agents.",
-  "version": "0.1.12",
+  "version": "0.1.13",
   "kind": "workshop",
   "platform": "windows11",
   "level": {
@@ -103,6 +103,7 @@
   },
   "install": {
     "code": "AI",
+    "signIn": "ai",
     "envCheck": true,
     "workshop": true,
     "ollama": "required",

@@ -424,7 +424,26 @@ expand the workshops underneath.
 
 ## The exam and your course accreditation
 
-When you have worked through the sections, take the **exam** in the sidebar. It is open-book: browse any page, or ask the assistant. Your answers are saved as you go, and the explanations show afterwards. Complete the capstone project and pass the exam, and your **Pentaho Developer - AI Pipelines - Specialty Level** course accreditation appears on the results screen to download.
+When you have worked through the sections, the **AI Pipelines
+Specialty Exam** in the sidebar draws 30 questions from a pool of 69. It
+is open-book — take your time, browse any page to refresh your memory,
+or ask the assistant. Your answers are saved as you go, so leaving the
+page to look something up is fine, and the explanations show afterwards
+so you can learn from anything you missed. The pass mark is **80%**.
+
+You are asked for your name, email and organization before you begin
+(and your Partner ID, if you are taking it as part of the Pentaho Partner
+Program); those are what your accreditation is made out to. Pass the
+exam, and have the capstone's checks pass, and your **Pentaho Developer
+- AI Pipelines - Specialty Level** course accreditation appears on the
+results screen to download. It is valid for two years, and you can come
+back for it later from the same screen.
+
+The capstone, [Capstone: Support Desk Copilot](../23-capstone-support-copilot/guide.md),
+is a project of your own: triage every new support ticket, find the
+passages of the product documents that answer it, and draft a reply
+that cites them, handing the ticket to a person when the documents do
+not answer it.
 
 Head to the first section whenever you're ready.
 
