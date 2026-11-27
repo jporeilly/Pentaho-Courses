@@ -408,7 +408,7 @@ capstone.
 ## The exam and your course accreditation
 
 When you have worked through the sections, the **Streaming Data
-Specialty Exam** in the sidebar draws 30 questions from a pool of 40. It
+Specialty Exam** in the sidebar draws 30 questions from a pool of 51. It
 is open-book — take your time, browse any page to refresh your memory,
 or ask the assistant. Your answers are saved as you go, so leaving the
 page to look something up is fine, and the explanations show afterwards

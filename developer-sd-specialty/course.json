@@ -13,7 +13,7 @@
   },
   "title": "Developer - SD Specialty",
   "description": "Real-time streaming data integration with Pentaho Data Integration. Consume and process unbounded event streams over MQTT, AMQP, and Apache Kafka — IoT sensor telemetry, message-queue pipelines, and real-time user-activity streams using Pentaho Data Integration's parent/child streaming pattern.",
-  "version": "0.1.14",
+  "version": "0.1.15",
   "kind": "workshop",
   "platform": "windows11",
   "level": {
