@@ -20,7 +20,7 @@
 > * The parent/child pattern, from the Streaming Data [Overview](../01-overview/guide.md)
 > * The MQTT essentials (QoS, retained messages, LWT), from the MQTT [Overview](../02-mqtt/guide.md)
 >
-> **Estimated time:** 40 minutes
+> **Estimated time:** 30 minutes
 
 <div align="center">
 <figure>
