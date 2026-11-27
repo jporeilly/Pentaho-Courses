@@ -3,7 +3,7 @@
   "description": "Hands-on: clean ten messy customer records with the AI Chat step and a local LLM, get a quality verdict per record, and split the records into a clean file and a review file.",
   "order": 9,
   "kind": "workshop",
-  "stepCount": 9,
+  "stepCount": 10,
   "hasVideo": false,
   "estimatedMinutes": 35
 }

@@ -89,6 +89,8 @@ Get-CimInstance Win32_Process | Where-Object { $_.CommandLine -match 'catalina\.
 > #### The Server's Plugins Folder
 >
 > The GenAI steps run on the server only if their plugins are in `pentaho-server\pentaho-solutions\system\kettle\plugins`. The server finds plugins when it starts, so it is stopped while they go in.
+>
+> The server must be Pentaho Server 11.x: suite 1.2.0 supports Pentaho 11 only, not 10.2.x. This workshop's steps follow Pentaho 11.0.0.3.
 
 1. Stop the Pentaho Server. In PowerShell, run:
 
@@ -220,12 +222,13 @@ Set-Location C:\Pentaho\design-tools\data-integration
 11. Double-click an empty part of the canvas. On the **Parameters** tab, delete the same seven rows. Keep `TOP_K` (`4`) and `MIN_SCORE` (`0.75`): they tune retrieval, not the environment. Select **OK**.
 12. Double-click **csvi-questions** and change **Filename** to `${RAG_DATA_DIR}/questions.csv`. It was `${Internal.Entry.Current.Directory}/questions.csv` in your own transformation, `${Internal.Entry.Current.Directory}/../questions.csv` in the solution. Select **OK**.
 13. Double-click **txt-answers**. On the **File** tab, change **Filename** from `${Internal.Entry.Current.Directory}/answers` to `${RAG_OUT_DIR}/answers`. Keep the **Fields** grid as it is. Select **OK**.
-14. Save the transformation (`Ctrl+S`).
-15. Select **csvi-questions** on the canvas, press `F10` (**Action > Preview**), and select **Quick Launch**.
+14. Double-click **txt-bad-answers**, the target of **json-answer**'s error hop. On the **File** tab, change **Filename** from `${Internal.Entry.Current.Directory}/bad_answers` to `${RAG_OUT_DIR}/bad_answers`. Select **OK**.
+15. Save the transformation (`Ctrl+S`).
+16. Select **csvi-questions** on the canvas, press `F10` (**Action > Preview**), and select **Quick Launch**.
 
 > **Success:** Checkpoint: **Examine preview data** shows 7 rows, `question_id` `1` to `7`; the first is `My dishwasher shows error E2. What should I do?` with `expected_source` `larkspur-dw500-dishwasher-manual.pdf`. The rows came through `${RAG_DATA_DIR}` from `kettle.properties`.
 
-16. Select **Close**.
+17. Select **Close**.
 
 > **Under the hood:**
 >
@@ -278,9 +281,7 @@ Settings come from that runtime's kettle.properties.
 
 15. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog. This run is in Spoon, with `Pentaho local`, from the disk folder.
 
-<!-- UNPROVEN: the checkpoint below describes the expected shape; replace with measured figures once the GENAI-EE license lets the job run. On this PC the job loads both entries and stops at the first GenAI step's license check. -->
-
-> **Success:** Checkpoint: in **Execution Results**, the **Job metrics** tab shows `tr_load_knowledge_base` and `tr_answer_questions` with result `Success`, then **Success**. `C:\Workshop-AI-Specialty\08-moving-to-production\25-production-server\out` holds `kb_load_log.csv`, one line per chunk, and `answers.csv`, one line per question with its answer and sources.
+> **Success:** Checkpoint: in **Execution Results**, the **Job metrics** tab shows `tr_load_knowledge_base` and `tr_answer_questions` with result `Success`, then **Success**. `C:\Workshop-AI-Specialty\08-moving-to-production\25-production-server\out` holds `kb_load_log.csv`, a header and 15 lines, one per chunk, and `answers.csv`, a header and 7 lines, one per question with its answer and sources. On the **Logging** tab, **vw-kb** reports `15 records written to PGVector (kb_chunks)` and **vs-kb** `7 searches, 28 matches found in PGVector (kb_chunks)`.
 
 Spoon ran the job from disk. The same file runs from the repository next.
 
@@ -310,7 +311,7 @@ Spoon ran the job from disk. The same file runs from the repository next.
 5. Select **Browse...**, choose `jb_rag_pipeline.kjb` from `C:\Workshop-AI-Specialty\08-moving-to-production\25-production-server`, and select **OK**.
 6. Upload `build_knowledge_base.ktr` and `answer_questions.ktr` from the same folder the same way.
 
-<!-- UNPROVEN: the repository steps were not run on the author's server; the wording follows the User Console as used in the Data Preparation course's scheduling workshop on Pentaho 11.0.0.3. -->
+<!-- NOT RUN HERE: needs a Pentaho Server. The course build never changes the owner's server, so the upload was not done; the wording follows the User Console as used in the Data Preparation course's scheduling workshop on Pentaho 11.0.0.3. -->
 
 > **Success:** Checkpoint: `ai-pipelines` lists the job `jb_rag_pipeline` and the transformations `answer_questions` and `build_knowledge_base`.
 
@@ -335,7 +336,7 @@ Uploading a file again replaces it, which is how a changed pipeline reaches the 
 6. Set **Name** to `pentaho-server`, **Engine** to `Pentaho` and, under **Settings**, select **Pentaho server**. Select **OK**.
 7. Press `F9` (**Action > Run**). In the **Run Options** dialog, set **Run configuration** to `pentaho-server` and select **Run**.
 
-<!-- UNPROVEN: the server run has not been executed (no GENAI-EE license on the author's machine, and the owner's server was not changed); the checkpoint gives the expected shape. -->
+<!-- NOT RUN HERE: needs a Pentaho Server with the GenAI plugins and the GENAI-EE license. The job itself was measured with Kitchen (15 chunks loaded, 7 questions answered); the run through the pentaho-server run configuration was not, because the course build never changes the owner's server. -->
 
 > **Success:** Checkpoint: **Execution Results** follows the run as the server reports it, and ends with `tr_answer_questions` and **Success**. `kb_load_log.csv` and `answers.csv` in the `out` folder carry the time of this run.
 
@@ -365,7 +366,7 @@ The run took place on the server, not in Spoon.
 6. In **Manage Schedules**, select `jb_rag_pipeline`. On the toolbar, select **Execute Now** and select **OK**.
 7. Wait a few minutes, and select **Refresh** on the toolbar.
 
-<!-- UNPROVEN: the schedule was not created on the author's server; the checkpoint gives the expected shape. -->
+<!-- NOT RUN HERE: needs a Pentaho Server. The schedule was not created, because the course build never changes the owner's server; the checkpoint gives the expected shape. -->
 
 > **Success:** Checkpoint: **Manage Schedules** lists `jb_rag_pipeline`, every day at 03:00, with **Last Run** the time of **Execute Now** and **Next Run** 03:00 tomorrow.
 
@@ -384,9 +385,7 @@ Import-Csv C:\Workshop-AI-Specialty\08-moving-to-production\25-production-server
   Format-Table question_id, found, cited_sources, expected_source -AutoSize
 ```
 
-<!-- UNPROVEN: needs a GenAI run; the checkpoint gives the expected shape. -->
-
-> **Success:** Checkpoint: 7 rows, `question_id` `1` to `7`, each with `found` and the sources the model cited. For the answerable questions, `cited_sources` should include `expected_source`.
+> **Success:** Checkpoint: 7 rows, `question_id` `1` to `7`, each with `found` and the sources the model cited. Questions 1 to 5 have `found` `true` and a `cited_sources` that includes `expected_source`, sometimes with a second document; questions 6 and 7, whose `expected_source` is `none`, have `found` `false`.
 
 2. Read the run in the server's log. In PowerShell, run:
 

@@ -1,7 +1,7 @@
 {
   "title": "Overview",
   "description": "Turn free-form text into structured rows with LangExtract, run as a local REST service on Windows that calls qwen2.5:7b on Ollama. The API contract, setting up and starting the service, and why this module needs a larger model.",
-  "order": 19,
+  "order": 20,
   "kind": "page",
   "stepCount": 0,
   "hasVideo": false,

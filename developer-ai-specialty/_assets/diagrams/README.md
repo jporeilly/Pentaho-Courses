@@ -156,7 +156,7 @@ and commit the script, the `.svg` and the `.png` together.
 | Diagram | Page |
 | --- | --- |
 | `00-the-machine` | Before You Start, How the pieces fit: Spoon with the plugins, the license and `kettle.properties`; Ollama and its three models; pgvector on 5433; the Python services and their ports |
-| `02-genai-suite` | Documents to Text overview: the suite's 12 steps by palette folder, the lab that uses each, the plugin folders and the license |
+| `02-genai-suite` | Documents to Text overview: the 12 steps inside one PDI panel as Ingest, Transform and AI, the labs that use each, Sources and Targets on the left, and the LLM providers, vector databases and MCP servers the AI steps call on the right |
 | `03-html-parser-flows` | HTML Parser: `html_xpath.ktr`, `html_css.ktr` and the two flows of `html_stream.ktr`, with their selectors and output files |
 | `04-tika-flows` | Apache Tika: `tika_word.ktr`, `tika_password.ktr`, `tika_folder.ktr` and `tika_metadata.ktr` |
 | `05-ai-chat-row` | LLM Integration overview: one row through AI Chat, the request to `/api/chat`, the reply into `llm_json`, and JSON input (replaces `llm-row-skeleton`) |

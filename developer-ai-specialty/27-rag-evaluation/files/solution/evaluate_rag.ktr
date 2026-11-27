@@ -562,11 +562,13 @@ nomic-embed-text, the pcm-pgvector container and a GENAI-EE license.
     this file: 2 rows per run, a new file every run.
 
 Each run makes 30 answer calls and 30 judge calls. Change MODEL_NAME, JUDGE_MODEL, TOP_K or
-MIN_SCORE in Run Options; keep TOP_K at least the largest top_k in dg-settings.</note>
+MIN_SCORE in Run Options; keep TOP_K at least the largest top_k in dg-settings.
+Error hops: json-answer to txt-bad-answers (bad_answers.csv) and json-verdict to txt-bad-verdicts
+(bad_verdicts.csv): question_id, setting, the raw answer and err_desc (0 bytes when every answer parsed).</note>
       <xloc>160</xloc>
       <yloc>32</yloc>
       <width>629</width>
-      <heigth>728</heigth>
+      <heigth>764</heigth>
       <fontname>Segoe UI</fontname>
       <fontsize>10</fontsize>
       <fontbold>N</fontbold>
@@ -689,6 +691,16 @@ MIN_SCORE in Run Options; keep TOP_K at least the largest top_k in dg-settings.<
       <to>txt-scorecard</to>
       <enabled>Y</enabled>
     </hop>
+    <hop>
+      <from>json-answer</from>
+      <to>txt-bad-answers</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>json-verdict</from>
+      <to>txt-bad-verdicts</to>
+      <enabled>Y</enabled>
+    </hop>
   </order>
   <step>
     <name>csvi-eval</name>
@@ -771,7 +783,7 @@ MIN_SCORE in Run Options; keep TOP_K at least the largest top_k in dg-settings.<
     </remotesteps>
     <GUI>
       <xloc>160</xloc>
-      <yloc>948</yloc>
+      <yloc>984</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -825,7 +837,7 @@ MIN_SCORE in Run Options; keep TOP_K at least the largest top_k in dg-settings.<
     </remotesteps>
     <GUI>
       <xloc>340</xloc>
-      <yloc>948</yloc>
+      <yloc>984</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -883,7 +895,7 @@ MIN_SCORE in Run Options; keep TOP_K at least the largest top_k in dg-settings.<
     </remotesteps>
     <GUI>
       <xloc>520</xloc>
-      <yloc>948</yloc>
+      <yloc>984</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -942,7 +954,7 @@ MIN_SCORE in Run Options; keep TOP_K at least the largest top_k in dg-settings.<
     </remotesteps>
     <GUI>
       <xloc>700</xloc>
-      <yloc>808</yloc>
+      <yloc>844</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -979,7 +991,7 @@ MIN_SCORE in Run Options; keep TOP_K at least the largest top_k in dg-settings.<
     </remotesteps>
     <GUI>
       <xloc>700</xloc>
-      <yloc>948</yloc>
+      <yloc>984</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1100,7 +1112,7 @@ for (var f = 0; f &lt; facts.length; f++) {
     </remotesteps>
     <GUI>
       <xloc>880</xloc>
-      <yloc>948</yloc>
+      <yloc>984</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1144,7 +1156,7 @@ Answer with one JSON object and nothing else, in exactly this shape:
     </remotesteps>
     <GUI>
       <xloc>1060</xloc>
-      <yloc>948</yloc>
+      <yloc>984</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1241,7 +1253,7 @@ Answer with one JSON object and nothing else, in exactly this shape:
     </remotesteps>
     <GUI>
       <xloc>1420</xloc>
-      <yloc>948</yloc>
+      <yloc>984</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1291,7 +1303,7 @@ var judge_prompt = "Question: " + question + "\n\n" +
     </remotesteps>
     <GUI>
       <xloc>1420</xloc>
-      <yloc>1128</yloc>
+      <yloc>1164</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1343,7 +1355,7 @@ Answer with one JSON object and nothing else, in exactly this shape:
     </remotesteps>
     <GUI>
       <xloc>1240</xloc>
-      <yloc>1128</yloc>
+      <yloc>1164</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1466,7 +1478,7 @@ Answer with one JSON object and nothing else, in exactly this shape:
     </remotesteps>
     <GUI>
       <xloc>880</xloc>
-      <yloc>1128</yloc>
+      <yloc>1164</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1532,7 +1544,7 @@ Answer with one JSON object and nothing else, in exactly this shape:
     </remotesteps>
     <GUI>
       <xloc>1240</xloc>
-      <yloc>948</yloc>
+      <yloc>984</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1598,7 +1610,217 @@ Answer with one JSON object and nothing else, in exactly this shape:
     </remotesteps>
     <GUI>
       <xloc>1060</xloc>
-      <yloc>1128</yloc>
+      <yloc>1164</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>txt-bad-answers</name>
+    <type>TextFileOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <separator>,</separator>
+    <enclosure>"</enclosure>
+    <enclosure_forced>N</enclosure_forced>
+    <enclosure_fix_disabled>N</enclosure_fix_disabled>
+    <header>Y</header>
+    <footer>N</footer>
+    <format>DOS</format>
+    <compression>None</compression>
+    <encoding>UTF-8</encoding>
+    <endedLine/>
+    <fileNameInField>N</fileNameInField>
+    <fileNameField/>
+    <create_parent_folder>Y</create_parent_folder>
+    <file>
+      <name>${Internal.Entry.Current.Directory}/bad_answers</name>
+      <servlet_output>N</servlet_output>
+      <do_not_open_new_file_init>N</do_not_open_new_file_init>
+      <extention>csv</extention>
+      <append>N</append>
+      <split>N</split>
+      <haspartno>N</haspartno>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <SpecifyFormat>N</SpecifyFormat>
+      <date_time_format/>
+      <add_to_result_filenames>Y</add_to_result_filenames>
+      <pad>N</pad>
+      <fast_dump>N</fast_dump>
+      <splitevery/>
+    </file>
+    <fields>
+      <field>
+        <name>question_id</name>
+        <type>Integer</type>
+        <format>0</format>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>setting</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>llm_json</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>err_desc</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1420</xloc>
+      <yloc>844</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>txt-bad-verdicts</name>
+    <type>TextFileOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <separator>,</separator>
+    <enclosure>"</enclosure>
+    <enclosure_forced>N</enclosure_forced>
+    <enclosure_fix_disabled>N</enclosure_fix_disabled>
+    <header>Y</header>
+    <footer>N</footer>
+    <format>DOS</format>
+    <compression>None</compression>
+    <encoding>UTF-8</encoding>
+    <endedLine/>
+    <fileNameInField>N</fileNameInField>
+    <fileNameField/>
+    <create_parent_folder>Y</create_parent_folder>
+    <file>
+      <name>${Internal.Entry.Current.Directory}/bad_verdicts</name>
+      <servlet_output>N</servlet_output>
+      <do_not_open_new_file_init>N</do_not_open_new_file_init>
+      <extention>csv</extention>
+      <append>N</append>
+      <split>N</split>
+      <haspartno>N</haspartno>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <SpecifyFormat>N</SpecifyFormat>
+      <date_time_format/>
+      <add_to_result_filenames>Y</add_to_result_filenames>
+      <pad>N</pad>
+      <fast_dump>N</fast_dump>
+      <splitevery/>
+    </file>
+    <fields>
+      <field>
+        <name>question_id</name>
+        <type>Integer</type>
+        <format>0</format>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>setting</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>judge_json</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>err_desc</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>970</xloc>
+      <yloc>1254</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1695,7 +1917,7 @@ Answer with one JSON object and nothing else, in exactly this shape:
     </remotesteps>
     <GUI>
       <xloc>700</xloc>
-      <yloc>1128</yloc>
+      <yloc>1164</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1825,7 +2047,7 @@ Answer with one JSON object and nothing else, in exactly this shape:
     </remotesteps>
     <GUI>
       <xloc>520</xloc>
-      <yloc>1128</yloc>
+      <yloc>1164</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -2086,7 +2308,7 @@ Answer with one JSON object and nothing else, in exactly this shape:
     </remotesteps>
     <GUI>
       <xloc>340</xloc>
-      <yloc>1128</yloc>
+      <yloc>1164</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -2128,7 +2350,7 @@ Answer with one JSON object and nothing else, in exactly this shape:
     </remotesteps>
     <GUI>
       <xloc>700</xloc>
-      <yloc>1308</yloc>
+      <yloc>1344</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -2243,7 +2465,7 @@ Answer with one JSON object and nothing else, in exactly this shape:
     </remotesteps>
     <GUI>
       <xloc>880</xloc>
-      <yloc>1308</yloc>
+      <yloc>1344</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -2324,7 +2546,7 @@ Answer with one JSON object and nothing else, in exactly this shape:
     </remotesteps>
     <GUI>
       <xloc>1060</xloc>
-      <yloc>1308</yloc>
+      <yloc>1344</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -2375,7 +2597,7 @@ Answer with one JSON object and nothing else, in exactly this shape:
     </remotesteps>
     <GUI>
       <xloc>1240</xloc>
-      <yloc>1308</yloc>
+      <yloc>1344</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -2511,7 +2733,7 @@ Answer with one JSON object and nothing else, in exactly this shape:
     </remotesteps>
     <GUI>
       <xloc>1420</xloc>
-      <yloc>1308</yloc>
+      <yloc>1344</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -2784,8 +3006,34 @@ Answer with one JSON object and nothing else, in exactly this shape:
     </remotesteps>
     <GUI>
       <xloc>1600</xloc>
-      <yloc>1308</yloc>
+      <yloc>1344</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
+  <step_error_handling>
+    <error>
+      <source_step>json-answer</source_step>
+      <target_step>txt-bad-answers</target_step>
+      <is_enabled>Y</is_enabled>
+      <nr_valuename>err_count</nr_valuename>
+      <descriptions_valuename>err_desc</descriptions_valuename>
+      <fields_valuename/>
+      <codes_valuename/>
+      <max_errors/>
+      <max_pct_errors/>
+      <min_pct_rows/>
+    </error>
+    <error>
+      <source_step>json-verdict</source_step>
+      <target_step>txt-bad-verdicts</target_step>
+      <is_enabled>Y</is_enabled>
+      <nr_valuename>err_count</nr_valuename>
+      <descriptions_valuename>err_desc</descriptions_valuename>
+      <fields_valuename/>
+      <codes_valuename/>
+      <max_errors/>
+      <max_pct_errors/>
+      <min_pct_rows/>
+    </error>
+  </step_error_handling>
 </transformation>

@@ -1,0 +1,9 @@
+{
+  "title": "Catalog Duplicates and Enrichment",
+  "description": "Hands-on: load a product catalog into pgvector with Text to Vector and Vector Writer, find near-duplicate listings with Vector Search, choose the duplicate threshold from measured scores, have AI Chat confirm each pair, and rewrite weak descriptions with AI Chat from the product's own facts, with error hops and a check for invented numbers.",
+  "kind": "workshop",
+  "estimatedMinutes": 75,
+  "stepCount": 11,
+  "hasVideo": false,
+  "order": 19
+}

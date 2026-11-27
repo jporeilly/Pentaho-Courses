@@ -75,5 +75,9 @@
   "Placeholder (masking)": "A typed stand-in such as [PERSON_1] or [EMAIL_1] that replaces a personal value in the text sent to a model, keeping the text readable while the value stays behind.",
   "Luhn check": "The checksum that valid card numbers pass. The masking step uses it to tell a card number from another long number, such as a tracking number.",
   "Prompt injection": "Text inside data, such as a customer message, that tries to give the model new instructions. The run instruction and validation of the answer limit it.",
-  "Carte": "PDI's lightweight server, which runs transformations and jobs on request over a REST API. The Pentaho MCP Server project puts an MCP server in front of it."
+  "Carte": "PDI's lightweight server, which runs transformations and jobs on request over a REST API. The Pentaho MCP Server project puts an MCP server in front of it.",
+  "Near-duplicate": "Two records of the same real-world item that are not equal as text: reworded, misspelled, in other capitals or with an identifier written another way. Exact matching misses them; an embedding search finds them as close vectors.",
+  "Duplicate threshold": "The lowest similarity score at which a pair of records is treated as a duplicate candidate. Chosen from measured scores, just below the lowest true duplicate, because look-alikes that are different items can score higher than true duplicates.",
+  "Hard negative": "A record that scores close to another but is a different item, such as the same product in another size: the cases that show what a similarity threshold cannot separate.",
+  "Grounded generation": "Generating text from given facts only, with the instruction forbidding anything else and a check downstream for what can be verified, such as numbers that do not appear in the source fields."
 }

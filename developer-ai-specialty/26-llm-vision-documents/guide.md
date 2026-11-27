@@ -29,7 +29,7 @@
 
 <div align="center">
 <figure>
-<img src="../_assets/images/26-vision-flow.png" alt="invoices_vision.ktr top to bottom: gfn-invoices lists the seven images, const-instruction adds run_instruction and message, ai-invoice attaches each image and calls gemma3:12b on Ollama, json-invoice parses nine fields, js-validate checks subtotal plus tax against total and sets needs_review, and sv-results and txt-results write invoice_results.csv. Below, invoices_base64.ktr adds b64-image, which encodes each file into image_b64 for ai-invoice." width="800">
+<img src="../_assets/images/26-vision-flow.png" alt="invoices_vision.ktr top to bottom: gfn-invoices lists the seven images, const-instruction adds run_instruction, ai-invoice sends it as the message with each image attached and calls gemma3:12b on Ollama, json-invoice parses nine fields, js-validate checks subtotal plus tax against total and sets needs_review, and sv-results and txt-results write invoice_results.csv. Below, invoices_base64.ktr adds b64-image, which encodes each file into image_b64 for ai-invoice." width="800">
 <figcaption>The two transformations: the image attached as a file, and as Base64 text</figcaption>
 </figure>
 </div>
@@ -109,7 +109,7 @@ The first call takes longer while Ollama loads the model into memory.
 
 > **Success:** Checkpoint: `$image.Length` is `120120`, and the model answers with one line such as `Cedar Ridge Office Supply issued the invoice, and its total is $415.33.` The wording is the model's and can differ.
 
-The **AI Chat** step you set up in the **Ask the Model** tab sends this same request for every image, with the run instruction added as a system message.
+The **AI Chat** step you set up in the **Ask the Model** tab sends this same request for every image, with the instruction as the message text.
 
 > **Under the hood:**
 >
@@ -165,7 +165,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 >
 > #### Add Constants
 >
-> In Stream mode, **AI Chat** reads the message and the run instruction from fields. Both are the same for every image, so **Add constants** adds them: `run_instruction` names the JSON shape to answer in, and `message` asks the model to read the attached document.
+> In Stream mode, **AI Chat** reads the message from a field. The instruction is the same for every image, so **Add constants** adds it as one field, `run_instruction`, which names the JSON shape to answer in. The next tab sends it as the message.
 
 1. On the **Design** tab, open the **Transform** folder and drag **Add constants** onto the canvas.
 2. Create a hop from **gfn-invoices** to **Add constants**: hold `Shift` and drag from one step to the other.
@@ -182,8 +182,7 @@ Copy the figures exactly as printed; do not calculate or correct them.
 If the document is not an invoice or a receipt, set is_invoice to false and every other value to null.
 ```
 
-6. Add a second row: **Name** `message`, **Type** `String`, **Value** `Read the attached document and return the JSON object.`
-7. Select **OK**.
+6. Select **OK**.
 
 > **Under the hood:**
 >
@@ -199,13 +198,13 @@ If the document is not an invoice or a receipt, set is_invoice to false and ever
 >
 > #### AI Chat with an Image
 >
-> **AI Chat** sends one request per row: the message, the run instruction, and the image whose path is in `filename`. The model's answer goes into `llm_json`.
+> **AI Chat** sends one request per row: the instruction as the message, and the image whose path is in `filename`. The model's answer goes into `llm_json`.
 
 1. On the **Design** tab, open the **AI** folder and drag **AI Chat** onto the canvas.
 2. Create a hop from **const-instruction** to **AI Chat**.
 3. Double-click **AI Chat**.
 4. Set **Step name** to `ai-invoice`.
-5. On the **Message** tab, under **Message/Prompt**, select **Stream**. Set **Message Field name** to `message` and **Run instruction for LLM Field name** to `run_instruction`.
+5. On the **Message** tab, under **Message/Prompt**, select **Stream**. Set **Message Field name** to `run_instruction`, and **Run instruction for LLM Field name** to `run_instruction` too. With an image attached, the step does not apply a separate run instruction, so the instruction has to travel as the message itself.
 6. Under **Document**, select **Attach Document(s)**, then **Stream**. Set **Field Format** to `Image` and **Field name** to `filename`.
 
 > **Under the hood:**
@@ -233,8 +232,8 @@ If the document is not an invoice or a receipt, set is_invoice to false and ever
 
 <div align="center">
 <figure>
-<img src="../_assets/images/26-invoices_vision-ai-invoice-message.png" alt="The AI Chat dialog for ai-invoice in invoices_vision.ktr, Message tab, with the settings this tab gives it, where Stream is selected under Attachment and Field Format is Image" width="800">
-<figcaption>ai-invoice in invoices_vision.ktr: the Message tab</figcaption>
+<img src="../_assets/images/26-invoices_vision-ai-invoice-message.png" alt="The AI Chat dialog for ai-invoice in invoices_vision.ktr, Message tab: Stream, Message Field name and Run instruction for LLM Field name both run_instruction, Attach Document(s) selected with Field Format Image" width="800">
+<figcaption>ai-invoice: the Message tab</figcaption>
 </figure>
 </div>
 
@@ -299,6 +298,14 @@ If the document is not an invoice or a receipt, set is_invoice to false and ever
 
 8. Select **OK**.
 
+> **Under the hood:**
+>
+> #### The answer is parsed once, because the step already unwrapped it
+>
+> Ollama's own response is a JSON object with the reply inside it as text. **AI Chat** takes the reply out, so `llm_json` holds only the model's JSON, and one **JSON input** reads it. With **Ignore missing path** selected, a key the model leaves out becomes a null field instead of failing the row, and so does an answer that is plain text with no JSON in it.
+>
+> **Why it matters:** an answer that *starts* as JSON but is broken, with a missing brace or a stray bracket, is different: **JSON input** cannot parse it and stops the whole transformation. The **Catch the Answers the Parser Cannot Read** tab catches those rows.
+
 ### 7. Check the Figures
 
 > **Note:**
@@ -347,7 +354,7 @@ if (is_invoice == null || is_invoice == false) {
 >
 > #### Vision models misread digits, and the arithmetic check catches the inconsistent ones
 >
-> A vision model does not look a digit up; it predicts the most likely text for a patch of pixels. On a sharp scan that is almost always right. On a small, blurred photo a `5` and a `0`, or an `8` and a `9`, look alike, and the model returns a confident, well-formed wrong number. Sent straight to Ollama, `gemma3:12b` read the first six documents exactly, but on the blurred receipt it returned subtotal `42.05` (printed `42.55`) and tax `2.99` (printed `2.98`), with the total right at `45.53`: 42.05 + 2.99 - 45.53 is `-0.49`, so this check flags the row. The check has limits: on the same photo the model also read the receipt number as `7793` (printed `7781`) and the year as `2020`, which no sum can catch, and a misreading that still adds up passes.
+> A vision model does not look a digit up; it predicts the most likely text for a patch of pixels. On a sharp scan that is almost always right. On a small, blurred photo a `5` and a `0`, or an `8` and a `9`, look alike, and the model returns a confident, well-formed wrong number. In the measured run, `gemma3:12b` read the amounts of the other five invoices and receipts exactly, but on the blurred receipt it returned subtotal `42.35` (printed `42.55`) and tax `2.99` (printed `2.98`), with the total right at `45.53`: 42.35 + 2.99 - 45.53 is `-0.19`, so this check flags the row. The check has limits: on the same photo the model also read the receipt number as `7793` (printed `7781`) and the year as `2020`, which no sum can catch, and a misreading that still adds up passes.
 >
 > **Why it matters:** a rule that costs nothing catches the errors that would otherwise reach the ledger unnoticed. Route `needs_review` rows to a person, and compare a sample of the rest with the documents.
 
@@ -370,26 +377,52 @@ if (is_invoice == null || is_invoice == false) {
 9. On the **Fields** tab, select **Get Fields**, then **Minimal width**. The grid lists the 13 fields in the order **sv-results** gives them, with no fixed lengths.
 10. Select **OK**, and save the transformation (`Ctrl+S`).
 
-### 9. Run
+### 9. Catch the Answers the Parser Cannot Read
+
+> **Note:**
+>
+> #### Error Handling on JSON Input
+>
+> A small model sometimes closes a JSON answer with the wrong bracket. An error hop sends such a row to a file of its own, with the parser's message, and the other documents carry on.
+
+1. On the **Design** tab, open the **Output** folder and drag **Text file output** onto the canvas, below **json-invoice**.
+2. Double-click it and set **Step name** to `txt-bad-answers`. On the **File** tab, set **Filename** to `${Internal.Entry.Current.Directory}/bad_answers` and **Extension** to `csv`. Select **OK**.
+3. Create a hop from **json-invoice** to **txt-bad-answers**, and select **Error handling of step** in the menu that opens. The hop is drawn red, with a red error icon.
+4. Right-click **json-invoice** and select **Error Handling...**. In **Step error handling settings**, enter these settings, then select **OK**:
+
+| Setting | Value |
+| --- | --- |
+| **Target step** | `txt-bad-answers` |
+| **Enable the error handling?** | Selected |
+| **Nr of errors fieldname** | `err_count` |
+| **Error descriptions fieldname** | `err_desc` |
+
+5. Double-click **txt-bad-answers**. On the **Fields** tab, select **Get Fields**, then **Minimal width**, and delete every row except `short_filename`, `llm_json` and `err_desc`. Select **OK**, and save the transformation (`Ctrl+S`).
+
+> **Under the hood:**
+>
+> #### A row the step cannot process leaves by the error hop instead of stopping the run
+>
+> Without error handling, the first unparsable answer fails **json-invoice** and stops the transformation, so the documents behind it are never written. With it, **JSON input** adds the parser's message to the row as `err_desc` and sends that row down the red hop. The step's **Errors** count in **Step Metrics** shows how many rows went that way.
+>
+> **Why it matters:** this is how a production pipeline treats a model: most answers are good, some are not, and the bad ones are kept with their reason so a person, or a rerun with a stronger model, can deal with them.
+
+### 10. Run
 
 > **Note:**
 >
 > #### Run the Transformation
 >
-> Each image is one model call. With `gemma3:12b` on a graphics card, a call took 3 to 4 seconds after the model had loaded; without one, allow several minutes for the seven.
+> Each image is one model call. With `gemma3:12b` on a graphics card, the seven took about 55 seconds, loading the model included; without one, allow several minutes.
 
 1. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
 2. In **Execution Results**, open the **Step Metrics** tab.
 
-<!-- UNPROVEN: the checkpoints below describe the expected shape; replace with measured figures once the GENAI-EE license lets the solution run. -->
-
-> **Success:** Checkpoint: every step finishes without errors. **gfn-invoices** shows 7 under **Written**, and so do **ai-invoice** and **txt-results**.
+> **Success:** Checkpoint: **gfn-invoices** shows 7 under **Written**, and so do **ai-invoice**, **json-invoice** and **txt-results**. In the measured run **json-invoice** showed 0 under **Errors**: every answer parsed. A row whose answer the parser cannot read would leave **json-invoice** by the error hop instead: it counts under that step's **Errors**, and **txt-bad-answers** writes it.
 
 3. Open `C:\Workshop-AI-Specialty\04-llm-integration\26-llm-vision-documents\invoice_results.csv`.
 
-<!-- UNPROVEN: the transformation's own output is unmeasured; the figures below are what gemma3:12b returned for the same request sent to Ollama directly. -->
-
-> **Success:** Checkpoint: the header `short_filename,supplier,invoice_number,invoice_date,currency,subtotal,tax,total,line_count,is_invoice,difference,needs_review,review_reason` and 7 rows. Six documents are invoices or receipts and the agenda has `is_invoice` `N` with `needs_review` `Y` and `not an invoice`. The answers are the model's: compare them with `invoice_truth.csv`. Sent directly to Ollama, `gemma3:12b` returned these:
+> **Success:** Checkpoint: the header `short_filename,supplier,invoice_number,invoice_date,currency,subtotal,tax,total,line_count,is_invoice,difference,needs_review,review_reason` and 7 rows. Six documents are invoices or receipts, with `is_invoice` `Y`, and the agenda has `is_invoice` `N` with `needs_review` `Y` and `not an invoice`. The answers are the model's: compare them with `invoice_truth.csv`. In the measured run `gemma3:12b` returned these:
 
 | Document | Returned subtotal, tax, total | Printed | `needs_review` |
 | --- | --- | --- | --- |
@@ -397,13 +430,17 @@ if (is_invoice == null || is_invoice == false) {
 | `inv_02_blue_heron.jpg` | 565.85, 33.95, 599.80 | the same | `N` |
 | `inv_03_atelier_lumen.png` | 2800.00, 532.00, 3332.00 | the same | `N` |
 | `rcpt_04_maple_street.png` | 72.67, 4.00, 76.67 | the same | `N` |
-| `rcpt_05_harbor_deli_photo.jpg` | 42.05, 2.99, 45.53 | 42.55, 2.98, 45.53 | `Y`, difference `-0.49` |
+| `rcpt_05_harbor_deli_photo.jpg` | 42.35, 2.99, 45.53 | 42.55, 2.98, 45.53 | `Y`, difference `-0.19`, `subtotal + tax is not total` |
 | `inv_06_northgate_it.png` | 2359.50, 471.90, 2831.40 | the same | `N` |
-| `memo_07_all_hands_agenda.png` | null | not an invoice | `Y` |
+| `memo_07_all_hands_agenda.png` | empty | not an invoice | `Y`, `not an invoice` |
 
-It also returned every line count right, the supplier names in the case they are printed in (`BLUE HERON Coffee Roasters`, `MAPLE STREET HARDWARE`), the receipt number `#004512` with its `#`, and for the photo the wrong receipt number `7793` and date `2020-10-29`.
+It also returned the supplier names in the case they are printed in (`BLUE HERON Coffee Roasters`, `MAPLE STREET HARDWARE`), the receipt number `#004512` with its `#`, and for the photo the wrong receipt number `7793` (printed `7781`) and date `2020-10-29` (printed `2026-10-29`). Every line count was right except the Maple Street receipt's, `5` for 6 lines. For the agenda, the model ignored "every other value to null": it returned `invoice_date` `2026-12-10` and `line_count` `6`, which **js-validate** ignores because `is_invoice` is false. The figures can differ from run to run.
 
-### 10. Base64 Images
+4. Open `bad_answers.csv` in the same folder.
+
+> **Success:** Checkpoint: the file exists. It is empty, without even a header line, when every answer parsed; a row that went down the error hop appears under the header `short_filename,llm_json,err_desc`.
+
+### 11. Base64 Images
 
 > **Note:**
 >
@@ -432,19 +469,19 @@ It also returned every line count right, the supplier names in the case they are
 
 <div align="center">
 <figure>
-<img src="../_assets/images/26-invoices_base64-ai-invoice-message.png" alt="The AI Chat dialog for ai-invoice in invoices_base64.ktr, the Base64 version built in the Base64 Images tab, Message tab, where Field Format is Image (Base64 Encoded) and Field name is image_b64" width="800">
-<figcaption>ai-invoice in invoices_base64.ktr (Base64 Images): the Message tab</figcaption>
+<img src="../_assets/images/26-invoices_base64-ai-invoice-message.png" alt="The AI Chat dialog for ai-invoice in invoices_base64.ktr, Message tab: Attach Document(s) with Field Format Image (Base64 Encoded) and Field name image_b64" width="800">
+<figcaption>ai-invoice in invoices_base64.ktr: the Message tab</figcaption>
 </figure>
 </div>
 
+
 11. Select **OK**.
 12. Double-click **txt-results**. On the **File** tab, set **Filename** to `${Internal.Entry.Current.Directory}/invoice_results_base64`. Select **OK**.
-13. Save the transformation (`Ctrl+S`).
-14. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
+13. Double-click **txt-bad-answers**. On the **File** tab, set **Filename** to `${Internal.Entry.Current.Directory}/bad_answers_base64`. Select **OK**.
+14. Save the transformation (`Ctrl+S`).
+15. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
 
-<!-- UNPROVEN: expected shape only, until the GENAI-EE license lets the solution run. -->
-
-> **Success:** Checkpoint: **b64-image** shows 7 under **Written**, and `invoice_results_base64.csv` has the same 13 columns and 7 rows as `invoice_results.csv`. `image_b64` is not in the file: **sv-results** keeps only the fields it lists.
+> **Success:** Checkpoint: **b64-image** shows 7 under **Written**, and so do **ai-invoice**, **json-invoice** (0 under **Errors**) and **txt-results**. `invoice_results_base64.csv` has the same 13 columns and 7 rows as `invoice_results.csv`; in the measured run they were identical, the photo receipt's `-0.19` included. `bad_answers_base64.csv` is empty when every answer parsed. `image_b64` is not in the file: **sv-results** keeps only the fields it lists.
 
 The model sees the same pictures either way, so its answers should match the first run's, row for row.
 
@@ -484,7 +521,9 @@ The model has no `vision` capability, so it never saw the picture. `llama3.2:3b`
 <details>
 <summary>json-invoice fails on a row, or the nine fields are null</summary>
 
-The model's answer was not bare JSON: a model can wrap it in a Markdown code fence or add a sentence. Preview **ai-invoice** and read `llm_json` for that row. Use a model that follows the instruction, such as `gemma3:12b`.
+The model's answer was not bare JSON: a model can wrap it in a Markdown code fence or add a sentence. An answer **json-invoice** cannot parse goes down the error hop to `bad_answers.csv`, with the parser's message in `err_desc`; without that hop it stops the transformation. Preview **ai-invoice** and read `llm_json` for that row. Use a model that follows the instruction, such as `gemma3:12b`.
+
+When every row comes out with the nine fields empty and `not an invoice`, double-click **ai-invoice**: on its **Message** tab, **Message Field name** must be `run_instruction`. With an image attached, the step does not apply the **Run instruction for LLM Field name** field, so a model given only a short message answers in a JSON shape of its own, often in a code fence, and **JSON input** finds none of the nine keys.
 
 </details>
 
@@ -521,7 +560,7 @@ What is printed on each document, to compare with the model's answers:
 
 ### Solution <!-- no-step -->
 
-The finished transformations for this lab. Open them alongside your own to compare, or run them to see the expected result. They read the images from the `invoices` folder in the lab folder and write `invoice_results.csv` and `invoice_results_base64.csv` beside themselves.
+The finished transformations for this lab. Open them alongside your own to compare, or run them to see the expected result. They read the images from the `invoices` folder in the lab folder and write `invoice_results.csv` and `invoice_results_base64.csv` beside themselves, and any answer the parser cannot read to `bad_answers.csv` and `bad_answers_base64.csv`.
 
 Also on disk at `C:\Workshop-AI-Specialty\04-llm-integration\26-llm-vision-documents\solution`.
 

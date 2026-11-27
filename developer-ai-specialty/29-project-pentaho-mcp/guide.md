@@ -48,6 +48,8 @@
 * returns the log of a run, with the lines that say why it failed, and stops a run;
 * runs nothing outside one folder, takes no arbitrary path, can be made read-only, keeps its Carte credentials out of every tool, and records every call.
 
+> **Note:** Pentaho has planned a native **MCP Server Job step** that exposes PDI jobs as MCP tools to AI agents; it is not released and has no date yet. What this project teaches still applies when it arrives: which folder the tools may run from, whether a client may only watch (read-only mode), and an audit line for every call are choices you make for any MCP server, native or your own.
+
 **The milestones.** Each one ends with a check you can run, so you can stop after any of them and come back later:
 
 | Milestone | You add | Done when `check_pentaho_mcp.py` shows |
@@ -793,9 +795,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 19. Save the transformation (`Ctrl+S`).
 20. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
 
-<!-- UNPROVEN: the MCP Client step needs the GENAI-EE license. The values below were measured by passing the server's real run_transformation and get_status answers (from Carte on 127.0.0.1:8081) through json-run, json-status and wlog-run with Pan; the MCP Client steps themselves are not yet measured. -->
-
-> **Success:** Checkpoint: on the **Logging** tab, **wlog-run** prints `PDI drove PDI` with `trans_path = hello_carte.ktr`, `carte_name = hello_carte`, a `carte_id`, `run_status = Finished`, `run_errors = 0`, `run_error = null` and `carte_state = Online`, with the counts of your Carte in `trans_on_server` and `jobs_on_server`. The Carte window logs `message = Hello from PDI`: the greeting went from a field, through the arguments template and the server, into the transformation's parameter.
+> **Success:** Checkpoint: **Step Metrics** shows 1 under **Written** for every step, from **gr-request** to **wlog-run**. On the **Logging** tab, **wlog-run** prints `PDI drove PDI` with `trans_path = hello_carte.ktr`, `carte_name = hello_carte`, a `carte_id`, `run_status = Finished`, `run_errors = 0`, `run_error = null` and `carte_state = Online`, with the counts of your Carte in `trans_on_server` and `jobs_on_server` (in a measured run, `2` and `0`). The Carte window logs `message = Hello from PDI`: the greeting went from a field, through the arguments template and the server, into the transformation's parameter.
 
 Run it a second time and `trans_on_server` grows by one: Carte keeps the runs it was given until it purges them.
 
@@ -927,12 +927,14 @@ if (tool_calls != null && (tool_calls + "") != "") {
 17. From the **Transform** folder, drag **Select values** onto the canvas. Create a hop from **js-tools-used** to it. Double-click it, set **Step name** to `sv-answers`, and list these fields in this order: `request_id`, `request`, `answer`, `tool_call_count`, `tools_used`, `tool_calls`. Select **OK**.
 18. From the **Output** folder, drag **Text file output** onto the canvas. Create a hop from **sv-answers** to it. Double-click it and set **Step name** to `txt-answers`. On the **File** tab, set **Filename** to `${Internal.Entry.Current.Directory}/ops_answers` and **Extension** to `csv`, and select **Create Parent folder**. On the **Content** tab, set **Separator** to `,` and **Encoding** to `UTF-8`. On the **Fields** tab, select **Get Fields**, then **Minimal width**, and select **OK**.
 19. Save the transformation (`Ctrl+S`).
-20. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog. On a CPU-only machine allow a minute or more per request.
+20. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog. With a GPU the four requests take under a minute; on a CPU-only machine allow a minute or more per request.
 21. When the run ends, select **txt-answers** on the canvas and open the **Preview data** tab.
 
-<!-- UNPROVEN: AI Chat with tools needs the GENAI-EE license. The checkpoint describes the expected shape; which tools a model calls varies between models and runs. The tool results it names were measured with check_pentaho_mcp.py. -->
+> **Success:** Checkpoint: 4 rows, one per request. Which tools the model calls varies between runs; in a measured run with `qwen2.5:7b`: `R1`: `run_job` with `daily_sales.kjb` alone, and the answer says the job finished with no errors. `R2`: `run_job` with `broken_feed.kjb`, whose result is `Finished (with errors)`, then `get_log`, and the answer says the job failed because the supplier price feed is missing. `R3`: `list_files`, then `get_status` and a `get_log` the request did not ask for; that `get_log` asked for a transformation by a job's id, and its result in `tool_calls` is an error, `Carte answered HTTP 500`. `R4`: a `run_job` call whose result in `tool_calls` is the server's refusal, `give a path relative to the allowed folder`, and the answer says the file cannot be run. No row calls `stop_transformation` or `stop_job`: they are not among the tools the model was offered.
 
-> **Success:** Checkpoint: 4 rows, one per request. `R1`: `tools_used` includes `run_job`, usually after `list_files`, and the answer says `daily_sales` finished with no errors. `R2`: `run_job` then `get_log`, and the answer says the job failed because the supplier price feed is missing. `R3`: `list_files` alone, and the answer names the files in `samples`. `R4`: either no tool call or a `run_job` call whose result in `tool_calls` is the server's refusal, and the answer says the file cannot be run. No row calls `stop_transformation` or `stop_job`.
+Read each answer next to the tools it called: a call that worked does not mean the answer used it.
+
+> **Warning:** An answer can miss the question even when the right tool ran. In the same measured run, `R3`'s answer did not list the 6 files `list_files` returned: it reported on the failed `broken_feed` run and the `get_log` error instead. Read each `answer` against its `tool_calls`: here the facts were in `tool_calls` and the answer left them out.
 
 22. Open `ops_answers.csv` in the lab folder and read each `answer` against its `tool_calls`, then open `mcp-server\audit_log.jsonl`: every call the model made is there too, with its arguments.
 

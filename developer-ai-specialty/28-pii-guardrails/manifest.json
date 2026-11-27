@@ -3,7 +3,7 @@
   "description": "Hands-on: mask the personal data in support messages before an LLM summarizes them: regular expressions with a Luhn check, NER Extractor with a RegexNER rule file, typed placeholders with the mapping kept apart, a check that quarantines what slipped through, a run instruction and output validation against prompt injection, re-identification inside the trusted zone, and an audit of what was masked.",
   "kind": "workshop",
   "estimatedMinutes": 75,
-  "stepCount": 9,
+  "stepCount": 10,
   "hasVideo": false,
-  "order": 29
+  "order": 30
 }

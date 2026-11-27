@@ -126,6 +126,8 @@ Everything here is a **one-off setup** for your own Windows 11 machine. Work thr
 
 The suite comes as one bundled archive, `pdi-genai-plugins-bundle-1.2.0-157.zip`, from your Pentaho account team or Pentaho Support; it is not in the Pentaho Marketplace. The archive holds one `.zip` per plugin, and each of those holds one plugin folder.
 
+> **Note:** Suite 1.2.0 supports Pentaho 11 only: Pentaho Data Integration 11 on Java 17 or 21, and Pentaho Server 11.x. It is not supported on Pentaho 10.2.x, where an enhancement to support it is a Pentaho services contract. This course was checked on Pentaho 11.0.0.3.
+
 1. Close Spoon.
 2. **Upgrading from an earlier version?** Delete the old plugin folders first: extracting a new version over an old folder leaves old libraries in its `lib` folder, where they conflict with the new ones. In PowerShell, run:
 

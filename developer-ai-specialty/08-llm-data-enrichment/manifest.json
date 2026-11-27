@@ -3,7 +3,7 @@
   "description": "Hands-on: add a city, state, country, industry and employee range to customer records with the AI Chat step, from a prompt template built by AI Chat Message Box.",
   "order": 10,
   "kind": "workshop",
-  "stepCount": 7,
+  "stepCount": 8,
   "hasVideo": false,
   "estimatedMinutes": 30
 }

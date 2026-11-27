@@ -1,7 +1,7 @@
 {
   "title": "Overview",
   "description": "Beyond one prompt per row: what an agent as a service is and why Pentaho Data Integration retrieves the history it reasons over, and the Model Context Protocol (MCP): servers with tools and resources, the MCP Client step and the AI Chat Tools tab, transports, and connections in the metastore.",
-  "order": 23,
+  "order": 24,
   "kind": "page",
   "stepCount": 2,
   "hasVideo": false,

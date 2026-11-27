@@ -362,13 +362,11 @@ Set-Location C:\Pentaho\design-tools\data-integration
 1. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
 2. In **Execution Results**, open the **Step Metrics** tab.
 
-<!-- UNPROVEN: the checkpoints below describe the expected shape; replace with measured figures (chunk count per document) once the GENAI-EE license lets the solution run. -->
-
-> **Success:** Checkpoint: every step finishes without errors. **gfn-docs** and **doc-read** show 6 under **Written**. **seg-chunks** writes more rows than it reads: a few chunks per document, between one for the short support FAQ and several for the dishwasher manual. **emb-chunks**, **vw-kb** and **txt-load-log** each write the same number of rows as **seg-chunks**.
+> **Success:** Checkpoint: every step finishes without errors. **gfn-docs** and **doc-read** show 6 under **Written**. **seg-chunks** reads 6 rows and writes 15: one chunk for the short support FAQ, two each for the returns and warranty policies, three each for the coffee machine and washing machine manuals, and four for the dishwasher manual. **frmla-chunk-id**, **emb-chunks**, **vw-kb**, **sv-load-log** and **txt-load-log** each read and write 15.
 
 3. Open `C:\Workshop-AI-Specialty\05-retrieval-augmented-generation\20-rag-knowledge-base\kb_load_log.csv`.
 
-> **Success:** Checkpoint: its first line is `chunk_id,index,stored_id,embedding_dimensions`. Every row has a `chunk_id` such as `larkspur-warranty-policy.pdf#0`, a UUID in `stored_id` and `768` in `embedding_dimensions`. Each document's `index` starts at `0`.
+> **Success:** Checkpoint: its first line is `chunk_id,index,stored_id,embedding_dimensions`, followed by 15 rows, from `larkspur-cm300-coffee-machine-manual.txt#0` to `larkspur-wm800-washing-machine-manual.docx#2`. Every row has a `chunk_id` such as `larkspur-warranty-policy.pdf#0`, a UUID in `stored_id` and `768` in `embedding_dimensions`. Each document's `index` starts at `0`.
 
 ### 8. Inspect the Table
 
@@ -392,8 +390,6 @@ The prompt changes to `genai=#`. Type each statement below at that prompt.
 \d kb_chunks
 ```
 
-<!-- UNPROVEN: the table shape is the CREATE TABLE in the bundled langchain4j-pgvector 1.22.0-beta32 jar, checked on a scratch table of that shape; confirm it on the table the solution creates. -->
-
 > **Success:** Checkpoint: four columns, `embedding_id` `uuid` (not null), `embedding` `vector(768)`, `text` `text` and `metadata` `json`, and one index, `kb_chunks_pkey`, the primary key on `embedding_id`.
 
 3. Count the chunks per document:
@@ -405,9 +401,7 @@ GROUP BY 1
 ORDER BY 1;
 ```
 
-<!-- UNPROVEN: the chunk counts depend on AI Segmentation; record them once the solution has run. -->
-
-> **Success:** Checkpoint: 6 rows, one per document, from `larkspur-cm300-coffee-machine-manual.txt` to `larkspur-wm800-washing-machine-manual.docx`. The counts add up to the rows **vw-kb** wrote.
+> **Success:** Checkpoint: 6 rows, one per document, from `larkspur-cm300-coffee-machine-manual.txt` to `larkspur-wm800-washing-machine-manual.docx`, with the counts 3, 1, 4, 2, 2 and 3. They add up to 15, the rows **vw-kb** wrote.
 
 4. List the keys the metadata holds:
 
@@ -415,9 +409,7 @@ ORDER BY 1;
 SELECT DISTINCT json_object_keys(metadata) AS metadata_key FROM kb_chunks ORDER BY 1;
 ```
 
-<!-- UNPROVEN: the exact key list comes from Text to Vector; confirm it once the solution has run. -->
-
-> **Success:** Checkpoint: among the keys, `source` and `chunk_index` from the **Metadata fields** grid, and the keys **Text to Vector** adds, such as `embedding_model`.
+> **Success:** Checkpoint: 8 keys: `chunk_index` and `source` from the **Metadata fields** grid, and `created_at`, `dimensions`, `embedding_model`, `embedding_provider`, `source_field` and `text`, which **Text to Vector** adds.
 
 5. Read the start of each chunk of the warranty policy:
 
@@ -429,9 +421,7 @@ WHERE metadata->>'source' = 'larkspur-warranty-policy.pdf'
 ORDER BY 1;
 ```
 
-<!-- UNPROVEN: the chunk boundaries come from AI Segmentation. -->
-
-> **Success:** Checkpoint: one row per chunk of the warranty policy, numbered from `0`, each with `dims` `768`. Chunk `0` starts `Larkspur Home Appliances - Limited Warranty Policy`.
+> **Success:** Checkpoint: two rows, chunks `0` and `1`, each with `dims` `768`. Chunk `0` starts `Larkspur Home Appliances - Limited Warranty Policy`; chunk `1` starts in the middle of the exclusions, at `appliance has not been descaled as the manual instructs`.
 
 6. Create the search index:
 
@@ -467,9 +457,7 @@ CREATE INDEX IF NOT EXISTS kb_chunks_embedding_hnsw ON kb_chunks USING hnsw (emb
 podman exec pcm-pgvector psql -U genai -d genai -c "select count(*) from kb_chunks"
 ```
 
-<!-- UNPROVEN: the row count depends on AI Segmentation; record it once the solution has run. -->
-
-> **Success:** Checkpoint: the same count as after the first run, equal to the rows **vw-kb** wrote, and `kb_load_log.csv` lists the same `stored_id` for each `chunk_id` as before.
+> **Success:** Checkpoint: `15`, the same count as after the first run, and `kb_load_log.csv` lists the same `stored_id` for each `chunk_id` as before.
 
 3. When a document changes and gets shorter, delete its rows before the next run, so that no chunk of the old version stays behind. For example, for the warranty policy, in PowerShell, run:
 

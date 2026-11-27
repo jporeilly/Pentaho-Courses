@@ -1,6 +1,6 @@
 {
   "title": "AI Pipelines Specialty Exam",
-  "description": "30 questions drawn from a pool of 66, covering how LLMs work and the patterns for building them into PDI pipelines. Pass mark is 80%. Open-book — browse any page, hover glossary terms, or ask the AI assistant. Your answers are saved as you go. Explanations appear after submission.",
+  "description": "30 questions drawn from a pool of 69, covering how LLMs work and the patterns for building them into PDI pipelines. Pass mark is 80%. Open-book — browse any page, hover glossary terms, or ask the AI assistant. Your answers are saved as you go. Explanations appear after submission.",
   "passMark": 80,
   "questionsPerAttempt": 30,
   "shuffle": true,
@@ -1077,6 +1077,54 @@
       "explanation": "Capabilities you do not offer are the safest control. The model only sees, and can only call, the tools the server registers.",
       "source": "Developer - AI Specialty: Project: Pentaho MCP Server",
       "correct": 1
+    },
+    {
+      "id": "ai-m6-q8",
+      "module": "Retrieval-Augmented Generation",
+      "bloom": "Analyze",
+      "scenario": "A pipeline embeds every product in a catalog and runs Vector Search for each one. The highest-scoring pair, 0.99, is the same water bottle in 750 ml and 500 ml. Two true duplicate listings score 0.94.",
+      "prompt": "What should the duplicate threshold do in this pipeline?",
+      "options": [
+        "Sit above 0.99, so that only the pairs the embedding model is most sure of are merged",
+        "Sit between 0.94 and 0.99, so that the bottles are rejected while the duplicates are kept",
+        "Pass every pair at or above the lowest true duplicate to a check that reads both records",
+        "Be replaced by exact matching on the lower-case title, which tells sizes apart reliably"
+      ],
+      "explanation": "A look-alike that is a different product can score higher than a true duplicate, so no threshold separates them. Set the threshold just below the lowest true duplicate to keep every candidate, and let a check that reads both records decide.",
+      "source": "Developer - AI Specialty: Catalog Duplicates and Enrichment",
+      "correct": 2
+    },
+    {
+      "id": "ai-m6-q9",
+      "module": "Retrieval-Augmented Generation",
+      "bloom": "Apply",
+      "scenario": "find_duplicates.ktr runs Vector Search in One row per match mode with Max results 3. Every pair of near-duplicates arrives twice, once from each product, and every product also matches itself.",
+      "prompt": "Which steps give exactly one row per unordered pair?",
+      "options": [
+        "Unique rows on product_id alone, which keeps the first match of every product it receives",
+        "A script that drops the self-match and puts the smaller ID first, then Sort rows, unique rows only",
+        "Max results set to 1, so that Vector Search returns only the best look-alike of each product",
+        "Min score set to 1, so that Vector Search drops every match except the exact duplicates"
+      ],
+      "explanation": "Dropping the self-match and ordering each pair (smaller ID first) makes the two copies of a pair identical; Sort rows with unique rows only then keeps one.",
+      "source": "Developer - AI Specialty: Catalog Duplicates and Enrichment",
+      "correct": 1
+    },
+    {
+      "id": "ai-m6-q10",
+      "module": "Retrieval-Augmented Generation",
+      "bloom": "Evaluate",
+      "scenario": "An AI Chat step rewrites weak product descriptions from the title, brand, category and price only. A script after JSON input lists every number in the new description that is not in those fields.",
+      "prompt": "What does that script leave for a person to review?",
+      "options": [
+        "Invented numbers such as a weight in grams, which it misses when the title has no numbers",
+        "Answers that are not JSON, which the script receives as null fields and passes unflagged",
+        "Descriptions in capitals, which the script cannot tell apart from the original weak ones",
+        "Invented qualities written as words, such as durable or waterproof, which it cannot detect"
+      ],
+      "explanation": "A numbers check catches invented figures only. Claims made in words, such as durable or warm, pass it, so a person still reads the rewritten descriptions.",
+      "source": "Developer - AI Specialty: Catalog Duplicates and Enrichment",
+      "correct": 3
     }
   ]
 }

@@ -79,7 +79,7 @@ RAG also gives an honest way to say "I don't know". When none of the retrieved p
 >
 > **Why it matters:** when an answer is wrong, you can tell which half failed. If the right passage was not retrieved, tune the chunks or the search; if it was retrieved and the answer is still wrong, tune the instruction or the model.
 
-[Evaluate the Answers](../27-rag-evaluation/guide.md) then measures both halves on a fixed set of questions: whether the search found the right document, and whether the answers are correct and stay within the passages.
+[Evaluate the Answers](../27-rag-evaluation/guide.md) then measures both halves on a fixed set of questions: whether the search found the right document, and whether the answers are correct and stay within the passages. [Catalog Duplicates and Enrichment](../30-catalog-duplicates/guide.md) uses the same embeddings and vector search for another job: finding the products in a catalog that are the same item written differently.
 
 ### 3. Chunks
 
@@ -132,6 +132,8 @@ So a score of `0.75` means a cosine similarity of `0.5`, and the **Min score** s
 > #### PostgreSQL That Stores and Searches Vectors
 >
 > pgvector is a PostgreSQL extension that adds a `vector` column type, distance operators and vector indexes. The course runs it in a Podman container, from the PGVector lab kit.
+
+**Vector Writer** and **Vector Search** support seven vector stores: PGVector, Qdrant, Milvus, Pinecone, Chroma, OpenSearch and AlloyDB. Vector Writer creates the collection on demand and either upserts or inserts. **Text to Vector** embeds with OpenAI, Azure OpenAI, AWS Bedrock, Google Gemini or Ollama. The labs use pgvector and Ollama; another store or provider changes the step's connection settings, not the shape of the pipeline.
 
 | Setting | Value |
 | --- | --- |

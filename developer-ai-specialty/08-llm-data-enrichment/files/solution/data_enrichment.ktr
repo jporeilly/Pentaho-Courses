@@ -513,13 +513,15 @@ Needs Ollama at OLLAMA_URL with MODEL_NAME pulled, and the GenAI plugins with a 
 5. json-enrich: JSON input from llm_json: city, state, country, industry, industry_basis, employee_range.
 6. sv-results: keeps customer_id, name, company_name, address and the six new fields.
 7. txt-results: Text file output, customers_enriched.csv beside this file.
+Error hop: json-enrich sends an answer it cannot parse to txt-bad-answers: customer_id, llm_json, err_desc
+to bad_answers.csv beside this file (0 bytes when every answer parsed).
 
 Shipped data: 10 customers, 1001 to 1010. city and state are read from each address; industry and
 employee_range are the model's estimates.</note>
       <xloc>160</xloc>
       <yloc>32</yloc>
-      <width>626</width>
-      <heigth>332</heigth>
+      <width>630</width>
+      <heigth>368</heigth>
       <fontname>Segoe UI</fontname>
       <fontsize>10</fontsize>
       <fontbold>N</fontbold>
@@ -565,6 +567,11 @@ employee_range are the model's estimates.</note>
     <hop>
       <from>sv-results</from>
       <to>txt-results</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>json-enrich</from>
+      <to>txt-bad-answers</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -671,7 +678,7 @@ employee_range are the model's estimates.</note>
     </remotesteps>
     <GUI>
       <xloc>160</xloc>
-      <yloc>412</yloc>
+      <yloc>448</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -706,7 +713,7 @@ Answer with one JSON object and nothing else, in exactly this shape:
     </remotesteps>
     <GUI>
       <xloc>320</xloc>
-      <yloc>412</yloc>
+      <yloc>448</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -755,7 +762,7 @@ var customer_message = task + "\n\n" +
     </remotesteps>
     <GUI>
       <xloc>480</xloc>
-      <yloc>412</yloc>
+      <yloc>448</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -821,7 +828,7 @@ var customer_message = task + "\n\n" +
     </remotesteps>
     <GUI>
       <xloc>640</xloc>
-      <yloc>412</yloc>
+      <yloc>448</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -957,7 +964,7 @@ var customer_message = task + "\n\n" +
     </remotesteps>
     <GUI>
       <xloc>800</xloc>
-      <yloc>412</yloc>
+      <yloc>448</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1045,7 +1052,7 @@ var customer_message = task + "\n\n" +
     </remotesteps>
     <GUI>
       <xloc>960</xloc>
-      <yloc>412</yloc>
+      <yloc>448</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1222,8 +1229,115 @@ var customer_message = task + "\n\n" +
     </remotesteps>
     <GUI>
       <xloc>1120</xloc>
-      <yloc>412</yloc>
+      <yloc>448</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
+  <step>
+    <name>txt-bad-answers</name>
+    <type>TextFileOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <separator>,</separator>
+    <enclosure>"</enclosure>
+    <enclosure_forced>N</enclosure_forced>
+    <enclosure_fix_disabled>N</enclosure_fix_disabled>
+    <header>Y</header>
+    <footer>N</footer>
+    <format>DOS</format>
+    <compression>None</compression>
+    <encoding>UTF-8</encoding>
+    <endedLine/>
+    <fileNameInField>N</fileNameInField>
+    <fileNameField/>
+    <create_parent_folder>Y</create_parent_folder>
+    <file>
+      <name>${Internal.Entry.Current.Directory}/bad_answers</name>
+      <servlet_output>N</servlet_output>
+      <do_not_open_new_file_init>N</do_not_open_new_file_init>
+      <extention>csv</extention>
+      <append>N</append>
+      <split>N</split>
+      <haspartno>N</haspartno>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <SpecifyFormat>N</SpecifyFormat>
+      <date_time_format/>
+      <add_to_result_filenames>Y</add_to_result_filenames>
+      <pad>N</pad>
+      <fast_dump>N</fast_dump>
+      <splitevery/>
+    </file>
+    <fields>
+      <field>
+        <name>customer_id</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>llm_json</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>err_desc</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>800</xloc>
+      <yloc>608</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step_error_handling>
+    <error>
+      <source_step>json-enrich</source_step>
+      <target_step>txt-bad-answers</target_step>
+      <is_enabled>Y</is_enabled>
+      <nr_valuename>err_count</nr_valuename>
+      <descriptions_valuename>err_desc</descriptions_valuename>
+      <fields_valuename/>
+      <codes_valuename/>
+      <max_errors/>
+      <max_pct_errors/>
+      <min_pct_rows/>
+    </error>
+  </step_error_handling>
 </transformation>

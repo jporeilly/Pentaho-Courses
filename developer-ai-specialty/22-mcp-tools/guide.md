@@ -192,9 +192,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 14. Save the transformation (`Ctrl+S`).
 15. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
 
-<!-- UNPROVEN: the MCP Client step needs the GENAI-EE license. The tool names, descriptions and the resource text below are the server's, measured with check_server.py; the step's own rows are not yet measured. -->
-
-> **Success:** Checkpoint: in **Execution Results**, **Step Metrics** shows 4 under **Written** for **mcp-list-tools** and **txt-tools**, and 1 for **mcp-shipping-policy**. `tools.csv` in the lab folder has a header `tool_name,tool_description,tool_schema` and one row per tool; the `tool_schema` of `lookup_order` names one required string property, `order_id`. On the **Logging** tab, **wlog-shipping** prints the shipping policy, starting `Ridgeline Outfitters shipping policy`, with `resource_error` empty.
+> **Success:** Checkpoint: in **Execution Results**, **Step Metrics** shows 4 under **Written** for **mcp-list-tools** and **txt-tools**, and 1 for **mcp-shipping-policy**. `tools.csv` in the lab folder has a header `tool_name,tool_description,tool_schema` and one row per tool: `lookup_order`, `check_stock`, `get_return_policy` and `start_return`; the `tool_schema` of `lookup_order` names one required string property, `order_id`. On the **Logging** tab, **wlog-shipping** prints the shipping policy as `shipping_policy = Ridgeline Outfitters shipping policy`, followed by the rest of its text, and `resource_error = null`.
 
 16. Open `tools.csv` and read each tool's description: these are the words a model reads in part 5 to choose a tool.
 
@@ -271,9 +269,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 23. Save the transformation (`Ctrl+S`).
 24. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
 
-<!-- UNPROVEN: the MCP Client step needs the GENAI-EE license. The rows below were measured by passing the server's real lookup_order results for the six ids through frow-tool-ok, json-order, sv-order and the two outputs with Pan; the MCP Client step itself is not yet measured, and the wording of its error field is the plugin's. -->
-
-> **Success:** Checkpoint: **Step Metrics** shows **csvi-orders** 6 under **Written**, **mcp-lookup-order** 6, **txt-order-status** 5 and **txt-order-errors** 1. `order_status.csv` holds `A1001` to `A1005`: `A1001` `Maya` `shipped` (estimated `2026-11-28`), `A1002` `Daniel` `delayed` (`Held at the regional hub after a weather closure`, estimated `2026-12-03`, 3 items), `A1003` `Priya` `delivered` on `2026-11-20`, `A1004` `Tom` `processing` with no carrier yet, and `A1005` `Lena` `delivered` on `2026-10-30`. `order_errors.csv` holds `A9999`, with a `tool_error` that includes the server's message `No order 'A9999'. Order numbers look like A1001.`
+> **Success:** Checkpoint: **Step Metrics** shows **csvi-orders** 6 under **Written**, **mcp-lookup-order** 6, **json-order** and **txt-order-status** 5, and **txt-order-errors** 1. `order_status.csv` holds `A1001` to `A1005`: `A1001` `Maya` `shipped` (estimated `2026-11-28`), `A1002` `Daniel` `delayed` (`Held at the regional hub after a weather closure`, estimated `2026-12-03`, 3 items), `A1003` `Priya` `delivered` on `2026-11-20`, `A1004` `Tom` `processing` with no carrier yet, and `A1005` `Lena` `delivered` on `2026-10-30`. `order_errors.csv` holds `A9999`, with an empty `tool_result` and the `tool_error` `The tool 'lookup_order' reported an error: Error executing tool lookup_order: No order 'A9999'. Order numbers look like A1001.`
 
 25. Compare `order_status.csv` with the orders in `mcp-server\retail_data.json`: every value came from the server unchanged.
 
@@ -419,18 +415,16 @@ if (tool_calls != null && (tool_calls + "") != "") {
 >
 > #### Run the Transformation
 >
-> Each question is one conversation with the model, with one or more tool calls in it. On a CPU-only machine allow a minute or more per question.
+> Each question is one conversation with the model, with one or more tool calls in it. With a GPU the six questions take under a minute; on a CPU-only machine allow a minute or more per question.
 
 1. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
 2. When the run ends, select **txt-answers** on the canvas and open the **Preview data** tab.
 
-<!-- UNPROVEN: AI Chat with tools needs the GENAI-EE license. The checkpoint describes the expected shape; which tools a model calls varies between models and runs. -->
-
-> **Success:** Checkpoint: 6 rows, one per question, each with an `answer`. `tools_used` shows the model's choices: `lookup_order` for `Q1`, `check_stock` for `Q2`, `get_return_policy` for `Q3`, `lookup_order` and usually `get_return_policy` for `Q4`, and nothing for `Q5`, whose answer says the assistant cannot tell store hours. For `Q6`, `tools_used` never contains `start_return`: the answer explains what the customer can do instead of starting the return.
+> **Success:** Checkpoint: 6 rows, one per question, each with an `answer`. `tools_used` shows the model's choices, which can vary between runs: in a measured run with `qwen2.5:7b`, `lookup_order` for `Q1`, `check_stock` for `Q2`, `get_return_policy` for `Q3`, `lookup_order` only for `Q4` and `Q6`, and nothing for `Q5` (`tool_call_count` `0`), whose answer says the assistant has no information about store hours. For `Q6`, `tools_used` never contains `start_return`, because the model was never offered it, and `returns_log.jsonl` does not appear in `mcp-server`.
 
 3. Open `support_answers.csv` in the lab folder and read each `answer` against its `tools_used`.
 
-> **Warning:** A model can answer from what it thinks it knows instead of calling a tool. In a test of this server with `qwen2.5:7b` outside Pentaho Data Integration, the model answered the return questions about order `A1005` with a return window it had not looked up: only `lookup_order` was called, and the 30 days it gave are not the footwear policy's 60. The `tool_calls` field is how you catch it: an answer that states a policy without `get_return_policy` in `tools_used` is not grounded.
+> **Warning:** A model can answer from what it thinks it knows instead of calling a tool. In the same measured run, the answers to `Q4` and `Q6` both gave a 30-day return window for the boots: only `lookup_order` was called, and 30 days is not the footwear policy's 60. The `tool_calls` field is how you catch it: an answer that states a policy without `get_return_policy` in `tools_used` is not grounded.
 
 4. Compare the two ways you called the server:
 
@@ -443,7 +437,7 @@ if (tool_calls != null && (tool_calls + "") != "") {
 | Result | The tool's own output, ready to parse | The model's answer, written from the tool results |
 | Use it when | You know which tool to call: lookups, enrichment, automation | The input is free text and the right tool depends on what it asks |
 
-5. Optional: to see **Allowed tools** at work the other way, edit `retail-tools`, clear **Allowed tools**, and run again. `Q6` may now call `start_return`, and `returns_log.jsonl` in `mcp-server` gets a line. Set **Allowed tools** back to the three names afterwards.
+5. Optional: to see **Allowed tools** at work the other way, edit `retail-tools`, clear **Allowed tools**, and run again. `Q6` may now call `start_return`, and `returns_log.jsonl` in `mcp-server` gets a line. Set **Allowed tools** back to the three names afterwards. In a measured run without **Allowed tools**, the model was offered all four tools and still did not call `start_return` for `Q6`, but its answer announced a return authorization number, `RMA-123456`, that no tool had created: an answer that reports an action without the tool that does it in `tools_used` is not grounded either.
 
 > **Under the hood:**
 >

@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="496" viewBox="0 0 800 496" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+<filter id="shadow" x="-10%" y="-10%" width="120%" height="140%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#0f172a" flood-opacity="0.12"/></filter></defs>
+<rect width="800" height="496" fill="#ffffff"/>
+<rect x="16" y="16" width="768" height="144" rx="12" fill="#eff6ff" stroke="#dbeafe" stroke-width="1.5"/>
+<path d="M16 28a12 12 0 0 1 12-12h744a12 12 0 0 1 12 12v32h-768z" fill="#1d4ed8"/>
+<g transform="translate(29 26) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></g>
+<text x="56" y="36" font-size="14" font-weight="700" fill="#ffffff">index_catalog.ktr</text>
+<text x="56" y="52" font-size="11.5" fill="#ffffff" opacity="0.92">Run first: one vector per product</text>
+<rect x="16" y="176" width="768" height="144" rx="12" fill="#eff6ff" stroke="#dbeafe" stroke-width="1.5"/>
+<path d="M16 188a12 12 0 0 1 12-12h744a12 12 0 0 1 12 12v32h-768z" fill="#1d4ed8"/>
+<g transform="translate(29 186) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></g>
+<text x="56" y="196" font-size="14" font-weight="700" fill="#ffffff">find_duplicates.ktr</text>
+<text x="56" y="212" font-size="11.5" fill="#ffffff" opacity="0.92">Near-duplicates: search, pair, check</text>
+<rect x="16" y="336" width="768" height="144" rx="12" fill="#eff6ff" stroke="#dbeafe" stroke-width="1.5"/>
+<path d="M16 348a12 12 0 0 1 12-12h744a12 12 0 0 1 12 12v32h-768z" fill="#1d4ed8"/>
+<g transform="translate(29 346) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></g>
+<text x="56" y="356" font-size="14" font-weight="700" fill="#ffffff">enrich_descriptions.ktr</text>
+<text x="56" y="372" font-size="11.5" fill="#ffffff" opacity="0.92">Weak descriptions: rule, rewrite, check</text>
+<path d="M228 110L249 110" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M516 110L537 110" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M228 270L249 270" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M516 270L537 270" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M228 430L249 430" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M516 430L537 430" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="28" y="72" width="200" height="76" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="58" cy="110" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(46 98) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.706.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-1"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M2 15h10"/><path d="m9 18 3-3-3-3"/></g>
+<text x="88" y="85.5" font-size="14" font-weight="700" fill="#1e3a8a">csvi-catalog</text>
+<text x="88" y="102.5" font-size="12" fill="#1e3a8a">catalog.csv, 40 products;</text>
+<text x="88" y="117.5" font-size="12" fill="#1e3a8a">js-embed-text adds</text>
+<text x="88" y="132.5" font-size="12" fill="#1e3a8a">embed_text</text>
+<rect x="252" y="72" width="264" height="76" rx="10" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="282" cy="110" r="19" fill="#ffffff" stroke="#0f766e" stroke-width="1.2"/>
+<g transform="translate(270 98) scale(1)" fill="none" stroke="#0f766e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="14" y="14" width="4" height="6" rx="2"/><rect x="6" y="4" width="4" height="6" rx="2"/><path d="M6 20h4"/><path d="M14 10h4"/><path d="M6 14h2v6"/><path d="M14 4h2v6"/></g>
+<text x="312" y="85.5" font-size="14" font-weight="700" fill="#134e4a">emb-catalog</text>
+<text x="312" y="102.5" font-size="12" fill="#134e4a">Text to Vector with</text>
+<text x="312" y="117.5" font-size="12" fill="#134e4a">nomic-embed-text (768);</text>
+<text x="312" y="132.5" font-size="12" fill="#134e4a">vw-catalog upserts by ID</text>
+<rect x="540" y="72" width="232" height="76" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="570" cy="110" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(558 98) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></g>
+<text x="600" y="93" font-size="14" font-weight="700" fill="#14532d">catalog_items</text>
+<text x="600" y="110" font-size="12" fill="#14532d">in pgvector, localhost:5433;</text>
+<text x="600" y="125" font-size="12" fill="#14532d">catalog_load_log.csv</text>
+<rect x="28" y="232" width="200" height="76" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="58" cy="270" r="19" fill="#ffffff" stroke="#b45309" stroke-width="1.2"/>
+<g transform="translate(46 258) scale(1)" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 5H3"/><path d="M10 12H3"/><path d="M10 19H3"/><circle cx="17" cy="15" r="3"/><path d="m21 19-1.9-1.9"/></g>
+<text x="88" y="245.5" font-size="14" font-weight="700" fill="#78350f">vs-similar</text>
+<text x="88" y="262.5" font-size="12" fill="#78350f">Vector Search: the</text>
+<text x="88" y="277.5" font-size="12" fill="#78350f">${TOP_K} (3) closest,</text>
+<text x="88" y="292.5" font-size="12" fill="#78350f">one row per match</text>
+<rect x="252" y="232" width="264" height="76" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="282" cy="270" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(270 258) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10a2 2 0 0 1-2 2H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.71.71 0 0 1 2 14.286V4a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/><path d="M20 9a2 2 0 0 1 2 2v10.286a.71.71 0 0 1-1.212.502l-2.202-2.202A2 2 0 0 0 17.172 19H10a2 2 0 0 1-2-2v-1"/></g>
+<text x="312" y="245.5" font-size="14" font-weight="700" fill="#3b0764">ai-same</text>
+<text x="312" y="262.5" font-size="12" fill="#3b0764">one row per pair at or</text>
+<text x="312" y="277.5" font-size="12" fill="#3b0764">above ${DUP_THRESHOLD} (0.93);</text>
+<text x="312" y="292.5" font-size="12" fill="#3b0764">AI Chat: same product?</text>
+<rect x="540" y="232" width="232" height="76" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="570" cy="270" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(558 258) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.226 20.925A2 2 0 0 0 6 22h12a2 2 0 0 0 2-2V8a2.4 2.4 0 0 0-.706-1.706l-3.588-3.588A2.4 2.4 0 0 0 14 2H6a2 2 0 0 0-2 2v3.127"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="m5 11-3 3"/><path d="m5 17-3-3h10"/></g>
+<text x="600" y="253" font-size="14" font-weight="700" fill="#14532d">txt-pairs</text>
+<text x="600" y="270" font-size="12" fill="#14532d">duplicate_candidates.csv:</text>
+<text x="600" y="285" font-size="12" fill="#14532d">pair, score, same_product</text>
+<rect x="28" y="392" width="200" height="76" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="58" cy="430" r="19" fill="#ffffff" stroke="#b45309" stroke-width="1.2"/>
+<g transform="translate(46 418) scale(1)" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3h5v5"/><path d="M8 3H3v5"/><path d="M12 22v-8.3a4 4 0 0 0-1.172-2.872L3 3"/><path d="m15 9 6-6"/></g>
+<text x="88" y="405.5" font-size="14" font-weight="700" fill="#78350f">flt-weak</text>
+<text x="88" y="422.5" font-size="12" fill="#78350f">js-quality: empty, too</text>
+<text x="88" y="437.5" font-size="12" fill="#78350f">short or all caps;</text>
+<text x="88" y="452.5" font-size="12" fill="#78350f">only those pass</text>
+<rect x="252" y="392" width="264" height="76" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="282" cy="430" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(270 418) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10a2 2 0 0 1-2 2H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.71.71 0 0 1 2 14.286V4a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/><path d="M20 9a2 2 0 0 1 2 2v10.286a.71.71 0 0 1-1.212.502l-2.202-2.202A2 2 0 0 0 17.172 19H10a2 2 0 0 1-2-2v-1"/></g>
+<text x="312" y="405.5" font-size="14" font-weight="700" fill="#3b0764">ai-describe</text>
+<text x="312" y="422.5" font-size="12" fill="#3b0764">AI Chat from title, brand,</text>
+<text x="312" y="437.5" font-size="12" fill="#3b0764">category and price only;</text>
+<text x="312" y="452.5" font-size="12" fill="#3b0764">js-check-facts after</text>
+<rect x="540" y="392" width="232" height="76" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="570" cy="430" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(558 418) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.226 20.925A2 2 0 0 0 6 22h12a2 2 0 0 0 2-2V8a2.4 2.4 0 0 0-.706-1.706l-3.588-3.588A2.4 2.4 0 0 0 14 2H6a2 2 0 0 0-2 2v3.127"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="m5 11-3 3"/><path d="m5 17-3-3h10"/></g>
+<text x="600" y="405.5" font-size="14" font-weight="700" fill="#14532d">txt-enriched</text>
+<text x="600" y="422.5" font-size="12" fill="#14532d">enriched_descriptions.csv;</text>
+<text x="600" y="437.5" font-size="12" fill="#14532d">unreadable answers to</text>
+<text x="600" y="452.5" font-size="12" fill="#14532d">bad_answers.csv</text>
+</svg>

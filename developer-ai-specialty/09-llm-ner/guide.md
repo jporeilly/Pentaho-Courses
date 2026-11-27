@@ -258,6 +258,7 @@ Answer with one JSON object and nothing else, in exactly this shape:
 | `endpoint` | `${OLLAMA_URL}` |
 | `temperature` | `0` |
 | `numCtx` | `4096` |
+| `numPredict` | `1024` |
 | `timeout` | `180` |
 
 10. On the **Response** tab, keep **Response format** `text`, set **Result Field name** to `llm_json`, and keep **Stop on error** selected.
@@ -308,7 +309,7 @@ Answer with one JSON object and nothing else, in exactly this shape:
 >
 > #### The answer is wrapped in an object, because an object is easier to ask for
 >
-> The instruction asks for `{"entities": [...]}` rather than a bare array. A small model asked for "a JSON object" keeps to one shape more often than one asked for "an array", and a named key leaves room to add fields later, such as a document summary. `numCtx` `4096` holds the instruction, the longest document and a long list of entities; `timeout` `180` allows for that list on a slow machine.
+> The instruction asks for `{"entities": [...]}` rather than a bare array. A small model asked for "a JSON object" keeps to one shape more often than one asked for "an array", and a named key leaves room to add fields later, such as a document summary. `numCtx` `4096` holds the instruction, the longest document and a long list of entities; `timeout` `180` allows for that list on a slow machine. `numPredict` `1024` caps the answer at 1,024 tokens, five times the longest list this lab needs: without a cap, a small model that starts repeating entities can keep writing until the timeout, holding up the documents queued behind it. An answer cut off by the cap is broken JSON, and the error hop catches it.
 >
 > **Why it matters:** the instruction is the only schema the model has. A shape that is easy to follow, with a fixed list of types, is what makes its answer parseable row after row.
 
@@ -340,7 +341,37 @@ Answer with one JSON object and nothing else, in exactly this shape:
 >
 > **Why it matters:** the comparison is plain data, so it can be loaded, filtered or charted like any other. A spot check of one document's two lists shows more than a summary of either.
 
-### 7. Run and Compare
+### 7. Catch the Answers the Parser Cannot Read
+
+> **Note:**
+>
+> #### Error Handling on JSON Input
+>
+> A small model sometimes closes a JSON answer with the wrong bracket. An error hop sends such a row to a file of its own, with the parser's message, and the other documents carry on.
+
+1. On the **Design** tab, open the **Output** folder and drag **Text file output** onto the canvas, below **json-llm**.
+2. Double-click it and set **Step name** to `txt-bad-answers`. On the **File** tab, set **Filename** to `${Internal.Entry.Current.Directory}/bad_answers` and **Extension** to `csv`. Select **OK**.
+3. Create a hop from **json-llm** to **txt-bad-answers**, and select **Error handling of step** in the menu that opens. The hop is drawn red, with a red error icon.
+4. Right-click **json-llm** and select **Error Handling...**. In **Step error handling settings**, enter these settings, then select **OK**:
+
+| Setting | Value |
+| --- | --- |
+| **Target step** | `txt-bad-answers` |
+| **Enable the error handling?** | Selected |
+| **Nr of errors fieldname** | `err_count` |
+| **Error descriptions fieldname** | `err_desc` |
+
+5. Double-click **txt-bad-answers**. On the **Fields** tab, select **Get Fields**, then **Minimal width**, and delete every row except `document_id`, `llm_json` and `err_desc`. Select **OK**, and save the transformation (`Ctrl+S`).
+
+> **Under the hood:**
+>
+> #### A row the step cannot process leaves by the error hop instead of stopping the run
+>
+> Without error handling, the first unparsable answer fails **json-llm** and stops the transformation, so the documents behind it are never written. With it, **JSON input** adds the parser's message to the row as `err_desc` and sends that row down the red hop. The step's **Errors** count in **Step Metrics** shows how many rows went that way.
+>
+> **Why it matters:** this is how a production pipeline treats a model: most answers are good, some are not, and the bad ones are kept with their reason so a person, or a rerun with a stronger model, can deal with them.
+
+### 8. Run and Compare
 
 > **Note:**
 >
@@ -351,9 +382,7 @@ Answer with one JSON object and nothing else, in exactly this shape:
 1. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
 2. In **Execution Results**, open the **Step Metrics** tab.
 
-<!-- UNPROVEN: the checkpoints below describe the expected shape; replace with measured figures once the GENAI-EE license lets the solution run. -->
-
-> **Success:** Checkpoint: every step finishes without errors. **csvi-documents** shows 10 under **Written**, **ner-corenlp** and the copies of **ai-extract** each read 10, and **json-ner** and **json-llm** write one row per entity, many more than 10 each. **grp-counts** writes 20 rows: two per document.
+> **Success:** Checkpoint: **csvi-documents** shows 20 under **Written**: its 10 documents, once down each of its two hops. **ner-corenlp** reads 10, and the four copies of **ai-extract** read 10 between them (for example 3, 3, 2 and 2). **json-ner** and **json-llm** write one row per entity, many more than 10 each: 118 and 128 in the measured run, with 0 under **Errors** for **json-llm**, so no answer went down the error hop. **txt-entities** writes the 246 entities, and **grp-counts** writes 20 rows: two per document. The AI Chat counts will differ a little from run to run. On a machine with a GPU the whole run takes under a minute.
 
 3. Select **ner-corenlp** on the canvas and open the **Preview data** tab.
 
@@ -361,7 +390,7 @@ Answer with one JSON object and nothing else, in exactly this shape:
 
 4. Open `entity_counts.csv` and `entities.csv` in `C:\Workshop-AI-Specialty\04-llm-integration\09-llm-ner`, and compare the two methods document by document.
 
-> **Success:** Checkpoint: `entity_counts.csv` starts `document_id,method,entity_count`. In `entities.csv`, look for what only one method found: the `ID` and `TECHNOLOGY` entities, such as `CUST-98765`, only from AI Chat; the fine-grained types, such as `CITY` and `STATE_OR_PROVINCE`, only from NER Extractor.
+> **Success:** Checkpoint: `entity_counts.csv` starts `document_id,method,entity_count`. In `entities.csv`, look for what only one method found: the `ID` and `TECHNOLOGY` entities, such as `CUST-98765`, only from AI Chat; the fine-grained types, such as `CITY` and `STATE_OR_PROVINCE`, only from NER Extractor. Mistakes show up on both sides: NER Extractor tagged the word `ID` as `STATE_OR_PROVINCE` (the abbreviation for Idaho), and AI Chat listed some entities twice, such as `555-123-4567` in document 1. `bad_answers.csv` is there too, but empty, without even a header line, when every answer parsed.
 
 5. Run again and compare: the NER Extractor rows are identical every time; the AI Chat rows usually are, at `temperature` `0`, but a model can still word an entity differently.
 
@@ -411,7 +440,7 @@ The same ten and ten more, for a longer run: change the **Filename** of **csvi-d
 
 ### Solution <!-- no-step -->
 
-The finished transformation for this lab. Open it alongside your own to compare, or run it to see the expected result. It reads `ner_documents.csv` from the lab folder and writes `entities.csv` and `entity_counts.csv` beside itself.
+The finished transformation for this lab. Open it alongside your own to compare, or run it to see the expected result. It reads `ner_documents.csv` from the lab folder and writes `entities.csv` and `entity_counts.csv` beside itself, and `bad_answers.csv` for any answer the parser could not read.
 
 Also on disk at `C:\Workshop-AI-Specialty\04-llm-integration\09-llm-ner\solution`.
 

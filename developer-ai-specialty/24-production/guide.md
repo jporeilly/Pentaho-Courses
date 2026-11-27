@@ -70,6 +70,7 @@ Kitchen's exit code tells the scheduler how the run went: `0` for success, `1` w
 | --- | --- |
 | Extract each plugin archive of the bundle, so every `pdi-step-...` folder, with its `lib` folder, sits directly under `plugins` | PDI loads plugin folders, not `.zip` files; a step without its `lib` folder fails to load |
 | Use the same bundle, `pdi-genai-plugins-bundle-1.2.0-157.zip`, for Spoon, Carte, Pentaho Server and every image | A transformation saved by one version and run by another can meet settings the other does not know |
+| Run every runtime on Pentaho 11, the Pentaho Server included (11.x) | Suite 1.2.0 supports Pentaho 11 only; it is not supported on 10.2.x |
 | Stop the server, or close Spoon, before installing, and start it afterwards | Plugins are found only when the engine starts |
 | On an upgrade, delete the old `pdi-step-...` folders first, then extract the new ones | Extracting over an old folder leaves old libraries in `lib` beside the new ones |
 
@@ -108,12 +109,11 @@ The workshops already use variables for every connection:
 **Secrets.** A password typed into a GenAI step's **Password** or `apiKey` field is stored in the `.ktr` as `Encrypted ...`. That is an obfuscation with a seed every PDI installation knows, not protection: anyone who has the file can reverse it. Keep the value out of the file instead:
 
 * Put `${PG_PASSWORD}` in the step, and the value in the runtime's `kettle.properties`, readable only by the account that runs the server.
-* To keep the clear text out of `kettle.properties` too, store the output of `Encr.bat -kettle <password>` there (it starts with `Encrypted `). Setting `KETTLE_TWO_WAY_PASSWORD_ENCODER_SEED` to your own seed on every runtime makes that value useless on other installations.
 * Never commit a `.ktr` that holds a password or an API key to Git or a shared repository folder.
 
-<!-- UNPROVEN: the GenAI step classes call Kettle's decryptPasswordOptionallyEncrypted, but whether an "Encrypted ..." value that arrives through a variable is decrypted has not been run. Check it with one Vector Search before relying on it. -->
-
-> **Warning:** AI Chat's Model Configuration rows other than `apiKey`, `secretAccessKey` and `tokenCredentialClientId` are stored as entered, `embeddingApiKey` included. Give them a variable too.
+> **Warning:** do not put an `Encrypted ...` value in `kettle.properties` for a GenAI step. A PDI database connection decrypts such a variable, but the GenAI steps do not: with `PG_PASSWORD=Encrypted ...` in `kettle.properties`, **Vector Writer** sent that text as the password and PostgreSQL refused it with `password authentication failed for user "genai"`. Keep the clear value in `kettle.properties` and protect the file instead.
+>
+> Also, AI Chat's Model Configuration rows other than `apiKey`, `secretAccessKey` and `tokenCredentialClientId` are stored as entered, `embeddingApiKey` included. Give them a variable too.
 
 ### 4. The Model Server
 
@@ -162,7 +162,8 @@ CREATE INDEX kb_chunks_hnsw ON kb_chunks USING hnsw (embedding vector_cosine_ops
 
 `vector_cosine_ops` indexes the cosine distance, `<=>`, that the Vector Writer guide's PGVector queries order by. Vector Search reports its scores on the same cosine basis.
 
-<!-- UNPROVEN: that Vector Search's PGVector query uses the HNSW cosine index (the guides do not name the metric for PGVector). Check with EXPLAIN on the database while a search runs. -->
+You can see it at work: after the index was created and sequential scans were switched off for a test, the seven questions of [Run on Pentaho Server](../25-production-server/guide.md) raised the index's `idx_scan` in `pg_stat_user_indexes` from 0 to 7, one scan per question. On a table of a few dozen rows PostgreSQL may still prefer to read the whole table, because that is faster.
+
 **Backups.** The table can be rebuilt from the documents, but a rebuild embeds every chunk again. Back it up with the database: the managed service's backups, or `pg_dump`.
 
 **One embedding model per collection.** Vectors from two models cannot be compared, and Vector Writer rejects rows with another dimension only when **Vector dimension** is set. Name the collection after its model, `kb_chunks_nomic_768` for example, and keep the collection name in a variable.

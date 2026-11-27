@@ -79,8 +79,6 @@ Set-Location C:\Pentaho\design-tools\data-integration
 16. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
 17. Select **txt-brief** on the canvas and open the **Preview data** tab.
 
-<!-- UNPROVEN: Read Unstructured Document cannot run without a GENAI-EE license. The text below is what Apache Tika 3.2.3 returns for product-brief.docx when called as the step calls it (AutoDetectParser, BodyContentHandler(-1), trimmed); confirm in Spoon once the license arrives. -->
-
 > **Success:** Checkpoint: one row, `document` `product-brief.docx`, and a `text` of 580 characters on 7 lines: the heading `Laptop Pro 15`, the three paragraphs, starting `The Laptop Pro 15 is a 15-inch laptop for developers and analysts.`, and the three bullet points, starting `Weight: 1.6 kg`.
 
 The text keeps the document's order, one paragraph or bullet point per line.
@@ -117,15 +115,11 @@ The text keeps the document's order, one paragraph or bullet point per line.
 6. Save the transformation (`Ctrl+S`), press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
 7. Select **txt-report** on the canvas and open the **Preview data** tab.
 
-<!-- UNPROVEN: text computed with Apache Tika 3.2.3 as the step calls it; confirm in Spoon once the GENAI-EE license arrives. -->
-
 > **Success:** Checkpoint: one row whose `text` (675 characters) starts `Q3 2026 Sales Summary` and holds both pages, the second starting `Outlook`. The lines break where the PDF's lines break, mid-sentence, with blank lines between paragraphs, and each page's footer, such as `TechGadgets Q3 2026 Sales Summary - page 1 of 2`, is part of the text.
 
 8. Double-click **doc-report**, change **File password** to `wrong`, select **OK**, and run again.
 
-<!-- UNPROVEN: Tika 3.2.3 throws "Unable to process: document is encrypted" (InvalidPasswordException) for the wrong password; how the step reports it is to be confirmed once the GENAI-EE license arrives. -->
-
-> **Success:** Checkpoint: **doc-report** reports an error in the log: Tika cannot decrypt the document with that password, and `text` gets none of the report. Set **File password** back to `tika-2026` and save.
+> **Success:** Checkpoint: the run does not stop. **doc-report** shows 1 under **Errors** and the log reads `TikaException. Error with Apache Tika parsing the data.`; the row still reaches **txt-report**, with `document` set and `text` empty, so `quarterly_report_text.csv` holds the header and one row with no report text. Set **File password** back to `tika-2026` and save.
 
 The step needs the exact password; Tika has no way to guess it.
 
@@ -171,8 +165,6 @@ The step needs the exact password; Tika has no way to guess it.
 11. Save the transformation (`Ctrl+S`), press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
 12. Select **txt-documents** on the canvas and open the **Preview data** tab.
 
-<!-- UNPROVEN: lengths computed with Apache Tika 3.2.3 as the step calls it (trimmed text); confirm in Spoon once the GENAI-EE license arrives. -->
-
 > **Success:** Checkpoint: 5 rows, one per document. `text_length` is `326` for `contract-protected.pdf`, `266` for `onboarding-deck.pptx`, `265` for `release-notes.txt`, `422` for `support-policy.docx` and `479` for `warranty-terms.pdf`. The contract's `text` starts `Supplier Agreement`, read with the password from `filepass`; the deck's holds each slide's title and bullet points, starting `Welcome to TechGadgets Support`.
 
 Scroll the **Preview data** tab to compare the five texts.
@@ -211,8 +203,6 @@ Scroll the **Preview data** tab to compare the five texts.
 8. Add **Text file output** after **sv-metadata**: **Step name** `txt-metadata`, **Filename** `${Internal.Entry.Current.Directory}/documents_metadata`, **Extension** `csv`, **Create Parent folder** selected, **Encoding** `UTF-8`, and on the **Fields** tab **Get Fields**, then **Minimal width**.
 9. Save the transformation (`Ctrl+S`), press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
 10. Select **txt-metadata** on the canvas and open the **Preview data** tab.
-
-<!-- UNPROVEN: keys and counts computed with Apache Tika 3.2.3 as the step calls it (AutoDetectParser, Metadata.names(), Content-Encoding set); confirm in Spoon once the GENAI-EE license arrives. -->
 
 > **Success:** Checkpoint: 128 rows: 42 for each PDF, 20 for `support-policy.docx`, 18 for `onboarding-deck.pptx` and 6 for `release-notes.txt`. Among them, `dc:creator` is `Procurement` for the contract, `Priya Natarajan` for the deck and the policy, and `Legal Team` for the warranty; `Content-Type` is `application/pdf` for the PDFs and `text/plain; charset=UTF-8` for the release notes; `xmpTPg:NPages` is `2` for the warranty and `meta:page-count` is `1` for the policy.
 

@@ -11,7 +11,7 @@
 > * Chain five AI Chat calls in one transformation, each stage reading the fields earlier stages added
 > * Classify each document, then score its urgency with the classification in the message
 > * Choose a type-specific run instruction per row, built by a script
-> * Give every stage a safe default, so one unreadable answer doesn't stop the pipeline
+> * Give every stage a safe default for a missing answer, and an error hop for a broken one, so one bad answer doesn't stop the pipeline
 > * Write each document with every stage's decision, for auditing
 >
 > **Prerequisites:**
@@ -60,7 +60,7 @@
 | --- | --- | --- |
 | Task per call | Six tasks at once | One task per call |
 | Conditional logic | Not possible: every document gets the same questions | Stage 3 asks different questions per document type |
-| An unreadable answer | Loses everything | Loses one stage; the others keep their results |
+| An answer with no JSON in it | Loses everything | Loses one stage; the others keep their results |
 | Debugging | Hard to tell which part went wrong | Each stage's answer is a field you can read |
 | Auditability | One decision | A recorded decision, with reasoning, per stage |
 | Calls per document | 1 | 5, each with a shorter instruction and a shorter answer |
@@ -70,7 +70,7 @@
 1. **One responsibility per stage.** A focused instruction is easier for a small model to follow well than one with six tasks.
 2. **Context passes forward.** Stage 2 knows the document is a `security_incident`; Stage 5 knows its type, priority, details and actions.
 3. **Conditional branching.** A security incident needs a vulnerability type and a disclosure deadline; a legal threat needs the deadline and the party making the claim.
-4. **Error isolation.** Each script that starts a stage first replaces a missing answer of the stage before with a safe default (`general_inquiry`, urgency `5`, `Support`), so a stage that fails passes a usable value on.
+4. **Error isolation.** Each script that starts a stage first replaces a missing answer of the stage before with a safe default (`general_inquiry`, urgency `5`, `Support`), so a stage that fails passes a usable value on. An answer that is broken JSON, which the parser cannot read at all, leaves by that stage's error hop to a file of its own instead of stopping the run.
 
 **When to use it:** when documents differ in kind and need different handling, when a decision depends on an earlier one, or when each decision must be auditable. A uniform task that treats every document the same way is simpler as one call. Parallelize within a stage (several copies of a step), never between stages, because each stage needs the one before it.
 
@@ -303,9 +303,9 @@ var stage2_message = "Document type: " + doc_type + "\n\nDocument:\n" + raw_text
 >
 > #### Replace value wrote the default back into the field Stage 1 created
 >
-> With **Replace value** `Y`, the script's `doc_type` variable replaces the field's value instead of adding a second field of the same name. A row whose Stage 1 answer was readable keeps its type; a row whose answer was not, where **JSON input** left `doc_type` null, now carries `general_inquiry`. These default scripts were run on a row with every stage's answer missing: it came out as `general_inquiry`, urgency `5`, `MEDIUM`, details `{}`, actions `["Review manually"]`, `Support` with a 48-hour SLA.
+> With **Replace value** `Y`, the script's `doc_type` variable replaces the field's value instead of adding a second field of the same name. A row whose Stage 1 answer was readable keeps its type; a row whose answer held no type, where **JSON input** left `doc_type` null, now carries `general_inquiry`. These default scripts were run on a row with every stage's answer missing: it came out as `general_inquiry`, urgency `5`, `MEDIUM`, details `{}`, actions `["Review manually"]`, `Support` with a 48-hour SLA.
 >
-> **Why it matters:** an unreadable answer costs one decision, not the document. The next stages and the output always have a value to work with, and a reviewer can spot the defaults.
+> **Why it matters:** an answer with no usable value costs one decision, not the document. The next stages and the output always have a value to work with, and a reviewer can spot the defaults.
 
 ### 5. Stage 3: Extraction
 
@@ -551,7 +551,46 @@ if (sla_hours == null) sla_hours = 48;
 15. On the **Content** tab, keep **Separator** `,`, **Enclosure** `"` and **Header** selected, and set **Encoding** to `UTF-8`. On the **Fields** tab, select **Get Fields**, then **Minimal width**.
 16. Select **OK**, and save the transformation (`Ctrl+S`).
 
-### 8. Run
+### 8. Catch the Answers the Parser Cannot Read
+
+> **Note:**
+>
+> #### Error Handling on JSON Input
+>
+> A small model sometimes closes a JSON answer with the wrong bracket. An error hop sends such a row to a file of its own, with the parser's message, and the other documents carry on.
+
+1. On the **Design** tab, open the **Output** folder and drag **Text file output** onto the canvas, below **json-classify**.
+2. Double-click it and set **Step name** to `txt-bad-classify`. On the **File** tab, set **Filename** to `${Internal.Entry.Current.Directory}/bad_classify` and **Extension** to `csv`. Select **OK**.
+3. Create a hop from **json-classify** to **txt-bad-classify**, and select **Error handling of step** in the menu that opens. The hop is drawn red, with a red error icon.
+4. Right-click **json-classify** and select **Error Handling...**. In **Step error handling settings**, enter these settings, then select **OK**:
+
+| Setting | Value |
+| --- | --- |
+| **Target step** | `txt-bad-classify` |
+| **Enable the error handling?** | Selected |
+| **Nr of errors fieldname** | `err_count` |
+| **Error descriptions fieldname** | `err_desc` |
+
+5. Double-click **txt-bad-classify**. On the **Fields** tab, select **Get Fields**, then **Minimal width**, and delete every row except `document_id`, `stage1_json` and `err_desc`. Select **OK**.
+6. Give the three other **JSON input** steps their own error hop the same way, steps 1 to 5 with the settings above, each to its own **Text file output**:
+
+| JSON input | Text file output | Filename | Fields kept |
+| --- | --- | --- | --- |
+| **json-priority** | `txt-bad-priority` | `${Internal.Entry.Current.Directory}/bad_priority` | `document_id`, `stage2_json`, `err_desc` |
+| **json-actions** | `txt-bad-actions` | `${Internal.Entry.Current.Directory}/bad_actions` | `document_id`, `stage4_json`, `err_desc` |
+| **json-route** | `txt-bad-route` | `${Internal.Entry.Current.Directory}/bad_route` | `document_id`, `stage5_json`, `err_desc` |
+
+Stage 3 has no **JSON input**: **ai-extract** keeps its answer whole as text, so it needs no error hop. Save the transformation (`Ctrl+S`).
+
+> **Under the hood:**
+>
+> #### A row the step cannot process leaves by the error hop instead of stopping the run
+>
+> Without error handling, the first unparsable answer fails **json-classify** and stops the transformation, so the documents behind it are never written. With it, **JSON input** adds the parser's message to the row as `err_desc` and sends that row down the red hop. The step's **Errors** count in **Step Metrics** shows how many rows went that way.
+>
+> **Why it matters:** this is how a production pipeline treats a model: most answers are good, some are not, and the bad ones are kept with their reason so a person, or a rerun with a stronger model, can deal with them. A row that leaves by a stage's error hop does not reach the later stages or `processed_documents.csv`; its `document_id` in that stage's file says which document to look at.
+
+### 9. Run
 
 > **Note:**
 >
@@ -562,15 +601,13 @@ if (sla_hours == null) sla_hours = 48;
 1. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
 2. In **Execution Results**, open the **Step Metrics** tab.
 
-<!-- UNPROVEN: the checkpoints below describe the expected shape; replace with measured figures once the GENAI-EE license lets the solution run. -->
-
-> **Success:** Checkpoint: every step finishes without errors. **csvi-documents** shows 15 under **Written**, the copies of each AI Chat step read 15 rows between them, and **txt-results** writes 15.
+> **Success:** Checkpoint: **csvi-documents** shows 15 under **Written**, and the two copies of each AI Chat step read 15 rows between them (8 and 7). In the measured run every JSON input step, **json-classify**, **json-priority**, **json-actions** and **json-route**, wrote 15 with 0 under **Errors**, so no row went down an error hop and **txt-results** shows 15 under **Written**. On a machine with a GPU the 75 calls take about 35 seconds.
 
 3. Open `processed_documents.csv` in `C:\Workshop-AI-Specialty\04-llm-integration\11-llm-multi-staged`.
 
-> **Success:** Checkpoint: its first line is `document_id,source,received_date,doc_type,classification_confidence,urgency,priority,extracted_details,actions,requires_escalation,primary_dept,escalate_to,cc_depts,sla_hours`, followed by 15 rows. The outage email `DOC-001` should come back as a high-urgency type routed to Engineering or Support, the thank-you messages as `positive_feedback` with a low urgency, and `extracted_details` should differ in its keys from one type to another.
+> **Success:** Checkpoint: its first line is `document_id,source,received_date,doc_type,classification_confidence,urgency,priority,extracted_details,actions,requires_escalation,primary_dept,escalate_to,cc_depts,sla_hours`, followed by one row per document that no stage sent to an error hop: 15 in the measured run. The praise, the dashboard chat `DOC-004`, the thank-you email `DOC-012` and the post `DOC-015`, came back as `positive_feedback` with urgency `1`, priority `LOW` and an SLA of `168` hours, and `extracted_details` differs in its keys from one type to another: `vuln_type` and `severity` for a security incident, `legal_issue` and `deadline_days` for the trademark notice `DOC-005`. Watch how one stage's mistake carries forward: `llama3.2:3b` classified the outage email `DOC-001` as a `security_incident`, so the extract stage looked for a vulnerability (`vuln_type` `Connection timeout`) and the route stage sent it to Security with `escalate_to` `CTO`, where Engineering was the right team. The labels are the model's and can differ from run to run. `bad_classify.csv`, `bad_priority.csv`, `bad_actions.csv` and `bad_route.csv` are there too, but empty, without even a header line, when every answer of their stage parsed.
 
-4. Look for defaults: a `general_inquiry` with urgency `5` and actions `["Review manually"]` is a row where an early stage's answer could not be read. Preview that stage's AI Chat step to see why.
+4. Look for defaults: a `general_inquiry` with urgency `5` and actions `["Review manually"]` is a row where an early stage's answer held none of the fields asked for. Preview that stage's AI Chat step to see why.
 
 ::::
 
@@ -611,7 +648,7 @@ The first four of them, for a shorter run: change the **Filename** of **csvi-doc
 
 ### Solution <!-- no-step -->
 
-The finished transformation for this lab. Open it alongside your own to compare, or run it to see the expected result. It reads `multi_stage_documents.csv` from the lab folder and writes `processed_documents.csv` beside itself.
+The finished transformation for this lab. Open it alongside your own to compare, or run it to see the expected result. It reads `multi_stage_documents.csv` from the lab folder and writes `processed_documents.csv` beside itself, and `bad_classify.csv`, `bad_priority.csv`, `bad_actions.csv` and `bad_route.csv` for any answer the parser could not read.
 
 Also on disk at `C:\Workshop-AI-Specialty\04-llm-integration\11-llm-multi-staged\solution`.
 

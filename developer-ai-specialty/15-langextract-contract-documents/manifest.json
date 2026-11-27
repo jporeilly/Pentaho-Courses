@@ -1,7 +1,7 @@
 {
   "title": "Contract Documents",
   "description": "Hands-on: pull seven key terms from contracts with LangExtract, chunk overlap and two passes, drop ungrounded values, and load clause rows and validated wide rows into PostgreSQL.",
-  "order": 22,
+  "order": 23,
   "kind": "workshop",
   "stepCount": 6,
   "hasVideo": false,

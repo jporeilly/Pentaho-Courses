@@ -173,6 +173,7 @@ them is yours. The `README.md` you create. If
 - **The same model twice.** Load and search with the same embedding model, or the vectors are not comparable.
 - **Field values in a prompt.** **AI Chat** does not put field values into a Script message. Build the prompt in a field first, then use the step in Stream mode.
 - **JSON you can read.** Ask for JSON in the instruction, name every key and the values each allows, set the temperature to `0`, and read the answer with **JSON input**.
+- **An answer the parser cannot read.** A small model sometimes returns broken JSON, and **JSON input** then stops the whole transformation. Give it an error hop, as in [Sentiment Analysis](../06-llm-sentiment-analysis/guide.md), to `out\bad_answers.csv`: those tickets need a person.
 - **Several passages per ticket.** **Vector Search** can return one row per match or one JSON array per ticket. Either way, the reply's prompt needs the passages' text and their sources together.
 - **"I don't know" is an answer.** Tell the model what to return when the passages do not answer the ticket, and test it on a ticket you know is not in the documents. A minimum score on the search also keeps weak matches out.
 - **One row per ticket in the table.** **Insert / Update** keyed on `ticket_id` keeps re-runs clean; create the `support` schema and the table first, in `psql`.
@@ -225,8 +226,8 @@ solution always passes these tests.
 | ---- | ------------- | ------------------------ |
 | Every document is in the knowledge base | `SELECT metadata->>'source', count(*) FROM capstone_kb GROUP BY 1;` in `psql`, opened as in [Build the Knowledge Base](../20-rag-knowledge-base/guide.md) (use the source key you chose) | Five sources, each with at least one chunk |
 | A re-run adds nothing | The same query after a second run of the job | The same counts |
-| Every ticket answered or handed over | `ticket_replies.csv` and `SELECT count(*) FROM support.ticket_replies;` | 30 rows in each |
-| The categories add up | `triage_summary.csv` | The counts add up to 30; the documents' topics make `battery` the largest group |
+| Every ticket answered or handed over | `ticket_replies.csv`, `SELECT count(*) FROM support.ticket_replies;` and `bad_answers.csv` | 30 tickets between them: a ticket whose answer could not be parsed is in `bad_answers.csv`, for a person, and not in the other two |
+| The categories add up | `triage_summary.csv` | The counts add up to the rows in `ticket_replies.csv`; `battery`, `warranty` and `maintenance` are the biggest groups; a model files a few borderline tickets differently, such as a battery fault under `warranty` |
 | The copilot knows its limits | `needs_human` in `ticket_replies.csv` | Four tickets ask what no document answers: they should be the ones marked `Y`, with no invented answer |
 | Replies cite their sources | `sources` in `ticket_replies.csv` | Every row marked `N` names at least one of the five documents, and the document holds the answer |
 

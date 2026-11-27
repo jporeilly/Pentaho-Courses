@@ -490,10 +490,12 @@ Needs Ollama with ${VISION_MODEL} (gemma3:12b) and the GenAI plugins with a GENA
 1. gfn-invoices: Get File Names, ../invoices, wildcard .*\.(png|jpg), one row per image (filename,
    short_filename).
 2. const-instruction: Add constants, run_instruction (answer with one JSON object: supplier,
-   invoice_number, invoice_date, currency, subtotal, tax, total, line_count, is_invoice) and message.
-3. ai-invoice: AI Chat; Stream message message, run instruction run_instruction; Attach Document(s),
-   Stream, Field Format Image, field filename; Ollama ${VISION_MODEL} at ${OLLAMA_URL}, temperature 0,
-   numCtx 4096, timeout 300; result llm_json.
+   invoice_number, invoice_date, currency, subtotal, tax, total, line_count, is_invoice); the instruction is also
+   the message.
+3. ai-invoice: AI Chat; Stream message run_instruction (with an image attached the step does not apply a
+   separate run instruction, so the instruction travels as the message), run instruction run_instruction; Attach
+   Document(s), Stream, Field Format Image, field filename; Ollama ${VISION_MODEL} at ${OLLAMA_URL},
+   temperature 0, numCtx 4096, timeout 300; result llm_json.
 4. json-invoice: JSON input from llm_json: the nine fields.
 5. js-validate: Modified JavaScript value, difference = subtotal + tax - total; needs_review when it is over
    0.01, an amount is missing, or is_invoice is false.
@@ -502,11 +504,13 @@ Needs Ollama with ${VISION_MODEL} (gemma3:12b) and the GenAI plugins with a GENA
 
 Parameters: VISION_MODEL gemma3:12b, OLLAMA_URL http://localhost:11434.
 Shipped data: 7 images (6 invoices and receipts, 1 meeting agenda); invoice_truth.csv holds the printed
-figures.</note>
+figures.
+Error hop: json-invoice sends an answer it cannot parse to txt-bad-answers: short_filename, llm_json,
+err_desc to bad_answers.csv beside this file (0 bytes when every answer parsed).</note>
       <xloc>160</xloc>
       <yloc>32</yloc>
       <width>630</width>
-      <heigth>368</heigth>
+      <heigth>440</heigth>
       <fontname>Segoe UI</fontname>
       <fontsize>10</fontsize>
       <fontbold>N</fontbold>
@@ -554,6 +558,11 @@ figures.</note>
       <to>txt-results</to>
       <enabled>Y</enabled>
     </hop>
+    <hop>
+      <from>json-invoice</from>
+      <to>txt-bad-answers</to>
+      <enabled>Y</enabled>
+    </hop>
   </order>
   <step>
     <name>gfn-invoices</name>
@@ -596,7 +605,7 @@ figures.</note>
     </remotesteps>
     <GUI>
       <xloc>160</xloc>
-      <yloc>448</yloc>
+      <yloc>520</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -629,18 +638,6 @@ If the document is not an invoice or a receipt, set is_invoice to false and ever
         <precision>-1</precision>
         <set_empty_string>N</set_empty_string>
       </field>
-      <field>
-        <name>message</name>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif>Read the attached document and return the JSON object.</nullif>
-        <length>-1</length>
-        <precision>-1</precision>
-        <set_empty_string>N</set_empty_string>
-      </field>
     </fields>
     <attributes/>
     <cluster_schema/>
@@ -652,7 +649,7 @@ If the document is not an invoice or a receipt, set is_invoice to false and ever
     </remotesteps>
     <GUI>
       <xloc>340</xloc>
-      <yloc>448</yloc>
+      <yloc>520</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -669,7 +666,7 @@ If the document is not an invoice or a receipt, set is_invoice to false and ever
     </partitioning>
     <USER_MESSAGE_FROM_NATIVE>N</USER_MESSAGE_FROM_NATIVE>
     <USER_MESSAGE></USER_MESSAGE>
-    <USER_MESSAGE_FROM_STREAM>message</USER_MESSAGE_FROM_STREAM>
+    <USER_MESSAGE_FROM_STREAM>run_instruction</USER_MESSAGE_FROM_STREAM>
     <SYSTEM_MESSAGE>You are a helpful assistant</SYSTEM_MESSAGE>
     <SYSTEM_MESSAGE_FROM_STREAM>run_instruction</SYSTEM_MESSAGE_FROM_STREAM>
     <DOCUMENT_ATTACHMENT_NEEDED>Y</DOCUMENT_ATTACHMENT_NEEDED>
@@ -718,7 +715,7 @@ If the document is not an invoice or a receipt, set is_invoice to false and ever
     </remotesteps>
     <GUI>
       <xloc>520</xloc>
-      <yloc>448</yloc>
+      <yloc>520</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -893,7 +890,7 @@ If the document is not an invoice or a receipt, set is_invoice to false and ever
     </remotesteps>
     <GUI>
       <xloc>700</xloc>
-      <yloc>448</yloc>
+      <yloc>520</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -969,7 +966,7 @@ if (is_invoice == null || is_invoice == false) {
     </remotesteps>
     <GUI>
       <xloc>880</xloc>
-      <yloc>448</yloc>
+      <yloc>520</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1075,7 +1072,7 @@ if (is_invoice == null || is_invoice == false) {
     </remotesteps>
     <GUI>
       <xloc>1060</xloc>
-      <yloc>448</yloc>
+      <yloc>520</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1288,8 +1285,115 @@ if (is_invoice == null || is_invoice == false) {
     </remotesteps>
     <GUI>
       <xloc>1240</xloc>
-      <yloc>448</yloc>
+      <yloc>520</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
+  <step>
+    <name>txt-bad-answers</name>
+    <type>TextFileOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <separator>,</separator>
+    <enclosure>"</enclosure>
+    <enclosure_forced>N</enclosure_forced>
+    <enclosure_fix_disabled>N</enclosure_fix_disabled>
+    <header>Y</header>
+    <footer>N</footer>
+    <format>DOS</format>
+    <compression>None</compression>
+    <encoding>UTF-8</encoding>
+    <endedLine/>
+    <fileNameInField>N</fileNameInField>
+    <fileNameField/>
+    <create_parent_folder>Y</create_parent_folder>
+    <file>
+      <name>${Internal.Entry.Current.Directory}/bad_answers</name>
+      <servlet_output>N</servlet_output>
+      <do_not_open_new_file_init>N</do_not_open_new_file_init>
+      <extention>csv</extention>
+      <append>N</append>
+      <split>N</split>
+      <haspartno>N</haspartno>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <SpecifyFormat>N</SpecifyFormat>
+      <date_time_format/>
+      <add_to_result_filenames>Y</add_to_result_filenames>
+      <pad>N</pad>
+      <fast_dump>N</fast_dump>
+      <splitevery/>
+    </file>
+    <fields>
+      <field>
+        <name>short_filename</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>llm_json</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>err_desc</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>700</xloc>
+      <yloc>680</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step_error_handling>
+    <error>
+      <source_step>json-invoice</source_step>
+      <target_step>txt-bad-answers</target_step>
+      <is_enabled>Y</is_enabled>
+      <nr_valuename>err_count</nr_valuename>
+      <descriptions_valuename>err_desc</descriptions_valuename>
+      <fields_valuename/>
+      <codes_valuename/>
+      <max_errors/>
+      <max_pct_errors/>
+      <min_pct_rows/>
+    </error>
+  </step_error_handling>
 </transformation>

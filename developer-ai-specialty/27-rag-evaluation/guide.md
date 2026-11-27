@@ -625,11 +625,48 @@ Answer with one JSON object and nothing else, in exactly this shape:
 >
 > #### Group by sums counts; the rates are divided afterwards
 >
-> **Group by** reads its rows in order and starts a new group when `setting` changes, so **Sort rows** puts the 30 rows in setting order first. Every measure is a 0 or 1 per row, so **Sum** counts them, and the second **Formula** divides each count by the number of questions it applies to: answerable questions for the hit rate, the MRR and the accuracy, every question for faithfulness, the questions with no answer for the decline rate. A partially correct answer counts as half a correct one. `ISBLANK` catches a judge answer that is not JSON: **JSON input** with **Ignore missing path** leaves its fields null and keeps the row, and `ungraded` counts it instead of letting it pass as incorrect. PDI's **Formula** step has no `ROUND` function, so the rates keep their full precision and the `0.00` format rounds them only in the file.
+> **Group by** reads its rows in order and starts a new group when `setting` changes, so **Sort rows** puts the 30 rows in setting order first. Every measure is a 0 or 1 per row, so **Sum** counts them, and the second **Formula** divides each count by the number of questions it applies to: answerable questions for the hit rate, the MRR and the accuracy, every question for faithfulness, the questions with no answer for the decline rate. A partially correct answer counts as half a correct one. `ISBLANK` catches a judge answer that is not JSON: **JSON input** with **Ignore missing path** leaves its fields null and keeps the row, and `ungraded` counts it instead of letting it pass as incorrect. A judge answer that *starts* as JSON but is broken is different: **JSON input** cannot parse it and stops the whole transformation, which the next section prevents. PDI's **Formula** step has no `ROUND` function, so the rates keep their full precision and the `0.00` format rounds them only in the file.
 >
 > **Why it matters:** the arithmetic of a scorecard is plain Pentaho Data Integration, so it can be checked without a model. These steps were run with hand-written answers and verdicts in place of the model calls, and gave the figures the formulas predict.
 
-### 8. Run and Read the Scorecard
+### 8. Catch the Answers the Parser Cannot Read
+
+> **Note:**
+>
+> #### Error Handling on JSON Input
+>
+> A small model sometimes closes a JSON answer with the wrong bracket. An error hop sends such a row to a file of its own, with the parser's message, and the other questions carry on. Both **json-answer** and **json-verdict** parse a model's answer, so each gets one.
+
+1. On the **Design** tab, open the **Output** folder and drag **Text file output** onto the canvas, below **json-answer**.
+2. Double-click it and set **Step name** to `txt-bad-answers`. On the **File** tab, set **Filename** to `${Internal.Entry.Current.Directory}/bad_answers` and **Extension** to `csv`. Select **OK**.
+3. Create a hop from **json-answer** to **txt-bad-answers**, and select **Error handling of step** in the menu that opens. The hop is drawn red, with a red error icon.
+4. Right-click **json-answer** and select **Error Handling...**. In **Step error handling settings**, enter these settings, then select **OK**:
+
+| Setting | Value |
+| --- | --- |
+| **Target step** | `txt-bad-answers` |
+| **Enable the error handling?** | Selected |
+| **Nr of errors fieldname** | `err_count` |
+| **Error descriptions fieldname** | `err_desc` |
+
+5. Double-click **txt-bad-answers**. On the **Fields** tab, select **Get Fields**, then **Minimal width**, and delete every row except `question_id`, `setting`, `llm_json` and `err_desc`. Select **OK**, and save the transformation (`Ctrl+S`).
+6. Repeat steps 1 to 5 for the judge, with these names. **Nr of errors fieldname** and **Error descriptions fieldname** stay `err_count` and `err_desc`:
+
+| JSON input | Text file output | Filename | Fields kept |
+| --- | --- | --- | --- |
+| `json-verdict` | `txt-bad-verdicts` | `${Internal.Entry.Current.Directory}/bad_verdicts` | `question_id`, `setting`, `judge_json`, `err_desc` |
+
+7. Save the transformation (`Ctrl+S`).
+
+> **Under the hood:**
+>
+> #### A row the step cannot process leaves by the error hop instead of stopping the run
+>
+> Without error handling, the first unparsable answer fails **json-answer** or **json-verdict** and stops the transformation, so the questions behind it are never written. With it, **JSON input** adds the parser's message to the row as `err_desc` and sends that row down the red hop. The step's **Errors** count in **Step Metrics** shows how many rows went that way.
+>
+> **Why it matters:** this is how a production pipeline treats a model: most answers are good, some are not, and the bad ones are kept with their reason so a person, or a rerun with a stronger model, can deal with them.
+
+### 9. Run and Read the Scorecard
 
 > **Note:**
 >
@@ -640,17 +677,15 @@ Answer with one JSON object and nothing else, in exactly this shape:
 1. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
 2. In **Execution Results**, open the **Step Metrics** tab.
 
-<!-- UNPROVEN: the checkpoints below describe the expected shape; replace with measured figures once the GENAI-EE license lets the solution run. A simulation on 2026-11-27 (real nomic-embed-text embeddings of my own 300-token chunking, 15 chunks, cosine score as Vector Search reports it) put every answerable question's document in the top 4 (hit rate 1.00, MRR 0.92, context recall 1.00) and in the top 1 for 10 of 12 (hit rate 0.83, context recall 0.77: questions 3 and 10 ranked second, question 2's best chunk lacked the descaling facts). -->
-
-> **Success:** Checkpoint: every step finishes without errors. **csvi-eval**, **emb-question** and **vs-kb** show 15 under **Written**; **join-settings** and every step after it up to **json-verdict** show 30; **frmla-scores** shows 60, because it copies each row to two steps; **txt-results** shows 30; **grp-scorecard** and every step after it show 2.
+> **Success:** Checkpoint: **dg-settings** shows 2 under **Written**; **csvi-eval**, **emb-question** and **vs-kb** show 15; **join-settings** and every step after it up to **json-verdict** show 30; **frmla-scores** shows 60, because it copies each row to two steps; **txt-results** shows 30; **grp-scorecard** and every step after it show 2. **json-answer** and **json-verdict** normally show 0 under **Errors**. A row whose answer the parser cannot read leaves **json-answer** or **json-verdict** by the error hop instead: it counts under that step's **Errors**, **txt-bad-answers** or **txt-bad-verdicts** writes it, and the counts after that step are lower. With a GPU, the whole run takes under two minutes.
 
 3. Select **txt-scorecard** on the canvas and open the **Preview data** tab.
 
-> **Success:** Checkpoint: 2 rows, `top_k_1` and `top_k_4`, each with `questions` `15`, `answerable_n` `12` and the two model names. `top_k_4` has a `hit_rate` and a `context_recall` at least as high as `top_k_1`, because its passages include `top_k_1`'s. `ungraded` should be `0`. The other figures are the models' and can differ between runs and machines.
+> **Success:** Checkpoint: 2 rows, `top_k_1` and `top_k_4`, each with `questions` `15`, `answerable_n` `12` and the two model names. `top_k_4` has a `hit_rate` and a `context_recall` at least as high as `top_k_1`, because its passages include `top_k_1`'s: in a measured run, `hit_rate` `0.83` and `1.00`, `context_recall` `0.73` and `0.96`. `ungraded` should be `0`. The other figures are the models' and can differ between runs and machines: the same run had `accuracy` `0.58` and `0.79`, `faithfulness` `0.73` and `0.80`, and `decline_rate` `1.00` and `0.67`.
 
 4. Open the new `scorecard_<date>_<time>.csv` in `C:\Workshop-AI-Specialty\05-retrieval-augmented-generation\27-rag-evaluation`, and then `eval_results.csv`.
 
-> **Success:** Checkpoint: the scorecard's first line is `run_date,answer_model,judge_model,setting,top_k,questions,answerable_n,hit_rate,mrr,context_recall,accuracy,correct,partial,faithfulness,correct_declines,decline_rate,wrong_declines,ungraded`, followed by 2 rows. `eval_results.csv` has a header and 30 rows, the two settings of each question next to each other.
+> **Success:** Checkpoint: the scorecard's first line is `run_date,answer_model,judge_model,setting,top_k,questions,answerable_n,hit_rate,mrr,context_recall,accuracy,correct,partial,faithfulness,correct_declines,decline_rate,wrong_declines,ungraded`, followed by 2 rows. `eval_results.csv` has a header and 30 rows, the two settings of each question next to each other. `bad_answers.csv` and `bad_verdicts.csv` are beside them, empty (0 bytes) when every answer and verdict parsed: **Text file output** writes its header with the first row. When a row fails to parse, the file holds the header `question_id,setting,llm_json,err_desc` or `question_id,setting,judge_json,err_desc` and that row.
 
 5. Read the scorecard from left to right, and look up the rows behind each figure in `eval_results.csv`:
 
@@ -668,9 +703,9 @@ Answer with one JSON object and nothing else, in exactly this shape:
 >
 > When `top_k_1` scores lower on `accuracy` than `top_k_4`, compare their `context_recall` first. If the facts were not in the single passage, the model had nothing to answer from, and a `found` of `false` there is the instruction working, not the model failing: `wrong_declines` counts those cases. If `context_recall` is the same and `accuracy` still differs, the extra passages helped or distracted the model itself. `faithfulness` below `1` with a high `accuracy` is the warning sign of an answer the model knew from elsewhere.
 >
-> **Why it matters:** "the answers got worse" is not something you can fix. "Question 10's document ranks second, so with one passage the answer is missing" is.
+> **Why it matters:** "the answers got worse" is not something you can fix. "Question 10's document ranks third, so with one passage the answer is missing" is.
 
-### 9. Is the Judge Right?
+### 10. Is the Judge Right?
 
 > **Note:**
 >
@@ -680,14 +715,12 @@ Answer with one JSON object and nothing else, in exactly this shape:
 
 1. **Temperature 0.** Save a copy of `eval_results.csv` under another name, such as `eval_results_run1.csv`, because the next run overwrites it. Press `F9` again and select **Run**. Compare the `verdict` and `faithful` columns of the two files. With `temperature` `0` on **ai-judge**, the verdicts should be the same; a verdict that changes marks an answer the rubric does not decide clearly.
 
-<!-- UNPROVEN: verdict repeatability in PDI depends on a real run; in the direct Ollama trial (qwen2.5:7b, temperature 0, 12 gradings each run twice) the verdicts were identical every time and only one reason's wording changed. -->
-
-> **Success:** Checkpoint: the same `verdict` and `faithful` on every row of both runs, and the same scorecard. A `reason` can be worded differently.
+> **Success:** Checkpoint: the same `verdict` on almost every row. In the measured pair of runs, 28 of the 30 verdicts matched. The two that changed (question 5 and question 14, both at `top_k_1`) had a differently worded answer in the second run: the answering model, not the judge, moved, because `temperature` `0` makes a model repeatable only as far as the server computes each token the same way. 27 of the 30 answers were word for word the same. A `reason` can also be worded differently.
 
 2. **A stronger judge.** The answering model is `llama3.2:3b` and the judge `qwen2.5:7b`, a larger model that follows long instructions better. A judge weaker than, or the same as, the model it grades tends to accept that model's mistakes. To test a stronger answering model, press `F9`, and on the **Parameters** tab of the **Run Options** dialog set the **Value** of `MODEL_NAME` to `qwen2.5:7b`. Keep the judge larger than the model it grades: set `JUDGE_MODEL` to `gemma3:12b`, the 12-billion-parameter model the course installed for [Invoices with a Vision Model](../26-llm-vision-documents/guide.md). Select **Run** and compare the new scorecard with the first. A new judge starts a new baseline, so compare it with the first run as a different measurement, not as a better or worse pipeline.
 3. **Spot-check a sample by hand.** Open `eval_results.csv` and pick 6 rows: 2 `correct`, 2 that are not, and 2 `correctly_declined`. For each, read `answer` and the question's `expected_facts` in the **The Evaluation Set** tab, and decide the verdict and `faithful` yourself before you read the judge's. Then read `missing_facts` and `unsupported_claims` for the rows where you disagree.
 
-> **Success:** Checkpoint: a table of your 6 verdicts next to the judge's. Count the rows where you agree. In a trial of this rubric directly against Ollama, `qwen2.5:7b` agreed with a careful reader on the verdict of 7 of 9 `llama3.2:3b` answers and on 8 of 9 faithfulness flags; its mistakes were all too strict, such as listing a fact as missing that the answer states in other words.
+> **Success:** Checkpoint: a table of your 6 verdicts next to the judge's. Count the rows where you agree. In a trial of this rubric directly against Ollama, `qwen2.5:7b` agreed with a careful reader on the verdict of 7 of 9 `llama3.2:3b` answers and on 8 of 9 faithfulness flags; its mistakes were all too strict, such as listing a fact as missing that the answer states in other words. In a measured PDI run, two verdicts were worth a second look: question 15's `top_k_4` answer, `I could not find this in the Larkspur documents.`, was graded `incorrect` although declining is right (which is why that run's `decline_rate` was `0.67`), and question 1 got the same answer under both settings but `partially_correct` for one and `incorrect` for the other.
 
 4. When you disagree with the judge, fix the cause, not the score: reword an expected fact that the judge reads too literally, make a rule of the rubric clearer, or try a stronger `JUDGE_MODEL`. Then run the set again and spot-check again.
 
@@ -699,7 +732,7 @@ Answer with one JSON object and nothing else, in exactly this shape:
 >
 > **Why it matters:** an evaluation is a measurement, and a measurement needs a calibrated instrument. The spot-check is cheap, and it is the only part of the evaluation no model can do for you.
 
-### 10. Re-run When Something Changes
+### 11. Re-run When Something Changes
 
 > **Note:**
 >
@@ -757,7 +790,7 @@ The knowledge base has not been loaded, or was loaded into another database. Run
 <details>
 <summary>The scorecard's ungraded is above 0</summary>
 
-The judge's answer for those rows was not the JSON the rubric asks for, so `verdict` is empty. Preview **ai-judge** and read `judge_json` for the rows with an empty `verdict` in `eval_results.csv`. A larger `numCtx` helps when the passages are long; a stronger `JUDGE_MODEL` follows the JSON shape more reliably.
+The judge's answer for those rows was not the JSON the rubric asks for, so `verdict` is empty. Preview **ai-judge** and read `judge_json` for the rows with an empty `verdict` in `eval_results.csv`. A judge answer that was broken JSON is not among them: it is in `bad_verdicts.csv`, with the parser's message in `err_desc`. A larger `numCtx` helps when the passages are long; a stronger `JUDGE_MODEL` follows the JSON shape more reliably.
 
 </details>
 
@@ -789,7 +822,7 @@ The judge's rubric, the same text as `const-judge`'s `judge_instruction`, read b
 
 ### Solution <!-- no-step -->
 
-The finished transformation for this lab. Open it alongside your own to compare, or run it to see the expected result. It reads `eval_set.csv` from the lab folder, searches the table `kb_chunks` that [Build the Knowledge Base](../20-rag-knowledge-base/guide.md) loads, and writes `eval_results.csv` and a `scorecard_<date>_<time>.csv` beside itself.
+The finished transformation for this lab. Open it alongside your own to compare, or run it to see the expected result. It reads `eval_set.csv` from the lab folder, searches the table `kb_chunks` that [Build the Knowledge Base](../20-rag-knowledge-base/guide.md) loads, and writes `eval_results.csv` and a `scorecard_<date>_<time>.csv` beside itself, and any answer or verdict the parser cannot read to `bad_answers.csv` or `bad_verdicts.csv`.
 
 Also on disk at `C:\Workshop-AI-Specialty\05-retrieval-augmented-generation\27-rag-evaluation\solution`.
 

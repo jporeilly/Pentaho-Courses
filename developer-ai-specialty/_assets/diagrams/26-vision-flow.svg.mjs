@@ -9,8 +9,10 @@
 //     ${Internal.Entry.Current.Directory}/invoices, .*\.(png|jpg): seven
 //     documents, six invoices or receipts and a meeting agenda; full path
 //     in filename), const-instruction (Add constants: run_instruction, the
-//     JSON shape and "copy the figures exactly as printed", and message),
-//     ai-invoice (AI Chat, Stream, Attach Document(s), Field Format Image,
+//     JSON shape and "copy the figures exactly as printed"),
+//     ai-invoice (AI Chat, Stream, Message Field name run_instruction: with
+//     an image attached the step does not apply a separate run
+//     instruction; Attach Document(s), Field Format Image,
 //     Field name filename; Ollama, ${VISION_MODEL} gemma3:12b,
 //     ${OLLAMA_URL}; result llm_json), json-invoice (JSON input: supplier,
 //     invoice_number, invoice_date, currency, subtotal, tax, total,
@@ -34,8 +36,8 @@ const { d, bottom } = ktrFlow({
   extra: 16 + LANE_H + 16,
   steps: [
     { role: 'source', iconName: 'folder-search', title: 'gfn-invoices', lines: ['Get File Names: one row per', 'image, its path in filename'] },
-    { role: 'engine', iconName: 'scroll-text', title: 'const-instruction', lines: ['Add constants: run_instruction', 'and message'] },
-    { role: 'engine', iconName: 'messages-square', title: 'ai-invoice', lines: ['AI Chat: the image attached,', 'the answer into llm_json'] },
+    { role: 'engine', iconName: 'scroll-text', title: 'const-instruction', lines: ['Add constants:', 'run_instruction'] },
+    { role: 'engine', iconName: 'messages-square', title: 'ai-invoice', lines: ['AI Chat: run_instruction as the', 'message, the image attached'] },
     { role: 'engine', iconName: 'file-json', title: 'json-invoice', lines: ['JSON input: llm_json', 'into nine fields'] },
     { role: 'check', iconName: 'list-checks', title: 'js-validate', lines: ['Modified JavaScript value:', 'the arithmetic check'] },
     { role: 'engine', iconName: 'list-filter', title: 'sv-results', lines: ['Select values: 13 fields,', 'in order'] },
@@ -43,7 +45,7 @@ const { d, bottom } = ktrFlow({
   ],
   side: [
     { at: 0, link: 'in', role: 'source', iconName: 'folder-open', title: 'invoices: seven scanned documents', lines: ['six invoices and receipts and one agenda,', 'matching .*\\.(png|jpg)'] },
-    { at: 1, link: 'sets', role: 'result', iconName: 'scroll-text', title: 'run_instruction: one JSON object', lines: ['nine keys, the figures copied exactly as', 'printed; message: read the attached document'] },
+    { at: 1, link: 'sets', role: 'result', iconName: 'scroll-text', title: 'run_instruction: one JSON object', lines: ['nine keys, the figures copied exactly as', 'printed; sent as the message'] },
     { at: 2, link: 'call', role: 'model', iconName: 'brain', title: 'Ollama: gemma3:12b, a vision model', lines: ['${VISION_MODEL} at ${OLLAMA_URL}; Field', 'Format Image: the file in filename, as Base64'] },
     { at: 3, link: 'sets', role: 'write', iconName: 'table-2', title: 'supplier, invoice_number, invoice_date,', lines: ['currency, subtotal, tax, total,', 'line_count, is_invoice'] },
     { at: 4, link: 'sets', role: 'write', iconName: 'list-plus', title: 'difference = subtotal + tax - total', lines: ['needs_review when it is more than 0.01 off, an', 'amount is missing or it is not an invoice'] },
@@ -57,7 +59,7 @@ d.panel({ x: 16, y, w: W - 32, h: LANE_H, role: 'tool', iconName: 'workflow', ti
 const BW = 232, HOP = 24, X0 = 28, BY = y + 56;
 const lane = [
   { role: 'engine', iconName: 'file-code', title: 'b64-image', lines: ['Base64 Encoder: the file', 'in filename, into image_b64'] },
-  { role: 'engine', iconName: 'scroll-text', title: 'const-instruction', lines: ['the same run_instruction', 'and message'] },
+  { role: 'engine', iconName: 'scroll-text', title: 'const-instruction', lines: ['the same', 'run_instruction'] },
   { role: 'engine', iconName: 'messages-square', title: 'ai-invoice', lines: ['Field Format Image (Base64', 'Encoded), field image_b64'] },
 ].map((s, i) => d.box({ x: X0 + i * (BW + HOP), y: BY, w: BW, h: 64, ...s }));
 lane.reduce((a, b) => { d.arrow({ x1: a.r, y1: a.cy, x2: b.x - 3, y2: b.cy, straight: true }); return b; });

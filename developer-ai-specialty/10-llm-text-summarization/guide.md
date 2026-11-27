@@ -225,7 +225,37 @@ Use an empty list when the document has no action items.
 
 15. Select **OK**, and save the transformation (`Ctrl+S`).
 
-### 4. Write and Run
+### 4. Catch the Answers the Parser Cannot Read
+
+> **Note:**
+>
+> #### Error Handling on JSON Input
+>
+> A small model sometimes closes a JSON answer with the wrong bracket. An error hop sends such a row to a file of its own, with the parser's message, and the other documents carry on.
+
+1. On the **Design** tab, open the **Output** folder and drag **Text file output** onto the canvas, below **json-summary**.
+2. Double-click it and set **Step name** to `txt-bad-answers`. On the **File** tab, set **Filename** to `${Internal.Entry.Current.Directory}/bad_answers` and **Extension** to `csv`. Select **OK**.
+3. Create a hop from **json-summary** to **txt-bad-answers**, and select **Error handling of step** in the menu that opens. The hop is drawn red, with a red error icon.
+4. Right-click **json-summary** and select **Error Handling...**. In **Step error handling settings**, enter these settings, then select **OK**:
+
+| Setting | Value |
+| --- | --- |
+| **Target step** | `txt-bad-answers` |
+| **Enable the error handling?** | Selected |
+| **Nr of errors fieldname** | `err_count` |
+| **Error descriptions fieldname** | `err_desc` |
+
+5. Double-click **txt-bad-answers**. On the **Fields** tab, select **Get Fields**, then **Minimal width**, and delete every row except `document_id`, `llm_json` and `err_desc`. Select **OK**, and save the transformation (`Ctrl+S`).
+
+> **Under the hood:**
+>
+> #### A row the step cannot process leaves by the error hop instead of stopping the run
+>
+> Without error handling, the first unparsable answer fails **json-summary** and stops the transformation, so the documents behind it are never written. With it, **JSON input** adds the parser's message to the row as `err_desc` and sends that row down the red hop. The step's **Errors** count in **Step Metrics** shows how many rows went that way.
+>
+> **Why it matters:** this is how a production pipeline treats a model: most answers are good, some are not, and the bad ones are kept with their reason so a person, or a rerun with a stronger model, can deal with them.
+
+### 5. Write and Run
 
 > **Note:**
 >
@@ -242,15 +272,13 @@ Use an empty list when the document has no action items.
 7. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
 8. In **Execution Results**, open the **Step Metrics** tab.
 
-<!-- UNPROVEN: the checkpoints below describe the expected shape; replace with measured figures once the GENAI-EE license lets the solution run. -->
-
-> **Success:** Checkpoint: every step finishes without errors. **csvi-documents** shows 10 under **Written**, the two copies of **ai-summary** read 10 rows between them, and **txt-results** writes 10. A long document takes a minute or more on a CPU-only machine.
+> **Success:** Checkpoint: **csvi-documents** shows 10 under **Written**, and the two copies of **ai-summary** read 10 rows between them, 5 each. **json-summary** reads 10, and **txt-results** and **txt-bad-answers** together write 10. In the measured run **json-summary** showed 1 under **Errors**: the answer for document 6, the press release, stopped after its `key_takeaways` list without closing the JSON object, so it went down the error hop to `bad_answers.csv`, and the other 9 were written. Your run may catch a different document, or none. On a machine with a GPU the ten calls take about 35 seconds; a long document takes a minute or more on a CPU-only machine.
 
 9. Open `summaries.csv` in `C:\Workshop-AI-Specialty\04-llm-integration\10-llm-text-summarization`.
 
-> **Success:** Checkpoint: its first line is `document_id,document_type,title,summary,bullet_points,key_takeaways,action_items`, followed by 10 rows. For the meeting notes, `action_items` lists the owners and dates the notes give; for a press release it can be `[]`.
+> **Success:** Checkpoint: its first line is `document_id,document_type,title,summary,bullet_points,key_takeaways,action_items`, followed by one row per answer that parsed: 9 in the measured run. For the meeting notes, `action_items` lists the owners and dates the notes give, for example `Michael Chen: Finalize API documentation by March 1st`; for a document that asks nothing of anyone, such as the legal contract, it can be `[]`. The wording is the model's and will differ. `bad_answers.csv` is there too: its first line is `document_id,llm_json,err_desc`, followed by one row per answer that did not parse, with the model's whole answer in `llm_json` and the parser's message, such as `Unexpected End Of File`, in `err_desc`. When every answer parsed, the file is empty, without even a header line.
 
-### 5. A Document Too Long
+### 6. A Document Too Long
 
 > **Note:**
 >
@@ -273,7 +301,7 @@ Use an empty list when the document has no action items.
 
 **Why it is called map-reduce:** the map stage does the same job on every piece independently, so its calls run in parallel; the reduce stage combines their results. Each call stays small, and the document can be any length: only the number of map calls grows.
 
-### 6. Read the Report
+### 7. Read the Report
 
 > **Note:**
 >
@@ -306,7 +334,7 @@ Use an empty list when the document has no action items.
 
 10. Select **OK**, and save the transformation (`Ctrl+S`).
 
-### 7. Split into Chunks
+### 8. Split into Chunks
 
 > **Note:**
 >
@@ -344,7 +372,7 @@ Use an empty list when the document has no action items.
 >
 > **Why it matters:** a chunk that ends at a paragraph break is a chunk the model can summarize on its own. Dropping `doc_text` keeps each row small as it moves through the rest of the transformation.
 
-### 8. Map: Summarize Each Chunk
+### 9. Map: Summarize Each Chunk
 
 > **Note:**
 >
@@ -406,7 +434,7 @@ Write three to five sentences in plain text, with no heading and no list. Keep e
 10. Right-click **ai-map** and select **Change Number of Copies to Start...**. Enter `${STEP_COPIES}` and select **OK**.
 11. Save the transformation (`Ctrl+S`).
 
-### 9. Reduce: Summarize the Summaries
+### 10. Reduce: Summarize the Summaries
 
 > **Note:**
 >
@@ -484,7 +512,7 @@ Use only facts from the summaries, and keep each figure exactly as they give it.
 15. Drag **Text file output** onto the canvas and create a hop from **sv-summary** to it. Double-click it and set **Step name** to `txt-summary`. On the **File** tab, set **Filename** to `${Internal.Entry.Current.Directory}/long_document_summary` and **Extension** to `csv`, and select **Create Parent folder**. On the **Content** tab set **Encoding** to `UTF-8`, and on the **Fields** tab select **Get Fields**, then **Minimal width**. Select **OK**.
 16. Save the transformation (`Ctrl+S`).
 
-### 10. Run the Long Document
+### 11. Run the Long Document
 
 > **Note:**
 >
@@ -495,9 +523,7 @@ Use only facts from the summaries, and keep each figure exactly as they give it.
 1. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
 2. In **Execution Results**, open the **Step Metrics** tab.
 
-<!-- UNPROVEN: the checkpoints below describe the expected shape; replace with measured figures once the GENAI-EE license lets the solution run. -->
-
-> **Success:** Checkpoint: every step finishes without errors. **gr-document** and **doc-read** write 1 row; **seg-chunks** writes one row per chunk, at least 7 for 22,166 characters in chunks of at most 800 tokens; **grp-concat**, **ai-reduce** and **txt-summary** write 1.
+> **Success:** Checkpoint: every step finishes without errors. **gr-document** and **doc-read** write 1 row; **seg-chunks** reads 1 and writes 9, one row per chunk; the two copies of **ai-map** read the 9 between them (5 and 4); **grp-concat** reads 9 and writes 1, and **ai-reduce** and **txt-summary** write 1. On a machine with a GPU the run takes about 25 seconds.
 
 3. Select **seg-chunks** on the canvas and open the **Preview data** tab.
 
@@ -505,7 +531,7 @@ Use only facts from the summaries, and keep each figure exactly as they give it.
 
 4. Open `long_document_summary.csv` in `C:\Workshop-AI-Specialty\04-llm-integration\10-llm-text-summarization`.
 
-> **Success:** Checkpoint: its first line is `doc_name,chunk_count,report_summary,part_summaries`. `report_summary` is one paragraph and up to five `- ` lines, with the report's own figures, such as revenue of `$899.0 million`; `part_summaries` holds the chunk summaries the reduce call read.
+> **Success:** Checkpoint: its first line is `doc_name,chunk_count,report_summary,part_summaries`, followed by one row: `annual_report_2024.docx` with a `chunk_count` of `9`. `report_summary` is one paragraph and up to five `- ` lines, with the report's own figures, such as revenue of `$899.0 million`, up 8.9% from `$825.5 million`; `part_summaries` holds the chunk summaries the reduce call read. The wording will differ from run to run.
 
 5. Check two figures of `report_summary` against the report itself. A figure the report does not contain came from the model, not the document.
 
@@ -559,7 +585,7 @@ The long report of the second transformation, a fictitious company's annual repo
 
 ### Solution <!-- no-step -->
 
-The finished transformations for this lab. Open them alongside your own to compare, or run them to see the expected result. They read their data from the lab folder and write `summaries.csv` and `long_document_summary.csv` beside themselves.
+The finished transformations for this lab. Open them alongside your own to compare, or run them to see the expected result. They read their data from the lab folder and write `summaries.csv` and `long_document_summary.csv` beside themselves; the first also writes `bad_answers.csv` for any answer the parser could not read.
 
 Also on disk at `C:\Workshop-AI-Specialty\04-llm-integration\10-llm-text-summarization\solution`.
 

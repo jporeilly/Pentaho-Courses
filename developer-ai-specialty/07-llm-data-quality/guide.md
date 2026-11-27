@@ -81,7 +81,7 @@ customer_id,name,email,phone,address,company_name
 | `FIXED` | Every problem was fixed | `customers_clean.csv` |
 | `REVIEW` | A value cannot be fixed, such as the email `james@` | `customers_review.csv` |
 
-Three emails in the file cannot be valid as given: `sarah.j@company` (1002), `james@` (1005) and `lisa_anderson@email` (1008). A model cannot invent the missing domain, so those records need a person.
+Three emails in the file cannot be valid as given: `sarah.j@company` (1002), `james@` (1005) and `lisa_anderson@email` (1008). A model must not invent the missing domain, so those records need a person.
 
 ### 2. Check Ollama
 
@@ -114,9 +114,7 @@ $body = @{
 (Invoke-RestMethod -Uri http://localhost:11434/api/chat -Method Post -ContentType "application/json" -Body $body).message.content
 ```
 
-<!-- UNPROVEN: the checkpoint below describes the expected shape; replace with a measured answer once the GENAI-EE license lets the solution run. -->
-
-> **Success:** Checkpoint: one line of JSON with `name`, `email` and `quality`. The name should come back as `James Wilson`, the email as given, and the verdict `REVIEW`; the exact answer is the model's.
+> **Success:** Checkpoint: one line of JSON with `name`, `email` and `quality`. With `llama3.2:3b` at temperature `0` it came back as `{"name": "JAMES WILSON", "email": "james@domain.com", "quality": "FIXED"}`: the model left the name in capitals, invented a domain and called the record fixed, against the instruction. Your answer may differ. A small model follows a short rule like this unreliably, which is why the transformation you build gives it a fuller instruction, with the house format of every field and examples of what cannot be fixed.
 
 ### 3. Read the Customers
 
@@ -337,11 +335,11 @@ quality is CLEAN when nothing needed a change, FIXED when you fixed every proble
 
 > **Under the hood:**
 >
-> #### An answer that is not JSON gives null fields, not a failed row
+> #### A missing key gives a null field, but a broken answer stops the run
 >
-> With **Ignore missing path** and **Default path leaf to null** selected, a key the model leaves out becomes a null field. An answer that is not JSON at all, such as `Sure! Here is the record.`, also passes through with every parsed field null: these settings were checked by running this step on hand-written answers. `issues` is an array in the answer; read as a String it keeps its JSON text, such as `["name in lowercase","phone with dots"]`.
+> With **Ignore missing path** and **Default path leaf to null** selected, a key the model leaves out becomes a null field instead of failing the row, and so does an answer that is plain text with no JSON in it, such as `Sure! Here is the record.`. `issues` is an array in the answer; read as a String it keeps its JSON text, such as `["name in lowercase","phone with dots"]`.
 >
-> **Why it matters:** a row whose answer could not be read still reaches the next step, with a null `quality` that the filter can catch.
+> **Why it matters:** an answer that *starts* as JSON but is broken, with a missing brace or a stray bracket, is different: **JSON input** cannot parse it and stops the whole transformation. The section after the split catches those rows.
 
 ### 8. Split by Verdict
 
@@ -374,11 +372,41 @@ quality is CLEAN when nothing needed a change, FIXED when you fixed every proble
 >
 > #### A null verdict fails the IN LIST test, so it goes to review
 >
-> `IN LIST` is true when `quality` equals one of the values between the semicolons. A null `quality`, from an answer the parser could not read, equals neither, so the row takes the false path to `sv-review`. The two **Select values** steps give each file its own columns: the clean file the cleaned values, the review file the originals that a person will correct.
+> `IN LIST` is true when `quality` equals one of the values between the semicolons. A null `quality`, from an answer with no verdict in it, equals neither, so the row takes the false path to `sv-review`. The two **Select values** steps give each file its own columns: the clean file the cleaned values, the review file the originals that a person will correct.
 >
 > **Why it matters:** the safe default is review. A record leaves the pipeline as clean only when the model said, in words the filter checks, that it is.
 
-### 9. Run
+### 9. Catch the Answers the Parser Cannot Read
+
+> **Note:**
+>
+> #### Error Handling on JSON Input
+>
+> A small model sometimes closes a JSON answer with the wrong bracket. An error hop sends such a row to a file of its own, with the parser's message, and the other records carry on.
+
+1. On the **Design** tab, open the **Output** folder and drag **Text file output** onto the canvas, below **json-clean**.
+2. Double-click it and set **Step name** to `txt-bad-answers`. On the **File** tab, set **Filename** to `${Internal.Entry.Current.Directory}/bad_answers` and **Extension** to `csv`. Select **OK**.
+3. Create a hop from **json-clean** to **txt-bad-answers**, and select **Error handling of step** in the menu that opens. The hop is drawn red, with a red error icon.
+4. Right-click **json-clean** and select **Error Handling...**. In **Step error handling settings**, enter these settings, then select **OK**:
+
+| Setting | Value |
+| --- | --- |
+| **Target step** | `txt-bad-answers` |
+| **Enable the error handling?** | Selected |
+| **Nr of errors fieldname** | `err_count` |
+| **Error descriptions fieldname** | `err_desc` |
+
+5. Double-click **txt-bad-answers**. On the **Fields** tab, select **Get Fields**, then **Minimal width**, and delete every row except `customer_id`, `llm_json` and `err_desc`. Select **OK**, and save the transformation (`Ctrl+S`).
+
+> **Under the hood:**
+>
+> #### A row the step cannot process leaves by the error hop instead of stopping the run
+>
+> Without error handling, the first unparsable answer fails **json-clean** and stops the transformation, so the records behind it are never written. With it, **JSON input** adds the parser's message to the row as `err_desc` and sends that row down the red hop. The step's **Errors** count in **Step Metrics** shows how many rows went that way.
+>
+> **Why it matters:** this is how a production pipeline treats a model: most answers are good, some are not, and the bad ones are kept with their reason so a person, or a rerun with a stronger model, can deal with them.
+
+### 10. Run
 
 > **Note:**
 >
@@ -389,17 +417,15 @@ quality is CLEAN when nothing needed a change, FIXED when you fixed every proble
 1. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
 2. In **Execution Results**, open the **Step Metrics** tab.
 
-<!-- UNPROVEN: the checkpoints below describe the expected shape; replace with measured figures once the GENAI-EE license lets the solution run. -->
-
-> **Success:** Checkpoint: every step finishes without errors. **csvi-customers** shows 10 under **Written**, the four copies of **ai-clean** read 10 rows between them, and **txt-clean** and **txt-review** together write 10.
+> **Success:** Checkpoint: **csvi-customers** shows 10 under **Written**, and the four copies of **ai-clean** read 10 rows between them (for example 3, 3, 2 and 2). **json-clean** writes 10 with 0 under **Errors**: every answer parsed, so none went down the error hop. **filter-quality** reads 10 and splits them: **txt-clean** writes 2 and **txt-review** writes 8. On a machine with a GPU the ten model calls take under 10 seconds.
 
 3. Select **json-clean** on the canvas and open the **Preview data** tab.
 
-> **Success:** Checkpoint: 10 rows. Each has the model's cleaned values, such as `john smith` as `John Smith`, an `issues` list, and a `quality` of `CLEAN`, `FIXED` or `REVIEW`. The exact values are the model's.
+> **Success:** Checkpoint: 10 rows. Each has the model's cleaned values, such as `john smith` as `John Smith` for customer 1001, an `issues` list, and a `quality` of `CLEAN`, `FIXED` or `REVIEW`. The values and the wording of the issues are the model's and will differ from run to run.
 
 4. Open `customers_review.csv` in `C:\Workshop-AI-Specialty\04-llm-integration\07-llm-data-quality`.
 
-> **Success:** Checkpoint: its first line is `customer_id,name,email,phone,address,company_name,quality,issues`. The records with an email that cannot be valid, `1002`, `1005` and `1008`, should be among its rows; `customers_clean.csv` holds the others.
+> **Success:** Checkpoint: its first line is `customer_id,name,email,phone,address,company_name,quality,issues`. The records with an email that cannot be valid, `1002`, `1005` and `1008`, are among its 8 rows. `llama3.2:3b` is cautious: in the measured run it sent 1003, 1004, 1007, 1009 and 1010 to review too, and `customers_clean.csv` held only 1001 and 1006, both `FIXED`. Your split may differ. `bad_answers.csv` is there too, but empty, without even a header line, when every answer parsed.
 
 5. Compare the two files with `data_quality_customers.csv`. Where the model put a record in the clean file that you would review, tighten the instruction: name the case and the verdict it gets.
 
@@ -438,7 +464,7 @@ The ten raw customer records:
 
 ### Solution <!-- no-step -->
 
-The finished transformation for this lab. Open it alongside your own to compare, or run it to see the expected result. It reads `data_quality_customers.csv` from the lab folder and writes `customers_clean.csv` and `customers_review.csv` beside itself.
+The finished transformation for this lab. Open it alongside your own to compare, or run it to see the expected result. It reads `data_quality_customers.csv` from the lab folder and writes `customers_clean.csv` and `customers_review.csv` beside itself, and `bad_answers.csv` for any answer the parser could not read.
 
 Also on disk at `C:\Workshop-AI-Specialty\04-llm-integration\07-llm-data-quality\solution`.
 

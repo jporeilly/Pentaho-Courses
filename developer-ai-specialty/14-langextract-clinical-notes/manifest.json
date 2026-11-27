@@ -1,7 +1,7 @@
 {
   "title": "Clinical Notes",
   "description": "Hands-on: extract medications, symptoms, diagnoses and allergies from synthetic clinical notes with LangExtract, and load one fact per row, with its source offsets, into PostgreSQL.",
-  "order": 21,
+  "order": 22,
   "kind": "workshop",
   "stepCount": 5,
   "hasVideo": false,

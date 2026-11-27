@@ -125,8 +125,6 @@ Set-Location C:\Pentaho\design-tools\data-integration
 19. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
 20. Select **txt-xpath** on the canvas and open the **Preview data** tab.
 
-<!-- UNPROVEN: the HTML Parser cannot run without a GENAI-EE license. The values below are what jsoup 1.23.2, the library the step calls (Jsoup.parse, then selectXpath(...).text() or text()), returns for homepage.html; confirm them in Spoon once the license arrives. -->
-
 > **Success:** Checkpoint: one row. `article_titles` is `Cleaning Web Pages Before a Prompt Five Lessons from Our First RAG Pipeline Local Models on a Laptop`, `authors` is `By Maria Lopez By Daniel Chen By Priya Natarajan`, and `page_text` starts `Northwind Data Blog Welcome to the Northwind Data Blog Home Articles About Contact Featured Articles`.
 
 Compare the values with the page in your browser: the titles and authors are those of the three articles, in page order.
@@ -211,13 +209,9 @@ Compare the values with the page in your browser: the titles and authors are tho
 6. Save the transformation (`Ctrl+S`), press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
 7. Select **txt-css** on the canvas and open the **Preview data** tab.
 
-<!-- UNPROVEN: values computed with jsoup 1.23.2 (select(...).text()), as above; confirm in Spoon once the GENAI-EE license arrives. -->
-
 > **Success:** Checkpoint: one row. `product_names` is `Smartphone X Laptop Pro 15 Noise-Cancelling Headphones`, `prices` is `$999 $1,499 $249`, and `about_text` is `TechGadgets has sold electronics online since 2012 and ships to every state.`
 
 8. Open `C:\Workshop-AI-Specialty\03-documents-to-text\03-genai-html-parser\landingpage_css.csv`.
-
-<!-- UNPROVEN: the file's shape follows from the Text file output settings; confirm once the GENAI-EE license lets the solution run. -->
 
 > **Success:** Checkpoint: its first line is `page,product_names,prices,about_text`, followed by 1 row. `prices` is written in quotes, because its value contains the separator: `"$999 $1,499 $249"`.
 
@@ -271,8 +265,6 @@ Compare the values with the page in your browser: the titles and authors are tho
 9. Save the transformation (`Ctrl+S`), press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
 10. Select **txt-titles** on the canvas and open the **Preview data** tab.
 
-<!-- UNPROVEN: titles computed with jsoup 1.23.2; confirm in Spoon once the GENAI-EE license arrives. -->
-
 > **Success:** Checkpoint: 2 rows: `homepage.html` with `page_title` `Northwind Data Blog`, and `landingpage.html` with `TechGadgets - Your Electronics Store`.
 
 Each row keeps the fields **Get file names** added, so `short_filename` says which page each title came from.
@@ -323,8 +315,6 @@ Each row keeps the fields **Get file names** added, so `short_filename` says whi
 7. Add **Text file output** after **sv-emails**: **Step name** `txt-emails`, **Filename** `${Internal.Entry.Current.Directory}/emails_text`, **Extension** `csv`, **Create Parent folder** selected, **Encoding** `UTF-8`, and on the **Fields** tab **Get Fields**, then **Minimal width**.
 8. Save the transformation (`Ctrl+S`), press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog. Both flows run.
 9. Select **txt-emails** on the canvas and open the **Preview data** tab.
-
-<!-- UNPROVEN: texts computed with jsoup 1.23.2 (Jsoup.parse(html).text()); confirm in Spoon once the GENAI-EE license arrives. -->
 
 > **Success:** Checkpoint: 3 rows. Ticket `1001` reads `Hello, My Laptop Pro 15 will not charge since the last update. I tried a second charger. Thanks, Ana`, `1002` reads `Order #58812 arrived with a cracked screen. Please send a replacement.`, and `1003` reads `Product Smartphone X Issue Battery drains in four hours`.
 

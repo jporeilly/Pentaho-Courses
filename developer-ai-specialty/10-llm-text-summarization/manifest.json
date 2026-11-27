@@ -3,7 +3,7 @@
   "description": "Hands-on: summarize documents with the AI Chat step, then a report too long for one call: Read Unstructured Document, AI Segmentation, a summary per chunk, and a summary of the summaries (map-reduce).",
   "order": 12,
   "kind": "workshop",
-  "stepCount": 10,
+  "stepCount": 11,
   "hasVideo": false,
   "estimatedMinutes": 45
 }

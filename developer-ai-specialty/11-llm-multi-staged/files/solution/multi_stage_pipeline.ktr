@@ -515,12 +515,15 @@ x${STEP_COPIES}.
 15. json-route: primary_dept, escalate_to, cc_depts, sla_hours.
 16. js-finish: primary_dept default Support, escalate_to none, cc_depts [], sla_hours 48.
 17. sv-results / txt-results: every stage's decision to processed_documents.csv beside this file.
+Error hops: json-classify, json-priority, json-actions and json-route each send an answer they cannot parse
+to their own txt-bad-&lt;stage&gt; step: document_id, that stage's JSON, err_desc to bad_&lt;stage&gt;.csv beside
+this file (0 bytes when every answer parsed).
 
 Shipped data: 15 documents, DOC-001 to DOC-015.</note>
       <xloc>160</xloc>
       <yloc>32</yloc>
-      <width>626</width>
-      <heigth>530</heigth>
+      <width>629</width>
+      <heigth>584</heigth>
       <fontname>Segoe UI</fontname>
       <fontsize>10</fontsize>
       <fontbold>N</fontbold>
@@ -623,6 +626,26 @@ Shipped data: 15 documents, DOC-001 to DOC-015.</note>
       <to>txt-results</to>
       <enabled>Y</enabled>
     </hop>
+    <hop>
+      <from>json-classify</from>
+      <to>txt-bad-classify</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>json-priority</from>
+      <to>txt-bad-priority</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>json-actions</from>
+      <to>txt-bad-actions</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>json-route</from>
+      <to>txt-bad-route</to>
+      <enabled>Y</enabled>
+    </hop>
   </order>
   <step>
     <name>csvi-documents</name>
@@ -705,7 +728,7 @@ Shipped data: 15 documents, DOC-001 to DOC-015.</note>
     </remotesteps>
     <GUI>
       <xloc>160</xloc>
-      <yloc>610</yloc>
+      <yloc>664</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -796,7 +819,7 @@ Answer with one JSON object and nothing else, in exactly this shape:
     </remotesteps>
     <GUI>
       <xloc>320</xloc>
-      <yloc>610</yloc>
+      <yloc>664</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -862,7 +885,7 @@ Answer with one JSON object and nothing else, in exactly this shape:
     </remotesteps>
     <GUI>
       <xloc>480</xloc>
-      <yloc>610</yloc>
+      <yloc>664</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -959,7 +982,7 @@ Answer with one JSON object and nothing else, in exactly this shape:
     </remotesteps>
     <GUI>
       <xloc>640</xloc>
-      <yloc>610</yloc>
+      <yloc>664</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1013,7 +1036,7 @@ var stage2_message = "Document type: " + doc_type + "\n\nDocument:\n" + raw_text
     </remotesteps>
     <GUI>
       <xloc>160</xloc>
-      <yloc>770</yloc>
+      <yloc>824</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1079,7 +1102,7 @@ var stage2_message = "Document type: " + doc_type + "\n\nDocument:\n" + raw_text
     </remotesteps>
     <GUI>
       <xloc>320</xloc>
-      <yloc>770</yloc>
+      <yloc>824</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1176,7 +1199,7 @@ var stage2_message = "Document type: " + doc_type + "\n\nDocument:\n" + raw_text
     </remotesteps>
     <GUI>
       <xloc>480</xloc>
-      <yloc>770</yloc>
+      <yloc>824</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1254,7 +1277,7 @@ var stage3_instruction = "You extract the details that matter from one " + doc_t
     </remotesteps>
     <GUI>
       <xloc>640</xloc>
-      <yloc>770</yloc>
+      <yloc>824</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1320,7 +1343,7 @@ var stage3_instruction = "You extract the details that matter from one " + doc_t
     </remotesteps>
     <GUI>
       <xloc>800</xloc>
-      <yloc>770</yloc>
+      <yloc>824</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1376,7 +1399,7 @@ var stage4_message = "Document type: " + doc_type + "\n" +
     </remotesteps>
     <GUI>
       <xloc>160</xloc>
-      <yloc>930</yloc>
+      <yloc>984</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1442,7 +1465,7 @@ var stage4_message = "Document type: " + doc_type + "\n" +
     </remotesteps>
     <GUI>
       <xloc>320</xloc>
-      <yloc>930</yloc>
+      <yloc>984</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1526,7 +1549,7 @@ var stage4_message = "Document type: " + doc_type + "\n" +
     </remotesteps>
     <GUI>
       <xloc>480</xloc>
-      <yloc>930</yloc>
+      <yloc>984</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1595,7 +1618,7 @@ var stage5_message = "Earlier analysis:\n" +
     </remotesteps>
     <GUI>
       <xloc>640</xloc>
-      <yloc>930</yloc>
+      <yloc>984</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1661,7 +1684,7 @@ var stage5_message = "Earlier analysis:\n" +
     </remotesteps>
     <GUI>
       <xloc>800</xloc>
-      <yloc>930</yloc>
+      <yloc>984</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1771,7 +1794,7 @@ var stage5_message = "Earlier analysis:\n" +
     </remotesteps>
     <GUI>
       <xloc>160</xloc>
-      <yloc>1090</yloc>
+      <yloc>1144</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1843,7 +1866,7 @@ if (sla_hours == null) sla_hours = 48;</jsScript_script>
     </remotesteps>
     <GUI>
       <xloc>320</xloc>
-      <yloc>1090</yloc>
+      <yloc>1144</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1955,7 +1978,7 @@ if (sla_hours == null) sla_hours = 48;</jsScript_script>
     </remotesteps>
     <GUI>
       <xloc>480</xloc>
-      <yloc>1090</yloc>
+      <yloc>1144</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -2180,8 +2203,430 @@ if (sla_hours == null) sla_hours = 48;</jsScript_script>
     </remotesteps>
     <GUI>
       <xloc>640</xloc>
-      <yloc>1090</yloc>
+      <yloc>1144</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
+  <step>
+    <name>txt-bad-classify</name>
+    <type>TextFileOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <separator>,</separator>
+    <enclosure>"</enclosure>
+    <enclosure_forced>N</enclosure_forced>
+    <enclosure_fix_disabled>N</enclosure_fix_disabled>
+    <header>Y</header>
+    <footer>N</footer>
+    <format>DOS</format>
+    <compression>None</compression>
+    <encoding>UTF-8</encoding>
+    <endedLine/>
+    <fileNameInField>N</fileNameInField>
+    <fileNameField/>
+    <create_parent_folder>Y</create_parent_folder>
+    <file>
+      <name>${Internal.Entry.Current.Directory}/bad_classify</name>
+      <servlet_output>N</servlet_output>
+      <do_not_open_new_file_init>N</do_not_open_new_file_init>
+      <extention>csv</extention>
+      <append>N</append>
+      <split>N</split>
+      <haspartno>N</haspartno>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <SpecifyFormat>N</SpecifyFormat>
+      <date_time_format/>
+      <add_to_result_filenames>Y</add_to_result_filenames>
+      <pad>N</pad>
+      <fast_dump>N</fast_dump>
+      <splitevery/>
+    </file>
+    <fields>
+      <field>
+        <name>document_id</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>stage1_json</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>err_desc</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>800</xloc>
+      <yloc>1304</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>txt-bad-priority</name>
+    <type>TextFileOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <separator>,</separator>
+    <enclosure>"</enclosure>
+    <enclosure_forced>N</enclosure_forced>
+    <enclosure_fix_disabled>N</enclosure_fix_disabled>
+    <header>Y</header>
+    <footer>N</footer>
+    <format>DOS</format>
+    <compression>None</compression>
+    <encoding>UTF-8</encoding>
+    <endedLine/>
+    <fileNameInField>N</fileNameInField>
+    <fileNameField/>
+    <create_parent_folder>Y</create_parent_folder>
+    <file>
+      <name>${Internal.Entry.Current.Directory}/bad_priority</name>
+      <servlet_output>N</servlet_output>
+      <do_not_open_new_file_init>N</do_not_open_new_file_init>
+      <extention>csv</extention>
+      <append>N</append>
+      <split>N</split>
+      <haspartno>N</haspartno>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <SpecifyFormat>N</SpecifyFormat>
+      <date_time_format/>
+      <add_to_result_filenames>Y</add_to_result_filenames>
+      <pad>N</pad>
+      <fast_dump>N</fast_dump>
+      <splitevery/>
+    </file>
+    <fields>
+      <field>
+        <name>document_id</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>stage2_json</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>err_desc</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>640</xloc>
+      <yloc>1304</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>txt-bad-actions</name>
+    <type>TextFileOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <separator>,</separator>
+    <enclosure>"</enclosure>
+    <enclosure_forced>N</enclosure_forced>
+    <enclosure_fix_disabled>N</enclosure_fix_disabled>
+    <header>Y</header>
+    <footer>N</footer>
+    <format>DOS</format>
+    <compression>None</compression>
+    <encoding>UTF-8</encoding>
+    <endedLine/>
+    <fileNameInField>N</fileNameInField>
+    <fileNameField/>
+    <create_parent_folder>Y</create_parent_folder>
+    <file>
+      <name>${Internal.Entry.Current.Directory}/bad_actions</name>
+      <servlet_output>N</servlet_output>
+      <do_not_open_new_file_init>N</do_not_open_new_file_init>
+      <extention>csv</extention>
+      <append>N</append>
+      <split>N</split>
+      <haspartno>N</haspartno>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <SpecifyFormat>N</SpecifyFormat>
+      <date_time_format/>
+      <add_to_result_filenames>Y</add_to_result_filenames>
+      <pad>N</pad>
+      <fast_dump>N</fast_dump>
+      <splitevery/>
+    </file>
+    <fields>
+      <field>
+        <name>document_id</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>stage4_json</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>err_desc</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>320</xloc>
+      <yloc>1304</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>txt-bad-route</name>
+    <type>TextFileOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <separator>,</separator>
+    <enclosure>"</enclosure>
+    <enclosure_forced>N</enclosure_forced>
+    <enclosure_fix_disabled>N</enclosure_fix_disabled>
+    <header>Y</header>
+    <footer>N</footer>
+    <format>DOS</format>
+    <compression>None</compression>
+    <encoding>UTF-8</encoding>
+    <endedLine/>
+    <fileNameInField>N</fileNameInField>
+    <fileNameField/>
+    <create_parent_folder>Y</create_parent_folder>
+    <file>
+      <name>${Internal.Entry.Current.Directory}/bad_route</name>
+      <servlet_output>N</servlet_output>
+      <do_not_open_new_file_init>N</do_not_open_new_file_init>
+      <extention>csv</extention>
+      <append>N</append>
+      <split>N</split>
+      <haspartno>N</haspartno>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <SpecifyFormat>N</SpecifyFormat>
+      <date_time_format/>
+      <add_to_result_filenames>Y</add_to_result_filenames>
+      <pad>N</pad>
+      <fast_dump>N</fast_dump>
+      <splitevery/>
+    </file>
+    <fields>
+      <field>
+        <name>document_id</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>stage5_json</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>err_desc</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>160</xloc>
+      <yloc>1304</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step_error_handling>
+    <error>
+      <source_step>json-classify</source_step>
+      <target_step>txt-bad-classify</target_step>
+      <is_enabled>Y</is_enabled>
+      <nr_valuename>err_count</nr_valuename>
+      <descriptions_valuename>err_desc</descriptions_valuename>
+      <fields_valuename/>
+      <codes_valuename/>
+      <max_errors/>
+      <max_pct_errors/>
+      <min_pct_rows/>
+    </error>
+    <error>
+      <source_step>json-priority</source_step>
+      <target_step>txt-bad-priority</target_step>
+      <is_enabled>Y</is_enabled>
+      <nr_valuename>err_count</nr_valuename>
+      <descriptions_valuename>err_desc</descriptions_valuename>
+      <fields_valuename/>
+      <codes_valuename/>
+      <max_errors/>
+      <max_pct_errors/>
+      <min_pct_rows/>
+    </error>
+    <error>
+      <source_step>json-actions</source_step>
+      <target_step>txt-bad-actions</target_step>
+      <is_enabled>Y</is_enabled>
+      <nr_valuename>err_count</nr_valuename>
+      <descriptions_valuename>err_desc</descriptions_valuename>
+      <fields_valuename/>
+      <codes_valuename/>
+      <max_errors/>
+      <max_pct_errors/>
+      <min_pct_rows/>
+    </error>
+    <error>
+      <source_step>json-route</source_step>
+      <target_step>txt-bad-route</target_step>
+      <is_enabled>Y</is_enabled>
+      <nr_valuename>err_count</nr_valuename>
+      <descriptions_valuename>err_desc</descriptions_valuename>
+      <fields_valuename/>
+      <codes_valuename/>
+      <max_errors/>
+      <max_pct_errors/>
+      <min_pct_rows/>
+    </error>
+  </step_error_handling>
 </transformation>

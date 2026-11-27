@@ -8,8 +8,8 @@ A Large Language Model (LLM) reads text, but the text a business holds arrives a
 
 <div align="center">
 <figure>
-<img src="../_assets/images/02-genai-suite.png" alt="The 12 GenAI steps by palette folder. Input: HTML Parser (lab 03), Read Unstructured Document (04, 10, 20, 25). Metadata Discovery: Discover Metadata from Unstructured Documents (04). Transform: Base64 Encoder (26). AI: AI Chat (06 to 11, 21, 22, 25 to 29), AI Chat Message Box (05, 08), AI Segmentation (10, 20, 25), Text to Vector (20, 21, 25, 27), Vector Writer (20, 25), Vector Search (21, 25, 27), MCP Client (22, 29), NER Extractor (09, 28). Each is a plugin folder and needs a GENAI-EE license" width="800">
-<figcaption>The suite's 12 steps, by the palette folder each sits in; the table below lists every lab that uses each</figcaption>
+<img src="../_assets/images/02-genai-suite.png" alt="Pentaho Data Integration 11 with its 12 GenAI steps in three stages, Ingest, Transform and AI, each step with the labs that use it. Sources flow into Ingest; AI Chat talks to the LLM providers, Vector Writer and Vector Search to the seven vector databases, MCP Client to MCP servers; results go to targets such as databases, files and reports." width="800">
+<figcaption>The suite's 12 steps from ingest to AI, with the providers, vector databases and MCP servers they talk to; each pill lists the labs that use the step</figcaption>
 </figure>
 </div>
 
@@ -60,16 +60,16 @@ The Pentaho GenAI plugin suite (version 1.2.0-157 in this course) adds 12 steps 
 | **Read Unstructured Document** | Input | Extracts the text of a TXT, PDF, DOC, DOCX, PPT or PPTX file into one field, with its password if it has one | Apache Tika (04), Text Summarization (10), Build the Knowledge Base (20), Run on Pentaho Server (25) |
 | **Discover Metadata from Unstructured Documents** | Metadata Discovery | Writes one row per metadata key of a document, such as `dc:creator` or `Content-Type` | Apache Tika (04) |
 | **Base64 Encoder** | Transform | Encodes a file or a value as Base64 text, mainly to send images to **AI Chat** | Invoices with a Vision Model (26) |
-| **AI Chat** | AI | Sends a prompt, with an instruction and optional documents, to an LLM provider and returns the answer; can call MCP tools | LLM Integration (labs 06 to 11, 26), Answer Questions (21), Evaluate the Answers (27), MCP Tools (22), Project: Pentaho MCP Server (29), Run on Pentaho Server (25), Guard Personal Data (28) |
+| **AI Chat** | AI | Sends a prompt, with an instruction and optional documents, to an LLM provider and returns the answer; can call MCP tools | LLM Integration (labs 06 to 11, 26), Answer Questions (21), Evaluate the Answers (27), MCP Tools (22), Project: Pentaho MCP Server (29), Run on Pentaho Server (25), Guard Personal Data (28), Catalog Duplicates (30) |
 | **AI Chat Message Box** | AI | Adds a prompt and a run instruction, typed in the dialog, as two fields for an **AI Chat** downstream | The LLM Integration [Overview](../05-llm-integration/guide.md) (05), [Data Enrichment](../08-llm-data-enrichment/guide.md) (08) |
 | **AI Segmentation** | AI | Splits a long text into chunks, one row each, by paragraph, line, sentence, word, character or pattern, sized in characters or tokens, with an overlap | Text Summarization (10), Build the Knowledge Base (20), Run on Pentaho Server (25) |
-| **Text to Vector** | AI | Turns text into an embedding, a vector of numbers, with an embedding model | Build the Knowledge Base (20), Answer Questions (21), Evaluate the Answers (27), Run on Pentaho Server (25) |
-| **Vector Writer** | AI | Writes embeddings, their text and metadata to a vector store such as pgvector | Build the Knowledge Base (20), Run on Pentaho Server (25) |
-| **Vector Search** | AI | Finds the stored texts closest to a query's embedding | Answer Questions (21), Evaluate the Answers (27), Run on Pentaho Server (25) |
+| **Text to Vector** | AI | Turns text into an embedding, a vector of numbers, with an embedding model | Build the Knowledge Base (20), Answer Questions (21), Evaluate the Answers (27), Run on Pentaho Server (25), Catalog Duplicates (30) |
+| **Vector Writer** | AI | Writes embeddings, their text and metadata to a vector store: PGVector, Qdrant, Milvus, Pinecone, Chroma, OpenSearch or AlloyDB; creates the collection on demand and upserts or inserts. The labs use pgvector | Build the Knowledge Base (20), Run on Pentaho Server (25), Catalog Duplicates (30) |
+| **Vector Search** | AI | Finds the stored texts closest to a query's embedding, in the same seven vector stores as **Vector Writer** | Answer Questions (21), Evaluate the Answers (27), Run on Pentaho Server (25), Catalog Duplicates (30) |
 | **MCP Client** | AI | Lists and calls the tools and resources of a Model Context Protocol (MCP) server | MCP Tools (22), Project: Pentaho MCP Server (29) |
 | **NER Extractor** | AI | Finds named entities (people, organizations, places, dates) with Stanford CoreNLP, no LLM involved | Named Entity Recognition (09), Guard Personal Data (28) |
 
-In this course every LLM call goes to a local **Ollama** server on `http://localhost:11434`, with the chat model in the `MODEL_NAME` variable and `nomic-embed-text` for embeddings. The steps also speak to OpenAI, Azure OpenAI, Amazon Bedrock, Anthropic and Google Gemini; only the provider and its credentials change.
+In this course every LLM call goes to a local **Ollama** server on `http://localhost:11434`, with the chat model in the `MODEL_NAME` variable and `nomic-embed-text` for embeddings. **AI Chat** also speaks to OpenAI, Azure OpenAI, AWS Bedrock, Anthropic Claude and Google Gemini, and **Text to Vector** embeds with OpenAI, Azure OpenAI, AWS Bedrock or Google Gemini as well as Ollama; only the provider and its credentials change.
 
 > **Under the hood:**
 >

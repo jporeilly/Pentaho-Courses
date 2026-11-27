@@ -3,7 +3,7 @@
   "description": "Hands-on: answer customer questions from the knowledge base with Text to Vector, Vector Search and AI Chat, citing the source documents, saying when the documents do not hold the answer, and tuning top-k and the minimum score.",
   "kind": "workshop",
   "estimatedMinutes": 60,
-  "stepCount": 8,
+  "stepCount": 9,
   "hasVideo": false,
   "order": 17
 }

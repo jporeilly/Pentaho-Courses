@@ -511,12 +511,15 @@ for CoreNLP, and Ollama at OLLAMA_URL with MODEL_NAME pulled.
 11. txt-entities: entities.csv beside this file, one row per entity per method.
 12. grp-counts / txt-counts: Group by document_id, method, entity_count = number of rows (COUNT_ALL
     of entity_text); entity_counts.csv.
+Error hop: json-llm sends an answer it cannot parse to txt-bad-answers: document_id, llm_json, err_desc
+to bad_answers.csv beside this file (0 bytes when every answer parsed). ai-extract caps each answer at
+numPredict 1024 tokens.
 
 Shipped data: 10 documents of 10 kinds, from a customer email to an HR memo.</note>
       <xloc>160</xloc>
       <yloc>32</yloc>
       <width>623</width>
-      <heigth>458</heigth>
+      <heigth>512</heigth>
       <fontname>Segoe UI</fontname>
       <fontsize>10</fontsize>
       <fontbold>N</fontbold>
@@ -599,6 +602,11 @@ Shipped data: 10 documents of 10 kinds, from a customer email to an HR memo.</no
       <to>txt-counts</to>
       <enabled>Y</enabled>
     </hop>
+    <hop>
+      <from>json-llm</from>
+      <to>txt-bad-answers</to>
+      <enabled>Y</enabled>
+    </hop>
   </order>
   <step>
     <name>csvi-documents</name>
@@ -670,7 +678,7 @@ Shipped data: 10 documents of 10 kinds, from a customer email to an HR memo.</no
     </remotesteps>
     <GUI>
       <xloc>160</xloc>
-      <yloc>698</yloc>
+      <yloc>752</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -710,7 +718,7 @@ Shipped data: 10 documents of 10 kinds, from a customer email to an HR memo.</no
     </remotesteps>
     <GUI>
       <xloc>320</xloc>
-      <yloc>538</yloc>
+      <yloc>592</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -794,7 +802,7 @@ Shipped data: 10 documents of 10 kinds, from a customer email to an HR memo.</no
     </remotesteps>
     <GUI>
       <xloc>480</xloc>
-      <yloc>538</yloc>
+      <yloc>592</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -833,7 +841,7 @@ Shipped data: 10 documents of 10 kinds, from a customer email to an HR memo.</no
     </remotesteps>
     <GUI>
       <xloc>640</xloc>
-      <yloc>538</yloc>
+      <yloc>592</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -891,7 +899,7 @@ Shipped data: 10 documents of 10 kinds, from a customer email to an HR memo.</no
     </remotesteps>
     <GUI>
       <xloc>960</xloc>
-      <yloc>538</yloc>
+      <yloc>592</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -946,7 +954,7 @@ Answer with one JSON object and nothing else, in exactly this shape:
     </remotesteps>
     <GUI>
       <xloc>320</xloc>
-      <yloc>858</yloc>
+      <yloc>912</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -987,6 +995,10 @@ Answer with one JSON object and nothing else, in exactly this shape:
       <MODEL_PARAMETER_VALUE>4096</MODEL_PARAMETER_VALUE>
     </model_parameter>
     <model_parameter>
+      <MODEL_PARAMETER_NAME>numPredict</MODEL_PARAMETER_NAME>
+      <MODEL_PARAMETER_VALUE>1024</MODEL_PARAMETER_VALUE>
+    </model_parameter>
+    <model_parameter>
       <MODEL_PARAMETER_NAME>timeout</MODEL_PARAMETER_NAME>
       <MODEL_PARAMETER_VALUE>180</MODEL_PARAMETER_VALUE>
     </model_parameter>
@@ -1012,7 +1024,7 @@ Answer with one JSON object and nothing else, in exactly this shape:
     </remotesteps>
     <GUI>
       <xloc>480</xloc>
-      <yloc>858</yloc>
+      <yloc>912</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1096,7 +1108,7 @@ Answer with one JSON object and nothing else, in exactly this shape:
     </remotesteps>
     <GUI>
       <xloc>640</xloc>
-      <yloc>858</yloc>
+      <yloc>912</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1154,7 +1166,100 @@ Answer with one JSON object and nothing else, in exactly this shape:
     </remotesteps>
     <GUI>
       <xloc>960</xloc>
-      <yloc>858</yloc>
+      <yloc>912</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>txt-bad-answers</name>
+    <type>TextFileOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <separator>,</separator>
+    <enclosure>"</enclosure>
+    <enclosure_forced>N</enclosure_forced>
+    <enclosure_fix_disabled>N</enclosure_fix_disabled>
+    <header>Y</header>
+    <footer>N</footer>
+    <format>DOS</format>
+    <compression>None</compression>
+    <encoding>UTF-8</encoding>
+    <endedLine/>
+    <fileNameInField>N</fileNameInField>
+    <fileNameField/>
+    <create_parent_folder>Y</create_parent_folder>
+    <file>
+      <name>${Internal.Entry.Current.Directory}/bad_answers</name>
+      <servlet_output>N</servlet_output>
+      <do_not_open_new_file_init>N</do_not_open_new_file_init>
+      <extention>csv</extention>
+      <append>N</append>
+      <split>N</split>
+      <haspartno>N</haspartno>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <SpecifyFormat>N</SpecifyFormat>
+      <date_time_format/>
+      <add_to_result_filenames>Y</add_to_result_filenames>
+      <pad>N</pad>
+      <fast_dump>N</fast_dump>
+      <splitevery/>
+    </file>
+    <fields>
+      <field>
+        <name>document_id</name>
+        <type>Integer</type>
+        <format>0</format>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>llm_json</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>err_desc</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>640</xloc>
+      <yloc>1072</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1212,7 +1317,7 @@ Answer with one JSON object and nothing else, in exactly this shape:
     </remotesteps>
     <GUI>
       <xloc>1120</xloc>
-      <yloc>698</yloc>
+      <yloc>752</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1329,7 +1434,7 @@ Answer with one JSON object and nothing else, in exactly this shape:
     </remotesteps>
     <GUI>
       <xloc>1280</xloc>
-      <yloc>618</yloc>
+      <yloc>672</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1378,7 +1483,7 @@ Answer with one JSON object and nothing else, in exactly this shape:
     </remotesteps>
     <GUI>
       <xloc>1280</xloc>
-      <yloc>778</yloc>
+      <yloc>832</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1471,8 +1576,22 @@ Answer with one JSON object and nothing else, in exactly this shape:
     </remotesteps>
     <GUI>
       <xloc>1440</xloc>
-      <yloc>778</yloc>
+      <yloc>832</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
+  <step_error_handling>
+    <error>
+      <source_step>json-llm</source_step>
+      <target_step>txt-bad-answers</target_step>
+      <is_enabled>Y</is_enabled>
+      <nr_valuename>err_count</nr_valuename>
+      <descriptions_valuename>err_desc</descriptions_valuename>
+      <fields_valuename/>
+      <codes_valuename/>
+      <max_errors/>
+      <max_pct_errors/>
+      <min_pct_rows/>
+    </error>
+  </step_error_handling>
 </transformation>

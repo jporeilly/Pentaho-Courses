@@ -32,6 +32,7 @@
 * [Build the Knowledge Base](20-rag-knowledge-base/guide.md)
 * [Answer Questions](21-rag-answer-questions/guide.md)
 * [Evaluate the Answers](27-rag-evaluation/guide.md)
+* [Catalog Duplicates and Enrichment](30-catalog-duplicates/guide.md)
 
 ## LangExtract
 

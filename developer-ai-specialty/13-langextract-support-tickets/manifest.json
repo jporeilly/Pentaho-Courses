@@ -1,7 +1,7 @@
 {
   "title": "Support Tickets",
   "description": "Hands-on: extract structured fields from helpdesk tickets in PostgreSQL with the LangExtract service, pivot them to one row per ticket, and route the critical tickets.",
-  "order": 20,
+  "order": 21,
   "kind": "workshop",
   "stepCount": 7,
   "hasVideo": false,

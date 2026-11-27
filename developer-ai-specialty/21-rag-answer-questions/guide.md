@@ -404,30 +404,66 @@ Answer with one JSON object and nothing else, in exactly this shape:
 16. On the **Fields** tab, select **Get Fields**, then **Minimal width**.
 17. Select **OK**, and save the transformation (`Ctrl+S`).
 
-### 7. Run
+> **Under the hood:**
+>
+> #### The answer is parsed once, because the step already unwrapped it
+>
+> Ollama's own response is a JSON object with the reply inside it as text. **AI Chat** takes the reply out, so `llm_json` holds only the model's JSON, and one **JSON input** reads it. With **Ignore missing path** selected, a key the model leaves out becomes a null field instead of failing the row, and so does an answer that is plain text with no JSON in it.
+>
+> **Why it matters:** an answer that *starts* as JSON but is broken, with a missing brace or a stray bracket, is different: **JSON input** cannot parse it and stops the whole transformation. The next section catches those rows.
+
+### 7. Catch the Answers the Parser Cannot Read
+
+> **Note:**
+>
+> #### Error Handling on JSON Input
+>
+> A small model sometimes closes a JSON answer with the wrong bracket. An error hop sends such a row to a file of its own, with the parser's message, and the other questions carry on.
+
+1. On the **Design** tab, open the **Output** folder and drag **Text file output** onto the canvas, below **json-answer**.
+2. Double-click it and set **Step name** to `txt-bad-answers`. On the **File** tab, set **Filename** to `${Internal.Entry.Current.Directory}/bad_answers` and **Extension** to `csv`. Select **OK**.
+3. Create a hop from **json-answer** to **txt-bad-answers**, and select **Error handling of step** in the menu that opens. The hop is drawn red, with a red error icon.
+4. Right-click **json-answer** and select **Error Handling...**. In **Step error handling settings**, enter these settings, then select **OK**:
+
+| Setting | Value |
+| --- | --- |
+| **Target step** | `txt-bad-answers` |
+| **Enable the error handling?** | Selected |
+| **Nr of errors fieldname** | `err_count` |
+| **Error descriptions fieldname** | `err_desc` |
+
+5. Double-click **txt-bad-answers**. On the **Fields** tab, select **Get Fields**, then **Minimal width**, and delete every row except `question_id`, `llm_json` and `err_desc`. Select **OK**, and save the transformation (`Ctrl+S`).
+
+> **Under the hood:**
+>
+> #### A row the step cannot process leaves by the error hop instead of stopping the run
+>
+> Without error handling, the first unparsable answer fails **json-answer** and stops the transformation, so the questions behind it are never written. With it, **JSON input** adds the parser's message to the row as `err_desc` and sends that row down the red hop. The step's **Errors** count in **Step Metrics** shows how many rows went that way.
+>
+> **Why it matters:** this is how a production pipeline treats a model: most answers are good, some are not, and the bad ones are kept with their reason so a person, or a rerun with a stronger model, can deal with them.
+
+### 8. Run
 
 > **Note:**
 >
 > #### Run the Transformation
 >
-> Each question is one embedding request, one search and one model call. The model call takes longest, so on a CPU-only machine allow several minutes for the seven questions.
+> Each question is one embedding request, one search and one model call. The model call takes longest: with a GPU the run takes under a minute, while on a CPU-only machine you should allow several minutes for the seven questions.
 
 1. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
 2. In **Execution Results**, open the **Step Metrics** tab.
 
-<!-- UNPROVEN: the checkpoints below describe the expected shape; replace with measured figures (match counts, answers) once the GENAI-EE license lets the solution run. -->
-
-> **Success:** Checkpoint: every step finishes without errors, and every step from **csvi-questions** to **txt-answers** shows 7 under **Written**: one row per question, whatever the number of matches.
+> **Success:** Checkpoint: every step from **csvi-questions** to **txt-answers** shows 7 under **Written**: one row per question, whatever the number of matches. **json-answer** normally shows 0 under **Errors**. A row whose answer the parser cannot read leaves **json-answer** by the error hop instead: it counts under that step's **Errors**, **txt-bad-answers** writes it, and the steps after **json-answer** show one row fewer.
 
 3. Select **txt-answers** on the canvas and open the **Preview data** tab.
 
-> **Success:** Checkpoint: 7 rows. For questions 1 to 5, `match_count` is between 1 and 4, `retrieved_sources` includes the `expected_source`, `found` is `true`, the `answer` says what the table in **The Questions** tab says, and `cited_sources` names the `expected_source`. For questions 6 and 7, `found` is `false` and `answer` is `I could not find this in the Larkspur documents.`, even when `retrieved_sources` lists dishwasher or policy documents. The wording is the model's and can differ between models.
+> **Success:** Checkpoint: 7 rows, each with `match_count` `4`. For questions 1 to 5, `retrieved_sources` includes the `expected_source`, `found` is `true`, the `answer` says what the table in **The Questions** tab says, and `cited_sources` names the `expected_source`, sometimes with a second document beside it. For example, question 4's answer reads `Yes, you can return an unpacked washing machine within 14 days of delivery if you change your mind. A restocking fee of 15% of the purchase price is deducted from the refund.`, and goes on to the $49 collection fee; the wording will differ. For questions 6 and 7, `found` is `false` and `answer` is `I could not find this in the Larkspur documents.`, even though `retrieved_sources` lists dishwasher or policy documents.
 
 4. Open `C:\Workshop-AI-Specialty\05-retrieval-augmented-generation\21-rag-answer-questions\answers.csv`.
 
-> **Success:** Checkpoint: its first line is `question_id,question,expected_source,match_count,retrieved_sources,found,answer,cited_sources`, followed by 7 rows.
+> **Success:** Checkpoint: its first line is `question_id,question,expected_source,match_count,retrieved_sources,found,answer,cited_sources`, followed by 7 rows. `bad_answers.csv` is beside it, empty (0 bytes) when every answer parsed: **Text file output** writes its header with the first row, and no row reached it. When an answer fails to parse, it holds the header `question_id,llm_json,err_desc` and that row.
 
-### 8. Tune the Retrieval
+### 9. Tune the Retrieval
 
 > **Note:**
 >
@@ -474,27 +510,23 @@ Answer with one JSON object and nothing else, in exactly this shape:
 10. Double-click **Text file output** and set **Step name** to `txt-matches`. On the **File** tab, set **Filename** to `${Internal.Entry.Current.Directory}/retrieval_matches`, **Extension** to `csv`, and select **Create Parent folder**. On the **Content** tab, set **Encoding** to `UTF-8`. On the **Fields** tab, select **Get Fields**, then **Minimal width**. Select **OK**.
 11. Save the transformation (`Ctrl+S`), press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
 
-<!-- UNPROVEN: the scores and ranks come from Text to Vector and Vector Search; record them once the solution has run. -->
-
-> **Success:** Checkpoint: `retrieval_matches.csv` has up to 4 rows per question, ranked from `1`, with `match_score` falling as the rank rises. For questions 1 to 5, the `expected_source` appears among the matches; for question 3 it may not be first, because the washing machine manual also talks about its motor.
+> **Success:** Checkpoint: **vs-matches** reads 7 rows and writes 28, and `retrieval_matches.csv` has 4 rows per question, ranked from `1`, with `match_score` falling as the rank rises, between about `0.89` and `0.77`. For questions 1 to 5, the `expected_source` appears among the matches. For question 3 it is not first: the washing machine manual, chunk `0`, comes first (about `0.856`), because it also talks about its motor, and the warranty policy, chunk `0`, comes third (about `0.803`).
 
 12. Press `F9` again. In the **Run Options** dialog, on the **Parameters** tab, set the **Value** of `MIN_SCORE` to `0.85`, and select **Run**. Open `retrieval_matches.csv` again.
 
-<!-- UNPROVEN: which questions keep a match at 0.85 depends on the scores of a real run. -->
-
-> **Success:** Checkpoint: fewer rows. A question whose best match scores below 0.85 keeps one row with empty `match_rank`, `match_score` and `match_source`: the step kept the row without a match.
+> **Success:** Checkpoint: fewer rows: 10 with the scores above. Questions 1, 2, 3 and 6 keep their matches that score 0.85 or more (2, 3, 1 and 1). Questions 4, 5 and 7, whose best matches score about 0.84, 0.83 and 0.82, keep one row each with empty `match_rank`, `match_score` and `match_source`: the step kept the row without a match.
 
 13. Press `F9` again. On the **Parameters** tab, set `MIN_SCORE` back to `0.75` and `TOP_K` to `1`, and select **Run**.
 
-<!-- UNPROVEN: the best match of question 3 depends on a real run. -->
-
-> **Success:** Checkpoint: one row per question, its best match only. Check question 3: if its single match is not `larkspur-warranty-policy.pdf`, the answer to it can no longer come from the warranty policy.
+> **Success:** Checkpoint: 7 rows, one per question, its best match only. Question 3's single match is `larkspur-wm800-washing-machine-manual.docx`, not `larkspur-warranty-policy.pdf`, so the answer to it can no longer come from the warranty policy.
 
 14. Select **File > Open** (`Ctrl+O`) and open `answer_questions.ktr`. Press `F9`, set `TOP_K` to `1` on the **Parameters** tab, select **Run**, and compare the new `answers.csv` with the first one. Then run it with `TOP_K` `4` and `MIN_SCORE` `0.9`.
 
-<!-- UNPROVEN: the answers depend on a real run of the retrieval and the model. -->
+> **Success:** Checkpoint: with `TOP_K` `1`, question 3 now has `found` `false`: its only passage is the washing machine manual, and the answer says the motor's warranty period is not stated, where with four passages it gave the 10 years from the warranty policy. The other questions keep their answers and their one cited source.
 
-> **Success:** Checkpoint: with `TOP_K` `1`, an answer whose passage was lost now has `found` `false` or a less complete answer, such as question 4 without the $49 collection fee if that fact sits in another chunk. With `MIN_SCORE` `0.9`, most questions get `match_count` `0`, the context `(no passages were found)`, and `found` `false`: the model does not fall back on what it knows.
+Now open the `answers.csv` of the `MIN_SCORE` `0.9` run.
+
+> **Warning:** with `MIN_SCORE` `0.9` no passage scores high enough, so every question gets the context `(no passages were found)`, and the instruction says to answer only from the passages. In the measured run, `llama3.2:3b` still answered from its own knowledge: question 2 got `found` `true` and "every 3-6 months" (the manual says every 200 cups), and question 4 got `found` `true` with two sources that do not exist, `return_policy.txt` and `customer_service_guidelines.pdf`. Questions 3, 5, 6 and 7 declined. An instruction is a request, not a control: check `found` and the cited sources against what was retrieved, as [Evaluate the Answers](../27-rag-evaluation/guide.md) does, before you trust an answer.
 
 15. In PowerShell, open `psql` with `podman exec -it pcm-pgvector psql -U genai -d genai` and run the search **Vector Search** runs, using the first chunk of the warranty policy as the question:
 
@@ -510,7 +542,7 @@ ORDER BY k.embedding <=> q.embedding
 LIMIT 4;
 ```
 
-> **Success:** Checkpoint: 4 rows. The first is `larkspur-warranty-policy.pdf`, chunk `0`, with score `1.000`: a vector is at distance 0 from itself. The other three have lower scores.
+> **Success:** Checkpoint: 4 rows. The first is `larkspur-warranty-policy.pdf`, chunk `0`, with score `1.000`: a vector is at distance 0 from itself. The other three have lower scores: the warranty policy's chunk `1` (about `0.925`), then the returns policy and the support FAQ, each chunk `0`.
 
 16. Type `\q` to leave `psql`.
 
@@ -575,7 +607,7 @@ The finished transformations for this lab. Open them alongside your own to compa
 
 Also on disk at `C:\Workshop-AI-Specialty\05-retrieval-augmented-generation\21-rag-answer-questions\solution`.
 
-`answer_questions.ktr` answers the questions and writes `answers.csv` beside itself:
+`answer_questions.ktr` answers the questions and writes `answers.csv` beside itself, and any answer the parser cannot read to `bad_answers.csv`:
 
 [answer_questions.ktr](./files/solution/answer_questions.ktr) <button data-launch="spoon" data-path="files/solution/answer_questions.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/solution/answer_questions.ktr">View graph</button>
 

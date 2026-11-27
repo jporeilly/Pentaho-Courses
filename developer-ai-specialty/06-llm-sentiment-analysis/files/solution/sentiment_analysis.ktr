@@ -503,11 +503,13 @@ Needs Ollama with ${MODEL_NAME} (llama3.2:3b) and the GenAI plugins with a GENAI
 6. txt-results: Text file output, sentiment_results.csv beside this file.
 
 Parameters: MODEL_NAME llama3.2:3b, OLLAMA_URL http://localhost:11434, STEP_COPIES 4.
-Shipped data: 5 reviews; reviews 1 and 4 come back positive, 2 and 5 negative.</note>
+Shipped data: 5 reviews; reviews 1 and 4 come back positive, 2 and 5 negative.
+Error hop: json-sentiment sends an answer it cannot parse to txt-bad-answers: review_id, llm_json,
+err_desc to bad_answers.csv beside this file (0 bytes when every answer parsed).</note>
       <xloc>160</xloc>
       <yloc>32</yloc>
       <width>627</width>
-      <heigth>296</heigth>
+      <heigth>332</heigth>
       <fontname>Segoe UI</fontname>
       <fontsize>10</fontsize>
       <fontbold>N</fontbold>
@@ -548,6 +550,11 @@ Shipped data: 5 reviews; reviews 1 and 4 come back positive, 2 and 5 negative.</
     <hop>
       <from>sv-results</from>
       <to>txt-results</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>json-sentiment</from>
+      <to>txt-bad-answers</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -643,7 +650,7 @@ Shipped data: 5 reviews; reviews 1 and 4 come back positive, 2 and 5 negative.</
     </remotesteps>
     <GUI>
       <xloc>160</xloc>
-      <yloc>376</yloc>
+      <yloc>412</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -684,7 +691,7 @@ Answer with one JSON object and nothing else, in exactly this shape:
     </remotesteps>
     <GUI>
       <xloc>340</xloc>
-      <yloc>376</yloc>
+      <yloc>412</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -750,7 +757,7 @@ Answer with one JSON object and nothing else, in exactly this shape:
     </remotesteps>
     <GUI>
       <xloc>520</xloc>
-      <yloc>376</yloc>
+      <yloc>412</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -873,7 +880,7 @@ Answer with one JSON object and nothing else, in exactly this shape:
     </remotesteps>
     <GUI>
       <xloc>700</xloc>
-      <yloc>376</yloc>
+      <yloc>412</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -961,7 +968,7 @@ Answer with one JSON object and nothing else, in exactly this shape:
     </remotesteps>
     <GUI>
       <xloc>880</xloc>
-      <yloc>376</yloc>
+      <yloc>412</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1138,8 +1145,115 @@ Answer with one JSON object and nothing else, in exactly this shape:
     </remotesteps>
     <GUI>
       <xloc>1060</xloc>
-      <yloc>376</yloc>
+      <yloc>412</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
+  <step>
+    <name>txt-bad-answers</name>
+    <type>TextFileOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <separator>,</separator>
+    <enclosure>"</enclosure>
+    <enclosure_forced>N</enclosure_forced>
+    <enclosure_fix_disabled>N</enclosure_fix_disabled>
+    <header>Y</header>
+    <footer>N</footer>
+    <format>DOS</format>
+    <compression>None</compression>
+    <encoding>UTF-8</encoding>
+    <endedLine/>
+    <fileNameInField>N</fileNameInField>
+    <fileNameField/>
+    <create_parent_folder>Y</create_parent_folder>
+    <file>
+      <name>${Internal.Entry.Current.Directory}/bad_answers</name>
+      <servlet_output>N</servlet_output>
+      <do_not_open_new_file_init>N</do_not_open_new_file_init>
+      <extention>csv</extention>
+      <append>N</append>
+      <split>N</split>
+      <haspartno>N</haspartno>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <SpecifyFormat>N</SpecifyFormat>
+      <date_time_format/>
+      <add_to_result_filenames>Y</add_to_result_filenames>
+      <pad>N</pad>
+      <fast_dump>N</fast_dump>
+      <splitevery/>
+    </file>
+    <fields>
+      <field>
+        <name>review_id</name>
+        <type>Integer</type>
+        <format>0</format>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>llm_json</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>err_desc</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>700</xloc>
+      <yloc>572</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step_error_handling>
+    <error>
+      <source_step>json-sentiment</source_step>
+      <target_step>txt-bad-answers</target_step>
+      <is_enabled>Y</is_enabled>
+      <nr_valuename>err_count</nr_valuename>
+      <descriptions_valuename>err_desc</descriptions_valuename>
+      <fields_valuename/>
+      <codes_valuename/>
+      <max_errors/>
+      <max_pct_errors/>
+      <min_pct_rows/>
+    </error>
+  </step_error_handling>
 </transformation>

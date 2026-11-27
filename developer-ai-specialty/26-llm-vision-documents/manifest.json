@@ -3,7 +3,7 @@
   "description": "Hands-on: read invoice and receipt images with the AI Chat step and a local vision model, parse the answer as JSON, check that subtotal plus tax equals total, and compare sending image files with sending Base64 images.",
   "kind": "workshop",
   "estimatedMinutes": 50,
-  "stepCount": 10,
+  "stepCount": 11,
   "hasVideo": false,
   "order": 14
 }

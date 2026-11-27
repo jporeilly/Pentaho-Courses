@@ -322,9 +322,9 @@ Answer with one JSON object and nothing else, in exactly this shape:
 >
 > #### The answer is parsed once, because the step already unwrapped it
 >
-> Ollama's own response is a JSON object with the reply inside it as text. **AI Chat** takes the reply out, so `llm_json` holds only the model's JSON, and one **JSON input** reads it. With **Ignore missing path** selected, a key the model leaves out becomes a null field instead of failing the row.
+> Ollama's own response is a JSON object with the reply inside it as text. **AI Chat** takes the reply out, so `llm_json` holds only the model's JSON, and one **JSON input** reads it. With **Ignore missing path** selected, a key the model leaves out becomes a null field instead of failing the row, and so does an answer that is plain text with no JSON in it.
 >
-> **Why it matters:** a model can still return text that is not JSON. The null fields show which rows to look at, without stopping the other reviews.
+> **Why it matters:** an answer that *starts* as JSON but is broken, with a missing brace or a stray bracket, is different: **JSON input** cannot parse it and stops the whole transformation. The next section catches those rows.
 
 ### 7. Write the Results
 
@@ -345,7 +345,37 @@ Answer with one JSON object and nothing else, in exactly this shape:
 9. On the **Fields** tab, select **Get Fields**, then **Minimal width**. The grid lists the ten fields in the order **sv-results** gives them, with no fixed lengths, so long reviews are not padded with spaces.
 10. Select **OK**, and save the transformation (`Ctrl+S`).
 
-### 8. Run
+### 8. Catch the Answers the Parser Cannot Read
+
+> **Note:**
+>
+> #### Error Handling on JSON Input
+>
+> A small model sometimes closes a JSON answer with the wrong bracket. An error hop sends such a row to a file of its own, with the parser's message, and the other reviews carry on.
+
+1. On the **Design** tab, open the **Output** folder and drag **Text file output** onto the canvas, below **json-sentiment**.
+2. Double-click it and set **Step name** to `txt-bad-answers`. On the **File** tab, set **Filename** to `${Internal.Entry.Current.Directory}/bad_answers` and **Extension** to `csv`. Select **OK**.
+3. Create a hop from **json-sentiment** to **txt-bad-answers**, and select **Error handling of step** in the menu that opens. The hop is drawn red, with a red error icon.
+4. Right-click **json-sentiment** and select **Error Handling...**. In **Step error handling settings**, enter these settings, then select **OK**:
+
+| Setting | Value |
+| --- | --- |
+| **Target step** | `txt-bad-answers` |
+| **Enable the error handling?** | Selected |
+| **Nr of errors fieldname** | `err_count` |
+| **Error descriptions fieldname** | `err_desc` |
+
+5. Double-click **txt-bad-answers**. On the **Fields** tab, select **Get Fields**, then **Minimal width**, and delete every row except `review_id`, `llm_json` and `err_desc`. Select **OK**, and save the transformation (`Ctrl+S`).
+
+> **Under the hood:**
+>
+> #### A row the step cannot process leaves by the error hop instead of stopping the run
+>
+> Without error handling, the first unparsable answer fails **json-sentiment** and stops the transformation, so the reviews behind it are never written. With it, **JSON input** adds the parser's message to the row as `err_desc` and sends that row down the red hop. The step's **Errors** count in **Step Metrics** shows how many rows went that way.
+>
+> **Why it matters:** this is how a production pipeline treats a model: most answers are good, some are not, and the bad ones are kept with their reason so a person, or a rerun with a stronger model, can deal with them.
+
+### 9. Run
 
 > **Note:**
 >
@@ -356,13 +386,11 @@ Answer with one JSON object and nothing else, in exactly this shape:
 1. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
 2. In **Execution Results**, open the **Step Metrics** tab.
 
-<!-- UNPROVEN: the checkpoints below describe the expected shape; replace with measured figures once the GENAI-EE license lets the solution run. -->
-
-> **Success:** Checkpoint: every step finishes without errors. **csvi-reviews** shows 5 under **Written**. **ai-sentiment** has four lines, copies 0 to 3, that between them read the 5 rows. **txt-results** shows 5 under **Written**.
+> **Success:** Checkpoint: **csvi-reviews** shows 5 under **Written**. **ai-sentiment** has four lines, copies 0 to 3, that between them read the 5 rows (for example 2, 1, 1 and 1). **json-sentiment** reads 5 and writes 5 with 0 under **Errors**, and **txt-results** shows 5 under **Written**. No answer went down the error hop, so `bad_answers.csv` is empty. On a machine with a GPU the five model calls take about 8 seconds.
 
 3. Select **txt-results** on the canvas and open the **Preview data** tab.
 
-> **Success:** Checkpoint: 5 rows, one per review, each with a `sentiment` of `positive`, `negative` or `neutral`, a `score` between -1 and 1, a `confidence`, `key_phrases` and a one-sentence `summary`. The labels and numbers are the model's, so they can differ from run to run; reviews 1 and 4 should come back positive and 2 and 5 negative.
+> **Success:** Checkpoint: 5 rows, one per review, each with a `sentiment` of `positive`, `negative` or `neutral`, a `score` between -1 and 1, a `confidence`, `key_phrases` and a one-sentence `summary`. Reviews 1, 3 and 4 come back `positive` and 2 and 5 `negative`; for example, review 1 scored `0.9` with confidence `98` and the key phrases `["exceeded expectations","worth every penny"]`. The numbers and wording are the model's and will differ from run to run, and the rows can arrive in a different order than in the file, because four copies answer in parallel.
 
 4. Open `C:\Workshop-AI-Specialty\04-llm-integration\06-llm-sentiment-analysis\sentiment_results.csv`.
 

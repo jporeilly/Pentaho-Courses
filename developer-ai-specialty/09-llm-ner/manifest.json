@@ -3,7 +3,7 @@
   "description": "Hands-on: extract entities two ways, with the NER Extractor step (Stanford CoreNLP, no LLM, offsets) and with AI Chat (custom types as JSON), and compare what each finds.",
   "order": 11,
   "kind": "workshop",
-  "stepCount": 7,
+  "stepCount": 8,
   "hasVideo": false,
   "estimatedMinutes": 40
 }

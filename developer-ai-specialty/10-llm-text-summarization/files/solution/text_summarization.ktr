@@ -501,12 +501,14 @@ Needs Ollama at OLLAMA_URL with MODEL_NAME pulled, and the GenAI plugins with a 
 4. json-summary: JSON input from llm_json: summary, bullet_points, key_takeaways, action_items.
 5. sv-results: document_id, document_type, title and the four summary fields.
 6. txt-results: Text file output, summaries.csv beside this file.
+Error hop: json-summary sends an answer it cannot parse to txt-bad-answers: document_id, llm_json,
+err_desc to bad_answers.csv beside this file (0 bytes when every answer parsed).
 
 Shipped data: 10 documents of 10 kinds, from 269 to 1,657 words.</note>
       <xloc>160</xloc>
       <yloc>32</yloc>
       <width>626</width>
-      <heigth>278</heigth>
+      <heigth>314</heigth>
       <fontname>Segoe UI</fontname>
       <fontsize>10</fontsize>
       <fontbold>N</fontbold>
@@ -547,6 +549,11 @@ Shipped data: 10 documents of 10 kinds, from 269 to 1,657 words.</note>
     <hop>
       <from>sv-results</from>
       <to>txt-results</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>json-summary</from>
+      <to>txt-bad-answers</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -631,7 +638,7 @@ Shipped data: 10 documents of 10 kinds, from 269 to 1,657 words.</note>
     </remotesteps>
     <GUI>
       <xloc>160</xloc>
-      <yloc>358</yloc>
+      <yloc>394</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -673,7 +680,7 @@ Use an empty list when the document has no action items.</nullif>
     </remotesteps>
     <GUI>
       <xloc>320</xloc>
-      <yloc>358</yloc>
+      <yloc>394</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -739,7 +746,7 @@ Use an empty list when the document has no action items.</nullif>
     </remotesteps>
     <GUI>
       <xloc>480</xloc>
-      <yloc>358</yloc>
+      <yloc>394</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -849,7 +856,7 @@ Use an empty list when the document has no action items.</nullif>
     </remotesteps>
     <GUI>
       <xloc>640</xloc>
-      <yloc>358</yloc>
+      <yloc>394</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -919,7 +926,7 @@ Use an empty list when the document has no action items.</nullif>
     </remotesteps>
     <GUI>
       <xloc>800</xloc>
-      <yloc>358</yloc>
+      <yloc>394</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1060,8 +1067,115 @@ Use an empty list when the document has no action items.</nullif>
     </remotesteps>
     <GUI>
       <xloc>960</xloc>
-      <yloc>358</yloc>
+      <yloc>394</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
+  <step>
+    <name>txt-bad-answers</name>
+    <type>TextFileOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <separator>,</separator>
+    <enclosure>"</enclosure>
+    <enclosure_forced>N</enclosure_forced>
+    <enclosure_fix_disabled>N</enclosure_fix_disabled>
+    <header>Y</header>
+    <footer>N</footer>
+    <format>DOS</format>
+    <compression>None</compression>
+    <encoding>UTF-8</encoding>
+    <endedLine/>
+    <fileNameInField>N</fileNameInField>
+    <fileNameField/>
+    <create_parent_folder>Y</create_parent_folder>
+    <file>
+      <name>${Internal.Entry.Current.Directory}/bad_answers</name>
+      <servlet_output>N</servlet_output>
+      <do_not_open_new_file_init>N</do_not_open_new_file_init>
+      <extention>csv</extention>
+      <append>N</append>
+      <split>N</split>
+      <haspartno>N</haspartno>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <SpecifyFormat>N</SpecifyFormat>
+      <date_time_format/>
+      <add_to_result_filenames>Y</add_to_result_filenames>
+      <pad>N</pad>
+      <fast_dump>N</fast_dump>
+      <splitevery/>
+    </file>
+    <fields>
+      <field>
+        <name>document_id</name>
+        <type>Integer</type>
+        <format>0</format>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>llm_json</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>err_desc</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>640</xloc>
+      <yloc>554</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step_error_handling>
+    <error>
+      <source_step>json-summary</source_step>
+      <target_step>txt-bad-answers</target_step>
+      <is_enabled>Y</is_enabled>
+      <nr_valuename>err_count</nr_valuename>
+      <descriptions_valuename>err_desc</descriptions_valuename>
+      <fields_valuename/>
+      <codes_valuename/>
+      <max_errors/>
+      <max_pct_errors/>
+      <min_pct_rows/>
+    </error>
+  </step_error_handling>
 </transformation>

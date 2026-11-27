@@ -105,9 +105,7 @@ $body = @{
 (Invoke-RestMethod -Uri http://localhost:11434/api/chat -Method Post -ContentType "application/json" -Body $body).message.content
 ```
 
-<!-- UNPROVEN: the checkpoint below describes the expected shape; replace with a measured answer once the GENAI-EE license lets the solution run. -->
-
-> **Success:** Checkpoint: one line of JSON with `city`, `state` and `industry`. The address fixes `Houston` and `TX`; the industry is the model's estimate from the name `global solutions ltd`.
+> **Success:** Checkpoint: one line of JSON with `city`, `state` and `industry`, such as `{"city": "Houston", "state": "TX", "industry": "Technology"}`. The address fixes `Houston` and `TX`; the industry is the model's estimate from the name `global solutions ltd`, and can differ from run to run and from the transformation's answer.
 
 ### 3. Read the Customers
 
@@ -320,7 +318,37 @@ The record's name is left out of the message on purpose: a person's name says no
 >
 > **Why it matters:** an enrichment that changes between runs cannot be audited. A fixed temperature and a stated basis make each inferred value something a reviewer can check.
 
-### 7. Write and Run
+### 7. Catch the Answers the Parser Cannot Read
+
+> **Note:**
+>
+> #### Error Handling on JSON Input
+>
+> A small model sometimes closes a JSON answer with the wrong bracket. An error hop sends such a row to a file of its own, with the parser's message, and the other records carry on.
+
+1. On the **Design** tab, open the **Output** folder and drag **Text file output** onto the canvas, below **json-enrich**.
+2. Double-click it and set **Step name** to `txt-bad-answers`. On the **File** tab, set **Filename** to `${Internal.Entry.Current.Directory}/bad_answers` and **Extension** to `csv`. Select **OK**.
+3. Create a hop from **json-enrich** to **txt-bad-answers**, and select **Error handling of step** in the menu that opens. The hop is drawn red, with a red error icon.
+4. Right-click **json-enrich** and select **Error Handling...**. In **Step error handling settings**, enter these settings, then select **OK**:
+
+| Setting | Value |
+| --- | --- |
+| **Target step** | `txt-bad-answers` |
+| **Enable the error handling?** | Selected |
+| **Nr of errors fieldname** | `err_count` |
+| **Error descriptions fieldname** | `err_desc` |
+
+5. Double-click **txt-bad-answers**. On the **Fields** tab, select **Get Fields**, then **Minimal width**, and delete every row except `customer_id`, `llm_json` and `err_desc`. Select **OK**, and save the transformation (`Ctrl+S`).
+
+> **Under the hood:**
+>
+> #### A row the step cannot process leaves by the error hop instead of stopping the run
+>
+> Without error handling, the first unparsable answer fails **json-enrich** and stops the transformation, so the records behind it are never written. With it, **JSON input** adds the parser's message to the row as `err_desc` and sends that row down the red hop. The step's **Errors** count in **Step Metrics** shows how many rows went that way.
+>
+> **Why it matters:** this is how a production pipeline treats a model: most answers are good, some are not, and the bad ones are kept with their reason so a person, or a rerun with a stronger model, can deal with them.
+
+### 8. Write and Run
 
 > **Note:**
 >
@@ -338,17 +366,15 @@ The record's name is left out of the message on purpose: a person's name says no
 8. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
 9. In **Execution Results**, open the **Step Metrics** tab.
 
-<!-- UNPROVEN: the checkpoints below describe the expected shape; replace with measured figures once the GENAI-EE license lets the solution run. -->
-
-> **Success:** Checkpoint: every step finishes without errors. **csvi-customers** shows 10 under **Written**, the copies of **ai-enrich** read 10 rows between them, and **txt-results** writes 10.
+> **Success:** Checkpoint: **csvi-customers** shows 10 under **Written**, and the four copies of **ai-enrich** read 10 rows between them (for example 3, 3, 2 and 2). **json-enrich** writes 10 with 0 under **Errors**: every answer parsed, so none went down the error hop, and **txt-results** shows 10 under **Written**. On a machine with a GPU the ten model calls take about 5 seconds.
 
 10. Select **txt-results** on the canvas and open the **Preview data** tab.
 
-> **Success:** Checkpoint: one row per customer with the six new fields. `city` and `state` should match each address (customer 1004, `Houston, Texas 77001`, as `Houston` and `TX`); `industry` is one of the eight in `INDUSTRY_LIST`, with the words it was judged from in `industry_basis`; `employee_range` is one of the bands or `UNKNOWN`.
+> **Success:** Checkpoint: 10 rows, one per customer, with the six new fields. `city` and `state` match each address (customer 1004, `Houston, Texas 77001`, as `Houston` and `TX`) and `country` is `USA`. `industry` is one of the eight in `INDUSTRY_LIST`, for example `Services` for 1004 and `Real Estate` for 1008, with the words it was judged from in `industry_basis`; `employee_range` is one of the bands, such as `1-10` or `51-200`. The estimates are the model's and will differ from run to run. Read `industry_basis` critically: in the measured run the model copied the instruction's placeholder, `the words in the record that suggest the industry`, into it for customer 1001 instead of real words.
 
 11. Open `customers_enriched.csv` in `C:\Workshop-AI-Specialty\04-llm-integration\08-llm-data-enrichment`.
 
-> **Success:** Checkpoint: its first line is `customer_id,name,company_name,address,city,state,country,industry,industry_basis,employee_range`, followed by 10 rows.
+> **Success:** Checkpoint: its first line is `customer_id,name,company_name,address,city,state,country,industry,industry_basis,employee_range`, followed by one row per answer that parsed: 10 when every answer did. `bad_answers.csv` is there too, but empty, without even a header line, when every answer parsed.
 
 12. Try another list: press `F9`, and in the **Run Options** dialog change `INDUSTRY_LIST` to `Technology, Services, Other`. Run again and compare: the template sent the new list to every row without a change to any step.
 
@@ -387,7 +413,7 @@ The ten customer records to enrich:
 
 ### Solution <!-- no-step -->
 
-The finished transformation for this lab. Open it alongside your own to compare, or run it to see the expected result. It reads `data_enrichment_customers.csv` from the lab folder and writes `customers_enriched.csv` beside itself.
+The finished transformation for this lab. Open it alongside your own to compare, or run it to see the expected result. It reads `data_enrichment_customers.csv` from the lab folder and writes `customers_enriched.csv` beside itself, and `bad_answers.csv` for any answer the parser could not read.
 
 Also on disk at `C:\Workshop-AI-Specialty\04-llm-integration\08-llm-data-enrichment\solution`.
 
