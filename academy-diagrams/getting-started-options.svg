@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="452" viewBox="0 0 920 452" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+<filter id="shadow" x="-10%" y="-10%" width="120%" height="140%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#0f172a" flood-opacity="0.12"/></filter></defs>
+<rect width="920" height="452" fill="#ffffff"/>
+<path d="M320 50C160 50 160 50 160 292" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M460 80L460 150" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M600 50C790 50 790 50 790 292" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M460 216L460 292" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M600 183C690 183 690 183 690 292" fill="none" stroke="#64748b" stroke-width="1.7" stroke-dasharray="5 4" marker-end="url(#arrow)"/>
+<rect x="320" y="20" width="280" height="60" rx="10" fill="#f1f5f9" stroke="#475569" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="350" cy="50" r="19" fill="#ffffff" stroke="#475569" stroke-width="1.2"/>
+<g transform="translate(338 38) scale(1)" fill="none" stroke="#475569" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m16.24 7.76-1.804 5.411a2 2 0 0 1-1.265 1.265L7.76 16.24l1.804-5.411a2 2 0 0 1 1.265-1.265z"/></g>
+<text x="380" y="40.5" font-size="14" font-weight="700" fill="#0f172a">What do you want</text>
+<text x="380" y="57.5" font-size="12" fill="#0f172a">from Pentaho?</text>
+<rect x="320" y="150" width="280" height="66" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="350" cy="183" r="19" fill="#ffffff" stroke="#b45309" stroke-width="1.2"/>
+<g transform="translate(338 171) scale(1)" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></g>
+<text x="380" y="173.5" font-size="14" font-weight="700" fill="#78350f">Who are you?</text>
+<text x="380" y="190.5" font-size="12" fill="#78350f">Student, academic or non-profit?</text>
+<rect x="20" y="292" width="280" height="140" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="50" cy="362" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(38 350) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></g>
+<text x="80" y="322.5" font-size="14" font-weight="700" fill="#1e3a8a">Hosted lab</text>
+<text x="80" y="339.5" font-size="12" fill="#1e3a8a">~10 minutes to start</text>
+<text x="80" y="354.5" font-size="12" fill="#1e3a8a">✓ nothing to install</text>
+<text x="80" y="369.5" font-size="12" fill="#1e3a8a">✓ the PDI in 2 Hours course</text>
+<text x="80" y="384.5" font-size="12" fill="#1e3a8a">✓ a prepared dataset</text>
+<text x="80" y="399.5" font-size="12" fill="#1e3a8a">✗ 5-hour session, then gone</text>
+<rect x="320" y="292" width="280" height="140" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="350" cy="362" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(338 350) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 5a2 2 0 0 1 2 2v8.526a2 2 0 0 0 .212.897l1.068 2.127a1 1 0 0 1-.9 1.45H3.62a1 1 0 0 1-.9-1.45l1.068-2.127A2 2 0 0 0 4 15.526V7a2 2 0 0 1 2-2z"/><path d="M20.054 15.987H3.946"/></g>
+<text x="380" y="322.5" font-size="14" font-weight="700" fill="#14532d">Developer Edition</text>
+<text x="380" y="339.5" font-size="12" fill="#14532d">~15 minutes, once approved</text>
+<text x="380" y="354.5" font-size="12" fill="#14532d">✓ PDI on Windows or macOS</text>
+<text x="380" y="369.5" font-size="12" fill="#14532d">✓ your own data, no time limit</text>
+<text x="380" y="384.5" font-size="12" fill="#14532d">✓ free, no licence key</text>
+<text x="380" y="399.5" font-size="12" fill="#14532d">✗ no Pentaho Server</text>
+<rect x="620" y="292" width="280" height="140" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="650" cy="362" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(638 350) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 12h4"/><path d="M10 8h4"/><path d="M14 21v-3a2 2 0 0 0-4 0v3"/><path d="M6 10H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2"/><path d="M6 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16"/></g>
+<text x="680" y="322.5" font-size="14" font-weight="700" fill="#3b0764">Enterprise trial</text>
+<text x="680" y="339.5" font-size="12" fill="#3b0764">2–3 business days</text>
+<text x="680" y="354.5" font-size="12" fill="#3b0764">✓ Pentaho Server and design tools</text>
+<text x="680" y="369.5" font-size="12" fill="#3b0764">✓ your own data, at real volume</text>
+<text x="680" y="384.5" font-size="12" fill="#3b0764">✓ a named Account Executive</text>
+<text x="680" y="399.5" font-size="12" fill="#3b0764">✓ scheduling, Pipeline Designer</text>
+<rect x="91.15" y="157.5" width="137.7" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="160" y="175.5" text-anchor="middle" font-size="12" fill="#334155">a quick look, today</text>
+<rect x="365.95" y="102.5" width="188.1" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="460" y="120.5" text-anchor="middle" font-size="12" fill="#334155">to learn, teach or research</text>
+<rect x="683.35" y="107.5" width="213.29999999999998" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="790" y="125.5" text-anchor="middle" font-size="12" fill="#334155">to prove it for my organisation</text>
+<rect x="441.55" y="241.5" width="36.9" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="460" y="259.5" text-anchor="middle" font-size="12" fill="#334155">yes</text>
+<rect x="674.7" y="237.5" width="30.6" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="690" y="255.5" text-anchor="middle" font-size="12" fill="#334155">no</text>
+</svg>
