@@ -1,7 +1,7 @@
 {
   "title": "Capstone: A Plant-Floor Alert Feed",
   "description": "Capstone: subscribe to three machines' telemetry with one MQTT wildcard, archive every reading, publish over-threshold readings to a keyed Kafka topic, and load the alerts into MySQL without duplicates.",
-  "order": 10,
+  "order": 11,
   "kind": "workshop",
   "stepCount": 17,
   "estimatedMinutes": 120,

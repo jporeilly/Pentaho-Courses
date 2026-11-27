@@ -1,4 +1,4 @@
-// The capstone's target (10-capstone-a-plant-floor-alert-feed, Suggested
+// The capstone's target (11-capstone-a-plant-floor-alert-feed, Suggested
 // shape): two pipelines joined by a keyed Kafka topic.
 //
 // Facts it encodes (the capstone guide and files):

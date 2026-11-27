@@ -46,5 +46,11 @@
   "Consumer lag": "How far a consumer group is behind: the end of the log minus the group's committed offset, per partition.",
   "Replay": "Reading a topic's records again by moving a consumer group's committed offset back, for example to rebuild a table after fixing a pipeline. Safe only where every write can happen twice.",
   "Stream processor": "An engine, such as Apache Flink or Kafka Streams, that handles each event as it arrives and keeps state between events, for windows and joins over time.",
-  "Change data capture": "Reading inserts, updates and deletes from a database's transaction log and publishing each change as an event, without changing the application that made it."
+  "Change data capture": "Reading inserts, updates and deletes from a database's transaction log and publishing each change as an event, without changing the application that made it.",
+  "Data lake": "Cheap object storage that holds data as open-format files, as it arrived, for any engine to read later. The Streams to the Lake workshop lands pdi-signups in the MinIO bucket streaming-lake.",
+  "Object storage": "Storage of whole files, called objects, in buckets, reached over an HTTP API such as Amazon S3's. MinIO is an object store that speaks the S3 API.",
+  "Avro": "An open, row-based file format whose files carry their own schema. Pentaho Data Integration writes it with Avro output and reads it with Avro input.",
+  "VFS connection": "A named connection in Pentaho Data Integration to a file system such as Amazon S3 or MinIO. A path such as pvfs://MinIO/streaming-lake/... names the bucket through the connection.",
+  "Small files problem": "A lake fed in tiny batches gets many tiny files; each carries a header and costs a request, so queries slow down. Longer batches and compaction keep files larger.",
+  "Table format": "A layer, such as Apache Iceberg or Delta Lake, that keeps a catalog of the files making up a table, with its schema and snapshots, so engines read a table rather than a list of files."
 }

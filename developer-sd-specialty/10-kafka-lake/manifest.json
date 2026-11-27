@@ -1,0 +1,9 @@
+{
+  "title": "Streams to the Lake",
+  "description": "Hands-on: land a Kafka stream in an object-store data lake. Connect Pentaho Data Integration to MinIO with a VFS connection, write each batch of pdi-signups records as an Avro file with Avro output, see how the batch size sets the number and size of the files, read a batch back in Pentaho Data Integration, and read the whole lake with another engine.",
+  "order": 10,
+  "kind": "workshop",
+  "stepCount": 7,
+  "hasVideo": false,
+  "estimatedMinutes": 45
+}

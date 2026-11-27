@@ -512,4 +512,4 @@ Also on disk at `C:\Workshop-SD-Specialty\05-kafka\09-kafka-contracts\solution`.
 
 ---
 
-> **Tip:** Next, put the whole course together: [Capstone: A Plant-Floor Alert Feed](../10-capstone-a-plant-floor-alert-feed/guide.md).
+> **Tip:** Next, land the same stream in a data lake, as files any engine can read: [Streams to the Lake](../10-kafka-lake/guide.md).

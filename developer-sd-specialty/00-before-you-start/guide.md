@@ -171,11 +171,19 @@ starts its `sampledata-mysql` container:
 C:\MySQL\run-podman-mysql.ps1
 ```
 
+The lake lab writes to MinIO, an object store that speaks the Amazon S3
+API. The MinIO kit at `C:\minIO` starts its `pcm-minio` container, a
+community build of MinIO whose console is branded **SILO**:
+
+```powershell
+C:\minIO\run-podman-minio.ps1
+```
+
 <details>
 <summary>Troubleshooting</summary>
 
 **A port is already in use.** Something else owns 1883, 1884, 5672,
-9092, 9090, 18083, 15672 or 3306 — usually an older broker or database
+9092, 9090, 18083, 15672, 3306, 9000 or 9099 — usually an older broker or database
 container. For a broker port, the Streaming script names the container
 and prints the `podman stop` command that frees the port; `podman ps`
 lists every running container with the ports it publishes.
@@ -262,12 +270,14 @@ Everything this course uses, all local to your machine:
 | ------------------ | ------------------------- | ----------------- |
 | HiveMQ (MQTT)      | `tcp://localhost:1883`    | *none*            |
 | HiveMQ Control Center | http://localhost:9090  | `admin` / `hivemq` (a 25-connection trial) |
-| EMQX (MQTT)        | `tcp://localhost:1884`    | *none*            |
+| EMQX (MQTT)        | `tcp://localhost:1884`    | *none*, until the EMQX lab adds `pdi` / `pdi-lab-2026` |
 | EMQX Dashboard     | http://localhost:18083    | `admin` / `public` (the first sign-in offers a password change: **Skip** keeps this one) |
 | RabbitMQ (AMQP)    | `amqp://localhost:5672`   | `guest` / `guest` |
 | RabbitMQ management | http://localhost:15672   | `guest` / `guest` |
 | Kafka              | `127.0.0.1:9092`   (use the IP, not `localhost` - Windows resolves that to IPv6 first)          | *none*            |
 | MySQL kit (`sampledata-mysql`) | `localhost:3306` | `root` / `password`; the Kafka lab adds `kafka_user` / `password` |
+| MinIO kit (`pcm-minio`), S3 API | `http://127.0.0.1:9000` | `minioadmin` / `minioadmin` |
+| MinIO console      | http://127.0.0.1:9099     | `minioadmin` / `minioadmin` |
 | Ollama — the Chat tab | `127.0.0.1:11434`      | *none*            |
 
 > **Caution:** These are the stock workshop credentials and are widely
@@ -325,8 +335,11 @@ C:\Workshop-SD-Specialty
 │   │   ├── produce_users.py              the publisher
 │   │   ├── 01-create-kafka-warehouse.sql
 │   │   └── solution
-│   └── 09-kafka-contracts
-│       ├── produce_signups.py            the publisher, some events broken
+│   ├── 09-kafka-contracts
+│   │   ├── produce_signups.py            the publisher, some events broken
+│   │   └── solution
+│   └── 10-kafka-lake
+│       ├── query_lake.py                 reads the lake without Pentaho
 │       └── solution
 └── capstone
     ├── data                              what the capstone reads, shipped
@@ -409,7 +422,7 @@ exam, and have the capstone's checks pass, and your **Pentaho Developer
 results screen to download. It is valid for two years, and you can come
 back for it later from the same screen.
 
-The capstone, [Capstone: A Plant-Floor Alert Feed](../10-capstone-a-plant-floor-alert-feed/guide.md),
+The capstone, [Capstone: A Plant-Floor Alert Feed](../11-capstone-a-plant-floor-alert-feed/guide.md),
 is a project of your own: subscribe to three machines' telemetry with
 one MQTT wildcard, archive every reading, publish over-threshold
 readings to a keyed Kafka topic, and load the alerts into MySQL without

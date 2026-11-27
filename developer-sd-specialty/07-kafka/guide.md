@@ -76,9 +76,10 @@ Everything in this module still applies to such a feed. It is a topic like any o
 
 :::
 
-This module has two hands-on workshops:
+This module has three hands-on workshops:
 
 * [Use Cases](../08-kafka-use-cases/guide.md) — consume a user-activity stream from Kafka in real time and load it into a MySQL warehouse.
 * [Contracts, Rejects and Replay](../09-kafka-contracts/guide.md) — check each event against a contract, send the ones that break it to a rejects topic, read consumer lag, and rebuild the table by replaying the log.
+* [Streams to the Lake](../10-kafka-lake/guide.md) — land the stream in an object-store data lake as Avro files, and read them back with Pentaho Data Integration and with another engine.
 
 > **Tip:** Next, load a Kafka user-activity stream into MySQL: [Use Cases](../08-kafka-use-cases/guide.md).

@@ -1,6 +1,6 @@
 {
   "title": "Streaming Data Specialty Exam",
-  "description": "30 questions drawn from a pool of 48, covering streaming concepts and the PDI streaming pattern across MQTT, Kafka, and AMQP. Pass mark is 80%. Open-book — browse any page, hover glossary terms, or ask the AI assistant. Your answers are saved as you go. Explanations appear after submission.",
+  "description": "30 questions drawn from a pool of 51, covering streaming concepts and the PDI streaming pattern across MQTT, Kafka, and AMQP. Pass mark is 80%. Open-book — browse any page, hover glossary terms, or ask the AI assistant. Your answers are saved as you go. Explanations appear after submission.",
   "passMark": 80,
   "questionsPerAttempt": 30,
   "shuffle": true,
@@ -781,6 +781,54 @@
       "correct": 1,
       "explanation": "The table's unique key refuses a second copy of any offset, so a replay lands each event once. The rejects topic has no such key: every replay publishes its rejects again. Readers of the rejects dedupe, or the pipeline keys each reject by its source offset.",
       "source": "Developer - Streaming Specialty: Contracts, Rejects and Replay"
+    },
+    {
+      "id": "sd-m4-q17",
+      "module": "Kafka",
+      "bloom": "Analyze",
+      "scenario": "A Kafka consumer's child writes each batch to the lake with Avro output. Events arrive about one a second, the consumer closes a batch every 500 ms or 100 records, and the bucket now holds thousands of files of about 600 bytes.",
+      "prompt": "What change gives the lake fewer, larger files?",
+      "options": [
+        "Raise Duration (ms) and Number of records on the Batch tab",
+        "Set Compression to Snappy instead of Deflate on Options",
+        "Raise Maximum concurrent batches on the consumer to 4",
+        "Clear Overwrite existing output file on Avro output"
+      ],
+      "correct": 0,
+      "explanation": "The child runs once per batch and writes one file per run, so the **batch** sets the file size. A longer **Duration (ms)** collects more events per batch: fewer, bigger files, at the cost of later arrival. Compression changes bytes, not the number of files; more concurrent batches make more files at once.",
+      "source": "Developer - Streaming Specialty: Streams to the Lake"
+    },
+    {
+      "id": "sd-m4-q18",
+      "module": "Kafka",
+      "bloom": "Apply",
+      "scenario": "A warehouse loader already reads a Kafka topic as group `pdi-signup-loader`. A new transformation must land every record ever published to the topic in a data lake, without changing what the loader reads.",
+      "prompt": "How should the new transformation read the topic?",
+      "options": [
+        "As a new group, with auto.offset.reset earliest",
+        "As pdi-signup-loader, with offsets rewound",
+        "As pdi-signup-loader, with a second consumer",
+        "As a new group, with auto.offset.reset latest"
+      ],
+      "correct": 0,
+      "explanation": "Each **consumer group** keeps its own committed offsets. A new group with `auto.offset.reset` `earliest` starts at the topic's first record and leaves the loader's group untouched. Rewinding or joining the loader's group would change what the loader reads, and `latest` would skip every record already on the topic.",
+      "source": "Developer - Streaming Specialty: Streams to the Lake"
+    },
+    {
+      "id": "sd-m4-q19",
+      "module": "Kafka",
+      "bloom": "Understand",
+      "scenario": "A team lands a stream in object storage as Avro files with the schema inside each file. Later, an analyst reads the same files with a Python library and with a query engine, without Pentaho Data Integration.",
+      "prompt": "What makes this possible?",
+      "options": [
+        "Avro is an open format that carries its own schema",
+        "Pentaho Data Integration registers files with each engine",
+        "MinIO turns every Avro file into a SQL table on write",
+        "The VFS connection publishes the files over a REST API"
+      ],
+      "correct": 0,
+      "explanation": "An **open file format** that embeds its schema can be read by any engine that knows the format: the files outlive the tool that wrote them. That is what makes object storage a **data lake**. A table format such as Apache Iceberg can add a catalog over such files; MinIO itself only stores objects.",
+      "source": "Developer - Streaming Specialty: Streams to the Lake"
     }
   ]
 }

@@ -13,7 +13,7 @@
   },
   "title": "Developer - SD Specialty",
   "description": "Real-time streaming data integration with Pentaho Data Integration. Consume and process unbounded event streams over MQTT, AMQP, and Apache Kafka — IoT sensor telemetry, message-queue pipelines, and real-time user-activity streams using Pentaho Data Integration's parent/child streaming pattern.",
-  "version": "0.1.11",
+  "version": "0.1.12",
   "kind": "workshop",
   "platform": "windows11",
   "level": {
@@ -66,7 +66,7 @@
     },
     {
       "title": "Kafka",
-      "summary": "Apache Kafka — a distributed event-streaming platform running in KRaft mode. Two workshops: consume a real-time user-activity stream with the Kafka consumer step and load it into a MySQL warehouse; then give the pipeline a data contract, send the events that break it to a rejects topic, read consumer lag, and rebuild the table by replaying the log."
+      "summary": "Apache Kafka — a distributed event-streaming platform running in KRaft mode. Three workshops: consume a real-time user-activity stream with the Kafka consumer step and load it into a MySQL warehouse; give the pipeline a data contract, send the events that break it to a rejects topic, read consumer lag, and rebuild the table by replaying the log; then land the stream in a MinIO data lake as Avro files."
     },
     {
       "title": "Capstone Project",
@@ -89,6 +89,7 @@
     "workshop": true,
     "kits": [
       "MySQL",
+      "minIO",
       "Streaming"
     ]
   },
@@ -111,7 +112,7 @@
     "watermark": "PENTAHO",
     "requires": {
       "labChecks": [
-        "10-capstone-a-plant-floor-alert-feed"
+        "11-capstone-a-plant-floor-alert-feed"
       ]
     }
   }

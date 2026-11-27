@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1064" height="756" viewBox="0 0 1064 756" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+<filter id="shadow" x="-10%" y="-10%" width="120%" height="140%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#0f172a" flood-opacity="0.12"/></filter></defs>
+<rect width="1064" height="756" fill="#ffffff"/>
+<rect x="8" y="220" width="316" height="240" rx="12" fill="#f8fafc" stroke="#f1f5f9" stroke-width="1.5"/>
+<path d="M8 232a12 12 0 0 1 12-12h292a12 12 0 0 1 12 12v32h-316z" fill="#475569"/>
+<g transform="translate(21 230) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></g>
+<text x="48" y="240" font-size="14" font-weight="700" fill="#ffffff">lake-parent</text>
+<text x="48" y="256" font-size="11.5" fill="#ffffff" opacity="0.92">the parent transformation</text>
+<rect x="348" y="220" width="316" height="440" rx="12" fill="#f8fafc" stroke="#f1f5f9" stroke-width="1.5"/>
+<path d="M348 232a12 12 0 0 1 12-12h292a12 12 0 0 1 12 12v32h-316z" fill="#475569"/>
+<g transform="translate(361 230) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></g>
+<text x="388" y="240" font-size="14" font-weight="700" fill="#ffffff">lake-child</text>
+<text x="388" y="256" font-size="11.5" fill="#ffffff" opacity="0.92">runs once per batch: one file per run</text>
+<path d="M166 88C166 105.5 166 105.5 166 123" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M268 196L268 271" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M506 344C506 357.5 506 357.5 506 371" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M506 444C506 457.5 506 457.5 506 471" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M506 544C506 557.5 506 557.5 506 571" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M316 308L355 308" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M656 608L727 608" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M878 572C878 508.5 878 508.5 878 445" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M1028 608L1048 608" fill="none" stroke="#64748b" stroke-width="1.7"/>
+<path d="M1048 608L1048 308" fill="none" stroke="#64748b" stroke-width="1.7"/>
+<path d="M1048 308L1029 308" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="16" y="16" width="300" height="72" rx="10" fill="#f1f5f9" stroke="#475569" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="46" cy="52" r="19" fill="#ffffff" stroke="#475569" stroke-width="1.2"/>
+<g transform="translate(34 40) scale(1)" fill="none" stroke="#475569" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 11 2-2-2-2"/><path d="M11 13h4"/><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/></g>
+<text x="76" y="35" font-size="14" font-weight="700" fill="#0f172a">produce_signups.py</text>
+<text x="76" y="52" font-size="12" fill="#0f172a">sign-up events, some of them</text>
+<text x="76" y="67" font-size="12" fill="#0f172a">breaking the contract</text>
+<rect x="16" y="124" width="300" height="72" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="46" cy="160" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(34 148) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"/><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"/><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"/></g>
+<text x="76" y="143" font-size="14" font-weight="700" fill="#3b0764">Kafka topic pdi-signups</text>
+<text x="76" y="160" font-size="12" fill="#3b0764">127.0.0.1:9092: every event</text>
+<text x="76" y="175" font-size="12" fill="#3b0764">since the Contracts lab</text>
+<rect x="16" y="272" width="300" height="72" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="46" cy="308" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(34 296) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></g>
+<text x="76" y="291" font-size="14" font-weight="700" fill="#1e3a8a">Kafka consumer</text>
+<text x="76" y="308" font-size="12" fill="#1e3a8a">its own group: pdi-lake-writer;</text>
+<text x="76" y="323" font-size="12" fill="#1e3a8a">the warehouse loader is untouched</text>
+<rect x="16" y="372" width="300" height="72" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="46" cy="408" r="19" fill="#ffffff" stroke="#b45309" stroke-width="1.2"/>
+<g transform="translate(34 396) scale(1)" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="10" x2="14" y1="2" y2="2"/><line x1="12" x2="15" y1="14" y2="11"/><circle cx="12" cy="14" r="8"/></g>
+<text x="76" y="391" font-size="14" font-weight="700" fill="#78350f">Batch size = file size</text>
+<text x="76" y="408" font-size="12" fill="#78350f">500 ms: a file per event;</text>
+<text x="76" y="423" font-size="12" fill="#78350f">10000 ms: about ten per file</text>
+<rect x="356" y="272" width="300" height="72" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="386" cy="308" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(374 296) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M21 9H3"/><path d="M21 15H3"/></g>
+<text x="416" y="291" font-size="14" font-weight="700" fill="#1e3a8a">Get records from stream</text>
+<text x="416" y="308" font-size="12" fill="#1e3a8a">key, message, topic,</text>
+<text x="416" y="323" font-size="12" fill="#1e3a8a">partition, offset, timestamp</text>
+<rect x="356" y="372" width="300" height="72" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="386" cy="408" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(374 396) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></g>
+<text x="416" y="391" font-size="14" font-weight="700" fill="#3b0764">Get system info</text>
+<text x="416" y="408" font-size="12" fill="#3b0764">landed_at: one time</text>
+<text x="416" y="423" font-size="12" fill="#3b0764">for the whole batch</text>
+<rect x="356" y="472" width="300" height="72" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="386" cy="508" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(374 496) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 5h20"/><path d="M6 12h12"/><path d="M9 19h6"/></g>
+<text x="416" y="491" font-size="14" font-weight="700" fill="#3b0764">Select values</text>
+<text x="416" y="508" font-size="12" fill="#3b0764">kafka_topic, kafka_partition,</text>
+<text x="416" y="523" font-size="12" fill="#3b0764">kafka_offset, kafka_timestamp, …</text>
+<rect x="356" y="572" width="300" height="72" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="386" cy="608" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(374 596) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13.659 22H18a2 2 0 0 0 2-2V8a2.4 2.4 0 0 0-.706-1.706l-3.588-3.588A2.4 2.4 0 0 0 14 2H6a2 2 0 0 0-2 2v11.5"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M8 12v-1"/><path d="M8 18v-2"/><path d="M8 7V6"/><circle cx="8" cy="20" r="2"/></g>
+<text x="416" y="591" font-size="14" font-weight="700" fill="#14532d">Land in the lake</text>
+<text x="416" y="608" font-size="12" fill="#14532d">Avro output: Deflate,</text>
+<text x="416" y="623" font-size="12" fill="#14532d">schema inside the file</text>
+<rect x="310.75" y="288" width="49.5" height="40" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="335.5" y="306" text-anchor="middle" font-size="12" fill="#334155">each</text>
+<text x="335.5" y="321" text-anchor="middle" font-size="12" fill="#334155">batch</text>
+<rect x="728" y="572" width="300" height="72" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="758" cy="608" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(746 596) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/></g>
+<text x="788" y="591" font-size="14" font-weight="700" fill="#14532d">MinIO bucket streaming-lake</text>
+<text x="788" y="608" font-size="12" fill="#14532d">signups_&lt;time&gt;.avro, one per batch;</text>
+<text x="788" y="623" font-size="12" fill="#14532d">pvfs://MinIO = 127.0.0.1:9000</text>
+<rect x="666.75" y="595.5" width="49.5" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="691.5" y="613.5" text-anchor="middle" font-size="12" fill="#334155">write</text>
+<rect x="728" y="372" width="300" height="72" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="758" cy="408" r="19" fill="#ffffff" stroke="#b45309" stroke-width="1.2"/>
+<g transform="translate(746 396) scale(1)" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></g>
+<text x="788" y="391" font-size="14" font-weight="700" fill="#78350f">Avro input (PDI)</text>
+<text x="788" y="408" font-size="12" fill="#78350f">reads one file, by name;</text>
+<text x="788" y="423" font-size="12" fill="#78350f">the schema comes from the file</text>
+<rect x="728" y="272" width="300" height="72" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="758" cy="308" r="19" fill="#ffffff" stroke="#b45309" stroke-width="1.2"/>
+<g transform="translate(746 296) scale(1)" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 11 2-2-2-2"/><path d="M11 13h4"/><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/></g>
+<text x="788" y="291" font-size="14" font-weight="700" fill="#78350f">query_lake.py (no PDI)</text>
+<text x="788" y="308" font-size="12" fill="#78350f">reads every file in the bucket:</text>
+<text x="788" y="323" font-size="12" fill="#78350f">an open format, any engine</text>
+<rect x="856.4" y="496" width="43.2" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="878" y="514" text-anchor="middle" font-size="12" fill="#334155">read</text>
+<rect x="16" y="688" width="1012" height="52" rx="10" fill="#ffffff" stroke="#64748b" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="48" cy="714" r="19" fill="#ffffff" stroke="#64748b" stroke-width="1.2"/>
+<g transform="translate(36 702) scale(1)" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 6 4 14"/><path d="M12 6v14"/><path d="M8 8v12"/><path d="M4 4v16"/></g>
+<text x="78" y="711" font-size="14" font-weight="700" fill="#0f172a">A table format, such as Apache Iceberg, adds a catalog of these files over them</text>
+<text x="78" y="729" font-size="12" fill="#0f172a">so engines read a table, with schema changes and snapshots, instead of a list of files</text>
+</svg>

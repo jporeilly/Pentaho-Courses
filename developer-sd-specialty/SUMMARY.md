@@ -24,7 +24,8 @@
 * [Overview](07-kafka/guide.md)
 * [Use Cases](08-kafka-use-cases/guide.md)
 * [Contracts, Rejects and Replay](09-kafka-contracts/guide.md)
+* [Streams to the Lake](10-kafka-lake/guide.md)
 
 ## Capstone Project
 
-* [Capstone: A Plant-Floor Alert Feed](10-capstone-a-plant-floor-alert-feed/guide.md)
+* [Capstone: A Plant-Floor Alert Feed](11-capstone-a-plant-floor-alert-feed/guide.md)
