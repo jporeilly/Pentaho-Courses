@@ -471,25 +471,93 @@
     <key_for_session_key>H4sIAAAAAAAA/wMAAAAAAAAAAAA=</key_for_session_key>
     <is_key_private>N</is_key_private>
   </info>
+  <connection>
+    <name>fraud</name>
+    <server>localhost</server>
+    <type>MYSQL</type>
+    <access>Native</access>
+    <database>fraud</database>
+    <port>3306</port>
+    <username>fraud_user</username>
+    <password>password</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute>
+        <code>FORCE_IDENTIFIERS_TO_LOWERCASE</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>FORCE_IDENTIFIERS_TO_UPPERCASE</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>IS_CLUSTERED</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>PORT_NUMBER</code>
+        <attribute>3306</attribute>
+      </attribute>
+      <attribute>
+        <code>PRESERVE_RESERVED_WORD_CASE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>QUOTE_ALL_FIELDS</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>STREAM_RESULTS</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>SUPPORTS_BOOLEAN_DATA_TYPE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>SUPPORTS_TIMESTAMP_DATA_TYPE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>USE_POOLING</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>EXTRA_OPTION_MYSQL.useSSL</code>
+        <attribute>false</attribute>
+      </attribute>
+      <attribute>
+        <code>EXTRA_OPTION_MYSQL.allowPublicKeyRetrieval</code>
+        <attribute>true</attribute>
+      </attribute>
+    </attributes>
+  </connection>
   <notepads>
     <notepad>
-      <note>tr_predict_fraud - scores every transaction with the saved fraud model and writes the scores to a CSV file.
-Run by jb_fraud_main_job, after tr_train_model_fraud; needs h2o-env.
+      <note>tr_predict_fraud - scores this week's new orders with the saved fraud model, says why, and writes the
+scores to a CSV file and to MySQL.
+Run by jb_fraud_main_job, after tr_train_model_fraud; needs h2o-env and the fraud database
+(fraud_schema.sql).
 
-1. csvi-customer, csvi-customer_billing, csvi-customer_transaction: CSV file input, the three files.
+1. csvi-customer, csvi-customer_billing, csvi-customer_transaction: CSV file input, this week's files:
+   week_customer.csv, week_customer_billing.csv, week_transaction_details.csv.
 2. slkp-customer, slkp-transaction_details: Stream lookup, one row per transaction.
-3. frmla-billing=shipping: Formula, billing_shipping_zip_equal = [customer_billing_zip] = [ship_to_zip].
-4. sv-fields, sv-predict_fields, sv-convert_booleans_to_numbers: Select values, customer_id, transaction_id
-   and the eight features, the flags as Number.
+3. map-features: Mapping, runs tr_features.ktr, the same features as training.
+4. sv-convert_booleans_to_numbers: Select values, customer_id, transaction_id and the eight features.
 5. py-predict_fraud: Python Executor, h2o-env's python.exe, All rows as test; loads
-   train_model_output/gbm_fraud; Frame to fields from scored, 13 columns.
+   train_model_output/gbm_fraud; the probability, the flag at 0.5, and top_reason from
+   predict_contributions.
 6. Predict Fraud: Text file output, output/credit_card_fraud_&lt;HHmmss&gt;.csv with a header.
+7. iu-transaction_scores: Insert / Update, 4 copies, fraud.transaction_scores keyed on transaction_id.
 
-Shipped data: 100,000 scored rows; the first, customer 10000, transaction 1, has fraud_probability 0.3402.</note>
-      <xloc>272</xloc>
+Shipped data: this week's 10,000 scored, 38 flagged at 0.5; the first, transaction 200001, has
+fraud_probability 0.0020 and top_reason total_transactions_to_date.</note>
+      <xloc>224</xloc>
       <yloc>32</yloc>
-      <width>624</width>
-      <heigth>242</heigth>
+      <width>598</width>
+      <heigth>332</heigth>
       <fontname>Segoe UI</fontname>
       <fontsize>10</fontsize>
       <fontbold>N</fontbold>
@@ -507,11 +575,6 @@ Shipped data: 100,000 scored rows; the first, customer 10000, transaction 1, has
     </notepad>
   </notepads>
   <order>
-    <hop>
-      <from>frmla-billing=shipping</from>
-      <to>sv-fields</to>
-      <enabled>Y</enabled>
-    </hop>
     <hop>
       <from>csvi-customer</from>
       <to>slkp-customer</to>
@@ -534,11 +597,11 @@ Shipped data: 100,000 scored rows; the first, customer 10000, transaction 1, has
     </hop>
     <hop>
       <from>slkp-transaction_details</from>
-      <to>frmla-billing=shipping</to>
+      <to>map-features</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>sv-predict_fields</from>
+      <from>map-features</from>
       <to>sv-convert_booleans_to_numbers</to>
       <enabled>Y</enabled>
     </hop>
@@ -548,13 +611,13 @@ Shipped data: 100,000 scored rows; the first, customer 10000, transaction 1, has
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>sv-fields</from>
-      <to>sv-predict_fields</to>
+      <from>py-predict_fraud</from>
+      <to>Predict Fraud</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>py-predict_fraud</from>
-      <to>Predict Fraud</to>
+      <from>Predict Fraud</from>
+      <to>iu-transaction_scores</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -611,7 +674,7 @@ Shipped data: 100,000 scored rows; the first, customer 10000, transaction 1, has
     </remotesteps>
     <GUI>
       <xloc>416</xloc>
-      <yloc>562</yloc>
+      <yloc>652</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -626,7 +689,7 @@ Shipped data: 100,000 scored rows; the first, customer 10000, transaction 1, has
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <filename>${Internal.Transformation.Filename.Directory}/customer.csv</filename>
+    <filename>${Internal.Transformation.Filename.Directory}/week_customer.csv</filename>
     <filename_field/>
     <rownum_field/>
     <include_filename>N</include_filename>
@@ -685,7 +748,7 @@ Shipped data: 100,000 scored rows; the first, customer 10000, transaction 1, has
     </remotesteps>
     <GUI>
       <xloc>272</xloc>
-      <yloc>450</yloc>
+      <yloc>540</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -700,7 +763,7 @@ Shipped data: 100,000 scored rows; the first, customer 10000, transaction 1, has
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <filename>${Internal.Transformation.Filename.Directory}/customer_billing.csv</filename>
+    <filename>${Internal.Transformation.Filename.Directory}/week_customer_billing.csv</filename>
     <filename_field/>
     <rownum_field/>
     <include_filename>N</include_filename>
@@ -770,7 +833,7 @@ Shipped data: 100,000 scored rows; the first, customer 10000, transaction 1, has
     </remotesteps>
     <GUI>
       <xloc>416</xloc>
-      <yloc>322</yloc>
+      <yloc>412</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -785,7 +848,7 @@ Shipped data: 100,000 scored rows; the first, customer 10000, transaction 1, has
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <filename>${Internal.Transformation.Filename.Directory}/transaction_details.csv</filename>
+    <filename>${Internal.Transformation.Filename.Directory}/week_transaction_details.csv</filename>
     <filename_field/>
     <rownum_field/>
     <include_filename>N</include_filename>
@@ -1020,40 +1083,7 @@ Shipped data: 100,000 scored rows; the first, customer 10000, transaction 1, has
     </remotesteps>
     <GUI>
       <xloc>576</xloc>
-      <yloc>322</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>frmla-billing=shipping</name>
-    <type>Formula</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <formula>
-      <field_name>billing_shipping_zip_equal</field_name>
-      <formula_string>[customer_billing_zip] = [ship_to_zip]</formula_string>
-      <value_type>Boolean</value_type>
-      <value_length>-1</value_length>
-      <value_precision>-1</value_precision>
-      <replace_field/>
-    </formula>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>720</xloc>
-      <yloc>450</yloc>
+      <yloc>412</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1107,7 +1137,7 @@ Shipped data: 100,000 scored rows; the first, customer 10000, transaction 1, has
     </remotesteps>
     <GUI>
       <xloc>416</xloc>
-      <yloc>450</yloc>
+      <yloc>540</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1249,7 +1279,7 @@ Shipped data: 100,000 scored rows; the first, customer 10000, transaction 1, has
     </remotesteps>
     <GUI>
       <xloc>576</xloc>
-      <yloc>450</yloc>
+      <yloc>540</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1296,57 +1326,6 @@ Shipped data: 100,000 scored rows; the first, customer 10000, transaction 1, has
         <name>billing_shipping_zip_equal</name>
       </field>
       <select_unspecified>N</select_unspecified>
-      <meta>
-        <name>billing_shipping_zip_equal</name>
-        <rename>billing_shipping_zip_equal</rename>
-        <type>Number</type>
-        <length>1</length>
-        <precision>-2</precision>
-        <conversion_mask>#.#</conversion_mask>
-        <date_format_lenient>false</date_format_lenient>
-        <date_format_locale/>
-        <date_format_timezone/>
-        <lenient_string_to_number>false</lenient_string_to_number>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>
-      <meta>
-        <name>web_order</name>
-        <rename>web_order</rename>
-        <type>Number</type>
-        <length>1</length>
-        <precision>-2</precision>
-        <conversion_mask>#.#</conversion_mask>
-        <date_format_lenient>false</date_format_lenient>
-        <date_format_locale/>
-        <date_format_timezone/>
-        <lenient_string_to_number>false</lenient_string_to_number>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>
-      <meta>
-        <name>first_time_customer</name>
-        <rename>first_time_customer</rename>
-        <type>Number</type>
-        <length>1</length>
-        <precision>-2</precision>
-        <conversion_mask>#.#</conversion_mask>
-        <date_format_lenient>false</date_format_lenient>
-        <date_format_locale/>
-        <date_format_timezone/>
-        <lenient_string_to_number>false</lenient_string_to_number>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>
     </fields>
     <attributes/>
     <cluster_schema/>
@@ -1358,251 +1337,7 @@ Shipped data: 100,000 scored rows; the first, customer 10000, transaction 1, has
     </remotesteps>
     <GUI>
       <xloc>720</xloc>
-      <yloc>562</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>sv-fields</name>
-    <type>SelectValues</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <fields>
-      <field>
-        <name>customer_name</name>
-      </field>
-      <field>
-        <name>customer_id</name>
-      </field>
-      <field>
-        <name>customer_billing_zip</name>
-      </field>
-      <field>
-        <name>transaction_id</name>
-      </field>
-      <field>
-        <name>card_number</name>
-      </field>
-      <field>
-        <name>expiry_date</name>
-      </field>
-      <field>
-        <name>ship_to_address</name>
-      </field>
-      <field>
-        <name>ship_to_city</name>
-      </field>
-      <field>
-        <name>ship_to_country</name>
-      </field>
-      <field>
-        <name>ship_to_customer_number</name>
-      </field>
-      <field>
-        <name>ship_to_email</name>
-      </field>
-      <field>
-        <name>ship_to_name</name>
-      </field>
-      <field>
-        <name>ship_to_phone</name>
-      </field>
-      <field>
-        <name>ship_to_state</name>
-      </field>
-      <field>
-        <name>ship_to_zip</name>
-      </field>
-      <field>
-        <name>first_time_customer</name>
-      </field>
-      <field>
-        <name>order_dollar_amount</name>
-      </field>
-      <field>
-        <name>num_items</name>
-      </field>
-      <field>
-        <name>age</name>
-      </field>
-      <field>
-        <name>web_order</name>
-      </field>
-      <field>
-        <name>total_transactions_to_date</name>
-      </field>
-      <field>
-        <name>hour_of_day</name>
-      </field>
-      <field>
-        <name>billing_shipping_zip_equal</name>
-      </field>
-      <select_unspecified>N</select_unspecified>
-      <meta>
-        <name>billing_shipping_zip_equal</name>
-        <rename>billing_shipping_zip_equal</rename>
-        <type>Boolean</type>
-        <length>-2</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <date_format_locale/>
-        <date_format_timezone/>
-        <lenient_string_to_number>false</lenient_string_to_number>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>
-      <meta>
-        <name>card_number</name>
-        <rename>card_number</rename>
-        <type>Number</type>
-        <length>15</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <date_format_locale/>
-        <date_format_timezone/>
-        <lenient_string_to_number>false</lenient_string_to_number>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>
-      <meta>
-        <name>expiry_date</name>
-        <rename>expiry_date</rename>
-        <type>Number</type>
-        <length>15</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <date_format_locale/>
-        <date_format_timezone/>
-        <lenient_string_to_number>false</lenient_string_to_number>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>
-      <meta>
-        <name>ship_to_zip</name>
-        <rename>ship_to_zip</rename>
-        <type>Number</type>
-        <length>15</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <date_format_locale/>
-        <date_format_timezone/>
-        <lenient_string_to_number>false</lenient_string_to_number>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>
-      <meta>
-        <name>customer_billing_zip</name>
-        <rename>customer_billing_zip</rename>
-        <type>Number</type>
-        <length>15</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <date_format_locale/>
-        <date_format_timezone/>
-        <lenient_string_to_number>false</lenient_string_to_number>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>864</xloc>
-      <yloc>450</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>sv-predict_fields</name>
-    <type>SelectValues</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <fields>
-      <select_unspecified>N</select_unspecified>
-      <meta>
-        <name>web_order</name>
-        <rename>web_order</rename>
-        <type>Boolean</type>
-        <length>1</length>
-        <precision>-2</precision>
-        <conversion_mask>#.#</conversion_mask>
-        <date_format_lenient>false</date_format_lenient>
-        <date_format_locale/>
-        <date_format_timezone/>
-        <lenient_string_to_number>false</lenient_string_to_number>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>
-      <meta>
-        <name>first_time_customer</name>
-        <rename>first_time_customer</rename>
-        <type>Boolean</type>
-        <length>1</length>
-        <precision>-2</precision>
-        <conversion_mask>#.#</conversion_mask>
-        <date_format_lenient>false</date_format_lenient>
-        <date_format_locale/>
-        <date_format_timezone/>
-        <lenient_string_to_number>false</lenient_string_to_number>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>864</xloc>
-      <yloc>562</yloc>
+      <yloc>652</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1668,6 +1403,12 @@ scored["fraud_probability"] = pred["p1"].round(4).values      # 0 to 1
 scored["fraud_pct"] = (pred["p1"] * 100).round(2).values      # the same, as a percentage
 scored["predicted_fraud"] = (pred["p1"] &gt;= 0.5).astype("int64").values  # 1 at 0.5 or more
 
+# Why: the feature that pushes each score hardest towards fraud. H2O's
+# predict_contributions gives every feature's share of the score (SHAP values).
+contrib = gbm.predict_contributions(frame).as_data_frame(use_multi_thread=True)
+reasons = contrib.drop(columns=["BiasTerm"])
+scored["top_reason"] = reasons.idxmax(axis=1).values
+
 h2o.cluster().shutdown()
 </value>
         </property>
@@ -1700,6 +1441,7 @@ h2o.cluster().shutdown()
           <value xsi:type="xs:string">fraud_probability</value>
           <value xsi:type="xs:string">fraud_pct</value>
           <value xsi:type="xs:string">predicted_fraud</value>
+          <value xsi:type="xs:string">top_reason</value>
         </property>
         <property group="" name="OUTPUT_FRAME_MAPPING.FIELD_PYTHON_TYPES">
           <value xsi:type="xs:string">int64</value>
@@ -1715,6 +1457,7 @@ h2o.cluster().shutdown()
           <value xsi:type="xs:string">float64</value>
           <value xsi:type="xs:string">float64</value>
           <value xsi:type="xs:string">int64</value>
+          <value xsi:type="xs:string">object</value>
         </property>
         <property group="" name="OUTPUT_FRAME_MAPPING.FIELD_PDI_NAMES">
           <value xsi:type="xs:string">customer_id</value>
@@ -1730,6 +1473,7 @@ h2o.cluster().shutdown()
           <value xsi:type="xs:string">fraud_probability</value>
           <value xsi:type="xs:string">fraud_pct</value>
           <value xsi:type="xs:string">predicted_fraud</value>
+          <value xsi:type="xs:string">top_reason</value>
         </property>
         <property group="" name="OUTPUT_FRAME_MAPPING.FIELD_PDI_TYPES">
           <value xsi:type="xs:string">Integer</value>
@@ -1745,6 +1489,7 @@ h2o.cluster().shutdown()
           <value xsi:type="xs:string">BigNumber</value>
           <value xsi:type="xs:string">BigNumber</value>
           <value xsi:type="xs:string">Integer</value>
+          <value xsi:type="xs:string">String</value>
         </property>
         <property group="" name="OUTPUT_VARIABLE_MAPPING.FIELD_PYTHON_NAMES"/>
         <property group="" name="OUTPUT_VARIABLE_MAPPING.FIELD_PYTHON_TYPES"/>
@@ -1862,7 +1607,125 @@ h2o.cluster().shutdown()
     </remotesteps>
     <GUI>
       <xloc>576</xloc>
-      <yloc>562</yloc>
+      <yloc>652</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>map-features</name>
+    <type>Mapping</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <specification_method>FILENAME</specification_method>
+    <trans_object_id/>
+    <trans_name/>
+    <filename>${Internal.Entry.Current.Directory}/tr_features.ktr</filename>
+    <directory_path/>
+    <mappings>
+      <input>
+        <mapping>
+          <input_step/>
+          <output_step/>
+          <main_path>Y</main_path>
+          <rename_on_output>Y</rename_on_output>
+          <description/>
+        </mapping>
+      </input>
+      <output>
+        <mapping>
+          <input_step/>
+          <output_step/>
+          <main_path>Y</main_path>
+          <rename_on_output>N</rename_on_output>
+          <description/>
+        </mapping>
+      </output>
+      <parameters>
+        <inherit_all_vars>Y</inherit_all_vars>
+      </parameters>
+    </mappings>
+    <allow_multiple_input>N</allow_multiple_input>
+    <allow_multiple_output>N</allow_multiple_output>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>720</xloc>
+      <yloc>540</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>iu-transaction_scores</name>
+    <type>InsertUpdate</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>4</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>fraud</connection>
+    <commit>1000</commit>
+    <update_bypassed>N</update_bypassed>
+    <lookup>
+      <schema/>
+      <table>transaction_scores</table>
+      <key>
+        <name>transaction_id</name>
+        <field>transaction_id</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>transaction_id</name>
+        <rename>transaction_id</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>customer_id</name>
+        <rename>customer_id</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>fraud_probability</name>
+        <rename>fraud_probability</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>predicted_fraud</name>
+        <rename>predicted_fraud</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>top_reason</name>
+        <rename>top_reason</rename>
+        <update>Y</update>
+      </value>
+    </lookup>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>224</xloc>
+      <yloc>652</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

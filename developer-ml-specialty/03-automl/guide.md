@@ -4,7 +4,7 @@
 >
 > #### Workshop - AutoML
 >
-> A direct retailer takes orders by phone and on its website and ships the goods to the customer. It keeps its customers' details and their orders in a database, and a CSV report of past orders that turned out to be fraudulent. To reduce its losses from orders paid with stolen credit cards, it wants a model that flags likely fraud. Blend its files into one training set in Pentaho Data Integration, then let H2O AutoML train several algorithms and rank them.
+> Juniper & Vale, a direct retailer of homewares, takes orders by phone and on its website and ships the goods to the customer. It keeps its customers' details and their orders in a database, and its fraud team keeps a CSV report of past orders that turned out to be fraudulent. To reduce its losses from orders paid with stolen credit cards, the fraud team wants a model that flags likely fraud, and first asks whether one can, and which kind. Blend its files into one training set in Pentaho Data Integration, then let H2O AutoML train several algorithms and rank them.
 >
 > **What you'll do**
 >
@@ -33,7 +33,7 @@
 
 <div align="center">
 <figure>
-<img src="../_assets/images/automl-pipeline.png" alt="Top, autoML.ktr: four file inputs, three Stream lookups and feature engineering; a Copy hop sends every row to tfo-H2O, which writes data/H2O.csv, and to the auto machine learning step, which runs H2O AutoML and returns one row, gbm at AUC 0.9951. Bottom, the notebook in JupyterLab reads H2O.csv, splits it 7,510 and 2,489, ranks three GBMs, a DRF and a GLM, and judges the best; GBM goes on to the Credit Card workshop" width="800">
+<img src="../_assets/images/automl-pipeline.png" alt="Top, autoML.ktr: four file inputs, three Stream lookups and feature engineering; a Copy hop sends every row to tfo-H2O, which writes data/H2O.csv, and to the auto machine learning step, which runs H2O AutoML and returns one row, gbm at AUCPR 0.3400. Bottom, the notebook in JupyterLab reads H2O.csv, splits it 37,513 and 12,486, ranks three GBMs, a DRF and a GLM by AUCPR, and judges the best; GBM goes on to the Credit Card workshop" width="800">
 <figcaption>The workshop in one picture: the transformation searches in Pentaho Data Integration, the notebook repeats the search a cell at a time</figcaption>
 </figure>
 </div>
@@ -68,7 +68,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 5. Double-click **Text file input**.
 6. Set **Step name** to `csvi-customer`.
 7. On the **File** tab, enter `${Internal.Entry.Current.Directory}/customer.csv` in **File or directory** and select **Add**.
-8. On the **Content** tab, set **Separator** to `,`, **Format** to `mixed` and **Limit** to `10000`, so the step stops after the first 10,000 lines of the file. The header is one of them, so 9,999 customers go on. Leave **Header** selected, with **Number of header lines** `1`.
+8. On the **Content** tab, set **Separator** to `,`, **Format** to `mixed` and **Limit** to `50000`, so the step stops after the first 50,000 lines of the file. The header is one of them, so 49,999 customers go on: enough for about 500 frauds, at one order in a hundred. Leave **Header** selected, with **Number of header lines** `1`.
 9. On the **Fields** tab, select **Get Fields**. Spoon asks for the number of lines to sample: select **OK**, then close **Scan results**.
 10. Change the **Fields** grid to match this table:
 
@@ -80,14 +80,16 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 11. Select **Preview rows**, enter `100` rows, and select **OK**. The rows show in **Examine preview data**.
 
-<div align="center">
-<figure>
-<img src="../_assets/images/automl_customer_data.png" alt="Examine preview data for the customer file: customer_name, customer_id and customer_billing_zip, starting with Keefe Forbes, 10000, 97425" width="473">
-<figcaption>The customers (captured from the Credit Card lab's input step, csvi-customer_data, which previewed 1,000 rows; yours shows 100)</figcaption>
-</figure>
-</div>
+The first rows of **Examine preview data**:
 
-> **Success:** Checkpoint: 100 rows. The first is `Keefe Forbes`, customer `10000`, billing zip `97425`; the second is `Kyla Price`, `10001`, `39356`.
+| customer_name | customer_id | customer_billing_zip |
+| --- | --- | --- |
+| Cooper Bush | 10000 | 70674 |
+| Rhona Daniel | 10001 | 78946 |
+| Ivy Nguyen | 10002 | 83887 |
+| Hamilton Valenzuela | 10003 | 79627 |
+
+> **Success:** Checkpoint: 100 rows. The first is `Cooper Bush`, customer `10000`, billing zip `70674`; the second is `Rhona Daniel`, `10001`, `78946`.
 
 12. Select **Close**, then select **OK**.
 
@@ -136,14 +138,16 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 23. Select **Preview**, enter `100` rows, and select **OK**.
 
-<div align="center">
-<figure>
-<img src="../_assets/images/automl_customer_transaction.png" alt="Examine preview data for the transaction file, scrolled to ship_to_zip, first_time_customer, order_dollar_amount, num_items, age and web_order; the first row is 97790, N, 964.7, 19, 104.7, Y" width="602">
-<figcaption>The transactions (captured from the Credit Card lab's input step, which previewed 1,000 rows; yours shows 100)</figcaption>
-</figure>
-</div>
+The first rows of **Examine preview data**:
 
-> **Success:** Checkpoint: 100 rows. The first is customer `10000`, transaction `1`: `ship_to_zip` `97790`, `first_time_customer` `N`, `order_dollar_amount` `964.7`, `num_items` `19`, `age` `104.7`, `web_order` `Y`, `total_transactions_to_date` `40` and `hour_of_day` `7`.
+| customer_id | transaction_id | ship_to_zip | first_time_customer | order_dollar_amount | num_items | age | web_order | total_transactions_to_date | hour_of_day |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 10000 | 1 | 70674 | N | 56.1 | 2 | 44 | N | 5 | 8 |
+| 10001 | 2 | 79457 | Y | 37.6 | 4 | 50 | Y | 1 | 23 |
+| 10002 | 3 | 83887 | N | 26.9 | 1 | 44 | Y | 2 | 16 |
+| 10003 | 4 | 79627 | N | 12.3 | 1 | 37 | Y | 4 | 15 |
+
+> **Success:** Checkpoint: 100 rows. The first is customer `10000`, transaction `1`: `ship_to_zip` `70674`, `first_time_customer` `N`, `order_dollar_amount` `56.1`, `num_items` `2`, `age` `44`, `web_order` `N`, `total_transactions_to_date` `5` and `hour_of_day` `8`.
 
 24. Select **Close**, then select **OK**.
 25. Drag a third **CSV file input** onto the canvas and double-click it.
@@ -158,14 +162,16 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 29. Select **Preview**, enter `100` rows, and select **OK**.
 
-<div align="center">
-<figure>
-<img src="../_assets/images/automl_fraud_report.png" alt="Examine preview data for the fraud report: transaction_id and reported_as_fraud_historic, transactions 1 to 4 N, 5 and 6 Y" width="333">
-<figcaption>The fraud report (captured from the Credit Card lab's input step, which previewed 1,000 rows; yours shows 100)</figcaption>
-</figure>
-</div>
+The first rows of **Examine preview data**:
 
-> **Success:** Checkpoint: 100 rows. Transactions `1` to `4` show `N` in `reported_as_fraud_historic`; `5` and `6` show `Y`.
+| transaction_id | reported_as_fraud_historic |
+| --- | --- |
+| 1 | N |
+| 2 | Y |
+| 3 | N |
+| 4 | N |
+
+> **Success:** Checkpoint: 100 rows. Transaction `1` shows `N` in `reported_as_fraud_historic`, `2` shows `Y`, and the next `Y` is `15`. Over the whole file about one order in a hundred is fraud, as in real card data.
 
 30. Select **Close**, then select **OK**.
 
@@ -225,7 +231,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
 
 48. Select **slkp-transaction_fraud_report** on the canvas, press `F10` (**Action > Preview**), and select **Quick Launch**. The rows show in **Examine preview data**.
 
-> **Success:** Checkpoint: each row now carries the fields of all four files. The first is customer `10000`, `Keefe Forbes`, transaction `1`: billing zip `97425`, `ship_to_zip` `97790`, `order_dollar_amount` `964.7`, and `reported_as_fraud_historic` `N`.
+> **Success:** Checkpoint: each row now carries the fields of all four files. The first is customer `10000`, `Cooper Bush`, transaction `1`: billing zip `70674`, `ship_to_zip` `70674`, `order_dollar_amount` `56.1`, and `reported_as_fraud_historic` `N`.
 
 49. Select **Close**.
 
@@ -301,9 +307,26 @@ Set-Location C:\Pentaho\design-tools\data-integration
 11. Select **OK**.
 12. Select **sv-change_to_numbers** on the canvas, press `F10` (**Action > Preview**), and select **Quick Launch**.
 
-> **Success:** Checkpoint: nine fields. The first row has `order_dollar_amount` `964.7`, `num_items` `19` and `age` `104.7`, and its four flags are now numbers: `web_order` is 1 (it was `Y`), and `first_time_customer`, `billing_shipping_zip_equal` and `reported_as_fraud_historic` are 0.
+> **Success:** Checkpoint: nine fields. The first row has `order_dollar_amount` `56.1`, `num_items` `2` and `age` `44`, and its four flags are now numbers: `billing_shipping_zip_equal` is 1 (the zips match), and `first_time_customer`, `web_order` and `reported_as_fraud_historic` are 0.
 
 13. Select **Close**.
+
+> **Under the hood:**
+>
+> #### Two new kinds of field, made from the ones you had
+>
+> **Formula** compared two fields and wrote the answer, a Boolean, into
+> a new field: neither zip code on its own says anything about fraud,
+> but whether they match does. **Select values** then changed the type of
+> four fields on its **Meta-data** tab, and the Booleans became the
+> numbers `1` and `0`. Every row passed through both steps once, in
+> memory, as the stream went by.
+>
+> **Why it matters:** models learn from numbers, and from the
+> relationships you put in front of them. Making features in the
+> pipeline, rather than by hand in a spreadsheet, means the same steps
+> make them again for every new order: in [Credit Card](../04-credit-card/guide.md)
+> they move into one sub-transformation that training and scoring share.
 
 ### 3. Training Set
 
@@ -333,6 +356,21 @@ Set-Location C:\Pentaho\design-tools\data-integration
 | `reported_as_fraud_historic` | Number  | `0`    | 1      |           |
 
 7. Select **OK**, and save the transformation (`Ctrl+S`).
+
+> **Under the hood:**
+>
+> #### The field formats decide what the file holds
+>
+> **Text file output** writes each field through the format on its
+> **Fields** tab: `0` writes a flag as a bare `0` or `1`, and `#.#` keeps
+> one decimal. With **Header** cleared, the file holds only values, and
+> the notebook names the columns when it reads them. **Create Parent
+> folder** makes `data` the first time the step runs.
+>
+> **Why it matters:** a file is a contract between the tool that writes
+> it and the tool that reads it. Fixing the separator, the header and
+> each field's format in the step means the notebook reads exactly the
+> same layout on every run, on any machine.
 
 ### 4. AutoML in Pentaho Data Integration
 
@@ -397,7 +435,7 @@ Set-Location C:\Pentaho\design-tools\data-integration
        seed=42,
        balance_classes=True,         # fraud is the smaller class
        nfolds=5,                     # 5-fold cross-validation
-       sort_metric="AUC",            # rank the models by AUC
+       sort_metric="AUCPR",          # rank by AUCPR: fraud is rare
        include_algos=["GBM", "GLM", "DRF", "DeepLearning"],
        verbosity="warn",
    )
@@ -428,7 +466,7 @@ The script does four things:
 
 * **Finds the lab folder.** Pentaho Data Integration replaces `${Internal.Transformation.Filename.Directory}` before Python runs, with a URL such as `file:///C:/Workshop-ML-Specialty/...`; `local_path` turns it into a path.
 * **Starts H2O on Pentaho's Java.** H2O's engine is a Java program. Spoon sets `_PENTAHO_JAVA_HOME` to the Java it runs on, and the script passes it to H2O as `H2O_JAVA_HOME`, which H2O reads before it looks for a `java` on `PATH`.
-* **Searches and ranks.** It holds back 25% of the rows, lets AutoML train up to five models on the rest with 5-fold cross-validation, ranks them by AUC, and scores the best one on the held-back rows.
+* **Searches and ranks.** It holds back 25% of the rows, lets AutoML train up to five models on the rest with 5-fold cross-validation, ranks them by AUCPR, and scores the best one on the held-back rows.
 * **Saves and reports.** It saves the best model under `automl_output` and leaves ten variables for Pentaho Data Integration to read.
 
 > **Note:** H2O's XGBoost does not run on Windows, so the script leaves it out of `include_algos`.
@@ -511,24 +549,27 @@ The script does four things:
 
 13. When the run finishes, open the **Step Metrics** tab in **Execution Results**.
 
-> **Success:** Checkpoint: every step finishes without errors. **csvi-customer** stops at its **Limit**, and **tfo-H2O** and **auto machine learning** each read the same 9,999 rows: with **Copy**, every row goes to both. **auto machine learning** writes 1 row.
+> **Success:** Checkpoint: every step finishes without errors. **csvi-customer** stops at its **Limit**, and **tfo-H2O** and **auto machine learning** each read the same 49,999 rows: with **Copy**, every row goes to both. **auto machine learning** writes 1 row.
 
 14. Select **auto machine learning** on the canvas and open the **Preview data** tab.
 
-> **Success:** Checkpoint: 1 row with the ten fields from `best_model_id` to `model_path`: `best_algorithm` `gbm`, `best_auc` `0.9951`, `best_aucpr` `0.9881`, `best_precision` `0.9681`, `best_recall` `0.9266`, `best_f1` `0.9469`, `models_trained` `5` and `test_rows` `2489`. `best_model_id` starts with `GBM_1_AutoML_1_` and ends with the time of the run, and `model_path` is a folder of that name under `automl_output`. With `seed=42` and `max_models=5`, every run trains the same five models.
+> **Success:** Checkpoint: 1 row with the ten fields from `best_model_id` to `model_path`: `best_algorithm` `gbm`, `best_auc` `0.9134`, `best_aucpr` `0.3400`, `best_precision` `0.4127`, `best_recall` `0.3969`, `best_f1` `0.4047`, `models_trained` `5` and `test_rows` `12486`. `best_model_id` starts with `GBM_1_AutoML_1_` and ends with the time of the run, and `model_path` is a folder of that name under `automl_output`. With `seed=42` and `max_models=5`, every run trains the same five models.
 
 `best_precision`, `best_recall` and `best_f1` are measured at the threshold that gives the best F1 score, one probability cut-off for all three.
 
 15. Open `data/H2O.csv`, next to your transformation, in a text editor.
 
-<div align="center">
-<figure>
-<img src="../_assets/images/automl_h2o_dataset.png" alt="H2O.csv open in a text editor: semicolon-separated rows of nine numbers, starting 0;964.7;19;104.7;1;40;7;0;0" width="699">
-<figcaption>H2O.csv: nine values per line, no header</figcaption>
-</figure>
-</div>
+The first lines:
 
-> **Success:** Checkpoint: no header line, and 9,999 lines of nine semicolon-separated values. The first line is `0;964.7;19;104.7;1;40;7;0;0`: the same customer as the previews, with its flags as numbers. The file is the same as the `H2O.csv` in **Lab Files**.
+```text
+0;56.1;2;44;0;5;8;1;0
+1;37.6;4;50;1;1;23;0;1
+0;26.9;1;44;1;2;16;1;0
+0;12.3;1;37;1;4;15;1;0
+1;113.2;3;49;1;1;15;1;0
+```
+
+> **Success:** Checkpoint: no header line, and 49,999 lines of nine semicolon-separated values. The first line is `0;56.1;2;44;0;5;8;1;0`: the same customer as the previews, with its flags as numbers. The file is the same as the `H2O.csv` in **Lab Files**.
 
 ### 5. AutoML in a Notebook
 
@@ -647,7 +688,7 @@ Colab installs the newest H2O, so its numbers can differ a little from the check
    print(f"Fraud cases: {(data['fraud'] == '1').sum():,} ({(data['fraud'] == '1').mean() * 100:.2f}%)")
    ```
 
-> **Success:** Checkpoint: the cell prints `Dataset: 9,999 rows × 9 columns` and `Fraud cases: 2,623 (26.23%)`.
+> **Success:** Checkpoint: the cell prints `Dataset: 49,999 rows × 9 columns` and `Fraud cases: 497 (0.99%)`.
 
 The eight features: `first_time_customer` (a first order), `order_dollar_amount`, `num_items` (items in the order), `age` (the customer's age), `web_order` (online, not by phone), `total_transactions` (the customer's history), `hour_of_day` (when the order came in) and `billing_shipping_match` (the zip code flag). `fraud` is the target: `0` for a legitimate order, `1` for fraud.
 
@@ -669,16 +710,16 @@ The eight features: `first_time_customer` (a first order), `order_dollar_amount`
    plt.show()
    ```
 
-> **Success:** Checkpoint: a bar chart titled **Class Distribution**: the green **Normal** bar is labeled `7,376` and the red **Fraud** bar `2,623`.
+> **Success:** Checkpoint: a bar chart titled **Class Distribution**: the green **Normal** bar is labeled `49,502` and the red **Fraud** bar `497`, too short to see without its label.
 
 <div align="center">
 <figure>
-<img src="../_assets/images/automl_class_distribution.png" alt="A bar chart titled Class Distribution: a green Normal bar labeled 7,376 and a red Fraud bar labeled 2,623" width="800">
+<img src="../_assets/images/automl_class_distribution.png" alt="A bar chart titled Class Distribution: a green Normal bar labeled 49,502 and a red Fraud bar labeled 497" width="800">
 <figcaption>The two classes in H2O.csv</figcaption>
 </figure>
 </div>
 
-The chart shows how imbalanced the classes are. This teaching set is about one quarter fraud; real card data usually has far fewer fraud cases, which is why the AutoML run sets `balance_classes=True`.
+The chart shows how imbalanced the classes are: about one order in a hundred is fraud, as in real card data. A model that called every order genuine would be 99% accurate and catch nothing, which is why the AutoML run sets `balance_classes=True` and ranks its models by AUCPR.
 
 7. Run the next cell. It moves the data into H2O, marks `fraud` as a class label (a *factor*), so H2O trains a classifier and not a regression, and splits the rows 75% for training and 25% for testing. `seed=42` makes the split the same every time you run it:
 
@@ -699,7 +740,7 @@ The chart shows how imbalanced the classes are. This teaching set is about one q
    y = "fraud"
    ```
 
-> **Success:** Checkpoint: `Training: 7,510 rows` and `Test: 2,489 rows`. H2O splits by probability, not by exact count, so the split is close to, not exactly, three quarters and one quarter.
+> **Success:** Checkpoint: `Training: 37,513 rows` and `Test: 12,486 rows`. H2O splits by probability, not by exact count, so the split is close to, not exactly, three quarters and one quarter.
 
 8. Run the next cell. It runs AutoML, for up to 15 minutes; on the lab machine it takes well under one:
 
@@ -713,7 +754,7 @@ The chart shows how imbalanced the classes are. This teaching set is about one q
        seed=42,
        balance_classes=True,           # Handle imbalanced data
        nfolds=5,                       # 5-fold CV
-       sort_metric="AUC",
+       sort_metric="AUCPR",
        include_algos=[
            "GBM",           # Gradient Boosting (usually best)
            "GLM",           # Generalized Linear Model (fast)
@@ -741,7 +782,7 @@ The settings:
 | `max_runtime_secs=900` | Stops after 15 minutes |
 | `balance_classes=True` | Balances the classes while training, for imbalanced data |
 | `nfolds=5` | Scores each model with 5-fold cross-validation |
-| `sort_metric="AUC"` | Ranks the models by AUC |
+| `sort_metric="AUCPR"` | Ranks the models by AUCPR, the area under the precision-recall curve |
 
 The algorithms it may try:
 
@@ -765,9 +806,9 @@ GBM and DRF each combine many trees, so a single decision tree is not among the 
    print(f"Best model: {lb.as_data_frame()['model_id'][0]}")
    ```
 
-> **Success:** Checkpoint: a table with one row per model, best first: three GBM models, then a DRF and a GLM. The five-model limit is reached before AutoML gets to DeepLearning. Its columns include the model ID, **auc**, **aucpr** (the area under the precision-recall curve), the mean per-class error, and the error measures RMSE and MSE. The first row, `GBM_1_AutoML_1_` and the time of the run, has an **auc** of `0.993915`, and the cell ends with `Total models trained: 5`.
+> **Success:** Checkpoint: a table with one row per model, best first by **aucpr**: three GBM models, then a DRF and a GLM. The five-model limit is reached before AutoML gets to DeepLearning. Its columns include the model ID, **aucpr** (the area under the precision-recall curve), **auc**, the mean per-class error, and the error measures RMSE and MSE. The first row, `GBM_1_AutoML_1_` and the time of the run, has an **aucpr** of `0.235918` and an **auc** of `0.925837`, and the cell ends with `Total models trained: 5`.
 
-The leaderboard's numbers come from cross-validation on the training rows. For imbalanced classes, AUCPR is often a better guide than AUC: see the metrics cheat sheet under these tabs. The course ranks by AUC because this teaching data is only mildly imbalanced, and the two put the models in the same order here; on real card data, where fraud is rare, rank by AUCPR (`sort_metric="AUCPR"`).
+The leaderboard's numbers come from cross-validation on the training rows. For imbalanced classes, AUCPR is often a better guide than AUC: see the metrics cheat sheet under these tabs. The course ranks by AUCPR (`sort_metric="AUCPR"`) because its fraud is rare, about one order in a hundred, as on real card data: AUC can look excellent while precision at any usable threshold is poor.
 
 10. Run the next cell. It scores the best model on the test rows:
 
@@ -789,7 +830,7 @@ The leaderboard's numbers come from cross-validation on the training rows. For i
    print(f"F1 Score:  {perf.F1(thresholds=[threshold])[0][1]:.4f}")
    ```
 
-> **Success:** Checkpoint: `Algorithm: gbm`, then `AUC: 0.9951`, `AUCPR: 0.9881`, `Precision: 0.9681`, `Recall: 0.9266` and `F1 Score: 0.9469`: the same numbers as the **auto machine learning** step, because both run the same search on the same rows with the same seed.
+> **Success:** Checkpoint: `Algorithm: gbm`, then `AUC: 0.9134`, `AUCPR: 0.3400`, `Precision: 0.4127`, `Recall: 0.3969` and `F1 Score: 0.4047`: the same numbers as the **auto machine learning** step, because both run the same search on the same rows with the same seed.
 
 What they measure, for fraud:
 
@@ -818,7 +859,9 @@ Precision, recall and F1 depend on the probability above which an order counts a
    print(f"\nCaught {tp} fraud cases, missed {fn}.")
    ```
 
-> **Success:** Checkpoint: a two-by-two table of actual against predicted classes at a threshold of about `0.313`: `1,815` true negatives, `20` false positives, `48` false negatives and `606` true positives, and the line `Caught 606 fraud cases, missed 48.`
+> **Success:** Checkpoint: a two-by-two table of actual against predicted classes at a threshold of about `0.036`: `12,281` true negatives, `74` false positives, `79` false negatives and `52` true positives, and the line `Caught 52 fraud cases, missed 79.`
+
+The test rows hold 131 frauds among 12,486 orders. The threshold that gives the best F1 is very low, about 0.04: when fraud is rare, even a small probability is many times the 1% base rate. The model catches about two frauds in five there, with a little over one false alarm for each fraud it catches: realistic for card fraud, and why the Credit Card workshop trains on the full history and Monitoring and Tuning chooses the threshold from costs.
 
 A false negative is fraud that got through: a direct loss. A false positive is a legitimate order declined: friction for a real customer. Where to strike the balance depends on what each costs the business.
 
@@ -833,11 +876,11 @@ A false negative is fraud that got through: a direct loss. A false positive is a
    best.varimp_plot()
    ```
 
-> **Success:** Checkpoint: a table of the eight features, most important first, and a bar chart of the same. `order_dollar_amount` leads, then `billing_shipping_match` and `hour_of_day`.
+> **Success:** Checkpoint: a table of the eight features, most important first, and a bar chart of the same. `first_time_customer` leads, then `hour_of_day` and `order_dollar_amount`.
 
 <div align="center">
 <figure>
-<img src="../_assets/images/automl_varimp.png" alt="A horizontal bar chart, Variable Importance: H2O Gradient Boosting Machine, from order_dollar_amount at 1.0, then billing_shipping_match, hour_of_day, age, num_items, first_time_customer and web_order, down to total_transactions" width="800">
+<img src="../_assets/images/automl_varimp.png" alt="A horizontal bar chart, Variable Importance: H2O Gradient Boosting Machine, from first_time_customer at 1.0, then hour_of_day, order_dollar_amount, age, total_transactions and billing_shipping_match, down to num_items and web_order" width="800">
 <figcaption>The best model's feature importance</figcaption>
 </figure>
 </div>
@@ -902,6 +945,22 @@ Feature importance explains what drives the predictions, shows where more featur
 > **Success:** Checkpoint: the summary prints, and the cell ends with `Summary saved to fraud_summary.txt.`
 
 A summary like this serves model tracking, reports to stakeholders, comparisons between experiments and audit trails. Once the notebook gives you the answers you need, move the logic into Pentaho Data Integration, as the **auto machine learning** step does, and use the leaderboard to decide which algorithm to put into production.
+
+> **Under the hood:**
+>
+> #### The same search, run two ways
+>
+> The notebook and the **auto machine learning** step both hand the same
+> rows to H2O AutoML, which trains several algorithms, measures each on
+> rows it did not learn from, and ranks them by AUCPR. The notebook runs it
+> one cell at a time, keeps every result on screen, and lets you change a
+> cell and run it again. The step runs it from start to end, inside a
+> transformation, with nobody watching.
+>
+> **Why it matters:** a notebook is where you find the answer; a
+> pipeline is where you use it, every day. The fraud team's question,
+> which kind of model, is answered here, and the answer, a GBM, is what
+> Credit Card builds into a job.
 
 ### 6. GBM
 
@@ -978,7 +1037,7 @@ The four source files, 100,000 rows each:
 
 [transaction_fraud_report.csv](./files/transaction_fraud_report.csv)
 
-`H2O.csv` is a ready-made training set in the layout **tfo-H2O** writes: 9,999 rows, no header line. The notebook reads it if you have not run the transformation:
+`H2O.csv` is a ready-made training set in the layout **tfo-H2O** writes: 49,999 rows, no header line. The notebook reads it if you have not run the transformation:
 
 [H2O.csv](./files/H2O.csv)
 

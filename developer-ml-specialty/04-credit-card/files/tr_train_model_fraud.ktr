@@ -477,20 +477,21 @@
 Run by jb_fraud_main_job; needs h2o-env.
 
 1. csvi-customer_data, csvi-customer_billing, csv fi: customer transaction, csvi-fraud_details_report: CSV file
-   input, the four files, 100,000 rows each.
+   input, the history: 200,000 transactions and the fraud report on each.
 2. slkp-customer, slkp-transaction_details, slkp-fraud_report: Stream lookup, one row per transaction.
-3. frmla-billing=shipping: Formula, billing_shipping_zip_equal = [customer_billing_zip] = [ship_to_zip].
+3. map-features: Mapping, runs tr_features.ktr, the features shared with tr_predict_fraud.
 4. sv-convert_booleans_to_numbers: Select values, the eight features and reported_as_fraud_historic, the
-   flags as Number.
-5. py-train_gbm: Python Executor, h2o-env's python.exe, All rows as train; an H2O GBM, up to 500 trees,
-   depth 4, learn rate 0.01, 20% of the rows held back; saves train_model_output/gbm_fraud.
+   label as Number.
+5. py-train_gbm: Python Executor, h2o-env's python.exe, All rows as train; an H2O GBM, up to 500 trees
+   with early stopping, depth 4, learn rate 0.05, 20% of the rows held back; saves
+   train_model_output/gbm_fraud.
 6. wlog-model: Write to log, the five results.
 
-Shipped data: rows_trained 79967, trees 500, validation_auc 0.9800, validation_aucpr 0.9569.</note>
+Shipped data: rows_trained 160013, trees 150, validation_auc 0.9324, validation_aucpr 0.4061.</note>
       <xloc>352</xloc>
       <yloc>32</yloc>
       <width>627</width>
-      <heigth>260</heigth>
+      <heigth>278</heigth>
       <fontname>Segoe UI</fontname>
       <fontsize>10</fontsize>
       <fontbold>N</fontbold>
@@ -508,11 +509,6 @@ Shipped data: rows_trained 79967, trees 500, validation_auc 0.9800, validation_a
     </notepad>
   </notepads>
   <order>
-    <hop>
-      <from>frmla-billing=shipping</from>
-      <to>sv-convert_booleans_to_numbers</to>
-      <enabled>Y</enabled>
-    </hop>
     <hop>
       <from>csvi-customer_data</from>
       <to>slkp-customer</to>
@@ -545,7 +541,12 @@ Shipped data: rows_trained 79967, trees 500, validation_auc 0.9800, validation_a
     </hop>
     <hop>
       <from>slkp-fraud_report</from>
-      <to>frmla-billing=shipping</to>
+      <to>map-features</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>map-features</from>
+      <to>sv-convert_booleans_to_numbers</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
@@ -805,7 +806,7 @@ Shipped data: rows_trained 79967, trees 500, validation_auc 0.9800, validation_a
     </remotesteps>
     <GUI>
       <xloc>624</xloc>
-      <yloc>340</yloc>
+      <yloc>376</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -890,7 +891,7 @@ Shipped data: rows_trained 79967, trees 500, validation_auc 0.9800, validation_a
     </remotesteps>
     <GUI>
       <xloc>480</xloc>
-      <yloc>340</yloc>
+      <yloc>376</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -964,7 +965,7 @@ Shipped data: rows_trained 79967, trees 500, validation_auc 0.9800, validation_a
     </remotesteps>
     <GUI>
       <xloc>352</xloc>
-      <yloc>452</yloc>
+      <yloc>488</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1027,40 +1028,7 @@ Shipped data: rows_trained 79967, trees 500, validation_auc 0.9800, validation_a
     </remotesteps>
     <GUI>
       <xloc>768</xloc>
-      <yloc>340</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>frmla-billing=shipping</name>
-    <type>Formula</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <formula>
-      <field_name>billing_shipping_zip_equal</field_name>
-      <formula_string>[customer_billing_zip] = [ship_to_zip]</formula_string>
-      <value_type>Boolean</value_type>
-      <value_length>-1</value_length>
-      <value_precision>-1</value_precision>
-      <replace_field/>
-    </formula>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>768</xloc>
-      <yloc>548</yloc>
+      <yloc>376</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1114,7 +1082,7 @@ Shipped data: rows_trained 79967, trees 500, validation_auc 0.9800, validation_a
     </remotesteps>
     <GUI>
       <xloc>480</xloc>
-      <yloc>452</yloc>
+      <yloc>488</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1156,7 +1124,7 @@ Shipped data: rows_trained 79967, trees 500, validation_auc 0.9800, validation_a
     </remotesteps>
     <GUI>
       <xloc>768</xloc>
-      <yloc>452</yloc>
+      <yloc>488</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1298,7 +1266,7 @@ Shipped data: rows_trained 79967, trees 500, validation_auc 0.9800, validation_a
     </remotesteps>
     <GUI>
       <xloc>624</xloc>
-      <yloc>452</yloc>
+      <yloc>488</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1359,57 +1327,6 @@ Shipped data: rows_trained 79967, trees 500, validation_auc 0.9800, validation_a
         <currency_symbol/>
         <storage_type/>
       </meta>
-      <meta>
-        <name>billing_shipping_zip_equal</name>
-        <rename>billing_shipping_zip_equal</rename>
-        <type>Number</type>
-        <length>1</length>
-        <precision>-2</precision>
-        <conversion_mask>#.#</conversion_mask>
-        <date_format_lenient>false</date_format_lenient>
-        <date_format_locale/>
-        <date_format_timezone/>
-        <lenient_string_to_number>false</lenient_string_to_number>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>
-      <meta>
-        <name>web_order</name>
-        <rename>web_order</rename>
-        <type>Number</type>
-        <length>1</length>
-        <precision>-2</precision>
-        <conversion_mask>#.#</conversion_mask>
-        <date_format_lenient>false</date_format_lenient>
-        <date_format_locale/>
-        <date_format_timezone/>
-        <lenient_string_to_number>false</lenient_string_to_number>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>
-      <meta>
-        <name>first_time_customer</name>
-        <rename>first_time_customer</rename>
-        <type>Number</type>
-        <length>1</length>
-        <precision>-2</precision>
-        <conversion_mask>#.#</conversion_mask>
-        <date_format_lenient>false</date_format_lenient>
-        <date_format_locale/>
-        <date_format_timezone/>
-        <lenient_string_to_number>false</lenient_string_to_number>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>
     </fields>
     <attributes/>
     <cluster_schema/>
@@ -1421,7 +1338,7 @@ Shipped data: rows_trained 79967, trees 500, validation_auc 0.9800, validation_a
     </remotesteps>
     <GUI>
       <xloc>768</xloc>
-      <yloc>660</yloc>
+      <yloc>696</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1492,7 +1409,7 @@ gbm = H2OGradientBoostingEstimator(
     stopping_metric="AUC",
     score_tree_interval=10,
     max_depth=4,              # depth of each tree
-    learn_rate=0.01,          # how much each tree corrects
+    learn_rate=0.05,          # how much each tree corrects
     min_rows=10,              # fewest rows in a leaf
     sample_rate=0.5,          # each tree sees a random half of the rows
     seed=42,
@@ -1664,7 +1581,7 @@ h2o.cluster().shutdown()
     </remotesteps>
     <GUI>
       <xloc>976</xloc>
-      <yloc>660</yloc>
+      <yloc>696</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1711,7 +1628,62 @@ h2o.cluster().shutdown()
     </remotesteps>
     <GUI>
       <xloc>1136</xloc>
-      <yloc>660</yloc>
+      <yloc>696</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>map-features</name>
+    <type>Mapping</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <specification_method>FILENAME</specification_method>
+    <trans_object_id/>
+    <trans_name/>
+    <filename>${Internal.Entry.Current.Directory}/tr_features.ktr</filename>
+    <directory_path/>
+    <mappings>
+      <input>
+        <mapping>
+          <input_step/>
+          <output_step/>
+          <main_path>Y</main_path>
+          <rename_on_output>Y</rename_on_output>
+          <description/>
+        </mapping>
+      </input>
+      <output>
+        <mapping>
+          <input_step/>
+          <output_step/>
+          <main_path>Y</main_path>
+          <rename_on_output>N</rename_on_output>
+          <description/>
+        </mapping>
+      </output>
+      <parameters>
+        <inherit_all_vars>Y</inherit_all_vars>
+      </parameters>
+    </mappings>
+    <allow_multiple_input>N</allow_multiple_input>
+    <allow_multiple_output>N</allow_multiple_output>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>768</xloc>
+      <yloc>584</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

@@ -55,6 +55,11 @@ One thing is yours to do: the Python environment the course uses
 lives in your own home folder, so you create it with one script in
 [Prerequisite Tasks](../02-prerequisite-tasks/guide.md).
 
+The installer also laid down three kits the later workshops start
+when they need them: `C:\MySQL` (the MySQL database the scores go to,
+from Credit Card on), `C:\Streaming` (Kafka, for Real-time Scoring) and
+`C:\ML` (the Python setup and the H2O scoring service).
+
 If something looks wrong later, tell your instructor rather than
 reinstalling anything.
 
@@ -66,6 +71,7 @@ and make sure it starts.
 This course also needs:
 
 - **Python 3.11+**, with H2O, pandas, NumPy, Matplotlib, Py4J and JupyterLab in a virtual environment named `h2o-env`: [Prerequisite Tasks](../02-prerequisite-tasks/guide.md) sets it up.
+- **Podman**, with the course's MySQL kit (`sampledata-mysql` on port 3306) from Credit Card on, and the Streaming kit's Kafka (`pcm-kafka` on port 9092) for Real-time Scoring; and the MySQL JDBC driver in Pentaho Data Integration's `lib` folder.
 - Optionally, a Google account, for **Google Colab**.
 
 :::

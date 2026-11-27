@@ -10,6 +10,12 @@
 * [AutoML](03-automl/guide.md)
 * [Credit Card](04-credit-card/guide.md)
 
+## ML in Production
+
+* [Monitoring and Tuning](05-monitoring-and-tuning/guide.md)
+* [Scoring as a Service](06-scoring-as-a-service/guide.md)
+* [Real-time Scoring](07-real-time-scoring/guide.md)
+
 ## Capstone Project
 
-* [Capstone: Nightly Fraud Screening](05-capstone-nightly-fraud-screening/guide.md)
+* [Capstone: Nightly Fraud Screening](08-capstone-nightly-fraud-screening/guide.md)

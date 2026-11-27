@@ -439,7 +439,7 @@
 AutoML.
 Needs the h2o-env virtual environment (Prerequisite Tasks); the four CSV files sit beside it.
 
-1. csvi-customer: Text file input, customer.csv, the first 10,000 customers.
+1. csvi-customer: Text file input, customer.csv, the first 50,000 lines: 49,999 customers.
 2. csvi_customer_billing, csvi-customer transaction, csvi-transaction_fraud_report: CSV file input, the billing,
    order and fraud report files.
 3. slkp-customer, slkp-transaction_details, slkp-transaction_fraud_report: Stream lookup, one row per
@@ -449,10 +449,10 @@ Needs the h2o-env virtual environment (Prerequisite Tasks); the four CSV files s
 5. sv-change_to_numbers: Select values, the nine fields, the four flags as Number 1 and 0.
 6. tfo-H2O: Text file output, data/H2O.csv, semicolons, no header.
 7. auto machine learning: Python Executor, h2o-env's python.exe, All rows as dataset; H2O AutoML, up to
-   five models ranked by AUC; the best saved in automl_output.
+   five models ranked by AUCPR (fraud is rare); the best saved in automl_output.
 
-Shipped data: 9,999 rows in data/H2O.csv; one row back with best_algorithm gbm, best_auc 0.9951 and
-models_trained 5.</note>
+Shipped data: 49,999 rows in data/H2O.csv (497 fraud); one row back with best_algorithm gbm,
+best_aucpr 0.3400, best_auc 0.9134 and models_trained 5.</note>
       <xloc>160</xloc>
       <yloc>32</yloc>
       <width>625</width>
@@ -580,7 +580,7 @@ aml = H2OAutoML(
     seed=42,
     balance_classes=True,         # fraud is the smaller class
     nfolds=5,                     # 5-fold cross-validation
-    sort_metric="AUC",            # rank the models by AUC
+    sort_metric="AUCPR",          # rank by AUCPR: fraud is rare
     include_algos=["GBM", "GLM", "DRF", "DeepLearning"],
     verbosity="warn",
 )
@@ -879,7 +879,7 @@ h2o.cluster().shutdown()
         <repeat>N</repeat>
       </field>
     </fields>
-    <limit>10000</limit>
+    <limit>50000</limit>
     <error_ignored>N</error_ignored>
     <skip_bad_files>N</skip_bad_files>
     <file_error_field/>

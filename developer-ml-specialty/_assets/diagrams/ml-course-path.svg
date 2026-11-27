@@ -1,7 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="800" height="608" viewBox="0 0 800 608" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="804" viewBox="0 0 800 804" font-family="Segoe UI, Helvetica, Arial, sans-serif">
 <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
 <filter id="shadow" x="-10%" y="-10%" width="120%" height="140%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#0f172a" flood-opacity="0.12"/></filter></defs>
-<rect width="800" height="608" fill="#ffffff"/>
+<rect width="800" height="804" fill="#ffffff"/>
 <rect x="16" y="16" width="768" height="268" rx="12" fill="#eff6ff" stroke="#dbeafe" stroke-width="1.5"/>
 <path d="M16 28a12 12 0 0 1 12-12h744a12 12 0 0 1 12 12v32h-768z" fill="#1d4ed8"/>
 <g transform="translate(29 26) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></g>
@@ -12,6 +12,11 @@
 <g transform="translate(29 334) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5h10"/><path d="M11 12h10"/><path d="M11 19h10"/><path d="M4 4h1v5"/><path d="M4 9h2"/><path d="M6.5 20H3.4c0-1 2.6-1.925 2.6-3.5a1.5 1.5 0 0 0-2.6-1.02"/></g>
 <text x="56" y="344" font-size="14" font-weight="700" fill="#ffffff">Credit Card lab: jb_fraud_main_job.kjb</text>
 <text x="56" y="360" font-size="11.5" fill="#ffffff" opacity="0.92">train_model, then predict_fraud: an H2O GBM in Python Executor steps</text>
+<rect x="16" y="632" width="768" height="156" rx="12" fill="#f5f3ff" stroke="#ede9fe" stroke-width="1.5"/>
+<path d="M16 644a12 12 0 0 1 12-12h744a12 12 0 0 1 12 12v32h-768z" fill="#6d28d9"/>
+<g transform="translate(29 642) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"/></g>
+<text x="56" y="652" font-size="14" font-weight="700" fill="#ffffff">ML in Production</text>
+<text x="56" y="668" font-size="11.5" fill="#ffffff" opacity="0.92">measure it, serve it, score orders as they arrive</text>
 <path d="M256 112C270.5 112 270.5 112 285 112" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
 <path d="M512 112C526.5 112 526.5 112 541 112" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
 <path d="M656 152L656 185" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
@@ -21,6 +26,9 @@
 <path d="M256 420C270.5 420 270.5 420 285 420" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
 <path d="M512 420C526.5 420 526.5 420 541 420" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
 <path d="M656 460L656 493" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M256 728C270.5 728 270.5 728 285 728" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M512 728C526.5 728 526.5 728 541 728" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M656 576L656 629" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
 <rect x="32" y="72" width="224" height="80" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
 <circle cx="62" cy="112" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
 <g transform="translate(50 100) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2h-4a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V8"/><path d="M16.706 2.706A2.4 2.4 0 0 0 15 2v5a1 1 0 0 0 1 1h5a2.4 2.4 0 0 0-.706-1.706z"/><path d="M5 7a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h8a2 2 0 0 0 1.732-1"/></g>
@@ -44,7 +52,7 @@
 <g transform="translate(50 216) scale(1)" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13.4 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7.4"/><path d="M2 6h4"/><path d="M2 10h4"/><path d="M2 14h4"/><path d="M2 18h4"/><path d="M21.378 5.626a1 1 0 1 0-3.004-3.004l-5.01 5.012a2 2 0 0 0-.506.854l-.837 2.87a.5.5 0 0 0 .62.62l2.87-.837a2 2 0 0 0 .854-.506z"/></g>
 <text x="92" y="211" font-size="14" font-weight="700" fill="#78350f">AutoML notebook</text>
 <text x="92" y="228" font-size="12" fill="#78350f">JupyterLab reads H2O.csv;</text>
-<text x="92" y="243" font-size="12" fill="#78350f">leaderboard by AUC</text>
+<text x="92" y="243" font-size="12" fill="#78350f">leaderboard by AUCPR</text>
 <rect x="288" y="188" width="224" height="80" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
 <circle cx="318" cy="228" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
 <g transform="translate(306 216) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.226 20.925A2 2 0 0 0 6 22h12a2 2 0 0 0 2-2V8a2.4 2.4 0 0 0-.706-1.706l-3.588-3.588A2.4 2.4 0 0 0 14 2H6a2 2 0 0 0-2 2v3.127"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="m5 11-3 3"/><path d="m5 17-3-3h10"/></g>
@@ -82,9 +90,9 @@
 <rect x="544" y="496" width="224" height="80" rx="10" fill="#ffffff" stroke="#64748b" stroke-width="1.5" filter="url(#shadow)"/>
 <circle cx="574" cy="536" r="19" fill="#ffffff" stroke="#64748b" stroke-width="1.2"/>
 <g transform="translate(562 524) scale(1)" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></g>
-<text x="604" y="519" font-size="14" font-weight="700" fill="#0f172a">Scored CSV</text>
-<text x="604" y="536" font-size="12" fill="#0f172a">output/credit_card_fraud_</text>
-<text x="604" y="551" font-size="12" fill="#0f172a">&lt;HHmmss&gt;.csv, 13 columns</text>
+<text x="604" y="519" font-size="14" font-weight="700" fill="#0f172a">Scored, with a reason</text>
+<text x="604" y="536" font-size="12" fill="#0f172a">a CSV file, and MySQL</text>
+<text x="604" y="551" font-size="12" fill="#0f172a">fraud.transaction_scores</text>
 <rect x="606.05" y="464" width="99.89999999999999" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
 <text x="656" y="482" text-anchor="middle" font-size="12" fill="#334155">Predict Fraud</text>
 <rect x="32" y="496" width="480" height="80" rx="10" fill="#f1f5f9" stroke="#475569" stroke-width="1.5" filter="url(#shadow)"/>
@@ -93,4 +101,24 @@
 <text x="92" y="519" font-size="14" font-weight="700" fill="#0f172a">The job runs both, in order</text>
 <text x="92" y="536" font-size="12" fill="#0f172a">predict_fraud starts only after train_model succeeds,</text>
 <text x="92" y="551" font-size="12" fill="#0f172a">so it always loads a finished model file</text>
+<rect x="32" y="688" width="224" height="80" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="728" r="19" fill="#ffffff" stroke="#b45309" stroke-width="1.2"/>
+<g transform="translate(50 716) scale(1)" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 14 4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/></g>
+<text x="92" y="711" font-size="14" font-weight="700" fill="#78350f">Monitoring and Tuning</text>
+<text x="92" y="728" font-size="12" fill="#78350f">cheapest threshold; retrain</text>
+<text x="92" y="743" font-size="12" fill="#78350f">only when recall falls</text>
+<rect x="288" y="688" width="224" height="80" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="318" cy="728" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(306 716) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="8" x="2" y="2" rx="2" ry="2"/><rect width="20" height="8" x="2" y="14" rx="2" ry="2"/><line x1="6" x2="6.01" y1="6" y2="6"/><line x1="6" x2="6.01" y1="18" y2="18"/></g>
+<text x="348" y="711" font-size="14" font-weight="700" fill="#3b0764">Scoring as a Service</text>
+<text x="348" y="728" font-size="12" fill="#3b0764">one H2O server holds</text>
+<text x="348" y="743" font-size="12" fill="#3b0764">the model; PDI calls it</text>
+<rect x="544" y="688" width="224" height="80" rx="10" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="574" cy="728" r="19" fill="#ffffff" stroke="#0f766e" stroke-width="1.2"/>
+<g transform="translate(562 716) scale(1)" fill="none" stroke="#0f766e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.9 16.1C1 12.2 1 5.8 4.9 1.9"/><path d="M7.8 4.7a6.14 6.14 0 0 0-.8 7.5"/><circle cx="12" cy="9" r="2"/><path d="M16.2 4.8c2 2 2.26 5.11.8 7.47"/><path d="M19.1 1.9a9.96 9.96 0 0 1 0 14.1"/><path d="M9.5 18h5"/><path d="m8 22 4-11 4 11"/></g>
+<text x="604" y="711" font-size="14" font-weight="700" fill="#134e4a">Real-time Scoring</text>
+<text x="604" y="728" font-size="12" fill="#134e4a">Kafka orders, scored</text>
+<text x="604" y="743" font-size="12" fill="#134e4a">batch by batch</text>
+<rect x="628.1" y="590" width="55.8" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="656" y="608" text-anchor="middle" font-size="12" fill="#334155">scores</text>
 </svg>

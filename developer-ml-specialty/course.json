@@ -12,8 +12,8 @@
     "sendLabel": "Send"
   },
   "title": "Developer - ML Specialty",
-  "description": "Machine learning with Pentaho Data Integration. A credit-card fraud-detection use case covering H2O AutoML, supervised learning with an H2O GBM in Python, and handling imbalanced datasets.",
-  "version": "0.1.13",
+  "description": "Machine learning with Pentaho Data Integration. A credit-card fraud-detection use case covering H2O AutoML, supervised learning with an H2O GBM in Python, and handling imbalanced datasets, then the model in production: monitoring, threshold tuning and retraining, an H2O scoring service, and real-time scoring from Kafka.",
+  "version": "0.1.14",
   "kind": "workshop",
   "platform": "windows11",
   "level": {
@@ -54,6 +54,10 @@
       "summary": "Detect credit-card fraud with Pentaho Data Integration: discover models automatically with H2O AutoML, learn fraud patterns with a supervised algorithm, and handle the imbalanced datasets that make fraud detection hard."
     },
     {
+      "title": "ML in Production",
+      "summary": "Keep a model earning its place: measure it against the outcomes the fraud team confirms, choose the threshold that costs least, retrain it only when it drifts, score orders through a long-running H2O service, and score them as they arrive from Kafka."
+    },
+    {
       "title": "Capstone Project",
       "summary": "One project across the course: a nightly job that retrains an H2O fraud model behind a quality gate, scores the night's new orders with it, and writes a review queue at the fraud team's threshold."
     }
@@ -71,8 +75,11 @@
     "code": "ML",
     "workshop": true,
     "kits": [
-      "ML"
-    ]
+      "ML",
+      "MySQL",
+      "Streaming"
+    ],
+    "pdiDriver": true
   },
   "completionCertificate": {
     "title": "Pentaho Developer - Machine Learning - Specialty Level",
@@ -81,9 +88,11 @@
       "Python Executor steps with H2O",
       "Model search with H2O AutoML",
       "Training, measuring and saving a GBM",
-      "Scoring at a business threshold"
+      "Scoring at a business threshold",
+      "Monitoring, threshold tuning and retraining",
+      "Scoring as a service and from Kafka"
     ],
-    "capstone": "Completed a capstone project: a nightly fraud screening job that retrains an H2O GBM behind a quality gate, scores the night's new orders, and queues the likely fraud for review.",
+    "capstone": "Completed a capstone project: a nightly fraud screening job that retrains an H2O GBM behind a quality gate, scores the night's new orders with features shared by training and scoring, and queues the likely fraud for review.",
     "validYears": 2,
     "signatory": {
       "name": "Jason Allaway",
@@ -92,7 +101,7 @@
     "watermark": "PENTAHO",
     "requires": {
       "labChecks": [
-        "05-capstone-nightly-fraud-screening"
+        "08-capstone-nightly-fraud-screening"
       ]
     }
   }

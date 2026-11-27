@@ -121,11 +121,11 @@ const t1 = d.box({ x: bx, y: row(0), w: BW, h: BH, role: 'source', iconName: 'fi
 const p1 = d.box({ x: px, y: row(0), w: BW, h: BH, role: 'source', iconName: 'file-input', title: '3 CSV file inputs', lines: ['customer.csv, customer_billing.csv,', 'transaction_details.csv;', 'not the fraud report'] });
 const t2 = d.box({ x: bx, y: row(1), w: BW, h: BH, role: 'join', iconName: 'merge', title: '3 Stream lookups', lines: ['slkp-customer, slkp-transaction_details,', 'slkp-fraud_report: adds', 'reported_as_fraud_historic'] });
 const p2 = d.box({ x: px, y: row(1), w: BW, h: BH, role: 'join', iconName: 'merge', title: '2 Stream lookups', lines: ['slkp-customer,', 'slkp-transaction_details:', 'the same joins'] });
-const t3 = d.box({ x: bx, y: row(2), w: BW, h: BH, role: 'engine', iconName: 'calculator', title: 'Eight features + the label', lines: ['frmla-billing=shipping,', 'sv-convert_booleans_to_numbers', '(flags become Numbers)'] });
-const p3 = d.box({ x: px, y: row(2), w: BW, h: BH, role: 'engine', iconName: 'calculator', title: 'Two ids + eight features', lines: ['frmla-billing=shipping, sv-fields,', 'sv-predict_fields, sv-convert_', 'booleans_to_numbers'] });
+const t3 = d.box({ x: bx, y: row(2), w: BW, h: BH, role: 'engine', iconName: 'calculator', title: 'Eight features + the label', lines: ['map-features runs the shared', 'tr_features.ktr; the label', 'becomes a Number'] });
+const p3 = d.box({ x: px, y: row(2), w: BW, h: BH, role: 'engine', iconName: 'calculator', title: 'Two ids + eight features', lines: ['map-features runs the same', 'tr_features.ktr: features made', 'exactly as for training'] });
 const t4 = d.box({ x: bx, y: row(3), w: BW, h: BH, role: 'model', iconName: 'brain-circuit', title: 'py-train_gbm', lines: ['Python Executor, All rows as train;', 'H2O GBM on 80%, measured on 20%;', 'one row: validation_auc, trees ...'] });
-const p4 = d.box({ x: px, y: row(3), w: BW, h: BH, role: 'engine', iconName: 'code', title: 'py-predict_fraud', lines: ['Python Executor, All rows as test;', 'load the model; predict():', 'fraud_probability, fraud_pct, ...'] });
-const p5 = d.box({ x: px, y: row(4), w: BW, h: BH, role: 'write', iconName: 'file-output', title: 'Predict Fraud', lines: ['Text file output:', 'output/credit_card_fraud_<HHmmss>.csv,', '13 columns: the ids and the scores'] });
+const p4 = d.box({ x: px, y: row(3), w: BW, h: BH, role: 'engine', iconName: 'code', title: 'py-predict_fraud', lines: ['Python Executor, All rows as test;', 'load the model; predict() and', 'predict_contributions(): top_reason'] });
+const p5 = d.box({ x: px, y: row(4), w: BW, h: BH, role: 'write', iconName: 'file-output', title: 'Predict Fraud, then MySQL', lines: ['output/credit_card_fraud_<HHmmss>.csv;', 'iu-transaction_scores: Insert / Update', 'into fraud.transaction_scores'] });
 
 // Down each chain.
 for (const [a, b] of [[t1, t2], [t2, t3], [t3, t4], [p1, p2], [p2, p3], [p3, p4], [p4, p5]]) {

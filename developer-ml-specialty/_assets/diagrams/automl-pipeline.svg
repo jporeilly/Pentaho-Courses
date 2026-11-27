@@ -25,7 +25,7 @@
 <circle cx="62" cy="112" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
 <g transform="translate(50 100) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2h-4a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V8"/><path d="M16.706 2.706A2.4 2.4 0 0 0 15 2v5a1 1 0 0 0 1 1h5a2.4 2.4 0 0 0-.706-1.706z"/><path d="M5 7a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h8a2 2 0 0 0 1.732-1"/></g>
 <text x="92" y="95" font-size="14" font-weight="700" fill="#1e3a8a">Four file inputs</text>
-<text x="92" y="112" font-size="12" fill="#1e3a8a">9,999 customers; billing,</text>
+<text x="92" y="112" font-size="12" fill="#1e3a8a">49,999 customers; billing,</text>
 <text x="92" y="127" font-size="12" fill="#1e3a8a">orders, fraud report</text>
 <rect x="288" y="72" width="224" height="80" rx="10" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5" filter="url(#shadow)"/>
 <circle cx="318" cy="112" r="19" fill="#ffffff" stroke="#0f766e" stroke-width="1.2"/>
@@ -43,20 +43,20 @@
 <circle cx="62" cy="228" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
 <g transform="translate(50 216) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.226 20.925A2 2 0 0 0 6 22h12a2 2 0 0 0 2-2V8a2.4 2.4 0 0 0-.706-1.706l-3.588-3.588A2.4 2.4 0 0 0 14 2H6a2 2 0 0 0-2 2v3.127"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="m5 11-3 3"/><path d="m5 17-3-3h10"/></g>
 <text x="92" y="211" font-size="14" font-weight="700" fill="#14532d">tfo-H2O</text>
-<text x="92" y="228" font-size="12" fill="#14532d">data/H2O.csv: 9,999 lines,</text>
+<text x="92" y="228" font-size="12" fill="#14532d">data/H2O.csv: 49,999 lines,</text>
 <text x="92" y="243" font-size="12" fill="#14532d">semicolons, no header</text>
 <rect x="288" y="188" width="224" height="80" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
 <circle cx="318" cy="228" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
 <g transform="translate(306 216) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7"/><path d="M7 3v4a1 1 0 0 0 1 1h7"/></g>
 <text x="348" y="211" font-size="14" font-weight="700" fill="#14532d">One row back</text>
-<text x="348" y="228" font-size="12" fill="#14532d">gbm, best_auc 0.9951;</text>
+<text x="348" y="228" font-size="12" fill="#14532d">gbm, best_aucpr 0.3400;</text>
 <text x="348" y="243" font-size="12" fill="#14532d">the model in automl_output</text>
 <rect x="544" y="188" width="224" height="80" rx="10" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5" filter="url(#shadow)"/>
 <circle cx="574" cy="228" r="19" fill="#ffffff" stroke="#0f766e" stroke-width="1.2"/>
 <g transform="translate(562 216) scale(1)" fill="none" stroke="#0f766e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/></g>
 <text x="604" y="211" font-size="14" font-weight="700" fill="#134e4a">auto machine learning</text>
 <text x="604" y="228" font-size="12" fill="#134e4a">Python Executor: H2O</text>
-<text x="604" y="243" font-size="12" fill="#134e4a">AutoML, 5 models by AUC</text>
+<text x="604" y="243" font-size="12" fill="#134e4a">AutoML, 5 models by AUCPR</text>
 <rect x="634.4" y="156" width="43.2" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
 <text x="656" y="174" text-anchor="middle" font-size="12" fill="#334155">Copy</text>
 <rect x="32" y="380" width="224" height="80" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
@@ -70,12 +70,12 @@
 <g transform="translate(306 408) scale(1)" fill="none" stroke="#0f766e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5h10"/><path d="M11 12h10"/><path d="M11 19h10"/><path d="M4 4h1v5"/><path d="M4 9h2"/><path d="M6.5 20H3.4c0-1 2.6-1.925 2.6-3.5a1.5 1.5 0 0 0-2.6-1.02"/></g>
 <text x="348" y="403" font-size="14" font-weight="700" fill="#134e4a">AutoML leaderboard</text>
 <text x="348" y="420" font-size="12" fill="#134e4a">3 GBMs, a DRF, a GLM,</text>
-<text x="348" y="435" font-size="12" fill="#134e4a">5-fold CV, ranked by AUC</text>
+<text x="348" y="435" font-size="12" fill="#134e4a">5-fold CV, ranked by AUCPR</text>
 <rect x="544" y="380" width="224" height="80" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
 <circle cx="574" cy="420" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
 <g transform="translate(562 408) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 14 4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/></g>
 <text x="604" y="403" font-size="14" font-weight="700" fill="#3b0764">Judge the best</text>
-<text x="604" y="420" font-size="12" fill="#3b0764">test AUC 0.9951; confusion</text>
+<text x="604" y="420" font-size="12" fill="#3b0764">test AUCPR 0.3400; confusion</text>
 <text x="604" y="435" font-size="12" fill="#3b0764">matrix; feature importance</text>
 <rect x="112.95" y="282" width="62.1" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
 <text x="144" y="300" text-anchor="middle" font-size="12" fill="#334155">H2O.csv</text>

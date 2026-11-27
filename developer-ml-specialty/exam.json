@@ -1,6 +1,6 @@
 {
   "title": "PDI Machine Learning Specialty Exam",
-  "description": "30 questions drawn from a pool of 41, covering machine-learning concepts and the PDI credit-card fraud workflow: the Python setup, choosing a model with AutoML, and training and scoring an H2O GBM in Python. Pass mark is 80%. Open-book — browse any page, hover glossary terms, or ask the AI assistant. Your answers are saved as you go. Explanations appear after submission.",
+  "description": "30 questions drawn from a pool of 52, covering machine-learning concepts and the PDI credit-card fraud workflow: the Python setup, choosing a model with AutoML, training and scoring an H2O GBM in Python, and the model in production: monitoring and tuning, a scoring service, and real-time scoring from Kafka. Pass mark is 80%. Open-book — browse any page, hover glossary terms, or ask the AI assistant. Your answers are saved as you go. Explanations appear after submission.",
   "passMark": 80,
   "questionsPerAttempt": 30,
   "shuffle": true,
@@ -421,7 +421,7 @@
         "trees, read from the model summary",
         "fraud_probability",
         "validation_auc",
-        "learn_rate = 0.01"
+        "learn_rate = 0.05"
       ],
       "correctIndices": [
         0,
@@ -450,16 +450,16 @@
       "id": "ml-m4-q3",
       "module": "Credit-Card Fraud Use Case",
       "bloom": "Apply",
-      "scenario": "One night, the capstone's training transformation measures a validation AUC of 0.86 for the new model. The quality gate's bar is 0.90.",
+      "scenario": "One night, the capstone's training transformation measures a validation AUC of 0.81 for the new model. The quality gate's bar is 0.85.",
       "prompt": "What happens to that night's orders?",
       "options": [
         "Training aborts, so the job does not screen them",
-        "They are screened at a threshold of 0.86 instead",
-        "The job retrains until the AUC reaches 0.90",
+        "They are screened at a threshold of 0.81 instead",
+        "The job retrains until the AUC reaches 0.85",
         "They are queued for review without being scored"
       ],
       "correct": 0,
-      "explanation": "The **quality gate** sends a validation AUC below 0.90 to an **Abort** step, so `train_fraud_model.ktr` fails. The job runs `screen_orders.ktr` only when training succeeded, so it takes its red hop instead and **screens no orders** that night.\n\nThe gate does not change the threshold or retrain the model; it stops the night's run.",
+      "explanation": "The **quality gate** sends a validation AUC below 0.85 to an **Abort** step, so `train_fraud_model.ktr` fails. The job runs `screen_orders.ktr` only when training succeeded, so it takes its red hop instead and **screens no orders** that night.\n\nThe gate does not change the threshold or retrain the model; it stops the night's run.",
       "source": "Developer - ML Specialty: Capstone: Nightly Fraud Screening"
     },
     {
@@ -555,7 +555,7 @@
         "h2o.H2OFrame(test), which adds the predictions to the rows"
       ],
       "correct": 1,
-      "explanation": "`gbm.predict` returns only the prediction columns. The script copies the input data frame, `scored = test.copy()`, and adds `fraud_probability`, `fraud_pct`, and `predicted_fraud` to the **copy**, so every input field, including `customer_id` and `transaction_id`, travels downstream with its score.",
+      "explanation": "`gbm.predict` returns only the prediction columns. The script copies the input data frame, `scored = test.copy()`, and adds `fraud_probability`, `fraud_pct`, `predicted_fraud` and `top_reason` to the **copy**, so every input field, including `customer_id` and `transaction_id`, travels downstream with its score.",
       "source": "Developer - ML Specialty: Credit Card"
     },
     {
@@ -667,8 +667,184 @@
         "`credit_card_fraud_<HHmmss>.csv`, in the `output` folder"
       ],
       "correct": 3,
-      "explanation": "The prediction job writes a **CSV file** to the `output` folder and adds the time of the run to its name: `credit_card_fraud_<HHmmss>.csv`. Each row is a scored transaction: `customer_id`, `transaction_id`, the eight model inputs, and `fraud_probability`, `fraud_pct`, and `predicted_fraud`, so a reviewer can open and sort it without PDI.",
+      "explanation": "The prediction job writes a **CSV file** to the `output` folder and adds the time of the run to its name: `credit_card_fraud_<HHmmss>.csv`. Each row is a scored transaction: `customer_id`, `transaction_id`, the eight model inputs, and `fraud_probability`, `fraud_pct`, `predicted_fraud` and `top_reason`, so a reviewer can open and sort it without PDI. The same scores also go to the MySQL table `fraud.transaction_scores`.",
       "source": "Developer - ML Specialty: Credit Card"
+    },
+    {
+      "id": "ml-m4-q10",
+      "module": "Credit-Card Fraud Use Case",
+      "bloom": "Analyze",
+      "scenario": "A developer changes the zip-code comparison in the training transformation only. The model's validation AUC stays high, but last night's scores look wrong.",
+      "prompt": "Which design in the Credit Card workshop prevents this?",
+      "options": [
+        "Both transformations make the features through one tr_features.ktr, run by a Mapping step",
+        "The Python Executor step recalculates the features from the raw fields before scoring",
+        "H2O stores the feature formulas inside the saved gbm_fraud model folder",
+        "The job checks that the two transformations have the same number of steps"
+      ],
+      "correct": 0,
+      "explanation": "A model scores well only on features made exactly as they were when it was trained. In the Credit Card workshop, training and prediction both run **tr_features.ktr** through a **Mapping** step, so the zip match and the flags are made in one place and cannot drift apart. H2O saves the model, not the feature logic.",
+      "source": "Developer - ML Specialty: Credit Card"
+    },
+    {
+      "id": "ml-m5-q8",
+      "module": "PDI Orchestration",
+      "bloom": "Apply",
+      "scenario": "After a failure, the nightly scoring job is run a second time. The fraud team needs one row per transaction in transaction_scores, with the latest score.",
+      "prompt": "Which step setting gives them that?",
+      "options": [
+        "Insert / Update, with transaction_id as the key to look up",
+        "Table output, with Use batch update for inserts selected",
+        "Text file output to the table's folder, with Append selected",
+        "Table output, with transaction_id as the commit size"
+      ],
+      "correct": 0,
+      "explanation": "**Insert / Update** looks each `transaction_id` up in the table: a new one is inserted and an existing one has its score fields updated, so a second run leaves one row per transaction. **Table output** inserts every row it receives, so a second run would double the table.",
+      "source": "Developer - ML Specialty: Credit Card"
+    },
+    {
+      "id": "ml-m6-q1",
+      "module": "ML in Production",
+      "bloom": "Analyze",
+      "scenario": "A missed fraud costs 200 and an analyst review costs 25. On a week of confirmed outcomes, with about one fraud in a hundred orders, the threshold sweep reports a cost of 17,950 at 0.5, 17,200 at 0.25 and 16,175 at 0.15.",
+      "prompt": "Which threshold should the fraud team choose, and what does it trade?",
+      "options": [
+        "0.15: more orders to review, in exchange for fewer missed frauds",
+        "0.5: the model's default, because it has the highest precision",
+        "0.25: halfway between the other two, so neither cost dominates",
+        "0.15: fewer orders to review, and fewer missed frauds as well"
+      ],
+      "correct": 0,
+      "explanation": "The cheapest threshold here is **0.15**. Lowering the threshold flags more orders, so the team reviews more of them, but it catches more of the fraud: at these costs a missed fraud costs eight reviews, so the trade pays, and it pays until about 25 / 200 = 0.125. The threshold is a business choice, not a property of the model.",
+      "source": "Developer - ML Specialty: Monitoring and Tuning"
+    },
+    {
+      "id": "ml-m6-q2",
+      "module": "ML in Production",
+      "bloom": "Apply",
+      "scenario": "tr_threshold_sweep must count, for each of nine thresholds in a Data grid, how the 10,000 confirmed transactions would have been flagged.",
+      "prompt": "Which step pairs every transaction with every threshold?",
+      "options": [
+        "Join rows (cartesian product), with no join condition",
+        "Stream lookup, with threshold as the lookup key",
+        "Merge join, inner, on transaction_id and threshold",
+        "Group by, with threshold as the group field"
+      ],
+      "correct": 0,
+      "explanation": "**Join rows (cartesian product)** with no condition pairs every row of one input with every row of the other: 10,000 x 9 = 90,000 rows. **Group by** then sums the caught, needless and missed flags for each threshold, after a **Sort rows** puts each threshold's rows together.",
+      "source": "Developer - ML Specialty: Monitoring and Tuning"
+    },
+    {
+      "id": "ml-m6-q3",
+      "module": "ML in Production",
+      "bloom": "Apply",
+      "scenario": "tr_monitor_model works out retrain_needed. The job that runs it must take a different hop when the value is 1.",
+      "prompt": "How does the value reach the job's Simple evaluation entry?",
+      "options": [
+        "A Set variables step sets RETRAIN_NEEDED, valid in the parent job",
+        "A Write to log step writes it where the job can read it",
+        "The job entry reads retrain_needed from the transformation's last row",
+        "A Table output step writes it, and the job reads model_metrics"
+      ],
+      "correct": 0,
+      "explanation": "**Set variables** with the scope **Valid in the parent job** writes `RETRAIN_NEEDED` into the job that ran the transformation, when the transformation ends. The **Simple evaluation** entry then checks `${RETRAIN_NEEDED}` and the job follows the green hop to retrain, or the red hop to log that the model is healthy.",
+      "source": "Developer - ML Specialty: Monitoring and Tuning"
+    },
+    {
+      "id": "ml-m6-q4",
+      "module": "ML in Production",
+      "bloom": "Understand",
+      "scenario": "Credit Card's scoring step starts its own H2O and loads the model on every run. Scoring the same orders through the H2O scoring service takes a few seconds.",
+      "prompt": "Why is the service so much faster to call?",
+      "options": [
+        "Its Java engine is already running, with the model in memory",
+        "It scores with a smaller model that has fewer trees",
+        "It skips the features and scores the raw order fields",
+        "It runs the model inside PDI's own Java process"
+      ],
+      "correct": 0,
+      "explanation": "The slow, fixed costs, starting H2O's Java engine and loading the model from disk, are paid once, when the service starts. A scoring step only connects with `h2o.connect`, sends the rows, and gets the scores back. The model and the features are the same as Credit Card's.",
+      "source": "Developer - ML Specialty: Scoring as a Service"
+    },
+    {
+      "id": "ml-m6-q5",
+      "module": "ML in Production",
+      "bloom": "Apply",
+      "scenario": "Last night the monitoring job retrained the fraud model and saved it. The H2O scoring service is still running with yesterday's model.",
+      "prompt": "What puts the new model into service for the next batch of orders?",
+      "options": [
+        "Run tr_publish_model: it replaces gbm_fraud in the running service",
+        "Nothing: the service reloads the model folder when it changes",
+        "Restart Spoon, so the scoring transformation loads the new file",
+        "Edit tr_score_orders so that it names the new model's folder"
+      ],
+      "correct": 0,
+      "explanation": "The service holds the model in memory under its key, `gbm_fraud`, and does not watch the folder. **tr_publish_model** removes that key and loads the saved model under it again, so the next scoring call uses the new model, with no restart and no change to the scoring transformation.",
+      "source": "Developer - ML Specialty: Scoring as a Service"
+    },
+    {
+      "id": "ml-m6-q6",
+      "module": "ML in Production",
+      "bloom": "Analyze",
+      "scenario": "The Kafka consumer commits offsets when a batch completes. The machine running it stops in the middle of a batch of 100 orders.",
+      "prompt": "What happens to those 100 orders when the consumer starts again?",
+      "options": [
+        "They are read and scored again; Insert / Update keeps one row each",
+        "They are lost, because Kafka removes a message once it is read",
+        "They are skipped, because the consumer starts at the topic's end",
+        "They are scored twice, leaving two rows each in live_scores"
+      ],
+      "correct": 0,
+      "explanation": "With **Commit when batch completed**, the unfinished batch's offsets were never committed, so the consumer group starts again at the first of them and reads the batch again. Orders may be scored twice, never zero times, and **Insert / Update** keyed on `transaction_id` makes the second time harmless.",
+      "source": "Developer - ML Specialty: Real-time Scoring"
+    },
+    {
+      "id": "ml-m6-q7",
+      "module": "ML in Production",
+      "bloom": "Analyze",
+      "scenario": "A message on the orders topic is not JSON. JSON input reads it as a row of nulls, and the next step, a Python Executor, refuses nulls.",
+      "prompt": "Why does the child transformation set such rows aside instead of letting the batch fail?",
+      "options": [
+        "A failed batch stops the consumer, and on restart it fails on the same message",
+        "A failed batch is skipped, so its good orders would never be scored",
+        "Kafka deletes a message that a consumer could not process",
+        "Python Executor steps cannot be restarted inside a running transformation"
+      ],
+      "correct": 0,
+      "explanation": "A failed batch stops the **Kafka consumer**, and because its offsets were never committed, the next start reads the same bad message and fails again. **fltr-parsed** sends rows with no `transaction_id` to `rejected_messages.csv`, with their partition and offset, and the good orders keep flowing.",
+      "source": "Developer - ML Specialty: Real-time Scoring"
+    },
+    {
+      "id": "ml-m5-q9",
+      "module": "PDI Orchestration",
+      "bloom": "Apply",
+      "scenario": "A transformation reads this week's orders, trains nothing, and scores them in a Python Executor step with All rows, then writes the scores with Insert / Update. The developer wants it to run faster.",
+      "prompt": "Which step should be given more copies?",
+      "options": [
+        "Insert / Update, so several connections write the rows in parallel",
+        "Python Executor, so several Python processes share the scoring",
+        "Both of them, so every part of the transformation runs in parallel",
+        "Neither, because PDI never runs two copies of one step at once"
+      ],
+      "correct": 0,
+      "explanation": "**Insert / Update** handles one row at a time, so with four copies four connections write in parallel; every row has its own key, so no two copies touch the same row. A **Python Executor** step with **All rows** must stay at one copy: each copy would receive only part of the rows, and a script that needs the whole set, such as training, would work on fragments.",
+      "source": "Developer - ML Specialty: Credit Card"
+    },
+    {
+      "id": "ml-m6-q8",
+      "module": "ML in Production",
+      "bloom": "Analyze",
+      "scenario": "A transformation writes the review queue to one sheet of a new workbook with a Microsoft Excel writer step, and a summary row to another sheet of the same workbook with a second Excel writer step that uses the existing file.",
+      "prompt": "Why does the summary's branch need a Block this step until steps finish step before its writer?",
+      "options": [
+        "So the summary opens the workbook only after the queue's writer has finished it",
+        "So the summary row is sorted after the queue's rows in the same sheet",
+        "So the template's colors are copied before any value is written",
+        "So the two writers can share one database connection to MySQL"
+      ],
+      "correct": 0,
+      "explanation": "All the steps of a transformation start at once. Without the blocking step, the summary writer could open the workbook while the queue writer is still creating it, and one of them fails or a sheet is lost. **Block this step until steps finish** holds the summary row until **xls-review_queue** has closed the file.",
+      "source": "Developer - ML Specialty: Scoring as a Service"
     }
   ]
 }

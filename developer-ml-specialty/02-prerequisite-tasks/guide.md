@@ -4,17 +4,19 @@
 >
 > #### Workshop - Prerequisite Tasks
 >
-> Set up the tools the machine learning workshops run on: Python with the H2O library in a virtual environment, which the **Python Executor** step and the AutoML notebook both use. Then prove that Pentaho Data Integration can run Python from that environment. If you want the optional cloud notebook, you can also sign in to Google Colab.
+> Before you meet Juniper & Vale's fraud team, set up everything the course runs on: Python with the H2O library in a virtual environment, which the **Python Executor** step and the AutoML notebook both use; MySQL with the `fraud` database the scores go to, and the driver Pentaho Data Integration reaches it with; and Kafka, where live orders arrive. Then prove that Pentaho Data Integration can run Python from that environment. If you want the optional cloud notebook, you can also sign in to Google Colab.
 >
 > **What you'll do**
 >
 > * Install Python and the machine learning libraries in a virtual environment
+> * Start MySQL, install its driver, and create the `fraud` database
+> * Start Kafka and create the `orders` topic
 > * Sign in to Google Colab (optional)
 > * Prove the setup with a two-step Python transformation
 >
-> **Prerequisites:** Pentaho Data Integration 11, and Python 3.11 or later
+> **Prerequisites:** Pentaho Data Integration 11 in `C:\Pentaho\design-tools\data-integration`, and Python 3.11 or later. On your own machine you also install Podman, in this lab
 >
-> **Estimated time:** 30 minutes, most of it the first download of the libraries
+> **Estimated time:** 45 min, most of it the first downloads of the libraries and the container images
 
 <div align="center">
 <figure>
@@ -83,7 +85,157 @@ H2O's engine is a Java program. The course's transformations and notebook start 
 
 To look up a `pip` command or option, see the [pip user guide](https://pip.pypa.io/en/stable/user_guide/).
 
-### 2. Google Colab (optional)
+> **Under the hood:**
+>
+> #### A Python of its own
+>
+> `h2o-env` is a folder with its own copy of the Python program and its
+> own `Lib\site-packages`, where `pip` put H2O and the other libraries.
+> Running `h2o-env\Scripts\python.exe` uses those libraries and no
+> others; any other Python on the machine is untouched. H2O's library
+> also carries `h2o.jar`, the Java engine it starts.
+>
+> **Why it matters:** the **Python Executor** step names that one
+> program, so every transformation in the course runs the same Python
+> with the same libraries, whatever else is installed. Upgrading a
+> library for another project cannot break the course, and deleting the
+> folder removes everything this tab installed.
+
+### 2. MySQL and the Fraud Database
+
+> **Note:**
+>
+> #### Where the scores go
+>
+> From Credit Card on, every score the course makes goes to a MySQL database named `fraud`, where Juniper & Vale's fraud analysts read it. MySQL runs in a container named `sampledata-mysql` under Podman, on port 3306. Pentaho Data Integration reaches it through the MySQL JDBC driver, a file in its `lib` folder.
+
+::: tabs
+
+### Lab machine
+
+The course installer put the MySQL kit in `C:\MySQL` and the MySQL driver in Pentaho Data Integration's `lib` folder.
+
+1. Start MySQL. In PowerShell:
+
+   ```powershell
+   C:\MySQL\run-podman-mysql.ps1
+   ```
+
+> **Success:** Checkpoint: the script ends with `sampledata-mysql` running on port 3306. It is safe to run again: it starts what is stopped and leaves what runs.
+
+2. Check the driver:
+
+   ```powershell
+   Get-ChildItem C:\Pentaho\design-tools\data-integration\lib\mysql-connector-j-*.jar
+   ```
+
+> **Success:** Checkpoint: one file, `mysql-connector-j-8.4.0.jar`.
+
+### Your own machine
+
+1. Install Podman, and start its virtual machine, which runs the containers. In PowerShell:
+
+   ```powershell
+   winget install -e --id RedHat.Podman
+   podman machine init
+   podman machine start
+   ```
+
+   Open a new PowerShell window after the install, so that `podman` is on the `PATH`. `podman machine init` needs WSL 2, which Windows 11 installs when asked.
+
+2. Start a MySQL container with the name and password the course uses:
+
+   ```powershell
+   podman run -d --name sampledata-mysql -e MYSQL_ROOT_PASSWORD=password -p 3306:3306 docker.io/library/mysql:8.4
+   ```
+
+> **Success:** Checkpoint: `podman ps` lists `sampledata-mysql` as `Up`. MySQL needs about half a minute to start before it accepts connections.
+
+3. Put the MySQL driver in Pentaho Data Integration's `lib` folder, and restart Spoon if it is open:
+
+   ```powershell
+   $lib = 'C:\Pentaho\design-tools\data-integration\lib'
+   Invoke-WebRequest https://repo1.maven.org/maven2/com/mysql/mysql-connector-j/8.4.0/mysql-connector-j-8.4.0.jar -OutFile "$lib\mysql-connector-j-8.4.0.jar" -UseBasicParsing
+   ```
+
+> **Success:** Checkpoint: `Get-ChildItem "$lib\mysql-connector-j-*.jar"` lists the file.
+
+:::
+
+3. Create the `fraud` database, its user and its five tables. Download `fraud_schema.sql` from **Lab Files** below, or use the copy in `C:\Workshop-ML-Specialty\02-machine-learning\02-prerequisite-tasks`, and run it as MySQL's `root` user from that folder. It is safe to run again:
+
+   ```powershell
+   Set-Location C:\Workshop-ML-Specialty\02-machine-learning\02-prerequisite-tasks
+   Get-Content fraud_schema.sql -Raw | podman exec -i sampledata-mysql mysql -uroot -ppassword
+   podman exec sampledata-mysql mysql -ufraud_user -ppassword -e "SHOW TABLES" fraud
+   ```
+
+> **Success:** Checkpoint: five tables: `confirmed_outcomes`, `live_scores`, `model_metrics`, `order_scores` and `transaction_scores`. (The warning about a password on the command line is expected.)
+
+The course's transformations connect as `fraud_user`, with the password `password`, through a connection named `fraud` that each of them carries.
+
+> **Under the hood:**
+>
+> #### One database, one table per way of scoring
+>
+> `fraud_schema.sql` creates the database, a user, `fraud_user`, that
+> can reach only that database, and one table for each place the course
+> scores: `transaction_scores` for the weekly batch, `order_scores` for
+> the scoring service, `live_scores` for Kafka, plus `confirmed_outcomes`
+> and `model_metrics` for monitoring. Every scored table is keyed on
+> `transaction_id`, and every `CREATE` says `IF NOT EXISTS`.
+>
+> **Why it matters:** a key on `transaction_id` is what lets the
+> transformations write with **Insert / Update**, so a job run twice
+> leaves one row per order. And a script that only creates what is
+> missing can be run on any machine, at any time, without losing data.
+
+### 3. Kafka
+
+> **Note:**
+>
+> #### Where live orders arrive
+>
+> In [Real-time Scoring](../07-real-time-scoring/guide.md), Juniper & Vale's web shop publishes every order to a Kafka topic named `orders`, and a Pentaho Data Integration transformation reads it. Kafka runs in a container named `pcm-kafka` under Podman, on `127.0.0.1:9092`.
+
+::: tabs
+
+### Lab machine
+
+1. Start Kafka and create the `orders` topic. The Streaming kit in `C:\Streaming` runs several message brokers; `-Broker kafka` starts only Kafka:
+
+   ```powershell
+   C:\Streaming\run-podman-streaming.ps1 -Broker kafka -Topic orders
+   ```
+
+### Your own machine
+
+1. Download `run-podman-streaming.ps1` from **Lab Files** below, the same script the lab machine has in `C:\Streaming`, and run it from the folder you saved it in. It pulls Kafka's image the first time:
+
+   ```powershell
+   powershell -ExecutionPolicy Bypass -File .\run-podman-streaming.ps1 -Broker kafka -Topic orders
+   ```
+
+:::
+
+> **Success:** Checkpoint: the script ends by describing the topic: `Topic: orders`, `PartitionCount: 1`.
+
+Leave Kafka running. After a restart of the machine, the same command starts it again; the topic and its messages are kept.
+
+> **Under the hood:**
+>
+> #### One broker, one topic, one partition
+>
+> The container runs a single Kafka node that is both broker and
+> controller (KRaft mode, no ZooKeeper), and tells clients to reach it at
+> `127.0.0.1:9092`. The topic `orders` has one partition, so every
+> order keeps its place in one sequence, numbered by its offset from 0.
+>
+> **Why it matters:** the offset is how a consumer knows where it
+> stopped. Real-time Scoring stores it beside every score, so any score
+> can be traced back to the exact message it came from.
+
+### 4. Google Colab (optional)
 
 > **Note:**
 >
@@ -102,7 +254,7 @@ To look up a `pip` command or option, see the [pip user guide](https://pip.pypa.
 
 > **Success:** Checkpoint: Colab opens the **Welcome To Colab** notebook, with **Connect** at the top right.
 
-### 3. Validate with a Python Transformation
+### 5. Validate with a Python Transformation
 
 > **Note:**
 >
@@ -215,6 +367,20 @@ Set-Location C:\Pentaho\design-tools\data-integration
 </details>
 
 <details>
+<summary>podman: The term 'podman' is not recognized</summary>
+
+Podman is not installed, or this PowerShell window was open before it was. Install it as in **MySQL and the Fraud Database**, then open a new window.
+
+</details>
+
+<details>
+<summary>ERROR 2002 (HY000): Can't connect to local MySQL server, or Error: no container with name sampledata-mysql</summary>
+
+MySQL is not running, or is still starting. Run `C:\MySQL\run-podman-mysql.ps1` on the lab machine, or `podman start sampledata-mysql` on your own, wait half a minute, and try again.
+
+</details>
+
+<details>
 <summary>No module named h2o</summary>
 
 The step runs a Python without H2O: either **Use a Python virtual environment** is cleared, or it names another Python. Check the path, then list the environment's packages with `pip list`, as in the first tab.
@@ -223,7 +389,15 @@ The step runs a Python without H2O: either **Use a Python virtual environment** 
 
 ## Lab Files
 
-_No bundled files for this lab._
+The `fraud` database, for MySQL:
+
+[fraud_schema.sql](./files/fraud_schema.sql)
+
+For your own machine, the two scripts the lab machine has in `C:\Streaming` and `C:\ML`: the Kafka broker, and the H2O scoring service that [Scoring as a Service](../06-scoring-as-a-service/guide.md) starts:
+
+[run-podman-streaming.ps1](./files/run-podman-streaming.ps1)
+
+[start-h2o-service.ps1](./files/start-h2o-service.ps1)
 
 ### Solution <!-- no-step -->
 

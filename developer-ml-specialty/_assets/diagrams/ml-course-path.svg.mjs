@@ -25,7 +25,7 @@
 //   - 03-automl, part 5: a notebook, credit_card_fraud.ipynb, in
 //     JupyterLab from h2o-env (or, optionally, in Colab) reads H2O.csv and
 //     runs H2O AutoML (GBM, GLM, DRF, DeepLearning; XGBoost only off
-//     Windows); the leaderboard ranks the models by AUC (sort_metric="AUC")
+//     Windows); the leaderboard ranks the models by AUCPR (sort_metric="AUCPR")
 //     and a GBM comes first.
 //   - 04-credit-card intro: "The H2O results in AutoML point to a
 //     Gradient Boosting Machine (GBM)"; one transformation trains a GBM with
@@ -37,7 +37,13 @@
 //     train_model_output/gbm_fraud.
 //   - 04-credit-card part 3 and 4: tr_predict_fraud.ktr loads the model,
 //     scores each transaction (fraud_probability), and Predict Fraud
-//     writes output/credit_card_fraud_<HHmmss>.csv with 13 columns.
+//     writes output/credit_card_fraud_<HHmmss>.csv, and
+//     iu-transaction_scores writes fraud.transaction_scores, each score
+//     with top_reason.
+//   - 05-07 (ML in Production): Monitoring and Tuning prices thresholds
+//     and retrains only when recall falls below MIN_RECALL; Scoring as a
+//     Service runs one H2O server that holds the model; Real-time Scoring
+//     reads orders from Kafka and scores each batch through that service.
 //
 // Colors: blue the source files, teal the joins and the models (the
 // lookups, the leaderboard, the GBM training), violet the engines that
@@ -58,7 +64,7 @@ import { Diagram } from '../../../../scripts/diagram-kit.mjs';
 // Canvas: 800 wide, two lab panels stacked. Three columns of boxes, each
 // 224 wide with 32 between them; every box is 80 tall, room for a title
 // and two lines.
-const d = new Diagram(800, 608);
+const d = new Diagram(800, 804);
 const COL = [32, 288, 544];
 const BW = 224, BH = 80;
 
@@ -77,7 +83,7 @@ d.arrow({ x1: look.r, y1: look.cy, x2: feat.x - 3, y2: feat.cy });
 // Python Executor (under the feature step) and to tfo-H2O; the file
 // H2O.csv then goes to the notebook on the left.
 const R2 = 188;
-const colab = d.box({ x: COL[0], y: R2, w: BW, h: BH, role: 'browser', iconName: 'notebook-pen', title: 'AutoML notebook', lines: ['JupyterLab reads H2O.csv;', 'leaderboard by AUC'] });
+const colab = d.box({ x: COL[0], y: R2, w: BW, h: BH, role: 'browser', iconName: 'notebook-pen', title: 'AutoML notebook', lines: ['JupyterLab reads H2O.csv;', 'leaderboard by AUCPR'] });
 const tfo = d.box({ x: COL[1], y: R2, w: BW, h: BH, role: 'store', iconName: 'file-output', title: 'tfo-H2O', lines: ['data/H2O.csv: nine fields,', 'semicolons, no header'] });
 const pyx = d.box({ x: COL[2], y: R2, w: BW, h: BH, role: 'engine', iconName: 'code', title: 'Python Executor', lines: ['auto machine learning:', 'AutoML in h2o-env, 1 row'] });
 // Straight down from the feature step to the Python Executor, labeled
@@ -109,10 +115,22 @@ d.arrow({ x1: train.r, y1: train.cy, x2: model.x - 3, y2: model.cy });
 d.arrow({ x1: model.r, y1: model.cy, x2: pred.x - 3, y2: pred.cy });
 
 // The scored file, under the prediction step.
-const out = d.box({ x: COL[2], y: R4, w: BW, h: BH, role: 'result', iconName: 'file-text', title: 'Scored CSV', lines: ['output/credit_card_fraud_', '<HHmmss>.csv, 13 columns'] });
+const out = d.box({ x: COL[2], y: R4, w: BW, h: BH, role: 'result', iconName: 'file-text', title: 'Scored, with a reason', lines: ['a CSV file, and MySQL', 'fraud.transaction_scores'] });
 d.arrow({ x1: pred.cx, y1: pred.b, x2: out.cx, y2: out.y - 3, straight: true, label: 'Predict Fraud' });
 
 // Bottom left, what decides the order: the job's hops.
 d.box({ x: COL[0], y: R4, w: BW * 2 + 32, h: BH, role: 'support', iconName: 'list-ordered', title: 'The job runs both, in order', lines: ['predict_fraud starts only after train_model succeeds,', 'so it always loads a finished model file'] });
+
+// The ML in Production panel: what happens to the model after Credit
+// Card, one box per workshop (05, 06, 07).
+const PC = PB + 268 + 40, R5 = PC + 56;
+d.panel({ x: 16, y: PC, w: 768, h: 56 + BH + 20, role: 'engine', iconName: 'activity', title: 'ML in Production', sub: 'measure it, serve it, score orders as they arrive' });
+const mon = d.box({ x: COL[0], y: R5, w: BW, h: BH, role: 'check', iconName: 'gauge', title: 'Monitoring and Tuning', lines: ['cheapest threshold; retrain', 'only when recall falls'] });
+const svc = d.box({ x: COL[1], y: R5, w: BW, h: BH, role: 'server', iconName: 'server', title: 'Scoring as a Service', lines: ['one H2O server holds', 'the model; PDI calls it'] });
+const rt = d.box({ x: COL[2], y: R5, w: BW, h: BH, role: 'join', iconName: 'radio-tower', title: 'Real-time Scoring', lines: ['Kafka orders, scored', 'batch by batch'] });
+d.arrow({ x1: mon.r, y1: mon.cy, x2: svc.x - 3, y2: svc.cy });
+d.arrow({ x1: svc.r, y1: svc.cy, x2: rt.x - 3, y2: rt.cy });
+// The scores feed the monitoring: from the scored box down to the panel.
+d.arrow({ x1: out.cx, y1: out.b, x2: out.cx, y2: PC - 3, straight: true, label: 'scores' });
 
 d.write(import.meta.url);

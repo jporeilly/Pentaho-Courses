@@ -528,8 +528,8 @@
   </hops>
   <notepads>
     <notepad>
-      <note>jb_fraud_main_job - trains the fraud model, then scores every transaction with it.
-Needs h2o-env; the four CSV files sit beside it.
+      <note>jb_fraud_main_job - trains the fraud model, then scores this week's new orders with it.
+Needs h2o-env and the fraud database; the history files and this week's week_*.csv files sit beside it.
 
 1. START: runs the job once.
 2. train_model: Transformation, tr_train_model_fraud.ktr.
@@ -537,10 +537,10 @@ Needs h2o-env; the four CSV files sit beside it.
 4. Success; a failure in either goes to Abort job.
 
 Shipped data: the job ends at Success in about a minute and a half;
-output/credit_card_fraud_&lt;HHmmss&gt;.csv holds 100,000 rows.</note>
+output/credit_card_fraud_&lt;HHmmss&gt;.csv and fraud.transaction_scores hold this week's 10,000 rows.</note>
       <xloc>64</xloc>
       <yloc>32</yloc>
-      <width>519</width>
+      <width>593</width>
       <heigth>188</heigth>
       <fontname>Segoe UI</fontname>
       <fontsize>10</fontsize>
