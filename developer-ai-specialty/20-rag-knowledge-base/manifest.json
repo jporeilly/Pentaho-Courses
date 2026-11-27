@@ -1,0 +1,9 @@
+{
+  "title": "Build the Knowledge Base",
+  "description": "Hands-on: load six Larkspur Home Appliances documents (PDF, Word, text) into pgvector with Read Unstructured Document, AI Segmentation, Text to Vector and Vector Writer, re-runnable without duplicates; inspect the table in psql and add an HNSW index.",
+  "kind": "workshop",
+  "estimatedMinutes": 50,
+  "stepCount": 9,
+  "hasVideo": false,
+  "order": 16
+}

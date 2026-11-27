@@ -1,9 +1,9 @@
 {
   "title": "Named Entity Recognition",
-  "description": "Hands-on: extract people, organizations, locations, and other entities from free text with a local LLM, emitting structured rows for the pipeline.",
-  "order": 10,
+  "description": "Hands-on: extract entities two ways, with the NER Extractor step (Stanford CoreNLP, no LLM, offsets) and with AI Chat (custom types as JSON), and compare what each finds.",
+  "order": 11,
   "kind": "workshop",
-  "stepCount": 12,
+  "stepCount": 7,
   "hasVideo": false,
-  "estimatedMinutes": 30
+  "estimatedMinutes": 40
 }

@@ -1,9 +1,9 @@
 {
   "title": "Support Tickets",
-  "description": "Hands-on: extract structured fields from free-form support tickets with LangExtract via the REST service pattern.",
-  "order": 14,
+  "description": "Hands-on: extract structured fields from helpdesk tickets in PostgreSQL with the LangExtract service, pivot them to one row per ticket, and route the critical tickets.",
+  "order": 20,
   "kind": "workshop",
-  "stepCount": 17,
+  "stepCount": 7,
   "hasVideo": false,
-  "estimatedMinutes": 40
+  "estimatedMinutes": 45
 }

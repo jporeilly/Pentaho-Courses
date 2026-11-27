@@ -1,0 +1,9 @@
+{
+  "title": "Run on Pentaho Server",
+  "description": "Hands-on: install the GenAI plugins on Pentaho Server, give it its settings in kettle.properties, make the RAG transformations server-ready, wrap them in a job, store it in the Pentaho Repository, run it on the server from Spoon, schedule it in the User Console, and read the result and the log.",
+  "kind": "workshop",
+  "estimatedMinutes": 75,
+  "stepCount": 9,
+  "hasVideo": false,
+  "order": 28
+}

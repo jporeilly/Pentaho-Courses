@@ -1,0 +1,24 @@
+SYNTHETIC TRAINING RECORD - fictional patient, not a real person.
+
+Patient: Lucas Ferreira   DOB: 05/30/1992   MRN: NB-005660
+Visit Date: 11/20/2024   Attending: Dr. Aisha Bello, General Practice
+
+Chief Complaint:
+Headaches behind the eyes most afternoons for a month, with blurred vision and
+neck stiffness. Sleeping about five hours a night.
+
+Medical History:
+Migraine without aura. Generalized anxiety disorder.
+
+Allergies:
+No known drug allergies.
+
+Current Medications:
+Sumatriptan 50mg at onset of migraine, at most two doses a day.
+Sertraline 50mg once daily.
+
+Assessment:
+Tension-type headache on a background of migraine.
+
+Plan:
+Sleep hygiene advice. Amitriptyline 10mg at night for six weeks. Eye test.

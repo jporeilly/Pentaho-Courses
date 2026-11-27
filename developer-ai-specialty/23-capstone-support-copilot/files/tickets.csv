@@ -1,0 +1,31 @@
+ticket_id,received_at,customer,channel,subject,body
+HB-2001,2026-11-02 08:12,Mara Lindqvist,email,Display shows E03,Halfway up the hill to my office the display showed E03 and the motor stopped helping. Is my motor broken? I have a Trail 500 bought in June.
+HB-2002,2026-11-02 08:40,Tomas Reyes,web,How long to charge?,"Just got my City 300. How long does a full charge take, and can I leave it charging in my unheated garage overnight? It gets below freezing here."
+HB-2003,2026-11-02 09:05,Aiko Tanaka,email,Box was crushed,The courier delivered my bike this morning and the box is crushed on one corner. The bike looks fine but the derailleur might be bent. What do I do?
+HB-2004,2026-11-02 09:31,Daniel Okafor,phone,E07 error,My display keeps flashing E07 and the speed reads zero. Assistance cuts in and out.
+HB-2005,2026-11-02 10:02,Sofia Marchetti,web,Return my bike,"I've had the City 300 for two weeks and ridden it about 20 km, but it's too big for me. Can I return it and is there a fee?"
+HB-2006,2026-11-02 10:45,Liam Byrne,email,Battery blinking red,The battery itself (not the charger) is blinking red since last night's charge. Should I keep charging it?
+HB-2007,2026-11-02 11:20,Priya Nair,web,Frame crack,There is a hairline crack near the rear dropout of my Trail 500 frame. Bought 3 years ago. Is this covered?
+HB-2008,2026-11-02 12:03,Jonas Weber,email,Tire pressure,What pressure should I run in the City 300 tires? The shop guy said 2 bar.
+HB-2009,2026-11-02 13:15,Elena Petrova,phone,Range dropped,Since it got cold my range dropped from about 90 km to 65 km in Eco. Is my battery dying? It's only a year old.
+HB-2010,2026-11-02 13:50,Marcus Hill,web,Brake pads worn,"My brake pads are worn out after 2,500 km. Will the warranty replace them?"
+HB-2011,2026-11-02 14:22,Hannah Schmidt,email,First service,When is the first service due and do I have to pay for it?
+HB-2012,2026-11-02 15:04,Oliver Grant,web,Can I take it on the train?,"Am I allowed to take my Trail 500 on Swiss intercity trains, and do I need a ticket for it?"
+HB-2013,2026-11-02 15:30,Chloe Dubois,email,E01 after rain,After riding in heavy rain the display says E01. The bike won't assist at all now.
+HB-2014,2026-11-02 16:10,Ravi Shah,phone,Lost bike key,I lost the key that locks the battery. Can I get a new one?
+HB-2015,2026-11-02 16:45,Grace Kim,web,Refund timing,I returned my bike last week. When will I see the refund on my card?
+HB-2016,2026-11-03 08:05,Pablo Ruiz,email,Pressure washer,Is it OK to clean the bike with my pressure washer? It's very muddy after a trail ride.
+HB-2017,2026-11-03 08:44,Nadia Haddad,web,Winter storage,I won't ride from December to March. How should I store the battery?
+HB-2018,2026-11-03 09:20,Ethan Cole,email,Lawyer letter,Your rider ran over my garden fence while delivering a bike to my neighbour. My lawyer will be in touch about compensation.
+HB-2019,2026-11-03 10:02,Isabel Costa,phone,Delivery time,I ordered a Trail 500 yesterday. How long until it arrives?
+HB-2020,2026-11-03 10:37,Felix Bauer,web,Crashed bike motor,I crashed into a curb and now the motor makes a grinding noise. Will the motor warranty cover a repair?
+HB-2021,2026-11-03 11:15,Yusuf Demir,email,E09,The walk assist button seems stuck and the display shows E09. Is it safe to ride?
+HB-2022,2026-11-03 11:50,Lucy Turner,web,Kids bike?,Do you make an e-bike for my 10-year-old daughter?
+HB-2023,2026-11-03 12:30,Mateo Silva,phone,Chain care,"How often should I lube the chain? I commute every day, rain or shine."
+HB-2024,2026-11-03 13:05,Anna Kowalski,email,Battery warranty,"My 18-month-old battery only reaches half its original range now, after about 450 charges. Is that covered?"
+HB-2025,2026-11-03 13:40,Kenji Watanabe,web,Stem bolt torque,I swapped the stem. What torque for the stem bolts?
+HB-2026,2026-11-03 14:12,Sara Lind,email,Damage found late,"I unpacked my bike today, five days after delivery, and found a scratched frame and a bent brake rotor. Can I still claim it?"
+HB-2027,2026-11-03 14:55,Omar Farouk,web,Invoice for my company,Please send an invoice with my company's VAT number on it for order 55812.
+HB-2028,2026-11-03 15:30,Julia Novak,phone,Range in Turbo,How far can I go in Turbo mode on the Trail 500?
+HB-2029,2026-11-03 16:02,Henrik Olsen,email,Register my bike,I bought my bike 6 weeks ago and never registered it. Do I lose the warranty?
+HB-2030,2026-11-03 16:40,Fatima Zahra,web,Return accessories,Can I return the unopened panniers I bought with my bike three weeks ago?

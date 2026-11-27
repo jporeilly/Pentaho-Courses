@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="560" viewBox="0 0 800 560" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+<filter id="shadow" x="-10%" y="-10%" width="120%" height="140%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#0f172a" flood-opacity="0.12"/></filter></defs>
+<rect width="800" height="560" fill="#ffffff"/>
+<rect x="16" y="152" width="768" height="196" rx="12" fill="#f8fafc" stroke="#f1f5f9" stroke-width="1.5"/>
+<path d="M16 164a12 12 0 0 1 12-12h744a12 12 0 0 1 12 12v32h-768z" fill="#475569"/>
+<text x="32" y="172" font-size="14" font-weight="700" fill="#ffffff">pentaho_mcp_server.py (FastMCP, mcp&lt;2)</text>
+<text x="32" y="188" font-size="11.5" fill="#ffffff" opacity="0.92">settings from environment variables only</text>
+<path d="M140 96L140 149" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M400 96L400 149" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M660 96L660 149" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M400 348L400 389" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M400 456L400 485" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="16" y="16" width="248" height="80" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="46" cy="56" r="19" fill="#ffffff" stroke="#b45309" stroke-width="1.2"/>
+<g transform="translate(34 44) scale(1)" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 5h8"/><path d="M13 12h8"/><path d="M13 19h8"/><path d="m3 17 2 2 4-4"/><path d="m3 7 2 2 4-4"/></g>
+<text x="76" y="39" font-size="14" font-weight="700" fill="#78350f">check_pentaho_mcp.py</text>
+<text x="76" y="56" font-size="12" fill="#78350f">the mcp stdio client</text>
+<text x="76" y="71" font-size="12" fill="#78350f">calls every tool</text>
+<rect x="276" y="16" width="248" height="80" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="306" cy="56" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(294 44) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></g>
+<text x="336" y="39" font-size="14" font-weight="700" fill="#1e3a8a">Pentaho Data Integration</text>
+<text x="336" y="56" font-size="12" fill="#1e3a8a">MCP Client: run, then status</text>
+<text x="336" y="71" font-size="12" fill="#1e3a8a">AI Chat Tools tab: qwen2.5:7b</text>
+<rect x="536" y="16" width="248" height="80" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="566" cy="56" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(554 44) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 5a2 2 0 0 1 2 2v8.526a2 2 0 0 0 .212.897l1.068 2.127a1 1 0 0 1-.9 1.45H3.62a1 1 0 0 1-.9-1.45l1.068-2.127A2 2 0 0 0 4 15.526V7a2 2 0 0 1 2-2z"/><path d="M20.054 15.987H3.946"/></g>
+<text x="596" y="39" font-size="14" font-weight="700" fill="#1e3a8a">Desktop AI assistant</text>
+<text x="596" y="56" font-size="12" fill="#1e3a8a">any that supports MCP</text>
+<text x="596" y="71" font-size="12" fill="#1e3a8a">command, args, env</text>
+<rect x="32" y="208" width="176" height="92" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="62" cy="254" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(50 242) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6.3 20.3a2.4 2.4 0 0 0 3.4 0L12 18l-6-6-2.3 2.3a2.4 2.4 0 0 0 0 3.4Z"/><path d="m2 22 3-3"/><path d="M7.5 13.5 10 11"/><path d="M10.5 16.5 13 14"/><path d="m18 3-4 4h6l-4 4"/></g>
+<text x="92" y="229.5" font-size="14" font-weight="700" fill="#3b0764">M1 Read</text>
+<text x="92" y="246.5" font-size="12" fill="#3b0764">list_files, get_status</text>
+<text x="92" y="261.5" font-size="12" fill="#3b0764">carte://status</text>
+<text x="92" y="276.5" font-size="12" fill="#3b0764">pdi://files</text>
+<rect x="220" y="208" width="176" height="92" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="250" cy="254" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(238 242) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z"/></g>
+<text x="280" y="229.5" font-size="14" font-weight="700" fill="#3b0764">M2 Run</text>
+<text x="280" y="246.5" font-size="12" fill="#3b0764">run_transformation</text>
+<text x="280" y="261.5" font-size="12" fill="#3b0764">run_job, status tools</text>
+<text x="280" y="276.5" font-size="12" fill="#3b0764">allow-list, parameters</text>
+<rect x="408" y="208" width="176" height="92" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="438" cy="254" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(426 242) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 12h-5"/><path d="M15 8h-5"/><path d="M19 17V5a2 2 0 0 0-2-2H4"/><path d="M8 21h12a2 2 0 0 0 2-2v-1a1 1 0 0 0-1-1H11a1 1 0 0 0-1 1v1a2 2 0 1 1-4 0V5a2 2 0 1 0-4 0v2a1 1 0 0 0 1 1h3"/></g>
+<text x="468" y="229.5" font-size="14" font-weight="700" fill="#3b0764">M3 Logs</text>
+<text x="468" y="246.5" font-size="12" fill="#3b0764">get_log</text>
+<text x="468" y="261.5" font-size="12" fill="#3b0764">stop_transformation</text>
+<text x="468" y="276.5" font-size="12" fill="#3b0764">stop_job</text>
+<rect x="596" y="208" width="176" height="92" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="626" cy="254" r="19" fill="#ffffff" stroke="#b45309" stroke-width="1.2"/>
+<g transform="translate(614 242) scale(1)" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></g>
+<text x="656" y="229.5" font-size="14" font-weight="700" fill="#78350f">M4 Safety</text>
+<text x="656" y="246.5" font-size="12" fill="#78350f">read-only mode</text>
+<text x="656" y="261.5" font-size="12" fill="#78350f">audit_log.jsonl</text>
+<text x="656" y="276.5" font-size="12" fill="#78350f">credentials from env</text>
+<text x="400" y="334" text-anchor="middle" font-family="Segoe UI, sans-serif" font-size="12" fill="#475569">CARTE_URL, CARTE_USER, CARTE_PASSWORD, PDI_ALLOWED_DIR, PDI_MCP_READ_ONLY</text>
+<rect x="324.85" y="111.5" width="150.29999999999998" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="400" y="129.5" text-anchor="middle" font-size="12" fill="#334155">tools/call over stdio</text>
+<rect x="16" y="392" width="768" height="64" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="48" cy="424" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(36 412) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m10.852 14.772-.383.923"/><path d="M13.148 14.772a3 3 0 1 0-2.296-5.544l-.383-.923"/><path d="m13.148 9.228.383-.923"/><path d="m13.53 15.696-.382-.924a3 3 0 1 1-2.296-5.544"/><path d="m14.772 10.852.923-.383"/><path d="m14.772 13.148.923.383"/><path d="M4.5 10H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-.5"/><path d="M4.5 14H4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2h-.5"/><path d="M6 18h.01"/><path d="M6 6h.01"/><path d="m9.228 10.852-.923-.383"/><path d="m9.228 13.148-.923.383"/></g>
+<text x="78" y="421" font-size="14" font-weight="700" fill="#3b0764">Carte on 127.0.0.1:8081 (HTTP Basic, from the environment)</text>
+<text x="78" y="439" font-size="12" fill="#3b0764">/kettle/status, registerTrans + startTrans, executeJob, transStatus, jobStatus, stopTrans</text>
+<rect x="346.9" y="357.5" width="106.2" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="400" y="375.5" text-anchor="middle" font-size="12" fill="#334155">Carte REST API</text>
+<rect x="16" y="488" width="768" height="56" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="48" cy="516" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(36 504) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 14 1.5-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.54 6a2 2 0 0 1-1.95 1.5H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H18a2 2 0 0 1 2 2v2"/></g>
+<text x="78" y="513" font-size="14" font-weight="700" fill="#14532d">samples\ (PDI_ALLOWED_DIR): the only files that can run</text>
+<text x="78" y="531" font-size="12" fill="#14532d">hello_carte.ktr, heartbeat.ktr, daily_sales.kjb, broken_feed.kjb and their transformations</text>
+</svg>

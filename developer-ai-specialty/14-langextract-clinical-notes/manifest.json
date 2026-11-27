@@ -1,9 +1,9 @@
 {
   "title": "Clinical Notes",
-  "description": "Hands-on: extract entities from unstructured clinical notes with LangExtract, tracing each value back to its source offsets.",
-  "order": 15,
+  "description": "Hands-on: extract medications, symptoms, diagnoses and allergies from synthetic clinical notes with LangExtract, and load one fact per row, with its source offsets, into PostgreSQL.",
+  "order": 21,
   "kind": "workshop",
-  "stepCount": 9,
+  "stepCount": 5,
   "hasVideo": false,
-  "estimatedMinutes": 35
+  "estimatedMinutes": 40
 }

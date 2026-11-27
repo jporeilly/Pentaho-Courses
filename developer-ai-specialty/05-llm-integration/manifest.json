@@ -1,9 +1,9 @@
 {
   "title": "Overview",
-  "description": "Pentaho Data Integration as the orchestration layer for a locally-hosted LLM (via Ollama). The repeatable pattern behind every use case, the Ollama REST API anatomy (request, response, prompt, gotchas), and prompt engineering for reliable structured output.",
-  "order": 6,
+  "description": "The AI Chat step that connects Pentaho Data Integration to a local LLM on Ollama: its tabs, Script and Stream messages, the run instruction, Model Configuration for Ollama, JSON answers, prompt templates with AI Chat Message Box, and the chat request the step sends.",
+  "order": 7,
   "kind": "page",
-  "stepCount": 4,
+  "stepCount": 6,
   "hasVideo": false,
   "estimatedMinutes": 20
 }

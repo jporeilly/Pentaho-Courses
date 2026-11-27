@@ -1,9 +1,9 @@
 {
   "title": "Apache Tika",
-  "description": "Hands-on: extract text from Office documents with Apache Tika — Word documents, password-protected files, and multiple documents — as input for GenAI processing.",
-  "order": 5,
+  "description": "Hands-on: extract text from Word documents, password-protected PDFs and a folder of mixed documents with Read Unstructured Document, and list each document's metadata with Discover Metadata from Unstructured Documents.",
+  "order": 6,
   "kind": "workshop",
-  "stepCount": 5,
+  "stepCount": 4,
   "hasVideo": false,
-  "estimatedMinutes": 15
+  "estimatedMinutes": 40
 }

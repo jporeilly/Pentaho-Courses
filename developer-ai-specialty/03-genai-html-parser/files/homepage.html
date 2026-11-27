@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="News and articles from the Northwind Data Team">
+    <title>Northwind Data Blog</title>
+    <style>
+        body { font-family: Segoe UI, sans-serif; margin: 0; }
+        .content { line-height: 1.5; }
+    </style>
+    <script>
+        window.analytics = { page: "home", consent: false };
+    </script>
+</head>
+<body>
+    <header>
+        <h1 id="main-title">Welcome to the Northwind Data Blog</h1>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/articles">Articles</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="featured-articles">
+            <h2>Featured Articles</h2>
+            <article>
+                <h3>Cleaning Web Pages Before a Prompt</h3>
+                <p class="content">Markup, scripts and style sheets cost tokens and carry no meaning for a language model, so we strip them before any page reaches a prompt.</p>
+                <span class="author">By Maria Lopez</span>
+            </article>
+            <article>
+                <h3>Five Lessons from Our First RAG Pipeline</h3>
+                <p class="content">Chunk size, overlap and good metadata mattered more than the choice of model when we built our first knowledge base.</p>
+                <span class="author">By Daniel Chen</span>
+            </article>
+            <article>
+                <h3>Local Models on a Laptop</h3>
+                <p class="content">A three-billion-parameter model answers in seconds on a modern laptop and keeps every document on the machine.</p>
+                <span class="author">By Priya Natarajan</span>
+            </article>
+        </section>
+
+        <section id="latest-news">
+            <h2>Latest News</h2>
+            <ul>
+                <li>The data team moves to Pentaho Data Integration 11.</li>
+                <li>New office hours for pipeline reviews every Thursday.</li>
+                <li>The spring hackathon opens for registration.</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Northwind Data Team. All rights reserved.</p>
+    </footer>
+</body>
+</html>

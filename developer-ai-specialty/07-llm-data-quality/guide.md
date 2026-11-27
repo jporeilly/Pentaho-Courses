@@ -4,27 +4,33 @@
 >
 > #### Workshop - Data Quality
 >
-> Build a Pentaho Data Integration transformation that sends ten messy customer records, one at a time, to a local Large Language Model (LLM) served by Ollama, and writes back cleaned names, emails, phone numbers, addresses and company names.
+> Build a Pentaho Data Integration transformation that sends ten messy customer records, one at a time, to a local Large Language Model (LLM) served by Ollama with the **AI Chat** step. The model cleans each record and gives it a quality verdict, and the transformation splits the records into a clean file and a file for review.
 >
 > **What you'll do**
 >
 > * Find the quality problems in the raw customer file
-> * Build a compact cleaning prompt and an Ollama request in two **Modified JavaScript value** steps
-> * Call Ollama from parallel copies of **REST client**
-> * Parse the answer with a fallback to the original values, and filter out the rows that failed
-> * Write the cleaned records to a CSV file
+> * Turn each record into one message with **Modified JavaScript value**
+> * Give the model the house formats and a JSON answer shape as its run instruction
+> * Clean every record with **AI Chat**, in parallel copies, and parse the answer with **JSON input**
+> * Split the records by the model's verdict with **Filter rows**, and write two CSV files
 >
 > **Prerequisites:**
 >
-> * [Sentiment Analysis](../06-llm-sentiment-analysis/guide.md): the REST client and parallel-copies pattern this workshop reuses
-> * Ollama running on `http://localhost:11434` with `llama3.2:3b` pulled
+> * [Sentiment Analysis](../06-llm-sentiment-analysis/guide.md): the AI Chat, run instruction and JSON input pattern this workshop reuses
+> * Ollama running on `http://localhost:11434` with `llama3.2:3b` pulled, and the GenAI plugins installed, as set up in [Before You Start](../00-before-you-start/guide.md)
 >
 > **Estimated time:** 35 minutes
 
+<figure>
+
+<figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
+
+</figure>
+
 <div align="center">
 <figure>
-<img src="../_assets/images/data_quality.png" alt="The finished transformation: Read Customer Data, Build Optimized Prompt, Build JSON Request, Call Ollama API (Parallel) marked x${STEP_COPIES}, then Parse JSON Response, Error Handling and Write Enhanced Data" width="800">
-<figcaption>What you build: seven steps, with a filter before the output</figcaption>
+<img src="../_assets/images/07-data-quality-flow.png" alt="data_quality.ktr: csvi-customers reads data_quality_customers.csv, customers 1001 to 1010; js-record builds customer_record; const-instruction adds the run_instruction; ai-clean, AI Chat, calls Ollama, llama3.2:3b; json-clean gives the clean_ fields, issues and quality; filter-quality tests quality IN LIST CLEAN;FIXED. TRUE rows go through sv-clean to customers_clean.csv; FALSE rows, REVIEW or no verdict, go through sv-review to customers_review.csv with the original values" width="800">
+<figcaption>What you build: the steps of data_quality.ktr and the two files its Filter rows fills</figcaption>
 </figure>
 </div>
 
@@ -36,7 +42,7 @@
 >
 > #### Data Quality Problems
 >
-> The same customer can arrive as `john smith`, `JOHN SMITH` or `John Smith`, with a phone number written four different ways. An LLM can apply a target format to each field from a short instruction, where a rule-based cleanup needs a rule for every variation.
+> The same customer can arrive as `john smith`, `JOHN SMITH` or `John Smith`, with a phone number written four different ways. An LLM can apply a target format to each field from a short instruction, where a rule-based cleanup needs a rule for every variation. It can also say when a value cannot be fixed at all.
 
 **How the approaches compare:**
 
@@ -45,15 +51,15 @@
 | Regex and rules | Fast, deterministic | Brittle: every new variation needs a new rule |
 | Data quality tools | Broad features | Licensing cost and setup effort |
 | Manual cleaning | Accurate | Doesn't scale |
-| LLM | Flexible: handles variations it was never shown | Needs LLM infrastructure; slower per record, and its output must be checked |
+| LLM | Flexible: handles variations it was never shown, and explains what it changed | Slower per record, and its output must be checked |
 
-**The data:** `data_quality_customers.csv` holds ten customers, `1001` to `1010`. The first five:
+**The data:** `data_quality_customers.csv` holds ten customers, `1001` to `1010`, with six columns. The first five:
 
 ```text
 customer_id,name,email,phone,address,company_name
-1001,john smith,JSMITH@GMAIL.COM,555.123.4567,"123 main st apt 5, new york, ny",acme corp
+1001,john smith,JSMITH@GMAIL.COM,555.123.4567,"123 main st apt 5, new york, ny","acme corp"
 1002,SARAH JOHNSON,sarah.j@company,+1-555-987-6543,"456 oak avenue, los angeles, ca 90001",TechStart Inc
-1003,Bob O'Brien,bob.obrien@email.com,(555) 111-2222,"789 Pine Rd, Chicago IL",DataSys LLC
+1003,Bob O'Brien,bob.obrien@email.com,(555) 111-2222,"789 Pine Rd, Chicago IL","DataSys LLC"
 1004,maria garcia,m.garcia@test.co.uk,5551234567,"321 Elm Street, Houston, Texas 77001",global solutions ltd
 1005,JAMES WILSON,james@,555-999-8888,"PO Box 456, Seattle WA 98101","Cloud Services, Inc."
 ```
@@ -67,86 +73,50 @@ customer_id,name,email,phone,address,company_name
 | 1005 | All caps | No domain (`james@`) | No country code | No comma before the state | Good |
 | 1009 | Lowercase | Good | Parentheses, no space | No comma before the state | All caps |
 
-**What the prompt asks for:** the transformation's prompt shows the model one example value per field.
+**What the model is asked for:** the house format of each field, a list of the problems it found, and one verdict per record.
 
-| Field | Format in the prompt | 1001 cleaned to that format |
+| Verdict | Meaning | Where the record goes |
 | --- | --- | --- |
-| `name` | `Title Case` | `John Smith` |
-| `email` | `valid@format` | `jsmith@gmail.com` |
-| `phone` | `+1-555-123-4567` | `+1-555-123-4567` |
-| `address` | `St,City,ST ZIP` | `123 Main St Apt 5, New York, NY` |
-| `company_name` | `Proper Name` | `Acme Corp` |
+| `CLEAN` | Nothing needed a change | `customers_clean.csv` |
+| `FIXED` | Every problem was fixed | `customers_clean.csv` |
+| `REVIEW` | A value cannot be fixed, such as the email `james@` | `customers_review.csv` |
 
-The prompt does not say what to do with an email that cannot be fixed, such as `james@`: check what the model returns for 1002, 1005 and 1008.
+Three emails in the file cannot be valid as given: `sarah.j@company` (1002), `james@` (1005) and `lisa_anderson@email` (1008). A model cannot invent the missing domain, so those records need a person.
 
-<div align="center">
-<figure>
-<img src="../_assets/images/data_quality_optimized.png" alt="A text diagram of seven boxes: Read Customer Data, Build Optimized Prompt, Build JSON Request, Call Ollama API with 4 parallel copies, Parse JSON Response with error handling, Error Handling with Filter Rows, and Write Enhanced Data" width="710">
-<figcaption>The pipeline, one box per step</figcaption>
-</figure>
-</div>
-
-### 2. Ollama API
+### 2. Check Ollama
 
 > **Note:**
 >
-> #### Ollama API Endpoint
+> #### One Record by Hand
 >
-> The transformation sends one `POST` to `http://localhost:11434/api/generate` per customer. Unlike the Sentiment Analysis request, this one has no `"format": "json"`, so the model can wrap its JSON in other text; the parsing step later allows for that.
+> Send one record to the model yourself, with the kind of instruction this workshop gives it. It is the same request the **AI Chat** step sends for every row.
 
-1. Send customer 1002 to the model with the transformation's prompt and options. In PowerShell, run:
-
-::: tabs
-
-### Windows (PowerShell)
+1. Check that Ollama answers and has the model. In PowerShell, run:
 
 ```powershell
-$prompt = @'
-Clean this data. Return JSON: {"name":"Title Case","email":"valid@format","phone":"+1-555-123-4567","address":"St,City,ST ZIP","company_name":"Proper Name"}
-Name:SARAH JOHNSON
-Email:sarah.j@company
-Phone:+1-555-987-6543
-Addr:456 oak avenue, los angeles, ca 90001
-Co:TechStart Inc
-'@
+(Invoke-RestMethod http://localhost:11434/api/tags).models | Select-Object name
+```
+
+> **Success:** Checkpoint: the list of models includes `llama3.2:3b`.
+
+2. Send customer 1005 to the model. In PowerShell, run:
+
+```powershell
 $body = @{
-  model      = "llama3.2:3b"
-  prompt     = $prompt
-  stream     = $false
-  keep_alive = "5m"
-  options    = @{ temperature = 0.1; num_predict = 300 }
-} | ConvertTo-Json
-(Invoke-RestMethod -Uri http://localhost:11434/api/generate -Method Post -ContentType "application/json" -Body $body).response
+  model    = "llama3.2:3b"
+  stream   = $false
+  options  = @{ temperature = 0 }
+  messages = @(
+    @{ role = "system"; content = 'You check and clean one customer record. An email with no domain cannot be fixed. Answer with one JSON object and nothing else: {"name": "...", "email": "...", "quality": "CLEAN" | "FIXED" | "REVIEW"}' }
+    @{ role = "user";   content = "Name: JAMES WILSON`nEmail: james@`nPhone: 555-999-8888" }
+  )
+} | ConvertTo-Json -Depth 4
+(Invoke-RestMethod -Uri http://localhost:11434/api/chat -Method Post -ContentType "application/json" -Body $body).message.content
 ```
 
-### macOS / Linux
+<!-- UNPROVEN: the checkpoint below describes the expected shape; replace with a measured answer once the GENAI-EE license lets the solution run. -->
 
-```bash
-curl http://localhost:11434/api/generate -d '{
-  "model": "llama3.2:3b",
-  "prompt": "Clean this data. Return JSON: {\"name\":\"Title Case\",\"email\":\"valid@format\",\"phone\":\"+1-555-123-4567\",\"address\":\"St,City,ST ZIP\",\"company_name\":\"Proper Name\"}\nName:SARAH JOHNSON\nEmail:sarah.j@company\nPhone:+1-555-987-6543\nAddr:456 oak avenue, los angeles, ca 90001\nCo:TechStart Inc",
-  "stream": false,
-  "keep_alive": "5m",
-  "options": {"temperature": 0.1, "num_predict": 300}
-}'
-```
-
-:::
-
-> **Success:** Checkpoint: the model's answer contains a JSON object with the keys `name`, `email`, `phone`, `address` and `company_name`, possibly with text around it. The values are the model's: `SARAH JOHNSON` should come back in Title Case, and the phone is already in the target format.
-
-What the request asks of Ollama:
-
-| Key | Value | Why |
-| --- | --- | --- |
-| `model` | `llama3.2:3b` | A small model that runs on a CPU |
-| `prompt` | The compact prompt | One example value per field, short labels (`Addr`, `Co`): fewer tokens to process per record |
-| `stream` | `false` | One complete answer per row |
-| `keep_alive` | `5m` | Keeps the model loaded for 5 minutes after the last request |
-| `options.temperature` | `0.1` | Low randomness, so the same record gets nearly the same answer every run |
-| `options.num_predict` | `300` | At most 300 tokens per answer: room for the JSON, and a stop for a runaway answer |
-
-In the answer, `prompt_eval_count` is the number of tokens in your prompt and `eval_count` the number the model generated; the time per record grows with both.
+> **Success:** Checkpoint: one line of JSON with `name`, `email` and `quality`. The name should come back as `James Wilson`, the email as given, and the verdict `REVIEW`; the exact answer is the model's.
 
 ### 3. Read the Customers
 
@@ -156,282 +126,257 @@ In the answer, `prompt_eval_count` is the number of tokens in your prompt and `e
 >
 > Create the transformation and its parameters, and read `data_quality_customers.csv` with every field as a string: the values are text to be cleaned, not numbers.
 
-1. Start Spoon with the **Start Pentaho Data Integration** button below, or from a terminal:
-
-::: tabs
-
-### Windows (PowerShell)
+1. Start Pentaho Data Integration with the **Start Pentaho Data Integration** button below, or from PowerShell:
 
 ```powershell
 Set-Location C:\Pentaho\design-tools\data-integration
-.\spoon.bat
+.\Spoon.bat
 ```
-
-### macOS / Linux
-
-```bash
-cd ~/Pentaho/design-tools/data-integration
-./spoon.sh
-```
-
-:::
 
 <button data-launch="spoon" data-path="">Start Pentaho Data Integration</button>
 
 2. Select **File > New > Transformation** (`Ctrl+N`).
-3. Select **File > Save as** and save it as `data_quality_enhancement_optimized.ktr` in `C:\Workshop-AI-Specialty\04-llm-integration\07-llm-data-quality`, next to `data_quality_customers.csv`. (On your own machine, download the file from **Lab Files** below into the folder you save in.)
+3. Select **File > Save as** and save it as `data_quality.ktr` in `C:\Workshop-AI-Specialty\04-llm-integration\07-llm-data-quality`, next to `data_quality_customers.csv`. (On your own machine, download `data_quality_customers.csv` from **Lab Files** below into the folder you save in.)
 4. Double-click an empty part of the canvas. **Transformation properties** opens.
 5. Open the **Parameters** tab and fill the grid:
 
 | Parameter | Default Value | Description |
 | --- | --- | --- |
-| `INPUT_FILE` | `${Internal.Transformation.Filename.Directory}/data_quality_customers.csv` | Input CSV file with raw customer data |
-| `MODEL_NAME` | `llama3.2:3b` | Ollama model to use (3b recommended for quality) |
-| `OLLAMA_URL` | `http://localhost:11434` | Ollama API endpoint |
-| `STEP_COPIES` | `4` | Number of parallel API call copies (4-8 recommended) |
+| `MODEL_NAME` | `llama3.2:3b` | Ollama chat model |
+| `OLLAMA_URL` | `http://localhost:11434` | Ollama server |
+| `STEP_COPIES` | `4` | Parallel copies of ai-clean |
 
 6. Select **OK**.
 7. On the **Design** tab, open the **Input** folder and drag **CSV file input** onto the canvas.
 8. Double-click **CSV file input**.
-9. Set **Step name** to `Read Customer Data`.
-10. Set **Filename** to `${INPUT_FILE}`.
-11. Keep **Delimiter** `,` and **Enclosure** `"`, and keep **Header row present?** selected. Clear **Lazy conversion?**.
-12. Set **Format** to `mixed` and **File encoding** to `UTF-8`.
-13. Fill the **Fields** grid. Every field is a String, with no length:
+9. Set **Step name** to `csvi-customers`.
+10. Set **Filename** to `${Internal.Entry.Current.Directory}/data_quality_customers.csv`.
+11. Keep **Delimiter** `,`, **Enclosure** `"` and **Header row present?** selected. Clear **Lazy conversion?**.
+12. Fill the **Fields** grid. Every field is a String with no length, trimmed on both sides:
 
-| Name | Type |
-| --- | --- |
-| `customer_id` | String |
-| `name` | String |
-| `email` | String |
-| `phone` | String |
-| `address` | String |
-| `company_name` | String |
+| Name | Type | Length | Trim type |
+| --- | --- | --- | --- |
+| `customer_id` | String | | both |
+| `name` | String | | both |
+| `email` | String | | both |
+| `phone` | String | | both |
+| `address` | String | | both |
+| `company_name` | String | | both |
 
-14. Select **OK**.
-15. Save the transformation (`Ctrl+S`).
-16. Select **Read Customer Data** on the canvas, press `F10` (**Action > Preview**), and select **Quick Launch**.
+13. Select **OK**.
+14. Save the transformation (`Ctrl+S`).
+15. Select **csvi-customers** on the canvas, press `F10` (**Action > Preview**), and select **Quick Launch**.
 
 > **Success:** Checkpoint: **Examine preview data** shows 10 rows, `customer_id` `1001` to `1010`. The first is `john smith`, `JSMITH@GMAIL.COM`, `555.123.4567`; the address `123 main st apt 5, new york, ny` arrives as one field, because the file encloses it in quotes.
 
-17. Select **Close**.
+16. Select **Close**.
 
-### 4. Build the Prompt
+### 4. Build the Message
 
 > **Note:**
 >
-> #### Build Optimized Prompt
+> #### Modified JavaScript Value
 >
-> A **Modified JavaScript value** step turns the five raw fields into one prompt, `llm_prompt`.
+> **AI Chat** in Stream mode sends one field as the message. This record has five values to clean, so a **Modified JavaScript value** step joins them into one field, `customer_record`, one labeled line per value.
 
 1. On the **Design** tab, open the **Scripting** folder and drag **Modified JavaScript value** onto the canvas.
-2. Create a hop from **Read Customer Data** to **Modified JavaScript value**: hold `Shift` and drag from one step to the other.
+2. Create a hop from **csvi-customers** to **Modified JavaScript value**: hold `Shift` and drag from one step to the other.
 3. Double-click **Modified JavaScript value**.
-4. Set **Step name** to `Build Optimized Prompt`.
+4. Set **Step name** to `js-record`.
 5. Replace the text in the **Script 1** tab with:
 
 ```javascript
-// Optimized short prompt - 50% shorter
-var llm_prompt = "Clean this data. Return JSON: {\"name\":\"Title Case\",\"email\":\"valid@format\",\"phone\":\"+1-555-123-4567\",\"address\":\"St,City,ST ZIP\",\"company_name\":\"Proper Name\"}\nName:" + name + "\nEmail:" + email + "\nPhone:" + phone + "\nAddr:" + address + "\nCo:" + company_name;
+// One customer as labeled lines: the message AI Chat sends
+var customer_record = "Name: " + name + "\n" +
+  "Email: " + email + "\n" +
+  "Phone: " + phone + "\n" +
+  "Address: " + address + "\n" +
+  "Company: " + company_name;
 ```
 
-6. Fill the **Fields** grid with one row: **Fieldname** `llm_prompt`, **Type** String, **Replace value 'Fieldname' or 'Rename to'** `N`. (**Get variables** adds it for you.)
+6. Fill the **Fields** grid with one row: **Fieldname** `customer_record`, **Type** String, **Replace value 'Fieldname' or 'Rename to'** `N`.
 7. Select **OK**.
-8. Select **Build Optimized Prompt** on the canvas, press `F10` (**Action > Preview**), and select **Quick Launch**.
+8. Select **js-record** on the canvas, press `F10` (**Action > Preview**), and select **Quick Launch**.
 
-> **Success:** Checkpoint: 10 rows with a new `llm_prompt` field. The first starts `Clean this data. Return JSON:` and ends `Co:acme corp`.
+> **Success:** Checkpoint: 10 rows with a new `customer_record` field. For `1001` it holds five lines, from `Name: john smith` to `Company: acme corp`.
 
 9. Select **Close**.
 
-The prompt is short on purpose. The transformation's basic version (in **Lab Files**) spells each instruction out ("Full Name in Title Case", "valid@email.com or INVALID if cannot be fixed"); this one keeps the example values and abbreviates the labels, so each request has fewer tokens for the model to read.
+> **Under the hood:**
+>
+> #### The step builds the message because AI Chat never reads field values into a prompt
+>
+> In **AI Chat**, `${...}` in a prompt is a Pentaho Data Integration variable, resolved once when the transformation starts; a field's value is never put into a Script prompt. So any message that combines several fields is built upstream, here by a script, and **AI Chat** reads it from the stream. The labels (`Name:`, `Email:`) tell the model which value is which.
+>
+> **Why it matters:** the row's own values reach the model only through a stream field. A prompt typed into the step is the same for every row.
 
-### 5. Build the Request
+### 5. The Instruction
 
 > **Note:**
 >
-> #### Build JSON Request
+> #### Add Constants
 >
-> A second **Modified JavaScript value** step wraps `llm_prompt` in the request body Ollama expects. Keeping the prompt and the request apart means you can change the wording without touching the model settings, and the other way round.
+> The instruction gives the house format of each field, says which emails cannot be fixed, and spells out the JSON answer, verdict included. It is the same for every record, so **Add constants** adds it as `run_instruction`.
 
-1. Drag another **Modified JavaScript value** from the **Scripting** folder onto the canvas.
-2. Create a hop from **Build Optimized Prompt** to the new step.
-3. Double-click the new step.
-4. Set **Step name** to `Build JSON Request`.
-5. Replace the text in the **Script 1** tab with:
+1. On the **Design** tab, open the **Transform** folder and drag **Add constants** onto the canvas.
+2. Create a hop from **js-record** to **Add constants**.
+3. Double-click **Add constants**.
+4. Set **Step name** to `const-instruction`.
+5. In the **Fields** grid, add one row: **Name** `run_instruction`, **Type** `String`, and in **Value** this text:
 
-```javascript
-// Build JSON request body with keep_alive
-var model_name = getVariable("MODEL_NAME", "llama3.2:3b");
-var keep_alive = getVariable("KEEP_ALIVE", "5m");
-
-var requestObj = {
-    "model": model_name,
-    "prompt": llm_prompt,
-    "stream": false,
-    "keep_alive": keep_alive,
-    "options": {
-        "temperature": 0.1,
-        "num_predict": 300
-    }
-};
-
-var request_body = JSON.stringify(requestObj);
+```text
+You check and clean one customer record from a US customer file.
+Put each value in the house format: name in Title Case; email in lowercase; phone as +1-555-123-4567; address as Street, City, ST ZIP with a two-letter state code (keep a ZIP only if the record has one); company name in its proper business form, such as Acme Corp or Cloud Services, Inc.
+An email with no domain or no top-level domain, such as james@ or sarah.j@company, cannot be fixed: keep it as given.
+Answer with one JSON object and nothing else, in exactly this shape:
+{"name": "...", "email": "...", "phone": "...", "address": "...", "company_name": "...", "issues": ["one short phrase per problem you found"], "quality": "CLEAN" | "FIXED" | "REVIEW"}
+quality is CLEAN when nothing needed a change, FIXED when you fixed every problem, and REVIEW when a value cannot be fixed.
 ```
 
-6. Fill the **Fields** grid with one row: **Fieldname** `request_body`, **Type** String, **Replace value 'Fieldname' or 'Rename to'** `N`. (**Get variables** also adds `model_name`, `keep_alive` and `requestObj`; delete them if you use it.)
-
-<div align="center">
-<figure>
-<img src="../_assets/images/data_quality_build_request.png" alt="The Modified JavaScript value dialog for Build JSON Request: the script that builds requestObj, and request_body as the only output field" width="800">
-<figcaption>Build JSON Request: request_body is the only output field</figcaption>
-</figure>
-</div>
-
-7. Select **OK**.
+6. Select **OK**.
 
 > **Under the hood:**
 >
-> #### KEEP_ALIVE fell back to 5m, because the transformation does not define it
+> #### The verdict is part of the answer, so the pipeline can act on it
 >
-> `getVariable("KEEP_ALIVE", "5m")` returns the variable when something sets it (a parameter, `kettle.properties`, or the command line) and the second argument when nothing does. This transformation has no `KEEP_ALIVE` parameter, so unless `kettle.properties` sets one, every request asks Ollama to keep the model loaded for 5 minutes after it answers. `MODEL_NAME` is a parameter, so its default, `llama3.2:3b`, applies unless you change it when you run.
+> The model returns the cleaned values and a `quality` field with one of three words. A step downstream compares that field with a list, so the instruction names the exact words and when each one applies. `issues` asks the model to say what it changed, which a reviewer can check against the original.
 >
-> **Why it matters:** a default in the script keeps the step working when a variable is missing, but it also hides that it is missing; to change the value, add the parameter, don't edit the script.
+> **Why it matters:** a model that only returns cleaned values hides the records it could not clean. A verdict turns its judgment into something the pipeline can route.
 
-### 6. Call Ollama
+### 6. Ask the Model
 
 > **Note:**
 >
-> #### REST Client
+> #### AI Chat
 >
-> The same call as in Sentiment Analysis, with this transformation's field names: the body is `request_body` and the answer goes to `api_response`.
+> **AI Chat** sends each record to the model with `run_instruction`, and adds the model's answer to the row as `llm_json`.
 
-1. On the **Design** tab, open the **Lookup** folder and drag **REST client** onto the canvas.
-2. Create a hop from **Build JSON Request** to **REST client**.
-3. Double-click **REST client**.
-4. Set **Step name** to `Call Ollama API (Parallel)`.
-5. On the **General** tab, set **URL** to `${OLLAMA_URL}/api/generate`, **HTTP method** to `POST` and **Body field** to `request_body`. Keep **Application type** `TEXT PLAIN`.
-6. Under **Output fields**, set **Result field name** to `api_response`, **HTTP status code field name** to `result_code` and **Response time (milliseconds) field name** to `response_time`. Leave the **Headers** tab empty.
+1. On the **Design** tab, open the **AI** folder and drag **AI Chat** onto the canvas.
+2. Create a hop from **const-instruction** to **AI Chat**.
+3. Double-click **AI Chat**.
+4. Set **Step name** to `ai-clean`.
+5. On the **Message** tab, under **Message/Prompt**, select **Stream**. Set **Message Field name** to `customer_record` and **Run instruction for LLM Field name** to `run_instruction`. Keep **Attach Document(s)** cleared.
+6. On the **Model** tab, set **LLM Provider** to `Ollama` and **Model name/Deployment name/Model ID** to `${MODEL_NAME}`.
+7. Fill the **Model Configuration** grid. Delete any row that is not in this table:
 
+| Parameter | Value |
+| --- | --- |
+| `endpoint` | `${OLLAMA_URL}` |
+| `temperature` | `0` |
+| `numCtx` | `2048` |
+| `timeout` | `120` |
+
+8. On the **Response** tab, keep **Response format** `text`, set **Result Field name** to `llm_json`, and keep **Stop on error** selected.
 <div align="center">
 <figure>
-<img src="../_assets/images/data_quality_ollama_api.png" alt="The REST client dialog for Call Ollama API (Parallel), General tab: URL ${OLLAMA_URL}/api/generate, POST, body field request_body, TEXT PLAIN, result field api_response, status code field result_code, response time field response_time" width="800">
-<figcaption>Call Ollama API (Parallel): the body is request_body</figcaption>
+<img src="../_assets/images/07-data_quality-ai-clean-message.png" alt="The AI Chat dialog for ai-clean, Message tab, with the settings this workshop gives it" width="800">
+<figcaption>ai-clean: the Message tab</figcaption>
 </figure>
 </div>
 
-7. Select **OK**.
-8. Right-click **Call Ollama API (Parallel)** and select **Change Number of Copies to Start...**.
-9. In **Nr of copies of step...**, enter `${STEP_COPIES}` and select **OK**.
+<div align="center">
+<figure>
+<img src="../_assets/images/07-data_quality-ai-clean-model.png" alt="The AI Chat dialog for ai-clean, Model tab, with the settings this workshop gives it" width="800">
+<figcaption>ai-clean: the Model tab</figcaption>
+</figure>
+</div>
 
-### 7. Parse the Response
+<div align="center">
+<figure>
+<img src="../_assets/images/07-data_quality-ai-clean-tools.png" alt="The AI Chat dialog for ai-clean, Tools tab, with the settings this workshop gives it" width="800">
+<figcaption>ai-clean: the Tools tab</figcaption>
+</figure>
+</div>
+
+<div align="center">
+<figure>
+<img src="../_assets/images/07-data_quality-ai-clean-response.png" alt="The AI Chat dialog for ai-clean, Response tab, with the settings this workshop gives it" width="800">
+<figcaption>ai-clean: the Response tab</figcaption>
+</figure>
+</div>
+
+9. Select **OK**.
+10. Right-click **ai-clean** and select **Change Number of Copies to Start...**.
+11. In **Nr of copies of step...**, enter `${STEP_COPIES}` and select **OK**.
+
+> **Under the hood:**
+>
+> #### One step replaced two scripts and a REST call
+>
+> Without the plugin, this call takes three steps: a script that builds the request body as JSON text, a **REST client** that posts it, and a third step that unwraps Ollama's reply. Every one of them is a place to get the request wrong, such as a body field that no step created, which sends an empty request. **AI Chat** builds the request from its settings: the run instruction becomes the system message, `customer_record` the user message, and the model, endpoint and options come from the **Model** tab. It puts only the model's reply in `llm_json`. A temperature of `0` makes the same record get the same answer on every run.
+>
+> **Why it matters:** there is no request text to get wrong, and the model and server are parameters, so the same transformation runs against another model by changing `MODEL_NAME`.
+
+### 7. Parse the Answer
 
 > **Note:**
 >
-> #### Parse JSON Response
+> #### JSON Input
 >
-> A third script takes the cleaned values out of the answer. Each output field starts as the original value and is replaced only when the answer parses, and a flag, `parsing_error`, records whether it did.
+> **JSON input** reads `llm_json` and splits it into the cleaned fields, the list of issues and the verdict. The cleaned fields get a `clean_` prefix, so the originals stay beside them.
 
-1. Drag a **Modified JavaScript value** from the **Scripting** folder onto the canvas.
-2. Create a hop from **Call Ollama API (Parallel)** to the new step.
-3. Double-click the new step.
-4. Set **Step name** to `Parse JSON Response`.
-5. Replace the text in the **Script 1** tab with:
+1. On the **Design** tab, open the **Input** folder and drag **JSON input** onto the canvas.
+2. Create a hop from **ai-clean** to **JSON input**.
+3. Double-click **JSON input**.
+4. Set **Step name** to `json-clean`.
+5. On the **File** tab, select **Source is from a previous step** and set **Select field** to `llm_json`.
+6. On the **Content** tab, make sure **Ignore missing path** and **Default path leaf to null** are selected.
+7. On the **Fields** tab, fill the grid:
 
-```javascript
-// Parse the Ollama response with robust error handling
-var enhanced_name = name;
-var enhanced_email = email;
-var enhanced_phone = phone;
-var enhanced_address = address;
-var enhanced_company = company_name;
-var parsing_error = "N";
-var error_message = "";
-
-try {
-    var response = JSON.parse(api_response);
-    var fullResponse = response.response;
-
-    // Extract JSON from response (handles various formats)
-    var jsonStart = fullResponse.indexOf("{");
-    var jsonEnd = fullResponse.lastIndexOf("}") + 1;
-
-    if (jsonStart >= 0 && jsonEnd > jsonStart) {
-        var jsonStr = fullResponse.substring(jsonStart, jsonEnd);
-        var data = JSON.parse(jsonStr);
-
-        enhanced_name = data.name || name;
-        enhanced_email = data.email || email;
-        enhanced_phone = data.phone || phone;
-        enhanced_address = data.address || address;
-        enhanced_company = data.company_name || company_name;
-    } else {
-        parsing_error = "Y";
-        error_message = "No JSON found in response";
-    }
-} catch(e) {
-    parsing_error = "Y";
-    error_message = e.message || "Parse error";
-}
-```
-
-6. Fill the **Fields** grid. (**Get variables** adds every variable in the script; keep only these.)
-
-| Fieldname | Type | Replace value 'Fieldname' or 'Rename to' |
+| Name | Path | Type |
 | --- | --- | --- |
-| `enhanced_name` | String | N |
-| `enhanced_email` | String | N |
-| `enhanced_phone` | String | N |
-| `enhanced_address` | String | N |
-| `enhanced_company` | String | N |
-| `parsing_error` | String | N |
-| `error_message` | String | N |
+| `clean_name` | `$.name` | String |
+| `clean_email` | `$.email` | String |
+| `clean_phone` | `$.phone` | String |
+| `clean_address` | `$.address` | String |
+| `clean_company` | `$.company_name` | String |
+| `issues` | `$.issues` | String |
+| `quality` | `$.quality` | String |
 
-7. Select **OK**.
+8. Select **OK**.
 
 > **Under the hood:**
 >
-> #### A bad answer kept the original values instead of failing the row
+> #### An answer that is not JSON gives null fields, not a failed row
 >
-> The script parses twice: `JSON.parse(api_response)` reads Ollama's envelope, and the model's text is in its `response` field. Without `"format": "json"` the model may write "Here is the cleaned record:" before the JSON, so the script cuts from the first `{` to the last `}` and parses only that. Any failure lands in `catch`, which sets `parsing_error` to `Y` and the reason in `error_message`, while the `enhanced_*` fields still hold the originals they started with. `data.name || name` also keeps the original when the model leaves a key out or empty.
+> With **Ignore missing path** and **Default path leaf to null** selected, a key the model leaves out becomes a null field. An answer that is not JSON at all, such as `Sure! Here is the record.`, also passes through with every parsed field null: these settings were checked by running this step on hand-written answers. `issues` is an array in the answer; read as a String it keeps its JSON text, such as `["name in lowercase","phone with dots"]`.
 >
-> **Why it matters:** one malformed answer out of thousands does not stop the load, and the flag says exactly which rows to look at.
+> **Why it matters:** a row whose answer could not be read still reaches the next step, with a null `quality` that the filter can catch.
 
-### 8. Filter and Write
+### 8. Split by Verdict
 
 > **Note:**
 >
-> #### Error Handling and Output
+> #### Filter Rows and Two Outputs
 >
-> A **Filter rows** step passes only the rows that parsed to a **Text file output** step. The rows with `parsing_error` `Y` have no target, so they are dropped.
+> **Filter rows** sends the records the model passed as `CLEAN` or `FIXED` to the clean file, and every other record to the review file: `REVIEW`, and any row with no readable verdict.
 
 1. On the **Design** tab, open the **Flow** folder and drag **Filter rows** onto the canvas.
-2. Create a hop from **Parse JSON Response** to **Filter rows**.
-3. Double-click **Filter rows**.
-4. Set **Step name** to `Error Handling`.
-5. Under **The condition**, select `<field>` and select `parsing_error` in the list. Keep the function `=`.
-6. Select `<value>`. In **Enter value**, set **Type** to `String` and **Value** to `N`, and select **OK**.
-7. Select **OK**.
-8. On the **Design** tab, open the **Output** folder and drag **Text file output** onto the canvas.
-9. Create a hop from **Error Handling** to **Text file output**. When Spoon asks, select **Result is TRUE**.
-10. Double-click **Text file output**.
-11. Set **Step name** to `Write Enhanced Data`.
-12. On the **File** tab, set **Filename** to `${Internal.Transformation.Filename.Directory}/customer_data_enhanced_optimized` and **Extension** to `csv`.
-13. Select **Create Parent folder**, **Include date in filename?** and **Include time in filename?**. Keep **Add filenames to result** selected.
-14. On the **Content** tab, keep **Separator** `,` and **Enclosure** `"`, keep **Header** selected, and set **Format** to `DOS` and **Encoding** to `UTF-8`.
-15. On the **Fields** tab, fill the grid. Every field is a String:
-
-| Name | Type |
-| --- | --- |
-| `customer_id` | String |
-| `enhanced_name` | String |
-| `enhanced_email` | String |
-| `enhanced_phone` | String |
-| `enhanced_address` | String |
-| `enhanced_company` | String |
-
-16. Select **OK**.
-17. Double-click **Error Handling** and check that **Send 'true' data to step** is `Write Enhanced Data` and **Send 'false' data to step** is empty. Select **OK**.
+2. Create a hop from **json-clean** to **Filter rows**.
+3. On the **Design** tab, open the **Transform** folder and drag **Select values** onto the canvas twice. Open the **Output** folder and drag **Text file output** onto the canvas twice.
+4. Double-click the first **Select values**, set **Step name** to `sv-clean`, and on the **Select & Alter** tab list these fields in this order: `customer_id`, `clean_name`, `clean_email`, `clean_phone`, `clean_address`, `clean_company`, `quality`, `issues`. Select **OK**.
+5. Double-click the second **Select values**, set **Step name** to `sv-review`, and list: `customer_id`, `name`, `email`, `phone`, `address`, `company_name`, `quality`, `issues`. Select **OK**.
+6. Create a hop from **Filter rows** to **sv-clean**. When Spoon asks, select **Result is TRUE**.
+7. Create a hop from **Filter rows** to **sv-review**. When Spoon asks, select **Result is FALSE**.
+8. Double-click **Filter rows** and set **Step name** to `filter-quality`.
+9. Under **The condition**, select `<field>` and select `quality` in the list. Select the function `=` and change it to `IN LIST`.
+10. Select `<value>`. In **Enter value**, set **Type** to `String` and **Value** to `CLEAN;FIXED`, and select **OK**.
+11. Check that **Send 'true' data to step** is `sv-clean` and **Send 'false' data to step** is `sv-review`. Select **OK**.
+12. Create a hop from **sv-clean** to the first **Text file output**, and from **sv-review** to the second.
+13. Double-click the first **Text file output** and set **Step name** to `txt-clean`.
+14. On the **File** tab, set **Filename** to `${Internal.Entry.Current.Directory}/customers_clean` and **Extension** to `csv`. Select **Create Parent folder**.
+15. On the **Content** tab, keep **Separator** `,`, **Enclosure** `"` and **Header** selected, and set **Encoding** to `UTF-8`.
+16. On the **Fields** tab, select **Get Fields**, then **Minimal width**. The grid lists the eight fields in the order **sv-clean** gives them, with no fixed lengths, so no value is padded with spaces. Select **OK**.
+17. Set up the second **Text file output** the same way, **Get Fields** and **Minimal width** included, with **Step name** `txt-review` and **Filename** `${Internal.Entry.Current.Directory}/customers_review`. Select **OK**.
 18. Save the transformation (`Ctrl+S`).
+
+> **Under the hood:**
+>
+> #### A null verdict fails the IN LIST test, so it goes to review
+>
+> `IN LIST` is true when `quality` equals one of the values between the semicolons. A null `quality`, from an answer the parser could not read, equals neither, so the row takes the false path to `sv-review`. The two **Select values** steps give each file its own columns: the clean file the cleaned values, the review file the originals that a person will correct.
+>
+> **Why it matters:** the safe default is review. A record leaves the pipeline as clean only when the model said, in words the filter checks, that it is.
 
 ### 9. Run
 
@@ -439,63 +384,47 @@ try {
 >
 > #### Run the Transformation
 >
-> Ten records are ten LLM calls. On a CPU-only machine each takes about 15 to 30 seconds; the four parallel copies overlap them as far as Ollama allows.
+> Ten records are ten model calls. On a CPU-only machine each takes about 15 to 30 seconds; the four parallel copies overlap them as far as Ollama allows.
 
 1. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
 2. In **Execution Results**, open the **Step Metrics** tab.
 
-> **Success:** Checkpoint: **Read Customer Data** shows 10 under **Written**, and the four copies of **Call Ollama API (Parallel)** read 10 rows between them. **Write Enhanced Data** shows one row for each record whose answer parsed: 10 when every answer parsed, fewer when some did not.
+<!-- UNPROVEN: the checkpoints below describe the expected shape; replace with measured figures once the GENAI-EE license lets the solution run. -->
 
-3. Select **Parse JSON Response** on the canvas and open the **Preview data** tab.
+> **Success:** Checkpoint: every step finishes without errors. **csvi-customers** shows 10 under **Written**, the four copies of **ai-clean** read 10 rows between them, and **txt-clean** and **txt-review** together write 10.
 
-> **Success:** Checkpoint: 10 rows. Where `parsing_error` is `N`, the `enhanced_*` fields hold the model's cleaned values, such as `john smith` as `John Smith`; where it is `Y`, `error_message` says why and the `enhanced_*` fields repeat the originals. Which rows parse, and the exact values, depend on the model's answers.
+3. Select **json-clean** on the canvas and open the **Preview data** tab.
 
-4. Find the results file. In PowerShell, run:
+> **Success:** Checkpoint: 10 rows. Each has the model's cleaned values, such as `john smith` as `John Smith`, an `issues` list, and a `quality` of `CLEAN`, `FIXED` or `REVIEW`. The exact values are the model's.
 
-::: tabs
+4. Open `customers_review.csv` in `C:\Workshop-AI-Specialty\04-llm-integration\07-llm-data-quality`.
 
-### Windows (PowerShell)
+> **Success:** Checkpoint: its first line is `customer_id,name,email,phone,address,company_name,quality,issues`. The records with an email that cannot be valid, `1002`, `1005` and `1008`, should be among its rows; `customers_clean.csv` holds the others.
 
-```powershell
-Get-ChildItem C:\Workshop-AI-Specialty\04-llm-integration\07-llm-data-quality\customer_data_enhanced_optimized_*.csv
-```
-
-### macOS / Linux
-
-```bash
-ls customer_data_enhanced_optimized_*.csv
-```
-
-Run it in the folder you saved the transformation in.
-
-:::
-
-> **Success:** Checkpoint: a file named `customer_data_enhanced_optimized_<yyyyMMdd>_<HHmmss>.csv`. Its first line is `customer_id,enhanced_name,enhanced_email,enhanced_phone,enhanced_address,enhanced_company`.
-
-5. Compare the cleaned file with `data_quality_customers.csv`. Check the three emails that cannot be valid as given (`sarah.j@company`, `james@`, `lisa_anderson@email`): the prompt gives the model no rule for them.
+5. Compare the two files with `data_quality_customers.csv`. Where the model put a record in the clean file that you would review, tighten the instruction: name the case and the verdict it gets.
 
 ::::
 
 ## Troubleshooting <!-- no-step -->
 
 <details>
-<summary>Every row has parsing_error Y</summary>
+<summary>Error initializing step: License validation failed</summary>
 
-Preview **Call Ollama API (Parallel)** and read `result_code` and `api_response`. A code other than `200` means Ollama refused the request: check that it is running and that `MODEL_NAME` names a model `ollama list` shows.
-
-</details>
-
-<details>
-<summary>Answers are cut off mid-JSON</summary>
-
-The answer reached `num_predict` (300 tokens) before the closing `}`. Raise `num_predict` in **Build JSON Request**.
+The Pentaho license on this machine has no GenAI rights. Every GenAI plugin step checks for a license with the GenAI Plugin Suite (GENAI-EE) subscription when the transformation starts. Install a license that includes it, as described in [Before You Start](../00-before-you-start/guide.md).
 
 </details>
 
 <details>
-<summary>The run is slow</summary>
+<summary>ai-clean fails with Connection refused or model not found</summary>
 
-Set `STEP_COPIES` in the **Run Options** dialog to the number of CPU cores minus 1, and keep the model loaded between runs by adding a `KEEP_ALIVE` parameter (for example `30m`) to the transformation.
+Ollama is not running, or does not have the model in `MODEL_NAME`. Start the Ollama app, run `ollama list`, and pull the model or change the parameter.
+
+</details>
+
+<details>
+<summary>Every record lands in customers_review.csv</summary>
+
+The verdicts are null: the answers were not the JSON the instruction asked for. Preview **ai-clean** and read `llm_json`. A larger model (`qwen2.5:7b`), or an instruction that repeats "nothing else", usually fixes it.
 
 </details>
 
@@ -509,12 +438,17 @@ The ten raw customer records:
 
 ### Solution <!-- no-step -->
 
-The finished transformation for this lab. Open it alongside your own to compare, or run it to see the expected result.
+The finished transformation for this lab. Open it alongside your own to compare, or run it to see the expected result. It reads `data_quality_customers.csv` from the lab folder and writes `customers_clean.csv` and `customers_review.csv` beside itself.
 
 Also on disk at `C:\Workshop-AI-Specialty\04-llm-integration\07-llm-data-quality\solution`.
 
-[data_quality_enhancement_optimized.ktr](./files/data_quality_enhancement_optimized.ktr) <button data-launch="spoon" data-path="files/data_quality_enhancement_optimized.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/data_quality_enhancement_optimized.ktr">View graph</button>
+[data_quality.ktr](./files/solution/data_quality.ktr) <button data-launch="spoon" data-path="files/solution/data_quality.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/solution/data_quality.ktr">View graph</button>
 
-The basic version, to compare its longer prompt with the optimized one:
+data_quality in Spoon, with its note:
 
-[data_quality_enhancement.ktr](./files/data_quality_enhancement.ktr) <button data-launch="spoon" data-path="files/data_quality_enhancement.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/data_quality_enhancement.ktr">View graph</button>
+<div align="center">
+<figure>
+<img src="../_assets/images/07-data_quality-canvas.png" alt="The data_quality.ktr solution open in Spoon: its blue note above the steps and hops, left to right" width="800">
+<figcaption>data_quality.ktr in Spoon</figcaption>
+</figure>
+</div>

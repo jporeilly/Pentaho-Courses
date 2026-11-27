@@ -1,0 +1,6 @@
+Smartphone X firmware 2.4 release notes
+
+Fixed: the battery drained quickly when the phone searched for a network.
+Fixed: some chargers stopped charging at 80 percent.
+New: a battery health page in Settings.
+New: faster pairing with the Noise-Cancelling Headphones.

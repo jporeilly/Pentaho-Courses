@@ -21,7 +21,7 @@ from pydantic import BaseModel
 
 # ── Configuration ─────────────────────────────────────────────────────────────
 MODEL_URL   = os.getenv("AGENT_MODEL_URL",   "http://localhost:11434/api/generate")
-MODEL_NAME  = os.getenv("AGENT_MODEL_NAME",  "llama3.1:8b")
+MODEL_NAME  = os.getenv("AGENT_MODEL_NAME",  "llama3.2:3b")
 TEMPERATURE = float(os.getenv("AGENT_TEMPERATURE", "0.1"))
 TIMEOUT     = int(os.getenv("AGENT_TIMEOUT",       "120"))
 MAX_RETRIES = int(os.getenv("AGENT_MAX_RETRIES",   "2"))

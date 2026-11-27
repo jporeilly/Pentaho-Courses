@@ -1,6 +1,6 @@
 {
   "title": "AI Pipelines Specialty Exam",
-  "description": "30 questions drawn from a pool of 44, covering how LLMs work and the patterns for building them into PDI pipelines. Pass mark is 80%. Open-book — browse any page, hover glossary terms, or ask the AI assistant. Your answers are saved as you go. Explanations appear after submission.",
+  "description": "30 questions drawn from a pool of 66, covering how LLMs work and the patterns for building them into PDI pipelines. Pass mark is 80%. Open-book — browse any page, hover glossary terms, or ask the AI assistant. Your answers are saved as you go. Explanations appear after submission.",
   "passMark": 80,
   "questionsPerAttempt": 30,
   "shuffle": true,
@@ -271,16 +271,16 @@
       "module": "GenAI",
       "bloom": "Apply",
       "scenario": "An ingestion pipeline receives Word files, PDF files, and HTML files. Some of these files are password-protected, and the pipeline must extract plain text to provide to an LLM step.",
-      "prompt": "Which PDI approach fits?",
+      "prompt": "Which PDI approach fits the Word and PDF files?",
       "options": [
         "Text file input, which decodes Word and PDF documents",
-        "A REST Client step that sends each raw file to the model",
-        "Read Unstructured Document (Tika), with a password field",
+        "An AI Chat step with each raw file attached as an image",
+        "Read Unstructured Document, with a password field",
         "HTML Parser for every format, finding the text with XPath"
       ],
-      "correct": 2,
-      "explanation": "The **Read Unstructured Document (Tika)** step extracts text, metadata, and language from various formats, including password-protected PDFs, and can read the password from a field when files are processed as a stream.\n\nIt passes only the plain text on to the next step, which gives the LLM clean content.",
-      "source": "Developer - AI Specialty: Apache Tika"
+      "explanation": "**Read Unstructured Document** (Apache Tika) extracts the text of TXT, PDF, DOC, DOCX, PPT and PPTX files, and takes a password per file. **Text file input** reads delimited text, not binary documents; **HTML Parser** is for HTML and XML; an image attachment is for vision models, not documents.",
+      "source": "Developer - AI Specialty: Apache Tika",
+      "correct": 2
     },
     {
       "id": "ai-m2-q6",
@@ -302,17 +302,17 @@
       "id": "ai-m2-q7",
       "module": "GenAI",
       "bloom": "Apply",
-      "scenario": "A classification prompt is built for thousands of rows in a Modified JavaScript value step, where only the row text changes.",
+      "scenario": "A classification is run on thousands of rows with the AI Chat step in Stream mode. The review text comes from a field, and only it changes from row to row.",
       "prompt": "What keeps the outputs comparable from row to row?",
       "options": [
-        "A fixed instruction and schema, varying only the data",
+        "The same run instruction and JSON schema on every row, with only the review varying",
         "A random seed that changes from one row to the next",
-        "A fresh instruction worded to suit each row's content",
+        "A fresh run instruction worded to suit each row's content",
         "Letting each row's text choose its own output format"
       ],
-      "correct": 0,
-      "explanation": "A **fixed instruction and schema** around the data means every row is processed with the same logic and returns the same output structure, so results can be compared and parsed reliably across the whole dataset.",
-      "source": "Developer - AI Specialty: LLM Integration"
+      "explanation": "The run instruction is the contract: a fixed instruction that names every key and its allowed values, with the review as the only varying input, gives every row the same shape. A temperature of 0 helps too.",
+      "source": "Developer - AI Specialty: Sentiment Analysis",
+      "correct": 0
     },
     {
       "id": "ai-m3-q1",
@@ -334,17 +334,17 @@
       "id": "ai-m3-q2",
       "module": "LLM Integration",
       "bloom": "Analyze",
-      "scenario": "A JSON input step reads the result from a REST Client calling Ollama. The path `$.sentiment` fails to find a value, even though the model returned a sentiment.",
-      "prompt": "Why does the path find nothing?",
+      "scenario": "An AI Chat step's Model tab has Response format set to json_object and the provider set to Ollama. The run instruction does not mention JSON, and JSON input fails to find `$.sentiment` on most rows.",
+      "prompt": "Why does the JSON path find nothing?",
       "options": [
-        "stream: false splits the answer across several rows of the stream",
-        "The model's JSON is a string in the response field, needing a second parse",
-        "format: json makes Ollama answer in XML, which needs another step",
-        "The sentiment is in the telemetry fields, not in the content fields"
+        "Ollama returns JSON only when the step runs in several copies",
+        "json_object is not passed to Ollama, so the instruction must ask for JSON",
+        "JSON input reads files only, not a field from a previous step",
+        "The result field holds Ollama's whole response, which needs two parses"
       ],
-      "correct": 1,
-      "explanation": "Ollama wraps the model output in a `response` field as a **string** containing JSON rather than a nested object. To extract the data, one JSON input step must first extract the `response` string, followed by a second step to parse the nested JSON content.\n\n```json\n{\n  \"response\": \"{\\\"sentiment\\\": \\\"positive\\\"}\"\n}\n```",
-      "source": "Developer - AI Specialty: LLM Integration"
+      "explanation": "In this plugin version **json_object is not passed to the Ollama server**: the model answers in JSON only when the run instruction asks for it, naming the keys. AI Chat already unwraps Ollama's response, so `result` holds just the model's reply, read with one **JSON input**.",
+      "source": "Developer - AI Specialty: Sentiment Analysis",
+      "correct": 1
     },
     {
       "id": "ai-m3-q3",
@@ -381,54 +381,54 @@
     {
       "id": "ai-m3-q5",
       "module": "LLM Integration",
-      "bloom": "Analyze",
-      "scenario": "In an LLM pipeline, the `load_duration` remains high for every row. The REST Client step currently runs as a single copy on an 8-core machine.",
+      "bloom": "Apply",
+      "scenario": "An AI Chat pipeline on a local Ollama model processes rows one at a time. The step runs as a single copy on an 8-core machine, and Ollama is idle between calls.",
       "prompt": "Which two changes increase throughput?",
       "options": [
-        "Splitting the prompt into five sequential stages of its own",
-        "Running several copies of the REST Client step in parallel",
-        "Setting keep_alive so the model stays loaded between rows",
-        "Raising num_predict so that each call has more room to answer",
-        "Setting stream to true so that the tokens arrive sooner"
+        "Splitting the prompt into five sequential AI Chat stages",
+        "Running several copies of the AI Chat step in parallel",
+        "Choosing a smaller model, such as a 3B model instead of a 7B one",
+        "Raising numPredict so that each call has more room to answer",
+        "Setting the temperature to 1 so that the model answers sooner"
       ],
+      "explanation": "Parallel step copies keep several requests open, so Ollama is never waiting for the next row; a smaller model answers each request faster. More stages add calls, a higher `numPredict` allows longer answers, and temperature does not change speed.",
+      "source": "Developer - AI Specialty: Sentiment Analysis",
       "correctIndices": [
         1,
         2
-      ],
-      "explanation": "A `load_duration` that stays high means the model is reloaded on every request, 10 to 30 seconds each, which **keep_alive** prevents. More **copies of the REST Client step**, 6 to 8 on 8 cores, put several calls in flight at once.",
-      "source": "Developer - AI Specialty: Data Quality"
+      ]
     },
     {
       "id": "ai-m3-q6",
       "module": "LLM Integration",
-      "bloom": "Apply",
-      "scenario": "Some rows reach the parser as JSON that opens but never closes. For these rows, `done_reason` is `length` and `eval_count` is exactly 300.",
+      "bloom": "Analyze",
+      "scenario": "Some rows reach JSON input as JSON that opens but never closes. The AI Chat step's Model Configuration has `numPredict` set to `300`.",
       "prompt": "What is the fix?",
       "options": [
-        "Raise num_predict, since output is being cut off at its cap",
-        "Set stream to false, since the answer arrives in pieces",
-        "Set keep_alive, since the model is reloaded mid-answer",
+        "Raise numPredict, since the answer is cut off at its cap",
+        "Set the Response format to text, since json_object splits answers",
+        "Run fewer copies, since parallel requests truncate each other",
         "Lower the temperature, since the model is rambling at random"
       ],
-      "correct": 0,
-      "explanation": "The `done_reason` of `length` indicates that the generation reached the **limit of the prediction** count. An `eval_count` of 300 confirms that the response was truncated because it hit the `num_predict` cap.\n\nIncreasing `num_predict` allows the model to generate a complete JSON object before the output is cut off.",
-      "source": "Developer - AI Specialty: LLM Integration"
+      "explanation": "`numPredict` caps the tokens the model may generate. An answer that reaches the cap stops mid-JSON. Raise it, or ask for a shorter answer.",
+      "source": "Developer - AI Specialty: LLM Integration",
+      "correct": 0
     },
     {
       "id": "ai-m3-q7",
       "module": "LLM Integration",
-      "bloom": "Apply",
-      "scenario": "A Modified JavaScript value step builds an Ollama request with `\"model\": \"${MODEL_NAME}\"`. The calls fail even though `MODEL_NAME` is defined in `kettle.properties`.",
-      "prompt": "What is the cause of this failure?",
+      "bloom": "Analyze",
+      "scenario": "An AI Chat step in Script mode has the message `Classify this review: ${review_text}`, where review_text is a field of the stream. Every row gets the same, unhelpful answer.",
+      "prompt": "What is the cause?",
       "options": [
-        "kettle.properties is read by jobs only, not by transformations",
-        "MODEL_NAME must be sent in the REST Client's request headers",
-        "Ollama model names must be written entirely in upper case",
-        "${} is not substituted in JavaScript; getVariable() is needed"
+        "Script mode sends the message once per transformation, not once per row",
+        "${...} in AI Chat is a PDI variable, not a field: build the prompt in a field and use Stream mode",
+        "Field names in a message must be written in upper case",
+        "AI Chat needs a JSON input step before it to read field values"
       ],
-      "correct": 3,
-      "explanation": "**Variable substitution** with `${}` happens in step configuration fields, not inside the code of a Modified JavaScript value step, so the literal `${MODEL_NAME}` is sent. The **getVariable()** function resolves it, from `kettle.properties` or any other source of variables:\n\n```javascript\nvar model = getVariable(\"MODEL_NAME\", \"llama3.2:3b\");\n```",
-      "source": "Developer - AI Specialty: LLM Integration"
+      "explanation": "`${...}` is resolved as a **PDI variable**, and no variable is called review_text, so every row sends the same text. Build the prompt per row in a field (Modified JavaScript value, Formula) and select **Stream** on the Message tab.",
+      "source": "Developer - AI Specialty: LLM Integration",
+      "correct": 1
     },
     {
       "id": "ai-m3-q8",
@@ -514,17 +514,17 @@
       "id": "ai-m5-q1",
       "module": "Agent-as-a-Service",
       "bloom": "Analyze",
-      "scenario": "A team classifies all components utilizing a Large Language Model as agents, including a REST Client step that sends one prompt per row and a five-stage chain of fixed calls.",
+      "scenario": "A team classifies every component that uses a Large Language Model as an agent, including an AI Chat step that sends one prompt per row and a five-stage chain of fixed AI Chat calls.",
       "prompt": "Which test separates a genuine agent from those?",
       "options": [
         "Whether it runs as a Python service rather than inside PDI",
-        "Whether PDI could reproduce it by adding more steps",
+        "Whether the model decides which actions or tools to use, and in what order",
         "Whether its answer comes back as JSON rather than as text",
         "Whether it makes more than one call to the model per row"
       ],
-      "correct": 1,
-      "explanation": "The determining factor is whether PDI can replicate the behavior on the canvas. While a direct call or a multi-stage chain can be represented by adding more steps, complex **cross-text reasoning** cannot be replicated by simply adding more steps.",
-      "source": "Developer - AI Specialty: Agent-as-a-Service"
+      "explanation": "An agent chooses its own next step: which tool to call, with what arguments, and when it is done. A fixed chain of calls, however long, is a pipeline that PDI orchestrates. AI Chat's Tools tab is where a PDI step starts to let the model choose.",
+      "source": "Developer - AI Specialty: Agent-as-a-Service",
+      "correct": 1
     },
     {
       "id": "ai-m5-q2",
@@ -614,33 +614,33 @@
       "id": "ai-m3-q10",
       "module": "LLM Integration",
       "bloom": "Apply",
-      "scenario": "Even with the format set to `json`, some responses arrive as \"Sure! Here is the result:\" followed by a fenced JSON block, and the parser rejects those rows.",
-      "prompt": "What makes the parser robust to this?",
+      "scenario": "An AI Chat step's run instruction asks for one JSON object and nothing else. Even so, some answers arrive as \"Sure! Here is the result:\" followed by a fenced JSON block, and JSON input leaves those rows' fields null.",
+      "prompt": "What makes the pipeline robust to this?",
       "options": [
         "Setting temperature to 1.0 so the preamble changes each time",
-        "Raising num_predict so the model can finish its sentence",
-        "Removing format: json so the model replies in plain text",
-        "Parsing only the text from the first { to the last }"
+        "Raising numPredict so the model can finish its sentence",
+        "Setting Response format to json_object, which Ollama enforces",
+        "Keeping only the text from the first { to the last } before JSON input"
       ],
-      "correct": 3,
-      "explanation": "The parser takes the **substring** from the first curly brace to the last one, so any conversational filler or Markdown code fences around the JSON are left out before it is parsed.",
-      "source": "Developer - AI Specialty: LLM Integration"
+      "explanation": "A small model can still wrap its JSON in chatter. Cutting the answer to the outermost braces (a Formula or Modified JavaScript value before JSON input) keeps those rows; a temperature of 0 and an instruction that says \"nothing else\" make them rarer. json_object is not passed to Ollama in this plugin version.",
+      "source": "Developer - AI Specialty: LLM Integration",
+      "correct": 3
     },
     {
       "id": "ai-m3-q11",
       "module": "LLM Integration",
       "bloom": "Apply",
-      "scenario": "Rows whose review text contains double quotes or line breaks produce a malformed request body before Ollama is even called.",
-      "prompt": "What fixes it?",
+      "scenario": "A pipeline on PDI 11 used to build an Ollama request body in a Modified JavaScript value step and post it with REST client. Rows whose text contains double quotes produced malformed requests.",
+      "prompt": "What does moving the call to the AI Chat step change?",
       "options": [
-        "Set format to json so that Ollama repairs the request body",
-        "Move the review text into the REST Client's URL instead",
-        "Escape quotes and backslashes and drop newlines first",
-        "Raise num_ctx so that the longer review text fits the context"
+        "Nothing: the quotes must still be escaped in a script first",
+        "AI Chat builds the request itself, so the text is sent as a field value, escaped correctly",
+        "AI Chat drops every quote from the text before sending it",
+        "AI Chat sends the text in the URL instead of the request body"
       ],
-      "correct": 2,
-      "explanation": "Characters such as quotes, backslashes, and newlines in free text break the **JavaScript string concatenation**. The text must be sanitized before the request is sent, by escaping backslashes and quotes and replacing newlines, so the request body stays well-formed.",
-      "source": "Developer - AI Specialty: LLM Integration"
+      "explanation": "The step builds Ollama's request from its settings and the field's value, so quoting is handled for you. Hand-built JSON in a script is where malformed bodies came from.",
+      "source": "Developer - AI Specialty: LLM Integration",
+      "correct": 1
     },
     {
       "id": "ai-m3-q12",
@@ -649,13 +649,13 @@
       "scenario": "To save calls, a team wants one prompt to return sentiment, tone, intent, key phrases, competitor mentions, urgency, and a summary for every review.",
       "prompt": "What is the fairest assessment of the plan?",
       "options": [
-        "No trade-off, since format: json keeps every field accurate",
+        "No trade-off, since asking for JSON keeps every field accurate",
         "Fewer calls, but less accurate fields; split it if that matters",
         "Better accuracy, since the model sees the whole task at once",
         "Not workable, since one prompt can only ever ask for one field"
       ],
       "correct": 1,
-      "explanation": "When analytical prompts ask for multiple different items in a single request, large language models often fill the fields **speculatively** rather than accurately. While the `json` format ensures the output is valid JSON, it does not guarantee that the data within the fields is correct.\n\nTo ensure high accuracy for complex analysis, it is often better to use **single-purpose calls** for each specific data point, even if this requires more rounds of communication with the model. Well-defined tasks, such as extracting 10 NER types, are the exception.",
+      "explanation": "When analytical prompts ask for multiple different items in a single request, large language models often fill the fields **speculatively** rather than accurately. While an instruction that asks for JSON gives valid JSON, it does not guarantee that the data within the fields is correct.\n\nTo ensure high accuracy for complex analysis, it is often better to use **single-purpose calls** for each specific data point, even if this requires more rounds of communication with the model. Well-defined tasks, such as extracting 10 NER types, are the exception.",
       "source": "Developer - AI Specialty: LLM Integration"
     },
     {
@@ -665,7 +665,7 @@
       "scenario": "One customer dataset has every field present but inconsistently formatted. Another dataset is tidy but is missing cities, states, and industry.",
       "prompt": "How do the two LLM tasks differ in risk?",
       "options": [
-        "Both are equally safe, as format: json validates each value",
+        "Both are equally safe, as JSON input validates each value",
         "Cleaning fixes what exists; inference can guess wrong",
         "Inferring is safer, as it never touches the existing fields",
         "Cleaning is riskier, as it rewrites values the source supplied"
@@ -687,7 +687,7 @@
         "Write the raw response text into each of the cleaned fields"
       ],
       "correct": 0,
-      "explanation": "The parser starts from the original values as fallbacks, sets `parsing_error` to `Y` on any failure, and a Filter rows step on `parsing_error` = `N` passes only clean records on. This **error handling pattern** lets records that fail to parse be logged rather than lost.",
+      "explanation": "Keep the original values on the row, so nothing is lost, and let the model's verdict decide where the row goes: **JSON input** with **Ignore missing path** turns an answer that does not parse into null fields, and a **Filter rows** step sends rows without a clean verdict to a review file instead of the clean output, as the Data Quality workshop does. Records that fail are reviewed, not lost and not loaded as clean.",
       "source": "Developer - AI Specialty: Data Quality"
     },
     {
@@ -721,6 +721,362 @@
       "correct": 1,
       "explanation": "Long documents are divided into segments based on the `max_char_buffer` limit. By increasing the **overlap**, text is repeated across the boundaries between chunks, ensuring that a clause split between two segments appears in its entirety in at least one of those chunks.",
       "source": "Developer - AI Specialty: Contract Documents"
+    },
+    {
+      "id": "ai-m3-q15",
+      "module": "LLM Integration",
+      "bloom": "Understand",
+      "scenario": "A pipeline must find people, organizations and places in 200,000 short news items every night, on a machine without a GPU, and the same text must always give the same entities.",
+      "prompt": "Why does the NER Extractor step fit better than AI Chat here?",
+      "options": [
+        "It runs Stanford CoreNLP locally with no LLM, so it is fast and deterministic",
+        "It sends the text to a cloud model that is faster than Ollama",
+        "It returns plain text, which needs no parsing",
+        "It understands custom entity types without any rules"
+      ],
+      "explanation": "**NER Extractor** runs Stanford CoreNLP's English models inside PDI: no model server, no network, the same output for the same text. AI Chat can find custom entity types an LLM understands, at the cost of speed and some run-to-run variation.",
+      "source": "Developer - AI Specialty: Named Entity Recognition",
+      "correct": 0
+    },
+    {
+      "id": "ai-m3-q16",
+      "module": "LLM Integration",
+      "bloom": "Apply",
+      "scenario": "A 60-page contract must be summarized with a local model whose context window is 8,192 tokens.",
+      "prompt": "Which pipeline fits?",
+      "options": [
+        "Read Unstructured Document, then one AI Chat call with the whole text",
+        "Read Unstructured Document, AI Segmentation into chunks, AI Chat per chunk, then AI Chat on the joined chunk summaries",
+        "AI Segmentation alone, which writes a summary of each chunk",
+        "Text to Vector, which stores a summary of the document"
+      ],
+      "explanation": "The text does not fit one context window. **AI Segmentation** splits it into chunks that do; AI Chat summarizes each, and a final AI Chat call summarizes the summaries (map, then reduce). AI Segmentation only splits; Text to Vector only embeds.",
+      "source": "Developer - AI Specialty: Text Summarization",
+      "correct": 1
+    },
+    {
+      "id": "ai-m3-q17",
+      "module": "LLM Integration",
+      "bloom": "Understand",
+      "scenario": "AI Segmentation is set to Using Tokens with the LLM provider Ollama and a maximum segment size of 500.",
+      "prompt": "How does the step measure the 500 tokens?",
+      "options": [
+        "It asks the Ollama server to count the tokens of every chunk",
+        "It estimates about four characters per token, without contacting Ollama",
+        "It counts words, one token per word",
+        "It uses the OpenAI tokenizer whatever the provider"
+      ],
+      "explanation": "With Ollama the step makes no connection: it approximates a token as about four characters and logs that it does. Leave a margin below the model's context window.",
+      "source": "Developer - AI Specialty: Text Summarization",
+      "correct": 1
+    },
+    {
+      "id": "ai-m6-q1",
+      "module": "Retrieval-Augmented Generation",
+      "bloom": "Understand",
+      "scenario": "A knowledge base was loaded into pgvector with Text to Vector using nomic-embed-text. The query pipeline embeds the questions with a different embedding model.",
+      "prompt": "What happens?",
+      "options": [
+        "The search works, because pgvector converts between models",
+        "Vector Search fails or returns meaningless matches: load and query must use the same model and dimension",
+        "Vector Search re-embeds the stored chunks with the new model",
+        "Only the scores change; the order of the matches stays the same"
+      ],
+      "explanation": "Vectors from different models live in different spaces, usually with different dimensions (nomic-embed-text gives 768). A dimension mismatch fails; the same dimension from another model gives matches that mean nothing.",
+      "source": "Developer - AI Specialty: Retrieval-Augmented Generation",
+      "correct": 1
+    },
+    {
+      "id": "ai-m6-q2",
+      "module": "Retrieval-Augmented Generation",
+      "bloom": "Apply",
+      "scenario": "A knowledge-base transformation is run every night over the same folder of documents. After a week, Vector Search returns the same passage seven times.",
+      "prompt": "What fixes it?",
+      "options": [
+        "Lower the Vector Search min score so more distinct passages appear",
+        "Give Vector Writer an ID field built from the file name and chunk index, so a re-run upserts",
+        "Set Vector Writer's write mode to Insert",
+        "Delete the HNSW index before each load"
+      ],
+      "explanation": "Without an ID field every run creates new records. A deterministic ID, such as file name plus chunk index, makes **Upsert** replace the record instead of adding a copy.",
+      "source": "Developer - AI Specialty: Build the Knowledge Base",
+      "correct": 1
+    },
+    {
+      "id": "ai-m6-q3",
+      "module": "Retrieval-Augmented Generation",
+      "bloom": "Analyze",
+      "scenario": "Vector Search on a PGVector collection uses cosine similarity, and its Min score is set to 0.8.",
+      "prompt": "Which matches does it keep?",
+      "options": [
+        "Those with a cosine similarity of 0.8 or more",
+        "Those with a cosine similarity of 0.6 or more, because the score is (1 + similarity) / 2",
+        "The 80 percent of matches with the highest scores",
+        "Every match, because min score applies only to Chroma"
+      ],
+      "explanation": "The step normalizes the score to 0-1: for cosine, score = (1 + cosine similarity) / 2. A min score of 0.8 therefore keeps a similarity of 0.6 or more.",
+      "source": "Developer - AI Specialty: Retrieval-Augmented Generation",
+      "correct": 1
+    },
+    {
+      "id": "ai-m6-q4",
+      "module": "Retrieval-Augmented Generation",
+      "bloom": "Apply",
+      "scenario": "A RAG transformation sets AI Chat's message to `Answer from these passages: ${matches}`, where matches is the JSON array field from Vector Search. The model answers every question as if it had no passages.",
+      "prompt": "What is wrong?",
+      "options": [
+        "Vector Search must run in One row per match mode for AI Chat to read it",
+        "${matches} is a PDI variable, not the field: build the prompt with the passages in a field and use Stream mode",
+        "AI Chat cannot read JSON, so the passages must be plain text",
+        "The embedding model on AI Chat's Model tab must be set for RAG"
+      ],
+      "explanation": "AI Chat never substitutes field values into a Script message: `${...}` is a variable. Build the prompt per row (Modified JavaScript value) from the matches' text and sources, then send that field in Stream mode.",
+      "source": "Developer - AI Specialty: Answer Questions",
+      "correct": 1
+    },
+    {
+      "id": "ai-m6-q5",
+      "module": "Retrieval-Augmented Generation",
+      "bloom": "Evaluate",
+      "scenario": "A support copilot answers tickets from retrieved manual passages. Some tickets ask about things no document covers, and the copilot invents an answer for them.",
+      "prompt": "Which two changes make it safe?",
+      "options": [
+        "Raise the temperature so the model explores more answers",
+        "Tell the model, in the run instruction, what to return when the passages do not answer, and flag those rows for a person",
+        "Set a minimum score on Vector Search so weak matches are not given as context",
+        "Remove the sources from the prompt to keep it short",
+        "Add more step copies to AI Chat"
+      ],
+      "explanation": "Grounding needs a way out: an instruction that allows \"not in the documents\" and a pipeline that routes those rows to a person. A minimum score keeps unrelated passages from looking like evidence.",
+      "source": "Developer - AI Specialty: Answer Questions",
+      "correctIndices": [
+        1,
+        2
+      ]
+    },
+    {
+      "id": "ai-m5-q6",
+      "module": "Agent-as-a-Service",
+      "bloom": "Understand",
+      "scenario": "A transformation must call an MCP server's lookup_order tool once for every order id in a file, always with that id, and keep the tool's result.",
+      "prompt": "Which step fits?",
+      "options": [
+        "AI Chat with the Tools tab, so the model decides when to call it",
+        "MCP Client with Operation Call tool and an arguments template such as {\"order_id\": \"{{order_id}}\"}",
+        "REST client posting to the MCP server's URL",
+        "AI Chat Message Box with the tool name in the prompt"
+      ],
+      "explanation": "When the call is fixed, no model is needed: **MCP Client** calls the named tool for every row, filling `{{order_id}}` from the field. AI Chat's Tools tab is for when the model should choose which tool to call.",
+      "source": "Developer - AI Specialty: MCP Tools",
+      "correct": 1
+    },
+    {
+      "id": "ai-m5-q7",
+      "module": "Agent-as-a-Service",
+      "bloom": "Apply",
+      "scenario": "On Windows, an MCP connection with the Local process (stdio) transport has the Command `npx` and fails to start the server.",
+      "prompt": "How is the command set up?",
+      "options": [
+        "Use the HTTP + SSE (legacy) transport instead",
+        "Command `cmd`, with the arguments `/c`, `npx`, `-y` and the package, one per line",
+        "Put the whole command line in the Command field on one line",
+        "Store the connection in the .ktr instead of the metastore"
+      ],
+      "explanation": "On Windows, npx and uvx are batch files: start them through `cmd` with `/c`, one argument per line. Legacy SSE is not supported, and connections live in the PDI metastore, not in the .ktr.",
+      "source": "Developer - AI Specialty: MCP Tools",
+      "correct": 1
+    },
+    {
+      "id": "ai-m5-q8",
+      "module": "Agent-as-a-Service",
+      "bloom": "Understand",
+      "scenario": "A transformation uses AI Chat with two MCP connections on its Tools tab and fills the Tool calls field.",
+      "prompt": "What does that field show for each row?",
+      "options": [
+        "The tools the server offers, one per line",
+        "A JSON array of the calls the model made: connection, tool, arguments, result and error",
+        "The number of tokens the tools added to the prompt",
+        "The model's final answer, without the tool results"
+      ],
+      "explanation": "The Tool calls field records what the model chose to do: each call's connection, tool, arguments, result and error. It is how a pipeline audits an agent's actions.",
+      "source": "Developer - AI Specialty: MCP Tools",
+      "correct": 1
+    },
+    {
+      "id": "ai-m3-q18",
+      "module": "LLM Integration",
+      "bloom": "Apply",
+      "scenario": "Scanned receipts arrive from a mobile app as Base64 strings in a database column, never as files on disk.",
+      "prompt": "Which AI Chat attachment setting fits?",
+      "options": [
+        "Attach Document(s), File, with the column as the file name",
+        "Attach Document(s), Stream, Field Format Image (Base64 Encoded)",
+        "Attach Document(s), Stream, Field Format Binary Datum",
+        "A Script message with the Base64 text pasted after the question"
+      ],
+      "explanation": "Base64 image data in a field is sent as an image with **Image (Base64 Encoded)**. **Image** reads file paths, **Binary Datum** is for text, and Base64 pasted into a message is just characters to the model.",
+      "source": "Developer - AI Specialty: Invoices with a Vision Model",
+      "correct": 1
+    },
+    {
+      "id": "ai-m3-q19",
+      "module": "LLM Integration",
+      "bloom": "Evaluate",
+      "scenario": "A vision model reads an invoice photo and returns subtotal 42.05, tax 2.99 and total 45.53. The pipeline checks that subtotal plus tax equals the total within 0.01.",
+      "prompt": "What does the check catch, and what can it never catch?",
+      "options": [
+        "It catches every misread value, because each one changes the sum",
+        "It flags this row; it cannot catch a wrong invoice number or date, or misreads that still add up",
+        "It catches nothing, because the model's numbers are always consistent",
+        "It corrects the subtotal so that the row adds up, and passes it on"
+      ],
+      "explanation": "42.05 + 2.99 = 45.04, not 45.53, so the row is flagged for review. An arithmetic check only tests the numbers against each other: a wrong invoice number, a wrong date, or two errors that cancel out pass it.",
+      "source": "Developer - AI Specialty: Invoices with a Vision Model",
+      "correct": 1
+    },
+    {
+      "id": "ai-m3-q20",
+      "module": "LLM Integration",
+      "bloom": "Remember",
+      "scenario": "A team must choose a local Ollama model for an image-reading workshop.",
+      "prompt": "What tells them that a model can read images?",
+      "options": [
+        "Its size on disk is larger than 8 GB",
+        "`ollama show <model>` lists the vision capability",
+        "Its name ends in -instruct",
+        "It answers a text prompt in JSON"
+      ],
+      "explanation": "`ollama show` lists a model's capabilities; only models with **vision** accept images. Size and name say nothing about it.",
+      "source": "Developer - AI Specialty: Invoices with a Vision Model",
+      "correct": 1
+    },
+    {
+      "id": "ai-m6-q6",
+      "module": "Retrieval-Augmented Generation",
+      "bloom": "Understand",
+      "scenario": "An LLM judge grades RAG answers. Its message holds the question, the expected facts and the answer, but not the retrieved passages.",
+      "prompt": "What can this judge not detect?",
+      "options": [
+        "Answers that miss an expected fact",
+        "Claims in the answer that the documents do not support",
+        "Answers that are not valid JSON",
+        "Questions the documents cannot answer"
+      ],
+      "explanation": "Faithfulness is a comparison between the answer and the passages it was given. A judge that never sees the passages cannot tell a grounded claim from an invented one.",
+      "source": "Developer - AI Specialty: Evaluate the Answers",
+      "correct": 1
+    },
+    {
+      "id": "ai-m6-q7",
+      "module": "Retrieval-Augmented Generation",
+      "bloom": "Analyze",
+      "scenario": "A RAG scorecard shows that top_k 1 has lower accuracy than top_k 4, lower context recall, and several correct answers declined as \"not in the documents\".",
+      "prompt": "What should be tuned?",
+      "options": [
+        "The answering model, which is too small",
+        "Retrieval: the setting gives the model too few of the passages that hold the answer",
+        "The judge, which is too strict",
+        "The temperature, which should be raised"
+      ],
+      "explanation": "Low context recall means the answer's facts were not in the passages the model saw, so it declined. The fix is on the retrieval side (top_k, chunking, min score), not the model.",
+      "source": "Developer - AI Specialty: Evaluate the Answers",
+      "correct": 1
+    },
+    {
+      "id": "ai-m7-q1",
+      "module": "Moving to Production",
+      "bloom": "Understand",
+      "scenario": "A transformation runs AI Chat on Pentaho Server. It works in Spoon on the developer's machine and fails on the server with License validation failed.",
+      "prompt": "What is missing?",
+      "options": [
+        "The model on the developer's Ollama",
+        "A license with GenAI (GENAI-EE) rights on the server, where the step runs",
+        "The kettle.properties of the developer's Spoon",
+        "An MCP connection in the server's metastore"
+      ],
+      "explanation": "Each GenAI step checks the license of the runtime it runs in: Spoon, Carte, Pentaho Server or a container. The plugins and the license must be on every one of them.",
+      "source": "Developer - AI Specialty: Moving to Production",
+      "correct": 1
+    },
+    {
+      "id": "ai-m7-q2",
+      "module": "Moving to Production",
+      "bloom": "Apply",
+      "scenario": "Support messages must be summarized by a hosted model. They contain emails, phone numbers and customers' names.",
+      "prompt": "Which order of steps fits best?",
+      "options": [
+        "NER Extractor first, then regular expressions for whatever it missed",
+        "Regular expressions for the patterned values first, then NER Extractor for names, then a residual check",
+        "Send the messages, then delete the personal data from the summaries",
+        "Ask the model in the run instruction not to repeat personal data"
+      ],
+      "explanation": "Patterned values (emails, phones, card numbers) are caught exactly by rules; NER finds what has no pattern, such as names; a looser residual check quarantines anything still left. An instruction to the model is no guardrail: the data has already left.",
+      "source": "Developer - AI Specialty: Guard Personal Data",
+      "correct": 1
+    },
+    {
+      "id": "ai-m7-q3",
+      "module": "Moving to Production",
+      "bloom": "Evaluate",
+      "scenario": "A masking pipeline replaces names with placeholders such as [PERSON_1] and keeps the placeholder-to-name mapping, to put the real names back into the summaries for internal use.",
+      "prompt": "Where may the mapping go?",
+      "options": [
+        "Into the prompt, so the model can write better summaries",
+        "Only inside the trusted zone: never to the model, never into the shared summaries file or the logs",
+        "Into the summaries file, next to each summary",
+        "Into the audit file, so the masking can be checked"
+      ],
+      "explanation": "The mapping is the personal data. Sending it to the model, or writing it next to the summaries or into logs, undoes the masking.",
+      "source": "Developer - AI Specialty: Guard Personal Data",
+      "correct": 1
+    },
+    {
+      "id": "ai-m7-q4",
+      "module": "Moving to Production",
+      "bloom": "Apply",
+      "scenario": "A NER Extractor RegexNER rule `ORDER-[0-9]{5}` loads without error but never tags ORDER-48213.",
+      "prompt": "Why?",
+      "options": [
+        "RegexNER needs the rule file to have a header line",
+        "CoreNLP splits the id at the hyphen, so the rule must match the tokens: ORDER - [0-9]{5}",
+        "RegexNER only tags PERSON, LOCATION and ORGANIZATION",
+        "The rule must be written in lowercase"
+      ],
+      "explanation": "RegexNER patterns match tokens, and CoreNLP's tokenizer splits ORDER-48213 into ORDER, -, 48213. A single-token pattern never matches them.",
+      "source": "Developer - AI Specialty: Guard Personal Data",
+      "correct": 1
+    },
+    {
+      "id": "ai-m5-q9",
+      "module": "Agent-as-a-Service",
+      "bloom": "Evaluate",
+      "scenario": "An MCP server lets an AI assistant run PDI jobs on Carte through a run_job(path) tool. A model could ask it to run any file on the machine.",
+      "prompt": "Which control stops that?",
+      "options": [
+        "A run instruction telling the model to run only approved jobs",
+        "The server itself resolving the path inside an allowed folder and refusing anything outside it",
+        "A longer timeout on the tool call",
+        "Running the model at temperature 0"
+      ],
+      "explanation": "Only the server can enforce what it will run: resolve the path, refuse absolute paths, `..` and other file types. An instruction can be ignored or overridden by injected text.",
+      "source": "Developer - AI Specialty: Project: Pentaho MCP Server",
+      "correct": 1
+    },
+    {
+      "id": "ai-m5-q10",
+      "module": "Agent-as-a-Service",
+      "bloom": "Understand",
+      "scenario": "A Pentaho MCP server has a read-only mode for use by an assistant that should only look.",
+      "prompt": "Why does read-only mode leave the run tools out of the tool list instead of telling the model not to use them?",
+      "options": [
+        "Listing fewer tools makes the model answer faster",
+        "A tool that is not listed cannot be called; an instruction can be ignored",
+        "The MCP protocol limits a server to five tools",
+        "Carte rejects calls from read-only clients anyway"
+      ],
+      "explanation": "Capabilities you do not offer are the safest control. The model only sees, and can only call, the tools the server registers.",
+      "source": "Developer - AI Specialty: Project: Pentaho MCP Server",
+      "correct": 1
     }
   ]
 }

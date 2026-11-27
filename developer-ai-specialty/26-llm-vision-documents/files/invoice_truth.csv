@@ -1,0 +1,8 @@
+file,supplier,invoice_number,invoice_date,currency,subtotal,tax,total,line_count,is_invoice
+inv_01_cedar_ridge.png,Cedar Ridge Office Supply,INV-2026-0417,2026-10-03,USD,383.68,31.65,415.33,4,true
+inv_02_blue_heron.jpg,Blue Heron Coffee Roasters,BH-10233,2026-11-14,USD,565.85,33.95,599.80,3,true
+inv_03_atelier_lumen.png,Atelier Lumen GmbH,2026/1187,2026-10-21,EUR,2800.00,532.00,3332.00,3,true
+rcpt_04_maple_street.png,Maple Street Hardware,004512,2026-11-02,USD,72.67,4.00,76.67,6,true
+rcpt_05_harbor_deli_photo.jpg,Harbor Deli,7781,2026-10-29,USD,42.55,2.98,45.53,4,true
+inv_06_northgate_it.png,Northgate IT Services Ltd,INV-NG-55821,2026-11-04,GBP,2359.50,471.90,2831.40,7,true
+memo_07_all_hands_agenda.png,,,,,,,,,false

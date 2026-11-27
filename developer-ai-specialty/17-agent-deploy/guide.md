@@ -19,7 +19,7 @@
 >
 > * The Agent-as-a-Service [Overview](../16-agent-as-a-service/guide.md)
 > * Python 3.11 or later, and Ollama with `llama3.2:3b`, as set up in [Before You Start](../00-before-you-start/guide.md)
-> * **REST client** and **Modified JavaScript value**, as used in [Sentiment Analysis](../06-llm-sentiment-analysis/guide.md)
+> * [Sentiment Analysis](../06-llm-sentiment-analysis/guide.md), whose **Under the hood** panels show the **REST client** call that **AI Chat** replaces: here you make that call yourself, to the agent
 >
 > **Estimated time:** 90 minutes
 
@@ -33,115 +33,52 @@
 >
 > The agent is a FastAPI service, `agent.py`, with one endpoint: `POST /assess`. Set it up once in its own Python environment, then start it and leave its terminal open while you work through this workshop.
 
-On Windows, the lab's files are in `C:\Workshop-AI-Specialty\06-agent-as-a-service\17-agent-deploy\agent-maintenance`. On macOS / Linux, download the files from **Lab Files** below into a folder named `agent-maintenance`, keeping its `agent`, `data` and `scripts` subfolders.
+The lab's files are in `C:\Workshop-AI-Specialty\07-agents-and-tools\17-agent-deploy\agent-maintenance`.
 
-1. In PowerShell, run the following (on macOS / Linux, run the `bash` commands in a terminal in the `agent-maintenance` folder you downloaded the lab files to):
-
-::: tabs
-
-### Windows (PowerShell)
+1. In PowerShell, run:
 
 ```powershell
-Set-Location C:\Workshop-AI-Specialty\06-agent-as-a-service\17-agent-deploy\agent-maintenance
+Set-Location C:\Workshop-AI-Specialty\07-agents-and-tools\17-agent-deploy\agent-maintenance
 Test-Path data\maintenance_log.db, data\asset_history.db
 ```
 
-### macOS / Linux
+> **Success:** Checkpoint: PowerShell prints `True` twice.
 
-```bash
-ls data/maintenance_log.db data/asset_history.db
-```
-
-:::
-
-> **Success:** Checkpoint: PowerShell prints `True` twice; on macOS / Linux, `ls` lists both files.
-
-2. Create the agent's Python environment and install its four packages, `fastapi`, `uvicorn`, `httpx` and `pydantic`:
-
-::: tabs
-
-### Windows (PowerShell)
+2. Create the agent's Python environment and install its four packages, `fastapi`, `uvicorn`, `httpx` and `pydantic`. In PowerShell, run:
 
 ```powershell
 python -m venv .venv
 .\.venv\Scripts\python -m pip install -r requirements.txt
 ```
 
-### macOS / Linux
-
-```bash
-python3 -m venv .venv
-.venv/bin/python -m pip install -r requirements.txt
-```
-
-:::
-
 > **Success:** Checkpoint: pip ends with a line that starts `Successfully installed` and names `fastapi`, `uvicorn`, `httpx` and `pydantic`, among the packages they depend on.
 
-3. Check that Ollama answers and that the course model is pulled:
-
-::: tabs
-
-### Windows (PowerShell)
+3. Check that Ollama answers and that the course model is pulled. In PowerShell, run:
 
 ```powershell
 Invoke-RestMethod http://localhost:11434
 ollama list
 ```
 
-### macOS / Linux
-
-```bash
-curl http://localhost:11434
-ollama list
-```
-
-:::
-
 > **Success:** Checkpoint: Ollama answers `Ollama is running`, and `ollama list` includes `llama3.2:3b`.
 
-4. Start the agent. `agent.py` asks Ollama for `llama3.1:8b` unless the `AGENT_MODEL_NAME` environment variable names another model, so the first line points it at the course model. (To use the agent's own default instead, run `ollama pull llama3.1:8b` and leave out the first line.)
-
-::: tabs
-
-### Windows (PowerShell)
+4. Start the agent. `agent.py` asks Ollama for the course model, `llama3.2:3b`, unless the `AGENT_MODEL_NAME` environment variable names another model. The first line sets it explicitly; to try a larger model later, such as `llama3.1:8b`, pull it with `ollama pull` and name it there. In PowerShell, run:
 
 ```powershell
 $env:AGENT_MODEL_NAME = "llama3.2:3b"
 .\.venv\Scripts\python -m uvicorn agent.agent:app --host 0.0.0.0 --port 8000
 ```
 
-### macOS / Linux
-
-```bash
-export AGENT_MODEL_NAME=llama3.2:3b
-.venv/bin/python -m uvicorn agent.agent:app --host 0.0.0.0 --port 8000
-```
-
-:::
-
 > **Success:** Checkpoint: the terminal shows `Application startup complete.`, then `Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)`.
 
-5. Leave this terminal open: the agent answers Pentaho Data Integration's requests from it. Open a second PowerShell window (on macOS / Linux, a second terminal in the `agent-maintenance` folder) and run:
-
-::: tabs
-
-### Windows (PowerShell)
+5. Leave this terminal open: the agent answers Pentaho Data Integration's requests from it. Open a second PowerShell window and run:
 
 ```powershell
-Set-Location C:\Workshop-AI-Specialty\06-agent-as-a-service\17-agent-deploy\agent-maintenance
+Set-Location C:\Workshop-AI-Specialty\07-agents-and-tools\17-agent-deploy\agent-maintenance
 Invoke-RestMethod http://localhost:8000/health
 ```
 
-### macOS / Linux
-
-```bash
-curl http://localhost:8000/health
-```
-
-:::
-
-> **Success:** Checkpoint: the agent answers with `status` `ok` and `model` `llama3.2:3b`. `curl` shows it as `{"status":"ok","model":"llama3.2:3b"}`.
+> **Success:** Checkpoint: the agent answers with `status` `ok` and `model` `llama3.2:3b`.
 
 6. Open `http://localhost:8000/docs` in a web browser.
 
@@ -215,11 +152,7 @@ Read the diagram from top to bottom. Steps 1 to 4 are Pentaho Data Integration's
 | Uses | **Table input**, **Database join**, **Modified JavaScript value**, **REST client**, **Switch / case**, **Table output** | One LLM call with the history in the prompt; no tools |
 | Can rules replace it? | Yes: all the Pentaho Data Integration logic is deterministic | No: reasoning about language does not reduce to rules |
 
-1. In the second terminal, send the agent a test request for `PUMP-017` with three history entries. On a CPU, the answer can take 15 to 30 seconds or more.
-
-::: tabs
-
-### Windows (PowerShell)
+1. In the second PowerShell window, send the agent a test request for `PUMP-017` with three history entries. On a CPU, the answer can take 15 to 30 seconds or more.
 
 ```powershell
 $body = @'
@@ -236,25 +169,6 @@ $body = @'
 '@
 Invoke-RestMethod -Uri http://localhost:8000/assess -Method Post -ContentType "application/json" -Body $body
 ```
-
-### macOS / Linux
-
-```bash
-curl -s -X POST http://localhost:8000/assess \
-  -H "Content-Type: application/json" \
-  -d '{
-    "log_id": "TEST-001",
-    "asset_id": "PUMP-017",
-    "log_text": "Rougher than usual on startup, louder than before January maintenance",
-    "history": [
-      {"logged_at": "2025-09-12", "log_text": "slight rumble on startup"},
-      {"logged_at": "2025-11-03", "log_text": "intermittent vibration under load"},
-      {"logged_at": "2026-01-18", "log_text": "bearing replaced, WO-4412"}
-    ]
-  }'
-```
-
-:::
 
 > **Success:** Checkpoint: the agent answers with seven keys: `log_id` `TEST-001`, `asset_id` `PUMP-017`, then `priority`, `fault_type`, `pattern`, `assessment` and `confidence`. In the agent's terminal, `Assessing TEST-001 for PUMP-017 (3 history entries)` is followed by `"POST /assess HTTP/1.1" 200 OK`.
 
@@ -325,37 +239,17 @@ The finished transformation, `maintenance_assessment.ktr`, has these steps. You 
 | `Write CRITICAL`, `Write HIGH`, `Write MEDIUM`, `Write LOW` | **Table output** | Insert the assessed rows into `assessed_log` |
 | `Write HTTP Errors` | **Text file output** | Keeps the failed calls for investigation |
 
-<div align="center">
-<figure>
-<img src="../_assets/images/maintenance_assessment_agent.png" alt="The transformation on the Spoon canvas: a row of steps from Read Log Entries through Group by to Build Agent Payload, then Call Assessment Agent and Check HTTP status, which feeds Parse Agent Response and a Switch / case with four outputs, or a Dummy (do nothing) step" width="800">
-<figcaption>An earlier build of the transformation: Dummy steps stand where you add the four Table output steps and Write HTTP Errors, and three steps carry older names (Read Log Enteries, Check HTTP status, Switch / case for Read Log Entries, Check HTTP Status, Route by Priority)</figcaption>
-</figure>
-</div>
-
-1. Start Spoon with the **Start Pentaho Data Integration** button below, or from a terminal:
-
-::: tabs
-
-### Windows (PowerShell)
+1. Start Pentaho Data Integration with the **Start Pentaho Data Integration** button below, or from PowerShell:
 
 ```powershell
 Set-Location C:\Pentaho\design-tools\data-integration
-.\spoon.bat
+.\Spoon.bat
 ```
-
-### macOS / Linux
-
-```bash
-cd ~/Pentaho/design-tools/data-integration
-./spoon.sh
-```
-
-:::
 
 <button data-launch="spoon" data-path="">Start Pentaho Data Integration</button>
 
 2. Select **File > New > Transformation** (`Ctrl+N`).
-3. Select **File > Save as** and save it as `maintenance_assessment.ktr` in `C:\Workshop-AI-Specialty\06-agent-as-a-service\17-agent-deploy\agent-maintenance`, the folder that holds `data`. On macOS / Linux, save it in the `agent-maintenance` folder you downloaded the lab files to.
+3. Select **File > Save as** and save it as `maintenance_assessment.ktr` in `C:\Workshop-AI-Specialty\07-agents-and-tools\17-agent-deploy\agent-maintenance`, the folder that holds `data`. Save it before you create the connections: their file names start from the folder the transformation is saved in.
 4. Double-click an empty part of the canvas. **Transformation properties** opens.
 5. On the **Parameters** tab, fill the grid:
 
@@ -373,9 +267,9 @@ cd ~/Pentaho/design-tools/data-integration
 | **Connection name** | `maintenance_log_db` |
 | **Connection type** | **SQLite** |
 | **Access** | **Native (JDBC)** |
-| **Database Name** | `C:\Workshop-AI-Specialty\06-agent-as-a-service\17-agent-deploy\agent-maintenance\data\maintenance_log.db` |
+| **Database Name** | `${Internal.Entry.Current.Directory}/data/maintenance_log.db` |
 
-Leave the other settings as they are: SQLite opens the file named in **Database Name** and ignores the host and port. On macOS / Linux, enter the full path to `data/maintenance_log.db` in the folder you downloaded the lab files to.
+Leave the other settings as they are: SQLite opens the file named in **Database Name** and ignores the host and port. `${Internal.Entry.Current.Directory}` is the folder of the saved transformation, `agent-maintenance`, so the connection finds `data\maintenance_log.db` wherever the folder is, and the solution in `solution` reaches the same file with `${Internal.Entry.Current.Directory}/../agent-maintenance/data/maintenance_log.db`.
 
 9. Select **Test**.
 
@@ -386,7 +280,7 @@ Leave the other settings as they are: SQLite opens the file named in **Database 
 > **Warning:** **Test** also succeeds when the file name is wrong: SQLite creates an empty database file for a name it cannot find. A wrong path shows up later, as `no such table` when the transformation runs.
 
 11. Select **OK** to save the connection and close the **Database Connection** dialog.
-12. Repeat steps 7 to 11 for the history database: set **Connection name** to `asset_history_db` and **Database Name** to `C:\Workshop-AI-Specialty\06-agent-as-a-service\17-agent-deploy\agent-maintenance\data\asset_history.db`.
+12. Repeat steps 7 to 11 for the history database: set **Connection name** to `asset_history_db` and **Database Name** to `${Internal.Entry.Current.Directory}/data/asset_history.db`.
 
 > **Success:** Checkpoint: in the **View** tab, **Database connections** under your transformation lists `asset_history_db` and `maintenance_log_db`.
 
@@ -735,7 +629,7 @@ try {
 | `parse_error_msg` | `String` | The exception message when `parse_error` is `Y` |
 
 21. Select **OK**.
-22. Double-click **Write HTTP Errors**. On the **File** tab, set **Filename** to `${Internal.Entry.Current.Directory}/http_errors` and keep **Extension** `txt`.
+22. Double-click **Write HTTP Errors**. On the **File** tab, set **Filename** to `${Internal.Entry.Current.Directory}/http_errors`, keep **Extension** `txt`, and select **Create Parent folder**. On the **Content** tab, set **Separator** to `,` and **Encoding** to `UTF-8`.
 23. On the **Fields** tab, select **Get Fields**, then **Minimal width**. The file keeps every field of a failed call, including `response_code`, `agent_payload` (what was sent) and `agent_response` (the agent's error detail).
 24. Select **OK**, and save the transformation (`Ctrl+S`).
 
@@ -798,13 +692,6 @@ A call that fails at the HTTP level reaches **Write HTTP Errors** with its code:
 2. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
 3. Watch the agent's terminal while the transformation runs.
 
-<div align="center">
-<figure>
-<img src="../_assets/images/agent_check_logs.png" alt="A PowerShell window running the agent with uvicorn: for each entry from L-1001 to L-1005 it logs the asset and its number of history entries (3, 3, 0, 3 and 2), the call to Ollama's api/generate, and POST /assess 200 OK" width="800">
-<figcaption>The agent's log during the run: one Assessing line and one 200 OK per entry (from an older folder and environment name)</figcaption>
-</figure>
-</div>
-
 > **Success:** Checkpoint: the agent logs one `Assessing` line per log entry, each followed by its call to `http://localhost:11434/api/generate` and by `"POST /assess HTTP/1.1" 200 OK`. With two copies of **Call Assessment Agent**, the order can differ from this list:
 >
 > * `Assessing L-1001 for PUMP-017 (3 history entries)`
@@ -815,29 +702,17 @@ A call that fails at the HTTP level reaches **Write HTTP Errors** with its code:
 
 4. When the run ends, in **Execution Results**, open the **Step Metrics** tab.
 
-> **Success:** Checkpoint: in **Written**, **Read Log Entries** shows 5, **Get Asset History** 23, **Sort rows** 23, **Remove Duplicates** 12, **Aggregate History** 12, **Group by** 5 and **Build Agent Payload** 5. **Call Assessment Agent** has one line per copy (**Copynr** `0` and `1`), 5 rows between them. The four **Write** steps share the 5 rows by the priorities the model chose, and **Write HTTP Errors** shows 0 when every call returned 200.
+> **Success:** Checkpoint: in **Written**, **Read Log Entries** shows 5, **Get Asset History** 23, **Sort rows** 23, **Remove Duplicates** 12, **Aggregate History** 12, **Group by** 5 and **Build Agent Payload** 5. **Call Assessment Agent** has one line per copy (**Copynr** `0` and `1`), 5 rows between them, such as 3 and 2. The four **Write** steps share the 5 rows by the priorities the model chose, and **Write HTTP Errors** shows 0 when every call returned 200.
 
 5. Select **Write HIGH** on the canvas (or any **Write** step that received rows) and open the **Preview data** tab.
 
 > **Success:** Checkpoint: the rows the step inserted, with every field of the stream: the log entry, `history_json`, `agent_payload`, `agent_response`, `response_code` `200` and `response_time_ms`, then the parsed `priority`, `fault_type`, `pattern`, `assessment`, `confidence`, and `parse_error` `N`. Which entries arrive here is the model's call.
 
-6. List what the transformation wrote to `assessed_log`. In the second terminal, in the `agent-maintenance` folder, run:
-
-::: tabs
-
-### Windows (PowerShell)
+6. List what the transformation wrote to `assessed_log`. In the second PowerShell window, in the `agent-maintenance` folder, run:
 
 ```powershell
 .\.venv\Scripts\python -c "import sqlite3; con = sqlite3.connect('data/maintenance_log.db'); [print(r) for r in con.execute('SELECT log_id, asset_id, priority, pattern, confidence FROM assessed_log ORDER BY log_id')]"
 ```
-
-### macOS / Linux
-
-```bash
-.venv/bin/python -c "import sqlite3; con = sqlite3.connect('data/maintenance_log.db'); [print(r) for r in con.execute('SELECT log_id, asset_id, priority, pattern, confidence FROM assessed_log ORDER BY log_id')]"
-```
-
-:::
 
 > **Success:** Checkpoint: 5 rows, `L-1001` to `L-1005`, each with the `priority`, `pattern` and `confidence` the agent returned.
 
@@ -851,23 +726,13 @@ Compare your rows with the answers the prompt's rules in `agent.py` point to. Th
 | `L-1004` | Vibration getting worse through the shift | Worse during the current shift | `CRITICAL` | `ESCALATION` |
 | `L-1005` | Valve sticking, never seen before | No history entry of the same symptom type | `MEDIUM` | `NEW_FAULT` |
 
-7. Before you run the transformation again, empty `assessed_log`: `log_id` is its primary key, and this transformation reads the same five entries every time, so a second run would stop on duplicate keys. In the second terminal, run:
+In a run of the solution with `llama3.2:3b`, the model agreed on every `priority` (`HIGH`, `CRITICAL`, `LOW`, `CRITICAL`, `MEDIUM`) and on `pattern` for `L-1003` to `L-1005`, but answered `ESCALATION` for `L-1001` and `L-1002` where the rules point to `RECURRENCE`. A larger model, such as `llama3.1:8b` set in `AGENT_MODEL_NAME`, usually follows the rules more closely.
 
-::: tabs
-
-### Windows (PowerShell)
+7. Before you run the transformation again, empty `assessed_log`: `log_id` is its primary key, and this transformation reads the same five entries every time, so a second run would stop on duplicate keys. In the second PowerShell window, run:
 
 ```powershell
 .\.venv\Scripts\python -c "import sqlite3; con = sqlite3.connect('data/maintenance_log.db'); con.execute('DELETE FROM assessed_log'); con.commit()"
 ```
-
-### macOS / Linux
-
-```bash
-.venv/bin/python -c "import sqlite3; con = sqlite3.connect('data/maintenance_log.db'); con.execute('DELETE FROM assessed_log'); con.commit()"
-```
-
-:::
 
 **Key points**
 
@@ -885,15 +750,12 @@ Compare your rows with the answers the prompt's rules in `agent.py` point to. Th
 >
 > Each call carries the agent's instructions, the asset's history and the current entry, so its prompt is longer than in the earlier workshops, and the time per call grows with the history.
 
-With the course model, `llama3.2:3b`, on a CPU, expect 15 to 30 seconds or more per call (see [Before You Start](../00-before-you-start/guide.md)). These times for the 5 entries were measured with `llama3.1:8b`, the agent's default model, on an NVIDIA RTX 3080 12 GB GPU:
+With the course model, `llama3.2:3b`, on a CPU, expect 15 to 30 seconds or more per call (see [Before You Start](../00-before-you-start/guide.md)). These times for the 5 entries were measured with the solution, `llama3.2:3b` and the model already loaded, on a machine with two NVIDIA RTX 3060 12 GB GPUs and Ollama's default settings:
 
-| Configuration (`llama3.1:8b`, RTX 3080 12 GB) | Step copies | 5 entries | Notes |
-| --- | --- | --- | --- |
-| No history | 1 | about 15 to 25 s | About 3 to 5 s per call, short prompt |
-| 5 history entries | 1 | about 25 to 40 s | About 5 to 8 s per call, longer prompt |
-| 10 history entries | 1 | about 30 to 50 s | About 6 to 10 s per call |
-| 10 history entries | 2 | about 18 to 30 s | Recommended starting point |
-| 10 history entries | 4 | about 14 to 24 s | Try this on a 12 GB GPU |
+| Step copies | 5 entries, **Call Assessment Agent** | What happened |
+| --- | --- | --- |
+| 1 | about 36 s | The five calls one after another, about 7 s each |
+| 2 | about 34 s | Two requests in flight, but Ollama answered one at a time: each call waited for the other, and `response_time_ms` rose to between 7 and 20 seconds |
 
 1. Empty `assessed_log`, as in step 7 of **7. Run**.
 2. Press `F9` (**Action > Run**). In the **Run Options** dialog, open the **Parameters** tab, set the **Value** of `STEP_COPIES` to `1`, and select **Run**.
@@ -907,7 +769,7 @@ With the course model, `llama3.2:3b`, on a CPU, expect 15 to 30 seconds or more 
 >
 > #### Each copy of REST client waits for its answer before it sends the next row
 >
-> A **REST client** copy sends one request and waits for the answer before it reads its next row, so with one copy the five calls run one after another. With `STEP_COPIES` at `2`, Pentaho Data Integration starts two copies and deals the rows out between them, so two requests are in flight at once. The agent's `assess` endpoint is asynchronous and accepts both; whether Ollama then answers them side by side or one after the other is Ollama's setting, not Pentaho Data Integration's.
+> A **REST client** copy sends one request and waits for the answer before it reads its next row, so with one copy the five calls run one after another. With `STEP_COPIES` at `2`, Pentaho Data Integration starts two copies and deals the rows out between them, so two requests are in flight at once. The agent's `assess` endpoint is asynchronous and accepts both; whether Ollama then answers them side by side or one after the other is Ollama's setting (`OLLAMA_NUM_PARALLEL`, and the memory the model has), not Pentaho Data Integration's.
 >
 > **Why it matters:** more copies only help while the model server has capacity to spare. Measure on the hardware you deploy to before you raise the number of copies.
 
@@ -970,4 +832,21 @@ The two scripts in `scripts` build the databases from scratch, in a `data` folde
 
 [create_assets_history_db.py](./files/agent-maintenance/scripts/create_assets_history_db.py)
 
-Also on disk at `C:\Workshop-AI-Specialty\06-agent-as-a-service\17-agent-deploy\agent-maintenance`.
+Also on disk at `C:\Workshop-AI-Specialty\07-agents-and-tools\17-agent-deploy\agent-maintenance`.
+
+### Solution <!-- no-step -->
+
+The finished transformation for this lab. Open it alongside your own to compare, or run it while the agent is running to see the expected result. Its two connections read the databases in `..\agent-maintenance\data` through `${Internal.Entry.Current.Directory}`, and it writes `http_errors.txt` beside itself. Empty `assessed_log` before you run it after your own transformation.
+
+Also on disk at `C:\Workshop-AI-Specialty\07-agents-and-tools\17-agent-deploy\solution`.
+
+[maintenance_assessment.ktr](./files/solution/maintenance_assessment.ktr) <button data-launch="spoon" data-path="files/solution/maintenance_assessment.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/solution/maintenance_assessment.ktr">View graph</button>
+
+maintenance_assessment in Spoon, with its note:
+
+<div align="center">
+<figure>
+<img src="../_assets/images/17-maintenance_assessment-canvas.png" alt="The maintenance_assessment.ktr solution open in Spoon: its blue note above the steps and hops, left to right" width="800">
+<figcaption>maintenance_assessment.ktr in Spoon</figcaption>
+</figure>
+</div>

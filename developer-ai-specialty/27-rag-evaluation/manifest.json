@@ -1,0 +1,9 @@
+{
+  "title": "Evaluate the Answers",
+  "description": "Hands-on: test the RAG pipeline against a fixed evaluation set: measure the retrieval (hit rate, rank, facts in the passages) with core steps, grade every answer with a second AI Chat step as judge, compare two settings in one run, summarize them with Group by into a scorecard, check the judge, and re-run the set when the model or the documents change.",
+  "kind": "workshop",
+  "estimatedMinutes": 75,
+  "stepCount": 10,
+  "hasVideo": false,
+  "order": 18
+}

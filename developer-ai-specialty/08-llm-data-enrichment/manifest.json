@@ -1,9 +1,9 @@
 {
   "title": "Data Enrichment",
-  "description": "Hands-on: augment records with LLM-inferred attributes that rule-based ETL cannot derive, returning structured fields for downstream steps.",
-  "order": 9,
+  "description": "Hands-on: add a city, state, country, industry and employee range to customer records with the AI Chat step, from a prompt template built by AI Chat Message Box.",
+  "order": 10,
   "kind": "workshop",
-  "stepCount": 10,
+  "stepCount": 7,
   "hasVideo": false,
   "estimatedMinutes": 30
 }

@@ -1,0 +1,25 @@
+SYNTHETIC TRAINING RECORD - fictional patient, not a real person.
+
+Patient: Daniel Okafor   DOB: 07/22/1979   MRN: NB-005107
+Visit Date: 11/18/2024   Attending: Dr. Priya Raman, Respiratory Clinic
+
+Chief Complaint:
+Wheezing and a dry cough at night for ten days, worse after climbing stairs.
+Reports mild fever two days ago, now resolved.
+
+Medical History:
+Asthma since childhood. Seasonal allergic rhinitis.
+
+Allergies:
+Ibuprofen - wheezing. No known food allergies.
+
+Current Medications:
+Salbutamol inhaler 100mcg two puffs as needed.
+Fluticasone inhaler 250mcg two puffs twice daily.
+Cetirizine 10mg once daily.
+
+Assessment:
+Asthma exacerbation, likely triggered by a viral upper respiratory infection.
+
+Plan:
+Prednisolone 40mg once daily for five days. Peak flow diary. Review in one week.

@@ -4,38 +4,46 @@
 >
 > #### Workshop - Named Entity Recognition
 >
-> Named Entity Recognition (NER) finds the people, organizations, places, dates and other named things in free text and labels each one. Build a Pentaho Data Integration transformation that sends ten business documents to a local Large Language Model (LLM) served by Ollama and turns the entities it returns into columns.
+> Named Entity Recognition (NER) finds the people, organizations, places, dates and other named things in free text and labels each one. Build a Pentaho Data Integration transformation that does it two ways on the same ten business documents: with the **NER Extractor** step, which runs Stanford CoreNLP and no Large Language Model (LLM), and with the **AI Chat** step and a local LLM served by Ollama. Then compare what each one finds.
 >
 > **What you'll do**
 >
-> * Prompt the model for a JSON array of entities in ten types
-> * Call Ollama from parallel copies of **REST client**, with room for long answers
-> * Count the entities by type in a **Modified JavaScript value** step
-> * Pivot the first 15 entities into columns, and write everything to a CSV file
+> * Give Pentaho Data Integration the memory the CoreNLP models need
+> * Extract entities with **NER Extractor**, offline, with their positions in the text
+> * Extract entities of your own types with **AI Chat**, as JSON
+> * Turn both answers into one row per entity with **JSON input**, and merge them
+> * Count the entities per document and method, and compare the two lists
 >
 > **Prerequisites:**
 >
-> * [Data Quality](../07-llm-data-quality/guide.md): the prompt, request and parse pattern this workshop reuses
-> * Ollama running on `http://localhost:11434` with `llama3.2:3b` pulled
+> * [Data Quality](../07-llm-data-quality/guide.md): the AI Chat, run instruction and JSON input pattern this workshop reuses
+> * Ollama running on `http://localhost:11434` with `llama3.2:3b` pulled, and the GenAI plugins installed, as set up in [Before You Start](../00-before-you-start/guide.md)
+> * At least 6 GB of free memory: the CoreNLP models need about 4 GB of Java heap
 >
-> **Estimated time:** 30 minutes
+> **Estimated time:** 40 minutes
+
+<figure>
+
+<figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
+
+</figure>
 
 <div align="center">
 <figure>
-<img src="../_assets/images/named_entity_recognition.png" alt="The finished transformation: Read Unstructured Text, Build NER Prompt, Build JSON Request, Call Ollama API marked x${STEP_COPIES}, then Parse NER Response, Pivot Entities to Columns and Write Entities CSV" width="800">
-<figcaption>What you build: seven steps, ending in a pivot to columns</figcaption>
+<img src="../_assets/images/09-ner-two-ways.png" alt="named_entity_recognition.ktr: csvi-documents sends ner_documents.csv down two branches. NER Extractor, Stanford CoreNLP with no LLM: ner-corenlp, json-ner ($[*].text, $[*].ner), const-method-ner, sv-ner. AI Chat, a local LLM on Ollama: const-instruction, ai-extract (llama3.2:3b), json-llm ($.entities[*].text, $.entities[*].type), sv-llm. sort-entities merges both into entities.csv, and grp-counts counts entity_count per document and method into entity_counts.csv" width="800">
+<figcaption>What you build: one input, two ways to find the entities, one merged result</figcaption>
 </figure>
 </div>
 
 :::: tabs
 
-### 1. Named Entity Recognition
+### 1. NER Two Ways
 
 > **Note:**
 >
 > #### What NER Does
 >
-> NER identifies named entities in unstructured text and classifies them into predefined types. The output is structured: one record per entity, with its exact text, its type, and the words around it.
+> NER identifies named entities in unstructured text and classifies them into types. The output is structured: one record per entity, with its exact text and its type, ready to load, count or join.
 
 **Example input** (the first document of this lab):
 
@@ -45,473 +53,375 @@ December 15th, 2024. My customer ID is CUST-98765. Please contact me at sarah.jo
 or call 555-123-4567. Our office is located at 123 Main Street, San Francisco, CA 94102.
 ```
 
-**Example output:**
+**The two methods:**
 
-```json
-[
-  {"entity": "Sarah Johnson", "type": "PERSON", "context": "this is Sarah Johnson from"},
-  {"entity": "Acme Corporation", "type": "ORGANIZATION", "context": "Sarah Johnson from Acme Corporation"},
-  {"entity": "December 15th, 2024", "type": "DATE", "context": "order I placed on December 15th"},
-  {"entity": "sarah.johnson@acmecorp.com", "type": "CONTACT", "context": "contact me at sarah.johnson@acmecorp.com"}
-]
-```
+| | NER Extractor | AI Chat |
+| --- | --- | --- |
+| What runs | Stanford CoreNLP 4.6.0, a trained statistical model with rules, inside Pentaho Data Integration | An LLM on the Ollama server |
+| Entity types | CoreNLP's own: PERSON, ORGANIZATION, CITY, STATE_OR_PROVINCE, COUNTRY, DATE, MONEY, EMAIL, TITLE and others | The ones you name in the instruction |
+| Output | A JSON array, every entity with `text`, `ner`, `beginOffset`, `endOffset`, `sentenceIndex` and `confidence` | The JSON shape you ask for |
+| Positions in the text | Yes, character offsets | No |
+| Network and cost | None: offline, no model server | One model call per document |
+| Same input, same output | Always | At `temperature` `0`, nearly always |
+| Language | English models only | Whatever the model reads |
+| Memory and start-up | About 4 GB of Java heap; the models load on the first row, 10 to 40 seconds | Ollama's memory, outside Pentaho Data Integration |
 
-**The entity types in this workshop:**
+**The custom types for AI Chat:**
 
 | Entity type | Description | Examples |
 | --- | --- | --- |
-| **PERSON** | Names of people | Sarah Johnson, Dr. Michael Chen |
-| **ORGANIZATION** | Companies, institutions | Acme Corp, Stanford University |
-| **LOCATION** | Cities, addresses, buildings | San Francisco, 123 Main St, Room 405 |
-| **DATE** | Dates and times | December 15th 2024, 10:30 AM PST |
-| **PRODUCT** | Product names and models | UltraBook Pro X1 |
+| **PERSON** | Names of people | Sarah Johnson, Michael Chen |
+| **ORGANIZATION** | Companies, institutions | Acme Corporation, Microsoft Corporation |
+| **LOCATION** | Cities, addresses, countries | San Francisco, 123 Main Street |
+| **DATE** | Dates and times | December 15th, 2024 |
 | **MONEY** | Currency amounts | $125,000, £250,000 GBP |
-| **CONTACT** | Emails, phone numbers | user@company.com, 555-123-4567, ext. 4521 |
-| **ID** | Identifiers, tracking codes | CUST-98765, INV-2024-0089 |
-| **TECHNOLOGY** | Software, platforms | AWS, Python, TensorFlow |
-| **POSITION** | Job titles, roles | CEO, Project Manager |
+| **PRODUCT** | Product names | Enterprise Suite |
+| **POSITION** | Job titles | CEO, procurement director |
+| **CONTACT** | Emails, phone numbers, extensions | sarah.johnson@acmecorp.com, 555-123-4567 |
+| **ID** | Customer, employee, invoice, ticket or order numbers | CUST-98765, INV-2024-0089 |
+| **TECHNOLOGY** | Software, platforms, systems | PaymentProcessor module |
 
-**Why an LLM:** rule-based and trained NER models need labeled training data, work best in the domain they were trained on, and come with a fixed list of types. An LLM extracts entities without training data (zero-shot), takes its list of types from the prompt, so adding a type is a change of wording, and uses context to tell, for example, a person from a company with the same name. NER is used to pull names, IDs and dates from support tickets, parties and amounts from contracts, users and error codes from logs, and companies and figures from reports.
+`ID` and `TECHNOLOGY` are business types that no general-purpose NER model was trained on. That is the LLM's strength: a new type is a line in the instruction. The NER Extractor's strength is that it is fast, free, repeatable and tells you exactly where each entity is.
 
 **The data:** `ner_documents.csv` holds ten documents of ten kinds, from a customer email to an HR memo, with three columns: `document_id`, `source` and `text`. `ner_documents_2.csv` has the same ten and ten more (a financial report, an invoice, a medical record and others), for a longer run once this one works.
 
-<div align="center">
-<figure>
-<img src="../_assets/images/named_entity_recognition_optimized.png" alt="A text diagram of six boxes: Read Unstructured Text, Build NER Prompt with 10 types, Build JSON Request, Call Ollama API with 4 parallel copies, Parse NER Response that counts by type, and Write Entities CSV" width="710">
-<figcaption>The pipeline as first designed: the solution adds Pivot Entities to Columns before the output</figcaption>
-</figure>
-</div>
-
-### 2. Ollama API
+### 2. Memory for CoreNLP
 
 > **Note:**
 >
-> #### The NER Request
+> #### More Java Heap
 >
-> An entity list is longer than a sentiment label, so this request allows up to 1,000 tokens (`num_predict`) per answer. It asks for JSON with `"format": "json"`, at `temperature` `0.1`.
+> Spoon starts with a 2 GB Java heap. The CoreNLP models for **NER Extractor** need about 4 GB, so start Spoon with a larger heap through the `PENTAHO_DI_JAVA_OPTIONS` environment variable, which `Spoon.bat` reads in place of its own memory settings.
 
-1. Send the first document to the model with the transformation's prompt. In PowerShell, run:
-
-::: tabs
-
-### Windows (PowerShell)
+1. Start Spoon with a 4 GB heap. In PowerShell, run:
 
 ```powershell
-$prompt = @'
-Extract ALL named entities from this text. Return a JSON array of ALL entities found.
-Format: [{"entity":"exact text","type":"TYPE","context":"surrounding words"},...]
-Types: PERSON, ORGANIZATION, LOCATION, DATE, PRODUCT, MONEY, CONTACT, ID, TECHNOLOGY, POSITION
-Important: Return array with multiple objects, not a single object. Extract every entity.
-TEXT:
-Hi, this is Sarah Johnson from Acme Corporation. I'm writing to inquire about the order I placed on December 15th, 2024. My customer ID is CUST-98765. Please contact me at sarah.johnson@acmecorp.com or call 555-123-4567. Our office is located at 123 Main Street, San Francisco, CA 94102.
-'@
-$body = @{
-  model      = "llama3.2:3b"
-  prompt     = $prompt
-  stream     = $false
-  keep_alive = "15m"
-  format     = "json"
-  options    = @{ temperature = 0.1; num_predict = 1000 }
-} | ConvertTo-Json
-(Invoke-RestMethod -Uri http://localhost:11434/api/generate -Method Post -ContentType "application/json" -Body $body).response
-```
-
-### macOS / Linux
-
-```bash
-curl http://localhost:11434/api/generate -d '{
-  "model": "llama3.2:3b",
-  "prompt": "Extract ALL named entities from this text. Return a JSON array of ALL entities found.\nFormat: [{\"entity\":\"exact text\",\"type\":\"TYPE\",\"context\":\"surrounding words\"},...]\nTypes: PERSON, ORGANIZATION, LOCATION, DATE, PRODUCT, MONEY, CONTACT, ID, TECHNOLOGY, POSITION\nImportant: Return array with multiple objects, not a single object. Extract every entity.\nTEXT:\nHi, this is Sarah Johnson from Acme Corporation. I am writing to inquire about the order I placed on December 15th, 2024. My customer ID is CUST-98765. Please contact me at sarah.johnson@acmecorp.com or call 555-123-4567. Our office is located at 123 Main Street, San Francisco, CA 94102.",
-  "stream": false,
-  "keep_alive": "15m",
-  "format": "json",
-  "options": {"temperature": 0.1, "num_predict": 1000}
-}'
-```
-
-:::
-
-> **Success:** Checkpoint: JSON that lists entities with `entity`, `type` and `context`. Which entities, and whether the list comes back as a bare array or wrapped in an object such as `{"entities": [...]}`, depend on the model; `Sarah Johnson`, `Acme Corporation` and `CUST-98765` are the ones to look for.
-
-2. Count the entities in the answer and compare them with the text: the document holds a person, a company, a date, an ID, an email, a phone number and an address.
-
-### 3. Build the Prompt and Request
-
-> **Note:**
->
-> #### Read, Prompt, Request
->
-> Read the documents, build the NER prompt from `text`, and wrap it in the request body.
-
-1. Start Spoon with the **Start Pentaho Data Integration** button below, or from a terminal:
-
-::: tabs
-
-### Windows (PowerShell)
-
-```powershell
+$env:PENTAHO_DI_JAVA_OPTIONS = "-Xms1024m -Xmx4g"
 Set-Location C:\Pentaho\design-tools\data-integration
-.\spoon.bat
+.\Spoon.bat
 ```
 
-### macOS / Linux
+2. To keep the setting for the **Start Pentaho Data Integration** button and every later start, store it for your user, then close and start Spoon again:
 
-```bash
-cd ~/Pentaho/design-tools/data-integration
-./spoon.sh
+```powershell
+[Environment]::SetEnvironmentVariable("PENTAHO_DI_JAVA_OPTIONS", "-Xms1024m -Xmx4g", "User")
 ```
-
-:::
 
 <button data-launch="spoon" data-path="">Start Pentaho Data Integration</button>
 
-2. Select **File > New > Transformation** (`Ctrl+N`).
-3. Select **File > Save as** and save it as `named_entity_recognition_optimized.ktr` in `C:\Workshop-AI-Specialty\04-llm-integration\09-llm-ner`, next to `ner_documents.csv`. (On your own machine, download the file from **Lab Files** below into the folder you save in.)
-4. Double-click an empty part of the canvas, open the **Parameters** tab, and fill the grid:
+> **Under the hood:**
+>
+> #### The variable replaces Spoon's memory settings, not adds to them
+>
+> `Spoon.bat` passes `PENTAHO_DI_JAVA_OPTIONS` to Java when it is set, and its default `-Xms1024m -Xmx2048m` when it is not. `-Xmx4g` lets the Java heap grow to 4 GB, enough for CoreNLP's tagger and NER models; with 2 GB the step can stop with `OutOfMemoryError` on the first row. Pan and Kitchen read the same variable, so a scheduled run gets the same heap.
+>
+> **Why it matters:** CoreNLP's memory is inside the Pentaho Data Integration process, unlike an LLM's, which lives in Ollama. Size the heap for it wherever the transformation runs.
+
+### 3. Read the Documents
+
+> **Note:**
+>
+> #### Read the Documents
+>
+> Create the transformation and its parameters, and read `ner_documents.csv`. Its rows go to both methods.
+
+1. Select **File > New > Transformation** (`Ctrl+N`).
+2. Select **File > Save as** and save it as `named_entity_recognition.ktr` in `C:\Workshop-AI-Specialty\04-llm-integration\09-llm-ner`, next to `ner_documents.csv`. (On your own machine, download `ner_documents.csv` from **Lab Files** below into the folder you save in.)
+3. Double-click an empty part of the canvas, open the **Parameters** tab, and fill the grid:
 
 | Parameter | Default Value | Description |
 | --- | --- | --- |
-| `KEEP_ALIVE` | `15m` | Keep model loaded in memory (5m/15m/30m/60m) |
-| `MODEL_NAME` | `llama3.2:3b` | LLM model to use for NER |
-| `OLLAMA_URL` | `http://localhost:11434/api/generate` | Ollama API endpoint |
-| `STEP_COPIES` | `4` | Number of parallel API call copies (set to CPU cores - 1) |
+| `MODEL_NAME` | `llama3.2:3b` | Ollama chat model |
+| `OLLAMA_URL` | `http://localhost:11434` | Ollama server |
+| `STEP_COPIES` | `4` | Parallel copies of ai-extract |
 
-In this transformation `OLLAMA_URL` holds the whole endpoint, path included, and the REST client uses it as it is.
+4. Select **OK**.
+5. On the **Design** tab, open the **Input** folder and drag **CSV file input** onto the canvas.
+6. Double-click **CSV file input** and set **Step name** to `csvi-documents`.
+7. Set **Filename** to `${Internal.Entry.Current.Directory}/ner_documents.csv`.
+8. Keep **Delimiter** `,`, **Enclosure** `"` and **Header row present?** selected. Clear **Lazy conversion?**.
+9. Fill the **Fields** grid:
 
-5. Select **OK**.
-6. On the **Design** tab, open the **Input** folder and drag **CSV file input** onto the canvas.
-7. Double-click **CSV file input**.
-8. Set **Step name** to `Read Unstructured Text`.
-9. Set **Filename** to `${Internal.Transformation.Filename.Directory}/ner_documents.csv`.
-10. Keep **Delimiter** `,`, **Enclosure** `"`, and **Lazy conversion?** and **Header row present?** selected. Set **Format** to `mixed` and **File encoding** to `UTF-8`.
-11. Fill the **Fields** grid:
+| Name | Type | Format | Length | Precision | Trim type |
+| --- | --- | --- | --- | --- | --- |
+| `document_id` | Integer | `#` | 15 | 0 | both |
+| `source` | String | | | | both |
+| `text` | String | | | | both |
 
-| Name | Type | Length |
-| --- | --- | --- |
-| `document_id` | String | 50 |
-| `source` | String | 100 |
-| `text` | String | 10000 |
+10. Select **OK**, and save the transformation (`Ctrl+S`).
+11. Select **csvi-documents** on the canvas, press `F10` (**Action > Preview**), and select **Quick Launch**.
 
-12. Select **OK**.
-13. On the **Design** tab, open the **Scripting** folder and drag **Modified JavaScript value** onto the canvas.
-14. Create a hop from **Read Unstructured Text** to **Modified JavaScript value**: hold `Shift` and drag from one step to the other.
-15. Double-click **Modified JavaScript value**.
-16. Set **Step name** to `Build NER Prompt`.
-17. Replace the text in the **Script 1** tab with:
+> **Success:** Checkpoint: **Examine preview data** shows 10 rows, `document_id` `1` to `10`. The first is `customer_email`, starting `Hi, this is Sarah Johnson from Acme Corporation.`
 
-```javascript
-// Optimized NER prompt - more explicit array format
-var llm_prompt = "Extract ALL named entities from this text. Return a JSON array of ALL entities found.\n" +
-  "Format: [{\"entity\":\"exact text\",\"type\":\"TYPE\",\"context\":\"surrounding words\"},...]\n" +
-  "Types: PERSON, ORGANIZATION, LOCATION, DATE, PRODUCT, MONEY, CONTACT, ID, TECHNOLOGY, POSITION\n" +
-  "Important: Return array with multiple objects, not a single object. Extract every entity.\n" +
-  "TEXT:\n" + text;
-```
+12. Select **Close**.
 
-18. Fill the **Fields** grid with one row: **Fieldname** `llm_prompt`, **Type** String, **Replace value 'Fieldname' or 'Rename to'** `N`.
-19. Select **OK**.
-20. Drag another **Modified JavaScript value** onto the canvas and create a hop from **Build NER Prompt** to it.
-21. Double-click the new step and set **Step name** to `Build JSON Request`.
-22. Replace the text in the **Script 1** tab with:
-
-```javascript
-// Build Ollama API request with keep-alive parameter
-var model_name = getVariable("MODEL_NAME", "llama3.2:3b");
-var keep_alive = getVariable("KEEP_ALIVE", "15m");
-
-var requestObj = {
-    "model": model_name,
-    "prompt": llm_prompt,
-    "stream": false,
-    "keep_alive": keep_alive,
-    "format": "json",
-    "options": {
-        "temperature": 0.1,
-        "num_predict": 1000
-    }
-};
-
-var request_body = JSON.stringify(requestObj);
-```
-
-23. Fill the **Fields** grid with one row: **Fieldname** `request_body`, **Type** String, **Replace value 'Fieldname' or 'Rename to'** `N`.
-24. Select **OK**.
-25. Save the transformation (`Ctrl+S`).
-26. Select **Build JSON Request** on the canvas, press `F10` (**Action > Preview**), and select **Quick Launch**.
-
-> **Success:** Checkpoint: 10 rows, `document_id` `1` to `10`, with `llm_prompt` and `request_body`. The first `request_body` starts `{"model":"llama3.2:3b","prompt":"Extract ALL named entities from this text.`.
-
-27. Select **Close**.
-
-### 4. Call Ollama and Parse
+### 4. NER Extractor
 
 > **Note:**
 >
-> #### Call, Parse, Count
+> #### Stanford CoreNLP, No LLM
 >
-> **REST client** sends the requests in parallel. A script then takes the entity array out of the answer and counts the people, organizations, locations and dates.
+> **NER Extractor** runs CoreNLP over the `text` field of each row and adds a JSON array of the entities it found. **JSON input** turns the array into one row per entity, and **Add constants** labels those rows with the method.
 
-1. On the **Design** tab, open the **Lookup** folder and drag **REST client** onto the canvas.
-2. Create a hop from **Build JSON Request** to **REST client**.
-3. Double-click **REST client** and set **Step name** to `Call Ollama API`.
-4. On the **General** tab, set **URL** to `${OLLAMA_URL}`, **HTTP method** to `POST` and **Body field** to `request_body`. Keep **Application type** `TEXT PLAIN`.
-5. Under **Output fields**, set **Result field name** to `api_response`, **HTTP status code field name** to `result_code` and **Response time (milliseconds) field name** to `response_time`.
-6. Select **OK**.
-7. Right-click **Call Ollama API** and select **Change Number of Copies to Start...**. Enter `${STEP_COPIES}` and select **OK**.
-8. Drag a **Modified JavaScript value** from the **Scripting** folder onto the canvas and create a hop from **Call Ollama API** to it.
-9. Double-click the new step and set **Step name** to `Parse NER Response`.
-10. Replace the text in the **Script 1** tab with:
+1. On the **Design** tab, open the **AI** folder and drag **NER Extractor** onto the canvas.
+2. Create a hop from **csvi-documents** to **NER Extractor**: hold `Shift` and drag from one step to the other.
+3. Double-click **NER Extractor** and set **Step name** to `ner-corenlp`.
+4. On the **Main** tab, select **Stream**. Keep **Incoming Source Type** `Binary Datum` and set **Incoming Source Field** to `text`.
+5. On the **Configuration** tab, set **Annotators** to `tokenize,ssplit,pos,lemma,ner`. Keep **Apply Numeric Classifier** selected, and **Use SUTime for Temporal Expressions**, **Use RegexNER for Custom Entity Recognition** and **Ignore Case in RegexNER Rules** cleared.
+6. On the **Result** tab, keep **Result Type** `JSON` and set **Result Field Name** to `ner_json`.
+<div align="center">
+<figure>
+<img src="../_assets/images/09-named_entity_recognition-ner-corenlp-main.png" alt="The NER Extractor dialog for ner-corenlp, Main tab, with the settings this workshop gives it" width="800">
+<figcaption>ner-corenlp: the Main tab</figcaption>
+</figure>
+</div>
 
-```javascript
-// Parse Ollama response and extract entities as JSON string
-var entities_json = "[]";
-var entity_count = 0;
-var person_count = 0;
-var org_count = 0;
-var location_count = 0;
-var date_count = 0;
+<div align="center">
+<figure>
+<img src="../_assets/images/09-named_entity_recognition-ner-corenlp-configuration.png" alt="The NER Extractor dialog for ner-corenlp, Configuration tab, with the settings this workshop gives it" width="800">
+<figcaption>ner-corenlp: the Configuration tab</figcaption>
+</figure>
+</div>
 
-try {
-    var response = JSON.parse(api_response);
-    var fullResponse = response.response;
-    
-    // Extract JSON array from response
-    var jsonStart = fullResponse.indexOf("[");
-    var jsonEnd = fullResponse.lastIndexOf("]") + 1;
-    
-    if (jsonStart >= 0 && jsonEnd > jsonStart) {
-        var jsonStr = fullResponse.substring(jsonStart, jsonEnd);
-        entities_json = jsonStr;
-        
-        // Count entities by type
-        var entities = JSON.parse(jsonStr);
-        entity_count = entities.length;
-        
-        for (var i = 0; i < entities.length; i++) {
-            var entityType = entities[i].type || "";
-            if (entityType == "PERSON") person_count++;
-            else if (entityType == "ORGANIZATION") org_count++;
-            else if (entityType == "LOCATION") location_count++;
-            else if (entityType == "DATE") date_count++;
-        }
-    }
-} catch(e) {
-    entities_json = "[]";
-    entity_count = 0;
-}
-```
+<div align="center">
+<figure>
+<img src="../_assets/images/09-named_entity_recognition-ner-corenlp-result.png" alt="The NER Extractor dialog for ner-corenlp, Result tab, with the settings this workshop gives it" width="800">
+<figcaption>ner-corenlp: the Result tab</figcaption>
+</figure>
+</div>
 
-11. Fill the **Fields** grid. (**Get variables** adds every variable in the script; keep only these.)
-
-| Fieldname | Type | Replace value 'Fieldname' or 'Rename to' |
-| --- | --- | --- |
-| `entities_json` | String | N |
-| `entity_count` | Integer | N |
-| `person_count` | Integer | N |
-| `org_count` | Integer | N |
-| `location_count` | Integer | N |
-| `date_count` | Integer | N |
-
-12. Select **OK**.
+7. Select **OK**.
 
 > **Under the hood:**
 >
-> #### The parser cut out the array, whatever the model wrapped around it
+> #### CoreNLP tagged every word, then grouped the tags into entities
 >
-> `"format": "json"` makes the model answer with valid JSON, but valid JSON can be an object as well as an array, and a small model often returns `{"entities": [...]}` when asked for a list. The script ignores the wrapper: it takes everything from the first `[` to the last `]`, stores that text in `entities_json`, and parses it to count the types. If no array is found, or it does not parse, the row keeps `[]` and counts of 0 instead of failing.
+> The annotators run in order: `tokenize` splits the text into words, `ssplit` into sentences, `pos` tags each word's part of speech, `lemma` its base form, and `ner` the entity type, using trained models and CoreNLP's built-in rules for emails, titles and numbers. Consecutive words with the same tag become one entity, with its character offsets in the original text and the model's confidence. The `ner` annotator also applies CoreNLP's built-in fine-grained rules, so a place comes back as `CITY`, `STATE_OR_PROVINCE` or `COUNTRY` rather than the coarse `LOCATION`. RegexNER, which this workshop leaves off, is for your own rule file on top of that.
 >
-> **Why it matters:** an `entity_count` of 0 on a document that clearly names people is the signal that the model answered in an unexpected shape; read `api_response` for that row to see what came back.
+> **Why it matters:** the offsets let you highlight, mask or cut out each entity in the source text, which an LLM's answer cannot do reliably. The same text always gives the same entities.
 
-13. Save the transformation (`Ctrl+S`).
+8. On the **Design** tab, open the **Input** folder and drag **JSON input** onto the canvas. Create a hop from **ner-corenlp** to it.
+9. Double-click **JSON input** and set **Step name** to `json-ner`.
+10. On the **File** tab, select **Source is from a previous step** and set **Select field** to `ner_json`.
+11. On the **Content** tab, make sure **Ignore missing path** and **Default path leaf to null** are selected.
+12. On the **Fields** tab, fill the grid:
 
-### 5. Pivot and Write
+| Name | Path | Type |
+| --- | --- | --- |
+| `entity_text` | `$[*].text` | String |
+| `entity_type` | `$[*].ner` | String |
+
+13. Select **OK**.
+14. On the **Design** tab, open the **Transform** folder and drag **Add constants** onto the canvas. Create a hop from **json-ner** to it.
+15. Double-click **Add constants**, set **Step name** to `const-method-ner`, and add one row: **Name** `method`, **Type** `String`, **Value** `NER Extractor`. Select **OK**.
+16. Drag **Select values** from the **Transform** folder onto the canvas and create a hop from **const-method-ner** to it.
+17. Double-click **Select values**, set **Step name** to `sv-ner`, and on the **Select & Alter** tab list these fields in this order: `document_id`, `source`, `method`, `entity_text`, `entity_type`. Select **OK**.
+18. Save the transformation (`Ctrl+S`).
+
+> **Under the hood:**
+>
+> #### A path with [*] gave one row per array element
+>
+> `$[*].text` selects the `text` of every element of the array, so **JSON input** writes one row per entity, each with the fields of the row it came from (`document_id`, `source`). A document with three entities becomes three rows. This was checked by running the step on a CoreNLP-shaped array of three entities: three rows came out.
+>
+> **Why it matters:** one row per entity is the shape a database table, a count or a join needs. The document's own fields travel with every entity.
+
+### 5. AI Chat Extraction
 
 > **Note:**
 >
-> #### One Column Per Entity
+> #### Custom Types From an LLM
 >
-> A CSV file is easier to filter when each entity has its own column. A script copies the first 15 entities into `entity_1` to `entity_15`, each with its type in `entity_type_1` to `entity_type_15`; `entities_json` keeps the full list.
+> The second branch asks the model for the ten custom types as a JSON object with an `entities` array, and turns it into rows the same way.
 
-1. Drag a **Modified JavaScript value** from the **Scripting** folder onto the canvas and create a hop from **Parse NER Response** to it.
-2. Double-click the new step and set **Step name** to `Pivot Entities to Columns`.
-3. Replace the text in the **Script 1** tab with:
+1. On the **Design** tab, open the **Transform** folder and drag **Add constants** onto the canvas.
+2. Create a hop from **csvi-documents** to **Add constants**. When Spoon asks, select **Copy**.
+3. Double-click **Add constants** and set **Step name** to `const-instruction`. In the **Fields** grid, add the first of two rows: **Name** `run_instruction`, **Type** `String`, with this text in **Value**:
 
-```javascript
-// Parse entities_json and populate entity columns
-var entities_json_str = entities_json || "[]";
-
-// Initialize all entity columns
-var entity_1 = "", entity_type_1 = "";
-var entity_2 = "", entity_type_2 = "";
-var entity_3 = "", entity_type_3 = "";
-var entity_4 = "", entity_type_4 = "";
-var entity_5 = "", entity_type_5 = "";
-var entity_6 = "", entity_type_6 = "";
-var entity_7 = "", entity_type_7 = "";
-var entity_8 = "", entity_type_8 = "";
-var entity_9 = "", entity_type_9 = "";
-var entity_10 = "", entity_type_10 = "";
-var entity_11 = "", entity_type_11 = "";
-var entity_12 = "", entity_type_12 = "";
-var entity_13 = "", entity_type_13 = "";
-var entity_14 = "", entity_type_14 = "";
-var entity_15 = "", entity_type_15 = "";
-
-try {
-    var entities = JSON.parse(entities_json_str);
-
-    // Handle both formats: {"entities": [...]} and [...]
-    if (typeof entities === 'object' && entities.entities) {
-        entities = entities.entities;
-    }
-
-    // Populate entity columns
-    if (entities.length > 0) {
-        entity_1 = entities[0].entity || "";
-        entity_type_1 = entities[0].type || "";
-    }
-    if (entities.length > 1) {
-        entity_2 = entities[1].entity || "";
-        entity_type_2 = entities[1].type || "";
-    }
-    if (entities.length > 2) {
-        entity_3 = entities[2].entity || "";
-        entity_type_3 = entities[2].type || "";
-    }
-    if (entities.length > 3) {
-        entity_4 = entities[3].entity || "";
-        entity_type_4 = entities[3].type || "";
-    }
-    if (entities.length > 4) {
-        entity_5 = entities[4].entity || "";
-        entity_type_5 = entities[4].type || "";
-    }
-    if (entities.length > 5) {
-        entity_6 = entities[5].entity || "";
-        entity_type_6 = entities[5].type || "";
-    }
-    if (entities.length > 6) {
-        entity_7 = entities[6].entity || "";
-        entity_type_7 = entities[6].type || "";
-    }
-    if (entities.length > 7) {
-        entity_8 = entities[7].entity || "";
-        entity_type_8 = entities[7].type || "";
-    }
-    if (entities.length > 8) {
-        entity_9 = entities[8].entity || "";
-        entity_type_9 = entities[8].type || "";
-    }
-    if (entities.length > 9) {
-        entity_10 = entities[9].entity || "";
-        entity_type_10 = entities[9].type || "";
-    }
-    if (entities.length > 10) {
-        entity_11 = entities[10].entity || "";
-        entity_type_11 = entities[10].type || "";
-    }
-    if (entities.length > 11) {
-        entity_12 = entities[11].entity || "";
-        entity_type_12 = entities[11].type || "";
-    }
-    if (entities.length > 12) {
-        entity_13 = entities[12].entity || "";
-        entity_type_13 = entities[12].type || "";
-    }
-    if (entities.length > 13) {
-        entity_14 = entities[13].entity || "";
-        entity_type_14 = entities[13].type || "";
-    }
-    if (entities.length > 14) {
-        entity_15 = entities[14].entity || "";
-        entity_type_15 = entities[14].type || "";
-    }
-} catch(e) {
-    // Keep empty values on error
-}
+```text
+You extract named entities from one business document.
+Use these entity types only: PERSON, ORGANIZATION, LOCATION, DATE, MONEY, PRODUCT, POSITION (a job title), CONTACT (an email address, phone number or extension), ID (a customer, employee, invoice, ticket or order number), TECHNOLOGY (software, a platform or a system).
+List every entity once, with its text exactly as it appears in the document.
+Answer with one JSON object and nothing else, in exactly this shape:
+{"entities": [{"text": "exact text from the document", "type": "one of the types above"}]}
 ```
 
-4. Fill the **Fields** grid with 30 rows, each **Type** String and **Replace value 'Fieldname' or 'Rename to'** `N`, in this order: `entity_1`, `entity_type_1`, `entity_2`, `entity_type_2`, and so on to `entity_15`, `entity_type_15`. (**Get variables** adds them in that order; delete any other variable it adds, such as `entities_json_str`.)
-5. Select **OK**.
-6. On the **Design** tab, open the **Output** folder and drag **Text file output** onto the canvas.
-7. Create a hop from **Pivot Entities to Columns** to **Text file output**.
-8. Double-click **Text file output** and set **Step name** to `Write Entities CSV`.
-9. On the **File** tab, set **Filename** to `${Internal.Transformation.Filename.Directory}/entities_extracted` and **Extension** to `csv`. Select **Create Parent folder**, **Include date in filename?** and **Include time in filename?**, and keep **Add filenames to result** selected.
-10. On the **Content** tab, keep **Separator** `,` and **Enclosure** `"`, keep **Header** selected, and set **Format** to `DOS` and **Encoding** to `UTF-8`.
-11. On the **Fields** tab, select **Get Fields**, then delete the `request_body` row. The grid keeps these fields, in this order:
+4. Add the second row: **Name** `method`, **Type** `String`, **Value** `AI Chat`. Select **OK**.
+5. On the **Design** tab, open the **AI** folder and drag **AI Chat** onto the canvas. Create a hop from **const-instruction** to it.
+6. Double-click **AI Chat** and set **Step name** to `ai-extract`.
+7. On the **Message** tab, under **Message/Prompt**, select **Stream**. Set **Message Field name** to `text` and **Run instruction for LLM Field name** to `run_instruction`. Keep **Attach Document(s)** cleared.
+8. On the **Model** tab, set **LLM Provider** to `Ollama` and **Model name/Deployment name/Model ID** to `${MODEL_NAME}`.
+9. Fill the **Model Configuration** grid. Delete any row that is not in this table:
 
-| Name | Type |
+| Parameter | Value |
 | --- | --- |
-| `document_id`, `source`, `text`, `llm_prompt`, `api_response` | String |
-| `result_code`, `response_time` | String (as the solution has them; Integer from **Get Fields** writes the same text) |
-| `entities_json` | String |
-| `entity_count`, `person_count`, `org_count`, `location_count`, `date_count` | Integer |
-| `entity_1`, `entity_type_1` to `entity_15`, `entity_type_15` | String |
+| `endpoint` | `${OLLAMA_URL}` |
+| `temperature` | `0` |
+| `numCtx` | `4096` |
+| `timeout` | `180` |
 
-12. Select **OK**.
-13. Save the transformation (`Ctrl+S`).
+10. On the **Response** tab, keep **Response format** `text`, set **Result Field name** to `llm_json`, and keep **Stop on error** selected.
+<div align="center">
+<figure>
+<img src="../_assets/images/09-named_entity_recognition-ai-extract-message.png" alt="The AI Chat dialog for ai-extract, Message tab, with the settings this workshop gives it" width="800">
+<figcaption>ai-extract: the Message tab</figcaption>
+</figure>
+</div>
 
-### 6. Run
+<div align="center">
+<figure>
+<img src="../_assets/images/09-named_entity_recognition-ai-extract-model.png" alt="The AI Chat dialog for ai-extract, Model tab, with the settings this workshop gives it" width="800">
+<figcaption>ai-extract: the Model tab</figcaption>
+</figure>
+</div>
+
+<div align="center">
+<figure>
+<img src="../_assets/images/09-named_entity_recognition-ai-extract-tools.png" alt="The AI Chat dialog for ai-extract, Tools tab, with the settings this workshop gives it" width="800">
+<figcaption>ai-extract: the Tools tab</figcaption>
+</figure>
+</div>
+
+<div align="center">
+<figure>
+<img src="../_assets/images/09-named_entity_recognition-ai-extract-response.png" alt="The AI Chat dialog for ai-extract, Response tab, with the settings this workshop gives it" width="800">
+<figcaption>ai-extract: the Response tab</figcaption>
+</figure>
+</div>
+
+11. Select **OK**.
+12. Right-click **ai-extract** and select **Change Number of Copies to Start...**. Enter `${STEP_COPIES}` and select **OK**.
+13. Drag **JSON input** from the **Input** folder onto the canvas and create a hop from **ai-extract** to it.
+14. Double-click it and set **Step name** to `json-llm`. On the **File** tab, select **Source is from a previous step** and set **Select field** to `llm_json`. On the **Content** tab, make sure **Ignore missing path** and **Default path leaf to null** are selected.
+15. On the **Fields** tab, fill the grid:
+
+| Name | Path | Type |
+| --- | --- | --- |
+| `entity_text` | `$.entities[*].text` | String |
+| `entity_type` | `$.entities[*].type` | String |
+
+16. Select **OK**.
+17. Drag **Select values** onto the canvas and create a hop from **json-llm** to it. Double-click it, set **Step name** to `sv-llm`, and list the same fields as **sv-ner**, in the same order: `document_id`, `source`, `method`, `entity_text`, `entity_type`. Select **OK**.
+18. Save the transformation (`Ctrl+S`).
+
+> **Under the hood:**
+>
+> #### The answer is wrapped in an object, because an object is easier to ask for
+>
+> The instruction asks for `{"entities": [...]}` rather than a bare array. A small model asked for "a JSON object" keeps to one shape more often than one asked for "an array", and a named key leaves room to add fields later, such as a document summary. `numCtx` `4096` holds the instruction, the longest document and a long list of entities; `timeout` `180` allows for that list on a slow machine.
+>
+> **Why it matters:** the instruction is the only schema the model has. A shape that is easy to follow, with a fixed list of types, is what makes its answer parseable row after row.
+
+### 6. Side by Side
+
+> **Note:**
+>
+> #### Merge, Sort and Count
+>
+> Both branches now give rows with the same five fields. **Sort rows** merges them in document order, one file lists every entity, and **Group by** counts the entities per document and method.
+
+1. On the **Design** tab, open the **Transform** folder and drag **Sort rows** onto the canvas.
+2. Create a hop from **sv-ner** to **Sort rows**, and another from **sv-llm** to **Sort rows**.
+3. Double-click **Sort rows** and set **Step name** to `sort-entities`. Fill the **Fields** grid with `document_id`, `method` and `entity_type`, each **Ascending** `Y`. Select **OK**.
+4. On the **Design** tab, open the **Output** folder and drag **Text file output** onto the canvas. Create a hop from **sort-entities** to it.
+5. Double-click **Text file output** and set **Step name** to `txt-entities`. On the **File** tab, set **Filename** to `${Internal.Entry.Current.Directory}/entities` and **Extension** to `csv`, and select **Create Parent folder**. On the **Content** tab, keep **Separator** `,`, **Enclosure** `"` and **Header** selected, and set **Encoding** to `UTF-8`. On the **Fields** tab, select **Get Fields**, then **Minimal width**, and select **OK**.
+6. On the **Design** tab, open the **Statistics** folder and drag **Group by** onto the canvas. Create a hop from **sort-entities** to it. When Spoon asks, select **Copy**.
+7. Double-click **Group by** and set **Step name** to `grp-counts`.
+8. In **The fields that make up the group**, add `document_id` and `method`.
+9. In **Aggregates**, add one row: **Name** `entity_count`, **Subject** `entity_text`, **Type** `Number of rows (without field argument)`. Select **OK**.
+10. Drag a **Text file output** onto the canvas and create a hop from **grp-counts** to it. Set it up as **txt-entities**, **Get Fields** and **Minimal width** included, with **Step name** `txt-counts` and **Filename** `${Internal.Entry.Current.Directory}/entity_counts`. Select **OK**.
+11. Save the transformation (`Ctrl+S`).
+
+> **Under the hood:**
+>
+> #### Two inputs merged because their rows had the same layout
+>
+> A step with two incoming hops reads rows from both, and Pentaho Data Integration requires that every input has the same fields in the same order and types, which the two **Select values** steps guarantee. **Sort rows** waits for every row from both branches, then sorts them, so **Group by**, which needs its input sorted by the group fields, can count each document and method in one pass. The merge, sort and count were checked by running them on hand-written answers: 3 CoreNLP entities and 4 LLM entities for one document gave 7 entity rows and two count rows, `3` and `4`.
+>
+> **Why it matters:** the comparison is plain data, so it can be loaded, filtered or charted like any other. A spot check of one document's two lists shows more than a summary of either.
+
+### 7. Run and Compare
 
 > **Note:**
 >
 > #### Run the Transformation
 >
-> Ten documents, ten LLM calls of up to 1,000 tokens each: the longest run in this module so far.
+> The first row waits while CoreNLP loads its models; after that it tags a document in well under a second. The LLM branch makes one model call per document.
 
 1. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
 2. In **Execution Results**, open the **Step Metrics** tab.
 
-> **Success:** Checkpoint: **Read Unstructured Text** shows 10 under **Written**, the four copies of **Call Ollama API** read 10 rows between them, and **Write Entities CSV** shows 10 under **Written**.
+<!-- UNPROVEN: the checkpoints below describe the expected shape; replace with measured figures once the GENAI-EE license lets the solution run. -->
 
-3. Select **Write Entities CSV** on the canvas and open the **Preview data** tab.
+> **Success:** Checkpoint: every step finishes without errors. **csvi-documents** shows 10 under **Written**, **ner-corenlp** and the copies of **ai-extract** each read 10, and **json-ner** and **json-llm** write one row per entity, many more than 10 each. **grp-counts** writes 20 rows: two per document.
 
-> **Success:** Checkpoint: 10 rows, one per document. `entity_count` is above 0 for the documents whose answer parsed, `entity_1` to `entity_15` hold the first entities with their types, and `entities_json` the full list. The entities and counts are the model's and vary between runs.
+3. Select **ner-corenlp** on the canvas and open the **Preview data** tab.
 
-4. Find the results file. In PowerShell, run:
+> **Success:** Checkpoint: each `ner_json` is a JSON array; in the first document, `Sarah Johnson` is tagged `PERSON` and `Acme Corporation` `ORGANIZATION`, each with its `beginOffset` and `endOffset`.
 
-::: tabs
+4. Open `entity_counts.csv` and `entities.csv` in `C:\Workshop-AI-Specialty\04-llm-integration\09-llm-ner`, and compare the two methods document by document.
 
-### Windows (PowerShell)
+> **Success:** Checkpoint: `entity_counts.csv` starts `document_id,method,entity_count`. In `entities.csv`, look for what only one method found: the `ID` and `TECHNOLOGY` entities, such as `CUST-98765`, only from AI Chat; the fine-grained types, such as `CITY` and `STATE_OR_PROVINCE`, only from NER Extractor.
 
-```powershell
-Get-ChildItem C:\Workshop-AI-Specialty\04-llm-integration\09-llm-ner\entities_extracted_*.csv
-```
-
-### macOS / Linux
-
-```bash
-ls entities_extracted_*.csv
-```
-
-Run it in the folder you saved the transformation in.
-
-:::
-
-> **Success:** Checkpoint: a file named `entities_extracted_<yyyyMMdd>_<HHmmss>.csv`, with a header line that starts `document_id,source,text,llm_prompt,api_response`.
-
-5. For a longer run, double-click **Read Unstructured Text**, set **Filename** to `${Internal.Transformation.Filename.Directory}/ner_documents_2.csv`, select **OK**, and run again: 20 documents.
+5. Run again and compare: the NER Extractor rows are identical every time; the AI Chat rows usually are, at `temperature` `0`, but a model can still word an entity differently.
 
 ::::
+
+## Troubleshooting <!-- no-step -->
+
+<details>
+<summary>Error initializing step: License validation failed</summary>
+
+The Pentaho license on this machine has no GenAI rights. Every GenAI plugin step, **NER Extractor** included, checks for a license with the GenAI Plugin Suite (GENAI-EE) subscription when the transformation starts. Install a license that includes it, as described in [Before You Start](../00-before-you-start/guide.md).
+
+</details>
+
+<details>
+<summary>ner-corenlp stops with OutOfMemoryError or Java heap space</summary>
+
+Spoon is running with its default 2 GB heap. Close it and start it again with `PENTAHO_DI_JAVA_OPTIONS` set to `-Xms1024m -Xmx4g`, as in the **Memory for CoreNLP** tab.
+
+</details>
+
+<details>
+<summary>The first row takes a long time</summary>
+
+CoreNLP loads its models when the first row arrives, which takes 10 to 40 seconds. The rows after it are fast.
+
+</details>
+
+<details>
+<summary>The AI Chat branch has no rows for a document</summary>
+
+The model's answer was not the JSON the instruction asked for, so `$.entities[*]` found nothing. Preview **ai-extract** and read `llm_json` for that document. A larger model (`qwen2.5:7b`) usually fixes it.
+
+</details>
 
 ## Lab Files
 
 Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches Pentaho Data Integration with the file loaded. If Pentaho Data Integration is already running, the path is copied to your clipboard — switch to Pentaho Data Integration and press `Ctrl+O`, `Ctrl+V`, `Enter`.
 
-The ten documents the transformation reads, and a 20-document set for a longer run:
+The ten business documents the transformation reads:
 
 [ner_documents.csv](./files/ner_documents.csv)
+
+The same ten and ten more, for a longer run: change the **Filename** of **csvi-documents** to `ner_documents_2.csv`:
 
 [ner_documents_2.csv](./files/ner_documents_2.csv)
 
 ### Solution <!-- no-step -->
 
-The finished transformation for this lab. Open it alongside your own to compare.
+The finished transformation for this lab. Open it alongside your own to compare, or run it to see the expected result. It reads `ner_documents.csv` from the lab folder and writes `entities.csv` and `entity_counts.csv` beside itself.
 
 Also on disk at `C:\Workshop-AI-Specialty\04-llm-integration\09-llm-ner\solution`.
 
-[named_entity_recognition_optimized.ktr](./files/named_entity_recognition_optimized.ktr) <button data-launch="spoon" data-path="files/named_entity_recognition_optimized.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/named_entity_recognition_optimized.ktr">View graph</button>
+[named_entity_recognition.ktr](./files/solution/named_entity_recognition.ktr) <button data-launch="spoon" data-path="files/solution/named_entity_recognition.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/solution/named_entity_recognition.ktr">View graph</button>
 
-The basic version, with one copy of the API call, a longer prompt that describes each type, and no pivot:
+named_entity_recognition in Spoon, with its note:
 
-[named_entity_recognition.ktr](./files/named_entity_recognition.ktr) <button data-launch="spoon" data-path="files/named_entity_recognition.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/named_entity_recognition.ktr">View graph</button>
+<div align="center">
+<figure>
+<img src="../_assets/images/09-named_entity_recognition-canvas.png" alt="The named_entity_recognition.ktr solution open in Spoon: its blue note above the steps and hops, left to right" width="800">
+<figcaption>named_entity_recognition.ktr in Spoon</figcaption>
+</figure>
+</div>

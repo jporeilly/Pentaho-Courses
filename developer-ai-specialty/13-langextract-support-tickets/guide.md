@@ -4,29 +4,33 @@
 >
 > #### Workshop - Support Tickets
 >
-> Build a transformation that reads free-form helpdesk tickets, has the LangExtract service pull structured fields out of each one, and routes the critical tickets apart from the rest. It replaces reading and routing every ticket by hand.
+> Build a transformation that reads free-form helpdesk tickets from PostgreSQL, has the LangExtract service pull structured fields out of each one, and routes the critical tickets apart from the rest. It replaces reading and routing every ticket by hand.
 >
 > **What you'll do**
 >
-> * Start the LangExtract service and test its `/health` and `/extract` routes
-> * Read the unprocessed tickets from PostgreSQL with **Table input**
+> * Test the LangExtract service's `/extract` route with one ticket
+> * Create the tickets table in the course's PostgreSQL and read it with **Table input**
 > * Build each extraction request in **Modified JavaScript value** and send it with **REST client**
 > * Parse the replies with **JSON input** and pivot them to one row per ticket with **Row denormaliser**
-> * Route the `CRITICAL` tickets with **Filter rows**
+> * Route the `Critical` tickets with **Filter rows**
 >
 > **Prerequisites:**
 >
-> * The LangExtract [Overview](../12-langextract/guide.md): the request and response contract this lab uses
-> * Ollama running on `http://localhost:11434`
-> * Python 3.10 or later, for the service
-> * A PostgreSQL database you can create a schema and a table in, with DBeaver (or `psql`) connected to it. The course installs no database for this lab.
+> * The LangExtract [Overview](../12-langextract/guide.md): the service running on `http://localhost:8765`, and Ollama with `qwen2.5:7b`
+> * The pgvector lab kit's PostgreSQL running (container `pcm-pgvector`, port `5433`), as set up in [Before You Start](../00-before-you-start/guide.md)
 >
-> **Estimated time:** 40 minutes
+> **Estimated time:** 45 minutes
+
+<figure>
+
+<figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
+
+</figure>
 
 <div align="center">
 <figure>
-<img src="../_assets/images/ticket_triage.png" alt="Spoon canvas of ticket_triage: Table input, Modified JavaScript value, REST client and JSON input in a row, then Select values, buffer and Row denormaliser, and Filter rows sending rows to critical and others" width="800">
-<figcaption>What you build: ten steps, ending in two branches out of Filter rows</figcaption>
+<img src="../_assets/images/13-support-tickets-flow.png" alt="A Pentaho Data Integration column for ticket_triage.ktr: tbl-tickets (Table input on helpdesk.tickets), js-request building request_json, rest-extract posting it to the LangExtract service on localhost:8765, which calls qwen2.5:7b on Ollama, json-extractions, sv-pivot, dnorm-tickets and flt-critical on urgency = Critical. TRUE rows go to the Dummy step critical and FALSE rows to others" width="800">
+<figcaption>What you build: the steps of ticket_triage.ktr, the service they call, and where each ticket goes</figcaption>
 </figure>
 </div>
 
@@ -36,106 +40,27 @@
 >
 > GlobalServ Technologies supports 12,000 end users. Its service desk receives 1,400 free-form tickets per day, analysts spend about five minutes reading and routing each one, and roughly 23% of tickets are misrouted on the first pass.
 
-The transformation turns each ticket into one row with `ticket_id`, `issue_type`, `affected_system`, `urgency`, `submitter` and `error_code`, and splits the rows on `urgency`. In production the two branches load tables, `helpdesk.ticket_triage` for most tickets and `helpdesk.escalations` for the critical ones. This lab ends each branch in a **Dummy (do nothing)** step instead, so you can inspect the results without creating those tables.
-
-<div align="center">
-<figure>
-<img src="../_assets/images/support-tickets-flow.png" alt="Production design. A Pentaho Data Integration column for ticket_triage.ktr: Table input on helpdesk.tickets, Modified JavaScript value building request_json, REST client to the LangExtract service on localhost:8765 and llama3.1:8b on Ollama, JSON input, Select values, the buffer Dummy step, Row denormaliser and Filter rows on urgency = CRITICAL. TRUE rows load helpdesk.escalations and FALSE rows helpdesk.ticket_triage, where the lab has the Dummy steps critical and others" width="800">
-<figcaption>The production design: Table output steps where this lab has Dummy steps</figcaption>
-</figure>
-</div>
-
-Read the diagram down the left column, then across. The column is the transformation you build in parts 3 to 6, in order. **Modified JavaScript value** builds the request at the top right, **REST client** posts it to the service, which calls the model on Ollama, and the reply comes back into `response_json`. **JSON input** makes one row per extraction, **Select values** keeps the three fields the pivot needs, and **Row denormaliser** turns each ticket's rows into the ticket row beside it, where the classes `system` and `user` fill `affected_system` and `submitter`. **Filter rows** splits on `urgency`: in production the two branches load the tables on the right; in this lab they end in the **Dummy (do nothing)** steps `critical` and `others`.
+The transformation turns each ticket into one row with `ticket_id`, `issue_type`, `affected_system`, `urgency`, `submitter` and `error_code`, and splits the rows on `urgency`. In production the two branches would load tables, one for the critical tickets and one for the rest. This workshop ends each branch in a **Dummy (do nothing)** step instead, so you can inspect the results without creating more tables.
 
 :::: tabs
 
-### 1. Start the Service
+### 1. Test the Service
 
 > **Note:**
 >
-> #### Start the Service
+> #### Test the Service
 >
-> The transformation calls the LangExtract REST service on port `8765`, which ships with the [Overview](../12-langextract/guide.md) page. Set it up once in its own Python environment, then keep it running in its terminal while you work. If you started it on the Overview page and `/health` answers (step 3), go to step 4.
+> The transformation calls the LangExtract service on port `8765`, which the [Overview](../12-langextract/guide.md) page sets up. Check that it answers, then send it one ticket by hand: **REST client** sends this same kind of request for every row.
 
-1. Create the service's Python environment and install its libraries. In PowerShell, run:
-
-::: tabs
-
-### Windows (PowerShell)
-
-```powershell
-Set-Location C:\Workshop-AI-Specialty\05-langextract\12-langextract\langextract-service
-python -m venv .venv
-.\.venv\Scripts\pip install -r requirements.txt
-```
-
-### macOS / Linux
-
-In a terminal, in the `langextract-service` folder you downloaded the lab files to, run:
-
-```bash
-python3 -m venv .venv
-.venv/bin/pip install -r requirements.txt
-```
-
-:::
-
-> **Success:** Checkpoint: pip ends with a `Successfully installed` line that includes `langextract`, `fastapi` and `uvicorn`.
-
-2. Start the service in the same terminal, and leave the terminal open:
-
-::: tabs
-
-### Windows (PowerShell)
-
-```powershell
-.\.venv\Scripts\python -m uvicorn app:app --host 0.0.0.0 --port 8765
-```
-
-### macOS / Linux
-
-```bash
-.venv/bin/python -m uvicorn app:app --host 0.0.0.0 --port 8765
-```
-
-:::
-
-> **Success:** Checkpoint: uvicorn logs `Uvicorn running on http://0.0.0.0:8765` and then `Application startup complete.`
-
-3. Open a second terminal and ask the service for its health. If the request is refused, wait a few seconds and run it again:
-
-::: tabs
-
-### Windows (PowerShell)
+1. Make sure the service is running in its own PowerShell window, as **Start the LangExtract Service** on the Overview page shows. In a second PowerShell window, run:
 
 ```powershell
 Invoke-RestMethod http://localhost:8765/health
 ```
 
-### macOS / Linux
+> **Success:** Checkpoint: `status` is `ok`, `model` is `qwen2.5:7b` and `model_url` is `http://localhost:11434`.
 
-```bash
-curl http://localhost:8765/health
-```
-
-:::
-
-> **Success:** Checkpoint: three keys. `status` is `ok`, `model` is `llama3.2:3b` and `model_url` is `http://localhost:11434`: the service's defaults, which the environment variables `LX_DEFAULT_MODEL` and `LX_MODEL_URL` change.
-
-4. Pull the model the transformation asks for. Its request names `llama3.1:8b`, which takes the place of the service's default model. In the second terminal, run:
-
-```powershell
-ollama pull llama3.1:8b
-ollama list
-```
-
-> **Success:** Checkpoint: `ollama pull` ends with `success`, and `ollama list` includes `llama3.1:8b`.
-
-5. Test the extraction route with one ticket and one worked example:
-
-::: tabs
-
-### Windows (PowerShell)
+2. Send one ticket and one worked example to the extraction route. In PowerShell, run:
 
 ```powershell
 $body = @'
@@ -153,42 +78,17 @@ $body = @'
       ]
     }
   ],
-  "model_id": "llama3.1:8b",
+  "model_id": "qwen2.5:7b",
   "max_char_buffer": 1200,
   "extraction_passes": 2
 }
 '@
-Invoke-RestMethod -Method Post -Uri http://localhost:8765/extract -ContentType 'application/json' -Body $body | ConvertTo-Json -Depth 5
+(Invoke-RestMethod -Method Post -Uri http://localhost:8765/extract -ContentType 'application/json' -Body $body).extractions | Format-Table
 ```
 
-### macOS / Linux
+The first request can take longer while Ollama loads the model.
 
-```bash
-curl -X POST http://localhost:8765/extract \
-  -H "Content-Type: application/json" \
-  -d '{
-    "text": "Jane Smith cannot log into the VPN. Error code VPN-403. This is urgent.",
-    "prompt": "Extract issue_type, system, urgency, user, and error_code.",
-    "examples": [
-      {
-        "text": "Raj Patel cannot access SAP. Error code ERP-991. Critical issue.",
-        "extractions": [
-          {"extraction_class": "user", "extraction_text": "Raj Patel"},
-          {"extraction_class": "system", "extraction_text": "SAP"},
-          {"extraction_class": "error_code", "extraction_text": "ERP-991"},
-          {"extraction_class": "urgency", "extraction_text": "Critical"}
-        ]
-      }
-    ],
-    "model_id": "llama3.1:8b",
-    "max_char_buffer": 1200,
-    "extraction_passes": 2
-  }'
-```
-
-:::
-
-> **Success:** Checkpoint: the reply is a JSON object with one key, `extractions`: a list in which every item has `class`, `text`, `start` and `end`. Which classes and values come back depends on the model.
+> **Success:** Checkpoint: a table with the columns `class`, `text`, `start` and `end`. On the course PC it has four rows: `user` `Jane Smith` from 0 to 10, `system` `VPN`, `error_code` `VPN-403` and `urgency` `Urgent`. The classes and values are the model's, so they can differ.
 
 ### 2. Tickets Table
 
@@ -196,9 +96,17 @@ curl -X POST http://localhost:8765/extract \
 >
 > #### Tickets Table
 >
-> The transformation reads `helpdesk.tickets` in PostgreSQL: one row per ticket, with `processed` `0` until the ticket has been handled. The course ships no such database, so create the table and load three sample tickets.
+> The transformation reads `helpdesk.tickets` in the course's PostgreSQL: one row per ticket, with `processed` `0` until the ticket has been handled. Create the schema and the table in the lab kit's `genai` database, and load six sample tickets.
 
-1. In DBeaver (or `psql`), connected to your PostgreSQL database, run:
+1. Open `psql` inside the lab kit's container. In PowerShell, run:
+
+```powershell
+podman exec -it pcm-pgvector psql -U genai -d genai
+```
+
+> **Success:** Checkpoint: the prompt reads `genai=#`.
+
+2. Paste this SQL at the `genai=#` prompt and press `Enter`:
 
 ```sql
 CREATE SCHEMA IF NOT EXISTS helpdesk;
@@ -211,12 +119,17 @@ CREATE TABLE helpdesk.tickets (
 );
 
 INSERT INTO helpdesk.tickets (ticket_id, ticket_text, created_at) VALUES
-('T-1001', 'Hi, I can''t log into the VPN since this morning. Error code: VPN-403. My laptop is a Dell XPS running Windows 11. This is blocking me from working. — Jane Smith, Finance', '2025-01-06 08:05:00'),
-('T-1002', 'The ERP system (SAP S/4HANA) is throwing DUMP errors for our whole team. Short dump: DYNPRO_SEND_IN_BACKGROUND. Production is affected. Critical! — Raj Patel, Supply Chain', '2025-01-06 08:20:00'),
-('T-1003', 'Outlook keeps crashing when I open attachments. ERR_OUTLOOK_0x800CCC0F. Not urgent, just annoying. Running Office 365 on Windows 10. — Tom Green, Marketing', '2025-01-06 08:45:00');
+('T-1001', 'Hi, I can''t log into the VPN since this morning. Error code: VPN-403. My laptop is a Dell XPS running Windows 11. This is blocking me from working. - Jane Smith, Finance', '2025-01-06 08:05:00'),
+('T-1002', 'The ERP system (SAP S/4HANA) is throwing DUMP errors for our whole team. Short dump: DYNPRO_SEND_IN_BACKGROUND. Production is affected. Critical! - Raj Patel, Supply Chain', '2025-01-06 08:20:00'),
+('T-1003', 'Outlook keeps crashing when I open attachments. ERR_OUTLOOK_0x800CCC0F. Not urgent, just annoying. Running Office 365 on Windows 10. - Tom Green, Marketing', '2025-01-06 08:45:00'),
+('T-1004', 'Payroll run is failing in Workday with error PAY-5001 and 3,000 employees will not be paid on Friday. Critical, please escalate now. - Maria Lopez, HR', '2025-01-06 09:10:00'),
+('T-1005', 'Could someone reset my Jira password? I get AUTH-401 when I sign in. Low priority, I can use the web board meanwhile. - Ken Ito, Engineering', '2025-01-06 09:30:00'),
+('T-1006', 'The shared printer on floor 3 shows PRN-022 paper jam again. Medium priority, people are walking to floor 2. - Olu Adeyemi, Facilities', '2025-01-06 09:55:00');
 ```
 
-2. Run:
+> **Success:** Checkpoint: `psql` answers `CREATE SCHEMA`, `CREATE TABLE` and `INSERT 0 6`.
+
+3. Run:
 
 ```sql
 SELECT ticket_id, processed, created_at
@@ -224,7 +137,9 @@ FROM helpdesk.tickets
 ORDER BY created_at;
 ```
 
-> **Success:** Checkpoint: 3 rows, `T-1001`, `T-1002` and `T-1003`, each with `processed` `0`.
+> **Success:** Checkpoint: 6 rows, `T-1001` to `T-1006`, each with `processed` `0`; the first was created at `2025-01-06 08:05:00`.
+
+4. Enter `\q` to leave `psql`.
 
 ### 3. Read the Tickets
 
@@ -232,56 +147,64 @@ ORDER BY created_at;
 >
 > #### Read the Tickets
 >
-> **Table input** runs a query over a connection named `PG:Helpdesk` and returns the unprocessed tickets, oldest first.
+> Create the transformation, give it the parameters its steps read, connect it to the lab kit's PostgreSQL, and read the unprocessed tickets, oldest first, with **Table input**.
 
-1. Start Spoon with the **Start Pentaho Data Integration** button below, or from a terminal:
-
-::: tabs
-
-### Windows (PowerShell)
+1. Start Spoon with the **Start Pentaho Data Integration** button below, or from PowerShell:
 
 ```powershell
 Set-Location C:\Pentaho\design-tools\data-integration
-.\spoon.bat
+.\Spoon.bat
 ```
-
-### macOS / Linux
-
-```bash
-cd ~/Pentaho/design-tools/data-integration
-./spoon.sh
-```
-
-:::
 
 <button data-launch="spoon" data-path="">Start Pentaho Data Integration</button>
 
 2. Select **File > New > Transformation** (`Ctrl+N`).
-3. Select **File > Save as** and save it as `ticket_triage.ktr` in `C:\Workshop-AI-Specialty\05-langextract\13-langextract-support-tickets`.
-4. Select **File > New > Database Connection**. The **Database Connection** dialog opens on **General**.
-5. Enter these settings. Select **PostgreSQL** in the **Connection type** list and **Native (JDBC)** in the **Access** list. The host, database, user and password are those of your own PostgreSQL database:
+3. Select **File > Save as** and save it as `ticket_triage.ktr` in `C:\Workshop-AI-Specialty\06-langextract\13-langextract-support-tickets`.
+4. Double-click an empty part of the canvas. **Transformation properties** opens.
+5. Open the **Parameters** tab and fill the grid:
+
+| Parameter | Default Value | Description |
+| --- | --- | --- |
+| `LX_MODEL` | `qwen2.5:7b` | Ollama model the LangExtract service runs |
+| `PG_HOST` | `localhost` | pgvector host (lab kit: localhost) |
+| `PG_PORT` | `5433` | pgvector port (lab kit: 5433; 5432 is the Pentaho repository) |
+| `PG_DATABASE` | `genai` | Database |
+| `PG_USER` | `genai` | User |
+| `PG_PASSWORD` | `genai` | Password |
+
+6. Select **OK**.
+7. Select **File > New > Database Connection**. The **Database Connection** dialog opens on **General**.
+8. Enter these settings. Select **PostgreSQL** in the **Connection type** list and **Native (JDBC)** in the **Access** list. With the parameters' defaults, the connection goes to the lab kit: host `localhost`, port `5433`, database `genai`, user `genai`, password `genai`:
 
 | Setting | Value |
 | --- | --- |
-| **Connection name** | `PG:Helpdesk` |
+| **Connection name** | `genai` |
 | **Connection type** | **PostgreSQL** |
 | **Access** | **Native (JDBC)** |
-| **Host Name** | your PostgreSQL host, such as `localhost` |
-| **Database Name** | the database that holds `helpdesk.tickets` |
-| **Port Number** | `5432` |
-| **Username** | your PostgreSQL user |
-| **Password** | that user's password |
+| **Host Name** | `${PG_HOST}` |
+| **Database Name** | `${PG_DATABASE}` |
+| **Port Number** | `${PG_PORT}` |
+| **Username** | `${PG_USER}` |
+| **Password** | `${PG_PASSWORD}` |
 
-6. Select **Test**.
+9. Select **Test**.
 
-> **Success:** Checkpoint: Spoon shows **Connection tested successfully**, with the message `Connection to PG:Helpdesk was successful.`
+> **Success:** Checkpoint: Spoon shows **Connection tested successfully**, with the message `Connection to genai was successful.`
 
-7. Select **OK** to close the message, then select **OK** to close **Database Connection**.
-8. In the **View** tab, expand **Database connections**, right-click `PG:Helpdesk`, and select **Move to System**. The solution file holds no connection of its own: it finds `PG:Helpdesk` by name among the shared connections.
-9. On the **Design** tab, open the **Input** folder and drag **Table input** onto the canvas.
-10. Double-click **Table input**. Keep its **Step name**, `Table input`.
-11. In **Connection**, select `PG:Helpdesk`.
-12. Enter this query in **SQL**:
+10. Select **OK** to close the message, then select **OK** to close **Database Connection**.
+
+> **Under the hood:**
+>
+> #### The connection reads its settings from the parameters when the transformation starts
+>
+> Spoon stores `${PG_HOST}` and the other references in the transformation as they are, and Pentaho Data Integration replaces each one with the parameter's value when the transformation runs, or when you test the connection or preview a step. Port `5433` is the lab kit's container: the Pentaho Server's own repository PostgreSQL already has `5432`.
+>
+> **Why it matters:** to run the same transformation against another database, change the parameters in the **Run Options** dialog, not the connection.
+
+11. On the **Design** tab, open the **Input** folder and drag **Table input** onto the canvas.
+12. Double-click **Table input**. Set **Step name** to `tbl-tickets`.
+13. In **Connection**, select `genai`.
+14. Enter this query in **SQL**:
 
 ```sql
 SELECT ticket_id, ticket_text
@@ -290,11 +213,12 @@ WHERE processed = 0
 ORDER BY created_at ASC
 ```
 
-13. Select **Preview**, enter `100` rows, and select **OK**. The rows show in **Examine preview data**.
+15. Select **Replace variables in script?**.
+16. Select **Preview**, enter `100` rows, and select **OK**. The rows show in **Examine preview data**.
 
-> **Success:** Checkpoint: 3 rows, `T-1001`, `T-1002` and `T-1003` in that order, each with its `ticket_text`.
+> **Success:** Checkpoint: 6 rows, `T-1001` to `T-1006` in that order, each with its `ticket_text`.
 
-14. Select **Close**, then select **OK** to close **Table input**.
+17. Select **Close**, then select **OK** to close **Table input**.
 
 ### 4. Build the Request
 
@@ -305,23 +229,24 @@ ORDER BY created_at ASC
 > **Modified JavaScript value** builds the body the service expects, one JSON string per ticket: the ticket's text, the extraction prompt, one worked example, the model and the tuning options.
 
 1. On the **Design** tab, open the **Scripting** folder and drag **Modified JavaScript value** onto the canvas.
-2. Create a hop from **Table input** to **Modified JavaScript value**: hold `Shift` and drag from one step to the other.
-3. Double-click **Modified JavaScript value**. Keep its **Step name**, `Modified JavaScript value`.
+2. Create a hop from **tbl-tickets** to **Modified JavaScript value**: hold `Shift` and drag from one step to the other.
+3. Double-click **Modified JavaScript value**. Set **Step name** to `js-request`.
 4. Replace `//Script here` on the **Script 1** tab with this script:
 
 ```javascript
 var prompt = 'Extract issue_type, system, urgency, user, and error_code. ' +
-        'For urgency use only one of: CRITICAL, HIGH, MEDIUM, LOW. ' +
-        'If a field cannot be found in the text, omit it from the output entirely. ' +
-        'Do not use placeholder values such as "none", "N/A", or "none mentioned".';
+    'For urgency use only one of: Critical, High, Medium, Low. ' +
+    'If a field cannot be found in the text, omit it from the output entirely. ' +
+    'Do not use placeholder values such as "none", "N/A", or "none mentioned".';
+
 var few_shot = [{
-  text: 'Cannot access Confluence. Error ERR-502. Urgent! — Alice, DevOps',
+  text: 'Cannot access Confluence. Error ERR-502. Critical, the release is blocked! - Alice Wong, DevOps',
   extractions: [
-    { extraction_class: 'issue_type', extraction_text: 'access issue' },
+    { extraction_class: 'issue_type', extraction_text: 'Cannot access' },
     { extraction_class: 'system', extraction_text: 'Confluence' },
-    { extraction_class: 'urgency', extraction_text: 'Urgent' },
-    { extraction_class: 'user', extraction_text: 'Alice' },
-    { extraction_class: 'error_code', extraction_text: 'ERR-502' }
+    { extraction_class: 'error_code', extraction_text: 'ERR-502' },
+    { extraction_class: 'urgency', extraction_text: 'Critical' },
+    { extraction_class: 'user', extraction_text: 'Alice Wong' }
   ]
 }];
 
@@ -329,7 +254,7 @@ var request_json = JSON.stringify({
   text: ticket_text + '',
   prompt: prompt,
   examples: few_shot,
-  model_id: 'llama3.1:8b',
+  model_id: getVariable('LX_MODEL', 'qwen2.5:7b'),
   max_char_buffer: 1200,
   extraction_passes: 2
 });
@@ -342,11 +267,19 @@ var request_json = JSON.stringify({
 | `request_json` | `request_json` | String | N |
 
 6. Select **OK**.
-7. Select **Modified JavaScript value** on the canvas, press `F10` (**Action > Preview**), and select **Quick Launch**.
+7. Select **js-request** on the canvas, press `F10` (**Action > Preview**), and select **Quick Launch**.
 
-> **Success:** Checkpoint: 3 rows. Each keeps `ticket_id` and `ticket_text` and adds `request_json`, a JSON string that starts `{"text":"` with the ticket's text and contains `"model_id":"llama3.1:8b"`.
+> **Success:** Checkpoint: 6 rows. Each keeps `ticket_id` and `ticket_text` and adds `request_json`, a JSON string that starts `{"text":"` with the ticket's text and contains `"model_id":"qwen2.5:7b"`.
 
 8. Select **Close**.
+
+> **Under the hood:**
+>
+> #### The worked example teaches the model the classes and the exact words to copy
+>
+> LangExtract shows the model the example's text and its extractions before the ticket, so the model learns the five class names and that each value is copied word for word from the text: `Critical`, not a label it invents. `ticket_text + ''` turns the field into a JavaScript string, so `JSON.stringify` escapes its quotes and line breaks, and `getVariable('LX_MODEL', 'qwen2.5:7b')` reads the parameter, with the model as a fallback.
+>
+> **Why it matters:** the example is the contract with the model. Ask in the prompt for `Critical, High, Medium, Low` and extract `Critical` in the example, and the urgency comes back in that form, which is what **Filter rows** compares against in part 6.
 
 ### 5. Call the Service
 
@@ -357,8 +290,8 @@ var request_json = JSON.stringify({
 > **REST client** posts each request to the service and keeps the reply in a new field. **JSON input** then turns each reply into one row per extraction.
 
 1. On the **Design** tab, open the **Lookup** folder and drag **REST client** onto the canvas.
-2. Create a hop from **Modified JavaScript value** to **REST client**.
-3. Double-click **REST client**. Keep its **Step name**, `REST client`.
+2. Create a hop from **js-request** to **REST client**.
+3. Double-click **REST client**. Set **Step name** to `rest-extract`.
 4. On the **General** tab, enter these settings. Select `JSON` in the **Application type** list and `POST` in the **HTTP method** list:
 
 | Setting | Value |
@@ -373,17 +306,18 @@ var request_json = JSON.stringify({
 
 > **Under the hood:**
 >
-> #### Each row becomes one POST, and the service hands it to LangExtract
+> #### Each row becomes one POST, and the reply comes back whatever its status
 >
-> **REST client** sends the value of `request_json` as the body of a `POST` to the URL, once for every incoming row, and writes the reply's body to `response_json` whatever its HTTP status. The service turns `examples` into LangExtract example data and calls `lx.extract` with the prompt, the examples and the model that `model_id` names on your Ollama. It passes `max_char_buffer`, `overlap` and `extraction_passes` on only when the installed LangExtract version accepts them. Each extraction comes back with its class, its text and its character offsets in the ticket, `start` and `end`; when LangExtract gives no offsets, the service uses the first place the text occurs in the ticket. A failure comes back as HTTP 502, with a `detail` that starts `langextract failed:`.
+> **REST client** sends the value of `request_json` as the body of a `POST` to the URL, once for every incoming row, waits for the reply, and writes its body to `response_json`. It does not fail on an error status: a failed extraction arrives as a reply of its own, `{"detail":"langextract failed: ..."}`. Each extraction in a good reply has its class, its text and its character offsets in the ticket, `start` and `end`.
 >
-> **Why it matters:** the reply has the same four generic fields whatever you extract, so one **JSON input** configuration parses every extraction task, and the offsets let you trace each value back to the words in the ticket that produced it.
+> **Why it matters:** the reply has the same four generic fields whatever you extract, so one **JSON input** configuration parses every extraction task in this module.
 
 6. On the **Design** tab, open the **Input** folder and drag **JSON input** onto the canvas.
-7. Create a hop from **REST client** to **JSON input**.
-8. Double-click **JSON input**. Keep its **Step name**, `JSON input`.
+7. Create a hop from **rest-extract** to **JSON input**.
+8. Double-click **JSON input**. Set **Step name** to `json-extractions`.
 9. On the **File** tab, select **Source is from a previous step**, and set **Select field** to `response_json`.
-10. On the **Fields** tab, fill the **Fields** grid:
+10. On the **Content** tab, make sure **Ignore missing path** and **Default path leaf to null** are selected.
+11. On the **Fields** tab, fill the **Fields** grid:
 
 | Name | Path | Type |
 | --- | --- | --- |
@@ -392,7 +326,7 @@ var request_json = JSON.stringify({
 | `start` | `$.extractions[*].start` | String |
 | `end` | `$.extractions[*].end` | String |
 
-11. Select **OK**.
+12. Select **OK**.
 
 ### 6. Pivot and Route
 
@@ -403,8 +337,8 @@ var request_json = JSON.stringify({
 > Keep the three fields the pivot needs, turn each ticket's extractions into one row with a column per class, and split the critical tickets from the rest.
 
 1. On the **Design** tab, open the **Transform** folder and drag **Select values** onto the canvas.
-2. Create a hop from **JSON input** to **Select values**.
-3. Double-click **Select values**. Keep its **Step name**, `Select values`.
+2. Create a hop from **json-extractions** to **Select values**.
+3. Double-click **Select values**. Set **Step name** to `sv-pivot`.
 4. On the **Select & Alter** tab, fill the **Fields** grid with three rows:
 
 | Fieldname |
@@ -414,15 +348,12 @@ var request_json = JSON.stringify({
 | `text` |
 
 5. Select **OK**.
-6. On the **Design** tab, open the **Flow** folder and drag **Dummy (do nothing)** onto the canvas.
-7. Create a hop from **Select values** to **Dummy (do nothing)**.
-8. Double-click **Dummy (do nothing)**. Set **Step name** to `buffer`, and select **OK**.
-9. On the **Design** tab, open the **Transform** folder and drag **Row denormaliser** onto the canvas.
-10. Create a hop from **buffer** to **Row denormaliser**.
-11. Double-click **Row denormaliser**. Keep its **Step name**, `Row denormaliser`.
-12. Set **The key field** to `class`.
-13. Fill **The fields that make up the grouping** grid with one row: **Group field** `ticket_id`.
-14. Fill the **Target fields** grid. Leave the other columns empty:
+6. On the **Design** tab, open the **Transform** folder and drag **Row denormaliser** onto the canvas.
+7. Create a hop from **sv-pivot** to **Row denormaliser**.
+8. Double-click **Row denormaliser**. Set **Step name** to `dnorm-tickets`.
+9. Set **The key field** to `class`.
+10. Fill **The fields that make up the grouping** grid with one row: **Group field** `ticket_id`.
+11. Fill the **Target fields** grid. Leave the other columns empty:
 
 | Target fieldname | Value fieldname | Key value | Type |
 | --- | --- | --- | --- |
@@ -432,25 +363,25 @@ var request_json = JSON.stringify({
 | `submitter` | `text` | `user` | String |
 | `error_code` | `text` | `error_code` | String |
 
-15. Select **OK**. If Spoon shows a **Notice** that the incoming data should be sorted on the grouping fields, select **Close**.
+12. Select **OK**. If Spoon shows a **Notice** that the incoming data should be sorted on the grouping fields, select **Close**.
 
 > **Under the hood:**
 >
 > #### Row denormaliser pivots runs of consecutive rows, so this stream needs no sort
 >
-> **Row denormaliser** builds one output row from each run of consecutive rows with the same `ticket_id`, and puts each row's `text` in the target field whose **Key value** matches its `class`. It does not sort: rows of one ticket that arrive apart become separate output rows. Here they arrive together, because **Table input** returns the tickets in `created_at` order, every step runs one copy, and **JSON input** emits all the extractions of one reply before it reads the next row. **buffer** passes them through unchanged. With no aggregation set, a second extraction of the same class overwrites the first.
+> **Row denormaliser** builds one output row from each run of consecutive rows with the same `ticket_id`, and puts each row's `text` in the target field whose **Key value** matches its `class`. It does not sort: rows of one ticket that arrive apart become separate output rows. Here they arrive together, because **tbl-tickets** returns the tickets in `created_at` order, every step runs one copy, and **json-extractions** emits all the extractions of one reply before it reads the next row. With no aggregation set, a second extraction of the same class, such as the second pass finding the urgency again, overwrites the first.
 >
-> **Why it matters:** a **Sort rows** step would read the whole stream before it passes on a single row. Skipping it is safe only while the order holds: run more than one copy of **REST client** and the tickets interleave, so a sort on `ticket_id` belongs in front of the pivot.
+> **Why it matters:** a **Sort rows** step would read the whole stream before it passes on a single row. Skipping it is safe only while the order holds: run more than one copy of **rest-extract** and the tickets interleave, so a sort on `ticket_id` belongs in front of the pivot.
 
-16. On the **Design** tab, open the **Flow** folder and drag **Filter rows** onto the canvas.
-17. Create a hop from **Row denormaliser** to **Filter rows**.
-18. From the **Flow** folder, drag a **Dummy (do nothing)** onto the canvas, to the right of **Filter rows**. Double-click it, set **Step name** to `critical`, and select **OK**.
-19. From the **Flow** folder, drag another **Dummy (do nothing)** onto the canvas, to the left of **Filter rows**. Double-click it, set **Step name** to `others`, and select **OK**.
-20. Create a hop from **Filter rows** to **critical** and select **Result is TRUE**. Create a hop from **Filter rows** to **others** and select **Result is FALSE**.
-21. Double-click **Filter rows**. Keep its **Step name**, `Filter rows`. **Send 'true' data to step** reads `critical`, and **Send 'false' data to step** reads `others`.
-22. In **The condition**, select `<field>` on the left and select `urgency`. Keep the function, `=`.
-23. Select `<value>`. In the **Enter value** dialog, set **Type** to `String` and **Value** to `CRITICAL`, then select **OK**.
-24. Select **OK**.
+13. On the **Design** tab, open the **Flow** folder and drag **Filter rows** onto the canvas.
+14. Create a hop from **dnorm-tickets** to **Filter rows**.
+15. From the **Flow** folder, drag a **Dummy (do nothing)** onto the canvas. Double-click it, set **Step name** to `critical`, and select **OK**.
+16. From the **Flow** folder, drag another **Dummy (do nothing)** onto the canvas. Double-click it, set **Step name** to `others`, and select **OK**.
+17. Create a hop from **Filter rows** to **critical** and select **Result is TRUE**. Create a hop from **Filter rows** to **others** and select **Result is FALSE**.
+18. Double-click **Filter rows**. Set **Step name** to `flt-critical`. **Send 'true' data to step** reads `critical`, and **Send 'false' data to step** reads `others`.
+19. In **The condition**, select `<field>` on the left and select `urgency`. Keep the function, `=`.
+20. Select `<value>`. In the **Enter value** dialog, set **Type** to `String` and **Value** to `Critical`, then select **OK**.
+21. Select **OK**, and save the transformation (`Ctrl+S`).
 
 ### 7. Run
 
@@ -458,36 +389,28 @@ var request_json = JSON.stringify({
 >
 > #### Run and Check
 >
-> Run the transformation with the service running, then follow the tickets through **Step Metrics** and the preview data of each step. The run waits on the model for every ticket, so it takes a while.
+> Run the transformation with the service running, then follow the tickets through **Step Metrics** and the preview data of each step. The run waits on the model for every ticket: about 35 seconds for the six on a machine with a GPU, several minutes on a CPU alone.
 
-1. Save the transformation (`Ctrl+S`).
-2. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
-3. In **Execution Results**, open the **Step Metrics** tab.
+1. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
+2. In **Execution Results**, open the **Step Metrics** tab.
 
-> **Success:** Checkpoint: **Table input**, **Modified JavaScript value** and **REST client** each write 3 rows. **JSON input** writes one row per extraction; how many depends on the model. **Row denormaliser** writes one row per ticket the service found anything in, and the **Read** of **critical** and **others** adds up to what **Row denormaliser** wrote. No step shows an error.
+> **Success:** Checkpoint: no step shows an error. **tbl-tickets**, **js-request** and **rest-extract** each write 6 rows. **json-extractions** writes one row per extraction, 32 in each of three runs on the course PC; the model decides the exact number. **dnorm-tickets** writes 6 rows, one per ticket, **critical** reads 2 and **others** reads 4.
 
-4. Select **JSON input** on the canvas and open the **Preview data** tab.
+3. Select **json-extractions** on the canvas and open the **Preview data** tab.
 
-> **Success:** Checkpoint: one row per extraction. Each row carries the ticket's `ticket_id`, `ticket_text`, `request_json` and `response_json`, and the `class`, `text`, `start` and `end` of one extraction. Which classes each ticket gets, and their values, depend on the model.
+> **Success:** Checkpoint: one row per extraction. Each row carries the ticket's `ticket_id`, `ticket_text`, `request_json` and `response_json`, and the `class`, `text`, `start` and `end` of one extraction. Some tickets, such as `T-1001`, have two `urgency` rows, one from each extraction pass.
 
-5. Select **Row denormaliser** on the canvas and open the **Preview data** tab.
+4. Select **dnorm-tickets** on the canvas and open the **Preview data** tab.
 
-> **Success:** Checkpoint: one row per ticket, with `ticket_id`, `issue_type`, `affected_system`, `urgency`, `submitter` and `error_code`. A column is `<null>` when the model found nothing of that class in the ticket.
+> **Success:** Checkpoint: 6 rows, one per ticket. On the course PC: `T-1001` `can't log into the VPN`, `VPN`, `High`, `Jane Smith`, `VPN-403`; `T-1002` with `affected_system` `SAP S/4HANA`, `urgency` `Critical` and `error_code` `DYNPRO_SEND_IN_BACKGROUND`; `T-1003` `Low`; `T-1004` `Workday`, `Critical`, `Maria Lopez`, `PAY-5001`; `T-1005` `Jira`, `Low`; `T-1006` `printer`, `Medium`. A column is `<null>` when the model found nothing of that class in the ticket.
 
-6. Select **critical** on the canvas and open the **Preview data** tab.
+5. Select **critical** on the canvas and open the **Preview data** tab.
 
-<div align="center">
-<figure>
-<img src="../_assets/images/langextract_critical.png" alt="Execution Results, Preview data tab: six tickets from T-1001 to T-1009 with ticket_id, issue_type, affected_system, urgency, submitter and error_code, every urgency CRITICAL and one error_code null" width="673">
-<figcaption>Every row on the critical branch has urgency CRITICAL (an older run, with different tickets)</figcaption>
-</figure>
-</div>
+> **Success:** Checkpoint: 2 rows, `T-1002` and `T-1004`, both with `urgency` `Critical`.
 
-> **Success:** Checkpoint: only tickets whose `urgency` is exactly `CRITICAL`. Which tickets the model rates critical varies from run to run.
+6. Select **others** on the canvas and open the **Preview data** tab.
 
-7. Select **others** on the canvas and open the **Preview data** tab.
-
-> **Success:** Checkpoint: the remaining tickets, with any other `urgency` value or `<null>`. Nothing in the transformation sets `processed`, so the next run reads the same tickets again.
+> **Success:** Checkpoint: 4 rows, `T-1001`, `T-1003`, `T-1005` and `T-1006`, with `urgency` `High`, `Low`, `Low` and `Medium`. Nothing in the transformation sets `processed`, so the next run reads the same tickets again.
 
 ::::
 
@@ -496,21 +419,28 @@ var request_json = JSON.stringify({
 <details>
 <summary>Connection refused on port 8765</summary>
 
-The LangExtract service is not running. Start it as part 1, step 2 shows, and keep its terminal open while the transformation runs.
+The LangExtract service is not running. Start it as **Start the LangExtract Service** on the [Overview](../12-langextract/guide.md) page shows, and keep its window open while the transformation runs.
+
+</details>
+
+<details>
+<summary>Connection to genai fails</summary>
+
+The lab kit's container is not running, or the port is wrong. In PowerShell, run `podman ps --filter name=pcm-pgvector`: the container should be `Up` with `127.0.0.1:5433->5432/tcp`. If it is stopped, run `podman start pcm-pgvector`. `PG_PORT` must be `5433`.
 
 </details>
 
 <details>
 <summary>critical and others are empty, or every extracted column is null</summary>
 
-Select **REST client** on the canvas and open the **Preview data** tab. If `response_json` starts `{"detail":"langextract failed:`, the service could not run the extraction, and the rest of the message names the cause, such as a model that Ollama doesn't have. Check that Ollama is running and that `ollama list` includes `llama3.1:8b`.
+Select **rest-extract** on the canvas and open the **Preview data** tab. If `response_json` starts `{"detail":"langextract failed:`, the service could not run the extraction, and the rest of the message names the cause, such as a model that Ollama doesn't have. If it is `{"extractions":[]}`, look at the service's window for `Chunk omitted from results (parse error)`: the model did not answer in LangExtract's format, which is why this module uses `qwen2.5:7b` rather than `llama3.2:3b`.
 
 </details>
 
 <details>
 <summary>critical stays empty although the tickets look urgent</summary>
 
-The condition compares `urgency` with `CRITICAL` exactly, capital letters included. The prompt asks for `CRITICAL`, `HIGH`, `MEDIUM` or `LOW`, but the worked example extracts `Urgent`, so the model may answer in other words. Look at the `urgency` values in the **Row denormaliser** preview.
+The condition compares `urgency` with `Critical` exactly, capital letter included. Look at the `urgency` values in the **dnorm-tickets** preview: a model that answers `CRITICAL` or `Critical!` needs the prompt and the example to agree, or a condition that allows for it.
 
 </details>
 
@@ -522,8 +452,17 @@ The LangExtract service, `app.py` and `requirements.txt`, ships with the [Overvi
 
 ### Solution <!-- no-step -->
 
-The finished transformation for this lab. Open it alongside your own to compare, or run it to see the expected result. It needs the shared `PG:Helpdesk` connection from part 3 and the running service.
+The finished transformation for this lab. Open it alongside your own to compare, or run it to see the expected result. It needs the `helpdesk.tickets` table from part 2, the lab kit's PostgreSQL and the running service; its own `genai` connection reads the `PG_*` parameters.
 
-Also on disk at `C:\Workshop-AI-Specialty\05-langextract\13-langextract-support-tickets\solution`.
+Also on disk at `C:\Workshop-AI-Specialty\06-langextract\13-langextract-support-tickets\solution`.
 
-[ticket_triage.ktr](./files/ticket_triage.ktr) <button data-launch="spoon" data-path="files/ticket_triage.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/ticket_triage.ktr">View graph</button>
+[ticket_triage.ktr](./files/solution/ticket_triage.ktr) <button data-launch="spoon" data-path="files/solution/ticket_triage.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/solution/ticket_triage.ktr">View graph</button>
+
+ticket_triage in Spoon, with its note:
+
+<div align="center">
+<figure>
+<img src="../_assets/images/13-ticket_triage-canvas.png" alt="The ticket_triage.ktr solution open in Spoon: its blue note above the steps and hops, left to right" width="681">
+<figcaption>ticket_triage.ktr in Spoon</figcaption>
+</figure>
+</div>

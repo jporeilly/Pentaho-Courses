@@ -1,0 +1,25 @@
+SYNTHETIC TRAINING RECORD - fictional patient, not a real person.
+
+Patient: Grace Whitfield   DOB: 10/14/1970   MRN: NB-005884
+Visit Date: 11/21/2024   Attending: Dr. Samuel Lee, Internal Medicine
+
+Chief Complaint:
+Burning pain on urination and frequency for three days. Lower back ache.
+Temperature 38.1 C in clinic.
+
+Medical History:
+Hypothyroidism. Osteoarthritis of both knees. Recurrent urinary tract
+infections.
+
+Allergies:
+Trimethoprim - itchy rash. Latex - contact dermatitis.
+
+Current Medications:
+Levothyroxine 75mcg once daily before breakfast.
+Paracetamol 1g up to four times daily as needed for knee pain.
+
+Assessment:
+Urinary tract infection, possible early pyelonephritis.
+
+Plan:
+Nitrofurantoin 100mg twice daily for seven days. Urine culture sent.

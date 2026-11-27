@@ -1,0 +1,50 @@
+SAMPLE TRAINING DOCUMENT - fictional parties, not a real agreement.
+
+MASTER SUBSCRIPTION AGREEMENT
+
+This Master Subscription Agreement is made on 15 March 2025 (the "Effective
+Date") between Halcyon Cloud Services Inc., a Delaware corporation ("Vendor"),
+and Copperleaf Retail Group LLC, a Texas limited liability company
+("Customer").
+
+1. SUBSCRIPTION
+Vendor grants Customer a non-exclusive, non-transferable right to access the
+Halcyon Analytics platform for up to 250 named users during the Subscription
+Term.
+
+2. SUBSCRIPTION TERM
+The initial Subscription Term is 36 months from the Effective Date.
+
+3. FEES
+The annual subscription fee is USD 180,000, invoiced annually in advance.
+Customer shall pay each invoice within 45 days of receipt. Fees are exclusive
+of taxes.
+
+4. SERVICE LEVELS
+Vendor shall make the platform available 99.9% of each calendar month,
+excluding scheduled maintenance announced at least 48 hours in advance.
+Service credits under Schedule B are Customer's sole remedy for a missed
+service level.
+
+5. CUSTOMER DATA
+Customer owns all data it uploads. Vendor shall process Customer data only to
+provide the services, and shall delete it within 60 days after the agreement
+ends.
+
+6. LIABILITY
+Except for breaches of confidentiality, each party's aggregate liability
+arising out of this agreement is capped at the fees paid by Customer in the
+twelve months before the claim.
+
+7. TERMINATION
+Customer may terminate for convenience on 60 days written notice, subject to
+payment of the fees for the remainder of the then-current year. Either party
+may terminate if the other becomes insolvent.
+
+8. GOVERNING LAW AND VENUE
+This agreement is governed by the laws of the State of New York, without
+regard to its conflict of laws rules. The parties submit to the state and
+federal courts located in New York County.
+
+Executed by the authorized representatives of Halcyon Cloud Services Inc. and
+Copperleaf Retail Group LLC.

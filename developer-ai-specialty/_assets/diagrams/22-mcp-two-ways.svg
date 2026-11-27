@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+<filter id="shadow" x="-10%" y="-10%" width="120%" height="140%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#0f172a" flood-opacity="0.12"/></filter></defs>
+<rect width="800" height="500" fill="#ffffff"/>
+<rect x="16" y="16" width="376" height="356" rx="12" fill="#f8fafc" stroke="#f1f5f9" stroke-width="1.5"/>
+<path d="M16 28a12 12 0 0 1 12-12h352a12 12 0 0 1 12 12v32h-376z" fill="#475569"/>
+<text x="32" y="36" font-size="14" font-weight="700" fill="#ffffff">MCP Client step</text>
+<text x="32" y="52" font-size="11.5" fill="#ffffff" opacity="0.92">you choose the tool: no LLM</text>
+<rect x="408" y="16" width="376" height="356" rx="12" fill="#f8fafc" stroke="#f1f5f9" stroke-width="1.5"/>
+<path d="M408 28a12 12 0 0 1 12-12h352a12 12 0 0 1 12 12v32h-376z" fill="#475569"/>
+<text x="424" y="36" font-size="14" font-weight="700" fill="#ffffff">AI Chat step, Tools tab</text>
+<text x="424" y="52" font-size="11.5" fill="#ffffff" opacity="0.92">the model chooses the tools</text>
+<path d="M216 144L216 177" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M216 252L216 285" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M540 144L540 177" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M632 202L641 202" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M644 230L635 230" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M540 252L540 285" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M56 216C44 216 44 216 44 409" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M448 216C436 216 436 216 436 409" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="56" y="72" width="320" height="72" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="86" cy="108" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(74 96) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M21 9H3"/><path d="M21 15H3"/></g>
+<text x="116" y="98.5" font-size="14" font-weight="700" fill="#1e3a8a">1 row</text>
+<text x="116" y="115.5" font-size="12" fill="#1e3a8a">order_id A1002</text>
+<rect x="56" y="180" width="320" height="72" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="86" cy="216" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(74 204) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6.3 20.3a2.4 2.4 0 0 0 3.4 0L12 18l-6-6-2.3 2.3a2.4 2.4 0 0 0 0 3.4Z"/><path d="m2 22 3-3"/><path d="M7.5 13.5 10 11"/><path d="M10.5 16.5 13 14"/><path d="m18 3-4 4h6l-4 4"/></g>
+<text x="116" y="199" font-size="14" font-weight="700" fill="#3b0764">Call tool lookup_order</text>
+<text x="116" y="216" font-size="12" fill="#3b0764">{"order_id": "{{order_id}}"}</text>
+<text x="116" y="231" font-size="12" fill="#3b0764">the same call for every row</text>
+<rect x="56" y="288" width="320" height="72" rx="10" fill="#ffffff" stroke="#64748b" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="86" cy="324" r="19" fill="#ffffff" stroke="#64748b" stroke-width="1.2"/>
+<g transform="translate(74 312) scale(1)" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></g>
+<text x="116" y="314.5" font-size="14" font-weight="700" fill="#0f172a">tool_result, tool_error</text>
+<text x="116" y="331.5" font-size="12" fill="#0f172a">the tool's JSON, or its error</text>
+<rect x="448" y="72" width="320" height="72" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="478" cy="108" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(466 96) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M21 9H3"/><path d="M21 15H3"/></g>
+<text x="508" y="98.5" font-size="14" font-weight="700" fill="#1e3a8a">1 row</text>
+<text x="508" y="115.5" font-size="12" fill="#1e3a8a">customer_question</text>
+<rect x="448" y="180" width="184" height="72" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="478" cy="216" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(466 204) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10a2 2 0 0 1-2 2H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.71.71 0 0 1 2 14.286V4a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/><path d="M20 9a2 2 0 0 1 2 2v10.286a.71.71 0 0 1-1.212.502l-2.202-2.202A2 2 0 0 0 17.172 19H10a2 2 0 0 1-2-2v-1"/></g>
+<text x="508" y="199" font-size="14" font-weight="700" fill="#3b0764">AI Chat</text>
+<text x="508" y="216" font-size="12" fill="#3b0764">makes the calls</text>
+<text x="508" y="231" font-size="12" fill="#3b0764">the model asks for</text>
+<rect x="644" y="180" width="124" height="72" rx="10" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="674" cy="216" r="19" fill="#ffffff" stroke="#0f766e" stroke-width="1.2"/>
+<g transform="translate(662 204) scale(1)" fill="none" stroke="#0f766e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 18V5"/><path d="M15 13a4.17 4.17 0 0 1-3-4 4.17 4.17 0 0 1-3 4"/><path d="M17.598 6.5A3 3 0 1 0 12 5a3 3 0 1 0-5.598 1.5"/><path d="M17.997 5.125a4 4 0 0 1 2.526 5.77"/><path d="M18 18a4 4 0 0 0 2-7.464"/><path d="M19.967 17.483A4 4 0 1 1 12 18a4 4 0 1 1-7.967-.517"/><path d="M6 18a4 4 0 0 1-2-7.464"/><path d="M6.003 5.125a4 4 0 0 0-2.526 5.77"/></g>
+<text x="704" y="206.5" font-size="14" font-weight="700" fill="#134e4a">Ollama</text>
+<text x="704" y="223.5" font-size="12" fill="#134e4a">qwen2.5:7b</text>
+<rect x="448" y="288" width="320" height="72" rx="10" fill="#ffffff" stroke="#64748b" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="478" cy="324" r="19" fill="#ffffff" stroke="#64748b" stroke-width="1.2"/>
+<g transform="translate(466 312) scale(1)" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></g>
+<text x="508" y="314.5" font-size="14" font-weight="700" fill="#0f172a">answer, tool_calls</text>
+<text x="508" y="331.5" font-size="12" fill="#0f172a">the reply, and every call it made</text>
+<rect x="16" y="412" width="768" height="72" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="48" cy="448" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(36 436) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="8" x="2" y="2" rx="2" ry="2"/><rect width="20" height="8" x="2" y="14" rx="2" ry="2"/><line x1="6" x2="6.01" y1="6" y2="6"/><line x1="6" x2="6.01" y1="18" y2="18"/></g>
+<text x="78" y="445" font-size="14" font-weight="700" fill="#3b0764">MCP server retail_mcp_server.py, through the connection retail-tools (metastore)</text>
+<text x="78" y="463" font-size="12" fill="#3b0764">stdio: cmd /c python, one process per step copy. Tools lookup_order, check_stock, get_return_policy, start_return</text>
+<rect x="7.5" y="379.5" width="81" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="48" y="397.5" text-anchor="middle" font-size="12" fill="#334155">tools/call</text>
+<rect x="399.5" y="379.5" width="81" height="25" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="440" y="397.5" text-anchor="middle" font-size="12" fill="#334155">tools/call</text>
+</svg>

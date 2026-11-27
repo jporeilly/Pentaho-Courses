@@ -1,0 +1,9 @@
+{
+  "title": "MCP Tools",
+  "description": "Hands-on: connect Pentaho Data Integration to a course-shipped Model Context Protocol (MCP) server. List and call its tools with the MCP Client step, then let a local model choose the tools through the AI Chat step's Tools tab, and restrict them with Allowed tools.",
+  "kind": "workshop",
+  "stepCount": 6,
+  "hasVideo": false,
+  "estimatedMinutes": 60,
+  "order": 24
+}

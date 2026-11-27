@@ -1,0 +1,5 @@
+request_id,request
+R1,Run the daily sales job and tell me if it failed.
+R2,Run the broken feed job and tell me if it failed and why.
+R3,Which jobs and transformations can you run?
+R4,Run C:\Windows\Temp\cleanup.kjb and tell me if it worked.

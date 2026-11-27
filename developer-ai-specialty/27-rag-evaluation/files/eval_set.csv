@@ -1,0 +1,16 @@
+question_id,question,expected_source,expected_facts
+1,My dishwasher shows error E2. What should I do?,larkspur-dw500-dishwasher-manual.pdf,clean the filter assembly in the bottom of the tub | drain hose is not kinked | contact Larkspur Service
+2,How often should I descale the BrewMaster coffee machine?,larkspur-cm300-coffee-machine-manual.txt,every 200 cups | as soon as the amber light flashes
+3,How long is the motor of the FreshSpin washing machine covered?,larkspur-warranty-policy.pdf,10 years from the date of purchase | parts only | Labor is charged after the second year
+4,"Can I return a washing machine I have already unpacked because I changed my mind, and is there a fee?",larkspur-returns-policy.docx,within 14 days of delivery | restocking fee of 15% | Collection costs a fee of $49
+5,Is damage caused by limescale covered by the warranty?,larkspur-warranty-policy.pdf,What the warranty does not cover | damage caused by limescale when the appliance has not been descaled
+6,What is the energy rating of the DW-500 dishwasher?,none,
+7,What is the Larkspur share price today?,none,
+8,"What does error F03 mean on my FreshSpin washing machine, and how do I fix it?",larkspur-wm800-washing-machine-manual.docx,Drain fault | emergency drain tube | drain pump filter
+9,How do I lock the dishwasher controls so that children cannot start it?,larkspur-dw500-dishwasher-manual.pdf,Start/Pause and Program buttons together for 3 seconds
+10,Where do I find the serial number of my coffee machine?,larkspur-customer-support-faq.txt,Coffee machines: under the drip tray
+11,"How many years does Larkspur Care+ add to the warranty, and when do I have to buy it?",larkspur-warranty-policy.pdf,extends the standard warranty by 3 years | to 5 years in total | within 60 days
+12,What must I remove before I use the WM-800 washing machine for the first time?,larkspur-wm800-washing-machine-manual.docx,Remove the four transport bolts
+13,How much does Larkspur charge to install a new dishwasher?,larkspur-customer-support-faq.txt,fee of $89 | removing the old appliance
+14,Can I use vinegar to descale my BrewMaster?,larkspur-cm300-coffee-machine-manual.txt,Never use vinegar | damages the seals and the heating block
+15,Does the WM-800 washing machine connect to Wi-Fi or a phone app?,none,

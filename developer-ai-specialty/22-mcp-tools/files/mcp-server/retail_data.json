@@ -1,0 +1,36 @@
+{
+  "retailer": "Ridgeline Outfitters",
+  "products": [
+    {"sku": "TENT-2P-TL", "name": "TrailLite 2-person tent", "category": "tents", "on_hand": 0, "warehouse": "Denver", "restock_date": "2026-12-08"},
+    {"sku": "BOOT-HK-W8", "name": "Summit hiking boot, women's size 8", "category": "footwear", "on_hand": 14, "warehouse": "Denver", "restock_date": null},
+    {"sku": "SOCK-MW-L", "name": "Merino hiking socks, large", "category": "apparel", "on_hand": 120, "warehouse": "Reno", "restock_date": null},
+    {"sku": "BAG-SL-0C", "name": "Glacier 0C sleeping bag", "category": "sleeping-bags", "on_hand": 3, "warehouse": "Reno", "restock_date": null},
+    {"sku": "JKT-RN-M", "name": "Stormline rain jacket, medium", "category": "apparel", "on_hand": 0, "warehouse": "Denver", "restock_date": "2026-12-15"},
+    {"sku": "STOVE-CP", "name": "Compact canister stove", "category": "cooking", "on_hand": 22, "warehouse": "Reno", "restock_date": null}
+  ],
+  "orders": [
+    {"order_id": "A1001", "customer_first_name": "Maya", "order_date": "2026-11-16", "status": "shipped",
+     "carrier": "ParcelWay", "tracking_number": "PW448120931", "estimated_delivery": "2026-11-28", "delivered_on": null,
+     "status_note": "In transit", "items": [{"sku": "TENT-2P-TL", "quantity": 1}]},
+    {"order_id": "A1002", "customer_first_name": "Daniel", "order_date": "2026-11-10", "status": "delayed",
+     "carrier": "ParcelWay", "tracking_number": "PW448117702", "estimated_delivery": "2026-12-03", "delivered_on": null,
+     "status_note": "Held at the regional hub after a weather closure", "items": [{"sku": "BOOT-HK-W8", "quantity": 1}, {"sku": "SOCK-MW-L", "quantity": 2}]},
+    {"order_id": "A1003", "customer_first_name": "Priya", "order_date": "2026-11-12", "status": "delivered",
+     "carrier": "ParcelWay", "tracking_number": "PW448118455", "estimated_delivery": "2026-11-20", "delivered_on": "2026-11-20",
+     "status_note": "Left at the front door", "items": [{"sku": "BAG-SL-0C", "quantity": 1}]},
+    {"order_id": "A1004", "customer_first_name": "Tom", "order_date": "2026-11-25", "status": "processing",
+     "carrier": null, "tracking_number": null, "estimated_delivery": "2026-12-01", "delivered_on": null,
+     "status_note": "Being packed at the Denver warehouse", "items": [{"sku": "JKT-RN-M", "quantity": 1}]},
+    {"order_id": "A1005", "customer_first_name": "Lena", "order_date": "2026-10-24", "status": "delivered",
+     "carrier": "ParcelWay", "tracking_number": "PW448109310", "estimated_delivery": "2026-10-30", "delivered_on": "2026-10-30",
+     "status_note": "Signed for by the customer", "items": [{"sku": "BOOT-HK-W8", "quantity": 1}]}
+  ],
+  "return_policies": [
+    {"category": "tents", "return_window_days": 30, "condition": "Unused, with all poles, stakes and the original packaging.", "refund": "Full refund to the original payment method."},
+    {"category": "footwear", "return_window_days": 60, "condition": "Worn indoors only, with no outdoor wear on the soles. Boots worn outdoors are accepted only for a manufacturing defect.", "refund": "Full refund, or an exchange for another size."},
+    {"category": "apparel", "return_window_days": 60, "condition": "Unwashed, with the tags attached.", "refund": "Full refund to the original payment method."},
+    {"category": "sleeping-bags", "return_window_days": 30, "condition": "Unused and in its stuff sack. A used sleeping bag is accepted only for a manufacturing defect.", "refund": "Full refund to the original payment method."},
+    {"category": "cooking", "return_window_days": 30, "condition": "Unused, with no fuel residue.", "refund": "Store credit."}
+  ],
+  "shipping_policy": "Ridgeline Outfitters shipping policy\n\nStandard shipping is free on orders over $75 and takes 3 to 5 business days.\nExpress shipping costs $18 and takes 1 to 2 business days.\nOrders placed before 1 pm Mountain Time ship the same business day.\nA delayed parcel is tracked with the carrier; customers are told the new estimated delivery date.\n"
+}

@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="668" viewBox="0 0 800 668" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+<filter id="shadow" x="-10%" y="-10%" width="120%" height="140%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#0f172a" flood-opacity="0.12"/></filter></defs>
+<rect width="800" height="668" fill="#ffffff"/>
+<rect x="16" y="16" width="288" height="468" rx="12" fill="#eff6ff" stroke="#dbeafe" stroke-width="1.5"/>
+<path d="M16 28a12 12 0 0 1 12-12h264a12 12 0 0 1 12 12v32h-288z" fill="#1d4ed8"/>
+<g transform="translate(29 26) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></g>
+<text x="56" y="36" font-size="14" font-weight="700" fill="#ffffff">Ingest: build the knowledge base</text>
+<text x="56" y="52" font-size="11.5" fill="#ffffff" opacity="0.92">runs when the documents change</text>
+<rect x="496" y="184" width="288" height="468" rx="12" fill="#eff6ff" stroke="#dbeafe" stroke-width="1.5"/>
+<path d="M496 196a12 12 0 0 1 12-12h264a12 12 0 0 1 12 12v32h-288z" fill="#1d4ed8"/>
+<g transform="translate(509 194) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></g>
+<text x="536" y="204" font-size="14" font-weight="700" fill="#ffffff">Query: answer a question</text>
+<text x="536" y="220" font-size="11.5" fill="#ffffff" opacity="0.92">runs for every question</text>
+<path d="M160 136L160 153" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M160 220L160 237" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M160 304L160 321" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M160 388L160 405" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M640 304L640 321" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M640 388L640 405" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M640 472L640 489" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M640 556L640 573" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M292 356L321 356" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M508 356L479 356" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M292 440L321 440" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M476 440L505 440" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="28" y="72" width="264" height="64" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="58" cy="104" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(46 92) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.7 20H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H20a2 2 0 0 1 2 2v4.1"/><path d="m21 21-1.9-1.9"/><circle cx="17" cy="17" r="3"/></g>
+<text x="88" y="87" font-size="14" font-weight="700" fill="#1e3a8a">Documents</text>
+<text x="88" y="104" font-size="12" fill="#1e3a8a">Get File Names: the PDF, Word</text>
+<text x="88" y="119" font-size="12" fill="#1e3a8a">and text files to load</text>
+<rect x="28" y="156" width="264" height="64" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="58" cy="188" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(46 176) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></g>
+<text x="88" y="171" font-size="14" font-weight="700" fill="#3b0764">Text</text>
+<text x="88" y="188" font-size="12" fill="#3b0764">Read Unstructured Document:</text>
+<text x="88" y="203" font-size="12" fill="#3b0764">the text of each file</text>
+<rect x="28" y="240" width="264" height="64" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="58" cy="272" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(46 260) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><path d="M8.12 8.12 12 12"/><path d="M20 4 8.12 15.88"/><circle cx="6" cy="18" r="3"/><path d="M14.8 14.8 20 20"/></g>
+<text x="88" y="255" font-size="14" font-weight="700" fill="#3b0764">Chunks</text>
+<text x="88" y="272" font-size="12" fill="#3b0764">AI Segmentation: 300 tokens,</text>
+<text x="88" y="287" font-size="12" fill="#3b0764">overlap 30, by recursion</text>
+<rect x="28" y="324" width="264" height="64" rx="10" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="58" cy="356" r="19" fill="#ffffff" stroke="#0f766e" stroke-width="1.2"/>
+<g transform="translate(46 344) scale(1)" fill="none" stroke="#0f766e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="14" y="14" width="4" height="6" rx="2"/><rect x="6" y="4" width="4" height="6" rx="2"/><path d="M6 20h4"/><path d="M14 10h4"/><path d="M6 14h2v6"/><path d="M14 4h2v6"/></g>
+<text x="88" y="339" font-size="14" font-weight="700" fill="#134e4a">Embeddings</text>
+<text x="88" y="356" font-size="12" fill="#134e4a">Text to Vector: 768</text>
+<text x="88" y="371" font-size="12" fill="#134e4a">numbers per chunk</text>
+<rect x="28" y="408" width="264" height="64" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="58" cy="440" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(46 428) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></g>
+<text x="88" y="423" font-size="14" font-weight="700" fill="#14532d">Vector store</text>
+<text x="88" y="440" font-size="12" fill="#14532d">Vector Writer: the vector,</text>
+<text x="88" y="455" font-size="12" fill="#14532d">the chunk and its source</text>
+<rect x="508" y="240" width="264" height="64" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="538" cy="272" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(526 260) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 17a2 2 0 0 1-2 2H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.71.71 0 0 1 2 21.286V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2z"/><path d="M7 11h10"/><path d="M7 15h6"/><path d="M7 7h8"/></g>
+<text x="568" y="255" font-size="14" font-weight="700" fill="#1e3a8a">Question</text>
+<text x="568" y="272" font-size="12" fill="#1e3a8a">CSV file input: one row</text>
+<text x="568" y="287" font-size="12" fill="#1e3a8a">per question</text>
+<rect x="508" y="324" width="264" height="64" rx="10" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="538" cy="356" r="19" fill="#ffffff" stroke="#0f766e" stroke-width="1.2"/>
+<g transform="translate(526 344) scale(1)" fill="none" stroke="#0f766e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="14" y="14" width="4" height="6" rx="2"/><rect x="6" y="4" width="4" height="6" rx="2"/><path d="M6 20h4"/><path d="M14 10h4"/><path d="M6 14h2v6"/><path d="M14 4h2v6"/></g>
+<text x="568" y="339" font-size="14" font-weight="700" fill="#134e4a">Embedding</text>
+<text x="568" y="356" font-size="12" fill="#134e4a">Text to Vector: the question,</text>
+<text x="568" y="371" font-size="12" fill="#134e4a">with the same model</text>
+<rect x="508" y="408" width="264" height="64" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="538" cy="440" r="19" fill="#ffffff" stroke="#b45309" stroke-width="1.2"/>
+<g transform="translate(526 428) scale(1)" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 5H3"/><path d="M10 12H3"/><path d="M10 19H3"/><circle cx="17" cy="15" r="3"/><path d="m21 19-1.9-1.9"/></g>
+<text x="568" y="423" font-size="14" font-weight="700" fill="#78350f">Similarity search</text>
+<text x="568" y="440" font-size="12" fill="#78350f">Vector Search: the closest</text>
+<text x="568" y="455" font-size="12" fill="#78350f">chunks, scored 0 to 1</text>
+<rect x="508" y="492" width="264" height="64" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="538" cy="524" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(526 512) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H7a2 2 0 0 0-2 2v5a2 2 0 0 1-2 2 2 2 0 0 1 2 2v5c0 1.1.9 2 2 2h1"/><path d="M16 21h1a2 2 0 0 0 2-2v-5c0-1.1.9-2 2-2a2 2 0 0 1-2-2V5a2 2 0 0 0-2-2h-1"/></g>
+<text x="568" y="507" font-size="14" font-weight="700" fill="#3b0764">Prompt with context</text>
+<text x="568" y="524" font-size="12" fill="#3b0764">Modified JavaScript value: the</text>
+<text x="568" y="539" font-size="12" fill="#3b0764">passages and their sources</text>
+<rect x="508" y="576" width="264" height="64" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="538" cy="608" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(526 596) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10a2 2 0 0 1-2 2H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.71.71 0 0 1 2 14.286V4a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/><path d="M20 9a2 2 0 0 1 2 2v10.286a.71.71 0 0 1-1.212.502l-2.202-2.202A2 2 0 0 0 17.172 19H10a2 2 0 0 1-2-2v-1"/></g>
+<text x="568" y="591" font-size="14" font-weight="700" fill="#3b0764">Answer</text>
+<text x="568" y="608" font-size="12" fill="#3b0764">AI Chat: from the passages</text>
+<text x="568" y="623" font-size="12" fill="#3b0764">only, and it cites them</text>
+<rect x="324" y="324" width="152" height="64" rx="10" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="400" y="346.5" text-anchor="middle" font-size="14" font-weight="700" fill="#134e4a">nomic-embed-text</text>
+<text x="400" y="363.5" text-anchor="middle" font-size="12" fill="#134e4a">on Ollama</text>
+<rect x="324" y="408" width="152" height="64" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="400" y="430.5" text-anchor="middle" font-size="14" font-weight="700" fill="#14532d">kb_chunks</text>
+<text x="400" y="447.5" text-anchor="middle" font-size="12" fill="#14532d">pgvector, :5433</text>
+<rect x="324" y="72" width="460" height="96" rx="10" fill="#ffffff" stroke="#64748b" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="354" cy="120" r="19" fill="#ffffff" stroke="#64748b" stroke-width="1.2"/>
+<g transform="translate(342 108) scale(1)" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></g>
+<text x="384" y="95.5" font-size="14" font-weight="700" fill="#0f172a">Load once, ask many times</text>
+<text x="384" y="112.5" font-size="12" fill="#0f172a">Two pipelines that meet at the vector store.</text>
+<text x="384" y="127.5" font-size="12" fill="#0f172a">The model never searches: the pipeline</text>
+<text x="384" y="142.5" font-size="12" fill="#0f172a">searches, then the model reads.</text>
+</svg>

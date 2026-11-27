@@ -8,7 +8,7 @@ LangExtract module's transformations call:
           "text": "...", "prompt": "...",
           "examples": [ { "text": "...", "extractions": [
               { "extraction_class": "...", "extraction_text": "..." } ] } ],
-          "model_id": "llama3.2:3b",        # optional
+          "model_id": "qwen2.5:7b",         # optional
           "max_char_buffer": 1200,           # optional
           "overlap": 100,                    # optional
           "extraction_passes": 2             # optional
@@ -19,7 +19,7 @@ LangExtract module's transformations call:
 Backend is a local Ollama by default, so lab data never leaves the
 machine. Run with:
 
-    uvicorn app:app --host 0.0.0.0 --port 8765
+    python -m uvicorn app:app --host 127.0.0.1 --port 8765
 """
 
 import inspect
@@ -31,7 +31,10 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, Field
 
 MODEL_URL = os.getenv("LX_MODEL_URL", "http://localhost:11434")
-DEFAULT_MODEL = os.getenv("LX_DEFAULT_MODEL", "llama3.2:3b")
+# qwen2.5:7b, not the course's llama3.2:3b: measured 2026-11-27, llama3.2:3b
+# answered none of the Support Tickets in LangExtract's format (every chunk
+# "must contain an 'extractions' key"), qwen2.5:7b found 5 to 6 fields in each.
+DEFAULT_MODEL = os.getenv("LX_DEFAULT_MODEL", "qwen2.5:7b")
 
 app = FastAPI(title="LangExtract service", version="1.0.0")
 
@@ -68,12 +71,32 @@ class ExtractResponse(BaseModel):
     extractions: list[ExtractionOut]
 
 
+def _extract_params() -> dict[str, inspect.Parameter]:
+    """The parameters of the extract() this langextract version really runs.
+    Recent releases export a lazy (*args, **kwargs) wrapper as lx.extract;
+    the real signature is on langextract.extraction.extract."""
+    params = inspect.signature(lx.extract).parameters
+    if any(p.kind is inspect.Parameter.VAR_KEYWORD for p in params.values()):
+        try:
+            from langextract import extraction
+
+            params = inspect.signature(extraction.extract).parameters
+        except (ImportError, AttributeError):
+            pass
+    return dict(params)
+
+
 def _supported_kwargs(candidate: dict[str, Any]) -> dict[str, Any]:
     """Keep only kwargs this langextract version's extract() accepts -
-    the optional tuning knobs vary between releases. Some releases wrap
-    extract() as (*args, **kwargs); treat that as accept-everything."""
-    params = inspect.signature(lx.extract).parameters
+    the optional tuning knobs vary between releases. `overlap` has no
+    parameter of that name in langextract 1.x: it is passed as
+    context_window_chars, the characters of the previous chunk sent along
+    with each chunk, where that parameter exists."""
+    params = _extract_params()
     accepts_any = any(p.kind is inspect.Parameter.VAR_KEYWORD for p in params.values())
+    candidate = dict(candidate)
+    if "overlap" not in params and "context_window_chars" in params:
+        candidate["context_window_chars"] = candidate.pop("overlap", None)
     return {k: v for k, v in candidate.items() if v is not None and (accepts_any or k in params)}
 
 

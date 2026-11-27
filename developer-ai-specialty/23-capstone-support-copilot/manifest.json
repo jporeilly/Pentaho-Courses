@@ -1,0 +1,73 @@
+{
+  "title": "Capstone: Support Desk Copilot",
+  "description": "Capstone: turn five support documents into a pgvector knowledge base, triage thirty tickets with a local LLM, retrieve the passages that answer each one and draft grounded replies into PostgreSQL, all from one job.",
+  "kind": "workshop",
+  "estimatedMinutes": 180,
+  "checks": [
+    {
+      "id": "job-runs-load",
+      "kind": "file-contains",
+      "label": "Your job runs your knowledge-base transformation (jb_support_copilot.kjb names load_knowledge_base.ktr)",
+      "path": "C:/Workshop-AI-Specialty/capstone/solution/jb_support_copilot.kjb",
+      "text": "load_knowledge_base.ktr"
+    },
+    {
+      "id": "job-runs-answer",
+      "kind": "file-contains",
+      "label": "Your job runs your ticket transformation (jb_support_copilot.kjb names answer_tickets.ktr)",
+      "path": "C:/Workshop-AI-Specialty/capstone/solution/jb_support_copilot.kjb",
+      "text": "answer_tickets.ktr"
+    },
+    {
+      "id": "kb-embeds",
+      "kind": "file-contains",
+      "label": "Your knowledge-base transformation embeds the chunks (load_knowledge_base.ktr has a Text to Vector step)",
+      "path": "C:/Workshop-AI-Specialty/capstone/solution/load_knowledge_base.ktr",
+      "text": "<type>AiEmbedding</type>"
+    },
+    {
+      "id": "kb-writes-vectors",
+      "kind": "file-contains",
+      "label": "Your knowledge-base transformation writes the vectors (load_knowledge_base.ktr has a Vector Writer step)",
+      "path": "C:/Workshop-AI-Specialty/capstone/solution/load_knowledge_base.ktr",
+      "text": "<type>VUpsert</type>"
+    },
+    {
+      "id": "answer-retrieves",
+      "kind": "file-contains",
+      "label": "Your ticket transformation retrieves passages (answer_tickets.ktr has a Vector Search step)",
+      "path": "C:/Workshop-AI-Specialty/capstone/solution/answer_tickets.ktr",
+      "text": "<type>VSearch</type>"
+    },
+    {
+      "id": "answer-asks-model",
+      "kind": "file-contains",
+      "label": "Your ticket transformation asks the model (answer_tickets.ktr has an AI Chat step)",
+      "path": "C:/Workshop-AI-Specialty/capstone/solution/answer_tickets.ktr",
+      "text": "<type>AiChat</type>"
+    },
+    {
+      "id": "replies-file",
+      "kind": "file-contains",
+      "label": "Your job wrote the replies (ticket_replies.csv in out\\, with a needs_human column)",
+      "path": "C:/Workshop-AI-Specialty/capstone/out/ticket_replies.csv",
+      "text": "needs_human"
+    },
+    {
+      "id": "summary-file",
+      "kind": "file-contains",
+      "label": "Your job wrote the triage summary (triage_summary.csv in out\\, with a category column)",
+      "path": "C:/Workshop-AI-Specialty/capstone/out/triage_summary.csv",
+      "text": "category"
+    },
+    {
+      "id": "readme-file",
+      "kind": "file-exists",
+      "label": "Your README.md in solution\\ (how to run the job and read its results)",
+      "path": "C:/Workshop-AI-Specialty/capstone/solution/README.md"
+    }
+  ],
+  "stepCount": 10,
+  "hasVideo": false,
+  "order": 30
+}

@@ -1,0 +1,24 @@
+SYNTHETIC TRAINING RECORD - fictional patient, not a real person.
+
+Patient: Helen Marsh   DOB: 02/09/1948   MRN: NB-005392
+Visit Date: 11/19/2024   Attending: Dr. Tomas Varga, Cardiology
+
+Chief Complaint:
+Palpitations and dizziness on standing for one week. Ankle swelling in the
+evenings.
+
+Medical History:
+Atrial fibrillation diagnosed 2021. Heart failure with reduced ejection
+fraction. Chronic kidney disease stage 3.
+
+Allergies:
+Codeine - nausea and vomiting.
+
+Current Medications:
+Apixaban 2.5mg twice daily.
+Bisoprolol 5mg once daily.
+Furosemide 40mg every morning.
+
+Plan:
+Increase Furosemide to 40mg twice daily for three days. Check renal function
+and potassium on Friday.

@@ -1,0 +1,9 @@
+{
+  "title": "Overview",
+  "description": "Retrieval-Augmented Generation: why grounding, freshness and citations matter, the ingest and query pipelines, chunk size and overlap, embeddings and cosine similarity, and pgvector in the course's lab kit.",
+  "kind": "page",
+  "estimatedMinutes": 20,
+  "stepCount": 5,
+  "hasVideo": false,
+  "order": 15
+}

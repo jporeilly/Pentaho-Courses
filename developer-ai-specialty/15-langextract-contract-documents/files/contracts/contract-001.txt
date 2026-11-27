@@ -1,0 +1,59 @@
+SAMPLE TRAINING DOCUMENT - fictional parties, not a real agreement.
+
+SERVICE AGREEMENT
+
+This Service Agreement ("Agreement") is entered into as of 1 January 2025
+("Effective Date") by and between:
+
+Acme Software Ltd, a company registered in England with offices at 14 Quay
+Street, Bristol ("Service Provider")
+and
+Brightwater Holdings PLC, with offices at 200 Lombard Row, London ("Client").
+
+1. SERVICES
+The Service Provider shall provide software development and consultancy
+services as described in Schedule 1. Each statement of work shall be agreed
+in writing before work begins.
+
+2. TERM
+This Agreement shall commence on the Effective Date and continue for 24
+months, after which it renews for successive 12-month terms unless either
+party gives notice under clause 8.
+
+3. FEES AND PAYMENT
+The Client shall pay the fees set out in each statement of work. The Service
+Provider shall invoice monthly in arrears. Payment is due within 30 days of
+the date of each invoice. Late payments bear interest at 4% above the base
+rate.
+
+4. INTELLECTUAL PROPERTY
+All deliverables created under this Agreement vest in the Client on payment
+in full. The Service Provider keeps its pre-existing tools and libraries and
+grants the Client a perpetual license to use them within the deliverables.
+
+5. CONFIDENTIALITY
+Each party shall keep the other's confidential information secret and use it
+only to perform this Agreement, during the term and for five years after.
+
+6. LIMITATION OF LIABILITY
+The total liability of the Service Provider under or in connection with this
+Agreement shall not exceed GBP 500,000 in any contract year. Neither party is
+liable for loss of profit or indirect loss.
+
+7. DATA PROTECTION
+Each party shall comply with applicable data protection law. Where the
+Service Provider processes personal data for the Client, it does so only on
+the Client's documented instructions.
+
+8. TERMINATION
+Either party may terminate this Agreement for convenience by giving 90 days
+written notice to the other. Either party may terminate immediately by notice
+if the other commits a material breach that it fails to remedy within 30 days
+of being asked to.
+
+9. GOVERNING LAW
+This Agreement and any dispute arising from it shall be governed by the laws
+of England and Wales, and the courts of England have exclusive jurisdiction.
+
+Signed for Acme Software Ltd: J. Carter, Director
+Signed for Brightwater Holdings PLC: R. Osei, Chief Operating Officer

@@ -12,15 +12,23 @@
     "sendLabel": "Send"
   },
   "title": "Developer - AI Specialty",
-  "description": "AI-augmented data pipelines with Pentaho Data Integration. GenAI fundamentals, LLM integration patterns, structured extraction, and agent-as-a-service.",
-  "version": "0.1.9",
+  "description": "AI-augmented data pipelines with Pentaho Data Integration and the GenAI plugin suite: documents to text, LLM integration with the AI Chat step, retrieval-augmented generation with pgvector, structured extraction with LangExtract, and MCP tools and agents.",
+  "version": "0.1.10",
   "kind": "workshop",
-  "level": { "number": 2, "name": "Specialty" },
+  "platform": "windows11",
+  "level": {
+    "number": 2,
+    "name": "Specialty"
+  },
   "mode": "sequential",
   "theme": {
     "accent": "#b91c1c"
   },
-  "labModels": ["nomic-embed-text"],
+  "labModels": [
+    "nomic-embed-text",
+    "qwen2.5:7b",
+    "gemma3:12b"
+  ],
   "assistant": {
     "ollamaURL": "http://localhost:11434",
     "mcpURL": "https://docs.pentaho.com/~gitbook/mcp",
@@ -29,39 +37,54 @@
       "cpu": "llama3.2:3b",
       "gpu": "gemma4:12b"
     },
-    "ladder": ["gemma4:12b", "qwen2.5:7b"],
-    "subject": "AI-augmented PDI pipelines (prompts, local LLMs via Ollama, structured extraction with LangExtract, and agent services)",
+    "ladder": [
+      "gemma4:12b",
+      "qwen2.5:7b"
+    ],
+    "subject": "AI-augmented PDI pipelines with the GenAI plugin suite (AI Chat on local Ollama models, documents to text, RAG with Text to Vector, Vector Writer and Vector Search on pgvector, LangExtract, MCP tools and agents)",
     "suggestions": [
-      "How do I call a local LLM from a Pentaho Data Integration transformation?",
-      "What makes a good extraction prompt with few-shot examples?",
-      "When should I use LangExtract instead of a plain LLM call?",
-      "How does the Pentaho Data Integration-to-agent pattern split the work in the final module?"
+      "How do I give the AI Chat step a prompt built from row fields?",
+      "Why does AI Chat stop with License validation failed?",
+      "What does Vector Writer create in pgvector?",
+      "How do I let the model call an MCP tool from AI Chat?"
     ]
   },
   "moduleSummaries": [
     {
       "title": "Getting Started",
-      "summary": "How to get the most out of this guide, and how to set your machine up — Pentaho Data Integration, a local Ollama model, Python, and the two lab services you will start later in the course."
+      "summary": "How to get the most out of this guide, and how the machine is set up: Pentaho Data Integration with the GenAI plugin suite and its license, local Ollama models, PostgreSQL with pgvector, and Python."
     },
     {
-      "title": "Pentaho Data Integration AI Pipelines",
-      "summary": "Key concepts behind LLM-powered pipelines — prompts, tokenization, embedding, semantic search, and transformer architecture. Foundational reading before the hands-on workshops."
+      "title": "AI Pipelines",
+      "summary": "Key concepts behind LLM-powered pipelines: prompts, tokenization, embeddings, semantic search and transformers, tried hands-on in Python."
     },
     {
-      "title": "GenAI",
-      "summary": "GenAI fundamentals for data engineers — HTML parsing, Base64 encoding, AI Chat with RAG, prompt engineering, and real-world use cases like log analysis and sentiment classification."
+      "title": "Documents to Text",
+      "summary": "The GenAI plugin suite, and its first job: turning HTML pages, Word documents, PDFs and slides into text, and reading their metadata, with HTML Parser, Read Unstructured Document and Discover Metadata."
     },
     {
       "title": "LLM Integration",
-      "summary": "Pentaho Data Integration as the orchestration layer with a locally-hosted LLM via Ollama. Sentiment analysis, data quality, enrichment, named entity recognition, summarisation, and multi-staged pipelines."
+      "summary": "The AI Chat step on a local model: sentiment, data quality, enrichment, entity recognition with the NER Extractor and with an LLM, summaries of long documents with AI Segmentation, and multi-stage pipelines."
+    },
+    {
+      "title": "Retrieval-Augmented Generation",
+      "summary": "Answer questions from your own documents: chunk them with AI Segmentation, embed them with Text to Vector, load pgvector with Vector Writer, then retrieve with Vector Search and answer with AI Chat, citing the sources."
     },
     {
       "title": "LangExtract",
-      "summary": "Turn free-form text into structured rows when regex is too brittle. Support tickets, clinical notes, and contract documents — extracted via a lightweight REST service backed by Ollama."
+      "summary": "Structured extraction with source grounding: support tickets, clinical notes and contracts turned into rows in PostgreSQL through a local LangExtract service."
     },
     {
-      "title": "Agent-as-a-Service",
-      "summary": "Move beyond direct LLM calls to genuine AI agents that reason over intermediate output. Deploy a Python agent that Pentaho Data Integration orchestrates for cross-text pattern recognition no ETL step can replicate."
+      "title": "Agents and Tools",
+      "summary": "The Model Context Protocol: call a server's tools with the MCP Client step or let AI Chat choose them, then deploy an agent as a service that a transformation calls."
+    },
+    {
+      "title": "Moving to Production",
+      "summary": "What changes when the pipelines leave Spoon: the GenAI plugins and their license on every runtime, configuration by environment, the model server and vector store in production, reliability, monitoring and evaluation, and the RAG pipelines run and scheduled on Pentaho Server."
+    },
+    {
+      "title": "Capstone Project",
+      "summary": "One project across the course: a support desk copilot that triages tickets, retrieves the right manual passages and drafts grounded replies into PostgreSQL."
     }
   ],
   "launchers": {
@@ -71,12 +94,44 @@
       "linux": "~/Pentaho/design-tools/data-integration/spoon.sh",
       "macos": "~/Pentaho/design-tools/data-integration/spoon.sh",
       "fileArg": "-file="
+    },
+    "puc": {
+      "label": "Pentaho User Console",
+      "action": "Log into",
+      "url": "http://localhost:8080/pentaho"
     }
   },
   "install": {
     "code": "AI",
     "envCheck": true,
     "workshop": true,
-    "ollama": "required"
+    "ollama": "required",
+    "kits": [
+      "PGVector"
+    ]
+  },
+  "completionCertificate": {
+    "title": "Pentaho Developer - AI Pipelines - Specialty Level",
+    "topics": [
+      "Documents to text with the GenAI plugin suite",
+      "LLM integration with the AI Chat step",
+      "Entity recognition and long-document summaries",
+      "Retrieval-augmented generation on pgvector",
+      "Structured extraction with LangExtract",
+      "MCP tools and agents as a service",
+      "Running GenAI pipelines in production on Pentaho Server"
+    ],
+    "capstone": "Completed a capstone project: a support desk copilot that triages tickets with a local LLM, retrieves the right manual passages from a vector store and drafts grounded replies into PostgreSQL.",
+    "validYears": 2,
+    "signatory": {
+      "name": "Jason Allaway",
+      "title": "President Pentaho - A Leo Software Group Company"
+    },
+    "watermark": "PENTAHO",
+    "requires": {
+      "labChecks": [
+        "23-capstone-support-copilot"
+      ]
+    }
   }
 }

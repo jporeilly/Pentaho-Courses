@@ -2,298 +2,181 @@
 
 <div class="pcm-intro">
 
-These workshops share one architectural pattern: Pentaho Data Integration is the orchestration layer, and a locally hosted Large Language Model (LLM), served by Ollama, does the processing that rule-based ETL cannot do well. The six use cases (Sentiment Analysis, Data Quality, Data Enrichment, Named Entity Recognition, Text Summarization and Multi-staged) all share the same skeleton: build a prompt, call Ollama, parse the answer. Once you know it, you can adapt it to other enrichment tasks.
+These workshops share one pattern: Pentaho Data Integration is the orchestration layer, and a locally hosted Large Language Model (LLM), served by Ollama, does the work that rule-based ETL cannot do well. The step that connects the two is **AI Chat**, from the GenAI plugin suite: for every row, it sends a message and a run instruction to the model and adds the answer to the row. The seven use cases, Sentiment Analysis, Data Quality, Data Enrichment, Named Entity Recognition, Text Summarization, Multi-staged and Invoices with a Vision Model, all build on it.
 
+</div>
+
+<div align="center">
+<figure>
+<img src="../_assets/images/05-ai-chat-row.png" alt="One row through AI Chat: a row with a message field, such as review_text, and a run_instruction that gives the exact JSON shape; AI Chat posts to ${OLLAMA_URL}/api/chat with the model, the run instruction as the system message and the message as the user message, stream false; the reply's message.content goes into llm_json and its token counts are dropped; JSON input reads llm_json, so $.sentiment becomes sentiment and a missing key becomes null" width="800">
+<figcaption>What AI Chat does with one row: one chat request to Ollama, and the answer as fields</figcaption>
+</figure>
 </div>
 
 **What You'll Learn**
 
-* The request Pentaho Data Integration sends to Ollama, and what each setting does
-* The response Ollama returns, and which fields to monitor
-* How to write a prompt that returns the same structured answer every time
-* The five mistakes that break LLM pipelines most often
+* What the **AI Chat** step does with a row, tab by tab
+* The difference between a Script and a Stream message, and why the workshops use Stream
+* The Model Configuration rows that matter for Ollama
+* Why the run instruction asks for JSON, and how the answer becomes fields
+* How **AI Chat Message Box** builds a prompt template from variables
+* The chat request the step sends to Ollama for you
 
-<div align="center">
-<figure>
-<img src="../_assets/images/llm-row-skeleton.png" alt="One row's path: CSV file input, Modified JavaScript value building json_payload with getVariable and JSON.stringify, REST client posting to Ollama's /api/generate on localhost:11434 with stream false and format json, then Parse 1 reading $.response and Parse 2 reading the model's own fields, and Text file output. A callout shows the model's JSON held as a string inside Ollama's reply" width="800">
-<figcaption>The skeleton every workshop shares: build, call, parse twice</figcaption>
-</figure>
-</div>
+:::: tabs
 
-Read the diagram from the top of the left column. Each row gets its prompt and request body from a **Modified JavaScript value** step, and **REST client** posts that body to Ollama and keeps the reply in a field (the names shown are those of Sentiment Analysis: `json_payload` and `llm_response`). The reply is JSON inside JSON, as the callout shows: Ollama's own object, whose `response` field holds the model's JSON as a string. So the answer is parsed twice, first `$.response`, then the model's fields, before the row is written. The tabs below take each part in turn.
+### 1. The AI Chat Step
 
-::: tabs
+**AI Chat** sits in the **AI** folder of Spoon's **Design** tab. For each row it receives, it makes one request to the model and adds the model's answer to that row as a new field. Rows are not batched: ten rows are ten requests, which is why the workshops run several copies of the step.
 
-### Request
+Its dialog has five tabs:
 
-> **Note:** Every workshop sends a `POST` request to Ollama's `/api/generate` endpoint at `http://localhost:11434`. It is a local REST API: no external service, no API key, and no traffic leaving the machine.
+| Tab | What it sets | What the workshops use |
+| --- | --- | --- |
+| **Message** | The message (prompt) and the run instruction, typed in the step (**Script**) or read from fields (**Stream**); optionally an attached document or image | **Stream**, with a message field and a run-instruction field |
+| **Model** | **LLM Provider**, **Model name**, and the **Model Configuration** grid of parameters | `Ollama`, `${MODEL_NAME}`, and the rows in the **Model Configuration** tab of this page |
+| **Tools** | Model Context Protocol (MCP) servers whose tools the model may call | Not used in this module; the [MCP Tools](../22-mcp-tools/guide.md) workshop uses it |
+| **Proxy** | A proxy host, port and credentials between Pentaho Data Integration and the model | Empty: Ollama runs on the same machine |
+| **Response** | **Response format** (`text` or `json_object`), **Result Field name**, **Stop on error**, and embedding outputs for attached documents | `text`, a result field such as `llm_json`, **Stop on error** selected |
 
-The request payload structure is:
-
-```json
-{
-  "model": "llama3.2:3b",
-  "prompt": "Your instruction here...",
-  "stream": false,
-  "format": "json",
-  "keep_alive": "30m",
-  "options": {
-    "temperature": 0.1,
-    "num_predict": 300,
-    "num_ctx": 2048,
-    "num_thread": 0
-  }
-}
-```
-
-> **Note:** **Parameters:**
->
-> **`model`** — Which Ollama model to invoke. The workshops use `llama3.2:3b` as the default: compact enough to run on CPU-only hardware but capable enough for structured tasks. A larger model can handle harder problems, at the cost of speed and memory.
->
-> **`stream: false`** — This is critical for Pentaho Data Integration. Streaming sends tokens incrementally, which suits a chat window but not a pipeline that writes one answer per row. Setting this to `false` tells Ollama to generate the entire response, then return it as one complete JSON object — which is what Pentaho Data Integration needs to write into a field.
->
-> **`format: "json"`** — Forces the model's output to be valid JSON. Without this, the model might add conversational preamble, markdown fences, or explanations around its JSON answer, all of which break downstream parsing.
->
-> **`keep_alive`** — How long Ollama keeps the model loaded after a request. By default Ollama keeps a model loaded for 5 minutes after its last request, then unloads it, so a batch with pauses longer than that (or two models taking turns) pays the reload again and again; a reload can take many seconds, depending on model size and disk speed. `keep_alive: "30m"` keeps the model in memory across a whole batch run. (`"0"` unloads it straight after each request.)
->
-> **`temperature: 0.1`** — Controls randomness. Values near 0 produce near-deterministic output, meaning the same review will produce the same sentiment classification on repeated runs. This is essential for reproducible ETL — you don't want results changing every time the pipeline runs.
->
-> **`num_predict: 300`** — Caps the maximum tokens generated. This prevents runaway generation, protects processing time, and avoids unexpectedly large response payloads overwhelming downstream steps.
-
-### Response
-
-> **Note:** When Pentaho Data Integration's REST Client step receives the Ollama response, it comes back as a single JSON object with two categories of fields: the **content fields** that contain the actual result, and the **performance/telemetry fields** that tell you how the inference went.
->
-> The `response` field is a *string containing JSON*, not a nested object - which is why the pipeline parses twice: once to extract `$.response` from the Ollama wrapper, and again to parse the actual model output into structured fields. Sentiment Analysis does this with two **JSON input** steps; the other workshops call `JSON.parse()` twice in one **Modified JavaScript value** step.
-
-The response payload structure is:
-
-```json
-{
-  "model": "llama3.2:3b",
-  "response": "{\"sentiment\":\"positive\",\"score\":0.9}",
-  "done": true,
-  "done_reason": "stop",
-  "total_duration": 3131161470,
-  "prompt_eval_count": 64,
-  "eval_count": 18
-}
-```
+The provider list also offers OpenAI, Azure OpenAI, AWS Bedrock, Anthropic Claude and Google Gemini. The workshops use Ollama, so nothing leaves the machine and no API key is needed.
 
 > **Note:**
 >
-> #### Content Fields
->
-> **`model`** — Confirms which model actually processed the request. This is useful as a sanity check, especially in pipelines where the model name is injected via a Pentaho Data Integration variable. If you're getting unexpected results, checking this field confirms whether the right model was used.
->
-> **`created_at`** — The UTC timestamp of when the response was generated. Useful for logging and auditing, particularly if you're persisting results to a database and need to track when the enrichment was applied.
->
-> **`response`** — This is the only field you actually care about for downstream processing. It contains the LLM's generated output as a string. Importantly, even when you pass `"format": "json"` in the request, Ollama still wraps the model's JSON output inside this string field rather than embedding it as a native JSON object. That's why the pipeline extracts `$.response` first, then makes a second parsing pass to read the actual model output.
->
-> **`done`** — A boolean that signals whether generation completed. When `true`, the response is complete. When `false`, the model was interrupted or is still streaming (which shouldn't happen in Pentaho Data Integration since you set `stream: false`, but worth checking during error handling).
->
-> **`done_reason`** — Explains *why* generation stopped. The value `"stop"` means the model reached a natural conclusion — it finished what it was saying. Other possible values include `"length"` (generation was cut off at the `num_predict` token limit) and `"load"` (model was freshly loaded). If you see `"length"` in production, it means your responses are being truncated and you need to increase `num_predict`.
+> Every GenAI plugin step checks for a Pentaho license with the GenAI Plugin Suite (GENAI-EE) subscription when the transformation starts. Without it, the transformation stops with `License validation failed`; see [Before You Start](../00-before-you-start/guide.md).
 
-**Performance and telemetry fields**
+### 2. Messages
 
-> **Note:** All duration values are expressed in **nanoseconds**, so divide by 1,000,000,000 to get seconds.
->
-> **`total_duration`** — The wall-clock time for the entire request from when Ollama received it to when it returned the response. This is what you'd use to track end-to-end latency per record. In the sentiment analysis example, this was \~3.1 seconds for a short review.
->
-> **`load_duration`** — How long it took to load the model into memory before inference began. When `keep_alive` is working correctly and the model is already resident in RAM, this value drops to near zero for subsequent requests. If you see `load_duration` remaining high across all rows, it means the model is being reloaded on every request, which is a sign your `keep_alive` setting isn't being applied.
->
-> **`prompt_eval_count`** — The number of tokens in your input prompt. This is the tokenized length of everything you sent to the model. Monitoring this field matters for prompt optimization: a shorter prompt is fewer tokens for the model to process on every row. If `prompt_eval_count` is unexpectedly high, your prompt likely has verbose instructions that can be trimmed.
->
-> **`prompt_eval_duration`** — How long the model spent processing (encoding) your prompt before it started generating the response. This is the "reading the question" phase. It's typically much shorter than `eval_duration`.
->
-> **`eval_count`** — The number of tokens in the generated response. This is your output token count. If this number is hitting your `num_predict` ceiling (e.g., exactly 300 when you set `num_predict: 300`), that's a strong signal that your responses are being truncated and you need to raise the limit or shorten your expected output schema.
->
-> **`eval_duration`** — How long the model spent actually generating the response tokens. This is almost always the dominant cost in `total_duration`. On CPU-only hardware, token generation speed is the bottleneck. In the Sentiment Analysis example, 18 tokens took about 2.1 seconds, which gives a rough tokens-per-second figure for capacity planning.
->
-> **`context`** — An array of integers representing the internal token IDs that make up the conversation state. This is the model's "memory" of the exchange encoded as token references. For single-turn ETL tasks you can ignore this field. It only becomes relevant if you're building multi-turn conversation pipelines where you want to pass context back to the model in subsequent requests to maintain continuity.
+**Script or Stream:**
 
-### Prompt
+| | Script | Stream |
+| --- | --- | --- |
+| Where the text comes from | **Ask your question** and **Run instruction for LLM**, typed in the step | **Message Field name** and **Run instruction for LLM Field name**, fields of the incoming row |
+| What changes per row | Nothing: every row gets the same text | Everything: each row sends its own field values |
+| Variables | `${VARIABLE}` is replaced once, when the transformation starts | The fields are sent as they are |
+| Use it for | A fixed question, a test | Every workshop in this module |
 
-> **Note:**
->
-> #### Anatomy of a Good Prompt
->
-> The prompt is the only interface between your ETL data and the LLM. Pentaho Data Integration handles reading, routing, and writing data - but the quality of what the model returns is entirely determined by how well you wrote the prompt. A vague prompt produces unpredictable output that breaks your JSON parser. A well-engineered prompt produces the same structured response every time, making the downstream pipeline reliable.
-
-Using the Sentiment Analysis workshop as an example, this is the prompt the **Modified JavaScript value** step builds for each row:
+**Field values never reach a Script message.** In **AI Chat**, `${...}` is a Pentaho Data Integration variable, not a field. To put a row's values into the message, build the message in a field upstream, with **Modified JavaScript value**, **Formula** or **Concat Fields**, and select **Stream**. Sentiment Analysis sends one field as it is; Data Quality joins five fields into one labeled message:
 
 ```text
-Analyze sentiment: "This laptop exceeded my expectations! Fast performance,
-great battery life, and the display is stunning. Worth every penny."
-
-JSON format:
-{
-  "sentiment": "positive/negative/neutral",
-  "score": -1.0 to 1.0,
-  "confidence": 0-100,
-  "key_phrases": ["phrase1", "phrase2"],
-  "summary": "one sentence"
-}
-```
-
-And the Pentaho Data Integration JavaScript that builds it:
-
-```javascript
-var prompt_text = "Analyze sentiment: \"" + review_text + "\"\n" +
-                  "JSON format:\n" +
-                  "{\n" +
-                  "  \"sentiment\": \"positive/negative/neutral\",\n" +
-                  "  \"score\": -1.0 to 1.0,\n" +
-                  "  \"confidence\": 0-100,\n" +
-                  "  \"key_phrases\": [\"phrase1\", \"phrase2\"],\n" +
-                  "  \"summary\": \"one sentence\"\n" +
-                  "}";
-```
-
-> **Note:** Every element of this prompt is doing specific work.
->
-> **The instruction is a verb, not a question.** "Analyze sentiment" is a direct command. Phrasing it as "Can you tell me the sentiment of this review?" wastes tokens and invites a conversational response rather than structured output.
->
-> **The data is clearly delimited.** Wrapping the review text in quotes separates it visually and semantically from the instruction. Without this, the model can conflate the instruction with the data, especially for reviews that contain imperative language.
->
-> **The schema is shown, not described.** Rather than writing "return a JSON object with a field called sentiment that can be positive, negative, or neutral", the prompt shows the exact JSON structure. The model pattern-matches against the example and fills in the values, which is far more reliable than parsing a verbal description of what you want.
->
-> **Value constraints are embedded inline.** Specifying `-1.0 to 1.0` for score and `0-100` for confidence directly in the schema means you don't need a separate instruction section. The model sees the range at the exact point where it needs to apply it.
-
-***
-
-**The Cost of Verbosity**
-
-The Data Quality workshop makes this concrete. This is a verbose version of a data cleaning prompt:
-
-```text
-Please clean and standardize the following customer record.
-For the name field, convert to Title Case format (e.g. John Smith).
-For the email field, validate the format and mark as INVALID if malformed.
-For the phone field, standardize to the format +1-555-123-4567.
-For the address field, capitalize properly and use Street, City, State ZIP format.
-For the company name, use proper business name formatting.
-
-Customer data:
 Name: john smith
-Email: john@company
+Email: JSMITH@GMAIL.COM
 Phone: 555.123.4567
 Address: 123 main st apt 5, new york, ny
 Company: acme corp
-
-Return your answer as JSON.
 ```
 
-And the optimized version, which asks for the same output:
+**The run instruction** is the system message: it tells the model how to behave and what to return, while the message is the text to work on. When it is the same for every row, the workshops add it as a field with **Add constants**, named `run_instruction`. When it depends on the row, a script builds it, as Stage 3 of Multi-staged does for each document type. With no run-instruction field, the step uses `You are a helpful assistant`.
+
+**A good run instruction** is short and precise:
+
+* **It is a command, not a question.** "You classify the sentiment of one customer review", not "Can you tell me the sentiment?".
+* **It shows the answer's shape**, every key and the values each allows, instead of describing it.
+* **It says "nothing else"**, so the model does not add a sentence before the JSON.
+* **It keeps the data out.** The review, the record or the document is the message; the instruction never changes from row to row, so a word in the data is less likely to be read as an instruction.
+
+### 3. Model Configuration
+
+On the **Model** tab, **LLM Provider** `Ollama` and **Model name** `${MODEL_NAME}` choose the model; `MODEL_NAME` and `OLLAMA_URL` are transformation parameters, so a run can switch model or server in the **Run Options** dialog. The **Model Configuration** grid holds one parameter per row. Rows the provider does not use are ignored, so delete them. For Ollama, the workshops set:
+
+| Parameter | Value | What it does |
+| --- | --- | --- |
+| `endpoint` | `${OLLAMA_URL}` | The Ollama server, `http://localhost:11434`. **Get models** on the **Model** tab lists the models this server has pulled |
+| `temperature` | `0` | How random the answer is. `0` makes the model pick its most likely answer, so the same row gets the same answer on every run; the default is `0.7` |
+| `numCtx` | `2048` to `8192` | The context window in tokens: the instruction, the message and the answer must all fit. A token is about four characters of English |
+| `timeout` | `120` to `300` | Seconds to wait for one answer. A long document on a CPU-only machine can need minutes |
+
+Other Ollama parameters the grid accepts include `numPredict` (the most tokens the answer may have), `topP`, `topK`, `seed`, `stop`, `repeatPenalty` and `maxRetries`. A value in the wrong format fails the row with a message such as `Expected decimal, e.g. 0.9`.
+
+> **Tip:**
+>
+> Size `numCtx` for the longest row, not the average. Ollama does not fail when the input is longer than the window: it cuts the input to fit and the model answers about what is left. Text Summarization shows how to split a document that is too long for any window.
+
+### 4. JSON Answers
+
+A pipeline needs the answer as fields, so every workshop asks for one JSON object and parses it with **JSON input**.
+
+**Ask for it in the instruction.** The **Response** tab offers **Response format** `json_object`, but in this version of the plugin that setting is not passed to Ollama. What makes the model answer in JSON is the run instruction:
 
 ```text
-Clean this data. Return JSON: {"name":"Title Case","email":"valid@format",
-"phone":"+1-555-123-4567","address":"St,City,ST ZIP","company_name":"Proper Name"}
-Name:john smith
-Email:john@company
-Phone:555.123.4567
-Addr:123 main st apt 5, new york, ny
-Co:acme corp
+You classify the sentiment of one customer review.
+Answer with one JSON object and nothing else, in exactly this shape:
+{"sentiment": "positive" | "negative" | "neutral", "score": a number from -1.0 to 1.0, "confidence": an integer from 0 to 100, "key_phrases": ["up to four short phrases from the review"], "summary": "one sentence"}
 ```
 
-> **Note:** The optimized version is about half the length, and the model reads every token of it on every row: over a batch of 1,000 records on CPU-only hardware, that difference adds up. The model doesn't need to be spoken to politely; it needs to be spoken to precisely.
+**Parse it with JSON input.** Select **Source is from a previous step**, choose the result field, and add one row per key, such as `$.sentiment`. With **Ignore missing path** and **Default path leaf to null** selected, a key the model leaves out becomes a null field, and an answer that is not JSON at all gives null fields instead of failing the row. A path with `[*]`, such as `$.entities[*].text`, gives one row per array element.
 
-### Gotchas
+**Check what comes back.** A model can still answer outside the shape. The workshops route on what they parse: Data Quality sends a record with no readable verdict to review, and Multi-staged replaces a missing answer with a safe default before the next stage.
 
-**Gotcha 1: `${VARIABLE}` syntax doesn't work inside JavaScript strings.**
+| Mistake | What happens | The fix |
+| --- | --- | --- |
+| Instruction describes the JSON instead of showing it | Keys come back with other names | Show the exact shape, with every key |
+| Too many fields in one call | A small model fills some of them by guessing | Split the work into stages, as Multi-staged does |
+| Temperature left at `0.7` | The same row gets a different answer on the next run | `temperature` `0` for extraction and classification |
+| `numCtx` too small | The answer is about part of the input only | Size it for the longest row, or split the text |
 
-This is the most common failure in the workshops, and it gives no error in Pentaho Data Integration. When you write:
+### 5. Prompt Templates
 
-```javascript
-// WRONG
-var payload = JSON.stringify({
-    "model": "${MODEL_NAME}"
-});
+**AI Chat Message Box**, in the same **AI** folder, adds two fields to every row: a prompt and a run instruction, typed once in its **Message** and **Run Instruction** tabs. Any `${VARIABLE}` in them is replaced by the variable's value, so a template can be filled from transformation parameters or `kettle.properties`:
+
+```text
+industry: one of ${INDUSTRY_LIST}, judged from the company name and the email domain.
+employee_range: one of ${EMPLOYEE_RANGES}, estimated from the company name.
 ```
 
-Pentaho Data Integration does not substitute the variable. The string `${MODEL_NAME}` is sent to Ollama as it is, and Ollama answers with an error for a model of that name; the transformation itself runs on. The correct approach is `getVariable()`:
+Its fields then feed **AI Chat** in Stream mode. Like a Script message, it substitutes variables only, never field values: Data Enrichment uses it for the instruction and the task sentence, and joins the record's own values to the task in a script. The step needs an incoming row, and has no error hop.
 
-```javascript
-// CORRECT
-var model_name = getVariable("MODEL_NAME", "llama3.2:3b");
-var payload = JSON.stringify({
-    "model": model_name
-});
-```
+### 6. Under the Hood
 
-The `${PARAM}` syntax works in a step's settings (the fields with a `$` icon), not inside JavaScript code.
-
-***
-
-**Gotcha 2: The model adds text around your JSON even with `format: "json"`.**
-
-Without `"format": "json"`, and sometimes even with it, a model can wrap its JSON in markdown code fences or add a sentence before it:
-
-````text
-Sure! Here is the sentiment analysis result:
-```json
-{"sentiment": "positive", "score": 0.9, "confidence": 85}
-```
-````
-
-> **Note:** If your JSON input step tries to parse the full `response` field directly, it will fail because the surrounding text makes it invalid JSON. The defensive fix used in the workshops is to scan for the first `{` and last `}` in the response string and extract only that substring:
-
-```javascript
-var jsonStart = fullResponse.indexOf("{");
-var jsonEnd   = fullResponse.lastIndexOf("}") + 1;
-
-if (jsonStart >= 0 && jsonEnd > jsonStart) {
-    var jsonStr = fullResponse.substring(jsonStart, jsonEnd);
-    var data = JSON.parse(jsonStr);
-}
-```
-
-This makes the parser robust to extra text, whichever model or version you run.
-
-***
-
-**Gotcha 3: Silent truncation when `num_predict` is too low.**
-
-> **Note:** If the model's response reaches the `num_predict` token ceiling mid-generation, Ollama stops and returns whatever was generated so far. The `done_reason` field will say `"length"` instead of `"stop"`, and nothing else tells you unless you log that field.
+> **Under the hood:**
 >
-> The symptom is malformed JSON arriving at your parser - the object opens but never closes - which your error handler catches and routes to the failure path. The fix is to monitor `eval_count` in your output and raise `num_predict` if it consistently hits the ceiling.
-
-***
-
-**Gotcha 4: Asking for too many fields degrades accuracy.**
-
-> **Note:** It's tempting to extract everything you might ever want in a single prompt. The NER workshop covers 10 entity types (PERSON, ORGANIZATION, LOCATION, DATE, PRODUCT, MONEY, CONTACT, ID, TECHNOLOGY, POSITION) simultaneously.
+> #### AI Chat sends one Ollama chat request per row
 >
-> This works for NER because entity classification is a well-defined task. But for analytical prompts - asking for sentiment, tone, intent, key phrases, competitive mentions, urgency, and a summary all at once - models tend to fill in fields speculatively rather than accurately. If accuracy matters more than throughput, it's worth splitting complex prompts into focused single-purpose calls, even at the cost of additional API round trips.
+> For each row, the step posts a request to Ollama's chat API at `${OLLAMA_URL}/api/chat`. The run instruction becomes the `system` message and the message field the `user` message; the model name and the **Model Configuration** rows become the request's model and options. Ollama answers with one JSON object, and the step copies the model's reply, `message.content`, into the result field.
+>
+> **Why it matters:** this is the request you can send by hand to check Ollama when a run fails, and it is what the first version of these workshops built itself, in three steps per call.
 
-***
+The request, as you would send it yourself from PowerShell:
 
-**Gotcha 5: Not escaping special characters in the source data.**
-
-> **Note:** Review text and customer data can contain quotes, backslashes and newlines. Build the request body with `JSON.stringify()`, as every workshop does: it escapes them, so the payload stays valid JSON. A payload assembled by concatenating JSON text by hand breaks on the first unescaped quote. Inside the prompt, a quote in the data can still blur where the data ends; if the model confuses the two, sanitize the text before you embed it:
-
-```javascript
-var safe_text = review_text.replace(/\\/g, "\\\\")
-                            .replace(/"/g, '\\"')
-                            .replace(/\n/g, " ")
-                            .replace(/\r/g, "");
-
-var prompt_text = "Analyze sentiment: \"" + safe_text + "\"\n" + ...
+```powershell
+$body = @{
+  model    = "llama3.2:3b"
+  stream   = $false
+  options  = @{ temperature = 0; num_ctx = 2048 }
+  messages = @(
+    @{ role = "system"; content = 'You classify the sentiment of one customer review. Answer with one JSON object and nothing else: {"sentiment": "positive|negative|neutral"}' }
+    @{ role = "user";   content = "This product is amazing! Best purchase ever." }
+  )
+} | ConvertTo-Json -Depth 4
+(Invoke-RestMethod -Uri http://localhost:11434/api/chat -Method Post -ContentType "application/json" -Body $body).message.content
 ```
 
-This matters most for free-text fields from customer-facing systems, where you have no control over what users type.
+What each part does, and what the step does for you:
 
-:::
+| Part of the request | What it does | In AI Chat |
+| --- | --- | --- |
+| `model` | Which pulled model answers | **Model name**, `${MODEL_NAME}` |
+| `messages`, role `system` | How to behave and what to return | **Run instruction for LLM Field name** |
+| `messages`, role `user` | The text to work on | **Message Field name** |
+| `stream: false` | One complete answer instead of a stream of tokens: a pipeline writes one value per row | Always |
+| `options.temperature`, `options.num_ctx` | Randomness and context window | The `temperature` and `numCtx` rows |
+| `message.content` in the reply | The model's answer, as text, inside Ollama's JSON | Copied into the **Result Field name** |
 
-***
+The reply also carries timing and token counts: `prompt_eval_count` (tokens in the input), `eval_count` (tokens in the answer), and `total_duration` in nanoseconds. They are useful when you tune `numCtx` by hand, but the step does not pass them on.
+
+Before the plugin, each call took three steps: a **Modified JavaScript value** that built this body as JSON text with `getVariable("MODEL_NAME", ...)`, because `${...}` is not replaced inside a script; a **REST client** that posted it; and a second script or two **JSON input** steps to take the answer out of Ollama's reply before parsing the model's own JSON. A request body named wrong, or text the script did not escape, failed silently. **AI Chat** builds, sends and unwraps the request from its settings.
+
+<div class="pcm-embed-card" data-href="https://github.com/ollama/ollama/blob/main/docs/api.md" data-title="Ollama API reference"></div>
+
+::::
 
 ## Workshops <!-- no-step -->
 
-This module includes six hands-on use cases, each a self-contained workshop that reuses the same Pentaho Data Integration-as-orchestration pattern with a locally-hosted LLM:
+This module includes seven hands-on use cases, each a self-contained workshop on the **AI Chat** step and a locally hosted LLM:
 
-* **Sentiment Analysis** — classify customer reviews as positive / negative / neutral with scored JSON output.
-* **Data Quality** — clean and standardize messy customer records.
-* **Data Enrichment** — augment records with LLM-inferred attributes.
-* **Named Entity Recognition** — extract people, organizations, and locations from free text.
-* **Text Summarization** — condense long documents into a summary, key points and action items.
-* **Multi-staged** — chain several LLM calls, each stage building on the last.
+* [Sentiment Analysis](../06-llm-sentiment-analysis/guide.md) — classify customer reviews as positive, negative or neutral, with a score, as JSON.
+* [Data Quality](../07-llm-data-quality/guide.md) — clean messy customer records and split them by the model's quality verdict.
+* [Data Enrichment](../08-llm-data-enrichment/guide.md) — add an inferred city, state, country, industry and employee range, from a prompt template.
+* [Named Entity Recognition](../09-llm-ner/guide.md) — extract entities with the **NER Extractor** step (no LLM) and with **AI Chat**, and compare them.
+* [Text Summarization](../10-llm-text-summarization/guide.md) — summarize documents, and a report too long for one call by map-reduce over its chunks.
+* [Multi-staged](../11-llm-multi-staged/guide.md) — chain five AI Chat calls, each stage building on the last.
+* [Invoices with a Vision Model](../26-llm-vision-documents/guide.md) — read invoice and receipt images with the vision model `gemma3:12b`, and check that subtotal plus tax equals total.

@@ -1,0 +1,14 @@
+You grade one answer given by a question-answering system for Larkspur Home Appliances.
+You get the question, the expected facts, the numbered passages the system was given, and the system's answer.
+"Expected facts: none" means the Larkspur documents do not answer the question.
+Work in this order:
+1. missing_facts: list every expected fact the answer does not state. A fact counts as stated when the answer gives the same information in other words.
+2. unsupported_claims: list every claim in the answer that the passages do not state, word for word or in other words. Check each sentence of the answer against the passages only, never against what you know. An answer that only says it could not find the answer makes no claims.
+3. verdict, from this rubric:
+- "correct": there are expected facts and missing_facts is empty.
+- "partially_correct": the answer states some of the expected facts and misses others.
+- "incorrect": the answer states none of the expected facts, contradicts them, or says it could not find the answer although there are expected facts; or the expected facts are none and the answer gives an answer anyway.
+- "correctly_declined": the expected facts are none and the answer says it could not find the answer.
+4. faithful: true when unsupported_claims is empty, false otherwise.
+Answer with one JSON object and nothing else, in exactly this shape:
+{"missing_facts": ["..."], "unsupported_claims": ["..."], "verdict": "correct" | "partially_correct" | "incorrect" | "correctly_declined", "faithful": true or false, "reason": "one short sentence"}

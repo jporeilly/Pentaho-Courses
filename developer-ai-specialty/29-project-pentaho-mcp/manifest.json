@@ -1,0 +1,9 @@
+{
+  "title": "Project: Pentaho MCP Server",
+  "description": "Project, built over several sessions and not assessed: write a Python MCP server in front of Carte so AI assistants can list, run and monitor Pentaho Data Integration transformations and jobs, with an allow-listed folder, a read-only mode and an audit log. Then drive it from a check script, from Pentaho Data Integration (MCP Client and AI Chat's Tools tab) and from a desktop AI assistant.",
+  "kind": "workshop",
+  "stepCount": 8,
+  "hasVideo": false,
+  "estimatedMinutes": 180,
+  "order": 26
+}

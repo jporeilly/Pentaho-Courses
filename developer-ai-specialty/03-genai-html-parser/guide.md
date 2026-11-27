@@ -4,37 +4,35 @@
 >
 > #### Workshop - HTML Parser
 >
-> Web pages and exports arrive as HTML, but a Large Language Model (LLM) prompt needs clean text. Use the **HTML Parser** step of the Pentaho GenAI plugin to pull text out of HTML, from a file or from a field in the stream, with XPath expressions and CSS selectors.
+> Web pages and help desk exports arrive as HTML, but a Large Language Model (LLM) prompt needs clean text. Build three Pentaho Data Integration transformations that pull text out of HTML with the **HTML Parser** step of the GenAI plugin suite: from a file, from file paths in the stream, and from HTML held in a field, with XPath expressions and CSS selectors.
 >
 > **What you'll do**
 >
-> * Extract all the text of an HTML page, with every tag removed
-> * Select parts of a page with XPath expressions
-> * Select the same kind of parts with CSS selectors
-> * Read the HTML from a file path, from a path in a field, and from the HTML itself in a field
+> * Extract the whole text of a page, with every tag removed
+> * Select the article titles and authors of a page with XPath expressions
+> * Select product names, prices and a paragraph with CSS selectors
+> * Read the title of every page in a folder from file paths in the stream
+> * Clean the HTML bodies of support e-mails held in a field
 >
 > **Prerequisites:**
 >
-> * The GenAI [Overview](../02-genai/guide.md)
-> * Pentaho Data Integration with the Pentaho GenAI plugin, which adds **HTML Parser** to the **Input** folder
-> * The lab machine's `Projects/genai/html` folder, with `HTML Parser - Xpath.ktr`, `HTML Parser - CSS.ktr` and, in its `data` folder, `homepage.html` and `landingpage.html`
+> * The GenAI plugin suite installed, with a license that includes GenAI (GENAI-EE) rights, as set up in [Before You Start](../00-before-you-start/guide.md)
+> * The Documents to Text [Overview](../02-genai/guide.md)
 >
-> **Estimated time:** 15 minutes
+> **Estimated time:** 35 minutes
+
+<figure>
+
+<figcaption class="pcm-video-caption">Walkthrough: coming soon</figcaption>
+
+</figure>
 
 <div align="center">
 <figure>
-<img src="../_assets/images/xpath_html_parser.png" alt="The XPath transformation: Data grid hopped to hp: parse html xpath, then to d: html, with two more data grids, dg: filepath from stream and dg: html from stream, on disabled hops into the parser" width="527">
-<figcaption>What you work with: one parser, three possible sources, two of them disabled</figcaption>
+<img src="../_assets/images/03-html-parser-flows.png" alt="Three transformations, one lane per flow. html_xpath.ktr: gr-one-row, three HTML Parser steps on homepage.html (no selector, //article/h3, //span[@class='author']), then homepage_xpath.csv. html_css.ktr: gr-one-row, three on landingpage.html (.product h3, .product .price, #about p), then landingpage_css.csv. html_stream.ktr: gfn-pages and html-title (the file in filename, CSS title) to page_titles.csv; dg-emails and html-email-text (the HTML in html, Binary Datum) to emails_text.csv" width="800">
+<figcaption>What you build: three transformations and the file each flow writes</figcaption>
 </figure>
 </div>
-
-> **Note:**
->
-> #### HTML Parser
->
-> **HTML Parser** extracts text from HTML or XML. It reads a single file or many inputs from the stream, works with local and virtual file systems, and selects content with an XPath expression or a CSS selector. It is built on jsoup, a Java library for parsing real-world HTML, and you find it in the **Input** folder.
-
-<div class="pcm-embed-card" data-href="https://jsoup.org/" data-title="jsoup.org"></div>
 
 :::: tabs
 
@@ -42,11 +40,11 @@
 
 > **Note:**
 >
-> #### XPath
+> #### The HTML Parser and XPath
 >
-> XPath (XML Path Language) is a query language for selecting nodes from an XML or HTML document. In this part the parser reads `homepage.html` from its path, first with no expression, then with expressions that select parts of the page.
+> **HTML Parser** extracts text from HTML or XML, from a file or from a field, and can narrow it to the elements a selector picks. In this part it reads `homepage.html`, a blog's home page, three times: once for the whole text, once for the article titles and once for the authors.
 
-**XPath syntax:**
+**XPath** (XML Path Language) selects nodes from an XML or HTML document by their place in the tree:
 
 | Expression | Selects |
 | --- | --- |
@@ -57,408 +55,359 @@
 | `@` | Attributes |
 | `[]` | A predicate (a condition) |
 
-For example, `//div` selects every `div` element, `//div[@class='content']` every `div` with the class `content`, `//h1/text()` the text of every `h1`, and `//div[@class='content']/p` every `p` directly inside such a `div`.
+For example, `//article/h3` selects every `h3` directly inside an `article`, and `//span[@class='author']` every `span` whose `class` is `author`.
 
-**The page, `homepage.html`:**
+**The page:** `homepage.html` has a header with the title `Welcome to the Northwind Data Blog` (`h1` with the id `main-title`) and a navigation list, a **Featured Articles** section with three `article` elements (each an `h3` title, a `p` with the class `content` and a `span` with the class `author`), a **Latest News** list, a footer, and in its `head` a style sheet and a script. Open it in a browser or a text editor to see the markup.
 
-```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>XPath Example Page</title>
-</head>
-<body>
-    <header>
-        <h1 id="main-title">Welcome to Our Website</h1>
-        <nav>
-            <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <main>
-        <section id="featured-articles">
-            <h2>Featured Articles</h2>
-            <article>
-                <h3>Article 1</h3>
-                <p class="content">This is the content of article 1.</p>
-                <span class="author">By John Doe</span>
-            </article>
-            <article>
-                <h3>Article 2</h3>
-                <p class="content">This is the content of article 2.</p>
-                <span class="author">By Jane Smith</span>
-            </article>
-        </section>
-
-        <section id="latest-news">
-            <h2>Latest News</h2>
-            <ul>
-                <li>News item 1</li>
-                <li>News item 2</li>
-                <li>News item 3</li>
-            </ul>
-        </section>
-    </main>
-
-    <footer>
-        <p>&copy; 2024 Our Website. All rights reserved.</p>
-    </footer>
-</body>
-</html>
-```
-
-1. Start Spoon with the **Start Pentaho Data Integration** button below, or from a terminal:
-
-::: tabs
-
-### Windows (PowerShell)
+1. Start Spoon with the **Start Pentaho Data Integration** button below, or from PowerShell:
 
 ```powershell
 Set-Location C:\Pentaho\design-tools\data-integration
-.\spoon.bat
+.\Spoon.bat
 ```
-
-### macOS / Linux
-
-```bash
-cd ~/Pentaho/design-tools/data-integration
-./spoon.sh
-```
-
-:::
 
 <button data-launch="spoon" data-path="">Start Pentaho Data Integration</button>
 
-2. Select **File > Open** (`Ctrl+O`) and open `HTML Parser - Xpath.ktr` from the `Projects/genai/html` folder: `C:/Projects/genai/html` on Windows, `~/Projects/genai/html` on Linux.
-3. Check that only the hop from **Data grid** to **hp: parse html xpath** is enabled. A disabled hop is drawn gray; to change one, right-click it and select **Enable** or **Disable**.
-4. Double-click **hp: parse html xpath**. On the **Main** tab:
-   * Under **Source**, select **File**, and set **File name** to the full path of `homepage.html` in the `data` folder, for example `/home/pentaho/Projects/genai/html/data/homepage.html` on Linux.
-   * Under **Selector**, select **Xpath** and leave **Xpath Selector** empty.
-   * Under **Target**, keep **Result Field name** `result`.
-
-<div align="center">
-<figure>
-<img src="../_assets/images/xpath_set_path.png" alt="The HTML Parser dialog for hp: parse html xpath: Source File with the path to homepage.html, Selector Xpath with an empty Xpath Selector, and Result Field name result" width="588">
-<figcaption>Source File, Xpath with no expression</figcaption>
-</figure>
-</div>
-
-5. Select **OK**.
-6. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
-7. Select **d: html** on the canvas and open the **Preview data** tab.
-
-<div align="center">
-<figure>
-<img src="../_assets/images/xpath_no_filter_results.png" alt="Preview data with one row in the result field: XPath Example Page Welcome to Our Website Home About Contact Featured Articles Article 1 This is the content of article 1" width="715">
-<figcaption>No expression: the text of the whole page</figcaption>
-</figure>
-</div>
-
-> **Success:** Checkpoint: one row whose `result` holds the page's text with every tag removed. It starts `XPath Example Page Welcome to Our Website Home About Contact Featured Articles Article 1 This is the content of article 1.`
-
-8. Double-click **hp: parse html xpath** and set **Xpath Selector** to `//h1[@id='main-title']`. Select **OK**, run the transformation again, and open the **Preview data** tab of **d: html**.
-
-> **Success:** Checkpoint: `result` now holds only the selected element's text, the page title `Welcome to Our Website`, instead of the whole page.
-
-9. Try the other expressions below in **Xpath Selector**, one at a time, and compare each `result` with the page:
-
-| To select | Xpath Selector |
-| --- | --- |
-| All navigation links | `//nav//a` |
-| All article titles (`h3` inside `article`) | `//article/h3` |
-| The paragraph content of the articles | `//article/p[@class='content']` |
-| All author names | `//span[@class='author']` |
-| The latest news items | `//section[@id='latest-news']//li` |
-| The footer text | `//footer/p/text()` |
-| All section titles (`h2` directly in `section`) | `//section/h2` |
-| The second article | `(//article)[2]` |
-| Every element with a class attribute | `//*[@class]` |
+2. Select **File > New > Transformation** (`Ctrl+N`).
+3. Select **File > Save as** and save it as `html_xpath.ktr` in `C:\Workshop-AI-Specialty\03-documents-to-text\03-genai-html-parser`, next to `homepage.html`. (On your own machine, download `homepage.html` and `landingpage.html` from **Lab Files** below into the folder you save in.)
+4. On the **Design** tab, open the **Input** folder and drag **Generate rows** onto the canvas.
+5. Double-click **Generate rows**. Set **Step name** to `gr-one-row` and **Limit** to `1`.
+6. In the **Fields** grid, add one row: **Name** `page`, **Type** `String`, **Value** `homepage.html`. Select **OK**.
 
 > **Under the hood:**
 >
-> #### With no expression, the parser returned the text of every node
+> #### The parser runs once for every row it receives
 >
-> The step parsed the page into a document tree with jsoup, then returned the text of the whole tree: the title, each heading, link, paragraph and list item, in document order, separated by spaces, with every tag and attribute dropped. An expression narrows that to the nodes it selects.
+> **HTML Parser** has no rows of its own: it reads its file once for each incoming row and adds the text to that row. With no hop into it, it would never run. One generated row makes it read the page once.
 >
-> **Why it matters:** an LLM prompt pays for every token. Tags, attributes and scripts are tokens that carry no meaning for the model; the parser's text is the content alone.
+> **Why it matters:** the same rule explains the later parts. Ten rows into a step in **File** mode read the same file ten times; to read ten files, the paths come from the stream instead.
 
-### 2. XPath from the Stream
+7. On the **Design** tab, open the **Input** folder and drag **HTML Parser** onto the canvas.
+8. Create a hop from **gr-one-row** to **HTML Parser**: hold `Shift` and drag from one step to the other.
+9. Double-click **HTML Parser** and set **Step name** to `html-page-text`.
 
-> **Note:**
+<div align="center">
+<figure>
+<img src="../_assets/images/03-html_xpath-html-page-text.png" alt="The HTML Parser dialog for html-page-text, with the settings this workshop gives it" width="800">
+<figcaption>html-page-text: its settings</figcaption>
+</figure>
+</div>
+
+10. On the **Main** tab, under **Source**, select **File** and set **File name** to `${Internal.Entry.Current.Directory}/homepage.html`. Keep **File encoding** `UTF-8`, its default.
+11. Under **Selector**, select **XPath** and leave **XPath Selector** empty.
+12. Under **Target**, set **Result Field name** to `page_text`. Select **OK**.
+13. Add two more **HTML Parser** steps with the same **Source** settings (**File**, `${Internal.Entry.Current.Directory}/homepage.html`) and **Selector** **XPath**, and create the hops **html-page-text** to **html-titles** and **html-titles** to **html-authors**:
+
+| Step name | XPath Selector | Result Field name |
+| --- | --- | --- |
+| `html-titles` | `//article/h3` | `article_titles` |
+| `html-authors` | `//span[@class='author']` | `authors` |
+
+<div align="center">
+<figure>
+<img src="../_assets/images/03-html_xpath-html-authors.png" alt="The HTML Parser dialog for html-authors, with the settings this workshop gives it" width="800">
+<figcaption>html-authors: its settings</figcaption>
+</figure>
+</div>
+
+<div align="center">
+<figure>
+<img src="../_assets/images/03-html_xpath-html-titles.png" alt="The HTML Parser dialog for html-titles, with the settings this workshop gives it" width="800">
+<figcaption>html-titles: its settings</figcaption>
+</figure>
+</div>
+
+14. On the **Design** tab, open the **Transform** folder and drag **Select values** onto the canvas. Create a hop from **html-authors** to **Select values**.
+15. Double-click **Select values**, set **Step name** to `sv-xpath`, and on the **Select & Alter** tab list these fields in this order: `page`, `article_titles`, `authors`, `page_text`. Select **OK**.
+16. On the **Design** tab, open the **Output** folder and drag **Text file output** onto the canvas. Create a hop from **sv-xpath** to **Text file output**.
+17. Double-click **Text file output** and set **Step name** to `txt-xpath`. On the **File** tab, set **Filename** to `${Internal.Entry.Current.Directory}/homepage_xpath` and **Extension** to `csv`, and select **Create Parent folder**. On the **Content** tab, set **Encoding** to `UTF-8`. On the **Fields** tab, select **Get Fields**, then **Minimal width**, and select **OK**.
+18. Save the transformation (`Ctrl+S`).
+19. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
+20. Select **txt-xpath** on the canvas and open the **Preview data** tab.
+
+<!-- UNPROVEN: the HTML Parser cannot run without a GENAI-EE license. The values below are what jsoup 1.23.2, the library the step calls (Jsoup.parse, then selectXpath(...).text() or text()), returns for homepage.html; confirm them in Spoon once the license arrives. -->
+
+> **Success:** Checkpoint: one row. `article_titles` is `Cleaning Web Pages Before a Prompt Five Lessons from Our First RAG Pipeline Local Models on a Laptop`, `authors` is `By Maria Lopez By Daniel Chen By Priya Natarajan`, and `page_text` starts `Northwind Data Blog Welcome to the Northwind Data Blog Home Articles About Contact Featured Articles`.
+
+Compare the values with the page in your browser: the titles and authors are those of the three articles, in page order.
+
+> **Under the hood:**
 >
-> #### XPath from a Field
+> #### The step parsed the page into a tree and joined the text of the nodes it selected
 >
-> The parser can also take its input from an incoming field: either a file path (**Format** `File`), or the HTML itself (**Format** `Binary Datum`). Two data grids on the canvas supply each kind.
+> **HTML Parser** hands the page to jsoup, a Java library that parses real-world HTML into a document tree. With an XPath expression, it returns the text of every node the expression selects, joined by single spaces; with none, the text of the whole page in document order. Tags, attributes, and the contents of the `style` and `script` elements are not text, so none of them reach `page_text`.
+>
+> **Why it matters:** an LLM prompt pays for every token. Markup and scripts are tokens that carry no meaning for the model, and a selector keeps only the part of the page the prompt is about.
 
-1. Right-click the hop from **dg: filepath from stream** to **hp: parse html xpath** and select **Enable**.
-2. Right-click the hop from **Data grid** to **hp: parse html xpath** and select **Disable**. Leave the hop from **dg: html from stream** disabled.
+21. Try other expressions. Double-click **html-titles**, replace its **XPath Selector** with one from the table, select **OK**, run, and preview **txt-xpath** again. Set it back to `//article/h3` when you are done.
 
-<div align="center">
-<figure>
-<img src="../_assets/images/xpath_filepath_stream.png" alt="The XPath transformation with the hop from dg: filepath from stream to the parser enabled, and the hops from Data grid and dg: html from stream disabled" width="532">
-<figcaption>The file path now comes from dg: filepath from stream</figcaption>
-</figure>
-</div>
+| To select | XPath Selector |
+| --- | --- |
+| The page title in the header | `//h1[@id='main-title']` |
+| All navigation links | `//nav//a` |
+| The article paragraphs | `//article/p[@class='content']` |
+| The latest news items | `//section[@id='latest-news']//li` |
+| All section titles | `//section/h2` |
+| The second article, title, text and author | `(//article)[2]` |
+| Every element with a class attribute | `//*[@class]` |
 
-3. Double-click **hp: parse html xpath**. Under **Source**, select **Stream**, set **Format** to `File` and **Field name** to `filepath`. Leave **Xpath Selector** empty and keep **Result Field name** `result`.
-
-<div align="center">
-<figure>
-<img src="../_assets/images/xpath_filepath_from_stream.png" alt="The HTML Parser dialog: Source Stream with Format File and Field name filepath, Selector Xpath with an empty Xpath Selector, Result Field name result" width="658">
-<figcaption>Source Stream, Format File: the field holds a path</figcaption>
-</figure>
-</div>
-
-4. Select **OK**.
-5. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
-6. Select **d: html** on the canvas and open the **Preview data** tab.
-
-<div align="center">
-<figure>
-<img src="../_assets/images/xpath_filepath_results.png" alt="Preview data with the filepath /home/pentaho/Projects/genai/html/data/homepage.html and the page's text in result" width="800">
-<figcaption>The path from the stream, and the page's text</figcaption>
-</figure>
-</div>
-
-> **Success:** Checkpoint: one row with `filepath`, the path to `homepage.html`, and the same `result` as before, starting `XPath Example Page Welcome to Our Website`.
-
-7. Right-click the hop from **dg: html from stream** to **hp: parse html xpath** and select **Enable**.
-8. Right-click the hop from **dg: filepath from stream** to **hp: parse html xpath** and select **Disable**. Leave the hop from **Data grid** disabled.
-
-<div align="center">
-<figure>
-<img src="../_assets/images/html_from_stream_xpath.png" alt="The XPath transformation with only the hop from dg: html from stream to the parser enabled" width="526">
-<figcaption>The HTML itself now comes from dg: html from stream</figcaption>
-</figure>
-</div>
-
-9. Double-click **hp: parse html xpath**. Under **Source**, keep **Stream**, set **Format** to `Binary Datum` and **Field name** to `html`.
-
-<div align="center">
-<figure>
-<img src="../_assets/images/xpath_html_from_stream.png" alt="The HTML Parser dialog: Source Stream with Format Binary Datum and Field name html, Selector Xpath, Result Field name result" width="660">
-<figcaption>Source Stream, Format Binary Datum: the field holds the HTML</figcaption>
-</figure>
-</div>
-
-10. Select **OK**, run the transformation, and open the **Preview data** tab of **d: html**.
-
-<div align="center">
-<figure>
-<img src="../_assets/images/html_stream_results.png" alt="Preview data with two rows: the raw HTML in the input field, and in result the text jsoup is an open source project distributed under the liberal MIT license, and This is the second html source" width="800">
-<figcaption>Two HTML values in, two lines of text out</figcaption>
-</figure>
-</div>
-
-> **Success:** Checkpoint: two rows, one per HTML value in **dg: html from stream**. The `result` of the first starts `jsoup is an open source project distributed under the liberal MIT license.`, the second starts `This is the second html source`.
-
-**Why Binary Datum:** a Pentaho Data Integration field can carry a large text object such as an HTML page as binary data, one uninterpreted block. The page passes through the transformation untouched until the parser reads it, with nothing trying to interpret or change the HTML on the way.
-
-### 3. CSS from a File
+### 2. CSS from a File
 
 > **Note:**
 >
 > #### CSS Selectors
 >
-> CSS selectors are the patterns style sheets use to target elements, and they select elements for extraction in the same way. In this part the parser reads `landingpage.html` with **CSS** as the selector type.
+> CSS selectors are the patterns style sheets use to target elements, and the parser accepts them as a second kind of selector. Build `html_css.ktr`, which reads `landingpage.html`, an online store's landing page, for its product names, its prices and its About Us text.
 
 **CSS selector syntax:**
 
 | Kind | Selector | Selects |
 | --- | --- | --- |
 | Element | `p` | All `p` elements |
-| Class | `.highlight`, `p.highlight` | Elements (or `p` elements) with `class="highlight"` |
-| ID | `#header` | The element with `id="header"` |
-| Universal | `*` | All elements |
-| Descendant | `div p` | `p` elements anywhere inside a `div` |
+| Class | `.price`, `span.price` | Elements (or `span` elements) with `class="price"` |
+| ID | `#about` | The element with `id="about"` |
+| Descendant | `.product h3` | `h3` elements anywhere inside an element with the class `product` |
 | Child | `ul > li` | `li` elements directly inside a `ul` |
-| Adjacent sibling | `h1 + p` | The first `p` right after an `h1` |
-| General sibling | `h1 ~ p` | All `p` siblings after an `h1` |
-| Attribute | `[type]`, `[type="text"]` | Elements with the attribute, or with that value |
-| Attribute word | `[class~="highlight"]` | A class list that contains the word `highlight` |
+| Attribute | `[data-sku]`, `[type="email"]` | Elements with the attribute, or with that value |
 | Attribute start, end, contains | `[href^="https"]`, `[href$=".pdf"]`, `[href*="example"]` | An `href` that starts with, ends with, or contains the value |
-| Pseudo-class | `a:first-child`, `p:last-child`, `li:nth-child(2n)`, `input:not(:checked)` | First child, last child, every even item, unchecked inputs |
-| Group | `div.highlight, p.important` | Either selector |
+| Pseudo-class | `li:first-child`, `li:nth-child(2n)` | The first item, every even item |
+| Group | `h1, h2` | Either selector |
 
-**The page, `landingpage.html`:**
+**The page:** `landingpage.html` has a header (`header` with the id `main-header`) with the store's name in an `h1`, a **Featured Products** section with three `div` elements of the class `product` (each an `h3` name, a `p` with the class `description` and a `span` with the class `price`), an **About Us** section (`section` with the id `about`), a newsletter form and a footer.
 
-```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>TechGadgets - Your Electronics Store</title>
-</head>
-<body>
-    <header id="main-header">
-        <h1>TechGadgets</h1>
-        <nav>
-            <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#products">Products</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
+1. Select **File > New > Transformation** (`Ctrl+N`), then **File > Save as**, and save it as `html_css.ktr` in `C:\Workshop-AI-Specialty\03-documents-to-text\03-genai-html-parser`.
+2. Add **Generate rows** as in the first part: **Step name** `gr-one-row`, **Limit** `1`, one field **Name** `page`, **Type** `String`, **Value** `landingpage.html`.
+3. Add three **HTML Parser** steps, each after the one before it, the first after **gr-one-row**. In each, under **Source**, select **File** and set **File name** to `${Internal.Entry.Current.Directory}/landingpage.html`; under **Selector**, select **CSS**:
 
-    <main>
-        <section id="featured-products">
-            <h2>Featured Products</h2>
-            <div class="product">
-                <h3>Smartphone X</h3>
-                <p class="description">The latest smartphone with advanced features.</p>
-                <span class="price">$999</span>
-            </div>
-            <div class="product">
-                <h3>Laptop Pro</h3>
-                <p class="description">Powerful laptop for professionals.</p>
-                <span class="price">$1499</span>
-            </div>
-        </section>
-
-        <section id="about">
-            <h2>About Us</h2>
-            <p>TechGadgets is your one-stop shop for all electronics needs.</p>
-        </section>
-
-        <section id="newsletter">
-            <h2>Subscribe to Our Newsletter</h2>
-            <form>
-                <input type="email" name="email" placeholder="Enter your email">
-                <button type="submit">Subscribe</button>
-            </form>
-        </section>
-    </main>
-
-    <footer>
-        <p>&copy; 2024 TechGadgets. All rights reserved.</p>
-    </footer>
-</body>
-</html>
-```
+| Step name | CSS Selector | Result Field name |
+| --- | --- | --- |
+| `html-products` | `.product h3` | `product_names` |
+| `html-prices` | `.product .price` | `prices` |
+| `html-about` | `#about p` | `about_text` |
 
 <div align="center">
 <figure>
-<img src="../_assets/images/css_html_parser.png" alt="The CSS transformation: Data grid hopped to hp: parse html css, then to d: html, with dg: filepath from stream and dg: html from stream on disabled hops" width="510">
-<figcaption>The CSS transformation has the same three sources</figcaption>
+<img src="../_assets/images/03-html_css-html-products.png" alt="The HTML Parser dialog for html-products, with the settings this workshop gives it" width="800">
+<figcaption>html-products: its settings</figcaption>
 </figure>
 </div>
-
-1. Select **File > Open** (`Ctrl+O`) and open `HTML Parser - CSS.ktr` from the `Projects/genai/html` folder.
-2. Check that only the hop from **Data grid** to **hp: parse html css** is enabled.
-3. Double-click **hp: parse html css**. On the **Main** tab:
-   * Under **Source**, select **File**, and set **File name** to the full path of `landingpage.html` in the `data` folder.
-   * Under **Selector**, select **CSS** and leave **CSS Selector** empty.
-   * Under **Target**, keep **Result Field name** `result`.
 
 <div align="center">
 <figure>
-<img src="../_assets/images/css_parser_filepath.png" alt="The HTML Parser dialog for hp: parse html css: Source File with the path to landingpage.html, Selector CSS with an empty CSS Selector, Result Field name result" width="588">
-<figcaption>Source File, CSS with no selector</figcaption>
+<img src="../_assets/images/03-html_css-html-prices.png" alt="The HTML Parser dialog for html-prices, with the settings this workshop gives it" width="800">
+<figcaption>html-prices: its settings</figcaption>
 </figure>
 </div>
-
-4. Select **OK**.
-5. Press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
-6. Select **d: html** on the canvas and open the **Preview data** tab.
 
 <div align="center">
 <figure>
-<img src="../_assets/images/css_set_path_no_filter.png" alt="Preview data with one row in the result field: TechGadgets - Your Electronics Store TechGadgets Home Products About Contact Featured Products Smartphone X" width="781">
-<figcaption>No selector: the text of the whole page</figcaption>
+<img src="../_assets/images/03-html_css-html-about.png" alt="The HTML Parser dialog for html-about, with the settings this workshop gives it" width="800">
+<figcaption>html-about: its settings</figcaption>
 </figure>
 </div>
 
-> **Success:** Checkpoint: one row whose `result` starts `TechGadgets - Your Electronics Store TechGadgets Home Products About Contact Featured Products Smartphone X`.
+4. Add **Select values** after **html-about**: **Step name** `sv-css`, and on the **Select & Alter** tab the fields `page`, `product_names`, `prices`, `about_text`, in this order.
+5. Add **Text file output** after **sv-css**: **Step name** `txt-css`, **Filename** `${Internal.Entry.Current.Directory}/landingpage_css`, **Extension** `csv`, **Create Parent folder** selected, **Encoding** `UTF-8`, and on the **Fields** tab **Get Fields**, then **Minimal width**.
+6. Save the transformation (`Ctrl+S`), press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
+7. Select **txt-css** on the canvas and open the **Preview data** tab.
 
-7. Try these selectors in **CSS Selector**, one at a time, running and previewing after each:
+<!-- UNPROVEN: values computed with jsoup 1.23.2 (select(...).text()), as above; confirm in Spoon once the GENAI-EE license arrives. -->
+
+> **Success:** Checkpoint: one row. `product_names` is `Smartphone X Laptop Pro 15 Noise-Cancelling Headphones`, `prices` is `$999 $1,499 $249`, and `about_text` is `TechGadgets has sold electronics online since 2012 and ships to every state.`
+
+8. Open `C:\Workshop-AI-Specialty\03-documents-to-text\03-genai-html-parser\landingpage_css.csv`.
+
+<!-- UNPROVEN: the file's shape follows from the Text file output settings; confirm once the GENAI-EE license lets the solution run. -->
+
+> **Success:** Checkpoint: its first line is `page,product_names,prices,about_text`, followed by 1 row. `prices` is written in quotes, because its value contains the separator: `"$999 $1,499 $249"`.
+
+9. Try other selectors in **html-about**, running and previewing after each, then set it back to `#about p`:
 
 | To select | CSS Selector |
 | --- | --- |
-| The main title | `h1` |
+| The store name | `h1` |
 | All navigation links | `nav a` |
-| All product titles | `.product h3` |
-| All product descriptions | `.product .description` |
-| All product prices | `.product .price` |
-| The About Us section | `#about` |
-| The newsletter form | `#newsletter form` |
+| The product descriptions | `.product .description` |
+| The About Us section, heading included | `#about` |
 | All section titles | `main h2` |
+| Every element with a `data-sku` attribute | `[data-sku]` |
 | The footer text | `footer p` |
-| Every element with the class `product` | `.product` |
 
-> **Success:** Checkpoint: each selector narrows `result` to the selected elements' text; `.product .price`, for example, returns the two prices, `$999` and `$1499`, instead of the whole page.
+> **Under the hood:**
+>
+> #### Several matches became one value, not several rows
+>
+> `.product .price` matches three elements, and the step returned their text in one field, separated by spaces: one row in, one row out, whatever the selector matches. The prices `$999 $1,499 $249` are therefore one string, not a list.
+>
+> **Why it matters:** for a prompt, one block of clean text per page is what you want. When each match must become its own row, select the whole page (or the section) here and split the text in a later step.
 
-### 4. CSS from the Stream
+### 3. Paths from the Stream
 
 > **Note:**
 >
-> #### CSS from a Field
+> #### File Paths in a Field
 >
-> The same two stream sources as in the XPath part, with the CSS parser.
+> In **Stream** mode with **Format** `File`, every incoming row names a file to read. Build `html_stream.ktr`: **Get File Names** lists the HTML pages in the lab folder, and one **HTML Parser** reads each page's title.
 
-1. Right-click the hop from **dg: filepath from stream** to **hp: parse html css** and select **Enable**.
-2. Right-click the hop from **Data grid** to **hp: parse html css** and select **Disable**. Leave the hop from **dg: html from stream** disabled.
+1. Select **File > New > Transformation** (`Ctrl+N`), then **File > Save as**, and save it as `html_stream.ktr` in `C:\Workshop-AI-Specialty\03-documents-to-text\03-genai-html-parser`.
+2. On the **Design** tab, open the **Input** folder and drag **Get file names** onto the canvas.
+3. Double-click **Get file names** and set **Step name** to `gfn-pages`.
+4. On the **File** tab, set **File or directory** to `${Internal.Entry.Current.Directory}` and **Wildcard (RegExp)** to `.*\.html`, and select **Add**. The pair moves to the **Selected files** grid.
+5. Select **Show filename(s)...**.
 
-<div align="center">
-<figure>
-<img src="../_assets/images/css_filepath_from_stream.png" alt="The CSS transformation with the hop from dg: filepath from stream to hp: parse html css enabled and the other two disabled" width="521">
-<figcaption>The file path comes from the stream</figcaption>
-</figure>
-</div>
+> **Success:** Checkpoint: the list shows 2 files, `homepage.html` and `landingpage.html`, in the lab folder. Select **Close**, then **OK**.
 
-3. Double-click **hp: parse html css**. Under **Source**, select **Stream**, set **Format** to `File` and **Field name** to `filepath`. Leave **CSS Selector** empty.
+6. Add **HTML Parser** after **gfn-pages**. Set **Step name** to `html-title`. Under **Source**, select **Stream**, keep **Format** `File`, and set **Field name** to `filename`. Under **Selector**, select **CSS** and set **CSS Selector** to `title`. Under **Target**, set **Result Field name** to `page_title`. Select **OK**.
 
 <div align="center">
 <figure>
-<img src="../_assets/images/css_filepath_step.png" alt="The HTML Parser dialog for hp: parse html css: Source Stream with Format File and Field name filepath, Selector CSS, Result Field name result" width="588">
-<figcaption>Source Stream, Format File</figcaption>
+<img src="../_assets/images/03-html_stream-html-title.png" alt="The HTML Parser dialog for html-title, with the settings this workshop gives it" width="800">
+<figcaption>html-title: its settings</figcaption>
 </figure>
 </div>
 
-4. Select **OK**, run the transformation, and open the **Preview data** tab of **d: html**.
+7. Add **Select values** after **html-title**: **Step name** `sv-titles`, and on the **Select & Alter** tab the fields `short_filename` and `page_title`.
+8. Add **Text file output** after **sv-titles**: **Step name** `txt-titles`, **Filename** `${Internal.Entry.Current.Directory}/page_titles`, **Extension** `csv`, **Create Parent folder** selected, **Encoding** `UTF-8`, and on the **Fields** tab **Get Fields**, then **Minimal width**.
+9. Save the transformation (`Ctrl+S`), press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog.
+10. Select **txt-titles** on the canvas and open the **Preview data** tab.
+
+<!-- UNPROVEN: titles computed with jsoup 1.23.2; confirm in Spoon once the GENAI-EE license arrives. -->
+
+> **Success:** Checkpoint: 2 rows: `homepage.html` with `page_title` `Northwind Data Blog`, and `landingpage.html` with `TechGadgets - Your Electronics Store`.
+
+Each row keeps the fields **Get file names** added, so `short_filename` says which page each title came from.
+
+> **Under the hood:**
+>
+> #### Get File Names gave every page its own row, and the parser read the file each row named
+>
+> **Get file names** writes one row per matching file, with its full path in `filename`, its name in `short_filename`, and its size, extension and dates. In **Stream** mode with **Format** `File`, the parser opens the file named in `filename` on each row, so the same step reads two pages, or two thousand.
+>
+> **Why it matters:** the folder decides how many pages the transformation reads, not the transformation. Drop a third page into the folder and the next run reads it, with no change to the steps.
+
+### 4. HTML from a Field
+
+> **Note:**
+>
+> #### HTML in a Field
+>
+> With **Format** `Binary Datum`, the field holds the HTML itself, not a path. Help desks and CRMs export message bodies that way. Add a second flow to `html_stream.ktr` that cleans the HTML bodies of three support e-mails.
+
+1. On the **Design** tab, open the **Input** folder and drag **Data grid** onto the canvas, below the first flow.
+2. Double-click **Data grid** and set **Step name** to `dg-emails`. On the **Meta** tab, fill the grid:
+
+| Name | Type |
+| --- | --- |
+| `ticket_id` | Integer |
+| `html` | String |
+
+3. On the **Data** tab, enter these 3 rows. Copy each `html` value as it is, on one line:
+
+| ticket_id | html |
+| --- | --- |
+| `1001` | `<div><p>Hello,</p><p>My <b>Laptop Pro 15</b> will not charge since the last update. I tried a second charger.</p><p>Thanks, <i>Ana</i></p></div>` |
+| `1002` | `<p>Order <a href="https://example.com/orders/58812">#58812</a> arrived with a cracked screen. Please send a replacement.</p>` |
+| `1003` | `<table><tr><td>Product</td><td>Smartphone X</td></tr><tr><td>Issue</td><td>Battery drains in four hours</td></tr></table>` |
+
+4. Select **OK**.
+5. Add **HTML Parser** after **dg-emails**. Set **Step name** to `html-email-text`. Under **Source**, select **Stream**, set **Format** to `Binary Datum` and **Field name** to `html`. Under **Selector**, select **XPath** and leave **XPath Selector** empty. Under **Target**, set **Result Field name** to `clean_text`. Select **OK**.
 
 <div align="center">
 <figure>
-<img src="../_assets/images/css_filepath_results.png" alt="Preview data with the filepath /home/pentaho/Projects/genai/html/data/landingpage.html and the page's text in result" width="800">
-<figcaption>The path from the stream, and the page's text</figcaption>
+<img src="../_assets/images/03-html_stream-html-email-text.png" alt="The HTML Parser dialog for html-email-text, with the settings this workshop gives it" width="800">
+<figcaption>html-email-text: its settings</figcaption>
 </figure>
 </div>
 
-> **Success:** Checkpoint: one row with `filepath`, the path to `landingpage.html`, and a `result` that starts `TechGadgets - Your Electronics Store`.
+6. Add **Select values** after **html-email-text**: **Step name** `sv-emails`, and on the **Select & Alter** tab the fields `ticket_id` and `clean_text`.
+7. Add **Text file output** after **sv-emails**: **Step name** `txt-emails`, **Filename** `${Internal.Entry.Current.Directory}/emails_text`, **Extension** `csv`, **Create Parent folder** selected, **Encoding** `UTF-8`, and on the **Fields** tab **Get Fields**, then **Minimal width**.
+8. Save the transformation (`Ctrl+S`), press `F9` (**Action > Run**), and select **Run** in the **Run Options** dialog. Both flows run.
+9. Select **txt-emails** on the canvas and open the **Preview data** tab.
 
-5. Right-click the hop from **dg: html from stream** to **hp: parse html css** and select **Enable**.
-6. Right-click the hop from **dg: filepath from stream** to **hp: parse html css** and select **Disable**.
+<!-- UNPROVEN: texts computed with jsoup 1.23.2 (Jsoup.parse(html).text()); confirm in Spoon once the GENAI-EE license arrives. -->
 
-<div align="center">
-<figure>
-<img src="../_assets/images/css_html_stream_step.png" alt="The CSS transformation with only the hop from dg: html from stream to hp: parse html css enabled" width="529">
-<figcaption>The HTML itself comes from the stream</figcaption>
-</figure>
-</div>
+> **Success:** Checkpoint: 3 rows. Ticket `1001` reads `Hello, My Laptop Pro 15 will not charge since the last update. I tried a second charger. Thanks, Ana`, `1002` reads `Order #58812 arrived with a cracked screen. Please send a replacement.`, and `1003` reads `Product Smartphone X Issue Battery drains in four hours`.
 
-7. Double-click **hp: parse html css**. Under **Source**, keep **Stream**, set **Format** to `Binary Datum` and **Field name** to `html`.
+The tags are gone, and the words they separated stay apart.
 
-<div align="center">
-<figure>
-<img src="../_assets/images/css_html_from_stream.png" alt="The HTML Parser dialog for hp: parse html css: Source Stream with Format Binary Datum and Field name html, Selector CSS, Result Field name result" width="588">
-<figcaption>Source Stream, Format Binary Datum</figcaption>
-</figure>
-</div>
-
-8. Select **OK**, run the transformation, and open the **Preview data** tab of **d: html**.
-
-> **Success:** Checkpoint: one row per HTML value in **dg: html from stream**, each with its text, tags removed, in `result`.
+> **Under the hood:**
+>
+> #### One step replaced a regular expression that would get HTML wrong
+>
+> Without the plugin, cleaning these bodies takes a **Modified JavaScript value** or a **Replace in string** step with a regular expression such as `<[^>]+>`. That pattern leaves entities such as `&amp;` encoded, keeps the contents of `script` and `style` elements, and runs words together where a tag stood between them. **HTML Parser** parses each value as HTML, the way a browser does, and returns its text with entities decoded and whitespace normalized; in **Binary Datum** format the HTML never touches the file system.
+>
+> **Why it matters:** the text a prompt receives is the text a person would read, and a table such as ticket `1003`'s keeps its words apart, ready for the AI Chat step in the LLM Integration module.
 
 ::::
+
+## Troubleshooting <!-- no-step -->
+
+<details>
+<summary>Error initializing step: License validation failed</summary>
+
+The Pentaho license on this machine has no GenAI rights. Every step of the GenAI plugin suite checks, when the transformation starts, for a license with the GenAI Plugin Suite (GENAI-EE) subscription, and **HTML Parser** is one of them. Install a license that includes it, as described in [Before You Start](../00-before-you-start/guide.md).
+
+</details>
+
+<details>
+<summary>The result field is empty</summary>
+
+The selector matched nothing. Check that the **Selector** option matches the expression: an XPath expression in **CSS Selector**, or a CSS selector in **XPath Selector**, selects nothing. XPath attribute values need quotes: `//span[@class='author']`.
+
+</details>
+
+<details>
+<summary>The step fails with Invalid File found</summary>
+
+The file in **File name**, or in the `filename` field, does not exist. Check that `homepage.html` and `landingpage.html` are in the same folder as the transformation, and that the transformation was saved there, since `${Internal.Entry.Current.Directory}` is the folder of the saved file.
+
+</details>
 
 ## Lab Files
 
 Click a file to download. For `.ktr` and `.kjb` files, **Open in Pentaho Data Integration** launches Pentaho Data Integration with the file loaded. If Pentaho Data Integration is already running, the path is copied to your clipboard — switch to Pentaho Data Integration and press `Ctrl+O`, `Ctrl+V`, `Enter`.
 
-_No bundled files for this lab._ The transformations and the two HTML pages are on the lab machine, in `Projects/genai/html` and its `data` folder.
+The blog home page the first part reads with XPath, and the store landing page the second part reads with CSS:
+
+[homepage.html](./files/homepage.html)
+
+[landingpage.html](./files/landingpage.html)
+
+### Solution <!-- no-step -->
+
+The finished transformations for this lab. Open them alongside your own to compare, or run them to see the expected result. They read the pages from the lab folder and write their CSV files beside themselves.
+
+Also on disk at `C:\Workshop-AI-Specialty\03-documents-to-text\03-genai-html-parser\solution`.
+
+[html_xpath.ktr](./files/solution/html_xpath.ktr) <button data-launch="spoon" data-path="files/solution/html_xpath.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/solution/html_xpath.ktr">View graph</button>
+
+html_xpath in Spoon, with its note:
+
+<div align="center">
+<figure>
+<img src="../_assets/images/03-html_xpath-canvas.png" alt="The html_xpath.ktr solution open in Spoon: its blue note above the steps and hops, left to right" width="800">
+<figcaption>html_xpath.ktr in Spoon</figcaption>
+</figure>
+</div>
+
+[html_css.ktr](./files/solution/html_css.ktr) <button data-launch="spoon" data-path="files/solution/html_css.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/solution/html_css.ktr">View graph</button>
+
+html_css in Spoon, with its note:
+
+<div align="center">
+<figure>
+<img src="../_assets/images/03-html_css-canvas.png" alt="The html_css.ktr solution open in Spoon: its blue note above the steps and hops, left to right" width="800">
+<figcaption>html_css.ktr in Spoon</figcaption>
+</figure>
+</div>
+
+[html_stream.ktr](./files/solution/html_stream.ktr) <button data-launch="spoon" data-path="files/solution/html_stream.ktr">Open in Pentaho Data Integration</button> <button data-graph="files/solution/html_stream.ktr">View graph</button>
+
+html_stream in Spoon, with its note:
+
+<div align="center">
+<figure>
+<img src="../_assets/images/03-html_stream-canvas.png" alt="The html_stream.ktr solution open in Spoon: its blue note above the steps and hops, left to right" width="683">
+<figcaption>html_stream.ktr in Spoon</figcaption>
+</figure>
+</div>

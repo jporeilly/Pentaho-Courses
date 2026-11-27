@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="656" viewBox="0 0 800 656" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+<filter id="shadow" x="-10%" y="-10%" width="120%" height="140%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#0f172a" flood-opacity="0.12"/></filter></defs>
+<rect width="800" height="656" fill="#ffffff"/>
+<rect x="16" y="16" width="768" height="144" rx="12" fill="#eff6ff" stroke="#dbeafe" stroke-width="1.5"/>
+<path d="M16 28a12 12 0 0 1 12-12h744a12 12 0 0 1 12 12v32h-768z" fill="#1d4ed8"/>
+<g transform="translate(29 26) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></g>
+<text x="56" y="36" font-size="14" font-weight="700" fill="#ffffff">tika_word.ktr</text>
+<text x="56" y="52" font-size="11.5" fill="#ffffff" opacity="0.92">Part 1: a Word document</text>
+<rect x="16" y="176" width="768" height="144" rx="12" fill="#eff6ff" stroke="#dbeafe" stroke-width="1.5"/>
+<path d="M16 188a12 12 0 0 1 12-12h744a12 12 0 0 1 12 12v32h-768z" fill="#1d4ed8"/>
+<g transform="translate(29 186) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></g>
+<text x="56" y="196" font-size="14" font-weight="700" fill="#ffffff">tika_password.ktr</text>
+<text x="56" y="212" font-size="11.5" fill="#ffffff" opacity="0.92">Part 2: a password-protected PDF</text>
+<rect x="16" y="336" width="768" height="144" rx="12" fill="#eff6ff" stroke="#dbeafe" stroke-width="1.5"/>
+<path d="M16 348a12 12 0 0 1 12-12h744a12 12 0 0 1 12 12v32h-768z" fill="#1d4ed8"/>
+<g transform="translate(29 346) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></g>
+<text x="56" y="356" font-size="14" font-weight="700" fill="#ffffff">tika_folder.ktr</text>
+<text x="56" y="372" font-size="11.5" fill="#ffffff" opacity="0.92">Part 3: a folder of mixed documents</text>
+<rect x="16" y="496" width="768" height="144" rx="12" fill="#eff6ff" stroke="#dbeafe" stroke-width="1.5"/>
+<path d="M16 508a12 12 0 0 1 12-12h744a12 12 0 0 1 12 12v32h-768z" fill="#1d4ed8"/>
+<g transform="translate(29 506) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></g>
+<text x="56" y="516" font-size="14" font-weight="700" fill="#ffffff">tika_metadata.ktr</text>
+<text x="56" y="532" font-size="11.5" fill="#ffffff" opacity="0.92">Part 4: metadata, one row per key</text>
+<path d="M204 110L225 110" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M516 110L537 110" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M204 270L225 270" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M516 270L537 270" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M204 430L225 430" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M516 430L537 430" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M204 590L225 590" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M516 590L537 590" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="28" y="72" width="176" height="76" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="58" cy="110" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(46 98) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M21 9H3"/><path d="M21 15H3"/></g>
+<text x="88" y="93" font-size="14" font-weight="700" fill="#1e3a8a">gr-one-row</text>
+<text x="88" y="110" font-size="12" fill="#1e3a8a">Generate rows:</text>
+<text x="88" y="125" font-size="12" fill="#1e3a8a">one row</text>
+<rect x="228" y="72" width="288" height="76" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="258" cy="110" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(246 98) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></g>
+<text x="288" y="93" font-size="14" font-weight="700" fill="#3b0764">doc-brief</text>
+<text x="288" y="110" font-size="12" fill="#3b0764">Read Unstructured Document: File</text>
+<text x="288" y="125" font-size="12" fill="#3b0764">product-brief.docx, into text</text>
+<rect x="540" y="72" width="232" height="76" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="570" cy="110" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(558 98) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.226 20.925A2 2 0 0 0 6 22h12a2 2 0 0 0 2-2V8a2.4 2.4 0 0 0-.706-1.706l-3.588-3.588A2.4 2.4 0 0 0 14 2H6a2 2 0 0 0-2 2v3.127"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="m5 11-3 3"/><path d="m5 17-3-3h10"/></g>
+<text x="600" y="93" font-size="14" font-weight="700" fill="#14532d">txt-brief</text>
+<text x="600" y="110" font-size="12" fill="#14532d">after sv-brief:</text>
+<text x="600" y="125" font-size="12" fill="#14532d">product_brief_text.csv</text>
+<rect x="28" y="232" width="176" height="76" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="58" cy="270" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(46 258) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M21 9H3"/><path d="M21 15H3"/></g>
+<text x="88" y="253" font-size="14" font-weight="700" fill="#1e3a8a">gr-one-row</text>
+<text x="88" y="270" font-size="12" fill="#1e3a8a">Generate rows:</text>
+<text x="88" y="285" font-size="12" fill="#1e3a8a">one row</text>
+<rect x="228" y="232" width="288" height="76" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="258" cy="270" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(246 258) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.8V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.706.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2h-3"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M9 17v-2a2 2 0 0 0-4 0v2"/><rect width="8" height="5" x="3" y="17" rx="1"/></g>
+<text x="288" y="245.5" font-size="14" font-weight="700" fill="#3b0764">doc-report</text>
+<text x="288" y="262.5" font-size="12" fill="#3b0764">Read Unstructured Document: File</text>
+<text x="288" y="277.5" font-size="12" fill="#3b0764">quarterly-report-protected.pdf,</text>
+<text x="288" y="292.5" font-size="12" fill="#3b0764">File password tika-2026, into text</text>
+<rect x="540" y="232" width="232" height="76" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="570" cy="270" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(558 258) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.226 20.925A2 2 0 0 0 6 22h12a2 2 0 0 0 2-2V8a2.4 2.4 0 0 0-.706-1.706l-3.588-3.588A2.4 2.4 0 0 0 14 2H6a2 2 0 0 0-2 2v3.127"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="m5 11-3 3"/><path d="m5 17-3-3h10"/></g>
+<text x="600" y="253" font-size="14" font-weight="700" fill="#14532d">txt-report</text>
+<text x="600" y="270" font-size="12" fill="#14532d">after sv-report:</text>
+<text x="600" y="285" font-size="12" fill="#14532d">quarterly_report_text.csv</text>
+<rect x="28" y="392" width="176" height="76" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="58" cy="430" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(46 418) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.7 20H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H20a2 2 0 0 1 2 2v4.1"/><path d="m21 21-1.9-1.9"/><circle cx="17" cy="17" r="3"/></g>
+<text x="88" y="405.5" font-size="14" font-weight="700" fill="#1e3a8a">gfn-documents</text>
+<text x="88" y="422.5" font-size="12" fill="#1e3a8a">Get file names;</text>
+<text x="88" y="437.5" font-size="12" fill="#1e3a8a">frmla-password</text>
+<text x="88" y="452.5" font-size="12" fill="#1e3a8a">adds filepass</text>
+<rect x="228" y="392" width="288" height="76" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="258" cy="430" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(246 418) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></g>
+<text x="288" y="405.5" font-size="14" font-weight="700" fill="#3b0764">doc-text</text>
+<text x="288" y="422.5" font-size="12" fill="#3b0764">Stream: the file in filename, its</text>
+<text x="288" y="437.5" font-size="12" fill="#3b0764">password in filepass, into text;</text>
+<text x="288" y="452.5" font-size="12" fill="#3b0764">frmla-length adds text_length</text>
+<rect x="540" y="392" width="232" height="76" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="570" cy="430" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(558 418) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.226 20.925A2 2 0 0 0 6 22h12a2 2 0 0 0 2-2V8a2.4 2.4 0 0 0-.706-1.706l-3.588-3.588A2.4 2.4 0 0 0 14 2H6a2 2 0 0 0-2 2v3.127"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="m5 11-3 3"/><path d="m5 17-3-3h10"/></g>
+<text x="600" y="413" font-size="14" font-weight="700" fill="#14532d">txt-documents</text>
+<text x="600" y="430" font-size="12" fill="#14532d">after sv-documents:</text>
+<text x="600" y="445" font-size="12" fill="#14532d">documents_text.csv</text>
+<rect x="28" y="552" width="176" height="76" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="58" cy="590" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(46 578) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.7 20H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H20a2 2 0 0 1 2 2v4.1"/><path d="m21 21-1.9-1.9"/><circle cx="17" cy="17" r="3"/></g>
+<text x="88" y="565.5" font-size="14" font-weight="700" fill="#1e3a8a">gfn-documents</text>
+<text x="88" y="582.5" font-size="12" fill="#1e3a8a">Get file names;</text>
+<text x="88" y="597.5" font-size="12" fill="#1e3a8a">frmla-password</text>
+<text x="88" y="612.5" font-size="12" fill="#1e3a8a">adds filepass</text>
+<rect x="228" y="552" width="288" height="76" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="258" cy="590" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(246 578) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13.172 2a2 2 0 0 1 1.414.586l6.71 6.71a2.4 2.4 0 0 1 0 3.408l-4.592 4.592a2.4 2.4 0 0 1-3.408 0l-6.71-6.71A2 2 0 0 1 6 9.172V3a1 1 0 0 1 1-1z"/><path d="M2 7v6.172a2 2 0 0 0 .586 1.414l6.71 6.71a2.4 2.4 0 0 0 3.191.193"/><circle cx="10.5" cy="6.5" r=".5" fill="currentColor"/></g>
+<text x="288" y="565.5" font-size="14" font-weight="700" fill="#3b0764">doc-metadata</text>
+<text x="288" y="582.5" font-size="12" fill="#3b0764">Discover Metadata: Stream, filename</text>
+<text x="288" y="597.5" font-size="12" fill="#3b0764">and filepass; one row per key,</text>
+<text x="288" y="612.5" font-size="12" fill="#3b0764">such as dc:creator</text>
+<rect x="540" y="552" width="232" height="76" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="570" cy="590" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(558 578) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.226 20.925A2 2 0 0 0 6 22h12a2 2 0 0 0 2-2V8a2.4 2.4 0 0 0-.706-1.706l-3.588-3.588A2.4 2.4 0 0 0 14 2H6a2 2 0 0 0-2 2v3.127"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="m5 11-3 3"/><path d="m5 17-3-3h10"/></g>
+<text x="600" y="573" font-size="14" font-weight="700" fill="#14532d">txt-metadata</text>
+<text x="600" y="590" font-size="12" fill="#14532d">after sv-metadata:</text>
+<text x="600" y="605" font-size="12" fill="#14532d">documents_metadata.csv</text>
+</svg>

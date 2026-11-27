@@ -1,9 +1,9 @@
 {
   "title": "Multi-staged",
-  "description": "Hands-on: the most advanced LLM-ETL pattern — chain multiple LLM calls sequentially, each stage building on previous outputs, with conditional logic and error isolation.",
-  "order": 12,
+  "description": "Hands-on: chain five AI Chat steps into a document router (classify, prioritize, extract, act, route), each stage reading the previous stage's answer, with a safe default for every stage.",
+  "order": 13,
   "kind": "workshop",
-  "stepCount": 14,
+  "stepCount": 8,
   "hasVideo": false,
-  "estimatedMinutes": 45
+  "estimatedMinutes": 50
 }

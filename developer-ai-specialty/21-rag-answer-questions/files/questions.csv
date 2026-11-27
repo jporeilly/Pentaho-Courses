@@ -1,0 +1,8 @@
+question_id,question,expected_source
+1,My dishwasher shows error E2. What should I do?,larkspur-dw500-dishwasher-manual.pdf
+2,How often should I descale the BrewMaster coffee machine?,larkspur-cm300-coffee-machine-manual.txt
+3,How long is the motor of the FreshSpin washing machine covered?,larkspur-warranty-policy.pdf
+4,"Can I return a washing machine I have already unpacked because I changed my mind, and is there a fee?",larkspur-returns-policy.docx
+5,Is damage caused by limescale covered by the warranty?,larkspur-warranty-policy.pdf
+6,What is the energy rating of the DW-500 dishwasher?,none
+7,What is the Larkspur share price today?,none

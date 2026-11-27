@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="488" viewBox="0 0 800 488" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+<filter id="shadow" x="-10%" y="-10%" width="120%" height="140%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#0f172a" flood-opacity="0.12"/></filter></defs>
+<rect width="800" height="488" fill="#ffffff"/>
+<rect x="16" y="16" width="316" height="472" rx="12" fill="#eff6ff" stroke="#dbeafe" stroke-width="1.5"/>
+<path d="M16 28a12 12 0 0 1 12-12h292a12 12 0 0 1 12 12v32h-316z" fill="#1d4ed8"/>
+<g transform="translate(29 26) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></g>
+<text x="56" y="36" font-size="14" font-weight="700" fill="#ffffff">Pentaho Data Integration</text>
+<text x="56" y="52" font-size="11.5" fill="#ffffff" opacity="0.92">one row through AI Chat</text>
+<path d="M174 136L174 153" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M174 220L174 237" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M174 304L174 321" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M174 388L174 405" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M320 104L369 104" fill="none" stroke="#64748b" stroke-width="1.7" stroke-dasharray="5 4" marker-end="url(#arrow)"/>
+<path d="M320 188L369 188" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M372 272L323 272" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M578 220L578 237" fill="none" stroke="#64748b" stroke-width="1.7" stroke-dasharray="5 4" marker-end="url(#arrow)"/>
+<rect x="28" y="72" width="292" height="64" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="58" cy="104" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(46 92) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M21 9H3"/><path d="M21 15H3"/></g>
+<text x="88" y="87" font-size="14" font-weight="700" fill="#1e3a8a">One row arrives</text>
+<text x="88" y="104" font-size="12" fill="#1e3a8a">a message field, such as review_text,</text>
+<text x="88" y="119" font-size="12" fill="#1e3a8a">and a run_instruction field</text>
+<rect x="28" y="156" width="292" height="64" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="58" cy="188" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(46 176) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10a2 2 0 0 1-2 2H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.71.71 0 0 1 2 14.286V4a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/><path d="M20 9a2 2 0 0 1 2 2v10.286a.71.71 0 0 1-1.212.502l-2.202-2.202A2 2 0 0 0 17.172 19H10a2 2 0 0 1-2-2v-1"/></g>
+<text x="88" y="171" font-size="14" font-weight="700" fill="#3b0764">AI Chat</text>
+<text x="88" y="188" font-size="12" fill="#3b0764">Message: Stream. Model: Ollama,</text>
+<text x="88" y="203" font-size="12" fill="#3b0764">${MODEL_NAME}. Result: llm_json</text>
+<rect x="28" y="240" width="292" height="64" rx="10" fill="#ffffff" stroke="#64748b" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="58" cy="272" r="19" fill="#ffffff" stroke="#64748b" stroke-width="1.2"/>
+<g transform="translate(46 260) scale(1)" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></g>
+<text x="88" y="255" font-size="14" font-weight="700" fill="#0f172a">The row, plus llm_json</text>
+<text x="88" y="272" font-size="12" fill="#0f172a">the model's answer: one JSON</text>
+<text x="88" y="287" font-size="12" fill="#0f172a">object, as text</text>
+<rect x="28" y="324" width="292" height="64" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="58" cy="356" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(46 344) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 12a1 1 0 0 0-1 1v1a1 1 0 0 1-1 1 1 1 0 0 1 1 1v1a1 1 0 0 0 1 1"/><path d="M14 18a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1 1 1 0 0 1-1-1v-1a1 1 0 0 0-1-1"/></g>
+<text x="88" y="339" font-size="14" font-weight="700" fill="#3b0764">JSON input</text>
+<text x="88" y="356" font-size="12" fill="#3b0764">Source is from a previous step:</text>
+<text x="88" y="371" font-size="12" fill="#3b0764">llm_json; one row per key</text>
+<rect x="28" y="408" width="292" height="64" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="58" cy="440" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(46 428) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 5H3"/><path d="M11 12H3"/><path d="M16 19H3"/><path d="M18 9v6"/><path d="M21 12h-6"/></g>
+<text x="88" y="423" font-size="14" font-weight="700" fill="#14532d">The row, with new fields</text>
+<text x="88" y="440" font-size="12" fill="#14532d">$.sentiment becomes sentiment;</text>
+<text x="88" y="455" font-size="12" fill="#14532d">a missing key becomes null</text>
+<rect x="372" y="72" width="412" height="64" rx="10" fill="#ffffff" stroke="#64748b" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="402" cy="104" r="19" fill="#ffffff" stroke="#64748b" stroke-width="1.2"/>
+<g transform="translate(390 92) scale(1)" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 12h-5"/><path d="M15 8h-5"/><path d="M19 17V5a2 2 0 0 0-2-2H4"/><path d="M8 21h12a2 2 0 0 0 2-2v-1a1 1 0 0 0-1-1H11a1 1 0 0 0-1 1v1a2 2 0 1 1-4 0V5a2 2 0 1 0-4 0v2a1 1 0 0 0 1 1h3"/></g>
+<text x="432" y="87" font-size="14" font-weight="700" fill="#0f172a">run_instruction: how to answer</text>
+<text x="432" y="104" font-size="12" fill="#0f172a">a command, the answer's exact JSON shape,</text>
+<text x="432" y="119" font-size="12" fill="#0f172a">and "nothing else"; the data stays out</text>
+<rect x="372" y="156" width="412" height="64" rx="10" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="402" cy="188" r="19" fill="#ffffff" stroke="#0f766e" stroke-width="1.2"/>
+<g transform="translate(390 176) scale(1)" fill="none" stroke="#0f766e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 18V5"/><path d="M15 13a4.17 4.17 0 0 1-3-4 4.17 4.17 0 0 1-3 4"/><path d="M17.598 6.5A3 3 0 1 0 12 5a3 3 0 1 0-5.598 1.5"/><path d="M17.997 5.125a4 4 0 0 1 2.526 5.77"/><path d="M18 18a4 4 0 0 0 2-7.464"/><path d="M19.967 17.483A4 4 0 1 1 12 18a4 4 0 1 1-7.967-.517"/><path d="M6 18a4 4 0 0 1-2-7.464"/><path d="M6.003 5.125a4 4 0 0 0-2.526 5.77"/></g>
+<text x="432" y="171" font-size="14" font-weight="700" fill="#134e4a">Ollama: POST ${OLLAMA_URL}/api/chat</text>
+<text x="432" y="188" font-size="12" fill="#134e4a">model; messages: system = run instruction,</text>
+<text x="432" y="203" font-size="12" fill="#134e4a">user = message; stream false; options</text>
+<rect x="372" y="240" width="412" height="64" rx="10" fill="#ffffff" stroke="#64748b" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="402" cy="272" r="19" fill="#ffffff" stroke="#64748b" stroke-width="1.2"/>
+<g transform="translate(390 260) scale(1)" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 17a2 2 0 0 1-2 2H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.71.71 0 0 1 2 21.286V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2z"/><path d="m10 8-3 3 3 3"/><path d="m14 14 3-3-3-3"/></g>
+<text x="432" y="255" font-size="14" font-weight="700" fill="#0f172a">Ollama's reply</text>
+<text x="432" y="272" font-size="12" fill="#0f172a">message.content goes into llm_json; the</text>
+<text x="432" y="287" font-size="12" fill="#0f172a">token counts and timings are dropped</text>
+</svg>

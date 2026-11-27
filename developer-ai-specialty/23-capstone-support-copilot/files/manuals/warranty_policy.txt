@@ -1,0 +1,22 @@
+Halden Bikes Warranty Policy
+============================
+
+Coverage
+--------
+
+Frame: 5 years from the date of purchase, against defects in materials and workmanship.
+
+Motor, battery, display and charger: 2 years, or 800 charge cycles for the battery, whichever comes first.
+
+Wear parts are not covered: tires, inner tubes, brake pads, chain, cassette, chainring and grips.
+
+Exclusions
+----------
+
+Damage from crashes, misuse, racing, commercial rental, opening the battery or motor, and over-tightened carbon parts is not covered.
+
+Making a claim
+--------------
+
+Register the bike within 30 days of purchase at halden-bikes.example/register. A claim needs the frame serial number (under the bottom bracket), the proof of purchase and photos of the fault. Halden replies to a claim within 5 business days.
+

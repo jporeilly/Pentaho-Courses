@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="972" viewBox="0 0 800 972" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+<filter id="shadow" x="-10%" y="-10%" width="120%" height="140%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#0f172a" flood-opacity="0.12"/></filter></defs>
+<rect width="800" height="972" fill="#ffffff"/>
+<rect x="16" y="16" width="272" height="940" rx="12" fill="#eff6ff" stroke="#dbeafe" stroke-width="1.5"/>
+<path d="M16 28a12 12 0 0 1 12-12h248a12 12 0 0 1 12 12v32h-272z" fill="#1d4ed8"/>
+<g transform="translate(29 26) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></g>
+<text x="56" y="36" font-size="14" font-weight="700" fill="#ffffff">Pentaho Data Integration</text>
+<text x="56" y="52" font-size="11.5" fill="#ffffff" opacity="0.92">Spoon, with the GenAI plugins</text>
+<rect x="360" y="16" width="424" height="322" rx="12" fill="#f0fdfa" stroke="#ccfbf1" stroke-width="1.5"/>
+<path d="M360 28a12 12 0 0 1 12-12h400a12 12 0 0 1 12 12v32h-424z" fill="#0f766e"/>
+<g transform="translate(373 26) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 18V5"/><path d="M15 13a4.17 4.17 0 0 1-3-4 4.17 4.17 0 0 1-3 4"/><path d="M17.598 6.5A3 3 0 1 0 12 5a3 3 0 1 0-5.598 1.5"/><path d="M17.997 5.125a4 4 0 0 1 2.526 5.77"/><path d="M18 18a4 4 0 0 0 2-7.464"/><path d="M19.967 17.483A4 4 0 1 1 12 18a4 4 0 1 1-7.967-.517"/><path d="M6 18a4 4 0 0 1-2-7.464"/><path d="M6.003 5.125a4 4 0 0 0-2.526 5.77"/></g>
+<text x="400" y="36" font-size="14" font-weight="700" fill="#ffffff">Ollama</text>
+<text x="400" y="52" font-size="11.5" fill="#ffffff" opacity="0.92">http://localhost:11434: the local LLM server</text>
+<rect x="360" y="354" width="424" height="124" rx="12" fill="#f0fdf4" stroke="#dcfce7" stroke-width="1.5"/>
+<path d="M360 366a12 12 0 0 1 12-12h400a12 12 0 0 1 12 12v32h-424z" fill="#15803d"/>
+<g transform="translate(373 364) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></g>
+<text x="400" y="374" font-size="14" font-weight="700" fill="#ffffff">PostgreSQL with pgvector</text>
+<text x="400" y="390" font-size="11.5" fill="#ffffff" opacity="0.92">Podman container pcm-pgvector, localhost:5433</text>
+<rect x="360" y="494" width="424" height="256" rx="12" fill="#f5f3ff" stroke="#ede9fe" stroke-width="1.5"/>
+<path d="M360 506a12 12 0 0 1 12-12h400a12 12 0 0 1 12 12v32h-424z" fill="#6d28d9"/>
+<g transform="translate(373 504) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="8" x="2" y="2" rx="2" ry="2"/><rect width="20" height="8" x="2" y="14" rx="2" ry="2"/><line x1="6" x2="6.01" y1="6" y2="6"/><line x1="6" x2="6.01" y1="18" y2="18"/></g>
+<text x="400" y="514" font-size="14" font-weight="700" fill="#ffffff">Python 3.12</text>
+<text x="400" y="530" font-size="11.5" fill="#ffffff" opacity="0.92">the Key Concepts scripts and three lab services</text>
+<rect x="360" y="766" width="424" height="190" rx="12" fill="#f5f3ff" stroke="#ede9fe" stroke-width="1.5"/>
+<path d="M360 778a12 12 0 0 1 12-12h400a12 12 0 0 1 12 12v32h-424z" fill="#6d28d9"/>
+<g transform="translate(373 776) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="8" x="2" y="2" rx="2" ry="2"/><rect width="20" height="8" x="2" y="14" rx="2" ry="2"/><line x1="6" x2="6.01" y1="6" y2="6"/><line x1="6" x2="6.01" y1="18" y2="18"/></g>
+<text x="400" y="786" font-size="14" font-weight="700" fill="#ffffff">Optional: two Pentaho servers</text>
+<text x="400" y="802" font-size="11.5" fill="#ffffff" opacity="0.92">only for the labs that run transformations on them</text>
+<path d="M288 44L357 44" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M288 382L357 382" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M288 522L357 522" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M288 794L357 794" fill="none" stroke="#64748b" stroke-width="1.7" stroke-dasharray="5 4" marker-end="url(#arrow)"/>
+<rect x="28" y="189.6" width="248" height="64" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="58" cy="221.6" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(46 209.6) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15.39 4.39a1 1 0 0 0 1.68-.474 2.5 2.5 0 1 1 3.014 3.015 1 1 0 0 0-.474 1.68l1.683 1.682a2.414 2.414 0 0 1 0 3.414L19.61 15.39a1 1 0 0 1-1.68-.474 2.5 2.5 0 1 0-3.014 3.015 1 1 0 0 1 .474 1.68l-1.683 1.682a2.414 2.414 0 0 1-3.414 0L8.61 19.61a1 1 0 0 0-1.68.474 2.5 2.5 0 1 1-3.014-3.015 1 1 0 0 0 .474-1.68l-1.683-1.682a2.414 2.414 0 0 1 0-3.414L4.39 8.61a1 1 0 0 1 1.68.474 2.5 2.5 0 1 0 3.014-3.015 1 1 0 0 1-.474-1.68l1.683-1.682a2.414 2.414 0 0 1 3.414 0z"/></g>
+<text x="88" y="204.6" font-size="14" font-weight="700" fill="#1e3a8a">GenAI plugin suite</text>
+<text x="88" y="221.6" font-size="12" fill="#1e3a8a">12 steps, version 1.2.0-157,</text>
+<text x="88" y="236.6" font-size="12" fill="#1e3a8a">in data-integration\plugins</text>
+<rect x="28" y="379.2" width="248" height="64" rx="10" fill="#f1f5f9" stroke="#475569" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="58" cy="411.2" r="19" fill="#ffffff" stroke="#475569" stroke-width="1.2"/>
+<g transform="translate(46 399.2) scale(1)" fill="none" stroke="#475569" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></g>
+<text x="88" y="394.2" font-size="14" font-weight="700" fill="#0f172a">License: GENAI-EE</text>
+<text x="88" y="411.2" font-size="12" fill="#0f172a">Pentaho EE, with GenAI rights;</text>
+<text x="88" y="426.2" font-size="12" fill="#0f172a">every GenAI step checks it</text>
+<rect x="28" y="568.8" width="248" height="64" rx="10" fill="#f1f5f9" stroke="#475569" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="58" cy="600.8" r="19" fill="#ffffff" stroke="#475569" stroke-width="1.2"/>
+<g transform="translate(46 588.8) scale(1)" fill="none" stroke="#475569" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 8a1 1 0 0 1-1-1V2a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8z"/><path d="M20 8v12a2 2 0 0 1-2 2h-4.182"/><path d="m3.305 19.53.923-.382"/><path d="M4 10.592V4a2 2 0 0 1 2-2h8"/><path d="m4.228 16.852-.924-.383"/><path d="m5.852 15.228-.383-.923"/><path d="m5.852 20.772-.383.924"/><path d="m8.148 15.228.383-.923"/><path d="m8.53 21.696-.382-.924"/><path d="m9.773 16.852.922-.383"/><path d="m9.773 19.148.922.383"/><circle cx="7" cy="18" r="3"/></g>
+<text x="88" y="583.8" font-size="14" font-weight="700" fill="#0f172a">kettle.properties</text>
+<text x="88" y="600.8" font-size="12" fill="#0f172a">OLLAMA_URL and MODEL_NAME,</text>
+<text x="88" y="615.8" font-size="12" fill="#0f172a">read by every AI step</text>
+<rect x="28" y="758.4" width="248" height="64" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="58" cy="790.4" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(46 778.4) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 14 1.5-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.54 6a2 2 0 0 1-1.95 1.5H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H18a2 2 0 0 1 2 2v2"/></g>
+<text x="88" y="773.4" font-size="14" font-weight="700" fill="#1e3a8a">Lab files</text>
+<text x="88" y="790.4" font-size="12" fill="#1e3a8a">C:\Workshop-AI-Specialty,</text>
+<text x="88" y="805.4" font-size="12" fill="#1e3a8a">one folder per module</text>
+<rect x="372" y="72" width="400" height="56" rx="10" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="402" cy="100" r="19" fill="#ffffff" stroke="#0f766e" stroke-width="1.2"/>
+<g transform="translate(390 88) scale(1)" fill="none" stroke="#0f766e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 18V5"/><path d="M15 13a4.17 4.17 0 0 1-3-4 4.17 4.17 0 0 1-3 4"/><path d="M17.598 6.5A3 3 0 1 0 12 5a3 3 0 1 0-5.598 1.5"/><path d="M17.997 5.125a4 4 0 0 1 2.526 5.77"/><path d="M18 18a4 4 0 0 0 2-7.464"/><path d="M19.967 17.483A4 4 0 1 1 12 18a4 4 0 1 1-7.967-.517"/><path d="M6 18a4 4 0 0 1-2-7.464"/><path d="M6.003 5.125a4 4 0 0 0-2.526 5.77"/></g>
+<text x="432" y="90.5" font-size="14" font-weight="700" fill="#134e4a">llama3.2:3b</text>
+<text x="432" y="107.5" font-size="12" fill="#134e4a">answers the prompts</text>
+<rect x="372" y="138" width="400" height="56" rx="10" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="402" cy="166" r="19" fill="#ffffff" stroke="#0f766e" stroke-width="1.2"/>
+<g transform="translate(390 154) scale(1)" fill="none" stroke="#0f766e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 18V5"/><path d="M15 13a4.17 4.17 0 0 1-3-4 4.17 4.17 0 0 1-3 4"/><path d="M17.598 6.5A3 3 0 1 0 12 5a3 3 0 1 0-5.598 1.5"/><path d="M17.997 5.125a4 4 0 0 1 2.526 5.77"/><path d="M18 18a4 4 0 0 0 2-7.464"/><path d="M19.967 17.483A4 4 0 1 1 12 18a4 4 0 1 1-7.967-.517"/><path d="M6 18a4 4 0 0 1-2-7.464"/><path d="M6.003 5.125a4 4 0 0 0-2.526 5.77"/></g>
+<text x="432" y="156.5" font-size="14" font-weight="700" fill="#134e4a">qwen2.5:7b</text>
+<text x="432" y="173.5" font-size="12" fill="#134e4a">answers when the model must call tools</text>
+<rect x="372" y="204" width="400" height="56" rx="10" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="402" cy="232" r="19" fill="#ffffff" stroke="#0f766e" stroke-width="1.2"/>
+<g transform="translate(390 220) scale(1)" fill="none" stroke="#0f766e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 18V5"/><path d="M15 13a4.17 4.17 0 0 1-3-4 4.17 4.17 0 0 1-3 4"/><path d="M17.598 6.5A3 3 0 1 0 12 5a3 3 0 1 0-5.598 1.5"/><path d="M17.997 5.125a4 4 0 0 1 2.526 5.77"/><path d="M18 18a4 4 0 0 0 2-7.464"/><path d="M19.967 17.483A4 4 0 1 1 12 18a4 4 0 1 1-7.967-.517"/><path d="M6 18a4 4 0 0 1-2-7.464"/><path d="M6.003 5.125a4 4 0 0 0-2.526 5.77"/></g>
+<text x="432" y="222.5" font-size="14" font-weight="700" fill="#134e4a">gemma3:12b</text>
+<text x="432" y="239.5" font-size="12" fill="#134e4a">reads images: the vision model of lab 26</text>
+<rect x="372" y="270" width="400" height="56" rx="10" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="402" cy="298" r="19" fill="#ffffff" stroke="#0f766e" stroke-width="1.2"/>
+<g transform="translate(390 286) scale(1)" fill="none" stroke="#0f766e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="14" y="14" width="4" height="6" rx="2"/><rect x="6" y="4" width="4" height="6" rx="2"/><path d="M6 20h4"/><path d="M14 10h4"/><path d="M6 14h2v6"/><path d="M14 4h2v6"/></g>
+<text x="432" y="288.5" font-size="14" font-weight="700" fill="#134e4a">nomic-embed-text</text>
+<text x="432" y="305.5" font-size="12" fill="#134e4a">turns text into embeddings</text>
+<rect x="372" y="410" width="400" height="56" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="402" cy="438" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(390 426) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></g>
+<text x="432" y="428.5" font-size="14" font-weight="700" fill="#14532d">Database genai, user genai</text>
+<text x="432" y="445.5" font-size="12" fill="#14532d">the vector store, the LangExtract tables, the capstone</text>
+<rect x="372" y="550" width="400" height="56" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="402" cy="578" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(390 566) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="8" x="2" y="2" rx="2" ry="2"/><rect width="20" height="8" x="2" y="14" rx="2" ry="2"/><line x1="6" x2="6.01" y1="6" y2="6"/><line x1="6" x2="6.01" y1="18" y2="18"/></g>
+<text x="432" y="568.5" font-size="14" font-weight="700" fill="#3b0764">LangExtract service</text>
+<text x="432" y="585.5" font-size="12" fill="#3b0764">http://localhost:8765</text>
+<rect x="372" y="616" width="400" height="56" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="402" cy="644" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(390 632) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6.3 20.3a2.4 2.4 0 0 0 3.4 0L12 18l-6-6-2.3 2.3a2.4 2.4 0 0 0 0 3.4Z"/><path d="m2 22 3-3"/><path d="M7.5 13.5 10 11"/><path d="M10.5 16.5 13 14"/><path d="m18 3-4 4h6l-4 4"/></g>
+<text x="432" y="634.5" font-size="14" font-weight="700" fill="#3b0764">MCP server, retail_mcp_server.py</text>
+<text x="432" y="651.5" font-size="12" fill="#3b0764">Spoon starts it, over standard input and output</text>
+<rect x="372" y="682" width="400" height="56" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="402" cy="710" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(390 698) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></g>
+<text x="432" y="700.5" font-size="14" font-weight="700" fill="#3b0764">Assessment agent</text>
+<text x="432" y="717.5" font-size="12" fill="#3b0764">http://localhost:8000</text>
+<rect x="372" y="822" width="400" height="56" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="402" cy="850" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(390 838) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="8" x="2" y="2" rx="2" ry="2"/><rect width="20" height="8" x="2" y="14" rx="2" ry="2"/><line x1="6" x2="6.01" y1="6" y2="6"/><line x1="6" x2="6.01" y1="18" y2="18"/></g>
+<text x="432" y="840.5" font-size="14" font-weight="700" fill="#3b0764">Pentaho Server 11 EE (lab 25)</text>
+<text x="432" y="857.5" font-size="12" fill="#3b0764">http://localhost:8080/pentaho, user admin</text>
+<rect x="372" y="888" width="400" height="56" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="402" cy="916" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(390 904) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m10.852 14.772-.383.923"/><path d="M13.148 14.772a3 3 0 1 0-2.296-5.544l-.383-.923"/><path d="m13.148 9.228.383-.923"/><path d="m13.53 15.696-.382-.924a3 3 0 1 1-2.296-5.544"/><path d="m14.772 10.852.923-.383"/><path d="m14.772 13.148.923.383"/><path d="M4.5 10H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-.5"/><path d="M4.5 14H4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2h-.5"/><path d="M6 18h.01"/><path d="M6 6h.01"/><path d="m9.228 10.852-.923-.383"/><path d="m9.228 13.148-.923.383"/></g>
+<text x="432" y="906.5" font-size="14" font-weight="700" fill="#3b0764">Carte (lab 29)</text>
+<text x="432" y="923.5" font-size="12" fill="#3b0764">http://127.0.0.1:8081, user cluster</text>
+</svg>

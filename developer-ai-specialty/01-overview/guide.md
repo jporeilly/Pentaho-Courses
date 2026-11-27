@@ -8,7 +8,7 @@
 
 <div align="center">
 <figure>
-<img src="../_assets/images/chatbot_diagram.png" alt="A flow from Your prompt to Response delivered through four stages: 1. Tokenisation splits the text into tokens; 2. Embedding places each token as a point in a high-dimensional space, with similar meanings nearby; 3. Neural network processing passes tokens through layers, with attention deciding what to focus on; 4. Generation picks the most likely next token, one at a time" width="545">
+<img src="../_assets/images/chatbot_diagram.png" alt="A flow from Your prompt to Response delivered through four stages: 1. Tokenization splits the text into tokens; 2. Embedding places each token as a point in a high-dimensional space, with similar meanings nearby; 3. Neural network processing passes tokens through layers, with attention deciding what to focus on; 4. Generation picks the most likely next token, one at a time" width="545">
 <figcaption>The four stages between a prompt and a response</figcaption>
 </figure>
 </div>

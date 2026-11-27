@@ -1,0 +1,9 @@
+{
+  "title": "Overview",
+  "description": "What changes when the AI pipelines leave Spoon: where they run (Pentaho Server, Carte, Kitchen and Pan, containers), the GenAI plugins and license on every runtime, configuration and secrets, the model server and vector store in production, reliability, observability, data governance, evaluation and cost.",
+  "kind": "page",
+  "estimatedMinutes": 30,
+  "stepCount": 10,
+  "hasVideo": false,
+  "order": 27
+}

@@ -1,0 +1,24 @@
+SYNTHETIC TRAINING RECORD - fictional patient, not a real person.
+
+Patient: Mary Johnson   DOB: 12/03/1965   MRN: NB-004821
+Visit Date: 11/15/2024   Attending: Dr. Samuel Lee, Internal Medicine
+
+Chief Complaint:
+Patient presents with persistent fatigue, shortness of breath on exertion, and
+occasional chest tightness over the past three weeks.
+
+Medical History:
+Known Type 2 Diabetes Mellitus diagnosed 2014, Hypertension since 2018,
+Hyperlipidemia. Non-smoker. Occasional alcohol.
+
+Allergies:
+Penicillin - rash and urticaria. Sulfa drugs - anaphylaxis.
+
+Current Medications:
+Metformin 1000mg twice daily with meals.
+Lisinopril 10mg once daily in the morning.
+Atorvastatin 40mg at bedtime.
+Aspirin 81mg once daily.
+
+Plan:
+Order ECG and lipid panel. Review in two weeks.

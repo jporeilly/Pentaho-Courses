@@ -31,30 +31,17 @@
 >
 > #### Set Up the Scripts
 >
-> The five scripts ship with this lab, in `C:\Workshop-AI-Specialty\02-pdi-ai-pipelines\18-key-concepts-workshop`. Give them their own Python environment there, once, and make sure Ollama has the embedding model they call.
+> The five scripts ship with this lab, in `C:\Workshop-AI-Specialty\02-ai-pipelines\18-key-concepts-workshop`. Give them their own Python environment there, once, and make sure Ollama has the embedding model they call.
 
-1. In PowerShell, run these commands to create the environment in the lab folder and install the libraries listed in `requirements.txt`. On macOS / Linux, open a terminal in the folder you downloaded the lab files to and run the **macOS / Linux** commands.
-
-::: tabs
-
-### Windows (PowerShell)
+1. In PowerShell, run these commands to create the environment in the lab folder and install the libraries listed in `requirements.txt`. (On your own machine without the workshop folder, download the files from **Lab Files** below into a folder and run the commands there.)
 
 ```powershell
-Set-Location C:\Workshop-AI-Specialty\02-pdi-ai-pipelines\18-key-concepts-workshop
+Set-Location C:\Workshop-AI-Specialty\02-ai-pipelines\18-key-concepts-workshop
 python -m venv .venv
 .\.venv\Scripts\pip install -r requirements.txt
 ```
 
-### macOS / Linux
-
-```bash
-python3 -m venv .venv
-.venv/bin/pip install -r requirements.txt
-```
-
-:::
-
-> **Success:** Checkpoint: pip prints a `Successfully installed` line that names `matplotlib`, `numpy`, `ollama`, `openai`, `scikit-learn`, `seaborn` and `tiktoken`, with the libraries they depend on, such as `pandas`.
+> **Success:** Checkpoint: pip prints a `Successfully installed` line that names `matplotlib`, `numpy`, `ollama`, `pandas`, `scikit-learn`, `seaborn` and `tiktoken`, with the libraries they depend on.
 
 2. In PowerShell, run:
 
@@ -421,22 +408,10 @@ When you run it, the script:
 
 2. Run the script. In PowerShell, run:
 
-::: tabs
-
-### Windows (PowerShell)
-
 ```powershell
-Set-Location C:\Workshop-AI-Specialty\02-pdi-ai-pipelines\18-key-concepts-workshop
+Set-Location C:\Workshop-AI-Specialty\02-ai-pipelines\18-key-concepts-workshop
 .\.venv\Scripts\python prompt.py
 ```
-
-### macOS / Linux
-
-```bash
-.venv/bin/python prompt.py
-```
-
-:::
 
 3. When the script asks `Connect to a different Ollama server? (y/N):`, press `Enter`.
 
@@ -737,22 +712,10 @@ All the files go to a new folder, `tokenization_analysis\analysis_<timestamp>`.
 
 2. Run the script. In PowerShell, run:
 
-::: tabs
-
-### Windows (PowerShell)
-
 ```powershell
-Set-Location C:\Workshop-AI-Specialty\02-pdi-ai-pipelines\18-key-concepts-workshop
+Set-Location C:\Workshop-AI-Specialty\02-ai-pipelines\18-key-concepts-workshop
 .\.venv\Scripts\python tokenization.py
 ```
-
-### macOS / Linux
-
-```bash
-.venv/bin/python tokenization.py
-```
-
-:::
 
 <div align="center">
 <figure>
@@ -1281,22 +1244,10 @@ The `EmbeddingAnalyzer` class holds the Ollama client and a cache, so a text tha
 
 2. Run the script. In PowerShell, run:
 
-::: tabs
-
-### Windows (PowerShell)
-
 ```powershell
-Set-Location C:\Workshop-AI-Specialty\02-pdi-ai-pipelines\18-key-concepts-workshop
+Set-Location C:\Workshop-AI-Specialty\02-ai-pipelines\18-key-concepts-workshop
 .\.venv\Scripts\python embedding.py
 ```
-
-### macOS / Linux
-
-```bash
-.venv/bin/python embedding.py
-```
-
-:::
 
 3. When the script asks `Use a different Ollama server? (y/N):`, press `Enter`.
 
@@ -2035,22 +1986,10 @@ When you run it, the script:
 
 2. Run the script. In PowerShell, run:
 
-::: tabs
-
-### Windows (PowerShell)
-
 ```powershell
-Set-Location C:\Workshop-AI-Specialty\02-pdi-ai-pipelines\18-key-concepts-workshop
+Set-Location C:\Workshop-AI-Specialty\02-ai-pipelines\18-key-concepts-workshop
 .\.venv\Scripts\python search.py
 ```
-
-### macOS / Linux
-
-```bash
-.venv/bin/python search.py
-```
-
-:::
 
 3. When the script asks `Use a different Ollama server? (y/N):`, press `Enter`.
 
@@ -2796,22 +2735,10 @@ When you run it, the script:
 
 2. Run the script. In PowerShell, run:
 
-::: tabs
-
-### Windows (PowerShell)
-
 ```powershell
-Set-Location C:\Workshop-AI-Specialty\02-pdi-ai-pipelines\18-key-concepts-workshop
+Set-Location C:\Workshop-AI-Specialty\02-ai-pipelines\18-key-concepts-workshop
 .\.venv\Scripts\python transformers.py
 ```
-
-### macOS / Linux
-
-```bash
-.venv/bin/python transformers.py
-```
-
-:::
 
 3. When the script asks `Use a different Ollama server? (y/N):`, press `Enter`.
 
@@ -2918,7 +2845,7 @@ The scripts that call Ollama catch any error, print `Error:` and `Troubleshootin
 <details>
 <summary>ModuleNotFoundError: No module named 'ollama'</summary>
 
-The script ran with a Python outside the lab's environment. Run it with the environment's Python, `.\.venv\Scripts\python` (Windows) or `.venv/bin/python` (macOS / Linux), from the lab folder, as the steps show. If the `.venv` folder is missing, repeat **1. Set Up the Scripts**.
+The script ran with a Python outside the lab's environment. Run it with the environment's Python, `.\.venv\Scripts\python`, from the lab folder, as the steps show. If the `.venv` folder is missing, repeat **1. Set Up the Scripts**.
 
 </details>
 
@@ -2954,4 +2881,4 @@ The five scripts this workshop runs, in the order of its parts, and the list of 
 
 [requirements.txt](./files/requirements.txt)
 
-Also on disk at `C:\Workshop-AI-Specialty\02-pdi-ai-pipelines\18-key-concepts-workshop`.
+Also on disk at `C:\Workshop-AI-Specialty\02-ai-pipelines\18-key-concepts-workshop`.

@@ -23,7 +23,8 @@
 //     langextract-service/app.py, and lesson 13's pip checkpoint lists
 //     fastapi and uvicorn), calling the model on Ollama at localhost:11434
 //     (the /health check's model_url in lessons 14 and 15). The model is
-//     llama3.1:8b, which all three requests name in model_id.
+//     qwen2.5:7b, the workshops' LX_MODEL and the service's
+//     LX_DEFAULT_MODEL, which all three requests name in model_id.
 //
 // Layout: every step box is the same size, 64 high on an 88 pitch, the
 // same in all three diagrams. The service's two boxes sit level with REST
@@ -84,7 +85,7 @@ export function extractFlow({ height, file, steps, script, rest, request, chunks
   // its box: the panel strip carries it, and the box is narrow.
   const OX = SX + SW + 16, OW = W - 16 - OX;
   d.panel({ x: OX, y: stepY(rest + 1) - 52, w: OW, h: BH + 52 + 12, role: 'model', iconName: 'brain', title: 'Ollama', sub: 'localhost:11434' });
-  const ol = d.box({ x: OX + 12, y: stepY(rest + 1) - 4, w: OW - 24, h: BH + 8, role: 'model', title: 'llama3.1:8b', lines: ['the model that', 'model_id names'], center: true });
+  const ol = d.box({ x: OX + 12, y: stepY(rest + 1) - 4, w: OW - 24, h: BH + 8, role: 'model', title: 'qwen2.5:7b', lines: ['the model that', 'model_id names'], center: true });
 
   // Messages. REST client to the service and the reply back (dashed);
   // the service down to lx.extract and back; lx.extract to Ollama and back.

@@ -1,10 +1,10 @@
 {
   "title": "Before You Start",
-  "description": "Orient yourself: progress tracking, code copy, launchers, and the AI assistant.",
-  "order": 0,
+  "description": "Orient yourself and set up: Pentaho Data Integration on Java 21 with the GenAI plugin suite and its GENAI-EE license, Ollama with the course's four models, the pgvector database, Python and the workshop folder.",
+  "order": 1,
   "kind": "page",
-  "stepCount": 14,
-  "estimatedMinutes": 25,
+  "stepCount": 21,
+  "estimatedMinutes": 5,
   "hasVideo": false,
   "checks": [],
   "noProgress": true

@@ -1,9 +1,9 @@
 {
   "title": "Key Concepts Workshop",
   "description": "Run the prompt, tokenization, embedding, search and transformer scripts against a local Ollama - the hands-on side of Overview of a Prompt.",
-  "order": 2,
+  "order": 3,
   "kind": "workshop",
-  "stepCount": 30,
+  "stepCount": 18,
   "hasVideo": false,
   "estimatedMinutes": 45
 }

@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+<filter id="shadow" x="-10%" y="-10%" width="120%" height="140%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#0f172a" flood-opacity="0.12"/></filter></defs>
+<rect width="800" height="500" fill="#ffffff"/>
+<rect x="16" y="100" width="184" height="216" rx="12" fill="#eff6ff" stroke="#dbeafe" stroke-width="1.5"/>
+<path d="M16 112a12 12 0 0 1 12-12h160a12 12 0 0 1 12 12v32h-184z" fill="#1d4ed8"/>
+<g transform="translate(29 110) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 14 1.5-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.54 6a2 2 0 0 1-1.95 1.5H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H18a2 2 0 0 1 2 2v2"/></g>
+<text x="56" y="120" font-size="14" font-weight="700" fill="#ffffff">data\</text>
+<text x="56" y="136" font-size="11.5" fill="#ffffff" opacity="0.92">what you are given</text>
+<rect x="224" y="16" width="288" height="384" rx="12" fill="#eff6ff" stroke="#dbeafe" stroke-width="1.5"/>
+<path d="M224 28a12 12 0 0 1 12-12h264a12 12 0 0 1 12 12v32h-288z" fill="#1d4ed8"/>
+<g transform="translate(237 26) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></g>
+<text x="264" y="36" font-size="14" font-weight="700" fill="#ffffff">solution\</text>
+<text x="264" y="52" font-size="11.5" fill="#ffffff" opacity="0.92">the files you build</text>
+<rect x="536" y="100" width="248" height="384" rx="12" fill="#f0fdf4" stroke="#dcfce7" stroke-width="1.5"/>
+<path d="M536 112a12 12 0 0 1 12-12h224a12 12 0 0 1 12 12v32h-248z" fill="#15803d"/>
+<g transform="translate(549 110) scale(0.8333333333333334)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></g>
+<text x="576" y="120" font-size="14" font-weight="700" fill="#ffffff">What the job writes</text>
+<text x="576" y="136" font-size="11.5" fill="#ffffff" opacity="0.92">database genai, and out\</text>
+<path d="M368 136L368 153" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M368 220L368 237" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M188 188L233 188" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M188 272L233 272" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M500 188L545 188" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M548 208C525.5 208 525.5 258 503 258" fill="none" stroke="#64748b" stroke-width="1.7" stroke-dasharray="5 4" marker-end="url(#arrow)"/>
+<path d="M500 276L545 276" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M500 286C522.5 286 522.5 356 545 356" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M500 294C522.5 294 522.5 440 545 440" fill="none" stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="28" y="156" width="160" height="64" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="58" cy="188" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(46 176) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></g>
+<text x="88" y="171" font-size="14" font-weight="700" fill="#1e3a8a">manuals\</text>
+<text x="88" y="188" font-size="12" fill="#1e3a8a">5 documents,</text>
+<text x="88" y="203" font-size="12" fill="#1e3a8a">3 formats</text>
+<rect x="28" y="240" width="160" height="64" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="58" cy="272" r="19" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<g transform="translate(46 260) scale(1)" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 17a2 2 0 0 1-2 2H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.71.71 0 0 1 2 21.286V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2z"/><path d="M7 11h10"/><path d="M7 15h6"/><path d="M7 7h8"/></g>
+<text x="88" y="255" font-size="14" font-weight="700" fill="#1e3a8a">tickets.csv</text>
+<text x="88" y="272" font-size="12" fill="#1e3a8a">30 support</text>
+<text x="88" y="287" font-size="12" fill="#1e3a8a">tickets</text>
+<rect x="236" y="72" width="264" height="64" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="266" cy="104" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(254 92) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="16" y="16" width="6" height="6" rx="1"/><rect x="2" y="16" width="6" height="6" rx="1"/><rect x="9" y="2" width="6" height="6" rx="1"/><path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3"/><path d="M12 12V8"/></g>
+<text x="296" y="87" font-size="14" font-weight="700" fill="#3b0764">jb_support_copilot.kjb</text>
+<text x="296" y="104" font-size="12" fill="#3b0764">runs 1, then 2 if 1 succeeded;</text>
+<text x="296" y="119" font-size="12" fill="#3b0764">fails if either one fails</text>
+<rect x="236" y="156" width="264" height="64" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="266" cy="188" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(254 176) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></g>
+<text x="296" y="171" font-size="14" font-weight="700" fill="#3b0764">1. load_knowledge_base.ktr</text>
+<text x="296" y="188" font-size="12" fill="#3b0764">documents -&gt; text -&gt; chunks</text>
+<text x="296" y="203" font-size="12" fill="#3b0764">-&gt; vectors -&gt; capstone_kb</text>
+<rect x="236" y="240" width="264" height="64" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="266" cy="272" r="19" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<g transform="translate(254 260) scale(1)" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></g>
+<text x="296" y="255" font-size="14" font-weight="700" fill="#3b0764">2. answer_tickets.ktr</text>
+<text x="296" y="272" font-size="12" fill="#3b0764">tickets -&gt; triage -&gt; retrieval</text>
+<text x="296" y="287" font-size="12" fill="#3b0764">-&gt; reply -&gt; table and files</text>
+<rect x="236" y="324" width="264" height="64" rx="10" fill="#ffffff" stroke="#64748b" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="266" cy="356" r="19" fill="#ffffff" stroke="#64748b" stroke-width="1.2"/>
+<g transform="translate(254 344) scale(1)" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></g>
+<text x="296" y="339" font-size="14" font-weight="700" fill="#0f172a">README.md</text>
+<text x="296" y="356" font-size="12" fill="#0f172a">how to run the job with Kitchen,</text>
+<text x="296" y="371" font-size="12" fill="#0f172a">and what to open afterward</text>
+<rect x="548" y="156" width="224" height="64" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="578" cy="188" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(566 176) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></g>
+<text x="608" y="171" font-size="14" font-weight="700" fill="#14532d">capstone_kb</text>
+<text x="608" y="188" font-size="12" fill="#14532d">a pgvector collection</text>
+<text x="608" y="203" font-size="12" fill="#14532d">that a re-run never doubles</text>
+<rect x="548" y="240" width="224" height="64" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="578" cy="272" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(566 260) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></g>
+<text x="608" y="255" font-size="14" font-weight="700" fill="#14532d">support.ticket_replies</text>
+<text x="608" y="272" font-size="12" fill="#14532d">a PostgreSQL table,</text>
+<text x="608" y="287" font-size="12" fill="#14532d">one row per ticket</text>
+<rect x="548" y="324" width="224" height="64" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="578" cy="356" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(566 344) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.226 20.925A2 2 0 0 0 6 22h12a2 2 0 0 0 2-2V8a2.4 2.4 0 0 0-.706-1.706l-3.588-3.588A2.4 2.4 0 0 0 14 2H6a2 2 0 0 0-2 2v3.127"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="m5 11-3 3"/><path d="m5 17-3-3h10"/></g>
+<text x="608" y="346.5" font-size="14" font-weight="700" fill="#14532d">ticket_replies.csv</text>
+<text x="608" y="363.5" font-size="12" fill="#14532d">in out\</text>
+<rect x="548" y="408" width="224" height="64" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="578" cy="440" r="19" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(566 428) scale(1)" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.226 20.925A2 2 0 0 0 6 22h12a2 2 0 0 0 2-2V8a2.4 2.4 0 0 0-.706-1.706l-3.588-3.588A2.4 2.4 0 0 0 14 2H6a2 2 0 0 0-2 2v3.127"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="m5 11-3 3"/><path d="m5 17-3-3h10"/></g>
+<text x="608" y="430.5" font-size="14" font-weight="700" fill="#14532d">triage_summary.csv</text>
+<text x="608" y="447.5" font-size="12" fill="#14532d">in out\</text>
+</svg>
