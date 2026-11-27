@@ -305,10 +305,10 @@
       "scenario": "A classification is run on thousands of rows with the AI Chat step in Stream mode. The review text comes from a field, and only it changes from row to row.",
       "prompt": "What keeps the outputs comparable from row to row?",
       "options": [
-        "The same run instruction and JSON schema on every row, with only the review varying",
-        "A random seed that changes from one row to the next",
-        "A fresh run instruction worded to suit each row's content",
-        "Letting each row's text choose its own output format"
+        "The same instruction and schema on every row, with only the data varying",
+        "A random seed that changes from one row to the next, for variety",
+        "A fresh instruction for each row, worded to suit that row's content",
+        "Letting each row's text decide which output format it comes back in"
       ],
       "explanation": "The run instruction is the contract: a fixed instruction that names every key and its allowed values, with the review as the only varying input, gives every row the same shape. A temperature of 0 helps too.",
       "source": "Developer - AI Specialty: Sentiment Analysis",
@@ -421,10 +421,10 @@
       "scenario": "An AI Chat step in Script mode has the message `Classify this review: ${review_text}`, where review_text is a field of the stream. Every row gets the same, unhelpful answer.",
       "prompt": "What is the cause?",
       "options": [
-        "Script mode sends the message once per transformation, not once per row",
-        "${...} in AI Chat is a PDI variable, not a field: build the prompt in a field and use Stream mode",
-        "Field names in a message must be written in upper case",
-        "AI Chat needs a JSON input step before it to read field values"
+        "Script mode sends the message once per transformation, not per row",
+        "${...} is a PDI variable, so the prompt must be built in a field",
+        "Field names inside a message must be written entirely in upper case",
+        "AI Chat needs a JSON input step before it to read the field values"
       ],
       "explanation": "`${...}` is resolved as a **PDI variable**, and no variable is called review_text, so every row sends the same text. Build the prompt per row in a field (Modified JavaScript value, Formula) and select **Stream** on the Message tab.",
       "source": "Developer - AI Specialty: LLM Integration",
@@ -517,10 +517,10 @@
       "scenario": "A team classifies every component that uses a Large Language Model as an agent, including an AI Chat step that sends one prompt per row and a five-stage chain of fixed AI Chat calls.",
       "prompt": "Which test separates a genuine agent from those?",
       "options": [
-        "Whether it runs as a Python service rather than inside PDI",
-        "Whether the model decides which actions or tools to use, and in what order",
-        "Whether its answer comes back as JSON rather than as text",
-        "Whether it makes more than one call to the model per row"
+        "Whether it runs as a Python service rather than inside PDI itself",
+        "Whether the model decides which actions or tools to use, and when",
+        "Whether its answer comes back as JSON rather than as plain text",
+        "Whether it makes more than one call to the model for every row"
       ],
       "explanation": "An agent chooses its own next step: which tool to call, with what arguments, and when it is done. A fixed chain of calls, however long, is a pipeline that PDI orchestrates. AI Chat's Tools tab is where a PDI step starts to let the model choose.",
       "source": "Developer - AI Specialty: Agent-as-a-Service",
@@ -633,10 +633,10 @@
       "scenario": "A pipeline on PDI 11 used to build an Ollama request body in a Modified JavaScript value step and post it with REST client. Rows whose text contains double quotes produced malformed requests.",
       "prompt": "What does moving the call to the AI Chat step change?",
       "options": [
-        "Nothing: the quotes must still be escaped in a script first",
-        "AI Chat builds the request itself, so the text is sent as a field value, escaped correctly",
-        "AI Chat drops every quote from the text before sending it",
-        "AI Chat sends the text in the URL instead of the request body"
+        "Nothing: the quotes must still be escaped in a script before the call",
+        "The step builds the request itself, so the text is escaped correctly",
+        "AI Chat removes every quote from the text before it sends it on",
+        "AI Chat sends the text in the request URL instead of in the body"
       ],
       "explanation": "The step builds Ollama's request from its settings and the field's value, so quoting is handled for you. Hand-built JSON in a script is where malformed bodies came from.",
       "source": "Developer - AI Specialty: LLM Integration",
@@ -729,10 +729,10 @@
       "scenario": "A pipeline must find people, organizations and places in 200,000 short news items every night, on a machine without a GPU, and the same text must always give the same entities.",
       "prompt": "Why does the NER Extractor step fit better than AI Chat here?",
       "options": [
-        "It runs Stanford CoreNLP locally with no LLM, so it is fast and deterministic",
-        "It sends the text to a cloud model that is faster than Ollama",
-        "It returns plain text, which needs no parsing",
-        "It understands custom entity types without any rules"
+        "It runs CoreNLP inside PDI with no LLM, so it is fast and repeatable",
+        "It sends the text to a cloud model that answers faster than Ollama",
+        "It returns plain text for each entity, which needs no parsing at all",
+        "It understands custom entity types without any rules or examples"
       ],
       "explanation": "**NER Extractor** runs Stanford CoreNLP's English models inside PDI: no model server, no network, the same output for the same text. AI Chat can find custom entity types an LLM understands, at the cost of speed and some run-to-run variation.",
       "source": "Developer - AI Specialty: Named Entity Recognition",
@@ -745,10 +745,10 @@
       "scenario": "A 60-page contract must be summarized with a local model whose context window is 8,192 tokens.",
       "prompt": "Which pipeline fits?",
       "options": [
-        "Read Unstructured Document, then one AI Chat call with the whole text",
-        "Read Unstructured Document, AI Segmentation into chunks, AI Chat per chunk, then AI Chat on the joined chunk summaries",
-        "AI Segmentation alone, which writes a summary of each chunk",
-        "Text to Vector, which stores a summary of the document"
+        "Read the document, then send its whole text to one AI Chat call",
+        "Split it with AI Segmentation, summarize each chunk, then the summaries",
+        "Use AI Segmentation alone, which writes a summary of every chunk",
+        "Use Text to Vector, which stores a short summary of the document"
       ],
       "explanation": "The text does not fit one context window. **AI Segmentation** splits it into chunks that do; AI Chat summarizes each, and a final AI Chat call summarizes the summaries (map, then reduce). AI Segmentation only splits; Text to Vector only embeds.",
       "source": "Developer - AI Specialty: Text Summarization",
@@ -777,10 +777,10 @@
       "scenario": "A knowledge base was loaded into pgvector with Text to Vector using nomic-embed-text. The query pipeline embeds the questions with a different embedding model.",
       "prompt": "What happens?",
       "options": [
-        "The search works, because pgvector converts between models",
-        "Vector Search fails or returns meaningless matches: load and query must use the same model and dimension",
-        "Vector Search re-embeds the stored chunks with the new model",
-        "Only the scores change; the order of the matches stays the same"
+        "The search works, because pgvector converts between the two models",
+        "The search fails or matches badly: both sides need the same model",
+        "Vector Search re-embeds the stored chunks with the newer model",
+        "Only the scores change, while the order of the matches stays the same"
       ],
       "explanation": "Vectors from different models live in different spaces, usually with different dimensions (nomic-embed-text gives 768). A dimension mismatch fails; the same dimension from another model gives matches that mean nothing.",
       "source": "Developer - AI Specialty: Retrieval-Augmented Generation",
@@ -794,9 +794,9 @@
       "prompt": "What fixes it?",
       "options": [
         "Lower the Vector Search min score so more distinct passages appear",
-        "Give Vector Writer an ID field built from the file name and chunk index, so a re-run upserts",
-        "Set Vector Writer's write mode to Insert",
-        "Delete the HNSW index before each load"
+        "Give Vector Writer an ID built from file name and chunk index",
+        "Set Vector Writer's write mode to Insert instead of Upsert",
+        "Drop and recreate the HNSW index before every nightly load"
       ],
       "explanation": "Without an ID field every run creates new records. A deterministic ID, such as file name plus chunk index, makes **Upsert** replace the record instead of adding a copy.",
       "source": "Developer - AI Specialty: Build the Knowledge Base",
@@ -809,10 +809,10 @@
       "scenario": "Vector Search on a PGVector collection uses cosine similarity, and its Min score is set to 0.8.",
       "prompt": "Which matches does it keep?",
       "options": [
-        "Those with a cosine similarity of 0.8 or more",
-        "Those with a cosine similarity of 0.6 or more, because the score is (1 + similarity) / 2",
-        "The 80 percent of matches with the highest scores",
-        "Every match, because min score applies only to Chroma"
+        "Those with a cosine similarity of 0.8 or more, as the setting says",
+        "Those with a cosine similarity of 0.6 or more, given how scores scale",
+        "The 80 percent of the matches that have the highest scores",
+        "Every match, because the min score applies only to Chroma"
       ],
       "explanation": "The step normalizes the score to 0-1: for cosine, score = (1 + cosine similarity) / 2. A min score of 0.8 therefore keeps a similarity of 0.6 or more.",
       "source": "Developer - AI Specialty: Retrieval-Augmented Generation",
@@ -825,9 +825,9 @@
       "scenario": "A RAG transformation sets AI Chat's message to `Answer from these passages: ${matches}`, where matches is the JSON array field from Vector Search. The model answers every question as if it had no passages.",
       "prompt": "What is wrong?",
       "options": [
-        "Vector Search must run in One row per match mode for AI Chat to read it",
-        "${matches} is a PDI variable, not the field: build the prompt with the passages in a field and use Stream mode",
-        "AI Chat cannot read JSON, so the passages must be plain text",
+        "Vector Search must use One row per match for AI Chat to read it",
+        "${matches} is a PDI variable: build the prompt in a field instead",
+        "AI Chat cannot read JSON, so the passages must be plain text first",
         "The embedding model on AI Chat's Model tab must be set for RAG"
       ],
       "explanation": "AI Chat never substitutes field values into a Script message: `${...}` is a variable. Build the prompt per row (Modified JavaScript value) from the matches' text and sources, then send that field in Stream mode.",
@@ -841,11 +841,11 @@
       "scenario": "A support copilot answers tickets from retrieved manual passages. Some tickets ask about things no document covers, and the copilot invents an answer for them.",
       "prompt": "Which two changes make it safe?",
       "options": [
-        "Raise the temperature so the model explores more answers",
-        "Tell the model, in the run instruction, what to return when the passages do not answer, and flag those rows for a person",
-        "Set a minimum score on Vector Search so weak matches are not given as context",
-        "Remove the sources from the prompt to keep it short",
-        "Add more step copies to AI Chat"
+        "Raise the temperature so that the model explores more possible answers",
+        "Tell the model what to return when the passages hold no answer",
+        "Set a minimum score on Vector Search so weak matches stay out",
+        "Remove the sources from the prompt to keep the prompt shorter",
+        "Add more step copies to AI Chat so that it answers more questions"
       ],
       "explanation": "Grounding needs a way out: an instruction that allows \"not in the documents\" and a pipeline that routes those rows to a person. A minimum score keeps unrelated passages from looking like evidence.",
       "source": "Developer - AI Specialty: Answer Questions",
@@ -862,9 +862,9 @@
       "prompt": "Which step fits?",
       "options": [
         "AI Chat with the Tools tab, so the model decides when to call it",
-        "MCP Client with Operation Call tool and an arguments template such as {\"order_id\": \"{{order_id}}\"}",
-        "REST client posting to the MCP server's URL",
-        "AI Chat Message Box with the tool name in the prompt"
+        "MCP Client calling lookup_order with an arguments template",
+        "REST client posting each order id to the MCP server's URL",
+        "AI Chat Message Box with the tool name written in the prompt"
       ],
       "explanation": "When the call is fixed, no model is needed: **MCP Client** calls the named tool for every row, filling `{{order_id}}` from the field. AI Chat's Tools tab is for when the model should choose which tool to call.",
       "source": "Developer - AI Specialty: MCP Tools",
@@ -877,10 +877,10 @@
       "scenario": "On Windows, an MCP connection with the Local process (stdio) transport has the Command `npx` and fails to start the server.",
       "prompt": "How is the command set up?",
       "options": [
-        "Use the HTTP + SSE (legacy) transport instead",
-        "Command `cmd`, with the arguments `/c`, `npx`, `-y` and the package, one per line",
+        "Switch the connection to the HTTP + SSE (legacy) transport",
+        "Set Command to cmd and pass /c, npx and the package as arguments",
         "Put the whole command line in the Command field on one line",
-        "Store the connection in the .ktr instead of the metastore"
+        "Store the connection in the .ktr file instead of the metastore"
       ],
       "explanation": "On Windows, npx and uvx are batch files: start them through `cmd` with `/c`, one argument per line. Legacy SSE is not supported, and connections live in the PDI metastore, not in the .ktr.",
       "source": "Developer - AI Specialty: MCP Tools",
@@ -893,10 +893,10 @@
       "scenario": "A transformation uses AI Chat with two MCP connections on its Tools tab and fills the Tool calls field.",
       "prompt": "What does that field show for each row?",
       "options": [
-        "The tools the server offers, one per line",
-        "A JSON array of the calls the model made: connection, tool, arguments, result and error",
-        "The number of tokens the tools added to the prompt",
-        "The model's final answer, without the tool results"
+        "The tools that the server offers, one tool name on each line",
+        "A JSON array of the calls the model made, with their results",
+        "The number of tokens that the tools added to each prompt",
+        "The model's final answer, without any of the tool results"
       ],
       "explanation": "The Tool calls field records what the model chose to do: each call's connection, tool, arguments, result and error. It is how a pipeline audits an agent's actions.",
       "source": "Developer - AI Specialty: MCP Tools",
@@ -926,8 +926,8 @@
       "prompt": "What does the check catch, and what can it never catch?",
       "options": [
         "It catches every misread value, because each one changes the sum",
-        "It flags this row; it cannot catch a wrong invoice number or date, or misreads that still add up",
-        "It catches nothing, because the model's numbers are always consistent",
+        "It flags this row, but not a wrong date or errors that still add up",
+        "It catches nothing, because the model's numbers always agree",
         "It corrects the subtotal so that the row adds up, and passes it on"
       ],
       "explanation": "42.05 + 2.99 = 45.04, not 45.53, so the row is flagged for review. An arithmetic check only tests the numbers against each other: a wrong invoice number, a wrong date, or two errors that cancel out pass it.",
@@ -941,10 +941,10 @@
       "scenario": "A team must choose a local Ollama model for an image-reading workshop.",
       "prompt": "What tells them that a model can read images?",
       "options": [
-        "Its size on disk is larger than 8 GB",
-        "`ollama show <model>` lists the vision capability",
-        "Its name ends in -instruct",
-        "It answers a text prompt in JSON"
+        "Its size on disk is larger than 8 GB, so it must be multimodal",
+        "ollama show lists vision among the model's capabilities",
+        "Its name ends in -instruct, which marks the vision models",
+        "It answers a text prompt in JSON when it is asked to"
       ],
       "explanation": "`ollama show` lists a model's capabilities; only models with **vision** accept images. Size and name say nothing about it.",
       "source": "Developer - AI Specialty: Invoices with a Vision Model",
@@ -957,10 +957,10 @@
       "scenario": "An LLM judge grades RAG answers. Its message holds the question, the expected facts and the answer, but not the retrieved passages.",
       "prompt": "What can this judge not detect?",
       "options": [
-        "Answers that miss an expected fact",
+        "Answers that leave out one of the expected facts",
         "Claims in the answer that the documents do not support",
-        "Answers that are not valid JSON",
-        "Questions the documents cannot answer"
+        "Answers that come back as text that is not valid JSON",
+        "Questions that the documents themselves cannot answer"
       ],
       "explanation": "Faithfulness is a comparison between the answer and the passages it was given. A judge that never sees the passages cannot tell a grounded claim from an invented one.",
       "source": "Developer - AI Specialty: Evaluate the Answers",
@@ -973,10 +973,10 @@
       "scenario": "A RAG scorecard shows that top_k 1 has lower accuracy than top_k 4, lower context recall, and several correct answers declined as \"not in the documents\".",
       "prompt": "What should be tuned?",
       "options": [
-        "The answering model, which is too small",
-        "Retrieval: the setting gives the model too few of the passages that hold the answer",
-        "The judge, which is too strict",
-        "The temperature, which should be raised"
+        "The answering model, which is too small for the questions",
+        "Retrieval, which gives the model too few useful passages",
+        "The judge, whose rubric is too strict about the answers",
+        "The temperature, which should be raised for better answers"
       ],
       "explanation": "Low context recall means the answer's facts were not in the passages the model saw, so it declined. The fix is on the retrieval side (top_k, chunking, min score), not the model.",
       "source": "Developer - AI Specialty: Evaluate the Answers",
@@ -989,10 +989,10 @@
       "scenario": "A transformation runs AI Chat on Pentaho Server. It works in Spoon on the developer's machine and fails on the server with License validation failed.",
       "prompt": "What is missing?",
       "options": [
-        "The model on the developer's Ollama",
-        "A license with GenAI (GENAI-EE) rights on the server, where the step runs",
-        "The kettle.properties of the developer's Spoon",
-        "An MCP connection in the server's metastore"
+        "The model that the developer pulled into the local Ollama",
+        "A license with GenAI rights on the server, where it runs",
+        "The kettle.properties file of the developer's own Spoon",
+        "An MCP connection stored in the server's own metastore"
       ],
       "explanation": "Each GenAI step checks the license of the runtime it runs in: Spoon, Carte, Pentaho Server or a container. The plugins and the license must be on every one of them.",
       "source": "Developer - AI Specialty: Moving to Production",
@@ -1005,10 +1005,10 @@
       "scenario": "Support messages must be summarized by a hosted model. They contain emails, phone numbers and customers' names.",
       "prompt": "Which order of steps fits best?",
       "options": [
-        "NER Extractor first, then regular expressions for whatever it missed",
-        "Regular expressions for the patterned values first, then NER Extractor for names, then a residual check",
-        "Send the messages, then delete the personal data from the summaries",
-        "Ask the model in the run instruction not to repeat personal data"
+        "NER Extractor first, then regular expressions for what it missed",
+        "Regular expressions, then NER Extractor, then a residual check",
+        "Send the messages, then delete the personal data afterward",
+        "Tell the model in its run instruction not to repeat personal data"
       ],
       "explanation": "Patterned values (emails, phones, card numbers) are caught exactly by rules; NER finds what has no pattern, such as names; a looser residual check quarantines anything still left. An instruction to the model is no guardrail: the data has already left.",
       "source": "Developer - AI Specialty: Guard Personal Data",
@@ -1021,10 +1021,10 @@
       "scenario": "A masking pipeline replaces names with placeholders such as [PERSON_1] and keeps the placeholder-to-name mapping, to put the real names back into the summaries for internal use.",
       "prompt": "Where may the mapping go?",
       "options": [
-        "Into the prompt, so the model can write better summaries",
-        "Only inside the trusted zone: never to the model, never into the shared summaries file or the logs",
-        "Into the summaries file, next to each summary",
-        "Into the audit file, so the masking can be checked"
+        "Into the prompt, so the model can write the summaries better",
+        "Only inside the trusted zone, never to the model or the logs",
+        "Into the summaries file, next to the summary it belongs to",
+        "Into the audit file, so the masking can be checked later on"
       ],
       "explanation": "The mapping is the personal data. Sending it to the model, or writing it next to the summaries or into logs, undoes the masking.",
       "source": "Developer - AI Specialty: Guard Personal Data",
@@ -1037,10 +1037,10 @@
       "scenario": "A NER Extractor RegexNER rule `ORDER-[0-9]{5}` loads without error but never tags ORDER-48213.",
       "prompt": "Why?",
       "options": [
-        "RegexNER needs the rule file to have a header line",
-        "CoreNLP splits the id at the hyphen, so the rule must match the tokens: ORDER - [0-9]{5}",
-        "RegexNER only tags PERSON, LOCATION and ORGANIZATION",
-        "The rule must be written in lowercase"
+        "RegexNER needs a header line at the top of the rule file",
+        "CoreNLP splits the id at the hyphen, so the rule must too",
+        "RegexNER can only add PERSON, LOCATION and ORGANIZATION",
+        "The rule must be written in lowercase to match the token"
       ],
       "explanation": "RegexNER patterns match tokens, and CoreNLP's tokenizer splits ORDER-48213 into ORDER, -, 48213. A single-token pattern never matches them.",
       "source": "Developer - AI Specialty: Guard Personal Data",
@@ -1054,9 +1054,9 @@
       "prompt": "Which control stops that?",
       "options": [
         "A run instruction telling the model to run only approved jobs",
-        "The server itself resolving the path inside an allowed folder and refusing anything outside it",
-        "A longer timeout on the tool call",
-        "Running the model at temperature 0"
+        "The server refusing any path outside its allowed folder",
+        "A longer timeout on every tool call that the model makes",
+        "Running the model at temperature 0 for every request"
       ],
       "explanation": "Only the server can enforce what it will run: resolve the path, refuse absolute paths, `..` and other file types. An instruction can be ignored or overridden by injected text.",
       "source": "Developer - AI Specialty: Project: Pentaho MCP Server",
@@ -1069,10 +1069,10 @@
       "scenario": "A Pentaho MCP server has a read-only mode for use by an assistant that should only look.",
       "prompt": "Why does read-only mode leave the run tools out of the tool list instead of telling the model not to use them?",
       "options": [
-        "Listing fewer tools makes the model answer faster",
-        "A tool that is not listed cannot be called; an instruction can be ignored",
-        "The MCP protocol limits a server to five tools",
-        "Carte rejects calls from read-only clients anyway"
+        "Listing fewer tools makes the model answer noticeably faster",
+        "A tool that is not listed cannot be called; an instruction can fail",
+        "The MCP protocol limits a server to five tools at the most",
+        "Carte rejects calls from read-only clients in any case"
       ],
       "explanation": "Capabilities you do not offer are the safest control. The model only sees, and can only call, the tools the server registers.",
       "source": "Developer - AI Specialty: Project: Pentaho MCP Server",
